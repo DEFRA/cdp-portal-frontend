@@ -1,0 +1,15 @@
+.config/
+.DS_Store
+.npm/
+.standard-v12-cache/
+.vscode
+.public
+auth
+lcov.info
+node_modules
+npm-debug.log
+test-output
+*.tgz
+helm/**/*.lock
+.env
+ci/build.manifest

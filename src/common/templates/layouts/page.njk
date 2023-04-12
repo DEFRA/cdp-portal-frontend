@@ -1,0 +1,49 @@
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block head %}
+  <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
+  <meta name="version" content="{{ version }}">
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: "/"
+  }) }}
+{% endblock %}
+
+{% block pageTitle %}
+  {{ pageTitle if pageTitle else serviceName }} | GOV.UK
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "/",
+          text: "Privacy"
+        },
+        {
+          href: "/",
+          text: "Cookies"
+        },
+        {
+          href: "/",
+          text: "Accessibility statement"
+        }
+      ]
+    }
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="{{ getAssetPath('application.js') }}"></script>
+{% endblock %}

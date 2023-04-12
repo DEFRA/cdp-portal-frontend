@@ -1,0 +1,6 @@
+{
+  "watch": [".public", "./src"],
+  "ignore": ["**/*.test.*"],
+  "ext": "js,json,njk,scss",
+  "quiet": true
+}
