@@ -1,0 +1,62 @@
+{
+  "name": "cdp-portal-frontend",
+  "version": "0.0.0",
+  "description": "CDP Portal Frontend",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">= 18"
+  },
+  "engineStrict": true,
+  "scripts": {
+    "build": "webpack",
+    "build:watch": "webpack --watch",
+    "format": "prettier --write src/**/*.js **/*.{js,md,json,config.js}",
+    "format:check": "prettier --check src/**/*.js **/*.{js,md,json,config.js}",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "pretest": "npm run test:lint",
+    "test": "jest --coverage --verbose",
+    "test:watch": "jest --watch",
+    "start": "NODE_ENV=production node ./src",
+    "prestart:watch": "npm run build",
+    "start:watch": "npm-run-all --parallel build:watch start:nodemon",
+    "start:debug": "nodemon --inspect ./src",
+    "start:nodemon": "nodemon ./src"
+  },
+  "author": "Defra DDTS",
+  "license": "OGL-UK-3.0",
+  "dependencies": {
+    "@hapi/hapi": "21.3.1",
+    "@hapi/inert": "7.1.0",
+    "@hapi/vision": "7.0.1",
+    "convict": "6.2.4",
+    "govuk-frontend": "4.5.0",
+    "hapi-pino": "12.0.0",
+    "nunjucks": "3.2.3",
+    "pino": "8.11.0"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "4.0.0",
+    "css-loader": "6.7.3",
+    "eslint": "8.37.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-config-standard": "17.0.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-n": "15.7.0",
+    "eslint-plugin-promise": "6.1.1",
+    "jest": "29.5.0",
+    "jest-junit": "15.0.0",
+    "mini-css-extract-plugin": "2.7.5",
+    "nodemon": "2.0.22",
+    "npm-run-all": "4.1.5",
+    "pino-pretty": "10.0.0",
+    "prettier": "2.8.7",
+    "resolve-url-loader": "5.0.0",
+    "sass": "1.60.0",
+    "sass-loader": "13.2.2",
+    "style-loader": "3.3.2",
+    "webpack": "5.76.3",
+    "webpack-assets-manifest": "5.1.0",
+    "webpack-cli": "5.0.1"
+  }
+}
