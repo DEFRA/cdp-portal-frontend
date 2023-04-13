@@ -23,6 +23,6 @@ module.exports.globalContext = {
   getAssetPath: function (asset) {
     const webpackAssetPath = webpackManifest[asset]
 
-    return `/public/${webpackAssetPath}`
+    return `${config.get('appPathPrefix')}/public/${webpackAssetPath}`
   }
 }
