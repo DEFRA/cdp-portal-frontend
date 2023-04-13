@@ -13,7 +13,6 @@ on:
 
 jobs:
   build:
-    if: github.actor_id != '279065'
     name: Run Pull Request Checks
     runs-on: ubuntu-latest
     steps:
