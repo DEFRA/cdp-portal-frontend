@@ -12,6 +12,7 @@ permissions:
 
 env:
   AWS_REGION: eu-west-2
+  GITHUB_TOKEN: ${{ secrets.CDP_SCAFFOLDER_PAT_TOKEN }}
 
 jobs:
   build:
