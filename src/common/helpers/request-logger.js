@@ -1,12 +1,15 @@
-const { config } = require('../../config')
+import { config } from '~/src/config'
+import hapiPino from 'hapi-pino'
 
-module.exports = {
-  plugin: require('hapi-pino'),
+const requestLogger = {
+  plugin: hapiPino,
   options: {
     enabled: !config.get('isTest'),
     level: config.get('logLevel'),
     ...(config.get('isDevelopment') && {
-      transport: { target: 'pino-pretty' },
-    }),
-  },
+      transport: { target: 'pino-pretty' }
+    })
+  }
 }
+
+export { requestLogger }

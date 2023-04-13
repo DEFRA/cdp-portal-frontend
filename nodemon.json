@@ -1,6 +1,5 @@
 {
-  "watch": [".public", "./src"],
+  "watch": [".public", "./src", "./mock-api"],
   "ignore": ["**/*.test.*"],
-  "ext": "js,json,njk,scss",
-  "quiet": true
+  "ext": "js,json,njk,scss"
 }

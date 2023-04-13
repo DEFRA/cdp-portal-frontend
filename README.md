@@ -37,7 +37,7 @@ $ npm install
 To run the application in `development` mode run:
 
 ```bash
-$ npm run start:watch
+$ npm run dev
 ```
 
 ### Production

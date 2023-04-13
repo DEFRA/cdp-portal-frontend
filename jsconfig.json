@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs"
+    "target": "es2020",
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./*"]
+    }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "build"]
 }

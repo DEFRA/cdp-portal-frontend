@@ -1,7 +1,7 @@
-const path = require('path')
+import path from 'path'
 
-const { config } = require('../index')
-const { createLogger } = require('../../common/helpers/logger')
+import { config } from '~/src/config'
+import { createLogger } from '~/src/common/helpers/logger'
 
 const logger = createLogger()
 const manifestPath = path.resolve(
@@ -17,7 +17,7 @@ try {
   logger.error('Webpack Manifest assets file not found')
 }
 
-module.exports.globalContext = {
+const globalContext = {
   version: config.get('version'),
   serviceName: config.get('serviceName'),
   getAssetPath: function (asset) {
@@ -26,3 +26,5 @@ module.exports.globalContext = {
     return `${config.get('appPathPrefix')}/public/${webpackAssetPath}`
   }
 }
+
+export { globalContext }

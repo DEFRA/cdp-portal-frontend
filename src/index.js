@@ -1,5 +1,5 @@
-const createServer = require('./app/server')
-const { createLogger } = require('./common/helpers/logger')
+import { createServer } from '~/src/app/server'
+import { createLogger } from '~/src/common/helpers/logger'
 
 const logger = createLogger()
 

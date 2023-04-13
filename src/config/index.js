@@ -44,6 +44,11 @@ const config = convict({
     format: String,
     default: '/cdp-portal-frontend'
   },
+  apiUrl: {
+    doc: 'API url',
+    format: String,
+    default: 'http://localhost:3004/mock-api'
+  },
   isProduction: {
     doc: 'If this application running in the production environment',
     format: Boolean,

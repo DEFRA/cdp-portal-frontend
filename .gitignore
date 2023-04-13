@@ -4,6 +4,7 @@
 .standard-v12-cache/
 .vscode
 .public
+.server
 auth
 lcov.info
 node_modules

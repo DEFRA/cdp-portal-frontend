@@ -1,4 +1,4 @@
-const { config } = require('../../config')
+import { config } from '~/src/config'
 
 const serveStaticFiles = {
   method: 'GET',
@@ -17,6 +17,4 @@ const serveStaticFiles = {
   }
 }
 
-module.exports = {
-  serveStaticFiles
-}
+export { serveStaticFiles }
