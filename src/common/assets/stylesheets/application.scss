@@ -1,7 +1,7 @@
 $govuk-assets-path: '~govuk-frontend/govuk/assets/';
 $govuk-global-styles: true;
 
-$govuk-page-width: 1920px;
+$govuk-page-width: 1280px;
 
 $govuk-grid-widths: (
   one-quarter: 25%,
@@ -13,3 +13,8 @@ $govuk-grid-widths: (
 );
 
 @import '~govuk-frontend/govuk/all';
+
+@import "variables/all";
+@import "core/all";
+@import "components/all";
+@import "partials/all";

@@ -32,7 +32,7 @@ const config = convict({
   serviceName: {
     doc: 'Applications Service Name',
     format: String,
-    default: 'CDP - portal'
+    default: 'CDP Portal'
   },
   root: {
     doc: 'Project root',

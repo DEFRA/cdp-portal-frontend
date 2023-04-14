@@ -3,13 +3,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const webpackConfig = {
+  isDevelopment: process.env.NODE_ENV !== 'production',
+  stylesheets: {
+    components: path.resolve(__dirname, 'src', 'common', 'components')
+  }
+}
 
 module.exports = {
   entry: {
     application: './src/common/assets/javascripts/application.js'
   },
-  mode: isDevelopment ? 'development' : 'production',
+  mode: webpackConfig.isDevelopment ? 'development' : 'production',
   output: {
     filename: 'js/[name].[fullhash].js',
     path: path.resolve(__dirname, '.public'),
@@ -39,14 +44,15 @@ module.exports = {
             }
           },
           'css-loader',
-          ...(isDevelopment ? ['resolve-url-loader'] : []),
+          ...(webpackConfig.isDevelopment ? ['resolve-url-loader'] : []),
           {
             loader: 'sass-loader',
             options: {
-              ...(isDevelopment && { sourceMap: true }),
+              ...(webpackConfig.isDevelopment && { sourceMap: true }),
               sassOptions: {
                 outputStyle: 'compressed',
-                quietDeps: true
+                quietDeps: true,
+                includePaths: [webpackConfig.stylesheets.components]
               }
             }
           }

@@ -1,6 +1,7 @@
 {% extends "govuk/template.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "heading/macro.njk" import appHeading %}
 
 {% block head %}
   <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
@@ -10,18 +11,19 @@
 {% block header %}
   {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
-    containerClasses: "govuk-width-container",
     serviceName: serviceName,
-    serviceUrl: "/"
+    serviceUrl: serviceUrl
   }) }}
+  {% include "partials/navigation.njk" %}
 {% endblock %}
 
 {% block pageTitle %}
-  {{ pageTitle if pageTitle else serviceName }} | GOV.UK
+  {{ pageTitle }} | {{ serviceName }}
 {% endblock %}
 
-{% block content %}
-{% endblock %}
+{% block beforeContent %}{% endblock %}
+
+{% block content %}{% endblock %}
 
 {% block footer %}
   {{ govukFooter({

@@ -10,12 +10,12 @@ process.on('unhandledRejection', (error) => {
 
 async function startServer() {
   const server = await createServer()
-
   await server.start()
 
   server.log(`Server started successfully on ${server.info.uri}`)
 }
 
 startServer().catch((error) => {
-  logger.error('Server did not start :(', error)
+  logger.info('Server failed to start :(')
+  logger.error(error)
 })

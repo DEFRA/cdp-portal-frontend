@@ -1,18 +1,25 @@
 import { config } from '~/src/config'
 
 const serveStaticFiles = {
-  method: 'GET',
-  path: '/public/{param*}',
-  handler: {
-    directory: {
-      path: '.',
-      redirectToSlash: true
-    }
-  },
-  options: {
-    cache: {
-      expiresIn: config.get('staticCacheTimeout'),
-      privacy: 'private'
+  plugin: {
+    name: 'Serve static files',
+    register: async (server) => {
+      server.route({
+        method: 'GET',
+        path: '/public/{param*}',
+        handler: {
+          directory: {
+            path: '.',
+            redirectToSlash: true
+          }
+        },
+        config: {
+          cache: {
+            expiresIn: config.get('staticCacheTimeout'),
+            privacy: 'private'
+          }
+        }
+      })
     }
   }
 }

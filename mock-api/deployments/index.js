@@ -1,8 +1,8 @@
 const deployments = [
   {
     id: '64be9663-e19b-4dd1-b606-8fa1a5094ba5',
-    triggeredByUserId: null,
-    serviceName: 'foo',
+    triggeredByUserId: 'Ben Chidgey',
+    serviceName: 'FFC Grants Cattle Housing Web',
     version: '1.0.0',
     targetEnvironment: 'production',
     deploymentStatus: 'Deployed',
@@ -10,8 +10,8 @@ const deployments = [
   },
   {
     id: '64be9663-e19b-4dd1-b606-8fa1a5094ba6',
-    triggeredByUserId: null,
-    serviceName: 'foo',
+    triggeredByUserId: 'Christopher Turner',
+    serviceName: 'Water Abstraction System',
     version: '1.1.0',
     targetEnvironment: 'production',
     deploymentStatus: 'Deployed',

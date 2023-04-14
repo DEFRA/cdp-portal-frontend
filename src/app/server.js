@@ -5,6 +5,7 @@ import { config } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { router } from './router'
 import { requestLogger } from '~/src/common/helpers/request-logger'
+import { catchAll } from '~/src/common/helpers/errors'
 
 async function createServer() {
   const server = hapi.server({
@@ -25,8 +26,14 @@ async function createServer() {
   })
 
   await server.register(requestLogger)
-  await server.register(router)
+
+  await server.register(router, {
+    routes: { prefix: config.get('appPathPrefix') }
+  })
+
   await server.register(nunjucksConfig)
+
+  server.ext('onPreResponse', catchAll)
 
   return server
 }
