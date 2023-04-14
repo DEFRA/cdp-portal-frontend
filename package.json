@@ -20,7 +20,7 @@
     "frontend:watch": "webpack --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "mock-api:watch": "nodemon ./mock-api",
+    "mock-api": "nodemon ./mock-api",
     "test": "jest --coverage --verbose",
     "test:watch": "jest --watch",
     "server:watch": "nodemon --exec babel-node ./src",
