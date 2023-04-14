@@ -1,7 +1,7 @@
-const convict = require('convict')
-const path = require('path')
+import convict from 'convict'
+import path from 'path'
 
-const { version } = require('../../package.json')
+import { version } from '~/package.json'
 
 const oneWeek = 7 * 24 * 60 * 60 * 1000
 
@@ -74,4 +74,4 @@ const config = convict({
 
 config.validate({ allowed: 'strict' })
 
-module.exports = { config }
+export { config }
