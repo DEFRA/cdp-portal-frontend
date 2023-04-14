@@ -3,8 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 
-const { config } = require('./src/config')
-const isDevelopment = config.get('isDevelopment')
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   entry: {
