@@ -16,20 +16,20 @@ RUN npm install
 COPY --chown=node:node . .
 RUN npm run build
 
-CMD [ "npm", "run", "start:watch" ]
+CMD [ "npm", "run", "docker:dev" ]
 
 FROM defradigital/node:${PARENT_VERSION} AS production
 ARG PARENT_VERSION
 LABEL uk.gov.defra.ffc.parent-image=defradigital/node:${PARENT_VERSION}
 
-COPY --from=development /home/node/src/ ./src/
 COPY --from=development /home/node/package*.json ./
+COPY --from=development /home/node/.server ./.server/
 COPY --from=development /home/node/.public/ ./.public/
 
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 ARG PORT
 ENV PORT ${PORT}
 EXPOSE ${PORT}
 
-CMD [ "node", "src/index.js" ]
+CMD [ "node", "./.server" ]

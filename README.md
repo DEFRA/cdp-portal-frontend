@@ -22,6 +22,13 @@ Portal Frontend for CDP
 Please install [Node.js](http://nodejs.org/) `>= v18` and [npm](https://nodejs.org/) `>= v9`. You will find it
 easier to use the Node Version Manager [nvm](https://github.com/creationix/nvm)
 
+To use the correct version of Node.js for this application, via nvm:
+
+```bash
+$ cd cdp-portal-frontend
+$ nvm use
+```
+
 ## Local development
 
 ### Setup
@@ -37,7 +44,7 @@ $ npm install
 To run the application in `development` mode run:
 
 ```bash
-$ npm run start:watch
+$ npm run dev
 ```
 
 ### Production

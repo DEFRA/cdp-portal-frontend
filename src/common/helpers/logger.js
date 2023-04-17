@@ -1,14 +1,14 @@
-const pino = require('pino')
-const { config } = require('../../config')
+import pino from 'pino'
+import { config } from '~/src/config'
 
 function createLogger() {
   return pino({
     enabled: !config.get('isTest'),
     level: config.get('logLevel'),
     ...(config.get('isDevelopment') && {
-      transport: { target: 'pino-pretty' },
-    }),
+      transport: { target: 'pino-pretty' }
+    })
   })
 }
 
-module.exports.createLogger = createLogger
+export { createLogger }

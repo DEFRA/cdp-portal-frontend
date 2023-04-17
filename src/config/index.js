@@ -1,7 +1,7 @@
-const convict = require('convict')
-const path = require('path')
+import convict from 'convict'
+import path from 'path'
 
-const { version } = require('../../package.json')
+import { version } from '~/package.json'
 
 const oneWeek = 7 * 24 * 60 * 60 * 1000
 
@@ -32,7 +32,7 @@ const config = convict({
   serviceName: {
     doc: 'Applications Service Name',
     format: String,
-    default: 'CDP - portal'
+    default: 'CDP Portal'
   },
   root: {
     doc: 'Project root',
@@ -43,6 +43,11 @@ const config = convict({
     doc: 'Application url path prefix, Note this is needed only until we have host based routing',
     format: String,
     default: '/cdp-portal-frontend'
+  },
+  apiUrl: {
+    doc: 'API url',
+    format: String,
+    default: 'http://localhost:3004/mock-api'
   },
   isProduction: {
     doc: 'If this application running in the production environment',
@@ -69,4 +74,4 @@ const config = convict({
 
 config.validate({ allowed: 'strict' })
 
-module.exports = { config }
+export { config }

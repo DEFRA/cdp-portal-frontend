@@ -1,10 +1,11 @@
-const path = require('path')
-const hapi = require('@hapi/hapi')
-const { config } = require('../config')
+import path from 'path'
+import hapi from '@hapi/hapi'
+import { config } from '~/src/config'
 
-const setupNunjucks = require('../config/nunjucks')
-const router = require('./router')
-const requestLogger = require('../common/helpers/request-logger')
+import { nunjucksConfig } from '~/src/config/nunjucks'
+import { router } from './router'
+import { requestLogger } from '~/src/common/helpers/request-logger'
+import { catchAll } from '~/src/common/helpers/errors'
 
 async function createServer() {
   const server = hapi.server({
@@ -25,10 +26,16 @@ async function createServer() {
   })
 
   await server.register(requestLogger)
-  await server.register(router)
-  await server.register(setupNunjucks)
+
+  await server.register(router, {
+    routes: { prefix: config.get('appPathPrefix') }
+  })
+
+  await server.register(nunjucksConfig)
+
+  server.ext('onPreResponse', catchAll)
 
   return server
 }
 
-module.exports = createServer
+export { createServer }

@@ -1,0 +1,52 @@
+$navigation-height: 50px;
+
+.app-navigation {
+  border-bottom: 1px solid $govuk-border-colour;
+  background-color: $app-light-grey;
+}
+
+.app-navigation__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  height: $navigation-height;
+  height: govuk-px-to-rem($navigation-height);
+}
+
+.app-navigation__list-item {
+  margin: 0 govuk-spacing(2) 0 0;
+  display: flex;
+  border-bottom: 4px solid transparent;
+
+  &:hover {
+    border-bottom: 4px solid govuk-colour("black");
+  }
+}
+
+.app-navigation__list-item--active {
+  border-bottom: 4px solid govuk-colour("blue");
+
+  &:hover {
+    border-bottom: 4px solid govuk-colour("dark-blue");
+  }
+
+  .app-navigation__link {
+    &:hover {
+      color: govuk-colour("dark-blue");
+    }
+  }
+}
+
+.app-navigation__link {
+  @include govuk-link-style-no-visited-state;
+  text-decoration: none;
+  border: 0;
+  padding: govuk-spacing(2) 0 0;
+  @include govuk-font(19, "bold");
+  flex: 1;
+
+  &:hover {
+    color: govuk-colour("black");
+  }
+}
