@@ -6,7 +6,6 @@
   "engines": {
     "node": "18.11.0"
   },
-  "engineStrict": true,
   "scripts": {
     "build": "run-s build:frontend build:server",
     "build:frontend": "webpack",
@@ -21,8 +20,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "mock-api": "nodemon ./mock-api",
-    "test": "jest --coverage --verbose",
-    "test:watch": "jest --watch",
+    "test": "TZ=UTC jest --coverage --verbose",
+    "test:watch": "TZ=UTC jest --watch",
     "server:watch": "nodemon --exec babel-node ./src",
     "server:debug": "nodemon --exec babel-node --inspect ./src",
     "prestart": "npm run build",
