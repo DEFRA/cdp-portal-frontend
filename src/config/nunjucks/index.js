@@ -5,12 +5,13 @@ import hapiVision from '@hapi/vision'
 import { config } from '~/src/config'
 import { context } from './context'
 import * as filters from './filters'
+import * as globals from './globals'
 
 const nunjucksEnvironment = nunjucks.configure(
   [
     'node_modules/govuk-frontend/',
-    path.resolve(__dirname, '..', '..', 'common', 'templates'), // TODO add to config?
-    path.resolve(__dirname, '..', '..', 'common', 'components')
+    path.normalize(path.resolve(__dirname, '..', '..', 'common', 'templates')),
+    path.normalize(path.resolve(__dirname, '..', '..', 'common', 'components'))
   ],
   {
     autoescape: true,
@@ -42,6 +43,10 @@ const nunjucksConfig = {
     context
   }
 }
+
+Object.keys(globals).forEach((global) => {
+  nunjucksEnvironment.addFilter(global, globals[global])
+})
 
 Object.keys(filters).forEach((filter) => {
   nunjucksEnvironment.addFilter(filter, filters[filter])

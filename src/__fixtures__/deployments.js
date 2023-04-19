@@ -1,7 +1,7 @@
 const deploymentsFixture = [
   {
     id: '64be9663-e19b-4dd1-b606-8fa1a5094ba5',
-    triggeredByUserId: 'Ben Chidgey',
+    triggeredByUserId: 'RoboCop',
     serviceName: 'FFC Grants Cattle Housing Web',
     version: '1.0.0',
     targetEnvironment: 'production',
@@ -10,7 +10,7 @@ const deploymentsFixture = [
   },
   {
     id: '64be9663-e19b-4dd1-b606-8fa1a5094ba6',
-    triggeredByUserId: 'Christopher Turner',
+    triggeredByUserId: 'Rodger Rabbit',
     serviceName: 'Water Abstraction System',
     version: '1.1.0',
     targetEnvironment: 'production',
@@ -19,7 +19,7 @@ const deploymentsFixture = [
   },
   {
     id: '64be9663-e19b-4dd1-b606-8fa1a5094ba7',
-    triggeredByUserId: 'Phil Hargreaves',
+    triggeredByUserId: 'Tetsuo Shima',
     serviceName: 'Waste Exemptions Back Office',
     version: '3.7.1',
     targetEnvironment: 'development',
@@ -28,4 +28,4 @@ const deploymentsFixture = [
   }
 ]
 
-export { deploymentsFixture }
+export {deploymentsFixture}

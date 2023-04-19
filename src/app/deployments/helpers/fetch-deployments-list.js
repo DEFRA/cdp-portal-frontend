@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 import { config } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
-import { transformDeploymentsToEntities } from '~/src/app/deployments/transformers/transform-deployments-to-entities'
-import { sortByTimestamp } from '~/src/common/helpers/sort-by-timestamp'
 
 async function fetchDeploymentsList() {
   const logger = createLogger()
@@ -13,8 +11,6 @@ async function fetchDeploymentsList() {
     const deployments = await response.json()
 
     return deployments
-      .sort(sortByTimestamp())
-      .map(transformDeploymentsToEntities)
   } catch (error) {
     logger.error(error)
     return []

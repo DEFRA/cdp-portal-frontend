@@ -12,5 +12,11 @@
     "ecmaVersion": "latest"
   },
   "rules": {},
-  "ignorePatterns": [".server", ".public"]
+  "ignorePatterns": [
+    ".server",
+    ".public",
+    "src/__fixtures__",
+    "coverage",
+    "test-helpers"
+  ]
 }
