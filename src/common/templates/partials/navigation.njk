@@ -3,7 +3,7 @@
     <ul class="app-navigation__list">
       {% for item in navigation %}
         <li class="app-navigation__list-item{% if item.isActive %} app-navigation__list-item--active{% endif %}">
-          <a class="app-navigation__link" href="/{{ item.url }}/">
+          <a class="app-navigation__link" href="{{ item.url }}">
             {{ item.text }}
           </a>
         </li>

@@ -10,7 +10,7 @@
   "scripts": {
     "build": "run-s build:frontend build:server",
     "build:frontend": "webpack",
-    "build:server": "babel --delete-dir-on-start --copy-files --out-dir ./.server --ignore '**/*.test.js' ./src",
+    "build:server": "babel --delete-dir-on-start --copy-files --no-copy-ignored --out-dir ./.server ./src",
     "docker:dev": "NODE_ENV=development run-p frontend:watch server:watch",
     "predev": "npm run build:frontend",
     "dev": "run-p frontend:watch server:watch",

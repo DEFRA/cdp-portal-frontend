@@ -1,7 +1,7 @@
-$navigation-height: 50px;
+$navigation-height: 60px;
 
 .app-navigation {
-  border-bottom: 1px solid $govuk-border-colour;
+  border-bottom: 1px solid govuk-colour("mid-grey");
   background-color: $app-light-grey;
 }
 
@@ -16,7 +16,6 @@ $navigation-height: 50px;
 
 .app-navigation__list-item {
   margin: 0 govuk-spacing(2) 0 0;
-  display: flex;
   border-bottom: 4px solid transparent;
 
   &:hover {
@@ -42,9 +41,10 @@ $navigation-height: 50px;
   @include govuk-link-style-no-visited-state;
   text-decoration: none;
   border: 0;
-  padding: govuk-spacing(2) 0 0;
-  @include govuk-font(19, "bold");
-  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  @include govuk-font(24, "bold");
 
   &:hover {
     color: govuk-colour("black");

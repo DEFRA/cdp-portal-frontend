@@ -7,6 +7,7 @@ Portal Frontend for CDP
 - [Local development](#local-development)
   - [Setup](#setup)
   - [Development](#development)
+  - [Local JSON API](#local-json-api)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
 - [Docker](#docker)
@@ -45,6 +46,14 @@ To run the application in `development` mode run:
 
 ```bash
 $ npm run dev
+```
+
+### Local JSON API
+
+Whilst the APIs are being developed this app uses a local JSON mock API. To start this locally run:
+
+```bash
+$ npm run mock-api
 ```
 
 ### Production
@@ -106,6 +115,8 @@ The following attribution statement MUST be cited in your products and applicati
 
 ### About the licence
 
-The Open Government Licence (OGL) was developed by the Controller of Her Majesty's Stationery Office (HMSO) to enable information providers in the public sector to license the use and re-use of their information under a common open licence.
+The Open Government Licence (OGL) was developed by the Controller of Her Majesty's Stationery Office (HMSO) to enable
+information providers in the public sector to license the use and re-use of their information under a common open
+licence.
 
 It is designed to encourage use and re-use of information freely and flexibly, with only a few conditions.

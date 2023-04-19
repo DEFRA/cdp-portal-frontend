@@ -1,4 +1,7 @@
-import { deploymentsController } from '~/src/app/deployments/controller'
+import {
+  deploymentController,
+  deploymentsListController
+} from '~/src/app/deployments/controllers'
 
 const deployments = {
   plugin: {
@@ -8,7 +11,12 @@ const deployments = {
         {
           method: 'GET',
           path: '/deployments',
-          handler: deploymentsController.handler
+          handler: deploymentsListController.handler
+        },
+        {
+          method: 'GET',
+          path: '/deployments/{deploymentId}',
+          handler: deploymentController.handler
         }
       ])
     }

@@ -4,6 +4,7 @@ import { config } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
 
 const logger = createLogger()
+const appPathPrefix = config.get('appPathPrefix')
 const manifestPath = path.resolve(
   config.get('root'),
   '.public',
@@ -17,17 +18,22 @@ try {
   logger.error('Webpack Manifest assets file not found')
 }
 
-function navigation(request) {
+function buildNavigation(request) {
   return [
     {
       text: 'Home',
-      url: 'cdp-portal-frontend', // TODO fix up having to hardcode this due to relative url without prefixed slash
-      isActive: request.path === `${config.get('appPathPrefix')}`
+      url: appPathPrefix,
+      isActive: request.path === `${appPathPrefix}`
+    },
+    {
+      text: 'Services',
+      url: `${appPathPrefix}/services`,
+      isActive: request.path.includes(`${appPathPrefix}/services`)
     },
     {
       text: 'Deployments',
-      url: 'cdp-portal-frontend/deployments',
-      isActive: request.path === `${config.get('appPathPrefix')}/deployments`
+      url: `${appPathPrefix}/deployments`,
+      isActive: request.path.includes(`${appPathPrefix}/deployments`)
     }
   ]
 }
@@ -37,11 +43,12 @@ function context(request) {
     version: config.get('version'),
     serviceName: config.get('serviceName'),
     serviceUrl: config.get('appPathPrefix'),
-    navigation: navigation(request),
+    breadcrumbs: [],
+    navigation: buildNavigation(request),
     getAssetPath: function (asset) {
       const webpackAssetPath = webpackManifest[asset]
 
-      return `${config.get('appPathPrefix')}/public/${webpackAssetPath}`
+      return `${appPathPrefix}/public/${webpackAssetPath}`
     }
   }
 }

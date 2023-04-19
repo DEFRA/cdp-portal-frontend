@@ -1,0 +1,32 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% from "time/macro.njk" import appTime %}
+
+{% if params.value %}
+  <div class="app-entity{% if params.size %} app-entity--{{ params.size }}{% endif %}">
+
+    {% if params.kind === 'link' %}
+      <a class="app-entity__link"
+         href="{{ params.url }}"{% if params.newWindow %} target="_blank" rel="noopener noreferrer"{% endif %}>
+        {{ params.value }}
+      </a>
+
+    {% elseif params.kind === 'tag' %}
+      {{ govukTag({
+        text: params.value,
+        classes: params.classes
+      }) }}
+
+    {% elseif params.kind === 'date' %}
+      {{ appTime({
+        datetime: params.value
+      }) }}
+
+    {% elseif params.kind === 'text' %}
+      {{ params.value }}
+    {% endif %}
+
+  </div>
+{% endif %}
+
+
