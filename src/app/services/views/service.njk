@@ -1,0 +1,12 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "entity-list/macro.njk" import appEntityList %}
+
+{% block content %}
+
+  {{ appHeading({
+    text: heading,
+    caption: "Service information"
+  }) }}
+
+{% endblock %}

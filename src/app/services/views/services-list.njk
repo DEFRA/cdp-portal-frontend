@@ -1,0 +1,22 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "entity-list/macro.njk" import appEntityList %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: "DEFRA services"
+  }) }}
+
+  {{ appEntityList({
+    headings: [
+      { text: 'Service', size: 'large'},
+      { text: 'GitHub Repository', size: 'medium'},
+      { text: 'Owner', size: 'medium'},
+      { text: 'Last Updated', size: 'large'}
+    ],
+    items: items,
+    noResult: 'Currently there are no services'
+  }) }}
+
+{% endblock %}

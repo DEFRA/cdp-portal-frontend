@@ -1,0 +1,9 @@
+.app-footer {
+  @include govuk-font($size: 16);
+  @include govuk-responsive-padding(7, "top");
+  @include govuk-responsive-padding(5, "bottom");
+
+  border-top: 1px solid #a1acb2;
+  color: #454a4c;
+  background: $govuk-canvas-background-colour;
+}

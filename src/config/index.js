@@ -32,7 +32,7 @@ const config = convict({
   serviceName: {
     doc: 'Applications Service Name',
     format: String,
-    default: 'CDP Portal'
+    default: 'Core Development Platform Portal'
   },
   root: {
     doc: 'Project root',
@@ -40,7 +40,7 @@ const config = convict({
     default: path.normalize(path.join(__dirname, '..', '..'))
   },
   appPathPrefix: {
-    doc: 'Application url path prefix, Note this is needed only until we have host based routing',
+    doc: 'Application url path prefix this is needed only until we have host based routing',
     format: String,
     default: '/cdp-portal-frontend'
   },

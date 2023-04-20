@@ -1,7 +1,13 @@
 {% extends "govuk/template.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% from "breadcrumbs/macro.njk" import appBreadcrumbs %}
+{% from "header/macro.njk" import appHeader %}
 {% from "heading/macro.njk" import appHeading %}
+{% from "footer/macro.njk" import appFooter %}
+
+{% set mainClasses = "app-main-wrapper" %}
 
 {% block head %}
   <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
@@ -9,7 +15,7 @@
 {% endblock %}
 
 {% block header %}
-  {{ govukHeader({
+  {{ appHeader({
     homepageUrl: "https://www.gov.uk/",
     serviceName: serviceName,
     serviceUrl: serviceUrl
@@ -21,29 +27,18 @@
   {{ pageTitle }} | {{ serviceName }}
 {% endblock %}
 
-{% block beforeContent %}{% endblock %}
+{% block beforeContent %}
+  {% if breadcrumbs.length > 1 %}
+    {{ appBreadcrumbs({
+      items: breadcrumbs
+    }) }}
+  {% endif %}
+{% endblock %}
 
 {% block content %}{% endblock %}
 
 {% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "/",
-          text: "Privacy"
-        },
-        {
-          href: "/",
-          text: "Cookies"
-        },
-        {
-          href: "/",
-          text: "Accessibility statement"
-        }
-      ]
-    }
-  }) }}
+  {{ appFooter() }}
 {% endblock %}
 
 {% block bodyEnd %}

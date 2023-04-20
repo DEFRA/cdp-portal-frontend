@@ -1,0 +1,56 @@
+.app-entity-list {
+  @include govuk-font($size: 19);
+  @include govuk-text-colour;
+  margin-top: 0;
+  @include govuk-responsive-margin(1, "bottom");
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.app-entity-list__row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: govuk-spacing(2);
+  margin-left: govuk-spacing(-2);
+  margin-right: govuk-spacing(-2);
+  border-bottom: 1px solid govuk-colour("mid-grey");
+  line-height: 1.4;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  &:nth-child(even) {
+    background-color: govuk-colour("light-grey");
+  }
+}
+
+.app-entity-list__row--header {
+  @include govuk-font($size: 19);
+  font-weight: bold;
+  padding: 0 govuk-spacing(2) govuk-spacing(2);
+}
+
+.app-entity-list__item {
+  margin-right: govuk-spacing(2);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.app-entity-list__item--small {
+  flex: .2;
+  max-width: $app-entity-list-small-width;
+}
+
+.app-entity-list__item--medium {
+  flex: .8;
+  max-width: $app-entity-list-medium-width;
+}
+
+.app-entity-list__item--large {
+  flex: 1;
+  max-width: $app-entity-list-large-width;
+}
