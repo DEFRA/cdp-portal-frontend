@@ -4,8 +4,8 @@ IFS=$'\n\t'
 
 SEMVER_STRING=$1
 
-git config --global user.name "github-actions[bot]"
-git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+git config user.name 'github-actions[bot]'
+git config user.email 'github-actions[bot]@users.noreply.github.com'
 
 echo "Bump code version"
 
