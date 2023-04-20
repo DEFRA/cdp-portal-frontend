@@ -31,12 +31,6 @@ jobs:
           app_id: ${{ secrets.CDP_GH_BOT_APP_ID }}
           private_key: ${{ secrets.CDP_GH_BOT_PRIVATE_KEY }}
 
-      - name: Git config url rewrite for internal repo access
-        run: |
-          git config --local --remove-section http."https://github.com/"
-          git config --global url."https://x-access-token:${{ steps.cdp-gh-bot.outputs.token }}@github.com".insteadOf "https://github.com"
-          git config --list
-
       - name: Bump version
         run: |
           ./ci/version.sh minor
