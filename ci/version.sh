@@ -6,8 +6,8 @@ SEMVER_STRING=$1
 
 echo "Bump code version"
 
-git config user.name 'github-actions[bot]'
-git config user.email 'github-actions[bot]@users.noreply.github.com'
+git config user.name 'cdp-gh-bot[bot]'
+git config user.email '321835+machina[bot]@users.noreply.github.com'
 
 npm version "$SEMVER_STRING"
 git push
