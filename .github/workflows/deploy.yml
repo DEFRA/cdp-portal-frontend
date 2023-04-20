@@ -12,7 +12,7 @@ jobs:
   build:
     name: Set up, Build and Deploy Image
     runs-on: ubuntu-latest
-    if: github.actor != 'github-actions[bot]'
+    if: github.actor != 'feedmypixelbot'
 
     steps:
       - name: Checkout
