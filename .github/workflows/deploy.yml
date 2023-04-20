@@ -19,11 +19,6 @@ jobs:
     if: github.actor != 'cdp-gh-bot'
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
       - name: Get GitHub Token from cdp-gh-bot GitHub app
         id: cdp-gh-bot
         uses: getsentry/action-github-app-token@v2
@@ -31,11 +26,14 @@ jobs:
           app_id: ${{ secrets.CDP_GH_BOT_APP_ID }}
           private_key: ${{ secrets.CDP_GH_BOT_PRIVATE_KEY }}
 
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ steps.cdp-gh-bot.outputs.token }}
+
       - name: Bump version
         run: |
           ./ci/version.sh minor
-        env:
-          GITHUB_TOKEN: ${{ steps.cdp-gh-bot.outputs.token }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
