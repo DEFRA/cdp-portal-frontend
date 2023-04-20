@@ -3,7 +3,7 @@
 Portal Frontend for CDP
 
 - [Requirements](#requirements)
-  - [Node](#node)
+  - [Node.js](#nodejs)
 - [Local development](#local-development)
   - [Setup](#setup)
   - [Development](#development)
@@ -18,7 +18,7 @@ Portal Frontend for CDP
 
 ## Requirements
 
-### Node
+### Node.js
 
 Please install [Node.js](http://nodejs.org/) `>= v18` and [npm](https://nodejs.org/) `>= v9`. You will find it
 easier to use the Node Version Manager [nvm](https://github.com/creationix/nvm)
