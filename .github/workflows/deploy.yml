@@ -16,7 +16,7 @@ jobs:
   build:
     name: Set up, Build and Deploy Image
     runs-on: ubuntu-latest
-    if: github.actor != 'cdp-gh-bot[bot]'
+    if: github.actor != 'cdp-gh-bot'
 
     steps:
       - name: Get GitHub Token from cdp-gh-bot GitHub app
