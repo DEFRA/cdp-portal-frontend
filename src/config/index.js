@@ -42,7 +42,8 @@ const config = convict({
   appPathPrefix: {
     doc: 'Application url path prefix this is needed only until we have host based routing',
     format: String,
-    default: '/cdp-portal-frontend'
+    default: '/cdp-portal-frontend',
+    env: 'APP_PATH_PREFIX'
   },
   apiUrl: {
     doc: 'API url',
