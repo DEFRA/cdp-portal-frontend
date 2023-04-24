@@ -5,17 +5,18 @@
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "DEFRA services"
+    caption: "Frontend and Backend service, template, library and infrastrucutre repositories."
   }) }}
 
   {{ appEntityList({
     headings: [
-      { text: 'Service', size: 'large'},
+      { text: 'Repository', size: 'large'},
+      { text: 'Type', size: 'small'},
       { text: 'GitHub Repository', size: 'medium'},
       { text: 'Owner', size: 'medium'},
       { text: 'Last Updated', size: 'large'}
     ],
-    items: items,
+    entityRows: entityRows,
     noResult: 'Currently there are no services'
   }) }}
 

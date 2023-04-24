@@ -3,8 +3,12 @@
 {% from "time/macro.njk" import appTime %}
 
 {% if params.value %}
-  <div class="app-entity{% if params.size %} app-entity--{{ params.size }}{% endif %}"
+  <div class="app-entity"
        data-test-id="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
+    {% if params.label %}
+      <span class="app-entity-label"
+            data-test-id="app-entity-label">{{ params.label }}:</span>
+    {% endif %}
 
     {% if params.kind === 'link' %}
       <a class="app-entity__link"

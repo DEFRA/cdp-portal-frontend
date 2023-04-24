@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import { config } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
 
-async function fetchDeploymentsList() {
+async function fetchDeployments() {
   const logger = createLogger()
   const deploymentsEndpointUrl = `${config.get('apiUrl')}/deployments`
 
@@ -17,4 +17,4 @@ async function fetchDeploymentsList() {
   }
 }
 
-export { fetchDeploymentsList }
+export { fetchDeployments }

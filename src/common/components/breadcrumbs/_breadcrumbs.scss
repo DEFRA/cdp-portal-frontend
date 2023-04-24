@@ -1,4 +1,4 @@
-$font-size: 16;
+$font-size: 19;
 
 // Size of chevron (excluding border)
 $chevron-size: govuk-em(7px, $font-size);
@@ -20,8 +20,7 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
   @include govuk-font($size: $font-size);
   @include govuk-text-colour;
 
-  margin-top: govuk-spacing(2);
-  margin-bottom: govuk-spacing(-2);
+  margin-top: govuk-spacing(3);
 }
 
 .app-breadcrumbs__list {
@@ -95,7 +94,7 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
   }
 
   &.app-breadcrumbs__list-item--current {
-    color: govuk-colour('dark-grey');
+    color: govuk-colour("dark-grey");
   }
 }
 

@@ -1,33 +1,33 @@
 import { config } from '~/src/config'
 
-function transformServicesToEntities(service) {
+function transformServiceToEntityRow(service) {
   return [
     {
       kind: 'link',
       value: service.serviceName,
-      url: `${config.get('appPathPrefix')}/services/${service.id}`,
-      size: 'large'
+      url: `${config.get('appPathPrefix')}/services/${service.id}`
+    },
+    {
+      kind: 'text',
+      value: service.kind
     },
     {
       kind: 'link',
       value: service.repository,
       url: `https://github.com/DEFRA/${service.repository}`,
-      newWindow: true,
-      size: 'medium'
+      newWindow: true
     },
     {
       kind: 'link',
       value: `@${service.owner}`,
       url: `https://github.com/orgs/defra-cdp-sandpit/people/${service.owner}`,
-      newWindow: true,
-      size: 'medium'
+      newWindow: true
     },
     {
       kind: 'date',
-      value: service.timestamp,
-      size: 'large'
+      value: service.timestamp
     }
   ]
 }
 
-export { transformServicesToEntities }
+export { transformServiceToEntityRow }

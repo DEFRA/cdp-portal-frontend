@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import { config } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
 
-async function fetchServicesList() {
+async function fetchServices() {
   const logger = createLogger()
   const servicesEndpointUrl = `${config.get('apiUrl')}/services`
 
@@ -17,4 +17,4 @@ async function fetchServicesList() {
   }
 }
 
-export { fetchServicesList }
+export { fetchServices }

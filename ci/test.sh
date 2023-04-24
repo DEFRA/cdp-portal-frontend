@@ -2,6 +2,8 @@
 set -eu
 IFS=$'\n\t'
 
-echo "Linting code"
+echo "Running code lint"
 npm run lint
+
+echo "Running unit tests"
 npm test

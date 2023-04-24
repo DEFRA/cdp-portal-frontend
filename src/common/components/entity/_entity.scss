@@ -1,26 +1,15 @@
 .app-entity {
+  @include govuk-font($size: 19);
+  @include govuk-text-colour;
   margin-right: govuk-spacing(2);
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.app-entity--small {
-  flex: .2;
-  max-width: $app-entity-list-small-width;
-}
-
-.app-entity--medium {
-  flex: .8;
-  max-width: $app-entity-list-medium-width;
-}
-
-.app-entity--large {
-  flex: 1;
-  max-width: $app-entity-list-large-width;
 }
 
 .app-entity__link {
   @include govuk-link-style-no-visited-state;
   @include app-link-style;
+}
+
+.app-entity-label {
+  @include govuk-font($size: 16);
+  color: govuk-colour("dark-grey");
 }

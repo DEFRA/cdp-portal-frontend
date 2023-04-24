@@ -1,18 +1,18 @@
-import { fetchDeploymentsList } from '~/src/app/deployments/helpers/fetch-deployments-list'
+import { fetchDeployments } from '~/src/app/deployments/helpers/fetch-deployments'
 import { sortByTimestamp } from '~/src/common/helpers/sort-by-timestamp'
-import { transformDeploymentsToEntities } from '~/src/app/deployments/transformers/transform-deployments-to-entities'
+import { transformDeploymentToEntityRow } from '~/src/app/deployments/transformers/transform-deployment-to-entity-row'
 
 const deploymentsListController = {
   handler: async (request, h) => {
-    const deployments = await fetchDeploymentsList()
-    const deploymentsEntityList = deployments
+    const deployments = await fetchDeployments()
+    const entityRows = deployments
       .sort(sortByTimestamp())
-      .map(transformDeploymentsToEntities)
+      .map(transformDeploymentToEntityRow)
 
     return h.view('deployments/views/deployments-list', {
       pageTitle: 'Deployments',
       heading: 'Deployments',
-      items: deploymentsEntityList
+      entityRows
     })
   }
 }
