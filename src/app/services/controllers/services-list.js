@@ -1,18 +1,18 @@
-import { fetchServicesList } from '~/src/app/services/helpers/fetch-services-list'
+import { fetchServices } from '~/src/app/services/helpers/fetch-services'
 import { sortByTimestamp } from '~/src/common/helpers/sort-by-timestamp'
-import { transformServicesToEntities } from '~/src/app/services/transformers/transform-services-to-entities'
+import { transformServiceToEntityRow } from '~/src/app/services/transformers/transform-service-to-entity-row'
 
 const servicesListController = {
   handler: async (request, h) => {
-    const services = await fetchServicesList()
-    const servicesEntityList = services
+    const services = await fetchServices()
+    const entityRows = services
       .sort(sortByTimestamp())
-      .map(transformServicesToEntities)
+      .map(transformServiceToEntityRow)
 
     return h.view('services/views/services-list', {
-      pageTitle: 'Services',
-      heading: 'Services',
-      items: servicesEntityList
+      pageTitle: 'Repositories',
+      heading: 'Repositories',
+      entityRows
     })
   }
 }

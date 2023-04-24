@@ -2,7 +2,7 @@ import { format, isDate, parseISO } from 'date-fns'
 
 function formatDate(
   value,
-  formattedDateStr = "h:mm:ssaaa 'on' EEEE do MMMM yyyy"
+  formattedDateStr = "h:mm aaa 'on' EEEE do MMMM yyyy"
 ) {
   const date = isDate(value) ? value : parseISO(value)
 

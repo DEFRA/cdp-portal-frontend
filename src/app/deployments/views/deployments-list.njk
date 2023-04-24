@@ -6,19 +6,19 @@
 
   {{ appHeading({
     text: heading,
-    caption: "Latest DEFRA deployments"
+    caption: "Latest deployments."
   }) }}
 
   {{ appEntityList({
     headings: [
-      { text: 'Service', size: 'large'},
-      { text: 'Version', size: 'small'},
+      { text: 'Deployment', size: 'large'},
       { text: 'Environment', size: 'small'},
+      { text: 'Version', size: 'small'},
       { text: 'Status', size: 'small'},
       { text: 'By', size: 'small'},
       { text: 'On', size: 'large'}
     ],
-    items: items,
+    entityRows: entityRows,
     noResult: 'Currently there are no deployments'
   }) }}
 

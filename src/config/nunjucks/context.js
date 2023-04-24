@@ -26,7 +26,7 @@ function buildNavigation(request) {
       isActive: request.path === `${appPathPrefix}`
     },
     {
-      text: 'Services',
+      text: 'Repositories',
       url: `${appPathPrefix}/services`,
       isActive: request.path.includes(`${appPathPrefix}/services`)
     },
@@ -34,6 +34,11 @@ function buildNavigation(request) {
       text: 'Deployments',
       url: `${appPathPrefix}/deployments`,
       isActive: request.path.includes(`${appPathPrefix}/deployments`)
+    },
+    {
+      text: 'Running',
+      url: `${appPathPrefix}/running`,
+      isActive: request.path.includes(`${appPathPrefix}/running`)
     }
   ]
 }

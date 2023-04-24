@@ -1,6 +1,4 @@
 .app-entity-list {
-  @include govuk-font($size: 19);
-  @include govuk-text-colour;
   margin-top: 0;
   @include govuk-responsive-margin(1, "bottom");
   padding-left: 0;
@@ -8,6 +6,7 @@
 }
 
 .app-entity-list__row {
+  @include govuk-font($size: 19);
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -28,29 +27,25 @@
 }
 
 .app-entity-list__row--header {
-  @include govuk-font($size: 19);
   font-weight: bold;
   padding: 0 govuk-spacing(2) govuk-spacing(2);
 }
 
 .app-entity-list__item {
   margin-right: govuk-spacing(2);
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 .app-entity-list__item--small {
   flex: .2;
-  max-width: $app-entity-list-small-width;
+  max-width: 140px;
 }
 
 .app-entity-list__item--medium {
   flex: .8;
-  max-width: $app-entity-list-medium-width;
+  max-width: 280px;
 }
 
 .app-entity-list__item--large {
   flex: 1;
-  max-width: $app-entity-list-large-width;
+  max-width: 360px;
 }

@@ -1,6 +1,25 @@
 import { renderComponent } from '~/test-helpers/component-helpers'
 
 describe('Entity Component', () => {
+  describe('Entity', () => {
+    let $entity
+
+    beforeEach(() => {
+      $entity = renderComponent('entity', {
+        kind: 'text',
+        value: 'Rod License Service',
+        size: 'large',
+        label: 'Service'
+      })('[data-test-id="app-entity"]').first()
+    })
+
+    test('Should render with expected label', () => {
+      expect(
+        $entity.find('[data-test-id="app-entity-label"]').text()
+      ).toContain('Service')
+    })
+  })
+
   describe('Link entity', () => {
     let $linkEntity
 
@@ -35,10 +54,6 @@ describe('Entity Component', () => {
       expect(
         $linkEntity.find('[data-test-id="app-entity-link"]').attr('target')
       ).toBeUndefined()
-    })
-
-    test('Should have expected size className', () => {
-      expect($linkEntity.attr('class')).toContain('app-entity--large')
     })
   })
 
@@ -81,10 +96,6 @@ describe('Entity Component', () => {
     test('Should contain expected content', () => {
       expect($tagEntity.text().trim()).toEqual('Production')
     })
-
-    test('Should have expected size className', () => {
-      expect($tagEntity.attr('class')).toContain('app-entity--medium')
-    })
   })
 
   describe('Date entity', () => {
@@ -114,7 +125,7 @@ describe('Entity Component', () => {
     test('Should contain expected rendered date', () => {
       expect(
         $dateEntity.find('[data-test-id="app-time"]').text().trim()
-      ).toEqual('2:40:02pm on Tuesday 11th April 2023')
+      ).toEqual('2:40 pm on Tuesday 11th April 2023')
     })
 
     test('Should have expected datetime attribute', () => {
@@ -137,10 +148,6 @@ describe('Entity Component', () => {
 
     test('Should render as expected', () => {
       expect($textEntity.text().trim()).toEqual('0.1.0')
-    })
-
-    test('Should have expected size className', () => {
-      expect($textEntity.attr('class')).toContain('app-entity--small')
     })
   })
 })

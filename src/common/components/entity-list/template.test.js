@@ -1,5 +1,5 @@
 import { renderComponent } from '~/test-helpers/component-helpers'
-import { transformDeploymentsToEntities } from '~/src/app/deployments/transformers/transform-deployments-to-entities'
+import { transformDeploymentToEntityRow } from '~/src/app/deployments/transformers/transform-deployment-to-entity-row'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 
 describe('Entity List Component', () => {
@@ -19,13 +19,15 @@ describe('Entity List Component', () => {
       $entityList = renderComponent('entity-list', {
         headings: [
           { text: 'Service', size: 'large' },
-          { text: 'Version', size: 'small' },
           { text: 'Environment', size: 'small' },
+          { text: 'Version', size: 'small' },
           { text: 'Status', size: 'small' },
           { text: 'By', size: 'small' },
           { text: 'On', size: 'large' }
         ],
-        items: [deploymentsFixture[0]].map(transformDeploymentsToEntities),
+        entityRows: [deploymentsFixture.at(0)].map(
+          transformDeploymentToEntityRow
+        ),
         noResult: 'Currently there are no deployments'
       })
     })
@@ -36,14 +38,30 @@ describe('Entity List Component', () => {
 
     test('Should contain expected headings', () => {
       const getHeader = (headerNumber) =>
-        $entityList(`[data-test-id="app-entity-list-item-${headerNumber}"]`)
+        $entityList(
+          `[data-test-id="app-entity-list-header"] [data-test-id="app-entity-list-item-${headerNumber}"]`
+        )
 
       expect(getHeader(1).text().trim()).toEqual('Service')
-      expect(getHeader(2).text().trim()).toEqual('Version')
-      expect(getHeader(3).text().trim()).toEqual('Environment')
+      expect(getHeader(2).text().trim()).toEqual('Environment')
+      expect(getHeader(3).text().trim()).toEqual('Version')
       expect(getHeader(4).text().trim()).toEqual('Status')
       expect(getHeader(5).text().trim()).toEqual('By')
       expect(getHeader(6).text().trim()).toEqual('On')
+    })
+
+    test('Rows should contain expected size className', () => {
+      const getItem = (itemNumber) =>
+        $entityList(
+          `[data-test-id="app-entity-list-row-1"] [data-test-id="app-entity-list-item-${itemNumber}"]`
+        )
+
+      expect(getItem(1).attr('class')).toContain('app-entity-list__item--large')
+      expect(getItem(2).attr('class')).toContain('app-entity-list__item--small')
+      expect(getItem(3).attr('class')).toContain('app-entity-list__item--small')
+      expect(getItem(4).attr('class')).toContain('app-entity-list__item--small')
+      expect(getItem(5).attr('class')).toContain('app-entity-list__item--small')
+      expect(getItem(6).attr('class')).toContain('app-entity-list__item--large')
     })
 
     test('Should contain expected entities', () => {
@@ -55,10 +73,10 @@ describe('Entity List Component', () => {
       expect(getEntity(1).html()).toContain('FFC Grants Cattle Housing Web')
 
       expect(getEntity(2).length).toEqual(1)
-      expect(getEntity(2).html()).toContain('1.0.0')
+      expect(getEntity(2).html()).toContain('production')
 
       expect(getEntity(3).length).toEqual(1)
-      expect(getEntity(3).html()).toContain('production')
+      expect(getEntity(3).html()).toContain('1.0.0')
 
       expect(getEntity(4).length).toEqual(1)
       expect(getEntity(4).html()).toContain('Deployed')
@@ -68,7 +86,7 @@ describe('Entity List Component', () => {
 
       expect(getEntity(6).length).toEqual(1)
       expect(getEntity(6).html()).toContain(
-        '2:40:02pm on Tuesday 11th April 2023'
+        '2:40 pm on Tuesday 11th April 2023'
       )
     })
   })

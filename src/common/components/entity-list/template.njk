@@ -1,23 +1,30 @@
 {% from "entity/macro.njk" import appEntity %}
 
-<ul class="app-entity-list" data-test-id="app-entity-list">
-  <li class="app-entity-list__row app-entity-list__row--header">
+<ul class="app-entity-list"
+    data-test-id="app-entity-list">
+  <li class="app-entity-list__row app-entity-list__row--header"
+      data-test-id="app-entity-list-header">
     {% for heading in params.headings %}
-      <div class="app-entity-list__item app-entity-list__item--{{ heading.size }}"
+      <div class=" app-entity-list__item app-entity-list__item--{{ heading.size }}"
            data-test-id="app-entity-list-item-{{ loop.index }}">
         {{ heading.text }}
       </div>
     {% endfor %}
   </li>
 
-  {% for item in params.items %}
-    <li class="app-entity-list__row" data-test-id="app-entity-list-row-{{ loop.index }}">
-      {% for entity in item %}
-        {{ appEntity(entity | assign({}, {index: loop.index}, entity)) }}
+  {% for entityRow in params.entityRows %}
+    <li class="app-entity-list__row"
+        data-test-id="app-entity-list-row-{{ loop.index }}">
+      {% for entity in entityRow %}
+        <div class="app-entity-list__item app-entity-list__item--{{ params.headings[loop.index0].size }}"
+             data-test-id="app-entity-list-item-{{ loop.index }}">
+          {{ appEntity(entity | assign({}, {index: loop.index}, entity)) }}
+        </div>
       {% endfor %}
     </li>
   {% else %}
-    <li class="app-entity-list__row" data-test-id="app-entity-list-no-results">{{ params.noResult }}</li>
+    <li class="app-entity-list__row"
+        data-test-id="app-entity-list-no-results">{{ params.noResult }}</li>
   {% endfor %}
 
 </ul>
