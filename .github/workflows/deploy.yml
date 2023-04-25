@@ -31,13 +31,13 @@ jobs:
         with:
           token: ${{ steps.cdp-gh-bot.outputs.token }}
 
-      - name: Build manifest
-        run: |
-          ./ci/create-build-manifest.sh          
-
       - name: Bump version
         run: |
           ./ci/version.sh
+
+      - name: Build manifest
+        run: |
+          ./ci/create-build-manifest.sh
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
