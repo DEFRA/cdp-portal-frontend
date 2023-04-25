@@ -12,9 +12,13 @@ if test -f ci/build.manifest; then
 fi
 
 if [ $(git tag -l "$BUILD_VERSION") ]; then
+
+  echo "exists"
 # If current version tag exists on GitHub then bump minor version and push commit and tag
     npm version minor
     NEW_VERSION=$(npm pkg get version)
+
+    eco "$NEW_VERSION"
 
     git tag "$NEW_VERSION"
     git push
@@ -22,6 +26,8 @@ if [ $(git tag -l "$BUILD_VERSION") ]; then
 else
 # If current version tag does not exist on GitHub then tag code and push tag.
 # This will happen with developer created Major or Patch, or initial release
+
+  echo "does not exist"
     git tag "$BUILD_VERSION"
     git push origin "$BUILD_VERSION"
 fi
