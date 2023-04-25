@@ -11,6 +11,10 @@ if test -f ci/build.manifest; then
     . ci/build.manifest
 fi
 
+echo "Fetch all tags"
+
+git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
 if [ $(git tag -l "$BUILD_VERSION") ]; then
 
     echo "exists"
@@ -29,6 +33,7 @@ else
 
     echo "does not exist"
     echo "$BUILD_VERSION"
+    $(git tag -l "$BUILD_VERSION")
 
 
     git tag "$BUILD_VERSION"
