@@ -89,7 +89,7 @@ All you have to do is commit your code and raise a Pull Request and the pipeline
 If you wish to `patch` or `major` version your codebase use:
 
 ```bash
-$ npm version <patch | major>
+$ npm version <patch|major>
 ```
 
 Then:
