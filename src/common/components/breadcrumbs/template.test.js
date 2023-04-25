@@ -14,20 +14,20 @@ describe('Breadcrumbs Component', () => {
           text: 'Magic service'
         }
       ]
-    })('[data-test-id="app-breadcrumbs"]').first()
+    })('[data-testid="app-breadcrumbs"]').first()
   })
 
   test('Should render expected number of breadcrumbs', () => {
     expect(
-      $breadcrumbs.find('[data-test-id="app-breadcrumbs-list-item"]').length
+      $breadcrumbs.find('[data-testid="app-breadcrumbs-list-item"]').length
     ).toEqual(2)
   })
 
   test('First breadcrumb should be a link', () => {
     const $firstBreadcrumbLink = $breadcrumbs
-      .find('[data-test-id="app-breadcrumbs-list-item"]')
+      .find('[data-testid="app-breadcrumbs-list-item"]')
       .first()
-      .find('[data-test-id="app-breadcrumbs-link"]')
+      .find('[data-testid="app-breadcrumbs-link"]')
 
     expect($firstBreadcrumbLink.attr('href')).toEqual('/deployments')
     expect($firstBreadcrumbLink.attr('class')).toEqual('app-breadcrumbs__link')
@@ -35,7 +35,7 @@ describe('Breadcrumbs Component', () => {
 
   test('Last breadcrumb should not be a link', () => {
     const $lastBreadcrumb = $breadcrumbs
-      .find('[data-test-id="app-breadcrumbs-list-item"]')
+      .find('[data-testid="app-breadcrumbs-list-item"]')
       .last()
 
     expect($lastBreadcrumb.html()).not.toContain(

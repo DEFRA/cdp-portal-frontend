@@ -48,7 +48,8 @@ const config = convict({
   apiUrl: {
     doc: 'API url',
     format: String,
-    default: 'http://localhost:3004/mock-api'
+    default: 'http://localhost:3004/mock-api',
+    env: 'API_URL'
   },
   isProduction: {
     doc: 'If this application running in the production environment',

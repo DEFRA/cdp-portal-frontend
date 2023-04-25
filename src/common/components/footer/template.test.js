@@ -8,6 +8,6 @@ describe('Footer Component', () => {
   })
 
   test('Should render footer', () => {
-    expect($footer('[data-test-id="app-footer"]').length).toEqual(1)
+    expect($footer('[data-testid="app-footer"]').length).toEqual(1)
   })
 })

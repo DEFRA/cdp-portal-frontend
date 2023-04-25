@@ -11,18 +11,16 @@ describe('Header Component', () => {
   })
 
   test('Should render app header component', () => {
-    expect($header('[data-test-id="app-header"]').length).toEqual(1)
+    expect($header('[data-testid="app-header"]').length).toEqual(1)
   })
 
   test('Should contain expected service name', () => {
-    expect($header('[data-test-id="app-header-link"]').text().trim()).toEqual(
+    expect($header('[data-testid="app-header-link"]').text().trim()).toEqual(
       'Totally MEGA service portal'
     )
   })
 
   test('Should have expected service url link', () => {
-    expect($header('[data-test-id="app-header-link"]').attr('href')).toEqual(
-      '/'
-    )
+    expect($header('[data-testid="app-header-link"]').attr('href')).toEqual('/')
   })
 })

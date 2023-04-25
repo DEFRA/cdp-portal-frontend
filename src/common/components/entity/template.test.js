@@ -10,13 +10,13 @@ describe('Entity Component', () => {
         value: 'Rod License Service',
         size: 'large',
         label: 'Service'
-      })('[data-test-id="app-entity"]').first()
+      })('[data-testid="app-entity"]').first()
     })
 
     test('Should render with expected label', () => {
-      expect(
-        $entity.find('[data-test-id="app-entity-label"]').text()
-      ).toContain('Service')
+      expect($entity.find('[data-testid="app-entity-label"]').text()).toContain(
+        'Service'
+      )
     })
   })
 
@@ -29,30 +29,30 @@ describe('Entity Component', () => {
         value: 'Rod License Service',
         url: '/deployments/12345678',
         size: 'large'
-      })('[data-test-id="app-entity"]').first()
+      })('[data-testid="app-entity"]').first()
     })
 
     test('Should render with a link', () => {
       expect(
-        $linkEntity.find('[data-test-id="app-entity-link"]').length
+        $linkEntity.find('[data-testid="app-entity-link"]').length
       ).toEqual(1)
     })
 
     test('Link should have expected link text', () => {
       expect(
-        $linkEntity.find('[data-test-id="app-entity-link"]').text().trim()
+        $linkEntity.find('[data-testid="app-entity-link"]').text().trim()
       ).toEqual('Rod License Service')
     })
 
     test('Link should have expected "href"', () => {
       expect(
-        $linkEntity.find('[data-test-id="app-entity-link"]').attr('href')
+        $linkEntity.find('[data-testid="app-entity-link"]').attr('href')
       ).toEqual('/deployments/12345678')
     })
 
     test('Should not have target attribute', () => {
       expect(
-        $linkEntity.find('[data-test-id="app-entity-link"]').attr('target')
+        $linkEntity.find('[data-testid="app-entity-link"]').attr('target')
       ).toBeUndefined()
     })
   })
@@ -67,12 +67,12 @@ describe('Entity Component', () => {
         url: '/services/09876543',
         size: 'medium',
         newWindow: true
-      })('[data-test-id="app-entity"]').first()
+      })('[data-testid="app-entity"]').first()
     })
 
     test('Should not have target attribute', () => {
       expect(
-        $linkEntity.find('[data-test-id="app-entity-link"]').attr('target')
+        $linkEntity.find('[data-testid="app-entity-link"]').attr('target')
       ).toEqual('_blank')
     })
   })
@@ -86,11 +86,11 @@ describe('Entity Component', () => {
         value: 'Production',
         classes: 'govuk-tag--blue',
         size: 'medium'
-      })('[data-test-id="app-entity"]').first()
+      })('[data-testid="app-entity"]').first()
     })
 
     test('Should render GovUK Tag component', () => {
-      expect($tagEntity.find('[data-test-id="govuk-tag"]').length).toEqual(1)
+      expect($tagEntity.find('[data-testid="govuk-tag"]').length).toEqual(1)
     })
 
     test('Should contain expected content', () => {
@@ -115,22 +115,22 @@ describe('Entity Component', () => {
         kind: 'date',
         value: '2023-04-11T14:40:02.242Z',
         size: 'large'
-      })('[data-test-id="app-entity"]').first()
+      })('[data-testid="app-entity"]').first()
     })
 
     test('Should render app time component', () => {
-      expect($dateEntity.find('[data-test-id="app-time"]').length).toEqual(1)
+      expect($dateEntity.find('[data-testid="app-time"]').length).toEqual(1)
     })
 
     test('Should contain expected rendered date', () => {
       expect(
-        $dateEntity.find('[data-test-id="app-time"]').text().trim()
+        $dateEntity.find('[data-testid="app-time"]').text().trim()
       ).toEqual('2:40 pm on Tuesday 11th April 2023')
     })
 
     test('Should have expected datetime attribute', () => {
       expect(
-        $dateEntity.find('[data-test-id="app-time"]').attr('datetime')
+        $dateEntity.find('[data-testid="app-time"]').attr('datetime')
       ).toEqual('2023-04-11T14:40:02.242Z')
     })
   })
@@ -143,7 +143,7 @@ describe('Entity Component', () => {
         kind: 'text',
         value: '0.1.0',
         size: 'small'
-      })('[data-test-id="app-entity"]').first()
+      })('[data-testid="app-entity"]').first()
     })
 
     test('Should render as expected', () => {

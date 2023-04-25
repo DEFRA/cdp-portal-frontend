@@ -12,18 +12,18 @@ describe('Heading Component', () => {
     })
 
     test('Should render app heading component', () => {
-      expect($heading('[data-test-id="app-heading"]').length).toEqual(1)
+      expect($heading('[data-testid="app-heading"]').length).toEqual(1)
     })
 
     test('Should contain expected heading', () => {
       expect(
-        $heading('[data-test-id="app-heading-title"]').text().trim()
+        $heading('[data-testid="app-heading-title"]').text().trim()
       ).toEqual('Services')
     })
 
     test('Should have expected heading caption', () => {
       expect(
-        $heading('[data-test-id="app-heading-caption"]').text().trim()
+        $heading('[data-testid="app-heading-caption"]').text().trim()
       ).toEqual('A page showing available services')
     })
   })
