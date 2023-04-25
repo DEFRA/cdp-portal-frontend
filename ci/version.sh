@@ -16,6 +16,7 @@ if [ $(git tag -l "$BUILD_VERSION") ]; then
     npm version minor
     NEW_VERSION=$(npm pkg get version)
 
+    git tag "$NEW_VERSION"
     git push
     git push origin "$NEW_VERSION"
 else
