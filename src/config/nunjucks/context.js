@@ -27,8 +27,8 @@ function buildNavigation(request) {
     },
     {
       text: 'Repositories',
-      url: `${appPathPrefix}/services`,
-      isActive: request.path.includes(`${appPathPrefix}/services`)
+      url: `${appPathPrefix}/repositories`,
+      isActive: request.path.includes(`${appPathPrefix}/repositories`)
     },
     {
       text: 'Deployments',
