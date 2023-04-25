@@ -31,6 +31,10 @@ jobs:
         with:
           token: ${{ steps.cdp-gh-bot.outputs.token }}
 
+      - name: Build manifest
+        run: |
+          ./ci/create-build-manifest.sh          
+
       - name: Bump version
         run: |
           ./ci/version.sh
@@ -45,10 +49,6 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build manifest
-        run: |
-          ./ci/create-build-manifest.sh
 
       - name: Upload build manifest
         uses: actions/upload-artifact@v3
