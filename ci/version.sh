@@ -25,7 +25,7 @@ if [ $(git tag -l "$NPM_VERSION") ]; then
     git push origin "$NEW_NPM_VERSION"
 else
 # If current version tag does not exist on GitHub then tag code and push tag.
-# This will happen with developer created Major or Patch, or initial release
+# This will happen when a developer manually versions a Major or Patch, or initial release
 
     echo "$NPM_VERSION tag does not exist, creating tag $NPM_VERSION"
 
