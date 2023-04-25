@@ -4,16 +4,16 @@
 
 {% if params.value %}
   <div class="app-entity"
-       data-test-id="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
+       data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
     {% if params.label %}
       <span class="app-entity-label"
-            data-test-id="app-entity-label">{{ params.label }}:</span>
+            data-testid="app-entity-label">{{ params.label }}:</span>
     {% endif %}
 
     {% if params.kind === 'link' %}
       <a class="app-entity__link"
          href="{{ params.url }}"{% if params.newWindow %} target="_blank" rel="noopener noreferrer"{% endif %}
-         data-test-id="app-entity-link">
+         data-testid="app-entity-link">
         {{ params.value }}
       </a>
 
@@ -22,7 +22,7 @@
         text: params.value,
         classes: params.classes,
         attributes: {
-          'data-test-id': 'govuk-tag'
+          'data-testid': 'govuk-tag'
         }
       }) }}
 

@@ -33,13 +33,13 @@ describe('Entity List Component', () => {
     })
 
     test('Should render app entity list component', () => {
-      expect($entityList('[data-test-id="app-entity-list"]').length).toEqual(1)
+      expect($entityList('[data-testid="app-entity-list"]').length).toEqual(1)
     })
 
     test('Should contain expected headings', () => {
       const getHeader = (headerNumber) =>
         $entityList(
-          `[data-test-id="app-entity-list-header"] [data-test-id="app-entity-list-item-${headerNumber}"]`
+          `[data-testid="app-entity-list-header"] [data-testid="app-entity-list-item-${headerNumber}"]`
         )
 
       expect(getHeader(1).text().trim()).toEqual('Service')
@@ -53,7 +53,7 @@ describe('Entity List Component', () => {
     test('Rows should contain expected size className', () => {
       const getItem = (itemNumber) =>
         $entityList(
-          `[data-test-id="app-entity-list-row-1"] [data-test-id="app-entity-list-item-${itemNumber}"]`
+          `[data-testid="app-entity-list-row-1"] [data-testid="app-entity-list-item-${itemNumber}"]`
         )
 
       expect(getItem(1).attr('class')).toContain('app-entity-list__item--large')
@@ -66,8 +66,8 @@ describe('Entity List Component', () => {
 
     test('Should contain expected entities', () => {
       const getEntity = (entityNumber) =>
-        $entityList('[data-test-id="app-entity-list-row-1"]').find(
-          `[data-test-id="app-entity-${entityNumber}"]`
+        $entityList('[data-testid="app-entity-list-row-1"]').find(
+          `[data-testid="app-entity-${entityNumber}"]`
         )
       expect(getEntity(1).length).toEqual(1)
       expect(getEntity(1).html()).toContain('FFC Grants Cattle Housing Web')
@@ -102,10 +102,10 @@ describe('Entity List Component', () => {
 
     test('Should render no results message', () => {
       expect(
-        $entityList('[data-test-id="app-entity-list-no-results"]').length
+        $entityList('[data-testid="app-entity-list-no-results"]').length
       ).toEqual(1)
       expect(
-        $entityList('[data-test-id="app-entity-list-no-results"]').text().trim()
+        $entityList('[data-testid="app-entity-list-no-results"]').text().trim()
       ).toEqual('Currently there are no deployments')
     })
   })

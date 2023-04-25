@@ -33,8 +33,7 @@ jobs:
 
       - name: Bump version
         run: |
-          echo ${{ github.actor }}
-          ./ci/version.sh minor
+          ./ci/version.sh
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1

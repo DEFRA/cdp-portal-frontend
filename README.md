@@ -10,6 +10,9 @@ Portal Frontend for CDP
   - [Local JSON API](#local-json-api)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
+- [Versioning](#versioning)
+  - [Auto minor versioning](#auto-minor-versioning)
+  - [Major or Patch versioning](#major-or-patch-versioning)
 - [Docker](#docker)
   - [Development Image](#development-image)
   - [Production Image](#production-image)
@@ -72,6 +75,32 @@ To view them in your command line run:
 ```bash
 $ npm run
 ```
+
+## Versioning
+
+### Auto minor versioning
+
+The [deploy GitHub Actions workflow](./.github/workflows/deploy.yml) auto versions a Pull Requests code with a `minor`
+version once it has been merged into the `main` branch.
+All you have to do is commit your code and raise a Pull Request and the pipeline will auto version your code for you.
+
+### Major or Patch versioning
+
+If you wish to `patch` or `major` version your codebase use:
+
+```bash
+$ npm version <patch|major>
+```
+
+Then:
+
+- Push this code with the auto generated commit to your GitHub Repository
+- Raise a Pull Request
+- Merge your code into the `main` branch
+- The [deploy GitHub Actions workflow](./.github/workflows/deploy.yml) will tag and push your `major` or `patch`
+  version tags to your GitHub Repository
+- The [deploy GitHub Actions workflow](./.github/workflows/deploy.yml) will release your `major` or `patch`
+  versioned code
 
 ## Docker
 

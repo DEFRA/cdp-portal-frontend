@@ -1,3 +1,4 @@
+import { config } from '~/src/config'
 import { fetchService } from '~/src/app/services/helpers/fetch-service'
 import { transformServiceToHeadingEntities } from '~/src/app/services/transformers/transform-service-to-heading-entities'
 
@@ -13,7 +14,7 @@ const serviceController = {
       breadcrumbs: [
         {
           text: 'Repositories',
-          href: '/cdp-portal-frontend/services'
+          href: `${config.get('appPathPrefix')}/services`
         },
         {
           text: service.serviceName
