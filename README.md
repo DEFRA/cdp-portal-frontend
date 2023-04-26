@@ -56,7 +56,7 @@ $ npm run dev
 Whilst the APIs are being developed this app uses a local JSON mock API. To start this locally run:
 
 ```bash
-$ npm run mock-api
+$ npm run mockApi
 ```
 
 ### Production

@@ -25,14 +25,19 @@ Object.keys(filters).forEach((filter) => {
   nunjucksTestEnv.addFilter(filter, filters[filter])
 })
 
-function renderComponent(componentName, params) {
+function renderComponent(componentName, params, callBlock) {
   const macroPath = `${componentName}/macro.njk`
   const macroName = `app${
     componentName.charAt(0).toUpperCase() + camelCase(componentName.slice(1))
   }`
-
   const macroParams = JSON.stringify(params, null, 2)
-  const macroString = `{%- from "${macroPath}" import ${macroName} -%}{{- ${macroName}(${macroParams}) -}}`
+  let macroString = `{%- from "${macroPath}" import ${macroName} -%}`
+
+  if (callBlock) {
+    macroString += `{%- call ${macroName}(${macroParams}) -%}${callBlock}{%- endcall -%}`
+  } else {
+    macroString += `{{- ${macroName}(${macroParams}) -}}`
+  }
 
   return load(nunjucksTestEnv.renderString(macroString))
 }

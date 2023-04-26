@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { appConfig } from '~/src/config'
 import { fetchRepository } from '~/src/app/repositories/helpers/fetch-repository'
 import { transformRepositoryToHeadingEntities } from '~/src/app/repositories/transformers/transform-service-to-heading-entities'
 
@@ -14,7 +14,7 @@ const repositoryController = {
       breadcrumbs: [
         {
           text: 'Repositories',
-          href: `${config.get('appPathPrefix')}/services`
+          href: `${appConfig.get('appPathPrefix')}/services`
         },
         {
           text: repository.serviceName
