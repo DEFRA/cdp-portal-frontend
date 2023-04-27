@@ -45,7 +45,7 @@ $ npm install
 
 ### Development
 
-To run the application in `development` mode run:
+Run the application in `development` mode run:
 
 ```bash
 $ npm run dev
