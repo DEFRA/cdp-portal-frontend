@@ -1,3 +1,4 @@
+import { appConfig } from '~/src/config'
 import { createServer } from '~/src/app/server'
 import { createLogger } from '~/src/common/helpers/logger'
 
@@ -12,7 +13,12 @@ async function startServer() {
   const server = await createServer()
   await server.start()
 
-  server.log(`Server started successfully on ${server.info.uri}`)
+  logger.info('Server started successfully')
+  logger.info(
+    `Access your frontend on http://localhost:${appConfig.get(
+      'port'
+    )}${appConfig.get('appPathPrefix')}`
+  )
 }
 
 startServer().catch((error) => {

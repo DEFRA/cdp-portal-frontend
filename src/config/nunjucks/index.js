@@ -2,7 +2,7 @@ import path from 'path'
 import nunjucks from 'nunjucks'
 import hapiVision from '@hapi/vision'
 
-import { config } from '~/src/config'
+import { appConfig } from '~/src/config'
 import { context } from './context'
 import * as filters from './filters'
 import * as globals from './globals'
@@ -18,8 +18,8 @@ const nunjucksEnvironment = nunjucks.configure(
     throwOnUndefined: false,
     trimBlocks: true,
     lstripBlocks: true,
-    watch: config.get('isDevelopment'),
-    noCache: config.get('isDevelopment')
+    watch: appConfig.get('isDevelopment'),
+    noCache: appConfig.get('isDevelopment')
   }
 )
 
@@ -39,7 +39,7 @@ const nunjucksConfig = {
     },
     relativeTo: path.normalize(path.resolve(__dirname, '..', '..')),
     path: 'app',
-    isCached: config.get('isProduction'),
+    isCached: appConfig.get('isProduction'),
     context
   }
 }

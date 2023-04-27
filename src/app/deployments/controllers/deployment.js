@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { appConfig } from '~/src/config'
 import { fetchDeployment } from '~/src/app/deployments/helpers/fetch-deployment'
 import { transformDeploymentToHeadingEntities } from '~/src/app/deployments/transformers/transform-deployment-to-heading-entities'
 
@@ -14,7 +14,7 @@ const deploymentController = {
       breadcrumbs: [
         {
           text: 'Deployments',
-          href: `${config.get('appPathPrefix')}/deployments`
+          href: `${appConfig.get('appPathPrefix')}/deployments`
         },
         {
           text: deployment.serviceName

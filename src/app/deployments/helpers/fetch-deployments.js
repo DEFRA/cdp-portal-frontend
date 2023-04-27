@@ -1,16 +1,14 @@
 import fetch from 'node-fetch'
-import { config } from '~/src/config'
+import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
 
 async function fetchDeployments() {
   const logger = createLogger()
-  const deploymentsEndpointUrl = `${config.get('apiUrl')}/deployments`
+  const deploymentsEndpointUrl = `${appConfig.get('apiUrl')}/deployments`
 
   try {
     const response = await fetch(deploymentsEndpointUrl)
-    const deployments = await response.json()
-
-    return deployments
+    return await response.json()
   } catch (error) {
     logger.error(error)
     return []

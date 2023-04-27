@@ -1,11 +1,11 @@
-import { config } from '~/src/config'
+import { appConfig } from '~/src/config'
 
 function transformRepositoryToEntityRow(repository) {
   return [
     {
       kind: 'link',
       value: repository.serviceName,
-      url: `${config.get('appPathPrefix')}/services/${repository.id}`
+      url: `${appConfig.get('appPathPrefix')}/repositories/${repository.id}`
     },
     {
       kind: 'text',

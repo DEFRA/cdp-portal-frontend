@@ -15,7 +15,7 @@ const repositories = {
         },
         {
           method: 'GET',
-          path: '/repositories/{serviceId}',
+          path: '/repositories/{repositoryId}',
           handler: repositoryController.handler
         }
       ])

@@ -1,11 +1,11 @@
 import pino from 'pino'
-import { config } from '~/src/config'
+import { appConfig } from '~/src/config'
 
 function createLogger() {
   return pino({
-    enabled: !config.get('isTest'),
-    level: config.get('logLevel'),
-    ...(config.get('isDevelopment') && {
+    enabled: !appConfig.get('isTest'),
+    level: appConfig.get('logLevel'),
+    ...(appConfig.get('isDevelopment') && {
       transport: { target: 'pino-pretty' }
     })
   })

@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { appConfig } from '~/src/config'
 
 const serveStaticFiles = {
   plugin: {
@@ -15,7 +15,7 @@ const serveStaticFiles = {
         },
         config: {
           cache: {
-            expiresIn: config.get('staticCacheTimeout'),
+            expiresIn: appConfig.get('staticCacheTimeout'),
             privacy: 'private'
           }
         }

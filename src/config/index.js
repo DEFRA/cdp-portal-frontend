@@ -5,7 +5,7 @@ import { version } from '~/package.json'
 
 const oneWeek = 7 * 24 * 60 * 60 * 1000
 
-const config = convict({
+const appConfig = convict({
   env: {
     doc: 'The application environment.',
     format: ['production', 'development', 'test'],
@@ -74,6 +74,6 @@ const config = convict({
   }
 })
 
-config.validate({ allowed: 'strict' })
+appConfig.validate({ allowed: 'strict' })
 
-export { config }
+export { appConfig }
