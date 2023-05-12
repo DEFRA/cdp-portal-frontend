@@ -1,6 +1,6 @@
 {
   "name": "cdp-portal-frontend",
-  "version": "0.25.1",
+  "version": "0.26.0",
   "description": "CDP Portal Frontend",
   "main": "src/index.js",
   "engines": {
