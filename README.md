@@ -7,6 +7,7 @@ Portal Frontend for CDP
 - [Local development](#local-development)
   - [Setup](#setup)
   - [Development](#development)
+  - [Basic Auth](#basic-auth)
   - [Local JSON API](#local-json-api)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
@@ -51,6 +52,13 @@ Run the application in `development` mode run:
 $ npm run dev
 ```
 
+### Basic Auth
+
+For local development basic auth details are:
+
+- username: `dev`
+- password: `dev`
+
 ### Local JSON API
 
 Whilst the APIs are being developed this app uses a local JSON mock API. To start this locally run:
@@ -80,7 +88,7 @@ $ npm run
 
 ### Auto minor versioning
 
-The [deploy GitHub Actions workflow](./.github/workflows/deploy.yml) auto versions a Pull Requests code with a `minor`
+The [Publish GitHub Actions workflow](./.github/workflows/publish.yml) auto versions a Pull Requests code with a `minor`
 version once it has been merged into the `main` branch.
 All you have to do is commit your code and raise a Pull Request and the pipeline will auto version your code for you.
 
@@ -97,9 +105,9 @@ Then:
 - Push this code with the auto generated commit to your GitHub Repository
 - Raise a Pull Request
 - Merge your code into the `main` branch
-- The [deploy GitHub Actions workflow](./.github/workflows/deploy.yml) will tag and push your `major` or `patch`
+- The [Publish GitHub Actions workflow](./.github/workflows/publish.yml) will tag and push your `major` or `patch`
   version tags to your GitHub Repository
-- The [deploy GitHub Actions workflow](./.github/workflows/deploy.yml) will release your `major` or `patch`
+- The [Publish GitHub Actions workflow](./.github/workflows/publish.yml) will release your `major` or `patch`
   versioned code
 
 ## Docker
