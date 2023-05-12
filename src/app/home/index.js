@@ -8,7 +8,7 @@ const home = {
         {
           method: 'GET',
           path: '/',
-          handler: homeController.handler
+          ...homeController
         }
       ])
     }

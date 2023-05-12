@@ -2,5 +2,4 @@
 .server
 package-lock.json
 node_modules
-src/__fixtures__
 coverage

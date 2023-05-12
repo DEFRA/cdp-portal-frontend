@@ -1,0 +1,23 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "entity-list/macro.njk" import appEntityList %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: "Frontend and Backend micro-services, Templates, Libraries and Infrastrucutre, code repositories."
+  }) }}
+
+  {{ appEntityList({
+    headings: [
+      { text: 'Repository', size: 'large'},
+      { text: 'Type', size: 'small'},
+      { text: 'GitHub Repository', size: 'medium'},
+      { text: 'Owner', size: 'medium'},
+      { text: 'Last Updated', size: 'large'}
+    ],
+    entityRows: entityRows,
+    noResult: 'Currently there are no services'
+  }) }}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+.app-read-out {
+  display: none;
+}
+
+.js-enabled {
+  .app-read-out {
+    margin: govuk-spacing(-2) 0 govuk-spacing(3);
+    display: block;
+    @include govuk-font($size: 16);
+    color: govuk-colour("dark-grey");
+  }
+}

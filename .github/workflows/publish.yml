@@ -1,0 +1,81 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_ACCOUNT_ID: 163841473800
+
+jobs:
+  build:
+    name: Set up, Version, Build and Publish Image
+    runs-on: ubuntu-latest
+    if: github.actor != 'cdp-gh-bot[bot]'
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/github-actions-role
+      - run: aws sts get-caller-identity
+
+      - name: Get Github actions secrets from ASM
+        uses: aws-actions/aws-secretsmanager-get-secrets@v1
+        with:
+          secret-ids: |
+            cdp/platform/gh_actions
+          parse-json-secrets: true
+
+      - name: Get Github app private key from ASM
+        uses: aws-actions/aws-secretsmanager-get-secrets@v1
+        with:
+          secret-ids: |
+            CDP_GH_BOT_PRIVATE_KEY,cdp/platform/gh_apps/cdp-gh-bot/private-key
+
+      - name: Get GitHub Token from cdp-gh-bot GitHub app
+        id: cdp-gh-bot
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ env.CDP_PLATFORM_GH_ACTIONS_CDP_GH_BOT_ID }}
+          private_key: ${{ env.CDP_GH_BOT_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ steps.cdp-gh-bot.outputs.token }}
+
+      - name: Bump version
+        run: |
+          ./ci/version.sh
+
+      - name: Build manifest
+        run: |
+          ./ci/create-build-manifest.sh
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Upload build manifest
+        uses: actions/upload-artifact@v3
+        with:
+          name: build.manifest
+          path: ci/build.manifest
+
+      - name: Build application
+        run: |
+          ./ci/build.sh
+
+      - name: Publish
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          ./ci/publish.sh

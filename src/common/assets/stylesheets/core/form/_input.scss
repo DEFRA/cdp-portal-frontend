@@ -1,0 +1,9 @@
+.app-input {
+  border-radius: $app-border-radius;
+  border: 1px solid govuk-colour("dark-grey");
+
+  &:focus {
+    border: 1px solid govuk-colour("black");
+    box-shadow: none;
+  }
+}
