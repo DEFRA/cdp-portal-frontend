@@ -54,7 +54,7 @@ const appConfig = convict({
   teamsAndRepositoriesV1ApiUrl: {
     doc: 'Teams and Repositories root API url',
     format: String,
-    default: 'http://localhost:3008/cdp-teams-and-repositories/v1',
+    default: 'http://localhost:3008/v1',
     env: 'TEAMS_AND_REPOSITORIES_API_URL'
   },
   sessionCookiePassword: {
