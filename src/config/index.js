@@ -46,10 +46,37 @@ const appConfig = convict({
     env: 'APP_PATH_PREFIX'
   },
   apiUrl: {
-    doc: 'API url',
+    doc: 'API root url',
     format: String,
     default: 'http://localhost:3004/mock-api',
     env: 'API_URL'
+  },
+  teamsAndRepositoriesV1ApiUrl: {
+    doc: 'Teams and Repositories root API url',
+    format: String,
+    default: 'http://localhost:3008/cdp-teams-and-repositories/v1',
+    env: 'TEAMS_AND_REPOSITORIES_API_URL'
+  },
+  sessionCookiePassword: {
+    doc: 'Session cookie password',
+    format: '*',
+    default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
+    sensitive: true,
+    env: 'SESSION_COOKIE_PASSWORD'
+  },
+  basicAuthUser: {
+    doc: 'Basic Auth user',
+    format: '*',
+    default: 'dev',
+    sensitive: true,
+    env: 'BASIC_AUTH_USER'
+  },
+  basicAuthPassword: {
+    doc: 'Basic Auth password',
+    format: '*',
+    default: '$2a$04$9wN0ZJE/GjeNJMgNSvheS.eUXZ5AKkc5CBg1Zks4HuD8HkqVCH7Rq',
+    sensitive: true,
+    env: 'BASIC_AUTH_PASSWORD'
   },
   isProduction: {
     doc: 'If this application running in the production environment',

@@ -1,0 +1,14 @@
+.app-select {
+  border-radius: $app-border-radius;
+  border: 1px solid govuk-colour("dark-grey");
+
+  &:focus {
+    border: 1px solid govuk-colour("black");
+    box-shadow: none;
+  }
+}
+
+.app-select--wide {
+  min-width: 16em;
+  max-width: 100%;
+}

@@ -1,0 +1,149 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "read-out/macro.njk" import appReadOut %}
+
+{% block content %}
+
+  {{ appHeading({
+    text: heading,
+    caption: "Create a new Code Repository, Micro-service and initial Infrastructure."
+  }) }}
+
+  {% call appPageBody() %}
+    <form action="{{ appPathPrefix }}/create-service" method="post">
+
+      {% call govukFieldset({
+        legend: {
+          text: "Enter your new service details",
+          classes: "govuk-fieldset__legend--m"
+        }
+      }) %}
+
+        {{ govukInput({
+          label: {
+            text: "Repository name",
+            classes: "govuk-!-margin-bottom-0"
+          },
+          id: "repository-name",
+          name: "repositoryName",
+          classes: "govuk-input--width-20 app-input",
+          hint: {
+            text: "Use lowercase words with hypen seperators",
+            classes: "govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "govuk-!-margin-bottom-3 app-form-group-error"
+          },
+          value: values.repositoryName,
+          attributes: {
+            "data-js": "repository-name",
+            "data-target-id": "repository-name-read-out"
+          },
+          errorMessage: {
+            text: errors.repositoryName.message,
+            classes: "govuk-!-margin-bottom-1 app-error-message"
+          } if errors.repositoryName.message
+        }) }}
+
+        {{ appReadOut({
+          description: "Your repository name will be ",
+          targetId: "repository-name-read-out"
+        }) }}
+
+
+        {{ govukSelect({
+          id: "service-type",
+          name: "serviceType",
+          label: {
+            text: "Service Type",
+            classes: "govuk-!-margin-bottom-0"
+          },
+          classes: "app-select app-select--wide",
+          hint: {
+            text: "The template your service is created from",
+            classes: "govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "govuk-!-margin-bottom-3 app-form-group-error"
+          },
+          value: values.serviceType,
+          errorMessage: {
+            text: errors.serviceType.message,
+            classes: "govuk-!-margin-bottom-1 app-error-message"
+          } if errors.serviceType.message,
+          items: [
+            {
+              attributes: { hidden:true }
+            },
+            {
+              value: "cdp-node-frontend-template",
+              text: "Node.js Frontend"
+            },
+            {
+              value: "cdp-node-backend-template",
+              text: "Node.js Backend"
+            },
+            {
+              value: "cdp-dotnet-backend-template",
+              text: "DotNet Backend"
+            },
+            {
+              value: "cdp-java-backend-template",
+              text: "Java Backend"
+            }
+          ]
+        }) }}
+
+        {{ govukSelect({
+          id: "owning-team",
+          name: "owningTeam",
+          label: {
+            text: "Owning Team",
+            classes: "govuk-!-margin-bottom-0"
+          },
+          classes: "app-select app-select--wide",
+          value: values.owningTeam,
+          hint: {
+            text: "The team that owns your service",
+            classes: "govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group-error app-form-group-error"
+          },
+          errorMessage: {
+            text: errors.owningTeam.message,
+            classes: "govuk-!-margin-bottom-1 app-error-message"
+          } if errors.owningTeam.message,
+          items: [
+            {
+              attributes: { hidden:true }
+            },
+            {
+              value: "animal-and-plant-health",
+              text: "Animal And Plant Health"
+            },
+            {
+              value: "cdp-platform",
+              text: "CDP Platform"
+            },
+            {
+              value: "fisheries",
+              text: "Fisheries"
+            },
+            {
+              value: "forestry-management",
+              text: "Forestry Management"
+            }
+          ]
+        }) }}
+      {% endcall %}
+
+      {{ appButton({
+        text: "Create"
+      }) }}
+
+    </form>
+
+  {% endcall %}
+
+{% endblock %}

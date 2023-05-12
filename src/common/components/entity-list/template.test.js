@@ -1,6 +1,6 @@
 import { renderComponent } from '~/test-helpers/component-helpers'
-import { transformDeploymentToEntityRow } from '~/src/app/deployments/transformers/transform-deployment-to-entity-row'
-import { deploymentsFixture } from '~/src/__fixtures__/deployments'
+import { transformDeployedServicesToEntityRow } from '~/src/app/deployed-services/transformers/transform-deployed-services-to-entity-row'
+import { deployedServicesFixture } from '~/src/__fixtures__/deployed-services'
 
 describe('Entity List Component', () => {
   let $entityList
@@ -25,10 +25,10 @@ describe('Entity List Component', () => {
           { text: 'By', size: 'small' },
           { text: 'On', size: 'large' }
         ],
-        entityRows: [deploymentsFixture.at(0)].map(
-          transformDeploymentToEntityRow
+        entityRows: [deployedServicesFixture.at(0)].map(
+          transformDeployedServicesToEntityRow
         ),
-        noResult: 'Currently there are no deployments'
+        noResult: 'Currently there are no deployed micro-services'
       })
     })
 
@@ -96,7 +96,7 @@ describe('Entity List Component', () => {
       $entityList = renderComponent('entity-list', {
         headings: [],
         items: [],
-        noResult: 'Currently there are no deployments'
+        noResult: 'Currently there are no deployed micro-services'
       })
     })
 
@@ -106,7 +106,7 @@ describe('Entity List Component', () => {
       ).toEqual(1)
       expect(
         $entityList('[data-testid="app-entity-list-no-results"]').text().trim()
-      ).toEqual('Currently there are no deployments')
+      ).toEqual('Currently there are no deployed micro-services')
     })
   })
 })

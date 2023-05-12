@@ -4,7 +4,6 @@ module.exports = {
   verbose: true,
   resetModules: true,
   clearMocks: true,
-  restoreMocks: true,
   silent: true,
   testMatch: ['**/src/**/*.test.js'],
   reporters: ['default', ['github-actions', { silent: false }], 'summary'],
@@ -13,7 +12,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/.server',
-    '<rootDir>/.build',
+    '<rootDir>/.public',
     '<rootDir>/src/__fixtures__',
     '<rootDir>/test-helpers',
     '<rootDir>/mock-api'

@@ -1,8 +1,10 @@
 import inert from '@hapi/inert'
+import { health } from '~/src/app/health'
 import { home } from '~/src/app/home'
-import { deployments } from '~/src/app/deployments'
-import { running } from '~/src/app/running'
-import { repositories } from '~/src/app/repositories'
+import { createService } from '~/src/app/create-service'
+import { deployedServices } from '~/src/app/deployed-services'
+import { runningServices } from '~/src/app/running-services'
+import { codeRepositories } from '~/src/app/code-repositories'
 import { serveStaticFiles } from '~/src/common/helpers/serve-static-files'
 
 const router = {
@@ -11,10 +13,12 @@ const router = {
     register: async (server) => {
       await server.register([inert])
       await server.register([
+        health,
         home,
-        deployments,
-        repositories,
-        running,
+        createService,
+        deployedServices,
+        codeRepositories,
+        runningServices,
         serveStaticFiles
       ])
     }

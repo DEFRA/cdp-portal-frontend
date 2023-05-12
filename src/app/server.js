@@ -1,11 +1,15 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
-import { appConfig } from '~/src/config'
+import { plugin as basicAuth } from '@hapi/basic'
 
+import { appConfig } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { router } from './router'
 import { requestLogger } from '~/src/common/helpers/request-logger'
 import { catchAll } from '~/src/common/helpers/errors'
+import { flashMessage } from '~/src/common/helpers/flash-message'
+import { addNotificationsToContext } from '~/src/common/helpers/add-notifications-to-context'
+import { validateBasicAuth } from '~/src/common/helpers/basic-auth'
 
 async function createServer() {
   const server = hapi.server({
@@ -24,6 +28,17 @@ async function createServer() {
       stripTrailingSlash: true
     }
   })
+
+  await server.register(basicAuth)
+
+  server.auth.strategy('simple', 'basic', { validate: validateBasicAuth })
+  server.auth.default('simple')
+
+  server.ext('onPreResponse', addNotificationsToContext, {
+    before: ['yar']
+  })
+
+  await server.register(flashMessage)
 
   await server.register(requestLogger)
 

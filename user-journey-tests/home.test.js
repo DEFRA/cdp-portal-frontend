@@ -4,7 +4,7 @@ describe('Home Page', () => {
   it('Should display expected page heading', async () => {
     await browser.url('')
     await expect(Page.headingTitle).toBeExisting()
-    await expect(Page.headingTitle).toHaveText('Home')
+    await expect(Page.headingTitle).toHaveText('Welcome')
   })
 
   it('Should display expected page heading caption', async () => {

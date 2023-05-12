@@ -1,4 +1,5 @@
 $navigation-height: 60px;
+$border-bottom-width: 4px;
 
 .app-navigation {
   border-bottom: 1px solid govuk-colour("mid-grey");
@@ -9,17 +10,28 @@ $navigation-height: 60px;
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
-  height: $navigation-height;
-  height: govuk-px-to-rem($navigation-height);
+
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    height: $navigation-height;
+    height: govuk-px-to-rem($navigation-height);
+  }
 }
 
 .app-navigation__list-item {
-  margin: 0 govuk-spacing(2) 0 0;
-  border-bottom: 4px solid transparent;
+  margin: 0 govuk-spacing(3) 0 0;
 
-  &:hover {
-    border-bottom: 4px solid govuk-colour("black");
+  > a:focus {
+    box-shadow: none;
+    border-bottom: $border-bottom-width solid govuk-colour("black");
+  }
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
   }
 }
 
@@ -39,14 +51,34 @@ $navigation-height: 60px;
 
 .app-navigation__link {
   @include govuk-link-style-no-visited-state;
-  text-decoration: none;
   border: 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
+  margin: govuk-spacing(2) 0 govuk-spacing(1);
+  padding-bottom: govuk-spacing(1);
   @include govuk-font(24, "bold");
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 4px solid transparent;
+
+  @include govuk-media-query($from: tablet) {
+    padding-bottom: 0;
+    margin: 0;
+    display: flex;
+    height: $navigation-height - $border-bottom-width;
+    height: govuk-px-to-rem($navigation-height - $border-bottom-width);
+    align-items: center;
+  }
 
   &:hover {
     color: govuk-colour("black");
+    border-bottom: $border-bottom-width solid govuk-colour("black");
+  }
+}
+
+.app-navigation__link--active {
+  border-bottom: $border-bottom-width solid govuk-colour("blue");
+
+  &:hover {
+    color: govuk-colour("dark-blue");
+    border-bottom: $border-bottom-width solid govuk-colour("dark-blue");
   }
 }
