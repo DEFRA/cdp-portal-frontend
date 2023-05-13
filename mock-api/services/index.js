@@ -1,4 +1,4 @@
-const codeRepositories = [
+const services = [
   {
     id: '64be9663-e19b-4dd1-b606-8fa1a5094ba5',
     serviceName: 'FFC Grants Cattle Housing Web',
@@ -50,4 +50,4 @@ const codeRepositories = [
   }
 ]
 
-module.exports = { codeRepositories }
+module.exports = { services }

@@ -14,8 +14,8 @@ describe('#buildNavigation', () => {
           isActive: false
         }),
         expect.objectContaining({
-          text: 'Code Repositories',
-          url: `${appPathPrefix}/code-repositories`,
+          text: 'Services',
+          url: `${appPathPrefix}/services`,
           isActive: false
         }),
         expect.objectContaining({
@@ -48,8 +48,8 @@ describe('#buildNavigation', () => {
           isActive: false
         }),
         expect.objectContaining({
-          text: 'Code Repositories',
-          url: `${appPathPrefix}/code-repositories`,
+          text: 'Services',
+          url: `${appPathPrefix}/services`,
           isActive: false
         }),
         expect.objectContaining({

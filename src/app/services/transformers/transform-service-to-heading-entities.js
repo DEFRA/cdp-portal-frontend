@@ -1,24 +1,24 @@
-function transformCodeRepositoryToHeadingEntities(codeRepository) {
+function transformServiceToHeadingEntities(service) {
   return {
     primary: [
       {
         kind: 'text',
-        value: codeRepository.kind,
+        value: service.kind,
         size: 'small',
         label: 'Type'
       },
       {
         kind: 'link',
-        value: codeRepository.gitHubUrl,
-        url: `https://github.com/DEFRA/${codeRepository.gitHubUrl}`,
+        value: service.gitHubUrl,
+        url: `https://github.com/DEFRA/${service.gitHubUrl}`,
         newWindow: true,
         size: 'medium',
         label: 'GitHub repository'
       },
       {
         kind: 'link',
-        value: `@${codeRepository.owner}`,
-        url: `https://github.com/orgs/defra-cdp-sandpit/people/${codeRepository.owner}`,
+        value: `@${service.owner}`,
+        url: `https://github.com/orgs/defra-cdp-sandpit/people/${service.owner}`,
         newWindow: true,
         size: 'medium',
         label: 'Owner'
@@ -27,7 +27,7 @@ function transformCodeRepositoryToHeadingEntities(codeRepository) {
     secondary: [
       {
         kind: 'date',
-        value: codeRepository.timestamp,
+        value: service.timestamp,
         size: 'large',
         label: 'Last updated'
       }
@@ -35,4 +35,4 @@ function transformCodeRepositoryToHeadingEntities(codeRepository) {
   }
 }
 
-export { transformCodeRepositoryToHeadingEntities }
+export { transformServiceToHeadingEntities }

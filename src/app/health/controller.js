@@ -1,9 +1,9 @@
+import { appConfig } from '~/src/config'
+
 const healthController = {
-  options: {
-    auth: {
-      mode: 'optional'
-    }
-  },
+  ...(appConfig.get('isProduction') === true && {
+    options: { auth: { mode: 'optional' } }
+  }),
   handler: (request, h) => {
     return h.response({ message: 'Healthy' }).code(200)
   }

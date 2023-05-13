@@ -29,10 +29,12 @@ async function createServer() {
     }
   })
 
-  await server.register(basicAuth)
+  if (appConfig.get('isProduction') === true) {
+    await server.register(basicAuth)
 
-  server.auth.strategy('simple', 'basic', { validate: validateBasicAuth })
-  server.auth.default('simple')
+    server.auth.strategy('simple', 'basic', { validate: validateBasicAuth })
+    server.auth.default('simple')
+  }
 
   server.ext('onPreResponse', addNotificationsToContext, {
     before: ['yar']
