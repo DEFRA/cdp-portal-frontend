@@ -1,9 +1,9 @@
 const { deployedServices } = require('./deployed-services')
-const { codeRepositories } = require('./code-repositories')
+const { services } = require('./services')
 const { runningServices } = require('./running-services')
 
 module.exports = {
   'deployed-services': deployedServices,
-  'code-repositories': codeRepositories,
+  services,
   'running-services': runningServices
 }

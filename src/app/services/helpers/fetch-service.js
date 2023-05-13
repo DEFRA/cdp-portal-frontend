@@ -2,12 +2,14 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
 
-async function fetchCodeRepositories() {
+async function fetchService(serviceId) {
   const logger = createLogger()
-  const repositoriesEndpointUrl = `${appConfig.get('apiUrl')}/code-repositories`
+  const repositoryEndpointUrl = `${appConfig.get(
+    'apiUrl'
+  )}/services/${serviceId}`
 
   try {
-    const response = await fetch(repositoriesEndpointUrl)
+    const response = await fetch(repositoryEndpointUrl)
     return await response.json()
   } catch (error) {
     logger.error(error)
@@ -15,4 +17,4 @@ async function fetchCodeRepositories() {
   }
 }
 
-export { fetchCodeRepositories }
+export { fetchService }

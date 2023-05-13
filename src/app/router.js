@@ -4,7 +4,7 @@ import { home } from '~/src/app/home'
 import { createService } from '~/src/app/create-service'
 import { deployedServices } from '~/src/app/deployed-services'
 import { runningServices } from '~/src/app/running-services'
-import { codeRepositories } from '~/src/app/code-repositories'
+import { services } from '~/src/app/services'
 import { serveStaticFiles } from '~/src/common/helpers/serve-static-files'
 
 const router = {
@@ -17,8 +17,8 @@ const router = {
         home,
         createService,
         deployedServices,
-        codeRepositories,
         runningServices,
+        services,
         serveStaticFiles
       ])
     }

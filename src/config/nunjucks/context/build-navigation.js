@@ -10,10 +10,9 @@ function buildNavigation(request) {
       isActive: request?.path === `${appPathPrefix}` ?? false
     },
     {
-      text: 'Code Repositories',
-      url: `${appPathPrefix}/code-repositories`,
-      isActive:
-        request?.path?.includes(`${appPathPrefix}/code-repositories`) ?? false
+      text: 'Services',
+      url: `${appPathPrefix}/services`,
+      isActive: request?.path?.includes(`${appPathPrefix}/services`) ?? false
     },
     {
       text: 'Deployed Services',
