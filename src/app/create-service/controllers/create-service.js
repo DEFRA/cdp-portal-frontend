@@ -42,8 +42,8 @@ const createServiceController = {
       )
 
       return h.view('create-service/views/form', {
-        pageTitle: 'Error | Create a new Service',
-        heading: 'Create a new Service',
+        pageTitle: 'Error | Create a new micro-service',
+        heading: 'Create a new micro-service',
         errors: errorDetails,
         values: payload
       })
