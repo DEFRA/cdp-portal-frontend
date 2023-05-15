@@ -8,14 +8,17 @@ function buildVersion(version) {
 }
 
 function transformRunningServicesToEntityRow(runningServices) {
-
   const byService = {}
-  runningServices.forEach(r => { byService[r.service] = {}; } )
-  runningServices.forEach(r => { byService[r.service][r.environment] = r.version } )
-  
+  runningServices.forEach((r) => {
+    byService[r.service] = {}
+  })
+  runningServices.forEach((r) => {
+    byService[r.service][r.environment] = r.version
+  })
+
   const out = []
-  
-  for(const service in byService) {
+
+  for (const service in byService) {
     out.push([
       {
         kind: 'text',
@@ -25,16 +28,15 @@ function transformRunningServicesToEntityRow(runningServices) {
       buildVersion(byService[service].Development),
       buildVersion(byService[service].Testing),
       buildVersion(byService[service].PreProduction),
-      buildVersion(byService[service].Production),
-    ]
-    )
+      buildVersion(byService[service].Production)
+    ])
   }
 
   // sort list by name
-  out.sort( (a,b) => {
+  out.sort((a, b) => {
     return a[0].value.toLowerCase() < b[0].value.toLowerCase() ? -1 : 1
   })
-  
+
   return out
 }
 
