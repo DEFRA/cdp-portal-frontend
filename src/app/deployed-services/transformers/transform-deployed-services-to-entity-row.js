@@ -5,14 +5,14 @@ function transformDeployedServicesToEntityRow(deployedService) {
   return [
     {
       kind: 'link',
-      value: deployedService.serviceName,
-      url: `${appConfig.get('appPathPrefix')}/deployed-services/${
-        deployedService.id
+      value: deployedService.service,
+      url: `${appConfig.get('appPathPrefix')}/services/${
+        deployedService.service
       }`
     },
     {
       kind: 'tag',
-      value: deployedService.targetEnvironment,
+      value: deployedService.environment,
       classes: 'govuk-tag--blue'
     },
     {
@@ -21,16 +21,16 @@ function transformDeployedServicesToEntityRow(deployedService) {
     },
     {
       kind: 'tag',
-      value: deployedService.deploymentStatus,
-      classes: getDeploymentStatusClassname(deployedService.deploymentStatus)
+      value: deployedService.status,
+      classes: getDeploymentStatusClassname(deployedService.status)
     },
     {
       kind: 'text',
-      value: deployedService.triggeredByUserId
+      value: deployedService.user
     },
     {
       kind: 'date',
-      value: deployedService.timestamp
+      value: deployedService.deployedAt
     }
   ]
 }

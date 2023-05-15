@@ -5,8 +5,8 @@ import { createLogger } from '~/src/common/helpers/logger'
 async function fetchDeployedServices() {
   const logger = createLogger()
   const deployedServicesEndpointUrl = `${appConfig.get(
-    'apiUrl'
-  )}/deployed-services`
+    'deploymentsV1ApiUrl'
+  )}/deployments`
 
   try {
     const response = await fetch(deployedServicesEndpointUrl)

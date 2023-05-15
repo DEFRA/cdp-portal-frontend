@@ -5,14 +5,14 @@ function transformDeployedServiceToHeadingEntities(deployedService) {
     primary: [
       {
         kind: 'tag',
-        value: deployedService.targetEnvironment,
+        value: deployedService.environment,
         classes: 'govuk-tag--blue',
         size: 'small'
       },
       {
         kind: 'tag',
-        value: deployedService.deploymentStatus,
-        classes: getDeploymentStatusClassname(deployedService.deploymentStatus),
+        value: deployedService.status,
+        classes: getDeploymentStatusClassname(deployedService.status),
         size: 'small'
       },
       {
@@ -25,13 +25,13 @@ function transformDeployedServiceToHeadingEntities(deployedService) {
     secondary: [
       {
         kind: 'text',
-        value: deployedService.triggeredByUserId,
+        value: deployedService.user,
         size: 'small',
         label: 'Deployed by'
       },
       {
         kind: 'date',
-        value: deployedService.timestamp,
+        value: deployedService.deployedAt,
         size: 'large',
         label: 'On'
       }

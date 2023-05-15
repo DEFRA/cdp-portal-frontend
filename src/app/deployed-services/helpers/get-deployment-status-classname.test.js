@@ -1,8 +1,8 @@
 import { getDeploymentStatusClassname } from '~/src/app/deployed-services/helpers/get-deployment-status-classname'
 
 describe('#getDeploymentStatusClassname', () => {
-  test('Should provide expected "deployed" className', () => {
-    expect(getDeploymentStatusClassname('deployed')).toEqual('govuk-tag--green')
+  test('Should provide expected "running" className', () => {
+    expect(getDeploymentStatusClassname('running')).toEqual('govuk-tag--green')
   })
 
   test('Should provide expected "failed" className', () => {

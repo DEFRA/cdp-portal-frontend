@@ -57,6 +57,12 @@ const appConfig = convict({
     default: 'http://localhost:3008/cdp-teams-and-repositories/v1',
     env: 'TEAMS_AND_REPOSITORIES_API_URL'
   },
+  deploymentsV1ApiUrl: {
+    doc: 'Teams and Repositories root API url',
+    format: String,
+    default: 'http://localhost:5094/cdp-deployments',
+    env: 'DEPLOYMENTS_API_URL'
+  },
   selfServiceOpsV1ApiUrl: {
     doc: 'Self Service Ops root API url',
     format: String,
