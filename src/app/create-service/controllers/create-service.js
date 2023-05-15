@@ -50,11 +50,11 @@ const createServiceController = {
     }
 
     if (!validationResult.error) {
-      const teamsAndRepositoriesV1CreateServiceEndpointUrl = `${appConfig.get(
-        'teamsAndRepositoriesV1ApiUrl'
+      const selfServiceOpsV1CreateServiceEndpointUrl = `${appConfig.get(
+        'selfServiceOpsV1ApiUrl'
       )}/create-service`
 
-      await fetch(teamsAndRepositoriesV1CreateServiceEndpointUrl, {
+      await fetch(selfServiceOpsV1CreateServiceEndpointUrl, {
         method: 'post',
         body: JSON.stringify({
           ...validationResult.value,
