@@ -1,6 +1,6 @@
 {
   "name": "cdp-portal-frontend",
-  "version": "0.31.0",
+  "version": "0.33.0",
   "description": "CDP Portal Frontend",
   "main": "src/index.js",
   "engines": {
@@ -14,8 +14,8 @@
     "predev": "npm run build:frontend",
     "dev": "run-p frontend:watch server:watch",
     "dev:debug": "run-p frontend:watch server:debug",
-    "format": "prettier --write src/**/*.js **/*.{js,md,json,config.js}",
-    "format:check": "prettier --check src/**/*.js **/*.{js,md,json,config.js}",
+    "format": "prettier --write 'src/**/*.js' '**/*.{js,md,json,config.js,test.js}'",
+    "format:check": "prettier --check 'src/**/*.js' '**/*.{js,md,json,config.js,test.js}'",
     "frontend:watch": "webpack --watch",
     "lint": "run-s lint:js lint:scss",
     "lint:fix": "eslint . --fix",
