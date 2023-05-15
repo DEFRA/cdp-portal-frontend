@@ -1,6 +1,6 @@
 function getDeploymentStatusClassname(status) {
   switch (true) {
-    case status?.toLowerCase() === 'deployed':
+    case status?.toLowerCase() === 'running':
       return 'govuk-tag--green'
     case status?.toLowerCase() === 'failed':
       return 'govuk-tag--red'

@@ -4,13 +4,15 @@ import { fetchRunningServices } from '~/src/app/running-services/helpers/fetch-r
 const runningServicesListController = {
   handler: async (request, h) => {
     const runningServices = await fetchRunningServices()
-    const entityRows = runningServices.map(transformRunningServicesToEntityRow)
-
+    
+    const entityRows = transformRunningServicesToEntityRow(runningServices)
+    console.log(entityRows)
     return h.view('running-services/views/list', {
       pageTitle: 'Running Services',
       heading: 'Running Services',
       entityRows
     })
+  
   }
 }
 

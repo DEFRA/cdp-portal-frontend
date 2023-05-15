@@ -1,23 +1,41 @@
-function buildEntity(environment) {
+function buildVersion(version) {
   const noValue = '---'
 
   return {
     kind: 'text',
-    value: environment?.version ?? noValue
+    value: version ?? noValue
   }
 }
 
-function transformRunningServicesToEntityRow(runningService) {
-  return [
-    {
-      kind: 'text',
-      value: runningService.serviceName
-    },
-    buildEntity(runningService?.environments?.development),
-    buildEntity(runningService?.environments?.test),
-    buildEntity(runningService?.environments?.perfTest),
-    buildEntity(runningService?.environments?.production)
-  ]
+function transformRunningServicesToEntityRow(runningServices) {
+
+  const byService = {}
+  runningServices.forEach(r => { byService[r.service] = {}; } )
+  runningServices.forEach(r => { byService[r.service][r.environment] = r.version } )
+  
+  const out = []
+  
+  for(const service in byService) {
+    out.push([
+      {
+        kind: 'text',
+        value: service
+      },
+      buildVersion(byService[service].Sandbox),
+      buildVersion(byService[service].Development),
+      buildVersion(byService[service].Testing),
+      buildVersion(byService[service].PreProduction),
+      buildVersion(byService[service].Production),
+    ]
+    )
+  }
+
+  // sort list by name
+  out.sort( (a,b) => {
+    return a[0].value.toLowerCase() < b[0].value.toLowerCase() ? -1 : 1
+  })
+  
+  return out
 }
 
 export { transformRunningServicesToEntityRow }

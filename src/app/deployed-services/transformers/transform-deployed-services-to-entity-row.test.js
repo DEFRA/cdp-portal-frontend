@@ -9,7 +9,7 @@ describe('#transformDeployedServicesToEntityRow', () => {
       expect.arrayContaining([
         expect.objectContaining({
           kind: 'link',
-          url: '/cdp-portal-frontend/deployed-services/64be9663-e19b-4dd1-b606-8fa1a5094ba5',
+          url: '/cdp-portal-frontend/services/FFC Grants Cattle Housing Web',
           value: 'FFC Grants Cattle Housing Web'
         }),
         expect.objectContaining({
@@ -24,7 +24,7 @@ describe('#transformDeployedServicesToEntityRow', () => {
         expect.objectContaining({
           classes: 'govuk-tag--green',
           kind: 'tag',
-          value: 'Deployed'
+          value: 'RUNNING'
         }),
         expect.objectContaining({
           kind: 'text',

@@ -79,7 +79,7 @@ describe('Entity List Component', () => {
       expect(getEntity(3).html()).toContain('1.0.0')
 
       expect(getEntity(4).length).toEqual(1)
-      expect(getEntity(4).html()).toContain('Deployed')
+      expect(getEntity(4).html()).toContain('RUNNING')
 
       expect(getEntity(5).length).toEqual(1)
       expect(getEntity(5).html()).toContain('RoboCop')

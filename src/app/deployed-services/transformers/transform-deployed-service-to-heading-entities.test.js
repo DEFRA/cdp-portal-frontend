@@ -18,7 +18,7 @@ describe('#transformDeploymentToHeadingEntities', () => {
             classes: 'govuk-tag--green',
             kind: 'tag',
             size: 'small',
-            value: 'Deployed'
+            value: 'RUNNING'
           }),
           expect.objectContaining({
             kind: 'text',
