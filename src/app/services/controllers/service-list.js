@@ -1,5 +1,5 @@
 import { fetchServices } from '~/src/app/services/helpers/fetch-services'
-import { sortByTimestamp } from '~/src/common/helpers/sort-by-timestamp'
+import { sortByTimestamp } from '~/src/app/common/helpers/sort-by-timestamp'
 import { transformServiceToEntityRow } from '~/src/app/services/transformers/transform-service-to-entity-row'
 
 const serviceListController = {

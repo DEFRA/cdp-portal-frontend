@@ -1,4 +1,4 @@
-import { sortByTimestamp } from '~/src/common/helpers/sort-by-timestamp'
+import { sortByTimestamp } from '~/src/app/common/helpers/sort-by-timestamp'
 import { deployedServicesFixture } from '~/src/__fixtures__/deployed-services'
 
 describe('#sortByTimestamp', () => {

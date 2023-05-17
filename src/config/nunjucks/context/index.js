@@ -1,7 +1,7 @@
 import path from 'path'
 
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/common/helpers/logger'
+import { createLogger } from '~/src/app/common/helpers/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { blankOption } from '~/src/app/common/helpers/blank-option'
 

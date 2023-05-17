@@ -6,7 +6,7 @@ import { deployService } from '~/src/app/deploy-service'
 import { deployedServices } from '~/src/app/deployed-services'
 import { runningServices } from '~/src/app/running-services'
 import { services } from '~/src/app/services'
-import { serveStaticFiles } from '~/src/common/helpers/serve-static-files'
+import { serveStaticFiles } from '~/src/app/common/helpers/serve-static-files'
 
 const router = {
   plugin: {

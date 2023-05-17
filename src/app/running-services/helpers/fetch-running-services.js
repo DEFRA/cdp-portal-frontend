@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/common/helpers/logger'
+import { createLogger } from '~/src/app/common/helpers/logger'
 
 async function fetchRunningServices() {
   const logger = createLogger()
