@@ -10,11 +10,13 @@ const webpackConfig = {
   }
 }
 
+// TODO split this out into base, development, production configs.
 module.exports = {
   entry: {
     application: './src/common/assets/javascripts/application.js'
   },
   mode: webpackConfig.isDevelopment ? 'development' : 'production',
+  ...(webpackConfig.isDevelopment && { devtool: 'source-map' }),
   output: {
     filename: 'js/[name].[fullhash].js',
     path: path.resolve(__dirname, '.public'),
@@ -22,6 +24,15 @@ module.exports = {
   },
   module: {
     rules: [
+      ...(webpackConfig.isDevelopment
+        ? [
+            {
+              test: /\.js$/,
+              enforce: 'pre',
+              use: ['source-map-loader']
+            }
+          ]
+        : []),
       {
         test: /\.js$/,
         exclude: /node_modules/,

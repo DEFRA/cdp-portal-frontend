@@ -15,6 +15,7 @@ async function createServer() {
   const server = hapi.server({
     port: appConfig.get('port'),
     routes: {
+      cors: true,
       validate: {
         options: {
           abortEarly: false

@@ -32,6 +32,11 @@ describe('#buildNavigation', () => {
           text: 'Create Service',
           url: `${appPathPrefix}/create-service`,
           isActive: false
+        }),
+        expect.objectContaining({
+          text: 'Deploy Service',
+          url: `${appPathPrefix}/deploy-service`,
+          isActive: false
         })
       ])
     )
@@ -65,6 +70,11 @@ describe('#buildNavigation', () => {
         expect.objectContaining({
           text: 'Create Service',
           url: `${appPathPrefix}/create-service`,
+          isActive: false
+        }),
+        expect.objectContaining({
+          text: 'Deploy Service',
+          url: `${appPathPrefix}/deploy-service`,
           isActive: false
         })
       ])

@@ -31,6 +31,12 @@ function buildNavigation(request) {
       url: `${appPathPrefix}/create-service`,
       isActive:
         request?.path?.includes(`${appPathPrefix}/create-service`) ?? false
+    },
+    {
+      text: 'Deploy Service',
+      url: `${appPathPrefix}/deploy-service`,
+      isActive:
+        request?.path?.includes(`${appPathPrefix}/deploy-service`) ?? false
     }
   ]
 }
