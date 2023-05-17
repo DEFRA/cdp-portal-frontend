@@ -1,5 +1,7 @@
-import { createServiceController } from '~/src/app/create-service/controllers'
-import { createServiceFormController } from '~/src/app/create-service/controllers/create-service-form'
+import {
+  createServiceController,
+  createServiceFormController
+} from '~/src/app/create-service/controllers'
 
 const createService = {
   plugin: {

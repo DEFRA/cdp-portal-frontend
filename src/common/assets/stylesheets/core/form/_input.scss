@@ -1,4 +1,5 @@
 .app-input {
+  min-width: 12em;
   border-radius: $app-border-radius;
   border: 1px solid govuk-colour("dark-grey");
 
@@ -6,4 +7,8 @@
     border: 1px solid govuk-colour("black");
     box-shadow: none;
   }
+}
+
+.app-input--wide {
+  width: 24em;
 }

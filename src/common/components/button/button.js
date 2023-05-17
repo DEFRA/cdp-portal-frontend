@@ -1,8 +1,9 @@
-function Button($module) {
+function button($module) {
   if (!$module) {
     return
   }
 
+  // TODO make this generic
   // TODO target the buttons specific loader in a better way
   const $buttonLoader = document.querySelector('[data-js="app-loader"]')
   const $form = $module.form
@@ -16,4 +17,4 @@ function Button($module) {
   })
 }
 
-export { Button }
+export { button }

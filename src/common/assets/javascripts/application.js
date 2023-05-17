@@ -1,21 +1,32 @@
 import { initAll } from 'govuk-frontend'
-import { ReadOut } from '~/src/common/components/read-out/read-out'
-import { Button } from '~/src/common/components/button/button'
+import { readOut } from '~/src/common/components/read-out/read-out'
+import { button } from '~/src/common/components/button/button'
+import { populateSelectOptions } from '~/src/common/helpers/populate-select-options'
 
 import '../stylesheets/application.scss'
 
 initAll()
 
-// TODO handle multiples
-const $readOut = document.querySelector('[data-js="repository-name"]')
+const $readOuts = Array.from(
+  document.querySelectorAll('[data-js="repository-name"]')
+)
 
-if ($readOut) {
-  ReadOut($readOut)
+if ($readOuts.length) {
+  $readOuts.forEach(($readOut) => readOut($readOut))
 }
 
-// TODO handle multiples
-const $button = document.querySelector('[data-js="app-button"]')
+const $buttons = Array.from(document.querySelectorAll('[data-js="app-button"]'))
 
-if ($button) {
-  Button($button)
+if ($buttons.length) {
+  $buttons.forEach(($button) => button($button))
+}
+
+const $selectControllers = Array.from(
+  document.querySelectorAll('[data-js="deploy-version-controller"]')
+)
+
+if ($selectControllers.length) {
+  $selectControllers.forEach(($selectController) =>
+    populateSelectOptions($selectController)
+  )
 }

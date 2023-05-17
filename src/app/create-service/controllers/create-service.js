@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createServiceValidationSchema } from '~/src/app/create-service/helpers/create-service-validation-schema'
+import { buildErrorDetails } from '~/src/app/common/helpers/build-error-details'
 
 // TODO get this from the API layer
 const serviceTypes = [
@@ -29,17 +30,7 @@ const createServiceController = {
     })
 
     if (validationResult?.error) {
-      const errorDetails = validationResult.error.details.reduce(
-        (errors, detail) => {
-          return {
-            [detail.context.key]: {
-              message: detail.message
-            },
-            ...errors
-          }
-        },
-        {}
-      )
+      const errorDetails = buildErrorDetails(validationResult.error.details)
 
       return h.view('create-service/views/form', {
         pageTitle: 'Error | Create a new micro-service',
@@ -56,10 +47,7 @@ const createServiceController = {
 
       await fetch(selfServiceOpsV1CreateServiceEndpointUrl, {
         method: 'post',
-        body: JSON.stringify({
-          ...validationResult.value,
-          repositoryName: validationResult.value.repositoryName
-        }),
+        body: JSON.stringify(validationResult.value),
         headers: { 'Content-Type': 'application/json' }
       })
 

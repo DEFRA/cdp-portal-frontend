@@ -85,6 +85,7 @@
     "resolve-url-loader": "5.0.0",
     "sass": "1.62.1",
     "sass-loader": "13.2.2",
+    "source-map-loader": "4.0.1",
     "style-loader": "3.3.2",
     "stylelint": "14.16.1",
     "stylelint-config-gds": "0.3.0",
