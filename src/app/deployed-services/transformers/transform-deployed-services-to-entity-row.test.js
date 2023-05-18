@@ -8,8 +8,7 @@ describe('#transformDeployedServicesToEntityRow', () => {
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          kind: 'link',
-          url: '/cdp-portal-frontend/services/FFC Grants Cattle Housing Web',
+          kind: 'text',
           value: 'FFC Grants Cattle Housing Web'
         }),
         expect.objectContaining({
