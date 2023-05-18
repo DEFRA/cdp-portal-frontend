@@ -1,24 +1,5 @@
 import { isFunction } from 'lodash'
 
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
-
-const fetchVersion = async function fetchVersion(value) {
-  try {
-    const response = await fetch(
-      `deploy-service/available-versions?serviceName=${value}`
-    )
-    const versions = await response.json()
-
-    return buildSelectOptions(versions, false)
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-
-const dataFetchers = {
-  fetchVersion
-}
-
 function populateSelectOptions($controller) {
   if (!$controller) {
     return
@@ -27,10 +8,13 @@ function populateSelectOptions($controller) {
   const $target = document.querySelector(
     `[data-js="${$controller.getAttribute('data-target')}"]`
   )
+  const $loader = document.querySelector(
+    `[data-js="${$controller.getAttribute('data-loader')}"]`
+  )
   const dataFetcherName = $controller.getAttribute('data-fetcher')
-  const dataFetcher = dataFetchers[dataFetcherName]
+  const dataFetcher = window[dataFetcherName]
 
-  if (!$target && !isFunction(dataFetcher)) {
+  if (!$target || !isFunction(dataFetcher)) {
     return
   }
 
@@ -38,16 +22,23 @@ function populateSelectOptions($controller) {
   blankOption.hidden = true
 
   $controller.addEventListener('change', async (event) => {
+    const delayedLoader = setTimeout(() => {
+      $loader.classList.add('app-loader--is-loading')
+    }, 200)
+
     const value = event?.target?.value
 
-    // remove all version options from select element
+    // Remove all options from select element
     Array.from($target?.options).forEach((option) => option.remove())
 
-    const versions = await dataFetcher(value)
+    const options = await dataFetcher(value)
+
+    clearTimeout(delayedLoader)
+    $loader.classList.remove('app-loader--is-loading')
 
     const optionsWithPrependedBlank = [
       blankOption,
-      ...versions.map((version) => new Option(version.text, version.value))
+      ...options.map((option) => new Option(option.text, option.value))
     ]
 
     optionsWithPrependedBlank.forEach((option) => $target.add(option))

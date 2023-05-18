@@ -1,4 +1,4 @@
-{% extends 'layouts/page.njk' %}
+{% extends "layouts/page.njk" %}
 
 {% from "entity-list/macro.njk" import appEntityList %}
 
@@ -12,15 +12,15 @@
 
   {{ appEntityList({
     headings: [
-      { text: 'Service', size: 'large'},
-      { text: 'Sandbox', size: 'small'},
-      { text: 'Development', size: 'small'},
-      { text: 'Test', size: 'small'},
-      { text: 'Perf Test', size: 'small'},
-      { text: 'Production', size: 'small'}
+      { text: "Service", size: "large"},
+      { text: "Sandbox", size: "small"},
+      { text: "Development", size: "small"},
+      { text: "Test", size: "small"},
+      { text: "Perf Test", size: "small"},
+      { text: "Production", size: "small"}
     ],
     entityRows: entityRows,
-    noResult: 'Currently there are no services running in any environments'
+    noResult: "Currently there are no services running in any environments"
   }) }}
 
 {% endblock %}

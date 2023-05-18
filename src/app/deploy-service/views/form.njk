@@ -1,4 +1,4 @@
-{% extends 'layouts/page.njk' %}
+{% extends "layouts/page.njk" %}
 
 {% block content %}
 
@@ -30,13 +30,14 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "govuk-!-margin-bottom-3 app-form-group-error"
+            classes: "govuk-!-margin-bottom-3 app-form-group"
           },
           value: values.imageName,
           attributes: {
-            'data-js': 'deploy-version-controller',
-            'data-fetcher': 'fetchVersion',
-            'data-target': 'deploy-version'
+            "data-js": "select-controller",
+            "data-fetcher": "fetchVersions",
+            "data-target": "deploy-version",
+            "data-loader": "version-loader"
           },
           errorMessage: {
             text: errors.imageName.message,
@@ -45,7 +46,7 @@
           items: deployableImagesOptions
         }) }}
 
-        {{ govukSelect({
+        {{ appSelect({
           id: "version",
           name: "version",
           label: {
@@ -55,14 +56,17 @@
           classes: "app-select",
           value: values.version,
           hint: {
-            text: "Available ECR repository image versions",
+            text: "ECR repository image versions",
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "govuk-!-margin-bottom-3 app-form-group-error"
+            classes: "govuk-!-margin-bottom-3 app-form-group"
           },
           attributes: {
-            'data-js': 'deploy-version'
+            "data-js": "deploy-version"
+          },
+          loader: {
+            name: "version-loader"
           },
           errorMessage: {
             text: errors.version.message,
@@ -85,7 +89,7 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "govuk-!-margin-bottom-6 app-form-group-error"
+            classes: "govuk-!-margin-bottom-6 app-form-group"
           },
           errorMessage: {
             text: errors.environment.message,
@@ -118,7 +122,10 @@
       {% endcall %}
 
       {{ appButton({
-        text: "Deploy"
+        text: "Deploy",
+        loader: {
+          name: "deploy-submit-button"
+        }
       }) }}
 
     </form>

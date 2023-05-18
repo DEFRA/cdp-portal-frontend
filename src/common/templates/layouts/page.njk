@@ -11,12 +11,13 @@
 {% from "header/macro.njk" import appHeader %}
 {% from "heading/macro.njk" import appHeading %}
 {% from "footer/macro.njk" import appFooter %}
+{% from "select/macro.njk" import appSelect %}
 {% from "page-body/macro.njk" import appPageBody %}
 
 {% set mainClasses = "app-main-wrapper" %}
 
 {% block head %}
-  <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
+  <link href="{{ getAssetPath("application.css") }}" rel="stylesheet">
   <meta name="version" content="{{ version }}">
 {% endblock %}
 
@@ -57,5 +58,5 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script src="{{ getAssetPath('application.js') }}"></script>
+  <script src="{{ getAssetPath("application.js") }}"></script>
 {% endblock %}
