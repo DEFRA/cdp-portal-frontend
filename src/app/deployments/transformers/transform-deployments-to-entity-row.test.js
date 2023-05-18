@@ -1,14 +1,13 @@
-import { transformDeployedServicesToEntityRow } from '~/src/app/deployed-services/transformers/transform-deployed-services-to-entity-row'
-import { deployedServicesFixture } from '~/src/__fixtures__/deployed-services'
+import { transformDeploymentsToEntityRow } from '~/src/app/deployments/transformers/transform-deployments-to-entity-row'
+import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 
-describe('#transformDeployedServicesToEntityRow', () => {
+describe('#transformDeploymentsToEntityRow', () => {
   test('Should provide expected deployed service transformation', () => {
-    expect(
-      transformDeployedServicesToEntityRow(deployedServicesFixture.at(0))
-    ).toEqual(
+    expect(transformDeploymentsToEntityRow(deploymentsFixture.at(0))).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          kind: 'text',
+          kind: 'link',
+          url: '/cdp-portal-frontend/deployments/0C4B29DB-2CFD-4EDA-AB79-7E39DEB36E3E',
           value: 'FFC Grants Cattle Housing Web'
         }),
         expect.objectContaining({
