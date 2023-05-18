@@ -1,4 +1,4 @@
-{% extends 'layouts/page.njk' %}
+{% extends "layouts/page.njk" %}
 
 {% from "read-out/macro.njk" import appReadOut %}
 
@@ -32,7 +32,7 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "govuk-!-margin-bottom-3 app-form-group-error"
+            classes: "govuk-!-margin-bottom-3 app-form-group"
           },
           value: values.repositoryName,
           attributes: {
@@ -64,7 +64,7 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "govuk-!-margin-bottom-3 app-form-group-error"
+            classes: "govuk-!-margin-bottom-3 app-form-group"
           },
           value: values.serviceType,
           errorMessage: {
@@ -106,7 +106,7 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "govuk-!-margin-bottom-6 app-form-group-error"
+            classes: "govuk-!-margin-bottom-6 app-form-group"
           },
           errorMessage: {
             text: errors.owningTeam.message,
@@ -135,7 +135,10 @@
       {% endcall %}
 
       {{ appButton({
-        text: "Create"
+        text: "Create",
+        loader: {
+          name: "create-submit-button"
+        }
       }) }}
 
     </form>

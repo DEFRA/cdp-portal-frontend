@@ -3,16 +3,16 @@ function button($module) {
     return
   }
 
-  // TODO make this generic
-  // TODO target the buttons specific loader in a better way
-  const $buttonLoader = document.querySelector('[data-js="app-loader"]')
+  const $loader = document.querySelector(
+    `[data-js="${$module.getAttribute('data-loader')}"]`
+  )
+
   const $form = $module.form
 
   $form.addEventListener('submit', () => {
-    $module.setAttribute('disabled', 'disabled')
-
     setTimeout(() => {
-      $buttonLoader.classList.add('app-loader--is-loading')
+      $module.setAttribute('disabled', 'disabled')
+      $loader.classList.add('app-loader--is-loading')
     }, 200)
   })
 }

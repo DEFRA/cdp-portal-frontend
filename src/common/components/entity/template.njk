@@ -10,28 +10,28 @@
             data-testid="app-entity-label">{{ params.label }}:</span>
     {% endif %}
 
-    {% if params.kind === 'link' %}
+    {% if params.kind === "link" %}
       <a class="app-entity__link"
          href="{{ params.url }}"{% if params.newWindow %} target="_blank" rel="noopener noreferrer"{% endif %}
          data-testid="app-entity-link">
         {{ params.value }}
       </a>
 
-    {% elseif params.kind === 'tag' %}
+    {% elseif params.kind === "tag" %}
       {{ govukTag({
         text: params.value,
         classes: params.classes,
         attributes: {
-          'data-testid': 'govuk-tag'
+          "data-testid": "govuk-tag"
         }
       }) }}
 
-    {% elseif params.kind === 'date' %}
+    {% elseif params.kind === "date" %}
       {{ appTime({
         datetime: params.value
       }) }}
 
-    {% elseif params.kind === 'text' %}
+    {% elseif params.kind === "text" %}
       {{ params.value }}
     {% endif %}
 

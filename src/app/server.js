@@ -5,11 +5,11 @@ import { plugin as basicAuth } from '@hapi/basic'
 import { appConfig } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { router } from './router'
-import { requestLogger } from '~/src/common/helpers/request-logger'
-import { catchAll } from '~/src/common/helpers/errors'
-import { flashMessage } from '~/src/common/helpers/flash-message'
-import { addNotificationsToContext } from '~/src/common/helpers/add-notifications-to-context'
-import { validateBasicAuth } from '~/src/common/helpers/basic-auth'
+import { requestLogger } from '~/src/app/common/helpers/request-logger'
+import { catchAll } from '~/src/app/common/helpers/errors'
+import { flashMessage } from '~/src/app/common/helpers/flash-message'
+import { addNotificationsToContext } from '~/src/app/common/helpers/add-notifications-to-context'
+import { validateBasicAuth } from '~/src/app/common/helpers/basic-auth'
 
 async function createServer() {
   const server = hapi.server({

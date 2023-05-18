@@ -17,6 +17,10 @@ module.exports = {
   },
   mode: webpackConfig.isDevelopment ? 'development' : 'production',
   ...(webpackConfig.isDevelopment && { devtool: 'source-map' }),
+  watchOptions: {
+    aggregateTimeout: 200,
+    poll: 1000
+  },
   output: {
     filename: 'js/[name].[fullhash].js',
     path: path.resolve(__dirname, '.public'),

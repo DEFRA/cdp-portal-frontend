@@ -12,3 +12,12 @@
 .app-select--wide {
   min-width: 24em;
 }
+
+.app-select-wrapper {
+  display: flex;
+
+  .app-loader {
+    position: relative;
+    bottom: 4px;
+  }
+}
