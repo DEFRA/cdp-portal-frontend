@@ -1,7 +1,4 @@
-import {
-  deployedServiceController,
-  deployedServicesListController
-} from '~/src/app/deployed-services/controllers'
+import { deployedServicesListController } from '~/src/app/deployed-services/controllers'
 
 const deployedServices = {
   plugin: {
@@ -12,11 +9,6 @@ const deployedServices = {
           method: 'GET',
           path: '/deployed-services',
           ...deployedServicesListController
-        },
-        {
-          method: 'GET',
-          path: '/deployed-services/{serviceDeploymentId}',
-          ...deployedServiceController
         }
       ])
     }

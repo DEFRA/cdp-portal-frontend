@@ -1,14 +1,10 @@
-import { appConfig } from '~/src/config'
 import { getDeploymentStatusClassname } from '~/src/app/deployed-services/helpers/get-deployment-status-classname'
 
 function transformDeployedServicesToEntityRow(deployedService) {
   return [
     {
-      kind: 'link',
-      value: deployedService.service,
-      url: `${appConfig.get('appPathPrefix')}/services/${
-        deployedService.service
-      }`
+      kind: 'text',
+      value: deployedService.service
     },
     {
       kind: 'tag',
