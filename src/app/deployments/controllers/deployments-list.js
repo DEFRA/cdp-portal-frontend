@@ -1,12 +1,12 @@
 import { fetchDeployments } from '~/src/app/deployments/helpers/fetch-deployments'
-import { sortByTimestamp } from '~/src/app/common/helpers/sort-by-timestamp'
+import { sortBy } from '~/src/app/common/helpers/sort-by'
 import { transformDeploymentsToEntityRow } from '~/src/app/deployments/transformers/transform-deployments-to-entity-row'
 
 const deploymentsListController = {
   handler: async (request, h) => {
     const deployments = await fetchDeployments()
     const entityRows = deployments
-      .sort(sortByTimestamp())
+      .sort(sortBy('timestamp'))
       .map(transformDeploymentsToEntityRow)
 
     return h.view('deployments/views/list', {

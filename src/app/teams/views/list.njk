@@ -1,0 +1,21 @@
+{% extends "layouts/page.njk" %}
+
+{% from "entity-list/macro.njk" import appEntityList %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: "Organisation Teams"
+  }) }}
+
+  {{ appEntityList({
+    headings: [
+      { text: "Team", size: "medium"},
+      { text: "Members", size: "small"},
+      { text: "Created", size: "medium"}
+    ],
+    entityRows: entityRows,
+    noResult: "Currently there are no teams"
+  }) }}
+
+{% endblock %}

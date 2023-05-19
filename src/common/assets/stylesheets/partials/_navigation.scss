@@ -7,15 +7,28 @@ $border-bottom-width: 4px;
 }
 
 .app-navigation__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
   @include govuk-media-query($from: tablet) {
     display: flex;
     height: $navigation-height;
     height: govuk-px-to-rem($navigation-height);
   }
+}
+
+.app-navigation__primary {
+  display: flex;
+  flex: 3;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-navigation__actions {
+  display: flex;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  justify-content: flex-end;
 }
 
 .app-navigation__list-item {
