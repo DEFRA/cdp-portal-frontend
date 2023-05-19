@@ -2,14 +2,14 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/app/common/helpers/logger'
 
-async function fetchDeployedServices() {
+async function fetchDeployment(deploymentId) {
   const logger = createLogger()
-  const deployedServicesEndpointUrl = `${appConfig.get(
+  const deploymentEndpointUrl = `${appConfig.get(
     'deploymentsV1ApiUrl'
-  )}/deployments`
+  )}/deployments/${deploymentId}`
 
   try {
-    const response = await fetch(deployedServicesEndpointUrl)
+    const response = await fetch(deploymentEndpointUrl)
     return await response.json()
   } catch (error) {
     logger.error(error)
@@ -17,4 +17,4 @@ async function fetchDeployedServices() {
   }
 }
 
-export { fetchDeployedServices }
+export { fetchDeployment }

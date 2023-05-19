@@ -1,10 +1,14 @@
-import { getDeploymentStatusClassname } from '~/src/app/deployed-services/helpers/get-deployment-status-classname'
+import { appConfig } from '~/src/config'
+import { getDeploymentStatusClassname } from '~/src/app/deployments/helpers/get-deployment-status-classname'
 
-function transformDeployedServicesToEntityRow(deployedService) {
+function transformDeploymentsToEntityRow(deployedService) {
   return [
     {
-      kind: 'text',
-      value: deployedService.service
+      kind: 'link',
+      value: deployedService.service,
+      url: `${appConfig.get('appPathPrefix')}/deployments/${
+        deployedService.deploymentId
+      }`
     },
     {
       kind: 'tag',
@@ -31,4 +35,4 @@ function transformDeployedServicesToEntityRow(deployedService) {
   ]
 }
 
-export { transformDeployedServicesToEntityRow }
+export { transformDeploymentsToEntityRow }

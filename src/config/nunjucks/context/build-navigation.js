@@ -15,10 +15,9 @@ function buildNavigation(request) {
       isActive: request?.path?.includes(`${appPathPrefix}/services`) ?? false
     },
     {
-      text: 'Deployed Services',
-      url: `${appPathPrefix}/deployed-services`,
-      isActive:
-        request?.path?.includes(`${appPathPrefix}/deployed-services`) ?? false
+      text: 'Deployments',
+      url: `${appPathPrefix}/deployments`,
+      isActive: request?.path?.includes(`${appPathPrefix}/deployments`) ?? false
     },
     {
       text: 'Running Services',
