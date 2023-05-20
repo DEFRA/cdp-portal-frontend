@@ -10,6 +10,5 @@
 }
 
 .app-entity-label {
-  @include govuk-font($size: 16);
   color: govuk-colour("dark-grey");
 }
