@@ -1,5 +1,5 @@
 import { fetchServices } from '~/src/app/services/helpers/fetch-services'
-import { sortBy } from '~/src/app/common/helpers/sort-by'
+import { sortBy } from '~/src/common/helpers/sort-by'
 import { transformServiceToEntityRow } from '~/src/app/services/transformers/transform-service-to-entity-row'
 
 const serviceListController = {

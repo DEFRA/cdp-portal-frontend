@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createServiceValidationSchema } from '~/src/app/create-service/helpers/create-service-validation-schema'
-import { buildErrorDetails } from '~/src/app/common/helpers/build-error-details'
+import { buildErrorDetails } from '~/src/common/helpers/build-error-details'
 import { fetchTeams } from '~/src/app/teams/helpers/fetch-teams'
 import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
 

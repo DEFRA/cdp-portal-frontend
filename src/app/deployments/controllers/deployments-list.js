@@ -1,5 +1,5 @@
 import { fetchDeployments } from '~/src/app/deployments/helpers/fetch-deployments'
-import { sortBy } from '~/src/app/common/helpers/sort-by'
+import { sortBy } from '~/src/common/helpers/sort-by'
 import { transformDeploymentsToEntityRow } from '~/src/app/deployments/transformers/transform-deployments-to-entity-row'
 
 const deploymentsListController = {

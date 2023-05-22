@@ -1,4 +1,4 @@
-import { blankOption } from '~/src/app/common/helpers/blank-option'
+import { blankOption } from '~/src/common/helpers/blank-option'
 
 function buildSelectOptions(items, withBlank = true) {
   return [

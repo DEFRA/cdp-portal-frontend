@@ -1,6 +1,6 @@
 import { fetchDeployableImageNames } from '~/src/app/deploy-service/helpers/fetch-deployable-image-names'
 import { transformImageNamesToOptions } from '~/src/app/deploy-service/transformers/transform-image-names-to-options'
-import { optionsWithMessage } from '~/src/app/common/helpers/options-with-message'
+import { optionsWithMessage } from '~/src/common/helpers/options-with-message'
 
 const deployServiceFormController = {
   handler: async (request, h) => {

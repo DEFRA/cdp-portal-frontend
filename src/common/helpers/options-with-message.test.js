@@ -1,4 +1,4 @@
-import { optionsWithMessage } from '~/src/app/common/helpers/options-with-message'
+import { optionsWithMessage } from '~/src/common/helpers/options-with-message'
 
 describe('#optionsWithMessage', () => {
   test('Should provide expected options', () => {

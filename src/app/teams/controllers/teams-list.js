@@ -1,5 +1,5 @@
 import { fetchTeams } from '~/src/app/teams/helpers/fetch-teams'
-import { sortBy } from '~/src/app/common/helpers/sort-by'
+import { sortBy } from '~/src/common/helpers/sort-by'
 import { transformTeamToEntityRow } from '~/src/app/teams/transformers/transform-team-to-entity-row'
 
 const teamsListController = {
