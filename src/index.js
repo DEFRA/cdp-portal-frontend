@@ -1,6 +1,6 @@
 import { appConfig } from '~/src/config'
 import { createServer } from '~/src/app/server'
-import { createLogger } from '~/src/app/common/helpers/logger'
+import { createLogger } from '~/src/common/helpers/logger'
 
 const logger = createLogger()
 

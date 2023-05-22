@@ -4,8 +4,8 @@ import { fetchDeployableImageNames } from '~/src/app/deploy-service/helpers/fetc
 import { transformImageNamesToOptions } from '~/src/app/deploy-service/transformers/transform-image-names-to-options'
 import { fetchAvailableVersions } from '~/src/app/deploy-service/helpers/fetch-available-versions'
 import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
-import { optionsWithMessage } from '~/src/app/common/helpers/options-with-message'
-import { buildErrorDetails } from '~/src/app/common/helpers/build-error-details'
+import { optionsWithMessage } from '~/src/common/helpers/options-with-message'
+import { buildErrorDetails } from '~/src/common/helpers/build-error-details'
 
 const deployServiceController = {
   handler: async (request, h) => {

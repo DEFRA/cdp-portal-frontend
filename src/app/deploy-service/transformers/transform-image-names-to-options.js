@@ -1,4 +1,4 @@
-import { blankOption } from '~/src/app/common/helpers/blank-option'
+import { blankOption } from '~/src/common/helpers/blank-option'
 
 function transformImageNamesToOptions(imageNames) {
   return [

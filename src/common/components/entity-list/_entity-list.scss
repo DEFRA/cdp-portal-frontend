@@ -1,5 +1,5 @@
 .app-entity-list {
-  margin-top: 0;
+  margin-top: govuk-spacing(4);
   @include govuk-responsive-margin(1, "bottom");
   padding-left: 0;
   list-style-type: none;
@@ -35,17 +35,22 @@
   margin-right: govuk-spacing(2);
 }
 
-.app-entity-list__item--small {
+.app-entity-list__item--tiny {
   flex: .2;
-  max-width: 140px;
+  max-width: 80px;
+}
+
+.app-entity-list__item--small {
+  flex: .4;
+  max-width: 160px;
 }
 
 .app-entity-list__item--medium {
-  flex: .8;
-  max-width: 280px;
+  flex: .6;
+  max-width: 240px;
 }
 
 .app-entity-list__item--large {
   flex: 1;
-  max-width: 360px;
+  max-width: 400px;
 }

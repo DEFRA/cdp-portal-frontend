@@ -6,7 +6,7 @@ const runningServicesListController = {
     const runningServices = await fetchRunningServices()
 
     const entityRows = transformRunningServicesToEntityRow(runningServices)
-    console.log(entityRows)
+
     return h.view('running-services/views/list', {
       pageTitle: 'Running Services',
       heading: 'Running Services',

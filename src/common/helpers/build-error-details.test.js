@@ -1,4 +1,4 @@
-import { buildErrorDetails } from '~/src/app/common/helpers/build-error-details'
+import { buildErrorDetails } from '~/src/common/helpers/build-error-details'
 import { joiValidationErrorDetailsFixture } from '~/src/__fixtures__/joi-validation-error-details'
 
 describe('#buildErrorDetails', () => {

@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/app/common/helpers/logger'
+import { createLogger } from '~/src/common/helpers/logger'
 
 async function fetchAvailableVersions(serviceName) {
   // TODO fix up API. At the moment if no serviceName is provided then it returns /deployables endpoint JSON

@@ -6,7 +6,8 @@ import { deployService } from '~/src/app/deploy-service'
 import { deployments } from '~/src/app/deployments'
 import { runningServices } from '~/src/app/running-services'
 import { services } from '~/src/app/services'
-import { serveStaticFiles } from '~/src/app/common/helpers/serve-static-files'
+import { teams } from '~/src/app/teams'
+import { serveStaticFiles } from '~/src/common/helpers/serve-static-files'
 
 const router = {
   plugin: {
@@ -21,6 +22,7 @@ const router = {
         deployments,
         runningServices,
         services,
+        teams,
         serveStaticFiles
       ])
     }

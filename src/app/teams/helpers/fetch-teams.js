@@ -2,14 +2,14 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
 
-async function fetchRunningServices() {
+async function fetchTeams() {
   const logger = createLogger()
-  const runningServicesEndpointUrl = `${appConfig.get(
-    'deploymentsV1ApiUrl'
-  )}/whats-running-where`
+  const teamsEndpointUrl = `${appConfig.get(
+    'teamsAndRepositoriesV1ApiUrl'
+  )}/teams`
 
   try {
-    const response = await fetch(runningServicesEndpointUrl)
+    const response = await fetch(teamsEndpointUrl)
     return await response.json()
   } catch (error) {
     logger.error(error)
@@ -17,4 +17,4 @@ async function fetchRunningServices() {
   }
 }
 
-export { fetchRunningServices }
+export { fetchTeams }

@@ -2,7 +2,7 @@
 
 {% from "time/macro.njk" import appTime %}
 
-{% if params.value %}
+{% if params.value or params.value == 0 %}
   <div class="app-entity"
        data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
     {% if params.label %}
