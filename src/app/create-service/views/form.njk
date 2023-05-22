@@ -71,25 +71,7 @@
             text: errors.serviceType.message,
             classes: "govuk-!-margin-bottom-1 app-error-message"
           } if errors.serviceType.message,
-          items: [
-            blankOption,
-            {
-              value: "cdp-node-frontend-template",
-              text: "Node.js Frontend"
-            },
-            {
-              value: "cdp-node-backend-template",
-              text: "Node.js Backend"
-            },
-            {
-              value: "cdp-dotnet-backend-template",
-              text: "DotNet Backend"
-            },
-            {
-              value: "cdp-java-backend-template",
-              text: "Java Backend"
-            }
-          ]
+          items: serviceTypesOptions
         }) }}
 
         {{ govukSelect({
