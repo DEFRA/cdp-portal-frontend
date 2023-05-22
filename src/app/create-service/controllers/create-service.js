@@ -4,24 +4,20 @@ import { createServiceValidationSchema } from '~/src/app/create-service/helpers/
 import { buildErrorDetails } from '~/src/common/helpers/build-error-details'
 import { fetchTeams } from '~/src/app/teams/helpers/fetch-teams'
 import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
-
-// TODO get this from the API layer
-const serviceTypes = [
-  'cdp-node-frontend-template',
-  'cdp-node-backend-template',
-  'cdp-dotnet-backend-template',
-  'cdp-java-backend-template'
-]
+import { fetchServiceTypes } from '~/src/app/create-service/helpers/fetch-service-types'
 
 const createServiceController = {
   handler: async (request, h) => {
     const payload = request?.payload
 
+    const { serviceTypes } = await fetchServiceTypes()
+    const serviceTypesIds = serviceTypes.map((serviceType) => serviceType.value)
+
     const { teams } = await fetchTeams()
     const teamsIds = teams.map((team) => team.id)
 
     const validationResult = createServiceValidationSchema(
-      serviceTypes,
+      serviceTypesIds,
       teamsIds
     ).validate(payload, {
       abortEarly: false
@@ -29,6 +25,8 @@ const createServiceController = {
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
+
+      const serviceTypesOptions = buildSelectOptions(serviceTypes)
 
       const teamsOptions = buildSelectOptions(
         teams.map((team) => ({
@@ -40,6 +38,7 @@ const createServiceController = {
       return h.view('create-service/views/form', {
         pageTitle: 'Error | Create a new micro-service',
         heading: 'Create a new micro-service',
+        serviceTypesOptions,
         teamsOptions,
         errors: errorDetails,
         values: payload
