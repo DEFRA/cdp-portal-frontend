@@ -2,6 +2,8 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createServiceValidationSchema } from '~/src/app/create-service/helpers/create-service-validation-schema'
 import { buildErrorDetails } from '~/src/app/common/helpers/build-error-details'
+import { fetchTeams } from '~/src/app/teams/helpers/fetch-teams'
+import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
 
 // TODO get this from the API layer
 const serviceTypes = [
@@ -11,20 +13,16 @@ const serviceTypes = [
   'cdp-java-backend-template'
 ]
 
-// TODO get this from the API layer
-const owningTeams = [
-  'animal-and-plant-health',
-  'cdp-platform',
-  'fisheries',
-  'forestry-management'
-]
-
 const createServiceController = {
   handler: async (request, h) => {
     const payload = request?.payload
+
+    const { teams } = await fetchTeams()
+    const teamsIds = teams.map((team) => team.id)
+
     const validationResult = createServiceValidationSchema(
       serviceTypes,
-      owningTeams
+      teamsIds
     ).validate(payload, {
       abortEarly: false
     })
@@ -32,9 +30,17 @@ const createServiceController = {
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
 
+      const teamsOptions = buildSelectOptions(
+        teams.map((team) => ({
+          text: team.name,
+          value: team.id
+        }))
+      )
+
       return h.view('create-service/views/form', {
         pageTitle: 'Error | Create a new micro-service',
         heading: 'Create a new micro-service',
+        teamsOptions,
         errors: errorDetails,
         values: payload
       })

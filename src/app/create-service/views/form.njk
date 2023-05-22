@@ -112,25 +112,7 @@
             text: errors.owningTeam.message,
             classes: "govuk-!-margin-bottom-1 app-error-message"
           } if errors.owningTeam.message,
-          items: [
-            blankOption,
-            {
-              value: "animal-and-plant-health",
-              text: "Animal And Plant Health"
-            },
-            {
-              value: "cdp-platform",
-              text: "CDP Platform"
-            },
-            {
-              value: "fisheries",
-              text: "Fisheries"
-            },
-            {
-              value: "forestry-management",
-              text: "Forestry Management"
-            }
-          ]
+          items: teamsOptions
         }) }}
       {% endcall %}
 
