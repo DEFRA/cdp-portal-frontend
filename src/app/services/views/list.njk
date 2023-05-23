@@ -5,16 +5,17 @@
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "Frontend and Backend micro-services."
+    caption: "Frontend and Backend micro-service information."
   }) }}
 
   {{ appEntityList({
     headings: [
-      { text: "Repository", size: "large"},
-      { text: "Type", size: "small"},
-      { text: "GitHub Repository", size: "medium"},
-      { text: "Owner", size: "medium"},
-      { text: "Last Updated", size: "large"}
+      { text: "Service", size: "medium" },
+      { text: "Type", size: "tiny" },
+      { text: "Owner", size: "small" },
+      { text: "Url", size: "large" },
+      { text: "GitHub Repository", size: "large" },
+      { text: "Created", size: "large" }
     ],
     entityRows: entityRows,
     noResult: "Currently there are no services"

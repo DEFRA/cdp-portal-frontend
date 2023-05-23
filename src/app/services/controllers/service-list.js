@@ -4,9 +4,9 @@ import { transformServiceToEntityRow } from '~/src/app/services/transformers/tra
 
 const serviceListController = {
   handler: async (request, h) => {
-    const services = await fetchServices()
+    const { services } = await fetchServices()
     const entityRows = services
-      .sort(sortBy('timestamp'))
+      .sort(sortBy('id', 'asc'))
       .map(transformServiceToEntityRow)
 
     return h.view('services/views/list', {

@@ -1,0 +1,3 @@
+const noValue = '---'
+
+export { noValue }
