@@ -6,8 +6,8 @@ const serviceListController = {
   handler: async (request, h) => {
     const { services } = await fetchServices()
     const entityRows = services
-      .sort(sortBy('id', 'asc'))
-      .map(transformServiceToEntityRow)
+      ?.sort(sortBy('id', 'asc'))
+      ?.map(transformServiceToEntityRow)
 
     return h.view('services/views/list', {
       pageTitle: 'Services',
