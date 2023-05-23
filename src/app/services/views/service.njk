@@ -5,7 +5,7 @@
 {% block content %}
 
   {{ appHeading({
-    text: heading,
+    text: "Service - " + heading,
     caption: "Micro-service information.",
     entities: headingEntities
   }) }}
@@ -14,15 +14,18 @@
 
   <div class="govuk-grid-row govuk-!-margin-bottom-4">
     <div class="govuk-grid-column-one-half">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service Url</h2>
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service Url</h2>
       <p>
         <a class="govuk-link" href="{{ service.url }}" target="_blank">{{ serviceUrlText }}</a>
       </p>
 
-      <h2 class="govuk-heading-l govuk-!-padding-top-0 govuk-!-margin-bottom-2">GitHub Repository</h2>
+      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">GitHub Repository</h2>
       <p>
         <a class="govuk-link" href="{{ service.repositoryUrl }}" target="_blank">defra-cdp-sandpit/{{ service.id }}</a>
       </p>
+
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Elastic Container Registry (ECR) Image name</h2>
+      <p>{{ service.id }}</p>
     </div>
   </div>
 

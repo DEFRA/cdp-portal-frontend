@@ -1,4 +1,4 @@
-const deploymentsFixture = [
+const deployments = [
   {
     deploymentId: '553E4E6B-05D7-4A2E-BF80-02ED34DEF864',
     environment: 'Production',
@@ -31,4 +31,4 @@ const deploymentsFixture = [
   }
 ]
 
-export { deploymentsFixture }
+module.exports = { deployments }

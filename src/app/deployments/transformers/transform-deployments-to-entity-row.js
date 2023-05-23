@@ -13,6 +13,10 @@ function transformDeploymentsToEntityRow(deployedService) {
       }`
     },
     {
+      kind: 'text',
+      value: deployedService.service
+    },
+    {
       kind: 'tag',
       value: deployedService.environment,
       classes: 'govuk-tag--blue'

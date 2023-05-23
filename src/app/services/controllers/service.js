@@ -3,7 +3,6 @@ import { startCase } from 'lodash'
 import { appConfig } from '~/src/config'
 import { fetchService } from '~/src/app/services/helpers/fetch-service'
 import { transformServiceToHeadingEntities } from '~/src/app/services/transformers/transform-service-to-heading-entities'
-import { buildServiceUrlText } from '~/src/app/services/helpers/build-service-url-text'
 
 const serviceController = {
   handler: async (request, h) => {
@@ -13,7 +12,7 @@ const serviceController = {
       pageTitle: `${service.id} service`,
       heading: startCase(service.id),
       service,
-      serviceUrlText: buildServiceUrlText(service),
+      serviceUrlText: service.url && `https://snd.${service.id}.defra.gov.uk`,
       headingEntities: transformServiceToHeadingEntities(service),
       breadcrumbs: [
         {

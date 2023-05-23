@@ -12,7 +12,7 @@ describe('#transformDeploymentToHeadingEntities', () => {
             classes: 'govuk-tag--blue',
             kind: 'tag',
             size: 'small',
-            value: 'production'
+            value: 'Production'
           }),
           expect.objectContaining({
             classes: 'govuk-tag--green',
@@ -24,7 +24,7 @@ describe('#transformDeploymentToHeadingEntities', () => {
             kind: 'text',
             label: 'Version',
             size: 'small',
-            value: '1.0.0'
+            value: '0.2.0'
           })
         ]),
         secondary: expect.arrayContaining([
@@ -38,7 +38,7 @@ describe('#transformDeploymentToHeadingEntities', () => {
             kind: 'date',
             label: 'On',
             size: 'large',
-            value: '2023-04-11T14:40:02.242Z'
+            value: '2023-05-18T21:54:12Z'
           })
         ])
       })

@@ -5,7 +5,7 @@
 {% block content %}
 
   {{ appHeading({
-    text: heading,
+    text: "Team - " + heading,
     caption: team.description,
     entities: headingEntities
   }) }}
@@ -14,7 +14,7 @@
 
   <div class="govuk-grid-row govuk-!-margin-bottom-4">
     <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Team Members</h2>
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Team Members</h2>
 
       {% if team.members.length %}
         <ul class="govuk-list govuk-list--bullet">
@@ -31,7 +31,7 @@
         <p>This team does not currently have any members</p>
       {% endif %}
 
-      <h2 class="govuk-heading-l govuk-!-padding-top-0 govuk-!-margin-bottom-2">Repositories</h2>
+      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Repositories</h2>
 
       {% if team.repositories.length %}
         <ul class="govuk-list govuk-list--bullet">

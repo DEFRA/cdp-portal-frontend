@@ -1,11 +1,9 @@
 import { startCase } from 'lodash'
 
-import { noValue } from '~/src/common/constants/no-value'
-
 function buildVersion(version) {
   return {
     kind: 'text',
-    value: version ?? noValue
+    value: version ?? null
   }
 }
 
@@ -14,6 +12,7 @@ function transformServicesToEntityRows(services) {
     .map(([serviceName, environments]) => {
       return [
         { kind: 'text', value: startCase(serviceName) },
+        { kind: 'text', value: serviceName },
         buildVersion(environments?.sandbox),
         buildVersion(environments?.development),
         buildVersion(environments?.testing),

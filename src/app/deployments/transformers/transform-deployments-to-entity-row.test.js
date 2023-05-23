@@ -7,17 +7,21 @@ describe('#transformDeploymentsToEntityRow', () => {
       expect.arrayContaining([
         expect.objectContaining({
           kind: 'link',
-          url: '/cdp-portal-frontend/deployments/0C4B29DB-2CFD-4EDA-AB79-7E39DEB36E3E',
-          value: 'FFC Grants Cattle Housing Web'
+          url: '/cdp-portal-frontend/deployments/553E4E6B-05D7-4A2E-BF80-02ED34DEF864',
+          value: 'Cdp Teams And Repositories'
+        }),
+        expect.objectContaining({
+          kind: 'text',
+          value: 'cdp-teams-and-repositories'
         }),
         expect.objectContaining({
           classes: 'govuk-tag--blue',
           kind: 'tag',
-          value: 'production'
+          value: 'Production'
         }),
         expect.objectContaining({
           kind: 'text',
-          value: '1.0.0'
+          value: '0.2.0'
         }),
         expect.objectContaining({
           classes: 'govuk-tag--green',
@@ -30,7 +34,7 @@ describe('#transformDeploymentsToEntityRow', () => {
         }),
         expect.objectContaining({
           kind: 'date',
-          value: '2023-04-11T14:40:02.242Z'
+          value: '2023-05-18T21:54:12Z'
         })
       ])
     )

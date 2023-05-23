@@ -12,3 +12,8 @@
 .app-entity-label {
   color: govuk-colour("dark-grey");
 }
+
+.app-entity-no-value {
+  margin-left: govuk-spacing(1);
+  color: govuk-colour("dark-grey");
+}

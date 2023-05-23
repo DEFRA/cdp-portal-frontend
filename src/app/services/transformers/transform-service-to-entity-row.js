@@ -1,12 +1,8 @@
 import { startCase } from 'lodash'
 
 import { appConfig } from '~/src/config'
-import { noValue } from '~/src/common/constants/no-value'
-import { buildServiceUrlText } from '~/src/app/services/helpers/build-service-url-text'
 
 function transformServiceToEntityRow(service) {
-  const serviceUrlText = buildServiceUrlText(service)
-
   return [
     {
       kind: 'link',
@@ -15,20 +11,21 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'text',
-      value: service.metadata.serviceType
+      value: service.id
     },
-    ...(service.owner.name
-      ? [
-          {
-            kind: 'link',
-            value: service.owner.name,
-            url: `${appConfig.get('appPathPrefix')}/teams/${service.owner.slug}`
-          }
-        ]
-      : [{ kind: 'text', value: noValue }]),
+    {
+      kind: 'text',
+      value: startCase(service.metadata.serviceType)
+    },
+
     {
       kind: 'link',
-      value: serviceUrlText,
+      value: service.owner?.name,
+      url: `${appConfig.get('appPathPrefix')}/teams/${service.owner?.slug}`
+    },
+    {
+      kind: 'link',
+      value: service.url && `https://snd.${service.id}.defra.gov.uk`,
       url: service.url,
       newWindow: true
     },

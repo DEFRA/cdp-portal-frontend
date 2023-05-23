@@ -1,3 +1,0 @@
-const noValue = '---'
-
-export { noValue }
