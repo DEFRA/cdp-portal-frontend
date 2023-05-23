@@ -1,3 +1,5 @@
+import { startCase } from 'lodash'
+
 import { appConfig } from '~/src/config'
 
 function transformServiceToHeadingEntities(service) {
@@ -5,16 +7,16 @@ function transformServiceToHeadingEntities(service) {
     primary: [
       {
         kind: 'text',
-        value: service.metadata.serviceType,
+        value: startCase(service.metadata.serviceType),
         label: 'Type'
       },
-      ...(service.owner.name
+      ...(service?.owner?.name
         ? [
             {
               kind: 'link',
-              value: service.owner.name,
+              value: service?.owner?.name,
               url: `${appConfig.get('appPathPrefix')}/teams/${
-                service.owner.slug
+                service?.owner?.slug
               }`,
               label: 'Owner'
             }
