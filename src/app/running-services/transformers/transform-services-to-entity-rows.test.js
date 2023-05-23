@@ -1,0 +1,69 @@
+import { transformServicesToEntityRows } from '~/src/app/running-services/transformers/transform-services-to-entity-rows'
+import { runningServicesFixture } from '~/src/__fixtures__/running-services'
+
+describe('#transformServicesToEntityRows', () => {
+  test('Should provide expected running services transformation', () => {
+    expect(transformServicesToEntityRows(runningServicesFixture)).toEqual([
+      [
+        {
+          kind: 'text',
+          value: 'Cdp Portal Frontend'
+        },
+        {
+          kind: 'text',
+          value: 'cdp-portal-frontend'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        }
+      ],
+      [
+        {
+          kind: 'text',
+          value: 'Cdp Teams And Repositories'
+        },
+        {
+          kind: 'text',
+          value: 'cdp-teams-and-repositories'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        },
+        {
+          kind: 'text',
+          value: '0.2.0'
+        }
+      ]
+    ])
+  })
+})
