@@ -125,7 +125,7 @@ describe('Entity Component', () => {
     test('Should contain expected rendered date', () => {
       expect(
         $dateEntity.find('[data-testid="app-time"]').text().trim()
-      ).toEqual('14:40 Tue 11th April 2023')
+      ).toEqual('14:40 Tue 11th Apr 2023')
     })
 
     test('Should have expected datetime attribute', () => {
