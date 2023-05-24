@@ -32,7 +32,7 @@
 }
 
 .app-entity-list__item {
-  margin-right: govuk-spacing(2);
+  margin-right: govuk-spacing(1);
   word-break: break-word;
 }
 
@@ -52,11 +52,11 @@
 }
 
 .app-entity-list__item--large {
-  flex: 1;
-  max-width: 400px;
+  flex: .8;
+  max-width: 320px;
 }
 
 .app-entity-list__item--massive {
-  flex: 1.2;
-  max-width: 480px;
+  flex: 1;
+  max-width: 400px;
 }

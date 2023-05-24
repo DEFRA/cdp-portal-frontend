@@ -7,15 +7,20 @@ function buildVersion(version) {
   }
 }
 
+function extractSimpleDockerName(dockerUri) {
+  const match = dockerUri?.match(/^.*\/(.*):.*$/)
+  return match?.at(1) ?? null
+}
+
 function transformServicesToEntityRows(services) {
-  return Object.entries(services).map(([serviceName, environments]) => [
+  return Object.entries(services).map(([serviceName, service]) => [
     { kind: 'text', value: startCase(serviceName) },
-    { kind: 'text', value: serviceName },
-    buildVersion(environments?.sandbox),
-    buildVersion(environments?.development),
-    buildVersion(environments?.testing),
-    buildVersion(environments?.preProduction),
-    buildVersion(environments?.production)
+    { kind: 'text', value: extractSimpleDockerName(service?.dockerImage) },
+    buildVersion(service?.sandbox),
+    buildVersion(service?.development),
+    buildVersion(service?.testing),
+    buildVersion(service?.preProduction),
+    buildVersion(service?.production)
   ])
 }
 

@@ -28,7 +28,9 @@
       </p>
 
       <h2 class="govuk-heading-m govuk-!-padding-top-2 govuk-!-margin-bottom-2">Image name</h2>
-      <p>This services Elastic Container Registry image name is <em>{{ service.id }}</em>.</p>
+      <p>This services Elastic Container Registry image name is
+        <em>{{ service.metadata.imageName if service.metadata.imageName else service.id }}</em>.
+      </p>
     </div>
   </div>
 

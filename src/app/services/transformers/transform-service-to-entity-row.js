@@ -11,7 +11,7 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'text',
-      value: service.id
+      value: service.metadata.imageName ?? service.id
     },
     {
       kind: 'text',
