@@ -1,5 +1,3 @@
-import { startCase } from 'lodash'
-
 import { appConfig } from '~/src/config'
 import { getDeploymentStatusClassname } from '~/src/app/deployments/helpers/get-deployment-status-classname'
 
@@ -7,14 +5,10 @@ function transformDeploymentsToEntityRow(deployedService) {
   return [
     {
       kind: 'link',
-      value: startCase(deployedService.service),
+      value: deployedService.service,
       url: `${appConfig.get('appPathPrefix')}/deployments/${
         deployedService.deploymentId
       }`
-    },
-    {
-      kind: 'text',
-      value: deployedService.service
     },
     {
       kind: 'tag',

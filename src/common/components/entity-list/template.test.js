@@ -19,7 +19,6 @@ describe('Entity List Component', () => {
       $entityList = renderComponent('entity-list', {
         headings: [
           { text: 'Service', size: 'large' },
-          { text: 'Image name', size: 'medium' },
           { text: 'Environment', size: 'small' },
           { text: 'Version', size: 'small' },
           { text: 'Status', size: 'small' },
@@ -44,12 +43,11 @@ describe('Entity List Component', () => {
         )
 
       expect(getHeader(1).text().trim()).toEqual('Service')
-      expect(getHeader(2).text().trim()).toEqual('Image name')
-      expect(getHeader(3).text().trim()).toEqual('Environment')
-      expect(getHeader(4).text().trim()).toEqual('Version')
-      expect(getHeader(5).text().trim()).toEqual('Status')
-      expect(getHeader(6).text().trim()).toEqual('By')
-      expect(getHeader(7).text().trim()).toEqual('On')
+      expect(getHeader(2).text().trim()).toEqual('Environment')
+      expect(getHeader(3).text().trim()).toEqual('Version')
+      expect(getHeader(4).text().trim()).toEqual('Status')
+      expect(getHeader(5).text().trim()).toEqual('By')
+      expect(getHeader(6).text().trim()).toEqual('On')
     })
 
     test('Rows should contain expected size className', () => {
@@ -59,14 +57,11 @@ describe('Entity List Component', () => {
         )
 
       expect(getItem(1).attr('class')).toContain('app-entity-list__item--large')
-      expect(getItem(2).attr('class')).toContain(
-        'app-entity-list__item app-entity-list__item--medium'
-      )
+      expect(getItem(2).attr('class')).toContain('app-entity-list__item--small')
       expect(getItem(3).attr('class')).toContain('app-entity-list__item--small')
       expect(getItem(4).attr('class')).toContain('app-entity-list__item--small')
       expect(getItem(5).attr('class')).toContain('app-entity-list__item--small')
-      expect(getItem(6).attr('class')).toContain('app-entity-list__item--small')
-      expect(getItem(7).attr('class')).toContain('app-entity-list__item--large')
+      expect(getItem(6).attr('class')).toContain('app-entity-list__item--large')
     })
 
     test('Should contain expected entities', () => {
@@ -74,26 +69,24 @@ describe('Entity List Component', () => {
         $entityList('[data-testid="app-entity-list-row-1"]').find(
           `[data-testid="app-entity-${entityNumber}"]`
         )
+
       expect(getEntity(1).length).toEqual(1)
-      expect(getEntity(1).html()).toContain('Cdp Teams And Repositories')
+      expect(getEntity(1).html()).toContain('cdp-teams-and-repositories')
 
       expect(getEntity(2).length).toEqual(1)
-      expect(getEntity(2).html()).toContain('cdp-teams-and-repositories')
+      expect(getEntity(2).html()).toContain('Production')
 
       expect(getEntity(3).length).toEqual(1)
-      expect(getEntity(3).html()).toContain('Production')
+      expect(getEntity(3).html()).toContain('0.2.0')
 
       expect(getEntity(4).length).toEqual(1)
-      expect(getEntity(4).html()).toContain('0.2.0')
+      expect(getEntity(4).html()).toContain('RUNNING')
 
       expect(getEntity(5).length).toEqual(1)
-      expect(getEntity(5).html()).toContain('RUNNING')
+      expect(getEntity(5).html()).toContain('RoboCop')
 
       expect(getEntity(6).length).toEqual(1)
-      expect(getEntity(6).html()).toContain('RoboCop')
-
-      expect(getEntity(7).length).toEqual(1)
-      expect(getEntity(7).html()).toContain('21:54 Thu 18th May 2023')
+      expect(getEntity(6).html()).toContain('21:54 Thu 18th May 2023')
     })
   })
 

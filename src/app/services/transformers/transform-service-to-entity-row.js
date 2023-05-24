@@ -6,12 +6,8 @@ function transformServiceToEntityRow(service) {
   return [
     {
       kind: 'link',
-      value: startCase(service.id),
+      value: service.metadata.imageName ?? service.id,
       url: `${appConfig.get('appPathPrefix')}/services/${service.id}`
-    },
-    {
-      kind: 'text',
-      value: service.metadata.imageName ?? service.id
     },
     {
       kind: 'text',

@@ -7,10 +7,6 @@ describe('#transformDeploymentsToEntityRow', () => {
       {
         kind: 'link',
         url: '/cdp-portal-frontend/deployments/553E4E6B-05D7-4A2E-BF80-02ED34DEF864',
-        value: 'Cdp Teams And Repositories'
-      },
-      {
-        kind: 'text',
         value: 'cdp-teams-and-repositories'
       },
       {

@@ -7,10 +7,6 @@ describe('#transformServicesToEntityRows', () => {
       [
         {
           kind: 'text',
-          value: 'Cdp Portal Frontend'
-        },
-        {
-          kind: 'text',
           value: 'cdp-portal-frontend'
         },
         {
@@ -35,10 +31,6 @@ describe('#transformServicesToEntityRows', () => {
         }
       ],
       [
-        {
-          kind: 'text',
-          value: 'Cdp Teams And Repositories'
-        },
         {
           kind: 'text',
           value: 'cdp-teams-and-repositories'
