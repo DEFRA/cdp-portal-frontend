@@ -10,11 +10,6 @@ function transformServiceToEntityRow(service) {
       url: `${appConfig.get('appPathPrefix')}/services/${service.id}`
     },
     {
-      kind: 'text',
-      value: startCase(service.metadata.serviceType)
-    },
-
-    {
       kind: 'link',
       value: service.teams?.at(0)?.name,
       url: `${appConfig.get('appPathPrefix')}/teams/${
@@ -26,6 +21,10 @@ function transformServiceToEntityRow(service) {
       value: service.url && `https://snd.${service.id}.defra.gov.uk`,
       url: service.url,
       newWindow: true
+    },
+    {
+      kind: 'text',
+      value: startCase(service.metadata.serviceType)
     },
     {
       kind: 'link',
