@@ -6,8 +6,8 @@ const deploymentsListController = {
   handler: async (request, h) => {
     const deployments = await fetchDeployments()
     const entityRows = deployments
-      .sort(sortBy('timestamp'))
-      .map(transformDeploymentsToEntityRow)
+      ?.sort(sortBy('timestamp'))
+      ?.map(transformDeploymentsToEntityRow)
 
     return h.view('deployments/views/list', {
       pageTitle: 'Deployments',

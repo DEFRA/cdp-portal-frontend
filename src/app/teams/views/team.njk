@@ -5,7 +5,7 @@
 {% block content %}
 
   {{ appHeading({
-    text: heading,
+    text: "Team - " + heading,
     caption: team.description,
     entities: headingEntities
   }) }}
@@ -14,30 +14,32 @@
 
   <div class="govuk-grid-row govuk-!-margin-bottom-4">
     <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Team Members</h2>
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Team Members</h2>
 
-      <ul class="govuk-list govuk-list--bullet">
-        {% for member in team.members %}
-          {% set memberHandle = member.name + " - @" + member.id if member.name else "@" + member.id %}
-          <li>
-            <a class="app-entity__link"
-               href="{{ member.url }}"
-               target="_blank">{{ memberHandle }}</a>
-          </li>
-        {% else %}
-          <p>This team does not currently have any members</p>
-        {% endfor %}
-      </ul>
+      {% if team.members.length %}
+        <ul class="govuk-list govuk-list--bullet">
+          {% for member in team.members %}
+            {% set memberHandle = member.name + " - @" + member.id if member.name else "@" + member.id %}
+            <li>
+              <a class="app-link"
+                 href="{{ member.url }}"
+                 target="_blank">{{ memberHandle }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>This team does not currently have any members</p>
+      {% endif %}
 
-      <h2 class="govuk-heading-l govuk-!-padding-top-0 govuk-!-margin-bottom-2">Repositories</h2>
+      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Repositories</h2>
 
       {% if team.repositories.length %}
         <ul class="govuk-list govuk-list--bullet">
           {% for repository in team.repositories %}
             <li>
-              <a class="app-entity__link"
+              <a class="app-link"
                  href="{{ repository.url }}"
-                 target="_blank">{{ repository.id }}</a>
+                 target="_blank">defra-cdp-sandpit/{{ repository.id }}</a>
             </li>
           {% endfor %}
         </ul>
@@ -46,7 +48,5 @@
       {% endif %}
     </div>
   </div>
-
-
 
 {% endblock %}

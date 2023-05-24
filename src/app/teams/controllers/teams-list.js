@@ -6,8 +6,8 @@ const teamsListController = {
   handler: async (request, h) => {
     const { teams } = await fetchTeams()
     const entityRows = teams
-      .sort(sortBy('name', 'asc'))
-      .map(transformTeamToEntityRow)
+      ?.sort(sortBy('name', 'asc'))
+      ?.map(transformTeamToEntityRow)
 
     return h.view('teams/views/list', {
       pageTitle: 'Teams',

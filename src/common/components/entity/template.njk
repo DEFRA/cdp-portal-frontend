@@ -2,16 +2,18 @@
 
 {% from "time/macro.njk" import appTime %}
 
-{% if params.value or params.value == 0 %}
-  <div class="app-entity"
-       data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
-    {% if params.label %}
-      <span class="app-entity-label"
-            data-testid="app-entity-label">{{ params.label }}:</span>
-    {% endif %}
+<div class="app-entity"
+     data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
+
+  {% if params.label %}
+    <span class="app-entity-label"
+          data-testid="app-entity-label">{{ params.label }}:</span>
+  {% endif %}
+
+  {% if params.value or params.value == 0 %}
 
     {% if params.kind === "link" %}
-      <a class="app-entity__link"
+      <a class="app-link"
          href="{{ params.url }}"{% if params.newWindow %} target="_blank" rel="noopener noreferrer"{% endif %}
          data-testid="app-entity-link">
         {{ params.value }}
@@ -35,7 +37,8 @@
       {{ params.value }}
     {% endif %}
 
-  </div>
-{% endif %}
-
+  {% else %}
+    <span class="app-entity-no-value">- - -</span>
+  {% endif %}
+</div>
 

@@ -4,11 +4,11 @@
   margin-right: govuk-spacing(2);
 }
 
-.app-entity__link {
-  @include govuk-link-style-no-visited-state;
-  @include app-link-style;
+.app-entity-label {
+  color: govuk-colour("dark-grey");
 }
 
-.app-entity-label {
+.app-entity-no-value {
+  margin-left: govuk-spacing(1);
   color: govuk-colour("dark-grey");
 }

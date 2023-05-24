@@ -1,35 +1,40 @@
+import { startCase } from 'lodash'
+
+import { appConfig } from '~/src/config'
+
 function transformServiceToHeadingEntities(service) {
   return {
     primary: [
       {
         kind: 'text',
-        value: service.kind,
-        size: 'small',
+        value: startCase(service.metadata.serviceType),
         label: 'Type'
       },
-      {
-        kind: 'link',
-        value: service.gitHubUrl,
-        url: `https://github.com/DEFRA/${service.gitHubUrl}`,
-        newWindow: true,
-        size: 'medium',
-        label: 'GitHub repository'
-      },
-      {
-        kind: 'link',
-        value: `@${service.owner}`,
-        url: `https://github.com/orgs/defra-cdp-sandpit/people/${service.owner}`,
-        newWindow: true,
-        size: 'medium',
-        label: 'Owner'
-      }
+      ...(service?.teams
+        ? [
+            {
+              kind: 'link',
+              value: service.teams?.at(0)?.name,
+              url: `${appConfig.get('appPathPrefix')}/teams/${
+                service.teams?.at(0)?.slug
+              }`,
+              label: 'Team'
+            }
+          ]
+        : [{ kind: 'text', value: null, label: 'Team' }])
     ],
     secondary: [
       {
         kind: 'date',
-        value: service.timestamp,
+        value: service?.latestCommit?.committedDate,
         size: 'large',
-        label: 'Last updated'
+        label: `Last merge to ${service?.latestCommit?.defaultBranchName}`
+      },
+      {
+        kind: 'date',
+        value: service.createdAt,
+        size: 'large',
+        label: 'Created'
       }
     ]
   }

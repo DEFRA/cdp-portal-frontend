@@ -32,7 +32,8 @@
 }
 
 .app-entity-list__item {
-  margin-right: govuk-spacing(2);
+  margin-right: govuk-spacing(1);
+  word-break: break-word;
 }
 
 .app-entity-list__item--tiny {
@@ -51,6 +52,11 @@
 }
 
 .app-entity-list__item--large {
+  flex: .8;
+  max-width: 320px;
+}
+
+.app-entity-list__item--massive {
   flex: 1;
   max-width: 400px;
 }
