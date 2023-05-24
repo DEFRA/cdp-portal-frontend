@@ -10,18 +10,18 @@ function transformServiceToHeadingEntities(service) {
         value: startCase(service.metadata.serviceType),
         label: 'Type'
       },
-      ...(service?.owner?.name
+      ...(service?.teams
         ? [
             {
               kind: 'link',
-              value: service?.owner?.name,
+              value: service.teams?.at(0)?.name,
               url: `${appConfig.get('appPathPrefix')}/teams/${
-                service?.owner?.slug
+                service.teams?.at(0)?.slug
               }`,
-              label: 'Owner'
+              label: 'Team'
             }
           ]
-        : [{ kind: 'text', value: 'No owner', label: 'Owner' }])
+        : [{ kind: 'text', value: null, label: 'Team' }])
     ],
     secondary: [
       {

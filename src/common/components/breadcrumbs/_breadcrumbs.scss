@@ -62,5 +62,4 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
 
 .app-breadcrumbs__link {
   @include govuk-link-style-text;
-  @include app-link-style;
 }

@@ -21,7 +21,7 @@
           {% for member in team.members %}
             {% set memberHandle = member.name + " - @" + member.id if member.name else "@" + member.id %}
             <li>
-              <a class="app-entity__link"
+              <a class="app-link"
                  href="{{ member.url }}"
                  target="_blank">{{ memberHandle }}</a>
             </li>
@@ -37,7 +37,7 @@
         <ul class="govuk-list govuk-list--bullet">
           {% for repository in team.repositories %}
             <li>
-              <a class="app-entity__link"
+              <a class="app-link"
                  href="{{ repository.url }}"
                  target="_blank">defra-cdp-sandpit/{{ repository.id }}</a>
             </li>

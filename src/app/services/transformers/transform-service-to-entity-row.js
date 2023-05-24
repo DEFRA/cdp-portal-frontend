@@ -20,8 +20,10 @@ function transformServiceToEntityRow(service) {
 
     {
       kind: 'link',
-      value: service.owner?.name,
-      url: `${appConfig.get('appPathPrefix')}/teams/${service.owner?.slug}`
+      value: service.teams?.at(0)?.name,
+      url: `${appConfig.get('appPathPrefix')}/teams/${
+        service.teams?.at(0)?.slug
+      }`
     },
     {
       kind: 'link',

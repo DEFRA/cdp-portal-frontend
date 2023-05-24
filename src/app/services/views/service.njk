@@ -16,12 +16,13 @@
     <div class="govuk-grid-column-one-half">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service Urls</h2>
       <p>
-        <a class="govuk-link" href="{{ service.url }}" target="_blank">{{ serviceUrlText }}</a>
+        <a class="app-link" href="{{ service.url }}" target="_blank">{{ serviceUrlText }}</a>
       </p>
 
       <h2 class="govuk-heading-m govuk-!-padding-top-2 govuk-!-margin-bottom-2">GitHub Repository</h2>
       <p>
-        This services code can be seen in the <a class="govuk-link" href="{{ service.repositoryUrl }}"
+        This services code can be seen in the <a class="app-link"
+                                                 href="{{ service.repositoryUrl }}"
                                                  target="_blank">defra-cdp-sandpit/{{ service.id }}</a>
         GitHub repository.
       </p>
