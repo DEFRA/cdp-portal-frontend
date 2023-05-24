@@ -8,6 +8,7 @@ const serviceController = {
 
     return h.view('services/views/service', {
       pageTitle: `${service.id} service`,
+      // TODO we have an issue when repo name and image name are different. Use Deployments as the source not GitHub
       heading: service.metadata.imageName ?? service.id,
       service,
       serviceUrlText: service.url && `https://snd.${service.id}.defra.gov.uk`,
