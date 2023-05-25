@@ -1,38 +1,53 @@
 {% extends "layouts/page.njk" %}
 
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
 {% from "entity-list/macro.njk" import appEntityList %}
 
 {% block content %}
 
   {{ appHeading({
-    text: "Service - " + heading,
-    caption: "Micro-service information.",
+    title: heading,
+    caption: "Detailed information about the " + heading + " Micro-service.",
     entities: headingEntities
   }) }}
 
-  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
 
   <div class="govuk-grid-row govuk-!-margin-bottom-4">
-    <div class="govuk-grid-column-one-half">
-      {% if service.metatdata.serviceType !== 'api' %}
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service Urls</h2>
+
+    <div class="govuk-grid-column-two-thirds">
+      <section class="app-section">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">About</h2>
         <p>
-          <a class="app-link" href="{{ service.url }}" target="_blank">{{ serviceUrlText }}</a>
+          {{ service.description }}
         </p>
-      {% endif %}
 
-      <h2 class="govuk-heading-m govuk-!-padding-top-2 govuk-!-margin-bottom-2">GitHub Repository</h2>
-      <p>
-        This services code can be seen in the <a class="app-link"
-                                                 href="{{ service.repositoryUrl }}"
-                                                 target="_blank">defra-cdp-sandpit/{{ service.id }}</a>
-        GitHub repository.
-      </p>
+        {% if service.urls.length %}
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service Urls</h2>
 
-      <h2 class="govuk-heading-m govuk-!-padding-top-2 govuk-!-margin-bottom-2">Image name</h2>
-      <p>This services Elastic Container Registry image name is
-        <em>{{ service.metadata.imageName if service.metadata.imageName else service.id }}</em>.
-      </p>
+          <ul class="govuk-list govuk-list--bullet">
+            {% for serviceDetail in service.urls %}
+              <li>
+                {{ serviceDetail.environment }}:
+                {% if serviceDetail.url %}
+                  <a class="app-link"
+                     href="{{ serviceDetail.url }}"
+                     target="_blank">snd.{{ service.id }}.defra.gov.uk</a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+      </section>
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      {{ appEntityDataList({
+        heading: "Micro-service details",
+        items: entityDataList
+      }) }}
     </div>
   </div>
 

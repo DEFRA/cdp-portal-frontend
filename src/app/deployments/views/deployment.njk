@@ -3,9 +3,23 @@
 {% block content %}
 
   {{ appHeading({
-    text: "Deployment - " + heading,
+    title: heading,
     caption: "Deployment information.",
     entities: headingEntities
   }) }}
+
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+    <div class="govuk-grid-column-one-third">
+      {% set team =  service.teams[0] if service.teams | length %}
+
+      {{ appEntityDataList({
+        heading: "Deployment details",
+        items: entityDataList
+      }) }}
+    </div>
+  </div>
 
 {% endblock %}
