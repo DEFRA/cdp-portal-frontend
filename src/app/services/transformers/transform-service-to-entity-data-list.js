@@ -20,7 +20,7 @@ function transformServiceToEntityDataList(service) {
     },
     {
       heading: 'GitHub Repository',
-      html: `<a className="app-link" href="${service.repositoryUrl}" target="_blank">defra-cdp-sandpit/${service.id}</a>`
+      html: `<a class="app-link" href="${service.repositoryUrl}" target="_blank">defra-cdp-sandpit/${service.id}</a>`
     },
     {
       heading: 'ECR Docker Image name',
