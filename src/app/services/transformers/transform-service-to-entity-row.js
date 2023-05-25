@@ -17,12 +17,6 @@ function transformServiceToEntityRow(service) {
       }`
     },
     {
-      kind: 'link',
-      value: service.url && `https://snd.${service.id}.defra.gov.uk`,
-      url: service.url,
-      newWindow: true
-    },
-    {
       kind: 'text',
       value: startCase(service.metadata.serviceType)
     },

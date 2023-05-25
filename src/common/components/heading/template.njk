@@ -3,7 +3,13 @@
 <div class="govuk-grid-row app-heading" data-testid="app-heading">
   <div class="govuk-grid-column-one-half">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2"
-        data-testid="app-heading-title">{{ params.text }}</h1>
+        data-testid="app-heading-title">{{ params.title }}</h1>
+
+    {% if params.caption %}
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2 app-heading-sub-title"
+          data-testid="app-heading-sub-title">{{ params.subTitle }}</h2>
+    {% endif %}
+
 
     {% if params.caption %}
       <span class="govuk-caption-m"

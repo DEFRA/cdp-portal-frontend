@@ -1,6 +1,5 @@
 .app-link {
-  @include govuk-link-common;
-  @include govuk-link-style-text;
+
   @include govuk-link-style-no-visited-state;
   text-decoration: none;
 

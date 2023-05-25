@@ -6,7 +6,7 @@ describe('Heading Component', () => {
   describe('With caption', () => {
     beforeEach(() => {
       $heading = renderComponent('heading', {
-        text: 'Services',
+        title: 'Services',
         caption: 'A page showing available services'
       })
     })

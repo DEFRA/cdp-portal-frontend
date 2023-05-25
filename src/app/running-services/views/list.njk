@@ -5,7 +5,7 @@
 {% block content %}
 
   {{ appHeading({
-    text: heading,
+    title: heading,
     caption: "What micro-services are running where? and on which environments."
   }) }}
 
@@ -16,7 +16,7 @@
       { text: "Sandbox", size: "small"},
       { text: "Development", size: "small"},
       { text: "Testing", size: "small"},
-      { text: "Pre-production", size: "small"},
+      { text: "Perf test", size: "small"},
       { text: "Production", size: "small"}
     ],
     entityRows: entityRows,

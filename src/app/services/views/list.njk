@@ -4,15 +4,14 @@
 
 {% block content %}
   {{ appHeading({
-    text: heading,
+    title: heading,
     caption: "Frontend and Backend micro-service information."
   }) }}
 
   {{ appEntityList({
     headings: [
-      { text: "Service", size: "medium" },
-      { text: "Team", size: "small" },
-      { text: "Url", size: "massive" },
+      { text: "Service", size: "large" },
+      { text: "Team", size: "medium" },
       { text: "Type", size: "small" },
       { text: "GitHub Repository", size: "massive" },
       { text: "Created", size: "medium" }

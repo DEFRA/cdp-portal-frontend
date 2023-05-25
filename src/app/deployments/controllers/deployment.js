@@ -1,6 +1,6 @@
 import { appConfig } from '~/src/config'
 import { fetchDeployment } from '~/src/app/deployments/helpers/fetch-deployment'
-import { transformDeploymentToHeadingEntities } from '~/src/app/deployments/transformers/transform-deployment-to-heading-entities'
+import { transformDeploymentToEntityDataList } from '~/src/app/deployments/transformers/transform-deployment-to-entity-data-list'
 
 const deploymentController = {
   handler: async (request, h) => {
@@ -10,7 +10,7 @@ const deploymentController = {
       pageTitle: `${deployment.service} Service Deployment`,
       heading: deployment.service,
       deployment,
-      headingEntities: transformDeploymentToHeadingEntities(deployment),
+      entityDataList: transformDeploymentToEntityDataList(deployment),
       breadcrumbs: [
         {
           text: 'Deployments',
