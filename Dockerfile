@@ -3,6 +3,9 @@ ARG PORT=3000
 ARG PORT_DEBUG=9229
 
 FROM defradigital/node-development:${PARENT_VERSION} AS development
+
+ENV TZ="Europe/London"
+
 ARG PARENT_VERSION
 LABEL uk.gov.defra.ffc.parent-image=defradigital/node-development:${PARENT_VERSION}
 
@@ -19,6 +22,9 @@ RUN npm run build
 CMD [ "npm", "run", "docker:dev" ]
 
 FROM defradigital/node:${PARENT_VERSION} AS production
+
+ENV TZ="Europe/London"
+
 ARG PARENT_VERSION
 LABEL uk.gov.defra.ffc.parent-image=defradigital/node:${PARENT_VERSION}
 
