@@ -11,7 +11,10 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "plugins": ["wdio"],
-  "rules": {},
+  "plugins": ["wdio", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "error"
+  },
   "ignorePatterns": [".server", ".public", "src/__fixtures__", "coverage"]
 }

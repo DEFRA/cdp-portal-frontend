@@ -11,5 +11,6 @@ index.use(middlewares)
 index.use('/mock-api', router)
 
 index.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Mock JSON server started on http://localhost:${port}/mock-api`)
 })
