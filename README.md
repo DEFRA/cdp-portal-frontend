@@ -2,6 +2,8 @@
 
 Portal Frontend for CDP
 
+[![Publish](https://github.com/defra-cdp-sandpit/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/defra-cdp-sandpit/cdp-portal-frontend/actions/workflows/publish.yml)
+
 - [Requirements](#requirements)
   - [Node.js](#nodejs)
 - [Local development](#local-development)
