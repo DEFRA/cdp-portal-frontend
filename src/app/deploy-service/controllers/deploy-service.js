@@ -46,7 +46,7 @@ const deployServiceController = {
         body: JSON.stringify({
           imageName: validationResult.value.imageName,
           version: validationResult.value.version,
-          cluster: 'frontend' // TODO this is hardcoded to "frontend" for the demo only
+          environment: validationResult.value.environment
         }),
         headers: { 'Content-Type': 'application/json' }
       })

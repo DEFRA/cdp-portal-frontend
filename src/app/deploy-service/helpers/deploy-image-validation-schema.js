@@ -5,7 +5,7 @@ const environments = [
   'sandbox',
   'development',
   'test',
-  'pre-production',
+  'perfTest',
   'production'
 ]
 
