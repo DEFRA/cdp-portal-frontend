@@ -1,11 +1,11 @@
-import { fetchServices } from '~/src/app/services/helpers/fetch-services'
+import { fetchRepositories } from '~/src/app/services/helpers/fetch-repositories'
 import { sortBy } from '~/src/common/helpers/sort-by'
 import { transformServiceToEntityRow } from '~/src/app/services/transformers/transform-service-to-entity-row'
 
 const serviceListController = {
   handler: async (request, h) => {
-    const { services } = await fetchServices()
-    const entityRows = services
+    const { repositories } = await fetchRepositories()
+    const entityRows = repositories
       ?.sort(sortBy('id', 'asc'))
       ?.map(transformServiceToEntityRow)
 

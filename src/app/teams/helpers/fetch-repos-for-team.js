@@ -6,7 +6,7 @@ async function fetchReposForTeam(teamId) {
   const logger = createLogger()
   const teamEndpointUrl = `${appConfig.get(
     'teamsAndRepositoriesV1ApiUrl'
-  )}/services?team=${teamId}`
+  )}/repositories?team=${teamId}`
 
   try {
     const response = await fetch(teamEndpointUrl)

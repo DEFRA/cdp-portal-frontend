@@ -2,11 +2,11 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/common/helpers/logger'
 
-async function fetchServices() {
+async function fetchRepositories() {
   const logger = createLogger()
   const servicesEndpointUrl = `${appConfig.get(
     'teamsAndRepositoriesV1ApiUrl'
-  )}/services`
+  )}/repositories`
 
   try {
     const response = await fetch(servicesEndpointUrl)
@@ -17,4 +17,4 @@ async function fetchServices() {
   }
 }
 
-export { fetchServices }
+export { fetchRepositories }

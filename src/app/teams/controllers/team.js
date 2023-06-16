@@ -7,9 +7,9 @@ const teamController = {
   handler: async (request, h) => {
     const teamId = request.params?.teamId
     const { team } = await fetchTeam(teamId)
-    const { services } = await fetchReposForTeam(teamId)
+    const { repositories } = await fetchReposForTeam(teamId)
 
-    team.repositories = services
+    team.repositories = repositories
 
     return h.view('teams/views/team', {
       pageTitle: `${team.name} team`,
