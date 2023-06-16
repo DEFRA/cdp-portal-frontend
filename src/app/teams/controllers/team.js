@@ -1,10 +1,15 @@
 import { appConfig } from '~/src/config'
 import { fetchTeam } from '~/src/app/teams/helpers/fetch-team'
 import { transformTeamToHeadingEntities } from '~/src/app/teams/transformers/transform-team-to-heading-entities'
+import { fetchReposForTeam } from '../helpers/fetch-repos-for-team'
 
 const teamController = {
   handler: async (request, h) => {
-    const { team } = await fetchTeam(request.params?.teamId)
+    const teamId = request.params?.teamId
+    const { team } = await fetchTeam(teamId)
+    const { services } = await fetchReposForTeam(teamId)
+
+    team.repositories = services
 
     return h.view('teams/views/team', {
       pageTitle: `${team.name} team`,

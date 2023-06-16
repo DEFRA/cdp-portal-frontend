@@ -6,12 +6,13 @@ import { transformServiceToEntityDataList } from '~/src/app/services/transformer
 
 const serviceController = {
   handler: async (request, h) => {
-    const { service } = await fetchService(request.params.serviceId)
+    const response = await fetchService(request.params.serviceId)
+    const service = response.repository
 
     return h.view('services/views/service', {
       pageTitle: `${service.id} service`,
       // TODO we have an issue when repo name and image name are different. Use Deployments as the source not GitHub
-      heading: startCase(service.metadata.imageName ?? service.id),
+      heading: startCase(service.id),
       entityDataList: transformServiceToEntityDataList(service),
       service,
       breadcrumbs: [
@@ -20,7 +21,7 @@ const serviceController = {
           href: `${appConfig.get('appPathPrefix')}/services`
         },
         {
-          text: service.metadata.imageName ?? service.id
+          text: service.id
         }
       ]
     })
