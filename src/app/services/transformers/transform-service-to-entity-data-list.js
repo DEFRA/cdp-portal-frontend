@@ -17,7 +17,7 @@ function transformServiceToEntityDataList(service) {
       heading: 'Type',
       entity: {
         kind: 'text',
-        value: startCase(service.primaryLanguage.name).replace('#', ' Sharp')
+        value: startCase(service.primaryLanguage.replace('#', ' Sharp'))
       }
     },
     {

@@ -16,7 +16,7 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'text',
-      value: startCase(service.primaryLanguage.name.replace('#', ' Sharp')) // nunjucks appears to supress #?
+      value: startCase(service.primaryLanguage.replace('#', ' Sharp')) // nunjucks appears to supress #?
     },
     {
       kind: 'link',
