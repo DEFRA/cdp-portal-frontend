@@ -1,26 +1,27 @@
 import { startCase } from 'lodash'
 
 import { appConfig } from '~/src/config'
-import { fetchService } from '~/src/app/services/helpers/fetch-service'
+import { fetchRepository } from '~/src/app/services/helpers/fetch-repository'
 import { transformServiceToEntityDataList } from '~/src/app/services/transformers/transform-service-to-entity-data-list'
 
 const serviceController = {
   handler: async (request, h) => {
-    const { service } = await fetchService(request.params.serviceId)
+    // TODO swap this over to deployables
+    const { repository } = await fetchRepository(request.params.serviceId)
 
     return h.view('services/views/service', {
-      pageTitle: `${service.id} service`,
+      pageTitle: `${repository.id} service`,
       // TODO we have an issue when repo name and image name are different. Use Deployments as the source not GitHub
-      heading: startCase(service.metadata.imageName ?? service.id),
-      entityDataList: transformServiceToEntityDataList(service),
-      service,
+      heading: startCase(repository.id),
+      entityDataList: transformServiceToEntityDataList(repository),
+      service: repository,
       breadcrumbs: [
         {
           text: 'Services',
           href: `${appConfig.get('appPathPrefix')}/services`
         },
         {
-          text: service.metadata.imageName ?? service.id
+          text: repository.id
         }
       ]
     })

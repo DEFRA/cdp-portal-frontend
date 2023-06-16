@@ -8,14 +8,14 @@ describe('#transformServiceToEntityDataList', () => {
         entity: {
           kind: 'link',
           url: '/cdp-portal-frontend/teams/forestry-management',
-          value: 'Forestry Management'
+          value: 'forestry-management'
         },
         heading: 'Team'
       },
       {
         entity: {
           kind: 'text',
-          value: 'Frontend'
+          value: 'Java Script'
         },
         heading: 'Type'
       },
@@ -26,13 +26,6 @@ describe('#transformServiceToEntityDataList', () => {
       {
         heading: 'ECR Docker Image name',
         text: 'cdp-portal-frontend'
-      },
-      {
-        entity: {
-          kind: 'date',
-          value: '2023-05-25T07:42:59Z'
-        },
-        heading: 'Last merge to main'
       },
       {
         entity: {
