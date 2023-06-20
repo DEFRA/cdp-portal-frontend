@@ -5,7 +5,7 @@ import { appConfig } from '~/src/config'
 
 async function fetchRepository(repositoryId) {
   const repositoryEndpointUrl = `${appConfig.get(
-    'teamsAndRepositoriesV1ApiUrl'
+    'teamsAndRepositoriesApiUrl'
   )}/repositories/${repositoryId}`
 
   const response = await fetch(repositoryEndpointUrl)

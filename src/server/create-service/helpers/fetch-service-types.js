@@ -5,7 +5,7 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 async function fetchServiceTypes() {
   const logger = createLogger()
   const serviceTypesEndpointUrl = `${appConfig.get(
-    'teamsAndRepositoriesV1ApiUrl'
+    'teamsAndRepositoriesApiUrl'
   )}/service-types`
 
   try {

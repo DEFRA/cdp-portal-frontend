@@ -17,6 +17,7 @@
     "format": "prettier --write 'src/**/*.js' '**/*.{js,md,json,config.js,test.js}'",
     "format:check": "prettier --check 'src/**/*.js' '**/*.{js,md,json,config.js,test.js}'",
     "frontend:watch": "webpack --watch",
+    "postinstall": "husky install",
     "lint": "run-s lint:js lint:scss",
     "lint:fix": "eslint . --fix",
     "lint:js": "eslint .",
