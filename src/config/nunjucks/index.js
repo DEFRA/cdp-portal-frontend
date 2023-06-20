@@ -10,8 +10,12 @@ import * as globals from './globals'
 const nunjucksEnvironment = nunjucks.configure(
   [
     'node_modules/govuk-frontend/',
-    path.normalize(path.resolve(__dirname, '..', '..', 'common', 'templates')),
-    path.normalize(path.resolve(__dirname, '..', '..', 'common', 'components'))
+    path.normalize(
+      path.resolve(__dirname, '..', '..', 'server', 'common', 'templates')
+    ),
+    path.normalize(
+      path.resolve(__dirname, '..', '..', 'server', 'common', 'components')
+    )
   ],
   {
     autoescape: true,
@@ -38,7 +42,7 @@ const nunjucksConfig = {
       environment: nunjucksEnvironment
     },
     relativeTo: path.normalize(path.resolve(__dirname, '..', '..')),
-    path: 'app',
+    path: 'server',
     isCached: appConfig.get('isProduction'),
     context
   }

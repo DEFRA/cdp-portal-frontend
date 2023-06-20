@@ -6,14 +6,14 @@ const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpackConfig = {
   isDevelopment: process.env.NODE_ENV !== 'production',
   stylesheets: {
-    components: path.resolve(__dirname, 'src', 'common', 'components')
+    components: path.resolve(__dirname, 'src', 'server', 'common', 'components')
   }
 }
 
 // TODO split this out into base, development, production configs.
 module.exports = {
   entry: {
-    application: './src/common/assets/javascripts/application.js'
+    application: './src/client/assets/javascripts/application.js'
   },
   mode: webpackConfig.isDevelopment ? 'development' : 'production',
   ...(webpackConfig.isDevelopment && { devtool: 'source-map' }),

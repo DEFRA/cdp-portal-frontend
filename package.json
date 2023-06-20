@@ -20,7 +20,7 @@
     "lint": "run-s lint:js lint:scss",
     "lint:fix": "eslint . --fix",
     "lint:js": "eslint .",
-    "lint:scss": "stylelint src/common/**/*.scss --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
+    "lint:scss": "stylelint 'src/**/*.scss' --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
     "mockApi": "nodemon ./mock-api",
     "postversion": "git add package.json package-lock.json && git commit -m $npm_package_version",
     "test": "TZ=UTC jest --coverage --verbose",
@@ -36,6 +36,7 @@
   "dependencies": {
     "@babel/runtime": "7.21.5",
     "@hapi/basic": "7.0.1",
+    "@hapi/boom": "10.0.1",
     "@hapi/hapi": "21.3.2",
     "@hapi/inert": "7.1.0",
     "@hapi/vision": "7.0.1",
