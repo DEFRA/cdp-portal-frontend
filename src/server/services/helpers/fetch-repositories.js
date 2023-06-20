@@ -5,7 +5,7 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 async function fetchRepositories() {
   const logger = createLogger()
   const repositoriesEndpointUrl = `${appConfig.get(
-    'teamsAndRepositoriesV1ApiUrl'
+    'teamsAndRepositoriesApiUrl'
   )}/repositories`
 
   try {
