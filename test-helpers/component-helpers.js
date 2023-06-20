@@ -8,8 +8,13 @@ import * as globals from '~/src/config/nunjucks/globals'
 const nunjucksTestEnv = nunjucks.configure(
   [
     'node_modules/govuk-frontend/',
-    path.normalize(path.resolve(__dirname, '..', 'src', 'common', 'templates')),
-    path.normalize(path.resolve(__dirname, '..', 'src', 'common', 'components'))
+    'server',
+    path.normalize(
+      path.resolve(__dirname, '..', 'src', 'server', 'common', 'templates')
+    ),
+    path.normalize(
+      path.resolve(__dirname, '..', 'src', 'server', 'common', 'components')
+    )
   ],
   {
     trimBlocks: true,
