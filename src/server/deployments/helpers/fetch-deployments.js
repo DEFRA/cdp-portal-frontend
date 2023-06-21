@@ -5,7 +5,7 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 async function fetchDeployments() {
   const logger = createLogger()
   const deploymentsEndpointUrl = `${appConfig.get(
-    'deploymentsV1ApiUrl'
+    'deploymentsApiUrl'
   )}/deployments`
 
   try {

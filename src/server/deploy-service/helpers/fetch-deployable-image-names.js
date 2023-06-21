@@ -5,7 +5,7 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 async function fetchDeployableImageNames() {
   const logger = createLogger()
   const deployableImagesEndpointUrl = `${appConfig.get(
-    'deployablesV1ApiUrl'
+    'deployablesApiUrl'
   )}/deployables`
 
   try {

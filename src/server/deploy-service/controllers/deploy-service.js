@@ -38,7 +38,7 @@ const deployServiceController = {
 
     if (!validationResult.error) {
       const deployServiceEndpointUrl = `${appConfig.get(
-        'selfServiceOpsV1ApiUrl'
+        'selfServiceOpsApiUrl'
       )}/deploy-service`
 
       await fetch(deployServiceEndpointUrl, {

@@ -5,7 +5,7 @@ import { appConfig } from '~/src/config'
 
 async function fetchDeployableService(serviceId) {
   const serviceEndpointUrl = `${appConfig.get(
-    'deployablesV1ApiUrl'
+    'deployablesApiUrl'
   )}/services/${serviceId}`
 
   const response = await fetch(serviceEndpointUrl)

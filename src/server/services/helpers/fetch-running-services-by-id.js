@@ -3,7 +3,7 @@ import { appConfig } from '~/src/config'
 
 async function fetchRunningServicesById(serviceId) {
   const runningServices = `${appConfig.get(
-    'deploymentsV1ApiUrl'
+    'deploymentsApiUrl'
   )}/whats-running-where/${serviceId}`
 
   const response = await fetch(runningServices)

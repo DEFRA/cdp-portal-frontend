@@ -10,7 +10,7 @@ async function fetchAvailableVersions(serviceName) {
 
   const logger = createLogger()
   const deployablesVersionsEndpoint = `${appConfig.get(
-    'deployablesV1ApiUrl'
+    'deployablesApiUrl'
   )}/deployables/${serviceName}`
 
   try {
