@@ -47,7 +47,7 @@ const createServiceController = {
 
     if (!validationResult.error) {
       const selfServiceOpsV1CreateServiceEndpointUrl = `${appConfig.get(
-        'selfServiceOpsV1ApiUrl'
+        'selfServiceOpsApiUrl'
       )}/create-service`
 
       await fetch(selfServiceOpsV1CreateServiceEndpointUrl, {

@@ -5,7 +5,7 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 async function fetchRunningServices() {
   const logger = createLogger()
   const runningServicesEndpointUrl = `${appConfig.get(
-    'deploymentsV1ApiUrl'
+    'deploymentsApiUrl'
   )}/whats-running-where`
 
   try {
