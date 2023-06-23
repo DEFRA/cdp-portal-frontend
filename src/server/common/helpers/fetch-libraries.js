@@ -1,15 +1,16 @@
 import fetch from 'node-fetch'
+
 import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/server/common/helpers/logger'
 
-async function fetchReposForTeam(teamId) {
+async function fetchLibraries(teamId = null) {
   const logger = createLogger()
-  const teamEndpointUrl = `${appConfig.get(
+  const templatesEndpointUrl = `${appConfig.get(
     'teamsAndRepositoriesApiUrl'
-  )}/repositories?team=${teamId}`
+  )}/libraries${teamId ? `?team=${teamId}` : ''}`
 
   try {
-    const response = await fetch(teamEndpointUrl)
+    const response = await fetch(templatesEndpointUrl)
     return await response.json()
   } catch (error) {
     logger.error(error)
@@ -17,4 +18,4 @@ async function fetchReposForTeam(teamId) {
   }
 }
 
-export { fetchReposForTeam }
+export { fetchLibraries }

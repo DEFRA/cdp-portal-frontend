@@ -46,6 +46,38 @@
       {% else %}
         <p>This team does not currently own any repositories</p>
       {% endif %}
+
+      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Templates</h2>
+
+      {% if team.templates.length %}
+        <ul class="govuk-list govuk-list--bullet">
+          {% for template in team.templates %}
+            <li>
+              <a class="app-link"
+                 href="{{ template.url }}"
+                 target="_blank">defra-cdp-sandpit/{{ template.id }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>This team does not currently own any templates</p>
+      {% endif %}
+
+      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Libraries</h2>
+
+      {% if team.libraries.length %}
+        <ul class="govuk-list govuk-list--bullet">
+          {% for library in team.libraries %}
+            <li>
+              <a class="app-link"
+                 href="{{ library.url }}"
+                 target="_blank">defra-cdp-sandpit/{{ library.id }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>This team does not currently own any libraries</p>
+      {% endif %}
     </div>
   </div>
 

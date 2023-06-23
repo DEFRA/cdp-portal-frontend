@@ -1,6 +1,6 @@
 import { omit } from 'lodash'
 
-import { fetchRepositories } from '~/src/server/services/helpers/fetch-repositories'
+import { fetchRepositories } from '~/src/server/common/helpers/fetch-repositories'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch-deployable-services'

@@ -1,0 +1,30 @@
+{% extends "layouts/page.njk" %}
+
+{% from "entity-list/macro.njk" import appEntityList %}
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+    <section>
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
+
+      {{ appEntityList({
+        headings: [
+          { text: "Item", size: "large" },
+          { text: "Team", size: "medium" },
+          { text: "Language", size: "small" },
+          { text: "GitHub Repository", size: "massive" },
+          { text: "Created", size: "medium" }
+        ],
+        entityRows: entityRows,
+        noResult: noResult
+      }) }}
+
+    </section>
+  {% endcall %}
+
+{% endblock %}
+

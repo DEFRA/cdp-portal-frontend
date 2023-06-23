@@ -1,12 +1,13 @@
 import fetch from 'node-fetch'
+
 import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/server/common/helpers/logger'
 
-async function fetchRepositories() {
+async function fetchRepositories(teamId = null) {
   const logger = createLogger()
   const repositoriesEndpointUrl = `${appConfig.get(
     'teamsAndRepositoriesApiUrl'
-  )}/repositories`
+  )}/repositories${teamId ? `?team=${teamId}` : ''}`
 
   try {
     const response = await fetch(repositoriesEndpointUrl)

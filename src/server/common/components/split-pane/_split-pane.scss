@@ -1,0 +1,30 @@
+$nav-width: 130px;
+$nav-width-slim: 100px;
+
+.app-split-pane {
+  display: flex;
+
+  @include govuk-media-query(1160px) {
+    width: 100%;
+  }
+}
+
+.app-split-pane__nav {
+  padding-top: govuk-spacing(1);
+
+  @include govuk-media-query($from: tablet) {
+    width: $nav-width-slim;
+    flex: 0 0 auto;
+  }
+
+  @include govuk-media-query($from: desktop) {
+    width: $nav-width;
+  }
+}
+
+.app-split-pane__content {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 100%;
+  flex-direction: column;
+}

@@ -1,0 +1,34 @@
+.app-subnav {
+  margin-bottom: 100px;
+  padding: 0 govuk-spacing(3) 0 0;
+  @include govuk-font(19);
+}
+
+.app-subnav__section {
+  margin: 0 0 govuk-spacing(4);
+  padding: 0;
+  list-style-type: none;
+}
+
+.app-subnav__link {
+  padding: 2px 0;
+}
+
+.app-subnav__section-item {
+  margin-bottom: govuk-spacing(1);
+  padding-top: govuk-spacing(1);
+  padding-bottom: govuk-spacing(1);
+  padding-left: govuk-spacing(3);
+}
+
+.app-subnav__section-item--current {
+  $active-indicator-width: 4px;
+
+  padding-left: govuk-spacing(2);
+  border-left: $active-indicator-width solid govuk-colour("blue");
+  background-color: govuk-colour("white");
+}
+
+.app-subnav__section-item--current .app-subnav__link {
+  font-weight: bold;
+}

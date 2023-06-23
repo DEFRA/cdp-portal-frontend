@@ -7,6 +7,7 @@ import { deployments } from '~/src/server/deployments'
 import { runningServices } from '~/src/server/running-services'
 import { services } from '~/src/server/services'
 import { teams } from '~/src/server/teams'
+import { utilities } from '~/src/server/utilities'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
 
 const router = {
@@ -23,6 +24,7 @@ const router = {
         runningServices,
         services,
         teams,
+        utilities,
         serveStaticFiles
       ])
     }
