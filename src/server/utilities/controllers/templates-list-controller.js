@@ -32,7 +32,7 @@ const templatesListController = {
         }
       ],
       headingCaption:
-        'Templates are cloned and used for creating new platform services',
+        'Templates are cloned and used for creating new platform services.',
       noResult: 'Currently there are no templates'
     })
   }
