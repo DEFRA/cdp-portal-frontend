@@ -6,7 +6,21 @@ const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpackConfig = {
   isDevelopment: process.env.NODE_ENV !== 'production',
   stylesheets: {
-    components: path.resolve(__dirname, 'src', 'server', 'common', 'components')
+    components: path.resolve(
+      __dirname,
+      'src',
+      'server',
+      'common',
+      'components'
+    ),
+    partials: path.resolve(
+      __dirname,
+      'src',
+      'server',
+      'common',
+      'templates',
+      'partials'
+    )
   }
 }
 
@@ -67,7 +81,10 @@ module.exports = {
               sassOptions: {
                 outputStyle: 'compressed',
                 quietDeps: true,
-                includePaths: [webpackConfig.stylesheets.components]
+                includePaths: [
+                  webpackConfig.stylesheets.components,
+                  webpackConfig.stylesheets.partials
+                ]
               }
             }
           }

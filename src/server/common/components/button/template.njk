@@ -1,9 +1,10 @@
 {% from "loader/macro.njk" import appLoader %}
 
-<div>
+<div data-testid="app-button-container">
   <button class="govuk-button app-button"
           data-js="app-button"
-          data-loader="{{ params.loader.name }}">
+          data-loader="{{ params.loader.name }}"
+          data-testid="app-button">
     {{ params.text }}
   </button>
   {{ appLoader({ name: params.loader.name }) }}

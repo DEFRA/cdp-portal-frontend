@@ -1,15 +1,25 @@
 import { appConfig } from '~/src/config'
 import { fetchTeam } from '~/src/server/teams/helpers/fetch-team'
 import { transformTeamToHeadingEntities } from '~/src/server/teams/transformers/transform-team-to-heading-entities'
-import { fetchReposForTeam } from '../helpers/fetch-repos-for-team'
+import { fetchRepositories } from '~/src/server/common/helpers/fetch-repositories'
+import { fetchTemplates } from '~/src/server/common/helpers/fetch-templates'
+import { fetchLibraries } from '~/src/server/common/helpers/fetch-libraries'
 
 const teamController = {
   handler: async (request, h) => {
     const teamId = request.params?.teamId
-    const { team } = await fetchTeam(teamId)
-    const { repositories } = await fetchReposForTeam(teamId)
 
-    team.repositories = repositories
+    let { team } = await fetchTeam(teamId)
+    const { repositories } = await fetchRepositories(teamId)
+    const { templates } = await fetchTemplates(teamId)
+    const { libraries } = await fetchLibraries(teamId)
+
+    team = {
+      ...team,
+      repositories,
+      templates,
+      libraries
+    }
 
     return h.view('teams/views/team', {
       pageTitle: `${team.name} team`,

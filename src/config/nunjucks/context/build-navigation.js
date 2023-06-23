@@ -16,6 +16,11 @@ function buildNavigation(request) {
         isActive: request?.path?.includes(`${appPathPrefix}/services`) ?? false
       },
       {
+        text: 'Utilities',
+        url: `${appPathPrefix}/utilities/templates`,
+        isActive: request?.path?.includes(`${appPathPrefix}/utilities`) ?? false
+      },
+      {
         text: 'Teams',
         url: `${appPathPrefix}/teams`,
         isActive: request?.path?.includes(`${appPathPrefix}/teams`) ?? false

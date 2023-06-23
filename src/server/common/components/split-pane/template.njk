@@ -1,0 +1,12 @@
+{% set content = params.html | safe if params.html else params.text %}
+
+<div class="app-split-pane app-width-container">
+  <div class="app-split-pane__nav">
+    {% include "partials/subnav/subnav.njk" %}
+  </div>
+  <div class="app-split-pane__content">
+    <main id="main-content" class="app-content" role="main">
+      {{ caller() if caller else content }}
+    </main>
+  </div>
+</div>
