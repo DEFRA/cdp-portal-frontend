@@ -31,7 +31,7 @@ const librariesListController = {
           label: 'Libraries'
         }
       ],
-      headingCaption: 'Libraries information.',
+      headingCaption: 'Organisational packages and libraries.',
       noResult: 'Currently there are no libraries'
     })
   }
