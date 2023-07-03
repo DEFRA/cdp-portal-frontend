@@ -10,12 +10,12 @@ initAll()
 
 window.fetchVersions = fetchVersions
 
-const $readOuts = Array.from(
+const $readOutInputs = Array.from(
   document.querySelectorAll('[data-js="repository-name"]')
 )
 
-if ($readOuts.length) {
-  $readOuts.forEach(($readOut) => readOut($readOut))
+if ($readOutInputs.length) {
+  $readOutInputs.forEach(($readOutInput) => readOut($readOutInput))
 }
 
 const $buttons = Array.from(document.querySelectorAll('[data-js="app-button"]'))
