@@ -1,11 +1,12 @@
 import Joi from 'joi'
 
-// TODO get these from the API layer
 const environments = [
-  'sandbox',
+  'snd',
+  'management',
+  'infra-dev',
   'development',
   'test',
-  'perfTest',
+  'perf-test',
   'production'
 ]
 
