@@ -1,0 +1,13 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appHeading({
+    title: heading,
+    caption: caption
+  }) }}
+
+  {% call appTabs({ tabs: tabs }) %}
+    {% block tabContent %}{% endblock %}
+  {% endcall %}
+
+{% endblock %}

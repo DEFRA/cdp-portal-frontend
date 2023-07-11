@@ -1,4 +1,17 @@
 html {
   box-sizing: border-box;
-  font-size: 82.5%; // Globally reduce GOV font size
+
+  @include govuk-media-query($from: tablet) {
+    font-size: 82.5%; // Globally reduce GOV font size. Applying this via $govuk-root-font-size results in small screen font size being far too small
+  }
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
 }

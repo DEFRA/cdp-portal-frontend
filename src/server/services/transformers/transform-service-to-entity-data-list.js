@@ -1,13 +1,16 @@
+import { startCase } from 'lodash'
+
 import { appConfig } from '~/src/config'
 
 function transformServiceToEntityDataList(service) {
   const team = service?.teams?.at(0)
+
   return [
     {
       heading: 'Team',
       entity: {
         kind: 'link',
-        value: team,
+        value: team && startCase(team),
         url: `${appConfig.get('appPathPrefix')}/teams/${team}`
       }
     },

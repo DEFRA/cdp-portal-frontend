@@ -1,3 +1,5 @@
+import { startCase } from 'lodash'
+
 import { appConfig } from '~/src/config'
 
 function transformServiceToEntityRow(service) {
@@ -9,7 +11,7 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'link',
-      value: service.teams?.at(0),
+      value: service.teams?.at(0) && startCase(service.teams.at(0)),
       url: `${appConfig.get('appPathPrefix')}/teams/${service.teams?.at(0)}`
     },
     {

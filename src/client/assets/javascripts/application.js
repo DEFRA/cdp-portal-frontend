@@ -1,4 +1,6 @@
 import { initAll } from 'govuk-frontend'
+
+import { initModule } from '~/src/client/common/helpers/init-module'
 import { readOut } from '~/src/server/common/components/read-out/read-out'
 import { button } from '~/src/server/common/components/button/button'
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
@@ -10,26 +12,11 @@ initAll()
 
 window.fetchVersions = fetchVersions
 
-const $readOutInputs = Array.from(
-  document.querySelectorAll('[data-js="repository-name"]')
-)
+// Create service repository name readout
+initModule('repository-name', readOut)
 
-if ($readOutInputs.length) {
-  $readOutInputs.forEach(($readOutInput) => readOut($readOutInput))
-}
+// Form submit buttons with loaders. Create and Deploy service
+initModule('app-button', button)
 
-const $buttons = Array.from(document.querySelectorAll('[data-js="app-button"]'))
-
-if ($buttons.length) {
-  $buttons.forEach(($button) => button($button))
-}
-
-const $selectControllers = Array.from(
-  document.querySelectorAll('[data-js="select-controller"]')
-)
-
-if ($selectControllers.length) {
-  $selectControllers.forEach(($selectController) =>
-    populateSelectOptions($selectController)
-  )
-}
+// Deploy service form. Choose deployment version select
+initModule('select-controller', populateSelectOptions)

@@ -1,6 +1,12 @@
 import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
 
 function transformDeploymentToEntityDataList(deployedService) {
+  // TODO remove once snd is removed or name is aligned
+  const environment =
+    deployedService.environment === 'snd'
+      ? 'sandbox'
+      : deployedService.environment
+
   return [
     {
       heading: 'Status',
@@ -14,7 +20,7 @@ function transformDeploymentToEntityDataList(deployedService) {
       heading: 'Environment',
       entity: {
         kind: 'tag',
-        value: deployedService.environment,
+        value: environment,
         classes: 'govuk-tag--blue'
       }
     },
@@ -27,14 +33,14 @@ function transformDeploymentToEntityDataList(deployedService) {
       }
     },
     {
-      heading: 'Docker Image name',
+      heading: 'Image name',
       entity: {
         kind: 'text',
         value: deployedService.service
       }
     },
     {
-      heading: 'Deployed by',
+      heading: 'By',
       entity: {
         kind: 'text',
         value: deployedService.user,
@@ -42,7 +48,7 @@ function transformDeploymentToEntityDataList(deployedService) {
       }
     },
     {
-      heading: 'Deployment date',
+      heading: 'Date',
       entity: {
         kind: 'date',
         value: deployedService.deployedAt,

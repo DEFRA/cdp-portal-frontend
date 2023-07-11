@@ -6,14 +6,11 @@ function transformDeploymentsToEntityRow(deployedService) {
     {
       kind: 'link',
       value: deployedService.service,
-      url: `${appConfig.get('appPathPrefix')}/deployments/${
+      url: `${appConfig.get(
+        'appPathPrefix'
+      )}/deployments/${deployedService.environment.toLowerCase()}/${
         deployedService.deploymentId
       }`
-    },
-    {
-      kind: 'tag',
-      value: deployedService.environment,
-      classes: 'govuk-tag--blue'
     },
     {
       kind: 'text',

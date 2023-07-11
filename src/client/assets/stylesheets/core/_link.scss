@@ -1,8 +1,3 @@
 .app-link {
-  @include govuk-link-style-no-visited-state;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  @include app-link;
 }

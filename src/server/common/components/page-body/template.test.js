@@ -1,11 +1,11 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Page Body Component', () => {
   let $pageBody
 
   describe('With child content', () => {
     beforeEach(() => {
-      $pageBody = renderComponent(
+      $pageBody = renderTestComponent(
         'page-body',
         {},
         '<p>Used digger, digs great and is lots of fun to dig huge holes with. Comes with heater, comfy seat and radio.</p>'
@@ -21,7 +21,7 @@ describe('Page Body Component', () => {
 
   describe('With text param', () => {
     beforeEach(() => {
-      $pageBody = renderComponent('page-body', {
+      $pageBody = renderTestComponent('page-body', {
         text: 'Used digger, digs great and is lots of fun to dig huge holes with. Comes with heater, comfy seat and radio.'
       })
     })
@@ -35,7 +35,7 @@ describe('Page Body Component', () => {
 
   describe('With html param', () => {
     beforeEach(() => {
-      $pageBody = renderComponent('page-body', {
+      $pageBody = renderTestComponent('page-body', {
         html: '<p>Used digger, digs great and is lots of fun to dig huge holes with. Comes with heater, comfy seat and radio.</p>'
       })
     })

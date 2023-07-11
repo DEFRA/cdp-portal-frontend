@@ -1,7 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "entity-list/macro.njk" import appEntityList %}
-
 {% block content %}
 
   {{ appHeading({
@@ -9,14 +7,15 @@
     caption: "What micro-services are running where? and on which environments."
   }) }}
 
-
   {{ appEntityList({
     headings: [
-      { text: "Running service", size: "medium" },
+      { text: "Service", size: "medium" },
       { text: "Sandbox", size: "small"},
+      { text: "Management", size: "small"},
+      { text: "Infra-dev", size: "small"},
       { text: "Development", size: "small"},
-      { text: "Testing", size: "small"},
-      { text: "Perf test", size: "small"},
+      { text: "Test", size: "small"},
+      { text: "Perf-test", size: "small"},
       { text: "Production", size: "small"}
     ],
     entityRows: entityRows,

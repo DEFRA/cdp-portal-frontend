@@ -1,10 +1,10 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Header Component', () => {
   let $header
 
   beforeEach(() => {
-    $header = renderComponent('header', {
+    $header = renderTestComponent('header', {
       serviceName: 'Totally MEGA service portal',
       serviceUrl: '/'
     })

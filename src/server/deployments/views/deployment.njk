@@ -1,22 +1,14 @@
-{% extends "layouts/page.njk" %}
+{% extends "layouts/tabbed-page.njk" %}
 
-{% block content %}
+{% block tabContent %}
 
   {{ appHeading({
-    title: heading,
-    caption: "Deployment information.",
-    entities: headingEntities
+    title: tabHeading
   }) }}
 
-  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
-
   <div class="govuk-grid-row govuk-!-margin-bottom-4">
-
     <div class="govuk-grid-column-one-third">
-      {% set team =  service.teams[0] if service.teams | length %}
-
       {{ appEntityDataList({
-        heading: "Deployment details",
         items: entityDataList
       }) }}
     </div>

@@ -1,12 +1,13 @@
 .app-data-list {
   margin-left: govuk-spacing(1);
+  margin-top: govuk-spacing(0);
 }
 
 .app-data-list-heading {
   @include govuk-typography-weight-bold;
 
   display: flex;
-  margin-bottom: govuk-spacing(1);
+  margin-bottom: govuk-spacing(2);
 }
 
 .app-data-list-item {

@@ -8,7 +8,7 @@ describe('#transformServiceToEntityDataList', () => {
         entity: {
           kind: 'link',
           url: '/cdp-portal-frontend/teams/fisheries',
-          value: 'fisheries'
+          value: 'Fisheries'
         },
         heading: 'Team'
       },

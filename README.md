@@ -133,7 +133,7 @@ $ docker run -p 3000:3000 cdp-portal-frontend:development
 Build:
 
 ```bash
-docker build --no-cache --tag cdp-portal-frontend .
+$ docker build --no-cache --tag cdp-portal-frontend .
 ```
 
 Run:

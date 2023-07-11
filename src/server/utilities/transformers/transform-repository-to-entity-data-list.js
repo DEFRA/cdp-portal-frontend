@@ -1,3 +1,5 @@
+import { startCase } from 'lodash'
+
 import { appConfig } from '~/src/config'
 
 function transformRepositoryToEntityDataList(repository) {
@@ -7,7 +9,7 @@ function transformRepositoryToEntityDataList(repository) {
       heading: 'Team',
       entity: {
         kind: 'link',
-        value: team,
+        value: team && startCase(team),
         url: `${appConfig.get('appPathPrefix')}/teams/${team}`
       }
     },
