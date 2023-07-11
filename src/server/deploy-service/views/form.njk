@@ -18,6 +18,60 @@
       }) %}
 
         {{ govukSelect({
+            id: "environment",
+            name: "environment",
+            label: {
+              text: "Environment",
+              classes: "govuk-!-margin-bottom-0"
+            },
+            classes: "app-select",
+            value: values.environment,
+            hint: {
+              text: "Which environment do you want to deploy to",
+              classes: "govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "govuk-!-margin-bottom-6 app-form-group"
+            },
+            errorMessage: {
+              text: errors.environment.message,
+              classes: "govuk-!-margin-bottom-1 app-error-message"
+            } if errors.environment.message,
+            items: [
+              blankOption,
+              {
+                value: "snd",
+                text: "Sandbox"
+              },
+              {
+                value: "management",
+                text: "Management"
+              },
+              {
+                value: "infra-dev",
+                text: "Infra dev"
+              },
+              {
+                value: "development",
+                text: "Development"
+              },
+              {
+                value: "test",
+                text: "Test"
+              },
+              {
+                value: "perf-test",
+                text: "Perf test"
+              },
+              {
+                value: "production",
+                text: "Production"
+              }
+            ]
+          })
+        }}
+
+        {{ govukSelect({
           id: "image-name",
           name: "imageName",
           label: {
@@ -76,57 +130,123 @@
         }) }}
 
         {{ govukSelect({
-          id: "environment",
-          name: "environment",
+          id: "instances",
+          name: "instances",
           label: {
-            text: "Environment",
+            text: "Instances",
             classes: "govuk-!-margin-bottom-0"
           },
-          classes: "app-select",
-          value: values.environment,
+          classes: "app-select app-select--wide",
           hint: {
-            text: "Which environment do you want to deploy to",
+            text: "How many instances of the service to run",
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "govuk-!-margin-bottom-6 app-form-group"
+            classes: "govuk-!-margin-bottom-3 app-form-group"
           },
+          value: values.instances,
+          attributes: {},
           errorMessage: {
-            text: errors.environment.message,
+            text: errors.instances.message,
             classes: "govuk-!-margin-bottom-1 app-error-message"
-          } if errors.environment.message,
+          } if errors.imageName.message,
           items: [
-            blankOption,
+            { value: 1, text: 1, selected: true },
+            { value: 2, text: 2 },
+            { value: 3, text: 3 },
+            { value: 4, text: 4 },
+            { value: 5, text: 5 },
+            { value: 6, text: 6 },
+            { value: 7, text: 7 },
+            { value: 8, text: 8 },
+            { value: 0, text: "0 (Undeploy)" }
+          ]
+        }) }}
+
+        {{ govukSelect({
+          id: "cpu",
+          name: "cpu",
+          label: {
+            text: "CPU",
+            classes: "govuk-!-margin-bottom-0"
+          },
+          classes: "app-select app-select--wide",
+          hint: {
+            text: "How much CPU to allocate to the task",
+            classes: "govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "govuk-!-margin-bottom-3 app-form-group"
+          },
+          value: values.cpu,
+          attributes: {},
+          errorMessage: {
+            text: errors.cpu.message,
+            classes: "govuk-!-margin-bottom-1 app-error-message"
+          } if errors.imageName.message,
+          items: [
             {
-              value: "snd",
-              text: "Sandbox"
+              value: 512,
+              text: "0.5"
             },
             {
-              value: "management",
-              text: "Management"
+              value: 1024,
+              text: "1",
+              selected: "true"
             },
             {
-              value: "infra-dev",
-              text: "Infra dev"
+              value: 2048,
+              text: "2"
             },
             {
-              value: "development",
-              text: "Development"
-            },
-            {
-              value: "test",
-              text: "Test"
-            },
-            {
-              value: "perf-test",
-              text: "Perf test"
-            },
-            {
-              value: "production",
-              text: "Production"
+              value: 4096,
+              text: "4"
             }
           ]
         }) }}
+
+        {{ govukSelect({
+          id: "memory",
+          name: "memory",
+          label: {
+            text: "Memory",
+            classes: "govuk-!-margin-bottom-0"
+          },
+          classes: "app-select app-select--wide",
+          hint: {
+            text: "How much memory to allocate to the service",
+            classes: "govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "govuk-!-margin-bottom-3 app-form-group"
+          },
+          value: values.memory,
+          attributes: {},
+          errorMessage: {
+            text: errors.memory.message,
+            classes: "govuk-!-margin-bottom-1 app-error-message"
+          } if errors.imageName.message,
+          items: [
+            {
+              value: 1024,
+              text: "1GB"
+            },
+            {
+              value: 2048,
+              text: "2GB",
+              selected: "true"
+            },
+            {
+              value: 3072,
+              text: "3GB"
+            },
+            {
+              value: 4096,
+              text: "4GB"
+            }
+          ]
+        }) }}
+
       {% endcall %}
 
       {{ appButton({

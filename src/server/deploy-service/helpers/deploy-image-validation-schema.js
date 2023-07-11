@@ -27,7 +27,16 @@ function deployImageValidationSchema(imageNames, availableVersions) {
       .valid(...environments)
       .messages({
         'any.only': 'Choose an entry'
-      })
+      }),
+    instances: Joi.number()
+      .messages({ 'any.only': 'Choose how many instances' })
+      .required(),
+    cpu: Joi.number()
+      .messages({ 'any.only': 'Choose how much cpu' })
+      .required(),
+    memory: Joi.number()
+      .messages({ 'any.only': 'Choose how much memory' })
+      .required()
   })
 }
 

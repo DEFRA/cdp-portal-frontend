@@ -46,7 +46,10 @@ const deployServiceController = {
         body: JSON.stringify({
           imageName: validationResult.value.imageName,
           version: validationResult.value.version,
-          environment: validationResult.value.environment
+          environment: validationResult.value.environment,
+          instances: validationResult.value.instances,
+          cpu: validationResult.value.cpu,
+          memory: validationResult.value.memory
         }),
         headers: { 'Content-Type': 'application/json' }
       })
