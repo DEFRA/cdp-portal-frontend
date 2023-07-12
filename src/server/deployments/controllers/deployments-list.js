@@ -17,7 +17,6 @@ const deploymentsListController = {
     }
   },
   handler: async (request, h) => {
-    const environment = request.params?.environment
     const deployments = await fetchDeployments(request.params?.environment)
 
     const entityRows = deployments
@@ -29,7 +28,6 @@ const deploymentsListController = {
       heading: 'Deployments',
       caption:
         'Micro-service deployment details across all available environments.',
-      environment: environments[environment],
       tabs: deploymentTabs(request),
       entityRows
     })
