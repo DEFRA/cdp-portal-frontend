@@ -51,7 +51,7 @@ describe('#transformDeploymentToEntityDataList', () => {
           size: 'large',
           value: '2023-05-18T21:54:12Z'
         },
-        heading: 'Date'
+        heading: 'Updated'
       }
     ])
   })

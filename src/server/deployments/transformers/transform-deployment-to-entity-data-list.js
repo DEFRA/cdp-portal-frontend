@@ -48,10 +48,10 @@ function transformDeploymentToEntityDataList(deployedService) {
       }
     },
     {
-      heading: 'Date',
+      heading: 'Updated',
       entity: {
         kind: 'date',
-        value: deployedService.deployedAt,
+        value: deployedService.updatedAt,
         size: 'large'
       }
     }

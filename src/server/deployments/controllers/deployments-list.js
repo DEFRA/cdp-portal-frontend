@@ -20,7 +20,7 @@ const deploymentsListController = {
     const deployments = await fetchDeployments(request.params?.environment)
 
     const entityRows = deployments
-      ?.sort(sortBy('deployedAt'))
+      ?.sort(sortBy('updatedAt'))
       ?.map(transformDeploymentsToEntityRow)
 
     return h.view('deployments/views/list', {

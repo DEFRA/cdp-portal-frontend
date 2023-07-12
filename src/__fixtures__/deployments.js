@@ -5,7 +5,8 @@ const deploymentsFixture = [
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     user: 'RoboCop',
-    deployedAt: '2023-05-18T21:54:12Z',
+    createdAt: '2023-05-18T21:54:12Z',
+    updatedAt: '2023-05-18T21:54:12Z',
     status: 'RUNNING',
     dockerImage: 'amazonaws.com/cdp-teams-and-repositories:0.2.0'
   },
@@ -15,7 +16,8 @@ const deploymentsFixture = [
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     user: 'Rodger Rabbit',
-    deployedAt: '2023-05-18T21:54:12Z',
+    createdAt: '2023-05-18T21:54:12Z',
+    updatedAt: '2023-05-18T21:54:12Z',
     status: 'RUNNING',
     dockerImage: 'amazonaws.com/cdp-teams-and-repositories:0.2.0'
   },
@@ -25,7 +27,8 @@ const deploymentsFixture = [
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     user: 'Tetsuo Shima',
-    deployedAt: '2023-05-18T21:54:12Z',
+    createdAt: '2023-05-18T21:54:12Z',
+    updatedAt: '2023-05-18T21:54:12Z',
     status: 'RUNNING',
     dockerImage: 'amazonaws.com/cdp-teams-and-repositories:0.2.0'
   }
