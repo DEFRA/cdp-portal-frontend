@@ -6,6 +6,8 @@
     caption: caption
   }) }}
 
+  {% block actions %}{% endblock %}
+
   {% call appTabs({ tabs: tabs }) %}
     {% block tabContent %}{% endblock %}
   {% endcall %}

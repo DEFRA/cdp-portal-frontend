@@ -1,5 +1,16 @@
 {% extends "layouts/tabbed-page.njk" %}
 
+{% from "search/macro.njk" import appSearch %}
+
+{% block actions %}
+  {{ appSearch({
+    label: "Search deployments",
+    id: "search",
+    name: "search",
+    searchItems: searchItems
+  }) }}
+{% endblock %}
+
 {% block tabContent %}
 
   {{ appEntityList({

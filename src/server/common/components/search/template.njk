@@ -1,0 +1,37 @@
+<script>
+  window.searchItems = [
+    { "label": "Cdp Teams And Repositories", "value": "cdp-teams-and-repositories" },
+    { "label": "Cdp Portal Frontend", "value": "cdp-portal-frontend" },
+    { "label": "Cdp Portal One", "value": "cdp-portal-one" },
+    { "label": "Cdp Portal Two", "value": "cdp-portal-two" },
+    { "label": "Cdp Portal Three", "value": "cdp-portal-three" },
+    { "label": "Cdp Portal Four", "value": "cdp-portal-four" },
+    { "label": "Cdp Portal Five", "value": "cdp-portal-five" },
+  ]
+</script>
+
+<div class="app-search">
+  <label for="{{ params.id }}">
+    <span class="app-field-label">
+      {{ params.label }}
+    </span>
+  </label>
+
+  <div class="app-search__autocomplete">
+    <input type="text"
+           id="{{ params.id }}"
+           autocapitalize="none"
+           autocomplete="off"
+           role="combobox"
+           aria-owns="autocomplete-items"
+           aria-autocomplete="list"
+           aria-expanded="false"
+           data-js="app-search"
+    >
+    <ul id="app-search__items"></ul>
+    <div id="app-search__result"
+         aria-live="polite"
+         role="status"
+    ></div>
+  </div>
+</div>

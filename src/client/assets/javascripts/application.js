@@ -5,6 +5,7 @@ import { readOut } from '~/src/server/common/components/read-out/read-out'
 import { button } from '~/src/server/common/components/button/button'
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
 import { fetchVersions } from '~/src/client/common/helpers/fetch-versions'
+import { search } from '~/src/server/common/components/search/search'
 
 import '../stylesheets/application.scss'
 
@@ -20,3 +21,6 @@ initModule('app-button', button)
 
 // Deploy service form. Choose deployment version select
 initModule('select-controller', populateSelectOptions)
+
+// Search Deployments
+initModule('app-search', search)

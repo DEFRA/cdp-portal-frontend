@@ -31,7 +31,13 @@ const deploymentsListController = {
         'Micro-service deployment details across all available environments.',
       environment: environments[environment],
       tabs: deploymentTabs(request),
-      entityRows
+      entityRows,
+      searchItems: JSON.stringify(
+        deployments?.map((deployment) => ({
+          label: deployment.service,
+          value: deployment.service
+        }))
+      )
     })
   }
 }

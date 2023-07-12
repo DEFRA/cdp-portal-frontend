@@ -1,0 +1,26 @@
+.app-search {
+  @extend %govuk-body-m;
+}
+
+.highlight {
+  background-color: chocolate;
+}
+
+#app-search__items {
+  background-color: lightblue;
+  list-style: none;
+  padding: 0;
+
+  max-height: 5em;
+  overflow-y: scroll;
+
+  li {
+    &:hover {
+      background-color: grey;
+    }
+
+    &:focus {
+      background-color: blue;
+    }
+  }
+}
