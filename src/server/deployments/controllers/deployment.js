@@ -17,10 +17,7 @@ const deploymentController = {
     }
   },
   handler: async (request, h) => {
-    const deployment = await fetchDeployment(
-      request.params?.environment,
-      request.params?.deploymentId
-    )
+    const deployment = await fetchDeployment(request.params?.deploymentId)
 
     return h.view('deployments/views/deployment', {
       pageTitle: `${deployment.service} Service Deployment`,

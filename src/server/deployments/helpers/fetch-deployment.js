@@ -3,10 +3,10 @@ import Boom from '@hapi/boom'
 
 import { appConfig } from '~/src/config'
 
-async function fetchDeployment(environment, deploymentId) {
+async function fetchDeployment(deploymentId) {
   const deploymentEndpointUrl = `${appConfig.get(
     'deploymentsApiUrl'
-  )}/deployments/${environment}/${deploymentId}`
+  )}/deployment/${deploymentId}`
 
   const response = await fetch(deploymentEndpointUrl)
 
