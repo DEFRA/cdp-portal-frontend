@@ -1,4 +1,4 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 const dataListFixture = [
   {
@@ -23,7 +23,7 @@ describe('Entity Data List Component', () => {
   let $dataList
 
   beforeEach(() => {
-    const $component = renderComponent('entity-data-list', {
+    const $component = renderTestComponent('entity-data-list', {
       heading: 'Fruits',
       items: dataListFixture
     })

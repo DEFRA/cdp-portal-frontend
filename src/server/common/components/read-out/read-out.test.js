@@ -1,4 +1,4 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 import { readOut } from '~/src/server/common/components/read-out/read-out'
 
 describe('#readOut', () => {
@@ -8,7 +8,7 @@ describe('#readOut', () => {
   beforeEach(() => {
     jest.useFakeTimers()
 
-    const $component = renderComponent('read-out', {
+    const $component = renderTestComponent('read-out', {
       description: 'Your repository name will be',
       targetId: 'test-target-id'
     })

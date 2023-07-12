@@ -1,10 +1,10 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Read Out Component', () => {
   let $readout
 
   beforeEach(() => {
-    $readout = renderComponent('read-out', {
+    $readout = renderTestComponent('read-out', {
       description: 'Your repository name will be',
       targetId: 'mock-target-id'
     })('[data-testid="app-read-out"]').first()

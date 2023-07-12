@@ -1,4 +1,4 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 import { button } from '~/src/server/common/components/button/button'
 
 describe('#button', () => {
@@ -8,7 +8,7 @@ describe('#button', () => {
   beforeEach(() => {
     jest.useFakeTimers()
 
-    const $component = renderComponent('button', {
+    const $component = renderTestComponent('button', {
       text: 'Press me!',
       loader: {
         name: 'button-loader'

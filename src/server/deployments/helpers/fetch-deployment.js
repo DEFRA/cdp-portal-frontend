@@ -1,22 +1,20 @@
 import fetch from 'node-fetch'
+import Boom from '@hapi/boom'
 
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/server/common/helpers/logger'
 
-async function fetchDeployment(deploymentId) {
-  const logger = createLogger()
+async function fetchDeployment(environment, deploymentId) {
   const deploymentEndpointUrl = `${appConfig.get(
     'deploymentsApiUrl'
-  )}/deployments/${deploymentId}`
+  )}/deployments/${environment}/${deploymentId}`
 
-  try {
-    const response = await fetch(deploymentEndpointUrl)
+  const response = await fetch(deploymentEndpointUrl)
 
-    return await response.json()
-  } catch (error) {
-    logger.error(error)
-    return []
+  if (response.status === 404) {
+    throw Boom.boomify(Boom.notFound())
   }
+
+  return await response.json()
 }
 
 export { fetchDeployment }

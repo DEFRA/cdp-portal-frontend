@@ -1,11 +1,11 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Heading Component', () => {
   let $heading
 
   describe('With caption', () => {
     beforeEach(() => {
-      $heading = renderComponent('heading', {
+      $heading = renderTestComponent('heading', {
         title: 'Services',
         caption: 'A page showing available services'
       })

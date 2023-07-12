@@ -1,3 +1,3 @@
-import { assign } from 'lodash'
+import { assign, startCase } from 'lodash'
 
-export { assign }
+export { assign, startCase }

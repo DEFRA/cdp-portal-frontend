@@ -1,0 +1,23 @@
+<div class="app-tabs">
+  {% if(params.tabs | length) %}
+    <ul class="app-tabs__list" data-testid="app-tabs-list">
+      {% for tab in params.tabs %}
+        <li class="app-tabs__list-item{% if tab.isActive %} app-tabs__list-item--selected{% endif %}"
+            data-testid="app-tabs-list-item-{{ loop.index }}">
+          <a class="app-tabs__tab" href="{{ tab.url }}">
+            {{ tab.label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% for tab in params.tabs %}
+    {% if tab.isActive %}
+      {% set content = tab.panel.html | safe if tab.panel.html else tab.panel.text %}
+      <div class="app-tabs__panel" data-testid="app-tabs-panel">
+        {{ caller() if caller else content }}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

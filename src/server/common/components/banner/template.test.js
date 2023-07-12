@@ -1,11 +1,11 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Banner Component', () => {
   let $banner
 
   describe('Success Banner', () => {
     beforeEach(() => {
-      $banner = renderComponent('banner', {
+      $banner = renderTestComponent('banner', {
         type: 'success',
         text: 'Well done!'
       })('[data-testid="app-banner"]').first()
@@ -24,7 +24,7 @@ describe('Banner Component', () => {
 
   describe('Info Banner', () => {
     beforeEach(() => {
-      $banner = renderComponent('banner', {
+      $banner = renderTestComponent('banner', {
         type: 'info',
         text: 'Today is Wednesday'
       })('[data-testid="app-banner"]').first()
@@ -43,7 +43,7 @@ describe('Banner Component', () => {
 
   describe('Error Banner', () => {
     beforeEach(() => {
-      $banner = renderComponent('banner', {
+      $banner = renderTestComponent('banner', {
         type: 'error',
         text: 'Something has gone terribly wrong!'
       })('[data-testid="app-banner"]').first()

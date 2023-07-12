@@ -1,4 +1,4 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transformers/transform-deployments-to-entity-row'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 
@@ -16,10 +16,9 @@ describe('Entity List Component', () => {
     })
 
     beforeEach(() => {
-      $entityList = renderComponent('entity-list', {
+      $entityList = renderTestComponent('entity-list', {
         headings: [
           { text: 'Service', size: 'large' },
-          { text: 'Environment', size: 'small' },
           { text: 'Version', size: 'small' },
           { text: 'Status', size: 'small' },
           { text: 'By', size: 'small' },
@@ -43,11 +42,10 @@ describe('Entity List Component', () => {
         )
 
       expect(getHeader(1).text().trim()).toEqual('Service')
-      expect(getHeader(2).text().trim()).toEqual('Environment')
-      expect(getHeader(3).text().trim()).toEqual('Version')
-      expect(getHeader(4).text().trim()).toEqual('Status')
-      expect(getHeader(5).text().trim()).toEqual('By')
-      expect(getHeader(6).text().trim()).toEqual('On')
+      expect(getHeader(2).text().trim()).toEqual('Version')
+      expect(getHeader(3).text().trim()).toEqual('Status')
+      expect(getHeader(4).text().trim()).toEqual('By')
+      expect(getHeader(5).text().trim()).toEqual('On')
     })
 
     test('Rows should contain expected size className', () => {
@@ -60,8 +58,7 @@ describe('Entity List Component', () => {
       expect(getItem(2).attr('class')).toContain('app-entity-list__item--small')
       expect(getItem(3).attr('class')).toContain('app-entity-list__item--small')
       expect(getItem(4).attr('class')).toContain('app-entity-list__item--small')
-      expect(getItem(5).attr('class')).toContain('app-entity-list__item--small')
-      expect(getItem(6).attr('class')).toContain('app-entity-list__item--large')
+      expect(getItem(5).attr('class')).toContain('app-entity-list__item--large')
     })
 
     test('Should contain expected entities', () => {
@@ -74,25 +71,22 @@ describe('Entity List Component', () => {
       expect(getEntity(1).html()).toContain('cdp-teams-and-repositories')
 
       expect(getEntity(2).length).toEqual(1)
-      expect(getEntity(2).html()).toContain('Production')
+      expect(getEntity(2).html()).toContain('0.2.0')
 
       expect(getEntity(3).length).toEqual(1)
-      expect(getEntity(3).html()).toContain('0.2.0')
+      expect(getEntity(3).html()).toContain('RUNNING')
 
       expect(getEntity(4).length).toEqual(1)
-      expect(getEntity(4).html()).toContain('RUNNING')
+      expect(getEntity(4).html()).toContain('RoboCop')
 
       expect(getEntity(5).length).toEqual(1)
-      expect(getEntity(5).html()).toContain('RoboCop')
-
-      expect(getEntity(6).length).toEqual(1)
-      expect(getEntity(6).html()).toContain('21:54 Thu 18th May 2023')
+      expect(getEntity(5).html()).toContain('21:54 Thu 18th May 2023')
     })
   })
 
   describe('Without entities', () => {
     beforeEach(() => {
-      $entityList = renderComponent('entity-list', {
+      $entityList = renderTestComponent('entity-list', {
         headings: [],
         items: [],
         noResult: 'Currently there are no deployed micro-services'

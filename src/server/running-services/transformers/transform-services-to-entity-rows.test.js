@@ -15,15 +15,23 @@ describe('#transformServicesToEntityRows', () => {
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '0.1.0'
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '0.6.0'
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '0.4.0'
+        },
+        {
+          kind: 'text',
+          value: '0.3.0'
+        },
+        {
+          kind: 'text',
+          value: '0.7.0'
         },
         {
           kind: 'text',
@@ -37,23 +45,31 @@ describe('#transformServicesToEntityRows', () => {
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '0.6.0'
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '1.1.0'
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '0.4.0'
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '0.9.0'
         },
         {
           kind: 'text',
-          value: '0.2.0'
+          value: '0.3.1'
+        },
+        {
+          kind: 'text',
+          value: '0.8.0'
+        },
+        {
+          kind: 'text',
+          value: '2.2.1'
         }
       ]
     ])

@@ -2,8 +2,6 @@
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% from "entity-list/macro.njk" import appEntityList %}
-
 {% block content %}
 
   {{ appHeading({
@@ -22,15 +20,19 @@
         <p>
           {{ service.description }}
         </p>
+      </section>
 
+      <section class="app-section-wide">
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running versions</h2>
         {{ appEntityList({
           headings: [
-            { text: "Sandbox", size: "small"},
-            { text: "Development", size: "small"},
-            { text: "Testing", size: "small"},
-            { text: "Perf test", size: "small"},
-            { text: "Production", size: "small"}
+            { text: "Sandbox", size: "medium"},
+            { text: "Management", size: "medium"},
+            { text: "Infra-dev", size: "medium"},
+            { text: "Development", size: "medium"},
+            { text: "Test", size: "medium"},
+            { text: "Perf-test", size: "medium"},
+            { text: "Production", size: "medium"}
           ],
           entityRows: runningServicesEntityRows,
           noResult: "Currently there are no versions of " + service.imageName + " running in any environments"

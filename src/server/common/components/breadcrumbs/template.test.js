@@ -1,10 +1,10 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Breadcrumbs Component', () => {
   let $breadcrumbs
 
   beforeEach(() => {
-    $breadcrumbs = renderComponent('breadcrumbs', {
+    $breadcrumbs = renderTestComponent('breadcrumbs', {
       items: [
         {
           text: 'Deployments',

@@ -10,12 +10,12 @@ const deployments = {
       server.route([
         {
           method: 'GET',
-          path: '/deployments',
+          path: '/deployments/{environment}',
           ...deploymentsListController
         },
         {
           method: 'GET',
-          path: '/deployments/{deploymentId}',
+          path: '/deployments/{environment}/{deploymentId}',
           ...deploymentController
         }
       ])

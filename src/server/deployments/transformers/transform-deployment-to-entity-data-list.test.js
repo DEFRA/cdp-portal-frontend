@@ -35,7 +35,7 @@ describe('#transformDeploymentToEntityDataList', () => {
           kind: 'text',
           value: 'cdp-teams-and-repositories'
         },
-        heading: 'Docker Image name'
+        heading: 'Image name'
       },
       {
         entity: {
@@ -43,7 +43,7 @@ describe('#transformDeploymentToEntityDataList', () => {
           size: 'small',
           value: 'RoboCop'
         },
-        heading: 'Deployed by'
+        heading: 'By'
       },
       {
         entity: {
@@ -51,7 +51,7 @@ describe('#transformDeploymentToEntityDataList', () => {
           size: 'large',
           value: '2023-05-18T21:54:12Z'
         },
-        heading: 'Deployment date'
+        heading: 'Date'
       }
     ])
   })

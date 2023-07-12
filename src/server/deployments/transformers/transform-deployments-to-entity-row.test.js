@@ -6,13 +6,8 @@ describe('#transformDeploymentsToEntityRow', () => {
     expect(transformDeploymentsToEntityRow(deploymentsFixture.at(0))).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/deployments/553E4E6B-05D7-4A2E-BF80-02ED34DEF864',
+        url: '/cdp-portal-frontend/deployments/production/553E4E6B-05D7-4A2E-BF80-02ED34DEF864',
         value: 'cdp-teams-and-repositories'
-      },
-      {
-        classes: 'govuk-tag--blue',
-        kind: 'tag',
-        value: 'Production'
       },
       {
         kind: 'text',

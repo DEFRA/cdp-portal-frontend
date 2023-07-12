@@ -1,4 +1,4 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Time Component', () => {
   let $time
@@ -13,7 +13,7 @@ describe('Time Component', () => {
   })
 
   beforeEach(() => {
-    $time = renderComponent('time', {
+    $time = renderTestComponent('time', {
       datetime: '2023-04-11T15:11:31.722Z'
     })
   })

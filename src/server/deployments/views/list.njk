@@ -1,25 +1,17 @@
-{% extends "layouts/page.njk" %}
+{% extends "layouts/tabbed-page.njk" %}
 
-{% from "entity-list/macro.njk" import appEntityList %}
-
-{% block content %}
-
-  {{ appHeading({
-    title: heading,
-    caption: "Micro-service deployment details."
-  }) }}
+{% block tabContent %}
 
   {{ appEntityList({
     headings: [
-      { text: "Service deployment", size: "large" },
-      { text: "Environment", size: "small" },
+      { text: "Deployment", size: "large" },
       { text: "Version", size: "tiny" },
       { text: "Status", size: "small" },
       { text: "By", size: "small" },
-      { text: "Deployment date", size: "large" }
+      { text: "Date", size: "large" }
     ],
     entityRows: entityRows,
-    noResult: "Currently there are no micro-service deployments"
+    noResult: "Currently there are no micro-service deployments in " + environment | startCase
   }) }}
 
 {% endblock %}

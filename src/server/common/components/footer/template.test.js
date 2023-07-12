@@ -1,10 +1,10 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Footer Component', () => {
   let $footer
 
   beforeEach(() => {
-    $footer = renderComponent('footer')
+    $footer = renderTestComponent('footer')
   })
 
   test('Should render footer', () => {

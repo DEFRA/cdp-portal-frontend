@@ -8,10 +8,12 @@ function buildVersion(version) {
 function transformServicesToEntityRows(services) {
   return Object.entries(services).map(([serviceName, service]) => [
     { kind: 'text', value: serviceName },
-    buildVersion(service?.sandbox),
+    buildVersion(service?.snd),
+    buildVersion(service?.management),
+    buildVersion(service?.infraDev),
     buildVersion(service?.development),
-    buildVersion(service?.testing),
-    buildVersion(service?.preProduction),
+    buildVersion(service?.test),
+    buildVersion(service?.perfTest),
     buildVersion(service?.production)
   ])
 }

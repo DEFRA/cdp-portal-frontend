@@ -1,11 +1,11 @@
-import { renderComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Entity Component', () => {
   describe('Entity', () => {
     let $entity
 
     beforeEach(() => {
-      $entity = renderComponent('entity', {
+      $entity = renderTestComponent('entity', {
         kind: 'text',
         value: 'Rod License Service',
         size: 'large',
@@ -24,7 +24,7 @@ describe('Entity Component', () => {
     let $linkEntity
 
     beforeEach(() => {
-      $linkEntity = renderComponent('entity', {
+      $linkEntity = renderTestComponent('entity', {
         kind: 'link',
         value: 'Rod License Service',
         url: '/deployments/12345678',
@@ -61,7 +61,7 @@ describe('Entity Component', () => {
     let $linkEntity
 
     beforeEach(() => {
-      $linkEntity = renderComponent('entity', {
+      $linkEntity = renderTestComponent('entity', {
         kind: 'link',
         value: 'Cracking service',
         url: '/services/09876543',
@@ -81,7 +81,7 @@ describe('Entity Component', () => {
     let $tagEntity
 
     beforeEach(() => {
-      $tagEntity = renderComponent('entity', {
+      $tagEntity = renderTestComponent('entity', {
         kind: 'tag',
         value: 'Production',
         classes: 'govuk-tag--blue',
@@ -111,7 +111,7 @@ describe('Entity Component', () => {
     })
 
     beforeEach(() => {
-      $dateEntity = renderComponent('entity', {
+      $dateEntity = renderTestComponent('entity', {
         kind: 'date',
         value: '2023-04-11T14:40:02.242Z',
         size: 'large'
@@ -139,7 +139,7 @@ describe('Entity Component', () => {
     let $textEntity
 
     beforeEach(() => {
-      $textEntity = renderComponent('entity', {
+      $textEntity = renderTestComponent('entity', {
         kind: 'text',
         value: '0.1.0',
         size: 'small'
