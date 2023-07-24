@@ -40,6 +40,7 @@ const serviceController = {
         entityDataList: transformServiceToEntityDataList(service),
         runningServicesEntityRows,
         service,
+        // TODO move breadcrumbs to onPostHandler
         breadcrumbs: [
           {
             text: 'Services',

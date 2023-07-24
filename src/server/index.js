@@ -1,5 +1,6 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
+import qs from 'qs'
 import { plugin as basicAuth } from '@hapi/basic'
 
 import { appConfig } from '~/src/config'
@@ -8,8 +9,8 @@ import { router } from './router'
 import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { catchAll } from '~/src/server/common/helpers/errors'
 import { flashMessage } from '~/src/server/common/helpers/flash-message'
-import { addNotificationsToContext } from '~/src/server/common/helpers/add-notifications-to-context'
 import { validateBasicAuth } from '~/src/server/common/helpers/basic-auth'
+import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 
 async function createServer() {
   const server = hapi.server({
@@ -27,6 +28,9 @@ async function createServer() {
     },
     router: {
       stripTrailingSlash: true
+    },
+    query: {
+      parser: (query) => qs.parse(query)
     }
   })
 
@@ -37,7 +41,7 @@ async function createServer() {
     server.auth.default('simple')
   }
 
-  server.ext('onPreResponse', addNotificationsToContext, {
+  server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']
   })
 

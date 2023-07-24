@@ -48,20 +48,6 @@ $border-bottom-width: 4px;
   }
 }
 
-.app-navigation__list-item--active {
-  border-bottom: 4px solid govuk-colour("blue");
-
-  &:hover {
-    border-bottom: 4px solid govuk-colour("dark-blue");
-  }
-
-  .app-navigation__link {
-    &:hover {
-      color: govuk-colour("dark-blue");
-    }
-  }
-}
-
 .app-navigation__link {
   @include govuk-link-style-no-visited-state;
   border: 0;
@@ -88,10 +74,16 @@ $border-bottom-width: 4px;
 }
 
 .app-navigation__link--active {
-  border-bottom: $border-bottom-width solid govuk-colour("blue");
+  color: govuk-colour("black");
+  border-bottom: $border-bottom-width solid govuk-colour("black");
 
   &:hover {
     color: govuk-colour("dark-blue");
     border-bottom: $border-bottom-width solid govuk-colour("dark-blue");
+  }
+
+  &:active,
+  &:visited {
+    color: govuk-colour("black");
   }
 }

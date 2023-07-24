@@ -1,9 +1,9 @@
-function addNotificationsToContext(request, h) {
+function addFlashMessagesToContext(request, h) {
   const response = request.response
 
   if (response.variety === 'view') {
     response.source.context = {
-      ...(response.source.context && response.source.context),
+      ...response.source.context,
       notifications: request.yar.flash('notifications')
     }
   }
@@ -11,4 +11,4 @@ function addNotificationsToContext(request, h) {
   return h.continue
 }
 
-export { addNotificationsToContext }
+export { addFlashMessagesToContext }
