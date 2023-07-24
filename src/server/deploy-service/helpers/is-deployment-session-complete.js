@@ -6,12 +6,12 @@ function isDeploymentSessionComplete(deploymentSession) {
         deploymentSession?.environment
     ),
     stepTwo: Boolean(
-      deploymentSession?.instanceCount > 0 &&
+      deploymentSession?.instanceCount >= 0 &&
         deploymentSession?.cpu &&
         deploymentSession?.memory
     ),
-    stepThree: deploymentSession?.isSent,
-    stepFour: deploymentSession?.isComplete
+    stepThree: Boolean(deploymentSession?.isSent),
+    stepFour: Boolean(deploymentSession?.isComplete)
   }
 }
 
