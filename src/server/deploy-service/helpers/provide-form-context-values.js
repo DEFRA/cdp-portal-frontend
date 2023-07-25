@@ -1,5 +1,3 @@
-// TODO tests for form values override
-
 function provideFormContextValues(request, h) {
   const response = request.response
 
@@ -7,7 +5,7 @@ function provideFormContextValues(request, h) {
     const deployment = request.yar.get('deployment')
     const validationFailure = request.yar.flash('validationFailure')?.at(0)
 
-    if (!response?.source?.context) {
+    if (!response.source?.context) {
       response.source.context = {}
     }
 
