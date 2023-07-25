@@ -21,16 +21,17 @@ function buildRow(name, value, stepPath) {
   }
 }
 
+// Reverse the keys and values, so we can get environment name by value
+const environmentDisplayText = Object.entries(environments).reduce(
+  (obj, [key, value]) => ({
+    ...obj,
+    [value]: startCase(key)
+  }),
+  {}
+)
+
 async function transformDeploymentRows(details) {
-  // TODO once the environments are sorted out do this in a better way
-  // Reverse the keys and values so we can get environment name by value
-  const environmentDisplayText = Object.entries(environments).reduce(
-    (obj, [key, value]) => ({
-      ...obj,
-      [value]: startCase(key)
-    }),
-    {}
-  )
+  const environmentText = environmentDisplayText[details.environment]
 
   const { cpuOptions, ecsCpuToMemoryOptionsMap } =
     await fetchDeployServiceOptions()
@@ -46,11 +47,7 @@ async function transformDeploymentRows(details) {
   return [
     buildRow('Image name', details.imageName, 'details'),
     buildRow('Image version', details.version, 'details'),
-    buildRow(
-      'Environment',
-      environmentDisplayText[details.environment],
-      'service'
-    ),
+    buildRow('Environment', environmentText, 'details'),
     buildRow('Instance count', details.instanceCount, 'options'),
     buildRow('CPU size', cpuDisplayText?.text, 'options'),
     buildRow('Memory allocation', memoryDisplayText?.text, 'options')
