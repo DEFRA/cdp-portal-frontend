@@ -1,0 +1,99 @@
+.app-step-navigation-container {
+  width: 100%;
+  max-width: 500px;
+  margin: govuk-spacing(4) 0;
+  padding: 0;
+}
+
+%connecting-line {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+
+.app-step-navigation {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  position: relative;
+
+  &:before {
+    @extend %connecting-line;
+    background: govuk-colour("light-grey");
+  }
+
+  &:after {
+    @extend %connecting-line;
+    width: 0%;
+    background: govuk-colour("blue");
+  }
+}
+
+.app-step-navigation__item {
+  list-style: none;
+  position: relative;
+  z-index: 1;
+}
+
+.app-step-navigation__point {
+  @include govuk-link-style-no-visited-state;
+
+  text-decoration: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid govuk-colour("white");
+  outline: 2px solid govuk-colour("white");
+  background: $app-mid-grey;
+  user-select: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    box-shadow: none;
+    text-decoration: none;
+  }
+}
+
+.app-step-navigation__point--current {
+  outline: 2px solid govuk-colour("blue");
+  background: govuk-colour("blue");
+}
+
+.app-step-navigation__point--complete {
+  background: govuk-colour("green");
+
+  .app-tick-icon {
+    fill: govuk-colour("white");
+  }
+}
+
+.app-step-navigation__icon {
+  @include govuk-font($size: 24, $weight: "bold");
+  display: inline-block;
+  color: govuk-colour("white");
+}
+
+.app-step-navigation__heading {
+  color: govuk-colour("dark-grey");
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.app-step-navigation__item--current {
+  .app-step-navigation__heading {
+    color: govuk-colour("black");
+  }
+}

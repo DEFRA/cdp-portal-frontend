@@ -1,16 +1,6 @@
 import Joi from 'joi'
 
-const environments = [
-  'snd',
-  'management',
-  'infra-dev',
-  'development',
-  'test',
-  'perf-test',
-  'production'
-]
-
-function deployImageValidationSchema(imageNames, availableVersions) {
+function serviceValidation(imageNames, availableVersions, environments) {
   return Joi.object({
     imageName: Joi.string()
       .valid(...imageNames)
@@ -27,8 +17,9 @@ function deployImageValidationSchema(imageNames, availableVersions) {
       .valid(...environments)
       .messages({
         'any.only': 'Choose an entry'
-      })
+      }),
+    redirectLocation: Joi.string().valid('summary', '')
   })
 }
 
-export { deployImageValidationSchema }
+export { serviceValidation }

@@ -17,7 +17,7 @@ describe('#button', () => {
 
     // Append button component to a form and then add it to the document
     document.body.innerHTML = `<form id="mock-form">
-        ${$component('[data-testid="app-button-container"]').first().html()}
+        ${$component.html()}
       </form>`
 
     // Init ClientSide JavaScript

@@ -1,0 +1,16 @@
+{% extends "layouts/step-navigation-page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: headingCaption
+  }) }}
+
+  {% call appPageBody() %}
+
+    <p>Service deployment successfully requested</p>
+
+  {% endcall %}
+
+{% endblock %}

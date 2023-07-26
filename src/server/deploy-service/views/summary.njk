@@ -1,0 +1,30 @@
+{% extends "layouts/step-navigation-page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: headingCaption
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <div class="govuk-body">
+        <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">
+
+          {{ govukSummaryList({
+            classes: 'govuk-!-margin-bottom-9',
+            rows: deploymentRows
+          }) }}
+
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText
+          }) }}
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

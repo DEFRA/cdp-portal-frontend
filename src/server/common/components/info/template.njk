@@ -1,0 +1,11 @@
+{% from "info-icon/macro.njk" import appInfoIcon %}
+
+{% set content = params.html | safe if params.html else params.text %}
+
+<div class="app-info"
+     tabindex="-1"
+     role="alert"
+     data-testid="app-info">
+  {{ appInfoIcon() }}
+  <p class="app-info__content" data-testid="app-info-content">{{ content }}</p>
+</div>
