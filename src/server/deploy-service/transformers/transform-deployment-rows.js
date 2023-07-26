@@ -1,12 +1,14 @@
+import { startCase } from 'lodash'
+
 import { appConfig, environments } from '~/src/config'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
-import { startCase } from 'lodash'
 
 function buildRow(name, value, stepPath) {
   return {
-    key: { text: name },
-    value: { text: value },
+    key: { text: name, classes: 'app-summary__heading' },
+    value: { html: value },
     actions: {
+      classes: 'app-summary__action',
       items: [
         {
           href:
@@ -30,17 +32,37 @@ const environmentDisplayText = Object.entries(environments).reduce(
   {}
 )
 
+function buildCpuInfo({ text, value }) {
+  const availableCpu = value - 256
+  const availableCpuAsvCPU = (availableCpu / 1024).toString().replace(/^0/g, '')
+
+  return `${text}
+    <div class="app-info-hint">
+      256 (.25 vCPU) allocated to sidecars. You have <strong>${availableCpu} (${availableCpuAsvCPU} vCPU)</strong> available
+    </div>`
+}
+
+function buildMemoryInfo({ text, value }) {
+  const availableMemory = value - 256
+  const availableMemoryAsGb = availableMemory / 1024
+
+  return `${text}
+    <div class="app-info-hint">
+      .25 GB (256 MB) allocated to sidecars. You have <strong>${availableMemoryAsGb} GB (${availableMemory} MB)</strong> available
+    </div>`
+}
+
 async function transformDeploymentRows(details) {
   const environmentText = environmentDisplayText[details.environment]
 
   const { cpuOptions, ecsCpuToMemoryOptionsMap } =
     await fetchDeployServiceOptions()
 
-  const cpuDisplayText = cpuOptions.find(
+  const cpuDetail = cpuOptions.find(
     ({ value }) => value === parseInt(details?.cpu, 10)
   )
 
-  const memoryDisplayText = ecsCpuToMemoryOptionsMap[details?.cpu]?.find(
+  const memoryDetail = ecsCpuToMemoryOptionsMap[details?.cpu]?.find(
     ({ value }) => value === parseInt(details?.memory, 10)
   )
 
@@ -49,8 +71,8 @@ async function transformDeploymentRows(details) {
     buildRow('Image version', details.version, 'details'),
     buildRow('Environment', environmentText, 'details'),
     buildRow('Instance count', details.instanceCount, 'options'),
-    buildRow('CPU size', cpuDisplayText?.text, 'options'),
-    buildRow('Memory allocation', memoryDisplayText?.text, 'options')
+    buildRow('CPU size', buildCpuInfo(cpuDetail), 'options'),
+    buildRow('Memory allocation', buildMemoryInfo(memoryDetail), 'options')
   ]
 }
 

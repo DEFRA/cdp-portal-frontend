@@ -7,112 +7,116 @@
     caption: headingCaption
   }) }}
 
-  {% call appPageBody() %}
-    <form action="{{ appPathPrefix }}/deploy-service/details" method="post" data-js="app-form">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <div class="govuk-body">
+        <form action="{{ appPathPrefix }}/deploy-service/details" method="post" data-js="app-form">
 
-      <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
-      {% call govukFieldset() %}
+          {% call govukFieldset() %}
 
-        {{ govukSelect({
-          id: "image-name",
-          name: "imageName",
-          label: {
-            text: "Image name",
-            classes: "govuk-!-margin-bottom-0"
-          },
-          classes: "app-select app-select--wide",
-          hint: {
-            text: "Elastic Container Registry (ECR) image name",
-            classes: "govuk-!-margin-bottom-1"
-          },
-          formGroup: {
-            classes: "govuk-!-margin-bottom-4 app-form-group app-form-group-js"
-          },
-          value: formValues.imageName,
-          attributes: {
-            "data-js": "select-controller",
-            "data-fetcher": "fetchVersions",
-            "data-target": "deploy-version",
-            "data-loader": "version-loader"
-          },
-          errorMessage: {
-            text: formErrors.imageName.message,
-            classes: "govuk-!-margin-bottom-1 app-error-message",
-            attributes: {
-              "data-js": "app-error"
-            }
-          } if formErrors.imageName.message,
-          items: deployableImageNameOptions
-        }) }}
+            {{ govukSelect({
+              id: "image-name",
+              name: "imageName",
+              label: {
+                text: "Image name",
+                classes: "govuk-!-margin-bottom-0"
+              },
+              classes: "app-select app-select--wide",
+              hint: {
+                text: "Elastic Container Registry (ECR) image name",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              formGroup: {
+                classes: "govuk-!-margin-bottom-4 app-form-group app-form-group-js"
+              },
+              value: formValues.imageName,
+              attributes: {
+                "data-js": "select-controller",
+                "data-fetcher": "fetchVersions",
+                "data-target": "deploy-version",
+                "data-loader": "version-loader"
+              },
+              errorMessage: {
+                text: formErrors.imageName.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.imageName.message,
+              items: deployableImageNameOptions
+            }) }}
 
-        {{ appSelect({
-          id: "version",
-          name: "version",
-          label: {
-            text: "Image version",
-            classes: "govuk-!-margin-bottom-0"
-          },
-          classes: "app-select",
-          value: formValues.version,
-          hint: {
-            text: "Elastic Container Registry (ECR) image version",
-            classes: "govuk-!-margin-bottom-1"
-          },
-          formGroup: {
-            classes: "govuk-!-margin-bottom-4 app-form-group app-form-group-js"
-          },
-          attributes: {
-            "data-js": "deploy-version"
-          },
-          loader: {
-            name: "version-loader"
-          },
-          errorMessage: {
-            text: formErrors.version.message,
-            classes: "govuk-!-margin-bottom-1 app-error-message",
-            attributes: {
-              "data-js": "app-error"
-            }
-          } if formErrors.version.message,
-          items: availableVersionOptions
-        }) }}
+            {{ appSelect({
+              id: "version",
+              name: "version",
+              label: {
+                text: "Image version",
+                classes: "govuk-!-margin-bottom-0"
+              },
+              classes: "app-select",
+              value: formValues.version,
+              hint: {
+                text: "Elastic Container Registry (ECR) image version",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              formGroup: {
+                classes: "govuk-!-margin-bottom-4 app-form-group app-form-group-js"
+              },
+              attributes: {
+                "data-js": "deploy-version"
+              },
+              loader: {
+                name: "version-loader"
+              },
+              errorMessage: {
+                text: formErrors.version.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.version.message,
+              items: availableVersionOptions
+            }) }}
 
-        {{ govukSelect({
-          id: "environment",
-          name: "environment",
-          label: {
-            text: "Environment",
-            classes: "govuk-!-margin-bottom-0"
-          },
-          classes: "app-select",
-          value: formValues.environment,
-          hint: {
-            text: "The environment to deploy to",
-            classes: "govuk-!-margin-bottom-1"
-          },
-          formGroup: {
-            classes: "govuk-!-margin-bottom-4 app-form-group app-form-group-js"
-          },
-          errorMessage: {
-            text: formErrors.environment.message,
-            classes: "govuk-!-margin-bottom-1 app-error-message",
-            attributes: {
-              "data-js": "app-error"
-            }
-          } if formErrors.environment.message,
-          items: environmentOptions
-        }) }}
+            {{ govukSelect({
+              id: "environment",
+              name: "environment",
+              label: {
+                text: "Environment",
+                classes: "govuk-!-margin-bottom-0"
+              },
+              classes: "app-select",
+              value: formValues.environment,
+              hint: {
+                text: "The environment to deploy to",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              formGroup: {
+                classes: "govuk-!-margin-bottom-4 app-form-group app-form-group-js"
+              },
+              errorMessage: {
+                text: formErrors.environment.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.environment.message,
+              items: environmentOptions
+            }) }}
 
-      {% endcall %}
+          {% endcall %}
 
-      {{ govukButton({
-        classes: "app-button",
-        text: formButtonText
-      }) }}
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText
+          }) }}
 
-    </form>
+        </form>
 
-  {% endcall %}
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

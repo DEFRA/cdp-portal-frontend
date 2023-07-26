@@ -1,3 +1,5 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% from "info-icon/macro.njk" import appInfoIcon %}
 
 {% set content = params.html | safe if params.html else params.text %}
@@ -7,5 +9,20 @@
      role="alert"
      data-testid="app-info">
   {{ appInfoIcon() }}
-  <p class="app-info__content" data-testid="app-info-content">{{ content }}</p>
+
+  <span class="app-info__content" data-testid="app-info-content">
+    {{ content }}
+  </span>
+
+  {% if params.actionText %}
+    <span class="app-info__action">
+      {{ govukButton({
+        classes: "app-button app-button--secondary js-visible",
+        text: params.actionText,
+        attributes: {
+          "data-js": "protected-button"
+        }
+      }) }}
+    </span>
+  {% endif %}
 </div>

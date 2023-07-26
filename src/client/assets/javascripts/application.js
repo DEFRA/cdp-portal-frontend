@@ -7,6 +7,7 @@ import { populateSelectOptions } from '~/src/client/common/helpers/populate-sele
 import { fetchVersions } from '~/src/client/common/helpers/fetch-versions'
 import { fetchMemory } from '~/src/client/common/helpers/fetch-memory'
 import { errorMessages } from '~/src/client/common/helpers/error-messages'
+import { protectForm } from '~/src/client/common/helpers/protect-form'
 
 import '../stylesheets/application.scss'
 
@@ -27,3 +28,6 @@ initModule('select-controller', populateSelectOptions)
 
 // Remove server-side error messages on element blur
 initModule('app-form', errorMessages)
+
+// Add UX friction to editing inputs on a protected form
+initModule('protected-inputs', protectForm, '*=')

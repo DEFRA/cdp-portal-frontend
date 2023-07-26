@@ -11,9 +11,9 @@ describe('Info Component', () => {
     })
 
     test('Should render with expected text content', () => {
-      expect($info.find('[data-testid="app-info-content"]').text()).toEqual(
-        'Something interesting'
-      )
+      expect(
+        $info.find('[data-testid="app-info-content"]').text().trim()
+      ).toEqual('Something interesting')
     })
   })
 
@@ -25,9 +25,9 @@ describe('Info Component', () => {
     })
 
     test('Should render with expected text content', () => {
-      expect($info.find('[data-testid="app-info-content"]').html()).toEqual(
-        '<em>Something fascinating with markup!</em>'
-      )
+      expect(
+        $info.find('[data-testid="app-info-content"]').html().trim()
+      ).toEqual('<em>Something fascinating with markup!</em>')
     })
   })
 })
