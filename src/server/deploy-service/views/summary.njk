@@ -12,8 +12,8 @@
       <div class="govuk-body">
 
         {{ appInfo({
-          text: "All containers have logging and metrics platform processes that consume 256 (.25 vCPU) of virtual CPU and .25 GB
-          (256 MB) of memory. Adjust your containers cpu and memory to allow for this resource allocation."
+          text: "All deployments require some resources for platform processes. Adjust your CPU and memory to allow for
+          this resource allocation."
         }) }}
 
         <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">

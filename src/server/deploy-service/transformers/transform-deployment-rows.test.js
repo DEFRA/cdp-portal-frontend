@@ -113,7 +113,7 @@ describe('#transformDeploymentRows', () => {
           text: 'CPU size'
         },
         value: {
-          html: '2048 (2 vCPU)\n    <div class="app-info-hint">\n      256 (.25 vCPU) automatically allocated to platform processes. You have <strong>1792 (1.75 vCPU)</strong> available for your containers application.\n    </div>'
+          html: '2048 (2 vCPU)\n    <div class="app-info-hint">\n      256 (.25 vCPU) automatically allocated to platform processes. You have <strong>1792 (1.75 vCPU)</strong> available.\n    </div>'
         }
       },
       {
@@ -133,7 +133,7 @@ describe('#transformDeploymentRows', () => {
           text: 'Memory allocation'
         },
         value: {
-          html: '9 GB\n    <div class="app-info-hint">\n      .25 GB (256 MB) automatically allocated to platform processes. You have <strong>8.75 GB (8960 MB)</strong> available for your containers application.\n    </div>'
+          html: '9 GB\n    <div class="app-info-hint">\n      .25 GB (256 MB) automatically allocated to platform processes. You have <strong>8.75 GB (8960 MB)</strong> available.\n    </div>'
         }
       }
     ])
