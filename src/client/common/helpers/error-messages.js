@@ -1,11 +1,11 @@
-function errorMessages($module) {
-  if (!$module) {
+function errorMessages($form) {
+  if (!$form) {
     return
   }
 
   const allowedInputs = ['select', 'input']
 
-  const $formElements = Array.from($module.elements).filter((element) =>
+  const $formElements = Array.from($form.elements).filter((element) =>
     allowedInputs.includes(element.tagName.toLowerCase())
   )
 

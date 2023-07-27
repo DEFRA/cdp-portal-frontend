@@ -8,8 +8,14 @@
   }) }}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
+    <div class="app-grid-column-two-thirds-at-desktop-wide">
       <div class="govuk-body">
+
+        {{ appInfo({
+          text: "All containers have logging and metrics platform processes that consume 256 (.25 vCPU) of virtual CPU and .25 GB
+          (256 MB) of memory. Adjust your containers cpu and memory to allow for this resource allocation."
+        }) }}
+
         <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">
 
           {{ govukSummaryList({

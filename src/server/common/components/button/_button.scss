@@ -4,4 +4,13 @@
   font-weight: bold;
   box-shadow: none;
   padding: govuk-spacing(1) govuk-spacing(3);
+  margin: 0;
+}
+
+.app-button--secondary {
+  background-color: govuk-colour("bright-purple");
+
+  &:hover {
+    background-color: govuk-shade(govuk-colour("bright-purple"), 20%);
+  }
 }

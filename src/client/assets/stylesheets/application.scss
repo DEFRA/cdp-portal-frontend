@@ -11,6 +11,15 @@ $govuk-grid-widths: (
   full: 100%
 );
 
+$govuk-breakpoints: (
+  mobile: 320px,
+  tablet: 641px,
+  desktop: 769px,
+  desktop-wide: 1280px,
+  desktop-huge: 1440px,
+  desktop-massive: 1920px
+);
+
 @import "~govuk-frontend/govuk/all";
 
 @import "helpers/all";
@@ -18,3 +27,4 @@ $govuk-grid-widths: (
 @import "core/all";
 @import "components/all";
 @import "partials/all";
+@import "objects/all";

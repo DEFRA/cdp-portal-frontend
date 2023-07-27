@@ -1,0 +1,3 @@
+.app-grid-column-two-thirds-at-desktop-wide {
+  @include govuk-grid-column(two-thirds, $at: desktop-wide);
+}
