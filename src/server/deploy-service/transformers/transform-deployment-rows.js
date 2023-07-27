@@ -38,7 +38,7 @@ function buildCpuInfo({ text, value }) {
 
   return `${text}
     <div class="app-info-hint">
-      256 (.25 vCPU) allocated to sidecars. You have <strong>${availableCpu} (${availableCpuAsvCPU} vCPU)</strong> available
+      256 (.25 vCPU) automatically allocated to platform processes. You have <strong>${availableCpu} (${availableCpuAsvCPU} vCPU)</strong> available for your containers application.
     </div>`
 }
 
@@ -48,7 +48,7 @@ function buildMemoryInfo({ text, value }) {
 
   return `${text}
     <div class="app-info-hint">
-      .25 GB (256 MB) allocated to sidecars. You have <strong>${availableMemoryAsGb} GB (${availableMemory} MB)</strong> available
+      .25 GB (256 MB) automatically allocated to platform processes. You have <strong>${availableMemoryAsGb} GB (${availableMemory} MB)</strong> available for your containers application.
     </div>`
 }
 
