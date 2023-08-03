@@ -1,17 +1,39 @@
 {% extends "layouts/tabbed-page.njk" %}
 
+{% from "search/macro.njk" import appSearch %}
+
+{% block actions %}
+
+  <form action="{{ appPathPrefix + '/deployments/' + environment }}" type="GET" data-js="auto-submit">
+
+    {{ appSearch({
+      label: "Search",
+      id: "search",
+      name: "service",
+      suggestions: suggestions
+    }) }}
+
+  </form>
+
+{% endblock %}
+
 {% block tabContent %}
 
-  {{ appEntityList({
-    headings: [
-      { text: "Deployment", size: "large" },
-      { text: "Version", size: "tiny" },
-      { text: "Status", size: "small" },
-      { text: "By", size: "small" },
-      { text: "Updated", size: "large" }
-    ],
-    entityRows: entityRows,
-    noResult: "Currently there are no deployments"
-  }) }}
+  {% block xhrContent %}
+
+    {{ appEntityList({
+      id: "deployments",
+      headings: [
+        { text: "Deployment", size: "large" },
+        { text: "Version", size: "tiny" },
+        { text: "Status", size: "small" },
+        { text: "By", size: "small" },
+        { text: "Updated", size: "large" }
+      ],
+      entityRows: entityRows,
+      noResult: "Currently there are no deployments"
+    }) }}
+
+  {% endblock %}
 
 {% endblock %}

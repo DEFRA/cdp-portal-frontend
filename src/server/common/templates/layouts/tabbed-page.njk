@@ -1,13 +1,18 @@
 {% extends "layouts/page.njk" %}
 
 {% block content %}
-  {{ appHeading({
-    title: heading,
-    caption: caption
-  }) }}
+  <div class="govuk-body">
 
-  {% call appTabs({ tabs: tabs }) %}
-    {% block tabContent %}{% endblock %}
-  {% endcall %}
+    {{ appHeading({
+      title: heading,
+      caption: caption
+    }) }}
 
+    {% block actions %}{% endblock %}
+
+    {% call appTabs({ tabs: tabs }) %}
+      {% block tabContent %}{% endblock %}
+    {% endcall %}
+
+  </div>
 {% endblock %}

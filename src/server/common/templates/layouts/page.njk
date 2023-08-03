@@ -1,5 +1,3 @@
-{% extends "govuk/template.njk" %}
-
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
@@ -19,6 +17,12 @@
 {% from "page-body/macro.njk" import appPageBody %}
 {% from "tabs/macro.njk" import appTabs %}
 {% from "step-navigation/macro.njk" import appStepNavigation %}
+
+{% if isXhr %}
+  {% extends "layouts/xhr.njk" %}
+{% else %}
+  {% extends "govuk/template.njk" %}
+{% endif %}
 
 {% set mainClasses = "app-main-wrapper" %}
 

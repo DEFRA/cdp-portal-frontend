@@ -1,0 +1,96 @@
+.app-search {
+  position: relative;
+  width: 24em;
+  margin-bottom: govuk-spacing(4);
+
+  .app-search-icon {
+    margin-left: govuk-spacing(1);
+    position: absolute;
+    left: 0;
+    fill: govuk-colour("mid-grey");
+    width: 26px;
+    height: 26px;
+  }
+
+  .app-search__close-button {
+    margin: 0 govuk-spacing(1) 0 0;
+    padding: 0;
+    position: absolute;
+    display: none;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    .app-close-icon {
+      fill: govuk-colour("mid-grey");
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .app-search__close-button--show {
+    display: block;
+  }
+}
+
+.app-search__autocomplete {
+  display: flex;
+  align-items: center;
+}
+
+.app-search__input {
+  padding-left: govuk-spacing(6);
+  padding-right: govuk-spacing(5);
+  width: 24em;
+  border-radius: $app-border-radius;
+  border: 1px solid govuk-colour("mid-grey");
+
+  &:focus {
+    border: 1px solid govuk-colour("black");
+    box-shadow: none;
+  }
+}
+
+.app-search__suggestion--highlight {
+  background-color: govuk-colour("light-grey");
+}
+
+.app-search__suggestions {
+  position: absolute;
+  left: 4px;
+  background-color: govuk-colour("white");
+  border-radius: 0 0 $app-border-radius $app-border-radius;
+  border: 1px solid $app-mid-grey;
+  box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
+  list-style: none;
+  padding: govuk-spacing(1) 0 govuk-spacing(1) govuk-spacing(2);
+  margin: 0;
+  min-height: govuk-spacing(9);
+  max-height: govuk-spacing(9) * 2;
+  width: 350px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: none;
+}
+
+.app-search__suggestions--show {
+  display: block;
+}
+
+.app-search__suggestion {
+  margin: 0 govuk-spacing(-4);
+  padding: govuk-spacing(1) govuk-spacing(4);
+
+  &:hover {
+    background-color: govuk-colour("light-grey");
+  }
+
+  &:focus {
+    background-color: govuk-colour("light-grey");
+  }
+}
+
+.app-search__suggestion--no-results {
+  color: govuk-colour("dark-grey");
+}
