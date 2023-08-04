@@ -1,7 +1,7 @@
 .app-select {
   min-width: 14em;
   border-radius: $app-border-radius;
-  border: 1px solid govuk-colour("dark-grey");
+  border: 1px solid govuk-colour("mid-grey");
 
   &:focus {
     border: 1px solid govuk-colour("black");

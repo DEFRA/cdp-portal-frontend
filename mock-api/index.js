@@ -3,14 +3,27 @@ const jsonServer = require('json-server')
 const api = require('./api')
 const port = 3004
 
-const index = jsonServer.create()
+const server = jsonServer.create()
 const router = jsonServer.router(api)
 const middlewares = jsonServer.defaults()
 
-index.use(middlewares)
-index.use('/mock-api', router)
+// Custom routes
+server.use(
+  jsonServer.rewriter({
+    '/mock-api/deployments/snd?service=:service':
+      '/mock-api/deployments?service_like=:service&environment=snd',
+    '/mock-api/deployments/management?service=:service':
+      '/mock-api/deployments?service_like=:service&environment=management',
 
-index.listen(port, () => {
+    '/mock-api/deployments/:environment':
+      '/mock-api/deployments?environment=:environment'
+  })
+)
+
+server.use(middlewares)
+server.use('/mock-api', router)
+
+server.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Mock JSON server started on http://localhost:${port}/mock-api`)
 })

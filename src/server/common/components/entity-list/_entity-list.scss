@@ -1,8 +1,24 @@
 .app-entity-list {
+  margin-top: 0;
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-entity-list__header {
+  @include govuk-font($size: 19, $weight: bold);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  line-height: 1.4;
   margin-top: govuk-spacing(4);
+  padding: 0 govuk-spacing(2) govuk-spacing(2);
+}
+
+.app-entity-list__table {
+  margin-top: 0;
   margin-bottom: govuk-spacing(4);
   padding-left: 0;
   list-style-type: none;
+  border-top: 1px solid $app-mid-grey;
 }
 
 .app-entity-list__row {
@@ -18,14 +34,9 @@
     border-bottom: none;
   }
 
-  &:nth-child(even) {
+  &:nth-child(odd) {
     background-color: govuk-colour("light-grey");
   }
-}
-
-.app-entity-list__row--header {
-  @include govuk-font($size: 19, $weight: bold);
-  padding: 0 govuk-spacing(2) govuk-spacing(2);
 }
 
 .app-entity-list__item {

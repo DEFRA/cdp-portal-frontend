@@ -8,6 +8,7 @@ Portal Frontend for CDP
   - [Node.js](#nodejs)
 - [Local development](#local-development)
   - [Setup](#setup)
+  - [Portal APIs](#portal-apis)
   - [Development](#development)
   - [Basic Auth](#basic-auth)
   - [Local JSON API](#local-json-api)
@@ -45,6 +46,10 @@ Install application dependencies:
 ```bash
 $ npm install
 ```
+
+### Portal APIs
+
+- [CDP Self Service Ops](https://github.com/defra-cdp-sandpit/cdp-self-service-ops)
 
 ### Development
 

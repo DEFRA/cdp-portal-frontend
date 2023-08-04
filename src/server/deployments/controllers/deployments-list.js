@@ -1,5 +1,5 @@
-import Boom from '@hapi/boom'
 import Joi from 'joi'
+import Boom from '@hapi/boom'
 
 import { environments } from '~/src/config'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
@@ -13,11 +13,26 @@ const deploymentsListController = {
       params: Joi.object({
         environment: Joi.string().valid(...Object.values(environments))
       }),
+      query: Joi.object({
+        service: Joi.string().allow('')
+      }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
   handler: async (request, h) => {
-    const deployments = await fetchDeployments(request.params?.environment)
+    const environment = request.params?.environment
+
+    // TODO add Redis to cache these multiple calls
+    const deployments = await fetchDeployments(
+      environment,
+      request?.query?.service
+    )
+
+    // TODO endpoint for unique deployment names / suggestions?
+    const allDeployments = await fetchDeployments(environment)
+    const uniqueAllDeployments = [
+      ...new Set(allDeployments.map((deployment) => deployment.service))
+    ]
 
     const entityRows = deployments
       ?.sort(sortBy('updatedAt'))
@@ -29,7 +44,12 @@ const deploymentsListController = {
       caption:
         'Micro-service deployment details across all available environments.',
       tabs: deploymentTabs(request),
-      entityRows
+      suggestions: uniqueAllDeployments?.map((deployment) => ({
+        label: deployment,
+        value: deployment
+      })),
+      entityRows,
+      environment
     })
   }
 }

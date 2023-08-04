@@ -1,3 +1,8 @@
+@import "close-icon/close-icon";
+@import "info-icon/info-icon";
+@import "search-icon/search-icon";
+@import "tick-icon/tick-icon";
+
 @import "banner/banner";
 @import "button/button";
 @import "breadcrumbs/breadcrumbs";
@@ -8,11 +13,10 @@
 @import "header/header";
 @import "heading/heading";
 @import "info/info";
-@import "info-icon/info-icon";
 @import "loader/loader";
 @import "read-out/read-out";
+@import "search/search";
 @import "select/select";
 @import "split-pane/split-pane";
 @import "step-navigation/step-navigation";
-@import "tick-icon/tick-icon";
 @import "tabs/tabs";

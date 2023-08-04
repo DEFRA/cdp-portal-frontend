@@ -2,11 +2,12 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createLogger } from '~/src/server/common/helpers/logger'
 
-async function fetchDeployments(environment) {
+async function fetchDeployments(environment, searchTerm) {
   const logger = createLogger()
+
   const deploymentsEndpointUrl = `${appConfig.get(
     'deploymentsApiUrl'
-  )}/deployments/${environment}`
+  )}/deployments/${environment}${searchTerm ? `?service=${searchTerm}` : ''}`
 
   try {
     const response = await fetch(deploymentsEndpointUrl)

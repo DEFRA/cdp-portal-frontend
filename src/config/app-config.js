@@ -45,7 +45,7 @@ const appConfig = convict({
     default: '/cdp-portal-frontend',
     env: 'APP_PATH_PREFIX'
   },
-  apiUrl: {
+  mockApiUrl: {
     doc: 'API root url',
     format: String,
     default: 'http://localhost:3004/mock-api',

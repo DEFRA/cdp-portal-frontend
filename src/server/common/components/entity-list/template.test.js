@@ -17,6 +17,7 @@ describe('Entity List Component', () => {
 
     beforeEach(() => {
       $entityList = renderTestComponent('entity-list', {
+        id: 'services',
         headings: [
           { text: 'Service', size: 'large' },
           { text: 'Version', size: 'small' },

@@ -1,10 +1,11 @@
-<div class="app-tabs">
+<div class="app-tabs"
+     data-js="app-tabs">
   {% if(params.tabs | length) %}
     <ul class="app-tabs__list" data-testid="app-tabs-list">
       {% for tab in params.tabs %}
         <li class="app-tabs__list-item{% if tab.isActive %} app-tabs__list-item--selected{% endif %}"
             data-testid="app-tabs-list-item-{{ loop.index }}">
-          <a class="app-tabs__tab" href="{{ tab.url }}">
+          <a class="app-tabs__tab" href="{{ tab.url }}" data-js="app-tab">
             {{ tab.label }}
           </a>
         </li>

@@ -1,0 +1,66 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/hint/macro.njk" import govukHint %}
+
+{% from "close-icon/macro.njk" import appCloseIcon %}
+{% from "search-icon/macro.njk" import appSearchIcon %}
+
+<script data-testid="app-search-suggestions">
+  window.suggestions = {{ params.suggestions | dump | safe }}
+</script>
+
+<div class="govuk-form-group govuk-!-margin-bottom-3 app-form-group"
+     data-testid="app-search-container">
+  <div class="app-search"
+       data-js="app-search"
+       data-testid="app-search">
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+      <label for="{{ params.id }}">
+        {{ params.label }}
+      </label>
+      {{ govukHint({
+        text: "Search for deployments by name",
+        classes: "govuk-!-margin-bottom-1"
+      }) }}
+    </h2>
+
+    <div class="app-search__autocomplete">
+      {{ appSearchIcon({}) }}
+      <input type="text"
+             name="{{ params.name }}"
+             id="{{ params.id }}"
+             class="govuk-input app-search__input"
+             autocapitalize="none"
+             autocomplete="off"
+             role="combobox"
+             aria-owns="autocomplete-items"
+             aria-autocomplete="list"
+             aria-expanded="false"
+             data-js="app-search-input"
+             data-testid="app-search-input"
+      >
+      <button class="app-search__close-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-search-close-button"
+              data-testid="app-search-close-button"
+      >
+        {{ appCloseIcon({}) }}
+      </button>
+
+      {{ govukButton({
+        classes: "app-button app-button--inline js-hidden",
+        text: "Search",
+        attributes: {
+          "data-testid": "app-search-submit-button"
+        }
+      }) }}
+
+    </div>
+    <ul class="app-search__suggestions"
+        aria-live="off"
+        role="status"
+        data-js="app-search-suggestions"
+        data-testid="app-search-suggestions"></ul>
+  </div>
+</div>

@@ -21,12 +21,12 @@ describe('#button', () => {
       </form>`
 
     // Init ClientSide JavaScript
-    const $buttons = Array.from(
+    const buttons = Array.from(
       document.querySelectorAll('[data-js="app-button"]')
     )
 
-    if ($buttons.length) {
-      $buttons.forEach(($button) => button($button))
+    if (buttons.length) {
+      buttons.forEach(($button) => button($button))
     }
 
     buttonElem = document.querySelector('[data-testid="app-button"]')

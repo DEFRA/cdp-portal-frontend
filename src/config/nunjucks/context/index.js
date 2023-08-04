@@ -22,9 +22,12 @@ try {
 }
 
 function context(request) {
+  const isXhr = request?.headers['x-requested-with'] === 'XMLHttpRequest'
+
   return {
     appPathPrefix,
     blankOption,
+    isXhr,
     version: appConfig.get('version'),
     serviceName: appConfig.get('serviceName'),
     breadcrumbs: [],
