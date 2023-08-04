@@ -2,7 +2,9 @@ import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
 
 async function fetchVersions(value) {
   try {
-    const response = await fetch(`available-versions?serviceName=${value}`) // TODO absolute name
+    const response = await fetch(
+      `${location.origin}/cdp-portal-frontend/deploy-service/available-versions?serviceName=${value}`
+    )
     const versions = await response.json()
 
     return buildSelectOptions(versions, false)
