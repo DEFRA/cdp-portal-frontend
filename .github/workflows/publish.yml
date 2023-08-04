@@ -4,23 +4,9 @@ on:
   push:
     branches:
       - main
+
 jobs:
   cdp-workflows:
-    name: Build and Version
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Versions the new release
-        id: version
-        uses: phips28/gh-action-bump-version@v10.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          default: minor
-
-      - name: CDP build and publish the docker image
-        uses: defra-cdp-sandpit/cdp-build-action/build@main
-        with:
-          version: ${{ steps.version.outputs.newTag }}
+    uses: defra-cdp-sandpit/cdp-workflows/.github/workflows/node-publish.yml@main
+    with:
+      imageName: 'cdp-portal-frontend'
