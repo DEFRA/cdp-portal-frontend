@@ -6,6 +6,8 @@ on:
       - main
 jobs:
   cdp-workflows:
+    name: Build and Version
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v3
