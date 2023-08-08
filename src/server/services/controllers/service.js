@@ -16,13 +16,7 @@ const serviceController = {
       const serviceId = request.params?.serviceId
       const deployableService = await fetchDeployableService(serviceId)
 
-      // Extract the GitHub repo name from the GitHub url because some apps have different repo and image names
-      // Git repo urls are a mix of https and ssh urls
-      // TODO align data so we only have ssh github urls
-      const repositoryId = deployableService?.githubUrl
-        ?.split('/')
-        ?.at(-1)
-        .replace('.git', '')
+      const repositoryId = deployableService?.githubUrl?.split('/')?.at(-1)
       const { repository } = await fetchRepository(repositoryId)
 
       const runningServices = await fetchRunningServicesById(serviceId)
