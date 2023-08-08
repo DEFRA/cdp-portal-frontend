@@ -41,7 +41,7 @@
               formGroup: {
                 classes: "govuk-!-margin-bottom-4 app-form-group app-form-group-js"
               },
-              value: formValues.instanceCount,
+              value: formValues.instanceCount | string if formValues.instanceCount >= 0,
               errorMessage: {
                 text: formErrors.instanceCount.message,
                 classes: "govuk-!-margin-bottom-1 app-error-message",
