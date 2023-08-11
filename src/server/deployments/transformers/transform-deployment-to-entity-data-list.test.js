@@ -49,7 +49,7 @@ describe('#transformDeploymentToEntityDataList', () => {
         entity: {
           kind: 'date',
           size: 'large',
-          value: '2023-05-18T21:54:12Z'
+          value: '2023-05-18T22:54:12Z'
         },
         heading: 'Updated'
       }

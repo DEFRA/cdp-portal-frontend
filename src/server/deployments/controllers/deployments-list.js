@@ -6,6 +6,8 @@ import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch-deployments'
 import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transformers/transform-deployments-to-entity-row'
+import { sortByName } from '~/src/server/common/helpers/sort-by-name'
+import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
 
 const deploymentsListController = {
   options: {
@@ -14,7 +16,9 @@ const deploymentsListController = {
         environment: Joi.string().valid(...Object.values(environments))
       }),
       query: Joi.object({
-        service: Joi.string().allow('')
+        service: Joi.string().allow(''),
+        user: Joi.string().allow(''),
+        status: Joi.string().allow('')
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
@@ -23,16 +27,22 @@ const deploymentsListController = {
     const environment = request.params?.environment
 
     // TODO add Redis to cache these multiple calls
-    const deployments = await fetchDeployments(
-      environment,
-      request?.query?.service
-    )
+    const deployments = await fetchDeployments(environment, request?.query)
 
-    // TODO endpoint for unique deployment names / suggestions?
+    // TODO endpoint for unique deployment suggestions
     const allDeployments = await fetchDeployments(environment)
+
     const uniqueAllDeployments = [
       ...new Set(allDeployments.map((deployment) => deployment.service))
-    ]
+    ].sort(sortByName)
+
+    const uniqueAllUsers = [
+      ...new Set(allDeployments.map((deployment) => deployment.user))
+    ].sort(sortByName)
+
+    const uniqueAllStatus = [
+      ...new Set(allDeployments.map((deployment) => deployment.status))
+    ].sort(sortByName)
 
     const entityRows = deployments
       ?.sort(sortBy('updatedAt'))
@@ -44,10 +54,9 @@ const deploymentsListController = {
       caption:
         'Micro-service deployment details across all available environments.',
       tabs: deploymentTabs(request),
-      suggestions: uniqueAllDeployments?.map((deployment) => ({
-        label: deployment,
-        value: deployment
-      })),
+      searchSuggestions: buildSelectOptions(uniqueAllDeployments),
+      userSuggestions: buildSelectOptions(uniqueAllUsers),
+      statusSuggestions: buildSelectOptions(uniqueAllStatus),
       entityRows,
       environment
     })

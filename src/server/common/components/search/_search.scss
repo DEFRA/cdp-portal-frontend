@@ -2,46 +2,51 @@
   position: relative;
   width: 24em;
   margin-bottom: govuk-spacing(4);
+}
 
-  .app-search-icon {
-    margin-left: govuk-spacing(1);
+.app-search__control {
+  display: flex;
+  align-items: center;
+
+  & .app-search-icon {
     position: absolute;
-    left: 0;
+    left: 4px;
     fill: govuk-colour("mid-grey");
     width: 26px;
     height: 26px;
   }
 
-  .app-search__close-button {
-    margin: 0 govuk-spacing(1) 0 0;
-    padding: 0;
+  & .app-loader {
     position: absolute;
-    display: none;
-    right: 0;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-
-    .app-close-icon {
-      fill: govuk-colour("mid-grey");
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-  .app-search__close-button--show {
-    display: block;
+    right: 6px;
+    bottom: 6px;
   }
 }
 
-.app-search__autocomplete {
-  display: flex;
-  align-items: center;
+.app-search__clear-button {
+  margin: 0 govuk-spacing(1) 0 0;
+  padding: 0;
+  position: absolute;
+  display: none;
+  top: 7px;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  .app-cross-icon {
+    fill: govuk-colour("mid-grey");
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.app-search__clear-button--show {
+  display: block;
 }
 
 .app-search__input {
-  padding-left: govuk-spacing(6);
-  padding-right: govuk-spacing(5);
+  padding: govuk-spacing(1) govuk-spacing(5) govuk-spacing(1) govuk-spacing(6);
   width: 24em;
   border-radius: $app-border-radius;
   border: 1px solid govuk-colour("mid-grey");
@@ -50,10 +55,6 @@
     border: 1px solid govuk-colour("black");
     box-shadow: none;
   }
-}
-
-.app-search__suggestion--highlight {
-  background-color: govuk-colour("light-grey");
 }
 
 .app-search__suggestions {
@@ -66,9 +67,8 @@
   list-style: none;
   padding: govuk-spacing(1) 0 govuk-spacing(1) govuk-spacing(2);
   margin: 0;
-  min-height: govuk-spacing(9);
-  max-height: govuk-spacing(9) * 2;
-  width: 350px;
+  max-height: govuk-spacing(9) * 4.5;
+  width: calc(24em - 20px);
   overflow-y: scroll;
   overflow-x: hidden;
   display: none;
@@ -79,16 +79,17 @@
 }
 
 .app-search__suggestion {
-  margin: 0 govuk-spacing(-4);
-  padding: govuk-spacing(1) govuk-spacing(4);
+  margin: 0 0 0 govuk-spacing(-2);
+  padding: govuk-spacing(1) govuk-spacing(2);
 
-  &:hover {
-    background-color: govuk-colour("light-grey");
-  }
-
+  &:hover,
   &:focus {
     background-color: govuk-colour("light-grey");
   }
+}
+
+.app-search__suggestion--highlight {
+  background-color: govuk-colour("light-grey");
 }
 
 .app-search__suggestion--no-results {

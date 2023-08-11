@@ -10,6 +10,11 @@ Portal Frontend for CDP
   - [Setup](#setup)
   - [Portal APIs](#portal-apis)
   - [Development](#development)
+    - [Debugging](#debugging)
+    - [Testing](#testing)
+      - [Run a specific test](#run-a-specific-test)
+    - [Code Quality](#code-quality)
+    - [Code formatting](#code-formatting)
   - [Basic Auth](#basic-auth)
   - [Local JSON API](#local-json-api)
   - [Production](#production)
@@ -57,6 +62,94 @@ Run the application in `development` mode run:
 
 ```bash
 $ npm run dev
+```
+
+#### Debugging
+
+To set up `Node.js` debugging in your IDE:
+
+- [Running and debugging Node.js - Jet Brains](https://www.jetbrains.com/help/idea/running-and-debugging-node-js.html)
+
+To run debug mode:
+
+```bash
+$ npm run dev:debug
+```
+
+#### Testing
+
+To run all tests with coverage:
+
+```bash
+$ npm test
+```
+
+Or use the shortcut:
+
+```bash
+$ npm t
+```
+
+##### Run a specific test
+
+To run a specific test:
+
+```bash
+$ npm test -i <test-path>
+```
+
+E.g:
+
+```bash
+$ npm test -i src/server/health/controller.test.js
+```
+
+#### Code Quality
+
+To run code linting:
+
+```bash
+$ npm run lint
+```
+
+To run code lint for JavaScript:
+
+```bash
+$ npm run lint:js
+```
+
+To run an automatic code fix for JavaScript:
+
+> Note this is pretty good but may also need some manual human interaction
+
+```bash
+$ npm run lint:fix
+```
+
+To run code lint for SASS:
+
+```bash
+$ npm run lint:scss
+```
+
+#### Code formatting
+
+This code base uses Prettier to keep code formatted in a uniform way. When you first clone the repository set up
+Prettier to run on save in your IDE.
+
+- [Prettier setup - Jet Brains](https://www.jetbrains.com/help/idea/prettier.html)
+- [Prettier Plugins](https://prettier.io/docs/en/plugins.html)
+
+To check formatting changes:
+
+```bash
+$ npm run format:check
+```
+
+To format code:
+
+```bash
+$ npm run format
 ```
 
 ### Basic Auth

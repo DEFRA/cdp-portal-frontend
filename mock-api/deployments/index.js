@@ -72,7 +72,7 @@ const deployments = [
     user: 'Roger Rabbit',
     createdAt: '2023-07-21T21:07:28Z',
     updatedAt: '2023-07-21T21:07:28Z',
-    status: 'RUNNING',
+    status: 'PENDING',
     dockerImage:
       '111111111.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0',
     taskId: '4A7C4DB9-93C5-4A02-B6D3-BE2B8A196C8C'
@@ -111,7 +111,7 @@ const deployments = [
     user: 'The Terminator',
     createdAt: '2023-07-19T22:10:22Z',
     updatedAt: '2023-07-19T22:10:22Z',
-    status: 'RUNNING',
+    status: 'FAILED',
     dockerImage:
       '111111111.dkr.ecr.us-west-2.amazonaws.com/cdp-self-service-ops:0.1.0',
     taskId: 'AB709A32-2448-463F-9023-AD53ABDFCB98'
@@ -202,7 +202,7 @@ const deployments = [
     user: 'RoboCop',
     createdAt: '2023-07-12T11:37:22Z',
     updatedAt: '2023-07-12T11:37:22Z',
-    status: 'RUNNING',
+    status: 'FAILED',
     dockerImage:
       '111111111.dkr.ecr.us-west-2.amazonaws.com/cdp-self-service-ops:0.1.0',
     taskId: '6AB709A32-2448-463F-9023-AD53ABDFCB98'

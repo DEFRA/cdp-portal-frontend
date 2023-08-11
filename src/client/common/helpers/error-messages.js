@@ -14,8 +14,10 @@ function errorMessages($form) {
       'change',
       (event) => {
         const target = event.target
-        const formGroup = target.closest('.app-form-group-js') // Using a class can't add attributes to GOVUK formGroup
-        const errorMessage = formGroup.querySelector(`[data-js="app-error"]`)
+        const formGroup =
+          target.closest('.app-form-group-js') ?? // Using a class as can't add attributes to GOVUK formGroup
+          target.closest('[data-js="app-form-group"]')
+        const errorMessage = formGroup.querySelector('[data-js="app-error"]')
 
         if (errorMessage) {
           errorMessage.remove()
