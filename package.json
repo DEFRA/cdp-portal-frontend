@@ -23,7 +23,6 @@
     "lint:js": "eslint .",
     "lint:scss": "stylelint 'src/**/*.scss' --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
     "mockApi": "nodemon ./mock-api",
-    "postversion": "git add package.json package-lock.json && git commit -m $npm_package_version",
     "test": "TZ=UTC jest --coverage --verbose",
     "test:userJourney": "wdio run ./wdio.conf.js",
     "test:watch": "TZ=UTC jest --watch",
