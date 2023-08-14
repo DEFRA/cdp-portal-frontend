@@ -4,9 +4,7 @@ const healthController = {
   ...(appConfig.get('isProduction') === true && {
     options: { auth: { mode: 'optional' } }
   }),
-  handler: (request, h) => {
-    return h.response({ message: 'Healthy' }).code(200)
-  }
+  handler: (request, h) => h.response({ message: 'success' }).code(200)
 }
 
 export { healthController }

@@ -15,6 +15,21 @@ server.use(
     '/mock-api/deployments/management?service=:service':
       '/mock-api/deployments?service_like=:service&environment=management',
 
+    '/mock-api/deployments/snd?user=:user':
+      '/mock-api/deployments?user_like=:user&environment=snd',
+    '/mock-api/deployments/management?user=:user':
+      '/mock-api/deployments?user_like=:user&environment=management',
+
+    '/mock-api/deployments/snd?status=:status':
+      '/mock-api/deployments?status_like=:status&environment=snd',
+    '/mock-api/deployments/management?status=:status':
+      '/mock-api/deployments?status_like=:status&environment=management',
+
+    '/mock-api/deployments/snd?service=:service&user=:user&status=:status':
+      '/mock-api/deployments?service_like=:service&user_like=:use&status_like=:status&environment=snd',
+    '/mock-api/deployments/management?service=:service&user=:user&status=:status':
+      '/mock-api/deployments?service_like=:service&user_like=:user&status_like=:status&environment=management',
+
     '/mock-api/deployments/:environment':
       '/mock-api/deployments?environment=:environment'
   })

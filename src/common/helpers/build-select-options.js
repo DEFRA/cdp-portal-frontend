@@ -1,5 +1,6 @@
 import { blankOption } from '~/src/server/common/helpers/blank-option'
 
+// TODO rename this to buildOptions
 function buildSelectOptions(items, withBlank = true) {
   return [
     ...(withBlank ? [blankOption] : []),

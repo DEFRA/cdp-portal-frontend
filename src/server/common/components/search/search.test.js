@@ -10,7 +10,12 @@ describe('#search', () => {
     Element.prototype.scroll = jest.fn()
 
     const $component = renderTestComponent('search', {
-      label: 'Search me',
+      label: {
+        text: 'Search me'
+      },
+      hint: {
+        text: 'Search for deployments by name'
+      },
       id: 'search',
       name: 'q',
       suggestions: [
@@ -40,7 +45,7 @@ describe('#search', () => {
 
     // Append search component to a form and then add it to the document
     document.body.innerHTML = `<form id="mock-search-form">
-        ${$component('[data-testid="app-search-container"]').first().html()}
+        ${$component('[data-testid="app-search-group"]').first().html()}
       </form>`
 
     // Init ClientSide JavaScript
@@ -71,7 +76,7 @@ describe('#search', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
     })
 
-    test('Should contain expected suggestions when input focused', () => {
+    test('Should contain expected suggestions when input clicked', () => {
       const children = suggestionsContainer.children
 
       expect(children.length).toEqual(3)
@@ -89,6 +94,7 @@ describe('#search', () => {
 
     test('Should open suggestions', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('true')
     })
 
     test('Should contain expected suggestions when input focused', () => {
@@ -112,6 +118,7 @@ describe('#search', () => {
 
     test('Should close suggestions', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('false')
     })
   })
 
@@ -124,6 +131,7 @@ describe('#search', () => {
 
     test('Should open suggestions', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('true')
     })
 
     test('Should narrow to expected suggestion', () => {
@@ -133,12 +141,12 @@ describe('#search', () => {
       )
     })
 
-    test('Should display close button', () => {
-      const closeButton = document.querySelector(
-        '[data-testid="app-search-close-button"]'
+    test('Should display clear button', () => {
+      const clearButton = document.querySelector(
+        '[data-testid="app-search-clear-button"]'
       )
 
-      expect(closeButton.getAttribute('aria-hidden')).toEqual('false')
+      expect(clearButton.getAttribute('aria-hidden')).toEqual('false')
     })
   })
 
@@ -157,6 +165,7 @@ describe('#search', () => {
 
     test('Suggestions should be open', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('true')
     })
 
     test('Should contain expected suggestions', () => {
@@ -169,12 +178,12 @@ describe('#search', () => {
       expect(children[2].textContent).toEqual('cdp-teams-and-repositories')
     })
 
-    test('Should not display close button', () => {
-      const closeButton = document.querySelector(
-        '[data-testid="app-search-close-button"]'
+    test('Should not display clear button', () => {
+      const clearButton = document.querySelector(
+        '[data-testid="app-search-clear-button"]'
       )
 
-      expect(closeButton.getAttribute('aria-hidden')).toEqual('true')
+      expect(clearButton.getAttribute('aria-hidden')).toEqual('true')
     })
   })
 
@@ -187,6 +196,7 @@ describe('#search', () => {
 
     test('Should open suggestions', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('true')
     })
 
     test('Should provide no results message', () => {
@@ -211,6 +221,7 @@ describe('#search', () => {
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('false')
     })
   })
 
@@ -230,6 +241,7 @@ describe('#search', () => {
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('false')
     })
   })
 
@@ -311,6 +323,7 @@ describe('#search', () => {
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('false')
     })
   })
 
@@ -330,6 +343,7 @@ describe('#search', () => {
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('false')
     })
   })
 
@@ -349,6 +363,7 @@ describe('#search', () => {
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('false')
     })
   })
 
@@ -369,6 +384,7 @@ describe('#search', () => {
 
     test('Suggestions should be open', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('true')
     })
   })
 
@@ -380,6 +396,7 @@ describe('#search', () => {
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
+      expect(searchInput.getAttribute('aria-expanded')).toEqual('false')
     })
   })
 })

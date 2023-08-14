@@ -1,58 +1,60 @@
 import qs from 'qs'
 import { isNull } from 'lodash'
 
-function buildSuggestion(item) {
+function createSuggestion() {
   const li = document.createElement('li')
 
   li.classList.add('app-search__suggestion')
   li.setAttribute('role', 'option')
   li.setAttribute('tabindex', '-1')
   li.setAttribute('aria-selected', 'false')
-  li.dataset.value = item.value
-  li.textContent = item.value
 
   return li
 }
 
-/**
- * Highlight the match from the input in the suggestion
- * @param value
- * @returns {function(*): *}
- */
-function manageTextHighlight(value = null) {
-  return ($item) => {
-    if (value) {
-      $item.innerHTML = $item.dataset?.value.replace(
-        new RegExp(value, 'gi'),
-        `<strong>$&</strong>`
-      )
-    } else {
-      $item.innerHTML = $item.dataset?.value
-    }
+function buildSuggestion(item, listElement) {
+  const li = listElement.cloneNode(true)
 
-    return $item
+  li.dataset.value = item.value
+  li.textContent = item.text
+
+  return li
+}
+
+function manipulateSuggestion({ value, suggestionIndex } = {}) {
+  return ($suggestion, index) => {
+    manageTextHighlight($suggestion, value)
+    manageChoiceHighlight($suggestion, index, suggestionIndex)
+
+    return $suggestion
   }
 }
 
-/**
- * Highlight which suggestion the user has navigated with arrows to
- * @param currentSuggestion
- * @returns {function(*, *): *}
- */
-function manageChoiceHighlight(currentSuggestion = null) {
-  return ($item, index) => {
-    const className = 'app-search__suggestion--highlight'
-
-    if (currentSuggestion === index) {
-      $item.classList.add(className)
-      $item.setAttribute('aria-selected', true)
-    } else {
-      $item.classList.remove(className)
-      $item.setAttribute('aria-selected', false)
-    }
-
-    return $item
+function manageTextHighlight($suggestion, value = null) {
+  if (value) {
+    $suggestion.innerHTML = $suggestion.dataset?.value.replace(
+      new RegExp(value, 'gi'),
+      `<strong>$&</strong>`
+    )
+  } else {
+    $suggestion.innerHTML = $suggestion.dataset?.value
   }
+
+  return $suggestion
+}
+
+function manageChoiceHighlight($suggestion, index, suggestionIndex = null) {
+  const className = 'app-search__suggestion--highlight'
+
+  if (suggestionIndex === index) {
+    $suggestion.classList.add(className)
+    $suggestion.setAttribute('aria-selected', true)
+  } else {
+    $suggestion.classList.remove(className)
+    $suggestion.setAttribute('aria-selected', false)
+  }
+
+  return $suggestion
 }
 
 function buildNoResults() {
@@ -73,13 +75,20 @@ function search($module) {
     return
   }
 
-  const suggestions = window.suggestions ?? []
-  const queryParams = qs.parse(location?.search, { ignoreQueryPrefix: true })
-  const $suggestions = suggestions.map(buildSuggestion)
-
   const $input = $module.querySelector(`[data-js="app-search-input"]`)
-  const $closeButton = $module.querySelector(
-    `[data-js="app-search-close-button"]`
+  const $submitButton = $input.form.querySelector(
+    `[data-js="app-entity-actions-submit-button"]`
+  )
+  const suggestions = window.suggestions?.[$input.name] ?? []
+  const queryParams = qs.parse(location?.search, { ignoreQueryPrefix: true })
+
+  const suggestionElement = createSuggestion()
+  const $suggestions = suggestions
+    .filter((suggestion) => Boolean(suggestion.value))
+    .map((suggestion) => buildSuggestion(suggestion, suggestionElement))
+
+  const $clearButton = $module.querySelector(
+    `[data-js="app-search-clear-button"]`
   )
   const $suggestionsContainer = $module.querySelector(
     `[data-js="app-search-suggestions"]`
@@ -90,6 +99,9 @@ function search($module) {
   )
 
   let suggestionIndex = null
+
+  const isSuggestionsOpen = () =>
+    $input?.getAttribute('aria-expanded') === 'true'
 
   /**
    * Filter suggestions and provide selection and text highlighting
@@ -102,8 +114,7 @@ function search($module) {
       .filter(($item) =>
         $item.dataset?.value.toLowerCase().includes(value.toLowerCase())
       )
-      .map(manageTextHighlight(value))
-      .map(manageChoiceHighlight(suggestionIndex))
+      .map(manipulateSuggestion({ value, suggestionIndex }))
 
     return $filteredSuggestions.length
       ? $filteredSuggestions
@@ -115,9 +126,7 @@ function search($module) {
    * @returns {*[]|HTMLLIElement[]}
    */
   const resetSuggestions = () => {
-    const $resetSuggestions = $suggestions
-      .map(manageChoiceHighlight())
-      .map(manageTextHighlight())
+    const $resetSuggestions = $suggestions.map(manipulateSuggestion())
 
     return $resetSuggestions.length ? $resetSuggestions : [buildNoResults()]
   }
@@ -125,31 +134,38 @@ function search($module) {
   const dispatchSubmitEvent = () =>
     $input.form.dispatchEvent(new Event('submit', { bubbles: true }))
 
+  const dispatchDocumentClickEvent = () =>
+    document.dispatchEvent(new Event('click', { bubbles: true }))
+
   const dispatchBlurEvent = () =>
     $input.dispatchEvent(new Event('blur', { bubbles: true }))
 
-  const showSuggestions = () => {
+  const openSuggestions = () => {
     suggestionIndex = null
     $suggestionsContainer.scrollTop = 0
     $suggestionsContainer.classList.add('app-search__suggestions--show')
     $suggestionsContainer.setAttribute('aria-live', 'polite')
+
+    $input.setAttribute('aria-expanded', 'true')
   }
 
-  const hideSuggestions = () => {
+  const closeSuggestions = () => {
     suggestionIndex = null
     $suggestionsContainer.scrollTop = 0
     $suggestionsContainer.classList.remove('app-search__suggestions--show')
     $suggestionsContainer.setAttribute('aria-live', 'off')
+
+    $input.setAttribute('aria-expanded', 'false')
   }
 
   const showCloseButton = () => {
-    $closeButton.classList.add('app-search__close-button--show')
-    $closeButton.setAttribute('aria-hidden', 'false')
+    $clearButton.classList.add('app-search__clear-button--show')
+    $clearButton.setAttribute('aria-hidden', 'false')
   }
 
   const hideCloseButton = () => {
-    $closeButton.classList.remove('app-search__close-button--show')
-    $closeButton.setAttribute('aria-hidden', 'true')
+    $clearButton.classList.remove('app-search__clear-button--show')
+    $clearButton.setAttribute('aria-hidden', 'true')
   }
 
   const populateSuggestions = () =>
@@ -183,7 +199,7 @@ function search($module) {
     populateSuggestions()
   })
 
-  $closeButton.addEventListener('click', () => {
+  $clearButton.addEventListener('click', () => {
     $input.value = ''
     $input.focus()
 
@@ -194,8 +210,8 @@ function search($module) {
 
   // Click outside Search component
   document.addEventListener('click', (event) => {
-    if (!$module.contains(event.target)) {
-      hideSuggestions()
+    if (event.target !== $input && event.target !== $submitButton) {
+      closeSuggestions()
       resetSuggestions()
     }
   })
@@ -210,11 +226,13 @@ function search($module) {
       populateSuggestions()
     }
 
-    showSuggestions()
+    openSuggestions()
   })
 
   // Mouse clicks into the input
   $input.addEventListener('click', (event) => {
+    dispatchDocumentClickEvent()
+
     event.stopPropagation()
 
     const value = event?.target?.value
@@ -225,13 +243,13 @@ function search($module) {
       populateSuggestions()
     }
 
-    showSuggestions()
+    openSuggestions()
   })
 
   // User typing inside input
   $input.addEventListener('input', (event) => {
     if (isSuggestionsHidden) {
-      showSuggestions()
+      openSuggestions()
     }
 
     suggestionIndex = null // Typing in input, so no suggestion selection made
@@ -254,12 +272,12 @@ function search($module) {
     const value = event.target.value
 
     if ((code === 'backspace' && !value) || code === 'escape') {
-      hideSuggestions()
+      closeSuggestions()
     }
 
     // tab rather than blur is used to hide suggestions, as blur fires when clicking suggestions
     if (code === 'tab') {
-      hideSuggestions()
+      closeSuggestions()
       dispatchBlurEvent()
     }
 
@@ -284,6 +302,10 @@ function search($module) {
 
       if (suggestionIndex > $suggestions.length - 1) {
         suggestionIndex = 0
+      }
+
+      if (!isSuggestionsOpen()) {
+        openSuggestions()
       }
     }
 
@@ -313,10 +335,10 @@ function search($module) {
       }
 
       if ($input.value) {
-        hideSuggestions()
+        closeSuggestions()
         showCloseButton()
       } else {
-        showSuggestions()
+        openSuggestions()
         hideCloseButton()
       }
     }
@@ -327,9 +349,8 @@ function search($module) {
 
     if (event?.target?.tagName.toLowerCase() === 'li') {
       $input.value = event?.target?.dataset?.value ?? ''
-
       dispatchSubmitEvent()
-      hideSuggestions()
+      closeSuggestions()
       showCloseButton()
     }
   })

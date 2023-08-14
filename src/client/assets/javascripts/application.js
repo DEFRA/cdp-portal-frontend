@@ -12,6 +12,7 @@ import { search } from '~/src/server/common/components/search/search'
 import { autoSubmit } from '~/src/client/common/helpers/auto-submit'
 import { addHistoryListener } from '~/src/client/common/helpers/xhr'
 import { tabs } from '~/src/server/common/components/tabs/tabs'
+import { dropdown } from '~/src/server/common/components/dropdown/dropdown'
 
 import '../stylesheets/application.scss'
 
@@ -41,6 +42,9 @@ initModule('protected-inputs', protectForm, '*=')
 
 // Search
 initModule('app-search', search)
+
+// Dropdown
+initModule('app-dropdown', dropdown)
 
 // Auto submit xhr functionality
 initModule('auto-submit', autoSubmit)

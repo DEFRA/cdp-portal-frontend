@@ -1,30 +1,50 @@
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/hint/macro.njk" import govukHint %}
+{% from "govuk/components/label/macro.njk" import govukLabel %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
 
-{% from "close-icon/macro.njk" import appCloseIcon %}
-{% from "search-icon/macro.njk" import appSearchIcon %}
+{% from "icons/cross-icon/macro.njk" import appCrossIcon %}
+{% from "icons/search-icon/macro.njk" import appSearchIcon %}
+{% from "loader/macro.njk" import appLoader %}
 
 <script data-testid="app-search-suggestions">
-  window.suggestions = {{ params.suggestions | dump | safe }}
+  window.suggestions = window.suggestions || {}
+  window.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
 </script>
 
-<div class="govuk-form-group govuk-!-margin-bottom-3 app-form-group"
-     data-testid="app-search-container">
-  <div class="app-search"
-       data-js="app-search"
-       data-testid="app-search">
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
-      <label for="{{ params.id }}">
-        {{ params.label }}
-      </label>
-      {{ govukHint({
-        text: "Search for deployments by name",
-        classes: "govuk-!-margin-bottom-1"
-      }) }}
-    </h2>
+<div class="govuk-form-group app-form-group{%- if params.errorMessage %} govuk-form-group--error{% endif %}"
+     data-js="app-form-group" data-testid="app-search-group">
 
-    <div class="app-search__autocomplete">
-      {{ appSearchIcon({}) }}
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+    <label for="{{ params.id }}" data-testid="app-search-label">
+      {{ params.label.text }}
+    </label>
+
+    {% if params.hint.text %}
+      {{ govukHint({
+        text: params.hint.text,
+        classes: "govuk-!-margin-bottom-1",
+        attributes: {
+          "data-testid": "app-search-hint"
+        }
+      }) }}
+    {% endif %}
+  </h2>
+
+  {% if params.errorMessage %}
+    {{ govukErrorMessage({
+      id: params.id + "-error",
+      classes: "govuk-!-margin-bottom-1 app-error-message",
+      attributes: {
+        "data-js": "app-error"
+      },
+      text: params.errorMessage.text
+    }) }}
+  {% endif %}
+
+
+  <div class="app-search" data-js="app-search" data-testid="app-search">
+    <div class="app-search__control">
+      {{ appSearchIcon() }}
       <input type="text"
              name="{{ params.name }}"
              id="{{ params.id }}"
@@ -32,34 +52,31 @@
              autocapitalize="none"
              autocomplete="off"
              role="combobox"
-             aria-owns="autocomplete-items"
+             aria-owns="app-suggestions-{{ params.id }}"
              aria-autocomplete="list"
              aria-expanded="false"
              data-js="app-search-input"
              data-testid="app-search-input"
-      >
-      <button class="app-search__close-button"
+             data-1p-ignore {# Disable 1 password widget #}
+      />
+      <button class="app-search__clear-button"
               type="button"
               aria-hidden="true"
               tabindex="-1"
-              data-js="app-search-close-button"
-              data-testid="app-search-close-button"
+              data-js="app-search-clear-button"
+              data-testid="app-search-clear-button"
       >
-        {{ appCloseIcon({}) }}
+        {{ appCrossIcon() }}
       </button>
 
-      {{ govukButton({
-        classes: "app-button app-button--inline js-hidden",
-        text: "Search",
-        attributes: {
-          "data-testid": "app-search-submit-button"
-        }
-      }) }}
-
+      {% if params.loader.name %}
+        {{ appLoader({ name: params.loader.name }) }}
+      {% endif %}
     </div>
     <ul class="app-search__suggestions"
         aria-live="off"
         role="status"
+        id="app-suggestions-{{ params.id }}"
         data-js="app-search-suggestions"
         data-testid="app-search-suggestions"></ul>
   </div>

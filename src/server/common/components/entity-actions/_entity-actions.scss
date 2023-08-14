@@ -1,0 +1,36 @@
+.app-entity-actions {
+  margin-top: govuk-spacing(6);
+  display: block;
+
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    align-items: flex-end;
+  }
+}
+
+.app-entity-actions__primary {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.app-entity-actions__filters {
+  @include govuk-media-query($from: tablet) {
+    margin-left: govuk-spacing(2);
+    display: flex;
+    flex: 3;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+}
+
+.app-entity__action {
+  @include govuk-media-query($from: tablet) {
+    margin-left: govuk-spacing(2);
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}

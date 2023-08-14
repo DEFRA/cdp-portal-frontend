@@ -13,7 +13,7 @@ describe('#autoSubmit', () => {
 
     // Add auto submit form to the document
     document.body.innerHTML = `<form data-js="auto-submit" data-testid="auto-submit" action="/mock-action">
-        <input type="text" data-testid="auto-submit-input" name="weather">
+        <input type="text" data-testid="auto-submit-input" name="weather" />
         <select name="temperature" data-testid="auto-submit-select">
           <option value="" selected="selected"> -- Select option -- </option>
           <option value="10c">10c</option>

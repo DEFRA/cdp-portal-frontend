@@ -7,6 +7,10 @@
     border: 1px solid govuk-colour("black");
     box-shadow: none;
   }
+
+  &.govuk-select--error {
+    border-color: govuk-colour("red");
+  }
 }
 
 .app-select--slim {

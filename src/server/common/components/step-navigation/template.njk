@@ -1,9 +1,9 @@
-{% from "tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/complete-icon/macro.njk" import appCompleteIcon %}
 
 <style>
-    .app-step-navigation:after {
-        width: {{ params.width }}%;
-    }
+  .app-step-navigation:after {
+    width: {{ params.width }}%;
+  }
 </style>
 
 <nav class="app-step-navigation-container">
@@ -11,11 +11,12 @@
     {% for step in params.steps %}
       <li class="app-step-navigation__item{% if step.isCurrent %} app-step-navigation__item--current{% endif %}"
           data-testid="app-step-navigation__item-{{ loop.index }}">
-        <span class="app-step-navigation__point{% if step.isCurrent %} app-step-navigation__point--current{% endif %}{% if
-          step.isComplete %} app-step-navigation__point--complete{% endif %}">
+        <span
+          class="app-step-navigation__point{% if step.isCurrent %} app-step-navigation__point--current{% endif %}{% if
+            step.isComplete %} app-step-navigation__point--complete{% endif %}">
 
           {% if step.isComplete %}
-            {{ appTickIcon() }}
+            {{ appCompleteIcon() }}
           {% else %}
             <span class="app-step-navigation__icon" aria-hidden="true">{{ loop.index }}</span>
           {% endif %}

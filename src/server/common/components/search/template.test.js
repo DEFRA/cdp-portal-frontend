@@ -1,11 +1,16 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Search Component', () => {
-  let $search
+  let $searchFormGroup
 
   beforeEach(() => {
     const $component = renderTestComponent('search', {
-      label: 'Search me',
+      label: {
+        text: 'Search me'
+      },
+      hint: {
+        text: 'Search for deployments by name'
+      },
       id: 'search',
       name: 'q',
       suggestions: [
@@ -20,16 +25,26 @@ describe('Search Component', () => {
       ]
     })
 
-    $search = $component('[data-testid="app-search"]').first()
+    $searchFormGroup = $component('[data-testid="app-search-group"]').first()
+  })
+
+  test('Should render with expected label', () => {
+    const $label = $searchFormGroup.find('[data-testid="app-search-label"]')
+
+    expect($label.length).toEqual(1)
+    expect($label.text().trim()).toEqual('Search me')
+  })
+
+  test('Should render with expected hint input', () => {
+    const $hint = $searchFormGroup.find('[data-testid="app-search-hint"]')
+
+    expect($hint.length).toEqual(1)
+    expect($hint.text().trim()).toEqual('Search for deployments by name')
   })
 
   test('Should render with expected search input', () => {
-    expect($search.find(`[data-testid="app-search-input"]`).length).toEqual(1)
-  })
-
-  test('Should render with expected button', () => {
     expect(
-      $search.find(`[data-testid="app-search-submit-button"]`).length
+      $searchFormGroup.find('[data-testid="app-search-input"]').length
     ).toEqual(1)
   })
 })
