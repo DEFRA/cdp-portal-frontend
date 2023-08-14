@@ -25,5 +25,4 @@ jobs:
       - name: Build and Publish
         uses: defra-cdp-sandpit/cdp-build-action/build@main
         with:
-          version: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
