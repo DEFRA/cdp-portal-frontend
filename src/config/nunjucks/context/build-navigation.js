@@ -47,6 +47,13 @@ function buildNavigation(request) {
         url: `${appPathPrefix}/create-service`,
         isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
       }
+    ],
+    admin: [
+      {
+        text: 'Admin',
+        url: `${appPathPrefix}/admin/teams`,
+        isActive: request?.path?.includes(`${appPathPrefix}/admin`)
+      }
     ]
   }
 }

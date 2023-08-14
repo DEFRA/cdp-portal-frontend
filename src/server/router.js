@@ -9,6 +9,7 @@ import { services } from '~/src/server/services'
 import { teams } from '~/src/server/teams'
 import { utilities } from '~/src/server/utilities'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
+import { admin } from '~/src/server/admin'
 
 const router = {
   plugin: {
@@ -16,6 +17,7 @@ const router = {
     register: async (server) => {
       await server.register([inert])
       await server.register([
+        admin,
         health,
         home,
         createService,

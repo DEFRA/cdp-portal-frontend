@@ -69,6 +69,12 @@ const appConfig = convict({
     default: 'http://localhost:3009/cdp-self-service-ops',
     env: 'SELF_SERVICE_OPS_API_URL'
   },
+  userServiceApiUrl: {
+    doc: 'User Service API url',
+    format: String,
+    default: 'http://localhost:3001/cdp-user-service',
+    env: 'USER_SERVICE_API_URL'
+  },
   sessionCookiePassword: {
     doc: 'Session cookie password',
     format: '*',

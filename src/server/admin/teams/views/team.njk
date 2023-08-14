@@ -1,0 +1,28 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appHeading({
+      title: heading,
+      caption: "User details for " + heading + ".",
+      entities: headingEntities
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+      <div class="govuk-grid-column-one-third">
+        {{ appEntityDataList({
+          heading: "User details",
+          items: entityDataList
+        }) }}
+      </div>
+
+    </div>
+
+  {% endcall %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+    <section>
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
+
+      {{ appEntityList({
+        headings: [
+          { text: "Name", size: "large" },
+          { text: "Email", size: "medium" }
+        ],
+        entityRows: entityRows,
+        noResult: noResult
+      }) }}
+
+    </section>
+  {% endcall %}
+
+{% endblock %}
+
