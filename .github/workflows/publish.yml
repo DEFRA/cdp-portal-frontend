@@ -22,8 +22,17 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Auto Version Bump
+        id: auto-version-bump
+        uses: phips28/gh-action-bump-version@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          version-type: minor
+          skip-tag: true
+
       - name: Build and Publish
         uses: defra-cdp-sandpit/cdp-build-action/build@main
         with:
-          version: true
+          version: ${{ steps.auto-version-bump.outputs.new_tag }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
