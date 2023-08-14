@@ -15,12 +15,17 @@
   }
 }
 
+.app-dropdown__label {
+  font-weight: normal;
+  @include govuk-font($size: 19);
+}
+
 .app-dropdown__chevron-button {
   margin: 0 govuk-spacing(1) 0 0;
   padding: 0;
   position: absolute;
   display: none;
-  top: 6px;
+  top: 8px;
   left: 2px;
   background-color: transparent;
   border: none;
@@ -29,12 +34,12 @@
 
   & .app-chevron-icon {
     fill: govuk-colour("mid-grey");
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
   }
 
   &--open {
-    top: 0;
+    top: 4px;
     transform: rotate(180deg);
   }
 }
@@ -44,16 +49,16 @@
   padding: 0;
   position: absolute;
   display: none;
-  top: 6px;
-  right: 4px;
+  top: 8px;
+  right: 0;
   background-color: transparent;
   border: none;
   cursor: pointer;
 
   & .app-cross-icon {
     fill: govuk-colour("mid-grey");
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -62,8 +67,7 @@
 }
 
 .app-dropdown__input {
-  padding-left: govuk-spacing(5);
-  padding-right: govuk-spacing(6);
+  padding: govuk-spacing(1) govuk-spacing(4);
   border-radius: $app-border-radius;
   border: 1px solid govuk-colour("mid-grey");
 
@@ -99,6 +103,7 @@
   padding: govuk-spacing(1) govuk-spacing(2);
   display: flex;
   align-items: center;
+  color: govuk-colour("black");
 
   &:hover,
   &:focus {

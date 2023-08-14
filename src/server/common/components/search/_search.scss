@@ -23,12 +23,17 @@
   }
 }
 
+.app-search__label {
+  font-weight: normal;
+  @include govuk-font($size: 19);
+}
+
 .app-search__clear-button {
   margin: 0 govuk-spacing(1) 0 0;
   padding: 0;
   position: absolute;
   display: none;
-  top: 7px;
+  top: 8px;
   right: 0;
   background-color: transparent;
   border: none;
@@ -36,8 +41,8 @@
 
   .app-cross-icon {
     fill: govuk-colour("mid-grey");
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -46,7 +51,7 @@
 }
 
 .app-search__input {
-  padding: govuk-spacing(1) govuk-spacing(5) govuk-spacing(1) govuk-spacing(6);
+  padding: govuk-spacing(1) govuk-spacing(4) govuk-spacing(1) govuk-spacing(6);
   width: 24em;
   border-radius: $app-border-radius;
   border: 1px solid govuk-colour("mid-grey");

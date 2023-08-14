@@ -6,36 +6,33 @@
 
   {{ appEntityActions({
     formAction: appPathPrefix + '/deployments/' + environment,
+    legend: {
+      text: 'Search'
+    },
     search: appSearch({
       label: {
-        text: "Search"
+        text: "By deployment"
       },
-      hint: {
-        text: "By deployment name"
-      },
-      id: "search",
-      name: "service",
+      id: 'search',
+      name: 'service',
       suggestions: searchSuggestions
     }),
     filters: [
       appDropdown({
         label: {
-          text: "Filter"
+          text: "Filter by user"
         },
-        hint: {
-          text: "By status"
-        },
-        id: "status",
-        name: "status",
-        suggestions: statusSuggestions
+        id: 'user',
+        name: 'user',
+        suggestions: userSuggestions
       }),
       appDropdown({
-        hint: {
-          text: "By user"
+        label: {
+          text: "By status"
         },
-        id: "user",
-        name: "user",
-        suggestions: userSuggestions
+        id: 'status',
+        name: 'status',
+        suggestions: statusSuggestions
       })
     ]
   }) }}

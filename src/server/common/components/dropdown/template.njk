@@ -11,12 +11,11 @@
   window.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
 </script>
 
-
 <div class="govuk-form-group app-form-group{%- if params.errorMessage %} govuk-form-group--error{% endif %}"
      data-js="app-form-group" data-testid="app-dropdown-group">
 
   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
-    <label for="{{ params.id }}" data-testid="app-dropdown-label">
+    <label class="app-dropdown__label" for="{{ params.id }}" data-testid="app-dropdown-label">
       {{ params.label.text }}
     </label>
 
