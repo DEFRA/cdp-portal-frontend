@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Auto Version Bump
         id: auto-version-bump
