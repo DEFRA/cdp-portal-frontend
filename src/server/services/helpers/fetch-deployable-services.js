@@ -4,7 +4,7 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 
 async function fetchDeployableServices() {
   const logger = createLogger()
-  const servicesEndpointUrl = `${appConfig.get('deployablesApiUrl')}/services`
+  const servicesEndpointUrl = `${appConfig.get('portalBackendApiUrl')}/services`
 
   try {
     const response = await fetch(servicesEndpointUrl)

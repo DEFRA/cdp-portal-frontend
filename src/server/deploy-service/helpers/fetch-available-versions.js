@@ -9,7 +9,7 @@ async function fetchAvailableVersions(serviceName) {
   }
 
   const deployablesVersionsEndpoint = `${appConfig.get(
-    'deployablesApiUrl'
+    'portalBackendApiUrl'
   )}/deployables/${serviceName}`
 
   const response = await fetch(deployablesVersionsEndpoint)
