@@ -63,18 +63,6 @@ const appConfig = convict({
     default: 'http://localhost:5094/cdp-portal-backend',
     env: 'PORTAL_BACKEND_API_URL'
   },
-  // deploymentsApiUrl: {
-  //   doc: 'Deployments root API url',
-  //   format: String,
-  //   default: 'http://localhost:5094/cdp-portal-backend',
-  //   env: 'DEPLOYMENTS_API_URL'
-  // },
-  // portalBackendApiUrl: {
-  //   doc: 'Deployables root API url',
-  //   format: String,
-  //   default: 'http://localhost:5094/cdp-portal-backend',
-  //   env: 'DEPLOYABLES_API_URL'
-  // },
   selfServiceOpsApiUrl: {
     doc: 'Self Service Ops root API url',
     format: String,
