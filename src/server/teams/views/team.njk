@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-two-thirds">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Team Members</h2>
 
-      {% if team.members.length %}
+      {% if team.members | length %}
         <ul class="govuk-list govuk-list--bullet">
           {% for member in team.members %}
             {% set memberHandle = member.name + " - @" + member.id if member.name else "@" + member.id %}
@@ -31,7 +31,7 @@
 
       <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Repositories</h2>
 
-      {% if team.repositories.length %}
+      {% if team.repositories | length %}
         <ul class="govuk-list govuk-list--bullet">
           {% for repository in team.repositories %}
             <li>
@@ -47,7 +47,7 @@
 
       <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Templates</h2>
 
-      {% if team.templates.length %}
+      {% if team.templates | length %}
         <ul class="govuk-list govuk-list--bullet">
           {% for template in team.templates %}
             <li>
@@ -63,7 +63,7 @@
 
       <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Libraries</h2>
 
-      {% if team.libraries.length %}
+      {% if team.libraries | length %}
         <ul class="govuk-list govuk-list--bullet">
           {% for library in team.libraries %}
             <li>

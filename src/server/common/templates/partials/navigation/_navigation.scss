@@ -34,8 +34,8 @@ $border-width: 4px;
 .app-navigation__admin {
   position: relative;
   display: flex;
-  flex: 0 0 80px;
-  margin: 0;
+  flex: 0 0 75px;
+  margin: 0 0 0 govuk-spacing(3);
   padding: 0;
   list-style: none;
   justify-content: flex-end;
@@ -48,7 +48,6 @@ $border-width: 4px;
     left: 0;
     width: 2px;
     height: 60%;
-    margin-left: govuk-spacing(2);
     border-left: 2px solid govuk-colour("blue");
   }
 }

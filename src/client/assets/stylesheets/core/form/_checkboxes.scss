@@ -1,0 +1,5 @@
+.app-checkboxes {
+  &.govuk-input--error {
+    border-color: govuk-colour("red");
+  }
+}

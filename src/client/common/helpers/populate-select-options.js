@@ -34,7 +34,7 @@ function populateSelectOptions($controller) {
     const options = await dataFetcher(value)
 
     clearTimeout(delayedLoader)
-    $loader.classList.remove('app-loader--is-loading')
+    $loader?.classList?.remove('app-loader--is-loading')
 
     const optionsWithPrependedBlank = [
       blankOption,

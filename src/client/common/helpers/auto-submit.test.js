@@ -6,7 +6,6 @@ jest.mock('~/src/client/common/helpers/xhr')
 describe('#autoSubmit', () => {
   let form
   let input
-  let select
 
   beforeEach(() => {
     jest.useFakeTimers()
@@ -33,7 +32,6 @@ describe('#autoSubmit', () => {
 
     form = document.querySelector('[data-testid="auto-submit"]')
     input = document.querySelector('[data-testid="auto-submit-input"]')
-    select = document.querySelector('[data-testid="auto-submit-select"]')
   })
 
   afterEach(() => {
@@ -53,23 +51,6 @@ describe('#autoSubmit', () => {
     test('Should submit form', () => {
       expect(xhrRequest).toHaveBeenCalledWith('http://localhost/mock-action', {
         weather: 'sunshine'
-      })
-    })
-  })
-
-  describe('When select changed', () => {
-    beforeEach(async () => {
-      select.focus()
-      select.value = '20c'
-
-      form.dispatchEvent(new Event('change'))
-
-      jest.advanceTimersByTime(210)
-    })
-
-    test('Should submit form', () => {
-      expect(xhrRequest).toHaveBeenCalledWith('http://localhost/mock-action', {
-        temperature: '20c'
       })
     })
   })

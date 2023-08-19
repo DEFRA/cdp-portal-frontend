@@ -8,11 +8,11 @@ async function fetchDeployments(environment, queryParams) {
   const logger = createLogger()
   const queryString = qs.stringify(queryParams)
 
-  const deploymentsEndpointUrl = `${appConfig.get(
-    'portalBackendApiUrl'
-  )}/deployments?environment=${environment}${
-    queryString ? `&${queryString}` : ''
-  }`
+  const deploymentsEndpointUrl =
+    appConfig.get('portalBackendApiUrl') +
+    `/deployments?environment=${environment}${
+      queryString ? `&${queryString}` : ''
+    }`
 
   try {
     const response = await fetch(deploymentsEndpointUrl)

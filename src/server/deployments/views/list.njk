@@ -1,7 +1,5 @@
 {% extends "layouts/tabbed-page.njk" %}
 
-{% from "search/macro.njk" import appSearch %}
-
 {% block actions %}
 
   {{ appEntityActions({
@@ -9,7 +7,7 @@
     legend: {
       text: 'Search'
     },
-    search: appSearch({
+    search: appAutocompleteSearch({
       label: {
         text: "By deployment"
       },
@@ -18,7 +16,7 @@
       suggestions: searchSuggestions
     }),
     filters: [
-      appDropdown({
+      appAutocompleteDropdown({
         label: {
           text: "Filter by user"
         },
@@ -26,7 +24,7 @@
         name: 'user',
         suggestions: userSuggestions
       }),
-      appDropdown({
+      appAutocompleteDropdown({
         label: {
           text: "By status"
         },

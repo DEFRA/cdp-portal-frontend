@@ -1,5 +1,6 @@
 import Joi from 'joi'
 
+// TODO move into schema folder
 function createServiceValidationSchema(serviceTypes, owningTeams) {
   return Joi.object({
     repositoryName: Joi.string()

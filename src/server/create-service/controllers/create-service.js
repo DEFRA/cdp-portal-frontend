@@ -5,6 +5,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
 import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
 import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const createServiceController = {
   handler: async (request, h) => {
@@ -56,7 +57,7 @@ const createServiceController = {
         headers: { 'Content-Type': 'application/json' }
       })
 
-      request.yar.flash('notifications', {
+      request.yar.flash(sessionNames.notifications, {
         text: 'Service successfully created',
         type: 'success'
       })

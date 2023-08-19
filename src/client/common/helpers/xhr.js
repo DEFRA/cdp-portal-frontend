@@ -54,7 +54,12 @@ function xhrRequest(url, params = {}) {
   }
 
   return fetch(`${url}?${qs.stringify(params, { arrayFormat: 'repeat' })}`, {
-    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Cache-Control': 'no-cache, no-store, max-age=0',
+      Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+      Pragma: 'no-cache'
+    }
   })
     .then((response) => {
       return response.text()

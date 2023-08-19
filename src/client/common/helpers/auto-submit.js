@@ -18,7 +18,9 @@ async function submitForm($form) {
 
   $form.dataset.isSubmitting = 'true'
 
-  const formElementsObj = formItemsToObject($form.elements)
+  const formElementsObj = formItemsToObject(
+    Array.from($form.elements).filter(($element) => $element.type !== 'submit')
+  )
 
   try {
     await xhrRequest($form.action, formElementsObj)
@@ -34,7 +36,6 @@ function autoSubmit($form) {
   }
 
   $form.addEventListener('input', debounce(handleFormSubmit, 200)) // minimal debounce whilst user is typing
-  $form.addEventListener('change', handleFormSubmit)
   $form.addEventListener('submit', handleFormSubmit)
 }
 

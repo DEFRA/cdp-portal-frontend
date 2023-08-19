@@ -13,7 +13,9 @@ const admin = {
         }
       ])
 
-      server.route([...adminUsers, ...adminTeams])
+      adminUsers(server)
+
+      server.route([...adminTeams])
     }
   }
 }

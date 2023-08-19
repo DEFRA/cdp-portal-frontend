@@ -1,0 +1,121 @@
+const users = [
+  {
+    businessPhones: [],
+    displayName: 'The Dude',
+    givenName: null,
+    id: '71faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'the-dude@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'Mr Benn',
+    givenName: null,
+    id: '98faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'mr-benn@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'Barbie',
+    givenName: null,
+    id: '12faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'barbie@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'The Terminator',
+    givenName: null,
+    id: '34faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'the-terminator@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'Roger Rabbit',
+    givenName: null,
+    id: '56faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'roger-rabbit@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'Indiana Jones',
+    givenName: null,
+    id: '79faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'indiana-jones@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'Queen Elizabeth',
+    givenName: null,
+    id: '94faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'queen-elizabeth@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'Darth Vader',
+    givenName: null,
+    id: '92faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'darth-vader@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  },
+  {
+    businessPhones: [],
+    displayName: 'RoboCop',
+    givenName: null,
+    id: '85faf257-d96d-4919-9be5-55b791ed1d2a',
+    jobTitle: null,
+    mail: 'robocop@Defra.onmicrosoft.com',
+    mobilePhone: null,
+    officeLocation: null,
+    preferredLanguage: null,
+    surname: null,
+    userPrincipalName: null
+  }
+]
+
+module.exports = { users }

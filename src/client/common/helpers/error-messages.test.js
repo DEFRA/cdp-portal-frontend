@@ -8,20 +8,20 @@ describe('#errorMessages', () => {
     // Add mock form to document
     document.body.innerHTML = `
       <form data-js="mock-form-errors" data-testid="mock-form-errors">
-        <div class="app-form-group-js" data-testid="form-group-image-name">
+        <div class="govuk-form-group--error app-form-group-js" data-testid="form-group-image-name">
           <p data-js="app-error">
             Enter a value
           </p>
 
-          <input type="text" name="imageName" value="cdp-portal-frontend" data-testid="image-name" />
+          <input class="govuk-input--error" type="text" name="imageName" value="cdp-portal-frontend" data-testid="image-name" />
         </div>
 
-        <div class="app-form-group-js" data-testid="form-group-instance-count">
+        <div class="govuk-form-group--error app-form-group-js" data-testid="form-group-instance-count">
           <p data-js="app-error">
             Choose an entry
           </p>
 
-          <select name="instanceCount" data-testid="instance-count">
+          <select class="govuk-select--error" name="instanceCount" data-testid="instance-count">
             <option value="" selected="selected"> -- Select option -- </option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -49,16 +49,18 @@ describe('#errorMessages', () => {
     beforeEach(() => {
       input.focus()
       input.value = 'cdp-portal-frontend'
-      input.dispatchEvent(new Event('change'))
+      input.dispatchEvent(new Event('input'))
     })
 
-    test('On input change should remove its server side error', () => {
+    test('On input event should remove its server side error', () => {
       const inputFormGroup = document.querySelector(
         '[data-testid="form-group-image-name"]'
       )
       const errors = inputFormGroup.querySelectorAll('[data-js="app-error"]')
 
       expect(errors.length).toEqual(0)
+      expect(inputFormGroup.className).toEqual('app-form-group-js')
+      expect(input.className).toEqual('')
     })
 
     test('Other form group errors should remain', () => {
@@ -69,6 +71,10 @@ describe('#errorMessages', () => {
 
       expect(errors.length).toEqual(1)
       expect(errors[0].textContent.trim()).toEqual('Choose an entry')
+      expect(selectFormGroup.className).toEqual(
+        'govuk-form-group--error app-form-group-js'
+      )
+      expect(select.className).toEqual('govuk-select--error')
     })
   })
 
@@ -76,16 +82,18 @@ describe('#errorMessages', () => {
     beforeEach(() => {
       select.focus()
       select.value = '1'
-      select.dispatchEvent(new Event('change'))
+      select.dispatchEvent(new Event('input'))
     })
 
-    test('On select change should remove server side error', () => {
+    test('On select input event should remove server side error', () => {
       const selectFormGroup = document.querySelector(
         '[data-testid="form-group-instance-count"]'
       )
       const errors = selectFormGroup.querySelectorAll('[data-js="app-error"]')
 
       expect(errors.length).toEqual(0)
+      expect(selectFormGroup.className).toEqual('app-form-group-js')
+      expect(select.className).toEqual('')
     })
 
     test('Other form group errors should remain', () => {
@@ -96,6 +104,10 @@ describe('#errorMessages', () => {
 
       expect(errors.length).toEqual(1)
       expect(errors[0].textContent.trim()).toEqual('Enter a value')
+      expect(inputFormGroup.className).toEqual(
+        'govuk-form-group--error app-form-group-js'
+      )
+      expect(input.className).toEqual('govuk-input--error')
     })
   })
 })
