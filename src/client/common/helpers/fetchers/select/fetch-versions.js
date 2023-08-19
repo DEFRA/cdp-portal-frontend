@@ -1,4 +1,4 @@
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 
 async function fetchVersions(value) {
   try {
@@ -7,7 +7,7 @@ async function fetchVersions(value) {
     )
     const versions = await response.json()
 
-    return buildSelectOptions(versions, false)
+    return buildOptions(versions, false)
   } catch (error) {
     throw new Error(error)
   }

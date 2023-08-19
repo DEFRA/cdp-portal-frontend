@@ -1,7 +1,6 @@
 import { blankOption } from '~/src/server/common/helpers/blank-option'
 
-// TODO rename this to buildOptions
-function buildSelectOptions(items, withBlank = true) {
+function buildOptions(items, withBlank = true) {
   return [
     ...(withBlank ? [blankOption] : []),
     ...items.map((item) => {
@@ -14,4 +13,4 @@ function buildSelectOptions(items, withBlank = true) {
   ]
 }
 
-export { buildSelectOptions }
+export { buildOptions }

@@ -2,7 +2,6 @@ import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequis
 import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 
-// TODO update name
 const summaryController = {
   options: {
     pre: [noSessionRedirect, provideDeployment]

@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 import { appConfig } from '~/src/config'
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
 import { availableInstances } from '~/src/server/deploy-service/helpers/available-instances'
@@ -36,7 +36,7 @@ const optionsController = {
         formValues: payload,
         formErrors: errorDetails,
         availableMemoryOptions: cpu
-          ? buildSelectOptions(ecsCpuToMemoryOptionsMap[cpu])
+          ? buildOptions(ecsCpuToMemoryOptionsMap[cpu])
           : optionsWithMessage('Choose a CPU value')
       })
 

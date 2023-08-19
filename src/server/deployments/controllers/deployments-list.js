@@ -7,7 +7,7 @@ import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch-deployments'
 import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transformers/transform-deployments-to-entity-row'
 import { sortByName } from '~/src/server/common/helpers/sort-by-name'
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 
 const deploymentsListController = {
   options: {
@@ -54,9 +54,9 @@ const deploymentsListController = {
       caption:
         'Micro-service deployment details across all available environments.',
       tabs: deploymentTabs(request),
-      searchSuggestions: buildSelectOptions(uniqueAllDeployments),
-      userSuggestions: buildSelectOptions(uniqueAllUsers),
-      statusSuggestions: buildSelectOptions(uniqueAllStatus),
+      searchSuggestions: buildOptions(uniqueAllDeployments),
+      userSuggestions: buildOptions(uniqueAllUsers),
+      statusSuggestions: buildOptions(uniqueAllStatus),
       entityRows,
       environment
     })

@@ -1,9 +1,9 @@
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 
-describe('#buildSelectOptions', () => {
+describe('#buildOptions', () => {
   describe('With simple items', () => {
     test('Should provide expected options', () => {
-      expect(buildSelectOptions(['0.1.0', '0.2.0'])).toEqual([
+      expect(buildOptions(['0.1.0', '0.2.0'])).toEqual([
         {
           attributes: {
             hidden: true
@@ -24,7 +24,7 @@ describe('#buildSelectOptions', () => {
   describe('With detailed items', () => {
     test('Should provide expected options', () => {
       expect(
-        buildSelectOptions([
+        buildOptions([
           { text: 'Version 0.3.0', value: '0.3.0' },
           {
             text: 'Version 0.4.0',
@@ -52,7 +52,7 @@ describe('#buildSelectOptions', () => {
   describe('Without blank option', () => {
     test('Should provide expected options', () => {
       expect(
-        buildSelectOptions(
+        buildOptions(
           [
             { text: 'Version 0.3.0', value: '0.3.0' },
             {

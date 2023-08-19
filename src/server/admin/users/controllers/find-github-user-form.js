@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 import { fetchGitHubUsers } from '~/src/server/admin/users/helpers/fetch-github-users'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { resetGitHubAnswer } from '~/src/server/admin/users/helpers/extensions/reset-github-answer'
@@ -34,7 +34,7 @@ const findGitHubUserFormController = {
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       formValues: { githubSearch },
-      gitHubUsers: buildSelectOptions(
+      gitHubUsers: buildOptions(
         gitHubUsers.map((gitHubUser) => ({
           text: `@${gitHubUser.login} - ${gitHubUser.name}`,
           value: gitHubUser.login

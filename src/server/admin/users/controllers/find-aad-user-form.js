@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { fetchAadUsers } from '~/src/server/admin/users/helpers/fetch-add-users'
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 import { resetAadAnswer } from '~/src/server/admin/users/helpers/extensions/reset-aad-answer'
 
 const findAadUserFormController = {
@@ -32,7 +32,7 @@ const findAadUserFormController = {
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       formValues: { emailSearch },
-      aadUsers: buildSelectOptions(
+      aadUsers: buildOptions(
         aadUsers.map((aadUser) => aadUser.mail),
         false
       )
