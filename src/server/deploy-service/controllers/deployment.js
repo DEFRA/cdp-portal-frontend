@@ -1,10 +1,10 @@
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
-import { provideDeploymentSession } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment-session'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { saveToDeploymentSession } from '~/src/server/deploy-service/helpers/save-to-deployment-session'
 
 const deploymentController = {
   options: {
-    pre: [noSessionRedirect, provideDeploymentSession]
+    pre: [noSessionRedirect, provideDeployment]
   },
   handler: async (request, h) => {
     saveToDeploymentSession(request, { isComplete: true })

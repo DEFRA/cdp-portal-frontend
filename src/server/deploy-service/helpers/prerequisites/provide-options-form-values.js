@@ -5,7 +5,7 @@ import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fe
 
 const provideOptionsFormValues = {
   method: async (request) => {
-    const deploymentSession = request.pre?.deploymentSession
+    const deployment = request.pre?.deployment
 
     const { cpuOptions, ecsCpuToMemoryOptionsMap } =
       await fetchDeployServiceOptions()
@@ -17,10 +17,10 @@ const provideOptionsFormValues = {
       preExistingDetails: false
     }
 
-    if (deploymentSession) {
+    if (deployment) {
       const { existingServiceInfo } = await fetchExistingServiceInfo(
-        deploymentSession?.environment,
-        deploymentSession?.imageName
+        deployment?.environment,
+        deployment?.imageName
       )
 
       // Populate with already deployed service
@@ -36,10 +36,10 @@ const provideOptionsFormValues = {
         formDetail.preExistingDetails = true
       }
 
-      // If session cpu exists provide memory options dependent on this deploymentSession.cpu value
-      if (deploymentSession?.cpu) {
+      // If session cpu exists provide memory options dependent on this deployment.cpu value
+      if (deployment?.cpu) {
         formDetail.availableMemoryOptions =
-          ecsCpuToMemoryOptionsMap[deploymentSession?.cpu]
+          ecsCpuToMemoryOptionsMap[deployment?.cpu]
         formDetail.preExistingDetails = false
       }
     }

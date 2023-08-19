@@ -8,6 +8,7 @@ import { optionsWithMessage } from '~/src/server/common/helpers/options-with-mes
 import { saveToDeploymentSession } from '~/src/server/deploy-service/helpers/save-to-deployment-session'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const detailsController = {
   handler: async (request, h) => {
@@ -28,7 +29,7 @@ const detailsController = {
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
 
-      request.yar.flash('validationFailure', {
+      request.yar.flash(sessionNames.validationFailure, {
         formValues: payload,
         formErrors: errorDetails,
         availableVersionOptions: availableVersions?.length

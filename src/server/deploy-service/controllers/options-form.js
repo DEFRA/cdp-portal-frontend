@@ -4,16 +4,12 @@ import Boom from '@hapi/boom'
 import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
 import { availableInstances } from '~/src/server/deploy-service/helpers/available-instances'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
-import { provideDeploymentSession } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment-session'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/prerequisites/provide-options-form-values'
 
 const optionsFormController = {
   options: {
-    pre: [
-      noSessionRedirect,
-      provideDeploymentSession,
-      provideOptionsFormValues
-    ],
+    pre: [noSessionRedirect, provideDeployment, provideOptionsFormValues],
     validate: {
       query: Joi.object({
         redirectLocation: Joi.string().valid('summary')

@@ -1,9 +1,9 @@
-import { isDeploymentSessionComplete } from '~/src/server/deploy-service/helpers/is-deployment-session-complete'
+import { isDeploymentComplete } from '~/src/server/deploy-service/helpers/is-deployment-complete'
 
-describe('#isDeploymentSessionComplete', () => {
+describe('#isDeploymentComplete', () => {
   test('Step one should be complete', () => {
     expect(
-      isDeploymentSessionComplete({
+      isDeploymentComplete({
         imageName: 'cdp-portal-frontend',
         version: '1.0.1',
         environment: 'test'
@@ -18,7 +18,7 @@ describe('#isDeploymentSessionComplete', () => {
 
   test('Step two should be complete', () => {
     expect(
-      isDeploymentSessionComplete({
+      isDeploymentComplete({
         instanceCount: 0,
         cpu: 256,
         memory: 1024
@@ -33,7 +33,7 @@ describe('#isDeploymentSessionComplete', () => {
 
   test('Step three should be complete', () => {
     expect(
-      isDeploymentSessionComplete({
+      isDeploymentComplete({
         isSent: true
       })
     ).toEqual({
@@ -46,7 +46,7 @@ describe('#isDeploymentSessionComplete', () => {
 
   test('Step four should be complete', () => {
     expect(
-      isDeploymentSessionComplete({
+      isDeploymentComplete({
         isComplete: true
       })
     ).toEqual({
@@ -59,7 +59,7 @@ describe('#isDeploymentSessionComplete', () => {
 
   describe('With no values', () => {
     test('No steps should be complete', () => {
-      expect(isDeploymentSessionComplete({})).toEqual({
+      expect(isDeploymentComplete({})).toEqual({
         stepOne: false,
         stepTwo: false,
         stepThree: false,

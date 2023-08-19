@@ -1,14 +1,15 @@
-import { isDeploymentSessionComplete } from '~/src/server/deploy-service/helpers/is-deployment-session-complete'
+import { isDeploymentComplete } from '~/src/server/deploy-service/helpers/is-deployment-complete'
 import { appConfig } from '~/src/config'
-import { calculateStepWidth } from '~/src/server/deploy-service/helpers/calculate-step-width'
+import { calculateStepWidth } from '~/src/server/common/helpers/calculate-step-width'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
-function provideSteps(request, h) {
+function provideDeployServiceSteps(request, h) {
   const response = request.response
   const requestPath = request.path
 
   if (response.variety === 'view') {
-    const deploymentSession = request.yar.get('deployment')
-    const isComplete = isDeploymentSessionComplete(deploymentSession)
+    const deployment = request.yar.get(sessionNames.deployment)
+    const isComplete = isDeploymentComplete(deployment)
 
     const urls = {
       stepOne: appConfig.get('appPathPrefix') + '/deploy-service/details',
@@ -51,4 +52,4 @@ function provideSteps(request, h) {
   return h.continue
 }
 
-export { provideSteps }
+export { provideDeployServiceSteps }
