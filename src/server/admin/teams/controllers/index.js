@@ -1,4 +1,4 @@
-import { teamController } from '~/src/server/admin/teams/controllers/team-controller'
-import { teamsListController } from '~/src/server/admin/teams/controllers/teams-list-controller'
+import { team } from '~/src/server/admin/teams/controllers/team'
+import { teamsList } from '~/src/server/admin/teams/controllers/teams-list'
 
-export { teamController, teamsListController }
+export { team, teamsList }

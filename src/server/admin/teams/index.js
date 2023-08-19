@@ -1,18 +1,15 @@
-import {
-  teamsListController,
-  teamController
-} from '~/src/server/admin/teams/controllers'
+import { teamsList, team } from '~/src/server/admin/teams/controllers'
 
 const adminTeams = [
   {
     method: 'GET',
     path: '/admin/teams',
-    ...teamsListController
+    ...teamsList
   },
   {
     method: 'GET',
     path: '/admin/teams/{teamId}',
-    ...teamController
+    ...team
   }
   // {
   //   method: 'GET',

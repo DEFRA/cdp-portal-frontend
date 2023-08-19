@@ -5,7 +5,7 @@ import { startCase } from 'lodash'
 import { fetchAdminTeam } from '~/src/server/admin/teams/helpers/fetch-admin-team'
 import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
 
-const teamController = {
+const team = {
   options: {
     validate: {
       params: Joi.object({
@@ -25,4 +25,4 @@ const teamController = {
   }
 }
 
-export { teamController }
+export { team }

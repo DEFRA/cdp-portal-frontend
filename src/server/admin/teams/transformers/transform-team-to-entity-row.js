@@ -7,7 +7,7 @@ function transformTeamToEntityRow(team) {
     {
       kind: 'link',
       value: startCase(team.name),
-      url: `${appConfig.get('appPathPrefix')}/admin/teams/${team.aadGroupId}`
+      url: `${appConfig.get('appPathPrefix')}/admin/teams/${team.teamId}`
     }
   ]
 }

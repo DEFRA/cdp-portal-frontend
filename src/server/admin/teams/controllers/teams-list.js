@@ -2,7 +2,7 @@ import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchAdminTeams } from '~/src/server/admin/teams/helpers/fetch-admin-teams'
 import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row'
 
-const teamsListController = {
+const teamsList = {
   handler: async (request, h) => {
     const { teams } = await fetchAdminTeams()
 
@@ -20,4 +20,4 @@ const teamsListController = {
   }
 }
 
-export { teamsListController }
+export { teamsList }
