@@ -4,7 +4,7 @@ import { appConfig } from '~/src/config'
 
 /**
  * @typedef {Object} User
- * @property {string} User.aadId
+ * @property {string} User.userId
  * @property {string} User.name
  * @property {string} User.email
  * @property {string} [User.github]

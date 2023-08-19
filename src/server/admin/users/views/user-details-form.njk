@@ -1,0 +1,115 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <div class="govuk-body">
+            <form action="{{ appPathPrefix }}/admin/users/create/user-details" method="POST"
+                  data-js="app-form-errors">
+
+              {% call govukFieldset() %}
+
+                {{ govukInput({
+                  label: {
+                    text: "User name (optional)",
+                    classes: "govuk-!-margin-bottom-1"
+                  },
+                  id: "name",
+                  name: "name",
+                  classes: "app-input app-input--wide",
+                  formGroup: {
+                    classes: "app-form-group"
+                  },
+                  attributes: {
+                    "data-1p-ignore": ""
+                  },
+                  value: formValues.name,
+                  errorMessage: {
+                    text: formErrors.name.message,
+                    classes: "govuk-!-margin-bottom-1 app-error-message"
+                  } if formErrors.name.message
+                }) }}
+
+                {{ govukInput({
+                  label: {
+                    text: "Defra AWS ID (optional)",
+                    classes: "govuk-!-margin-bottom-1"
+                  },
+                  id: "defraAwsId",
+                  name: "defraAwsId",
+                  classes: "app-input app-input--wide",
+                  formGroup: {
+                    classes: "app-form-group"
+                  },
+                  attributes: {
+                    "data-1p-ignore": ""
+                  },
+                  value: formValues.defraAwsId,
+                  errorMessage: {
+                    text: formErrors.defraAwsId.message,
+                    classes: "govuk-!-margin-bottom-1 app-error-message"
+                  } if formErrors.defraAwsId.message
+                }) }}
+
+                {{ govukInput({
+                  label: {
+                    text: "Defra VPN ID (optional)",
+                    classes: "govuk-!-margin-bottom-1"
+                  },
+                  id: "defraVpnId",
+                  name: "defraVpnId",
+                  classes: "app-input app-input--wide",
+                  formGroup: {
+                    classes: "app-form-group"
+                  },
+                  attributes: {
+                    "data-1p-ignore": ""
+                  },
+                  value: formValues.defraVpnId,
+                  errorMessage: {
+                    text: formErrors.defraVpnId.message,
+                    classes: "govuk-!-margin-bottom-1 app-error-message"
+                  } if formErrors.defraVpnId.message
+                }) }}
+
+              {% endcall %}
+
+              <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+              <div class="govuk-button-group">
+                {{ govukButton({
+                  classes: "app-button",
+                  text: formButtonText,
+                  name: "button",
+                  value: "next"
+                }) }}
+
+                {{ govukButton({
+                  classes: "app-button govuk-button--secondary",
+                  text: "Skip",
+                  name: "button",
+                  value: "skip"
+                }) }}
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <div class="govuk-body">
+            <form action="{{ appPathPrefix }}/admin/users/create/find-aad-user" method="POST"
+                  data-js="auto-submit app-form-errors">
+
+              {% call govukFieldset() %}
+
+                {{ appSearch({
+                  label: {
+                    text: "AAD users email"
+                  },
+                  id: 'emailSearch',
+                  name: 'emailSearch',
+                  hint: {
+                    text: "Search using the users Defra provided email"
+                  },
+                  value: formValues.emailSearch,
+                  errorMessage: {
+                    text: formErrors.emailSearch.message
+                  } if formErrors.emailSearch.message
+                }) }}
+
+              {% endcall %}
+
+              {{ govukButton({
+                classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+                text: "Search",
+                name: "button",
+                value: "search"
+              }) }}
+
+            </form>
+
+            <form action="{{ appPathPrefix }}/admin/users/create/find-aad-user" method="POST" data-js="app-form-errors">
+
+              <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+              {% block xhrContent %}
+
+                <article class="app-scrollable-window" data-xhr="aad-users">
+                  <input type="hidden" name="emailSearch" value="{{ formValues.emailSearch }}"/>
+
+                  {% if aadUsers | length %}
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
+                  {% endif %}
+
+                  {{ govukRadios({
+                    name: "email",
+                    classes: "govuk-radios--small app-radio",
+                    items: aadUsers,
+                    value: formValues.email,
+                    formGroup: {
+                      classes: "app-form-group app-form-group-js"
+                    },
+                    errorMessage: {
+                      attributes: {
+                        "data-js": "app-error"
+                      },
+                      text: formErrors.email.message
+                    } if formErrors.email.message
+                  }) }}
+
+                  {% if formValues.emailSearch and not aadUsers | length %}
+                    <p class="govuk-hint">No user/s found</p>
+                  {% endif %}
+
+                </article>
+
+              {% endblock %}
+
+              {{ govukButton({
+                classes: "app-button",
+                text: formButtonText,
+                name: "button",
+                value: "next"
+              }) }}
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}

@@ -1,34 +1,95 @@
 import {
   usersListController,
-  userController
+  userController,
+  findAadUserFormController,
+  startCreateUserController,
+  findAadUserController,
+  findGitHubUserFormController,
+  findGitHubUserController,
+  userDetailsController,
+  userDetailsFormController,
+  summaryController,
+  createUserController
 } from '~/src/server/admin/users/controllers'
+import { provideCreateUserSteps } from '~/src/server/admin/users/helpers/provide-create-user-steps'
+import { provideFormContextValues } from '~/src/server/admin/users/helpers/provide-form-context-values'
 
-const adminUsers = [
-  {
-    method: 'GET',
-    path: '/admin/users',
-    ...usersListController
-  },
-  {
-    method: 'GET',
-    path: '/admin/users/{userId}',
-    ...userController
-  }
-  // {
-  //   method: 'GET',
-  //   path: '/admin/create/user',
-  //   ...librariesListController
-  // },
-  // {
-  //   method: 'POST',
-  //   path: '/admin/create/user',
-  //   ...librariesListController
-  // },
-  // {
-  //   method: 'PATCH',
-  //   path: '/admin/edit/user/{userId}',
-  //   ...libraryController
-  // }
-]
+const adminUsers = (server) => {
+  server.ext([
+    {
+      type: 'onPostHandler',
+      method: provideFormContextValues,
+      options: {
+        before: ['yar'],
+        sandbox: 'plugin'
+      }
+    },
+    {
+      type: 'onPostHandler',
+      method: provideCreateUserSteps,
+      options: {
+        sandbox: 'plugin'
+      }
+    }
+  ])
+
+  server.route([
+    {
+      method: 'GET',
+      path: '/admin/users',
+      ...usersListController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users/create',
+      ...startCreateUserController
+    },
+    {
+      method: 'POST',
+      path: '/admin/users/create',
+      ...createUserController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users/create/find-aad-user',
+      ...findAadUserFormController
+    },
+    {
+      method: 'POST',
+      path: '/admin/users/create/find-aad-user',
+      ...findAadUserController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users/create/find-github-user',
+      ...findGitHubUserFormController
+    },
+    {
+      method: 'POST',
+      path: '/admin/users/create/find-github-user',
+      ...findGitHubUserController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users/create/user-details',
+      ...userDetailsFormController
+    },
+    {
+      method: 'POST',
+      path: '/admin/users/create/user-details',
+      ...userDetailsController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users/create/summary',
+      ...summaryController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users/{userId}',
+      ...userController
+    }
+  ])
+}
 
 export { adminUsers }

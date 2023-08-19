@@ -3,11 +3,18 @@
 {% from "split-pane/macro.njk" import appSplitPane with context %}
 
 {% block content %}
+
   {% call appSplitPane() %}
+
     <section>
       {{ appHeading({
         title: heading,
-        caption: headingCaption
+        caption: headingCaption,
+        action: govukButton({
+          classes: "app-button",
+          text: "Create User",
+          href: appPathPrefix + "/admin/users/create"
+        })
       }) }}
 
       {{ appEntityList({
@@ -20,6 +27,7 @@
       }) }}
 
     </section>
+
   {% endcall %}
 
 {% endblock %}

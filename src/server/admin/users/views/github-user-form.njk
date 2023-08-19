@@ -1,0 +1,117 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <div class="govuk-body">
+            <form action="{{ appPathPrefix }}/admin/users/create/find-github-user" method="POST"
+                  data-js="auto-submit app-form-errors">
+
+              {% call govukFieldset() %}
+
+                {{ appSearch({
+                  label: {
+                    text: "GitHub username"
+                  },
+                  id: 'githubSearch',
+                  name: 'githubSearch',
+                  hint: {
+                    text: "Search using the users GitHub username"
+                  },
+                  value: formValues.githubSearch,
+                  errorMessage: {
+                    text: formErrors.githubSearch.message
+                  } if formErrors.githubSearch.message
+                }) }}
+
+              {% endcall %}
+
+              {{ govukButton({
+                classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+                text: "Search",
+                name: "button",
+                value: "search"
+              }) }}
+
+            </form>
+
+            <form action="{{ appPathPrefix }}/admin/users/create/find-github-user" method="POST"
+                  data-js="app-form-errors">
+
+              <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+              {% block xhrContent %}
+
+                <article class="app-scrollable-window" data-xhr="github-users">
+                  <input type="hidden" name="githubSearch" value="{{ formValues.githubSearch }}"/>
+
+                  {% if gitHubUsers | length %}
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Search results</h2>
+                  {% endif %}
+
+                  {{ govukRadios({
+                    name: "github",
+                    classes: "govuk-radios--small app-radio",
+                    fieldset: {
+                      legend: {
+                        text: "Choose a GitHub user (optional)"
+                      }
+                    } if gitHubUsers | length,
+                    items: gitHubUsers,
+                    value: formValues.github,
+                    formGroup: {
+                      classes: "app-form-group app-form-group-js"
+                    },
+                    errorMessage: {
+                      attributes: {
+                        "data-js": "app-error"
+                      },
+                      text: formErrors.github.message
+                    } if formErrors.github.message
+                  }) }}
+
+                  {% if formValues.githubSearch and not gitHubUsers | length %}
+                    <p class="govuk-hint">No user/s found</p>
+                  {% endif %}
+
+                </article>
+
+              {% endblock %}
+
+              <div class="govuk-button-group">
+                {{ govukButton({
+                  classes: "app-button",
+                  text: formButtonText,
+                  name: "button",
+                  value: "next"
+                }) }}
+
+                {{ govukButton({
+                  classes: "app-button govuk-button--secondary",
+                  text: "Skip",
+                  name: "button",
+                  value: "skip"
+                }) }}
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}

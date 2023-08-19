@@ -7,7 +7,7 @@ function transformUserToEntityRow(user) {
     {
       kind: 'link',
       value: startCase(user.name),
-      url: `${appConfig.get('appPathPrefix')}/admin/users/${user.aadId}`
+      url: `${appConfig.get('appPathPrefix')}/admin/users/${user.userId}`
     },
     {
       kind: 'link',
