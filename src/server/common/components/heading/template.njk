@@ -10,22 +10,18 @@
             data-testid="app-heading-caption">{{ params.caption }}</span>
     {% endif %}
 
-    {% if params.entities.primary.length %}
-      <div class="app-heading-entities">
-        {% for entity in params.entities.primary %}
+    {% if params.entities | length %}
+      <div class="app-heading__entities">
+        {% for entity in params.entities %}
           {{ appEntity(entity) }}
         {% endfor %}
       </div>
     {% endif %}
   </div>
 
-  {% if params.entities.secondary.length %}
-    <div class="govuk-grid-column-one-half app-heading-secondary-info">
-      <div class="app-heading-entities">
-        {% for entity in params.entities.secondary %}
-          {{ appEntity(entity) }}
-        {% endfor %}
-      </div>
+  {% if params.action %}
+    <div class="govuk-grid-column-one-half app-heading__action">
+      {{ params.action }}
     </div>
   {% endif %}
 </div>

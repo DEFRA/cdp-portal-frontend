@@ -1,11 +1,11 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
 
-describe('Dropdown Component', () => {
-  let $dropdownFromGroup
+describe('Autocomplete Dropdown Component', () => {
+  let $autocompleteDropdownFromGroup
   let $select
 
   beforeEach(() => {
-    const $component = renderTestComponent('dropdown', {
+    const $component = renderTestComponent('autocomplete-dropdown', {
       label: {
         text: 'By'
       },
@@ -30,22 +30,28 @@ describe('Dropdown Component', () => {
       ]
     })
 
-    $dropdownFromGroup = $component(
-      '[data-testid="app-dropdown-group"]'
+    $autocompleteDropdownFromGroup = $component(
+      '[data-testid="app-autocomplete-dropdown-group"]'
     ).first()
 
-    $select = $dropdownFromGroup.find('[data-testid="app-dropdown-select"]')
+    $select = $autocompleteDropdownFromGroup.find(
+      '[data-testid="app-autocomplete-dropdown-select"]'
+    )
   })
 
   test('Should render with expected label', () => {
-    const $label = $dropdownFromGroup.find('[data-testid="app-dropdown-label"]')
+    const $label = $autocompleteDropdownFromGroup.find(
+      '[data-testid="app-autocomplete-dropdown-label"]'
+    )
 
     expect($label.length).toEqual(1)
     expect($label.text().trim()).toEqual('By')
   })
 
   test('Should render with expected hint input', () => {
-    const $hint = $dropdownFromGroup.find('[data-testid="app-dropdown-hint"]')
+    const $hint = $autocompleteDropdownFromGroup.find(
+      '[data-testid="app-autocomplete-dropdown-hint"]'
+    )
 
     expect($hint.length).toEqual(1)
     expect($hint.text().trim()).toEqual('Choose a user')

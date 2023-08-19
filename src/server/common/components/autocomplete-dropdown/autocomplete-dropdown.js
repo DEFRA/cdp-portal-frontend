@@ -17,7 +17,7 @@ function createSuggestion() {
 
   const li = document.createElement('li')
 
-  li.classList.add('app-dropdown__suggestion')
+  li.classList.add('app-autocomplete-dropdown__suggestion')
   li.setAttribute('role', 'option')
   li.setAttribute('tabindex', '-1')
   li.setAttribute('aria-selected', 'false')
@@ -33,6 +33,7 @@ function buildSuggestion(item, listElement) {
   const li = listElement.cloneNode(true)
 
   li.dataset.value = item.value
+  li.dataset.text = item.text
   li.firstChild.textContent = item.text
 
   return li
@@ -40,19 +41,19 @@ function buildSuggestion(item, listElement) {
 
 function manageTextHighlight($suggestion, value = null) {
   if (value) {
-    $suggestion.firstChild.innerHTML = $suggestion.dataset?.value.replace(
+    $suggestion.firstChild.innerHTML = $suggestion.dataset?.text.replace(
       new RegExp(value, 'gi'),
       `<strong>$&</strong>`
     )
   } else {
-    $suggestion.firstChild.innerHTML = $suggestion.dataset?.value
+    $suggestion.firstChild.innerHTML = $suggestion.dataset?.text
   }
 
   return $suggestion
 }
 
 function manageChoiceHighlight($suggestion, index, suggestionIndex = null) {
-  const className = 'app-dropdown__suggestion--highlight'
+  const className = 'app-autocomplete-dropdown__suggestion--highlight'
 
   if (!isNull(suggestionIndex) && suggestionIndex === index) {
     $suggestion.classList.add(className)
@@ -66,7 +67,7 @@ function manageChoiceHighlight($suggestion, index, suggestionIndex = null) {
 }
 
 function manageMatch($suggestion, value = null) {
-  if (value?.toLowerCase() === $suggestion.dataset?.value?.toLowerCase()) {
+  if (value?.toLowerCase() === $suggestion.dataset?.text?.toLowerCase()) {
     $suggestion.lastChild.innerHTML = tickSvgIcon
     $suggestion.dataset.isMatch = 'true'
   } else {
@@ -91,8 +92,8 @@ function buildNoResults() {
   const li = document.createElement('li')
 
   li.classList.add(
-    'app-dropdown__suggestion',
-    'app-dropdown__suggestion--no-results'
+    'app-autocomplete-dropdown__suggestion',
+    'app-autocomplete-dropdown__suggestion--no-results'
   )
   li.setAttribute('role', 'option')
   li.textContent = 'No results'
@@ -101,12 +102,14 @@ function buildNoResults() {
 }
 
 function enhanceSelectWithAutoComplete($module) {
-  const $select = $module.querySelector(`[data-js="app-dropdown-select"]`)
+  const $select = $module.querySelector(
+    `[data-js="app-autocomplete-dropdown-select"]`
+  )
   const $input = document.createElement('input')
 
   $input.name = $select.name
   $input.id = $select.id
-  $input.classList.add('govuk-input', 'app-dropdown__input')
+  $input.classList.add('govuk-input', 'app-autocomplete-dropdown__input')
 
   $input.setAttribute('autocapitalize', 'none')
   $input.setAttribute('autocomplete', 'off')
@@ -114,23 +117,25 @@ function enhanceSelectWithAutoComplete($module) {
   $input.setAttribute('aria-owns', `app-suggestions-${$select.id}`)
   $input.setAttribute('aria-autocomplete', 'list')
   $input.setAttribute('aria-expanded', 'false')
-  $input.dataset.js = 'app-dropdown-input'
-  $input.dataset.testid = 'app-dropdown-input'
+  $input.dataset.js = 'app-autocomplete-dropdown-input'
+  $input.dataset.testid = 'app-autocomplete-dropdown-input'
   $input.setAttribute('data-1p-ignore', '') // Disable 1 password widget
 
   $select.replaceWith($input)
 }
 
-function dropdown($module) {
+function autocompleteDropdown($module) {
   if (!$module) {
     return
   }
 
   enhanceSelectWithAutoComplete($module)
 
-  const $input = $module.querySelector('[data-js="app-dropdown-input"]')
-  const $submitButton = $input.form.querySelector(
-    '[data-js="app-entity-actions-submit-button"]'
+  const $input = $module.querySelector(
+    '[data-js="app-autocomplete-dropdown-input"]'
+  )
+  const $noJsSubmitButton = $input.form.querySelector(
+    '[data-js="app-no-js-submit-button"]'
   )
   const suggestions = window.suggestions?.[$input.name] ?? []
   const queryParams = qs.parse(location?.search, { ignoreQueryPrefix: true })
@@ -141,15 +146,15 @@ function dropdown($module) {
     .map((suggestion) => buildSuggestion(suggestion, suggestionElement))
 
   const $clearButton = $module.querySelector(
-    '[data-js="app-dropdown-clear-button"]'
+    '[data-js="app-autocomplete-dropdown-clear-button"]'
   )
   const $chevronButton = $module.querySelector('[data-js="app-chevron-button"]')
   const $suggestionsContainer = $module.querySelector(
-    '[data-js="app-dropdown-suggestions"]'
+    '[data-js="app-autocomplete-dropdown-suggestions"]'
   )
 
   const isSuggestionsHidden = !$suggestionsContainer.classList.contains(
-    'app-dropdown__suggestions--show'
+    'app-autocomplete-dropdown__suggestions--show'
   )
 
   let suggestionIndex = null
@@ -191,12 +196,16 @@ function dropdown($module) {
   const openSuggestions = () => {
     suggestionIndex = null
     $suggestionsContainer.scrollTop = 0
-    $suggestionsContainer.classList.add('app-dropdown__suggestions--show')
+    $suggestionsContainer.classList.add(
+      'app-autocomplete-dropdown__suggestions--show'
+    )
     $suggestionsContainer.setAttribute('aria-live', 'polite')
 
     $input.setAttribute('aria-expanded', 'true')
 
-    $chevronButton.classList.add('app-dropdown__chevron-button--open')
+    $chevronButton.classList.add(
+      'app-autocomplete-dropdown__chevron-button--open'
+    )
     $chevronButton.setAttribute('aria-expanded', 'true')
 
     scrollToSelection()
@@ -205,29 +214,35 @@ function dropdown($module) {
   const closeSuggestions = () => {
     suggestionIndex = null
     $suggestionsContainer.scrollTop = 0
-    $suggestionsContainer.classList.remove('app-dropdown__suggestions--show')
+    $suggestionsContainer.classList.remove(
+      'app-autocomplete-dropdown__suggestions--show'
+    )
     $suggestionsContainer.setAttribute('aria-live', 'off')
 
     $input.setAttribute('aria-expanded', 'false')
 
-    $chevronButton.classList.remove('app-dropdown__chevron-button--open')
+    $chevronButton.classList.remove(
+      'app-autocomplete-dropdown__chevron-button--open'
+    )
     $chevronButton.setAttribute('aria-expanded', 'false')
   }
 
   const showCloseButton = () => {
-    $clearButton.classList.add('app-dropdown__clear-button--show')
+    $clearButton.classList.add('app-autocomplete-dropdown__clear-button--show')
     $clearButton.setAttribute('aria-hidden', 'false')
   }
 
   const hideCloseButton = () => {
-    $clearButton.classList.remove('app-dropdown__clear-button--show')
+    $clearButton.classList.remove(
+      'app-autocomplete-dropdown__clear-button--show'
+    )
     $clearButton.setAttribute('aria-hidden', 'true')
   }
 
   const hasExactCaseInsensitiveMatch = (value) =>
     find(
       $suggestions,
-      (s) => s.dataset.value?.toLowerCase() === value?.toLowerCase()
+      (s) => s.dataset.text?.toLowerCase() === value?.toLowerCase()
     )
 
   const populateSuggestions = ({ value, suggestionIndex } = {}) => {
@@ -241,9 +256,7 @@ function dropdown($module) {
       // Partial match
       $values = $suggestions
         .filter(($suggestion) =>
-          $suggestion.dataset?.value
-            .toLowerCase()
-            .includes(value?.toLowerCase())
+          $suggestion.dataset?.text.toLowerCase().includes(value?.toLowerCase())
         )
         .map(manipulateSuggestion({ value, suggestionIndex }))
     } else {
@@ -262,6 +275,8 @@ function dropdown($module) {
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    $noJsSubmitButton.remove()
+
     const queryParamValue = queryParams?.[$input.name]
 
     if (queryParamValue) {
@@ -295,7 +310,7 @@ function dropdown($module) {
 
   // Click outside Dropdown component
   document.addEventListener('click', (event) => {
-    if (event.target !== $input && event.target !== $submitButton) {
+    if (event.target !== $input) {
       closeSuggestions()
       populateSuggestions()
     }
@@ -425,7 +440,7 @@ function dropdown($module) {
         const $filteredSuggestions = populateSuggestions({ value })
         const $currentSuggestion = $filteredSuggestions?.at(suggestionIndex)
 
-        $input.value = $currentSuggestion.dataset?.value ?? ''
+        $input.value = $currentSuggestion.dataset?.text ?? ''
       }
 
       if ($input.value) {
@@ -441,15 +456,17 @@ function dropdown($module) {
   $suggestionsContainer.addEventListener('click', (event) => {
     event.stopPropagation()
 
-    const suggestion = event?.target?.closest('.app-dropdown__suggestion')
-    const value = suggestion?.dataset?.value ?? ''
+    const suggestion = event?.target?.closest(
+      '.app-autocomplete-dropdown__suggestion'
+    )
+    const text = suggestion?.dataset?.text ?? ''
 
     if (suggestion) {
-      $input.value = value
+      $input.value = text
 
       dispatchSubmitEvent()
       populateSuggestions({
-        value,
+        value: text,
         suggestionIndex
       })
 
@@ -459,4 +476,4 @@ function dropdown($module) {
   })
 }
 
-export { dropdown }
+export { autocompleteDropdown }

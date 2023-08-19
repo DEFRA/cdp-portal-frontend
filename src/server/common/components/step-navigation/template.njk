@@ -6,7 +6,7 @@
   }
 </style>
 
-<nav class="app-step-navigation-container">
+<nav class="app-step-navigation-container{% if params.classes %} {{ params.classes }}{% endif %}">
   <ul class="app-step-navigation">
     {% for step in params.steps %}
       <li class="app-step-navigation__item{% if step.isCurrent %} app-step-navigation__item--current{% endif %}"

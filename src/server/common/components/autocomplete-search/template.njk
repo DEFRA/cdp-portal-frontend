@@ -4,12 +4,18 @@
 
 {% from "icons/cross-icon/macro.njk" import appCrossIcon %}
 {% from "icons/search-icon/macro.njk" import appSearchIcon %}
+{% from "loader/macro.njk" import appLoader %}
+
+<script data-testid="app-autocomplete-search-suggestions">
+  window.suggestions = window.suggestions || {}
+  window.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
+</script>
 
 <div class="govuk-form-group app-form-group{%- if params.errorMessage %} govuk-form-group--error{% endif %}"
-     data-js="app-form-group" data-testid="app-search-group">
+     data-js="app-form-group" data-testid="app-autocomplete-search-group">
 
   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
-    <label class="app-search__label" for="{{ params.id }}" data-testid="app-search-label">
+    <label class="app-autocomplete-search__label" for="{{ params.id }}" data-testid="app-autocomplete-search-label">
       {{ params.label.text }}
     </label>
 
@@ -18,7 +24,7 @@
         text: params.hint.text,
         classes: "govuk-!-margin-bottom-1",
         attributes: {
-          "data-testid": "app-search-hint"
+          "data-testid": "app-autocomplete-search-hint"
         }
       }) }}
     {% endif %}
@@ -36,33 +42,42 @@
   {% endif %}
 
 
-  <div class="app-search" data-js="app-search" data-testid="app-search">
-    <div class="app-search__control">
+  <div class="app-autocomplete-search" data-js="app-autocomplete-search" data-testid="app-autocomplete-search">
+    <div class="app-autocomplete-search__control">
       {{ appSearchIcon() }}
       <input type="text"
              name="{{ params.name }}"
              id="{{ params.id }}"
-             value="{{ params.value }}"
-             class="govuk-input app-search__input{% if params.errorMessage %} govuk-input--error{% endif %}"
+             class="govuk-input app-autocomplete-search__input"
              autocapitalize="none"
              autocomplete="off"
              role="combobox"
              aria-owns="app-suggestions-{{ params.id }}"
              aria-autocomplete="list"
              aria-expanded="false"
-             data-js="app-search-input"
-             data-testid="app-search-input"
+             data-js="app-autocomplete-search-input"
+             data-testid="app-autocomplete-search-input"
              data-1p-ignore {# Disable 1 password widget #}
       />
-      <button class="app-search__clear-button"
+      <button class="app-autocomplete-search__clear-button"
               type="button"
               aria-hidden="true"
               tabindex="-1"
-              data-js="app-search-clear-button"
-              data-testid="app-search-clear-button"
+              data-js="app-autocomplete-search-clear-button"
+              data-testid="app-autocomplete-search-clear-button"
       >
         {{ appCrossIcon() }}
       </button>
+
+      {% if params.loader.name %}
+        {{ appLoader({ name: params.loader.name }) }}
+      {% endif %}
     </div>
+    <ul class="app-autocomplete-search__suggestions"
+        aria-live="off"
+        role="status"
+        id="app-suggestions-{{ params.id }}"
+        data-js="app-autocomplete-search-suggestions"
+        data-testid="app-autocomplete-search-suggestions"></ul>
   </div>
 </div>

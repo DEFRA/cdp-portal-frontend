@@ -1,8 +1,8 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { dropdown } from '~/src/server/common/components/dropdown/dropdown'
+import { autocompleteDropdown } from '~/src/server/common/components/autocomplete-dropdown/autocomplete-dropdown'
 
-describe('#dropdown', () => {
-  let dropdownInput
+describe('#autocompleteDropdown', () => {
+  let autocompleteDropdownInput
   let chevronButton
   let suggestionsContainer
 
@@ -10,7 +10,7 @@ describe('#dropdown', () => {
     // Mock scroll function that's not available in JSDOM
     Element.prototype.scroll = jest.fn()
 
-    const $component = renderTestComponent('dropdown', {
+    const $component = renderTestComponent('autocomplete-dropdown', {
       label: {
         text: 'By'
       },
@@ -38,7 +38,7 @@ describe('#dropdown', () => {
     // Add suggestions
     const scriptElement = document.createElement('script')
     scriptElement.innerHTML = $component(
-      '[data-testid="app-dropdown-suggestions"]'
+      '[data-testid="app-autocomplete-dropdown-suggestions"]'
     )
       .first()
       .html()
@@ -46,24 +46,28 @@ describe('#dropdown', () => {
 
     // Append dropdown component to a form and then add it to the document
     document.body.innerHTML = `<form id="mock-dropdown-form">
-        ${$component('[data-testid="app-dropdown-group"]').first().html()}
+        ${$component('[data-testid="app-autocomplete-dropdown-group"]')
+          .first()
+          .html()}
       </form>`
 
     // Init ClientSide JavaScript
     const dropdownComponents = Array.from(
-      document.querySelectorAll('[data-js="app-dropdown"]')
+      document.querySelectorAll('[data-js="app-autocomplete-dropdown"]')
     )
 
     if (dropdownComponents.length) {
       dropdownComponents.forEach(($dropdownComponent) =>
-        dropdown($dropdownComponent)
+        autocompleteDropdown($dropdownComponent)
       )
     }
 
-    dropdownInput = document.querySelector('[data-testid="app-dropdown-input"]')
+    autocompleteDropdownInput = document.querySelector(
+      '[data-testid="app-autocomplete-dropdown-input"]'
+    )
     chevronButton = document.querySelector('[data-testid="app-chevron-button"]')
     suggestionsContainer = document.querySelector(
-      '[data-testid="app-dropdown-suggestions"]'
+      '[data-testid="app-autocomplete-dropdown-suggestions"]'
     )
   })
 
@@ -73,11 +77,11 @@ describe('#dropdown', () => {
     })
 
     test('Should have enhanced select input', () => {
-      expect(dropdownInput.tagName.toLowerCase()).toEqual('input')
+      expect(autocompleteDropdownInput.tagName.toLowerCase()).toEqual('input')
     })
 
     test('Input should have control of suggestions', () => {
-      expect(dropdownInput.getAttribute('aria-owns')).toEqual(
+      expect(autocompleteDropdownInput.getAttribute('aria-owns')).toEqual(
         'app-suggestions-user'
       )
     })
@@ -89,7 +93,7 @@ describe('#dropdown', () => {
 
   describe('When clicked', () => {
     beforeEach(() => {
-      dropdownInput.click()
+      autocompleteDropdownInput.click()
     })
 
     test('Should open suggestions', () => {
@@ -109,12 +113,14 @@ describe('#dropdown', () => {
 
   describe('When focussed', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
     })
 
     test('Should open suggestions', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('true')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'true'
+      )
     })
 
     test('Should contain expected suggestions when input focused', () => {
@@ -130,29 +136,33 @@ describe('#dropdown', () => {
 
   describe('When "tab" key pressed', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
 
       const tabKeyEvent = new KeyboardEvent('keydown', { code: 'tab' })
-      dropdownInput.dispatchEvent(tabKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(tabKeyEvent)
     })
 
     test('Should close suggestions', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('false')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'false'
+      )
     })
   })
 
   describe('When partial value', () => {
     describe('Entered into input', () => {
       beforeEach(() => {
-        dropdownInput.focus()
-        dropdownInput.value = 'abb'
-        dropdownInput.dispatchEvent(new Event('input'))
+        autocompleteDropdownInput.focus()
+        autocompleteDropdownInput.value = 'abb'
+        autocompleteDropdownInput.dispatchEvent(new Event('input'))
       })
 
       test('Should open suggestions', () => {
         expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
-        expect(dropdownInput.getAttribute('aria-expanded')).toEqual('true')
+        expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+          'true'
+        )
       })
 
       test('Should narrow to only expected suggestion', () => {
@@ -165,14 +175,16 @@ describe('#dropdown', () => {
 
     describe('That matches multiple suggestions is entered into input', () => {
       beforeEach(() => {
-        dropdownInput.focus()
-        dropdownInput.value = 'ro'
-        dropdownInput.dispatchEvent(new Event('input'))
+        autocompleteDropdownInput.focus()
+        autocompleteDropdownInput.value = 'ro'
+        autocompleteDropdownInput.dispatchEvent(new Event('input'))
       })
 
       test('Should open suggestions', () => {
         expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
-        expect(dropdownInput.getAttribute('aria-expanded')).toEqual('true')
+        expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+          'true'
+        )
       })
 
       test('Should narrow to only expected suggestions', () => {
@@ -186,9 +198,9 @@ describe('#dropdown', () => {
 
     describe('With crazy case value entered into input', () => {
       beforeEach(() => {
-        dropdownInput.focus()
-        dropdownInput.value = 'Barb'
-        dropdownInput.dispatchEvent(new Event('input'))
+        autocompleteDropdownInput.focus()
+        autocompleteDropdownInput.value = 'Barb'
+        autocompleteDropdownInput.dispatchEvent(new Event('input'))
       })
 
       test('Should narrow to only expected case insensitive suggestion', () => {
@@ -202,9 +214,9 @@ describe('#dropdown', () => {
 
   describe('With exact match entered into input', () => {
     beforeEach(() => {
-      dropdownInput.focus()
-      dropdownInput.value = 'Barbie'
-      dropdownInput.dispatchEvent(new Event('input'))
+      autocompleteDropdownInput.focus()
+      autocompleteDropdownInput.value = 'Barbie'
+      autocompleteDropdownInput.dispatchEvent(new Event('input'))
     })
 
     test('Should show all suggestions', () => {
@@ -223,20 +235,22 @@ describe('#dropdown', () => {
 
   describe('When value removed from input', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
 
       // Add value to input
-      dropdownInput.value = 'fro'
-      dropdownInput.dispatchEvent(new Event('input'))
+      autocompleteDropdownInput.value = 'fro'
+      autocompleteDropdownInput.dispatchEvent(new Event('input'))
 
       // Remove value from input
-      dropdownInput.value = ''
-      dropdownInput.dispatchEvent(new Event('input'))
+      autocompleteDropdownInput.value = ''
+      autocompleteDropdownInput.dispatchEvent(new Event('input'))
     })
 
     test('Suggestions should be open', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('true')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'true'
+      )
     })
 
     test('Should contain expected suggestions', () => {
@@ -252,14 +266,16 @@ describe('#dropdown', () => {
 
   describe('When value without results entered into input', () => {
     beforeEach(() => {
-      dropdownInput.focus()
-      dropdownInput.value = 'blah'
-      dropdownInput.dispatchEvent(new Event('input'))
+      autocompleteDropdownInput.focus()
+      autocompleteDropdownInput.value = 'blah'
+      autocompleteDropdownInput.dispatchEvent(new Event('input'))
     })
 
     test('Should open suggestions', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('true')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'true'
+      )
     })
 
     test('Should provide no results message', () => {
@@ -270,54 +286,58 @@ describe('#dropdown', () => {
 
   describe('When "backspace" pressed in empty input', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
 
       const backspaceKeyEvent = new KeyboardEvent('keydown', {
         code: 'backspace'
       })
-      dropdownInput.dispatchEvent(backspaceKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(backspaceKeyEvent)
     })
 
     test('Input should keep focus', () => {
-      expect(document.activeElement).toEqual(dropdownInput)
+      expect(document.activeElement).toEqual(autocompleteDropdownInput)
     })
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('false')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'false'
+      )
     })
   })
 
   describe('When "escape" key pressed', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
 
       const escapeKeyEvent = new KeyboardEvent('keydown', {
         code: 'escape'
       })
-      dropdownInput.dispatchEvent(escapeKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(escapeKeyEvent)
     })
 
     test('Input should keep focus', () => {
-      expect(document.activeElement).toEqual(dropdownInput)
+      expect(document.activeElement).toEqual(autocompleteDropdownInput)
     })
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('false')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'false'
+      )
     })
   })
 
   describe('When "arrow" keys pressed', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
     })
 
     test('Once, should highlight first suggestion', () => {
       const arrowDownKeyEvent = new KeyboardEvent('keydown', {
         code: 'arrowdown'
       })
-      dropdownInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowDownKeyEvent)
 
       const children = suggestionsContainer.children
 
@@ -330,8 +350,8 @@ describe('#dropdown', () => {
       const arrowDownKeyEvent = new KeyboardEvent('keydown', {
         code: 'arrowdown'
       })
-      dropdownInput.dispatchEvent(arrowDownKeyEvent)
-      dropdownInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowDownKeyEvent)
 
       const children = suggestionsContainer.children
 
@@ -344,14 +364,14 @@ describe('#dropdown', () => {
       const arrowDownKeyEvent = new KeyboardEvent('keydown', {
         code: 'arrowdown'
       })
-      dropdownInput.dispatchEvent(arrowDownKeyEvent)
-      dropdownInput.dispatchEvent(arrowDownKeyEvent)
-      dropdownInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowDownKeyEvent)
 
       const arrowUpKeyEvent = new KeyboardEvent('keydown', {
         code: 'arrowup'
       })
-      dropdownInput.dispatchEvent(arrowUpKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowUpKeyEvent)
 
       const children = suggestionsContainer.children
 
@@ -363,103 +383,113 @@ describe('#dropdown', () => {
 
   describe('When "enter" key pressed in suggestions', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
 
       const arrowDownKeyEvent = new KeyboardEvent('keydown', {
         code: 'arrowdown'
       })
-      dropdownInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(arrowDownKeyEvent)
 
       const enterKeyEvent = new KeyboardEvent('keydown', {
         code: 'enter'
       })
-      dropdownInput.dispatchEvent(enterKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(enterKeyEvent)
     })
 
     test('Should provide expected suggestion value', () => {
-      expect(dropdownInput.value).toEqual('RoboCop')
+      expect(autocompleteDropdownInput.value).toEqual('RoboCop')
     })
 
     test('Input should keep focus', () => {
-      expect(document.activeElement).toEqual(dropdownInput)
+      expect(document.activeElement).toEqual(autocompleteDropdownInput)
     })
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('false')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'false'
+      )
     })
   })
 
   describe('When suggestion is clicked', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
       suggestionsContainer.children[1].click()
     })
 
     test('Should provide expected suggestion value', () => {
-      expect(dropdownInput.value).toEqual('Roger Rabbit')
+      expect(autocompleteDropdownInput.value).toEqual('Roger Rabbit')
     })
 
     test('Input should keep focus', () => {
-      expect(document.activeElement).toEqual(dropdownInput)
+      expect(document.activeElement).toEqual(autocompleteDropdownInput)
     })
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('false')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'false'
+      )
     })
   })
 
   describe('When "enter" key is pressed with input value', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
 
       // Add value to input
-      dropdownInput.value = 'fro'
-      dropdownInput.dispatchEvent(new Event('input'))
+      autocompleteDropdownInput.value = 'fro'
+      autocompleteDropdownInput.dispatchEvent(new Event('input'))
 
       const enterKeyEvent = new KeyboardEvent('keydown', {
         code: 'enter'
       })
-      dropdownInput.dispatchEvent(enterKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(enterKeyEvent)
     })
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('false')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'false'
+      )
     })
   })
 
   describe('When "enter" key is pressed without input value', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
 
       const escapeKeyEvent = new KeyboardEvent('keydown', {
         code: 'escape'
       })
-      dropdownInput.dispatchEvent(escapeKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(escapeKeyEvent)
 
       const enterKeyEvent = new KeyboardEvent('keydown', {
         code: 'enter'
       })
-      dropdownInput.dispatchEvent(enterKeyEvent)
+      autocompleteDropdownInput.dispatchEvent(enterKeyEvent)
     })
 
     test('Suggestions should be open', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('polite')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('true')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'true'
+      )
     })
   })
 
   describe('When element outside of dropdown is clicked', () => {
     beforeEach(() => {
-      dropdownInput.focus()
+      autocompleteDropdownInput.focus()
       document.body.click()
     })
 
     test('Suggestions should be closed', () => {
       expect(suggestionsContainer.getAttribute('aria-live')).toEqual('off')
-      expect(dropdownInput.getAttribute('aria-expanded')).toEqual('false')
+      expect(autocompleteDropdownInput.getAttribute('aria-expanded')).toEqual(
+        'false'
+      )
     })
   })
 

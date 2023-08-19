@@ -15,12 +15,6 @@
     width: 26px;
     height: 26px;
   }
-
-  & .app-loader {
-    position: absolute;
-    right: 6px;
-    bottom: 6px;
-  }
 }
 
 .app-search__label {
@@ -60,43 +54,8 @@
     border: 1px solid govuk-colour("black");
     box-shadow: none;
   }
-}
 
-.app-search__suggestions {
-  position: absolute;
-  left: 4px;
-  background-color: govuk-colour("white");
-  border-radius: 0 0 $app-border-radius $app-border-radius;
-  border: 1px solid $app-mid-grey;
-  box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
-  list-style: none;
-  padding: govuk-spacing(1) 0 govuk-spacing(1) govuk-spacing(2);
-  margin: 0;
-  max-height: govuk-spacing(9) * 4.5;
-  width: calc(24em - 20px);
-  overflow-y: scroll;
-  overflow-x: hidden;
-  display: none;
-}
-
-.app-search__suggestions--show {
-  display: block;
-}
-
-.app-search__suggestion {
-  margin: 0 0 0 govuk-spacing(-2);
-  padding: govuk-spacing(1) govuk-spacing(2);
-
-  &:hover,
-  &:focus {
-    background-color: govuk-colour("light-grey");
+  &.govuk-input--error {
+    border-color: govuk-colour("red");
   }
-}
-
-.app-search__suggestion--highlight {
-  background-color: govuk-colour("light-grey");
-}
-
-.app-search__suggestion--no-results {
-  color: govuk-colour("dark-grey");
 }

@@ -12,17 +12,7 @@ describe('Search Component', () => {
         text: 'Search for deployments by name'
       },
       id: 'search',
-      name: 'q',
-      suggestions: [
-        {
-          label: 'cdp-portal-frontend',
-          value: 'cdp-portal-frontend'
-        },
-        {
-          label: 'cdp-self-service-ops',
-          value: 'cdp-self-service-ops'
-        }
-      ]
+      name: 'q'
     })
 
     $searchFormGroup = $component('[data-testid="app-search-group"]').first()
