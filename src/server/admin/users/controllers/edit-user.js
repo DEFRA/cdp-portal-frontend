@@ -7,19 +7,20 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/users/helpers/set-step-complete'
 import { removeNil } from '~/src/server/common/helpers/remove-nil'
 
-const createUserController = {
+const editUserController = {
   options: {
     pre: [noSessionRedirect, provideCdpUser]
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.cdpUser
-    const createUserEndpointUrl = `${appConfig.get('userServiceApiUrl')}/users`
+    const editUserEndpointUrl = `${appConfig.get('userServiceApiUrl')}/users/${
+      cdpUser.userId
+    }`
 
-    const response = await fetch(createUserEndpointUrl, {
-      method: 'post',
+    const response = await fetch(editUserEndpointUrl, {
+      method: 'patch',
       body: JSON.stringify(
         removeNil({
-          userId: cdpUser.userId,
           name: cdpUser.name,
           email: cdpUser.email,
           github: cdpUser.github,
@@ -35,11 +36,13 @@ const createUserController = {
       setStepComplete(request, 'allSteps')
 
       request.yar.flash(sessionNames.notifications, {
-        text: 'User created',
+        text: 'User updated',
         type: 'success'
       })
 
-      return h.redirect(appConfig.get('appPathPrefix') + '/admin/users')
+      return h.redirect(
+        appConfig.get('appPathPrefix') + `/admin/users/${cdpUser.userId}`
+      )
     }
 
     request.yar.flash(
@@ -51,4 +54,4 @@ const createUserController = {
   }
 }
 
-export { createUserController }
+export { editUserController }

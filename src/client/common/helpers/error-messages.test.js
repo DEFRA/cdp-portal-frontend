@@ -10,7 +10,7 @@ describe('#errorMessages', () => {
       <form data-js="mock-form-errors" data-testid="mock-form-errors">
         <div class="govuk-form-group--error app-form-group-js" data-testid="form-group-image-name">
           <p data-js="app-error">
-            Enter a value
+            Enter value
           </p>
 
           <input class="govuk-input--error" type="text" name="imageName" value="cdp-portal-frontend" data-testid="image-name" />
@@ -103,7 +103,7 @@ describe('#errorMessages', () => {
       const errors = inputFormGroup.querySelectorAll('[data-js="app-error"]')
 
       expect(errors.length).toEqual(1)
-      expect(errors[0].textContent.trim()).toEqual('Enter a value')
+      expect(errors[0].textContent.trim()).toEqual('Enter value')
       expect(inputFormGroup.className).toEqual(
         'govuk-form-group--error app-form-group-js'
       )

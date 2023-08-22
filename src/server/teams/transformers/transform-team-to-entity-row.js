@@ -11,18 +11,15 @@ function transformTeamToEntityRow(team) {
       kind: 'link',
       value: `@${team.id}`,
       url: `https://github.com/orgs/defra-cdp-sandpit/teams/${team.id}`,
-      newWindow: true,
-      size: 'medium'
+      newWindow: true
     },
     {
       kind: 'text',
-      value: team.members?.length,
-      size: 'small'
+      value: team.members?.length
     },
     {
       kind: 'date',
-      value: team.createdAt,
-      size: 'large'
+      value: team.createdAt
     }
   ]
 }

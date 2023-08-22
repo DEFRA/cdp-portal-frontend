@@ -11,7 +11,6 @@ const resetGitHubAnswer = {
       // If githubSearch is empty and session holds a value for github. Remove github from session
       if (!githubSearch && !isUndefined(cdpUser?.github)) {
         request.yar.set(sessionNames.cdpUser, omit(cdpUser, ['github']))
-        request.yar.commit(h)
       }
     }
     return h.continue

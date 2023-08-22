@@ -7,7 +7,7 @@ const noSessionRedirect = {
   method: (request, h) => {
     const cdpUser = request.yar.get(sessionNames.cdpUser)
 
-    if (isNull(cdpUser) || cdpUser?.isComplete) {
+    if (isNull(cdpUser) || cdpUser?.isComplete?.allSteps) {
       return h
         .redirect(`${appConfig.get('appPathPrefix')}/admin/users/create`)
         .takeover()

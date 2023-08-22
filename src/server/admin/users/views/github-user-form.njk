@@ -17,7 +17,7 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
           <div class="govuk-body">
-            <form action="{{ appPathPrefix }}/admin/users/create/find-github-user" method="POST"
+            <form action="{{ appPathPrefix }}/admin/users/find-github-user" method="POST"
                   data-js="auto-submit app-form-errors">
 
               {% call govukFieldset() %}
@@ -26,8 +26,8 @@
                   label: {
                     text: "GitHub username"
                   },
-                  id: 'githubSearch',
-                  name: 'githubSearch',
+                  id: "githubSearch",
+                  name: "githubSearch",
                   hint: {
                     text: "Search using the users GitHub username"
                   },
@@ -48,8 +48,7 @@
 
             </form>
 
-            <form action="{{ appPathPrefix }}/admin/users/create/find-github-user" method="POST"
-                  data-js="app-form-errors">
+            <form action="{{ appPathPrefix }}/admin/users/find-github-user" method="POST" data-js="app-form-errors">
 
               <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
@@ -62,26 +61,28 @@
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Search results</h2>
                   {% endif %}
 
-                  {{ govukRadios({
-                    name: "github",
-                    classes: "govuk-radios--small app-radio",
-                    fieldset: {
-                      legend: {
-                        text: "Choose a GitHub user (optional)"
-                      }
-                    } if gitHubUsers | length,
-                    items: gitHubUsers,
-                    value: formValues.github,
-                    formGroup: {
-                      classes: "app-form-group app-form-group-js"
-                    },
-                    errorMessage: {
-                      attributes: {
-                        "data-js": "app-error"
+                  {% if  gitHubUsers | length or formErrors.github.message %}
+                    {{ govukRadios({
+                      name: "github",
+                      classes: "govuk-radios--small app-radio",
+                      fieldset: {
+                        legend: {
+                          text: "Choose a GitHub user (optional)"
+                        }
+                      } if gitHubUsers | length,
+                      items: gitHubUsers,
+                      value: formValues.github,
+                      formGroup: {
+                        classes: "app-form-group app-form-group-js"
                       },
-                      text: formErrors.github.message
-                    } if formErrors.github.message
-                  }) }}
+                      errorMessage: {
+                        attributes: {
+                          "data-js": "app-error"
+                        },
+                        text: formErrors.github.message
+                      } if formErrors.github.message
+                    }) }}
+                  {% endif %}
 
                   {% if formValues.githubSearch and not gitHubUsers | length %}
                     <p class="govuk-hint">No user/s found</p>

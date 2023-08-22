@@ -17,7 +17,8 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
           <div class="govuk-body">
-            <form action="{{ appPathPrefix }}/admin/users/create/find-aad-user" method="POST"
+            <form action="{{ appPathPrefix }}/admin/users/find-aad-user"
+                  method="POST"
                   data-js="auto-submit app-form-errors">
 
               {% call govukFieldset() %}
@@ -26,8 +27,8 @@
                   label: {
                     text: "AAD users email"
                   },
-                  id: 'emailSearch',
-                  name: 'emailSearch',
+                  id: "emailSearch",
+                  name: "emailSearch",
                   hint: {
                     text: "Search using the users Defra provided email"
                   },
@@ -48,7 +49,9 @@
 
             </form>
 
-            <form action="{{ appPathPrefix }}/admin/users/create/find-aad-user" method="POST" data-js="app-form-errors">
+            <form action="{{ appPathPrefix }}/admin/users/find-aad-user"
+                  method="POST"
+                  data-js="app-form-errors">
 
               <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
@@ -61,21 +64,23 @@
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
                   {% endif %}
 
-                  {{ govukRadios({
-                    name: "email",
-                    classes: "govuk-radios--small app-radio",
-                    items: aadUsers,
-                    value: formValues.email,
-                    formGroup: {
-                      classes: "app-form-group app-form-group-js"
-                    },
-                    errorMessage: {
-                      attributes: {
-                        "data-js": "app-error"
+                  {% if  aadUsers | length or formErrors.email.message %}
+                    {{ govukRadios({
+                      name: "email",
+                      classes: "govuk-radios--small app-radio",
+                      items: aadUsers,
+                      value: formValues.email,
+                      formGroup: {
+                        classes: "app-form-group app-form-group-js"
                       },
-                      text: formErrors.email.message
-                    } if formErrors.email.message
-                  }) }}
+                      errorMessage: {
+                        attributes: {
+                          "data-js": "app-error"
+                        },
+                        text: formErrors.email.message
+                      } if formErrors.email.message
+                    }) }}
+                  {% endif %}
 
                   {% if formValues.emailSearch and not aadUsers | length %}
                     <p class="govuk-hint">No user/s found</p>

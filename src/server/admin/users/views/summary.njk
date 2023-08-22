@@ -18,10 +18,12 @@
         <div class="app-grid-column-two-thirds-at-desktop-wide">
           <div class="govuk-body">
 
-            <form action="{{ appPathPrefix }}/admin/users/create" method="POST">
+            {% set actionSuffix = "edit" if isEdit else "create" %}
+
+            <form action="{{ appPathPrefix }}/admin/users/{{ actionSuffix }}" method="POST">
 
               {{ govukSummaryList({
-                classes: 'govuk-!-margin-bottom-9',
+                classes: "govuk-!-margin-bottom-9",
                 rows: userRows
               }) }}
 

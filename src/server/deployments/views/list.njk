@@ -3,16 +3,16 @@
 {% block actions %}
 
   {{ appEntityActions({
-    formAction: appPathPrefix + '/deployments/' + environment,
+    formAction: appPathPrefix + "/deployments/" + environment,
     legend: {
-      text: 'Search'
+      text: "Search"
     },
     search: appAutocompleteSearch({
       label: {
         text: "By deployment"
       },
-      id: 'search',
-      name: 'service',
+      id: "search",
+      name: "service",
       suggestions: searchSuggestions
     }),
     filters: [
@@ -20,16 +20,16 @@
         label: {
           text: "Filter by user"
         },
-        id: 'user',
-        name: 'user',
+        id: "user",
+        name: "user",
         suggestions: userSuggestions
       }),
       appAutocompleteDropdown({
         label: {
           text: "By status"
         },
-        id: 'status',
-        name: 'status',
+        id: "status",
+        name: "status",
         suggestions: statusSuggestions
       })
     ]

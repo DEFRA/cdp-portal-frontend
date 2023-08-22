@@ -28,8 +28,7 @@ function transformUtilityToEntityRow(utilityType) {
     },
     {
       kind: 'date',
-      value: utility.createdAt,
-      size: 'large'
+      value: utility.createdAt
     }
   ]
 }

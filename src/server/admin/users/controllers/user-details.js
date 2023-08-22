@@ -48,7 +48,7 @@ const userDetailsController = {
 
       return h.redirect(
         appConfig.get('appPathPrefix') +
-          `/admin/users/create/user-details${queryString}`
+          `/admin/users/user-details${queryString}`
       )
     }
 
@@ -56,15 +56,12 @@ const userDetailsController = {
       saveToCdpUser(request, {
         ...sanitisedPayload,
         ...(button === 'skip' && {
-          name: null,
           defraAwsId: null,
           defraVpnId: null
         })
       })
 
-      return h.redirect(
-        appConfig.get('appPathPrefix') + '/admin/users/create/summary'
-      )
+      return h.redirect(appConfig.get('appPathPrefix') + '/admin/users/summary')
     }
   }
 }

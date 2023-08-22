@@ -9,7 +9,9 @@ import {
   userDetailsController,
   userDetailsFormController,
   summaryController,
-  createUserController
+  createUserController,
+  startEditUserController,
+  editUserController
 } from '~/src/server/admin/users/controllers'
 import { provideCreateUserSteps } from '~/src/server/admin/users/helpers/provide-create-user-steps'
 import { provideFormContextValues } from '~/src/server/admin/users/helpers/provide-form-context-values'
@@ -36,11 +38,6 @@ const adminUsers = (server) => {
   server.route([
     {
       method: 'GET',
-      path: '/admin/users',
-      ...usersListController
-    },
-    {
-      method: 'GET',
       path: '/admin/users/create',
       ...startCreateUserController
     },
@@ -51,38 +48,53 @@ const adminUsers = (server) => {
     },
     {
       method: 'GET',
-      path: '/admin/users/create/find-aad-user',
+      path: '/admin/users/edit/{userId}',
+      ...startEditUserController
+    },
+    {
+      method: 'POST',
+      path: '/admin/users/edit',
+      ...editUserController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users/find-aad-user',
       ...findAadUserFormController
     },
     {
       method: 'POST',
-      path: '/admin/users/create/find-aad-user',
+      path: '/admin/users/find-aad-user',
       ...findAadUserController
     },
     {
       method: 'GET',
-      path: '/admin/users/create/find-github-user',
+      path: '/admin/users/find-github-user',
       ...findGitHubUserFormController
     },
     {
       method: 'POST',
-      path: '/admin/users/create/find-github-user',
+      path: '/admin/users/find-github-user',
       ...findGitHubUserController
     },
     {
       method: 'GET',
-      path: '/admin/users/create/user-details',
+      path: '/admin/users/user-details',
       ...userDetailsFormController
     },
     {
       method: 'POST',
-      path: '/admin/users/create/user-details',
+      path: '/admin/users/user-details',
       ...userDetailsController
     },
     {
       method: 'GET',
-      path: '/admin/users/create/summary',
+      path: '/admin/users/summary',
       ...summaryController
+    },
+    {
+      method: 'GET',
+      path: '/admin/users',
+      ...usersListController
     },
     {
       method: 'GET',

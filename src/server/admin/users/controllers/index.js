@@ -9,6 +9,8 @@ import { userDetailsController } from '~/src/server/admin/users/controllers/user
 import { userDetailsFormController } from '~/src/server/admin/users/controllers/user-details-form'
 import { summaryController } from '~/src/server/admin/users/controllers/summary'
 import { createUserController } from '~/src/server/admin/users/controllers/create-user'
+import { startEditUserController } from '~/src/server/admin/users/controllers/start-edit-user'
+import { editUserController } from '~/src/server/admin/users/controllers/edit-user'
 
 export {
   userController,
@@ -21,5 +23,7 @@ export {
   userDetailsController,
   userDetailsFormController,
   summaryController,
-  createUserController
+  createUserController,
+  startEditUserController,
+  editUserController
 }

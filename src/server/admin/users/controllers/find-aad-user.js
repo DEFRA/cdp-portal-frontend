@@ -6,9 +6,15 @@ import { aadIdValidation } from '~/src/server/admin/users/helpers/schema/aad-id-
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/save-to-cdp-user'
 import { fetchAadUsers } from '~/src/server/admin/users/helpers/fetch-add-users'
 import { sessionNames } from '~/src/server/common/constants/session-names'
+import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 
 const findAadUserController = {
+  options: {
+    pre: [provideCdpUser]
+  },
   handler: async (request, h) => {
+    const cdpUser = request.pre?.cdpUser
+
     const payload = request?.payload
     const button = payload?.button
     const redirectLocation = payload?.redirectLocation
@@ -45,23 +51,32 @@ const findAadUserController = {
 
       return h.redirect(
         appConfig.get('appPathPrefix') +
-          `/admin/users/create/find-aad-user${queryString}`
+          `/admin/users/find-aad-user${queryString}`
       )
     }
 
     if (!validationResult.error) {
-      // TODO potentially just put an object on the dropdown rather than refetching
       const aadUserDetails = await fetchAadUsers(sanitisedPayload.email)
+      const aadUser = aadUserDetails?.at(0)
 
-      saveToCdpUser(request, {
+      const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.mail
+
+      const updatedCdpUser = saveToCdpUser(request, {
         ...sanitisedPayload,
-        userId: aadUserDetails?.at(0)?.id ?? null,
-        emailSearch: aadUserDetails?.at(0)?.mail ?? null
+        userId: aadUser?.id ?? null,
+        emailSearch: aadUser?.mail ?? null,
+        name: isSameAsSession ? cdpUser?.name : aadUser?.displayName,
+        aadName: isSameAsSession ? cdpUser?.aadName : aadUser?.displayName
       })
 
+      // TODO tidy up
       const redirectTo = redirectLocation
-        ? `/admin/users/create/${redirectLocation}`
-        : '/admin/users/create/find-github-user'
+        ? `/admin/users/${redirectLocation}`
+        : `/admin/users/find-github-user${
+            updatedCdpUser?.github
+              ? `?githubSearch=${updatedCdpUser?.github}`
+              : ''
+          }`
 
       return h.redirect(appConfig.get('appPathPrefix') + redirectTo)
     }

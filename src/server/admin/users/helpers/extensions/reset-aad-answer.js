@@ -14,7 +14,6 @@ const resetAadAnswer = {
           sessionNames.cdpUser,
           omit(cdpUser, ['emailSearch', 'email', 'userId'])
         )
-        request.yar.commit(h)
       }
     }
     return h.continue

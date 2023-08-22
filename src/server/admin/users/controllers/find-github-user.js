@@ -44,7 +44,7 @@ const findGitHubUserController = {
 
       return h.redirect(
         appConfig.get('appPathPrefix') +
-          `/admin/users/create/find-github-user${queryString}`
+          `/admin/users/find-github-user${queryString}`
       )
     }
 
@@ -54,8 +54,8 @@ const findGitHubUserController = {
       })
 
       const redirectTo = redirectLocation
-        ? `/admin/users/create/${redirectLocation}`
-        : '/admin/users/create/user-details'
+        ? `/admin/users/${redirectLocation}`
+        : '/admin/users/user-details'
 
       return h.redirect(appConfig.get('appPathPrefix') + redirectTo)
     }

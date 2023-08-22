@@ -1,14 +1,9 @@
-import { isUndefined } from 'lodash'
-
 function isCdpUserComplete(cdpUser) {
   return {
-    stepOne: cdpUser?.email && cdpUser?.userId,
-    stepTwo: !isUndefined(cdpUser?.github),
-    stepThree:
-      !isUndefined(cdpUser?.name) &&
-      !isUndefined(cdpUser?.defraAwsId) &&
-      !isUndefined(cdpUser?.defraVpnId),
-    stepFour: cdpUser?.isComplete
+    stepOne: cdpUser?.isComplete?.stepOne,
+    stepTwo: cdpUser?.isComplete?.stepTwo,
+    stepThree: cdpUser?.isComplete?.stepThree,
+    stepFour: cdpUser?.isComplete?.allSteps
   }
 }
 

@@ -12,8 +12,8 @@
 {% from "banner/macro.njk" import appBanner %}
 {% from "button/macro.njk" import appButton %}
 {% from "entity-actions/macro.njk" import appEntityActions %}
-{% from "entity-list/macro.njk" import appEntityList %}
-{% from "entity-data-list/macro.njk" import appEntityDataList %}
+{% from "entity-list/macro.njk" import appEntityList with context %}
+{% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 {% from "footer/macro.njk" import appFooter %}
 {% from "header/macro.njk" import appHeader %}
 {% from "heading/macro.njk" import appHeading %}
@@ -47,7 +47,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {{ 'Error | ' if isError }}{{ pageTitle }} | {{ serviceName }}
+  {{ "Error | " if isError }}{{ pageTitle }} | {{ serviceName }}
 {% endblock %}
 
 {% block beforeContent %}

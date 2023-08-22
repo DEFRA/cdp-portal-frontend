@@ -12,7 +12,7 @@
         caption: headingCaption,
         action: govukButton({
           classes: "app-button",
-          text: "Create User",
+          text: "Create user",
           href: appPathPrefix + "/admin/users/create"
         })
       }) }}
@@ -20,7 +20,10 @@
       {{ appEntityList({
         headings: [
           { text: "Name", size: "large" },
-          { text: "Email", size: "medium" }
+          { text: "Email", size: "massive" },
+          { text: "GitHub", size: "medium" },
+          { text: "Defra AWS ID", size: "medium" },
+          { text: "Defra VPN ID", size: "medium" }
         ],
         entityRows: entityRows,
         noResult: noResult

@@ -26,8 +26,7 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'date',
-      value: service.createdAt,
-      size: 'large'
+      value: service.createdAt
     }
   ]
 }

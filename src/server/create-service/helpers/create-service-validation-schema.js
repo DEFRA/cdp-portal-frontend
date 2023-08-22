@@ -12,7 +12,7 @@ function createServiceValidationSchema(serviceTypes, owningTeams) {
       .max(96)
       .required()
       .messages({
-        'string.empty': 'Enter a value',
+        'string.empty': 'Enter value',
         'string.pattern.base':
           'Letters and numbers with hyphen or underscore separators',
         'string.pattern.name': 'Start and end with a character',

@@ -8,10 +8,16 @@
     {{ appHeading({
       title: heading,
       caption: "User details for " + heading + ".",
-      entities: headingEntities
+      entities: headingEntities,
+      action: govukButton({
+        classes: "app-button",
+        text: "Edit user",
+        href: appPathPrefix + "/admin/users/edit/" + user.userId
+      })
     }) }}
 
-    <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
+    <hr
+      class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
 

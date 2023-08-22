@@ -17,14 +17,19 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
           <div class="govuk-body">
-            <form action="{{ appPathPrefix }}/admin/users/create/user-details" method="POST"
-                  data-js="app-form-errors">
+            <form action="{{ appPathPrefix }}/admin/users/user-details" method="POST" data-js="app-form-errors">
+
+              {% if formValues.name === usersAadName %}
+                {{ appInfo({
+                  text: "We have pre-populated the name input with the users AAD name."
+                }) }}
+              {% endif %}
 
               {% call govukFieldset() %}
 
                 {{ govukInput({
                   label: {
-                    text: "User name (optional)",
+                    text: "User name",
                     classes: "govuk-!-margin-bottom-1"
                   },
                   id: "name",
