@@ -5,8 +5,8 @@ import { appConfig } from '~/src/config'
 
 async function fetchDeployment(deploymentId) {
   const deploymentEndpointUrl = `${appConfig.get(
-    'deploymentsApiUrl'
-  )}/deployment/${deploymentId}`
+    'portalBackendApiUrl'
+  )}/deployments/${deploymentId}`
 
   const response = await fetch(deploymentEndpointUrl)
 

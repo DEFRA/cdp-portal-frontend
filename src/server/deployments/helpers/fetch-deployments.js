@@ -9,11 +9,16 @@ async function fetchDeployments(environment, queryParams) {
   const queryString = qs.stringify(queryParams)
 
   const deploymentsEndpointUrl = `${appConfig.get(
-    'deploymentsApiUrl'
-  )}/deployments/${environment}${queryString ? `?${queryString}` : ''}`
+    'portalBackendApiUrl'
+  )}/deployments?environment=${environment}${
+    queryString ? `&${queryString}` : ''
+  }`
 
   try {
     const response = await fetch(deploymentsEndpointUrl)
+    if (response.status !== 200) {
+      return []
+    }
     return await response.json()
   } catch (error) {
     logger.error(error)

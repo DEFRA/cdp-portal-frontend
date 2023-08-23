@@ -5,7 +5,7 @@ import { appConfig } from '~/src/config'
 // TODO move this into the pre?
 async function fetchDeployableImageNames() {
   const deployableImagesEndpointUrl = `${appConfig.get(
-    'deployablesApiUrl'
+    'portalBackendApiUrl'
   )}/deployables`
 
   const response = await fetch(deployableImagesEndpointUrl)
