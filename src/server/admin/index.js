@@ -13,7 +13,7 @@ const admin = {
           method: 'GET',
           path: '/admin',
           handler: (request, h) =>
-            h.redirect(appConfig.get('appPathPrefix') + '/admin/users')
+            h.redirect(appConfig.get('appPathPrefix') + '/admin/teams')
         }
       ])
     }
