@@ -20,7 +20,7 @@
 
         <form action="{{ appPathPrefix }}/deploy-service/options"
               method="post"
-              data-js="app-form{% if preExistingDetails %} protected-inputs{% endif %}">
+              data-js="app-form{% if preExistingDetails %} app-protected-inputs{% endif %}">
 
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
@@ -69,7 +69,7 @@
               },
               value: formValues.cpu,
               attributes: {
-                "data-js": "select-controller",
+                "data-js": "app-select-controller",
                 "data-fetcher": "fetchMemory",
                 "data-target": "deploy-memory",
                 "data-loader": "memory-loader"

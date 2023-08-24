@@ -7,7 +7,7 @@ import { appConfig } from '~/src/config'
 const deployments = {
   plugin: {
     name: 'deployments',
-    register: async (server) => {
+    register: (server) => {
       server.route([
         {
           method: 'GET',

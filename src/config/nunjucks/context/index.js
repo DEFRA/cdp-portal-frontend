@@ -30,6 +30,7 @@ function context(request) {
     blankOption,
     isXhr: isXhr.call(request),
     version: appConfig.get('version'),
+    gitHubOrg: appConfig.get('gitHubOrg'),
     serviceName: appConfig.get('serviceName'),
     breadcrumbs: [],
     navigation: buildNavigation(request),

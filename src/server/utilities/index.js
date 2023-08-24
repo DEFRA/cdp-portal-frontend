@@ -8,7 +8,7 @@ import {
 const utilities = {
   plugin: {
     name: 'utilities',
-    register: async (server) => {
+    register: (server) => {
       server.route([
         {
           method: 'GET',

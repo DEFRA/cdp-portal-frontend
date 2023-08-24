@@ -1,0 +1,18 @@
+.app-textarea {
+  min-width: 12em;
+  border-radius: $app-border-radius;
+  border: 1px solid govuk-colour("mid-grey");
+
+  &:focus {
+    border: 1px solid govuk-colour("black");
+    box-shadow: none;
+  }
+
+  &.govuk-textarea--error {
+    border-color: govuk-colour("red");
+  }
+}
+
+.app-textarea--wide {
+  width: 24em;
+}

@@ -45,7 +45,7 @@ describe('#autoSubmit', () => {
 
       form.dispatchEvent(new Event('input'))
 
-      jest.advanceTimersByTime(210)
+      jest.advanceTimersByTime(310)
     })
 
     test('Should submit form', () => {

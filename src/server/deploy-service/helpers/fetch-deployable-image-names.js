@@ -2,7 +2,6 @@ import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
 
-// TODO move this into the pre?
 async function fetchDeployableImageNames() {
   const deployableImagesEndpointUrl = `${appConfig.get(
     'portalBackendApiUrl'

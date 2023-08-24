@@ -55,7 +55,7 @@ describe('#buildNavigation', () => {
         {
           isActive: false,
           text: 'Admin',
-          url: '/cdp-portal-frontend/admin/users'
+          url: '/cdp-portal-frontend/admin'
         }
       ]
     })
@@ -113,7 +113,7 @@ describe('#buildNavigation', () => {
         {
           isActive: false,
           text: 'Admin',
-          url: '/cdp-portal-frontend/admin/users'
+          url: '/cdp-portal-frontend/admin'
         }
       ]
     })

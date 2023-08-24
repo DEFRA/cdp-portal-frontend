@@ -51,7 +51,7 @@ function buildNavigation(request) {
     admin: [
       {
         text: 'Admin',
-        url: `${appPathPrefix}/admin/users`,
+        url: `${appPathPrefix}/admin`,
         isActive: request?.path?.includes(`${appPathPrefix}/admin`)
       }
     ]

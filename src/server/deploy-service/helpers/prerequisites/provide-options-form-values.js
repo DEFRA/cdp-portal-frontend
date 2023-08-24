@@ -28,7 +28,7 @@ const provideOptionsFormValues = {
         const cpu = existingServiceInfo?.task_cpu
         formDetail.formValues = {
           // Cast to string due to 0 comparison in govuk select component. 0 is a valid value
-          instanceCount: existingServiceInfo?.desired_count?.toString(), // TODO can this be done in a better way?
+          instanceCount: existingServiceInfo?.desired_count?.toString(),
           memory: existingServiceInfo?.task_memory,
           cpu
         }

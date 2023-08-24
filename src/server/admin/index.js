@@ -1,21 +1,21 @@
+import { appConfig } from '~/src/config'
 import { adminUsers } from '~/src/server/admin/users'
 import { adminTeams } from '~/src/server/admin/teams'
-import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
 
 const admin = {
   plugin: {
     name: 'admin',
     register: async (server) => {
-      server.ext([
+      await server.register([adminUsers, adminTeams])
+
+      server.route([
         {
-          type: 'onPostHandler',
-          method: provideSubNav
+          method: 'GET',
+          path: '/admin',
+          handler: (request, h) =>
+            h.redirect(appConfig.get('appPathPrefix') + '/admin/users')
         }
       ])
-
-      adminUsers(server)
-
-      server.route([...adminTeams])
     }
   }
 }

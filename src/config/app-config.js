@@ -75,6 +75,11 @@ const appConfig = convict({
     default: 'http://localhost:3001/cdp-user-service-backend',
     env: 'USER_SERVICE_API_URL'
   },
+  gitHubOrg: {
+    doc: 'The GitHub Organisation',
+    format: String,
+    default: 'defra-cdp-sandpit'
+  },
   sessionCookiePassword: {
     doc: 'Session cookie password',
     format: '*',

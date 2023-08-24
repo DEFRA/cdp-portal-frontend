@@ -30,19 +30,19 @@ window.fetchMemory = fetchMemory
 addHistoryListener()
 
 // Create service repository name readout
-initModule('repository-name', readOut)
+initModule('app-read-out', readOut)
 
 // Form submit buttons with loaders. Create and Deploy service
 initModule('app-button', button)
 
 // Deploy service form. Choose deployment version select
-initModule('select-controller', populateSelectOptions)
+initModule('app-select-controller', populateSelectOptions)
 
 // Remove server-side error messages on element blur
 initModule('app-form-errors', errorMessages, '*=')
 
 // Add UX friction to editing inputs on a protected form
-initModule('protected-inputs', protectForm, '*=')
+initModule('app-protected-inputs', protectForm, '*=')
 
 // Autocomplete Search
 initModule('app-autocomplete-search', autocompleteSearch)

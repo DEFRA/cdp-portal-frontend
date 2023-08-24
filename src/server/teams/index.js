@@ -6,7 +6,7 @@ import {
 const teams = {
   plugin: {
     name: 'teams',
-    register: async (server) => {
+    register: (server) => {
       server.route([
         {
           method: 'GET',

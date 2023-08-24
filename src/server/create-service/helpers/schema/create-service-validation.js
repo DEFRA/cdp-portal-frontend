@@ -1,11 +1,10 @@
 import Joi from 'joi'
 
-// TODO move into schema folder
-function createServiceValidationSchema(serviceTypes, owningTeams) {
+function createServiceValidation(serviceTypes, owningTeams) {
   return Joi.object({
     repositoryName: Joi.string()
       .pattern(/^[\w-]*$/)
-      .pattern(/^[a-zA-Z0-9][\w-]*[a-zA-Z0-9]$/, {
+      .pattern(/^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/, {
         name: 'startAndEndWithCharacter'
       })
       .min(1)
@@ -13,8 +12,7 @@ function createServiceValidationSchema(serviceTypes, owningTeams) {
       .required()
       .messages({
         'string.empty': 'Enter value',
-        'string.pattern.base':
-          'Letters and numbers with hyphen or underscore separators',
+        'string.pattern.base': 'Letters and numbers with hyphen separators',
         'string.pattern.name': 'Start and end with a character',
         'string.min': '1 character or more',
         'string.max': '96 characters or less'
@@ -32,4 +30,4 @@ function createServiceValidationSchema(serviceTypes, owningTeams) {
   })
 }
 
-export { createServiceValidationSchema }
+export { createServiceValidation }

@@ -3,7 +3,7 @@ function errorMessages($form) {
     return
   }
 
-  const allowedInputs = ['select', 'input']
+  const allowedInputs = ['select', 'input', 'textarea']
 
   const $formElements = Array.from($form.elements).filter((element) =>
     allowedInputs.includes(element.tagName.toLowerCase())
@@ -20,7 +20,11 @@ function errorMessages($form) {
         const errorMessage = formGroup.querySelector('[data-js="app-error"]')
 
         formGroup.classList.remove('govuk-form-group--error')
-        $element.classList.remove('govuk-select--error', 'govuk-input--error')
+        $element.classList.remove(
+          'govuk-select--error',
+          'govuk-input--error',
+          'govuk-textarea--error'
+        )
 
         if (errorMessage) {
           errorMessage.remove()
