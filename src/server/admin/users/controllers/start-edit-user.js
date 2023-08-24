@@ -17,13 +17,16 @@ const startEditUserController = {
   handler: async (request, h) => {
     const { user } = await fetchUser(request.params?.userId)
 
-    request.yar.set(sessionNames.cdpUser, { ...user, isEdit: true })
+    request.yar.set(sessionNames.cdpUser, {
+      ...user,
+      isEdit: true
+    })
     request.yar.clear(sessionNames.validationFailure)
 
     return h.redirect(
-      `${appConfig.get(
-        'appPathPrefix'
-      )}/admin/users/find-aad-user?emailSearch=${user.email}`
+      `${appConfig.get('appPathPrefix')}/admin/users/find-github-user${
+        user?.github ? `?githubSearch=${user?.github}` : ''
+      }`
     )
   }
 }

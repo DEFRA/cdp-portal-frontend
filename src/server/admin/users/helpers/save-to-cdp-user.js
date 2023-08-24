@@ -11,6 +11,12 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
  * @property {string} [valueObj.name] - CDP users name
  * @property {string} [valueObj.defraAwsId] - Defra AWS ID
  * @property {string} [valueObj.defraVpnId] - Defra VPN ID
+ * @typedef {Object} valueObj.isComplete - Steps object
+ * @property {boolean} valueObj.isComplete.stepOne
+ * @property {boolean} valueObj.isComplete.stepTwo
+ * @property {boolean} valueObj.isComplete.stepThree
+ * @property {boolean} valueObj.isComplete.allSteps
+ * @property {boolean} valueObj.isEdit
  *
  * @returns {*}
  */

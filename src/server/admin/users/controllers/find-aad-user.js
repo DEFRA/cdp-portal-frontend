@@ -4,7 +4,7 @@ import { appConfig } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { aadIdValidation } from '~/src/server/admin/users/helpers/schema/aad-id-validation'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/save-to-cdp-user'
-import { fetchAadUsers } from '~/src/server/admin/users/helpers/fetch-add-users'
+import { searchAadUsers } from '~/src/server/admin/users/helpers/search-add-users'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 
@@ -19,7 +19,7 @@ const findAadUserController = {
     const button = payload?.button
     const redirectLocation = payload?.redirectLocation
 
-    const emailSearch = payload?.emailSearch || null
+    const aadQuery = payload?.aadQuery || null
     const email = payload?.email || null
 
     const validationResult = aadIdValidation(button).validate(payload, {
@@ -27,7 +27,7 @@ const findAadUserController = {
     })
 
     const sanitisedPayload = {
-      emailSearch,
+      aadQuery,
       email
     }
 
@@ -42,7 +42,7 @@ const findAadUserController = {
       const queryString = qs.stringify(
         {
           ...(redirectLocation && { redirectLocation }),
-          ...(emailSearch && { emailSearch })
+          ...(aadQuery && { aadQuery })
         },
         {
           addQueryPrefix: true
@@ -56,17 +56,18 @@ const findAadUserController = {
     }
 
     if (!validationResult.error) {
-      const aadUserDetails = await fetchAadUsers(sanitisedPayload.email)
+      // TODO is there a better way to do this - feels flaky
+      const aadUserDetails = await searchAadUsers(sanitisedPayload.email)
       const aadUser = aadUserDetails?.at(0)
 
-      const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.mail
+      const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.email
 
       const updatedCdpUser = saveToCdpUser(request, {
         ...sanitisedPayload,
-        userId: aadUser?.id ?? null,
-        emailSearch: aadUser?.mail ?? null,
-        name: isSameAsSession ? cdpUser?.name : aadUser?.displayName,
-        aadName: isSameAsSession ? cdpUser?.aadName : aadUser?.displayName
+        userId: aadUser?.userId ?? null,
+        aadQuery: aadUser?.email ?? null,
+        name: isSameAsSession ? cdpUser?.name : aadUser?.name,
+        aadName: isSameAsSession ? cdpUser?.aadName : aadUser?.name
       })
 
       // TODO tidy up

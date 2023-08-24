@@ -25,17 +25,17 @@
 
                 {{ appSearch({
                   label: {
-                    text: "AAD users email"
+                    text: "AAD users name or email"
                   },
-                  id: "emailSearch",
-                  name: "emailSearch",
+                  id: "aadQuery",
+                  name: "aadQuery",
                   hint: {
-                    text: "Search using the users Defra provided email"
+                    text: "Enter the users name or Defra provided email"
                   },
-                  value: formValues.emailSearch,
+                  value: formValues.aadQuery,
                   errorMessage: {
-                    text: formErrors.emailSearch.message
-                  } if formErrors.emailSearch.message
+                    text: formErrors.aadQuery.message
+                  } if formErrors.aadQuery.message
                 }) }}
 
               {% endcall %}
@@ -44,7 +44,10 @@
                 classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
                 text: "Search",
                 name: "button",
-                value: "search"
+                value: "search",
+                attributes: {
+                  "data-js": "app-no-js-submit-button"
+                }
               }) }}
 
             </form>
@@ -58,7 +61,7 @@
               {% block xhrContent %}
 
                 <article class="app-scrollable-window" data-xhr="aad-users">
-                  <input type="hidden" name="emailSearch" value="{{ formValues.emailSearch }}"/>
+                  <input type="hidden" name="aadQuery" value="{{ formValues.aadQuery }}"/>
 
                   {% if aadUsers | length %}
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
@@ -82,7 +85,7 @@
                     }) }}
                   {% endif %}
 
-                  {% if formValues.emailSearch and not aadUsers | length %}
+                  {% if formValues.aadQuery and not aadUsers | length %}
                     <p class="govuk-hint">No user/s found</p>
                   {% endif %}
 

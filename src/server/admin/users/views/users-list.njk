@@ -10,11 +10,13 @@
       {{ appHeading({
         title: heading,
         caption: headingCaption,
-        action: govukButton({
-          classes: "app-button",
-          text: "Create user",
-          href: appPathPrefix + "/admin/users/create"
-        })
+        actions: [
+          govukButton({
+            classes: "app-button",
+            text: "Create user",
+            href: appPathPrefix + "/admin/users/create"
+          })
+        ]
       }) }}
 
       {{ appEntityList({

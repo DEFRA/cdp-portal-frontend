@@ -3,6 +3,8 @@ import { startCase } from 'lodash'
 import { appConfig } from '~/src/config'
 
 function transformUserToEntityRow(user) {
+  const gitHubOrg = appConfig.get('gitHubOrg')
+
   return [
     {
       kind: 'link',
@@ -17,7 +19,7 @@ function transformUserToEntityRow(user) {
     {
       kind: 'link',
       value: user.github ? `@${user.github}` : null,
-      url: `https://github.com/orgs/defra-cdp-sandpit/people/${user.github}`,
+      url: `https://github.com/orgs/${gitHubOrg}/people/${user.github}`,
       newWindow: true
     },
     {

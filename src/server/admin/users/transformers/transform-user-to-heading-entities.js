@@ -3,7 +3,7 @@ function transformUserToHeadingEntities(user) {
     {
       kind: 'date',
       value: user?.updatedAt,
-      label: 'Updated'
+      label: 'Last updated'
     }
   ]
 }

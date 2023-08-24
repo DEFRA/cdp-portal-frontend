@@ -8,7 +8,7 @@ function buildRow(name, value, stepPath, query) {
 
   const href =
     appConfig.get('appPathPrefix') +
-    `/admin/users/create/${stepPath}?redirectLocation=summary` +
+    `/admin/users/${stepPath}?redirectLocation=summary` +
     queryString
 
   return {
@@ -30,8 +30,9 @@ function buildRow(name, value, stepPath, query) {
   }
 }
 
-async function transformSummaryUserRows(details) {
-  const detailsWithNoValues = Object.entries(details).reduce(
+async function transformSummaryUserRows(cdpUser) {
+  const isEdit = cdpUser?.isEdit ?? false
+  const detailsWithNoValues = Object.entries(cdpUser).reduce(
     (obj, [key, value]) => {
       return {
         ...obj,
@@ -42,12 +43,14 @@ async function transformSummaryUserRows(details) {
   )
 
   return [
-    buildRow(
-      'AAD user',
-      detailsWithNoValues.email,
-      'find-aad-user',
-      'emailSearch'
-    ),
+    isEdit
+      ? buildRow('AAD user', detailsWithNoValues.email)
+      : buildRow(
+          'AAD user',
+          detailsWithNoValues.email,
+          'find-aad-user',
+          'aadQuery'
+        ),
     buildRow(
       'GitHub user',
       detailsWithNoValues.github,

@@ -1,9 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchAadUsers } from '~/src/server/admin/users/helpers/fetch-add-users'
+import { searchAadUsers } from '~/src/server/admin/users/helpers/search-add-users'
 import { buildOptions } from '~/src/common/helpers/build-options'
 import { resetAadAnswer } from '~/src/server/admin/users/helpers/extensions/reset-aad-answer'
+import { appConfig } from '~/src/config'
 
 const findAadUserFormController = {
   options: {
@@ -12,7 +13,8 @@ const findAadUserFormController = {
     },
     validate: {
       query: Joi.object({
-        emailSearch: Joi.string().allow(''),
+        aadQuery: Joi.string().allow(''),
+        email: Joi.string().allow(''),
         redirectLocation: Joi.string().valid('summary').allow('')
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
@@ -20,22 +22,40 @@ const findAadUserFormController = {
   },
   handler: async (request, h) => {
     const query = request?.query
-    const emailSearch = query?.emailSearch || null
+    const aadQuery = query?.aadQuery || null
     const redirectLocation = query?.redirectLocation
 
-    const aadUsers = emailSearch ? await fetchAadUsers(emailSearch) : []
+    const aadUsers = aadQuery ? await searchAadUsers(aadQuery) : []
 
     return h.view('admin/users/views/aad-user-form', {
-      pageTitle: 'Find AAD User',
-      heading: 'Find AAD User',
+      pageTitle: 'Find AAD user',
+      heading: 'Find AAD user',
       headingCaption: 'Search for the Defra Azure Active Directory (AAD) user',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
-      formValues: { emailSearch },
-      aadUsers: buildOptions(
-        aadUsers.map((aadUser) => aadUser.mail),
-        false
-      )
+      formValues: { aadQuery },
+      aadUsers: aadUsers?.length
+        ? buildOptions(
+            aadUsers.map((aadUser) => ({
+              text: `${aadUser.name} - ${aadUser.email}`,
+              value: aadUser.email
+            })),
+            false
+          )
+        : null,
+      breadcrumbs: [
+        {
+          text: 'Admin',
+          href: appConfig.get('appPathPrefix') + '/admin'
+        },
+        {
+          text: 'Users',
+          href: appConfig.get('appPathPrefix') + '/admin/users'
+        },
+        {
+          text: 'Create user'
+        }
+      ]
     })
   }
 }

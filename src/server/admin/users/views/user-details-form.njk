@@ -19,9 +19,9 @@
           <div class="govuk-body">
             <form action="{{ appPathPrefix }}/admin/users/user-details" method="POST" data-js="app-form-errors">
 
-              {% if formValues.name === usersAadName %}
+              {% if formValues.name and formValues.name === usersAadName %}
                 {{ appInfo({
-                  text: "We have pre-populated the name input with the users AAD name."
+                  html: "We have pre-populated the <strong>User name</strong> input with the users AAD name."
                 }) }}
               {% endif %}
 
@@ -36,13 +36,16 @@
                   name: "name",
                   classes: "app-input app-input--wide",
                   formGroup: {
-                    classes: "app-form-group"
+                    classes: "app-form-group app-form-group-js"
                   },
                   attributes: {
                     "data-1p-ignore": ""
                   },
                   value: formValues.name,
                   errorMessage: {
+                    attributes: {
+                      "data-js": "app-error"
+                    },
                     text: formErrors.name.message,
                     classes: "govuk-!-margin-bottom-1 app-error-message"
                   } if formErrors.name.message
@@ -50,7 +53,7 @@
 
                 {{ govukInput({
                   label: {
-                    text: "Defra AWS ID (optional)",
+                    text: "Defra Aws Id (optional)",
                     classes: "govuk-!-margin-bottom-1"
                   },
                   id: "defraAwsId",
@@ -71,7 +74,7 @@
 
                 {{ govukInput({
                   label: {
-                    text: "Defra VPN ID (optional)",
+                    text: "Defra Vpn Id (optional)",
                     classes: "govuk-!-margin-bottom-1"
                   },
                   id: "defraVpnId",

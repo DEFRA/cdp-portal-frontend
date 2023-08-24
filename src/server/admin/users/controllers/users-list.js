@@ -14,7 +14,7 @@ const usersListController = {
       pageTitle: 'Users',
       heading: 'Users',
       entityRows,
-      headingCaption: 'CDP Portal Users',
+      headingCaption: 'CDP - Portal users',
       noResult: 'Currently there are no users'
     })
   }

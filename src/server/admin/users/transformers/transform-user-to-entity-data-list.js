@@ -3,13 +3,14 @@ import { startCase } from 'lodash'
 import { appConfig } from '~/src/config'
 
 function transformUserToEntityDataList(user) {
+  const gitHubOrg = appConfig.get('gitHubOrg')
+
   return [
     {
       heading: 'Name',
       entity: {
-        kind: 'link',
-        value: startCase(user.name),
-        url: `${appConfig.get('appPathPrefix')}/admin/users/${user.userId}`
+        kind: 'text',
+        value: startCase(user.name)
       }
     },
     {
@@ -25,22 +26,29 @@ function transformUserToEntityDataList(user) {
       entity: {
         kind: 'link',
         value: user.github ? `@${user.github}` : null,
-        url: `https://github.com/orgs/defra-cdp-sandpit/people/${user.github}`,
+        url: `https://github.com/orgs/${gitHubOrg}/people/${user.github}`,
         newWindow: true
       }
     },
     {
-      heading: 'Defra AWS ID',
+      heading: 'Defra Aws Id',
       entity: {
         kind: 'text',
         value: user.defraAwsId
       }
     },
     {
-      heading: 'Defra VPN ID',
+      heading: 'Defra Vpn Id',
       entity: {
         kind: 'text',
         value: user.defraVpnId
+      }
+    },
+    {
+      heading: 'Created',
+      entity: {
+        kind: 'date',
+        value: user.createdAt
       }
     }
   ]

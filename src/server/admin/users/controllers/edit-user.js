@@ -5,7 +5,6 @@ import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/p
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/users/helpers/set-step-complete'
-import { removeNil } from '~/src/server/common/helpers/remove-nil'
 
 const editUserController = {
   options: {
@@ -19,15 +18,13 @@ const editUserController = {
 
     const response = await fetch(editUserEndpointUrl, {
       method: 'patch',
-      body: JSON.stringify(
-        removeNil({
-          name: cdpUser.name,
-          email: cdpUser.email,
-          github: cdpUser.github,
-          defraVpnId: cdpUser.defraVpnId,
-          defraAwsId: cdpUser.defraAwsId
-        })
-      ),
+      body: JSON.stringify({
+        name: cdpUser.name,
+        email: cdpUser.email,
+        github: cdpUser.github,
+        defraVpnId: cdpUser.defraVpnId,
+        defraAwsId: cdpUser.defraAwsId
+      }),
       headers: { 'Content-Type': 'application/json' }
     })
     const responseJson = await response.json()
@@ -41,7 +38,7 @@ const editUserController = {
       })
 
       return h.redirect(
-        appConfig.get('appPathPrefix') + `/admin/users/${cdpUser.userId}`
+        appConfig.get('appPathPrefix') + '/admin/users/' + cdpUser.userId
       )
     }
 

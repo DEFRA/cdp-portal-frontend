@@ -3,7 +3,7 @@ import Joi from 'joi'
 function aadIdValidation(buttonValue) {
   if (buttonValue === 'search') {
     return Joi.object({
-      emailSearch: Joi.string().required().messages({
+      aadQuery: Joi.string().required().messages({
         'any.required': 'Enter value',
         'string.empty': 'Enter value'
       }),
@@ -12,11 +12,11 @@ function aadIdValidation(buttonValue) {
   }
 
   return Joi.object({
-    emailSearch: Joi.string().required().messages({
+    aadQuery: Joi.string().required().messages({
       'any.required': 'Enter value',
       'string.empty': 'Enter value'
     }),
-    email: Joi.when('emailSearch', {
+    email: Joi.when('aadQuery', {
       is: Joi.string(),
       then: Joi.string().required()
     }).messages({

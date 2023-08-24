@@ -2,14 +2,19 @@ import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
 
-// TODO JSDoc
-async function fetchGitHubUsers(username) {
-  const gitHubUsersEndpointUrl = `${appConfig.get('mockApiUrl')}/github-users${
-    username ? '?username=' + username : ''
-  }`
+async function fetchGitHubUsers(query) {
+  const gitHubUsersEndpointUrl = `${appConfig.get(
+    'userServiceApiUrl'
+  )}/github-users${query ? '?query=' + query : ''}`
 
   const response = await fetch(gitHubUsersEndpointUrl)
-  return await response.json()
+  const responseJson = await response.json()
+
+  if (response.ok) {
+    return responseJson.users
+  }
+
+  throw responseJson
 }
 
 export { fetchGitHubUsers }

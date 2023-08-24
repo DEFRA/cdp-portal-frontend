@@ -7,13 +7,15 @@
 
     {{ appHeading({
       title: heading,
-      caption: "User details for " + heading + ".",
+      caption: "CDP - Portal user details.",
       entities: headingEntities,
-      action: govukButton({
-        classes: "app-button",
-        text: "Edit user",
-        href: appPathPrefix + "/admin/users/edit/" + user.userId
-      })
+      actions: [
+        govukButton({
+          classes: "app-button",
+          text: "Edit user",
+          href: appPathPrefix + "/admin/users/edit/" + user.userId
+        })
+      ]
     }) }}
 
     <hr
@@ -23,9 +25,27 @@
 
       <div class="govuk-grid-column-one-third">
         {{ appEntityDataList({
-          heading: "User details",
           items: entityDataList
         }) }}
+      </div>
+
+      <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Teams</h2>
+
+        {% if user.teams | length %}
+          <ul class="govuk-list govuk-list--bullet">
+            {% for team in user.teams | sort(false, true, 'name') %}
+              {% set teamUrl = appPathPrefix + "/admin/teams/" + team.teamId %}
+              <li>
+                <a class="app-link"
+                   href="{{ teamUrl }}"
+                >{{ team.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>This users is not currently a member of any team</p>
+        {% endif %}
       </div>
 
     </div>
