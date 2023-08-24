@@ -1,15 +1,24 @@
-import { startCase } from 'lodash'
-
-import { appConfig } from '~/src/config'
-
 function transformTeamToEntityDataList(team) {
   return [
     {
       heading: 'Name',
       entity: {
-        kind: 'link',
-        value: startCase(team.name),
-        url: `${appConfig.get('appPathPrefix')}/admin/teams/${team.aadGroupId}`
+        kind: 'text',
+        value: team.name
+      }
+    },
+    {
+      heading: 'Description',
+      entity: {
+        kind: 'paragraph',
+        value: team.description
+      }
+    },
+    {
+      heading: 'Created',
+      entity: {
+        kind: 'date',
+        value: team.createdAt
       }
     }
   ]

@@ -7,13 +7,21 @@
     <section>
       {{ appHeading({
         title: heading,
-        caption: headingCaption
+        caption: headingCaption,
+        actions: [
+          govukButton({
+            classes: "app-button",
+            text: "Create team",
+            href: appPathPrefix + "/admin/teams/create"
+          })
+        ]
       }) }}
 
       {{ appEntityList({
         headings: [
           { text: "Name", size: "large" },
-          { text: "Email", size: "medium" }
+          { text: "Description", size: "massive" },
+          { text: "Members", size: "small" }
         ],
         entityRows: entityRows,
         noResult: noResult

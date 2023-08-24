@@ -7,8 +7,20 @@
 
     {{ appHeading({
       title: heading,
-      caption: "User details for " + heading + ".",
-      entities: headingEntities
+      caption: "CDP - Portal team details.",
+      entities: headingEntities,
+      actions: [
+        govukButton({
+          classes: "app-button app-button--secondary",
+          text: "Add user",
+          href: appPathPrefix + "/admin/teams/" + team.teamId + "/add-user"
+        }),
+        govukButton({
+          classes: "app-button",
+          text: "Edit team",
+          href: appPathPrefix + "/admin/teams/edit/" + team.teamId
+        })
+      ]
     }) }}
 
     <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
@@ -17,9 +29,27 @@
 
       <div class="govuk-grid-column-one-third">
         {{ appEntityDataList({
-          heading: "User details",
           items: entityDataList
         }) }}
+      </div>
+
+      <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Members</h2>
+
+        {% if team.users | length %}
+          <ul class="govuk-list govuk-list--bullet">
+            {% for user in team.users | sort(false, true, 'name') %}
+              {% set userUrl = appPathPrefix + "/admin/users/" + user.userId %}
+              <li>
+                <a class="app-link"
+                   href="{{ userUrl }}"
+                >{{ user.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>This team does not currently have any members</p>
+        {% endif %}
       </div>
 
     </div>

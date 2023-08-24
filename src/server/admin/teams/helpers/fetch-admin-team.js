@@ -3,7 +3,6 @@ import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
 
-// TODO JSDoc
 // TODO change name to fetch CDP team
 async function fetchAdminTeam(teamId) {
   const userEndpointUrl = `${appConfig.get(

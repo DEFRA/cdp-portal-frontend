@@ -2,7 +2,7 @@ import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchAdminTeams } from '~/src/server/admin/teams/helpers/fetch-admin-teams'
 import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row'
 
-const teamsList = {
+const teamsListController = {
   handler: async (request, h) => {
     const { teams } = await fetchAdminTeams()
 
@@ -14,10 +14,10 @@ const teamsList = {
       pageTitle: 'Teams',
       heading: 'Teams',
       entityRows,
-      headingCaption: 'CDP Portal Teams',
+      headingCaption: 'CDP - Portal teams',
       noResult: 'Currently there are no teams'
     })
   }
 }
 
-export { teamsList }
+export { teamsListController }
