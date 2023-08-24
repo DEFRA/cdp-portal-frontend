@@ -19,9 +19,13 @@
     {% endif %}
   </div>
 
-  {% if params.action %}
+  {% if params.actions | length %}
     <div class="govuk-grid-column-one-half app-heading__action">
-      {{ params.action }}
+      {% for action in params.actions %}
+        <div class="app-heading__action-item">
+          {{ action }}
+        </div>
+      {% endfor %}
     </div>
   {% endif %}
 </div>

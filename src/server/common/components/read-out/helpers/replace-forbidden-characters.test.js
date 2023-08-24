@@ -6,7 +6,7 @@ describe('#replaceForbiddenCharacters', () => {
       replaceForbiddenCharacters(
         'What %^   $%£%£$%-a-$£%@^$^@  - loV^&elY $%^££ ----daY_123$%4'
       )
-    ).toEqual('What---a----loVelY------daY_1234')
+    ).toEqual('What---a----loVelY------daY1234')
   })
 
   test('Space should be replaced with a hyphen', () => {

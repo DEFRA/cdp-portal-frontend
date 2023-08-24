@@ -7,6 +7,12 @@
   text-overflow: ellipsis;
 }
 
+.app-entity--paragraph {
+  overflow: visible;
+  white-space: normal;
+  text-overflow: unset;
+}
+
 .app-entity-label {
   color: govuk-colour("dark-grey");
 }
