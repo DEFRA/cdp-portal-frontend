@@ -4,7 +4,6 @@ import Boom from '@hapi/boom'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { setStepComplete } from '~/src/server/admin/users/helpers/set-step-complete'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
-import { appConfig } from '~/src/config'
 
 const userDetailsFormController = {
   options: {
@@ -22,7 +21,7 @@ const userDetailsFormController = {
     const cdpUser = request.pre?.cdpUser
     const isEdit = cdpUser.isEdit ?? false
 
-    const heading = isEdit ? 'Update CDP user details' : 'Add CDP user details'
+    const heading = isEdit ? 'Edit CDP user details' : 'Add CDP user details'
     const redirectLocation = request.query?.redirectLocation
 
     return h.view('admin/users/views/user-details-form', {
@@ -35,14 +34,14 @@ const userDetailsFormController = {
       breadcrumbs: [
         {
           text: 'Admin',
-          href: appConfig.get('appPathPrefix') + '/admin'
+          href: '/admin'
         },
         {
           text: 'Users',
-          href: appConfig.get('appPathPrefix') + '/admin/teams'
+          href: '/admin/teams'
         },
         {
-          text: isEdit ? 'Update' : 'Create' + ' user'
+          text: isEdit ? 'Edit' : 'Create' + ' user'
         }
       ]
     })

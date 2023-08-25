@@ -2,7 +2,6 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
-import { appConfig } from '~/src/config'
 import { fetchUser } from '~/src/server/admin/users/helpers/fetch-user'
 import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
 import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities'
@@ -28,11 +27,11 @@ const userController = {
       breadcrumbs: [
         {
           text: 'Admin',
-          href: appConfig.get('appPathPrefix') + '/admin'
+          href: '/admin'
         },
         {
           text: 'Users',
-          href: appConfig.get('appPathPrefix') + '/admin/users'
+          href: '/admin/users'
         },
         {
           text: user.name

@@ -7,7 +7,6 @@ import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisite
 import { resetGitHubAnswer } from '~/src/server/admin/users/helpers/extensions/reset-github-answer'
 import { setStepComplete } from '~/src/server/admin/users/helpers/set-step-complete'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
-import { appConfig } from '~/src/config'
 
 const findGitHubUserFormController = {
   options: {
@@ -36,9 +35,7 @@ const findGitHubUserFormController = {
 
     const isEdit = cdpUser.isEdit ?? false
 
-    const heading = isEdit
-      ? 'Update Defra GitHub User'
-      : 'Find Defra GitHub User'
+    const heading = isEdit ? 'Edit Defra GitHub User' : 'Find Defra GitHub User'
 
     return h.view('admin/users/views/github-user-form', {
       pageTitle: heading,
@@ -59,14 +56,14 @@ const findGitHubUserFormController = {
       breadcrumbs: [
         {
           text: 'Admin',
-          href: appConfig.get('appPathPrefix') + '/admin'
+          href: '/admin'
         },
         {
           text: 'Users',
-          href: appConfig.get('appPathPrefix') + '/admin/users'
+          href: '/admin/users'
         },
         {
-          text: isEdit ? 'Update' : 'Create' + ' user'
+          text: `${isEdit ? 'Edit' : 'Create'} user`
         }
       ]
     })

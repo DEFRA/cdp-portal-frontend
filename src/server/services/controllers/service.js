@@ -2,7 +2,6 @@ import Boom from '@hapi/boom'
 import { compose } from 'lodash/fp'
 import { omit, startCase } from 'lodash'
 
-import { appConfig } from '~/src/config'
 import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
 import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
 import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
@@ -44,7 +43,7 @@ const serviceController = {
         breadcrumbs: [
           {
             text: 'Services',
-            href: `${appConfig.get('appPathPrefix')}/services`
+            href: '/services'
           },
           {
             text: service.serviceName

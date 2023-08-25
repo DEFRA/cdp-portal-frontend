@@ -1,4 +1,3 @@
-import { appConfig } from '~/src/config'
 import { fetchTeam } from '~/src/server/teams/helpers/fetch-team'
 import { transformTeamToHeadingEntities } from '~/src/server/teams/transformers/transform-team-to-heading-entities'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch-repositories'
@@ -29,7 +28,7 @@ const teamController = {
       breadcrumbs: [
         {
           text: 'Teams',
-          href: `${appConfig.get('appPathPrefix')}/teams`
+          href: '/teams'
         },
         {
           text: team.name

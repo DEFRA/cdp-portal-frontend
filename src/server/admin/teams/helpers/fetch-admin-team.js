@@ -9,12 +9,21 @@ async function fetchAdminTeam(teamId) {
     'userServiceApiUrl'
   )}/teams/${teamId}`
 
-  const response = await fetch(userEndpointUrl)
+  const response = await fetch(userEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const responseJson = await response.json()
+
+  if (response.ok) {
+    return responseJson
+  }
 
   if (response.status === 404) {
     throw Boom.boomify(Boom.notFound())
   }
-  return await response.json()
+
+  throw new Error(responseJson.message)
 }
 
 export { fetchAdminTeam }

@@ -13,13 +13,13 @@ function provideSubNav(request, h) {
       {
         isActive:
           request?.path.includes(`${appPathPrefix}/admin/teams`) ?? false,
-        url: `${appPathPrefix}/admin/teams`,
+        url: '/admin/teams',
         label: 'Teams'
       },
       {
         isActive:
           request?.path.includes(`${appPathPrefix}/admin/users`) ?? false,
-        url: `${appPathPrefix}/admin/users`,
+        url: '/admin/users',
         label: 'Users'
       }
     ]

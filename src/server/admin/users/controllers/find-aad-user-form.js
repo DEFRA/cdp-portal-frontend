@@ -4,7 +4,6 @@ import Boom from '@hapi/boom'
 import { searchAadUsers } from '~/src/server/admin/users/helpers/search-add-users'
 import { buildOptions } from '~/src/common/helpers/build-options'
 import { resetAadAnswer } from '~/src/server/admin/users/helpers/extensions/reset-aad-answer'
-import { appConfig } from '~/src/config'
 
 const findAadUserFormController = {
   options: {
@@ -46,11 +45,11 @@ const findAadUserFormController = {
       breadcrumbs: [
         {
           text: 'Admin',
-          href: appConfig.get('appPathPrefix') + '/admin'
+          href: '/admin'
         },
         {
           text: 'Users',
-          href: appConfig.get('appPathPrefix') + '/admin/users'
+          href: '/admin/users'
         },
         {
           text: 'Create user'

@@ -1,6 +1,5 @@
 import { populateCdpTeam } from '~/src/server/admin/teams/helpers/extensions/populate-cdp-team'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
-import { appConfig } from '~/src/config'
 
 const teamsFormController = {
   options: {
@@ -13,23 +12,24 @@ const teamsFormController = {
     const cdpTeam = request.pre?.cdpTeam
     const isEdit = cdpTeam?.isEdit
 
-    const updateOrCreate = isEdit ? 'Update' : 'Create'
+    const updateOrCreate = isEdit ? 'Edit' : 'Create'
+    const saveOrCreate = isEdit ? 'Save' : 'Create'
     const heading = `${updateOrCreate} team`
 
     return h.view('admin/teams/views/team-form', {
       pageTitle: heading,
       heading,
       headingCaption: `${updateOrCreate} Core Delivery Platform (CDP) team`,
-      formButtonText: updateOrCreate,
+      formButtonText: saveOrCreate,
       action: isEdit ? `edit/${cdpTeam.teamId}` : 'create',
       breadcrumbs: [
         {
           text: 'Admin',
-          href: appConfig.get('appPathPrefix') + '/admin'
+          href: '/admin'
         },
         {
           text: 'Teams',
-          href: appConfig.get('appPathPrefix') + '/admin/teams'
+          href: '/admin/teams'
         },
         {
           text: updateOrCreate + ' team'

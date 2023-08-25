@@ -2,7 +2,6 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { filter, uniqBy } from 'lodash'
 
-import { appConfig } from '~/src/config'
 import { buildOptions } from '~/src/common/helpers/build-options'
 import { fetchAdminTeam } from '~/src/server/admin/teams/helpers/fetch-admin-team'
 import { searchCdpUsers } from '~/src/server/admin/teams/helpers/search-cdp-users'
@@ -60,15 +59,15 @@ const addUserFormController = {
       breadcrumbs: [
         {
           text: 'Admin',
-          href: appConfig.get('appPathPrefix') + '/admin'
+          href: '/admin'
         },
         {
           text: 'Teams',
-          href: appConfig.get('appPathPrefix') + '/admin/teams'
+          href: '/admin/teams'
         },
         {
           text: team.name + ' team',
-          href: appConfig.get('appPathPrefix') + '/admin/teams/' + team.teamId
+          href: '/admin/teams/' + team.teamId
         },
         {
           text: 'Add users'

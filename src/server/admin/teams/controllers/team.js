@@ -5,7 +5,6 @@ import { startCase } from 'lodash'
 import { fetchAdminTeam } from '~/src/server/admin/teams/helpers/fetch-admin-team'
 import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
 import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities'
-import { appConfig } from '~/src/config'
 
 const teamController = {
   options: {
@@ -28,11 +27,11 @@ const teamController = {
       breadcrumbs: [
         {
           text: 'Admin',
-          href: appConfig.get('appPathPrefix') + '/admin'
+          href: '/admin'
         },
         {
           text: 'Teams',
-          href: appConfig.get('appPathPrefix') + '/admin/teams'
+          href: '/admin/teams'
         },
         {
           text: team.name
