@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import { filter, uniqBy } from 'lodash'
 
 import { buildOptions } from '~/src/common/helpers/build-options'
-import { fetchAdminTeam } from '~/src/server/admin/teams/helpers/fetch-admin-team'
+import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
 import { searchCdpUsers } from '~/src/server/admin/teams/helpers/search-cdp-users'
 import { presentUsersToAdd } from '~/src/server/admin/teams/helpers/prerequisites/present-users-to-add'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
@@ -28,7 +28,7 @@ const addUserFormController = {
     const query = request?.query
     const cdpUserQuery = query?.cdpUserQuery || null
 
-    const { team } = await fetchAdminTeam(request.params.teamId)
+    const { team } = await fetchCdpTeam(request.params.teamId)
     const cdpUsers = cdpUserQuery ? await searchCdpUsers(cdpUserQuery) : []
     const userIds = usersToAdd.map((user) => user.userId)
 

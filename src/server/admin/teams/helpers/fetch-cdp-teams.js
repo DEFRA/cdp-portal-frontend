@@ -2,8 +2,7 @@ import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
 
-// TODO change name to fetch CDP teams
-async function fetchAdminTeams() {
+async function fetchCdpTeams() {
   const teamsEndpointUrl = appConfig.get('userServiceApiUrl') + '/teams'
 
   const response = await fetch(teamsEndpointUrl, {
@@ -19,4 +18,4 @@ async function fetchAdminTeams() {
   throw new Error(json.message)
 }
 
-export { fetchAdminTeams }
+export { fetchCdpTeams }

@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
-import { fetchAdminTeam } from '~/src/server/admin/teams/helpers/fetch-admin-team'
+import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
 import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
 import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities'
 
@@ -16,7 +16,7 @@ const teamController = {
     }
   },
   handler: async (request, h) => {
-    const { team } = await fetchAdminTeam(request.params.teamId)
+    const { team } = await fetchCdpTeam(request.params.teamId)
 
     return h.view('admin/teams/views/team', {
       pageTitle: startCase(team.name),

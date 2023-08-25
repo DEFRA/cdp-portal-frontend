@@ -1,4 +1,4 @@
-import { fetchAdminTeam } from '~/src/server/admin/teams/helpers/fetch-admin-team'
+import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
 import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/save-to-cdp-team'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
@@ -9,7 +9,7 @@ const populateCdpTeam = {
     request.yar.clear(sessionNames.cdpTeam)
 
     if (teamId) {
-      const { team } = await fetchAdminTeam(teamId)
+      const { team } = await fetchCdpTeam(teamId)
       saveToCdpTeam(request, { ...team, isEdit: true })
     }
 

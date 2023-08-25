@@ -3,13 +3,12 @@ import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
 
-// TODO change name to fetch CDP team
-async function fetchAdminTeam(teamId) {
-  const userEndpointUrl = `${appConfig.get(
+async function fetchCdpTeam(teamId) {
+  const teamEndpointUrl = `${appConfig.get(
     'userServiceApiUrl'
   )}/teams/${teamId}`
 
-  const response = await fetch(userEndpointUrl, {
+  const response = await fetch(teamEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
@@ -26,4 +25,4 @@ async function fetchAdminTeam(teamId) {
   throw new Error(json.message)
 }
 
-export { fetchAdminTeam }
+export { fetchCdpTeam }

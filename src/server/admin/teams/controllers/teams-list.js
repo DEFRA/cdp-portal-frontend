@@ -1,10 +1,10 @@
 import { sortBy } from '~/src/server/common/helpers/sort-by'
-import { fetchAdminTeams } from '~/src/server/admin/teams/helpers/fetch-admin-teams'
+import { fetchCdpTeams } from '~/src/server/admin/teams/helpers/fetch-cdp-teams'
 import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row'
 
 const teamsListController = {
   handler: async (request, h) => {
-    const { teams } = await fetchAdminTeams()
+    const { teams } = await fetchCdpTeams()
 
     const entityRows = teams
       ?.sort(sortBy('name', 'asc'))
