@@ -40,7 +40,7 @@ $border-width: 4px;
   list-style: none;
   justify-content: flex-end;
 
-  &:before {
+  &::before {
     content: "";
     box-sizing: border-box;
     position: absolute;

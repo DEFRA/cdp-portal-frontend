@@ -22,12 +22,12 @@
   margin: 0;
   position: relative;
 
-  &:before {
+  &::before {
     @extend %connecting-line;
     background: govuk-colour("light-grey");
   }
 
-  &:after {
+  &::after {
     @extend %connecting-line;
     width: 0%;
     background: govuk-colour("blue");

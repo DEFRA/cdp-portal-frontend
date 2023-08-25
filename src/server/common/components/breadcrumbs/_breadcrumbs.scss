@@ -28,7 +28,7 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
   padding-left: govuk-em(govuk-spacing(2), $font-size) + $chevron-altitude-calculated;
   float: left;
 
-  &:before {
+  &::before {
     content: "";
     display: block;
     position: absolute;
@@ -49,7 +49,7 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
     margin-left: 0;
     padding-left: 0;
 
-    &:before {
+    &::before {
       content: none;
       display: none;
     }
