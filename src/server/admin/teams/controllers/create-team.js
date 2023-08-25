@@ -48,7 +48,7 @@ const createTeamController = {
         ),
         headers: { 'Content-Type': 'application/json' }
       })
-      const responseJson = await response.json()
+      const json = await response.json()
 
       if (response.ok) {
         request.yar.flash(sessionNames.notifications, {
@@ -63,10 +63,7 @@ const createTeamController = {
         formValues: sanitisedPayload
       })
 
-      request.yar.flash(
-        sessionNames.globalValidationFailures,
-        responseJson.message
-      )
+      request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
       request.yar.clear(sessionNames.cdpTeam)
 

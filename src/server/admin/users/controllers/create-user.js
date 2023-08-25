@@ -29,7 +29,7 @@ const createUserController = {
       ),
       headers: { 'Content-Type': 'application/json' }
     })
-    const responseJson = await response.json()
+    const json = await response.json()
 
     if (response.ok) {
       setStepComplete(request, 'allSteps')
@@ -42,10 +42,7 @@ const createUserController = {
       return h.redirect(appConfig.get('appPathPrefix') + '/admin/users')
     }
 
-    request.yar.flash(
-      sessionNames.globalValidationFailures,
-      responseJson.message
-    )
+    request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
     return h.redirect(appConfig.get('appPathPrefix') + '/admin/users/summary')
   }

@@ -2,7 +2,6 @@ import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
 
-// TODO JsDOc
 // TODO change name to fetch CDP teams
 async function fetchAdminTeams() {
   const teamsEndpointUrl = appConfig.get('userServiceApiUrl') + '/teams'
@@ -11,13 +10,13 @@ async function fetchAdminTeams() {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
-  const responseJson = await response.json()
+  const json = await response.json()
 
   if (response.ok) {
-    return responseJson
+    return json
   }
 
-  throw new Error(responseJson.message)
+  throw new Error(json.message)
 }
 
 export { fetchAdminTeams }

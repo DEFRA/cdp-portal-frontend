@@ -1,20 +1,22 @@
 import fetch from 'node-fetch'
+
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/server/common/helpers/logger'
 
 async function fetchRunningServices() {
-  const logger = createLogger()
-  const runningServicesEndpointUrl = `${appConfig.get(
-    'portalBackendApiUrl'
-  )}/whats-running-where`
+  const runningServicesEndpointUrl =
+    appConfig.get('portalBackendApiUrl') + '/whats-running-where'
 
-  try {
-    const response = await fetch(runningServicesEndpointUrl)
-    return await response.json()
-  } catch (error) {
-    logger.error(error)
-    return []
+  const response = await fetch(runningServicesEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
+
+  if (response.ok) {
+    return json
   }
+
+  throw Error(json.message)
 }
 
 export { fetchRunningServices }

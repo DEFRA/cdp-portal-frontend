@@ -11,13 +11,13 @@ async function addUserToTeam(teamId, userId) {
     headers: { 'Content-Type': 'application/json' }
   })
 
-  const responseJson = await response.json()
+  const json = await response.json()
 
-  if (!response.ok) {
-    throw responseJson
+  if (response.ok) {
+    return json
   }
 
-  return responseJson
+  throw new Error(json.message)
 }
 
 export { addUserToTeam }

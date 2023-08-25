@@ -8,13 +8,20 @@ async function fetchAvailableVersions(serviceName) {
     return []
   }
 
-  const deployablesVersionsEndpoint = `${appConfig.get(
-    'portalBackendApiUrl'
-  )}/deployables/${serviceName}`
+  const deployablesVersionsEndpoint =
+    appConfig.get('deployablesApiUrl') + `/deployables/${serviceName}`
 
-  const response = await fetch(deployablesVersionsEndpoint)
+  const response = await fetch(deployablesVersionsEndpoint, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
 
-  return await response.json()
+  if (response.ok) {
+    return json
+  }
+
+  throw Error(json.message)
 }
 
 export { fetchAvailableVersions }

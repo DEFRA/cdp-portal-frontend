@@ -8,14 +8,17 @@ async function searchCdpUsers(query) {
     '/users' +
     `${query ? `?query=` + query : ''}`
 
-  const response = await fetch(aadUsersEndpointUrl)
-  const responseJson = await response.json()
+  const response = await fetch(aadUsersEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
 
   if (response.ok) {
-    return responseJson.users
+    return json.users
   }
 
-  throw responseJson
+  throw new Error(json.message)
 }
 
 export { searchCdpUsers }

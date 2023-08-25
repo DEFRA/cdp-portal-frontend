@@ -2,10 +2,8 @@ import qs from 'qs'
 import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/server/common/helpers/logger'
 
 async function fetchDeployments(environment, queryParams) {
-  const logger = createLogger()
   const queryString = qs.stringify(queryParams)
 
   const deploymentsEndpointUrl =
@@ -14,16 +12,17 @@ async function fetchDeployments(environment, queryParams) {
       queryString ? `&${queryString}` : ''
     }`
 
-  try {
-    const response = await fetch(deploymentsEndpointUrl)
-    if (response.status !== 200) {
-      return []
-    }
-    return await response.json()
-  } catch (error) {
-    logger.error(error)
-    return []
+  const response = await fetch(deploymentsEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
+
+  if (response.ok) {
+    return json
   }
+
+  throw Error(json.message)
 }
 
 export { fetchDeployments }

@@ -7,14 +7,17 @@ async function fetchGitHubUsers(query) {
     'userServiceApiUrl'
   )}/github-users${query ? '?query=' + query : ''}`
 
-  const response = await fetch(gitHubUsersEndpointUrl)
-  const responseJson = await response.json()
+  const response = await fetch(gitHubUsersEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
 
   if (response.ok) {
-    return responseJson.users
+    return json.users
   }
 
-  throw responseJson
+  throw new Error(json.message)
 }
 
 export { fetchGitHubUsers }

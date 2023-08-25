@@ -13,13 +13,21 @@ import { appConfig } from '~/src/config'
  * @returns {Promise<serviceInfo>}
  */
 async function fetchExistingServiceInfo(environment, imageName) {
-  const existingServiceInfoEndpoint = `${appConfig.get(
-    'selfServiceOpsApiUrl'
-  )}/deploy-service/info/${environment}/${imageName}`
+  const existingServiceInfoEndpoint =
+    appConfig.get('selfServiceOpsApiUrl') +
+    `/deploy-service/info/${environment}/${imageName}`
 
-  const response = await fetch(existingServiceInfoEndpoint)
+  const response = await fetch(existingServiceInfoEndpoint, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
 
-  return await response.json()
+  if (response.ok) {
+    return json
+  }
+
+  throw Error(json.message)
 }
 
 export { fetchExistingServiceInfo }

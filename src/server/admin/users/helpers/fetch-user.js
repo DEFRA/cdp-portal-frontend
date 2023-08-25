@@ -21,12 +21,21 @@ async function fetchUser(userId) {
     'userServiceApiUrl'
   )}/users/${userId}`
 
-  const response = await fetch(userEndpointUrl)
+  const response = await fetch(userEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
+
+  if (response.ok) {
+    return json
+  }
 
   if (response.status === 404) {
     throw Boom.boomify(Boom.notFound())
   }
-  return await response.json()
+
+  throw Error(json.message)
 }
 
 export { fetchUser }

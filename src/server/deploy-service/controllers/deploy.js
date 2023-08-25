@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/server/common/helpers/logger'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { saveToDeploymentSession } from '~/src/server/deploy-service/helpers/save-to-deployment-session'
@@ -11,7 +10,6 @@ const deployController = {
     pre: [noSessionRedirect, provideDeployment]
   },
   handler: (request, h) => {
-    const logger = createLogger()
     const deployment = request.pre?.deployment
 
     const deployServiceEndpointUrl = `${appConfig.get(
@@ -31,7 +29,7 @@ const deployController = {
         memory: deployment.memory
       }),
       headers: { 'Content-Type': 'application/json' }
-    }).catch(logger.error)
+    }).catch(request.logger.error)
 
     saveToDeploymentSession(request, { isSent: true })
 

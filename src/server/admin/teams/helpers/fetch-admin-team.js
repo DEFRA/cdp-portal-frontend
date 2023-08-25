@@ -13,17 +13,17 @@ async function fetchAdminTeam(teamId) {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
-  const responseJson = await response.json()
+  const json = await response.json()
 
   if (response.ok) {
-    return responseJson
+    return json
   }
 
   if (response.status === 404) {
     throw Boom.boomify(Boom.notFound())
   }
 
-  throw new Error(responseJson.message)
+  throw new Error(json.message)
 }
 
 export { fetchAdminTeam }
