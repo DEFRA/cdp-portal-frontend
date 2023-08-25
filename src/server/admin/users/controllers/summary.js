@@ -20,7 +20,7 @@ const summaryController = {
       heading,
       headingCaption: 'Information about the user you are going to create.',
       userRows: await transformSummaryUserRows(cdpUser),
-      formButtonText: isEdit ? 'Edit' : 'Create',
+      formButtonText: isEdit ? 'Save' : 'Create',
       isEdit,
       breadcrumbs: [
         {
@@ -32,7 +32,7 @@ const summaryController = {
           href: '/admin/teams'
         },
         {
-          text: isEdit ? 'Edit' : 'Create' + ' user'
+          text: `${isEdit ? 'Edit' : 'Create'} user`
         }
       ]
     })

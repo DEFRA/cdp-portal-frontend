@@ -41,7 +41,7 @@ const userDetailsFormController = {
           href: '/admin/teams'
         },
         {
-          text: isEdit ? 'Edit' : 'Create' + ' user'
+          text: `${isEdit ? 'Edit' : 'Create'} user`
         }
       ]
     })

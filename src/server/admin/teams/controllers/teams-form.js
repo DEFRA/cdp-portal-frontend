@@ -14,7 +14,7 @@ const teamsFormController = {
 
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
     const saveOrCreate = isEdit ? 'Save' : 'Create'
-    const heading = `${updateOrCreate} team`
+    const heading = `${updateOrCreate} CDP team`
 
     return h.view('admin/teams/views/team-form', {
       pageTitle: heading,
