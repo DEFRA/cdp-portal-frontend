@@ -1,21 +1,23 @@
 import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/server/common/helpers/logger'
 
 async function fetchLibraries(teamId = null) {
-  const logger = createLogger()
-  const templatesEndpointUrl = `${appConfig.get(
-    'teamsAndRepositoriesApiUrl'
-  )}/libraries${teamId ? `?team=${teamId}` : ''}`
+  const templatesEndpointUrl =
+    appConfig.get('teamsAndRepositoriesApiUrl') +
+    `/libraries${teamId ? `?team=${teamId}` : ''}`
 
-  try {
-    const response = await fetch(templatesEndpointUrl)
-    return await response.json()
-  } catch (error) {
-    logger.error(error)
-    return []
+  const response = await fetch(templatesEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
+
+  if (response.ok) {
+    return json
   }
+
+  throw Error(json.message)
 }
 
 export { fetchLibraries }

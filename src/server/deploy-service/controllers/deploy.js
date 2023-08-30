@@ -1,36 +1,35 @@
 import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
-import { createLogger } from '~/src/server/common/helpers/logger'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
-import { provideDeploymentSession } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment-session'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { saveToDeploymentSession } from '~/src/server/deploy-service/helpers/save-to-deployment-session'
 
 const deployController = {
   options: {
-    pre: [noSessionRedirect, provideDeploymentSession]
+    pre: [noSessionRedirect, provideDeployment]
   },
   handler: (request, h) => {
-    const logger = createLogger()
-    const deploymentSession = request.pre?.deploymentSession
+    const deployment = request.pre?.deployment
 
     const deployServiceEndpointUrl = `${appConfig.get(
       'selfServiceOpsApiUrl'
     )}/deploy-service`
 
     // Explicitly fire and forget
+    // TODO add in page that shows feedback from platform
     fetch(deployServiceEndpointUrl, {
       method: 'post',
       body: JSON.stringify({
-        imageName: deploymentSession.imageName,
-        version: deploymentSession.version,
-        environment: deploymentSession.environment,
-        instanceCount: deploymentSession.instanceCount,
-        cpu: deploymentSession.cpu,
-        memory: deploymentSession.memory
+        imageName: deployment.imageName,
+        version: deployment.version,
+        environment: deployment.environment,
+        instanceCount: deployment.instanceCount,
+        cpu: deployment.cpu,
+        memory: deployment.memory
       }),
       headers: { 'Content-Type': 'application/json' }
-    }).catch(logger.error)
+    }).catch(request.logger.error)
 
     saveToDeploymentSession(request, { isSent: true })
 

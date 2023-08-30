@@ -1,0 +1,47 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appHeading({
+      title: heading,
+      caption: "CDP - Portal user details.",
+      entities: headingEntities,
+      actions: [
+        govukButton({
+          classes: "app-button",
+          text: "Edit user",
+          href: appPathPrefix + "/admin/users/edit/" + user.userId
+        })
+      ]
+    }) }}
+
+    <hr
+      class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+      <div class="govuk-grid-column-one-third">
+        {{ appEntityDataList({
+          items: entityDataList
+        }) }}
+      </div>
+
+      <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Teams</h2>
+
+        {% if userTeams | length %}
+          {{ appList({
+            items: userTeams
+          }) }}
+        {% else %}
+          <p>This users is not currently a member of any team</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+  {% endcall %}
+{% endblock %}

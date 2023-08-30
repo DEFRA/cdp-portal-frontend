@@ -1,21 +1,27 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
-{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
-{% from "breadcrumbs/macro.njk" import appBreadcrumbs %}
+{% from "autocomplete-dropdown/macro.njk" import appAutocompleteDropdown %}
+{% from "autocomplete-search/macro.njk" import appAutocompleteSearch %}
+{% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
 {% from "banner/macro.njk" import appBanner %}
 {% from "button/macro.njk" import appButton %}
-{% from "dropdown/macro.njk" import appDropdown %}
 {% from "entity-actions/macro.njk" import appEntityActions %}
-{% from "entity-list/macro.njk" import appEntityList %}
-{% from "entity-data-list/macro.njk" import appEntityDataList %}
+{% from "entity-list/macro.njk" import appEntityList with context %}
+{% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 {% from "footer/macro.njk" import appFooter %}
 {% from "header/macro.njk" import appHeader %}
 {% from "heading/macro.njk" import appHeading %}
 {% from "info/macro.njk" import appInfo %}
+{% from "list/macro.njk" import appList %}
 {% from "select/macro.njk" import appSelect %}
+{% from "search/macro.njk" import appSearch %}
 {% from "page-body/macro.njk" import appPageBody %}
 {% from "tabs/macro.njk" import appTabs %}
 {% from "step-navigation/macro.njk" import appStepNavigation %}
@@ -43,15 +49,24 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {{ 'Error | ' if isError }}{{ pageTitle }} | {{ serviceName }}
+  {{ "Error | " if isError }}{{ pageTitle }} | {{ serviceName }}
 {% endblock %}
 
 {% block beforeContent %}
-  {% if notifications.length %}
+  {% if notifications | length %}
     {% for notification in notifications %}
       {{ appBanner({
         text: notification.text,
         type: notification.type
+      }) }}
+    {% endfor %}
+  {% endif %}
+
+  {% if globalValidationFailures | length %}
+    {% for globalValidationFailure in globalValidationFailures %}
+      {{ appBanner({
+        text: globalValidationFailure,
+        type: "error"
       }) }}
     {% endfor %}
   {% endif %}

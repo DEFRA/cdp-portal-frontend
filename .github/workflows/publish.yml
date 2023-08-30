@@ -59,6 +59,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.cdp-gh-bot.outputs.token }}
         with:
+          patch-wording: 'patch,fixes'
           default: minor
           skip-tag: true
 

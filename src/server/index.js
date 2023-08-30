@@ -3,12 +3,13 @@ import hapi from '@hapi/hapi'
 import qs from 'qs'
 import { plugin as basicAuth } from '@hapi/basic'
 
+import { router } from './router'
 import { appConfig } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
-import { router } from './router'
-import { requestLogger } from '~/src/server/common/helpers/request-logger'
+import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { catchAll } from '~/src/server/common/helpers/errors'
 import { flashMessage } from '~/src/server/common/helpers/flash-message'
+import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { validateBasicAuth } from '~/src/server/common/helpers/basic-auth'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 
@@ -34,6 +35,7 @@ async function createServer() {
     }
   })
 
+  // TODO this is temp auth just for the demo. Replace with proper auth before launch
   if (appConfig.get('isProduction') === true) {
     await server.register(basicAuth)
 
@@ -54,6 +56,8 @@ async function createServer() {
   })
 
   await server.register(nunjucksConfig)
+
+  server.decorate('request', 'isXhr', isXhr)
 
   server.ext('onPreResponse', catchAll)
 

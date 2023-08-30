@@ -6,7 +6,7 @@ import {
 const services = {
   plugin: {
     name: 'services',
-    register: async (server) => {
+    register: (server) => {
       server.route([
         {
           method: 'GET',

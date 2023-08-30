@@ -1,10 +1,11 @@
 import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
-import { createServiceValidationSchema } from '~/src/server/create-service/helpers/create-service-validation-schema'
+import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const createServiceController = {
   handler: async (request, h) => {
@@ -16,7 +17,7 @@ const createServiceController = {
     const { teams } = await fetchTeams()
     const teamsIds = teams.map((team) => team.id)
 
-    const validationResult = createServiceValidationSchema(
+    const validationResult = createServiceValidation(
       serviceTypesIds,
       teamsIds
     ).validate(payload, {
@@ -26,9 +27,9 @@ const createServiceController = {
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
 
-      const serviceTypesOptions = buildSelectOptions(serviceTypes)
+      const serviceTypesOptions = buildOptions(serviceTypes)
 
-      const teamsOptions = buildSelectOptions(
+      const teamsOptions = buildOptions(
         teams.map((team) => ({
           text: team.name,
           value: team.id
@@ -56,7 +57,7 @@ const createServiceController = {
         headers: { 'Content-Type': 'application/json' }
       })
 
-      request.yar.flash('notifications', {
+      request.yar.flash(sessionNames.notifications, {
         text: 'Service successfully created',
         type: 'success'
       })

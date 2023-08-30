@@ -1,4 +1,4 @@
-{% from "entity/macro.njk" import appEntity %}
+{% from "entity/macro.njk" import appEntity with context %}
 
 <article class="app-entity-list"
          data-testid="app-entity-list"{% if params.id %} data-xhr="{{ params.id }}"{% endif %}>

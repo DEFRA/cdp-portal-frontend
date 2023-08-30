@@ -3,3 +3,11 @@
   border-left: none;
   margin-bottom: govuk-spacing(4);
 }
+
+.app-form-group,
+.govuk-form-group--error {
+  & .govuk-error-message {
+    font-weight: normal;
+    @include govuk-font($size: 19);
+  }
+}

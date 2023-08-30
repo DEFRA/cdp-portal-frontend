@@ -1,0 +1,39 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+
+  {% call appSplitPane() %}
+
+    <section>
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption,
+        actions: [
+          govukButton({
+            classes: "app-button",
+            text: "Create user",
+            href: appPathPrefix + "/admin/users/create"
+          })
+        ]
+      }) }}
+
+      {{ appEntityList({
+        headings: [
+          { text: "Name", size: "large" },
+          { text: "Email", size: "massive" },
+          { text: "GitHub", size: "medium" },
+          { text: "Defra AWS ID", size: "medium" },
+          { text: "Defra VPN ID", size: "medium" }
+        ],
+        entityRows: entityRows,
+        noResult: noResult
+      }) }}
+
+    </section>
+
+  {% endcall %}
+
+{% endblock %}
+

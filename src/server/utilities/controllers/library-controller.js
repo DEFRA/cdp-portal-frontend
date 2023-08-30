@@ -1,11 +1,8 @@
 import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
-import { appConfig } from '~/src/config'
-import { transformRepositoryToEntityDataList } from '~/src/server/utilities/transformers/transform-repository-to-entity-data-list'
 import { fetchLibrary } from '~/src/server/utilities/helpers/fetch-library'
-
-const appPathPrefix = appConfig.get('appPathPrefix')
+import { transformRepositoryToEntityDataList } from '~/src/server/utilities/transformers/transform-repository-to-entity-data-list'
 
 const libraryController = {
   handler: async (request, h) => {
@@ -20,11 +17,11 @@ const libraryController = {
         breadcrumbs: [
           {
             text: 'Utilities',
-            href: `${appConfig.get('appPathPrefix')}/utilities/templates`
+            href: '/utilities/templates'
           },
           {
             text: 'Libraries',
-            href: `${appConfig.get('appPathPrefix')}/utilities/libraries`
+            href: '/utilities/libraries'
           },
           {
             text: library.id
@@ -33,12 +30,12 @@ const libraryController = {
         subNavigation: [
           {
             isActive: false,
-            url: `${appPathPrefix}/utilities/templates`,
+            url: '/utilities/templates',
             label: 'Templates'
           },
           {
             isActive: true,
-            url: `${appPathPrefix}/utilities/libraries`,
+            url: '/utilities/libraries',
             label: 'Libraries'
           }
         ]

@@ -1,20 +1,23 @@
 .app-heading {
   display: flex;
   margin-top: govuk-spacing(2);
-  margin-bottom: govuk-spacing(4);
+  margin-bottom: govuk-spacing(2);
 }
 
-.app-heading-sub-title {
-  color: govuk-colour("dark-grey");
-}
-
-.app-heading-secondary-info {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.app-heading-entities {
+.app-heading__entities {
   display: flex;
   margin-top: govuk-spacing(2);
+}
+
+.app-heading__action {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin: govuk-spacing(3) 0 0 0;
+}
+
+.app-heading__action-item {
+  & + & {
+    margin-left: govuk-spacing(1);
+  }
 }

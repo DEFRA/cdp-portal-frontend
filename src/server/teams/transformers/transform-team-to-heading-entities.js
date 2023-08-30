@@ -1,24 +1,22 @@
+import { appConfig } from '~/src/config'
+
 function transformTeamToHeadingEntities(team) {
-  return {
-    primary: [
-      {
-        kind: 'link',
-        value: `@${team.id}`,
-        url: `https://github.com/orgs/defra-cdp-sandpit/teams/${team.id}`,
-        newWindow: true,
-        size: 'medium',
-        label: 'GitHub'
-      }
-    ],
-    secondary: [
-      {
-        kind: 'date',
-        value: team.createdAt,
-        size: 'large',
-        label: 'Created'
-      }
-    ]
-  }
+  const gitHubOrg = appConfig.get('gitHubOrg')
+
+  return [
+    {
+      kind: 'link',
+      value: `@${team.id}`,
+      url: `https://github.com/orgs/${gitHubOrg}/teams/${team.id}`,
+      newWindow: true,
+      label: 'GitHub'
+    },
+    {
+      kind: 'date',
+      value: team.createdAt,
+      label: 'Created'
+    }
+  ]
 }
 
 export { transformTeamToHeadingEntities }

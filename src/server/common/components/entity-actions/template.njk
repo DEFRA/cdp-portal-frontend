@@ -1,29 +1,38 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 <form action="{{ params.formAction }}" type="GET" data-js="auto-submit">
-  <div class="app-entity-actions">
+  <div class="app-entity-actions-wrapper">
+    {% if params.legend.text %}
+      <legend class="app-entity-actions__legend">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-0">
+          {{ params.legend.text }}
+        </h1>
+      </legend>
+    {% endif %}
 
-    <div class="app-entity-actions__primary">
-      <div class="app-entity__action">
-        {{ params.search }}
+    <div class="app-entity-actions">
+      <div class="app-entity-actions__primary">
+        <div class="app-entity__action">
+          {{ params.search }}
+        </div>
+      </div>
+
+      <div class="app-entity-actions__filters">
+        {% for filter in params.filters %}
+          <div class="app-entity__action">
+            {{ filter }}
+          </div>
+        {% endfor %}
       </div>
     </div>
 
-    <div class="app-entity-actions__filters">
-      {% for filter in params.filters %}
-        <div class="app-entity__action">
-          {{ filter }}
-        </div>
-      {% endfor %}
-    </div>
+    {{ govukButton({
+      classes: "app-button govuk-!-margin-bottom-4 js-hidden",
+      text: "Search",
+      attributes: {
+        "data-js": "app-no-js-submit-button"
+      }
+    }) }}
   </div>
-
-  {{ govukButton({
-    classes: "app-button govuk-!-margin-bottom-4 js-hidden",
-    text: "Search",
-    attributes: {
-      "data-js": "app-entity-actions-submit-button"
-    }
-  }) }}
   </div>
 </form>

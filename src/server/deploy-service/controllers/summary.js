@@ -1,20 +1,20 @@
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
 import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
-import { provideDeploymentSession } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment-session'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 
 const summaryController = {
   options: {
-    pre: [noSessionRedirect, provideDeploymentSession]
+    pre: [noSessionRedirect, provideDeployment]
   },
   handler: async (request, h) => {
-    const deploymentSession = request.pre?.deploymentSession
+    const deployment = request.pre?.deployment
 
     return h.view('deploy-service/views/summary', {
       pageTitle: 'Deploy Service Summary',
       heading: 'Summary',
       headingCaption:
         'Information about the Micro-service you are going to deploy.',
-      deploymentRows: await transformDeploymentRows(deploymentSession),
+      deploymentRows: await transformDeploymentRows(deployment),
       formButtonText: 'Deploy'
     })
   }

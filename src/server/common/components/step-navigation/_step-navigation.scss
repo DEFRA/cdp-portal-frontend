@@ -22,16 +22,20 @@
   margin: 0;
   position: relative;
 
-  &:before {
+  &::before {
     @extend %connecting-line;
     background: govuk-colour("light-grey");
   }
 
-  &:after {
+  &::after {
     @extend %connecting-line;
     width: 0%;
     background: govuk-colour("blue");
   }
+}
+
+.app-step-navigation--slim {
+  margin-top: 0;
 }
 
 .app-step-navigation__item {

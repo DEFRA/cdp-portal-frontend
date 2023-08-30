@@ -1,11 +1,21 @@
+.app-entity-actions-wrapper {
+  padding: govuk-spacing(1) govuk-spacing(6) govuk-spacing(1);
+  margin: govuk-spacing(1) govuk-spacing(-6) govuk-spacing(1);
+}
+
 .app-entity-actions {
-  margin-top: govuk-spacing(6);
+  padding: 0 govuk-spacing(6);
+  margin: 0 govuk-spacing(-6);
   display: block;
 
   @include govuk-media-query($from: tablet) {
     display: flex;
     align-items: flex-end;
   }
+}
+
+.app-entity-actions__legend {
+  margin-bottom: govuk-spacing(1);
 }
 
 .app-entity-actions__primary {

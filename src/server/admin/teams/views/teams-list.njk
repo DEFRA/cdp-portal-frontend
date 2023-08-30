@@ -1,0 +1,34 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+    <section>
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption,
+        actions: [
+          govukButton({
+            classes: "app-button",
+            text: "Create team",
+            href: appPathPrefix + "/admin/teams/create"
+          })
+        ]
+      }) }}
+
+      {{ appEntityList({
+        headings: [
+          { text: "Name", size: "large" },
+          { text: "Description", size: "massive" },
+          { text: "Members", size: "small" }
+        ],
+        entityRows: entityRows,
+        noResult: noResult
+      }) }}
+
+    </section>
+  {% endcall %}
+
+{% endblock %}
+

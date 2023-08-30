@@ -1,14 +1,31 @@
-import { debounce } from 'lodash'
+import getFormData from 'get-form-data'
+import { debounce, pickBy } from 'lodash'
 
 import { xhrRequest } from '~/src/client/common/helpers/xhr'
-import { formItemsToObject } from '~/src/client/common/helpers/form-items-to-object'
 
 function handleFormSubmit(event) {
-  event.preventDefault()
+  const form = event.target.closest('form')
 
-  submitForm(event.target.closest('form')).catch((error) => {
-    throw new Error(error)
-  })
+  if (event?.submitter?.tagName?.toLowerCase() === 'button') {
+    // Non xhr button form submit
+    form.requestSubmit()
+  } else {
+    // xhr form submit
+    event.preventDefault()
+
+    submitForm(form)
+      .catch((error) => {
+        throw new Error(error)
+      })
+      .finally(() => {
+        // Re-focus the initial input
+        const submittingInput = document.getElementById(event?.target?.id)
+
+        if (submittingInput) {
+          submittingInput.focus()
+        }
+      })
+  }
 }
 
 async function submitForm($form) {
@@ -18,10 +35,10 @@ async function submitForm($form) {
 
   $form.dataset.isSubmitting = 'true'
 
-  const formElementsObj = formItemsToObject($form.elements)
+  const query = pickBy(getFormData($form))
 
   try {
-    await xhrRequest($form.action, formElementsObj)
+    await xhrRequest($form.action, query)
     $form.dataset.isSubmitting = 'false'
   } catch (error) {
     $form.dataset.isSubmitting = 'false'
@@ -33,8 +50,7 @@ function autoSubmit($form) {
     return
   }
 
-  $form.addEventListener('input', debounce(handleFormSubmit, 200)) // minimal debounce whilst user is typing
-  $form.addEventListener('change', handleFormSubmit)
+  $form.addEventListener('input', debounce(handleFormSubmit, 300)) // minimal debounce whilst user is typing
   $form.addEventListener('submit', handleFormSubmit)
 }
 

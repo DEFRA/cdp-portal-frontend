@@ -32,7 +32,7 @@ const appConfig = convict({
   serviceName: {
     doc: 'Applications Service Name',
     format: String,
-    default: 'Core Delivery Platform Portal'
+    default: 'Core Delivery Platform - Portal'
   },
   root: {
     doc: 'Project root',
@@ -68,6 +68,17 @@ const appConfig = convict({
     format: String,
     default: 'http://localhost:3009/cdp-self-service-ops',
     env: 'SELF_SERVICE_OPS_API_URL'
+  },
+  userServiceApiUrl: {
+    doc: 'User Service Backend API url',
+    format: String,
+    default: 'http://localhost:3001/cdp-user-service-backend',
+    env: 'USER_SERVICE_API_URL'
+  },
+  gitHubOrg: {
+    doc: 'The GitHub Organisation',
+    format: String,
+    default: 'defra-cdp-sandpit'
   },
   sessionCookiePassword: {
     doc: 'Session cookie password',

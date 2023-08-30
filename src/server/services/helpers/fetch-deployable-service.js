@@ -4,17 +4,24 @@ import Boom from '@hapi/boom'
 import { appConfig } from '~/src/config'
 
 async function fetchDeployableService(serviceId) {
-  const serviceEndpointUrl = `${appConfig.get(
-    'portalBackendApiUrl'
-  )}/services/${serviceId}`
+  const serviceEndpointUrl =
+    appConfig.get('portalBackendApiUrl') + `/services/${serviceId}`
 
-  const response = await fetch(serviceEndpointUrl)
+  const response = await fetch(serviceEndpointUrl, {
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  const json = await response.json()
 
   if (response.status === 204) {
     throw Boom.boomify(Boom.notFound())
   }
 
-  return await response.json()
+  if (response.ok) {
+    return json
+  }
+
+  throw Error(json.message)
 }
 
 export { fetchDeployableService }

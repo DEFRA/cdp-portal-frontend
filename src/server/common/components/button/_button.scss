@@ -3,7 +3,7 @@
   @include govuk-font($size: 24);
   font-weight: bold;
   box-shadow: none;
-  padding: govuk-spacing(1) govuk-spacing(3);
+  padding: govuk-spacing(1) govuk-spacing(2);
   margin: 0;
 }
 
@@ -12,10 +12,25 @@
   margin-left: govuk-spacing(1);
 }
 
+.app-button--small {
+  @include govuk-font($size: 19);
+  padding: 0 govuk-spacing(1);
+}
+
 .app-button--secondary {
   background-color: govuk-colour("bright-purple");
 
   &:hover {
     background-color: govuk-shade(govuk-colour("bright-purple"), 20%);
+  }
+}
+
+.app-button--destructive {
+  background-color: govuk-colour("light-grey");
+  color: govuk-colour("black");
+
+  &:hover {
+    color: govuk-colour("white");
+    background-color: govuk-shade(govuk-colour("red"), 20%);
   }
 }

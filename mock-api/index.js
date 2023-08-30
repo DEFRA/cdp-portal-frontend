@@ -31,7 +31,14 @@ server.use(
       '/mock-api/deployments?service_like=:service&user_like=:user&status_like=:status&environment=management',
 
     '/mock-api/deployments/:environment':
-      '/mock-api/deployments?environment=:environment'
+      '/mock-api/deployments?environment=:environment',
+
+    '/mock-api/users?email=:email': '/mock-api/users?mail_like=:email',
+
+    '/mock-api/github-users?username=:login':
+      '/mock-api/github-users?login_like=:login',
+
+    '/mock-api/teams?name=:name': '/mock-api/teams?name_like=:name'
   })
 )
 

@@ -3,7 +3,7 @@ import { runningServicesListController } from '~/src/server/running-services/con
 const runningServices = {
   plugin: {
     name: 'running services',
-    register: async (server) => {
+    register: (server) => {
       server.route([
         {
           method: 'GET',

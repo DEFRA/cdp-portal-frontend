@@ -1,0 +1,53 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appHeading({
+      title: heading,
+      caption: "CDP - Portal team details.",
+      entities: headingEntities,
+      actions: [
+        govukButton({
+          classes: "app-button app-button--secondary",
+          text: "Add members",
+          href: appPathPrefix + "/admin/teams/" + team.teamId + "/add-user"
+        }),
+        govukButton({
+          classes: "app-button",
+          text: "Edit team",
+          href: appPathPrefix + "/admin/teams/edit/" + team.teamId
+        })
+      ]
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+      <div class="govuk-grid-column-one-third">
+        {{ appEntityDataList({
+          items: entityDataList
+        }) }}
+      </div>
+
+      <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Members</h2>
+
+        {% if teamMembers | length %}
+          <form method="POST">
+            {{ appList({
+              items: teamMembers
+            }) }}
+          </form>
+        {% else %}
+          <p>This team does not currently have any members</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+  {% endcall %}
+{% endblock %}

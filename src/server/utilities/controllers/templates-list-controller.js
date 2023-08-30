@@ -21,13 +21,13 @@ const templatesListController = {
         {
           isActive:
             request?.path === `${appPathPrefix}/utilities/templates` ?? false,
-          url: `${appPathPrefix}/utilities/templates`,
+          url: '/utilities/templates',
           label: 'Templates'
         },
         {
           isActive:
             request?.path === `${appPathPrefix}/utilities/libraries` ?? false,
-          url: `${appPathPrefix}/utilities/libraries`,
+          url: '/utilities/libraries',
           label: 'Libraries'
         }
       ],

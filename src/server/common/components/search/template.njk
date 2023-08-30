@@ -4,18 +4,12 @@
 
 {% from "icons/cross-icon/macro.njk" import appCrossIcon %}
 {% from "icons/search-icon/macro.njk" import appSearchIcon %}
-{% from "loader/macro.njk" import appLoader %}
-
-<script data-testid="app-search-suggestions">
-  window.suggestions = window.suggestions || {}
-  window.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
-</script>
 
 <div class="govuk-form-group app-form-group{%- if params.errorMessage %} govuk-form-group--error{% endif %}"
      data-js="app-form-group" data-testid="app-search-group">
 
   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
-    <label for="{{ params.id }}" data-testid="app-search-label">
+    <label class="app-search__label" for="{{ params.id }}" data-testid="app-search-label">
       {{ params.label.text }}
     </label>
 
@@ -48,7 +42,8 @@
       <input type="text"
              name="{{ params.name }}"
              id="{{ params.id }}"
-             class="govuk-input app-search__input"
+             value="{{ params.value }}"
+             class="govuk-input app-search__input{% if params.errorMessage %} govuk-input--error{% endif %}"
              autocapitalize="none"
              autocomplete="off"
              role="combobox"
@@ -68,16 +63,6 @@
       >
         {{ appCrossIcon() }}
       </button>
-
-      {% if params.loader.name %}
-        {{ appLoader({ name: params.loader.name }) }}
-      {% endif %}
     </div>
-    <ul class="app-search__suggestions"
-        aria-live="off"
-        role="status"
-        id="app-suggestions-{{ params.id }}"
-        data-js="app-search-suggestions"
-        data-testid="app-search-suggestions"></ul>
   </div>
 </div>

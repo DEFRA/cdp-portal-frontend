@@ -50,6 +50,13 @@ describe('#buildNavigation', () => {
           text: 'Running Services',
           url: '/cdp-portal-frontend/running-services'
         }
+      ],
+      admin: [
+        {
+          isActive: false,
+          text: 'Admin',
+          url: '/cdp-portal-frontend/admin'
+        }
       ]
     })
   })
@@ -100,6 +107,13 @@ describe('#buildNavigation', () => {
           isActive: true,
           text: 'Running Services',
           url: '/cdp-portal-frontend/running-services'
+        }
+      ],
+      admin: [
+        {
+          isActive: false,
+          text: 'Admin',
+          url: '/cdp-portal-frontend/admin'
         }
       ]
     })

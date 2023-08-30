@@ -1,9 +1,11 @@
 import path from 'path'
 
 import { appConfig } from '~/src/config'
+import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { createLogger } from '~/src/server/common/helpers/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { blankOption } from '~/src/server/common/helpers/blank-option'
+import { noValue } from '~/src/server/common/constants/no-value'
 
 const logger = createLogger()
 const appPathPrefix = appConfig.get('appPathPrefix')
@@ -22,13 +24,13 @@ try {
 }
 
 function context(request) {
-  const isXhr = request?.headers['x-requested-with'] === 'XMLHttpRequest'
-
   return {
     appPathPrefix,
+    noValue,
     blankOption,
-    isXhr,
+    isXhr: isXhr.call(request),
     version: appConfig.get('version'),
+    gitHubOrg: appConfig.get('gitHubOrg'),
     serviceName: appConfig.get('serviceName'),
     breadcrumbs: [],
     navigation: buildNavigation(request),

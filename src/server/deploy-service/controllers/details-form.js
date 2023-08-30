@@ -3,15 +3,15 @@ import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
 import { environments } from '~/src/config'
-import { buildSelectOptions } from '~/src/common/helpers/build-select-options'
+import { buildOptions } from '~/src/common/helpers/build-options'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
-import { provideDeploymentSession } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment-session'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
 
 const detailsFormController = {
   options: {
-    pre: [provideDeploymentSession],
+    pre: [provideDeployment],
     validate: {
       query: Joi.object({
         redirectLocation: Joi.string().valid('summary')
@@ -21,14 +21,14 @@ const detailsFormController = {
   },
   handler: async (request, h) => {
     const query = request?.query
-    const deploymentSession = request.pre?.deploymentSession
+    const deployment = request.pre?.deployment
 
-    const imageName = deploymentSession?.imageName
+    const imageName = deployment?.imageName
     const availableVersionOptions = imageName
-      ? buildSelectOptions(await fetchAvailableVersions(imageName))
+      ? buildOptions(await fetchAvailableVersions(imageName))
       : optionsWithMessage('Choose an image name')
 
-    const deployableImageNameOptions = buildSelectOptions(
+    const deployableImageNameOptions = buildOptions(
       await fetchDeployableImageNames()
     )
 
@@ -39,7 +39,7 @@ const detailsFormController = {
         'Provide the Micro-service Image name, version and environment to deploy to.',
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation,
-      environmentOptions: buildSelectOptions(
+      environmentOptions: buildOptions(
         Object.entries(environments).map(([key, value]) => ({
           value,
           text: startCase(key)

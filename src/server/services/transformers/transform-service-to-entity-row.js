@@ -3,6 +3,8 @@ import { startCase } from 'lodash'
 import { appConfig } from '~/src/config'
 
 function transformServiceToEntityRow(service) {
+  const gitHubOrg = appConfig.get('gitHubOrg')
+
   return [
     {
       kind: 'link',
@@ -20,14 +22,13 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'link',
-      value: `defra-cdp-sandpit/${service.id}`,
-      url: `https://github.com/defra-cdp-sandpit/${service.id}`,
+      value: `${gitHubOrg}/${service.id}`,
+      url: `https://github.com/${gitHubOrg}/${service.id}`,
       newWindow: true
     },
     {
       kind: 'date',
-      value: service.createdAt,
-      size: 'large'
+      value: service.createdAt
     }
   ]
 }

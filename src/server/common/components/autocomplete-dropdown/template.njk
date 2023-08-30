@@ -1,0 +1,97 @@
+{% from "govuk/components/hint/macro.njk" import govukHint %}
+{% from "govuk/components/label/macro.njk" import govukLabel %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+
+{% from "icons/chevron-icon/macro.njk" import appChevronIcon %}
+{% from "icons/cross-icon/macro.njk" import appCrossIcon %}
+{% from "loader/macro.njk" import appLoader %}
+
+<script data-testid="app-autocomplete-dropdown-suggestions">
+  window.suggestions = window.suggestions || {}
+  window.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
+</script>
+
+<div class="govuk-form-group app-form-group{%- if params.errorMessage %} govuk-form-group--error{% endif %}"
+     data-js="app-form-group" data-testid="app-autocomplete-dropdown-group">
+
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+    <label class="app-autocomplete-dropdown__label" for="{{ params.id }}" data-testid="app-autocomplete-dropdown-label">
+      {{ params.label.text }}
+    </label>
+
+    {% if params.hint.text %}
+      {{ govukHint({
+        text: params.hint.text,
+        classes: "govuk-!-margin-bottom-1",
+        attributes: {
+          "data-testid": "app-autocomplete-dropdown-hint"
+        }
+      }) }}
+    {% endif %}
+  </h2>
+
+  {% if params.errorMessage %}
+    {{ govukErrorMessage({
+      id: params.id + "-error",
+      classes: "govuk-!-margin-bottom-1 app-error-message",
+      attributes: {
+        "data-js": "app-error"
+      },
+      text: params.errorMessage.text
+    }) }}
+  {% endif %}
+
+  <div class="app-autocomplete-dropdown{% if params.classes %} {{ params.classes }}{% endif %}"
+       data-js="app-autocomplete-dropdown"
+    {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
+  >
+    <div class="app-autocomplete-dropdown__control">
+      <select name="{{ params.name }}"
+              id="{{ params.id }}"
+              class="govuk-select app-select{% if params.errorMessage %} govuk-select--error{% endif %}"
+              data-js="app-autocomplete-dropdown-select"
+              data-testid="app-autocomplete-dropdown-select">
+        {% for suggestion in params.suggestions %}
+          <option value="{{ suggestion.value }}"
+                  {% if params.value == suggestion.value %}selected="selected"{% endif %}>
+            {{ suggestion.text }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <button class="app-autocomplete-dropdown__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-suggestions-{{ params.id }}"
+              aria-expanded="false"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        {{ appChevronIcon() }}
+      </button>
+
+      <button class="app-autocomplete-dropdown__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-dropdown-clear-button"
+              data-testid="app-autocomplete-dropdown-clear-button"
+      >
+        {{ appCrossIcon() }}
+      </button>
+
+      {% if params.loader.name %}
+        {{ appLoader({ name: params.loader.name }) }}
+      {% endif %}
+    </div>
+
+    <ul class="app-autocomplete-dropdown__suggestions"
+        aria-live="off"
+        role="status"
+        data-js="app-autocomplete-dropdown-suggestions"
+        data-testid="app-autocomplete-dropdown-suggestions"></ul>
+  </div>
+</div>
+
+
+

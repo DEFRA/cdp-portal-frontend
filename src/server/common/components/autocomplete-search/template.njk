@@ -1,0 +1,83 @@
+{% from "govuk/components/hint/macro.njk" import govukHint %}
+{% from "govuk/components/label/macro.njk" import govukLabel %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+
+{% from "icons/cross-icon/macro.njk" import appCrossIcon %}
+{% from "icons/search-icon/macro.njk" import appSearchIcon %}
+{% from "loader/macro.njk" import appLoader %}
+
+<script data-testid="app-autocomplete-search-suggestions">
+  window.suggestions = window.suggestions || {}
+  window.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
+</script>
+
+<div class="govuk-form-group app-form-group{%- if params.errorMessage %} govuk-form-group--error{% endif %}"
+     data-js="app-form-group" data-testid="app-autocomplete-search-group">
+
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+    <label class="app-autocomplete-search__label" for="{{ params.id }}" data-testid="app-autocomplete-search-label">
+      {{ params.label.text }}
+    </label>
+
+    {% if params.hint.text %}
+      {{ govukHint({
+        text: params.hint.text,
+        classes: "govuk-!-margin-bottom-1",
+        attributes: {
+          "data-testid": "app-autocomplete-search-hint"
+        }
+      }) }}
+    {% endif %}
+  </h2>
+
+  {% if params.errorMessage %}
+    {{ govukErrorMessage({
+      id: params.id + "-error",
+      classes: "govuk-!-margin-bottom-1 app-error-message",
+      attributes: {
+        "data-js": "app-error"
+      },
+      text: params.errorMessage.text
+    }) }}
+  {% endif %}
+
+
+  <div class="app-autocomplete-search" data-js="app-autocomplete-search" data-testid="app-autocomplete-search">
+    <div class="app-autocomplete-search__control">
+      {{ appSearchIcon() }}
+      <input type="text"
+             name="{{ params.name }}"
+             id="{{ params.id }}"
+             class="govuk-input app-autocomplete-search__input"
+             autocapitalize="none"
+             autocomplete="off"
+             role="combobox"
+             aria-owns="app-suggestions-{{ params.id }}"
+             aria-autocomplete="list"
+             aria-expanded="false"
+             data-js="app-autocomplete-search-input"
+             data-testid="app-autocomplete-search-input"
+             data-1p-ignore {# Disable 1 password widget #}
+      />
+      <button class="app-autocomplete-search__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-search-clear-button"
+              data-testid="app-autocomplete-search-clear-button"
+      >
+        {{ appCrossIcon() }}
+      </button>
+
+      {% if params.loader.name %}
+        {{ appLoader({ name: params.loader.name }) }}
+      {% endif %}
+    </div>
+    <ul class="app-autocomplete-search__suggestions"
+        aria-live="off"
+        role="status"
+        id="app-suggestions-{{ params.id }}"
+        data-js="app-autocomplete-search-suggestions"
+        data-testid="app-autocomplete-search-suggestions"></ul>
+  </div>
+</div>

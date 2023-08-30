@@ -194,21 +194,15 @@ All you have to do is commit your code and raise a Pull Request and the pipeline
 
 ### Major or Patch versioning
 
-If you wish to `patch` or `major` version your codebase use:
+If you wish to `major` or `patch` version your codebase add the following word to your commit message:
 
-```bash
-$ npm version <patch|major>
-```
+**Major**
 
-Then:
+"major"
 
-- Push this code with the auto generated commit to your GitHub Repository
-- Raise a Pull Request
-- Merge your code into the `main` branch
-- The [Publish GitHub Actions workflow](./.github/workflows/publish.yml) will tag and push your `major` or `patch`
-  version tags to your GitHub Repository
-- The [Publish GitHub Actions workflow](./.github/workflows/publish.yml) will release your `major` or `patch`
-  versioned code
+**Patch**
+
+"patch" or "fixes"
 
 ## Docker
 

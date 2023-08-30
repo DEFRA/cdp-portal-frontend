@@ -1,9 +1,13 @@
+import { sessionNames } from '~/src/server/common/constants/session-names'
+
 function provideFormContextValues(request, h) {
   const response = request.response
 
   if (response.variety === 'view') {
-    const deployment = request.yar.get('deployment')
-    const validationFailure = request.yar.flash('validationFailure')?.at(0)
+    const deployment = request.yar.get(sessionNames.deployment)
+    const validationFailure = request.yar
+      .flash(sessionNames.validationFailure)
+      ?.at(0)
 
     if (!response.source?.context) {
       response.source.context = {}

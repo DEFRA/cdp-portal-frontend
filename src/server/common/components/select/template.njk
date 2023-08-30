@@ -4,10 +4,11 @@
 
 {% from "loader/macro.njk" import appLoader %}
 
-{# GovUK select with JavaScript loader, if you don't need a loader use the standard GovUK select #}
+{# GovUK select with JavaScript loader, if you don"t need a loader use the standard GovUK select #}
 
 {% set describedBy = params.describedBy if params.describedBy else "" %}
-<div class="govuk-form-group {%- if params.errorMessage %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}">
+<div
+  class="govuk-form-group {%- if params.errorMessage %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}">
   {{ govukLabel({
     html: params.label.html,
     text: params.label.text,
@@ -17,8 +18,8 @@
     for: params.id
   }) | indent(2) | trim }}
   {% if params.hint %}
-    {% set hintId = params.id + '-hint' %}
-    {% set describedBy = describedBy + ' ' + hintId if describedBy else hintId %}
+    {% set hintId = params.id + "-hint" %}
+    {% set describedBy = describedBy + " " + hintId if describedBy else hintId %}
     {{ govukHint({
       id: hintId,
       classes: params.hint.classes,
@@ -28,8 +29,8 @@
     }) | indent(2) | trim }}
   {% endif %}
   {% if params.errorMessage %}
-    {% set errorId = params.id + '-error' %}
-    {% set describedBy = describedBy + ' ' + errorId if describedBy else errorId %}
+    {% set errorId = params.id + "-error" %}
+    {% set describedBy = describedBy + " " + errorId if describedBy else errorId %}
     {{ govukErrorMessage({
       id: errorId,
       classes: params.errorMessage.classes,

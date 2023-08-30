@@ -1,0 +1,5 @@
+.app-radio {
+  &.govuk-input--error {
+    border-color: govuk-colour("red");
+  }
+}
