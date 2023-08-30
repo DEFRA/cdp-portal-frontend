@@ -43,7 +43,7 @@ describe('#buildNavigation', () => {
         {
           isActive: false,
           text: 'Deployments',
-          url: '/cdp-portal-frontend/deployments/snd'
+          url: '/cdp-portal-frontend/deployments'
         },
         {
           isActive: false,
@@ -101,7 +101,7 @@ describe('#buildNavigation', () => {
         {
           isActive: false,
           text: 'Deployments',
-          url: '/cdp-portal-frontend/deployments/snd'
+          url: '/cdp-portal-frontend/deployments'
         },
         {
           isActive: true,

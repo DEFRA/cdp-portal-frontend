@@ -39,7 +39,7 @@ const joiValidationErrorDetailsFixture = [
     path: ['environment'],
     type: 'any.only',
     context: {
-      valids: ['sandbox', 'development', 'test', 'perftest', 'production'],
+      valids: ['development', 'test', 'perftest', 'production'],
       label: 'environment',
       value: '',
       key: 'environment'

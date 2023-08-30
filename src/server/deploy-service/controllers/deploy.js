@@ -4,21 +4,20 @@ import { appConfig } from '~/src/config'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { saveToDeploymentSession } from '~/src/server/deploy-service/helpers/save-to-deployment-session'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const deployController = {
   options: {
     pre: [noSessionRedirect, provideDeployment]
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const deployment = request.pre?.deployment
+    const appPathPrefix = appConfig.get('appPathPrefix')
 
-    const deployServiceEndpointUrl = `${appConfig.get(
-      'selfServiceOpsApiUrl'
-    )}/deploy-service`
+    const deployServiceEndpointUrl =
+      appConfig.get('selfServiceOpsApiUrl') + '/deploy-service'
 
-    // Explicitly fire and forget
-    // TODO add in page that shows feedback from platform
-    fetch(deployServiceEndpointUrl, {
+    const response = await fetch(deployServiceEndpointUrl, {
       method: 'post',
       body: JSON.stringify({
         imageName: deployment.imageName,
@@ -29,13 +28,19 @@ const deployController = {
         memory: deployment.memory
       }),
       headers: { 'Content-Type': 'application/json' }
-    }).catch(request.logger.error)
+    })
 
-    saveToDeploymentSession(request, { isSent: true })
+    const json = await response.json()
 
-    return h.redirect(
-      appConfig.get('appPathPrefix') + '/deploy-service/deployment'
-    )
+    if (response.ok) {
+      saveToDeploymentSession(request, { isSent: true })
+
+      return h.redirect(appPathPrefix + '/deploy-service/deployment')
+    }
+
+    request.yar.flash(sessionNames.globalValidationFailures, json.message)
+
+    return h.redirect(appPathPrefix + '/deploy-service/summary')
   }
 }
 

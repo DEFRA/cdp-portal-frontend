@@ -37,18 +37,6 @@ const serviceDetailFixture = {
     },
     {
       deploymentId: 'D86E2991-5367-45D6-9D9C-51553C83973E',
-      environment: 'Sandbox',
-      service: 'cdp-portal-deployables-backend',
-      version: '0.2.0',
-      user: 'TestUser',
-      deployedAt: '2023-06-19T11:13:55Z',
-      status: 'RUNNING',
-      dockerImage:
-        '555555555.dkr.ecr.us-west-2.amazonaws.com/cdp-deployables:0.2.0',
-      taskId: '1839B1C3-A697-4542-8894-EB6B83F4FEA3'
-    },
-    {
-      deploymentId: 'D86E2991-5367-45D6-9D9C-51553C83973E',
       environment: 'Testing',
       service: 'cdp-portal-deployables-backend',
       version: '0.2.0',

@@ -11,10 +11,6 @@ describe('#transformServicesToEntityRows', () => {
         },
         {
           kind: 'text',
-          value: '0.2.0'
-        },
-        {
-          kind: 'text',
           value: '0.1.0'
         },
         {
@@ -42,10 +38,6 @@ describe('#transformServicesToEntityRows', () => {
         {
           kind: 'text',
           value: 'cdp-teams-and-repositories'
-        },
-        {
-          kind: 'text',
-          value: '0.6.0'
         },
         {
           kind: 'text',

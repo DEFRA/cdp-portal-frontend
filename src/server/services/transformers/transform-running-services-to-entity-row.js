@@ -7,7 +7,6 @@ function buildVersion(version) {
 
 function transformRunningServicesToEntityRow(runningServices) {
   return Object.values(runningServices).map((service) => [
-    buildVersion(service?.snd),
     buildVersion(service?.management),
     buildVersion(service?.infraDev),
     buildVersion(service?.development),

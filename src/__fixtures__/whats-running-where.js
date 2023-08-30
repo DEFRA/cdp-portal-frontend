@@ -22,17 +22,6 @@ const whatsRunningWhereFixture = [
       '444444444.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0'
   },
   {
-    deploymentId: '73C6961F-CD7B-428E-BEBF-9D6B15417329',
-    environment: 'Sandbox',
-    service: 'cdp-portal-frontend',
-    version: '0.2.0',
-    user: 'He-man',
-    deployedAt: '2023-05-18T21:53:57Z',
-    status: 'RUNNING',
-    dockerImage:
-      '555555555.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0'
-  },
-  {
     deploymentId: '83ADB1F0-D7B5-412D-82DB-3BDA149EDC01',
     environment: 'Production',
     service: 'cdp-portal-frontend',
@@ -64,17 +53,6 @@ const whatsRunningWhereFixture = [
     status: 'RUNNING',
     dockerImage:
       '333333333.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0'
-  },
-  {
-    deploymentId: 'CA2D6183-C9DC-4365-A095-FD7ED50706E8',
-    environment: 'Sandbox',
-    service: 'cdp-teams-and-repositories',
-    version: '0.2.0',
-    user: 'Dave',
-    deployedAt: '2023-05-18T21:54:12Z',
-    status: 'RUNNING',
-    dockerImage:
-      '555555555.dkr.ecr.us-west-2.amazonaws.com/cdp-teams-and-repositories:0.2.0'
   },
   {
     deploymentId: 'D921920A-0411-4727-9354-4D1B3B3925FD',

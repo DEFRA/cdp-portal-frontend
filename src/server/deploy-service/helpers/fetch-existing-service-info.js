@@ -27,6 +27,10 @@ async function fetchExistingServiceInfo(environment, imageName) {
     return json
   }
 
+  if (response.status === 404) {
+    return null
+  }
+
   throw Error(json.message)
 }
 
