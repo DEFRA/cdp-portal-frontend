@@ -1,12 +1,6 @@
 import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
 
 function transformDeploymentToEntityDataList(deployedService) {
-  // TODO remove once snd is removed or name is aligned
-  const environment =
-    deployedService.environment === 'snd'
-      ? 'sandbox'
-      : deployedService.environment
-
   return [
     {
       heading: 'Status',
@@ -20,7 +14,7 @@ function transformDeploymentToEntityDataList(deployedService) {
       heading: 'Environment',
       entity: {
         kind: 'tag',
-        value: environment,
+        value: deployedService.environment,
         classes: 'govuk-tag--blue'
       }
     },
@@ -51,7 +45,7 @@ function transformDeploymentToEntityDataList(deployedService) {
       heading: 'Updated',
       entity: {
         kind: 'date',
-        value: deployedService.updatedAt,
+        value: deployedService.deployedAt,
         size: 'large'
       }
     }

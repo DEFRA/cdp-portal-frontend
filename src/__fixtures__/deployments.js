@@ -5,8 +5,7 @@ const deploymentsFixture = [
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     user: 'RoboCop',
-    createdAt: '2023-05-18T21:54:12Z',
-    updatedAt: '2023-05-18T22:54:12Z',
+    deployedAt: '2023-05-18T22:54:12Z',
     status: 'RUNNING',
     dockerImage: 'amazonaws.com/cdp-teams-and-repositories:0.2.0'
   },
@@ -16,8 +15,7 @@ const deploymentsFixture = [
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     user: 'Roger Rabbit',
-    createdAt: '2023-05-18T21:54:12Z',
-    updatedAt: '2023-05-18T19:54:12Z',
+    deployedAt: '2023-05-18T19:54:12Z',
     status: 'RUNNING',
     dockerImage: 'amazonaws.com/cdp-teams-and-repositories:0.2.0'
   },
@@ -27,19 +25,17 @@ const deploymentsFixture = [
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     user: 'Tetsuo Shima',
-    createdAt: '2023-05-18T21:54:12Z',
-    updatedAt: '2023-05-18T08:54:12Z',
+    deployedAt: '2023-05-18T08:54:12Z',
     status: 'RUNNING',
     dockerImage: 'amazonaws.com/cdp-teams-and-repositories:0.2.0'
   },
   {
     deploymentId: '97DBF683-919B-4E12-B1C7-EF2EBA7516EB',
-    environment: 'snd',
+    environment: 'Development',
     service: 'cdp-portal-frontend',
     version: '0.2.0',
     user: 'Roger Rabbit',
-    createdAt: '2023-08-01T08:06:28Z',
-    updatedAt: '2023-08-01T08:06:28Z',
+    deployedAt: '2023-08-01T08:06:28Z',
     status: 'RUNNING',
     dockerImage:
       '111111111.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0',
@@ -47,12 +43,11 @@ const deploymentsFixture = [
   },
   {
     deploymentId: '422696B3-B87D-4EB9-9F3C-0B5FBAC95ADC',
-    environment: 'snd',
+    environment: 'Management',
     service: 'cdp-self-service-ops',
     version: '0.2.0',
     user: 'RoboCop',
-    createdAt: '2023-07-14T08:12:22Z',
-    updatedAt: '2023-07-14T08:12:22Z',
+    deployedAt: '2023-07-14T08:12:22Z',
     status: 'RUNNING',
     dockerImage:
       '111111111.dkr.ecr.us-west-2.amazonaws.com/cdp-self-service-ops:0.1.0',

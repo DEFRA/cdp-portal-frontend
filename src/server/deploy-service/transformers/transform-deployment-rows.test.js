@@ -73,7 +73,7 @@ describe('#transformDeploymentRows', () => {
           text: 'Environment'
         },
         value: {
-          html: 'Sandbox'
+          html: 'Management'
         }
       },
       {

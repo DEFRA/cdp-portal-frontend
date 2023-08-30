@@ -1,5 +1,4 @@
 const environments = {
-  sandbox: 'snd',
   management: 'management',
   infraDev: 'infra-dev',
   development: 'development',

@@ -5,11 +5,6 @@ const appPathPrefix = appConfig.get('appPathPrefix')
 function deploymentTabs({ path }) {
   return [
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/snd`),
-      url: `${appPathPrefix}/deployments/snd`,
-      label: 'Sandbox'
-    },
-    {
       isActive: path.includes(`${appPathPrefix}/deployments/management`),
       url: `${appPathPrefix}/deployments/management`,
       label: 'Management'

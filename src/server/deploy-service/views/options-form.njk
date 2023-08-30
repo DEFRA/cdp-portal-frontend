@@ -20,7 +20,7 @@
 
         <form action="{{ appPathPrefix }}/deploy-service/options"
               method="post"
-              data-js="app-form{% if preExistingDetails %} app-protected-inputs{% endif %}">
+              data-js="app-form-errors{% if preExistingDetails %} app-protected-inputs{% endif %}">
 
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 

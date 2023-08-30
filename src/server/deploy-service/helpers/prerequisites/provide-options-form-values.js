@@ -18,18 +18,19 @@ const provideOptionsFormValues = {
     }
 
     if (deployment) {
-      const { existingServiceInfo } = await fetchExistingServiceInfo(
+      const serviceInfoResponse = await fetchExistingServiceInfo(
         deployment?.environment,
         deployment?.imageName
       )
 
       // Populate with already deployed service
-      if (existingServiceInfo) {
-        const cpu = existingServiceInfo?.task_cpu
+      if (serviceInfoResponse) {
+        const { serviceInfo } = serviceInfoResponse
+        const cpu = serviceInfo?.task_cpu
         formDetail.formValues = {
           // Cast to string due to 0 comparison in govuk select component. 0 is a valid value
-          instanceCount: existingServiceInfo?.desired_count?.toString(),
-          memory: existingServiceInfo?.task_memory,
+          instanceCount: serviceInfo?.desired_count?.toString(),
+          memory: serviceInfo?.task_memory,
           cpu
         }
         formDetail.availableMemoryOptions = ecsCpuToMemoryOptionsMap[cpu]

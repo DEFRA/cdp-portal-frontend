@@ -9,11 +9,6 @@ describe('#deploymentTabs', () => {
     expect(deploymentTabs(mockRequest())).toEqual([
       {
         isActive: false,
-        label: 'Sandbox',
-        url: '/cdp-portal-frontend/deployments/snd'
-      },
-      {
-        isActive: false,
         label: 'Management',
         url: '/cdp-portal-frontend/deployments/management'
       },
@@ -49,11 +44,6 @@ describe('#deploymentTabs', () => {
     expect(
       deploymentTabs(mockRequest(`${appPathPrefix}/deployments/infra-dev`))
     ).toEqual([
-      {
-        isActive: false,
-        label: 'Sandbox',
-        url: '/cdp-portal-frontend/deployments/snd'
-      },
       {
         isActive: false,
         label: 'Management',

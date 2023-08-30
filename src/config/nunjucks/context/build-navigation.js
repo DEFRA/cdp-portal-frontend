@@ -27,7 +27,7 @@ function buildNavigation(request) {
       },
       {
         text: 'Deployments',
-        url: `${appPathPrefix}/deployments/snd`,
+        url: `${appPathPrefix}/deployments`,
         isActive: request?.path?.includes(`${appPathPrefix}/deployments`)
       },
       {
