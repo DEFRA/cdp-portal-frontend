@@ -4,9 +4,8 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 
 async function fetchCdpTeam(teamId) {
-  const teamEndpointUrl = `${appConfig.get(
-    'userServiceApiUrl'
-  )}/teams/${teamId}`
+  const teamEndpointUrl =
+    appConfig.get('userServiceApiUrl') + `/teams/${teamId}`
 
   const response = await fetch(teamEndpointUrl, {
     method: 'get',

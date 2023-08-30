@@ -1,7 +1,6 @@
 import fetchMock from 'jest-fetch-mock'
 
-fetchMock.enableMocks()
-
+// Client side fetch mocking, use nock for node-fetch work
 global.fetch = fetchMock
 
 global.afterEach(() => {

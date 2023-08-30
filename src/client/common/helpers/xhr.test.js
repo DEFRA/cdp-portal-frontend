@@ -1,3 +1,5 @@
+import fetchMock from 'jest-fetch-mock'
+
 import { xhrRequest } from '~/src/client/common/helpers/xhr'
 import {
   subscribe,
@@ -21,6 +23,8 @@ describe('#xhr', () => {
   const mockEventListener = jest.fn()
 
   beforeEach(async () => {
+    fetchMock.enableMocks()
+
     // Append xhr container to the document
     document.body.innerHTML = '<div data-xhr="xhr-container"></div>'
 
@@ -33,6 +37,7 @@ describe('#xhr', () => {
 
   afterEach(() => {
     unsubscribe(eventName.xhrUpdate, mockEventListener)
+    fetchMock.disableMocks()
   })
 
   describe('When making an xhr request', () => {

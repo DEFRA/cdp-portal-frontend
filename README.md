@@ -13,6 +13,7 @@ Portal Frontend for CDP
     - [Debugging](#debugging)
     - [Testing](#testing)
       - [Run a specific test](#run-a-specific-test)
+      - [Debugging nock](#debugging-nock)
     - [Code Quality](#code-quality)
     - [Code formatting](#code-formatting)
   - [Basic Auth](#basic-auth)
@@ -103,6 +104,17 @@ E.g:
 ```bash
 $ npm test -i src/server/health/controller.test.js
 ```
+
+#### Debugging nock
+
+To see if your `nock` mocks are matching your tests calls set the following environment variable in your test
+environment:
+
+```bash
+$ export DEBUG=nock.*
+```
+
+> For more information see [https://github.com/nock/nock#debugging](https://github.com/nock/nock#debugging)
 
 #### Code Quality
 
