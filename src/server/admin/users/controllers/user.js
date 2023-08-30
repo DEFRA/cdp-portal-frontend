@@ -5,6 +5,7 @@ import { startCase } from 'lodash'
 import { fetchUser } from '~/src/server/admin/users/helpers/fetch-user'
 import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
 import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities'
+import { transformUserTeams } from '~/src/server/admin/users/transformers/transform-user-teams'
 
 const userController = {
   options: {
@@ -23,6 +24,7 @@ const userController = {
       heading: startCase(user.name),
       headingEntities: transformUserToHeadingEntities(user),
       entityDataList: transformUserToEntityDataList(user),
+      userTeams: transformUserTeams(user),
       user,
       breadcrumbs: [
         {

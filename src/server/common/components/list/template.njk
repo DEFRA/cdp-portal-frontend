@@ -1,0 +1,19 @@
+<ul class="govuk-list govuk-list--bullet app-list">
+  {% for item in params.items %}
+    {% set content = item.content.html | safe if item.content.html else item.content.text %}
+    {% set action = item.action.html | safe if item.action.html else item.action.text %}
+    <li>
+      <div class="app-list-item">
+        <span class="app-list-item__content">
+          {{ content }}
+        </span>
+
+        {% if action %}
+          <span class="app-list-item__action">
+            {{ action }}
+          </span>
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ul>

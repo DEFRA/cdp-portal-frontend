@@ -17,6 +17,7 @@ const findGitHubUserFormController = {
     validate: {
       query: Joi.object({
         githubSearch: Joi.string().allow(''),
+        github: Joi.string().allow(''),
         redirectLocation: Joi.string().valid('summary').allow('')
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
@@ -29,6 +30,7 @@ const findGitHubUserFormController = {
 
     const query = request?.query
     const githubSearch = query?.githubSearch
+    const github = query?.github
     const redirectLocation = query?.redirectLocation
 
     const gitHubUsers = githubSearch ? await fetchGitHubUsers(githubSearch) : []
@@ -43,7 +45,7 @@ const findGitHubUserFormController = {
       headingCaption: 'Search for the Defra GitHub user',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
-      formValues: { githubSearch },
+      formValues: { githubSearch, github },
       gitHubUsers: buildOptions(
         gitHubUsers.map((gitHubUser) => ({
           text: `@${gitHubUser.github} ${

@@ -5,6 +5,7 @@ import { startCase } from 'lodash'
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
 import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
 import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities'
+import { transformTeamUsers } from '~/src/server/admin/teams/transformers/transform-team-users'
 
 const teamController = {
   options: {
@@ -23,6 +24,7 @@ const teamController = {
       heading: startCase(team.name),
       entityDataList: transformTeamToEntityDataList(team),
       headingEntities: transformTeamToHeadingEntities(team),
+      teamMembers: transformTeamUsers(team),
       team,
       breadcrumbs: [
         {

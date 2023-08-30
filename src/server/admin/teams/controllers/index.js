@@ -5,6 +5,7 @@ import { editTeamController } from '~/src/server/admin/teams/controllers/edit-te
 import { teamsFormController } from '~/src/server/admin/teams/controllers/teams-form'
 import { addUserFormController } from '~/src/server/admin/teams/controllers/add-user-form'
 import { addUserController } from '~/src/server/admin/teams/controllers/add-user'
+import { removeUserController } from '~/src/server/admin/teams/controllers/remove-user'
 
 export {
   teamController,
@@ -13,5 +14,6 @@ export {
   editTeamController,
   teamsFormController,
   addUserFormController,
-  addUserController
+  addUserController,
+  removeUserController
 }

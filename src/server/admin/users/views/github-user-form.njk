@@ -20,6 +20,8 @@
             <form action="{{ appPathPrefix }}/admin/users/find-github-user" method="POST"
                   data-js="auto-submit app-form-errors">
 
+              <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
               {% call govukFieldset() %}
 
                 {{ appSearch({
@@ -49,22 +51,14 @@
                 }
               }) }}
 
-            </form>
-
-            <form action="{{ appPathPrefix }}/admin/users/find-github-user" method="POST" data-js="app-form-errors">
-
-              <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
-
               {% block xhrContent %}
 
                 <article class="app-scrollable-window" data-xhr="github-users">
-                  <input type="hidden" name="githubSearch" value="{{ formValues.githubSearch }}"/>
-
                   {% if gitHubUsers | length %}
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Search results</h2>
                   {% endif %}
 
-                  {% if  gitHubUsers | length or formErrors.github.message %}
+                  {% if gitHubUsers | length or formErrors.github.message %}
                     {{ govukRadios({
                       name: "github",
                       classes: "govuk-radios--small app-radio",

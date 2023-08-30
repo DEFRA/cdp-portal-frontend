@@ -4,18 +4,27 @@ import { debounce, pickBy } from 'lodash'
 import { xhrRequest } from '~/src/client/common/helpers/xhr'
 
 function handleFormSubmit(event) {
-  event.preventDefault()
-
   const form = event.target.closest('form')
 
   if (event?.submitter?.tagName?.toLowerCase() === 'button') {
-    // Non xhr form submit
-    form.submit()
+    // Non xhr button form submit
+    form.requestSubmit()
   } else {
     // xhr form submit
-    submitForm(form).catch((error) => {
-      throw new Error(error)
-    })
+    event.preventDefault()
+
+    submitForm(form)
+      .catch((error) => {
+        throw new Error(error)
+      })
+      .finally(() => {
+        // Re-focus the initial input
+        const submittingInput = document.getElementById(event?.target?.id)
+
+        if (submittingInput) {
+          submittingInput.focus()
+        }
+      })
   }
 }
 

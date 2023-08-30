@@ -32,17 +32,10 @@
       <div class="govuk-grid-column-one-third">
         <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Teams</h2>
 
-        {% if user.teams | length %}
-          <ul class="govuk-list govuk-list--bullet">
-            {% for team in user.teams | sort(false, true, 'name') %}
-              {% set teamUrl = appPathPrefix + "/admin/teams/" + team.teamId %}
-              <li>
-                <a class="app-link"
-                   href="{{ teamUrl }}"
-                >{{ team.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
+        {% if userTeams | length %}
+          {{ appList({
+            items: userTeams
+          }) }}
         {% else %}
           <p>This users is not currently a member of any team</p>
         {% endif %}

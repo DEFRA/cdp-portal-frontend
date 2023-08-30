@@ -36,17 +36,12 @@
       <div class="govuk-grid-column-one-third">
         <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Members</h2>
 
-        {% if team.users | length %}
-          <ul class="govuk-list govuk-list--bullet">
-            {% for user in team.users | sort(false, true, 'name') %}
-              {% set userUrl = appPathPrefix + "/admin/users/" + user.userId %}
-              <li>
-                <a class="app-link"
-                   href="{{ userUrl }}"
-                >{{ user.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
+        {% if teamMembers | length %}
+          <form method="POST">
+            {{ appList({
+              items: teamMembers
+            }) }}
+          </form>
         {% else %}
           <p>This team does not currently have any members</p>
         {% endif %}

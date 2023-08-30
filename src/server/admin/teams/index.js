@@ -5,7 +5,8 @@ import {
   teamController,
   teamsFormController,
   addUserFormController,
-  addUserController
+  addUserController,
+  removeUserController
 } from '~/src/server/admin/teams/controllers'
 import { provideFormContextValues } from '~/src/server/admin/teams/helpers/provide-form-context-values'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
@@ -67,6 +68,11 @@ const adminTeams = {
           method: 'POST',
           path: '/admin/teams/{teamId}/add-user',
           ...addUserController
+        },
+        {
+          method: 'POST',
+          path: '/admin/teams/{teamId}/remove-user/{userId}',
+          ...removeUserController
         },
         {
           method: 'GET',

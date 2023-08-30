@@ -1,3 +1,5 @@
+import { pickBy } from 'lodash'
+
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 function provideFormContextValues(request, h) {
@@ -25,7 +27,7 @@ function provideFormContextValues(request, h) {
     response.source.context.formValues = {
       ...(response.source.context?.formValues &&
         response.source.context.formValues),
-      ...(cdpUser && cdpUser),
+      ...(cdpUser && pickBy(cdpUser)),
       ...(validationFailure?.formValues && validationFailure.formValues)
     }
 

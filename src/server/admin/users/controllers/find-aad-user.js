@@ -56,10 +56,8 @@ const findAadUserController = {
     }
 
     if (!validationResult.error) {
-      // TODO is there a better way to do this - feels flaky
       const aadUserDetails = await searchAadUsers(sanitisedPayload.email)
       const aadUser = aadUserDetails?.at(0)
-
       const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.email
 
       const updatedCdpUser = saveToCdpUser(request, {
@@ -70,7 +68,6 @@ const findAadUserController = {
         aadName: isSameAsSession ? cdpUser?.aadName : aadUser?.name
       })
 
-      // TODO tidy up
       const redirectTo = redirectLocation
         ? `/admin/users/${redirectLocation}`
         : `/admin/users/find-github-user${

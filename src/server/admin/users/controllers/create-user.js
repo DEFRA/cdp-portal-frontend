@@ -16,7 +16,7 @@ const createUserController = {
     const createUserEndpointUrl = `${appConfig.get('userServiceApiUrl')}/users`
 
     const response = await fetch(createUserEndpointUrl, {
-      method: 'post',
+      method: 'POST',
       body: JSON.stringify(
         removeNil({
           userId: cdpUser.userId,

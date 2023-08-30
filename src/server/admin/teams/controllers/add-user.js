@@ -12,6 +12,7 @@ const addUserController = {
     const teamId = params.teamId
 
     const payload = request?.payload
+    const button = payload?.button
 
     const cdpUserQuery = payload?.cdpUserQuery || null
     const userIds = payload?.userIds
@@ -20,9 +21,12 @@ const addUserController = {
         : [payload?.userIds]
       : []
 
-    const validationResult = addUserValidation().validate(payload, {
-      abortEarly: false
-    })
+    const validationResult = addUserValidation(userIds, button).validate(
+      payload,
+      {
+        abortEarly: false
+      }
+    )
 
     const sanitisedPayload = {
       cdpUserQuery,

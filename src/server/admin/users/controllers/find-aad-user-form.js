@@ -21,6 +21,7 @@ const findAadUserFormController = {
   },
   handler: async (request, h) => {
     const query = request?.query
+    const email = query?.email || null
     const aadQuery = query?.aadQuery || null
     const redirectLocation = query?.redirectLocation
 
@@ -32,7 +33,7 @@ const findAadUserFormController = {
       headingCaption: 'Search for the Defra Azure Active Directory (AAD) user',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
-      formValues: { aadQuery },
+      formValues: { aadQuery, email },
       aadUsers: aadUsers?.length
         ? buildOptions(
             aadUsers.map((aadUser) => ({
