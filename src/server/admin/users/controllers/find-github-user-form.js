@@ -2,11 +2,11 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { buildOptions } from '~/src/common/helpers/build-options'
-import { fetchGitHubUsers } from '~/src/server/admin/users/helpers/fetch-github-users'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { resetGitHubAnswer } from '~/src/server/admin/users/helpers/extensions/reset-github-answer'
 import { setStepComplete } from '~/src/server/admin/users/helpers/set-step-complete'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
+import { searchGitHubUsers } from '~/src/server/admin/users/helpers/search-github-users'
 
 const findGitHubUserFormController = {
   options: {
@@ -33,7 +33,10 @@ const findGitHubUserFormController = {
     const github = query?.github
     const redirectLocation = query?.redirectLocation
 
-    const gitHubUsers = githubSearch ? await fetchGitHubUsers(githubSearch) : []
+    const searchGitHubUsersResponse = githubSearch
+      ? await searchGitHubUsers(githubSearch)
+      : null
+    const gitHubUsers = searchGitHubUsersResponse?.users ?? []
 
     const isEdit = cdpUser.isEdit ?? false
 

@@ -30,7 +30,7 @@ function buildRow(name, value, stepPath, query) {
   }
 }
 
-async function transformSummaryUserRows(cdpUser) {
+function transformSummaryUserRows(cdpUser) {
   const isEdit = cdpUser?.isEdit ?? false
   const detailsWithNoValues = Object.entries(cdpUser).reduce(
     (obj, [key, value]) => {

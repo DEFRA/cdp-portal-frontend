@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { appConfig } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchUser } from '~/src/server/admin/users/helpers/fetch-user'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
 
 const startEditUserController = {
   options: {
@@ -15,7 +15,7 @@ const startEditUserController = {
     }
   },
   handler: async (request, h) => {
-    const { user } = await fetchUser(request.params?.userId)
+    const { user } = await fetchCdpUser(request.params?.userId)
 
     request.yar.set(sessionNames.cdpUser, {
       ...user,

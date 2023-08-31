@@ -4,9 +4,9 @@ import { appConfig } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { aadIdValidation } from '~/src/server/admin/users/helpers/schema/aad-id-validation'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/save-to-cdp-user'
-import { searchAadUsers } from '~/src/server/admin/users/helpers/search-add-users'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
+import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/search-azure-active-directory-users'
 
 const findAadUserController = {
   options: {
@@ -56,7 +56,12 @@ const findAadUserController = {
     }
 
     if (!validationResult.error) {
-      const aadUserDetails = await searchAadUsers(sanitisedPayload.email)
+      // TODO can this be seperated out?
+      const searchAadUsersResponse = await searchAzureActiveDirectoryUsers(
+        sanitisedPayload.email
+      )
+      const aadUserDetails = searchAadUsersResponse?.users ?? []
+
       const aadUser = aadUserDetails?.at(0)
       const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.email
 

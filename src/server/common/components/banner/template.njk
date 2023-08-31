@@ -1,6 +1,7 @@
 <div class="app-banner app-banner--{{ params.type }}{% if params.classes %} {{ params.classes }}{% endif %}"
      tabindex="-1"
      role="alert"
-     data-testid="app-banner">
+     data-testid="app-banner"
+     {% if params.js %}data-js="{{ params.js }}"{% endif %}>
   <p class="app-banner__content" data-testid="app-banner-content">{{ params.text }}</p>
 </div>

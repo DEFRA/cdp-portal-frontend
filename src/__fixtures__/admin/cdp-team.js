@@ -1,4 +1,4 @@
-const adminTeamFixture = {
+const cdpTeamFixture = {
   message: 'success',
   team: {
     name: 'Admin',
@@ -27,4 +27,4 @@ const adminTeamFixture = {
   }
 }
 
-export { adminTeamFixture }
+export { cdpTeamFixture }

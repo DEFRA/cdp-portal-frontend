@@ -62,7 +62,7 @@ const createServiceController = {
         type: 'success'
       })
 
-      return h.redirect(`${appConfig.get('appPathPrefix')}/create-service`)
+      return h.redirect(appConfig.get('appPathPrefix') + '/create-service')
     }
   }
 }

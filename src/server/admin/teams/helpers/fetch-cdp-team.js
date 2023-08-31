@@ -21,7 +21,7 @@ async function fetchCdpTeam(teamId) {
     throw Boom.boomify(Boom.notFound())
   }
 
-  throw new Error(json.message)
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
 export { fetchCdpTeam }

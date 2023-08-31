@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
+import Boom from '@hapi/boom'
 
 async function fetchAvailableVersions(serviceName) {
   const deployablesVersionsEndpoint =
@@ -16,7 +17,7 @@ async function fetchAvailableVersions(serviceName) {
     return json
   }
 
-  throw Error(json.message)
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
 export { fetchAvailableVersions }

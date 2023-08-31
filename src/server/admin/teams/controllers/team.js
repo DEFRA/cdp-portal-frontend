@@ -3,9 +3,9 @@ import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
-import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
-import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities'
-import { transformTeamUsers } from '~/src/server/admin/teams/transformers/transform-team-users'
+import { transformCdpTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-entity-data-list'
+import { transformCdpTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-heading-entities'
+import { transformCdpTeamUsers } from '~/src/server/admin/teams/transformers/transform-cdp-team-users'
 
 const teamController = {
   options: {
@@ -22,9 +22,9 @@ const teamController = {
     return h.view('admin/teams/views/team', {
       pageTitle: startCase(team.name),
       heading: startCase(team.name),
-      entityDataList: transformTeamToEntityDataList(team),
-      headingEntities: transformTeamToHeadingEntities(team),
-      teamMembers: transformTeamUsers(team),
+      entityDataList: transformCdpTeamToEntityDataList(team),
+      headingEntities: transformCdpTeamToHeadingEntities(team),
+      teamMembers: transformCdpTeamUsers(team),
       team,
       breadcrumbs: [
         {

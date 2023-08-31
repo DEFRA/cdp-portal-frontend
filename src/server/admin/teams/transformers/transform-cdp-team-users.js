@@ -1,7 +1,7 @@
 import { appConfig } from '~/src/config'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 
-function transformTeamUsers(team) {
+function transformCdpTeamUsers(team) {
   const appPathPrefix = appConfig.get('appPathPrefix')
 
   return team.users
@@ -16,14 +16,11 @@ function transformTeamUsers(team) {
           html: `<a class="app-link" href="${userHref}">${user.name}</a>`
         },
         action: {
-          html: `<button class="govuk-button app-button app-button--small app-button--destructive"
-                       formaction="${formAction}">
-                 Remove
-               </button>`
+          html: `<button class="govuk-button app-button app-button--small app-button--destructive"formaction="${formAction}">Remove</button>`
         }
       }
     })
     .sort(sortBy('name', 'asc'))
 }
 
-export { transformTeamUsers }
+export { transformCdpTeamUsers }
