@@ -1,4 +1,4 @@
-function transformTeamToEntityDataList(team) {
+function transformCdpTeamToEntityDataList(team) {
   return [
     {
       heading: 'Name',
@@ -24,4 +24,4 @@ function transformTeamToEntityDataList(team) {
   ]
 }
 
-export { transformTeamToEntityDataList }
+export { transformCdpTeamToEntityDataList }

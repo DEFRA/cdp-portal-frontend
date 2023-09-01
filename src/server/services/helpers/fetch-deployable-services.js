@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
@@ -15,7 +16,7 @@ async function fetchDeployableServices() {
     return json
   }
 
-  throw Error(json.message)
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
 export { fetchDeployableServices }

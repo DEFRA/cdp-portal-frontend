@@ -1,6 +1,6 @@
 import { isFunction } from 'lodash'
 
-// Programmatically render components in JS
+// Programmatically render server components in JS
 function renderComponent(name) {
   const component = this.ctx[name]
 

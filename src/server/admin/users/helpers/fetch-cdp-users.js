@@ -12,16 +12,12 @@ import { appConfig } from '~/src/config'
  * @property {string} [User.defraVpnId]
  * @property {string} [User.defraAwsId]
  *
- * @throws {Error}
- *
- * @returns {Promise<User>}
+ * @returns {Promise<Array.<User>>}
  */
-async function fetchUser(userId) {
-  const userEndpointUrl = `${appConfig.get(
-    'userServiceApiUrl'
-  )}/users/${userId}`
+async function fetchCdpUsers() {
+  const usersEndpointUrl = appConfig.get('userServiceApiUrl') + '/users'
 
-  const response = await fetch(userEndpointUrl, {
+  const response = await fetch(usersEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
@@ -31,11 +27,7 @@ async function fetchUser(userId) {
     return json
   }
 
-  if (response.status === 404) {
-    throw Boom.boomify(Boom.notFound())
-  }
-
-  throw Error(json.message)
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
-export { fetchUser }
+export { fetchCdpUsers }

@@ -31,17 +31,32 @@ function populateSelectOptions($controller) {
     // Remove all options from select element
     Array.from($target?.options).forEach((option) => option.remove())
 
-    const options = await dataFetcher(value)
+    try {
+      const options = await dataFetcher(value)
 
-    clearTimeout(delayedLoader)
-    $loader?.classList?.remove('app-loader--is-loading')
+      clearTimeout(delayedLoader)
+      $loader?.classList?.remove('app-loader--is-loading')
 
-    const optionsWithPrependedBlank = [
-      blankOption,
-      ...options.map((option) => new Option(option.text, option.value))
-    ]
+      const optionsWithPrependedBlank = [
+        blankOption,
+        ...options.map((option) => new Option(option.text, option.value))
+      ]
 
-    optionsWithPrependedBlank.forEach((option) => $target.add(option))
+      optionsWithPrependedBlank.forEach((option) => $target.add(option))
+    } catch (error) {
+      const clientNotification = document.querySelector(
+        '[data-js="app-client-notifications"]'
+      )
+      const clientMessageHolder = clientNotification.querySelector(
+        '.app-banner__content'
+      )
+
+      clientMessageHolder.textContent = error.message
+      clientNotification.classList.remove('app-banner--hidden')
+
+      clearTimeout(delayedLoader)
+      $loader?.classList?.remove('app-loader--is-loading')
+    }
   })
 }
 

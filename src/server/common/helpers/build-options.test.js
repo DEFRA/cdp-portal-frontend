@@ -1,4 +1,4 @@
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 
 describe('#buildOptions', () => {
   describe('With simple items', () => {

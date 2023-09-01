@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
-import { fetchUser } from '~/src/server/admin/users/helpers/fetch-user'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
 import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
 import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities'
 import { transformUserTeams } from '~/src/server/admin/users/transformers/transform-user-teams'
@@ -17,7 +17,7 @@ const userController = {
     }
   },
   handler: async (request, h) => {
-    const { user } = await fetchUser(request.params?.userId)
+    const { user } = await fetchCdpUser(request.params?.userId)
 
     return h.view('admin/users/views/user', {
       pageTitle: startCase(user.name),

@@ -30,3 +30,7 @@ $banner-width: 420px;
 .app-banner--error {
   background-color: $govuk-error-colour;
 }
+
+.app-banner--hidden {
+  display: none;
+}

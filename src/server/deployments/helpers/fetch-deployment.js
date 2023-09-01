@@ -21,7 +21,7 @@ async function fetchDeployment(deploymentId) {
     return json
   }
 
-  throw Error(json.message)
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
 export { fetchDeployment }

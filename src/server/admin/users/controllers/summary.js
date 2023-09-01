@@ -19,7 +19,7 @@ const summaryController = {
       pageTitle: heading,
       heading,
       headingCaption: 'Information about the user you are going to create.',
-      userRows: await transformSummaryUserRows(cdpUser),
+      userRows: transformSummaryUserRows(cdpUser),
       formButtonText: isEdit ? 'Save' : 'Create',
       isEdit,
       breadcrumbs: [

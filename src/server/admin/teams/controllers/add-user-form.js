@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { filter, uniqBy } from 'lodash'
 
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
 import { searchCdpUsers } from '~/src/server/admin/teams/helpers/search-cdp-users'
 import { presentUsersToAdd } from '~/src/server/admin/teams/helpers/prerequisites/present-users-to-add'
@@ -29,7 +29,12 @@ const addUserFormController = {
     const cdpUserQuery = query?.cdpUserQuery || null
 
     const { team } = await fetchCdpTeam(request.params.teamId)
-    const cdpUsers = cdpUserQuery ? await searchCdpUsers(cdpUserQuery) : []
+
+    const searchCdpUsersResponse = cdpUserQuery
+      ? await searchCdpUsers(cdpUserQuery)
+      : null
+    const cdpUsers = searchCdpUsersResponse?.users ?? []
+
     const userIds = usersToAdd.map((user) => user.userId)
 
     const allUsers = filter(

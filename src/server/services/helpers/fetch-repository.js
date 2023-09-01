@@ -22,7 +22,7 @@ async function fetchRepository(repositoryId) {
     return json
   }
 
-  throw Error(json.message)
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
 export { fetchRepository }

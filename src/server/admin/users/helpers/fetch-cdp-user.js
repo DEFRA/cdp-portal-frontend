@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
@@ -11,12 +12,15 @@ import { appConfig } from '~/src/config'
  * @property {string} [User.defraVpnId]
  * @property {string} [User.defraAwsId]
  *
- * @returns {Promise<Array.<User>>}
+ * @throws {Error}
+ *
+ * @returns {Promise<User>}
  */
-async function fetchUsers() {
-  const usersEndpointUrl = `${appConfig.get('userServiceApiUrl')}/users`
+async function fetchCdpUser(userId) {
+  const userEndpointUrl =
+    appConfig.get('userServiceApiUrl') + `/users/${userId}`
 
-  const response = await fetch(usersEndpointUrl, {
+  const response = await fetch(userEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
@@ -26,7 +30,11 @@ async function fetchUsers() {
     return json
   }
 
-  throw Error(json.message)
+  if (response.status === 404) {
+    throw Boom.boomify(Boom.notFound())
+  }
+
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
-export { fetchUsers }
+export { fetchCdpUser }

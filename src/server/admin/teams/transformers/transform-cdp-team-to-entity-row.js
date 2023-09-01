@@ -1,6 +1,6 @@
 import { appConfig } from '~/src/config'
 
-function transformTeamToEntityRow(team) {
+function transformCdpTeamToEntityRow(team) {
   return [
     {
       kind: 'link',
@@ -18,4 +18,4 @@ function transformTeamToEntityRow(team) {
   ]
 }
 
-export { transformTeamToEntityRow }
+export { transformCdpTeamToEntityRow }

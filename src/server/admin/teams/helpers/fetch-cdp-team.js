@@ -4,9 +4,8 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 
 async function fetchCdpTeam(teamId) {
-  const teamEndpointUrl = `${appConfig.get(
-    'userServiceApiUrl'
-  )}/teams/${teamId}`
+  const teamEndpointUrl =
+    appConfig.get('userServiceApiUrl') + `/teams/${teamId}`
 
   const response = await fetch(teamEndpointUrl, {
     method: 'get',
@@ -22,7 +21,7 @@ async function fetchCdpTeam(teamId) {
     throw Boom.boomify(Boom.notFound())
   }
 
-  throw new Error(json.message)
+  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
 export { fetchCdpTeam }

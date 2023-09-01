@@ -1,4 +1,4 @@
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
 import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch-existing-service-info'

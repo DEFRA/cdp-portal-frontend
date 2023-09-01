@@ -1,22 +1,22 @@
-import Boom from '@hapi/boom'
-
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
 
 const availableMemoryController = {
-  handler: async (request) => {
+  handler: async (request, h) => {
     try {
       const cpu = request.query?.cpu
 
       const { ecsCpuToMemoryOptionsMap } = await fetchDeployServiceOptions()
-      const availableMemoryOptions = ecsCpuToMemoryOptionsMap[cpu]
+      const availableMemoryOptions = ecsCpuToMemoryOptionsMap[cpu] ?? null
 
       if (!availableMemoryOptions) {
-        return Boom.boomify(Boom.notFound())
+        return h.response({ message: 'Not found' }).code(404)
       }
 
       return availableMemoryOptions
     } catch (error) {
-      return Boom.boomify(error)
+      return h
+        .response({ message: error.message })
+        .code(error.output.statusCode)
     }
   }
 }

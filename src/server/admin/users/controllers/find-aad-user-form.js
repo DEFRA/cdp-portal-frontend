@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { searchAadUsers } from '~/src/server/admin/users/helpers/search-add-users'
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { resetAadAnswer } from '~/src/server/admin/users/helpers/extensions/reset-aad-answer'
+import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/search-azure-active-directory-users'
 
 const findAadUserFormController = {
   options: {
@@ -25,7 +25,10 @@ const findAadUserFormController = {
     const aadQuery = query?.aadQuery || null
     const redirectLocation = query?.redirectLocation
 
-    const aadUsers = aadQuery ? await searchAadUsers(aadQuery) : []
+    const searchAadUsersResponse = aadQuery
+      ? await searchAzureActiveDirectoryUsers(aadQuery)
+      : null
+    const aadUsers = searchAadUsersResponse?.users ?? []
 
     return h.view('admin/users/views/aad-user-form', {
       pageTitle: 'Find AAD user',
