@@ -4,9 +4,7 @@ import { appConfig } from '~/src/config'
 const flashMessage = {
   plugin: yar,
   options: {
-    name: 'cdp-portal-frontend',
-    maxCookieSize: 0, // Always use server-side storage
-    cache: { cache: 'session' },
+    name: 'cdp-portal',
     storeBlank: false,
     errorOnCacheNotReady: true,
     cookieOptions: {

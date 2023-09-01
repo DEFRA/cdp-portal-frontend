@@ -101,18 +101,6 @@ const appConfig = convict({
     sensitive: true,
     env: 'BASIC_AUTH_PASSWORD'
   },
-  cacheHost: {
-    doc: 'Redis cache host',
-    format: String,
-    default: '127.0.0.1',
-    env: 'CACHE_HOST'
-  },
-  cacheRole: {
-    doc: 'Redis cache role',
-    format: String,
-    default: 'master',
-    env: 'CACHE_ROLE'
-  },
   isProduction: {
     doc: 'If this application running in the production environment',
     format: Boolean,

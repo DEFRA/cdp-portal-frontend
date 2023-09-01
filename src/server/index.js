@@ -1,7 +1,6 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
 import qs from 'qs'
-import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 import { plugin as basicAuth } from '@hapi/basic'
 
 import { router } from './router'
@@ -33,22 +32,7 @@ async function createServer() {
     },
     query: {
       parser: (query) => qs.parse(query)
-    },
-    cache: [
-      {
-        name: 'session',
-        provider: {
-          constructor: CatboxRedis,
-          options: {
-            partition: 'cdp-portal',
-            host: appConfig.get('cacheHost'),
-            port: 6379,
-            db: 0,
-            role: appConfig.get('cacheRole')
-          }
-        }
-      }
-    ]
+    }
   })
 
   // TODO this is temp auth just for the demo. Replace with proper auth before launch
@@ -59,8 +43,14 @@ async function createServer() {
     server.auth.default('simple')
   }
 
+  server.ext('onPreResponse', addFlashMessagesToContext, {
+    before: ['yar']
+  })
+
   await server.register(flashMessage)
+
   await server.register(requestLogger)
+
   await server.register(router, {
     routes: { prefix: appConfig.get('appPathPrefix') }
   })
@@ -69,7 +59,6 @@ async function createServer() {
 
   server.decorate('request', 'isXhr', isXhr)
 
-  server.ext('onPreResponse', addFlashMessagesToContext, { before: ['yar'] })
   server.ext('onPreResponse', catchAll)
 
   return server
