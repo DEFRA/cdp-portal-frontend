@@ -36,7 +36,7 @@ describe('#fetchCdpUser', () => {
   test('With error, Should throw with expected message', async () => {
     nock(userEndpointUrl.origin)
       .get(userEndpointUrl.pathname)
-      .reply(451, { message: 'Legally we cannot allow that!' })
+      .reply(451, { message: 'Nope we cannot allow that!' })
 
     expect.assertions(2)
 
@@ -44,7 +44,7 @@ describe('#fetchCdpUser', () => {
       await fetchCdpUser(userId)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Legally we cannot allow that!')
+      expect(error).toHaveProperty('message', 'Nope we cannot allow that!')
     }
   })
 

@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
 import { environments } from '~/src/config'
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'

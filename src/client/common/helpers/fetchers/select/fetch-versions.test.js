@@ -19,24 +19,7 @@ describe('#fetchVersions', () => {
 
     const availableVersions = await fetchVersions('cdp-portal-frontend')
 
-    expect(availableVersions).toEqual([
-      {
-        text: '0.87.0',
-        value: '0.87.0'
-      },
-      {
-        text: '0.86.0',
-        value: '0.86.0'
-      },
-      {
-        text: '0.85.0',
-        value: '0.85.0'
-      },
-      {
-        text: '0.84.0',
-        value: '0.84.0'
-      }
-    ])
+    expect(availableVersions).toEqual(availableVersionsFixture)
   })
 
   test('With error, Should throw with expected message', async () => {

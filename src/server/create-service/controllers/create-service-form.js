@@ -1,5 +1,5 @@
 import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
 
 const createServiceFormController = {

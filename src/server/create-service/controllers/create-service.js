@@ -3,7 +3,7 @@ import { appConfig } from '~/src/config'
 import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 

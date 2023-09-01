@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 import { appConfig } from '~/src/config'
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
 import { availableInstances } from '~/src/server/deploy-service/helpers/available-instances'

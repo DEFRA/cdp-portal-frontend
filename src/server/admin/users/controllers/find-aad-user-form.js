@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { resetAadAnswer } from '~/src/server/admin/users/helpers/extensions/reset-aad-answer'
 import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/search-azure-active-directory-users'
 

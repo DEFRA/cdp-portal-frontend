@@ -1,5 +1,3 @@
-import { buildOptions } from '~/src/common/helpers/build-options'
-
 async function fetchVersions(value) {
   const response = await fetch(
     `${location.origin}/cdp-portal-frontend/deploy-service/available-versions?serviceName=${value}`
@@ -7,7 +5,7 @@ async function fetchVersions(value) {
   const json = await response.json()
 
   if (response.ok) {
-    return buildOptions(json, false)
+    return json
   }
 
   throw new Error(json.message)

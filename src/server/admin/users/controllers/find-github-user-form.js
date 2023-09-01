@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { resetGitHubAnswer } from '~/src/server/admin/users/helpers/extensions/reset-github-answer'
 import { setStepComplete } from '~/src/server/admin/users/helpers/set-step-complete'

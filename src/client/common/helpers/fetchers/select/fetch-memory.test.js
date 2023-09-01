@@ -1,7 +1,7 @@
 import fetchMock from 'jest-fetch-mock'
 
 import { fetchMemory } from '~/src/client/common/helpers/fetchers/select/fetch-memory'
-import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/ecs-cpu-to-memory-options-map'
+import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map'
 
 describe('#fetchMemory', () => {
   beforeEach(async () => {

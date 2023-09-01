@@ -1,8 +1,8 @@
-import { deploymentSessionFixture } from '~/src/__fixtures__/deployment-session'
+import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session'
 import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
-import { cpuOptionsFixture } from '~/src/__fixtures__/cpu-options'
-import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/ecs-cpu-to-memory-options-map'
+import { cpuOptionsFixture } from '~/src/__fixtures__/deploy-service/cpu-options'
+import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map'
 
 jest.mock('~/src/server/deploy-service/helpers/fetch-deploy-service-options')
 

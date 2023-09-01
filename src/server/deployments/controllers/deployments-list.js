@@ -7,7 +7,7 @@ import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch-deployments'
 import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transformers/transform-deployments-to-entity-row'
 import { sortByName } from '~/src/server/common/helpers/sort-by-name'
-import { buildOptions } from '~/src/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/build-options'
 
 // TODO fix - the progressive search is not quite right
 const deploymentsListController = {

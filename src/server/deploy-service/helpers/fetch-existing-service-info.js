@@ -22,6 +22,7 @@ async function fetchExistingServiceInfo(environment, imageName) {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
+
   const json = await response.json()
 
   if (response.ok) {
