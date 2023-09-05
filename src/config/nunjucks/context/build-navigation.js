@@ -4,6 +4,7 @@ const appPathPrefix = appConfig.get('appPathPrefix')
 
 function buildNavigation(request) {
   return {
+    isAzureAuthenticated: request?.yar?.get('auth')?.isAuthenticated,
     primary: [
       {
         text: 'Home',
@@ -46,6 +47,20 @@ function buildNavigation(request) {
         text: 'Create Service',
         url: `${appPathPrefix}/create-service`,
         isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
+      }
+    ],
+    login: [
+      {
+        text: 'Login',
+        url: `${appPathPrefix}/login`,
+        isActive: request?.path?.includes(`${appPathPrefix}/login`)
+      }
+    ],
+    logout: [
+      {
+        text: 'Logout',
+        url: `${appPathPrefix}/logout`,
+        isActive: request?.path?.includes(`${appPathPrefix}/logout`)
       }
     ],
     admin: [

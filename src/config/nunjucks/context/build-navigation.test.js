@@ -7,6 +7,7 @@ const mockRequest = (path = '') => ({ path })
 describe('#buildNavigation', () => {
   test('Should provide expected navigation details', () => {
     expect(buildNavigation(mockRequest())).toEqual({
+      isAzureAuthenticated: undefined,
       actions: [
         {
           isActive: false,
@@ -57,6 +58,20 @@ describe('#buildNavigation', () => {
           text: 'Admin',
           url: '/cdp-portal-frontend/admin'
         }
+      ],
+      login: [
+        {
+          text: 'Login',
+          url: `/cdp-portal-frontend/login`,
+          isActive: false
+        }
+      ],
+      logout: [
+        {
+          text: 'Logout',
+          url: `/cdp-portal-frontend/logout`,
+          isActive: false
+        }
       ]
     })
   })
@@ -65,6 +80,7 @@ describe('#buildNavigation', () => {
     expect(
       buildNavigation(mockRequest(`${appPathPrefix}/running-services`))
     ).toEqual({
+      isAzureAuthenticated: undefined,
       actions: [
         {
           isActive: false,
@@ -114,6 +130,20 @@ describe('#buildNavigation', () => {
           isActive: false,
           text: 'Admin',
           url: '/cdp-portal-frontend/admin'
+        }
+      ],
+      login: [
+        {
+          text: 'Login',
+          url: `/cdp-portal-frontend/login`,
+          isActive: false
+        }
+      ],
+      logout: [
+        {
+          text: 'Logout',
+          url: `/cdp-portal-frontend/logout`,
+          isActive: false
         }
       ]
     })
