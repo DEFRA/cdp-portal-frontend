@@ -3,8 +3,17 @@ import { appConfig } from '~/src/config'
 const appPathPrefix = appConfig.get('appPathPrefix')
 
 function buildNavigation(request) {
+  let isAuthenticated
+  // sometimes the `_store` in yar is uninitialized causing an exception when we first hit the page for the very first time
+  // this catches this weird edge case
+  try {
+    isAuthenticated = request?.yar?.get('auth')?.isAuthenticated
+  } catch (error) {
+    // sometimes the `_store` inside of yar is uninitialized causing an exception when we first hit the page
+    isAuthenticated = false
+  }
   return {
-    isAzureAuthenticated: request?.yar?.get('auth')?.isAuthenticated,
+    isAzureAuthenticated: isAuthenticated,
     primary: [
       {
         text: 'Home',

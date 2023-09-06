@@ -41,7 +41,7 @@ async function createServer() {
     password: appConfig.get('sessionCookiePassword'),
     clientId: appConfig.get('azureClientId'),
     clientSecret: appConfig.get('azureClientSecret'),
-    isSecure: false,
+    isSecure: !appConfig.get('isDevelopment'),
     config: {
       tenant: appConfig.get('azureTenantId')
     }
