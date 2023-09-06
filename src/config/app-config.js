@@ -87,20 +87,6 @@ const appConfig = convict({
     sensitive: true,
     env: 'SESSION_COOKIE_PASSWORD'
   },
-  basicAuthUser: {
-    doc: 'Basic Auth user',
-    format: '*',
-    default: 'dev',
-    sensitive: true,
-    env: 'BASIC_AUTH_USER'
-  },
-  basicAuthPassword: {
-    doc: 'Basic Auth password',
-    format: '*',
-    default: '$2a$04$9wN0ZJE/GjeNJMgNSvheS.eUXZ5AKkc5CBg1Zks4HuD8HkqVCH7Rq',
-    sensitive: true,
-    env: 'BASIC_AUTH_PASSWORD'
-  },
   isProduction: {
     doc: 'If this application running in the production environment',
     format: Boolean,
@@ -121,6 +107,25 @@ const appConfig = convict({
     format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
     default: 'info',
     env: 'LOG_LEVEL'
+  },
+  azureTenantId: {
+    doc: 'Azure Active Directory Tenant ID',
+    format: String,
+    env: 'AZURE_TENANT_ID',
+    default: '6f504113-6b64-43f2-ade9-242e05780007'
+  },
+  azureClientId: {
+    doc: 'Azure App Client ID',
+    format: String,
+    env: 'AZURE_CLIENT_ID',
+    default: '63983fc2-cfff-45bb-8ec2-959e21062b9a'
+  },
+  azureClientSecret: {
+    doc: 'Azure App Client Secret',
+    format: String,
+    sensitive: true,
+    env: 'AZURE_CLIENT_SECRET',
+    default: ''
   }
 })
 
