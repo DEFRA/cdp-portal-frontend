@@ -28,10 +28,17 @@ const deploymentsListController = {
     const environment = request.params?.environment
 
     // TODO add Redis to cache these multiple calls
-    const deployments = await fetchDeployments(environment, request?.query)
+    const deployments = await fetchDeployments(
+      environment,
+      request.yar?.get('auth'),
+      request?.query
+    )
 
     // TODO endpoint for unique deployment suggestions
-    const allDeployments = await fetchDeployments(environment)
+    const allDeployments = await fetchDeployments(
+      environment,
+      request.yar?.get('auth')
+    )
 
     const uniqueAllDeployments = [
       ...new Set(allDeployments.map((deployment) => deployment.service))
