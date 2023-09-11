@@ -4,7 +4,8 @@ import { transformCdpTeamToEntityRow } from '~/src/server/admin/teams/transforme
 
 const teamsListController = {
   handler: async (request, h) => {
-    const { teams } = await fetchCdpTeams()
+    const auth = request?.yar?.get('auth')
+    const { teams } = await fetchCdpTeams(auth)
 
     const entityRows = teams
       ?.sort(sortBy('name', 'asc'))

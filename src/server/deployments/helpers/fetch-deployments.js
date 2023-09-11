@@ -3,8 +3,9 @@ import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
 import { appConfig } from '~/src/config'
+import { isNil } from 'lodash'
 
-async function fetchDeployments(environment, queryParams) {
+async function fetchDeployments(environment, auth, queryParams) {
   const queryString = qs.stringify(queryParams)
 
   const deploymentsEndpointUrl =
@@ -13,9 +14,16 @@ async function fetchDeployments(environment, queryParams) {
       queryString ? `&${queryString}` : ''
     }`
 
+  const headers = { 'Content-Type': 'application/json' }
+  const token = auth?.credentials?.token
+
+  if (!isNil(token)) {
+    headers.Authorization = `Bearer ${token}`
+  }
+
   const response = await fetch(deploymentsEndpointUrl, {
     method: 'get',
-    headers: { 'Content-Type': 'application/json' }
+    headers
   })
   const json = await response.json()
 
