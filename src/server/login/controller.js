@@ -2,7 +2,7 @@ import { appConfig } from '~/src/config'
 
 const loginController = {
   options: {
-    auth: 'azure'
+    auth: 'azure-oidc'
   },
   handler: (request, h) => {
     request.yar.set('auth', request.auth)
