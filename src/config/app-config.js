@@ -39,6 +39,12 @@ const appConfig = convict({
     format: String,
     default: path.normalize(path.join(__dirname, '..', '..'))
   },
+  appRedirectUrl: {
+    doc: 'Application redirect URL for after we login. In production, these URLs need to registered in our AppReg',
+    format: String,
+    default: 'http://localhost:3000/cdp-portal-frontend',
+    env: 'APP_REDIRECT_URL'
+  },
   appPathPrefix: {
     doc: 'Application url path prefix this is needed only until we have host based routing',
     format: String,
