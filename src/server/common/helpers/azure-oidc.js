@@ -7,6 +7,7 @@ const azureOidc = {
     name: 'azure-oidc',
     register: (server) => {
       server.auth.strategy('azure-oidc', 'bell', {
+        location: appConfig.get('appBaseUrl'),
         provider: {
           name: 'azure-oidc',
           protocol: 'oauth2',
