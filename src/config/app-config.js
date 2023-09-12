@@ -15,7 +15,7 @@ const appConfig = convict({
   port: {
     doc: 'The port to bind.',
     format: 'port',
-    default: 3000,
+    default: 3000, // don't forget to change appBaseUrl
     env: 'PORT'
   },
   staticCacheTimeout: {
@@ -39,11 +39,11 @@ const appConfig = convict({
     format: String,
     default: path.normalize(path.join(__dirname, '..', '..'))
   },
-  appRedirectUrl: {
-    doc: 'Application redirect base URL for after we login. In production, these URLs need to registered in our AppReg',
+  appBaseUrl: {
+    doc: 'Application base URL for after we login',
     format: String,
     default: 'http://localhost:3000',
-    env: 'APP_REDIRECT_URL'
+    env: 'APP_BASE_URL'
   },
   appPathPrefix: {
     doc: 'Application url path prefix this is needed only until we have host based routing',
