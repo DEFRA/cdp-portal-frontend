@@ -6,7 +6,7 @@ const loginController = {
   },
   handler: (request, h) => {
     request.yar.set('auth', request.auth)
-    return h.redirect(appConfig.get('appPathPrefix'))
+    return h.redirect(appConfig.get('appRedirectUrl'))
   }
 }
 
