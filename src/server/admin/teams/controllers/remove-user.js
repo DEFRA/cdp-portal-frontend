@@ -21,7 +21,7 @@ const removeUserController = {
     const userId = params.userId
 
     try {
-      await removeUserFromTeam(teamId, userId)
+      await removeUserFromTeam(request.yar?.get('auth'), teamId, userId)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'User removed from team',

@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
@@ -6,6 +5,7 @@ import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
 import { sessionNames } from '~/src/server/common/constants/session-names'
+import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 const createServiceController = {
   handler: async (request, h) => {
@@ -51,11 +51,13 @@ const createServiceController = {
         'selfServiceOpsApiUrl'
       )}/create-service`
 
-      await fetch(selfServiceOpsV1CreateServiceEndpointUrl, {
-        method: 'post',
-        body: JSON.stringify(validationResult.value),
-        headers: { 'Content-Type': 'application/json' }
-      })
+      await fetchWithAuth(
+        request.yar?.get('auth'),
+        selfServiceOpsV1CreateServiceEndpointUrl,
+        {
+          body: JSON.stringify(validationResult.value)
+        }
+      )
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Service successfully created',

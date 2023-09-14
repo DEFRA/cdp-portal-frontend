@@ -1,10 +1,9 @@
-import fetch from 'node-fetch'
-
 import { appConfig } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation'
 import { removeNil } from '~/src/server/common/helpers/remove-nil'
+import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 const createTeamController = {
   handler: async (request, h) => {
@@ -38,16 +37,19 @@ const createTeamController = {
         'userServiceApiUrl'
       )}/teams`
 
-      const response = await fetch(createTeamEndpointUrl, {
-        method: 'post',
-        body: JSON.stringify(
-          removeNil({
-            name: sanitisedPayload.name,
-            description: sanitisedPayload.description
-          })
-        ),
-        headers: { 'Content-Type': 'application/json' }
-      })
+      const response = await fetchWithAuth(
+        request.yar?.get('auth'),
+        createTeamEndpointUrl,
+        {
+          body: JSON.stringify(
+            removeNil({
+              name: sanitisedPayload.name,
+              description: sanitisedPayload.description
+            })
+          )
+        }
+      )
+
       const json = await response.json()
 
       if (response.ok) {
