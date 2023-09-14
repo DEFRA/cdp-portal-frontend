@@ -1,15 +1,14 @@
 import Boom from '@hapi/boom'
-import fetch from 'node-fetch'
 
 import { appConfig } from '~/src/config'
+import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
-async function removeUserFromTeam(teamId, userId) {
+async function removeUserFromTeam(auth, teamId, userId) {
   const removeUserFromTeamEndpointUrl =
     appConfig.get('userServiceApiUrl') + `/teams/${teamId}/remove/${userId}`
 
-  const response = await fetch(removeUserFromTeamEndpointUrl, {
-    method: 'patch',
-    headers: { 'Content-Type': 'application/json' }
+  const response = await fetchWithAuth(auth, removeUserFromTeamEndpointUrl, {
+    method: 'patch'
   })
 
   const json = await response.json()

@@ -16,7 +16,7 @@ describe('#removeUserFromTeam', () => {
       .patch(removeUserFromTeamEndpointUrl.pathname)
       .reply(200, cdpTeamFixture)
 
-    const cdpTeam = await removeUserFromTeam(teamId, userId)
+    const cdpTeam = await removeUserFromTeam({}, teamId, userId)
 
     expect(cdpTeam).toEqual(cdpTeamFixture)
   })
@@ -29,7 +29,7 @@ describe('#removeUserFromTeam', () => {
     expect.assertions(2)
 
     try {
-      await removeUserFromTeam(teamId, userId)
+      await removeUserFromTeam({}, teamId, userId)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Ouch!')
@@ -44,7 +44,7 @@ describe('#removeUserFromTeam', () => {
     expect.assertions(2)
 
     try {
-      await removeUserFromTeam(teamId, userId)
+      await removeUserFromTeam({}, teamId, userId)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Proxy Authentication Required')
