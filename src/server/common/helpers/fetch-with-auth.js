@@ -24,13 +24,13 @@ async function fetchWithAuth(auth, url, options = {}) {
   if (isNil(body)) {
     return await fetch(url, {
       method,
-      headers: { 'Content-Type': 'application/json' }
+      headers
     })
   } else {
     return await fetch(url, {
       method,
       body,
-      headers: { 'Content-Type': 'application/json' }
+      headers
     })
   }
 }

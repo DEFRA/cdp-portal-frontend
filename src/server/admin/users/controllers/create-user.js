@@ -15,7 +15,7 @@ const createUserController = {
     const createUserEndpointUrl = `${appConfig.get('userServiceApiUrl')}/users`
 
     const response = await fetchWithAuth(
-      request.yar?.auth,
+      request.yar?.get('auth'),
       createUserEndpointUrl,
       {
         body: JSON.stringify(

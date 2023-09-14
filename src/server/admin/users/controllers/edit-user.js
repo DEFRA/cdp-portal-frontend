@@ -16,7 +16,7 @@ const editUserController = {
     }`
 
     const response = await fetchWithAuth(
-      request.yar?.auth,
+      request.yar?.get('auth'),
       editUserEndpointUrl,
       {
         method: 'patch',

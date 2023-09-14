@@ -38,7 +38,7 @@ const createTeamController = {
       )}/teams`
 
       const response = await fetchWithAuth(
-        request.yar?.auth,
+        request.yar?.get('auth'),
         createTeamEndpointUrl,
         {
           body: JSON.stringify(

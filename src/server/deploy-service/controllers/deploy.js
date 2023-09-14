@@ -17,7 +17,7 @@ const deployController = {
       appConfig.get('selfServiceOpsApiUrl') + '/deploy-service'
 
     const response = await fetchWithAuth(
-      request.yar?.auth,
+      request.yar?.get('auth'),
       deployServiceEndpointUrl,
       {
         body: JSON.stringify({

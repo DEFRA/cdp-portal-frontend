@@ -40,7 +40,7 @@ const editTeamController = {
         appConfig.get('userServiceApiUrl') + '/teams/' + teamId
 
       const response = await fetchWithAuth(
-        request.yar?.auth,
+        request.yar?.get('auth'),
         editTeamEndpointUrl,
         {
           method: 'patch',

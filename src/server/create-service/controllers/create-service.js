@@ -52,7 +52,7 @@ const createServiceController = {
       )}/create-service`
 
       await fetchWithAuth(
-        request.yar?.auth,
+        request.yar?.get('auth'),
         selfServiceOpsV1CreateServiceEndpointUrl,
         {
           body: JSON.stringify(validationResult.value)
