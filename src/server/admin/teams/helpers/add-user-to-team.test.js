@@ -16,7 +16,7 @@ describe('#addUserToTeam', () => {
       .patch(addUserToTeamEndpointUrl.pathname)
       .reply(200, cdpTeamFixture)
 
-    const cdpTeam = await addUserToTeam(teamId, userId)
+    const cdpTeam = await addUserToTeam({}, teamId, userId)
 
     expect(cdpTeam).toEqual(cdpTeamFixture)
   })
@@ -29,7 +29,7 @@ describe('#addUserToTeam', () => {
     expect.assertions(2)
 
     try {
-      await addUserToTeam(teamId, userId)
+      await addUserToTeam({}, teamId, userId)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Wowzers!!!')
@@ -44,7 +44,7 @@ describe('#addUserToTeam', () => {
     expect.assertions(2)
 
     try {
-      await addUserToTeam(teamId, userId)
+      await addUserToTeam({}, teamId, userId)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Unauthorized')

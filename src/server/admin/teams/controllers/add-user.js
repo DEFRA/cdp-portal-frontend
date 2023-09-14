@@ -59,7 +59,7 @@ const addUserController = {
 
     if (!validationResult.error) {
       const addUserToTeamPromises = userIds.map(
-        async (userId) => await addUserToTeam(teamId, userId)
+        async (userId) => await addUserToTeam(request.yar?.auth, teamId, userId)
       )
 
       const responses = await Promise.allSettled(addUserToTeamPromises)
