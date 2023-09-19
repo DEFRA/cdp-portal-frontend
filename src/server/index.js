@@ -1,7 +1,8 @@
 import path from 'path'
+import qs from 'qs'
 import hapi from '@hapi/hapi'
 import bell from '@hapi/bell'
-import qs from 'qs'
+import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router'
 import { appConfig } from '~/src/config'
@@ -32,7 +33,22 @@ async function createServer() {
     },
     query: {
       parser: (query) => qs.parse(query)
-    }
+    },
+    cache: [
+      {
+        name: 'session',
+        provider: {
+          constructor: CatboxRedis,
+          options: {
+            partition: 'cdp-portal',
+            host: appConfig.get('cacheHost'),
+            port: 6379,
+            db: 0,
+            role: appConfig.get('cacheRole')
+          }
+        }
+      }
+    ]
   })
 
   await server.register(bell)
@@ -42,7 +58,6 @@ async function createServer() {
   })
 
   await server.register(flashMessage)
-
   await server.register(requestLogger)
 
   await server.register(azureOidc)
@@ -55,6 +70,7 @@ async function createServer() {
 
   server.decorate('request', 'isXhr', isXhr)
 
+  server.ext('onPreResponse', addFlashMessagesToContext, { before: ['yar'] })
   server.ext('onPreResponse', catchAll)
 
   return server
