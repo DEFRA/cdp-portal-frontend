@@ -40,7 +40,6 @@
     "@hapi/basic": "7.0.2",
     "@hapi/bell": "13.0.1",
     "@hapi/boom": "10.0.1",
-    "@hapi/catbox-redis": "7.0.2",
     "@hapi/hapi": "21.3.2",
     "@hapi/inert": "7.1.0",
     "@hapi/jwt": "3.2.0",
