@@ -55,7 +55,13 @@ $ npm install
 
 ### Portal APIs
 
+The Portal Frontend has a number of APIs it uses to perform actions on the Platform and APIs to obtain information
+about the Platform and its tenants.
+
 - [CDP Self Service Ops](https://github.com/defra-cdp-sandpit/cdp-self-service-ops)
+- [CDP User Service Backend](https://github.com/defra-cdp-sandpit/cdp-user-service-backend)
+- [CDP Portal Backend](https://github.com/defra-cdp-sandpit/cdp-portal-backend)
+- [CDP Teams and Repositories](https://github.com/defra-cdp-sandpit/cdp-teams-and-repositories)
 
 ### Development
 
