@@ -2,7 +2,6 @@ import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
 import { appConfig } from '~/src/config'
-import { buildAppBaseUrl } from '~/src/server/common/helpers/build-app-base-url'
 
 const azureTenantId = appConfig.get('azureTenantId')
 const oAuthTokenUrl = `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/token`
@@ -15,7 +14,7 @@ const azureOidc = {
       await server.register(bell)
 
       server.auth.strategy('azure-oidc', 'bell', {
-        location: buildAppBaseUrl(server),
+        location: appConfig.get('appBaseUrl'),
         provider: {
           name: 'azure-oidc',
           protocol: 'oauth2',

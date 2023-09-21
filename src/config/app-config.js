@@ -39,6 +39,12 @@ const appConfig = convict({
     format: String,
     default: path.normalize(path.join(__dirname, '..', '..'))
   },
+  appBaseUrl: {
+    doc: 'Application base URL for after we login',
+    format: String,
+    default: 'http://localhost:3000',
+    env: 'APP_BASE_URL'
+  },
   appPathPrefix: {
     doc: 'Application url path prefix this is needed only until we have host based routing',
     format: String,
