@@ -2,7 +2,6 @@ import { appConfig } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation'
-import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 const editTeamController = {
   handler: async (request, h) => {
@@ -39,17 +38,13 @@ const editTeamController = {
       const editTeamEndpointUrl =
         appConfig.get('userServiceApiUrl') + '/teams/' + teamId
 
-      const response = await fetchWithAuth(
-        request.yar?.get('auth'),
-        editTeamEndpointUrl,
-        {
-          method: 'patch',
-          body: JSON.stringify({
-            name: sanitisedPayload.name,
-            description: sanitisedPayload.description
-          })
-        }
-      )
+      const response = await request.fetchWithAuth(editTeamEndpointUrl, {
+        method: 'patch',
+        body: JSON.stringify({
+          name: sanitisedPayload.name,
+          description: sanitisedPayload.description
+        })
+      })
       const json = await response.json()
 
       if (response.ok) {

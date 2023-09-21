@@ -25,7 +25,7 @@
 
 .app-autocomplete-search__label {
   font-weight: normal;
-  @include govuk-font($size: 19);
+  @include govuk-font(19);
 }
 
 .app-autocomplete-search__clear-button {

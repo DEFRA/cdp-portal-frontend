@@ -1,5 +1,5 @@
 .app-header {
-  @include govuk-font($size: 16);
+  @include govuk-font(19);
 
   border-bottom: govuk-spacing(2) solid govuk-colour("white");
   color: govuk-colour("white");
@@ -7,16 +7,31 @@
 }
 
 .app-header__container--full-width {
-  padding: 0 govuk-spacing(3);
   border-color: govuk-colour("black");
 }
 
 .app-header__container {
-  @include govuk-clearfix;
-  position: relative;
+  display: flex;
   margin-bottom: govuk-spacing(-2);
-  padding-top: govuk-spacing(2);
+  padding: govuk-spacing(2) govuk-spacing(6) 0;
   border-bottom: govuk-spacing(2) solid $govuk-brand-colour;
+}
+
+.app-header__content {
+  flex: 4;
+}
+
+.app-header__actions {
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-self: center;
+  margin: govuk-spacing(1) 0 govuk-spacing(2) auto;
+}
+
+.app-header__login-link {
+  margin-left: govuk-spacing(3);
+  @include govuk-font(19, "bold");
 }
 
 .app-header__link {
@@ -38,15 +53,5 @@
 .app-header__service-name {
   display: inline-block;
   margin-bottom: govuk-spacing(2);
-  @include govuk-font($size: 36, $weight: bold);
-}
-
-.app-header__content {
-  box-sizing: border-box;
-
-  @include govuk-media-query($from: desktop) {
-    width: 66.66%;
-    padding-left: $govuk-gutter-half;
-    float: left;
-  }
+  @include govuk-font(36, "bold");
 }

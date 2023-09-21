@@ -1,7 +1,7 @@
 import yar from '@hapi/yar'
 import { appConfig } from '~/src/config'
 
-const flashMessage = {
+const session = {
   plugin: yar,
   options: {
     name: 'cdp-portal',
@@ -14,4 +14,4 @@ const flashMessage = {
   }
 }
 
-export { flashMessage }
+export { session }

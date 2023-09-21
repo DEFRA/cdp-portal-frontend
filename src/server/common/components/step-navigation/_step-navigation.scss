@@ -85,7 +85,7 @@
 }
 
 .app-step-navigation__icon {
-  @include govuk-font($size: 24, $weight: "bold");
+  @include govuk-font(24, "bold");
   display: inline-block;
   color: govuk-colour("white");
 }

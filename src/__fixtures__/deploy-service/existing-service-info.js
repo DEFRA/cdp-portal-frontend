@@ -12,10 +12,7 @@ const existingServiceInfoFixture = {
     },
     secrets: {
       SESSION_COOKIE_PASSWORD:
-        'cdp/services/cdp-portal-frontend:SESSION_COOKIE_PASSWORD',
-      BASIC_AUTH_USER: 'cdp/services/cdp-portal-frontend:BASIC_AUTH_USER',
-      BASIC_AUTH_PASSWORD:
-        'cdp/services/cdp-portal-frontend:BASIC_AUTH_PASSWORD'
+        'cdp/services/cdp-portal-frontend:SESSION_COOKIE_PASSWORD'
     },
     task_cpu: 1024,
     task_memory: 2048,

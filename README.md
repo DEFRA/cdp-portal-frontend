@@ -16,7 +16,6 @@ Portal Frontend for CDP
       - [Debugging nock](#debugging-nock)
     - [Code Quality](#code-quality)
     - [Code formatting](#code-formatting)
-  - [Basic Auth](#basic-auth)
   - [Local JSON API](#local-json-api)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
@@ -169,13 +168,6 @@ To format code:
 ```bash
 $ npm run format
 ```
-
-### Basic Auth
-
-For local development basic auth details are:
-
-- username: `dev`
-- password: `dev`
 
 ### Local JSON API
 

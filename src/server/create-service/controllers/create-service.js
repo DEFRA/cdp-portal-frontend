@@ -5,7 +5,6 @@ import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 const createServiceController = {
   handler: async (request, h) => {
@@ -51,13 +50,10 @@ const createServiceController = {
         'selfServiceOpsApiUrl'
       )}/create-service`
 
-      await fetchWithAuth(
-        request.yar?.get('auth'),
-        selfServiceOpsV1CreateServiceEndpointUrl,
-        {
-          body: JSON.stringify(validationResult.value)
-        }
-      )
+      await request.fetchWithAuth(selfServiceOpsV1CreateServiceEndpointUrl, {
+        method: 'post',
+        body: JSON.stringify(validationResult.value)
+      })
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Service successfully created',

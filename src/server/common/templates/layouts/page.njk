@@ -16,7 +16,7 @@
 {% from "entity-list/macro.njk" import appEntityList with context %}
 {% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 {% from "footer/macro.njk" import appFooter %}
-{% from "header/macro.njk" import appHeader %}
+{% from "header/macro.njk" import appHeader with context %}
 {% from "heading/macro.njk" import appHeading %}
 {% from "info/macro.njk" import appInfo %}
 {% from "list/macro.njk" import appList %}
@@ -41,9 +41,10 @@
 
 {% block header %}
   {{ appHeader({
-    homepageUrl: "https://www.gov.uk/",
     serviceName: serviceName,
-    serviceUrl: appPathPrefix
+    serviceUrl: appPathPrefix,
+    loginText: "Sign out" if isAuthenticated else "Sign in",
+    loginUrl:  appPathPrefix + ("/logout" if isAuthenticated else "/login")
   }) }}
   {% include "partials/navigation/navigation.njk" %}
 {% endblock %}

@@ -4,7 +4,7 @@
 }
 
 .app-entity-list__header {
-  @include govuk-font($size: 19, $weight: bold);
+  @include govuk-font(19, "bold");
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -22,7 +22,7 @@
 }
 
 .app-entity-list__row {
-  @include govuk-font($size: 19);
+  @include govuk-font(19);
   display: flex;
   flex-wrap: wrap;
   align-items: center;

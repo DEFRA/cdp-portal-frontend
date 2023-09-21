@@ -29,8 +29,6 @@ const deploymentsListController = {
 
     // TODO add Redis to cache these multiple calls
     const deployments = await fetchDeployments(environment)
-
-    // TODO endpoint for unique deployment suggestions
     const allDeployments = await fetchDeployments(environment)
 
     const uniqueAllDeployments = [

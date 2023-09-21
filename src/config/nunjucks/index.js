@@ -1,4 +1,5 @@
 import path from 'path'
+import yar from '@hapi/yar'
 import nunjucks from 'nunjucks'
 import hapiVision from '@hapi/vision'
 
@@ -28,7 +29,10 @@ const nunjucksEnvironment = nunjucks.configure(
 )
 
 const nunjucksConfig = {
-  plugin: hapiVision,
+  plugin: {
+    ...hapiVision,
+    dependency: yar
+  },
   options: {
     engines: {
       njk: {

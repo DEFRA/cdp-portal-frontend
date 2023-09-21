@@ -14,7 +14,7 @@ $banner-width: 420px;
 }
 
 .app-banner__content {
-  @include govuk-font($size: 19, $weight: bold);
+  @include govuk-font(19, "bold");
   color: govuk-colour("white");
   margin: govuk-spacing(1);
 }

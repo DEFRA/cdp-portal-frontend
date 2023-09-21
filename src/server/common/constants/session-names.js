@@ -1,4 +1,5 @@
 const sessionNames = {
+  auth: 'auth',
   cdpUser: 'cdp-user',
   cdpTeam: 'cdp-team',
   validationFailure: 'validationFailure',

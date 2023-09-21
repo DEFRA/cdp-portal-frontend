@@ -3,7 +3,6 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation'
 import { removeNil } from '~/src/server/common/helpers/remove-nil'
-import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 const createTeamController = {
   handler: async (request, h) => {
@@ -37,18 +36,15 @@ const createTeamController = {
         'userServiceApiUrl'
       )}/teams`
 
-      const response = await fetchWithAuth(
-        request.yar?.get('auth'),
-        createTeamEndpointUrl,
-        {
-          body: JSON.stringify(
-            removeNil({
-              name: sanitisedPayload.name,
-              description: sanitisedPayload.description
-            })
-          )
-        }
-      )
+      const response = await request.fetchWithAuth(createTeamEndpointUrl, {
+        method: 'post',
+        body: JSON.stringify(
+          removeNil({
+            name: sanitisedPayload.name,
+            description: sanitisedPayload.description
+          })
+        )
+      })
 
       const json = await response.json()
 
