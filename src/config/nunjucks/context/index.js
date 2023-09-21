@@ -6,6 +6,7 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { blankOption } from '~/src/server/common/helpers/blank-option'
 import { noValue } from '~/src/server/common/constants/no-value'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const logger = createLogger()
 const appPathPrefix = appConfig.get('appPathPrefix')
@@ -24,7 +25,11 @@ try {
 }
 
 function context(request) {
+  const authSession = request.yar.get(sessionNames.auth) ?? null
+
   return {
+    isAuthenticated: authSession && authSession?.isAuthenticated,
+    userProfile: authSession && authSession.credentials.profile,
     appPathPrefix,
     noValue,
     blankOption,
