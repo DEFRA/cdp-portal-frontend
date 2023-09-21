@@ -3,7 +3,6 @@ import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequis
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { saveToDeploymentSession } from '~/src/server/deploy-service/helpers/save-to-deployment-session'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 const deployController = {
   options: {
@@ -16,20 +15,17 @@ const deployController = {
     const deployServiceEndpointUrl =
       appConfig.get('selfServiceOpsApiUrl') + '/deploy-service'
 
-    const response = await fetchWithAuth(
-      request.yar?.get('auth'),
-      deployServiceEndpointUrl,
-      {
-        body: JSON.stringify({
-          imageName: deployment.imageName,
-          version: deployment.version,
-          environment: deployment.environment,
-          instanceCount: deployment.instanceCount,
-          cpu: deployment.cpu,
-          memory: deployment.memory
-        })
-      }
-    )
+    const response = await request.fetchWithAuth(deployServiceEndpointUrl, {
+      method: 'post',
+      body: JSON.stringify({
+        imageName: deployment.imageName,
+        version: deployment.version,
+        environment: deployment.environment,
+        instanceCount: deployment.instanceCount,
+        cpu: deployment.cpu,
+        memory: deployment.memory
+      })
+    })
 
     const json = await response.json()
 

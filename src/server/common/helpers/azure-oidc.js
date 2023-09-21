@@ -30,13 +30,18 @@ const azureOidc = {
             'offline_access',
             'user.read'
           ],
-          profile: async function (credentials, params, get) {
+          profile: async function (credentials) {
             const payload = jwt.token.decode(credentials.token).decoded.payload
+
             credentials.profile = {
               id: payload.oid,
               displayName: payload.name,
               email: payload.upn ?? payload.preferred_username,
-              groups: payload.groups
+              groups: payload.groups,
+              loginHint: payload.login_hint,
+              isAdmin: payload.groups.includes(
+                appConfig.get('azureAdminGroupId')
+              )
             }
           }
         },
@@ -46,7 +51,7 @@ const azureOidc = {
         cookie: 'bell-azure-oidc',
         isSecure: false,
         config: {
-          tenant: appConfig.get('azureTenantId')
+          tenant: azureTenantId
         }
       })
     }

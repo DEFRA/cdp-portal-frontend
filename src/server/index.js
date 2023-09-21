@@ -1,6 +1,5 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
-import bell from '@hapi/bell'
 import qs from 'qs'
 
 import { router } from './router'
@@ -37,25 +36,18 @@ async function createServer() {
     }
   })
 
-  await server.register(bell)
-
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']
   })
 
-  await server.register(flashMessage)
+  server.decorate('request', 'isXhr', isXhr)
 
-  await server.register(requestLogger)
-
-  await server.register(azureOidc)
-
+  await server.register([session, requestLogger, azureOidc, nunjucksConfig])
   await server.register(router, {
     routes: { prefix: appConfig.get('appPathPrefix') }
   })
 
-  await server.register(nunjucksConfig)
-
-  server.decorate('request', 'isXhr', isXhr)
+  server.decorate('request', 'fetchWithAuth', fetchWithAuth, { apply: true })
 
   server.ext('onPreResponse', catchAll)
 
