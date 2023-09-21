@@ -11,6 +11,7 @@
           </li>
         {% endfor %}
       </ul>
+
       <ul class="app-navigation__actions">
         {% for item in navigation.actions %}
           <li class="app-navigation__list-item">
@@ -21,39 +22,19 @@
           </li>
         {% endfor %}
       </ul>
-      {% if navigation.isAzureAuthenticated %}
-      <ul class="app-navigation__logout">
-        {% for item in navigation.logout %}
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link{% if item.isActive %} app-navigation__link--active{% endif %}"
-               href="{{ item.url }}">
-              {{ item.text }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <ul class="app-navigation__login">
-        {% for item in navigation.login %}
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link{% if item.isActive %} app-navigation__link--active{% endif %}"
-               href="{{ item.url }}">
-              {{ item.text }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
+
+      {% if navigation.admin | length %}
+        <ul class="app-navigation__admin">
+          {% for item in navigation.admin %}
+            <li class="app-navigation__list-item">
+              <a class="app-navigation__link{% if item.isActive %} app-navigation__link--active{% endif %}"
+                 href="{{ item.url }}">
+                {{ item.text }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
       {% endif %}
-      <ul class="app-navigation__admin">
-        {% for item in navigation.admin %}
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link{% if item.isActive %} app-navigation__link--active{% endif %}"
-               href="{{ item.url }}">
-              {{ item.text }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
     </div>
   </div>
 </nav>

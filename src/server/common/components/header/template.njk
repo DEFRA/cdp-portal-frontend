@@ -1,12 +1,23 @@
-<header class="app-header"
-        role="banner"
-        data-testid="app-header">
+<header class="app-header" role="banner" data-testid="app-header">
   <div class="app-header__container app-header__container--full-width">
     <div class="app-header__content">
       <a href="{{ params.serviceUrl }}"
          class="app-header__link app-header__service-name"
          data-testid="app-header-link">
         {{ params.serviceName }}
+      </a>
+    </div>
+    <div class="app-header__actions">
+      {% if userProfile.displayName %}
+        <span>
+          {{ userProfile.displayName }}
+        </span>
+      {% endif %}
+
+      <a href="{{ params.loginUrl }}"
+         class="app-header__login-link app-header__link"
+         data-testid="app-login-link">
+        {{ params.loginText }}
       </a>
     </div>
   </div>
