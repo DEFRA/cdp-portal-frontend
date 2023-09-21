@@ -6,12 +6,7 @@ const loginController = {
     auth: 'azure-oidc'
   },
   handler: async (request, h) => {
-    request.yar.set(sessionNames.auth, {
-      credentials: {
-        token: request.auth.credentials.token,
-        profile: request.auth.credentials.profile
-      }
-    })
+    request.yar.set(sessionNames.auth, request.auth)
 
     return h.redirect(appConfig.get('appPathPrefix'))
   }
