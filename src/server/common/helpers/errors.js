@@ -14,8 +14,7 @@ function statusCodeMessage(statusCode) {
 function catchAll(request, h) {
   const { response } = request
 
-  // TODO remove 401 bypass, this is to allow basic auth to show browser login form
-  if (!response.isBoom || response.output.statusCode === 401) {
+  if (!response.isBoom) {
     return h.continue
   }
 
