@@ -1,19 +1,13 @@
 import { appConfig } from '~/src/config'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const appPathPrefix = appConfig.get('appPathPrefix')
 
 function buildNavigation(request) {
-  let isAuthenticated
-  // sometimes the `_store` in yar is uninitialized causing an exception when we first hit the page for the very first time
-  // this catches this weird edge case
-  try {
-    isAuthenticated = request?.yar?.get('auth')?.isAuthenticated
-  } catch (error) {
-    // sometimes the `_store` inside of yar is uninitialized causing an exception when we first hit the page
-    isAuthenticated = false
-  }
+  const authSession = request.yar.get(sessionNames.auth)
+  const isAdmin = authSession?.credentials?.profile?.isAdmin
+
   return {
-    isAzureAuthenticated: isAuthenticated,
     primary: [
       {
         text: 'Home',
@@ -58,27 +52,15 @@ function buildNavigation(request) {
         isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
       }
     ],
-    login: [
-      {
-        text: 'Login',
-        url: `${appPathPrefix}/login`,
-        isActive: request?.path?.includes(`${appPathPrefix}/login`)
-      }
-    ],
-    logout: [
-      {
-        text: 'Logout',
-        url: `${appPathPrefix}/logout`,
-        isActive: request?.path?.includes(`${appPathPrefix}/logout`)
-      }
-    ],
-    admin: [
-      {
-        text: 'Admin',
-        url: `${appPathPrefix}/admin`,
-        isActive: request?.path?.includes(`${appPathPrefix}/admin`)
-      }
-    ]
+    admin: isAdmin
+      ? [
+          {
+            text: 'Admin',
+            url: `${appPathPrefix}/admin`,
+            isActive: request?.path?.includes(`${appPathPrefix}/admin`)
+          }
+        ]
+      : []
   }
 }
 
