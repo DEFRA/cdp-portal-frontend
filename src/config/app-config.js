@@ -126,6 +126,12 @@ const appConfig = convict({
     sensitive: true,
     env: 'AZURE_CLIENT_SECRET',
     default: ''
+  },
+  azureAdminGroupId: {
+    doc: 'Azure Active Directory Admin Group',
+    format: String,
+    env: 'AZURE_ADMIN_GROUP_ID',
+    default: 'aabe63e7-87ef-4beb-a596-c810631fc474'
   }
 })
 
