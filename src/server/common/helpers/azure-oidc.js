@@ -1,23 +1,27 @@
 import jwt from '@hapi/jwt'
+import bell from '@hapi/bell'
 
 import { appConfig } from '~/src/config'
+import { buildAppBaseUrl } from '~/src/server/common/helpers/build-app-base-url'
+
+const azureTenantId = appConfig.get('azureTenantId')
+const oAuthTokenUrl = `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/token`
+const oAuthAuthorizeUrl = `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/authorize`
 
 const azureOidc = {
   plugin: {
     name: 'azure-oidc',
-    register: (server) => {
+    register: async (server) => {
+      await server.register(bell)
+
       server.auth.strategy('azure-oidc', 'bell', {
-        location: appConfig.get('appBaseUrl'),
+        location: buildAppBaseUrl(server),
         provider: {
           name: 'azure-oidc',
           protocol: 'oauth2',
           useParamsAuth: true,
-          auth: `https://login.microsoftonline.com/${appConfig.get(
-            'azureTenantId'
-          )}/oauth2/v2.0/authorize`,
-          token: `https://login.microsoftonline.com/${appConfig.get(
-            'azureTenantId'
-          )}/oauth2/v2.0/token`,
+          auth: oAuthAuthorizeUrl,
+          token: oAuthTokenUrl,
           scope: [
             `api://${appConfig.get('azureClientId')}/cdp.user`,
             'openid',

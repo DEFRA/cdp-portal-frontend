@@ -8,13 +8,15 @@ import { appConfig } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { catchAll } from '~/src/server/common/helpers/errors'
-import { flashMessage } from '~/src/server/common/helpers/flash-message'
+import { session } from '~/src/server/common/helpers/session'
 import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { azureOidc } from '~/src/server/common/helpers/azure-oidc'
+import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 async function createServer() {
   const server = hapi.server({
+    host: 'localhost',
     port: appConfig.get('port'),
     routes: {
       cors: true,
