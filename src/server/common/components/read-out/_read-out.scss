@@ -6,7 +6,7 @@
   .app-read-out {
     margin: govuk-spacing(-2) 0 govuk-spacing(3);
     display: block;
-    @include govuk-font($size: 16);
+    @include govuk-font(16);
     color: govuk-colour("dark-grey");
   }
 }

@@ -1,6 +1,6 @@
 .app-button {
   border-radius: $app-border-radius;
-  @include govuk-font($size: 24);
+  @include govuk-font(24);
   font-weight: bold;
   box-shadow: none;
   padding: govuk-spacing(1) govuk-spacing(2);
@@ -8,12 +8,12 @@
 }
 
 .app-button--inline {
-  @include govuk-font($size: 19);
+  @include govuk-font(19);
   margin-left: govuk-spacing(1);
 }
 
 .app-button--small {
-  @include govuk-font($size: 19);
+  @include govuk-font(19);
   padding: 0 govuk-spacing(1);
 }
 

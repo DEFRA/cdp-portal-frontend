@@ -1,5 +1,5 @@
 .app-header {
-  @include govuk-font($size: 16);
+  @include govuk-font(19);
 
   border-bottom: govuk-spacing(2) solid govuk-colour("white");
   color: govuk-colour("white");

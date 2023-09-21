@@ -3,7 +3,7 @@
 }
 
 .app-data-list-heading {
-  @include govuk-font($size: 19, $weight: bold);
+  @include govuk-font(19, "bold");
 
   display: flex;
   margin-bottom: 0;

@@ -1,5 +1,5 @@
 .app-entity {
-  @include govuk-font($size: 19);
+  @include govuk-font(19);
   @include govuk-text-colour;
   margin-right: govuk-spacing(2);
   overflow: hidden;

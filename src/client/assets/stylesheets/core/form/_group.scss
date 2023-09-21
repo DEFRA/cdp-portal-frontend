@@ -8,6 +8,6 @@
 .govuk-form-group--error {
   & .govuk-error-message {
     font-weight: normal;
-    @include govuk-font($size: 19);
+    @include govuk-font(19);
   }
 }

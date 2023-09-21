@@ -7,7 +7,7 @@ $chevron-border-colour: $govuk-secondary-text-colour;
 $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
 
 .app-breadcrumbs {
-  @include govuk-font($size: $font-size);
+  @include govuk-font($font-size);
   @include govuk-text-colour;
 
   margin-top: govuk-spacing(3);

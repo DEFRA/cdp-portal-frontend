@@ -16,7 +16,7 @@
 
 .app-info__content {
   flex: 8;
-  @include govuk-font($size: 19);
+  @include govuk-font(19);
   color: govuk-colour("black");
   margin-left: govuk-spacing(2);
   margin-right: govuk-spacing(2);
@@ -28,7 +28,7 @@
 
 // TODO move this into own component
 .app-info-hint {
-  @include govuk-font($size: 16);
+  @include govuk-font(16);
 
   border-left: 5px solid govuk-colour("light-blue");
   color: govuk-colour("dark-grey");
