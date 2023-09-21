@@ -1,7 +1,6 @@
 import { appConfig } from '~/src/config'
 import { provideAuth } from '~/src/server/logout/prerequisites/provide-auth'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { buildAppBaseUrl } from '~/src/server/common/helpers/build-app-base-url'
 
 const logoutController = {
   options: {
@@ -9,7 +8,7 @@ const logoutController = {
   },
   handler: async (request, h) => {
     const appBaseUrl =
-      buildAppBaseUrl(request.server) + appConfig.get('appPathPrefix')
+      appConfig.get('appBaseUrl') + appConfig.get('appPathPrefix')
 
     const logoutUrl = encodeURI(
       `https://login.microsoftonline.com/${appConfig.get(

@@ -15,7 +15,6 @@ import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
 async function createServer() {
   const server = hapi.server({
-    host: 'localhost',
     port: appConfig.get('port'),
     routes: {
       cors: true,
