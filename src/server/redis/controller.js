@@ -11,7 +11,8 @@ const redisController = {
         host: appConfig.get('cacheHost'),
         username: appConfig.get('cacheUsername'),
         password: appConfig.get('cachePassword'),
-        db: 0
+        db: 0,
+        ...(appConfig.get('isProduction') && { tls: {} })
       })
 
       return new Promise((resolve, reject) =>
