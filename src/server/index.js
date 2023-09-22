@@ -1,19 +1,18 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
 import qs from 'qs'
+import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router'
 import { appConfig } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
-// import { catchAll } from '~/src/server/common/helpers/errors'
+import { catchAll } from '~/src/server/common/helpers/errors'
 import { session } from '~/src/server/common/helpers/session'
 import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { azureOidc } from '~/src/server/common/helpers/azure-oidc'
 import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
-
-// import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 async function createServer() {
   const server = hapi.server({
@@ -34,22 +33,24 @@ async function createServer() {
     },
     query: {
       parser: (query) => qs.parse(query)
-    }
-    // cache: [
-    //   {
-    //     name: 'session',
-    //     provider: {
-    //       constructor: CatboxRedis,
-    //       options: {
-    //         url: `redis://${appConfig.get('cacheUsername')}:${appConfig.get(
-    //           'cachePassword'
-    //         )}@${appConfig.get('cacheHost')}:6379`,
-    //         partition: 'cdp-portal',
-    //         db: 0
-    //       }
-    //     }
-    //   }
-    // ]
+    },
+    cache: [
+      {
+        name: 'session',
+        provider: {
+          constructor: CatboxRedis,
+          options: {
+            port: 6379,
+            host: appConfig.get('cacheHost'),
+            username: appConfig.get('cacheUsername'),
+            password: appConfig.get('cachePassword'),
+            partition: 'cdp-portal',
+            db: 0,
+            ...(appConfig.get('isProduction') && { tls: {} })
+          }
+        }
+      }
+    ]
   })
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
@@ -65,7 +66,7 @@ async function createServer() {
 
   server.decorate('request', 'fetchWithAuth', fetchWithAuth, { apply: true })
 
-  // server.ext('onPreResponse', catchAll)
+  server.ext('onPreResponse', catchAll)
 
   return server
 }
