@@ -1,7 +1,6 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
 import qs from 'qs'
-import Redis from 'ioredis'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router'
@@ -14,26 +13,6 @@ import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { azureOidc } from '~/src/server/common/helpers/azure-oidc'
 import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
-
-const client = new Redis.Cluster(
-  [
-    {
-      host: appConfig.get('cacheHost'),
-      port: 6379
-    }
-  ],
-  {
-    slotsRefreshTimeout: 20000, // twenty seconds
-    scaleReads: 'all',
-    redisOptions: {
-      username: appConfig.get('cacheUsername'),
-      password: appConfig.get('cachePassword'),
-      db: 0,
-      enableAutoPipelining: true,
-      tls: {}
-    }
-  }
-)
 
 async function createServer() {
   const server = hapi.server({
@@ -58,20 +37,20 @@ async function createServer() {
     cache: [
       {
         name: 'session',
-        engine: new CatboxRedis({
-          partition: 'cdp-portal',
-          client
-        })
+        provider: {
+          constructor: CatboxRedis,
+          options: {
+            port: 6379,
+            host: appConfig.get('cacheHost'),
+            username: appConfig.get('cacheUsername'),
+            password: appConfig.get('cachePassword'),
+            partition: 'cdp-portal',
+            db: 0,
+            ...(appConfig.get('isProduction') && { tls: {} })
+          }
+        }
       }
     ]
-  })
-
-  await server.cache.provision({
-    engine: new CatboxRedis({
-      client,
-      partition: 'cache'
-    }),
-    name: 'cache'
   })
 
   server.ext('onPreResponse', addFlashMessagesToContext, {

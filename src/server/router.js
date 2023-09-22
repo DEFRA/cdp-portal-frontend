@@ -12,6 +12,7 @@ import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files
 import { login } from '~/src/server/login'
 import { logout } from '~/src/server/logout'
 import { admin } from '~/src/server/admin'
+import { redis } from '~/src/server/redis'
 
 const router = {
   plugin: {
@@ -31,6 +32,7 @@ const router = {
         services,
         teams,
         utilities,
+        redis,
         serveStaticFiles
       ])
     }
