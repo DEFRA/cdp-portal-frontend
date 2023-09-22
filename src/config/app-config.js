@@ -102,7 +102,7 @@ const appConfig = convict({
   cacheUsername: {
     doc: 'Redis cache username',
     format: String,
-    default: 'portal-frontend-redis-test',
+    default: '',
     env: 'CACHE_USERNAME'
   },
   cachePassword: {

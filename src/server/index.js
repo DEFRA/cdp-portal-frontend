@@ -41,9 +41,9 @@ async function createServer() {
         provider: {
           constructor: CatboxRedis,
           options: {
-            host: appConfig.get('cacheHost'),
-            password: appConfig.get('cachePassword'),
-            port: 6379,
+            url: `redis://${appConfig.get('cacheUsername')}:${appConfig.get(
+              'cachePassword'
+            )}@${appConfig.get('cacheHost')}:6379`,
             partition: 'cdp-portal',
             db: 0
           }
