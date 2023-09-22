@@ -1,38 +1,27 @@
-import Redis from 'ioredis'
-import Boom from '@hapi/boom'
+import { createCluster } from 'redis'
 
 import { appConfig } from '~/src/config'
 
 const redisController = {
-  handler: (request, h) => {
-    try {
-      const redis = new Redis.Cluster(
-        [{ host: appConfig.get('cacheHost'), port: 6379 }],
+  handler: async (request, h) => {
+    const cluster = await createCluster({
+      rootNodes: [
         {
-          scaleReads: 'all',
-          redisOptions: {
-            username: appConfig.get('cacheUsername'),
-            password: appConfig.get('cachePassword'),
-            enableAutoPipelining: true,
-            db: 0,
-            ...(appConfig.get('isProduction') && { tls: {} })
-          }
+          url: `rediss://${appConfig.get('cacheUsername')}:${appConfig.get(
+            'cachePassword'
+          )}@${appConfig.get('cacheHost')}:6379`
         }
-      )
+      ],
+      useReplicas: true
+    })
 
-      return new Promise((resolve, reject) =>
-        redis.ping(function (err, result) {
-          if (err) {
-            request.logger.error(err)
-            reject(Boom.boomify(Boom.internal(err)))
-          }
+    cluster.on('error', (err) =>
+      request.logger.info('Redis Cluster Error', err)
+    )
 
-          return resolve(h.response({ message: 'success', result }).code(200))
-        })
-      )
-    } catch (error) {
-      return h.response({ message: 'failure', error }).code(500)
-    }
+    await cluster.connect()
+
+    return h.response({ message: 'success' }).code(200)
   }
 }
 
