@@ -60,8 +60,7 @@
     "node-fetch": "2.7.0",
     "nunjucks": "3.2.4",
     "pino": "8.15.0",
-    "qs": "6.11.2",
-    "redis": "4.6.10"
+    "qs": "6.11.2"
   },
   "devDependencies": {
     "@babel/cli": "7.22.10",
