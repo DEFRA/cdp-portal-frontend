@@ -1,6 +1,7 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
 import qs from 'qs'
+import IoRedis from 'ioredis'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router'
@@ -13,6 +14,27 @@ import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { azureOidc } from '~/src/server/common/helpers/azure-oidc'
 import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
+import { createLogger } from '~/src/server/common/helpers/logger'
+
+const logger = createLogger()
+
+const client = new IoRedis.Cluster(
+  [
+    {
+      host: appConfig.get('cacheHost'),
+      port: 6379
+    }
+  ],
+  {
+    slotsRefreshTimeout: 20000,
+    redisOptions: {
+      username: appConfig.get('cacheUsername'),
+      password: appConfig.get('cachePassword'),
+      db: 0,
+      ...(appConfig.get('isProduction') && { tls: {} })
+    }
+  }
+)
 
 async function createServer() {
   const server = hapi.server({
@@ -37,20 +59,25 @@ async function createServer() {
     cache: [
       {
         name: 'session',
-        provider: {
-          constructor: CatboxRedis,
-          options: {
-            port: 6379,
-            host: appConfig.get('cacheHost'),
-            username: appConfig.get('cacheUsername'),
-            password: appConfig.get('cachePassword'),
-            partition: 'cdp-portal',
-            db: 0,
-            ...(appConfig.get('isProduction') && { tls: {} })
-          }
-        }
+        engine: new CatboxRedis({
+          partition: 'cdp-portal',
+          client
+        })
       }
     ]
+  })
+
+  client.on('connect', () => {
+    logger.info('connected to redis server')
+  })
+
+  client.on('close', () => {
+    logger.info('redis connection closed attempting reconnect')
+    client.connect()
+  })
+
+  client.on('error', (error) => {
+    logger.error(`redis connection error ${error}`)
   })
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
