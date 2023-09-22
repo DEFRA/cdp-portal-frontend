@@ -6,14 +6,19 @@ import { appConfig } from '~/src/config'
 const redisController = {
   handler: (request, h) => {
     try {
-      const redis = new Redis({
-        port: 6379,
-        host: appConfig.get('cacheHost'),
-        username: appConfig.get('cacheUsername'),
-        password: appConfig.get('cachePassword'),
-        db: 0,
-        ...(appConfig.get('isProduction') && { tls: {} })
-      })
+      const redis = new Redis.Cluster(
+        [{ host: appConfig.get('cacheHost'), port: 6379 }],
+        {
+          scaleReads: 'all',
+          redisOptions: {
+            username: appConfig.get('cacheUsername'),
+            password: appConfig.get('cachePassword'),
+            enableAutoPipelining: true,
+            db: 0,
+            ...(appConfig.get('isProduction') && { tls: {} })
+          }
+        }
+      )
 
       return new Promise((resolve, reject) =>
         redis.ping(function (err, result) {
