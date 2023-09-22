@@ -26,33 +26,13 @@ const client = new IoRedis.Cluster(
     }
   ],
   {
-    clusterRetryStrategy() {
-      return Math.min(10 * 50, 2000)
-    },
-    scaleReads: 'slave',
-    lazyConnect: true,
-    slotsRefreshInterval: 60000,
-    slotsRefreshTimeout: 10000,
-    enableReadyCheck: true,
+    slotsRefreshTimeout: 2000,
     dnsLookup: (address, callback) => callback(null, address),
     redisOptions: {
       username: appConfig.get('cacheUsername'),
       password: appConfig.get('cachePassword'),
       db: 0,
-      commandTimeout: 5000,
-      connectTimeout: 10000,
-      lazyConnect: true,
-      enableReadyCheck: true,
-      enableAutoPipelining: true,
-      noDelay: true,
-      keepAlive: 1000,
-      ...(appConfig.get('isProduction') && {
-        tls: {
-          checkServerIdentity: () => {
-            return undefined // skip certificate hostname validation
-          }
-        }
-      })
+      ...(appConfig.get('isProduction') && { tls: {} })
     }
   }
 )
