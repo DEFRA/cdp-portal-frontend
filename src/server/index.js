@@ -13,6 +13,8 @@ import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash
 import { azureOidc } from '~/src/server/common/helpers/azure-oidc'
 import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
 
+import { Engine as CatboxRedis } from '@hapi/catbox-redis'
+
 async function createServer() {
   const server = hapi.server({
     port: appConfig.get('port'),
@@ -32,7 +34,22 @@ async function createServer() {
     },
     query: {
       parser: (query) => qs.parse(query)
-    }
+    },
+    cache: [
+      {
+        name: 'session',
+        provider: {
+          constructor: CatboxRedis,
+          options: {
+            host: appConfig.get('cacheHost'),
+            password: appConfig.get('cachePassword'),
+            port: 6379,
+            partition: 'cdp-portal',
+            db: 0
+          }
+        }
+      }
+    ]
   })
 
   server.ext('onPreResponse', addFlashMessagesToContext, {

@@ -93,6 +93,25 @@ const appConfig = convict({
     sensitive: true,
     env: 'SESSION_COOKIE_PASSWORD'
   },
+  cacheHost: {
+    doc: 'Redis cache host',
+    format: String,
+    default: '127.0.0.1',
+    env: 'CACHE_HOST'
+  },
+  cacheUsername: {
+    doc: 'Redis cache username',
+    format: String,
+    default: 'portal-frontend-redis-test',
+    env: 'CACHE_USERNAME'
+  },
+  cachePassword: {
+    doc: 'Redis cache password',
+    format: '*',
+    default: '',
+    sensitive: true,
+    env: 'CACHE_PASSWORD'
+  },
   isProduction: {
     doc: 'If this application running in the production environment',
     format: Boolean,

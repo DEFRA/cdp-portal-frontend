@@ -5,7 +5,8 @@ function serviceValidation(imageNames, availableVersions, environments) {
     imageName: Joi.string()
       .valid(...imageNames)
       .messages({
-        'any.only': 'Choose an entry'
+        'any.only': 'Choose an entry',
+        'string.empty': 'Choose an entry'
       }),
     version: Joi.string()
       .valid(...availableVersions)
