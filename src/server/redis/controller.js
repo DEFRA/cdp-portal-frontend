@@ -1,4 +1,4 @@
-import Redis from 'ioredis'
+import IoRedis from 'ioredis'
 import Boom from '@hapi/boom'
 
 import { appConfig } from '~/src/config'
@@ -6,7 +6,7 @@ import { appConfig } from '~/src/config'
 const redisController = {
   handler: (request, h) => {
     try {
-      const redis = new Redis({
+      const redis = new IoRedis({
         port: 6379,
         host: appConfig.get('cacheHost'),
         username: appConfig.get('cacheUsername'),
