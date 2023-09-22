@@ -23,7 +23,7 @@ const client = new Redis.Cluster(
     }
   ],
   {
-    slotsRefreshTimeout: '10000', // ten seconds
+    slotsRefreshTimeout: 20000, // twenty seconds
     scaleReads: 'all',
     redisOptions: {
       username: appConfig.get('cacheUsername'),
