@@ -5,7 +5,7 @@ import { appConfig } from '~/src/config'
 
 async function fetchLibrary(libraryId) {
   const libraryEndpointUrl =
-    appConfig.get('teamsAndRepositoriesApiUrl') + `/libraries/${libraryId}`
+    appConfig.get('portalBackendApiUrl') + `/libraries/${libraryId}`
 
   const response = await fetch(libraryEndpointUrl, {
     method: 'get',

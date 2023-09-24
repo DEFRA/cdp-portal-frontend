@@ -5,7 +5,7 @@ import { appConfig } from '~/src/config'
 
 async function fetchTemplates(teamId = null) {
   const templatesEndpointUrl =
-    appConfig.get('teamsAndRepositoriesApiUrl') +
+    appConfig.get('portalBackendApiUrl') +
     `/templates${teamId ? `?team=${teamId}` : ''}`
 
   const response = await fetch(templatesEndpointUrl, {
