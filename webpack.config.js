@@ -91,10 +91,17 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpe?g|gif|ico)$/,
+        test: /\.(png|svg|jpe?g|gif)$/,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[contenthash][ext]'
+        }
+      },
+      {
+        test: /\.(ico)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]'
         }
       },
       {

@@ -20,6 +20,13 @@ import {
 
 import '../stylesheets/application.scss'
 
+import '../images/favicon.ico'
+import '../images/govuk-apple-touch-icon-180x180.png'
+import '../images/govuk-apple-touch-icon-167x167.png'
+import '../images/govuk-apple-touch-icon-152x152.png'
+import '../images/govuk-apple-touch-icon.png'
+import '../images/govuk-mask-icon.svg'
+
 initAll()
 
 // Select controller functions
