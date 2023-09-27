@@ -55,7 +55,7 @@ const azureOidc = {
         clientId: appConfig.get('azureClientId'),
         clientSecret: appConfig.get('azureClientSecret'),
         cookie: 'bell-azure-oidc',
-        isSecure: appConfig.get('isProduction'),
+        isSecure: false,
         config: {
           tenant: azureTenantId
         }

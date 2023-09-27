@@ -4,8 +4,7 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 
 function fetchWithAuth(request) {
   return (url, options = {}) => {
-    const auth = request.yar.get(sessionNames?.auth)
-    const token = auth?.credentials?.token
+    const { token } = request.yar.get(sessionNames.user)
 
     return fetch(url, {
       ...options,

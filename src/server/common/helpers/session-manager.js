@@ -1,19 +1,19 @@
 import yar from '@hapi/yar'
 import { appConfig } from '~/src/config'
 
-const session = {
+const sessionManager = {
   plugin: yar,
   options: {
-    name: 'cdp-portal',
+    name: 'cdp-portal-session',
     maxCookieSize: 0, // Always use server-side storage
     cache: { cache: 'session' },
     storeBlank: false,
     errorOnCacheNotReady: true,
     cookieOptions: {
       password: appConfig.get('sessionCookiePassword'),
-      isSecure: true
+      isSecure: appConfig.get('isProduction')
     }
   }
 }
 
-export { session }
+export { sessionManager }

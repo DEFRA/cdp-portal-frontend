@@ -10,6 +10,7 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const logger = createLogger()
 const appPathPrefix = appConfig.get('appPathPrefix')
+const assetPath = appConfig.get('assetPath')
 
 const manifestPath = path.resolve(
   appConfig.get('root'),
@@ -25,12 +26,13 @@ try {
 }
 
 function context(request) {
-  const authSession = request.yar.get(sessionNames.auth) ?? null
+  const user = request.yar ? request.yar.get(sessionNames.user) : {}
 
   return {
-    isAuthenticated: authSession && authSession?.isAuthenticated,
-    userProfile: authSession && authSession.credentials.profile,
+    isAuthenticated: user?.isAuthenticated,
+    user,
     appPathPrefix,
+    assetPath,
     noValue,
     blankOption,
     isXhr: isXhr.call(request),
@@ -42,7 +44,7 @@ function context(request) {
     getAssetPath: function (asset) {
       const webpackAssetPath = webpackManifest[asset]
 
-      return `${appPathPrefix}/public/${webpackAssetPath}`
+      return `${assetPath}/${webpackAssetPath}`
     }
   }
 }
