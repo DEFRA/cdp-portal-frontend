@@ -5,7 +5,7 @@ import { appConfig } from '~/src/config'
 
 async function fetchServiceTypes() {
   const serviceTypesEndpointUrl =
-    appConfig.get('teamsAndRepositoriesApiUrl') + '/service-types'
+    appConfig.get('portalBackendApiUrl') + '/service-types'
 
   const response = await fetch(serviceTypesEndpointUrl, {
     method: 'get',
