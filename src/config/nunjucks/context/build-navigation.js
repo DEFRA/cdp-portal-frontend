@@ -1,12 +1,8 @@
 import { appConfig } from '~/src/config'
-import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const appPathPrefix = appConfig.get('appPathPrefix')
 
 function buildNavigation(request) {
-  const authSession = request.yar.get(sessionNames.auth)
-  const isAdmin = authSession?.credentials?.profile?.isAdmin
-
   return {
     primary: [
       {
@@ -52,15 +48,13 @@ function buildNavigation(request) {
         isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
       }
     ],
-    admin: isAdmin
-      ? [
-          {
-            text: 'Admin',
-            url: `${appPathPrefix}/admin`,
-            isActive: request?.path?.includes(`${appPathPrefix}/admin`)
-          }
-        ]
-      : []
+    admin: [
+      {
+        text: 'Admin',
+        url: `${appPathPrefix}/admin`,
+        isActive: request?.path?.includes(`${appPathPrefix}/admin`)
+      }
+    ]
   }
 }
 
