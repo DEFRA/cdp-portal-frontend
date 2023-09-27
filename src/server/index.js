@@ -1,7 +1,6 @@
 import path from 'path'
 import hapi from '@hapi/hapi'
 import qs from 'qs'
-import IoRedis from 'ioredis'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router'
@@ -14,28 +13,9 @@ import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { azureOidc } from '~/src/server/common/helpers/azure-oidc'
 import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
-import { createLogger } from '~/src/server/common/helpers/logger'
+import { buildRedisClient } from '~/src/server/common/helpers/redis-client'
 
-const logger = createLogger()
-
-const client = new IoRedis.Cluster(
-  [
-    {
-      host: appConfig.get('cacheHost'),
-      port: 6379
-    }
-  ],
-  {
-    slotsRefreshTimeout: 2000,
-    dnsLookup: (address, callback) => callback(null, address),
-    redisOptions: {
-      username: appConfig.get('cacheUsername'),
-      password: appConfig.get('cachePassword'),
-      db: 0,
-      ...(appConfig.get('isProduction') && { tls: {} })
-    }
-  }
-)
+const client = buildRedisClient()
 
 async function createServer() {
   const server = hapi.server({
@@ -66,19 +46,6 @@ async function createServer() {
         })
       }
     ]
-  })
-
-  client.on('connect', () => {
-    logger.info('connected to redis server')
-  })
-
-  client.on('close', () => {
-    logger.info('redis connection closed attempting reconnect')
-    client.connect()
-  })
-
-  client.on('error', (error) => {
-    logger.error(`redis connection error ${error}`)
   })
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
