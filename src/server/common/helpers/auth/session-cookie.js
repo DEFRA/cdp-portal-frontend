@@ -33,26 +33,12 @@ const sessionCookie = {
             const updatedSession = await response.json()
 
             if (!response.ok) {
-              // Refresh token failure
-              request.yar.clear(sessionNames.user)
-              request.cookieAuth.clear()
+              removeUserSession(request)
 
               return { isValid: false }
             }
 
-            // Update cookie with new expiry date
-            request.state['session-cookie'].expires = addSeconds(
-              new Date(),
-              updatedSession.expires_in
-            )
-
-            // Update tokens in session
-            const userSession = request.yar.get(sessionNames.user)
-            request.yar.set(sessionNames.user, {
-              ...userSession,
-              token: updatedSession.access_token,
-              refreshToken: updatedSession.refresh_token
-            })
+            updateUserSession(request, updatedSession)
 
             return {
               isValid: true,
