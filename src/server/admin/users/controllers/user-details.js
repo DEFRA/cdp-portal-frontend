@@ -53,7 +53,7 @@ const userDetailsController = {
     }
 
     if (!validationResult.error) {
-      saveToCdpUser(request, {
+      await saveToCdpUser(request, h, {
         ...sanitisedPayload,
         ...(button === 'skip' && {
           defraAwsId: null,

@@ -65,7 +65,7 @@ const findAadUserController = {
       const aadUser = aadUserDetails?.at(0)
       const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.email
 
-      const updatedCdpUser = saveToCdpUser(request, {
+      const updatedCdpUser = await saveToCdpUser(request, h, {
         ...sanitisedPayload,
         userId: aadUser?.userId ?? null,
         aadQuery: aadUser?.email ?? null,
