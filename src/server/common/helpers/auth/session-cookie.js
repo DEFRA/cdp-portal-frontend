@@ -1,14 +1,17 @@
 import authCookie from '@hapi/cookie'
-import { addSeconds, isPast, parseISO } from 'date-fns'
+import { isPast, parseISO, subMinutes } from 'date-fns'
 
 import { appConfig } from '~/src/config'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import {
+  removeUserSession,
+  updateUserSession
+} from '~/src/server/common/helpers/auth/user-session'
 
 const sessionCookie = {
   plugin: {
     name: 'session-cookie',
-    register: async (server) => {
+    register: async (server, options) => {
       await server.register(authCookie)
 
       server.auth.strategy('session-cookie', 'cookie', {
@@ -21,7 +24,9 @@ const sessionCookie = {
         },
         keepAlive: true,
         validate: async (request, session) => {
-          const tokenHasExpired = isPast(parseISO(session.expires))
+          const tokenHasExpired = isPast(
+            subMinutes(parseISO(session.expires), 1)
+          )
 
           if (tokenHasExpired) {
             const response = await refreshAccessToken(request)
