@@ -3,6 +3,7 @@ import path from 'path'
 
 import { version } from '~/package.json'
 
+const oneDay = 1000 * 60 * 60 * 24
 const oneWeek = 7 * 24 * 60 * 60 * 1000
 
 const appConfig = convict({
@@ -51,6 +52,12 @@ const appConfig = convict({
     default: '/cdp-portal-frontend',
     env: 'APP_PATH_PREFIX'
   },
+  assetPath: {
+    doc: 'Asset path',
+    format: String,
+    default: '/cdp-portal-frontend/public',
+    env: 'ASSET_PATH'
+  },
   mockApiUrl: {
     doc: 'API root url',
     format: String,
@@ -92,6 +99,12 @@ const appConfig = convict({
     default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
     sensitive: true,
     env: 'SESSION_COOKIE_PASSWORD'
+  },
+  sessionCookieTtl: {
+    doc: 'Session cookie ttl',
+    format: Number,
+    default: oneDay,
+    env: 'SESSION_COOKIE_TTL'
   },
   cacheHost: {
     doc: 'Redis cache host',

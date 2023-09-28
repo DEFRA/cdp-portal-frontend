@@ -4,9 +4,8 @@ import fetch from 'node-fetch'
 import { appConfig } from '~/src/config'
 import { isNil } from 'lodash'
 
-async function fetchCdpTeams(auth) {
+async function fetchCdpTeams(token) {
   const headers = { 'Content-Type': 'application/json' }
-  const token = auth?.credentials?.token
 
   if (!isNil(token)) {
     headers.Authorization = `Bearer ${token}`

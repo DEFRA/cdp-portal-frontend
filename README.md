@@ -9,6 +9,7 @@ Portal Frontend for CDP
 - [Local development](#local-development)
   - [Setup](#setup)
   - [Portal APIs](#portal-apis)
+  - [Redis](#redis)
   - [Development](#development)
     - [Debugging](#debugging)
     - [Testing](#testing)
@@ -61,6 +62,14 @@ about the Platform and its tenants.
 - [CDP User Service Backend](https://github.com/defra-cdp-sandpit/cdp-user-service-backend)
 - [CDP Portal Backend](https://github.com/defra-cdp-sandpit/cdp-portal-backend)
 - [CDP Teams and Repositories](https://github.com/defra-cdp-sandpit/cdp-teams-and-repositories)
+
+### Redis
+
+The Portal Frontend uses [Redis](https://redis.io/) for session storage.
+When the application is run on AWS it does so on a Redis/ElastiCache Cluster, locally it uses 1 Redis instance. To
+set up Redis locally refer to the documentation found:
+
+- [https://redis.io/docs/getting-started/installation](https://redis.io/docs/getting-started/installation)
 
 ### Development
 

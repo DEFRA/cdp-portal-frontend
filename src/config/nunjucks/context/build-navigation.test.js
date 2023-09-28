@@ -3,17 +3,8 @@ import { appConfig } from '~/src/config'
 
 const appPathPrefix = appConfig.get('appPathPrefix')
 
-const mockRequest = ({ path = '', isAdmin = false } = {}) => ({
-  path,
-  yar: {
-    get: () => ({
-      credentials: {
-        profile: {
-          isAdmin
-        }
-      }
-    })
-  }
+const mockRequest = ({ path = '' } = {}) => ({
+  path
 })
 
 describe('#buildNavigation', () => {
@@ -64,14 +55,20 @@ describe('#buildNavigation', () => {
             url: '/cdp-portal-frontend/running-services'
           }
         ],
-        admin: []
+        admin: [
+          {
+            isActive: false,
+            text: 'Admin',
+            url: '/cdp-portal-frontend/admin'
+          }
+        ]
       })
     })
   })
 
   describe('When user is Admin', () => {
     test('Should provide expected navigation details', () => {
-      expect(buildNavigation(mockRequest({ isAdmin: true }))).toEqual({
+      expect(buildNavigation(mockRequest())).toEqual({
         actions: [
           {
             isActive: false,
@@ -177,7 +174,13 @@ describe('#buildNavigation', () => {
           url: '/cdp-portal-frontend/running-services'
         }
       ],
-      admin: []
+      admin: [
+        {
+          isActive: false,
+          text: 'Admin',
+          url: '/cdp-portal-frontend/admin'
+        }
+      ]
     })
   })
 })
