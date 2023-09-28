@@ -5,14 +5,15 @@ async function addFlashMessagesToContext(request, h) {
 
   if (response.variety === 'view') {
     const notifications = request.yar.flash(sessionNames.notifications)
+    const globalValidationFailures = request.yar.flash(
+      sessionNames.globalValidationFailures
+    )
     await request.yar.commit(h)
 
     response.source.context = {
       ...response.source.context,
       notifications,
-      globalValidationFailures: request.yar.flash(
-        sessionNames.globalValidationFailures
-      )
+      globalValidationFailures
     }
   }
 
