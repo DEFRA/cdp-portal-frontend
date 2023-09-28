@@ -5,7 +5,8 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 
 async function refreshAccessToken(request) {
   const yar = request.yar
-  const { refreshToken } = yar.get(sessionNames.user)
+  const user = yar.get(sessionNames.user)
+  const refreshToken = user?.refreshToken ?? null
   const azureTenantId = appConfig.get('azureTenantId')
   const azureClientId = appConfig.get('azureClientId')
   const azureClientSecret = appConfig.get('azureClientSecret')
