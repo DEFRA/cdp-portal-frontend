@@ -14,7 +14,8 @@ const teamsListController = {
     }
   },
   handler: async (request, h) => {
-    const { token } = request.yar.get(sessionNames.user)
+    const user = request.yar.get(sessionNames.user)
+    const token = user?.token ?? null
     const { teams } = await fetchCdpTeams(token)
 
     const entityRows = teams

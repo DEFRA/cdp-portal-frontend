@@ -1,12 +1,10 @@
 import { appConfig } from '~/src/config'
 
 const createUrls = {
-  stepOne: appConfig.get('appPathPrefix') + '/admin/users/create/find-aad-user',
-  stepTwo:
-    appConfig.get('appPathPrefix') + '/admin/users/create/find-github-user',
-  stepThree:
-    appConfig.get('appPathPrefix') + '/admin/users/create/user-details',
-  stepFour: appConfig.get('appPathPrefix') + '/admin/users/create/summary'
+  stepOne: appConfig.get('appPathPrefix') + '/admin/users/find-aad-user',
+  stepTwo: appConfig.get('appPathPrefix') + '/admin/users/find-github-user',
+  stepThree: appConfig.get('appPathPrefix') + '/admin/users/user-details',
+  stepFour: appConfig.get('appPathPrefix') + '/admin/users/summary'
 }
 
 const createSteps = (requestPath, urls, isComplete) => [

@@ -49,7 +49,7 @@ const findGitHubUserController = {
     }
 
     if (!validationResult.error) {
-      saveToCdpUser(request, {
+      await saveToCdpUser(request, h, {
         github: button === 'skip' ? null : github
       })
 

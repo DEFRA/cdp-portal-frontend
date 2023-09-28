@@ -1,14 +1,17 @@
 import authCookie from '@hapi/cookie'
-import { addSeconds, isPast, parseISO } from 'date-fns'
+import { isPast, parseISO, subMinutes } from 'date-fns'
 
 import { appConfig } from '~/src/config'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import {
+  removeUserSession,
+  updateUserSession
+} from '~/src/server/common/helpers/auth/user-session'
 
 const sessionCookie = {
   plugin: {
     name: 'session-cookie',
-    register: async (server) => {
+    register: async (server, options) => {
       await server.register(authCookie)
 
       server.auth.strategy('session-cookie', 'cookie', {
@@ -21,33 +24,21 @@ const sessionCookie = {
         },
         keepAlive: true,
         validate: async (request, session) => {
-          const tokenHasExpired = isPast(parseISO(session.expires))
+          const tokenHasExpired = isPast(
+            subMinutes(parseISO(session.expires), 1)
+          )
 
           if (tokenHasExpired) {
             const response = await refreshAccessToken(request)
             const updatedSession = await response.json()
 
             if (!response.ok) {
-              // Refresh token failure
-              request.yar.clear(sessionNames.user)
-              request.cookieAuth.clear()
+              removeUserSession(request)
 
               return { isValid: false }
             }
 
-            // Update cookie with new expiry date
-            request.state['session-cookie'].expires = addSeconds(
-              new Date(),
-              updatedSession.expires_in
-            )
-
-            // Update tokens in session
-            const userSession = request.yar.get(sessionNames.user)
-            request.yar.set(sessionNames.user, {
-              ...userSession,
-              token: updatedSession.access_token,
-              refreshToken: updatedSession.refresh_token
-            })
+            updateUserSession(request, updatedSession)
 
             return {
               isValid: true,

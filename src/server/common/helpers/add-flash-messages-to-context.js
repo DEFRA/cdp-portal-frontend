@@ -1,15 +1,19 @@
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
-function addFlashMessagesToContext(request, h) {
+async function addFlashMessagesToContext(request, h) {
   const response = request.response
 
   if (response.variety === 'view') {
+    const notifications = request.yar.flash(sessionNames.notifications)
+    const globalValidationFailures = request.yar.flash(
+      sessionNames.globalValidationFailures
+    )
+    await request.yar.commit(h)
+
     response.source.context = {
       ...response.source.context,
-      notifications: request.yar.flash(sessionNames.notifications),
-      globalValidationFailures: request.yar.flash(
-        sessionNames.globalValidationFailures
-      )
+      notifications,
+      globalValidationFailures
     }
   }
 
