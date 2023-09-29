@@ -4,23 +4,39 @@ const serveStaticFiles = {
   plugin: {
     name: 'staticFiles',
     register: async (server) => {
-      server.route({
-        options: {
-          auth: false,
-          cache: {
-            expiresIn: appConfig.get('staticCacheTimeout'),
-            privacy: 'private'
+      server.route([
+        {
+          options: {
+            auth: false,
+            cache: {
+              expiresIn: appConfig.get('staticCacheTimeout'),
+              privacy: 'private'
+            }
+          },
+          method: 'GET',
+          path: '/favicon.ico',
+          handler: function (request, h) {
+            return h.response().code(204).type('image/x-icon')
           }
         },
-        method: 'GET',
-        path: '/public/{param*}',
-        handler: {
-          directory: {
-            path: '.',
-            redirectToSlash: true
+        {
+          options: {
+            auth: false,
+            cache: {
+              expiresIn: appConfig.get('staticCacheTimeout'),
+              privacy: 'private'
+            }
+          },
+          method: 'GET',
+          path: '/public/{param*}',
+          handler: {
+            directory: {
+              path: '.',
+              redirectToSlash: true
+            }
           }
         }
-      })
+      ])
     }
   }
 }

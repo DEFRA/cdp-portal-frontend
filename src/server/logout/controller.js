@@ -16,6 +16,7 @@ const logoutController = {
     )
 
     request.yar.clear(sessionNames.user)
+    await request.server.yar.revoke(request.yar.id)
     request.cookieAuth.clear()
 
     return h.redirect(logoutUrl)

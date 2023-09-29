@@ -3,6 +3,8 @@ import { appConfig } from '~/src/config'
 const appPathPrefix = appConfig.get('appPathPrefix')
 
 function buildNavigation(request) {
+  const isAdmin = request.auth?.credentials?.isAdmin ?? false
+
   return {
     primary: [
       {
@@ -48,13 +50,15 @@ function buildNavigation(request) {
         isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
       }
     ],
-    admin: [
-      {
-        text: 'Admin',
-        url: `${appPathPrefix}/admin`,
-        isActive: request?.path?.includes(`${appPathPrefix}/admin`)
-      }
-    ]
+    admin: isAdmin
+      ? [
+          {
+            text: 'Admin',
+            url: `${appPathPrefix}/admin`,
+            isActive: request?.path?.includes(`${appPathPrefix}/admin`)
+          }
+        ]
+      : []
   }
 }
 

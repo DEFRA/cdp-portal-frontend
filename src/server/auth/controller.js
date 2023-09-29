@@ -24,6 +24,7 @@ const authCallbackController = {
       })
 
       request.cookieAuth.set({
+        isAdmin: profile.groups.includes(appConfig.get('azureAdminGroupId')),
         scope: profile.groups,
         expires
       })

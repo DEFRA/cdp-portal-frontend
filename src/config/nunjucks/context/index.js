@@ -26,7 +26,7 @@ try {
 }
 
 function context(request) {
-  const user = request.yar ? request.yar.get(sessionNames.user) : {}
+  const user = request.yar._store ? request.yar.get(sessionNames.user) : {}
 
   return {
     isAuthenticated: user?.isAuthenticated,

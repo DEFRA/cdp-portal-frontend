@@ -11,7 +11,7 @@ import {
 const sessionCookie = {
   plugin: {
     name: 'session-cookie',
-    register: async (server, options) => {
+    register: async (server) => {
       await server.register(authCookie)
 
       server.auth.strategy('session-cookie', 'cookie', {
