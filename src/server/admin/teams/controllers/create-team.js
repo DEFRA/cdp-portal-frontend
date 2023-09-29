@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation'
@@ -28,13 +28,11 @@ const createTeamController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(appConfig.get('appPathPrefix') + '/admin/teams/create')
+      return h.redirect(config.get('appPathPrefix') + '/admin/teams/create')
     }
 
     if (!validationResult.error) {
-      const createTeamEndpointUrl = `${appConfig.get(
-        'userServiceApiUrl'
-      )}/teams`
+      const createTeamEndpointUrl = `${config.get('userServiceApiUrl')}/teams`
 
       const response = await request.fetchWithAuth(createTeamEndpointUrl, {
         method: 'post',
@@ -54,7 +52,7 @@ const createTeamController = {
           type: 'success'
         })
 
-        return h.redirect(appConfig.get('appPathPrefix') + '/admin/teams')
+        return h.redirect(config.get('appPathPrefix') + '/admin/teams')
       }
 
       request.yar.flash(sessionNames.validationFailure, {
@@ -65,7 +63,7 @@ const createTeamController = {
 
       request.yar.clear(sessionNames.cdpTeam)
 
-      return h.redirect(appConfig.get('appPathPrefix') + '/admin/teams/create')
+      return h.redirect(config.get('appPathPrefix') + '/admin/teams/create')
     }
   }
 }

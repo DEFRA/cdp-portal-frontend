@@ -1,7 +1,7 @@
 import { addSeconds } from 'date-fns'
 
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 const authCallbackController = {
   options: {
@@ -24,13 +24,14 @@ const authCallbackController = {
       })
 
       request.cookieAuth.set({
+        isAdmin: profile.groups.includes(config.get('azureAdminGroupId')),
         scope: profile.groups,
         expires
       })
     }
 
     const redirect =
-      request.yar.flash('referrer')?.at(0) ?? appConfig.get('appPathPrefix')
+      request.yar.flash('referrer')?.at(0) ?? config.get('appPathPrefix')
 
     return h.redirect(redirect)
   }

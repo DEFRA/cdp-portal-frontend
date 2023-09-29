@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { aadIdValidation } from '~/src/server/admin/users/helpers/schema/aad-id-validation'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/save-to-cdp-user'
@@ -50,8 +50,7 @@ const findAadUserController = {
       )
 
       return h.redirect(
-        appConfig.get('appPathPrefix') +
-          `/admin/users/find-aad-user${queryString}`
+        config.get('appPathPrefix') + `/admin/users/find-aad-user${queryString}`
       )
     }
 
@@ -81,7 +80,7 @@ const findAadUserController = {
               : ''
           }`
 
-      return h.redirect(appConfig.get('appPathPrefix') + redirectTo)
+      return h.redirect(config.get('appPathPrefix') + redirectTo)
     }
   }
 }

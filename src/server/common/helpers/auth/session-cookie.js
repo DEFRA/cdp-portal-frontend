@@ -1,7 +1,7 @@
 import authCookie from '@hapi/cookie'
 import { isPast, parseISO, subMinutes } from 'date-fns'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
 import {
   removeUserSession,
@@ -11,16 +11,16 @@ import {
 const sessionCookie = {
   plugin: {
     name: 'session-cookie',
-    register: async (server, options) => {
+    register: async (server) => {
       await server.register(authCookie)
 
       server.auth.strategy('session-cookie', 'cookie', {
         cookie: {
           name: 'session-cookie',
           path: '/',
-          password: appConfig.get('sessionCookiePassword'),
-          isSecure: appConfig.get('isProduction'),
-          ttl: appConfig.get('sessionCookieTtl')
+          password: config.get('sessionCookiePassword'),
+          isSecure: config.get('isProduction'),
+          ttl: config.get('sessionCookieTtl')
         },
         keepAlive: true,
         validate: async (request, session) => {

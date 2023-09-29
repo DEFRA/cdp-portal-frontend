@@ -1,7 +1,7 @@
 import nock from 'nock'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
 import { removeUserFromTeam } from '~/src/server/admin/teams/helpers/remove-user-from-team'
 
@@ -9,7 +9,7 @@ describe('#removeUserFromTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
   const userId = '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
   const removeUserFromTeamEndpointUrl = new URL(
-    appConfig.get('userServiceApiUrl') + `/teams/${teamId}/remove/${userId}`
+    config.get('userServiceApiUrl') + `/teams/${teamId}/remove/${userId}`
   )
 
   test('Should provide expected remove user from team response', async () => {

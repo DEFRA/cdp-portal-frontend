@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 /**
  * @typedef {Object} User
@@ -15,7 +15,7 @@ import { appConfig } from '~/src/config'
  * @returns {Promise<Array.<User>>}
  */
 async function fetchCdpUsers() {
-  const usersEndpointUrl = appConfig.get('userServiceApiUrl') + '/users'
+  const usersEndpointUrl = config.get('userServiceApiUrl') + '/users'
 
   const response = await fetch(usersEndpointUrl, {
     method: 'get',

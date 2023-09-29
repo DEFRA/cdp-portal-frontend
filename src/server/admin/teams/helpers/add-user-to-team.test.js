@@ -1,7 +1,7 @@
 import nock from 'nock'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
 import { addUserToTeam } from '~/src/server/admin/teams/helpers/add-user-to-team'
 
@@ -9,7 +9,7 @@ describe('#addUserToTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
   const userId = '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
   const addUserToTeamEndpointUrl = new URL(
-    appConfig.get('userServiceApiUrl') + `/teams/${teamId}/add/${userId}`
+    config.get('userServiceApiUrl') + `/teams/${teamId}/add/${userId}`
   )
 
   test('Should provide expected add user to team response', async () => {

@@ -1,10 +1,10 @@
 import Boom from '@hapi/boom'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function addUserToTeam(fetchWithAuth, teamId, userId) {
   const addUserToTeamEndpointUrl =
-    appConfig.get('userServiceApiUrl') + `/teams/${teamId}/add/${userId}`
+    config.get('userServiceApiUrl') + `/teams/${teamId}/add/${userId}`
 
   const response = await fetchWithAuth(addUserToTeamEndpointUrl, {
     method: 'patch',

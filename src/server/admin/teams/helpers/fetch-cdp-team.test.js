@@ -1,13 +1,13 @@
 import nock from 'nock'
 
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
 
 describe('#fetchCdpTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
   const teamEndpointUrl = new URL(
-    appConfig.get('userServiceApiUrl') + `/teams/${teamId}`
+    config.get('userServiceApiUrl') + `/teams/${teamId}`
   )
 
   test('Should provide expected fetch cdp team response', async () => {

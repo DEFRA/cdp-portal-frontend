@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { saveToDeploymentSession } from '~/src/server/deploy-service/helpers/save-to-deployment-session'
@@ -10,10 +10,10 @@ const deployController = {
   },
   handler: async (request, h) => {
     const deployment = request.pre?.deployment
-    const appPathPrefix = appConfig.get('appPathPrefix')
+    const appPathPrefix = config.get('appPathPrefix')
 
     const deployServiceEndpointUrl =
-      appConfig.get('selfServiceOpsApiUrl') + '/deploy-service'
+      config.get('selfServiceOpsApiUrl') + '/deploy-service'
 
     const response = await request.fetchWithAuth(deployServiceEndpointUrl, {
       method: 'post',

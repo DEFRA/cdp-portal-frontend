@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch-existing-service-info'
 import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info'
 
@@ -8,7 +8,7 @@ describe('#fetchExistingServiceInfo', () => {
   const environment = 'infra-dev'
   const imageName = 'cdp-portal-frontend'
   const existingServiceInfoEndpoint = new URL(
-    appConfig.get('selfServiceOpsApiUrl') +
+    config.get('selfServiceOpsApiUrl') +
       `/deploy-service/info/${environment}/${imageName}`
   )
 

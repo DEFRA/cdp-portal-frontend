@@ -1,13 +1,13 @@
 import pino from 'pino'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 const ecsFormat = require('@elastic/ecs-pino-format')
 
 function createLogger() {
   return pino({
-    enabled: !appConfig.get('isTest'),
-    level: appConfig.get('logLevel'),
-    ...(appConfig.get('isDevelopment')
+    enabled: !config.get('isTest'),
+    level: config.get('logLevel'),
+    ...(config.get('isDevelopment')
       ? { transport: { target: 'pino-pretty' } }
       : ecsFormat())
   })

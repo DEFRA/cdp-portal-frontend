@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { isNil } from 'lodash'
 
 async function fetchCdpTeams(token) {
@@ -11,7 +11,7 @@ async function fetchCdpTeams(token) {
     headers.Authorization = `Bearer ${token}`
   }
 
-  const teamsEndpointUrl = appConfig.get('userServiceApiUrl') + '/teams'
+  const teamsEndpointUrl = config.get('userServiceApiUrl') + '/teams'
 
   const response = await fetch(teamsEndpointUrl, {
     method: 'get',

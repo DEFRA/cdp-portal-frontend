@@ -1,20 +1,20 @@
 import { startCase } from 'lodash'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function transformServiceToEntityRow(service) {
-  const gitHubOrg = appConfig.get('gitHubOrg')
+  const gitHubOrg = config.get('gitHubOrg')
 
   return [
     {
       kind: 'link',
       value: service.serviceName,
-      url: `${appConfig.get('appPathPrefix')}/services/${service.serviceName}`
+      url: `${config.get('appPathPrefix')}/services/${service.serviceName}`
     },
     {
       kind: 'link',
       value: service.teams?.at(0) && startCase(service.teams.at(0)),
-      url: `${appConfig.get('appPathPrefix')}/teams/${service.teams?.at(0)}`
+      url: `${config.get('appPathPrefix')}/teams/${service.teams?.at(0)}`
     },
     {
       kind: 'text',

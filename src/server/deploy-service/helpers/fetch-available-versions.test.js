@@ -1,13 +1,13 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
 
 describe('#fetchAvailableVersions', () => {
   const serviceName = 'cdp-portal-frontend'
   const deployablesVersionsEndpoint = new URL(
-    appConfig.get('portalBackendApiUrl') + `/deployables/${serviceName}`
+    config.get('portalBackendApiUrl') + `/deployables/${serviceName}`
   )
 
   test('Should provide expected available options response', async () => {

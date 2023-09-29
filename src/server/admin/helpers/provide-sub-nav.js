@@ -1,8 +1,8 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function provideSubNav(request, h) {
   const response = request.response
-  const appPathPrefix = appConfig.get('appPathPrefix')
+  const appPathPrefix = config.get('appPathPrefix')
 
   if (response.variety === 'view') {
     if (!response.source?.context) {

@@ -1,9 +1,9 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchLibraries } from '~/src/server/common/helpers/fetch-libraries'
 import { transformUtilityToEntityRow } from '~/src/server/utilities/transformers/transform-utility-to-entity-row'
 
-const appPathPrefix = appConfig.get('appPathPrefix')
+const appPathPrefix = config.get('appPathPrefix')
 
 const librariesListController = {
   handler: async (request, h) => {

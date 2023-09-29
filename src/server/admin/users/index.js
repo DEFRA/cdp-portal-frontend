@@ -1,3 +1,8 @@
+import { config } from '~/src/config'
+import { addScope } from '~/src/server/common/helpers/auth/add-scope'
+import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
+import { provideUserSteps } from '~/src/server/admin/users/helpers/journey'
+import { provideFormContextValues } from '~/src/server/admin/users/helpers/provide-form-context-values'
 import {
   usersListController,
   userController,
@@ -13,9 +18,8 @@ import {
   startEditUserController,
   editUserController
 } from '~/src/server/admin/users/controllers'
-import { provideUserSteps } from '~/src/server/admin/users/helpers/journey'
-import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
-import { provideFormContextValues } from '~/src/server/admin/users/helpers/provide-form-context-values'
+
+const addAdminScope = addScope([`+${config.get('azureAdminGroupId')}`])
 
 const adminUsers = {
   plugin: {
@@ -46,73 +50,75 @@ const adminUsers = {
         }
       ])
 
-      server.route([
-        {
-          method: 'GET',
-          path: '/admin/users/create',
-          ...startCreateUserController
-        },
-        {
-          method: 'POST',
-          path: '/admin/users/create',
-          ...createUserController
-        },
-        {
-          method: 'GET',
-          path: '/admin/users/edit/{userId}',
-          ...startEditUserController
-        },
-        {
-          method: 'POST',
-          path: '/admin/users/edit',
-          ...editUserController
-        },
-        {
-          method: 'GET',
-          path: '/admin/users/find-aad-user',
-          ...findAadUserFormController
-        },
-        {
-          method: 'POST',
-          path: '/admin/users/find-aad-user',
-          ...findAadUserController
-        },
-        {
-          method: 'GET',
-          path: '/admin/users/find-github-user',
-          ...findGitHubUserFormController
-        },
-        {
-          method: 'POST',
-          path: '/admin/users/find-github-user',
-          ...findGitHubUserController
-        },
-        {
-          method: 'GET',
-          path: '/admin/users/user-details',
-          ...userDetailsFormController
-        },
-        {
-          method: 'POST',
-          path: '/admin/users/user-details',
-          ...userDetailsController
-        },
-        {
-          method: 'GET',
-          path: '/admin/users/summary',
-          ...summaryController
-        },
-        {
-          method: 'GET',
-          path: '/admin/users',
-          ...usersListController
-        },
-        {
-          method: 'GET',
-          path: '/admin/users/{userId}',
-          ...userController
-        }
-      ])
+      server.route(
+        [
+          {
+            method: 'GET',
+            path: '/admin/users/create',
+            ...startCreateUserController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/create',
+            ...createUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/edit/{userId}',
+            ...startEditUserController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/edit',
+            ...editUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/find-aad-user',
+            ...findAadUserFormController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/find-aad-user',
+            ...findAadUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/find-github-user',
+            ...findGitHubUserFormController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/find-github-user',
+            ...findGitHubUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/user-details',
+            ...userDetailsFormController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/user-details',
+            ...userDetailsController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/summary',
+            ...summaryController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users',
+            ...usersListController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/{userId}',
+            ...userController
+          }
+        ].map(addAdminScope)
+      )
     }
   }
 }

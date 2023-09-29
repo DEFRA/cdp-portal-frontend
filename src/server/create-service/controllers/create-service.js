@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
@@ -46,7 +46,7 @@ const createServiceController = {
     }
 
     if (!validationResult.error) {
-      const selfServiceOpsV1CreateServiceEndpointUrl = `${appConfig.get(
+      const selfServiceOpsV1CreateServiceEndpointUrl = `${config.get(
         'selfServiceOpsApiUrl'
       )}/create-service`
 
@@ -60,7 +60,7 @@ const createServiceController = {
         type: 'success'
       })
 
-      return h.redirect(appConfig.get('appPathPrefix') + '/create-service')
+      return h.redirect(config.get('appPathPrefix') + '/create-service')
     }
   }
 }

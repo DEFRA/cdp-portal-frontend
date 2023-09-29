@@ -1,6 +1,6 @@
 import { isNull } from 'lodash'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const noSessionRedirect = {
@@ -9,7 +9,7 @@ const noSessionRedirect = {
 
     if (isNull(deployment) || deployment?.isComplete) {
       return h
-        .redirect(`${appConfig.get('appPathPrefix')}/deploy-service`)
+        .redirect(`${config.get('appPathPrefix')}/deploy-service`)
         .takeover()
     }
 

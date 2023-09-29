@@ -6,12 +6,12 @@
     "node": true,
     "jest": true
   },
-  "extends": ["standard", "prettier", "plugin:wdio/recommended"],
+  "extends": ["standard", "prettier"],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "plugins": ["wdio", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": "error"

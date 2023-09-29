@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { sessionNames } from '~/src/server/common/constants/session-names'
@@ -10,7 +10,7 @@ const editUserController = {
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.cdpUser
-    const editUserEndpointUrl = `${appConfig.get('userServiceApiUrl')}/users/${
+    const editUserEndpointUrl = `${config.get('userServiceApiUrl')}/users/${
       cdpUser.userId
     }`
 
@@ -35,13 +35,13 @@ const editUserController = {
       })
 
       return h.redirect(
-        appConfig.get('appPathPrefix') + '/admin/users/' + cdpUser.userId
+        config.get('appPathPrefix') + '/admin/users/' + cdpUser.userId
       )
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-    return h.redirect(appConfig.get('appPathPrefix') + '/admin/users/summary')
+    return h.redirect(config.get('appPathPrefix') + '/admin/users/summary')
   }
 }
 

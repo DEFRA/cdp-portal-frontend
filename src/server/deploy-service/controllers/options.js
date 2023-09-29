@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
@@ -45,16 +45,14 @@ const optionsController = {
         : ''
 
       return h.redirect(
-        appConfig.get('appPathPrefix') + `/deploy-service/options${queryString}`
+        config.get('appPathPrefix') + `/deploy-service/options${queryString}`
       )
     }
 
     if (!validationResult.error) {
       saveToDeploymentSession(request, payload)
 
-      return h.redirect(
-        `${appConfig.get('appPathPrefix')}/deploy-service/summary`
-      )
+      return h.redirect(`${config.get('appPathPrefix')}/deploy-service/summary`)
     }
   }
 }

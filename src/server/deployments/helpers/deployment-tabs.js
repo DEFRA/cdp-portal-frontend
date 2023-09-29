@@ -1,6 +1,6 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
-const appPathPrefix = appConfig.get('appPathPrefix')
+const appPathPrefix = config.get('appPathPrefix')
 
 function deploymentTabs({ path }) {
   return [

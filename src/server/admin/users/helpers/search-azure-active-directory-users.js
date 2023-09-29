@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function searchAzureActiveDirectoryUsers(query) {
   const searchAadUsersEndpointUrl =
-    appConfig.get('userServiceApiUrl') +
+    config.get('userServiceApiUrl') +
     `/aad-users${query ? '?query=' + query : ''}`
 
   const response = await fetch(searchAadUsersEndpointUrl, {

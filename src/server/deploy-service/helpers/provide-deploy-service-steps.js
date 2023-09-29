@@ -1,5 +1,5 @@
 import { isDeploymentComplete } from '~/src/server/deploy-service/helpers/is-deployment-complete'
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { calculateStepWidth } from '~/src/server/common/helpers/calculate-step-width'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
@@ -12,10 +12,10 @@ function provideDeployServiceSteps(request, h) {
     const isComplete = isDeploymentComplete(deployment)
 
     const urls = {
-      stepOne: appConfig.get('appPathPrefix') + '/deploy-service/details',
-      stepTwo: appConfig.get('appPathPrefix') + '/deploy-service/options',
-      stepThree: appConfig.get('appPathPrefix') + '/deploy-service/summary',
-      stepFour: appConfig.get('appPathPrefix') + '/deploy-service/deploy'
+      stepOne: config.get('appPathPrefix') + '/deploy-service/details',
+      stepTwo: config.get('appPathPrefix') + '/deploy-service/options',
+      stepThree: config.get('appPathPrefix') + '/deploy-service/summary',
+      stepFour: config.get('appPathPrefix') + '/deploy-service/deploy'
     }
 
     if (!response?.source?.context) {

@@ -1,11 +1,9 @@
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
-const appPathPrefix = appConfig.get('appPathPrefix')
+const appPathPrefix = config.get('appPathPrefix')
 
-const mockRequest = ({ path = '' } = {}) => ({
-  path
-})
+const mockRequest = ({ path = '', auth = {} } = {}) => ({ path, auth })
 
 describe('#buildNavigation', () => {
   describe('When user is not Admin', () => {
@@ -55,20 +53,18 @@ describe('#buildNavigation', () => {
             url: '/cdp-portal-frontend/running-services'
           }
         ],
-        admin: [
-          {
-            isActive: false,
-            text: 'Admin',
-            url: '/cdp-portal-frontend/admin'
-          }
-        ]
+        admin: []
       })
     })
   })
 
   describe('When user is Admin', () => {
     test('Should provide expected navigation details', () => {
-      expect(buildNavigation(mockRequest())).toEqual({
+      expect(
+        buildNavigation(
+          mockRequest({ auth: { credentials: { isAdmin: true } } })
+        )
+      ).toEqual({
         actions: [
           {
             isActive: false,
@@ -174,13 +170,7 @@ describe('#buildNavigation', () => {
           url: '/cdp-portal-frontend/running-services'
         }
       ],
-      admin: [
-        {
-          isActive: false,
-          text: 'Admin',
-          url: '/cdp-portal-frontend/admin'
-        }
-      ]
+      admin: []
     })
   })
 })

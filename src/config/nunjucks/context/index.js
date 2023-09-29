@@ -1,6 +1,6 @@
 import path from 'path'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { createLogger } from '~/src/server/common/helpers/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
@@ -9,11 +9,11 @@ import { noValue } from '~/src/server/common/constants/no-value'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const logger = createLogger()
-const appPathPrefix = appConfig.get('appPathPrefix')
-const assetPath = appConfig.get('assetPath')
+const appPathPrefix = config.get('appPathPrefix')
+const assetPath = config.get('assetPath')
 
 const manifestPath = path.resolve(
-  appConfig.get('root'),
+  config.get('root'),
   '.public',
   'manifest.json'
 )
@@ -26,7 +26,7 @@ try {
 }
 
 function context(request) {
-  const user = request.yar ? request.yar.get(sessionNames.user) : {}
+  const user = request.yar._store ? request.yar.get(sessionNames.user) : {}
 
   return {
     isAuthenticated: user?.isAuthenticated,
@@ -36,9 +36,9 @@ function context(request) {
     noValue,
     blankOption,
     isXhr: isXhr.call(request),
-    version: appConfig.get('version'),
-    gitHubOrg: appConfig.get('gitHubOrg'),
-    serviceName: appConfig.get('serviceName'),
+    version: config.get('version'),
+    gitHubOrg: config.get('gitHubOrg'),
+    serviceName: config.get('serviceName'),
     breadcrumbs: [],
     navigation: buildNavigation(request),
     getAssetPath: function (asset) {

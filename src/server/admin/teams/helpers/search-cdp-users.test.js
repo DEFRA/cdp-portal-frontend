@@ -1,13 +1,13 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { searchCdpUsers } from '~/src/server/admin/teams/helpers/search-cdp-users'
 import { cdpUsersFixture } from '~/src/__fixtures__/admin/cdp-users'
 
 describe('#searchCdpUsers', () => {
   const query = 'Richard'
   const searchUsersEndpointUrl = new URL(
-    appConfig.get('userServiceApiUrl') + `/users?query=${query}`
+    config.get('userServiceApiUrl') + `/users?query=${query}`
   )
 
   test('Should provide expected search cdp users response', async () => {

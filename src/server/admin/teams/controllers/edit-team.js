@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation'
@@ -30,13 +30,13 @@ const editTeamController = {
       })
 
       return h.redirect(
-        appConfig.get('appPathPrefix') + '/admin/teams/edit/' + teamId
+        config.get('appPathPrefix') + '/admin/teams/edit/' + teamId
       )
     }
 
     if (!validationResult.error) {
       const editTeamEndpointUrl =
-        appConfig.get('userServiceApiUrl') + '/teams/' + teamId
+        config.get('userServiceApiUrl') + '/teams/' + teamId
 
       const response = await request.fetchWithAuth(editTeamEndpointUrl, {
         method: 'patch',
@@ -54,7 +54,7 @@ const editTeamController = {
         })
 
         return h.redirect(
-          appConfig.get('appPathPrefix') + '/admin/teams/' + teamId
+          config.get('appPathPrefix') + '/admin/teams/' + teamId
         )
       }
 
@@ -67,7 +67,7 @@ const editTeamController = {
       request.yar.clear(sessionNames.cdpTeam)
 
       return h.redirect(
-        appConfig.get('appPathPrefix') + '/admin/teams/edit/' + teamId
+        config.get('appPathPrefix') + '/admin/teams/edit/' + teamId
       )
     }
   }
