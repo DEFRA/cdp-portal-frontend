@@ -1,13 +1,13 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { gitHubUsersFixture } from '~/src/__fixtures__/admin/github-users'
 import { searchGitHubUsers } from '~/src/server/admin/users/helpers/search-github-users'
 
 describe('#searchGitHubUsers', () => {
   const query = 'Vibert'
   const searchGitHubUsersEndpointUrl = new URL(
-    appConfig.get('userServiceApiUrl') + `/github-users?query=${query}`
+    config.get('userServiceApiUrl') + `/github-users?query=${query}`
   )
 
   test('Should provide expected search GitHub users response', async () => {

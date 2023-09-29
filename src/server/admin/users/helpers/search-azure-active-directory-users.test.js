@@ -1,13 +1,13 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { azureActiveDirectoryUsersFixture } from '~/src/__fixtures__/admin/azure-active-directory-users'
 import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/search-azure-active-directory-users'
 
 describe('#searchAadUsers', () => {
   const query = 'Mira'
   const searchAadUsersEndpointUrl = new URL(
-    appConfig.get('userServiceApiUrl') +
+    config.get('userServiceApiUrl') +
       `/aad-users${query ? '?query=' + query : ''}`
   )
 

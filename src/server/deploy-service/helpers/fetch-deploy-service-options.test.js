@@ -1,12 +1,12 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
 import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options'
 
 describe('#fetchDeployServiceOptions', () => {
   const deployServiceOptionsEndpoint = new URL(
-    appConfig.get('selfServiceOpsApiUrl') + '/deploy-service/options'
+    config.get('selfServiceOpsApiUrl') + '/deploy-service/options'
   )
 
   test('Should provide expected deploy service options response', async () => {

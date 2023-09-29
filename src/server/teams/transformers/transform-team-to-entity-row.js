@@ -1,13 +1,13 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function transformTeamToEntityRow(team) {
-  const gitHubOrg = appConfig.get('gitHubOrg')
+  const gitHubOrg = config.get('gitHubOrg')
 
   return [
     {
       kind: 'link',
       value: team.name,
-      url: `${appConfig.get('appPathPrefix')}/teams/${team.id}`
+      url: `${config.get('appPathPrefix')}/teams/${team.id}`
     },
     {
       kind: 'link',

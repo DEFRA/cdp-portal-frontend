@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 /**
  * @typedef {Object} serviceInfo - Service information
@@ -15,7 +15,7 @@ import { appConfig } from '~/src/config'
  */
 async function fetchExistingServiceInfo(environment, imageName) {
   const existingServiceInfoEndpoint =
-    appConfig.get('selfServiceOpsApiUrl') +
+    config.get('selfServiceOpsApiUrl') +
     `/deploy-service/info/${environment}/${imageName}`
 
   const response = await fetch(existingServiceInfoEndpoint, {

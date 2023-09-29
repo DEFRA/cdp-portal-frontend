@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { removeUserFromTeam } from '~/src/server/admin/teams/helpers/remove-user-from-team'
 
@@ -31,7 +31,7 @@ const removeUserController = {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
     }
 
-    return h.redirect(appConfig.get('appPathPrefix') + '/admin/teams/' + teamId)
+    return h.redirect(config.get('appPathPrefix') + '/admin/teams/' + teamId)
   }
 }
 

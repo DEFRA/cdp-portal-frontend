@@ -1,13 +1,13 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 import { fetchDeployment } from '~/src/server/deployments/helpers/fetch-deployment'
 
 describe('#fetchDeployment', () => {
   const deploymentId = '553E4E6B-05D7-4A2E-BF80-02ED34DEF864'
   const deploymentEndpointUrl = new URL(
-    appConfig.get('portalBackendApiUrl') + `/deployments/${deploymentId}`
+    config.get('portalBackendApiUrl') + `/deployments/${deploymentId}`
   )
 
   test('Should provide expected deployment response', async () => {

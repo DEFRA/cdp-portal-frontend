@@ -1,15 +1,15 @@
 import { startCase } from 'lodash'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function transformUserToEntityRow(user) {
-  const gitHubOrg = appConfig.get('gitHubOrg')
+  const gitHubOrg = config.get('gitHubOrg')
 
   return [
     {
       kind: 'link',
       value: user.name ? startCase(user.name) : null,
-      url: `${appConfig.get('appPathPrefix')}/admin/users/${user.userId}`
+      url: `${config.get('appPathPrefix')}/admin/users/${user.userId}`
     },
     {
       kind: 'link',

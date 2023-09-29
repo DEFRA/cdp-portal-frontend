@@ -2,13 +2,13 @@ import qs from 'qs'
 import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function fetchDeployments(environment, queryParams) {
   const queryString = qs.stringify(queryParams)
 
   const deploymentsEndpointUrl =
-    appConfig.get('portalBackendApiUrl') +
+    config.get('portalBackendApiUrl') +
     `/deployments?environment=${environment}${
       queryString ? `&${queryString}` : ''
     }`

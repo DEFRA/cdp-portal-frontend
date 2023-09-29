@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function fetchRepository(repositoryId) {
   const repositoryEndpointUrl =
-    appConfig.get('portalBackendApiUrl') + `/repositories/${repositoryId}`
+    config.get('portalBackendApiUrl') + `/repositories/${repositoryId}`
 
   const response = await fetch(repositoryEndpointUrl, {
     method: 'get',

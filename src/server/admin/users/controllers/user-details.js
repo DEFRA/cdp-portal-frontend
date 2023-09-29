@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/save-to-cdp-user'
 import { userDetailsValidation } from '~/src/server/admin/users/helpers/schema/user-details-validation'
@@ -47,8 +47,7 @@ const userDetailsController = {
       )
 
       return h.redirect(
-        appConfig.get('appPathPrefix') +
-          `/admin/users/user-details${queryString}`
+        config.get('appPathPrefix') + `/admin/users/user-details${queryString}`
       )
     }
 
@@ -61,7 +60,7 @@ const userDetailsController = {
         })
       })
 
-      return h.redirect(appConfig.get('appPathPrefix') + '/admin/users/summary')
+      return h.redirect(config.get('appPathPrefix') + '/admin/users/summary')
     }
   }
 }

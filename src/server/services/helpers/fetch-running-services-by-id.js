@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function fetchRunningServicesById(serviceId) {
   const runningServices =
-    appConfig.get('portalBackendApiUrl') + `/whats-running-where/${serviceId}`
+    config.get('portalBackendApiUrl') + `/whats-running-where/${serviceId}`
 
   const response = await fetch(runningServices, {
     method: 'get',

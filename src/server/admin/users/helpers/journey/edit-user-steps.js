@@ -1,10 +1,10 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 // When editing don't give the user the choice to update the first step, the aad user
 const editUrls = {
-  stepTwo: appConfig.get('appPathPrefix') + '/admin/users/find-github-user',
-  stepThree: appConfig.get('appPathPrefix') + '/admin/users/user-details',
-  stepFour: appConfig.get('appPathPrefix') + '/admin/users/summary'
+  stepTwo: config.get('appPathPrefix') + '/admin/users/find-github-user',
+  stepThree: config.get('appPathPrefix') + '/admin/users/user-details',
+  stepFour: config.get('appPathPrefix') + '/admin/users/summary'
 }
 
 const editSteps = (requestPath, urls, isComplete) => [

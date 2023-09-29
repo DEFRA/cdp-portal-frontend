@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function fetchTemplates(teamId = null) {
   const templatesEndpointUrl =
-    appConfig.get('portalBackendApiUrl') +
+    config.get('portalBackendApiUrl') +
     `/templates${teamId ? `?team=${teamId}` : ''}`
 
   const response = await fetch(templatesEndpointUrl, {

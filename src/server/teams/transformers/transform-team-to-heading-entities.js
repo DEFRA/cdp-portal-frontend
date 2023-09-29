@@ -1,7 +1,7 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function transformTeamToHeadingEntities(team) {
-  const gitHubOrg = appConfig.get('gitHubOrg')
+  const gitHubOrg = config.get('gitHubOrg')
 
   return [
     {

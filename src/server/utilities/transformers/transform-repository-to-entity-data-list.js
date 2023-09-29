@@ -1,6 +1,6 @@
 import { startCase } from 'lodash'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function transformRepositoryToEntityDataList(repository) {
   const team = repository?.teams?.at(0)
@@ -10,7 +10,7 @@ function transformRepositoryToEntityDataList(repository) {
       entity: {
         kind: 'link',
         value: team && startCase(team),
-        url: `${appConfig.get('appPathPrefix')}/teams/${team}`
+        url: `${config.get('appPathPrefix')}/teams/${team}`
       }
     },
     {

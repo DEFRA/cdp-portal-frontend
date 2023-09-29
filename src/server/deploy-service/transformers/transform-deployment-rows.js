@@ -1,6 +1,6 @@
 import { startCase } from 'lodash'
 
-import { appConfig, environments } from '~/src/config'
+import { config, environments } from '~/src/config'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
 
 function buildRow(name, value, stepPath) {
@@ -12,7 +12,7 @@ function buildRow(name, value, stepPath) {
       items: [
         {
           href:
-            appConfig.get('appPathPrefix') +
+            config.get('appPathPrefix') +
             `/deploy-service/${stepPath}?redirectLocation=summary`,
           text: 'Change',
           classes: 'app-link',

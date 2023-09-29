@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation'
@@ -52,7 +52,7 @@ const addUserController = {
       })
 
       return h.redirect(
-        appConfig.get('appPathPrefix') +
+        config.get('appPathPrefix') +
           `/admin/teams/${teamId}/add-user${queryString}`
       )
     }
@@ -79,7 +79,7 @@ const addUserController = {
         })
 
         return h.redirect(
-          appConfig.get('appPathPrefix') + `/admin/teams/${teamId}`
+          config.get('appPathPrefix') + `/admin/teams/${teamId}`
         )
       }
 
@@ -102,7 +102,7 @@ const addUserController = {
       )
 
       return h.redirect(
-        appConfig.get('appPathPrefix') +
+        config.get('appPathPrefix') +
           '/admin/teams/' +
           teamId +
           '/add-user' +

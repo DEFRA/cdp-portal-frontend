@@ -4,7 +4,7 @@ import hapi from '@hapi/hapi'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router'
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { catchAll } from '~/src/server/common/helpers/errors'
@@ -20,7 +20,7 @@ const client = buildRedisClient()
 
 async function createServer() {
   const server = hapi.server({
-    port: appConfig.get('port'),
+    port: config.get('port'),
     routes: {
       auth: {
         mode: 'try'
@@ -32,7 +32,7 @@ async function createServer() {
         }
       },
       files: {
-        relativeTo: path.resolve(appConfig.get('root'), '.public')
+        relativeTo: path.resolve(config.get('root'), '.public')
       }
     },
     router: {
@@ -66,7 +66,7 @@ async function createServer() {
   await server.register(requestLogger)
   await server.register(nunjucksConfig)
   await server.register(router, {
-    routes: { prefix: appConfig.get('appPathPrefix') }
+    routes: { prefix: config.get('appPathPrefix') }
   })
 
   server.ext('onPreResponse', catchAll)

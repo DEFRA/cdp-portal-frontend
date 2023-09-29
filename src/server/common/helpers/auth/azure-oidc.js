@@ -1,15 +1,13 @@
 import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
-const azureTenantId = appConfig.get('azureTenantId')
+const azureTenantId = config.get('azureTenantId')
 const oAuthTokenUrl = `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/token`
 const oAuthAuthorizeUrl = `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/authorize`
 const authCallbackUrl =
-  appConfig.get('appBaseUrl') +
-  appConfig.get('appPathPrefix') +
-  '/auth/callback'
+  config.get('appBaseUrl') + config.get('appPathPrefix') + '/auth/callback'
 
 const azureOidc = {
   plugin: {
@@ -32,7 +30,7 @@ const azureOidc = {
           auth: oAuthAuthorizeUrl,
           token: oAuthTokenUrl,
           scope: [
-            `api://${appConfig.get('azureClientId')}/cdp.user`,
+            `api://${config.get('azureClientId')}/cdp.user`,
             'openid',
             'profile',
             'email',
@@ -51,9 +49,9 @@ const azureOidc = {
             }
           }
         },
-        password: appConfig.get('sessionCookiePassword'),
-        clientId: appConfig.get('azureClientId'),
-        clientSecret: appConfig.get('azureClientSecret'),
+        password: config.get('sessionCookiePassword'),
+        clientId: config.get('azureClientId'),
+        clientSecret: config.get('azureClientSecret'),
         cookie: 'bell-azure-oidc',
         isSecure: false,
         config: {

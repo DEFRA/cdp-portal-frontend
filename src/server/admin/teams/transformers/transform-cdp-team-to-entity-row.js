@@ -1,11 +1,11 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function transformCdpTeamToEntityRow(team) {
   return [
     {
       kind: 'link',
       value: team.name,
-      url: `${appConfig.get('appPathPrefix')}/admin/teams/${team.teamId}`
+      url: `${config.get('appPathPrefix')}/admin/teams/${team.teamId}`
     },
     {
       kind: 'text',

@@ -1,13 +1,13 @@
 import { isNull } from 'lodash'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { noValue } from '~/src/server/common/constants/no-value'
 
 function buildRow(name, value, stepPath, query) {
   const queryString = value !== noValue && query ? `&${query}=${value}` : ''
 
   const href =
-    appConfig.get('appPathPrefix') +
+    config.get('appPathPrefix') +
     `/admin/users/${stepPath}?redirectLocation=summary` +
     queryString
 

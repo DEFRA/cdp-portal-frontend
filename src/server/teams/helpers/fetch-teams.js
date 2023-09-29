@@ -1,11 +1,10 @@
 import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function fetchTeams() {
-  const teamsEndpointUrl =
-    appConfig.get('teamsAndRepositoriesApiUrl') + '/teams'
+  const teamsEndpointUrl = config.get('teamsAndRepositoriesApiUrl') + '/teams'
 
   const response = await fetch(teamsEndpointUrl, {
     method: 'get',

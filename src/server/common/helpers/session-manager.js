@@ -1,5 +1,5 @@
 import yar from '@hapi/yar'
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 const sessionManager = {
   plugin: yar,
@@ -10,8 +10,8 @@ const sessionManager = {
     storeBlank: false,
     errorOnCacheNotReady: true,
     cookieOptions: {
-      password: appConfig.get('sessionCookiePassword'),
-      isSecure: appConfig.get('isProduction')
+      password: config.get('sessionCookiePassword'),
+      isSecure: config.get('isProduction')
     }
   }
 }

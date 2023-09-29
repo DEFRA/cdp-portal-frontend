@@ -1,12 +1,12 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
 
 describe('#fetchDeployableImageNames', () => {
   const deployableImagesEndpointUrl = new URL(
-    appConfig.get('portalBackendApiUrl') + '/deployables'
+    config.get('portalBackendApiUrl') + '/deployables'
   )
 
   test('Should provide expected deployable images response', async () => {

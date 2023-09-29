@@ -1,8 +1,8 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 
 function transformCdpTeamUsers(team) {
-  const appPathPrefix = appConfig.get('appPathPrefix')
+  const appPathPrefix = config.get('appPathPrefix')
 
   return team.users
     .map((user) => {

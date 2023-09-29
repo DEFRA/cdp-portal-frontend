@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { gitHubValidation } from '~/src/server/admin/users/helpers/schema/github-validation'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/save-to-cdp-user'
@@ -43,7 +43,7 @@ const findGitHubUserController = {
       )
 
       return h.redirect(
-        appConfig.get('appPathPrefix') +
+        config.get('appPathPrefix') +
           `/admin/users/find-github-user${queryString}`
       )
     }
@@ -57,7 +57,7 @@ const findGitHubUserController = {
         ? `/admin/users/${redirectLocation}`
         : '/admin/users/user-details'
 
-      return h.redirect(appConfig.get('appPathPrefix') + redirectTo)
+      return h.redirect(config.get('appPathPrefix') + redirectTo)
     }
   }
 }

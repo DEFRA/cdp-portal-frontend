@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 async function searchGitHubUsers(query) {
   const searchGitHubUsersEndpointUrl =
-    appConfig.get('userServiceApiUrl') +
+    config.get('userServiceApiUrl') +
     `/github-users${query ? '?query=' + query : ''}`
 
   const response = await fetch(searchGitHubUsersEndpointUrl, {

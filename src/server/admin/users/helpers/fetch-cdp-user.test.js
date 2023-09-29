@@ -1,13 +1,13 @@
 import nock from 'nock'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
 
 describe('#fetchCdpUser', () => {
   const userId = '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
   const userEndpointUrl = new URL(
-    appConfig.get('userServiceApiUrl') + `/users/${userId}`
+    config.get('userServiceApiUrl') + `/users/${userId}`
   )
 
   test('Should provide expected fetch cdp user response', async () => {

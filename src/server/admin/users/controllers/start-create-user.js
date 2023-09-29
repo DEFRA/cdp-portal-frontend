@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const startCreateUserController = {
@@ -7,7 +7,7 @@ const startCreateUserController = {
     request.yar.clear(sessionNames.validationFailure)
 
     return h.redirect(
-      `${appConfig.get('appPathPrefix')}/admin/users/find-aad-user`
+      `${config.get('appPathPrefix')}/admin/users/find-aad-user`
     )
   }
 }

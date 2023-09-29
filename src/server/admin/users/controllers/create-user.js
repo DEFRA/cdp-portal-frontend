@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { sessionNames } from '~/src/server/common/constants/session-names'
@@ -11,7 +11,7 @@ const createUserController = {
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.cdpUser
-    const createUserEndpointUrl = `${appConfig.get('userServiceApiUrl')}/users`
+    const createUserEndpointUrl = `${config.get('userServiceApiUrl')}/users`
 
     const response = await request.fetchWithAuth(createUserEndpointUrl, {
       method: 'post',
@@ -36,12 +36,12 @@ const createUserController = {
         type: 'success'
       })
 
-      return h.redirect(appConfig.get('appPathPrefix') + '/admin/users')
+      return h.redirect(config.get('appPathPrefix') + '/admin/users')
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-    return h.redirect(appConfig.get('appPathPrefix') + '/admin/users/summary')
+    return h.redirect(config.get('appPathPrefix') + '/admin/users/summary')
   }
 }
 

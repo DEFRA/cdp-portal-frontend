@@ -1,4 +1,4 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const startDeployServiceController = {
@@ -6,9 +6,7 @@ const startDeployServiceController = {
     request.yar.clear(sessionNames.deployment)
     request.yar.clear(sessionNames.validationFailure)
 
-    return h.redirect(
-      `${appConfig.get('appPathPrefix')}/deploy-service/details`
-    )
+    return h.redirect(`${config.get('appPathPrefix')}/deploy-service/details`)
   }
 }
 

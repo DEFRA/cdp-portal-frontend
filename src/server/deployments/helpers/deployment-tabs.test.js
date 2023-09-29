@@ -1,7 +1,7 @@
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs'
 
-const appPathPrefix = appConfig.get('appPathPrefix')
+const appPathPrefix = config.get('appPathPrefix')
 const mockRequest = (path = '') => ({ path })
 
 describe('#deploymentTabs', () => {

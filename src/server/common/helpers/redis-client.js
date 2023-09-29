@@ -1,6 +1,6 @@
 import IoRedis from 'ioredis'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 import { createLogger } from '~/src/server/common/helpers/logger'
 
 /**
@@ -17,11 +17,11 @@ function buildRedisClient() {
   const db = 0
   let redisClient
 
-  if (appConfig.get('isProduction')) {
+  if (config.get('isProduction')) {
     redisClient = new IoRedis.Cluster(
       [
         {
-          host: appConfig.get('cacheHost'),
+          host: config.get('cacheHost'),
           port
         }
       ],
@@ -29,8 +29,8 @@ function buildRedisClient() {
         slotsRefreshTimeout: 2000,
         dnsLookup: (address, callback) => callback(null, address),
         redisOptions: {
-          username: appConfig.get('cacheUsername'),
-          password: appConfig.get('cachePassword'),
+          username: config.get('cacheUsername'),
+          password: config.get('cachePassword'),
           db,
           tls: {}
         }
@@ -38,10 +38,10 @@ function buildRedisClient() {
     )
   }
 
-  if (appConfig.get('isDevelopment')) {
+  if (config.get('isDevelopment')) {
     redisClient = new IoRedis({
       port,
-      host: appConfig.get('cacheHost'),
+      host: config.get('cacheHost'),
       db
     })
   }

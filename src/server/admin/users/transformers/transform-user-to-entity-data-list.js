@@ -1,9 +1,9 @@
 import { startCase } from 'lodash'
 
-import { appConfig } from '~/src/config'
+import { config } from '~/src/config'
 
 function transformUserToEntityDataList(user) {
-  const gitHubOrg = appConfig.get('gitHubOrg')
+  const gitHubOrg = config.get('gitHubOrg')
 
   return [
     {
