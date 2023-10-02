@@ -17,7 +17,7 @@ function buildRedisClient() {
   const db = 0
   let redisClient
 
-  if (config.get('isProduction')) {
+  if (config.get('cacheEnabled')) {
     redisClient = new IoRedis.Cluster(
       [
         {
@@ -38,7 +38,10 @@ function buildRedisClient() {
     )
   }
 
-  if (config.get('isDevelopment')) {
+  if (
+    config.get('isDevelopment') ||
+    (config.get('isProduction') && !config.get('cacheEnabled')) // for inside docker container
+  ) {
     redisClient = new IoRedis({
       port,
       host: config.get('cacheHost'),
