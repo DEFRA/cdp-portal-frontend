@@ -125,11 +125,11 @@ const config = convict({
     sensitive: true,
     env: 'CACHE_PASSWORD'
   },
-  cacheEnabled: {
-    doc: 'Enable the use of the Redis Cache',
+  nonClusterCache: {
+    doc: 'Enable the use of the Redis Cache with single instance and no TLS',
     format: Boolean,
-    default: process.env.NODE_ENV === 'production',
-    env: 'CACHE_ENABLED'
+    default: process.env.NODE_ENV === 'development',
+    env: 'NON_CLUSTER_CACHE'
   },
   isProduction: {
     doc: 'If this application running in the production environment',
