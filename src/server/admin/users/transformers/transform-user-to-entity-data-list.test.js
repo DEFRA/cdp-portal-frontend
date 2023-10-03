@@ -26,7 +26,7 @@ describe('#transformUserToEntityDataList', () => {
           url: 'https://github.com/orgs/defra-cdp-sandpit/people/RichardDJames',
           value: '@RichardDJames'
         },
-        heading: 'GitHub'
+        heading: 'Github'
       },
       {
         entity: {

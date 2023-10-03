@@ -37,7 +37,7 @@ function context(request) {
     blankOption,
     isXhr: isXhr.call(request),
     version: config.get('version'),
-    gitHubOrg: config.get('gitHubOrg'),
+    githubOrg: config.get('githubOrg'),
     serviceName: config.get('serviceName'),
     breadcrumbs: [],
     navigation: buildNavigation(request),

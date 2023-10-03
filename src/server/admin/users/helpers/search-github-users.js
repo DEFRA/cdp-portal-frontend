@@ -3,12 +3,12 @@ import fetch from 'node-fetch'
 
 import { config } from '~/src/config'
 
-async function searchGitHubUsers(query) {
-  const searchGitHubUsersEndpointUrl =
+async function searchGithubUsers(query) {
+  const searchGithubUsersEndpointUrl =
     config.get('userServiceApiUrl') +
     `/github-users${query ? '?query=' + query : ''}`
 
-  const response = await fetch(searchGitHubUsersEndpointUrl, {
+  const response = await fetch(searchGithubUsersEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
@@ -21,4 +21,4 @@ async function searchGitHubUsers(query) {
   throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
-export { searchGitHubUsers }
+export { searchGithubUsers }

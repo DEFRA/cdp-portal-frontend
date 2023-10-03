@@ -1,15 +1,15 @@
 import { config } from '~/src/config'
 
 function transformTeamToHeadingEntities(team) {
-  const gitHubOrg = config.get('gitHubOrg')
+  const githubOrg = config.get('githubOrg')
 
   return [
     {
       kind: 'link',
       value: `@${team.id}`,
-      url: `https://github.com/orgs/${gitHubOrg}/teams/${team.id}`,
+      url: `https://github.com/orgs/${githubOrg}/teams/${team.id}`,
       newWindow: true,
-      label: 'GitHub'
+      label: 'Github'
     },
     {
       kind: 'date',

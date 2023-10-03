@@ -14,6 +14,12 @@ describe('#transformCdpTeamToEntityRow', () => {
         value: 'The Admin team 💪🏻'
       },
       {
+        kind: 'link',
+        newWindow: true,
+        url: 'https://github.com/orgs/defra-cdp-sandpit/teams/fisheries',
+        value: '@fisheries'
+      },
+      {
         kind: 'text',
         value: 4
       }

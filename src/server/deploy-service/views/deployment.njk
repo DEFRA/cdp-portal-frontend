@@ -1,16 +1,21 @@
-{% extends "layouts/step-navigation-page.njk" %}
+{% extends "layouts/page.njk" %}
 
 {% block content %}
 
-  {{ appHeading({
-    title: heading,
-    caption: headingCaption
-  }) }}
+  {{ appStepNavigation(stepNavigation) }}
 
-  {% call appPageBody() %}
+  <div class="govuk-main-wrapper app-main-wrapper">
 
-    <p>Service deployment successfully requested</p>
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
 
-  {% endcall %}
+    {% call appPageBody() %}
+
+      <p>Service deployment successfully requested</p>
+
+    {% endcall %}
+  </div>
 
 {% endblock %}

@@ -3,7 +3,7 @@ import { startCase } from 'lodash'
 import { config } from '~/src/config'
 
 function transformServiceToEntityRow(service) {
-  const gitHubOrg = config.get('gitHubOrg')
+  const githubOrg = config.get('githubOrg')
 
   return [
     {
@@ -22,8 +22,8 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'link',
-      value: `${gitHubOrg}/${service.id}`,
-      url: `https://github.com/${gitHubOrg}/${service.id}`,
+      value: `${githubOrg}/${service.id}`,
+      url: `https://github.com/${githubOrg}/${service.id}`,
       newWindow: true
     },
     {

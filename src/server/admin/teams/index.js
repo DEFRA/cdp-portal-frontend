@@ -1,16 +1,25 @@
 import { config } from '~/src/config'
 import { addScope } from '~/src/server/common/helpers/auth/add-scope'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
-import { provideFormContextValues } from '~/src/server/admin/teams/helpers/provide-form-context-values'
 import {
+  provideTeamSteps,
+  provideFormContextValues
+} from '~/src/server/admin/teams/helpers/form'
+import {
+  startCreateTeamController,
   createTeamController,
-  editTeamController,
+  findGithubTeamController,
+  findGithubTeamFormController,
+  teamDetailsController,
+  teamDetailsFormController,
+  startEditTeamController,
   teamsListController,
   teamController,
-  teamsFormController,
   addUserFormController,
   addUserController,
-  removeUserController
+  removeUserController,
+  teamSummaryController,
+  editTeamController
 } from '~/src/server/admin/teams/controllers'
 
 const addAdminScope = addScope([`+${config.get('azureAdminGroupId')}`])
@@ -34,6 +43,13 @@ const adminTeams = {
             before: ['yar'],
             sandbox: 'plugin'
           }
+        },
+        {
+          type: 'onPostHandler',
+          method: provideTeamSteps,
+          options: {
+            sandbox: 'plugin'
+          }
         }
       ])
 
@@ -47,7 +63,7 @@ const adminTeams = {
           {
             method: 'GET',
             path: '/admin/teams/create',
-            ...teamsFormController
+            ...startCreateTeamController
           },
           {
             method: 'POST',
@@ -56,13 +72,38 @@ const adminTeams = {
           },
           {
             method: 'GET',
-            path: '/admin/teams/edit/{teamId}',
-            ...teamsFormController
+            path: '/admin/teams/find-github-team',
+            ...findGithubTeamFormController
           },
           {
             method: 'POST',
-            path: '/admin/teams/edit/{teamId}',
+            path: '/admin/teams/find-github-team',
+            ...findGithubTeamController
+          },
+          {
+            method: 'GET',
+            path: '/admin/teams/team-details',
+            ...teamDetailsFormController
+          },
+          {
+            method: 'POST',
+            path: '/admin/teams/team-details',
+            ...teamDetailsController
+          },
+          {
+            method: 'GET',
+            path: '/admin/teams/summary',
+            ...teamSummaryController
+          },
+          {
+            method: 'POST',
+            path: '/admin/teams/edit',
             ...editTeamController
+          },
+          {
+            method: 'GET',
+            path: '/admin/teams/edit/{teamId}',
+            ...startEditTeamController
           },
           {
             method: 'GET',

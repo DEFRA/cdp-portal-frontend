@@ -1,34 +1,39 @@
-{% extends "layouts/step-navigation-page.njk" %}
+{% extends "layouts/page.njk" %}
 
 {% block content %}
 
-  {{ appHeading({
-    title: heading,
-    caption: headingCaption
-  }) }}
+  {{ appStepNavigation(stepNavigation) }}
 
-  <div class="govuk-grid-row">
-    <div class="app-grid-column-two-thirds-at-desktop-wide">
-      <div class="govuk-body">
+  <div class="govuk-main-wrapper app-main-wrapper">
 
-        {{ appInfo({
-          text: "All deployments require some resources for platform processes. Adjust your CPU and memory to allow for
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="app-grid-column-two-thirds-at-desktop-wide">
+        <div class="govuk-body">
+
+          {{ appInfo({
+            text: "All deployments require some resources for platform processes. Adjust your CPU and memory to allow for
           this resource allocation."
-        }) }}
-
-        <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">
-
-          {{ govukSummaryList({
-            classes: "govuk-!-margin-bottom-9",
-            rows: deploymentRows
           }) }}
 
-          {{ govukButton({
-            classes: "app-button",
-            text: formButtonText
-          }) }}
+          <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">
 
-        </form>
+            {{ govukSummaryList({
+              classes: "govuk-!-margin-bottom-9",
+              rows: deploymentRows
+            }) }}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: formButtonText
+            }) }}
+
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -88,8 +88,8 @@ const config = convict({
     default: 'http://localhost:3001/cdp-user-service-backend',
     env: 'USER_SERVICE_API_URL'
   },
-  gitHubOrg: {
-    doc: 'The GitHub Organisation',
+  githubOrg: {
+    doc: 'The Github Organisation',
     format: String,
     default: 'defra-cdp-sandpit'
   },

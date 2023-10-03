@@ -20,6 +20,15 @@ describe('#transformCdpTeamToEntityDataList', () => {
       },
       {
         entity: {
+          kind: 'link',
+          newWindow: true,
+          url: 'https://github.com/orgs/defra-cdp-sandpit/teams/fisheries',
+          value: '@fisheries'
+        },
+        heading: 'Github team'
+      },
+      {
+        entity: {
           kind: 'date',
           value: '2023-08-23T16:18:28.742Z'
         },

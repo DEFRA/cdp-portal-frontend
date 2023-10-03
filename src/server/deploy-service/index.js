@@ -1,5 +1,7 @@
-import { provideDeployServiceSteps } from '~/src/server/deploy-service/helpers/provide-deploy-service-steps'
-import { provideFormContextValues } from '~/src/server/deploy-service/helpers/provide-form-context-values'
+import {
+  provideFormContextValues,
+  provideDeploymentSteps
+} from '~/src/server/deploy-service/helpers/form'
 import {
   availableVersionsController,
   availableMemoryController,
@@ -28,7 +30,7 @@ const deployService = {
         },
         {
           type: 'onPostHandler',
-          method: provideDeployServiceSteps,
+          method: provideDeploymentSteps,
           options: {
             sandbox: 'plugin'
           }

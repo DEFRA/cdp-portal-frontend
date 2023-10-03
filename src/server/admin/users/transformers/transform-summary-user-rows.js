@@ -2,9 +2,11 @@ import { isNull } from 'lodash'
 
 import { config } from '~/src/config'
 import { noValue } from '~/src/server/common/constants/no-value'
+import { buildLink } from '~/src/server/common/helpers/build-link'
 
-function buildRow(name, value, stepPath, query) {
-  const queryString = value !== noValue && query ? `&${query}=${value}` : ''
+function buildRow(name, value, stepPath, query, queryValue = value) {
+  const queryString =
+    value !== noValue && query ? `&${query}=${queryValue}` : ''
 
   const href =
     config.get('appPathPrefix') +
@@ -31,35 +33,35 @@ function buildRow(name, value, stepPath, query) {
 }
 
 function transformSummaryUserRows(cdpUser) {
+  const githubOrg = config.get('githubOrg')
   const isEdit = cdpUser?.isEdit ?? false
-  const detailsWithNoValues = Object.entries(cdpUser).reduce(
-    (obj, [key, value]) => {
-      return {
-        ...obj,
-        [key]: isNull(value) ? noValue : value
-      }
-    },
-    {}
-  )
+  const userDetails = Object.entries(cdpUser).reduce((obj, [key, value]) => {
+    return {
+      ...obj,
+      [key]: isNull(value) ? noValue : value
+    }
+  }, {})
+  const githubUserUiValue = cdpUser.github
+    ? buildLink(
+        `https://github.com/orgs/${githubOrg}/people/${userDetails.github}`,
+        `@${userDetails.github}`
+      )
+    : noValue
 
   return [
     isEdit
-      ? buildRow('AAD user', detailsWithNoValues.email)
-      : buildRow(
-          'AAD user',
-          detailsWithNoValues.email,
-          'find-aad-user',
-          'aadQuery'
-        ),
+      ? buildRow('AAD user', userDetails.email)
+      : buildRow('AAD user', userDetails.email, 'find-aad-user', 'aadQuery'),
     buildRow(
-      'GitHub user',
-      detailsWithNoValues.github,
+      'Github user',
+      githubUserUiValue,
       'find-github-user',
-      'githubSearch'
+      'githubSearch',
+      userDetails.github
     ),
-    buildRow('CDP user name', detailsWithNoValues.name, 'user-details'),
-    buildRow('Defra AWS ID', detailsWithNoValues.defraAwsId, 'user-details'),
-    buildRow('Defra VPN ID', detailsWithNoValues.defraVpnId, 'user-details')
+    buildRow('CDP user name', userDetails.name, 'user-details'),
+    buildRow('Defra AWS ID', userDetails.defraAwsId, 'user-details'),
+    buildRow('Defra VPN ID', userDetails.defraVpnId, 'user-details')
   ]
 }
 

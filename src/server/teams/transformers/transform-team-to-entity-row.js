@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
 
 function transformTeamToEntityRow(team) {
-  const gitHubOrg = config.get('gitHubOrg')
+  const githubOrg = config.get('githubOrg')
 
   return [
     {
@@ -12,7 +12,7 @@ function transformTeamToEntityRow(team) {
     {
       kind: 'link',
       value: `@${team.id}`,
-      url: `https://github.com/orgs/${gitHubOrg}/teams/${team.id}`,
+      url: `https://github.com/orgs/${githubOrg}/teams/${team.id}`,
       newWindow: true
     },
     {

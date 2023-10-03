@@ -22,7 +22,7 @@ function transformServiceToEntityDataList(service) {
       }
     },
     {
-      heading: 'GitHub Repository',
+      heading: 'Github Repository',
       html:
         service.githubUrl &&
         `<a class="app-link" href="${service.githubUrl}" target="_blank">${service.githubUrl}</a>`

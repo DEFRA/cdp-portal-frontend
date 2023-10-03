@@ -20,7 +20,7 @@ describe('#transformServiceToEntityDataList', () => {
         heading: 'Type'
       },
       {
-        heading: 'GitHub Repository',
+        heading: 'Github Repository',
         html: '<a class="app-link" href="https://github.com/defra-cdp-sandpit/cdp-deployables" target="_blank">https://github.com/defra-cdp-sandpit/cdp-deployables</a>'
       },
       {

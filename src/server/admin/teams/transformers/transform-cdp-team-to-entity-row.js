@@ -1,6 +1,8 @@
 import { config } from '~/src/config'
 
 function transformCdpTeamToEntityRow(team) {
+  const githubOrg = config.get('githubOrg')
+
   return [
     {
       kind: 'link',
@@ -10,6 +12,12 @@ function transformCdpTeamToEntityRow(team) {
     {
       kind: 'text',
       value: team.description
+    },
+    {
+      kind: 'link',
+      value: team.github ? `@${team.github}` : null,
+      url: `https://github.com/orgs/${githubOrg}/teams/${team.github}`,
+      newWindow: true
     },
     {
       kind: 'text',

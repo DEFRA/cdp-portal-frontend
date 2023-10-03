@@ -1,19 +1,21 @@
 import { config } from '~/src/config'
 import { addScope } from '~/src/server/common/helpers/auth/add-scope'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
-import { provideUserSteps } from '~/src/server/admin/users/helpers/journey'
-import { provideFormContextValues } from '~/src/server/admin/users/helpers/provide-form-context-values'
+import {
+  provideUserSteps,
+  provideFormContextValues
+} from '~/src/server/admin/users/helpers/form'
 import {
   usersListController,
   userController,
   findAadUserFormController,
   startCreateUserController,
   findAadUserController,
-  findGitHubUserFormController,
-  findGitHubUserController,
+  findGithubUserFormController,
+  findGithubUserController,
   userDetailsController,
   userDetailsFormController,
-  summaryController,
+  userSummaryController,
   createUserController,
   startEditUserController,
   editUserController
@@ -85,12 +87,12 @@ const adminUsers = {
           {
             method: 'GET',
             path: '/admin/users/find-github-user',
-            ...findGitHubUserFormController
+            ...findGithubUserFormController
           },
           {
             method: 'POST',
             path: '/admin/users/find-github-user',
-            ...findGitHubUserController
+            ...findGithubUserController
           },
           {
             method: 'GET',
@@ -105,7 +107,7 @@ const adminUsers = {
           {
             method: 'GET',
             path: '/admin/users/summary',
-            ...summaryController
+            ...userSummaryController
           },
           {
             method: 'GET',

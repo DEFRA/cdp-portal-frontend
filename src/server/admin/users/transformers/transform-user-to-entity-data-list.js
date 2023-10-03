@@ -3,7 +3,7 @@ import { startCase } from 'lodash'
 import { config } from '~/src/config'
 
 function transformUserToEntityDataList(user) {
-  const gitHubOrg = config.get('gitHubOrg')
+  const githubOrg = config.get('githubOrg')
 
   return [
     {
@@ -22,11 +22,11 @@ function transformUserToEntityDataList(user) {
       }
     },
     {
-      heading: 'GitHub',
+      heading: 'Github',
       entity: {
         kind: 'link',
         value: user.github ? `@${user.github}` : null,
-        url: `https://github.com/orgs/${gitHubOrg}/people/${user.github}`,
+        url: `https://github.com/orgs/${githubOrg}/people/${user.github}`,
         newWindow: true
       }
     },
