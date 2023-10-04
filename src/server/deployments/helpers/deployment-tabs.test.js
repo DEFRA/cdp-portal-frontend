@@ -19,8 +19,8 @@ describe('#deploymentTabs', () => {
       },
       {
         isActive: false,
-        label: 'Development',
-        url: '/cdp-portal-frontend/deployments/development'
+        label: 'Dev',
+        url: '/cdp-portal-frontend/deployments/dev'
       },
       {
         isActive: false,
@@ -34,8 +34,8 @@ describe('#deploymentTabs', () => {
       },
       {
         isActive: false,
-        label: 'Production',
-        url: '/cdp-portal-frontend/deployments/production'
+        label: 'Prod',
+        url: '/cdp-portal-frontend/deployments/prod'
       }
     ])
   })
@@ -56,8 +56,8 @@ describe('#deploymentTabs', () => {
       },
       {
         isActive: false,
-        label: 'Development',
-        url: '/cdp-portal-frontend/deployments/development'
+        label: 'Dev',
+        url: '/cdp-portal-frontend/deployments/dev'
       },
       {
         isActive: false,
@@ -71,8 +71,8 @@ describe('#deploymentTabs', () => {
       },
       {
         isActive: false,
-        label: 'Production',
-        url: '/cdp-portal-frontend/deployments/production'
+        label: 'Prod',
+        url: '/cdp-portal-frontend/deployments/prod'
       }
     ])
   })
