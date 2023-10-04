@@ -4,7 +4,7 @@ import { config } from '~/src/config'
 const sessionManager = {
   plugin: yar,
   options: {
-    name: 'cdp-portal-session',
+    name: 'cdp-portal-frontend',
     maxCookieSize: 0, // Always use server-side storage
     cache: { cache: 'session' },
     storeBlank: false,
