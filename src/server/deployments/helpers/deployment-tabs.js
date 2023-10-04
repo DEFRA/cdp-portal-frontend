@@ -15,9 +15,9 @@ function deploymentTabs({ path }) {
       label: 'Infra-dev'
     },
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/development`),
-      url: `${appPathPrefix}/deployments/development`,
-      label: 'Development'
+      isActive: path.includes(`${appPathPrefix}/deployments/dev`),
+      url: `${appPathPrefix}/deployments/dev`,
+      label: 'Dev'
     },
     {
       isActive: path.includes(`${appPathPrefix}/deployments/test`),
@@ -30,9 +30,9 @@ function deploymentTabs({ path }) {
       label: 'Perf-test'
     },
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/production`),
-      url: `${appPathPrefix}/deployments/production`,
-      label: 'Production'
+      isActive: path.includes(`${appPathPrefix}/deployments/prod`),
+      url: `${appPathPrefix}/deployments/prod`,
+      label: 'Prod'
     }
   ]
 }

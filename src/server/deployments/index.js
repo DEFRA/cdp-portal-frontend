@@ -13,7 +13,7 @@ const deployments = {
           method: 'GET',
           path: '/deployments',
           handler: (request, h) =>
-            h.redirect(config.get('appPathPrefix') + '/deployments/development')
+            h.redirect(config.get('appPathPrefix') + '/deployments/dev')
         },
         {
           method: 'GET',
