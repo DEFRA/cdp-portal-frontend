@@ -1,43 +1,43 @@
 import nock from 'nock'
 
 import { config } from '~/src/config'
-import { gitHubUsersFixture } from '~/src/__fixtures__/admin/github-users'
-import { searchGitHubUsers } from '~/src/server/admin/users/helpers/search-github-users'
+import { githubUsersFixture } from '~/src/__fixtures__/admin/github-users'
+import { searchGithubUsers } from '~/src/server/admin/users/helpers/search-github-users'
 
-describe('#searchGitHubUsers', () => {
+describe('#searchGithubUsers', () => {
   const query = 'Vibert'
-  const searchGitHubUsersEndpointUrl = new URL(
+  const searchGithubUsersEndpointUrl = new URL(
     config.get('userServiceApiUrl') + `/github-users?query=${query}`
   )
 
-  test('Should provide expected search GitHub users response', async () => {
-    const mockGitHubUserSearchResponse = {
-      ...gitHubUsersFixture,
-      users: gitHubUsersFixture.users.filter((user) =>
+  test('Should provide expected search Github users response', async () => {
+    const mockGithubUserSearchResponse = {
+      ...githubUsersFixture,
+      users: githubUsersFixture.users.filter((user) =>
         user.github.includes(query)
       )
     }
 
-    nock(searchGitHubUsersEndpointUrl.origin)
-      .get(searchGitHubUsersEndpointUrl.pathname)
+    nock(searchGithubUsersEndpointUrl.origin)
+      .get(searchGithubUsersEndpointUrl.pathname)
       .query({ query })
-      .reply(200, mockGitHubUserSearchResponse)
+      .reply(200, mockGithubUserSearchResponse)
 
-    const gitHubUsers = await searchGitHubUsers(query)
+    const githubUsers = await searchGithubUsers(query)
 
-    expect(gitHubUsers).toEqual(mockGitHubUserSearchResponse)
+    expect(githubUsers).toEqual(mockGithubUserSearchResponse)
   })
 
   test('With error, Should throw with expected message', async () => {
-    nock(searchGitHubUsersEndpointUrl.origin)
-      .get(searchGitHubUsersEndpointUrl.pathname)
+    nock(searchGithubUsersEndpointUrl.origin)
+      .get(searchGithubUsersEndpointUrl.pathname)
       .query({ query })
       .reply(502, { message: 'Bloomin heck!' })
 
     expect.assertions(2)
 
     try {
-      await searchGitHubUsers(query)
+      await searchGithubUsers(query)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Bloomin heck!')
@@ -45,14 +45,14 @@ describe('#searchGitHubUsers', () => {
   })
 
   test('With different status code, Should throw with expected message', async () => {
-    nock(searchGitHubUsersEndpointUrl.origin)
-      .get(searchGitHubUsersEndpointUrl.pathname)
+    nock(searchGithubUsersEndpointUrl.origin)
+      .get(searchGithubUsersEndpointUrl.pathname)
       .query({ query })
       .reply(410, {})
     expect.assertions(2)
 
     try {
-      await searchGitHubUsers(query)
+      await searchGithubUsers(query)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Gone')

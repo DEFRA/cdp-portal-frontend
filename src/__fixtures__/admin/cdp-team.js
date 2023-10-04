@@ -3,6 +3,7 @@ const cdpTeamFixture = {
   team: {
     name: 'Admin',
     description: 'The Admin team 💪🏻',
+    github: 'fisheries',
     createdAt: '2023-08-23T16:18:28.742Z',
     updatedAt: '2023-08-30T08:03:23.657Z',
     teamId: '47c04343-4c0e-4326-9848-bef7c1e2eedd',

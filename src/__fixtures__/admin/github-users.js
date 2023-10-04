@@ -1,4 +1,4 @@
-const gitHubUsersFixture = {
+const githubUsersFixture = {
   message: 'success',
   users: [
     {
@@ -16,4 +16,4 @@ const gitHubUsersFixture = {
   ]
 }
 
-export { gitHubUsersFixture }
+export { githubUsersFixture }

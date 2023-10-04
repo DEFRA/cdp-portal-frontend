@@ -3,7 +3,7 @@ import { omit } from 'lodash'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const resetAadAnswer = {
-  method: (request, h) => {
+  method: async (request, h) => {
     const cdpUser = request.yar.get(sessionNames.cdpUser)
     const aadQuery = request.query?.aadQuery ?? null
 
@@ -14,6 +14,7 @@ const resetAadAnswer = {
           sessionNames.cdpUser,
           omit(cdpUser, ['aadQuery', 'email', 'userId'])
         )
+        await request.yar.commit(h)
       }
     }
     return h.continue

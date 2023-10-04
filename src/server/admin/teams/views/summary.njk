@@ -1,0 +1,44 @@
+{% extends "layouts/page.njk" %}
+
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="app-grid-column-two-thirds-at-desktop-wide">
+          <div class="govuk-body">
+
+            {% set actionSuffix = "edit" if isEdit else "create" %}
+
+            <form action="{{ appPathPrefix }}/admin/teams/{{ actionSuffix }}" method="POST">
+
+              {{ govukSummaryList({
+                classes: "govuk-!-margin-bottom-9",
+                rows: teamRows
+              }) }}
+
+              {{ govukButton({
+                classes: "app-button",
+                text: formButtonText
+              }) }}
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  {% endcall %}
+{% endblock %}
+

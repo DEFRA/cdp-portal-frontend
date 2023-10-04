@@ -1,10 +1,10 @@
 import { uniqBy } from 'lodash'
 
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
-import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/save-to-cdp-team'
+import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/form'
 
 const presentUsersToAdd = {
-  method: async (request) => {
+  method: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
     const userIds = request.query?.userIds ?? []
 
@@ -16,7 +16,7 @@ const presentUsersToAdd = {
 
       const usersToAdd = await Promise.all(fetchUserPromises)
 
-      saveToCdpTeam(request, {
+      await saveToCdpTeam(request, h, {
         usersToAdd: uniqBy(
           [...usersToAdd, ...(cdpTeam?.usersToAdd ? cdpTeam.usersToAdd : [])],
           'userId'
@@ -26,7 +26,7 @@ const presentUsersToAdd = {
       return usersToAdd
     }
 
-    saveToCdpTeam(request, { usersToAdd: [] })
+    await saveToCdpTeam(request, h, { usersToAdd: [] })
 
     return []
   },

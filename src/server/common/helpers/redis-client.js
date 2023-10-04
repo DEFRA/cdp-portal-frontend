@@ -17,7 +17,13 @@ function buildRedisClient() {
   const db = 0
   let redisClient
 
-  if (config.get('isProduction') && !config.get('nonClusterCache')) {
+  if (config.get('useSingleInstanceCache')) {
+    redisClient = new IoRedis({
+      port,
+      host: config.get('cacheHost'),
+      db
+    })
+  } else {
     redisClient = new IoRedis.Cluster(
       [
         {
@@ -36,14 +42,6 @@ function buildRedisClient() {
         }
       }
     )
-  }
-
-  if (config.get('nonClusterCache')) {
-    redisClient = new IoRedis({
-      port,
-      host: config.get('cacheHost'),
-      db
-    })
   }
 
   redisClient.on('connect', () => {

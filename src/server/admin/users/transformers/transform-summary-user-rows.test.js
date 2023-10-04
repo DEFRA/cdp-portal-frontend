@@ -32,16 +32,16 @@ describe('#transformSummaryUserRows', () => {
               classes: 'app-link',
               href: '/cdp-portal-frontend/admin/users/find-github-user?redirectLocation=summary&githubSearch=RichardDJames',
               text: 'Change',
-              visuallyHiddenText: 'GitHub user'
+              visuallyHiddenText: 'Github user'
             }
           ]
         },
         key: {
           classes: 'app-summary__heading',
-          text: 'GitHub user'
+          text: 'Github user'
         },
         value: {
-          html: 'RichardDJames'
+          html: '<a class="app-link" href="https://github.com/orgs/defra-cdp-sandpit/people/RichardDJames" target="_blank" rel="noopener noreferrer">@RichardDJames</a>'
         }
       },
       {

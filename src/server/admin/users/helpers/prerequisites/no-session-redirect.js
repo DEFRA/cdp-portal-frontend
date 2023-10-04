@@ -9,7 +9,7 @@ const noSessionRedirect = {
 
     if (isNull(cdpUser) || cdpUser?.isComplete?.allSteps) {
       return h
-        .redirect(`${config.get('appPathPrefix')}/admin/users/create`)
+        .redirect(config.get('appPathPrefix') + '/admin/users/create')
         .takeover()
     }
 

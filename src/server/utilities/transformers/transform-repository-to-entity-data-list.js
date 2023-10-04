@@ -21,7 +21,7 @@ function transformRepositoryToEntityDataList(repository) {
       }
     },
     {
-      heading: 'GitHub Repository',
+      heading: 'Github Repository',
       html:
         repository.url &&
         `<a class="app-link" href="${
