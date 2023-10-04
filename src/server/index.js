@@ -45,7 +45,7 @@ async function createServer() {
       {
         name: 'session',
         engine: new CatboxRedis({
-          partition: 'cdp-portal-frontend',
+          partition: config.get('redisKeyPrefix'),
           client
         })
       }
