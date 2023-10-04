@@ -110,7 +110,7 @@ const config = convict({
     doc: 'Redis cache host',
     format: String,
     default: '127.0.0.1',
-    env: 'CACHE_HOST'
+    env: 'REDIS_HOST'
   },
   redisUsername: {
     doc: 'Redis cache username',
