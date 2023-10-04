@@ -106,24 +106,24 @@ const config = convict({
     default: oneDay,
     env: 'SESSION_COOKIE_TTL'
   },
-  cacheHost: {
+  redisHost: {
     doc: 'Redis cache host',
     format: String,
     default: '127.0.0.1',
     env: 'CACHE_HOST'
   },
-  cacheUsername: {
+  redisUsername: {
     doc: 'Redis cache username',
     format: String,
     default: '',
-    env: 'CACHE_USERNAME'
+    env: 'REDIS_USERNAME'
   },
-  cachePassword: {
+  redisPassword: {
     doc: 'Redis cache password',
     format: '*',
     default: '',
     sensitive: true,
-    env: 'CACHE_PASSWORD'
+    env: 'REDIS_PASSWORD'
   },
   useSingleInstanceCache: {
     doc: 'Enable the use of a single instance Redis Cache',
