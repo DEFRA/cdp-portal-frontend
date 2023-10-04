@@ -125,6 +125,12 @@ const config = convict({
     sensitive: true,
     env: 'REDIS_PASSWORD'
   },
+  redisKeyPrefix: {
+    doc: 'Redis cache key prefix name used to isolate the cached results across multiple clients',
+    format: String,
+    default: 'cdp-portal-frontend',
+    env: 'REDIS_KEY_PREFIX'
+  },
   useSingleInstanceCache: {
     doc: 'Enable the use of a single instance Redis Cache',
     format: Boolean,
