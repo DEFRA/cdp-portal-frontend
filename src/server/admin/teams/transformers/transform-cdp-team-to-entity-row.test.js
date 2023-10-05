@@ -6,22 +6,22 @@ describe('#transformCdpTeamToEntityRow', () => {
     expect(transformCdpTeamToEntityRow(cdpTeamFixture.team)).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/admin/teams/47c04343-4c0e-4326-9848-bef7c1e2eedd',
-        value: 'Admin'
+        url: '/cdp-portal-frontend/admin/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+        value: 'Platform'
       },
       {
         kind: 'text',
-        value: 'The Admin team 💪🏻'
+        value: 'The team that runs the platform'
       },
       {
         kind: 'link',
         newWindow: true,
-        url: 'https://github.com/orgs/defra-cdp-sandpit/teams/fisheries',
-        value: '@fisheries'
+        url: 'https://github.com/orgs/defra-cdp-sandpit/teams/cdp-platform',
+        value: '@cdp-platform'
       },
       {
         kind: 'text',
-        value: 4
+        value: 2
       }
     ])
   })
