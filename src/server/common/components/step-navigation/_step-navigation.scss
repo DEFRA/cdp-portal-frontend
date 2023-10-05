@@ -100,6 +100,27 @@
   text-align: center;
 }
 
+.app-step-navigation__item-link {
+  display: block;
+
+  &:hover {
+    .app-step-navigation__point--complete {
+      background: govuk-tint(govuk-colour("green"), 40);
+    }
+
+    .app-step-navigation__heading {
+      text-decoration: underline;
+      color: govuk-colour("black");
+    }
+  }
+
+  &:focus {
+    box-shadow: none;
+    text-decoration: none;
+    background-color: transparent;
+  }
+}
+
 .app-step-navigation__item--current {
   .app-step-navigation__heading {
     color: govuk-colour("black");

@@ -1,12 +1,12 @@
 function calculateStepWidth(isComplete) {
   const totalSteps = Object.keys(isComplete).length
-  const completeStepCount = Object.values(isComplete).filter(Boolean).length
+  const completedStepsCount = Object.values(isComplete).filter(Boolean).length
 
-  if (completeStepCount === totalSteps) {
+  if (completedStepsCount === totalSteps) {
     return 100
   }
 
-  return (100 / (totalSteps - 1)) * completeStepCount
+  return (100 / (totalSteps - 1)) * completedStepsCount
 }
 
 export { calculateStepWidth }

@@ -8,11 +8,13 @@ const teamUrls = {
 
 const teamSteps = (requestPath, urls, isComplete) => [
   {
+    url: urls.stepOne,
     isComplete: isComplete.stepOne,
     isCurrent: requestPath.includes(urls.stepOne),
     text: 'Details'
   },
   {
+    url: urls.stepTwo,
     isComplete: isComplete.stepTwo,
     isCurrent: requestPath.includes(urls.stepTwo),
     text: 'Github team'

@@ -23,8 +23,10 @@ const findGithubTeamFormController = {
     }
   },
   handler: async (request, h) => {
+    const cdpTeam = request.pre?.cdpTeam
+
     const query = request?.query
-    const githubSearch = query?.githubSearch
+    const githubSearch = query?.githubSearch ?? cdpTeam?.github
     const github = query?.github
     const redirectLocation = query?.redirectLocation
 
@@ -33,7 +35,6 @@ const findGithubTeamFormController = {
       : null
     const githubTeams = searchGithubTeamsResponse?.teams ?? []
 
-    const cdpTeam = request.pre?.cdpTeam
     const isEdit = cdpTeam?.isEdit
     const heading = 'Find Defra Github Team'
     const updateOrCreate = isEdit ? 'Edit' : 'Create'

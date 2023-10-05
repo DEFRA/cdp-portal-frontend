@@ -9,11 +9,13 @@ const editUrls = {
 
 const editSteps = (requestPath, urls, isComplete) => [
   {
+    url: urls.stepTwo,
     isComplete: isComplete.stepTwo,
     isCurrent: requestPath.includes(urls.stepTwo),
     text: 'Github user'
   },
   {
+    url: urls.stepThree,
     isComplete: isComplete.stepThree,
     isCurrent: requestPath.includes(urls.stepThree),
     text: 'Details'
