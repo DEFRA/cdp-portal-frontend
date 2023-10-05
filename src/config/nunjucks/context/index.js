@@ -30,6 +30,7 @@ function context(request) {
 
   return {
     isAuthenticated: user?.isAuthenticated,
+    isAdmin: request.auth?.credentials?.isAdmin ?? false,
     user,
     appPathPrefix,
     assetPath,

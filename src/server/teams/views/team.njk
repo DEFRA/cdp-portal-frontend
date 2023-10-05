@@ -14,67 +14,72 @@
     <div class="govuk-grid-column-two-thirds">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Team Members</h2>
 
-      {% if team.members | length %}
+      {% if team.users | length %}
         <ul class="govuk-list govuk-list--bullet">
-          {% for member in team.members %}
-            {% set memberHandle = member.name + " - @" + member.id if member.name else "@" + member.id %}
+          {% for user in team.users %}
             <li>
-              <a class="app-link"
-                 href="{{ member.url }}"
-                 target="_blank">{{ memberHandle }}</a>
+              {% if isAdmin %}
+                <a class="app-link" href="{{ appPathPrefix + '/admin/users/' + user.userId }}">
+                  {{ user.name }}
+                </a>
+              {% else %}
+                {{ user.name }}
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
       {% else %}
-        <p>This team does not currently have any members</p>
+        <p>This team does not currently have any users</p>
       {% endif %}
 
-      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Repositories</h2>
+      {% if team.github %}
+        <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Repositories</h2>
 
-      {% if team.repositories | length %}
-        <ul class="govuk-list govuk-list--bullet">
-          {% for repository in team.repositories %}
-            <li>
-              <a class="app-link"
-                 href="{{ repository.url }}"
-                 target="_blank">{{ githubOrg }}/{{ repository.id }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>This team does not currently own any repositories</p>
-      {% endif %}
+        {% if team.repositories | length %}
+          <ul class="govuk-list govuk-list--bullet">
+            {% for repository in team.repositories %}
+              <li>
+                <a class="app-link"
+                   href="{{ repository.url }}"
+                   target="_blank">{{ githubOrg }}/{{ repository.id }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>This team does not currently own any repositories</p>
+        {% endif %}
 
-      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Templates</h2>
+        <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Templates</h2>
 
-      {% if team.templates | length %}
-        <ul class="govuk-list govuk-list--bullet">
-          {% for template in team.templates %}
-            <li>
-              <a class="app-link"
-                 href="{{ template.url }}"
-                 target="_blank">{{ githubOrg }}/{{ template.id }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>This team does not currently own any templates</p>
-      {% endif %}
+        {% if team.templates | length %}
+          <ul class="govuk-list govuk-list--bullet">
+            {% for template in team.templates %}
+              <li>
+                <a class="app-link"
+                   href="{{ template.url }}"
+                   target="_blank">{{ githubOrg }}/{{ template.id }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>This team does not currently own any templates</p>
+        {% endif %}
 
-      <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Libraries</h2>
+        <h2 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Libraries</h2>
 
-      {% if team.libraries | length %}
-        <ul class="govuk-list govuk-list--bullet">
-          {% for library in team.libraries %}
-            <li>
-              <a class="app-link"
-                 href="{{ library.url }}"
-                 target="_blank">{{ githubOrg }}/{{ library.id }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>This team does not currently own any libraries</p>
+        {% if team.libraries | length %}
+          <ul class="govuk-list govuk-list--bullet">
+            {% for library in team.libraries %}
+              <li>
+                <a class="app-link"
+                   href="{{ library.url }}"
+                   target="_blank">{{ githubOrg }}/{{ library.id }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>This team does not currently own any libraries</p>
+        {% endif %}
       {% endif %}
     </div>
   </div>

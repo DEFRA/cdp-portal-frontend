@@ -4,8 +4,7 @@ import fetch from 'node-fetch'
 import { config } from '~/src/config'
 
 async function fetchTeam(teamId) {
-  const teamEndpointUrl =
-    config.get('teamsAndRepositoriesApiUrl') + `/teams/${teamId}`
+  const teamEndpointUrl = config.get('userServiceApiUrl') + `/teams/${teamId}`
 
   const response = await fetch(teamEndpointUrl, {
     method: 'get',
