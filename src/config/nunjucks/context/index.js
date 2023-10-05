@@ -26,12 +26,14 @@ try {
 }
 
 function context(request) {
-  const user = request.yar._store ? request.yar.get(sessionNames.user) : {}
+  const authenticatedUser = request.yar._store
+    ? request.yar.get(sessionNames.user)
+    : {}
 
   return {
-    isAuthenticated: user?.isAuthenticated,
+    isAuthenticated: authenticatedUser?.isAuthenticated,
     isAdmin: request.auth?.credentials?.isAdmin ?? false,
-    user,
+    authenticatedUser,
     appPathPrefix,
     assetPath,
     noValue,
