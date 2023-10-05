@@ -1,7 +1,7 @@
 import pino from 'pino'
+import ecsFormat from '@elastic/ecs-pino-format'
 
 import { config } from '~/src/config'
-const ecsFormat = require('@elastic/ecs-pino-format')
 
 function createLogger() {
   return pino({
