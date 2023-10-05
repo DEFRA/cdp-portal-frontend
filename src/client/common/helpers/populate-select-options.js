@@ -18,8 +18,11 @@ function populateSelectOptions($controller) {
     return
   }
 
-  const blankOption = new Option('', '')
-  blankOption.hidden = true
+  const defaultOption = new Option('', '')
+  defaultOption.disabled = true
+  defaultOption.selected = true
+  defaultOption.value = ''
+  defaultOption.text = ' - - select - - '
 
   $controller.addEventListener('change', async (event) => {
     const delayedLoader = setTimeout(() => {
@@ -38,7 +41,7 @@ function populateSelectOptions($controller) {
       $loader?.classList?.remove('app-loader--is-loading')
 
       const optionsWithPrependedBlank = [
-        blankOption,
+        defaultOption,
         ...options.map((option) => new Option(option.text, option.value))
       ]
 

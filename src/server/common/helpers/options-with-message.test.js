@@ -5,14 +5,10 @@ describe('#optionsWithMessage', () => {
     expect(optionsWithMessage('What a glorious day!')).toEqual([
       {
         attributes: {
-          hidden: true
-        }
-      },
-      {
-        attributes: {
-          disabled: true
+          selected: true
         },
-        text: 'What a glorious day!',
+        disabled: true,
+        text: ' - - What a glorious day! - - ',
         value: ''
       }
     ])

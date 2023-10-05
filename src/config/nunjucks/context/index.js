@@ -4,7 +4,7 @@ import { config } from '~/src/config'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { createLogger } from '~/src/server/common/helpers/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
-import { blankOption } from '~/src/server/common/helpers/blank-option'
+import { defaultOption } from '~/src/server/common/helpers/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
@@ -37,7 +37,7 @@ function context(request) {
     appPathPrefix,
     assetPath,
     noValue,
-    blankOption,
+    blankOption: defaultOption,
     isXhr: isXhr.call(request),
     version: config.get('version'),
     githubOrg: config.get('githubOrg'),

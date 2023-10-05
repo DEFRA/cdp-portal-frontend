@@ -2,6 +2,7 @@ import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
 import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch-existing-service-info'
+import { defaultOption } from '~/src/server/common/helpers/default-option'
 
 const provideOptionsFormValues = {
   method: async (request) => {
@@ -33,14 +34,19 @@ const provideOptionsFormValues = {
           memory: serviceInfo?.task_memory,
           cpu
         }
-        formDetail.availableMemoryOptions = ecsCpuToMemoryOptionsMap[cpu]
+        formDetail.availableMemoryOptions = [
+          defaultOption,
+          ...ecsCpuToMemoryOptionsMap[cpu]
+        ]
         formDetail.preExistingDetails = true
       }
 
       // If session cpu exists provide memory options dependent on this deployment.cpu value
       if (deployment?.cpu) {
-        formDetail.availableMemoryOptions =
-          ecsCpuToMemoryOptionsMap[deployment?.cpu]
+        formDetail.availableMemoryOptions = [
+          defaultOption,
+          ...ecsCpuToMemoryOptionsMap[deployment?.cpu]
+        ]
         formDetail.preExistingDetails = false
       }
     }

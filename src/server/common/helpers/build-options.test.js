@@ -6,8 +6,11 @@ describe('#buildOptions', () => {
       expect(buildOptions(['0.1.0', '0.2.0'])).toEqual([
         {
           attributes: {
-            hidden: true
-          }
+            selected: true
+          },
+          disabled: true,
+          text: ' - - select - - ',
+          value: ''
         },
         {
           text: '0.1.0',
@@ -34,8 +37,11 @@ describe('#buildOptions', () => {
       ).toEqual([
         {
           attributes: {
-            hidden: true
-          }
+            selected: true
+          },
+          disabled: true,
+          text: ' - - select - - ',
+          value: ''
         },
         {
           text: 'Version 0.3.0',
