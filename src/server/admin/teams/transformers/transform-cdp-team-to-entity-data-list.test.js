@@ -7,14 +7,14 @@ describe('#transformCdpTeamToEntityDataList', () => {
       {
         entity: {
           kind: 'text',
-          value: 'Admin'
+          value: 'Platform'
         },
         heading: 'Name'
       },
       {
         entity: {
           kind: 'paragraph',
-          value: 'The Admin team 💪🏻'
+          value: 'The team that runs the platform'
         },
         heading: 'Description'
       },
@@ -22,15 +22,15 @@ describe('#transformCdpTeamToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: 'https://github.com/orgs/defra-cdp-sandpit/teams/fisheries',
-          value: '@fisheries'
+          url: 'https://github.com/orgs/defra-cdp-sandpit/teams/cdp-platform',
+          value: '@cdp-platform'
         },
         heading: 'Github team'
       },
       {
         entity: {
           kind: 'date',
-          value: '2023-08-23T16:18:28.742Z'
+          value: '2023-09-28T12:52:14.673Z'
         },
         heading: 'Created'
       }

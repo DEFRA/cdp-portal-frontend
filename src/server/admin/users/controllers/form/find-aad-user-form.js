@@ -5,12 +5,14 @@ import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { resetAadAnswer } from '~/src/server/admin/users/helpers/extensions/reset-aad-answer'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
 import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/search-azure-active-directory-users'
+import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 
 const findAadUserFormController = {
   options: {
     ext: {
       onPreHandler: [noSessionRedirect, resetAadAnswer]
     },
+    pre: [provideCdpUser],
     validate: {
       query: Joi.object({
         aadQuery: Joi.string().allow(''),
@@ -21,9 +23,11 @@ const findAadUserFormController = {
     }
   },
   handler: async (request, h) => {
+    const cdpUser = request.pre?.cdpUser
+
     const query = request?.query
     const email = query?.email || null
-    const aadQuery = query?.aadQuery || null
+    const aadQuery = query?.aadQuery ?? cdpUser.email ?? null
     const redirectLocation = query?.redirectLocation
 
     const searchAadUsersResponse = aadQuery

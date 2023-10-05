@@ -9,16 +9,19 @@ const deploymentUrls = {
 
 const deploymentSteps = (requestPath, urls, isComplete) => [
   {
+    url: urls.stepOne,
     isComplete: isComplete.stepOne,
     isCurrent: requestPath.includes(urls.stepOne),
     text: 'Details'
   },
   {
+    url: urls.stepTwo,
     isComplete: isComplete.stepTwo,
     isCurrent: requestPath.includes(urls.stepTwo),
     text: 'Options'
   },
   {
+    url: urls.stepThree,
     isComplete: isComplete.stepThree,
     isCurrent: requestPath.includes(urls.stepThree),
     text: 'Summary'

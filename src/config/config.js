@@ -64,12 +64,6 @@ const config = convict({
     default: 'http://localhost:3004/mock-api',
     env: 'API_URL'
   },
-  teamsAndRepositoriesApiUrl: {
-    doc: 'Teams and Repositories root API url',
-    format: String,
-    default: 'http://localhost:3008/cdp-teams-and-repositories',
-    env: 'TEAMS_AND_REPOSITORIES_API_URL'
-  },
   portalBackendApiUrl: {
     doc: 'Portal backend for deployments and deployables root API url',
     format: String,

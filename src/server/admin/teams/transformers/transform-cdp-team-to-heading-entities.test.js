@@ -7,7 +7,7 @@ describe('#transformCdpTeamToHeadingEntities', () => {
       {
         kind: 'date',
         label: 'Last updated',
-        value: '2023-08-30T08:03:23.657Z'
+        value: '2023-10-03T11:11:31.085Z'
       }
     ])
   })

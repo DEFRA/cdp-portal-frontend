@@ -1,8 +1,8 @@
-import { blankOption } from '~/src/server/common/helpers/blank-option'
+import { defaultOption } from '~/src/server/common/helpers/default-option'
 
-function buildOptions(items, withBlank = true) {
+function buildOptions(items, withDefault = true) {
   return [
-    ...(withBlank ? [blankOption] : []),
+    ...(withDefault ? [defaultOption] : []),
     ...items.map((item) => {
       if (item?.value && item?.text) {
         return { value: item.value, text: item.text }

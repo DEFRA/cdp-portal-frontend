@@ -26,7 +26,7 @@ const findGithubUserFormController = {
     const cdpUser = request.pre?.cdpUser
 
     const query = request?.query
-    const githubSearch = query?.githubSearch
+    const githubSearch = query?.githubSearch ?? cdpUser?.github
     const github = query?.github
     const redirectLocation = query?.redirectLocation
 

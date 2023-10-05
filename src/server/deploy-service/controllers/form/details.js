@@ -37,7 +37,7 @@ const detailsController = {
         formErrors: errorDetails,
         availableVersionOptions: availableVersions?.length
           ? buildOptions(availableVersions)
-          : optionsWithMessage('Choose an image name')
+          : optionsWithMessage('choose an image name')
       })
 
       const queryString = payload?.redirectLocation

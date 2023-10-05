@@ -7,17 +7,23 @@ function transformTeamToEntityRow(team) {
     {
       kind: 'link',
       value: team.name,
-      url: `${config.get('appPathPrefix')}/teams/${team.id}`
+      url: `${config.get('appPathPrefix')}/teams/${team.teamId}`
     },
     {
       kind: 'link',
-      value: `@${team.id}`,
-      url: `https://github.com/orgs/${githubOrg}/teams/${team.id}`,
+      value: team?.github ? `@${team.github}` : null,
+      url: team?.github
+        ? `https://github.com/orgs/${githubOrg}/teams/${team.github}`
+        : null,
       newWindow: true
     },
     {
       kind: 'text',
-      value: team.members?.length
+      value: team.users?.length
+    },
+    {
+      kind: 'date',
+      value: team.updatedAt
     },
     {
       kind: 'date',

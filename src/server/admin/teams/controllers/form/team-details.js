@@ -57,7 +57,7 @@ const teamDetailsController = {
 
       const queryString = qs.stringify(
         {
-          ...(cdpTeam?.isEdit && { githubSearch: cdpTeam?.github ?? '' })
+          ...(cdpTeam?.github && { githubSearch: cdpTeam?.github ?? '' })
         },
         { addQueryPrefix: true }
       )

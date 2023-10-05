@@ -4,7 +4,7 @@ import { config } from '~/src/config'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { createLogger } from '~/src/server/common/helpers/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
-import { blankOption } from '~/src/server/common/helpers/blank-option'
+import { defaultOption } from '~/src/server/common/helpers/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
@@ -26,15 +26,18 @@ try {
 }
 
 function context(request) {
-  const user = request.yar._store ? request.yar.get(sessionNames.user) : {}
+  const authenticatedUser = request.yar._store
+    ? request.yar.get(sessionNames.user)
+    : {}
 
   return {
-    isAuthenticated: user?.isAuthenticated,
-    user,
+    isAuthenticated: authenticatedUser?.isAuthenticated,
+    isAdmin: request.auth?.credentials?.isAdmin ?? false,
+    authenticatedUser,
     appPathPrefix,
     assetPath,
     noValue,
-    blankOption,
+    blankOption: defaultOption,
     isXhr: isXhr.call(request),
     version: config.get('version'),
     githubOrg: config.get('githubOrg'),

@@ -4,7 +4,7 @@ import Boom from '@hapi/boom'
 import { config } from '~/src/config'
 
 async function fetchTeams() {
-  const teamsEndpointUrl = config.get('teamsAndRepositoriesApiUrl') + '/teams'
+  const teamsEndpointUrl = config.get('userServiceApiUrl') + '/teams'
 
   const response = await fetch(teamsEndpointUrl, {
     method: 'get',

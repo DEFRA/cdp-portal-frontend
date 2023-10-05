@@ -8,9 +8,9 @@
       </a>
     </div>
     <div class="app-header__actions">
-      {% if user.displayName %}
+      {% if authenticatedUser.displayName %}
         <span>
-          {{ user.displayName }}
+          {{ authenticatedUser.displayName }}
         </span>
       {% endif %}
 

@@ -7,8 +7,14 @@ const logoutController = {
     pre: [provideUser]
   },
   handler: async (request, h) => {
+    const user = request.pre.user
+
+    if (!user) {
+      return h.redirect(config.get('appPathPrefix'))
+    }
+
     const referrer = request.info.referrer
-    const loginHint = request.pre.user.loginHint
+    const loginHint = user.loginHint
     const azureTenantId = config.get('azureTenantId')
 
     const logoutUrl = encodeURI(

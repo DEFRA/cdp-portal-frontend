@@ -8,22 +8,24 @@ const teamController = {
   handler: async (request, h) => {
     const teamId = request.params?.teamId
 
-    let { team } = await fetchTeam(teamId)
-    const { repositories } = await fetchRepositories(teamId)
-    const { templates } = await fetchTemplates(teamId)
-    const { libraries } = await fetchLibraries(teamId)
+    const { team } = await fetchTeam(teamId)
 
-    team = {
+    const github = team?.github
+    const repositoriesResponse = github ? await fetchRepositories(github) : null
+    const templatesResponse = github ? await fetchTemplates(github) : null
+    const librariesResponse = github ? await fetchLibraries(github) : null
+
+    const augmentedTeam = {
       ...team,
-      repositories,
-      templates,
-      libraries
+      repositories: repositoriesResponse?.repositories,
+      templates: templatesResponse?.templates,
+      libraries: librariesResponse?.libraries
     }
 
     return h.view('teams/views/team', {
-      pageTitle: `${team.name} team`,
-      heading: team.name,
-      team,
+      pageTitle: `${augmentedTeam.name} team`,
+      heading: augmentedTeam.name,
+      team: augmentedTeam,
       headingEntities: transformTeamToHeadingEntities(team),
       breadcrumbs: [
         {
@@ -31,7 +33,7 @@ const teamController = {
           href: '/teams'
         },
         {
-          text: team.name
+          text: augmentedTeam.name
         }
       ]
     })
