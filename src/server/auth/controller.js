@@ -9,6 +9,8 @@ const authCallbackController = {
   },
   handler: (request, h) => {
     if (request.auth.isAuthenticated) {
+      request.logger.info('User has been successfully authenticated')
+
       const { profile } = request.auth.credentials
       const expiresIn = request.auth.credentials.expiresIn
       const expires = addSeconds(new Date(), expiresIn)
@@ -23,11 +25,18 @@ const authCallbackController = {
         refreshToken: request.auth.credentials.refreshToken
       })
 
+      const isAdmin = profile.groups.includes(config.get('azureAdminGroupId'))
+      const userGroups = profile.groups
+
       request.cookieAuth.set({
-        isAdmin: profile.groups.includes(config.get('azureAdminGroupId')),
-        scope: profile.groups,
+        isAdmin,
+        scope: userGroups,
         expires
       })
+
+      request.logger.info(`Admin groups is: ${config.get('azureAdminGroupId')}`)
+      request.logger.info(`User is admin: ${isAdmin}`)
+      request.logger.info(`User groups are: ${userGroups.join(', ')}`)
     }
 
     const redirect =
