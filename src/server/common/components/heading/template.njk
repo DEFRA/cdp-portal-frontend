@@ -1,7 +1,7 @@
 {% from "entity/macro.njk" import appEntity %}
 
 <div class="govuk-grid-row app-heading" data-testid="app-heading">
-  <div class="govuk-grid-column-one-half">
+  <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2"
         data-testid="app-heading-title">{{ params.title }}</h1>
 
@@ -20,7 +20,7 @@
   </div>
 
   {% if params.actions | length %}
-    <div class="govuk-grid-column-one-half app-heading__action">
+    <div class="govuk-grid-column-one-third app-heading__action">
       {% for action in params.actions %}
         <div class="app-heading__action-item">
           {{ action }}
