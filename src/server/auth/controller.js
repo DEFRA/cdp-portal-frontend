@@ -15,6 +15,9 @@ const authCallbackController = {
       const expiresIn = request.auth.credentials.expiresIn
       const expires = addSeconds(new Date(), expiresIn)
 
+      request.logger.info(`expiresIn: ${expiresIn}`)
+      request.logger.info(`expires: ${expires}`)
+
       request.yar.set(sessionNames.user, {
         id: profile.id,
         email: profile.email,
