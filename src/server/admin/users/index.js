@@ -1,5 +1,5 @@
-import { config } from '~/src/config'
-import { addScope } from '~/src/server/common/helpers/auth/add-scope'
+// import { config } from '~/src/config'
+// import { addScope } from '~/src/server/common/helpers/auth/add-scope'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
 import {
   provideUserSteps,
@@ -21,7 +21,7 @@ import {
   editUserController
 } from '~/src/server/admin/users/controllers'
 
-const addAdminScope = addScope([`+${config.get('azureAdminGroupId')}`])
+// const addAdminScope = addScope([`+${config.get('azureAdminGroupId')}`])
 
 const adminUsers = {
   plugin: {
@@ -119,7 +119,8 @@ const adminUsers = {
             path: '/admin/users/{userId}',
             ...userController
           }
-        ].map(addAdminScope)
+        ]
+        // ].map(addAdminScope)
       )
     }
   }
