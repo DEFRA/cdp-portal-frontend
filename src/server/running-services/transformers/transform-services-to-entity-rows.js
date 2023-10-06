@@ -10,10 +10,10 @@ function transformServicesToEntityRows(services) {
     { kind: 'text', value: serviceName },
     buildVersion(service?.management),
     buildVersion(service?.infraDev),
-    buildVersion(service?.development),
+    buildVersion(service?.dev),
     buildVersion(service?.test),
     buildVersion(service?.perfTest),
-    buildVersion(service?.production)
+    buildVersion(service?.prod)
   ])
 }
 
