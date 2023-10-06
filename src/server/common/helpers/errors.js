@@ -3,7 +3,7 @@ function statusCodeMessage(statusCode) {
     case statusCode === 404:
       return 'Page not found'
     case statusCode === 401:
-      return 'Forbidden'
+      return 'Unauthorized'
     case statusCode === 400:
       return 'Bad Request'
     default:
