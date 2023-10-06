@@ -19,7 +19,10 @@ const teamController = {
       ...team,
       repositories: repositoriesResponse?.repositories,
       templates: templatesResponse?.templates,
-      libraries: librariesResponse?.libraries
+      libraries: librariesResponse?.libraries,
+      ...(team.users?.length && {
+        users: team.users.sort((a, b) => a.name.localeCompare(b.name))
+      })
     }
 
     return h.view('teams/views/team', {
