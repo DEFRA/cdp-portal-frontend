@@ -1,12 +1,12 @@
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchCdpTeams } from '~/src/server/admin/teams/helpers/fetch-cdp-teams'
 import { transformCdpTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-entity-row'
-import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const teamsListController = {
   handler: async (request, h) => {
-    const user = request.yar.get(sessionNames.user)
-    const token = user?.token ?? null
+    const authedUser = await request.getUserSession()
+
+    const token = authedUser?.token ?? null
     const { teams } = await fetchCdpTeams(token)
 
     const entityRows = teams

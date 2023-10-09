@@ -1,12 +1,10 @@
 import fetch from 'node-fetch'
 
 import { config } from '~/src/config'
-import { sessionNames } from '~/src/server/common/constants/session-names'
 
 async function refreshAccessToken(request) {
-  const yar = request.yar
-  const user = yar.get(sessionNames.user)
-  const refreshToken = user?.refreshToken ?? null
+  const authedUser = await request.getUserSession()
+  const refreshToken = authedUser?.refreshToken ?? null
   const azureTenantId = config.get('azureTenantId')
   const azureClientId = config.get('azureClientId')
   const azureClientSecret = config.get('azureClientSecret')

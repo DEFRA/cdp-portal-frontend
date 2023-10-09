@@ -10,13 +10,13 @@ import {
 
 const sessionCookie = {
   plugin: {
-    name: 'session-cookie',
+    name: 'user-session',
     register: async (server) => {
       await server.register(authCookie)
 
-      server.auth.strategy('session-cookie', 'cookie', {
+      server.auth.strategy('session', 'cookie', {
         cookie: {
-          name: 'session-cookie',
+          name: 'userSession',
           path: '/',
           password: config.get('sessionCookiePassword'),
           isSecure: config.get('isProduction'),
@@ -24,13 +24,15 @@ const sessionCookie = {
         },
         keepAlive: true,
         validate: async (request, session) => {
+          const authedUser = await request.getUserSession()
+
           const tokenHasExpired = isPast(
-            subMinutes(parseISO(session.expires), 1)
+            subMinutes(parseISO(authedUser.expiresAt), 1)
           )
 
           if (tokenHasExpired) {
             const response = await refreshAccessToken(request)
-            const updatedSession = await response.json()
+            const refreshAccessTokenJson = await response.json()
 
             if (!response.ok) {
               removeUserSession(request)
@@ -38,22 +40,31 @@ const sessionCookie = {
               return { isValid: false }
             }
 
-            updateUserSession(request, updatedSession)
+            const updatedSession = await updateUserSession(
+              request,
+              refreshAccessTokenJson
+            )
 
             return {
               isValid: true,
-              credentials: session
+              credentials: updatedSession
             }
           }
 
-          return {
-            isValid: true,
-            credentials: session
+          const userSession = await server.app.cache.get(session.sessionId)
+
+          if (userSession) {
+            return {
+              isValid: true,
+              credentials: userSession
+            }
           }
+
+          return { isValid: false }
         }
       })
 
-      server.auth.default('session-cookie')
+      server.auth.default('session')
     }
   }
 }

@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   removeUserSession,
   updateUserSession
@@ -8,9 +7,9 @@ import {
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
 
 function fetchWithAuth(request) {
-  return (url, options = {}) => {
-    const user = request.yar.get(sessionNames.user)
-    const token = user?.token ?? null
+  return async (url, options = {}) => {
+    const authedUser = await request.getUserSession()
+    const token = authedUser?.token ?? null
 
     const fetcher = (token) =>
       fetch(url, {
@@ -33,9 +32,10 @@ function fetchWithAuth(request) {
         }
 
         if (refreshTokenResponse.ok) {
-          updateUserSession(request, refreshTokenResponseJson)
-          const user = request.yar.get(sessionNames.user)
-          const newToken = user?.token ?? null
+          await updateUserSession(request, refreshTokenResponseJson)
+
+          const authedUser = await request.getUserSession()
+          const newToken = authedUser?.token ?? null
 
           // Replay initial request with new token
           return await fetcher(newToken)
