@@ -1,8 +1,6 @@
 import { fetchTeam } from '~/src/server/teams/helpers/fetch-team'
 import { transformTeamToHeadingEntities } from '~/src/server/teams/transformers/transform-team-to-heading-entities'
-import { fetchRepositories } from '~/src/server/common/helpers/fetch-repositories'
-import { fetchTemplates } from '~/src/server/common/helpers/fetch-templates'
-import { fetchLibraries } from '~/src/server/common/helpers/fetch-libraries'
+import { fetchGithubArtifacts } from '~/src/server/teams/helpers/fetch-github-artifacts'
 
 const teamController = {
   handler: async (request, h) => {
@@ -11,17 +9,15 @@ const teamController = {
     const { team } = await fetchTeam(teamId)
 
     const github = team?.github
-    const repositoriesResponse = github ? await fetchRepositories(github) : null
-    const templatesResponse = github ? await fetchTemplates(github) : null
-    const librariesResponse = github ? await fetchLibraries(github) : null
+    const teamGithubArtifacts = github
+      ? await fetchGithubArtifacts(github)
+      : null
 
     const augmentedTeam = {
       ...team,
-      repositories: repositoriesResponse?.repositories,
-      templates: templatesResponse?.templates,
-      libraries: librariesResponse?.libraries,
+      ...(teamGithubArtifacts ?? { teamGithubArtifacts }),
       ...(team.users?.length && {
-        users: team.users.sort((a, b) => a.name.localeCompare(b.name))
+        users: team.users.sort((a, b) => a.name.localeCompare(b.name)) // TODO move this sorting to the API
       })
     }
 
