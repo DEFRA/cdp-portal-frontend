@@ -10,7 +10,7 @@ const authCallbackController = {
   handler: async (request, h) => {
     if (request.auth.isAuthenticated) {
       const { profile } = request.auth.credentials
-      const expiresInSeconds = profile.expiresIn
+      const expiresInSeconds = request.auth.credentials.expiresIn
       const expiresInMilliSeconds = expiresInSeconds * 1000
       const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
