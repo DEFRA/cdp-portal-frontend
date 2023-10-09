@@ -15,10 +15,7 @@ const teamController = {
 
     const augmentedTeam = {
       ...team,
-      ...(teamGithubArtifacts ?? { teamGithubArtifacts }),
-      ...(team.users?.length && {
-        users: team.users.sort((a, b) => a.name.localeCompare(b.name)) // TODO move this sorting to the API
-      })
+      ...(teamGithubArtifacts ?? { teamGithubArtifacts })
     }
 
     return h.view('teams/views/team', {
