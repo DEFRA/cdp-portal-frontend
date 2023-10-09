@@ -7,6 +7,7 @@ import { isNil } from 'lodash'
 async function fetchCdpTeams(token) {
   const headers = { 'Content-Type': 'application/json' }
 
+  // TODO check the endpoint for this - it appears we don;t need a token
   if (!isNil(token)) {
     headers.Authorization = `Bearer ${token}`
   }

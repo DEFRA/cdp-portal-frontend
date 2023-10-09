@@ -3,12 +3,15 @@ import { config } from '~/src/config'
 
 const appPathPrefix = config.get('appPathPrefix')
 
-const mockRequest = ({ path = '', auth = {} } = {}) => ({ path, auth })
+const mockRequest = ({ path = '', auth = {} } = {}) => ({
+  path,
+  getUserSession: async () => auth
+})
 
 describe('#buildNavigation', () => {
   describe('When user is not Admin', () => {
-    test('Should provide expected navigation details', () => {
-      expect(buildNavigation(mockRequest())).toEqual({
+    test('Should provide expected navigation details', async () => {
+      expect(await buildNavigation(mockRequest())).toEqual({
         actions: [
           {
             isActive: false,
@@ -59,11 +62,9 @@ describe('#buildNavigation', () => {
   })
 
   describe('When user is Admin', () => {
-    test('Should provide expected navigation details', () => {
+    test('Should provide expected navigation details', async () => {
       expect(
-        buildNavigation(
-          mockRequest({ auth: { credentials: { isAdmin: true } } })
-        )
+        await buildNavigation(mockRequest({ auth: { isAdmin: true } }))
       ).toEqual({
         actions: [
           {
@@ -120,9 +121,9 @@ describe('#buildNavigation', () => {
     })
   })
 
-  test('Should mark matching url as Active', () => {
+  test('Should mark matching url as Active', async () => {
     expect(
-      buildNavigation(
+      await buildNavigation(
         mockRequest({ path: `${appPathPrefix}/running-services` })
       )
     ).toEqual({

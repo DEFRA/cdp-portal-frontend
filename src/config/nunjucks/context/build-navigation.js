@@ -2,8 +2,8 @@ import { config } from '~/src/config'
 
 const appPathPrefix = config.get('appPathPrefix')
 
-function buildNavigation(request) {
-  const isAdmin = request.auth?.credentials?.isAdmin ?? false
+async function buildNavigation(request) {
+  const authedUser = await request.getUserSession()
 
   return {
     primary: [
@@ -50,7 +50,7 @@ function buildNavigation(request) {
         isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
       }
     ],
-    admin: isAdmin
+    admin: authedUser?.isAdmin
       ? [
           {
             text: 'Admin',

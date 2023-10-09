@@ -12,9 +12,11 @@ import { sessionManager } from '~/src/server/common/helpers/session-manager'
 import { requestLogger } from '~/src/server/common/helpers/request-logger'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { azureOidc } from '~/src/server/common/helpers/auth/azure-oidc'
-import { fetchWithAuth } from '~/src/server/common/helpers/fetch-with-auth'
+import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 import { buildRedisClient } from '~/src/server/common/helpers/redis-client'
 import { sessionCookie } from '~/src/server/common/helpers/auth/session-cookie'
+import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
+import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session'
 
 const client = buildRedisClient()
 
@@ -51,6 +53,15 @@ async function createServer() {
       }
     ]
   })
+
+  server.app.cache = server.cache({
+    cache: 'session',
+    segment: config.get('redisKeyPrefix'),
+    expiresIn: config.get('redisTtl')
+  })
+
+  server.decorate('request', 'getUserSession', getUserSession)
+  server.decorate('request', 'dropUserSession', dropUserSession)
 
   await server.register(sessionManager)
   await server.register(azureOidc)

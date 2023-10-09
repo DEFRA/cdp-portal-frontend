@@ -1,25 +1,25 @@
-import { sessionNames } from '~/src/server/common/constants/session-names'
 import { addSeconds } from 'date-fns'
 
 function removeUserSession(request) {
-  request.yar.clear(sessionNames.user)
+  request.dropUserSession()
   request.cookieAuth.clear()
 }
 
-function updateUserSession(request, session) {
-  // Update cookie with new expiry date
-  request.state['session-cookie'].expires = addSeconds(
-    new Date(),
-    session.expires_in
-  )
+async function updateUserSession(request, refreshedSession) {
+  // Update userSession with new access token and new expiry details
+  const expiresInSeconds = refreshedSession.expires_in
+  const expiresInMilliSeconds = expiresInSeconds * 1000
+  const expiresAt = addSeconds(new Date(), expiresInSeconds)
+  const authedUser = await request.getUserSession()
 
-  // Update tokens in session
-  const userSession = request.yar.get(sessionNames.user)
-  request.yar.set(sessionNames.user, {
-    ...userSession,
-    token: session.access_token,
-    refreshToken: session.refresh_token
+  await request.server.app.cache.set(request.state.userSession.sessionId, {
+    ...authedUser,
+    token: refreshedSession.access_token,
+    expiresIn: expiresInMilliSeconds,
+    expiresAt
   })
+
+  return await request.getUserSession()
 }
 
 export { removeUserSession, updateUserSession }

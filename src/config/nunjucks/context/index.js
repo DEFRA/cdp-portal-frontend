@@ -6,7 +6,6 @@ import { createLogger } from '~/src/server/common/helpers/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { defaultOption } from '~/src/server/common/helpers/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
-import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const logger = createLogger()
 const appPathPrefix = config.get('appPathPrefix')
@@ -25,15 +24,13 @@ try {
   logger.error('Webpack Manifest assets file not found')
 }
 
-function context(request) {
-  const authenticatedUser = request.yar._store
-    ? request.yar.get(sessionNames.user)
-    : {}
+async function context(request) {
+  const authedUser = await request.getUserSession()
 
   return {
-    isAuthenticated: authenticatedUser?.isAuthenticated,
-    isAdmin: request.auth?.credentials?.isAdmin ?? false,
-    authenticatedUser,
+    isAuthenticated: authedUser?.isAuthenticated,
+    isAdmin: authedUser?.isAdmin ?? false,
+    authedUser,
     appPathPrefix,
     assetPath,
     noValue,
@@ -43,7 +40,7 @@ function context(request) {
     githubOrg: config.get('githubOrg'),
     serviceName: config.get('serviceName'),
     breadcrumbs: [],
-    navigation: buildNavigation(request),
+    navigation: await buildNavigation(request),
     getAssetPath: function (asset) {
       const webpackAssetPath = webpackManifest[asset]
 

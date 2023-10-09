@@ -5,6 +5,7 @@ import { version } from '~/package.json'
 
 const oneDay = 1000 * 60 * 60 * 24
 const oneWeek = 7 * 24 * 60 * 60 * 1000
+const oneMonth = 4 * 7 * 24 * 60 * 60 * 1000
 
 const config = convict({
   env: {
@@ -97,7 +98,7 @@ const config = convict({
   sessionCookieTtl: {
     doc: 'Session cookie ttl',
     format: Number,
-    default: oneDay,
+    default: oneMonth,
     env: 'SESSION_COOKIE_TTL'
   },
   redisHost: {
@@ -124,6 +125,12 @@ const config = convict({
     format: String,
     default: 'cdp-portal-frontend',
     env: 'REDIS_KEY_PREFIX'
+  },
+  redisTtl: {
+    doc: 'Redis cache global ttl',
+    format: Number,
+    default: oneDay,
+    env: 'REDIS_TTL'
   },
   useSingleInstanceCache: {
     doc: 'Enable the use of a single instance Redis Cache',

@@ -1,5 +1,4 @@
 const sessionNames = {
-  user: 'user',
   cdpUser: 'cdp-user',
   cdpTeam: 'cdp-team',
   validationFailure: 'validationFailure',
