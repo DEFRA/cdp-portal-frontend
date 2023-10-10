@@ -73,7 +73,7 @@ const findAadUserController = {
         aadName: isSameAsSession ? cdpUser?.aadName : aadUser?.name
       })
 
-      await setStepComplete(request, h, 'stepOne')
+      await setStepComplete(request, h, 'stepOne', updatedCdpUser)
 
       const queryString = qs.stringify(
         {

@@ -1,10 +1,12 @@
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
-async function setStepComplete({ yar }, h, step) {
-  const key = sessionNames.cdpTeam
-  const cdpTeam = yar.get(key)
-
-  yar.set(key, {
+async function setStepComplete(
+  { yar },
+  h,
+  step,
+  cdpTeam = yar.get(sessionNames.cdpTeam)
+) {
+  yar.set(sessionNames.cdpTeam, {
     ...cdpTeam,
     ...{
       isComplete: {

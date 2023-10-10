@@ -1,5 +1,3 @@
-import { startCase } from 'lodash'
-
 import { config } from '~/src/config'
 
 function transformUserToEntityDataList(user) {
@@ -10,7 +8,7 @@ function transformUserToEntityDataList(user) {
       heading: 'Name',
       entity: {
         kind: 'text',
-        value: startCase(user.name)
+        value: user.name
       }
     },
     {
