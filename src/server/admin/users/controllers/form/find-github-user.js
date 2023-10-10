@@ -55,11 +55,11 @@ const findGithubUserController = {
     }
 
     if (!validationResult.error) {
-      await saveToCdpUser(request, h, {
+      const updatedCdpUser = await saveToCdpUser(request, h, {
         github: button === 'skip' ? null : github
       })
 
-      await setStepComplete(request, h, 'stepTwo')
+      await setStepComplete(request, h, 'stepTwo', updatedCdpUser)
 
       const redirectTo = redirectLocation
         ? `/admin/users/${redirectLocation}`

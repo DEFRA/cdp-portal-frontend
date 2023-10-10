@@ -55,11 +55,11 @@ const findGithubTeamController = {
     }
 
     if (!validationResult.error) {
-      await saveToCdpTeam(request, h, {
+      const updatedTeam = await saveToCdpTeam(request, h, {
         github: button === 'skip' ? null : github
       })
 
-      await setStepComplete(request, h, 'stepTwo')
+      await setStepComplete(request, h, 'stepTwo', updatedTeam)
 
       return h.redirect(config.get('appPathPrefix') + '/admin/teams/summary')
     }
