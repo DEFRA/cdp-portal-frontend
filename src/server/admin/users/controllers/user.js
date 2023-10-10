@@ -1,6 +1,5 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { startCase } from 'lodash'
 
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
 import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
@@ -20,8 +19,8 @@ const userController = {
     const { user } = await fetchCdpUser(request.params?.userId)
 
     return h.view('admin/users/views/user', {
-      pageTitle: startCase(user.name),
-      heading: startCase(user.name),
+      pageTitle: user.name,
+      heading: user.name,
       headingEntities: transformUserToHeadingEntities(user),
       entityDataList: transformUserToEntityDataList(user),
       userTeams: transformUserTeams(user),
