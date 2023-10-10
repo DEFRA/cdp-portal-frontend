@@ -10,7 +10,7 @@
   }) }}
 
   {% call appPageBody() %}
-    <form action="{{ appPathPrefix }}/create-service" method="post">
+    <form action="{{ appPathPrefix }}/create-service" method="post" data-js="app-form-errors">
 
       {% call govukFieldset({
         legend: {
@@ -32,7 +32,7 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "app-form-group"
+            classes: "app-form-group app-form-group-js"
           },
           value: values.repositoryName,
           attributes: {
@@ -41,7 +41,10 @@
           },
           errorMessage: {
             text: errors.repositoryName.message,
-            classes: "govuk-!-margin-bottom-1 app-error-message"
+            classes: "govuk-!-margin-bottom-1 app-error-message",
+            attributes: {
+              "data-js": "app-error"
+            }
           } if errors.repositoryName.message
         }) }}
 
@@ -64,12 +67,15 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "app-form-group"
+            classes: "app-form-group app-form-group-js"
           },
           value: values.serviceType,
           errorMessage: {
             text: errors.serviceType.message,
-            classes: "govuk-!-margin-bottom-1 app-error-message"
+            classes: "govuk-!-margin-bottom-1 app-error-message",
+            attributes: {
+              "data-js": "app-error"
+            }
           } if errors.serviceType.message,
           items: serviceTypesOptions
         }) }}
@@ -88,11 +94,14 @@
             classes: "govuk-!-margin-bottom-1"
           },
           formGroup: {
-            classes: "app-form-group"
+            classes: "app-form-group app-form-group-js"
           },
           errorMessage: {
             text: errors.owningTeam.message,
-            classes: "govuk-!-margin-bottom-1 app-error-message"
+            classes: "govuk-!-margin-bottom-1 app-error-message",
+            attributes: {
+              "data-js": "app-error"
+            }
           } if errors.owningTeam.message,
           items: teamsOptions
         }) }}
