@@ -1,10 +1,19 @@
+import qs from 'qs'
 import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
 import { config } from '~/src/config'
 
-async function fetchTeams() {
-  const teamsEndpointUrl = config.get('userServiceApiUrl') + '/teams'
+async function fetchTeams(hasGithub = null) {
+  const queryString = qs.stringify(
+    {
+      ...(hasGithub && { hasGithub })
+    },
+    { addQueryPrefix: true }
+  )
+
+  const teamsEndpointUrl =
+    config.get('userServiceApiUrl') + `/teams${queryString}`
 
   const response = await fetch(teamsEndpointUrl, {
     method: 'get',

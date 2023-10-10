@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-function createServiceValidation(serviceTypes, owningTeams) {
+function createServiceValidation(serviceTypes, teamsGithubHandles) {
   return Joi.object({
     repositoryName: Joi.string()
       .pattern(/^[\w-]*$/)
@@ -20,13 +20,17 @@ function createServiceValidation(serviceTypes, owningTeams) {
     serviceType: Joi.string()
       .valid(...serviceTypes)
       .messages({
-        'any.only': 'Choose an entry'
-      }),
-    owningTeam: Joi.string()
-      .valid(...owningTeams)
-      .messages({
-        'any.only': 'Choose an entry'
+        'any.only': 'Choose an entry',
+        'any.required': 'Choose an entry'
       })
+      .required(),
+    owningTeam: Joi.string()
+      .valid(...teamsGithubHandles)
+      .messages({
+        'any.only': 'Choose an entry',
+        'any.required': 'Choose an entry'
+      })
+      .required()
   })
 }
 
