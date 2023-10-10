@@ -13,12 +13,12 @@ const createServiceController = {
     const { serviceTypes } = await fetchServiceTypes()
     const serviceTypesIds = serviceTypes.map((serviceType) => serviceType.value)
 
-    const { teams } = await fetchTeams()
-    const teamsIds = teams.map((team) => team.id)
+    const { teams } = await fetchTeams(true)
+    const teamsGithubHandles = teams.map((team) => team.github)
 
     const validationResult = createServiceValidation(
       serviceTypesIds,
-      teamsIds
+      teamsGithubHandles
     ).validate(payload, {
       abortEarly: false
     })
@@ -30,8 +30,8 @@ const createServiceController = {
 
       const teamsOptions = buildOptions(
         teams.map((team) => ({
-          text: team.name,
-          value: team.id
+          text: `${team.name} - @${team.github}`,
+          value: team.github
         }))
       )
 

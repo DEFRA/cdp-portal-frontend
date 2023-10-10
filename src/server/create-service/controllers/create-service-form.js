@@ -7,11 +7,11 @@ const createServiceFormController = {
     const { serviceTypes } = await fetchServiceTypes()
     const serviceTypesOptions = buildOptions(serviceTypes)
 
-    const { teams } = await fetchTeams()
+    const { teams } = await fetchTeams(true)
     const teamsOptions = buildOptions(
       teams.map((team) => ({
-        text: team.name,
-        value: team.id
+        text: `${team.name} - @${team.github}`,
+        value: team.github
       }))
     )
 
