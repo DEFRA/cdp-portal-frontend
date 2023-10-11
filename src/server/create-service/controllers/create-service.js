@@ -50,6 +50,7 @@ const createServiceController = {
         'selfServiceOpsApiUrl'
       )}/create-service`
 
+      // TODO handle failures
       await request.fetchWithAuth(selfServiceOpsV1CreateServiceEndpointUrl, {
         method: 'post',
         body: JSON.stringify(validationResult.value)

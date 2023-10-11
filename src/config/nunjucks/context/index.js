@@ -2,7 +2,7 @@ import path from 'path'
 
 import { config } from '~/src/config'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
-import { createLogger } from '~/src/server/common/helpers/logger'
+import { createLogger } from '~/src/server/common/helpers/logging/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { defaultOption } from '~/src/server/common/helpers/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
