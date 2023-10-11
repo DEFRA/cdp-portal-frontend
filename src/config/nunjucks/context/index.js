@@ -28,7 +28,7 @@ async function context(request) {
   const authedUser = await request.getUserSession()
 
   return {
-    isAuthenticated: authedUser?.isAuthenticated,
+    isAuthenticated: authedUser?.isAuthenticated ?? false,
     isAdmin: authedUser?.isAdmin ?? false,
     authedUser,
     appPathPrefix,

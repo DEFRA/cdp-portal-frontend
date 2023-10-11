@@ -9,9 +9,52 @@ const mockRequest = ({ path = '', auth = {} } = {}) => ({
 })
 
 describe('#buildNavigation', () => {
-  describe('When user is not Admin', () => {
+  describe('When user is not authenticated', () => {
     test('Should provide expected navigation details', async () => {
       expect(await buildNavigation(mockRequest())).toEqual({
+        actions: [],
+        primary: [
+          {
+            isActive: false,
+            text: 'Home',
+            url: '/cdp-portal-frontend'
+          },
+          {
+            isActive: false,
+            text: 'Services',
+            url: '/cdp-portal-frontend/services'
+          },
+          {
+            isActive: false,
+            text: 'Utilities',
+            url: '/cdp-portal-frontend/utilities/templates'
+          },
+          {
+            isActive: false,
+            text: 'Teams',
+            url: '/cdp-portal-frontend/teams'
+          },
+          {
+            isActive: false,
+            text: 'Deployments',
+            url: '/cdp-portal-frontend/deployments'
+          },
+          {
+            isActive: false,
+            text: 'Running Services',
+            url: '/cdp-portal-frontend/running-services'
+          }
+        ],
+        admin: []
+      })
+    })
+  })
+
+  describe('When user is authenticated', () => {
+    test('Should provide expected navigation details', async () => {
+      expect(
+        await buildNavigation(mockRequest({ auth: { isAuthenticated: true } }))
+      ).toEqual({
         actions: [
           {
             isActive: false,
@@ -64,7 +107,9 @@ describe('#buildNavigation', () => {
   describe('When user is Admin', () => {
     test('Should provide expected navigation details', async () => {
       expect(
-        await buildNavigation(mockRequest({ auth: { isAdmin: true } }))
+        await buildNavigation(
+          mockRequest({ auth: { isAdmin: true, isAuthenticated: true } })
+        )
       ).toEqual({
         actions: [
           {
@@ -127,18 +172,7 @@ describe('#buildNavigation', () => {
         mockRequest({ path: `${appPathPrefix}/running-services` })
       )
     ).toEqual({
-      actions: [
-        {
-          isActive: false,
-          text: 'Deploy Service',
-          url: '/cdp-portal-frontend/deploy-service'
-        },
-        {
-          isActive: false,
-          text: 'Create Service',
-          url: '/cdp-portal-frontend/create-service'
-        }
-      ],
+      actions: [],
       primary: [
         {
           isActive: false,

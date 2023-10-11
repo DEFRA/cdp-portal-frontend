@@ -38,18 +38,20 @@ async function buildNavigation(request) {
         isActive: request?.path?.includes(`${appPathPrefix}/running-services`)
       }
     ],
-    actions: [
-      {
-        text: 'Deploy Service',
-        url: `${appPathPrefix}/deploy-service`,
-        isActive: request?.path?.includes(`${appPathPrefix}/deploy-service`)
-      },
-      {
-        text: 'Create Service',
-        url: `${appPathPrefix}/create-service`,
-        isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
-      }
-    ],
+    actions: authedUser?.isAuthenticated
+      ? [
+          {
+            text: 'Deploy Service',
+            url: `${appPathPrefix}/deploy-service`,
+            isActive: request?.path?.includes(`${appPathPrefix}/deploy-service`)
+          },
+          {
+            text: 'Create Service',
+            url: `${appPathPrefix}/create-service`,
+            isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
+          }
+        ]
+      : [],
     admin: authedUser?.isAdmin
       ? [
           {
