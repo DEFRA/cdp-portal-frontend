@@ -1,4 +1,3 @@
-import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchCdpTeams } from '~/src/server/admin/teams/helpers/fetch-cdp-teams'
 import { transformCdpTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-entity-row'
 
@@ -9,9 +8,7 @@ const teamsListController = {
     const token = authedUser?.token ?? null
     const { teams } = await fetchCdpTeams(token)
 
-    const entityRows = teams
-      ?.sort(sortBy('name', 'asc'))
-      ?.map(transformCdpTeamToEntityRow)
+    const entityRows = teams?.map(transformCdpTeamToEntityRow)
 
     return h.view('admin/teams/views/teams-list', {
       pageTitle: 'Teams',
