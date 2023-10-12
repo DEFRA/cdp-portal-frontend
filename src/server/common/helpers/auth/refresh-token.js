@@ -15,7 +15,10 @@ async function refreshAccessToken(request) {
   params.append('client_secret', azureClientSecret)
   params.append('grant_type', 'refresh_token')
   params.append('refresh_token', refreshToken)
-  params.append('scope', `api://${azureClientId}/cdp.user`)
+  params.append(
+    'scope',
+    `api://${azureClientId}/cdp.user openid profile email offline_access user.read`
+  )
 
   request.logger.info('Azure OIDC access token expired, refreshing...')
 
