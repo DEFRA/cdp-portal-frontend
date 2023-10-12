@@ -32,12 +32,12 @@
 
     {% elseif params.kind === "date" %}
       {{ appTime({
-        datetime: params.value
+        datetime: params.value,
+        formatString: params.formatString if params.formatString
       }) }}
 
     {% elseif params.kind === "text" %}
       {{ params.value }}
-
 
     {% elseif params.kind === "paragraph" %}
       {{ params.value | safe }}

@@ -1,6 +1,10 @@
 <time datetime="{{ params.datetime }}"
       data-testid="app-time">
-  {{ params.datetime | formatDate }}
+  {% if params.formatString %}
+    {{ params.datetime | formatDate(params.formatString) }}
+  {% else %}
+    {{ params.datetime | formatDate }}
+  {% endif %}
 </time>
 
 
