@@ -23,6 +23,7 @@ describe('#transformDeploymentsToEntityRow', () => {
         value: 'RoboCop'
       },
       {
+        formatString: 'k:mm:ss EE do MMM yyyy',
         kind: 'date',
         value: '2023-05-18T22:54:12Z'
       }

@@ -135,6 +135,44 @@ describe('Entity Component', () => {
     })
   })
 
+  describe('Date entity with custom formatString', () => {
+    let $dateEntity
+
+    beforeAll(() => {
+      jest.useFakeTimers('modern')
+      jest.setSystemTime(new Date('2023-04-01'))
+    })
+
+    afterAll(() => {
+      jest.useRealTimers()
+    })
+
+    beforeEach(() => {
+      $dateEntity = renderTestComponent('entity', {
+        kind: 'date',
+        value: '2024-04-11T14:40:02.242Z',
+        size: 'large',
+        formatString: 'k:mm:ss EE do MMM yyyy'
+      })('[data-testid="app-entity"]').first()
+    })
+
+    test('Should render app time component', () => {
+      expect($dateEntity.find('[data-testid="app-time"]').length).toEqual(1)
+    })
+
+    test('Should contain expected rendered date', () => {
+      expect(
+        $dateEntity.find('[data-testid="app-time"]').text().trim()
+      ).toEqual('14:40:02 Thu 11th Apr 2024')
+    })
+
+    test('Should have expected datetime attribute', () => {
+      expect(
+        $dateEntity.find('[data-testid="app-time"]').attr('datetime')
+      ).toEqual('2024-04-11T14:40:02.242Z')
+    })
+  })
+
   describe('Text entity', () => {
     let $textEntity
 
