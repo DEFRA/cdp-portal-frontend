@@ -5,12 +5,20 @@ import { xhrRequest } from '~/src/client/common/helpers/xhr'
 
 function handleFormSubmit(event) {
   const form = event.target.closest('form')
+  const xhrElement = form.querySelector('[data-xhr]')
+  const xhrElementChildrenCanSubmit =
+    xhrElement.dataset.childrenCanSubmit ?? false
+
+  // By default, we do not wish input interactions inside a forms xhr element to submit the form. This can be bypassed
+  if (xhrElement.contains(event.target) && !xhrElementChildrenCanSubmit) {
+    return
+  }
 
   if (event?.submitter?.tagName?.toLowerCase() === 'button') {
-    // Non xhr button form submit
+    // Form button pressed or enter pressed inside form input
     form.requestSubmit()
   } else {
-    // xhr form submit
+    // xhr form auto submit
     event.preventDefault()
 
     submitForm(form)
