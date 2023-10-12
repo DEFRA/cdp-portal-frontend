@@ -3,9 +3,9 @@ import Boom from '@hapi/boom'
 
 import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { removeUserFromTeam } from '~/src/server/admin/teams/helpers/remove-user-from-team'
+import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/remove-member-from-team'
 
-const removeUserController = {
+const removeMemberController = {
   options: {
     validate: {
       params: Joi.object({
@@ -21,10 +21,10 @@ const removeUserController = {
     const userId = params.userId
 
     try {
-      await removeUserFromTeam(request.fetchWithAuth, teamId, userId)
+      await removeMemberFromTeam(request.fetchWithAuth, teamId, userId)
 
       request.yar.flash(sessionNames.notifications, {
-        text: 'User removed from team',
+        text: 'Member removed from team',
         type: 'success'
       })
     } catch (error) {
@@ -35,4 +35,4 @@ const removeUserController = {
   }
 }
 
-export { removeUserController }
+export { removeMemberController }

@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 
 import { config } from '~/src/config'
 
-async function removeUserFromTeam(fetchWithAuth, teamId, userId) {
+async function removeMemberFromTeam(fetchWithAuth, teamId, userId) {
   const removeUserFromTeamEndpointUrl =
     config.get('userServiceApiUrl') + `/teams/${teamId}/remove/${userId}`
 
@@ -19,4 +19,4 @@ async function removeUserFromTeam(fetchWithAuth, teamId, userId) {
   throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
-export { removeUserFromTeam }
+export { removeMemberFromTeam }

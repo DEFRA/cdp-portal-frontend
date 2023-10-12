@@ -1,8 +1,8 @@
 import { teamController } from '~/src/server/admin/teams/controllers/team'
 import { teamsListController } from '~/src/server/admin/teams/controllers/teams-list'
-import { addUserFormController } from '~/src/server/admin/teams/controllers/add-user-form'
-import { addUserController } from '~/src/server/admin/teams/controllers/add-user'
-import { removeUserController } from '~/src/server/admin/teams/controllers/remove-user'
+import { addMemberFormController } from '~/src/server/admin/teams/controllers/add-member-form'
+import { addMemberController } from '~/src/server/admin/teams/controllers/add-member'
+import { removeMemberController } from '~/src/server/admin/teams/controllers/remove-member'
 import { editTeamController } from '~/src/server/admin/teams/controllers/form/edit-team'
 import { teamDetailsController } from '~/src/server/admin/teams/controllers/form/team-details'
 import { teamDetailsFormController } from '~/src/server/admin/teams/controllers/form/team-details-form'
@@ -23,9 +23,9 @@ export {
   teamController,
   teamsListController,
   editTeamController,
-  addUserFormController,
-  addUserController,
-  removeUserController,
+  addMemberFormController,
+  addMemberController,
+  removeMemberController,
   teamSummaryController,
   startEditTeamController
 }

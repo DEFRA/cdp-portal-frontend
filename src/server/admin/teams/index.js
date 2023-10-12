@@ -15,9 +15,9 @@ import {
   startEditTeamController,
   teamsListController,
   teamController,
-  addUserFormController,
-  addUserController,
-  removeUserController,
+  addMemberFormController,
+  addMemberController,
+  removeMemberController,
   teamSummaryController,
   editTeamController
 } from '~/src/server/admin/teams/controllers'
@@ -107,18 +107,18 @@ const adminTeams = {
           },
           {
             method: 'GET',
-            path: '/admin/teams/{teamId}/add-user',
-            ...addUserFormController
+            path: '/admin/teams/{teamId}/add-member',
+            ...addMemberFormController
           },
           {
             method: 'POST',
-            path: '/admin/teams/{teamId}/add-user',
-            ...addUserController
+            path: '/admin/teams/{teamId}/add-member',
+            ...addMemberController
           },
           {
             method: 'POST',
-            path: '/admin/teams/{teamId}/remove-user/{userId}',
-            ...removeUserController
+            path: '/admin/teams/{teamId}/remove-member/{userId}',
+            ...removeMemberController
           },
           {
             method: 'GET',

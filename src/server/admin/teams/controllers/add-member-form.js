@@ -8,7 +8,7 @@ import { searchCdpUsers } from '~/src/server/admin/teams/helpers/search-cdp-user
 import { presentUsersToAdd } from '~/src/server/admin/teams/helpers/prerequisites/present-users-to-add'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
 
-const addUserFormController = {
+const addMemberFormController = {
   options: {
     validate: {
       params: Joi.object({
@@ -42,9 +42,9 @@ const addUserFormController = {
       (user) => !team.users.some((teamUser) => teamUser.userId === user.userId)
     )
 
-    return h.view('admin/teams/views/add-user-form', {
-      pageTitle: 'Add user',
-      heading: 'Add users',
+    return h.view('admin/teams/views/add-member-form', {
+      pageTitle: 'Add team members',
+      heading: 'Add team members',
       headingCaption: 'Search for CDP - Portal user',
       formValues: {
         cdpUserQuery,
@@ -75,11 +75,11 @@ const addUserFormController = {
           href: '/admin/teams/' + team.teamId
         },
         {
-          text: 'Add users'
+          text: 'Add team members'
         }
       ]
     })
   }
 }
 
-export { addUserFormController }
+export { addMemberFormController }

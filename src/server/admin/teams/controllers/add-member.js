@@ -4,9 +4,9 @@ import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation'
-import { addUserToTeam } from '~/src/server/admin/teams/helpers/add-user-to-team'
+import { addMemberToTeam } from '~/src/server/admin/teams/helpers/add-member-to-team'
 
-const addUserController = {
+const addMemberController = {
   handler: async (request, h) => {
     const params = request.params
     const teamId = params.teamId
@@ -53,14 +53,14 @@ const addUserController = {
 
       return h.redirect(
         config.get('appPathPrefix') +
-          `/admin/teams/${teamId}/add-user${queryString}`
+          `/admin/teams/${teamId}/add-member${queryString}`
       )
     }
 
     if (!validationResult.error) {
       const addUserToTeamPromises = userIds.map(
         async (userId) =>
-          await addUserToTeam(request.fetchWithAuth, teamId, userId)
+          await addMemberToTeam(request.fetchWithAuth, teamId, userId)
       )
 
       const responses = await Promise.allSettled(addUserToTeamPromises)
@@ -70,11 +70,11 @@ const addUserController = {
       const fulfilledResponse = responses.filter(
         (response) => response.status === 'fulfilled'
       )
-      const userMessage = fulfilledResponse.length > 1 ? 'Users' : 'User'
+      const memberMessage = fulfilledResponse.length > 1 ? 'Members' : 'Member'
 
       if (rejectedResponse.length === 0) {
         request.yar.flash(sessionNames.notifications, {
-          text: `${userMessage} added to team`,
+          text: `${memberMessage} added to team`,
           type: 'success'
         })
 
@@ -85,7 +85,7 @@ const addUserController = {
 
       if (fulfilledResponse.length) {
         request.yar.flash(sessionNames.notifications, {
-          text: `${userMessage} added to team`,
+          text: `${memberMessage} added to team`,
           type: 'success'
         })
       }
@@ -105,11 +105,11 @@ const addUserController = {
         config.get('appPathPrefix') +
           '/admin/teams/' +
           teamId +
-          '/add-user' +
+          '/add-member' +
           queryString
       )
     }
   }
 }
 
-export { addUserController }
+export { addMemberController }
