@@ -65,14 +65,14 @@ const adminUsers = {
             ...createUserController
           },
           {
-            method: 'GET',
-            path: '/admin/users/edit/{userId}',
-            ...startEditUserController
-          },
-          {
             method: 'POST',
             path: '/admin/users/edit',
             ...editUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/{userId}/edit',
+            ...startEditUserController
           },
           {
             method: 'GET',

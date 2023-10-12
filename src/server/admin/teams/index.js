@@ -102,7 +102,7 @@ const adminTeams = {
           },
           {
             method: 'GET',
-            path: '/admin/teams/edit/{teamId}',
+            path: '/admin/teams/{teamId}/edit',
             ...startEditTeamController
           },
           {
