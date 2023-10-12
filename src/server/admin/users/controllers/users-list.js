@@ -1,4 +1,3 @@
-import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchCdpUsers } from '~/src/server/admin/users/helpers/fetch-cdp-users'
 import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row'
 
@@ -6,9 +5,7 @@ const usersListController = {
   handler: async (request, h) => {
     const { users } = await fetchCdpUsers()
 
-    const entityRows = users
-      ?.sort(sortBy('name', 'asc'))
-      ?.map(transformUserToEntityRow)
+    const entityRows = users?.map(transformUserToEntityRow)
 
     return h.view('admin/users/views/users-list', {
       pageTitle: 'Users',
