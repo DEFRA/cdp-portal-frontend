@@ -1,10 +1,9 @@
 import { config } from '~/src/config'
 import { addScope } from '~/src/server/common/helpers/auth/add-scope'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
-import {
-  provideUserSteps,
-  provideFormContextValues
-} from '~/src/server/admin/users/helpers/form'
+import { provideUserSteps } from '~/src/server/admin/users/helpers/form'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   usersListController,
   userController,
@@ -37,7 +36,7 @@ const adminUsers = {
         },
         {
           type: 'onPostHandler',
-          method: provideFormContextValues,
+          method: provideFormContextValues(sessionNames.cdpUser),
           options: {
             before: ['yar'],
             sandbox: 'plugin'

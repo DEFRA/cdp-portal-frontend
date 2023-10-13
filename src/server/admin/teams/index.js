@@ -1,10 +1,9 @@
 import { config } from '~/src/config'
 import { addScope } from '~/src/server/common/helpers/auth/add-scope'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
-import {
-  provideTeamSteps,
-  provideFormContextValues
-} from '~/src/server/admin/teams/helpers/form'
+import { provideTeamSteps } from '~/src/server/admin/teams/helpers/form'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   startCreateTeamController,
   createTeamController,
@@ -38,7 +37,7 @@ const adminTeams = {
         },
         {
           type: 'onPostHandler',
-          method: provideFormContextValues,
+          method: provideFormContextValues(sessionNames.cdpTeam),
           options: {
             before: ['yar'],
             sandbox: 'plugin'
