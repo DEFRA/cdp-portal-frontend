@@ -9,16 +9,17 @@ function handleFormSubmit(event) {
   const xhrElementChildrenCanSubmit =
     xhrElement.dataset.childrenCanSubmit ?? false
 
-  // By default, we do not wish input interactions inside a forms xhr element to submit the form. This can be bypassed
+  // By default, we do not wish input interactions inside a forms xhr html element to submit the form.
+  // This can be bypassed by applying the data-children-can-submit="true" attribute to the xhr element
   if (xhrElement.contains(event.target) && !xhrElementChildrenCanSubmit) {
     return
   }
 
   if (event?.submitter?.tagName?.toLowerCase() === 'button') {
-    // Form button pressed or enter pressed inside form input
+    // Form button pressed or enter pressed inside form input which triggers forms button
     form.requestSubmit()
   } else {
-    // xhr form auto submit
+    // xhr form auto submit from listener in forms input
     event.preventDefault()
 
     submitForm(form)
