@@ -1,13 +1,16 @@
 import { config } from '~/src/config'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/users/helpers/form'
 import { removeNil } from '~/src/server/common/helpers/remove-nil'
 
 const createUserController = {
   options: {
-    pre: [noSessionRedirect, provideCdpUser]
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideCdpUser]
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.cdpUser

@@ -1,12 +1,15 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 
 const userDetailsFormController = {
   options: {
-    pre: [noSessionRedirect, provideCdpUser],
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideCdpUser],
     validate: {
       query: Joi.object({
         redirectLocation: Joi.string().valid('summary').allow('')

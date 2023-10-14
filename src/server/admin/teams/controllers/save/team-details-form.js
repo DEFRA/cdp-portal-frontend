@@ -1,9 +1,12 @@
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
 
 const teamDetailsFormController = {
   options: {
-    pre: [noSessionRedirect, provideCdpTeam]
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideCdpTeam]
   },
   handler: (request, h) => {
     const query = request?.query

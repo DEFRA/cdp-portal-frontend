@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { buildOptions } from '~/src/server/common/helpers/build-options'
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
 import { resetGithubUserNameAnswer } from '~/src/server/admin/users/helpers/extensions/reset-github-user-name-answer'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 import { searchGithubUsers } from '~/src/server/admin/users/helpers/search-github-users'
@@ -10,9 +10,9 @@ import { searchGithubUsers } from '~/src/server/admin/users/helpers/search-githu
 const findGithubUserFormController = {
   options: {
     ext: {
-      onPreHandler: resetGithubUserNameAnswer
+      onPreHandler: [noSessionRedirect, resetGithubUserNameAnswer]
     },
-    pre: [noSessionRedirect, provideCdpUser],
+    pre: [provideCdpUser],
     validate: {
       query: Joi.object({
         githubSearch: Joi.string().allow(''),

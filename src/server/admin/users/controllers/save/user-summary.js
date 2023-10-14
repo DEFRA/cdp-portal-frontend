@@ -1,10 +1,13 @@
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 import { transformSummaryUserRows } from '~/src/server/admin/users/transformers/transform-summary-user-rows'
 
 const userSummaryController = {
   options: {
-    pre: [noSessionRedirect, provideCdpUser]
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideCdpUser]
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.cdpUser

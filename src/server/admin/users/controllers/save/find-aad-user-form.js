@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { resetAadAnswer } from '~/src/server/admin/users/helpers/extensions/reset-aad-answer'
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
 import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/search-azure-active-directory-users'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
 

@@ -3,11 +3,14 @@ import { removeNil } from '~/src/server/common/helpers/remove-nil'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/teams/helpers/form'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
 
 const createTeamController = {
   options: {
-    pre: [noSessionRedirect, provideCdpTeam]
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideCdpTeam]
   },
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
