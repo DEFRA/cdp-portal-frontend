@@ -1,12 +1,15 @@
 import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/deploy-service/helpers/form'
-import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 
 const deployController = {
   options: {
-    pre: [noSessionRedirect, provideDeployment]
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideDeployment]
   },
   handler: async (request, h) => {
     const deployment = request.pre?.deployment

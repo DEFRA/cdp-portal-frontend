@@ -1,10 +1,13 @@
-import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 
 const summaryController = {
   options: {
-    pre: [noSessionRedirect, provideDeployment]
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideDeployment]
   },
   handler: async (request, h) => {
     const deployment = request.pre?.deployment

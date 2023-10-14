@@ -8,11 +8,14 @@ import { optionsWithMessage } from '~/src/server/common/helpers/options-with-mes
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
-import { noSessionRedirect } from '~/src/server/deploy-service/helpers/prerequisites/no-session-redirect'
+import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 
 const detailsFormController = {
   options: {
-    pre: [noSessionRedirect, provideDeployment],
+    ext: {
+      onPreHandler: [noSessionRedirect]
+    },
+    pre: [provideDeployment],
     validate: {
       query: Joi.object({
         redirectLocation: Joi.string().valid('summary')
