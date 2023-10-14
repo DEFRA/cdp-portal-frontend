@@ -2,6 +2,12 @@
 
 {% from "split-pane/macro.njk" import appSplitPane with context %}
 
+{% set searchHintHtml %}
+  Search using the Github team name. <a href="https://github.com/orgs/{{ githubOrg }}/teams"
+                                        class="app-link"
+                                        target="_blank">View ORG teams</a>
+{% endset %}
+
 {% block content %}
   {% call appSplitPane() %}
 
@@ -31,7 +37,7 @@
                   id: "githubSearch",
                   name: "githubSearch",
                   hint: {
-                    text: "Search using the Github team name"
+                    html: searchHintHtml
                   },
                   value: formValues.githubSearch,
                   errorMessage: {
