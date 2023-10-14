@@ -13,9 +13,10 @@
       {{ params.label.text }}
     </label>
 
-    {% if params.hint.text %}
+    {% if params.hint %}
       {{ govukHint({
         text: params.hint.text,
+        html: params.hint.html,
         classes: "govuk-!-margin-bottom-1",
         attributes: {
           "data-testid": "app-search-hint"
