@@ -4,7 +4,7 @@
  * @param scope
  * @returns {function(*): *&{options: {auth: {mode: string, access: {scope: *}}}}}
  */
-function addScope(scope) {
+function addAuthScope(scope) {
   return (route) => ({
     ...route,
     options: {
@@ -19,4 +19,4 @@ function addScope(scope) {
   })
 }
 
-export { addScope }
+export { addAuthScope }

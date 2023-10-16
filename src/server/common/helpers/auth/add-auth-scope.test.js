@@ -1,11 +1,11 @@
-import { addScope } from '~/src/server/common/helpers/auth/add-scope'
+import { addAuthScope } from '~/src/server/common/helpers/auth/add-auth-scope'
 
-describe('#addScope', () => {
+describe('#addAuthScope', () => {
   test('Should add scope to route as expected', () => {
-    const addScopeMethod = addScope(['+mockScope'])
+    const addAuthScopeMethod = addAuthScope(['+mockScope'])
 
     expect(
-      addScopeMethod({
+      addAuthScopeMethod({
         method: 'GET',
         path: '/admin/teams/{teamId}'
       })
@@ -24,10 +24,10 @@ describe('#addScope', () => {
   })
   describe('When route has existing options', () => {
     test('Should add scope to route as expected', () => {
-      const addScopeMethod = addScope(['+mockScope'])
+      const addAuthScopeMethod = addAuthScope(['+mockScope'])
 
       expect(
-        addScopeMethod({
+        addAuthScopeMethod({
           method: 'POST',
           path: '/admin/teams/{teamId}',
           options: {

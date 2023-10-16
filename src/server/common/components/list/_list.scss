@@ -1,22 +1,28 @@
 .app-list {
   list-style-type: disc;
-  max-width: govuk-spacing(9) * 6;
 
   > li {
     margin: 0;
+    line-height: 1.6;
+
+    &:hover {
+      a {
+        color: $govuk-link-hover-colour;
+        text-decoration: underline;
+      }
+    }
   }
+}
+
+.app-list--slim {
+  max-width: govuk-spacing(9) * 6;
 }
 
 .app-list-item {
   display: flex;
-  border-bottom: 1px solid $app-grey;
-  padding: govuk-spacing(1) 0;
-  margin: govuk-spacing(1) 0;
+  padding: govuk-spacing(1) 0 0;
+  margin: 0;
   align-items: center;
-
-  &:first-of-type {
-    padding-top: 0;
-  }
 }
 
 .app-list-item__content {
