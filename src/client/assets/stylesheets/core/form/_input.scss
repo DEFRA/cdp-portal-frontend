@@ -11,6 +11,14 @@
   &.govuk-input--error {
     border-color: govuk-colour("red");
   }
+
+  &:read-only {
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 .app-input--wide {
