@@ -15,7 +15,7 @@ const teamSummaryController = {
 
     const heading = isEdit ? 'Edit team summary' : 'Create team summary'
 
-    return h.view('admin/teams/views/summary', {
+    return h.view('admin/teams/views/save/summary', {
       pageTitle: heading,
       heading,
       headingCaption:

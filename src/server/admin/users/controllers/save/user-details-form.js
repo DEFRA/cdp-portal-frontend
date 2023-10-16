@@ -24,7 +24,7 @@ const userDetailsFormController = {
     const heading = isEdit ? 'Edit CDP user details' : 'Add CDP user details'
     const redirectLocation = request.query?.redirectLocation
 
-    return h.view('admin/users/views/user-details-form', {
+    return h.view('admin/users/views/save/user-details-form', {
       pageTitle: heading,
       heading,
       headingCaption: 'Add Core Delivery Platform (CDP) user details',

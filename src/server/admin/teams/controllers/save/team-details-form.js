@@ -18,7 +18,7 @@ const teamDetailsFormController = {
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
     const heading = `${updateOrCreate} CDP team`
 
-    return h.view('admin/teams/views/team-details-form', {
+    return h.view('admin/teams/views/save/team-details-form', {
       pageTitle: heading,
       heading,
       headingCaption: `${updateOrCreate} Core Delivery Platform (CDP) team`,

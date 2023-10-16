@@ -35,7 +35,7 @@ const findAadUserFormController = {
       : null
     const aadUsers = searchAadUsersResponse?.users ?? []
 
-    return h.view('admin/users/views/aad-user-form', {
+    return h.view('admin/users/views/save/aad-user-form', {
       pageTitle: 'Find AAD user',
       heading: 'Find AAD user',
       headingCaption: 'Search for the Defra Azure Active Directory (AAD) user',

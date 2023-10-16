@@ -42,7 +42,7 @@ const addMemberFormController = {
       (user) => !team.users.some((teamUser) => teamUser.userId === user.userId)
     )
 
-    return h.view('admin/teams/views/add-member-form', {
+    return h.view('admin/teams/views/add/member-form', {
       pageTitle: 'Add team members',
       heading: 'Add team members',
       headingCaption: 'Search for CDP - Portal user',

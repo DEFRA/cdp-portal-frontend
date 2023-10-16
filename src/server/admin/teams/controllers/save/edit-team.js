@@ -1,4 +1,5 @@
 import { config } from '~/src/config'
+import { editTeam } from '~/src/server/admin/teams/helpers/edit-team'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/teams/helpers/form'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
@@ -14,16 +15,10 @@ const editTeamController = {
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
 
-    const editTeamEndpointUrl =
-      config.get('userServiceApiUrl') + '/teams/' + cdpTeam.teamId
-
-    const response = await request.fetchWithAuth(editTeamEndpointUrl, {
-      method: 'patch',
-      body: JSON.stringify({
-        name: cdpTeam.name,
-        description: cdpTeam.description,
-        github: cdpTeam.github
-      })
+    const response = await editTeam(request, cdpTeam.teamId, {
+      name: cdpTeam.name,
+      description: cdpTeam.description,
+      github: cdpTeam.github
     })
     const json = await response.json()
 

@@ -38,7 +38,7 @@ const findGithubUserFormController = {
     const isEdit = cdpUser.isEdit ?? false
     const heading = isEdit ? 'Edit Defra Github User' : 'Find Defra Github User'
 
-    return h.view('admin/users/views/github-user-form', {
+    return h.view('admin/users/views/save/github-user-form', {
       pageTitle: heading,
       heading,
       headingCaption: 'Search for the Defra Github user',

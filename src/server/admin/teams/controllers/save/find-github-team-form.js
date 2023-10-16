@@ -39,7 +39,7 @@ const findGithubTeamFormController = {
     const heading = 'Find Defra Github Team'
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
 
-    return h.view('admin/teams/views/github-team-form', {
+    return h.view('admin/teams/views/save/github-team-form', {
       pageTitle: heading,
       heading,
       headingCaption: 'Link the Defra Github team to the CDP team',

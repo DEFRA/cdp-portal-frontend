@@ -15,7 +15,7 @@ const userSummaryController = {
 
     const heading = isEdit ? 'Edit user summary' : 'Create user summary'
 
-    return h.view('admin/users/views/summary', {
+    return h.view('admin/users/views/save/summary', {
       pageTitle: heading,
       heading,
       headingCaption: 'Information about the user you are going to create.',
