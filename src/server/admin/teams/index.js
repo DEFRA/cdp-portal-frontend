@@ -1,10 +1,9 @@
 import { config } from '~/src/config'
-import { addScope } from '~/src/server/common/helpers/auth/add-scope'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
-import {
-  provideTeamSteps,
-  provideFormContextValues
-} from '~/src/server/admin/teams/helpers/form'
+import { provideTeamSteps } from '~/src/server/admin/teams/helpers/form'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   startCreateTeamController,
   createTeamController,
@@ -15,14 +14,14 @@ import {
   startEditTeamController,
   teamsListController,
   teamController,
-  addUserFormController,
-  addUserController,
-  removeUserController,
+  addMemberFormController,
+  addMemberController,
+  removeMemberController,
   teamSummaryController,
   editTeamController
 } from '~/src/server/admin/teams/controllers'
 
-const addAdminScope = addScope([`+${config.get('azureAdminGroupId')}`])
+const adminScope = authScope([`+${config.get('azureAdminGroupId')}`])
 
 const adminTeams = {
   plugin: {
@@ -38,7 +37,7 @@ const adminTeams = {
         },
         {
           type: 'onPostHandler',
-          method: provideFormContextValues,
+          method: provideFormContextValues(sessionNames.cdpTeam),
           options: {
             before: ['yar'],
             sandbox: 'plugin'
@@ -102,30 +101,30 @@ const adminTeams = {
           },
           {
             method: 'GET',
-            path: '/admin/teams/edit/{teamId}',
+            path: '/admin/teams/{teamId}/edit',
             ...startEditTeamController
           },
           {
             method: 'GET',
-            path: '/admin/teams/{teamId}/add-user',
-            ...addUserFormController
+            path: '/admin/teams/{teamId}/add-member',
+            ...addMemberFormController
           },
           {
             method: 'POST',
-            path: '/admin/teams/{teamId}/add-user',
-            ...addUserController
+            path: '/admin/teams/{teamId}/add-member',
+            ...addMemberController
           },
           {
             method: 'POST',
-            path: '/admin/teams/{teamId}/remove-user/{userId}',
-            ...removeUserController
+            path: '/admin/teams/{teamId}/remove-member/{userId}',
+            ...removeMemberController
           },
           {
             method: 'GET',
             path: '/admin/teams/{teamId}',
             ...teamController
           }
-        ].map(addAdminScope)
+        ].map(adminScope)
       )
     }
   }

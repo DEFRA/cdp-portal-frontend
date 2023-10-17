@@ -1,10 +1,9 @@
 import { config } from '~/src/config'
-import { addScope } from '~/src/server/common/helpers/auth/add-scope'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
 import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
-import {
-  provideUserSteps,
-  provideFormContextValues
-} from '~/src/server/admin/users/helpers/form'
+import { provideUserSteps } from '~/src/server/admin/users/helpers/form'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   usersListController,
   userController,
@@ -21,7 +20,7 @@ import {
   editUserController
 } from '~/src/server/admin/users/controllers'
 
-const addAdminScope = addScope([`+${config.get('azureAdminGroupId')}`])
+const adminScope = authScope([`+${config.get('azureAdminGroupId')}`])
 
 const adminUsers = {
   plugin: {
@@ -37,7 +36,7 @@ const adminUsers = {
         },
         {
           type: 'onPostHandler',
-          method: provideFormContextValues,
+          method: provideFormContextValues(sessionNames.cdpUser),
           options: {
             before: ['yar'],
             sandbox: 'plugin'
@@ -65,14 +64,14 @@ const adminUsers = {
             ...createUserController
           },
           {
-            method: 'GET',
-            path: '/admin/users/edit/{userId}',
-            ...startEditUserController
-          },
-          {
             method: 'POST',
             path: '/admin/users/edit',
             ...editUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/{userId}/edit',
+            ...startEditUserController
           },
           {
             method: 'GET',
@@ -119,7 +118,7 @@ const adminUsers = {
             path: '/admin/users/{userId}',
             ...userController
           }
-        ].map(addAdminScope)
+        ].map(adminScope)
       )
     }
   }

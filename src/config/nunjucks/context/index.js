@@ -6,6 +6,7 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { defaultOption } from '~/src/server/common/helpers/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
+import { userHasTeamScope } from '~/src/server/common/helpers/auth/user-has-team-scope'
 
 const logger = createLogger()
 const appPathPrefix = config.get('appPathPrefix')
@@ -31,6 +32,7 @@ async function context(request) {
     isAuthenticated: authedUser?.isAuthenticated ?? false,
     isAdmin: authedUser?.isAdmin ?? false,
     authedUser,
+    userHasTeamScope: userHasTeamScope(authedUser),
     appPathPrefix,
     assetPath,
     noValue,

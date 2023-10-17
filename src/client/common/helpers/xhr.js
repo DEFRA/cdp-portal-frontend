@@ -31,7 +31,7 @@ function updatePage(html, params = {}) {
   publish(eventName.xhrUpdate, { params })
 
   if (params) {
-    const url = `?${qs.stringify(params)}`
+    const url = qs.stringify(params, { addQueryPrefix: true })
 
     try {
       history.replace(url, { xhrData: html }) // Data saved to state for forward/back button replay
@@ -49,18 +49,24 @@ function updatePage(html, params = {}) {
  */
 function xhrRequest(url, params = {}) {
   if (params) {
-    const url = `?${qs.stringify(params)}`
+    const url = qs.stringify(params, { addQueryPrefix: true })
     history.push(url)
   }
 
-  return fetch(`${url}?${qs.stringify(params, { arrayFormat: 'repeat' })}`, {
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'Cache-Control': 'no-cache, no-store, max-age=0',
-      Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
-      Pragma: 'no-cache'
+  return fetch(
+    `${url}${qs.stringify(params, {
+      arrayFormat: 'repeat',
+      addQueryPrefix: true
+    })}`,
+    {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Cache-Control': 'no-cache, no-store, max-age=0',
+        Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+        Pragma: 'no-cache'
+      }
     }
-  })
+  )
     .then((response) => {
       return response.text()
     })

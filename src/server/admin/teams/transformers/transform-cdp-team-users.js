@@ -6,7 +6,7 @@ function transformCdpTeamUsers(team) {
   return team.users.map((user) => {
     const userHref = appPathPrefix + '/admin/users/' + user.userId
     const formAction =
-      appPathPrefix + `/admin/teams/${team.teamId}/remove-user/${user.userId}`
+      appPathPrefix + `/admin/teams/${team.teamId}/remove-member/${user.userId}`
 
     return {
       ...user,
