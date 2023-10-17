@@ -3,7 +3,7 @@
 }
 
 .app-data-list-heading {
-  @include govuk-font(24, "bold");
+  @extend %govuk-heading-m;
 
   display: flex;
   margin-bottom: 0;

@@ -1,6 +1,6 @@
 import { config } from '~/src/config'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
-import { fetchLibraries } from '~/src/server/common/helpers/fetch-libraries'
+import { fetchLibraries } from '~/src/server/utilities/helpers/fetch-libraries'
 import { transformUtilityToEntityRow } from '~/src/server/utilities/transformers/transform-utility-to-entity-row'
 
 const appPathPrefix = config.get('appPathPrefix')

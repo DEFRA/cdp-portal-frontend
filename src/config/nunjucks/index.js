@@ -6,7 +6,6 @@ import hapiVision from '@hapi/vision'
 import { config } from '~/src/config'
 import { context } from '~/src/config/nunjucks/context'
 import * as filters from '~/src/config/nunjucks/filters'
-import * as globals from '~/src/config/nunjucks/globals'
 
 const nunjucksEnvironment = nunjucks.configure(
   [
@@ -51,10 +50,6 @@ const nunjucksConfig = {
     context
   }
 }
-
-Object.keys(globals).forEach((global) => {
-  nunjucksEnvironment.addGlobal(global, globals[global])
-})
 
 Object.keys(filters).forEach((filter) => {
   nunjucksEnvironment.addFilter(filter, filters[filter])

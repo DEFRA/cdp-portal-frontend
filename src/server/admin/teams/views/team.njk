@@ -39,6 +39,7 @@
         {% if teamMembers | length %}
           <form method="POST">
             {{ appList({
+              classes: "app-list--slim",
               items: teamMembers
             }) }}
           </form>

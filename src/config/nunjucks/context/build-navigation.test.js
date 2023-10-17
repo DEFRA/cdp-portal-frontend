@@ -12,7 +12,7 @@ describe('#buildNavigation', () => {
   describe('When user is not authenticated', () => {
     test('Should provide expected navigation details', async () => {
       expect(await buildNavigation(mockRequest())).toEqual({
-        actions: [],
+        actions: undefined,
         primary: [
           {
             isActive: false,
@@ -45,7 +45,7 @@ describe('#buildNavigation', () => {
             url: '/cdp-portal-frontend/running-services'
           }
         ],
-        admin: []
+        admin: undefined
       })
     })
   })
@@ -99,7 +99,7 @@ describe('#buildNavigation', () => {
             url: '/cdp-portal-frontend/running-services'
           }
         ],
-        admin: []
+        admin: undefined
       })
     })
   })
@@ -172,7 +172,7 @@ describe('#buildNavigation', () => {
         mockRequest({ path: `${appPathPrefix}/running-services` })
       )
     ).toEqual({
-      actions: [],
+      actions: undefined,
       primary: [
         {
           isActive: false,
@@ -205,7 +205,7 @@ describe('#buildNavigation', () => {
           url: '/cdp-portal-frontend/running-services'
         }
       ],
-      admin: []
+      admin: undefined
     })
   })
 })

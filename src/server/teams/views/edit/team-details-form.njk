@@ -1,0 +1,74 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: headingCaption
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <div class="govuk-body">
+        <form action="{{ appPathPrefix }}/teams/{{ team.teamId }}/team-details" method="POST"
+              data-js="app-form-errors">
+
+          {% call govukFieldset() %}
+
+            {{ govukInput({
+              label: {
+                text: "Team name",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              id: "name",
+              name: "name",
+              classes: "app-input app-input--wide",
+              formGroup: {
+                classes: "app-form-group"
+              },
+              attributes: {
+                "readonly": "readonly",
+                "data-1p-ignore": ""
+              },
+              value: formValues.name
+            }) }}
+
+            {{ govukTextarea({
+              label: {
+                text: "Description (optional)",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              id: "description",
+              name: "description",
+              classes: "app-textarea app-textarea--wide",
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              attributes: {
+                "data-1p-ignore": ""
+              },
+              value: formValues.description,
+              errorMessage: {
+                attributes: {
+                  "data-js": "app-error"
+                },
+                text: formErrors.description.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message"
+              } if formErrors.description.message
+            }) }}
+
+          {% endcall %}
+
+          <div class="govuk-button-group">
+            {{ govukButton({
+              classes: "app-button",
+              text: "Save"
+            }) }}
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

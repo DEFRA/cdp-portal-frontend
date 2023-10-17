@@ -4,26 +4,17 @@ function transformTeamToHeadingEntities(team) {
   const githubOrg = config.get('githubOrg')
 
   return [
-    ...(team.github
-      ? [
-          {
-            kind: 'link',
-            value: `@${team.github}`,
-            url: `https://github.com/orgs/${githubOrg}/teams/${team.github}`,
-            newWindow: true,
-            label: 'Github'
-          }
-        ]
-      : []),
+    {
+      kind: 'link',
+      value: team.github ? `@${team.github}` : null,
+      url: `https://github.com/orgs/${githubOrg}/teams/${team.github}`,
+      newWindow: true,
+      label: 'Github team'
+    },
     {
       kind: 'date',
       value: team.updatedAt,
       label: 'Last updated'
-    },
-    {
-      kind: 'date',
-      value: team.createdAt,
-      label: 'Created'
     }
   ]
 }

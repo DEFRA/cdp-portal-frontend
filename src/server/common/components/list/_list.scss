@@ -4,13 +4,6 @@
   > li {
     margin: 0;
     line-height: 1.6;
-
-    &:hover {
-      a {
-        color: $govuk-link-hover-colour;
-        text-decoration: underline;
-      }
-    }
   }
 }
 
@@ -26,6 +19,7 @@
 }
 
 .app-list-item__content {
+  order: 1;
   flex: 4;
   overflow: hidden;
   white-space: nowrap;
@@ -34,6 +28,18 @@
 }
 
 .app-list-item__action {
+  order: 2;
   flex: 1;
   align-self: flex-end;
+
+  // Highlight associated list content with list action button hover
+  &:hover ~ .app-list-item__content {
+    color: govuk-tint(govuk-colour('black'), 40%);
+
+    a {
+      text-decoration: underline;
+      color: $govuk-link-hover-colour;
+    }
+  }
 }
+

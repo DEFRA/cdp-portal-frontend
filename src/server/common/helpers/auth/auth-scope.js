@@ -1,10 +1,10 @@
 /**
- * Used to add a scope to an array of routes
+ * Used to scope an array of routes
  *
  * @param scope
  * @returns {function(*): *&{options: {auth: {mode: string, access: {scope: *}}}}}
  */
-function addAuthScope(scope) {
+function authScope(scope) {
   return (route) => ({
     ...route,
     options: {
@@ -19,4 +19,4 @@ function addAuthScope(scope) {
   })
 }
 
-export { addAuthScope }
+export { authScope }

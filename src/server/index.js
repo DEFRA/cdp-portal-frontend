@@ -17,6 +17,7 @@ import { buildRedisClient } from '~/src/server/common/helpers/redis-client'
 import { sessionCookie } from '~/src/server/common/helpers/auth/session-cookie'
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session'
+import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/auth/user-has-team-scope'
 
 const client = buildRedisClient()
 
@@ -62,6 +63,9 @@ async function createServer() {
 
   server.decorate('request', 'getUserSession', getUserSession)
   server.decorate('request', 'dropUserSession', dropUserSession)
+  server.decorate('request', 'userHasTeamScope', userHasTeamScopeDecorator, {
+    apply: true
+  })
 
   await server.register(sessionManager)
   await server.register(azureOidc)

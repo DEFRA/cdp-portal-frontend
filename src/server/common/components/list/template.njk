@@ -4,15 +4,15 @@
     {% set action = item.action.html | safe if item.action.html else item.action.text %}
     <li>
       <div class="app-list-item">
-        <span class="app-list-item__content">
-          {{ content }}
-        </span>
-
         {% if action %}
           <span class="app-list-item__action">
             {{ action }}
           </span>
         {% endif %}
+
+        <span class="app-list-item__content">
+          {{ content }}
+        </span>
       </div>
     </li>
   {% endfor %}
