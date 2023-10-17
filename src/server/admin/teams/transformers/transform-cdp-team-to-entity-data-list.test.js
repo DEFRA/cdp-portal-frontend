@@ -6,20 +6,6 @@ describe('#transformCdpTeamToEntityDataList', () => {
     expect(transformCdpTeamToEntityDataList(cdpTeamFixture.team)).toEqual([
       {
         entity: {
-          kind: 'text',
-          value: 'Platform'
-        },
-        heading: 'Name'
-      },
-      {
-        entity: {
-          kind: 'paragraph',
-          value: 'The team that runs the platform'
-        },
-        heading: 'Description'
-      },
-      {
-        entity: {
           kind: 'link',
           newWindow: true,
           url: 'https://github.com/orgs/defra-cdp-sandpit/teams/cdp-platform',

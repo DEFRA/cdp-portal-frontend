@@ -28,6 +28,12 @@
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
 
       <div class="govuk-grid-column-one-third">
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">About</h2>
+        <p>
+          {{ team.description }}
+        </p>
+
         {{ appEntityDataList({
           items: entityDataList
         }) }}

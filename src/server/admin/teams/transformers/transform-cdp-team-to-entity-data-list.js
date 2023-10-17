@@ -5,20 +5,6 @@ function transformCdpTeamToEntityDataList(team) {
 
   return [
     {
-      heading: 'Name',
-      entity: {
-        kind: 'text',
-        value: team.name
-      }
-    },
-    {
-      heading: 'Description',
-      entity: {
-        kind: 'paragraph',
-        value: team.description
-      }
-    },
-    {
       heading: 'Github team',
       entity: {
         kind: 'link',
