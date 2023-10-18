@@ -29,7 +29,6 @@ const userDetailsFormController = {
       heading,
       headingCaption: 'Add Core Delivery Platform (CDP) user details',
       formButtonText: redirectLocation ? 'Save' : 'Next',
-      usersAadName: cdpUser?.aadName,
       redirectLocation,
       breadcrumbs: [
         {

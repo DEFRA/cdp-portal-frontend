@@ -50,8 +50,14 @@ function transformSummaryUserRows(cdpUser) {
 
   return [
     isEdit
-      ? buildRow('AAD user', userDetails.email)
-      : buildRow('AAD user', userDetails.email, 'find-aad-user', 'aadQuery'),
+      ? buildRow('AAD user email', userDetails.email)
+      : buildRow(
+          'AAD user email',
+          userDetails.email,
+          'find-aad-user',
+          'aadQuery'
+        ),
+    buildRow('AAD user name', userDetails.name),
     buildRow(
       'Github user',
       githubUserUiValue,
@@ -59,7 +65,6 @@ function transformSummaryUserRows(cdpUser) {
       'githubSearch',
       userDetails.github
     ),
-    buildRow('CDP user name', userDetails.name, 'user-details'),
     buildRow('Defra AWS ID', userDetails.defraAwsId, 'user-details'),
     buildRow('Defra VPN ID', userDetails.defraVpnId, 'user-details')
   ]

@@ -12,16 +12,25 @@ describe('#transformSummaryUserRows', () => {
               classes: 'app-link',
               href: '/cdp-portal-frontend/admin/users/find-aad-user?redirectLocation=summary&aadQuery=RichardDJames@defradev.onmicrosoft.com',
               text: 'Change',
-              visuallyHiddenText: 'AAD user'
+              visuallyHiddenText: 'AAD user email'
             }
           ]
         },
         key: {
           classes: 'app-summary__heading',
-          text: 'AAD user'
+          text: 'AAD user email'
         },
         value: {
           html: 'RichardDJames@defradev.onmicrosoft.com'
+        }
+      },
+      {
+        key: {
+          classes: 'app-summary__heading',
+          text: 'AAD user name'
+        },
+        value: {
+          html: 'Richard D James'
         }
       },
       {
@@ -42,26 +51,6 @@ describe('#transformSummaryUserRows', () => {
         },
         value: {
           html: '<a class="app-link" href="https://github.com/orgs/defra-cdp-sandpit/people/RichardDJames" target="_blank" rel="noopener noreferrer">@RichardDJames</a>'
-        }
-      },
-      {
-        actions: {
-          classes: 'app-summary__action',
-          items: [
-            {
-              classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/users/user-details?redirectLocation=summary',
-              text: 'Change',
-              visuallyHiddenText: 'CDP user name'
-            }
-          ]
-        },
-        key: {
-          classes: 'app-summary__heading',
-          text: 'CDP user name'
-        },
-        value: {
-          html: 'Richard D James'
         }
       },
       {

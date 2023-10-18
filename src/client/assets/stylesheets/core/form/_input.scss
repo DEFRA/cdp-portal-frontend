@@ -14,6 +14,7 @@
 
   &:read-only {
     border: none;
+    color: govuk-colour("dark-grey");
 
     &:focus {
       outline: none;
