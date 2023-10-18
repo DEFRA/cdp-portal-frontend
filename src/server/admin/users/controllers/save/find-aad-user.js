@@ -56,12 +56,10 @@ const findAadUserController = {
     }
 
     if (!validationResult.error) {
-      // TODO can this be seperated out?
       const searchAadUsersResponse = await searchAzureActiveDirectoryUsers(
         sanitisedPayload.email
       )
       const aadUserDetails = searchAadUsersResponse?.users ?? []
-
       const aadUser = aadUserDetails?.at(0)
       const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.email
 
@@ -69,8 +67,7 @@ const findAadUserController = {
         ...sanitisedPayload,
         userId: aadUser?.userId ?? null,
         aadQuery: aadUser?.email ?? null,
-        name: isSameAsSession ? cdpUser?.name : aadUser?.name,
-        aadName: isSameAsSession ? cdpUser?.aadName : aadUser?.name
+        name: isSameAsSession ? cdpUser?.name : aadUser?.name
       })
 
       await setStepComplete(request, h, 'stepOne', updatedCdpUser)

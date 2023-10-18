@@ -19,11 +19,9 @@
           <div class="govuk-body">
             <form action="{{ appPathPrefix }}/admin/users/user-details" method="POST" data-js="app-form-errors">
 
-              {% if formValues.name and formValues.name === usersAadName %}
-                {{ appInfo({
-                  html: "We have pre-populated the <strong>User name</strong> input with the users AAD name."
-                }) }}
-              {% endif %}
+              {{ appInfo({
+                html: "We are using the users Azure Active Directory name (displayName)."
+              }) }}
 
               {% call govukFieldset() %}
 
@@ -36,19 +34,13 @@
                   name: "name",
                   classes: "app-input app-input--wide",
                   formGroup: {
-                    classes: "app-form-group app-form-group-js"
+                    classes: "app-form-group"
                   },
                   attributes: {
+                    "readonly": "readonly",
                     "data-1p-ignore": ""
                   },
-                  value: formValues.name,
-                  errorMessage: {
-                    attributes: {
-                      "data-js": "app-error"
-                    },
-                    text: formErrors.name.message,
-                    classes: "govuk-!-margin-bottom-1 app-error-message"
-                  } if formErrors.name.message
+                  value: formValues.name
                 }) }}
 
                 {{ govukInput({

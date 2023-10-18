@@ -1,5 +1,3 @@
-import { startCase } from 'lodash'
-
 import { config } from '~/src/config'
 
 function transformUserToEntityRow(user) {
@@ -8,7 +6,7 @@ function transformUserToEntityRow(user) {
   return [
     {
       kind: 'link',
-      value: user.name ? startCase(user.name) : null,
+      value: user.name ? user.name : null,
       url: `${config.get('appPathPrefix')}/admin/users/${user.userId}`
     },
     {
