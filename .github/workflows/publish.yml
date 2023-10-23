@@ -15,56 +15,14 @@ env:
   AWS_ACCOUNT_ID: "094954420758"
 
 jobs:
-  build:
-    name: CDP-build-workflow
+  cdp-workflows:
+    name: Build, version and publish
     runs-on: ubuntu-latest
-    if: github.actor != 'cdp-gh-bot[bot]'
-
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/github-svc-infra-actions-role
-      - run: aws sts get-caller-identity
-
-      - name: Get Github actions secrets from ASM
-        uses: aws-actions/aws-secretsmanager-get-secrets@v1
-        with:
-          secret-ids: |
-            cdp/platform/gh_actions
-          parse-json-secrets: true
-
-      - name: Get Github app private key from ASM
-        uses: aws-actions/aws-secretsmanager-get-secrets@v1
-        with:
-          secret-ids: |
-            CDP_GH_BOT_PRIVATE_KEY,cdp/platform/gh_apps/cdp-gh-bot/private-key
-
-      - name: Get GitHub Token from cdp-gh-bot GitHub app
-        id: cdp-gh-bot
-        uses: getsentry/action-github-app-token@v2
-        with:
-          app_id: ${{ env.CDP_PLATFORM_GH_ACTIONS_CDP_GH_BOT_ID }}
-          private_key: ${{ env.CDP_GH_BOT_PRIVATE_KEY }}
-
       - name: Check out code
         uses: actions/checkout@v3
-        with:
-          token: ${{ steps.cdp-gh-bot.outputs.token }}
 
-      - name: Auto Version Bump
-        id: auto-version-bump
-        uses: phips28/gh-action-bump-version@master
-        env:
-          GITHUB_TOKEN: ${{ steps.cdp-gh-bot.outputs.token }}
-        with:
-          patch-wording: 'patch,fixes'
-          default: minor
-          skip-tag: true
-
-      - name: Build and Publish
+      - name: Build all the stuff
         uses: defra-cdp-sandpit/cdp-build-action/build@main
         with:
-          version: ${{ steps.auto-version-bump.outputs.new_tag }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
