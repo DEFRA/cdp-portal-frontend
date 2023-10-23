@@ -38,7 +38,6 @@ async function context(request) {
     noValue,
     blankOption: defaultOption,
     isXhr: isXhr.call(request),
-    version: config.get('version'),
     githubOrg: config.get('githubOrg'),
     serviceName: config.get('serviceName'),
     breadcrumbs: [],
