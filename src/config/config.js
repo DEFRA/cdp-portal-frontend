@@ -1,8 +1,6 @@
 import convict from 'convict'
 import path from 'path'
 
-import { version } from '~/package.json'
-
 const oneDay = 1000 * 60 * 60 * 24
 const oneWeek = 7 * 24 * 60 * 60 * 1000
 const oneMonth = 4 * 7 * 24 * 60 * 60 * 1000
@@ -25,11 +23,6 @@ const config = convict({
     format: Number,
     default: oneWeek,
     env: 'STATIC_CACHE_TIMEOUT'
-  },
-  version: {
-    doc: 'Application version',
-    format: String,
-    default: version
   },
   serviceName: {
     doc: 'Applications Service Name',
