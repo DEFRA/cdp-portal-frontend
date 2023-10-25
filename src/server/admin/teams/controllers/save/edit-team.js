@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 import { editTeam } from '~/src/server/admin/teams/helpers/edit-team'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/teams/helpers/form'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
 import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
 
 const editTeamController = {

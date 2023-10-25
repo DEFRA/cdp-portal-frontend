@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/deploy-service/helpers/form'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 
 const deployController = {
   options: {

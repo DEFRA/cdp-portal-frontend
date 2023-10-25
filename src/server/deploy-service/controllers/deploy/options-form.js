@@ -4,8 +4,8 @@ import Boom from '@hapi/boom'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
-import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/prerequisites/provide-options-form-values'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
+import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values'
 
 const optionsFormController = {
   options: {

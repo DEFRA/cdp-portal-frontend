@@ -1,6 +1,6 @@
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
-import { provideDeployment } from '~/src/server/deploy-service/helpers/prerequisites/provide-deployment'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 
 const summaryController = {
   options: {
