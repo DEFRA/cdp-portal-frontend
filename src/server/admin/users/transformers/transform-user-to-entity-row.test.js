@@ -17,7 +17,7 @@ describe('#transformUserToEntityRow', () => {
       {
         kind: 'link',
         newWindow: true,
-        url: 'https://github.com/orgs/defra-cdp-sandpit/people/RichardDJames',
+        url: 'https://github.com/orgs/DEFRA/people/RichardDJames',
         value: '@RichardDJames'
       },
       {

@@ -2,7 +2,7 @@
 
 Portal Frontend for CDP
 
-[![Publish](https://github.com/defra-cdp-sandpit/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/defra-cdp-sandpit/cdp-portal-frontend/actions/workflows/publish.yml)
+[![Publish](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml)
 
 - [Requirements](#requirements)
   - [Node.js](#nodejs)
@@ -58,10 +58,10 @@ $ npm install
 The Portal Frontend has a number of APIs it uses to perform actions on the Platform and APIs to obtain information
 about the Platform and its tenants.
 
-- [CDP Self Service Ops](https://github.com/defra-cdp-sandpit/cdp-self-service-ops)
-- [CDP User Service Backend](https://github.com/defra-cdp-sandpit/cdp-user-service-backend)
-- [CDP Portal Backend](https://github.com/defra-cdp-sandpit/cdp-portal-backend)
-- [CDP Teams and Repositories](https://github.com/defra-cdp-sandpit/cdp-teams-and-repositories)
+- [CDP Self Service Ops](https://github.com/DEFRA/cdp-self-service-ops)
+- [CDP User Service Backend](https://github.com/DEFRA/cdp-user-service-backend)
+- [CDP Portal Backend](https://github.com/DEFRA/cdp-portal-backend)
+- [CDP Teams and Repositories](https://github.com/DEFRA/cdp-teams-and-repositories)
 
 ### Redis
 

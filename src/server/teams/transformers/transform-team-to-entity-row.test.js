@@ -13,7 +13,7 @@ describe('#transformTeamToEntityRow', () => {
       {
         kind: 'link',
         newWindow: true,
-        url: 'https://github.com/orgs/defra-cdp-sandpit/teams/cdp-platform',
+        url: 'https://github.com/orgs/DEFRA/teams/cdp-platform',
         value: '@cdp-platform'
       },
       {
