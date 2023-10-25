@@ -21,7 +21,7 @@ describe('#transformServiceToEntityDataList', () => {
       },
       {
         heading: 'Github Repository',
-        html: '<a class="app-link" href="https://github.com/defra-cdp-sandpit/cdp-deployables" target="_blank">https://github.com/defra-cdp-sandpit/cdp-deployables</a>'
+        html: '<a class="app-link" href="https://github.com/DEFRA/cdp-deployables" target="_blank">https://github.com/DEFRA/cdp-deployables</a>'
       },
       {
         heading: 'ECR Docker Image name',
