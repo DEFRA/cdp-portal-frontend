@@ -21,8 +21,8 @@ describe('#transformServiceToEntityRow', () => {
       {
         kind: 'link',
         newWindow: true,
-        url: 'https://github.com/DEFRA/cdp-portal-frontend',
-        value: 'DEFRA/cdp-portal-frontend'
+        url: 'https://github.com/defra-cdp-sandpit/cdp-portal-frontend',
+        value: 'defra-cdp-sandpit/cdp-portal-frontend'
       },
       {
         kind: 'date',

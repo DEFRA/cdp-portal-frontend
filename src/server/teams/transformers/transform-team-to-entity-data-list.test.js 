@@ -8,7 +8,7 @@ describe('#transformTeamToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: 'https://github.com/orgs/DEFRA/teams/cdp-platform',
+          url: 'https://github.com/orgs/defra-cdp-sandpit/teams/cdp-platform',
           value: '@cdp-platform'
         },
         heading: 'Github team'

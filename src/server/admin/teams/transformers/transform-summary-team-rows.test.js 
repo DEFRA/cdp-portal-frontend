@@ -61,7 +61,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'Github team'
         },
         value: {
-          html: '<a class="app-link" href="https://github.com/orgs/DEFRA/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a>'
+          html: '<a class="app-link" href="https://github.com/orgs/defra-cdp-sandpit/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a>'
         }
       }
     ])

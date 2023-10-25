@@ -79,7 +79,7 @@ const config = convict({
   githubOrg: {
     doc: 'The Github Organisation',
     format: String,
-    default: 'DEFRA'
+    default: 'defra-cdp-sandpit'
   },
   sessionCookiePassword: {
     doc: 'Session cookie password',

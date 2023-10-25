@@ -50,7 +50,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'Github user'
         },
         value: {
-          html: '<a class="app-link" href="https://github.com/orgs/DEFRA/people/RichardDJames" target="_blank" rel="noopener noreferrer">@RichardDJames</a>'
+          html: '<a class="app-link" href="https://github.com/orgs/defra-cdp-sandpit/people/RichardDJames" target="_blank" rel="noopener noreferrer">@RichardDJames</a>'
         }
       },
       {
