@@ -23,20 +23,12 @@ describe('#transformServiceToEntityDataList', () => {
         heading: 'Type'
       },
       {
-        entity: {
-          kind: 'link',
-          newWindow: true,
-          url: `https://github.com/${githubOrg}/cdp-deployables`,
-          value: `${githubOrg}/cdp-deployables`
-        },
-        heading: 'Github Repository'
+        heading: 'Github Repository',
+        html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-deployables" target="_blank">https://github.com/${githubOrg}/cdp-deployables</a>`
       },
       {
-        entity: {
-          kind: 'text',
-          value: 'cdp-portal-deployables-backend'
-        },
-        heading: 'ECR Docker Image name'
+        heading: 'ECR Docker Image name',
+        text: 'cdp-portal-deployables-backend'
       },
       {
         entity: {

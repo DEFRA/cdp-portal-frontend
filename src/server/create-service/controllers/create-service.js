@@ -1,3 +1,5 @@
+import { omit } from 'lodash'
+
 import { config } from '~/src/config'
 import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
@@ -46,14 +48,17 @@ const createServiceController = {
     }
 
     if (!validationResult.error) {
-      const selfServiceOpsV1CreateServiceEndpointUrl = `${config.get(
-        'selfServiceOpsApiUrl'
-      )}/create-service`
+      const isCreateV2 = payload.create === 'createV2'
+
+      // TODO remove once new create flow is finished
+      const selfServiceOpsCreateServiceEndpointUrl =
+        config.get('selfServiceOpsApiUrl') +
+        `/create-service${isCreateV2 ? '-v2' : ''}`
 
       // TODO handle failures
-      await request.fetchWithAuth(selfServiceOpsV1CreateServiceEndpointUrl, {
+      await request.fetchWithAuth(selfServiceOpsCreateServiceEndpointUrl, {
         method: 'post',
-        body: JSON.stringify(validationResult.value)
+        body: JSON.stringify(omit(validationResult.value, 'create')) // TODO remove omit when create flow finished
       })
 
       request.yar.flash(sessionNames.notifications, {
