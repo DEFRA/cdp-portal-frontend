@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom'
 import { v4 as uuidv4 } from 'uuid'
 import { addSeconds } from 'date-fns'
 
@@ -5,7 +6,10 @@ import { config } from '~/src/config'
 
 const authCallbackController = {
   options: {
-    auth: 'azure-oidc'
+    auth: 'azure-oidc',
+    response: {
+      failAction: () => Boom.boomify(Boom.unauthorized())
+    }
   },
   handler: async (request, h) => {
     if (request.auth.isAuthenticated) {
