@@ -1,5 +1,8 @@
+import { config } from '~/src/config'
 import { transformSummaryUserRows } from '~/src/server/admin/users/transformers/transform-summary-user-rows'
 import { cdpUserSessionFixture } from '~/src/__fixtures__/admin/cdp-user-session'
+
+const githubOrg = config.get('githubOrg')
 
 describe('#transformSummaryUserRows', () => {
   test('Should provide expected user row transformation', () => {
@@ -50,7 +53,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'Github user'
         },
         value: {
-          html: '<a class="app-link" href="https://github.com/orgs/DEFRA/people/RichardDJames" target="_blank" rel="noopener noreferrer">@RichardDJames</a>'
+          html: `<a class="app-link" href="https://github.com/orgs/${githubOrg}/people/RichardDJames" target="_blank" rel="noopener noreferrer">@RichardDJames</a>`
         }
       },
       {

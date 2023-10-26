@@ -1,5 +1,8 @@
+import { config } from '~/src/config'
 import { teamFixture } from '~/src/__fixtures__/team'
 import { transformTeamToEntityDataList } from '~/src/server/teams/transformers/transform-team-to-entity-data-list'
+
+const githubOrg = config.get('githubOrg')
 
 describe('#transformTeamToEntityDataList', () => {
   test('Should provide expected team data list transformation', () => {
@@ -8,7 +11,7 @@ describe('#transformTeamToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: 'https://github.com/orgs/DEFRA/teams/cdp-platform',
+          url: `https://github.com/orgs/${githubOrg}/teams/cdp-platform`,
           value: '@cdp-platform'
         },
         heading: 'Github team'

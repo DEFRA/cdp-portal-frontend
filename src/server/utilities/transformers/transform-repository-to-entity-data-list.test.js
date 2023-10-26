@@ -1,5 +1,8 @@
+import { config } from '~/src/config'
 import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
+
+const githubOrg = config.get('githubOrg')
 
 describe('#transformServiceToEntityDataList', () => {
   test('Should provide expected service data list entities transformation', () => {
@@ -20,12 +23,20 @@ describe('#transformServiceToEntityDataList', () => {
         heading: 'Type'
       },
       {
-        heading: 'Github Repository',
-        html: '<a class="app-link" href="https://github.com/DEFRA/cdp-deployables" target="_blank">https://github.com/DEFRA/cdp-deployables</a>'
+        entity: {
+          kind: 'link',
+          newWindow: true,
+          url: `https://github.com/${githubOrg}/cdp-deployables`,
+          value: `${githubOrg}/cdp-deployables`
+        },
+        heading: 'Github Repository'
       },
       {
-        heading: 'ECR Docker Image name',
-        text: 'cdp-portal-deployables-backend'
+        entity: {
+          kind: 'text',
+          value: 'cdp-portal-deployables-backend'
+        },
+        heading: 'ECR Docker Image name'
       },
       {
         entity: {
