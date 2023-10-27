@@ -1,5 +1,5 @@
 import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
 import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows'
 
 const teamSummaryController = {

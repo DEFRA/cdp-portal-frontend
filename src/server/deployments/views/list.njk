@@ -1,42 +1,5 @@
 {% extends "layouts/tabbed-page.njk" %}
 
-{% block actions %}
-
-  {{ appEntityActions({
-    formAction: appPathPrefix + "/deployments/" + environment,
-    legend: {
-      text: "Search"
-    },
-    search: appAutocompleteSearch({
-      label: {
-        text: "By deployment"
-      },
-      id: "search",
-      name: "service",
-      suggestions: searchSuggestions
-    }),
-    filters: [
-      appAutocompleteDropdown({
-        label: {
-          text: "Filter by user"
-        },
-        id: "user",
-        name: "user",
-        suggestions: userSuggestions
-      }),
-      appAutocompleteDropdown({
-        label: {
-          text: "By status"
-        },
-        id: "status",
-        name: "status",
-        suggestions: statusSuggestions
-      })
-    ]
-  }) }}
-
-{% endblock %}
-
 {% block tabContent %}
 
   {% block xhrContent %}
@@ -47,7 +10,7 @@
         { text: "Deployment", size: "large" },
         { text: "Version", size: "tiny" },
         { text: "Status", size: "small" },
-        { text: "User", size: "small" },
+        { text: "User", size: "large" },
         { text: "Updated", size: "large" }
       ],
       entityRows: entityRows,

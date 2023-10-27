@@ -1,5 +1,8 @@
+import { config } from '~/src/config'
 import { teamFixture } from '~/src/__fixtures__/team'
 import { transformTeamToHeadingEntities } from '~/src/server/teams/transformers/transform-team-to-heading-entities'
+
+const githubOrg = config.get('githubOrg')
 
 describe('#transformTeamToHeadingEntities', () => {
   test('Should provide expected team heading transformation', () => {
@@ -8,7 +11,7 @@ describe('#transformTeamToHeadingEntities', () => {
         kind: 'link',
         label: 'Github team',
         newWindow: true,
-        url: 'https://github.com/orgs/DEFRA/teams/cdp-platform',
+        url: `https://github.com/orgs/${githubOrg}/teams/cdp-platform`,
         value: '@cdp-platform'
       },
       {

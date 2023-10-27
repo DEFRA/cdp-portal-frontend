@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 import { removeNil } from '~/src/server/common/helpers/remove-nil'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/teams/helpers/form'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/prerequisites/provide-cdp-team'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
 import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
 
 const createTeamController = {

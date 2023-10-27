@@ -1,5 +1,8 @@
+import { config } from '~/src/config'
 import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user'
 import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row'
+
+const githubOrg = config.get('githubOrg')
 
 describe('#transformUserToEntityRow', () => {
   test('Should provide expected user entity row transformation', () => {
@@ -17,7 +20,7 @@ describe('#transformUserToEntityRow', () => {
       {
         kind: 'link',
         newWindow: true,
-        url: 'https://github.com/orgs/DEFRA/people/RichardDJames',
+        url: `https://github.com/orgs/${githubOrg}/people/RichardDJames`,
         value: '@RichardDJames'
       },
       {

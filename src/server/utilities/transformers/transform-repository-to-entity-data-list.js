@@ -22,11 +22,12 @@ function transformRepositoryToEntityDataList(repository) {
     },
     {
       heading: 'Github Repository',
-      html:
-        repository.url &&
-        `<a class="app-link" href="${
-          repository.url
-        }" target="_blank">${repository.url.split('/').slice(3).join('/')}</a>`
+      entity: {
+        kind: 'link',
+        value: repository.url && repository.url.split('/').slice(3).join('/'),
+        url: repository.url,
+        newWindow: true
+      }
     },
     {
       heading: 'Repository created',

@@ -1,5 +1,5 @@
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
-import { provideCdpUser } from '~/src/server/admin/users/helpers/prerequisites/provide-cdp-user'
+import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user'
 import { transformSummaryUserRows } from '~/src/server/admin/users/transformers/transform-summary-user-rows'
 
 const userSummaryController = {

@@ -1,8 +1,10 @@
 {% from "loader/macro.njk" import appLoader %}
 
 <button class="govuk-button app-button"
+        {% if params.name %}name="{{ params.name }}"{% endif %}
+  {% if params.value %}value="{{ params.value }}"{% endif %}
+  {% if params.loader.name %}data-loader="{{ params.loader.name }}"{% endif %}
         data-js="app-button"
-        {% if params.loader.name %}data-loader="{{ params.loader.name }}"{% endif %}
         data-testid="app-button">
   {{ params.text }}
 </button>

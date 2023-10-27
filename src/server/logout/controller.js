@@ -1,5 +1,5 @@
 import { config } from '~/src/config'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/prerequisites/provide-authed-user'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 
 const logoutController = {
   options: {
