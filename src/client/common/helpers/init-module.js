@@ -1,7 +1,7 @@
 // TODO need to handle multiple items on `data-js` better
-function initModule(className, module, attributeSelector = '=') {
+function initModule(attributeName, module, attributeSelector = '=') {
   const $elements = Array.from(
-    document.querySelectorAll(`[data-js${attributeSelector}"${className}"]`)
+    document.querySelectorAll(`[data-js${attributeSelector}"${attributeName}"]`)
   )
 
   if ($elements.length) {
