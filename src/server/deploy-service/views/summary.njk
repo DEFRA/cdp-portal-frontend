@@ -22,6 +22,8 @@
 
           <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">
 
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
             {{ govukSummaryList({
               classes: "govuk-!-margin-bottom-9",
               rows: deploymentRows

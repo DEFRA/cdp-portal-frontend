@@ -7,17 +7,18 @@ import { router } from './router'
 import { config } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
+import { csrf } from '~/src/server/common/helpers/auth/csrf'
 import { catchAll } from '~/src/server/common/helpers/errors'
-import { sessionManager } from '~/src/server/common/helpers/session-manager'
-import { requestLogger } from '~/src/server/common/helpers/logging/request-logger'
-import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { azureOidc } from '~/src/server/common/helpers/auth/azure-oidc'
-import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 import { buildRedisClient } from '~/src/server/common/helpers/redis-client'
+import { sessionManager } from '~/src/server/common/helpers/session-manager'
 import { sessionCookie } from '~/src/server/common/helpers/auth/session-cookie'
-import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
+import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session'
+import { requestLogger } from '~/src/server/common/helpers/logging/request-logger'
+import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
 import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/auth/user-has-team-scope'
+import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 
 const client = buildRedisClient()
 
@@ -70,6 +71,7 @@ async function createServer() {
   await server.register(sessionManager)
   await server.register(azureOidc)
   await server.register(sessionCookie)
+  await server.register(csrf)
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']

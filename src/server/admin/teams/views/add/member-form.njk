@@ -11,86 +11,84 @@
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
-        <div class="govuk-body">
-          <form action="{{ appPathPrefix }}/admin/teams/{{ team.teamId }}/add-member"
-                method="POST"
-                data-js="auto-submit app-form-errors">
+      <div class="govuk-grid-column-two-thirds">
+        <form action="{{ appPathPrefix }}/admin/teams/{{ team.teamId }}/add-member"
+              method="post"
+              data-js="auto-submit app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-            {% call govukFieldset() %}
+          {% call govukFieldset() %}
 
-              {{ appSearch({
-                label: {
-                  text: "CDP users name or email"
-                },
-                id: "cdpUserQuery",
-                name: "cdpUserQuery",
-                hint: {
-                  text: "Enter the users name or the users Defra provided email"
-                },
-                value: formValues.cdpUserQuery,
-                errorMessage: {
-                  text: formErrors.cdpUserQuery.message
-                } if formErrors.cdpUserQuery.message
-              }) }}
-
-            {% endcall %}
-
-            {{ govukButton({
-              classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
-              text: "Search",
-              name: "button",
-              value: "search",
-              attributes: {
-                "data-js": "app-no-js-submit-button"
-              }
+            {{ appSearch({
+              label: {
+                text: "CDP users name or email"
+              },
+              id: "cdpUserQuery",
+              name: "cdpUserQuery",
+              hint: {
+                text: "Enter the users name or the users Defra provided email"
+              },
+              value: formValues.cdpUserQuery,
+              errorMessage: {
+                text: formErrors.cdpUserQuery.message
+              } if formErrors.cdpUserQuery.message
             }) }}
 
-            {% block xhrContent %}
+          {% endcall %}
 
-              <article class="app-scrollable-window" data-xhr="add-users" data-children-can-submit="true">
+          {{ govukButton({
+            classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+            text: "Search",
+            name: "button",
+            value: "search",
+            attributes: {
+              "data-js": "app-no-js-submit-button"
+            }
+          }) }}
 
-                {% if cdpUsers | length %}
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
-                {% endif %}
+          {% block xhrContent %}
 
-                {% for user in cdpUsers %}
-                  {{ user.disabled }}
-                {% endfor %}
+            <article class="app-scrollable-window" data-xhr="add-users" data-children-can-submit="true">
 
-                {% if  cdpUsers | length or formErrors.userIds.message %}
-                  {{ govukCheckboxes({
-                    name: "userIds",
-                    classes: "govuk-checkboxes--small app-radio",
-                    items: cdpUsers,
-                    values: formValues.userIds,
-                    formGroup: {
-                      classes: "app-form-group app-form-group-js"
+              {% if cdpUsers | length %}
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
+              {% endif %}
+
+              {% for user in cdpUsers %}
+                {{ user.disabled }}
+              {% endfor %}
+
+              {% if  cdpUsers | length or formErrors.userIds.message %}
+                {{ govukCheckboxes({
+                  name: "userIds",
+                  classes: "govuk-checkboxes--small app-radio",
+                  items: cdpUsers,
+                  values: formValues.userIds,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: {
+                    attributes: {
+                      "data-js": "app-error"
                     },
-                    errorMessage: {
-                      attributes: {
-                        "data-js": "app-error"
-                      },
-                      text: formErrors.userIds.message
-                    } if formErrors.userIds.message
-                  }) }}
-                {% endif %}
+                    text: formErrors.userIds.message
+                  } if formErrors.userIds.message
+                }) }}
+              {% endif %}
 
-                {% if formValues.cdpUserQuery and not cdpUsers | length %}
-                  <p class="govuk-hint">No user/s found</p>
-                {% endif %}
+              {% if formValues.cdpUserQuery and not cdpUsers | length %}
+                <p class="govuk-hint">No user/s found</p>
+              {% endif %}
 
-              </article>
+            </article>
 
-            {% endblock %}
+          {% endblock %}
 
-            {{ govukButton({
-              classes: "app-button",
-              text: "Add"
-            }) }}
-          </form>
-
-        </div>
+          {{ govukButton({
+            classes: "app-button",
+            text: "Add"
+          }) }}
+        </form>
       </div>
     </div>
 

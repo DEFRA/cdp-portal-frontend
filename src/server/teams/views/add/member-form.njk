@@ -12,8 +12,9 @@
     <div class="govuk-grid-column-one-third">
       <div class="govuk-body">
         <form action="{{ appPathPrefix }}/teams/{{ team.teamId }}/add-member"
-              method="POST"
+              method="post"
               data-js="auto-submit app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
           {% call govukFieldset() %}
 
