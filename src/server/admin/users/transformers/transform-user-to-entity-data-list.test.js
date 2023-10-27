@@ -1,8 +1,5 @@
-import { config } from '~/src/config'
 import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user'
 import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#transformUserToEntityDataList', () => {
   test('Should provide expected user entity list transformation', () => {
@@ -26,7 +23,7 @@ describe('#transformUserToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: `https://github.com/orgs/${githubOrg}/people/RichardDJames`,
+          url: 'https://github.com/RichardDJames',
           value: '@RichardDJames'
         },
         heading: 'Github'
