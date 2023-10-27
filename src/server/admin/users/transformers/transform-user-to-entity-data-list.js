@@ -1,8 +1,4 @@
-import { config } from '~/src/config'
-
 function transformUserToEntityDataList(user) {
-  const githubOrg = config.get('githubOrg')
-
   return [
     {
       heading: 'Name',
@@ -24,7 +20,7 @@ function transformUserToEntityDataList(user) {
       entity: {
         kind: 'link',
         value: user.github ? `@${user.github}` : null,
-        url: `https://github.com/orgs/${githubOrg}/people/${user.github}`,
+        url: `https://github.com/${user.github}`,
         newWindow: true
       }
     },

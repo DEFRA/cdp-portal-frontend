@@ -33,7 +33,6 @@ function buildRow(name, value, stepPath, query, queryValue = value) {
 }
 
 function transformSummaryUserRows(cdpUser) {
-  const githubOrg = config.get('githubOrg')
   const isEdit = cdpUser?.isEdit ?? false
   const userDetails = Object.entries(cdpUser).reduce((obj, [key, value]) => {
     return {
@@ -43,7 +42,7 @@ function transformSummaryUserRows(cdpUser) {
   }, {})
   const githubUserUiValue = cdpUser.github
     ? buildLink(
-        `https://github.com/orgs/${githubOrg}/people/${userDetails.github}`,
+        `https://github.com/${userDetails.github}`,
         `@${userDetails.github}`
       )
     : noValue
