@@ -20,9 +20,6 @@ Portal Frontend for CDP
   - [Local JSON API](#local-json-api)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
-- [Versioning](#versioning)
-  - [Auto minor versioning](#auto-minor-versioning)
-  - [Major or Patch versioning](#major-or-patch-versioning)
 - [Docker](#docker)
   - [Development Image](#development-image)
   - [Production Image](#production-image)
@@ -61,7 +58,6 @@ about the Platform and its tenants.
 - [CDP Self Service Ops](https://github.com/DEFRA/cdp-self-service-ops)
 - [CDP User Service Backend](https://github.com/DEFRA/cdp-user-service-backend)
 - [CDP Portal Backend](https://github.com/DEFRA/cdp-portal-backend)
-- [CDP Teams and Repositories](https://github.com/DEFRA/cdp-teams-and-repositories)
 
 ### Redis
 
@@ -202,26 +198,6 @@ To view them in your command line run:
 ```bash
 $ npm run
 ```
-
-## Versioning
-
-### Auto minor versioning
-
-The [Publish GitHub Actions workflow](./.github/workflows/publish.yml) auto versions a Pull Requests code with a `minor`
-version once it has been merged into the `main` branch.
-All you have to do is commit your code and raise a Pull Request and the pipeline will auto version your code for you.
-
-### Major or Patch versioning
-
-If you wish to `major` or `patch` version your codebase add the following word to your commit message:
-
-**Major**
-
-"major"
-
-**Patch**
-
-"patch" or "fixes"
 
 ## Docker
 
