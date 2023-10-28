@@ -13,7 +13,7 @@ async function fetchDeployableService(serviceId) {
   })
   const json = await response.json()
 
-  if (response.status === 204) {
+  if (!json) {
     throw Boom.boomify(Boom.notFound())
   }
 

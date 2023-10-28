@@ -1,0 +1,59 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+    {{ params.name }}
+  </h2>
+
+  <div class="govuk-!-margin-left-1">
+    <div class="app-status-info govuk-body-m">
+      <div class="app-status-info__primary">
+        {{ govukTag({
+          text: params.status.text,
+          classes: params.status.classes
+        }) }}
+      </div>
+      {% if params.url.href %}
+        <div>
+          <a class="app-link"
+             href="{{ params.url.href }}" target="_blank" rel="noopener noreferrer">
+            {{ params.url.text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if params.errors | length %}
+      <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-1">Errors</h3>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">
+        {% for error in params.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if params.githubAction.url.href %}
+      <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-1">Github Action</h3>
+      <p class="govuk-!-margin-0">
+        {{ params.githubAction.name }}
+      </p>
+      <p class="govuk-!-margin-0">
+        <a class="app-link"
+           href="{{ params.githubAction.url.href }}" target="_blank"
+           rel="noopener noreferrer">{{ params.githubAction.url.text }}
+        </a>
+      </p>
+    {% endif %}
+
+    {% if params.pullRequest.url.href %}
+      <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-1">Pull Request</h3>
+      <p class="govuk-!-margin-0">
+        <a class="app-link"
+           href="{{ params.pullRequest.url.href }}" target="_blank"
+           rel="noopener noreferrer">
+          {{ params.pullRequest.url.text }}
+        </a>
+      </p>
+    {% endif %}
+  </div>
+</div>

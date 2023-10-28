@@ -42,7 +42,8 @@ function updatePage(html, params = {}) {
 }
 
 /**
- * Xhr request, used via auto submit forms and detected via isXhr value in Nunjucks context
+ * Xhr request
+ *
  * @param url
  * @param params
  * @returns {Promise<void>}
@@ -66,20 +67,19 @@ function xhrRequest(url, params = {}) {
         Pragma: 'no-cache'
       }
     }
-  )
-    .then((response) => {
-      return response.text()
-    })
-    .then((text) => {
-      updatePage(text, params)
-    })
+  ).then(async (response) => {
+    const text = await response.text()
+    updatePage(text, params)
+
+    return response
+  })
 }
 
 /**
- * Provide forward/back button xhr loading in entity lists
+ * Provide forward/back history when using xhr
  */
 function addHistoryListener() {
-  history.listen(({ action, location }) => {
+  return history.listen(({ action, location }) => {
     if (action === 'POP') {
       if (location?.state) {
         injectResponseInHtml(location.state.xhrData)

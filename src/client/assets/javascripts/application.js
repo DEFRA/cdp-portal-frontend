@@ -8,6 +8,7 @@ import { protectForm } from '~/src/client/common/helpers/protect-form'
 import { readOut } from '~/src/server/common/components/read-out/read-out'
 import { errorMessages } from '~/src/client/common/helpers/error-messages'
 import { autoSubmit } from '~/src/client/common/helpers/auto-submit'
+import { poll } from '~/src/client/common/helpers/poll'
 import { addHistoryListener } from '~/src/client/common/helpers/xhr'
 import { paramsToHiddenInputs } from '~/src/client/common/helpers/params-to-hidden-inputs'
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
@@ -68,3 +69,6 @@ initModule('app-tabs', tabs)
 
 // Params to hidden inputs
 initModule('app-params', paramsToHiddenInputs, '*=')
+
+// Poll
+initModule('app-poll', poll)

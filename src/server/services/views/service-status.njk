@@ -1,0 +1,61 @@
+{% extends "layouts/page.njk" %}
+
+{% from "status/macro.njk" import appStatus %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: "Detailed information about the " + heading + " Micro-service.",
+    entities: headingEntities
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div data-js="app-poll"
+         data-poll-url="{{ appPathPrefix }}/services/{{ service.serviceName }}"
+         data-poll-interval="3000"
+         data-poll-limit="45">
+
+      {% block xhrContent %}
+        <article data-xhr="create-service-status">
+          <div class="govuk-grid-column-two-thirds">
+            <section class="app-section-wide">
+
+              <header class="govuk-!-margin-bottom-6">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Service creation</h2>
+
+                {{ govukTag({
+                  text: creationJob.status.text,
+                  classes: creationJob.status.classes
+                }) }}
+
+                <p class="govuk-!-margin-top-1">
+                  Started: {{ appTime({
+                    datetime: creationJob.started,
+                    formatString: 'k:mm:ss EE do MMM yyyy'
+                  }) }}
+                </p>
+              </header>
+
+              {{ appStatus(creationJob.createRepository) }}
+              {{ appStatus(creationJob.cdpTfSvcInfra) }}
+              {{ appStatus(creationJob.cdpAppConfig) }}
+              {{ appStatus(creationJob.cdpNginxUpstreams) }}
+
+            </section>
+          </div>
+
+          <div class="govuk-grid-column-one-third">
+            {{ appEntityDataList({
+              heading: "Micro-service details",
+              items: entityDataList
+            }) }}
+          </div>
+        </article>
+      {% endblock %}
+    </div>
+  </div>
+
+{% endblock %}

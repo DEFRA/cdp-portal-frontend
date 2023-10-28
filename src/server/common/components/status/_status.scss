@@ -1,0 +1,9 @@
+.app-status-info {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: govuk-spacing(1);
+}
+
+.app-status-info__primary {
+  margin-right: govuk-spacing(2);
+}

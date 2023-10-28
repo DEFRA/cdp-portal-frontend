@@ -1,7 +1,7 @@
-import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
-import { fetchServiceCreateStatus } from '~/src/server/services/helpers/fetch-service-create-status'
-import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
 import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
+import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
+import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch-create-service-status'
+import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
 import { decorateServiceWithGithubDetail } from '~/src/server/services/transformers/decorate-service-with-github-detail'
 
 const provideService = {
@@ -19,7 +19,7 @@ const provideService = {
       )
     } catch (error) {
       if (error?.output?.statusCode === 404) {
-        const { status } = await fetchServiceCreateStatus(serviceId)
+        const { status } = await fetchCreateServiceStatus(serviceId)
 
         if (repositoryResponse?.repository) {
           return decorateServiceWithGithubDetail(

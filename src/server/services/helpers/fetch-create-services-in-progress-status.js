@@ -1,19 +1,19 @@
-import Boom from '@hapi/boom'
 import fetch from 'node-fetch'
+import Boom from '@hapi/boom'
 
 import { config } from '~/src/config'
 
-async function fetchLibrary(libraryId) {
-  const libraryEndpointUrl =
-    config.get('portalBackendApiUrl') + `/libraries/${libraryId}`
+async function fetchCreateServicesInProgressStatus() {
+  const createServicesStatusEndpointUrl =
+    config.get('selfServiceOpsApiUrl') + '/create-service/status'
 
-  const response = await fetch(libraryEndpointUrl, {
+  const response = await fetch(createServicesStatusEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
   const json = await response.json()
 
-  if (response.status === 404 || json?.libraries?.length === 0) {
+  if (response.status === 404) {
     throw Boom.boomify(Boom.notFound())
   }
 
@@ -24,4 +24,4 @@ async function fetchLibrary(libraryId) {
   throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
-export { fetchLibrary }
+export { fetchCreateServicesInProgressStatus }

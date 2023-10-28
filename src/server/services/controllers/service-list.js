@@ -1,31 +1,34 @@
-import { omit } from 'lodash'
+import { unionBy } from 'lodash'
 
-import { fetchRepositories } from '~/src/server/services/helpers/fetch-repositories'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
-import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
+import { fetchRepositories } from '~/src/server/services/helpers/fetch-repositories'
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch-deployable-services'
+import { decorateServicesWithGithubDetail } from '~/src/server/services/transformers/decorate-services-with-github-detail'
+import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
+import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
+import { fetchCreateServicesInProgressStatus } from '~/src/server/services/helpers/fetch-create-services-in-progress-status'
 
 const serviceListController = {
   handler: async (request, h) => {
     const { repositories } = await fetchRepositories()
     const deployableServices = await fetchDeployableServices()
+    const githubDecorator = decorateServicesWithGithubDetail(repositories)
 
-    const services = deployableServices.map((service) => {
-      const repositoryDetail = repositories.find(
-        (repository) => repository.url === service.githubUrl
-      )
+    const { statuses } = await fetchCreateServicesInProgressStatus()
+    const createServicesStatus = statuses?.map(transformServiceStatusToService)
 
-      return omit(
-        {
-          ...service,
-          ...repositoryDetail
-        },
-        ['url']
-      )
-    })
+    const deployableServicesWithGithub = deployableServices.map(githubDecorator)
+    const createServicesWithGithub = createServicesStatus.map(githubDecorator)
+
+    // Services from Portal Backends /services overwrite services from Self Service Ops /create-service/status
+    const services = unionBy(
+      deployableServicesWithGithub,
+      createServicesWithGithub,
+      'serviceName'
+    )
 
     const entityRows = services
-      ?.sort(sortBy('id', 'asc'))
+      ?.sort(sortBy('serviceName', 'asc'))
       ?.map(transformServiceToEntityRow)
 
     return h.view('services/views/list', {

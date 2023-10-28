@@ -2,10 +2,7 @@
 
 {% from "time/macro.njk" import appTime %}
 
-{% set classes = "app-entity--paragraph" if params.kind === "paragraph" %}
-
-<div class="app-entity{% if classes %} {{ classes }}{% endif %}"
-     data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
+<div class="app-entity" data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
 
   {% if params.label %}
     <span class="app-entity-label"
@@ -39,8 +36,6 @@
     {% elseif params.kind === "text" %}
       {{ params.value }}
 
-    {% elseif params.kind === "paragraph" %}
-      {{ params.value | safe }}
     {% endif %}
 
   {% else %}
