@@ -6,7 +6,6 @@ const csrf = {
   plugin: {
     name: 'csrf',
     register: async (server) => {
-      // TODO this feels wrong
       await server.register({
         plugin: crumb,
         options: {

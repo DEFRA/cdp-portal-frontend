@@ -59,7 +59,7 @@ function transformStatus(service) {
       githubAction: {
         name: cdpTfSvcInfra?.main?.workflow?.name,
         url: {
-          text: removeHost(cdpTfSvcInfra?.main?.workflow?.html_url), // TODO not in use
+          text: removeHost(cdpTfSvcInfra?.main?.workflow?.html_url),
           href: cdpTfSvcInfra?.main?.workflow?.html_url
         },
         started: cdpTfSvcInfra?.main?.workflow?.created_at
@@ -88,7 +88,7 @@ function transformStatus(service) {
       githubAction: {
         name: cdpAppConfig?.main?.workflow?.name,
         url: {
-          text: removeHost(cdpAppConfig?.main?.workflow?.html_url), // TODO not in use
+          text: removeHost(cdpAppConfig?.main?.workflow?.html_url),
           href: cdpAppConfig?.main?.workflow?.html_url
         },
         started: cdpAppConfig?.main?.workflow?.created_at
@@ -117,7 +117,7 @@ function transformStatus(service) {
       githubAction: {
         name: cdpNginxUpstreams?.main?.workflow?.name,
         url: {
-          text: removeHost(cdpNginxUpstreams?.main?.workflow?.html_url), // TODO not in use
+          text: removeHost(cdpNginxUpstreams?.main?.workflow?.html_url),
           href: cdpNginxUpstreams?.main?.workflow?.html_url
         },
         started: cdpNginxUpstreams?.main?.workflow?.created_at
