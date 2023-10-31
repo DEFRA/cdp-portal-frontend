@@ -176,6 +176,24 @@ const config = convict({
     format: String,
     env: 'AZURE_ADMIN_GROUP_ID',
     default: 'aabe63e7-87ef-4beb-a596-c810631fc474'
+  },
+  supportChannel: {
+    doc: 'Support channel url',
+    format: String,
+    env: 'SUPPORT_CHANNEL_URL',
+    default: 'https://defra-digital-team.slack.com/archives/C05UJ3SE5C6'
+  },
+  platformCPUResource: {
+    doc: 'The amount of CPU platform sidecars use in a deployment',
+    format: Number,
+    env: 'PLATFORM_PROCESS_CPU_RESOURCE',
+    default: 256
+  },
+  platformMemoryResource: {
+    doc: 'The amount of memory platform sidecars use in a deployment',
+    format: Number,
+    env: 'PLATFORM_PROCESS_MEMORY_RESOURCE',
+    default: 256
   }
 })
 

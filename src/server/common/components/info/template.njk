@@ -8,7 +8,9 @@
      tabindex="-1"
      role="alert"
      data-testid="app-info">
-  {{ appInfoIcon() }}
+  {{ appInfoIcon({
+    classes: "app-icon-medium"
+  }) }}
   <span class="app-info__content" data-testid="app-info-content">
     {{ content }}
   </span>

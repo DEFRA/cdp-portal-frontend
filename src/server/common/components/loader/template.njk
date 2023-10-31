@@ -1,4 +1,5 @@
-<span class="app-loader"
+<span class="app-loader{% if params.classes %} {{ params.classes }}{% endif %}"
       data-testid="app-loader"
-      data-js="{{ params.name }}">
+      {% if params.name %}data-js="{{ params.name }}"{% endif %}
+>
 </span>

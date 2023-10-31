@@ -1,0 +1,80 @@
+{% extends "layouts/page.njk" %}
+
+{# TODO move this to page if we use it on deployments pages #}
+{% from "status/macro.njk" import appStatus %}
+{% from "loader/macro.njk" import appLoader %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: "Information about the " + heading + " Micro-service.",
+    entities: headingEntities
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+  {% if creationJob.hasJobFailures %}
+    {{ appHelp({
+      text: "Need some help with your new service creation?"
+    }) }}
+  {% endif %}
+
+  <div class="govuk-grid-row">
+
+    <div data-js="app-poll"
+         data-poll-url="{{ appPathPrefix }}/services/{{ service.serviceName }}"
+         data-poll-interval="3000"
+         data-poll-limit="45">
+
+      {% block xhrContent %}
+        <article data-xhr="create-service-status">
+          <div class="govuk-grid-column-two-thirds">
+            <section class="app-section-wide">
+
+              <header class="govuk-!-margin-bottom-6">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service creation</h2>
+
+                <div class="app-status-info">
+                  <div class="app-status-info__primary">
+                    {{ govukTag({
+                      text: creationJob.status.text,
+                      classes: creationJob.status.classes
+                    }) }}
+                  </div>
+
+                  <div>
+                    {% if creationJob.status.text == "in-progress" %}
+                      {{ appLoader({ classes: "app-loader--is-loading" }) }}
+                    {% endif %}
+                  </div>
+                </div>
+
+                <p class="govuk-!-margin-top-2">
+                  Started: {{ appTime({
+                    datetime: creationJob.started,
+                    formatString: "k:mm:ss EE do MMM yyyy"
+                  }) }}
+                </p>
+              </header>
+
+              {{ appStatus(creationJob.createRepository) }}
+              {{ appStatus(creationJob.cdpTfSvcInfra) }}
+              {{ appStatus(creationJob.cdpAppConfig) }}
+              {{ appStatus(creationJob.cdpNginxUpstreams) }}
+
+            </section>
+          </div>
+
+          <div class="govuk-grid-column-one-third">
+            {{ appEntityDataList({
+              heading: "Micro-service details",
+              items: entityDataList
+            }) }}
+          </div>
+        </article>
+      {% endblock %}
+    </div>
+  </div>
+
+{% endblock %}

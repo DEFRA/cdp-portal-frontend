@@ -1,6 +1,5 @@
-import { startCase } from 'lodash'
-
 import { config } from '~/src/config'
+import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformServiceToEntityDataList(service) {
   const team = service?.teams?.at(0)
@@ -10,27 +9,41 @@ function transformServiceToEntityDataList(service) {
       heading: 'Team',
       entity: {
         kind: 'link',
-        value: team && startCase(team),
+        value: team,
         url: `${config.get('appPathPrefix')}/teams/${team}`
       }
     },
-    {
-      heading: 'Type',
-      entity: {
-        kind: 'text',
-        value: service.primaryLanguage
-      }
-    },
+    ...(service?.primaryLanguage
+      ? [
+          {
+            heading: 'Type',
+            entity: {
+              kind: 'text',
+              value: service.primaryLanguage
+            }
+          }
+        ]
+      : []),
     {
       heading: 'Github Repository',
-      html:
-        service.githubUrl &&
-        `<a class="app-link" href="${service.githubUrl}" target="_blank">${service.githubUrl}</a>`
+      entity: {
+        kind: 'link',
+        value: removeHost(service.githubUrl),
+        url: service.githubUrl,
+        newWindow: true
+      }
     },
-    {
-      heading: 'ECR Docker Image name',
-      text: service?.imageName
-    },
+    ...(service?.imageName
+      ? [
+          {
+            heading: 'ECR Docker Image name',
+            entity: {
+              kind: 'text',
+              value: service?.imageName
+            }
+          }
+        ]
+      : []),
     {
       heading: 'Repository created',
       entity: { kind: 'date', value: service.createdAt }

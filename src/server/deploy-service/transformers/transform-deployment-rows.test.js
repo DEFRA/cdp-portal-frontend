@@ -1,21 +1,19 @@
 import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session'
 import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
 import { cpuOptionsFixture } from '~/src/__fixtures__/deploy-service/cpu-options'
 import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map'
 
 jest.mock('~/src/server/deploy-service/helpers/fetch-deploy-service-options')
 
 describe('#transformDeploymentRows', () => {
-  beforeEach(() => {
-    fetchDeployServiceOptions.mockResolvedValue({
-      cpuOptions: cpuOptionsFixture,
-      ecsCpuToMemoryOptionsMap: ecsCpuToMemoryOptionsMapFixture
-    })
-  })
-
-  test('Should provide expected deployment row transformation', async () => {
-    expect(await transformDeploymentRows(deploymentSessionFixture)).toEqual([
+  test('Should provide expected deployment row transformation', () => {
+    expect(
+      transformDeploymentRows(
+        deploymentSessionFixture,
+        cpuOptionsFixture.at(1),
+        ecsCpuToMemoryOptionsMapFixture['1024']?.at(4)
+      )
+    ).toEqual([
       {
         actions: {
           classes: 'app-summary__action',
@@ -113,7 +111,7 @@ describe('#transformDeploymentRows', () => {
           text: 'CPU size'
         },
         value: {
-          html: '2048 (2 vCPU)\n    <div class="app-info-hint">\n      256 (.25 vCPU) automatically allocated to platform processes. You have <strong>1792 (1.75 vCPU)</strong> available.\n    </div>'
+          html: '1024 (1 vCPU)'
         }
       },
       {
@@ -133,7 +131,7 @@ describe('#transformDeploymentRows', () => {
           text: 'Memory allocation'
         },
         value: {
-          html: '9 GB\n    <div class="app-info-hint">\n      .25 GB (256 MB) automatically allocated to platform processes. You have <strong>8.75 GB (8960 MB)</strong> available.\n    </div>'
+          html: '6 GB'
         }
       }
     ])

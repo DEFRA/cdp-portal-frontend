@@ -11,7 +11,7 @@ describe('#transformServiceToEntityDataList', () => {
         entity: {
           kind: 'link',
           url: '/cdp-portal-frontend/teams/fisheries',
-          value: 'Fisheries'
+          value: 'fisheries'
         },
         heading: 'Team'
       },
@@ -23,12 +23,20 @@ describe('#transformServiceToEntityDataList', () => {
         heading: 'Type'
       },
       {
-        heading: 'Github Repository',
-        html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-deployables" target="_blank">https://github.com/${githubOrg}/cdp-deployables</a>`
+        entity: {
+          kind: 'link',
+          newWindow: true,
+          url: `https://github.com/${githubOrg}/cdp-deployables`,
+          value: `${githubOrg}/cdp-deployables`
+        },
+        heading: 'Github Repository'
       },
       {
-        heading: 'ECR Docker Image name',
-        text: 'cdp-portal-deployables-backend'
+        entity: {
+          kind: 'text',
+          value: 'cdp-portal-deployables-backend'
+        },
+        heading: 'ECR Docker Image name'
       },
       {
         entity: {

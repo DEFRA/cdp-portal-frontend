@@ -1,14 +1,17 @@
 import getFormData from 'get-form-data'
-import { debounce, pickBy } from 'lodash'
+import { debounce, omit, pickBy } from 'lodash'
 
 import { xhrRequest } from '~/src/client/common/helpers/xhr'
 
 function handleFormSubmit(event) {
   const form = event.target.closest('form')
   const xhrElement = form.querySelector('[data-xhr]')
+
+  // TODO revisit this when the Search component UX is improved
   const xhrElementChildrenCanSubmit =
     xhrElement.dataset.childrenCanSubmit ?? false
 
+  // TODO revisit this when there is time, its feeling too complex
   // By default, we do not wish input interactions inside a forms xhr html element to submit the form.
   // This can be bypassed by applying the data-children-can-submit="true" attribute to the xhr element
   if (xhrElement.contains(event.target) && !xhrElementChildrenCanSubmit) {
@@ -44,14 +47,11 @@ async function submitForm($form) {
 
   $form.dataset.isSubmitting = 'true'
 
-  const query = pickBy(getFormData($form))
+  const query = omit(pickBy(getFormData($form)), ['csrfToken'])
 
-  try {
-    await xhrRequest($form.action, query)
-    $form.dataset.isSubmitting = 'false'
-  } catch (error) {
-    $form.dataset.isSubmitting = 'false'
-  }
+  await xhrRequest($form.action, query)
+
+  $form.dataset.isSubmitting = 'false'
 }
 
 function autoSubmit($form) {

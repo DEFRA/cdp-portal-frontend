@@ -1,6 +1,7 @@
 import { startCase } from 'lodash'
 
 import { config } from '~/src/config'
+import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformRepositoryToEntityDataList(repository) {
   const team = repository?.teams?.at(0)
@@ -24,7 +25,7 @@ function transformRepositoryToEntityDataList(repository) {
       heading: 'Github Repository',
       entity: {
         kind: 'link',
-        value: repository.url && repository.url.split('/').slice(3).join('/'),
+        value: removeHost(repository.url),
         url: repository.url,
         newWindow: true
       }

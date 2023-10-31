@@ -14,7 +14,7 @@ const addMemberFormController = {
   options: {
     validate: {
       params: Joi.object({
-        teamId: Joi.string()
+        teamId: Joi.string().required()
       }),
       query: Joi.object({
         userIds: Joi.array().items(Joi.string().allow('')).single().allow(''),

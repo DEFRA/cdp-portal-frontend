@@ -1,4 +1,4 @@
-$banner-width: 420px;
+$banner-width: 520px;
 
 .app-banner {
   border-radius: $app-border-radius;
@@ -8,8 +8,8 @@ $banner-width: 420px;
   width: 100%;
 
   @include govuk-media-query($from: tablet) {
-    width: $banner-width;
-    width: govuk-px-to-rem($banner-width);
+    max-width: $banner-width;
+    max-width: govuk-px-to-rem($banner-width);
   }
 }
 

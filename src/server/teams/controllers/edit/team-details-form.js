@@ -12,7 +12,7 @@ const teamDetailsFormController = {
     pre: [provideCdpTeam],
     validate: {
       params: Joi.object({
-        teamId: Joi.string()
+        teamId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

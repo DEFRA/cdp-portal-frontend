@@ -10,11 +10,19 @@ const dataListFixture = [
   },
   {
     heading: 'Oranges',
-    html: '<a href="https://mock-url.io" target="_blank">The man from Del monte</a>'
+    entity: {
+      kind: 'link',
+      value: 'The man from Del monte',
+      url: 'https://mock-url.io',
+      newWindow: true
+    }
   },
   {
     heading: 'Pears',
-    text: 'Comice'
+    entity: {
+      kind: 'text',
+      value: 'Comice'
+    }
   }
 ]
 
@@ -50,9 +58,8 @@ describe('Entity Data List Component', () => {
       $dataList.find(`[data-testid="app-data-list-item-${itemNumber}"]`)
 
     expect(getItem(1).text().trim()).toEqual('Russet')
-    expect(getItem(2).html().trim()).toEqual(
-      '<a href="https://mock-url.io" target="_blank">The man from Del monte</a>'
-    )
+    expect(getItem(2).html().trim()).toContain('https://mock-url.io')
+    expect(getItem(2).html().trim()).toContain('The man from Del monte')
     expect(getItem(3).text().trim()).toEqual('Comice')
   })
 })

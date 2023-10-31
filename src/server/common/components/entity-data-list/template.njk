@@ -10,15 +10,13 @@
 
   <dl class="app-data-list" data-testid="app-data-list">
     {% for item in params.items %}
-      {% set content = item.html | safe if item.html else item.text %}
-
       <dt class="app-data-list-heading"
           data-testid="app-data-list-heading-{{ loop.index }}">
         {{ item.heading }}
       </dt>
       <dd class="app-data-list-item"
           data-testid="app-data-list-item-{{ loop.index }}">
-        {{ appEntity(item.entity) if item.entity else content }}
+        {{ appEntity(item.entity) }}
       </dd>
 
     {% endfor %}

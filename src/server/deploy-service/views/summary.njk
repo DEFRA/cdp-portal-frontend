@@ -13,29 +13,25 @@
 
     <div class="govuk-grid-row">
       <div class="app-grid-column-two-thirds-at-desktop-wide">
-        <div class="govuk-body">
+        {{ appInfo({
+          html: helpText
+        }) }}
 
-          {{ appInfo({
-            text: "All deployments require some resources for platform processes. Adjust your CPU and memory to allow for
-          this resource allocation."
+        <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">
+
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
+          {{ govukSummaryList({
+            classes: "govuk-!-margin-bottom-9",
+            rows: deploymentRows
           }) }}
 
-          <form action="{{ appPathPrefix }}/deploy-service/deploy" method="post">
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText
+          }) }}
 
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-
-            {{ govukSummaryList({
-              classes: "govuk-!-margin-bottom-9",
-              rows: deploymentRows
-            }) }}
-
-            {{ govukButton({
-              classes: "app-button",
-              text: formButtonText
-            }) }}
-
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   </div>

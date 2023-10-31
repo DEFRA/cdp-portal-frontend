@@ -1,9 +1,13 @@
 import qs from 'qs'
+import { addHistoryListener } from '~/src/client/common/helpers/xhr'
 
 function search($module) {
   if (!$module) {
     return
   }
+
+  // Setup Xhr history listener
+  addHistoryListener()
 
   const $input = $module.querySelector(`[data-js="app-search-input"]`)
   const $noJsSubmitButton = $input.form.querySelector(

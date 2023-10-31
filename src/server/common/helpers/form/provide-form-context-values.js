@@ -7,7 +7,7 @@ function provideFormContextValues(sessionName) {
     const response = request.response
 
     if (response.variety === 'view') {
-      const sessionValue = request.yar.get(sessionName)
+      const sessionValue = sessionName && request.yar.get(sessionName)
       const validationFailure = request.yar
         .flash(sessionNames.validationFailure)
         ?.at(0)
@@ -22,7 +22,7 @@ function provideFormContextValues(sessionName) {
 
       // Override order for formValues:
       // 1 - formValues from validationFailure session - (The highest priority)
-      // 2 - values from sessionValue
+      // 2 - if sessionValue exists, values from sessionValue
       // 3 - formValues from h.view() context          - (The lowest priority)
 
       response.source.context.formValues = {

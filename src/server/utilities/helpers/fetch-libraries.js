@@ -4,11 +4,11 @@ import fetch from 'node-fetch'
 import { config } from '~/src/config'
 
 async function fetchLibraries(teamId = null) {
-  const templatesEndpointUrl =
+  const librariesEndpointUrl =
     config.get('portalBackendApiUrl') +
     `/libraries${teamId ? `?team=${teamId}` : ''}`
 
-  const response = await fetch(templatesEndpointUrl, {
+  const response = await fetch(librariesEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
