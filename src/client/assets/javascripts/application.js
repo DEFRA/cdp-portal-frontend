@@ -8,7 +8,7 @@ import { protectForm } from '~/src/client/common/helpers/protect-form'
 import { readOut } from '~/src/server/common/components/read-out/read-out'
 import { errorMessages } from '~/src/client/common/helpers/error-messages'
 import { autoSubmit } from '~/src/client/common/helpers/auto-submit'
-import { addHistoryListener } from '~/src/client/common/helpers/xhr'
+import { poll } from '~/src/client/common/helpers/poll'
 import { paramsToHiddenInputs } from '~/src/client/common/helpers/params-to-hidden-inputs'
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
 import { autocompleteSearch } from '~/src/server/common/components/autocomplete-search/autocomplete-search'
@@ -29,12 +29,12 @@ import '../images/govuk-mask-icon.svg'
 
 initAll()
 
-// Select controller functions
-window.fetchVersions = fetchVersions
-window.fetchMemory = fetchMemory
+// ClientSide namespace
+window.cdp = {}
 
-// Setup Xhr history listener
-addHistoryListener()
+// Helper functions
+window.cdp.fetchVersions = fetchVersions
+window.cdp.fetchMemory = fetchMemory
 
 // Create service repository name readout
 initModule('app-read-out', readOut)
@@ -68,3 +68,6 @@ initModule('app-tabs', tabs)
 
 // Params to hidden inputs
 initModule('app-params', paramsToHiddenInputs, '*=')
+
+// Poll
+initModule('app-poll', poll)

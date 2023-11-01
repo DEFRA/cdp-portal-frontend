@@ -44,6 +44,8 @@
 
         {% if userHasTeamScope(team.teamId) %}
           <form method="POST">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
             {{ members | safe }}
           </form>
         {% else %}

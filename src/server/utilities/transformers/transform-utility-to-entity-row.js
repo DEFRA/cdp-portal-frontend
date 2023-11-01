@@ -1,6 +1,7 @@
 import { startCase } from 'lodash'
 
 import { config } from '~/src/config'
+import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformUtilityToEntityRow(utilityType) {
   return (utility) => [
@@ -22,7 +23,7 @@ function transformUtilityToEntityRow(utilityType) {
     },
     {
       kind: 'link',
-      value: utility.url.split('/').slice(3).join('/'),
+      value: removeHost(utility.url),
       url: utility.url,
       newWindow: true
     },

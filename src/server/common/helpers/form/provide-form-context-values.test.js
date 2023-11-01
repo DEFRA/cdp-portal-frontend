@@ -50,18 +50,18 @@ describe('#provideFormContextValues', () => {
     describe('Form values', () => {
       test('Validation failure flash values should have highest priority', () => {
         const mockRequest = buildMockRequest({
-          get: () => ({ user: 'Dolly the sheep' }),
+          get: () => ({ user: 'Dolly the sheep session' }),
           flash: () => [
             {
               formValues: {
-                user: 'Dolly the sheep'
+                user: 'Dolly the sheep validation failure flash'
               }
             }
           ],
           source: {
             context: {
               formValues: {
-                user: 'Dolly the sheep'
+                user: 'Dolly the sheep context'
               }
             }
           }
@@ -74,7 +74,7 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
-            user: 'Dolly the sheep'
+            user: 'Dolly the sheep validation failure flash'
           },
           isError: true
         })
@@ -82,11 +82,11 @@ describe('#provideFormContextValues', () => {
 
       test('Session values should have medium priority', () => {
         const mockRequest = buildMockRequest({
-          get: () => ({ user: 'Postman Pat' }),
+          get: () => ({ user: 'Postman Pat session' }),
           source: {
             context: {
               formValues: {
-                user: 'Postman Pat'
+                user: 'Postman Pat context'
               }
             }
           }
@@ -99,7 +99,7 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
-            user: 'Postman Pat'
+            user: 'Postman Pat session'
           }
         })
       })
@@ -109,7 +109,7 @@ describe('#provideFormContextValues', () => {
           source: {
             context: {
               formValues: {
-                user: 'Bagpuss'
+                user: 'Bagpuss context'
               }
             }
           }
@@ -122,7 +122,57 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
-            user: 'Bagpuss'
+            user: 'Bagpuss context'
+          }
+        })
+      })
+    })
+
+    describe('Form values without session value', () => {
+      test('Validation failure flash values should have highest priority', () => {
+        const mockRequest = buildMockRequest({
+          flash: () => [
+            {
+              formValues: {
+                user: 'Pepper pig validation failure flash'
+              }
+            }
+          ],
+          source: {
+            context: {
+              formValues: {
+                user: 'Pepper pig context'
+              }
+            }
+          }
+        })
+
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
+
+        expect(mockRequest.response?.source?.context).toEqual({
+          formValues: {
+            user: 'Pepper pig validation failure flash'
+          },
+          isError: true
+        })
+      })
+
+      test('View context values should have lowest priority', () => {
+        const mockRequest = buildMockRequest({
+          source: {
+            context: {
+              formValues: {
+                user: 'Pepper pig context'
+              }
+            }
+          }
+        })
+
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
+
+        expect(mockRequest.response?.source?.context).toEqual({
+          formValues: {
+            user: 'Pepper pig context'
           }
         })
       })

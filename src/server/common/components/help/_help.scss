@@ -1,0 +1,18 @@
+.app-help {
+  display: flex;
+  align-items: center;
+  border-left: 4px solid govuk-colour("bright-purple");
+  background-color: govuk-colour("light-grey");
+  margin: govuk-spacing(4) govuk-spacing(0);
+  padding: govuk-spacing(2);
+}
+
+.app-help-icon {
+  margin-right: govuk-spacing(2);
+  fill: govuk-colour("bright-purple");
+}
+
+.app-help__content {
+  @include govuk-font(19);
+  color: govuk-colour("black");
+}

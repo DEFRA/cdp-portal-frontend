@@ -10,7 +10,7 @@ const userController = {
   options: {
     validate: {
       params: Joi.object({
-        userId: Joi.string()
+        userId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

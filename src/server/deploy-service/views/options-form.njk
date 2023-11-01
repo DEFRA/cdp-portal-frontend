@@ -24,7 +24,7 @@
           <form action="{{ appPathPrefix }}/deploy-service/options"
                 method="post"
                 data-js="app-form-errors{% if preExistingDetails %} app-protected-inputs{% endif %}">
-
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
             <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
             {% call govukFieldset() %}

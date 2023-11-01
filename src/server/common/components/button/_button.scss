@@ -7,6 +7,16 @@
   margin: 0;
 }
 
+.app-button__container {
+  &:first-of-type {
+    margin-right: govuk-spacing(1);
+  }
+
+  .app-loader {
+    margin-top: govuk-spacing(2);
+  }
+}
+
 .app-button--inline {
   @include govuk-font(19);
   margin-left: govuk-spacing(1);

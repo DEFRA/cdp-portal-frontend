@@ -11,6 +11,7 @@
 
   {% call appPageBody() %}
     <form action="{{ appPathPrefix }}/create-service" method="post" data-js="app-form-errors">
+      <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
       {% call govukFieldset({
         legend: {
@@ -34,18 +35,18 @@
           formGroup: {
             classes: "app-form-group app-form-group-js"
           },
-          value: values.repositoryName,
+          value: formValues.repositoryName,
           attributes: {
             "data-js": "app-read-out",
             "data-target-id": "repository-name-read-out"
           },
           errorMessage: {
-            text: errors.repositoryName.message,
+            text: formErrors.repositoryName.message,
             classes: "govuk-!-margin-bottom-1 app-error-message",
             attributes: {
               "data-js": "app-error"
             }
-          } if errors.repositoryName.message
+          } if formErrors.repositoryName.message
         }) }}
 
         {{ appReadOut({
@@ -69,14 +70,14 @@
           formGroup: {
             classes: "app-form-group app-form-group-js"
           },
-          value: values.serviceType,
+          value: formValues.serviceType,
           errorMessage: {
-            text: errors.serviceType.message,
+            text: formErrors.serviceType.message,
             classes: "govuk-!-margin-bottom-1 app-error-message",
             attributes: {
               "data-js": "app-error"
             }
-          } if errors.serviceType.message,
+          } if formErrors.serviceType.message,
           items: serviceTypesOptions
         }) }}
 
@@ -88,7 +89,7 @@
             classes: "govuk-!-margin-bottom-0"
           },
           classes: "app-select",
-          value: values.owningTeam,
+          value: formValues.owningTeam,
           hint: {
             text: "The team that owns your service",
             classes: "govuk-!-margin-bottom-1"
@@ -97,38 +98,36 @@
             classes: "app-form-group app-form-group-js"
           },
           errorMessage: {
-            text: errors.owningTeam.message,
+            text: formErrors.owningTeam.message,
             classes: "govuk-!-margin-bottom-1 app-error-message",
             attributes: {
               "data-js": "app-error"
             }
-          } if errors.owningTeam.message,
+          } if formErrors.owningTeam.message,
           items: teamsOptions
         }) }}
       {% endcall %}
 
-      <div class="govuk-button-group">
+      {{ appButton({
+        text: "Create",
+        name: "create",
+        value: "create",
+        loader: {
+          name: "create-submit-button"
+        }
+      }) }}
+
+      {% if isAdmin %}
+        {# TODO remove once new create flow is finished #}
         {{ appButton({
-          text: "Create",
+          text: "Create v2",
           name: "create",
-          value: "create",
+          value: "createV2",
           loader: {
-            name: "create-submit-button"
+            name: "create-v2-submit-button"
           }
         }) }}
-
-        {% if isAdmin %}
-          {# TODO remove once new create flow is finished #}
-          {{ appButton({
-            text: "Create v2",
-            name: "create",
-            value: "createV2",
-            loader: {
-              name: "create-v2-submit-button"
-            }
-          }) }}
-        {% endif %}
-      </div>
+      {% endif %}
 
     </form>
 

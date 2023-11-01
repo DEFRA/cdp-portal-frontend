@@ -1,0 +1,20 @@
+{% from "icons/help-icon/macro.njk" import appHelpIcon %}
+
+{% set content = params.html | safe if params.html else params.text %}
+
+<div class="app-help"
+     tabindex="-1"
+     role="alert"
+     data-testid="app-help">
+  {{ appHelpIcon({
+    classes: "app-icon-medium"
+  }) }}
+  <span class="app-help__content" data-testid="app-help-content">
+    {{ content }} Contact the team via Slack <a class="app-link" href="{{ supportChannel }}" target="_blank"
+                                                rel="noopener noreferrer">#cdp-support</a>
+  </span>
+</div>
+
+
+
+

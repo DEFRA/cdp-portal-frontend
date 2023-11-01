@@ -16,24 +16,23 @@
 
       <div class="govuk-grid-row">
         <div class="app-grid-column-two-thirds-at-desktop-wide">
-          <div class="govuk-body">
 
-            {% set actionSuffix = "edit" if isEdit else "create" %}
+          {% set actionSuffix = "edit" if isEdit else "create" %}
 
-            <form action="{{ appPathPrefix }}/admin/teams/{{ actionSuffix }}" method="POST">
+          <form action="{{ appPathPrefix }}/admin/teams/{{ actionSuffix }}" method="post">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-              {{ govukSummaryList({
-                classes: "govuk-!-margin-bottom-9",
-                rows: teamRows
-              }) }}
+            {{ govukSummaryList({
+              classes: "govuk-!-margin-bottom-9",
+              rows: teamRows
+            }) }}
 
-              {{ govukButton({
-                classes: "app-button",
-                text: formButtonText
-              }) }}
+            {{ govukButton({
+              classes: "app-button",
+              text: formButtonText
+            }) }}
 
-            </form>
-          </div>
+          </form>
         </div>
       </div>
 

@@ -9,6 +9,7 @@ import { noValue } from '~/src/server/common/constants/no-value'
 import { userHasTeamScope } from '~/src/server/common/helpers/auth/user-has-team-scope'
 
 const logger = createLogger()
+const appBaseUrl = config.get('appBaseUrl')
 const appPathPrefix = config.get('appPathPrefix')
 const assetPath = config.get('assetPath')
 
@@ -33,8 +34,10 @@ async function context(request) {
     isAdmin: authedUser?.isAdmin ?? false,
     authedUser,
     userHasTeamScope: userHasTeamScope(authedUser),
+    appBaseUrl,
     appPathPrefix,
     assetPath,
+    supportChannel: config.get('supportChannel'),
     noValue,
     blankOption: defaultOption,
     isXhr: isXhr.call(request),

@@ -1,9 +1,20 @@
 import { startCase } from 'lodash'
 
 import { config } from '~/src/config'
+import { statusTagClassMap } from '~/src/server/services/transformers/status-tag-class-map'
 
 function transformServiceToEntityRow(service) {
   const githubOrg = config.get('githubOrg')
+  const status = service?.serviceStatus?.status
+
+  // For services that are being created show, in-progress or failure tag. For created services show created date
+  const createdEntity = status
+    ? {
+        kind: 'tag',
+        value: status,
+        classes: statusTagClassMap(status)
+      }
+    : { kind: 'date', value: service.createdAt }
 
   return [
     {
@@ -26,10 +37,7 @@ function transformServiceToEntityRow(service) {
       url: `https://github.com/${githubOrg}/${service.id}`,
       newWindow: true
     },
-    {
-      kind: 'date',
-      value: service.createdAt
-    }
+    createdEntity
   ]
 }
 

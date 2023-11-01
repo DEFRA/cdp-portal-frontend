@@ -1,19 +1,16 @@
 {% extends "layouts/page.njk" %}
 
-{% from "govuk/components/table/macro.njk" import govukTable %}
-
 {% block content %}
 
   {{ appHeading({
     title: heading,
-    caption: "Detailed information about the " + heading + " Micro-service.",
+    caption: "Information about the " + heading + " Micro-service.",
     entities: headingEntities
   }) }}
 
   <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-4">
-
+  <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <section class="app-section">
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">About</h2>

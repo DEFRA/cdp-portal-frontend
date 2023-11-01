@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
+import { isNull } from 'lodash'
 
 import { config } from '~/src/config'
 
@@ -11,9 +12,12 @@ async function fetchDeployableService(serviceId) {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
+
+  // TODO update API endpoint to return a 404 if not found. At the moment it returns null
+  // TODO would also be good to have deployable return in the same way as other endpoints
   const json = await response.json()
 
-  if (response.status === 204) {
+  if (response.status === 204 || response.status === 404 || isNull(json)) {
     throw Boom.boomify(Boom.notFound())
   }
 

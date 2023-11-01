@@ -1,5 +1,7 @@
 import { isFunction } from 'lodash'
 
+import { clientNotification } from '~/src/client/common/helpers/client-notification'
+
 function populateSelectOptions($controller) {
   if (!$controller) {
     return
@@ -12,7 +14,7 @@ function populateSelectOptions($controller) {
     `[data-js="${$controller.getAttribute('data-loader')}"]`
   )
   const dataFetcherName = $controller.getAttribute('data-fetcher')
-  const dataFetcher = window[dataFetcherName]
+  const dataFetcher = window.cdp[dataFetcherName]
 
   if (!$target || !isFunction(dataFetcher)) {
     return
@@ -47,15 +49,7 @@ function populateSelectOptions($controller) {
 
       optionsWithPrependedBlank.forEach((option) => $target.add(option))
     } catch (error) {
-      const clientNotification = document.querySelector(
-        '[data-js="app-client-notifications"]'
-      )
-      const clientMessageHolder = clientNotification.querySelector(
-        '.app-banner__content'
-      )
-
-      clientMessageHolder.textContent = error.message
-      clientNotification.classList.remove('app-banner--hidden')
+      clientNotification(error.message)
 
       clearTimeout(delayedLoader)
       $loader?.classList?.remove('app-loader--is-loading')

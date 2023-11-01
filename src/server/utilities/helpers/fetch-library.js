@@ -13,7 +13,7 @@ async function fetchLibrary(libraryId) {
   })
   const json = await response.json()
 
-  if (response.status === 404) {
+  if (response.status === 404 || json?.libraries?.length === 0) {
     throw Boom.boomify(Boom.notFound())
   }
 
