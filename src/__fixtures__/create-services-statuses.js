@@ -17,6 +17,7 @@ const createServicesStatusesFixture = {
       zone: 'protected',
       createRepository: {
         status: 'failed',
+        url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
         result: {}
       },
       'cdp-tf-svc-infra': {
