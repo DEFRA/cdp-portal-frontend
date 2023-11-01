@@ -1,5 +1,3 @@
-import { omit } from 'lodash'
-
 import { config } from '~/src/config'
 import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
@@ -49,18 +47,14 @@ const createServiceController = {
     }
 
     if (!validationResult.error) {
-      const isCreateV2 = payload.create === 'createV2'
-
-      // TODO remove once new create flow is finished
       const selfServiceOpsCreateServiceEndpointUrl =
-        config.get('selfServiceOpsApiUrl') +
-        `/create-service${isCreateV2 ? '-v2' : ''}`
+        config.get('selfServiceOpsApiUrl') + '/create-service'
 
       const response = await request.fetchWithAuth(
         selfServiceOpsCreateServiceEndpointUrl,
         {
           method: 'post',
-          body: JSON.stringify(omit(validationResult.value, 'create')) // TODO remove omit when create flow finished
+          body: JSON.stringify(validationResult.value)
         }
       )
       const json = await response.json()
@@ -79,7 +73,6 @@ const createServiceController = {
         )
       }
 
-      // TODO feels like maybe we should have create session here?
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload
       })

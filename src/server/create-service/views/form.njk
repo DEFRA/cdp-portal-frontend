@@ -110,24 +110,10 @@
 
       {{ appButton({
         text: "Create",
-        name: "create",
-        value: "create",
         loader: {
           name: "create-submit-button"
         }
       }) }}
-
-      {% if isAdmin %}
-        {# TODO remove once new create flow is finished #}
-        {{ appButton({
-          text: "Create v2",
-          name: "create",
-          value: "createV2",
-          loader: {
-            name: "create-v2-submit-button"
-          }
-        }) }}
-      {% endif %}
 
     </form>
 
