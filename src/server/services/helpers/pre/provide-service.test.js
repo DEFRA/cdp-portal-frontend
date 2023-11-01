@@ -1,3 +1,5 @@
+import { config } from '~/src/config'
+
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
 import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
@@ -9,6 +11,8 @@ import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-st
 jest.mock('~/src/server/services/helpers/fetch-repository')
 jest.mock('~/src/server/services/helpers/fetch-deployable-service')
 jest.mock('~/src/server/services/helpers/fetch-create-service-status')
+
+const githubOrg = config.get('githubOrg')
 
 describe('#provideService', () => {
   const mockRequest = {
@@ -26,7 +30,7 @@ describe('#provideService', () => {
     expect(await provideService.method(mockRequest)).toEqual({
       createdAt: '2023-04-12T17:16:48+00:00',
       description: 'The Core Delivery Platform Portal.',
-      githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
+      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
       id: 'cdp-portal-frontend',
       imageName: 'cdp-portal-frontend',
       isArchived: false,
@@ -45,9 +49,15 @@ describe('#provideService', () => {
     fetchCreateServiceStatus.mockResolvedValue(createServiceStatusFixture)
 
     expect(await provideService.method(mockRequest)).toEqual({
-      githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
+      createdAt: '2023-04-12T17:16:48+00:00',
+      description: 'The Core Delivery Platform Portal.',
+      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
       id: 'cdp-portal-frontend',
+      isArchived: false,
       isCreateStatus: true,
+      isPrivate: true,
+      isTemplate: false,
+      primaryLanguage: 'JavaScript',
       serviceName: 'cdp-portal-frontend',
       serviceStatus: createServiceStatusFixture.status,
       teams: ['cdp-platform']
@@ -59,7 +69,7 @@ describe('#provideService', () => {
     fetchCreateServiceStatus.mockResolvedValue(createServiceStatusFixture)
 
     expect(await provideService.method(mockRequest)).toEqual({
-      githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
+      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
       id: 'cdp-portal-frontend',
       isCreateStatus: true,
       serviceName: 'cdp-portal-frontend',
