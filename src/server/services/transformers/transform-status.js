@@ -2,6 +2,7 @@ import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
 import { statusTagClassMap } from '~/src/server/services/transformers/status-tag-class-map'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
+import { startCase } from 'lodash'
 
 const githubOrg = config.get('githubOrg')
 
@@ -24,7 +25,9 @@ function transformStatus(service) {
       cdpNginxUpstreams?.status
     ].some((status) => failureFlags.includes(status)),
     status: {
-      text: serviceStatus?.status ?? unknownValue,
+      text: serviceStatus?.status
+        ? startCase(serviceStatus.status)
+        : unknownValue,
       classes: statusTagClassMap(serviceStatus?.status)
     },
     createRepository: {
@@ -35,7 +38,9 @@ function transformStatus(service) {
         href: service?.githubUrl
       },
       status: {
-        text: createRepository?.status ?? unknownValue,
+        text: createRepository?.status
+          ? startCase(createRepository?.status)
+          : unknownValue,
         classes: statusTagClassMap(createRepository?.status)
       }
     },
@@ -47,7 +52,9 @@ function transformStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
       },
       status: {
-        text: cdpTfSvcInfra?.status ?? unknownValue,
+        text: cdpTfSvcInfra?.status
+          ? startCase(cdpTfSvcInfra.status)
+          : unknownValue,
         classes: statusTagClassMap(cdpTfSvcInfra?.status)
       },
       pullRequest: {
@@ -76,7 +83,9 @@ function transformStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-app-config`
       },
       status: {
-        text: cdpAppConfig?.status ?? unknownValue,
+        text: cdpAppConfig?.status
+          ? startCase(cdpAppConfig.status)
+          : unknownValue,
         classes: statusTagClassMap(cdpAppConfig?.status)
       },
       pullRequest: {
@@ -105,7 +114,9 @@ function transformStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`
       },
       status: {
-        text: cdpNginxUpstreams?.status ?? unknownValue,
+        text: cdpNginxUpstreams?.status
+          ? startCase(cdpNginxUpstreams.status)
+          : unknownValue,
         classes: statusTagClassMap(cdpNginxUpstreams?.status)
       },
       pullRequest: {

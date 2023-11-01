@@ -8,6 +8,12 @@ describe('#statusTagClassMap', () => {
     )
   })
 
+  test('Should provide expected "prOpen" tag className', () => {
+    expect(statusTagClassMap(serviceCreationStatuses.raised)).toEqual(
+      'govuk-tag--purple'
+    )
+  })
+
   test('Should provide expected "in-progress" tag className', () => {
     expect(statusTagClassMap(serviceCreationStatuses.inProgress)).toEqual(
       'govuk-tag--blue'
