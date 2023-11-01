@@ -25,6 +25,7 @@ function transformStatus(service) {
       cdpNginxUpstreams?.status
     ].some((status) => failureFlags.includes(status)),
     status: {
+      value: serviceStatus.status,
       text: serviceStatus?.status
         ? startCase(serviceStatus.status)
         : unknownValue,

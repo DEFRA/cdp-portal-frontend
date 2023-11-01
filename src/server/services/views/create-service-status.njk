@@ -44,7 +44,7 @@
                   </div>
 
                   <div>
-                    {% if creationJob.status.text == "in-progress" %}
+                    {% if creationJob.status.value == "in-progress" %}
                       {{ appLoader({ classes: "app-loader--is-loading" }) }}
                     {% endif %}
                   </div>
