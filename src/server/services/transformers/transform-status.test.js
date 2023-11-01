@@ -108,6 +108,7 @@ describe('#transformStatus', () => {
       hasJobFailures: false,
       started: '2023-10-27T12:37:46.915Z',
       status: {
+        value: 'in-progress',
         classes: 'govuk-tag--blue',
         text: 'In Progress'
       }
