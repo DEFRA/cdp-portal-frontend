@@ -30,8 +30,7 @@ function createServiceValidation(serviceTypes, teamsGithubHandles) {
         'any.only': 'Choose an entry',
         'any.required': 'Choose an entry'
       })
-      .required(),
-    create: Joi.string().valid('create', 'createV2') // TODO remove once new create flow is finished
+      .required()
   })
 }
 
