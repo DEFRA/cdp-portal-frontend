@@ -34,7 +34,7 @@ describe('#transformStatus', () => {
         },
         status: {
           classes: 'govuk-tag--green',
-          text: 'success'
+          text: 'Success'
         },
         url: {
           href: `https://github.com/${githubOrg}/cdp-app-config`,
@@ -60,7 +60,7 @@ describe('#transformStatus', () => {
         },
         status: {
           classes: 'govuk-tag--green',
-          text: 'success'
+          text: 'Success'
         },
         url: {
           href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`,
@@ -86,7 +86,7 @@ describe('#transformStatus', () => {
         },
         status: {
           classes: 'govuk-tag--green',
-          text: 'success'
+          text: 'Success'
         },
         url: {
           href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`,
@@ -98,7 +98,7 @@ describe('#transformStatus', () => {
         part: 1,
         status: {
           classes: 'govuk-tag--green',
-          text: 'success'
+          text: 'Success'
         },
         url: {
           href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
@@ -109,7 +109,7 @@ describe('#transformStatus', () => {
       started: '2023-10-27T12:37:46.915Z',
       status: {
         classes: 'govuk-tag--blue',
-        text: 'in-progress'
+        text: 'In Progress'
       }
     })
   })

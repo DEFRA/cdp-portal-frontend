@@ -3,6 +3,7 @@ import { serviceCreationStatuses } from '~/src/server/common/constants/service-c
 function statusTagClassMap(status) {
   switch (true) {
     case status === serviceCreationStatuses.raised:
+    case status === serviceCreationStatuses.prOpen:
       return 'govuk-tag--purple'
 
     case status === serviceCreationStatuses.inProgress:
