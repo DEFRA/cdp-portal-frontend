@@ -33,7 +33,7 @@ const provideService = {
     let repositoryResponse
 
     try {
-      const repositoryResponse = await fetchRepository(serviceId)
+      repositoryResponse = await fetchRepository(serviceId)
       const deployableService = await fetchDeployableService(serviceId)
 
       return decorateServiceWithGithubDetail(
