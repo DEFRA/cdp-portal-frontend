@@ -32,6 +32,12 @@ describe('#statusTagClassMap', () => {
     )
   })
 
+  test('Should provide expected "created" tag className', () => {
+    expect(statusTagClassMap(serviceCreationStatuses.created)).toEqual(
+      'govuk-tag--green'
+    )
+  })
+
   test('Should provide expected "workflow_completed" tag className', () => {
     expect(
       statusTagClassMap(serviceCreationStatuses.workflowCompleted)

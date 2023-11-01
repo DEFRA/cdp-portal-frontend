@@ -12,6 +12,7 @@ function statusTagClassMap(status) {
     case status === serviceCreationStatuses.notRequested:
       return 'govuk-tag--grey'
 
+    case status === serviceCreationStatuses.created:
     case status === serviceCreationStatuses.success:
     case status === serviceCreationStatuses.workflowCompleted:
       return 'govuk-tag--green'
