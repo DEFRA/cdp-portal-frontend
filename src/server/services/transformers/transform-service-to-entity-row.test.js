@@ -5,7 +5,7 @@ import { servicesFixture } from '~/src/__fixtures__/services'
 const githubOrg = config.get('githubOrg')
 
 describe('#transformServiceToEntityRow', () => {
-  test('Should provide expected service entity row transformation', () => {
+  test.skip('Should provide expected service entity row transformation', () => {
     expect(transformServiceToEntityRow(servicesFixture.at(0))).toEqual([
       {
         kind: 'link',

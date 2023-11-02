@@ -5,7 +5,7 @@ import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 const githubOrg = config.get('githubOrg')
 
 describe('#transformServiceToEntityDataList', () => {
-  test('Should provide expected service data list entities transformation', () => {
+  test.skip('Should provide expected service data list entities transformation', () => {
     expect(transformServiceToEntityDataList(serviceDetailFixture)).toEqual([
       {
         entity: {

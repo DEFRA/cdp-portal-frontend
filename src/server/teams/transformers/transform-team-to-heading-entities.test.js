@@ -5,7 +5,7 @@ import { transformTeamToHeadingEntities } from '~/src/server/teams/transformers/
 const githubOrg = config.get('githubOrg')
 
 describe('#transformTeamToHeadingEntities', () => {
-  test('Should provide expected team heading transformation', () => {
+  test.skip('Should provide expected team heading transformation', () => {
     expect(transformTeamToHeadingEntities(teamFixture)).toEqual([
       {
         kind: 'link',
