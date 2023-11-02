@@ -54,7 +54,7 @@ const createServiceController = {
         selfServiceOpsCreateServiceEndpointUrl,
         {
           method: 'post',
-          body: JSON.stringify(validationResult.value)
+          body: JSON.stringify(sanitisedPayload)
         }
       )
       const json = await response.json()

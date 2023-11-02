@@ -1,16 +1,15 @@
 import { config } from '~/src/config'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
+import { startCase } from 'lodash'
 
 function transformServiceToEntityDataList(service) {
-  const team = service?.teams?.at(0)
-
   return [
     {
       heading: 'Team',
       entity: {
         kind: 'link',
-        value: team,
-        url: `${config.get('appPathPrefix')}/teams/${team}`
+        value: service.teamName && startCase(service.teamName),
+        url: config.get('appPathPrefix') + `/teams/${service.teamId}`
       }
     },
     ...(service?.primaryLanguage

@@ -24,8 +24,8 @@ function transformServiceToEntityRow(service) {
     },
     {
       kind: 'link',
-      value: service.teams?.at(0) && startCase(service.teams.at(0)),
-      url: `${config.get('appPathPrefix')}/teams/${service.teams?.at(0)}`
+      value: service.teamName && startCase(service.teamName),
+      url: config.get('appPathPrefix') + `/teams/${service.teamId}`
     },
     {
       kind: 'text',
