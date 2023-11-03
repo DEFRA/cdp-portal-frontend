@@ -1,18 +1,28 @@
 {% extends "layouts/page.njk" %}
 
-{% set asideHtml %}
+{% from "icons/homepage-icon/macro.njk" import appHomepageIcon %}
+
+{% set secondaryHtml %}
   <a class="app-link app-link--inverse"
      href="{{ supportChannel }}"
      target="_blank"
      rel="noopener noreferrer">Contact the Platform team</a> with any comments or questions.
 {% endset %}
 
+{% set asideHtml %}
+  <div class="app-display-desktop-big">
+    {{ appHomepageIcon() }}
+  </div>
+{% endset %}
 
 {% block content %}
   {{ appHero({
     heading: "Build your DEFRA applications on the Core Delivery Platform",
     lead: {
       html: "Helping teams to create, deploy, run and monitor applications."
+    },
+    secondary: {
+      html: secondaryHtml
     },
     aside: {
       html: asideHtml

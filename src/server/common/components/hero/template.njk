@@ -7,13 +7,15 @@
         </h1>
 
         <p class="govuk-body-lead app-hero__content">
-          {{ params.lead.html }}
+          {{ params.lead.html | safe }}
+        </p>
+
+        <p class="govuk-body app-hero__content">
+          {{ params.secondary.html | safe }}
         </p>
       </div>
       <div class="govuk-grid-column-one-third-from-desktop">
-        <p class="app-hero__content">
-          {{ params.aside.html | safe }}
-        </p>
+        {{ params.aside.html | safe }}
       </div>
     </div>
   </div>
