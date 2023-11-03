@@ -8,7 +8,7 @@ const servicesFixture = [
     githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
     imageName: 'cdp-portal-frontend',
     description:
-      'The Core Delivery Platform Portal. Gain insight on micro-services, deployments, running services and teams across the platform. While being able to create and control when and where you deploy micro-services. Everything you need and want to know about the Platform can be found here on the Portal.',
+      'The Core Delivery Platform Portal. Gain insight on microservices, deployments, running services and teams across the platform. While being able to create and control when and where you deploy microservices. Everything you need and want to know about the Platform can be found here on the Portal.',
     primaryLanguage: 'JavaScript',
     isArchived: false,
     isTemplate: false,

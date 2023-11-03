@@ -28,7 +28,7 @@ const summaryController = {
       pageTitle: 'Deploy Service Summary',
       heading: 'Summary',
       headingCaption:
-        'Information about the Micro-service you are going to deploy.',
+        'Information about the Microservice you are going to deploy.',
       helpText: buildHelpText(cpuDetail?.value, memoryDetail?.value),
       deploymentRows: transformDeploymentRows(
         deployment,

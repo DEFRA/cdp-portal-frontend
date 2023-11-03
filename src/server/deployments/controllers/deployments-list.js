@@ -51,7 +51,7 @@ const deploymentsListController = {
       pageTitle: 'Deployments',
       heading: 'Deployments',
       caption:
-        'Micro-service deployment details across all available environments.',
+        'Microservice deployment details across all available environments.',
       tabs: deploymentTabs(request),
       searchSuggestions: buildOptions(uniqueAllDeployments),
       userSuggestions: buildOptions(uniqueAllUsers),
