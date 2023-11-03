@@ -1,0 +1,20 @@
+<header class="app-hero">
+  <div class="app-hero__body">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+        <h1 class="app-hero__heading govuk-heading-xl">
+          {{ params.heading }}
+        </h1>
+
+        <p class="govuk-body-lead app-hero__content">
+          {{ params.lead.html }}
+        </p>
+      </div>
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <p class="app-hero__content">
+          {{ params.aside.html | safe }}
+        </p>
+      </div>
+    </div>
+  </div>
+</header>

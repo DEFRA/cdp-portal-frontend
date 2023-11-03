@@ -1,14 +1,55 @@
 {% extends "layouts/page.njk" %}
 
+{% set asideHtml %}
+  <a class="app-link app-link--inverse"
+     href="{{ supportChannel }}"
+     target="_blank"
+     rel="noopener noreferrer">Contact the Platform team</a> with any comments or questions.
+{% endset %}
+
+
 {% block content %}
-  {{ appHeading({
-    title: heading,
-    caption: "To the place for all doing all the things."
+  {{ appHero({
+    heading: "Build your DEFRA applications on the Core Delivery Platform",
+    lead: {
+      html: "Helping teams to create, deploy, run and monitor applications."
+    },
+    aside: {
+      html: asideHtml
+    }
   }) }}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <p>This is the {{ serviceName }}, where you can do everything! 🚀</p>
+  <div class="app-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-4">Services</h2>
+        <p class="govuk-body">Discover the frontend and backend microservices on the Core Delivery Platform.</p>
+        <p class="govuk-body govuk-!-margin-bottom-0">
+          <a href="{{ appPathPrefix }}/services" class="govuk-link app-link govuk-!-font-weight-bold">Browse
+            services</a>
+        </p>
+      </div>
+      <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-4">Deployments</h2>
+        <p class="govuk-body">View deployments and Continuous Integration (CI) information across all
+          environments.
+        </p>
+        <p class="govuk-body govuk-!-margin-bottom-0">
+          <a href="{{ appPathPrefix }}/deployments" class="govuk-link app-link govuk-!-font-weight-bold">Browse
+            deployments</a>
+        </p>
+      </div>
+      <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-4">Running Services</h2>
+        <p class="govuk-body">
+          See which version of a microservice is running on any environment.
+        </p>
+        <p class="govuk-body govuk-!-margin-bottom-0">
+          <a href="{{ appPathPrefix }}/running-services" class="govuk-link app-link govuk-!-font-weight-bold">
+            Browse running services</a>
+        </p>
+      </div>
     </div>
   </div>
+
 {% endblock %}

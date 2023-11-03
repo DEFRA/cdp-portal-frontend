@@ -4,7 +4,7 @@ $nav-width-slim: 100px;
 .app-split-pane {
   display: flex;
 
-  @include govuk-media-query(1160px) {
+  @include govuk-media-query($from: desktop-wide) {
     width: 100%;
   }
 }
