@@ -20,6 +20,16 @@ describe('#fetchAvailableVersions', () => {
     expect(availableVersions).toEqual(availableVersionsFixture)
   })
 
+  test('Should filter out zero version', async () => {
+    nock(deployablesVersionsEndpoint.origin)
+      .get(deployablesVersionsEndpoint.pathname)
+      .reply(200, ['0.0.0', ...availableVersionsFixture])
+
+    const availableVersions = await fetchAvailableVersions(serviceName)
+
+    expect(availableVersions).toEqual(availableVersionsFixture)
+  })
+
   test('With error, Should throw with expected message', async () => {
     nock(deployablesVersionsEndpoint.origin)
       .get(deployablesVersionsEndpoint.pathname)
