@@ -14,7 +14,7 @@ async function fetchAvailableVersions(serviceName) {
   const json = await response.json()
 
   if (response.ok) {
-    return json
+    return json.filter((version) => version !== '0.0.0')
   }
 
   throw Boom.boomify(new Error(json.message), { statusCode: response.status })
