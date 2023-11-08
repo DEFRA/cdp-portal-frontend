@@ -19,6 +19,7 @@ import { requestLogger } from '~/src/server/common/helpers/logging/request-logge
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
 import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/auth/user-has-team-scope'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
+import { xUaCompatibleHeader } from '~/src/server/common/helpers/x-ua-compatible-header'
 
 const client = buildRedisClient()
 
@@ -87,11 +88,7 @@ async function createServer() {
   })
 
   server.ext('onPreResponse', catchAll)
-  server.ext('onPreResponse', (request, h) => {
-    request.response.header('X-UA-Compatible', 'IE=Edge')
-
-    return h.continue
-  })
+  server.ext('onPreResponse', xUaCompatibleHeader)
 
   return server
 }
