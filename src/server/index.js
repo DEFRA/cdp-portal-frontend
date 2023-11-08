@@ -87,6 +87,11 @@ async function createServer() {
   })
 
   server.ext('onPreResponse', catchAll)
+  server.ext('onPreResponse', (request, h) => {
+    request.response.header('X-UA-Compatible', 'IE=Edge')
+
+    return h.continue
+  })
 
   return server
 }
