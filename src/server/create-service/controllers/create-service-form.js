@@ -16,8 +16,8 @@ const createServiceFormController = {
     )
 
     return h.view('create-service/views/form', {
-      pageTitle: 'Create a new micro-service',
-      heading: 'Create a new micro-service',
+      pageTitle: 'Create a new microservice',
+      heading: 'Create a new microservice',
       serviceTypesOptions,
       teamsOptions
     })

@@ -28,7 +28,7 @@ describe('Entity List Component', () => {
         entityRows: [deploymentsFixture.at(0)].map(
           transformDeploymentsToEntityRow
         ),
-        noResult: 'Currently there are no deployed micro-services'
+        noResult: 'Currently there are no deployed microservices'
       })
     })
 
@@ -90,7 +90,7 @@ describe('Entity List Component', () => {
       $entityList = renderTestComponent('entity-list', {
         headings: [],
         items: [],
-        noResult: 'Currently there are no deployed micro-services'
+        noResult: 'Currently there are no deployed microservices'
       })
     })
 
@@ -100,7 +100,7 @@ describe('Entity List Component', () => {
       ).toEqual(1)
       expect(
         $entityList('[data-testid="app-entity-list-no-results"]').text().trim()
-      ).toEqual('Currently there are no deployed micro-services')
+      ).toEqual('Currently there are no deployed microservices')
     })
   })
 })

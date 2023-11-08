@@ -22,7 +22,7 @@ const deploymentController = {
     return h.view('deployments/views/deployment', {
       pageTitle: `${deployment.service} Service Deployment`,
       heading: 'Deployment',
-      caption: 'Micro-service deployment detail.',
+      caption: 'Microservice deployment detail.',
       tabHeading: deployment.service,
       entityDataList: transformDeploymentToEntityDataList(deployment),
       tabs: deploymentTabs(request)

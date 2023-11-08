@@ -40,7 +40,7 @@ const detailsFormController = {
       pageTitle: 'Deploy Service details',
       heading: 'Details',
       headingCaption:
-        'Provide the Micro-service Image name, version and environment to deploy to.',
+        'Provide the microservice image name, version and environment to deploy to.',
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation,
       environmentOptions: buildOptions(

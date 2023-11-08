@@ -1,0 +1,7 @@
+.app-display-desktop-big {
+  display: none;
+
+  @include govuk-media-query($from: desktop-big) {
+    display: block;
+  }
+}

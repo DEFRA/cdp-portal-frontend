@@ -1,0 +1,25 @@
+.app-hero {
+  margin: govuk-spacing(-4) govuk-spacing(-6) 0;
+  @include govuk-responsive-padding(8, "top");
+  @include govuk-responsive-padding(6, "bottom");
+  border-bottom: 1px solid govuk-colour("blue");
+  color: govuk-colour("white");
+  background-color: govuk-colour("blue");
+}
+
+.app-hero__body {
+  padding: 0 govuk-spacing(6);
+
+  @include govuk-media-query($from: desktop-wide) {
+    width: 1100px;
+  }
+}
+
+.app-hero__heading {
+  color: govuk-colour("white");
+  @include govuk-responsive-margin(6, "bottom");
+}
+
+.app-hero__content {
+  color: govuk-colour("white");
+}

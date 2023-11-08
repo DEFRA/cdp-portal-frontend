@@ -28,7 +28,7 @@ const optionsFormController = {
       pageTitle: 'Deploy Service options',
       heading: 'Options',
       headingCaption:
-        'Choose Micro-service Instance count, CPU and Memory allocation.',
+        'Choose Microservice Instance count, CPU and Memory allocation.',
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation,
       availableInstancesOptions: buildOptions(availableInstances),

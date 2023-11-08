@@ -11,22 +11,32 @@
 }
 
 .app-header__container {
-  display: flex;
   margin-bottom: govuk-spacing(-2);
   padding: govuk-spacing(2) govuk-spacing(6) 0;
   border-bottom: govuk-spacing(2) solid $govuk-brand-colour;
+
+  @include govuk-media-query($from: desktop-big) {
+    display: flex;
+  }
 }
 
 .app-header__content {
-  flex: 4;
+  @include govuk-media-query($from: desktop-big) {
+    flex: 4;
+  }
 }
 
 .app-header__actions {
-  flex: 2;
-  display: flex;
-  justify-content: flex-end;
-  align-self: center;
-  margin: govuk-spacing(1) 0 govuk-spacing(2) auto;
+  @include govuk-font(19);
+  margin-bottom: govuk-spacing(2);
+
+  @include govuk-media-query($from: desktop-big) {
+    flex: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-self: center;
+    margin: govuk-spacing(1) 0 govuk-spacing(2) auto;
+  }
 }
 
 .app-header__login-link {
@@ -53,5 +63,5 @@
 .app-header__service-name {
   display: inline-block;
   margin-bottom: govuk-spacing(2);
-  @include govuk-font(36, "bold");
+  @include govuk-font(27);
 }
