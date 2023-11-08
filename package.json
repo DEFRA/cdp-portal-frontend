@@ -31,6 +31,10 @@
     "start": "NODE_ENV=production node --use-strict ./.server",
     "setup:husky": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\""
   },
+  "browserslist": [
+    "defaults",
+    "IE 11"
+  ],
   "author": "Defra DDTS",
   "license": "OGL-UK-3.0",
   "dependencies": {
