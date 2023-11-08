@@ -40,7 +40,6 @@ module.exports = {
     path: path.resolve(__dirname, '.public'),
     library: '[name]'
   },
-  target: ['web', 'es5'],
   module: {
     rules: [
       ...(webpackConfig.isDevelopment
