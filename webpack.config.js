@@ -40,7 +40,6 @@ module.exports = {
     path: path.resolve(__dirname, '.public'),
     library: '[name]'
   },
-  target: ['web', 'es5'],
   module: {
     rules: [
       ...(webpackConfig.isDevelopment
@@ -58,15 +57,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  useBuiltIns: 'usage',
-                  corejs: 3
-                }
-              ]
-            ]
+            presets: [['@babel/preset-env', { targets: 'defaults' }]]
           }
         }
       },

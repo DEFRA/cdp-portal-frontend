@@ -27,6 +27,5 @@
       "sourceMaps": "inline",
       "retainLines": true
     }
-  },
-  "comments": false
+  }
 }
