@@ -8,7 +8,7 @@
  * @returns {*}
  */
 function xUaCompatibleHeader(request, h) {
-  request.response.header('X-UA-Compatible', 'IE=Edge')
+  request.response.header('X-UA-Compatible', 'IE=Edge, chrome=1')
 
   return h.continue
 }
