@@ -1,3 +1,4 @@
+import useragent from 'useragent'
 import path from 'path'
 
 import { config } from '~/src/config'
@@ -27,6 +28,7 @@ try {
 }
 
 async function context(request) {
+  const userAgentHeader = request.headers['user-agent']
   const authedUser = await request.getUserSession()
 
   return {
@@ -38,6 +40,8 @@ async function context(request) {
     appPathPrefix,
     assetPath,
     supportChannel: config.get('supportChannel'),
+    userAgent: useragent.lookup(userAgentHeader),
+    isIe: useragent.is(userAgentHeader).ie,
     noValue,
     blankOption: defaultOption,
     isXhr: isXhr.call(request),
