@@ -3,7 +3,7 @@ import { transformServiceToEntityDataList } from '~/src/server/services/transfor
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
 import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
-import { decorateServiceWithGithubDetail } from '~/src/server/services/transformers/decorate-service-with-github-detail'
+import { decorateService } from '~/src/server/services/transformers/decorate-service'
 import { serviceGithubDetailFixture } from '~/src/__fixtures__/service-github-detail'
 
 const githubOrg = config.get('githubOrg')
@@ -15,8 +15,8 @@ describe('#transformServiceToEntityDataList', () => {
         {
           entity: {
             kind: 'link',
-            url: '/cdp-portal-frontend/teams/fisheries',
-            value: 'fisheries'
+            url: '/cdp-portal-frontend/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+            value: 'Fish-and-octopus'
           },
           heading: 'Team'
         },

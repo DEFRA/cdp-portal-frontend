@@ -1,7 +1,7 @@
 import { omit } from 'lodash'
 
-function decorateServicesWithGithubDetail(repositories) {
-  return function addGithubDetail(service) {
+function decorateServices(repositories) {
+  return function addDetail(service) {
     const repositoryDetail = repositories.find(
       (repository) => repository.url === service.githubUrl
     )
@@ -16,4 +16,4 @@ function decorateServicesWithGithubDetail(repositories) {
   }
 }
 
-export { decorateServicesWithGithubDetail }
+export { decorateServices }
