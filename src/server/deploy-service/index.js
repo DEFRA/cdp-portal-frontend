@@ -1,3 +1,5 @@
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
+import { scopes } from '~/src/server/common/constants/scopes'
 import {
   provideFormContextValues,
   provideDeploymentSteps
@@ -14,6 +16,8 @@ import {
   deployController,
   deploymentController
 } from '~/src/server/deploy-service/controllers'
+
+const serviceTeamUserScope = authScope(`+${scopes.serviceTeamUser}`)
 
 const deployService = {
   plugin: {
@@ -37,58 +41,60 @@ const deployService = {
         }
       ])
 
-      server.route([
-        {
-          method: 'GET',
-          path: '/deploy-service/available-versions',
-          ...availableVersionsController
-        },
-        {
-          method: 'GET',
-          path: '/deploy-service/available-memory',
-          ...availableMemoryController
-        },
-        {
-          method: 'GET',
-          path: '/deploy-service',
-          ...startDeployServiceController
-        },
-        {
-          method: 'GET',
-          path: '/deploy-service/details',
-          ...detailsFormController
-        },
-        {
-          method: 'POST',
-          path: '/deploy-service/details',
-          ...detailsController
-        },
-        {
-          method: 'GET',
-          path: '/deploy-service/options',
-          ...optionsFormController
-        },
-        {
-          method: 'POST',
-          path: '/deploy-service/options',
-          ...optionsController
-        },
-        {
-          method: 'GET',
-          path: '/deploy-service/summary',
-          ...summaryController
-        },
-        {
-          method: 'POST',
-          path: '/deploy-service/deploy',
-          ...deployController
-        },
-        {
-          method: 'GET',
-          path: '/deploy-service/deployment',
-          ...deploymentController
-        }
-      ])
+      server.route(
+        [
+          {
+            method: 'GET',
+            path: '/deploy-service/available-versions',
+            ...availableVersionsController
+          },
+          {
+            method: 'GET',
+            path: '/deploy-service/available-memory',
+            ...availableMemoryController
+          },
+          {
+            method: 'GET',
+            path: '/deploy-service',
+            ...startDeployServiceController
+          },
+          {
+            method: 'GET',
+            path: '/deploy-service/details',
+            ...detailsFormController
+          },
+          {
+            method: 'POST',
+            path: '/deploy-service/details',
+            ...detailsController
+          },
+          {
+            method: 'GET',
+            path: '/deploy-service/options',
+            ...optionsFormController
+          },
+          {
+            method: 'POST',
+            path: '/deploy-service/options',
+            ...optionsController
+          },
+          {
+            method: 'GET',
+            path: '/deploy-service/summary',
+            ...summaryController
+          },
+          {
+            method: 'POST',
+            path: '/deploy-service/deploy',
+            ...deployController
+          },
+          {
+            method: 'GET',
+            path: '/deploy-service/deployment',
+            ...deploymentController
+          }
+        ].map(serviceTeamUserScope)
+      )
     }
   }
 }

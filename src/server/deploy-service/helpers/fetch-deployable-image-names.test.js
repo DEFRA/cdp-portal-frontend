@@ -3,8 +3,14 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
+import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 
 describe('#fetchDeployableImageNames', () => {
+  const mockRequest = {
+    fetchWithAuth: fetchWithAuth({
+      getUserSession: jest.fn().mockResolvedValue({})
+    })
+  }
   const deployableImagesEndpointUrl = new URL(
     config.get('portalBackendApiUrl') + '/deployables'
   )
@@ -14,7 +20,7 @@ describe('#fetchDeployableImageNames', () => {
       .get(deployableImagesEndpointUrl.pathname)
       .reply(200, deployableImagesFixture)
 
-    const deployableImageNames = await fetchDeployableImageNames()
+    const deployableImageNames = await fetchDeployableImageNames(mockRequest)
 
     expect(deployableImageNames).toEqual(deployableImagesFixture)
   })
@@ -22,12 +28,12 @@ describe('#fetchDeployableImageNames', () => {
   test('With error, Should throw with expected message', async () => {
     nock(deployableImagesEndpointUrl.origin)
       .get(deployableImagesEndpointUrl.pathname)
-      .reply(401, { message: 'Sorry - that is not allowed!' })
+      .reply(404, { message: 'Sorry - that is not allowed!' })
 
     expect.assertions(2)
 
     try {
-      await fetchDeployableImageNames()
+      await fetchDeployableImageNames(mockRequest)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Sorry - that is not allowed!')
@@ -42,7 +48,7 @@ describe('#fetchDeployableImageNames', () => {
     expect.assertions(2)
 
     try {
-      await fetchDeployableImageNames()
+      await fetchDeployableImageNames(mockRequest)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Request Header Fields Too Large')

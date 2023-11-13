@@ -29,11 +29,11 @@ const detailsFormController = {
 
     const imageName = deployment?.imageName
     const availableVersionOptions = imageName
-      ? buildOptions(await fetchAvailableVersions(imageName))
+      ? buildOptions(await fetchAvailableVersions(imageName, request))
       : optionsWithMessage('choose an image name')
 
     const deployableImageNameOptions = buildOptions(
-      await fetchDeployableImageNames()
+      await fetchDeployableImageNames(request)
     )
 
     return h.view('deploy-service/views/details-form', {

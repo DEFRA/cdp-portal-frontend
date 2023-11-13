@@ -1,13 +1,12 @@
 import Boom from '@hapi/boom'
-import fetch from 'node-fetch'
 
 import { config } from '~/src/config'
 
-async function fetchDeployableImageNames() {
+async function fetchDeployableImageNames(request) {
   const deployableImagesEndpointUrl =
     config.get('portalBackendApiUrl') + '/deployables'
 
-  const response = await fetch(deployableImagesEndpointUrl, {
+  const response = await request.fetchWithAuth(deployableImagesEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })

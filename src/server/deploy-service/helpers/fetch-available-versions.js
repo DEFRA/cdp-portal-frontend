@@ -1,13 +1,12 @@
-import fetch from 'node-fetch'
-
-import { config } from '~/src/config'
 import Boom from '@hapi/boom'
 
-async function fetchAvailableVersions(serviceName) {
+import { config } from '~/src/config'
+
+async function fetchAvailableVersions(serviceName, request) {
   const deployablesVersionsEndpoint =
     config.get('portalBackendApiUrl') + `/deployables/${serviceName}`
 
-  const response = await fetch(deployablesVersionsEndpoint, {
+  const response = await request.fetchWithAuth(deployablesVersionsEndpoint, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
