@@ -38,7 +38,7 @@ async function buildNavigation(request) {
         isActive: request?.path?.includes(`${appPathPrefix}/running-services`)
       }
     ],
-    actions: authedUser?.isAuthenticated && [
+    actions: authedUser?.isServiceTeamUser && [
       {
         text: 'Deploy Service',
         url: `${appPathPrefix}/deploy-service`,
