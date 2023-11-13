@@ -21,6 +21,7 @@
 {% from "heading/macro.njk" import appHeading %}
 {% from "help/macro.njk" import appHelp with context %}
 {% from "info/macro.njk" import appInfo %}
+{% from "old-browser/macro.njk" import appOldBrowser %}
 {% from "list/macro.njk" import appList %}
 {% from "select/macro.njk" import appSelect %}
 {% from "search/macro.njk" import appSearch %}
@@ -54,6 +55,13 @@
 {% endblock %}
 
 {% block header %}
+  {% if isIe %}
+    {{ appOldBrowser({
+      text: "You are using an unsupported browser Internet Explorer. The Core Delivery Platform - Portal will not
+      work as intended in this browser. Use an evergreen browser."
+    }) }}
+  {% endif %}
+
   {{ appHeader({
     serviceName: serviceName,
     serviceUrl: appPathPrefix,
