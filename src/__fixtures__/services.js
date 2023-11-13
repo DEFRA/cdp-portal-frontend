@@ -14,6 +14,8 @@ const servicesFixture = [
     isTemplate: false,
     isPrivate: true,
     createdAt: '2023-04-12T17:16:48Z',
+    teamName: 'Platform',
+    teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
     id: 'cdp-portal-frontend',
     teams: ['forestry-management']
   },
@@ -28,6 +30,8 @@ const servicesFixture = [
     isTemplate: false,
     isPrivate: true,
     createdAt: '2023-05-12T13:33:54Z',
+    teamName: 'Platform',
+    teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
     id: 'cdp-self-service-ops',
     teams: ['cdp-platform', 'fisheries']
   }

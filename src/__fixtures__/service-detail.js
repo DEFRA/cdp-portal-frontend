@@ -2,6 +2,8 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
+// A service from portalBackendApiUrl /services/<serviceId>
+// decorated with repository data from portalBackendApiUrl /repositories/<repositoryId>
 const serviceDetailFixture = {
   serviceName: 'cdp-portal-deployables-backend',
   githubUrl: `https://github.com/${githubOrg}/cdp-deployables`,
@@ -13,6 +15,8 @@ const serviceDetailFixture = {
   isTemplate: false,
   isPrivate: true,
   createdAt: '2023-04-05T08:56:52Z',
+  teamName: 'Fish-and-octopus',
+  teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
   teams: ['fisheries'],
   runningServices: [
     {

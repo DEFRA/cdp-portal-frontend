@@ -13,7 +13,8 @@ const createServicesStatusesFixture = {
       status: 'in-progress',
       started: '2023-10-27T12:37:46.915Z',
       serviceType: 'cdp-node-backend-template',
-      owningTeam: 'cdp-platform',
+      teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+      teamName: 'Platform',
       zone: 'protected',
       createRepository: {
         status: 'failed',
