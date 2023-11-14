@@ -2,7 +2,6 @@ import qs from 'qs'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/form'
@@ -32,10 +31,7 @@ const startEditUserController = {
       { addQueryPrefix: true }
     )
 
-    return h.redirect(
-      config.get('appPathPrefix') +
-        `/admin/users/find-github-user${queryString}`
-    )
+    return h.redirect(`/admin/users/find-github-user${queryString}`)
   }
 }
 

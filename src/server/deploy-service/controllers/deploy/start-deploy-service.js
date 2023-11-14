@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { saveToDeployment } from '~/src/server/deploy-service/helpers/form'
 
@@ -9,7 +8,7 @@ const startDeployServiceController = {
 
     await saveToDeployment(request, h, {})
 
-    return h.redirect(config.get('appPathPrefix') + '/deploy-service/details')
+    return h.redirect('/deploy-service/details')
   }
 }
 

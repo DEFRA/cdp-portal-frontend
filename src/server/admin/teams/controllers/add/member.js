@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation'
@@ -51,10 +50,7 @@ const addMemberController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(
-        config.get('appPathPrefix') +
-          `/admin/teams/${teamId}/add-member${queryString}`
-      )
+      return h.redirect(`/admin/teams/${teamId}/add-member${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -78,9 +74,7 @@ const addMemberController = {
           type: 'success'
         })
 
-        return h.redirect(
-          config.get('appPathPrefix') + `/admin/teams/${teamId}`
-        )
+        return h.redirect(`/admin/teams/${teamId}`)
       }
 
       if (fulfilledResponse.length) {
@@ -101,13 +95,7 @@ const addMemberController = {
         )
       )
 
-      return h.redirect(
-        config.get('appPathPrefix') +
-          '/admin/teams/' +
-          teamId +
-          '/add-member' +
-          queryString
-      )
+      return h.redirect('/admin/teams/' + teamId + '/add-member' + queryString)
     }
   }
 }

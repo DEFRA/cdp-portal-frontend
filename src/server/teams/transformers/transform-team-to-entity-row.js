@@ -7,7 +7,7 @@ function transformTeamToEntityRow(team) {
     {
       kind: 'link',
       value: team.name,
-      url: `${config.get('appPathPrefix')}/teams/${team.teamId}`
+      url: `/teams/${team.teamId}`
     },
     {
       kind: 'link',

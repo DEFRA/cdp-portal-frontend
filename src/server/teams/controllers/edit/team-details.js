@@ -1,7 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers'
@@ -43,9 +42,7 @@ const teamDetailsController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(
-        config.get('appPathPrefix') + `/teams/${teamId}/team-details`
-      )
+      return h.redirect(`/teams/${teamId}/team-details`)
     }
 
     if (!validationResult.error) {
@@ -68,14 +65,12 @@ const teamDetailsController = {
           type: 'success'
         })
 
-        return h.redirect(config.get('appPathPrefix') + `/teams/${teamId}`)
+        return h.redirect(`/teams/${teamId}`)
       }
 
       request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-      return h.redirect(
-        config.get('appPathPrefix') + `/teams/${teamId}/team-details`
-      )
+      return h.redirect(`/teams/${teamId}/team-details`)
     }
   }
 }

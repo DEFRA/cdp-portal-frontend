@@ -10,7 +10,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
       <div class="govuk-body">
-        <form action="{{ appPathPrefix }}/teams/{{ team.teamId }}/team-details"
+        <form action="/teams/{{ team.teamId }}/team-details"
               method="post"
               data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>

@@ -9,7 +9,7 @@ describe('#transformCdpTeamToEntityRow', () => {
     expect(transformCdpTeamToEntityRow(cdpTeamFixture.team)).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/admin/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+        url: '/admin/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
         value: 'Platform'
       },
       {

@@ -1,7 +1,4 @@
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
-import { config } from '~/src/config'
-
-const appPathPrefix = config.get('appPathPrefix')
 
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,
@@ -17,32 +14,32 @@ describe('#buildNavigation', () => {
           {
             isActive: false,
             text: 'Home',
-            url: '/cdp-portal-frontend'
+            url: '/'
           },
           {
             isActive: false,
             text: 'Services',
-            url: '/cdp-portal-frontend/services'
+            url: '/services'
           },
           {
             isActive: false,
             text: 'Utilities',
-            url: '/cdp-portal-frontend/utilities/templates'
+            url: '/utilities/templates'
           },
           {
             isActive: false,
             text: 'Teams',
-            url: '/cdp-portal-frontend/teams'
+            url: '/teams'
           },
           {
             isActive: false,
             text: 'Deployments',
-            url: '/cdp-portal-frontend/deployments'
+            url: '/deployments'
           },
           {
             isActive: false,
             text: 'Running Services',
-            url: '/cdp-portal-frontend/running-services'
+            url: '/running-services'
           }
         ],
         admin: undefined
@@ -61,44 +58,44 @@ describe('#buildNavigation', () => {
           {
             isActive: false,
             text: 'Deploy Service',
-            url: '/cdp-portal-frontend/deploy-service'
+            url: '/deploy-service'
           },
           {
             isActive: false,
             text: 'Create Service',
-            url: '/cdp-portal-frontend/create-service'
+            url: '/create-service'
           }
         ],
         primary: [
           {
             isActive: false,
             text: 'Home',
-            url: '/cdp-portal-frontend'
+            url: '/'
           },
           {
             isActive: false,
             text: 'Services',
-            url: '/cdp-portal-frontend/services'
+            url: '/services'
           },
           {
             isActive: false,
             text: 'Utilities',
-            url: '/cdp-portal-frontend/utilities/templates'
+            url: '/utilities/templates'
           },
           {
             isActive: false,
             text: 'Teams',
-            url: '/cdp-portal-frontend/teams'
+            url: '/teams'
           },
           {
             isActive: false,
             text: 'Deployments',
-            url: '/cdp-portal-frontend/deployments'
+            url: '/deployments'
           },
           {
             isActive: false,
             text: 'Running Services',
-            url: '/cdp-portal-frontend/running-services'
+            url: '/running-services'
           }
         ],
         admin: undefined
@@ -117,51 +114,51 @@ describe('#buildNavigation', () => {
           {
             isActive: false,
             text: 'Deploy Service',
-            url: '/cdp-portal-frontend/deploy-service'
+            url: '/deploy-service'
           },
           {
             isActive: false,
             text: 'Create Service',
-            url: '/cdp-portal-frontend/create-service'
+            url: '/create-service'
           }
         ],
         primary: [
           {
             isActive: false,
             text: 'Home',
-            url: '/cdp-portal-frontend'
+            url: '/'
           },
           {
             isActive: false,
             text: 'Services',
-            url: '/cdp-portal-frontend/services'
+            url: '/services'
           },
           {
             isActive: false,
             text: 'Utilities',
-            url: '/cdp-portal-frontend/utilities/templates'
+            url: '/utilities/templates'
           },
           {
             isActive: false,
             text: 'Teams',
-            url: '/cdp-portal-frontend/teams'
+            url: '/teams'
           },
           {
             isActive: false,
             text: 'Deployments',
-            url: '/cdp-portal-frontend/deployments'
+            url: '/deployments'
           },
           {
             isActive: false,
             text: 'Running Services',
-            url: '/cdp-portal-frontend/running-services'
+            url: '/running-services'
           }
         ],
         admin: [
           {
             isActive: false,
             text: 'Admin',
-            url: '/cdp-portal-frontend/admin'
+            url: '/admin'
           }
         ]
       })
@@ -170,41 +167,39 @@ describe('#buildNavigation', () => {
 
   test('Should mark matching url as Active', async () => {
     expect(
-      await buildNavigation(
-        mockRequest({ path: `${appPathPrefix}/running-services` })
-      )
+      await buildNavigation(mockRequest({ path: '/running-services' }))
     ).toEqual({
       actions: undefined,
       primary: [
         {
           isActive: false,
           text: 'Home',
-          url: '/cdp-portal-frontend'
+          url: '/'
         },
         {
           isActive: false,
           text: 'Services',
-          url: '/cdp-portal-frontend/services'
+          url: '/services'
         },
         {
           isActive: false,
           text: 'Utilities',
-          url: '/cdp-portal-frontend/utilities/templates'
+          url: '/utilities/templates'
         },
         {
           isActive: false,
           text: 'Teams',
-          url: '/cdp-portal-frontend/teams'
+          url: '/teams'
         },
         {
           isActive: false,
           text: 'Deployments',
-          url: '/cdp-portal-frontend/deployments'
+          url: '/deployments'
         },
         {
           isActive: true,
           text: 'Running Services',
-          url: '/cdp-portal-frontend/running-services'
+          url: '/running-services'
         }
       ],
       admin: undefined

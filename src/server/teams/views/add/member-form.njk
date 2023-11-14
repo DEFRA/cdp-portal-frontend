@@ -11,7 +11,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
       <div class="govuk-body">
-        <form action="{{ appPathPrefix }}/teams/{{ team.teamId }}/add-member"
+        <form action="/teams/{{ team.teamId }}/add-member"
               method="post"
               data-js="auto-submit app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>

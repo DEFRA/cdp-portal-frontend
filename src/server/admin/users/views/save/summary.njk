@@ -18,7 +18,7 @@
         <div class="app-grid-column-two-thirds-at-desktop-wide">
           {% set actionSuffix = "edit" if isEdit else "create" %}
 
-          <form action="{{ appPathPrefix }}/admin/users/{{ actionSuffix }}" method="post">
+          <form action="/admin/users/{{ actionSuffix }}" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
             {{ govukSummaryList({

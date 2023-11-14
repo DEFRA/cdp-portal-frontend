@@ -10,7 +10,7 @@
   }) }}
 
   {% call appPageBody() %}
-    <form action="{{ appPathPrefix }}/create-service" method="post" data-js="app-form-errors">
+    <form action="/create-service" method="post" data-js="app-form-errors">
       <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
       {% call govukFieldset({

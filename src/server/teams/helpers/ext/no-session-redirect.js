@@ -1,6 +1,5 @@
 import { isNull } from 'lodash'
 
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const noSessionRedirect = {
@@ -8,7 +7,7 @@ const noSessionRedirect = {
     const cdpTeam = request.yar.get(sessionNames.cdpTeam)
 
     if (isNull(cdpTeam)) {
-      return h.redirect(config.get('appPathPrefix') + '/teams').takeover()
+      return h.redirect('/teams').takeover()
     }
 
     return h.continue

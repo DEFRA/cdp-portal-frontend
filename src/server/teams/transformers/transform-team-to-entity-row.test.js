@@ -10,7 +10,7 @@ describe('#transformTeamToEntityRow', () => {
     expect(transformTeamToEntityRow(cdpTeamFixture.team)).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+        url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
         value: 'Platform'
       },
       {
@@ -38,7 +38,7 @@ describe('#transformTeamToEntityRow', () => {
     expect(transformTeamToEntityRow(cdpTeamWithoutGithubFixture.team)).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/teams/47c04343-4c0e-4326-9848-bef7c1e2eedd',
+        url: '/teams/47c04343-4c0e-4326-9848-bef7c1e2eedd',
         value: 'Admin'
       },
       {

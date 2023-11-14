@@ -1,7 +1,5 @@
-import { config } from '~/src/config'
 import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs'
 
-const appPathPrefix = config.get('appPathPrefix')
 const mockRequest = (path = '') => ({ path })
 
 describe('#deploymentTabs', () => {
@@ -10,69 +8,67 @@ describe('#deploymentTabs', () => {
       {
         isActive: false,
         label: 'Management',
-        url: '/cdp-portal-frontend/deployments/management'
+        url: '/deployments/management'
       },
       {
         isActive: false,
         label: 'Infra-dev',
-        url: '/cdp-portal-frontend/deployments/infra-dev'
+        url: '/deployments/infra-dev'
       },
       {
         isActive: false,
         label: 'Dev',
-        url: '/cdp-portal-frontend/deployments/dev'
+        url: '/deployments/dev'
       },
       {
         isActive: false,
         label: 'Test',
-        url: '/cdp-portal-frontend/deployments/test'
+        url: '/deployments/test'
       },
       {
         isActive: false,
         label: 'Perf-test',
-        url: '/cdp-portal-frontend/deployments/perf-test'
+        url: '/deployments/perf-test'
       },
       {
         isActive: false,
         label: 'Prod',
-        url: '/cdp-portal-frontend/deployments/prod'
+        url: '/deployments/prod'
       }
     ])
   })
 
   test('Should mark matching url as Active', () => {
-    expect(
-      deploymentTabs(mockRequest(`${appPathPrefix}/deployments/infra-dev`))
-    ).toEqual([
+    expect(deploymentTabs(mockRequest('/deployments/infra-dev'))).toEqual([
       {
         isActive: false,
         label: 'Management',
-        url: '/cdp-portal-frontend/deployments/management'
+        url: '/deployments/management'
       },
       {
         isActive: true,
         label: 'Infra-dev',
-        url: '/cdp-portal-frontend/deployments/infra-dev'
+        url: '/deployments/infra-dev'
       },
       {
         isActive: false,
         label: 'Dev',
-        url: '/cdp-portal-frontend/deployments/dev'
+        url: '/deployments/dev'
       },
       {
         isActive: false,
         label: 'Test',
-        url: '/cdp-portal-frontend/deployments/test'
+        url: '/deployments/test'
       },
       {
         isActive: false,
         label: 'Perf-test',
-        url: '/cdp-portal-frontend/deployments/perf-test'
+        url: '/deployments/perf-test'
       },
       {
         isActive: false,
         label: 'Prod',
-        url: '/cdp-portal-frontend/deployments/prod'
+        url: '/deployments/prod'
       }
     ])
   })

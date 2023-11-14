@@ -21,7 +21,7 @@
             }) }}
           {% endif %}
 
-          <form action="{{ appPathPrefix }}/deploy-service/options"
+          <form action="/deploy-service/options"
                 method="post"
                 data-js="app-form-errors{% if preExistingDetails %} app-protected-inputs{% endif %}">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>

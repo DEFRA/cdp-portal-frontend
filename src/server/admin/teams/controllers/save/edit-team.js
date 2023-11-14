@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { editTeam } from '~/src/server/admin/teams/helpers/edit-team'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/teams/helpers/form'
@@ -30,14 +29,12 @@ const editTeamController = {
         type: 'success'
       })
 
-      return h.redirect(
-        config.get('appPathPrefix') + '/admin/teams/' + cdpTeam.teamId
-      )
+      return h.redirect('/admin/teams/' + cdpTeam.teamId)
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-    return h.redirect(config.get('appPathPrefix') + '/admin/teams/summary')
+    return h.redirect('/admin/teams/summary')
   }
 }
 

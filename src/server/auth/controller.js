@@ -1,7 +1,6 @@
 import Boom from '@hapi/boom'
 import { v4 as uuidv4 } from 'uuid'
 
-import { config } from '~/src/config'
 import { createUserSession } from '~/src/server/common/helpers/auth/user-session'
 
 const authCallbackController = {
@@ -20,8 +19,7 @@ const authCallbackController = {
       request.cookieAuth.set({ sessionId })
     }
 
-    const redirect =
-      request.yar.flash('referrer')?.at(0) ?? config.get('appPathPrefix')
+    const redirect = request.yar.flash('referrer')?.at(0) ?? '/'
 
     return h.redirect(redirect)
   }

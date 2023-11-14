@@ -11,7 +11,7 @@ describe('#transformUtilityToEntityRow', () => {
     ).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/utilities/templates/cdp-node-frontend-template',
+        url: '/utilities/templates/cdp-node-frontend-template',
         value: 'cdp-node-frontend-template'
       },
       {
@@ -19,7 +19,7 @@ describe('#transformUtilityToEntityRow', () => {
         value: [
           {
             kind: 'link',
-            url: '/cdp-portal-frontend/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+            url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
             value: 'Platform'
           }
         ]

@@ -2,7 +2,6 @@ import {
   deploymentController,
   deploymentsListController
 } from '~/src/server/deployments/controllers'
-import { config } from '~/src/config'
 
 const deployments = {
   plugin: {
@@ -12,8 +11,7 @@ const deployments = {
         {
           method: 'GET',
           path: '/deployments',
-          handler: (request, h) =>
-            h.redirect(config.get('appPathPrefix') + '/deployments/dev')
+          handler: (request, h) => h.redirect('/deployments/dev')
         },
         {
           method: 'GET',

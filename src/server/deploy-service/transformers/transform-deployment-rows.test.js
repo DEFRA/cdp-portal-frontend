@@ -20,7 +20,7 @@ describe('#transformDeploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/deploy-service/details?redirectLocation=summary',
+              href: '/deploy-service/details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Image name'
             }
@@ -40,7 +40,7 @@ describe('#transformDeploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/deploy-service/details?redirectLocation=summary',
+              href: '/deploy-service/details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Image version'
             }
@@ -60,7 +60,7 @@ describe('#transformDeploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/deploy-service/details?redirectLocation=summary',
+              href: '/deploy-service/details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Environment'
             }
@@ -80,7 +80,7 @@ describe('#transformDeploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/deploy-service/options?redirectLocation=summary',
+              href: '/deploy-service/options?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Instance count'
             }
@@ -100,7 +100,7 @@ describe('#transformDeploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/deploy-service/options?redirectLocation=summary',
+              href: '/deploy-service/options?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'CPU size'
             }
@@ -120,7 +120,7 @@ describe('#transformDeploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/deploy-service/options?redirectLocation=summary',
+              href: '/deploy-service/options?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Memory allocation'
             }

@@ -10,7 +10,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/users/find-aad-user?redirectLocation=summary&aadQuery=RichardDJames@defradev.onmicrosoft.com',
+              href: '/admin/users/find-aad-user?redirectLocation=summary&aadQuery=RichardDJames@defradev.onmicrosoft.com',
               text: 'Change',
               visuallyHiddenText: 'AAD user email'
             }
@@ -39,7 +39,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/users/find-github-user?redirectLocation=summary&githubSearch=RichardDJames',
+              href: '/admin/users/find-github-user?redirectLocation=summary&githubSearch=RichardDJames',
               text: 'Change',
               visuallyHiddenText: 'Github user'
             }
@@ -59,7 +59,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/users/user-details?redirectLocation=summary',
+              href: '/admin/users/user-details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Defra AWS ID'
             }
@@ -77,7 +77,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/users/user-details?redirectLocation=summary',
+              href: '/admin/users/user-details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Defra VPN ID'
             }

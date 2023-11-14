@@ -43,7 +43,7 @@ const createServiceController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(config.get('appPathPrefix') + '/create-service')
+      return h.redirect('/create-service')
     }
 
     if (!validationResult.error) {
@@ -68,9 +68,7 @@ const createServiceController = {
           type: 'success'
         })
 
-        return h.redirect(
-          config.get('appPathPrefix') + `/services/${json.repositoryName}`
-        )
+        return h.redirect(`/services/${json.repositoryName}`)
       }
 
       request.yar.flash(sessionNames.validationFailure, {
@@ -78,7 +76,7 @@ const createServiceController = {
       })
       request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-      return h.redirect(config.get('appPathPrefix') + '/create-service')
+      return h.redirect('/create-service')
     }
   }
 }

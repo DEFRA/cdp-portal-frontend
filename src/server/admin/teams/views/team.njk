@@ -13,12 +13,12 @@
         govukButton({
           classes: "app-button app-button--secondary",
           text: "Add members",
-          href: appPathPrefix + "/admin/teams/" + team.teamId + "/add-member"
+          href: "/admin/teams/" + team.teamId + "/add-member"
         }),
         govukButton({
           classes: "app-button",
           text: "Edit team",
-          href: appPathPrefix + "/admin/teams/" + team.teamId + "/edit"
+          href: "/admin/teams/" + team.teamId + "/edit"
         })
       ]
     }) }}
