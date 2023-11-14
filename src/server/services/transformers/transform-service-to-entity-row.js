@@ -1,5 +1,3 @@
-import { startCase } from 'lodash'
-
 import { config } from '~/src/config'
 import { statusTagClassMap } from '~/src/server/services/transformers/status-tag-class-map'
 
@@ -20,12 +18,15 @@ function transformServiceToEntityRow(service) {
     {
       kind: 'link',
       value: service.serviceName,
-      url: `${config.get('appPathPrefix')}/services/${service.serviceName}`
+      url: config.get('appPathPrefix') + `/services/${service.serviceName}`
     },
     {
-      kind: 'link',
-      value: service.teams?.at(0) && startCase(service.teams.at(0)),
-      url: `${config.get('appPathPrefix')}/teams/${service.teams?.at(0)}`
+      kind: 'list',
+      value: service?.teams?.map((team) => ({
+        kind: 'link',
+        value: team.name,
+        url: config.get('appPathPrefix') + `/teams/${team.teamId}`
+      }))
     },
     {
       kind: 'text',

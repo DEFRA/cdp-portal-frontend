@@ -7,7 +7,7 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { defaultOption } from '~/src/server/common/helpers/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
-import { userHasTeamScope } from '~/src/server/common/helpers/auth/user-has-team-scope'
+import { userHasTeamScope } from '~/src/server/common/helpers/user/user-has-team-scope'
 
 const logger = createLogger()
 const appBaseUrl = config.get('appBaseUrl')
@@ -34,6 +34,7 @@ async function context(request) {
   return {
     isAuthenticated: authedUser?.isAuthenticated ?? false,
     isAdmin: authedUser?.isAdmin ?? false,
+    isInServiceTeam: authedUser?.isInServiceTeam ?? false,
     authedUser,
     userHasTeamScope: userHasTeamScope(authedUser),
     appBaseUrl,

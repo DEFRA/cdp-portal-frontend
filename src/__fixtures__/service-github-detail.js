@@ -14,7 +14,13 @@ const serviceGithubDetailFixture = {
     isTemplate: false,
     isPrivate: true,
     createdAt: '2023-04-12T17:16:48+00:00',
-    teams: ['cdp-platform']
+    teams: [
+      {
+        teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+        name: 'Platform',
+        github: 'cdp-platform'
+      }
+    ]
   }
 }
 

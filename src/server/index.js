@@ -17,7 +17,7 @@ import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session'
 import { requestLogger } from '~/src/server/common/helpers/logging/request-logger'
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
-import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/auth/user-has-team-scope'
+import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/user/user-has-team-scope'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 
 const client = buildRedisClient()

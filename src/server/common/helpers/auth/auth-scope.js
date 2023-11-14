@@ -1,5 +1,5 @@
 /**
- * Used to scope an array of routes
+ * Used to add auth access entity to an array of routes
  *
  * @param scope
  * @returns {function(*): *&{options: {auth: {mode: string, access: {scope: *}}}}}

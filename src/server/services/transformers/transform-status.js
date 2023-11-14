@@ -1,8 +1,9 @@
+import { startCase } from 'lodash'
+
 import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
 import { statusTagClassMap } from '~/src/server/services/transformers/status-tag-class-map'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
-import { startCase } from 'lodash'
 
 const githubOrg = config.get('githubOrg')
 

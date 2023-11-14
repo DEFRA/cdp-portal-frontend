@@ -2,7 +2,7 @@ import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
 import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
 import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch-create-service-status'
 import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
-import { decorateServiceWithGithubDetail } from '~/src/server/services/transformers/decorate-service-with-github-detail'
+import { decorateService } from '~/src/server/services/transformers/decorate-service'
 
 /**
  * This prerequisite provides a value to `pre.service` which is one of:
@@ -36,7 +36,7 @@ const provideService = {
       repositoryResponse = await fetchRepository(serviceId)
       const deployableService = await fetchDeployableService(serviceId)
 
-      return decorateServiceWithGithubDetail(
+      return decorateService(
         { isDeployable: true, ...deployableService },
         repositoryResponse.repository
       )
@@ -46,10 +46,7 @@ const provideService = {
         const statusService = transformServiceStatusToService(status)
 
         if (repositoryResponse?.repository) {
-          return decorateServiceWithGithubDetail(
-            statusService,
-            repositoryResponse?.repository
-          )
+          return decorateService(statusService, repositoryResponse?.repository)
         }
 
         return statusService

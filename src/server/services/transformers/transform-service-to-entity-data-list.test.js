@@ -3,7 +3,7 @@ import { transformServiceToEntityDataList } from '~/src/server/services/transfor
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
 import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
-import { decorateServiceWithGithubDetail } from '~/src/server/services/transformers/decorate-service-with-github-detail'
+import { decorateService } from '~/src/server/services/transformers/decorate-service'
 import { serviceGithubDetailFixture } from '~/src/__fixtures__/service-github-detail'
 
 const githubOrg = config.get('githubOrg')
@@ -14,9 +14,14 @@ describe('#transformServiceToEntityDataList', () => {
       expect(transformServiceToEntityDataList(serviceDetailFixture)).toEqual([
         {
           entity: {
-            kind: 'link',
-            url: '/cdp-portal-frontend/teams/fisheries',
-            value: 'fisheries'
+            kind: 'list',
+            value: [
+              {
+                kind: 'link',
+                url: '/cdp-portal-frontend/teams/087d4a80-002b-48cf-a7d3-aa60b67784f0',
+                value: 'Fish-and-octopus'
+              }
+            ]
           },
           heading: 'Team'
         },
@@ -56,7 +61,7 @@ describe('#transformServiceToEntityDataList', () => {
 
   describe('With a create service status', () => {
     test('Should provide expected service data list entities transformation', () => {
-      const service = decorateServiceWithGithubDetail(
+      const service = decorateService(
         transformServiceStatusToService(createServiceStatusFixture.status),
         serviceGithubDetailFixture.repository
       )
@@ -64,9 +69,14 @@ describe('#transformServiceToEntityDataList', () => {
       expect(transformServiceToEntityDataList(service)).toEqual([
         {
           entity: {
-            kind: 'link',
-            url: '/cdp-portal-frontend/teams/cdp-platform',
-            value: 'cdp-platform'
+            kind: 'list',
+            value: [
+              {
+                kind: 'link',
+                url: '/cdp-portal-frontend/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+                value: 'Platform'
+              }
+            ]
           },
           heading: 'Team'
         },
