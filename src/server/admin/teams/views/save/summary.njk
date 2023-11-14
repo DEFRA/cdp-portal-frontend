@@ -19,7 +19,7 @@
 
           {% set actionSuffix = "edit" if isEdit else "create" %}
 
-          <form action="{{ appPathPrefix }}/admin/teams/{{ actionSuffix }}" method="post">
+          <form action="/admin/teams/{{ actionSuffix }}" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
             {{ govukSummaryList({

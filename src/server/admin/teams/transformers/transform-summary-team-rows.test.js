@@ -13,7 +13,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/teams/team-details?redirectLocation=summary',
+              href: '/admin/teams/team-details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Name'
             }
@@ -33,7 +33,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/teams/team-details?redirectLocation=summary',
+              href: '/admin/teams/team-details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Description'
             }
@@ -53,7 +53,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/cdp-portal-frontend/admin/teams/find-github-team?redirectLocation=summary&githubSearch=forestry-management',
+              href: '/admin/teams/find-github-team?redirectLocation=summary&githubSearch=forestry-management',
               text: 'Change',
               visuallyHiddenText: 'Github team'
             }

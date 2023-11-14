@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformRepositoryToEntityDataList(repository) {
@@ -10,7 +9,7 @@ function transformRepositoryToEntityDataList(repository) {
         value: repository?.teams?.map((team) => ({
           kind: 'link',
           value: team.name,
-          url: config.get('appPathPrefix') + `/teams/${team.teamId}`
+          url: `/teams/${team.teamId}`
         }))
       }
     },

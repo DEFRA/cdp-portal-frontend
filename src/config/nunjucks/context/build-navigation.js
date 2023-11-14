@@ -1,7 +1,3 @@
-import { config } from '~/src/config'
-
-const appPathPrefix = config.get('appPathPrefix')
-
 async function buildNavigation(request) {
   const authedUser = await request.getUserSession()
 
@@ -9,52 +5,52 @@ async function buildNavigation(request) {
     primary: [
       {
         text: 'Home',
-        url: appPathPrefix,
-        isActive: request?.path === appPathPrefix
+        url: '/',
+        isActive: request?.path === '/'
       },
       {
         text: 'Services',
-        url: `${appPathPrefix}/services`,
-        isActive: request?.path?.includes(`${appPathPrefix}/services`)
+        url: '/services',
+        isActive: request?.path?.includes('/services')
       },
       {
         text: 'Utilities',
-        url: `${appPathPrefix}/utilities/templates`,
-        isActive: request?.path?.includes(`${appPathPrefix}/utilities`)
+        url: '/utilities/templates',
+        isActive: request?.path?.includes('/utilities')
       },
       {
         text: 'Teams',
-        url: `${appPathPrefix}/teams`,
-        isActive: request?.path?.includes(`${appPathPrefix}/teams`)
+        url: '/teams',
+        isActive: request?.path?.includes('/teams')
       },
       {
         text: 'Deployments',
-        url: `${appPathPrefix}/deployments`,
-        isActive: request?.path?.includes(`${appPathPrefix}/deployments`)
+        url: '/deployments',
+        isActive: request?.path?.includes('/deployments')
       },
       {
         text: 'Running Services',
-        url: `${appPathPrefix}/running-services`,
-        isActive: request?.path?.includes(`${appPathPrefix}/running-services`)
+        url: '/running-services',
+        isActive: request?.path?.includes('/running-services')
       }
     ],
     actions: authedUser?.isServiceTeamUser && [
       {
         text: 'Deploy Service',
-        url: `${appPathPrefix}/deploy-service`,
-        isActive: request?.path?.includes(`${appPathPrefix}/deploy-service`)
+        url: '/deploy-service',
+        isActive: request?.path?.includes('/deploy-service')
       },
       {
         text: 'Create Service',
-        url: `${appPathPrefix}/create-service`,
-        isActive: request?.path?.includes(`${appPathPrefix}/create-service`)
+        url: '/create-service',
+        isActive: request?.path?.includes('/create-service')
       }
     ],
     admin: authedUser?.isAdmin && [
       {
         text: 'Admin',
-        url: `${appPathPrefix}/admin`,
-        isActive: request?.path?.includes(`${appPathPrefix}/admin`)
+        url: '/admin',
+        isActive: request?.path?.includes('/admin')
       }
     ]
   }

@@ -37,14 +37,12 @@ const editUserController = {
         type: 'success'
       })
 
-      return h.redirect(
-        config.get('appPathPrefix') + '/admin/users/' + cdpUser.userId
-      )
+      return h.redirect('/admin/users/' + cdpUser.userId)
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-    return h.redirect(config.get('appPathPrefix') + '/admin/users/summary')
+    return h.redirect('/admin/users/summary')
   }
 }
 

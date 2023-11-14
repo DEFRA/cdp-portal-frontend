@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-//  Response from selfServiceOpsApi/create-service/status/cdp-portal-frontend
+//  Response from selfServiceOpsApi/create-service/status
 const createServiceStatusFixture = {
   message: 'success',
   status: {
@@ -19,7 +19,7 @@ const createServiceStatusFixture = {
     zone: 'protected',
     createRepository: {
       status: 'success',
-      url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      url: `https://github.com/${githubOrg}`,
       result: {} // TODO add in v2 result when available
     },
     'cdp-tf-svc-infra': {

@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import {
   saveToCdpUser,
@@ -49,9 +48,7 @@ const userDetailsController = {
         }
       )
 
-      return h.redirect(
-        config.get('appPathPrefix') + `/admin/users/user-details${queryString}`
-      )
+      return h.redirect(`/admin/users/user-details${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -65,7 +62,7 @@ const userDetailsController = {
 
       await setStepComplete(request, h, 'stepThree')
 
-      return h.redirect(config.get('appPathPrefix') + '/admin/users/summary')
+      return h.redirect('/admin/users/summary')
     }
   }
 }

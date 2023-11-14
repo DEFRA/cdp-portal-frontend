@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformServiceToEntityDataList(service) {
@@ -10,7 +9,7 @@ function transformServiceToEntityDataList(service) {
         value: service?.teams?.map((team) => ({
           kind: 'link',
           value: team.name,
-          url: config.get('appPathPrefix') + `/teams/${team.teamId}`
+          url: `/teams/${team.teamId}`
         }))
       }
     },

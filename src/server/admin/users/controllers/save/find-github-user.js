@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { githubUserNameValidation } from '~/src/server/admin/users/helpers/schema/github-user-name-validation'
 import {
@@ -48,10 +47,7 @@ const findGithubUserController = {
         }
       )
 
-      return h.redirect(
-        config.get('appPathPrefix') +
-          `/admin/users/find-github-user${queryString}`
-      )
+      return h.redirect(`/admin/users/find-github-user${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -65,7 +61,7 @@ const findGithubUserController = {
         ? `/admin/users/${redirectLocation}`
         : '/admin/users/user-details'
 
-      return h.redirect(config.get('appPathPrefix') + redirectTo)
+      return h.redirect(redirectTo)
     }
   }
 }

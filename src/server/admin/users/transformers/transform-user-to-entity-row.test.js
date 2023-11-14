@@ -9,7 +9,7 @@ describe('#transformUserToEntityRow', () => {
     expect(transformUserToEntityRow(cdpUserFixture.user)).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/admin/users/1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+        url: '/admin/users/1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
         value: 'Richard D James'
       },
       {

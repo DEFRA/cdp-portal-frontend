@@ -5,7 +5,7 @@ const githubOrg = config.get('githubOrg')
 const servicesFixture = [
   {
     serviceName: 'cdp-portal-frontend',
-    githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+    githubUrl: `https://github.com/${githubOrg}`,
     imageName: 'cdp-portal-frontend',
     description:
       'The Core Delivery Platform Portal. Gain insight on microservices, deployments, running services and teams across the platform. While being able to create and control when and where you deploy microservices. Everything you need and want to know about the Platform can be found here on the Portal.',

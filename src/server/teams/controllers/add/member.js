@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
@@ -53,10 +52,7 @@ const addMemberController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(
-        config.get('appPathPrefix') +
-          `/teams/${teamId}/add-member${queryString}`
-      )
+      return h.redirect(`/teams/${teamId}/add-member${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -80,7 +76,7 @@ const addMemberController = {
           type: 'success'
         })
 
-        return h.redirect(config.get('appPathPrefix') + `/teams/${teamId}`)
+        return h.redirect(`/teams/${teamId}`)
       }
 
       if (fulfilledResponse.length) {
@@ -101,7 +97,7 @@ const addMemberController = {
         )
       )
 
-      return h.redirect(config.get('appPathPrefix') + '/teams')
+      return h.redirect('/teams')
     }
   }
 }

@@ -64,9 +64,9 @@
 
   {{ appHeader({
     serviceName: serviceName,
-    serviceUrl: appPathPrefix,
+    serviceUrl: "/",
     loginText: "Sign out" if isAuthenticated else "Sign in",
-    loginUrl:  appPathPrefix + ("/logout" if isAuthenticated else "/login")
+    loginUrl: ("/logout" if isAuthenticated else "/login")
   }) }}
   {% include "partials/navigation/navigation.njk" %}
 {% endblock %}

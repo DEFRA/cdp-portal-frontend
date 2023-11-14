@@ -1,9 +1,7 @@
-import { config } from '~/src/config'
-
 const teamUrls = {
-  stepOne: config.get('appPathPrefix') + '/admin/teams/team-details',
-  stepTwo: config.get('appPathPrefix') + '/admin/teams/find-github-team',
-  stepThree: config.get('appPathPrefix') + '/admin/teams/summary'
+  stepOne: '/admin/teams/team-details',
+  stepTwo: '/admin/teams/find-github-team',
+  stepThree: '/admin/teams/summary'
 }
 
 const teamSteps = (requestPath, urls, isComplete) => [

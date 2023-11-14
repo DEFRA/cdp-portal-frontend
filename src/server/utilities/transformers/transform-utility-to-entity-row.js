@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformUtilityToEntityRow(utilityType) {
@@ -6,16 +5,14 @@ function transformUtilityToEntityRow(utilityType) {
     {
       kind: 'link',
       value: utility.id,
-      url: `${config.get('appPathPrefix')}/utilities/${utilityType}/${
-        utility.id
-      }`
+      url: `/utilities/${utilityType}/${utility.id}`
     },
     {
       kind: 'list',
       value: utility?.teams?.map((team) => ({
         kind: 'link',
         value: team.name,
-        url: config.get('appPathPrefix') + `/teams/${team.teamId}`
+        url: `/teams/${team.teamId}`
       }))
     },
     {

@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   saveToCdpTeam,
@@ -43,9 +42,7 @@ const teamDetailsController = {
         }
       )
 
-      return h.redirect(
-        config.get('appPathPrefix') + `/admin/teams/team-details${queryString}`
-      )
+      return h.redirect(`/admin/teams/team-details${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -66,7 +63,7 @@ const teamDetailsController = {
         ? `/admin/teams/${redirectLocation}`
         : `/admin/teams/find-github-team${queryString}`
 
-      return h.redirect(config.get('appPathPrefix') + redirectTo)
+      return h.redirect(redirectTo)
     }
   }
 }

@@ -11,7 +11,6 @@ import { userHasTeamScope } from '~/src/server/common/helpers/user/user-has-team
 
 const logger = createLogger()
 const appBaseUrl = config.get('appBaseUrl')
-const appPathPrefix = config.get('appPathPrefix')
 const assetPath = config.get('assetPath')
 
 const manifestPath = path.resolve(
@@ -38,7 +37,6 @@ async function context(request) {
     authedUser,
     userHasTeamScope: userHasTeamScope(authedUser),
     appBaseUrl,
-    appPathPrefix,
     assetPath,
     supportChannel: config.get('supportChannel'),
     userAgent: useragent.lookup(userAgentHeader),

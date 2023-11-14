@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { aadIdValidation } from '~/src/server/admin/users/helpers/schema/aad-id-validation'
 import {
@@ -50,9 +49,7 @@ const findAadUserController = {
         { addQueryPrefix: true }
       )
 
-      return h.redirect(
-        config.get('appPathPrefix') + `/admin/users/find-aad-user${queryString}`
-      )
+      return h.redirect(`/admin/users/find-aad-user${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -83,7 +80,7 @@ const findAadUserController = {
         ? `/admin/users/${redirectLocation}`
         : `/admin/users/find-github-user${queryString}`
 
-      return h.redirect(config.get('appPathPrefix') + redirectTo)
+      return h.redirect(redirectTo)
     }
   }
 }

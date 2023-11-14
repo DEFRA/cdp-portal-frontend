@@ -1,9 +1,6 @@
-import { config } from '~/src/config'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchTemplates } from '~/src/server/utilities/helpers/fetch-templates'
 import { transformUtilityToEntityRow } from '~/src/server/utilities/transformers/transform-utility-to-entity-row'
-
-const appPathPrefix = config.get('appPathPrefix')
 
 const templatesListController = {
   handler: async (request, h) => {
@@ -19,14 +16,12 @@ const templatesListController = {
       entityRows,
       subNavigation: [
         {
-          isActive:
-            request?.path === `${appPathPrefix}/utilities/templates` ?? false,
+          isActive: request?.path === '/utilities/templates' ?? false,
           url: '/utilities/templates',
           label: 'Templates'
         },
         {
-          isActive:
-            request?.path === `${appPathPrefix}/utilities/libraries` ?? false,
+          isActive: request?.path === '/utilities/libraries' ?? false,
           url: '/utilities/libraries',
           label: 'Libraries'
         }

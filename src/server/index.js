@@ -82,9 +82,7 @@ async function createServer() {
 
   await server.register(requestLogger)
   await server.register(nunjucksConfig)
-  await server.register(router, {
-    routes: { prefix: config.get('appPathPrefix') }
-  })
+  await server.register(router)
 
   server.ext('onPreResponse', catchAll)
 

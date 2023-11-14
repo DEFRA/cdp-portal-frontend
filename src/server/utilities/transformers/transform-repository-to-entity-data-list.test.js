@@ -15,7 +15,7 @@ describe('#transformServiceToEntityDataList', () => {
           value: [
             {
               kind: 'link',
-              url: '/cdp-portal-frontend/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+              url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
               value: 'Platform'
             }
           ]
@@ -33,8 +33,8 @@ describe('#transformServiceToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
-          value: `${githubOrg}/cdp-portal-frontend`
+          url: `https://github.com/${githubOrg}`,
+          value: `${githubOrg}`
         },
         heading: 'Github Repository'
       },

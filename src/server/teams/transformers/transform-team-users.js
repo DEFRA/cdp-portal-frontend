@@ -1,11 +1,6 @@
-import { config } from '~/src/config'
-
 function transformTeamUsers(team, hasTeamScope) {
-  const appPathPrefix = config.get('appPathPrefix')
-
   return team.users?.map((user) => {
-    const formAction =
-      appPathPrefix + `/teams/${team.teamId}/remove-member/${user.userId}`
+    const formAction = `/teams/${team.teamId}/remove-member/${user.userId}`
 
     return {
       ...user,

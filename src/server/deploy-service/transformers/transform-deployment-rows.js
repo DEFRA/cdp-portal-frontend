@@ -1,7 +1,5 @@
 import { startCase } from 'lodash'
 
-import { config } from '~/src/config'
-
 function buildRow(text, value, stepPath) {
   return {
     key: { text, classes: 'app-summary__heading' },
@@ -10,9 +8,7 @@ function buildRow(text, value, stepPath) {
       classes: 'app-summary__action',
       items: [
         {
-          href:
-            config.get('appPathPrefix') +
-            `/deploy-service/${stepPath}?redirectLocation=summary`,
+          href: `/deploy-service/${stepPath}?redirectLocation=summary`,
           text: 'Change',
           classes: 'app-link',
           visuallyHiddenText: text

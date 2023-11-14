@@ -18,14 +18,14 @@ function transformServiceToEntityRow(service) {
     {
       kind: 'link',
       value: service.serviceName,
-      url: config.get('appPathPrefix') + `/services/${service.serviceName}`
+      url: `/services/${service.serviceName}`
     },
     {
       kind: 'list',
       value: service?.teams?.map((team) => ({
         kind: 'link',
         value: team.name,
-        url: config.get('appPathPrefix') + `/teams/${team.teamId}`
+        url: `/teams/${team.teamId}`
       }))
     },
     {

@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
 
 function transformDeploymentsToEntityRow(deployedService) {
@@ -6,9 +5,7 @@ function transformDeploymentsToEntityRow(deployedService) {
     {
       kind: 'link',
       value: deployedService.service,
-      url: `${config.get(
-        'appPathPrefix'
-      )}/deployments/${deployedService.environment.toLowerCase()}/${
+      url: `/deployments/${deployedService.environment.toLowerCase()}/${
         deployedService.deploymentId
       }`
     },

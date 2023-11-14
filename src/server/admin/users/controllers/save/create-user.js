@@ -39,12 +39,12 @@ const createUserController = {
         type: 'success'
       })
 
-      return h.redirect(config.get('appPathPrefix') + '/admin/users')
+      return h.redirect('/admin/users')
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-    return h.redirect(config.get('appPathPrefix') + '/admin/users/summary')
+    return h.redirect('/admin/users/summary')
   }
 }
 

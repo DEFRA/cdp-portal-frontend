@@ -18,7 +18,7 @@ describe('#transformServiceToEntityDataList', () => {
             value: [
               {
                 kind: 'link',
-                url: '/cdp-portal-frontend/teams/087d4a80-002b-48cf-a7d3-aa60b67784f0',
+                url: '/teams/087d4a80-002b-48cf-a7d3-aa60b67784f0',
                 value: 'Fish-and-octopus'
               }
             ]
@@ -73,7 +73,7 @@ describe('#transformServiceToEntityDataList', () => {
             value: [
               {
                 kind: 'link',
-                url: '/cdp-portal-frontend/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+                url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
                 value: 'Platform'
               }
             ]
@@ -91,8 +91,8 @@ describe('#transformServiceToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
-            value: `${githubOrg}/cdp-portal-frontend`
+            url: `https://github.com/${githubOrg}`,
+            value: `${githubOrg}`
           },
           heading: 'Github Repository'
         },

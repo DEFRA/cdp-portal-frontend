@@ -101,8 +101,8 @@ describe('#transformStatus', () => {
           text: 'Success'
         },
         url: {
-          href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
-          text: `${githubOrg}/cdp-portal-frontend`
+          href: `https://github.com/${githubOrg}`,
+          text: `${githubOrg}`
         }
       },
       hasJobFailures: false,

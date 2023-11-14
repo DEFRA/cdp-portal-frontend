@@ -30,7 +30,7 @@ describe('#provideService', () => {
     expect(await provideService.method(mockRequest)).toEqual({
       createdAt: '2023-04-12T17:16:48+00:00',
       description: 'The Core Delivery Platform Portal.',
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: `https://github.com/${githubOrg}`,
       id: 'cdp-portal-frontend',
       imageName: 'cdp-portal-frontend',
       isArchived: false,
@@ -57,7 +57,7 @@ describe('#provideService', () => {
     expect(await provideService.method(mockRequest)).toEqual({
       createdAt: '2023-04-12T17:16:48+00:00',
       description: 'The Core Delivery Platform Portal.',
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: `https://github.com/${githubOrg}`,
       id: 'cdp-portal-frontend',
       isArchived: false,
       isCreateStatus: true,
@@ -81,7 +81,7 @@ describe('#provideService', () => {
     fetchCreateServiceStatus.mockResolvedValue(createServiceStatusFixture)
 
     expect(await provideService.method(mockRequest)).toEqual({
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: `https://github.com/${githubOrg}`,
       id: 'cdp-portal-frontend',
       isCreateStatus: true,
       serviceName: 'cdp-portal-frontend',

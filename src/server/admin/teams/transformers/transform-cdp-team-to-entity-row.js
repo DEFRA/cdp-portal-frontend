@@ -7,7 +7,7 @@ function transformCdpTeamToEntityRow(team) {
     {
       kind: 'link',
       value: team.name,
-      url: `${config.get('appPathPrefix')}/admin/teams/${team.teamId}`
+      url: `/admin/teams/${team.teamId}`
     },
     {
       kind: 'text',

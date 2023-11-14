@@ -1,7 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
 
@@ -24,7 +23,7 @@ const startEditTeamController = {
     request.yar.clear(sessionNames.validationFailure)
     await request.yar.commit(h)
 
-    return h.redirect(config.get('appPathPrefix') + '/admin/teams/team-details')
+    return h.redirect('/admin/teams/team-details')
   }
 }
 

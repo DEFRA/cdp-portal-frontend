@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/form'
 
@@ -10,9 +9,7 @@ const startCreateUserController = {
 
     await saveToCdpUser(request, h, {})
 
-    return h.redirect(
-      `${config.get('appPathPrefix')}/admin/users/find-aad-user`
-    )
+    return h.redirect('/admin/users/find-aad-user')
   }
 }
 

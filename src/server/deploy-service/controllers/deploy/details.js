@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { config, environments } from '~/src/config'
+import { environments } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { serviceValidation } from '~/src/server/deploy-service/helpers/schema/service-validation'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
@@ -47,9 +47,7 @@ const detailsController = {
         ? qs.stringify({ redirectLocation }, { addQueryPrefix: true })
         : ''
 
-      return h.redirect(
-        config.get('appPathPrefix') + `/deploy-service/details${queryString}`
-      )
+      return h.redirect(`/deploy-service/details${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -60,7 +58,7 @@ const detailsController = {
         ? `/deploy-service/${redirectLocation}`
         : '/deploy-service/options'
 
-      return h.redirect(config.get('appPathPrefix') + redirectTo)
+      return h.redirect(redirectTo)
     }
   }
 }
