@@ -4,8 +4,8 @@ import bell from '@hapi/bell'
 import { config } from '~/src/config'
 
 const azureTenantId = config.get('azureTenantId')
-const oAuthTokenUrl = `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/token`
-const oAuthAuthorizeUrl = `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/authorize`
+const oAuthTokenUrl = config.get('oAuthTokenUrl')
+const oAuthAuthorizeUrl = config.get('oAuthAuthorizeUrl')
 const authCallbackUrl =
   config.get('appBaseUrl') + config.get('appPathPrefix') + '/auth/callback'
 
