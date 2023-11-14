@@ -39,7 +39,13 @@ describe('#provideService', () => {
       isTemplate: false,
       primaryLanguage: 'JavaScript',
       serviceName: 'cdp-portal-frontend',
-      teams: ['cdp-platform']
+      teams: [
+        {
+          github: 'cdp-platform',
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 
@@ -60,7 +66,13 @@ describe('#provideService', () => {
       primaryLanguage: 'JavaScript',
       serviceName: 'cdp-portal-frontend',
       serviceStatus: createServiceStatusFixture.status,
-      teams: ['cdp-platform']
+      teams: [
+        {
+          github: 'cdp-platform',
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 
@@ -74,7 +86,12 @@ describe('#provideService', () => {
       isCreateStatus: true,
       serviceName: 'cdp-portal-frontend',
       serviceStatus: createServiceStatusFixture.status,
-      teams: ['cdp-platform']
+      teams: [
+        {
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 

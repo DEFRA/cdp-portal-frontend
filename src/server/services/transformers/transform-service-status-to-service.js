@@ -3,7 +3,10 @@
  */
 function transformServiceStatusToService(serviceStatus) {
   const serviceName = serviceStatus?.repositoryName
-  const team = serviceStatus?.owningTeam
+  const team = {
+    teamId: serviceStatus.team.teamId,
+    name: serviceStatus.team.name
+  }
 
   return {
     isCreateStatus: true,

@@ -12,8 +12,10 @@ const createServiceStatusFixture = {
     status: 'in-progress',
     started: '2023-10-27T12:37:46.915Z',
     serviceType: 'cdp-node-backend-template',
-    teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474', // TODO confirm wih Argy the shape of the data for team
-    teamName: 'Platform',
+    team: {
+      teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+      name: 'Platform'
+    },
     zone: 'protected',
     createRepository: {
       status: 'success',

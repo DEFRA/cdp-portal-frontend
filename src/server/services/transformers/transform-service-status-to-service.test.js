@@ -14,7 +14,12 @@ describe('#transformServiceStatusToService', () => {
       isCreateStatus: true,
       serviceName: 'cdp-portal-frontend',
       serviceStatus: createServiceStatusFixture?.status,
-      teams: ['cdp-platform']
+      teams: [
+        {
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 })

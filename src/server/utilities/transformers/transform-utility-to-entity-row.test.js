@@ -15,9 +15,14 @@ describe('#transformUtilityToEntityRow', () => {
         value: 'cdp-node-frontend-template'
       },
       {
-        kind: 'link',
-        url: '/cdp-portal-frontend/teams/cdp-platform',
-        value: 'Cdp Platform'
+        kind: 'list',
+        value: [
+          {
+            kind: 'link',
+            url: '/cdp-portal-frontend/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+            value: 'Platform'
+          }
+        ]
       },
       {
         kind: 'text',

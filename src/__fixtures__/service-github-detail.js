@@ -17,7 +17,7 @@ const serviceGithubDetailFixture = {
     teams: [
       {
         teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
-        teamName: 'Platform',
+        name: 'Platform',
         github: 'cdp-platform'
       }
     ]

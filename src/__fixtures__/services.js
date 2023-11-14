@@ -17,7 +17,13 @@ const servicesFixture = [
     teamName: 'Platform',
     teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
     id: 'cdp-portal-frontend',
-    teams: ['forestry-management']
+    teams: [
+      {
+        github: 'cdp-platform',
+        teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+        name: 'Platform'
+      }
+    ]
   },
   {
     serviceName: 'cdp-self-service-ops',
@@ -33,7 +39,18 @@ const servicesFixture = [
     teamName: 'Platform',
     teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
     id: 'cdp-self-service-ops',
-    teams: ['cdp-platform', 'fisheries']
+    teams: [
+      {
+        github: 'cdp-platform',
+        teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+        name: 'Platform'
+      },
+      {
+        github: 'fisheries',
+        teamId: '087d4a80-002b-48cf-a7d3-aa60b67784f0',
+        name: 'Fish-and-octopus'
+      }
+    ]
   }
 ]
 
