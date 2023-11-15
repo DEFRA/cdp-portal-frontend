@@ -6,8 +6,7 @@ import { config } from '~/src/config'
 const azureTenantId = config.get('azureTenantId')
 const oAuthTokenUrl = config.get('oAuthTokenUrl')
 const oAuthAuthorizeUrl = config.get('oAuthAuthorizeUrl')
-const authCallbackUrl =
-  config.get('appBaseUrl') + config.get('appPathPrefix') + '/auth/callback'
+const authCallbackUrl = config.get('appBaseUrl') + '/auth/callback'
 
 const azureOidc = {
   plugin: {
