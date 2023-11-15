@@ -7,8 +7,7 @@ const whatsRunningWhereFixture = [
     user: 'B. A. Baracus',
     deployedAt: '2023-05-18T21:53:57Z',
     status: 'RUNNING',
-    dockerImage:
-      '222222222.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0'
+    dockerImage: '222222222.dkr.ecr.us-west-2.amazonaws.com:0.2.0'
   },
   {
     deploymentId: 'F1074CF6-8C80-49CE-B68E-6E3FEA4A5EA1',
@@ -18,8 +17,7 @@ const whatsRunningWhereFixture = [
     user: 'RoboCop',
     deployedAt: '2023-05-18T21:53:57Z',
     status: 'RUNNING',
-    dockerImage:
-      '444444444.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0'
+    dockerImage: '444444444.dkr.ecr.us-west-2.amazonaws.com:0.2.0'
   },
   {
     deploymentId: '83ADB1F0-D7B5-412D-82DB-3BDA149EDC01',
@@ -29,8 +27,7 @@ const whatsRunningWhereFixture = [
     user: 'Mumm-ra',
     deployedAt: '2023-05-18T21:53:57Z',
     status: 'RUNNING',
-    dockerImage:
-      '111111111.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0'
+    dockerImage: '111111111.dkr.ecr.us-west-2.amazonaws.com:0.2.0'
   },
   {
     deploymentId: '553E4E6B-05D7-4A2E-BF80-02ED34DEF864',
@@ -51,8 +48,7 @@ const whatsRunningWhereFixture = [
     user: 'Mark',
     deployedAt: '2023-05-18T21:53:57Z',
     status: 'RUNNING',
-    dockerImage:
-      '333333333.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0'
+    dockerImage: '333333333.dkr.ecr.us-west-2.amazonaws.com:0.2.0'
   },
   {
     deploymentId: 'D921920A-0411-4727-9354-4D1B3B3925FD',

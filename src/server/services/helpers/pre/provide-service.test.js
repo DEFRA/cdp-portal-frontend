@@ -30,7 +30,7 @@ describe('#provideService', () => {
     expect(await provideService.method(mockRequest)).toEqual({
       createdAt: '2023-04-12T17:16:48+00:00',
       description: 'The Core Delivery Platform Portal.',
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: `https://github.com/${githubOrg}`,
       id: 'cdp-portal-frontend',
       imageName: 'cdp-portal-frontend',
       isArchived: false,
@@ -39,7 +39,13 @@ describe('#provideService', () => {
       isTemplate: false,
       primaryLanguage: 'JavaScript',
       serviceName: 'cdp-portal-frontend',
-      teams: ['cdp-platform']
+      teams: [
+        {
+          github: 'cdp-platform',
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 
@@ -51,7 +57,7 @@ describe('#provideService', () => {
     expect(await provideService.method(mockRequest)).toEqual({
       createdAt: '2023-04-12T17:16:48+00:00',
       description: 'The Core Delivery Platform Portal.',
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: `https://github.com/${githubOrg}`,
       id: 'cdp-portal-frontend',
       isArchived: false,
       isCreateStatus: true,
@@ -60,7 +66,13 @@ describe('#provideService', () => {
       primaryLanguage: 'JavaScript',
       serviceName: 'cdp-portal-frontend',
       serviceStatus: createServiceStatusFixture.status,
-      teams: ['cdp-platform']
+      teams: [
+        {
+          github: 'cdp-platform',
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 
@@ -69,12 +81,17 @@ describe('#provideService', () => {
     fetchCreateServiceStatus.mockResolvedValue(createServiceStatusFixture)
 
     expect(await provideService.method(mockRequest)).toEqual({
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: `https://github.com/${githubOrg}`,
       id: 'cdp-portal-frontend',
       isCreateStatus: true,
       serviceName: 'cdp-portal-frontend',
       serviceStatus: createServiceStatusFixture.status,
-      teams: ['cdp-platform']
+      teams: [
+        {
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 

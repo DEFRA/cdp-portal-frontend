@@ -8,10 +8,7 @@ function buildRow(name, value, stepPath, query, queryValue = value) {
   const queryString =
     value !== noValue && query ? `&${query}=${queryValue}` : ''
 
-  const href =
-    config.get('appPathPrefix') +
-    `/admin/teams/${stepPath}?redirectLocation=summary` +
-    queryString
+  const href = `/admin/teams/${stepPath}?redirectLocation=summary` + queryString
 
   return {
     key: { text: name, classes: 'app-summary__heading' },

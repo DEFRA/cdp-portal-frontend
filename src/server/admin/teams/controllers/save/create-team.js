@@ -36,12 +36,12 @@ const createTeamController = {
         type: 'success'
       })
 
-      return h.redirect(config.get('appPathPrefix') + '/admin/teams')
+      return h.redirect('/admin/teams')
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-    return h.redirect(config.get('appPathPrefix') + '/admin/teams/summary')
+    return h.redirect('/admin/teams/summary')
   }
 }
 

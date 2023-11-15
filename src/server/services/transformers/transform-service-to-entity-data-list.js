@@ -1,16 +1,16 @@
-import { config } from '~/src/config'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformServiceToEntityDataList(service) {
-  const team = service?.teams?.at(0)
-
   return [
     {
-      heading: 'Team',
+      heading: `Team${service?.teams.length > 1 ? 's' : ''}`,
       entity: {
-        kind: 'link',
-        value: team,
-        url: `${config.get('appPathPrefix')}/teams/${team}`
+        kind: 'list',
+        value: service?.teams?.map((team) => ({
+          kind: 'link',
+          value: team.name,
+          url: `/teams/${team.teamId}`
+        }))
       }
     },
     ...(service?.primaryLanguage

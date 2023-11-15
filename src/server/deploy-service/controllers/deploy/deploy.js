@@ -13,8 +13,6 @@ const deployController = {
   },
   handler: async (request, h) => {
     const deployment = request.pre?.deployment
-    const appPathPrefix = config.get('appPathPrefix')
-
     const deployServiceEndpointUrl =
       config.get('selfServiceOpsApiUrl') + '/deploy-service'
 
@@ -36,12 +34,12 @@ const deployController = {
       await setStepComplete(request, h, 'stepThree')
       await setStepComplete(request, h, 'allSteps')
 
-      return h.redirect(appPathPrefix + '/deploy-service/deployment')
+      return h.redirect('/deploy-service/deployment')
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-    return h.redirect(appPathPrefix + '/deploy-service/summary')
+    return h.redirect('/deploy-service/summary')
   }
 }
 

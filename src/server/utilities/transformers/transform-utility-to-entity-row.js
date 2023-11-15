@@ -1,6 +1,3 @@
-import { startCase } from 'lodash'
-
-import { config } from '~/src/config'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformUtilityToEntityRow(utilityType) {
@@ -8,14 +5,15 @@ function transformUtilityToEntityRow(utilityType) {
     {
       kind: 'link',
       value: utility.id,
-      url: `${config.get('appPathPrefix')}/utilities/${utilityType}/${
-        utility.id
-      }`
+      url: `/utilities/${utilityType}/${utility.id}`
     },
     {
-      kind: 'link',
-      value: utility.teams?.at(0) && startCase(utility.teams.at(0)),
-      url: `${config.get('appPathPrefix')}/teams/${utility.teams?.at(0)}`
+      kind: 'list',
+      value: utility?.teams?.map((team) => ({
+        kind: 'link',
+        value: team.name,
+        url: `/teams/${team.teamId}`
+      }))
     },
     {
       kind: 'text',

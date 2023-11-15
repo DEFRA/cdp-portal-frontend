@@ -1,6 +1,5 @@
 import { isNull } from 'lodash'
 
-import { config } from '~/src/config'
 import { noValue } from '~/src/server/common/constants/no-value'
 import { buildLink } from '~/src/server/common/helpers/build-link'
 
@@ -8,10 +7,7 @@ function buildRow(name, value, stepPath, query, queryValue = value) {
   const queryString =
     value !== noValue && query ? `&${query}=${queryValue}` : ''
 
-  const href =
-    config.get('appPathPrefix') +
-    `/admin/users/${stepPath}?redirectLocation=summary` +
-    queryString
+  const href = `/admin/users/${stepPath}?redirectLocation=summary` + queryString
 
   return {
     key: { text: name, classes: 'app-summary__heading' },

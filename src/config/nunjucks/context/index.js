@@ -1,3 +1,4 @@
+import useragent from 'useragent'
 import path from 'path'
 
 import { config } from '~/src/config'
@@ -6,11 +7,10 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { defaultOption } from '~/src/server/common/helpers/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
-import { userHasTeamScope } from '~/src/server/common/helpers/auth/user-has-team-scope'
+import { userHasTeamScope } from '~/src/server/common/helpers/user/user-has-team-scope'
 
 const logger = createLogger()
 const appBaseUrl = config.get('appBaseUrl')
-const appPathPrefix = config.get('appPathPrefix')
 const assetPath = config.get('assetPath')
 
 const manifestPath = path.resolve(
@@ -27,17 +27,20 @@ try {
 }
 
 async function context(request) {
+  const userAgentHeader = request.headers['user-agent']
   const authedUser = await request.getUserSession()
 
   return {
     isAuthenticated: authedUser?.isAuthenticated ?? false,
     isAdmin: authedUser?.isAdmin ?? false,
+    isInServiceTeam: authedUser?.isInServiceTeam ?? false,
     authedUser,
     userHasTeamScope: userHasTeamScope(authedUser),
     appBaseUrl,
-    appPathPrefix,
     assetPath,
     supportChannel: config.get('supportChannel'),
+    userAgent: useragent.lookup(userAgentHeader),
+    isIe: useragent.is(userAgentHeader).ie,
     noValue,
     blankOption: defaultOption,
     isXhr: isXhr.call(request),

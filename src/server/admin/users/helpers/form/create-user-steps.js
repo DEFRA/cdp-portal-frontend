@@ -1,10 +1,8 @@
-import { config } from '~/src/config'
-
 const createUrls = {
-  stepOne: config.get('appPathPrefix') + '/admin/users/find-aad-user',
-  stepTwo: config.get('appPathPrefix') + '/admin/users/find-github-user',
-  stepThree: config.get('appPathPrefix') + '/admin/users/user-details',
-  stepFour: config.get('appPathPrefix') + '/admin/users/summary'
+  stepOne: '/admin/users/find-aad-user',
+  stepTwo: '/admin/users/find-github-user',
+  stepThree: '/admin/users/user-details',
+  stepFour: '/admin/users/summary'
 }
 
 const createSteps = (requestPath, urls, isComplete) => [

@@ -5,7 +5,8 @@ const availableVersionsController = {
   handler: async (request, h) => {
     try {
       const availableVersions = await fetchAvailableVersions(
-        request.query?.serviceName
+        request.query?.serviceName,
+        request
       )
 
       return buildOptions(availableVersions, false)

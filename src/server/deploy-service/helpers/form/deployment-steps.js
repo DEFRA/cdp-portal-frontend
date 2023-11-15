@@ -1,10 +1,8 @@
-import { config } from '~/src/config'
-
 const deploymentUrls = {
-  stepOne: config.get('appPathPrefix') + '/deploy-service/details',
-  stepTwo: config.get('appPathPrefix') + '/deploy-service/options',
-  stepThree: config.get('appPathPrefix') + '/deploy-service/summary',
-  stepFour: config.get('appPathPrefix') + '/deploy-service/deploy'
+  stepOne: '/deploy-service/details',
+  stepTwo: '/deploy-service/options',
+  stepThree: '/deploy-service/summary',
+  stepFour: '/deploy-service/deploy'
 }
 
 const deploymentSteps = (requestPath, urls, isComplete) => [

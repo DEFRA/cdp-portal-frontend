@@ -1,6 +1,6 @@
 import { omit } from 'lodash'
 
-function decorateServiceWithGithubDetail(service, repository) {
+function decorateService(service, repository) {
   return omit(
     {
       ...service,
@@ -10,4 +10,4 @@ function decorateServiceWithGithubDetail(service, repository) {
   )
 }
 
-export { decorateServiceWithGithubDetail }
+export { decorateService }

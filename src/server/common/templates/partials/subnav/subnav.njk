@@ -4,7 +4,7 @@
     {% for item in subNavigation %}
       <li class="app-subnav__section-item{% if item.isActive %} app-subnav__section-item--current{% endif %}">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="{{ appPathPrefix }}{{ item.url }}">{{ item.label }}</a>
+           href="{{ item.url }}">{{ item.label }}</a>
       </li>
     {% endfor %}
   </ul>

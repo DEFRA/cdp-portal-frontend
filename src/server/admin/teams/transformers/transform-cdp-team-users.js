@@ -1,12 +1,7 @@
-import { config } from '~/src/config'
-
 function transformCdpTeamUsers(team) {
-  const appPathPrefix = config.get('appPathPrefix')
-
   return team.users.map((user) => {
-    const userHref = appPathPrefix + '/admin/users/' + user.userId
-    const formAction =
-      appPathPrefix + `/admin/teams/${team.teamId}/remove-member/${user.userId}`
+    const userHref = '/admin/users/' + user.userId
+    const formAction = `/admin/teams/${team.teamId}/remove-member/${user.userId}`
 
     return {
       ...user,

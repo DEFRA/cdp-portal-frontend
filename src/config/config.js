@@ -40,16 +40,10 @@ const config = convict({
     default: 'http://localhost:3000',
     env: 'APP_BASE_URL'
   },
-  appPathPrefix: {
-    doc: 'Application url path prefix this is needed only until we have host based routing',
-    format: String,
-    default: '/cdp-portal-frontend',
-    env: 'APP_PATH_PREFIX'
-  },
   assetPath: {
     doc: 'Asset path',
     format: String,
-    default: '/cdp-portal-frontend/public',
+    default: '/public',
     env: 'ASSET_PATH'
   },
   mockApiUrl: {

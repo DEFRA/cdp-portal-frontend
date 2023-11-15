@@ -1,10 +1,10 @@
 import { config } from '~/src/config'
 import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
 import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCreate } from '~/src/server/create-service/helpers/pre/provide-create'
+import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
 
 const createServiceController = {
   options: {
@@ -14,17 +14,17 @@ const createServiceController = {
     const payload = request?.payload
     const repositoryName = payload.repositoryName
     const serviceType = payload.serviceType
-    const owningTeam = payload.owningTeam
+    const teamId = payload.teamId
 
     const { serviceTypes } = await fetchServiceTypes()
     const serviceTypesIds = serviceTypes.map((serviceType) => serviceType.value)
 
-    const { teams } = await fetchTeams(true)
-    const teamsGithubHandles = teams.map((team) => team.github)
+    const usersTeams = await getUsersTeams(request)
+    const usersTeamIds = usersTeams.map((team) => team.teamId)
 
     const validationResult = createServiceValidation(
       serviceTypesIds,
-      teamsGithubHandles
+      usersTeamIds
     ).validate(payload, {
       abortEarly: false
     })
@@ -32,7 +32,7 @@ const createServiceController = {
     const sanitisedPayload = {
       repositoryName,
       serviceType,
-      owningTeam
+      teamId
     }
 
     if (validationResult?.error) {
@@ -43,7 +43,7 @@ const createServiceController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(config.get('appPathPrefix') + '/create-service')
+      return h.redirect('/create-service')
     }
 
     if (!validationResult.error) {
@@ -54,7 +54,7 @@ const createServiceController = {
         selfServiceOpsCreateServiceEndpointUrl,
         {
           method: 'post',
-          body: JSON.stringify(validationResult.value)
+          body: JSON.stringify(sanitisedPayload)
         }
       )
       const json = await response.json()
@@ -68,9 +68,7 @@ const createServiceController = {
           type: 'success'
         })
 
-        return h.redirect(
-          config.get('appPathPrefix') + `/services/${json.repositoryName}`
-        )
+        return h.redirect(`/services/${json.repositoryName}`)
       }
 
       request.yar.flash(sessionNames.validationFailure, {
@@ -78,7 +76,7 @@ const createServiceController = {
       })
       request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-      return h.redirect(config.get('appPathPrefix') + '/create-service')
+      return h.redirect('/create-service')
     }
   }
 }

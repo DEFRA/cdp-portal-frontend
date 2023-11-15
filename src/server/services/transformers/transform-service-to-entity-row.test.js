@@ -9,13 +9,18 @@ describe('#transformServiceToEntityRow', () => {
     expect(transformServiceToEntityRow(servicesFixture.at(0))).toEqual([
       {
         kind: 'link',
-        url: '/cdp-portal-frontend/services/cdp-portal-frontend',
+        url: '/services/cdp-portal-frontend',
         value: 'cdp-portal-frontend'
       },
       {
-        kind: 'link',
-        url: '/cdp-portal-frontend/teams/forestry-management',
-        value: 'Forestry Management'
+        kind: 'list',
+        value: [
+          {
+            kind: 'link',
+            url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+            value: 'Platform'
+          }
+        ]
       },
       {
         kind: 'text',

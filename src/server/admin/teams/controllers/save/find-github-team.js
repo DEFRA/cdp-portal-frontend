@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   saveToCdpTeam,
@@ -48,10 +47,7 @@ const findGithubTeamController = {
         }
       )
 
-      return h.redirect(
-        config.get('appPathPrefix') +
-          `/admin/teams/find-github-team${queryString}`
-      )
+      return h.redirect(`/admin/teams/find-github-team${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -61,7 +57,7 @@ const findGithubTeamController = {
 
       await setStepComplete(request, h, 'stepTwo', updatedTeam)
 
-      return h.redirect(config.get('appPathPrefix') + '/admin/teams/summary')
+      return h.redirect('/admin/teams/summary')
     }
   }
 }

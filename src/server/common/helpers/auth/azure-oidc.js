@@ -9,6 +9,7 @@ const oAuthAuthorizeUrl = config.get('oAuthAuthorizeUrl')
 const authCallbackUrl =
   config.get('appBaseUrl') + config.get('appPathPrefix') + '/auth/callback'
 
+
 const azureOidc = {
   plugin: {
     name: 'azure-oidc',

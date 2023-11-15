@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/form'
 
@@ -10,7 +9,7 @@ const startCreateTeamController = {
 
     await saveToCdpTeam(request, h, {})
 
-    return h.redirect(config.get('appPathPrefix') + '/admin/teams/team-details')
+    return h.redirect('/admin/teams/team-details')
   }
 }
 

@@ -40,8 +40,7 @@ const deploymentsFixture = [
     user: 'Roger Rabbit',
     deployedAt: '2023-08-01T08:06:28Z',
     status: 'RUNNING',
-    dockerImage:
-      '111111111.dkr.ecr.us-west-2.amazonaws.com/cdp-portal-frontend:0.2.0',
+    dockerImage: '111111111.dkr.ecr.us-west-2.amazonaws.com:0.2.0',
     taskId: '4A7C4DB9-93C5-4A02-B6D3-BE2B8A196C8C'
   },
   {

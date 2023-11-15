@@ -6,14 +6,14 @@ describe('#transformUserTeams', () => {
     expect(transformUserTeams(cdpUserFixture.user)).toEqual([
       {
         content: {
-          html: '<a class="app-link" href="/cdp-portal-frontend/admin/teams/9e068bb9-1452-426e-a4ca-2e675a942a89">Bees</a>'
+          html: '<a class="app-link" href="/admin/teams/9e068bb9-1452-426e-a4ca-2e675a942a89">Bees</a>'
         },
         name: 'Bees',
         teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
       },
       {
         content: {
-          html: '<a class="app-link" href="/cdp-portal-frontend/admin/teams/6ed0400a-a8a0-482b-b45a-109634cd1274">Trees-and-forests</a>'
+          html: '<a class="app-link" href="/admin/teams/6ed0400a-a8a0-482b-b45a-109634cd1274">Trees-and-forests</a>'
         },
         name: 'Trees-and-forests',
         teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274'

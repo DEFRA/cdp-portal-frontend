@@ -1,17 +1,16 @@
-import { startCase } from 'lodash'
-
-import { config } from '~/src/config'
 import { removeHost } from '~/src/server/common/helpers/remove-host'
 
 function transformRepositoryToEntityDataList(repository) {
-  const team = repository?.teams?.at(0)
   return [
     {
-      heading: 'Team',
+      heading: `Team${repository?.teams.length > 1 ? 's' : ''}`,
       entity: {
-        kind: 'link',
-        value: team && startCase(team),
-        url: `${config.get('appPathPrefix')}/teams/${team}`
+        kind: 'list',
+        value: repository?.teams?.map((team) => ({
+          kind: 'link',
+          value: team.name,
+          url: `/teams/${team.teamId}`
+        }))
       }
     },
     {

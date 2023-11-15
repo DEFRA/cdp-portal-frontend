@@ -9,12 +9,17 @@ describe('#transformServiceStatusToService', () => {
     expect(
       transformServiceStatusToService(createServiceStatusFixture?.status)
     ).toEqual({
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: `https://github.com/${githubOrg}`,
       id: 'cdp-portal-frontend',
       isCreateStatus: true,
       serviceName: 'cdp-portal-frontend',
       serviceStatus: createServiceStatusFixture?.status,
-      teams: ['cdp-platform']
+      teams: [
+        {
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+          name: 'Platform'
+        }
+      ]
     })
   })
 })

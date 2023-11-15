@@ -1,37 +1,33 @@
-import { config } from '~/src/config'
-
-const appPathPrefix = config.get('appPathPrefix')
-
 function deploymentTabs({ path }) {
   return [
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/management`),
-      url: `${appPathPrefix}/deployments/management`,
+      isActive: path.includes('/deployments/management'),
+      url: '/deployments/management',
       label: 'Management'
     },
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/infra-dev`),
-      url: `${appPathPrefix}/deployments/infra-dev`,
+      isActive: path.includes('/deployments/infra-dev'),
+      url: '/deployments/infra-dev',
       label: 'Infra-dev'
     },
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/dev`),
-      url: `${appPathPrefix}/deployments/dev`,
+      isActive: path.includes('/deployments/dev'),
+      url: '/deployments/dev',
       label: 'Dev'
     },
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/test`),
-      url: `${appPathPrefix}/deployments/test`,
+      isActive: path.includes('/deployments/test'),
+      url: '/deployments/test',
       label: 'Test'
     },
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/perf-test`),
-      url: `${appPathPrefix}/deployments/perf-test`,
+      isActive: path.includes('/deployments/perf-test'),
+      url: '/deployments/perf-test',
       label: 'Perf-test'
     },
     {
-      isActive: path.includes(`${appPathPrefix}/deployments/prod`),
-      url: `${appPathPrefix}/deployments/prod`,
+      isActive: path.includes('/deployments/prod'),
+      url: '/deployments/prod',
       label: 'Prod'
     }
   ]

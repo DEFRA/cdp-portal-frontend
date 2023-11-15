@@ -1,6 +1,6 @@
 async function fetchVersions(value) {
   const response = await fetch(
-    `${location.origin}/cdp-portal-frontend/deploy-service/available-versions?serviceName=${value}`
+    `${location.origin}/deploy-service/available-versions?serviceName=${value}`
   )
   const json = await response.json()
 

@@ -9,7 +9,7 @@ const logoutController = {
     const authedUser = request.pre.authedUser
 
     if (!authedUser) {
-      return h.redirect(config.get('appPathPrefix'))
+      return h.redirect('/')
     }
 
     const referrer = request.info.referrer
