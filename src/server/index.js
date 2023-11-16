@@ -62,28 +62,27 @@ async function createServer() {
     expiresIn: config.get('redisTtl')
   })
 
+  server.decorate('request', 'isXhr', isXhr)
+  server.decorate('request', 'fetchWithAuth', fetchWithAuth, { apply: true })
   server.decorate('request', 'getUserSession', getUserSession)
   server.decorate('request', 'dropUserSession', dropUserSession)
   server.decorate('request', 'userHasTeamScope', userHasTeamScopeDecorator, {
     apply: true
   })
 
-  await server.register(sessionManager)
-  await server.register(azureOidc)
-  await server.register(sessionCookie)
-  await server.register(csrf)
+  await server.register([
+    sessionManager,
+    azureOidc,
+    sessionCookie,
+    csrf,
+    requestLogger,
+    nunjucksConfig,
+    router
+  ])
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']
   })
-
-  server.decorate('request', 'isXhr', isXhr)
-  server.decorate('request', 'fetchWithAuth', fetchWithAuth, { apply: true })
-
-  await server.register(requestLogger)
-  await server.register(nunjucksConfig)
-  await server.register(router)
-
   server.ext('onPreResponse', catchAll)
 
   return server
