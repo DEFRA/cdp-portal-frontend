@@ -1,13 +1,14 @@
 import Joi from 'joi'
+import { cloneDeep } from 'lodash'
 import Boom from '@hapi/boom'
 
 import { environments } from '~/src/config'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs'
-import { fetchDeployments } from '~/src/server/deployments/helpers/fetch-deployments'
 import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transformers/transform-deployments-to-entity-row'
 import { sortByName } from '~/src/server/common/helpers/sort-by-name'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { fetchDeployments } from '~/src/server/deployments/helpers/fetch-deployments'
 
 // TODO fix - the progressive search is not quite right
 const deploymentsListController = {
@@ -27,9 +28,8 @@ const deploymentsListController = {
   handler: async (request, h) => {
     const environment = request.params?.environment
 
-    // TODO add Redis to cache these multiple calls
     const deployments = await fetchDeployments(environment)
-    const allDeployments = await fetchDeployments(environment)
+    const allDeployments = cloneDeep(deployments)
 
     const uniqueAllDeployments = [
       ...new Set(allDeployments.map((deployment) => deployment.service))
