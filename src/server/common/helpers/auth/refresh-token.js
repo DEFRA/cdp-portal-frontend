@@ -5,10 +5,9 @@ import { config } from '~/src/config'
 async function refreshAccessToken(request) {
   const authedUser = await request.getUserSession()
   const refreshToken = authedUser?.refreshToken ?? null
-  const azureTenantId = config.get('azureTenantId')
   const azureClientId = config.get('azureClientId')
   const azureClientSecret = config.get('azureClientSecret')
-
+  const refreshTokenUrl = config.get('oAuthTokenUrl')
   const params = new URLSearchParams()
 
   params.append('client_id', azureClientId)
@@ -22,17 +21,14 @@ async function refreshAccessToken(request) {
 
   request.logger.info('Azure OIDC access token expired, refreshing...')
 
-  return await fetch(
-    `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/token`,
-    {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Cache-Control': 'no-cache'
-      },
-      body: params
-    }
-  )
+  return await fetch(refreshTokenUrl, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cache-Control': 'no-cache'
+    },
+    body: params
+  })
 }
 
 export { refreshAccessToken }
