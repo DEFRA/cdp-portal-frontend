@@ -1,7 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { compose } from 'lodash/fp'
-import { startCase } from 'lodash'
 
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { transformStatus } from '~/src/server/services/transformers/transform-status'
@@ -26,7 +25,7 @@ const serviceController = {
 
     const sharedContext = {
       pageTitle: `${service.serviceName} service`,
-      heading: startCase(service.serviceName),
+      heading: service.serviceName,
       entityDataList: transformServiceToEntityDataList(service),
       service,
       breadcrumbs: [
