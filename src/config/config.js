@@ -165,6 +165,28 @@ const config = convict({
     env: 'AZURE_CLIENT_SECRET',
     default: ''
   },
+  get oAuthTokenUrl() {
+    const azureTenantId =
+      process.env.AZURE_TENANT_ID ?? this.azureTenantId.default
+
+    return {
+      doc: 'Url for oauth token',
+      format: String,
+      env: 'OAUTH_TOKEN_URL',
+      default: `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/token`
+    }
+  },
+  get oAuthAuthorizeUrl() {
+    const azureTenantId =
+      process.env.AZURE_TENANT_ID ?? this.azureTenantId.default
+
+    return {
+      doc: 'Url for oauth callback url',
+      format: String,
+      env: 'OAUTH_AUTH_URL',
+      default: `https://login.microsoftonline.com/${azureTenantId}/oauth2/v2.0/authorize`
+    }
+  },
   azureAdminGroupId: {
     doc: 'Azure Active Directory Admin Group',
     format: String,
@@ -188,20 +210,6 @@ const config = convict({
     format: Number,
     env: 'PLATFORM_PROCESS_MEMORY_RESOURCE',
     default: 256
-  },
-  oAuthTokenUrl: {
-    doc: 'Url for oauth token',
-    format: String,
-    env: 'OAUTH_TOKEN_URL',
-    default:
-      'https://login.microsoftonline.com/6f504113-6b64-43f2-ade9-242e05780007/oauth2/v2.0/token'
-  },
-  oAuthAuthorizeUrl: {
-    doc: 'Url for oauth callback url',
-    format: String,
-    env: 'OAUTH_AUTH_URL',
-    default:
-      'https://login.microsoftonline.com/6f504113-6b64-43f2-ade9-242e05780007/oauth2/v2.0/authorize'
   }
 })
 
