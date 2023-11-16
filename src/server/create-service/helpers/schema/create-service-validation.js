@@ -8,14 +8,14 @@ function createServiceValidation(serviceTypes, usersTeamIds) {
         name: 'startAndEndWithCharacter'
       })
       .min(1)
-      .max(96)
+      .max(32)
       .required()
       .messages({
         'string.empty': 'Enter value',
         'string.pattern.base': 'Letters and numbers with hyphen separators',
         'string.pattern.name': 'Start and end with a character',
         'string.min': '1 character or more',
-        'string.max': '96 characters or less'
+        'string.max': '32 characters or less'
       }),
     serviceType: Joi.string()
       .valid(...serviceTypes)
