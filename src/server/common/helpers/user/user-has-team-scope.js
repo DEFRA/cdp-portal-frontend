@@ -6,7 +6,7 @@ function userHasTeamScopeDecorator(request) {
   return async function hasTeamScope(scope) {
     const authedUser = await request.getUserSession()
 
-    return authedUser && authedUser?.scope?.includes(scope)
+    return userHasTeamScope(authedUser)(scope)
   }
 }
 
