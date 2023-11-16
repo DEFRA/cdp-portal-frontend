@@ -1,4 +1,3 @@
-import { startCase } from 'lodash'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
@@ -20,7 +19,7 @@ const libraryController = {
 
     return h.view('utilities/views/library', {
       pageTitle: library.id,
-      heading: startCase(library.id),
+      heading: library.id,
       entityDataList: transformRepositoryToEntityDataList(library),
       library,
       breadcrumbs: [

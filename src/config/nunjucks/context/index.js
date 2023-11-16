@@ -10,7 +10,6 @@ import { noValue } from '~/src/server/common/constants/no-value'
 import { userHasTeamScope } from '~/src/server/common/helpers/user/user-has-team-scope'
 
 const logger = createLogger()
-const appBaseUrl = config.get('appBaseUrl')
 const assetPath = config.get('assetPath')
 
 const manifestPath = path.resolve(
@@ -36,7 +35,6 @@ async function context(request) {
     isInServiceTeam: authedUser?.isInServiceTeam ?? false,
     authedUser,
     userHasTeamScope: userHasTeamScope(authedUser),
-    appBaseUrl,
     assetPath,
     supportChannel: config.get('supportChannel'),
     userAgent: useragent.lookup(userAgentHeader),

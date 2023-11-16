@@ -1,6 +1,5 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { startCase } from 'lodash'
 
 import { fetchTemplate } from '~/src/server/utilities/helpers/fetch-template'
 import { transformRepositoryToEntityDataList } from '~/src/server/utilities/transformers/transform-repository-to-entity-data-list'
@@ -20,7 +19,7 @@ const templateController = {
 
       return h.view('utilities/views/template', {
         pageTitle: template.id,
-        heading: startCase(template.id),
+        heading: template.id,
         entityDataList: transformRepositoryToEntityDataList(template),
         template,
         breadcrumbs: [
