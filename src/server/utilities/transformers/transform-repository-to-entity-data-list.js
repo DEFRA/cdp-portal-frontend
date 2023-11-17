@@ -1,4 +1,4 @@
-import { removeHost } from '~/src/server/common/helpers/remove-host'
+import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 
 function transformRepositoryToEntityDataList(repository) {
   return [
@@ -24,7 +24,7 @@ function transformRepositoryToEntityDataList(repository) {
       heading: 'Github Repository',
       entity: {
         kind: 'link',
-        value: removeHost(repository.url),
+        value: removeUrlParts(repository.url),
         url: repository.url,
         newWindow: true
       }

@@ -1,7 +1,20 @@
-import { removeHost } from '~/src/server/common/helpers/remove-host'
+import { config } from '~/src/config'
+import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 
 function transformServiceToEntityDataList(service) {
+  const dockerHubUrl = config.get('dockerHubUrl')
+  const dockerHubServicePage = dockerHubUrl + '/' + service?.imageName
+
   return [
+    {
+      heading: 'Github Repository',
+      entity: {
+        kind: 'link',
+        value: removeUrlParts(service.githubUrl),
+        url: service.githubUrl,
+        newWindow: true
+      }
+    },
     {
       heading: `Team${service?.teams.length > 1 ? 's' : ''}`,
       entity: {
@@ -24,22 +37,15 @@ function transformServiceToEntityDataList(service) {
           }
         ]
       : []),
-    {
-      heading: 'Github Repository',
-      entity: {
-        kind: 'link',
-        value: removeHost(service.githubUrl),
-        url: service.githubUrl,
-        newWindow: true
-      }
-    },
     ...(service?.imageName
       ? [
           {
-            heading: 'ECR Docker Image name',
+            heading: 'Docker Hub',
             entity: {
-              kind: 'text',
-              value: service?.imageName
+              kind: 'link',
+              value: removeUrlParts(dockerHubServicePage, 4),
+              url: dockerHubServicePage,
+              newWindow: true
             }
           }
         ]

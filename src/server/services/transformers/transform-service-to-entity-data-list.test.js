@@ -14,6 +14,15 @@ describe('#transformServiceToEntityDataList', () => {
       expect(transformServiceToEntityDataList(serviceDetailFixture)).toEqual([
         {
           entity: {
+            kind: 'link',
+            newWindow: true,
+            url: `https://github.com/${githubOrg}/cdp-deployables`,
+            value: `${githubOrg}/cdp-deployables`
+          },
+          heading: 'Github Repository'
+        },
+        {
+          entity: {
             kind: 'list',
             value: [
               {
@@ -36,17 +45,10 @@ describe('#transformServiceToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: `https://github.com/${githubOrg}/cdp-deployables`,
-            value: `${githubOrg}/cdp-deployables`
+            url: 'https://hub.docker.com/r/defradigital/cdp-portal-deployables-backend',
+            value: 'defradigital/cdp-portal-deployables-backend'
           },
-          heading: 'Github Repository'
-        },
-        {
-          entity: {
-            kind: 'text',
-            value: 'cdp-portal-deployables-backend'
-          },
-          heading: 'ECR Docker Image name'
+          heading: 'Docker Hub'
         },
         {
           entity: {
@@ -69,6 +71,15 @@ describe('#transformServiceToEntityDataList', () => {
       expect(transformServiceToEntityDataList(service)).toEqual([
         {
           entity: {
+            kind: 'link',
+            newWindow: true,
+            url: `https://github.com/${githubOrg}`,
+            value: `${githubOrg}`
+          },
+          heading: 'Github Repository'
+        },
+        {
+          entity: {
             kind: 'list',
             value: [
               {
@@ -86,15 +97,6 @@ describe('#transformServiceToEntityDataList', () => {
             value: 'JavaScript'
           },
           heading: 'Type'
-        },
-        {
-          entity: {
-            kind: 'link',
-            newWindow: true,
-            url: `https://github.com/${githubOrg}`,
-            value: `${githubOrg}`
-          },
-          heading: 'Github Repository'
         },
         {
           entity: {

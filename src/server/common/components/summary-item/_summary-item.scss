@@ -1,0 +1,21 @@
+.app-summary-item {
+  margin-right: govuk-spacing(4);
+
+  @include govuk-media-query($from: desktop-wide) {
+    flex: 1;
+  }
+}
+
+.app-summary-item__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: govuk-spacing(2);
+}
+
+.app-summary-item__icon {
+  margin-left: govuk-spacing(1);
+}
+
+.app-summary-item__intro {
+  margin-bottom: govuk-spacing(2);
+}

@@ -1,4 +1,4 @@
-import { removeHost } from '~/src/server/common/helpers/remove-host'
+import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 
 function transformUtilityToEntityRow(utilityType) {
   return (utility) => [
@@ -21,7 +21,7 @@ function transformUtilityToEntityRow(utilityType) {
     },
     {
       kind: 'link',
-      value: removeHost(utility.url),
+      value: removeUrlParts(utility.url),
       url: utility.url,
       newWindow: true
     },

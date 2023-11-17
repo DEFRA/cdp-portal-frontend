@@ -210,6 +210,12 @@ const config = convict({
     format: Number,
     env: 'PLATFORM_PROCESS_MEMORY_RESOURCE',
     default: 256
+  },
+  dockerHubUrl: {
+    doc: 'Defra docker hub url',
+    format: String,
+    env: 'DOCKER_HUB_URL',
+    default: 'https://hub.docker.com/r/defradigital'
   }
 })
 

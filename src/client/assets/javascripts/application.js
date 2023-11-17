@@ -26,6 +26,7 @@ import '../images/govuk-apple-touch-icon-167x167.png'
 import '../images/govuk-apple-touch-icon-152x152.png'
 import '../images/govuk-apple-touch-icon.png'
 import '../images/govuk-mask-icon.svg'
+import '../images/cdp-opengraph-image.png'
 
 initAll()
 

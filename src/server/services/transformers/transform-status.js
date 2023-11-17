@@ -3,7 +3,7 @@ import { startCase } from 'lodash'
 import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
 import { statusTagClassMap } from '~/src/server/services/transformers/status-tag-class-map'
-import { removeHost } from '~/src/server/common/helpers/remove-host'
+import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 
 const githubOrg = config.get('githubOrg')
 
@@ -36,7 +36,7 @@ function transformStatus(service) {
       name: 'Create Repository',
       part: 1,
       url: {
-        text: removeHost(service?.githubUrl),
+        text: removeUrlParts(service?.githubUrl),
         href: service?.githubUrl
       },
       status: {
@@ -61,14 +61,14 @@ function transformStatus(service) {
       },
       pullRequest: {
         url: {
-          text: removeHost(cdpTfSvcInfra?.pr?.html_url),
+          text: removeUrlParts(cdpTfSvcInfra?.pr?.html_url),
           href: cdpTfSvcInfra?.pr?.html_url
         }
       },
       githubAction: {
         name: cdpTfSvcInfra?.main?.workflow?.name,
         url: {
-          text: removeHost(cdpTfSvcInfra?.main?.workflow?.html_url),
+          text: removeUrlParts(cdpTfSvcInfra?.main?.workflow?.html_url),
           href: cdpTfSvcInfra?.main?.workflow?.html_url
         },
         started: cdpTfSvcInfra?.main?.workflow?.created_at
@@ -92,14 +92,14 @@ function transformStatus(service) {
       },
       pullRequest: {
         url: {
-          text: removeHost(cdpAppConfig?.pr?.html_url),
+          text: removeUrlParts(cdpAppConfig?.pr?.html_url),
           href: cdpAppConfig?.pr?.html_url
         }
       },
       githubAction: {
         name: cdpAppConfig?.main?.workflow?.name,
         url: {
-          text: removeHost(cdpAppConfig?.main?.workflow?.html_url),
+          text: removeUrlParts(cdpAppConfig?.main?.workflow?.html_url),
           href: cdpAppConfig?.main?.workflow?.html_url
         },
         started: cdpAppConfig?.main?.workflow?.created_at
@@ -123,14 +123,14 @@ function transformStatus(service) {
       },
       pullRequest: {
         url: {
-          text: removeHost(cdpNginxUpstreams?.pr?.html_url),
+          text: removeUrlParts(cdpNginxUpstreams?.pr?.html_url),
           href: cdpNginxUpstreams?.pr?.html_url
         }
       },
       githubAction: {
         name: cdpNginxUpstreams?.main?.workflow?.name,
         url: {
-          text: removeHost(cdpNginxUpstreams?.main?.workflow?.html_url),
+          text: removeUrlParts(cdpNginxUpstreams?.main?.workflow?.html_url),
           href: cdpNginxUpstreams?.main?.workflow?.html_url
         },
         started: cdpNginxUpstreams?.main?.workflow?.created_at

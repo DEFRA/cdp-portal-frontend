@@ -1,10 +1,18 @@
 {% extends "layouts/page.njk" %}
 
+{% from "summary/macro.njk" import appSummary %}
+{% from "summary-item/macro.njk" import appSummaryItem %}
+
+{% from "icons/chart-icon/macro.njk" import appChartIcon %}
+{% from "icons/logs-icon/macro.njk" import appLogsIcon %}
+{% from "icons/web-icon/macro.njk" import appWebIcon %}
+{% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
+
 {% block content %}
 
   {{ appHeading({
     title: heading,
-    caption: "Information about the " + heading + " Microservice.",
+    caption: "Information about the " + heading + " microservice.",
     entities: headingEntities
   }) }}
 
@@ -12,15 +20,124 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <section class="app-section">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">About</h2>
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">About</h2>
         <p>
           {{ service.description }}
         </p>
       </section>
 
-      <section class="app-section-wide">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running versions</h2>
+      {% call appSummary() %}
+        {% call appSummaryItem({
+          heading: "Logs",
+          icon: appLogsIcon({ classes: "app-icon-small"}),
+          intro: {
+            text: "View your applications OpenSearch logs for monitoring and troubleshooting issues."
+          }
+        }) %}
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+            {% if runningEnvironmentsMap.management %}
+              <li>
+                <a class="app-link"
+                   href="https://logs.management.cdp-int.defra.cloud/_dashboards"
+                   target="_blank" rel="noopener noreferrer">Management</a>
+              </li>
+            {% endif %}
+
+            {% if runningEnvironmentsMap["infra-dev"] %}
+              <li>
+                <a class="app-link"
+                   href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards"
+                   target="_blank" rel="noopener noreferrer">Infra-dev</a>
+              </li>
+            {% endif %}
+
+            {% if runningEnvironmentsMap.dev %}
+              <li>
+                <a class="app-link"
+                   href="https://logs.dev.cdp-int.defra.cloud/_dashboards"
+                   target="_blank" rel="noopener noreferrer">Dev</a>
+              </li>
+            {% endif %}
+
+            {% if runningEnvironmentsMap.test %}
+              <li>
+                <a class="app-link"
+                   href="https://logs.test.cdp-int.defra.cloud/_dashboards"
+                   target="_blank" rel="noopener noreferrer">Test</a>
+              </li>
+            {% endif %}
+          </ul>
+        {% endcall %}
+
+        {% call appSummaryItem({
+          heading: "Metrics",
+          icon: appChartIcon({ classes: "app-icon-small"}),
+          intro: {
+            text: "Browse your applications Grafana observability metrics data and graphs."
+          }
+        }) %}
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+
+            {% if runningEnvironmentsMap.management %}
+              <li>
+                <a class="app-link"
+                   href="https://metrics.management.cdp-int.defra.cloud/?orgId=1"
+                   target="_blank" rel="noopener noreferrer">Management</a>
+              </li>
+            {% endif %}
+
+            {% if runningEnvironmentsMap["infra-dev"] %}
+              <li>
+                <a class="app-link"
+                   href="https://metrics.infra-dev.cdp-int.defra.cloud/?orgId=1"
+                   target="_blank" rel="noopener noreferrer">Infra-dev</a>
+              </li>
+            {% endif %}
+
+            {% if runningEnvironmentsMap.dev %}
+              <li>
+                <a class="app-link"
+                   href="https://metrics.dev.cdp-int.defra.cloud/?orgId=1"
+                   target="_blank" rel="noopener noreferrer">Dev</a>
+              </li>
+            {% endif %}
+
+            {% if runningEnvironmentsMap.test %}
+              <li>
+                <a class="app-link"
+                   href="https://metrics.test.cdp-int.defra.cloud/?orgId=1"
+                   target="_blank" rel="noopener noreferrer">Test</a>
+              </li>
+            {% endif %}
+          </ul>
+        {% endcall %}
+
+        {% call appSummaryItem({
+          heading: "App config",
+          icon: appWrenchIcon({ classes: "app-icon-small"}),
+          intro: {
+            text: "Pass environment variables to you application in CDP environments."
+          }
+        }) %}
+          <p>
+            Raise a pull request to set environment variables for your application.
+          </p>
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+            <li>
+              <a class="app-link"
+                 href="https://github.com/DEFRA/cdp-app-config/tree/main/services/cdp-portal-frontend"
+                 target="_blank" rel="noopener noreferrer">DEFRA/cdp-app-config</a>
+            </li>
+          </ul>
+        {% endcall %}
+      {% endcall %}
+
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running services</h2>
+        <p>
+          The versions of your service currently running on the CDP environments.
+        </p>
         {{ appEntityList({
           headings: [
             { text: "Management", size: "medium"},
@@ -39,7 +156,7 @@
 
     <div class="govuk-grid-column-one-third">
       {{ appEntityDataList({
-        heading: "Microservice details",
+        heading: "Details",
         items: entityDataList
       }) }}
     </div>
