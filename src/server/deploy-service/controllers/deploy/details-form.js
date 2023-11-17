@@ -1,14 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { startCase } from 'lodash'
 
-import { environments } from '~/src/config'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
+import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch-environments'
 
 const detailsFormController = {
   options: {
@@ -36,6 +35,8 @@ const detailsFormController = {
       await fetchDeployableImageNames(request)
     )
 
+    const environmentOptions = buildOptions(await fetchEnvironments(request))
+
     return h.view('deploy-service/views/details-form', {
       pageTitle: 'Deploy Service details',
       heading: 'Details',
@@ -43,12 +44,7 @@ const detailsFormController = {
         'Provide the microservice image name, version and environment to deploy to.',
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation,
-      environmentOptions: buildOptions(
-        Object.entries(environments).map(([key, value]) => ({
-          value,
-          text: startCase(key)
-        }))
-      ),
+      environmentOptions,
       deployableImageNameOptions,
       availableVersionOptions
     })
