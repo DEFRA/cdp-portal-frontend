@@ -38,7 +38,7 @@
 {% endif %}
 
 {% set mainClasses = "app-main-wrapper" %}
-{% set opengraphImageUrl = getAssetPath("images/cdp-opengraph-image.png") %}
+{% set opengraphImageUrl = appBaseUrl + getAssetPath("images/cdp-opengraph-image.png") %}
 
 {% block headIcons %}
   <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="{{ getAssetPath("images/favicon.ico") }}"
@@ -53,6 +53,10 @@
 
 {% block head %}
   <link href="{{ getAssetPath("application.css") }}" rel="stylesheet">
+  <meta property="og:title" content={{ pageTitle }} | {{ serviceName }}/>
+  <meta property="og:description" content="Helping teams to create, deploy, run and monitor applications."/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="915"/>
 {% endblock %}
 
 {% block header %}
