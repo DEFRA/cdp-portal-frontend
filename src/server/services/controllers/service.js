@@ -48,6 +48,13 @@ const serviceController = {
 
       return h.view('services/views/service', {
         runningServicesEntityRows,
+        runningEnvironmentsMap: runningServices.reduce(
+          (environmentsMap, runningService) => ({
+            ...environmentsMap,
+            [runningService.environment]: true
+          }),
+          {}
+        ),
         ...sharedContext
       })
     }

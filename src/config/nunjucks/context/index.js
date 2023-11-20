@@ -36,6 +36,7 @@ async function context(request) {
     authedUser,
     userHasTeamScope: userHasTeamScope(authedUser),
     assetPath,
+    appBaseUrl: config.get('appBaseUrl'),
     supportChannel: config.get('supportChannel'),
     userAgent: useragent.lookup(userAgentHeader),
     isIe: useragent.is(userAgentHeader).ie,

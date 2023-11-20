@@ -1,0 +1,14 @@
+.app-summary {
+  margin-bottom: govuk-spacing(6);
+
+  .app-chart-icon,
+  .app-logs-icon,
+  .app-web-icon,
+  .app-wrench-icon {
+    fill: govuk-colour("blue");
+  }
+
+  @include govuk-media-query($from: desktop-wide) {
+    display: flex;
+  }
+}
