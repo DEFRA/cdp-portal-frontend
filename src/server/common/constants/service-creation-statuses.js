@@ -6,7 +6,6 @@ const serviceCreationStatuses = {
   success: 'success',
   created: 'created',
   workflowCompleted: 'workflow_completed',
-  failed: 'failed',
   failure: 'failure'
 }
 

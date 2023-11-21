@@ -44,12 +44,6 @@ describe('#statusTagClassMap', () => {
     ).toEqual('govuk-tag--green')
   })
 
-  test('Should provide expected "failed" tag className', () => {
-    expect(statusTagClassMap(serviceCreationStatuses.failed)).toEqual(
-      'govuk-tag--red'
-    )
-  })
-
   test('Should provide expected "failure" tag className', () => {
     expect(statusTagClassMap(serviceCreationStatuses.failure)).toEqual(
       'govuk-tag--red'
