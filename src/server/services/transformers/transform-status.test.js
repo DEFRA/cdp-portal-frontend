@@ -27,7 +27,7 @@ describe('#transformStatus', () => {
             }
           },
           info: expect.any(Function),
-          name: 'Create Service Config',
+          name: 'Creating config',
           part: 2,
           pullRequest: {
             url: {
@@ -55,7 +55,7 @@ describe('#transformStatus', () => {
             }
           },
           info: expect.any(Function),
-          name: 'Create Service networking',
+          name: 'Creating networking',
           part: 3,
           pullRequest: {
             url: {
@@ -83,7 +83,7 @@ describe('#transformStatus', () => {
             }
           },
           info: expect.any(Function),
-          name: 'Create Service Infrastructure',
+          name: 'Creating infrastructure',
           part: 4,
           pullRequest: {
             url: {
@@ -102,7 +102,7 @@ describe('#transformStatus', () => {
         },
         createRepository: {
           info: expect.any(Function),
-          name: 'Create Github Repository',
+          name: 'Creating Github repository',
           part: 1,
           status: {
             classes: 'govuk-tag--green',
