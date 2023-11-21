@@ -51,7 +51,7 @@ function transformServiceToEntityDataList(service) {
         ]
       : []),
     {
-      heading: 'Repository created',
+      heading: 'Repository Created',
       entity: { kind: 'date', value: service.createdAt }
     }
   ]

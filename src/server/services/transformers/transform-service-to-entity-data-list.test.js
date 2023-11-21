@@ -55,7 +55,7 @@ describe('#transformServiceToEntityDataList', () => {
             kind: 'date',
             value: '2023-04-05T08:56:52Z'
           },
-          heading: 'Repository created'
+          heading: 'Repository Created'
         }
       ])
     })
@@ -103,7 +103,7 @@ describe('#transformServiceToEntityDataList', () => {
             kind: 'date',
             value: '2023-04-12T17:16:48+00:00'
           },
-          heading: 'Repository created'
+          heading: 'Repository Created'
         }
       ])
     })
