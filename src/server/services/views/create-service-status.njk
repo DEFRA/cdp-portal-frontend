@@ -1,6 +1,6 @@
 {% extends "layouts/page.njk" %}
 
-{# TODO move this to page if we use it on deployments pages #}
+{% from "progress/macro.njk" import appProgress %}
 {% from "status/macro.njk" import appStatus %}
 {% from "loader/macro.njk" import appLoader %}
 
@@ -8,17 +8,11 @@
 
   {{ appHeading({
     title: heading,
-    caption: "Information about the " + heading + " Microservice.",
+    caption: "Creating the " + heading + " Microservice.",
     entities: headingEntities
   }) }}
 
   <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
-
-  {% if creationJob.hasJobFailures %}
-    {{ appHelp({
-      text: "Need some help with your new service creation?"
-    }) }}
-  {% endif %}
 
   <div class="govuk-grid-row">
 
@@ -28,11 +22,20 @@
          data-poll-limit="45">
 
       {% block xhrContent %}
+
+        <div class="govuk-grid-column-two-thirds">
+          {% if creationJob.hasJobFailures %}
+            {{ appHelp({
+              text: "Need some help with your new service creation?"
+            }) }}
+          {% endif %}
+        </div>
+
         <article data-xhr="create-service-status">
           <div class="govuk-grid-column-two-thirds">
-            <section class="app-section-wide">
+            <section class="app-section">
 
-              <header class="govuk-!-margin-bottom-6">
+              <header class="govuk-!-margin-bottom-2">
                 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service creation</h2>
 
                 <div class="app-status-info">
@@ -50,7 +53,13 @@
                   </div>
                 </div>
 
-                <p class="govuk-!-margin-top-2">
+                {{ appProgress({
+                  progress: creationJob.progress.percentage,
+                  total: creationJob.progress.total,
+                  complete: creationJob.progress.complete
+                }) }}
+
+                <p class="app-status-info__secondary">
                   Started: {{ appTime({
                     datetime: creationJob.started,
                     formatString: "k:mm:ss EE do MMM yyyy"
@@ -58,10 +67,23 @@
                 </p>
               </header>
 
+              <p class="govuk-!-margin-bottom-8">Your new service {{ service.serviceName }}, based on the
+                {{ creationJob.serviceType }}, is now being created. Further details around the different jobs
+                involved with your new service creation can be found below.</p>
+
               {{ appStatus(creationJob.createRepository) }}
-              {{ appStatus(creationJob.cdpTfSvcInfra) }}
+              <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l
+              govuk-!-margin-bottom-6">
+
               {{ appStatus(creationJob.cdpAppConfig) }}
+              <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l
+              govuk-!-margin-bottom-6">
+
               {{ appStatus(creationJob.cdpNginxUpstreams) }}
+              <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l
+              govuk-!-margin-bottom-6">
+
+              {{ appStatus(creationJob.cdpTfSvcInfra) }}
 
             </section>
           </div>
