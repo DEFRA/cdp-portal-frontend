@@ -1,6 +1,5 @@
 import qs from 'qs'
 
-import { environments } from '~/src/config'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { serviceValidation } from '~/src/server/deploy-service/helpers/schema/service-validation'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
@@ -12,6 +11,7 @@ import {
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
 import { sessionNames } from '~/src/server/common/constants/session-names'
+import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch-environments'
 
 const detailsController = {
   handler: async (request, h) => {
@@ -23,11 +23,12 @@ const detailsController = {
       payload?.imageName,
       request
     )
+    const environments = await fetchEnvironments(request)
 
     const validationResult = serviceValidation(
       deployableImageNames,
       availableVersions,
-      Object.values(environments)
+      environments
     ).validate(payload, {
       abortEarly: false
     })
