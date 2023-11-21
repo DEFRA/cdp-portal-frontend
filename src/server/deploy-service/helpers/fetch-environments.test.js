@@ -5,7 +5,7 @@ import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 import { environmentsFixture } from '~/src/__fixtures__/environments'
 import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch-environments'
 
-describe('#fetchEnvironmentNames', () => {
+describe('#fetchEnvironments', () => {
   const mockRequest = {
     fetchWithAuth: fetchWithAuth({
       getUserSession: jest.fn().mockResolvedValue({})
