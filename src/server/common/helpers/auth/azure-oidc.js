@@ -15,8 +15,8 @@ const azureOidc = {
 
       const authCallbackUrl = config.get('appBaseUrl') + '/auth/callback'
 
-      // making the OIDC config available to requests
-      server.decorate('request', 'oidc', oidc)
+      // making the OIDC config available to server
+      server.app.oidc = oidc
 
       server.auth.strategy('azure-oidc', 'bell', {
         location: (request) => {

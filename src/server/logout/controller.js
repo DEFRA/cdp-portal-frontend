@@ -11,7 +11,7 @@ const logoutController = {
       return h.redirect('/')
     }
 
-    const logoutBaseUrl = request.oidc.end_session_endpoint
+    const logoutBaseUrl = request.server.app.oidc.end_session_endpoint
     const referrer = request.info.referrer
     const loginHint = authedUser.loginHint
 
