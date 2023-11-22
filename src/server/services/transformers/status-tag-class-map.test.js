@@ -20,6 +20,12 @@ describe('#statusTagClassMap', () => {
     )
   })
 
+  test('Should provide expected "requested" tag className', () => {
+    expect(statusTagClassMap(serviceCreationStatuses.requested)).toEqual(
+      'govuk-tag--blue'
+    )
+  })
+
   test('Should provide expected "not-requested" tag className', () => {
     expect(statusTagClassMap(serviceCreationStatuses.notRequested)).toEqual(
       'govuk-tag--grey'
@@ -46,6 +52,12 @@ describe('#statusTagClassMap', () => {
 
   test('Should provide expected "failure" tag className', () => {
     expect(statusTagClassMap(serviceCreationStatuses.failure)).toEqual(
+      'govuk-tag--red'
+    )
+  })
+
+  test('Should provide expected "unknown" tag className', () => {
+    expect(statusTagClassMap(serviceCreationStatuses.unknown)).toEqual(
       'govuk-tag--red'
     )
   })

@@ -59,13 +59,16 @@ function transformStatus(service) {
       },
       info: () => {
         switch (createRepository?.status) {
+          case serviceCreationStatuses.raised:
           case serviceCreationStatuses.prOpen:
             return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+          case serviceCreationStatuses.requested:
           case serviceCreationStatuses.inProgress:
-            return `Creating github repository from ${serviceStatus.serviceType} template. The Github action link below has more information.`
+            return `Creating github repository from ${serviceStatus.serviceType} template.`
           case serviceCreationStatuses.created:
           case serviceCreationStatuses.success:
             return `Github repository created successfully, you can now checkout your new services code and start developing.`
+          case serviceCreationStatuses.unknown:
           case serviceCreationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
               '#app-help',
@@ -90,8 +93,10 @@ function transformStatus(service) {
       },
       info: () => {
         switch (cdpAppConfig?.status) {
+          case serviceCreationStatuses.raised:
           case serviceCreationStatuses.prOpen:
             return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+          case serviceCreationStatuses.unknown:
           case serviceCreationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
               '#app-help',
@@ -140,13 +145,16 @@ function transformStatus(service) {
       },
       info: () => {
         switch (cdpNginxUpstreams?.status) {
+          case serviceCreationStatuses.raised:
           case serviceCreationStatuses.prOpen:
             return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+          case serviceCreationStatuses.requested:
           case serviceCreationStatuses.inProgress:
             return `Setting up your service to be accessible to other services/public on the Core Delivery Platform environments. The Github action link below has more information.`
           case serviceCreationStatuses.created:
           case serviceCreationStatuses.success:
             return `Your services path is now configured on the Core Delivery Platform environments.`
+          case serviceCreationStatuses.unknown:
           case serviceCreationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
               '#app-help',
@@ -189,20 +197,26 @@ function transformStatus(service) {
       },
       info: () => {
         switch (cdpTfSvcInfra?.status) {
+          case serviceCreationStatuses.raised:
           case serviceCreationStatuses.prOpen:
             return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+          case serviceCreationStatuses.requested:
           case serviceCreationStatuses.inProgress:
             return `Setting up:
-                      <ul class="govuk-list govuk-list--spaced">
+                      <ul class="govuk-list govuk-list--bullet">
                         <li>Elastic container registry</li>
                         <li>Database credentials</li>
                         <li>Permissions</li>
+                        <li>Redis configuration</li>
                       </ul>
-                    You will need to wait for this stage to complete before you're able to deploy your service.
-                    The Github action link below has more information.`
+                    <p>
+                      You will need to wait for this stage to complete before you're able to deploy your service.
+                      The Github action link below has more information.
+                    </p>`
           case serviceCreationStatuses.created:
           case serviceCreationStatuses.success:
             return `All the supporting infrastructure for your service has been created.`
+          case serviceCreationStatuses.unknown:
           case serviceCreationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
               '#app-help',

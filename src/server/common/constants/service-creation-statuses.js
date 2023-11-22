@@ -1,4 +1,6 @@
 const serviceCreationStatuses = {
+  unknown: 'unknown',
+  requested: 'requested',
   raised: 'raised',
   prOpen: 'pr_open',
   inProgress: 'in-progress',

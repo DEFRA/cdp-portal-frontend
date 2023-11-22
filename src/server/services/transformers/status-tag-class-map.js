@@ -6,6 +6,7 @@ function statusTagClassMap(status) {
     case status === serviceCreationStatuses.prOpen:
       return 'govuk-tag--purple'
 
+    case status === serviceCreationStatuses.requested:
     case status === serviceCreationStatuses.inProgress:
       return 'govuk-tag--blue'
 
@@ -17,6 +18,7 @@ function statusTagClassMap(status) {
     case status === serviceCreationStatuses.workflowCompleted:
       return 'govuk-tag--green'
 
+    case status === serviceCreationStatuses.unknown:
     case status === serviceCreationStatuses.failure:
       return 'govuk-tag--red'
 
