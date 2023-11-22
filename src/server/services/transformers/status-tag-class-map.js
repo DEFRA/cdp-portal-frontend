@@ -17,7 +17,6 @@ function statusTagClassMap(status) {
     case status === serviceCreationStatuses.workflowCompleted:
       return 'govuk-tag--green'
 
-    case status === serviceCreationStatuses.failed: // TODO remove once API results have settled
     case status === serviceCreationStatuses.failure:
       return 'govuk-tag--red'
 

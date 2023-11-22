@@ -1,62 +1,72 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
-<div class="govuk-!-margin-bottom-6">
+<div class="govuk-!-margin-bottom-4">
   <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-    {{ params.name }}
+    {{ params.part }}) {{ params.name }}
   </h2>
 
-  {{ govukTag({
-    text: params.status.text,
-    classes: params.status.classes
-  }) }}
+  <div class="govuk-!-margin-left-4">
+    <p class="govuk-!-margin-bottom-2">
+      {{ govukTag({
+        text: params.status.text,
+        classes: params.status.classes
+      }) }}
+    </p>
 
-  <ul class="govuk-list govuk-list--bullet">
-    {% if params.pullRequest.url.href %}
-      <li>
-        <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Pull Request</h3>
-        <p class="govuk-!-margin-0">
-          <a class="app-link"
-             href="{{ params.pullRequest.url.href }}" target="_blank"
-             rel="noopener noreferrer">
-            {{ params.pullRequest.url.text }}
-          </a>
-        </p>
-      </li>
+    {% if params.info %}
+      <p class="govuk-!-margin-bottom-4">
+        {{ params.info() | safe }}
+      </p>
     {% endif %}
 
-    {% if params.githubAction.url.href %}
-      <li>
-        <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Github Action</h3>
-        <p class="govuk-!-margin-0">
-          <a class="app-link"
-             href="{{ params.githubAction.url.href }}" target="_blank"
-             rel="noopener noreferrer">{{ params.githubAction.name }}
-          </a>
-        </p>
-      </li>
-    {% endif %}
+    <ul class="govuk-list govuk-list--spaced">
+      {% if params.url.href %}
+        <li>
+          <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Github repository</h3>
+          <p class="govuk-!-margin-0">
+            <a class="app-link"
+               href="{{ params.url.href }}" target="_blank"
+               rel="noopener noreferrer">{{ params.url.text }}
+            </a>
+          </p>
+        </li>
+      {% endif %}
 
-    {% if params.url.href %}
-      <li>
-        <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Repository</h3>
-        <p class="govuk-!-margin-0">
-          <a class="app-link"
-             href="{{ params.url.href }}" target="_blank"
-             rel="noopener noreferrer">{{ params.url.text }}
-          </a>
-        </p>
-      </li>
-    {% endif %}
+      {% if params.pullRequest.url.href %}
+        <li>
+          <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Github pull request</h3>
+          <p class="govuk-!-margin-0">
+            <a class="app-link"
+               href="{{ params.pullRequest.url.href }}" target="_blank"
+               rel="noopener noreferrer">
+              {{ params.pullRequest.url.text }}
+            </a>
+          </p>
+        </li>
+      {% endif %}
 
-    {% if params.errors | length %}
-      <li>
-        <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Errors</h3>
-        <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">
-          {% for error in params.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% endif %}
-  </ul>
+      {% if params.githubAction.url.href %}
+        <li>
+          <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Github action</h3>
+          <p class="govuk-!-margin-0">
+            <a class="app-link"
+               href="{{ params.githubAction.url.href }}" target="_blank"
+               rel="noopener noreferrer">{{ params.githubAction.name }}
+            </a>
+          </p>
+        </li>
+      {% endif %}
+
+      {% if params.errors | length %}
+        <li>
+          <h3 class="govuk-heading-s govuk-!-margin-top-2 govuk-!-margin-bottom-0">Errors</h3>
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">
+            {% for error in params.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
 </div>

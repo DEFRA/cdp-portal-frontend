@@ -1,0 +1,14 @@
+<style>
+  .app-progress__indicator {
+    width: {{ params.progress }}%;
+  }
+</style>
+
+<div class="app-progress">
+  <div class="app-progress__bar">
+    <span class="app-progress__indicator"></span>
+  </div>
+  <div class="app-progress__readout">
+    {{ params.complete }} / {{ params.total }}
+  </div>
+</div>
