@@ -7,7 +7,6 @@ async function refreshAccessToken(request) {
   const refreshToken = authedUser?.refreshToken ?? null
   const azureClientId = config.get('azureClientId')
   const azureClientSecret = config.get('azureClientSecret')
-  const refreshTokenUrl = config.get('oAuthTokenUrl')
   const params = new URLSearchParams()
 
   params.append('client_id', azureClientId)
@@ -21,7 +20,7 @@ async function refreshAccessToken(request) {
 
   request.logger.info('Azure OIDC access token expired, refreshing...')
 
-  return await fetch(refreshTokenUrl, {
+  return await fetch(request.server.app.oidc.token_endpoint, {
     method: 'post',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

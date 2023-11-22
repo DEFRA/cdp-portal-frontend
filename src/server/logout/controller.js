@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 
 const logoutController = {
@@ -12,12 +11,12 @@ const logoutController = {
       return h.redirect('/')
     }
 
+    const logoutBaseUrl = request.server.app.oidc.end_session_endpoint
     const referrer = request.info.referrer
     const loginHint = authedUser.loginHint
-    const azureTenantId = config.get('azureTenantId')
 
     const logoutUrl = encodeURI(
-      `https://login.microsoftonline.com/${azureTenantId}/oauth2/logout?logout_hint=${loginHint}&post_logout_redirect_uri=${referrer}`
+      `${logoutBaseUrl}?logout_hint=${loginHint}&post_logout_redirect_uri=${referrer}`
     )
 
     request.dropUserSession()
