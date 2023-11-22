@@ -18,7 +18,7 @@ async function createUserSession(request, sessionId) {
   const { profile } = request.auth.credentials
   const userGroups = profile.groups
 
-  const isAdmin = userGroups.includes(config.get('azureAdminGroupId'))
+  const isAdmin = userGroups.includes(config.get('oidcAdminGroupId'))
   if (isAdmin) {
     userGroups.push(scopes.admin)
   }
@@ -55,7 +55,7 @@ async function updateUserSession(request, refreshedSession) {
 
   const userGroups = refreshedPayload.groups
 
-  const isAdmin = userGroups.includes(config.get('azureAdminGroupId'))
+  const isAdmin = userGroups.includes(config.get('oidcAdminGroupId'))
   if (isAdmin) {
     userGroups.push(scopes.admin)
   }

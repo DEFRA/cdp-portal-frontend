@@ -3,16 +3,20 @@ import bell from '@hapi/bell'
 
 import { config } from '~/src/config'
 
-const azureTenantId = config.get('azureTenantId')
-const oAuthTokenUrl = config.get('oAuthTokenUrl')
-const oAuthAuthorizeUrl = config.get('oAuthAuthorizeUrl')
-const authCallbackUrl = config.get('appBaseUrl') + '/auth/callback'
-
 const azureOidc = {
   plugin: {
     name: 'azure-oidc',
     register: async (server) => {
       await server.register(bell)
+
+      const oidc = await fetch(
+        config.get('oidcWellKnownConfigurationUrl')
+      ).then((res) => res.json())
+
+      const authCallbackUrl = config.get('appBaseUrl') + '/auth/callback'
+
+      // making the OIDC config available to requests
+      server.decorate('request', 'oidc', oidc)
 
       server.auth.strategy('azure-oidc', 'bell', {
         location: (request) => {
@@ -26,8 +30,8 @@ const azureOidc = {
           name: 'azure-oidc',
           protocol: 'oauth2',
           useParamsAuth: true,
-          auth: oAuthAuthorizeUrl,
-          token: oAuthTokenUrl,
+          auth: oidc.authorization_endpoint,
+          token: oidc.token_endpoint,
           scope: [
             `api://${config.get('azureClientId')}/cdp.user`,
             'openid',
@@ -54,7 +58,7 @@ const azureOidc = {
         cookie: 'bell-azure-oidc',
         isSecure: false,
         config: {
-          tenant: azureTenantId
+          tenant: config.get('azureTenantId')
         }
       })
     }
