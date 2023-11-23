@@ -64,10 +64,10 @@ function transformStatus(service) {
             return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
           case serviceCreationStatuses.requested:
           case serviceCreationStatuses.inProgress:
-            return `Creating github repository from ${serviceStatus.serviceType} template.`
+            return `Creating new services Github repository from the ${serviceStatus.serviceType} template.`
           case serviceCreationStatuses.created:
           case serviceCreationStatuses.success:
-            return `Github repository created successfully, you can now checkout your new services code and start developing.`
+            return `Your new services Github repository has been successfully created, you can now checkout your code and start developing.`
           case serviceCreationStatuses.unknown:
           case serviceCreationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -153,7 +153,7 @@ function transformStatus(service) {
             return `Setting up your service to be accessible to other services/public on the Core Delivery Platform environments. The Github action link below has more information.`
           case serviceCreationStatuses.created:
           case serviceCreationStatuses.success:
-            return `Your services path is now configured on the Core Delivery Platform environments.`
+            return `Your new services path is now configured on the Core Delivery Platform environments.`
           case serviceCreationStatuses.unknown:
           case serviceCreationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -207,7 +207,6 @@ function transformStatus(service) {
                         <li>Elastic container registry</li>
                         <li>Database credentials</li>
                         <li>Permissions</li>
-                        <li>Redis configuration</li>
                       </ul>
                     <p>
                       You will need to wait for this stage to complete before you're able to deploy your service.
