@@ -6,7 +6,7 @@ import { fetchLibraries } from '~/src/server/utilities/helpers/fetch-libraries'
 
 describe('#fetchLibraries', () => {
   const librariesEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + '/libraries?team=cdp-platform'
+    config.get('portalBackendApiUrl') + '/libraries'
   )
 
   test('Should provide expected libraries response', async () => {

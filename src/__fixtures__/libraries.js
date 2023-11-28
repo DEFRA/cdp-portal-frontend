@@ -2,8 +2,8 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-// NOTE we don't yet have libraries, but when we do they may look like this
-// Response from portalBackendApi/libraries?team=cdp-platform
+// TODO update fixture once we have libraries
+// Response from portalBackendApi/libraries
 const librariesFixture = {
   message: 'success',
   libraries: [
@@ -16,6 +16,17 @@ const librariesFixture = {
       isLibrary: true,
       isPrivate: true,
       createdAt: '2023-04-26T15:27:09+00:00',
+      teams: ['cdp-platform']
+    },
+    {
+      id: 'cdp-node-auth-library',
+      description: 'Core delivery platform auth library',
+      primaryLanguage: 'JavaScript',
+      url: `https://github.com/${githubOrg}/cdp-auth-library`,
+      isArchived: false,
+      isLibrary: true,
+      isPrivate: true,
+      createdAt: '2022-04-26T15:27:10+00:00',
       teams: ['cdp-platform']
     }
   ]
