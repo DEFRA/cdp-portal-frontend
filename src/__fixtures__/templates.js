@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-// Response from portalBackendApi/templates?team=cdp-platform
+// Response from portalBackendApi/templates
 const templatesFixture = {
   message: 'success',
   templates: [

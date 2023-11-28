@@ -6,17 +6,17 @@ import { fetchTemplates } from '~/src/server/utilities/helpers/fetch-templates'
 
 describe('#fetchTemplates', () => {
   const templatesEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + '/templates?team=cdp-platform'
+    config.get('portalBackendApiUrl') + '/templates'
   )
 
-  test('Should provide expected libraries response', async () => {
+  test('Should provide expected templates response', async () => {
     nock(templatesEndpointUrl.origin)
       .get(templatesEndpointUrl.pathname)
       .reply(200, templatesFixture)
 
-    const librariesResponse = await fetchTemplates()
+    const templatesResponse = await fetchTemplates()
 
-    expect(librariesResponse).toEqual(templatesFixture)
+    expect(templatesResponse).toEqual(templatesFixture)
   })
 
   test('With error, Should throw with expected message', async () => {
