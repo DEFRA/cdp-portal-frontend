@@ -11,11 +11,11 @@ const cdpTeamsFixture = {
       users: [
         {
           userId: '01b99595-27b5-4ab0-9807-f104c09d2cd0',
-          name: 'Mira Calix'
+          name: 'RoboCop'
         },
         {
           userId: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
-          name: 'Luke Vibert'
+          name: 'Mumm-ra'
         }
       ]
     },
@@ -28,7 +28,7 @@ const cdpTeamsFixture = {
       users: [
         {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-          name: 'Richard D James'
+          name: 'B. A. Baracus'
         }
       ]
     },
@@ -41,11 +41,11 @@ const cdpTeamsFixture = {
       users: [
         {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-          name: 'Richard D James'
+          name: 'B. A. Baracus'
         },
         {
           userId: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
-          name: 'Luke Vibert'
+          name: 'Mumm-ra'
         }
       ]
     },
@@ -58,7 +58,7 @@ const cdpTeamsFixture = {
       users: [
         {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-          name: 'Richard D James'
+          name: 'B. A. Baracus'
         }
       ]
     }

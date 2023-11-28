@@ -2,8 +2,8 @@ import { config } from '~/src/config'
 import { transformStatus } from '~/src/server/services/transformers/transform-status'
 import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
 import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
-import { serviceGithubDetailFixture } from '~/src/__fixtures__/service-github-detail'
 import { decorateService } from '~/src/server/services/transformers/decorate-service'
+import { repositoryFixture } from '~/src/__fixtures__/repository'
 
 const githubOrg = config.get('githubOrg')
 
@@ -11,7 +11,7 @@ describe('#transformStatus', () => {
   test('Should provide expected transformed service status', () => {
     const service = decorateService(
       transformServiceStatusToService(createServiceStatusFixture.status),
-      serviceGithubDetailFixture.repository
+      repositoryFixture.repository
     )
 
     expect(transformStatus(service)).toEqual(

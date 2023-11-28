@@ -3,5 +3,7 @@
      role="alert"
      data-testid="app-banner"
      {% if params.js %}data-js="{{ params.js }}"{% endif %}>
-  <p class="app-banner__content" data-testid="app-banner-content">{{ params.text }}</p>
+  <p class="app-banner__content"
+     {% if params.js %}data-js="{{ params.js }}-content"{% endif %}
+     data-testid="app-banner-content">{{ params.text }}</p>
 </div>

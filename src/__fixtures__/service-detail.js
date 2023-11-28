@@ -2,8 +2,8 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-// A service from portalBackendApiUrl /services/<serviceId>
-// decorated with repository data from portalBackendApiUrl /repositories/<repositoryId>
+// A service from portalBackendApiUrl/services/<serviceId>
+// decorated with repository data from portalBackendApiUrl/repositories/<repositoryId>
 const serviceDetailFixture = {
   serviceName: 'cdp-portal-deployables-backend',
   githubUrl: `https://github.com/${githubOrg}/cdp-deployables`,

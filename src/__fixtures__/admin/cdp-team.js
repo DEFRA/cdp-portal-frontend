@@ -1,3 +1,4 @@
+// Response from userServiceBackend/teams/aabe63e7-87ef-4beb-a596-c810631fc474
 const cdpTeamFixture = {
   message: 'success',
   team: {

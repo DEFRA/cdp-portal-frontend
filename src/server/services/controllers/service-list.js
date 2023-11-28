@@ -12,18 +12,18 @@ const serviceListController = {
   handler: async (request, h) => {
     const { repositories } = await fetchRepositories()
     const deployableServices = await fetchDeployableServices()
+    const { statuses } = await fetchCreateServicesInProgressStatus()
+
+    const createStatusServices = statuses?.map(transformServiceStatusToService)
     const decorator = decorateServices(repositories)
 
-    const { statuses } = await fetchCreateServicesInProgressStatus()
-    const createServicesStatus = statuses?.map(transformServiceStatusToService)
-
-    const deployableServicesWithGithub = deployableServices.map(decorator)
-    const createServicesWithGithub = createServicesStatus.map(decorator)
+    const deployableServicesWithRepository = deployableServices.map(decorator)
+    const createServicesWithRepository = createStatusServices.map(decorator)
 
     // Services from Portal Backends /services overwrite services from Self Service Ops /create-service/status
     const services = unionBy(
-      deployableServicesWithGithub,
-      createServicesWithGithub,
+      deployableServicesWithRepository,
+      createServicesWithRepository,
       'serviceName'
     )
 

@@ -1,12 +1,14 @@
 import { config } from '~/src/config'
 import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
-import { servicesFixture } from '~/src/__fixtures__/services'
+import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services-with-repositories'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformServiceToEntityRow', () => {
   test('Should provide expected service entity row transformation', () => {
-    expect(transformServiceToEntityRow(servicesFixture.at(0))).toEqual([
+    expect(
+      transformServiceToEntityRow(servicesWithRepositoriesFixture.at(0))
+    ).toEqual([
       {
         kind: 'link',
         url: '/services/cdp-portal-frontend',

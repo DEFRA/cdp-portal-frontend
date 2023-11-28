@@ -3,7 +3,7 @@ import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 
 function transformServiceToEntityDataList(service) {
   const dockerHubUrl = config.get('dockerHubUrl')
-  const dockerHubServicePage = dockerHubUrl + '/' + service?.imageName
+  const dockerHubServicePage = dockerHubUrl + '/' + service?.imageName + '/tags'
 
   return [
     {

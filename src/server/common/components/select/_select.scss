@@ -23,9 +23,9 @@
 
 .app-select-wrapper {
   display: flex;
+  align-items: center;
 
   .app-loader {
-    position: relative;
-    bottom: 4px;
+    margin-left: govuk-spacing(2);
   }
 }

@@ -3,7 +3,7 @@ function clientNotification(textContent = 'Something went wrong', kind) {
     '[data-js="app-client-notifications"]'
   )
   const clientMessageHolder = clientNotification.querySelector(
-    '.app-banner__content'
+    '[data-js="app-client-notifications-content"]'
   )
 
   if (kind) {

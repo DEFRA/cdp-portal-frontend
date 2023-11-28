@@ -1,9 +1,10 @@
+// Response from userServiceBackend/users/1398fa86-98a2-4ee8-84bb-2468cc71d0ec
 const cdpUserFixture = {
   message: 'success',
   user: {
-    name: 'Richard D James',
-    email: 'RichardDJames@defradev.onmicrosoft.com',
-    github: 'RichardDJames',
+    name: 'B. A. Baracus',
+    email: 'B.A.Baracus@defradev.onmicrosoft.com',
+    github: 'BABaracus',
     defraVpnId: '345345-345345',
     defraAwsId: 'FGHyu-232342-234234',
     createdAt: '2023-08-23T16:17:57.883Z',

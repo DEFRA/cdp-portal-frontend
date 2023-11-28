@@ -1,3 +1,4 @@
+// Response from userServiceBackend/github-teams?query=a
 const githubTeamsFixture = {
   message: 'success',
   teams: [

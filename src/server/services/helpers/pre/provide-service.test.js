@@ -4,9 +4,9 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
 import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
 import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch-create-service-status'
-import { serviceGithubDetailFixture } from '~/src/__fixtures__/service-github-detail'
 import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable'
 import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
+import { repositoryFixture } from '~/src/__fixtures__/repository'
 
 jest.mock('~/src/server/services/helpers/fetch-repository')
 jest.mock('~/src/server/services/helpers/fetch-deployable-service')
@@ -24,7 +24,7 @@ describe('#provideService', () => {
   }
 
   test('Should provide github decorated deployable service', async () => {
-    fetchRepository.mockResolvedValue(serviceGithubDetailFixture)
+    fetchRepository.mockResolvedValue(repositoryFixture)
     fetchDeployableService.mockResolvedValue(serviceDeployableFixture)
 
     expect(await provideService.method(mockRequest)).toEqual({
@@ -50,7 +50,7 @@ describe('#provideService', () => {
   })
 
   test('Should provide github decorated create service status service', async () => {
-    fetchRepository.mockResolvedValue(serviceGithubDetailFixture)
+    fetchRepository.mockResolvedValue(repositoryFixture)
     fetchDeployableService.mockRejectedValue(notFound)
     fetchCreateServiceStatus.mockResolvedValue(createServiceStatusFixture)
 

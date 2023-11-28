@@ -4,7 +4,7 @@ import { fetchMemory } from '~/src/client/common/helpers/fetchers/select/fetch-m
 import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map'
 
 describe('#fetchMemory', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     fetchMock.enableMocks()
   })
 

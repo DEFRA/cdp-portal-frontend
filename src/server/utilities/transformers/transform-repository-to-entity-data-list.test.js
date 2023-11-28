@@ -1,13 +1,13 @@
 import { config } from '~/src/config'
 import { transformRepositoryToEntityDataList } from '~/src/server/utilities/transformers/transform-repository-to-entity-data-list'
-import { serviceGithubDetailFixture } from '~/src/__fixtures__/service-github-detail'
+import { repositoryFixture } from '~/src/__fixtures__/repository'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformServiceToEntityDataList', () => {
   test('Should provide expected repository data list entities transformation', () => {
     expect(
-      transformRepositoryToEntityDataList(serviceGithubDetailFixture.repository)
+      transformRepositoryToEntityDataList(repositoryFixture.repository)
     ).toEqual([
       {
         entity: {
@@ -33,8 +33,8 @@ describe('#transformServiceToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: `https://github.com/${githubOrg}`,
-          value: `${githubOrg}`
+          url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+          value: `${githubOrg}/cdp-portal-frontend`
         },
         heading: 'Github Repository'
       },

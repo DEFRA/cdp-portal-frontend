@@ -21,7 +21,8 @@ async function buildNavigation(request) {
       {
         text: 'Teams',
         url: '/teams',
-        isActive: request?.path?.includes('/teams')
+        isActive:
+          request?.path?.includes('/teams') && !request?.path?.includes('admin')
       },
       {
         text: 'Deployments',

@@ -1,1 +1,32 @@
-test.todo('Select with loader component')
+import { renderTestComponent } from '~/test-helpers/component-helpers'
+
+describe('App select with loader Component', () => {
+  let $select
+  let $selectLoader
+
+  beforeEach(() => {
+    const $component = renderTestComponent('select', {
+      attributes: {
+        'data-testid': 'app-select'
+      },
+      loader: {
+        name: 'app-select-loader'
+      }
+    })
+
+    $select = $component('[data-testid="app-select"]').first()
+    $selectLoader = $component('[data-testid="app-loader"]').first()
+  })
+
+  test('Should render select', () => {
+    expect($select.length).toEqual(1)
+  })
+
+  test('Should render select loader', () => {
+    expect($selectLoader.length).toEqual(1)
+  })
+
+  test('Should render select loader with expected js attribute', () => {
+    expect($selectLoader.attr('data-js')).toEqual('app-select-loader')
+  })
+})

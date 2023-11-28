@@ -4,7 +4,7 @@ import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
 import { fetchVersions } from '~/src/client/common/helpers/fetchers/select/fetch-versions'
 
 describe('#fetchVersions', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     fetchMock.enableMocks()
   })
 

@@ -10,7 +10,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/users/find-aad-user?redirectLocation=summary&aadQuery=RichardDJames@defradev.onmicrosoft.com',
+              href: '/admin/users/find-aad-user?redirectLocation=summary&aadQuery=B.A.Baracus@defradev.onmicrosoft.com',
               text: 'Change',
               visuallyHiddenText: 'AAD user email'
             }
@@ -21,7 +21,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'AAD user email'
         },
         value: {
-          html: 'RichardDJames@defradev.onmicrosoft.com'
+          html: 'B.A.Baracus@defradev.onmicrosoft.com'
         }
       },
       {
@@ -30,7 +30,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'AAD user name'
         },
         value: {
-          html: 'Richard D James'
+          html: 'B. A. Baracus'
         }
       },
       {
@@ -39,7 +39,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/users/find-github-user?redirectLocation=summary&githubSearch=RichardDJames',
+              href: '/admin/users/find-github-user?redirectLocation=summary&githubSearch=BABaracus',
               text: 'Change',
               visuallyHiddenText: 'Github user'
             }
@@ -50,7 +50,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'Github user'
         },
         value: {
-          html: '<a class="app-link" href="https://github.com/RichardDJames" target="_blank" rel="noopener noreferrer">@RichardDJames</a>'
+          html: '<a class="app-link" href="https://github.com/BABaracus" target="_blank" rel="noopener noreferrer">@BABaracus</a>'
         }
       },
       {
