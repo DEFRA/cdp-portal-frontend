@@ -10,18 +10,18 @@ describe('#transformUserToEntityRow', () => {
       {
         kind: 'link',
         url: '/admin/users/1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-        value: 'Richard D James'
+        value: 'B. A. Baracus'
       },
       {
         kind: 'link',
-        url: 'mailto:RichardDJames@defradev.onmicrosoft.com',
-        value: 'RichardDJames@defradev.onmicrosoft.com'
+        url: 'mailto:B.A.Baracus@defradev.onmicrosoft.com',
+        value: 'B.A.Baracus@defradev.onmicrosoft.com'
       },
       {
         kind: 'link',
         newWindow: true,
-        url: `https://github.com/orgs/${githubOrg}/people/RichardDJames`,
-        value: '@RichardDJames'
+        url: `https://github.com/orgs/${githubOrg}/people/BABaracus`,
+        value: '@BABaracus'
       },
       {
         kind: 'text',

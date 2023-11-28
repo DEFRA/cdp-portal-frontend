@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-//  Response from selfServiceOpsApi/create-service/status
+// Response from selfServiceOpsApi/create-service/status/cdp-portal-frontend
 const createServiceStatusFixture = {
   message: 'success',
   status: {

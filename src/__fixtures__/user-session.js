@@ -1,7 +1,7 @@
 const userSessionFixture = {
   id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-  email: 'richarddjames@Defra.onmicrosoft.com',
-  displayName: 'Richard D James',
+  email: 'BABaracus@Defra.onmicrosoft.com',
+  displayName: 'B. A. Baracus',
   loginHint: '1234567',
   isAuthenticated: true,
   token: '1234567-mock-token-7654321',

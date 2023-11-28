@@ -1,3 +1,4 @@
+// Response from userServiceBackend/teams/47c04343-4c0e-4326-9848-bef7c1e2eedd
 const cdpTeamWithoutGithubFixture = {
   message: 'success',
   team: {

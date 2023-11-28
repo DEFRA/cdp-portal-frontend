@@ -7,15 +7,15 @@ describe('#transformUserToEntityDataList', () => {
       {
         entity: {
           kind: 'text',
-          value: 'Richard D James'
+          value: 'B. A. Baracus'
         },
         heading: 'Name'
       },
       {
         entity: {
           kind: 'link',
-          url: 'mailto:RichardDJames@defradev.onmicrosoft.com',
-          value: 'RichardDJames@defradev.onmicrosoft.com'
+          url: 'mailto:B.A.Baracus@defradev.onmicrosoft.com',
+          value: 'B.A.Baracus@defradev.onmicrosoft.com'
         },
         heading: 'Email'
       },
@@ -23,8 +23,8 @@ describe('#transformUserToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: 'https://github.com/RichardDJames',
-          value: '@RichardDJames'
+          url: 'https://github.com/BABaracus',
+          value: '@BABaracus'
         },
         heading: 'Github'
       },

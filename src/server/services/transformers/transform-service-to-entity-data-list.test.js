@@ -4,7 +4,7 @@ import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
 import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
 import { decorateService } from '~/src/server/services/transformers/decorate-service'
-import { serviceGithubDetailFixture } from '~/src/__fixtures__/service-github-detail'
+import { repositoryFixture } from '~/src/__fixtures__/repository'
 
 const githubOrg = config.get('githubOrg')
 
@@ -65,7 +65,7 @@ describe('#transformServiceToEntityDataList', () => {
     test('Should provide expected service data list entities transformation', () => {
       const service = decorateService(
         transformServiceStatusToService(createServiceStatusFixture.status),
-        serviceGithubDetailFixture.repository
+        repositoryFixture.repository
       )
 
       expect(transformServiceToEntityDataList(service)).toEqual([

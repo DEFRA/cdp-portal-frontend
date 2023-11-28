@@ -2,16 +2,16 @@ const githubUsersFixture = {
   message: 'success',
   users: [
     {
-      github: 'RichardDJames',
-      name: 'Richard D James'
+      github: 'BABaracus',
+      name: 'B. A. Baracus'
     },
     {
-      github: 'MiraCalix',
-      name: 'Mira Calix'
+      github: 'RoboCop',
+      name: 'RoboCop'
     },
     {
-      github: 'LukeVibert',
-      name: 'Luke Vibert'
+      github: 'Mumm-ra',
+      name: 'Mumm-ra'
     }
   ]
 }

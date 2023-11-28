@@ -1,10 +1,11 @@
+// Response from userServiceBackend/users
 const cdpUsersFixture = {
   message: 'success',
   users: [
     {
-      name: 'Richard D James',
-      email: 'RichardDJames@defradev.onmicrosoft.com',
-      github: 'RichardDJames',
+      name: 'B. A. Baracus',
+      email: 'B.A.Baracus@defradev.onmicrosoft.com',
+      github: 'BABaracus',
       defraVpnId: '345345-345345',
       defraAwsId: 'FGHyu-232342-234234',
       createdAt: '2023-08-23T16:17:57.883Z',
@@ -22,9 +23,9 @@ const cdpUsersFixture = {
       ]
     },
     {
-      name: 'Mira Calix',
-      email: 'MiraCalix@defradev.onmicrosoft.com',
-      github: 'MiraCalix',
+      name: 'RoboCop',
+      email: 'RoboCop@defradev.onmicrosoft.com',
+      github: 'RoboCop',
       defraVpnId: '4563656356-53673567356',
       defraAwsId: 'Fsdfgsfdgsdrt-45345-2345',
       createdAt: '2023-06-23T16:17:57.883Z',
@@ -38,9 +39,9 @@ const cdpUsersFixture = {
       ]
     },
     {
-      name: 'Luke Vibert',
-      email: 'LukeVibert@defradev.onmicrosoft.com',
-      github: 'LukeVibert',
+      name: 'Mumm-ra',
+      email: 'Mumm-ra@defradev.onmicrosoft.com',
+      github: 'Mumm-ra',
       defraVpnId: 'srtewr-34234234',
       defraAwsId: 'sdfsdfg0324-24324-234',
       createdAt: '2023-07-19T16:17:57.883Z',

@@ -1,3 +1,4 @@
+// Response from portalBackendApi/service-types
 const serviceTypesFixture = {
   message: 'success',
   serviceTypes: [
