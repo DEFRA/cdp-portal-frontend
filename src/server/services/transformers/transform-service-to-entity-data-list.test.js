@@ -45,8 +45,8 @@ describe('#transformServiceToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: 'https://hub.docker.com/r/defradigital/cdp-portal-deployables-backend',
-            value: 'defradigital/cdp-portal-deployables-backend'
+            url: 'https://hub.docker.com/r/defradigital/cdp-portal-deployables-backend/tags',
+            value: 'defradigital/cdp-portal-deployables-backend/tags'
           },
           heading: 'Docker Hub'
         },
