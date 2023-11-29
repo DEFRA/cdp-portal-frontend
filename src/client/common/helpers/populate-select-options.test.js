@@ -78,8 +78,10 @@ describe('#populateSelectOptions', () => {
         expect(targetSelect.outerHTML).toEqual(
           `<select name="version" data-js="deploy-version" data-testid="version">
              <option value="" disabled=""> - - select - - </option>
-             <option value="0.87.0">0.87.0</option><option value="0.86.0">0.86.0</option>
-             <option value="0.85.0">0.85.0</option><option value="0.84.0">0.84.0</option>
+             <option value="0.87.0">0.87.0</option>
+             <option value="0.86.0">0.86.0</option>
+             <option value="0.85.0">0.85.0</option>
+             <option value="0.84.0">0.84.0</option>
            </select>`.replace(/\s\s+/g, '')
         )
       })
