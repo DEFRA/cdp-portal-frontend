@@ -5,6 +5,8 @@ import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-ser
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCreate } from '~/src/server/create-service/helpers/pre/provide-create'
 import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
+import { checkServiceStatusExists } from '~/src/server/create-service/helpers/check-service-status-exists'
+import { checkRepositoryExists } from '~/src/server/create-service/helpers/check-repository-exists'
 
 const createServiceController = {
   options: {
@@ -43,6 +45,22 @@ const createServiceController = {
         formErrors: errorDetails
       })
 
+      return h.redirect('/create-service')
+    }
+
+    if (await checkRepositoryExists(repositoryName)) {
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        `Cannot create ${repositoryName}, repository already exists`
+      )
+      return h.redirect('/create-service')
+    }
+
+    if (await checkServiceStatusExists(repositoryName)) {
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        `Cannot create ${repositoryName}, repository has already been requested`
+      )
       return h.redirect('/create-service')
     }
 
