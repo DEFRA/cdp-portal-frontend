@@ -119,7 +119,7 @@ describe('#transformStatus', () => {
           percentage: 100,
           total: 4
         },
-        serviceType: 'cdp-node-backend-template',
+        serviceTypeTemplate: 'cdp-node-backend-template',
         started: '2023-10-27T12:37:46.915Z',
         status: {
           classes: 'govuk-tag--blue',
