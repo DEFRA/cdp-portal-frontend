@@ -3,14 +3,14 @@ import { config } from '~/src/config'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
 import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
-import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch-create-service-status'
+import { fetchCreateStatus } from '~/src/server/services/helpers/fetch-create-status'
 import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable'
 import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 
 jest.mock('~/src/server/services/helpers/fetch-repository')
 jest.mock('~/src/server/services/helpers/fetch-deployable-service')
-jest.mock('~/src/server/services/helpers/fetch-create-service-status')
+jest.mock('~/src/server/services/helpers/fetch-create-status')
 
 const githubOrg = config.get('githubOrg')
 
@@ -52,7 +52,7 @@ describe('#provideService', () => {
   test('Should provide github decorated create service status service', async () => {
     fetchRepository.mockResolvedValue(repositoryFixture)
     fetchDeployableService.mockRejectedValue(notFound)
-    fetchCreateServiceStatus.mockResolvedValue(createServiceStatusFixture)
+    fetchCreateStatus.mockResolvedValue(createServiceStatusFixture)
 
     expect(await provideService.method(mockRequest)).toEqual({
       createdAt: '2023-04-12T17:16:48+00:00',
@@ -78,7 +78,7 @@ describe('#provideService', () => {
 
   test('Should provide create service status service', async () => {
     fetchRepository.mockRejectedValue(notFound)
-    fetchCreateServiceStatus.mockResolvedValue(createServiceStatusFixture)
+    fetchCreateStatus.mockResolvedValue(createServiceStatusFixture)
 
     expect(await provideService.method(mockRequest)).toEqual({
       githubUrl: `https://github.com/${githubOrg}`,
@@ -97,7 +97,7 @@ describe('#provideService', () => {
 
   test('Should provide "404"', async () => {
     fetchRepository.mockRejectedValue(notFound)
-    fetchCreateServiceStatus.mockRejectedValue(notFound)
+    fetchCreateStatus.mockRejectedValue(notFound)
 
     expect.assertions(1)
 

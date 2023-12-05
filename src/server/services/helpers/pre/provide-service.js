@@ -1,6 +1,6 @@
 import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
 import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
-import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch-create-service-status'
+import { fetchCreateStatus } from '~/src/server/services/helpers/fetch-create-status'
 import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
 import { decorateService } from '~/src/server/services/transformers/decorate-service'
 
@@ -18,15 +18,13 @@ import { decorateService } from '~/src/server/services/transformers/decorate-ser
  * If either of these 404, then
  *
  * Part 2)
- * Fetch the services creation status from selfServiceOpsApiUrl/create-service/status/${repositoryName}
+ * Fetch the services creation status from selfServiceOpsApiUrl/status/${repositoryName}
  * If github details exist and service creation status exists, transform, decorate and return service
  * If no github details exist and service creation status exists, transform and return service
  *
  * If no service creation status exists 404
  *
  */
-
-// This checks to see if things are ready
 const provideService = {
   method: async function (request) {
     const serviceId = request.params?.serviceId
@@ -42,7 +40,7 @@ const provideService = {
       )
     } catch (error) {
       if (error?.output?.statusCode === 404) {
-        const { status } = await fetchCreateServiceStatus(serviceId)
+        const { status } = await fetchCreateStatus(serviceId)
         const statusService = transformServiceStatusToService(status)
 
         if (repositoryResponse?.repository) {
