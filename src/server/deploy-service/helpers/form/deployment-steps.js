@@ -1,35 +1,39 @@
-const deploymentUrls = {
+const urls = {
   stepOne: '/deploy-service/details',
   stepTwo: '/deploy-service/options',
   stepThree: '/deploy-service/summary',
   stepFour: '/deploy-service/deploy'
 }
 
-const deploymentSteps = (requestPath, urls, isComplete) => [
-  {
-    url: urls.stepOne,
-    isComplete: isComplete.stepOne,
-    isCurrent: requestPath.includes(urls.stepOne),
-    text: 'Details'
-  },
-  {
-    url: urls.stepTwo,
-    isComplete: isComplete.stepTwo,
-    isCurrent: requestPath.includes(urls.stepTwo),
-    text: 'Options'
-  },
-  {
-    url: urls.stepThree,
-    isComplete: isComplete.stepThree,
-    isCurrent: requestPath.includes(urls.stepThree),
-    text: 'Summary'
-  },
-  {
-    isComplete: isComplete.stepFour,
-    isCurrent: requestPath.includes(urls.stepFour),
-    text: 'Deployment'
-  }
-]
+function deploymentSteps(path, deployment) {
+  const isComplete = isDeploymentComplete(deployment)
+
+  return [
+    {
+      url: urls.stepOne,
+      isComplete: isComplete.stepOne,
+      isCurrent: path.includes(urls.stepOne),
+      text: 'Details'
+    },
+    {
+      url: urls.stepTwo,
+      isComplete: isComplete.stepTwo,
+      isCurrent: path.includes(urls.stepTwo),
+      text: 'Options'
+    },
+    {
+      url: urls.stepThree,
+      isComplete: isComplete.stepThree,
+      isCurrent: path.includes(urls.stepThree),
+      text: 'Summary'
+    },
+    {
+      isComplete: isComplete.stepFour,
+      isCurrent: path.includes(urls.stepFour),
+      text: 'Deployment'
+    }
+  ]
+}
 
 function isDeploymentComplete(cdpTeam) {
   return {
@@ -40,4 +44,4 @@ function isDeploymentComplete(cdpTeam) {
   }
 }
 
-export { deploymentUrls, deploymentSteps, isDeploymentComplete }
+export { deploymentSteps, isDeploymentComplete }

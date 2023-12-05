@@ -1,35 +1,39 @@
-const createUrls = {
+const urls = {
   stepOne: '/admin/users/find-aad-user',
   stepTwo: '/admin/users/find-github-user',
   stepThree: '/admin/users/user-details',
   stepFour: '/admin/users/summary'
 }
 
-const createSteps = (requestPath, urls, isComplete) => [
-  {
-    url: urls.stepOne,
-    isComplete: isComplete.stepOne,
-    isCurrent: requestPath.includes(urls.stepOne),
-    text: 'AAD'
-  },
-  {
-    url: urls.stepTwo,
-    isComplete: isComplete.stepTwo,
-    isCurrent: requestPath.includes(urls.stepTwo),
-    text: 'Github user'
-  },
-  {
-    url: urls.stepThree,
-    isComplete: isComplete.stepThree,
-    isCurrent: requestPath.includes(urls.stepThree),
-    text: 'Details'
-  },
-  {
-    isComplete: isComplete.allSteps,
-    isCurrent: requestPath.includes(urls.stepFour),
-    text: 'Summary'
-  }
-]
+function createSteps(path, cdpUser) {
+  const isComplete = isCreateCdpUserComplete(cdpUser)
+
+  return [
+    {
+      url: urls.stepOne,
+      isComplete: isComplete.stepOne,
+      isCurrent: path.includes(urls.stepOne),
+      text: 'AAD'
+    },
+    {
+      url: urls.stepTwo,
+      isComplete: isComplete.stepTwo,
+      isCurrent: path.includes(urls.stepTwo),
+      text: 'Github user'
+    },
+    {
+      url: urls.stepThree,
+      isComplete: isComplete.stepThree,
+      isCurrent: path.includes(urls.stepThree),
+      text: 'Details'
+    },
+    {
+      isComplete: isComplete.allSteps,
+      isCurrent: path.includes(urls.stepFour),
+      text: 'Summary'
+    }
+  ]
+}
 
 function isCreateCdpUserComplete(cdpUser) {
   return {
@@ -40,4 +44,4 @@ function isCreateCdpUserComplete(cdpUser) {
   }
 }
 
-export { createUrls, createSteps, isCreateCdpUserComplete }
+export { createSteps, isCreateCdpUserComplete }
