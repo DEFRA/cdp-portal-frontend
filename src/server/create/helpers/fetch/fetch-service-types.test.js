@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { config } from '~/src/config'
 import { serviceTypesFixture } from '~/src/__fixtures__/service-types'
-import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
+import { fetchServiceTypes } from '~/src/server/create/helpers/fetch/fetch-service-types'
 
 describe('#fetchServiceTypes', () => {
   const serviceTypesEndpointUrl = new URL(

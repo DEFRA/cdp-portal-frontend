@@ -1,0 +1,18 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
+
+    <p>This is a temporary page until the next ticket is played</p>
+
+    <p>Your new repository will shortly be available at {{ repositoryLink | safe }}</p>
+  </div>
+
+{% endblock %}
+

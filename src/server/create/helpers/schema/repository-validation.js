@@ -1,6 +1,8 @@
 import Joi from 'joi'
 
-function createServiceValidation(serviceTypes, usersTeamIds) {
+import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility'
+
+function repositoryValidation() {
   return Joi.object({
     repositoryName: Joi.string()
       .pattern(/^[\w-]*$/)
@@ -17,21 +19,20 @@ function createServiceValidation(serviceTypes, usersTeamIds) {
         'string.min': '1 character or more',
         'string.max': '32 characters or less'
       }),
-    serviceType: Joi.string()
-      .valid(...serviceTypes)
+    repositoryVisibility: Joi.string()
+      .valid(...repositoryVisibility)
       .messages({
         'any.only': 'Choose an entry',
         'any.required': 'Choose an entry'
       })
       .required(),
     teamId: Joi.string()
-      .valid(...usersTeamIds)
       .messages({
-        'any.only': 'Choose an entry',
         'any.required': 'Choose an entry'
       })
-      .required()
+      .required(),
+    redirectLocation: Joi.string().valid('summary', '')
   })
 }
 
-export { createServiceValidation }
+export { repositoryValidation }

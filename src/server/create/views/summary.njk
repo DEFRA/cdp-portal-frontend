@@ -1,0 +1,38 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <div class="govuk-body">
+          <form action="{{ action }}" method="post">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+            <input type="hidden" name="teamId" value="{{ create.teamId }}"/>
+
+            {{ govukSummaryList({
+              classes: "govuk-!-margin-bottom-9",
+              rows: summaryRows
+            }) }}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: formButtonText
+            }) }}
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+

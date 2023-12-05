@@ -42,9 +42,9 @@ async function buildNavigation(request) {
         isActive: request?.path?.includes('/deploy-service')
       },
       {
-        text: 'Create Service',
-        url: '/create-service',
-        isActive: request?.path?.includes('/create-service')
+        text: 'Create',
+        url: '/create',
+        isActive: request?.path?.includes('/create')
       }
     ],
     admin: authedUser?.isAdmin && [

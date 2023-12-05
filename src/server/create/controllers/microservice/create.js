@@ -1,39 +1,40 @@
 import { config } from '~/src/config'
-import { createServiceValidation } from '~/src/server/create-service/helpers/schema/create-service-validation'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { fetchServiceTypes } from '~/src/server/create-service/helpers/fetch-service-types'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { provideCreate } from '~/src/server/create-service/helpers/pre/provide-create'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
+import { fetchServiceTypes } from '~/src/server/create/helpers/fetch/fetch-service-types'
+import { microserviceValidation } from '~/src/server/create/helpers/schema/microservice-validation'
+import { setStepComplete } from '~/src/server/create/helpers/form'
 
-const createServiceController = {
+const microserviceCreateController = {
   options: {
+    auth: {
+      strategy: 'azure-oidc',
+      access: {
+        scope: [config.get('oidcAdminGroupId'), '{payload.teamId}']
+      }
+    },
     pre: [provideCreate]
   },
   handler: async (request, h) => {
-    const payload = request?.payload
-    const repositoryName = payload.repositoryName
-    const serviceType = payload.serviceType
-    const teamId = payload.teamId
+    const create = request.pre?.create
+    const repositoryName = create.repositoryName
+    const serviceTypeTemplate = create.serviceTypeTemplate
+    const teamId = request.payload?.teamId
 
     const { serviceTypes } = await fetchServiceTypes()
     const serviceTypesIds = serviceTypes.map((serviceType) => serviceType.value)
 
-    const usersTeams = await getUsersTeams(request)
-    const usersTeamIds = usersTeams.map((team) => team.teamId)
-
-    const validationResult = createServiceValidation(
-      serviceTypesIds,
-      usersTeamIds
-    ).validate(payload, {
-      abortEarly: false
-    })
-
     const sanitisedPayload = {
       repositoryName,
-      serviceType,
+      serviceTypeTemplate,
       teamId
     }
+
+    const validationResult = microserviceValidation(serviceTypesIds).validate(
+      sanitisedPayload,
+      { abortEarly: false }
+    )
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -43,12 +44,12 @@ const createServiceController = {
         formErrors: errorDetails
       })
 
-      return h.redirect('/create-service')
+      return h.redirect('/create/microservice/summary')
     }
 
     if (!validationResult.error) {
       const selfServiceOpsCreateServiceEndpointUrl =
-        config.get('selfServiceOpsApiUrl') + '/create-service'
+        config.get('selfServiceOpsApiUrl') + '/create-microservice'
 
       const response = await request.fetchWithAuth(
         selfServiceOpsCreateServiceEndpointUrl,
@@ -60,6 +61,8 @@ const createServiceController = {
       const json = await response.json()
 
       if (response.ok) {
+        await setStepComplete(request, h, 'allSteps')
+
         request.yar.clear(sessionNames.validationFailure)
         await request.yar.commit(h)
 
@@ -76,9 +79,9 @@ const createServiceController = {
       })
       request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-      return h.redirect('/create-service')
+      return h.redirect('/create/microservice/summary')
     }
   }
 }
 
-export { createServiceController }
+export { microserviceCreateController }
