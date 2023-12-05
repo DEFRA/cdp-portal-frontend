@@ -3,12 +3,10 @@ import Boom from '@hapi/boom'
 
 import { config } from '~/src/config'
 
-async function fetchCreateServiceStatus(repositoryName) {
-  const createServiceStatusEndpointUrl =
-    config.get('selfServiceOpsApiUrl') +
-    `/create-service/status/${repositoryName}`
+async function fetchCreateInProgressStatus() {
+  const statusEndpointUrl = config.get('selfServiceOpsApiUrl') + '/status'
 
-  const response = await fetch(createServiceStatusEndpointUrl, {
+  const response = await fetch(statusEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })
@@ -25,4 +23,4 @@ async function fetchCreateServiceStatus(repositoryName) {
   throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
-export { fetchCreateServiceStatus }
+export { fetchCreateInProgressStatus }

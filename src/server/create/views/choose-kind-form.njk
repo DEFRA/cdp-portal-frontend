@@ -1,0 +1,58 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-body">
+          <form action="/create/choose-kind" method="post" data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+            {% call govukFieldset() %}
+
+              {{ govukRadios({
+                name: "kind",
+                classes: "govuk-radios--small app-radio",
+                fieldset: {
+                  legend: {
+                    text: "What would you like to create?"
+                  }
+                },
+                items: createItems,
+                value: formValues.kind,
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                errorMessage: {
+                  attributes: {
+                    "data-js": "app-error"
+                  },
+                  text: formErrors.kind.message
+                } if formErrors.kind.message
+              }) }}
+
+            {% endcall %}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: formButtonText
+            }) }}
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+

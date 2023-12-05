@@ -62,8 +62,8 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
-            text: 'Create Service',
-            url: '/create-service'
+            text: 'Create',
+            url: '/create'
           }
         ],
         primary: [
@@ -118,8 +118,8 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
-            text: 'Create Service',
-            url: '/create-service'
+            text: 'Create',
+            url: '/create'
           }
         ],
         primary: [

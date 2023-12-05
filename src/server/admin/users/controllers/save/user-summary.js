@@ -9,7 +9,7 @@ const userSummaryController = {
     },
     pre: [provideCdpUser]
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const cdpUser = request.pre?.cdpUser
     const isEdit = cdpUser.isEdit ?? false
 

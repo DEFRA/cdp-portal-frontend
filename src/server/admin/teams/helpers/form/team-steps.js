@@ -1,28 +1,32 @@
-const teamUrls = {
+const urls = {
   stepOne: '/admin/teams/team-details',
   stepTwo: '/admin/teams/find-github-team',
   stepThree: '/admin/teams/summary'
 }
 
-const teamSteps = (requestPath, urls, isComplete) => [
-  {
-    url: urls.stepOne,
-    isComplete: isComplete.stepOne,
-    isCurrent: requestPath.includes(urls.stepOne),
-    text: 'Details'
-  },
-  {
-    url: urls.stepTwo,
-    isComplete: isComplete.stepTwo,
-    isCurrent: requestPath.includes(urls.stepTwo),
-    text: 'Github team'
-  },
-  {
-    isComplete: isComplete.allSteps,
-    isCurrent: requestPath.includes(urls.stepThree),
-    text: 'Summary'
-  }
-]
+function teamSteps(path, cdpTeam) {
+  const isComplete = isCdpTeamComplete(cdpTeam)
+
+  return [
+    {
+      url: urls.stepOne,
+      isComplete: isComplete.stepOne,
+      isCurrent: path.includes(urls.stepOne),
+      text: 'Details'
+    },
+    {
+      url: urls.stepTwo,
+      isComplete: isComplete.stepTwo,
+      isCurrent: path.includes(urls.stepTwo),
+      text: 'Github team'
+    },
+    {
+      isComplete: isComplete.allSteps,
+      isCurrent: path.includes(urls.stepThree),
+      text: 'Summary'
+    }
+  ]
+}
 
 function isCdpTeamComplete(cdpTeam) {
   return {
@@ -32,4 +36,4 @@ function isCdpTeamComplete(cdpTeam) {
   }
 }
 
-export { teamUrls, teamSteps, isCdpTeamComplete }
+export { teamSteps, isCdpTeamComplete }

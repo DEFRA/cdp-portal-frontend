@@ -20,7 +20,7 @@ const optionsFormController = {
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const query = request?.query
     const formDetail = request?.pre?.formDetail
 

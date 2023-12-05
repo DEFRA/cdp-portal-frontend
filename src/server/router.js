@@ -4,7 +4,7 @@ import { health } from '~/src/server/health'
 import { auth } from '~/src/server/auth'
 import { admin } from '~/src/server/admin'
 import { home } from '~/src/server/home'
-import { createService } from '~/src/server/create-service'
+import { create } from '~/src/server/create'
 import { deployService } from '~/src/server/deploy-service'
 import { deployments } from '~/src/server/deployments'
 import { runningServices } from '~/src/server/running-services'
@@ -27,7 +27,7 @@ const router = {
         logout,
         health,
         home,
-        createService,
+        create,
         deployService,
         deployments,
         runningServices,

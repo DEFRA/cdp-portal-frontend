@@ -1,3 +1,4 @@
+// TODO update the name of this
 const serviceCreationStatuses = {
   unknown: 'unknown',
   requested: 'requested',

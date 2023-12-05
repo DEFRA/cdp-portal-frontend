@@ -36,8 +36,8 @@ easier to use the Node Version Manager [nvm](https://github.com/creationix/nvm)
 To use the correct version of Node.js for this application, via nvm:
 
 ```bash
-$ cd cdp-portal-frontend
-$ nvm use
+cd cdp-portal-frontend
+nvm use
 ```
 
 ## Local development
@@ -47,7 +47,7 @@ $ nvm use
 Install application dependencies:
 
 ```bash
-$ npm install
+npm install
 ```
 
 ### Portal APIs
@@ -72,7 +72,7 @@ set up Redis locally refer to the documentation found:
 Run the application in `development` mode run:
 
 ```bash
-$ npm run dev
+npm run dev
 ```
 
 #### Debugging
@@ -84,7 +84,7 @@ To set up `Node.js` debugging in your IDE:
 To run debug mode:
 
 ```bash
-$ npm run dev:debug
+npm run dev:debug
 ```
 
 #### Testing
@@ -92,13 +92,13 @@ $ npm run dev:debug
 To run all tests with coverage:
 
 ```bash
-$ npm test
+npm test
 ```
 
 Or use the shortcut:
 
 ```bash
-$ npm t
+npm t
 ```
 
 ##### Run a specific test
@@ -106,13 +106,13 @@ $ npm t
 To run a specific test:
 
 ```bash
-$ npm test -i <test-path>
+npm test -i <test-path>
 ```
 
 E.g:
 
 ```bash
-$ npm test -i src/server/health/controller.test.js
+npm test -i src/server/health/controller.test.js
 ```
 
 #### Debugging nock
@@ -121,7 +121,7 @@ To see if your `nock` mocks are matching your tests calls set the following envi
 environment:
 
 ```bash
-$ export DEBUG=nock.*
+export DEBUG=nock.*
 ```
 
 > For more information see [https://github.com/nock/nock#debugging](https://github.com/nock/nock#debugging)
@@ -131,13 +131,13 @@ $ export DEBUG=nock.*
 To run code linting:
 
 ```bash
-$ npm run lint
+npm run lint
 ```
 
 To run code lint for JavaScript:
 
 ```bash
-$ npm run lint:js
+npm run lint:js
 ```
 
 To run an automatic code fix for JavaScript:
@@ -145,13 +145,13 @@ To run an automatic code fix for JavaScript:
 > Note this is pretty good but may also need some manual human interaction
 
 ```bash
-$ npm run lint:fix
+npm run lint:fix
 ```
 
 To run code lint for SASS:
 
 ```bash
-$ npm run lint:scss
+npm run lint:scss
 ```
 
 #### Code formatting
@@ -165,13 +165,13 @@ Prettier to run on save in your IDE.
 To check formatting changes:
 
 ```bash
-$ npm run format:check
+npm run format:check
 ```
 
 To format code:
 
 ```bash
-$ npm run format
+npm run format
 ```
 
 ### Local JSON API
@@ -179,7 +179,7 @@ $ npm run format
 Whilst the APIs are being developed this app uses a local JSON mock API. To start this locally run:
 
 ```bash
-$ npm run mockApi
+npm run mockApi
 ```
 
 ### Production
@@ -187,7 +187,7 @@ $ npm run mockApi
 To mimic the application running in `production` mode locally run:
 
 ```bash
-$ npm start
+npm start
 ```
 
 ### Npm scripts
@@ -196,7 +196,7 @@ All available Npm scripts can be seen in [package.json](./package.json)
 To view them in your command line run:
 
 ```bash
-$ npm run
+npm run
 ```
 
 ## Docker
@@ -206,13 +206,13 @@ $ npm run
 Build:
 
 ```bash
-$ docker build --target development --no-cache --tag cdp-portal-frontend:development .
+docker build --target development --no-cache --tag cdp-portal-frontend:development .
 ```
 
 Run:
 
 ```bash
-$ docker run -p 3000:3000 cdp-portal-frontend:development
+docker run -p 3000:3000 cdp-portal-frontend:development
 ```
 
 ### Production image
@@ -220,13 +220,13 @@ $ docker run -p 3000:3000 cdp-portal-frontend:development
 Build:
 
 ```bash
-$ docker build --no-cache --tag cdp-portal-frontend .
+docker build --no-cache --tag cdp-portal-frontend .
 ```
 
 Run:
 
 ```bash
-$ docker run -p 3000:3000 cdp-portal-frontend
+docker run -p 3000:3000 cdp-portal-frontend
 ```
 
 ## Licence

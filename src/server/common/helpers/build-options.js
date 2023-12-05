@@ -1,5 +1,6 @@
 import { defaultOption } from '~/src/server/common/helpers/default-option'
 
+// TODO give this a better name as its used for selects and radios
 function buildOptions(items, withDefault = true) {
   return [
     ...(withDefault ? [defaultOption] : []),
