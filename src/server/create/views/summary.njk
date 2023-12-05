@@ -23,9 +23,11 @@
               rows: summaryRows
             }) }}
 
-            {{ govukButton({
-              classes: "app-button",
-              text: formButtonText
+            {{ appButton({
+              text: formButtonText,
+              loader: {
+                name: "create-submit-button"
+              }
             }) }}
 
           </form>
