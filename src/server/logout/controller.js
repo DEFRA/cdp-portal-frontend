@@ -4,7 +4,7 @@ const logoutController = {
   options: {
     pre: [provideAuthedUser]
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const authedUser = request.pre.authedUser
 
     if (!authedUser) {

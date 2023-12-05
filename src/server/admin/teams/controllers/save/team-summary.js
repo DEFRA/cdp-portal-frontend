@@ -9,7 +9,7 @@ const teamSummaryController = {
     },
     pre: [provideCdpTeam]
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
     const isEdit = cdpTeam.isEdit ?? false
 

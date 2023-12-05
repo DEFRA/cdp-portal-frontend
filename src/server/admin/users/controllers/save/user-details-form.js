@@ -17,7 +17,7 @@ const userDetailsFormController = {
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const cdpUser = request.pre?.cdpUser
     const isEdit = cdpUser.isEdit ?? false
 

@@ -1,10 +1,11 @@
 const sessionNames = {
   cdpUser: 'cdp-user',
   cdpTeam: 'cdp-team',
-  validationFailure: 'validationFailure',
-  globalValidationFailures: 'globalValidationFailures',
+  create: 'create',
   deployment: 'deployment',
-  notifications: 'notifications'
+  globalValidationFailures: 'globalValidationFailures',
+  notifications: 'notifications',
+  validationFailure: 'validationFailure'
 }
 
 export { sessionNames }

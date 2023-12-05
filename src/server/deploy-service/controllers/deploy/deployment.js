@@ -1,5 +1,5 @@
 const deploymentController = {
-  handler: async (request, h) =>
+  handler: (request, h) =>
     h.view('deploy-service/views/deployment', {
       pageTitle: 'Deploy Service deployment',
       heading: 'Deployment',
