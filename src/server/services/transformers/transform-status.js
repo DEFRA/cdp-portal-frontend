@@ -43,7 +43,7 @@ function transformStatus(service) {
         : unknownValue,
       classes: statusTagClassMap(serviceStatus?.status)
     },
-    serviceType: serviceStatus.serviceType,
+    serviceTypeTemplate: serviceStatus.serviceTypeTemplate,
     createRepository: {
       name: 'Creating Github Repository',
       part: 1,
@@ -64,7 +64,7 @@ function transformStatus(service) {
             return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
           case serviceCreationStatuses.requested:
           case serviceCreationStatuses.inProgress:
-            return `Creating new services Github repository from the ${serviceStatus.serviceType} template.`
+            return `Creating new services Github repository from the ${serviceStatus.serviceTypeTemplate} template.`
           case serviceCreationStatuses.created:
           case serviceCreationStatuses.success:
             return `Your new services Github repository has been successfully created, you can now checkout your code and start developing.`

@@ -121,10 +121,11 @@ describe('#decorateService', () => {
             status: 'success',
             url: `https://github.com/${githubOrg}`
           },
+          kind: 'repository',
           org: githubOrg,
           portalVersion: 2,
           repositoryName: 'cdp-portal-frontend',
-          serviceType: 'cdp-node-backend-template',
+          serviceTypeTemplate: 'cdp-node-backend-template',
           started: '2023-10-27T12:37:46.915Z',
           status: 'in-progress',
           team: {

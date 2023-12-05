@@ -6,12 +6,13 @@ const githubOrg = config.get('githubOrg')
 const createServiceStatusFixture = {
   message: 'success',
   status: {
+    kind: 'repository',
     org: githubOrg,
     repositoryName: 'cdp-portal-frontend',
     portalVersion: 2,
     status: 'in-progress',
     started: '2023-10-27T12:37:46.915Z',
-    serviceType: 'cdp-node-backend-template',
+    serviceTypeTemplate: 'cdp-node-backend-template',
     team: {
       teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
       name: 'Platform'
