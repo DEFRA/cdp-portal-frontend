@@ -1,0 +1,15 @@
+.app-pagination {
+  margin-bottom: 0;
+
+  .govuk-pagination__item {
+    border-radius: $app-border-radius;
+  }
+
+  .govuk-pagination__next {
+    padding-right: govuk-spacing(3);
+  }
+
+  .govuk-pagination__prev {
+    padding-left: govuk-spacing(3);
+  }
+}

@@ -1,3 +1,5 @@
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
 {% from "entity/macro.njk" import appEntity with context %}
 
 <article class="app-entity-list"
@@ -28,4 +30,11 @@
           data-testid="app-entity-list-no-results">{{ params.noResult }}</li>
     {% endfor %}
   </ul>
+
+  {% if params.pagination %}
+    <footer class="app-entity-list__footer">
+      {{ govukPagination(params.pagination | assign({}, {classes: "app-pagination"}, params.pagination)) }}
+    </footer>
+  {% endif %}
+
 </article>

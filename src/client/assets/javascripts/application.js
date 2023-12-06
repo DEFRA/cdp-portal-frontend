@@ -1,6 +1,5 @@
 import { initAll } from 'govuk-frontend'
 
-import { tabs } from '~/src/server/common/components/tabs/tabs'
 import { initModule } from '~/src/client/common/helpers/init-module'
 import { search } from '~/src/server/common/components/search/search'
 import { button } from '~/src/server/common/components/button/button'
@@ -63,9 +62,6 @@ initModule('app-autocomplete-dropdown', autocompleteDropdown)
 
 // Auto submit xhr functionality
 initModule('auto-submit', autoSubmit, '*=')
-
-// Tab functionality
-initModule('app-tabs', tabs)
 
 // Params to hidden inputs
 initModule('app-params', paramsToHiddenInputs, '*=')
