@@ -1,6 +1,10 @@
 .app-entity-list {
   margin-top: 0;
   margin-bottom: govuk-spacing(4);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .app-entity-list__header {
@@ -73,4 +77,12 @@
 .app-entity-list__item--massive {
   flex: 1;
   max-width: 400px;
+}
+
+.app-entity-list__container {
+  flex-grow: 1;
+}
+
+.app-entity-list__footer {
+  flex-shrink: 0;
 }

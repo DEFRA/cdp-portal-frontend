@@ -1,3 +1,5 @@
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
 {% from "entity/macro.njk" import appEntity with context %}
 
 <article class="app-entity-list"
@@ -11,21 +13,30 @@
     {% endfor %}
   </header>
 
-  <ul class="app-entity-list__table">
-    {% for entityRow in params.entityRows %}
-      <li class="app-entity-list__row"
-          data-testid="app-entity-list-row-{{ loop.index }}">
+  <main class="app-entity-list__container">
+    <ul class="app-entity-list__table">
+      {% for entityRow in params.entityRows %}
+        <li class="app-entity-list__row"
+            data-testid="app-entity-list-row-{{ loop.index }}">
 
-        {% for entity in entityRow %}
-          <div class="app-entity-list__item app-entity-list__item--{{ params.headings[loop.index0].size }}"
-               data-testid="app-entity-list-item-{{ loop.index }}">
-            {{ appEntity(entity | assign({}, {index: loop.index}, entity)) }}
-          </div>
-        {% endfor %}
-      </li>
-    {% else %}
-      <li class="app-entity-list__row"
-          data-testid="app-entity-list-no-results">{{ params.noResult }}</li>
-    {% endfor %}
-  </ul>
+          {% for entity in entityRow %}
+            <div class="app-entity-list__item app-entity-list__item--{{ params.headings[loop.index0].size }}"
+                 data-testid="app-entity-list-item-{{ loop.index }}">
+              {{ appEntity(entity | assign({}, {index: loop.index}, entity)) }}
+            </div>
+          {% endfor %}
+        </li>
+      {% else %}
+        <li class="app-entity-list__row"
+            data-testid="app-entity-list-no-results">{{ params.noResult }}</li>
+      {% endfor %}
+    </ul>
+  </main>
+
+  {% if params.pagination %}
+    <footer class="app-entity-list__footer">
+      {{ govukPagination(params.pagination) }}
+    </footer>
+  {% endif %}
+
 </article>
