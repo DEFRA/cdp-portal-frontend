@@ -5,4 +5,4 @@ on:
 
 jobs:
   test:
-    uses: defra/cdp-portal-tests/.github/workflows/run-tests.yaml
+    uses: defra/cdp-portal-tests/.github/workflows/run-tests.yaml@main
