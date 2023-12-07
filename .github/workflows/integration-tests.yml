@@ -1,0 +1,8 @@
+name: Integration Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: defra/cdp-portal-tests/.github/workflows/run-tests.yaml
