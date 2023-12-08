@@ -2,7 +2,7 @@ import fetchMock from 'jest-fetch-mock'
 
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
 import { availableVersionsOptionsFixture } from '~/src/__fixtures__/available-versions'
-import { fetchVersions } from '~/src/client/common/helpers/fetchers/select'
+import { fetchVersions } from '~/src/client/common/helpers/fetch/select'
 
 describe('#populateSelectOptions', () => {
   let controllerSelect

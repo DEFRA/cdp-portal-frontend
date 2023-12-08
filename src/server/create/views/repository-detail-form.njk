@@ -1,6 +1,7 @@
 {% extends "layouts/page.njk" %}
 
 {% from "read-out/macro.njk" import appReadOut %}
+{% from "availability/macro.njk" import appAvailability %}
 
 {% set visibilityHintHtml %}
   Choose your new repository's visibility. For more information
@@ -52,8 +53,9 @@
                 },
                 value: formValues.repositoryName,
                 attributes: {
-                  "data-js": "app-read-out",
-                  "data-target-id": "repository-name-read-out"
+                  "data-js": "app-availability app-read-out",
+                  "data-availability-target-id": "repository-name-availability",
+                  "data-read-out-target-id": "repository-name-read-out"
                 },
                 errorMessage: {
                   text: formErrors.repositoryName.message,
@@ -61,7 +63,14 @@
                   attributes: {
                     "data-js": "app-error"
                   }
-                } if formErrors.repositoryName.message
+                } if formErrors.repositoryName.message,
+                suffix: {
+                  classes: "app-input__suffix",
+                  html: appAvailability({
+                    dataFetcher: "fetchIsNameAvailable",
+                    targetId: "repository-name-availability"
+                  })
+                }
               }) }}
 
               {{ appReadOut({

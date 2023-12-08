@@ -3,7 +3,7 @@
 {% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
 
 {% from "icons/chevron-icon/macro.njk" import appChevronIcon %}
-{% from "icons/cross-icon/macro.njk" import appCrossIcon %}
+{% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
 {% from "loader/macro.njk" import appLoader %}
 
 <script data-testid="app-autocomplete-dropdown-suggestions">
@@ -77,7 +77,7 @@
               data-js="app-autocomplete-dropdown-clear-button"
               data-testid="app-autocomplete-dropdown-clear-button"
       >
-        {{ appCrossIcon() }}
+        {{ appCancelIcon() }}
       </button>
 
       {% if params.loader.name %}

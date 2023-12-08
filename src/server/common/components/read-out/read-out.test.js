@@ -15,7 +15,7 @@ describe('#readOut', () => {
 
     // Add component with companion input
     document.body.innerHTML = `<div>
-        <input type="text" data-js="test-input" data-target-id="test-target-id" data-testid="app-input" />
+        <input type="text" data-js="test-input" data-read-out-target-id="test-target-id" data-testid="app-input" />
         ${$component('[data-testid="app-read-out"]').first().html()}
       </div>`
 

@@ -1,4 +1,5 @@
 import {
+  isNameAvailableController,
   chooseKindController,
   chooseKindFormController,
   startController,
@@ -44,6 +45,11 @@ const create = {
 
       server.route(
         [
+          {
+            method: 'GET',
+            path: '/create/is-name-available/{repositoryName}',
+            ...isNameAvailableController
+          },
           {
             method: 'GET',
             path: '/create',

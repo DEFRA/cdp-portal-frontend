@@ -1,0 +1,24 @@
+.app-availability {
+  display: none;
+}
+
+.js-enabled {
+  .app-availability {
+    display: block;
+    margin: 0 auto;
+
+    .app-block-icon {
+      display: none;
+      fill: govuk-colour("red");
+    }
+
+    .app-tick-icon {
+      display: none;
+      fill: govuk-colour("green");
+    }
+
+    .app-icon--visible {
+      display: block;
+    }
+  }
+}

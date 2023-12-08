@@ -1,5 +1,7 @@
 import Joi from 'joi'
 
+import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
+
 function microserviceValidation(serviceTypeTemplates) {
   return Joi.object({
     repositoryName: Joi.string()
@@ -10,6 +12,7 @@ function microserviceValidation(serviceTypeTemplates) {
       .min(1)
       .max(32)
       .required()
+      .external(checkNameAvailability)
       .messages({
         'string.empty': 'Enter value',
         'string.pattern.base': 'Letters and numbers with hyphen separators',

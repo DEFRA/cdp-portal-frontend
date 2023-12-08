@@ -1,7 +1,7 @@
 import fetchMock from 'jest-fetch-mock'
 
 import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
-import { fetchVersions } from '~/src/client/common/helpers/fetchers/select/fetch-versions'
+import { fetchVersions } from '~/src/client/common/helpers/fetch/select/fetch-versions'
 
 describe('#fetchVersions', () => {
   beforeEach(() => {

@@ -1,3 +1,4 @@
+import { isNameAvailableController } from '~/src/server/create/controllers/is-name-available'
 import { startController } from '~/src/server/create/controllers/start'
 import { chooseKindController } from '~/src/server/create/controllers/choose-kind'
 import { chooseKindFormController } from '~/src/server/create/controllers/choose-kind-form'
@@ -17,6 +18,7 @@ import {
 } from '~/src/server/create/controllers/repository'
 
 export {
+  isNameAvailableController,
   startController,
   microserviceDetailController,
   microserviceDetailFormController,
