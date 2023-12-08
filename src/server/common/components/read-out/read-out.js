@@ -6,7 +6,7 @@ function readOut($module) {
   }
 
   const $targetElement = document.getElementById(
-    $module.getAttribute('data-target-id')
+    $module.getAttribute('data-read-out-target-id')
   )
 
   if (!$targetElement) {

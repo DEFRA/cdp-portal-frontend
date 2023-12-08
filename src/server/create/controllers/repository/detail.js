@@ -14,15 +14,10 @@ const repositoryDetailController = {
     const teamId = payload.teamId
     const redirectLocation = payload?.redirectLocation
 
-    const usersTeams = await getUsersTeams(request)
-    const usersTeamIds = usersTeams.map((team) => team.teamId)
-
-    const validationResult = repositoryValidation(usersTeamIds).validate(
-      payload,
-      {
-        abortEarly: false
-      }
-    )
+    const validationResult = await repositoryValidation()
+      .validateAsync(payload, { abortEarly: false })
+      .then((value) => ({ value }))
+      .catch((error) => ({ value: payload, error }))
 
     const sanitisedPayload = {
       repositoryName,
@@ -46,6 +41,7 @@ const repositoryDetailController = {
     }
 
     if (!validationResult.error) {
+      const usersTeams = await getUsersTeams(request)
       const team = usersTeams.find((team) => team.teamId === teamId)
 
       await saveToCreate(request, h, {

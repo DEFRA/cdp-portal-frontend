@@ -1,6 +1,7 @@
 import Joi from 'joi'
 
 import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility'
+import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
 
 function repositoryValidation() {
   return Joi.object({
@@ -12,6 +13,7 @@ function repositoryValidation() {
       .min(1)
       .max(32)
       .required()
+      .external(checkNameAvailability)
       .messages({
         'string.empty': 'Enter value',
         'string.pattern.base': 'Letters and numbers with hyphen separators',

@@ -1,0 +1,13 @@
+{% from "loader/macro.njk" import appLoader %}
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/block-icon/macro.njk" import appBlockIcon %}
+
+<div class="app-availability"
+     data-js="{{ params.targetId }}"
+     data-testid="app-availability"
+     data-fetcher="{{ params.dataFetcher }}"
+>
+  {{ appTickIcon({ classes: "app-icon-normal", js: "is-available" }) }}
+  {{ appBlockIcon({ classes: "app-icon-normal", js: "is-not-available" }) }}
+  {{ appLoader({ name: "loader" }) }}
+</div>

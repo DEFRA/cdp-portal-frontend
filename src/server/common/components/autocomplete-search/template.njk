@@ -2,7 +2,7 @@
 {% from "govuk/components/label/macro.njk" import govukLabel %}
 {% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
 
-{% from "icons/cross-icon/macro.njk" import appCrossIcon %}
+{% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
 {% from "icons/search-icon/macro.njk" import appSearchIcon %}
 {% from "loader/macro.njk" import appLoader %}
 
@@ -66,7 +66,7 @@
               data-js="app-autocomplete-search-clear-button"
               data-testid="app-autocomplete-search-clear-button"
       >
-        {{ appCrossIcon() }}
+        {{ appCancelIcon() }}
       </button>
 
       {% if params.loader.name %}

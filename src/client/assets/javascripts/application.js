@@ -1,8 +1,9 @@
 import { initAll } from 'govuk-frontend'
 
 import { initModule } from '~/src/client/common/helpers/init-module'
-import { search } from '~/src/server/common/components/search/search'
+import { availability } from '~/src/server/common/components/availability/availability'
 import { button } from '~/src/server/common/components/button/button'
+import { search } from '~/src/server/common/components/search/search'
 import { protectForm } from '~/src/client/common/helpers/protect-form'
 import { readOut } from '~/src/server/common/components/read-out/read-out'
 import { errorMessages } from '~/src/client/common/helpers/error-messages'
@@ -12,10 +13,11 @@ import { paramsToHiddenInputs } from '~/src/client/common/helpers/params-to-hidd
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
 import { autocompleteSearch } from '~/src/server/common/components/autocomplete-search/autocomplete-search'
 import { autocompleteDropdown } from '~/src/server/common/components/autocomplete-dropdown/autocomplete-dropdown'
+import { fetchIsNameAvailable } from '~/src/client/common/helpers/fetch/create/fetch-is-name-available'
 import {
   fetchVersions,
   fetchMemory
-} from '~/src/client/common/helpers/fetchers/select'
+} from '~/src/client/common/helpers/fetch/select'
 
 import '../stylesheets/application.scss'
 
@@ -35,9 +37,13 @@ window.cdp = {}
 // Helper functions
 window.cdp.fetchVersions = fetchVersions
 window.cdp.fetchMemory = fetchMemory
+window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 
-// Create service repository name readout
-initModule('app-read-out', readOut)
+// Create multistep form flow, repository name readout
+initModule('app-read-out', readOut, '*=')
+
+// Create multistep form flow, repository name availability
+initModule('app-availability', availability, '*=')
 
 // Form submit buttons with loaders. Create and Deploy service
 initModule('app-button', button)
