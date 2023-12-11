@@ -26,9 +26,10 @@ const repositoryCreateController = {
       teamId
     }
 
-    const validationResult = repositoryValidation().validate(sanitisedPayload, {
-      abortEarly: false
-    })
+    const validationResult = await repositoryValidation()
+      .validateAsync(sanitisedPayload, { abortEarly: false })
+      .then((value) => ({ value }))
+      .catch((error) => ({ value: sanitisedPayload, error }))
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)

@@ -23,7 +23,9 @@ const microserviceCreateController = {
     const teamId = request.payload?.teamId
 
     const { serviceTypes } = await fetchServiceTypes()
-    const serviceTypesIds = serviceTypes.map((serviceType) => serviceType.value)
+    const serviceTypeTemplates = serviceTypes.map(
+      (serviceType) => serviceType.value
+    )
 
     const sanitisedPayload = {
       repositoryName,
@@ -31,10 +33,10 @@ const microserviceCreateController = {
       teamId
     }
 
-    const validationResult = microserviceValidation(serviceTypesIds).validate(
-      sanitisedPayload,
-      { abortEarly: false }
-    )
+    const validationResult = await microserviceValidation(serviceTypeTemplates)
+      .validateAsync(sanitisedPayload, { abortEarly: false })
+      .then((value) => ({ value }))
+      .catch((error) => ({ value: sanitisedPayload, error }))
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
