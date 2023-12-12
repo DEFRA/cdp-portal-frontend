@@ -42,7 +42,10 @@
                   <div class="app-status-info__primary">
                     {{ govukTag({
                       text: creationJob.status.text,
-                      classes: creationJob.status.classes
+                      classes: creationJob.status.classes,
+                      attributes: {
+                        "data-testid": "app-overall-progress"
+                      }
                     }) }}
                   </div>
 

@@ -15,12 +15,14 @@ describe('Header Component', () => {
   })
 
   test('Should contain expected service name', () => {
-    expect($header('[data-testid="app-header-link"]').text().trim()).toEqual(
-      'Totally MEGA service portal'
-    )
+    expect(
+      $header('[data-testid="app-header-service-name"]').text().trim()
+    ).toEqual('Totally MEGA service portal')
   })
 
   test('Should have expected service url link', () => {
-    expect($header('[data-testid="app-header-link"]').attr('href')).toEqual('/')
+    expect(
+      $header('[data-testid="app-header-service-name"]').attr('href')
+    ).toEqual('/')
   })
 })

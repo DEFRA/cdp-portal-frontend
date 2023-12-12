@@ -3,13 +3,13 @@
     <div class="app-header__content">
       <a href="{{ params.serviceUrl }}"
          class="app-header__link app-header__service-name"
-         data-testid="app-header-link">
+         data-testid="app-header-service-name">
         {{ params.serviceName }}
       </a>
     </div>
     <div class="app-header__actions">
       {% if authedUser.displayName %}
-        <span>
+        <span data-testid="app-login-username">
           {{ authedUser.displayName }}
         </span>
       {% endif %}
