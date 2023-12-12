@@ -2,9 +2,9 @@
 
 Portal Frontend for CDP
 
-[![Integration Tests](https://github.com/DEFRA/cdp-portal-tests/actions/workflows/run-tests.yaml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml)
-
 [![Publish](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml)
+
+[![Integration Tests](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml)
 
 - [Requirements](#requirements)
   - [Node.js](#nodejs)
