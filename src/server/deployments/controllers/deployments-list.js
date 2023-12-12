@@ -9,7 +9,6 @@ import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transf
 import { sortByName } from '~/src/server/common/helpers/sort-by-name'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch-deployments'
-import { buildPagination } from '~/src/server/common/helpers/build-pagination'
 
 // TODO fix - the progressive search is not quite right
 const deploymentsListController = {
@@ -31,10 +30,10 @@ const deploymentsListController = {
   handler: async (request, h) => {
     const environment = request.params?.environment
 
-    const { deployments, page, pageSize, totalPages } = await fetchDeployments(
-      environment,
-      { page: request.query?.page, size: request.query?.size }
-    )
+    const deployments = await fetchDeployments(environment, {
+      page: request.query?.page,
+      size: request.query?.size
+    })
     const allDeployments = cloneDeep(deployments)
 
     const uniqueAllDeployments = [
@@ -63,8 +62,7 @@ const deploymentsListController = {
       userSuggestions: buildOptions(uniqueAllUsers),
       statusSuggestions: buildOptions(uniqueAllStatus),
       entityRows,
-      environment,
-      pagination: buildPagination(page, pageSize, totalPages, request.query)
+      environment
     })
   }
 }
