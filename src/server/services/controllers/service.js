@@ -24,7 +24,7 @@ const serviceController = {
     const service = request.pre.service
 
     const sharedContext = {
-      pageTitle: `${service.serviceName} service`,
+      pageTitle: `${service.serviceName} microservice`,
       heading: service.serviceName,
       entityDataList: transformServiceToEntityDataList(service),
       service,

@@ -6,6 +6,8 @@
   "engines": {
     "node": "20.3.0"
   },
+  "author": "Defra DDTS",
+  "license": "OGL-UK-3.0",
   "scripts": {
     "build": "run-s build:frontend build:server",
     "build:frontend": "webpack",
@@ -31,8 +33,6 @@
     "start": "NODE_ENV=production node --use-strict ./.server",
     "setup:husky": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\""
   },
-  "author": "Defra DDTS",
-  "license": "OGL-UK-3.0",
   "dependencies": {
     "@babel/runtime": "7.23.2",
     "@elastic/ecs-pino-format": "1.4.0",
