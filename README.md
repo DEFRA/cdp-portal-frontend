@@ -2,6 +2,8 @@
 
 Portal Frontend for CDP
 
+[![Integration Tests](https://github.com/DEFRA/cdp-portal-tests/actions/workflows/run-tests.yaml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml)
+
 [![Publish](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml)
 
 - [Requirements](#requirements)
@@ -237,7 +239,7 @@ THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE
 
 The following attribution statement MUST be cited in your products and applications when using this information.
 
-> Contains public sector information licensed under the Open Government license v3
+> Contains public sector information licensed under the Open Government licence v3
 
 ### About the licence
 
