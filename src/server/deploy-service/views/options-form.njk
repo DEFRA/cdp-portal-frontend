@@ -129,19 +129,15 @@
       </div>
 
       {% set allocatedResourcesHelpHtml %}
-        <p>
+        <p class="govuk-!-margin-bottom-2">
           All deployments require resources for platform processes:
         </p>
         <ul class="govuk-list govuk-list--bullet">
           <li>{{ platformCPUResourceAsVCpu }} vCPU will be automatically allocated to platform processes</li>
           <li>{{ platformMemoryResource }} MB will be automatically allocated to platform processes</li>
         </ul>
-        <p>These resources are taken from the CPU size and the Memory allocation you choose in this form.</p>
-
-        <p class="govuk-!-margin-bottom-4">Before you deploy, calculations providing the approximate amount of CPU
-          and Memory available are
-          provided
-          on the summary page.</p>
+        <p class="govuk-!-margin-bottom-4">These resources are taken from the CPU size and the Memory allocation you
+          choose in this form.</p>
       {% endset %}
 
       <div class="govuk-grid-column-one-third">

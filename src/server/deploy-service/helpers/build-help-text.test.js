@@ -8,8 +8,10 @@ describe('#buildHelpText', () => {
       deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[cpuValue].at(1).value
 
     expect(buildHelpText(cpuValue, memoryValue))
-      .toEqual(`All deployments require resources for platform processes:
-          <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+      .toEqual(`<p class="govuk-!-margin-bottom-2">
+            All deployments require resources for platform processes:
+          </p>
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">
             <li>.07 vCPU will be automatically allocated to platform processes. Leaving approximately 7.93 vCPU available.</li>
             <li>100 MB will be automatically allocated to platform processes. Leaving approximately 20380 MB available.</li>
           </ul>`)

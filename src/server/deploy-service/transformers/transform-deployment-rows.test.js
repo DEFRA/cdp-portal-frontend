@@ -113,9 +113,7 @@ describe('#transformDeploymentRows', () => {
           text: 'CPU size'
         },
         value: {
-          html: expect.stringContaining(
-            'After platform processes allocation approximately .93 vCPU will be available'
-          )
+          html: '1024 (1 vCPU)'
         }
       },
       {
@@ -135,9 +133,7 @@ describe('#transformDeploymentRows', () => {
           text: 'Memory allocation'
         },
         value: {
-          html: expect.stringContaining(
-            'After platform processes allocation approximately 6044 MB will be available'
-          )
+          html: '6 GB (6144 MB)'
         }
       }
     ])
