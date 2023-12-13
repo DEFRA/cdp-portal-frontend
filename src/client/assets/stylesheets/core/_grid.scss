@@ -1,0 +1,28 @@
+// Simple flex grid, govuk grid if you need a fully functioning grid
+.app-row {
+  display: flex;
+}
+
+.app-grid-column-one-third {
+  flex: 1;
+}
+
+.app-grid-column-two-thirds {
+  flex: 2;
+}
+
+.app-grid-column-one-half {
+  flex: 1;
+}
+
+.app-grid-column-one-quarter {
+  flex: 1;
+}
+
+.app-grid-column-two-quarters {
+  flex: 2;
+}
+
+.app-grid-column-three-quarters {
+  flex: 3;
+}

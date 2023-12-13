@@ -12,123 +12,138 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
-        <div class="govuk-body">
 
-          {% if preExistingDetails %}
-            {{ appInfo({
-              text: "Previously deployed options populated below.",
-              actionText: "Edit"
-            }) }}
-          {% endif %}
+        {% if preExistingDetails %}
+          {{ appInfo({
+            text: "Previously deployed options populated below.",
+            actionText: "Edit"
+          }) }}
+        {% endif %}
 
-          <form action="/deploy-service/options"
-                method="post"
-                data-js="app-form-errors{% if preExistingDetails %} app-protected-inputs{% endif %}">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+        <form action="/deploy-service/options"
+              method="post"
+              data-js="app-form-errors{% if preExistingDetails %} app-protected-inputs{% endif %}">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
-            {% call govukFieldset() %}
+          {% call govukFieldset() %}
 
-              {{ govukSelect({
-                id: "instanceCount",
-                name: "instanceCount",
-                label: {
-                  text: "Instance count",
-                  classes: "govuk-!-margin-bottom-0"
-                },
-                classes: "app-select app-select--slim",
-                hint: {
-                  text: "Number of container instances to run",
-                  classes: "govuk-!-margin-bottom-1"
-                },
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                value: formValues.instanceCount,
-                errorMessage: {
-                  text: formErrors.instanceCount.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message",
-                  attributes: {
-                    "data-js": "app-error"
-                  }
-                } if formErrors.instanceCount.message,
-                items: availableInstancesOptions
-              }) }}
-
-              {{ govukSelect({
-                id: "cpu",
-                name: "cpu",
-                label: {
-                  text: "CPU size",
-                  classes: "govuk-!-margin-bottom-0"
-                },
-                classes: "app-select",
-                hint: {
-                  text: "Container CPU size",
-                  classes: "govuk-!-margin-bottom-1"
-                },
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                value: formValues.cpu,
+            {{ govukSelect({
+              id: "instanceCount",
+              name: "instanceCount",
+              label: {
+                text: "Instance count",
+                classes: "govuk-!-margin-bottom-0"
+              },
+              classes: "app-select app-select--slim",
+              hint: {
+                text: "Number of container instances to run",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              value: formValues.instanceCount,
+              errorMessage: {
+                text: formErrors.instanceCount.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message",
                 attributes: {
-                  "data-js": "app-select-controller",
-                  "data-fetcher": "fetchMemory",
-                  "data-target": "deploy-memory",
-                  "data-loader": "memory-loader"
-                },
-                errorMessage: {
-                  text: formErrors.cpu.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message",
-                  attributes: {
-                    "data-js": "app-error"
-                  }
-                } if formErrors.cpu.message,
-                items: cpuOptions
-              }) }}
-
-              {{ appSelect({
-                id: "memory",
-                name: "memory",
-                label: {
-                  text: "Memory allocation",
-                  classes: "govuk-!-margin-bottom-0"
-                },
-                classes: "app-select",
-                hint: {
-                  text: "Container memory allocation",
-                  classes: "govuk-!-margin-bottom-1"
-                },
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                value: formValues.memory,
-                attributes: {
-                  "data-js": "deploy-memory"
-                },
-                loader: {
-                  name: "memory-loader"
-                },
-                errorMessage: {
-                  text: formErrors.memory.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message",
-                  attributes: {
-                    "data-js": "app-error"
-                  }
-                } if formErrors.memory.message,
-                items: availableMemoryOptions
-              }) }}
-
-            {% endcall %}
-
-            {{ govukButton({
-              classes: "app-button",
-              text: formButtonText
+                  "data-js": "app-error"
+                }
+              } if formErrors.instanceCount.message,
+              items: availableInstancesOptions
             }) }}
 
-          </form>
+            {{ govukSelect({
+              id: "cpu",
+              name: "cpu",
+              label: {
+                text: "CPU size",
+                classes: "govuk-!-margin-bottom-0"
+              },
+              classes: "app-select",
+              hint: {
+                text: "Container CPU size",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              value: formValues.cpu,
+              attributes: {
+                "data-js": "app-select-controller",
+                "data-fetcher": "fetchMemory",
+                "data-target": "deploy-memory",
+                "data-loader": "memory-loader"
+              },
+              errorMessage: {
+                text: formErrors.cpu.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.cpu.message,
+              items: cpuOptions
+            }) }}
 
-        </div>
+            {{ appSelect({
+              id: "memory",
+              name: "memory",
+              label: {
+                text: "Memory allocation",
+                classes: "govuk-!-margin-bottom-0"
+              },
+              classes: "app-select",
+              hint: {
+                text: "Container memory allocation",
+                classes: "govuk-!-margin-bottom-1"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              value: formValues.memory,
+              attributes: {
+                "data-js": "deploy-memory"
+              },
+              loader: {
+                name: "memory-loader"
+              },
+              errorMessage: {
+                text: formErrors.memory.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.memory.message,
+              items: availableMemoryOptions
+            }) }}
+
+          {% endcall %}
+
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText
+          }) }}
+
+        </form>
+      </div>
+
+      {% set allocatedResourcesHelpHtml %}
+        All deployments require resources for platform processes:
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-1 govuk-!-margin-bottom-4">
+          <li>{{ platformCPUResourceAsVCpu }} vCPU will be automatically allocated to platform processes</li>
+          <li>{{ platformMemoryResource }} MB will be automatically allocated to platform processes</li>
+        </ul>
+        <p>These resources are taken from the CPU size and the Memory allocation you choose in this form.</p>
+
+        <p>Before you deploy, calculations providing the approximate amount of CPU and Memory available are provided
+          on the summary page.</p>
+      {% endset %}
+
+      <div class="govuk-grid-column-one-third">
+        {{ appInfo({
+          html: allocatedResourcesHelpHtml
+        }) }}
       </div>
     </div>
   </div>

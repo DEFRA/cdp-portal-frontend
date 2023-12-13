@@ -185,16 +185,16 @@ const config = convict({
     default: 'https://defra-digital-team.slack.com/archives/C05UJ3SE5C6'
   },
   platformCPUResource: {
-    doc: 'The amount of CPU platform sidecars use in a deployment',
+    doc: 'The amount of CPU platform sidecars use in a deployment, value is in CPU',
     format: Number,
     env: 'PLATFORM_PROCESS_CPU_RESOURCE',
-    default: 256
+    default: 70
   },
   platformMemoryResource: {
-    doc: 'The amount of memory platform sidecars use in a deployment',
+    doc: 'The amount of memory platform sidecars use in a deployment, value is in Mega Bytes',
     format: Number,
     env: 'PLATFORM_PROCESS_MEMORY_RESOURCE',
-    default: 256
+    default: 100
   },
   dockerHubUrl: {
     doc: 'Defra docker hub url',

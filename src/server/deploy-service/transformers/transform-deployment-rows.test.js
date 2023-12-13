@@ -111,7 +111,9 @@ describe('#transformDeploymentRows', () => {
           text: 'CPU size'
         },
         value: {
-          html: '1024 (1 vCPU)'
+          html: expect.stringContaining(
+            'After allocation there will be approximately .93 vCPU available'
+          )
         }
       },
       {
@@ -131,7 +133,9 @@ describe('#transformDeploymentRows', () => {
           text: 'Memory allocation'
         },
         value: {
-          html: '6 GB'
+          html: expect.stringContaining(
+            'After allocation there will be approximately 6044 MB available'
+          )
         }
       }
     ])
