@@ -9,13 +9,13 @@ function buildCpuHelpText(cpu) {
   const availableCpuAsVCpu = cpuToVCpu(availableCpu)
   const platformCPUResourceAsVCpu = cpuToVCpu(platformCPUResource)
 
-  return `${platformCPUResourceAsVCpu} vCPU will be automatically allocated, leaving approximately ${availableCpuAsVCpu} vCPU available.`
+  return `${platformCPUResourceAsVCpu} vCPU will be automatically allocated to platform processes. Leaving approximately ${availableCpuAsVCpu} vCPU available.`
 }
 
 function buildMemoryHelpText(memory) {
   const availableMemory = memory - platformMemoryResource
 
-  return `${platformMemoryResource} MB will be automatically allocated, leaving approximately ${availableMemory} MB available.`
+  return `${platformMemoryResource} MB will be automatically allocated to platform processes. Leaving approximately ${availableMemory} MB available.`
 }
 
 function buildHelpText(cpu, memory) {

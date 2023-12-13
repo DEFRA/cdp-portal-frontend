@@ -22,6 +22,7 @@
 .app-info__content {
   flex: 8;
   @include govuk-font(19);
+  margin-top: govuk-spacing(1);
   color: govuk-colour("black");
 }
 
