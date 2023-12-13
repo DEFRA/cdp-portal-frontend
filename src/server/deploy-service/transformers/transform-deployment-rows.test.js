@@ -3,7 +3,9 @@ import { transformDeploymentRows } from '~/src/server/deploy-service/transformer
 import { cpuOptionsFixture } from '~/src/__fixtures__/deploy-service/cpu-options'
 import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map'
 
-jest.mock('~/src/server/deploy-service/helpers/fetch-deploy-service-options')
+jest.mock(
+  '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
+)
 
 describe('#transformDeploymentRows', () => {
   test('Should provide expected deployment row transformation', () => {

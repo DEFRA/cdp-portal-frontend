@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { config } from '~/src/config'
 import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 
 describe('#fetchAvailableVersions', () => {

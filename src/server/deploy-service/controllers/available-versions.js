@@ -1,5 +1,5 @@
 import { buildOptions } from '~/src/server/common/helpers/build-options'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 
 const availableVersionsController = {
   handler: async (request, h) => {

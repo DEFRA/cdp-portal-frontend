@@ -1,4 +1,4 @@
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 
 const availableMemoryController = {
   handler: async (request, h) => {

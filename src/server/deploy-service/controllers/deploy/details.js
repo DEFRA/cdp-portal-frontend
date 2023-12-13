@@ -8,10 +8,10 @@ import {
   saveToDeployment,
   setStepComplete
 } from '~/src/server/deploy-service/helpers/form'
-import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
+import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch-environments'
+import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
 
 const detailsController = {
   handler: async (request, h) => {
