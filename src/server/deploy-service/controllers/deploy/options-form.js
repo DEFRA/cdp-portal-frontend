@@ -1,11 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
+import { config } from '~/src/config'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values'
+import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu'
 
 const optionsFormController = {
   options: {
@@ -35,7 +37,9 @@ const optionsFormController = {
       cpuOptions: formDetail.cpuOptions,
       availableMemoryOptions: formDetail.availableMemoryOptions,
       formValues: formDetail.formValues,
-      preExistingDetails: formDetail?.preExistingDetails
+      preExistingDetails: formDetail?.preExistingDetails,
+      platformCPUResourceAsVCpu: cpuToVCpu(config.get('platformCPUResource')),
+      platformMemoryResource: config.get('platformMemoryResource')
     })
   }
 }
