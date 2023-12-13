@@ -188,13 +188,13 @@ const config = convict({
     doc: 'The amount of CPU platform sidecars use in a deployment',
     format: Number,
     env: 'PLATFORM_PROCESS_CPU_RESOURCE',
-    default: 256
+    default: 70
   },
   platformMemoryResource: {
-    doc: 'The amount of memory platform sidecars use in a deployment',
+    doc: 'The amount of memory platform sidecars use in a deployment in MegaBytes',
     format: Number,
     env: 'PLATFORM_PROCESS_MEMORY_RESOURCE',
-    default: 256
+    default: 100
   },
   dockerHubUrl: {
     doc: 'Defra docker hub url',
