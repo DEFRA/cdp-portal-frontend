@@ -60,4 +60,4 @@ Object.keys(globals).forEach((global) => {
   nunjucksEnvironment.addGlobal(global, globals[global])
 })
 
-export { nunjucksConfig }
+export { nunjucksConfig, nunjucksEnvironment }
