@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '~/src/config'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options'
 
 describe('#fetchDeployServiceOptions', () => {

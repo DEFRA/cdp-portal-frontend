@@ -2,6 +2,7 @@ import path from 'path'
 import nunjucks from 'nunjucks'
 import { load } from 'cheerio'
 import { camelCase } from 'lodash'
+
 import * as filters from '~/src/config/nunjucks/filters'
 
 const nunjucksTestEnv = nunjucks.configure(
@@ -17,7 +18,8 @@ const nunjucksTestEnv = nunjucks.configure(
   ],
   {
     trimBlocks: true,
-    lstripBlocks: true
+    lstripBlocks: true,
+    watch: false
   }
 )
 

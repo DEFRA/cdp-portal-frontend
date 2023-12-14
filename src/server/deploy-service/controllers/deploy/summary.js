@@ -1,7 +1,7 @@
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
 
 const summaryController = {

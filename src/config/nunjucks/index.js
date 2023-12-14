@@ -23,7 +23,7 @@ const nunjucksEnvironment = nunjucks.configure(
     throwOnUndefined: false,
     trimBlocks: true,
     lstripBlocks: true,
-    watch: config.get('isDevelopment'),
+    watch: !(config.get('isProduction') || config.get('isTest')),
     noCache: config.get('isDevelopment')
   }
 )
@@ -60,4 +60,4 @@ Object.keys(globals).forEach((global) => {
   nunjucksEnvironment.addGlobal(global, globals[global])
 })
 
-export { nunjucksConfig }
+export { nunjucksConfig, nunjucksEnvironment }

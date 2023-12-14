@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '~/src/config'
-import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch-existing-service-info'
+import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch/fetch-existing-service-info'
 import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info'
 
 describe('#fetchExistingServiceInfo', () => {

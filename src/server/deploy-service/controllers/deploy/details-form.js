@@ -3,11 +3,11 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch-available-versions'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
-import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch-deployable-image-names'
+import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch-environments'
+import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
 
 const detailsFormController = {
   options: {

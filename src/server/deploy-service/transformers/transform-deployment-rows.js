@@ -25,7 +25,11 @@ function transformDeploymentRows(details, cpuDetail, memoryDetail) {
     buildRow('Environment', startCase(details.environment), 'details'),
     buildRow('Instance count', details.instanceCount, 'options'),
     buildRow('CPU size', cpuDetail?.text, 'options'),
-    buildRow('Memory allocation', memoryDetail?.text, 'options')
+    buildRow(
+      'Memory allocation',
+      `${memoryDetail?.text} (${memoryDetail?.value} MB)`,
+      'options'
+    )
   ]
 }
 

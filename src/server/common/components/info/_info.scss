@@ -1,10 +1,17 @@
 .app-info {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   border-left: 4px solid govuk-colour("blue");
   background-color: govuk-colour("light-grey");
   margin: govuk-spacing(2) govuk-spacing(0);
   padding: govuk-spacing(2);
+}
+
+.app-info--slim {
+  display: inline-flex;
+  @include govuk-font(16);
+  margin: 0;
+  padding: govuk-spacing(1) / 2 govuk-spacing(1);
 }
 
 .app-info-icon {
@@ -15,6 +22,7 @@
 .app-info__content {
   flex: 8;
   @include govuk-font(19);
+  margin-top: govuk-spacing(1);
   color: govuk-colour("black");
 }
 

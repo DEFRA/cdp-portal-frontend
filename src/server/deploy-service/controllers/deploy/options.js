@@ -9,7 +9,7 @@ import {
   saveToDeployment,
   setStepComplete
 } from '~/src/server/deploy-service/helpers/form'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch-deploy-service-options'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const optionsController = {

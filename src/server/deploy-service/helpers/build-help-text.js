@@ -1,29 +1,31 @@
 import { config } from '~/src/config'
+import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu'
 
 const platformCPUResource = config.get('platformCPUResource')
 const platformMemoryResource = config.get('platformMemoryResource')
 
-function buildCpuHelpText(value) {
-  const availableCpu = value - platformCPUResource
-  const availableCpuAsvCPU = (availableCpu / 1024).toString().replace(/^0/g, '')
+function buildCpuHelpText(cpu) {
+  const availableCpu = cpu - platformCPUResource
+  const availableCpuAsVCpu = cpuToVCpu(availableCpu)
+  const platformCPUResourceAsVCpu = cpuToVCpu(platformCPUResource)
 
-  return `256 (.25 vCPU) is automatically allocated. You have ${availableCpu} (${availableCpuAsvCPU} vCPU) available.`
+  return `${platformCPUResourceAsVCpu} vCPU will be automatically allocated to platform processes. Leaving approximately ${availableCpuAsVCpu} vCPU available.`
 }
 
-function buildMemoryHelpText(value) {
-  const availableMemory = value - platformMemoryResource
-  const availableMemoryAsGb = availableMemory / 1024
+function buildMemoryHelpText(memory) {
+  const availableMemory = memory - platformMemoryResource
 
-  return `.25 GB (256 MB) is automatically allocated. You have ${availableMemoryAsGb} GB (${availableMemory} MB) available.`
+  return `${platformMemoryResource} MB will be automatically allocated to platform processes. Leaving approximately ${availableMemory} MB available.`
 }
 
 function buildHelpText(cpu, memory) {
-  return `All deployments require resources for platform processes:
-          <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+  return `<p class="govuk-!-margin-bottom-2">
+            All deployments require resources for platform processes:
+          </p>
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">
             <li>${buildCpuHelpText(cpu)}</li>
             <li>${buildMemoryHelpText(memory)}</li>
-          </ul>
-          Adjust your CPU and Memory as required.`.trim()
+          </ul>`.trim()
 }
 
 export { buildHelpText }
