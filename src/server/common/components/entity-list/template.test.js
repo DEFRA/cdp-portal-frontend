@@ -25,7 +25,7 @@ describe('Entity List Component', () => {
           { text: 'By', size: 'small' },
           { text: 'On', size: 'large' }
         ],
-        entityRows: [deploymentsFixture.at(0)].map(
+        entityRows: [deploymentsFixture.deployments.at(0)].map(
           transformDeploymentsToEntityRow
         ),
         noResult: 'Currently there are no deployed microservices'
@@ -69,19 +69,19 @@ describe('Entity List Component', () => {
         )
 
       expect(getEntity(1).length).toEqual(1)
-      expect(getEntity(1).html()).toContain('cdp-teams-and-repositories')
+      expect(getEntity(1).html()).toContain('cdp-self-service-ops')
 
       expect(getEntity(2).length).toEqual(1)
-      expect(getEntity(2).html()).toContain('0.2.0')
+      expect(getEntity(2).html()).toContain('0.133.0')
 
       expect(getEntity(3).length).toEqual(1)
       expect(getEntity(3).html()).toContain('RUNNING')
 
       expect(getEntity(4).length).toEqual(1)
-      expect(getEntity(4).html()).toContain('RoboCop')
+      expect(getEntity(4).html()).toContain('B. A. Baracus')
 
       expect(getEntity(5).length).toEqual(1)
-      expect(getEntity(5).html()).toContain('22:54:12 Thu 18th May 2023')
+      expect(getEntity(5).html()).toContain('14:10:49 Thu 14th Dec 202')
     })
   })
 

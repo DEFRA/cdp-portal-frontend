@@ -1,43 +1,38 @@
-import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
-
-function transformDeploymentToEntityDataList(deployedService) {
+function transformDeploymentToEntityDataList(deploymentDetail) {
   return [
     {
-      heading: 'Status',
-      entity: {
-        kind: 'tag',
-        value: deployedService.status,
-        classes: getDeploymentStatusClassname(deployedService.status)
-      }
-    },
-    {
-      heading: 'Environment',
-      entity: {
-        kind: 'tag',
-        value: deployedService.environment,
-        classes: 'govuk-tag--blue'
-      }
-    },
-    {
-      heading: 'Version',
+      heading: 'Instances',
       entity: {
         kind: 'text',
-        value: deployedService.version,
-        size: 'small'
+        value: deploymentDetail.instanceCount
+      }
+    },
+    {
+      heading: 'CPU',
+      entity: {
+        kind: 'text',
+        value: deploymentDetail.cpu
+      }
+    },
+    {
+      heading: 'Memory',
+      entity: {
+        kind: 'text',
+        value: deploymentDetail.memory
       }
     },
     {
       heading: 'Image name',
       entity: {
         kind: 'text',
-        value: deployedService.service
+        value: deploymentDetail.service
       }
     },
     {
-      heading: 'By',
+      heading: 'Deployed by',
       entity: {
         kind: 'text',
-        value: deployedService.user,
+        value: deploymentDetail.user,
         size: 'small'
       }
     },
@@ -45,7 +40,15 @@ function transformDeploymentToEntityDataList(deployedService) {
       heading: 'Updated',
       entity: {
         kind: 'date',
-        value: deployedService.deployedAt,
+        value: deploymentDetail.updatedAt,
+        size: 'large'
+      }
+    },
+    {
+      heading: 'Created',
+      entity: {
+        kind: 'date',
+        value: deploymentDetail.createdAt,
         size: 'large'
       }
     }
