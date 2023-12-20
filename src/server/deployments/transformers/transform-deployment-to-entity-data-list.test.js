@@ -4,36 +4,33 @@ import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 describe('#transformDeploymentToEntityDataList', () => {
   test('Should provide expected deployed service data list entities transformation', () => {
     expect(
-      transformDeploymentToEntityDataList(deploymentsFixture.at(0))
+      transformDeploymentToEntityDataList(deploymentsFixture.deployments.at(0))
     ).toEqual([
       {
         entity: {
-          classes: 'govuk-tag--green',
-          kind: 'tag',
-          value: 'RUNNING'
+          kind: 'text',
+          value: 1
         },
-        heading: 'Status'
-      },
-      {
-        entity: {
-          classes: 'govuk-tag--blue',
-          kind: 'tag',
-          value: 'Production'
-        },
-        heading: 'Environment'
+        heading: 'Instances'
       },
       {
         entity: {
           kind: 'text',
-          size: 'small',
-          value: '0.2.0'
+          value: '1024'
         },
-        heading: 'Version'
+        heading: 'CPU'
       },
       {
         entity: {
           kind: 'text',
-          value: 'cdp-teams-and-repositories'
+          value: '2048'
+        },
+        heading: 'Memory'
+      },
+      {
+        entity: {
+          kind: 'text',
+          value: 'cdp-self-service-ops'
         },
         heading: 'Image name'
       },
@@ -41,17 +38,25 @@ describe('#transformDeploymentToEntityDataList', () => {
         entity: {
           kind: 'text',
           size: 'small',
-          value: 'RoboCop'
+          value: 'B. A. Baracus'
         },
-        heading: 'By'
+        heading: 'Deployed by'
       },
       {
         entity: {
           kind: 'date',
           size: 'large',
-          value: '2023-05-18T22:54:12Z'
+          value: '2023-12-14T14:10:49Z'
         },
         heading: 'Updated'
+      },
+      {
+        entity: {
+          kind: 'date',
+          size: 'large',
+          value: '2023-12-14T14:04:49Z'
+        },
+        heading: 'Created'
       }
     ])
   })

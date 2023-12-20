@@ -2,11 +2,34 @@
 
 {% block tabContent %}
 
-  {{ appHeading({
-    title: tabHeading
-  }) }}
-
   <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-column-two-thirds">
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-xl govuk-!-margin-bottom-3">{{ deploymentDetail.service }} {{ deploymentDetail
+          .version }}</h2>
+
+      </section>
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Status</h2>
+        {{ govukTag({
+          text: deploymentDetail.status.overall,
+          classes: statusClasses,
+          attributes: {
+            "data-testid": "deployment-status"
+          }
+        }) }}
+      </section>
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Environment</h2>
+        {{ govukTag({
+          text: deploymentDetail.environment,
+          classes: 'govuk-tag--blue',
+          attributes: {
+            "data-testid": "deployment-environment"
+          }
+        }) }}
+      </section>
+    </div>
     <div class="govuk-grid-column-one-third">
       {{ appEntityDataList({
         items: entityDataList
