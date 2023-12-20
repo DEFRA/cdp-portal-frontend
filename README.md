@@ -1,6 +1,6 @@
 # CDP Portal Frontend
 
-Portal Frontend for CDP
+Portal Frontend for Core Delivery Platform (CDP)
 
 [![Publish](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml)
 
