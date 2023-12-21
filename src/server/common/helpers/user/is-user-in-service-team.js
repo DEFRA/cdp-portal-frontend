@@ -10,9 +10,9 @@ import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
 async function isUserInServiceTeam(userGroups) {
   // TODO pagination on teams
   const { teams } = await fetchTeams(true)
-  const teamIds = teams?.map((team) => team.teamId)
+  const teamIds = teams?.map((team) => team.teamId) ?? []
 
-  return userGroups.some((userGroupId) => teamIds.includes(userGroupId))
+  return userGroups.some((userGroupId) => teamIds?.includes(userGroupId))
 }
 
 export { isUserInServiceTeam }
