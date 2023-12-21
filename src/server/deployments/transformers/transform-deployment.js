@@ -1,4 +1,5 @@
 import { omit, pickBy } from 'lodash'
+import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
 
 const byLatest = (a, b) => Date.parse(b.deployedAt) - Date.parse(a.deployedAt)
 
@@ -6,18 +7,22 @@ function calculateOverallStatus(ecsSvcDeployments) {
   const instanceStatuses = Object.entries(ecsSvcDeployments).reduce(
     (statuses, [key, value]) => ({
       ...statuses,
-      [key]: value?.at(0)?.status
+      [key]: value?.at(0)?.status.text
     }),
     {}
   )
 
+  const allRunning = Object.values(instanceStatuses).every(
+    (status) => status === 'RUNNING'
+  )
+  const allFailed = Object.values(instanceStatuses).every(
+    (status) => status === 'FAILED'
+  )
+  const statusText = allRunning ? 'RUNNING' : allFailed ? 'FAILED' : 'PENDING'
+
   return {
-    overall: Object.values(instanceStatuses).every(
-      (status) => status === 'RUNNING'
-    )
-      ? 'RUNNING'
-      : 'PENDING',
-    instances: instanceStatuses
+    text: statusText,
+    classes: getDeploymentStatusClassname(statusText)
   }
 }
 
@@ -36,6 +41,13 @@ function transformDeployment(deployments) {
       ...deploymentsByEcsSvcId,
       [id]: deployments
         .filter((deployment) => deployment?.ecsSvcDeploymentId === id)
+        .map((deployment) => ({
+          ...deployment,
+          status: {
+            text: deployment.status,
+            classes: getDeploymentStatusClassname(deployment.status)
+          }
+        }))
         .sort(byLatest)
     }),
     {}

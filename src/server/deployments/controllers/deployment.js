@@ -6,7 +6,6 @@ import { fetchDeployment } from '~/src/server/deployments/helpers/fetch-deployme
 import { transformDeploymentToEntityDataList } from '~/src/server/deployments/transformers/transform-deployment-to-entity-data-list'
 import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs'
 import { transformDeployment } from '~/src/server/deployments/transformers/transform-deployment'
-import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
 
 const deploymentController = {
   options: {
@@ -19,20 +18,17 @@ const deploymentController = {
     }
   },
   handler: async (request, h) => {
-    const deploymentDetail = transformDeployment(
+    const deployment = transformDeployment(
       await fetchDeployment(request.params?.deploymentId)
     )
 
     return h.view('deployments/views/deployment', {
-      pageTitle: `${deploymentDetail.service} Service Deployment`,
+      pageTitle: `${deployment.service} Service Deployment`,
       heading: 'Deployment',
       caption: 'Microservice deployment detail.',
-      statusClasses: getDeploymentStatusClassname(
-        deploymentDetail.status.overall
-      ),
-      entityDataList: transformDeploymentToEntityDataList(deploymentDetail),
       tabs: deploymentTabs(request),
-      deploymentDetail
+      entityDataList: transformDeploymentToEntityDataList(deployment),
+      deployment
     })
   }
 }
