@@ -2,39 +2,77 @@
 
 {% block tabContent %}
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-4">
-    <div class="govuk-grid-column-two-thirds">
-      <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-xl govuk-!-margin-bottom-3">{{ deploymentDetail.service }} {{ deploymentDetail
-          .version }}</h2>
+  {% if deployment.status.text != "RUNNING" and deployment.status.text != "FAILED" %}
+    <div data-js="app-poll"
+    data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.deploymentId }}"
+    data-poll-interval="3000"
+    data-poll-limit="45">
+  {% endif %}
 
-      </section>
-      <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Status</h2>
-        {{ govukTag({
-          text: deploymentDetail.status.overall,
-          classes: statusClasses,
-          attributes: {
-            "data-testid": "deployment-status"
-          }
-        }) }}
-      </section>
-      <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Environment</h2>
-        {{ govukTag({
-          text: deploymentDetail.environment,
-          classes: 'govuk-tag--blue',
-          attributes: {
-            "data-testid": "deployment-environment"
-          }
-        }) }}
-      </section>
-    </div>
-    <div class="govuk-grid-column-one-third">
-      {{ appEntityDataList({
-        items: entityDataList
-      }) }}
-    </div>
-  </div>
+  {% block xhrContent %}
+    <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">{{ deployment.service }}</h2>
+        </div>
+        <div class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Version</h2>
+          {{ deployment.version }}
+        </div>
+        <div class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Status</h2>
+          {{ govukTag({
+            text: deployment.status.text,
+            classes: deployment.status.classes,
+            attributes: {
+              "data-testid": "deployment-status"
+            }
+          }) }}
+        </div>
+        <div class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Environment</h2>
+          {{ govukTag({
+            text: deployment.environment,
+            classes: 'govuk-tag--blue',
+            attributes: {
+              "data-testid": "deployment-environment"
+            }
+          }) }}
+        </div>
+        <div class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Deployment history</h2>
+          {% for key, deployments in deployment.deployments %}
+            <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Instance {{ loop.index }}</h2>
 
+            <ul class="govuk-list govuk-list--bullet">
+              {% for deploymentDetail in deployments %}
+                <li>
+                  {{ deploymentDetail.deployedAt | formatDate("k:mm:ss EE do MMM yyyy") }}
+                  <span class="govuk-!-margin-left-2">
+                  {{ govukTag({
+                    text: deploymentDetail.status.text,
+                    classes: deploymentDetail.status.classes,
+                    attributes: {
+                      "data-testid": "deployment-status"
+                    }
+                  }) }}
+                </span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+
+        </div>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ appEntityDataList({
+          items: entityDataList
+        }) }}
+      </div>
+    </div>
+  {% endblock %}
+
+  {% if deployment.status.text != "RUNNING" and deployment.status.text != "FAILED" %}
+    </div>
+  {% endif %}
 {% endblock %}

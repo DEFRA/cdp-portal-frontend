@@ -40,15 +40,7 @@ function transformDeploymentToEntityDataList(deploymentDetail) {
       heading: 'Updated',
       entity: {
         kind: 'date',
-        value: deploymentDetail.updatedAt,
-        size: 'large'
-      }
-    },
-    {
-      heading: 'Created',
-      entity: {
-        kind: 'date',
-        value: deploymentDetail.createdAt,
+        value: deploymentDetail.deployedAt,
         size: 'large'
       }
     }
