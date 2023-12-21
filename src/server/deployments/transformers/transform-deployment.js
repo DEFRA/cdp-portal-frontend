@@ -3,8 +3,8 @@ import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/g
 
 const byLatest = (a, b) => Date.parse(b.deployedAt) - Date.parse(a.deployedAt)
 
-function calculateOverallStatus(ecsSvcDeployments) {
-  const instanceStatuses = Object.entries(ecsSvcDeployments).reduce(
+function calculateOverallStatus(instanceDeployments) {
+  const instanceStatuses = Object.entries(instanceDeployments).reduce(
     (statuses, [key, value]) => ({
       ...statuses,
       [key]: value?.at(0)?.status.text
@@ -29,18 +29,18 @@ function calculateOverallStatus(ecsSvcDeployments) {
 function transformDeployment(deployments) {
   const latestDeployment = deployments.sort(byLatest)?.at(0)
 
-  const uniqueEcsSvcDeploymentIds = [
+  const uniqueInstanceTaskIds = [
     ...new Set(
       deployments
-        .map((deployment) => deployment?.ecsSvcDeploymentId)
+        .map((deployment) => deployment?.instanceTaskId)
         .filter(Boolean)
     )
   ]
-  const ecsSvcDeployments = uniqueEcsSvcDeploymentIds.reduce(
+  const instanceDeployments = uniqueInstanceTaskIds.reduce(
     (deploymentsByEcsSvcId, id) => ({
       ...deploymentsByEcsSvcId,
       [id]: deployments
-        .filter((deployment) => deployment?.ecsSvcDeploymentId === id)
+        .filter((deployment) => deployment?.instanceTaskId === id)
         .map((deployment) => ({
           ...deployment,
           status: {
@@ -60,8 +60,8 @@ function transformDeployment(deployments) {
       'ecsSvcDeploymentId',
       'instanceTaskId'
     ]),
-    deployments: ecsSvcDeployments,
-    status: calculateOverallStatus(ecsSvcDeployments)
+    deployments: instanceDeployments,
+    status: calculateOverallStatus(instanceDeployments)
   }
 }
 
