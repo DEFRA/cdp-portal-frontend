@@ -1,12 +1,12 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
 <div class="govuk-!-margin-bottom-4">
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
     {{ params.part }}) {{ params.name }}
   </h2>
 
   <div class="govuk-!-margin-left-4">
-    <p class="govuk-!-margin-bottom-2">
+    <p class="govuk-!-margin-bottom-3">
       {{ govukTag({
         text: params.status.text,
         classes: params.status.classes

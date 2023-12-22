@@ -3,9 +3,9 @@ import Boom from '@hapi/boom'
 
 import { config } from '~/src/config'
 
-async function fetchCreateStatus(repositoryName) {
+async function fetchInProgressService(repositoryName) {
   const statusEndpointUrl =
-    config.get('selfServiceOpsApiUrl') + `/status/${repositoryName}`
+    config.get('selfServiceOpsApiUrl') + `/status/in-progress/${repositoryName}`
 
   const response = await fetch(statusEndpointUrl, {
     method: 'get',
@@ -24,4 +24,4 @@ async function fetchCreateStatus(repositoryName) {
   throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
-export { fetchCreateStatus }
+export { fetchInProgressService }

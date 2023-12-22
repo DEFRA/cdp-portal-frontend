@@ -1,5 +1,5 @@
 import { config } from '~/src/config'
-import { statusTagClassMap } from '~/src/server/services/transformers/status-tag-class-map'
+import { statusTagClassMap } from '~/src/server/services/helpers/status-tag-class-map'
 
 function transformServiceToEntityRow(service) {
   const githubOrg = config.get('githubOrg')

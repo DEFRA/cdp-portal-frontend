@@ -1,5 +1,4 @@
-// TODO update the name of this
-const serviceCreationStatuses = {
+const creationStatuses = {
   unknown: 'unknown',
   requested: 'requested',
   raised: 'raised',
@@ -12,4 +11,4 @@ const serviceCreationStatuses = {
   failure: 'failure'
 }
 
-export { serviceCreationStatuses }
+export { creationStatuses }

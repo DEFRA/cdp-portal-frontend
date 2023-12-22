@@ -4,7 +4,7 @@ import { compose } from 'lodash/fp'
 
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { transformStatus } from '~/src/server/services/transformers/transform-status'
-import { fetchRunningServicesById } from '~/src/server/services/helpers/fetch-running-services-by-id'
+import { fetchRunningServicesById } from '~/src/server/services/helpers/fetch/fetch-running-services-by-id'
 import { transformWithEnvironments } from '~/src/server/common/transformers/transform-with-environments'
 import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
 import { transformRunningServicesToEntityRow } from '~/src/server/services/transformers/transform-running-services-to-entity-row'
@@ -24,7 +24,6 @@ const serviceController = {
     const service = request.pre.service
 
     const sharedContext = {
-      pageTitle: `${service.serviceName} microservice`,
       heading: service.serviceName,
       entityDataList: transformServiceToEntityDataList(service),
       service,
@@ -47,6 +46,7 @@ const serviceController = {
       )(runningServices)
 
       return h.view('services/views/service', {
+        pageTitle: `${service.serviceName} microservice`,
         runningServicesEntityRows,
         runningEnvironmentsMap: runningServices.reduce(
           (environmentsMap, runningService) => ({
@@ -59,8 +59,17 @@ const serviceController = {
       })
     }
 
-    if (service.isCreateStatus) {
-      return h.view('services/views/create-service-status', {
+    if (service.isInProgress) {
+      return h.view('services/views/service-create-status', {
+        pageTitle: `Creating ${service.serviceName} microservice`,
+        creationJob: transformStatus(service),
+        ...sharedContext
+      })
+    }
+
+    if (service.isUnfinished) {
+      return h.view('services/views/service-create-finish', {
+        pageTitle: `Created ${service.serviceName} microservice`,
         creationJob: transformStatus(service),
         ...sharedContext
       })

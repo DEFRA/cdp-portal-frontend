@@ -1,10 +1,10 @@
 import { config } from '~/src/config'
 import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
-import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
-import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
-import { decorateService } from '~/src/server/services/transformers/decorate-service'
+import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
+import { transformInProgressToService } from '~/src/server/services/transformers/transform-in-progress-to-service'
+import { inProgressServiceStatusFixture } from '~/src/__fixtures__/in-progress-service-status'
 
 const githubOrg = config.get('githubOrg')
 
@@ -61,10 +61,10 @@ describe('#transformServiceToEntityDataList', () => {
     })
   })
 
-  describe('With a create service status', () => {
+  describe('With an in progress service status', () => {
     test('Should provide expected service data list entities transformation', () => {
       const service = decorateService(
-        transformServiceStatusToService(createServiceStatusFixture.status),
+        transformInProgressToService(inProgressServiceStatusFixture.inProgress),
         repositoryFixture.repository
       )
 
@@ -73,8 +73,8 @@ describe('#transformServiceToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: `https://github.com/${githubOrg}`,
-            value: `${githubOrg}`
+            url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+            value: `${githubOrg}/cdp-portal-frontend`
           },
           heading: 'Github Repository'
         },

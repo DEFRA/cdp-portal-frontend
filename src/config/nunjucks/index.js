@@ -8,15 +8,22 @@ import { context } from '~/src/config/nunjucks/context'
 import * as filters from '~/src/config/nunjucks/filters'
 import * as globals from '~/src/config/nunjucks/globals'
 
+const paths = {
+  templates: path.normalize(
+    path.resolve(__dirname, '..', '..', 'server', 'common', 'templates')
+  ),
+  components: path.normalize(
+    path.resolve(__dirname, '..', '..', 'server', 'common', 'components')
+  ),
+  server: path.normalize(path.resolve(__dirname, '..', '..', 'server'))
+}
+
 const nunjucksEnvironment = nunjucks.configure(
   [
     'node_modules/govuk-frontend/',
-    path.normalize(
-      path.resolve(__dirname, '..', '..', 'server', 'common', 'templates')
-    ),
-    path.normalize(
-      path.resolve(__dirname, '..', '..', 'server', 'common', 'components')
-    )
+    paths.templates,
+    paths.components,
+    paths.server
   ],
   {
     autoescape: true,
