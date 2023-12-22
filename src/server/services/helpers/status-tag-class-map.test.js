@@ -1,4 +1,4 @@
-import { statusTagClassMap } from '~/src/server/services/transformers/status-tag-class-map'
+import { statusTagClassMap } from '~/src/server/services/helpers/status-tag-class-map'
 import { serviceCreationStatuses } from '~/src/server/common/constants/service-creation-statuses'
 
 describe('#statusTagClassMap', () => {

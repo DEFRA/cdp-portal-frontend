@@ -1,6 +1,6 @@
 import { config } from '~/src/config'
 import { transformStatus } from '~/src/server/services/transformers/transform-status'
-import { decorateService } from '~/src/server/services/transformers/decorate-service'
+import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
 import { unfinishedServiceStatusFixture } from '~/src/__fixtures__/unfinished-service-status'

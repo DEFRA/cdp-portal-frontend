@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
 import { serviceFixture } from '~/src/__fixtures__/service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { decorateService } from '~/src/server/services/transformers/decorate-service'
+import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { unfinishedServiceStatusFixture } from '~/src/__fixtures__/unfinished-service-status'
 import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
 

@@ -1,4 +1,4 @@
-import { decorateServices } from '~/src/server/services/transformers/decorate-services'
+import { decorateServices } from '~/src/server/services/helpers/decorate-services'
 import { config } from '~/src/config'
 import { repositoriesFixture } from '~/src/__fixtures__/repositories'
 import { servicesFixture } from '~/src/__fixtures__/services'

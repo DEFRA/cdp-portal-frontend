@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
 import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
-import { decorateService } from '~/src/server/services/transformers/decorate-service'
+import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { transformInProgressToService } from '~/src/server/services/transformers/transform-in-progress-to-service'
 import { inProgressServiceStatusFixture } from '~/src/__fixtures__/in-progress-service-status'

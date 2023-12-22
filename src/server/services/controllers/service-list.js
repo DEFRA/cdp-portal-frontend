@@ -1,10 +1,10 @@
 import { unionBy } from 'lodash'
 
 import { sortBy } from '~/src/server/common/helpers/sort-by'
-import { fetchUnfinished } from '~/src/server/services/helpers/fetch-unfinished'
-import { fetchRepositories } from '~/src/server/services/helpers/fetch-repositories'
-import { decorateServices } from '~/src/server/services/transformers/decorate-services'
-import { fetchDeployableServices } from '~/src/server/services/helpers/fetch-deployable-services'
+import { fetchUnfinished } from '~/src/server/services/helpers/fetch/fetch-unfinished'
+import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-repositories'
+import { decorateServices } from '~/src/server/services/helpers/decorate-services'
+import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
 import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
 import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
 

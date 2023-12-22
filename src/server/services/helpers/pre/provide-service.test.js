@@ -1,17 +1,17 @@
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
-import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
-import { fetchUnfinishedService } from '~/src/server/services/helpers/fetch-unfinished-service'
-import { fetchInProgressService } from '~/src/server/services/helpers/fetch-in-progress-service'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { fetchDeployableService } from '~/src/server/services/helpers/fetch/fetch-deployable-service'
+import { fetchUnfinishedService } from '~/src/server/services/helpers/fetch/fetch-unfinished-service'
+import { fetchInProgressService } from '~/src/server/services/helpers/fetch/fetch-in-progress-service'
 import { inProgressServiceStatusFixture } from '~/src/__fixtures__/in-progress-service-status'
 import { unfinishedServiceStatusFixture } from '~/src/__fixtures__/unfinished-service-status'
 import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 
-jest.mock('~/src/server/services/helpers/fetch-repository')
-jest.mock('~/src/server/services/helpers/fetch-deployable-service')
-jest.mock('~/src/server/services/helpers/fetch-unfinished-service')
-jest.mock('~/src/server/services/helpers/fetch-in-progress-service')
+jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
+jest.mock('~/src/server/services/helpers/fetch/fetch-deployable-service')
+jest.mock('~/src/server/services/helpers/fetch/fetch-unfinished-service')
+jest.mock('~/src/server/services/helpers/fetch/fetch-in-progress-service')
 
 describe('#provideService', () => {
   const mockRequest = {

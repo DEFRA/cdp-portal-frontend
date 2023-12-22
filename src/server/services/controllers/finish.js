@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchFinishCreate } from '~/src/server/services/helpers/fetch-finish-create'
+import { fetchFinishCreate } from '~/src/server/services/helpers/fetch/fetch-finish-create'
 
 const finishController = {
   options: {

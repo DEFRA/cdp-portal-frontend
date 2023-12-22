@@ -1,10 +1,10 @@
 import { isNull } from 'lodash'
 
-import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
-import { decorateService } from '~/src/server/services/transformers/decorate-service'
-import { fetchDeployableService } from '~/src/server/services/helpers/fetch-deployable-service'
-import { fetchUnfinishedService } from '~/src/server/services/helpers/fetch-unfinished-service'
-import { fetchInProgressService } from '~/src/server/services/helpers/fetch-in-progress-service'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { decorateService } from '~/src/server/services/helpers/decorate-service'
+import { fetchDeployableService } from '~/src/server/services/helpers/fetch/fetch-deployable-service'
+import { fetchUnfinishedService } from '~/src/server/services/helpers/fetch/fetch-unfinished-service'
+import { fetchInProgressService } from '~/src/server/services/helpers/fetch/fetch-in-progress-service'
 import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
 import { transformInProgressToService } from '~/src/server/services/transformers/transform-in-progress-to-service'
 

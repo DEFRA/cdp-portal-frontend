@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchRepository } from '~/src/server/services/helpers/fetch-repository'
-import { fetchCreateStatus } from '~/src/server/services/helpers/fetch-create-status'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { fetchCreateStatus } from '~/src/server/services/helpers/fetch/fetch-create-status'
 
 const isNameAvailableController = {
   options: {
