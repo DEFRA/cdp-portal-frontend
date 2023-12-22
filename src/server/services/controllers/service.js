@@ -24,7 +24,6 @@ const serviceController = {
     const service = request.pre.service
 
     const sharedContext = {
-      pageTitle: `${service.serviceName} microservice`,
       heading: service.serviceName,
       entityDataList: transformServiceToEntityDataList(service),
       service,
@@ -47,6 +46,7 @@ const serviceController = {
       )(runningServices)
 
       return h.view('services/views/service', {
+        pageTitle: `${service.serviceName} microservice`,
         runningServicesEntityRows,
         runningEnvironmentsMap: runningServices.reduce(
           (environmentsMap, runningService) => ({
@@ -59,8 +59,17 @@ const serviceController = {
       })
     }
 
-    if (service.isCreateStatus) {
-      return h.view('services/views/create-service-status', {
+    if (service.isInProgress) {
+      return h.view('services/views/service-create-status', {
+        pageTitle: `Creating ${service.serviceName} microservice`,
+        creationJob: transformStatus(service),
+        ...sharedContext
+      })
+    }
+
+    if (service.isUnfinished) {
+      return h.view('services/views/service-create-finish', {
+        pageTitle: `Created ${service.serviceName} microservice`,
         creationJob: transformStatus(service),
         ...sharedContext
       })

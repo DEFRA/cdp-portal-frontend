@@ -37,6 +37,7 @@ function transformStatus(service) {
       total: jobStatuses.length
     },
     status: {
+      isSuccess: serviceStatus.status === serviceCreationStatuses.success,
       value: serviceStatus.status,
       text: serviceStatus?.status
         ? startCase(serviceStatus.status)
@@ -45,7 +46,7 @@ function transformStatus(service) {
     },
     serviceTypeTemplate: serviceStatus.serviceTypeTemplate,
     createRepository: {
-      name: 'Creating Github Repository',
+      name: 'Github Repository',
       part: 1,
       url: {
         text: removeUrlParts(service?.githubUrl),
@@ -79,7 +80,7 @@ function transformStatus(service) {
       }
     },
     cdpAppConfig: {
-      name: 'Creating Config',
+      name: 'Config',
       part: 2,
       url: {
         text: `${githubOrg}/cdp-app-config`,
@@ -131,7 +132,7 @@ function transformStatus(service) {
           .filter(Boolean) ?? []
     },
     cdpNginxUpstreams: {
-      name: 'Creating Networking',
+      name: 'Networking',
       part: 3,
       url: {
         text: `${githubOrg}/cdp-nginx-upstreams`,
@@ -183,7 +184,7 @@ function transformStatus(service) {
           .filter(Boolean) ?? []
     },
     cdpTfSvcInfra: {
-      name: 'Creating Infrastructure',
+      name: 'Infrastructure',
       part: 4,
       url: {
         text: `${githubOrg}/cdp-tf-svc-infra`,

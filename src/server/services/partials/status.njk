@@ -1,0 +1,112 @@
+{% from "progress/macro.njk" import appProgress %}
+{% from "status/macro.njk" import appStatus %}
+
+<div class="govuk-grid-column-two-thirds">
+  {% if creationJob.hasJobFailures %}
+    {{ appHelp({
+      text: "Need some help with your new service creation?"
+    }) }}
+  {% endif %}
+</div>
+
+<article data-xhr="create-service-status">
+  <div class="govuk-grid-column-two-thirds">
+    <section class="app-section">
+
+      <header class="govuk-!-margin-bottom-2">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+          {% if creationJob.status.isSuccess %}
+            Microservice created
+          {% else %}
+            Creating Microservice
+          {% endif %}
+        </h2>
+
+        {% if not creationJob.status.isSuccess %}
+          <div class="app-status-info">
+            <div class="app-status-info__primary">
+              {{ govukTag({
+                text: creationJob.status.text,
+                classes: creationJob.status.classes,
+                attributes: {
+                  "data-testid": "app-overall-progress"
+                }
+              }) }}
+            </div>
+
+            <div>
+              {% if creationJob.status.value == "in-progress" %}
+                {{ appLoader({ classes: "app-loader--is-loading" }) }}
+              {% endif %}
+            </div>
+          </div>
+
+          {{ appProgress({
+            progress: creationJob.progress.percentage,
+            total: creationJob.progress.total,
+            complete: creationJob.progress.complete
+          }) }}
+
+          <p class="app-status-info__secondary">
+            Started: {{ appTime({
+              datetime: creationJob.started,
+              formatString: "k:mm:ss EE do MMM yyyy"
+            }) }}
+          </p>
+        {% endif %}
+      </header>
+
+
+      {% if creationJob.status.isSuccess %}
+        <div class="govuk-!-margin-bottom-8">
+          <p class="govuk-!-margin-bottom-2">
+            Your new microservice <em>{{ service.serviceName }}</em> has now been created. Please have a look over the
+            various completed jobs detailed below.
+          </p>
+          <p class="govuk-!-margin-bottom-3">When you have finished progress to your new microservices page.
+          </p>
+          <form action="/services/finish/{{ service.serviceName }}"
+                method="post">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+            {{ govukButton({
+              classes: "app-button",
+              text: "View microservice page",
+              attributes: {
+                "data-testid": "finish-create-service"
+              }
+            }) }}
+          </form>
+        </div>
+      {% else %}
+        <p class="govuk-!-margin-bottom-8">
+          Your new service <em>{{ service.serviceName }}</em> built from the
+          <em>{{ creationJob.serviceTypeTemplate }}</em>, is now
+          being created. For more information on the various setup jobs we are running for your new service see below.
+        </p>
+      {% endif %}
+
+      {{ appStatus(creationJob.createRepository) }}
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l
+              govuk-!-margin-bottom-6">
+
+      {{ appStatus(creationJob.cdpAppConfig) }}
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l
+              govuk-!-margin-bottom-6">
+
+      {{ appStatus(creationJob.cdpNginxUpstreams) }}
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l
+              govuk-!-margin-bottom-6">
+
+      {{ appStatus(creationJob.cdpTfSvcInfra) }}
+
+    </section>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    {{ appEntityDataList({
+      heading: "Details",
+      items: entityDataList
+    }) }}
+  </div>
+</article>
+

@@ -1,0 +1,26 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: "Creating the " + heading + " microservice.",
+    entities: headingEntities
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+  <div class="govuk-grid-row">
+
+    <div data-js="app-poll"
+         data-poll-url="/services/{{ service.serviceName }}"
+         data-poll-interval="3000"
+         data-poll-limit="45">
+
+      {% block xhrContent %}
+        {% include "services/partials/status.njk" %}
+      {% endblock %}
+    </div>
+  </div>
+
+{% endblock %}

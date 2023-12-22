@@ -1,29 +1,29 @@
 import { unionBy } from 'lodash'
 
 import { sortBy } from '~/src/server/common/helpers/sort-by'
+import { fetchUnfinished } from '~/src/server/services/helpers/fetch-unfinished'
 import { fetchRepositories } from '~/src/server/services/helpers/fetch-repositories'
 import { decorateServices } from '~/src/server/services/transformers/decorate-services'
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch-deployable-services'
-import { fetchCreateInProgressStatus } from '~/src/server/services/helpers/fetch-create-in-progress-status'
 import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
-import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
+import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
 
 const serviceListController = {
   handler: async (request, h) => {
     const { repositories } = await fetchRepositories()
     const deployableServices = await fetchDeployableServices()
-    const { statuses } = await fetchCreateInProgressStatus()
+    const { unfinished } = await fetchUnfinished()
 
-    const createStatusServices = statuses?.map(transformServiceStatusToService)
+    const unfinishedServices = unfinished?.map(transformUnfinishedToService)
     const decorator = decorateServices(repositories)
 
     const deployableServicesWithRepository = deployableServices.map(decorator)
-    const createServicesWithRepository = createStatusServices.map(decorator)
+    const unfinishedServicesWithRepository = unfinishedServices.map(decorator)
 
-    // Services from Portal Backends /services overwrite services from Self Service Ops /status
+    // Services from Self Service Ops /status/unfinished overwrite services from Portal Backends /services
     const services = unionBy(
+      unfinishedServicesWithRepository,
       deployableServicesWithRepository,
-      createServicesWithRepository,
       'serviceName'
     )
 
