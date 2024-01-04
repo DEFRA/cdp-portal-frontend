@@ -11,11 +11,12 @@
       caption: headingCaption
     }) }}
 
-    {% call appPageBody() %}
-
-      <p>Service deployment successfully requested</p>
-
-    {% endcall %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {# TODO this needs a rethink/rewording #}
+        <p>Service deployment successfully requested</p>
+      </div>
+    </div>
   </div>
 
 {% endblock %}

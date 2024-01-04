@@ -3,27 +3,31 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
+import { inProgressServiceStatusFixture } from '~/src/__fixtures__/in-progress-service-status'
 
 describe('#checkNameAvailability', () => {
-  const mockHelpers = {
-    message: jest.fn().mockReturnValue('mock-message-helper-return')
-  }
   const repositoryName = 'cdp-portal-frontend'
   const repositoryEndpointUrl = new URL(
     config.get('portalBackendApiUrl') + `/repositories/${repositoryName}`
   )
-  const statusEndpointUrl = new URL(
-    config.get('selfServiceOpsApiUrl') + `/status/${repositoryName}`
+  const inProgressStatusEndpointUrl = new URL(
+    config.get('selfServiceOpsApiUrl') + `/status/in-progress/${repositoryName}`
   )
+  let mockHelpers
+
+  beforeEach(() => {
+    mockHelpers = {
+      message: jest.fn().mockReturnValue('mock-message-helper-return')
+    }
+  })
 
   test('Should provide expected is available response', async () => {
     nock(repositoryEndpointUrl.origin)
       .get(repositoryEndpointUrl.pathname)
       .reply(404, { message: 'Not Found' })
 
-    nock(statusEndpointUrl.origin)
-      .get(statusEndpointUrl.pathname)
+    nock(inProgressStatusEndpointUrl.origin)
+      .get(inProgressStatusEndpointUrl.pathname)
       .reply(404, { message: 'Not Found' })
 
     const response = await checkNameAvailability(repositoryName, mockHelpers)
@@ -36,8 +40,8 @@ describe('#checkNameAvailability', () => {
       .get(repositoryEndpointUrl.pathname)
       .reply(200, repositoryFixture)
 
-    nock(statusEndpointUrl.origin)
-      .get(statusEndpointUrl.pathname)
+    nock(inProgressStatusEndpointUrl.origin)
+      .get(inProgressStatusEndpointUrl.pathname)
       .reply(404, { message: 'Not Found' })
 
     const response = await checkNameAvailability(repositoryName, mockHelpers)
@@ -53,9 +57,9 @@ describe('#checkNameAvailability', () => {
       .get(repositoryEndpointUrl.pathname)
       .reply(200, repositoryFixture)
 
-    nock(statusEndpointUrl.origin)
-      .get(statusEndpointUrl.pathname)
-      .reply(200, createServiceStatusFixture)
+    nock(inProgressStatusEndpointUrl.origin)
+      .get(inProgressStatusEndpointUrl.pathname)
+      .reply(200, inProgressServiceStatusFixture)
 
     const response = await checkNameAvailability(repositoryName, mockHelpers)
 

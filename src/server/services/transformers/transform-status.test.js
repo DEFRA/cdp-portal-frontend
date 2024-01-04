@@ -1,16 +1,16 @@
 import { config } from '~/src/config'
 import { transformStatus } from '~/src/server/services/transformers/transform-status'
-import { createServiceStatusFixture } from '~/src/__fixtures__/create-service-status'
-import { transformServiceStatusToService } from '~/src/server/services/transformers/transform-service-status-to-service'
-import { decorateService } from '~/src/server/services/transformers/decorate-service'
+import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
+import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
+import { unfinishedServiceStatusFixture } from '~/src/__fixtures__/unfinished-service-status'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformStatus', () => {
   test('Should provide expected transformed service status', () => {
     const service = decorateService(
-      transformServiceStatusToService(createServiceStatusFixture.status),
+      transformUnfinishedToService(unfinishedServiceStatusFixture.unfinished),
       repositoryFixture.repository
     )
 
@@ -27,7 +27,7 @@ describe('#transformStatus', () => {
             }
           },
           info: expect.any(Function),
-          name: 'Creating Config',
+          name: 'Config',
           part: 2,
           pullRequest: {
             url: {
@@ -55,7 +55,7 @@ describe('#transformStatus', () => {
             }
           },
           info: expect.any(Function),
-          name: 'Creating Networking',
+          name: 'Networking',
           part: 3,
           pullRequest: {
             url: {
@@ -83,7 +83,7 @@ describe('#transformStatus', () => {
             }
           },
           info: expect.any(Function),
-          name: 'Creating Infrastructure',
+          name: 'Infrastructure',
           part: 4,
           pullRequest: {
             url: {
@@ -102,15 +102,15 @@ describe('#transformStatus', () => {
         },
         createRepository: {
           info: expect.any(Function),
-          name: 'Creating Github Repository',
+          name: 'Github Repository',
           part: 1,
           status: {
             classes: 'govuk-tag--green',
             text: 'Success'
           },
           url: {
-            href: `https://github.com/${githubOrg}`,
-            text: `${githubOrg}`
+            href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+            text: `${githubOrg}/cdp-portal-frontend`
           }
         },
         hasJobFailures: false,
@@ -122,9 +122,10 @@ describe('#transformStatus', () => {
         serviceTypeTemplate: 'cdp-node-backend-template',
         started: '2023-10-27T12:37:46.915Z',
         status: {
-          classes: 'govuk-tag--blue',
-          text: 'In Progress',
-          value: 'in-progress'
+          classes: 'govuk-tag--green',
+          isSuccess: true,
+          text: 'Success',
+          value: 'success'
         }
       })
     )

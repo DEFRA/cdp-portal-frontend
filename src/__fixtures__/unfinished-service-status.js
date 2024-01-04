@@ -2,15 +2,16 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-// Response from selfServiceOpsApi/create-service/status/cdp-portal-frontend
-const createServiceStatusFixture = {
+// Response from selfServiceOpsApi/create-service/status/unfinished/cdp-portal-frontend
+const unfinishedServiceStatusFixture = {
   message: 'success',
-  status: {
+  unfinished: {
     kind: 'repository',
     org: githubOrg,
     repositoryName: 'cdp-portal-frontend',
     portalVersion: 2,
-    status: 'in-progress',
+    status: 'success',
+    userHasFinished: false,
     started: '2023-10-27T12:37:46.915Z',
     serviceTypeTemplate: 'cdp-node-backend-template',
     team: {
@@ -20,7 +21,7 @@ const createServiceStatusFixture = {
     zone: 'protected',
     createRepository: {
       status: 'success',
-      url: `https://github.com/${githubOrg}`,
+      url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
       result: {} // TODO add in v2 result when available
     },
     'cdp-tf-svc-infra': {
@@ -89,4 +90,4 @@ const createServiceStatusFixture = {
   }
 }
 
-export { createServiceStatusFixture }
+export { unfinishedServiceStatusFixture }

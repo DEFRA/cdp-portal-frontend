@@ -1,7 +1,4 @@
-/**
- * Transform the services create status into a similar shape as services from the Portal Backend
- */
-function transformServiceStatusToService(serviceStatus) {
+function transformInProgressToService(serviceStatus) {
   const serviceName = serviceStatus?.repositoryName
   const team = {
     teamId: serviceStatus.team.teamId,
@@ -9,7 +6,7 @@ function transformServiceStatusToService(serviceStatus) {
   }
 
   return {
-    isCreateStatus: true,
+    isInProgress: true,
     serviceName,
     githubUrl: serviceStatus?.createRepository?.url,
     id: serviceName,
@@ -18,4 +15,4 @@ function transformServiceStatusToService(serviceStatus) {
   }
 }
 
-export { transformServiceStatusToService }
+export { transformInProgressToService }

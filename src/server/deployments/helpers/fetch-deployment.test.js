@@ -13,11 +13,11 @@ describe('#fetchDeployment', () => {
   test('Should provide expected deployment response', async () => {
     nock(deploymentEndpointUrl.origin)
       .get(deploymentEndpointUrl.pathname)
-      .reply(200, deploymentsFixture.at(0))
+      .reply(200, deploymentsFixture.deployments.at(0))
 
     const deployment = await fetchDeployment(deploymentId)
 
-    expect(deployment).toEqual(deploymentsFixture.at(0))
+    expect(deployment).toEqual(deploymentsFixture.deployments.at(0))
   })
 
   test('When deployment does not exists, Should throw with expected message', async () => {

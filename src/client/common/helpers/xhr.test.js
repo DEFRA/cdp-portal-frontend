@@ -20,9 +20,11 @@ jest.mock('history', () => ({
 describe('#xhr', () => {
   const mockXhrResponse = '<div data-xhr="xhr-container">Xhr response</div>'
   const mockUrl = '/mock-xhr-request'
-  const mockEventListener = jest.fn()
+  let mockEventListener
 
   beforeEach(async () => {
+    mockEventListener = jest.fn()
+
     fetchMock.enableMocks()
 
     // Append xhr container to the document
