@@ -4,7 +4,7 @@ import { creations } from '~/src/server/create/constants/creations'
 
 const chooseValidation = Joi.object({
   kind: Joi.string()
-    .valid(...Object.values(creations))
+    .valid(...Object.keys(creations))
     .messages({
       'any.only': 'Choose an entry',
       'any.required': 'Choose an entry'

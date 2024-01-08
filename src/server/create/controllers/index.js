@@ -17,6 +17,14 @@ import {
   repositorySuccessController
 } from '~/src/server/create/controllers/repository'
 
+import {
+  testSummaryController,
+  testDetailFormController,
+  testSuccessController,
+  testDetailController,
+  testsCreateController
+} from '~/src/server/create/controllers/testsuite'
+
 export {
   isNameAvailableController,
   startController,
@@ -30,5 +38,10 @@ export {
   repositoryCreateController,
   repositorySuccessController,
   chooseKindController,
-  chooseKindFormController
+  chooseKindFormController,
+  testSummaryController,
+  testDetailFormController,
+  testSuccessController,
+  testDetailController,
+  testsCreateController
 }

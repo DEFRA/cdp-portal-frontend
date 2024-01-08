@@ -11,7 +11,12 @@ import {
   repositoryDetailFormController,
   repositorySummaryController,
   repositoryCreateController,
-  repositorySuccessController
+  repositorySuccessController,
+  testSummaryController,
+  testDetailFormController,
+  testSuccessController,
+  testDetailController,
+  testsCreateController
 } from '~/src/server/create/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
 import { provideCreateSteps } from '~/src/server/create/helpers/form'
@@ -65,6 +70,7 @@ const create = {
             path: '/create/choose-kind',
             ...chooseKindController
           },
+          // Create Microservice
           {
             method: 'GET',
             path: '/create/microservice-detail',
@@ -85,6 +91,7 @@ const create = {
             path: '/create/microservice',
             ...microserviceCreateController
           },
+          // Create Repository
           {
             method: 'GET',
             path: '/create/repository-detail',
@@ -109,6 +116,32 @@ const create = {
             method: 'GET',
             path: '/create/repository/success',
             ...repositorySuccessController
+          },
+          // Create Test Suite
+          {
+            method: 'GET',
+            path: '/create/tests-detail',
+            ...testDetailFormController
+          },
+          {
+            method: 'POST',
+            path: '/create/tests-detail',
+            ...testDetailController
+          },
+          {
+            method: 'GET',
+            path: '/create/tests/summary',
+            ...testSummaryController
+          },
+          {
+            method: 'POST',
+            path: '/create/tests',
+            ...testsCreateController
+          },
+          {
+            method: 'GET',
+            path: '/create/tests/success',
+            ...testSuccessController
           }
         ].map(serviceTeamUserScope)
       )
