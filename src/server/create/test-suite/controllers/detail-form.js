@@ -1,12 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { startCase } from 'lodash'
 
-import { creations } from '~/src/server/create/constants/creations'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
 
-const chooseKindFormController = {
+const testSuiteDetailFormController = {
   options: {
     ext: {
       onPreHandler: [noSessionRedirect]
@@ -18,21 +17,25 @@ const chooseKindFormController = {
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const query = request?.query
-    const creationItems = Object.entries(creations).map(([key, value]) => ({
-      text: startCase(value),
-      value: key
-    }))
 
-    return h.view('create/views/choose-kind-form', {
-      pageTitle: 'Create',
-      heading: 'Create',
-      createItems: buildOptions(creationItems, false),
+    const usersTeams = await getUsersTeams(request)
+    const teamsOptions = buildOptions(
+      usersTeams.map((team) => ({
+        text: team.name,
+        value: team.teamId
+      }))
+    )
+
+    return h.view('create/test-suite/views/detail-form', {
+      pageTitle: 'Create a new journey test suite',
+      heading: 'Create a new journey test suite',
+      teamsOptions,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation
     })
   }
 }
 
-export { chooseKindFormController }
+export { testSuiteDetailFormController }

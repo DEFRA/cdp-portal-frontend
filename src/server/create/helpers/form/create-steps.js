@@ -1,6 +1,6 @@
 const urls = {
   stepOne: '/create/choose-kind',
-  stepTwo: (kind) => `/create/${kind}-detail`,
+  stepTwo: (kind) => `/create/${kind}/detail`,
   stepThree: (kind) => `/create/${kind}/summary`
 }
 
