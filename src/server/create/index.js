@@ -23,6 +23,7 @@ import { provideCreateSteps } from '~/src/server/create/helpers/form'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { provideSubNavigation } from '~/src/server/create/helpers/provide-sub-navigation'
 
 const serviceTeamUserScope = authScope(`+${scopes.serviceTeamUser}`)
 
@@ -42,6 +43,13 @@ const create = {
         {
           type: 'onPostHandler',
           method: provideCreateSteps,
+          options: {
+            sandbox: 'plugin'
+          }
+        },
+        {
+          type: 'onPostHandler',
+          method: provideSubNavigation,
           options: {
             sandbox: 'plugin'
           }

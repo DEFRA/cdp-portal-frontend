@@ -1,56 +1,59 @@
 {% extends "layouts/page.njk" %}
 
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
 {% block content %}
+  {% call appSplitPane() %}
+    {{ appStepNavigation(stepNavigation) }}
 
-  {{ appStepNavigation(stepNavigation) }}
+    <div class="govuk-main-wrapper app-main-wrapper">
 
-  <div class="govuk-main-wrapper app-main-wrapper">
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
 
-    {{ appHeading({
-      title: heading,
-      caption: headingCaption
-    }) }}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <form action="/create/choose-kind" method="post" data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
-        <form action="/create/choose-kind" method="post" data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+            {% call govukFieldset() %}
 
-          {% call govukFieldset() %}
-
-            {{ govukRadios({
-              name: "kind",
-              classes: "govuk-radios--small app-radio",
-              fieldset: {
-                legend: {
-                  text: "What would you like to create?"
-                }
-              },
-              items: createItems,
-              value: formValues.kind,
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
-              errorMessage: {
-                attributes: {
-                  "data-js": "app-error"
+              {{ govukRadios({
+                name: "kind",
+                classes: "govuk-radios--small app-radio",
+                fieldset: {
+                  legend: {
+                    text: "What would you like to create?"
+                  }
                 },
-                text: formErrors.kind.message
-              } if formErrors.kind.message
+                items: createItems,
+                value: formValues.kind,
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                errorMessage: {
+                  attributes: {
+                    "data-js": "app-error"
+                  },
+                  text: formErrors.kind.message
+                } if formErrors.kind.message
+              }) }}
+
+            {% endcall %}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: formButtonText
             }) }}
 
-          {% endcall %}
-
-          {{ govukButton({
-            classes: "app-button",
-            text: formButtonText
-          }) }}
-
-        </form>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+  {% endcall %}
 
 {% endblock %}
 

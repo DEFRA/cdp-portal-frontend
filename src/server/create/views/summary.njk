@@ -1,38 +1,41 @@
 {% extends "layouts/page.njk" %}
 
+{% from "split-pane/macro.njk" import appSplitPane with context %}
+
 {% block content %}
+  {% call appSplitPane() %}
+    {{ appStepNavigation(stepNavigation) }}
 
-  {{ appStepNavigation(stepNavigation) }}
+    <div class="govuk-main-wrapper app-main-wrapper">
 
-  <div class="govuk-main-wrapper app-main-wrapper">
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
 
-    {{ appHeading({
-      title: heading,
-      caption: headingCaption
-    }) }}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <form action="{{ action }}" method="post">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+            <input type="hidden" name="teamId" value="{{ create.teamId }}"/>
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
-        <form action="{{ action }}" method="post">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="teamId" value="{{ create.teamId }}"/>
+            {{ govukSummaryList({
+              classes: "govuk-!-margin-bottom-9",
+              rows: summaryRows
+            }) }}
 
-          {{ govukSummaryList({
-            classes: "govuk-!-margin-bottom-9",
-            rows: summaryRows
-          }) }}
+            {{ appButton({
+              text: formButtonText,
+              loader: {
+                name: "create-submit-button"
+              }
+            }) }}
 
-          {{ appButton({
-            text: formButtonText,
-            loader: {
-              name: "create-submit-button"
-            }
-          }) }}
-
-        </form>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
+  {% endcall %}
 {% endblock %}
 
