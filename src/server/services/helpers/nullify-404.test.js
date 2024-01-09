@@ -5,7 +5,7 @@ const mock500Error = { message: 'Holy smokes!', output: { statusCode: 50 } }
 
 describe('#nullify404', () => {
   describe('When error is "404"', () => {
-    test(' should provide "null"', async () => {
+    test('Should provide "null"', async () => {
       expect(nullify404(mock404Error)).toBeNull()
     })
   })
