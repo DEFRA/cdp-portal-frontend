@@ -27,7 +27,7 @@
 
             {{ govukInput({
               label: {
-                text: "Repository name",
+                text: "Test suite name",
                 classes: "govuk-!-margin-bottom-0"
               },
               id: "repository-name",
@@ -43,8 +43,8 @@
               value: formValues.repositoryName,
               attributes: {
                 "data-js": "app-availability app-read-out",
-                "data-availability-target-id": "repository-name-availability",
-                "data-read-out-target-id": "repository-name-read-out"
+                "data-availability-target-id": "test-suite-name-availability",
+                "data-read-out-target-id": "test-suite-name-read-out"
               },
               errorMessage: {
                 text: formErrors.repositoryName.message,
@@ -57,14 +57,14 @@
                 classes: "app-input__suffix",
                 html: appAvailability({
                   dataFetcher: "fetchIsNameAvailable",
-                  targetId: "repository-name-availability"
+                  targetId: "test-suite-name-availability"
                 })
               }
             }) }}
 
             {{ appReadOut({
-              description: "Your repository name will be ",
-              targetId: "repository-name-read-out"
+              description: "Your journey test suite name will be ",
+              targetId: "test-suite-name-read-out"
             }) }}
 
 
