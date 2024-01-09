@@ -1,4 +1,4 @@
-function transformInProgressToService(serviceStatus) {
+function transformCreateServiceStatusToService(serviceStatus) {
   const serviceName = serviceStatus?.repositoryName
   const team = {
     teamId: serviceStatus.team.teamId,
@@ -6,7 +6,7 @@ function transformInProgressToService(serviceStatus) {
   }
 
   return {
-    isInProgress: true,
+    isCreateService: true,
     serviceName,
     githubUrl: serviceStatus?.createRepository?.url,
     id: serviceName,
@@ -15,4 +15,4 @@ function transformInProgressToService(serviceStatus) {
   }
 }
 
-export { transformInProgressToService }
+export { transformCreateServiceStatusToService }

@@ -4,9 +4,10 @@ import { statusTagClassMap } from '~/src/server/services/helpers/status-tag-clas
 function transformServiceToEntityRow(service) {
   const githubOrg = config.get('githubOrg')
   const status = service?.serviceStatus?.status
+  const hasStatus = Boolean(status)
 
   // For services that are being created show, in-progress or failure tag. For created services show created date
-  const createdEntity = status
+  const createdEntity = hasStatus
     ? {
         kind: 'tag',
         value: status,
@@ -18,7 +19,9 @@ function transformServiceToEntityRow(service) {
     {
       kind: 'link',
       value: service.serviceName,
-      url: `/services/${service.serviceName}`
+      url: hasStatus
+        ? `/services/create-status/${service.serviceName}`
+        : `/services/${service.serviceName}`
     },
     {
       kind: 'list',

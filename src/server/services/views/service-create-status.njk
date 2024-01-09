@@ -4,7 +4,7 @@
 
   {{ appHeading({
     title: heading,
-    caption: "Creating the " + heading + " microservice.",
+    caption: caption,
     entities: headingEntities
   }) }}
 
@@ -12,15 +12,20 @@
 
   <div class="govuk-grid-row">
 
-    <div data-js="app-poll"
-         data-poll-url="/services/{{ service.serviceName }}"
-         data-poll-interval="3000"
-         data-poll-limit="45">
+    {% if not isSuccess %}
+      <div data-js="app-poll"
+           data-poll-url="/services/create-status/{{ service.serviceName }}"
+           data-poll-interval="3000"
+           data-poll-limit="45">
+    {% endif %}
 
       {% block xhrContent %}
         {% include "services/partials/status.njk" %}
       {% endblock %}
-    </div>
+
+    {% if not isSuccess %}
+      </div>
+    {% endif %}
   </div>
 
 {% endblock %}

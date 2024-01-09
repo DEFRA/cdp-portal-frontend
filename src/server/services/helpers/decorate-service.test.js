@@ -2,8 +2,8 @@ import { config } from '~/src/config'
 import { serviceFixture } from '~/src/__fixtures__/service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { decorateService } from '~/src/server/services/helpers/decorate-service'
-import { unfinishedServiceStatusFixture } from '~/src/__fixtures__/unfinished-service-status'
-import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
+import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create-service-status-in-progress'
 
 const githubOrg = config.get('githubOrg')
 
@@ -34,27 +34,27 @@ describe('#decorateService', () => {
     })
   })
 
-  describe('With an unfinished status service', () => {
+  describe('With a create service status', () => {
     test('Should provide expected service when decorated with repository', () => {
       expect(
         decorateService(
-          transformUnfinishedToService(
-            unfinishedServiceStatusFixture.unfinished
+          transformCreateServiceStatusToService(
+            createServiceStatusInProgressFixture.repositoryStatus
           ),
           repositoryFixture.repository
         )
       ).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
         description: 'The Core Delivery Platform Portal.',
-        githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+        githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
         id: 'cdp-portal-frontend',
         isArchived: false,
-        isUnfinished: true,
+        isCreateService: true,
         isPrivate: true,
         isTemplate: false,
         primaryLanguage: 'JavaScript',
         serviceName: 'cdp-portal-frontend',
-        serviceStatus: unfinishedServiceStatusFixture.unfinished,
+        serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
         teams: [
           {
             github: 'cdp-platform',

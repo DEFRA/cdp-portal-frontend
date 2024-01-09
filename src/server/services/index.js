@@ -1,7 +1,7 @@
 import {
   serviceController,
   serviceListController,
-  finishController
+  serviceCreateStatusController
 } from '~/src/server/services/controllers'
 
 const services = {
@@ -15,14 +15,14 @@ const services = {
           ...serviceListController
         },
         {
-          method: 'POST',
-          path: '/services/finish/{serviceId}',
-          ...finishController
-        },
-        {
           method: 'GET',
           path: '/services/{serviceId}',
           ...serviceController
+        },
+        {
+          method: 'GET',
+          path: '/services/create-status/{serviceId}',
+          ...serviceCreateStatusController
         }
       ])
     }

@@ -2,16 +2,15 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-// Response from selfServiceOpsApi/create-service/status/in-progress/cdp-portal-frontend
-const inProgressServiceStatusFixture = {
+// In-progress create service status response from selfServiceOpsApi/status/cdp-portal-frontend
+const createServiceStatusInProgressFixture = {
   message: 'success',
-  inProgress: {
+  repositoryStatus: {
     kind: 'repository',
     org: githubOrg,
     repositoryName: 'cdp-portal-frontend',
     portalVersion: 2,
     status: 'in-progress',
-    userHasFinished: false,
     started: '2023-10-27T12:37:46.915Z',
     serviceTypeTemplate: 'cdp-node-backend-template',
     team: {
@@ -90,4 +89,4 @@ const inProgressServiceStatusFixture = {
   }
 }
 
-export { inProgressServiceStatusFixture }
+export { createServiceStatusInProgressFixture }

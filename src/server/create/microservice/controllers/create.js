@@ -73,7 +73,7 @@ const microserviceCreateController = {
           type: 'success'
         })
 
-        return h.redirect(`/services/${json.repositoryName}`)
+        return h.redirect(`/services/create-status/${json.repositoryName}`)
       }
 
       request.yar.flash(sessionNames.validationFailure, {

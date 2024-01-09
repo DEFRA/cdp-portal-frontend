@@ -17,7 +17,7 @@ const testSuiteSummaryController = {
       heading: 'Create test suite summary',
       headingCaption:
         'Information about the new test suite you are going to create.',
-      action: '/create/tests',
+      action: '/create/test-suite',
       summaryRows: summaryTestSuiteRows(create),
       formButtonText: 'Create',
       create

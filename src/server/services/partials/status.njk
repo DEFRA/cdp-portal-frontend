@@ -15,14 +15,14 @@
 
       <header class="govuk-!-margin-bottom-2">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-          {% if creationJob.status.isSuccess %}
+          {% if isSuccess %}
             Microservice created
           {% else %}
             Creating Microservice
           {% endif %}
         </h2>
 
-        {% if not creationJob.status.isSuccess %}
+        {% if not isSuccess %}
           <div class="app-status-info">
             <div class="app-status-info__primary">
               {{ govukTag({
@@ -57,25 +57,16 @@
       </header>
 
 
-      {% if creationJob.status.isSuccess %}
+      {% if isSuccess %}
         <div class="govuk-!-margin-bottom-8">
           <p class="govuk-!-margin-bottom-2">
             Your new microservice <em>{{ service.serviceName }}</em> has now been created. Please have a look over the
             various completed jobs detailed below.
           </p>
-          <p class="govuk-!-margin-bottom-3">When you have finished progress to your new microservices page.
+          <p class="govuk-!-margin-bottom-3">When you have finished looking over what has been created for your new
+            microservice progress to your <a class="app-link app-link--underline"
+                                             href="/services/{{ service.serviceName }}">new microservices page</a>.
           </p>
-          <form action="/services/finish/{{ service.serviceName }}"
-                method="post">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-            {{ govukButton({
-              classes: "app-button",
-              text: "View microservice page",
-              attributes: {
-                "data-testid": "finish-create-service"
-              }
-            }) }}
-          </form>
         </div>
       {% else %}
         <p class="govuk-!-margin-bottom-8">

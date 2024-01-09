@@ -5,7 +5,7 @@ import { config } from '~/src/config'
 
 async function fetchCreateStatus(repositoryName) {
   const statusEndpointUrl =
-    config.get('selfServiceOpsApiUrl') + `/status/in-progress/${repositoryName}`
+    config.get('selfServiceOpsApiUrl') + `/status/${repositoryName}`
 
   const response = await fetch(statusEndpointUrl, {
     method: 'get',
