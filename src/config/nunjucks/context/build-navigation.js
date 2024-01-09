@@ -44,7 +44,7 @@ async function buildNavigation(request) {
       {
         text: 'Create',
         url: '/create',
-        isActive: request?.path?.includes('/create')
+        isActive: request?.path?.includes('/create/')
       }
     ],
     admin: authedUser?.isAdmin && [
