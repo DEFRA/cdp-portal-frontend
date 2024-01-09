@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '~/src/config'
-import { fetchTemplate } from '~/src/server/utilities/helpers/fetch-template'
+import { fetchTemplate } from '~/src/server/utilities/helpers/fetch/fetch-template'
 import { templateFixture } from '~/src/__fixtures__/template'
 
 describe('#fetchTemplate', () => {

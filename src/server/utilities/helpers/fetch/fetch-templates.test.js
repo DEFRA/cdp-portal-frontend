@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { config } from '~/src/config'
 import { templatesFixture } from '~/src/__fixtures__/templates'
-import { fetchTemplates } from '~/src/server/utilities/helpers/fetch-templates'
+import { fetchTemplates } from '~/src/server/utilities/helpers/fetch/fetch-templates'
 
 describe('#fetchTemplates', () => {
   const templatesEndpointUrl = new URL(

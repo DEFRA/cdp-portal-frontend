@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { config } from '~/src/config'
 import { librariesFixture } from '~/src/__fixtures__/libraries'
-import { fetchLibraries } from '~/src/server/utilities/helpers/fetch-libraries'
+import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libraries'
 
 describe('#fetchLibraries', () => {
   const librariesEndpointUrl = new URL(

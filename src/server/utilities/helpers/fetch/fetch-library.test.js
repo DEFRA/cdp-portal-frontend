@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '~/src/config'
-import { fetchLibrary } from '~/src/server/utilities/helpers/fetch-library'
+import { fetchLibrary } from '~/src/server/utilities/helpers/fetch/fetch-library'
 import { libraryFixture } from '~/src/__fixtures__/library'
 
 describe('#fetchLibrary', () => {

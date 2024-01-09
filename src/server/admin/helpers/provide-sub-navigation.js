@@ -1,4 +1,4 @@
-function provideSubNav(request, h) {
+function provideSubNavigation(request, h) {
   const response = request.response
 
   if (response.variety === 'view') {
@@ -8,12 +8,12 @@ function provideSubNav(request, h) {
 
     response.source.context.subNavigation = [
       {
-        isActive: request?.path.includes('/admin/teams') ?? false,
+        isActive: request.path.startsWith('/admin/teams'),
         url: '/admin/teams',
         label: 'Teams'
       },
       {
-        isActive: request?.path.includes('/admin/users') ?? false,
+        isActive: request.path.startsWith('/admin/users'),
         url: '/admin/users',
         label: 'Users'
       }
@@ -23,4 +23,4 @@ function provideSubNav(request, h) {
   return h.continue
 }
 
-export { provideSubNav }
+export { provideSubNavigation }
