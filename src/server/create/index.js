@@ -9,7 +9,6 @@ import { provideCreateSteps } from '~/src/server/create/helpers/form'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
-import { provideSubNavigation } from '~/src/server/create/helpers/provide-sub-navigation'
 import { createMicroserviceRoutes } from '~/src/server/create/microservice'
 import { createRepositoryRoutes } from '~/src/server/create/repository'
 import { createTestSuiteRoutes } from '~/src/server/create/test-suite'
@@ -32,13 +31,6 @@ const create = {
         {
           type: 'onPostHandler',
           method: provideCreateSteps,
-          options: {
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideSubNavigation,
           options: {
             sandbox: 'plugin'
           }

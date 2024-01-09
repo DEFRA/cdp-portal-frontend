@@ -1,20 +1,16 @@
 {% extends "layouts/page.njk" %}
 
-{% from "split-pane/macro.njk" import appSplitPane with context %}
-
 {% block content %}
-  {% call appSplitPane() %}
 
-    <div class="govuk-main-wrapper app-main-wrapper">
+  <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption
-      }) }}
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
 
-      <p>Your new test suite will shortly be available at {{ testSuiteLink | safe }}</p>
-    </div>
+    <p>Your new test suite will shortly be available at {{ testSuiteLink | safe }}</p>
+  </div>
 
-  {% endcall %}
 {% endblock %}
 
