@@ -24,6 +24,8 @@ const provideServiceCreateStatus = {
     const repositoryStatus =
       createServiceStatusResponse?.repositoryStatus ?? null
 
+    // If is an XHR call and when the create service status is a success return null to make the poller to refresh
+    // the page.
     if (
       request.isXhr() &&
       repositoryStatus?.status === creationStatuses.success
