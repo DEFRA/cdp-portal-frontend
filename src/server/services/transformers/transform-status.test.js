@@ -1,16 +1,18 @@
 import { config } from '~/src/config'
-import { transformStatus } from '~/src/server/services/transformers/transform-status'
-import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { transformUnfinishedToService } from '~/src/server/services/transformers/transform-unfinished-to-service'
-import { unfinishedServiceStatusFixture } from '~/src/__fixtures__/unfinished-service-status'
+import { decorateService } from '~/src/server/services/helpers/decorate-service'
+import { transformStatus } from '~/src/server/services/transformers/transform-status'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create-service-status-in-progress'
+import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformStatus', () => {
   test('Should provide expected transformed service status', () => {
     const service = decorateService(
-      transformUnfinishedToService(unfinishedServiceStatusFixture.unfinished),
+      transformCreateServiceStatusToService(
+        createServiceStatusInProgressFixture.repositoryStatus
+      ),
       repositoryFixture.repository
     )
 
@@ -23,7 +25,7 @@ describe('#transformStatus', () => {
             started: '2023-10-27T12:38:40Z',
             url: {
               href: `https://github.com/${githubOrg}/cdp-app-config/actions/runs/6667297592`,
-              text: `${githubOrg}/cdp-app-config/actions/runs/6667297592`
+              text: 'DEFRA/cdp-app-config/actions/runs/6667297592'
             }
           },
           info: expect.any(Function),
@@ -32,12 +34,12 @@ describe('#transformStatus', () => {
           pullRequest: {
             url: {
               href: `https://github.com/${githubOrg}/cdp-app-config/pull/180`,
-              text: `${githubOrg}/cdp-app-config/pull/180`
+              text: 'DEFRA/cdp-app-config/pull/180'
             }
           },
           status: {
-            classes: 'govuk-tag--green',
-            text: 'Success'
+            classes: 'govuk-tag--blue',
+            text: 'In Progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-app-config`,
@@ -64,8 +66,8 @@ describe('#transformStatus', () => {
             }
           },
           status: {
-            classes: 'govuk-tag--green',
-            text: 'Success'
+            classes: 'govuk-tag--blue',
+            text: 'In Progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`,
@@ -92,8 +94,8 @@ describe('#transformStatus', () => {
             }
           },
           status: {
-            classes: 'govuk-tag--green',
-            text: 'Success'
+            classes: 'govuk-tag--blue',
+            text: 'In Progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`,
@@ -105,8 +107,8 @@ describe('#transformStatus', () => {
           name: 'Github Repository',
           part: 1,
           status: {
-            classes: 'govuk-tag--green',
-            text: 'Success'
+            classes: 'govuk-tag--blue',
+            text: 'In Progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
@@ -115,17 +117,17 @@ describe('#transformStatus', () => {
         },
         hasJobFailures: false,
         progress: {
-          complete: 4,
-          percentage: 100,
+          complete: 0,
+          percentage: 0,
           total: 4
         },
         serviceTypeTemplate: 'cdp-node-backend-template',
         started: '2023-10-27T12:37:46.915Z',
         status: {
-          classes: 'govuk-tag--green',
-          isSuccess: true,
-          text: 'Success',
-          value: 'success'
+          classes: 'govuk-tag--blue',
+          isSuccess: false,
+          text: 'In Progress',
+          value: 'in-progress'
         }
       })
     )

@@ -2,26 +2,15 @@ import {
   isNameAvailableController,
   chooseKindController,
   chooseKindFormController,
-  startController,
-  microserviceDetailController,
-  microserviceDetailFormController,
-  microserviceSummaryController,
-  microserviceCreateController,
-  repositoryDetailController,
-  repositoryDetailFormController,
-  repositorySummaryController,
-  repositoryCreateController,
-  repositorySuccessController,
-  testSummaryController,
-  testDetailFormController,
-  testSuccessController,
-  testDetailController,
-  testsCreateController
+  startController
 } from '~/src/server/create/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
 import { provideCreateSteps } from '~/src/server/create/helpers/form'
+import { createTestSuiteRoutes } from '~/src/server/create/test-suite'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
+import { createRepositoryRoutes } from '~/src/server/create/repository'
 import { sessionNames } from '~/src/server/common/constants/session-names'
+import { createMicroserviceRoutes } from '~/src/server/create/microservice'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
 
 const serviceTeamUserScope = authScope(`+${scopes.serviceTeamUser}`)
@@ -70,79 +59,9 @@ const create = {
             path: '/create/choose-kind',
             ...chooseKindController
           },
-          // Create Microservice
-          {
-            method: 'GET',
-            path: '/create/microservice-detail',
-            ...microserviceDetailFormController
-          },
-          {
-            method: 'POST',
-            path: '/create/microservice-detail',
-            ...microserviceDetailController
-          },
-          {
-            method: 'GET',
-            path: '/create/microservice/summary',
-            ...microserviceSummaryController
-          },
-          {
-            method: 'POST',
-            path: '/create/microservice',
-            ...microserviceCreateController
-          },
-          // Create Repository
-          {
-            method: 'GET',
-            path: '/create/repository-detail',
-            ...repositoryDetailFormController
-          },
-          {
-            method: 'POST',
-            path: '/create/repository-detail',
-            ...repositoryDetailController
-          },
-          {
-            method: 'GET',
-            path: '/create/repository/summary',
-            ...repositorySummaryController
-          },
-          {
-            method: 'POST',
-            path: '/create/repository',
-            ...repositoryCreateController
-          },
-          {
-            method: 'GET',
-            path: '/create/repository/success',
-            ...repositorySuccessController
-          },
-          // Create Test Suite
-          {
-            method: 'GET',
-            path: '/create/tests-detail',
-            ...testDetailFormController
-          },
-          {
-            method: 'POST',
-            path: '/create/tests-detail',
-            ...testDetailController
-          },
-          {
-            method: 'GET',
-            path: '/create/tests/summary',
-            ...testSummaryController
-          },
-          {
-            method: 'POST',
-            path: '/create/tests',
-            ...testsCreateController
-          },
-          {
-            method: 'GET',
-            path: '/create/tests/success',
-            ...testSuccessController
-          }
+          ...createMicroserviceRoutes,
+          ...createRepositoryRoutes,
+          ...createTestSuiteRoutes
         ].map(serviceTeamUserScope)
       )
     }

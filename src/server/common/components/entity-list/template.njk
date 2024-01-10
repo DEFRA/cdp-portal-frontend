@@ -31,7 +31,7 @@
     {% endfor %}
   </ul>
 
-  {% if params.pagination %}
+  {% if params.pagination.items.length > 1 %}
     <footer class="app-entity-list__footer">
       {{ govukPagination(params.pagination | assign({}, {classes: "app-pagination"}, params.pagination)) }}
     </footer>

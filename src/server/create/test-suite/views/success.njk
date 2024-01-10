@@ -1,0 +1,16 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
+
+    <p>Your new test suite will shortly be available at {{ testSuiteLink | safe }}</p>
+  </div>
+
+{% endblock %}
+

@@ -50,7 +50,7 @@ const chooseKindController = {
       const redirectTo =
         redirectLocation && updatedCreate?.repositoryName
           ? `/create/${kind}/${redirectLocation}`
-          : `/create/${kind}-detail`
+          : `/create/${kind}/detail`
 
       return h.redirect(redirectTo)
     }

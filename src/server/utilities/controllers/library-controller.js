@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchLibrary } from '~/src/server/utilities/helpers/fetch-library'
+import { fetchLibrary } from '~/src/server/utilities/helpers/fetch/fetch-library'
 import { transformRepositoryToEntityDataList } from '~/src/server/utilities/transformers/transform-repository-to-entity-data-list'
 
 const libraryController = {
@@ -33,18 +33,6 @@ const libraryController = {
         },
         {
           text: library.id
-        }
-      ],
-      subNavigation: [
-        {
-          isActive: false,
-          url: '/utilities/templates',
-          label: 'Templates'
-        },
-        {
-          isActive: true,
-          url: '/utilities/libraries',
-          label: 'Libraries'
         }
       ]
     })

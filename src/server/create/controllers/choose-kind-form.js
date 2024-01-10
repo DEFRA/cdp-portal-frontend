@@ -20,9 +20,9 @@ const chooseKindFormController = {
   },
   handler: (request, h) => {
     const query = request?.query
-    const creationItems = Object.keys(creations).map((creation) => ({
-      text: startCase(creations[creation]),
-      value: creation
+    const creationItems = Object.entries(creations).map(([key, value]) => ({
+      text: startCase(value),
+      value: key
     }))
 
     return h.view('create/views/choose-kind-form', {

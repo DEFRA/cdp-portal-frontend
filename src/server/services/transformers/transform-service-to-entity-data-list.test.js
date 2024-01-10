@@ -3,8 +3,8 @@ import { transformServiceToEntityDataList } from '~/src/server/services/transfor
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { transformInProgressToService } from '~/src/server/services/transformers/transform-in-progress-to-service'
-import { inProgressServiceStatusFixture } from '~/src/__fixtures__/in-progress-service-status'
+import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create-service-status-in-progress'
 
 const githubOrg = config.get('githubOrg')
 
@@ -64,7 +64,9 @@ describe('#transformServiceToEntityDataList', () => {
   describe('With an in progress service status', () => {
     test('Should provide expected service data list entities transformation', () => {
       const service = decorateService(
-        transformInProgressToService(inProgressServiceStatusFixture.inProgress),
+        transformCreateServiceStatusToService(
+          createServiceStatusInProgressFixture.repositoryStatus
+        ),
         repositoryFixture.repository
       )
 

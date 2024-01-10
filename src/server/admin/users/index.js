@@ -1,5 +1,5 @@
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
-import { provideSubNav } from '~/src/server/admin/helpers/provide-sub-nav'
+import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation'
 import { provideUserSteps } from '~/src/server/admin/users/helpers/form'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
 import { sessionNames } from '~/src/server/common/constants/session-names'
@@ -29,7 +29,7 @@ const adminUsers = {
       server.ext([
         {
           type: 'onPostHandler',
-          method: provideSubNav,
+          method: provideSubNavigation,
           options: {
             sandbox: 'plugin'
           }
