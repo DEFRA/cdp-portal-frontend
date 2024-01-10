@@ -5,5 +5,13 @@
 .app-link--inverse {
   @include govuk-link-style-inverse;
 
-  @include app-link-underline;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    text-decoration: underline;
+  }
 }
