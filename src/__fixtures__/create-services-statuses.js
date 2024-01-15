@@ -7,6 +7,7 @@ const createServicesStatusesFixture = {
   message: 'success',
   statuses: [
     {
+      kind: 'repository',
       org: githubOrg,
       repositoryName: 'cdp-portal-frontend',
       portalVersion: 2,
