@@ -1,4 +1,4 @@
-import { isNil, omit, pickBy } from 'lodash'
+import { omit, pickBy } from 'lodash'
 
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
 import { deploymentStatus } from '~/src/server/deployments/constants/deployment-status'
@@ -55,7 +55,13 @@ function transformDeployment(deploymentEvents) {
       deploymentEvent.status.toLowerCase() === deploymentStatus.requested
   )
 
-  if (requestedDeployment && isNil(requestedDeployment.ecsSvcDeploymentId)) {
+  const deploymentTasks = deploymentEvents.filter(
+    (event) =>
+      event.ecsSvcDeploymentId === requestedDeployment.ecsSvcDeploymentId &&
+      event.status.toLowerCase() !== deploymentStatus.requested
+  )
+
+  if (requestedDeployment && deploymentTasks.length === 0) {
     return {
       ...omit(pickBy(requestedDeployment), [
         'status',
@@ -68,11 +74,7 @@ function transformDeployment(deploymentEvents) {
     }
   }
 
-  if (requestedDeployment && !isNil(requestedDeployment?.ecsSvcDeploymentId)) {
-    const deploymentTasks = deploymentEvents.filter(
-      (event) =>
-        event.ecsSvcDeploymentId === requestedDeployment.ecsSvcDeploymentId
-    )
+  if (requestedDeployment && deploymentTasks.length) {
     const deploymentTaskIds = [
       ...new Set(
         deploymentTasks
