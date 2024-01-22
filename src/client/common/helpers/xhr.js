@@ -67,6 +67,7 @@ async function xhrRequest(url, params = {}) {
         addQueryPrefix: true
       })}`,
       {
+        cache: 'no-store',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Cache-Control': 'no-cache, no-store, max-age=0',

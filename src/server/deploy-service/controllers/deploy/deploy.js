@@ -31,10 +31,18 @@ const deployController = {
     const json = await response.json()
 
     if (response.ok) {
-      await setStepComplete(request, h, 'stepThree')
       await setStepComplete(request, h, 'allSteps')
 
-      return h.redirect('/deploy-service/deployment')
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Deployment successfully requested',
+        type: 'success'
+      })
+
+      const deploymentId = json.deploymentId
+
+      return h.redirect(
+        `/deployments/${deployment.environment}/${deploymentId}`
+      )
     }
 
     request.yar.flash(sessionNames.globalValidationFailures, json.message)

@@ -1,5 +1,12 @@
 {% extends "layouts/tabbed-page.njk" %}
 
+{% block beforeTabContent %}
+  {{ appHeading({
+    title: heading,
+    caption: caption
+  }) }}
+{% endblock %}
+
 {% block tabContent %}
 
   {% block xhrContent %}
@@ -7,14 +14,14 @@
     {{ appEntityList({
       id: "deployments",
       headings: [
-        { text: "Service", size: "large" },
+        { text: "Deployment", size: "medium" },
         { text: "Version", size: "tiny" },
         { text: "Status", size: "small" },
         { text: "User", size: "large" },
-        { text: "Updated", size: "large" }
+        { text: "Last updated", size: "large" }
       ],
       entityRows: entityRows,
-      noResult: "Currently there are no deployments",
+      noResult: noResult,
       pagination: pagination
     }) }}
 

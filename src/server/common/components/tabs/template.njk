@@ -17,6 +17,13 @@
     {% if tab.isActive %}
       {% set content = tab.panel.html | safe if tab.panel.html else tab.panel.text %}
       <div class="app-tabs__panel" data-testid="app-tabs-panel">
+        {% if tabBreadcrumbs and tabBreadcrumbs.length > 1 %}
+          {{ appBreadcrumbs({
+            classes: "app-breadcrumbs--nested",
+            items: tabBreadcrumbs
+          }) }}
+        {% endif %}
+
         {{ caller() if caller else content }}
       </div>
     {% endif %}

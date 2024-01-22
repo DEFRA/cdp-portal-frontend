@@ -120,6 +120,7 @@ describe('#decorateServices', () => {
             status: 'failed',
             url: `https://github.com/${githubOrg}`
           },
+          kind: 'repository',
           org: githubOrg,
           portalVersion: 2,
           repositoryName: 'cdp-portal-frontend',

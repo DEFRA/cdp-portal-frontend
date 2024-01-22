@@ -2,16 +2,27 @@ import {
   deploymentController,
   deploymentsListController
 } from '~/src/server/deployments/controllers'
+import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs'
 
 const deployments = {
   plugin: {
     name: 'deployments',
     register: (server) => {
+      server.ext([
+        {
+          type: 'onPostHandler',
+          method: provideTabs,
+          options: {
+            sandbox: 'plugin'
+          }
+        }
+      ])
+
       server.route([
         {
           method: 'GET',
           path: '/deployments',
-          handler: (request, h) => h.redirect('/deployments/dev')
+          handler: (request, h) => h.redirect('/deployments/prod')
         },
         {
           method: 'GET',

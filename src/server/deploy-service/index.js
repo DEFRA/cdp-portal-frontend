@@ -13,8 +13,7 @@ import {
   optionsController,
   optionsFormController,
   summaryController,
-  deployController,
-  deploymentController
+  deployController
 } from '~/src/server/deploy-service/controllers'
 
 const serviceTeamUserScope = authScope(`+${scopes.serviceTeamUser}`)
@@ -87,11 +86,6 @@ const deployService = {
             method: 'POST',
             path: '/deploy-service/deploy',
             ...deployController
-          },
-          {
-            method: 'GET',
-            path: '/deploy-service/deployment',
-            ...deploymentController
           }
         ].map(serviceTeamUserScope)
       )

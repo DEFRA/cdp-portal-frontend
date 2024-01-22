@@ -1,10 +1,24 @@
-import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs'
+import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs'
 
-const mockRequest = (path = '') => ({ path })
+const mockRequest = (response, path = '') => ({ response, path })
 
-describe('#deploymentTabs', () => {
-  test('Should provide expected deployment tabs details', () => {
-    expect(deploymentTabs(mockRequest())).toEqual([
+describe('#provideTabs', () => {
+  const mockResponse = {
+    variety: 'view',
+    source: {}
+  }
+  const mockViewHelper = {
+    continue: 'mockContinue'
+  }
+
+  afterEach(() => {
+    mockResponse.source = {}
+  })
+
+  test('Should provide expected context tabs', () => {
+    provideTabs(mockRequest(mockResponse), mockViewHelper)
+
+    expect(mockResponse.source.context.tabs).toEqual([
       {
         isActive: false,
         label: 'Management',
@@ -39,7 +53,12 @@ describe('#deploymentTabs', () => {
   })
 
   test('Should mark matching url as Active', () => {
-    expect(deploymentTabs(mockRequest('/deployments/infra-dev'))).toEqual([
+    provideTabs(
+      mockRequest(mockResponse, '/deployments/infra-dev'),
+      mockViewHelper
+    )
+
+    expect(mockResponse.source.context.tabs).toEqual([
       {
         isActive: false,
         label: 'Management',

@@ -1,3 +1,5 @@
+// Response from portalBackendApi/deployments
+
 const deploymentsFixture = {
   deployments: [
     {
@@ -11,7 +13,7 @@ const deploymentsFixture = {
       updatedAt: '2023-12-14T14:10:49Z',
       status: 'RUNNING',
       dockerImage:
-        '094954420758.dkr.ecr.eu-west-2.amazonaws.com/cdp-self-service-ops:0.133.0',
+        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-self-service-ops:0.133.0',
       taskId:
         'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-self-service-ops:77',
       ecsSvcDeploymentId: 'ecs-svc/0104156151283823124',
@@ -32,7 +34,7 @@ const deploymentsFixture = {
       updatedAt: '2023-12-14T14:10:34Z',
       status: 'RUNNING',
       dockerImage:
-        '094954420758.dkr.ecr.eu-west-2.amazonaws.com/cdp-user-service-backend:0.54.0',
+        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-user-service-backend:0.54.0',
       taskId:
         'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-user-service-backend:42',
       ecsSvcDeploymentId: 'ecs-svc/3014741994541337123',
@@ -53,7 +55,7 @@ const deploymentsFixture = {
       updatedAt: '2023-12-14T14:58:13Z',
       status: 'RUNNING',
       dockerImage:
-        '094954420758.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.94.0',
+        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.94.0',
       taskId:
         'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:104',
       ecsSvcDeploymentId: 'ecs-svc/1704294635461875969',
@@ -74,7 +76,7 @@ const deploymentsFixture = {
       updatedAt: '2023-12-14T13:50:52Z',
       status: 'RUNNING',
       dockerImage:
-        '094954420758.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-frontend:0.211.0',
+        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-frontend:0.211.0',
       taskId:
         'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-frontend:138',
       ecsSvcDeploymentId: 'ecs-svc/6234389216168804118',

@@ -1,5 +1,6 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
+{% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
 
 {% set element = 'li' if params.isChild else 'div' %}
@@ -23,7 +24,7 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
       </a>
 
     {% elseif params.kind === "tag" %}
-      {{ govukTag({
+      {{ appTag({
         text: params.value,
         classes: params.classes,
         attributes: {

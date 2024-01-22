@@ -1,0 +1,7 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{{ govukTag({
+  text: params.text,
+  classes: "app-tag" + " " + params.classes if params.classes,
+  attributes: params.attributes if params.attributes
+}) }}

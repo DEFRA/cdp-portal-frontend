@@ -6,7 +6,6 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
-{% from "govuk/components/tag/macro.njk" import govukTag %}
 
 {% from "autocomplete-dropdown/macro.njk" import appAutocompleteDropdown %}
 {% from "autocomplete-search/macro.njk" import appAutocompleteSearch %}
@@ -22,11 +21,13 @@
 {% from "help/macro.njk" import appHelp with context %}
 {% from "info/macro.njk" import appInfo %}
 {% from "loader/macro.njk" import appLoader %}
-{% from "old-browser/macro.njk" import appOldBrowser %}
 {% from "list/macro.njk" import appList %}
+{% from "old-browser/macro.njk" import appOldBrowser %}
+{% from "panel/macro.njk" import appPanel %}
 {% from "select/macro.njk" import appSelect %}
 {% from "search/macro.njk" import appSearch %}
-{% from "tabs/macro.njk" import appTabs %}
+{% from "tabs/macro.njk" import appTabs with context %}
+{% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
 {% from "step-navigation/macro.njk" import appStepNavigation %}
 {% from "hero/macro.njk" import appHero %}

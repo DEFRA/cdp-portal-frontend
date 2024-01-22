@@ -1,14 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
+import { capitalize, isNull } from 'lodash'
 
 import { environments } from '~/src/config'
-import { fetchDeployment } from '~/src/server/deployments/helpers/fetch-deployment'
-import { transformDeploymentToEntityDataList } from '~/src/server/deployments/transformers/transform-deployment-to-entity-data-list'
-import { deploymentTabs } from '~/src/server/deployments/helpers/deployment-tabs'
-import { transformDeployment } from '~/src/server/deployments/transformers/transform-deployment'
+import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment'
 
 const deploymentController = {
   options: {
+    pre: [provideDeployment],
     validate: {
       params: Joi.object({
         environment: Joi.string().valid(...Object.values(environments)),
@@ -18,17 +17,26 @@ const deploymentController = {
     }
   },
   handler: async (request, h) => {
-    const deployment = transformDeployment(
-      await fetchDeployment(request.params?.deploymentId)
-    )
+    const deployment = request.pre.deployment
+
+    if (isNull(deployment)) {
+      return null
+    }
 
     return h.view('deployments/views/deployment', {
       pageTitle: `${deployment.service} Service Deployment`,
       heading: 'Deployment',
-      caption: 'Microservice deployment detail.',
-      tabs: deploymentTabs(request),
-      entityDataList: transformDeploymentToEntityDataList(deployment),
-      deployment
+      caption: 'Microservice deployment information.',
+      deployment,
+      tabBreadcrumbs: [
+        {
+          text: capitalize(deployment.environment),
+          href: `/deployments/${deployment.environment}`
+        },
+        {
+          text: `${deployment.service} - ${deployment.version}`
+        }
+      ]
     })
   }
 }
