@@ -3,6 +3,7 @@ import { deploymentRequestedFixture } from '~/src/__fixtures__/deployment-reques
 import { deploymentInProgressFixture } from '~/src/__fixtures__/deployment-in-progress'
 import { deploymentSuccessFixture } from '~/src/__fixtures__/deployment-success'
 import { deploymentFailedFixture } from '~/src/__fixtures__/deployment-failed'
+import { deploymentStoppedFixture } from '~/src/__fixtures__/deployment-stopped'
 
 describe('#transformDeployment', () => {
   describe('When a deployment has been requested', () => {
@@ -291,6 +292,67 @@ describe('#transformDeployment', () => {
         user: 'RoboCop',
         userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
         version: '0.225.0'
+      })
+    })
+  })
+
+  describe('When a deployment has been stopped', () => {
+    test('Should provide expected status', () => {
+      expect(transformDeployment(deploymentStoppedFixture)).toEqual(
+        expect.objectContaining({
+          status: expect.objectContaining({
+            text: 'stopped'
+          })
+        })
+      )
+    })
+
+    test('Should provide expected transformation', () => {
+      expect(transformDeployment(deploymentStoppedFixture)).toEqual({
+        cpu: '2048',
+        deployedAt: '2024-01-22T09:53:04Z',
+        deploymentId: '2380b759-a76d-4f5b-8253-dd7b9545e161',
+        dockerImage:
+          '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.105.0',
+        environment: 'infra-dev',
+        instanceCount: 1,
+        memory: '4096',
+        service: 'cdp-portal-backend',
+        status: {
+          classes: 'govuk-tag--grey',
+          hasFinished: false,
+          text: 'stopped'
+        },
+        tasks: {
+          'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa':
+            {
+              cpu: '2048',
+              deployedAt: '2024-01-22T09:53:04Z',
+              deploymentId: '2380b759-a76d-4f5b-8253-dd7b9545e161',
+              dockerImage:
+                '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.105.0',
+              ecsSvcDeploymentId: 'ecs-svc/2729145637959376974',
+              environment: 'infra-dev',
+              instanceCount: 1,
+              instanceTaskId:
+                'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
+              memory: '4096',
+              service: 'cdp-portal-backend',
+              status: {
+                classes: 'govuk-tag--grey',
+                hasFinished: false,
+                text: 'stopped'
+              },
+              taskId:
+                'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:121',
+              user: 'RoboCop',
+              userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+              version: '0.105.0'
+            }
+        },
+        user: 'RoboCop',
+        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+        version: '0.105.0'
       })
     })
   })

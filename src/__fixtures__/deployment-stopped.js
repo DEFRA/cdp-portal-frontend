@@ -120,4 +120,4 @@ const deploymentStoppedFixture = [
   }
 ]
 
-export { deploymentRequestedFixture }
+export { deploymentStoppedFixture }
