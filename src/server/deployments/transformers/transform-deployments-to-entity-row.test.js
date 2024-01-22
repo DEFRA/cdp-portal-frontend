@@ -18,7 +18,7 @@ describe('#transformDeploymentsToEntityRow', () => {
       {
         classes: 'govuk-tag--green',
         kind: 'tag',
-        value: 'RUNNING'
+        value: 'deployed'
       },
       {
         kind: 'text',

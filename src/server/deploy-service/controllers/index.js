@@ -7,8 +7,7 @@ import {
   optionsController,
   optionsFormController,
   summaryController,
-  deployController,
-  deploymentController
+  deployController
 } from '~/src/server/deploy-service/controllers/deploy'
 
 export {
@@ -20,6 +19,5 @@ export {
   optionsController,
   optionsFormController,
   summaryController,
-  deployController,
-  deploymentController
+  deployController
 }

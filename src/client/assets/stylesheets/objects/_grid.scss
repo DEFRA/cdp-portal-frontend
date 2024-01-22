@@ -1,0 +1,20 @@
+@each $width in map-keys($govuk-grid-widths) {
+  .app-grid-column-#{$width}-from-desktop {
+    @include govuk-grid-column($width, $at: desktop);
+  }
+
+  .app-grid-column-#{$width}-from-desktop-big {
+    @include govuk-grid-column($width, $at: desktop-big);
+  }
+
+  .app-grid-column-#{$width}-from-desktop-wide {
+    @include govuk-grid-column($width, $at: desktop-wide);
+  }
+
+  .app-grid-column-#{$width}-from-desktop-huge {
+    @include govuk-grid-column($width, $at: desktop-huge);
+  }
+  .app-grid-column-#{$width}-from-desktop-massive {
+    @include govuk-grid-column($width, $at: desktop-massive);
+  }
+}

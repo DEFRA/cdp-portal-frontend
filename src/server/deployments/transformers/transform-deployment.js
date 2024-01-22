@@ -1,67 +1,113 @@
-import { omit, pickBy } from 'lodash'
-import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
+import { isNil, omit, pickBy } from 'lodash'
+
+import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
+import { deploymentStatus } from '~/src/server/deployments/constants/deployment-status'
+import { provideStatusText } from '~/src/server/deployments/helpers/provide-status-text'
 
 const byLatest = (a, b) => Date.parse(b.deployedAt) - Date.parse(a.deployedAt)
 
-function calculateOverallStatus(instanceDeployments) {
-  const instanceStatuses = Object.entries(instanceDeployments).reduce(
-    (statuses, [key, value]) => ({
-      ...statuses,
-      [key]: value?.at(0)?.status.text
-    }),
-    {}
-  )
+function getDeploymentStatusText(tasks) {
+  const allRunning =
+    tasks.length &&
+    tasks.every((task) => task.status.text === deploymentStatus.deployed)
+  const anyFailed =
+    tasks.length &&
+    tasks.some((task) => task.status.text === deploymentStatus.failed)
+  const allStopped =
+    tasks.length &&
+    tasks.every((task) => task.status.text === deploymentStatus.stopped)
 
-  const allRunning = Object.values(instanceStatuses).every(
-    (status) => status === 'RUNNING'
-  )
-  const allFailed = Object.values(instanceStatuses).every(
-    (status) => status === 'FAILED'
-  )
-  const statusText = allRunning ? 'RUNNING' : allFailed ? 'FAILED' : 'PENDING'
-
-  return {
-    text: statusText,
-    classes: getDeploymentStatusClassname(statusText)
+  switch (true) {
+    case allRunning:
+      return deploymentStatus.deployed
+    case anyFailed:
+      return deploymentStatus.failed
+    case allStopped:
+      return deploymentStatus.stopped
+    default:
+      return deploymentStatus.pending
   }
 }
 
-function transformDeployment(deployments) {
-  const latestDeployment = deployments.sort(byLatest)?.at(0)
-
-  const uniqueInstanceTaskIds = [
-    ...new Set(
-      deployments
-        .map((deployment) => deployment?.instanceTaskId)
-        .filter(Boolean)
-    )
-  ]
-  const instanceDeployments = uniqueInstanceTaskIds.reduce(
-    (deploymentsByEcsSvcId, id) => ({
-      ...deploymentsByEcsSvcId,
-      [id]: deployments
-        .filter((deployment) => deployment?.instanceTaskId === id)
-        .map((deployment) => ({
-          ...deployment,
-          status: {
-            text: deployment.status,
-            classes: getDeploymentStatusClassname(deployment.status)
-          }
-        }))
-        .sort(byLatest)
-    }),
-    {}
-  )
+function calculateDeploymentStatus(tasks) {
+  const statusText = getDeploymentStatusText(tasks)
 
   return {
-    ...omit(pickBy(latestDeployment), [
-      'status',
-      'taskId',
-      'ecsSvcDeploymentId',
-      'instanceTaskId'
-    ]),
-    deployments: instanceDeployments,
-    status: calculateOverallStatus(instanceDeployments)
+    text: statusText,
+    hasFinished: statusText === deploymentStatus.deployed,
+    classes: provideDeploymentStatusClassname(statusText)
+  }
+}
+
+function provideStatus(value) {
+  const status = value.toLowerCase()
+
+  return {
+    text: provideStatusText(status),
+    classes: provideDeploymentStatusClassname(status),
+    hasFinished: status === deploymentStatus.deployed
+  }
+}
+
+function transformDeployment(deploymentEvents) {
+  const requestedDeployment = deploymentEvents.find(
+    (deploymentEvent) =>
+      deploymentEvent.status.toLowerCase() === deploymentStatus.requested
+  )
+
+  if (requestedDeployment && isNil(requestedDeployment.ecsSvcDeploymentId)) {
+    return {
+      ...omit(pickBy(requestedDeployment), [
+        'status',
+        'taskId',
+        'ecsSvcDeploymentId',
+        'instanceTaskId'
+      ]),
+      status: provideStatus(requestedDeployment.status),
+      tasks: []
+    }
+  }
+
+  if (requestedDeployment && !isNil(requestedDeployment?.ecsSvcDeploymentId)) {
+    const deploymentTasks = deploymentEvents.filter(
+      (event) =>
+        event.ecsSvcDeploymentId === requestedDeployment.ecsSvcDeploymentId
+    )
+    const deploymentTaskIds = [
+      ...new Set(
+        deploymentTasks
+          .sort(byLatest)
+          .map((event) => event.instanceTaskId)
+          .filter(Boolean)
+      )
+    ]
+    const eventsByTaskId = deploymentTaskIds.reduce(
+      (taskEvents, taskId) => ({
+        ...taskEvents,
+        [taskId]: deploymentTasks
+          .filter((event) => event.instanceTaskId === taskId)
+          .map((event) => ({ ...event, status: provideStatus(event.status) }))
+          .sort(byLatest)
+          .at(0)
+      }),
+      {}
+    )
+
+    const latestTasks = Object.values(eventsByTaskId)
+      .sort(byLatest)
+      .map((event) => event)
+    const latestTask = latestTasks.at(0)
+
+    return {
+      ...omit(pickBy(latestTask), [
+        'status',
+        'taskId',
+        'ecsSvcDeploymentId',
+        'instanceTaskId'
+      ]),
+      status: calculateDeploymentStatus(latestTasks),
+      tasks: eventsByTaskId
+    }
   }
 }
 

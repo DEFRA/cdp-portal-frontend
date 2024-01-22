@@ -26,9 +26,11 @@
             rows: deploymentRows
           }) }}
 
-          {{ govukButton({
-            classes: "app-button",
-            text: formButtonText
+          {{ appButton({
+            text: formButtonText,
+            loader: {
+              name: "deploy-submit-button"
+            }
           }) }}
 
         </form>

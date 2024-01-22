@@ -7,7 +7,7 @@
 }
 
 .app-entity-list__header {
-  @include govuk-font(19, "bold");
+  @include govuk-font(24, "bold");
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -21,7 +21,7 @@
   margin-bottom: govuk-spacing(4);
   padding-left: 0;
   list-style-type: none;
-  border-top: 1px solid $app-mid-grey;
+  border-top: 1px solid $app-grey;
   flex: 1;
 }
 
@@ -31,15 +31,11 @@
   flex-wrap: wrap;
   align-items: flex-start;
   padding: govuk-spacing(2) + 2 govuk-spacing(2) govuk-spacing(2) govuk-spacing(2);
-  border-bottom: 1px solid $app-mid-grey;
+  border-bottom: 1px solid $app-grey;
   line-height: 1.4;
 
-  &:last-of-type {
-    border-bottom: none;
-  }
-
   &:nth-child(odd) {
-    background-color: govuk-colour("light-grey");
+    background-color: $app-light-grey;
   }
 }
 
@@ -54,6 +50,7 @@
   }
 }
 
+// TODO can this be improved? Can CSS grid be used?
 .app-entity-list__item--tiny {
   flex: .2;
   max-width: 80px;

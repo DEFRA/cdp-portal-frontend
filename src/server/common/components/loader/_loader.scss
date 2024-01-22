@@ -12,7 +12,8 @@
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    margin-left: govuk-spacing(2);
+    margin-top: 2px;
+    margin-left: govuk-spacing(1);
   }
 
   @keyframes rotation {

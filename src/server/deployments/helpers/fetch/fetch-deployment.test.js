@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { config } from '~/src/config'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
-import { fetchDeployment } from '~/src/server/deployments/helpers/fetch-deployment'
+import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment'
 
 describe('#fetchDeployment', () => {
   const deploymentId = '553E4E6B-05D7-4A2E-BF80-02ED34DEF864'

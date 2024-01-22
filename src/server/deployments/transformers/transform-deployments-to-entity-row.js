@@ -1,4 +1,6 @@
-import { getDeploymentStatusClassname } from '~/src/server/deployments/helpers/get-deployment-status-classname'
+import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
+import { sanitizeUser } from '~/src/server/common/helpers/sanitize-user'
+import { provideStatusText } from '~/src/server/deployments/helpers/provide-status-text'
 
 function transformDeploymentsToEntityRow(deployedService) {
   return [
@@ -15,12 +17,12 @@ function transformDeploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'tag',
-      value: deployedService.status,
-      classes: getDeploymentStatusClassname(deployedService.status)
+      value: provideStatusText(deployedService.status),
+      classes: provideDeploymentStatusClassname(deployedService.status)
     },
     {
       kind: 'text',
-      value: deployedService.user
+      value: sanitizeUser(deployedService.user)
     },
     {
       kind: 'date',

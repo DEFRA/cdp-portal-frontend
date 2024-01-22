@@ -1,4 +1,3 @@
-import { deploymentController } from '~/src/server/deploy-service/controllers/deploy/deployment'
 import { startDeployServiceController } from '~/src/server/deploy-service/controllers/deploy/start-deploy-service'
 import { optionsFormController } from '~/src/server/deploy-service/controllers/deploy/options-form'
 import { optionsController } from '~/src/server/deploy-service/controllers/deploy/options'
@@ -14,6 +13,5 @@ export {
   optionsController,
   optionsFormController,
   summaryController,
-  deployController,
-  deploymentController
+  deployController
 }
