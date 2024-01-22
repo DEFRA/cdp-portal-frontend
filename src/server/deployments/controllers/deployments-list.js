@@ -50,7 +50,7 @@ const deploymentsListController = {
     ].sort(sortByName)
 
     const entityRows = deployments
-      ?.sort(sortBy('updatedAt'))
+      ?.sort(sortBy('createdAt'))
       ?.map(transformDeploymentsToEntityRow)
 
     return h.view('deployments/views/list', {
