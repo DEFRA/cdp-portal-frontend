@@ -38,7 +38,8 @@
             </div>
 
             <div>
-              {% if deployment.status.text == "pending" or deployment.status.text == "requested" %}
+              {% if deployment.status.text == "pending" or deployment.status.text == "requested"
+                or deployment.status.text == "deploying" or deployment.status.text == "stopping" %}
                 {{ appLoader({ classes: "app-loader--is-loading" }) }}
               {% endif %}
             </div>
