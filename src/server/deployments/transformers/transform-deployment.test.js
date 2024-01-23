@@ -168,7 +168,7 @@ describe('#transformDeployment', () => {
               service: 'cdp-portal-frontend',
               status: {
                 classes: 'govuk-tag--green',
-                hasFinished: false,
+                hasFinished: true,
                 text: 'deployed'
               },
               taskId:
@@ -193,7 +193,7 @@ describe('#transformDeployment', () => {
               service: 'cdp-portal-frontend',
               status: {
                 classes: 'govuk-tag--green',
-                hasFinished: false,
+                hasFinished: true,
                 text: 'deployed'
               },
               taskId:
@@ -254,7 +254,7 @@ describe('#transformDeployment', () => {
               service: 'cdp-portal-frontend',
               status: {
                 classes: 'govuk-tag--green',
-                hasFinished: false,
+                hasFinished: true,
                 text: 'deployed'
               },
               taskId:

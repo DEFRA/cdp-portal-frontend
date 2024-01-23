@@ -1,9 +1,11 @@
 const deploymentStatus = {
   requested: 'requested',
+  pending: 'pending',
   running: 'running',
   failed: 'failed',
-  pending: 'pending',
   stopped: 'stopped',
+  stopping: 'stopping',
+  deploying: 'deploying',
   deployed: 'deployed'
 }
 

@@ -6,6 +6,7 @@ describe('#getDeploymentStatusClassname', () => {
       'govuk-tag--green'
     )
   })
+
   test('Should provide expected "deployed" className', () => {
     expect(provideDeploymentStatusClassname('deployed')).toEqual(
       'govuk-tag--green'
@@ -14,6 +15,18 @@ describe('#getDeploymentStatusClassname', () => {
 
   test('Should provide expected "failed" className', () => {
     expect(provideDeploymentStatusClassname('failed')).toEqual('govuk-tag--red')
+  })
+
+  test('Should provide expected "deploying" className', () => {
+    expect(provideDeploymentStatusClassname('deploying')).toEqual(
+      'govuk-tag--blue'
+    )
+  })
+
+  test('Should provide expected "stopping" className', () => {
+    expect(provideDeploymentStatusClassname('stopping')).toEqual(
+      'govuk-tag--blue'
+    )
   })
 
   test('Should provide expected "pending" className', () => {
@@ -30,12 +43,6 @@ describe('#getDeploymentStatusClassname', () => {
 
   test('Should provide expected "stopped" className', () => {
     expect(provideDeploymentStatusClassname('stopped')).toEqual(
-      'govuk-tag--grey'
-    )
-  })
-
-  test('Should provide expected "un-deployed" className', () => {
-    expect(provideDeploymentStatusClassname('un-deployed')).toEqual(
       'govuk-tag--grey'
     )
   })
