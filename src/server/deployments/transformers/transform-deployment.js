@@ -1,53 +1,10 @@
 import { omit, pickBy } from 'lodash'
 
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
+import { provideEventStatus } from '~/src/server/deployments/helpers/provide-event-status'
 import { deploymentStatus } from '~/src/server/deployments/constants/deployment-status'
-import { provideStatusText } from '~/src/server/deployments/helpers/provide-status-text'
+import { calculateDeploymentStatus } from '~/src/server/deployments/helpers/calculate-deployment-status'
 
 const byLatest = (a, b) => Date.parse(b.deployedAt) - Date.parse(a.deployedAt)
-
-function getDeploymentStatusText(tasks) {
-  const allRunning =
-    tasks.length &&
-    tasks.every((task) => task.status.text === deploymentStatus.deployed)
-  const anyFailed =
-    tasks.length &&
-    tasks.some((task) => task.status.text === deploymentStatus.failed)
-  const allStopped =
-    tasks.length &&
-    tasks.every((task) => task.status.text === deploymentStatus.stopped)
-
-  switch (true) {
-    case allRunning:
-      return deploymentStatus.deployed
-    case anyFailed:
-      return deploymentStatus.failed
-    case allStopped:
-      return deploymentStatus.stopped
-    default:
-      return deploymentStatus.pending
-  }
-}
-
-function calculateDeploymentStatus(tasks) {
-  const statusText = getDeploymentStatusText(tasks)
-
-  return {
-    text: statusText,
-    hasFinished: statusText === deploymentStatus.deployed,
-    classes: provideDeploymentStatusClassname(statusText)
-  }
-}
-
-function provideStatus(value) {
-  const status = value.toLowerCase()
-
-  return {
-    text: provideStatusText(status),
-    classes: provideDeploymentStatusClassname(status),
-    hasFinished: status === deploymentStatus.deployed
-  }
-}
 
 function transformDeployment(deploymentEvents) {
   const requestedDeployment = deploymentEvents.find(
@@ -69,7 +26,7 @@ function transformDeployment(deploymentEvents) {
         'ecsSvcDeploymentId',
         'instanceTaskId'
       ]),
-      status: provideStatus(requestedDeployment.status),
+      status: provideEventStatus(requestedDeployment),
       tasks: []
     }
   }
@@ -88,7 +45,7 @@ function transformDeployment(deploymentEvents) {
         ...taskEvents,
         [taskId]: deploymentTasks
           .filter((event) => event.instanceTaskId === taskId)
-          .map((event) => ({ ...event, status: provideStatus(event.status) }))
+          .map((event) => ({ ...event, status: provideEventStatus(event) }))
           .sort(byLatest)
           .at(0)
       }),

@@ -102,7 +102,8 @@
                       {{ appInstanceSuccessIcon() }}
                     {% elseif task.status.text == 'stopped' %}
                       {{ appInstanceStoppedIcon() }}
-                    {% elseif task.status.text == 'pending' %}
+                    {% elseif task.status.text == 'pending' or task.status.text == 'stopping'
+                      or task.status.text == 'deploying' %}
                       {{ appInstancePendingIcon() }}
                     {% elseif task.status.text == 'failed' %}
                       {{ appInstanceFailedIcon() }}

@@ -1,8 +1,10 @@
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
 import { sanitizeUser } from '~/src/server/common/helpers/sanitize-user'
-import { provideStatusText } from '~/src/server/deployments/helpers/provide-status-text'
+import { provideDeploymentStatusText } from '~/src/server/deployments/helpers/provide-deployment-status-text'
 
 function transformDeploymentsToEntityRow(deployedService) {
+  const statusText = provideDeploymentStatusText(deployedService)
+
   return [
     {
       kind: 'link',
@@ -17,8 +19,8 @@ function transformDeploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'tag',
-      value: provideStatusText(deployedService.status),
-      classes: provideDeploymentStatusClassname(deployedService.status)
+      value: statusText,
+      classes: provideDeploymentStatusClassname(statusText)
     },
     {
       kind: 'text',

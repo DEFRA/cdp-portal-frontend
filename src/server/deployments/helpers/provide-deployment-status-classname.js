@@ -1,16 +1,21 @@
+import { deploymentStatus } from '~/src/server/deployments/constants/deployment-status'
+
 function provideDeploymentStatusClassname(status) {
+  const statusToLowerCase = status?.toLowerCase()
+
   switch (true) {
-    case status?.toLowerCase() === 'running':
-    case status?.toLowerCase() === 'deployed':
+    case statusToLowerCase === deploymentStatus.running:
+    case statusToLowerCase === deploymentStatus.deployed:
       return 'govuk-tag--green'
-    case status?.toLowerCase() === 'failed':
+    case statusToLowerCase === deploymentStatus.failed:
       return 'govuk-tag--red'
-    case status?.toLowerCase() === 'pending':
+    case statusToLowerCase === deploymentStatus.deploying:
+    case statusToLowerCase === deploymentStatus.stopping:
+    case statusToLowerCase === deploymentStatus.pending:
       return 'govuk-tag--blue'
-    case status?.toLowerCase() === 'requested':
+    case statusToLowerCase === deploymentStatus.requested:
       return 'govuk-tag--purple'
-    case status?.toLowerCase() === 'stopped':
-    case status?.toLowerCase() === 'un-deployed':
+    case statusToLowerCase === deploymentStatus.stopped:
       return 'govuk-tag--grey'
     default:
       return 'govuk-tag--grey'
