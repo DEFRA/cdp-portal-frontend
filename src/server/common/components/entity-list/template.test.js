@@ -81,7 +81,7 @@ describe('Entity List Component', () => {
       expect(getEntity(4).html()).toContain('B. A. Baracus')
 
       expect(getEntity(5).length).toEqual(1)
-      expect(getEntity(5).html()).toContain('14:10:49 Thu 14th Dec 202')
+      expect(getEntity(5).html()).toContain('14:04:49 Thu 14th Dec 2023')
     })
   })
 

@@ -26,7 +26,7 @@ function transformDeploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'date',
-      value: deployedService.updatedAt,
+      value: deployedService.createdAt,
       formatString: 'k:mm:ss EE do MMM yyyy'
     }
   ]
