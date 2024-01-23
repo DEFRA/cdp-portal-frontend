@@ -27,7 +27,7 @@ describe('#transformDeploymentsToEntityRow', () => {
       {
         formatString: 'k:mm:ss EE do MMM yyyy',
         kind: 'date',
-        value: '2023-12-14T14:10:49Z'
+        value: '2023-12-14T14:04:49Z'
       }
     ])
   })

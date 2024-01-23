@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block tabContent %}
-
   {% if not deployment.status.hasFinished %}
     <div data-js="app-poll"
     data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.deploymentId }}"
@@ -87,14 +86,14 @@
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
                   <p>{{ deployment.user | sanitizeUser }}</p>
 
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Last updated</h2>
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
                   <p>
                     {{ appTime({ datetime: deployment.deployedAt, formatString: "k:mm:ss EE do MMM yyyy" }) }}
                   </p>
                 </div>
               </div>
 
-              <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instances</h2>
+              <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
               <div class="app-row">
                 {% for key, task in deployment.tasks %}
 
@@ -139,4 +138,5 @@
   {% if not deployment.status.hasFinished %}
     </div>
   {% endif %}
+
 {% endblock %}

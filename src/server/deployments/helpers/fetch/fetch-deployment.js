@@ -13,6 +13,7 @@ async function fetchDeployment(deploymentId) {
   })
   const json = await response.json()
 
+  // Portal Backend returns empty array for not found deployments
   if (response.status === 404 || json?.length === 0) {
     throw Boom.boomify(Boom.notFound())
   }

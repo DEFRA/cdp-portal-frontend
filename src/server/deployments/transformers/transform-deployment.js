@@ -74,7 +74,7 @@ function transformDeployment(deploymentEvents) {
     }
   }
 
-  if (requestedDeployment && deploymentTasks.length) {
+  if (requestedDeployment && deploymentTasks.length > 0) {
     const deploymentTaskIds = [
       ...new Set(
         deploymentTasks
