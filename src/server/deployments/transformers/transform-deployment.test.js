@@ -324,7 +324,7 @@ describe('#transformDeployment', () => {
           text: 'stopped'
         },
         tasks: {
-          'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa':
+          'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa':
             {
               cpu: '2048',
               deployedAt: '2024-01-22T09:53:04Z',
@@ -335,7 +335,7 @@ describe('#transformDeployment', () => {
               environment: 'infra-dev',
               instanceCount: 1,
               instanceTaskId:
-                'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
+                'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
               memory: '4096',
               service: 'cdp-portal-backend',
               status: {
@@ -344,7 +344,7 @@ describe('#transformDeployment', () => {
                 text: 'stopped'
               },
               taskId:
-                'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:121',
+                'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-backend:121',
               user: 'RoboCop',
               userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
               version: '0.105.0'
