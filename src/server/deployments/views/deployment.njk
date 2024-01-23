@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block tabContent %}
-
   {% if not deployment.status.hasFinished %}
     <div data-js="app-poll"
     data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.deploymentId }}"
@@ -139,4 +138,5 @@
   {% if not deployment.status.hasFinished %}
     </div>
   {% endif %}
+
 {% endblock %}
