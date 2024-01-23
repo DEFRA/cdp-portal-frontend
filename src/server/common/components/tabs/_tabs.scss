@@ -32,7 +32,7 @@
   .app-tabs__list-item {
     border-radius: $app-border-radius $app-border-radius 0 0;
     margin: govuk-spacing(2) govuk-spacing(1) 0 0;
-    background-color: govuk-colour("light-grey");
+    background-color: $app-light-grey;
   }
 
   .app-tabs__tab {
