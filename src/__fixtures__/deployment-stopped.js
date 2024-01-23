@@ -30,12 +30,12 @@ const deploymentStoppedFixture = [
     dockerImage:
       '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.105.0',
     taskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:121',
+      'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-backend:121',
     ecsSvcDeploymentId: 'ecs-svc/2729145637959376974',
     cpu: '2048',
     memory: '4096',
     instanceTaskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
+      'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
     instanceCount: 1
   },
   {
@@ -50,12 +50,12 @@ const deploymentStoppedFixture = [
     dockerImage:
       '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.105.0',
     taskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:121',
+      'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-backend:121',
     ecsSvcDeploymentId: 'ecs-svc/2729145637959376974',
     cpu: '2048',
     memory: '4096',
     instanceTaskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
+      'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
     instanceCount: 1
   },
   {
@@ -70,12 +70,12 @@ const deploymentStoppedFixture = [
     dockerImage:
       '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.105.0',
     taskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:121',
+      'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-backend:121',
     ecsSvcDeploymentId: 'ecs-svc/2729145637959376974',
     cpu: '2048',
     memory: '4096',
     instanceTaskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
+      'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
     instanceCount: 1
   },
   {
@@ -90,12 +90,12 @@ const deploymentStoppedFixture = [
     dockerImage:
       '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.105.0',
     taskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:121',
+      'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-backend:121',
     ecsSvcDeploymentId: 'ecs-svc/2729145637959376974',
     cpu: '2048',
     memory: '4096',
     instanceTaskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
+      'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
     instanceCount: 1
   },
   {
@@ -110,12 +110,12 @@ const deploymentStoppedFixture = [
     dockerImage:
       '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.105.0',
     taskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task-definition/cdp-portal-backend:121',
+      'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-backend:121',
     ecsSvcDeploymentId: 'ecs-svc/2729145637959376974',
     cpu: '2048',
     memory: '4096',
     instanceTaskId:
-      'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
+      'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d74cdc42ff1b44f49fe007e858567bfa',
     instanceCount: 1
   }
 ]

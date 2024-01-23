@@ -99,21 +99,13 @@
 
                   <div class="govuk-!-margin-right-2">
                     {% if task.status.text == 'deployed' %}
-                      {{ appInstanceSuccessIcon({
-                        title: task.instanceTaskId
-                      }) }}
+                      {{ appInstanceSuccessIcon() }}
                     {% elseif task.status.text == 'stopped' %}
-                      {{ appInstanceStoppedIcon({
-                        title: task.instanceTaskId
-                      }) }}
+                      {{ appInstanceStoppedIcon() }}
                     {% elseif task.status.text == 'pending' %}
-                      {{ appInstancePendingIcon({
-                        title: task.instanceTaskId
-                      }) }}
+                      {{ appInstancePendingIcon() }}
                     {% elseif task.status.text == 'failed' %}
-                      {{ appInstanceFailedIcon({
-                        title: task.instanceTaskId
-                      }) }}
+                      {{ appInstanceFailedIcon() }}
                     {% endif %}
                   </div>
 
