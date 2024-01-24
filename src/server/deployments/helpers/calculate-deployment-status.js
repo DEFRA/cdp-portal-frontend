@@ -34,9 +34,10 @@ function getDeploymentStatusText(tasks) {
         return deploymentStatus.failed
       case anyPending:
         return deploymentStatus.pending
-      case anyRequested:
       case anyDeploying:
         return deploymentStatus.deploying
+      case anyRequested:
+        return deploymentStatus.requested
       case anyStopping:
         return deploymentStatus.stopping
 
