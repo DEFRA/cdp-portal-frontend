@@ -19,7 +19,7 @@ describe('#fetchDeployableImageNames', () => {
   test('Should provide expected deployable images response', async () => {
     nock(deployableImagesEndpointUrl.origin)
       .get(deployableImagesEndpointUrl.pathname)
-      .query({ type: 'service', groups: 'group1' })
+      .query({ runMode: 'service', groups: 'group1' })
       .reply(200, deployableImagesFixture)
 
     const deployableImageNames = await fetchDeployableImageNames(mockRequest)
@@ -30,7 +30,7 @@ describe('#fetchDeployableImageNames', () => {
   test('With error, Should throw with expected message', async () => {
     nock(deployableImagesEndpointUrl.origin)
       .get(deployableImagesEndpointUrl.pathname)
-      .query({ type: 'service', groups: 'group1' })
+      .query({ runMode: 'service', groups: 'group1' })
       .reply(404, { message: 'Sorry - that is not allowed!' })
 
     expect.assertions(2)
@@ -46,7 +46,7 @@ describe('#fetchDeployableImageNames', () => {
   test('With different status code, Should throw with expected message', async () => {
     nock(deployableImagesEndpointUrl.origin)
       .get(deployableImagesEndpointUrl.pathname)
-      .query({ type: 'service', groups: 'group1' })
+      .query({ runMode: 'service', groups: 'group1' })
       .reply(431, {})
 
     expect.assertions(2)

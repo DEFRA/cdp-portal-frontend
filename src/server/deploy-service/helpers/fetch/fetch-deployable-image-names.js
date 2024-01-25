@@ -8,7 +8,7 @@ async function fetchDeployableImageNames(request) {
   const groupParams = userGroups.map((g) => 'groups=' + g).join('&')
   const deployablesEndpointUrl =
     config.get('portalBackendApiUrl') +
-    `/deployables?type=service&${groupParams}`
+    `/deployables?runMode=service&${groupParams}`
 
   const response = await request.fetchWithAuth(deployablesEndpointUrl, {
     method: 'get',
