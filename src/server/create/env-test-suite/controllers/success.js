@@ -4,7 +4,7 @@ import { buildLink } from '~/src/server/common/helpers/build-link'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
 import { setStepComplete } from '~/src/server/create/helpers/form'
 
-const testSuiteSuccessController = {
+const envTestSuiteSuccessController = {
   options: {
     ext: {
       onPreHandler: [noSessionRedirect]
@@ -19,10 +19,10 @@ const testSuiteSuccessController = {
     const create = request.pre?.create
     const repositoryName = create.repositoryName
 
-    return h.view('create/test-suite/views/success', {
+    return h.view('create/env-test-suite/views/success', {
       pageTitle: 'Status',
       heading: 'Status',
-      caption: 'Your journey test suite is being created',
+      caption: 'Your environment test suite is being created',
       testSuiteLink: buildLink(
         `https://github.com/${githubOrg}/${repositoryName}`,
         repositoryName
@@ -31,4 +31,4 @@ const testSuiteSuccessController = {
   }
 }
 
-export { testSuiteSuccessController }
+export { envTestSuiteSuccessController }
