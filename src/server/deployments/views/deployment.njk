@@ -100,14 +100,22 @@
 
                   <div class="govuk-!-margin-right-2">
                     {% if task.status.text == 'deployed' %}
-                      {{ appInstanceSuccessIcon() }}
+                      {{ appInstanceSuccessIcon({
+                        title: task.status.text | title
+                      }) }}
                     {% elseif task.status.text == 'stopped' %}
-                      {{ appInstanceStoppedIcon() }}
+                      {{ appInstanceStoppedIcon({
+                        title: task.status.text | title
+                      }) }}
                     {% elseif task.status.text == 'pending' or task.status.text == 'stopping'
                       or task.status.text == 'deploying' %}
-                      {{ appInstancePendingIcon() }}
+                      {{ appInstancePendingIcon({
+                        title: task.status.text | title
+                      }) }}
                     {% elseif task.status.text == 'failed' %}
-                      {{ appInstanceFailedIcon() }}
+                      {{ appInstanceFailedIcon({
+                        title: task.status.text | title
+                      }) }}
                     {% endif %}
                   </div>
 
