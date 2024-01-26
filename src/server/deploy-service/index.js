@@ -16,7 +16,10 @@ import {
   deployController
 } from '~/src/server/deploy-service/controllers'
 
-const serviceTeamUserScope = authScope(`+${scopes.serviceTeamUser}`)
+const serviceTeamAndAdminUserScope = authScope([
+  scopes.serviceTeamUser,
+  scopes.admin
+])
 
 const deployService = {
   plugin: {
@@ -87,7 +90,7 @@ const deployService = {
             path: '/deploy-service/deploy',
             ...deployController
           }
-        ].map(serviceTeamUserScope)
+        ].map(serviceTeamAndAdminUserScope)
       )
     }
   }
