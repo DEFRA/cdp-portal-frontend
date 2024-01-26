@@ -4,6 +4,7 @@ import { addSeconds } from 'date-fns'
 import { config } from '~/src/config'
 import { isUserInServiceTeam } from '~/src/server/common/helpers/user/is-user-in-service-team'
 import { scopes } from '~/src/server/common/constants/scopes'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
 
 function removeUserSession(request) {
   request.dropUserSession()
@@ -15,15 +16,16 @@ async function createUserSession(request, sessionId) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
+  const { teams } = await fetchTeams(true)
   const { profile } = request.auth.credentials
-  const userGroups = profile.groups
+  const userGroups = profile.groups?.slice()
 
   const isAdmin = userGroups.includes(config.get('oidcAdminGroupId'))
   if (isAdmin) {
     userGroups.push(scopes.admin)
   }
 
-  const isServiceTeamUser = await isUserInServiceTeam(userGroups)
+  const isServiceTeamUser = await isUserInServiceTeam(teams, userGroups)
   if (isServiceTeamUser) {
     userGroups.push(scopes.serviceTeamUser)
   }
@@ -44,6 +46,16 @@ async function createUserSession(request, sessionId) {
   })
 }
 
+async function provideCdpGroupDetail(groups = []) {
+  const { teams: teamsWithGithub } = await fetchTeams(true)
+  const teamIds = teamsWithGithub?.map((team) => team.teamId) ?? []
+
+  return {
+    teams: teamsWithGithub,
+    userGroups: groups.slice().filter((group) => teamIds.includes(group))
+  }
+}
+
 async function updateUserSession(request, refreshedSession) {
   const refreshedPayload = jwt.token.decode(refreshedSession.access_token)
     .decoded.payload
@@ -53,14 +65,16 @@ async function updateUserSession(request, refreshedSession) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
-  const userGroups = refreshedPayload.groups
+  const { teams, userGroups } = await provideCdpGroupDetail(
+    refreshedPayload.groups
+  )
 
   const isAdmin = userGroups.includes(config.get('oidcAdminGroupId'))
   if (isAdmin) {
     userGroups.push(scopes.admin)
   }
 
-  const isServiceTeamUser = await isUserInServiceTeam(userGroups)
+  const isServiceTeamUser = await isUserInServiceTeam(teams, userGroups)
   if (isServiceTeamUser) {
     userGroups.push(scopes.serviceTeamUser)
   }
