@@ -106,9 +106,7 @@ describe('#buildNavigation', () => {
   describe('When user is Admin', () => {
     test('Should provide expected navigation details', async () => {
       expect(
-        await buildNavigation(
-          mockRequest({ auth: { isAdmin: true, isServiceTeamUser: true } })
-        )
+        await buildNavigation(mockRequest({ auth: { isAdmin: true } }))
       ).toEqual({
         actions: [
           {

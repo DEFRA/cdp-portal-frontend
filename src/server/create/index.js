@@ -14,7 +14,10 @@ import { createMicroserviceRoutes } from '~/src/server/create/microservice'
 import { createEnvTestSuiteRoutes } from '~/src/server/create/env-test-suite'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
 
-const serviceTeamUserScope = authScope(`+${scopes.serviceTeamUser}`)
+const serviceTeamAndAdminUserScope = authScope([
+  scopes.serviceTeamUser,
+  scopes.admin
+])
 
 const create = {
   plugin: {
@@ -62,9 +65,9 @@ const create = {
           },
           ...createMicroserviceRoutes,
           ...createRepositoryRoutes,
-          ...createTestSuiteRoutes,
-          ...createEnvTestSuiteRoutes
-        ].map(serviceTeamUserScope)
+          ...createEnvTestSuiteRoutes,
+          ...createTestSuiteRoutes
+        ].map(serviceTeamAndAdminUserScope)
       )
     }
   }
