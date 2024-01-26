@@ -1,12 +1,21 @@
 import Boom from '@hapi/boom'
-
 import { config } from '~/src/config'
+import fetch from 'node-fetch'
+import qs from 'qs'
 
 async function fetchDeployableImageNames(request) {
-  const deployableImagesEndpointUrl =
-    config.get('portalBackendApiUrl') + '/deployables'
+  const authedUser = await request.getUserSession()
+  const userGroups = authedUser.scope
 
-  const response = await request.fetchWithAuth(deployableImagesEndpointUrl, {
+  const deployablesEndpointUrl =
+    config.get('portalBackendApiUrl') +
+    '/deployables' +
+    qs.stringify(
+      { runMode: 'service', groups: userGroups },
+      { arrayFormat: 'repeat', addQueryPrefix: true }
+    )
+
+  const response = await fetch(deployablesEndpointUrl, {
     method: 'get',
     headers: { 'Content-Type': 'application/json' }
   })

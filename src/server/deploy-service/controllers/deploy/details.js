@@ -19,10 +19,7 @@ const detailsController = {
     const redirectLocation = payload?.redirectLocation
 
     const deployableImageNames = await fetchDeployableImageNames(request)
-    const availableVersions = await fetchAvailableVersions(
-      payload?.imageName,
-      request
-    )
+    const availableVersions = await fetchAvailableVersions(payload?.imageName)
     const environments = await fetchEnvironments(request)
 
     const validationResult = serviceValidation(

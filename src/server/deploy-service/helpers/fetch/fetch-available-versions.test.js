@@ -3,14 +3,8 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
-import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 
 describe('#fetchAvailableVersions', () => {
-  const mockRequest = {
-    fetchWithAuth: fetchWithAuth({
-      getUserSession: jest.fn().mockResolvedValue({})
-    })
-  }
   const serviceName = 'cdp-portal-frontend'
   const deployablesVersionsEndpoint = new URL(
     config.get('portalBackendApiUrl') + `/deployables/${serviceName}`
@@ -21,10 +15,7 @@ describe('#fetchAvailableVersions', () => {
       .get(deployablesVersionsEndpoint.pathname)
       .reply(200, availableVersionsFixture)
 
-    const availableVersions = await fetchAvailableVersions(
-      serviceName,
-      mockRequest
-    )
+    const availableVersions = await fetchAvailableVersions(serviceName)
 
     expect(availableVersions).toEqual(availableVersionsFixture)
   })
@@ -34,10 +25,7 @@ describe('#fetchAvailableVersions', () => {
       .get(deployablesVersionsEndpoint.pathname)
       .reply(200, ['0.0.0', ...availableVersionsFixture])
 
-    const availableVersions = await fetchAvailableVersions(
-      serviceName,
-      mockRequest
-    )
+    const availableVersions = await fetchAvailableVersions(serviceName)
 
     expect(availableVersions).toEqual(availableVersionsFixture)
   })
@@ -50,7 +38,7 @@ describe('#fetchAvailableVersions', () => {
     expect.assertions(2)
 
     try {
-      await fetchAvailableVersions(serviceName, mockRequest)
+      await fetchAvailableVersions(serviceName)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Arghhhhhhhhhhhhhh!')
@@ -65,7 +53,7 @@ describe('#fetchAvailableVersions', () => {
     expect.assertions(2)
 
     try {
-      await fetchAvailableVersions(serviceName, mockRequest)
+      await fetchAvailableVersions(serviceName)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Expectation Failed')

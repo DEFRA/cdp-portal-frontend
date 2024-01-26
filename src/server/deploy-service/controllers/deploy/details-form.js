@@ -28,7 +28,7 @@ const detailsFormController = {
 
     const imageName = deployment?.imageName
     const availableVersionOptions = imageName
-      ? buildOptions(await fetchAvailableVersions(imageName, request))
+      ? buildOptions(await fetchAvailableVersions(imageName))
       : optionsWithMessage('choose an image name')
 
     const deployableImageNameOptions = buildOptions(
