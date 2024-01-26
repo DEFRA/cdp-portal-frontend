@@ -4,7 +4,7 @@ import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-suite-validation'
 
-const testSuiteCreateController = {
+const envTestSuiteCreateController = {
   options: {
     auth: {
       strategy: 'azure-oidc',
@@ -37,15 +37,15 @@ const testSuiteCreateController = {
         formErrors: errorDetails
       })
 
-      return h.redirect('/create/test-suite/summary')
+      return h.redirect('/create/env-test-suite/summary')
     }
 
     if (!validationResult.error) {
-      const selfServiceOpsCreateTestSuiteEndpointUrl =
-        config.get('selfServiceOpsApiUrl') + '/create-tests'
+      const selfServiceOpsCreateEnvTestSuiteEndpointUrl =
+        config.get('selfServiceOpsApiUrl') + '/create-env-test-suite'
 
       const response = await request.fetchWithAuth(
-        selfServiceOpsCreateTestSuiteEndpointUrl,
+        selfServiceOpsCreateEnvTestSuiteEndpointUrl,
         {
           method: 'post',
           body: JSON.stringify(sanitisedPayload)
@@ -62,7 +62,7 @@ const testSuiteCreateController = {
           type: 'success'
         })
 
-        return h.redirect('/create/test-suite/success')
+        return h.redirect('/create/env-test-suite/success')
       }
 
       request.yar.flash(sessionNames.validationFailure, {
@@ -70,9 +70,9 @@ const testSuiteCreateController = {
       })
       request.yar.flash(sessionNames.globalValidationFailures, json.message)
 
-      return h.redirect('/create/test-suite/summary')
+      return h.redirect('/create/env-test-suite/summary')
     }
   }
 }
 
-export { testSuiteCreateController }
+export { envTestSuiteCreateController }

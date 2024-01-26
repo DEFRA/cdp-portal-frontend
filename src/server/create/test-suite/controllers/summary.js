@@ -13,10 +13,10 @@ const testSuiteSummaryController = {
     const create = request.pre?.create
 
     return h.view('create/views/summary', {
-      pageTitle: 'Create test suite summary',
-      heading: 'Create test suite summary',
+      pageTitle: 'Summary journey test suite',
+      heading: 'Summary journey test suite',
       headingCaption:
-        'Information about the new test suite you are going to create.',
+        'Information about the new journey test suite you are going to create.',
       action: '/create/test-suite',
       summaryRows: summaryTestSuiteRows(create),
       formButtonText: 'Create',
