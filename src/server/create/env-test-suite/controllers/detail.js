@@ -6,11 +6,10 @@ import { saveToCreate, setStepComplete } from '~/src/server/create/helpers/form'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-suite-validation'
 
-const testSuiteDetailController = {
+const envTestSuiteDetailController = {
   handler: async (request, h) => {
     const payload = request?.payload
     const repositoryName = payload.repositoryName
-    const repositoryVisibility = payload.repositoryVisibility
     const teamId = payload.teamId
     const redirectLocation = payload?.redirectLocation
 
@@ -21,7 +20,6 @@ const testSuiteDetailController = {
 
     const sanitisedPayload = {
       repositoryName,
-      repositoryVisibility,
       teamId
     }
 
@@ -36,7 +34,7 @@ const testSuiteDetailController = {
         ? qs.stringify({ redirectLocation }, { addQueryPrefix: true })
         : ''
 
-      return h.redirect(`/create/test-suite/detail${queryString}`)
+      return h.redirect(`/create/env-test-suite/detail${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -49,9 +47,9 @@ const testSuiteDetailController = {
       })
       await setStepComplete(request, h, 'stepTwo')
 
-      return h.redirect('/create/test-suite/summary')
+      return h.redirect('/create/env-test-suite/summary')
     }
   }
 }
 
-export { testSuiteDetailController }
+export { envTestSuiteDetailController }

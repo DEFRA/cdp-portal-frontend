@@ -5,7 +5,7 @@ import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
 
-const testSuiteDetailFormController = {
+const envTestSuiteDetailFormController = {
   options: {
     ext: {
       onPreHandler: [noSessionRedirect]
@@ -28,9 +28,9 @@ const testSuiteDetailFormController = {
       }))
     )
 
-    return h.view('create/test-suite/views/detail-form', {
-      pageTitle: 'Create journey test suite',
-      heading: 'Create journey test suite',
+    return h.view('create/env-test-suite/views/detail-form', {
+      pageTitle: 'Create environment test suite',
+      heading: 'Create environment test suite',
       teamsOptions,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation
@@ -38,4 +38,4 @@ const testSuiteDetailFormController = {
   }
 }
 
-export { testSuiteDetailFormController }
+export { envTestSuiteDetailFormController }
