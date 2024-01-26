@@ -3,14 +3,10 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
-import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
 
 describe('#fetchDeployableImageNames', () => {
   const mockRequest = {
-    getUserSession: jest.fn().mockResolvedValue({ scope: ['group1'] }),
-    fetchWithAuth: fetchWithAuth({
-      getUserSession: jest.fn().mockResolvedValue({})
-    })
+    getUserSession: jest.fn().mockResolvedValue({ scope: ['group1'] })
   }
   const deployableImagesEndpointUrl = new URL(
     config.get('portalBackendApiUrl') + '/deployables'
