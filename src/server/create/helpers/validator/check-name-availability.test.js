@@ -3,7 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create-service-status-in-progress'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 
 describe('#checkNameAvailability', () => {
   const repositoryName = 'cdp-portal-frontend'

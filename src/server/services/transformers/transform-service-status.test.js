@@ -1,13 +1,13 @@
 import { config } from '~/src/config'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { decorateService } from '~/src/server/services/helpers/decorate-service'
-import { transformStatus } from '~/src/server/services/transformers/transform-status'
-import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create-service-status-in-progress'
+import { transformServiceStatus } from '~/src/server/services/transformers/transform-service-status'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
 
 const githubOrg = config.get('githubOrg')
 
-describe('#transformStatus', () => {
+describe('#transformServiceStatus', () => {
   test('Should provide expected transformed service status', () => {
     const service = decorateService(
       transformCreateServiceStatusToService(
@@ -16,7 +16,7 @@ describe('#transformStatus', () => {
       repositoryFixture.repository
     )
 
-    expect(transformStatus(service)).toEqual(
+    expect(transformServiceStatus(service)).toEqual(
       expect.objectContaining({
         cdpAppConfig: {
           errors: [],

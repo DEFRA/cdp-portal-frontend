@@ -9,7 +9,7 @@ import { buildLink } from '~/src/server/common/helpers/build-link'
 
 const githubOrg = config.get('githubOrg')
 
-function transformStatus(service) {
+function transformServiceStatus(service) {
   const serviceStatus = service.serviceStatus
   const createRepository = serviceStatus?.createRepository
   const cdpTfSvcInfra = serviceStatus?.['cdp-tf-svc-infra']
@@ -247,4 +247,4 @@ function transformStatus(service) {
   }
 }
 
-export { transformStatus }
+export { transformServiceStatus }

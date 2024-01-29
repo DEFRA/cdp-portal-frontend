@@ -1,0 +1,31 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: caption,
+    entities: headingEntities
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+  <div class="govuk-grid-row">
+
+    {% if not isSuccess %}
+      <div data-js="app-poll"
+           data-poll-url="/services/env-test-suite/create-status/{{ service.serviceName }}"
+           data-poll-interval="3000"
+           data-poll-limit="45">
+    {% endif %}
+
+      {% block xhrContent %}
+        {% include "services/partials/env-test-suite-status.njk" %}
+      {% endblock %}
+
+    {% if not isSuccess %}
+      </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
