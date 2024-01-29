@@ -13,7 +13,7 @@ const envTestSuiteSummaryController = {
     const create = request.pre?.create
 
     return h.view('create/views/summary', {
-      pageTitle: 'Summary environment test suite summary',
+      pageTitle: 'Summary environment test suite',
       heading: 'Summary environment test suite',
       headingCaption:
         'Information about the new environment test suite you are going to create.',
