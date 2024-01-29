@@ -3,7 +3,7 @@ import { serviceFixture } from '~/src/__fixtures__/service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
-import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create-service-status-in-progress'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 
 const githubOrg = config.get('githubOrg')
 

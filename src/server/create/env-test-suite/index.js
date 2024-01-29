@@ -2,8 +2,7 @@ import {
   envTestSuiteDetailFormController,
   envTestSuiteDetailController,
   envTestSuiteSummaryController,
-  envTestSuiteCreateController,
-  envTestSuiteSuccessController
+  envTestSuiteCreateController
 } from '~/src/server/create/env-test-suite/controllers'
 
 const createEnvTestSuiteRoutes = [
@@ -26,11 +25,6 @@ const createEnvTestSuiteRoutes = [
     method: 'POST',
     path: '/create/env-test-suite',
     ...envTestSuiteCreateController
-  },
-  {
-    method: 'GET',
-    path: '/create/env-test-suite/success',
-    ...envTestSuiteSuccessController
   }
 ]
 

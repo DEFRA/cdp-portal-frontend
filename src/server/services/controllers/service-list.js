@@ -20,7 +20,10 @@ const serviceListController = {
     const decorator = decorateServices(repositories)
 
     const deployableServicesWithRepository = deployableServices.map(decorator)
-    const inProgressServicesWithRepository = inProgressServices.map(decorator)
+
+    const inProgressServicesWithRepository = inProgressServices
+      .map(decorator)
+      .filter((service) => service.kind === 'microservice') // TODO temp filter these to only microservice, refactor once we know where the env-tests are going
 
     // Services from Self Service Ops /status/in-progress overwrite services from Portal Backends /services
     const services = unionBy(

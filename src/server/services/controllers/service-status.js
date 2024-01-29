@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformStatus } from '~/src/server/services/transformers/transform-status'
+import { transformServiceStatus } from '~/src/server/services/transformers/transform-service-status'
 import { provideServiceCreateStatus } from '~/src/server/services/helpers/pre/provide-service-create-status'
 import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
 
-const serviceCreateStatusController = {
+const serviceStatusController = {
   options: {
     pre: [provideServiceCreateStatus],
     validate: {
@@ -22,14 +22,14 @@ const serviceCreateStatusController = {
       return null
     }
 
-    const creationJob = transformStatus(service)
+    const creationJob = transformServiceStatus(service)
     const isSuccess = creationJob?.status?.isSuccess
     const creationPosition = isSuccess ? 'Created' : 'Creating'
     const serviceName = service.serviceName
     const pageTitle = `${creationPosition} ${serviceName} microservice`
     const caption = `${creationPosition} the ${serviceName} microservice.`
 
-    return h.view('services/views/service-create-status', {
+    return h.view('services/views/service-status', {
       pageTitle,
       creationJob,
       isSuccess,
@@ -50,4 +50,4 @@ const serviceCreateStatusController = {
   }
 }
 
-export { serviceCreateStatusController }
+export { serviceStatusController }

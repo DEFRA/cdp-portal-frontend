@@ -3,6 +3,7 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-suite-validation'
+import { setStepComplete } from '~/src/server/create/helpers/form'
 
 const envTestSuiteCreateController = {
   options: {
@@ -54,6 +55,8 @@ const envTestSuiteCreateController = {
       const json = await response.json()
 
       if (response.ok) {
+        await setStepComplete(request, h, 'allSteps')
+
         request.yar.clear(sessionNames.validationFailure)
         await request.yar.commit(h)
 
@@ -62,7 +65,9 @@ const envTestSuiteCreateController = {
           type: 'success'
         })
 
-        return h.redirect('/create/env-test-suite/success')
+        return h.redirect(
+          `/services/env-test-suite/create-status/${json.repositoryName}`
+        )
       }
 
       request.yar.flash(sessionNames.validationFailure, {

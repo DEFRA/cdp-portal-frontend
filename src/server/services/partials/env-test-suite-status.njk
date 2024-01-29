@@ -1,0 +1,97 @@
+{% from "progress/macro.njk" import appProgress %}
+{% from "status/macro.njk" import appStatus %}
+
+<div class="govuk-grid-column-two-thirds">
+  {% if creationJob.hasJobFailures %}
+    {{ appHelp({
+      text: "Need some help with your new environment test suite creation?"
+    }) }}
+  {% endif %}
+</div>
+
+<article data-xhr="create-service-status">
+  <div class="govuk-grid-column-two-thirds">
+    <section class="app-section">
+
+      <header class="govuk-!-margin-bottom-2">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+          {% if isSuccess %}
+            Environment Test Suite created
+          {% else %}
+            Creating Environment Test Suite
+          {% endif %}
+        </h2>
+
+        {% if not isSuccess %}
+          <div class="app-status-info">
+            <div class="app-status-info__primary">
+              {{ appTag({
+                text: creationJob.status.text,
+                classes: creationJob.status.classes,
+                attributes: {
+                  "data-testid": "app-overall-progress"
+                }
+              }) }}
+            </div>
+
+            <div>
+              {% if creationJob.status.value == "in-progress" %}
+                {{ appLoader({ classes: "app-loader--is-loading" }) }}
+              {% endif %}
+            </div>
+          </div>
+
+          {{ appProgress({
+            progress: creationJob.progress.percentage,
+            total: creationJob.progress.total,
+            complete: creationJob.progress.complete
+          }) }}
+
+          <p class="app-status-info__secondary">
+            Started: {{ appTime({
+              datetime: creationJob.started,
+              formatString: "k:mm:ss EE do MMM yyyy"
+            }) }}
+          </p>
+        {% endif %}
+      </header>
+
+
+      {% if isSuccess %}
+        <div class="govuk-!-margin-bottom-8">
+          <p class="govuk-!-margin-bottom-2">
+            Your new environment test suite <em>{{ service.serviceName }}</em> has now been created. Please have a look
+            over the completed jobs detailed below.
+          </p>
+          <p class="govuk-!-margin-bottom-3">When you have finished looking over what has been created for your new
+            environment test suite, progress to your <a class="app-link app-link--underline"
+                                                        href="/services/env-test-suite/{{ service.serviceName }}">
+              new environment test suite page</a>.
+          </p>
+        </div>
+      {% else %}
+        <p class="govuk-!-margin-bottom-8">
+          Your new environment test suite <em>{{ service.serviceName }}</em> built from the
+          <em>{{ creationJob.serviceTypeTemplate }}</em>, is now
+          being created. For more information on the setup jobs we are running for your new environment test suite see
+          below.
+        </p>
+      {% endif %}
+
+      {{ appStatus(creationJob.createRepository) }}
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l
+              govuk-!-margin-bottom-6">
+
+      {{ appStatus(creationJob.cdpTfSvcInfra) }}
+
+    </section>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    {{ appEntityDataList({
+      heading: "Details",
+      items: entityDataList
+    }) }}
+  </div>
+</article>
+
