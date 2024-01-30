@@ -45,8 +45,8 @@ COPY --from=productionBuild /home/node/package*.json ./
 COPY --from=productionBuild /home/node/.server ./.server/
 COPY --from=productionBuild /home/node/.public/ ./.public/
 
-COPY certificates/cdp-ca-certs.crt /usr/local/share/ca-certificates/cdp-ca-certs.crt
-ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/cdp-ca-certs.crt
+#COPY certificates/cdp-ca-certs.crt /usr/local/share/ca-certificates/cdp-ca-certs.crt
+#ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/cdp-ca-certs.crt
 
 RUN npm ci --omit=dev && npm cache clean --force
 
