@@ -2,6 +2,7 @@ import qs from 'qs'
 import path from 'path'
 import hapi from '@hapi/hapi'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
+// import https from 'node:https'
 
 import { router } from './router'
 import { config } from '~/src/config'
@@ -19,12 +20,21 @@ import { requestLogger } from '~/src/server/common/helpers/logging/request-logge
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
 import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/user/user-has-team-scope'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
-import { secureContext } from '~/src/server/common/helpers/secure-context'
+// import { secureContext } from '~/src/server/common/helpers/secure-context'
 
 const client = buildRedisClient()
 
+// const isProduction = config.get('isProduction')
+
+// TODO this will be replaced by separate PEMs from config added into an array
+const pem = Buffer.from(config.get('cdpCaCerts'), 'base64')
+const certs = pem
+  .toString()
+  .match(/-----BEGIN CERTIFICATE-----\n[\s\S]+?\n-----END CERTIFICATE-----/g)
+
 async function createServer() {
   const server = hapi.server({
+    tls: { ca: certs },
     port: config.get('port'),
     routes: {
       auth: {
@@ -71,7 +81,7 @@ async function createServer() {
     apply: true
   })
 
-  await server.register(secureContext)
+  // await server.register(secureContext)
 
   await server.register([
     sessionManager,
