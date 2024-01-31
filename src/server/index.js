@@ -19,7 +19,6 @@ import { requestLogger } from '~/src/server/common/helpers/logging/request-logge
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
 import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/user/user-has-team-scope'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
-import { secureContext } from '~/src/server/common/helpers/secure-context'
 
 const client = buildRedisClient()
 
@@ -70,8 +69,6 @@ async function createServer() {
   server.decorate('request', 'userHasTeamScope', userHasTeamScopeDecorator, {
     apply: true
   })
-
-  await server.register(secureContext)
 
   await server.register([
     sessionManager,
