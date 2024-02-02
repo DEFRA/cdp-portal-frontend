@@ -19,8 +19,7 @@ import { requestLogger } from '~/src/server/common/helpers/logging/request-logge
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
 import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/user/user-has-team-scope'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
-// import { secureContext } from '~/src/server/common/helpers/secure-context' // TODO decide which one we want
-import { httpsGlobalAgent } from '~/src/server/common/helpers/https-global-agent'
+import { secureContext } from '~/src/server/common/helpers/secure-context'
 
 const client = buildRedisClient()
 const isProduction = config.get('isProduction')
@@ -74,8 +73,7 @@ async function createServer() {
   })
 
   if (isProduction) {
-    // await server.register(secureContext) // TODO decide which one we want
-    await server.register(httpsGlobalAgent)
+    await server.register(secureContext)
   }
 
   await server.register([

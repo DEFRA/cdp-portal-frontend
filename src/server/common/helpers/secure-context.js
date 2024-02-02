@@ -5,12 +5,12 @@ import { config } from '~/src/config'
 const secureContext = {
   plugin: {
     name: 'secure-context',
-    register: async () => {
+    register: async (server) => {
       const originalCreateSecureContext = tls.createSecureContext
 
       tls.createSecureContext = (options) => {
         const truststoreCdpRootCa = Buffer.from(
-          config.get('cdpCaCerts'),
+          config.get('truststoreCdpRootCa'),
           'base64'
         ).toString()
         const certs = [truststoreCdpRootCa]
@@ -26,6 +26,8 @@ const secureContext = {
 
         return context
       }
+
+      server.decorate('server', 'getSecureContext', () => tls.SecureContext)
     }
   }
 }
