@@ -201,6 +201,12 @@ const config = convict({
     format: String,
     env: 'DOCKER_HUB_URL',
     default: 'https://hub.docker.com/r/defradigital'
+  },
+  truststoreCdpRootCa: {
+    doc: 'CDP Root CA',
+    format: String,
+    env: 'TRUSTSTORE_CDP_ROOT_CA',
+    default: ''
   }
 })
 
