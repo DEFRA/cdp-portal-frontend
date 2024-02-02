@@ -19,8 +19,11 @@ import { requestLogger } from '~/src/server/common/helpers/logging/request-logge
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
 import { userHasTeamScopeDecorator } from '~/src/server/common/helpers/user/user-has-team-scope'
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
+// import { secureContext } from '~/src/server/common/helpers/secure-context' // TODO decide which one we want
+import { httpsGlobalAgent } from '~/src/server/common/helpers/https-global-agent'
 
 const client = buildRedisClient()
+const isProduction = config.get('isProduction')
 
 async function createServer() {
   const server = hapi.server({
@@ -69,6 +72,11 @@ async function createServer() {
   server.decorate('request', 'userHasTeamScope', userHasTeamScopeDecorator, {
     apply: true
   })
+
+  if (isProduction) {
+    // await server.register(secureContext) // TODO decide which one we want
+    await server.register(httpsGlobalAgent)
+  }
 
   await server.register([
     sessionManager,
