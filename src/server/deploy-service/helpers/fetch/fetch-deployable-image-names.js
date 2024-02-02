@@ -7,6 +7,10 @@ async function fetchDeployableImageNames(request) {
   const authedUser = await request.getUserSession()
   const userGroups = authedUser.scope
 
+  request.logger.info(
+    '---- user groups: ' + userGroups?.join(', ') ?? 'no groups'
+  )
+
   const deployablesEndpointUrl =
     config.get('portalBackendApiUrl') +
     '/deployables' +

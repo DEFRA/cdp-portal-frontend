@@ -6,6 +6,9 @@ import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/f
 
 describe('#fetchDeployableImageNames', () => {
   const mockRequest = {
+    logger: {
+      info: jest.fn()
+    },
     getUserSession: jest.fn().mockResolvedValue({ scope: ['group1'] })
   }
   const deployableImagesEndpointUrl = new URL(
