@@ -1,0 +1,28 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: "Information about the " + heading + " test-suite.",
+    entities: headingEntities
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">About</h2>
+        <p>
+          {{ repo.description }}
+        </p>
+      </section>
+    </div>
+  </div>
+
+<pre>
+TODO: have a button that lets you run the test suite (maybe have a flow to select env etc)
+TODO: put a table of all the test runs here with links to the result files.
+</pre>
+{% endblock %}

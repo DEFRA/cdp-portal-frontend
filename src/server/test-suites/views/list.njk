@@ -1,0 +1,19 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appHeading({
+    title: heading,
+    caption: "Test Suites"
+  }) }}
+
+  {{ appEntityList({
+    headings: [
+      { text: "Test Suite", size: "large" },
+      { text: "Team", size: "medium" },
+      { text: "Github Repository", size: "massive" }
+    ],
+    entityRows: entityRows,
+    noResult: "Currently there are no test suites"
+  }) }}
+
+{% endblock %}
