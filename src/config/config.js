@@ -1,5 +1,6 @@
 import convict from 'convict'
 import path from 'path'
+import { getTrustStoreCerts } from '~/src/config/helpers/get-trust-store-certs'
 
 const oneDay = 1000 * 60 * 60 * 24
 const oneWeek = 7 * 24 * 60 * 60 * 1000
@@ -202,11 +203,10 @@ const config = convict({
     env: 'DOCKER_HUB_URL',
     default: 'https://hub.docker.com/r/defradigital'
   },
-  truststoreCdpRootCa: {
-    doc: 'CDP Root CA',
-    format: String,
-    env: 'TRUSTSTORE_CDP_ROOT_CA',
-    default: ''
+  trustStore: {
+    doc: 'CA Certificates',
+    format: Array,
+    default: getTrustStoreCerts(process.env)
   }
 })
 

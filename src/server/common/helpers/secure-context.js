@@ -9,18 +9,16 @@ const secureContext = {
       const originalCreateSecureContext = tls.createSecureContext
 
       tls.createSecureContext = (options) => {
-        const truststoreCdpRootCa = Buffer.from(
-          config.get('truststoreCdpRootCa'),
-          'base64'
-        ).toString()
-        const certs = [truststoreCdpRootCa]
+        const trustStore = config
+          .get('trustStore')
+          .map((item) => Buffer.from(item, 'base64').toString())
 
-        if (!certs) {
-          throw new Error(`Could not parse CDP certificates`)
+        if (!trustStore.length) {
+          throw new Error(`Could not find any TRUSTSTORE_ certificates`)
         }
 
         const context = originalCreateSecureContext(options)
-        certs.forEach((cert) => {
+        trustStore.forEach((cert) => {
           context.context.addCACert(cert.trim())
         })
 
