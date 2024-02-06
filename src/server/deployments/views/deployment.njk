@@ -14,131 +14,129 @@
 {% endblock %}
 
 {% block tabContent %}
-  {% if not deployment.status.hasFinished %}
-    <div data-js="app-poll"
-    data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.deploymentId }}"
-    data-poll-interval="3000"
-    data-poll-limit="45">
-  {% endif %}
+  <div data-js="app-poll"
+       data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.deploymentId }}"
+       data-poll-interval="3000"
+       data-poll-limit="45">
 
-  {% block xhrContent %}
-    <article data-xhr="deployment">
-      <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-        <div class="app-grid-column-one-half-from-desktop-massive">
-          <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-4">
-            <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
-            <div>
-              {{ appTag({
-                text: deployment.status.text,
-                classes: deployment.status.classes,
-                attributes: {
-                  "data-testid": "deployment-status"
-                }
-              }) }}
-            </div>
-
-            <div>
-              {% if deployment.status.text == "pending" or deployment.status.text == "requested"
-                or deployment.status.text == "deploying" or deployment.status.text == "stopping" %}
-                {{ appLoader({ classes: "app-loader--is-loading" }) }}
-              {% endif %}
-            </div>
-          </div>
-
-          {% call appPanel() %}
-            <section>
-              <div class="app-row">
-                <div class="app-grid-column-one-third">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service name</h2>
-                  <p>{{ deployment.service }}</p>
-
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Version</h2>
-                  <p>{{ deployment.version }}</p>
-
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Environment</h2>
-                  <p>
-                    {{ appTag({
-                      text: deployment.environment,
-                      classes: 'govuk-tag--blue',
-                      attributes: {
-                        "data-testid": "deployment-environment"
-                      }
-                    }) }}
-                  </p>
-                </div>
-
-                <div class="app-grid-column-one-third">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Instance count</h2>
-                  <p>
-                    {{ noValue if deployment.instanceCount | isNil else deployment.instanceCount }}
-                  </p>
-
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">CPU</h2>
-                  <p>{{ deployment.cpu if deployment.cpu else noValue }}</p>
-
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Memory</h2>
-                  <p>{{ deployment.memory if deployment.memory  else noValue }}</p>
-                </div>
-
-                <div class="app-grid-column-one-third">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Image name</h2>
-                  <p>{{ deployment.service }}</p>
-
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
-                  <p>{{ deployment.user | sanitizeUser }}</p>
-
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
-                  <p>
-                    {{ appTime({ datetime: deployment.deployedAt, formatString: "k:mm:ss EE do MMM yyyy" }) }}
-                  </p>
-                </div>
+    {% block xhrContent %}
+      <article data-xhr="deployment">
+        <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+          <div class="app-grid-column-one-half-from-desktop-massive">
+            <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-4">
+              <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
+              <div>
+                {{ appTag({
+                  text: deployment.status.text,
+                  classes: deployment.status.classes,
+                  attributes: {
+                    "data-testid": "deployment-status"
+                  }
+                }) }}
               </div>
 
-              <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
-              <div class="app-row">
-                {% for key, task in deployment.tasks %}
+              <div>
+                {% if deployment.status.text == "pending" or deployment.status.text == "requested"
+                  or deployment.status.text == "deploying" or deployment.status.text == "stopping" %}
+                  {{ appLoader({ classes: "app-loader--is-loading" }) }}
+                {% endif %}
+              </div>
+            </div>
 
-                  <div class="govuk-!-margin-right-2">
-                    {% if task.status.text == 'deployed' %}
-                      {{ appInstanceSuccessIcon({
-                        title: task.status.text | title
+            {% call appPanel() %}
+              <section>
+                <div class="app-row">
+                  <div class="app-grid-column-one-third">
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service name</h2>
+                    <p>{{ deployment.service }}</p>
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Version</h2>
+                    <p>{{ deployment.version }}</p>
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Environment</h2>
+                    <p>
+                      {{ appTag({
+                        text: deployment.environment,
+                        classes: 'govuk-tag--blue',
+                        attributes: {
+                          "data-testid": "deployment-environment"
+                        }
                       }) }}
-                    {% elseif task.status.text == 'stopped' %}
-                      {{ appInstanceStoppedIcon({
-                        title: task.status.text | title
-                      }) }}
-                    {% elseif task.status.text == 'pending' or task.status.text == 'stopping'
-                      or task.status.text == 'deploying' %}
-                      {{ appInstancePendingIcon({
-                        title: task.status.text | title
-                      }) }}
-                    {% elseif task.status.text == 'failed' %}
-                      {{ appInstanceFailedIcon({
-                        title: task.status.text | title
-                      }) }}
-                    {% endif %}
+                    </p>
                   </div>
 
-                {% else %}
-                  <p class="govuk-!-margin-0">Deployment requested, information coming very soon.</p>
-                {% endfor %}
-              </div>
-            </section>
+                  <div class="app-grid-column-one-third">
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Instance count</h2>
+                    <p>
+                      {{ noValue if deployment.instanceCount | isNil else deployment.instanceCount }}
+                    </p>
 
-          {% endcall %}
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">CPU</h2>
+                    <p>{{ deployment.cpu if deployment.cpu else noValue }}</p>
 
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Memory</h2>
+                    <p>{{ deployment.memory if deployment.memory  else noValue }}</p>
+                  </div>
+
+                  <div class="app-grid-column-one-third">
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Image name</h2>
+                    <p>{{ deployment.service }}</p>
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
+                    <p>{{ deployment.user | sanitizeUser }}</p>
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
+                    <p>
+                      {{ appTime({ datetime: deployment.deployedAt, formatString: "k:mm:ss EE do MMM yyyy" }) }}
+                    </p>
+                  </div>
+                </div>
+
+                <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
+                <div class="app-row">
+                  {% for taskId, instanceDeployments in deployment.events %}
+
+                    {% for instanceDeployment in instanceDeployments %}
+
+                      <div class="govuk-!-margin-right-2">
+                        {% if instanceDeployment.status.text == 'deployed' %}
+                          {{ appInstanceSuccessIcon({
+                            title: instanceDeployment.status.text | title
+                          }) }}
+                        {% elseif instanceDeployment.status.text == 'stopped' %}
+                          {{ appInstanceStoppedIcon({
+                            title: instanceDeployment.status.text | title
+                          }) }}
+                        {% elseif instanceDeployment.status.text == 'pending' or instanceDeployment.status.text == 'stopping'
+                          or instanceDeployment.status.text == 'deploying' %}
+                          {{ appInstancePendingIcon({
+                            title: instanceDeployment.status.text | title
+                          }) }}
+                        {% elseif instanceDeployment.status.text == 'failed' %}
+                          {{ appInstanceFailedIcon({
+                            title: instanceDeployment.status.text | title
+                          }) }}
+                        {% endif %}
+                      </div>
+
+                    {% else %}
+                      <p class="govuk-!-margin-0">Deployment requested, information coming very soon.</p>
+                    {% endfor %}
+                  {% endfor %}
+                </div>
+              </section>
+
+            {% endcall %}
+
+          </div>
+          <div class="govuk-grid-column-one-third">
+            {{ appEntityDataList({
+              items: entityDataList
+            }) }}
+          </div>
         </div>
-        <div class="govuk-grid-column-one-third">
-          {{ appEntityDataList({
-            items: entityDataList
-          }) }}
-        </div>
-      </div>
-    </article>
-  {% endblock %}
-
-  {% if not deployment.status.hasFinished %}
-    </div>
-  {% endif %}
+      </article>
+    {% endblock %}
+  </div>
 
 {% endblock %}

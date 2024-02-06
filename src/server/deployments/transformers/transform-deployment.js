@@ -26,46 +26,72 @@ function transformDeployment(deploymentEvents) {
         'ecsSvcDeploymentId',
         'instanceTaskId'
       ]),
-      status: provideEventStatus(requestedDeployment),
-      tasks: []
+      status: provideEventStatus(requestedDeployment)
     }
   }
 
   if (requestedDeployment && deploymentTasks.length > 0) {
-    const deploymentTaskIds = [
+    const taskIds = [
       ...new Set(
         deploymentTasks
           .sort(byLatest)
-          .map((event) => event.instanceTaskId)
+          .map((event) => {
+            if (event.instanceTaskId) {
+              return event.instanceTaskId.split('/').at(0)
+            }
+            return null
+          })
           .filter(Boolean)
       )
     ]
-    const eventsByTaskId = deploymentTaskIds.reduce(
-      (taskEvents, taskId) => ({
-        ...taskEvents,
-        [taskId]: deploymentTasks
-          .filter((event) => event.instanceTaskId === taskId)
-          .map((event) => ({ ...event, status: provideEventStatus(event) }))
-          .sort(byLatest)
-          .at(0)
-      }),
-      {}
+
+    const eventsByTaskId = taskIds.reduce((events, taskId) => {
+      const instancesGroupedByTaskDefinition = deploymentTasks
+        .filter((task) => task.instanceTaskId.startsWith(taskId))
+        .reduce((taskInstanceEvents, taskEvent) => {
+          const instanceId = taskEvent.instanceTaskId.split('/').at(-1)
+          const taskWithStatus = {
+            ...taskEvent,
+            status: provideEventStatus(taskEvent)
+          }
+
+          if (Array.isArray(taskInstanceEvents[instanceId])) {
+            taskInstanceEvents[instanceId].push(taskWithStatus)
+          } else {
+            taskInstanceEvents[instanceId] = [taskWithStatus]
+          }
+
+          return taskInstanceEvents
+        }, {})
+
+      const latestTaskInstances = Object.entries(
+        instancesGroupedByTaskDefinition
+      )
+        .map(([, instanceDeployments]) =>
+          instanceDeployments.sort(byLatest).at(0)
+        )
+        .sort(byLatest)
+        .slice(0, requestedDeployment.instanceCount)
+
+      return {
+        ...events,
+        [taskId]: latestTaskInstances
+      }
+    }, {})
+
+    const latestInstanceDeployments = Object.entries(eventsByTaskId).flatMap(
+      ([, instanceDeployments]) => instanceDeployments
     )
 
-    const latestTasks = Object.values(eventsByTaskId)
-      .sort(byLatest)
-      .map((event) => event)
-    const latestTask = latestTasks.at(0)
-
     return {
-      ...omit(pickBy(latestTask), [
+      ...omit(pickBy(latestInstanceDeployments.at(0)), [
         'status',
         'taskId',
         'ecsSvcDeploymentId',
         'instanceTaskId'
       ]),
-      status: calculateDeploymentStatus(latestTasks),
-      tasks: eventsByTaskId
+      status: calculateDeploymentStatus(latestInstanceDeployments),
+      events: eventsByTaskId
     }
   }
 }
