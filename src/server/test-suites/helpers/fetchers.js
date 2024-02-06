@@ -22,7 +22,7 @@ async function fetchJson(endpoint) {
 }
 
 async function fetchTestSuites() {
-  const endpoint = config.get('portalBackendApiUrl') + `/test-suite`
+  const endpoint = config.get('portalBackendApiUrl') + '/test-suite'
   return fetchJson(endpoint)
 }
 

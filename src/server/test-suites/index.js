@@ -1,5 +1,6 @@
 import { testSuiteListController } from '~/src/server/test-suites/controllers/test-suite-list'
 import { testSuiteController } from '~/src/server/test-suites/controllers/test-suite'
+import { triggerTestRunController } from '~/src/server/test-suites/controllers/trigger-test-run'
 
 const testSuites = {
   plugin: {
@@ -15,6 +16,11 @@ const testSuites = {
           method: 'GET',
           path: '/test-suite/{testSuiteId}',
           ...testSuiteController
+        },
+        {
+          method: 'POST',
+          path: '/test-suite/{testSuiteId}',
+          ...triggerTestRunController
         }
       ])
     }
