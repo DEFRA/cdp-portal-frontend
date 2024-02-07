@@ -1,4 +1,4 @@
-$govuk-assets-path: "~govuk-frontend/govuk/assets/";
+$govuk-assets-path: "~govuk-frontend/dist/govuk/assets/";
 $govuk-global-styles: true;
 $govuk-page-width: 4320px;
 
@@ -21,7 +21,7 @@ $govuk-breakpoints: (
   desktop-massive: 1920px
 );
 
-@import "~govuk-frontend/govuk/all";
+@import "~govuk-frontend/dist/govuk/all";
 
 @import "helpers/all";
 @import "variables/all";

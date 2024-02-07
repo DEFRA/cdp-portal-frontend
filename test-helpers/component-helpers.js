@@ -7,7 +7,7 @@ import * as filters from '~/src/config/nunjucks/filters'
 
 const nunjucksTestEnv = nunjucks.configure(
   [
-    'node_modules/govuk-frontend/',
+    'node_modules/govuk-frontend/dist/',
     'server',
     path.normalize(
       path.resolve(__dirname, '..', 'src', 'server', 'common', 'templates')

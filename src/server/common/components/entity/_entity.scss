@@ -1,7 +1,9 @@
 .app-entity {
-  @include govuk-font(19);
   @include govuk-text-colour;
   margin-right: govuk-spacing(2);
+}
+
+.app-entity--ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -23,7 +25,6 @@
 }
 
 .app-entity__list-item {
-  @include govuk-font(19);
   @include govuk-text-colour;
   margin: 0;
   white-space: nowrap;

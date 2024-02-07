@@ -29,8 +29,8 @@
   @include govuk-font(19);
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  padding: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) govuk-spacing(2);
+  align-items: center;
+  padding: govuk-spacing(2);
   border-bottom: 1px solid $app-grey;
   line-height: 1.4;
 
@@ -45,13 +45,14 @@
 
 .app-entity-list__item {
   padding-left: govuk-spacing(2);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 
   &:first-of-type {
     padding-left: govuk-spacing(0);
   }
+}
+
+.app-entity-list__item--ellipsis {
+  overflow: hidden;
 }
 
 .app-entity-list__item--tiny {

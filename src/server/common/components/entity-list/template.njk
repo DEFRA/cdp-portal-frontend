@@ -19,7 +19,8 @@
           data-testid="app-entity-list-row-{{ loop.index }}">
 
         {% for entity in entityRow %}
-          <div class="app-entity-list__item app-entity-list__item--{{ params.headings[loop.index0].size }}"
+          <div class="app-entity-list__item app-entity-list__item--{{ params.headings[loop.index0].size }}{% if
+            entity.kind !== "tag" %} app-entity-list__item--ellipsis{% endif %}"
                data-testid="app-entity-list-item-{{ loop.index }}">
             {{ appEntity(entity | assign({}, {index: loop.index}, entity)) }}
           </div>
