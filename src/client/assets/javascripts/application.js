@@ -3,6 +3,7 @@ import { initAll } from 'govuk-frontend'
 import { initModule } from '~/src/client/common/helpers/init-module'
 import { availability } from '~/src/server/common/components/availability/availability'
 import { button } from '~/src/server/common/components/button/button'
+import { banner } from '~/src/server/common/components/banner/banner'
 import { search } from '~/src/server/common/components/search/search'
 import { protectForm } from '~/src/client/common/helpers/protect-form'
 import { readOut } from '~/src/server/common/components/read-out/read-out'
@@ -73,3 +74,6 @@ initModule('app-params', paramsToHiddenInputs, '*=')
 
 // Poll
 initModule('app-poll', poll)
+
+// Notification banner
+initModule('app-notification', banner)
