@@ -39,14 +39,13 @@
 {% endif %}
 
 {% set mainClasses = "app-main-wrapper" %}
-{% set opengraphImageUrl = appBaseUrl + getAssetPath("images/cdp-opengraph-image.png") %}
 
 {% block headIcons %}
-  <link rel="icon" sizes="48x48" href="{{ getAssetPath("/images/favicon.ico") }}">
-  <link rel="icon" sizes="any" href="{{ getAssetPath("/images/favicon.svg") }}" type="image/svg+xml">
-  <link rel="mask-icon" href="{{ getAssetPath("/images/govuk-icon-mask.svg") }}"
+  <link rel="icon" sizes="48x48" href="{{ getAssetPath("images/favicon.ico") }}">
+  <link rel="icon" sizes="any" href="{{ getAssetPath("images/favicon.svg") }}" type="image/svg+xml">
+  <link rel="mask-icon" href="{{ getAssetPath("images/govuk-icon-mask.svg") }}"
         color="{{ themeColor | default("#0b0c0c") }}"> {#- Hardcoded value of $govuk-black #}
-  <link rel="apple-touch-icon" href="{{ getAssetPath("/images/govuk-icon-180.png") }}">
+  <link rel="apple-touch-icon" href="{{ getAssetPath("images/govuk-icon-180.png") }}">
 {% endblock %}
 
 {% block head %}
