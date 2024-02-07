@@ -26,7 +26,7 @@ describe('#button', () => {
     )
 
     if (buttons.length) {
-      buttons.forEach(($button) => button($button))
+      buttons.forEach(button)
     }
 
     buttonElem = document.querySelector('[data-testid="app-button"]')

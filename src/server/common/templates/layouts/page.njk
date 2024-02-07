@@ -85,7 +85,8 @@
     {% for notification in notifications %}
       {{ appBanner({
         text: notification.text,
-        type: notification.type
+        type: notification.type,
+        js: 'app-notification'
       }) }}
     {% endfor %}
   {% endif %}
