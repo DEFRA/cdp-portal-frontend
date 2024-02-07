@@ -20,7 +20,7 @@ const paths = {
 
 const nunjucksEnvironment = nunjucks.configure(
   [
-    'node_modules/govuk-frontend/',
+    'node_modules/govuk-frontend/dist/',
     paths.templates,
     paths.components,
     paths.server

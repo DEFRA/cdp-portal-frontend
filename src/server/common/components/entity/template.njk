@@ -6,7 +6,12 @@
 {% set element = 'li' if params.isChild else 'div' %}
 
 <{{ element }}
-{% if params.isChild %}class="app-entity__list-item"{% else %}class="app-entity"{% endif %}
+{% if params.isChild %}
+  class="app-entity__list-item"
+{% else %}
+  class="app-entity{% if params.kind !== "tag"%} app-entity--ellipsis{% endif %}"
+{% endif %}
+
 data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
 
 {% if params.label %}

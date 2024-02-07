@@ -41,8 +41,8 @@ function provideFormContextValues(request, h) {
       ...(validationFailure?.availableVersionOptions
         ? validationFailure.availableVersionOptions
         : response.source.context?.availableVersionOptions
-        ? response.source.context.availableVersionOptions
-        : [])
+          ? response.source.context.availableVersionOptions
+          : [])
     ]
 
     // Override order:
@@ -53,8 +53,8 @@ function provideFormContextValues(request, h) {
       ...(validationFailure?.availableMemoryOptions
         ? validationFailure.availableMemoryOptions
         : response.source.context?.availableMemoryOptions
-        ? response.source.context.availableMemoryOptions
-        : [])
+          ? response.source.context.availableMemoryOptions
+          : [])
     ]
   }
 
