@@ -1,4 +1,4 @@
-import { omit, pickBy } from 'lodash'
+import { omit } from 'lodash'
 
 import { provideEventStatus } from '~/src/server/deployments/helpers/provide-event-status'
 import { deploymentStatus } from '~/src/server/deployments/constants/deployment-status'
@@ -20,7 +20,7 @@ function transformDeployment(deploymentEvents) {
 
   if (requestedDeployment && deploymentTasks.length === 0) {
     return {
-      ...omit(pickBy(requestedDeployment), [
+      ...omit(requestedDeployment, [
         'status',
         'taskId',
         'ecsSvcDeploymentId',
@@ -84,7 +84,7 @@ function transformDeployment(deploymentEvents) {
     )
 
     return {
-      ...omit(pickBy(latestInstanceDeployments.at(0)), [
+      ...omit(latestInstanceDeployments.at(0), [
         'status',
         'taskId',
         'ecsSvcDeploymentId',

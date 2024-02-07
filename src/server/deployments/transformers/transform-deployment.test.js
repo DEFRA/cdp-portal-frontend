@@ -19,11 +19,13 @@ describe('#transformDeployment', () => {
 
     test('Should provide expected transformation', () => {
       expect(transformDeployment(deploymentRequestedFixture)).toEqual({
+        cpu: null,
         deployedAt: '2024-01-17T18:46:36.171Z',
         deploymentId: '3f5dff54-9bea-4a53-830d-96610af8c2b4',
         dockerImage: 'cdp-portal-frontend',
         environment: 'infra-dev',
         instanceCount: 1,
+        memory: null,
         service: 'cdp-portal-frontend',
         status: {
           classes: 'govuk-tag--purple',
