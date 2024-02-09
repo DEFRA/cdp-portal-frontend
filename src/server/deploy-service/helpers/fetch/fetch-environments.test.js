@@ -1,13 +1,13 @@
 import nock from 'nock'
 
 import { config } from '~/src/config'
-import { fetchWithAuth } from '~/src/server/common/helpers/fetch/fetch-with-auth'
+import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
 import { environmentsFixture } from '~/src/__fixtures__/environments'
 import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
 
 describe('#fetchEnvironments', () => {
   const mockRequest = {
-    fetchWithAuth: fetchWithAuth({
+    authedFetcher: authedFetcher({
       getUserSession: jest.fn().mockResolvedValue({})
     })
   }

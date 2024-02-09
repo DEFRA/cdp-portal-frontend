@@ -13,7 +13,7 @@ import { azureOidc } from '~/src/server/common/helpers/auth/azure-oidc'
 import { buildRedisClient } from '~/src/server/common/helpers/redis-client'
 import { sessionManager } from '~/src/server/common/helpers/session-manager'
 import { sessionCookie } from '~/src/server/common/helpers/auth/session-cookie'
-import { fetchWithAuth } from '~/src/server/common/helpers/fetch/fetch-with-auth'
+import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session'
 import { requestLogger } from '~/src/server/common/helpers/logging/request-logger'
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
@@ -75,7 +75,9 @@ async function createServer() {
   })
 
   server.decorate('request', 'isXhr', isXhr)
-  server.decorate('request', 'fetchWithAuth', fetchWithAuth, { apply: true })
+  server.decorate('request', 'authedFetcher', authedFetcher, {
+    apply: true
+  })
   server.decorate('request', 'getUserSession', getUserSession)
   server.decorate('request', 'dropUserSession', dropUserSession)
   server.decorate('request', 'userHasTeamScope', userHasTeamScopeDecorator, {

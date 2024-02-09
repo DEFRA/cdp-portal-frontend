@@ -44,7 +44,7 @@ const testSuiteCreateController = {
       const selfServiceOpsCreateTestSuiteEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-tests'
 
-      const response = await request.fetchWithAuth(
+      const response = await request.authedFetcher(
         selfServiceOpsCreateTestSuiteEndpointUrl,
         {
           method: 'post',

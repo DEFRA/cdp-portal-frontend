@@ -11,7 +11,7 @@ describe('#removeUserFromTeam', () => {
   const removeUserFromTeamEndpointUrl = new URL(
     config.get('userServiceApiUrl') + `/teams/${teamId}/remove/${userId}`
   )
-  const mockRequest = { fetchWithAuth: fetch }
+  const mockRequest = { authedFetcher: fetch }
 
   test('Should provide expected remove user from team response', async () => {
     nock(removeUserFromTeamEndpointUrl.origin)

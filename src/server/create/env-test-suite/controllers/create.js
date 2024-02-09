@@ -45,7 +45,7 @@ const envTestSuiteCreateController = {
       const selfServiceOpsCreateEnvTestSuiteEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-env-test-suite'
 
-      const response = await request.fetchWithAuth(
+      const response = await request.authedFetcher(
         selfServiceOpsCreateEnvTestSuiteEndpointUrl,
         {
           method: 'post',

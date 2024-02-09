@@ -16,7 +16,7 @@ const createTeamController = {
     const cdpTeam = request.pre?.cdpTeam
     const createTeamEndpointUrl = config.get('userServiceApiUrl') + '/teams'
 
-    const response = await request.fetchWithAuth(createTeamEndpointUrl, {
+    const response = await request.authedFetcher(createTeamEndpointUrl, {
       method: 'post',
       body: JSON.stringify(
         removeNil({

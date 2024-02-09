@@ -16,7 +16,7 @@ const deployController = {
     const deployServiceEndpointUrl =
       config.get('selfServiceOpsApiUrl') + '/deploy-service'
 
-    const response = await request.fetchWithAuth(deployServiceEndpointUrl, {
+    const response = await request.authedFetcher(deployServiceEndpointUrl, {
       method: 'post',
       body: JSON.stringify({
         imageName: deployment.imageName,

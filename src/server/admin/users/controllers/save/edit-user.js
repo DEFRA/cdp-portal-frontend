@@ -17,7 +17,7 @@ const editUserController = {
       cdpUser.userId
     }`
 
-    const response = await request.fetchWithAuth(editUserEndpointUrl, {
+    const response = await request.authedFetcher(editUserEndpointUrl, {
       method: 'patch',
       body: JSON.stringify({
         name: cdpUser.name,

@@ -53,7 +53,7 @@ const microserviceCreateController = {
       const selfServiceOpsCreateServiceEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-microservice'
 
-      const response = await request.fetchWithAuth(
+      const response = await request.authedFetcher(
         selfServiceOpsCreateServiceEndpointUrl,
         {
           method: 'post',

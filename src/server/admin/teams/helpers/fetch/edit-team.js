@@ -4,7 +4,7 @@ async function editTeam(request, teamId, payload) {
   const editTeamEndpointUrl =
     config.get('userServiceApiUrl') + '/teams/' + teamId
 
-  return await request.fetchWithAuth(editTeamEndpointUrl, {
+  return await request.authedFetcher(editTeamEndpointUrl, {
     method: 'patch',
     body: JSON.stringify({
       name: payload.name,

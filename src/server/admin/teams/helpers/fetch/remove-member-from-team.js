@@ -6,7 +6,7 @@ async function removeMemberFromTeam(request, teamId, userId) {
   const endpoint =
     config.get('userServiceApiUrl') + `/teams/${teamId}/remove/${userId}`
 
-  const response = await request.fetchWithAuth(endpoint, {
+  const response = await request.authedFetcher(endpoint, {
     method: 'patch'
   })
 

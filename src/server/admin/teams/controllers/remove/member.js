@@ -20,7 +20,7 @@ const removeMemberController = {
     const userId = params.userId
 
     try {
-      await removeMemberFromTeam(request.fetchWithAuth, teamId, userId)
+      await removeMemberFromTeam(request.authedFetcher, teamId, userId)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Member removed from team',

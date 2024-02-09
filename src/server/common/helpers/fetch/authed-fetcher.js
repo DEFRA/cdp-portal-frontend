@@ -6,12 +6,12 @@ import {
 } from '~/src/server/common/helpers/auth/user-session'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
 
-function fetchWithAuth(request) {
+function authedFetcher(request) {
   return async (url, options = {}) => {
     const authedUser = await request.getUserSession()
     const token = authedUser?.token ?? null
 
-    const fetcher = (token) =>
+    const fetchWithAuth = (token) =>
       fetch(url, {
         ...options,
         headers: {
@@ -21,7 +21,7 @@ function fetchWithAuth(request) {
         }
       })
 
-    return fetcher(token).then(async (response) => {
+    return fetchWithAuth(token).then(async (response) => {
       if (response.status === 401) {
         // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
         const refreshTokenResponse = await refreshAccessToken(request)
@@ -38,7 +38,7 @@ function fetchWithAuth(request) {
           const newToken = authedUser?.token ?? null
 
           // Replay initial request with new token
-          return await fetcher(newToken)
+          return await fetchWithAuth(newToken)
         }
       }
 
@@ -47,4 +47,4 @@ function fetchWithAuth(request) {
   }
 }
 
-export { fetchWithAuth }
+export { authedFetcher }
