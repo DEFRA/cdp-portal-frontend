@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 
 import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { addMemberToTeam } from '~/src/server/admin/teams/helpers/add-member-to-team'
+import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch'
 
 describe('#addUserToTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'

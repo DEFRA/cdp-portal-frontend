@@ -5,7 +5,7 @@ import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
 import { resetGithubUserNameAnswer } from '~/src/server/admin/users/helpers/ext/reset-github-user-name-answer'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user'
-import { searchGithubUsers } from '~/src/server/admin/users/helpers/search-github-users'
+import { searchGithubUsers } from '~/src/server/admin/users/helpers/fetch'
 
 const findGithubUserFormController = {
   options: {

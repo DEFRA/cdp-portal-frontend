@@ -1,4 +1,4 @@
-import { fetchCdpUsers } from '~/src/server/admin/users/helpers/fetch-cdp-users'
+import { fetchCdpUsers } from '~/src/server/admin/users/helpers/fetch'
 import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row'
 
 const usersListController = {

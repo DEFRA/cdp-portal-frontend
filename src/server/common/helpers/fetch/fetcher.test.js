@@ -2,19 +2,18 @@ import nock from 'nock'
 
 import { config } from '~/src/config'
 import { librariesFixture } from '~/src/__fixtures__/libraries'
-import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libraries'
+import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
-describe('#fetchLibraries', () => {
-  const librariesEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + '/libraries'
-  )
+describe('#fetchJson', () => {
+  const librariesEndpoint = config.get('portalBackendApiUrl') + '/libraries'
+  const librariesEndpointUrl = new URL(librariesEndpoint)
 
   test('Should provide expected libraries response', async () => {
     nock(librariesEndpointUrl.origin)
       .get(librariesEndpointUrl.pathname)
       .reply(200, librariesFixture)
 
-    const librariesResponse = await fetchLibraries()
+    const { json: librariesResponse } = await fetcher(librariesEndpoint)
 
     expect(librariesResponse).toEqual(librariesFixture)
   })
@@ -27,7 +26,7 @@ describe('#fetchLibraries', () => {
     expect.assertions(2)
 
     try {
-      await fetchLibraries()
+      await fetcher(librariesEndpoint)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Woaaaaaaaaaaaaaaaah calm down!')
@@ -42,7 +41,7 @@ describe('#fetchLibraries', () => {
     expect.assertions(2)
 
     try {
-      await fetchLibraries()
+      await fetcher(librariesEndpoint)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Gone')

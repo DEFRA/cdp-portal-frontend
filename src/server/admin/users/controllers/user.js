@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
 import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
 import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities'
 import { transformUserTeams } from '~/src/server/admin/users/transformers/transform-user-teams'

@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '~/src/config'
-import { fetchWithAuth } from '~/src/server/common/helpers/auth/fetch-with-auth'
+import { fetchWithAuth } from '~/src/server/common/helpers/fetch/fetch-with-auth'
 import { environmentsFixture } from '~/src/__fixtures__/environments'
 import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
 

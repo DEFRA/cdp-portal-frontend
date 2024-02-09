@@ -1,4 +1,4 @@
-import { editTeam } from '~/src/server/admin/teams/helpers/edit-team'
+import { editTeam } from '~/src/server/admin/teams/helpers/fetch'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/admin/teams/helpers/form'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'

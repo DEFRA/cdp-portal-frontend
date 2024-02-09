@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers'
+import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch'
 
 const teamEditStartController = {
   options: {

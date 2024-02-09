@@ -2,8 +2,10 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { omit } from 'lodash'
 
-import { fetchTeam } from '~/src/server/teams/helpers/fetch-team'
-import { fetchGithubArtifacts } from '~/src/server/teams/helpers/fetch-github-artifacts'
+import {
+  fetchTeam,
+  fetchGithubArtifacts
+} from '~/src/server/teams/helpers/fetch'
 import { transformTeamUsers } from '~/src/server/teams/transformers/transform-team-users'
 import { transformTeamToHeadingEntities } from '~/src/server/teams/transformers/transform-team-to-heading-entities'
 import { transformTeamToEntityDataList } from '~/src/server/teams/transformers/transform-team-to-entity-data-list'

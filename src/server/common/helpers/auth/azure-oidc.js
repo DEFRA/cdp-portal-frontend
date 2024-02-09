@@ -2,7 +2,7 @@ import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
 import { config } from '~/src/config'
-import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 
 async function provideCdpGroups(groups = []) {
   const { teams: teamsWithGithub } = await fetchTeams(true)

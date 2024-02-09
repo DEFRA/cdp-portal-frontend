@@ -3,8 +3,10 @@ import Boom from '@hapi/boom'
 import { filter, uniqBy } from 'lodash'
 
 import { buildOptions } from '~/src/server/common/helpers/build-options'
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch-cdp-team'
-import { searchCdpUsers } from '~/src/server/admin/teams/helpers/search-cdp-users'
+import {
+  fetchCdpTeam,
+  searchCdpUsers
+} from '~/src/server/admin/teams/helpers/fetch'
 import { presentUsersToAdd } from '~/src/server/admin/teams/helpers/pre/present-users-to-add'
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
 

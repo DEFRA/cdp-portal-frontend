@@ -1,22 +1,13 @@
-import Boom from '@hapi/boom'
-import fetch from 'node-fetch'
 import { config } from '~/src/config'
+import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchAvailableVersions(serviceName) {
-  const deployablesVersionsEndpoint =
+  const endpoint =
     config.get('portalBackendApiUrl') + `/deployables/${serviceName}`
 
-  const response = await fetch(deployablesVersionsEndpoint, {
-    method: 'get',
-    headers: { 'Content-Type': 'application/json' }
-  })
-  const json = await response.json()
+  const { json } = await fetcher(endpoint)
 
-  if (response.ok) {
-    return json.filter((version) => version !== '0.0.0')
-  }
-
-  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
+  return json.filter((version) => version !== '0.0.0')
 }
 
 export { fetchAvailableVersions }

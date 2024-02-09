@@ -1,4 +1,4 @@
-import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 import { transformTeamToEntityRow } from '~/src/server/teams/transformers/transform-team-to-entity-row'
 
 const teamsListController = {
