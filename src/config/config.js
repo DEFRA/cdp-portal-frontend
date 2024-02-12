@@ -2,8 +2,8 @@ import convict from 'convict'
 import path from 'path'
 
 const oneDay = 1000 * 60 * 60 * 24
-const oneWeek = 7 * 24 * 60 * 60 * 1000
 const oneMonth = 4 * 7 * 24 * 60 * 60 * 1000
+const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
 
 const config = convict({
   env: {
@@ -21,7 +21,7 @@ const config = convict({
   staticCacheTimeout: {
     doc: 'Static cache timeout in milliseconds',
     format: Number,
-    default: oneWeek,
+    default: oneYear,
     env: 'STATIC_CACHE_TIMEOUT'
   },
   serviceName: {
