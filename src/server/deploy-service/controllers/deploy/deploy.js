@@ -16,19 +16,20 @@ const deployController = {
     const deployServiceEndpointUrl =
       config.get('selfServiceOpsApiUrl') + '/deploy-service'
 
-    const response = await request.authedFetcher(deployServiceEndpointUrl, {
-      method: 'post',
-      body: JSON.stringify({
-        imageName: deployment.imageName,
-        version: deployment.version,
-        environment: deployment.environment,
-        instanceCount: deployment.instanceCount,
-        cpu: deployment.cpu,
-        memory: deployment.memory
-      })
-    })
-
-    const json = await response.json()
+    const { json, response } = await request.authedFetcher(
+      deployServiceEndpointUrl,
+      {
+        method: 'post',
+        body: JSON.stringify({
+          imageName: deployment.imageName,
+          version: deployment.version,
+          environment: deployment.environment,
+          instanceCount: deployment.instanceCount,
+          cpu: deployment.cpu,
+          memory: deployment.memory
+        })
+      }
+    )
 
     if (response.ok) {
       await setStepComplete(request, h, 'allSteps')

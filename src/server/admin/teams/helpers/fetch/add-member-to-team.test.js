@@ -1,9 +1,9 @@
 import nock from 'nock'
-import fetch from 'node-fetch'
 
 import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
 import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch'
+import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
 
 describe('#addUserToTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
@@ -11,13 +11,21 @@ describe('#addUserToTeam', () => {
   const addUserToTeamEndpointUrl = new URL(
     config.get('userServiceApiUrl') + `/teams/${teamId}/add/${userId}`
   )
+  const mockRequest = {
+    authedFetcher: authedFetcher({
+      getUserSession: jest.fn().mockResolvedValue({}),
+      logger: {
+        info: jest.fn()
+      }
+    })
+  }
 
   test('Should provide expected add user to team response', async () => {
     nock(addUserToTeamEndpointUrl.origin)
       .patch(addUserToTeamEndpointUrl.pathname)
       .reply(200, cdpTeamFixture)
 
-    const cdpTeam = await addMemberToTeam(fetch, teamId, userId)
+    const cdpTeam = await addMemberToTeam(mockRequest, teamId, userId)
 
     expect(cdpTeam).toEqual(cdpTeamFixture)
   })
@@ -30,7 +38,7 @@ describe('#addUserToTeam', () => {
     expect.assertions(2)
 
     try {
-      await addMemberToTeam(fetch, teamId, userId)
+      await addMemberToTeam(mockRequest, teamId, userId)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty('message', 'Wowzers!!!')
@@ -40,15 +48,15 @@ describe('#addUserToTeam', () => {
   test('With different status code, Should throw with expected message', async () => {
     nock(addUserToTeamEndpointUrl.origin)
       .patch(addUserToTeamEndpointUrl.pathname)
-      .reply(401, {})
+      .reply(407, {})
 
     expect.assertions(2)
 
     try {
-      await addMemberToTeam(fetch, teamId, userId)
+      await addMemberToTeam(mockRequest, teamId, userId)
     } catch (error) {
       expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Unauthorized')
+      expect(error).toHaveProperty('message', 'Proxy Authentication Required')
     }
   })
 })

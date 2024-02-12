@@ -44,14 +44,13 @@ const testSuiteCreateController = {
       const selfServiceOpsCreateTestSuiteEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-tests'
 
-      const response = await request.authedFetcher(
+      const { json, response } = await request.authedFetcher(
         selfServiceOpsCreateTestSuiteEndpointUrl,
         {
           method: 'post',
           body: JSON.stringify(sanitisedPayload)
         }
       )
-      const json = await response.json()
 
       if (response.ok) {
         request.yar.clear(sessionNames.validationFailure)

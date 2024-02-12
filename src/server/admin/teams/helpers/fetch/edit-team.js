@@ -1,10 +1,9 @@
 import { config } from '~/src/config'
 
 async function editTeam(request, teamId, payload) {
-  const editTeamEndpointUrl =
-    config.get('userServiceApiUrl') + '/teams/' + teamId
+  const endpoint = config.get('userServiceApiUrl') + '/teams/' + teamId
 
-  return await request.authedFetcher(editTeamEndpointUrl, {
+  const { json } = await request.authedFetcher(endpoint, {
     method: 'patch',
     body: JSON.stringify({
       name: payload.name,
@@ -12,6 +11,8 @@ async function editTeam(request, teamId, payload) {
       github: payload.github
     })
   })
+
+  return json
 }
 
 export { editTeam }

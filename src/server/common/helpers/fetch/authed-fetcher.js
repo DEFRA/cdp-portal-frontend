@@ -5,6 +5,7 @@ import {
   updateUserSession
 } from '~/src/server/common/helpers/auth/user-session'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
+import Boom from '@hapi/boom'
 
 function authedFetcher(request) {
   return async (url, options = {}) => {
@@ -42,7 +43,15 @@ function authedFetcher(request) {
         }
       }
 
-      return response
+      const json = await response.json()
+
+      if (response.ok) {
+        return { json, response }
+      }
+
+      throw Boom.boomify(new Error(json.message), {
+        statusCode: response.status
+      })
     })
   }
 }

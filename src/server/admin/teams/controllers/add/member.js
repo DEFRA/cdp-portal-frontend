@@ -55,8 +55,7 @@ const addMemberController = {
 
     if (!validationResult.error) {
       const addUserToTeamPromises = userIds.map(
-        async (userId) =>
-          await addMemberToTeam(request.authedFetcher, teamId, userId)
+        async (userId) => await addMemberToTeam(request, teamId, userId)
       )
 
       const responses = await Promise.allSettled(addUserToTeamPromises)

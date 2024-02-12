@@ -1,9 +1,9 @@
 import nock from 'nock'
-import fetch from 'node-fetch'
 
 import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
 import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch'
+import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
 
 describe('#removeUserFromTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
@@ -11,7 +11,11 @@ describe('#removeUserFromTeam', () => {
   const removeUserFromTeamEndpointUrl = new URL(
     config.get('userServiceApiUrl') + `/teams/${teamId}/remove/${userId}`
   )
-  const mockRequest = { authedFetcher: fetch }
+  const mockRequest = {
+    authedFetcher: authedFetcher({
+      getUserSession: jest.fn().mockResolvedValue({})
+    })
+  }
 
   test('Should provide expected remove user from team response', async () => {
     nock(removeUserFromTeamEndpointUrl.origin)
