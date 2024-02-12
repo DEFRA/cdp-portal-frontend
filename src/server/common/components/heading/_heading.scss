@@ -5,6 +5,7 @@
 }
 
 .app-heading__entities {
+  @include govuk-font(19);
   display: flex;
   margin-top: govuk-spacing(2);
 }
