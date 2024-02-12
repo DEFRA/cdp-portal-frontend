@@ -4,6 +4,7 @@ import { deploymentInProgressFixture } from '~/src/__fixtures__/deployment-in-pr
 import { deploymentSuccessFixture } from '~/src/__fixtures__/deployment-success'
 import { deploymentFailedFixture } from '~/src/__fixtures__/deployment-failed'
 import { deploymentStoppedFixture } from '~/src/__fixtures__/deployment-stopped'
+import { deploymentUndeployedFixture } from '~/src/__fixtures__/deployment-undeployed'
 
 describe('#transformDeployment', () => {
   describe('When a deployment has been requested', () => {
@@ -15,6 +16,25 @@ describe('#transformDeployment', () => {
           })
         })
       )
+    })
+
+    test('Show undeployments as STOPPED', () => {
+      expect(transformDeployment(deploymentUndeployedFixture)).toEqual({
+        deployedAt: '2024-01-17T18:46:36.171Z',
+        deploymentId: '3f5dff54-9bea-4a53-830d-96610af8c2b4',
+        dockerImage: 'cdp-portal-frontend',
+        environment: 'infra-dev',
+        service: 'cdp-portal-frontend',
+        status: {
+          classes: 'govuk-tag--grey',
+          hasFinished: false,
+          text: 'stopped'
+        },
+        tasks: [],
+        user: 'The Terminator',
+        userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',
+        version: '0.217.0'
+      })
     })
 
     test('Should provide expected transformation', () => {

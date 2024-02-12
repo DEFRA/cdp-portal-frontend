@@ -1,6 +1,10 @@
 import { deploymentStatus } from '~/src/server/deployments/constants/deployment-status'
 
-function provideDeploymentStatusText({ status, desiredStatus }) {
+function provideDeploymentStatusText({
+  status,
+  desiredStatus,
+  requestedCount
+}) {
   const statusToLowerCase = status.toLowerCase()
   const desiredStatusToLowerCase = desiredStatus?.toLowerCase()
 
@@ -8,6 +12,10 @@ function provideDeploymentStatusText({ status, desiredStatus }) {
     case statusToLowerCase === deploymentStatus.running &&
       desiredStatusToLowerCase === deploymentStatus.stopped:
       return deploymentStatus.stopping
+
+    case statusToLowerCase === deploymentStatus.requested &&
+      requestedCount === 0:
+      return deploymentStatus.stopped
 
     case statusToLowerCase === deploymentStatus.requested &&
       desiredStatusToLowerCase === deploymentStatus.running:

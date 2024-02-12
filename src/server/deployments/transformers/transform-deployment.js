@@ -19,6 +19,11 @@ function transformDeployment(deploymentEvents) {
   )
 
   if (requestedDeployment && deploymentTasks.length === 0) {
+    // A bit of a hack to get this page showing the correct status on un-deployments
+    if (requestedDeployment.instanceCount === 0) {
+      requestedDeployment.status = deploymentStatus.stopped
+    }
+
     return {
       ...omit(requestedDeployment, [
         'status',
