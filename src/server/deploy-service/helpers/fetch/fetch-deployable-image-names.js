@@ -1,10 +1,10 @@
 import qs from 'qs'
 import { config } from '~/src/config'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
+import { getUserGroups } from '~/src/server/common/helpers/auth/get-user-groups'
 
 async function fetchDeployableImageNames(request) {
-  const authedUser = await request.getUserSession()
-  const userGroups = authedUser.scope
+  const userGroups = await getUserGroups(request)
 
   const endpoint =
     config.get('portalBackendApiUrl') +
