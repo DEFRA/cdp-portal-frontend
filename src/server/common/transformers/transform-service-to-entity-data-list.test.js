@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
-import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
+import { transformServiceToEntityDataList } from '~/src/server/common/transformers/transform-service-to-entity-data-list'
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
-import { decorateService } from '~/src/server/services/helpers/decorate-service'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
@@ -63,7 +63,7 @@ describe('#transformServiceToEntityDataList', () => {
 
   describe('With an in progress service status', () => {
     test('Should provide expected service data list entities transformation', () => {
-      const service = decorateService(
+      const service = repositoryDecorator(
         transformCreateServiceStatusToService(
           createServiceStatusInProgressFixture.repositoryStatus
         ),

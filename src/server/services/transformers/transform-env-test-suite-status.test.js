@@ -1,15 +1,15 @@
 import { config } from '~/src/config'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
 import { creatEnvTestSuiteStatusInProgressFixture } from '~/src/__fixtures__/create/env-test-suite-status-in-progress'
 import { transformEnvTestSuiteStatus } from '~/src/server/services/transformers/transform-env-test-suite-status'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformEnvTestSuiteStatus', () => {
   test('Should provide expected transformed service status', () => {
-    const service = decorateService(
+    const service = repositoryDecorator(
       transformCreateServiceStatusToService(
         creatEnvTestSuiteStatusInProgressFixture.repositoryStatus
       ),

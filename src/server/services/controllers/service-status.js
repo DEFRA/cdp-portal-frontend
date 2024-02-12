@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { transformServiceStatus } from '~/src/server/services/transformers/transform-service-status'
 import { provideServiceCreateStatus } from '~/src/server/services/helpers/pre/provide-service-create-status'
-import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
+import { transformServiceToEntityDataList } from '~/src/server/common/transformers/transform-service-to-entity-data-list'
 
 const serviceStatusController = {
   options: {

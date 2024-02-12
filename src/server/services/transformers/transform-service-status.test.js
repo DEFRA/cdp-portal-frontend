@@ -1,15 +1,15 @@
 import { config } from '~/src/config'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { transformServiceStatus } from '~/src/server/services/transformers/transform-service-status'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformServiceStatus', () => {
   test('Should provide expected transformed service status', () => {
-    const service = decorateService(
+    const service = repositoryDecorator(
       transformCreateServiceStatusToService(
         createServiceStatusInProgressFixture.repositoryStatus
       ),

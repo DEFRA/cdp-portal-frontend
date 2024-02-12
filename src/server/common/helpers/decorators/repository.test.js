@@ -1,17 +1,17 @@
 import { config } from '~/src/config'
 import { serviceFixture } from '~/src/__fixtures__/service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 const githubOrg = config.get('githubOrg')
 
-describe('#decorateService', () => {
+describe('#repositoryDecorator', () => {
   describe('With deployable service', () => {
     test('Should provide expected service when decorated with repository', () => {
       expect(
-        decorateService(serviceFixture, repositoryFixture.repository)
+        repositoryDecorator(serviceFixture, repositoryFixture.repository)
       ).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
         description: 'The Core Delivery Platform Portal.',
@@ -37,7 +37,7 @@ describe('#decorateService', () => {
   describe('With a create service status', () => {
     test('Should provide expected service when decorated with repository', () => {
       expect(
-        decorateService(
+        repositoryDecorator(
           transformCreateServiceStatusToService(
             createServiceStatusInProgressFixture.repositoryStatus
           ),
@@ -58,6 +58,30 @@ describe('#decorateService', () => {
         teams: [
           {
             github: 'cdp-platform',
+            name: 'Platform',
+            teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
+          }
+        ]
+      })
+    })
+  })
+
+  describe('Without a repository', () => {
+    test('Should provide expected service without repository decoration', () => {
+      expect(
+        repositoryDecorator(
+          transformCreateServiceStatusToService(
+            createServiceStatusInProgressFixture.repositoryStatus
+          )
+        )
+      ).toEqual({
+        githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
+        id: 'cdp-portal-frontend',
+        isCreateService: true,
+        serviceName: 'cdp-portal-frontend',
+        serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
+        teams: [
+          {
             name: 'Platform',
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }

@@ -5,8 +5,8 @@ import { compose } from 'lodash/fp'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { fetchRunningServicesById } from '~/src/server/services/helpers/fetch/fetch-running-services-by-id'
 import { transformWithEnvironments } from '~/src/server/common/transformers/transform-with-environments'
-import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
 import { transformRunningServicesToEntityRow } from '~/src/server/services/transformers/transform-running-services-to-entity-row'
+import { transformServiceToEntityDataList } from '~/src/server/common/transformers/transform-service-to-entity-data-list'
 
 const serviceController = {
   options: {

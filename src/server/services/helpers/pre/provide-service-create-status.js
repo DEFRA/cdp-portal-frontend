@@ -1,11 +1,12 @@
 import { isNull } from 'lodash'
 
 import { nullify404 } from '~/src/server/services/helpers/nullify-404'
-import { decorateService } from '~/src/server/services/helpers/decorate-service'
+
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch/fetch-create-service-status'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 /**
  * This prerequisite provides a value to `pre.service` which is:
@@ -37,7 +38,7 @@ const provideServiceCreateStatus = {
       transformCreateServiceStatusToService(repositoryStatus)
 
     if (!isNull(repository)) {
-      return decorateService(repositoryStatusService, repository)
+      return repositoryDecorator(repositoryStatusService, repository)
     }
 
     return repositoryStatusService

@@ -2,11 +2,12 @@ import { unionBy } from 'lodash'
 
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-repositories'
-import { decorateServices } from '~/src/server/services/helpers/decorate-services'
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
-import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
+
 import { fetchInProgress } from '~/src/server/services/helpers/fetch/fetch-in-progress'
 import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
+import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
+import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
 
 const serviceListController = {
   handler: async (request, h) => {
@@ -17,7 +18,7 @@ const serviceListController = {
     const inProgressServices = inProgress?.map(
       transformCreateServiceStatusToService
     )
-    const decorator = decorateServices(repositories)
+    const decorator = repositoriesDecorator(repositories)
 
     const deployableServicesWithRepository = deployableServices.map(decorator)
 
