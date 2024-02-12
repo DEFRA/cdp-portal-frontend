@@ -84,6 +84,8 @@ async function createServer() {
     apply: true
   })
 
+  await server.register(requestLogger)
+
   if (isProduction) {
     await server.register(secureContext)
   }
@@ -93,7 +95,6 @@ async function createServer() {
     azureOidc,
     sessionCookie,
     csrf,
-    requestLogger,
     nunjucksConfig,
     router
   ])
