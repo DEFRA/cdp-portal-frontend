@@ -24,12 +24,11 @@
               name: "imageName",
               label: {
                 text: "Image name",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select app-select--wide",
               hint: {
-                text: "Elastic Container Registry (ECR) image name",
-                classes: "govuk-!-margin-bottom-1"
+                text: "Elastic Container Registry (ECR) image name"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -43,7 +42,7 @@
               },
               errorMessage: {
                 text: formErrors.imageName.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -56,13 +55,12 @@
               name: "version",
               label: {
                 text: "Image version",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               value: formValues.version,
               hint: {
-                text: "Elastic Container Registry (ECR) image version",
-                classes: "govuk-!-margin-bottom-1"
+                text: "Elastic Container Registry (ECR) image version"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -75,7 +73,7 @@
               },
               errorMessage: {
                 text: formErrors.version.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -88,20 +86,19 @@
               name: "environment",
               label: {
                 text: "Environment",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               value: formValues.environment,
               hint: {
-                text: "The environment to deploy to",
-                classes: "govuk-!-margin-bottom-1"
+                text: "The environment to deploy to"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
               errorMessage: {
                 text: formErrors.environment.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
