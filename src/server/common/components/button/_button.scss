@@ -17,11 +17,6 @@
   }
 }
 
-.app-button--inline {
-  @include govuk-font(19);
-  margin-left: govuk-spacing(1);
-}
-
 .app-button--small {
   @include govuk-font(19);
   padding: 0 govuk-spacing(1);
