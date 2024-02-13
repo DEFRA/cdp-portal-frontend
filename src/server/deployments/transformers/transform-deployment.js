@@ -6,6 +6,7 @@ import { calculateDeploymentStatus } from '~/src/server/deployments/helpers/calc
 
 const byLatest = (a, b) => Date.parse(b.deployedAt) - Date.parse(a.deployedAt)
 
+// TODO: Complex, move the bulk of this logic to the backend
 function transformDeployment(deploymentEvents) {
   const requestedDeployment = deploymentEvents.find(
     (deploymentEvent) =>
@@ -18,8 +19,9 @@ function transformDeployment(deploymentEvents) {
       event.status.toLowerCase() !== deploymentStatus.requested
   )
 
+  // Deploying 0 instances wont produce any more ECS events tied to the deployment ID
+  // so we need to manually set it to stopped so the UI doesnt get stuck.
   if (requestedDeployment && deploymentTasks.length === 0) {
-    // A bit of a hack to get this page showing the correct status on un-deployments
     if (requestedDeployment.instanceCount === 0) {
       requestedDeployment.status = deploymentStatus.stopped
     }

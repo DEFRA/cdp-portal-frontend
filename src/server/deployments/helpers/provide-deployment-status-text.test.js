@@ -1,6 +1,16 @@
 import { provideDeploymentStatusText } from '~/src/server/deployments/helpers/provide-deployment-status-text'
 
 describe('#provideDeploymentStatusText', () => {
+  test('Should provide expected "stopped" text on un-deployment', () => {
+    expect(
+      provideDeploymentStatusText({
+        status: 'requested',
+        desiredStatus: null,
+        requestedCount: 0
+      })
+    ).toEqual('stopped')
+  })
+
   test('Should provide expected "stopping" text', () => {
     expect(
       provideDeploymentStatusText({
