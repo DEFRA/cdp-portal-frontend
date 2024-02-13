@@ -2,7 +2,7 @@ import { pickBy } from 'lodash'
 
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
-function provideFormContextValues(sessionName) {
+function provideFormContextValues(sessionName = null) {
   return (request, h) => {
     const response = request.response
 
