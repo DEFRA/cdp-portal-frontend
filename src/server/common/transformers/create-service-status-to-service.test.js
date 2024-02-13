@@ -1,5 +1,5 @@
 import { config } from '~/src/config'
-import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 
 const githubOrg = config.get('githubOrg')

@@ -4,8 +4,7 @@ import Boom from '@hapi/boom'
 import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite'
 import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
-// TODO move to /common
-import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
+import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-environments'
 import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch'
 import { transformTestSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results'
 
@@ -14,7 +13,7 @@ const testSuiteController = {
     pre: [provideTestSuite],
     validate: {
       params: Joi.object({
-        testSuiteId: Joi.string().required()
+        serviceId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

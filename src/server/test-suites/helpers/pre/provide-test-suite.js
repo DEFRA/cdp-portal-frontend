@@ -4,7 +4,7 @@ import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch'
 
 const provideTestSuite = {
   method: async function (request) {
-    const testSuiteId = request.params?.testSuiteId
+    const testSuiteId = request.params?.serviceId
 
     const githubResponse = await fetchRepository(testSuiteId)
     const repository = githubResponse?.repository ?? null

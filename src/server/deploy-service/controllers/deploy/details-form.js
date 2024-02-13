@@ -7,7 +7,7 @@ import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetc
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
+import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-environments'
 
 const detailsFormController = {
   options: {

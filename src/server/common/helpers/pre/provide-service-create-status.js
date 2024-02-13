@@ -3,8 +3,8 @@ import { isNull } from 'lodash'
 import { nullify404 } from '~/src/server/services/helpers/nullify-404'
 
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
-import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch/fetch-create-service-status'
-import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
+import { fetchCreateServiceStatus } from '~/src/server/common/helpers/fetch/fetch-create-service-status'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
@@ -12,6 +12,7 @@ import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repo
  * This prerequisite provides a value to `pre.service` which is:
  *  - a create service status
  *  - a create service status with github details
+ *  - a service is currently a deployable artifact, a service or a test suite
  */
 const provideServiceCreateStatus = {
   method: async function (request) {

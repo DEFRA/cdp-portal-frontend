@@ -64,9 +64,7 @@ const envTestSuiteCreateController = {
           type: 'success'
         })
 
-        return h.redirect(
-          `/services/env-test-suite/create-status/${json.repositoryName}`
-        )
+        return h.redirect(`/test-suites/create-status/${json.repositoryName}`)
       }
 
       request.yar.flash(sessionNames.validationFailure, {

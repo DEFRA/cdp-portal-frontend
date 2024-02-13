@@ -3,7 +3,7 @@ import { serviceToEntityDataList } from '~/src/server/common/transformers/servic
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 
 const githubOrg = config.get('githubOrg')
