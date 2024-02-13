@@ -34,20 +34,22 @@ const triggerTestSuiteRunController = {
     }
 
     if (!validationResult.error) {
-      const { json, response } = await runTest(request, imageName, environment)
+      try {
+        const { response } = await runTest(request, imageName, environment)
 
-      if (response.ok) {
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Test run requested successfully',
-          type: 'success'
-        })
+        if (response.ok) {
+          request.yar.flash(sessionNames.notifications, {
+            text: 'Test run requested successfully',
+            type: 'success'
+          })
+
+          return h.redirect(`/test-suites/${imageName}`)
+        }
+      } catch (error) {
+        request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
         return h.redirect(`/test-suites/${imageName}`)
       }
-
-      request.yar.flash(sessionNames.globalValidationFailures, json.message)
-
-      return h.redirect(`/test-suites/${imageName}`)
     }
   }
 }
