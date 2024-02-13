@@ -1,5 +1,6 @@
 import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transformers/transform-deployments-to-entity-row'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
+import { undeploymentsFixture } from '~/src/__fixtures__/undeployments'
 
 describe('#transformDeploymentsToEntityRow', () => {
   test('Should provide expected deployed service transformation', () => {
@@ -28,6 +29,34 @@ describe('#transformDeploymentsToEntityRow', () => {
         formatString: 'k:mm:ss EE do MMM yyyy',
         kind: 'date',
         value: '2023-12-14T14:04:49Z'
+      }
+    ])
+  })
+
+  test('Should show un-deployment events as STOPPED', () => {
+    expect(transformDeploymentsToEntityRow(undeploymentsFixture)).toEqual([
+      {
+        kind: 'link',
+        url: '/deployments/infra-dev/3f5dff54-9bea-4a53-830d-96610af8c2b4',
+        value: 'cdp-portal-frontend'
+      },
+      {
+        kind: 'text',
+        value: '0.217.0'
+      },
+      {
+        classes: 'govuk-tag--grey',
+        kind: 'tag',
+        value: 'stopped'
+      },
+      {
+        kind: 'text',
+        value: 'The Terminator'
+      },
+      {
+        formatString: 'k:mm:ss EE do MMM yyyy',
+        kind: 'date',
+        value: '2024-01-17T18:46:36.171Z'
       }
     ])
   })
