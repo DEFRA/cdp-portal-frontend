@@ -6,12 +6,12 @@ import {
   fetchTeam,
   fetchGithubArtifacts
 } from '~/src/server/teams/helpers/fetch'
-import { transformTeamUsers } from '~/src/server/teams/transformers/transform-team-users'
-import { transformTeamToHeadingEntities } from '~/src/server/teams/transformers/transform-team-to-heading-entities'
-import { transformTeamToEntityDataList } from '~/src/server/teams/transformers/transform-team-to-entity-data-list'
-import { transformTeamRepositories } from '~/src/server/teams/transformers/transform-team-repositories'
-import { transformTeamTemplates } from '~/src/server/teams/transformers/transform-team-templates'
-import { transformTeamLibraries } from '~/src/server/teams/transformers/transform-team-libraries'
+import { teamUsers } from '~/src/server/teams/transformers/team-users'
+import { teamToHeadingEntities } from '~/src/server/teams/transformers/team-to-heading-entities'
+import { teamToEntityDataList } from '~/src/server/teams/transformers/team-to-entity-data-list'
+import { teamRepositories } from '~/src/server/teams/transformers/team-repositories'
+import { teamTemplates } from '~/src/server/teams/transformers/team-templates'
+import { teamLibraries } from '~/src/server/teams/transformers/team-libraries'
 
 const teamController = {
   options: {
@@ -40,14 +40,12 @@ const teamController = {
       pageTitle: `${teamWithGithubArtifacts.name} team`,
       heading: teamWithGithubArtifacts.name,
       team: teamWithGithubArtifacts,
-      entityDataList: transformTeamToEntityDataList(team),
-      headingEntities: transformTeamToHeadingEntities(team),
-      teamMembers: transformTeamUsers(team, hasTeamScope),
-      teamRepositories: transformTeamRepositories(
-        teamWithGithubArtifacts?.repositories
-      ),
-      teamTemplates: transformTeamTemplates(teamWithGithubArtifacts?.templates),
-      teamLibraries: transformTeamLibraries(teamWithGithubArtifacts?.libraries),
+      entityDataList: teamToEntityDataList(team),
+      headingEntities: teamToHeadingEntities(team),
+      teamMembers: teamUsers(team, hasTeamScope),
+      teamRepositories: teamRepositories(teamWithGithubArtifacts?.repositories),
+      teamTemplates: teamTemplates(teamWithGithubArtifacts?.templates),
+      teamLibraries: teamLibraries(teamWithGithubArtifacts?.libraries),
       breadcrumbs: [
         {
           text: 'Teams',

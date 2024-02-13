@@ -1,8 +1,8 @@
 import { compose } from 'lodash/fp'
 
-import { transformServicesToEntityRows } from '~/src/server/running-services/transformers/transform-services-to-entity-rows'
+import { servicesToEntityRows } from '~/src/server/running-services/transformers/services-to-entity-rows'
 import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services'
-import { transformWithEnvironments } from '~/src/server/common/transformers/transform-with-environments'
+import { withEnvironments } from '~/src/server/common/transformers/with-environments'
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 
 const runningServicesListController = {
@@ -13,8 +13,8 @@ const runningServicesListController = {
     )
 
     const entityRows = compose(
-      transformServicesToEntityRows,
-      transformWithEnvironments
+      servicesToEntityRows,
+      withEnvironments
     )(sortedRunningServices)
 
     return h.view('running-services/views/list', {

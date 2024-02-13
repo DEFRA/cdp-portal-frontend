@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { fetchLibrary } from '~/src/server/utilities/helpers/fetch/fetch-library'
-import { transformRepositoryToEntityDataList } from '~/src/server/utilities/transformers/transform-repository-to-entity-data-list'
+import { repositoryToEntityDataList } from '~/src/server/utilities/transformers/repository-to-entity-data-list'
 
 const libraryController = {
   options: {
@@ -20,7 +20,7 @@ const libraryController = {
     return h.view('utilities/views/library', {
       pageTitle: library.id,
       heading: library.id,
-      entityDataList: transformRepositoryToEntityDataList(library),
+      entityDataList: repositoryToEntityDataList(library),
       library,
       breadcrumbs: [
         {

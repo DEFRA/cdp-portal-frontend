@@ -1,5 +1,5 @@
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { transformDeploymentRows } from '~/src/server/deploy-service/transformers/transform-deployment-rows'
+import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
@@ -30,11 +30,7 @@ const summaryController = {
       headingCaption:
         'Information about the Microservice you are going to deploy.',
       helpText: buildHelpText(cpuDetail?.value, memoryDetail?.value),
-      deploymentRows: transformDeploymentRows(
-        deployment,
-        cpuDetail,
-        memoryDetail
-      ),
+      deploymentRows: deploymentRows(deployment, cpuDetail, memoryDetail),
       formButtonText: 'Deploy'
     })
   }

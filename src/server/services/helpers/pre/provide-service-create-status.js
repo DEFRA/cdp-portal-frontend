@@ -4,7 +4,7 @@ import { nullify404 } from '~/src/server/services/helpers/nullify-404'
 
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 import { fetchCreateServiceStatus } from '~/src/server/services/helpers/fetch/fetch-create-service-status'
-import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
@@ -35,7 +35,7 @@ const provideServiceCreateStatus = {
     }
 
     const repositoryStatusService =
-      transformCreateServiceStatusToService(repositoryStatus)
+      createServiceStatusToService(repositoryStatus)
 
     if (!isNull(repository)) {
       return repositoryDecorator(repositoryStatusService, repository)

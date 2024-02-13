@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
 import { serviceFixture } from '~/src/__fixtures__/service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
@@ -38,7 +38,7 @@ describe('#repositoryDecorator', () => {
     test('Should provide expected service when decorated with repository', () => {
       expect(
         repositoryDecorator(
-          transformCreateServiceStatusToService(
+          createServiceStatusToService(
             createServiceStatusInProgressFixture.repositoryStatus
           ),
           repositoryFixture.repository
@@ -70,7 +70,7 @@ describe('#repositoryDecorator', () => {
     test('Should provide expected service without repository decoration', () => {
       expect(
         repositoryDecorator(
-          transformCreateServiceStatusToService(
+          createServiceStatusToService(
             createServiceStatusInProgressFixture.repositoryStatus
           )
         )

@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite'
-import { transformServiceToEntityDataList } from '~/src/server/common/transformers/transform-service-to-entity-data-list'
+import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 // TODO move to /common
 import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
@@ -30,7 +30,7 @@ const testSuiteController = {
       pageTitle: `Test Suite - ${serviceName}`,
       heading: serviceName,
       testSuite,
-      entityDataList: transformServiceToEntityDataList(testSuite),
+      entityDataList: serviceToEntityDataList(testSuite),
       environmentOptions,
       testSuiteRunResults: testRuns.map(transformTestSuiteRunResults),
       breadcrumbs: [

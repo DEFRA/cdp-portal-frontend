@@ -5,9 +5,9 @@ import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-rep
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
 
 import { fetchInProgress } from '~/src/server/services/helpers/fetch/fetch-in-progress'
-import { transformCreateServiceStatusToService } from '~/src/server/services/transformers/transform-create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
-import { transformServiceToEntityRow } from '~/src/server/services/transformers/transform-service-to-entity-row'
+import { serviceToEntityRow } from '~/src/server/services/transformers/service-to-entity-row'
 
 const serviceListController = {
   handler: async (request, h) => {
@@ -15,9 +15,7 @@ const serviceListController = {
     const deployableServices = await fetchDeployableServices()
     const { inProgress } = await fetchInProgress()
 
-    const inProgressServices = inProgress?.map(
-      transformCreateServiceStatusToService
-    )
+    const inProgressServices = inProgress?.map(createServiceStatusToService)
     const decorator = repositoriesDecorator(repositories)
 
     const deployableServicesWithRepository = deployableServices.map(decorator)
@@ -36,7 +34,7 @@ const serviceListController = {
 
     const entityRows = services
       ?.sort(sortBy('serviceName', 'asc'))
-      ?.map(transformServiceToEntityRow)
+      ?.map(serviceToEntityRow)
 
     return h.view('services/views/list', {
       pageTitle: 'Services',

@@ -3,7 +3,7 @@ import { capitalize, cloneDeep } from 'lodash'
 import Boom from '@hapi/boom'
 
 import { environments } from '~/src/config'
-import { transformDeploymentsToEntityRow } from '~/src/server/deployments/transformers/transform-deployments-to-entity-row'
+import { deploymentsToEntityRow } from '~/src/server/deployments/transformers/deployments-to-entity-row'
 import { sortByName } from '~/src/server/common/helpers/sort-by-name'
 import { buildOptions } from '~/src/server/common/helpers/build-options'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
@@ -47,7 +47,7 @@ const deploymentsListController = {
       ...new Set(allDeployments.map((deployment) => deployment.status))
     ].sort(sortByName)
 
-    const entityRows = deployments?.map(transformDeploymentsToEntityRow)
+    const entityRows = deployments?.map(deploymentsToEntityRow)
 
     return h.view('deployments/views/list', {
       pageTitle: 'Deployments',
