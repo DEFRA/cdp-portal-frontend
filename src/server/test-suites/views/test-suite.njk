@@ -1,0 +1,97 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: "Information about the " + heading + " test-suite.",
+    entities: headingEntities
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">About</h2>
+        <p>
+          {{ testSuite.description }}
+        </p>
+      </section>
+
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Run</h2>
+        <p>
+          Run the latest version of your test suit against an environment of your choosing.
+        </p>
+
+        <form action="/test-suites/run" method="post" data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="imageName" value="{{ testSuite.serviceName }}"/>
+
+          {% call govukFieldset() %}
+            {{ govukSelect({
+              id: "environment",
+              name: "environment",
+              label: {
+                text: "Environment",
+                classes: "app-label"
+              },
+              classes: "app-select",
+              value: formValues.environment,
+              hint: {
+                text: "The environment to run your tests against",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: {
+                text: formErrors.environment.message,
+                classes: "app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.environment.message,
+              items: environmentOptions
+            }) }}
+          {% endcall %}
+
+          {{ appButton({
+            text: "Run",
+            loader: {
+              name: "run-submit-button"
+            }
+          }) }}
+        </form>
+
+      </section>
+
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Results</h2>
+        <p>
+          Results from your test suite runs.
+        </p>
+        {{ appEntityList({
+          headings: [
+            { text: "User", size: "large" },
+            { text: "Environment", size: "medium" },
+            { text: "Results", size: "massive" },
+            { text: "Ran", size: "large" }
+          ],
+          entityRows: testSuiteRunResults,
+          noResult: "Currently there are test suite run results"
+        }) }}
+
+      </section>
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      {{ appEntityDataList({
+        heading: "Details",
+        items: entityDataList
+      }) }}
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 import { nullify404 } from '~/src/server/services/helpers/nullify-404'
-import { decorateService } from '~/src/server/services/helpers/decorate-service'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 import { fetchDeployableService } from '~/src/server/services/helpers/fetch/fetch-deployable-service'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 /**
  * This prerequisite provides a value to `pre.service` which is:
@@ -16,7 +16,7 @@ const provideService = {
     const repository = githubResponse?.repository ?? null
     const deployableService = await fetchDeployableService(serviceId)
 
-    return decorateService(
+    return repositoryDecorator(
       { isDeployable: true, ...deployableService },
       repository
     )

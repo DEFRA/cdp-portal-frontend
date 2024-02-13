@@ -1,4 +1,4 @@
-import { fetchCdpTeams } from '~/src/server/admin/teams/helpers/fetch-cdp-teams'
+import { fetchCdpTeams } from '~/src/server/admin/teams/helpers/fetch'
 import { transformCdpTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-entity-row'
 
 const teamsListController = {

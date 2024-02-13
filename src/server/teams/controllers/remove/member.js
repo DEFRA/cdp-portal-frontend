@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers'
+import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch'
 
 const removeMemberController = {
   options: {
@@ -20,7 +20,7 @@ const removeMemberController = {
     const userId = params.userId
 
     try {
-      await removeMemberFromTeam(request.fetchWithAuth, teamId, userId)
+      await removeMemberFromTeam(request.authedFetcher, teamId, userId)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Member removed from team',

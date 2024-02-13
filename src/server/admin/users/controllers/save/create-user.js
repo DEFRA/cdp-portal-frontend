@@ -16,20 +16,22 @@ const createUserController = {
     const cdpUser = request.pre?.cdpUser
     const createUserEndpointUrl = `${config.get('userServiceApiUrl')}/users`
 
-    const response = await request.fetchWithAuth(createUserEndpointUrl, {
-      method: 'post',
-      body: JSON.stringify(
-        removeNil({
-          userId: cdpUser.userId,
-          name: cdpUser.name,
-          email: cdpUser.email,
-          github: cdpUser.github,
-          defraVpnId: cdpUser.defraVpnId,
-          defraAwsId: cdpUser.defraAwsId
-        })
-      )
-    })
-    const json = await response.json()
+    const { json, response } = await request.authedFetcher(
+      createUserEndpointUrl,
+      {
+        method: 'post',
+        body: JSON.stringify(
+          removeNil({
+            userId: cdpUser.userId,
+            name: cdpUser.name,
+            email: cdpUser.email,
+            github: cdpUser.github,
+            defraVpnId: cdpUser.defraVpnId,
+            defraAwsId: cdpUser.defraAwsId
+          })
+        )
+      }
+    )
 
     if (response.ok) {
       await setStepComplete(request, h, 'allSteps')

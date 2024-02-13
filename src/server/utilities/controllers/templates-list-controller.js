@@ -1,6 +1,6 @@
 import { sortBy } from '~/src/server/common/helpers/sort-by'
 import { fetchTemplates } from '~/src/server/utilities/helpers/fetch/fetch-templates'
-import { transformUtilityToEntityRow } from '~/src/server/utilities/transformers/transform-utility-to-entity-row'
+import { utilityToEntityRow } from '~/src/server/utilities/transformers/utility-to-entity-row'
 
 const templatesListController = {
   handler: async (request, h) => {
@@ -8,7 +8,7 @@ const templatesListController = {
 
     const entityRows = templates
       ?.sort(sortBy('id', 'asc'))
-      ?.map(transformUtilityToEntityRow('templates'))
+      ?.map(utilityToEntityRow('templates'))
 
     return h.view('utilities/views/list', {
       pageTitle: 'Templates',

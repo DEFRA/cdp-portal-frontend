@@ -14,6 +14,11 @@ async function buildNavigation(request) {
         isActive: request?.path?.includes('/services')
       },
       {
+        text: 'Test suites',
+        url: '/test-suites',
+        isActive: request?.path?.includes('/test-suites')
+      },
+      {
         text: 'Utilities',
         url: '/utilities/templates',
         isActive: request?.path?.includes('/utilities')

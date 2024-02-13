@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { fetchTemplate } from '~/src/server/utilities/helpers/fetch/fetch-template'
-import { transformRepositoryToEntityDataList } from '~/src/server/utilities/transformers/transform-repository-to-entity-data-list'
+import { repositoryToEntityDataList } from '~/src/server/utilities/transformers/repository-to-entity-data-list'
 
 const templateController = {
   options: {
@@ -20,7 +20,7 @@ const templateController = {
       return h.view('utilities/views/template', {
         pageTitle: template.id,
         heading: template.id,
-        entityDataList: transformRepositoryToEntityDataList(template),
+        entityDataList: repositoryToEntityDataList(template),
         template,
         breadcrumbs: [
           {

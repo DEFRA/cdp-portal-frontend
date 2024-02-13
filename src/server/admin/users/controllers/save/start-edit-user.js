@@ -3,7 +3,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/form'
 
 const startEditUserController = {

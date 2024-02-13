@@ -33,12 +33,12 @@
               name: "instanceCount",
               label: {
                 text: "Instance count",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select app-select--slim",
               hint: {
                 text: "Number of container instances to run",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -46,7 +46,7 @@
               value: formValues.instanceCount,
               errorMessage: {
                 text: formErrors.instanceCount.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -59,12 +59,12 @@
               name: "cpu",
               label: {
                 text: "CPU size",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               hint: {
                 text: "Container CPU size",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -78,7 +78,7 @@
               },
               errorMessage: {
                 text: formErrors.cpu.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -91,12 +91,12 @@
               name: "memory",
               label: {
                 text: "Memory allocation",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               hint: {
                 text: "Container memory allocation",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -110,7 +110,7 @@
               },
               errorMessage: {
                 text: formErrors.memory.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }

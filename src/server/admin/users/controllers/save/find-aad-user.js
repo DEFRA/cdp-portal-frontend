@@ -8,7 +8,7 @@ import {
 } from '~/src/server/admin/users/helpers/form'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user'
-import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/search-azure-active-directory-users'
+import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/fetch'
 
 const findAadUserController = {
   options: {

@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformServiceStatus } from '~/src/server/services/transformers/transform-service-status'
+import { serviceStatus } from '~/src/server/services/transformers/service-status'
 import { provideServiceCreateStatus } from '~/src/server/services/helpers/pre/provide-service-create-status'
-import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
+import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
 
 const serviceStatusController = {
   options: {
@@ -22,7 +22,7 @@ const serviceStatusController = {
       return null
     }
 
-    const creationJob = transformServiceStatus(service)
+    const creationJob = serviceStatus(service)
     const isSuccess = creationJob?.status?.isSuccess
     const creationPosition = isSuccess ? 'Created' : 'Creating'
     const serviceName = service.serviceName
@@ -35,7 +35,7 @@ const serviceStatusController = {
       isSuccess,
       heading: serviceName,
       caption,
-      entityDataList: transformServiceToEntityDataList(service),
+      entityDataList: serviceToEntityDataList(service),
       service,
       breadcrumbs: [
         {

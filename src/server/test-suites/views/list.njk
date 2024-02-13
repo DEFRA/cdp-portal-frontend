@@ -1,0 +1,21 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appHeading({
+    title: heading,
+    caption: "Environment, User Journey and Performance tests."
+  }) }}
+
+  {{ appEntityList({
+    headings: [
+      { text: "Test Suite", size: "large" },
+      { text: "Team", size: "medium" },
+      { text: "Language", size: "small" },
+      { text: "Github Repository", size: "massive" },
+      { text: "Created", size: "medium" }
+    ],
+    entityRows: entityRows,
+    noResult: "Currently there are no services"
+  }) }}
+
+{% endblock %}

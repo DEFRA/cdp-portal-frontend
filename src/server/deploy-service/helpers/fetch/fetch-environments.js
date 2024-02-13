@@ -6,11 +6,13 @@ async function fetchEnvironments(request) {
   const environmentsEndpointUrl =
     config.get('portalBackendApiUrl') + '/environments'
 
-  const response = await request.fetchWithAuth(environmentsEndpointUrl, {
-    method: 'get',
-    headers: { 'Content-Type': 'application/json' }
-  })
-  const json = await response.json()
+  const { json, response } = await request.authedFetcher(
+    environmentsEndpointUrl,
+    {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json' }
+    }
+  )
 
   if (response.ok) {
     return json

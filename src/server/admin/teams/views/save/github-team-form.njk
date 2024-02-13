@@ -31,12 +31,14 @@
 
               {{ appSearch({
                 label: {
-                  text: "Github team"
+                  text: "Github team",
+                  classes: "app-label"
                 },
                 id: "githubSearch",
                 name: "githubSearch",
                 hint: {
-                  html: searchHintHtml
+                  html: searchHintHtml,
+                  classes: "app-hint"
                 },
                 value: formValues.githubSearch,
                 errorMessage: {

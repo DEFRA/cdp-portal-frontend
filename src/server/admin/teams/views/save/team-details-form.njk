@@ -26,7 +26,7 @@
               {{ govukInput({
                 label: {
                   text: "Team name",
-                  classes: "govuk-!-margin-bottom-1"
+                  classes: "app-label"
                 },
                 id: "name",
                 name: "name",
@@ -36,7 +36,7 @@
                 },
                 attributes: {
                   "data-js": "app-read-out",
-                  "data-target-id": "team-name-read-out",
+                  "data-read-out-target-id": "team-name-read-out",
                   "data-1p-ignore": ""
                 },
                 value: formValues.name,
@@ -57,7 +57,7 @@
               {{ govukTextarea({
                 label: {
                   text: "Description (optional)",
-                  classes: "govuk-!-margin-bottom-1"
+                  classes: "app-label"
                 },
                 id: "description",
                 name: "description",

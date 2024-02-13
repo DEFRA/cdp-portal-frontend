@@ -14,9 +14,9 @@ const createTeamController = {
   },
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
-    const createTeamEndpointUrl = config.get('userServiceApiUrl') + '/teams'
+    const endpoint = config.get('userServiceApiUrl') + '/teams'
 
-    const response = await request.fetchWithAuth(createTeamEndpointUrl, {
+    const { json, response } = await request.authedFetcher(endpoint, {
       method: 'post',
       body: JSON.stringify(
         removeNil({
@@ -26,7 +26,6 @@ const createTeamController = {
         })
       )
     })
-    const json = await response.json()
 
     if (response.ok) {
       await setStepComplete(request, h, 'allSteps')

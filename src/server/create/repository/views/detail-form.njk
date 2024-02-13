@@ -37,14 +37,14 @@
             {{ govukInput({
               label: {
                 text: "Repository name",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               id: "repository-name",
               name: "repositoryName",
               classes: "app-input app-input--wide",
               hint: {
                 text: "Use lowercase words with hyphen separators and a maximum of 32 characters",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -58,7 +58,7 @@
               },
               errorMessage: {
                 text: formErrors.repositoryName.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -83,12 +83,12 @@
               name: "repositoryVisibility",
               label: {
                 text: "Repository visbility",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               hint: {
                 html: visibilityHintHtml,
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -96,7 +96,7 @@
               value: formValues.repositoryVisibility,
               errorMessage: {
                 text: formErrors.repositoryVisibility.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -109,20 +109,20 @@
               name: "teamId",
               label: {
                 text: "Owning Team",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               value: formValues.teamId,
               hint: {
                 text: "The CDP team that owns your repository",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
               errorMessage: {
                 text: formErrors.teamId.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }

@@ -4,9 +4,9 @@ import { compose } from 'lodash/fp'
 
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { fetchRunningServicesById } from '~/src/server/services/helpers/fetch/fetch-running-services-by-id'
-import { transformWithEnvironments } from '~/src/server/common/transformers/transform-with-environments'
-import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
-import { transformRunningServicesToEntityRow } from '~/src/server/services/transformers/transform-running-services-to-entity-row'
+import { withEnvironments } from '~/src/server/common/transformers/with-environments'
+import { runningServicesToEntityRow } from '~/src/server/services/transformers/running-services-to-entity-row'
+import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
 
 const serviceController = {
   options: {
@@ -24,8 +24,8 @@ const serviceController = {
 
     const runningServices = await fetchRunningServicesById(serviceId)
     const runningServicesEntityRows = compose(
-      transformRunningServicesToEntityRow,
-      transformWithEnvironments
+      runningServicesToEntityRow,
+      withEnvironments
     )(runningServices)
 
     return h.view('services/views/service', {
@@ -39,7 +39,7 @@ const serviceController = {
         {}
       ),
       heading: service.serviceName,
-      entityDataList: transformServiceToEntityDataList(service),
+      entityDataList: serviceToEntityDataList(service),
       service,
       breadcrumbs: [
         {

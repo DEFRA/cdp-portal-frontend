@@ -17,17 +17,19 @@ const editUserController = {
       cdpUser.userId
     }`
 
-    const response = await request.fetchWithAuth(editUserEndpointUrl, {
-      method: 'patch',
-      body: JSON.stringify({
-        name: cdpUser.name,
-        email: cdpUser.email,
-        github: cdpUser.github,
-        defraVpnId: cdpUser.defraVpnId,
-        defraAwsId: cdpUser.defraAwsId
-      })
-    })
-    const json = await response.json()
+    const { json, response } = await request.authedFetcher(
+      editUserEndpointUrl,
+      {
+        method: 'patch',
+        body: JSON.stringify({
+          name: cdpUser.name,
+          email: cdpUser.email,
+          github: cdpUser.github,
+          defraVpnId: cdpUser.defraVpnId,
+          defraAwsId: cdpUser.defraAwsId
+        })
+      }
+    )
 
     if (response.ok) {
       await setStepComplete(request, h, 'allSteps')

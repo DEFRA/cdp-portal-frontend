@@ -53,14 +53,13 @@ const microserviceCreateController = {
       const selfServiceOpsCreateServiceEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-microservice'
 
-      const response = await request.fetchWithAuth(
+      const { json, response } = await request.authedFetcher(
         selfServiceOpsCreateServiceEndpointUrl,
         {
           method: 'post',
           body: JSON.stringify(sanitisedPayload)
         }
       )
-      const json = await response.json()
 
       if (response.ok) {
         await setStepComplete(request, h, 'allSteps')

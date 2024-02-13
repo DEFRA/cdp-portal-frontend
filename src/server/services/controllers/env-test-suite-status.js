@@ -2,8 +2,8 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { provideServiceCreateStatus } from '~/src/server/services/helpers/pre/provide-service-create-status'
-import { transformServiceToEntityDataList } from '~/src/server/services/transformers/transform-service-to-entity-data-list'
-import { transformEnvTestSuiteStatus } from '~/src/server/services/transformers/transform-env-test-suite-status'
+import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
+import { envTestSuiteStatus } from '~/src/server/services/transformers/env-test-suite-status'
 
 const envTestSuiteStatusController = {
   options: {
@@ -22,7 +22,7 @@ const envTestSuiteStatusController = {
       return null
     }
 
-    const creationJob = transformEnvTestSuiteStatus(service)
+    const creationJob = envTestSuiteStatus(service)
     const isSuccess = creationJob?.status?.isSuccess
     const creationPosition = isSuccess ? 'Created' : 'Creating'
     const serviceName = service.serviceName
@@ -35,7 +35,7 @@ const envTestSuiteStatusController = {
       isSuccess,
       heading: serviceName,
       caption,
-      entityDataList: transformServiceToEntityDataList(service),
+      entityDataList: serviceToEntityDataList(service),
       service,
       breadcrumbs: [
         {

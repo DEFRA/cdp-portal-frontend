@@ -29,14 +29,14 @@
             {{ govukInput({
               label: {
                 text: "Repository Name",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               id: "repository-name",
               name: "repositoryName",
               classes: "app-input app-input--wide",
               hint: {
                 text: "Use lowercase words with hyphen separators and a maximum of 32 characters",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -50,7 +50,7 @@
               },
               errorMessage: {
                 text: formErrors.repositoryName.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -75,12 +75,12 @@
               name: "serviceTypeTemplate",
               label: {
                 text: "Service Type",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               hint: {
                 text: "The template your service is created from",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
@@ -88,7 +88,7 @@
               value: formValues.serviceTypeTemplate,
               errorMessage: {
                 text: formErrors.serviceTypeTemplate.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }
@@ -101,20 +101,20 @@
               name: "teamId",
               label: {
                 text: "Owning Team",
-                classes: "govuk-!-margin-bottom-0"
+                classes: "app-label"
               },
               classes: "app-select",
               value: formValues.teamId,
               hint: {
                 text: "The CDP team that owns your service",
-                classes: "govuk-!-margin-bottom-1"
+                classes: "app-hint"
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
               errorMessage: {
                 text: formErrors.teamId.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message",
+                classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error"
                 }

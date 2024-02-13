@@ -46,14 +46,13 @@ const repositoryCreateController = {
       const selfServiceOpsCreateRepositoryEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-repository'
 
-      const response = await request.fetchWithAuth(
+      const { json, response } = await request.authedFetcher(
         selfServiceOpsCreateRepositoryEndpointUrl,
         {
           method: 'post',
           body: JSON.stringify(sanitisedPayload)
         }
       )
-      const json = await response.json()
 
       if (response.ok) {
         request.yar.clear(sessionNames.validationFailure)

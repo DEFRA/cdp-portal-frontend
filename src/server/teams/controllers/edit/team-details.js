@@ -6,7 +6,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { provideCdpTeam } from '~/src/server/admin/teams/helpers'
 import { teamValidation } from '~/src/server/teams/helpers/schema/team-validation'
 import { noSessionRedirect } from '~/src/server/teams/helpers/ext/no-session-redirect'
-import { editTeam } from '~/src/server/admin/teams/helpers/edit-team'
+import { editTeam } from '~/src/server/admin/teams/helpers/fetch'
 
 const teamDetailsController = {
   options: {

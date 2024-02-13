@@ -4,7 +4,7 @@ import { addSeconds } from 'date-fns'
 import { config } from '~/src/config'
 import { isUserInServiceTeam } from '~/src/server/common/helpers/user/is-user-in-service-team'
 import { scopes } from '~/src/server/common/constants/scopes'
-import { fetchTeams } from '~/src/server/teams/helpers/fetch-teams'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 
 function removeUserSession(request) {
   request.dropUserSession()

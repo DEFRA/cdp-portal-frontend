@@ -1,6 +1,6 @@
 import { uniqBy } from 'lodash'
 
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch-cdp-user'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
 import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/form'
 
 const presentUsersToAdd = {
