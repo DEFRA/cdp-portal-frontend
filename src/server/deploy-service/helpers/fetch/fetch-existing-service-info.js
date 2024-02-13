@@ -1,29 +1,21 @@
-import Boom from '@hapi/boom'
-import fetch from 'node-fetch'
-
 import { config } from '~/src/config'
+import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchExistingServiceInfo(environment, imageName) {
-  const existingServiceInfoEndpoint =
-    config.get('selfServiceOpsApiUrl') +
-    `/deploy-service/info/${environment}/${imageName}`
+  try {
+    const endpoint =
+      config.get('selfServiceOpsApiUrl') +
+      `/deploy-service/info/${environment}/${imageName}`
+    const { json } = await fetcher(endpoint)
 
-  const response = await fetch(existingServiceInfoEndpoint, {
-    method: 'get',
-    headers: { 'Content-Type': 'application/json' }
-  })
-
-  const json = await response.json()
-
-  if (response.ok) {
     return json
-  }
+  } catch (error) {
+    if (error.output.statusCode === 404) {
+      return null
+    }
 
-  if (response.status === 404) {
-    return null
+    throw error
   }
-
-  throw Boom.boomify(new Error(json.message), { statusCode: response.status })
 }
 
 export { fetchExistingServiceInfo }

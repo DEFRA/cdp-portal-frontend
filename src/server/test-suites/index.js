@@ -1,7 +1,10 @@
-import { testSuiteListController } from '~/src/server/test-suites/controllers/test-suite-list'
-import { testSuiteController } from '~/src/server/test-suites/controllers/test-suite'
-import { triggerTestSuiteRunController } from '~/src/server/test-suites/controllers/trigger-test-suite-run'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import {
+  testSuiteController,
+  testSuiteListController,
+  testSuiteStatusController,
+  triggerTestSuiteRunController
+} from '~/src/server/test-suites/controllers'
 
 const testSuites = {
   plugin: {
@@ -26,8 +29,13 @@ const testSuites = {
         },
         {
           method: 'GET',
-          path: '/test-suites/{testSuiteId}',
+          path: '/test-suites/{serviceId}',
           ...testSuiteController
+        },
+        {
+          method: 'GET',
+          path: '/test-suites/create-status/{serviceId}',
+          ...testSuiteStatusController
         },
         {
           method: 'POST',

@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { provideServiceCreateStatus } from '~/src/server/services/helpers/pre/provide-service-create-status'
+import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status'
 import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
-import { envTestSuiteStatus } from '~/src/server/services/transformers/env-test-suite-status'
+import { testSuiteStatus } from '~/src/server/test-suites/transformers/test-suite-status'
 
-const envTestSuiteStatusController = {
+const testSuiteStatusController = {
   options: {
     pre: [provideServiceCreateStatus],
     validate: {
@@ -16,38 +16,38 @@ const envTestSuiteStatusController = {
     }
   },
   handler: async (request, h) => {
-    const service = request.pre.service
+    const testSuite = request.pre.service
 
-    if (!service) {
+    if (!testSuite) {
       return null
     }
 
-    const creationJob = envTestSuiteStatus(service)
+    const creationJob = testSuiteStatus(testSuite)
     const isSuccess = creationJob?.status?.isSuccess
     const creationPosition = isSuccess ? 'Created' : 'Creating'
-    const serviceName = service.serviceName
+    const serviceName = testSuite.serviceName
     const pageTitle = `${creationPosition} ${serviceName} environment test suite`
     const caption = `${creationPosition} the ${serviceName} environment test suite.`
 
-    return h.view('services/views/env-test-suite-status', {
+    return h.view('test-suites/views/status', {
       pageTitle,
       creationJob,
       isSuccess,
       heading: serviceName,
       caption,
-      entityDataList: serviceToEntityDataList(service),
-      service,
+      entityDataList: serviceToEntityDataList(testSuite),
+      testSuite,
       breadcrumbs: [
         {
-          text: 'Services',
-          href: '/services'
+          text: 'Test suites',
+          href: '/test-suites'
         },
         {
-          text: service.serviceName
+          text: testSuite.serviceName
         }
       ]
     })
   }
 }
 
-export { envTestSuiteStatusController }
+export { testSuiteStatusController }

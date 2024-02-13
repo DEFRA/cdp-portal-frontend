@@ -5,7 +5,7 @@ import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-rep
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
 
 import { fetchInProgress } from '~/src/server/services/helpers/fetch/fetch-in-progress'
-import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
 import { serviceToEntityRow } from '~/src/server/services/transformers/service-to-entity-row'
 

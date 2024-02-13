@@ -1,8 +1,7 @@
 import {
   serviceController,
   serviceListController,
-  serviceStatusController,
-  envTestSuiteStatusController
+  serviceStatusController
 } from '~/src/server/services/controllers'
 
 const services = {
@@ -19,12 +18,6 @@ const services = {
           method: 'GET',
           path: '/services/{serviceId}',
           ...serviceController
-        },
-        {
-          method: 'GET',
-          // TODO once we know where environment test suites are sitting in the UI this may change
-          path: '/services/env-test-suite/create-status/{serviceId}',
-          ...envTestSuiteStatusController
         },
         {
           method: 'GET',

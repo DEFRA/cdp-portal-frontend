@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { serviceStatus } from '~/src/server/services/transformers/service-status'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
-import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 const githubOrg = config.get('githubOrg')

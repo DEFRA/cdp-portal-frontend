@@ -60,18 +60,19 @@
       {% if isSuccess %}
         <div class="govuk-!-margin-bottom-8">
           <p class="govuk-!-margin-bottom-2">
-            Your new environment test suite <em>{{ service.serviceName }}</em> has now been created. Please have a look
+            Your new environment test suite <em>{{ testSuite.serviceName }}</em> has now been created. Please have a
+            look
             over the completed jobs detailed below.
           </p>
           <p class="govuk-!-margin-bottom-3">When you have finished looking over what has been created for your new
             environment test suite, progress to your <a class="app-link app-link--underline"
-                                                        href="/services/env-test-suite/{{ service.serviceName }}">
+                                                        href="/test-suites/{{ testSuite.serviceName }}">
               new environment test suite page</a>.
           </p>
         </div>
       {% else %}
         <p class="govuk-!-margin-bottom-8">
-          Your new environment test suite <em>{{ service.serviceName }}</em> built from the
+          Your new environment test suite <em>{{ testSuite.serviceName }}</em> built from the
           <em>{{ creationJob.serviceTypeTemplate }}</em>, is now
           being created. For more information on the setup jobs we are running for your new environment test suite see
           below.

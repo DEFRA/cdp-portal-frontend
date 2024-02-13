@@ -3,7 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
 import { environmentsFixture } from '~/src/__fixtures__/environments'
-import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
+import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-environments'
 
 describe('#fetchEnvironments', () => {
   const mockRequest = {

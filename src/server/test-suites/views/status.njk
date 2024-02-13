@@ -14,13 +14,13 @@
 
     {% if not isSuccess %}
       <div data-js="app-poll"
-           data-poll-url="/services/env-test-suite/create-status/{{ service.serviceName }}"
+           data-poll-url="/test-suites/create-status/{{ testSuite.serviceName }}"
            data-poll-interval="3000"
            data-poll-limit="45">
     {% endif %}
 
       {% block xhrContent %}
-        {% include "services/partials/env-test-suite-status.njk" %}
+        {% include "test-suites/partials/test-suite-status.njk" %}
       {% endblock %}
 
     {% if not isSuccess %}

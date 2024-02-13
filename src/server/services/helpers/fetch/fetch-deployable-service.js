@@ -4,15 +4,21 @@ import { config } from '~/src/config'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchDeployableService(serviceId) {
-  const endpoint = config.get('portalBackendApiUrl') + `/services/${serviceId}`
+  try {
+    const endpoint =
+      config.get('portalBackendApiUrl') + `/services/${serviceId}`
 
-  const { json, response } = await fetcher(endpoint)
+    const { json } = await fetcher(endpoint)
+    return json
+  } catch (error) {
+    const statusCode = error.output.statusCode
 
-  if (response.status === 204 || response.status === 404) {
-    throw Boom.boomify(Boom.notFound())
+    if (statusCode === 204 || statusCode === 404) {
+      throw Boom.boomify(Boom.notFound())
+    }
+
+    throw error
   }
-
-  return json
 }
 
 export { fetchDeployableService }

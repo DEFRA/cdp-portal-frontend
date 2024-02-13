@@ -1,6 +1,6 @@
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { runTest } from '~/src/server/test-suites/helpers/fetch'
-import { fetchEnvironments } from '~/src/server/deploy-service/helpers/fetch/fetch-environments'
+import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-environments'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 
 import { fetchRunnableTestSuiteImageNames } from '~/src/server/test-suites/helpers/fetch/fetch-runnable-test-suite-image-names'

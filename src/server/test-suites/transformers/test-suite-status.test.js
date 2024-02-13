@@ -1,13 +1,13 @@
 import { config } from '~/src/config'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { createServiceStatusToService } from '~/src/server/services/transformers/create-service-status-to-service'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { creatEnvTestSuiteStatusInProgressFixture } from '~/src/__fixtures__/create/env-test-suite-status-in-progress'
-import { envTestSuiteStatus } from '~/src/server/services/transformers/env-test-suite-status'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
+import { testSuiteStatus } from '~/src/server/test-suites/transformers/test-suite-status'
 
 const githubOrg = config.get('githubOrg')
 
-describe('#envTestSuiteStatus', () => {
+describe('#testSuiteStatus', () => {
   test('Should provide expected transformed service status', () => {
     const service = repositoryDecorator(
       createServiceStatusToService(
@@ -16,7 +16,7 @@ describe('#envTestSuiteStatus', () => {
       repositoryFixture.repository
     )
 
-    expect(envTestSuiteStatus(service)).toEqual(
+    expect(testSuiteStatus(service)).toEqual(
       expect.objectContaining({
         cdpTfSvcInfra: {
           errors: [],

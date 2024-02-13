@@ -2,7 +2,7 @@ import { startCase } from 'lodash'
 
 import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
-import { statusTagClassMap } from '~/src/server/services/helpers/status-tag-class-map'
+import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
 import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
 import { buildLink } from '~/src/server/common/helpers/build-link'
