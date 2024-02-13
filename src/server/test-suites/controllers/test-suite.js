@@ -34,7 +34,7 @@ const testSuiteController = {
       testSuiteRunResults: testRuns.map(transformTestSuiteRunResults),
       breadcrumbs: [
         {
-          text: 'Tests',
+          text: 'Test suites',
           href: '/test-suites'
         },
         {
