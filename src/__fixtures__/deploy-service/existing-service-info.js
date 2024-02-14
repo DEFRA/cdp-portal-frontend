@@ -1,44 +1,7 @@
 const existingServiceInfoFixture = {
-  message: 'success',
-  serviceInfo: {
-    container_image: 'cdp-portal-frontend',
-    container_port: 3000,
-    container_version: '0.86.0',
-    desired_count: 2,
-    healthcheck: '/health',
-    name: 'cdp-portal-frontend',
-    env_vars: {
-      CDP_REDEPLOY: '2023-08-29T16:04:20.353Z'
-    },
-    secrets: {
-      SESSION_COOKIE_PASSWORD: 'cdp/services:SESSION_COOKIE_PASSWORD'
-    },
-    task_cpu: 1024,
-    task_memory: 2048,
-    deploy_metrics: false,
-    env_files: [
-      {
-        value:
-          'arn:aws:s3:::cdp-infra-dev-service-configs/global/global_frontend_fixed.env',
-        type: 's3'
-      },
-      {
-        value:
-          'arn:aws:s3:::cdp-infra-dev-service-configs/services/infra-dev.env',
-        type: 's3'
-      },
-      {
-        value:
-          'arn:aws:s3:::cdp-infra-dev-service-configs/services/defaults.env',
-        type: 's3'
-      },
-      {
-        value:
-          'arn:aws:s3:::cdp-infra-dev-service-configs/environments/infra-dev/defaults.env',
-        type: 's3'
-      }
-    ]
-  }
+  instanceCount: 2,
+  cpu: '1024',
+  memory: '2048'
 }
 
 export { existingServiceInfoFixture }
