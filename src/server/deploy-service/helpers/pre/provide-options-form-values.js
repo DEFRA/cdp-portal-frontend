@@ -26,12 +26,12 @@ const provideOptionsFormValues = {
 
       // Populate with already deployed service
       if (serviceInfoResponse) {
-        const { serviceInfo } = serviceInfoResponse
-        const cpu = serviceInfo?.task_cpu
+        const serviceInfo = serviceInfoResponse
+        const cpu = serviceInfo?.cpu
         formDetail.formValues = {
           // Cast to string due to 0 comparison in govuk select component. 0 is a valid value
-          instanceCount: serviceInfo?.desired_count?.toString(),
-          memory: serviceInfo?.task_memory,
+          instanceCount: serviceInfo?.instanceCount?.toString(),
+          memory: serviceInfo?.memory,
           cpu
         }
         formDetail.availableMemoryOptions = [

@@ -4,8 +4,8 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 async function fetchExistingServiceInfo(environment, imageName) {
   try {
     const endpoint =
-      config.get('selfServiceOpsApiUrl') +
-      `/deploy-service/info/${environment}/${imageName}`
+      config.get('portalBackendApiUrl') +
+      `/deployment-config/${imageName}/${environment}`
     const { json } = await fetcher(endpoint)
 
     return json
