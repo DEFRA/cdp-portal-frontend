@@ -12,8 +12,8 @@ async function fetcher(url, options = {}) {
     ...options,
     method: options?.method || 'get',
     headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers && { headers: options.headers })
+      ...(options?.headers && options?.headers),
+      'Content-Type': 'application/json'
     }
   })
   const json = await response.json()
