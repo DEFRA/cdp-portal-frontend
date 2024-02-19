@@ -19,58 +19,63 @@
         </p>
       </section>
 
-      <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Run</h2>
-        <p>
-          Run the latest version of your test suit against an environment of your choosing.
-        </p>
+      {% if isInServiceTeam or isAdmin %}
+        <section class="govuk-!-margin-bottom-6">
 
-        <form action="/test-suites/run" method="post" data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-          <input type="hidden" name="imageName" value="{{ testSuite.serviceName }}"/>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Run</h2>
+          <p>
+            Run the latest version of your test suit against an environment of your choosing.
+          </p>
 
-          {% call govukFieldset() %}
-            {{ govukSelect({
-              id: "environment",
-              name: "environment",
-              label: {
-                text: "Environment",
-                classes: "app-label"
-              },
-              classes: "app-select",
-              value: formValues.environment,
-              hint: {
-                text: "The environment to run your tests against",
-                classes: "app-hint"
-              },
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
-              errorMessage: {
-                text: formErrors.environment.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error"
+          <form action="/test-suites/run" method="post" data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            <input type="hidden" name="imageName" value="{{ testSuite.serviceName }}" />
+
+            {% call govukFieldset() %}
+              {{ govukSelect({
+                id: "environment",
+                name: "environment",
+                label: {
+                  text: "Environment",
+                  classes: "app-label"
+                },
+                classes: "app-select",
+                value: formValues.environment,
+                hint: {
+                  text: "The environment to run your tests against",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group app-form-group--slim app-form-group-js"
+                },
+                errorMessage: {
+                  text: formErrors.environment.message,
+                  classes: "app-error-message",
+                  attributes: {
+                    "data-js": "app-error"
+                  }
+                } if formErrors.environment.message,
+                items: environmentOptions
+              }) }}
+
+
+              {{ appButton({
+                text: "Run",
+                loader: {
+                  name: "run-submit-button"
                 }
-              } if formErrors.environment.message,
-              items: environmentOptions
-            }) }}
-          {% endcall %}
+              }) }}
 
-          {{ appButton({
-            text: "Run",
-            loader: {
-              name: "run-submit-button"
-            }
-          }) }}
-        </form>
+            {% endcall %}
+          </form>
 
-      </section>
+        </section>
+      {% endif %}
 
       <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Results</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Results</h2>
         <p>
-          Results from your test suite runs.
+          Results from <em>{{ testSuite.serviceName }}</em> test suite runs.
         </p>
         {{ appEntityList({
           headings: [
