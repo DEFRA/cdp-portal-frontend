@@ -4,6 +4,10 @@
   margin-bottom: govuk-spacing(6);
 }
 
+.app-form-group--slim {
+  margin-bottom: govuk-spacing(2);
+}
+
 .app-form-group,
 .govuk-form-group--error {
   & .govuk-error-message {

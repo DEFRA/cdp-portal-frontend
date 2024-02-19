@@ -21,8 +21,13 @@ const testSuiteController = {
   handler: async (request, h) => {
     const testSuite = request.pre.testSuite
     const serviceName = testSuite.serviceName
+    const authedUser = await request.getUserSession()
+    const environmentOptions = []
 
-    const environmentOptions = buildOptions(await fetchEnvironments(request))
+    if (authedUser.isInServiceTeam || authedUser.isAdmin) {
+      const environments = await fetchEnvironments(request)
+      environmentOptions.push(...buildOptions(environments))
+    }
     const testRuns = await fetchTestRuns(serviceName)
 
     return h.view('test-suites/views/test-suite', {
