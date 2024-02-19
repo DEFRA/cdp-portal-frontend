@@ -1,8 +1,12 @@
-function buildS3Url({ environment, testSuite, runId }) {
-  return `https://s3.console.aws.amazon.com/s3/buckets/cdp-${environment}-test-results?region=eu-west-2&bucketType=general&prefix=${testSuite}/${runId}/&showversions=false`
-}
+import { buildS3PresignedUrl } from '~/src/server/common/helpers/aws/build-s3-presigned-url'
 
-function transformTestSuiteRunResults(testRun) {
+async function transformTestSuiteRunResults(testRun) {
+  const presignedS3testResultsUrl = await buildS3PresignedUrl({
+    region: 'eu-west-2',
+    bucket: `cdp-${testRun.environment}-test-results`,
+    key: `${testRun.testSuite}/${testRun.runId}/index.html`
+  })
+
   return [
     {
       kind: 'text',
@@ -15,7 +19,7 @@ function transformTestSuiteRunResults(testRun) {
     {
       kind: 'link',
       value: 'Run report',
-      url: buildS3Url(testRun),
+      url: presignedS3testResultsUrl,
       newWindow: true
     },
     { kind: 'date', value: testRun.created }

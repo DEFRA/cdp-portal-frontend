@@ -28,7 +28,11 @@ const testSuiteController = {
       const environments = await fetchEnvironments(request)
       environmentOptions.push(...buildOptions(environments))
     }
+
     const testRuns = await fetchTestRuns(serviceName)
+    const testSuiteRunResults = await Promise.all(
+      testRuns.map(transformTestSuiteRunResults)
+    )
 
     return h.view('test-suites/views/test-suite', {
       pageTitle: `Test Suite - ${serviceName}`,
@@ -36,7 +40,7 @@ const testSuiteController = {
       testSuite,
       entityDataList: serviceToEntityDataList(testSuite),
       environmentOptions,
-      testSuiteRunResults: testRuns.map(transformTestSuiteRunResults),
+      testSuiteRunResults,
       breadcrumbs: [
         {
           text: 'Test suites',
