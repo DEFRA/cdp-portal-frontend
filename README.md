@@ -50,6 +50,7 @@ Install application dependencies:
 
 ```bash
 npm install
+npm install --save-dev webpack
 ```
 
 ### Portal APIs
