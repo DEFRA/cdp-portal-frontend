@@ -1,13 +1,4 @@
-import { buildS3PresignedUrl } from '~/src/server/common/helpers/aws/build-s3-presigned-url'
-import { config } from 'date-fns/docs/config'
-
-async function transformTestSuiteRunResults(testRun) {
-  const presignedS3testResultsUrl = await buildS3PresignedUrl({
-    region: config.get('awsRegion'),
-    bucket: `cdp-${testRun.environment}-test-results`,
-    key: `${testRun.testSuite}/${testRun.runId}/index.html`
-  })
-
+function transformTestSuiteRunResults(testRun) {
   return [
     {
       kind: 'text',
@@ -20,7 +11,7 @@ async function transformTestSuiteRunResults(testRun) {
     {
       kind: 'link',
       value: 'Run report',
-      url: presignedS3testResultsUrl,
+      url: `/test-suites/test-results/${testRun.environment}/${testRun.testSuite}/${testRun.runId}`,
       newWindow: true
     },
     { kind: 'date', value: testRun.created }

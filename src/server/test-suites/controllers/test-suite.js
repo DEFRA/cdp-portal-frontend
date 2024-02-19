@@ -30,9 +30,7 @@ const testSuiteController = {
     }
 
     const testRuns = await fetchTestRuns(serviceName)
-    const testSuiteRunResults = await Promise.all(
-      testRuns.map(transformTestSuiteRunResults)
-    )
+    const testSuiteRunResults = testRuns.map(transformTestSuiteRunResults)
 
     return h.view('test-suites/views/test-suite', {
       pageTitle: `Test Suite - ${serviceName}`,

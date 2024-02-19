@@ -26,6 +26,8 @@ async function buildS3PresignedUrl({ region, bucket, key }) {
         'To create presigned urls you need to have the appropriate AWS_* envs setup. See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-credential-providers/Variable/fromEnv'
       )
       logger.error(error.message)
+
+      return null
     } else {
       throw error
     }
