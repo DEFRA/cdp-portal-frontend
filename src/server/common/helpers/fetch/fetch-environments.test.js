@@ -8,7 +8,10 @@ import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-envir
 describe('#fetchEnvironments', () => {
   const mockRequest = {
     authedFetcher: authedFetcher({
-      getUserSession: jest.fn().mockResolvedValue({})
+      getUserSession: jest.fn().mockResolvedValue({}),
+      logger: {
+        error: jest.fn()
+      }
     })
   }
   const environmentsEndpointUrl = new URL(

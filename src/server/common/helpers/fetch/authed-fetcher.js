@@ -1,11 +1,12 @@
 import fetch from 'node-fetch'
+import Boom from '@hapi/boom'
 
 import {
   removeUserSession,
   updateUserSession
 } from '~/src/server/common/helpers/auth/user-session'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
-import Boom from '@hapi/boom'
+import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error'
 
 function authedFetcher(request) {
   return async (url, options = {}) => {
@@ -44,15 +45,22 @@ function authedFetcher(request) {
         }
       }
 
-      const json = await response.json()
+      try {
+        const json = await response.json()
 
-      if (response.ok) {
-        return { json, response }
+        // status 200-299
+        if (response.ok) {
+          return { json, response }
+        }
+
+        throwHttpError(json, response)
+      } catch (error) {
+        request.logger.error(error)
+
+        throw Boom.boomify(new Error(error.message), {
+          statusCode: error?.output?.statusCode ?? 500
+        })
       }
-
-      throw Boom.boomify(new Error(json.message), {
-        statusCode: response.status
-      })
     })
   }
 }
