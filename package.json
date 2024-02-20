@@ -34,7 +34,6 @@
     "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
   },
   "dependencies": {
-    "@aws-sdk/credential-providers": "3.515.0",
     "@aws-sdk/s3-request-presigner": "3.515.0",
     "@aws-sdk/util-format-url": "3.515.0",
     "@babel/runtime": "7.23.9",
