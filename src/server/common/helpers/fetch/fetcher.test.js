@@ -47,4 +47,29 @@ describe('#fetchJson', () => {
       expect(error).toHaveProperty('message', 'Gone')
     }
   })
+
+  test('With generic error, Should throw with expected message', async () => {
+    nock(librariesEndpointUrl.origin)
+      .get(librariesEndpointUrl.pathname)
+      .replyWithError({
+        message:
+          'invalid json response body at http://bad-url reason: Unexpected end of JSON input',
+        type: 'invalid-json',
+        stack:
+          'FetchError: invalid json response body at http://bad-url reason: Unexpected end of JSON input'
+      })
+
+    expect.assertions(2)
+
+    try {
+      await fetcher(librariesEndpoint)
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error)
+      expect(error).toHaveProperty(
+        'message',
+        'request to http://localhost:5094/cdp-portal-backend/libraries failed, reason: invalid json response body at' +
+          ' http://bad-url reason: Unexpected end of JSON input'
+      )
+    }
+  })
 })

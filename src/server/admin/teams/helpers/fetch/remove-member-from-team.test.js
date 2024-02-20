@@ -13,7 +13,10 @@ describe('#removeUserFromTeam', () => {
   )
   const mockRequest = {
     authedFetcher: authedFetcher({
-      getUserSession: jest.fn().mockResolvedValue({})
+      getUserSession: jest.fn().mockResolvedValue({}),
+      logger: {
+        error: jest.fn()
+      }
     })
   }
 
