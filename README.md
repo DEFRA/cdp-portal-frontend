@@ -10,7 +10,6 @@ Portal Frontend for Core Delivery Platform (CDP)
   - [Node.js](#nodejs)
 - [Local development](#local-development)
   - [Setup](#setup)
-  - [AWS credentials](#aws-credentials)
   - [Portal APIs](#portal-apis)
   - [Redis](#redis)
   - [Development](#development)
@@ -52,14 +51,6 @@ Install application dependencies:
 ```bash
 npm install
 ```
-
-### AWS credentials
-
-The CDP Portal Frontend uses AWS for some operations. If you would like to get this working locally you will need
-AWS credentials. Set up [aws-vault](https://github.com/99designs/aws-vault) which will then provide `AWS_*`
-environment variables that
-the [fromEnv credential provider](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-credential-providers/Variable/fromEnv/)
-uses.
 
 ### Portal APIs
 
