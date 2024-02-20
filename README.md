@@ -35,7 +35,7 @@ Portal Frontend for Core Delivery Platform (CDP)
 Please install [Node.js](http://nodejs.org/) `>= v20` and [npm](https://nodejs.org/) `>= v9`.
 
 > [!TIP]
-> To install Node.js amd npm Use Node Version Manager [nvm](https://github.com/creationix/nvm)
+> To install Node.js and npm Use Node Version Manager [nvm](https://github.com/creationix/nvm)
 
 To use the correct version of Node.js for this application, via nvm:
 
