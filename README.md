@@ -99,7 +99,8 @@ To run all tests with coverage:
 npm test
 ```
 
-> [!TIP] Or use the shortcut:
+> [!TIP]
+> Or use the shortcut:
 > ```bash
 > npm t
 > ```
