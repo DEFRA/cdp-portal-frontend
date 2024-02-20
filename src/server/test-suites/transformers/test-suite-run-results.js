@@ -1,7 +1,3 @@
-function buildS3Url({ environment, testSuite, runId }) {
-  return `https://s3.console.aws.amazon.com/s3/buckets/cdp-${environment}-test-results?region=eu-west-2&bucketType=general&prefix=${testSuite}/${runId}/&showversions=false`
-}
-
 function transformTestSuiteRunResults(testRun) {
   return [
     {
@@ -15,7 +11,7 @@ function transformTestSuiteRunResults(testRun) {
     {
       kind: 'link',
       value: 'Run report',
-      url: buildS3Url(testRun),
+      url: `/test-suites/test-results/${testRun.environment}/${testRun.testSuite}/${testRun.runId}`,
       newWindow: true
     },
     { kind: 'date', value: testRun.created }

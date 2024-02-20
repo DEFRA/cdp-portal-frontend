@@ -34,6 +34,9 @@
     "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
   },
   "dependencies": {
+    "@aws-sdk/credential-providers": "3.515.0",
+    "@aws-sdk/s3-request-presigner": "3.515.0",
+    "@aws-sdk/util-format-url": "3.515.0",
     "@babel/runtime": "7.23.9",
     "@elastic/ecs-pino-format": "1.5.0",
     "@hapi/basic": "7.0.2",
@@ -47,6 +50,10 @@
     "@hapi/jwt": "3.2.0",
     "@hapi/vision": "7.0.3",
     "@hapi/yar": "11.0.1",
+    "@smithy/hash-node": "2.1.1",
+    "@smithy/property-provider": "2.1.1",
+    "@smithy/protocol-http": "3.1.1",
+    "@smithy/url-parser": "2.1.1",
     "babel-plugin-module-resolver": "5.0.0",
     "bcrypt": "5.1.1",
     "convict": "6.2.4",

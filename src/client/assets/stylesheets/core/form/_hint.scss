@@ -1,4 +1,4 @@
 // Override GOVUK specificity
 .govuk-label:not(.govuk-label--m):not(.govuk-label--l):not(.govuk-label--xl)+.govuk-hint.app-hint {
-  margin-bottom: govuk-spacing(1);
+  margin-bottom: govuk-spacing(2);
 }

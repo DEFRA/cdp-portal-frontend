@@ -46,6 +46,12 @@ const config = convict({
     default: '/public',
     env: 'ASSET_PATH'
   },
+  awsRegion: {
+    doc: 'AWS region',
+    format: String,
+    default: 'eu-west-2',
+    env: 'AWS_REGION'
+  },
   mockApiUrl: {
     doc: 'API root url',
     format: String,

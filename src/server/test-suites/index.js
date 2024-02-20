@@ -3,7 +3,8 @@ import {
   testSuiteController,
   testSuiteListController,
   testSuiteStatusController,
-  triggerTestSuiteRunController
+  triggerTestSuiteRunController,
+  testSuiteResultsController
 } from '~/src/server/test-suites/controllers'
 
 const testSuites = {
@@ -41,6 +42,11 @@ const testSuites = {
           method: 'POST',
           path: '/test-suites/run',
           ...triggerTestSuiteRunController
+        },
+        {
+          method: 'GET',
+          path: '/test-suites/test-results/{environment}/{serviceId}/{runId}',
+          ...testSuiteResultsController
         }
       ])
     }
