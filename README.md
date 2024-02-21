@@ -101,6 +101,7 @@ npm test
 
 > [!TIP]
 > Or use the shortcut:
+>
 > ```bash
 > npm t
 > ```
