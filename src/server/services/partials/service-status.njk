@@ -1,7 +1,7 @@
 {% from "progress/macro.njk" import appProgress %}
 {% from "status/macro.njk" import appStatus %}
 
-<div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-column-two-thirds" data-xhr="create-service-global-status">
   {% if creationJob.hasJobFailures %}
     {{ appHelp({
       text: "Need some help with your new service creation?"
