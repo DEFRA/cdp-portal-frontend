@@ -1,5 +1,8 @@
 .app-summary-item {
   margin-right: govuk-spacing(4);
+  padding: govuk-spacing(4);
+  background-color: $app-light-grey;
+  border-radius: $app-border-radius;
 
   @include govuk-media-query($from: desktop-wide) {
     flex: 1;

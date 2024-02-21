@@ -7,6 +7,7 @@
 {% from "icons/logs-icon/macro.njk" import appLogsIcon %}
 {% from "icons/web-icon/macro.njk" import appWebIcon %}
 {% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
+{% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
 
 {% block content %}
 
@@ -29,6 +30,23 @@
 
       {% call appSummary() %}
         {% call appSummaryItem({
+          heading: "Urls",
+          icon: appGlobeIcon({ classes: "app-icon-small"}),
+          intro: {
+            text: "View your application."
+          }
+        }) %}
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+
+            {% for env in envsWithDeployment %}
+              <li>
+              </li>
+            {% endfor %}
+
+          </ul>
+        {% endcall %}
+
+        {% call appSummaryItem({
           heading: "Logs",
           icon: appLogsIcon({ classes: "app-icon-small"}),
           intro: {
@@ -36,37 +54,15 @@
           }
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-            {% if runningEnvironmentsMap.management %}
-              <li>
-                <a class="app-link"
-                   href="https://logs.management.cdp-int.defra.cloud/_dashboards"
-                   target="_blank" rel="noopener noreferrer">Management</a>
-              </li>
-            {% endif %}
 
-            {% if runningEnvironmentsMap["infra-dev"] %}
+            {% for env in envsWithDeployment %}
               <li>
                 <a class="app-link"
-                   href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards"
-                   target="_blank" rel="noopener noreferrer">Infra-dev</a>
+                   href="{{ buildDashboardLink(env, service.serviceName) }}"
+                   target="_blank" rel="noopener noreferrer">logs.{{ env }}</a>
               </li>
-            {% endif %}
+            {% endfor %}
 
-            {% if runningEnvironmentsMap.dev %}
-              <li>
-                <a class="app-link"
-                   href="https://logs.dev.cdp-int.defra.cloud/_dashboards"
-                   target="_blank" rel="noopener noreferrer">Dev</a>
-              </li>
-            {% endif %}
-
-            {% if runningEnvironmentsMap.test %}
-              <li>
-                <a class="app-link"
-                   href="https://logs.test.cdp-int.defra.cloud/_dashboards"
-                   target="_blank" rel="noopener noreferrer">Test</a>
-              </li>
-            {% endif %}
           </ul>
         {% endcall %}
 
@@ -79,37 +75,14 @@
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
 
-            {% if runningEnvironmentsMap.management %}
+            {% for env in envsWithDeployment %}
               <li>
                 <a class="app-link"
-                   href="https://metrics.management.cdp-int.defra.cloud/?orgId=1"
-                   target="_blank" rel="noopener noreferrer">Management</a>
+                   href="https://metrics.{{ env }}.cdp-int.defra.cloud/?orgId=1"
+                   target="_blank" rel="noopener noreferrer">metrics.{{ env }}</a>
               </li>
-            {% endif %}
+            {% endfor %}
 
-            {% if runningEnvironmentsMap["infra-dev"] %}
-              <li>
-                <a class="app-link"
-                   href="https://metrics.infra-dev.cdp-int.defra.cloud/?orgId=1"
-                   target="_blank" rel="noopener noreferrer">Infra-dev</a>
-              </li>
-            {% endif %}
-
-            {% if runningEnvironmentsMap.dev %}
-              <li>
-                <a class="app-link"
-                   href="https://metrics.dev.cdp-int.defra.cloud/?orgId=1"
-                   target="_blank" rel="noopener noreferrer">Dev</a>
-              </li>
-            {% endif %}
-
-            {% if runningEnvironmentsMap.test %}
-              <li>
-                <a class="app-link"
-                   href="https://metrics.test.cdp-int.defra.cloud/?orgId=1"
-                   target="_blank" rel="noopener noreferrer">Test</a>
-              </li>
-            {% endif %}
           </ul>
         {% endcall %}
 
@@ -121,15 +94,10 @@
           }
         }) %}
           <p>
-            Raise a pull request to set environment variables for your application.
+            <a class="app-link"
+               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
+               target="_blank" rel="noopener noreferrer">cdp-app-config/{{ service.serviceName }}</a>
           </p>
-          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-            <li>
-              <a class="app-link"
-                 href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
-                 target="_blank" rel="noopener noreferrer">DEFRA/cdp-app-config</a>
-            </li>
-          </ul>
         {% endcall %}
       {% endcall %}
 
