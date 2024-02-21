@@ -1,9 +1,11 @@
+import { config } from '~/src/config'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,
   getUserSession: async () => auth
 })
+const hasFeatureFlagTestSuite = config.get('hasFeatureFlagTestSuite')
 
 describe('#buildNavigation', () => {
   describe('When user is not authenticated', () => {
@@ -21,11 +23,15 @@ describe('#buildNavigation', () => {
             text: 'Services',
             url: '/services'
           },
-          {
-            isActive: false,
-            text: 'Test suites',
-            url: '/test-suites'
-          },
+          ...(hasFeatureFlagTestSuite
+            ? [
+                {
+                  isActive: false,
+                  text: 'Test suites',
+                  url: '/test-suites'
+                }
+              ]
+            : []),
           {
             isActive: false,
             text: 'Utilities',
@@ -82,11 +88,15 @@ describe('#buildNavigation', () => {
             text: 'Services',
             url: '/services'
           },
-          {
-            isActive: false,
-            text: 'Test suites',
-            url: '/test-suites'
-          },
+          ...(hasFeatureFlagTestSuite
+            ? [
+                {
+                  isActive: false,
+                  text: 'Test suites',
+                  url: '/test-suites'
+                }
+              ]
+            : []),
           {
             isActive: false,
             text: 'Utilities',
@@ -141,11 +151,15 @@ describe('#buildNavigation', () => {
             text: 'Services',
             url: '/services'
           },
-          {
-            isActive: false,
-            text: 'Test suites',
-            url: '/test-suites'
-          },
+          ...(hasFeatureFlagTestSuite
+            ? [
+                {
+                  isActive: false,
+                  text: 'Test suites',
+                  url: '/test-suites'
+                }
+              ]
+            : []),
           {
             isActive: false,
             text: 'Utilities',
@@ -194,11 +208,15 @@ describe('#buildNavigation', () => {
           text: 'Services',
           url: '/services'
         },
-        {
-          isActive: false,
-          text: 'Test suites',
-          url: '/test-suites'
-        },
+        ...(hasFeatureFlagTestSuite
+          ? [
+              {
+                isActive: false,
+                text: 'Test suites',
+                url: '/test-suites'
+              }
+            ]
+          : []),
         {
           isActive: false,
           text: 'Utilities',
