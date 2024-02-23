@@ -1,4 +1,4 @@
-import { calculateStepWidth } from '~/src/server/common/helpers/calculate-step-width'
+import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
   deploymentSteps,

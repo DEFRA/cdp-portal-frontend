@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/build-options'
-import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
+import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'

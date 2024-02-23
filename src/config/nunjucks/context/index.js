@@ -5,7 +5,7 @@ import { config } from '~/src/config'
 import { isXhr } from '~/src/server/common/helpers/is-xhr'
 import { createLogger } from '~/src/server/common/helpers/logging/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
-import { defaultOption } from '~/src/server/common/helpers/default-option'
+import { defaultOption } from '~/src/server/common/helpers/options/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
 import { userHasTeamScope } from '~/src/server/common/helpers/user/user-has-team-scope'
 

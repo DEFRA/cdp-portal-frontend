@@ -2,8 +2,8 @@ import qs from 'qs'
 
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { serviceValidation } from '~/src/server/deploy-service/helpers/schema/service-validation'
-import { buildOptions } from '~/src/server/common/helpers/build-options'
-import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
+import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message'
 import {
   saveToDeployment,
   setStepComplete

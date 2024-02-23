@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { filter, uniqBy } from 'lodash'
 
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import {
   fetchCdpTeam,
   searchCdpUsers

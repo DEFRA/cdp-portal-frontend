@@ -1,4 +1,4 @@
-import { sortBy } from '~/src/server/common/helpers/sort-by'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
 
 import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch'
 import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-repositories'

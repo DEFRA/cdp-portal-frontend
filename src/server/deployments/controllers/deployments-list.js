@@ -4,8 +4,8 @@ import Boom from '@hapi/boom'
 
 import { environments } from '~/src/config'
 import { deploymentsToEntityRow } from '~/src/server/deployments/transformers/deployments-to-entity-row'
-import { sortByName } from '~/src/server/common/helpers/sort-by-name'
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
 import { buildPagination } from '~/src/server/common/helpers/build-pagination'
 

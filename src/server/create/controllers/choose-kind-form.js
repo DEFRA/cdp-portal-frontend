@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import { startCase } from 'lodash'
 
 import { creations } from '~/src/server/create/constants/creations'
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
 
 const chooseKindFormController = {

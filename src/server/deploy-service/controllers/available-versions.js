@@ -1,4 +1,4 @@
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 
 const availableVersionsController = {

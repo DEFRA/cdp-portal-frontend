@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
 import { resetGithubUserNameAnswer } from '~/src/server/admin/users/helpers/ext/reset-github-user-name-answer'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user'
