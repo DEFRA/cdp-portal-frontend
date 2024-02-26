@@ -30,7 +30,7 @@
 
       {% call appSummary() %}
         {% call appSummaryItem({
-          heading: "Urls",
+          heading: "Application Urls",
           icon: appGlobeIcon({ classes: "app-icon-small"}),
           intro: {
             text: "View your application."
@@ -40,6 +40,9 @@
 
             {% for env in envsWithDeployment %}
               <li>
+                <a class="app-link"
+                   href="https://{{ env }}.cdp-int.defra.cloud/{{ service.serviceName }}"
+                   target="_blank" rel="noopener noreferrer">{{ env }}</a>
               </li>
             {% endfor %}
 
@@ -50,7 +53,7 @@
           heading: "Logs",
           icon: appLogsIcon({ classes: "app-icon-small"}),
           intro: {
-            text: "View your applications OpenSearch logs for monitoring and troubleshooting issues."
+            text: "View your application's OpenSearch logs for monitoring and troubleshooting issues."
           }
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
@@ -70,7 +73,7 @@
           heading: "Metrics",
           icon: appChartIcon({ classes: "app-icon-small"}),
           intro: {
-            text: "Browse your applications Grafana observability metrics data and graphs."
+            text: "Browse your application's Grafana observability metrics data and graphs."
           }
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
