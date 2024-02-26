@@ -13,7 +13,9 @@ describe('#deploymentsToEntityRow', () => {
         value: 'cdp-self-service-ops'
       },
       {
-        kind: 'text',
+        kind: 'link',
+        newWindow: true,
+        url: 'https://github.com/DEFRA/cdp-self-service-ops/releases/tag/0.133.0',
         value: '0.133.0'
       },
       {
@@ -41,7 +43,9 @@ describe('#deploymentsToEntityRow', () => {
         value: 'cdp-portal-frontend'
       },
       {
-        kind: 'text',
+        kind: 'link',
+        newWindow: true,
+        url: 'https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.217.0',
         value: '0.217.0'
       },
       {

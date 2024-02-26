@@ -6,12 +6,6 @@ const oneMonth = 4 * 7 * 24 * 60 * 60 * 1000
 const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
 
 const config = convict({
-  env: {
-    doc: 'The application environment.',
-    format: ['production', 'development', 'test'],
-    default: 'development',
-    env: 'NODE_ENV'
-  },
   port: {
     doc: 'The port to bind.',
     format: 'port',
@@ -35,7 +29,7 @@ const config = convict({
     default: path.normalize(path.join(__dirname, '..', '..'))
   },
   appBaseUrl: {
-    doc: 'Application base URL for after we login',
+    doc: 'Application base URL',
     format: String,
     default: 'http://localhost:3000',
     env: 'APP_BASE_URL'

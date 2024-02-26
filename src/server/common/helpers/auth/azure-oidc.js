@@ -1,3 +1,4 @@
+import fetch from 'node-fetch'
 import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
