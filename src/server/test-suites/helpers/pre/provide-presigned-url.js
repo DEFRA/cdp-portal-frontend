@@ -4,7 +4,6 @@ import { buildS3PresignedUrl } from '~/src/server/common/helpers/aws/build-s3-pr
 const providePresignedUrl = {
   method: async function (request) {
     const { environment, serviceId, runId } = request.params
-
     return await buildS3PresignedUrl({
       region: config.get('awsRegion'),
       bucket: `cdp-${environment}-test-results`,

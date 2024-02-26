@@ -1,0 +1,22 @@
+import { taskStatus } from '~/src/server/test-suites/constants/test-run-status'
+
+function provideTestRunStatusClassname(status) {
+  const statusToLowerCase = status?.toLowerCase()
+
+  switch (true) {
+    case statusToLowerCase === taskStatus.starting:
+      return 'govuk-tag--purple'
+    case statusToLowerCase === taskStatus.inProgress:
+      return 'govuk-tag--light-blue'
+    case statusToLowerCase === taskStatus.stopping:
+      return 'govuk-tag--turquoise'
+    case statusToLowerCase === taskStatus.finished:
+      return 'govuk-tag--green'
+    case statusToLowerCase === taskStatus.failed:
+      return 'govuk-tag--red'
+    default:
+      return 'govuk-tag--blue'
+  }
+}
+
+export { provideTestRunStatusClassname }
