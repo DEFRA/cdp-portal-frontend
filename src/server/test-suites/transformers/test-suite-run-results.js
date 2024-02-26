@@ -22,7 +22,7 @@ function getTestStatusIcon(runTestStatus) {
 }
 
 function transformTestSuiteRunResults(testRun) {
-  const runTaskStatus = testRun.taskStatus.toLowerCase()
+  const runTaskStatus = testRun.taskStatus?.toLowerCase()
   const runTestStatus = testRun.testStatus?.toLowerCase()
 
   const hasResult =
