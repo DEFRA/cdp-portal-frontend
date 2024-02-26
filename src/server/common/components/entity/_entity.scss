@@ -1,12 +1,8 @@
 .app-entity {
   @include govuk-text-colour;
   margin-right: govuk-spacing(2);
-}
-
-.app-entity--ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
 }
 
 .app-entity-label {

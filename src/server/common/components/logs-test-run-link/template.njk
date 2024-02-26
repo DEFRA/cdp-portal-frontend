@@ -1,0 +1,5 @@
+<a class="app-link"
+   href="https://logs.{{ params.environment | urlencode }}.cdp-int.defra.cloud/_dashboards/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'{{ params.created }}',to:'{{ params.taskLastUpdated }}')&_a=(columns:!(_source),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:'ecs_task_arn:{{ params.arn | urlencode }}'),sort:!())"
+   target="_blank" rel="noopener noreferrer">
+    logs.{{ params.environment }}
+</a>

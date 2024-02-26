@@ -11,8 +11,7 @@
   flex-wrap: wrap;
   align-items: center;
   line-height: 1.4;
-  margin-top: govuk-spacing(4);
-  padding: 0 govuk-spacing(2) govuk-spacing(1);
+  padding: govuk-spacing(2);
 }
 
 .app-entity-list__table {
@@ -48,10 +47,6 @@
   &:first-of-type {
     padding-left: govuk-spacing(0);
   }
-}
-
-.app-entity-list__item--ellipsis {
-  overflow: hidden;
 }
 
 .app-entity-list__item--tiny {
