@@ -1,4 +1,4 @@
-import { sortBy } from '~/src/server/common/helpers/sort-by'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
 import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libraries'
 import { utilityToEntityRow } from '~/src/server/utilities/transformers/utility-to-entity-row'
 

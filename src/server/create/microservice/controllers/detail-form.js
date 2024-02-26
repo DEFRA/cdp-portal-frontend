@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
 import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'

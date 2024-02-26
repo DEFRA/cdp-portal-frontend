@@ -2,6 +2,7 @@
 
 {% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
+{% from "loader/macro.njk" import appLoader %}
 
 {% set element = 'li' if params.isChild else 'div' %}
 
@@ -9,7 +10,7 @@
 {% if params.isChild %}
   class="app-entity__list-item"
 {% else %}
-  class="app-entity{% if params.kind !== "tag"%} app-entity--ellipsis{% endif %}"
+  class="app-entity"
 {% endif %}
 
 data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
@@ -28,6 +29,12 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
         {{ params.value }}
       </a>
 
+      {% if params.icon %}
+        <span class="govuk-!-margin-left-1">
+          {{ params.icon | safe }}
+        </span>
+      {% endif %}
+
     {% elseif params.kind === "tag" %}
       {{ appTag({
         text: params.value,
@@ -37,6 +44,10 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
         }
       }) }}
 
+      {% if params.showLoader %}
+        {{ appLoader({ classes: "app-loader--is-loading" }) }}
+      {% endif %}
+
     {% elseif params.kind === "date" %}
       {{ appTime({
         datetime: params.value,
@@ -45,6 +56,9 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
 
     {% elseif params.kind === "text" %}
       {{ params.value }}
+
+    {% elseif params.kind === "html" %}
+      {{ params.value | safe }}
 
     {% elseif params.kind === "list" %}
       <ul class="app-entity__list">

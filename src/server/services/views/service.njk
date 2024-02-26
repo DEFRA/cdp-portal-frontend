@@ -17,7 +17,7 @@
     entities: headingEntities
   }) }}
 
-  <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
+  <hr class="app-section-break">
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -60,9 +60,10 @@
 
             {% for env in envsWithDeployment %}
               <li>
-                <a class="app-link"
-                   href="{{ buildDashboardLink(env, service.serviceName) }}"
-                   target="_blank" rel="noopener noreferrer">logs.{{ env }}</a>
+                {{ appLogsDashboardLink({
+                  serviceName: service.serviceName,
+                  environment: env
+                }) }}
               </li>
             {% endfor %}
 
@@ -80,15 +81,17 @@
 
             {% for env in envsWithDeployment %}
               <li>
-                <a class="app-link"
-                   href="https://metrics.{{ env }}.cdp-int.defra.cloud/?orgId=1"
-                   target="_blank" rel="noopener noreferrer">metrics.{{ env }}</a>
+                {{ appMetricsDashboardLink({
+                  environment: env
+                }) }}
               </li>
             {% endfor %}
 
           </ul>
         {% endcall %}
+      {% endcall %}
 
+      {% call appSummary() %}
         {% call appSummaryItem({
           heading: "Config",
           icon: appWrenchIcon({ classes: "app-icon-small"}),
@@ -105,7 +108,7 @@
       {% endcall %}
 
       <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running services</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Running services</h2>
         <p>
           The versions of your service currently running on the CDP environments.
         </p>

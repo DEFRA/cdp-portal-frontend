@@ -1,8 +1,8 @@
 import qs from 'qs'
 
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { optionsWithMessage } from '~/src/server/common/helpers/options-with-message'
+import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
 import { optionsValidation } from '~/src/server/deploy-service/helpers/schema/options-validation'
 import {

@@ -11,7 +11,7 @@
   "scripts": {
     "build": "run-s build:frontend build:server",
     "build:frontend": "webpack",
-    "build:server": "babel --delete-dir-on-start --ignore '**/*.test.js' --ignore 'src/__fixtures__' --copy-files --no-copy-ignored --out-dir ./.server ./src",
+    "build:server": "babel --extensions .js --delete-dir-on-start --ignore '**/*.test.js' --ignore 'src/__fixtures__' --copy-files --no-copy-ignored --out-dir ./.server ./src",
     "docker:dev": "NODE_ENV=development run-p frontend:watch server:watch",
     "predev": "npm run build:frontend",
     "dev": "run-p frontend:watch server:watch",
@@ -27,13 +27,14 @@
     "mockApi": "nodemon ./mock-api",
     "test": "TZ=UTC jest --coverage --verbose",
     "test:watch": "TZ=UTC jest --watch",
-    "server:watch": "nodemon --exec babel-node ./src",
-    "server:debug": "nodemon --exec babel-node --inspect ./src",
+    "server:watch": "nodemon --exec babel-node --extensions .js ./src",
+    "server:debug": "nodemon --exec babel-node --extensions .js --inspect ./src",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node --use-strict ./.server",
     "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
   },
   "dependencies": {
+    "@aws-sdk/credential-providers": "3.515.0",
     "@aws-sdk/s3-request-presigner": "3.515.0",
     "@aws-sdk/util-format-url": "3.515.0",
     "@babel/runtime": "7.23.9",

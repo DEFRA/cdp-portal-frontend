@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
 import {
@@ -7,6 +6,9 @@ import {
 } from '~/src/server/common/helpers/auth/user-session'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
 import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error'
+
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args))
 
 function authedFetcher(request) {
   return async (url, options = {}) => {

@@ -1,4 +1,4 @@
-import { sortBy } from '~/src/server/common/helpers/sort-by'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 
 describe('#sortBy', () => {

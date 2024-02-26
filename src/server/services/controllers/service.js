@@ -7,7 +7,7 @@ import { fetchRunningServicesById } from '~/src/server/services/helpers/fetch/fe
 import { withEnvironments } from '~/src/server/common/transformers/with-environments'
 import { runningServicesToEntityRow } from '~/src/server/services/transformers/running-services-to-entity-row'
 import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
-import { sortByEnv } from '~/src/server/common/helpers/sort-by-env'
+import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
 
 const serviceController = {
   options: {

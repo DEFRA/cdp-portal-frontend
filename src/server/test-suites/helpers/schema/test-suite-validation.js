@@ -9,8 +9,8 @@ function testSuiteValidation(imageNames, environments) {
       .valid(...environments)
       .required()
       .messages({
-        'any.only': 'Choose an entry',
-        'any.required': 'Choose an entry'
+        'any.only': 'Choose an environment',
+        'any.required': 'Choose an environment'
       })
   })
 }

@@ -34,7 +34,6 @@
                   }
                 }) }}
               </div>
-
               <div>
                 {% if deployment.status.text == "pending" or deployment.status.text == "requested"
                   or deployment.status.text == "deploying" or deployment.status.text == "stopping" %}
@@ -42,6 +41,17 @@
                 {% endif %}
               </div>
             </div>
+
+            <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+              <li>
+                <p>
+                  {{ appLogsDashboardLink({
+                    serviceName: deployment.service,
+                    environment: deployment.environment
+                  }) }}
+                </p>
+              </li>
+            </ul>
 
             {% call appPanel() %}
               <section>
@@ -51,7 +61,11 @@
                     <p>{{ deployment.service }}</p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Version</h2>
-                    <p>{{ deployment.version }}</p>
+                    <p>
+                      <a class="app-link"
+                         href="https://github.com/DEFRA/{{ deployment.service }}/releases/tag/{{ deployment.version }}"
+                         target="_blank" rel="noopener noreferrer">{{ deployment.version }}</a>
+                    </p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Environment</h2>
                     <p>

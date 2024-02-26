@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { config } from '~/src/config'
-import { buildOptions } from '~/src/server/common/helpers/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
