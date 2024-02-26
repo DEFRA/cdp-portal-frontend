@@ -36,7 +36,7 @@ function transformTestSuiteRunResults(testRun) {
     {
       kind: 'link',
       value: testRun.tag,
-      url: `https://github.com/DEFRA/${testRun.service}/releases/tag/${testRun.tag}`,
+      url: `https://github.com/DEFRA/${testRun.testSuite}/releases/tag/${testRun.tag}`,
       newWindow: true
     },
     {
