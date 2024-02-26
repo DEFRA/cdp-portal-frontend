@@ -22,7 +22,7 @@ function getTestStatusIcon(runTestStatus) {
 }
 
 function transformTestSuiteRunResults(testRun) {
-  const runTaskStatus = testRun.taskStatus.toLowerCase()
+  const runTaskStatus = testRun.taskStatus?.toLowerCase()
   const runTestStatus = testRun.testStatus?.toLowerCase()
 
   const hasResult =
@@ -36,7 +36,7 @@ function transformTestSuiteRunResults(testRun) {
     {
       kind: 'link',
       value: testRun.tag,
-      url: `https://github.com/DEFRA/${testRun.service}/releases/tag/${testRun.tag}`,
+      url: `https://github.com/DEFRA/${testRun.testSuite}/releases/tag/${testRun.tag}`,
       newWindow: true
     },
     {
