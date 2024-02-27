@@ -1,9 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
+import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch'
+import { shouldPoll } from '~/src/server/test-suites/helpers/should-poll'
 import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite'
 import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
-import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch'
 import { transformTestSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results'
 import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options'
 
@@ -32,6 +33,7 @@ const testSuiteController = {
       entityDataList: serviceToEntityDataList(testSuite),
       environmentOptions,
       testSuiteRunResults,
+      shouldPoll: shouldPoll(testRuns),
       breadcrumbs: [
         {
           text: 'Test suites',
