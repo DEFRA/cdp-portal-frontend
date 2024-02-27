@@ -1,14 +1,13 @@
 import { startCase } from 'lodash'
+import { formatDistance, parseISO } from 'date-fns'
 
 import {
   taskStatus,
   testStatus
 } from '~/src/server/test-suites/constants/test-run-status'
 import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/provide-test-run-status-classname'
-import {
-  renderComponent,
-  renderIcon
-} from '~/src/server/common/helpers/render-component'
+import { renderIcon } from '~/src/server/common/helpers/render-component'
+import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link'
 
 function getTestStatusIcon(runTestStatus) {
   switch (true) {
@@ -29,8 +28,12 @@ function transformTestSuiteRunResults(testRun) {
     runTestStatus === testStatus.passed || runTestStatus === testStatus.failed
   const inProgress =
     runTaskStatus === taskStatus.starting ||
-    runTaskStatus === taskStatus.stopping ||
     runTaskStatus === taskStatus.inProgress
+
+  const duration = formatDistance(
+    parseISO(testRun.created),
+    parseISO(testRun.taskLastUpdated)
+  )
 
   return [
     {
@@ -38,10 +41,6 @@ function transformTestSuiteRunResults(testRun) {
       value: testRun.tag,
       url: `https://github.com/DEFRA/${testRun.testSuite}/releases/tag/${testRun.tag}`,
       newWindow: true
-    },
-    {
-      kind: 'text',
-      value: testRun.user.displayName
     },
     {
       kind: 'text',
@@ -54,13 +53,10 @@ function transformTestSuiteRunResults(testRun) {
       showLoader: inProgress
     },
     {
-      kind: 'html',
-      value: renderComponent('logs-test-run-link', {
-        environment: testRun.environment,
-        arn: testRun.taskArn,
-        created: testRun.created,
-        taskLastUpdated: testRun.taskLastUpdated
-      })
+      kind: 'link',
+      value: `logs.${testRun.environment}`,
+      url: buildLogsLink(testRun),
+      newWindow: true
     },
     {
       kind: 'link',
@@ -69,8 +65,12 @@ function transformTestSuiteRunResults(testRun) {
       newWindow: true,
       icon: getTestStatusIcon(runTestStatus)
     },
-    { kind: 'date', value: testRun.taskLastUpdated },
-    { kind: 'date', value: testRun.created }
+    {
+      kind: 'text',
+      value: testRun.user.displayName
+    },
+    { kind: 'text', value: duration },
+    { kind: 'date', value: testRun.taskLastUpdated }
   ]
 }
 
