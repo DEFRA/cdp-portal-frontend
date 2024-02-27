@@ -35,6 +35,12 @@ function transformTestSuiteRunResults(testRun) {
     parseISO(testRun.taskLastUpdated)
   )
 
+  const logsLinkDataAvailable =
+    testRun.environment &&
+    testRun.taskArn &&
+    testRun.created &&
+    testRun.taskLastUpdated
+
   return [
     {
       kind: 'link',
@@ -54,8 +60,8 @@ function transformTestSuiteRunResults(testRun) {
     },
     {
       kind: 'link',
-      value: `logs.${testRun.environment}`,
-      url: buildLogsLink(testRun),
+      value: logsLinkDataAvailable && `logs.${testRun.environment}`,
+      url: logsLinkDataAvailable && buildLogsLink(testRun),
       newWindow: true
     },
     {
