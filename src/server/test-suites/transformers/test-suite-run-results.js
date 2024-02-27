@@ -20,8 +20,8 @@ function getTestStatusIcon(runTestStatus) {
   }
 }
 
-function getDuration({ created, taskLastUpdated }) {
-  if (created && taskLastUpdated) {
+function getDuration({ created, taskLastUpdated }, hasResult) {
+  if (created && taskLastUpdated && hasResult) {
     return formatDistance(parseISO(created), parseISO(taskLastUpdated))
   }
 
@@ -78,7 +78,7 @@ function transformTestSuiteRunResults(testRun) {
       kind: 'text',
       value: testRun.user.displayName
     },
-    { kind: 'text', value: getDuration(testRun) },
+    { kind: 'text', value: getDuration(testRun, hasResult) },
     { kind: 'date', value: testRun.taskLastUpdated }
   ]
 }
