@@ -20,6 +20,14 @@ function getTestStatusIcon(runTestStatus) {
   }
 }
 
+function getDuration({ created, taskLastUpdated }) {
+  if (created && taskLastUpdated) {
+    return formatDistance(parseISO(created), parseISO(taskLastUpdated))
+  }
+
+  return null
+}
+
 function transformTestSuiteRunResults(testRun) {
   const runTaskStatus = testRun.taskStatus?.toLowerCase()
   const runTestStatus = testRun.testStatus?.toLowerCase()
@@ -29,11 +37,6 @@ function transformTestSuiteRunResults(testRun) {
   const inProgress =
     runTaskStatus === taskStatus.starting ||
     runTaskStatus === taskStatus.inProgress
-
-  const duration = formatDistance(
-    parseISO(testRun.created),
-    parseISO(testRun.taskLastUpdated)
-  )
 
   const logsLinkDataAvailable =
     testRun.environment &&
@@ -75,7 +78,7 @@ function transformTestSuiteRunResults(testRun) {
       kind: 'text',
       value: testRun.user.displayName
     },
-    { kind: 'text', value: duration },
+    { kind: 'text', value: getDuration(testRun) },
     { kind: 'date', value: testRun.taskLastUpdated }
   ]
 }
