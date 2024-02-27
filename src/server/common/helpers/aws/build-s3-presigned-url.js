@@ -8,7 +8,7 @@ import { fromNodeProviderChain } from '@aws-sdk/credential-providers'
 async function buildS3PresignedUrl({ region, bucket, key }) {
   const url = parseUrl(`https://${bucket}.s3.${region}.amazonaws.com/${key}`)
   const presigner = new S3RequestPresigner({
-    credentials: fromNodeProviderChain,
+    credentials: fromNodeProviderChain(),
     region,
     sha256: Hash.bind(null, 'sha256')
   })
