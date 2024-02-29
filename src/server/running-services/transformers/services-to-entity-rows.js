@@ -8,8 +8,8 @@ function buildVersion(version) {
 function servicesToEntityRows(services) {
   return Object.entries(services).map(([serviceName, service]) => [
     { kind: 'text', value: serviceName },
-    buildVersion(service?.management),
     buildVersion(service?.infraDev),
+    buildVersion(service?.management),
     buildVersion(service?.dev),
     buildVersion(service?.test),
     buildVersion(service?.perfTest),

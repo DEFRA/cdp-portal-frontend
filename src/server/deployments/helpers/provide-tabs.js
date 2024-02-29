@@ -8,14 +8,14 @@ function provideTabs(request, h) {
 
     response.source.context.tabs = [
       {
-        isActive: request.path.startsWith('/deployments/management'),
-        url: '/deployments/management',
-        label: 'Management'
-      },
-      {
         isActive: request.path.startsWith('/deployments/infra-dev'),
         url: '/deployments/infra-dev',
         label: 'Infra-dev'
+      },
+      {
+        isActive: request.path.startsWith('/deployments/management'),
+        url: '/deployments/management',
+        label: 'Management'
       },
       {
         isActive: request.path.startsWith('/deployments/dev'),
