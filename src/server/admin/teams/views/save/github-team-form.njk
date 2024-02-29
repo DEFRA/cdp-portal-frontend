@@ -4,7 +4,7 @@
 
 {% set searchHintHtml %}
   Search using the Github team name. <a href="https://github.com/orgs/{{ githubOrg }}/teams"
-                                        class="app-link"
+                                        class="app-link-underline"
                                         target="_blank">View ORG teams</a>
 {% endset %}
 
@@ -31,14 +31,12 @@
 
               {{ appSearch({
                 label: {
-                  text: "Github team",
-                  classes: "app-label"
+                  text: "Github team"
                 },
                 id: "githubSearch",
                 name: "githubSearch",
                 hint: {
-                  html: searchHintHtml,
-                  classes: "app-hint"
+                  html: searchHintHtml
                 },
                 value: formValues.githubSearch,
                 errorMessage: {

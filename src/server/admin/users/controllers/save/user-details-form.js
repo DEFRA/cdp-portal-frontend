@@ -27,7 +27,7 @@ const userDetailsFormController = {
     return h.view('admin/users/views/save/user-details-form', {
       pageTitle: heading,
       heading,
-      headingCaption: 'Add Core Delivery Platform (CDP) user details',
+      headingCaption: 'Add Core Delivery Platform user details.',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       breadcrumbs: [

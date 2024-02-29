@@ -14,7 +14,6 @@ const teamsListController = {
       pageTitle: 'Teams',
       heading: 'Teams',
       entityRows,
-      headingCaption: 'CDP - Portal teams',
       noResult: 'Currently there are no teams'
     })
   }

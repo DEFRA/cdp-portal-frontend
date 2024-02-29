@@ -9,7 +9,7 @@
      data-js="app-form-group" data-testid="app-search-group">
 
   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
-    <label class="app-search__label" for="{{ params.id }}" data-testid="app-search-label">
+    <label class="govuk-label app-label" for="{{ params.id }}" data-testid="app-search-label">
       {{ params.label.text }}
     </label>
 
@@ -17,6 +17,7 @@
       {{ govukHint({
         text: params.hint.text,
         html: params.hint.html,
+        classes: "app-hint",
         attributes: {
           "data-testid": "app-search-hint"
         }

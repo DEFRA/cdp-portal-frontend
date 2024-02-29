@@ -47,7 +47,7 @@ const addMemberFormController = {
     return h.view('admin/teams/views/add/member-form', {
       pageTitle: 'Add team members',
       heading: 'Add team members',
-      headingCaption: 'Search for CDP - Portal user',
+      headingCaption: 'Search for Core Delivery Platform user.',
       formValues: {
         cdpUserQuery,
         userIds
