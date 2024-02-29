@@ -11,11 +11,11 @@ describe('#servicesToEntityRows', () => {
         },
         {
           kind: 'text',
-          value: '0.1.0'
+          value: '0.6.0'
         },
         {
           kind: 'text',
-          value: '0.6.0'
+          value: '0.1.0'
         },
         {
           kind: 'text',
@@ -41,11 +41,11 @@ describe('#servicesToEntityRows', () => {
         },
         {
           kind: 'text',
-          value: '1.1.0'
+          value: '0.4.0'
         },
         {
           kind: 'text',
-          value: '0.4.0'
+          value: '1.1.0'
         },
         {
           kind: 'text',

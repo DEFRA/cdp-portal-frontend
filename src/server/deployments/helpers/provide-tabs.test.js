@@ -21,13 +21,13 @@ describe('#provideTabs', () => {
     expect(mockResponse.source.context.tabs).toEqual([
       {
         isActive: false,
-        label: 'Management',
-        url: '/deployments/management'
+        label: 'Infra-dev',
+        url: '/deployments/infra-dev'
       },
       {
         isActive: false,
-        label: 'Infra-dev',
-        url: '/deployments/infra-dev'
+        label: 'Management',
+        url: '/deployments/management'
       },
       {
         isActive: false,
@@ -60,14 +60,14 @@ describe('#provideTabs', () => {
 
     expect(mockResponse.source.context.tabs).toEqual([
       {
-        isActive: false,
-        label: 'Management',
-        url: '/deployments/management'
-      },
-      {
         isActive: true,
         label: 'Infra-dev',
         url: '/deployments/infra-dev'
+      },
+      {
+        isActive: false,
+        label: 'Management',
+        url: '/deployments/management'
       },
       {
         isActive: false,

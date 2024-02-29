@@ -1,6 +1,6 @@
 const environments = {
-  management: 'management',
   infraDev: 'infra-dev',
+  management: 'management',
   dev: 'dev',
   test: 'test',
   perfTest: 'perf-test',

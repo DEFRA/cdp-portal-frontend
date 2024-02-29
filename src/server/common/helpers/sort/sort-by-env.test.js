@@ -12,8 +12,8 @@ describe('#sortByEnv', () => {
 
   test('Should provide expected sorting', () => {
     expect(unOrderedEnvs.sort(sortByEnv)).toEqual([
-      'management',
       'infra-dev',
+      'management',
       'dev',
       'test',
       'perf-test',

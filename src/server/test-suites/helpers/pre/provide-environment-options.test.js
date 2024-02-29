@@ -20,8 +20,8 @@ describe('#provideEnvironmentOptions', () => {
         text: ' - - select - - ',
         value: ''
       },
-      { text: 'management', value: 'management' },
       { text: 'infra-dev', value: 'infra-dev' },
+      { text: 'management', value: 'management' },
       { text: 'dev', value: 'dev' },
       { text: 'test', value: 'test' },
       { text: 'perf-test', value: 'perf-test' },
