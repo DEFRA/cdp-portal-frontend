@@ -1,8 +1,5 @@
-import { config } from '~/src/config'
-
 async function buildNavigation(request) {
   const authedUser = await request.getUserSession()
-  const hasFeatureFlagTestSuite = config.get('hasFeatureFlagTestSuite')
 
   return {
     primary: [
@@ -16,15 +13,11 @@ async function buildNavigation(request) {
         url: '/services',
         isActive: request?.path?.includes('/services')
       },
-      ...(hasFeatureFlagTestSuite
-        ? [
-            {
-              text: 'Test suites',
-              url: '/test-suites',
-              isActive: request?.path?.includes('/test-suites')
-            }
-          ]
-        : []),
+      {
+        text: 'Test suites',
+        url: '/test-suites',
+        isActive: request?.path?.includes('/test-suites')
+      },
       {
         text: 'Utilities',
         url: '/utilities/templates',

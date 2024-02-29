@@ -35,7 +35,7 @@ describe('#provideEnvironmentOptions', () => {
         mockRequest({
           isAuthenticated: true,
           isAdmin: false,
-          isInServiceTeam: true
+          isInAServiceTeam: true
         })
       )
     ).toEqual([

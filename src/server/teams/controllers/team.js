@@ -24,7 +24,7 @@ const teamController = {
   },
   handler: async (request, h) => {
     const teamId = request.params?.teamId
-    const hasTeamScope = await request.userHasTeamScope(teamId)
+    const hasTeamScope = await request.userIsTeamMember(teamId)
 
     const { team } = await fetchTeam(teamId)
 

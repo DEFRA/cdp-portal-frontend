@@ -9,14 +9,14 @@ const provideEnvironmentOptions = {
     const authedUser = await request.getUserSession()
 
     if (authedUser && authedUser.isAuthenticated) {
-      const { isAdmin, isInServiceTeam } = authedUser
+      const { isAdmin, isInAServiceTeam } = authedUser
       const sortedEnvs = Object.values(environments).toSorted(sortByEnv)
 
       if (isAdmin) {
         return buildOptions(sortedEnvs)
       }
 
-      if (isInServiceTeam) {
+      if (isInAServiceTeam) {
         return buildOptions(without(sortedEnvs, 'management', 'infra-dev'))
       }
     }

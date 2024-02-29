@@ -16,7 +16,7 @@
         text: "Edit team",
         href: "/teams/" + team.teamId + "/edit"
       })
-    ] if userHasTeamScope(team.teamId)
+    ] if userIsTeamMember(team.teamId)
   }) }}
 
   <hr class="app-section-break">
@@ -42,7 +42,7 @@
           }) }}
         {% endset %}
 
-        {% if userHasTeamScope(team.teamId) %}
+        {% if userIsTeamMember(team.teamId) %}
           <form method="POST">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
