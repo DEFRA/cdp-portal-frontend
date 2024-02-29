@@ -2,7 +2,7 @@ import jwt from '@hapi/jwt'
 import { addSeconds } from 'date-fns'
 
 import { config } from '~/src/config'
-import { isUserInServiceTeam } from '~/src/server/common/helpers/user/is-user-in-service-team'
+import { isUserInAServiceTeam } from '~/src/server/common/helpers/user/is-user-in-a-service-team'
 import { scopes } from '~/src/server/common/constants/scopes'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 
@@ -25,7 +25,7 @@ async function createUserSession(request, sessionId) {
     userGroups.push(scopes.admin)
   }
 
-  const isServiceTeamUser = await isUserInServiceTeam(teams, userGroups)
+  const isServiceTeamUser = await isUserInAServiceTeam(teams, userGroups)
   if (isServiceTeamUser) {
     userGroups.push(scopes.serviceTeamUser)
   }
@@ -74,7 +74,7 @@ async function updateUserSession(request, refreshedSession) {
     userGroups.push(scopes.admin)
   }
 
-  const isServiceTeamUser = await isUserInServiceTeam(teams, userGroups)
+  const isServiceTeamUser = await isUserInAServiceTeam(teams, userGroups)
   if (isServiceTeamUser) {
     userGroups.push(scopes.serviceTeamUser)
   }

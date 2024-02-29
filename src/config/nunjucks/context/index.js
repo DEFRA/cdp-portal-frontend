@@ -7,7 +7,8 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 import { defaultOption } from '~/src/server/common/helpers/options/default-option'
 import { noValue } from '~/src/server/common/constants/no-value'
-import { userHasTeamScope } from '~/src/server/common/helpers/user/user-has-team-scope'
+import { userIsTeamMember } from '~/src/server/common/helpers/user/user-is-team-member'
+import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')
@@ -32,9 +33,10 @@ async function context(request) {
   return {
     isAuthenticated: authedUser?.isAuthenticated ?? false,
     isAdmin: authedUser?.isAdmin ?? false,
-    isInServiceTeam: authedUser?.isInServiceTeam ?? false,
+    isInAServiceTeam: authedUser?.isInAServiceTeam ?? false,
     authedUser,
-    userHasTeamScope: userHasTeamScope(authedUser),
+    userIsTeamMember: userIsTeamMember(authedUser),
+    userIsMemberOfATeam: userIsMemberOfATeam(authedUser),
     assetPath,
     appBaseUrl: config.get('appBaseUrl'),
     supportChannel: config.get('supportChannel'),

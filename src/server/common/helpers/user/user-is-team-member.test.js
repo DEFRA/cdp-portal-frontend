@@ -1,13 +1,13 @@
 import {
-  userHasTeamScope,
-  userHasTeamScopeDecorator
-} from '~/src/server/common/helpers/user/user-has-team-scope'
+  userIsTeamMember,
+  userIsTeamMemberDecorator
+} from '~/src/server/common/helpers/user/user-is-team-member'
 
-describe('#userHasTeamScope', () => {
+describe('#userIsTeamMember', () => {
   let checkHasTeamScope
 
   beforeEach(() => {
-    checkHasTeamScope = userHasTeamScope({
+    checkHasTeamScope = userIsTeamMember({
       scope: ['apple', 'pear', 'banana']
     })
   })
@@ -21,11 +21,11 @@ describe('#userHasTeamScope', () => {
   })
 })
 
-describe('#userHasTeamScopeDecorator', () => {
+describe('#userIsTeamMemberDecorator', () => {
   let checkHasTeamScopeDecorator
 
   beforeEach(() => {
-    checkHasTeamScopeDecorator = userHasTeamScopeDecorator({
+    checkHasTeamScopeDecorator = userIsTeamMemberDecorator({
       getUserSession: jest.fn().mockResolvedValue({
         scope: ['cat', 'dog', 'cow', 'horse']
       })

@@ -33,6 +33,7 @@ const testSuiteController = {
       entityDataList: testSuiteToEntityDataList(testSuite),
       environmentOptions,
       testSuiteRunResults,
+      owningTeamIds: testSuite.teams.map((testsuite) => testsuite.teamId),
       shouldPoll: shouldPoll(testRuns),
       breadcrumbs: [
         {
