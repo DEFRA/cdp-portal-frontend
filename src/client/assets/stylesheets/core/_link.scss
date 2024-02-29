@@ -2,6 +2,10 @@
   @include app-link;
 }
 
+.app-link-underline {
+  @include app-link-underline;
+}
+
 .app-link--inverse {
   @include govuk-link-style-inverse;
 

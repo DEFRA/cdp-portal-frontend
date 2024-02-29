@@ -38,7 +38,7 @@ const findAadUserFormController = {
     return h.view('admin/users/views/save/aad-user-form', {
       pageTitle: 'Find AAD user',
       heading: 'Find AAD user',
-      headingCaption: 'Search for the Defra Azure Active Directory (AAD) user',
+      headingCaption: 'Search for the Defra Azure Active Directory (AAD) user.',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       formValues: { aadQuery, email },

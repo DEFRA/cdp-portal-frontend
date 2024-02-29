@@ -17,11 +17,6 @@
   }
 }
 
-.app-search__label {
-  font-weight: normal;
-  @include govuk-font(19);
-}
-
 .app-search__clear-button {
   margin: 0 govuk-spacing(1) 0 0;
   padding: 0;

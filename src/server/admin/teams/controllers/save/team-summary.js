@@ -18,8 +18,7 @@ const teamSummaryController = {
     return h.view('admin/teams/views/save/summary', {
       pageTitle: heading,
       heading,
-      headingCaption:
-        'Information about the Core Delivery Platform (CDP) team you are going to create.',
+      headingCaption: 'Information about the team you are going to create.',
       teamRows: transformSummaryTeamRows(cdpTeam),
       formButtonText: isEdit ? 'Save' : 'Create',
       isEdit,

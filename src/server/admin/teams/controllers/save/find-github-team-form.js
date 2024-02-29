@@ -42,7 +42,7 @@ const findGithubTeamFormController = {
     return h.view('admin/teams/views/save/github-team-form', {
       pageTitle: heading,
       heading,
-      headingCaption: 'Link the Defra Github team to the CDP team',
+      headingCaption: 'Link the Defra Github team.',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       formValues: { githubSearch, github },
