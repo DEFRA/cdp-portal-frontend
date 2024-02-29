@@ -6,24 +6,30 @@
 
 .app-grid-column-one-third {
   flex: 1;
+  align-self: flex-start;
 }
 
 .app-grid-column-two-thirds {
   flex: 2;
+  align-self: flex-start;
 }
 
 .app-grid-column-one-half {
   flex: 1;
+  align-self: flex-start;
 }
 
 .app-grid-column-one-quarter {
   flex: 1;
+  align-self: flex-start;
 }
 
 .app-grid-column-two-quarters {
   flex: 2;
+  align-self: flex-start;
 }
 
 .app-grid-column-three-quarters {
   flex: 3;
+  align-self: flex-start;
 }

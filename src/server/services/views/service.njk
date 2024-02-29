@@ -33,16 +33,17 @@
           heading: "Application Urls",
           icon: appGlobeIcon({ classes: "app-icon-small"}),
           intro: {
-            text: "View your application's deployment. In all the environemnts you have deployed to."
+            text: "View your application's deployments in any environments you have deployed to."
           }
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
 
             {% for env in envsWithDeployment %}
               <li>
-                <a class="app-link"
-                   href="https://{{ env }}.cdp-int.defra.cloud/{{ service.serviceName }}"
-                   target="_blank" rel="noopener noreferrer">{{ env }}</a>
+                {{ appApplicationLink({
+                  environment: env,
+                  serviceName: service.serviceName
+                }) }}
               </li>
             {% endfor %}
 
@@ -50,7 +51,7 @@
         {% endcall %}
 
         {% call appSummaryItem({
-          heading: "Logs",
+          heading: "Application Logs",
           icon: appLogsIcon({ classes: "app-icon-small"}),
           intro: {
             text: "View your application's OpenSearch logs for monitoring and troubleshooting issues."
@@ -71,7 +72,7 @@
         {% endcall %}
 
         {% call appSummaryItem({
-          heading: "Metrics",
+          heading: "Application Metrics",
           icon: appChartIcon({ classes: "app-icon-small"}),
           intro: {
             text: "Browse your application's Grafana observability metrics data and graphs."
@@ -93,7 +94,7 @@
 
       {% call appSummary() %}
         {% call appSummaryItem({
-          heading: "Config",
+          heading: "Application Config",
           icon: appWrenchIcon({ classes: "app-icon-small"}),
           intro: {
             text: "Pass environment variables to you application in CDP environments."
