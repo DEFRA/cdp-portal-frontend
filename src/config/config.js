@@ -201,12 +201,6 @@ const config = convict({
     format: String,
     env: 'DOCKER_HUB_URL',
     default: 'https://hub.docker.com/r/defradigital'
-  },
-  hasFeatureFlagTestSuite: {
-    doc: 'Test suite feature flag. If the flag is "on" code is executed, if the flag is "off" code is skipped',
-    format: Boolean,
-    env: 'FEATURE_FLAG_TEST_SUITE',
-    default: false
   }
 })
 
