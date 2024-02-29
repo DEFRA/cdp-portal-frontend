@@ -64,7 +64,7 @@ function transformTestSuiteRunResults(testRun) {
     {
       kind: 'link',
       value: logsLinkDataAvailable && `logs.${testRun.environment}`,
-      url: logsLinkDataAvailable && buildLogsLink(testRun),
+      url: logsLinkDataAvailable && buildLogsLink(testRun, hasResult),
       newWindow: true
     },
     {
