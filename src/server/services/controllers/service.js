@@ -6,7 +6,7 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { fetchRunningServicesById } from '~/src/server/services/helpers/fetch/fetch-running-services-by-id'
 import { withEnvironments } from '~/src/server/common/transformers/with-environments'
 import { runningServicesToEntityRow } from '~/src/server/services/transformers/running-services-to-entity-row'
-import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
+import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
 
 const serviceController = {

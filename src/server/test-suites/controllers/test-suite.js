@@ -4,9 +4,9 @@ import Boom from '@hapi/boom'
 import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch'
 import { shouldPoll } from '~/src/server/test-suites/helpers/should-poll'
 import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite'
-import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
 import { transformTestSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results'
 import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options'
+import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list'
 
 const testSuiteController = {
   options: {
@@ -30,7 +30,7 @@ const testSuiteController = {
       pageTitle: `Test Suite - ${serviceName}`,
       heading: serviceName,
       testSuite,
-      entityDataList: serviceToEntityDataList(testSuite),
+      entityDataList: testSuiteToEntityDataList(testSuite),
       environmentOptions,
       testSuiteRunResults,
       shouldPoll: shouldPoll(testRuns),

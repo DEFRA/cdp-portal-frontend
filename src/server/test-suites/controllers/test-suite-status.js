@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status'
-import { serviceToEntityDataList } from '~/src/server/common/transformers/service-to-entity-data-list'
+import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
 import { testSuiteStatus } from '~/src/server/test-suites/transformers/test-suite-status'
 
 const testSuiteStatusController = {
