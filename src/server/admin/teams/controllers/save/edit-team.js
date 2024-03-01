@@ -14,12 +14,11 @@ const editTeamController = {
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
 
-    const response = await editTeam(request, cdpTeam.teamId, {
+    const { json, response } = await editTeam(request, cdpTeam.teamId, {
       name: cdpTeam.name,
       description: cdpTeam.description,
       github: cdpTeam.github
     })
-    const json = await response.json()
 
     if (response.ok) {
       await setStepComplete(request, h, 'allSteps')

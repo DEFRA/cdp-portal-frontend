@@ -3,7 +3,7 @@ import { config } from '~/src/config'
 async function editTeam(request, teamId, payload) {
   const endpoint = config.get('userServiceApiUrl') + '/teams/' + teamId
 
-  const { json } = await request.authedFetcher(endpoint, {
+  const { json, response } = await request.authedFetcher(endpoint, {
     method: 'patch',
     body: JSON.stringify({
       name: payload.name,
@@ -12,7 +12,7 @@ async function editTeam(request, teamId, payload) {
     })
   })
 
-  return json
+  return { json, response }
 }
 
 export { editTeam }
