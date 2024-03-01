@@ -2,10 +2,8 @@ import qs from 'qs'
 
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import {
-  addUserValidation,
-  addMemberToTeam
-} from '~/src/server/admin/teams/helpers'
+import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch'
+import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation'
 
 const addMemberController = {
   handler: async (request, h) => {
@@ -57,8 +55,7 @@ const addMemberController = {
 
     if (!validationResult.error) {
       const addUserToTeamPromises = userIds.map(
-        async (userId) =>
-          await addMemberToTeam(request.authedFetcher, teamId, userId)
+        async (userId) => await addMemberToTeam(request, teamId, userId)
       )
 
       const responses = await Promise.allSettled(addUserToTeamPromises)
