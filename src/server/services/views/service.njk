@@ -38,12 +38,13 @@
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
 
-            {% for env in envsWithDeployment %}
+            {% for environment in envsWithDeployment %}
               <li>
-                {{ appApplicationLink({
-                  environment: env,
-                  serviceName: service.serviceName
-                }) }}
+                <a class="app-link"
+                   href="https://{{ environment }}.cdp-int.defra.cloud/{{ service.serviceName }}"
+                   target="_blank" rel="noopener noreferrer">
+                  {{ service.serviceName }}.{{ environment }}
+                </a>
               </li>
             {% endfor %}
 
@@ -59,11 +60,11 @@
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
 
-            {% for env in envsWithDeployment %}
+            {% for environment in envsWithDeployment %}
               <li>
                 {{ appLogsDashboardLink({
                   serviceName: service.serviceName,
-                  environment: env
+                  environment: environment
                 }) }}
               </li>
             {% endfor %}
@@ -80,10 +81,10 @@
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
 
-            {% for env in envsWithDeployment %}
+            {% for environment in envsWithDeployment %}
               <li>
                 {{ appMetricsDashboardLink({
-                  environment: env
+                  environment: environment
                 }) }}
               </li>
             {% endfor %}

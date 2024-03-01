@@ -99,10 +99,11 @@
                   <div class="app-grid-column-one-third">
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Application url</h2>
                     <p>
-                      {{ appApplicationLink({
-                        serviceName: deployment.service,
-                        environment: deployment.environment
-                      }) }}
+                      <a class="app-link"
+                         href="https://{{ deployment.environment }}.cdp-int.defra.cloud/{{ deployment.service }}"
+                         target="_blank" rel="noopener noreferrer">
+                        {{ deployment.service }}.{{ deployment.environment }}
+                      </a>
                     </p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Application logs</h2>
