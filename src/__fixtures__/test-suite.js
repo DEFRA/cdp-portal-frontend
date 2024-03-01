@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 
 const githubOrg = config.get('githubOrg')
 
-// Response from portalBackendApi/test-suite/cdp-portal-frontend
+// Response from portalBackendApi/test-suite/cdp-portal-smoke-tests
 const testSuiteFixture = {
   serviceName: 'cdp-portal-smoke-tests',
   githubUrl: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
