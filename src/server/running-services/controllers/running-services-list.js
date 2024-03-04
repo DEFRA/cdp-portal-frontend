@@ -6,6 +6,7 @@ import { withEnvironments } from '~/src/server/common/transformers/with-environm
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
 
 const runningServicesListController = {
+  options: { id: 'running-services' },
   handler: async (request, h) => {
     const runningServices = await fetchRunningServices()
     const sortedRunningServices = runningServices?.sort(
