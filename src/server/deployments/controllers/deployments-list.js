@@ -1,17 +1,18 @@
 import Joi from 'joi'
-import { capitalize, cloneDeep } from 'lodash'
 import Boom from '@hapi/boom'
+import { capitalize } from 'lodash'
 
 import { environments } from '~/src/config'
 import { deploymentsToEntityRow } from '~/src/server/deployments/transformers/deployments-to-entity-row'
-import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
 import { buildPagination } from '~/src/server/common/helpers/build-pagination'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
 
-// TODO fix - the progressive search is not quite right
 const deploymentsListController = {
   options: {
+    ext: {
+      onPreAuth: [allEnvironmentsOnlyForAdmin]
+    },
     validate: {
       params: Joi.object({
         environment: Joi.string().valid(...Object.values(environments))
@@ -33,19 +34,6 @@ const deploymentsListController = {
       environment,
       { page: request.query?.page, size: request.query?.size }
     )
-    const allDeployments = cloneDeep(deployments)
-
-    const uniqueAllDeployments = [
-      ...new Set(allDeployments.map((deployment) => deployment.service))
-    ].sort(sortByName)
-
-    const uniqueAllUsers = [
-      ...new Set(allDeployments.map((deployment) => deployment.user))
-    ].sort(sortByName)
-
-    const uniqueAllStatus = [
-      ...new Set(allDeployments.map((deployment) => deployment.status))
-    ].sort(sortByName)
 
     const entityRows = deployments?.map(deploymentsToEntityRow)
 
@@ -53,9 +41,6 @@ const deploymentsListController = {
       pageTitle: 'Deployments',
       heading: 'Deployments',
       caption: 'Microservice deployment details across all environments.',
-      searchSuggestions: buildOptions(uniqueAllDeployments),
-      userSuggestions: buildOptions(uniqueAllUsers),
-      statusSuggestions: buildOptions(uniqueAllStatus),
       entityRows,
       environment,
       pagination: buildPagination(page, pageSize, totalPages, request.query),
