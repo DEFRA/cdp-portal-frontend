@@ -1,11 +1,9 @@
-import { camelCase } from 'lodash'
+import { camelCase, upperFirst } from 'lodash'
 
 import { nunjucksEnvironment } from '~/src/config/nunjucks'
 
 function renderString(name, params, macroPath) {
-  const macroName = `app${
-    name.charAt(0).toUpperCase() + camelCase(name.slice(1))
-  }`
+  const macroName = `app${upperFirst(camelCase(name))}`
   const macroParams = JSON.stringify(params, null, 2)
   const macroString = `{%- from "${macroPath}" import ${macroName} -%} {{- ${macroName}(${macroParams}) -}}`
 
