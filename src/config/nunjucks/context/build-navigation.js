@@ -5,7 +5,7 @@ async function buildNavigation(request) {
     primary: [
       {
         text: 'Home',
-        url: '/',
+        url: request.routeLookup('home'),
         isActive: request?.path === '/'
       },
       {
