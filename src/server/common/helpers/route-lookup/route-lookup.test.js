@@ -1,4 +1,4 @@
-import { routeLookup } from '~/src/server/utilities/route-lookup/route-lookup'
+import { routeLookup } from '~/src/server/common/helpers/route-lookup'
 
 describe('#routeLookup', () => {
   const routes = {
