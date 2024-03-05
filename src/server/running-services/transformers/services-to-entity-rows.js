@@ -10,10 +10,10 @@ function buildVersion(version, environment, serviceName) {
 
 function servicesToEntityRows(environments) {
   return (services) =>
-    Object.entries(services).map(([serviceName, service]) => [
+    Object.entries(services).map(([serviceName, versions]) => [
       { kind: 'text', value: serviceName },
       ...Object.entries(environments).map(([key, environment]) =>
-        buildVersion(service?.[key], environment, serviceName)
+        buildVersion(versions?.[key], environment, serviceName)
       )
     ])
 }
