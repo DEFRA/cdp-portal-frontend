@@ -20,6 +20,7 @@ Portal Frontend for Core Delivery Platform (CDP)
     - [Code Quality](#code-quality)
     - [Code formatting](#code-formatting)
   - [Local JSON API](#local-json-api)
+  - [Creating icons](#creating-icons)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
 - [Docker](#docker)
@@ -186,6 +187,26 @@ Whilst the APIs are being developed this app uses a local JSON mock API. To star
 ```bash
 npm run mockApi
 ```
+
+### Creating icons
+
+You can see examples of the icons used throughout the application in [src/server/common/components/icons](src/server/common/components/icons). To create icons:
+
+- Copy and rename an existing component from [src/server/common/components/icons](src/server/common/components/icons)
+- Choose an icon from [Material Symbols](https://fonts.google.com/icons)
+- The icons used already are:
+  - Fill ✅
+  - Weight `700`
+  - Grade `200`
+  - Size `48px`
+- Download the SVG file
+- Go to [svgomg](https://jakearchibald.github.io/svgomg/)
+- Upload the SVG file
+- Click Markup tab
+- Copy markup and place it into an icon component
+- Update CSS class names, macro name etc, to the new icons name
+- Import the icon into your page, or if used globally in multiple places into
+  [src/server/common/templates/layouts/page.njk](src/server/common/templates/layouts/page.njk)
 
 ### Production
 
