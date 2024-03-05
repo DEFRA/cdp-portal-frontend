@@ -8,17 +8,9 @@
   }) }}
 
   {{ appEntityList({
-    headings: [
-      { text: "Service", size: "medium" },
-      { text: "Infra-dev", size: "small"},
-      { text: "Management", size: "small"},
-      { text: "Dev", size: "small"},
-      { text: "Test", size: "small"},
-      { text: "Perf-test", size: "small"},
-      { text: "Prod", size: "small"}
-    ],
+    headings: rowHeadings,
     entityRows: entityRows,
     noResult: "Currently there are no services running in any environments"
-  }) }}
+    }) }}
 
 {% endblock %}

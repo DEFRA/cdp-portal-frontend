@@ -1,7 +1,7 @@
 import path from 'path'
 import nunjucks from 'nunjucks'
 import { load } from 'cheerio'
-import { camelCase } from 'lodash'
+import { camelCase, upperFirst } from 'lodash'
 
 import * as filters from '~/src/config/nunjucks/filters'
 
@@ -29,9 +29,7 @@ Object.keys(filters).forEach((filter) => {
 
 function renderTestComponent(name, params, callBlock) {
   const macroPath = `${name}/macro.njk`
-  const macroName = `app${
-    name.charAt(0).toUpperCase() + camelCase(name.slice(1))
-  }`
+  const macroName = `app${upperFirst(camelCase(name))}`
   const macroParams = JSON.stringify(params, null, 2)
   let macroString = `{%- from "${macroPath}" import ${macroName} -%}`
 

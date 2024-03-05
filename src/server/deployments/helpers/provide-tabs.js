@@ -1,4 +1,5 @@
-function provideTabs(request, h) {
+async function provideTabs(request, h) {
+  const authedUser = await request.getUserSession()
   const response = request.response
 
   if (response.variety === 'view') {
@@ -7,16 +8,6 @@ function provideTabs(request, h) {
     }
 
     response.source.context.tabs = [
-      {
-        isActive: request.path.startsWith('/deployments/infra-dev'),
-        url: '/deployments/infra-dev',
-        label: 'Infra-dev'
-      },
-      {
-        isActive: request.path.startsWith('/deployments/management'),
-        url: '/deployments/management',
-        label: 'Management'
-      },
       {
         isActive: request.path.startsWith('/deployments/dev'),
         url: '/deployments/dev',
@@ -38,6 +29,21 @@ function provideTabs(request, h) {
         label: 'Prod'
       }
     ]
+
+    if (authedUser?.isAdmin) {
+      response.source.context.tabs.unshift(
+        {
+          isActive: request.path.startsWith('/deployments/infra-dev'),
+          url: '/deployments/infra-dev',
+          label: 'Infra-dev'
+        },
+        {
+          isActive: request.path.startsWith('/deployments/management'),
+          url: '/deployments/management',
+          label: 'Management'
+        }
+      )
+    }
   }
 
   return h.continue

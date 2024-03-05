@@ -2,7 +2,7 @@
 const whatsRunningWhereFixture = [
   {
     deploymentId: '01863667-7AAF-4A69-84A0-E03C59858C62',
-    environment: 'PreProduction',
+    environment: 'perf-test',
     service: 'cdp-portal-frontend',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:53:57Z',
@@ -14,7 +14,7 @@ const whatsRunningWhereFixture = [
   },
   {
     deploymentId: 'F1074CF6-8C80-49CE-B68E-6E3FEA4A5EA1',
-    environment: 'Testing',
+    environment: 'test',
     service: 'cdp-portal-frontend',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:53:57Z',
@@ -26,7 +26,7 @@ const whatsRunningWhereFixture = [
   },
   {
     deploymentId: '83ADB1F0-D7B5-412D-82DB-3BDA149EDC01',
-    environment: 'Production',
+    environment: 'prod',
     service: 'cdp-portal-frontend',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:53:57Z',
@@ -38,7 +38,7 @@ const whatsRunningWhereFixture = [
   },
   {
     deploymentId: '553E4E6B-05D7-4A2E-BF80-02ED34DEF864',
-    environment: 'Production',
+    environment: 'prod',
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:54:12Z',
@@ -51,7 +51,7 @@ const whatsRunningWhereFixture = [
   },
   {
     deploymentId: 'A80CF40C-5811-4145-8147-6332597167D9',
-    environment: 'Development',
+    environment: 'dev',
     service: 'cdp-portal-frontend',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:53:57Z',
@@ -63,7 +63,7 @@ const whatsRunningWhereFixture = [
   },
   {
     deploymentId: 'D921920A-0411-4727-9354-4D1B3B3925FD',
-    environment: 'Development',
+    environment: 'dev',
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:54:12Z',
@@ -76,7 +76,7 @@ const whatsRunningWhereFixture = [
   },
   {
     deploymentId: '733E2ABD-5CA1-4F7B-BD6A-B49ADEE8DB21',
-    environment: 'Testing',
+    environment: 'test',
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:54:12Z',
@@ -89,7 +89,7 @@ const whatsRunningWhereFixture = [
   },
   {
     deploymentId: '6B163EB6-2444-4438-9C83-B85C9A8E4BC3',
-    environment: 'PreProduction',
+    environment: 'perf-test',
     service: 'cdp-teams-and-repositories',
     version: '0.2.0',
     deployedAt: '2023-05-18T21:54:12Z',

@@ -4,9 +4,13 @@ import { capitalize, isNull } from 'lodash'
 
 import { environments } from '~/src/config'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
 
 const deploymentController = {
   options: {
+    ext: {
+      onPreAuth: [allEnvironmentsOnlyForAdmin]
+    },
     pre: [provideDeployment],
     validate: {
       params: Joi.object({
