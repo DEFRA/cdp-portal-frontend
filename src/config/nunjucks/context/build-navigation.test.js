@@ -2,7 +2,8 @@ import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
 
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,
-  getUserSession: async () => auth
+  getUserSession: async () => auth,
+  routeLookup: () => '/'
 })
 
 describe('#buildNavigation', () => {

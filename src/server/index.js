@@ -21,7 +21,7 @@ import { userIsTeamMemberDecorator } from '~/src/server/common/helpers/user/user
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context'
 import { secureContext } from '~/src/server/common/helpers/secure-context'
 import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
-import { routeLookupPlugin } from '~/src/server/utilities/route-lookup'
+import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
 
 const client = buildRedisClient()
 const isProduction = config.get('isProduction')
@@ -93,10 +93,12 @@ async function createServer() {
       apply: true
     }
   )
+  server.decorate('request', 'routeLookup', routeLookupDecorator, {
+    apply: true
+  })
 
+  // Add request logger before all other plugins so we can see errors
   await server.register(requestLogger)
-
-  await server.register(routeLookupPlugin)
 
   if (isProduction) {
     await server.register(secureContext)

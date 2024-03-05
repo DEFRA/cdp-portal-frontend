@@ -55,11 +55,11 @@ async function context(request) {
       return `${assetPath}/${webpackAssetPath}`
     },
     routeLookup: function (id, params) {
-      if (request.routeLookup) {
-        return request.routeLookup(id, params)
-      } else {
+      if (!request.routeLookup) {
         throw new Error(`The route-lookup plugin has not been registered!`)
       }
+
+      return request.routeLookup(id, params)
     }
   }
 }
