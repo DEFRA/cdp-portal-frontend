@@ -110,6 +110,21 @@
                target="_blank" rel="noopener noreferrer">cdp-app-config/{{ service.serviceName }}</a>
           </p>
         {% endcall %}
+
+        {% call appSummaryItem({
+           heading: "Application Builds",
+           icon: appLogsIcon({ classes: "app-icon-small"}),
+           intro: {
+           text: "View your application's CI builds to tests and publish your application with Github Actions."
+           }
+        }) %}
+          <p>
+            <a class="app-link"
+               href="{{ serviceBuildLink.link }}">
+               {{ serviceBuildLink.text }}
+            </a>
+          </p>
+        {% endcall %}
       {% endcall %}
 
       <section class="govuk-!-margin-bottom-6">
