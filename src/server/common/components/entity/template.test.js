@@ -1,6 +1,15 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Entity Component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers('modern')
+    jest.setSystemTime(new Date('2023-04-01'))
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
+
   describe('Entity', () => {
     let $entity
 
@@ -125,7 +134,7 @@ describe('Entity Component', () => {
     test('Should contain expected rendered date', () => {
       expect(
         $dateEntity.find('[data-testid="app-time"]').text().trim()
-      ).toEqual('14:40 Tue 11th Apr 2023')
+      ).toEqual('15:40 Tue 11th Apr 2023')
     })
 
     test('Should have expected datetime attribute', () => {
@@ -163,7 +172,7 @@ describe('Entity Component', () => {
     test('Should contain expected rendered date', () => {
       expect(
         $dateEntity.find('[data-testid="app-time"]').text().trim()
-      ).toEqual('14:40:02 Thu 11th Apr 2024')
+      ).toEqual('15:40:02 Thu 11th Apr 2024')
     })
 
     test('Should have expected datetime attribute', () => {
@@ -180,12 +189,72 @@ describe('Entity Component', () => {
       $textEntity = renderTestComponent('entity', {
         kind: 'text',
         value: '0.1.0',
-        size: 'small'
-      })('[data-testid="app-entity"]').first()
+        size: 'small',
+        title: 'Something wonderful here'
+      })('[data-testid="app-entity-text"]').first()
     })
 
     test('Should render as expected', () => {
       expect($textEntity.text().trim()).toEqual('0.1.0')
+    })
+
+    test('Should render with expected title', () => {
+      expect($textEntity.attr('title')).toEqual('Something wonderful here')
+    })
+  })
+
+  describe('Html entity', () => {
+    let $htmlEntity
+
+    beforeEach(() => {
+      $htmlEntity = renderTestComponent('entity', {
+        kind: 'html',
+        value: '<p data-testid="app-entity-html">Green tea rocks</p>'
+      })('[data-testid="app-entity-html"]').first()
+    })
+
+    test('Should render as expected', () => {
+      expect($htmlEntity.text().trim()).toEqual('Green tea rocks')
+    })
+  })
+
+  describe('List entity', () => {
+    let $listEntity
+    let $dateEntity
+    let $linkEntity
+
+    beforeEach(() => {
+      $listEntity = renderTestComponent('entity', {
+        kind: 'list',
+        value: [
+          {
+            kind: 'date',
+            value: '2023-04-12T17:16:48+00:00'
+          },
+          {
+            kind: 'link',
+            url: '/animal/aabe63e7-87ef-4beb-a596-c810631fc474',
+            value: 'Super animals'
+          }
+        ]
+      })('[data-testid="app-entity"]').first()
+
+      $dateEntity = $listEntity.find('[data-testid="app-time"]')
+      $linkEntity = $listEntity.find('[data-testid="app-entity-link"]')
+    })
+
+    test('Should render expected time entity', () => {
+      expect($dateEntity.text().trim()).toEqual('18:16 Wed 12th Apr 2023')
+    })
+
+    test('Link should have expected link text', () => {
+      expect($linkEntity.text().trim()).toEqual('Super animals')
+    })
+
+    test('Link should have expected "href"', () => {
+      expect($linkEntity.attr('href')).toEqual(
+        '/animal/aabe63e7-87ef-4beb-a596-c810631fc474'
+      )
     })
   })
 })
