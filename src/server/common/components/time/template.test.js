@@ -14,7 +14,7 @@ describe('Time Component', () => {
 
   beforeEach(() => {
     $time = renderTestComponent('time', {
-      datetime: '2023-04-11T15:11:31.722Z'
+      datetime: '2023-04-11T16:11:31.722Z'
     })
   })
 
@@ -30,7 +30,7 @@ describe('Time Component', () => {
 
   test('Should have expected datetime attribute', () => {
     expect($time('[data-testid="app-time"]').attr('datetime')).toEqual(
-      '2023-04-11T15:11:31.722Z'
+      '2023-04-11T16:11:31.722Z'
     )
   })
 })
