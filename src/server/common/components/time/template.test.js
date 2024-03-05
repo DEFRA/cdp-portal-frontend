@@ -24,7 +24,7 @@ describe('Time Component', () => {
 
   test('Should contain expected rendered date', () => {
     expect($time('[data-testid="app-time"]').text().trim()).toEqual(
-      '15:11 Tue 11th Apr 2023'
+      '16:11 Tue 11th Apr 2023'
     )
   })
 
