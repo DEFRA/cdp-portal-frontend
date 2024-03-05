@@ -1,11 +1,7 @@
 .app-summary {
   margin-bottom: govuk-spacing(4);
 
-  .app-chart-icon,
-  .app-logs-icon,
-  .app-web-icon,
-  .app-wrench-icon,
-  .app-globe-icon{
+  .app-icon {
     fill: govuk-colour("blue");
   }
 
