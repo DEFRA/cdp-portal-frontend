@@ -29,7 +29,7 @@ function serviceToEntityDataList(service) {
     ...(service?.primaryLanguage
       ? [
           {
-            heading: 'Type',
+            heading: 'Language',
             entity: {
               kind: 'text',
               value: service.primaryLanguage
