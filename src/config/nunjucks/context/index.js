@@ -56,7 +56,7 @@ async function context(request) {
     },
     routeLookup: function (id, params) {
       if (!request.routeLookup) {
-        throw new Error(`The route-lookup plugin has not been registered!`)
+        throw new Error('The route-lookup plugin has not been registered!')
       }
 
       return request.routeLookup(id, params)
