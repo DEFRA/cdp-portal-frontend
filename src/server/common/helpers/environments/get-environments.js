@@ -1,9 +1,6 @@
 import { environments } from '~/src/config'
 
-async function getEnvironments(request) {
-  const authedUser = await request.getUserSession()
-  const isAdmin = authedUser.isAdmin
-
+function getEnvironments(isAdmin = false) {
   if (isAdmin) {
     return {
       infraDev: environments.infraDev,

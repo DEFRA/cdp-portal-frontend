@@ -1,19 +1,20 @@
-function buildVersion(version) {
+import { kebabCase, upperFirst } from 'lodash'
+
+function buildVersion(version, environment, serviceName) {
   return {
     kind: 'text',
-    value: version ?? null
+    value: version ?? null,
+    title: `${serviceName} - ${version} - ${upperFirst(kebabCase(environment))}`
   }
 }
 
-function runningServicesToEntityRow(runningServices) {
-  return Object.values(runningServices).map((service) => [
-    buildVersion(service?.infraDev),
-    buildVersion(service?.management),
-    buildVersion(service?.dev),
-    buildVersion(service?.test),
-    buildVersion(service?.perfTest),
-    buildVersion(service?.prod)
-  ])
+function runningServicesToEntityRow(environments) {
+  return (runningServices) =>
+    Object.entries(runningServices).map(([serviceName, versions]) => [
+      ...Object.entries(environments).map(([key, environment]) =>
+        buildVersion(versions?.[key], environment, serviceName)
+      )
+    ])
 }
 
 export { runningServicesToEntityRow }

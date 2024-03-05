@@ -55,7 +55,9 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
       }) }}
 
     {% elseif params.kind === "text" %}
-      {{ params.value }}
+      <span data-testid="app-entity-text"
+        {% if params.title %} title="{{ params.title }}"{% endif %}
+      >{{ params.value }}</span>
 
     {% elseif params.kind === "html" %}
       {{ params.value | safe }}

@@ -3,12 +3,12 @@ import qs from 'qs'
 import { config } from '~/src/config'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
-async function fetchRunningServices(envs) {
+async function fetchRunningServices(environments) {
   const endpoint =
     config.get('portalBackendApiUrl') +
     '/whats-running-where' +
     qs.stringify(
-      { envs: Object.values(envs) },
+      { environments: Object.values(environments) },
       { arrayFormat: 'repeat', addQueryPrefix: true }
     )
 

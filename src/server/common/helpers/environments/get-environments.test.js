@@ -1,15 +1,9 @@
-import { getEnvironments } from '~/src/server/running-services/helpers/get-environments'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 
 describe('#getEnvironments', () => {
   describe('With Admin user', () => {
     test('Should provide expected environments', async () => {
-      const mockRequest = {
-        getUserSession: jest.fn().mockResolvedValue({
-          isAdmin: true
-        })
-      }
-
-      expect(await getEnvironments(mockRequest)).toEqual({
+      expect(getEnvironments(true)).toEqual({
         dev: 'dev',
         infraDev: 'infra-dev',
         management: 'management',
@@ -22,13 +16,7 @@ describe('#getEnvironments', () => {
 
   describe('With service team user', () => {
     test('Should provide expected environments', async () => {
-      const mockRequest = {
-        getUserSession: jest.fn().mockResolvedValue({
-          isInAServiceTeam: true
-        })
-      }
-
-      expect(await getEnvironments(mockRequest)).toEqual({
+      expect(getEnvironments(false)).toEqual({
         dev: 'dev',
         perfTest: 'perf-test',
         prod: 'prod',
@@ -39,11 +27,7 @@ describe('#getEnvironments', () => {
 
   describe('With un-authenticated user', () => {
     test('Should provide expected environments', async () => {
-      const mockRequest = {
-        getUserSession: jest.fn().mockResolvedValue({})
-      }
-
-      expect(await getEnvironments(mockRequest)).toEqual({
+      expect(getEnvironments()).toEqual({
         dev: 'dev',
         perfTest: 'perf-test',
         prod: 'prod',
