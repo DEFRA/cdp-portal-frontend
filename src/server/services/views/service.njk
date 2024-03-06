@@ -31,10 +31,10 @@
 
       {% call appSummary() %}
         {% call appSummaryItem({
-          heading: "Application Urls",
+          heading: "Application links",
           icon: appGlobeIcon({ classes: "app-icon-small"}),
           intro: {
-            text: "View your application's deployments in any environments you have deployed to."
+            text: "How to access deployed instances of the service."
           }
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
@@ -53,10 +53,10 @@
         {% endcall %}
 
         {% call appSummaryItem({
-          heading: "Application Logs",
+          heading: "Logs",
           icon: appLogsIcon({ classes: "app-icon-small"}),
           intro: {
-            text: "View your application's OpenSearch logs for monitoring and troubleshooting issues."
+            text: "OpenSearch logs for monitoring and troubleshooting issues."
           }
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
@@ -74,10 +74,10 @@
         {% endcall %}
 
         {% call appSummaryItem({
-          heading: "Application Metrics",
+          heading: "Metrics",
           icon: appChartIcon({ classes: "app-icon-small"}),
           intro: {
-            text: "Browse your application's Grafana observability metrics data and graphs."
+            text: "Grafana observability metrics data and graphs."
           }
         }) %}
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
@@ -98,10 +98,10 @@
 
       {% call appSummary() %}
         {% call appSummaryItem({
-          heading: "Application Config",
+          heading: "Configuration",
           icon: appWrenchIcon({ classes: "app-icon-small"}),
           intro: {
-            text: "Pass environment variables to you application in CDP environments."
+            text: "Manage service configuration across CDP environments."
           }
         }) %}
           <p>
@@ -112,7 +112,7 @@
         {% endcall %}
 
         {% call appSummaryItem({
-           heading: "Application Builds",
+           heading: "Builds",
            icon: appCheckIcon({ classes: "app-icon-small"}),
            intro: {
            text: "Test, build and publish ready-to-deploy docker images."
