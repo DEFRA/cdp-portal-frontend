@@ -14,7 +14,7 @@ describe('#transformCdpTeamToEntityDataList', () => {
           url: `https://github.com/orgs/${githubOrg}/teams/cdp-platform`,
           value: '@cdp-platform'
         },
-        heading: 'Github team'
+        heading: 'GitHub team'
       },
       {
         entity: {

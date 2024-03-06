@@ -3,7 +3,7 @@ import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 function testSuiteToEntityDataList(testSuite) {
   return [
     {
-      heading: 'Github Repository',
+      heading: 'GitHub Repository',
       entity: {
         kind: 'link',
         value: removeUrlParts(testSuite.githubUrl),

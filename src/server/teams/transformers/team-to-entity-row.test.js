@@ -34,7 +34,7 @@ describe('#teamToEntityRow', () => {
     ])
   })
 
-  test('Should provide expected team transformation when team is not linked to a Github team', () => {
+  test('Should provide expected team transformation when team is not linked to a GitHub team', () => {
     expect(teamToEntityRow(cdpTeamWithoutGithubFixture.team)).toEqual([
       {
         kind: 'link',

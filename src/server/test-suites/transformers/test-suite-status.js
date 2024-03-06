@@ -39,7 +39,7 @@ function testSuiteStatus(service) {
     },
     serviceTypeTemplate: service.serviceTypeTemplate,
     createRepository: {
-      name: 'Github Repository',
+      name: 'GitHub Repository',
       part: 1,
       url: {
         text: removeUrlParts(service?.githubUrl),
@@ -55,13 +55,13 @@ function testSuiteStatus(service) {
         switch (createRepository?.status) {
           case creationStatuses.raised:
           case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
-            return `Creating new environment test suite Github repository from the ${service.serviceTypeTemplate} template.`
+            return `Creating new environment test suite GitHub repository from the ${service.serviceTypeTemplate} template.`
           case creationStatuses.created:
           case creationStatuses.success:
-            return `Your new environment test suite Github repository has been successfully created, you can now checkout your code and start developing.`
+            return `Your new environment test suite GitHub repository has been successfully created, you can now checkout your code and start developing.`
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -89,7 +89,7 @@ function testSuiteStatus(service) {
         switch (cdpTfSvcInfra?.status) {
           case creationStatuses.raised:
           case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up:
@@ -99,7 +99,7 @@ function testSuiteStatus(service) {
                       </ul>
                     <p>
                       You will need to wait for this stage to complete before you're able to deploy your service.
-                      The Github action link below has more information.
+                      The GitHub action link below has more information.
                     </p>`
           case creationStatuses.created:
           case creationStatuses.success:

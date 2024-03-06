@@ -21,7 +21,7 @@ function repositoryToEntityDataList(repository) {
       }
     },
     {
-      heading: 'Github Repository',
+      heading: 'GitHub Repository',
       entity: {
         kind: 'link',
         value: removeUrlParts(repository.url),

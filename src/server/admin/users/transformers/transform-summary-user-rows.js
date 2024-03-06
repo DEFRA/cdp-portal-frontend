@@ -54,7 +54,7 @@ function transformSummaryUserRows(cdpUser) {
         ),
     buildRow('AAD user name', userDetails.name),
     buildRow(
-      'Github user',
+      'GitHub user',
       githubUserUiValue,
       'find-github-user',
       'githubSearch',

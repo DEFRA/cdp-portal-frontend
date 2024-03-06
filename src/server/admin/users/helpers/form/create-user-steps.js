@@ -19,7 +19,7 @@ function createSteps(path, cdpUser) {
       url: urls.stepTwo,
       isComplete: isComplete.stepTwo,
       isCurrent: path.includes(urls.stepTwo),
-      text: 'Github user'
+      text: 'GitHub user'
     },
     {
       url: urls.stepThree,
