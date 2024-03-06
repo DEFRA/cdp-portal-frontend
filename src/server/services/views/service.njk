@@ -115,13 +115,13 @@
            heading: "Application Builds",
            icon: appCheckIcon({ classes: "app-icon-small"}),
            intro: {
-           text: "Your application builds to tests and publish a ready to deploy Docker image"
+           text: "Test, build and publish ready-to-deploy docker images."
            }
         }) %}
           <p>
             <a class="app-link" target="_blank" rel="noopener noreferrer"
                href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
-               Github action workflows for {{ service.serviceName }}
+               Github actions: {{ service.serviceName }}
             </a>
           </p>
         {% endcall %}
