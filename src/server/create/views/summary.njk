@@ -1,5 +1,16 @@
 {% extends "layouts/page.njk" %}
 
+{% set visibilityHelpText %}
+  {% if create.repositoryVisibility == "internal" %}
+    Repository visibility has been set to <b>Internal</b>. This should only be used for repositories
+    containing sensitive information.
+  {% endif %}
+  {% if create.repositoryVisibility == "private" %}
+    Repository visibility has been set to <b>Private</b>. Only members of the owning team will be
+    able to view the repository. Consider using <b>Internal</b>.
+  {% endif %}
+{% endset %}
+
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
 
@@ -12,13 +23,15 @@
 
     <div class="govuk-grid-row">
       <div class="app-grid-column-two-thirds-at-desktop-wide">
-        {{ appInfo({
-          html: helpText
-        }) }}
+        {% if visibilityHelpText %}
+          {{ appInfo({
+            html: visibilityHelpText
+          }) }}
+        {% endif %}
 
         <form action="{{ action }}" method="post">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="teamId" value="{{ create.teamId }}"/>
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="teamId" value="{{ create.teamId }}" />
 
           {{ govukSummaryList({
             classes: "govuk-!-margin-bottom-9",

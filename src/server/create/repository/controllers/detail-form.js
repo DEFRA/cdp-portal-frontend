@@ -36,8 +36,10 @@ const repositoryDetailFormController = {
       visibilityOptions: buildOptions(
         repositoryVisibility.map((visibility) => ({
           text: startCase(visibility),
-          value: visibility
-        }))
+          value: visibility,
+          ...(visibility === 'public' && { selected: true })
+        })),
+        false
       ),
       teamsOptions,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',

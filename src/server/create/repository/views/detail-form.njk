@@ -16,8 +16,8 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
         <form action="/create/repository/detail" method="post" data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
 
           {% call govukFieldset({
             legend: {
@@ -28,7 +28,7 @@
 
             {{ govukInput({
               label: {
-                text: "Repository name",
+                text: "Repository Name",
                 classes: "app-label"
               },
               id: "repository-name",
@@ -74,7 +74,7 @@
               id: "repository-visibility",
               name: "repositoryVisibility",
               label: {
-                text: "Repository visbility",
+                text: "Repository Visbility",
                 classes: "app-label"
               },
               classes: "app-select",
@@ -131,27 +131,43 @@
 
         </form>
       </div>
+
       {% set repoVisibilityHelpHtml %}
         <p class="govuk-!-margin-bottom-2">
           <b>Repository Visibility:</b>
         </p>
         <ul class="govuk-list govuk-list--bullet">
-          <li> <b>Public</b> repository will be visible to everyone. DEFRA promotes coding in the open - repositories
-            should be public by default.
+          <li><b>Public</b> repositories will be visible to everybody on the Internet. DEFRA promotes coding in the
+            open, repositories should be public by default.
           </li>
-          <li> <b>Internal</b> repositories are visible to everyone in the DEFRA GitHub organisation</li>
-          <li> <b>Private</b> repositories are visible to only members of your team - this should be used in very
-            exceptional cases. Please reach out to <a class="app-link" href="{{ supportChannel }}" target="_blank" rel="noopener noreferrer">#cdp-support</a> if you are considering using this option.</li>
+          <li><b>Internal</b> repositories are visible to everybody that is a member of the
+            <a class="app-link"
+               href="https://github.com/DEFRA"
+               target="_blank"
+               rel="noopener noreferrer">DEFRA
+              GitHub Organisation</a>.
+          </li>
+          <li><b>Private</b> repositories are visible to members of the owning team only. This should be used in
+            exceptional cases.
+          </li>
         </ul>
-        <p class="govuk-!-margin-bottom-4">For more information please
-          <a class="app-link"
-             href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
-             tabindex="-1"
-             target="_blank" rel="noopener noreferrer">visit</a>. Contact <a class="app-link"
-                                                                             href="{{ supportChannel }}" target="_blank"
-                                                                             rel="noopener noreferrer">#cdp-support</a>
-          for any questions.
-        </p>
+        <p class="govuk-!-margin-bottom-2">For more information see:</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li class="govuk-!-margin-bottom-1">
+            <a class="app-link"
+               href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
+               target="_blank" rel="noopener noreferrer">GitHub - About repository visibility</a>
+          </li>
+          <li class="govuk-!-margin-bottom-1">
+            <a class="app-link"
+               href="https://www.gov.uk/service-manual/technology/making-source-code-open-and-reusable"
+               target="_blank" rel="noopener noreferrer">GDS Service Manual - Making source code open and reusable</a>
+          </li>
+        </ul>
+
+
+
       {% endset %}
 
       <div class="govuk-grid-column-one-third">

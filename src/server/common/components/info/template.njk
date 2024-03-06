@@ -4,7 +4,7 @@
 
 {% set content = params.html | safe if params.html else params.text %}
 
-{% if params.html or params.text %}
+{% if content %}
   <div
     class="app-info{% if params.isSlim %} app-info--slim{% endif %}{% if params.classes %} {{ params.classes }}{% endif %}"
     tabindex="-1"
