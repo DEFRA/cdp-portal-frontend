@@ -46,7 +46,7 @@ function serviceStatus(service) {
     },
     serviceTypeTemplate: serviceStatus.serviceTypeTemplate,
     createRepository: {
-      name: 'Github Repository',
+      name: 'GitHub Repository',
       part: 1,
       url: {
         text: removeUrlParts(service?.githubUrl),
@@ -62,13 +62,13 @@ function serviceStatus(service) {
         switch (createRepository?.status) {
           case creationStatuses.raised:
           case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
-            return `Creating new services Github repository from the ${serviceStatus.serviceTypeTemplate} template.`
+            return `Creating new services GitHub repository from the ${serviceStatus.serviceTypeTemplate} template.`
           case creationStatuses.created:
           case creationStatuses.success:
-            return `Your new services Github repository has been successfully created, you can now checkout your code and start developing.`
+            return `Your new services GitHub repository has been successfully created, you can now checkout your code and start developing.`
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -96,7 +96,7 @@ function serviceStatus(service) {
         switch (cdpAppConfig?.status) {
           case creationStatuses.raised:
           case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -148,10 +148,10 @@ function serviceStatus(service) {
         switch (cdpNginxUpstreams?.status) {
           case creationStatuses.raised:
           case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
-            return `Setting up your service to be accessible to other services/public on the Core Delivery Platform environments. The Github action link below has more information.`
+            return `Setting up your service to be accessible to other services/public on the Core Delivery Platform environments. The GitHub action link below has more information.`
           case creationStatuses.created:
           case creationStatuses.success:
             return `Your new services path is now configured on the Core Delivery Platform environments.`
@@ -200,7 +200,7 @@ function serviceStatus(service) {
         switch (cdpTfSvcInfra?.status) {
           case creationStatuses.raised:
           case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The Github pull request link below has more information.`
+            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up:
@@ -211,7 +211,7 @@ function serviceStatus(service) {
                       </ul>
                     <p>
                       You will need to wait for this stage to complete before you're able to deploy your service.
-                      The Github action link below has more information.
+                      The GitHub action link below has more information.
                     </p>`
           case creationStatuses.created:
           case creationStatuses.success:

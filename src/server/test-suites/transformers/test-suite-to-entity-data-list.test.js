@@ -15,7 +15,7 @@ describe('#testSuiteToEntityDataList', () => {
             url: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
             value: `${githubOrg}/cdp-portal-smoke-tests`
           },
-          heading: 'Github Repository'
+          heading: 'GitHub Repository'
         },
         {
           entity: {

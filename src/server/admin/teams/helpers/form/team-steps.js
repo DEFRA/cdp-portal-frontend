@@ -18,7 +18,7 @@ function teamSteps(path, cdpTeam) {
       url: urls.stepTwo,
       isComplete: isComplete.stepTwo,
       isCurrent: path.includes(urls.stepTwo),
-      text: 'Github team'
+      text: 'GitHub team'
     },
     {
       isComplete: isComplete.allSteps,

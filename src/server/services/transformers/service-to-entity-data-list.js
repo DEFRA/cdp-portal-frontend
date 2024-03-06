@@ -7,7 +7,7 @@ function serviceToEntityDataList(service) {
 
   return [
     {
-      heading: 'Github Repository',
+      heading: 'GitHub Repository',
       entity: {
         kind: 'link',
         value: removeUrlParts(service.githubUrl),

@@ -16,7 +16,7 @@ function transformUserToEntityDataList(user) {
       }
     },
     {
-      heading: 'Github',
+      heading: 'GitHub',
       entity: {
         kind: 'link',
         value: user.github ? `@${user.github}` : null,

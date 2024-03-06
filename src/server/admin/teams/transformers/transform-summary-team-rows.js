@@ -48,7 +48,7 @@ function transformSummaryTeamRows(cdpTeam) {
     buildRow('Name', teamDetails.name, 'team-details'),
     buildRow('Description', teamDetails.description, 'team-details'),
     buildRow(
-      'Github team',
+      'GitHub team',
       githubTeamUiValue,
       'find-github-team',
       'githubSearch',

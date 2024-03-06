@@ -26,7 +26,7 @@ describe('#transformUserToEntityDataList', () => {
           url: 'https://github.com/BABaracus',
           value: '@BABaracus'
         },
-        heading: 'Github'
+        heading: 'GitHub'
       },
       {
         entity: {

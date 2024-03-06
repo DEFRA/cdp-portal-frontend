@@ -3,7 +3,7 @@
 {% from "split-pane/macro.njk" import appSplitPane with context %}
 
 {% set searchHintHtml %}
-  Search using the Github team name. <a href="https://github.com/orgs/{{ githubOrg }}/teams"
+  Search using the GitHub team name. <a href="https://github.com/orgs/{{ githubOrg }}/teams"
                                         class="app-link-underline"
                                         target="_blank">View ORG teams</a>
 {% endset %}
@@ -31,7 +31,7 @@
 
               {{ appSearch({
                 label: {
-                  text: "Github team"
+                  text: "GitHub team"
                 },
                 id: "githubSearch",
                 name: "githubSearch",
@@ -69,7 +69,7 @@
                     classes: "govuk-radios--small app-radio",
                     fieldset: {
                       legend: {
-                        text: "Choose a Github team (optional)"
+                        text: "Choose a GitHub team (optional)"
                       }
                     } if githubTeams | length,
                     items: githubTeams,

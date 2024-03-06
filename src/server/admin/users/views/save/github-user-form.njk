@@ -3,7 +3,7 @@
 {% from "split-pane/macro.njk" import appSplitPane with context %}
 
 {% set searchHintHtml %}
-  Search using the users Github username. <a href="https://github.com/orgs/{{ githubOrg }}/people"
+  Search using the users GitHub username. <a href="https://github.com/orgs/{{ githubOrg }}/people"
                                              class="app-link"
                                              target="_blank">View ORG members</a>
 {% endset %}
@@ -32,7 +32,7 @@
 
               {{ appSearch({
                 label: {
-                  text: "Github username"
+                  text: "GitHub username"
                 },
                 id: "githubSearch",
                 name: "githubSearch",
@@ -70,7 +70,7 @@
                     classes: "govuk-radios--small app-radio",
                     fieldset: {
                       legend: {
-                        text: "Choose a Github user (optional)"
+                        text: "Choose a GitHub user (optional)"
                       }
                     } if githubUsers | length,
                     items: githubUsers,

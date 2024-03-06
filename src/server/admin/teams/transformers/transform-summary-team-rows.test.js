@@ -55,13 +55,13 @@ describe('#transformSummaryTeamRows', () => {
               classes: 'app-link',
               href: '/admin/teams/find-github-team?redirectLocation=summary&githubSearch=forestry-management',
               text: 'Change',
-              visuallyHiddenText: 'Github team'
+              visuallyHiddenText: 'GitHub team'
             }
           ]
         },
         key: {
           classes: 'app-summary__heading',
-          text: 'Github team'
+          text: 'GitHub team'
         },
         value: {
           html: `<a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a>`

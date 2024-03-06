@@ -71,7 +71,7 @@ const config = convict({
     env: 'USER_SERVICE_API_URL'
   },
   githubOrg: {
-    doc: 'The Github Organisation',
+    doc: 'The GitHub Organisation',
     format: String,
     default: 'DEFRA'
   },

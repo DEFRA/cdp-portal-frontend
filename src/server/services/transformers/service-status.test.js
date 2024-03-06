@@ -104,7 +104,7 @@ describe('#serviceStatus', () => {
         },
         createRepository: {
           info: expect.any(Function),
-          name: 'Github Repository',
+          name: 'GitHub Repository',
           part: 1,
           status: {
             classes: 'govuk-tag--blue',

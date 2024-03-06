@@ -41,13 +41,13 @@ describe('#transformSummaryUserRows', () => {
               classes: 'app-link',
               href: '/admin/users/find-github-user?redirectLocation=summary&githubSearch=BABaracus',
               text: 'Change',
-              visuallyHiddenText: 'Github user'
+              visuallyHiddenText: 'GitHub user'
             }
           ]
         },
         key: {
           classes: 'app-summary__heading',
-          text: 'Github user'
+          text: 'GitHub user'
         },
         value: {
           html: '<a class="app-link" href="https://github.com/BABaracus" target="_blank" rel="noopener noreferrer">@BABaracus</a>'
