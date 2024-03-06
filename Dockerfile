@@ -21,7 +21,7 @@ RUN npm run build
 
 CMD [ "npm", "run", "docker:dev" ]
 
-FROM development as productionBuild
+FROM development AS productionBuild
 
 ENV NODE_ENV production
 
