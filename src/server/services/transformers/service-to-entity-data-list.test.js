@@ -39,7 +39,7 @@ describe('#serviceToEntityDataList', () => {
             kind: 'text',
             value: 'C#'
           },
-          heading: 'Type'
+          heading: 'Language'
         },
         {
           entity: {
@@ -98,7 +98,7 @@ describe('#serviceToEntityDataList', () => {
             kind: 'text',
             value: 'JavaScript'
           },
-          heading: 'Type'
+          heading: 'Language'
         },
         {
           entity: {

@@ -8,6 +8,7 @@
 {% from "icons/web-icon/macro.njk" import appWebIcon %}
 {% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
 {% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
+{% from "icons/check-icon/macro.njk" import appCheckIcon %}
 
 {% block content %}
 
@@ -107,6 +108,21 @@
             <a class="app-link"
                href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
                target="_blank" rel="noopener noreferrer">cdp-app-config/{{ service.serviceName }}</a>
+          </p>
+        {% endcall %}
+
+        {% call appSummaryItem({
+           heading: "Application Builds",
+           icon: appCheckIcon({ classes: "app-icon-small"}),
+           intro: {
+           text: "Test, build and publish ready-to-deploy docker images."
+           }
+        }) %}
+          <p>
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
+               Github actions: {{ service.serviceName }}
+            </a>
           </p>
         {% endcall %}
       {% endcall %}

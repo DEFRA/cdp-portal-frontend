@@ -25,7 +25,7 @@ function testSuiteToEntityDataList(testSuite) {
     ...(testSuite?.primaryLanguage
       ? [
           {
-            heading: 'Type',
+            heading: 'Language',
             entity: {
               kind: 'text',
               value: testSuite.primaryLanguage

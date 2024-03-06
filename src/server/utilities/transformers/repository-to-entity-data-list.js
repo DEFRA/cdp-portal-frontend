@@ -14,7 +14,7 @@ function repositoryToEntityDataList(repository) {
       }
     },
     {
-      heading: 'Type',
+      heading: 'Language',
       entity: {
         kind: 'text',
         value: repository.primaryLanguage
