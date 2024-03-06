@@ -8,7 +8,6 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { withEnvironments } from '~/src/server/common/transformers/with-environments'
 import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
 import { fetchRunningServicesById } from '~/src/server/services/helpers/fetch/fetch-running-services-by-id'
-import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 import { runningServicesToEntityRow } from '~/src/server/services/transformers/running-services-to-entity-row'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 import { kebabCase, upperFirst } from 'lodash'
@@ -52,11 +51,6 @@ const serviceController = {
       )
     ].sort(sortByEnv)
 
-    const serviceBuildLink = {
-      link: `${service.githubUrl}/actions`,
-      text: `${removeUrlParts(service.githubUrl)}/actions`
-    }
-
     return h.view('services/views/service', {
       pageTitle: `${service.serviceName} microservice`,
       runningServicesEntityRows,
@@ -65,7 +59,6 @@ const serviceController = {
       rowHeadings: buildRunningServicesRowHeadings(environments),
       entityDataList: serviceToEntityDataList(service),
       service,
-      serviceBuildLink,
       breadcrumbs: [
         {
           text: 'Services',

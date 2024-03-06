@@ -115,13 +115,13 @@
            heading: "Application Builds",
            icon: appCheckIcon({ classes: "app-icon-small"}),
            intro: {
-           text: "View your application's CI builds to tests and publish your application with Github Actions."
+           text: "Your application builds to tests and publish a ready to deploy Docker image"
            }
         }) %}
           <p>
-            <a class="app-link"
-               href="{{ serviceBuildLink.link }}">
-               {{ serviceBuildLink.text }}
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
+               Github action workflows for {{ service.serviceName }}
             </a>
           </p>
         {% endcall %}
