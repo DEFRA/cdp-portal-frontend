@@ -4,21 +4,23 @@
 
 {% set content = params.html | safe if params.html else params.text %}
 
-<div class="app-info{% if params.isSlim %} app-info--slim{% endif %}{% if params.classes %} {{ params.classes }}{% endif %}"
-     tabindex="-1"
-     role="alert"
-     data-testid="app-info">
-  {% if not params.isSlim %}
-    {{ appInfoIcon({
-      classes: "app-icon-medium"
-    }) }}
-  {% endif %}
-  <span class="app-info__content" data-testid="app-info-content">
+{% if params.html or params.text %}
+  <div
+    class="app-info{% if params.isSlim %} app-info--slim{% endif %}{% if params.classes %} {{ params.classes }}{% endif %}"
+    tabindex="-1"
+    role="alert"
+    data-testid="app-info">
+    {% if not params.isSlim %}
+      {{ appInfoIcon({
+        classes: "app-icon-medium"
+      }) }}
+    {% endif %}
+    <span class="app-info__content" data-testid="app-info-content">
     {{ content }}
   </span>
 
-  {% if params.actionText %}
-    <span class="app-info__action">
+    {% if params.actionText %}
+      <span class="app-info__action">
       {{ govukButton({
         classes: "app-button app-button--secondary js-visible",
         text: params.actionText,
@@ -27,5 +29,6 @@
         }
       }) }}
     </span>
-  {% endif %}
-</div>
+    {% endif %}
+  </div>
+{% endif %}

@@ -3,14 +3,6 @@
 {% from "read-out/macro.njk" import appReadOut %}
 {% from "availability/macro.njk" import appAvailability %}
 
-{% set visibilityHintHtml %}
-  Choose your new repository's visibility. For more information
-  <a class="app-link"
-     href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
-     tabindex="-1"
-     target="_blank" rel="noopener noreferrer">visit</a>
-{% endset %}
-
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
 
@@ -87,7 +79,7 @@
               },
               classes: "app-select",
               hint: {
-                html: visibilityHintHtml,
+                html: "Choose your new repository's visibility",
                 classes: "app-hint"
               },
               formGroup: {
@@ -138,6 +130,34 @@
           }) }}
 
         </form>
+      </div>
+      {% set repoVisibilityHelpHtml %}
+        <p class="govuk-!-margin-bottom-2">
+          <b>Repository Visibility:</b>
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li> <b>Public</b> repository will be visible to everyone. DEFRA promotes coding in the open - repositories
+            should be public by default.
+          </li>
+          <li> <b>Internal</b> repositories are visible to everyone in the DEFRA GitHub organisation</li>
+          <li> <b>Private</b> repositories are visible to only members of your team - this should be used in very
+            exceptional cases. Please reach out to <a class="app-link" href="{{ supportChannel }}" target="_blank" rel="noopener noreferrer">#cdp-support</a> if you are considering using this option.</li>
+        </ul>
+        <p class="govuk-!-margin-bottom-4">For more information please
+          <a class="app-link"
+             href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
+             tabindex="-1"
+             target="_blank" rel="noopener noreferrer">visit</a>. Contact <a class="app-link"
+                                                                             href="{{ supportChannel }}" target="_blank"
+                                                                             rel="noopener noreferrer">#cdp-support</a>
+          for any questions.
+        </p>
+      {% endset %}
+
+      <div class="govuk-grid-column-one-third">
+        {{ appInfo({
+          html: repoVisibilityHelpHtml
+        }) }}
       </div>
     </div>
   </div>

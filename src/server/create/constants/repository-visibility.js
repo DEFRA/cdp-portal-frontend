@@ -1,3 +1,3 @@
-const repositoryVisibility = ['public', 'private', 'internal']
+const repositoryVisibility = ['public', 'internal', 'private']
 
 export { repositoryVisibility }
