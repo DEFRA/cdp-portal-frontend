@@ -1,13 +1,9 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 // Response from portalBackendApi/services
 // Decorated with portalBackendApi/repositories
 const servicesWithRepositoriesFixture = [
   {
     serviceName: 'cdp-portal-frontend',
-    githubUrl: `https://github.com/${githubOrg}`,
+    githubUrl: `https://github.com/DEFRA`,
     imageName: 'cdp-portal-frontend',
     description:
       'The Core Delivery Platform Portal. Gain insight on microservices, deployments, running services and teams across the platform. While being able to create and control when and where you deploy microservices. Everything you need and want to know about the Platform can be found here on the Portal.',
@@ -29,7 +25,7 @@ const servicesWithRepositoriesFixture = [
   },
   {
     serviceName: 'cdp-self-service-ops',
-    githubUrl: `https://github.com/${githubOrg}/cdp-self-service-ops`,
+    githubUrl: `https://github.com/DEFRA/cdp-self-service-ops`,
     imageName: 'cdp-self-service-ops',
     description:
       'Core delivery platform Self Service Ops Node.js Backend.  This Api provides automation for service creation, deployment and future mutations sent from the Core Development Portal.',

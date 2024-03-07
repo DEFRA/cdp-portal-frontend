@@ -1,12 +1,9 @@
-import { config } from '~/src/config'
 import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#serviceToEntityDataList', () => {
   describe('With a deployable service', () => {
@@ -16,7 +13,7 @@ describe('#serviceToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: `https://github.com/${githubOrg}/cdp-deployables`,
+            url: `https://github.com/DEFRA/cdp-deployables`,
             value: 'DEFRA/cdp-deployables'
           },
           heading: 'GitHub Repository'
@@ -75,7 +72,7 @@ describe('#serviceToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+            url: `https://github.com/DEFRA/cdp-portal-frontend`,
             value: 'cdp-portal-frontend'
           },
           heading: 'GitHub Repository'

@@ -1,15 +1,11 @@
-import { config } from '~/src/config'
-
 function transformCdpTeamToEntityDataList(team) {
-  const githubOrg = config.get('githubOrg')
-
   return [
     {
       heading: 'GitHub team',
       entity: {
         kind: 'link',
         value: team.github ? `@${team.github}` : null,
-        url: `https://github.com/orgs/${githubOrg}/teams/${team.github}`,
+        url: `https://github.com/orgs/DEFRA/teams/${team.github}`,
         newWindow: true
       }
     },

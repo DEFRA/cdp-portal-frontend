@@ -1,7 +1,3 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 const teamFixture = {
   name: 'Platform',
   description: 'The team that runs most of the things 💪🏻',
@@ -24,7 +20,7 @@ const teamFixture = {
       id: 'cdp-portal-backend',
       description: 'Git repository for service cdp-portal-backend',
       primaryLanguage: 'C#',
-      url: `https://github.com/${githubOrg}/cdp-portal-backend`,
+      url: `https://github.com/DEFRA/cdp-portal-backend`,
       isArchived: false,
       isTemplate: false,
       isPrivate: true,
@@ -35,7 +31,7 @@ const teamFixture = {
       id: 'cdp-portal-frontend',
       description: 'The Core Delivery Platform Portal.',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      url: `https://github.com/DEFRA/cdp-portal-frontend`,
       isArchived: false,
       isTemplate: false,
       isPrivate: true,
@@ -48,7 +44,7 @@ const teamFixture = {
       id: 'cdp-node-backend-template',
       description: 'Core delivery platform Node.js Backend Template.',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-node-backend-template`,
+      url: `https://github.com/DEFRA/cdp-node-backend-template`,
       isArchived: false,
       isTemplate: true,
       isPrivate: true,
@@ -59,7 +55,7 @@ const teamFixture = {
       id: 'cdp-node-frontend-template',
       description: 'Core delivery platform Node.js Frontend Template.',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-node-frontend-template`,
+      url: `https://github.com/DEFRA/cdp-node-frontend-template`,
       isArchived: false,
       isTemplate: true,
       isPrivate: true,

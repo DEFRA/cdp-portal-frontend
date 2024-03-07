@@ -1,8 +1,4 @@
-import { config } from '~/src/config'
-
 function transformUserToEntityRow(user) {
-  const githubOrg = config.get('githubOrg')
-
   return [
     {
       kind: 'link',
@@ -17,7 +13,7 @@ function transformUserToEntityRow(user) {
     {
       kind: 'link',
       value: user.github ? `@${user.github}` : null,
-      url: `https://github.com/orgs/${githubOrg}/people/${user.github}`,
+      url: `https://github.com/orgs/DEFRA/people/${user.github}`,
       newWindow: true
     },
     {

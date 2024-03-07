@@ -1,8 +1,5 @@
-import { config } from '~/src/config'
 import { cdpTeamSessionFixture } from '~/src/__fixtures__/admin/cdp-team-session'
 import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#transformSummaryTeamRows', () => {
   test('Should provide expected team row transformation', () => {
@@ -64,7 +61,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'GitHub team'
         },
         value: {
-          html: `<a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a>`
+          html: `<a class="app-link" href="https://github.com/orgs/DEFRA/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a>`
         }
       }
     ])

@@ -1,7 +1,3 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 // Response from portalBackendApi/templates
 const templatesFixture = {
   message: 'success',
@@ -10,7 +6,7 @@ const templatesFixture = {
       id: 'cdp-node-frontend-template',
       description: 'Core delivery platform Node.js Frontend Template',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-node-frontend-template`,
+      url: `https://github.com/DEFRA/cdp-node-frontend-template`,
       isArchived: false,
       isTemplate: true,
       isPrivate: false,
@@ -27,7 +23,7 @@ const templatesFixture = {
       id: 'cdp-node-backend-template',
       description: 'Core delivery platform Node.js Backend Template',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-node-backend-template`,
+      url: `https://github.com/DEFRA/cdp-node-backend-template`,
       isArchived: false,
       isTemplate: true,
       isPrivate: false,
@@ -45,7 +41,7 @@ const templatesFixture = {
       description:
         'C# ASP.NET Minimial API template with MongoDB, FluentValidation, Swagger and Serilog logging',
       primaryLanguage: 'C#',
-      url: `https://github.com/${githubOrg}/cdp-dotnet-backend-template`,
+      url: `https://github.com/DEFRA/cdp-dotnet-backend-template`,
       isArchived: false,
       isTemplate: true,
       isPrivate: false,

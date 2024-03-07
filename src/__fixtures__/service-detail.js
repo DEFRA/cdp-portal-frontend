@@ -1,12 +1,8 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 // A service from portalBackendApiUrl/services/<serviceId>
 // decorated with repository data from portalBackendApiUrl/repositories/<repositoryId>
 const serviceDetailFixture = {
   serviceName: 'cdp-portal-deployables-backend',
-  githubUrl: `https://github.com/${githubOrg}/cdp-deployables`,
+  githubUrl: `https://github.com/DEFRA/cdp-deployables`,
   imageName: 'cdp-portal-deployables-backend',
   description:
     'Core delivery platform Deployables DotNet backend API. This Api collects metadata about deployable artifacts (Docker images) and provides this information to the Core Development Portal.',

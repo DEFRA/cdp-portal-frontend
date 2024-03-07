@@ -1,11 +1,8 @@
-import { config } from '~/src/config'
 import { repositoriesFixture } from '~/src/__fixtures__/repositories'
 import { servicesFixture } from '~/src/__fixtures__/services'
 import { createServicesStatusesFixture } from '~/src/__fixtures__/create-services-statuses'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
 import { omit } from 'lodash'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#repositoriesDecorator', () => {
   const decorator = repositoriesDecorator(repositoriesFixture.repositories)
@@ -20,7 +17,7 @@ describe('#repositoriesDecorator', () => {
             ),
             ['url']
           ),
-          githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+          githubUrl: `https://github.com/DEFRA/cdp-portal-frontend`,
           imageName: 'cdp-portal-frontend',
           serviceName: 'cdp-portal-frontend',
           teams: [
@@ -32,7 +29,7 @@ describe('#repositoriesDecorator', () => {
           ]
         },
         {
-          githubUrl: `https://github.com/${githubOrg}/cdp-user-service-backend`,
+          githubUrl: `https://github.com/DEFRA/cdp-user-service-backend`,
           imageName: 'cdp-user-service-backend',
           serviceName: 'cdp-user-service-backend',
           teams: [
@@ -53,7 +50,7 @@ describe('#repositoriesDecorator', () => {
         {
           ...createServicesStatusesFixture.statuses.at(0),
           kind: 'repository',
-          org: githubOrg,
+          org: 'DEFRA',
           portalVersion: 2,
           repositoryName: 'cdp-portal-frontend',
           serviceType: 'cdp-node-backend-template',

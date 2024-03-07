@@ -1,8 +1,6 @@
-import { config } from '~/src/config'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
 
 function serviceToEntityRow(service) {
-  const githubOrg = config.get('githubOrg')
   const status = service?.serviceStatus?.status
   const hasStatus = Boolean(status)
 
@@ -38,7 +36,7 @@ function serviceToEntityRow(service) {
     {
       kind: 'link',
       value: service.id,
-      url: `https://github.com/${githubOrg}/${service.id}`,
+      url: `https://github.com/DEFRA/${service.id}`,
       newWindow: true
     },
     createdEntity

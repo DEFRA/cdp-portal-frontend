@@ -1,8 +1,5 @@
-import { config } from '~/src/config'
 import { repositoryToEntityDataList } from '~/src/server/utilities/transformers/repository-to-entity-data-list'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#serviceToEntityDataList', () => {
   test('Should provide expected repository data list entities transformation', () => {
@@ -31,7 +28,7 @@ describe('#serviceToEntityDataList', () => {
         entity: {
           kind: 'link',
           newWindow: true,
-          url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+          url: `https://github.com/DEFRA/cdp-portal-frontend`,
           value: 'cdp-portal-frontend'
         },
         heading: 'GitHub Repository'

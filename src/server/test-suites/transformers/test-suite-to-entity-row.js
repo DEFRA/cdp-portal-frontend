@@ -1,8 +1,4 @@
-import { config } from '~/src/config'
-
 function transformTestSuiteToEntityRow(testSuite) {
-  const githubOrg = config.get('githubOrg')
-
   return [
     {
       kind: 'link',
@@ -24,7 +20,7 @@ function transformTestSuiteToEntityRow(testSuite) {
     {
       kind: 'link',
       value: testSuite.id,
-      url: `https://github.com/${githubOrg}/${testSuite.id}`,
+      url: `https://github.com/DEFRA/${testSuite.id}`,
       newWindow: true
     },
     { kind: 'date', value: testSuite.createdAt }

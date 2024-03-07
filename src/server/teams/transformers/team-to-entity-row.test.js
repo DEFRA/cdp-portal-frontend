@@ -1,9 +1,6 @@
-import { config } from '~/src/config'
 import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
 import { cdpTeamWithoutGithubFixture } from '~/src/__fixtures__/admin/cdp-team-without-github'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#teamToEntityRow', () => {
   test('Should provide expected team transformation', () => {
@@ -16,7 +13,7 @@ describe('#teamToEntityRow', () => {
       {
         kind: 'link',
         newWindow: true,
-        url: `https://github.com/orgs/${githubOrg}/teams/cdp-platform`,
+        url: `https://github.com/orgs/DEFRA/teams/cdp-platform`,
         value: '@cdp-platform'
       },
       {

@@ -1,4 +1,3 @@
-import { config } from '~/src/config'
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
 import { buildLink } from '~/src/server/common/helpers/build-link'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
@@ -14,8 +13,6 @@ const repositorySuccessController = {
   handler: async (request, h) => {
     await setStepComplete(request, h, 'allSteps')
 
-    const githubOrg = config.get('githubOrg')
-
     const create = request.pre?.create
     const repositoryName = create.repositoryName
 
@@ -24,7 +21,7 @@ const repositorySuccessController = {
       heading: 'Status',
       caption: 'Your repository is being created',
       repositoryLink: buildLink(
-        `https://github.com/${githubOrg}/${repositoryName}`,
+        `https://github.com/DEFRA/${repositoryName}`,
         repositoryName
       )
     })

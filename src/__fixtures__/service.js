@@ -1,11 +1,7 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 // Response from portalBackendApi/services/cdp-portal-frontend
 const serviceFixture = {
   serviceName: 'cdp-portal-frontend',
-  githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+  githubUrl: `https://github.com/DEFRA/cdp-portal-frontend`,
   imageName: 'cdp-portal-frontend',
   teams: [
     {

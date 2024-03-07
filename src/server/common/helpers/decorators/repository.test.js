@@ -1,11 +1,8 @@
-import { config } from '~/src/config'
 import { serviceFixture } from '~/src/__fixtures__/service'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#repositoryDecorator', () => {
   describe('With deployable service', () => {
@@ -15,7 +12,7 @@ describe('#repositoryDecorator', () => {
       ).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
         description: 'The Core Delivery Platform Portal.',
-        githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+        githubUrl: `https://github.com/DEFRA/cdp-portal-frontend`,
         id: 'cdp-portal-frontend',
         imageName: 'cdp-portal-frontend',
         isArchived: false,

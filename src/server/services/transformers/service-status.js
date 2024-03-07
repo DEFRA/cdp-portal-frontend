@@ -1,13 +1,9 @@
 import { startCase } from 'lodash'
-
-import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
 import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
 import { buildLink } from '~/src/server/common/helpers/build-link'
-
-const githubOrg = config.get('githubOrg')
 
 function serviceStatus(service) {
   const serviceStatus = service.serviceStatus
@@ -84,7 +80,7 @@ function serviceStatus(service) {
       part: 2,
       url: {
         text: 'cdp-app-config',
-        href: `https://github.com/${githubOrg}/cdp-app-config`
+        href: `https://github.com/DEFRA/cdp-app-config`
       },
       status: {
         text: cdpAppConfig?.status
@@ -107,7 +103,7 @@ function serviceStatus(service) {
           default:
             return `Services on the Core Delivery Platform are configured via environment variables. You can update your services config via pull request on the cdp-app-config
         repository. For more detailed information see the ${buildLink(
-          `https://github.com/${githubOrg}/cdp-app-config`,
+          `https://github.com/DEFRA/cdp-app-config`,
           'DEFRA/cdp-app-config/README.md'
         )}`
         }
@@ -136,7 +132,7 @@ function serviceStatus(service) {
       part: 3,
       url: {
         text: 'cdp-nginx-upstreams',
-        href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`
+        href: `https://github.com/DEFRA/cdp-nginx-upstreams`
       },
       status: {
         text: cdpNginxUpstreams?.status
@@ -188,7 +184,7 @@ function serviceStatus(service) {
       part: 4,
       url: {
         text: 'cdp-tf-svc-infra',
-        href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
+        href: `https://github.com/DEFRA/cdp-tf-svc-infra`
       },
       status: {
         text: cdpTfSvcInfra?.status

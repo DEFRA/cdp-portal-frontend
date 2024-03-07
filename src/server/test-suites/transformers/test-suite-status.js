@@ -1,13 +1,10 @@
 import { startCase } from 'lodash'
 
-import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
 import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
 import { buildLink } from '~/src/server/common/helpers/build-link'
-
-const githubOrg = config.get('githubOrg')
 
 function testSuiteStatus(service) {
   const serviceStatus = service.serviceStatus
@@ -42,7 +39,7 @@ function testSuiteStatus(service) {
       name: 'GitHub Repository',
       part: 1,
       url: {
-        text: removeUrlParts(service?.githubUrl),
+        text: service?.serviceStatus.repositoryName,
         href: service?.githubUrl
       },
       status: {
@@ -76,8 +73,8 @@ function testSuiteStatus(service) {
       name: 'Infrastructure',
       part: 2,
       url: {
-        text: `${githubOrg}/cdp-tf-svc-infra`,
-        href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
+        text: 'cdp-tf-svc-infra',
+        href: `https://github.com/DEFRA/cdp-tf-svc-infra`
       },
       status: {
         text: cdpTfSvcInfra?.status

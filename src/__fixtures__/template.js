@@ -1,7 +1,3 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 // Response from portalBackendApi/templates/cdp-portal-frontend
 const templateFixture = {
   message: 'success',
@@ -9,7 +5,7 @@ const templateFixture = {
     id: 'cdp-portal-frontend',
     description: 'The Core Delivery Platform Portal.',
     primaryLanguage: 'JavaScript',
-    url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+    url: `https://github.com/DEFRA/cdp-portal-frontend`,
     isArchived: false,
     isTemplate: false,
     isPrivate: true,

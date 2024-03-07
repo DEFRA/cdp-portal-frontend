@@ -1,7 +1,3 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 // Response from portalBackendApi/repositories
 const repositoriesFixture = {
   message: 'success',
@@ -10,7 +6,7 @@ const repositoriesFixture = {
       id: 'cdp-portal-backend',
       description: 'Git repository for service cdp-portal-backend',
       primaryLanguage: 'C#',
-      url: `https://github.com/${githubOrg}/cdp-portal-backend`,
+      url: `https://github.com/DEFRA/cdp-portal-backend`,
       isArchived: false,
       isTemplate: false,
       isPrivate: true,
@@ -28,7 +24,7 @@ const repositoriesFixture = {
       description:
         'The Core Delivery Platform Portal. A Node.js frontend application built with Hapi.js. Helping Defra teams to create, deploy, run and monitor applications on the Core Delivery Platform.',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      url: `https://github.com/DEFRA/cdp-portal-frontend`,
       isArchived: false,
       isTemplate: false,
       isPrivate: true,

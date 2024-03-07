@@ -1,8 +1,5 @@
-import { config } from '~/src/config'
 import { serviceToEntityRow } from '~/src/server/services/transformers/service-to-entity-row'
 import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services-with-repositories'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#serviceToEntityRow', () => {
   test('Should provide expected service entity row transformation', () => {
@@ -29,7 +26,7 @@ describe('#serviceToEntityRow', () => {
       {
         kind: 'link',
         newWindow: true,
-        url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+        url: `https://github.com/DEFRA/cdp-portal-frontend`,
         value: 'cdp-portal-frontend'
       },
       {

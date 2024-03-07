@@ -1,8 +1,5 @@
-import { config } from '~/src/config'
 import { testSuiteFixture } from '~/src/__fixtures__/test-suite'
 import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#testSuiteToEntityDataList', () => {
   describe('With a deployable service', () => {
@@ -12,7 +9,7 @@ describe('#testSuiteToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
+            url: `https://github.com/DEFRA/cdp-portal-smoke-tests`,
             value: 'cdp-portal-smoke-tests'
           },
           heading: 'GitHub Repository'

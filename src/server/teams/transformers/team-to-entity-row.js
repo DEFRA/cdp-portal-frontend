@@ -1,8 +1,4 @@
-import { config } from '~/src/config'
-
 function teamToEntityRow(team) {
-  const githubOrg = config.get('githubOrg')
-
   return [
     {
       kind: 'link',
@@ -13,7 +9,7 @@ function teamToEntityRow(team) {
       kind: 'link',
       value: team?.github ? `@${team.github}` : null,
       url: team?.github
-        ? `https://github.com/orgs/${githubOrg}/teams/${team.github}`
+        ? `https://github.com/orgs/DEFRA/teams/${team.github}`
         : null,
       newWindow: true
     },

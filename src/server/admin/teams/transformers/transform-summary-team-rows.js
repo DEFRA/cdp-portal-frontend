@@ -1,6 +1,4 @@
 import { isNull } from 'lodash'
-
-import { config } from '~/src/config'
 import { noValue } from '~/src/server/common/constants/no-value'
 import { buildLink } from '~/src/server/common/helpers/build-link'
 
@@ -30,7 +28,6 @@ function buildRow(name, value, stepPath, query, queryValue = value) {
 }
 
 function transformSummaryTeamRows(cdpTeam) {
-  const githubOrg = config.get('githubOrg')
   const teamDetails = Object.entries(cdpTeam).reduce((obj, [key, value]) => {
     return {
       ...obj,
@@ -39,7 +36,7 @@ function transformSummaryTeamRows(cdpTeam) {
   }, {})
   const githubTeamUiValue = cdpTeam.github
     ? buildLink(
-        `https://github.com/orgs/${githubOrg}/teams/${teamDetails.github}`,
+        `https://github.com/orgs/DEFRA/teams/${teamDetails.github}`,
         `@${teamDetails.github}`
       )
     : noValue

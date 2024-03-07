@@ -1,11 +1,8 @@
-import { config } from '~/src/config'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { serviceStatus } from '~/src/server/services/transformers/service-status'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#serviceStatus', () => {
   test('Should provide expected transformed service status', () => {
@@ -24,7 +21,7 @@ describe('#serviceStatus', () => {
             name: 'Upload config to s3 (infra-dev)',
             started: '2023-10-27T12:38:40Z',
             url: {
-              href: `https://github.com/${githubOrg}/cdp-app-config/actions/runs/6667297592`,
+              href: `https://github.com/DEFRA/cdp-app-config/actions/runs/6667297592`,
               text: 'DEFRA/cdp-app-config/actions/runs/6667297592'
             }
           },
@@ -33,7 +30,7 @@ describe('#serviceStatus', () => {
           part: 2,
           pullRequest: {
             url: {
-              href: `https://github.com/${githubOrg}/cdp-app-config/pull/180`,
+              href: `https://github.com/DEFRA/cdp-app-config/pull/180`,
               text: 'DEFRA/cdp-app-config/pull/180'
             }
           },
@@ -42,7 +39,7 @@ describe('#serviceStatus', () => {
             text: 'In Progress'
           },
           url: {
-            href: `https://github.com/${githubOrg}/cdp-app-config`,
+            href: `https://github.com/DEFRA/cdp-app-config`,
             text: 'cdp-app-config'
           }
         },
@@ -52,8 +49,8 @@ describe('#serviceStatus', () => {
             name: 'Push to S3',
             started: '2023-10-27T12:39:01Z',
             url: {
-              href: `https://github.com/${githubOrg}/cdp-nginx-upstreams/actions/runs/6667301828`,
-              text: 'DEFRA/cdp-nginx-upstreams/actions/runs/6667301828'
+              href: `https://github.com/DEFRA/cdp-nginx-upstreams/actions/runs/6667301828`,
+              text: `DEFRA/cdp-nginx-upstreams/actions/runs/6667301828`
             }
           },
           info: expect.any(Function),
@@ -61,8 +58,8 @@ describe('#serviceStatus', () => {
           part: 3,
           pullRequest: {
             url: {
-              href: `https://github.com/${githubOrg}/cdp-nginx-upstreams/pull/123`,
-              text: 'DEFRA/cdp-nginx-upstreams/pull/123'
+              href: `https://github.com/DEFRA/cdp-nginx-upstreams/pull/123`,
+              text: `DEFRA/cdp-nginx-upstreams/pull/123`
             }
           },
           status: {
@@ -70,7 +67,7 @@ describe('#serviceStatus', () => {
             text: 'In Progress'
           },
           url: {
-            href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`,
+            href: `https://github.com/DEFRA/cdp-nginx-upstreams`,
             text: 'cdp-nginx-upstreams'
           }
         },
@@ -80,8 +77,8 @@ describe('#serviceStatus', () => {
             name: 'Terraform Apply',
             started: '2023-10-27T12:40:27Z',
             url: {
-              href: `https://github.com/${githubOrg}/cdp-tf-svc-infra/actions/runs/6667318902`,
-              text: 'DEFRA/cdp-tf-svc-infra/actions/runs/6667318902'
+              href: `https://github.com/DEFRA/cdp-tf-svc-infra/actions/runs/6667318902`,
+              text: `DEFRA/cdp-tf-svc-infra/actions/runs/6667318902`
             }
           },
           info: expect.any(Function),
@@ -89,8 +86,8 @@ describe('#serviceStatus', () => {
           part: 4,
           pullRequest: {
             url: {
-              href: `https://github.com/${githubOrg}/cdp-tf-svc-infra/pull/309`,
-              text: 'DEFRA/cdp-tf-svc-infra/pull/309'
+              href: `https://github.com/DEFRA/cdp-tf-svc-infra/pull/309`,
+              text: `DEFRA/cdp-tf-svc-infra/pull/309`
             }
           },
           status: {
@@ -98,7 +95,7 @@ describe('#serviceStatus', () => {
             text: 'In Progress'
           },
           url: {
-            href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`,
+            href: `https://github.com/DEFRA/cdp-tf-svc-infra`,
             text: 'cdp-tf-svc-infra'
           }
         },
@@ -111,7 +108,7 @@ describe('#serviceStatus', () => {
             text: 'In Progress'
           },
           url: {
-            href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+            href: `https://github.com/DEFRA/cdp-portal-frontend`,
             text: 'cdp-portal-frontend'
           }
         },

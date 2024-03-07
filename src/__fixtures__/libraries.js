@@ -1,7 +1,3 @@
-import { config } from '~/src/config'
-
-const githubOrg = config.get('githubOrg')
-
 // TODO update fixture once we have libraries
 // Response from portalBackendApi/libraries
 const librariesFixture = {
@@ -11,7 +7,7 @@ const librariesFixture = {
       id: 'cdp-node-frontend-library',
       description: 'Core delivery platform npm library',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-npm-library`,
+      url: `https://github.com/DEFRA/cdp-npm-library`,
       isArchived: false,
       isLibrary: true,
       isPrivate: true,
@@ -22,7 +18,7 @@ const librariesFixture = {
       id: 'cdp-node-auth-library',
       description: 'Core delivery platform auth library',
       primaryLanguage: 'JavaScript',
-      url: `https://github.com/${githubOrg}/cdp-auth-library`,
+      url: `https://github.com/DEFRA/cdp-auth-library`,
       isArchived: false,
       isLibrary: true,
       isPrivate: true,
