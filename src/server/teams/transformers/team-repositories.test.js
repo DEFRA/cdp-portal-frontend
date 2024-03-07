@@ -9,12 +9,12 @@ describe('#teamRepositories', () => {
     expect(teamRepositories(teamFixture.repositories)).toEqual([
       {
         content: {
-          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-portal-backend" target="_blank">${githubOrg}/cdp-portal-backend</a>`
+          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-portal-backend" target="_blank">cdp-portal-backend</a>`
         }
       },
       {
         content: {
-          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-portal-frontend" target="_blank">${githubOrg}/cdp-portal-frontend</a>`
+          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-portal-frontend" target="_blank">cdp-portal-frontend</a>`
         }
       }
     ])

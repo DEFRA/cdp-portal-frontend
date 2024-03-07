@@ -43,7 +43,7 @@ describe('#serviceStatus', () => {
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-app-config`,
-            text: `${githubOrg}/cdp-app-config`
+            text: 'cdp-app-config'
           }
         },
         cdpNginxUpstreams: {
@@ -53,7 +53,7 @@ describe('#serviceStatus', () => {
             started: '2023-10-27T12:39:01Z',
             url: {
               href: `https://github.com/${githubOrg}/cdp-nginx-upstreams/actions/runs/6667301828`,
-              text: `${githubOrg}/cdp-nginx-upstreams/actions/runs/6667301828`
+              text: 'DEFRA/cdp-nginx-upstreams/actions/runs/6667301828'
             }
           },
           info: expect.any(Function),
@@ -62,7 +62,7 @@ describe('#serviceStatus', () => {
           pullRequest: {
             url: {
               href: `https://github.com/${githubOrg}/cdp-nginx-upstreams/pull/123`,
-              text: `${githubOrg}/cdp-nginx-upstreams/pull/123`
+              text: 'DEFRA/cdp-nginx-upstreams/pull/123'
             }
           },
           status: {
@@ -71,7 +71,7 @@ describe('#serviceStatus', () => {
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`,
-            text: `${githubOrg}/cdp-nginx-upstreams`
+            text: 'cdp-nginx-upstreams'
           }
         },
         cdpTfSvcInfra: {
@@ -81,7 +81,7 @@ describe('#serviceStatus', () => {
             started: '2023-10-27T12:40:27Z',
             url: {
               href: `https://github.com/${githubOrg}/cdp-tf-svc-infra/actions/runs/6667318902`,
-              text: `${githubOrg}/cdp-tf-svc-infra/actions/runs/6667318902`
+              text: 'DEFRA/cdp-tf-svc-infra/actions/runs/6667318902'
             }
           },
           info: expect.any(Function),
@@ -90,7 +90,7 @@ describe('#serviceStatus', () => {
           pullRequest: {
             url: {
               href: `https://github.com/${githubOrg}/cdp-tf-svc-infra/pull/309`,
-              text: `${githubOrg}/cdp-tf-svc-infra/pull/309`
+              text: 'DEFRA/cdp-tf-svc-infra/pull/309'
             }
           },
           status: {
@@ -99,7 +99,7 @@ describe('#serviceStatus', () => {
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`,
-            text: `${githubOrg}/cdp-tf-svc-infra`
+            text: 'cdp-tf-svc-infra'
           }
         },
         createRepository: {
@@ -112,7 +112,7 @@ describe('#serviceStatus', () => {
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
-            text: `${githubOrg}/cdp-portal-frontend`
+            text: 'cdp-portal-frontend'
           }
         },
         hasJobFailures: false,

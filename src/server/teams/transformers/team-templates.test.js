@@ -9,12 +9,12 @@ describe('#teamTemplates', () => {
     expect(teamTemplates(teamFixture.templates)).toEqual([
       {
         content: {
-          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-node-backend-template" target="_blank">${githubOrg}/cdp-node-backend-template</a>`
+          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-node-backend-template" target="_blank">cdp-node-backend-template</a>`
         }
       },
       {
         content: {
-          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-node-frontend-template" target="_blank">${githubOrg}/cdp-node-frontend-template</a>`
+          html: `<a class="app-link" href="https://github.com/${githubOrg}/cdp-node-frontend-template" target="_blank">cdp-node-frontend-template</a>`
         }
       }
     ])

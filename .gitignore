@@ -11,3 +11,5 @@ coverage
 dump.rdb
 
 .envrc
+
+.metals/

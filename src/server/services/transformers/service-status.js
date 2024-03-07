@@ -49,7 +49,7 @@ function serviceStatus(service) {
       name: 'GitHub Repository',
       part: 1,
       url: {
-        text: removeUrlParts(service?.githubUrl),
+        text: service?.serviceStatus.repositoryName,
         href: service?.githubUrl
       },
       status: {
@@ -83,7 +83,7 @@ function serviceStatus(service) {
       name: 'Config',
       part: 2,
       url: {
-        text: `${githubOrg}/cdp-app-config`,
+        text: 'cdp-app-config',
         href: `https://github.com/${githubOrg}/cdp-app-config`
       },
       status: {
@@ -135,7 +135,7 @@ function serviceStatus(service) {
       name: 'Networking',
       part: 3,
       url: {
-        text: `${githubOrg}/cdp-nginx-upstreams`,
+        text: 'cdp-nginx-upstreams',
         href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`
       },
       status: {
@@ -187,7 +187,7 @@ function serviceStatus(service) {
       name: 'Infrastructure',
       part: 4,
       url: {
-        text: `${githubOrg}/cdp-tf-svc-infra`,
+        text: 'cdp-tf-svc-infra',
         href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
       },
       status: {
