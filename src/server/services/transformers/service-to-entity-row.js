@@ -37,7 +37,7 @@ function serviceToEntityRow(service) {
     },
     {
       kind: 'link',
-      value: service.id,
+      value: service.serviceName,
       url: `https://github.com/${githubOrg}/${service.id}`,
       newWindow: true
     },
