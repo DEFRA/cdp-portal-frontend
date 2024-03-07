@@ -10,7 +10,10 @@ function serviceToEntityDataList(service) {
       heading: 'GitHub Repository',
       entity: {
         kind: 'link',
-        value: removeUrlParts(service.githubUrl),
+        value:
+          `DEFRA/${service.serviceName}` !== removeUrlParts(service.githubUrl)
+            ? removeUrlParts(service.githubUrl)
+            : service.serviceName,
         url: service.githubUrl,
         newWindow: true
       }

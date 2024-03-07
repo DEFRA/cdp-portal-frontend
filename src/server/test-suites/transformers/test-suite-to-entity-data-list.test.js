@@ -13,7 +13,7 @@ describe('#testSuiteToEntityDataList', () => {
             kind: 'link',
             newWindow: true,
             url: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
-            value: `${githubOrg}/cdp-portal-smoke-tests`
+            value: 'cdp-portal-smoke-tests'
           },
           heading: 'GitHub Repository'
         },

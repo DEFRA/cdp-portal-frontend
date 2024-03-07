@@ -1,5 +1,3 @@
-import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
-
 function utilityToEntityRow(utilityType) {
   return (utility) => [
     {
@@ -21,7 +19,7 @@ function utilityToEntityRow(utilityType) {
     },
     {
       kind: 'link',
-      value: removeUrlParts(utility.url),
+      value: utility.id,
       url: utility.url,
       newWindow: true
     },

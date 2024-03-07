@@ -32,7 +32,7 @@ describe('#serviceToEntityDataList', () => {
           kind: 'link',
           newWindow: true,
           url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
-          value: `${githubOrg}/cdp-portal-frontend`
+          value: 'cdp-portal-frontend'
         },
         heading: 'GitHub Repository'
       },

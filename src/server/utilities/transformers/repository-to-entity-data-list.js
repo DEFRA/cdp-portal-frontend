@@ -24,7 +24,10 @@ function repositoryToEntityDataList(repository) {
       heading: 'GitHub Repository',
       entity: {
         kind: 'link',
-        value: removeUrlParts(repository.url),
+        value:
+          `DEFRA/${repository.id}` !== removeUrlParts(repository.url)
+            ? removeUrlParts(repository.url)
+            : `${repository.id}`,
         url: repository.url,
         newWindow: true
       }

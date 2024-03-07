@@ -32,7 +32,7 @@ describe('#utilityToEntityRow', () => {
         kind: 'link',
         newWindow: true,
         url: `https://github.com/${githubOrg}/cdp-node-frontend-template`,
-        value: `${githubOrg}/cdp-node-frontend-template`
+        value: 'cdp-node-frontend-template'
       },
       {
         kind: 'date',

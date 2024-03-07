@@ -1,12 +1,10 @@
-import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
-
 function testSuiteToEntityDataList(testSuite) {
   return [
     {
       heading: 'GitHub Repository',
       entity: {
         kind: 'link',
-        value: removeUrlParts(testSuite.githubUrl),
+        value: testSuite.serviceName,
         url: testSuite.githubUrl,
         newWindow: true
       }

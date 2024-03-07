@@ -23,7 +23,7 @@ function transformTestSuiteToEntityRow(testSuite) {
     },
     {
       kind: 'link',
-      value: `${githubOrg}/${testSuite.id}`,
+      value: testSuite.id,
       url: `https://github.com/${githubOrg}/${testSuite.id}`,
       newWindow: true
     },
