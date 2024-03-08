@@ -55,19 +55,19 @@ const config = convict({
   portalBackendApiUrl: {
     doc: 'Portal backend for deployments and deployables root API url',
     format: String,
-    default: 'http://localhost:5094/cdp-portal-backend',
+    default: 'http://localhost:5094',
     env: 'PORTAL_BACKEND_API_URL'
   },
   selfServiceOpsApiUrl: {
     doc: 'Self Service Ops root API url',
     format: String,
-    default: 'http://localhost:3009/cdp-self-service-ops',
+    default: 'http://localhost:3009',
     env: 'SELF_SERVICE_OPS_API_URL'
   },
   userServiceApiUrl: {
     doc: 'User Service Backend API url',
     format: String,
-    default: 'http://localhost:3001/cdp-user-service-backend',
+    default: 'http://localhost:3001',
     env: 'USER_SERVICE_API_URL'
   },
   githubOrg: {

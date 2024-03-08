@@ -67,7 +67,7 @@ describe('#fetchJson', () => {
       expect(error).toBeInstanceOf(Error)
       expect(error).toHaveProperty(
         'message',
-        'request to http://localhost:5094/cdp-portal-backend/libraries failed, reason: invalid json response body at' +
+        'request to http://localhost:5094/libraries failed, reason: invalid json response body at' +
           ' http://bad-url reason: Unexpected end of JSON input'
       )
     }
