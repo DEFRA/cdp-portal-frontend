@@ -42,7 +42,7 @@
             {% for environment in envsWithDeployment %}
               <li>
                 <a class="app-link"
-                   href="https://{{ environment }}.cdp-int.defra.cloud/{{ service.serviceName }}"
+                   href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
                    target="_blank" rel="noopener noreferrer">
                   {{ service.serviceName }}.{{ environment }}
                 </a>
