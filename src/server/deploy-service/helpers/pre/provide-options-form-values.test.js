@@ -57,7 +57,7 @@ describe('#provideOptionsFormValues', () => {
   })
 
   describe('With a deployment session', () => {
-    describe('And No previous deployment config', () => {
+    describe('And null previous deployment config values', () => {
       beforeEach(() => {
         nock(deploymentConfigEndpoint.origin)
           .get(deploymentConfigEndpoint.pathname)
@@ -83,58 +83,7 @@ describe('#provideOptionsFormValues', () => {
               text: ' - - select - - ',
               value: ''
             },
-            {
-              text: '4 GB',
-              value: 4096
-            },
-            {
-              text: '5 GB',
-              value: 5120
-            },
-            {
-              text: '6 GB',
-              value: 6144
-            },
-            {
-              text: '7 GB',
-              value: 7168
-            },
-            {
-              text: '8 GB',
-              value: 8192
-            },
-            {
-              text: '9 GB',
-              value: 9216
-            },
-            {
-              text: '10 GB',
-              value: 10240
-            },
-            {
-              text: '11 GB',
-              value: 11264
-            },
-            {
-              text: '12 GB',
-              value: 12288
-            },
-            {
-              text: '13 GB',
-              value: 13312
-            },
-            {
-              text: '14 GB',
-              value: 14336
-            },
-            {
-              text: '15 GB',
-              value: 15360
-            },
-            {
-              text: '16 GB',
-              value: 16384
-            }
+            ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
           ],
           cpuOptions: [
             {
@@ -145,26 +94,48 @@ describe('#provideOptionsFormValues', () => {
               text: ' - - select - - ',
               value: ''
             },
+            ...deployServiceOptionsFixture.cpuOptions
+          ],
+          formValues: {},
+          preExistingDetails: false
+        })
+      })
+    })
+
+    describe('And null previous deployment config', () => {
+      beforeEach(() => {
+        nock(deploymentConfigEndpoint.origin)
+          .get(deploymentConfigEndpoint.pathname)
+          .reply(200, null)
+      })
+
+      test('Should provide expected form detail', async () => {
+        expect(
+          await provideOptionsFormValues.method(
+            mockRequest(deploymentSessionFixture)
+          )
+        ).toEqual({
+          availableMemoryOptions: [
             {
-              text: '512 (.5 vCPU)',
-              value: 512
+              attributes: {
+                selected: true
+              },
+              disabled: true,
+              text: ' - - select - - ',
+              value: ''
             },
+            ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
+          ],
+          cpuOptions: [
             {
-              text: '1024 (1 vCPU)',
-              value: 1024
+              attributes: {
+                selected: true
+              },
+              disabled: true,
+              text: ' - - select - - ',
+              value: ''
             },
-            {
-              text: '2048 (2 vCPU)',
-              value: 2048
-            },
-            {
-              text: '4096 (4 vCPU)',
-              value: 4096
-            },
-            {
-              text: '8192 (8 vCPU)',
-              value: 8192
-            }
+            ...deployServiceOptionsFixture.cpuOptions
           ],
           formValues: {},
           preExistingDetails: false

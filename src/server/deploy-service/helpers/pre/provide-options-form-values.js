@@ -23,7 +23,8 @@ const provideOptionsFormValues = {
         deployment?.environment,
         deployment?.imageName
       )
-      const serviceInfoHasValues = Object.values(serviceInfo).every(Boolean)
+      const serviceInfoHasValues =
+        serviceInfo && Object.values(serviceInfo).every(Boolean)
 
       // Populate with already deployed service
       if (serviceInfoHasValues) {
