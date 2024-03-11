@@ -1,4 +1,4 @@
-import { formatDate } from '~/src/config/nunjucks/filters/format-date'
+import { formatDate } from '~/src/server/common/helpers/date/format-date'
 
 describe('#formatDate', () => {
   beforeAll(() => {

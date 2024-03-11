@@ -1,6 +1,8 @@
 import { format, isDate, parseISO } from 'date-fns'
 
-function formatDate(value, formatString = 'k:mm EE do MMM yyyy') {
+import { dateFormatString } from '~/src/server/common/constants/date'
+
+function formatDate(value, formatString = dateFormatString) {
   const date = isDate(value) ? value : parseISO(value)
 
   return format(date, formatString)
