@@ -5,11 +5,7 @@ function provideDeploymentStatusClassname(status) {
 
   switch (true) {
     case statusToLowerCase === deploymentStatus.running:
-    case statusToLowerCase === deploymentStatus.deployed:
       return 'govuk-tag--green'
-    case statusToLowerCase === deploymentStatus.failed:
-      return 'govuk-tag--red'
-    case statusToLowerCase === deploymentStatus.deploying:
     case statusToLowerCase === deploymentStatus.stopping:
     case statusToLowerCase === deploymentStatus.pending:
       return 'govuk-tag--blue'

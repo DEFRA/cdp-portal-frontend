@@ -4,9 +4,7 @@ import { undeploymentsFixture } from '~/src/__fixtures__/undeployments'
 
 describe('#deploymentsToEntityRow', () => {
   test('Should provide expected deployed service transformation', () => {
-    expect(
-      deploymentsToEntityRow(deploymentsFixture.deployments.at(0))
-    ).toEqual([
+    expect(deploymentsToEntityRow(deploymentsFixture.data.at(0))).toEqual([
       {
         kind: 'link',
         url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
@@ -21,7 +19,7 @@ describe('#deploymentsToEntityRow', () => {
       {
         classes: 'govuk-tag--green',
         kind: 'tag',
-        value: 'deployed'
+        value: 'running'
       },
       {
         kind: 'text',
@@ -51,7 +49,7 @@ describe('#deploymentsToEntityRow', () => {
       {
         classes: 'govuk-tag--grey',
         kind: 'tag',
-        value: 'stopped'
+        value: 'undeployed'
       },
       {
         kind: 'text',

@@ -25,9 +25,7 @@ describe('Entity List Component', () => {
           { text: 'By', size: 'small' },
           { text: 'On', size: 'large' }
         ],
-        entityRows: [deploymentsFixture.deployments.at(0)].map(
-          deploymentsToEntityRow
-        ),
+        entityRows: [deploymentsFixture.data.at(0)].map(deploymentsToEntityRow),
         noResult: 'Currently there are no deployed microservices'
       })
     })
@@ -75,7 +73,7 @@ describe('Entity List Component', () => {
       expect(getEntity(2).html()).toContain('0.133.0')
 
       expect(getEntity(3).length).toEqual(1)
-      expect(getEntity(3).html()).toContain('deployed')
+      expect(getEntity(3).html()).toContain('running')
 
       expect(getEntity(4).length).toEqual(1)
       expect(getEntity(4).html()).toContain('B. A. Baracus')

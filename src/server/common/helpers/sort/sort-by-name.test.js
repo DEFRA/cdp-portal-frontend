@@ -2,7 +2,7 @@ import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 
 describe('#sortByName', () => {
-  const serviceNames = deploymentsFixture.deployments.map(
+  const serviceNames = deploymentsFixture.data.map(
     (deployment) => deployment.service
   )
 

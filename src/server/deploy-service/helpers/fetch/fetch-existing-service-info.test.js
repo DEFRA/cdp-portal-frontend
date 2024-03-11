@@ -10,7 +10,7 @@ describe('#fetchExistingServiceInfo', () => {
   const imageName = 'cdp-portal-frontend'
   const existingServiceInfoEndpoint = new URL(
     config.get('portalBackendApiUrl') +
-      `/deployment-config/${imageName}/${environment}`
+      `/v2/deployment-config/${imageName}/${environment}`
   )
 
   test('Should provide expected fetch cdp user response', async () => {
