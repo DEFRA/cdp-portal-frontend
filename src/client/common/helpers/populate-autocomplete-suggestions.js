@@ -1,8 +1,10 @@
 import { isFunction } from 'lodash'
 
 import { clientNotification } from '~/src/client/common/helpers/client-notification'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions'
+import { publish } from '~/src/client/common/helpers/event-emitter'
 
-function populateSelectOptions($controller) {
+function populateAutocompleteSuggestions($controller) {
   if (!$controller) {
     return
   }
@@ -14,40 +16,35 @@ function populateSelectOptions($controller) {
     `[data-js="${$controller.getAttribute('data-loader')}"]`
   )
   const dataFetcherName = $controller.getAttribute('data-fetcher')
+  const publishTo = $controller.getAttribute('data-publish-to')
+
   const dataFetcher = window.cdp[dataFetcherName]
 
   if (!$target || !isFunction(dataFetcher)) {
     return
   }
 
-  const defaultOption = new Option('', '')
-  defaultOption.disabled = true
-  defaultOption.selected = true
-  defaultOption.value = ''
-  defaultOption.text = ' - - select - - '
-
   $controller.addEventListener('change', async (event) => {
     const delayedLoader = setTimeout(() => {
       $loader.classList.add('app-loader--is-loading')
     }, 200)
 
+    const name = event?.target?.name
     const value = event?.target?.value
 
-    // Remove all options from select element
-    Array.from($target?.options).forEach((option) => option.remove())
-
     try {
-      const options = await dataFetcher(value)
+      const suggestions = await dataFetcher(value)
 
       clearTimeout(delayedLoader)
       $loader?.classList?.remove('app-loader--is-loading')
 
-      const optionsWithPrependedBlank = [
-        defaultOption,
-        ...options.map((option) => new Option(option.text, option.value))
-      ]
+      const suggestionsName = $target.name
 
-      optionsWithPrependedBlank.forEach((option) => $target.add(option))
+      window.suggestions[suggestionsName] = buildSuggestions(suggestions)
+
+      if (publishTo) {
+        publish(publishTo, { queryParams: { [name]: value } })
+      }
     } catch (error) {
       clientNotification(error.message)
 
@@ -57,4 +54,4 @@ function populateSelectOptions($controller) {
   })
 }
 
-export { populateSelectOptions }
+export { populateAutocompleteSuggestions }

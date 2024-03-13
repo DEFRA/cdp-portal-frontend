@@ -9,26 +9,27 @@ import {
 } from 'date-fns'
 import { enGB } from 'date-fns/locale/en-GB'
 
-function relativeDate(date) {
+function relativeDate(date, withSeconds = false) {
   const comparisonDate = isDate(date) ? date : parseISO(date)
   const now = new Date()
   const weekStartsOn = 1 //  Monday
+  const hours = withSeconds ? 'pp' : 'p'
 
   const formatRelativeLocale = {
-    secondsOk: "'In the last minute at' p",
-    justNow: "'Just now at' p",
-    minutes: "'A few minutes ago at' p",
-    tensOfMinutes: "'A little while ago at' p",
-    withinTheHour: "'Within the hour at' p",
-    anHour: "'About an hour ago at' p",
-    aFewHours: "'A few hours ago at' p",
-    earlierToday: "'Earlier today at' p",
-    lastWeek: "'Last' eeee 'at' p",
-    yesterday: "'Yesterday at' p",
-    today: "'Today at' p",
-    tomorrow: "'Tomorrow at' p",
-    nextWeek: "eeee 'at' p",
-    other: "P 'at' p"
+    secondsOk: `'In the last minute at' ${hours}`,
+    justNow: `'Just now at' ${hours}`,
+    minutes: `'A few minutes ago at' ${hours}`,
+    tensOfMinutes: `'A little while ago at' ${hours}`,
+    withinTheHour: `'Within the hour at' ${hours}`,
+    anHour: `'About an hour ago at' ${hours}`,
+    aFewHours: `'A few hours ago at' ${hours}`,
+    earlierToday: `'Earlier today at' ${hours}`,
+    lastWeek: `'Last' eeee 'at' ${hours}`,
+    yesterday: `'Yesterday at' ${hours}`,
+    today: `'Today at' ${hours}`,
+    tomorrow: `'Tomorrow at' ${hours}`,
+    nextWeek: `eeee 'at' ${hours}`,
+    other: `EE do MMM yyyy 'at' ${hours}`
   }
 
   const locale = {

@@ -89,7 +89,15 @@ describe('#relativeDate', () => {
   describe('When a date was a couple of weeks ago', () => {
     test('Should provide message for earlier in the month', () => {
       expect(relativeDate('2024-06-07T14:15:45.000Z')).toEqual(
-        '07/06/2024 at 14:15'
+        'Fri 7th Jun 2024 at 14:15'
+      )
+    })
+  })
+
+  describe('With seconds', () => {
+    test('Should provide message for earlier in the month with seconds', () => {
+      expect(relativeDate('2024-06-07T14:15:45.000Z', true)).toEqual(
+        'Fri 7th Jun 2024 at 14:15:45'
       )
     })
   })
