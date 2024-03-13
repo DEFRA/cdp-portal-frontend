@@ -50,7 +50,7 @@
           <p class="app-status-info__secondary">
             Started: {{ appTime({
               datetime: creationJob.started,
-              formatString: "k:mm:ss EE do MMM yyyy"
+              withSeconds: true
             }) }}
           </p>
         {% endif %}

@@ -1,3 +1,5 @@
+import { buildOptions } from '~/src/server/common/helpers/options/build-options'
+
 const ecsCpuToMemoryOptionsMapFixture = {
   512: [
     {
@@ -247,4 +249,10 @@ const ecsCpuToMemoryOptionsMapFixture = {
   ]
 }
 
-export { ecsCpuToMemoryOptionsMapFixture }
+// Response from portalFrontend/deploy-service/available-memory
+const availableMemoryOptionsFixture = buildOptions(
+  ecsCpuToMemoryOptionsMapFixture[512],
+  false
+)
+
+export { ecsCpuToMemoryOptionsMapFixture, availableMemoryOptionsFixture }

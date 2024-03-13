@@ -28,7 +28,7 @@ describe('#deploymentsToEntityRow', () => {
         value: 'B. A. Baracus'
       },
       {
-        formatString: 'k:mm:ss EE do MMM yyyy',
+        withSeconds: true,
         kind: 'date',
         value: '2023-12-14T14:04:49Z'
       }
@@ -58,7 +58,7 @@ describe('#deploymentsToEntityRow', () => {
         value: 'The Terminator'
       },
       {
-        formatString: 'k:mm:ss EE do MMM yyyy',
+        withSeconds: true,
         kind: 'date',
         value: '2024-01-17T18:46:36.171Z'
       }

@@ -1,5 +1,6 @@
 const eventName = {
-  xhrUpdate: 'xhrUpdate'
+  xhrUpdate: 'xhrUpdate',
+  autocompleteUpdate: 'autocompleteUpdate'
 }
 
 export { eventName }

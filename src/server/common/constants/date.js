@@ -1,3 +1,3 @@
-const dateFormatString = 'k:mm EE do MMM yyyy'
+const dateFormatString = 'k:mm EEEE do MMMM yyyy'
 
 export { dateFormatString }

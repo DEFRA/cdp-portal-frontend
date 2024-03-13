@@ -31,7 +31,7 @@ function deploymentsToEntityRow(deployedService) {
     {
       kind: 'date',
       value: deployedService.createdAt,
-      formatString: 'k:mm:ss EE do MMM yyyy'
+      withSeconds: true
     }
   ]
 }

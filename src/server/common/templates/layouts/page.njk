@@ -7,6 +7,7 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
+{% from "autocomplete/macro.njk" import appAutocomplete %}
 {% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
 {% from "banner/macro.njk" import appBanner %}
 {% from "button/macro.njk" import appButton %}
@@ -30,6 +31,7 @@
 {% from "step-navigation/macro.njk" import appStepNavigation %}
 {% from "hero/macro.njk" import appHero %}
 {% from "logs-dashboard-link/macro.njk" import appLogsDashboardLink %}
+{% from "xhr-subscriber/macro.njk" import appXhrSubscriber with context %}
 
 {% if isXhr %}
   {% extends "layouts/xhr.njk" %}
