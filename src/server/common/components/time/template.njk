@@ -1,9 +1,9 @@
-<time datetime="{{ params.datetime }}"
+<time datetime="{{ params.datetime }}" title="{{ params.datetime | formatDate }}"
       data-testid="app-time">
-  {% if params.formatString %}
-    {{ params.datetime | formatDate(params.formatString) }}
+  {% if params.withSeconds %}
+    {{ params.datetime | relativeDate(params.withSeconds) }}
   {% else %}
-    {{ params.datetime | formatDate }}
+    {{ params.datetime | relativeDate }}
   {% endif %}
 </time>
 

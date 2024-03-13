@@ -51,7 +51,7 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
     {% elseif params.kind === "date" %}
       {{ appTime({
         datetime: params.value,
-        formatString: params.formatString if params.formatString
+        withSeconds: params.withSeconds if params.withSeconds
       }) }}
 
     {% elseif params.kind === "text" %}
