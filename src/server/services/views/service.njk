@@ -112,24 +112,24 @@
         {% endcall %}
 
         {% call appSummaryItem({
-           heading: "Builds",
-           icon: appCheckIcon({ classes: "app-icon-small"}),
-           intro: {
-           text: "Test, build and publish ready-to-deploy docker images."
-           }
+          heading: "Builds",
+          icon: appCheckIcon({ classes: "app-icon-small"}),
+          intro: {
+            text: "Test, build and publish ready-to-deploy docker images."
+          }
         }) %}
           <p>
             <a class="app-link" target="_blank" rel="noopener noreferrer"
                href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
-               GitHub actions: {{ service.serviceName }}
+              GitHub Actions - {{ imageName }}
             </a>
           </p>
         {% endcall %}
       {% endcall %}
 
       <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Running services</h2>
-        <p>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Running Services</h2>
+        <p class="govuk-!-margin-bottom-1">
           The versions of your service currently running on the CDP environments.
         </p>
         {{ appEntityList({
@@ -137,7 +137,6 @@
           entityRows: runningServicesEntityRows,
           noResult: "Currently there are no versions of " + service.imageName + " running in any environments"
         }) }}
-
       </section>
     </div>
 

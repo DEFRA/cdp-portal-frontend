@@ -3,7 +3,6 @@ import { unionBy } from 'lodash'
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
 import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-repositories'
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
-
 import { fetchInProgress } from '~/src/server/services/helpers/fetch/fetch-in-progress'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
