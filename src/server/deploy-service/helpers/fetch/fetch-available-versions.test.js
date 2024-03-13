@@ -23,7 +23,7 @@ describe('#fetchAvailableVersions', () => {
   test('Should filter out zero version', async () => {
     nock(deployablesVersionsEndpoint.origin)
       .get(deployablesVersionsEndpoint.pathname)
-      .reply(200, ['0.0.0', ...availableVersionsFixture])
+      .reply(200, [{ tag: '0.0.0' }, ...availableVersionsFixture])
 
     const availableVersions = await fetchAvailableVersions(serviceName)
 

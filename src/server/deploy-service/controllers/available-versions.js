@@ -1,5 +1,5 @@
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
+import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
 
 const availableVersionsController = {
   handler: async (request, h) => {
@@ -8,7 +8,11 @@ const availableVersionsController = {
         request.query?.serviceName
       )
 
-      return buildOptions(availableVersions, false)
+      return availableVersions.map((version) => ({
+        text: `${version.tag} - ${relativeDate(version.created)}`,
+        value: version.tag,
+        hint: relativeDate(version.created)
+      }))
     } catch (error) {
       return h
         .response({ message: error.message })

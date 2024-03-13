@@ -2,8 +2,6 @@ import qs from 'qs'
 
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { serviceValidation } from '~/src/server/deploy-service/helpers/schema/service-validation'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message'
 import {
   saveToDeployment,
   setStepComplete
@@ -24,7 +22,7 @@ const detailsController = {
 
     const validationResult = serviceValidation(
       deployableImageNames,
-      availableVersions,
+      availableVersions.map((version) => version.tag),
       environments
     ).validate(payload, {
       abortEarly: false
@@ -35,15 +33,17 @@ const detailsController = {
 
       request.yar.flash(sessionNames.validationFailure, {
         formValues: payload,
-        formErrors: errorDetails,
-        availableVersionOptions: availableVersions?.length
-          ? buildOptions(availableVersions)
-          : optionsWithMessage('choose an image name')
+        formErrors: errorDetails
       })
 
-      const queryString = payload?.redirectLocation
-        ? qs.stringify({ redirectLocation }, { addQueryPrefix: true })
-        : ''
+      const imageName = payload?.imageName
+      const queryString = qs.stringify(
+        {
+          ...(redirectLocation && { redirectLocation }),
+          ...(imageName && { imageName })
+        },
+        { addQueryPrefix: true }
+      )
 
       return h.redirect(`/deploy-service/details${queryString}`)
     }

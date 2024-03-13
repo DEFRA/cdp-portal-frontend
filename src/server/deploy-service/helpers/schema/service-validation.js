@@ -14,6 +14,7 @@ function serviceValidation(imageNames, availableVersions, environments) {
       .valid(...availableVersions)
       .required()
       .messages({
+        'any.valid': 'Choose an entry',
         'any.only': 'Choose an entry',
         'any.required': 'Choose an entry',
         'string.empty': 'Choose an entry' // If image name not provided, available versions is an empty array
