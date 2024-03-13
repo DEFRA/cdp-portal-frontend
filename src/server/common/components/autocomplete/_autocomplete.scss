@@ -148,6 +148,10 @@ $large-width: 40em;
   &.app-autocomplete__suggestion--highlight {
     background-color: govuk-tint(govuk-colour("blue"), 30%);
     color: govuk-colour("white");
+
+    .app-tick-icon {
+      fill: govuk-colour("white");
+    }
   }
 }
 
