@@ -1,0 +1,8 @@
+{% set content = params.html | safe if params.html else params.text %}
+
+<div data-js="app-xhr-subscriber" data-subscribe-to="{{ params.subscribeTo }}" data-xhr-url="{{ params.xhrUrl }}">
+  <article data-xhr="{{ params.id }}">
+    {{ caller() if caller else content }}
+  </article>
+</div>
+
