@@ -1,0 +1,162 @@
+$width: 30em;
+$large-width: 40em;
+
+.app-autocomplete {
+  position: relative;
+  width: $width;
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-autocomplete--wide {
+  width: $large-width;
+
+  .app-autocomplete__suggestions {
+    width: calc(100% - 4px);
+  }
+}
+
+.app-autocomplete__control {
+  display: flex;
+  align-items: center;
+
+  & .app-loader {
+    position: absolute;
+    right: -20px;
+    bottom: 8px;
+  }
+}
+
+.app-autocomplete__chevron-button {
+  margin: 0 govuk-spacing(1) 0 0;
+  padding: 0;
+  position: absolute;
+  display: none;
+  top: 8px;
+  right: -4px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transform: rotate(0);
+
+  & .app-chevron-icon {
+    fill: govuk-colour("mid-grey");
+    width: 18px;
+    height: 18px;
+  }
+
+  &--open {
+    top: 4px;
+    transform: rotate(180deg);
+  }
+}
+
+.app-autocomplete__clear-button {
+  margin: 0 govuk-spacing(1) 0 0;
+  padding: 0;
+  position: absolute;
+  display: none;
+  top: 8px;
+  right: 14px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.app-autocomplete__clear-button--show {
+  display: block;
+}
+
+.app-autocomplete__input {
+  padding: govuk-spacing(1) govuk-spacing(6) govuk-spacing(1) govuk-spacing(1);
+  border-radius: $app-border-radius;
+  border: 1px solid govuk-colour("mid-grey");
+
+  &:focus {
+    border: 1px solid govuk-colour("black");
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: govuk-colour("black")
+  }
+}
+
+.app-autocomplete__suggestions {
+  @include govuk-font(19);
+  z-index: 100;
+  position: absolute;
+  left: 0;
+  background-color: govuk-colour("white");
+  border-radius: 0 0 $app-border-radius $app-border-radius;
+  border: 1px solid $app-mid-grey;
+  box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
+  list-style: none;
+  padding: govuk-spacing(1) 0;
+  margin: 0;
+  max-height: govuk-spacing(9) * 4;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: none;
+  width: calc(100% - 4px);
+}
+
+.app-autocomplete__suggestions--show {
+  display: block;
+}
+
+.app-autocomplete__suggestion {
+  margin: 0;
+  padding: govuk-spacing(1) govuk-spacing(2);
+  display: flex;
+  align-items: center;
+  color: govuk-colour("black");
+  list-style-type: none;
+
+  &:nth-child(even) {
+    background-color: $app-light-grey;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: govuk-tint(govuk-colour("blue"), 30%);
+    color: govuk-colour("white");
+  }
+
+  .app-suggestion__value {
+    flex: 1.4;
+    justify-content: flex-start;
+  }
+
+  .app-suggestion__hint {
+    flex: 3;
+    justify-content: flex-start;
+  }
+
+  .app-suggestion__action {
+    flex: 0 0 20px;
+    align-self: flex-end;
+    width: 20px;
+    height: 20px;
+
+    & .app-tick-icon {
+      width: 20px;
+      height: 20px;
+      fill: govuk-colour("green");
+    }
+  }
+
+  &.app-autocomplete__suggestion--highlight {
+    background-color: govuk-tint(govuk-colour("blue"), 30%);
+    color: govuk-colour("white");
+  }
+}
+
+.app-autocomplete__suggestion--no-results {
+  color: govuk-colour("dark-grey");
+}
+
+.govuk-form-group--error {
+  .app-autocomplete__input {
+    border-color: govuk-colour("red");
+  }
+}
