@@ -4,6 +4,7 @@ import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
 import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch'
 import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#removeUserFromTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
@@ -35,14 +36,13 @@ describe('#removeUserFromTeam', () => {
       .patch(removeUserFromTeamEndpointUrl.pathname)
       .reply(509, { message: 'Ouch!' })
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      removeMemberFromTeam(mockRequest, teamId, userId)
+    )
 
-    try {
-      await removeMemberFromTeam(mockRequest, teamId, userId)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Ouch!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Ouch!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -50,13 +50,12 @@ describe('#removeUserFromTeam', () => {
       .patch(removeUserFromTeamEndpointUrl.pathname)
       .reply(407, {})
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      removeMemberFromTeam(mockRequest, teamId, userId)
+    )
 
-    try {
-      await removeMemberFromTeam(mockRequest, teamId, userId)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Proxy Authentication Required')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Proxy Authentication Required')
   })
 })

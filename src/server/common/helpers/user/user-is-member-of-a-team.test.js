@@ -32,19 +32,19 @@ describe('#userIsMemberOfATeamDecorator', () => {
     })
   })
 
-  test('Should have scope', async () => {
+  test('With one matching scope. Should return true', async () => {
     expect(await checkIsMemberOfATeamScopeDecorator(['horse', 'deer'])).toEqual(
       true
     )
   })
 
-  test('Should have scope', async () => {
+  test('With multiple matching scopes. Should return true', async () => {
     expect(await checkIsMemberOfATeamScopeDecorator(['bull', 'sheep'])).toEqual(
       true
     )
   })
 
-  test('Should not have scope', async () => {
+  test('With no matching scopes. Should return false', async () => {
     expect(
       await checkIsMemberOfATeamScopeDecorator(['eagle', 'raven'])
     ).toEqual(false)

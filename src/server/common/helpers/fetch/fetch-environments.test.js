@@ -4,6 +4,7 @@ import { config } from '~/src/config'
 import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
 import { environmentsFixture } from '~/src/__fixtures__/environments'
 import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-environments'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchEnvironments', () => {
   const mockRequest = {
@@ -33,14 +34,11 @@ describe('#fetchEnvironments', () => {
       .get(environmentsEndpointUrl.pathname)
       .reply(404, { message: 'Sorry - that is not allowed!' })
 
-    expect.assertions(2)
+    const error = await getError(async () => fetchEnvironments(mockRequest))
 
-    try {
-      await fetchEnvironments(mockRequest)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Sorry - that is not allowed!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Sorry - that is not allowed!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -48,13 +46,10 @@ describe('#fetchEnvironments', () => {
       .get(environmentsEndpointUrl.pathname)
       .reply(431, {})
 
-    expect.assertions(2)
+    const error = await getError(async () => fetchEnvironments(mockRequest))
 
-    try {
-      await fetchEnvironments(mockRequest)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Request Header Fields Too Large')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Request Header Fields Too Large')
   })
 })

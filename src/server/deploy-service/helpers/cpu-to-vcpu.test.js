@@ -17,7 +17,7 @@ describe('#cpuToVCpu', () => {
     expect(cpuToVCpu(70)).toEqual('.07')
   })
 
-  test('Should provide expected fixed point vCPU value', () => {
+  test('Should provide expected less than zero fixed point vCPU value', () => {
     expect(cpuToVCpu(442)).toEqual('.43')
   })
 })

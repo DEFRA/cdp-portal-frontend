@@ -3,6 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { librariesFixture } from '~/src/__fixtures__/libraries'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchJson', () => {
   const librariesEndpoint = config.get('portalBackendApiUrl') + '/libraries'
@@ -23,14 +24,11 @@ describe('#fetchJson', () => {
       .get(librariesEndpointUrl.pathname)
       .reply(407, { message: 'Woaaaaaaaaaaaaaaaah calm down!' })
 
-    expect.assertions(2)
+    const error = await getError(async () => fetcher(librariesEndpoint))
 
-    try {
-      await fetcher(librariesEndpoint)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Woaaaaaaaaaaaaaaaah calm down!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Woaaaaaaaaaaaaaaaah calm down!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -38,14 +36,11 @@ describe('#fetchJson', () => {
       .get(librariesEndpointUrl.pathname)
       .reply(410, {})
 
-    expect.assertions(2)
+    const error = await getError(async () => fetcher(librariesEndpoint))
 
-    try {
-      await fetcher(librariesEndpoint)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Gone')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Gone')
   })
 
   test('With generic error, Should throw with expected message', async () => {
@@ -59,17 +54,15 @@ describe('#fetchJson', () => {
           'FetchError: invalid json response body at http://bad-url reason: Unexpected end of JSON input'
       })
 
-    expect.assertions(2)
+    const error = await getError(async () => fetcher(librariesEndpoint))
 
-    try {
-      await fetcher(librariesEndpoint)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty(
-        'message',
-        'request to http://localhost:5094/libraries failed, reason: invalid json response body at' +
-          ' http://bad-url reason: Unexpected end of JSON input'
-      )
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty(
+      'message',
+      'request to http://localhost:5094/libraries failed, reason: invalid json response body at' +
+        ' http://bad-url reason: Unexpected end of JSON input'
+    )
   })
 })

@@ -3,6 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { fetchLibrary } from '~/src/server/utilities/helpers/fetch/fetch-library'
 import { libraryFixture } from '~/src/__fixtures__/library'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchLibrary', () => {
   const libraryEndpointUrl = new URL(
@@ -24,14 +25,13 @@ describe('#fetchLibrary', () => {
       .get(libraryEndpointUrl.pathname)
       .reply(402, { message: 'Crickey majicky!!!?!' })
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchLibrary('cdp-node-frontend-library')
+    )
 
-    try {
-      await fetchLibrary('cdp-node-frontend-library')
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Crickey majicky!!!?!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Crickey majicky!!!?!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -39,13 +39,12 @@ describe('#fetchLibrary', () => {
       .get(libraryEndpointUrl.pathname)
       .reply(411, {})
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchLibrary('cdp-node-frontend-library')
+    )
 
-    try {
-      await fetchLibrary('cdp-node-frontend-library')
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Length Required')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Length Required')
   })
 })

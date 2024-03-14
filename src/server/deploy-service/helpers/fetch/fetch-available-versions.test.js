@@ -3,6 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchAvailableVersions', () => {
   const serviceName = 'cdp-portal-frontend'
@@ -35,14 +36,13 @@ describe('#fetchAvailableVersions', () => {
       .get(deployablesVersionsEndpoint.pathname)
       .reply(423, { message: 'Arghhhhhhhhhhhhhh!' })
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchAvailableVersions(serviceName)
+    )
 
-    try {
-      await fetchAvailableVersions(serviceName)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Arghhhhhhhhhhhhhh!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Arghhhhhhhhhhhhhh!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -50,13 +50,12 @@ describe('#fetchAvailableVersions', () => {
       .get(deployablesVersionsEndpoint.pathname)
       .reply(417, {})
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchAvailableVersions(serviceName)
+    )
 
-    try {
-      await fetchAvailableVersions(serviceName)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Expectation Failed')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Expectation Failed')
   })
 })

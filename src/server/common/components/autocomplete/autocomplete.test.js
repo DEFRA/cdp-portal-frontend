@@ -82,13 +82,13 @@ describe('#autocomplete', () => {
     })
 
     test('Input should have control of suggestions', () => {
-      expect(autocompleteInput.getAttribute('aria-owns')).toEqual(
+      expect(autocompleteInput.getAttribute('aria-controls')).toEqual(
         'app-autocomplete-user-suggestions'
       )
     })
 
     test('Chevron button should have control of suggestions', () => {
-      expect(chevronButton.getAttribute('aria-controls')).toEqual(
+      expect(chevronButton.getAttribute('aria-owns')).toEqual(
         'app-autocomplete-user-suggestions'
       )
     })

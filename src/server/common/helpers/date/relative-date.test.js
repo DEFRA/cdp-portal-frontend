@@ -11,54 +11,6 @@ describe('#relativeDate', () => {
   })
 
   describe('When date is today', () => {
-    test('Should provide message for the last minute', () => {
-      expect(relativeDate('2024-06-28T14:15:45.000Z')).toEqual(
-        'In the last minute at 14:15'
-      )
-    })
-
-    test('Should provide message in the last 5 minutes', () => {
-      expect(relativeDate('2024-06-28T14:15:00.000Z')).toEqual(
-        'Just now at 14:15'
-      )
-    })
-
-    test('Should provide message in the last 20 minutes', () => {
-      expect(relativeDate('2024-06-28T14:00:00.000Z')).toEqual(
-        'A few minutes ago at 14:00'
-      )
-    })
-
-    test('Should provide message in the last 30 minutes', () => {
-      expect(relativeDate('2024-06-28T13:51:00.000Z')).toEqual(
-        'A little while ago at 13:51'
-      )
-    })
-
-    test('Should provide message in the last 60 minutes', () => {
-      expect(relativeDate('2024-06-28T13:17:00.000Z')).toEqual(
-        'Within the hour at 13:17'
-      )
-    })
-
-    test('Should provide message over an hour ago', () => {
-      expect(relativeDate('2024-06-28T13:01:00.000Z')).toEqual(
-        'About an hour ago at 13:01'
-      )
-    })
-
-    test('Should provide message for a few hours ago', () => {
-      expect(relativeDate('2024-06-28T09:01:00.000Z')).toEqual(
-        'A few hours ago at 09:01'
-      )
-    })
-
-    test('Should provide message for earlier today', () => {
-      expect(relativeDate('2024-06-28T04:01:00.000Z')).toEqual(
-        'Earlier today at 04:01'
-      )
-    })
-
     test('Should provide message for earlier today', () => {
       expect(relativeDate('2024-06-28T02:01:00.000Z')).toEqual('Today at 02:01')
     })

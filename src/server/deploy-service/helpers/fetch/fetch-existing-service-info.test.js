@@ -3,6 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch/fetch-existing-service-info'
 import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchExistingServiceInfo', () => {
   const environment = 'infra-dev'
@@ -37,14 +38,13 @@ describe('#fetchExistingServiceInfo', () => {
       .get(existingServiceInfoEndpoint.pathname)
       .reply(407, { message: 'Legally we cannot allow that!' })
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchExistingServiceInfo(environment, imageName)
+    )
 
-    try {
-      await fetchExistingServiceInfo(environment, imageName)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Legally we cannot allow that!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Legally we cannot allow that!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -52,13 +52,12 @@ describe('#fetchExistingServiceInfo', () => {
       .get(existingServiceInfoEndpoint.pathname)
       .reply(429, {})
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchExistingServiceInfo(environment, imageName)
+    )
 
-    try {
-      await fetchExistingServiceInfo(environment, imageName)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Too Many Requests')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Too Many Requests')
   })
 })

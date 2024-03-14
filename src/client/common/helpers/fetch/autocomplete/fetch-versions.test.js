@@ -2,6 +2,7 @@ import fetchMock from 'jest-fetch-mock'
 
 import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
 import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete/fetch-versions'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchVersions', () => {
   beforeEach(() => {
@@ -27,16 +28,15 @@ describe('#fetchVersions', () => {
       Promise.reject(new Error('Something catastrophic has happened!'))
     )
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchVersions('cdp-self-service-ops')
+    )
 
-    try {
-      await fetchVersions('cdp-self-service-ops')
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty(
-        'message',
-        'Something catastrophic has happened!'
-      )
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty(
+      'message',
+      'Something catastrophic has happened!'
+    )
   })
 })

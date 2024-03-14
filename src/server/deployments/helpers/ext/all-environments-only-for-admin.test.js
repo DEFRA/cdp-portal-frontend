@@ -1,4 +1,5 @@
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#allEnvironmentsOnlyForAdmin', () => {
   const mockRequest = ({ environment, isAdmin }) => ({
@@ -76,31 +77,31 @@ describe('#allEnvironmentsOnlyForAdmin', () => {
 
   describe('With a Non-Admin user', () => {
     test('Should not allow access to "infra-dev" environment', async () => {
-      expect.assertions(2)
-
-      try {
-        await allEnvironmentsOnlyForAdmin.method(
+      const error = await getError(async () =>
+        allEnvironmentsOnlyForAdmin.method(
           nonAdminRequest('infra-dev'),
           mockResponseToolkit
         )
-      } catch (error) {
-        expect(error.output.statusCode).toEqual(401)
-        expect(error).toHaveProperty('message', 'Unauthorized')
-      }
+      )
+
+      expect(error).not.toBeInstanceOf(NoErrorThrownError)
+      expect(error).toBeInstanceOf(Error)
+      expect(error.output.statusCode).toEqual(401)
+      expect(error).toHaveProperty('message', 'Unauthorized')
     })
 
     test('Should not allow access to "management" environment', async () => {
-      expect.assertions(2)
-
-      try {
-        await allEnvironmentsOnlyForAdmin.method(
+      const error = await getError(async () =>
+        allEnvironmentsOnlyForAdmin.method(
           nonAdminRequest('management'),
           mockResponseToolkit
         )
-      } catch (error) {
-        expect(error.output.statusCode).toEqual(401)
-        expect(error).toHaveProperty('message', 'Unauthorized')
-      }
+      )
+
+      expect(error).not.toBeInstanceOf(NoErrorThrownError)
+      expect(error).toBeInstanceOf(Error)
+      expect(error.output.statusCode).toEqual(401)
+      expect(error).toHaveProperty('message', 'Unauthorized')
     })
 
     test('Should allow access to "dev" environment', async () => {
