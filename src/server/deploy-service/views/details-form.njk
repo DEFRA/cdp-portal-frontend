@@ -185,7 +185,7 @@
                 <div class="app-grid-column-one-third">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
                   <p>
-                    Currently deployed Image versions.
+                    Currently deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.
                   </p>
                   {% if imageName %}
                     {{ appEntityList({
