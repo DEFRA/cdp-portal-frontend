@@ -122,35 +122,28 @@
               <section class="app-row">
 
                 <div class="app-grid-column-one-third">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Builds</h2>
-                  <p class="govuk-!-margin-bottom-2">
-                    Latest published Image versions.
-                    {% if imageName %}
-                      Via
-                      <a class="app-link" target="_blank" rel="noopener noreferrer"
-                         href="https://github.com/DEFRA/{{ imageName }}/actions">
-                        GitHub Actions - {{ imageName }}
-                      </a>
-                    {% endif %}
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Published Images</h2>
+                  <p>
+                    Latest published Images by version{%- if imageName %} for {{ imageName }}{% endif -%}.
                   </p>
 
-                  <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-1">
+                  <ul class="govuk-list govuk-list--bullet">
                     {% for version in latestVersions %}
 
                       <li class="govuk-!-margin-bottom-1">
                         <div class="govuk-grid-row">
-                          <div class="govuk-grid-column-one-half">
+                          <div class="app-grid-column-one-third-from-desktop-massive">
                             <span class="app-row">
-                              <span class="app-grid-column-one-quarter">
+                              <span class="app-grid-column-two-thirds">
+                              <span class="govuk-!-margin-right-1">Published</span>
+                                {{ appTime({
+                                  datetime: version.created
+                                }) }}
+                              </span>
+                              <span class="app-grid-column-one-third">
                                 <a class="app-link"
                                    href="https://github.com/DEFRA/{{ imageName }}/releases/tag/{{ version.tag }}"
                                    target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
-                              </span>
-                              <span class="app-grid-column-three-quarters">
-                                <span class="govuk-!-margin-right-1">Published</span>
-                                  {{ appTime({
-                                    datetime: version.created
-                                  }) }}
                               </span>
                             </span>
                           </div>
@@ -171,6 +164,16 @@
                       </li>
                     {% endif %}
                   </ul>
+
+                  {% if imageName %}
+                    <p>
+                      Images built, tested and published via
+                      <a class="app-link" target="_blank" rel="noopener noreferrer"
+                         href="https://github.com/DEFRA/{{ imageName }}/actions">
+                        GitHub Actions</a>.
+                    </p>
+                  {% endif %}
+
                 </div>
 
               </section>
@@ -181,8 +184,8 @@
 
                 <div class="app-grid-column-one-third">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
-                  <p class="govuk-!-margin-bottom-0">
-                    Currently deployed versions of your Image.
+                  <p>
+                    Currently deployed Image versions.
                   </p>
                   {% if imageName %}
                     {{ appEntityList({
