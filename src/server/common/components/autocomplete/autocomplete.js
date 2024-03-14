@@ -67,7 +67,7 @@ class Autocomplete {
     $autocomplete.setAttribute('autocomplete', 'off')
     $autocomplete.setAttribute('role', 'combobox')
     $autocomplete.setAttribute(
-      'aria-owns',
+      'aria-controls',
       `app-autocomplete-${$select.id}-suggestions`
     )
     $autocomplete.setAttribute('aria-autocomplete', 'list')
@@ -114,7 +114,34 @@ class Autocomplete {
     this.$autocomplete.dispatchEvent(new Event('input'))
   }
 
-  scrollToSelection() {
+  scrollToHighlight() {
+    const $hasHighlight = this.$suggestionsContainer.querySelector(
+      '[data-has-highlight="true"]'
+    )
+
+    if ($hasHighlight && hasVerticalScrollbar(this.$suggestionsContainer)) {
+      const { height: highlightedHeight } =
+        $hasHighlight.getBoundingClientRect()
+      const { height: suggestionsHeight } =
+        this.$suggestionsContainer.getBoundingClientRect()
+      const highlightBottom = highlightedHeight + $hasHighlight.offsetTop
+
+      // Highlighted suggestion is out of bounds at the top of the suggestions container
+      if ($hasHighlight.offsetTop < this.$suggestionsContainer.scrollTop) {
+        this.$suggestionsContainer.scroll(0, $hasHighlight.offsetTop)
+      }
+
+      // Highlighted suggestion is out of bounds at the bottom of the suggestions container
+      if (
+        $hasHighlight.offsetTop > suggestionsHeight ||
+        highlightBottom > suggestionsHeight
+      ) {
+        this.$suggestionsContainer.scroll(0, $hasHighlight.offsetTop)
+      }
+    }
+  }
+
+  scrollToMatch() {
     const $match = this.$suggestionsContainer.querySelector(
       '[data-is-match="true"]'
     )
@@ -153,7 +180,7 @@ class Autocomplete {
     this.$chevronButton.classList.add('app-autocomplete__chevron-button--open')
     this.$chevronButton.setAttribute('aria-label', 'Hide')
 
-    this.scrollToSelection()
+    this.scrollToMatch()
   }
 
   closeSuggestions() {
@@ -304,8 +331,12 @@ class Autocomplete {
 
     if (!isNull(suggestionIndex) && suggestionIndex === index) {
       $suggestion.classList.add(className)
+      $suggestion.setAttribute('aria-selected', true)
+      $suggestion.dataset.hasHighlight = 'true'
     } else {
       $suggestion.classList.remove(className)
+      $suggestion.setAttribute('aria-selected', false)
+      $suggestion.dataset.hasHighlight = 'false'
     }
 
     return $suggestion
@@ -561,6 +592,30 @@ class Autocomplete {
             }
           }
         }
+      }
+
+      if (code === 'home') {
+        if (!this.isSuggestionsOpen()) {
+          this.openSuggestions()
+        }
+
+        this.populateSuggestions({
+          value: '',
+          suggestionIndex: 0
+        })
+        this.scrollToHighlight()
+      }
+
+      if (code === 'end') {
+        if (!this.isSuggestionsOpen()) {
+          this.openSuggestions()
+        }
+
+        this.populateSuggestions({
+          value: '',
+          suggestionIndex: this.suggestionsLength - 1
+        })
+        this.scrollToHighlight()
       }
 
       if (code === 'enter') {

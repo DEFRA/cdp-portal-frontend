@@ -83,7 +83,7 @@ $large-width: 40em;
 
 .app-autocomplete__suggestions {
   @include govuk-font(19);
-  z-index: 100;
+  z-index: 10;
   position: absolute;
   left: 0;
   background-color: govuk-colour("white");
@@ -120,6 +120,12 @@ $large-width: 40em;
   &:focus {
     background-color: govuk-tint(govuk-colour("blue"), 30%);
     color: govuk-colour("white");
+
+    .app-suggestion__action {
+      & .app-tick-icon {
+        fill: govuk-colour("white");
+      }
+    }
   }
 
   .app-suggestion__value {
