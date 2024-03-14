@@ -1,0 +1,44 @@
+$black-tint: govuk-tint(govuk-colour("black"), 30%);
+
+.app-tool-tip {
+  position: relative;
+
+  &::before {
+    content: attr(data-text);
+    width: 18em;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-110%);
+    opacity: 0;
+    visibility: hidden;
+    background-color: $black-tint;
+    color: govuk-colour("white");
+    padding: govuk-spacing(2) govuk-spacing(1);
+    border-radius: $app-border-radius;
+    z-index: 10;
+    @include govuk-font(14);
+    box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: govuk-spacing(2);
+    bottom: 8px;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    border: govuk-spacing(2) solid $black-tint;
+    border-color: $black-tint transparent transparent transparent;
+    z-index: 11;
+  }
+
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+    visibility: visible;
+    display: inline-block;
+  }
+}
