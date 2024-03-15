@@ -1,7 +1,6 @@
 import qs from 'qs'
-import { find, isNull } from 'lodash'
+import { isNull } from 'lodash'
 
-import { hasVerticalScrollbar } from '~/src/client/common/helpers/has-vertical-scrollbar'
 import { subscribe } from '~/src/client/common/helpers/event-emitter'
 
 const tickSvgIcon = `
@@ -18,7 +17,7 @@ class Autocomplete {
       `[data-js*="app-progressive-input"]`
     )
 
-    this.enhanceSelectWithAutoComplete()
+    this.enhanceSelectWithAutocomplete()
 
     this.$autocomplete = this.$module.querySelector(
       '[data-js="app-autocomplete-input"]'
@@ -50,8 +49,9 @@ class Autocomplete {
     this.addEventListeners()
   }
 
-  enhanceSelectWithAutoComplete() {
+  enhanceSelectWithAutocomplete() {
     const $select = this.$select
+    const suggestionsContainerId = `app-autocomplete-${$select.id}-suggestions`
     const $autocomplete = document.createElement('input')
 
     this.subscribeTo = $select.dataset.subscribeTo
@@ -62,18 +62,14 @@ class Autocomplete {
     $autocomplete.value = $select.value
     $autocomplete.classList.add('govuk-input', 'app-autocomplete__input')
     $autocomplete.placeholder = ' - - select - - '
-
+    $autocomplete.dataset.js = 'app-autocomplete-input'
+    $autocomplete.dataset.testid = 'app-autocomplete-input'
     $autocomplete.setAttribute('autocapitalize', 'none')
     $autocomplete.setAttribute('autocomplete', 'off')
     $autocomplete.setAttribute('role', 'combobox')
-    $autocomplete.setAttribute(
-      'aria-controls',
-      `app-autocomplete-${$select.id}-suggestions`
-    )
+    $autocomplete.setAttribute('aria-controls', suggestionsContainerId)
     $autocomplete.setAttribute('aria-autocomplete', 'list')
     $autocomplete.setAttribute('aria-expanded', 'false')
-    $autocomplete.dataset.js = 'app-autocomplete-input'
-    $autocomplete.dataset.testid = 'app-autocomplete-input'
     $autocomplete.setAttribute('data-1p-ignore', '') // Disable 1 password widget
 
     $select.replaceWith($autocomplete)
@@ -82,12 +78,13 @@ class Autocomplete {
   getSuggestions() {
     const inputName = this.$autocomplete.name
     const suggestions = window.suggestions?.[inputName] ?? []
+    const suggestionElement = this.createSuggestion()
 
     return suggestions
       .map((suggestion, i, suggestionsArray) =>
         this.buildSuggestion(
           suggestion,
-          this.createSuggestion(),
+          suggestionElement,
           i,
           suggestionsArray.length,
           inputName
@@ -119,25 +116,8 @@ class Autocomplete {
       '[data-has-highlight="true"]'
     )
 
-    if ($hasHighlight && hasVerticalScrollbar(this.$suggestionsContainer)) {
-      const { height: highlightedHeight } =
-        $hasHighlight.getBoundingClientRect()
-      const { height: suggestionsHeight } =
-        this.$suggestionsContainer.getBoundingClientRect()
-      const highlightBottom = highlightedHeight + $hasHighlight.offsetTop
-
-      // Highlighted suggestion is out of bounds at the top of the suggestions container
-      if ($hasHighlight.offsetTop < this.$suggestionsContainer.scrollTop) {
-        this.$suggestionsContainer.scroll(0, $hasHighlight.offsetTop)
-      }
-
-      // Highlighted suggestion is out of bounds at the bottom of the suggestions container
-      if (
-        $hasHighlight.offsetTop > suggestionsHeight ||
-        highlightBottom > suggestionsHeight
-      ) {
-        this.$suggestionsContainer.scroll(0, $hasHighlight.offsetTop)
-      }
+    if ($hasHighlight) {
+      $hasHighlight.scrollIntoView({ behavior: 'instant', block: 'start' })
     }
   }
 
@@ -146,24 +126,8 @@ class Autocomplete {
       '[data-is-match="true"]'
     )
 
-    if ($match && hasVerticalScrollbar(this.$suggestionsContainer)) {
-      const { height: matchHeight } = $match.getBoundingClientRect()
-      const { height: suggestionsHeight } =
-        this.$suggestionsContainer.getBoundingClientRect()
-      const matchBottom = matchHeight + $match.offsetTop
-
-      // Match is out of bounds at the top of the suggestions container
-      if ($match.offsetTop < this.$suggestionsContainer.scrollTop) {
-        this.$suggestionsContainer.scroll(0, $match.offsetTop)
-      }
-
-      // Match is out of bounds at the bottom of the suggestions container
-      if (
-        $match.offsetTop > suggestionsHeight ||
-        matchBottom > suggestionsHeight
-      ) {
-        this.$suggestionsContainer.scroll(0, $match.offsetTop)
-      }
+    if ($match) {
+      $match.scrollIntoView({ behavior: 'instant', block: 'start' })
     }
   }
 
@@ -212,97 +176,100 @@ class Autocomplete {
   }
 
   hasExactCaseInsensitiveMatch(value) {
-    return find(
-      this.getSuggestions(),
+    return this.getSuggestions().find(
       (suggestion) =>
         suggestion.dataset.value?.toLowerCase() === value?.toLowerCase()
     )
   }
 
   populateSuggestions({ value, suggestionIndex } = {}) {
-    let $values
+    let $suggestions
 
     if (this.hasExactCaseInsensitiveMatch(value)) {
-      $values = this.getSuggestions().map(
+      $suggestions = this.getSuggestions().map(
         this.dressSuggestion({ value, suggestionIndex })
       )
     } else if (value) {
       // Partial match
-      $values = this.getSuggestions()
+      $suggestions = this.getSuggestions()
         .filter(($suggestion) =>
           $suggestion.dataset?.text.toLowerCase().includes(value?.toLowerCase())
         )
         .map(this.dressSuggestion({ value, suggestionIndex }))
     } else {
       // Reset
-      $values = this.getSuggestions().map(
+      $suggestions = this.getSuggestions().map(
         this.dressSuggestion({ value, suggestionIndex })
       )
     }
 
-    $values = $values.length ? $values : [this.buildNoResults(value)]
+    $suggestions = $suggestions.length
+      ? $suggestions
+      : [this.buildNoResults(value)]
 
-    this.$suggestionsContainer.replaceChildren(...$values)
-    this.suggestionsLength = $values.length
+    this.$suggestionsContainer.replaceChildren(...$suggestions)
+    this.suggestionsLength = $suggestions.length
 
-    const index = suggestionIndex + 1
+    const oneBasedIndex = suggestionIndex + 1
 
-    if (index) {
+    if (oneBasedIndex) {
       this.$autocomplete.setAttribute(
         'aria-activedescendant',
-        `app-autocomplete-${this.$autocomplete.name}-suggestion-${index}`
+        `app-autocomplete-${this.$autocomplete.name}-suggestion-${oneBasedIndex}`
       )
     }
 
-    return $values
+    return $suggestions
   }
 
   createSuggestion() {
-    const itemValue = document.createElement('span')
-    itemValue.classList.add('app-suggestion__value')
+    const $span = document.createElement('span')
 
-    const hintContent = document.createElement('span')
-    hintContent.classList.add('app-suggestion__hint')
+    const $itemValue = $span.cloneNode(true)
+    $itemValue.classList.add('app-suggestion__value')
 
-    const action = document.createElement('span')
-    action.classList.add('app-suggestion__action')
+    const $hintContent = $span.cloneNode(true)
+    $hintContent.classList.add('app-suggestion__hint')
 
-    const li = document.createElement('li')
+    const $action = $span.cloneNode(true)
+    $action.classList.add('app-suggestion__action')
 
-    li.classList.add('app-autocomplete__suggestion')
-    li.setAttribute('role', 'option')
-    li.setAttribute('tabindex', '-1')
-    li.dataset.isMatch = 'false'
+    const $li = document.createElement('li')
 
-    li.appendChild(itemValue)
-    li.appendChild(hintContent)
-    li.appendChild(action)
+    $li.classList.add('app-autocomplete__suggestion')
+    $li.dataset.isMatch = 'false'
+    $li.setAttribute('role', 'option')
+    $li.setAttribute('tabindex', '-1')
 
-    return li
+    $li.appendChild($itemValue)
+    $li.appendChild($hintContent)
+    $li.appendChild($action)
+
+    return $li
   }
 
-  buildSuggestion(item, listElement, index, size, name) {
+  buildSuggestion(item, $listElement, index, size, name) {
     if (item.disabled) {
       return null
     }
 
-    const li = listElement.cloneNode(true)
+    const $li = $listElement.cloneNode(true)
 
-    li.id = `app-autocomplete-${name}-suggestion-${index}`
-    li.setAttribute('aria-posinset', index)
-    li.setAttribute('aria-setsize', size)
+    $li.id = `app-autocomplete-${name}-suggestion-${index}`
+    $li.setAttribute('aria-posinset', index)
+    $li.setAttribute('aria-setsize', size)
 
-    li.dataset.value = item.value
-    li.dataset.text = item.text
+    $li.dataset.value = item.value
+    $li.dataset.text = item.text
 
-    li.firstElementChild.textContent = item.value
+    $li.firstElementChild.textContent = item.value
 
     if (item.hint) {
-      li.dataset.hint = item.hint
-      li.firstElementChild.nextElementSibling.textContent = item.hint
+      $li.dataset.hint = item.hint
+      $li.firstElementChild.nextElementSibling.textContent = item.hint
     }
 
-    return li
+    return $li
   }
 
   manageTextHighlight($suggestion, value = null) {
@@ -339,6 +306,8 @@ class Autocomplete {
       $suggestion.dataset.hasHighlight = 'false'
     }
 
+    this.suggestionIndex = suggestionIndex
+
     return $suggestion
   }
 
@@ -370,20 +339,20 @@ class Autocomplete {
   }
 
   buildNoResults(value) {
-    const li = document.createElement('li')
+    const $li = document.createElement('li')
 
-    li.classList.add(
+    $li.classList.add(
       'app-autocomplete__suggestion',
       'app-autocomplete__suggestion--no-results'
     )
-    li.setAttribute('role', 'option')
-    li.textContent = value
+    $li.setAttribute('role', 'option')
+    $li.textContent = value
       ? ' - - no result - - '
       : this.previousChoiceMessage
         ? ` - - ${this.previousChoiceMessage} - - `
         : ' - - previous choice needed - - '
 
-    return li
+    return $li
   }
 
   setupSubscription() {

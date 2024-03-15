@@ -7,9 +7,6 @@ describe('#autocomplete', () => {
   let suggestionsContainer
 
   beforeEach(() => {
-    // Mock scroll function that's not available in JSDOM
-    Element.prototype.scroll = jest.fn()
-
     const $component = renderTestComponent('autocomplete', {
       label: {
         text: 'By'
