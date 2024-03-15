@@ -9,6 +9,7 @@ import { defaultOption } from '~/src/server/common/helpers/options/default-optio
 import { noValue } from '~/src/server/common/constants/no-value'
 import { userIsTeamMember } from '~/src/server/common/helpers/user/user-is-team-member'
 import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
+import { eventName } from '~/src/client/common/constants/event-name'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')
@@ -42,6 +43,7 @@ async function context(request) {
     supportChannel: config.get('supportChannel'),
     userAgent: useragent.lookup(userAgentHeader),
     isIe: useragent.is(userAgentHeader).ie,
+    eventName,
     noValue,
     blankOption: defaultOption,
     isXhr: isXhr.call(request),

@@ -19,12 +19,7 @@
         <form action="/create/env-test-suite/detail" method="post" data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
-          {% call govukFieldset({
-            legend: {
-              text: "Enter your new test suite details",
-              classes: "govuk-fieldset__legend--m"
-            }
-          }) %}
+          {% call govukFieldset() %}
 
             {{ govukInput({
               label: {

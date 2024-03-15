@@ -19,12 +19,7 @@
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
-          {% call govukFieldset({
-            legend: {
-              text: "Enter your new service details",
-              classes: "govuk-fieldset__legend--m"
-            }
-          }) %}
+          {% call govukFieldset() %}
 
             {{ govukInput({
               label: {

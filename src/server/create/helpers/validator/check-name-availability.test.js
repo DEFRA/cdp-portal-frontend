@@ -52,7 +52,7 @@ describe('#checkNameAvailability', () => {
     expect(response).toEqual('mock-message-helper-return')
   })
 
-  test('Should provide not available response', async () => {
+  test('With matching in progress service name. Should provide not available response', async () => {
     nock(repositoryEndpointUrl.origin)
       .get(repositoryEndpointUrl.pathname)
       .reply(200, repositoryFixture)

@@ -13,7 +13,7 @@
     {% endfor %}
   </header>
 
-  <ul class="app-entity-list__table">
+  <ul class="app-entity-list__table{% if params.classes %} {{ params.classes }}{% endif %}">
     {% for entityRow in params.entityRows %}
       <li class="app-entity-list__row"
           data-testid="app-entity-list-row-{{ loop.index }}">

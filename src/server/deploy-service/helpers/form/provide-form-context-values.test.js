@@ -37,7 +37,6 @@ describe('#provideFormContextValues', () => {
 
       expect(mockRequest.response?.source?.context).toEqual({
         availableMemoryOptions: [],
-        availableVersionOptions: [],
         formValues: {}
       })
     })
@@ -66,7 +65,6 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           availableMemoryOptions: [],
-          availableVersionOptions: [],
           formValues: {
             imageName: 'mock-validation-failure-image-name'
           },
@@ -90,7 +88,6 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           availableMemoryOptions: [],
-          availableVersionOptions: [],
           formValues: {
             imageName: 'mock-deployment-image-name'
           }
@@ -112,7 +109,6 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           availableMemoryOptions: [],
-          availableVersionOptions: [],
           formValues: {
             imageName: 'mock-view-context-image-name'
           }
@@ -142,50 +138,6 @@ describe('#provideFormContextValues', () => {
       })
     })
 
-    describe('Available versions select options', () => {
-      test('Validation failure values should have highest priority', () => {
-        const mockRequest = buildMockRequest({
-          flash: () => [
-            {
-              availableVersionOptions: [{ value: '0.1.0', text: '0.1.0' }]
-            }
-          ],
-          source: {
-            context: {
-              availableVersionOptions: [{ value: '0.2.0', text: '0.2.0' }]
-            }
-          }
-        })
-
-        provideFormContextValues(mockRequest, mockResponseToolkit)
-
-        expect(mockRequest.response?.source?.context).toEqual({
-          availableMemoryOptions: [],
-          availableVersionOptions: [{ value: '0.1.0', text: '0.1.0' }],
-          formValues: {},
-          isError: true
-        })
-      })
-
-      test('View context values should have lowest priority', () => {
-        const mockRequest = buildMockRequest({
-          source: {
-            context: {
-              availableVersionOptions: [{ value: '0.2.0', text: '0.2.0' }]
-            }
-          }
-        })
-
-        provideFormContextValues(mockRequest, mockResponseToolkit)
-
-        expect(mockRequest.response?.source?.context).toEqual({
-          availableMemoryOptions: [],
-          availableVersionOptions: [{ value: '0.2.0', text: '0.2.0' }],
-          formValues: {}
-        })
-      })
-    })
-
     describe('Available memory select options', () => {
       test('Validation failure values should have highest priority', () => {
         const mockRequest = buildMockRequest({
@@ -205,7 +157,6 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           availableMemoryOptions: [{ value: 2048, text: '2 GB' }],
-          availableVersionOptions: [],
           formValues: {},
           isError: true
         })
@@ -224,7 +175,6 @@ describe('#provideFormContextValues', () => {
 
         expect(mockRequest.response?.source?.context).toEqual({
           availableMemoryOptions: [{ value: 3072, text: '3 GB' }],
-          availableVersionOptions: [],
           formValues: {}
         })
       })

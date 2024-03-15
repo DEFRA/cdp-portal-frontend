@@ -1,4 +1,4 @@
 .app-label {
-  @include govuk-font(19, "bold");
-  margin-bottom: 2px;
+  @include govuk-font(24, "bold");
+  margin-bottom: govuk-spacing(1);
 }

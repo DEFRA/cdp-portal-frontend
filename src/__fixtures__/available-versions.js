@@ -1,12 +1,25 @@
 // Response from portalBackendApi/deployables
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
+const availableVersionsFixture = [
+  {
+    tag: '0.316.0',
+    created: '2024-03-07T11:48:59.313Z'
+  },
+  {
+    tag: '0.315.0',
+    created: '2024-03-06T14:32:58.965Z'
+  },
+  {
+    tag: '0.314.0',
+    created: '2024-03-06T13:11:07.842Z'
+  },
+  {
+    tag: '0.313.0',
+    created: '2024-03-06T13:06:16.446Z'
+  },
+  {
+    tag: '0.312.0',
+    created: '2024-03-05T14:55:20.558Z'
+  }
+]
 
-const availableVersionsFixture = ['0.87.0', '0.86.0', '0.85.0', '0.84.0']
-
-// Response from portalFrontend/deploy-service/available-versions
-const availableVersionsOptionsFixture = buildOptions(
-  availableVersionsFixture,
-  false
-)
-
-export { availableVersionsFixture, availableVersionsOptionsFixture }
+export { availableVersionsFixture }

@@ -2,6 +2,7 @@ import fetchMock from 'jest-fetch-mock'
 
 import { fetchMemory } from '~/src/client/common/helpers/fetch/select/fetch-memory'
 import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchMemory', () => {
   beforeEach(() => {
@@ -27,16 +28,10 @@ describe('#fetchMemory', () => {
       Promise.reject(new Error('Something terrible has happened!'))
     )
 
-    expect.assertions(2)
+    const error = await getError(async () => fetchMemory(1024))
 
-    try {
-      await fetchMemory(1024)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty(
-        'message',
-        'Something terrible has happened!'
-      )
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Something terrible has happened!')
   })
 })

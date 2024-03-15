@@ -134,7 +134,7 @@ describe('Entity Component', () => {
     test('Should contain expected rendered date', () => {
       expect(
         $dateEntity.find('[data-testid="app-time"]').text().trim()
-      ).toEqual('14:40 Tue 11th Apr 2023')
+      ).toEqual('Tue 11th Apr 2023 at 14:40')
     })
 
     test('Should have expected datetime attribute', () => {
@@ -161,7 +161,7 @@ describe('Entity Component', () => {
         kind: 'date',
         value: '2024-04-11T14:40:02.242Z',
         size: 'large',
-        formatString: 'k:mm:ss EE do MMM yyyy'
+        withSeconds: true
       })('[data-testid="app-entity"]').first()
     })
 
@@ -172,7 +172,7 @@ describe('Entity Component', () => {
     test('Should contain expected rendered date', () => {
       expect(
         $dateEntity.find('[data-testid="app-time"]').text().trim()
-      ).toEqual('14:40:02 Thu 11th Apr 2024')
+      ).toEqual('Thu 11th Apr 2024 at 14:40:02')
     })
 
     test('Should have expected datetime attribute', () => {
@@ -244,7 +244,7 @@ describe('Entity Component', () => {
     })
 
     test('Should render expected time entity', () => {
-      expect($dateEntity.text().trim()).toEqual('17:16 Wed 12th Apr 2023')
+      expect($dateEntity.text().trim()).toEqual('Wed 12th Apr 2023 at 17:16')
     })
 
     test('Link should have expected link text', () => {

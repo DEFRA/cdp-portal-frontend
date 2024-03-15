@@ -7,7 +7,7 @@ async function fetchAvailableVersions(serviceName) {
 
   const { json } = await fetcher(endpoint)
 
-  return json.filter((version) => version !== '0.0.0')
+  return json.filter((version) => version.tag !== '0.0.0')
 }
 
 export { fetchAvailableVersions }

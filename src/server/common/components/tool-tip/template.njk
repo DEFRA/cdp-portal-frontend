@@ -1,0 +1,8 @@
+{% set content = params.html | safe %}
+
+<span
+  class="app-tool-tip"
+  data-text="{{ params.text }}"
+>
+  {{ caller() if caller else content }}
+</span>

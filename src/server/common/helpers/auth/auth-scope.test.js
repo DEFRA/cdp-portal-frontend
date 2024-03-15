@@ -22,6 +22,7 @@ describe('#authScope', () => {
       path: '/admin/teams/{teamId}'
     })
   })
+
   describe('When route has existing options', () => {
     test('Should add scope to route as expected', () => {
       const authScopeMethod = authScope(['+mockScope'])

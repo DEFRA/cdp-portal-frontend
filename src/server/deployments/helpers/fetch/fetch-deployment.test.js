@@ -3,6 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchDeployment', () => {
   const deploymentId = '553E4E6B-05D7-4A2E-BF80-02ED34DEF864'
@@ -25,14 +26,11 @@ describe('#fetchDeployment', () => {
       .get(deploymentEndpointUrl.pathname)
       .reply(404, {})
 
-    expect.assertions(2)
+    const error = await getError(async () => fetchDeployment(deploymentId))
 
-    try {
-      await fetchDeployment(deploymentId)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Not Found')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Not Found')
   })
 
   test('With error, Should throw with expected message', async () => {
@@ -40,14 +38,11 @@ describe('#fetchDeployment', () => {
       .get(deploymentEndpointUrl.pathname)
       .reply(503, { message: 'Wooooooah Wooooooah Wooooooah!' })
 
-    expect.assertions(2)
+    const error = await getError(async () => fetchDeployment(deploymentId))
 
-    try {
-      await fetchDeployment(deploymentId)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Wooooooah Wooooooah Wooooooah!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Wooooooah Wooooooah Wooooooah!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -55,13 +50,10 @@ describe('#fetchDeployment', () => {
       .get(deploymentEndpointUrl.pathname)
       .reply(426, {})
 
-    expect.assertions(2)
+    const error = await getError(async () => fetchDeployment(deploymentId))
 
-    try {
-      await fetchDeployment(deploymentId)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Upgrade Required')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Upgrade Required')
   })
 })

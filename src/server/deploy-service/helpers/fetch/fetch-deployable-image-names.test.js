@@ -3,6 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config'
 import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchDeployableImageNames', () => {
   const mockRequest = {
@@ -32,14 +33,13 @@ describe('#fetchDeployableImageNames', () => {
       .query({ runMode: 'service', groups: 'group1' })
       .reply(404, { message: 'Sorry - that is not allowed!' })
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchDeployableImageNames(mockRequest)
+    )
 
-    try {
-      await fetchDeployableImageNames(mockRequest)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Sorry - that is not allowed!')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Sorry - that is not allowed!')
   })
 
   test('With different status code, Should throw with expected message', async () => {
@@ -48,13 +48,12 @@ describe('#fetchDeployableImageNames', () => {
       .query({ runMode: 'service', groups: 'group1' })
       .reply(431, {})
 
-    expect.assertions(2)
+    const error = await getError(async () =>
+      fetchDeployableImageNames(mockRequest)
+    )
 
-    try {
-      await fetchDeployableImageNames(mockRequest)
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Request Header Fields Too Large')
-    }
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty('message', 'Request Header Fields Too Large')
   })
 })

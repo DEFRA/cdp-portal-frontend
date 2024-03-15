@@ -34,18 +34,6 @@ function provideFormContextValues(request, h) {
     }
 
     // Override order:
-    // 1 - availableVersionOptions from validationFailure session - (The highest priority)
-    // 2 - availableVersionOptions from h.view() context          - (The lowest priority)
-
-    response.source.context.availableVersionOptions = [
-      ...(validationFailure?.availableVersionOptions
-        ? validationFailure.availableVersionOptions
-        : response.source.context?.availableVersionOptions
-          ? response.source.context.availableVersionOptions
-          : [])
-    ]
-
-    // Override order:
     // 1 - availableMemoryOptions from validationFailure session - (The highest priority)
     // 2 - availableMemoryOptions from h.view() context          - (The lowest priority)
 

@@ -1,10 +1,14 @@
-<time datetime="{{ params.datetime }}"
-      data-testid="app-time">
-  {% if params.formatString %}
-    {{ params.datetime | formatDate(params.formatString) }}
-  {% else %}
-    {{ params.datetime | formatDate }}
-  {% endif %}
-</time>
+{% from "tool-tip/macro.njk" import appToolTip %}
+
+{% call appToolTip({ text: params.datetime | formatDate }) %}
+  <time datetime="{{ params.datetime }}"
+        data-testid="app-time">
+    {% if params.withSeconds %}
+      {{ params.datetime | relativeDate(params.withSeconds) }}
+    {% else %}
+      {{ params.datetime | relativeDate }}
+    {% endif %}
+  </time>
+{% endcall %}
 
 

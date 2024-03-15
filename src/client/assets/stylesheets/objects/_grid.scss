@@ -1,20 +1,55 @@
+.app-grid-column:not(:first-of-type) {
+  margin-top: govuk-spacing(4);
+}
+
 @each $width in map-keys($govuk-grid-widths) {
   .app-grid-column-#{$width}-from-desktop {
     @include govuk-grid-column($width, $at: desktop);
+
+    @include govuk-media-query($from: desktop) {
+      &:not(:first-of-type) {
+        margin-top: 0;
+      }
+    }
   }
 
   .app-grid-column-#{$width}-from-desktop-big {
     @include govuk-grid-column($width, $at: desktop-big);
+
+    @include govuk-media-query($from: desktop-big) {
+      &:not(:first-of-type) {
+        margin-top: 0;
+      }
+    }
   }
 
   .app-grid-column-#{$width}-from-desktop-wide {
     @include govuk-grid-column($width, $at: desktop-wide);
+
+    @include govuk-media-query($from: desktop-wide) {
+      &:not(:first-of-type) {
+        margin-top: 0;
+      }
+    }
   }
 
   .app-grid-column-#{$width}-from-desktop-huge {
     @include govuk-grid-column($width, $at: desktop-huge);
+
+    @include govuk-media-query($from: desktop-huge) {
+      &:not(:first-of-type) {
+        margin-top: 0;
+      }
+    }
   }
+
   .app-grid-column-#{$width}-from-desktop-massive {
     @include govuk-grid-column($width, $at: desktop-massive);
+
+    @include govuk-media-query($from: desktop-massive) {
+      &:not(:first-of-type) {
+        margin-top: 0;
+      }
+    }
   }
 }

@@ -1,11 +1,11 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
 
-describe('Autocomplete Dropdown Component', () => {
-  let $autocompleteDropdownFromGroup
+describe('Autocomplete Component', () => {
+  let $autocompleteFromGroup
   let $select
 
   beforeEach(() => {
-    const $component = renderTestComponent('autocomplete-dropdown', {
+    const $component = renderTestComponent('autocomplete', {
       label: {
         text: 'By'
       },
@@ -17,31 +17,34 @@ describe('Autocomplete Dropdown Component', () => {
       suggestions: [
         {
           text: 'RoboCop',
-          value: 'RoboCop'
+          value: 'RoboCop',
+          helper: 'User Id: 12454878'
         },
         {
           text: 'Roger Rabbit',
-          value: 'Roger Rabbit'
+          value: 'Roger Rabbit',
+          helper: 'User Id: 556456465'
         },
         {
           text: 'Barbie',
-          value: 'Barbie'
+          value: 'Barbie',
+          helper: 'User Id: 67567576'
         }
       ]
     })
 
-    $autocompleteDropdownFromGroup = $component(
-      '[data-testid="app-autocomplete-dropdown-group"]'
+    $autocompleteFromGroup = $component(
+      '[data-testid="app-autocomplete-group"]'
     ).first()
 
-    $select = $autocompleteDropdownFromGroup.find(
-      '[data-testid="app-autocomplete-dropdown-select"]'
+    $select = $autocompleteFromGroup.find(
+      '[data-testid="app-progressive-input"]'
     )
   })
 
   test('Should render with expected label', () => {
-    const $label = $autocompleteDropdownFromGroup.find(
-      '[data-testid="app-autocomplete-dropdown-label"]'
+    const $label = $autocompleteFromGroup.find(
+      '[data-testid="app-autocomplete-label"]'
     )
 
     expect($label.length).toEqual(1)
@@ -49,8 +52,8 @@ describe('Autocomplete Dropdown Component', () => {
   })
 
   test('Should render with expected hint input', () => {
-    const $hint = $autocompleteDropdownFromGroup.find(
-      '[data-testid="app-autocomplete-dropdown-hint"]'
+    const $hint = $autocompleteFromGroup.find(
+      '[data-testid="app-autocomplete-hint"]'
     )
 
     expect($hint.length).toEqual(1)

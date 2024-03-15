@@ -5,14 +5,10 @@ function errorMessages($form) {
 
   const allowedInputs = ['select', 'input', 'textarea']
 
-  const $formElements = Array.from($form.elements).filter((element) =>
-    allowedInputs.includes(element.tagName.toLowerCase())
-  )
-
-  $formElements.forEach(($element) => {
-    $element.addEventListener(
-      'input',
-      (event) => {
+  $form.addEventListener(
+    'input',
+    (event) => {
+      if (allowedInputs.includes(event.target.tagName.toLowerCase())) {
         const target = event.target
         const formGroup =
           target.closest('.app-form-group-js') ?? // Using a class as can't add attributes to GOVUK formGroup
@@ -20,7 +16,7 @@ function errorMessages($form) {
         const errorMessage = formGroup.querySelector('[data-js="app-error"]')
 
         formGroup.classList.remove('govuk-form-group--error')
-        $element.classList.remove(
+        event.target.classList.remove(
           'govuk-select--error',
           'govuk-input--error',
           'govuk-textarea--error'
@@ -29,10 +25,10 @@ function errorMessages($form) {
         if (errorMessage) {
           errorMessage.remove()
         }
-      },
-      false
-    )
-  })
+      }
+    },
+    true
+  )
 }
 
 export { errorMessages }

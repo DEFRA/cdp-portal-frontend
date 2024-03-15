@@ -22,7 +22,7 @@
     {% block xhrContent %}
       <article data-xhr="deployment">
         <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-          <div class="app-grid-column-one-half-from-desktop-massive">
+          <div class="app-grid-column app-grid-column-one-half-from-desktop-massive">
             <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-4">
               <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
               <div>
@@ -92,7 +92,7 @@
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
                     <p>
-                      {{ appTime({ datetime: deployment.deployedAt, formatString: "k:mm:ss EE do MMM yyyy" }) }}
+                      {{ appTime({ datetime: deployment.deployedAt, withSeconds: true }) }}
                     </p>
                   </div>
 

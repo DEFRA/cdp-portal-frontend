@@ -2,6 +2,10 @@
   padding: govuk-spacing(4);
   background-color: $app-light-grey;
   border-radius: $app-border-radius;
+
+  & + & {
+    margin-top: govuk-spacing(4);
+  }
 }
 
 .app-panel--inverse {

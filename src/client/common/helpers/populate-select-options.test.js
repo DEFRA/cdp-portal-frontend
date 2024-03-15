@@ -1,8 +1,8 @@
 import fetchMock from 'jest-fetch-mock'
 
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
-import { availableVersionsOptionsFixture } from '~/src/__fixtures__/available-versions'
-import { fetchVersions } from '~/src/client/common/helpers/fetch/select'
+import { fetchMemory } from '~/src/client/common/helpers/fetch/select'
+import { availableMemoryOptionsFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map'
 
 describe('#populateSelectOptions', () => {
   let controllerSelect
@@ -12,7 +12,7 @@ describe('#populateSelectOptions', () => {
 
   beforeEach(() => {
     fetchMock.enableMocks()
-    window.cdp = { fetchVersions }
+    window.cdp = { fetchMemory }
 
     // Add select controller and target to dom
     document.body.innerHTML = `
@@ -22,20 +22,20 @@ describe('#populateSelectOptions', () => {
           </p>
         </div>
         <div>
-          <select name="imageName"
+          <select name="cpu"
                   data-js="app-select-controller"
-                  data-fetcher="fetchVersions"
-                  data-target="deploy-version"
-                  data-loader="version-loader"
-                  data-testid="image-name">
+                  data-fetcher="fetchMemory"
+                  data-target="deploy-memory"
+                  data-loader="memory-loader"
+                  data-testid="cpu">
             <option value="" disabled selected="true"> - - select - - </option>
-            <option value="cdp-portal-frontend">cdp-portal-frontend</option>
-            <option value="cdp-user-service-backend">cdp-user-service-backend</option>
+            <option value="512">512 (.5 vCPU)</option>
+            <option value="1024">1024 (1 vCPU)</option>
           </select>
         </div>
         <div>
-          <select name="version" data-js="deploy-version" data-testid="version"></select>
-          <span class="app-loader" data-testid="app-loader" data-js="version-loader"></span>
+          <select name="memory" data-js="deploy-memory" data-testid="deploy-memory"></select>
+          <span class="app-loader" data-testid="app-loader" data-js="memory-loader"></span>
         </div>`.trim()
 
     // Init ClientSide JavaScript
@@ -47,8 +47,8 @@ describe('#populateSelectOptions', () => {
       selectControllers.forEach((select) => populateSelectOptions(select))
     }
 
-    controllerSelect = document.querySelector('[data-testid="image-name"]')
-    targetSelect = document.querySelector('[data-testid="version"]')
+    controllerSelect = document.querySelector('[data-testid="cpu"]')
+    targetSelect = document.querySelector('[data-testid="deploy-memory"]')
     loader = document.querySelector('[data-testid="app-loader"]')
     clientNotification = document.querySelector(
       '[data-testid="app-banner-content"]'
@@ -65,7 +65,7 @@ describe('#populateSelectOptions', () => {
     describe('When option is chosen in controller select', () => {
       beforeEach(() => {
         fetch.mockResponse(() =>
-          Promise.resolve(JSON.stringify(availableVersionsOptionsFixture))
+          Promise.resolve(JSON.stringify(availableMemoryOptionsFixture))
         )
 
         controllerSelect.focus()
@@ -76,13 +76,13 @@ describe('#populateSelectOptions', () => {
 
       test('Should populate target select options as expected', () => {
         expect(targetSelect.outerHTML).toEqual(
-          `<select name="version" data-js="deploy-version" data-testid="version">
-             <option value="" disabled=""> - - select - - </option>
-             <option value="0.87.0">0.87.0</option>
-             <option value="0.86.0">0.86.0</option>
-             <option value="0.85.0">0.85.0</option>
-             <option value="0.84.0">0.84.0</option>
-           </select>`.replace(/\s\s+/g, '')
+          `<select name="memory" data-js="deploy-memory" data-testid="deploy-memory">
+            <option value="" disabled=""> - - select - - </option>
+            <option value="1024">1 GB</option>
+            <option value="2048">2 GB</option>
+            <option value="3072">3 GB</option>
+            <option value="4096">4 GB</option>
+          </select>`.replace(/\s\s+/g, '')
         )
       })
     })

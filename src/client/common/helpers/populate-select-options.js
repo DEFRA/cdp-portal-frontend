@@ -8,7 +8,7 @@ function populateSelectOptions($controller) {
   }
 
   const $target = document.querySelector(
-    `[data-js="${$controller.getAttribute('data-target')}"]`
+    `[data-js*="${$controller.getAttribute('data-target')}"]`
   )
   const $loader = document.querySelector(
     `[data-js="${$controller.getAttribute('data-loader')}"]`
