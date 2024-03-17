@@ -209,6 +209,7 @@ class Autocomplete {
 
     this.$suggestionsContainer.replaceChildren(...$suggestions)
     this.suggestionsLength = $suggestions.length
+    this.suggestionIndex = suggestionIndex
 
     const oneBasedIndex = suggestionIndex + 1
 
@@ -305,8 +306,6 @@ class Autocomplete {
       $suggestion.setAttribute('aria-selected', false)
       $suggestion.dataset.hasHighlight = 'false'
     }
-
-    this.suggestionIndex = suggestionIndex
 
     return $suggestion
   }
@@ -491,6 +490,7 @@ class Autocomplete {
           this.suggestionIndex--
         }
 
+        // When the first suggestion is passed send to last
         if (this.suggestionIndex < 0) {
           this.suggestionIndex = this.suggestionsLength - 1
         }
@@ -503,10 +503,12 @@ class Autocomplete {
           this.suggestionIndex++
         }
 
+        // When last suggestion is passed send to first
         if (this.suggestionIndex > this.suggestionsLength - 1) {
           this.suggestionIndex = 0
         }
 
+        // If suggestion closed, open suggestion on down arrow press
         if (!this.isSuggestionsOpen()) {
           this.openSuggestions()
         }
@@ -602,7 +604,10 @@ class Autocomplete {
 
         if (!isNull(this.suggestionIndex)) {
           // User has used arrow keys to make selection of a suggestion and pressed enter
-          const $filteredSuggestions = this.populateSuggestions({ value })
+          const $filteredSuggestions = this.populateSuggestions({
+            value,
+            suggestionIndex: this.suggestionIndex
+          })
           const $currentSuggestion = $filteredSuggestions?.at(
             this.suggestionIndex
           )
