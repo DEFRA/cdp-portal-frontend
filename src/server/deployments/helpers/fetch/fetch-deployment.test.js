@@ -8,17 +8,17 @@ import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 describe('#fetchDeployment', () => {
   const deploymentId = '553E4E6B-05D7-4A2E-BF80-02ED34DEF864'
   const deploymentEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + `/deployments/${deploymentId}`
+    config.get('portalBackendApiUrl') + `/v2/deployments/${deploymentId}`
   )
 
   test('Should provide expected deployment response', async () => {
     nock(deploymentEndpointUrl.origin)
       .get(deploymentEndpointUrl.pathname)
-      .reply(200, deploymentsFixture.deployments.at(0))
+      .reply(200, deploymentsFixture.data.at(0))
 
     const deployment = await fetchDeployment(deploymentId)
 
-    expect(deployment).toEqual(deploymentsFixture.deployments.at(0))
+    expect(deployment).toEqual(deploymentsFixture.data.at(0))
   })
 
   test('When deployment does not exists, Should throw with expected message', async () => {

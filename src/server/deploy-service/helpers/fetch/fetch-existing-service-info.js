@@ -5,7 +5,7 @@ async function fetchExistingServiceInfo(environment, imageName) {
   try {
     const endpoint =
       config.get('portalBackendApiUrl') +
-      `/deployment-config/${imageName}/${environment}`
+      `/v2/deployment-config/${imageName}/${environment}`
     const { json } = await fetcher(endpoint)
 
     return json

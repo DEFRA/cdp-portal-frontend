@@ -1,27 +1,31 @@
 // Response from portalBackendApi/deployments
 
 const deploymentsFixture = {
-  deployments: [
+  data: [
     {
-      deploymentId: '7dda5224-84c0-4a67-a64f-04e55d95befb',
+      cdpDeploymentId: '7dda5224-84c0-4a67-a64f-04e55d95befb',
+      ecsSvcDeploymentId: 'ecs-svc/0104156151283823124',
       environment: 'infra-dev',
       service: 'cdp-self-service-ops',
       version: '0.133.0',
-      user: 'B. A. Baracus',
-      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-      createdAt: '2023-12-14T14:04:49Z',
-      updatedAt: '2023-12-14T14:10:49Z',
-      status: 'RUNNING',
-      dockerImage:
-        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-self-service-ops:0.133.0',
-      taskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-self-service-ops:77',
-      ecsSvcDeploymentId: 'ecs-svc/0104156151283823124',
+      user: {
+        displayName: 'B. A. Baracus',
+        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+      },
       cpu: '1024',
       memory: '2048',
-      instanceTaskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/c401cfebbac648839c60206d0ce9cbcb',
-      instanceCount: 1
+      instanceCount: 1,
+      created: '2023-12-14T14:04:49Z',
+      updated: '2023-12-14T14:10:49Z',
+      instances: {
+        'arn:aws:ecs:eu-west-2:000000000000:task/dev-ecs-public/f073ea3b-3715-4ee3-b847-c736949ae93c':
+          {
+            status: 'running',
+            updated: '2024-03-08T22:21:35.669Z'
+          }
+      },
+      status: 'running',
+      unstable: false
     },
     {
       deploymentId: 'cfa44a59-dc21-4481-a0a4-e829b2ddb56a',
@@ -30,61 +34,75 @@ const deploymentsFixture = {
       version: '0.54.0',
       user: 'B. A. Baracus',
       userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-      createdAt: '2023-12-14T14:02:34Z',
-      updatedAt: '2023-12-14T14:10:34Z',
-      status: 'RUNNING',
-      dockerImage:
-        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-user-service-backend:0.54.0',
-      taskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-user-service-backend:42',
-      ecsSvcDeploymentId: 'ecs-svc/3014741994541337123',
+      created: '2023-12-14T14:02:34Z',
+      updated: '2023-12-14T14:10:34Z',
+      status: 'running',
       cpu: '1024',
       memory: '2048',
-      instanceTaskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/45483810f6c443c19ffbc0bd875dd51e',
-      instanceCount: 1
+      instanceCount: 1,
+      instances: {
+        'arn:aws:ecs:eu-west-2:000000000000:task/dev-ecs-public/f073ea3b-3715-4ee3-b847-c736949ae93c':
+          {
+            status: 'running',
+            updated: '2024-03-08T22:21:35.669Z'
+          }
+      }
     },
     {
-      deploymentId: '836ba007-d87d-4b7a-9e94-ee5e19619d41',
+      cdpDeploymentId: '7dda5224-84c0-4a67-a64f-04e55d95befb',
+      ecsSvcDeploymentId: 'ecs-svc/0104156151283823124',
       environment: 'infra-dev',
       service: 'cdp-portal-backend',
       version: '0.94.0',
-      user: 'B. A. Baracus',
-      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-      createdAt: '2023-12-14T13:58:13Z',
-      updatedAt: '2023-12-14T14:58:13Z',
-      status: 'RUNNING',
-      dockerImage:
-        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-backend:0.94.0',
-      taskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-backend:104',
-      ecsSvcDeploymentId: 'ecs-svc/1704294635461875969',
-      cpu: '2048',
-      memory: '4096',
-      instanceTaskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-protected/d6aa24e0d4fe4299b8a3f4fd0c05eba6',
-      instanceCount: 1
+      user: {
+        displayName: 'B. A. Baracus',
+        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+      },
+      cpu: '1024',
+      memory: '2048',
+      instanceCount: 1,
+      created: '2023-12-14T13:58:13Z',
+      updated: '2023-12-14T14:58:13Z',
+      instances: {
+        'arn:aws:ecs:eu-west-2:000000000000:task/dev-ecs-public/f073ea3b-3715-4ee3-b847-c736949ae93c':
+          {
+            status: 'running',
+            updated: '2024-03-08T22:21:35.669Z'
+          }
+      },
+      status: 'running',
+      unstable: false
     },
+
     {
-      deploymentId: '2daa0c1c-f3cb-4435-8a54-6ad77780e466',
+      cdpDeploymentId: '7dda5224-84c0-4a67-a64f-04e55d95befb',
+      ecsSvcDeploymentId: 'ecs-svc/0104156151283823124',
       environment: 'infra-dev',
       service: 'cdp-portal-frontend',
       version: '0.211.0',
-      user: 'B. A. Baracus',
-      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-      createdAt: '2023-12-14T13:40:52Z',
-      updatedAt: '2023-12-14T13:50:52Z',
-      status: 'RUNNING',
-      dockerImage:
-        '123456789.dkr.ecr.eu-west-2.amazonaws.com/cdp-portal-frontend:0.211.0',
-      taskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task-definition/cdp-portal-frontend:138',
-      ecsSvcDeploymentId: 'ecs-svc/6234389216168804118',
+      user: {
+        displayName: 'B. A. Baracus',
+        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+      },
       cpu: '1024',
       memory: '2048',
-      instanceTaskId:
-        'arn:aws:ecs:eu-west-2:123412341234:task/infra-dev-ecs-public/593080e9348c432686c35c9cb57e24a2',
-      instanceCount: 2
+      instanceCount: 1,
+      created: '2023-12-14T13:40:52Z',
+      updated: '2023-12-14T13:50:52Z',
+      instances: {
+        'arn:aws:ecs:eu-west-2:000000000000:task/dev-ecs-public/f073ea3b-3715-4ee3-b847-c736949ae93c':
+          {
+            status: 'running',
+            updated: '2024-03-08T22:21:35.669Z'
+          },
+        'arn:aws:ecs:eu-west-2:000000000000:task/dev-ecs-public/f073ea3b-3715-4ee3-b847-c736949ae93b':
+          {
+            status: 'running',
+            updated: '2024-03-08T22:21:35.669Z'
+          }
+      },
+      status: 'running',
+      unstable: false
     }
   ],
   page: 1,

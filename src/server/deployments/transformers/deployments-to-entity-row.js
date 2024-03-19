@@ -1,16 +1,13 @@
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
 import { sanitizeUser } from '~/src/server/common/helpers/sanitize-user'
-import { provideDeploymentStatusText } from '~/src/server/deployments/helpers/provide-deployment-status-text'
 
 function deploymentsToEntityRow(deployedService) {
-  const statusText = provideDeploymentStatusText(deployedService)
-
   return [
     {
       kind: 'link',
       value: deployedService.service,
       url: `/deployments/${deployedService.environment.toLowerCase()}/${
-        deployedService.deploymentId
+        deployedService.cdpDeploymentId
       }`
     },
     {
@@ -21,16 +18,16 @@ function deploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'tag',
-      value: statusText,
-      classes: provideDeploymentStatusClassname(statusText)
+      value: deployedService.status,
+      classes: provideDeploymentStatusClassname(deployedService.status)
     },
     {
       kind: 'text',
-      value: sanitizeUser(deployedService.user)
+      value: sanitizeUser(deployedService.user?.displayName)
     },
     {
       kind: 'date',
-      value: deployedService.createdAt,
+      value: deployedService.created,
       withSeconds: true
     }
   ]

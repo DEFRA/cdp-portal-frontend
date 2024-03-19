@@ -15,7 +15,7 @@
 
 {% block tabContent %}
   <div data-js="app-poll"
-       data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.deploymentId }}"
+       data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.cdpDeploymentId }}"
        data-poll-interval="3000"
        data-poll-limit="45">
 
@@ -27,16 +27,15 @@
               <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
               <div>
                 {{ appTag({
-                  text: deployment.status.text,
-                  classes: deployment.status.classes,
+                  text: deployment.status,
+                  classes: deployment.status,
                   attributes: {
                     "data-testid": "deployment-status"
                   }
                 }) }}
               </div>
               <div>
-                {% if deployment.status.text == "pending" or deployment.status.text == "requested"
-                  or deployment.status.text == "deploying" or deployment.status.text == "stopping" %}
+                {% if deployment.status == "pending" or deployment.status == "requested" or deployment.status == "stopping" %}
                   {{ appLoader({ classes: "app-loader--is-loading" }) }}
                 {% endif %}
               </div>
@@ -88,11 +87,11 @@
                     <p>{{ deployment.service }}</p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
-                    <p>{{ deployment.user | sanitizeUser }}</p>
+                    <p>{{ deployment.user.displayName | sanitizeUser }}</p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
                     <p>
-                      {{ appTime({ datetime: deployment.deployedAt, withSeconds: true }) }}
+                      {{ appTime({ datetime: deployment.updated, formatString: "k:mm:ss EE do MMM yyyy" }) }}
                     </p>
                   </div>
 
@@ -118,34 +117,31 @@
 
                 <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
                 <div class="app-row">
-                  {% for taskId, instanceDeployments in deployment.events %}
-
-                    {% for instanceDeployment in instanceDeployments %}
-
+                  {% for instanceId, instance in deployment.instances %}
                       <div class="govuk-!-margin-right-2">
-                        {% if instanceDeployment.status.text == 'deployed' %}
+                        {% if instance.status == 'running' %}
                           {{ appInstanceSuccessIcon({
-                            title: instanceDeployment.status.text | title
+                            title: instance.status | title
                           }) }}
-                        {% elseif instanceDeployment.status.text == 'stopped' %}
+                        {% elseif instance.status == 'stopped' and instance.unstable == true %}
                           {{ appInstanceStoppedIcon({
-                            title: instanceDeployment.status.text | title
+                            title: instance.status | title
                           }) }}
-                        {% elseif instanceDeployment.status.text == 'pending' or instanceDeployment.status.text == 'stopping'
-                          or instanceDeployment.status.text == 'deploying' %}
-                          {{ appInstancePendingIcon({
-                            title: instanceDeployment.status.text | title
-                          }) }}
-                        {% elseif instanceDeployment.status.text == 'failed' %}
+                        {% elseif instance.status == 'stopped' %}
                           {{ appInstanceFailedIcon({
-                            title: instanceDeployment.status.text | title
+                             title: instance.status | title
+                          }) }}
+                        {% elseif instance.status == 'pending' or instance.status == 'stopping'
+                          or instance.status == 'deploying' %}
+                          {{ appInstancePendingIcon({
+                            title: instance.status | title
                           }) }}
                         {% endif %}
                       </div>
 
                     {% else %}
                       <p class="govuk-!-margin-0">Deployment requested, information coming very soon.</p>
-                    {% endfor %}
+
                   {% endfor %}
                 </div>
               </section>

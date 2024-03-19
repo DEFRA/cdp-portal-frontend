@@ -15,7 +15,7 @@ function checkDeployment(json) {
 async function fetchDeployment(deploymentId) {
   try {
     const endpoint =
-      config.get('portalBackendApiUrl') + `/deployments/${deploymentId}`
+      config.get('portalBackendApiUrl') + `/v2/deployments/${deploymentId}`
 
     const { json } = await fetcher(endpoint)
     return checkDeployment(json)

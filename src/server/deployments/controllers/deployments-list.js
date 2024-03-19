@@ -30,12 +30,12 @@ const deploymentsListController = {
   handler: async (request, h) => {
     const environment = request.params?.environment
 
-    const { deployments, page, pageSize, totalPages } = await fetchDeployments(
+    const { data, page, pageSize, totalPages } = await fetchDeployments(
       environment,
       { page: request.query?.page, size: request.query?.size }
     )
 
-    const entityRows = deployments?.map(deploymentsToEntityRow)
+    const entityRows = data?.map(deploymentsToEntityRow)
 
     return h.view('deployments/views/list', {
       pageTitle: 'Deployments',
