@@ -29,7 +29,7 @@
 
   &::after {
     @extend %connecting-line;
-    width: 0%;
+    width: 0;
     background: govuk-colour("blue");
   }
 }
@@ -54,8 +54,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid govuk-colour("white");
-  outline: 2px solid govuk-colour("white");
+  box-shadow:
+    0 0 0 2px govuk-colour("white"),
+    0 0 0 4px govuk-colour("white");
+
   background: $app-mid-grey;
   user-select: none;
 
@@ -70,7 +72,9 @@
 }
 
 .app-step-navigation__point--current {
-  outline: 2px solid govuk-colour("blue");
+  box-shadow:
+    0 0 0 2px govuk-colour("white"),
+    0 0 0 4px govuk-colour("blue");
   background: govuk-colour("blue");
 }
 

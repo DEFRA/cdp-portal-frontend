@@ -355,7 +355,7 @@ describe('#autocomplete', () => {
       )
     })
 
-    test('Twice, should highlight second suggestion', () => {
+    test('Twice, should have expected suggestion position information', () => {
       const arrowDownKeyEvent = new KeyboardEvent('keydown', {
         code: 'arrowdown'
       })
@@ -364,9 +364,9 @@ describe('#autocomplete', () => {
 
       const children = suggestionsContainer.children
 
-      expect(children[0].getAttribute('aria-selected')).toEqual('true')
-      expect(children[1].getAttribute('aria-selected')).toEqual('false')
-      expect(children[2].getAttribute('aria-selected')).toEqual('false')
+      expect(children[0].getAttribute('aria-posinset')).toEqual('0')
+      expect(children[1].getAttribute('aria-posinset')).toEqual('1')
+      expect(children[2].getAttribute('aria-posinset')).toEqual('2')
 
       expect(autocompleteInput.getAttribute('aria-activedescendant')).toEqual(
         'app-autocomplete-user-suggestion-2'
@@ -385,12 +385,17 @@ describe('#autocomplete', () => {
         code: 'arrowup'
       })
       autocompleteInput.dispatchEvent(arrowUpKeyEvent)
+      autocompleteInput.dispatchEvent(arrowUpKeyEvent)
 
       const children = suggestionsContainer.children
 
       expect(children[0].getAttribute('aria-posinset')).toEqual('0')
       expect(children[1].getAttribute('aria-posinset')).toEqual('1')
       expect(children[2].getAttribute('aria-posinset')).toEqual('2')
+
+      expect(autocompleteInput.getAttribute('aria-activedescendant')).toEqual(
+        'app-autocomplete-user-suggestion-1'
+      )
     })
   })
 
@@ -402,6 +407,7 @@ describe('#autocomplete', () => {
         code: 'arrowdown'
       })
       autocompleteInput.dispatchEvent(arrowDownKeyEvent)
+      autocompleteInput.dispatchEvent(arrowDownKeyEvent)
 
       const enterKeyEvent = new KeyboardEvent('keydown', {
         code: 'enter'
@@ -410,7 +416,7 @@ describe('#autocomplete', () => {
     })
 
     test('Should provide expected suggestion value', () => {
-      expect(autocompleteInput.value).toEqual('RoboCop')
+      expect(autocompleteInput.value).toEqual('Roger Rabbit')
     })
 
     test('Input should keep focus', () => {
