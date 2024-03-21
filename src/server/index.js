@@ -22,6 +22,7 @@ import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash
 import { secureContext } from '~/src/server/common/helpers/secure-context'
 import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
 import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
+import { failAction } from '~/src/server/common/helpers/fail-action'
 
 const client = buildRedisClient()
 const isProduction = config.get('isProduction')
@@ -37,7 +38,8 @@ async function createServer() {
       validate: {
         options: {
           abortEarly: false
-        }
+        },
+        failAction
       },
       files: {
         relativeTo: path.resolve(config.get('root'), '.public')
