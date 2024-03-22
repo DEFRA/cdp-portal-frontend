@@ -1,7 +1,7 @@
 import convict from 'convict'
 import path from 'path'
 
-const twelveMinutes = 1000 * 60 * 12
+const eightHours = 1000 * 60 * 60 * 8
 const oneDay = 1000 * 60 * 60 * 24
 const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
 
@@ -85,7 +85,7 @@ const config = convict({
   sessionCookieTtl: {
     doc: 'Session cookie ttl',
     format: Number,
-    default: twelveMinutes,
+    default: eightHours,
     env: 'SESSION_COOKIE_TTL'
   },
   redisHost: {
