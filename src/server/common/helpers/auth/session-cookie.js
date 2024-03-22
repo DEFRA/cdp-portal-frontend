@@ -23,6 +23,7 @@ const sessionCookie = {
           ttl: config.get('sessionCookieTtl')
         },
         keepAlive: true,
+        requestDecoratorName: 'sessionCookie',
         validate: async (request, session) => {
           const authedUser = await request.getUserSession()
 

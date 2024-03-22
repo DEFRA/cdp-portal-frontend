@@ -20,7 +20,7 @@ const logoutController = {
     )
 
     request.dropUserSession()
-    request.cookieAuth.clear()
+    request.sessionCookie.clear()
 
     return h.redirect(logoutUrl)
   }

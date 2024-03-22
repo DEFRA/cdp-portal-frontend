@@ -16,7 +16,7 @@ const authCallbackController = {
 
       await createUserSession(request, sessionId)
 
-      request.cookieAuth.set({ sessionId })
+      request.sessionCookie.set({ sessionId })
     }
 
     const redirect = request.yar.flash('referrer')?.at(0) ?? '/'

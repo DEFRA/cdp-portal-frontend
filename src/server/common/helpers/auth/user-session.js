@@ -8,7 +8,7 @@ import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 
 function removeUserSession(request) {
   request.dropUserSession()
-  request.cookieAuth.clear()
+  request.sessionCookie.clear()
 }
 
 async function createUserSession(request, sessionId) {
