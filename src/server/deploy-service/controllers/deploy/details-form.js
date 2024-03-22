@@ -72,7 +72,8 @@ const detailsFormController = {
     const deployableImageNameOptions = buildOptions(
       await fetchDeployableImageNames(request)
     )
-    const environmentOptions = buildOptions(await fetchEnvironments(request))
+    const environments = await fetchEnvironments(request)
+    const environmentOptions = environments ? buildOptions(environments) : []
 
     const {
       runningServicesEntityRows,

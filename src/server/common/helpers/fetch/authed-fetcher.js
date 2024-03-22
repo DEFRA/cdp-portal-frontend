@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 
 import {
-  removeUserSession,
+  removeAuthenticatedUser,
   updateUserSession
 } from '~/src/server/common/helpers/auth/user-session'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
@@ -33,7 +33,7 @@ function authedFetcher(request) {
         const refreshTokenResponseJson = await refreshTokenResponse.json()
 
         if (!refreshTokenResponse.ok) {
-          removeUserSession(request)
+          removeAuthenticatedUser(request)
         }
 
         if (refreshTokenResponse.ok) {

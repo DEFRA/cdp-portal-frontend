@@ -20,9 +20,13 @@ const logoutController = {
     )
 
     request.dropUserSession()
-    request.cookieAuth.clear()
+    request.sessionCookie.clear()
 
-    return h.redirect(logoutUrl)
+    return h
+      .redirect(logoutUrl)
+      .unstate('csrfToken')
+      .unstate('userSession')
+      .unstate('cdpPortalSession')
   }
 }
 
