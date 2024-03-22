@@ -6,9 +6,14 @@ import { isUserInAServiceTeam } from '~/src/server/common/helpers/user/is-user-i
 import { scopes } from '~/src/server/common/constants/scopes'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 
-function removeUserSession(request) {
+function removeAuthenticatedUser(request) {
   request.dropUserSession()
   request.sessionCookie.clear()
+  request.sessionCookie.h
+    .response()
+    .unstate('csrfToken')
+    .unstate('userSession')
+    .unstate('cdpPortalSession')
 }
 
 async function createUserSession(request, sessionId) {
@@ -97,4 +102,4 @@ async function updateUserSession(request, refreshedSession) {
   return await request.getUserSession()
 }
 
-export { createUserSession, updateUserSession, removeUserSession }
+export { createUserSession, updateUserSession, removeAuthenticatedUser }

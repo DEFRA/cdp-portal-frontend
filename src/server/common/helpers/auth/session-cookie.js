@@ -4,7 +4,7 @@ import { isPast, parseISO, subMinutes } from 'date-fns'
 import { config } from '~/src/config'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
 import {
-  removeUserSession,
+  removeAuthenticatedUser,
   updateUserSession
 } from '~/src/server/common/helpers/auth/user-session'
 
@@ -36,7 +36,7 @@ const sessionCookie = {
             const refreshAccessTokenJson = await response.json()
 
             if (!response.ok) {
-              removeUserSession(request)
+              removeAuthenticatedUser(request)
 
               return { isValid: false }
             }
