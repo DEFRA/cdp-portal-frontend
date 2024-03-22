@@ -33,7 +33,6 @@ async function createServer() {
       auth: {
         mode: 'try'
       },
-      cors: true,
       validate: {
         options: {
           abortEarly: false
