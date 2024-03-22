@@ -11,7 +11,8 @@ const sessionManager = {
     errorOnCacheNotReady: true,
     cookieOptions: {
       password: config.get('sessionCookiePassword'),
-      isSecure: config.get('isProduction')
+      isSecure: config.get('isProduction'),
+      ttl: config.get('sessionCookieTtl')
     }
   }
 }
