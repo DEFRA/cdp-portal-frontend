@@ -1,4 +1,5 @@
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
+import { removeAuthenticatedUser } from '~/src/server/common/helpers/auth/user-session'
 
 const logoutController = {
   options: {
@@ -19,14 +20,9 @@ const logoutController = {
       `${logoutBaseUrl}?logout_hint=${loginHint}&post_logout_redirect_uri=${referrer}`
     )
 
-    request.dropUserSession()
-    request.sessionCookie.clear()
+    removeAuthenticatedUser(request)
 
-    return h
-      .redirect(logoutUrl)
-      .unstate('csrfToken')
-      .unstate('userSession')
-      .unstate('cdpPortalSession')
+    return h.redirect(logoutUrl)
   }
 }
 
