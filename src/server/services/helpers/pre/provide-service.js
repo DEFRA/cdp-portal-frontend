@@ -12,8 +12,15 @@ const provideService = {
   method: async function (request) {
     const serviceId = request.params?.serviceId
 
-    const githubResponse = await fetchRepository(serviceId).catch(nullify404)
-    const repository = githubResponse?.repository ?? null
+    const github = await fetchRepository(serviceId).catch(nullify404)
+    const repository = github?.repository
+      ? {
+          ...github.repository,
+          isFrontend: github.repository.topics?.includes('frontend'),
+          isBackend: github.repository.topics?.includes('backend')
+        }
+      : null
+
     const deployableService = await fetchDeployableService(serviceId)
 
     return repositoryDecorator(

@@ -1,7 +1,17 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
+{% if params.url %}
+  <a class="app-link"
+     href="{{ params.url }}"{% if params.newWindow %} target="_blank" rel="noopener noreferrer"{% endif %}
+     data-testid="app-entity-link">
+{% endif %}
+
 {{ govukTag({
   text: params.text,
-  classes: "app-tag" + " " + params.classes if params.classes,
+  classes: "app-tag " + params.classes if params.classes else "app-tag",
   attributes: params.attributes if params.attributes
 }) }}
+
+{% if params.url %}
+  </a>
+{% endif %}

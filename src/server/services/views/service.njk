@@ -31,27 +31,56 @@
 
       <section class="govuk-!-margin-bottom-6">
         {% call appSummary() %}
-          {% call appSummaryItem({
-            heading: "Application links",
-            icon: appGlobeIcon({ classes: "app-icon-small"}),
-            intro: {
-              text: "How to access deployed instances of the service."
-            }
-          }) %}
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
 
-              {% for environment in envsWithDeployment %}
-                <li>
-                  <a class="app-link"
-                     href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                     target="_blank" rel="noopener noreferrer">
-                    {{ service.serviceName }}.{{ environment }}
-                  </a>
-                </li>
-              {% endfor %}
+          {% if service.isFrontend %}
+            {% call appSummaryItem({
+              heading: "Application links",
+              icon: appGlobeIcon({ classes: "app-icon-small"}),
+              intro: {
+                text: "Access your service in our environments."
+              }
+            }) %}
+              <ul class="govuk-list govuk-!-margin-bottom-0">
 
-            </ul>
-          {% endcall %}
+                {% for environment in envsWithDeployment %}
+                  <li>
+                    <strong>{{ environment | upperFirst }}</strong>
+                    <div class="govuk-!-margin-bottom-2">
+                      <a class="app-link"
+                         href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
+                         target="_blank" rel="noopener noreferrer">
+                        {{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                      </a>
+                    </div>
+                  </li>
+                {% endfor %}
+
+              </ul>
+            {% endcall %}
+          {% endif %}
+
+          {% if service.isBackend %}
+            {% call appSummaryItem({
+              heading: "API root urls",
+              icon: appGlobeIcon({ classes: "app-icon-small"}),
+              intro: {
+                text: "Service backend API urls. These are intended to be called from a frontend."
+              }
+            }) %}
+              <ul class="govuk-list">
+
+                {% for environment in envsWithDeployment %}
+                  <li>
+                    <strong>{{ environment | upperFirst }}</strong>
+                    <div class="govuk-!-margin-bottom-2">
+                      https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                    </div>
+                  </li>
+                {% endfor %}
+
+              </ul>
+            {% endcall %}
+          {% endif %}
 
           {% call appSummaryItem({
             heading: "Logs",
@@ -60,14 +89,17 @@
               text: "OpenSearch logs for monitoring and troubleshooting issues."
             }
           }) %}
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+            <ul class="govuk-list govuk-!-margin-bottom-0">
 
               {% for environment in envsWithDeployment %}
                 <li>
-                  {{ appLogsDashboardLink({
-                    serviceName: service.serviceName,
-                    environment: environment
-                  }) }}
+                  <strong>{{ environment | upperFirst }}</strong>
+                  <div class="govuk-!-margin-bottom-2">
+                    {{ appLogsDashboardLink({
+                      serviceName: service.serviceName,
+                      environment: environment
+                    }) }}
+                  </div>
                 </li>
               {% endfor %}
 
@@ -81,15 +113,18 @@
               text: "Grafana observability metrics data and graphs."
             }
           }) %}
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+            <ul class="govuk-list govuk-!-margin-bottom-0">
 
               {% for environment in envsWithDeployment %}
                 <li>
-                  <a class="app-link"
-                     href="https://metrics.{{ environment }}.cdp-int.defra.cloud/?orgId=1"
-                     target="_blank" rel="noopener noreferrer">
-                    metrics.{{ environment }}
-                  </a>
+                  <strong>{{ environment | upperFirst }}</strong>
+                  <div class="govuk-!-margin-bottom-2">
+                    <a class="app-link"
+                       href="https://metrics.{{ environment }}.cdp-int.defra.cloud/?orgId=1"
+                       target="_blank" rel="noopener noreferrer">
+                      metrics.{{ environment }}.cdp-int.defra.cloud
+                    </a>
+                  </div>
                 </li>
               {% endfor %}
 
@@ -108,7 +143,7 @@
             <p>
               <a class="app-link"
                  href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
-                 target="_blank" rel="noopener noreferrer">cdp-app-config/{{ service.serviceName }}</a>
+                 target="_blank" rel="noopener noreferrer">DEFRA/cdp-app-config/{{ service.serviceName }}</a>
             </p>
           {% endcall %}
 
@@ -122,7 +157,7 @@
             <p>
               <a class="app-link" target="_blank" rel="noopener noreferrer"
                  href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
-                GitHub Actions
+                DEFRA/{{ service.serviceName }}/actions
               </a>
             </p>
           {% endcall %}

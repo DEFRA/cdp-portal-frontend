@@ -20,7 +20,8 @@ const repositoryFixture = {
         teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
         name: 'Platform'
       }
-    ]
+    ],
+    topics: ['frontend', 'node', 'cdp', 'service']
   }
 }
 
