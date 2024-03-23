@@ -32,11 +32,14 @@ const serviceController = {
       withEnvironments
     )(runningServices)
 
+    const environmentValues = Object.values(environments)
     const envsWithDeployment = [
       ...new Set(
         runningServices.map((runningService) => runningService.environment)
       )
-    ].sort(sortByEnv)
+    ]
+      .filter((env) => environmentValues.includes(env))
+      .sort(sortByEnv)
 
     return h.view('services/views/service', {
       pageTitle: `${service.serviceName} microservice`,

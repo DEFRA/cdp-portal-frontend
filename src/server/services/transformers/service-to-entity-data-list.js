@@ -59,8 +59,12 @@ function serviceToEntityDataList(service) {
               value: service?.topics?.map((topic) => ({
                 kind: 'tag',
                 value: topic,
+                classes: 'app-tag--lowercase',
                 url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
-                newWindow: true
+                newWindow: true,
+                link: {
+                  classes: 'app-link-without-underline'
+                }
               }))
             }
           }

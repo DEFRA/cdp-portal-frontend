@@ -16,8 +16,8 @@ const provideService = {
     const repository = github?.repository
       ? {
           ...github.repository,
-          isFrontend: github.repository.topics?.includes('frontend'),
-          isBackend: github.repository.topics?.includes('backend')
+          isFrontend: github.repository.topics?.includes('frontend') ?? false,
+          isBackend: github.repository.topics?.includes('backend') ?? false
         }
       : null
 

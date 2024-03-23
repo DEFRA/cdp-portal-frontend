@@ -94,6 +94,7 @@
                       {% for topic in deployment.topics %}
                         {{ appTag({
                           text: topic,
+                          classes: "app-tag--lowercase",
                           url: "https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A" + topic  + "&type=repositories",
                           link: {
                             classes: "app-link-without-underline"

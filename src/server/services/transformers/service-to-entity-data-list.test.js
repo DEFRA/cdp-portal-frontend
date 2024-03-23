@@ -105,25 +105,41 @@ describe('#serviceToEntityDataList', () => {
             kind: 'group',
             value: [
               {
+                classes: 'app-tag--lowercase',
                 kind: 'tag',
+                link: {
+                  classes: 'app-link-without-underline'
+                },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Afrontend&type=repositories',
                 value: 'frontend'
               },
               {
+                classes: 'app-tag--lowercase',
                 kind: 'tag',
+                link: {
+                  classes: 'app-link-without-underline'
+                },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Anode&type=repositories',
                 value: 'node'
               },
               {
+                classes: 'app-tag--lowercase',
                 kind: 'tag',
+                link: {
+                  classes: 'app-link-without-underline'
+                },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Acdp&type=repositories',
                 value: 'cdp'
               },
               {
+                classes: 'app-tag--lowercase',
                 kind: 'tag',
+                link: {
+                  classes: 'app-link-without-underline'
+                },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Aservice&type=repositories',
                 value: 'service'
