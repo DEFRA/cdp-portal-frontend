@@ -29,6 +29,7 @@ describe('#provideDeployment', () => {
     test('Should provide expected deployment', async () => {
       expect(await provideDeployment.method(mockRequest)).toEqual({
         ...deploymentInProgressFixture,
+        ...repositoryFixture.repository,
         statusClasses: 'govuk-tag--blue',
         isBackend: false,
         isFrontend: true
@@ -46,6 +47,7 @@ describe('#provideDeployment', () => {
     test('Should provide expected deployment', async () => {
       expect(await provideDeployment.method(mockRequest)).toEqual({
         ...deploymentSuccessFixture,
+        ...repositoryFixture.repository,
         statusClasses: 'govuk-tag--green',
         isBackend: false,
         isFrontend: true
