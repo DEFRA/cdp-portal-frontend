@@ -14,7 +14,10 @@ describe('Tag Component', () => {
           'data-testid': 'app-tag'
         },
         url: 'https://apples.com',
-        newWindow: true
+        newWindow: true,
+        link: {
+          classes: 'app-link-without-underline'
+        }
       })
 
       $tag = $component('[data-testid="app-tag"]').first()
@@ -43,6 +46,10 @@ describe('Tag Component', () => {
 
     test('Should contain expected target', () => {
       expect($link.attr('target')).toEqual('_blank')
+    })
+
+    test('Should contain expected link classes', () => {
+      expect($link.attr('class')).toContain('app-link-without-underline')
     })
   })
 })

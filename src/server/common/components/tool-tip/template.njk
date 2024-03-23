@@ -1,7 +1,7 @@
 {% set content = params.html | safe %}
 
 <span
-  class="app-tool-tip"
+  class="app-tool-tip{% if params.classes %} {{ params.classes }}{% endif %}"
   data-text="{{ params.text }}"
 >
   {{ caller() if caller else content }}

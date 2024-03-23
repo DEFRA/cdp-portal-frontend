@@ -43,7 +43,10 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
           "data-testid": "govuk-tag"
         },
         url: params.url,
-        newWindow: params.newWindow
+        newWindow: params.newWindow,
+        link: {
+          classes: params.link.classes
+        } if params.link.classes
       }) }}
 
       {% if params.showLoader %}
