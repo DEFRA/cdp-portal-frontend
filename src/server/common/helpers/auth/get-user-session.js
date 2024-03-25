@@ -8,8 +8,8 @@
  * @property {string} userSession.token
  * @property {string} userSession.refreshToken
  * @property {boolean} userSession.isAdmin
- * @property {boolean} userSession.isInAServiceTeam
- * @property {boolean} userSession.user - is this a user that is in a service team
+ * @property {boolean} userSession.isServiceTeamUser
+ * @property {boolean} userSession.user
  * @property {Array<string>} userSession.scope - users groups
  * @property {Date} userSession.expiresAt
  *

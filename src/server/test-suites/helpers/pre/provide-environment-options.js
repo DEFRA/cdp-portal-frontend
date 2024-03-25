@@ -9,14 +9,18 @@ const provideEnvironmentOptions = {
     const authedUser = await request.getUserSession()
 
     if (authedUser && authedUser.isAuthenticated) {
-      const { isAdmin, isInAServiceTeam } = authedUser
+      const { isAdmin } = authedUser
       const sortedEnvs = Object.values(environments).toSorted(sortByEnv)
 
       if (isAdmin) {
         return buildOptions(sortedEnvs)
       }
 
-      if (isInAServiceTeam) {
+      const userOwnsTestSuite = await request.userIsMemberOfATeam(
+        request.pre.testSuite.teams.map((testsuite) => testsuite.teamId)
+      )
+
+      if (userOwnsTestSuite) {
         return buildOptions(without(sortedEnvs, 'management', 'infra-dev'))
       }
     }

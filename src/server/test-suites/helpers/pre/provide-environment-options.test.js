@@ -1,7 +1,9 @@
 import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options'
 
-const mockRequest = (auth) => ({
-  getUserSession: async () => auth
+const mockRequest = (auth, pre = {}, isMemberOfATeam = false) => ({
+  pre,
+  getUserSession: async () => auth,
+  userIsMemberOfATeam: () => isMemberOfATeam
 })
 
 describe('#provideEnvironmentOptions', () => {
@@ -32,11 +34,22 @@ describe('#provideEnvironmentOptions', () => {
   test('Should provide "user in service team" environments', async () => {
     expect(
       await provideEnvironmentOptions.method(
-        mockRequest({
-          isAuthenticated: true,
-          isAdmin: false,
-          isInAServiceTeam: true
-        })
+        mockRequest(
+          {
+            isAuthenticated: true,
+            isAdmin: false
+          },
+          {
+            testSuite: {
+              teams: [
+                {
+                  teamId: 'mock-team-id'
+                }
+              ]
+            }
+          },
+          true
+        )
       )
     ).toEqual([
       {

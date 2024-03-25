@@ -10,7 +10,7 @@ import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers
 
 const testSuiteController = {
   options: {
-    pre: [provideEnvironmentOptions, provideTestSuite],
+    pre: [[provideTestSuite], provideEnvironmentOptions],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()

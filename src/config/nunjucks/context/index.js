@@ -34,7 +34,7 @@ async function context(request) {
   return {
     isAuthenticated: authedUser?.isAuthenticated ?? false,
     isAdmin: authedUser?.isAdmin ?? false,
-    isInAServiceTeam: authedUser?.isInAServiceTeam ?? false,
+    isServiceTeamUser: authedUser?.isServiceTeamUser ?? false,
     authedUser,
     userIsTeamMember: userIsTeamMember(authedUser),
     userIsMemberOfATeam: userIsMemberOfATeam(authedUser),
