@@ -107,6 +107,39 @@ describe('Entity Component', () => {
     })
   })
 
+  describe('Tag entity with link', () => {
+    let $tagEntity
+
+    beforeEach(() => {
+      $tagEntity = renderTestComponent('entity', {
+        kind: 'tag',
+        value: 'Production',
+        classes: 'govuk-tag--blue',
+        size: 'medium',
+        url: 'https://chocolate.com',
+        newWindow: true
+      })('[data-testid="app-entity"]').first()
+    })
+
+    test('Should render GovUK Tag component wrapped in a link', () => {
+      expect($tagEntity.find('[data-testid="app-entity-link"]').length).toEqual(
+        1
+      )
+    })
+
+    test('Should contain expected href', () => {
+      expect(
+        $tagEntity.find('[data-testid="app-entity-link"]').attr('href')
+      ).toEqual('https://chocolate.com')
+    })
+
+    test('Should contain expected target', () => {
+      expect(
+        $tagEntity.find('[data-testid="app-entity-link"]').attr('target')
+      ).toEqual('_blank')
+    })
+  })
+
   describe('Date entity', () => {
     let $dateEntity
 
@@ -255,6 +288,39 @@ describe('Entity Component', () => {
       expect($linkEntity.attr('href')).toEqual(
         '/animal/aabe63e7-87ef-4beb-a596-c810631fc474'
       )
+    })
+  })
+
+  describe('Group entity', () => {
+    let $groupEntity
+    let $firstTag
+    let $secondTag
+
+    beforeEach(() => {
+      $groupEntity = renderTestComponent('entity', {
+        kind: 'group',
+        value: [
+          {
+            kind: 'tag',
+            value: 'Frontend'
+          },
+          {
+            kind: 'tag',
+            value: 'Backend'
+          }
+        ]
+      })('[data-testid="app-entity"]').first()
+
+      $firstTag = $groupEntity.find('[data-testid="govuk-tag"]').first()
+      $secondTag = $groupEntity.find('[data-testid="govuk-tag"]').eq(1)
+    })
+
+    test('Should render expected first tag entity', () => {
+      expect($firstTag.text().trim()).toEqual('Frontend')
+    })
+
+    test('Link should have expected second tag entity', () => {
+      expect($secondTag.text().trim()).toEqual('Backend')
     })
   })
 })

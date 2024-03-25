@@ -23,3 +23,13 @@
     text-decoration: underline;
   }
 }
+
+@mixin app-link-without-underline {
+  @include govuk-link-style-no-visited-state;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+}

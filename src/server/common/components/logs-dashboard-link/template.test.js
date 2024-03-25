@@ -21,6 +21,8 @@ describe('Logs Dashboard Link Component', () => {
   })
 
   test('Should render with expected button text', () => {
-    expect(logsDashBoardLink.text().trim()).toEqual('logs.management')
+    expect(logsDashBoardLink.text().trim()).toEqual(
+      'logs.management.cdp-int.defra.cloud'
+    )
   })
 })

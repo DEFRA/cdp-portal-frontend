@@ -22,13 +22,13 @@
     {% block xhrContent %}
       <article data-xhr="deployment">
         <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-          <div class="app-grid-column app-grid-column-one-half-from-desktop-massive">
+          <div class="app-grid-column app-grid-column-two-thirds-from-desktop-massive">
             <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-4">
               <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
               <div>
                 {{ appTag({
                   text: deployment.status,
-                  classes: deployment.status,
+                  classes: deployment.statusClasses,
                   attributes: {
                     "data-testid": "deployment-status"
                   }
@@ -61,7 +61,7 @@
                     <p>
                       {{ appTag({
                         text: deployment.environment,
-                        classes: 'govuk-tag--blue',
+                        classes: "govuk-tag--blue",
                         attributes: {
                           "data-testid": "deployment-environment"
                         }
@@ -89,21 +89,45 @@
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
                     <p>{{ deployment.user.displayName | sanitizeUser }}</p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Topics</h2>
                     <p>
-                      {{ appTime({ datetime: deployment.updated, formatString: "k:mm:ss EE do MMM yyyy" }) }}
+                      {% for topic in deployment.topics %}
+                        {{ appTag({
+                          text: topic,
+                          classes: "app-tag--lowercase",
+                          url: "https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A" + topic  + "&type=repositories",
+                          link: {
+                            classes: "app-link-without-underline"
+                          },
+                          newWindow: true
+                        }) }}
+                      {% endfor %}
                     </p>
                   </div>
 
                   <div class="app-grid-column-one-third">
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Application url</h2>
-                    <p>
-                      <a class="app-link"
-                         href="https://{{ deployment.environment }}.cdp-int.defra.cloud/{{ deployment.service }}"
-                         target="_blank" rel="noopener noreferrer">
-                        {{ deployment.service }}.{{ deployment.environment }}
-                      </a>
-                    </p>
+
+                    {% if deployment.isFrontend %}
+
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Application link</h2>
+                      <p>
+                        <a class="app-link"
+                           href="https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud"
+                           target="_blank" rel="noopener noreferrer">
+                          {{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud
+                        </a>
+                      </p>
+
+                    {% endif %}
+
+                    {% if deployment.isBackend %}
+
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">API root url</h2>
+                      <p>
+                        https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud
+                      </p>
+
+                    {% endif %}
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Application logs</h2>
                     <p>
@@ -112,35 +136,37 @@
                         environment: deployment.environment
                       }) }}
                     </p>
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
+                    <p>
+                      {{ appTime({ datetime: deployment.updated, formatString: "k:mm:ss EE do MMM yyyy" }) }}
+                    </p>
                   </div>
                 </div>
 
                 <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
                 <div class="app-row">
                   {% for instanceId, instance in deployment.instances %}
-                      <div class="govuk-!-margin-right-2">
-                        {% if instance.status == 'running' %}
-                          {{ appInstanceSuccessIcon({
-                            title: instance.status | title
-                          }) }}
-                        {% elseif instance.status == 'stopped' and instance.unstable == true %}
-                          {{ appInstanceStoppedIcon({
-                            title: instance.status | title
-                          }) }}
-                        {% elseif instance.status == 'stopped' %}
-                          {{ appInstanceFailedIcon({
-                             title: instance.status | title
-                          }) }}
-                        {% elseif instance.status == 'pending' or instance.status == 'stopping'
-                          or instance.status == 'deploying' %}
-                          {{ appInstancePendingIcon({
-                            title: instance.status | title
-                          }) }}
+                    <div class="govuk-!-margin-right-2">
+                      {% call appToolTip({
+                        text: instance.status | title,
+                        classes: "app-tool-tip--small"
+                      }) %}
+                        {% if instance.status == "running" %}
+                          {{ appInstanceSuccessIcon() }}
+                        {% elseif instance.status == "stopped" and instance.unstable == true %}
+                          {{ appInstanceStoppedIcon() }}
+                        {% elseif instance.status == "stopped" %}
+                          {{ appInstanceFailedIcon() }}
+                        {% elseif instance.status == "pending" or instance.status == "stopping"
+                          or instance.status == "deploying" %}
+                          {{ appInstancePendingIcon() }}
                         {% endif %}
-                      </div>
+                      {% endcall %}
+                    </div>
 
-                    {% else %}
-                      <p class="govuk-!-margin-0">Deployment requested, information coming very soon.</p>
+                  {% else %}
+                    <p class="govuk-!-margin-0">Deployment requested, information coming very soon.</p>
 
                   {% endfor %}
                 </div>

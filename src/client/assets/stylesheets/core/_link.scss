@@ -6,6 +6,10 @@
   @include app-link-underline;
 }
 
+.app-link-without-underline {
+  @include app-link-without-underline;
+}
+
 .app-link--inverse {
   @include govuk-link-style-inverse;
 

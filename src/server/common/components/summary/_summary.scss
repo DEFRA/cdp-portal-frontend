@@ -5,6 +5,12 @@
     fill: govuk-colour("blue");
   }
 
+  .app-summary-item {
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
   @include govuk-media-query($from: desktop-wide) {
     display: flex;
   }

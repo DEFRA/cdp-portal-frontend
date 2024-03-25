@@ -50,6 +50,26 @@ function serviceToEntityDataList(service) {
           }
         ]
       : []),
+    ...(service?.topics?.length
+      ? [
+          {
+            heading: 'Topics',
+            entity: {
+              kind: 'group',
+              value: service?.topics?.map((topic) => ({
+                kind: 'tag',
+                value: topic,
+                classes: 'app-tag--lowercase',
+                url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
+                newWindow: true,
+                link: {
+                  classes: 'app-link-without-underline'
+                }
+              }))
+            }
+          }
+        ]
+      : []),
     {
       heading: 'Repository Created',
       entity: { kind: 'date', value: service.createdAt }

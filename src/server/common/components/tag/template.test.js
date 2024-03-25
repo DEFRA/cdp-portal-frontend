@@ -1,17 +1,27 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 describe('Tag Component', () => {
+  let $component
   let $tag
+  let $link
 
   describe('On render', () => {
     beforeEach(() => {
-      $tag = renderTestComponent('tag', {
+      $component = renderTestComponent('tag', {
         text: 'Not today',
         classes: 'additional-class',
         attributes: {
           'data-testid': 'app-tag'
+        },
+        url: 'https://apples.com',
+        newWindow: true,
+        link: {
+          classes: 'app-link-without-underline'
         }
-      })('[data-testid="app-tag"]').first()
+      })
+
+      $tag = $component('[data-testid="app-tag"]').first()
+      $link = $component('[data-testid="app-entity-link"]').first()
     })
 
     test('Should render element', () => {
@@ -28,6 +38,18 @@ describe('Tag Component', () => {
 
     test('Should render with expected default data test id', () => {
       expect($tag.attr('data-testid')).toContain('app-tag')
+    })
+
+    test('Should contain expected href', () => {
+      expect($link.attr('href')).toEqual('https://apples.com')
+    })
+
+    test('Should contain expected target', () => {
+      expect($link.attr('target')).toEqual('_blank')
+    })
+
+    test('Should contain expected link classes', () => {
+      expect($link.attr('class')).toContain('app-link-without-underline')
     })
   })
 })
