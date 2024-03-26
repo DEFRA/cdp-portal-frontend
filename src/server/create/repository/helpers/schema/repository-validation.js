@@ -6,8 +6,8 @@ import { checkNameAvailability } from '~/src/server/create/helpers/validator/che
 function repositoryValidation() {
   return Joi.object({
     repositoryName: Joi.string()
-      .pattern(/^[\w-]*$/)
-      .pattern(/^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/, {
+      .pattern(/^[a-z0-9-]*$/)
+      .pattern(/^[a-z0-9][a-z0-9-]*[a-z0-9]$/, {
         name: 'startAndEndWithCharacter'
       })
       .min(1)
@@ -16,8 +16,9 @@ function repositoryValidation() {
       .external(checkNameAvailability)
       .messages({
         'string.empty': 'Enter value',
-        'string.pattern.base': 'Letters and numbers with hyphen separators',
-        'string.pattern.name': 'Start and end with a character',
+        'string.pattern.base':
+          'Lowercase letters and numbers with hyphen separators',
+        'string.pattern.name': 'Start and end with a letter or number',
         'string.min': '1 character or more',
         'string.max': '32 characters or less'
       }),
