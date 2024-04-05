@@ -1,0 +1,19 @@
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+{% set content = params.html | safe if params.html else params.text %}
+
+<div
+  class="app-warning{% if params.classes %} {{ params.classes }}{% endif %}"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-warning">
+
+  {{ appWarningIcon({
+    classes: "app-icon-medium"
+  }) }}
+
+  <span class="app-warning__content" data-testid="app-warning-content">
+    {{ caller() if caller else content }}
+  </span>
+</div>
+
