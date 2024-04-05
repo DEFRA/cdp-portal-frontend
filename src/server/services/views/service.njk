@@ -73,7 +73,11 @@
                   <li>
                     <strong>{{ environment | title }}</strong>
                     <div class="govuk-!-margin-bottom-2">
-                      https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                      <a class="app-link"
+                         href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
+                         target="_blank" rel="noopener noreferrer">
+                        https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                      </a>
                     </div>
                   </li>
                 {% endfor %}

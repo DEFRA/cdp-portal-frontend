@@ -5,7 +5,6 @@
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
 {% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
 
-
 {% block beforeTabContent %}
   {{ appHeading({
     title: heading,
@@ -22,7 +21,8 @@
     {% block xhrContent %}
       <article data-xhr="deployment">
         <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-          <div class="app-grid-column app-grid-column-two-thirds-from-desktop-massive">
+          <div class="app-grid-column app-grid-column-two-thirds-from-desktop-wide">
+
             <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-4">
               <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
               <div>
@@ -67,6 +67,9 @@
                         }
                       }) }}
                     </p>
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
+                    <p>{{ deployment.user.displayName | sanitizeUser }}</p>
                   </div>
 
                   <div class="app-grid-column-one-third">
@@ -80,17 +83,14 @@
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Memory</h2>
                     <p>{{ deployment.memory if deployment.memory  else noValue }}</p>
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Image name</h2>
+                    <p>{{ deployment.service }}</p>
                   </div>
 
                   <div class="app-grid-column-one-third">
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Image name</h2>
-                    <p>{{ deployment.service }}</p>
-
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
-                    <p>{{ deployment.user.displayName | sanitizeUser }}</p>
-
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Topics</h2>
-                    <p>
+                    <div class="govuk-!-margin-bottom-4">
                       {% for topic in deployment.topics %}
                         {{ appTag({
                           text: topic,
@@ -102,10 +102,7 @@
                           newWindow: true
                         }) }}
                       {% endfor %}
-                    </p>
-                  </div>
-
-                  <div class="app-grid-column-one-third">
+                    </div>
 
                     {% if deployment.isFrontend %}
 
@@ -124,7 +121,11 @@
 
                       <h2 class="govuk-heading-m govuk-!-margin-bottom-1">API root url</h2>
                       <p>
-                        https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud
+                        <a class="app-link"
+                           href="https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud"
+                           target="_blank" rel="noopener noreferrer">
+                          https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud
+                        </a>
                       </p>
 
                     {% endif %}
@@ -144,41 +145,55 @@
                   </div>
                 </div>
 
-                <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
+                {% if (deployment.unstable === true) %}
+                  {% call appWarning() %}
+                    Your service is failing to start. Check
+                    {{ appLogsDashboardLink({
+                      text: "logs",
+                      classes: "app-link-underline app-link--text-colour",
+                      serviceName: deployment.service,
+                      environment: deployment.environment
+                    }) }}
+                    to diagnose why this is happening.
+                  {% endcall %}
+                {% endif %}
+
                 <div class="app-row">
-                  {% for instanceId, instance in deployment.instances %}
-                    <div class="govuk-!-margin-right-2">
-                      {% call appToolTip({
-                        text: instance.status | title,
-                        classes: "app-tool-tip--small"
-                      }) %}
-                        {% if instance.status == "running" %}
-                          {{ appInstanceSuccessIcon() }}
-                        {% elseif instance.status == "stopped" and instance.unstable == true %}
-                          {{ appInstanceStoppedIcon() }}
-                        {% elseif instance.status == "stopped" %}
-                          {{ appInstanceFailedIcon() }}
-                        {% elseif instance.status == "pending" or instance.status == "stopping"
-                          or instance.status == "deploying" %}
-                          {{ appInstancePendingIcon() }}
-                        {% endif %}
-                      {% endcall %}
+                  <div class="app-grid-column-full">
+                    <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
+
+                    <div class="govuk-!-margin-bottom-4">
+                      {% for instanceId, instance in deployment.instances %}
+                        {% set tooltipText = "failed" if deployment.unstable === true else instance.status %}
+
+                        <span class="govuk-!-margin-right-1">
+                          {% call appToolTip({
+                            text: tooltipText | title,
+                            classes: "app-tool-tip--small"
+                          }) %}
+                            {% if instance.status === "running" %}
+                              {{ appInstanceSuccessIcon() }}
+                            {% elseif instance.status === "stopped" and deployment.unstable === true %}
+                              {{ appInstanceFailedIcon() }}
+                            {% elseif instance.status === "stopped" %}
+                              {{ appInstanceStoppedIcon() }}
+                            {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
+                              {{ appInstancePendingIcon() }}
+                            {% endif %}
+                          {% endcall %}
+                        </span>
+
+                      {% else %}
+                        <p class="govuk-!-margin-0">Deployment requested, information coming very soon.</p>
+
+                      {% endfor %}
                     </div>
-
-                  {% else %}
-                    <p class="govuk-!-margin-0">Deployment requested, information coming very soon.</p>
-
-                  {% endfor %}
+                  </div>
                 </div>
               </section>
 
             {% endcall %}
 
-          </div>
-          <div class="govuk-grid-column-one-third">
-            {{ appEntityDataList({
-              items: entityDataList
-            }) }}
           </div>
         </div>
       </article>

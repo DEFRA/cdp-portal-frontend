@@ -2,6 +2,7 @@ import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-de
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 import { nullify404 } from '~/src/server/services/helpers/nullify-404'
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
+import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
 
 const provideDeployment = {
   method: async function (request) {
@@ -10,11 +11,13 @@ const provideDeployment = {
 
     const github = await fetchRepository(deployment.service).catch(nullify404)
     const repository = github?.repository ?? null
+    const status = augmentStatus(deployment)
 
     return {
       ...deployment,
       ...(repository && repository),
-      statusClasses: provideDeploymentStatusClassname(deployment.status),
+      status,
+      statusClasses: provideDeploymentStatusClassname(status),
       isFrontend: repository?.topics?.includes('frontend') ?? false,
       isBackend: repository?.topics?.includes('backend') ?? false
     }
