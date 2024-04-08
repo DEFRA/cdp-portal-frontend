@@ -4,7 +4,7 @@
   "description": "CDP Portal Frontend",
   "main": "src/index.js",
   "engines": {
-    "node": ">=20.3.0"
+    "node": ">=20.11.1"
   },
   "author": "Defra DDTS",
   "license": "OGL-UK-3.0",
