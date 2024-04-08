@@ -1,5 +1,5 @@
+import path from 'node:path'
 import convict from 'convict'
-import path from 'path'
 
 const eightHours = 1000 * 60 * 60 * 8
 const oneDay = 1000 * 60 * 60 * 24
@@ -26,7 +26,7 @@ const config = convict({
   root: {
     doc: 'Project root',
     format: String,
-    default: path.normalize(path.join(__dirname, '..', '..'))
+    default: path.normalize(path.resolve(__dirname, '..', '..'))
   },
   appBaseUrl: {
     doc: 'Application base URL',
@@ -142,7 +142,7 @@ const config = convict({
   },
   logLevel: {
     doc: 'Logging level',
-    format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
+    format: ['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'silent'],
     default: 'info',
     env: 'LOG_LEVEL'
   },
