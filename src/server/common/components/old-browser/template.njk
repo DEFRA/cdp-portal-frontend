@@ -1,4 +1,4 @@
-{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+{% from "icons/alert-icon/macro.njk" import appAlertIcon %}
 
 {% set content = params.html | safe if params.html else params.text %}
 
@@ -6,7 +6,7 @@
      tabindex="-1"
      role="alert"
      data-testid="app-old-browser">
-  {{ appWarningIcon({
+  {{ appAlertIcon({
     classes: "app-icon-medium"
   }) }}
   <span class="app-old-browser__content" data-testid="app-old-browser-content">

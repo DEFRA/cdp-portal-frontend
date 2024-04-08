@@ -1,14 +1,18 @@
+import { deploymentStatus } from '~/src/server/deployments/constants/status'
+
 function provideDeploymentStatusClassname(status) {
   switch (status) {
-    case 'running':
+    case deploymentStatus.running:
       return 'govuk-tag--green'
-    case 'stopping':
-    case 'pending':
+    case deploymentStatus.stopping:
+    case deploymentStatus.pending:
       return 'govuk-tag--blue'
-    case 'requested':
+    case deploymentStatus.requested:
       return 'govuk-tag--purple'
-    case 'stopped':
-      return 'govuk-tag--grey'
+    case deploymentStatus.stopped:
+      return 'govuk-tag--light-blue'
+    case deploymentStatus.failed:
+      return 'govuk-tag--red'
     default:
       return 'govuk-tag--grey'
   }

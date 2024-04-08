@@ -5,7 +5,7 @@ import { librariesFixture } from '~/src/__fixtures__/libraries'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
-describe('#fetchJson', () => {
+describe('#fetcher', () => {
   const librariesEndpoint = config.get('portalBackendApiUrl') + '/libraries'
   const librariesEndpointUrl = new URL(librariesEndpoint)
 

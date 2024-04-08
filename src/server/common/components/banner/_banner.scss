@@ -9,7 +9,6 @@ $banner-width: 520px;
 
   @include govuk-media-query($from: tablet) {
     max-width: $banner-width;
-    max-width: govuk-px-to-rem($banner-width);
   }
 }
 

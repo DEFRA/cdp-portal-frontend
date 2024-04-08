@@ -10,6 +10,10 @@
   @include app-link-without-underline;
 }
 
+.app-link--text-colour {
+  @include govuk-link-style-text;
+}
+
 .app-link--inverse {
   @include govuk-link-style-inverse;
 

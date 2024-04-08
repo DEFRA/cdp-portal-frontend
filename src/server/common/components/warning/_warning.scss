@@ -1,25 +1,22 @@
-.app-info {
+.app-warning {
   display: flex;
   align-items: flex-start;
-  border-left: 4px solid govuk-colour("blue");
-  margin: govuk-spacing(2) govuk-spacing(0);
+  border-left: 4px solid govuk-colour("red");
+  margin: govuk-spacing(0) govuk-spacing(-6);
   padding: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) govuk-spacing(1);
-  background-color: $app-light-grey;
+  background-color: govuk-tint(govuk-colour("red"), 80%);
   border-radius: $app-border-radius;
 }
 
-.app-info-icon {
+.app-warning-icon {
   margin-right: govuk-spacing(1);
-  fill: govuk-colour("blue");
+  fill: govuk-colour("red");
+  background-color: govuk-colou("white");
 }
 
-.app-info__content {
+.app-warning__content {
   flex: 8;
   @include govuk-font(19);
   margin-top: govuk-spacing(1);
   color: govuk-colour("black");
-}
-
-.app-info__action {
-  margin-left: auto;
 }

@@ -4,6 +4,11 @@
   align-items: center;
 }
 
+.app-grid-column-full {
+  flex: 1;
+  align-self: flex-start;
+}
+
 .app-grid-column-one-third {
   flex: 1;
   align-self: flex-start;

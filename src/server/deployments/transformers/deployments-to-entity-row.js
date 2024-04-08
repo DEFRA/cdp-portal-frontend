@@ -1,7 +1,10 @@
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
 import { sanitizeUser } from '~/src/server/common/helpers/sanitize-user'
+import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
 
 function deploymentsToEntityRow(deployedService) {
+  const status = augmentStatus(deployedService)
+
   return [
     {
       kind: 'link',
@@ -18,8 +21,8 @@ function deploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'tag',
-      value: deployedService.status,
-      classes: provideDeploymentStatusClassname(deployedService.status)
+      value: status,
+      classes: provideDeploymentStatusClassname(status)
     },
     {
       kind: 'text',
