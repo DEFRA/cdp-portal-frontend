@@ -4,11 +4,13 @@ import { filter, uniqBy } from 'lodash'
 
 import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import {
-  fetchCdpTeam,
-  searchCdpUsers,
   presentUsersToAdd,
   provideCdpTeam
 } from '~/src/server/admin/teams/helpers'
+import {
+  searchCdpUsers,
+  fetchCdpTeam
+} from '~/src/server/admin/teams/helpers/fetch'
 
 const addMemberFormController = {
   options: {
