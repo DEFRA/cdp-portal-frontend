@@ -4,6 +4,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "wednesday"
     ignore:
       - dependency-name: "node-fetch"
         update-types: ["version-update:semver-major"]
