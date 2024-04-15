@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@aws-sdk/credential-providers": "3.549.0",
-    "@aws-sdk/s3-request-presigner": "3.550.0",
+    "@aws-sdk/s3-request-presigner": "3.552.0",
     "@aws-sdk/util-format-url": "3.535.0",
     "@babel/runtime": "7.24.4",
     "@elastic/ecs-pino-format": "1.5.0",
