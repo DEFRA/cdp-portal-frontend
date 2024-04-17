@@ -54,7 +54,7 @@
     "@smithy/property-provider": "2.2.0",
     "@smithy/protocol-http": "3.3.0",
     "@smithy/url-parser": "2.2.0",
-    "babel-plugin-module-resolver": "5.0.0",
+    "babel-plugin-module-resolver": "5.0.1",
     "bcrypt": "5.1.1",
     "convict": "6.2.4",
     "date-fns": "3.6.0",
