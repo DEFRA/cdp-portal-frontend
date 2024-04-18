@@ -1,0 +1,106 @@
+{% extends "layouts/page.njk" %}
+
+{% from "read-out/macro.njk" import appReadOut %}
+{% from "availability/macro.njk" import appAvailability %}
+
+{% block content %}
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appHeading({
+      title: heading,
+      caption: "Create a new performance test suite. These tests will be built using JMeter and ran against a real
+      environment."
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <form action="/create/perf-test-suite/detail" method="post" data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+          {% call govukFieldset() %}
+
+            {{ govukInput({
+              label: {
+                text: "Test suite name",
+                classes: "app-label"
+              },
+              id: "repository-name",
+              name: "repositoryName",
+              classes: "app-input app-input--wide",
+              hint: {
+                text: "Use lowercase words with hyphen separators and a maximum of 32 characters",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              value: formValues.repositoryName,
+              attributes: {
+                "data-js": "app-availability app-read-out",
+                "data-availability-target-id": "test-suite-name-availability",
+                "data-read-out-target-id": "test-suite-name-read-out",
+                "data-1p-ignore": ""
+              },
+              errorMessage: {
+                text: formErrors.repositoryName.message,
+                classes: "app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.repositoryName.message,
+              suffix: {
+                classes: "app-input__suffix",
+                html: appAvailability({
+                  dataFetcher: "fetchIsNameAvailable",
+                  targetId: "test-suite-name-availability"
+                })
+              }
+            }) }}
+
+            {{ appReadOut({
+              description: "Your journey test suite name will be ",
+              targetId: "test-suite-name-read-out"
+            }) }}
+
+
+            {{ govukSelect({
+              id: "team-id",
+              name: "teamId",
+              label: {
+                text: "Owning Team",
+                classes: "app-label"
+              },
+              classes: "app-select",
+              value: formValues.teamId,
+              hint: {
+                text: "The CDP team that owns your repository",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: {
+                text: formErrors.teamId.message,
+                classes: "app-error-message",
+                attributes: {
+                  "data-js": "app-error"
+                }
+              } if formErrors.teamId.message,
+              items: teamsOptions
+            }) }}
+
+          {% endcall %}
+
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText
+          }) }}
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
