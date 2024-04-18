@@ -12,6 +12,7 @@ import { createRepositoryRoutes } from '~/src/server/create/repository'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { createMicroserviceRoutes } from '~/src/server/create/microservice'
 import { createEnvTestSuiteRoutes } from '~/src/server/create/env-test-suite'
+import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
 
 const serviceTeamAndAdminUserScope = authScope([
@@ -66,7 +67,8 @@ const create = {
           ...createMicroserviceRoutes,
           ...createRepositoryRoutes,
           ...createEnvTestSuiteRoutes,
-          ...createTestSuiteRoutes
+          ...createTestSuiteRoutes,
+          ...createPerfTestSuiteRoutes
         ].map(serviceTeamAndAdminUserScope)
       )
     }
