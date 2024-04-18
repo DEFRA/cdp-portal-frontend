@@ -16,7 +16,7 @@ const detailsController = {
     const payload = request?.payload
     const redirectLocation = payload?.redirectLocation
 
-    const deployableImageNames = await fetchDeployableImageNames(request)
+    const deployableImageNames = await fetchDeployableImageNames({ request })
     const availableVersions = await fetchAvailableVersions(payload?.imageName)
     const environments = await fetchEnvironments(request)
 
