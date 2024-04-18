@@ -1,7 +1,8 @@
 {% from "tool-tip/macro.njk" import appToolTip %}
 
 {% call appToolTip({ text: params.datetime | formatDate }) %}
-  <time datetime="{{ params.datetime }}"
+  <time{% if params.classes %} class="{{ params.classes }}"{% endif %}
+        datetime="{{ params.datetime }}"
         data-testid="app-time">
     {% if params.withSeconds %}
       {{ params.datetime | relativeDate(params.withSeconds) }}

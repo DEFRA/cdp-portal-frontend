@@ -17,7 +17,7 @@ const provideEnvironmentOptions = {
       }
 
       const userOwnsTestSuite = await request.userIsMemberOfATeam(
-        request.pre.testSuite.teams.map((testsuite) => testsuite.teamId)
+        request.pre.testSuite.teams.map((team) => team.teamId)
       )
 
       if (userOwnsTestSuite) {

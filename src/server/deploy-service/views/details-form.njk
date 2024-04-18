@@ -121,7 +121,7 @@
             {% call appPanel() %}
               <section class="app-row">
 
-                <div class="app-row__item-flex-one">
+                <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Published Images</h2>
                   <p>
                     Latest published Images by version{%- if imageName %} for {{ imageName }}{% endif -%}.
@@ -134,13 +134,13 @@
                         <div class="govuk-grid-row">
                           <div class="app-grid-column-one-third-from-desktop-massive">
                             <span class="app-row">
-                              <span class="app-row__item-flex-two">
+                              <span class="app-row__item-flex-four">
                                 Published
                                 {{ appTime({
                                   datetime: version.created
                                 }) }}
                               </span>
-                              <span class="app-row__item-flex-one">
+                              <span class="app-row__item-flex-two">
                                 <a class="app-link"
                                    href="https://github.com/DEFRA/{{ imageName }}/releases/tag/{{ version.tag }}"
                                    target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
@@ -182,7 +182,7 @@
             {% call appPanel() %}
               <section class="app-row">
 
-                <div class="app-row__item-flex-one">
+                <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
                   <p>
                     Currently deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.

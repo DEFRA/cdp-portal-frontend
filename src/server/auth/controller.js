@@ -2,6 +2,7 @@ import Boom from '@hapi/boom'
 import { v4 as uuidv4 } from 'uuid'
 
 import { createUserSession } from '~/src/server/common/helpers/auth/user-session'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 const authCallbackController = {
   options: {
@@ -19,7 +20,7 @@ const authCallbackController = {
       request.sessionCookie.set({ sessionId })
     }
 
-    const redirect = request.yar.flash('referrer')?.at(0) ?? '/'
+    const redirect = request.yar.flash(sessionNames.referrer)?.at(0) ?? '/'
 
     return h.redirect(redirect)
   }

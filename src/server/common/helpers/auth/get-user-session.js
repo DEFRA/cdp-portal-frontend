@@ -16,9 +16,8 @@
  * @returns {Promise<userSession|{}>}
  */
 async function getUserSession() {
-  return this.state?.userSession?.sessionId
-    ? await this.server.app.cache.get(this.state.userSession.sessionId)
-    : {}
+  const sessionId = this.state?.userSession?.sessionId
+  return sessionId ? await this.server.app.cache.get(sessionId) : {}
 }
 
 export { getUserSession }

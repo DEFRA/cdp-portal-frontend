@@ -75,7 +75,6 @@ describe('#provideServiceCreateStatus', () => {
         serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
         teams: [
           {
-            github: 'cdp-platform',
             name: 'Platform',
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
@@ -137,7 +136,6 @@ describe('#provideServiceCreateStatus', () => {
         serviceStatus: createServiceStatusSuccessFixture.repositoryStatus,
         teams: [
           {
-            github: 'cdp-platform',
             name: 'Platform',
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }

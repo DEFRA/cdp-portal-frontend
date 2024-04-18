@@ -1,40 +1,25 @@
-// Simple flex grid. Use the govuk grid if you need a fully functioning grid.
+// Simple flex proportional grid. Use the govuk-grid if you need a fully functioning grid.
 .app-row {
   display: flex;
   align-items: center;
 }
 
-.app-grid-column-full {
+.app-row__item-flex-one {
   flex: 1;
   align-self: flex-start;
 }
 
-.app-grid-column-one-third {
-  flex: 1;
-  align-self: flex-start;
-}
-
-.app-grid-column-two-thirds {
+.app-row__item-flex-two {
   flex: 2;
   align-self: flex-start;
 }
 
-.app-grid-column-one-half {
-  flex: 1;
+.app-row__item-flex-four {
+  flex: 4;
   align-self: flex-start;
 }
 
-.app-grid-column-one-quarter {
-  flex: 1;
-  align-self: flex-start;
-}
-
-.app-grid-column-two-quarters {
-  flex: 2;
-  align-self: flex-start;
-}
-
-.app-grid-column-three-quarters {
-  flex: 3;
+.app-row__item-flex-five {
+  flex: 5;
   align-self: flex-start;
 }

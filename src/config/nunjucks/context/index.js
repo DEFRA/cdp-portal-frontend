@@ -31,38 +31,34 @@ async function context(request) {
   const userAgentHeader = request.headers['user-agent']
   const authedUser = await request.getUserSession()
 
+  function getAssetPath(asset) {
+    const webpackAssetPath = webpackManifest[asset]
+
+    return `${assetPath}/${webpackAssetPath}`
+  }
+
   return {
-    isAuthenticated: authedUser?.isAuthenticated ?? false,
-    isAdmin: authedUser?.isAdmin ?? false,
-    isServiceTeamUser: authedUser?.isServiceTeamUser ?? false,
-    authedUser,
-    userIsTeamMember: userIsTeamMember(authedUser),
-    userIsMemberOfATeam: userIsMemberOfATeam(authedUser),
-    assetPath,
     appBaseUrl: config.get('appBaseUrl'),
+    assetPath,
+    authedUser,
+    blankOption: defaultOption,
+    breadcrumbs: [],
+    eventName,
+    getAssetPath,
+    githubOrg: config.get('githubOrg'),
+    isAdmin: authedUser?.isAdmin ?? false,
+    isAuthenticated: authedUser?.isAuthenticated ?? false,
+    isIe: useragent.is(userAgentHeader).ie,
+    isServiceTeamUser: authedUser?.isServiceTeamUser ?? false,
+    isXhr: isXhr.call(request),
+    navigation: await buildNavigation(request),
+    noValue,
+    routeLookup: (id, options) => request.routeLookup(id, options),
+    serviceName: config.get('serviceName'),
     supportChannel: config.get('supportChannel'),
     userAgent: useragent.lookup(userAgentHeader),
-    isIe: useragent.is(userAgentHeader).ie,
-    eventName,
-    noValue,
-    blankOption: defaultOption,
-    isXhr: isXhr.call(request),
-    githubOrg: config.get('githubOrg'),
-    serviceName: config.get('serviceName'),
-    breadcrumbs: [],
-    navigation: await buildNavigation(request),
-    getAssetPath: function (asset) {
-      const webpackAssetPath = webpackManifest[asset]
-
-      return `${assetPath}/${webpackAssetPath}`
-    },
-    routeLookup: function (id, params) {
-      if (!request.routeLookup) {
-        throw new Error('The route-lookup plugin has not been registered!')
-      }
-
-      return request.routeLookup(id, params)
-    }
+    userIsMemberOfATeam: userIsMemberOfATeam(authedUser),
+    userIsTeamMember: userIsTeamMember(authedUser)
   }
 }
 
