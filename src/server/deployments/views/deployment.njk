@@ -44,7 +44,7 @@
             {% call appPanel() %}
               <section>
                 <div class="app-row">
-                  <div class="app-grid-column-one-third">
+                  <div class="app-row__item-flex-two">
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service</h2>
                     <p>
                       <a class="app-link" href="/services/{{ deployment.service }}">{{ deployment.service }}</a>
@@ -72,7 +72,7 @@
                     <p>{{ deployment.user.displayName | sanitizeUser }}</p>
                   </div>
 
-                  <div class="app-grid-column-one-third">
+                  <div class="app-row__item-flex-two">
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Instance count</h2>
                     <p>
                       {{ noValue if deployment.instanceCount | isNil else deployment.instanceCount }}
@@ -88,7 +88,7 @@
                     <p>{{ deployment.service }}</p>
                   </div>
 
-                  <div class="app-grid-column-one-third">
+                  <div class="app-row__item-flex-two">
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Topics</h2>
                     <div class="govuk-!-margin-bottom-4">
                       {% for topic in deployment.topics %}
@@ -159,7 +159,7 @@
                 {% endif %}
 
                 <div class="app-row">
-                  <div class="app-grid-column-full">
+                  <div class="app-row__item-flex-two">
                     <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h2>
 
                     <div class="govuk-!-margin-bottom-4">

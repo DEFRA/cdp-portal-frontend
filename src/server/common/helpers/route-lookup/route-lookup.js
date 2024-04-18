@@ -1,24 +1,22 @@
 import qs from 'qs'
 
-const routeLookup = (server, id, params = {}) => {
-  const queryParams = {}
-  let path = server.lookup(id)?.path
+const routeLookup = (server, id, options = {}) => {
+  const params = options?.params ?? {}
+  const query = options?.query
+
+  const path = server.lookup(id)?.path
 
   if (!path) {
-    throw new Error(`Route lookup failed, no controller with id: ${id}`)
+    throw new Error(`Request route lookup failed, no controller with id: ${id}`)
   }
 
-  Object.keys(params).forEach((k) => {
-    const paramKey = '{' + k + '}'
+  const routePath = Object.entries(params).reduce(
+    (pathWithParams, [key, value]) =>
+      pathWithParams.replace(`{${key}}`, encodeURI(value)),
+    path
+  )
 
-    if (path.includes(paramKey)) {
-      path = path.replace(paramKey, encodeURIComponent(params[k])) // TODO: do we need to escape the params?
-    } else {
-      queryParams[k] = params[k]
-    }
-  })
-
-  return path + qs.stringify(queryParams, { addQueryPrefix: true })
+  return routePath + qs.stringify(query, { addQueryPrefix: true })
 }
 
 export { routeLookup }

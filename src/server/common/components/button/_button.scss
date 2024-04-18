@@ -30,6 +30,15 @@
   }
 }
 
+.app-button--primary {
+  background-color: govuk-colour("blue");
+  color: govuk-colour("white");
+
+  &:hover {
+    background-color: govuk-tint(govuk-colour("blue"), 40%);
+  }
+}
+
 .app-button--destructive {
   background-color: govuk-colour("light-grey");
   color: govuk-colour("black");

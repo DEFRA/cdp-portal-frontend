@@ -4,6 +4,7 @@ import bell from '@hapi/bell'
 
 import { config } from '~/src/config'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch'
+import { sessionNames } from '~/src/server/common/constants/session-names'
 
 async function provideCdpGroups(groups = []) {
   const { teams: teamsWithGithub } = await fetchTeams(true)
@@ -30,7 +31,7 @@ const azureOidc = {
       server.auth.strategy('azure-oidc', 'bell', {
         location: (request) => {
           if (request.info.referrer) {
-            request.yar.flash('referrer', request.info.referrer)
+            request.yar.flash(sessionNames.referrer, request.info.referrer)
           }
 
           return authCallbackUrl

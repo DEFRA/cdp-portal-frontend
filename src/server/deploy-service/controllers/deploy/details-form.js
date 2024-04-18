@@ -1,4 +1,3 @@
-import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { compose } from 'lodash/fp'
 
@@ -17,6 +16,7 @@ import { runningServicesToEntityRow } from '~/src/server/common/transformers/run
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
+import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation'
 
 async function getAdditionalData(imageName) {
   if (!imageName) {
@@ -46,21 +46,19 @@ async function getAdditionalData(imageName) {
     runningServicesEntityRows,
     rowHeadings,
     availableVersionOptions,
-    latestVersions: availableVersions.slice(0, 5)
+    latestVersions: availableVersions.slice(0, 4)
   }
 }
 
 const detailsFormController = {
   options: {
+    id: 'deploy-service/details',
     ext: {
       onPreHandler: [noSessionRedirect]
     },
     pre: [provideDeployment],
     validate: {
-      query: Joi.object({
-        imageName: Joi.string(),
-        redirectLocation: Joi.string().valid('summary')
-      }),
+      query: detailsValidation,
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
@@ -69,9 +67,8 @@ const detailsFormController = {
     const deployment = request.pre?.deployment
     const imageName = query?.imageName ?? deployment?.imageName
 
-    const deployableImageNameOptions = buildOptions(
-      await fetchDeployableImageNames(request)
-    )
+    const deployableImageNames = await fetchDeployableImageNames({ request })
+    const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
     const environments = await fetchEnvironments(request)
     const environmentOptions = environments ? buildOptions(environments) : []
 

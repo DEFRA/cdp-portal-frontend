@@ -24,3 +24,11 @@
 .app-summary-item__intro {
   margin-bottom: govuk-spacing(2);
 }
+
+.app-summary-item__list-item {
+  &:hover {
+    & * :not(.app-button) {
+      color: govuk-colour("mid-grey");
+    }
+  }
+}

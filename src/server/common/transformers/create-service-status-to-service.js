@@ -10,7 +10,7 @@ function createServiceStatusToService(serviceStatus) {
     serviceName,
     githubUrl: serviceStatus?.createRepository?.url,
     id: serviceName,
-    teams: [team],
+    teams: [team], // TODO support multiple teams in the API
     serviceStatus
   }
 }

@@ -62,27 +62,27 @@
 }
 
 .app-entity-list__item--tiny {
-  flex: .3;
+  flex: 3;
   max-width: 80px;
 }
 
 .app-entity-list__item--small {
-  flex: .4;
+  flex: 4;
   max-width: 160px;
 }
 
 .app-entity-list__item--medium {
-  flex: .6;
+  flex: 6;
   max-width: 240px;
 }
 
 .app-entity-list__item--large {
-  flex: .8;
+  flex: 8;
   max-width: 320px;
 }
 
 .app-entity-list__item--massive {
-  flex: 1;
+  flex: 10;
   max-width: 400px;
 }
 
