@@ -1,75 +1,105 @@
 import { routeLookup } from '~/src/server/common/helpers/route-lookup'
+import { getErrorSync, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#routeLookup', () => {
-  const routes = {
-    home: { path: '/home' },
-    foo: { path: '/baz/bar/foo' },
-    'param.single': { path: '/user/{id}' },
-    'param.many': { path: '/team/{teamId}/project/{projectId}/{page}' }
+  const mockRoutes = {
+    home: {
+      path: '/home'
+    },
+    'foo/bar': {
+      path: '/foo/bar'
+    },
+    'services/serviceId': {
+      path: '/services/{serviceId}'
+    },
+    'deployments/environment/deploymentId': {
+      path: '/deployments/{environment}/{deploymentId}'
+    }
   }
-  const server = {
-    lookup: (id) => routes[id]
+  const mockServer = {
+    lookup: (id) => mockRoutes[id]
   }
 
-  test('find a simple route without params', () => {
-    expect(routeLookup(server, 'home')).toEqual('/home')
+  test('Should provide a simple route', () => {
+    expect(routeLookup(mockServer, 'home')).toEqual('/home')
   })
 
-  test('find a longer route', () => {
-    expect(routeLookup(server, 'foo')).toEqual('/baz/bar/foo')
+  test('Should provide a nested route', () => {
+    expect(routeLookup(mockServer, 'foo/bar')).toEqual('/foo/bar')
   })
 
-  test('find a route with parameter substitution', () => {
-    expect(routeLookup(server, 'param.single', { id: 1234 })).toEqual(
-      '/user/1234'
-    )
-  })
-
-  test('find a route with multiple parameter substitution', () => {
+  test('Should provide a route with parameter substitution', () => {
     expect(
-      routeLookup(server, 'param.many', {
-        teamId: 'infra',
-        projectId: 'foo',
-        page: 7
+      routeLookup(mockServer, 'services/serviceId', {
+        params: { serviceId: 'cdp-portal-frontend' }
       })
-    ).toEqual('/team/infra/project/foo/7')
+    ).toEqual('/services/cdp-portal-frontend')
   })
 
-  test('query params in a simple route', () => {
-    expect(routeLookup(server, 'home', { page: 1 })).toEqual('/home?page=1')
-  })
-
-  test('many query params in a simple route', () => {
-    expect(routeLookup(server, 'home', { page: 1, offset: 9 })).toEqual(
-      '/home?page=1&offset=9'
-    )
-  })
-
-  test('many query params in a route with path params', () => {
+  test('Should provide a route with multiple parameter substitution', () => {
     expect(
-      routeLookup(server, 'param.many', {
-        teamId: 'infra',
-        projectId: 'foo',
-        page: 7,
-        admin: true,
-        env: 'dev'
+      routeLookup(mockServer, 'deployments/environment/deploymentId', {
+        params: {
+          environment: 'infra-dev',
+          deploymentId: '3f5dff54-9bea-4a53-830d-96610af8c2b4'
+        }
       })
-    ).toEqual('/team/infra/project/foo/7?admin=true&env=dev')
+    ).toEqual('/deployments/infra-dev/3f5dff54-9bea-4a53-830d-96610af8c2b4')
   })
 
-  test('it safely escapes route params', () => {
-    expect(routeLookup(server, 'param.single', { id: '../admin' })).toEqual(
-      '/user/..%2Fadmin'
+  test('Should provide a simple route with query params', () => {
+    expect(routeLookup(mockServer, 'home', { query: { page: 1 } })).toEqual(
+      '/home?page=1'
     )
   })
 
-  test('it escapes query params', () => {
-    expect(routeLookup(server, 'home', { redirect: 'build&deploy' })).toEqual(
-      '/home?redirect=build%26deploy'
+  test('Should provide many query params in a simple route', () => {
+    expect(
+      routeLookup(mockServer, 'home', { query: { page: 1, offset: 9 } })
+    ).toEqual('/home?page=1&offset=9')
+  })
+
+  test('Should provide a route with path and query params', () => {
+    expect(
+      routeLookup(mockServer, 'deployments/environment/deploymentId', {
+        params: {
+          environment: 'management',
+          deploymentId: '346463456456-9bea-4a53-4564646-456456'
+        },
+        query: {
+          admin: true,
+          environment: 'dev'
+        }
+      })
+    ).toEqual(
+      '/deployments/management/346463456456-9bea-4a53-4564646-456456?admin=true&environment=dev'
     )
   })
 
-  test('it errors on an unknown route', () => {
-    expect(() => routeLookup(server, 'not-found')).toThrow()
+  test('Should safely escapes route path params', () => {
+    expect(
+      routeLookup(mockServer, 'services/serviceId', {
+        params: { serviceId: 'cdp-user-service-backend-£$' }
+      })
+    ).toEqual('/services/cdp-user-service-backend-%C2%A3$')
+  })
+
+  test('Should escape url query params', () => {
+    expect(
+      routeLookup(mockServer, 'home', {
+        query: { redirect: 'login=callback/url?info=true' }
+      })
+    ).toEqual('/home?redirect=login%3Dcallback%2Furl%3Finfo%3Dtrue')
+  })
+
+  test('Should error on an unknown route', () => {
+    const error = getErrorSync(() => routeLookup(mockServer, 'nowt'))
+
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error).toBeInstanceOf(Error)
+    expect(error).toHaveProperty(
+      'message',
+      'Request route lookup failed, no controller with id: nowt'
+    )
   })
 })
