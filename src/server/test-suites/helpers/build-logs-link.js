@@ -1,14 +1,14 @@
 import { format, parseISO } from 'date-fns'
 
 /**
- * Open search requires seconds and dat-fns doesn't support seconds
+ * Open search requires seconds and date-fns doesn't support seconds
  * @param value
  * @returns {string}
  */
 function formatDatesForOpenSearch(value) {
   const date = parseISO(value)
 
-  return format(date, "yyyy-MM-dd'T'HH:mm:ss'Z'").replace(/Z$/, '.000Z')
+  return format(date, "yyyy-MM-dd'T'HH:mm:ss'Z'").replace(/Z$/, '.000')
 }
 
 /**
