@@ -2,8 +2,15 @@ import Joi from 'joi'
 
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
+import Boom from '@hapi/boom'
 
 async function detailsValidation(queryValues, options) {
+  const isAuthenticated = options?.context?.auth?.isAuthenticated ?? false
+
+  if (!isAuthenticated) {
+    throw Boom.boomify(Boom.unauthorized())
+  }
+
   const deployableImageNames = await fetchDeployableImageNames({
     scope: options?.context?.auth?.credentials?.scope
   })
