@@ -13,6 +13,7 @@ Portal Frontend for Core Delivery Platform (CDP)
   - [Portal APIs](#portal-apis)
   - [Redis](#redis)
   - [Development](#development)
+    - [Updating dependencies](#updating-dependencies)
     - [Debugging](#debugging)
     - [Testing](#testing)
       - [Run a specific test](#run-a-specific-test)
@@ -78,6 +79,16 @@ Run the application in `development` mode run:
 
 ```bash
 npm run dev
+```
+
+#### Updating dependencies
+
+To update dependencies globally install https://www.npmjs.com/package/npm-check-updates
+
+> Run the script below, run tests, test teh application and commit the altered package.json and package-lock.json files
+
+```bash
+ncu -i
 ```
 
 #### Debugging
