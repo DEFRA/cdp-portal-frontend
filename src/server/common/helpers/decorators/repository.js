@@ -3,8 +3,8 @@ import { omit } from 'lodash'
 function repositoryDecorator(service, repository) {
   return omit(
     {
-      ...(repository && repository),
-      ...service
+      ...service,
+      ...(repository && repository)
     },
     ['url']
   )
