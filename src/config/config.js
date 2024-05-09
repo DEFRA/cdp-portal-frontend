@@ -125,6 +125,12 @@ const config = convict({
     default: process.env.NODE_ENV !== 'production',
     env: 'USE_SINGLE_INSTANCE_CACHE'
   },
+  serverCacheSegment: {
+    doc: 'Isolate cached items within the cache partition',
+    format: String,
+    default: 'session',
+    env: 'SERVER_CACHE_SEGMENT'
+  },
   isProduction: {
     doc: 'If this application running in the production environment',
     format: Boolean,
@@ -159,18 +165,18 @@ const config = convict({
     default: '63983fc2-cfff-45bb-8ec2-959e21062b9a'
   },
   azureClientSecret: {
-    doc: 'Azure App Client Secret',
+    doc: 'Azure App Client Secret. Defaults to stub secret',
     format: String,
     sensitive: true,
     env: 'AZURE_CLIENT_SECRET',
-    default: ''
+    default: 'test_value'
   },
   oidcWellKnownConfigurationUrl: {
-    doc: 'OIDC .well-known configuration URL',
+    doc: 'OIDC .well-known configuration URL. Defaults to the stub',
     format: String,
     env: 'OIDC_WELL_KNOWN_CONFIGURATION_URL',
     default:
-      'https://login.microsoftonline.com/6f504113-6b64-43f2-ade9-242e05780007/v2.0/.well-known/openid-configuration'
+      'http://cdp.127.0.0.1.sslip.io:3939/63983fc2-cfff-45bb-8ec2-959e21062b9a/v2.0/.well-known/openid-configuration'
   },
   oidcAdminGroupId: {
     doc: 'OIDC Admin Group ID',
