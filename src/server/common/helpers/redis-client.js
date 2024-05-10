@@ -15,13 +15,15 @@ function buildRedisClient() {
   const logger = createLogger()
   const port = 6379
   const db = 0
+  const keyPrefix = config.get('redisKeyPrefix')
   let redisClient
 
   if (config.get('useSingleInstanceCache')) {
     redisClient = new IoRedis({
       port,
       host: config.get('redisHost'),
-      db
+      db,
+      keyPrefix
     })
   } else {
     redisClient = new IoRedis.Cluster(
@@ -32,6 +34,7 @@ function buildRedisClient() {
         }
       ],
       {
+        keyPrefix,
         slotsRefreshTimeout: 2000,
         dnsLookup: (address, callback) => callback(null, address),
         redisOptions: {
