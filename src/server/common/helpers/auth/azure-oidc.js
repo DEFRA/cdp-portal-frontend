@@ -65,6 +65,7 @@ const azureOidc = {
         },
         password: config.get('sessionCookiePassword'),
         clientId: config.get('azureClientId'),
+        forceHttps: config.get('isProduction'),
         clientSecret: config.get('azureClientSecret'),
         cookie: 'bell-azure-oidc',
         isSecure: config.get('isProduction'),
