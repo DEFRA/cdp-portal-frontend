@@ -12,8 +12,7 @@ const sessionManager = {
     cookieOptions: {
       password: config.get('sessionCookiePassword'),
       isSecure: config.get('isProduction'),
-      ttl: config.get('sessionCookieTtl'),
-      isSameSite: 'Strict'
+      ttl: config.get('sessionCookieTtl')
     }
   }
 }
