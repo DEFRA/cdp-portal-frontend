@@ -47,7 +47,14 @@ const deploymentsListController = {
       }))
     )
 
-    const order = ['running', 'pending', 'stopped', 'stopping']
+    const order = [
+      'running',
+      'requested',
+      'pending',
+      'stopped',
+      'stopping',
+      'undeployed'
+    ]
     const statusFilters = buildSuggestions(
       filtersResponse.filters.statuses
         .sort((a, b) => order.indexOf(a) - order.indexOf(b))
