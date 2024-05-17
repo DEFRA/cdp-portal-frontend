@@ -68,6 +68,7 @@ async function createServer() {
     ]
   })
 
+  // TODO refactor cache and decorate it on to server and request. No need for it to be on server.app
   server.app.cache = server.cache({
     cache: 'session',
     segment: config.get('serverCacheSegment'),
