@@ -52,7 +52,7 @@
               items: deployableImageNameOptions
             }) }}
 
-            {{ appAutocomplete({
+            {% call appAutocomplete({
               id: "version",
               name: "version",
               label: {
@@ -61,10 +61,11 @@
               hint: {
                 text: "Elastic Container Registry (ECR) image version"
               },
+              template: "advanced",
               value: formValues.version,
               dataJs: "deploy-version",
               subscribeTo: eventName.autocompleteUpdate + "-version",
-              previousChoiceMessage:"choose Image name",
+              noSuggestionsMessage: "choose Image name",
               errorMessage: {
                 text: formErrors.version.message
               },
@@ -72,7 +73,19 @@
               loader: {
                 name: "deploy-version-loader"
               }
-            }) }}
+            }) %}
+
+              {{ govukButton({
+                classes: "app-button app-button--secondary js-hidden",
+                text: "Search",
+                name: "button",
+                value: "search",
+                attributes: {
+                  "data-js": "app-no-js-submit-button"
+                }
+              }) }}
+
+            {% endcall %}
 
             {{ govukSelect({
               id: "environment",
@@ -104,7 +117,9 @@
 
           {{ govukButton({
             classes: "app-button",
-            text: formButtonText
+            text: formButtonText,
+            name: "button",
+            value: "submit"
           }) }}
 
         </form>

@@ -23,7 +23,8 @@ const detailsController = {
     const validationResult = serviceValidation(
       deployableImageNames,
       availableVersions.map((version) => version.tag),
-      environments
+      environments,
+      payload.button
     ).validate(payload, {
       abortEarly: false
     })
@@ -34,6 +35,23 @@ const detailsController = {
       request.yar.flash(sessionNames.validationFailure, {
         formValues: payload,
         formErrors: errorDetails
+      })
+
+      const imageName = payload?.imageName
+      const queryString = qs.stringify(
+        {
+          ...(redirectLocation && { redirectLocation }),
+          ...(imageName && { imageName })
+        },
+        { addQueryPrefix: true }
+      )
+
+      return h.redirect(`/deploy-service/details${queryString}`)
+    }
+
+    if (!validationResult.error && payload.button === 'search') {
+      request.yar.flash(sessionNames.validationFailure, {
+        formValues: payload
       })
 
       const imageName = payload?.imageName

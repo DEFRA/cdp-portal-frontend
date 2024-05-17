@@ -28,7 +28,7 @@ async function getAdditionalData(imageName) {
   const availableVersions = await fetchAvailableVersions(imageName)
   const availableVersionOptions = buildSuggestions(
     availableVersions.map((version) => ({
-      text: `${version.tag} - ${relativeDate(version.created)}`,
+      text: version.tag,
       value: version.tag,
       hint: relativeDate(version.created)
     }))
