@@ -22,6 +22,7 @@ import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash
 import { secureContext } from '~/src/server/common/helpers/secure-context'
 import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
 import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
+import { sanitise } from '~/src/server/common/helpers/sanitisation/sanitise'
 
 const client = buildRedisClient()
 const isProduction = config.get('isProduction')
@@ -109,6 +110,7 @@ async function createServer() {
     sessionCookie,
     csrf,
     nunjucksConfig,
+    sanitise,
     router
   ])
 
