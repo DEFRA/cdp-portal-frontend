@@ -7,11 +7,14 @@ import { deploymentsToEntityRow } from '~/src/server/deployments/transformers/de
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
 import { buildPagination } from '~/src/server/common/helpers/build-pagination'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions'
+import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values'
 
 const deploymentsListController = {
   options: {
     ext: {
-      onPreAuth: [allEnvironmentsOnlyForAdmin]
+      onPreAuth: [allEnvironmentsOnlyForAdmin],
+      onPostHandler: [provideFormValues]
     },
     validate: {
       params: Joi.object({
