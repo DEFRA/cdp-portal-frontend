@@ -5,6 +5,7 @@ import { capitalize, isNull } from 'lodash'
 import { environments } from '~/src/config'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
+import { pagination } from '~/src/server/common/constants/pagination'
 
 const deploymentController = {
   options: {
@@ -35,7 +36,7 @@ const deploymentController = {
       tabBreadcrumbs: [
         {
           text: capitalize(deployment.environment),
-          href: `/deployments/${deployment.environment}`
+          href: `/deployments/${deployment.environment}?page=${pagination.page}&size=${pagination.size}`
         },
         {
           text: `${deployment.service} - ${deployment.version}`
