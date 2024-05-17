@@ -32,32 +32,32 @@ describe('#provideTabs', () => {
         {
           isActive: false,
           label: 'Infra-dev',
-          url: '/deployments/infra-dev'
+          url: '/deployments/infra-dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Management',
-          url: '/deployments/management'
+          url: '/deployments/management?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Dev',
-          url: '/deployments/dev'
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test'
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test'
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod'
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })
@@ -76,32 +76,32 @@ describe('#provideTabs', () => {
         {
           isActive: true,
           label: 'Infra-dev',
-          url: '/deployments/infra-dev'
+          url: '/deployments/infra-dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Management',
-          url: '/deployments/management'
+          url: '/deployments/management?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Dev',
-          url: '/deployments/dev'
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test'
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test'
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod'
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })
@@ -118,22 +118,22 @@ describe('#provideTabs', () => {
         {
           isActive: false,
           label: 'Dev',
-          url: '/deployments/dev'
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test'
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test'
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod'
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })
@@ -152,22 +152,22 @@ describe('#provideTabs', () => {
         {
           isActive: true,
           label: 'Dev',
-          url: '/deployments/dev'
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test'
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test'
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod'
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })

@@ -1,4 +1,3 @@
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/hint/macro.njk" import govukHint %}
 {% from "govuk/components/label/macro.njk" import govukLabel %}
 {% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
@@ -8,14 +7,21 @@
 {% from "loader/macro.njk" import appLoader %}
 
 <script data-testid="app-autocomplete-suggestions">
-  window.suggestions = window.suggestions || {};
-  window.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
+  window.cdp = window.cdp || {}
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
 </script>
 
-<div class="govuk-form-group app-form-group{% if params.errorMessage.text %} govuk-form-group--error{% endif %}"
-     data-js="app-form-group" data-testid="app-autocomplete-group">
+{% set content = params.html | safe if params.html else params.text %}
+{% set removePassWidgets = params.removePassWidgets | default("true") %}
 
-  <label class="govuk-label app-label" id="{{ params.id }}-label" for="{{ params.id }}"
+<div
+  class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label{% if params.label.classes %} {{ params.label.classes }}{% endif %}"
+         id="{{ params.id }}-label"
+         for="{{ params.id }}"
          data-testid="app-autocomplete-label">
     {{ params.label.text }}
   </label>
@@ -42,25 +48,29 @@
   {% endif %}
 
   <div class="app-autocomplete{% if params.classes %} {{ params.classes }}{% endif %}"
-       data-js="app-autocomplete"
+       data-js="app-autocomplete{% if params.template %}-{{ params.template }}{% endif %}"
     {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
   >
     <div class="app-autocomplete__control">
       <select name="{{ params.name }}"
               id="{{ params.id }}"
-              class="govuk-select app-select{% if params.errorMessage.text %} govuk-select--error{% endif %}"
+              class="govuk-select app-select app-select--small{% if params.errorMessage.text %} govuk-select--error{%
+                endif %}"
               data-js="app-progressive-input{% if params.dataJs %} {{ params.dataJs }}{% endif %}"
-              {% if params.subscribeTo %}
-                data-subscribe-to="{{ params.subscribeTo }}"
-              {% endif %}
-              {% if params.previousChoiceMessage %}
-                data-previous-choice-message="{{ params.previousChoiceMessage }}"
-              {% endif %}
+        {% if params.subscribeTo %}
+          data-subscribe-to="{{ params.subscribeTo }}"
+        {% endif %}
+        {% if params.noSuggestionsMessage %}
+          data-no-suggestions-message="{{ params.noSuggestionsMessage }}"
+        {% endif %}
+        {% if removePassWidgets %}
+          data-remove-pass-widgets="{{ removePassWidgets }}"
+        {% endif %}
               data-testid="app-progressive-input">
         {% for suggestion in params.suggestions %}
           <option value="{{ suggestion.value }}"
                   {% if params.value == suggestion.value %}selected="selected"{% endif %}>
-            {{ suggestion.text }}
+            {{ suggestion.text }}{{ " - " + suggestion.hint if suggestion.hint }}
           </option>
         {% endfor %}
       </select>
@@ -99,14 +109,7 @@
         data-js="app-autocomplete-suggestions"
         data-testid="app-autocomplete-suggestions"></ul>
   </div>
-
-  {{ govukButton({
-    classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
-    text: "Search",
-    attributes: {
-      "data-js": "app-no-js-submit-button"
-    }
-  }) }}
+  {{ caller() if caller else content }}
 </div>
 
 

@@ -1,3 +1,5 @@
+$tiny-width: 12em;
+$small-width: 24em;
 $width: 30em;
 $large-width: 40em;
 
@@ -7,12 +9,32 @@ $large-width: 40em;
   margin-bottom: govuk-spacing(4);
 }
 
+.app-autocomplete--tiny {
+  width: $tiny-width;
+
+  .app-autocomplete__suggestions {
+    width: calc(100% - 4px);
+  }
+}
+
+.app-autocomplete--small {
+  width: $small-width;
+
+  .app-autocomplete__suggestions {
+    width: calc(100% - 4px);
+  }
+}
+
 .app-autocomplete--wide {
   width: $large-width;
 
   .app-autocomplete__suggestions {
     width: calc(100% - 4px);
   }
+}
+
+.app-autocomplete--inline {
+  margin-bottom: 0;
 }
 
 .app-autocomplete__control {

@@ -1,5 +1,5 @@
 .app-tabs {
-  margin-top: govuk-spacing(4);
+  margin-top: 0;
 }
 
 .app-tabs__list {
@@ -19,7 +19,7 @@
 }
 
 .app-tabs__panel {
-  padding: govuk-spacing(4) govuk-spacing(2) 0;
+  padding: govuk-spacing(4) govuk-spacing(2);
 }
 
 @include govuk-media-query($from: tablet) {
@@ -48,7 +48,7 @@
     margin-top: govuk-spacing(2);
     margin-bottom: -$border-width;
 
-    border: $border-width solid $govuk-border-colour;
+    border: $border-width solid $app-mid-grey;
     border-bottom: 0;
     border-radius: $app-border-radius $app-border-radius 0 0;
     background-color: $govuk-body-background-colour;
@@ -59,7 +59,7 @@
   }
 
   .app-tabs__panel {
-    border-top: 1px solid $govuk-border-colour;
+    border-top: 1px solid $app-mid-grey;
     margin-left: govuk-spacing(-2);
     margin-right: govuk-spacing(-2);
   }

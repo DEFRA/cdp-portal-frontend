@@ -3,10 +3,10 @@
 {% from "entity/macro.njk" import appEntity with context %}
 
 <article class="app-entity-list"
-         data-testid="app-entity-list"{% if params.id %} data-xhr="{{ params.id }}"{% endif %}>
+         data-testid="app-entity-list">
   <header class="app-entity-list__header" data-testid="app-entity-list-header">
     {% for heading in params.headings %}
-      <div class=" app-entity-list__item app-entity-list__item--{{ heading.size }}"
+      <div class="app-entity-list__item app-entity-list__item--{{ heading.size }}"
            data-testid="app-entity-list-item-{{ loop.index }}">
         {{ heading.text }}
       </div>
@@ -19,8 +19,13 @@
           data-testid="app-entity-list-row-{{ loop.index }}">
 
         {% for entity in entityRow %}
-          <div class="app-entity-list__item app-entity-list__item--{{ params.headings[loop.index0].size }}{% if
-            entity.kind !== "tag" %} app-entity-list__item--ellipsis{% endif %}"
+          {% set headingDetail = params.headings[loop.index0] %}
+          {% set classes = [
+            "app-entity-list__item",
+            "app-entity-list__item--" + headingDetail.size
+          ] | compact %}
+
+          <div class="{{ classes | join(" ")  }}"
                data-testid="app-entity-list-item-{{ loop.index }}">
             {{ appEntity(entity | assign({}, {index: loop.index}, entity)) }}
           </div>
@@ -33,7 +38,7 @@
   </ul>
 
   {% if params.pagination.items.length > 1 %}
-    <footer class="app-entity-list__footer">
+    <footer>
       {{ govukPagination(params.pagination | assign({}, {classes: "app-pagination"}, params.pagination)) }}
     </footer>
   {% endif %}

@@ -1,13 +1,38 @@
+import qs from 'qs'
+
+import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs'
+import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters'
+import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
 import {
   deploymentController,
   deploymentsListController
 } from '~/src/server/deployments/controllers'
-import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs'
+import { pagination } from '~/src/server/common/constants/pagination'
 
 const deployments = {
   plugin: {
     name: 'deployments',
     register: (server) => {
+      server.method('fetchFilters', fetchFilters, {
+        cache: {
+          expiresIn: 60 * 1000,
+          staleIn: 40 * 1000,
+          staleTimeout: 10 * 1000,
+          generateTimeout: 100
+        }
+      })
+
+      server.method('fetchDeployments', fetchDeployments, {
+        cache: {
+          expiresIn: 60 * 1000,
+          staleIn: 40 * 1000,
+          staleTimeout: 10 * 1000,
+          generateTimeout: 100
+        },
+        generateKey: (environment, queryParams) =>
+          environment + qs.stringify(queryParams)
+      })
+
       server.ext([
         {
           type: 'onPostHandler',
@@ -22,7 +47,10 @@ const deployments = {
         {
           method: 'GET',
           path: '/deployments',
-          handler: (request, h) => h.redirect('/deployments/prod')
+          handler: (request, h) =>
+            h.redirect(
+              `/deployments/prod?page=${pagination.page}&size=${pagination.size}`
+            )
         },
         {
           method: 'GET',

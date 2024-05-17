@@ -1,3 +1,5 @@
+import { pickBy, isNil } from 'lodash'
+
 const defaultSuggestion = {
   text: ' - - select - - ',
   disabled: true,
@@ -7,7 +9,7 @@ const defaultSuggestion = {
 function buildSuggestions(items) {
   const suggestions = items.map((item) => {
     const { value, text, hint } = item
-    return { value, text, hint }
+    return pickBy({ value, text, hint }, (value) => !isNil(value))
   })
 
   suggestions.unshift(defaultSuggestion)

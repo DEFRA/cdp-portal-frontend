@@ -34,7 +34,7 @@
 
   // Highlight associated list content with list action button hover
   &:hover ~ .app-list-item__content {
-    color: govuk-tint(govuk-colour('black'), 40%);
+    color: govuk-tint(govuk-colour("black"), 40%);
 
     a {
       text-decoration: underline;

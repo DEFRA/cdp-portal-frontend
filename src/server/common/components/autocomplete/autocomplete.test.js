@@ -35,7 +35,7 @@ describe('#autocomplete', () => {
       ]
     })
 
-    // Add suggestions
+    // Add suggestions into the components <script /> tag
     const scriptElement = document.createElement('script')
     scriptElement.innerHTML = $component(
       '[data-testid="app-autocomplete-suggestions"]'
@@ -109,9 +109,9 @@ describe('#autocomplete', () => {
 
       expect(children.length).toEqual(3)
 
-      expect(children[0].textContent).toContain('RoboCopUser Id: 12454878')
-      expect(children[1].textContent).toEqual('Roger RabbitUser Id: 556456465')
-      expect(children[2].textContent).toEqual('BarbieUser Id: 67567576')
+      expect(children[0].textContent).toContain('RoboCop')
+      expect(children[1].textContent).toEqual('Roger Rabbit')
+      expect(children[2].textContent).toEqual('Barbie')
     })
   })
 
@@ -130,9 +130,9 @@ describe('#autocomplete', () => {
 
       expect(children.length).toEqual(3)
 
-      expect(children[0].textContent).toEqual('RoboCopUser Id: 12454878')
-      expect(children[1].textContent).toEqual('Roger RabbitUser Id: 556456465')
-      expect(children[2].textContent).toEqual('BarbieUser Id: 67567576')
+      expect(children[0].textContent).toEqual('RoboCop')
+      expect(children[1].textContent).toEqual('Roger Rabbit')
+      expect(children[2].textContent).toEqual('Barbie')
     })
   })
 
@@ -170,7 +170,7 @@ describe('#autocomplete', () => {
       test('Should narrow to only expected suggestion', () => {
         expect(suggestionsContainer.children.length).toEqual(1)
         expect(suggestionsContainer.children[0].textContent).toEqual(
-          'Roger RabbitUser Id: 556456465'
+          'Roger Rabbit'
         )
       })
     })
@@ -191,11 +191,9 @@ describe('#autocomplete', () => {
 
       test('Should narrow to only expected suggestions', () => {
         expect(suggestionsContainer.children.length).toEqual(2)
-        expect(suggestionsContainer.children[0].textContent).toEqual(
-          'RoboCopUser Id: 12454878'
-        )
+        expect(suggestionsContainer.children[0].textContent).toEqual('RoboCop')
         expect(suggestionsContainer.children[1].textContent).toEqual(
-          'Roger RabbitUser Id: 556456465'
+          'Roger Rabbit'
         )
       })
     })
@@ -210,7 +208,7 @@ describe('#autocomplete', () => {
       test('Should narrow to only expected case insensitive suggestion', () => {
         expect(suggestionsContainer.children.length).toEqual(1)
         expect(suggestionsContainer.children[0].textContent.trim()).toEqual(
-          'BarbieUser Id: 67567576'
+          'Barbie'
         )
       })
     })
@@ -232,10 +230,7 @@ describe('#autocomplete', () => {
         (suggestion) => suggestion.dataset.isMatch === 'true'
       )
 
-      expect(matchedSuggestion.textContent.trim()).toEqual(
-        'BarbieUser Id: 67567576'
-      )
-      expect(matchedSuggestion.children[2].innerHTML).toContain('app-tick-icon')
+      expect(matchedSuggestion.textContent.trim()).toEqual('Barbie')
     })
   })
 
@@ -262,9 +257,9 @@ describe('#autocomplete', () => {
 
       expect(children.length).toEqual(3)
 
-      expect(children[0].textContent).toEqual('RoboCopUser Id: 12454878')
-      expect(children[1].textContent).toEqual('Roger RabbitUser Id: 556456465')
-      expect(children[2].textContent).toEqual('BarbieUser Id: 67567576')
+      expect(children[0].textContent).toEqual('RoboCop')
+      expect(children[1].textContent).toEqual('Roger Rabbit')
+      expect(children[2].textContent).toEqual('Barbie')
     })
   })
 

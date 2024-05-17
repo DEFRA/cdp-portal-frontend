@@ -5,26 +5,109 @@
     title: heading,
     caption: caption
   }) }}
+
+  {% call appFilters({
+    action: "/deployments/" + environment,
+    noJsButton: {
+      text: "Search"
+    },
+    hiddenInputs: hiddenInputs
+  }) %}
+    {% call govukFieldset({
+      legend: {
+        text: "Search deployments",
+        classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-2"
+      }
+    }) %}
+      <p class="govuk-caption-m govuk-!-margin-bottom-3">
+        Search and filter microservice deployments across all environments.
+      </p>
+
+      <div class="app-filters">
+        <div class="app-filters__item">
+          {{ appAutocomplete({
+            id: "filters-service",
+            name: "service",
+            classes: "app-autocomplete--small app-autocomplete--inline",
+            label: {
+              text: "Service name",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.service,
+            suggestions: serviceFilters
+          }) }}
+        </div>
+
+        <div class="app-filters__item">
+          {{ appAutocomplete({
+            id: "filters-status",
+            name: "status",
+            classes: "app-autocomplete--tiny app-autocomplete--inline",
+            label: {
+              text: "Status",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.status,
+            suggestions: statusFilters
+          }) }}
+        </div>
+
+        <div class="app-filters__item">
+          {{ appAutocomplete({
+            id: "filters-user",
+            name: "user",
+            classes: "app-autocomplete--inline",
+            label: {
+              text: "User",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.user,
+            suggestions: userFilters
+          }) }}
+        </div>
+
+        <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
+          <a href="/deployments/{{ environment }}"
+             class="govuk-link govuk-link--text-colour"
+             data-clear-all="clearDeploymentsListFilters"
+             data-js="app-filters-clear-all">
+            Clear all
+          </a>
+        </p>
+      </div>
+
+    {% endcall %}
+
+  {% endcall %}
+
 {% endblock %}
 
-{% block tabContent %}
+  {% block tabContent %}
+    {% block xhrContent %}
 
-  {% block xhrContent %}
+      <div data-xhr="deployments">
+        {{ appEntityList({
+          headings: [
+            { text: "Service deployment", size: "large" },
+            { text: "Version", size: "small" },
+            { text: "Status", size: "small" },
+            { text: "User", size: "massive" },
+            { text: "Created", size: "large" }
+          ],
+          entityRows: entityRows,
+          noResult: noResult,
+          pagination: pagination
+        }) }}
+      </div>
 
-    {{ appEntityList({
-      id: "deployments",
-      headings: [
-        { text: "Deployment", size: "medium" },
-        { text: "Version", size: "small" },
-        { text: "Status", size: "small" },
-        { text: "User", size: "large" },
-        { text: "Created", size: "large" }
-      ],
-      entityRows: entityRows,
-      noResult: noResult,
-      pagination: pagination
-    }) }}
-
+    {% endblock %}
   {% endblock %}
-
-{% endblock %}

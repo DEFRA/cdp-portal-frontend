@@ -8,6 +8,10 @@
   margin-bottom: govuk-spacing(3);
 }
 
+.app-form-group--inline {
+  margin-bottom: 0;
+}
+
 .app-form-group,
 .govuk-form-group--error {
   & .govuk-error-message {

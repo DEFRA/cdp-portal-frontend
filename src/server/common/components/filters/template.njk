@@ -1,0 +1,19 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set method = params.method | default("get") %}
+
+<form action="{{ params.action }}" method="{{ method }}" class="app-filters-form" data-js="app-filters">
+  {{ caller() }}
+
+  {% for key, value in params.hiddenInputs %}
+    <input type="hidden" name="{{ key }}" value="{{ value }}">
+  {% endfor %}
+
+  {{ govukButton({
+    classes: "app-button app-button--secondary js-hidden govuk-!-margin-top-2",
+    text: params.noJsButton.text,
+    attributes: {
+      "data-js": "app-no-js-submit-button"
+    }
+  }) }}
+</form>

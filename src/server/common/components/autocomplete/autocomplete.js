@@ -3,9 +3,14 @@ import { isNull } from 'lodash'
 
 import { subscribe } from '~/src/client/common/helpers/event-emitter'
 
+const selectMessage = ' - - select - - '
 const tickSvgIcon = `
 <svg xmlns="http://www.w3.org/2000/svg" class="app-tick-icon" width="48" height="48" viewBox="0 -960 960 960"><path d="m419-285 291-292-63-64-228 228-111-111-63 64 174 175Zm60.679 226q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z"/></svg>`.trim()
 
+/**
+ * @classdesc Autocomplete
+ * @class Autocomplete
+ */
 class Autocomplete {
   constructor($module) {
     if (!($module instanceof HTMLElement)) {
@@ -16,11 +21,12 @@ class Autocomplete {
     this.$select = this.$module.querySelector(
       `[data-js*="app-progressive-input"]`
     )
+    this.name = this.$select.name
 
     this.enhanceSelectWithAutocomplete()
 
     this.$autocomplete = this.$module.querySelector(
-      '[data-js="app-autocomplete-input"]'
+      '[data-js*="app-autocomplete-input"]'
     )
     this.$noJsSubmitButton = this.$autocomplete.form.querySelector(
       '[data-js="app-no-js-submit-button"]'
@@ -40,7 +46,7 @@ class Autocomplete {
     )
 
     this.suggestionIndex = null
-    this.suggestionsLength = this.getSuggestions().length
+    this.suggestionsLength = this.getSuggestionsMarkup().length
 
     if (this.subscribeTo) {
       this.setupSubscription()
@@ -55,14 +61,21 @@ class Autocomplete {
     const $autocomplete = document.createElement('input')
 
     this.subscribeTo = $select.dataset.subscribeTo
-    this.previousChoiceMessage = $select.dataset.previousChoiceMessage
+    this.noSuggestionsMessage = $select.dataset.noSuggestionsMessage
+    this.removePassWidgets = $select.dataset.removePassWidgets
 
-    $autocomplete.name = $select.name
+    const suggestion = this.getSuggestionByValue($select.value)
+
     $autocomplete.id = $select.id
-    $autocomplete.value = $select.value
+    $autocomplete.type = 'text'
+    $autocomplete.name = '' // So the input value is not submitted, the hidden input submits the value
+    $autocomplete.value = suggestion?.text ?? ''
     $autocomplete.classList.add('govuk-input', 'app-autocomplete__input')
-    $autocomplete.placeholder = ' - - select - - '
-    $autocomplete.dataset.js = 'app-autocomplete-input'
+    $autocomplete.placeholder = selectMessage
+    $autocomplete.dataset.js = $select.dataset.js.replace(
+      'app-progressive-input',
+      'app-autocomplete-input'
+    )
     $autocomplete.dataset.testid = 'app-autocomplete-input'
     $autocomplete.setAttribute('autocapitalize', 'none')
     $autocomplete.setAttribute('autocomplete', 'off')
@@ -70,15 +83,111 @@ class Autocomplete {
     $autocomplete.setAttribute('aria-controls', suggestionsContainerId)
     $autocomplete.setAttribute('aria-autocomplete', 'list')
     $autocomplete.setAttribute('aria-expanded', 'false')
-    $autocomplete.setAttribute('data-1p-ignore', '') // Disable 1 password widget
 
-    $select.replaceWith($autocomplete)
+    if (this.removePassWidgets) {
+      $autocomplete.setAttribute('data-1p-ignore', '') // Disable 1 password widget
+      $autocomplete.setAttribute('data-lpignore', 'true') // Disable last password widget
+    }
+
+    // Autocomplete hidden input - this sends the value in the form
+    const $autocompleteHiddenInput = document.createElement('input')
+    $autocompleteHiddenInput.type = 'hidden'
+    $autocompleteHiddenInput.name = $select.name
+    $autocompleteHiddenInput.value = suggestion?.value ?? ''
+
+    this.$autocompleteHiddenInput = $autocompleteHiddenInput
+
+    $select.replaceWith($autocomplete, $autocompleteHiddenInput)
   }
 
-  getSuggestions() {
-    const inputName = this.$autocomplete.name
-    const suggestions = window.suggestions?.[inputName] ?? []
-    const suggestionElement = this.createSuggestion()
+  /**
+   * Get raw suggestion that is not disabled, by value
+   * @param value
+   * @returns suggestion | null
+   */
+  getSuggestionByValue(value) {
+    return window.cdp.suggestions?.[this.name].find(
+      (suggestion) => suggestion.disabled !== true && suggestion.value === value
+    )
+  }
+
+  /**
+   * Get raw suggestion that is not disabled, by text
+   * @param textValue
+   * @returns suggestion | null
+   */
+  getSuggestionByText(textValue) {
+    return window.cdp.suggestions?.[this.name].find(
+      (suggestion) =>
+        suggestion.disabled !== true && suggestion.text === textValue
+    )
+  }
+
+  /**
+   * Get suggestion markup by text
+   * @param textValue
+   * @returns suggestionHtml | null
+   */
+  getSuggestionMarkup(textValue) {
+    return this.getSuggestionsMarkup().find(
+      (suggestion) =>
+        suggestion.dataset.text?.toLowerCase() === textValue?.toLowerCase()
+    )
+  }
+
+  createSuggestionElementTemplate() {
+    const $span = document.createElement('span')
+
+    const $itemValue = $span.cloneNode(true)
+    $itemValue.classList.add('app-suggestion__value')
+
+    const $action = $span.cloneNode(true)
+    $action.classList.add('app-suggestion__action')
+
+    const $li = document.createElement('li')
+
+    $li.classList.add('app-autocomplete__suggestion')
+    $li.dataset.isMatch = 'false'
+    $li.setAttribute('role', 'option')
+    $li.setAttribute('tabindex', '-1')
+
+    $li.appendChild($itemValue)
+    $li.appendChild($action)
+
+    return $li
+  }
+
+  buildSuggestion(item, $listElement, index, size, name) {
+    if (item.disabled) {
+      return null
+    }
+
+    const $li = $listElement.cloneNode(true)
+
+    $li.id = `app-autocomplete-${name}-suggestion-${index}`
+    $li.setAttribute('aria-posinset', index)
+    $li.setAttribute('aria-setsize', size)
+
+    return this.populateSuggestion($li, item)
+  }
+
+  populateSuggestion($li, item) {
+    $li.dataset.value = item.value
+    $li.dataset.text = item.text
+
+    $li.firstElementChild.textContent = item.value
+
+    return $li
+  }
+
+  /**
+   * Get suggestions markup
+   * @returns suggestionHtml[]
+   */
+  getSuggestionsMarkup() {
+    const inputName = this.$select.name
+    const suggestions = window.cdp.suggestions?.[this.name] ?? []
+    const suggestionElement = this.createSuggestionElementTemplate()
 
     return suggestions
       .map((suggestion, i, suggestionsArray) =>
@@ -93,6 +202,10 @@ class Autocomplete {
       .filter(Boolean)
   }
 
+  /**
+   * Is Suggestions panel open
+   * @returns {boolean}
+   */
   isSuggestionsOpen() {
     return this.$suggestionsContainer?.getAttribute('aria-expanded') === 'true'
   }
@@ -108,7 +221,7 @@ class Autocomplete {
   }
 
   dispatchInputEvent() {
-    this.$autocomplete.dispatchEvent(new Event('input'))
+    this.$autocomplete.dispatchEvent(new Event('input', { bubbles: true }))
   }
 
   scrollToHighlight() {
@@ -117,7 +230,7 @@ class Autocomplete {
     )
 
     if ($hasHighlight) {
-      $hasHighlight.scrollIntoView({ behavior: 'instant', block: 'start' })
+      $hasHighlight.scrollIntoView({ behavior: 'instant', block: 'nearest' })
     }
   }
 
@@ -127,7 +240,7 @@ class Autocomplete {
     )
 
     if ($match) {
-      $match.scrollIntoView({ behavior: 'instant', block: 'start' })
+      $match.scrollIntoView({ behavior: 'instant', block: 'nearest' })
     }
   }
 
@@ -175,37 +288,38 @@ class Autocomplete {
     this.$clearButton.removeAttribute('aria-label')
   }
 
-  hasExactCaseInsensitiveMatch(value) {
-    return this.getSuggestions().find(
-      (suggestion) =>
-        suggestion.dataset.value?.toLowerCase() === value?.toLowerCase()
-    )
+  getPartialMatch(textValue) {
+    return ($suggestion) =>
+      $suggestion?.dataset?.text.toLowerCase().includes(textValue.toLowerCase())
   }
 
-  populateSuggestions({ value, suggestionIndex } = {}) {
+  populateSuggestions({ textValue, suggestionIndex } = {}) {
     let $suggestions
 
-    if (this.hasExactCaseInsensitiveMatch(value)) {
-      $suggestions = this.getSuggestions().map(
-        this.dressSuggestion({ value, suggestionIndex })
+    if (this.getSuggestionMarkup(textValue)) {
+      // Autocomplete input value matches a suggestion
+
+      $suggestions = this.getSuggestionsMarkup().map(
+        this.dressSuggestion({ textValue, suggestionIndex })
       )
-    } else if (value) {
+    } else if (textValue) {
       // Partial match
-      $suggestions = this.getSuggestions()
-        .filter(($suggestion) =>
-          $suggestion.dataset?.text.toLowerCase().includes(value?.toLowerCase())
-        )
-        .map(this.dressSuggestion({ value, suggestionIndex }))
+
+      const getPartialMatch = this.getPartialMatch(textValue)
+      $suggestions = this.getSuggestionsMarkup()
+        .filter(getPartialMatch)
+        .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else {
-      // Reset
-      $suggestions = this.getSuggestions().map(
-        this.dressSuggestion({ value, suggestionIndex })
+      // Reset suggestions
+
+      $suggestions = this.getSuggestionsMarkup().map(
+        this.dressSuggestion({ textValue, suggestionIndex })
       )
     }
 
     $suggestions = $suggestions.length
       ? $suggestions
-      : [this.buildNoResults(value)]
+      : [this.buildNoSuggestionsMessage(textValue)]
 
     this.$suggestionsContainer.replaceChildren(...$suggestions)
     this.suggestionsLength = $suggestions.length
@@ -216,79 +330,32 @@ class Autocomplete {
     if (oneBasedIndex) {
       this.$autocomplete.setAttribute(
         'aria-activedescendant',
-        `app-autocomplete-${this.$autocomplete.name}-suggestion-${oneBasedIndex}`
+        `app-autocomplete-${this.$select.name}-suggestion-${oneBasedIndex}`
       )
     }
 
     return $suggestions
   }
 
-  createSuggestion() {
-    const $span = document.createElement('span')
+  dressSuggestion({ textValue, suggestionIndex } = {}) {
+    return ($suggestion, index) => {
+      this.manageTextHighlight($suggestion, textValue)
+      this.manageChoiceHighlight($suggestion, index, suggestionIndex)
+      this.manageMatch($suggestion, textValue)
 
-    const $itemValue = $span.cloneNode(true)
-    $itemValue.classList.add('app-suggestion__value')
-
-    const $hintContent = $span.cloneNode(true)
-    $hintContent.classList.add('app-suggestion__hint')
-
-    const $action = $span.cloneNode(true)
-    $action.classList.add('app-suggestion__action')
-
-    const $li = document.createElement('li')
-
-    $li.classList.add('app-autocomplete__suggestion')
-    $li.dataset.isMatch = 'false'
-    $li.setAttribute('role', 'option')
-    $li.setAttribute('tabindex', '-1')
-
-    $li.appendChild($itemValue)
-    $li.appendChild($hintContent)
-    $li.appendChild($action)
-
-    return $li
+      return $suggestion
+    }
   }
 
-  buildSuggestion(item, $listElement, index, size, name) {
-    if (item.disabled) {
-      return null
-    }
-
-    const $li = $listElement.cloneNode(true)
-
-    $li.id = `app-autocomplete-${name}-suggestion-${index}`
-    $li.setAttribute('aria-posinset', index)
-    $li.setAttribute('aria-setsize', size)
-
-    $li.dataset.value = item.value
-    $li.dataset.text = item.text
-
-    $li.firstElementChild.textContent = item.value
-
-    if (item.hint) {
-      $li.dataset.hint = item.hint
-      $li.firstElementChild.nextElementSibling.textContent = item.hint
-    }
-
-    return $li
-  }
-
-  manageTextHighlight($suggestion, value = null) {
-    if (value) {
+  manageTextHighlight($suggestion, textValue = null) {
+    if (textValue) {
       $suggestion.firstElementChild.innerHTML =
-        $suggestion.dataset?.value.replace(
-          new RegExp(value, 'gi'),
-          `<strong>$&</strong>`
-        )
-      $suggestion.firstElementChild.nextElementSibling.innerHTML =
-        $suggestion.dataset?.hint.replace(
-          new RegExp(value, 'gi'),
+        $suggestion.dataset?.text.replace(
+          new RegExp(textValue, 'gi'),
           `<strong>$&</strong>`
         )
     } else {
-      $suggestion.firstElementChild.innerHTML = $suggestion.dataset?.value
-      $suggestion.firstElementChild.nextElementSibling.innerHTML =
-        $suggestion.dataset?.hint
+      $suggestion.firstElementChild.innerHTML = $suggestion.dataset?.text
     }
 
     return $suggestion
@@ -310,10 +377,10 @@ class Autocomplete {
     return $suggestion
   }
 
-  manageMatch($suggestion, value = null) {
+  manageMatch($suggestion, textValue = null) {
     if (
-      value &&
-      value?.toLowerCase() === $suggestion.dataset?.value?.toLowerCase()
+      textValue &&
+      textValue?.toLowerCase() === $suggestion.dataset?.text?.toLowerCase()
     ) {
       $suggestion.lastChild.innerHTML = tickSvgIcon
       $suggestion.dataset.isMatch = 'true'
@@ -327,54 +394,67 @@ class Autocomplete {
     return $suggestion
   }
 
-  dressSuggestion({ value, suggestionIndex } = {}) {
-    return ($suggestion, index) => {
-      this.manageTextHighlight($suggestion, value)
-      this.manageChoiceHighlight($suggestion, index, suggestionIndex)
-      this.manageMatch($suggestion, value)
-
-      return $suggestion
-    }
-  }
-
-  buildNoResults(value) {
+  /**
+   * Display a message to the user in the suggestions box:
+   * - When there are no matching results
+   * - When suggestions have not been populated and need a prior action to populate suggestions in the autoComplete
+   * @param textValue
+   * @returns {HTMLLIElement}
+   */
+  buildNoSuggestionsMessage(textValue) {
     const $li = document.createElement('li')
+
+    const noSuggestionsMessage = this.noSuggestionsMessage
+      ? ` - - ${this.noSuggestionsMessage} - - `
+      : selectMessage
+    const message = textValue ? ' - - no result - - ' : noSuggestionsMessage
 
     $li.classList.add(
       'app-autocomplete__suggestion',
       'app-autocomplete__suggestion--no-results'
     )
     $li.setAttribute('role', 'option')
-    $li.textContent = value
-      ? ' - - no result - - '
-      : this.previousChoiceMessage
-        ? ` - - ${this.previousChoiceMessage} - - `
-        : ' - - previous choice needed - - '
+    $li.dataset.interactive = 'false'
+    $li.textContent = message
 
     return $li
   }
 
   setupSubscription() {
-    subscribe(this.subscribeTo, () => {
-      this.$autocomplete.value = ''
-      this.hideCloseButton()
+    subscribe(this.subscribeTo, this.resetAutocomplete.bind(this))
+  }
 
-      this.getSuggestions()
-      this.populateSuggestions({
-        value: this.$autocomplete.value,
-        suggestionIndex: this.suggestionIndex
-      })
+  resetAutocompleteValues() {
+    this.$autocomplete.value = ''
+    this.$autocompleteHiddenInput.value = ''
+  }
+
+  resetAutocomplete() {
+    this.resetAutocompleteValues()
+    this.hideCloseButton()
+
+    this.getSuggestionsMarkup()
+    this.populateSuggestions({
+      textValue: this.$autocomplete.value,
+      suggestionIndex: this.suggestionIndex
     })
   }
 
   addEventListeners() {
     document.addEventListener('DOMContentLoaded', () => {
-      this.$noJsSubmitButton.remove()
+      if (this.$noJsSubmitButton) {
+        this.$noJsSubmitButton.remove()
+      }
 
-      const queryParamValue = this.queryParams?.[this.$autocomplete.name]
+      const queryParamValue =
+        this.queryParams?.[this.$autocompleteHiddenInput.name]
 
       if (queryParamValue) {
-        this.$autocomplete.value = queryParamValue
+        const suggestion = this.getSuggestionByValue(queryParamValue)
+
+        this.$autocomplete.value = suggestion?.text ?? queryParamValue
+        this.$autocompleteHiddenInput.value =
+          suggestion?.value ?? queryParamValue
         this.showCloseButton()
       }
 
@@ -383,18 +463,19 @@ class Autocomplete {
       }
 
       this.populateSuggestions({
-        value: this.$autocomplete.value,
+        textValue: this.$autocomplete.value,
         suggestionIndex: this.suggestionIndex
       })
     })
 
     this.$clearButton.addEventListener('click', () => {
-      this.$autocomplete.value = ''
+      this.resetAutocompleteValues()
       this.$autocomplete.focus()
 
+      this.dispatchInputEvent()
       this.hideCloseButton()
       this.populateSuggestions({
-        value: this.$autocomplete.value,
+        textValue: this.$autocomplete.value,
         suggestionIndex: this.suggestionIndex
       })
     })
@@ -403,7 +484,7 @@ class Autocomplete {
       event.stopPropagation()
 
       this.populateSuggestions({
-        value: this.$autocomplete.value,
+        textValue: this.$autocomplete.value,
         suggestionIndex: this.suggestionIndex
       })
 
@@ -424,9 +505,12 @@ class Autocomplete {
 
     // User focus into the input
     this.$autocomplete.addEventListener('focus', (event) => {
-      const value = event?.target?.value
+      const textValue = event?.target?.value
 
-      this.populateSuggestions({ value, suggestionIndex: this.suggestionIndex })
+      this.populateSuggestions({
+        textValue,
+        suggestionIndex: this.suggestionIndex
+      })
       this.openSuggestions()
     })
 
@@ -436,15 +520,18 @@ class Autocomplete {
 
       event.stopPropagation()
 
-      const value = event?.target?.value
+      const textValue = event?.target?.value
 
-      if (value) {
+      if (textValue) {
         this.showCloseButton()
       } else {
         this.hideCloseButton()
       }
 
-      this.populateSuggestions({ value, suggestionIndex: this.suggestionIndex })
+      this.populateSuggestions({
+        textValue,
+        suggestionIndex: this.suggestionIndex
+      })
       this.openSuggestions()
     })
 
@@ -456,24 +543,30 @@ class Autocomplete {
 
       this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
 
-      const value = event?.target?.value
+      const textValue = event?.target?.value
 
-      if (value) {
+      if (textValue) {
         this.showCloseButton()
       } else {
         this.hideCloseButton()
         this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
       }
 
-      this.populateSuggestions({ value, suggestionIndex: this.suggestionIndex })
+      this.populateSuggestions({
+        textValue,
+        suggestionIndex: this.suggestionIndex
+      })
+
+      const suggestion = this.getSuggestionByText(textValue)
+      this.$autocompleteHiddenInput.value = suggestion?.value ?? textValue
     })
 
     // Mainly keyboard navigational events
     this.$autocomplete.addEventListener('keydown', (event) => {
       const code = event.code.toLowerCase()
-      const value = event.target.value
+      const textValue = event.target.value
 
-      if ((code === 'backspace' && !value) || code === 'escape') {
+      if ((code === 'backspace' && !textValue) || code === 'escape') {
         this.closeSuggestions()
       }
 
@@ -517,7 +610,7 @@ class Autocomplete {
       if (['arrowup', 'arrowdown'].includes(code)) {
         // This is managing the highlights
         const $filteredSuggestions = this.populateSuggestions({
-          value,
+          textValue,
           suggestionIndex: this.suggestionIndex
         })
 
@@ -566,26 +659,34 @@ class Autocomplete {
       }
 
       if (code === 'home') {
+        event.preventDefault()
+
         if (!this.isSuggestionsOpen()) {
           this.openSuggestions()
         }
 
+        // Set highlight to first suggestion in suggestions panel
         this.populateSuggestions({
-          value: '',
+          textValue,
           suggestionIndex: 0
         })
+
         this.scrollToHighlight()
       }
 
       if (code === 'end') {
+        event.preventDefault()
+
         if (!this.isSuggestionsOpen()) {
           this.openSuggestions()
         }
 
+        // Set highlight to last suggestion in suggestions panel
         this.populateSuggestions({
-          value: '',
+          textValue,
           suggestionIndex: this.suggestionsLength - 1
         })
+
         this.scrollToHighlight()
       }
 
@@ -599,20 +700,22 @@ class Autocomplete {
             event.preventDefault()
             this.openSuggestions()
           }
-          // Otherwise default the enter in input functionality to a form submit
+          // Otherwise fall through to default enter in input form functionality and submit the form
         }
 
         if (!isNull(this.suggestionIndex)) {
           // User has used arrow keys to make selection of a suggestion and pressed enter
           const $filteredSuggestions = this.populateSuggestions({
-            value,
+            textValue,
             suggestionIndex: this.suggestionIndex
           })
           const $currentSuggestion = $filteredSuggestions?.at(
             this.suggestionIndex
           )
 
-          this.$autocomplete.value = $currentSuggestion.dataset?.value ?? ''
+          this.$autocomplete.value = $currentSuggestion.dataset?.text
+          this.$autocompleteHiddenInput.value =
+            $currentSuggestion.dataset?.value
           this.dispatchInputEvent()
         }
 
@@ -630,14 +733,14 @@ class Autocomplete {
       event.stopPropagation()
 
       const suggestion = event?.target?.closest('.app-autocomplete__suggestion')
-      const value = suggestion?.dataset?.value ?? ''
 
-      if (suggestion) {
-        this.$autocomplete.value = value
+      if (suggestion && suggestion.dataset.interactive !== 'false') {
+        this.$autocomplete.value = suggestion?.dataset?.text
+        this.$autocompleteHiddenInput.value = suggestion?.dataset?.value
         this.dispatchInputEvent()
 
         this.populateSuggestions({
-          value,
+          textValue: suggestion?.dataset?.text,
           suggestionIndex: this.suggestionIndex
         })
 

@@ -5,10 +5,11 @@
 @import "banner/banner";
 @import "breadcrumbs/breadcrumbs";
 @import "button/button";
-@import "entity/entity";
 @import "entity-actions/entity-actions";
 @import "entity-data-list/entity-data-list";
 @import "entity-list/entity-list";
+@import "entity/entity";
+@import "filters/filters";
 @import "footer/footer";
 @import "header/header";
 @import "heading/heading";
@@ -26,9 +27,9 @@
 @import "split-pane/split-pane";
 @import "status/status";
 @import "step-navigation/step-navigation";
+@import "summary-item/summary-item";
+@import "summary/summary";
 @import "tabs/tabs";
 @import "tag/tag";
 @import "tool-tip/tool-tip";
-@import "summary/summary";
-@import "summary-item/summary-item";
 @import "warning/warning";

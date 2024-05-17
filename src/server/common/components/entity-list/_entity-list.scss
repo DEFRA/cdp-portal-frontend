@@ -6,12 +6,12 @@
 }
 
 .app-entity-list__header {
-  @include govuk-font(24, "bold");
+  @include govuk-font(19, "bold");
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   line-height: 1.4;
-  padding: govuk-spacing(2) 0;
+  padding: 0 0 govuk-spacing(2);
 }
 
 .app-entity-list__table {
@@ -84,8 +84,4 @@
 .app-entity-list__item--massive {
   flex: 10;
   max-width: 400px;
-}
-
-.app-entity-list__footer {
-  margin: govuk-spacing(4) auto;
 }
