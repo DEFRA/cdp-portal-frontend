@@ -2,3 +2,7 @@
   @include govuk-font(24, "bold");
   margin-bottom: govuk-spacing(1);
 }
+
+.app-label--inline {
+  display: inline-block;
+}

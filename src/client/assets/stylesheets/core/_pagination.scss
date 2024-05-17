@@ -1,5 +1,6 @@
 .app-pagination {
-  margin-bottom: 0;
+  margin: govuk-spacing(4) 0;
+  justify-content: center;
 
   .govuk-pagination__item {
     border-radius: $app-border-radius;
