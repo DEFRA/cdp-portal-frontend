@@ -38,9 +38,9 @@ function populateAutocompleteSuggestions($controller) {
       clearTimeout(delayedLoader)
       $loader?.classList?.remove('app-loader--is-loading')
 
-      const suggestionsName = $target.name
+      const suggestionsName = $target.id
 
-      window.suggestions[suggestionsName] = buildSuggestions(suggestions)
+      window.cdp.suggestions[suggestionsName] = buildSuggestions(suggestions)
 
       if (publishTo) {
         publish(publishTo, { queryParams: { [name]: value } })
