@@ -2,14 +2,14 @@ import { assign, isArray, isNil, compact } from 'lodash'
 
 import { formatDate } from '~/src/server/common/helpers/date/format-date'
 import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
-import { sanitizeUser } from '~/src/server/common/helpers/sanitize-user'
+import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user'
 
 export {
   assign,
   formatDate,
   relativeDate,
   isArray,
-  sanitizeUser,
+  sanitiseUser,
   isNil,
   compact
 }

@@ -1,5 +1,5 @@
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
-import { sanitizeUser } from '~/src/server/common/helpers/sanitize-user'
+import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user'
 import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
 
 function deploymentsToEntityRow(deployedService) {
@@ -26,7 +26,7 @@ function deploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'text',
-      value: sanitizeUser(deployedService.user?.displayName)
+      value: sanitiseUser(deployedService.user?.displayName)
     },
     {
       kind: 'date',

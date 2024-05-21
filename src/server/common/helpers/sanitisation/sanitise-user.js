@@ -1,6 +1,6 @@
 import { noValue } from '~/src/server/common/constants/no-value'
 
-function sanitizeUser(value) {
+function sanitiseUser(value) {
   if (!value || value?.trim() === 'n/a') {
     return noValue
   }
@@ -8,4 +8,4 @@ function sanitizeUser(value) {
   return value
 }
 
-export { sanitizeUser }
+export { sanitiseUser }

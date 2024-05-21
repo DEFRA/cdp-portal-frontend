@@ -1,20 +1,20 @@
-import { sanitizeUser } from '~/src/server/common/helpers/sanitize-user'
+import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user'
 import { noValue } from '~/src/server/common/constants/no-value'
 
-describe('#sanitizeUser', () => {
+describe('#sanitiseUser', () => {
   test('Should provide expected sanitized user from no input', () => {
-    expect(sanitizeUser()).toEqual(noValue)
+    expect(sanitiseUser()).toEqual(noValue)
   })
 
   test('Should provide expected sanitized user from "null" input', () => {
-    expect(sanitizeUser(null)).toEqual(noValue)
+    expect(sanitiseUser(null)).toEqual(noValue)
   })
 
   test('Should provide expected sanitized user from "n/a" input', () => {
-    expect(sanitizeUser('n/a')).toEqual(noValue)
+    expect(sanitiseUser('n/a')).toEqual(noValue)
   })
 
   test('Should provide expected pass through', () => {
-    expect(sanitizeUser('Hipgnosis')).toEqual('Hipgnosis')
+    expect(sanitiseUser('Hipgnosis')).toEqual('Hipgnosis')
   })
 })
