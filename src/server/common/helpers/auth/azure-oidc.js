@@ -1,10 +1,10 @@
-import fetch from 'node-fetch'
 import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
 import { config } from '~/src/config'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 import { sessionNames } from '~/src/server/common/constants/session-names'
+import { proxyFetch } from '~/src/server/common/helpers/fetch/proxy-fetch'
 
 async function provideCdpGroups(groups = []) {
   const { teams: teamsWithGithub } = await fetchTeams(true)
@@ -19,7 +19,7 @@ const azureOidc = {
     register: async (server) => {
       await server.register(bell)
 
-      const oidc = await fetch(
+      const oidc = await proxyFetch(
         config.get('oidcWellKnownConfigurationUrl')
       ).then((res) => res.json())
 
