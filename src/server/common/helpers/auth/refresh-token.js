@@ -1,6 +1,5 @@
-import fetch from 'node-fetch'
-
 import { config } from '~/src/config'
+import { proxyFetch } from '~/src/server/common/helpers/fetch/proxy-fetch'
 
 async function refreshAccessToken(request) {
   const authedUser = await request.getUserSession()
@@ -20,7 +19,7 @@ async function refreshAccessToken(request) {
 
   request.logger.info('Azure OIDC access token expired, refreshing...')
 
-  return await fetch(request.server.app.oidc.token_endpoint, {
+  return await proxyFetch(request.server.app.oidc.token_endpoint, {
     method: 'post',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

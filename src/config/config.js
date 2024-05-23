@@ -207,6 +207,20 @@ const config = convict({
     format: String,
     env: 'DOCKER_HUB_URL',
     default: 'https://hub.docker.com/r/defradigital'
+  },
+  httpProxy: {
+    doc: 'HTTP Proxy',
+    format: String,
+    nullable: true,
+    default: null,
+    env: 'CDP_HTTP_PROXY'
+  },
+  httpsProxy: {
+    doc: 'HTTPS Proxy',
+    format: String,
+    nullable: true,
+    default: null,
+    env: 'CDP_HTTPS_PROXY'
   }
 })
 
