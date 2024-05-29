@@ -1,8 +1,7 @@
-import { without } from 'lodash'
-
 import { environments } from '~/src/config'
 import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
+import { findEnvironmentsForTestSuite } from '~/src/server/test-suites/helpers/find-environments-for-test-suite'
 
 const provideEnvironmentOptions = {
   method: async function (request) {
@@ -10,10 +9,17 @@ const provideEnvironmentOptions = {
 
     if (authedUser && authedUser.isAuthenticated) {
       const { isAdmin } = authedUser
-      const sortedEnvs = Object.values(environments).toSorted(sortByEnv)
+
+      const runnableEnvironments = findEnvironmentsForTestSuite(
+        request.pre.testSuite
+      )
 
       if (isAdmin) {
-        return buildOptions(sortedEnvs)
+        return buildOptions([
+          ...runnableEnvironments.sort(sortByEnv),
+          environments.management,
+          environments.infraDev
+        ])
       }
 
       const userOwnsTestSuite = await request.userIsMemberOfATeam(
@@ -21,7 +27,7 @@ const provideEnvironmentOptions = {
       )
 
       if (userOwnsTestSuite) {
-        return buildOptions(without(sortedEnvs, 'management', 'infra-dev'))
+        return buildOptions(runnableEnvironments.sort(sortByEnv))
       }
     }
 
