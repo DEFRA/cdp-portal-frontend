@@ -7,13 +7,21 @@ const mockRequest = (auth, pre = {}, isMemberOfATeam = false) => ({
 })
 
 describe('#provideEnvironmentOptions', () => {
-  test('Should provide admin environments', async () => {
+  test('Should provide admin environments for perf tests', async () => {
     expect(
       await provideEnvironmentOptions.method(
-        mockRequest({
-          isAuthenticated: true,
-          isAdmin: true
-        })
+        mockRequest(
+          {
+            isAuthenticated: true,
+            isAdmin: true
+          },
+          {
+            testSuite: {
+              serviceName: 'perf-test-suite',
+              topics: ['test', 'cdp', 'performance']
+            }
+          }
+        )
       )
     ).toEqual([
       {
@@ -22,16 +30,13 @@ describe('#provideEnvironmentOptions', () => {
         text: ' - - select - - ',
         value: ''
       },
-      { text: 'infra-dev', value: 'infra-dev' },
-      { text: 'management', value: 'management' },
-      { text: 'dev', value: 'dev' },
-      { text: 'test', value: 'test' },
       { text: 'perf-test', value: 'perf-test' },
-      { text: 'prod', value: 'prod' }
+      { text: 'management', value: 'management' },
+      { text: 'infra-dev', value: 'infra-dev' }
     ])
   })
 
-  test('Should provide "user in service team" environments', async () => {
+  test('Should provide smoke test environments for non-admins', async () => {
     expect(
       await provideEnvironmentOptions.method(
         mockRequest(
@@ -45,7 +50,8 @@ describe('#provideEnvironmentOptions', () => {
                 {
                   teamId: 'mock-team-id'
                 }
-              ]
+              ],
+              topics: ['smoke']
             }
           },
           true
@@ -62,6 +68,102 @@ describe('#provideEnvironmentOptions', () => {
       { text: 'test', value: 'test' },
       { text: 'perf-test', value: 'perf-test' },
       { text: 'prod', value: 'prod' }
+    ])
+  })
+
+  test('Should provide perf test environments for non-admins', async () => {
+    expect(
+      await provideEnvironmentOptions.method(
+        mockRequest(
+          {
+            isAuthenticated: true,
+            isAdmin: false
+          },
+          {
+            testSuite: {
+              teams: [
+                {
+                  teamId: 'mock-team-id'
+                }
+              ],
+              topics: ['performance']
+            }
+          },
+          true
+        )
+      )
+    ).toEqual([
+      {
+        attributes: { selected: true },
+        disabled: true,
+        text: ' - - select - - ',
+        value: ''
+      },
+      { text: 'perf-test', value: 'perf-test' }
+    ])
+  })
+
+  test('Should provide environments test environments for non-admins', async () => {
+    expect(
+      await provideEnvironmentOptions.method(
+        mockRequest(
+          {
+            isAuthenticated: true,
+            isAdmin: false
+          },
+          {
+            testSuite: {
+              teams: [
+                {
+                  teamId: 'mock-team-id'
+                }
+              ],
+              topics: ['environment']
+            }
+          },
+          true
+        )
+      )
+    ).toEqual([
+      {
+        attributes: { selected: true },
+        disabled: true,
+        text: ' - - select - - ',
+        value: ''
+      },
+      { text: 'dev', value: 'dev' },
+      { text: 'test', value: 'test' }
+    ])
+  })
+
+  test('Should provide no environments for incorrectly tagged test suite', async () => {
+    expect(
+      await provideEnvironmentOptions.method(
+        mockRequest(
+          {
+            isAuthenticated: true,
+            isAdmin: false
+          },
+          {
+            testSuite: {
+              teams: [
+                {
+                  teamId: 'mock-team-id'
+                }
+              ],
+              topics: ['wrong-topic', 'not-a-test-suite']
+            }
+          },
+          true
+        )
+      )
+    ).toEqual([
+      {
+        attributes: { selected: true },
+        disabled: true,
+        text: ' - - select - - ',
+        value: ''
+      }
     ])
   })
 
