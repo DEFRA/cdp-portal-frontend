@@ -14,6 +14,7 @@ import { createMicroserviceRoutes } from '~/src/server/create/microservice'
 import { createEnvTestSuiteRoutes } from '~/src/server/create/env-test-suite'
 import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { createSmokeTestSuiteRoutes } from '~/src/server/create/smoke-test-suite'
 
 const serviceTeamAndAdminUserScope = authScope([
   scopes.serviceTeamUser,
@@ -68,7 +69,8 @@ const create = {
           ...createRepositoryRoutes,
           ...createEnvTestSuiteRoutes,
           ...createTestSuiteRoutes,
-          ...createPerfTestSuiteRoutes
+          ...createPerfTestSuiteRoutes,
+          ...createSmokeTestSuiteRoutes
         ].map(serviceTeamAndAdminUserScope)
       )
     }
