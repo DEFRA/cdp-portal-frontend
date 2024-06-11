@@ -1,11 +1,8 @@
 import { sendAuditMessage } from '~/src/server/common/helpers/audit/send-audit-message'
-import pino from 'pino'
 
 const firehoseClientMock = {
   send: jest.fn()
 }
-
-const mockLogger = pino()
 
 describe('#sendAuditMessage', () => {
   afterEach(() => {
@@ -13,12 +10,12 @@ describe('#sendAuditMessage', () => {
   })
 
   test('rejects invalid payload', async () => {
-    await sendAuditMessage(firehoseClientMock, mockLogger, {}) // Call function
+    await sendAuditMessage(firehoseClientMock, {}) // Call function
     expect(firehoseClientMock.send).not.toHaveBeenCalled()
   })
 
   test('rejects invalid payload with extra keys', async () => {
-    await sendAuditMessage(firehoseClientMock, mockLogger, {
+    await sendAuditMessage(firehoseClientMock, {
       source: 'foo',
       message: 'audit',
       id: '1234',
@@ -31,10 +28,10 @@ describe('#sendAuditMessage', () => {
     const payload = {
       source: 'foo',
       message: 'audit',
-      transactionId: '1234',
+      id: '1234',
       tags: { foo: 'bar' }
     }
-    await sendAuditMessage(firehoseClientMock, mockLogger, payload)
+    await sendAuditMessage(firehoseClientMock, payload)
     expect(firehoseClientMock.send).toHaveBeenCalled()
   })
 })

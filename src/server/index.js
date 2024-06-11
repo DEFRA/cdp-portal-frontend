@@ -103,12 +103,6 @@ async function createServer() {
 
   if (isProduction) {
     await server.register(secureContext)
-    await server.register({
-      plugin: auditing,
-      options: {
-        source: 'cdp-portal-frontend' // TODO: ideally we can default this from config
-      }
-    })
   }
 
   await server.register([
@@ -120,6 +114,13 @@ async function createServer() {
     sanitise,
     router
   ])
+
+  await server.register({
+    plugin: auditing,
+    options: {
+      source: 'cdp-portal-frontend' // TODO: ideally we can default this from config
+    }
+  })
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']

@@ -1,17 +1,16 @@
 import { PutRecordCommand } from '@aws-sdk/client-firehose'
 import { auditSchema } from '~/src/server/common/helpers/audit/audit-schema'
 import { config } from '~/src/config/config'
+import { createLogger } from '~/src/server/common/helpers/logging/logger'
+
+const logger = createLogger()
 
 /**
- *
  * @param { FirehoseClient } firehoseClient
- * @param { pino.Logger } logger
- * @param {{message, transactionId, tags}} payload payload
+ * @param {{message, id, tags}} payload payload
  * @returns {Promise<void>}
  */
-const sendAuditMessage = async (firehoseClient, logger, payload) => {
-  // TODO: bail out early if not in prod envs
-
+const sendAuditMessage = async (firehoseClient, payload) => {
   const { error, warning, value } = auditSchema.validate(payload)
 
   if (error) {

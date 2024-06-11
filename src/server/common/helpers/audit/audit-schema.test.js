@@ -5,7 +5,7 @@ describe('#audit-schema', () => {
     const { error, warn, value } = auditSchema.validate({
       source: 'foo',
       created: new Date(0),
-      transactionId: 'x-1234',
+      id: 'x-1234',
       message: 'this is a simple audit message',
       tags: {
         foo: 'bar',
@@ -18,7 +18,7 @@ describe('#audit-schema', () => {
     expect(value).toEqual({
       source: 'foo',
       created: new Date(0),
-      transactionId: 'x-1234',
+      id: 'x-1234',
       message: 'this is a simple audit message',
       tags: {
         foo: 'bar',
@@ -30,7 +30,7 @@ describe('#audit-schema', () => {
   test('Should fill in default values', () => {
     const value = auditSchema.validate({
       source: 'foo',
-      transactionId: 'x-1234',
+      id: 'x-1234',
       message: 'this is a simple audit message'
     }).value
 
