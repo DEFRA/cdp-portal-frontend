@@ -38,7 +38,7 @@ function enableAuditing(server, options) {
   })
 
   const audit = async (id, message, tags = {}) => {
-    return await sendAuditMessage(firehoseClient, {
+    await sendAuditMessage(firehoseClient, {
       id,
       source: options.source,
       message,

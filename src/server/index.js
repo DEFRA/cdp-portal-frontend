@@ -118,7 +118,7 @@ async function createServer() {
   await server.register({
     plugin: auditing,
     options: {
-      source: 'cdp-portal-frontend' // TODO: ideally we can default this from config
+      source: 'cdp-portal-frontend'
     }
   })
 
