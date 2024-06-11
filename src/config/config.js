@@ -221,6 +221,12 @@ const config = convict({
     nullable: true,
     default: null,
     env: 'CDP_HTTPS_PROXY'
+  },
+  auditStream: {
+    doc: 'AWS Firehose stream to send audit events to',
+    format: String,
+    default: 'cdp-audit-stream',
+    env: 'CDP_AUDIT_STREAM'
   }
 })
 
