@@ -1,11 +1,11 @@
-import { auditSchema } from '~/src/server/common/helpers/audit/audit-schema'
+import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
 
 describe('#audit-schema', () => {
   test('Should validate an audit schema', () => {
     const payload = {
       source: 'foo',
       created: new Date(0),
-      id: 'x-1234',
+      cdpRequestId: 'x-1234',
       message: 'this is a simple audit message',
       tags: {
         foo: 'bar',
@@ -23,7 +23,7 @@ describe('#audit-schema', () => {
   test('Should fill in default values', () => {
     const value = auditSchema.validate({
       source: 'foo',
-      id: 'x-1234',
+      cdpRequestId: 'x-1234',
       message: 'this is another audit message'
     }).value
 

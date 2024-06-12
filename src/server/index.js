@@ -23,7 +23,7 @@ import { secureContext } from '~/src/server/common/helpers/secure-context'
 import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
 import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
 import { sanitise } from '~/src/server/common/helpers/sanitisation/sanitise'
-import { auditing } from '~/src/server/common/helpers/audit/audit-plugin'
+import { auditing } from '~/src/server/common/helpers/audit/auditor-plugin'
 
 const client = buildRedisClient()
 const isProduction = config.get('isProduction')

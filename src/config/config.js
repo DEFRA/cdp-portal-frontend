@@ -223,7 +223,7 @@ const config = convict({
     env: 'CDP_HTTPS_PROXY'
   },
   auditingEnabled: {
-    doc: 'Enable sending audit events to the CDP auditing stack',
+    doc: 'Enable sending audit events to the CDP auditing stack.',
     format: Boolean,
     default: process.env.NODE_ENV === 'production',
     env: 'CDP_AUDIT_ENABLED'
@@ -231,7 +231,7 @@ const config = convict({
   auditStream: {
     doc: 'AWS Firehose stream to send audit events to',
     format: String,
-    default: 'cdp-audit-stream',
+    default: 'cdp-firehose-audit',
     env: 'CDP_AUDIT_STREAM'
   }
 })
