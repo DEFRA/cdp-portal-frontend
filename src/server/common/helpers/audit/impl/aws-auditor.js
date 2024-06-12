@@ -6,7 +6,7 @@ import { fromNodeProviderChain } from '@aws-sdk/credential-providers'
 
 class AwsAuditor {
   static _firehose
-  _source = 'cdp-portal-frontend'
+  _source
 
   constructor(sourceId) {
     this._source = sourceId
@@ -14,11 +14,17 @@ class AwsAuditor {
 
     if (!AwsAuditor._firehose) {
       this.logger.info('Building AWS Firehose client for Auditing')
-      AwsAuditor._firehose = new FirehoseClient({
+
+      const firehoseConfig = {
         credentials: fromNodeProviderChain(),
-        region: config.get('awsRegion'),
-        endpoint: 'http://localhost:4566'
-      })
+        region: config.get('awsRegion')
+      }
+
+      if (config.get('awsFirehoseEndpoint')) {
+        firehoseConfig.endpoint = config.get('awsFirehoseEndpoint')
+      }
+
+      AwsAuditor._firehose = new FirehoseClient(firehoseConfig)
       this.logger.info('AWS Firehose client created')
     }
   }

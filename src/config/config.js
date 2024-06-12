@@ -233,6 +233,13 @@ const config = convict({
     format: String,
     default: 'cdp-firehose-audit',
     env: 'CDP_AUDIT_STREAM'
+  },
+  awsFirehoseEndpoint: {
+    doc: 'Override for testing aws firehose with localstack',
+    format: String,
+    nullable: true,
+    default: null,
+    env: 'AWS_FIREHOSE_ENDPOINT'
   }
 })
 
