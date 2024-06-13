@@ -15,7 +15,7 @@ function deploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'text',
-      value: deployedService.teams?.join(', ')
+      value: deployedService.teams?.join(', ') ?? ''
     },
     {
       kind: 'link',
