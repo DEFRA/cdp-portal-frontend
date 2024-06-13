@@ -36,6 +36,8 @@ class AwsAuditor {
       message,
       tags
     }
+    this.logger.info(`Auditing ${cdpRequestId}`)
+
     const { error, value } = auditSchema.validate(payload)
 
     if (error) {
