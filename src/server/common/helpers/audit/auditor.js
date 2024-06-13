@@ -3,7 +3,7 @@ import { AwsAuditor } from '~/src/server/common/helpers/audit/impl/aws-auditor'
 import { config } from '~/src/config/config'
 
 function createAuditor(source) {
-  if (config.get('auditingEnabled')) {
+  if (config.get('auditEnabled')) {
     // Live auditor for production use
     return new AwsAuditor(source)
   } else {

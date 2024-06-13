@@ -222,10 +222,10 @@ const config = convict({
     default: null,
     env: 'CDP_HTTPS_PROXY'
   },
-  auditingEnabled: {
+  auditEnabled: {
     doc: 'Enable sending audit events to the CDP auditing stack.',
     format: Boolean,
-    default: process.env.NODE_ENV === 'production',
+    default: false,
     env: 'CDP_AUDIT_ENABLED'
   },
   auditStream: {

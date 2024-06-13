@@ -5,7 +5,7 @@ const logoutController = {
   options: {
     pre: [provideAuthedUser]
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const authedUser = request.pre.authedUser
 
     if (!authedUser) {
@@ -22,6 +22,10 @@ const logoutController = {
 
     removeAuthenticatedUser(request)
 
+    await request.audit.send(
+      request.pre?.cdpRequestId,
+      `User logged out ${authedUser?.id} ${authedUser?.displayName}`
+    )
     return h.redirect(logoutUrl)
   }
 }

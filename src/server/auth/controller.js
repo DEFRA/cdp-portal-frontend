@@ -19,11 +19,12 @@ const authCallbackController = {
 
       await createUserSession(request, sessionId)
 
-      const { profile } = request.auth.credentials
       request.sessionCookie.set({ sessionId })
+
+      const { profile } = request.auth.credentials
       await request.audit.send(
         request.pre?.cdpRequestId,
-        `Successful login for ${profile.id} (${profile.displayName})}`
+        `User logged in ${profile?.id} ${profile?.displayName}`
       )
     }
 

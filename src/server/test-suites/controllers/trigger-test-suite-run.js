@@ -5,11 +5,17 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 
 import { fetchRunnableTestSuiteImageNames } from '~/src/server/test-suites/helpers/fetch/fetch-runnable-test-suite-image-names'
 import { testSuiteValidation } from '~/src/server/test-suites/helpers/schema/test-suite-validation'
+import { provideCdpRequestId } from '~/src/server/common/helpers/audit/pre/provide-cdp-request-id'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 
 const triggerTestSuiteRunController = {
+  options: {
+    pre: [provideCdpRequestId, provideAuthedUser]
+  },
   handler: async (request, h) => {
     const payload = request.payload
     const { imageName, environment } = request.payload
+    const authedUser = request.pre.authedUser
 
     const runnableTestSuiteImageNames =
       await fetchRunnableTestSuiteImageNames(request)
@@ -38,6 +44,15 @@ const triggerTestSuiteRunController = {
         const { response } = await runTest(request, imageName, environment)
 
         if (response.ok) {
+          await request.audit.send(request.pre?.cdpRequestId, {
+            event: 'test run requested',
+            user: { id: authedUser.id, name: authedUser.displayName },
+            testRun: {
+              imageName,
+              environment
+            }
+          })
+
           request.yar.flash(sessionNames.notifications, {
             text: 'Test run requested successfully',
             type: 'success'
