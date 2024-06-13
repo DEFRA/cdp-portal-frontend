@@ -8,6 +8,8 @@ import { buildPagination } from '~/src/server/common/helpers/build-pagination'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions'
 import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values'
+import { decorateDeploymentTeams } from '~/src/server/deployments/transformers/decorate-deployment-teams'
+import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
 
 const deploymentsListController = {
   options: {
@@ -73,7 +75,9 @@ const deploymentsListController = {
         status: request.query.status
       })
 
-    const entityRows = data?.map(deploymentsToEntityRow)
+    const services = await fetchDeployableServices()
+    const deployments = data?.map(decorateDeploymentTeams, services)
+    const entityRows = deployments?.map(deploymentsToEntityRow)
 
     return h.view('deployments/views/list', {
       pageTitle: 'Deployments',

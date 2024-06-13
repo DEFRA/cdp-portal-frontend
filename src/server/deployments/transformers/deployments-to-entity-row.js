@@ -14,6 +14,10 @@ function deploymentsToEntityRow(deployedService) {
       }`
     },
     {
+      kind: 'text',
+      value: deployedService.teams?.join(', ')
+    },
+    {
       kind: 'link',
       value: deployedService.version,
       url: `https://github.com/DEFRA/${deployedService.service}/releases/tag/${deployedService.version}`,
