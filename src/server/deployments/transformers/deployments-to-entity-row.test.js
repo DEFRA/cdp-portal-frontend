@@ -37,6 +37,40 @@ describe('#deploymentsToEntityRow', () => {
     ])
   })
 
+  test('Should provide deployed service with teams', () => {
+    expect(deploymentsToEntityRow(deploymentsFixture.data.at(2))).toEqual([
+      {
+        kind: 'link',
+        url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
+        value: 'cdp-portal-backend'
+      },
+      {
+        kind: 'text',
+        value: 'team1, team2'
+      },
+      {
+        kind: 'link',
+        newWindow: true,
+        url: 'https://github.com/DEFRA/cdp-portal-backend/releases/tag/0.94.0',
+        value: '0.94.0'
+      },
+      {
+        classes: 'govuk-tag--green',
+        kind: 'tag',
+        value: 'running'
+      },
+      {
+        kind: 'text',
+        value: 'B. A. Baracus'
+      },
+      {
+        withSeconds: true,
+        kind: 'date',
+        value: '2023-12-14T13:58:13Z'
+      }
+    ])
+  })
+
   test('Should show un-deployment events as STOPPED', () => {
     expect(deploymentsToEntityRow(undeploymentsFixture)).toEqual([
       {
