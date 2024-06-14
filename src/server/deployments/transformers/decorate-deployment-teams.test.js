@@ -6,48 +6,54 @@ describe('#decorateDeploymentTeams', () => {
     service: 'cdp-self-service-ops',
     version: '0.133.0'
   }
+  const team1 = {
+    teamId: 'team1Id',
+    description: 'team1'
+  }
+  const team2 = {
+    teamId: 'team2Id',
+    description: 'team2'
+  }
 
   test('Should decorate with teams if service has teams', () => {
-    const services = [
+    const repositories = [
       {
-        name: 'cdp-self-service-ops',
-        teams: ['team1', 'team2']
+        description: 'cdp-self-service-ops',
+        teams: [team1, team2]
       }
     ]
-    expect(decorateDeploymentTeams(deployedService, services)).toEqual({
+    expect(decorateDeploymentTeams(deployedService, repositories)).toEqual({
       cdpDeploymentId: '7dda5224-84c0-4a67-a64f-04e55d95befb',
       service: 'cdp-self-service-ops',
       version: '0.133.0',
-      teams: ['team1', 'team2']
+      teams: [team1, team2]
     })
   })
 
   test('Should not decorate with teams if none present', () => {
-    const services = [
+    const repositories = [
       {
-        name: 'cdp-self-service-ops'
+        description: 'cdp-self-service-ops'
       }
     ]
-    expect(decorateDeploymentTeams(deployedService, services)).toEqual({
+    expect(decorateDeploymentTeams(deployedService, repositories)).toEqual({
       cdpDeploymentId: '7dda5224-84c0-4a67-a64f-04e55d95befb',
       service: 'cdp-self-service-ops',
-      version: '0.133.0',
-      teams: []
+      version: '0.133.0'
     })
   })
 
   test('Should not decorate with teams if no service matches', () => {
-    const services = [
+    const repositories = [
       {
-        name: 'not-self-service-ops',
-        teams: ['team1', 'team2']
+        description: 'not-self-service-ops',
+        teams: [team1, team2]
       }
     ]
-    expect(decorateDeploymentTeams(deployedService, services)).toEqual({
+    expect(decorateDeploymentTeams(deployedService, repositories)).toEqual({
       cdpDeploymentId: '7dda5224-84c0-4a67-a64f-04e55d95befb',
       service: 'cdp-self-service-ops',
-      version: '0.133.0',
-      teams: []
+      version: '0.133.0'
     })
   })
 })

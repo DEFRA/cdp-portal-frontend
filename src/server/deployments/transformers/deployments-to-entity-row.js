@@ -14,8 +14,12 @@ function deploymentsToEntityRow(deployedService) {
       }`
     },
     {
-      kind: 'text',
-      value: deployedService.teams?.join(', ') ?? ''
+      kind: 'list',
+      value: deployedService?.teams?.map((team) => ({
+        kind: 'link',
+        value: team.name,
+        url: `/teams/${team.teamId}`
+      }))
     },
     {
       kind: 'link',

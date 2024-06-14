@@ -33,6 +33,7 @@ const deploymentController = {
       heading: 'Deployment',
       caption: 'Microservice deployment information.',
       deployment,
+      teams: deployment?.teams,
       tabBreadcrumbs: [
         {
           text: capitalize(deployment.environment),

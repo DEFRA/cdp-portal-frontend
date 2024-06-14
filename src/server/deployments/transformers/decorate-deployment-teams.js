@@ -1,8 +1,16 @@
-function decorateDeploymentTeams(deployedService, services) {
-  const service = services.find((s) => s.name === deployedService.service)
+function decorateDeploymentTeams(deployedService, repositories) {
+  if (!repositories) {
+    return deployedService
+  }
+  const service = repositories.find(
+    (s) => s.description === deployedService.service
+  )
+  if (!service?.teams) {
+    return deployedService
+  }
   return {
     ...deployedService,
-    teams: service?.teams ?? []
+    teams: service.teams
   }
 }
 

@@ -71,7 +71,16 @@ const deploymentsFixture = {
           }
       },
       status: 'running',
-      teams: ['team1', 'team2'],
+      teams: [
+        {
+          teamId: 'team1Id',
+          name: 'team1'
+        },
+        {
+          teamId: 'team2Id',
+          name: 'team2'
+        }
+      ],
       unstable: false
     },
 

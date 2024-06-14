@@ -11,8 +11,8 @@ describe('#deploymentsToEntityRow', () => {
         value: 'cdp-self-service-ops'
       },
       {
-        kind: 'text',
-        value: ''
+        kind: 'list',
+        value: undefined
       },
       {
         kind: 'link',
@@ -45,8 +45,19 @@ describe('#deploymentsToEntityRow', () => {
         value: 'cdp-portal-backend'
       },
       {
-        kind: 'text',
-        value: 'team1, team2'
+        kind: 'list',
+        value: [
+          {
+            kind: 'link',
+            url: '/teams/team1Id',
+            value: 'team1'
+          },
+          {
+            kind: 'link',
+            url: '/teams/team2Id',
+            value: 'team2'
+          }
+        ]
       },
       {
         kind: 'link',
@@ -79,8 +90,8 @@ describe('#deploymentsToEntityRow', () => {
         value: 'cdp-portal-frontend'
       },
       {
-        kind: 'text',
-        value: ''
+        kind: 'list',
+        value: undefined
       },
       {
         kind: 'link',

@@ -52,7 +52,10 @@
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Team</h2>
                     <p>
-                      {{ deployment.Teams?.map(team => team.name).join(", ") }}
+                      {% for team in teams %}
+                        <a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a>
+                        {% if not loop.last %}, {% endif %}
+                      {% endfor %}
                     </p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Version</h2>
