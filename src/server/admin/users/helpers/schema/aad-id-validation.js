@@ -1,11 +1,13 @@
 import Joi from 'joi'
 
+import { validation } from '~/src/server/common/constants/validation'
+
 function aadIdValidation(buttonValue) {
   if (buttonValue === 'search') {
     return Joi.object({
       aadQuery: Joi.string().required().messages({
-        'any.required': 'Enter value',
-        'string.empty': 'Enter value'
+        'any.required': validation.enterValue,
+        'string.empty': validation.enterValue
       }),
       redirectLocation: Joi.string().valid('summary', '')
     })
@@ -13,15 +15,15 @@ function aadIdValidation(buttonValue) {
 
   return Joi.object({
     aadQuery: Joi.string().required().messages({
-      'any.required': 'Enter value',
-      'string.empty': 'Enter value'
+      'any.required': validation.enterValue,
+      'string.empty': validation.enterValue
     }),
     email: Joi.when('aadQuery', {
       is: Joi.string(),
       then: Joi.string().required()
     }).messages({
-      'string.base': 'Choose a user',
-      'any.required': 'Choose a user'
+      'string.base': validation.chooseUser,
+      'any.required': validation.chooseUser
     }),
     button: Joi.string().allow('next'),
     redirectLocation: Joi.string().valid('summary', '')

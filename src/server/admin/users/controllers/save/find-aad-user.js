@@ -58,7 +58,8 @@ const findAadUserController = {
       )
       const aadUserDetails = searchAadUsersResponse?.users ?? []
       const aadUser = aadUserDetails?.at(0)
-      const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.email
+      const isSameEmail = cdpUser?.email === aadUser?.email
+      const isSameAsSession = aadUser?.mail && isSameEmail
 
       const updatedCdpUser = await saveToCdpUser(request, h, {
         ...sanitisedPayload,
@@ -69,12 +70,10 @@ const findAadUserController = {
 
       await setStepComplete(request, h, 'stepOne', updatedCdpUser)
 
-      const queryString = qs.stringify(
-        {
-          ...(updatedCdpUser?.github && { githubSearch: updatedCdpUser.github })
-        },
-        { addQueryPrefix: true }
-      )
+      const usersGitHub = updatedCdpUser?.github
+      const queryString = usersGitHub
+        ? qs.stringify({ githubSearch: usersGitHub }, { addQueryPrefix: true })
+        : ''
 
       const redirectTo = redirectLocation
         ? `/admin/users/${redirectLocation}`

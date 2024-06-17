@@ -20,7 +20,7 @@ function authedFetcher(request) {
         ...options,
         method: options?.method || 'get',
         headers: {
-          ...(options?.headers && options?.headers),
+          ...(options?.headers && options.headers),
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         }

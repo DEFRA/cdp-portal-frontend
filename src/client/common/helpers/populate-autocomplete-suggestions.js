@@ -9,6 +9,7 @@ function populateAutocompleteSuggestions($controller) {
     return
   }
 
+  const isLoadingClassName = 'app-loader--is-loading'
   const $target = document.querySelector(
     `[data-js*="${$controller.getAttribute('data-target')}"]`
   )
@@ -26,7 +27,7 @@ function populateAutocompleteSuggestions($controller) {
 
   $controller.addEventListener('change', async (event) => {
     const delayedLoader = setTimeout(() => {
-      $loader.classList.add('app-loader--is-loading')
+      $loader.classList.add(isLoadingClassName)
     }, 200)
 
     const name = event?.target?.name
@@ -36,7 +37,7 @@ function populateAutocompleteSuggestions($controller) {
       const suggestions = await dataFetcher(value)
 
       clearTimeout(delayedLoader)
-      $loader?.classList?.remove('app-loader--is-loading')
+      $loader?.classList?.remove(isLoadingClassName)
 
       const suggestionsName = $target.id
 
@@ -49,7 +50,7 @@ function populateAutocompleteSuggestions($controller) {
       clientNotification(error.message)
 
       clearTimeout(delayedLoader)
-      $loader?.classList?.remove('app-loader--is-loading')
+      $loader?.classList?.remove(isLoadingClassName)
     }
   })
 }

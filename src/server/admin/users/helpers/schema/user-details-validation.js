@@ -1,10 +1,12 @@
 import Joi from 'joi'
 
+import { validation } from '~/src/server/common/constants/validation'
+
 function userDetailsValidation(buttonValue) {
   if (buttonValue === 'skip') {
     return Joi.object({
       name: Joi.string().required().messages({
-        'string.base': 'Enter value'
+        'string.base': validation.enterValue
       }),
       defraAwsId: Joi.string().allow('', null),
       defraVpnId: Joi.string().allow('', null),
@@ -13,16 +15,18 @@ function userDetailsValidation(buttonValue) {
     })
   }
 
+  const maxFiftyCharacters = validation.maxCharacters(50)
+
   return Joi.object({
     name: Joi.string().max(50).required().messages({
-      'string.max': '50 characters or less',
-      'string.base': 'Enter value'
+      'string.max': maxFiftyCharacters,
+      'string.base': validation.enterValue
     }),
     defraAwsId: Joi.string().allow('', null).max(50).messages({
-      'string.max': '50 characters or less'
+      'string.max': maxFiftyCharacters
     }),
     defraVpnId: Joi.string().allow('', null).max(50).messages({
-      'string.max': '50 characters or less'
+      'string.max': maxFiftyCharacters
     }),
     button: Joi.string().valid('next'),
     redirectLocation: Joi.string().valid('summary', '')
