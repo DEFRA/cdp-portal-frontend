@@ -3,7 +3,7 @@ function decorateDeploymentTeams(deployedService, repositories) {
     return deployedService
   }
   const service = repositories.find(
-    (s) => s.description === deployedService.service
+    (s) => s.id.toLowerCase() === deployedService.service.toLowerCase()
   )
   if (!service?.teams) {
     return deployedService

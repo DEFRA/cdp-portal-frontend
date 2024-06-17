@@ -18,7 +18,7 @@ describe('#decorateDeploymentTeams', () => {
   test('Should decorate with teams if service has teams', () => {
     const repositories = [
       {
-        description: 'cdp-self-service-ops',
+        id: 'cdp-self-service-ops',
         teams: [team1, team2]
       }
     ]
@@ -33,7 +33,7 @@ describe('#decorateDeploymentTeams', () => {
   test('Should not decorate with teams if none present', () => {
     const repositories = [
       {
-        description: 'cdp-self-service-ops'
+        id: 'cdp-self-service-ops'
       }
     ]
     expect(decorateDeploymentTeams(deployedService, repositories)).toEqual({
@@ -46,7 +46,7 @@ describe('#decorateDeploymentTeams', () => {
   test('Should not decorate with teams if no service matches', () => {
     const repositories = [
       {
-        description: 'not-self-service-ops',
+        id: 'not-self-service-ops',
         teams: [team1, team2]
       }
     ]
