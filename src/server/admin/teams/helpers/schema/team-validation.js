@@ -1,5 +1,7 @@
 import Joi from 'joi'
 
+import { validation } from '~/src/server/common/constants/validation'
+
 const teamValidation = Joi.object({
   name: Joi.string()
     .max(3)
@@ -7,14 +9,17 @@ const teamValidation = Joi.object({
     .regex(/^[A-Za-z0-9-]+$/)
     .required()
     .messages({
-      'string.base': 'Enter a value',
-      'string.min': '3 characters or more',
-      'string.max': '50 characters or less',
+      'string.base': validation.enterValue,
+      'string.min': validation.minCharacters(3),
+      'string.max': validation.maxCharacters(50),
       'string.pattern.base': 'Letters and numbers with hyphen separators'
     }),
-  description: Joi.string().max(256).allow('', null).messages({
-    'string.max': '256 characters or less'
-  })
+  description: Joi.string()
+    .max(256)
+    .allow('', null)
+    .messages({
+      'string.max': validation.maxCharacters(256)
+    })
 })
 
 export { teamValidation }

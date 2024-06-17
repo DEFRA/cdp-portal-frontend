@@ -1,5 +1,6 @@
 import Joi from 'joi'
 
+import { validation } from '~/src/server/common/constants/validation'
 import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility'
 import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
 
@@ -15,23 +16,23 @@ function repositoryValidation() {
       .required()
       .external(checkNameAvailability)
       .messages({
-        'string.empty': 'Enter value',
+        'string.empty': validation.enterValue,
         'string.pattern.base':
           'Lowercase letters and numbers with hyphen separators',
         'string.pattern.name': 'Start and end with a letter or number',
-        'string.min': '1 character or more',
-        'string.max': '32 characters or less'
+        'string.min': validation.minCharacters(1),
+        'string.max': validation.maxCharacters(32)
       }),
     repositoryVisibility: Joi.string()
       .valid(...repositoryVisibility)
       .messages({
-        'any.only': 'Choose an entry',
-        'any.required': 'Choose an entry'
+        'any.only': validation.chooseAnEntry,
+        'any.required': validation.chooseAnEntry
       })
       .required(),
     teamId: Joi.string()
       .messages({
-        'any.required': 'Choose an entry'
+        'any.required': validation.chooseAnEntry
       })
       .required(),
     redirectLocation: Joi.string().valid('summary', '')
