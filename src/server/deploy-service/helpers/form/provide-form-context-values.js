@@ -4,7 +4,7 @@ function provideFormContextValues(request, h) {
   const response = request.response
 
   if (response.variety === 'view') {
-    const deployment = request.yar.get(sessionNames.deployment)
+    const deployment = request.yar.get(sessionNames.deployment) ?? {}
     const validationFailure = request.yar
       .flash(sessionNames.validationFailure)
       ?.at(0)
@@ -25,7 +25,7 @@ function provideFormContextValues(request, h) {
     response.source.context.formValues = {
       ...(response.source.context?.formValues &&
         response.source.context.formValues),
-      ...(deployment && deployment),
+      ...deployment,
       ...(validationFailure?.formValues && validationFailure.formValues)
     }
 
@@ -37,12 +37,15 @@ function provideFormContextValues(request, h) {
     // 1 - availableMemoryOptions from validationFailure session - (The highest priority)
     // 2 - availableMemoryOptions from h.view() context          - (The lowest priority)
 
+    const availableMemoryOptions = response.source.context
+      ?.availableMemoryOptions
+      ? response.source.context.availableMemoryOptions
+      : []
+
     response.source.context.availableMemoryOptions = [
       ...(validationFailure?.availableMemoryOptions
         ? validationFailure.availableMemoryOptions
-        : response.source.context?.availableMemoryOptions
-          ? response.source.context.availableMemoryOptions
-          : [])
+        : availableMemoryOptions)
     ]
   }
 
