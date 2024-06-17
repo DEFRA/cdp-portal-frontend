@@ -4,6 +4,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation'
 import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch'
+import { pluralise } from '~/src/server/common/helpers/pluralise'
 
 const addMemberController = {
   handler: async (request, h) => {
@@ -14,11 +15,9 @@ const addMemberController = {
     const button = payload?.button
 
     const cdpUserQuery = payload?.cdpUserQuery || null
-    const userIds = payload?.userIds
-      ? Array.isArray(payload.userIds)
-        ? payload?.userIds
-        : [payload?.userIds]
-      : []
+    const userIds = Array.isArray(payload.userIds)
+      ? payload?.userIds
+      : [payload.userIds]
 
     const validationResult = addUserValidation(userIds, button).validate(
       payload,
@@ -65,7 +64,7 @@ const addMemberController = {
       const fulfilledResponse = responses.filter(
         (response) => response.status === 'fulfilled'
       )
-      const memberMessage = fulfilledResponse.length > 1 ? 'Members' : 'Member'
+      const memberMessage = pluralise('Member', fulfilledResponse.length)
 
       if (rejectedResponse.length === 0) {
         request.yar.flash(sessionNames.notifications, {

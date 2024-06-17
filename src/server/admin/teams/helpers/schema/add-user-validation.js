@@ -1,11 +1,13 @@
 import Joi from 'joi'
 
+import { validation } from '~/src/server/common/constants/validation'
+
 function addUserValidation(userIds, buttonValue) {
   if (buttonValue === 'search') {
     return Joi.object({
       cdpUserQuery: Joi.string().required().messages({
-        'any.required': 'Enter value',
-        'string.empty': 'Enter value'
+        'any.required': validation.enterValue,
+        'string.empty': validation.enterValue
       })
     })
   }
@@ -14,23 +16,23 @@ function addUserValidation(userIds, buttonValue) {
     return Joi.object({
       cdpUserQuery: Joi.string().allow('', null),
       userIds: Joi.array().items(Joi.string()).single().required().messages({
-        'string.base': 'Choose a user',
-        'any.required': 'Choose a user'
+        'string.base': validation.chooseUser,
+        'any.required': validation.chooseUser
       })
     })
   }
 
   return Joi.object({
     cdpUserQuery: Joi.string().required().messages({
-      'any.required': 'Enter value',
-      'string.empty': 'Enter value'
+      'any.required': validation.enterValue,
+      'string.empty': validation.enterValue
     }),
     userIds: Joi.when('cdpUserQuery', {
       is: Joi.string(),
       then: Joi.array().items(Joi.string()).single().required()
     }).messages({
-      'string.base': 'Choose a user',
-      'any.required': 'Choose a user'
+      'string.base': validation.chooseUser,
+      'any.required': validation.chooseUser
     })
   })
 }

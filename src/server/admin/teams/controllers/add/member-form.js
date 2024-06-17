@@ -43,10 +43,11 @@ const addMemberFormController = {
       uniqBy([...usersToAdd, ...cdpUsers], 'userId'),
       (user) => !team.users.some((teamUser) => teamUser.userId === user.userId)
     )
+    const title = 'Add team members'
 
     return h.view('admin/teams/views/add/member-form', {
-      pageTitle: 'Add team members',
-      heading: 'Add team members',
+      pageTitle: title,
+      heading: title,
       headingCaption: 'Search for Core Delivery Platform user.',
       formValues: {
         cdpUserQuery,
@@ -77,7 +78,7 @@ const addMemberFormController = {
           href: '/admin/teams/' + team.teamId
         },
         {
-          text: 'Add team members'
+          text: title
         }
       ]
     })

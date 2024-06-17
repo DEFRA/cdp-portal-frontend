@@ -1,5 +1,7 @@
 import Joi from 'joi'
 
+import { validation } from '~/src/server/common/constants/validation'
+
 function serviceValidation(
   imageNames,
   availableVersions,
@@ -13,9 +15,9 @@ function serviceValidation(
         .valid(...imageNames)
         .required()
         .messages({
-          'any.only': 'Choose an entry',
-          'any.required': 'Choose an entry',
-          'string.empty': 'Choose an entry'
+          'any.only': validation.chooseAnEntry,
+          'any.required': validation.chooseAnEntry,
+          'string.empty': validation.chooseAnEntry
         }),
       version: Joi.string().allow(null, ''),
       environment: Joi.string()
@@ -31,25 +33,25 @@ function serviceValidation(
       .valid(...imageNames)
       .required()
       .messages({
-        'any.only': 'Choose an entry',
-        'any.required': 'Choose an entry',
-        'string.empty': 'Choose an entry'
+        'any.only': validation.chooseAnEntry,
+        'any.required': validation.chooseAnEntry,
+        'string.empty': validation.chooseAnEntry
       }),
     version: Joi.string()
       .valid(...availableVersions)
       .required()
       .messages({
-        'any.valid': 'Choose an entry',
-        'any.only': 'Choose an entry',
-        'any.required': 'Choose an entry',
-        'string.empty': 'Choose an entry' // If image name not provided, available versions is an empty array
+        'any.valid': validation.chooseAnEntry,
+        'any.only': validation.chooseAnEntry,
+        'any.required': validation.chooseAnEntry,
+        'string.empty': validation.chooseAnEntry // If image name not provided, available versions is an empty array
       }),
     environment: Joi.string()
       .valid(...environments)
       .required()
       .messages({
-        'any.only': 'Choose an entry',
-        'any.required': 'Choose an entry'
+        'any.only': validation.chooseAnEntry,
+        'any.required': validation.chooseAnEntry
       }),
     button: Joi.string().valid('submit'),
     redirectLocation: Joi.string().valid('summary', '')
