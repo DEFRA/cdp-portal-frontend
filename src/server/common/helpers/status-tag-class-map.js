@@ -4,6 +4,7 @@ function statusTagClassMap(status) {
   switch (true) {
     case status === creationStatuses.raised:
     case status === creationStatuses.prOpen:
+    case status === creationStatuses.merged:
       return 'govuk-tag--purple'
 
     case status === creationStatuses.requested:
@@ -20,6 +21,7 @@ function statusTagClassMap(status) {
 
     case status === creationStatuses.unknown:
     case status === creationStatuses.failure:
+    case status === creationStatuses.prClosed:
       return 'govuk-tag--red'
 
     default:
