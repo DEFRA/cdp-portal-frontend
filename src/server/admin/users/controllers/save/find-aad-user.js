@@ -21,8 +21,8 @@ const findAadUserController = {
     const button = payload?.button
     const redirectLocation = payload?.redirectLocation
 
-    const aadQuery = payload?.aadQuery || null
-    const email = payload?.email || null
+    const aadQuery = payload?.aadQuery
+    const email = payload?.email
 
     const validationResult = aadIdValidation(button).validate(payload, {
       abortEarly: false
@@ -43,8 +43,8 @@ const findAadUserController = {
 
       const queryString = qs.stringify(
         {
-          ...(redirectLocation && { redirectLocation }),
-          ...(aadQuery && { aadQuery })
+          redirectLocation,
+          aadQuery
         },
         { addQueryPrefix: true }
       )

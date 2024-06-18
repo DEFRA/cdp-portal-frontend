@@ -1,5 +1,6 @@
 import qs from 'qs'
 
+// TODO refactor
 function buildPagination(page, pageSize, totalPages, queryParams) {
   if (
     !Number.isInteger(page) ||
