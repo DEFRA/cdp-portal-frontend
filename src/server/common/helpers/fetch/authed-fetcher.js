@@ -55,7 +55,7 @@ function authedFetcher(request) {
           return { json, response }
         }
 
-        throwHttpError(json, response)
+        return throwHttpError(json, response)
       } catch (error) {
         request.logger.error(error)
 
