@@ -2,26 +2,33 @@ import { creationStatuses } from '~/src/server/common/constants/creation-statuse
 
 function statusTagClassMap(status) {
   switch (true) {
-    case status === creationStatuses.raised:
-    case status === creationStatuses.prOpen:
-    case status === creationStatuses.merged:
+    case [
+      creationStatuses.raised,
+      creationStatuses.prOpen,
+      creationStatuses.merged
+    ].includes(status):
       return 'govuk-tag--purple'
 
-    case status === creationStatuses.requested:
-    case status === creationStatuses.inProgress:
+    case [creationStatuses.requested, creationStatuses.inProgress].includes(
+      status
+    ):
       return 'govuk-tag--blue'
 
     case status === creationStatuses.notRequested:
       return 'govuk-tag--grey'
 
-    case status === creationStatuses.created:
-    case status === creationStatuses.success:
-    case status === creationStatuses.workflowCompleted:
+    case [
+      creationStatuses.created,
+      creationStatuses.success,
+      creationStatuses.workflowCompleted
+    ].includes(status):
       return 'govuk-tag--green'
 
-    case status === creationStatuses.unknown:
-    case status === creationStatuses.failure:
-    case status === creationStatuses.prClosed:
+    case [
+      creationStatuses.unknown,
+      creationStatuses.failure,
+      creationStatuses.prClosed
+    ].includes(status):
       return 'govuk-tag--red'
 
     default:

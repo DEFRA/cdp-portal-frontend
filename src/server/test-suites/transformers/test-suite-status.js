@@ -69,6 +69,8 @@ function testSuiteStatus(service) {
               'top of the page',
               false
             )}.`
+          default:
+            return 'Status unknown'
         }
       }
     },
@@ -111,6 +113,8 @@ function testSuiteStatus(service) {
               'top of the page',
               false
             )}.`
+          default:
+            return 'Status unknown'
         }
       },
       pullRequest: {
