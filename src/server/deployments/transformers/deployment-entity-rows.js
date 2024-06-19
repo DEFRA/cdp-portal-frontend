@@ -2,20 +2,24 @@ import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpe
 import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user'
 import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
 
-function deploymentsToEntityRow(deployedService) {
-  const status = augmentStatus(deployedService)
+function deploymentEntityRows(deployments) {
+  return deployments.map(deploymentToEntityRow)
+}
+
+function deploymentToEntityRow(deployment) {
+  const status = augmentStatus(deployment)
 
   return [
     {
       kind: 'link',
-      value: deployedService.service,
-      url: `/deployments/${deployedService.environment.toLowerCase()}/${
-        deployedService.cdpDeploymentId
+      value: deployment.service,
+      url: `/deployments/${deployment.environment.toLowerCase()}/${
+        deployment.cdpDeploymentId
       }`
     },
     {
       kind: 'list',
-      value: deployedService?.teams?.map((team) => ({
+      value: deployment?.teams?.map((team) => ({
         kind: 'link',
         value: team.name,
         url: `/teams/${team.teamId}`
@@ -23,8 +27,8 @@ function deploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'link',
-      value: deployedService.version,
-      url: `https://github.com/DEFRA/${deployedService.service}/releases/tag/${deployedService.version}`,
+      value: deployment.version,
+      url: `https://github.com/DEFRA/${deployment.service}/releases/tag/${deployment.version}`,
       newWindow: true
     },
     {
@@ -34,14 +38,14 @@ function deploymentsToEntityRow(deployedService) {
     },
     {
       kind: 'text',
-      value: sanitiseUser(deployedService.user?.displayName)
+      value: sanitiseUser(deployment.user?.displayName)
     },
     {
       kind: 'date',
-      value: deployedService.created,
+      value: deployment.created,
       withSeconds: true
     }
   ]
 }
 
-export { deploymentsToEntityRow }
+export { deploymentEntityRows }
