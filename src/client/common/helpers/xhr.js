@@ -99,6 +99,8 @@ function addHistoryListener() {
         window.location.search !== location?.search
       ) {
         window.location.href = location?.pathname + location?.search
+      } else {
+        // do nothing
       }
     }
   })

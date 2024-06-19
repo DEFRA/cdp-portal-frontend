@@ -10,12 +10,12 @@ const provideDeployment = {
     const deployment = await fetchDeployment(deploymentId)
 
     const github = await fetchRepository(deployment.service).catch(nullify404)
-    const repository = github?.repository ?? null
+    const repository = github?.repository ?? {}
     const status = augmentStatus(deployment)
 
     return {
       ...deployment,
-      ...(repository && repository),
+      ...repository,
       status,
       statusClasses: provideDeploymentStatusClassname(status),
       isFrontend: repository?.topics?.includes('frontend') ?? false,

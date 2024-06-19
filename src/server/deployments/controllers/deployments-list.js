@@ -1,13 +1,16 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { capitalize, upperFirst } from 'lodash'
+import { compose } from 'lodash/fp'
 
 import { environments } from '~/src/config'
-import { deploymentsToEntityRow } from '~/src/server/deployments/transformers/deployments-to-entity-row'
 import { buildPagination } from '~/src/server/common/helpers/build-pagination'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions'
 import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values'
+import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
+import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments'
+import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
 
 const deploymentsListController = {
   options: {
@@ -64,16 +67,24 @@ const deploymentsListController = {
         }))
     )
 
-    const { data, page, pageSize, totalPages } =
-      await request.server.methods.fetchDeployments(environment, {
-        page: request.query?.page,
-        size: request.query?.size,
-        service: request.query.service,
-        user: request.query.user,
-        status: request.query.status
-      })
+    const {
+      data: deployments,
+      page,
+      pageSize,
+      totalPages
+    } = await request.server.methods.fetchDeployments(environment, {
+      page: request.query?.page,
+      size: request.query?.size,
+      service: request.query.service,
+      user: request.query.user,
+      status: request.query.status
+    })
+    const deployableServices = await fetchDeployableServices()
 
-    const entityRows = data?.map(deploymentsToEntityRow)
+    const entityRows = compose(
+      deploymentEntityRows,
+      decorateDeployments(deployableServices)
+    )(deployments)
 
     return h.view('deployments/views/list', {
       pageTitle: 'Deployments',

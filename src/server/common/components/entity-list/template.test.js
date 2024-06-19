@@ -1,6 +1,6 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { deploymentsToEntityRow } from '~/src/server/deployments/transformers/deployments-to-entity-row'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
+import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
 
 describe('Entity List Component', () => {
   let $entityList
@@ -24,7 +24,7 @@ describe('Entity List Component', () => {
           { text: 'By', size: 'small' },
           { text: 'On', size: 'large' }
         ],
-        entityRows: [deploymentsFixture.data.at(0)].map(deploymentsToEntityRow),
+        entityRows: deploymentEntityRows([deploymentsFixture.data.at(0)]),
         noResult: 'Currently there are no deployed microservices'
       })
     })
@@ -69,16 +69,19 @@ describe('Entity List Component', () => {
       expect(getEntity(1).html()).toContain('cdp-self-service-ops')
 
       expect(getEntity(2).length).toEqual(1)
-      expect(getEntity(2).html()).toContain('0.133.0')
+      expect(getEntity(2).html()).toContain('')
 
       expect(getEntity(3).length).toEqual(1)
-      expect(getEntity(3).html()).toContain('running')
+      expect(getEntity(3).html()).toContain('0.133.0')
 
       expect(getEntity(4).length).toEqual(1)
-      expect(getEntity(4).html()).toContain('B. A. Baracus')
+      expect(getEntity(4).html()).toContain('running')
 
       expect(getEntity(5).length).toEqual(1)
-      expect(getEntity(5).html()).toContain('Thu 14th Dec 2023 at 14:04')
+      expect(getEntity(5).html()).toContain('B. A. Baracus')
+
+      expect(getEntity(6).length).toEqual(1)
+      expect(getEntity(6).html()).toContain('Thu 14th Dec 2023 at 14:04')
     })
   })
 

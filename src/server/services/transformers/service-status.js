@@ -76,6 +76,8 @@ function serviceStatus(service) {
               'top of the page',
               false
             )}.`
+          default:
+            return 'Status unknown'
         }
       }
     },
@@ -162,6 +164,8 @@ function serviceStatus(service) {
               'top of the page',
               false
             )}.`
+          default:
+            return 'Status unknown'
         }
       },
       pullRequest: {
@@ -223,6 +227,8 @@ function serviceStatus(service) {
               'top of the page',
               false
             )}.`
+          default:
+            return 'Status unknown'
         }
       },
       pullRequest: {

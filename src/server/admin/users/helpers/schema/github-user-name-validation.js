@@ -1,11 +1,13 @@
 import Joi from 'joi'
 
+import { validation } from '~/src/server/common/constants/validation'
+
 function githubUserNameValidation(buttonValue) {
   if (buttonValue === 'search') {
     return Joi.object({
       githubSearch: Joi.string().required().messages({
-        'any.required': 'Enter value',
-        'string.empty': 'Enter value'
+        'any.required': validation.enterValue,
+        'string.empty': validation.enterValue
       }),
       redirectLocation: Joi.string().valid('summary', '')
     })
@@ -22,14 +24,14 @@ function githubUserNameValidation(buttonValue) {
 
   return Joi.object({
     githubSearch: Joi.string().required().messages({
-      'any.required': 'Enter value',
-      'string.empty': 'Enter value'
+      'any.required': validation.enterValue,
+      'string.empty': validation.enterValue
     }),
     github: Joi.when('githubSearch', {
       is: Joi.string(),
       then: Joi.string().required()
     }).messages({
-      'any.required': 'Choose a user'
+      'any.required': validation.chooseUser
     }),
     button: Joi.string().valid('next'),
     redirectLocation: Joi.string().valid('summary', '')

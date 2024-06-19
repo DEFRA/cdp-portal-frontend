@@ -26,9 +26,6 @@ function handleFormSubmit(event) {
     event.preventDefault()
 
     submitForm(form)
-      .catch((error) => {
-        throw new Error(error)
-      })
       .finally(() => {
         // Re-focus the initial input
         const submittingInput = document.getElementById(event?.target?.id)
@@ -36,6 +33,9 @@ function handleFormSubmit(event) {
         if (submittingInput) {
           submittingInput.focus()
         }
+      })
+      .catch((error) => {
+        throw new Error(error)
       })
   }
 }

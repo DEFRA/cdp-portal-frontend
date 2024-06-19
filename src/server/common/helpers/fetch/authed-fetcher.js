@@ -20,7 +20,7 @@ function authedFetcher(request) {
         ...options,
         method: options?.method || 'get',
         headers: {
-          ...(options?.headers && options?.headers),
+          ...(options?.headers && options.headers),
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         }
@@ -55,7 +55,7 @@ function authedFetcher(request) {
           return { json, response }
         }
 
-        throwHttpError(json, response)
+        return throwHttpError(json, response)
       } catch (error) {
         request.logger.error(error)
 

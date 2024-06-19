@@ -50,6 +50,14 @@
                       <a class="app-link" href="/services/{{ deployment.service }}">{{ deployment.service }}</a>
                     </p>
 
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Team</h2>
+                    <p>
+                      {% for team in teams %}
+                        <a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a>
+                        {% if not loop.last %}, {% endif %}
+                      {% endfor %}
+                    </p>
+
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Version</h2>
                     <p>
                       <a class="app-link"

@@ -7,6 +7,7 @@ function populateSelectOptions($controller) {
     return
   }
 
+  const isLoadingClassName = 'app-loader--is-loading'
   const $target = document.querySelector(
     `[data-js*="${$controller.getAttribute('data-target')}"]`
   )
@@ -28,7 +29,7 @@ function populateSelectOptions($controller) {
 
   $controller.addEventListener('change', async (event) => {
     const delayedLoader = setTimeout(() => {
-      $loader.classList.add('app-loader--is-loading')
+      $loader.classList.add(isLoadingClassName)
     }, 200)
 
     const value = event?.target?.value
@@ -40,7 +41,7 @@ function populateSelectOptions($controller) {
       const options = await dataFetcher(value)
 
       clearTimeout(delayedLoader)
-      $loader?.classList?.remove('app-loader--is-loading')
+      $loader?.classList?.remove(isLoadingClassName)
 
       const optionsWithPrependedBlank = [
         defaultOption,
@@ -52,7 +53,7 @@ function populateSelectOptions($controller) {
       clientNotification(error.message)
 
       clearTimeout(delayedLoader)
-      $loader?.classList?.remove('app-loader--is-loading')
+      $loader?.classList?.remove(isLoadingClassName)
     }
   })
 }

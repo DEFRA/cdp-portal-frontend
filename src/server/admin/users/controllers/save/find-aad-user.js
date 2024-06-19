@@ -21,8 +21,8 @@ const findAadUserController = {
     const button = payload?.button
     const redirectLocation = payload?.redirectLocation
 
-    const aadQuery = payload?.aadQuery || null
-    const email = payload?.email || null
+    const aadQuery = payload?.aadQuery
+    const email = payload?.email
 
     const validationResult = aadIdValidation(button).validate(payload, {
       abortEarly: false
@@ -43,8 +43,8 @@ const findAadUserController = {
 
       const queryString = qs.stringify(
         {
-          ...(redirectLocation && { redirectLocation }),
-          ...(aadQuery && { aadQuery })
+          redirectLocation,
+          aadQuery
         },
         { addQueryPrefix: true }
       )
@@ -58,7 +58,8 @@ const findAadUserController = {
       )
       const aadUserDetails = searchAadUsersResponse?.users ?? []
       const aadUser = aadUserDetails?.at(0)
-      const isSameAsSession = aadUser?.mail && cdpUser?.email === aadUser?.email
+      const isSameEmail = cdpUser?.email === aadUser?.email
+      const isSameAsSession = aadUser?.mail && isSameEmail
 
       const updatedCdpUser = await saveToCdpUser(request, h, {
         ...sanitisedPayload,
@@ -69,12 +70,10 @@ const findAadUserController = {
 
       await setStepComplete(request, h, 'stepOne', updatedCdpUser)
 
-      const queryString = qs.stringify(
-        {
-          ...(updatedCdpUser?.github && { githubSearch: updatedCdpUser.github })
-        },
-        { addQueryPrefix: true }
-      )
+      const usersGitHub = updatedCdpUser?.github
+      const queryString = usersGitHub
+        ? qs.stringify({ githubSearch: usersGitHub }, { addQueryPrefix: true })
+        : ''
 
       const redirectTo = redirectLocation
         ? `/admin/users/${redirectLocation}`
