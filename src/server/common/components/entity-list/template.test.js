@@ -1,6 +1,6 @@
 import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { deploymentsToEntityRow } from '~/src/server/deployments/transformers/deployments-to-entity-row'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
+import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
 
 describe('Entity List Component', () => {
   let $entityList
@@ -24,7 +24,7 @@ describe('Entity List Component', () => {
           { text: 'By', size: 'small' },
           { text: 'On', size: 'large' }
         ],
-        entityRows: [deploymentsFixture.data.at(0)].map(deploymentsToEntityRow),
+        entityRows: deploymentEntityRows([deploymentsFixture.data.at(0)]),
         noResult: 'Currently there are no deployed microservices'
       })
     })
