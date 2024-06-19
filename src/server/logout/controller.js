@@ -1,9 +1,10 @@
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 import { removeAuthenticatedUser } from '~/src/server/common/helpers/auth/user-session'
+import { provideCdpRequestId } from '~/src/server/common/helpers/audit/pre/provide-cdp-request-id'
 
 const logoutController = {
   options: {
-    pre: [provideAuthedUser]
+    pre: [provideAuthedUser, provideCdpRequestId]
   },
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
