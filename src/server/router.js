@@ -15,6 +15,7 @@ import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files
 import { login } from '~/src/server/login'
 import { logout } from '~/src/server/logout'
 import { testSuites } from '~/src/server/test-suites'
+import { cookies } from '~/src/server/cookies'
 
 const router = {
   plugin: {
@@ -24,19 +25,20 @@ const router = {
       await server.register([
         admin,
         auth,
-        login,
-        logout,
-        health,
-        home,
+        cookies,
         create,
         deployService,
         deployments,
+        health,
+        home,
+        login,
+        logout,
         runningServices,
+        serveStaticFiles,
         services,
-        testSuites,
         teams,
-        utilities,
-        serveStaticFiles
+        testSuites,
+        utilities
       ])
     }
   }

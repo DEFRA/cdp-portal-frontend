@@ -1,6 +1,12 @@
 .app-footer {
-  padding: govuk-spacing(4) govuk-spacing(6);
+  padding: govuk-spacing(6);
   min-height: govuk-spacing(8);
   border-top: 1px solid $app-grey;
   background-color: $app-light-grey;
+}
+
+.app-footer__list {
+  padding: 0;
+  display: flex;
+  list-style: none;
 }
