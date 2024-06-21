@@ -21,7 +21,9 @@ describe('#testSuiteToEntityDataList', () => {
             url: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
             value: 'DEFRA/cdp-portal-smoke-tests'
           },
-          heading: 'GitHub Repository'
+          heading: {
+            text: 'GitHub Repository'
+          }
         },
         {
           entity: {
@@ -34,14 +36,18 @@ describe('#testSuiteToEntityDataList', () => {
               }
             ]
           },
-          heading: 'Team'
+          heading: {
+            text: 'Team'
+          }
         },
         {
           entity: {
             kind: 'text',
             value: 'JavaScript'
           },
-          heading: 'Language'
+          heading: {
+            text: 'Language'
+          }
         },
         {
           entity: {
@@ -89,14 +95,18 @@ describe('#testSuiteToEntityDataList', () => {
               }
             ]
           },
-          heading: 'Topics'
+          heading: {
+            text: 'Topics'
+          }
         },
         {
           entity: {
             kind: 'date',
             value: '2023-04-12T17:16:48+00:00'
           },
-          heading: 'Repository Created'
+          heading: {
+            text: 'Repository Created'
+          }
         }
       ])
     })

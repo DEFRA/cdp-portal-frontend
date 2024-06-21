@@ -7,7 +7,9 @@ function serviceToEntityDataList(service) {
 
   return [
     {
-      heading: 'GitHub Repository',
+      heading: {
+        text: 'GitHub Repository'
+      },
       entity: {
         kind: 'link',
         value: removeUrlParts(service.githubUrl),
@@ -16,7 +18,7 @@ function serviceToEntityDataList(service) {
       }
     },
     {
-      heading: `Team${service?.teams?.length > 1 ? 's' : ''}`,
+      heading: { text: `Team${service?.teams?.length > 1 ? 's' : ''}` },
       entity: {
         kind: 'list',
         value: service?.teams?.map((team) => ({
@@ -29,7 +31,9 @@ function serviceToEntityDataList(service) {
     ...(service?.primaryLanguage
       ? [
           {
-            heading: 'Language',
+            heading: {
+              text: 'Language'
+            },
             entity: {
               kind: 'text',
               value: service.primaryLanguage
@@ -40,7 +44,9 @@ function serviceToEntityDataList(service) {
     ...(service?.imageName
       ? [
           {
-            heading: 'Docker Hub',
+            heading: {
+              text: 'Docker Hub'
+            },
             entity: {
               kind: 'link',
               value: removeUrlParts(dockerHubServicePage, 4),
@@ -53,7 +59,10 @@ function serviceToEntityDataList(service) {
     ...(service?.topics?.length
       ? [
           {
-            heading: 'Topics',
+            heading: {
+              text: 'Topics',
+              classes: 'govuk-!-margin-bottom-1'
+            },
             entity: {
               kind: 'group',
               value: service?.topics?.map((topic) => ({
@@ -71,7 +80,9 @@ function serviceToEntityDataList(service) {
         ]
       : []),
     {
-      heading: 'Repository Created',
+      heading: {
+        text: 'Repository Created'
+      },
       entity: { kind: 'date', value: service.createdAt }
     }
   ]

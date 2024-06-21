@@ -5,7 +5,9 @@ function transformCdpTeamToEntityDataList(team) {
 
   return [
     {
-      heading: 'GitHub team',
+      heading: {
+        text: 'GitHub team'
+      },
       entity: {
         kind: 'link',
         value: team.github ? `@${team.github}` : null,
@@ -14,7 +16,9 @@ function transformCdpTeamToEntityDataList(team) {
       }
     },
     {
-      heading: 'Created',
+      heading: {
+        text: 'Created'
+      },
       entity: {
         kind: 'date',
         value: team.createdAt

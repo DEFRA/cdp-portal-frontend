@@ -3,7 +3,9 @@ import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 function testSuiteToEntityDataList(testSuite) {
   return [
     {
-      heading: 'GitHub Repository',
+      heading: {
+        text: 'GitHub Repository'
+      },
       entity: {
         kind: 'link',
         value: removeUrlParts(testSuite.githubUrl),
@@ -12,7 +14,7 @@ function testSuiteToEntityDataList(testSuite) {
       }
     },
     {
-      heading: `Team${testSuite?.teams?.length > 1 ? 's' : ''}`,
+      heading: { text: `Team${testSuite?.teams?.length > 1 ? 's' : ''}` },
       entity: {
         kind: 'list',
         value: testSuite?.teams?.map((team) => ({
@@ -25,7 +27,9 @@ function testSuiteToEntityDataList(testSuite) {
     ...(testSuite?.primaryLanguage
       ? [
           {
-            heading: 'Language',
+            heading: {
+              text: 'Language'
+            },
             entity: {
               kind: 'text',
               value: testSuite.primaryLanguage
@@ -36,7 +40,9 @@ function testSuiteToEntityDataList(testSuite) {
     ...(testSuite?.topics?.length
       ? [
           {
-            heading: 'Topics',
+            heading: {
+              text: 'Topics'
+            },
             entity: {
               kind: 'group',
               value: testSuite?.topics?.map((topic) => ({
@@ -54,7 +60,9 @@ function testSuiteToEntityDataList(testSuite) {
         ]
       : []),
     {
-      heading: 'Repository Created',
+      heading: {
+        text: 'Repository Created'
+      },
       entity: { kind: 'date', value: testSuite.createdAt }
     }
   ]

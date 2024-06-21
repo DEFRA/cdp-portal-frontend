@@ -9,9 +9,9 @@
 
   <dl class="app-data-list" data-testid="app-data-list">
     {% for item in params.items %}
-      <dt class="app-data-list-heading"
+      <dt class="app-data-list-heading{% if item.heading.classes %} {{ item.heading.classes }}{% endif %}"
           data-testid="app-data-list-heading-{{ loop.index }}">
-        {{ item.heading }}
+        {{ item.heading.text }}
       </dt>
       <dd class="app-data-list-item"
           data-testid="app-data-list-item-{{ loop.index }}">

@@ -14,14 +14,18 @@ describe('#transformCdpTeamToEntityDataList', () => {
           url: `https://github.com/orgs/${githubOrg}/teams/cdp-platform`,
           value: '@cdp-platform'
         },
-        heading: 'GitHub team'
+        heading: {
+          text: 'GitHub team'
+        }
       },
       {
         entity: {
           kind: 'date',
           value: '2023-09-28T12:52:14.673Z'
         },
-        heading: 'Created'
+        heading: {
+          text: 'Created'
+        }
       }
     ])
   })
