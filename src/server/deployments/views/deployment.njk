@@ -45,12 +45,12 @@
               <section>
                 <div class="app-row">
                   <div class="app-row__item-flex-two">
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Service</h2>
                     <p>
                       <a class="app-link" href="/services/{{ deployment.service }}">{{ deployment.service }}</a>
                     </p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Team</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Team</h2>
                     <p>
                       {% for team in teams %}
                         <a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a>
@@ -58,7 +58,7 @@
                       {% endfor %}
                     </p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Version</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Version</h2>
                     <p>
                       <a class="app-link"
                          href="https://github.com/DEFRA/{{ deployment.service }}/releases/tag/{{ deployment.version }}"
@@ -76,23 +76,23 @@
                       }) }}
                     </p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Deployed by</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Deployed by</h2>
                     <p>{{ deployment.user.displayName | sanitiseUser }}</p>
                   </div>
 
                   <div class="app-row__item-flex-two">
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Instance count</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Instance count</h2>
                     <p>
                       {{ noValue if deployment.instanceCount | isNil else deployment.instanceCount }}
                     </p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">CPU</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">CPU</h2>
                     <p>{{ deployment.cpu if deployment.cpu else noValue }}</p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Memory</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Memory</h2>
                     <p>{{ deployment.memory if deployment.memory  else noValue }}</p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Image name</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Image name</h2>
                     <p>{{ deployment.service }}</p>
                   </div>
 
@@ -114,7 +114,7 @@
 
                     {% if deployment.isFrontend %}
 
-                      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Application link</h2>
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Application link</h2>
                       <p>
                         <a class="app-link"
                            href="https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud"
@@ -127,7 +127,7 @@
 
                     {% if deployment.isBackend %}
 
-                      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">API root url</h2>
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-0">API root url</h2>
                       <p>
                         <a class="app-link"
                            href="https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud"
@@ -138,7 +138,7 @@
 
                     {% endif %}
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Application logs</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Application logs</h2>
                     <p>
                       {{ appLogsDashboardLink({
                         serviceName: deployment.service,
@@ -146,7 +146,7 @@
                       }) }}
                     </p>
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Updated</h2>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Updated</h2>
                     <p>
                       {{ appTime({ datetime: deployment.updated, formatString: "k:mm:ss EE do MMM yyyy" }) }}
                     </p>
