@@ -1,6 +1,10 @@
 import { userController } from '~/src/server/admin/users/controllers/user'
 import { usersListController } from '~/src/server/admin/users/controllers/users-list'
 import {
+  confirmUserDelete,
+  deleteUserController
+} from '~/src/server/admin/users/controllers/delete'
+import {
   startCreateUserController,
   findAadUserFormController,
   findAadUserController,
@@ -27,5 +31,7 @@ export {
   userSummaryController,
   createUserController,
   startEditUserController,
-  editUserController
+  editUserController,
+  confirmUserDelete,
+  deleteUserController
 }
