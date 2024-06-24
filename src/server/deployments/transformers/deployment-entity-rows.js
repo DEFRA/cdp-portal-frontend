@@ -18,7 +18,7 @@ function deploymentToEntityRow(deployment) {
       }`
     },
     {
-      kind: 'list',
+      kind: 'group',
       value: deployment?.teams?.map((team) => ({
         kind: 'link',
         value: team.name,

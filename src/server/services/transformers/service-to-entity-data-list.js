@@ -20,7 +20,7 @@ function serviceToEntityDataList(service) {
     {
       heading: { text: `Team${service?.teams?.length > 1 ? 's' : ''}` },
       entity: {
-        kind: 'list',
+        kind: 'group',
         value: service?.teams?.map((team) => ({
           kind: 'link',
           value: team.name,

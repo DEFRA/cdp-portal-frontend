@@ -25,7 +25,7 @@ describe('#serviceToEntityDataList', () => {
         },
         {
           entity: {
-            kind: 'list',
+            kind: 'group',
             value: [
               {
                 kind: 'link',
@@ -94,7 +94,7 @@ describe('#serviceToEntityDataList', () => {
         },
         {
           entity: {
-            kind: 'list',
+            kind: 'group',
             value: [
               {
                 kind: 'link',
