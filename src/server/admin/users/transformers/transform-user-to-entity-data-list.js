@@ -30,6 +30,23 @@ function transformUserToEntityDataList(user) {
         newWindow: true
       }
     },
+    ...(user?.teams.length
+      ? [
+          {
+            heading: {
+              text: 'Teams'
+            },
+            entity: {
+              kind: 'list',
+              value: user.teams.map((team) => ({
+                kind: 'link',
+                value: team.name,
+                url: '/admin/teams/' + team.teamId
+              }))
+            }
+          }
+        ]
+      : []),
     {
       heading: {
         text: 'Defra Aws Id'

@@ -36,6 +36,26 @@ describe('#transformUserToEntityDataList', () => {
       },
       {
         entity: {
+          kind: 'list',
+          value: [
+            {
+              kind: 'link',
+              url: '/admin/teams/9e068bb9-1452-426e-a4ca-2e675a942a89',
+              value: 'Bees'
+            },
+            {
+              kind: 'link',
+              url: '/admin/teams/6ed0400a-a8a0-482b-b45a-109634cd1274',
+              value: 'Trees-and-forests'
+            }
+          ]
+        },
+        heading: {
+          text: 'Teams'
+        }
+      },
+      {
+        entity: {
           kind: 'text',
           value: 'FGHyu-232342-234234'
         },
