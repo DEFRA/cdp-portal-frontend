@@ -1,4 +1,4 @@
-import { Url } from 'node:url'
+import { URL } from 'node:url'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 
 import { config } from '~/src/config'
@@ -8,7 +8,8 @@ const proxyAgent = () => {
   if (!proxy) {
     return null
   } else {
-    const proxyUrl = new Url(proxy)
+    const proxyUrl = new URL(proxy)
+
     return {
       url: proxyUrl,
       agent: new HttpsProxyAgent(proxyUrl)
