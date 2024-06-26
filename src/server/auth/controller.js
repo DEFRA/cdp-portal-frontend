@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import { v4 as uuidv4 } from 'uuid'
 
-import { createUserSession } from '~/src/server/common/helpers/auth/user-session'
+// import { createUserSession } from '~/src/server/common/helpers/auth/user-session'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCdpRequestId } from '~/src/server/common/helpers/audit/pre/provide-cdp-request-id'
 
@@ -17,7 +17,7 @@ const authCallbackController = {
     if (request.auth.isAuthenticated) {
       const sessionId = uuidv4()
 
-      await createUserSession(request, sessionId)
+      // await createUserSession(request, sessionId)
 
       request.sessionCookie.set({ sessionId })
 
