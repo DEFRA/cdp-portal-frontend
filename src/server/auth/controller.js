@@ -15,6 +15,8 @@ const authCallbackController = {
   },
   handler: async (request, h) => {
     if (request.auth.isAuthenticated) {
+      request.logger.info(`Is Authenticated: ${request.auth.isAuthenticated}`)
+
       const sessionId = uuidv4()
 
       await createUserSession(request, sessionId)
