@@ -26,9 +26,11 @@ import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
 import { sanitise } from '~/src/server/common/helpers/sanitisation/sanitise'
 import { auditing } from '~/src/server/common/helpers/audit/auditor-plugin'
 import { proxyAgent } from '~/src/server/common/helpers/fetch/proxy-agent'
+import { createLogger } from '~/src/server/common/helpers/logging/logger'
 
 const client = buildRedisClient()
 const isProduction = config.get('isProduction')
+const logger = createLogger()
 
 /**
  * Provide proxyAgent to Wreck http client utils
@@ -41,6 +43,7 @@ function setupWreckProxyAgent(proxy) {
       http: proxy.agent,
       httpsAllowUnauthorized: proxy.agent
     }
+    logger.info(Wreck.agents, 'Wreck agents')
   }
 }
 
