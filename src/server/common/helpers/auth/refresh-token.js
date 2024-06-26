@@ -1,5 +1,5 @@
 import { config } from '~/src/config'
-import { proxyFetch } from '~/src/server/common/helpers/fetch/proxy-fetch'
+import { proxyFetch } from '~/src/server/common/helpers/proxy/proxy-fetch'
 
 async function refreshAccessToken(request) {
   const authedUser = await request.getUserSession()
