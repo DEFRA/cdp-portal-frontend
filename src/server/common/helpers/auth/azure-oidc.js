@@ -1,5 +1,6 @@
 import jwt from '@hapi/jwt'
-import hapiBell from '@hapi/bell'
+import bell from '@hapi/bell'
+import Wreck from '@hapi/wreck'
 
 import { config } from '~/src/config'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch'
@@ -15,33 +16,26 @@ async function provideCdpGroups(groups = []) {
 }
 
 /**
- * Provide proxyAgent to bell internal http client utils, Wreck
- * @param bell
- * @returns bell
+ * Provide proxyAgent to bells internal http client utils, Wreck
+ * @param proxy
  */
-function setupBell(bell) {
-  const proxy = proxyAgent()
-
+function setupBellHttpClientProxyAgent(proxy) {
   if (proxy?.agent) {
-    bell.oauth.v2({
-      wreck: {
-        agents: {
-          https: proxy.agent,
-          http: proxy.agent,
-          httpsAllowUnauthorized: proxy.agent
-        }
-      }
-    })
+    Wreck.agents = {
+      https: proxy.agent,
+      http: proxy.agent,
+      httpsAllowUnauthorized: proxy.agent
+    }
   }
-
-  return bell
 }
 
 const azureOidc = {
   plugin: {
     name: 'azure-oidc',
     register: async (server) => {
-      await server.register(setupBell(hapiBell))
+      setupBellHttpClientProxyAgent(proxyAgent())
+
+      await server.register(bell)
 
       const oidc = await proxyFetch(
         config.get('oidcWellKnownConfigurationUrl')
