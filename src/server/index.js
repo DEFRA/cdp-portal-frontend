@@ -1,6 +1,7 @@
 import qs from 'qs'
 import path from 'path'
 import hapi from '@hapi/hapi'
+import Wreck from '@hapi/wreck'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router'
@@ -24,11 +25,28 @@ import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/u
 import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
 import { sanitise } from '~/src/server/common/helpers/sanitisation/sanitise'
 import { auditing } from '~/src/server/common/helpers/audit/auditor-plugin'
+import { proxyAgent } from '~/src/server/common/helpers/fetch/proxy-agent'
 
 const client = buildRedisClient()
 const isProduction = config.get('isProduction')
 
+/**
+ * Provide proxyAgent to Wreck http client utils
+ * @param proxy
+ */
+function setupWreckProxyAgent(proxy) {
+  if (proxy?.agent) {
+    Wreck.agents = {
+      https: proxy.agent,
+      http: proxy.agent,
+      httpsAllowUnauthorized: proxy.agent
+    }
+  }
+}
+
 async function createServer() {
+  setupWreckProxyAgent(proxyAgent())
+
   const server = hapi.server({
     port: config.get('port'),
     routes: {
