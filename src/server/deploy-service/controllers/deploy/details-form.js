@@ -7,7 +7,6 @@ import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetc
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-environments'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions'
 import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
 import { withEnvironments } from '~/src/server/common/transformers/with-environments'
@@ -17,6 +16,7 @@ import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 
 async function getAdditionalData(imageName) {
   if (!imageName) {
@@ -69,7 +69,8 @@ const detailsFormController = {
 
     const deployableImageNames = await fetchDeployableImageNames({ request })
     const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
-    const environments = await fetchEnvironments(request)
+    const authedUser = await request.getUserSession()
+    const environments = getEnvironments(authedUser?.isAdmin)
     const environmentOptions = environments ? buildOptions(environments) : []
 
     const {
