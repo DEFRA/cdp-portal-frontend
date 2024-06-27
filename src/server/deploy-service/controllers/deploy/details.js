@@ -9,7 +9,7 @@ import {
 import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchEnvironments } from '~/src/server/common/helpers/fetch/fetch-environments'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 
 const detailsController = {
   handler: async (request, h) => {
@@ -18,7 +18,8 @@ const detailsController = {
 
     const deployableImageNames = await fetchDeployableImageNames({ request })
     const availableVersions = await fetchAvailableVersions(payload?.imageName)
-    const environments = await fetchEnvironments(request)
+    const authedUser = await request.getUserSession()
+    const environments = getEnvironments(authedUser?.isAdmin)
 
     const validationResult = serviceValidation(
       deployableImageNames,
