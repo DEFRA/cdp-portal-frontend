@@ -53,34 +53,36 @@ const microserviceCreateController = {
       const selfServiceOpsCreateServiceEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-microservice'
 
-      const { json, response } = await request.authedFetcher(
-        selfServiceOpsCreateServiceEndpointUrl,
-        {
-          method: 'post',
-          body: JSON.stringify(sanitisedPayload)
+      try {
+        const { json, response } = await request.authedFetcher(
+          selfServiceOpsCreateServiceEndpointUrl,
+          {
+            method: 'post',
+            body: JSON.stringify(sanitisedPayload)
+          }
+        )
+
+        if (response.ok) {
+          await setStepComplete(request, h, 'allSteps')
+
+          request.yar.clear(sessionNames.validationFailure)
+          await request.yar.commit(h)
+
+          request.yar.flash(sessionNames.notifications, {
+            text: json.message,
+            type: 'success'
+          })
+
+          return h.redirect(`/services/create-status/${json.repositoryName}`)
         }
-      )
-
-      if (response.ok) {
-        await setStepComplete(request, h, 'allSteps')
-
-        request.yar.clear(sessionNames.validationFailure)
-        await request.yar.commit(h)
-
-        request.yar.flash(sessionNames.notifications, {
-          text: json.message,
-          type: 'success'
+      } catch (error) {
+        request.yar.flash(sessionNames.validationFailure, {
+          formValues: sanitisedPayload
         })
+        request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-        return h.redirect(`/services/create-status/${json.repositoryName}`)
+        return h.redirect('/create/microservice/summary')
       }
-
-      request.yar.flash(sessionNames.validationFailure, {
-        formValues: sanitisedPayload
-      })
-      request.yar.flash(sessionNames.globalValidationFailures, json.message)
-
-      return h.redirect('/create/microservice/summary')
     }
   }
 }

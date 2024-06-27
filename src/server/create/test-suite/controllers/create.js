@@ -44,32 +44,34 @@ const testSuiteCreateController = {
       const selfServiceOpsCreateTestSuiteEndpointUrl =
         config.get('selfServiceOpsApiUrl') + '/create-tests'
 
-      const { json, response } = await request.authedFetcher(
-        selfServiceOpsCreateTestSuiteEndpointUrl,
-        {
-          method: 'post',
-          body: JSON.stringify(sanitisedPayload)
+      try {
+        const { json, response } = await request.authedFetcher(
+          selfServiceOpsCreateTestSuiteEndpointUrl,
+          {
+            method: 'post',
+            body: JSON.stringify(sanitisedPayload)
+          }
+        )
+
+        if (response.ok) {
+          request.yar.clear(sessionNames.validationFailure)
+          await request.yar.commit(h)
+
+          request.yar.flash(sessionNames.notifications, {
+            text: json.message,
+            type: 'success'
+          })
+
+          return h.redirect('/create/test-suite/success')
         }
-      )
-
-      if (response.ok) {
-        request.yar.clear(sessionNames.validationFailure)
-        await request.yar.commit(h)
-
-        request.yar.flash(sessionNames.notifications, {
-          text: json.message,
-          type: 'success'
+      } catch (error) {
+        request.yar.flash(sessionNames.validationFailure, {
+          formValues: sanitisedPayload
         })
+        request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-        return h.redirect('/create/test-suite/success')
+        return h.redirect('/create/test-suite/summary')
       }
-
-      request.yar.flash(sessionNames.validationFailure, {
-        formValues: sanitisedPayload
-      })
-      request.yar.flash(sessionNames.globalValidationFailures, json.message)
-
-      return h.redirect('/create/test-suite/summary')
     }
   }
 }

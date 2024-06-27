@@ -18,44 +18,46 @@ const deployController = {
     const deployServiceEndpointUrl =
       config.get('selfServiceOpsApiUrl') + '/deploy-service'
 
-    const { json, response } = await request.authedFetcher(
-      deployServiceEndpointUrl,
-      {
-        method: 'post',
-        body: JSON.stringify({
-          imageName: deployment.imageName,
-          version: deployment.version,
-          environment: deployment.environment,
-          instanceCount: deployment.instanceCount,
-          cpu: deployment.cpu,
-          memory: deployment.memory
+    try {
+      const { json, response } = await request.authedFetcher(
+        deployServiceEndpointUrl,
+        {
+          method: 'post',
+          body: JSON.stringify({
+            imageName: deployment.imageName,
+            version: deployment.version,
+            environment: deployment.environment,
+            instanceCount: deployment.instanceCount,
+            cpu: deployment.cpu,
+            memory: deployment.memory
+          })
+        }
+      )
+
+      if (response.ok) {
+        await setStepComplete(request, h, 'allSteps')
+
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Deployment successfully requested',
+          type: 'success'
         })
+
+        const deploymentId = json.deploymentId
+
+        await request.audit.send(
+          request.pre?.cdpRequestId,
+          `deployment requested: ${deployment.imageName}:${deployment.version} to ${deployment.environment} by ${request.pre?.authedUser.id}:${request.pre?.authedUser.email}`
+        )
+
+        return h.redirect(
+          `/deployments/${deployment.environment}/${deploymentId}`
+        )
       }
-    )
+    } catch (error) {
+      request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-    if (response.ok) {
-      await setStepComplete(request, h, 'allSteps')
-
-      request.yar.flash(sessionNames.notifications, {
-        text: 'Deployment successfully requested',
-        type: 'success'
-      })
-
-      const deploymentId = json.deploymentId
-
-      await request.audit.send(
-        request.pre?.cdpRequestId,
-        `deployment requested: ${deployment.imageName}:${deployment.version} to ${deployment.environment} by ${request.pre?.authedUser.id}:${request.pre?.authedUser.email}`
-      )
-
-      return h.redirect(
-        `/deployments/${deployment.environment}/${deploymentId}`
-      )
+      return h.redirect('/deploy-service/summary')
     }
-
-    request.yar.flash(sessionNames.globalValidationFailures, json.message)
-
-    return h.redirect('/deploy-service/summary')
   }
 }
 
