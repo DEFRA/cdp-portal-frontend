@@ -4,7 +4,7 @@ import bell from '@hapi/bell'
 import { config } from '~/src/config'
 import { fetchTeams } from '~/src/server/teams/helpers/fetch'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { proxyFetch } from '~/src/server/common/helpers/fetch/proxy-fetch'
+import { proxyFetch } from '~/src/server/common/helpers/proxy/proxy-fetch'
 
 async function provideCdpGroups(groups = []) {
   const { teams: teamsWithGithub } = await fetchTeams(true)
