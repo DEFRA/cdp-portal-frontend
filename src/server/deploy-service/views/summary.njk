@@ -35,6 +35,24 @@
 
         </form>
       </div>
+
+       <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
+          <div class="app-row">
+            <div class="app-row__item-flex-two">
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
+              <p>
+                The service will be deployed with the following environment variables containing secret values:
+              </p>
+
+                 <ul class="govuk-list govuk-list--bullet">
+                  {% for secret in secrets %}
+                    <li class="secret-key">{{ secret }}=<em>******</em></li>
+                  {% endfor %}
+                 </ul>
+              </p>
+            </div>
+          </div>
+       </div>
     </div>
   </div>
 

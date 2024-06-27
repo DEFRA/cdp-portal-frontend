@@ -206,6 +206,53 @@
         </div>
       </article>
     {% endblock %}
+
+     <article>
+       <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+         <div class="app-grid-column app-grid-column-two-thirds-from-desktop-wide">
+           <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-4">
+             <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Config</h2>
+           <div>
+         </div>
+       </div>
+         {% call appPanel() %}
+           <section>
+             <div class="app-row">
+               <div class="app-row__item-flex-two">
+                 <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Global Config</h3>
+                 <p>Settings provided by the Platform to all services running in this environment.</p>
+                   <ul class="govuk-list govuk-list--bullet">
+                     <li> <a href='https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/global/global_protected_fixed.env'>Global Defaults (non-overridable)</a> </li>
+                     <li> <a href='https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/environments/{{ deployment.environment }}/defaults.env'>Environment Defaults ({{ deployment.environment }})</a> </li>
+                   </ul>
+                 </p>
+
+                 <p>
+                 <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Service Config</h3>
+                  <p>Settings specific to {{ deployment.service }}. These can be updated by raising and merging a pull request.</p>
+                  <ul class="govuk-list govuk-list--bullet">
+                    <li> <a href='https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/{{ deployment.environment }}/{{ deployment.service }}.env#1'>{{ deployment.service }} config for {{ deployment.environment }}</a> </li>
+                    <li> <a href='https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/defaults.env#0'>{{ deployment.service }} service defaults</a> </li>
+                  </ul>
+                 </p>
+               </div>
+
+               <div class="app-row__item-flex-two">
+                 <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
+                 <p>
+                    The service was deployed with the following environment variables containing secret values:
+                    <ul class="govuk-list govuk-list--bullet">
+                     {% for secret in deployment.secrets %}
+                       <li class="secret-key">{{ secret }}=******</li>
+                     {% endfor %}
+                    </ul>
+                 </p>
+               </div>
+             </div>
+           </section>
+           {% endcall %}
+     </article>
+
   </div>
 
 {% endblock %}

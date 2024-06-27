@@ -43,6 +43,7 @@ function setupWreckProxyAgent(proxy) {
       http: proxy.agent,
       httpsAllowUnauthorized: proxy.agent
     }
+
     logger.info(Wreck.agents, 'Wreck agents')
   }
 }
