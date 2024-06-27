@@ -20,7 +20,7 @@ const triggerTestSuiteRunController = {
       await fetchRunnableTestSuiteImageNames(request)
 
     const authedUser = await request.getUserSession()
-    const environments = getEnvironments(authedUser?.isAdmin)
+    const environments = Object.values(getEnvironments(authedUser?.isAdmin))
 
     const validationResult = testSuiteValidation(
       runnableTestSuiteImageNames,

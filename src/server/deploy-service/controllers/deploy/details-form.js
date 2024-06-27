@@ -71,7 +71,9 @@ const detailsFormController = {
     const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.isAdmin)
-    const environmentOptions = environments ? buildOptions(environments) : []
+    const environmentOptions = environments
+      ? buildOptions(Object.values(environments))
+      : []
 
     const {
       runningServicesEntityRows,
