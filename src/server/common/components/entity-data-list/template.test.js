@@ -2,14 +2,18 @@ import { renderTestComponent } from '~/test-helpers/component-helpers'
 
 const dataListFixture = [
   {
-    heading: 'Apples',
+    heading: {
+      text: 'Apples'
+    },
     entity: {
       kind: 'text',
       value: 'Russet'
     }
   },
   {
-    heading: 'Oranges',
+    heading: {
+      text: 'Oranges'
+    },
     entity: {
       kind: 'link',
       value: 'The man from Del monte',
@@ -18,7 +22,9 @@ const dataListFixture = [
     }
   },
   {
-    heading: 'Pears',
+    heading: {
+      text: 'Pears'
+    },
     entity: {
       kind: 'text',
       value: 'Comice'

@@ -16,9 +16,8 @@ const createUserController = {
     const cdpUser = request.pre?.cdpUser
     const createUserEndpointUrl = `${config.get('userServiceApiUrl')}/users`
 
-    const { json, response } = await request.authedFetcher(
-      createUserEndpointUrl,
-      {
+    try {
+      const { response } = await request.authedFetcher(createUserEndpointUrl, {
         method: 'post',
         body: JSON.stringify(
           removeNil({
@@ -30,23 +29,23 @@ const createUserController = {
             defraAwsId: cdpUser.defraAwsId
           })
         )
-      }
-    )
-
-    if (response.ok) {
-      await setStepComplete(request, h, 'allSteps')
-
-      request.yar.flash(sessionNames.notifications, {
-        text: 'User created',
-        type: 'success'
       })
 
-      return h.redirect('/admin/users')
+      if (response.ok) {
+        await setStepComplete(request, h, 'allSteps')
+
+        request.yar.flash(sessionNames.notifications, {
+          text: 'User created',
+          type: 'success'
+        })
+
+        return h.redirect('/admin/users')
+      }
+    } catch (error) {
+      request.yar.flash(sessionNames.globalValidationFailures, error.message)
+
+      return h.redirect('/admin/users/summary')
     }
-
-    request.yar.flash(sessionNames.globalValidationFailures, json.message)
-
-    return h.redirect('/admin/users/summary')
   }
 }
 

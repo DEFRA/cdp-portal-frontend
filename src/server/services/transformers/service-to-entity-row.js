@@ -24,7 +24,7 @@ function serviceToEntityRow(service) {
         : `/services/${service.serviceName}`
     },
     {
-      kind: 'list',
+      kind: 'group',
       value: service?.teams?.map((team) => ({
         kind: 'link',
         value: team.name,

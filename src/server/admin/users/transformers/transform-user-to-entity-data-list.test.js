@@ -9,7 +9,9 @@ describe('#transformUserToEntityDataList', () => {
           kind: 'text',
           value: 'B. A. Baracus'
         },
-        heading: 'Name'
+        heading: {
+          text: 'Name'
+        }
       },
       {
         entity: {
@@ -17,7 +19,9 @@ describe('#transformUserToEntityDataList', () => {
           url: 'mailto:B.A.Baracus@defradev.onmicrosoft.com',
           value: 'B.A.Baracus@defradev.onmicrosoft.com'
         },
-        heading: 'Email'
+        heading: {
+          text: 'Email'
+        }
       },
       {
         entity: {
@@ -26,28 +30,56 @@ describe('#transformUserToEntityDataList', () => {
           url: 'https://github.com/BABaracus',
           value: '@BABaracus'
         },
-        heading: 'GitHub'
+        heading: {
+          text: 'GitHub'
+        }
+      },
+      {
+        entity: {
+          kind: 'list',
+          value: [
+            {
+              kind: 'link',
+              url: '/admin/teams/9e068bb9-1452-426e-a4ca-2e675a942a89',
+              value: 'Bees'
+            },
+            {
+              kind: 'link',
+              url: '/admin/teams/6ed0400a-a8a0-482b-b45a-109634cd1274',
+              value: 'Trees-and-forests'
+            }
+          ]
+        },
+        heading: {
+          text: 'Teams'
+        }
       },
       {
         entity: {
           kind: 'text',
           value: 'FGHyu-232342-234234'
         },
-        heading: 'Defra Aws Id'
+        heading: {
+          text: 'Defra Aws Id'
+        }
       },
       {
         entity: {
           kind: 'text',
           value: '345345-345345'
         },
-        heading: 'Defra Vpn Id'
+        heading: {
+          text: 'Defra Vpn Id'
+        }
       },
       {
         entity: {
           kind: 'date',
           value: '2023-08-23T16:17:57.883Z'
         },
-        heading: 'Created'
+        heading: {
+          text: 'Created'
+        }
       }
     ])
   })

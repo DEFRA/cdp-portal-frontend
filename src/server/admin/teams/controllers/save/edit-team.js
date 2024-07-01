@@ -14,26 +14,28 @@ const editTeamController = {
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
 
-    const { json, response } = await editTeam(request, cdpTeam.teamId, {
-      name: cdpTeam.name,
-      description: cdpTeam.description,
-      github: cdpTeam.github
-    })
-
-    if (response.ok) {
-      await setStepComplete(request, h, 'allSteps')
-
-      request.yar.flash(sessionNames.notifications, {
-        text: 'Team updated',
-        type: 'success'
+    try {
+      const { response } = await editTeam(request, cdpTeam.teamId, {
+        name: cdpTeam.name,
+        description: cdpTeam.description,
+        github: cdpTeam.github
       })
 
-      return h.redirect('/admin/teams/' + cdpTeam.teamId)
+      if (response.ok) {
+        await setStepComplete(request, h, 'allSteps')
+
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Team updated',
+          type: 'success'
+        })
+
+        return h.redirect('/admin/teams/' + cdpTeam.teamId)
+      }
+    } catch (error) {
+      request.yar.flash(sessionNames.globalValidationFailures, error.message)
+
+      return h.redirect('/admin/teams/summary')
     }
-
-    request.yar.flash(sessionNames.globalValidationFailures, json.message)
-
-    return h.redirect('/admin/teams/summary')
   }
 }
 

@@ -19,11 +19,13 @@ describe('#serviceToEntityDataList', () => {
             url: `https://github.com/${githubOrg}/cdp-deployables`,
             value: `${githubOrg}/cdp-deployables`
           },
-          heading: 'GitHub Repository'
+          heading: {
+            text: 'GitHub Repository'
+          }
         },
         {
           entity: {
-            kind: 'list',
+            kind: 'group',
             value: [
               {
                 kind: 'link',
@@ -32,14 +34,18 @@ describe('#serviceToEntityDataList', () => {
               }
             ]
           },
-          heading: 'Team'
+          heading: {
+            text: 'Team'
+          }
         },
         {
           entity: {
             kind: 'text',
             value: 'C#'
           },
-          heading: 'Language'
+          heading: {
+            text: 'Language'
+          }
         },
         {
           entity: {
@@ -48,14 +54,18 @@ describe('#serviceToEntityDataList', () => {
             url: 'https://hub.docker.com/r/defradigital/cdp-portal-deployables-backend/tags',
             value: 'defradigital/cdp-portal-deployables-backend/tags'
           },
-          heading: 'Docker Hub'
+          heading: {
+            text: 'Docker Hub'
+          }
         },
         {
           entity: {
             kind: 'date',
             value: '2023-04-05T08:56:52Z'
           },
-          heading: 'Repository Created'
+          heading: {
+            text: 'Repository Created'
+          }
         }
       ])
     })
@@ -78,11 +88,13 @@ describe('#serviceToEntityDataList', () => {
             url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
             value: `${githubOrg}/cdp-portal-frontend`
           },
-          heading: 'GitHub Repository'
+          heading: {
+            text: 'GitHub Repository'
+          }
         },
         {
           entity: {
-            kind: 'list',
+            kind: 'group',
             value: [
               {
                 kind: 'link',
@@ -91,14 +103,18 @@ describe('#serviceToEntityDataList', () => {
               }
             ]
           },
-          heading: 'Team'
+          heading: {
+            text: 'Team'
+          }
         },
         {
           entity: {
             kind: 'text',
             value: 'JavaScript'
           },
-          heading: 'Language'
+          heading: {
+            text: 'Language'
+          }
         },
         {
           entity: {
@@ -146,14 +162,19 @@ describe('#serviceToEntityDataList', () => {
               }
             ]
           },
-          heading: 'Topics'
+          heading: {
+            text: 'Topics',
+            classes: 'govuk-!-margin-bottom-1'
+          }
         },
         {
           entity: {
             kind: 'date',
             value: '2023-04-12T17:16:48+00:00'
           },
-          heading: 'Repository Created'
+          heading: {
+            text: 'Repository Created'
+          }
         }
       ])
     })

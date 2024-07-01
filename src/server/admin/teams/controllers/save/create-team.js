@@ -16,31 +16,33 @@ const createTeamController = {
     const cdpTeam = request.pre?.cdpTeam
     const endpoint = config.get('userServiceApiUrl') + '/teams'
 
-    const { json, response } = await request.authedFetcher(endpoint, {
-      method: 'post',
-      body: JSON.stringify(
-        removeNil({
-          name: cdpTeam.name,
-          description: cdpTeam.description,
-          github: cdpTeam.github
-        })
-      )
-    })
-
-    if (response.ok) {
-      await setStepComplete(request, h, 'allSteps')
-
-      request.yar.flash(sessionNames.notifications, {
-        text: 'Team created',
-        type: 'success'
+    try {
+      const { response } = await request.authedFetcher(endpoint, {
+        method: 'post',
+        body: JSON.stringify(
+          removeNil({
+            name: cdpTeam.name,
+            description: cdpTeam.description,
+            github: cdpTeam.github
+          })
+        )
       })
 
-      return h.redirect('/admin/teams')
+      if (response.ok) {
+        await setStepComplete(request, h, 'allSteps')
+
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Team created',
+          type: 'success'
+        })
+
+        return h.redirect('/admin/teams')
+      }
+    } catch (error) {
+      request.yar.flash(sessionNames.globalValidationFailures, error.message)
+
+      return h.redirect('/admin/teams/summary')
     }
-
-    request.yar.flash(sessionNames.globalValidationFailures, json.message)
-
-    return h.redirect('/admin/teams/summary')
   }
 }
 

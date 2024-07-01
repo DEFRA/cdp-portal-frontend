@@ -1,3 +1,4 @@
+// Response from userServiceBackend/teams
 const cdpTeamsFixture = {
   message: 'success',
   teams: [
@@ -25,6 +26,7 @@ const cdpTeamsFixture = {
       createdAt: '2023-08-24T14:51:30.164Z',
       updatedAt: '2023-08-29T17:55:13.293Z',
       teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274',
+      github: 'trees-and-forests',
       users: [
         {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
@@ -38,6 +40,7 @@ const cdpTeamsFixture = {
       createdAt: '2023-08-24T15:55:11.751Z',
       updatedAt: '2023-08-30T06:29:42.216Z',
       teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89',
+      github: 'bees',
       users: [
         {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
@@ -55,6 +58,7 @@ const cdpTeamsFixture = {
       createdAt: '2023-08-24T15:55:11.751Z',
       updatedAt: '2023-08-30T06:29:42.216Z',
       teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+      github: 'cdp-platform',
       users: [
         {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',

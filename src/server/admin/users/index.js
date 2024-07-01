@@ -16,9 +16,12 @@ import {
   userSummaryController,
   createUserController,
   startEditUserController,
-  editUserController
+  editUserController,
+  confirmUserDelete,
+  deleteUserController
 } from '~/src/server/admin/users/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -51,6 +54,15 @@ const adminUsers = {
         }
       ])
 
+      server.method('fetchCdpUser', fetchCdpUser, {
+        cache: {
+          expiresIn: 60 * 1000,
+          staleIn: 40 * 1000,
+          staleTimeout: 10 * 1000,
+          generateTimeout: 100
+        }
+      })
+
       server.route(
         [
           {
@@ -72,6 +84,16 @@ const adminUsers = {
             method: 'GET',
             path: '/admin/users/{userId}/edit',
             ...startEditUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/{userId}/confirm-delete',
+            ...confirmUserDelete
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/{userId}/delete',
+            ...deleteUserController
           },
           {
             method: 'GET',

@@ -5,7 +5,9 @@ function teamToEntityDataList(team) {
 
   return [
     {
-      heading: 'GitHub team',
+      heading: {
+        text: 'GitHub team'
+      },
       entity: {
         kind: 'link',
         value: team.github ? `@${team.github}` : null,
@@ -14,21 +16,27 @@ function teamToEntityDataList(team) {
       }
     },
     {
-      heading: 'Members',
+      heading: {
+        text: 'Members'
+      },
       entity: {
         kind: 'text',
         value: team.users?.length
       }
     },
     {
-      heading: 'Last updated',
+      heading: {
+        text: 'Last updated'
+      },
       entity: {
         kind: 'date',
         value: team.updatedAt
       }
     },
     {
-      heading: 'Created',
+      heading: {
+        text: 'Created'
+      },
       entity: {
         kind: 'date',
         value: team.createdAt

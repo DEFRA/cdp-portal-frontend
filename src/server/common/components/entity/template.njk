@@ -70,7 +70,7 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
     {% elseif params.kind === "list" %}
       <ul class="app-entity__list">
         {% for entity in params.value %}
-          {{ appEntity(entity | assign({}, {isChild: true}, entity)) }}
+          {{ appEntity(entity | assign({}, { isChild: true }, entity)) }}
         {% endfor %}
       </ul>
 

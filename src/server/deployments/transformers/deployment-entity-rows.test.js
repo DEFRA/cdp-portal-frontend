@@ -12,7 +12,7 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-self-service-ops'
         },
         {
-          kind: 'list'
+          kind: 'group'
         },
         {
           kind: 'link',
@@ -42,7 +42,7 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-user-service-backend'
         },
         {
-          kind: 'list'
+          kind: 'group'
         },
         {
           kind: 'link',
@@ -72,7 +72,7 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-portal-backend'
         },
         {
-          kind: 'list',
+          kind: 'group',
           value: [
             {
               kind: 'link',
@@ -114,7 +114,7 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-portal-frontend'
         },
         {
-          kind: 'list'
+          kind: 'group'
         },
         {
           kind: 'link',
@@ -149,7 +149,7 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-portal-frontend'
         },
         {
-          kind: 'list'
+          kind: 'group'
         },
         {
           kind: 'link',

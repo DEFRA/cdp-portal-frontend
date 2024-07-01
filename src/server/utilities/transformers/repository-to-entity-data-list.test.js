@@ -18,14 +18,18 @@ describe('#serviceToEntityDataList', () => {
             }
           ]
         },
-        heading: 'Team'
+        heading: {
+          text: 'Team'
+        }
       },
       {
         entity: {
           kind: 'text',
           value: 'JavaScript'
         },
-        heading: 'Language'
+        heading: {
+          text: 'Language'
+        }
       },
       {
         entity: {
@@ -34,14 +38,18 @@ describe('#serviceToEntityDataList', () => {
           url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
           value: `${githubOrg}/cdp-portal-frontend`
         },
-        heading: 'GitHub Repository'
+        heading: {
+          text: 'GitHub Repository'
+        }
       },
       {
         entity: {
           kind: 'date',
           value: '2023-04-12T17:16:48+00:00'
         },
-        heading: 'Repository created'
+        heading: {
+          text: 'Repository created'
+        }
       }
     ])
   })

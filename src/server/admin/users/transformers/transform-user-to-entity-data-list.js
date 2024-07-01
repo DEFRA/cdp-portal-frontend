@@ -1,14 +1,18 @@
 function transformUserToEntityDataList(user) {
   return [
     {
-      heading: 'Name',
+      heading: {
+        text: 'Name'
+      },
       entity: {
         kind: 'text',
         value: user.name
       }
     },
     {
-      heading: 'Email',
+      heading: {
+        text: 'Email'
+      },
       entity: {
         kind: 'link',
         value: user.email,
@@ -16,7 +20,9 @@ function transformUserToEntityDataList(user) {
       }
     },
     {
-      heading: 'GitHub',
+      heading: {
+        text: 'GitHub'
+      },
       entity: {
         kind: 'link',
         value: user.github ? `@${user.github}` : null,
@@ -24,22 +30,45 @@ function transformUserToEntityDataList(user) {
         newWindow: true
       }
     },
+    ...(user?.teams.length
+      ? [
+          {
+            heading: {
+              text: 'Teams'
+            },
+            entity: {
+              kind: 'list',
+              value: user.teams.map((team) => ({
+                kind: 'link',
+                value: team.name,
+                url: '/admin/teams/' + team.teamId
+              }))
+            }
+          }
+        ]
+      : []),
     {
-      heading: 'Defra Aws Id',
+      heading: {
+        text: 'Defra Aws Id'
+      },
       entity: {
         kind: 'text',
         value: user.defraAwsId
       }
     },
     {
-      heading: 'Defra Vpn Id',
+      heading: {
+        text: 'Defra Vpn Id'
+      },
       entity: {
         kind: 'text',
         value: user.defraVpnId
       }
     },
     {
-      heading: 'Created',
+      heading: {
+        text: 'Created'
+      },
       entity: {
         kind: 'date',
         value: user.createdAt
