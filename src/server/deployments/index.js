@@ -1,8 +1,5 @@
-import qs from 'qs'
-
 import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs'
 import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters'
-import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
 import {
   deploymentController,
   deploymentsListController
@@ -20,17 +17,6 @@ const deployments = {
           staleTimeout: 10 * 1000,
           generateTimeout: 100
         }
-      })
-
-      server.method('fetchDeployments', fetchDeployments, {
-        cache: {
-          expiresIn: 60 * 1000,
-          staleIn: 40 * 1000,
-          staleTimeout: 10 * 1000,
-          generateTimeout: 100
-        },
-        generateKey: (environment, queryParams) =>
-          environment + qs.stringify(queryParams)
       })
 
       server.ext([

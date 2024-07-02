@@ -11,6 +11,7 @@ import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments'
 import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
+import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
 
 const deploymentsListController = {
   options: {
@@ -72,7 +73,7 @@ const deploymentsListController = {
       page,
       pageSize,
       totalPages
-    } = await request.server.methods.fetchDeployments(environment, {
+    } = await fetchDeployments(environment, {
       page: request.query?.page,
       size: request.query?.size,
       service: request.query.service,
