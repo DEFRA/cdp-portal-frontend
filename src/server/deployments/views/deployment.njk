@@ -23,7 +23,7 @@
         <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
           <div class="app-grid-column app-grid-column-two-thirds-from-desktop-wide">
 
-            <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-4">
+            <div class="app-row govuk-!-margin-top-4 govuk-!-margin-bottom-2">
               <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
               <div>
                 {{ appTag({
@@ -206,6 +206,63 @@
         </div>
       </article>
     {% endblock %}
+
+    <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      <div class="app-grid-column app-grid-column-two-thirds-from-desktop-wide">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">Configuration</h2>
+
+        {% call appPanel() %}
+          <section>
+            <div class="app-row">
+              <div class="app-row__item-flex-two">
+                <div class="govuk-!-margin-right-4">
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service Config</h2>
+
+                  <p class="govuk-!-margin-bottom-2">
+                    Environment variables included in this deployment can be seen in
+                  </p>
+
+                  <ul class="govuk-list govuk-list--bullet">
+                    <li>
+                      <a
+                        class="app-link"
+                        href="https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/{{ deployment.environment }}/{{ deployment.service }}.env"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {{ deployment.service }} - {{ deployment.environment }} - config
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="app-link"
+                        href="https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/defaults.env"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {{ deployment.service }} - defaults
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="app-row__item-flex-four">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
+
+                <p class="govuk-!-margin-bottom-2">
+                  The secret environment variables included in this deployment are:
+                </p>
+
+                <ul class="govuk-list govuk-!-margin-0">
+                  {% for secret in deployment.secrets | sort %}
+                    <li><code>{{ secret }}</code></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </section>
+        {% endcall %}
+      </div>
+    </div>
+
   </div>
 
 {% endblock %}
