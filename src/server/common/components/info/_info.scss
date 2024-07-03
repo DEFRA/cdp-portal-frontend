@@ -5,11 +5,11 @@
   margin: govuk-spacing(2) govuk-spacing(0);
   padding: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) govuk-spacing(1);
   background-color: $app-light-grey;
-  border-radius: $app-border-radius;
+  border-radius: $app-border-radius-right;
 }
 
 .app-info-icon {
-  margin-right: govuk-spacing(1);
+  margin-right: govuk-spacing(2);
   fill: govuk-colour("blue");
 }
 
