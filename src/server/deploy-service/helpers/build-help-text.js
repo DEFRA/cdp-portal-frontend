@@ -20,7 +20,7 @@ function buildMemoryHelpText(memory) {
 
 function buildHelpText(cpu, memory) {
   return `<p class="govuk-!-margin-bottom-2">
-            All deployments require resources for platform processes:
+            This deployment requires resources for platform processes:
           </p>
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">
             <li>${buildCpuHelpText(cpu)}</li>
