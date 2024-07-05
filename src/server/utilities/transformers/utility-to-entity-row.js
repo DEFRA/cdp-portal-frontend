@@ -8,7 +8,7 @@ function utilityToEntityRow(utilityType) {
       url: `/utilities/${utilityType}/${utility.id}`
     },
     {
-      kind: 'list',
+      kind: 'group',
       value: utility?.teams?.map((team) => ({
         kind: 'link',
         value: team.name,

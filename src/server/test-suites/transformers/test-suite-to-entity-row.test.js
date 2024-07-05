@@ -15,7 +15,7 @@ describe('#transformServiceToEntityRow', () => {
         value: 'cdp-portal-frontend'
       },
       {
-        kind: 'list',
+        kind: 'group',
         value: [
           {
             kind: 'link',
