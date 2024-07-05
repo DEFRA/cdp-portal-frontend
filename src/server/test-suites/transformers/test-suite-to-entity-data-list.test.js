@@ -27,7 +27,7 @@ describe('#testSuiteToEntityDataList', () => {
         },
         {
           entity: {
-            kind: 'list',
+            kind: 'group',
             value: [
               {
                 kind: 'link',

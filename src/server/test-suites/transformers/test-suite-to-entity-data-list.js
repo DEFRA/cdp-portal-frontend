@@ -16,7 +16,7 @@ function testSuiteToEntityDataList(testSuite) {
     {
       heading: { text: `Team${testSuite?.teams?.length > 1 ? 's' : ''}` },
       entity: {
-        kind: 'list',
+        kind: 'group',
         value: testSuite?.teams?.map((team) => ({
           kind: 'link',
           value: team.name,

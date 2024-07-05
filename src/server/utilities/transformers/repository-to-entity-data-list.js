@@ -5,7 +5,7 @@ function repositoryToEntityDataList(repository) {
     {
       heading: { text: `Team${repository?.teams.length > 1 ? 's' : ''}` },
       entity: {
-        kind: 'list',
+        kind: 'group',
         value: repository?.teams?.map((team) => ({
           kind: 'link',
           value: team.name,

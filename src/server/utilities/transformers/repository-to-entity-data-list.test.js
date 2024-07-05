@@ -9,7 +9,7 @@ describe('#serviceToEntityDataList', () => {
     expect(repositoryToEntityDataList(repositoryFixture.repository)).toEqual([
       {
         entity: {
-          kind: 'list',
+          kind: 'group',
           value: [
             {
               kind: 'link',
