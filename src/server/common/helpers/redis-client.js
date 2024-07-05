@@ -1,6 +1,5 @@
 import IoRedis from 'ioredis'
 
-import { config } from '~/src/config'
 import { createLogger } from '~/src/server/common/helpers/logging/logger'
 
 /**
@@ -11,56 +10,36 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger'
  *
  * @returns {Cluster | Redis}
  */
-function buildRedisClient() {
+function buildRedisClient(redisConfig) {
   const logger = createLogger()
   const port = 6379
   const db = 0
-  const keyPrefix = config.get('redisKeyPrefix')
-  let redisClient
+  const keyPrefix = redisConfig.keyPrefix
+  const host = redisConfig.host
 
-  if (config.get('useSingleInstanceCache')) {
-    redisClient = new IoRedis({
-      port,
-      host: config.get('redisHost'),
-      db,
-      keyPrefix
-    })
-  } else {
-    redisClient = new IoRedis.Cluster(
-      [
-        {
-          host: config.get('redisHost'),
-          port
-        }
-      ],
-      {
+  const client = redisConfig.useSingleInstanceCache
+    ? new IoRedis({ port, host, db, keyPrefix })
+    : new IoRedis.Cluster([{ host, port }], {
         keyPrefix,
         slotsRefreshTimeout: 2000,
         dnsLookup: (address, callback) => callback(null, address),
         redisOptions: {
-          username: config.get('redisUsername'),
-          password: config.get('redisPassword'),
+          username: redisConfig.username,
+          password: redisConfig.password,
           db,
           tls: {}
         }
-      }
-    )
-  }
+      })
 
-  redisClient.on('connect', () => {
+  client.on('connect', () => {
     logger.info('Connected to Redis server')
   })
 
-  redisClient.on('close', () => {
-    logger.info('Redis connection closed attempting reconnect')
-    redisClient.connect()
-  })
-
-  redisClient.on('error', (error) => {
+  client.on('error', (error) => {
     logger.error(`Redis connection error ${error}`)
   })
 
-  return redisClient
+  return client
 }
 
 export { buildRedisClient }
