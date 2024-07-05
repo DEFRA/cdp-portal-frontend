@@ -15,7 +15,7 @@ describe('#utilityToEntityRow', () => {
         value: 'cdp-node-frontend-template'
       },
       {
-        kind: 'list',
+        kind: 'group',
         value: [
           {
             kind: 'link',

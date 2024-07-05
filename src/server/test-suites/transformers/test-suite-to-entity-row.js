@@ -10,7 +10,7 @@ function transformTestSuiteToEntityRow(testSuite) {
       url: `/test-suites/${testSuite.serviceName}`
     },
     {
-      kind: 'list',
+      kind: 'group',
       value: testSuite?.teams?.map((team) => ({
         kind: 'link',
         value: team.name,
