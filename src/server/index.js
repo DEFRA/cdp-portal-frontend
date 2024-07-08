@@ -102,7 +102,7 @@ async function createServer() {
     apply: true
   })
 
-  // Add request logger before all other plugins so we can see errors
+  // Add request logger before all other plugins, so we can see errors
   await server.register(requestLogger)
 
   if (isProduction) {
