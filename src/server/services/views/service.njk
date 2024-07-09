@@ -91,7 +91,7 @@
             heading: "Logs",
             icon: appLogsIcon({ classes: "app-icon-small"}),
             intro: {
-              text: "OpenSearch logs for monitoring and troubleshooting issues."
+              text: "OpenSearch logs for monitoring and troubleshooting issues with your service."
             }
           }) %}
             <ul class="govuk-list govuk-!-margin-bottom-0">
@@ -115,7 +115,7 @@
             heading: "Metrics",
             icon: appChartIcon({ classes: "app-icon-small"}),
             intro: {
-              text: "Grafana observability metrics data and graphs."
+              text: "Grafana observability metrics data and graphs for your service."
             }
           }) %}
             <ul class="govuk-list govuk-!-margin-bottom-0">
@@ -125,7 +125,7 @@
                   <strong>{{ environment | title }}</strong>
                   <div class="govuk-!-margin-bottom-2">
                     <a class="app-link"
-                       href="https://metrics.{{ environment }}.cdp-int.defra.cloud/?orgId=1"
+                       href="https://metrics.{{ environment }}.cdp-int.defra.cloud/d/{{ service.serviceName }}/{{ service.serviceName }}-service"
                        target="_blank" rel="noopener noreferrer">
                       metrics.{{ environment }}.cdp-int.defra.cloud
                     </a>
@@ -156,7 +156,7 @@
             heading: "Builds",
             icon: appCheckIcon({ classes: "app-icon-small"}),
             intro: {
-              text: "Test, build and publish ready-to-deploy docker images with GitHub Actions."
+              text: "Test, build and publish ready-to-deploy docker images of your service, with GitHub Actions."
             }
           }) %}
             <p>
@@ -171,7 +171,7 @@
             heading: "Published Images",
             icon: appInstanceIcon({ classes: "app-icon-small"}),
             intro: {
-              text: "Latest published Image versions."
+              text: "Latest published docker Image versions of your service."
             }
           }) %}
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
