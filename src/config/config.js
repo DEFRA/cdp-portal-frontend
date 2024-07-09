@@ -224,24 +224,32 @@ const config = convict({
     default: null,
     env: 'CDP_HTTPS_PROXY'
   },
-  auditEnabled: {
-    doc: 'Enable sending audit events to the CDP auditing stack.',
-    format: Boolean,
-    default: false,
-    env: 'CDP_AUDIT_ENABLED'
-  },
-  auditStream: {
-    doc: 'AWS Firehose stream to send audit events to',
-    format: String,
-    default: 'cdp-firehose-audit',
-    env: 'CDP_AUDIT_STREAM'
-  },
-  awsFirehoseEndpoint: {
-    doc: 'Override for testing aws firehose with localstack',
-    format: String,
-    nullable: true,
-    default: null,
-    env: 'AWS_FIREHOSE_ENDPOINT'
+  audit: {
+    enabled: {
+      doc: 'Enable sending audit events to the CDP auditing stack',
+      format: Boolean,
+      default: false,
+      env: 'CDP_AUDIT_ENABLED'
+    },
+    stream: {
+      doc: 'AWS Firehose stream to send audit events to',
+      format: String,
+      default: 'cdp-firehose-audit',
+      env: 'CDP_AUDIT_STREAM'
+    },
+    firehoseEndpoint: {
+      doc: 'Override for testing aws firehose with localstack',
+      format: String,
+      nullable: true,
+      default: null,
+      env: 'AWS_FIREHOSE_ENDPOINT'
+    },
+    source: {
+      doc: 'Audit source, typically your services name',
+      format: String,
+      default: 'cdp-portal-frontend',
+      env: 'AUDIT_SOURCE'
+    }
   }
 })
 
