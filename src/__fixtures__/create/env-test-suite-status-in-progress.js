@@ -43,6 +43,19 @@ const creatEnvTestSuiteStatusInProgressFixture = {
           path: '.github/workflows/apply.yml'
         }
       }
+    },
+    'cdp-squid-proxy': {
+      status: 'success',
+      main: {
+        workflow: {
+          name: 'cdp-squid-proxy',
+          id: 1,
+          html_url: `https://github.com/${githubOrg}/cdp-squid-proxy/actions/runs/1`,
+          created_at: '2024-07-09T13:07:05.842Z',
+          updated_at: '2024-07-09T13:07:05.842Z',
+          path: '.github/workflows/create.yml'
+        }
+      }
     }
   }
 }
