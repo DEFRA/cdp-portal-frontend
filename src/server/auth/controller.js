@@ -22,8 +22,7 @@ const authCallbackController = {
       request.sessionCookie.set({ sessionId })
 
       const { profile } = request.auth.credentials
-      await request.audit.send(
-        request.pre?.cdpRequestId,
+      request.audit.send(
         `User logged in ${profile?.id} ${profile?.displayName}`
       )
     }

@@ -44,8 +44,7 @@ const deployController = {
 
         const deploymentId = json.deploymentId
 
-        await request.audit.send(
-          request.pre?.cdpRequestId,
+        request.audit.send(
           `deployment requested: ${deployment.imageName}:${deployment.version} to ${deployment.environment} by ${request.pre?.authedUser.id}:${request.pre?.authedUser.email}`
         )
 

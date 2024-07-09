@@ -23,8 +23,7 @@ const logoutController = {
 
     removeAuthenticatedUser(request)
 
-    await request.audit.send(
-      request.pre?.cdpRequestId,
+    request.audit.send(
       `User logged out ${authedUser?.id} ${authedUser?.displayName}`
     )
     return h.redirect(logoutUrl)

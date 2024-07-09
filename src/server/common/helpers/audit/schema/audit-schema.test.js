@@ -1,5 +1,6 @@
 import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
 
+// TODO improve
 describe('#audit-schema', () => {
   test('Should validate an audit schema', () => {
     const payload = {

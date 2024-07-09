@@ -45,7 +45,7 @@ const triggerTestSuiteRunController = {
         const { response } = await runTest(request, imageName, environment)
 
         if (response.ok) {
-          await request.audit.send(request.pre?.cdpRequestId, {
+          request.audit.send({
             event: 'test run requested',
             user: { id: authedUser.id, name: authedUser.displayName },
             testRun: {
