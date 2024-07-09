@@ -27,7 +27,6 @@ import { auditing } from '~/src/server/common/helpers/audit/auditor-plugin'
 import { proxyAgent } from '~/src/server/common/helpers/proxy/proxy-agent'
 import { setupWreckAgents } from '~/src/server/common/helpers/proxy/setup-wreck-agents'
 
-const client = buildRedisClient()
 const isProduction = config.get('isProduction')
 
 async function createServer() {
@@ -68,7 +67,7 @@ async function createServer() {
       {
         name: 'session',
         engine: new CatboxRedis({
-          client
+          client: buildRedisClient(config.get('redis'))
         })
       }
     ]
@@ -78,7 +77,7 @@ async function createServer() {
   server.app.cache = server.cache({
     cache: 'session',
     segment: config.get('serverCacheSegment'),
-    expiresIn: config.get('redisTtl')
+    expiresIn: config.get('redis.ttl')
   })
 
   server.decorate('request', 'isXhr', isXhr)
@@ -116,15 +115,9 @@ async function createServer() {
     csrf,
     nunjucksConfig,
     sanitise,
-    router
+    router,
+    auditing
   ])
-
-  await server.register({
-    plugin: auditing,
-    options: {
-      source: 'cdp-portal-frontend'
-    }
-  })
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']
