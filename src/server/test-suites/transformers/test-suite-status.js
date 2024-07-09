@@ -13,8 +13,13 @@ function testSuiteStatus(service) {
   const serviceStatus = service.serviceStatus
   const createRepository = serviceStatus?.createRepository
   const cdpTfSvcInfra = serviceStatus?.['cdp-tf-svc-infra']
+  const cdpSquidProxy = serviceStatus?.['cdp-squid-proxy']
 
-  const jobStatuses = [createRepository?.status, cdpTfSvcInfra?.status]
+  const jobStatuses = [
+    createRepository?.status,
+    cdpTfSvcInfra?.status,
+    cdpSquidProxy?.status
+  ]
   const completeJobs = jobStatuses.filter(
     (status) => status === 'success'
   ).length
@@ -74,9 +79,55 @@ function testSuiteStatus(service) {
         }
       }
     },
+    cdpSquidProxy: {
+      name: 'Proxy',
+      part: 2,
+      url: {
+        text: `${githubOrg}/cdp-squid-proxy`,
+        href: `https://github.com/${githubOrg}/cdp-squid-proxy`
+      },
+      status: {
+        text: cdpSquidProxy?.status
+          ? startCase(cdpSquidProxy?.status)
+          : unknownValue,
+        classes: statusTagClassMap(cdpSquidProxy?.status)
+      },
+      info: () => {
+        switch (cdpSquidProxy?.status) {
+          case creationStatuses.raised:
+          case creationStatuses.requested:
+          case creationStatuses.inProgress:
+            return `Setting up proxy access.`
+          case creationStatuses.created:
+          case creationStatuses.success:
+            return `Your test suite can make outbound calls via the proxy.`
+          case creationStatuses.unknown:
+          case creationStatuses.failure:
+            return `Something has gone wrong, contact us using the details at the ${buildLink(
+              '#app-help',
+              'top of the page',
+              false
+            )}.`
+          default:
+            return 'Status unknown'
+        }
+      },
+      githubAction: {
+        name: cdpSquidProxy?.main?.workflow?.name,
+        url: {
+          text: removeUrlParts(cdpSquidProxy?.main?.workflow?.html_url),
+          href: cdpSquidProxy?.main?.workflow?.html_url
+        },
+        started: cdpSquidProxy?.main?.workflow?.created_at
+      },
+      errors:
+        cdpSquidProxy?.result?.errors
+          ?.map((error) => error?.message)
+          .filter(Boolean) ?? []
+    },
     cdpTfSvcInfra: {
       name: 'Infrastructure',
-      part: 2,
+      part: 3,
       url: {
         text: `${githubOrg}/cdp-tf-svc-infra`,
         href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`

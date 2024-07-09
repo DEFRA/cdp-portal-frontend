@@ -85,6 +85,19 @@ const createServiceStatusInProgressFixture = {
           path: '.github/workflows/push.yml'
         }
       }
+    },
+    'cdp-squid-proxy': {
+      status: 'in-progress',
+      main: {
+        workflow: {
+          name: 'final-perf-test-1',
+          id: null,
+          html_url: 'http://localhost:3939/#local-stub',
+          created_at: '2024-07-09T13:07:05.842Z',
+          updated_at: '2024-07-09T13:07:05.842Z',
+          path: null
+        }
+      }
     }
   }
 }
