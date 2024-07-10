@@ -21,6 +21,9 @@ const auditing = {
       server.decorate('server', 'audit', auditor)
       server.decorate('request', 'audit', auditor)
     }
+  },
+  options: {
+    source: 'cdp-portal-frontend'
   }
 }
 

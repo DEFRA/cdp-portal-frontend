@@ -62,6 +62,8 @@ async function provideCdpGroupDetail(groups = []) {
 }
 
 async function updateUserSession(request, refreshedSession) {
+  request.logger.debug('User session updating')
+
   const refreshedPayload = jwt.token.decode(refreshedSession.access_token)
     .decoded.payload
 
@@ -99,6 +101,7 @@ async function updateUserSession(request, refreshedSession) {
     expiresAt
   })
 
+  request.logger.debug('User session updated')
   return await request.getUserSession()
 }
 
