@@ -1,15 +1,48 @@
-import { DevAuditor } from '~/src/server/common/helpers/audit/impl/dev-auditor'
-import { AwsAuditor } from '~/src/server/common/helpers/audit/impl/aws-auditor'
-import { config } from '~/src/config/config'
+import { noop } from 'lodash'
 
-function createAuditor(source) {
-  if (config.get('auditEnabled')) {
-    // Live auditor for production use
-    return new AwsAuditor(source)
-  } else {
-    // Local development & debug auditor
-    return new DevAuditor(source)
+import { config } from '~/src/config'
+import { DevAuditor } from '~/src/server/common/helpers/audit/dev-auditor'
+import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor'
+
+/**
+ * If audit is enabled, provide live AWS auditor for production use, if in development provide a local
+ * development and debug auditor
+ * @param options
+ * @returns {AwsAuditor|DevAuditor|{send: (...args: any[]) => void}}
+ */
+function createAuditor(options) {
+  if (options.audit.enabled) {
+    return new AwsAuditor(options)
+  }
+
+  if (options.isDevelopment) {
+    return new DevAuditor(options)
+  }
+
+  return {
+    send: noop
   }
 }
 
-export { createAuditor }
+const auditor = {
+  name: 'auditor',
+  register: async (
+    server,
+    {
+      audit,
+      logger = server.logger,
+      region = config.get('awsRegion'),
+      isDevelopment = config.get('isDevelopment')
+    }
+  ) => {
+    server.decorate(
+      'request',
+      'audit',
+      (request) =>
+        createAuditor({ audit, request, logger, region, isDevelopment }),
+      { apply: true }
+    )
+  }
+}
+
+export { auditor }

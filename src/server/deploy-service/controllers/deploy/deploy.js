@@ -3,7 +3,6 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 import { setStepComplete } from '~/src/server/deploy-service/helpers/form'
 import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
-import { provideCdpRequestId } from '~/src/server/common/helpers/audit/pre/provide-cdp-request-id'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 
 const deployController = {
@@ -11,7 +10,7 @@ const deployController = {
     ext: {
       onPreHandler: [noSessionRedirect]
     },
-    pre: [provideDeployment, provideCdpRequestId, provideAuthedUser]
+    pre: [provideDeployment, provideAuthedUser]
   },
   handler: async (request, h) => {
     const deployment = request.pre?.deployment
@@ -44,8 +43,7 @@ const deployController = {
 
         const deploymentId = json.deploymentId
 
-        await request.audit.send(
-          request.pre?.cdpRequestId,
+        request.audit.send(
           `deployment requested: ${deployment.imageName}:${deployment.version} to ${deployment.environment} by ${request.pre?.authedUser.id}:${request.pre?.authedUser.email}`
         )
 

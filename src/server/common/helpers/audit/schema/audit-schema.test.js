@@ -1,15 +1,25 @@
-import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
+describe('#auditSchema', () => {
+  let auditSchema
 
-describe('#audit-schema', () => {
+  beforeAll(async () => {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date('2023-04-01').getTime())
+
+    // Dynamic import needed so we can set jest.setSystemTime before the Joi validation schema is imported
+    const schemaImport = await import(
+      '~/src/server/common/helpers/audit/schema/audit-schema'
+    )
+    auditSchema = schemaImport.auditSchema
+  })
+
   test('Should validate an audit schema', () => {
     const payload = {
-      source: 'foo',
-      created: new Date(0),
-      cdpRequestId: 'x-1234',
+      source: 'mock-service-name',
+      created: new Date(),
+      cdpRequestId: 'mock-x-cdp-request-id',
       message: 'this is a simple audit message',
       tags: {
-        foo: 'bar',
-        baz: '1234'
+        example: 'tag'
       }
     }
 
@@ -20,14 +30,14 @@ describe('#audit-schema', () => {
     expect(value).toEqual(payload)
   })
 
-  test('Should fill in default values', () => {
-    const value = auditSchema.validate({
-      source: 'foo',
-      cdpRequestId: 'x-1234',
-      message: 'this is another audit message'
-    }).value
+  test('Should fill in default values from schema', () => {
+    const { value } = auditSchema.validate({
+      source: 'mock-service-name',
+      cdpRequestId: 'mock-x-cdp-request-id',
+      message: 'this is a simple audit message'
+    })
 
     expect(value.tags).toEqual({})
-    expect(value.created).toBeInstanceOf(Date)
+    expect(value.created).toEqual(new Date('2023-04-01'))
   })
 })

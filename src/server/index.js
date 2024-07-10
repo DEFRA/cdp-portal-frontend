@@ -23,7 +23,7 @@ import { secureContext } from '~/src/server/common/helpers/secure-context'
 import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
 import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
 import { sanitise } from '~/src/server/common/helpers/sanitisation/sanitise'
-import { auditing } from '~/src/server/common/helpers/audit/auditor-plugin'
+import { auditor } from '~/src/server/common/helpers/audit/auditor'
 import { proxyAgent } from '~/src/server/common/helpers/proxy/proxy-agent'
 import { setupWreckAgents } from '~/src/server/common/helpers/proxy/setup-wreck-agents'
 import { pulse } from '~/src/server/common/helpers/pulse'
@@ -102,7 +102,7 @@ async function createServer() {
     apply: true
   })
 
-  // Add request logger before all other plugins so we can see errors
+  // Add request logger before all other plugins, so we can see errors
   await server.register(requestLogger)
 
   if (isProduction) {
@@ -118,7 +118,10 @@ async function createServer() {
     nunjucksConfig,
     sanitise,
     router,
-    auditing
+    {
+      plugin: auditor,
+      options: { audit: config.get('audit') }
+    }
   ])
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
