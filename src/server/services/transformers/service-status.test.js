@@ -86,7 +86,7 @@ describe('#serviceStatus', () => {
           },
           info: expect.any(Function),
           name: 'Infrastructure',
-          part: 5,
+          part: 6,
           pullRequest: {
             url: {
               href: `https://github.com/${githubOrg}/cdp-tf-svc-infra/pull/309`,
@@ -137,11 +137,34 @@ describe('#serviceStatus', () => {
             text: 'DEFRA/cdp-squid-proxy'
           }
         },
+        cdpDashboard: {
+          errors: [],
+          githubAction: {
+            name: 'final-perf-test-1',
+            started: '2024-07-09T13:07:05.842Z',
+            url: {
+              href: 'http://localhost:3939/#local-stub',
+              text: '#local-stub'
+            }
+          },
+          info: expect.any(Function),
+          name: 'Dashboards',
+          part: 5,
+          status: {
+            classes: 'govuk-tag--blue',
+            text: 'In Progress'
+          },
+          url: {
+            href: 'https://github.com/DEFRA/cdp-grafana-svc',
+            text: 'DEFRA/cdp-grafana-svc'
+          }
+        },
+
         hasJobFailures: false,
         progress: {
           complete: 0,
           percentage: 0,
-          total: 5
+          total: 6
         },
         serviceTypeTemplate: 'cdp-node-backend-template',
         started: '2023-10-27T12:37:46.915Z',

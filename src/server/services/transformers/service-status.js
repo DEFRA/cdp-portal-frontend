@@ -16,13 +16,15 @@ function serviceStatus(service) {
   const cdpAppConfig = serviceStatus?.['cdp-app-config']
   const cdpNginxUpstreams = serviceStatus?.['cdp-nginx-upstreams']
   const cdpSquidProxy = serviceStatus?.['cdp-squid-proxy']
+  const cdpDashboard = serviceStatus?.['cdp-grafana-svc']
 
   const jobStatuses = [
     createRepository?.status,
     cdpTfSvcInfra?.status,
     cdpAppConfig?.status,
     cdpNginxUpstreams?.status,
-    cdpSquidProxy?.status
+    cdpSquidProxy?.status,
+    cdpDashboard?.status
   ]
   const completeJobs = jobStatuses.filter(
     (status) => status === 'success'
@@ -235,9 +237,55 @@ function serviceStatus(service) {
           ?.map((error) => error?.message)
           .filter(Boolean) ?? []
     },
+    cdpDashboard: {
+      name: 'Dashboards',
+      part: 5,
+      url: {
+        text: `${githubOrg}/cdp-grafana-svc`,
+        href: `https://github.com/${githubOrg}/cdp-grafana-svc`
+      },
+      status: {
+        text: cdpDashboard?.status
+          ? startCase(cdpDashboard?.status)
+          : unknownValue,
+        classes: statusTagClassMap(cdpDashboard?.status)
+      },
+      info: () => {
+        switch (cdpDashboard?.status) {
+          case creationStatuses.raised:
+          case creationStatuses.requested:
+          case creationStatuses.inProgress:
+            return `Setting up dashboards.`
+          case creationStatuses.created:
+          case creationStatuses.success:
+            return `Default dashboards created.`
+          case creationStatuses.unknown:
+          case creationStatuses.failure:
+            return `Something has gone wrong, contact us using the details at the ${buildLink(
+              '#app-help',
+              'top of the page',
+              false
+            )}.`
+          default:
+            return 'Status unknown'
+        }
+      },
+      githubAction: {
+        name: cdpDashboard?.main?.workflow?.name,
+        url: {
+          text: removeUrlParts(cdpDashboard?.main?.workflow?.html_url),
+          href: cdpDashboard?.main?.workflow?.html_url
+        },
+        started: cdpDashboard?.main?.workflow?.created_at
+      },
+      errors:
+        cdpDashboard?.result?.errors
+          ?.map((error) => error?.message)
+          .filter(Boolean) ?? []
+    },
     cdpTfSvcInfra: {
       name: 'Infrastructure',
-      part: 5,
+      part: 6,
       url: {
         text: `${githubOrg}/cdp-tf-svc-infra`,
         href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
