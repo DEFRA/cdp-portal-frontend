@@ -15,8 +15,11 @@ function authedFetcher(request) {
     const authedUser = await request.getUserSession()
     const token = authedUser?.token ?? null
 
-    const fetchWithAuth = (token) =>
-      fetch(url, {
+    const fetchWithAuth = (token) => {
+      request.logger.debug('Fetching with auth')
+      request.logger.debug(`Token length is: ${token?.length}`)
+
+      return fetch(url, {
         ...options,
         method: options?.method || 'get',
         headers: {
@@ -25,6 +28,7 @@ function authedFetcher(request) {
           Authorization: `Bearer ${token}`
         }
       })
+    }
 
     return fetchWithAuth(token).then(async (response) => {
       if (response.status === 401) {
@@ -33,14 +37,23 @@ function authedFetcher(request) {
         const refreshTokenResponseJson = await refreshTokenResponse.json()
 
         if (!refreshTokenResponse.ok) {
+          request.logger.debug({ refreshTokenResponse }, 'Token refresh failed')
           removeAuthenticatedUser(request)
         }
 
         if (refreshTokenResponse.ok) {
+          request.logger.debug(
+            { refreshTokenResponse },
+            'Token refresh succeeded'
+          )
           await updateUserSession(request, refreshTokenResponseJson)
 
           const authedUser = await request.getUserSession()
           const newToken = authedUser?.token ?? null
+
+          request.logger.debug(
+            `Refreshed token, newToken length is: ${newToken?.length}`
+          )
 
           // Replay initial request with new token
           return await fetchWithAuth(newToken)
@@ -57,7 +70,7 @@ function authedFetcher(request) {
 
         return throwHttpError(json, response)
       } catch (error) {
-        request.logger.error(error)
+        request.logger.error(error, error.message)
 
         throw Boom.boomify(new Error(error.message), {
           statusCode: error?.output?.statusCode ?? 500
