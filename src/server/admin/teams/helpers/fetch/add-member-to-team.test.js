@@ -17,7 +17,8 @@ describe('#addUserToTeam', () => {
       getUserSession: jest.fn().mockResolvedValue({}),
       logger: {
         info: jest.fn(),
-        error: jest.fn()
+        error: jest.fn(),
+        debug: jest.fn()
       }
     })
   }
