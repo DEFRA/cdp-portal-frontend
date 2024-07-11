@@ -255,10 +255,10 @@ function serviceStatus(service) {
           case creationStatuses.raised:
           case creationStatuses.requested:
           case creationStatuses.inProgress:
-            return `Setting up dashboards.`
+            return `Setting up Grafana dashboards for your service.`
           case creationStatuses.created:
           case creationStatuses.success:
-            return `Default dashboards created.`
+            return `Default Grafana observability metrics data and graph dashboards created for your service.`
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
