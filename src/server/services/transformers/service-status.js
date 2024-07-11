@@ -212,7 +212,7 @@ function serviceStatus(service) {
             return `Setting up proxy access.`
           case creationStatuses.created:
           case creationStatuses.success:
-            return `Your test suite can make outbound calls via the proxy.`
+            return `Your new service can now make outbound calls via the proxy.`
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
