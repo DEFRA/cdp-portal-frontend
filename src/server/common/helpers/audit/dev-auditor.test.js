@@ -35,7 +35,7 @@ describe('#DevAuditor', () => {
 
       expect(mockInfoLogger).toHaveBeenNthCalledWith(
         1,
-        'Auditing x-cdp-request-id-header-not-set'
+        'Mock Audit - Request id: x-cdp-request-id-header-not-set'
       )
       expect(mockInfoLogger).toHaveBeenNthCalledWith(
         2,
@@ -48,7 +48,7 @@ describe('#DevAuditor', () => {
             created: '2023-04-01T00:00:00.000Z'
           }
         },
-        'Mock Audit: x-cdp-request-id-header-not-set - example-message'
+        'Mock Audit delivered - Request id: x-cdp-request-id-header-not-set : example-message'
       )
     })
 
@@ -60,7 +60,7 @@ describe('#DevAuditor', () => {
 
       expect(mockInfoLogger).toHaveBeenNthCalledWith(
         1,
-        'Auditing x-cdp-request-id-header-not-set'
+        'Mock Audit - Request id: x-cdp-request-id-header-not-set'
       )
       expect(mockInfoLogger).toHaveBeenNthCalledWith(
         2,
@@ -73,7 +73,7 @@ describe('#DevAuditor', () => {
             created: '2023-04-01T00:00:00.000Z'
           }
         },
-        'Mock Audit: x-cdp-request-id-header-not-set'
+        'Mock Audit delivered - Request id: x-cdp-request-id-header-not-set'
       )
     })
   })
@@ -83,7 +83,7 @@ describe('#DevAuditor', () => {
       await auditor.send(null, { foo: 'bar' })
 
       expect(mockErrorLogger).toHaveBeenCalledWith(
-        `Invalid audit payload: ValidationError: "message" contains an invalid value`
+        `Mock Audit Invalid payload - Request id: x-cdp-request-id-header-not-set: ValidationError: "message" contains an invalid value`
       )
     })
   })

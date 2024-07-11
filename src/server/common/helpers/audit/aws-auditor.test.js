@@ -30,7 +30,7 @@ describe('#AwsAuditor', () => {
       await auditor.send('example-message')
 
       expect(mockErrorLogger).toHaveBeenCalledWith(
-        `Invalid audit payload: ValidationError: "cdpRequestId" is required`
+        `Audit invalid payload - Request id: undefined: ValidationError: "cdpRequestId" is required`
       )
       expect(mockFirehoseSend).not.toHaveBeenCalled()
     })
@@ -65,23 +65,25 @@ describe('#AwsAuditor', () => {
     describe('With correct payload', () => {
       test('Should send audit with message string', async () => {
         const mockFirehoseSend = FirehoseClient.mock.instances[0].send
+        mockFirehoseSend.mockResolvedValueOnce({ RecordId: 'Mock Record' })
 
         await auditor.send('example-message', { foo: 'bar' })
 
         expect(mockInfoLogger).toHaveBeenNthCalledWith(
           1,
-          'Auditing mock-x-cdp-request-id'
+          'Audit - Request id: mock-x-cdp-request-id'
         )
         expect(PutRecordCommand).toHaveBeenCalledTimes(1)
         expect(mockFirehoseSend).toHaveBeenCalledTimes(1)
         expect(mockInfoLogger).toHaveBeenNthCalledWith(
           2,
-          expect.stringContaining('Audit delivered:')
+          'Audit delivered - Request id: mock-x-cdp-request-id: Mock Record'
         )
       })
 
       test('Should send audit with message object', async () => {
         const mockFirehoseSend = FirehoseClient.mock.instances[0].send
+        mockFirehoseSend.mockResolvedValueOnce({ RecordId: 'Mock Record' })
 
         await auditor.send(
           { user: 'jeff', age: 24, id: 'mock-user-id' },
@@ -90,13 +92,13 @@ describe('#AwsAuditor', () => {
 
         expect(mockInfoLogger).toHaveBeenNthCalledWith(
           1,
-          'Auditing mock-x-cdp-request-id'
+          'Audit - Request id: mock-x-cdp-request-id'
         )
         expect(PutRecordCommand).toHaveBeenCalledTimes(1)
         expect(mockFirehoseSend).toHaveBeenCalledTimes(1)
         expect(mockInfoLogger).toHaveBeenNthCalledWith(
           2,
-          expect.stringContaining('Audit delivered:')
+          'Audit delivered - Request id: mock-x-cdp-request-id: Mock Record'
         )
       })
     })
@@ -108,7 +110,7 @@ describe('#AwsAuditor', () => {
         await auditor.send(null, { foo: 'bar' })
 
         expect(mockErrorLogger).toHaveBeenCalledWith(
-          `Invalid audit payload: ValidationError: "message" contains an invalid value`
+          `Audit invalid payload - Request id: mock-x-cdp-request-id: ValidationError: "message" contains an invalid value`
         )
         expect(mockFirehoseSend).not.toHaveBeenCalled()
       })
@@ -117,14 +119,16 @@ describe('#AwsAuditor', () => {
     describe('When send throws', () => {
       test('Should log expected error', async () => {
         const mockFirehoseSend = FirehoseClient.mock.instances[0].send
-        mockFirehoseSend.mockRejectedValue()
+        mockFirehoseSend.mockRejectedValue(
+          Error('Something bad has happened!😱')
+        )
 
         await auditor.send('example-message')
 
         expect(PutRecordCommand).toHaveBeenCalledTimes(1)
         expect(mockFirehoseSend).toHaveBeenCalledTimes(1)
         expect(mockErrorLogger).toHaveBeenCalledWith(
-          expect.stringContaining('Failed to send audit:')
+          'Audit failed - Request id: mock-x-cdp-request-id - Something bad has happened!😱'
         )
       })
     })
