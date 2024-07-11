@@ -26,8 +26,8 @@ const testSuiteStatusController = {
     const isSuccess = creationJob?.status?.isSuccess
     const creationPosition = isSuccess ? 'Created' : 'Creating'
     const serviceName = testSuite.serviceName
-    const pageTitle = `${creationPosition} ${serviceName} environment test suite`
-    const caption = `${creationPosition} the ${serviceName} environment test suite.`
+    const pageTitle = `${creationPosition} ${serviceName} test suite`
+    const caption = `${creationPosition} the ${serviceName} test suite.`
 
     return h.view('test-suites/views/status', {
       pageTitle,
