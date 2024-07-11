@@ -17,7 +17,7 @@ class DevAuditor {
 
   async send(message, tags = {}) {
     const cdpRequestId = 'x-cdp-request-id-header-not-set'
-    this.logger.info(`Auditing ${cdpRequestId}`)
+    this.logger.info(`Mock Audit - Request id: ${cdpRequestId}`)
 
     const source = this.options.audit.source
     const { error, value: validatedPayload } = auditSchema.validate({
@@ -28,7 +28,9 @@ class DevAuditor {
     })
 
     if (!isUndefined(error)) {
-      this.logger.error(`Invalid audit payload: ${error}`)
+      this.logger.error(
+        `Mock Audit Invalid payload - Request id: ${cdpRequestId}: ${error}`
+      )
       return
     }
 
@@ -39,7 +41,7 @@ class DevAuditor {
 
     this.logger.info(
       { auditDetail },
-      `Mock Audit: ${validatedPayload.cdpRequestId}${typeof validatedPayload.message === 'string' ? ' - ' + validatedPayload.message : ''}`
+      `Mock Audit delivered - Request id: ${validatedPayload.cdpRequestId}${typeof validatedPayload.message === 'string' ? ' : ' + validatedPayload.message : ''}`
     )
   }
 }

@@ -24,7 +24,7 @@ class AwsAuditor {
 
   async send(message, tags = {}) {
     const cdpRequestId = this.request.headers['x-cdp-request-id']
-    this.logger.info(`Auditing ${cdpRequestId}`)
+    this.logger.info(`Audit - Request id: ${cdpRequestId}`)
 
     const source = this.options.audit.source
     const { error: validationError, value: validatedPayload } =
@@ -36,7 +36,9 @@ class AwsAuditor {
       })
 
     if (!isUndefined(validationError)) {
-      this.logger.error(`Invalid audit payload: ${validationError}`)
+      this.logger.error(
+        `Audit invalid payload - Request id: ${cdpRequestId}: ${validationError}`
+      )
       return
     }
 
@@ -55,9 +57,13 @@ class AwsAuditor {
           }
         })
       )
-      this.logger.info(`Audit delivered: ${response?.RecordId}`)
+      this.logger.info(
+        `Audit delivered - Request id: ${cdpRequestId}: ${response?.RecordId}`
+      )
     } catch (error) {
-      this.logger.error(`Failed to send audit: ${error}`)
+      this.logger.error(
+        `Audit failed - Request id: ${cdpRequestId} - ${error.message}`
+      )
     }
   }
 }
