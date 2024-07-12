@@ -1,7 +1,44 @@
 {% extends "layouts/page.njk" %}
 
-{% from "read-out/macro.njk" import appReadOut %}
 {% from "availability/macro.njk" import appAvailability %}
+
+ {% set repoVisibilityHelpHtml %}
+   <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Visibility</h2>
+
+   <ul class="govuk-list govuk-list--bullet">
+     <li>
+       <strong>Public</strong> - Visible to everybody on the Internet. DEFRA promotes coding in the
+       open, repositories should be public by default.
+     </li>
+     <li>
+       <strong>Internal</strong> - Visible to everybody that is a member of the
+       <a class="app-link"
+          href="https://github.com/DEFRA"
+          target="_blank"
+          rel="noopener noreferrer">DEFRA
+         GitHub Organisation</a>.
+     </li>
+     <li>
+       <strong>Private</strong> - Visible to members of the owning team only. This should be used in
+       exceptional cases.
+     </li>
+   </ul>
+
+   <p class="govuk-!-margin-bottom-2">For more information see:</p>
+
+   <ul class="govuk-list govuk-list--bullet">
+     <li class="govuk-!-margin-bottom-1">
+       <a class="app-link"
+          href="https://www.gov.uk/service-manual/technology/making-source-code-open-and-reusable"
+          target="_blank" rel="noopener noreferrer">GDS Service Manual - Making source code open and reusable</a>
+     </li>
+     <li class="govuk-!-margin-bottom-1">
+       <a class="app-link"
+          href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
+          target="_blank" rel="noopener noreferrer">GitHub - About repository visibility</a>
+     </li>
+   </ul>
+ {% endset %}
 
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
@@ -14,8 +51,9 @@
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
-        <form action="/create/repository/detail" method="post" data-js="app-form-errors">
+      <div class="app-grid-column-one-third-from-desktop-wide">
+        <form action="/create/repository/detail" method="post" data-js="app-form-errors"
+              class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
 
@@ -23,14 +61,14 @@
 
             {{ govukInput({
               label: {
-                text: "Repository Name",
+                text: "Name",
                 classes: "app-label"
               },
-              id: "repository-name",
+              id: "name",
               name: "repositoryName",
               classes: "app-input app-input--wide",
               hint: {
-                text: "Use lowercase words with hyphen separators and a maximum of 32 characters",
+                text: "Lowercase letters, numbers and hyphens, maximum of 32 characters",
                 classes: "app-hint"
               },
               formGroup: {
@@ -38,9 +76,9 @@
               },
               value: formValues.repositoryName,
               attributes: {
-                "data-js": "app-availability app-read-out",
+                "data-js": "app-availability app-input-assistant",
                 "data-availability-target-id": "repository-name-availability",
-                "data-read-out-target-id": "repository-name-read-out",
+                "data-input-assistant-target-id": "name-input-assistant",
                 "data-1p-ignore": ""
               },
               errorMessage: {
@@ -59,17 +97,16 @@
               }
             }) }}
 
-            {{ appReadOut({
-              description: "Your repository name will be ",
-              targetId: "repository-name-read-out"
+            {{ appInputAssistant({
+              message: "For an improved name have a read of 'Naming your repository best practice'",
+              targetId: "name-input-assistant"
             }) }}
-
 
             {{ govukSelect({
               id: "repository-visibility",
               name: "repositoryVisibility",
               label: {
-                text: "Repository Visbility",
+                text: "Visbility",
                 classes: "app-label"
               },
               classes: "app-select",
@@ -127,50 +164,23 @@
         </form>
       </div>
 
-      {% set repoVisibilityHelpHtml %}
-        <p class="govuk-!-margin-bottom-2">
-          <b>Repository Visibility:</b>
-        </p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li><b>Public</b> - Visible to everybody on the Internet. DEFRA promotes coding in the
-            open, repositories should be public by default.
-          </li>
-          <li><b>Internal</b> - Visible to everybody that is a member of the
-            <a class="app-link"
-               href="https://github.com/DEFRA"
-               target="_blank"
-               rel="noopener noreferrer">DEFRA
-              GitHub Organisation</a>.
-          </li>
-          <li><b>Private</b> - Visible to members of the owning team only. This should be used in
-            exceptional cases.
-          </li>
-        </ul>
-        <p class="govuk-!-margin-bottom-2">For more information see:</p>
+      <div class="app-grid-column-one-third-from-desktop-wide">
+        <div class="govuk-!-margin-bottom-4">
+          {{ appNamingAdvice({
+            kind: "repository",
+            categories: [
+              "library",
+              "helpers",
+              "documentation",
+              "scripts"
+            ]
+          } ) }}
+        </div>
 
-        <ul class="govuk-list govuk-list--bullet">
-          <li class="govuk-!-margin-bottom-1">
-            <a class="app-link"
-               href="https://www.gov.uk/service-manual/technology/making-source-code-open-and-reusable"
-               target="_blank" rel="noopener noreferrer">GDS Service Manual - Making source code open and reusable</a>
-          </li>
-          <li class="govuk-!-margin-bottom-1">
-            <a class="app-link"
-               href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
-               target="_blank" rel="noopener noreferrer">GitHub - About repository visibility</a>
-          </li>
-        </ul>
-
-
-
-      {% endset %}
-
-      <div class="govuk-grid-column-one-third">
         {{ appInfo({
           html: repoVisibilityHelpHtml
         }) }}
       </div>
     </div>
   </div>
-
 {% endblock %}

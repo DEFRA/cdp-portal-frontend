@@ -12,6 +12,7 @@ import { fetchIsNameAvailable } from '~/src/client/common/helpers/fetch/create/f
 import { fetchMemory } from '~/src/client/common/helpers/fetch/select'
 import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete'
 import { filters } from '~/src/server/common/components/filters/filters'
+import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant'
 import { initClass } from '~/src/client/common/helpers/init-class'
 import { initModule } from '~/src/client/common/helpers/init-module'
 import { paramsToHiddenInputs } from '~/src/client/common/helpers/params-to-hidden-inputs'
@@ -43,6 +44,7 @@ window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 window.cdp.clearDeploymentsListFilters = clearDeploymentsListFilters
 
+initModule('app-input-assistant', inputAssistant, '*=')
 
 // Create multistep form flow, repository name availability
 initModule('app-availability', availability, '*=')
