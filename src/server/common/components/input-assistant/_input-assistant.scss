@@ -1,0 +1,22 @@
+.app-input-assistant {
+  display: none;
+}
+
+.js-enabled {
+  .app-input-assistant {
+    margin: govuk-spacing(-5) 0 govuk-spacing(1);
+    @include govuk-font(16);
+    color: govuk-colour("dark-grey");
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+
+    &.app-input-assistant--has-message {
+      visibility: visible;
+    }
+
+    .app-warning-icon {
+      fill: govuk-colour("blue");
+    }
+  }
+}

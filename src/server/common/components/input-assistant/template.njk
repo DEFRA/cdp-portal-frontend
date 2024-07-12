@@ -1,0 +1,9 @@
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+<div class="app-input-assistant"
+     id="{{ params.targetId }}"
+     data-message="{{ params.message }}"
+     data-testid="app-input-assistant">
+  {{ appWarningIcon({ classes: "app-icon-tiny" }) }}
+  <span class="app-input-assistant__content"></span>
+</div>
