@@ -19,7 +19,6 @@ import { poll } from '~/src/client/common/helpers/poll'
 import { populateAutocompleteSuggestions } from '~/src/client/common/helpers/populate-autocomplete-suggestions'
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
 import { protectForm } from '~/src/client/common/helpers/protect-form'
-import { readOut } from '~/src/server/common/components/read-out/read-out'
 import { search } from '~/src/server/common/components/search/search'
 import { tabs } from '~/src/server/common/components/tabs/tabs'
 import { xhrSubscriber } from '~/src/server/common/components/xhr-subscriber/xhr-subscriber'
@@ -44,8 +43,6 @@ window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 window.cdp.clearDeploymentsListFilters = clearDeploymentsListFilters
 
-// Create multistep form flow, repository name readout
-initModule('app-read-out', readOut, '*=')
 
 // Create multistep form flow, repository name availability
 initModule('app-availability', availability, '*=')

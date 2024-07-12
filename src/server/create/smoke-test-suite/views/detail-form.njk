@@ -1,6 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "read-out/macro.njk" import appReadOut %}
 {% from "availability/macro.njk" import appAvailability %}
 
 {% block content %}
@@ -37,7 +36,7 @@
               },
               value: formValues.repositoryName,
               attributes: {
-                "data-js": "app-availability app-read-out",
+                "data-js": "app-availability app-input-assistant",
                 "data-availability-target-id": "test-suite-name-availability",
                 "data-read-out-target-id": "test-suite-name-read-out",
                 "data-1p-ignore": ""

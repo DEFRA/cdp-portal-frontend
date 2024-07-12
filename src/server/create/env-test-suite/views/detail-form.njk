@@ -1,6 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "read-out/macro.njk" import appReadOut %}
 {% from "availability/macro.njk" import appAvailability %}
 
 {% block content %}
@@ -59,11 +58,10 @@
               }
             }) }}
 
-            {{ appReadOut({
-              description: "Your journey test suite name will be ",
-              targetId: "test-suite-name-read-out"
+            {{ appInputAssistant({
+              message: "For an improved name have a read of 'Naming your environment test suite best practice'",
+              targetId: "name-input-assistant"
             }) }}
-
 
             {{ govukSelect({
               id: "team-id",
