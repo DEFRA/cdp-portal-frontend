@@ -37,7 +37,7 @@ const testSuiteCreateController = {
         formErrors: errorDetails
       })
 
-      return h.redirect('/create/test-suite/summary')
+      return h.redirect('/create/journey-test-suite/summary')
     }
 
     if (!validationResult.error) {
@@ -62,7 +62,7 @@ const testSuiteCreateController = {
             type: 'success'
           })
 
-          return h.redirect('/create/test-suite/success')
+          return h.redirect('/create/journey-test-suite/success')
         }
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
@@ -70,7 +70,7 @@ const testSuiteCreateController = {
         })
         request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-        return h.redirect('/create/test-suite/summary')
+        return h.redirect('/create/journey-test-suite/summary')
       }
     }
   }

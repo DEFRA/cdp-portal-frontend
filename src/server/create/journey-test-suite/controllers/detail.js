@@ -36,7 +36,7 @@ const testSuiteDetailController = {
         ? qs.stringify({ redirectLocation }, { addQueryPrefix: true })
         : ''
 
-      return h.redirect(`/create/test-suite/detail${queryString}`)
+      return h.redirect(`/create/journey-test-suite/detail${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -49,7 +49,7 @@ const testSuiteDetailController = {
       })
       await setStepComplete(request, h, 'stepTwo')
 
-      return h.redirect('/create/test-suite/summary')
+      return h.redirect('/create/journey-test-suite/summary')
     }
   }
 }

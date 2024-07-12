@@ -28,7 +28,7 @@ const testSuiteDetailFormController = {
       }))
     )
 
-    return h.view('create/test-suite/views/detail-form', {
+    return h.view('create/journey-test-suite/views/detail-form', {
       pageTitle: 'Create journey test suite',
       heading: 'Create journey test suite',
       teamsOptions,
