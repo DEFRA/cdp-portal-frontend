@@ -2,33 +2,31 @@
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
 {% from "icons/error-icon/macro.njk" import appErrorIcon %}
 
-{% set names = ["seed-vault-", "fruit-quality-", "bee-health-", "sea-temperature-", "combine-harvester-"] %}
+{% set names = ["seed-vault-", "fruit-quality-", "bee-health-", "sea-temperature-", "harvest-metrics-"] %}
 {% set badNames = [
   "water-monitoring-new",
   "sea-currents-v1",
-  "fisheries-react-main-repository",
   "sheep-dip-alpha",
-  "nuw-dl-rtd-frontend",
-  "native-trees-main-repo"
+  "drf-main-erp-frontend",
+  "fisheries-trees-discovery-v4"
 ] %}
 
 {% call appInfo({
   classes: "govuk-!-margin-top-0"
 }) %}
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Naming your {{ params.kind }} best practice</h2>
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Naming best practices</h2>
 
   <p class="govuk-!-margin-bottom-2">
-    The {{ params.kind }} name is used as an identifier throughout the Platform and once created it cannot be
-    changed. We recommend a sensible descriptive name, optionally ending with a category of your choice
+    We recommend a sensible descriptive name, optionally ending with a category of your choice.
     {% for category in params.categories %}
     {% if loop.last %}
-      or -<em>‘{{ category }}’</em>
+      or <em>{{ category }}</em>
       {% elif loop.revindex0 === 1 %}
-      <em>‘-{{ category }}’</em>
+      <em>{{ category }}</em>
     {% else %}
-      <em>‘-{{ category }}’</em>,
+      <em>{{ category }}</em>,
     {% endif %}
-    {% endfor %}.
+    {% endfor %}. E.g.
   </p>
 
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-1 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
@@ -48,8 +46,8 @@
   </ul>
 
   <p class="govuk-!-margin-bottom-2">
-    Avoid names containing project phases, version numbers, branch names, product/framework names, temporary words or
-    excessive acronyms.
+    Avoid names containing project phases, version numbers, branch names, product names, temporary words or excessive
+    acronyms.
   </p>
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
     {% for badName in badNames %}

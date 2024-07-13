@@ -30,7 +30,7 @@
               name: "repositoryName",
               classes: "app-input app-input--wide",
               hint: {
-                text: "Lowercase letters, numbers and hyphens, maximum of 32 characters",
+                html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. <em>bee-pollen-frontend</em>",
                 classes: "app-hint"
               },
               formGroup: {
@@ -60,7 +60,7 @@
             }) }}
 
             {{ appInputAssistant({
-              message: "For an improved name have a read of 'Naming your microservice best practice'",
+              message: "That name is not ideal. Read ‘Naming best practices’ for some tips",
               targetId: "name-input-assistant"
             }) }}
 
