@@ -4,20 +4,23 @@
 
 {% set names = ["seed-vault-", "fruit-quality-", "bee-health-", "sea-temperature-", "harvest-metrics-"] %}
 {% set badNames = [
-  "water-monitoring-new",
-  "sea-currents-v1",
   "sheep-dip-alpha",
-  "drf-main-erp-frontend",
-  "fisheries-trees-discovery-v4"
+  "sheep-dip-v1",
+  "sheep-dip-main",
+  "sheep-dip-repo",
+  "sheep-dip-new",
+  "sheep-dip-hapi",
+  "sd-frontend"
 ] %}
 
 {% call appInfo({
   classes: "govuk-!-margin-top-0"
 }) %}
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Naming best practices</h2>
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Naming conventions</h2>
 
   <p class="govuk-!-margin-bottom-2">
-    We recommend a sensible descriptive name, optionally ending with a category of your choice.
+    The name you choose will be its unique identifier used in multiple places across the Platform. We recommend a
+    sensible descriptive name, optionally ending with a category of your choice.
     {% for category in params.categories %}
     {% if loop.last %}
       or <em>{{ category }}</em>
@@ -30,15 +33,10 @@
   </p>
 
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-1 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
-    <li>
-      <div class="app-!-layout-centered">
-        soil-condition {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-left-1" }) }}
-      </div>
-    </li>
     {% for category in params.categories -%}
       <li>
         <div class="app-!-layout-centered">
-          {{ names[loop.index0] }}{{ category }}
+          seed-vault-{{ category }}
           {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-left-1" }) }}
         </div>
       </li>
@@ -46,8 +44,8 @@
   </ul>
 
   <p class="govuk-!-margin-bottom-2">
-    Avoid names containing project phases, version numbers, branch names, product names, temporary words or excessive
-    acronyms.
+    Avoid including words that do not belong in the name. For example do not include project phases, version numbers,
+    temporary words, branch names, product names or excessive acronyms.
   </p>
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
     {% for badName in badNames %}
@@ -60,10 +58,10 @@
   </ul>
 
   <p class="govuk-!-margin-bottom-2">
-    For further information see <a href="https://github.com/DEFRA/cdp-documentation#naming-best-practices"
-                                   class="govuk-link app-link"
-                                   target="_blank" rel="noopener noreferrer">
-      DEFRA/cdp-documentation - Naming best practices
+    For further advice on choosing a name see <a href="https://github.com/DEFRA/cdp-documentation#naming-best-practices"
+                                                 class="govuk-link app-link"
+                                                 target="_blank" rel="noopener noreferrer">
+      DEFRA/cdp-documentation - Naming conventions
     </a>
   </p>
 {% endcall %}

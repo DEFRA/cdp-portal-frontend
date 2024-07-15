@@ -41,7 +41,7 @@ const testSuiteDetailController = {
 
     if (!validationResult.error) {
       const usersTeams = await getUsersTeams(request)
-      const team = usersTeams.find((team) => team.teamId === teamId)
+      const team = usersTeams.find((userTeam) => userTeam.teamId === teamId)
 
       await saveToCreate(request, h, {
         ...sanitisedPayload,
