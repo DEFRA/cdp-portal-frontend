@@ -19,19 +19,73 @@
 
         <form action="/deploy-service/deploy" method="post">
 
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
           {{ govukSummaryList({
-            classes: "govuk-!-margin-bottom-9",
+            classes: "govuk-!-margin-bottom-7",
             rows: deploymentRows
           }) }}
 
-          {{ appButton({
-            text: formButtonText,
-            loader: {
-              name: "deploy-submit-button"
-            }
-          }) }}
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
+
+          {% call appPanel() %}
+            <section>
+              <div class="app-row">
+                <div class="app-row__item-flex-two">
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service Config</h2>
+
+                  <p class="govuk-!-margin-bottom-2">
+                    Environment variables available to this deployment can be seen in
+                  </p>
+
+                  <ul class="govuk-list govuk-list--bullet">
+                    <li>
+                      <a
+                        class="app-link"
+                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ deployment.imageName }}/{{
+                        deployment.environment }}/{{ deployment.imageName }}.env"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {{ deployment.imageName }} - {{ deployment.environment }} - config
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="app-link"
+                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ deployment.imageName }}/defaults.env"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {{ deployment.imageName }} - defaults
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="app-row__item-flex-two">
+
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
+
+                  <p class="govuk-!-margin-bottom-2">
+                    The secret environment variables available to this deployment are:
+                  </p>
+
+                  <ul class="govuk-list govuk-!-margin-0">
+                    {% for secret in secrets %}
+                      <li><code>{{ secret }}</code></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </section>
+          {% endcall %}
+
+          <div class="govuk-!-margin-top-6">
+            {{ appButton({
+              text: formButtonText,
+              loader: {
+                name: "deploy-submit-button"
+              }
+            }) }}
+          </div>
 
         </form>
       </div>

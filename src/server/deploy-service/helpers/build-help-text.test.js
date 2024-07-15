@@ -9,7 +9,7 @@ describe('#buildHelpText', () => {
 
     expect(buildHelpText(cpuValue, memoryValue))
       .toEqual(`<p class="govuk-!-margin-bottom-2">
-            All deployments require resources for platform processes:
+            This deployment requires resources for platform processes:
           </p>
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">
             <li>.07 vCPU will be automatically allocated to platform processes. Leaving approximately 7.93 vCPU available.</li>

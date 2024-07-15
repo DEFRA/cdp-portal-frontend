@@ -3,6 +3,7 @@ import { deploymentRows } from '~/src/server/deploy-service/transformers/deploym
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
+import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
 
 const summaryController = {
   options: {
@@ -24,6 +25,11 @@ const summaryController = {
       ({ value }) => value === parseInt(deployment?.memory, 10)
     )
 
+    const { secrets } = await fetchSecrets(
+      deployment.environment,
+      deployment.imageName
+    )
+
     return h.view('deploy-service/views/summary', {
       pageTitle: 'Deploy Service Summary',
       heading: 'Summary',
@@ -31,7 +37,9 @@ const summaryController = {
         'Information about the Microservice you are going to deploy.',
       helpText: buildHelpText(cpuDetail?.value, memoryDetail?.value),
       deploymentRows: deploymentRows(deployment, cpuDetail, memoryDetail),
-      formButtonText: 'Deploy'
+      formButtonText: 'Deploy',
+      deployment,
+      secrets: secrets.sort()
     })
   }
 }
