@@ -1,3 +1,4 @@
+// TODO move these into a Client env via webpack and DefinePlugin
 const badNames = [
   'new',
   'next',
