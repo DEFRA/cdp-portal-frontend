@@ -34,9 +34,9 @@ function summaryMicroserviceRows(create) {
   }, {})
 
   return [
-    buildRow('Creation Type', startCase(createDetails.kind), 'choose-kind'),
-    buildRow('Repository Name', createDetails.repositoryName, detailPage),
-    buildRow('Service Type', createDetails.serviceTypeName, detailPage),
+    buildRow('Kind', startCase(createDetails.kind), 'choose-kind'),
+    buildRow('Name', createDetails.repositoryName, detailPage),
+    buildRow('Template', createDetails.serviceTypeName, detailPage),
     buildRow('Owning Team', createDetails.teamName, detailPage)
   ]
 }

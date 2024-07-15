@@ -19,7 +19,7 @@ const testSuiteSuccessController = {
     const create = request.pre?.create
     const repositoryName = create.repositoryName
 
-    return h.view('create/test-suite/views/success', {
+    return h.view('create/journey-test-suite/views/success', {
       pageTitle: 'Status',
       heading: 'Status',
       caption: 'Your journey test suite is being created',

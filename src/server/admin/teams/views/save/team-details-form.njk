@@ -1,6 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "read-out/macro.njk" import appReadOut %}
 {% from "split-pane/macro.njk" import appSplitPane with context %}
 
 {% block content %}
@@ -35,8 +34,6 @@
                   classes: "app-form-group app-form-group-js"
                 },
                 attributes: {
-                  "data-js": "app-read-out",
-                  "data-read-out-target-id": "team-name-read-out",
                   "data-1p-ignore": ""
                 },
                 value: formValues.name,
@@ -47,11 +44,6 @@
                   text: formErrors.name.message,
                   classes: "govuk-!-margin-bottom-1 app-error-message"
                 } if formErrors.name.message
-              }) }}
-
-              {{ appReadOut({
-                description: "Your team name will be ",
-                targetId: "team-name-read-out"
               }) }}
 
               {{ govukTextarea({

@@ -1,0 +1,67 @@
+{% from "info/macro.njk" import appInfo %}
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/error-icon/macro.njk" import appErrorIcon %}
+
+{% set names = ["seed-vault-", "fruit-quality-", "bee-health-", "sea-temperature-", "harvest-metrics-"] %}
+{% set badNames = [
+  "sheep-dip-alpha",
+  "sheep-dip-v1",
+  "sheep-dip-main",
+  "sheep-dip-repo",
+  "sheep-dip-new",
+  "sheep-dip-hapi",
+  "sd-frontend"
+] %}
+
+{% call appInfo({
+  classes: "govuk-!-margin-top-0"
+}) %}
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Naming conventions</h2>
+
+  <p class="govuk-!-margin-bottom-2">
+    The name you choose will be its unique identifier used in multiple places across the Platform. We recommend a
+    sensible descriptive name, optionally ending with a category of your choice.
+    {% for category in params.categories %}
+    {% if loop.last %}
+      or <em>{{ category }}</em>
+      {% elif loop.revindex0 === 1 %}
+      <em>{{ category }}</em>
+    {% else %}
+      <em>{{ category }}</em>,
+    {% endif %}
+    {% endfor %}. E.g.
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-1 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
+    {% for category in params.categories -%}
+      <li>
+        <div class="app-!-layout-centered">
+          seed-vault-{{ category }}
+          {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-left-1" }) }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="govuk-!-margin-bottom-2">
+    Avoid including words that do not belong in the name. For example do not include project phases, version numbers,
+    temporary words, branch names, product names or excessive acronyms.
+  </p>
+  <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
+    {% for badName in badNames %}
+      <li>
+        <div class="app-!-layout-centered">
+          {{ badName }} {{ appErrorIcon({ classes: "app-icon-tiny govuk-!-margin-left-1" }) }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="govuk-!-margin-bottom-2">
+    For further advice on choosing a name see <a href="https://github.com/DEFRA/cdp-documentation#naming-best-practices"
+                                                 class="govuk-link app-link"
+                                                 target="_blank" rel="noopener noreferrer">
+      DEFRA/cdp-documentation - Naming conventions
+    </a>
+  </p>
+{% endcall %}

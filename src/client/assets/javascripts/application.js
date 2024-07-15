@@ -12,6 +12,7 @@ import { fetchIsNameAvailable } from '~/src/client/common/helpers/fetch/create/f
 import { fetchMemory } from '~/src/client/common/helpers/fetch/select'
 import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete'
 import { filters } from '~/src/server/common/components/filters/filters'
+import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant'
 import { initClass } from '~/src/client/common/helpers/init-class'
 import { initModule } from '~/src/client/common/helpers/init-module'
 import { paramsToHiddenInputs } from '~/src/client/common/helpers/params-to-hidden-inputs'
@@ -19,7 +20,6 @@ import { poll } from '~/src/client/common/helpers/poll'
 import { populateAutocompleteSuggestions } from '~/src/client/common/helpers/populate-autocomplete-suggestions'
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options'
 import { protectForm } from '~/src/client/common/helpers/protect-form'
-import { readOut } from '~/src/server/common/components/read-out/read-out'
 import { search } from '~/src/server/common/components/search/search'
 import { tabs } from '~/src/server/common/components/tabs/tabs'
 import { xhrSubscriber } from '~/src/server/common/components/xhr-subscriber/xhr-subscriber'
@@ -44,8 +44,7 @@ window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 window.cdp.clearDeploymentsListFilters = clearDeploymentsListFilters
 
-// Create multistep form flow, repository name readout
-initModule('app-read-out', readOut, '*=')
+initModule('app-input-assistant', inputAssistant, '*=')
 
 // Create multistep form flow, repository name availability
 initModule('app-availability', availability, '*=')

@@ -34,8 +34,8 @@ function summaryPerfTestSuiteRows(create) {
   }, {})
 
   return [
-    buildRow('Creation Type', startCase(createDetails.kind), 'choose-kind'),
-    buildRow('Performance Test Name', createDetails.repositoryName, detailPage),
+    buildRow('Kind', startCase(createDetails.kind), 'choose-kind'),
+    buildRow('Name', createDetails.repositoryName, detailPage),
     buildRow('Owning Team', createDetails.teamName, detailPage)
   ]
 }

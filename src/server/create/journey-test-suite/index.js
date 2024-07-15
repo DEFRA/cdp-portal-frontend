@@ -4,32 +4,32 @@ import {
   testSuiteSummaryController,
   testSuiteCreateController,
   testSuiteSuccessController
-} from '~/src/server/create/test-suite/controllers'
+} from '~/src/server/create/journey-test-suite/controllers'
 
 const createTestSuiteRoutes = [
   {
     method: 'GET',
-    path: '/create/test-suite/detail',
+    path: '/create/journey-test-suite/detail',
     ...testSuiteDetailFormController
   },
   {
     method: 'POST',
-    path: '/create/test-suite/detail',
+    path: '/create/journey-test-suite/detail',
     ...testSuiteDetailController
   },
   {
     method: 'GET',
-    path: '/create/test-suite/summary',
+    path: '/create/journey-test-suite/summary',
     ...testSuiteSummaryController
   },
   {
     method: 'POST',
-    path: '/create/test-suite',
+    path: '/create/journey-test-suite',
     ...testSuiteCreateController
   },
   {
     method: 'GET',
-    path: '/create/test-suite/success',
+    path: '/create/journey-test-suite/success',
     ...testSuiteSuccessController
   }
 ]

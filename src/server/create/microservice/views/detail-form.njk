@@ -1,6 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "read-out/macro.njk" import appReadOut %}
 {% from "availability/macro.njk" import appAvailability %}
 
 {% block content %}
@@ -10,27 +9,28 @@
 
     {{ appHeading({
       title: heading,
-      caption: "Create a new microservice code repository and infrastructure."
+      caption: "Create a new microservice, code repository with associated dashboards, proxy and infrastructure."
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
-        <form action="/create/microservice/detail" method="post" data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+      <div class="app-grid-column-one-third-from-desktop-wide">
+        <form action="/create/microservice/detail" method="post" data-js="app-form-errors"
+              class="govuk-!-margin-bottom-4">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
 
           {% call govukFieldset() %}
 
             {{ govukInput({
               label: {
-                text: "Repository Name",
+                text: "Name",
                 classes: "app-label"
               },
-              id: "repository-name",
+              id: "name",
               name: "repositoryName",
               classes: "app-input app-input--wide",
               hint: {
-                text: "Use lowercase words with hyphen separators and a maximum of 32 characters",
+                html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. <em>bee-pollen-frontend</em>",
                 classes: "app-hint"
               },
               formGroup: {
@@ -38,9 +38,9 @@
               },
               value: formValues.repositoryName,
               attributes: {
-                "data-js": "app-availability app-read-out",
-                "data-availability-target-id": "repository-name-availability",
-                "data-read-out-target-id": "repository-name-read-out",
+                "data-js": "app-availability app-input-assistant",
+                "data-availability-target-id": "name-availability",
+                "data-input-assistant-target-id": "name-input-assistant",
                 "data-1p-ignore": ""
               },
               errorMessage: {
@@ -54,22 +54,21 @@
                 classes: "app-input__suffix",
                 html: appAvailability({
                   dataFetcher: "fetchIsNameAvailable",
-                  targetId: "repository-name-availability"
+                  targetId: "name-availability"
                 })
               }
             }) }}
 
-            {{ appReadOut({
-              description: "Your repository name will be ",
-              targetId: "repository-name-read-out"
+            {{ appInputAssistant({
+              message: "That name is not ideal. Read ‘Naming conventions’ for some tips",
+              targetId: "name-input-assistant"
             }) }}
-
 
             {{ govukSelect({
               id: "service-type",
               name: "serviceTypeTemplate",
               label: {
-                text: "Service Type",
+                text: "Template",
                 classes: "app-label"
               },
               classes: "app-select",
@@ -126,7 +125,21 @@
 
         </form>
       </div>
+
+      <div class="app-grid-column-one-third-from-desktop-wide">
+        <div class="govuk-!-margin-bottom-4">
+          {{ appNamingAdvice({
+            kind: "microservice",
+            categories: [
+              "frontend",
+              "ui",
+              "backend",
+              "api",
+              "prototype"
+            ]
+          } ) }}
+        </div>
+      </div>
     </div>
   </div>
-
 {% endblock %}

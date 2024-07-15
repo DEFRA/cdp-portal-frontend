@@ -6,7 +6,7 @@ import {
 } from '~/src/server/create/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
 import { provideCreateSteps } from '~/src/server/create/helpers/form'
-import { createTestSuiteRoutes } from '~/src/server/create/test-suite'
+import { createTestSuiteRoutes } from '~/src/server/create/journey-test-suite'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
 import { createRepositoryRoutes } from '~/src/server/create/repository'
 import { sessionNames } from '~/src/server/common/constants/session-names'

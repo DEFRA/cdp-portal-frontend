@@ -4,7 +4,7 @@ import { validation } from '~/src/server/common/constants/validation'
 
 const teamValidation = Joi.object({
   name: Joi.string()
-    .max(3)
+    .min(3)
     .max(53)
     .regex(/^[A-Za-z0-9-]+$/)
     .required()

@@ -1,6 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "read-out/macro.njk" import appReadOut %}
 {% from "availability/macro.njk" import appAvailability %}
 
 {% block content %}
@@ -14,22 +13,24 @@
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
-        <form action="/create/smoke-test-suite/detail" method="post" data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+      <div class="app-grid-column-one-third-from-desktop-wide">
+        <form action="/create/smoke-test-suite/detail" method="post" data-js="app-form-errors"
+              class="govuk-!-margin-bottom-4">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+
           {% call govukFieldset() %}
 
             {{ govukInput({
               label: {
-                text: "Test suite name",
+                text: "Name",
                 classes: "app-label"
               },
-              id: "repository-name",
+              id: "name",
               name: "repositoryName",
               classes: "app-input app-input--wide",
               hint: {
-                text: "Use lowercase words with hyphen separators and a maximum of 32 characters",
+                html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. <em>hive-smoke-tests</em>",
                 classes: "app-hint"
               },
               formGroup: {
@@ -37,9 +38,9 @@
               },
               value: formValues.repositoryName,
               attributes: {
-                "data-js": "app-availability app-read-out",
+                "data-js": "app-availability app-input-assistant",
                 "data-availability-target-id": "test-suite-name-availability",
-                "data-read-out-target-id": "test-suite-name-read-out",
+                "data-input-assistant-target-id": "name-input-assistant",
                 "data-1p-ignore": ""
               },
               errorMessage: {
@@ -58,11 +59,10 @@
               }
             }) }}
 
-            {{ appReadOut({
-              description: "Your smoke test suite name will be ",
-              targetId: "test-suite-name-read-out"
+            {{ appInputAssistant({
+              message: "That name is not ideal. Read ‘Naming conventions’ for some tips",
+              targetId: "name-input-assistant"
             }) }}
-
 
             {{ govukSelect({
               id: "team-id",
@@ -99,7 +99,19 @@
 
         </form>
       </div>
+
+      <div class="app-grid-column-one-third-from-desktop-wide">
+        <div class="govuk-!-margin-bottom-4">
+          {{ appNamingAdvice({
+            kind: "smoke test suite",
+            categories: [
+              "tests",
+              "smoke-tests",
+              "confidence-tests"
+            ]
+          } ) }}
+        </div>
+      </div>
     </div>
   </div>
-
 {% endblock %}
