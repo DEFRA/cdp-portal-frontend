@@ -42,8 +42,7 @@
                     <li>
                       <a
                         class="app-link"
-                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ deployment.imageName }}/{{
-                        deployment.environment }}/{{ deployment.imageName }}.env"
+                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ deployment.imageName }}/{{ deployment.environment }}/{{ deployment.imageName }}.env"
                         target="_blank"
                         rel="noopener noreferrer">
                         {{ deployment.imageName }} - {{ deployment.environment }} - config
@@ -60,19 +59,23 @@
                     </li>
                   </ul>
                 </div>
+
                 <div class="app-row__item-flex-two">
-
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
-
                   <p class="govuk-!-margin-bottom-2">
                     The secret environment variables available to this deployment are:
                   </p>
-
-                  <ul class="govuk-list govuk-!-margin-0">
-                    {% for secret in secrets %}
-                      <li><code>{{ secret }}</code></li>
-                    {% endfor %}
-                  </ul>
+                  {% if secrets | length %}
+                    <ul class="govuk-list govuk-!-margin-0">
+                      {% for secret in secrets %}
+                        <li><code>{{ secret }}</code></li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                  <p class="govuk-!-margin-bottom-2">
+                    No secrets currently available
+                  </p>
+                  {% endif %}
                 </div>
               </div>
             </section>

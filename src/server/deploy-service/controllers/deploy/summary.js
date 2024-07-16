@@ -25,10 +25,17 @@ const summaryController = {
       ({ value }) => value === parseInt(deployment?.memory, 10)
     )
 
-    const { secrets } = await fetchSecrets(
-      deployment.environment,
-      deployment.imageName
-    )
+    let secrets
+    try {
+      const secretsResponse = await fetchSecrets(
+        deployment.environment,
+        deployment.imageName
+      )
+      secrets = secretsResponse.secrets
+    } catch (error) {
+      request.logger.error(error, 'No secrets found')
+      secrets = []
+    }
 
     return h.view('deploy-service/views/summary', {
       pageTitle: 'Deploy Service Summary',
@@ -39,7 +46,7 @@ const summaryController = {
       deploymentRows: deploymentRows(deployment, cpuDetail, memoryDetail),
       formButtonText: 'Deploy',
       deployment,
-      secrets: secrets.sort()
+      secrets: secrets?.sort()
     })
   }
 }
