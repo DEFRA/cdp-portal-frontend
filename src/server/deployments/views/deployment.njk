@@ -250,12 +250,17 @@
                 <p class="govuk-!-margin-bottom-2">
                   The secret environment variables included in this deployment are:
                 </p>
-
-                <ul class="govuk-list govuk-!-margin-0">
-                  {% for secret in deployment.secrets | sort %}
-                    <li><code>{{ secret }}</code></li>
-                  {% endfor %}
-                </ul>
+                {% if deployment.secrets | length %}
+                  <ul class="govuk-list govuk-!-margin-0">
+                    {% for secret in deployment.secrets | sort %}
+                      <li><code>{{ secret }}</code></li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p class="govuk-!-margin-bottom-2">
+                    No secrets currently available
+                  </p>
+                {% endif %}
               </div>
             </div>
           </section>
