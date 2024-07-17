@@ -20,7 +20,7 @@ function catchAll(request, h) {
     return h.continue
   }
 
-  request.logger.error(response?.stack)
+  request.logger.error(response, response?.stack, response?.message)
 
   const statusCode = response.output.statusCode
   const errorMessage = statusCodeMessage(statusCode)
