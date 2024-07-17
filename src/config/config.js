@@ -148,11 +148,13 @@ const config = convict({
     format: Boolean,
     default: process.env.NODE_ENV === 'test'
   },
-  logLevel: {
-    doc: 'Logging level',
-    format: ['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'silent'],
-    default: 'info',
-    env: 'LOG_LEVEL'
+  get logLevel() {
+    return {
+      doc: 'Logging level',
+      format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
+      default: this.isDevelopment ? 'debug' : 'info',
+      env: 'LOG_LEVEL'
+    }
   },
   azureTenantId: {
     doc: 'Azure Active Directory Tenant ID',
