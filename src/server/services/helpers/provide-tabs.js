@@ -1,0 +1,44 @@
+async function provideTabs(request, h) {
+  const authedUser = await request.getUserSession()
+  const isAdmin = authedUser?.isAdmin
+  const response = request.response
+
+  if (response.variety === 'view') {
+    if (!response.source?.context) {
+      response.source.context = {}
+    }
+
+    const imageName = response.source?.context?.service?.imageName
+    const teams = response.source?.context?.service?.teams ?? []
+    const serviceTeamIds = teams.map((team) => team.teamId)
+    const isServiceOwner = await request.userIsMemberOfATeam(serviceTeamIds)
+
+    response.source.context.tabs = [
+      {
+        isActive: request.path === `/services/${imageName}`,
+        url: request.routeLookup('services/{serviceId}', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'About'
+      }
+    ]
+
+    if (isAdmin || isServiceOwner) {
+      response.source.context.tabs.push({
+        isActive: request.path === `/services/${imageName}/secrets`,
+        url: request.routeLookup('services/{serviceId}/secrets', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Secrets'
+      })
+    }
+  }
+
+  return h.continue
+}
+
+export { provideTabs }

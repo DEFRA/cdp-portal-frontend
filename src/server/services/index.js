@@ -3,11 +3,22 @@ import {
   serviceListController,
   serviceStatusController
 } from '~/src/server/services/controllers'
+import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
 
 const services = {
   plugin: {
     name: 'services',
     register: (server) => {
+      server.ext([
+        {
+          type: 'onPostHandler',
+          method: provideTabs,
+          options: {
+            sandbox: 'plugin'
+          }
+        }
+      ])
+
       server.route([
         {
           method: 'GET',
