@@ -8,14 +8,14 @@ function provideSubNavigation(request, h) {
 
     response.source.context.subNavigation = [
       {
-        isActive: request.path.startsWith('/admin/teams'),
-        url: '/admin/teams',
-        label: 'Teams'
-      },
-      {
         isActive: request.path.startsWith('/admin/users'),
         url: '/admin/users',
         label: 'Users'
+      },
+      {
+        isActive: request.path.startsWith('/admin/teams'),
+        url: '/admin/teams',
+        label: 'Teams'
       }
     ]
   }
