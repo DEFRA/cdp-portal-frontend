@@ -1,4 +1,4 @@
-import { nullify404 } from '~/src/server/services/helpers/nullify-404'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
