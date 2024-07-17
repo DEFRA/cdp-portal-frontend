@@ -9,7 +9,12 @@ jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service')
 
 describe('#provideService', () => {
   const mockRequest = {
-    params: { serviceId: 'cdp-portal-frontend' }
+    params: { serviceId: 'cdp-portal-frontend' },
+    server: {
+      methods: {
+        fetchDeployableService
+      }
+    }
   }
 
   afterEach(() => {

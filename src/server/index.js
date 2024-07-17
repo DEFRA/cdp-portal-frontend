@@ -27,6 +27,7 @@ import { auditor } from '~/src/server/common/helpers/audit/auditor'
 import { proxyAgent } from '~/src/server/common/helpers/proxy/proxy-agent'
 import { setupWreckAgents } from '~/src/server/common/helpers/proxy/setup-wreck-agents'
 import { pulse } from '~/src/server/common/helpers/pulse'
+import { addServerMethods } from '~/src/server/common/add-server-methods'
 
 const isProduction = config.get('isProduction')
 
@@ -123,6 +124,8 @@ async function createServer() {
       options: { audit: config.get('audit') }
     }
   ])
+
+  addServerMethods(server)
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']

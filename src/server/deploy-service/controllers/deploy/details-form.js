@@ -12,13 +12,12 @@ import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
 import { withEnvironments } from '~/src/server/common/transformers/with-environments'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id'
 import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row'
-import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 
-async function getAdditionalData(imageName) {
+async function getAdditionalData(request, imageName) {
   if (!imageName) {
     return {
       availableVersionOptions: optionsWithMessage('choose an image name')
@@ -33,7 +32,7 @@ async function getAdditionalData(imageName) {
       hint: relativeDate(version.created)
     }))
   )
-  const service = await fetchDeployableService(imageName)
+  const service = await request.server.methods.fetchDeployableService(imageName)
   const environments = getEnvironmentsByTeam(service?.teams)
   const runningServices = (await fetchRunningServicesById(imageName)) ?? []
   const runningServicesEntityRows = compose(
@@ -80,7 +79,7 @@ const detailsFormController = {
       rowHeadings,
       availableVersionOptions,
       latestVersions
-    } = await getAdditionalData(imageName)
+    } = await getAdditionalData(request, imageName)
 
     return h.view('deploy-service/views/details-form', {
       pageTitle: 'Deploy Service details',
