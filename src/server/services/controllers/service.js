@@ -15,6 +15,7 @@ import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetc
 
 const serviceController = {
   options: {
+    id: 'services/{serviceId}',
     pre: [[provideService], provideCanDeploy],
     validate: {
       params: Joi.object({
