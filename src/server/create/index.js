@@ -16,10 +16,7 @@ import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
 import { createSmokeTestSuiteRoutes } from '~/src/server/create/smoke-test-suite'
 
-const serviceTeamAndAdminUserScope = authScope([
-  scopes.serviceTeamUser,
-  scopes.admin
-])
+const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
 const create = {
   plugin: {

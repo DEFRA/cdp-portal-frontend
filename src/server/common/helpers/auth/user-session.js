@@ -30,9 +30,9 @@ async function createUserSession(request, sessionId) {
     userGroups.push(scopes.admin)
   }
 
-  const isServiceTeamUser = await isUserInAServiceTeam(teams, userGroups)
-  if (isServiceTeamUser) {
-    userGroups.push(scopes.serviceTeamUser)
+  const isTenant = await isUserInAServiceTeam(teams, userGroups)
+  if (isTenant) {
+    userGroups.push(scopes.tenant)
   }
 
   await request.server.app.cache.set(sessionId, {
@@ -44,7 +44,7 @@ async function createUserSession(request, sessionId) {
     token: request.auth.credentials.token,
     refreshToken: request.auth.credentials.refreshToken,
     isAdmin,
-    isServiceTeamUser,
+    isTenant,
     scope: userGroups,
     expiresIn: expiresInMilliSeconds,
     expiresAt
@@ -81,9 +81,9 @@ async function updateUserSession(request, refreshedSession) {
     userGroups.push(scopes.admin)
   }
 
-  const isServiceTeamUser = await isUserInAServiceTeam(teams, userGroups)
-  if (isServiceTeamUser) {
-    userGroups.push(scopes.serviceTeamUser)
+  const isTenant = await isUserInAServiceTeam(teams, userGroups)
+  if (isTenant) {
+    userGroups.push(scopes.tenant)
   }
 
   await request.server.app.cache.set(request.state.userSession.sessionId, {
@@ -95,7 +95,7 @@ async function updateUserSession(request, refreshedSession) {
     token: refreshedSession.access_token,
     refreshToken: refreshedSession.refresh_token,
     isAdmin,
-    isServiceTeamUser,
+    isTenant,
     scope: userGroups,
     expiresIn: expiresInMilliSeconds,
     expiresAt

@@ -16,10 +16,7 @@ import {
   deployController
 } from '~/src/server/deploy-service/controllers'
 
-const serviceTeamAndAdminUserScope = authScope([
-  scopes.serviceTeamUser,
-  scopes.admin
-])
+const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
 const deployService = {
   plugin: {
