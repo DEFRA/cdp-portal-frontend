@@ -1,5 +1,6 @@
 import {
   serviceController,
+  serviceSecretsController,
   serviceListController,
   serviceStatusController
 } from '~/src/server/services/controllers'
@@ -29,6 +30,11 @@ const services = {
           method: 'GET',
           path: '/services/{serviceId}',
           ...serviceController
+        },
+        {
+          method: 'GET',
+          path: '/services/{serviceId}/secrets',
+          ...serviceSecretsController
         },
         {
           method: 'GET',
