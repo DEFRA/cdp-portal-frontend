@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { capitalize, upperFirst } from 'lodash'
+import { capitalize, kebabCase, upperFirst } from 'lodash'
 import { compose } from 'lodash/fp'
 
 import { environments } from '~/src/config'
@@ -12,6 +12,7 @@ import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fet
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments'
 import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
+import { pagination } from '~/src/server/common/constants/pagination'
 
 const deploymentsListController = {
   options: {
@@ -99,7 +100,16 @@ const deploymentsListController = {
       pagination: buildPagination(page, pageSize, totalPages, request.query),
       noResult: `Nothing has matched what you are looking for in ${capitalize(
         environment
-      )}`
+      )}`,
+      breadcrumbs: [
+        {
+          text: 'Deployments',
+          href: `/deployments?page=${pagination.page}&size=${pagination.size}`
+        },
+        {
+          text: upperFirst(kebabCase(environment))
+        }
+      ]
     })
   }
 }
