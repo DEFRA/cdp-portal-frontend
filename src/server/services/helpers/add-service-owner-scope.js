@@ -13,7 +13,7 @@ function addServiceOwnerScope() {
         request.params.serviceId
       )
       const serviceTeamIds = service.teams?.map((team) => team.teamId)
-      const isServiceOwner = await request.userIsMemberOfATeam(serviceTeamIds)
+      const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
       const { credentials } = request.auth
 
       const scope = [...credentials.scope]
