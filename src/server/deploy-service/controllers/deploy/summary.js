@@ -4,6 +4,7 @@ import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provi
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
 import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
+import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
 
 const summaryController = {
   options: {
@@ -46,7 +47,7 @@ const summaryController = {
       deploymentRows: deploymentRows(deployment, cpuDetail, memoryDetail),
       formButtonText: 'Deploy',
       deployment,
-      secrets: secrets?.sort()
+      secrets: secrets?.sort(sortByName)
     })
   }
 }
