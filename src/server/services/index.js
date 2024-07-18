@@ -1,10 +1,12 @@
 import {
   serviceController,
   serviceSecretsController,
+  serviceEnvironmentSecretsController,
   serviceListController,
   serviceStatusController
 } from '~/src/server/services/controllers'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
+import { provideSubNavigation } from '~/src/server/services/helpers/provide-sub-navigation'
 
 const services = {
   plugin: {
@@ -14,6 +16,13 @@ const services = {
         {
           type: 'onPostHandler',
           method: provideTabs,
+          options: {
+            sandbox: 'plugin'
+          }
+        },
+        {
+          type: 'onPostHandler',
+          method: provideSubNavigation,
           options: {
             sandbox: 'plugin'
           }
@@ -35,6 +44,11 @@ const services = {
           method: 'GET',
           path: '/services/{serviceId}/secrets',
           ...serviceSecretsController
+        },
+        {
+          method: 'GET',
+          path: '/services/{serviceId}/secrets/{environment}',
+          ...serviceEnvironmentSecretsController
         },
         {
           method: 'GET',
