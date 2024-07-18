@@ -35,7 +35,7 @@ const deployments = {
           path: '/deployments',
           handler: (request, h) =>
             h.redirect(
-              `/deployments/prod?page=${pagination.page}&size=${pagination.size}`
+              `/deployments/dev?page=${pagination.page}&size=${pagination.size}`
             )
         },
         {
