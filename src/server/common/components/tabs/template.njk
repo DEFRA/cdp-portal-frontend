@@ -1,6 +1,6 @@
 <div class="app-tabs"
      data-js="app-tabs">
-  {% if(params.tabs | length) %}
+  {% if(params.displayTabs | default("true") and params.tabs | length) %}
     <ul class="app-tabs__list" data-testid="app-tabs-list">
       {% for tab in params.tabs %}
         <li class="app-tabs__list-item{% if tab.isActive %} app-tabs__list-item--selected{% endif %}"

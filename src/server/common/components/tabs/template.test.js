@@ -103,4 +103,39 @@ describe('Tabs Component', () => {
       expect($tabPanel.text().trim()).toEqual('Example Tab html content')
     })
   })
+
+  describe('When tabs are turned off', () => {
+    beforeEach(() => {
+      $tabs = renderTestComponent(
+        'tabs',
+        {
+          displayTabs: false,
+          tabs: [
+            { isActive: true, url: '/tab-one', label: 'One' },
+            { isActive: false, url: '/tab-two', label: 'Two' },
+            { isActive: false, url: '/tab-three', label: 'Three' }
+          ]
+        },
+        '<p>Example Tab child html</p>'
+      )
+
+      $tabsList = $tabs('[data-testid="app-tabs-list"]')
+    })
+
+    test('Should not render tabs', () => {
+      const $firstTab = getTab(1)
+      const $secondTab = getTab(2)
+      const $thirdTab = getTab(3)
+
+      expect($firstTab.length).toEqual(0)
+      expect($secondTab.length).toEqual(0)
+      expect($thirdTab.length).toEqual(0)
+    })
+
+    test('Should render expected tab panel content', () => {
+      const $tabPanel = $tabs('[data-testid="app-tabs-panel"]')
+
+      expect($tabPanel.html().trim()).toEqual('<p>Example Tab child html</p>')
+    })
+  })
 })
