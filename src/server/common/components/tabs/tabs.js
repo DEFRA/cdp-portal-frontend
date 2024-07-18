@@ -1,10 +1,11 @@
 import qs from 'qs'
+import { history } from '~/src/client/common/helpers/history'
 
-function prependQueryParams($tab, params) {
-  const hrefParts = $tab.href.split('?')
+function prependQueryParams($elem, params) {
+  const hrefParts = $elem.href.split('?')
   const href = hrefParts.at(0)
 
-  $tab.href = href + qs.stringify(params, { addQueryPrefix: true })
+  $elem.href = href + qs.stringify(params, { addQueryPrefix: true })
 }
 
 function tabs($module) {
@@ -15,9 +16,8 @@ function tabs($module) {
     $tabs.forEach(($tab) => prependQueryParams($tab, params))
   })
 
-  window.navigation.addEventListener('navigate', (event) => {
-    const searchString = event.destination.url.split('?').at(1)
-    const destinationParams = qs.parse(searchString, {
+  history.listen(({ _action, location }) => {
+    const destinationParams = qs.parse(location.search, {
       ignoreQueryPrefix: true
     })
 
