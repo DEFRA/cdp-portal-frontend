@@ -11,7 +11,7 @@ async function provideTabs(request, h) {
     const imageName = response.source?.context?.service?.imageName
     const teams = response.source?.context?.service?.teams ?? []
     const serviceTeamIds = teams.map((team) => team.teamId)
-    const isServiceOwner = await request.userIsMemberOfATeam(serviceTeamIds)
+    const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
 
     response.source.context.tabs = [
       {
@@ -27,7 +27,7 @@ async function provideTabs(request, h) {
 
     if (isAdmin || isServiceOwner) {
       response.source.context.tabs.push({
-        isActive: request.path === `/services/${imageName}/secrets`,
+        isActive: request.path.startsWith(`/services/${imageName}/secrets`),
         url: request.routeLookup('services/{serviceId}/secrets', {
           params: {
             serviceId: imageName
