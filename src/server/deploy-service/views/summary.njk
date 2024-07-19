@@ -81,7 +81,9 @@
                   {% if secrets.keys | length %}
                     <ul class="govuk-list">
                       {% for key in secrets.keys %}
-                        <li><code>{{ key }}</code></li>
+                        <li class="govuk-!-margin-bottom-1">
+                          <code>{{ key }}</code>
+                        </li>
                       {% endfor %}
                     </ul>
                   {% else %}

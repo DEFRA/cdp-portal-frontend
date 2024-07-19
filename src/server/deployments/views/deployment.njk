@@ -266,7 +266,9 @@
                 {% if deployment.secrets.keys | length %}
                   <ul class="govuk-list govuk-!-margin-0">
                     {% for key in deployment.secrets.keys %}
-                      <li><code>{{ key }}</code></li>
+                      <li class="govuk-!-margin-bottom-1">
+                        <code>{{ key }}</code>
+                      </li>
                     {% endfor %}
                   </ul>
                 {% else %}
