@@ -252,6 +252,21 @@ const config = convict({
       default: 'cdp-portal-frontend',
       env: 'AUDIT_SOURCE'
     }
+  },
+  secrets: {
+    // TODO this will be moved to one place. For the moment just adding it as config for ease
+    global: {
+      doc: 'Platform supplied "Global" secret keys that cannot be overridden',
+      format: Array,
+      default: [
+        'REDIS_KEY_PREFIX',
+        'REDIS_PASSWORD',
+        'REDIS_USERNAME',
+        'SQUID_PASSWORD',
+        'SQUID_USERNAME'
+      ],
+      env: 'SECRETS_NON_WRITABLE'
+    }
   }
 })
 
