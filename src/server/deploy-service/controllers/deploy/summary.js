@@ -4,7 +4,6 @@ import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provi
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
 import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
-import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
 
 const summaryController = {
   options: {
@@ -26,17 +25,10 @@ const summaryController = {
       ({ value }) => value === parseInt(deployment?.memory, 10)
     )
 
-    let secrets
-    try {
-      const secretsResponse = await fetchSecrets(
-        deployment.environment,
-        deployment.imageName
-      )
-      secrets = secretsResponse.secrets
-    } catch (error) {
-      request.logger.error(error, 'No secrets found')
-      secrets = []
-    }
+    const secrets = await fetchSecrets(
+      deployment.environment,
+      deployment.imageName
+    )
 
     return h.view('deploy-service/views/summary', {
       pageTitle: 'Deploy Service Summary',
@@ -47,7 +39,7 @@ const summaryController = {
       deploymentRows: deploymentRows(deployment, cpuDetail, memoryDetail),
       formButtonText: 'Deploy',
       deployment,
-      secrets: secrets?.sort(sortByName)
+      secrets
     })
   }
 }

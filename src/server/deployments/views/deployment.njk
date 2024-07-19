@@ -250,10 +250,23 @@
                 <p class="govuk-!-margin-bottom-2">
                   The secret environment variables included in this deployment are:
                 </p>
-                {% if deployment.secrets | length %}
+
+                {% if deployment.secrets.lastChangedDate %}
+                  <h2
+                    class="govuk-heading-s govuk-!-margin-top-0 govuk-!-margin-bottom-1 govuk-!-padding-top-0">
+                    Last updated
+                  </h2>
+                  <p class="govuk-!-margin-bottom-4">
+                    {{ appTime({
+                      datetime: deployment.secrets.lastChangedDate
+                    }) }}
+                  </p>
+                {% endif %}
+
+                {% if deployment.secrets.keys | length %}
                   <ul class="govuk-list govuk-!-margin-0">
-                    {% for secret in deployment.secrets | sort %}
-                      <li><code>{{ secret }}</code></li>
+                    {% for key in deployment.secrets.keys %}
+                      <li><code>{{ key }}</code></li>
                     {% endfor %}
                   </ul>
                 {% else %}
