@@ -1,5 +1,7 @@
-$nav-width: 130px;
+$nav-width: 140px;
 $nav-width-slim: 100px;
+
+@import "subnav/subnav";
 
 .app-split-pane {
   display: flex;
