@@ -40,6 +40,7 @@ const serviceEnvironmentSecretsController = {
       heading: service.serviceName,
       rowHeadings: buildRunningServicesRowHeadings(environments),
       service,
+      environment: formattedEnvironment,
       breadcrumbs: [
         {
           text: 'Services',
