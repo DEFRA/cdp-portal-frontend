@@ -2,3 +2,9 @@
   display: flex;
   align-items: center;
 }
+
+.app-\!-layout-right-aligned {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
