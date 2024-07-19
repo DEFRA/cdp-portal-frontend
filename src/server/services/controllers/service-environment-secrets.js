@@ -7,6 +7,7 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
+import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
 
 const serviceEnvironmentSecretsController = {
   options: {
@@ -32,27 +33,30 @@ const serviceEnvironmentSecretsController = {
   handler: async (request, h) => {
     const environment = request.params.environment
     const service = request.pre.service
+    const serviceName = service.serviceName
     const environments = getEnvironmentsByTeam(service.teams)
     const formattedEnvironment = upperFirst(kebabCase(environment))
+    const secrets = await fetchSecrets(environment, serviceName)
 
     return h.view('services/views/service-environment-secrets', {
-      pageTitle: `${service.serviceName} - Secrets - ${formattedEnvironment}`,
-      heading: service.serviceName,
+      pageTitle: `${serviceName} - Secrets - ${formattedEnvironment}`,
+      heading: serviceName,
       rowHeadings: buildRunningServicesRowHeadings(environments),
       service,
-      environment: formattedEnvironment,
+      environment,
+      secrets,
       breadcrumbs: [
         {
           text: 'Services',
           href: '/services'
         },
         {
-          text: service.serviceName,
-          href: `/services/${service.serviceName}`
+          text: serviceName,
+          href: `/services/${serviceName}`
         },
         {
           text: 'Secrets',
-          href: `/services/${service.serviceName}/secrets`
+          href: `/services/${serviceName}/secrets`
         },
         {
           text: formattedEnvironment
