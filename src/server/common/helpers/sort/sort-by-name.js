@@ -1,9 +1,9 @@
 const sortByName = (a, b) => {
-  if (a < b) {
+  if (a.toLowerCase() < b.toLowerCase()) {
     return -1
   }
 
-  if (a > b) {
+  if (a.toLowerCase() > b.toLowerCase()) {
     return 1
   }
 
