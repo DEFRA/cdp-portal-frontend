@@ -1,10 +1,8 @@
 import qs from 'qs'
-import { createBrowserHistory } from 'history'
+import { history } from '~/src/client/common/helpers/history'
 
 import { publish } from '~/src/client/common/helpers/event-emitter'
 import { eventName } from '~/src/client/common/constants/event-name'
-
-const history = createBrowserHistory()
 
 /**
  * Update data-xhr elements inside {% block xhrContent %}{% endblock %} with the contents of data-xhr elements
