@@ -35,7 +35,7 @@ async function getAdditionalData(imageName) {
   )
   const service = await fetchDeployableService(imageName)
   const environments = getEnvironmentsByTeam(service?.teams)
-  const runningServices = await fetchRunningServicesById(imageName)
+  const runningServices = (await fetchRunningServicesById(imageName)) ?? []
   const runningServicesEntityRows = compose(
     runningServicesToEntityRow(environments),
     withEnvironments

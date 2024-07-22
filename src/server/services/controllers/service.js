@@ -29,7 +29,7 @@ const serviceController = {
 
     const availableVersions = await fetchAvailableVersions(service.serviceName)
     const environments = getEnvironmentsByTeam(service.teams)
-    const runningServices = await fetchRunningServicesById(serviceId)
+    const runningServices = (await fetchRunningServicesById(serviceId)) ?? []
     const runningServicesEntityRows = compose(
       runningServicesToEntityRow(environments),
       withEnvironments

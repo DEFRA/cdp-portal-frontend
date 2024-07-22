@@ -1,6 +1,6 @@
 function decorateDeployments(deployableServices) {
   return (deployments) =>
-    deployments.map((deployment) => {
+    deployments?.map((deployment) => {
       const deployableService = deployableServices.find(
         (service) =>
           service.serviceName.toLowerCase() === deployment.service.toLowerCase()
