@@ -3,6 +3,8 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { repositoryValidation } from '~/src/server/create/repository/helpers/schema/repository-validation'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
+import { auditCreated } from '~/src/server/create/helpers/audit-created'
 
 const repositoryCreateController = {
   options: {
@@ -12,7 +14,7 @@ const repositoryCreateController = {
         scope: [config.get('oidcAdminGroupId'), '{payload.teamId}']
       }
     },
-    pre: [provideCreate]
+    pre: [provideCreate, provideAuthedUser]
   },
   handler: async (request, h) => {
     const create = request.pre?.create
@@ -63,6 +65,8 @@ const repositoryCreateController = {
             text: json.message,
             type: 'success'
           })
+
+          auditCreated(request, 'Repository', repositoryName)
 
           return h.redirect('/create/repository/success')
         }

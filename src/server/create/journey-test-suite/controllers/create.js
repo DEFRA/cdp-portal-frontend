@@ -3,6 +3,8 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-suite-validation'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
+import { auditCreated } from '~/src/server/create/helpers/audit-created'
 
 const testSuiteCreateController = {
   options: {
@@ -12,7 +14,7 @@ const testSuiteCreateController = {
         scope: [config.get('oidcAdminGroupId'), '{payload.teamId}']
       }
     },
-    pre: [provideCreate]
+    pre: [provideCreate, provideAuthedUser]
   },
   handler: async (request, h) => {
     const create = request.pre?.create
@@ -61,6 +63,8 @@ const testSuiteCreateController = {
             text: json.message,
             type: 'success'
           })
+
+          auditCreated(request, 'Journey Test Suite', repositoryName)
 
           return h.redirect('/create/journey-test-suite/success')
         }

@@ -9,6 +9,7 @@ import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetc
 import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation'
 import { setStepComplete } from '~/src/server/create/helpers/form'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
+import { auditCreated } from '~/src/server/create/helpers/audit-created'
 
 const microserviceCreateController = {
   options: {
@@ -80,9 +81,7 @@ const microserviceCreateController = {
             type: 'success'
           })
 
-          request.audit.send(
-            `Service created: ${repositoryName} by ${request.pre?.authedUser.id}:${request.pre?.authedUser.email}`
-          )
+          auditCreated(request, 'Service', repositoryName)
 
           return h.redirect(`/services/create-status/${json.repositoryName}`)
         }
