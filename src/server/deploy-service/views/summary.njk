@@ -65,16 +65,31 @@
                   <p class="govuk-!-margin-bottom-2">
                     The secret environment variables available to this deployment are:
                   </p>
-                  {% if secrets | length %}
-                    <ul class="govuk-list govuk-!-margin-0">
-                      {% for secret in secrets %}
-                        <li><code>{{ secret }}</code></li>
+
+                  {% if secrets.lastChangedDate %}
+                    <h2
+                      class="govuk-heading-s govuk-!-margin-top-0 govuk-!-margin-bottom-1 govuk-!-padding-top-0">
+                      Last updated
+                    </h2>
+                    <p class="govuk-!-margin-bottom-4">
+                      {{ appTime({
+                        datetime: secrets.lastChangedDate
+                      }) }}
+                    </p>
+                  {% endif %}
+
+                  {% if secrets.keys | length %}
+                    <ul class="govuk-list">
+                      {% for key in secrets.keys %}
+                        <li class="govuk-!-margin-bottom-1">
+                          <code>{{ key }}</code>
+                        </li>
                       {% endfor %}
                     </ul>
                   {% else %}
-                  <p class="govuk-!-margin-bottom-2">
-                    No secrets currently available
-                  </p>
+                    <p class="govuk-!-margin-bottom-2">
+                      No secrets currently available
+                    </p>
                   {% endif %}
                 </div>
               </div>
