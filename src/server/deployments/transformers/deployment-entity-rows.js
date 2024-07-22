@@ -3,7 +3,7 @@ import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-
 import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
 
 function deploymentEntityRows(deployments) {
-  return deployments.map(deploymentToEntityRow)
+  return deployments?.map(deploymentToEntityRow)
 }
 
 function deploymentToEntityRow(deployment) {

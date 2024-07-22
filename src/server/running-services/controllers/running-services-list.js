@@ -22,7 +22,7 @@ const runningServicesListController = {
   handler: async (request, h) => {
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.isAdmin)
-    const runningServices = await fetchRunningServices(environments)
+    const runningServices = (await fetchRunningServices(environments)) ?? []
     const sortedRunningServices = runningServices?.sort(
       sortBy('service', 'asc')
     )
