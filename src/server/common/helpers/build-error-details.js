@@ -9,4 +9,8 @@ function buildErrorDetails(errorDetails) {
   }, {})
 }
 
-export { buildErrorDetails }
+function reduceErrorMessages(validationResult) {
+  return validationResult.error?.details?.map((error) => error.message)
+}
+
+export { buildErrorDetails, reduceErrorMessages }

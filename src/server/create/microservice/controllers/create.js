@@ -1,10 +1,14 @@
 import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
+import {
+  buildErrorDetails,
+  reduceErrorMessages
+} from '~/src/server/common/helpers/build-error-details'
 import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types'
 import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation'
 import { setStepComplete } from '~/src/server/create/helpers/form'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 
 const microserviceCreateController = {
   options: {
@@ -14,7 +18,7 @@ const microserviceCreateController = {
         scope: [config.get('oidcAdminGroupId'), '{payload.teamId}']
       }
     },
-    pre: [provideCreate]
+    pre: [provideCreate, provideAuthedUser]
   },
   handler: async (request, h) => {
     const create = request.pre?.create
@@ -46,6 +50,9 @@ const microserviceCreateController = {
         formErrors: errorDetails
       })
 
+      const errorMessages = reduceErrorMessages(validationResult)
+      request.logger.warn({ errorMessages }, 'Validation failed')
+
       return h.redirect('/create/microservice/summary')
     }
 
@@ -72,6 +79,10 @@ const microserviceCreateController = {
             text: json.message,
             type: 'success'
           })
+
+          request.audit.send(
+            `Service created: ${repositoryName} by ${request.pre?.authedUser.id}:${request.pre?.authedUser.email}`
+          )
 
           return h.redirect(`/services/create-status/${json.repositoryName}`)
         }
