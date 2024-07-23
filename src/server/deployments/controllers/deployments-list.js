@@ -68,18 +68,17 @@ const deploymentsListController = {
         }))
     )
 
-    const {
-      data: deployments,
-      page,
-      pageSize,
-      totalPages
-    } = await fetchDeployments(environment, {
+    const deploymentsResponse = await fetchDeployments(environment, {
       page: request.query?.page,
       size: request.query?.size,
       service: request.query.service,
       user: request.query.user,
       status: request.query.status
     })
+    const deployments = deploymentsResponse?.data
+    const page = deploymentsResponse?.page
+    const pageSize = deploymentsResponse?.pageSize
+    const totalPages = deploymentsResponse?.totalPages
     const deployableServices = await fetchDeployableServices()
 
     const entityRows = compose(
