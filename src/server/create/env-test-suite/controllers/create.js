@@ -5,7 +5,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-suite-validation'
 import { setStepComplete } from '~/src/server/create/helpers/form'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
-import { auditMessageCreated } from '~/src/server/common/helpers/messages/audit-message-created'
+import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created'
 
 const envTestSuiteCreateController = {
   options: {
@@ -67,7 +67,7 @@ const envTestSuiteCreateController = {
             type: 'success'
           })
 
-          request.audit.send(
+          request.audit.sendMessage(
             auditMessageCreated(
               'Environment Test Suite',
               repositoryName,

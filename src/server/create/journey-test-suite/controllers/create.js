@@ -4,7 +4,7 @@ import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-suite-validation'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
-import { auditMessageCreated } from '~/src/server/common/helpers/messages/audit-message-created'
+import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created'
 
 const testSuiteCreateController = {
   options: {
@@ -64,7 +64,7 @@ const testSuiteCreateController = {
             type: 'success'
           })
 
-          request.audit.send(
+          request.audit.sendMessage(
             auditMessageCreated(
               'Journey Test Suite',
               repositoryName,

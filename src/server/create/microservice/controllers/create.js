@@ -6,7 +6,7 @@ import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetc
 import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation'
 import { setStepComplete } from '~/src/server/create/helpers/form'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
-import { auditMessageCreated } from '~/src/server/common/helpers/messages/audit-message-created'
+import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created'
 
 const microserviceCreateController = {
   options: {
@@ -75,7 +75,7 @@ const microserviceCreateController = {
             type: 'success'
           })
 
-          request.audit.send(
+          request.audit.sendMessage(
             auditMessageCreated(
               'Service',
               repositoryName,
