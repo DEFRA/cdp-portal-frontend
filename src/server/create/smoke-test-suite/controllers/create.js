@@ -5,7 +5,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-suite-validation'
 import { setStepComplete } from '~/src/server/create/helpers/form'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
-import { auditCreated } from '~/src/server/create/helpers/audit-created'
+import { auditMessageCreated } from '~/src/server/common/helpers/messages/audit-message-created'
 
 const smokeTestSuiteCreateController = {
   options: {
@@ -67,7 +67,13 @@ const smokeTestSuiteCreateController = {
             type: 'success'
           })
 
-          auditCreated(request, 'Smoke Test Suite', repositoryName)
+          request.audit.send(
+            auditMessageCreated(
+              'Smoke Test Suite',
+              repositoryName,
+              request.pre?.authedUser
+            )
+          )
 
           return h.redirect(`/test-suites/create-status/${json.repositoryName}`)
         }
