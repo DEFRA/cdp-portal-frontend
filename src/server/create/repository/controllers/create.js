@@ -70,7 +70,7 @@ const repositoryCreateController = {
             auditMessageCreated(
               'Repository',
               repositoryName,
-              request.pre?.authedUser
+              request.pre.authedUser
             )
           )
 

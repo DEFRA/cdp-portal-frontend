@@ -8,4 +8,5 @@ function buildErrorDetails(errorDetails) {
     }
   }, {})
 }
+
 export { buildErrorDetails }

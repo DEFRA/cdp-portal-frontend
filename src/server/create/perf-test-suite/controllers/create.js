@@ -71,7 +71,7 @@ const perfTestSuiteCreateController = {
             auditMessageCreated(
               'Perf Test Suite',
               repositoryName,
-              request.pre?.authedUser
+              request.pre.authedUser
             )
           )
 

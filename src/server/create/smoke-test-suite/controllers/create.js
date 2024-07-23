@@ -71,7 +71,7 @@ const smokeTestSuiteCreateController = {
             auditMessageCreated(
               'Smoke Test Suite',
               repositoryName,
-              request.pre?.authedUser
+              request.pre.authedUser
             )
           )
 

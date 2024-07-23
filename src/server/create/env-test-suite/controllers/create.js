@@ -71,7 +71,7 @@ const envTestSuiteCreateController = {
             auditMessageCreated(
               'Environment Test Suite',
               repositoryName,
-              request.pre?.authedUser
+              request.pre.authedUser
             )
           )
 

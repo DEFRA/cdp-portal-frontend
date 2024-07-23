@@ -79,7 +79,7 @@ const microserviceCreateController = {
             auditMessageCreated(
               'Service',
               repositoryName,
-              request.pre?.authedUser
+              request.pre.authedUser
             )
           )
 
