@@ -36,11 +36,11 @@ const deploymentController = {
       teams: deployment?.teams,
       tabBreadcrumbs: [
         {
-          text: capitalize(deployment.environment),
-          href: `/deployments/${deployment.environment}?page=${pagination.page}&size=${pagination.size}`
+          text: capitalize(deployment?.environment),
+          href: `/deployments/${deployment?.environment}?page=${pagination.page}&size=${pagination.size}`
         },
         {
-          text: `${deployment.service} - ${deployment.version}`
+          text: `${deployment?.service} - ${deployment?.version}`
         }
       ]
     })

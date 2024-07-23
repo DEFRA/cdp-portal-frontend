@@ -11,9 +11,12 @@ async function fetchRunningServices(environments) {
       { environments: Object.values(environments) },
       { arrayFormat: 'repeat', addQueryPrefix: true }
     )
-
-  const { json } = await fetcher(endpoint)
-  return json
+  try {
+    const { json } = await fetcher(endpoint)
+    return json
+  } catch (error) {
+    return []
+  }
 }
 
 export { fetchRunningServices }

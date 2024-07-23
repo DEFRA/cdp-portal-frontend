@@ -12,6 +12,7 @@ import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fet
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments'
 import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
+import { deploymentStatus } from '~/src/server/deployments/constants/status'
 
 const deploymentsListController = {
   options: {
@@ -37,48 +38,55 @@ const deploymentsListController = {
     const environment = request.params?.environment
 
     const filtersResponse = await request.server.methods.fetchFilters()
-    const serviceFilters = buildSuggestions(
-      filtersResponse.filters.services.map((serviceName) => ({
-        text: serviceName,
-        value: serviceName
-      }))
-    )
+    const serviceFilters = filtersResponse?.filters?.services
+      ? buildSuggestions(
+          filtersResponse.filters.services.map((serviceName) => ({
+            text: serviceName,
+            value: serviceName
+          }))
+        )
+      : []
 
-    const userFilters = buildSuggestions(
-      filtersResponse.filters.users.map((user) => ({
-        text: user.displayName,
-        value: user.id
-      }))
-    )
+    const userFilters = filtersResponse?.filters?.users
+      ? buildSuggestions(
+          filtersResponse.filters.users.map((user) => ({
+            text: user.displayName,
+            value: user.id
+          }))
+        )
+      : []
 
     const order = [
-      'running',
-      'requested',
-      'pending',
-      'stopped',
-      'stopping',
-      'undeployed'
+      deploymentStatus.running,
+      deploymentStatus.requested,
+      deploymentStatus.pending,
+      deploymentStatus.stopped,
+      deploymentStatus.stopping,
+      deploymentStatus.undeployed
     ]
-    const statusFilters = buildSuggestions(
-      filtersResponse.filters.statuses
-        .sort((a, b) => order.indexOf(a) - order.indexOf(b))
-        .map((status) => ({
-          text: upperFirst(status),
-          value: status
-        }))
-    )
+    const statusFilters = filtersResponse?.filters?.statuses
+      ? buildSuggestions(
+          filtersResponse.filters.statuses
+            .sort((a, b) => order.indexOf(a) - order.indexOf(b))
+            .map((status) => ({
+              text: upperFirst(status),
+              value: status
+            }))
+        )
+      : []
 
-    const deploymentsResponse = await fetchDeployments(environment, {
+    const {
+      data: deployments,
+      page,
+      pageSize,
+      totalPages
+    } = await fetchDeployments(environment, {
       page: request.query?.page,
       size: request.query?.size,
       service: request.query.service,
       user: request.query.user,
       status: request.query.status
     })
-    const deployments = deploymentsResponse?.data
-    const page = deploymentsResponse?.page
-    const pageSize = deploymentsResponse?.pageSize
-    const totalPages = deploymentsResponse?.totalPages
     const deployableServices = await fetchDeployableServices()
 
     const entityRows = compose(

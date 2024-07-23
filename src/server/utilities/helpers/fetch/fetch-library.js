@@ -19,7 +19,8 @@ async function fetchLibrary(libraryId) {
 
     return checkLibrary(json)
   } catch (error) {
-    if (error.output.statusCode === 404) {
+    const statusCode = error?.output?.statusCode
+    if (statusCode === 404) {
       throw Boom.boomify(Boom.notFound())
     }
     throw error

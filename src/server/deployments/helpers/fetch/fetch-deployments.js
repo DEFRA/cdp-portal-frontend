@@ -11,9 +11,12 @@ async function fetchDeployments(environment, queryParams) {
     `/v2/deployments?environment=${environment}${
       queryString ? `&${queryString}` : ''
     }`
-
-  const { json } = await fetcher(endpoint)
-  return json
+  try {
+    const { json } = await fetcher(endpoint)
+    return json
+  } catch (error) {
+    return {}
+  }
 }
 
 export { fetchDeployments }

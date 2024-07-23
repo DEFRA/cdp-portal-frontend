@@ -20,11 +20,12 @@ async function fetchDeployment(deploymentId) {
     const { json } = await fetcher(endpoint)
     return checkDeployment(json)
   } catch (error) {
-    if (error.output.statusCode === 404) {
+    const statusCode = error?.output?.statusCode
+    if (statusCode === 404) {
       throw Boom.boomify(Boom.notFound())
     }
 
-    throw error
+    return {}
   }
 }
 

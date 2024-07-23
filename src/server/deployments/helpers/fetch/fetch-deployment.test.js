@@ -38,22 +38,8 @@ describe('#fetchDeployment', () => {
       .get(deploymentEndpointUrl.pathname)
       .reply(503, { message: 'Wooooooah Wooooooah Wooooooah!' })
 
-    const error = await getError(async () => fetchDeployment(deploymentId))
+    const response = await fetchDeployment(deploymentId)
 
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Wooooooah Wooooooah Wooooooah!')
-  })
-
-  test('With different status code, Should throw with expected message', async () => {
-    nock(deploymentEndpointUrl.origin)
-      .get(deploymentEndpointUrl.pathname)
-      .reply(426, {})
-
-    const error = await getError(async () => fetchDeployment(deploymentId))
-
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Upgrade Required')
+    expect(response).toEqual({})
   })
 })

@@ -5,9 +5,12 @@ async function fetchAvailableVersions(serviceName) {
   const endpoint =
     config.get('portalBackendApiUrl') + `/deployables/${serviceName}`
 
-  const { json } = await fetcher(endpoint)
-
-  return json.filter((version) => version.tag !== '0.0.0')
+  try {
+    const { json } = await fetcher(endpoint)
+    return json.filter((version) => version.tag !== '0.0.0')
+  } catch (error) {
+    return []
+  }
 }
 
 export { fetchAvailableVersions }

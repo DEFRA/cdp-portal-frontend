@@ -10,7 +10,7 @@ function buildPagination(page, pageSize, totalPages, queryParams) {
     pageSize <= 0 ||
     totalPages <= 0
   ) {
-    throw new Error('Invalid parameters')
+    return
   }
 
   const pagination = { items: [] }
