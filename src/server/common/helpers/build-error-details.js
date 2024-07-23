@@ -8,9 +8,4 @@ function buildErrorDetails(errorDetails) {
     }
   }, {})
 }
-
-function reduceErrorMessages(validationResult) {
-  return validationResult.error?.details?.map((error) => error.message)
-}
-
-export { buildErrorDetails, reduceErrorMessages }
+export { buildErrorDetails }
