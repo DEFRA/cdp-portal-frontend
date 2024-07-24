@@ -49,8 +49,9 @@ describe('#transformTestSuiteRunResults', () => {
           value: '2024-02-27T10:31:36Z'
         },
         {
-          kind: 'text',
-          value: ''
+          kind: 'button',
+          value: 'Stop',
+          url: '/test-suites/cdp-portal-smoke-tests/383547d8-f71c-4e7e-8b03-4ddf09fd84fe/stop'
         }
       ],
       [
@@ -101,19 +102,5 @@ describe('#transformTestSuiteRunResults', () => {
         }
       ]
     ])
-  })
-
-  test('Should provide expected test suite run transformation with action buttons', () => {
-    const output = testSuiteRunsFixture.map((t) =>
-      transformTestSuiteRunResults(t, true)
-    )
-    expect(output[0][output[0].length - 1]).toEqual({
-      kind: 'button',
-      value: 'Stop',
-      classes: 'app-button--secondary',
-      url: '/test-suites/cdp-portal-smoke-tests/383547d8-f71c-4e7e-8b03-4ddf09fd84fe/stop'
-    })
-
-    expect(output[1][output[0].length - 1]).toEqual({ kind: 'text', value: '' })
   })
 })

@@ -26,13 +26,8 @@ const testSuiteController = {
 
     const testRuns = await fetchTestRuns(serviceName)
 
-    const isAdmin = request.pre.authedUser.isAdmin
-    const actionsEnabled = testSuite.teams.some(
-      (team) => isAdmin || request.userIsMemberOfATeam(team.teamId)
-    )
-
     const testSuiteRunResults = testRuns.map((test) =>
-      transformTestSuiteRunResults(test, actionsEnabled)
+      transformTestSuiteRunResults(test)
     )
 
     return h.view('test-suites/views/test-suite', {
