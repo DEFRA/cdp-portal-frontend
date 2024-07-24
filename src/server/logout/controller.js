@@ -22,9 +22,10 @@ const logoutController = {
 
     removeAuthenticatedUser(request)
 
-    request.audit.send(
-      `User logged out ${authedUser?.id} ${authedUser?.displayName}`
-    )
+    request.audit.sendMessage({
+      event: `User logged out ${authedUser?.id} ${authedUser?.displayName}`,
+      user: authedUser
+    })
     return h.redirect(logoutUrl)
   }
 }

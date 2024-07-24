@@ -2,6 +2,8 @@ import { isUndefined } from 'lodash'
 import { FirehoseClient, PutRecordCommand } from '@aws-sdk/client-firehose'
 import { fromNodeProviderChain } from '@aws-sdk/credential-providers'
 import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
+import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
+import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
 
 class AwsAuditor {
   constructor(options) {
@@ -65,6 +67,17 @@ class AwsAuditor {
         `Audit failed - Request id: ${cdpRequestId} - ${error.message}`
       )
     }
+  }
+
+  async sendMessage(message, tags = {}) {
+    const { error: validationError, value: validatedPayload } =
+      auditMessageSchema.validate(auditMessage(message))
+
+    if (!isUndefined(validationError)) {
+      this.logger.error(`Audit invalid message payload: ${validationError}`)
+      return
+    }
+    this.send(validatedPayload, tags)
   }
 }
 

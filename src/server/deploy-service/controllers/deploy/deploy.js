@@ -43,9 +43,14 @@ const deployController = {
 
         const deploymentId = json.deploymentId
 
-        request.audit.send(
-          `deployment requested: ${deployment.imageName}:${deployment.version} to ${deployment.environment} by ${request.pre?.authedUser.id}:${request.pre?.authedUser.email}`
-        )
+        request.audit.sendMessage({
+          event: `deployment requested: ${deployment.imageName}:${deployment.version} to ${deployment.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          data: {
+            imageName: deployment.imageName,
+            environment: deployment.environment
+          },
+          user: request.pre.authedUser
+        })
 
         return h.redirect(
           `/deployments/${deployment.environment}/${deploymentId}`
