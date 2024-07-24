@@ -6,7 +6,7 @@ import {
   triggerTestSuiteRunController,
   testSuiteResultsController
 } from '~/src/server/test-suites/controllers'
-import {stopTestSuiteController} from "~/src/server/test-suites/controllers/stop-test-suite";
+import { stopTestSuiteController } from '~/src/server/test-suites/controllers/stop-test-suite'
 
 const testSuites = {
   plugin: {

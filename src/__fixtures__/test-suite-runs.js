@@ -11,7 +11,7 @@ const testSuiteRunsFixture = [
     created: '2024-02-27T10:29:32.127Z',
     taskArn:
       'arn:aws:ecs:eu-west-2:123456789:task/infra-dev-ecs-public/f5cffc31e21149208f38b8ec2b168c50',
-    taskStatus: 'finished',
+    taskStatus: 'in-progress',
     taskLastUpdated: '2024-02-27T10:31:36Z',
     testStatus: 'passed',
     tag: '0.2.0'

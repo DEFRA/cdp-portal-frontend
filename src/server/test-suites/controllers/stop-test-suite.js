@@ -12,7 +12,12 @@ const stopTestSuiteController = {
     const suite = request.pre.testSuite
     const runId = request.params.runId
 
-    if (!canStop(suite, authedUser)) {
+    const isAdmin = authedUser.isAdmin
+    const canStop = suite.teams.some(
+      (team) => isAdmin || request.userIsMemberOfATeam(team.teamId)
+    )
+
+    if (!canStop) {
       request.yar.flash(sessionNames.globalValidationFailures, {
         text: 'You do not have permissions to stop this test suite',
         type: 'failure'
@@ -26,23 +31,17 @@ const stopTestSuiteController = {
       request.logger.error(error)
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        `Failed to stop test suite ${runId}, ${error}`
+        `Failed to stop test suite ${runId}, ${error}.`
       )
       return h.redirect(`/test-suites/${suite.serviceName}`)
     }
 
     request.yar.flash(sessionNames.notifications, {
-      text: `Test run ${runId} stopping...`,
+      text: `Stopping test run, this will take a few seconds.`,
       type: 'success'
     })
     return h.redirect(`/test-suites/${suite.serviceName}`)
   }
-}
-
-function canStop(testSuite, user) {
-  if (!user.isAuthenticated) return false
-  if (user.isAdmin) return true
-  return testSuite.teams.some((team) => user.scope.includes(team.teamId))
 }
 
 export { stopTestSuiteController }
