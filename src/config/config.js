@@ -259,13 +259,27 @@ const config = convict({
       doc: 'Platform supplied "Global" secret keys that cannot be overridden',
       format: Array,
       default: [
-        'REDIS_KEY_PREFIX',
-        'REDIS_PASSWORD',
-        'REDIS_USERNAME',
-        'SQUID_PASSWORD',
-        'SQUID_USERNAME'
-      ],
-      env: 'SECRETS_NON_WRITABLE'
+        {
+          key: 'REDIS_KEY_PREFIX',
+          description: 'Automatically generated Redis key prefix'
+        },
+        {
+          key: 'REDIS_USERNAME',
+          description: 'Automatically generated Redis username'
+        },
+        {
+          key: 'REDIS_PASSWORD',
+          description: 'Automatically generated Redis password'
+        },
+        {
+          key: 'SQUID_USERNAME',
+          description: 'Automatically generated Squid proxy username'
+        },
+        {
+          key: 'SQUID_PASSWORD',
+          description: 'Automatically generated Squid proxy password'
+        }
+      ]
     }
   }
 })
