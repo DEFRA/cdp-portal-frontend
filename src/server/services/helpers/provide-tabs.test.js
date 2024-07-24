@@ -56,7 +56,7 @@ describe('#provideTabs', () => {
       expect(mockResponse.source.context.tabs).toEqual([
         {
           isActive: true,
-          label: 'About',
+          label: 'Details',
           url: `/services/${mockServiceName}`
         },
         {
@@ -86,7 +86,7 @@ describe('#provideTabs', () => {
       expect(mockResponse.source.context.tabs).toEqual([
         {
           isActive: false,
-          label: 'About',
+          label: 'Details',
           url: `/services/${mockServiceName}`
         },
         {
@@ -121,7 +121,7 @@ describe('#provideTabs', () => {
       expect(mockResponse.source.context.tabs).toEqual([
         {
           isActive: true,
-          label: 'About',
+          label: 'Details',
           url: `/services/${mockServiceName}`
         },
         {
@@ -151,7 +151,7 @@ describe('#provideTabs', () => {
       expect(mockResponse.source.context.tabs).toEqual([
         {
           isActive: false,
-          label: 'About',
+          label: 'Details',
           url: `/services/${mockServiceName}`
         },
         {
@@ -183,7 +183,7 @@ describe('#provideTabs', () => {
       expect(mockResponse.source.context.tabs).toEqual([
         {
           isActive: true,
-          label: 'About',
+          label: 'Details',
           url: `/services/${mockServiceName}`
         }
       ])
@@ -208,7 +208,7 @@ describe('#provideTabs', () => {
       expect(mockResponse.source.context.tabs).toEqual([
         {
           isActive: true,
-          label: 'About',
+          label: 'Details',
           url: `/services/${mockServiceName}`
         }
       ])

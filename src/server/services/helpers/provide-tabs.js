@@ -22,7 +22,7 @@ async function provideTabs(request, h) {
             serviceId: imageName
           }
         }),
-        label: 'About'
+        label: 'Details'
       }
     ]
 

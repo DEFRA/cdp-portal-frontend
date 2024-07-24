@@ -10,15 +10,16 @@ async function provideSubNavigation(request, h) {
       response.source.context = {}
     }
 
-    const imageName = response.source?.context?.service?.imageName
+    const serviceId = response.source?.context?.service?.imageName
     const servicesTeams = response.source?.context?.service?.teams ?? []
     const environments = Object.values(getEnvironmentsByTeam(servicesTeams))
     const secretsEnvironments = environments.map((environment) => ({
-      isActive:
-        request.path === `/services/${imageName}/secrets/${environment}`,
+      isActive: request.path.startsWith(
+        `/services/${serviceId}/secrets/${environment}`
+      ),
       url: request.routeLookup('services/{serviceId}/secrets/{environment}', {
         params: {
-          serviceId: imageName,
+          serviceId,
           environment
         }
       }),
@@ -27,11 +28,11 @@ async function provideSubNavigation(request, h) {
 
     response.source.context.subNavigation = [
       {
-        isActive: request.path === `/services/${imageName}/secrets`,
+        isActive: request.path === `/services/${serviceId}/secrets`,
         url: request.routeLookup('services/{serviceId}/secrets', {
-          params: { serviceId: imageName }
+          params: { serviceId }
         }),
-        label: 'Intro'
+        label: 'About'
       },
       ...secretsEnvironments
     ]

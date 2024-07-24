@@ -1,7 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { kebabCase, upperFirst } from 'lodash'
+import { kebabCase, pullAll, upperFirst } from 'lodash'
 
+import { config } from '~/src/config'
 import { scopes } from '~/src/server/common/constants/scopes'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
@@ -9,7 +10,7 @@ import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
 import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
 
-const serviceEnvironmentSecretsController = {
+const environmentSecretsController = {
   options: {
     id: 'services/{serviceId}/secrets/{environment}',
     ext: {
@@ -34,17 +35,35 @@ const serviceEnvironmentSecretsController = {
     const environment = request.params.environment
     const service = request.pre.service
     const serviceName = service.serviceName
+    const team = service?.teams?.at(0)
+    const teamId = team?.teamId
     const environments = getEnvironmentsByTeam(service.teams)
     const formattedEnvironment = upperFirst(kebabCase(environment))
-    const secrets = await fetchSecrets(environment, serviceName)
 
-    return h.view('services/views/service-environment-secrets', {
+    const secrets = await fetchSecrets(environment, serviceName)
+    const globalSecrets = config.get('secrets.global')
+    const globalSecretKeys = globalSecrets.map(
+      (globalSecret) => globalSecret.key
+    )
+    const serviceSecrets = {
+      ...secrets,
+      keys: secrets?.keys ? pullAll([...secrets.keys], globalSecretKeys) : []
+    }
+    const platformSecrets = globalSecrets
+      .map((globalSecret) => {
+        return secrets?.keys?.includes(globalSecret.key) ? globalSecret : null
+      })
+      .filter(Boolean)
+
+    return h.view('services/views/environment-secrets', {
       pageTitle: `${serviceName} - Secrets - ${formattedEnvironment}`,
       heading: serviceName,
       rowHeadings: buildRunningServicesRowHeadings(environments),
       service,
+      teamId,
       environment,
-      secrets,
+      platformSecrets,
+      serviceSecrets,
       breadcrumbs: [
         {
           text: 'Services',
@@ -66,4 +85,4 @@ const serviceEnvironmentSecretsController = {
   }
 }
 
-export { serviceEnvironmentSecretsController }
+export { environmentSecretsController }

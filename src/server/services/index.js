@@ -1,18 +1,30 @@
 import {
   serviceController,
-  serviceSecretsController,
-  serviceEnvironmentSecretsController,
+  secretsController,
+  environmentSecretsController,
   serviceListController,
-  serviceStatusController
+  serviceStatusController,
+  updateEnvironmentSecretFormController,
+  createEnvironmentSecretController,
+  updateEnvironmentSecretController
 } from '~/src/server/services/controllers'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
 import { provideSubNavigation } from '~/src/server/services/helpers/provide-sub-navigation'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
 
 const services = {
   plugin: {
     name: 'services',
     register: (server) => {
       server.ext([
+        {
+          type: 'onPostHandler',
+          method: provideFormContextValues(),
+          options: {
+            before: ['yar'],
+            sandbox: 'plugin'
+          }
+        },
         {
           type: 'onPostHandler',
           method: provideTabs,
@@ -43,12 +55,27 @@ const services = {
         {
           method: 'GET',
           path: '/services/{serviceId}/secrets',
-          ...serviceSecretsController
+          ...secretsController
+        },
+        {
+          method: 'GET',
+          path: '/services/{serviceId}/secrets/{environment}/update',
+          ...updateEnvironmentSecretFormController
+        },
+        {
+          method: 'POST',
+          path: '/services/{serviceId}/secrets/{environment}/update',
+          ...updateEnvironmentSecretController
+        },
+        {
+          method: 'POST',
+          path: '/services/{serviceId}/secrets/{environment}/create',
+          ...createEnvironmentSecretController
         },
         {
           method: 'GET',
           path: '/services/{serviceId}/secrets/{environment}',
-          ...serviceEnvironmentSecretsController
+          ...environmentSecretsController
         },
         {
           method: 'GET',
