@@ -4,7 +4,7 @@ describe('#auditMessage', () => {
   test('Should create json with repository and user', async () => {
     const result = auditMessage({
       event: 'audit event',
-      repository: 'repository name',
+      data: { repository: 'repository name' },
       user: {
         id: 'id',
         email: 'email',
@@ -13,7 +13,7 @@ describe('#auditMessage', () => {
     })
     expect(result).toEqual({
       event: 'audit event',
-      repository: 'repository name',
+      data: { repository: 'repository name' },
       user: {
         id: 'id',
         email: 'email',

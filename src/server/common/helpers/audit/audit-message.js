@@ -1,7 +1,7 @@
-function auditMessage({ event, repository, user }) {
+function auditMessage({ event, data, user }) {
   return {
     event,
-    ...(repository && { repository }),
+    ...(data && { data }),
     ...(user && {
       user: {
         id: user.id,

@@ -2,7 +2,7 @@ import { isUndefined } from 'lodash'
 
 import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
 import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
-import { auditMessage } from '~/src/server//common/helpers/audit/audit-message'
+import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
 
 /**
  * A development audit client for local development.

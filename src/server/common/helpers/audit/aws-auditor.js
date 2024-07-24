@@ -3,7 +3,7 @@ import { FirehoseClient, PutRecordCommand } from '@aws-sdk/client-firehose'
 import { fromNodeProviderChain } from '@aws-sdk/credential-providers'
 import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
 import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
-import { auditMessage } from '~/src/server//common/helpers/audit/audit-message'
+import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
 
 class AwsAuditor {
   constructor(options) {
