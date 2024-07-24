@@ -1,4 +1,4 @@
-import { scopes } from '~/src/server/common/constants/scopes'
+// import { scopes } from '~/src/server/common/constants/scopes'
 
 /**
  * Get the teams for a given services serviceId
@@ -19,7 +19,8 @@ function addServiceOwnerScope() {
       const scope = [...credentials.scope]
 
       if (isServiceOwner) {
-        scope.push(scopes.serviceOwner)
+        // TODO feature flag so only admin can access secrets
+        // scope.push(scopes.serviceOwner)
       }
       credentials.scope = scope
 

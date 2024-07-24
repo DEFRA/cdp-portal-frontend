@@ -1,6 +1,6 @@
 async function provideTabs(request, h) {
   const authedUser = await request.getUserSession()
-  const isAuthenticated = authedUser?.isAuthenticated
+  // const isAuthenticated = authedUser?.isAuthenticated
   const isAdmin = authedUser?.isAdmin
   const response = request.response
 
@@ -10,9 +10,9 @@ async function provideTabs(request, h) {
     }
 
     const imageName = response.source?.context?.service?.imageName
-    const teams = response.source?.context?.service?.teams ?? []
-    const serviceTeamIds = teams.map((team) => team.teamId)
-    const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
+    // const teams = response.source?.context?.service?.teams ?? []
+    // const serviceTeamIds = teams.map((team) => team.teamId)
+    // const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
 
     response.source.context.tabs = [
       {
@@ -26,7 +26,9 @@ async function provideTabs(request, h) {
       }
     ]
 
-    if (isAdmin || isServiceOwner) {
+    // TODO feature flag so only admin can access secrets
+    // if (isAdmin || isServiceOwner) {
+    if (isAdmin) {
       response.source.context.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/secrets`),
         url: request.routeLookup('services/{serviceId}/secrets', {
@@ -38,7 +40,8 @@ async function provideTabs(request, h) {
       })
     }
 
-    if (!isAuthenticated) {
+    // if (!isAuthenticated) {
+    if (!isAdmin) {
       response.source.context.displayTabs = false
     }
   }
