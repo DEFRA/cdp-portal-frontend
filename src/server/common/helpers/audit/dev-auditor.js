@@ -1,6 +1,8 @@
 import { isUndefined } from 'lodash'
 
 import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
+import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
+import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
 
 /**
  * A development audit client for local development.
@@ -43,6 +45,17 @@ class DevAuditor {
       { auditDetail },
       `Mock Audit delivered - Request id: ${validatedPayload.cdpRequestId}${typeof validatedPayload.message === 'string' ? ' : ' + validatedPayload.message : ''}`
     )
+  }
+
+  async sendMessage(message, tags = {}) {
+    const { error: validationError, value: validatedPayload } =
+      auditMessageSchema.validate(auditMessage(message))
+
+    if (!isUndefined(validationError)) {
+      this.logger.error(`Audit invalid message payload: ${validationError}`)
+      return
+    }
+    this.send(validatedPayload, tags)
   }
 }
 

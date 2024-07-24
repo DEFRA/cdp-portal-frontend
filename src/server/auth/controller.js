@@ -21,9 +21,10 @@ const authCallbackController = {
 
       const { profile } = request.auth.credentials
 
-      request.audit.send(
-        `User logged in ${profile?.id} ${profile?.displayName}`
-      )
+      request.audit.sendMessage({
+        event: `User logged in ${profile?.id} ${profile?.displayName}`,
+        user: profile
+      })
     }
 
     const redirect = request.yar.flash(sessionNames.referrer)?.at(0) ?? '/'

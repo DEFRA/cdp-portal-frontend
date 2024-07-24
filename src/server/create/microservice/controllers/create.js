@@ -5,6 +5,8 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types'
 import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation'
 import { setStepComplete } from '~/src/server/create/helpers/form'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
+import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created'
 
 const microserviceCreateController = {
   options: {
@@ -14,7 +16,7 @@ const microserviceCreateController = {
         scope: [config.get('oidcAdminGroupId'), '{payload.teamId}']
       }
     },
-    pre: [provideCreate]
+    pre: [provideCreate, provideAuthedUser]
   },
   handler: async (request, h) => {
     const create = request.pre?.create
@@ -72,6 +74,14 @@ const microserviceCreateController = {
             text: json.message,
             type: 'success'
           })
+
+          request.audit.sendMessage(
+            auditMessageCreated(
+              'Service',
+              repositoryName,
+              request.pre.authedUser
+            )
+          )
 
           return h.redirect(`/services/create-status/${json.repositoryName}`)
         }
