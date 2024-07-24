@@ -6,6 +6,7 @@ import {
   triggerTestSuiteRunController,
   testSuiteResultsController
 } from '~/src/server/test-suites/controllers'
+import {stopTestSuiteController} from "~/src/server/test-suites/controllers/stop-test-suite";
 
 const testSuites = {
   plugin: {
@@ -47,6 +48,11 @@ const testSuites = {
           method: 'GET',
           path: '/test-suites/test-results/{environment}/{serviceId}/{runId}',
           ...testSuiteResultsController
+        },
+        {
+          method: 'POST',
+          path: '/test-suites/{serviceId}/{runId}/stop',
+          ...stopTestSuiteController
         }
       ])
     }

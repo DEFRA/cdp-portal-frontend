@@ -28,6 +28,18 @@ function getDuration({ created, taskLastUpdated }, hasResult) {
   return null
 }
 
+function getStopTestEntity(testSuite, runId, runTaskStatus) {
+  if (runId && runId !== '' && runTaskStatus === taskStatus.inProgress) {
+    return {
+      kind: 'button',
+      value: 'Stop',
+      url: `/test-suites/${testSuite}/${runId}/stop`
+    }
+  }
+
+  return { kind: 'text', value: '-' }
+}
+
 function transformTestSuiteRunResults(testRun) {
   const runTaskStatus = testRun.taskStatus?.toLowerCase()
   const runTestStatus = testRun.testStatus?.toLowerCase()
@@ -79,7 +91,8 @@ function transformTestSuiteRunResults(testRun) {
       value: testRun.user.displayName
     },
     { kind: 'text', value: getDuration(testRun, hasResult) },
-    { kind: 'date', value: testRun.taskLastUpdated }
+    { kind: 'date', value: testRun.taskLastUpdated },
+    getStopTestEntity(testRun.testSuite, testRun.runId, runTaskStatus)
   ]
 }
 
