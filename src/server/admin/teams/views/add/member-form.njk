@@ -1,7 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "split-pane/macro.njk" import appSplitPane with context %}
-
 {% block content %}
   {% call appSplitPane() %}
 
@@ -61,7 +59,7 @@
               {% if  cdpUsers | length or formErrors.userIds.message %}
                 {{ govukCheckboxes({
                   name: "userIds",
-                  classes: "govuk-checkboxes--small app-radio",
+                  classes: "govuk-checkboxes--small app-checkboxes",
                   items: cdpUsers,
                   values: formValues.userIds,
                   formGroup: {

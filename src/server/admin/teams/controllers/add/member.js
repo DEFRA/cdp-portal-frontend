@@ -17,7 +17,7 @@ const addMemberController = {
     const cdpUserQuery = payload?.cdpUserQuery || null
     const userIds = Array.isArray(payload.userIds)
       ? payload?.userIds
-      : [payload.userIds]
+      : [payload.userIds].filter(Boolean)
 
     const validationResult = addUserValidation(userIds, button).validate(
       payload,

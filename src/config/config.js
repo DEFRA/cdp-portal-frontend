@@ -148,11 +148,13 @@ const config = convict({
     format: Boolean,
     default: process.env.NODE_ENV === 'test'
   },
-  logLevel: {
-    doc: 'Logging level',
-    format: ['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'silent'],
-    default: 'info',
-    env: 'LOG_LEVEL'
+  get logLevel() {
+    return {
+      doc: 'Logging level',
+      format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
+      default: this.isDevelopment ? 'debug' : 'info',
+      env: 'LOG_LEVEL'
+    }
   },
   azureTenantId: {
     doc: 'Azure Active Directory Tenant ID',
@@ -249,6 +251,35 @@ const config = convict({
       format: String,
       default: 'cdp-portal-frontend',
       env: 'AUDIT_SOURCE'
+    }
+  },
+  secrets: {
+    // TODO this will be moved to one place. For the moment just adding it as config for ease
+    global: {
+      doc: 'Platform supplied "Global" secret keys that cannot be overridden',
+      format: Array,
+      default: [
+        {
+          key: 'REDIS_KEY_PREFIX',
+          description: 'Automatically generated Redis key prefix'
+        },
+        {
+          key: 'REDIS_USERNAME',
+          description: 'Automatically generated Redis username'
+        },
+        {
+          key: 'REDIS_PASSWORD',
+          description: 'Automatically generated Redis password'
+        },
+        {
+          key: 'SQUID_USERNAME',
+          description: 'Automatically generated Squid proxy username'
+        },
+        {
+          key: 'SQUID_PASSWORD',
+          description: 'Automatically generated Squid proxy password'
+        }
+      ]
     }
   }
 })

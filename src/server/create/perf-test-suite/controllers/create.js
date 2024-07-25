@@ -6,13 +6,14 @@ import { testSuiteValidation } from '~/src/server/create/helpers/schema/test-sui
 import { setStepComplete } from '~/src/server/create/helpers/form'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created'
+import { scopes } from '~/src/server/common/constants/scopes'
 
 const perfTestSuiteCreateController = {
   options: {
     auth: {
-      strategy: 'azure-oidc',
+      mode: 'required',
       access: {
-        scope: [config.get('oidcAdminGroupId'), '{payload.teamId}']
+        scope: [scopes.admin, '{payload.teamId}']
       }
     },
     pre: [provideCreate, provideAuthedUser]

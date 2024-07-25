@@ -15,6 +15,7 @@ import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetc
 
 const serviceController = {
   options: {
+    id: 'services/{serviceId}',
     pre: [[provideService], provideCanDeploy],
     validate: {
       params: Joi.object({
@@ -34,14 +35,12 @@ const serviceController = {
       runningServicesToEntityRow(environments),
       withEnvironments
     )(runningServices)
-
-    const environmentValues = Object.values(environments)
     const envsWithDeployment = [
       ...new Set(
         runningServices.map((runningService) => runningService.environment)
       )
     ]
-      .filter((env) => environmentValues.includes(env))
+      .filter((env) => Object.values(environments).includes(env))
       .sort(sortByEnv)
 
     return h.view('services/views/service', {

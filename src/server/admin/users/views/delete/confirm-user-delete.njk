@@ -1,8 +1,6 @@
 {% extends "layouts/page.njk" %}
 {% from "entity/macro.njk" import appEntity %}
 
-{% from "split-pane/macro.njk" import appSplitPane with context %}
-
 {% set helpHtml %}
   Removing a user is non-recoverable. If you delete the wrong user
   <a href="{{ routeLookup('admin/users/create') }}" class="govuk-link app-link">

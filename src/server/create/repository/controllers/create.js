@@ -5,13 +5,14 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { repositoryValidation } from '~/src/server/create/repository/helpers/schema/repository-validation'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created'
+import { scopes } from '~/src/server/common/constants/scopes'
 
 const repositoryCreateController = {
   options: {
     auth: {
-      strategy: 'azure-oidc',
+      mode: 'required',
       access: {
-        scope: [config.get('oidcAdminGroupId'), '{payload.teamId}']
+        scope: [scopes.admin, '{payload.teamId}']
       }
     },
     pre: [provideCreate, provideAuthedUser]

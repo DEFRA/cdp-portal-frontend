@@ -1,4 +1,4 @@
-{% extends "layouts/page.njk" %}
+{% extends "layouts/tabbed-page.njk" %}
 
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary-item/macro.njk" import appSummaryItem %}
@@ -11,7 +11,7 @@
 {% from "icons/check-icon/macro.njk" import appCheckIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
-{% block content %}
+{% block beforeTabContent %}
 
   {{ appHeading({
     title: heading,
@@ -19,12 +19,14 @@
     entities: headingEntities
   }) }}
 
-  <hr class="app-section-break">
+{% endblock %}
+
+{% block tabContent %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
       <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">About</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
         <p>
           {{ service.description }}
         </p>
@@ -226,7 +228,7 @@
       </section>
 
       <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Running Services</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
         <p class="govuk-!-margin-bottom-1">
           The versions of your service currently running on the CDP environments.
         </p>
