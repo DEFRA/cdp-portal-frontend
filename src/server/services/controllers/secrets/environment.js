@@ -9,6 +9,8 @@ import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/bui
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
 import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
+import { platformGlobalSecretKeysDescriptions } from '~/src/server/common/constants/platform-global-secret-keys-descriptions'
+import { noValue } from '~/src/server/common/constants/no-value'
 
 const environmentSecretsController = {
   options: {
@@ -41,17 +43,26 @@ const environmentSecretsController = {
     const formattedEnvironment = upperFirst(kebabCase(environment))
 
     const secrets = await fetchSecrets(environment, serviceName)
-    const globalSecrets = config.get('secrets.global')
-    const globalSecretKeys = globalSecrets.map(
-      (globalSecret) => globalSecret.key
-    )
+    const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
     const serviceSecrets = {
       ...secrets,
-      keys: secrets?.keys ? pullAll([...secrets.keys], globalSecretKeys) : []
+      keys: secrets?.keys
+        ? pullAll(
+            [...secrets.keys],
+            [...platformGlobalSecretKeys, 'automated_placeholder']
+          )
+        : []
     }
-    const platformSecrets = globalSecrets
-      .map((globalSecret) => {
-        return secrets?.keys?.includes(globalSecret.key) ? globalSecret : null
+    const platformSecrets = platformGlobalSecretKeys
+      .map((key) => {
+        if (secrets?.keys?.includes(key)) {
+          return {
+            key,
+            description: platformGlobalSecretKeysDescriptions[key] ?? noValue
+          }
+        }
+
+        return null
       })
       .filter(Boolean)
 

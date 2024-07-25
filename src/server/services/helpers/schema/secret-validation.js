@@ -5,14 +5,12 @@ import { config, environments } from '~/src/config'
 import { validation } from '~/src/server/common/constants/validation'
 
 function secretValidation(teamId) {
-  const globalSecretKeys = config
-    .get('secrets.global')
-    .map((globalSecret) => globalSecret.key)
+  const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
 
   const adminTeamId = config.get('oidcAdminGroupId')
   const schema = {
     secretKey: Joi.string()
-      .not(...globalSecretKeys)
+      .not(...platformGlobalSecretKeys)
       .min(1)
       .max(256)
       .required()
