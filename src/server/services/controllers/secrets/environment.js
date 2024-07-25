@@ -55,7 +55,7 @@ const environmentSecretsController = {
       })
       .filter(Boolean)
 
-    return h.view('services/views/environment-secrets', {
+    return h.view('services/views/secrets/environment', {
       pageTitle: `${serviceName} - Secrets - ${formattedEnvironment}`,
       heading: serviceName,
       rowHeadings: buildRunningServicesRowHeadings(environments),

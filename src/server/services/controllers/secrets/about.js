@@ -2,7 +2,7 @@ import { scopes } from '~/src/server/common/constants/scopes'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 
-const secretsController = {
+const secretsAboutController = {
   options: {
     id: 'services/{serviceId}/secrets',
     pre: [provideService],
@@ -19,7 +19,7 @@ const secretsController = {
   handler: async (request, h) => {
     const service = request.pre.service
 
-    return h.view('services/views/secrets', {
+    return h.view('services/views/secrets/about', {
       pageTitle: `${service.serviceName} - Secrets`,
       heading: service.serviceName,
       service,
@@ -40,4 +40,4 @@ const secretsController = {
   }
 }
 
-export { secretsController }
+export { secretsAboutController }

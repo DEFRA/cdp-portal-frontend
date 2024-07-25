@@ -1,12 +1,12 @@
 import {
   serviceController,
-  secretsController,
-  environmentSecretsController,
   serviceListController,
   serviceStatusController,
-  updateEnvironmentSecretFormController,
-  createEnvironmentSecretController,
-  updateEnvironmentSecretController
+  secretsAboutController,
+  environmentSecretsController,
+  updateSecretController,
+  createSecretController,
+  updateSecretFormController
 } from '~/src/server/services/controllers'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
 import { provideSubNavigation } from '~/src/server/services/helpers/provide-sub-navigation'
@@ -55,22 +55,22 @@ const services = {
         {
           method: 'GET',
           path: '/services/{serviceId}/secrets',
-          ...secretsController
+          ...secretsAboutController
         },
         {
           method: 'GET',
           path: '/services/{serviceId}/secrets/{environment}/update',
-          ...updateEnvironmentSecretFormController
+          ...updateSecretFormController
         },
         {
           method: 'POST',
           path: '/services/{serviceId}/secrets/{environment}/update',
-          ...updateEnvironmentSecretController
+          ...updateSecretController
         },
         {
           method: 'POST',
           path: '/services/{serviceId}/secrets/{environment}/create',
-          ...createEnvironmentSecretController
+          ...createSecretController
         },
         {
           method: 'GET',

@@ -10,9 +10,9 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { secretValidation } from '~/src/server/services/helpers/schema/secret-validation'
 
-const updateEnvironmentSecretController = {
+const createSecretController = {
   options: {
-    id: 'post:services/{serviceId}/secrets/{environment}/update',
+    id: 'services/{serviceId}/secrets/{environment}/create',
     ext: {
       onCredentials: addServiceOwnerScope()
     },
@@ -42,10 +42,12 @@ const updateEnvironmentSecretController = {
     const secretValue = payload?.secretValue
     const teamId = payload?.teamId
     const redirectUrl = request.routeLookup(
-      'services/{serviceId}/secrets/{environment}/update',
+      'services/{serviceId}/secrets/{environment}',
       {
-        params: { serviceId, environment },
-        query: { secretKey }
+        params: {
+          serviceId,
+          environment
+        }
       }
     )
 
@@ -78,7 +80,7 @@ const updateEnvironmentSecretController = {
         `/secrets/add/${serviceId}/${environment}`
 
       try {
-        const { response } = await request.authedFetcher(
+        const { json, response } = await request.authedFetcher(
           selfServiceOpsAddSecretEndpointUrl,
           {
             method: 'post',
@@ -89,18 +91,14 @@ const updateEnvironmentSecretController = {
         if (response.ok) {
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
-            text: 'Secret updated',
+            text: json.message,
             type: 'success'
           })
 
-          return h.redirect(
-            request.routeLookup('services/{serviceId}/secrets/{environment}', {
-              params: { serviceId, environment }
-            })
-          )
+          return h.redirect(redirectUrl)
         }
       } catch (error) {
-        request.logger.debug({ error }, 'Update secret call failed')
+        request.logger.debug({ error }, 'Create secret call failed')
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload
         })
@@ -112,4 +110,4 @@ const updateEnvironmentSecretController = {
   }
 }
 
-export { updateEnvironmentSecretController }
+export { createSecretController }

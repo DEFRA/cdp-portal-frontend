@@ -12,7 +12,7 @@ const globalSecretKeys = config
   .get('secrets.global')
   .map((globalSecret) => globalSecret.key)
 
-const updateEnvironmentSecretFormController = {
+const updateSecretFormController = {
   options: {
     id: 'services/{serviceId}/secrets/{environment}/update',
     ext: {
@@ -52,7 +52,7 @@ const updateEnvironmentSecretFormController = {
     const allowedEnvironments = getEnvironmentsByTeam(service?.teams)
     const formattedEnvironment = upperFirst(kebabCase(environment))
 
-    return h.view('services/views/update-environment-secret-form', {
+    return h.view('services/views/secrets/update-form', {
       pageTitle: `${serviceName} - Update secret`,
       heading: serviceName,
       service,
@@ -85,4 +85,4 @@ const updateEnvironmentSecretFormController = {
   }
 }
 
-export { updateEnvironmentSecretFormController }
+export { updateSecretFormController }
