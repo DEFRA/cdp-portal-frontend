@@ -11,23 +11,32 @@ function secretValidation(teamId) {
   const schema = {
     secretKey: Joi.string()
       .not(...platformGlobalSecretKeys)
+      .pattern(/^\w*$/)
+      .pattern(/^[a-zA-Z0-9]\w*[a-zA-Z0-9]$/, {
+        name: 'startAndEndWithCharacter'
+      })
       .min(1)
-      .max(256)
+      .max(512)
       .required()
       .messages({
+        'string.pattern.base':
+          'Any case letters and numbers with underscore separators',
+        'string.pattern.name': 'Start and end with a letter or number',
         'string.min': validation.minCharacters(1),
-        'string.max': validation.maxCharacters(256),
+        'string.max': validation.maxCharacters(512),
         'any.invalid': validation.notAllowed,
         'any.required': validation.enterValue,
         'string.empty': validation.enterValue
       }),
     secretValue: Joi.string()
+      .pattern(/^\S*$/)
       .min(1)
-      .max(256)
+      .max(512)
       .required()
       .messages({
+        'string.pattern.base': 'Should not include spaces',
         'string.min': validation.minCharacters(1),
-        'string.max': validation.maxCharacters(256),
+        'string.max': validation.maxCharacters(512),
         'any.required': validation.enterValue,
         'string.empty': validation.enterValue
       }),
