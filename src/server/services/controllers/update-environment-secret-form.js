@@ -52,7 +52,7 @@ const updateEnvironmentSecretFormController = {
     const allowedEnvironments = getEnvironmentsByTeam(service?.teams)
     const formattedEnvironment = upperFirst(kebabCase(environment))
 
-    return h.view('services/views/update-secret-form', {
+    return h.view('services/views/update-environment-secret-form', {
       pageTitle: `${serviceName} - Update secret`,
       heading: serviceName,
       service,
