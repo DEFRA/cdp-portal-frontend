@@ -8,9 +8,7 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 
-const globalSecretKeys = config
-  .get('secrets.global')
-  .map((globalSecret) => globalSecret.key)
+const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
 
 const updateSecretFormController = {
   options: {
@@ -34,7 +32,7 @@ const updateSecretFormController = {
       }),
       query: Joi.object({
         secretKey: Joi.string()
-          .not(...globalSecretKeys)
+          .not(...platformGlobalSecretKeys)
           .min(1)
           .max(256)
           .required()

@@ -253,34 +253,12 @@ const config = convict({
       env: 'AUDIT_SOURCE'
     }
   },
-  secrets: {
-    // TODO this will be moved to one place. For the moment just adding it as config for ease
-    global: {
-      doc: 'Platform supplied "Global" secret keys that cannot be overridden',
-      format: Array,
-      default: [
-        {
-          key: 'REDIS_KEY_PREFIX',
-          description: 'Automatically generated Redis key prefix'
-        },
-        {
-          key: 'REDIS_USERNAME',
-          description: 'Automatically generated Redis username'
-        },
-        {
-          key: 'REDIS_PASSWORD',
-          description: 'Automatically generated Redis password'
-        },
-        {
-          key: 'SQUID_USERNAME',
-          description: 'Automatically generated Squid proxy username'
-        },
-        {
-          key: 'SQUID_PASSWORD',
-          description: 'Automatically generated Squid proxy password'
-        }
-      ]
-    }
+  platformGlobalSecretKeys: {
+    doc: 'Global Platform level secret keys. These keys are not to be overridden',
+    format: Array,
+    default:
+      'SQUID_USERNAME,SQUID_PASSWORD,REDIS_USERNAME,REDIS_PASSWORD,REDIS_KEY_PREFIX,CDP_HTTP_PROXY,CDP_HTTPS_PROXY,HTTP_PROXY,HTTPS_PROXY',
+    env: 'PLATFORM_GLOBAL_SECRET_KEYS'
   }
 })
 
