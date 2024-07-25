@@ -26,7 +26,8 @@
 
   padding-left: govuk-spacing(2);
   border-left: $active-indicator-width solid govuk-colour("blue");
-  background-color: govuk-colour("white");
+  background-color: govuk-colour("light-grey");
+  border-radius: $app-border-radius-right;
 }
 
 .app-subnav__section-item--current .app-subnav__link {

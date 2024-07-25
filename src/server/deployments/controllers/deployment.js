@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { capitalize, isNull } from 'lodash'
+import { isNull, kebabCase, upperFirst } from 'lodash'
 
 import { environments } from '~/src/config'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment'
@@ -34,9 +34,13 @@ const deploymentController = {
       caption: 'Microservice deployment information.',
       deployment,
       teams: deployment?.teams,
-      tabBreadcrumbs: [
+      breadcrumbs: [
         {
-          text: capitalize(deployment.environment),
+          text: 'Deployments',
+          href: `/deployments?page=${pagination.page}&size=${pagination.size}`
+        },
+        {
+          text: upperFirst(kebabCase(deployment.environment)),
           href: `/deployments/${deployment.environment}?page=${pagination.page}&size=${pagination.size}`
         },
         {

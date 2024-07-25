@@ -7,17 +7,20 @@ describe('#userIsMemberOfATeam', () => {
   let checkIsMemberOfATeam
 
   beforeEach(() => {
+    const adminScopes = ['teamOneScope', 'teamTwoScope', 'teamThreeScope']
     checkIsMemberOfATeam = userIsMemberOfATeam({
-      scope: ['lychee', 'mango', 'papaya']
+      scope: adminScopes
     })
   })
 
   test('Should have scope', () => {
-    expect(checkIsMemberOfATeam(['pear', 'mango'])).toEqual(true)
+    const teamScopes = ['teamOneScope', 'teamTwoScope']
+    expect(checkIsMemberOfATeam(teamScopes)).toEqual(true)
   })
 
   test('Should not have scope', () => {
-    expect(checkIsMemberOfATeam(['date', 'pear'])).toEqual(false)
+    const teamScopes = ['teamTenScope', 'teamElevenScope']
+    expect(checkIsMemberOfATeam(teamScopes)).toEqual(false)
   })
 })
 
@@ -25,28 +28,40 @@ describe('#userIsMemberOfATeamDecorator', () => {
   let checkIsMemberOfATeamScopeDecorator
 
   beforeEach(() => {
+    const adminScopes = ['teamTenScope', 'teamElevenScope', 'teamTwelveScope']
     checkIsMemberOfATeamScopeDecorator = userIsMemberOfATeamDecorator({
       getUserSession: jest.fn().mockResolvedValue({
-        scope: ['rabbit', 'sheep', 'bull', 'deer']
+        scope: adminScopes
       })
     })
   })
 
   test('With one matching scope. Should return true', async () => {
-    expect(await checkIsMemberOfATeamScopeDecorator(['horse', 'deer'])).toEqual(
+    const serviceTeamScopes = ['teamZeroScope', 'teamElevenScope']
+    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toEqual(
       true
     )
   })
 
   test('With multiple matching scopes. Should return true', async () => {
-    expect(await checkIsMemberOfATeamScopeDecorator(['bull', 'sheep'])).toEqual(
+    const serviceTeamScopes = [
+      'teamTenScope',
+      'teamElevenScope',
+      'teamTwelveScope'
+    ]
+    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toEqual(
       true
     )
   })
 
   test('With no matching scopes. Should return false', async () => {
-    expect(
-      await checkIsMemberOfATeamScopeDecorator(['eagle', 'raven'])
-    ).toEqual(false)
+    const serviceTeamScopes = [
+      'teamTwoScope',
+      'teamThreeScope',
+      'teamFourScope'
+    ]
+    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toEqual(
+      false
+    )
   })
 })

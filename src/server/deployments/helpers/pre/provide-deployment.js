@@ -1,6 +1,6 @@
 import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
-import { nullify404 } from '~/src/server/services/helpers/nullify-404'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404'
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
 import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
 

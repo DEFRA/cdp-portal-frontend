@@ -1,4 +1,4 @@
-import { nullify404 } from '~/src/server/services/helpers/nullify-404'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404'
 import { getErrorSync, NoErrorThrownError } from '~/test-helpers/get-error'
 
 const mock404Error = { message: 'Not Found', output: { statusCode: 404 } }

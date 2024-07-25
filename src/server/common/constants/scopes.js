@@ -1,6 +1,7 @@
 const scopes = {
   admin: 'admin',
-  serviceTeamUser: 'serviceTeamUser'
+  tenant: 'tenant',
+  serviceOwner: 'serviceOwner'
 }
 
 export { scopes }

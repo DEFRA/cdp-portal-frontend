@@ -1,7 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "split-pane/macro.njk" import appSplitPane with context %}
-
 {% block content %}
   {% call appSplitPane() %}
     <section>
@@ -24,6 +22,5 @@
 
     </section>
   {% endcall %}
-
 {% endblock %}
 

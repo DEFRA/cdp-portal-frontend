@@ -8,6 +8,10 @@
   border-radius: $app-border-radius-right;
 }
 
+.app-info--inverse {
+  background-color: govuk-colour("white");
+}
+
 .app-info-icon {
   margin-right: govuk-spacing(2);
   fill: govuk-colour("blue");

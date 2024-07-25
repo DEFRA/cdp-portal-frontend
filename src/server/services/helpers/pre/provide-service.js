@@ -1,6 +1,5 @@
-import { nullify404 } from '~/src/server/services/helpers/nullify-404'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
-import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 /**
@@ -21,7 +20,8 @@ const provideService = {
         }
       : null
 
-    const deployableService = await fetchDeployableService(serviceId)
+    const deployableService =
+      await request.server.methods.fetchDeployableService(serviceId)
 
     return repositoryDecorator(
       { isDeployable: true, ...deployableService },

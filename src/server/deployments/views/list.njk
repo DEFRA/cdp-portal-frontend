@@ -1,6 +1,7 @@
 {% extends "layouts/tabbed-page.njk" %}
 
 {% block beforeTabContent %}
+
   {{ appHeading({
     title: heading,
     caption: caption
@@ -86,29 +87,27 @@
       </div>
 
     {% endcall %}
-
   {% endcall %}
-
 {% endblock %}
 
-  {% block tabContent %}
-    {% block xhrContent %}
+{% block tabContent %}
+  {% block xhrContent %}
 
-      <div data-xhr="deployments">
-        {{ appEntityList({
-          headings: [
-            { text: "Service deployment", size: "large" },
-            { text: "Team", size: "small" },
-            { text: "Version", size: "small" },
-            { text: "Status", size: "small" },
-            { text: "User", size: "massive" },
-            { text: "Created", size: "large" }
-          ],
-          entityRows: entityRows,
-          noResult: noResult,
-          pagination: pagination
-        }) }}
-      </div>
+    <div data-xhr="deployments">
+      {{ appEntityList({
+        headings: [
+          { text: "Service deployment", size: "large" },
+          { text: "Team", size: "small" },
+          { text: "Version", size: "small" },
+          { text: "Status", size: "small" },
+          { text: "User", size: "massive" },
+          { text: "Created", size: "large" }
+        ],
+        entityRows: entityRows,
+        noResult: noResult,
+        pagination: pagination
+      }) }}
+    </div>
 
-    {% endblock %}
   {% endblock %}
+{% endblock %}
