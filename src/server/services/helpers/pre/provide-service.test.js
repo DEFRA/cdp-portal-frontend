@@ -1,18 +1,16 @@
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
-import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
 import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 
-jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
-jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service')
-
 describe('#provideService', () => {
+  const mockFetchDeployableService = jest.fn()
+  const mockFetchRepository = jest.fn()
   const mockRequest = {
     params: { serviceId: 'cdp-portal-frontend' },
     server: {
       methods: {
-        fetchDeployableService
+        fetchDeployableService: mockFetchDeployableService,
+        fetchRepository: mockFetchRepository
       }
     }
   }
@@ -23,8 +21,8 @@ describe('#provideService', () => {
 
   describe('With a deployable service', () => {
     beforeEach(() => {
-      fetchDeployableService.mockResolvedValue(serviceDeployableFixture)
-      fetchRepository.mockResolvedValue(repositoryFixture)
+      mockFetchDeployableService.mockResolvedValue(serviceDeployableFixture)
+      mockFetchRepository.mockResolvedValue(repositoryFixture)
     })
 
     test('Should provide expected deployable service type property', async () => {

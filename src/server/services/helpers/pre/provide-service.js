@@ -1,5 +1,4 @@
 import { nullify404 } from '~/src/server/common/helpers/nullify-404'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 
 /**
@@ -11,7 +10,9 @@ const provideService = {
   method: async function (request) {
     const serviceId = request.params?.serviceId
 
-    const github = await fetchRepository(serviceId).catch(nullify404)
+    const github = await request.server.methods
+      .fetchRepository(serviceId)
+      .catch(nullify404) // TODO add to server methods
     const repository = github?.repository
       ? {
           ...github.repository,
