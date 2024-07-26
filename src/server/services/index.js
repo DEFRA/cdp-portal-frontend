@@ -54,8 +54,18 @@ const services = {
         },
         {
           method: 'GET',
+          path: '/services/create-status/{serviceId}',
+          ...serviceStatusController
+        },
+        {
+          method: 'GET',
           path: '/services/{serviceId}/secrets',
           ...secretsAboutController
+        },
+        {
+          method: 'GET',
+          path: '/services/{serviceId}/secrets/{environment}',
+          ...environmentSecretsController
         },
         {
           method: 'GET',
@@ -71,16 +81,6 @@ const services = {
           method: 'POST',
           path: '/services/{serviceId}/secrets/{environment}/create',
           ...createSecretController
-        },
-        {
-          method: 'GET',
-          path: '/services/{serviceId}/secrets/{environment}',
-          ...environmentSecretsController
-        },
-        {
-          method: 'GET',
-          path: '/services/create-status/{serviceId}',
-          ...serviceStatusController
         }
       ])
     }
