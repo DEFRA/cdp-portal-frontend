@@ -14,6 +14,7 @@ global.TextEncoder = TextEncoder
 global.TextDecoder = TextDecoder
 global.ReadableStream = ReadableStream
 global.TransformStream = TransformStream
+global.setImmediate = jest.useRealTimers
 
 // Client side fetch mocking, use nock for node-fetch work
 global.fetch = fetchMock
