@@ -1,21 +1,25 @@
-import { healthController } from '~/src/server/health/controller'
+import { createServer } from '~/src/server'
 
 describe('#healthController', () => {
-  let mockViewHandler
+  /** @type {import("@hapi/hapi").Server} */
+  let server
 
-  beforeEach(() => {
-    mockViewHandler = {
-      response: jest.fn().mockReturnThis(),
-      code: jest.fn().mockReturnThis()
-    }
+  beforeAll(async () => {
+    server = await createServer()
+    await server.initialize()
   })
 
-  test('Should provide expected response', () => {
-    healthController.handler(null, mockViewHandler)
+  afterAll(async () => {
+    await server.stop({ timeout: 0 })
+  })
 
-    expect(mockViewHandler.response).toHaveBeenCalledWith({
-      message: 'success'
+  test('Should error when non uuid passed as userId param', async () => {
+    const { result, statusCode } = await server.inject({
+      method: 'GET',
+      url: '/health'
     })
-    expect(mockViewHandler.code).toHaveBeenCalledWith(200)
+
+    expect(result).toEqual({ message: 'success' })
+    expect(statusCode).toEqual(200)
   })
 })
