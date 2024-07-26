@@ -7,10 +7,11 @@ import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-t
 import { transformTestSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results'
 import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options'
 import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
 
 const testSuiteController = {
   options: {
-    pre: [[provideTestSuite], provideEnvironmentOptions],
+    pre: [[provideTestSuite], provideEnvironmentOptions, provideAuthedUser],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -24,7 +25,10 @@ const testSuiteController = {
     const serviceName = testSuite.serviceName
 
     const testRuns = await fetchTestRuns(serviceName)
-    const testSuiteRunResults = testRuns.map(transformTestSuiteRunResults)
+
+    const testSuiteRunResults = testRuns.map((test) =>
+      transformTestSuiteRunResults(test)
+    )
 
     return h.view('test-suites/views/test-suite', {
       pageTitle: `Test Suite - ${serviceName}`,

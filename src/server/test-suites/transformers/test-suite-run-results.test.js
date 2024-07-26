@@ -2,8 +2,10 @@ import { transformTestSuiteRunResults } from '~/src/server/test-suites/transform
 import { testSuiteRunsFixture } from '~/src/__fixtures__/test-suite-runs'
 
 describe('#transformTestSuiteRunResults', () => {
-  test('Should provide expected test suite run transformation', () => {
-    expect(testSuiteRunsFixture.map(transformTestSuiteRunResults)).toEqual([
+  test('Should provide expected test suite run transformation without action buttons', () => {
+    expect(
+      testSuiteRunsFixture.map((t) => transformTestSuiteRunResults(t, false))
+    ).toEqual([
       [
         {
           kind: 'link',
@@ -16,10 +18,10 @@ describe('#transformTestSuiteRunResults', () => {
           value: 'Infra Dev'
         },
         {
-          classes: 'govuk-tag--green',
+          classes: 'govuk-tag--light-blue',
           kind: 'tag',
-          showLoader: false,
-          value: 'finished'
+          showLoader: true,
+          value: 'in-progress'
         },
         {
           kind: 'link',
@@ -45,6 +47,11 @@ describe('#transformTestSuiteRunResults', () => {
         {
           kind: 'date',
           value: '2024-02-27T10:31:36Z'
+        },
+        {
+          kind: 'button',
+          value: 'Stop',
+          url: '/test-suites/cdp-portal-smoke-tests/383547d8-f71c-4e7e-8b03-4ddf09fd84fe/stop'
         }
       ],
       [
@@ -88,6 +95,10 @@ describe('#transformTestSuiteRunResults', () => {
         {
           kind: 'date',
           value: '2024-02-26T16:40:34Z'
+        },
+        {
+          kind: 'text',
+          value: ''
         }
       ]
     ])

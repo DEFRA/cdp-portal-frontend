@@ -79,7 +79,14 @@ function transformTestSuiteRunResults(testRun) {
       value: testRun.user.displayName
     },
     { kind: 'text', value: getDuration(testRun, hasResult) },
-    { kind: 'date', value: testRun.taskLastUpdated }
+    { kind: 'date', value: testRun.taskLastUpdated },
+    runTaskStatus === taskStatus.inProgress
+      ? {
+          kind: 'button',
+          value: 'Stop',
+          url: `/test-suites/${testRun.testSuite}/${testRun.runId}/stop`
+        }
+      : { kind: 'text', value: '' }
   ]
 }
 

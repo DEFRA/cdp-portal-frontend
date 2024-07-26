@@ -1,3 +1,5 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
 {% from "loader/macro.njk" import appLoader %}
@@ -71,6 +73,15 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
           {{ appEntity(entity | assign({}, { isChild: true }, entity)) }}
         {% endfor %}
       </ul>
+
+    {% elseif params.kind === "button" %}
+      <form action="{{ params.url }}" method="POST">
+        <input type="hidden" name="csrfToken" value={{csrfToken}}>
+        {{ govukButton({
+          classes: "app-button app-button--secondary",
+          text: params.value})
+        }}
+      </form>
 
     {% elseif params.kind === "group" %}
 
