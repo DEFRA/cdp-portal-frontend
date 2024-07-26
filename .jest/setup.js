@@ -16,12 +16,34 @@ global.ReadableStream = ReadableStream
 global.TransformStream = TransformStream
 global.setImmediate = jest.useRealTimers
 
-// Client side fetch mocking, use nock for node-fetch work
+// Client side fetch mocking, use nock for Node.js server node-fetch work
 global.fetch = fetchMock
 
 // Stub scroll functions not available in JSDOM
 Element.prototype.scrollIntoView = jest.fn()
 Element.prototype.scroll = jest.fn()
+
+// Globally mock proxyFetch
+const proxyFetchMock = jest.fn()
+jest.doMock('~/src/server/common/helpers/proxy/proxy-fetch', () => ({
+  proxyFetch: proxyFetchMock
+}))
+
+beforeAll(() => {
+  proxyFetchMock.mockImplementationOnce((url) => {
+    // Setting up oidc proxyFetch call
+    if (url === config.get('oidcWellKnownConfigurationUrl')) {
+      return Promise.resolve({
+        json: () => ({
+          token_endpoint: 'https://mock-login/oauth2/v2.0/token',
+          authorization_endpoint: 'https://mock-login/oauth2/v2.0/authorize'
+        })
+      })
+    }
+
+    return Promise.resolve({})
+  })
+})
 
 afterEach(() => {
   // Clear down JSDOM document after each test
