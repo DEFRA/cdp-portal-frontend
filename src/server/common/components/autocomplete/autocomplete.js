@@ -8,10 +8,22 @@ const tickSvgIcon = `
 <svg xmlns="http://www.w3.org/2000/svg" class="app-tick-icon" width="48" height="48" viewBox="0 -960 960 960"><path d="m419-285 291-292-63-64-228 228-111-111-63 64 174 175Zm60.679 226q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z"/></svg>`.trim()
 
 /**
+ * @typedef {Object} Suggestion
+ * @property {string} value
+ * @property {string} text
+ * @property {string} [hint]
+ * @property {boolean} [disabled]
+ * @property {Record<string, string|number|boolean>} [atttributes]
+ */
+
+/**
  * @classdesc Autocomplete
  * @class Autocomplete
  */
 class Autocomplete {
+  /**
+   * @param {HTMLElement | null} $module
+   */
   constructor($module) {
     if (!($module instanceof HTMLElement)) {
       return
@@ -41,10 +53,11 @@ class Autocomplete {
     this.$suggestionsContainer = $module.querySelector(
       '[data-js="app-autocomplete-suggestions"]'
     )
+    /** @type {boolean} */
     this.isSuggestionsHidden = !this.$suggestionsContainer.classList.contains(
       'app-autocomplete__suggestions--show'
     )
-
+    /** @type {number | null} */
     this.suggestionIndex = null
     this.suggestionsLength = this.getSuggestionsMarkup().length
 
@@ -102,8 +115,8 @@ class Autocomplete {
 
   /**
    * Get raw suggestion that is not disabled, by value
-   * @param value
-   * @returns suggestion | null
+   * @param {string|number} value
+   * @returns Suggestion | undefined
    */
   getSuggestionByValue(value) {
     return window.cdp.suggestions?.[this.name].find(
@@ -113,8 +126,8 @@ class Autocomplete {
 
   /**
    * Get raw suggestion that is not disabled, by text
-   * @param textValue
-   * @returns suggestion | null
+   * @param {string|number} textValue
+   * @returns Suggestion | undefined
    */
   getSuggestionByText(textValue) {
     return window.cdp.suggestions?.[this.name].find(
@@ -124,9 +137,8 @@ class Autocomplete {
   }
 
   /**
-   * Get suggestion markup by text
-   * @param textValue
-   * @returns suggestionHtml | null
+   * @param {string|number} textValue
+   * @returns {HTMLLIElement}
    */
   getSuggestionMarkup(textValue) {
     return this.getSuggestionsMarkup().find(
@@ -135,6 +147,7 @@ class Autocomplete {
     )
   }
 
+  /** @returns {HTMLLIElement} */
   createSuggestionElementTemplate() {
     const $span = document.createElement('span')
 
@@ -157,6 +170,14 @@ class Autocomplete {
     return $li
   }
 
+  /**
+   * @param {Suggestion} item
+   * @param {HTMLLIElement} $listElement
+   * @param {number} index
+   * @param {number} size
+   * @param {string} name
+   * @returns {HTMLLIElement|null}
+   */
   buildSuggestion(item, $listElement, index, size, name) {
     if (item.disabled) {
       return null
@@ -171,6 +192,11 @@ class Autocomplete {
     return this.populateSuggestion($li, item)
   }
 
+  /**
+   * @param {HTMLLIElement} $li
+   * @param {Suggestion} item
+   * @returns {HTMLLIElement}
+   */
   populateSuggestion($li, item) {
     $li.dataset.value = item.value
     $li.dataset.text = item.text
@@ -180,10 +206,7 @@ class Autocomplete {
     return $li
   }
 
-  /**
-   * Get suggestions markup
-   * @returns suggestionHtml[]
-   */
+  /** @returns {HTMLLIElement[]} */
   getSuggestionsMarkup() {
     const inputName = this.$select.name
     const suggestions = window.cdp.suggestions?.[this.name] ?? []
@@ -583,7 +606,7 @@ class Autocomplete {
           this.suggestionIndex--
         }
 
-        // When the first suggestion is passed send to last
+        // When the first suggestion is passed scroll to the end of the suggestions list
         if (this.suggestionIndex < 0) {
           this.suggestionIndex = this.suggestionsLength - 1
         }
@@ -596,7 +619,7 @@ class Autocomplete {
           this.suggestionIndex++
         }
 
-        // When last suggestion is passed send to first
+        // When last suggestion is passed scroll to the start of the suggestion list
         if (this.suggestionIndex > this.suggestionsLength - 1) {
           this.suggestionIndex = 0
         }
@@ -700,11 +723,11 @@ class Autocomplete {
             event.preventDefault()
             this.openSuggestions()
           }
-          // Otherwise fall through to default enter in input form functionality and submit the form
+          // Otherwise fall through to default "enter pressed in input" form functionality, which will submit the form
         }
 
         if (!isNull(this.suggestionIndex)) {
-          // User has used arrow keys to make selection of a suggestion and pressed enter
+          // User has used arrow keys to highlight a suggestion in the suggestions panel. And then pressed enter
           const $filteredSuggestions = this.populateSuggestions({
             textValue,
             suggestionIndex: this.suggestionIndex
