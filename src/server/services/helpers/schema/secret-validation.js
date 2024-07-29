@@ -7,12 +7,12 @@ import { validation } from '~/src/server/common/constants/validation'
 /** @type {string[]} */
 const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
 
-/** @typedef {"create" | "update"} Actions */
+/** @typedef {"create" | "update"} Action */
 
 /**
  * Provide immutable keys
- * @param {Object} detail
- * @param {Actions} detail.action
+ * @param {Object} Detail
+ * @param {Action} action
  * @param {array} [platformGlobalSecretKeys=[]] platformGlobalSecretKeys
  * @param {array} existingSecretKeys
  * @returns {string[]}
@@ -43,7 +43,7 @@ const provideCustomErrorCode = (errorReports) => {
 
 /**
  * Validation for Create and Update forms
- * @param {Actions} action
+ * @param {Action} action
  * @param {string} teamId
  * @param {array} [existingSecretKeys=[]] existingSecretKeys
  * @returns {Joi.ObjectSchema<*>}
