@@ -1,7 +1,18 @@
 import { config } from '~/src/config'
 
+/**
+ * @type {boolean}
+ * @description Checks if the secrets feature is flagged.
+ */
 const secretsIsFeatureFlagged = config.get('featureFlags.secrets')
 
+/**
+ * Provides tabs for the service view based on user authentication.
+ *
+ * @param {import('@hapi/hapi').Request} request - The request object.
+ * @param {import('@hapi/hapi').ResponseToolkit} h - The response toolkit.
+ * @returns {Promise<Symbol>}
+ */
 async function provideTabs(request, h) {
   const authedUser = await request.getUserSession()
   const isAuthenticated = authedUser?.isAuthenticated
@@ -26,7 +37,7 @@ async function provideTabs(request, h) {
             serviceId: imageName
           }
         }),
-        label: 'Details'
+        label: 'About'
       }
     ]
 
