@@ -7,7 +7,7 @@ const userSessionFixture = {
   token: '1234567-mock-token-7654321',
   refreshToken: '1234567-mock-refresh-7654321',
   isAdmin: true,
-  isServiceTeamUser: true,
+  isTenant: true,
   scope: [
     '9e068bb9-1452-426e-a4ca-2e675a942a89',
     'aabe63e7-87ef-4beb-a596-c810631fc474',
