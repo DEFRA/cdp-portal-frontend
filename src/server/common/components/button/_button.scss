@@ -35,13 +35,13 @@
   color: govuk-colour("white");
 
   &:hover {
-    background-color: govuk-tint(govuk-colour("blue"), 40%);
+    background-color: govuk-shade(govuk-colour("blue"), 20%);
   }
 }
 
 .app-button--destructive {
-  background-color: govuk-colour("light-grey");
-  color: govuk-colour("black");
+  background-color: govuk-colour("red");
+  color: govuk-colour("white");
 
   &:hover {
     color: govuk-colour("white");

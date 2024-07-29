@@ -41,6 +41,8 @@ const updateSecretController = {
     const secretKey = payload?.secretKey
     const secretValue = payload?.secretValue
     const teamId = payload?.teamId
+    const button = payload?.button
+
     const redirectUrl = request.routeLookup(
       'services/{serviceId}/secrets/{environment}/update',
       {
@@ -53,10 +55,11 @@ const updateSecretController = {
       secretKey,
       secretValue,
       environment,
-      teamId
+      teamId,
+      button
     }
 
-    const validationResult = secretValidation(teamId).validate(
+    const validationResult = secretValidation(button, teamId).validate(
       sanitisedPayload,
       { abortEarly: false }
     )
@@ -82,7 +85,9 @@ const updateSecretController = {
           selfServiceOpsAddSecretEndpointUrl,
           {
             method: 'post',
-            body: JSON.stringify(omit(sanitisedPayload, ['environment']))
+            body: JSON.stringify(
+              omit(sanitisedPayload, ['environment', 'button'])
+            )
           }
         )
 
@@ -102,7 +107,7 @@ const updateSecretController = {
       } catch (error) {
         request.logger.debug({ error }, 'Update secret call failed')
         request.yar.flash(sessionNames.validationFailure, {
-          formValues: sanitisedPayload
+          formValues: omit(sanitisedPayload, ['button'])
         })
         request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

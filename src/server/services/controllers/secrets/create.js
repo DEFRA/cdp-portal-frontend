@@ -9,6 +9,7 @@ import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { secretValidation } from '~/src/server/services/helpers/schema/secret-validation'
+import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
 
 const createSecretController = {
   options: {
@@ -41,6 +42,8 @@ const createSecretController = {
     const secretKey = payload?.secretKey
     const secretValue = payload?.secretValue
     const teamId = payload?.teamId
+    const button = payload?.button
+
     const redirectUrl = request.routeLookup(
       'services/{serviceId}/secrets/{environment}',
       {
@@ -55,13 +58,19 @@ const createSecretController = {
       secretKey,
       secretValue,
       environment,
-      teamId
+      teamId,
+      button
     }
 
-    const validationResult = secretValidation(teamId).validate(
-      sanitisedPayload,
-      { abortEarly: false }
-    )
+    const secrets = await fetchSecrets(environment, serviceId)
+
+    const validationResult = secretValidation(
+      button,
+      teamId,
+      secrets?.keys
+    ).validate(sanitisedPayload, {
+      abortEarly: false
+    })
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -84,7 +93,9 @@ const createSecretController = {
           selfServiceOpsAddSecretEndpointUrl,
           {
             method: 'post',
-            body: JSON.stringify(omit(sanitisedPayload, ['environment']))
+            body: JSON.stringify(
+              omit(sanitisedPayload, ['environment', 'button'])
+            )
           }
         )
 
@@ -100,7 +111,7 @@ const createSecretController = {
       } catch (error) {
         request.logger.debug({ error }, 'Create secret call failed')
         request.yar.flash(sessionNames.validationFailure, {
-          formValues: sanitisedPayload
+          formValues: omit(sanitisedPayload, ['button'])
         })
         request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

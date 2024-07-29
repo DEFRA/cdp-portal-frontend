@@ -37,7 +37,7 @@ const updateSecretFormController = {
           .max(256)
           .required()
       }),
-      failAction: () => Boom.boomify(Boom.badRequest())
+      failAction: () => Boom.boomify(Boom.forbidden())
     }
   },
   handler: async (request, h) => {

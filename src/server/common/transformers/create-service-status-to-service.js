@@ -1,5 +1,12 @@
+import Boom from '@hapi/boom'
+
 function createServiceStatusToService(serviceStatus) {
   const serviceName = serviceStatus?.repositoryName
+
+  if (!serviceName) {
+    throw Boom.boomify(Boom.notFound())
+  }
+
   const team = {
     teamId: serviceStatus.team.teamId,
     name: serviceStatus.team.name

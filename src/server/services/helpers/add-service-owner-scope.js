@@ -1,4 +1,7 @@
-// import { scopes } from '~/src/server/common/constants/scopes'
+import { scopes } from '~/src/server/common/constants/scopes'
+import { config } from '~/src/config'
+
+const secretsIsFeatureFlagged = config.get('featureFlags.secrets')
 
 /**
  * Get the teams for a given services serviceId
@@ -18,9 +21,11 @@ function addServiceOwnerScope() {
 
       const scope = [...credentials.scope]
 
-      if (isServiceOwner) {
-        // TODO feature flag so only admin can access secrets
-        // scope.push(scopes.serviceOwner)
+      // FEATURE-FLAG - secrets added: 26/07/2024
+      if (!secretsIsFeatureFlagged) {
+        if (isServiceOwner) {
+          scope.push(scopes.serviceOwner)
+        }
       }
       credentials.scope = scope
 
