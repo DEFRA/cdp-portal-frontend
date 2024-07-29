@@ -13,18 +13,18 @@ const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
  * Provide immutable keys
  * @param {Object} Detail
  * @param {Action} action
- * @param {array} [platformGlobalSecretKeys=[]] platformGlobalSecretKeys
+ * @param {array} [platformSecretKeys=[]] platformSecretKeys
  * @param {array} existingSecretKeys
  * @returns {string[]}
  */
 const getImmutableKeys = ({
   action,
-  platformGlobalSecretKeys = [],
+  platformSecretKeys = [],
   existingSecretKeys
 }) =>
   action === 'create'
-    ? [...existingSecretKeys, ...platformGlobalSecretKeys]
-    : platformGlobalSecretKeys
+    ? [...existingSecretKeys, ...platformSecretKeys]
+    : platformSecretKeys
 
 /**
  * Provide custom error message if value is a protected platform level secret
