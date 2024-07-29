@@ -4,6 +4,7 @@ import { ReadableStream, TransformStream } from 'node:stream/web'
 
 import { config } from '~/src/config'
 
+// TODO - split into separate projects for client and server side tests.
 // We support both node and client side unit tests. Using jsdom and poly-filling individual Node.js server needs
 
 // Globally mock redis
