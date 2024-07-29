@@ -1,5 +1,7 @@
 {% from "loader/macro.njk" import appLoader %}
 
+{# Implmentation of GovUk Button with JavaScript loader, if you don"t need a loader use the standard GovUk Button #}
+
 <span class="app-button__container">
   <button class="govuk-button app-button"
           {% if params.name %}name="{{ params.name }}"{% endif %}
