@@ -38,11 +38,12 @@ function transformTestSuiteRunResults(testRun, canRun) {
     runTaskStatus === taskStatus.starting ||
     runTaskStatus === taskStatus.inProgress
 
-  const logsLinkDataAvailable =
-    testRun.environment &&
-    testRun.taskArn &&
-    testRun.created &&
+  const logsLinkDataAvailable = [
+    testRun.environment,
+    testRun.taskArn,
+    testRun.created,
     testRun.taskLastUpdated
+  ].every(Boolean)
 
   return [
     {
