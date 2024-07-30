@@ -27,7 +27,7 @@
 
         <div class="govuk-grid-column-one-half">
 
-          {% if isAdmin or userIsMemberOfATeam(owningTeamIds) %}
+          {% if canRun %}
 
             {% call appPanel() %}
 
