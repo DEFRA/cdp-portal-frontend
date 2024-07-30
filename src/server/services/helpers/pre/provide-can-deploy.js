@@ -2,7 +2,7 @@ const provideCanDeploy = {
   method: async function (request) {
     const authedUser = await request.getUserSession()
 
-    if (authedUser && authedUser.isAuthenticated) {
+    if (authedUser?.isAuthenticated) {
       const { isAdmin } = authedUser
 
       if (isAdmin) {
