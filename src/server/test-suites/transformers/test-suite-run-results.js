@@ -28,7 +28,7 @@ function getDuration({ created, taskLastUpdated }, hasResult) {
   return null
 }
 
-function transformTestSuiteRunResults(testRun) {
+function transformTestSuiteRunResults(testRun, canRun) {
   const runTaskStatus = testRun.taskStatus?.toLowerCase()
   const runTestStatus = testRun.testStatus?.toLowerCase()
 
@@ -80,13 +80,12 @@ function transformTestSuiteRunResults(testRun) {
     },
     { kind: 'text', value: getDuration(testRun, hasResult) },
     { kind: 'date', value: testRun.taskLastUpdated },
-    runTaskStatus === taskStatus.inProgress
-      ? {
-          kind: 'button',
-          value: 'Stop',
-          url: `/test-suites/${testRun.testSuite}/${testRun.runId}/stop`
-        }
-      : { kind: 'text', value: '' }
+    {
+      kind: 'button',
+      classes: 'app-button--small',
+      value: canRun && runTaskStatus === taskStatus.inProgress ? 'Stop' : null,
+      url: `/test-suites/${testRun.testSuite}/${testRun.runId}/stop`
+    }
   ]
 }
 
