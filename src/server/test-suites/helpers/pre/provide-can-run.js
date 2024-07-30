@@ -1,4 +1,9 @@
-const provideCanDeploy = {
+const provideCanRun = {
+  /**
+   * Check if the user can run the test suite
+   * @param request
+   * @returns {Promise<boolean>}
+   */
   method: async function (request) {
     const authedUser = await request.getUserSession()
 
@@ -10,7 +15,7 @@ const provideCanDeploy = {
       }
 
       const isServiceOwner = await request.userIsMemberOfATeam(
-        request.pre.service.teams.map((team) => team.teamId)
+        request.pre.testSuite.teams.map((team) => team.teamId)
       )
 
       if (isServiceOwner) {
@@ -20,7 +25,7 @@ const provideCanDeploy = {
 
     return false
   },
-  assign: 'canDeploy'
+  assign: 'canRun'
 }
 
-export { provideCanDeploy }
+export { provideCanRun }

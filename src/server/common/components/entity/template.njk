@@ -78,7 +78,7 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
       <form action="{{ params.url }}" method="POST">
         <input type="hidden" name="csrfToken" value={{csrfToken}}>
         {{ govukButton({
-          classes: "app-button app-button--secondary",
+          classes: "app-button app-button--secondary" + " " + params.classes if params.classes else " ",
           text: params.value})
         }}
       </form>
