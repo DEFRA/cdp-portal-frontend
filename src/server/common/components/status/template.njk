@@ -8,7 +8,7 @@
   <div class="govuk-!-margin-left-4">
     <p class="govuk-!-margin-bottom-3">
       {{ appTag({
-        text: params.status.text,
+        text: params.status.text | title,
         classes: params.status.classes
       }) }}
     </p>

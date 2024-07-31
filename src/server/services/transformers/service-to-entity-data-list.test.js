@@ -121,7 +121,6 @@ describe('#serviceToEntityDataList', () => {
             kind: 'group',
             value: [
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'
@@ -131,7 +130,6 @@ describe('#serviceToEntityDataList', () => {
                 value: 'frontend'
               },
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'
@@ -141,7 +139,6 @@ describe('#serviceToEntityDataList', () => {
                 value: 'node'
               },
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'
@@ -151,7 +148,6 @@ describe('#serviceToEntityDataList', () => {
                 value: 'cdp'
               },
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'
