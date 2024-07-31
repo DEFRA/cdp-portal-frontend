@@ -2,7 +2,6 @@ import { isNull } from 'lodash'
 
 import { nullify404 } from '~/src/server/common/helpers/nullify-404'
 
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 import { fetchCreateServiceStatus } from '~/src/server/common/helpers/fetch/fetch-create-service-status'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
@@ -18,7 +17,9 @@ const provideServiceCreateStatus = {
   method: async function (request) {
     const serviceId = request.params?.serviceId
 
-    const githubResponse = await fetchRepository(serviceId).catch(nullify404)
+    const githubResponse = await request.server.methods
+      .fetchRepository(serviceId)
+      .catch(nullify404)
     const repository = githubResponse?.repository ?? null
 
     const createServiceStatusResponse =

@@ -20,7 +20,8 @@ function createAuditor(options) {
   }
 
   return {
-    send: noop
+    send: noop, // @deprecated use sendMessage
+    sendMessage: noop
   }
 }
 

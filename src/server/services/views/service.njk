@@ -1,15 +1,44 @@
 {% extends "layouts/tabbed-page.njk" %}
 
-{% from "summary/macro.njk" import appSummary %}
-{% from "summary-item/macro.njk" import appSummaryItem %}
-
 {% from "icons/chart-icon/macro.njk" import appChartIcon %}
+{% from "icons/check-icon/macro.njk" import appCheckIcon %}
+{% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/logs-icon/macro.njk" import appLogsIcon %}
 {% from "icons/web-icon/macro.njk" import appWebIcon %}
 {% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
-{% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
-{% from "icons/check-icon/macro.njk" import appCheckIcon %}
-{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
+{% from "summary-item/macro.njk" import appSummaryItem %}
+{% from "summary/macro.njk" import appSummary %}
+{% from "time/macro.njk" import appTime %}
+
+{% set latestPublishedTableRows = [] %}
+{% for version in latestVersions %}
+
+  {% set versionLinkHtml %}
+    <a class="app-link"
+       href="https://github.com/DEFRA/{{ service.serviceName }}/releases/tag/{{ version.tag }}"
+       target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
+  {% endset %}
+
+  {% set deployButtonHtml %}
+    <a href="{{ routeLookup('deploy-service/details', {
+      query: { imageName: service.serviceName, version: version.tag }
+    }) }}" role="button" class="govuk-button app-button app-button--small app-button--primary">Deploy</a>
+  {% endset %}
+
+  {% if canDeploy %}
+    {{ latestPublishedTableRows.push([
+      { html: appTime({ datetime: version.created }) },
+      { html: versionLinkHtml },
+      { html: deployButtonHtml }
+    ]) }}
+  {% else %}
+    {{ latestPublishedTableRows.push([
+      { html: appTime({ datetime: version.created }) },
+      { html: versionLinkHtml }
+    ]) }}
+  {% endif %}
+{% endfor %}
 
 {% block beforeTabContent %}
 
@@ -26,7 +55,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
       <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
         <p>
           {{ service.description }}
         </p>
@@ -143,9 +172,7 @@
           {% call appSummaryItem({
             heading: "Configuration",
             icon: appWrenchIcon({ classes: "app-icon-small"}),
-            intro: {
-              text: "Manage service configuration across CDP environments."
-            }
+            intro: { text: "Manage service configuration across CDP environments." }
           }) %}
             <p>
               <a class="app-link"
@@ -173,55 +200,29 @@
             heading: "Published Images",
             icon: appInstanceIcon({ classes: "app-icon-small"}),
             intro: {
-              text: "Latest published docker Image versions of your service."
+              text: "Latest built and published Docker images by version."
             }
           }) %}
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
-              {% for version in latestVersions %}
 
-                <li class="govuk-!-margin-bottom-1 app-summary-item__list-item">
-                  <span class="app-row">
-                    <span class="app-row__item-flex-five">
-                      Published
-                        {{ appTime({
-                          datetime: version.created
-                        }) }}
-                    </span>
+            {% if latestPublishedTableRows | length %}
+              {{ govukTable({
+                classes: "app-table govuk-!-margin-bottom-4",
+                head: [{ text: "Published" }, { text: "Version" }, { text: "Action" }] if canDeploy else [{ text: "Published" }, { text: "Version" }],
+                rows: latestPublishedTableRows
+                }) }}
 
-                    <span class="app-row__item-flex-two">
-                      <a class="app-link"
-                         href="https://github.com/DEFRA/{{ service.serviceName }}/releases/tag/{{ version.tag }}"
-                         target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
-                    </span>
-
-                    {% if canDeploy %}
-                      <span class="app-row__item-flex-one">
-                        <a href="{{ routeLookup('deploy-service/details', {
-                          query: {
-                            imageName: service.serviceName,
-                            version: version.tag
-                          }
-                        }) }}" role="button"
-                           class="govuk-button
-                        app-button app-button--small app-button--primary">Deploy</a>
-                      </span>
-                    {% endif %}
-                  </span>
-                </li>
-
-              {% else %}
-                {% if imageName %}
-                  <li class="govuk-!-margin-0">No versions available.</li>
-                {% endif %}
-              {% endfor %}
-
-              <li class="app-list-style-none govuk-!-margin-bottom-0">
+              <p>
                 <a class="app-link" target="_blank" rel="noopener noreferrer"
                    href="https://github.com/DEFRA/{{ service.serviceName }}/tags">
-                  more
+                  more versions
                 </a>
-              </li>
-            </ul>
+              </p>
+
+            {% else %}
+              <p class="govuk-!-margin-bottom-2">
+                No published versions available.
+              </p>
+            {% endif %}
 
           {% endcall %}
         {% endcall %}

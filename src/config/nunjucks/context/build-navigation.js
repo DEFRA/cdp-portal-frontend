@@ -40,7 +40,7 @@ async function buildNavigation(request) {
         isActive: request?.path?.includes('/running-services')
       }
     ],
-    actions: (authedUser?.isServiceTeamUser || authedUser?.isAdmin) && [
+    actions: (authedUser?.isTenant || authedUser?.isAdmin) && [
       {
         text: 'Deploy Service',
         url: '/deploy-service',

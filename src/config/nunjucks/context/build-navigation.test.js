@@ -56,9 +56,7 @@ describe('#buildNavigation', () => {
   describe('When user is authenticated', () => {
     test('Should provide expected navigation details', async () => {
       expect(
-        await buildNavigation(
-          mockRequest({ auth: { isServiceTeamUser: true } })
-        )
+        await buildNavigation(mockRequest({ auth: { isTenant: true } }))
       ).toEqual({
         actions: [
           {

@@ -1,5 +1,30 @@
 {% extends "layouts/page.njk" %}
 
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
+{% from "time/macro.njk" import appTime %}
+
+{% set latestPublishedTableRows = [] %}
+{% for version in latestVersions %}
+
+  {% set createdHtml %}
+    <div class="app-row">
+      {{ appInstanceIcon({ classes: "app-icon-small"}) }}
+      {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
+    </div>
+  {% endset %}
+
+  {% set versionLinkHtml %}
+    <a class="app-link"
+       href="https://github.com/DEFRA/{{ imageName }}/releases/tag/{{ version.tag }}"
+       target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
+  {% endset %}
+
+  {{ latestPublishedTableRows.push([
+    { html: createdHtml },
+    { html: versionLinkHtml }
+  ]) }}
+{% endfor %}
+
 {% block content %}
 
   {{ appStepNavigation(stepNavigation) }}
@@ -139,58 +164,40 @@
                 <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Published Images</h2>
                   <p>
-                    Latest published Images by version{%- if imageName %} for {{ imageName }}{% endif -%}.
-                  </p>
-
-                  <ul class="govuk-list govuk-list--bullet">
-                    {% for version in latestVersions %}
-
-                      <li class="govuk-!-margin-bottom-1">
-                        <div class="govuk-grid-row">
-                          <div class="app-grid-column-one-third-from-desktop-massive">
-                            <span class="app-row">
-                              <span class="app-row__item-flex-four">
-                                Published
-                                {{ appTime({
-                                  datetime: version.created
-                                }) }}
-                              </span>
-                              <span class="app-row__item-flex-two">
-                                <a class="app-link"
-                                   href="https://github.com/DEFRA/{{ imageName }}/releases/tag/{{ version.tag }}"
-                                   target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-
-                    {% else %}
-                      {% if imageName %}
-                        <li class="govuk-!-margin-0">No versions available.</li>
-                      {% endif %}
-                    {% endfor %}
+                    Latest published Docker images by version{%- if imageName %} for {{ imageName }}{% endif -%}.
                     {% if imageName %}
-                      <li class="app-list-style-none govuk-!-margin-bottom-0">
-                        <a class="app-link" target="_blank" rel="noopener noreferrer"
-                           href="https://github.com/DEFRA/{{ imageName }}/tags">
-                          more
-                        </a>
-                      </li>
-                    {% endif %}
-                  </ul>
-
-                  {% if imageName %}
-                    <p>
                       Images built and published via
                       <a class="app-link" target="_blank" rel="noopener noreferrer"
                          href="https://github.com/DEFRA/{{ imageName }}/actions">
                         GitHub Actions</a>.
-                    </p>
-                  {% endif %}
+                    {% endif %}
+                  </p>
+
+                  <div class="app-section">
+                    {% if latestPublishedTableRows | length %}
+                      {{ govukTable({
+                        classes: "app-table govuk-!-margin-bottom-4",
+                        head: [{ text: "Published" }, { text: "Version" }],
+                        rows: latestPublishedTableRows
+                      }) }}
+
+                      <p>
+                        <a class="app-link" target="_blank" rel="noopener noreferrer"
+                           href="https://github.com/DEFRA/{{ imageName }}/tags">
+                          more versions
+                        </a>
+                      </p>
+
+                    {% else %}
+                      <p class="govuk-!-margin-bottom-2">
+                        No published versions available.
+                      </p>
+                    {% endif %}
+
+
+                  </div>
 
                 </div>
-
               </section>
             {% endcall %}
 
@@ -200,7 +207,7 @@
                 <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
                   <p>
-                    Currently deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.
+                    Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.
                   </p>
                   {% if imageName %}
                     {{ appEntityList({
