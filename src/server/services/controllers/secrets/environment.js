@@ -8,7 +8,7 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
-import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
 import { platformGlobalSecretKeysDescriptions } from '~/src/server/common/constants/platform-global-secret-keys-descriptions'
 import { noValue } from '~/src/server/common/constants/no-value'
 

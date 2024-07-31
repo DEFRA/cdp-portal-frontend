@@ -3,7 +3,7 @@ import { deploymentRows } from '~/src/server/deploy-service/transformers/deploym
 import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
-import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
 
 const summaryController = {
   options: {
