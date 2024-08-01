@@ -7,7 +7,8 @@ const validation = {
   choose: (choice) =>
     `Choose ${startsWithVowel(choice) ? 'an' : 'a'} ${choice}`,
   minCharacters: (value) => `${value} characters or more`,
-  maxCharacters: (value) => `${value} characters or less`
+  maxCharacters: (value) => `${value} characters or less`,
+  exactCharacters: (value) => `${value} characters`
 }
 
 export { validation }

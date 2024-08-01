@@ -18,7 +18,8 @@ const editTeamController = {
       const { response } = await editTeam(request, cdpTeam.teamId, {
         name: cdpTeam.name,
         description: cdpTeam.description,
-        github: cdpTeam.github
+        github: cdpTeam.github,
+        serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : []
       })
 
       if (response.ok) {

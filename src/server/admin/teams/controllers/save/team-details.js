@@ -13,11 +13,13 @@ const teamDetailsController = {
     const payload = request?.payload
     const redirectLocation = payload?.redirectLocation
 
-    const name = payload?.name || null
-    const description = payload?.description || null
+    const name = payload?.name || undefined
+    const serviceCode = payload?.serviceCode || undefined
+    const description = payload?.description || undefined
 
     const sanitisedPayload = {
       name,
+      serviceCode,
       description
     }
 

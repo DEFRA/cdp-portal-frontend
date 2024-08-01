@@ -21,6 +21,10 @@ function transformCdpTeamToEntityRow(team) {
     },
     {
       kind: 'text',
+      value: team.serviceCodes
+    },
+    {
+      kind: 'text',
       value: team.users.length
     }
   ]

@@ -51,7 +51,8 @@ const teamDetailsController = {
       const response = await editTeam(request, cdpTeam.teamId, {
         name: cdpTeam.name,
         description: sanitisedPayload.description,
-        github: cdpTeam.github
+        github: cdpTeam.github,
+        ...(cdpTeam.serviceCode && { serviceCodes: [cdpTeam.serviceCode] })
       })
       const json = await response.json()
 
