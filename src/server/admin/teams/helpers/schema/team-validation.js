@@ -22,7 +22,7 @@ const teamValidation = Joi.object({
     .messages({
       'string.min': validation.exactCharacters(3),
       'string.max': validation.exactCharacters(3),
-      'string.pattern.base': 'Please provide uppercase 3 letters'
+      'string.pattern.base': 'Provide uppercase 3 letters'
     }),
   description: Joi.string()
     .max(256)

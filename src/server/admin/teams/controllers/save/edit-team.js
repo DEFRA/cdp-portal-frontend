@@ -19,7 +19,7 @@ const editTeamController = {
         name: cdpTeam.name,
         description: cdpTeam.description,
         github: cdpTeam.github,
-        ...(cdpTeam.serviceCode && { serviceCodes: [cdpTeam.serviceCode] })
+        serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : []
       })
 
       if (response.ok) {

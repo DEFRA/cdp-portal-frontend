@@ -37,6 +37,7 @@ function transformSummaryTeamRows(cdpTeam) {
       [key]: isNull(value) ? noValue : value
     }
   }, {})
+  const teamDetailsPath = 'team-details'
   const githubTeamUiValue = cdpTeam.github
     ? buildLink(
         `https://github.com/orgs/${githubOrg}/teams/${teamDetails.github}`,
@@ -45,9 +46,9 @@ function transformSummaryTeamRows(cdpTeam) {
     : noValue
 
   return [
-    buildRow('Name', teamDetails.name, 'team-details'),
-    buildRow('Description', teamDetails.description, 'team-details'),
-    buildRow('Service Code', teamDetails.serviceCode, 'team-details'),
+    buildRow('Name', teamDetails.name, teamDetailsPath),
+    buildRow('Description', teamDetails.description, teamDetailsPath),
+    buildRow('Service Code', teamDetails.serviceCode, teamDetailsPath),
     buildRow(
       'GitHub team',
       githubTeamUiValue,

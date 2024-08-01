@@ -19,8 +19,7 @@ const startEditTeamController = {
     request.yar.set(sessionNames.cdpTeam, {
       ...team,
       // user-service-backend supports multiple service codes - we want to just allow one service code for now
-      ...(team.serviceCodes &&
-        team.serviceCodes.at(0) && { serviceCode: team.serviceCodes.at(0) }),
+      ...(team.serviceCodes?.at(0) && { serviceCode: team.serviceCodes.at(0) }),
       isEdit: true
     })
     request.yar.clear(sessionNames.validationFailure)
