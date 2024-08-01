@@ -53,6 +53,26 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
+              href: '/admin/teams/team-details?redirectLocation=summary',
+              text: 'Change',
+              visuallyHiddenText: 'Service Code'
+            }
+          ]
+        },
+        key: {
+          classes: 'app-summary__heading',
+          text: 'Service Code'
+        },
+        value: {
+          html: 'AFM'
+        }
+      },
+      {
+        actions: {
+          classes: 'app-summary__action',
+          items: [
+            {
+              classes: 'app-link',
               href: '/admin/teams/find-github-team?redirectLocation=summary&githubSearch=forestry-management',
               text: 'Change',
               visuallyHiddenText: 'GitHub team'
