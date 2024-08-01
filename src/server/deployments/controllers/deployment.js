@@ -6,6 +6,7 @@ import { environments } from '~/src/config'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
 import { pagination } from '~/src/server/common/constants/pagination'
+import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status'
 
 const deploymentController = {
   options: {
@@ -46,7 +47,8 @@ const deploymentController = {
         {
           text: `${deployment.service} - ${deployment.version}`
         }
-      ]
+      ],
+      ecsDeployment: provideEcsDeploymentStatus(deployment)
     })
   }
 }
