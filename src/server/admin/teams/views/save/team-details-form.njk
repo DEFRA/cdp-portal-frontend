@@ -44,6 +44,33 @@
                 } if formErrors.name.message
               }) }}
 
+              {{ govukInput({
+                label: {
+                  text: "Service Code (optional)",
+                  classes: "app-label"
+                },
+                id: "serviceCode",
+                name: "serviceCode",
+                hint: {
+                  text: "A service code consists of 3 uppercase letters"
+                },
+                classes: "app-input app-input--wide",
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                attributes: {
+                  "data-1p-ignore": ""
+                },
+                value: formValues.serviceCode,
+                errorMessage: {
+                  attributes: {
+                    "data-js": "app-error"
+                  },
+                  text: formErrors.serviceCode.message,
+                  classes: "govuk-!-margin-bottom-1 app-error-message"
+                } if formErrors.serviceCode.message
+              }) }}
+
               {{ govukTextarea({
                 label: {
                   text: "Description (optional)",

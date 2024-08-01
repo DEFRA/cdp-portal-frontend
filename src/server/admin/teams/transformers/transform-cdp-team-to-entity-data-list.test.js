@@ -19,6 +19,15 @@ describe('#transformCdpTeamToEntityDataList', () => {
         }
       },
       {
+        heading: {
+          text: 'Service Codes'
+        },
+        entity: {
+          kind: 'text',
+          value: ['CDP']
+        }
+      },
+      {
         entity: {
           kind: 'date',
           value: '2023-09-28T12:52:14.673Z'

@@ -17,6 +17,15 @@ function transformCdpTeamToEntityDataList(team) {
     },
     {
       heading: {
+        text: 'Service Codes'
+      },
+      entity: {
+        kind: 'text',
+        value: team.serviceCodes
+      }
+    },
+    {
+      heading: {
         text: 'Created'
       },
       entity: {

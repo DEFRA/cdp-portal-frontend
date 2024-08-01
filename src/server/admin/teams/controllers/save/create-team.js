@@ -23,7 +23,8 @@ const createTeamController = {
           removeNil({
             name: cdpTeam.name,
             description: cdpTeam.description,
-            github: cdpTeam.github
+            github: cdpTeam.github,
+            serviceCodes: [cdpTeam.serviceCode]
           })
         )
       })

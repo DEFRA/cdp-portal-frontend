@@ -8,6 +8,7 @@ async function editTeam(request, teamId, payload) {
     body: JSON.stringify({
       name: payload.name,
       description: payload.description,
+      serviceCodes: payload.serviceCodes,
       github: payload.github
     })
   })

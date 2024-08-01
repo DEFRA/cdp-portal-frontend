@@ -14,9 +14,19 @@ const teamValidation = Joi.object({
       'string.max': validation.maxCharacters(50),
       'string.pattern.base': 'Letters and numbers with hyphen separators'
     }),
+  serviceCode: Joi.string()
+    .optional()
+    .min(3)
+    .max(3)
+    .regex(/^[A-Z]+$/)
+    .messages({
+      'string.min': validation.exactCharacters(3),
+      'string.max': validation.exactCharacters(3),
+      'string.pattern.base': 'Provide uppercase 3 letters'
+    }),
   description: Joi.string()
     .max(256)
-    .allow('', null)
+    .optional()
     .messages({
       'string.max': validation.maxCharacters(256)
     })
