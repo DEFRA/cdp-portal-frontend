@@ -2,6 +2,7 @@ const creationStatuses = {
   unknown: 'unknown',
   requested: 'requested',
   raised: 'raised',
+  queued: 'queued',
   prOpen: 'pr_open',
   prClosed: 'pr_closed',
   merged: 'merged',
