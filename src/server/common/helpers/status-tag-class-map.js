@@ -31,6 +31,9 @@ function statusTagClassMap(status) {
     ].includes(status):
       return 'govuk-tag--red'
 
+    case status === creationStatuses.queued:
+      return 'govuk-tag--yellow'
+
     default:
       return 'govuk-tag--grey'
   }

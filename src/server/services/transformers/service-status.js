@@ -302,6 +302,12 @@ function serviceStatus(service) {
           case creationStatuses.prOpen:
             return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.requested:
+          case creationStatuses.queued:
+            return `Infrastructure changes have been queued as there are other infrastructure changes in progress that must complete first.
+                    <p>
+                      You will need to wait for this stage to complete before you're able to deploy your service.
+                      The GitHub action link below has more information.
+                    </p>`
           case creationStatuses.inProgress:
             return `Setting up:
                       <ul class="govuk-list govuk-list--bullet">
