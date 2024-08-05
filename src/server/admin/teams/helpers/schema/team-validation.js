@@ -20,9 +20,9 @@ const teamValidation = Joi.object({
     .max(3)
     .regex(/^[A-Z]+$/)
     .messages({
-      'string.min': validation.exactCharacters(3),
-      'string.max': validation.exactCharacters(3),
-      'string.pattern.base': 'Provide uppercase 3 letters'
+      'string.min': validation.exactLetters(3),
+      'string.max': validation.exactLetters(3),
+      'string.pattern.base': 'Provide 3 uppercase letters'
     }),
   description: Joi.string()
     .max(256)
