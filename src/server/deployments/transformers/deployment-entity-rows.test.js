@@ -23,7 +23,7 @@ describe('#deploymentEntityRows', () => {
         {
           classes: 'govuk-tag--green',
           kind: 'tag',
-          value: 'running'
+          value: 'Running'
         },
         {
           kind: 'text',
@@ -53,7 +53,7 @@ describe('#deploymentEntityRows', () => {
         {
           classes: 'govuk-tag--green',
           kind: 'tag',
-          value: 'running'
+          value: 'Running'
         },
         {
           kind: 'text',
@@ -95,7 +95,7 @@ describe('#deploymentEntityRows', () => {
         {
           classes: 'govuk-tag--green',
           kind: 'tag',
-          value: 'running'
+          value: 'Running'
         },
         {
           kind: 'text',
@@ -125,7 +125,7 @@ describe('#deploymentEntityRows', () => {
         {
           classes: 'govuk-tag--green',
           kind: 'tag',
-          value: 'running'
+          value: 'Running'
         },
         {
           kind: 'text',
@@ -160,7 +160,7 @@ describe('#deploymentEntityRows', () => {
         {
           classes: 'govuk-tag--grey',
           kind: 'tag',
-          value: 'undeployed'
+          value: 'Undeployed'
         },
         {
           kind: 'text',

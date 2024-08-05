@@ -7,6 +7,7 @@ import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
 import { pagination } from '~/src/server/common/constants/pagination'
 import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status'
+import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets'
 
 const deploymentController = {
   options: {
@@ -25,15 +26,19 @@ const deploymentController = {
   handler: async (request, h) => {
     const deployment = request.pre.deployment
 
+    // TODO update to use new polling helpers
     if (isNull(deployment)) {
       return null
     }
+
+    const secretDetail = transformSecrets(deployment.secrets)
 
     return h.view('deployments/views/deployment', {
       pageTitle: `${deployment.service} Service Deployment`,
       heading: 'Deployment',
       caption: 'Microservice deployment information.',
       deployment,
+      secretDetail,
       teams: deployment?.teams,
       breadcrumbs: [
         {

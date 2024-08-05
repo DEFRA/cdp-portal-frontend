@@ -9,19 +9,19 @@ describe('#getDeploymentStatusClassname', () => {
 
   test('Should provide expected "stopping" className', () => {
     expect(provideDeploymentStatusClassname('stopping')).toEqual(
-      'govuk-tag--blue'
+      'govuk-tag--purple'
     )
   })
 
   test('Should provide expected "pending" className', () => {
     expect(provideDeploymentStatusClassname('pending')).toEqual(
-      'govuk-tag--blue'
+      'govuk-tag--purple'
     )
   })
 
   test('Should provide expected "requested" className', () => {
     expect(provideDeploymentStatusClassname('requested')).toEqual(
-      'govuk-tag--purple'
+      'govuk-tag--blue'
     )
   })
 
