@@ -5,7 +5,7 @@ import { serviceStatus } from '~/src/server/services/transformers/service-status
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status'
 import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
 
-const serviceStatusController = {
+const serviceCreateStatusController = {
   options: {
     pre: [provideServiceCreateStatus],
     validate: {
@@ -50,4 +50,4 @@ const serviceStatusController = {
   }
 }
 
-export { serviceStatusController }
+export { serviceCreateStatusController }
