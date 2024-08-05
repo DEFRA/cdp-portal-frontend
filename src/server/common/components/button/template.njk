@@ -13,6 +13,9 @@
   </button>
 
   {% if params.loader.name %}
-    {{ appLoader({ name: params.loader.name }) }}
+    {{ appLoader({
+      name: params.loader.name,
+      classes: "app-loader--with-adjacent-button" if params.loader.hasSiblingButton
+    }) }}
   {% endif %}
 </span>
