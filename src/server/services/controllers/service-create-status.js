@@ -18,6 +18,7 @@ const serviceCreateStatusController = {
   handler: async (request, h) => {
     const service = request.pre.service
 
+    // TODO update to use new polling helpers
     if (!service) {
       return null
     }

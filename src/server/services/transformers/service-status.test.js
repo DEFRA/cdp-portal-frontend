@@ -159,7 +159,6 @@ describe('#serviceStatus', () => {
             text: 'DEFRA/cdp-grafana-svc'
           }
         },
-
         hasJobFailures: false,
         progress: {
           complete: 0,

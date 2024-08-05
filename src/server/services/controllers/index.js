@@ -1,8 +1,8 @@
 import { serviceController } from '~/src/server/services/controllers/service'
 import { serviceListController } from '~/src/server/services/controllers/service-list'
-import { serviceStatusController } from '~/src/server/services/controllers/service-status'
+import { serviceCreateStatusController } from '~/src/server/services/controllers/service-create-status'
 import {
-  secretsAboutController,
+  allSecretsController,
   environmentSecretsController,
   updateSecretController,
   createSecretController,
@@ -12,8 +12,8 @@ import {
 export {
   serviceController,
   serviceListController,
-  serviceStatusController,
-  secretsAboutController,
+  serviceCreateStatusController,
+  allSecretsController,
   environmentSecretsController,
   updateSecretController,
   createSecretController,

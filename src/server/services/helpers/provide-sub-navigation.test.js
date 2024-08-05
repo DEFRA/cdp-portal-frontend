@@ -2,9 +2,11 @@ import { provideSubNavigation } from '~/src/server/services/helpers/provide-sub-
 
 describe('#provideSubNavigation', () => {
   const mockToolkit = { continue: 'continue' }
-  const mockRouteLookup = jest
-    .fn()
-    .mockReturnValue('/services/cdp-portal-frontend/secrets/infra-dev')
+  const mockRouteLookup = jest.fn().mockImplementation((_url, { params }) => {
+    return params?.environment
+      ? `/services/cdp-portal-frontend/secrets/${params.environment}`
+      : '/services/cdp-portal-frontend/secrets'
+  })
 
   const buildMockRequest = ({ variety = 'view', source = {} } = {}) => ({
     response: {
@@ -36,34 +38,53 @@ describe('#provideSubNavigation', () => {
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
         {
+          isActive: false,
+          label: {
+            text: 'All'
+          },
+          url: '/services/cdp-portal-frontend/secrets'
+        },
+        {
           isActive: true,
-          label: 'Infra-dev',
+          label: {
+            text: 'Infra-dev'
+          },
           url: '/services/cdp-portal-frontend/secrets/infra-dev'
         },
         {
           isActive: false,
-          label: 'Management',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Management'
+          },
+          url: '/services/cdp-portal-frontend/secrets/management'
         },
         {
           isActive: false,
-          label: 'Dev',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Dev'
+          },
+          url: '/services/cdp-portal-frontend/secrets/dev'
         },
         {
           isActive: false,
-          label: 'Test',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/test'
         },
         {
           isActive: false,
-          label: 'Perf-test',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Perf-test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/perf-test'
         },
         {
           isActive: false,
-          label: 'Prod',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Prod'
+          },
+          url: '/services/cdp-portal-frontend/secrets/prod'
         }
       ])
     })
@@ -128,23 +149,38 @@ describe('#provideSubNavigation', () => {
       expect(mockRequest.response.source.context.subNavigation).toEqual([
         {
           isActive: false,
-          label: 'Dev',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'All'
+          },
+          url: '/services/cdp-portal-frontend/secrets'
         },
         {
           isActive: false,
-          label: 'Test',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Dev'
+          },
+          url: '/services/cdp-portal-frontend/secrets/dev'
         },
         {
           isActive: false,
-          label: 'Perf-test',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/test'
         },
         {
           isActive: false,
-          label: 'Prod',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Perf-test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/perf-test'
+        },
+        {
+          isActive: false,
+          label: {
+            text: 'Prod'
+          },
+          url: '/services/cdp-portal-frontend/secrets/prod'
         }
       ])
     })
@@ -172,23 +208,38 @@ describe('#provideSubNavigation', () => {
       expect(mockRequest.response.source.context.subNavigation).toEqual([
         {
           isActive: false,
-          label: 'Dev',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'All'
+          },
+          url: '/services/cdp-portal-frontend/secrets'
         },
         {
           isActive: false,
-          label: 'Test',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Dev'
+          },
+          url: '/services/cdp-portal-frontend/secrets/dev'
         },
         {
           isActive: false,
-          label: 'Perf-test',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/test'
         },
         {
           isActive: false,
-          label: 'Prod',
-          url: '/services/cdp-portal-frontend/secrets/infra-dev'
+          label: {
+            text: 'Perf-test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/perf-test'
+        },
+        {
+          isActive: false,
+          label: {
+            text: 'Prod'
+          },
+          url: '/services/cdp-portal-frontend/secrets/prod'
         }
       ])
     })

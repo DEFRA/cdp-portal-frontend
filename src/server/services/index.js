@@ -1,8 +1,8 @@
 import {
   serviceController,
   serviceListController,
-  serviceStatusController,
-  secretsAboutController,
+  serviceCreateStatusController,
+  allSecretsController,
   environmentSecretsController,
   updateSecretController,
   createSecretController,
@@ -55,12 +55,12 @@ const services = {
         {
           method: 'GET',
           path: '/services/create-status/{serviceId}',
-          ...serviceStatusController
+          ...serviceCreateStatusController
         },
         {
           method: 'GET',
           path: '/services/{serviceId}/secrets',
-          ...secretsAboutController
+          ...allSecretsController
         },
         {
           method: 'GET',

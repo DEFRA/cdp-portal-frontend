@@ -94,7 +94,7 @@ const updateSecretController = {
         if (response.ok) {
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
-            text: 'Secret updated',
+            text: 'Secret being created', // TODO should have this in self service ops?
             type: 'success'
           })
 
