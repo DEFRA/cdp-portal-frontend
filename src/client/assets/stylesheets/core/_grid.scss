@@ -27,3 +27,30 @@
 .app-row__item-align-self--end {
   align-self: flex-end;
 }
+
+// Simple CSS grid. Use the govuk-grid if you need a fully functioning grid.
+.app-grid {
+  display: block;
+
+  @include govuk-media-query($from: desktop-big) {
+    display: grid;
+    gap: govuk-spacing(4);
+  }
+}
+
+.app-grid--3-to-6 {
+  @include govuk-media-query($from: desktop-big) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  @include govuk-media-query($from: desktop-huge) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  @include govuk-media-query($from: desktop-massive) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}

@@ -2,6 +2,7 @@
   @include app-link;
 }
 
+// TODO fix up to use proper BEM classes
 .app-link-underline {
   @include app-link-underline;
 }
