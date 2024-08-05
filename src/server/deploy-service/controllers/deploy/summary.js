@@ -1,9 +1,10 @@
-import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows'
-import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
+import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
+import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
+import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
+import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets'
 
 const summaryController = {
   options: {
@@ -29,6 +30,7 @@ const summaryController = {
       deployment.environment,
       deployment.imageName
     )
+    const secretDetail = transformSecrets(secrets)
 
     return h.view('deploy-service/views/summary', {
       pageTitle: 'Deploy Service Summary',
@@ -39,7 +41,7 @@ const summaryController = {
       deploymentRows: deploymentRows(deployment, cpuDetail, memoryDetail),
       formButtonText: 'Deploy',
       deployment,
-      secrets
+      secretDetail
     })
   }
 }
