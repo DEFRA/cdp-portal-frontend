@@ -10,12 +10,16 @@ function provideSubNavigation(request, h) {
       {
         isActive: request.path.startsWith('/admin/users'),
         url: '/admin/users',
-        label: 'Users'
+        label: {
+          text: 'Users'
+        }
       },
       {
         isActive: request.path.startsWith('/admin/teams'),
         url: '/admin/teams',
-        label: 'Teams'
+        label: {
+          text: 'Teams'
+        }
       }
     ]
   }

@@ -10,12 +10,12 @@ function provideSubNavigation(request, h) {
       {
         isActive: request.path.startsWith('/utilities/templates'),
         url: '/utilities/templates',
-        label: 'Templates'
+        label: { text: 'Templates' }
       },
       {
         isActive: request.path.startsWith('/utilities/libraries'),
         url: '/utilities/libraries',
-        label: 'Libraries'
+        label: { text: 'Libraries' }
       }
     ]
   }
