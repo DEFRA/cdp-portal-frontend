@@ -49,7 +49,7 @@ async function context(request) {
     isAdmin: authedUser?.isAdmin ?? false,
     isAuthenticated: authedUser?.isAuthenticated ?? false,
     isIe: useragent.is(userAgentHeader).ie,
-    isTenant: authedUser?.isServiceTeamUser ?? false,
+    isTenant: authedUser?.isTenant ?? false,
     isXhr: isXhr.call(request),
     navigation: await buildNavigation(request),
     noValue,
