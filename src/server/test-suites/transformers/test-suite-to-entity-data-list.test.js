@@ -54,7 +54,6 @@ describe('#testSuiteToEntityDataList', () => {
             kind: 'group',
             value: [
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'
@@ -64,7 +63,6 @@ describe('#testSuiteToEntityDataList', () => {
                 value: 'frontend'
               },
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'
@@ -74,7 +72,6 @@ describe('#testSuiteToEntityDataList', () => {
                 value: 'node'
               },
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'
@@ -84,7 +81,6 @@ describe('#testSuiteToEntityDataList', () => {
                 value: 'cdp'
               },
               {
-                classes: 'app-tag--lowercase',
                 kind: 'tag',
                 link: {
                   classes: 'app-link-without-underline'

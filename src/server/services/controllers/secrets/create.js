@@ -9,7 +9,7 @@ import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { secretValidation } from '~/src/server/services/helpers/schema/secret-validation'
-import { fetchSecrets } from '~/src/server/deploy-service/helpers/fetch/fetch-secrets'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
 
 const createSecretController = {
   options: {

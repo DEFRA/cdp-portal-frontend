@@ -22,10 +22,10 @@ async function fetcher(url, options = {}) {
   })
 
   try {
-    const json = await response.json()
+    const json = await response?.json()
 
     // status 200-299
-    if (response.ok) {
+    if (response?.ok) {
       return { json, response }
     }
 

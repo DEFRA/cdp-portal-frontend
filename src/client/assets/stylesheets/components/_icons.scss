@@ -1,17 +1,19 @@
-@import "icons/instance-icon/instance-icon";
-@import "icons/instance-success-icon/instance-success-icon";
+@import "icons/cancel-icon/cancel-icon";
+@import "icons/error-icon/error-icon";
 @import "icons/instance-failed-icon/instance-failed-icon";
+@import "icons/instance-icon/instance-icon";
 @import "icons/instance-pending-icon/instance-pending-icon";
 @import "icons/instance-stopped-icon/instance-stopped-icon";
+@import "icons/instance-success-icon/instance-success-icon";
+@import "icons/pending-icon/pending-icon";
 @import "icons/tick-icon/tick-icon";
-@import "icons/error-icon/error-icon";
-@import "icons/cancel-icon/cancel-icon";
 
 .app-icon {
   width: 40px;
   height: 40px;
 }
 
+// TODO make this into proper BEM selectors
 .app-icon-tiny {
   width: 20px;
   height: 20px;

@@ -63,34 +63,10 @@
                 <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
                   <p class="govuk-!-margin-bottom-2">
-                    The secret environment variables available to this deployment are:
+                    The secret environment variables available to this deployment.
                   </p>
 
-                  {% if secrets.lastChangedDate %}
-                    <h2
-                      class="govuk-heading-s govuk-!-margin-top-0 govuk-!-margin-bottom-1 govuk-!-padding-top-0">
-                      Last updated
-                    </h2>
-                    <p class="govuk-!-margin-bottom-4">
-                      {{ appTime({
-                        datetime: secrets.lastChangedDate
-                      }) }}
-                    </p>
-                  {% endif %}
-
-                  {% if secrets.keys | length %}
-                    <ul class="govuk-list">
-                      {% for key in secrets.keys %}
-                        <li class="govuk-!-margin-bottom-1">
-                          <code>{{ key }}</code>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% else %}
-                    <p class="govuk-!-margin-bottom-2">
-                      No secrets currently available
-                    </p>
-                  {% endif %}
+                  {{ appSecretsList(secretDetail) }}
                 </div>
               </div>
             </section>

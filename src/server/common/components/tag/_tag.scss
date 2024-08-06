@@ -1,16 +1,4 @@
 .app-tag {
   border-radius: $app-border-radius;
   max-width: 100em;
-
-  &::first-letter {
-    text-transform: capitalize;
-  }
-}
-
-.app-tag--lowercase {
-  text-transform: lowercase;
-
-  &::first-letter {
-    text-transform: lowercase;
-  }
 }

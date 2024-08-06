@@ -1,5 +1,3 @@
-import { startCase } from 'lodash'
-
 import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
@@ -37,9 +35,7 @@ function testSuiteStatus(service) {
     status: {
       isSuccess: serviceStatus.status === creationStatuses.success,
       value: serviceStatus.status,
-      text: serviceStatus?.status
-        ? startCase(serviceStatus.status)
-        : unknownValue,
+      text: serviceStatus?.status ? serviceStatus.status : unknownValue,
       classes: statusTagClassMap(serviceStatus?.status)
     },
     serviceTypeTemplate: service.serviceTypeTemplate,
@@ -52,7 +48,7 @@ function testSuiteStatus(service) {
       },
       status: {
         text: createRepository?.status
-          ? startCase(createRepository?.status)
+          ? createRepository?.status
           : unknownValue,
         classes: statusTagClassMap(createRepository?.status)
       },
@@ -87,9 +83,7 @@ function testSuiteStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-squid-proxy`
       },
       status: {
-        text: cdpSquidProxy?.status
-          ? startCase(cdpSquidProxy?.status)
-          : unknownValue,
+        text: cdpSquidProxy?.status ? cdpSquidProxy?.status : unknownValue,
         classes: statusTagClassMap(cdpSquidProxy?.status)
       },
       info: () => {
@@ -133,9 +127,7 @@ function testSuiteStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
       },
       status: {
-        text: cdpTfSvcInfra?.status
-          ? startCase(cdpTfSvcInfra.status)
-          : unknownValue,
+        text: cdpTfSvcInfra?.status ? cdpTfSvcInfra.status : unknownValue,
         classes: statusTagClassMap(cdpTfSvcInfra?.status)
       },
       info: () => {

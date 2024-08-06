@@ -52,6 +52,7 @@
     border-bottom: 0;
     border-radius: $app-border-radius $app-border-radius 0 0;
     background-color: $govuk-body-background-colour;
+    font-weight: bold;
 
     .app-tabs__tab {
       padding: govuk-spacing(2) - $border-width govuk-spacing(3) - $border-width;

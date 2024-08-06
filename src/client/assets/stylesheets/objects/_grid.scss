@@ -1,5 +1,7 @@
-.app-grid-column:not(:first-of-type) {
-  margin-top: govuk-spacing(4);
+.app-grid-column {
+  &:not(:first-of-type) {
+    margin-top: govuk-spacing(4);
+  }
 }
 
 @each $width in map-keys($govuk-grid-widths) {
@@ -7,6 +9,12 @@
     @include govuk-grid-column($width, $at: desktop);
 
     @include govuk-media-query($from: desktop) {
+      padding: 0;
+
+      * + & {
+        padding-left: govuk-spacing(4);
+      }
+
       &:not(:first-of-type) {
         margin-top: 0;
       }
@@ -17,6 +25,12 @@
     @include govuk-grid-column($width, $at: desktop-big);
 
     @include govuk-media-query($from: desktop-big) {
+      padding: 0;
+
+      * + & {
+        padding-left: govuk-spacing(4);
+      }
+
       &:not(:first-of-type) {
         margin-top: 0;
       }
@@ -27,6 +41,12 @@
     @include govuk-grid-column($width, $at: desktop-wide);
 
     @include govuk-media-query($from: desktop-wide) {
+      padding: 0;
+
+      * + & {
+        padding-left: govuk-spacing(4);
+      }
+
       &:not(:first-of-type) {
         margin-top: 0;
       }
@@ -37,6 +57,12 @@
     @include govuk-grid-column($width, $at: desktop-huge);
 
     @include govuk-media-query($from: desktop-huge) {
+      padding: 0;
+
+      * + & {
+        padding-left: govuk-spacing(4);
+      }
+
       &:not(:first-of-type) {
         margin-top: 0;
       }
@@ -47,6 +73,8 @@
     @include govuk-grid-column($width, $at: desktop-massive);
 
     @include govuk-media-query($from: desktop-massive) {
+      padding: 0;
+
       &:not(:first-of-type) {
         margin-top: 0;
       }

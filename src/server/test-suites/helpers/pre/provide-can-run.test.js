@@ -1,4 +1,4 @@
-import { provideCanRun } from './provide-can-run'
+import { provideCanRun } from '~/src/server/test-suites/helpers/pre/provide-can-run'
 
 describe('#provideCanRun', () => {
   let request

@@ -34,7 +34,7 @@ describe('#provideDeployment', () => {
       expect(await provideDeployment.method(mockRequest)).toEqual({
         ...deploymentInProgressFixture,
         ...repositoryFixture.repository,
-        statusClasses: 'govuk-tag--blue',
+        statusClasses: 'govuk-tag--purple',
         isBackend: false,
         isFrontend: true
       })

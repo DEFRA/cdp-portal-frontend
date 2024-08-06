@@ -26,7 +26,7 @@
           <div class="app-status-info">
             <div class="app-status-info__primary">
               {{ appTag({
-                text: creationJob.status.text,
+                text: creationJob.status.text | title,
                 classes: creationJob.status.classes,
                 attributes: {
                   "data-testid": "app-overall-progress"

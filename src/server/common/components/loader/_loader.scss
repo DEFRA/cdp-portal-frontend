@@ -3,6 +3,11 @@
     display: none;
   }
 
+  // When the loader appears avoid a huge jump, when there is a second button to the right of the loader
+  .app-loader--with-adjacent-button {
+    margin-right: govuk-spacing(-2);
+  }
+
   .app-loader--is-loading {
     width: 16px;
     height: 16px;

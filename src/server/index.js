@@ -3,7 +3,7 @@ import path from 'path'
 import hapi from '@hapi/hapi'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
-import { router } from './router'
+import { router } from '~/src/server/router'
 import { config } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { csrf } from '~/src/server/common/helpers/auth/csrf'

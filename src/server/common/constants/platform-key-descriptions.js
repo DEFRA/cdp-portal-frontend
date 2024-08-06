@@ -1,4 +1,4 @@
-const platformGlobalSecretKeysDescriptions = {
+const platformKeyDescriptions = {
   SQUID_USERNAME: 'Automatically generated Squid proxy username.',
   SQUID_PASSWORD: 'Automatically generated Squid proxy password.',
   REDIS_USERNAME: 'Automatically generated Redis username.',
@@ -12,4 +12,4 @@ const platformGlobalSecretKeysDescriptions = {
     'CDP https proxy url. Applied to environment variable named by convention.'
 }
 
-export { platformGlobalSecretKeysDescriptions }
+export { platformKeyDescriptions }

@@ -38,7 +38,7 @@ describe('#testSuiteStatus', () => {
         },
         status: {
           classes: 'govuk-tag--blue',
-          text: 'In Progress'
+          text: 'in-progress'
         },
         url: {
           href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`,
@@ -60,7 +60,7 @@ describe('#testSuiteStatus', () => {
         part: 2,
         status: {
           classes: 'govuk-tag--green',
-          text: 'Success'
+          text: 'success'
         },
         url: {
           href: 'https://github.com/DEFRA/cdp-squid-proxy',
@@ -73,7 +73,7 @@ describe('#testSuiteStatus', () => {
         part: 1,
         status: {
           classes: 'govuk-tag--blue',
-          text: 'In Progress'
+          text: 'in-progress'
         },
         url: {
           href: `https://github.com/${githubOrg}/cdp-env-test-suite`,
@@ -91,7 +91,7 @@ describe('#testSuiteStatus', () => {
       status: {
         classes: 'govuk-tag--blue',
         isSuccess: false,
-        text: 'In Progress',
+        text: 'in-progress',
         value: 'in-progress'
       }
     })

@@ -26,7 +26,7 @@
           <div class="app-status-info">
             <div class="app-status-info__primary">
               {{ appTag({
-                text: creationJob.status.text,
+                text: creationJob.status.text | title,
                 classes: creationJob.status.classes,
                 attributes: {
                   "data-testid": "app-overall-progress"
@@ -64,7 +64,7 @@
             various completed jobs detailed below.
           </p>
           <p class="govuk-!-margin-bottom-3">When you have finished looking over what has been created for your new
-            microservice progress to your <a class="app-link app-link--underline"
+            microservice progress to your <a class="app-link app-link-underline"
                                              href="/services/{{ service.serviceName }}">new microservices page</a>.
           </p>
         </div>

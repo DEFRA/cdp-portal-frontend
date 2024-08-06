@@ -1,29 +1,9 @@
 function sortByAsc(value) {
-  return (a, b) => {
-    if (a[value] > b[value]) {
-      return 1
-    }
-
-    if (a[value] < b[value]) {
-      return -1
-    }
-
-    return 0
-  }
+  return (a, b) => a[value].localeCompare(b[value])
 }
 
 function sortByDesc(value) {
-  return (a, b) => {
-    if (a[value] < b[value]) {
-      return 1
-    }
-
-    if (a[value] > b[value]) {
-      return -1
-    }
-
-    return 0
-  }
+  return (a, b) => b[value].localeCompare(a[value])
 }
 
 function sortBy(value, direction = 'desc') {

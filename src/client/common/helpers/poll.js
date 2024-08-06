@@ -15,9 +15,31 @@ function startPolling(url, interval, limit, pollBegin) {
   return async function pollUrl() {
     const isBeforePollLimit = isBefore(Date.now(), addMinutes(pollBegin, limit))
     const { ok, text } = await xhrRequest(url)
+    const timerInfo = {}
 
-    if (ok && !text) {
-      window.location.reload()
+    // TODO roll out the data xhrStop, xhrSuccessMessage, xhrErrorMessage attribute to all pollers
+    const domParser = new DOMParser()
+    const dataDocument = domParser.parseFromString(text, 'text/html')
+    const xhrElement = dataDocument.querySelector('[data-xhr]')
+    const shouldStopPolling = xhrElement?.dataset?.xhrStop === 'true' || false
+    const successMessage = xhrElement?.dataset?.xhrSuccessMessage
+    const errorMessage = xhrElement?.dataset?.xhrErrorMessage
+
+    // TODO (ok and !text) clause can go once all pollers have the xhrStop attribute
+    if ((ok && !text) || shouldStopPolling) {
+      if (successMessage) {
+        clientNotification(successMessage, 'success')
+      }
+
+      if (errorMessage) {
+        clientNotification(errorMessage)
+      }
+
+      if (timerInfo?.id) {
+        clearTimeout(timerInfo.id)
+      }
+
+      return
     }
 
     if (!ok) {
@@ -32,27 +54,30 @@ function startPolling(url, interval, limit, pollBegin) {
     }
 
     if (ok && isBeforePollLimit) {
-      setTimeout(() => {
+      timerInfo.id = setTimeout(() => {
         pollUrl()
       }, interval)
     }
   }
 }
 
-function poll($element) {
-  if (!$element) {
+/**
+ * @param {HTMLElement | undefined | null} $module - HTML element to use for polling
+ */
+function poll($module) {
+  if (!($module instanceof HTMLElement)) {
     return
   }
 
   const fiveSeconds = 5000
   const sixtyMinutes = 60
 
-  const pollUrl = $element.dataset?.pollUrl
+  const pollUrl = $module.dataset?.pollUrl
 
-  const pollInterval = $element.dataset?.pollInterval
+  const pollInterval = $module.dataset?.pollInterval
   const interval = pollInterval ? parseInt(pollInterval, 10) : fiveSeconds
 
-  const pollLimit = $element.dataset?.pollLimit
+  const pollLimit = $module.dataset?.pollLimit
   const limit = pollLimit ? parseInt(pollLimit, 10) : sixtyMinutes
 
   startPolling(pollUrl, interval, limit, Date.now())()

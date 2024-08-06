@@ -14,18 +14,29 @@ async function provideSubNavigation(request, h) {
     const servicesTeams = response.source?.context?.service?.teams ?? []
     const environments = Object.values(getEnvironmentsByTeam(servicesTeams))
 
-    response.source.context.subNavigation = environments.map((environment) => ({
-      isActive: request.path.startsWith(
-        `/services/${serviceId}/secrets/${environment}`
-      ),
-      url: request.routeLookup('services/{serviceId}/secrets/{environment}', {
-        params: {
-          serviceId,
-          environment
+    response.source.context.subNavigation = [
+      {
+        isActive: request.path === `/services/${serviceId}/secrets`,
+        url: request.routeLookup('services/{serviceId}/secrets', {
+          params: { serviceId }
+        }),
+        label: {
+          text: 'All'
         }
-      }),
-      label: upperFirst(kebabCase(environment))
-    }))
+      },
+      ...environments.map((environment) => ({
+        isActive: request.path.startsWith(
+          `/services/${serviceId}/secrets/${environment}`
+        ),
+        url: request.routeLookup('services/{serviceId}/secrets/{environment}', {
+          params: {
+            serviceId,
+            environment
+          }
+        }),
+        label: { text: upperFirst(kebabCase(environment)) }
+      }))
+    ]
   }
 
   return h.continue

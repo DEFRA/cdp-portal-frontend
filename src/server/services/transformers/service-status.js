@@ -1,5 +1,3 @@
-import { startCase } from 'lodash'
-
 import { config } from '~/src/config'
 import { unknownValue } from '~/src/server/common/constants/no-value'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
@@ -43,9 +41,7 @@ function serviceStatus(service) {
     status: {
       isSuccess: serviceStatus.status === creationStatuses.success,
       value: serviceStatus.status,
-      text: serviceStatus?.status
-        ? startCase(serviceStatus.status)
-        : unknownValue,
+      text: serviceStatus?.status ? serviceStatus.status : unknownValue,
       classes: statusTagClassMap(serviceStatus?.status)
     },
     serviceTypeTemplate: serviceStatus.serviceTypeTemplate,
@@ -58,7 +54,7 @@ function serviceStatus(service) {
       },
       status: {
         text: createRepository?.status
-          ? startCase(createRepository?.status)
+          ? createRepository?.status
           : unknownValue,
         classes: statusTagClassMap(createRepository?.status)
       },
@@ -93,9 +89,7 @@ function serviceStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-app-config`
       },
       status: {
-        text: cdpAppConfig?.status
-          ? startCase(cdpAppConfig.status)
-          : unknownValue,
+        text: cdpAppConfig?.status ? cdpAppConfig.status : unknownValue,
         classes: statusTagClassMap(cdpAppConfig?.status)
       },
       info: () => {
@@ -146,7 +140,7 @@ function serviceStatus(service) {
       },
       status: {
         text: cdpNginxUpstreams?.status
-          ? startCase(cdpNginxUpstreams.status)
+          ? cdpNginxUpstreams.status
           : unknownValue,
         classes: statusTagClassMap(cdpNginxUpstreams?.status)
       },
@@ -199,9 +193,7 @@ function serviceStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-squid-proxy`
       },
       status: {
-        text: cdpSquidProxy?.status
-          ? startCase(cdpSquidProxy?.status)
-          : unknownValue,
+        text: cdpSquidProxy?.status ? cdpSquidProxy?.status : unknownValue,
         classes: statusTagClassMap(cdpSquidProxy?.status)
       },
       info: () => {
@@ -245,9 +237,7 @@ function serviceStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-grafana-svc`
       },
       status: {
-        text: cdpDashboard?.status
-          ? startCase(cdpDashboard?.status)
-          : unknownValue,
+        text: cdpDashboard?.status ? cdpDashboard?.status : unknownValue,
         classes: statusTagClassMap(cdpDashboard?.status)
       },
       info: () => {
@@ -291,9 +281,7 @@ function serviceStatus(service) {
         href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
       },
       status: {
-        text: cdpTfSvcInfra?.status
-          ? startCase(cdpTfSvcInfra.status)
-          : unknownValue,
+        text: cdpTfSvcInfra?.status ? cdpTfSvcInfra.status : unknownValue,
         classes: statusTagClassMap(cdpTfSvcInfra?.status)
       },
       info: () => {

@@ -27,7 +27,7 @@
               <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
               <div>
                 {{ appTag({
-                  text: deployment.status,
+                  text: deployment.status | title,
                   classes: deployment.statusClasses,
                   attributes: {
                     "data-testid": "deployment-status"
@@ -68,7 +68,7 @@
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Environment</h2>
                     <p>
                       {{ appTag({
-                        text: deployment.environment,
+                        text: deployment.environment | title,
                         classes: "govuk-tag--blue",
                         attributes: {
                           "data-testid": "deployment-environment"
@@ -102,7 +102,6 @@
                       {% for topic in deployment.topics %}
                         {{ appTag({
                           text: topic,
-                          classes: "app-tag--lowercase",
                           url: "https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A" + topic  + "&type=repositories",
                           link: {
                             classes: "app-link-without-underline"
@@ -250,39 +249,14 @@
                   </ul>
                 </div>
               </div>
-              <div class="app-row__item-flex-four">
+              <div class="app-row__item-flex-two">
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
-
                 <p class="govuk-!-margin-bottom-2">
-                  The secret environment variables included in this deployment are:
+                  The secret environment variables included in this deployment.
                 </p>
-
-                {% if deployment.secrets.lastChangedDate %}
-                  <h2
-                    class="govuk-heading-s govuk-!-margin-top-0 govuk-!-margin-bottom-1 govuk-!-padding-top-0">
-                    Last updated
-                  </h2>
-                  <p class="govuk-!-margin-bottom-4">
-                    {{ appTime({
-                      datetime: deployment.secrets.lastChangedDate
-                    }) }}
-                  </p>
-                {% endif %}
-
-                {% if deployment.secrets.keys | length %}
-                  <ul class="govuk-list govuk-!-margin-0">
-                    {% for key in deployment.secrets.keys %}
-                      <li class="govuk-!-margin-bottom-1">
-                        <code>{{ key }}</code>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% else %}
-                  <p class="govuk-!-margin-bottom-2">
-                    No secrets currently available
-                  </p>
-                {% endif %}
+                {{  appSecretsList(secretDetail) }}
               </div>
+              <div class="app-row__item-flex-two"></div>
             </div>
           </section>
         {% endcall %}

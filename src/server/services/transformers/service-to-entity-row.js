@@ -1,3 +1,5 @@
+import { kebabCase, upperFirst } from 'lodash'
+
 import { config } from '~/src/config'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
 
@@ -10,7 +12,7 @@ function serviceToEntityRow(service) {
   const createdEntity = hasStatus
     ? {
         kind: 'tag',
-        value: status,
+        value: upperFirst(kebabCase(status)),
         classes: statusTagClassMap(status)
       }
     : { kind: 'date', value: service.createdAt }

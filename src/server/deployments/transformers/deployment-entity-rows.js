@@ -1,3 +1,5 @@
+import { kebabCase, upperFirst } from 'lodash'
+
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
 import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user'
 import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
@@ -33,7 +35,7 @@ function deploymentToEntityRow(deployment) {
     },
     {
       kind: 'tag',
-      value: status,
+      value: upperFirst(kebabCase(status)),
       classes: provideDeploymentStatusClassname(status)
     },
     {

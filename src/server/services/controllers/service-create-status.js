@@ -5,7 +5,7 @@ import { serviceStatus } from '~/src/server/services/transformers/service-status
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status'
 import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
 
-const serviceStatusController = {
+const serviceCreateStatusController = {
   options: {
     pre: [provideServiceCreateStatus],
     validate: {
@@ -18,6 +18,7 @@ const serviceStatusController = {
   handler: async (request, h) => {
     const service = request.pre.service
 
+    // TODO update to use new polling helpers
     if (!service) {
       return null
     }
@@ -50,4 +51,4 @@ const serviceStatusController = {
   }
 }
 
-export { serviceStatusController }
+export { serviceCreateStatusController }

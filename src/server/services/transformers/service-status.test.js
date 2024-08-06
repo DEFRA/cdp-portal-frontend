@@ -39,7 +39,7 @@ describe('#serviceStatus', () => {
           },
           status: {
             classes: 'govuk-tag--blue',
-            text: 'In Progress'
+            text: 'in-progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-app-config`,
@@ -67,7 +67,7 @@ describe('#serviceStatus', () => {
           },
           status: {
             classes: 'govuk-tag--blue',
-            text: 'In Progress'
+            text: 'in-progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-nginx-upstreams`,
@@ -95,7 +95,7 @@ describe('#serviceStatus', () => {
           },
           status: {
             classes: 'govuk-tag--blue',
-            text: 'In Progress'
+            text: 'in-progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`,
@@ -108,7 +108,7 @@ describe('#serviceStatus', () => {
           part: 1,
           status: {
             classes: 'govuk-tag--blue',
-            text: 'In Progress'
+            text: 'in-progress'
           },
           url: {
             href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
@@ -130,7 +130,7 @@ describe('#serviceStatus', () => {
           part: 4,
           status: {
             classes: 'govuk-tag--blue',
-            text: 'In Progress'
+            text: 'in-progress'
           },
           url: {
             href: 'https://github.com/DEFRA/cdp-squid-proxy',
@@ -152,14 +152,13 @@ describe('#serviceStatus', () => {
           part: 5,
           status: {
             classes: 'govuk-tag--blue',
-            text: 'In Progress'
+            text: 'in-progress'
           },
           url: {
             href: 'https://github.com/DEFRA/cdp-grafana-svc',
             text: 'DEFRA/cdp-grafana-svc'
           }
         },
-
         hasJobFailures: false,
         progress: {
           complete: 0,
@@ -171,7 +170,7 @@ describe('#serviceStatus', () => {
         status: {
           classes: 'govuk-tag--blue',
           isSuccess: false,
-          text: 'In Progress',
+          text: 'in-progress',
           value: 'in-progress'
         }
       })

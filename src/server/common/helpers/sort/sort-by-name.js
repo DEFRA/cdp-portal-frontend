@@ -1,13 +1,3 @@
-const sortByName = (a, b) => {
-  if (a.toLowerCase() < b.toLowerCase()) {
-    return -1
-  }
-
-  if (a.toLowerCase() > b.toLowerCase()) {
-    return 1
-  }
-
-  return 0
-}
+const sortByName = (a, b) => a.localeCompare(b)
 
 export { sortByName }
