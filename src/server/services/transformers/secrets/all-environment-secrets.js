@@ -15,7 +15,7 @@ function allEnvironmentSecrets(
   platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
 ) {
   const result = {}
-  const excludedKeys = ['automated_placeholder']
+  const excludedKeys = ['automated_placeholder', 'placeholder']
 
   for (const environment of Object.values(environments)) {
     const secrets = allSecrets[environment]

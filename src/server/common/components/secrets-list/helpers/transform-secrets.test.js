@@ -12,7 +12,7 @@ describe('#transformSecrets', () => {
     expect(result.platformKeys).toEqual(['PLATFORM_SECRET'])
   })
 
-  test('Should return keys excluding automated_placeholder', () => {
+  test('Should return keys excluding placeholders', () => {
     const result = transformSecrets(serviceSecretsFixture, ['REDIS_KEY_PREFIX'])
 
     expect(result.keys).toEqual(['a_lower_case_secret', 'SERVICE_SECRET'])

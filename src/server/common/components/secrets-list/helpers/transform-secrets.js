@@ -15,7 +15,11 @@ function transformSecrets(
   platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
 ) {
   const secretsCopy = secrets?.keys ? [...secrets.keys] : []
-  const excludedKeys = [...platformGlobalSecretKeys, 'automated_placeholder']
+  const excludedKeys = [
+    ...platformGlobalSecretKeys,
+    'automated_placeholder',
+    'placeholder'
+  ]
 
   const keys = pullAll(secretsCopy, excludedKeys).sort(sortByName)
   const platformKeys = platformGlobalSecretKeys
