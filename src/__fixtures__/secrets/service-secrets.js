@@ -6,6 +6,7 @@ const serviceSecretsFixture = {
   environment: 'infra-dev',
   keys: [
     'automated_placeholder',
+    'placeholder',
     'SERVICE_SECRET',
     'a_lower_case_secret',
     'REDIS_KEY_PREFIX'
@@ -23,6 +24,7 @@ const serviceSecretsWithPendingFixture = {
   keys: [
     'automated_placeholder',
     'SERVICE_SECRET',
+    'placeholder',
     'a_lower_case_secret',
     'REDIS_KEY_PREFIX'
   ],
@@ -39,6 +41,7 @@ const serviceSecretsWithExceptionFixture = {
   keys: [
     'automated_placeholder',
     'SERVICE_SECRET',
+    'placeholder',
     'a_lower_case_secret',
     'REDIS_KEY_PREFIX'
   ],

@@ -28,6 +28,7 @@ function environmentSecrets(
   const excludedKeys = [
     ...platformGlobalSecretKeys,
     'automated_placeholder',
+    'placeholder',
     ...(secrets?.pending ? secrets.pending : [])
   ]
   const secretsWithOutExcludedKeys = (
