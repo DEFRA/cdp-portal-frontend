@@ -21,7 +21,7 @@ describe('#getDeploymentStatusClassname', () => {
 
   test('Should provide expected "requested" className', () => {
     expect(provideDeploymentStatusClassname('requested')).toEqual(
-      'govuk-tag--blue'
+      'govuk-tag--purple'
     )
   })
 
