@@ -38,6 +38,18 @@
   }
 }
 
+.app-grid--3-to-4 {
+  @include govuk-media-query($from: desktop-big) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  @include govuk-media-query($from: desktop-huge) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+
 .app-grid--3-to-6 {
   @include govuk-media-query($from: desktop-big) {
     grid-template-columns: repeat(3, 1fr);
