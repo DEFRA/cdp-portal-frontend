@@ -7,6 +7,7 @@ import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets'
 import { allEnvironmentSecrets } from '~/src/server/services/transformers/secrets/all-environment-secrets'
+import { adminOwnedService } from '~/src/server/common/helpers/user/admin-owned-service'
 
 const allSecretsController = {
   options: {
@@ -35,11 +36,15 @@ const allSecretsController = {
     const allSecrets = await fetchAllSecrets(serviceName)
     const secretsByEnvironment = allEnvironmentSecrets(environments, allSecrets)
 
+    const serviceTeamIds = service.teams?.map((team) => team.teamId)
+    const isAdminOwnedService = adminOwnedService(serviceTeamIds)
+
     return h.view('services/views/secrets/all', {
       pageTitle: `${serviceName} - Secrets`,
       heading: serviceName,
       service,
       secretsByEnvironment,
+      isAdminOwnedService,
       breadcrumbs: [
         {
           text: 'Services',
