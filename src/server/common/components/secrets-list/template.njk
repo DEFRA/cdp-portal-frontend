@@ -26,7 +26,7 @@
 
 {% for platformKey in params.platformKeys %}
   {% set row = [
-    { html: appTag({ text: platformKey, classes: "govuk-tag--blue" }) },
+    { html: appTag({ text: platformKey, classes: "govuk-tag--grey" }) },
     { html: iconHtml, classes: "app-!-width-one-tenth" }
   ] %}
   {% set tableRows = tableRows | union([row]) %}
