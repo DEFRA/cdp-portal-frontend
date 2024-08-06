@@ -25,8 +25,12 @@ function startPolling(url, interval, limit, pollBegin) {
     const successMessage = xhrElement?.dataset?.xhrSuccessMessage
     const errorMessage = xhrElement?.dataset?.xhrErrorMessage
 
-    // TODO (ok and !text) clause can go once all pollers have the xhrStop attribute
-    if ((ok && !text) || shouldStopPolling) {
+    // TODO this is supporting the old way of stopping polling migrate this to the xhrStop attribute ASAP
+    if (ok && !text) {
+      window.location.reload()
+    }
+
+    if (shouldStopPolling) {
       if (successMessage) {
         clientNotification(successMessage, 'success')
       }
