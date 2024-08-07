@@ -56,7 +56,7 @@ const teamDetailsController = {
       })
       const json = await response.json()
 
-      if (response.ok) {
+      if (response?.ok) {
         request.yar.clear(sessionNames.cdpTeam)
         request.yar.clear(sessionNames.validationFailure)
         await request.yar.commit(h)

@@ -23,7 +23,7 @@ const deleteUserController = {
         method: 'delete'
       })
 
-      if (response.ok) {
+      if (response?.ok) {
         request.yar.flash(sessionNames.notifications, {
           text: 'User deleted and removed from all teams',
           type: 'success'

@@ -58,7 +58,7 @@ const repositoryCreateController = {
           }
         )
 
-        if (response.ok) {
+        if (response?.ok) {
           request.yar.clear(sessionNames.validationFailure)
           await request.yar.commit(h)
 

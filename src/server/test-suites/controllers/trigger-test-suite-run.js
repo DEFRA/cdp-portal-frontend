@@ -43,7 +43,7 @@ const triggerTestSuiteRunController = {
       try {
         const { response } = await runTest(request, imageName, environment)
 
-        if (response.ok) {
+        if (response?.ok) {
           // TODO align this to use sendMessage
           request.audit.send({
             event: 'test run requested',
