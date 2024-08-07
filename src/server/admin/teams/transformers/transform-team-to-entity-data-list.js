@@ -1,6 +1,6 @@
 import { config } from '~/src/config'
 
-function transformCdpTeamToEntityDataList(team) {
+function transformTeamToEntityDataList(team) {
   const githubOrg = config.get('githubOrg')
 
   return [
@@ -36,4 +36,4 @@ function transformCdpTeamToEntityDataList(team) {
   ]
 }
 
-export { transformCdpTeamToEntityDataList }
+export { transformTeamToEntityDataList }

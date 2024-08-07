@@ -1,7 +1,7 @@
 import { userController } from '~/src/server/admin/users/controllers/user'
 import { usersListController } from '~/src/server/admin/users/controllers/users-list'
 import {
-  confirmUserDelete,
+  confirmDeleteUserController,
   deleteUserController
 } from '~/src/server/admin/users/controllers/delete'
 import {
@@ -32,6 +32,6 @@ export {
   createUserController,
   startEditUserController,
   editUserController,
-  confirmUserDelete,
+  confirmDeleteUserController,
   deleteUserController
 }

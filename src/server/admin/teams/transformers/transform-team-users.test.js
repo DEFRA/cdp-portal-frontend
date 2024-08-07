@@ -1,9 +1,9 @@
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { transformCdpTeamUsers } from '~/src/server/admin/teams/transformers/transform-cdp-team-users'
+import { transformTeamUsers } from '~/src/server/admin/teams/transformers/transform-team-users'
 
 describe('#transformCdpTeamUsers', () => {
   test('Should provide expected team heading transformation', () => {
-    expect(transformCdpTeamUsers(cdpTeamFixture.team)).toEqual([
+    expect(transformTeamUsers(cdpTeamFixture.team)).toEqual([
       {
         action: {
           html:

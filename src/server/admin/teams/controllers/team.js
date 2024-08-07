@@ -2,9 +2,9 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch'
-import { transformCdpTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-entity-data-list'
-import { transformCdpTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-heading-entities'
-import { transformCdpTeamUsers } from '~/src/server/admin/teams/transformers/transform-cdp-team-users'
+import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
+import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities'
+import { transformTeamUsers } from '~/src/server/admin/teams/transformers/transform-team-users'
 
 const teamController = {
   options: {
@@ -21,9 +21,9 @@ const teamController = {
     return h.view('admin/teams/views/team', {
       pageTitle: team.name,
       heading: team.name,
-      entityDataList: transformCdpTeamToEntityDataList(team),
-      headingEntities: transformCdpTeamToHeadingEntities(team),
-      teamMembers: transformCdpTeamUsers(team),
+      entityDataList: transformTeamToEntityDataList(team),
+      headingEntities: transformTeamToHeadingEntities(team),
+      teamMembers: transformTeamUsers(team),
       team,
       breadcrumbs: [
         {

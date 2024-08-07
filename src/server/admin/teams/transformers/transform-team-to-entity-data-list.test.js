@@ -1,12 +1,12 @@
 import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { transformCdpTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-entity-data-list'
+import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformCdpTeamToEntityDataList', () => {
   test('Should provide expected team data list transformation', () => {
-    expect(transformCdpTeamToEntityDataList(cdpTeamFixture.team)).toEqual([
+    expect(transformTeamToEntityDataList(cdpTeamFixture.team)).toEqual([
       {
         entity: {
           kind: 'link',

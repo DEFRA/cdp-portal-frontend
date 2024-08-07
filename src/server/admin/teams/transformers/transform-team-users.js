@@ -1,4 +1,4 @@
-function transformCdpTeamUsers(team) {
+function transformTeamUsers(team) {
   return team.users.map((user) => {
     const userHref = '/admin/users/' + user.userId
     const formAction = `/admin/teams/${team.teamId}/remove-member/${user.userId}`
@@ -15,4 +15,4 @@ function transformCdpTeamUsers(team) {
   })
 }
 
-export { transformCdpTeamUsers }
+export { transformTeamUsers }

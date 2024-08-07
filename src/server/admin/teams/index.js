@@ -20,6 +20,8 @@ import {
   editTeamController
 } from '~/src/server/admin/teams/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
+import { deleteTeamController } from '~/src/server/admin/teams/controllers/delete/delete-team'
+import { confirmDeleteTeamController } from '~/src/server/admin/teams/controllers/delete/confirm-delete-team'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -103,6 +105,16 @@ const adminTeams = {
             method: 'GET',
             path: '/admin/teams/{teamId}/edit',
             ...startEditTeamController
+          },
+          {
+            method: 'GET',
+            path: '/admin/teams/{teamId}/confirm-delete',
+            ...confirmDeleteTeamController
+          },
+          {
+            method: 'POST',
+            path: '/admin/teams/{teamId}/delete',
+            ...deleteTeamController
           },
           {
             method: 'GET',

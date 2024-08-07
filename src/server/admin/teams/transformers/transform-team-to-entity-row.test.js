@@ -1,12 +1,12 @@
 import { config } from '~/src/config'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { transformCdpTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-cdp-team-to-entity-row'
+import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformCdpTeamToEntityRow', () => {
   test('Should provide expected team row transformation', () => {
-    expect(transformCdpTeamToEntityRow(cdpTeamFixture.team)).toEqual([
+    expect(transformTeamToEntityRow(cdpTeamFixture.team)).toEqual([
       {
         kind: 'link',
         url: '/admin/teams/aabe63e7-87ef-4beb-a596-c810631fc474',

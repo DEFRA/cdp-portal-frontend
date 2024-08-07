@@ -2,6 +2,9 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/form'
 
 const startCreateTeamController = {
+  options: {
+    id: '/admin/teams/create'
+  },
   handler: async (request, h) => {
     request.yar.clear(sessionNames.cdpTeam)
     request.yar.clear(sessionNames.validationFailure)
