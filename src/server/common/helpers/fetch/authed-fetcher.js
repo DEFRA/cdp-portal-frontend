@@ -36,12 +36,12 @@ function authedFetcher(request) {
         const refreshTokenResponse = await refreshAccessToken(request)
         const refreshTokenResponseJson = await refreshTokenResponse.json()
 
-        if (!refreshTokenResponse.ok) {
+        if (!refreshTokenResponse?.ok) {
           request.logger.debug({ refreshTokenResponse }, 'Token refresh failed')
           removeAuthenticatedUser(request)
         }
 
-        if (refreshTokenResponse.ok) {
+        if (refreshTokenResponse?.ok) {
           request.logger.debug(
             { refreshTokenResponse },
             'Token refresh succeeded'
