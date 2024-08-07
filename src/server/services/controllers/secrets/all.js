@@ -1,26 +1,15 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { scopes } from '~/src/server/common/constants/scopes'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets'
-import { allEnvironmentSecrets } from '~/src/server/services/transformers/secrets/all-environment-secrets'
 import { adminOwnedService } from '~/src/server/common/helpers/user/admin-owned-service'
+import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
+import { allEnvironmentSecrets } from '~/src/server/services/transformers/secrets/all-environment-secrets'
 
 const allSecretsController = {
   options: {
     id: 'services/{serviceId}/secrets',
-    ext: {
-      onCredentials: addServiceOwnerScope()
-    },
-    auth: {
-      mode: 'required',
-      access: {
-        scope: [scopes.admin, scopes.serviceOwner]
-      }
-    },
     pre: [provideService],
     validate: {
       params: Joi.object({

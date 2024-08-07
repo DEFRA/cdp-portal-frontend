@@ -69,7 +69,8 @@ function environmentSecrets(
     platformSecrets,
     shouldPoll,
     successMessage,
-    exceptionMessage
+    exceptionMessage,
+    isSecretsSetup: secrets !== null
   }
 }
 

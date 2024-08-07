@@ -1,31 +1,17 @@
-import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { kebabCase, upperFirst } from 'lodash'
 
-import { scopes } from '~/src/server/common/constants/scopes'
-import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
+import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { environmentSecrets } from '~/src/server/services/transformers/secrets/environment-secrets'
+import { secretParamsValidation } from '~/src/server/services/helpers/schema/secret-validation'
 
 const environmentSecretsController = {
   options: {
     id: 'services/{serviceId}/secrets/{environment}',
-    ext: {
-      onCredentials: addServiceOwnerScope()
-    },
-    auth: {
-      mode: 'required',
-      access: {
-        scope: [scopes.admin, scopes.serviceOwner]
-      }
-    },
     pre: [provideService],
     validate: {
-      params: Joi.object({
-        serviceId: Joi.string().required(),
-        environment: Joi.string().required()
-      }),
+      params: secretParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
@@ -43,7 +29,8 @@ const environmentSecretsController = {
       platformSecrets,
       shouldPoll,
       successMessage,
-      exceptionMessage
+      exceptionMessage,
+      isSecretsSetup
     } = environmentSecrets(secrets)
 
     return h.view('services/views/secrets/environment', {
@@ -57,6 +44,7 @@ const environmentSecretsController = {
       shouldPoll,
       successMessage,
       exceptionMessage,
+      isSecretsSetup,
       breadcrumbs: [
         {
           text: 'Services',

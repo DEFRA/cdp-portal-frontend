@@ -1,35 +1,21 @@
-import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { omit } from 'lodash'
 
-import { config, environments } from '~/src/config'
-import { scopes } from '~/src/server/common/constants/scopes'
-import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
+import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { secretValidation } from '~/src/server/services/helpers/schema/secret-validation'
+import { provideService } from '~/src/server/services/helpers/pre/provide-service'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
+import {
+  secretParamsValidation,
+  secretPayloadValidation
+} from '~/src/server/services/helpers/schema/secret-validation'
 
 const updateSecretController = {
   options: {
     id: 'post:services/{serviceId}/secrets/{environment}/update',
-    ext: {
-      onCredentials: addServiceOwnerScope()
-    },
-    auth: {
-      mode: 'required',
-      access: {
-        scope: [scopes.admin, scopes.serviceOwner]
-      }
-    },
     pre: [provideService],
     validate: {
-      params: Joi.object({
-        serviceId: Joi.string().min(1).required(),
-        environment: Joi.string()
-          .valid(...Object.values(environments))
-          .required()
-      }),
+      params: secretParamsValidation,
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
@@ -59,7 +45,7 @@ const updateSecretController = {
       button
     }
 
-    const validationResult = secretValidation(button, teamId).validate(
+    const validationResult = secretPayloadValidation(button, teamId).validate(
       sanitisedPayload,
       { abortEarly: false }
     )

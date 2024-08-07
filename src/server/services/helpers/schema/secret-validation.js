@@ -1,8 +1,8 @@
 import Joi from 'joi'
-import { omit } from 'lodash'
 
-import { config, environments } from '~/src/config'
+import { config } from '~/src/config'
 import { validation } from '~/src/server/common/constants/validation'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 
 /** @type {string[]} */
 const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
@@ -13,28 +13,28 @@ const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
  * Provide immutable keys
  * @param {Object} Detail
  * @param {Action} action
- * @param {array} [platformSecretKeys=[]] platformSecretKeys
+ * @param {array} [platformFixedKeys=[]] platformFixedKeys
  * @param {array} existingSecretKeys
  * @returns {string[]}
  */
 const getImmutableKeys = ({
   action,
-  platformSecretKeys = [],
+  platformFixedKeys = [],
   existingSecretKeys
 }) =>
   action === 'create'
-    ? [...existingSecretKeys, ...platformSecretKeys]
-    : platformSecretKeys
+    ? [...existingSecretKeys, ...platformFixedKeys]
+    : platformFixedKeys
 
 /**
  * Provide custom error message if value is a protected platform level secret
  * @type {ValidationErrorFunction}
  * @returns {ErrorReport}
- * */
+ */
 const provideCustomErrorCode = (errorReports) => {
   const errorReport = errorReports.at(0)
 
-  if (platformGlobalSecretKeys.includes(errorReport?.value)) {
+  if (platformGlobalSecretKeys?.includes(errorReport?.value)) {
     errorReport.code = 'platform.invalid'
   }
 
@@ -42,24 +42,23 @@ const provideCustomErrorCode = (errorReports) => {
 }
 
 /**
- * Validation for Create and Update forms
+ * Validation for Create and Update forms payloads
  * @param {Action} action
  * @param {string} teamId
  * @param {array} [existingSecretKeys=[]] existingSecretKeys
  * @returns {Joi.ObjectSchema<*>}
  */
-function secretValidation(action, teamId, existingSecretKeys = []) {
+function secretPayloadValidation(action, teamId, existingSecretKeys = []) {
   const immutableKeys = getImmutableKeys({
     action,
-    platformGlobalSecretKeys,
+    platformFixedKeys: platformGlobalSecretKeys,
     existingSecretKeys
   })
 
   const adminTeamId = config.get('oidcAdminGroupId')
-  const allowedEnvironments =
-    teamId === adminTeamId
-      ? Object.values(environments)
-      : Object.values(omit(environments, ['management', 'infraDev']))
+  const allowedEnvironments = Object.values(
+    getEnvironments(teamId === adminTeamId)
+  )
 
   return Joi.object({
     secretKey: Joi.string()
@@ -108,6 +107,28 @@ function secretValidation(action, teamId, existingSecretKeys = []) {
   })
 }
 
-export { secretValidation }
+/**
+ * Validation for secret params
+ * @param params
+ * @param options
+ */
+function secretParamsValidation(params, options) {
+  const isAdmin = options.context?.auth?.credentials?.isAdmin ?? false
+
+  const validationResult = Joi.object({
+    serviceId: Joi.string().required(),
+    environment: Joi.string()
+      .valid(...Object.values(getEnvironments(isAdmin)))
+      .required()
+  }).validate(params, options)
+
+  if (validationResult?.error) {
+    throw validationResult.error
+  }
+
+  return validationResult.value
+}
+
+export { secretPayloadValidation, secretParamsValidation }
 
 /** @import { ValidationErrorFunction, ErrorReport } from 'joi' */
