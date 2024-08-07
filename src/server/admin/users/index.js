@@ -17,7 +17,7 @@ import {
   createUserController,
   startEditUserController,
   editUserController,
-  confirmUserDelete,
+  confirmDeleteUserController,
   deleteUserController
 } from '~/src/server/admin/users/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
@@ -88,7 +88,7 @@ const adminUsers = {
           {
             method: 'GET',
             path: '/admin/users/{userId}/confirm-delete',
-            ...confirmUserDelete
+            ...confirmDeleteUserController
           },
           {
             method: 'POST',

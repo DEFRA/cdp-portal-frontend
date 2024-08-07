@@ -1,4 +1,4 @@
-function transformCdpTeamToHeadingEntities(team) {
+function transformTeamToHeadingEntities(team) {
   return [
     {
       kind: 'date',
@@ -8,4 +8,4 @@ function transformCdpTeamToHeadingEntities(team) {
   ]
 }
 
-export { transformCdpTeamToHeadingEntities }
+export { transformTeamToHeadingEntities }

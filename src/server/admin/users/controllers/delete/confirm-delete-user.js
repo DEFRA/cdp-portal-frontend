@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformRemoveUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-remove-user-to-entity-data-list'
+import { transformDeleteUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-delete-user-to-entity-data-list'
 
-const confirmUserDelete = {
+const confirmDeleteUserController = {
   options: {
     validate: {
       params: Joi.object({
@@ -18,10 +18,10 @@ const confirmUserDelete = {
     )
     const title = 'Confirm user deletion'
 
-    return h.view('admin/users/views/delete/confirm-user-delete', {
+    return h.view('admin/users/views/delete/confirm-delete-user', {
       pageTitle: title,
       heading: title,
-      entityDataList: transformRemoveUserToEntityDataList(user),
+      entityDataList: transformDeleteUserToEntityDataList(user),
       user,
       breadcrumbs: [
         {
@@ -44,4 +44,4 @@ const confirmUserDelete = {
   }
 }
 
-export { confirmUserDelete }
+export { confirmDeleteUserController }

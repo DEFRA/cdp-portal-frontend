@@ -4,7 +4,7 @@ import { transformUserToEntityDataList } from '~/src/server/admin/users/transfor
 
 const exclusions = ['teams', 'defra aws id', 'defra vpn id']
 
-function transformRemoveUserToEntityDataList(user) {
+function transformDeleteUserToEntityDataList(user) {
   return [
     ...remove(
       transformUserToEntityDataList(user),
@@ -22,4 +22,4 @@ function transformRemoveUserToEntityDataList(user) {
   ]
 }
 
-export { transformRemoveUserToEntityDataList }
+export { transformDeleteUserToEntityDataList }

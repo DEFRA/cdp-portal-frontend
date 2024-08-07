@@ -1,6 +1,6 @@
 import { teamController } from '~/src/server/admin/teams/controllers/team'
 import { teamsListController } from '~/src/server/admin/teams/controllers/teams-list'
-import { removeMemberController } from '~/src/server/admin/teams/controllers/remove/member'
+import { removeMemberController } from '~/src/server/admin/teams/controllers/remove/remove-member'
 import {
   addMemberFormController,
   addMemberController

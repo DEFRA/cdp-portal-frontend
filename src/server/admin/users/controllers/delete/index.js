@@ -1,4 +1,4 @@
-import { confirmUserDelete } from '~/src/server/admin/users/controllers/delete/confirm-user-delete'
+import { confirmDeleteUserController } from '~/src/server/admin/users/controllers/delete/confirm-delete-user'
 import { deleteUserController } from '~/src/server/admin/users/controllers/delete/delete-user'
 
-export { confirmUserDelete, deleteUserController }
+export { confirmDeleteUserController, deleteUserController }
