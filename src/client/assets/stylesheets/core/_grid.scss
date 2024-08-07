@@ -39,12 +39,12 @@
 }
 
 .app-grid--3-to-4 {
-  @include govuk-media-query($from: desktop-big) {
+  @include govuk-media-query($from: desktop-huge) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
 
-  @include govuk-media-query($from: desktop-huge) {
+  @include govuk-media-query($from: desktop-massive) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }

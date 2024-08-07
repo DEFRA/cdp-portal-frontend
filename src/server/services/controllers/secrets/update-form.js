@@ -2,42 +2,27 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { kebabCase, upperFirst } from 'lodash'
 
-import { config, environments } from '~/src/config'
-import { scopes } from '~/src/server/common/constants/scopes'
+import { config } from '~/src/config'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
+import { secretParamsValidation } from '~/src/server/services/helpers/schema/secret-validation'
 
-const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
+const immutableKeys = config.get('platformGlobalSecretKeys')
 
 const updateSecretFormController = {
   options: {
     id: 'services/{serviceId}/secrets/{environment}/update',
-    ext: {
-      onCredentials: addServiceOwnerScope()
-    },
-    auth: {
-      mode: 'required',
-      access: {
-        scope: [scopes.admin, scopes.serviceOwner]
-      }
-    },
     pre: [provideService],
     validate: {
-      params: Joi.object({
-        serviceId: Joi.string().required(),
-        environment: Joi.string()
-          .valid(...Object.values(environments))
-          .required()
-      }),
+      params: secretParamsValidation,
       query: Joi.object({
         secretKey: Joi.string()
-          .not(...platformGlobalSecretKeys)
+          .not(...immutableKeys)
           .min(1)
           .max(256)
           .required()
       }),
-      failAction: () => Boom.boomify(Boom.forbidden())
+      failAction: () => Boom.boomify(Boom.notFound())
     }
   },
   handler: async (request, h) => {
@@ -47,8 +32,8 @@ const updateSecretFormController = {
     const serviceName = service.serviceName
     const environment = request.params?.environment
     const secretKey = request.query?.secretKey
-    const allowedEnvironments = getEnvironmentsByTeam(service?.teams)
     const formattedEnvironment = upperFirst(kebabCase(environment))
+    const secrets = await fetchSecrets(environment, serviceName)
 
     return h.view('services/views/secrets/update-form', {
       pageTitle: `${serviceName} - Update secret`,
@@ -57,7 +42,7 @@ const updateSecretFormController = {
       teamId,
       environment,
       secretKey,
-      allowedEnvironments,
+      isSecretsSetup: secrets !== null,
       breadcrumbs: [
         {
           text: 'Services',

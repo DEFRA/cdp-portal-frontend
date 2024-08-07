@@ -35,9 +35,9 @@ const allEnvironmentSecretsFixture = {
     createdDate: '2024-07-14T08:11:00'
   },
   'perf-test': {
-    keys: ['automated_placeholder', 'REDIS_KEY_PREFIX'],
-    lastChangedDate: '2024-08-02T14:10:17.3880790Z',
-    createdDate: '2024-07-14T08:11:00'
+    keys: [],
+    lastChangedDate: null,
+    createdDate: null
   },
   prod: {
     keys: ['automated_placeholder', 'placeholder', 'REDIS_KEY_PREFIX'],
