@@ -1,4 +1,4 @@
-import { environmentSecrets } from '~/src/server/services/transformers/secrets/environment-secrets'
+import { environmentSecrets } from '~/src/server/services/secrets/transformers/environment-secrets'
 import { serviceSecretsWithPendingFixture } from '~/src/__fixtures__/secrets/service-secrets'
 
 describe('#environmentSecrets', () => {

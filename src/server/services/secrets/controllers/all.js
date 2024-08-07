@@ -5,7 +5,7 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets'
 import { adminOwnedService } from '~/src/server/common/helpers/user/admin-owned-service'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
-import { allEnvironmentSecrets } from '~/src/server/services/transformers/secrets/all-environment-secrets'
+import { allEnvironmentSecrets } from '~/src/server/services/secrets/transformers/all-environment-secrets'
 
 const allSecretsController = {
   options: {
@@ -28,7 +28,7 @@ const allSecretsController = {
     const serviceTeamIds = service.teams?.map((team) => team.teamId)
     const isAdminOwnedService = adminOwnedService(serviceTeamIds)
 
-    return h.view('services/views/secrets/all', {
+    return h.view('services/secrets/views/all', {
       pageTitle: `${serviceName} - Secrets`,
       heading: serviceName,
       service,

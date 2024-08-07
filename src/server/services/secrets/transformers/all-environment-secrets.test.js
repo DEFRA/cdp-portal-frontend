@@ -1,4 +1,4 @@
-import { allEnvironmentSecrets } from '~/src/server/services/transformers/secrets/all-environment-secrets'
+import { allEnvironmentSecrets } from '~/src/server/services/secrets/transformers/all-environment-secrets'
 import { allEnvironmentSecretsFixture } from '~/src/__fixtures__/secrets/all-environment-secrets'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 

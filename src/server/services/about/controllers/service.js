@@ -6,7 +6,7 @@ import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { provideCanDeploy } from '~/src/server/services/helpers/pre/provide-can-deploy'
 import { withEnvironments } from '~/src/server/common/transformers/with-environments'
-import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
+import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id'
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
@@ -43,7 +43,7 @@ const serviceController = {
       .filter((env) => Object.values(environments).includes(env))
       .sort(sortByEnv)
 
-    return h.view('services/views/service', {
+    return h.view('services/about/views/service', {
       pageTitle: `${service.serviceName} microservice`,
       runningServicesEntityRows,
       envsWithDeployment,

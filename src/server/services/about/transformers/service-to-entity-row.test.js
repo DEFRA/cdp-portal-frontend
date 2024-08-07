@@ -1,5 +1,5 @@
 import { config } from '~/src/config'
-import { serviceToEntityRow } from '~/src/server/services/transformers/service-to-entity-row'
+import { serviceToEntityRow } from '~/src/server/services/about/transformers/service-to-entity-row'
 import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services-with-repositories'
 
 const githubOrg = config.get('githubOrg')

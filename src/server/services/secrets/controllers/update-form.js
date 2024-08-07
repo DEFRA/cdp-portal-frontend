@@ -1,50 +1,48 @@
+import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { kebabCase, upperFirst } from 'lodash'
 
+import { config } from '~/src/config'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { environmentSecrets } from '~/src/server/services/transformers/secrets/environment-secrets'
-import { secretParamsValidation } from '~/src/server/services/helpers/schema/secret-validation'
+import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-validation'
 
-const environmentSecretsController = {
+const immutableKeys = config.get('platformGlobalSecretKeys')
+
+const updateSecretFormController = {
   options: {
-    id: 'services/{serviceId}/secrets/{environment}',
+    id: 'services/{serviceId}/secrets/{environment}/update',
     pre: [provideService],
     validate: {
       params: secretParamsValidation,
+      query: Joi.object({
+        secretKey: Joi.string()
+          .not(...immutableKeys)
+          .min(1)
+          .max(256)
+          .required()
+      }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
   handler: async (request, h) => {
-    const environment = request.params.environment
     const service = request.pre.service
-    const serviceName = service.serviceName
     const team = service?.teams?.at(0)
     const teamId = team?.teamId
+    const serviceName = service.serviceName
+    const environment = request.params?.environment
+    const secretKey = request.query?.secretKey
     const formattedEnvironment = upperFirst(kebabCase(environment))
     const secrets = await fetchSecrets(environment, serviceName)
 
-    const {
-      serviceSecrets,
-      platformSecrets,
-      shouldPoll,
-      successMessage,
-      exceptionMessage,
-      isSecretsSetup
-    } = environmentSecrets(secrets)
-
-    return h.view('services/views/secrets/environment', {
-      pageTitle: `${serviceName} - Secrets - ${formattedEnvironment}`,
+    return h.view('services/secrets/views/update-form', {
+      pageTitle: `${serviceName} - Update secret`,
       heading: serviceName,
       service,
       teamId,
       environment,
-      platformSecrets,
-      serviceSecrets,
-      shouldPoll,
-      successMessage,
-      exceptionMessage,
-      isSecretsSetup,
+      secretKey,
+      isSecretsSetup: secrets !== null,
       breadcrumbs: [
         {
           text: 'Services',
@@ -59,11 +57,15 @@ const environmentSecretsController = {
           href: `/services/${serviceName}/secrets`
         },
         {
-          text: formattedEnvironment
+          text: formattedEnvironment,
+          href: `/services/${serviceName}/secrets/${environment}`
+        },
+        {
+          text: `Update secret`
         }
       ]
     })
   }
 }
 
-export { environmentSecretsController }
+export { updateSecretFormController }

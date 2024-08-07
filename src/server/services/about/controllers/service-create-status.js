@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { serviceStatus } from '~/src/server/services/transformers/service-status'
+import { serviceStatus } from '~/src/server/services/about/transformers/service-status'
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status'
-import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
+import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list'
 
 const serviceCreateStatusController = {
   options: {
@@ -30,7 +30,7 @@ const serviceCreateStatusController = {
     const pageTitle = `${creationPosition} ${serviceName} microservice`
     const caption = `${creationPosition} the ${serviceName} microservice.`
 
-    return h.view('services/views/service-status', {
+    return h.view('services/about/views/service-status', {
       pageTitle,
       creationJob,
       isSuccess,

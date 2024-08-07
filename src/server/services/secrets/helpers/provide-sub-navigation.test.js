@@ -1,4 +1,4 @@
-import { provideSubNavigation } from '~/src/server/services/helpers/provide-sub-navigation'
+import { provideSubNavigation } from '~/src/server/services/secrets/helpers/provide-sub-navigation'
 
 describe('#provideSubNavigation', () => {
   const mockToolkit = { continue: 'continue' }

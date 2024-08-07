@@ -1,5 +1,5 @@
 import { config } from '~/src/config'
-import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
+import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list'
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
 import { repositoryFixture } from '~/src/__fixtures__/repository'

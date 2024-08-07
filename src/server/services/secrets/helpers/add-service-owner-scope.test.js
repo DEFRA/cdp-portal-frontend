@@ -1,4 +1,4 @@
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
+import { addServiceOwnerScope } from '~/src/server/services/secrets/helpers/add-service-owner-scope'
 import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner'
 
 describe('#addServiceOwnerScope', () => {

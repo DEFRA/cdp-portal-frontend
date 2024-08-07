@@ -9,7 +9,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import {
   secretParamsValidation,
   secretPayloadValidation
-} from '~/src/server/services/helpers/schema/secret-validation'
+} from '~/src/server/services/secrets/helpers/schema/secret-validation'
 
 const createSecretController = {
   options: {

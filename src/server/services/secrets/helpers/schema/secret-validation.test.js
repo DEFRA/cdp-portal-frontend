@@ -3,7 +3,7 @@ import Joi from 'joi'
 import {
   secretPayloadValidation,
   secretParamsValidation
-} from '~/src/server/services/helpers/schema/secret-validation'
+} from '~/src/server/services/secrets/helpers/schema/secret-validation'
 import { teamFixture } from '~/src/__fixtures__/team'
 
 describe('#secretValidation', () => {

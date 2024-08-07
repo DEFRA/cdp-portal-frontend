@@ -1,12 +1,12 @@
 import { unionBy } from 'lodash'
 
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
-import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-repositories'
+import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories'
 import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
 import { fetchInProgress } from '~/src/server/services/helpers/fetch/fetch-in-progress'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
-import { serviceToEntityRow } from '~/src/server/services/transformers/service-to-entity-row'
+import { serviceToEntityRow } from '~/src/server/services/about/transformers/service-to-entity-row'
 
 const serviceListController = {
   handler: async (request, h) => {
@@ -35,7 +35,7 @@ const serviceListController = {
       ?.sort(sortBy('serviceName', 'asc'))
       ?.map(serviceToEntityRow)
 
-    return h.view('services/views/list', {
+    return h.view('services/about/views/list', {
       pageTitle: 'Services',
       heading: 'Services',
       entityRows

@@ -1,0 +1,43 @@
+import {
+  serviceController,
+  serviceListController,
+  serviceCreateStatusController
+} from '~/src/server/services/about/controllers'
+import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
+
+const aboutService = {
+  plugin: {
+    name: 'aboutService',
+    register: (server) => {
+      server.ext([
+        {
+          type: 'onPostHandler',
+          method: provideTabs,
+          options: {
+            sandbox: 'plugin'
+          }
+        }
+      ])
+
+      server.route([
+        {
+          method: 'GET',
+          path: '/services',
+          ...serviceListController
+        },
+        {
+          method: 'GET',
+          path: '/services/{serviceId}',
+          ...serviceController
+        },
+        {
+          method: 'GET',
+          path: '/services/create-status/{serviceId}',
+          ...serviceCreateStatusController
+        }
+      ])
+    }
+  }
+}
+
+export { aboutService }
