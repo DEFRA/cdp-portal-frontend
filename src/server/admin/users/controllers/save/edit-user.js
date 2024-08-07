@@ -29,7 +29,7 @@ const editUserController = {
         })
       })
 
-      if (response.ok) {
+      if (response?.ok) {
         await setStepComplete(request, h, 'allSteps')
 
         request.yar.flash(sessionNames.notifications, {

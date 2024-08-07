@@ -4,7 +4,7 @@ async function fetchIsNameAvailable(value) {
   )
   const json = await response.json()
 
-  if (response.ok) {
+  if (response?.ok) {
     return json
   }
 

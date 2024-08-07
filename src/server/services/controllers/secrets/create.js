@@ -99,7 +99,7 @@ const createSecretController = {
           }
         )
 
-        if (response.ok) {
+        if (response?.ok) {
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
             text: json.message,

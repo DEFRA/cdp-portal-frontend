@@ -65,7 +65,7 @@ const microserviceCreateController = {
           }
         )
 
-        if (response.ok) {
+        if (response?.ok) {
           await setStepComplete(request, h, 'allSteps')
 
           request.yar.clear(sessionNames.validationFailure)
