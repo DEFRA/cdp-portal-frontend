@@ -8,13 +8,13 @@ import { buildLink } from '~/src/server/common/helpers/build-link'
 const githubOrg = config.get('githubOrg')
 
 function serviceStatus(service) {
-  const serviceStatus = service.serviceStatus
-  const createRepository = serviceStatus?.createRepository
-  const cdpTfSvcInfra = serviceStatus?.['cdp-tf-svc-infra']
-  const cdpAppConfig = serviceStatus?.['cdp-app-config']
-  const cdpNginxUpstreams = serviceStatus?.['cdp-nginx-upstreams']
-  const cdpSquidProxy = serviceStatus?.['cdp-squid-proxy']
-  const cdpDashboard = serviceStatus?.['cdp-grafana-svc']
+  const createStatusInfo = service.serviceStatus
+  const createRepository = createStatusInfo?.createRepository
+  const cdpTfSvcInfra = createStatusInfo?.['cdp-tf-svc-infra']
+  const cdpAppConfig = createStatusInfo?.['cdp-app-config']
+  const cdpNginxUpstreams = createStatusInfo?.['cdp-nginx-upstreams']
+  const cdpSquidProxy = createStatusInfo?.['cdp-squid-proxy']
+  const cdpDashboard = createStatusInfo?.['cdp-grafana-svc']
 
   const jobStatuses = [
     createRepository?.status,
@@ -29,8 +29,8 @@ function serviceStatus(service) {
   ).length
 
   return {
-    started: serviceStatus?.started,
-    hasJobFailures: [serviceStatus?.status, ...jobStatuses].some(
+    started: createStatusInfo?.started,
+    hasJobFailures: [createStatusInfo?.status, ...jobStatuses].some(
       (status) => status === 'failure'
     ),
     progress: {
@@ -39,12 +39,12 @@ function serviceStatus(service) {
       total: jobStatuses.length
     },
     status: {
-      isSuccess: serviceStatus.status === creationStatuses.success,
-      value: serviceStatus.status,
-      text: serviceStatus?.status ? serviceStatus.status : unknownValue,
-      classes: statusTagClassMap(serviceStatus?.status)
+      isSuccess: createStatusInfo.status === creationStatuses.success,
+      value: createStatusInfo.status,
+      text: createStatusInfo?.status ? createStatusInfo.status : unknownValue,
+      classes: statusTagClassMap(createStatusInfo?.status)
     },
-    serviceTypeTemplate: serviceStatus.serviceTypeTemplate,
+    serviceTypeTemplate: createStatusInfo.serviceTypeTemplate,
     createRepository: {
       name: 'GitHub Repository',
       part: 1,
@@ -65,7 +65,7 @@ function serviceStatus(service) {
             return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
-            return `Creating new services GitHub repository from the ${serviceStatus.serviceTypeTemplate} template.`
+            return `Creating new services GitHub repository from the ${createStatusInfo.serviceTypeTemplate} template.`
           case creationStatuses.created:
           case creationStatuses.success:
             return `Your new services GitHub repository has been successfully created, you can now checkout your code and start developing.`
