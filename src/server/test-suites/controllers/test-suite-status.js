@@ -2,8 +2,8 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status'
-import { serviceToEntityDataList } from '~/src/server/services/transformers/service-to-entity-data-list'
 import { testSuiteStatus } from '~/src/server/test-suites/transformers/test-suite-status'
+import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list'
 
 const testSuiteStatusController = {
   options: {
@@ -35,7 +35,7 @@ const testSuiteStatusController = {
       isSuccess,
       heading: serviceName,
       caption,
-      entityDataList: serviceToEntityDataList(testSuite),
+      entityDataList: testSuiteToEntityDataList(testSuite),
       testSuite,
       breadcrumbs: [
         {
