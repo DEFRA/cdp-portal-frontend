@@ -17,7 +17,7 @@ async function addServiceOwnerScope(request, h) {
   if (serviceId && isAuthenticated) {
     const service =
       await request.server.methods.fetchDeployableService(serviceId)
-    const serviceTeamIds = service.teams?.map((team) => team.teamId) ?? []
+    const serviceTeamIds = service?.teams?.map((team) => team.teamId) ?? []
     const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
     const { credentials } = request.auth
 
