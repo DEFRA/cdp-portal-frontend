@@ -3,9 +3,11 @@
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 
 {% set content = params.html | safe if params.html else params.text %}
+{% set classes = ["app-info", params.classes if params.classes, "app-info--inverse" if params.isInverse] | join(" ") |
+  trim %}
 
 <div
-  class="app-info{% if params.classes %} {{ params.classes }}{% endif %}"
+  class="{{ classes }}"
   tabindex="-1"
   role="alert"
   data-testid="app-info">
