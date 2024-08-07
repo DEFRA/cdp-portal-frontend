@@ -21,7 +21,7 @@ $border-width: 4px;
 
   @include govuk-media-query($from: desktop-big) {
     display: flex;
-    flex: 2;
+    flex: 3;
   }
 }
 
