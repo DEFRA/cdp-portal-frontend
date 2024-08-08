@@ -1,11 +1,3 @@
-import { config } from '~/src/config'
-
-/**
- * @type {boolean}
- * @description Checks if the secrets feature is flagged.
- */
-const secretsIsFeatureFlagged = config.get('featureFlags.secrets')
-
 /**
  * Provides tabs for the service view based on user authentication.
  *
@@ -41,42 +33,20 @@ async function provideTabs(request, h) {
       }
     ]
 
-    // FEATURE-FLAG - secrets added: 26/07/2024
-    if (secretsIsFeatureFlagged) {
-      if (isAdmin) {
-        response.source.context.tabs.push({
-          isActive: request.path.startsWith(`/services/${imageName}/secrets`),
-          url: request.routeLookup('services/{serviceId}/secrets', {
-            params: {
-              serviceId: imageName
-            }
-          }),
-          label: 'Secrets'
-        })
-      }
-
-      if (!isAdmin) {
-        response.source.context.displayTabs = false
-      }
+    if (isAdmin || isServiceOwner) {
+      response.source.context.tabs.push({
+        isActive: request.path.startsWith(`/services/${imageName}/secrets`),
+        url: request.routeLookup('services/{serviceId}/secrets', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Secrets'
+      })
     }
 
-    // FEATURE-FLAG - secrets added: 26/07/2024
-    if (secretsIsFeatureFlagged === false) {
-      if (isAdmin || isServiceOwner) {
-        response.source.context.tabs.push({
-          isActive: request.path.startsWith(`/services/${imageName}/secrets`),
-          url: request.routeLookup('services/{serviceId}/secrets', {
-            params: {
-              serviceId: imageName
-            }
-          }),
-          label: 'Secrets'
-        })
-      }
-
-      if (!isAuthenticated) {
-        response.source.context.displayTabs = false
-      }
+    if (!isAuthenticated) {
+      response.source.context.displayTabs = false
     }
   }
 

@@ -1,7 +1,4 @@
-import { config } from '~/src/config'
 import { scopes } from '~/src/server/common/constants/scopes'
-
-const secretsIsFeatureFlagged = config.get('featureFlags.secrets')
 
 /**
  * Get the teams for a given services serviceId
@@ -21,12 +18,10 @@ async function addServiceOwnerScope(request, h) {
 
   const scope = [...credentials.scope]
 
-  // FEATURE-FLAG - secrets added: 26/07/2024
-  if (!secretsIsFeatureFlagged) {
-    if (isServiceOwner) {
-      scope.push(scopes.serviceOwner)
-    }
+  if (isServiceOwner) {
+    scope.push(scopes.serviceOwner)
   }
+
   credentials.scope = scope
 
   return h.continue
