@@ -1,7 +1,7 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
 
 import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch'
-import { fetchRepositories } from '~/src/server/services/helpers/fetch/fetch-repositories'
+import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
 import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row'
 
