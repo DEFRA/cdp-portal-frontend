@@ -9,7 +9,7 @@ function teamUsers(team, hasTeamScope) {
       },
       action: {
         ...(hasTeamScope && {
-          html: `<button class="govuk-button app-button app-button--small app-button--destructive" formaction="${formAction}">Remove</button>`
+          html: `<button class="govuk-button app-button app-button--small govuk-button--secondary" formaction="${formAction}">Remove</button>`
         })
       }
     }
