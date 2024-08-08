@@ -27,7 +27,7 @@ describe('#teamUsers', () => {
     expect(teamUsers(teamFixture, true)).toEqual([
       {
         action: {
-          html: '<button class="govuk-button app-button app-button--small app-button--destructive" formaction="/teams/aabe63e7-87ef-4beb-a596-c810631fc474/remove-member/0ddadf17-beaf-4aef-a415-ca044dbdd18d">Remove</button>'
+          html: '<button class="govuk-button app-button app-button--small govuk-button--secondary" formaction="/teams/aabe63e7-87ef-4beb-a596-c810631fc474/remove-member/0ddadf17-beaf-4aef-a415-ca044dbdd18d">Remove</button>'
         },
         content: {
           text: 'The Terminator'
@@ -37,7 +37,7 @@ describe('#teamUsers', () => {
       },
       {
         action: {
-          html: '<button class="govuk-button app-button app-button--small app-button--destructive" formaction="/teams/aabe63e7-87ef-4beb-a596-c810631fc474/remove-member/1398fa86-98a2-4ee8-84bb-2468cc71d0ec">Remove</button>'
+          html: '<button class="govuk-button app-button app-button--small govuk-button--secondary" formaction="/teams/aabe63e7-87ef-4beb-a596-c810631fc474/remove-member/1398fa86-98a2-4ee8-84bb-2468cc71d0ec">Remove</button>'
         },
         content: {
           text: 'RoboCop'

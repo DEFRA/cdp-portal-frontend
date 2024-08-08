@@ -9,7 +9,7 @@ function transformTeamUsers(team) {
         html: `<a class="app-link" href="${userHref}">${user.name}</a>`
       },
       action: {
-        html: `<button class="govuk-button app-button app-button--small app-button--destructive" formaction="${formAction}">Remove</button>`
+        html: `<button class="govuk-button app-button app-button--small govuk-button--secondary" formaction="${formAction}">Remove</button>`
       }
     }
   })
