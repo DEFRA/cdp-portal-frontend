@@ -4,12 +4,20 @@ import {
   serviceCreateStatusController
 } from '~/src/server/services/about/controllers'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
+import { provideService } from '~/src/server/services/helpers/provide-service'
 
 const aboutService = {
   plugin: {
     name: 'aboutService',
     register: (server) => {
       server.ext([
+        {
+          type: 'onPreAuth',
+          method: provideService,
+          options: {
+            sandbox: 'plugin'
+          }
+        },
         {
           type: 'onPostHandler',
           method: provideTabs,

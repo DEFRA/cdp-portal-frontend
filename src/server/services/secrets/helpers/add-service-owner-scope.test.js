@@ -4,12 +4,10 @@ import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/us
 describe('#addServiceOwnerScope', () => {
   const mockResponseToolkit = { continue: 'mockContinue' }
   let mockGetUserSession
-  let mockFetchDeployableService
   let mockRequest
 
   beforeEach(() => {
     mockGetUserSession = jest.fn()
-    mockFetchDeployableService = jest.fn()
   })
 
   describe('When authenticated user owns a service', () => {
@@ -20,22 +18,20 @@ describe('#addServiceOwnerScope', () => {
       mockGetUserSession.mockResolvedValue({
         scope: [teamId]
       })
-      // Services teams array
-      mockFetchDeployableService.mockResolvedValue({
-        teams: [{ teamId }]
-      })
 
       mockRequest = {
+        app: {
+          service: {
+            teams: [{ teamId }]
+          }
+        },
         auth: { isAuthenticated: true, credentials: { scope: [] } },
         params: {
           serviceId: 'mock-service-id'
         },
         userIsServiceOwner: userIsServiceOwnerDecorator({
           getUserSession: mockGetUserSession
-        }),
-        server: {
-          methods: { fetchDeployableService: mockFetchDeployableService }
-        }
+        })
       }
     })
 
@@ -55,22 +51,20 @@ describe('#addServiceOwnerScope', () => {
       mockGetUserSession.mockResolvedValue({
         scope: [userTeamId]
       })
-      // Services teams array
-      mockFetchDeployableService.mockResolvedValue({
-        teams: [{ teamId: serviceTeamId }]
-      })
 
       mockRequest = {
+        app: {
+          service: {
+            teams: [{ teamId: serviceTeamId }]
+          }
+        },
         auth: { isAuthenticated: true, credentials: { scope: [] } },
         params: {
           serviceId: 'mock-service-id'
         },
         userIsServiceOwner: userIsServiceOwnerDecorator({
           getUserSession: mockGetUserSession
-        }),
-        server: {
-          methods: { fetchDeployableService: mockFetchDeployableService }
-        }
+        })
       }
     })
 
@@ -78,23 +72,6 @@ describe('#addServiceOwnerScope', () => {
       await addServiceOwnerScope(mockRequest, mockResponseToolkit)
 
       expect(mockRequest.auth.credentials.scope).toEqual([])
-    })
-  })
-
-  describe('With un-authenticated user', () => {
-    beforeEach(() => {
-      mockRequest = {
-        auth: { isAuthenticated: false },
-        params: {
-          serviceId: 'mock-service-id'
-        }
-      }
-    })
-
-    test('Should have service owner scope', async () => {
-      await addServiceOwnerScope(mockRequest, mockResponseToolkit)
-
-      expect(mockRequest.auth?.credentials?.scope).toBeUndefined()
     })
   })
 })

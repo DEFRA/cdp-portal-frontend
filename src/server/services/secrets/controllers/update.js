@@ -5,10 +5,8 @@ import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import {
-  secretParamsValidation,
-  secretPayloadValidation
-} from '~/src/server/services/secrets/helpers/schema/secret-validation'
+import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation'
+import { secretPayloadValidation } from '~/src/server/services/secrets/helpers/schema/secret-payload-validation'
 
 const updateSecretController = {
   options: {

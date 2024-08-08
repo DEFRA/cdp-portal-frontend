@@ -11,6 +11,7 @@ import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
 import { provideSubNavigation } from '~/src/server/services/secrets/helpers/provide-sub-navigation'
 import { addServiceOwnerScope } from '~/src/server/services/secrets/helpers/add-service-owner-scope'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { provideService } from '~/src/server/services/helpers/provide-service'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
@@ -22,6 +23,13 @@ const serviceSecrets = {
     name: 'serviceSecrets',
     register: (server) => {
       server.ext([
+        {
+          type: 'onPreAuth',
+          method: provideService,
+          options: {
+            sandbox: 'plugin'
+          }
+        },
         {
           type: 'onCredentials',
           method: addServiceOwnerScope,
