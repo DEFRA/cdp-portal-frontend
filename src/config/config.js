@@ -259,14 +259,6 @@ const config = convict({
     default:
       'SQUID_USERNAME,SQUID_PASSWORD,REDIS_USERNAME,REDIS_PASSWORD,REDIS_KEY_PREFIX,CDP_HTTP_PROXY,CDP_HTTPS_PROXY,HTTP_PROXY,HTTPS_PROXY',
     env: 'PLATFORM_GLOBAL_SECRET_KEYS'
-  },
-  featureFlags: {
-    secrets: {
-      doc: 'Feature flag for secrets work',
-      format: Boolean,
-      default: true,
-      env: 'FEATURE_FLAG_SECRETS'
-    }
   }
 })
 
