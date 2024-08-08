@@ -7,7 +7,6 @@
  */
 async function provideTabs(request, h) {
   const authedUser = await request.getUserSession()
-  const isAuthenticated = authedUser?.isAuthenticated
   const isAdmin = authedUser?.isAdmin
   const response = request.response
 
@@ -43,9 +42,7 @@ async function provideTabs(request, h) {
         }),
         label: 'Secrets'
       })
-    }
-
-    if (!isAuthenticated) {
+    } else {
       response.source.context.displayTabs = false
     }
   }
