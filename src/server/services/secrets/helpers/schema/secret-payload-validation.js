@@ -107,28 +107,6 @@ function secretPayloadValidation(action, teamId, existingSecretKeys = []) {
   })
 }
 
-/**
- * Validation for secret params
- * @param params
- * @param options
- */
-function secretParamsValidation(params, options) {
-  const isAdmin = options.context?.auth?.credentials?.isAdmin ?? false
-
-  const validationResult = Joi.object({
-    serviceId: Joi.string().required(),
-    environment: Joi.string()
-      .valid(...Object.values(getEnvironments(isAdmin)))
-      .required()
-  }).validate(params, options)
-
-  if (validationResult?.error) {
-    throw validationResult.error
-  }
-
-  return validationResult.value
-}
-
-export { secretPayloadValidation, secretParamsValidation }
+export { secretPayloadValidation }
 
 /** @import { ValidationErrorFunction, ErrorReport } from 'joi' */
