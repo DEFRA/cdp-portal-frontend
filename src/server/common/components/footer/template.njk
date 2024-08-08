@@ -1,15 +1,27 @@
+{% from "icons/github-icon/macro.njk" import appGithubIcon %}
+
 <footer class="app-footer" role="contentinfo" data-testid="app-footer">
   <div class="govuk-body">
-    <p class="govuk-!-margin-0">
-      If you have a question, idea or suggestion. Contact the Platform team via Slack
-      <a class="app-link-underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
-         rel="noopener noreferrer">#cdp-support</a>
-    </p>
+    <div class="app-row">
+      <div class="app-row__item-flex-two">
+        <p>
+          If you have a question, idea or suggestion. Contact the Platform team via Slack
+          <a class="app-link-underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+             rel="noopener noreferrer">#cdp-support</a>
+        </p>
 
-    <ul class="app-footer__list">
-      <li>
-        <a href="/cookies" class="app-link-underline app-link--text-colour">Cookies</a>
-      </li>
-    </ul>
+        <ul class="app-footer__list">
+          <li>
+            <a href="/cookies" class="app-link-underline app-link--text-colour">Cookies</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="app-row__item-flex-two app-!-layout-right-aligned">
+        <a class="app-link-underline app-link--text-colour" href="https://github.com/DEFRA/cdp-portal-frontend"
+           target="_blank"
+           rel="noopener noreferrer">{{ appGithubIcon({ classes: "app-icon-small" }) }}</a>
+      </div>
+    </div>
   </div>
 </footer>
