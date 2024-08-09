@@ -27,21 +27,23 @@
           }) }}
         </div>
 
-        {{ appEntityDataList({
-          heading: "Would you like to delete the following user?",
-          items: entityDataList
-        }) }}
+        {% call appPanel() %}
+          {{ appEntityDataList({
+            heading: "Would you like to delete the following user?",
+            items: entityDataList
+          }) }}
+        {% endcall %}
 
         <form action="/admin/users/{{ user.userId }}/delete" method="post">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-          <div class="govuk-button-group govuk-!-margin-top-7">
+          <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
             {{ govukButton({
-              classes: "app-button govuk-button--warning",
-              text: "Delete user"
+              classes: "app-button app-button--destructive",
+              text: "Delete"
             }) }}
 
-            <a class="govuk-link govuk-link--text-colour" href="/admin/users/{{ user.userId }}">Cancel</a>
+            <a class="app-link" href="/admin/users/{{ user.userId }}">Cancel</a>
           </div>
         </form>
       </div>

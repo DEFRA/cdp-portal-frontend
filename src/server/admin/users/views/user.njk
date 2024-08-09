@@ -5,16 +5,17 @@
 
     {{ appHeading({
       title: heading,
+      caption: "User details.",
       entities: headingEntities,
       actions: [
         govukButton({
           classes: "app-button",
-          text: "Edit user",
+          text: "Edit",
           href: "/admin/users/" + user.userId + "/edit"
         }),
         govukButton({
-          classes: "app-button govuk-button--warning",
-          text: "Delete user",
+          classes: "app-button govuk-button--secondary",
+          text: "Delete",
           href: "/admin/users/" + user.userId + "/confirm-delete"
         })
       ]
@@ -23,9 +24,8 @@
     <hr class="app-section-break">
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
-      <div class="govuk-grid-column-one-third">
+      <div class="govuk-grid-column-one-quarter">
         {{ appEntityDataList({
-          heading: "User details",
           items: entityDataList
         }) }}
       </div>
