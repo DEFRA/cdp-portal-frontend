@@ -6,9 +6,9 @@
   @extend %govuk-heading-m;
 
   display: flex;
-  margin-bottom: 0;
+  margin-bottom: govuk-spacing(1);
 }
 
 .app-data-list-item {
-  margin: govuk-spacing(1) 0 govuk-spacing(3);
+  margin: 0 0 govuk-spacing(4);
 }

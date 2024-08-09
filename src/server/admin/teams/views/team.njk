@@ -1,5 +1,29 @@
 {% extends "layouts/page.njk" %}
 
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set userTableRows = [] %}
+{% for user in team.users %}
+  {% set actionHtml %}
+    {{ govukButton({
+      classes: "app-button app-button--small app-button--destructive",
+      text: "Remove",
+      attributes: {
+        formaction: "/admin/teams/" + team.teamId + "/remove-member/" + user.userId
+      }
+    }) }}
+  {% endset %}
+
+  {% set userLinkHtml %}
+    <a class="app-link" href="/admin/users/{{ user.userId }}">{{ user.name }}</a>
+  {% endset %}
+
+  {{ userTableRows.push([
+    { html: userLinkHtml, classes: "govuk-!-padding-left-2" },
+    { html: actionHtml, classes: "app-!-width-one-tenth govuk-!-padding-right-2" }
+  ]) }}
+{% endfor %}
+
 {% block content %}
   {% call appSplitPane() %}
 
@@ -9,18 +33,18 @@
       entities: headingEntities,
       actions: [
         govukButton({
-          classes: "app-button app-button--secondary",
-          text: "Add members",
+          classes: "app-button",
+          text: "Add",
           href: "/admin/teams/" + team.teamId + "/add-member"
         }),
         govukButton({
-          classes: "app-button",
-          text: "Edit team",
+          classes: "app-button app-button--secondary",
+          text: "Edit",
           href: "/admin/teams/" + team.teamId + "/edit"
         }),
         govukButton({
-          classes: "app-button govuk-button--secondary govuk-!-margin-left-4",
-          text: "Delete team",
+          classes: "app-button govuk-button--secondary",
+          text: "Delete",
           href: "/admin/teams/" + team.teamId + "/confirm-delete"
         })
       ]
@@ -29,7 +53,7 @@
     <hr class="app-section-break">
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
-      <div class="govuk-grid-column-one-third">
+      <div class="govuk-grid-column-one-quarter">
         <h2 class="govuk-heading-m govuk-!-margin-bottom-1">About</h2>
         <p>
           {{ team.description }}
@@ -40,15 +64,15 @@
         }) }}
       </div>
 
-      <div class="govuk-grid-column-one-third">
+      <div class="govuk-grid-column-one-quarter">
         <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Members</h2>
 
-        {% if teamMembers | length %}
+        {% if team.users | length %}
           <form method="post">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-            {{ appList({
-              classes: "app-list--slim",
-              items: teamMembers
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            {{ govukTable({
+              classes: "app-table govuk-!-margin-bottom-2",
+              rows: userTableRows
             }) }}
           </form>
         {% else %}
@@ -56,5 +80,6 @@
         {% endif %}
       </div>
     </div>
+
   {% endcall %}
 {% endblock %}

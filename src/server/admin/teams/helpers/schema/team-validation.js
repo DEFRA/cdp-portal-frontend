@@ -10,6 +10,7 @@ const teamValidation = Joi.object({
     .required()
     .messages({
       'string.base': validation.enterValue,
+      'any.required': validation.enterValue,
       'string.min': validation.minCharacters(3),
       'string.max': validation.maxCharacters(50),
       'string.pattern.base': 'Letters and numbers with hyphen separators'

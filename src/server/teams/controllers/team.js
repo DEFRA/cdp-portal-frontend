@@ -6,12 +6,8 @@ import {
   fetchTeam,
   fetchGithubArtifacts
 } from '~/src/server/teams/helpers/fetch'
-import { teamUsers } from '~/src/server/teams/transformers/team-users'
 import { teamToHeadingEntities } from '~/src/server/teams/transformers/team-to-heading-entities'
 import { teamToEntityDataList } from '~/src/server/teams/transformers/team-to-entity-data-list'
-import { teamRepositories } from '~/src/server/teams/transformers/team-repositories'
-import { teamTemplates } from '~/src/server/teams/transformers/team-templates'
-import { teamLibraries } from '~/src/server/teams/transformers/team-libraries'
 
 const teamController = {
   options: {
@@ -24,7 +20,6 @@ const teamController = {
   },
   handler: async (request, h) => {
     const teamId = request.params?.teamId
-    const hasTeamScope = await request.userIsTeamMember(teamId)
 
     const { team } = await fetchTeam(teamId)
 
@@ -42,10 +37,9 @@ const teamController = {
       team: teamWithGithubArtifacts,
       entityDataList: teamToEntityDataList(team),
       headingEntities: teamToHeadingEntities(team),
-      teamMembers: teamUsers(team, hasTeamScope),
-      teamRepositories: teamRepositories(teamWithGithubArtifacts?.repositories),
-      teamTemplates: teamTemplates(teamWithGithubArtifacts?.templates),
-      teamLibraries: teamLibraries(teamWithGithubArtifacts?.libraries),
+      teamRepositories: teamWithGithubArtifacts?.repositories ?? [],
+      teamTemplates: teamWithGithubArtifacts?.templates ?? [],
+      teamLibraries: teamWithGithubArtifacts?.libraries ?? [],
       breadcrumbs: [
         {
           text: 'Teams',
