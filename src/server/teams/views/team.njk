@@ -30,14 +30,14 @@
     <a class="app-link" href="{{ repository.url }}" target="_blank">{{ githubOrg }}/{{ repository.id }}</a>
   {% endset %}
 
-  {% if loop.index < 10 %}
+  {% if loop.index <= 12 %}
     {{ repositoryTableRows.push([
       { html: repositoryLinkHtml, classes: "govuk-!-padding-left-2 govuk-!-padding-right-2" }
     ]) }}
   {% endif %}
 {% endfor %}
 
-{% if teamRepositories | length >= 10 %}
+{% if teamRepositories | length > 12 %}
   {% set teamRepositoriesLinkHtml %}
     <a class="app-link" href="https://github.com/orgs/DEFRA/teams/{{ team.github }}/repositories"
        target="_blank">
