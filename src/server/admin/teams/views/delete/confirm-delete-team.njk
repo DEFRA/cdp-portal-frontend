@@ -35,13 +35,13 @@
         <form action="/admin/teams/{{ team.teamId }}/delete" method="post">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-          <div class="govuk-button-group govuk-!-margin-top-7">
+          <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
             {{ govukButton({
-              classes: "app-button govuk-button--warning",
-              text: "Delete team"
+              classes: "app-button app-button--destructive",
+              text: "Delete"
             }) }}
 
-            <a class="govuk-link govuk-link--text-colour" href="/admin/teams/{{ team.teamId }}">Cancel</a>
+            <a class="app-link" href="/admin/teams/{{ team.teamId }}">Cancel</a>
           </div>
         </form>
       </div>

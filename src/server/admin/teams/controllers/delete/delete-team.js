@@ -25,7 +25,7 @@ const deleteTeamController = {
 
       if (response.ok) {
         request.yar.flash(sessionNames.notifications, {
-          text: 'Team deleted and removed from all users',
+          text: 'All users removed from team and team deleted',
           type: 'success'
         })
 

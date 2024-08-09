@@ -25,9 +25,11 @@
               rows: teamRows
             }) }}
 
-            {{ govukButton({
-              classes: "app-button",
-              text: formButtonText
+            {{ appButton({
+              text: formButtonText,
+              loader: {
+                name: "create-team-submit-button"
+              }
             }) }}
 
           </form>
