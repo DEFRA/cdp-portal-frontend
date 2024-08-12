@@ -267,6 +267,22 @@ const config = convict({
       default: true,
       env: 'FEATURE_FLAG_SECRETS'
     }
+  },
+  github: {
+    client: {
+      id: {
+        doc: 'GitHub client ID',
+        format: String,
+        default: 'test_value',
+        env: 'GITHUB_CLIENT_ID'
+      },
+      secret: {
+        doc: 'GitHub client secret',
+        format: String,
+        default: 'test_value',
+        env: 'GITHUB_CLIENT_SECRET'
+      }
+    }
   }
 })
 

@@ -1,0 +1,30 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appHeading({
+         title: heading,
+         caption: headingCaption
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
+
+            <div class="govuk-button-group">
+
+               <a class="govuk-button" href="{{ githubLoginUrl }}">Sign into GitHub</a>
+
+               <a class="govuk-link" href="{{ logoutUrl }}">Cancel</a>
+
+            </div>
+
+      </div>
+
+
+  </div>
+
+{% endblock %}

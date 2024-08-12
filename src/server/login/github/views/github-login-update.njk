@@ -1,0 +1,51 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appHeading({
+         title: heading,
+         caption: headingCaption
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
+
+        <form action="{{ githubUpdateAction }}" method="post" data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="githubCode" value="{{ githubCode }}" />
+          <input type="hidden" name="githubHandle" value="{{ githubHandle }}" />
+
+            {{ govukSummaryList({
+            rows: [
+               {
+                  key: {
+                    text: "GitHub handle"
+                  },
+                  value: {
+                    text: githubHandle
+                  }
+               }
+            ]
+            }) }}
+
+            <div class="govuk-button-group">
+
+               {{ govukButton({
+                  classes: "app-button",
+                  text: "Confirm GitHub handle"
+               }) }}
+
+               <a class="govuk-link" href="{{ logoutUrl }}">Cancel</a>
+
+            </div>
+         </form>
+      </div>
+
+
+  </div>
+
+{% endblock %}

@@ -16,6 +16,26 @@ function removeAuthenticatedUser(request) {
     .unstate('cdpPortalSession')
 }
 
+async function createTempUserSession(request, sessionId) {
+  const expiresInSeconds = request.auth.credentials.expiresIn
+  const expiresInMilliSeconds = expiresInSeconds * 1000
+  const expiresAt = addSeconds(new Date(), expiresInSeconds)
+
+  const { profile } = request.auth.credentials
+
+  await request.server.app.cache.set(sessionId, {
+    id: profile.id,
+    email: profile.email,
+    displayName: profile.displayName,
+    loginHint: profile.loginHint,
+    isAuthenticated: request.auth.isAuthenticated,
+    token: request.auth.credentials.token,
+    refreshToken: request.auth.credentials.refreshToken,
+    expiresIn: expiresInMilliSeconds,
+    expiresAt
+  })
+}
+
 async function createUserSession(request, sessionId) {
   const expiresInSeconds = request.auth.credentials.expiresIn
   const expiresInMilliSeconds = expiresInSeconds * 1000
@@ -105,4 +125,9 @@ async function updateUserSession(request, refreshedSession) {
   return await request.getUserSession()
 }
 
-export { createUserSession, updateUserSession, removeAuthenticatedUser }
+export {
+  createUserSession,
+  createTempUserSession,
+  updateUserSession,
+  removeAuthenticatedUser
+}
