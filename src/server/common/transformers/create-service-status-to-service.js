@@ -12,10 +12,15 @@ function createServiceStatusToService(serviceStatus) {
     name: serviceStatus.team.name
   }
 
+  const repoUrl =
+    serviceStatus['cdp-create-workflows']?.status === 'success'
+      ? `https://github.com/DEFRA/${serviceName}`
+      : ''
+
   return {
     isCreateService: true,
     serviceName,
-    githubUrl: serviceStatus?.createRepository?.url,
+    githubUrl: repoUrl,
     id: serviceName,
     teams: [team], // TODO support multiple teams in the API
     serviceStatus

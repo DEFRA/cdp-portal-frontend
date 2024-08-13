@@ -31,12 +31,6 @@ describe('#serviceStatus', () => {
           info: expect.any(Function),
           name: 'Config',
           part: 2,
-          pullRequest: {
-            url: {
-              href: `https://github.com/${githubOrg}/cdp-app-config/pull/180`,
-              text: 'DEFRA/cdp-app-config/pull/180'
-            }
-          },
           status: {
             classes: 'govuk-tag--blue',
             text: 'in-progress'
@@ -59,12 +53,6 @@ describe('#serviceStatus', () => {
           info: expect.any(Function),
           name: 'Networking',
           part: 3,
-          pullRequest: {
-            url: {
-              href: `https://github.com/${githubOrg}/cdp-nginx-upstreams/pull/123`,
-              text: `${githubOrg}/cdp-nginx-upstreams/pull/123`
-            }
-          },
           status: {
             classes: 'govuk-tag--blue',
             text: 'in-progress'
@@ -87,12 +75,6 @@ describe('#serviceStatus', () => {
           info: expect.any(Function),
           name: 'Infrastructure',
           part: 6,
-          pullRequest: {
-            url: {
-              href: `https://github.com/${githubOrg}/cdp-tf-svc-infra/pull/309`,
-              text: `${githubOrg}/cdp-tf-svc-infra/pull/309`
-            }
-          },
           status: {
             classes: 'govuk-tag--blue',
             text: 'in-progress'
@@ -111,8 +93,8 @@ describe('#serviceStatus', () => {
             text: 'in-progress'
           },
           url: {
-            href: `https://github.com/${githubOrg}/cdp-portal-frontend`,
-            text: `${githubOrg}/cdp-portal-frontend`
+            href: '',
+            text: ''
           }
         },
         cdpSquidProxy: {

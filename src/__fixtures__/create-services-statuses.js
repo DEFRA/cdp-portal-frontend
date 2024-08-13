@@ -19,9 +19,8 @@ const createServicesStatusesFixture = {
         name: 'Platform'
       },
       zone: 'protected',
-      createRepository: {
+      'cdp-create-workflows': {
         status: 'failed',
-        url: `https://github.com/${githubOrg}`,
         result: {}
       },
       'cdp-tf-svc-infra': {
