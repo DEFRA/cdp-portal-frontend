@@ -11,7 +11,7 @@ const githubOrg = config.get('githubOrg')
 
 function testSuiteStatus(service) {
   const serviceStatus = service.serviceStatus
-  const createRepository = serviceStatus?.createRepository
+  const createRepository = serviceStatus?.['cdp-create-workflows']
   const cdpTfSvcInfra = serviceStatus?.['cdp-tf-svc-infra']
   const cdpSquidProxy = serviceStatus?.['cdp-squid-proxy']
 
@@ -46,10 +46,13 @@ function testSuiteStatus(service) {
     createRepository: {
       name: 'GitHub Repository',
       part: 1,
-      url: {
-        text: removeUrlParts(service?.githubUrl),
-        href: service?.githubUrl
-      },
+      url:
+        createRepository?.status === creationStatuses.success
+          ? {
+              text: `${serviceStatus.org}/${serviceStatus.repositoryName}`,
+              href: `https://github.com/${serviceStatus.org}/${serviceStatus.repositoryName}`
+            }
+          : { text: '', href: '' },
       status: {
         text: createRepository?.status
           ? startCase(createRepository?.status)
@@ -58,6 +61,8 @@ function testSuiteStatus(service) {
       },
       info: () => {
         switch (createRepository?.status) {
+          case creationStatuses.queued:
+            return `GitHub repository creation queued.`
           case creationStatuses.raised:
           case creationStatuses.prOpen:
             return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
@@ -94,7 +99,8 @@ function testSuiteStatus(service) {
       },
       info: () => {
         switch (cdpSquidProxy?.status) {
-          case creationStatuses.raised:
+          case creationStatuses.queued:
+            return `Proxy config queued.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up proxy access.`
@@ -140,9 +146,8 @@ function testSuiteStatus(service) {
       },
       info: () => {
         switch (cdpTfSvcInfra?.status) {
-          case creationStatuses.raised:
-          case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
+          case creationStatuses.queued:
+            return `Infrastructure creation queued.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up:
@@ -166,12 +171,6 @@ function testSuiteStatus(service) {
             )}.`
           default:
             return 'Status unknown'
-        }
-      },
-      pullRequest: {
-        url: {
-          text: removeUrlParts(cdpTfSvcInfra?.pr?.html_url),
-          href: cdpTfSvcInfra?.pr?.html_url
         }
       },
       githubAction: {

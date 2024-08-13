@@ -11,7 +11,7 @@ const githubOrg = config.get('githubOrg')
 
 function serviceStatus(service) {
   const serviceStatus = service.serviceStatus
-  const createRepository = serviceStatus?.createRepository
+  const createRepository = serviceStatus?.['cdp-create-workflows']
   const cdpTfSvcInfra = serviceStatus?.['cdp-tf-svc-infra']
   const cdpAppConfig = serviceStatus?.['cdp-app-config']
   const cdpNginxUpstreams = serviceStatus?.['cdp-nginx-upstreams']
@@ -52,10 +52,13 @@ function serviceStatus(service) {
     createRepository: {
       name: 'GitHub Repository',
       part: 1,
-      url: {
-        text: removeUrlParts(service?.githubUrl),
-        href: service?.githubUrl
-      },
+      url:
+        createRepository?.status === creationStatuses.success
+          ? {
+              text: `${serviceStatus.org}/${serviceStatus.repositoryName}`,
+              href: `https://github.com/${serviceStatus.org}/${serviceStatus.repositoryName}`
+            }
+          : { text: '', href: '' },
       status: {
         text: createRepository?.status
           ? startCase(createRepository?.status)
@@ -64,9 +67,8 @@ function serviceStatus(service) {
       },
       info: () => {
         switch (createRepository?.status) {
-          case creationStatuses.raised:
-          case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
+          case creationStatuses.queued:
+            return `GitHub repository creation queued.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Creating new services GitHub repository from the ${serviceStatus.serviceTypeTemplate} template.`
@@ -100,9 +102,11 @@ function serviceStatus(service) {
       },
       info: () => {
         switch (cdpAppConfig?.status) {
-          case creationStatuses.raised:
-          case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
+          case creationStatuses.queued:
+            return `Config creation queued.`
+          case creationStatuses.requested:
+          case creationStatuses.inProgress:
+            return `Config creation in progress.`
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -116,12 +120,6 @@ function serviceStatus(service) {
           `https://github.com/${githubOrg}/cdp-app-config`,
           'DEFRA/cdp-app-config/README.md'
         )}`
-        }
-      },
-      pullRequest: {
-        url: {
-          text: removeUrlParts(cdpAppConfig?.pr?.html_url),
-          href: cdpAppConfig?.pr?.html_url
         }
       },
       githubAction: {
@@ -152,9 +150,8 @@ function serviceStatus(service) {
       },
       info: () => {
         switch (cdpNginxUpstreams?.status) {
-          case creationStatuses.raised:
-          case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
+          case creationStatuses.queued:
+            return `Network setup queued.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up your service to be accessible to other services/public on the Core Delivery Platform environments. The GitHub action link below has more information.`
@@ -170,12 +167,6 @@ function serviceStatus(service) {
             )}.`
           default:
             return 'Status unknown'
-        }
-      },
-      pullRequest: {
-        url: {
-          text: removeUrlParts(cdpNginxUpstreams?.pr?.html_url),
-          href: cdpNginxUpstreams?.pr?.html_url
         }
       },
       githubAction: {
@@ -206,7 +197,8 @@ function serviceStatus(service) {
       },
       info: () => {
         switch (cdpSquidProxy?.status) {
-          case creationStatuses.raised:
+          case creationStatuses.queued:
+            return 'Proxy config queued.'
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up proxy access.`
@@ -252,7 +244,8 @@ function serviceStatus(service) {
       },
       info: () => {
         switch (cdpDashboard?.status) {
-          case creationStatuses.raised:
+          case creationStatuses.queued:
+            return 'Dashboard creation queued.'
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up Grafana dashboards for your service.`
@@ -298,9 +291,8 @@ function serviceStatus(service) {
       },
       info: () => {
         switch (cdpTfSvcInfra?.status) {
-          case creationStatuses.raised:
-          case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
+          case creationStatuses.queued:
+            return `Infrastructure creation queued.`
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Setting up:
@@ -325,12 +317,6 @@ function serviceStatus(service) {
             )}.`
           default:
             return 'Status unknown'
-        }
-      },
-      pullRequest: {
-        url: {
-          text: removeUrlParts(cdpTfSvcInfra?.pr?.html_url),
-          href: cdpTfSvcInfra?.pr?.html_url
         }
       },
       githubAction: {

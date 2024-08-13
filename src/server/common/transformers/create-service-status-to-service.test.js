@@ -1,8 +1,5 @@
-import { config } from '~/src/config'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
-
-const githubOrg = config.get('githubOrg')
 
 describe('#createServiceStatusToService', () => {
   test('Should provide expected create service status transformation', () => {
@@ -11,7 +8,7 @@ describe('#createServiceStatusToService', () => {
         createServiceStatusInProgressFixture.repositoryStatus
       )
     ).toEqual({
-      githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
+      githubUrl: '',
       id: 'cdp-portal-frontend',
       isCreateService: true,
       serviceName: 'cdp-portal-frontend',
