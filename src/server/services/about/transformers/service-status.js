@@ -279,8 +279,6 @@ function serviceStatus(service) {
       },
       info: () => {
         switch (cdpTfSvcInfra?.status) {
-          case creationStatuses.queued:
-            return `Infrastructure creation queued.`
           case creationStatuses.requested:
           case creationStatuses.queued:
             return `Infrastructure changes have been queued as there are other infrastructure changes in progress that must complete first.
