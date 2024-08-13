@@ -40,7 +40,7 @@ describe('#provideServiceCreateStatus', () => {
       mockFetchRepository.mockRejectedValue(notFound)
 
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual({
-        githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
+        githubUrl: '',
         id: 'cdp-portal-frontend',
         isCreateService: true,
         serviceName: 'cdp-portal-frontend',
@@ -68,7 +68,7 @@ describe('#provideServiceCreateStatus', () => {
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
         description: 'The Core Delivery Platform Portal.',
-        githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
+        githubUrl: '',
         id: 'cdp-portal-frontend',
         isArchived: false,
         isCreateService: true,

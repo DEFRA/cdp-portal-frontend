@@ -30,12 +30,6 @@ describe('#testSuiteStatus', () => {
         },
         name: 'Infrastructure',
         part: 3,
-        pullRequest: {
-          url: {
-            href: `https://github.com/${githubOrg}/cdp-tf-svc-infra/pull/309`,
-            text: `${githubOrg}/cdp-tf-svc-infra/pull/309`
-          }
-        },
         status: {
           classes: 'govuk-tag--blue',
           text: 'in-progress'
@@ -76,8 +70,8 @@ describe('#testSuiteStatus', () => {
           text: 'in-progress'
         },
         url: {
-          href: `https://github.com/${githubOrg}/cdp-env-test-suite`,
-          text: `${githubOrg}/cdp-env-test-suite`
+          href: '',
+          text: ''
         }
       },
       hasJobFailures: false,

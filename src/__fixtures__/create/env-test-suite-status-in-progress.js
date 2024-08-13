@@ -18,7 +18,7 @@ const creatEnvTestSuiteStatusInProgressFixture = {
       name: 'Platform'
     },
     zone: 'public',
-    createRepository: {
+    'cdp-create-workflows': {
       status: 'in-progress',
       url: `https://github.com/${githubOrg}/cdp-env-test-suite`,
       result: {} // TODO add in v2 result when available

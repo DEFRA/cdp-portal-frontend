@@ -18,9 +18,8 @@ const createServiceStatusInProgressFixture = {
       name: 'Platform'
     },
     zone: 'protected',
-    createRepository: {
+    'cdp-create-workflows': {
       status: 'in-progress',
-      url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
       result: {} // TODO add in v2 result when available
     },
     'cdp-tf-svc-infra': {
