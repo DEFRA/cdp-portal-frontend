@@ -6,7 +6,7 @@ import {
   createTempUserSession
 } from '~/src/server/common/helpers/auth/user-session'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { findCdpGithubHandle } from '~/src/server/common/helpers/user/find-cdp-github-handle'
+import { findCdpGithubHandle } from '~/src/server/login/github/helpers/find-cdp-github-handle'
 
 const authCallbackController = {
   options: {
@@ -40,8 +40,6 @@ const authCallbackController = {
 
         return h.redirect('/login/github')
       }
-
-      // request.logger.debug({ githubHandle }, 'User github handle present')
 
       await createUserSession(request, sessionId)
     }
