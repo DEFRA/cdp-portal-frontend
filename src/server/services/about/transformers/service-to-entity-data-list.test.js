@@ -85,8 +85,8 @@ describe('#serviceToEntityDataList', () => {
           entity: {
             kind: 'link',
             newWindow: true,
-            url: '',
-            value: null
+            url: 'https://github.com/DEFRA/cdp-portal-frontend',
+            value: 'DEFRA/cdp-portal-frontend'
           },
           heading: {
             text: 'GitHub Repository'

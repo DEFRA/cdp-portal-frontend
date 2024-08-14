@@ -51,8 +51,8 @@ function serviceStatus(service) {
       url:
         createRepository?.status === creationStatuses.success
           ? {
-              text: `${serviceStatus.org}/${serviceStatus.repositoryName}`,
-              href: `https://github.com/${serviceStatus.org}/${serviceStatus.repositoryName}`
+              text: `${createStatusInfo.org}/${createStatusInfo.repositoryName}`,
+              href: `https://github.com/${createStatusInfo.org}/${createStatusInfo.repositoryName}`
             }
           : { text: '', href: '' },
       status: {

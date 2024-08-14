@@ -8,7 +8,7 @@ describe('#createServiceStatusToService', () => {
         createServiceStatusInProgressFixture.repositoryStatus
       )
     ).toEqual({
-      githubUrl: '',
+      githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
       id: 'cdp-portal-frontend',
       isCreateService: true,
       serviceName: 'cdp-portal-frontend',

@@ -47,7 +47,7 @@ describe('#repositoryDecorator', () => {
       ).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
         description: 'The Core Delivery Platform Portal.',
-        githubUrl: '',
+        githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
         id: 'cdp-portal-frontend',
         isArchived: false,
         isCreateService: true,
@@ -77,7 +77,7 @@ describe('#repositoryDecorator', () => {
           )
         )
       ).toEqual({
-        githubUrl: '',
+        githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
         id: 'cdp-portal-frontend',
         isCreateService: true,
         serviceName: 'cdp-portal-frontend',
