@@ -118,12 +118,20 @@ module.exports = {
         'plugin:jest/recommended',
         'plugin:jest/style'
       ],
-      files: ['**/*.test.{cjs,js}', '**/__mocks__/**'],
+      files: ['**/*.test.{cjs,js}', '**/__mocks__/**', 'test-helpers/**'],
       plugins: ['jest'],
       rules: {
         // Allow Jest to assert on mocked unbound methods
         '@typescript-eslint/unbound-method': 'off',
-        'jest/unbound-method': 'error'
+        'jest/unbound-method': 'error',
+
+        // Allow devDependencies in tests
+        'n/no-unpublished-import': [
+          'error',
+          {
+            allowModules: ['nock', 'cheerio', 'jest-fetch-mock']
+          }
+        ]
       }
     }
   ],
