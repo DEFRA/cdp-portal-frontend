@@ -7,7 +7,7 @@ import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchLibrary', () => {
   const libraryEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + '/libraries/cdp-node-frontend-library'
+    config.get('portalBackendUrl') + '/libraries/cdp-node-frontend-library'
   )
 
   test('Should provide expected libraries response', async () => {

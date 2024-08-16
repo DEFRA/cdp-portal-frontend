@@ -54,7 +54,7 @@ const microserviceCreateController = {
 
     if (!validationResult.error) {
       const selfServiceOpsCreateServiceEndpointUrl =
-        config.get('selfServiceOpsApiUrl') + '/create-microservice'
+        config.get('selfServiceOpsUrl') + '/create-microservice'
 
       try {
         const { json, response } = await request.authedFetcher(

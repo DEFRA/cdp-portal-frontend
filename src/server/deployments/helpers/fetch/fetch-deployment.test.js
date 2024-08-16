@@ -8,7 +8,7 @@ import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 describe('#fetchDeployment', () => {
   const deploymentId = '553E4E6B-05D7-4A2E-BF80-02ED34DEF864'
   const deploymentEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + `/v2/deployments/${deploymentId}`
+    config.get('portalBackendUrl') + `/v2/deployments/${deploymentId}`
   )
 
   test('Should provide expected deployment response', async () => {

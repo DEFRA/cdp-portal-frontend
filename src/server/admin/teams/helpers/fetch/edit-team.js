@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
 
 async function editTeam(request, teamId, payload) {
-  const endpoint = config.get('userServiceApiUrl') + '/teams/' + teamId
+  const endpoint = config.get('userServiceBackendUrl') + '/teams/' + teamId
 
   const { json, response } = await request.authedFetcher(endpoint, {
     method: 'patch',

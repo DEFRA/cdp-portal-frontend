@@ -3,7 +3,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchRunningServicesById(serviceId) {
   const endpoint =
-    config.get('portalBackendApiUrl') + `/v2/whats-running-where/${serviceId}`
+    config.get('portalBackendUrl') + `/v2/whats-running-where/${serviceId}`
 
   const { json } = await fetcher(endpoint)
   return json

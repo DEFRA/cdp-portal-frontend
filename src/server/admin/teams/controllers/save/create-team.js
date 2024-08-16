@@ -14,7 +14,7 @@ const createTeamController = {
   },
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
-    const endpoint = config.get('userServiceApiUrl') + '/teams'
+    const endpoint = config.get('userServiceBackendUrl') + '/teams'
 
     try {
       const { response } = await request.authedFetcher(endpoint, {

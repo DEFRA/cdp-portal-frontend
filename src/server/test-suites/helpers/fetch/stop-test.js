@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
 
 async function stopTest(request, runId) {
-  const endpoint = config.get('selfServiceOpsApiUrl') + '/stop-test-suite'
+  const endpoint = config.get('selfServiceOpsUrl') + '/stop-test-suite'
 
   const { json, response } = await request.authedFetcher(endpoint, {
     method: 'post',

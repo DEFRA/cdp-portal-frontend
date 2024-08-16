@@ -10,7 +10,7 @@ describe('#addUserToTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
   const userId = '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
   const addUserToTeamEndpointUrl = new URL(
-    config.get('userServiceApiUrl') + `/teams/${teamId}/add/${userId}`
+    config.get('userServiceBackendUrl') + `/teams/${teamId}/add/${userId}`
   )
   const mockRequest = {
     authedFetcher: authedFetcher({

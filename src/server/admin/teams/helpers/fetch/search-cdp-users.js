@@ -3,7 +3,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function searchCdpUsers(query) {
   const endpoint =
-    config.get('userServiceApiUrl') +
+    config.get('userServiceBackendUrl') +
     '/users' +
     `${query ? `?query=` + query : ''}`
 

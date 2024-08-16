@@ -12,11 +12,11 @@ describe('#provideOptionsFormValues', () => {
   })
 
   const optionsEndpointUrl = new URL(
-    config.get('selfServiceOpsApiUrl') + '/deploy-service/options'
+    config.get('selfServiceOpsUrl') + '/deploy-service/options'
   )
 
   const deploymentConfigEndpoint = new URL(
-    config.get('portalBackendApiUrl') +
+    config.get('portalBackendUrl') +
       `/v2/deployment-config/cdp-portal-frontend/management`
   )
 

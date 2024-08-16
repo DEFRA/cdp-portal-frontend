@@ -9,7 +9,7 @@ describe('#fetchExistingServiceInfo', () => {
   const environment = 'infra-dev'
   const imageName = 'cdp-portal-frontend'
   const existingServiceInfoEndpoint = new URL(
-    config.get('portalBackendApiUrl') +
+    config.get('portalBackendUrl') +
       `/v2/deployment-config/${imageName}/${environment}`
   )
 

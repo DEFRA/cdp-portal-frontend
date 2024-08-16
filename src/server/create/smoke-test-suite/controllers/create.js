@@ -46,7 +46,7 @@ const smokeTestSuiteCreateController = {
 
     if (!validationResult.error) {
       const selfServiceOpsCreateSmokeTestSuiteEndpointUrl =
-        config.get('selfServiceOpsApiUrl') + '/create-smoke-test-suite'
+        config.get('selfServiceOpsUrl') + '/create-smoke-test-suite'
 
       try {
         const { json, response } = await request.authedFetcher(

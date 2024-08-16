@@ -16,7 +16,7 @@ const deleteUserController = {
   handler: async (request, h) => {
     const userId = request.params.userId
     const deleteUserEndpointUrl =
-      config.get('userServiceApiUrl') + `/users/${userId}`
+      config.get('userServiceBackendUrl') + `/users/${userId}`
 
     try {
       const { response } = await request.authedFetcher(deleteUserEndpointUrl, {

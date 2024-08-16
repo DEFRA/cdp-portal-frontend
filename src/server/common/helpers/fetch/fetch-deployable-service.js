@@ -5,8 +5,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchDeployableService(serviceId) {
   try {
-    const endpoint =
-      config.get('portalBackendApiUrl') + `/services/${serviceId}`
+    const endpoint = config.get('portalBackendUrl') + `/services/${serviceId}`
 
     const { json } = await fetcher(endpoint)
     return json

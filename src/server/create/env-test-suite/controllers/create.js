@@ -46,7 +46,7 @@ const envTestSuiteCreateController = {
 
     if (!validationResult.error) {
       const selfServiceOpsCreateEnvTestSuiteEndpointUrl =
-        config.get('selfServiceOpsApiUrl') + '/create-env-test-suite'
+        config.get('selfServiceOpsUrl') + '/create-env-test-suite'
 
       try {
         const { json, response } = await request.authedFetcher(

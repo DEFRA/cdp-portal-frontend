@@ -47,7 +47,7 @@ const repositoryCreateController = {
 
     if (!validationResult.error) {
       const selfServiceOpsCreateRepositoryEndpointUrl =
-        config.get('selfServiceOpsApiUrl') + '/create-repository'
+        config.get('selfServiceOpsUrl') + '/create-repository'
 
       try {
         const { json, response } = await request.authedFetcher(

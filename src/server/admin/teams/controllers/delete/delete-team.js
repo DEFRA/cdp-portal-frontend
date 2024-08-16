@@ -16,7 +16,7 @@ const deleteTeamController = {
   handler: async (request, h) => {
     const teamId = request.params.teamId
     const deleteTeamEndpointUrl =
-      config.get('userServiceApiUrl') + `/teams/${teamId}`
+      config.get('userServiceBackendUrl') + `/teams/${teamId}`
 
     try {
       const { response } = await request.authedFetcher(deleteTeamEndpointUrl, {

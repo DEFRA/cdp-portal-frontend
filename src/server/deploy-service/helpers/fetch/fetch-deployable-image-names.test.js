@@ -13,7 +13,7 @@ describe('#fetchDeployableImageNames', () => {
     getUserSession: jest.fn().mockResolvedValue({ scope: ['group1'] })
   }
   const deployableImagesEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + '/deployables'
+    config.get('portalBackendUrl') + '/deployables'
   )
 
   describe('With a request argument', () => {

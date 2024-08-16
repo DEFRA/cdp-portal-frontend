@@ -6,7 +6,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetcher', () => {
-  const librariesEndpoint = config.get('portalBackendApiUrl') + '/libraries'
+  const librariesEndpoint = config.get('portalBackendUrl') + '/libraries'
   const librariesEndpointUrl = new URL(librariesEndpoint)
 
   test('Should provide expected libraries response', async () => {

@@ -5,7 +5,9 @@ import { cdpTeamsFixture } from '~/src/__fixtures__/admin/cdp-teams'
 import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
 
 describe('#getUsersTeams', () => {
-  const teamsEndpointUrl = new URL(config.get('userServiceApiUrl') + '/teams')
+  const teamsEndpointUrl = new URL(
+    config.get('userServiceBackendUrl') + '/teams'
+  )
 
   describe('With Admin user', () => {
     test('Should receive all teams in response', async () => {

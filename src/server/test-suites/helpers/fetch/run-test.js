@@ -1,7 +1,7 @@
 import { config } from '~/src/config'
 
 async function runTest(request, imageName, environment) {
-  const endpoint = config.get('selfServiceOpsApiUrl') + '/deploy-test-suite'
+  const endpoint = config.get('selfServiceOpsUrl') + '/deploy-test-suite'
 
   const { json, response } = await request.authedFetcher(endpoint, {
     method: 'post',

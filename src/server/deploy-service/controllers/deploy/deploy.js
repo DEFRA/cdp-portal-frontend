@@ -15,7 +15,7 @@ const deployController = {
   handler: async (request, h) => {
     const deployment = request.pre?.deployment
     const deployServiceEndpointUrl =
-      config.get('selfServiceOpsApiUrl') + '/deploy-service'
+      config.get('selfServiceOpsUrl') + '/deploy-service'
 
     try {
       const { json, response } = await request.authedFetcher(

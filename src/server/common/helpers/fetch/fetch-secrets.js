@@ -4,8 +4,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 async function fetchSecrets(environment, serviceName) {
   try {
     const endpoint =
-      config.get('portalBackendApiUrl') +
-      `/secrets/${environment}/${serviceName}`
+      config.get('portalBackendUrl') + `/secrets/${environment}/${serviceName}`
     const { json } = await fetcher(endpoint)
 
     return json

@@ -13,7 +13,7 @@ const editUserController = {
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.cdpUser
-    const editUserEndpointUrl = `${config.get('userServiceApiUrl')}/users/${
+    const editUserEndpointUrl = `${config.get('userServiceBackendUrl')}/users/${
       cdpUser.userId
     }`
 
