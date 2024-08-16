@@ -2,7 +2,7 @@ import { config } from '~/src/config'
 
 async function addMemberToTeam(request, teamId, userId) {
   const endpoint =
-    config.get('userServiceApiUrl') + `/teams/${teamId}/add/${userId}`
+    config.get('userServiceBackendUrl') + `/teams/${teamId}/add/${userId}`
 
   const { json } = await request.authedFetcher(endpoint, {
     method: 'patch',

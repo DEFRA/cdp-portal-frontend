@@ -69,7 +69,7 @@ const createSecretController = {
 
     if (!validationResult.error) {
       const selfServiceOpsAddSecretEndpointUrl =
-        config.get('selfServiceOpsApiUrl') +
+        config.get('selfServiceOpsUrl') +
         `/secrets/add/${serviceId}/${environment}`
 
       try {

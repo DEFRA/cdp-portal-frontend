@@ -8,10 +8,10 @@ import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/
 describe('#checkNameAvailability', () => {
   const repositoryName = 'cdp-portal-frontend'
   const repositoryEndpointUrl = new URL(
-    config.get('portalBackendApiUrl') + `/repositories/${repositoryName}`
+    config.get('portalBackendUrl') + `/repositories/${repositoryName}`
   )
   const createServiceStatusEndpointUrl = new URL(
-    config.get('selfServiceOpsApiUrl') + `/status/${repositoryName}`
+    config.get('selfServiceOpsUrl') + `/status/${repositoryName}`
   )
   let mockHelpers
 

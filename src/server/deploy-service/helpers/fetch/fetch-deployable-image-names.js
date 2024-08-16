@@ -18,7 +18,7 @@ async function fetchDeployableImageNames({ request, scope }) {
   const userGroups = scope ?? (await getUserGroups(request))
 
   const endpoint =
-    config.get('portalBackendApiUrl') +
+    config.get('portalBackendUrl') +
     '/deployables' +
     qs.stringify(
       { runMode: 'service', groups: userGroups },

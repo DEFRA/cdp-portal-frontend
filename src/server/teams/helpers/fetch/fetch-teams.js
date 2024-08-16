@@ -11,7 +11,7 @@ async function fetchTeams(hasGithub = null) {
     { addQueryPrefix: true }
   )
 
-  const endpoint = config.get('userServiceApiUrl') + `/teams${queryString}`
+  const endpoint = config.get('userServiceBackendUrl') + `/teams${queryString}`
 
   const { json } = await fetcher(endpoint)
   return json

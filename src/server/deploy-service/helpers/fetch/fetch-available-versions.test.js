@@ -8,7 +8,7 @@ import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 describe('#fetchAvailableVersions', () => {
   const serviceName = 'cdp-portal-frontend'
   const deployablesVersionsEndpoint = new URL(
-    config.get('portalBackendApiUrl') + `/deployables/${serviceName}`
+    config.get('portalBackendUrl') + `/deployables/${serviceName}`
   )
 
   test('Should provide expected available options response', async () => {

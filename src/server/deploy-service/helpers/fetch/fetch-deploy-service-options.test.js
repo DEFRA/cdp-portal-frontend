@@ -7,7 +7,7 @@ import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
 
 describe('#fetchDeployServiceOptions', () => {
   const deployServiceOptionsEndpoint = new URL(
-    config.get('selfServiceOpsApiUrl') + '/deploy-service/options'
+    config.get('selfServiceOpsUrl') + '/deploy-service/options'
   )
 
   test('Should provide expected deploy service options response', async () => {

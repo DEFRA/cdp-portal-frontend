@@ -3,7 +3,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchAvailableVersions(serviceName) {
   const endpoint =
-    config.get('portalBackendApiUrl') + `/deployables/${serviceName}`
+    config.get('portalBackendUrl') + `/deployables/${serviceName}`
 
   const { json } = await fetcher(endpoint)
 

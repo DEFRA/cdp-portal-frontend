@@ -4,7 +4,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 // TODO set as server method
 async function fetchRepository(repositoryId) {
   const endpoint =
-    config.get('portalBackendApiUrl') + `/repositories/${repositoryId}`
+    config.get('portalBackendUrl') + `/repositories/${repositoryId}`
 
   const { json } = await fetcher(endpoint)
   return json

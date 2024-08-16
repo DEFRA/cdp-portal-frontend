@@ -3,7 +3,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchTemplates(teamId = null) {
   const endpoint =
-    config.get('portalBackendApiUrl') +
+    config.get('portalBackendUrl') +
     `/templates${teamId ? `?team=${teamId}` : ''}`
 
   const { json } = await fetcher(endpoint)

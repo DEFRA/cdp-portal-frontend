@@ -46,7 +46,7 @@ const perfTestSuiteCreateController = {
 
     if (!validationResult.error) {
       const selfServiceOpsCreateEnvTestSuiteEndpointUrl =
-        config.get('selfServiceOpsApiUrl') + '/create-perf-test-suite'
+        config.get('selfServiceOpsUrl') + '/create-perf-test-suite'
 
       try {
         const { json, response } = await request.authedFetcher(

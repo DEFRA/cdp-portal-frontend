@@ -14,7 +14,7 @@ const createUserController = {
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.cdpUser
-    const createUserEndpointUrl = `${config.get('userServiceApiUrl')}/users`
+    const createUserEndpointUrl = `${config.get('userServiceBackendUrl')}/users`
 
     try {
       const { response } = await request.authedFetcher(createUserEndpointUrl, {

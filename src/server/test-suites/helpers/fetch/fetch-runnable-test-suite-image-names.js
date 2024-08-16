@@ -8,7 +8,7 @@ async function fetchRunnableTestSuiteImageNames(request) {
   const userGroups = await getUserGroups(request)
 
   const endpoint =
-    config.get('portalBackendApiUrl') +
+    config.get('portalBackendUrl') +
     '/deployables' +
     qs.stringify(
       { runMode: 'job', groups: userGroups },

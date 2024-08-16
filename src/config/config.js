@@ -52,23 +52,23 @@ const config = convict({
     default: 'http://localhost:3004/mock-api',
     env: 'API_URL'
   },
-  portalBackendApiUrl: {
+  portalBackendUrl: {
     doc: 'Portal backend for deployments and deployables root API url',
     format: String,
     default: 'http://localhost:5094',
-    env: 'PORTAL_BACKEND_API_URL'
+    env: 'PORTAL_BACKEND_URL'
   },
-  selfServiceOpsApiUrl: {
+  selfServiceOpsUrl: {
     doc: 'Self Service Ops root API url',
     format: String,
     default: 'http://localhost:3009',
-    env: 'SELF_SERVICE_OPS_API_URL'
+    env: 'SELF_SERVICE_OPS_URL'
   },
-  userServiceApiUrl: {
+  userServiceBackendUrl: {
     doc: 'User Service Backend API url',
     format: String,
     default: 'http://localhost:3001',
-    env: 'USER_SERVICE_API_URL'
+    env: 'USER_SERVICE_BACKEND_URL'
   },
   githubOrg: {
     doc: 'The GitHub Organisation',

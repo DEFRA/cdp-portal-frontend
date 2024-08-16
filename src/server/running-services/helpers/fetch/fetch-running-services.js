@@ -5,7 +5,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function fetchRunningServices(environments) {
   const endpoint =
-    config.get('portalBackendApiUrl') +
+    config.get('portalBackendUrl') +
     '/v2/whats-running-where' +
     qs.stringify(
       { environments: Object.values(environments) },

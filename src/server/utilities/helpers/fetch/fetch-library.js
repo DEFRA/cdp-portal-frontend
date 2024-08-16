@@ -13,8 +13,7 @@ function checkLibrary(json) {
 
 async function fetchLibrary(libraryId) {
   try {
-    const endpoint =
-      config.get('portalBackendApiUrl') + `/libraries/${libraryId}`
+    const endpoint = config.get('portalBackendUrl') + `/libraries/${libraryId}`
     const { json } = await fetcher(endpoint)
 
     return checkLibrary(json)

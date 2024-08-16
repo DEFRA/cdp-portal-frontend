@@ -3,7 +3,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
 
 async function searchGithubTeams(query) {
   const endpoint =
-    config.get('userServiceApiUrl') +
+    config.get('userServiceBackendUrl') +
     `/github-teams${query ? '?query=' + query : ''}`
 
   const { json } = await fetcher(endpoint)
