@@ -24,7 +24,6 @@
     "lint:fix": "eslint . --fix",
     "lint:js": "eslint .",
     "lint:scss": "stylelint 'src/**/*.scss' --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
-    "mockApi": "nodemon ./mock-api",
     "test": "TZ=UTC jest --coverage --verbose",
     "test:watch": "TZ=UTC jest --watch",
     "type:check": "tsc --build tsconfig.json",
