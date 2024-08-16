@@ -50,12 +50,6 @@ const config = convict({
     default: 'eu-west-2',
     env: 'AWS_REGION'
   },
-  mockApiUrl: {
-    doc: 'API root url',
-    format: String,
-    default: 'http://localhost:3004/mock-api',
-    env: 'API_URL'
-  },
   portalBackendUrl: {
     doc: 'Portal backend for deployments and deployables root API url',
     format: String,
