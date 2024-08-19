@@ -5,6 +5,10 @@ const eightHours = 1000 * 60 * 60 * 8
 const oneDay = 1000 * 60 * 60 * 24
 const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
 
+const isProduction = process.env.NODE_ENV === 'production'
+const isTest = process.env.NODE_ENV === 'test'
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 const config = convict({
   port: {
     doc: 'The port to bind.',
@@ -136,25 +140,23 @@ const config = convict({
   isProduction: {
     doc: 'If this application running in the production environment',
     format: Boolean,
-    default: process.env.NODE_ENV === 'production'
+    default: isProduction
   },
   isDevelopment: {
     doc: 'If this application running in the development environment',
     format: Boolean,
-    default: process.env.NODE_ENV !== 'production'
+    default: !isProduction
   },
   isTest: {
     doc: 'If this application running in the test environment',
     format: Boolean,
-    default: process.env.NODE_ENV === 'test'
+    default: isTest
   },
-  get logLevel() {
-    return {
-      doc: 'Logging level',
-      format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
-      default: this.isDevelopment ? 'debug' : 'info',
-      env: 'LOG_LEVEL'
-    }
+  logLevel: {
+    doc: 'Logging level',
+    format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
+    default: isDevelopment ? 'debug' : 'info',
+    env: 'LOG_LEVEL'
   },
   azureTenantId: {
     doc: 'Azure Active Directory Tenant ID',
@@ -259,6 +261,18 @@ const config = convict({
     default:
       'SQUID_USERNAME,SQUID_PASSWORD,REDIS_USERNAME,REDIS_PASSWORD,REDIS_KEY_PREFIX,CDP_HTTP_PROXY,CDP_HTTPS_PROXY,HTTP_PROXY,HTTPS_PROXY',
     env: 'PLATFORM_GLOBAL_SECRET_KEYS'
+  },
+  enablePulse: {
+    doc: 'Enable Pulse',
+    format: Boolean,
+    default: isProduction,
+    env: 'ENABLE_PULSE'
+  },
+  enableSecureContext: {
+    doc: 'Enable Secure Context',
+    format: Boolean,
+    default: isProduction,
+    env: 'ENABLE_SECURE_CONTEXT'
   }
 })
 

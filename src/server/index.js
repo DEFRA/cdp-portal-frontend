@@ -23,7 +23,8 @@ import { pulse } from '~/src/server/common/helpers/pulse'
 import { addServerMethods } from '~/src/server/common/helpers/add-server-methods'
 import { addDecorators } from '~/src/server/common/helpers/add-decorators'
 
-const isProduction = config.get('isProduction')
+const enableSecureContext = config.get('enableSecureContext')
+const enablePulse = config.get('enablePulse')
 
 async function createServer() {
   setupWreckAgents(proxyAgent())
@@ -81,12 +82,12 @@ async function createServer() {
   // Add request logger before all other plugins, so we can see errors
   await server.register(requestLogger)
 
-  if (isProduction) {
+  if (enableSecureContext) {
     await server.register(secureContext)
   }
 
   await server.register([
-    pulse,
+    ...(enablePulse ? pulse : []),
     sessionManager,
     azureOidc,
     sessionCookie,
