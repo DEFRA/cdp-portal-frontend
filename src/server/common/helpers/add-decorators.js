@@ -6,10 +6,11 @@ import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-sess
 import { userIsTeamMemberDecorator } from '~/src/server/common/helpers/user/user-is-team-member'
 import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
 import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner'
+import { saveStepDataDecorator } from '~/src/server/common/helpers/multistep-form/save-step-data'
 
 /**
  * Add global server methods
- * @param server {Server}
+ * @param {Server} server
  */
 function addDecorators(server) {
   server.decorate('request', 'isXhr', isXhr)
@@ -34,6 +35,9 @@ function addDecorators(server) {
     { apply: true }
   )
   server.decorate('request', 'routeLookup', routeLookupDecorator, {
+    apply: true
+  })
+  server.decorate('request', 'saveStepData', saveStepDataDecorator, {
     apply: true
   })
 }
