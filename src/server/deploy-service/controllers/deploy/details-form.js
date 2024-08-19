@@ -10,7 +10,7 @@ import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/f
 
 const detailsFormController = {
   options: {
-    id: 'deploy-service/details',
+    id: 'deploy-service/details/{multiStepFormId?}',
     pre: [provideStepData],
     validate: {
       params: Joi.object({
