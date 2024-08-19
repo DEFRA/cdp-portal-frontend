@@ -13,18 +13,18 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
 
-        {% if preExistingDetails %}
+        {% if formValues.preExistingDetails %}
           {{ appInfo({
             text: "Previously deployed options populated below.",
             actionText: "Edit"
           }) }}
         {% endif %}
 
-        <form action="/deploy-service/options"
+        <form action="/deploy-service/options/{{ multiStepFormId }}"
               method="post"
-              data-js="app-form-errors{% if preExistingDetails %} app-protected-inputs{% endif %}">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+              data-js="app-form-errors{% if formValues.preExistingDetails %} app-protected-inputs{% endif %}">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
 
           {% call govukFieldset() %}
 
@@ -83,7 +83,7 @@
                   "data-js": "app-error"
                 }
               } if formErrors.cpu.message,
-              items: cpuOptions
+              items: formValues.cpuOptions
             }) }}
 
             {{ appSelect({
@@ -101,7 +101,7 @@
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              value: formValues.memory,
+              value: formValues.memory if not formErrors.memory.message,
               attributes: {
                 "data-js": "deploy-memory"
               },
@@ -115,7 +115,7 @@
                   "data-js": "app-error"
                 }
               } if formErrors.memory.message,
-              items: availableMemoryOptions
+              items: formValues.availableMemoryOptions
             }) }}
 
           {% endcall %}

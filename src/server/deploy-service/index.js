@@ -1,10 +1,6 @@
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
 import { scopes } from '~/src/server/common/constants/scopes'
 import {
-  provideFormContextValues,
-  provideDeploymentSteps
-} from '~/src/server/deploy-service/helpers/form'
-import {
   availableVersionsController,
   availableMemoryController,
   startDeployServiceController,
@@ -15,30 +11,66 @@ import {
   summaryController,
   deployController
 } from '~/src/server/deploy-service/controllers'
+import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form'
+import {
+  formSteps,
+  isMultistepComplete
+} from '~/src/server/deploy-service/helpers/multistep-form/steps'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
+/**
+ * The deploy service plugin
+ * @satisfies {ServerRegisterPluginObject<void>}
+ */
 const deployService = {
   plugin: {
     name: 'deploy service',
     register: (server) => {
-      server.ext([
-        {
-          type: 'onPostHandler',
-          method: provideFormContextValues,
-          options: {
-            before: ['yar'],
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideDeploymentSteps,
-          options: {
-            sandbox: 'plugin'
-          }
+      server.register({
+        plugin: multistepForm,
+        options: {
+          formSteps,
+          isMultistepComplete,
+          routes: [
+            {
+              method: 'GET',
+              path: '/deploy-service',
+              ...startDeployServiceController
+            },
+            {
+              method: 'GET',
+              path: '/deploy-service/details/{multiStepFormId?}',
+              ...detailsFormController
+            },
+            {
+              method: 'POST',
+              path: '/deploy-service/details/{multiStepFormId?}',
+              ...detailsController
+            },
+            {
+              method: 'GET',
+              path: '/deploy-service/options/{multiStepFormId}',
+              ...optionsFormController
+            },
+            {
+              method: 'POST',
+              path: '/deploy-service/options/{multiStepFormId}',
+              ...optionsController
+            },
+            {
+              method: 'GET',
+              path: '/deploy-service/summary/{multiStepFormId}',
+              ...summaryController
+            },
+            {
+              method: 'POST',
+              path: '/deploy-service/deploy/{multiStepFormId}',
+              ...deployController
+            }
+          ].map(serviceTeamAndAdminUserScope)
         }
-      ])
+      })
 
       server.route(
         [
@@ -51,41 +83,6 @@ const deployService = {
             method: 'GET',
             path: '/deploy-service/available-memory',
             ...availableMemoryController
-          },
-          {
-            method: 'GET',
-            path: '/deploy-service',
-            ...startDeployServiceController
-          },
-          {
-            method: 'GET',
-            path: '/deploy-service/details',
-            ...detailsFormController
-          },
-          {
-            method: 'POST',
-            path: '/deploy-service/details',
-            ...detailsController
-          },
-          {
-            method: 'GET',
-            path: '/deploy-service/options',
-            ...optionsFormController
-          },
-          {
-            method: 'POST',
-            path: '/deploy-service/options',
-            ...optionsController
-          },
-          {
-            method: 'GET',
-            path: '/deploy-service/summary',
-            ...summaryController
-          },
-          {
-            method: 'POST',
-            path: '/deploy-service/deploy',
-            ...deployController
           }
         ].map(serviceTeamAndAdminUserScope)
       )
@@ -94,3 +91,7 @@ const deployService = {
 }
 
 export { deployService }
+
+/**
+ * @import { ServerRegisterPluginObject } from '@hapi/hapi/lib'
+ */

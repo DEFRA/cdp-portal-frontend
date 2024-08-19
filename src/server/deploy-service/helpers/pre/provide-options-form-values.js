@@ -6,22 +6,23 @@ import { defaultOption } from '~/src/server/common/helpers/options/default-optio
 
 const provideOptionsFormValues = {
   method: async (request) => {
-    const deployment = request.pre?.deployment
+    const stepData = request.pre?.stepData
 
     const { cpuOptions, ecsCpuToMemoryOptionsMap } =
       await fetchDeployServiceOptions()
 
     const formDetail = {
-      formValues: {},
-      availableMemoryOptions: optionsWithMessage('Choose a CPU value'),
-      cpuOptions: buildOptions(cpuOptions),
-      preExistingDetails: false
+      formValues: {
+        availableMemoryOptions: optionsWithMessage('Choose a CPU value'),
+        cpuOptions: buildOptions(cpuOptions),
+        preExistingDetails: false
+      }
     }
 
-    if (deployment) {
+    if (stepData) {
       const serviceInfo = await fetchExistingServiceInfo(
-        deployment?.environment,
-        deployment?.imageName
+        stepData?.environment,
+        stepData?.imageName
       )
       const serviceInfoHasValues =
         serviceInfo && Object.values(serviceInfo).every(Boolean)
@@ -33,24 +34,25 @@ const provideOptionsFormValues = {
         const memory = serviceInfo?.memory
 
         formDetail.formValues = {
+          ...formDetail.formValues,
           instanceCount,
           memory,
-          cpu
+          cpu,
+          availableMemoryOptions: [
+            defaultOption,
+            ...ecsCpuToMemoryOptionsMap[cpu]
+          ],
+          preExistingDetails: true
         }
-        formDetail.availableMemoryOptions = [
-          defaultOption,
-          ...ecsCpuToMemoryOptionsMap[cpu]
-        ]
-        formDetail.preExistingDetails = true
       }
 
-      // If session cpu exists provide memory options dependent on this deployment.cpu value
-      if (deployment?.cpu) {
-        formDetail.availableMemoryOptions = [
+      // If session cpu exists provide memory options dependent on this stepData.cpu value
+      if (stepData?.cpu) {
+        formDetail.formValues.availableMemoryOptions = [
           defaultOption,
-          ...ecsCpuToMemoryOptionsMap[deployment?.cpu]
+          ...ecsCpuToMemoryOptionsMap[stepData?.cpu]
         ]
-        formDetail.preExistingDetails = false
+        formDetail.formValues.preExistingDetails = false
       }
     }
 

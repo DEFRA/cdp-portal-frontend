@@ -4,18 +4,21 @@ import Boom from '@hapi/boom'
 import { config } from '~/src/config'
 import { buildOptions } from '~/src/server/common/helpers/options/build-options'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
-import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values'
 import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu'
+import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data'
+import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid'
 
 const optionsFormController = {
   options: {
     ext: {
-      onPreHandler: [noSessionRedirect]
+      onPreHandler: checkSessionIsValid('/deploy-service')
     },
-    pre: [provideDeployment, provideOptionsFormValues],
+    pre: [provideStepData, provideOptionsFormValues],
     validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid()
+      }),
       query: Joi.object({
         redirectLocation: Joi.string().valid('summary')
       }),
@@ -25,19 +28,18 @@ const optionsFormController = {
   handler: (request, h) => {
     const query = request?.query
     const formDetail = request?.pre?.formDetail
+    const multiStepFormId = request.app.multiStepFormId
 
     return h.view('deploy-service/views/options-form', {
       pageTitle: 'Deploy Service options',
       heading: 'Options',
       headingCaption:
         'Choose Microservice Instance count, CPU and Memory allocation.',
+      multiStepFormId,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation,
       availableInstancesOptions: buildOptions(availableInstances),
-      cpuOptions: formDetail.cpuOptions,
-      availableMemoryOptions: formDetail.availableMemoryOptions,
       formValues: formDetail.formValues,
-      preExistingDetails: formDetail?.preExistingDetails,
       platformCPUResourceAsVCpu: cpuToVCpu(config.get('platformCPUResource')),
       platformMemoryResource: config.get('platformMemoryResource')
     })

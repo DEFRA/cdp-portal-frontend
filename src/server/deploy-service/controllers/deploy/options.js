@@ -1,3 +1,4 @@
+import Joi from 'joi'
 import qs from 'qs'
 
 import { buildOptions } from '~/src/server/common/helpers/options/build-options'
@@ -5,18 +6,23 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
 import { optionsValidation } from '~/src/server/deploy-service/helpers/schema/options-validation'
-import {
-  saveToDeployment,
-  setStepComplete
-} from '~/src/server/deploy-service/helpers/form'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { sessionNames } from '~/src/server/common/constants/session-names'
+import { getStepByPath } from '~/src/server/deploy-service/helpers/multistep-form/steps'
 
 const optionsController = {
+  options: {
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().required()
+      })
+    }
+  },
   handler: async (request, h) => {
     const payload = request?.payload
     const cpu = payload?.cpu
     const redirectLocation = payload?.redirectLocation
+    const multiStepFormId = request.app.multiStepFormId
 
     const { cpuOptions, ecsCpuToMemoryOptionsMap } =
       await fetchDeployServiceOptions()
@@ -35,25 +41,28 @@ const optionsController = {
       const errorDetails = buildErrorDetails(validationResult.error.details)
 
       request.yar.flash(sessionNames.validationFailure, {
-        formValues: payload,
-        formErrors: errorDetails,
-        availableMemoryOptions: cpu
-          ? buildOptions(ecsCpuToMemoryOptionsMap[cpu])
-          : optionsWithMessage('Choose a CPU value')
+        formValues: {
+          ...payload,
+          availableMemoryOptions: cpu
+            ? buildOptions(ecsCpuToMemoryOptionsMap[cpu])
+            : optionsWithMessage('Choose a CPU value')
+        },
+        formErrors: errorDetails
       })
 
       const queryString = payload?.redirectLocation
         ? qs.stringify({ redirectLocation }, { addQueryPrefix: true })
         : ''
 
-      return h.redirect(`/deploy-service/options${queryString}`)
+      return h.redirect(
+        `/deploy-service/options/${multiStepFormId}${queryString}`
+      )
     }
 
     if (!validationResult.error) {
-      await saveToDeployment(request, h, payload)
-      await setStepComplete(request, h, 'stepTwo')
+      await request.saveStepData(multiStepFormId, payload, h, getStepByPath)
 
-      return h.redirect('/deploy-service/summary')
+      return h.redirect(`/deploy-service/summary/${multiStepFormId}`)
     }
   }
 }

@@ -13,7 +13,8 @@ describe('#deploymentRows', () => {
       deploymentRows(
         deploymentSessionFixture,
         cpuOptionsFixture.at(1),
-        ecsCpuToMemoryOptionsMapFixture['1024']?.at(4)
+        ecsCpuToMemoryOptionsMapFixture['1024']?.at(4),
+        'fa39d9d2-d591-4bf8-b741-005d900e696c'
       )
     ).toEqual([
       {
@@ -22,7 +23,7 @@ describe('#deploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/deploy-service/details?redirectLocation=summary',
+              href: '/deploy-service/details/fa39d9d2-d591-4bf8-b741-005d900e696c?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Image name'
             }
@@ -42,7 +43,7 @@ describe('#deploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/deploy-service/details?redirectLocation=summary',
+              href: '/deploy-service/details/fa39d9d2-d591-4bf8-b741-005d900e696c?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Image version'
             }
@@ -62,7 +63,7 @@ describe('#deploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/deploy-service/details?redirectLocation=summary',
+              href: '/deploy-service/details/fa39d9d2-d591-4bf8-b741-005d900e696c?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Environment'
             }
@@ -82,7 +83,7 @@ describe('#deploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/deploy-service/options?redirectLocation=summary',
+              href: '/deploy-service/options/fa39d9d2-d591-4bf8-b741-005d900e696c?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Instance count'
             }
@@ -102,7 +103,7 @@ describe('#deploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/deploy-service/options?redirectLocation=summary',
+              href: '/deploy-service/options/fa39d9d2-d591-4bf8-b741-005d900e696c?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'CPU size'
             }
@@ -122,7 +123,7 @@ describe('#deploymentRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/deploy-service/options?redirectLocation=summary',
+              href: '/deploy-service/options/fa39d9d2-d591-4bf8-b741-005d900e696c?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Memory allocation'
             }
