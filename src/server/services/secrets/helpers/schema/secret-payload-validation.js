@@ -11,10 +11,13 @@ const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
 
 /**
  * Provide immutable keys
- * @param {Object} Detail
- * @param {Action} action
- * @param {array} [platformFixedKeys=[]] platformFixedKeys
- * @param {array} existingSecretKeys
+ * @typedef {object} Options
+ * @property {Action} action
+ * @property {Array} [platformFixedKeys=[]] platformFixedKeys
+ * @property {Array} existingSecretKeys
+ * /
+ /**
+ * @param {Options} options
  * @returns {string[]}
  */
 const getImmutableKeys = ({
@@ -45,7 +48,7 @@ const provideCustomErrorCode = (errorReports) => {
  * Validation for Create and Update forms payloads
  * @param {Action} action
  * @param {string} teamId
- * @param {array} [existingSecretKeys=[]] existingSecretKeys
+ * @param {Array} [existingSecretKeys] existingSecretKeys
  * @returns {Joi.ObjectSchema<*>}
  */
 function secretPayloadValidation(action, teamId, existingSecretKeys = []) {

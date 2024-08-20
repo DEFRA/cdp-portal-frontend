@@ -9,7 +9,7 @@ describe('#calculateStepWidth', () => {
         three: false,
         four: false
       })
-    ).toEqual(0)
+    ).toBe(0)
   })
 
   test('With 1 complete step, width should be a third', () => {
@@ -20,7 +20,7 @@ describe('#calculateStepWidth', () => {
         three: false,
         four: false
       })
-    ).toEqual(33.333333333333336)
+    ).toBe(33.333333333333336)
   })
 
   test('With 2 complete steps, width should be two thirds', () => {
@@ -31,7 +31,7 @@ describe('#calculateStepWidth', () => {
         three: false,
         four: false
       })
-    ).toEqual(66.66666666666667)
+    ).toBe(66.66666666666667)
   })
 
   test('With 3 complete steps, width should be full', () => {
@@ -42,7 +42,7 @@ describe('#calculateStepWidth', () => {
         three: true,
         four: false
       })
-    ).toEqual(100)
+    ).toBe(100)
   })
 
   test('With all complete steps, width should be full', () => {
@@ -53,6 +53,6 @@ describe('#calculateStepWidth', () => {
         three: true,
         four: false
       })
-    ).toEqual(100)
+    ).toBe(100)
   })
 })

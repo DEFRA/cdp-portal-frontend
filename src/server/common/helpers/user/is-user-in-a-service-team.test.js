@@ -8,7 +8,7 @@ describe('#isUserInAServiceTeam', () => {
         '087d4a80-002b-48cf-a7d3-aa60b67784f0'
       ])
 
-      expect(isTenant).toEqual(true)
+      expect(isTenant).toBe(true)
     })
   })
 
@@ -18,7 +18,7 @@ describe('#isUserInAServiceTeam', () => {
         '012345678'
       ])
 
-      expect(isTenant).toEqual(false)
+      expect(isTenant).toBe(false)
     })
   })
 })

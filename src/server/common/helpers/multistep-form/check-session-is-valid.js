@@ -4,7 +4,7 @@ import { sessionNames } from '~/src/server/common/constants/session-names'
 
 /**
  * If the multistep session data does not exist or is marked as complete. Redirect to the start of the flow
- * @param startUrl
+ * @param {string} startUrl
  * @returns {{method: ((function(*, *): (*))|*)}}
  */
 function checkSessionIsValid(startUrl) {

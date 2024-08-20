@@ -1,4 +1,6 @@
 import qs from 'qs'
+import { Action } from 'history'
+
 import { history } from '~/src/client/common/helpers/history'
 
 import { publish } from '~/src/client/common/helpers/event-emitter'
@@ -7,8 +9,7 @@ import { eventName } from '~/src/client/common/constants/event-name'
 /**
  * Update data-xhr elements inside {% block xhrContent %}{% endblock %} with the contents of data-xhr elements
  * of the same name returned from the Xhr request
- *
- * @param text - text/html returned from the Xhr request
+ * @param {string} text - text/html returned from the Xhr request
  */
 function injectHtmlResponseIntoPage(text) {
   const domParser = new DOMParser()
@@ -47,9 +48,8 @@ function updatePage(text, params = {}) {
 
 /**
  * Xhr request used to populate {% block xhrContent %}{% endblock %}
- *
- * @param url
- * @param params
+ * @param {string} url
+ * @param {Record<string, string>} params
  * @returns {Promise<{text: string, ok: boolean}|{ok: boolean, error}>}
  */
 async function xhrRequest(url, params = {}) {
@@ -88,8 +88,17 @@ async function xhrRequest(url, params = {}) {
  * Provide forward/back history when using xhr
  */
 function addHistoryListener() {
+  /**
+   * @typedef {object} Options
+   * @property {Location} location
+   * @property {Action} action
+   */
+  /**
+   * Listen for history changes and inject the xhr data into the page
+   * @param {Options} options
+   */
   return history.listen(({ action, location }) => {
-    if (action === 'POP') {
+    if (action === Action.Pop) {
       if (location?.state) {
         injectHtmlResponseIntoPage(location.state.xhrData)
       } else if (
@@ -103,5 +112,9 @@ function addHistoryListener() {
     }
   })
 }
+
+/**
+ * import {Location} from 'history
+ */
 
 export { xhrRequest, addHistoryListener }

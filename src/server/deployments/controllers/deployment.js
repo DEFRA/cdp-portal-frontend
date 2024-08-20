@@ -23,7 +23,7 @@ const deploymentController = {
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const deployment = request.pre.deployment
 
     // TODO update to use new polling helpers

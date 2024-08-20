@@ -5,8 +5,8 @@ import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repo
  * Provide a service which is:
  * - a deployable service
  * - a deployable service decorated with github details
- * @param serviceId
- * @param request
+ * @param {string} serviceId
+ * @param {Request} request
  * @returns {Promise<PartialObject<*>>}
  */
 async function toService(serviceId, request) {
@@ -31,3 +31,6 @@ async function toService(serviceId, request) {
 }
 
 export { toService }
+/**
+ * @import { Request } from '@hapi/hapi'
+ */

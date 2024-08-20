@@ -8,22 +8,22 @@ describe('#createHiddenInput', () => {
   })
 
   test('Should provide expected input name', () => {
-    expect($element.name).toEqual('instanceCount')
+    expect($element.name).toBe('instanceCount')
   })
 
   test('Should provide expected input value', () => {
-    expect($element.value).toEqual('40')
+    expect($element.value).toBe('40')
   })
 
   test('Should provide expected input id', () => {
-    expect($element.id).toEqual('instanceCount-protected-hidden')
+    expect($element.id).toBe('instanceCount-protected-hidden')
   })
 
   test('Should provide expected input type', () => {
-    expect($element.type).toEqual('hidden')
+    expect($element.type).toBe('hidden')
   })
 
   test('Should provide expected input', () => {
-    expect($element.tagName.toLowerCase()).toEqual('input')
+    expect($element.tagName.toLowerCase()).toBe('input')
   })
 })

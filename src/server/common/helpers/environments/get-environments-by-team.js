@@ -2,11 +2,24 @@ import { config } from '~/src/config'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
 
 /**
+ * @typedef {string[]} AdminEnvironments
+ * @property {string} prod
+ * @property {string} dev
+ * @property {string} test
+ * @property {string} perfTest
+ * @property {string} management
+ * @property {string} infraDev
+ */
+
+/**
+ * @typedef {string[]} TenantEnvironments = Omit<AdminEnvironments, 'management', 'infraDev'>
+ */
+
+/**
  * Retrieves environments based on the team scope and if an admin scope is available or not.
- *
  * @param {Array} teams - An array of team objects, each containing a `teamId`.
- * @param {string} [oidcAdminGroupId=config.get('oidcAdminGroupId')] - The OIDC admin group ID.
- * @returns {{prod: string, dev: string, test: string, management: string, perfTest: string, infraDev: string}|{prod: string, dev: string, test: string, perfTest: string}}
+ * @param {string} [oidcAdminGroupId] - The OIDC admin group ID. Defaults to config.get('oidcAdminGroupId')
+ * @returns {{AdminEnvironments}|{TenantEnvironments}}
  */
 function getEnvironmentsByTeam(
   teams = [],

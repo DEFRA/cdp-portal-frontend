@@ -58,7 +58,7 @@ describe('#button', () => {
 
     jest.advanceTimersByTime(200)
 
-    expect(buttonElem.getAttribute('disabled')).toEqual('disabled')
+    expect(buttonElem.getAttribute('disabled')).toBe('disabled')
   })
 
   test('Should add loading class to loader on form submit after specified delay', () => {

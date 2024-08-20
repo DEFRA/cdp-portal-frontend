@@ -8,7 +8,7 @@ describe('#buildHelpText', () => {
       deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[cpuValue].at(1).value
 
     expect(buildHelpText(cpuValue, memoryValue))
-      .toEqual(`<p class="govuk-!-margin-bottom-2">
+      .toBe(`<p class="govuk-!-margin-bottom-2">
             This deployment requires resources for platform processes:
           </p>
           <ul class="govuk-list govuk-list--bullet govuk-!-margin-0">

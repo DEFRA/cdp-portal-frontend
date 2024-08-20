@@ -68,7 +68,7 @@ describe('#secretPayloadValidation', () => {
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
-      expect(error.message).toEqual(
+      expect(error.message).toBe(
         'Any case letters and numbers with underscore separators'
       )
     })
@@ -92,7 +92,7 @@ describe('#secretPayloadValidation', () => {
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
-      expect(error.message).toEqual('Platform secrets cannot be changed')
+      expect(error.message).toBe('Platform secrets cannot be changed')
     })
 
     test('Should return error for disallowed secretKey', () => {
@@ -114,7 +114,7 @@ describe('#secretPayloadValidation', () => {
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
-      expect(error.message).toEqual('Key already exists')
+      expect(error.message).toBe('Key already exists')
     })
 
     test('Should return error for invalid environment', () => {
@@ -136,7 +136,7 @@ describe('#secretPayloadValidation', () => {
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
-      expect(error.message).toEqual('Choose an environment')
+      expect(error.message).toBe('Choose an environment')
     })
   })
 
@@ -160,7 +160,7 @@ describe('#secretPayloadValidation', () => {
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
-      expect(error.message).toEqual('Choose an environment')
+      expect(error.message).toBe('Choose an environment')
     })
   })
 })

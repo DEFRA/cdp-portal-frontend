@@ -30,7 +30,7 @@ describe('Entity List Component', () => {
     })
 
     test('Should render app entity list component', () => {
-      expect($entityList('[data-testid="app-entity-list"]').length).toEqual(1)
+      expect($entityList('[data-testid="app-entity-list"]')).toHaveLength(1)
     })
 
     test('Should contain expected headings', () => {
@@ -39,11 +39,11 @@ describe('Entity List Component', () => {
           `[data-testid="app-entity-list-header"] [data-testid="app-entity-list-item-${headerNumber}"]`
         )
 
-      expect(getHeader(1).text().trim()).toEqual('Service')
-      expect(getHeader(2).text().trim()).toEqual('Version')
-      expect(getHeader(3).text().trim()).toEqual('Status')
-      expect(getHeader(4).text().trim()).toEqual('By')
-      expect(getHeader(5).text().trim()).toEqual('On')
+      expect(getHeader(1).text().trim()).toBe('Service')
+      expect(getHeader(2).text().trim()).toBe('Version')
+      expect(getHeader(3).text().trim()).toBe('Status')
+      expect(getHeader(4).text().trim()).toBe('By')
+      expect(getHeader(5).text().trim()).toBe('On')
     })
 
     test('Rows should contain expected size className', () => {
@@ -65,22 +65,22 @@ describe('Entity List Component', () => {
           `[data-testid="app-entity-${entityNumber}"]`
         )
 
-      expect(getEntity(1).length).toEqual(1)
+      expect(getEntity(1)).toHaveLength(1)
       expect(getEntity(1).html()).toContain('cdp-self-service-ops')
 
-      expect(getEntity(2).length).toEqual(1)
+      expect(getEntity(2)).toHaveLength(1)
       expect(getEntity(2).html()).toContain('')
 
-      expect(getEntity(3).length).toEqual(1)
+      expect(getEntity(3)).toHaveLength(1)
       expect(getEntity(3).html()).toContain('0.133.0')
 
-      expect(getEntity(4).length).toEqual(1)
+      expect(getEntity(4)).toHaveLength(1)
       expect(getEntity(4).html()).toContain('Running')
 
-      expect(getEntity(5).length).toEqual(1)
+      expect(getEntity(5)).toHaveLength(1)
       expect(getEntity(5).html()).toContain('B. A. Baracus')
 
-      expect(getEntity(6).length).toEqual(1)
+      expect(getEntity(6)).toHaveLength(1)
       expect(getEntity(6).html()).toContain('Thu 14th Dec 2023 at 14:04')
     })
   })
@@ -96,11 +96,11 @@ describe('Entity List Component', () => {
 
     test('Should render no results message', () => {
       expect(
-        $entityList('[data-testid="app-entity-list-no-results"]').length
-      ).toEqual(1)
+        $entityList('[data-testid="app-entity-list-no-results"]')
+      ).toHaveLength(1)
       expect(
         $entityList('[data-testid="app-entity-list-no-results"]').text().trim()
-      ).toEqual('Currently there are no deployed microservices')
+      ).toBe('Currently there are no deployed microservices')
     })
   })
 })

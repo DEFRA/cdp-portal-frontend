@@ -1,4 +1,4 @@
-async function clearDeploymentsListFilters(event) {
+function clearDeploymentsListFilters(event) {
   event.preventDefault()
 
   const queryParams = new URLSearchParams(window.location.search)

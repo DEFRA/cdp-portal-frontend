@@ -45,7 +45,7 @@ describe('#autoSubmit', () => {
     })
 
     describe('When value entered into input', () => {
-      beforeEach(async () => {
+      beforeEach(() => {
         input.focus()
         input.value = 'sunshine'
 
@@ -65,7 +65,7 @@ describe('#autoSubmit', () => {
     })
 
     describe('When value submitted', () => {
-      beforeEach(async () => {
+      beforeEach(() => {
         input.focus()
         input.value = 'snow'
 
@@ -83,7 +83,7 @@ describe('#autoSubmit', () => {
     })
 
     describe('When input inside of xhr element is interacted with', () => {
-      beforeEach(async () => {
+      beforeEach(() => {
         xhrElementInput.focus()
         xhrElementInput.value = 'scooby'
         xhrElementInput.dispatchEvent(new Event('input', { bubbles: true }))
@@ -129,7 +129,7 @@ describe('#autoSubmit', () => {
     })
 
     describe('When input inside of xhr element is interacted with', () => {
-      beforeEach(async () => {
+      beforeEach(() => {
         childrenCanSubmitElementInput.focus()
         childrenCanSubmitElementInput.value = 'garfield'
         childrenCanSubmitElementInput.dispatchEvent(

@@ -2,8 +2,8 @@ import qs from 'qs'
 
 /**
  * If a route has optional parameters, and the parameter is not provided, remove it from the path
- * @param path
- * @param params
+ * @param {string} path
+ * @param {Record<string, string>} params
  * @returns {string}
  */
 function removeOptionalParams(path, params) {

@@ -15,12 +15,12 @@ describe('#userIsMemberOfATeam', () => {
 
   test('Should have scope', () => {
     const teamScopes = ['teamOneScope', 'teamTwoScope']
-    expect(checkIsMemberOfATeam(teamScopes)).toEqual(true)
+    expect(checkIsMemberOfATeam(teamScopes)).toBe(true)
   })
 
   test('Should not have scope', () => {
     const teamScopes = ['teamTenScope', 'teamElevenScope']
-    expect(checkIsMemberOfATeam(teamScopes)).toEqual(false)
+    expect(checkIsMemberOfATeam(teamScopes)).toBe(false)
   })
 })
 
@@ -38,7 +38,7 @@ describe('#userIsMemberOfATeamDecorator', () => {
 
   test('With one matching scope. Should return true', async () => {
     const serviceTeamScopes = ['teamZeroScope', 'teamElevenScope']
-    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toEqual(
+    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toBe(
       true
     )
   })
@@ -49,7 +49,7 @@ describe('#userIsMemberOfATeamDecorator', () => {
       'teamElevenScope',
       'teamTwelveScope'
     ]
-    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toEqual(
+    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toBe(
       true
     )
   })
@@ -60,7 +60,7 @@ describe('#userIsMemberOfATeamDecorator', () => {
       'teamThreeScope',
       'teamFourScope'
     ]
-    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toEqual(
+    expect(await checkIsMemberOfATeamScopeDecorator(serviceTeamScopes)).toBe(
       false
     )
   })

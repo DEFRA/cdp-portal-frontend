@@ -15,12 +15,12 @@ describe('#userIsServiceOwner', () => {
 
   test('Should have scope', () => {
     const serviceTeamScopes = ['teamOneScope', 'teamTwoScope']
-    expect(checkUserIsServiceOwner(serviceTeamScopes)).toEqual(true)
+    expect(checkUserIsServiceOwner(serviceTeamScopes)).toBe(true)
   })
 
   test('Should not have scope', () => {
     const serviceTeamScopes = ['teamFourScope', 'teamFiveScope']
-    expect(checkUserIsServiceOwner(serviceTeamScopes)).toEqual(false)
+    expect(checkUserIsServiceOwner(serviceTeamScopes)).toBe(false)
   })
 })
 
@@ -38,21 +38,17 @@ describe('#userIsServiceOwnerDecorator', () => {
 
   test('With one matching scope. Should return true', async () => {
     const serviceTeamScopes = ['teamFiveScope', 'teamElevenScope']
-    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toEqual(
-      true
-    )
+    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toBe(true)
   })
 
   test('With multiple matching scopes. Should return true', async () => {
     const serviceTeamScopes = ['teamElevenScope', 'teamTwelveScope']
-    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toEqual(
-      true
-    )
+    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toBe(true)
   })
 
   test('With no matching scopes. Should return false', async () => {
     const serviceTeamScopes = ['teamOneScope', 'teamTwoScope']
-    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toEqual(
+    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toBe(
       false
     )
   })

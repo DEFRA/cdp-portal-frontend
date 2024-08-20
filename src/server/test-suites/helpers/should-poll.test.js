@@ -8,7 +8,7 @@ describe('#shouldPoll', () => {
         { taskStatus: taskStatus.finished },
         { taskStatus: taskStatus.failed }
       ])
-    ).toEqual(false)
+    ).toBe(false)
   })
 
   test('When incomplete, should poll', () => {
@@ -18,6 +18,6 @@ describe('#shouldPoll', () => {
         { taskStatus: taskStatus.finished },
         { taskStatus: taskStatus.failed }
       ])
-    ).toEqual(true)
+    ).toBe(true)
   })
 })

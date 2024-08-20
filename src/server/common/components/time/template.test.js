@@ -19,17 +19,17 @@ describe('Time Component', () => {
   })
 
   test('Should render app time component', () => {
-    expect($time('[data-testid="app-time"]').length).toEqual(1)
+    expect($time('[data-testid="app-time"]')).toHaveLength(1)
   })
 
   test('Should contain expected rendered date', () => {
-    expect($time('[data-testid="app-time"]').text().trim()).toEqual(
+    expect($time('[data-testid="app-time"]').text().trim()).toBe(
       'Tue 11th Apr 2023 at 16:11'
     )
   })
 
   test('Should have expected datetime attribute', () => {
-    expect($time('[data-testid="app-time"]').attr('datetime')).toEqual(
+    expect($time('[data-testid="app-time"]').attr('datetime')).toBe(
       '2023-04-11T16:11:31.722Z'
     )
   })

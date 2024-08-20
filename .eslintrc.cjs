@@ -2,6 +2,12 @@
  * @type { ESLint.ConfigData }
  */
 module.exports = {
+  globals: {
+    KeyboardEvent: true,
+    Element: true,
+    HTMLElement: true,
+    location: true
+  },
   ignorePatterns: ['.server', '.public', 'src/__fixtures__', 'coverage'],
   overrides: [
     {
@@ -99,7 +105,19 @@ module.exports = {
         sourceType: 'commonjs'
       },
       rules: {
-        '@typescript-eslint/no-var-requires': 'off'
+        '@typescript-eslint/no-var-requires': 'off',
+
+        // Allow require devDependencies in config files
+        'n/no-unpublished-require': [
+          'error',
+          {
+            allowModules: [
+              'clean-webpack-plugin',
+              'mini-css-extract-plugin',
+              'webpack-assets-manifest'
+            ]
+          }
+        ]
       }
     },
     {
@@ -125,7 +143,7 @@ module.exports = {
         '@typescript-eslint/unbound-method': 'off',
         'jest/unbound-method': 'error',
 
-        // Allow devDependencies in tests
+        // Allow import devDependencies in tests
         'n/no-unpublished-import': [
           'error',
           {

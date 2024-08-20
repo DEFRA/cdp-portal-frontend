@@ -2,7 +2,7 @@ import { kebabCase, upperFirst } from 'lodash'
 
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 
-async function provideSubNavigation(request, h) {
+function provideSubNavigation(request, h) {
   const response = request.response
 
   if (response.variety === 'view') {

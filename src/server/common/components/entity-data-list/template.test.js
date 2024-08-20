@@ -54,18 +54,18 @@ describe('Entity Data List Component', () => {
     const getHeader = (headerNumber) =>
       $dataList.find(`[data-testid="app-data-list-heading-${headerNumber}"]`)
 
-    expect(getHeader(1).text().trim()).toEqual('Apples')
-    expect(getHeader(2).text().trim()).toEqual('Oranges')
-    expect(getHeader(3).text().trim()).toEqual('Pears')
+    expect(getHeader(1).text().trim()).toBe('Apples')
+    expect(getHeader(2).text().trim()).toBe('Oranges')
+    expect(getHeader(3).text().trim()).toBe('Pears')
   })
 
   test('Should render expected data list items', () => {
     const getItem = (itemNumber) =>
       $dataList.find(`[data-testid="app-data-list-item-${itemNumber}"]`)
 
-    expect(getItem(1).text().trim()).toEqual('Russet')
+    expect(getItem(1).text().trim()).toBe('Russet')
     expect(getItem(2).html().trim()).toContain('https://mock-url.io')
     expect(getItem(2).html().trim()).toContain('The man from Del monte')
-    expect(getItem(3).text().trim()).toEqual('Comice')
+    expect(getItem(3).text().trim()).toBe('Comice')
   })
 })

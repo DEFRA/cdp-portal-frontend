@@ -1,28 +1,16 @@
-// TODO this needs to be passed as a generic
 /**
- * Deployment step data
- * @typedef {Object} StepData
- * @property {string} id multistep form id
- * @property {string} imageName deployments image name
- * @property {string} version deployments version
- * @property {string} environment deployments environment
- * @property {string} instanceCount deployments instanceCount
- * @property {string} cpu deployments cpu
- * @property {string} memory deployments memory
- * @property {Record<string, boolean>} isComplete map for steps marked complete
- * @property {string} button form button name, one of "save", "next" or if not js, "search"
- * @property {string} [redirectLocation] the path to redirect to, if present this is "summary"
+ * @typedef {object} Options
+ * @property {string} id
+ * @property {StepData} data
+ * @property {string} path
+ * @property {ResponseToolkit} h
+ * @property {Yar} yar
+ * @property {Logger} logger
+ * @property {Function} getStepByPath
  */
-
 /**
  * Save the current step data to the session and set the step as complete
- * @param {string} id
- * @param {StepData} data
- * @param {string} path
- * @param {ResponseToolkit} h
- * @param {Yar} yar
- * @param {Logger} logger
- * @param {function} getStepByPath
+ * @param {Options} options
  * @returns {Promise<void>}
  */
 async function saveStepData({ id, data, path, h, yar, logger, getStepByPath }) {
@@ -55,10 +43,16 @@ async function saveStepData({ id, data, path, h, yar, logger, getStepByPath }) {
 /**
  * Save step data request helper
  * @param {Request} request
- * @param {function} getStepByPath
- * @returns {function(id: {string}, data: {object}, h: {ResponseToolkit}): Promise<void>}
+ * @param {Function} getStepByPath
+ * @returns {function(*, *, *): Promise<void>}
  */
 function saveStepDataRequestHelper(request, getStepByPath) {
+  /**
+   * Save step data request helper
+   * @param {string} id
+   * @param {object} data
+   * @param {ResponseToolkit} h
+   */
   return (id, data, h) =>
     saveStepData({
       id,

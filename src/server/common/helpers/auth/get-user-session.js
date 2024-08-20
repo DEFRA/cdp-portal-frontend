@@ -1,19 +1,22 @@
 /**
- * @typedef {Object} userSession
- * @property {string} userSession.id
- * @property {string} userSession.email
- * @property {string} userSession.displayName
- * @property {string} userSession.loginHint
- * @property {boolean} userSession.isAuthenticated
- * @property {string} userSession.token
- * @property {string} userSession.refreshToken
- * @property {boolean} userSession.isAdmin
- * @property {boolean} userSession.isTenant
- * @property {boolean} userSession.user
- * @property {Array<string>} userSession.scope - users groups
- * @property {Date} userSession.expiresAt
- *
- * @returns {Promise<userSession|{}>}
+ * @typedef {object} UserSession
+ * @property {string} id
+ * @property {string} email
+ * @property {string} displayName
+ * @property {string} loginHint
+ * @property {boolean} isAuthenticated
+ * @property {string} token
+ * @property {string} refreshToken
+ * @property {boolean} isAdmin
+ * @property {boolean} isTenant
+ * @property {boolean} user
+ * @property {string[]} scope - users groups
+ * @property {Date} expiresAt
+ */
+
+/**
+ * Get the user session from the cache
+ * @returns {Promise<UserSession|{}>}
  */
 async function getUserSession() {
   const sessionId = this.state?.userSession?.sessionId

@@ -5,6 +5,7 @@ function userIsServiceOwner(authedUser) {
 }
 
 function userIsServiceOwnerDecorator(request) {
+  /** @param {string[]} teamScopes */
   return async (teamScopes) => {
     const authedUser = await request.getUserSession()
 

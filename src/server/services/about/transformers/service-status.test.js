@@ -146,8 +146,8 @@ describe('#serviceStatus', () => {
       value: 'in-progress'
     })
 
-    expect(result.hasJobFailures).toEqual(false)
-    expect(result.progress.complete).toEqual(1)
-    expect(result.progress.total).toEqual(6)
+    expect(result.hasJobFailures).toBe(false)
+    expect(result.progress.complete).toBe(1)
+    expect(result.progress.total).toBe(6)
   })
 })

@@ -1,6 +1,6 @@
 /**
  * @summary Gets authenticated users scope/groups
- * @param request Request
+ * @param {Request} request
  * @returns {Promise<string[]>}
  */
 async function getUserGroups(request) {
@@ -9,3 +9,6 @@ async function getUserGroups(request) {
 }
 
 export { getUserGroups }
+/**
+ * @import {Request} from '@hapi/hapi'
+ */

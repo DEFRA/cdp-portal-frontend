@@ -8,10 +8,9 @@ import { noValue } from '~/src/server/common/constants/no-value'
 /**
  * Transforms secrets for a given environment by filtering out platform global keys and placeholders,
  * and categorizing them into service secrets and platform secrets.
- *
- * @param {Object} secrets - The secrets object containing keys and optional pending keys.
- * @param {Array<string>} [platformGlobalSecretKeys=config.get('platformGlobalSecretKeys')] - The list of platform global secret keys.
- * @returns {Object} An object containing:
+ * @param {object} secrets - The secrets object containing keys and optional pending keys.
+ * @param {string[]} [platformGlobalSecretKeys] - The list of platform global secret keys defaults to config.get('platformGlobalSecretKeys').
+ * @returns {object} An object containing:
  *   - serviceSecrets: The filtered and sorted service secrets.
  *   - platformSecrets: The platform secrets with descriptions.
  *   - shouldPoll: A boolean indicating if polling is needed.

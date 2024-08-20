@@ -42,21 +42,21 @@ describe('Entity Component', () => {
     })
 
     test('Should render with a link', () => {
-      expect(
-        $linkEntity.find('[data-testid="app-entity-link"]').length
-      ).toEqual(1)
+      expect($linkEntity.find('[data-testid="app-entity-link"]')).toHaveLength(
+        1
+      )
     })
 
     test('Link should have expected link text', () => {
       expect(
         $linkEntity.find('[data-testid="app-entity-link"]').text().trim()
-      ).toEqual('Rod License Service')
+      ).toBe('Rod License Service')
     })
 
     test('Link should have expected "href"', () => {
       expect(
         $linkEntity.find('[data-testid="app-entity-link"]').attr('href')
-      ).toEqual('/deployments/12345678')
+      ).toBe('/deployments/12345678')
     })
 
     test('Should not have target attribute', () => {
@@ -82,7 +82,7 @@ describe('Entity Component', () => {
     test('Should not have target attribute', () => {
       expect(
         $linkEntity.find('[data-testid="app-entity-link"]').attr('target')
-      ).toEqual('_blank')
+      ).toBe('_blank')
     })
   })
 
@@ -99,11 +99,11 @@ describe('Entity Component', () => {
     })
 
     test('Should render GovUK Tag component', () => {
-      expect($tagEntity.find('[data-testid="govuk-tag"]').length).toEqual(1)
+      expect($tagEntity.find('[data-testid="govuk-tag"]')).toHaveLength(1)
     })
 
     test('Should contain expected content', () => {
-      expect($tagEntity.text().trim()).toEqual('Production')
+      expect($tagEntity.text().trim()).toBe('Production')
     })
   })
 
@@ -122,21 +122,19 @@ describe('Entity Component', () => {
     })
 
     test('Should render GovUK Tag component wrapped in a link', () => {
-      expect($tagEntity.find('[data-testid="app-entity-link"]').length).toEqual(
-        1
-      )
+      expect($tagEntity.find('[data-testid="app-entity-link"]')).toHaveLength(1)
     })
 
     test('Should contain expected href', () => {
       expect(
         $tagEntity.find('[data-testid="app-entity-link"]').attr('href')
-      ).toEqual('https://chocolate.com')
+      ).toBe('https://chocolate.com')
     })
 
     test('Should contain expected target', () => {
       expect(
         $tagEntity.find('[data-testid="app-entity-link"]').attr('target')
-      ).toEqual('_blank')
+      ).toBe('_blank')
     })
   })
 
@@ -161,19 +159,19 @@ describe('Entity Component', () => {
     })
 
     test('Should render app time component', () => {
-      expect($dateEntity.find('[data-testid="app-time"]').length).toEqual(1)
+      expect($dateEntity.find('[data-testid="app-time"]')).toHaveLength(1)
     })
 
     test('Should contain expected rendered date', () => {
-      expect(
-        $dateEntity.find('[data-testid="app-time"]').text().trim()
-      ).toEqual('Tue 11th Apr 2023 at 14:40')
+      expect($dateEntity.find('[data-testid="app-time"]').text().trim()).toBe(
+        'Tue 11th Apr 2023 at 14:40'
+      )
     })
 
     test('Should have expected datetime attribute', () => {
       expect(
         $dateEntity.find('[data-testid="app-time"]').attr('datetime')
-      ).toEqual('2023-04-11T14:40:02.242Z')
+      ).toBe('2023-04-11T14:40:02.242Z')
     })
   })
 
@@ -199,19 +197,19 @@ describe('Entity Component', () => {
     })
 
     test('Should render app time component', () => {
-      expect($dateEntity.find('[data-testid="app-time"]').length).toEqual(1)
+      expect($dateEntity.find('[data-testid="app-time"]')).toHaveLength(1)
     })
 
     test('Should contain expected rendered date', () => {
-      expect(
-        $dateEntity.find('[data-testid="app-time"]').text().trim()
-      ).toEqual('Thu 11th Apr 2024 at 14:40:02')
+      expect($dateEntity.find('[data-testid="app-time"]').text().trim()).toBe(
+        'Thu 11th Apr 2024 at 14:40:02'
+      )
     })
 
     test('Should have expected datetime attribute', () => {
       expect(
         $dateEntity.find('[data-testid="app-time"]').attr('datetime')
-      ).toEqual('2024-04-11T14:40:02.242Z')
+      ).toBe('2024-04-11T14:40:02.242Z')
     })
   })
 
@@ -228,11 +226,11 @@ describe('Entity Component', () => {
     })
 
     test('Should render as expected', () => {
-      expect($textEntity.text().trim()).toEqual('0.1.0')
+      expect($textEntity.text().trim()).toBe('0.1.0')
     })
 
     test('Should render with expected title', () => {
-      expect($textEntity.attr('title')).toEqual('Something wonderful here')
+      expect($textEntity.attr('title')).toBe('Something wonderful here')
     })
   })
 
@@ -247,7 +245,7 @@ describe('Entity Component', () => {
     })
 
     test('Should render as expected', () => {
-      expect($htmlEntity.text().trim()).toEqual('Green tea rocks')
+      expect($htmlEntity.text().trim()).toBe('Green tea rocks')
     })
   })
 
@@ -277,15 +275,15 @@ describe('Entity Component', () => {
     })
 
     test('Should render expected time entity', () => {
-      expect($dateEntity.text().trim()).toEqual('Wed 12th Apr 2023 at 17:16')
+      expect($dateEntity.text().trim()).toBe('Wed 12th Apr 2023 at 17:16')
     })
 
     test('Link should have expected link text', () => {
-      expect($linkEntity.text().trim()).toEqual('Super animals')
+      expect($linkEntity.text().trim()).toBe('Super animals')
     })
 
     test('Link should have expected "href"', () => {
-      expect($linkEntity.attr('href')).toEqual(
+      expect($linkEntity.attr('href')).toBe(
         '/animal/aabe63e7-87ef-4beb-a596-c810631fc474'
       )
     })
@@ -316,11 +314,11 @@ describe('Entity Component', () => {
     })
 
     test('Should render expected first tag entity', () => {
-      expect($firstTag.text().trim()).toEqual('Frontend')
+      expect($firstTag.text().trim()).toBe('Frontend')
     })
 
     test('Link should have expected second tag entity', () => {
-      expect($secondTag.text().trim()).toEqual('Backend')
+      expect($secondTag.text().trim()).toBe('Backend')
     })
   })
 })

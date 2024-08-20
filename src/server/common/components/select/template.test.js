@@ -19,14 +19,14 @@ describe('App select with loader Component', () => {
   })
 
   test('Should render select', () => {
-    expect($select.length).toEqual(1)
+    expect($select).toHaveLength(1)
   })
 
   test('Should render select loader', () => {
-    expect($selectLoader.length).toEqual(1)
+    expect($selectLoader).toHaveLength(1)
   })
 
   test('Should render select loader with expected js attribute', () => {
-    expect($selectLoader.attr('data-js')).toEqual('app-select-loader')
+    expect($selectLoader.attr('data-js')).toBe('app-select-loader')
   })
 })

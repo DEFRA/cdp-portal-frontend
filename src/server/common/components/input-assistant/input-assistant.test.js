@@ -20,7 +20,7 @@ describe('#inputAssistant', () => {
                data-input-assistant-target-id="input-assistant"
                data-testid="app-input" />
 
-        ${$component('[data-testid="app-input-assistant"]')}
+        ${$component('[data-testid="app-input-assistant"]').toString()}
       </div>`
 
     // Init ClientSide JavaScript
@@ -48,7 +48,7 @@ describe('#inputAssistant', () => {
       inputElem.value = 'awesome-service'
       inputElem.dispatchEvent(event)
 
-      expect(inputAssistantElem.textContent).toEqual('')
+      expect(inputAssistantElem.textContent).toBe('')
     })
   })
 
@@ -62,7 +62,7 @@ describe('#inputAssistant', () => {
       inputElem.value = 'awesome-new-service'
       inputElem.dispatchEvent(event)
 
-      expect(inputAssistantElem.textContent).toEqual(
+      expect(inputAssistantElem.textContent).toBe(
         "Have a read of 'Naming your microservice best practice'"
       )
     })

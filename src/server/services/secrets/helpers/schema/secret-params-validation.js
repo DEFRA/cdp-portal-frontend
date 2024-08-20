@@ -4,8 +4,9 @@ import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/
 
 /**
  * Validation for secret params
- * @param params
- * @param options
+ * @param {Record<string, string>} params
+ * @param {ValidationOptions} options
+ * @returns {any}
  */
 function secretParamsValidation(params, options) {
   const service = options.context.app.request.service
@@ -25,3 +26,7 @@ function secretParamsValidation(params, options) {
 }
 
 export { secretParamsValidation }
+
+/**
+ * import('Joi').ValidationOptions
+ */

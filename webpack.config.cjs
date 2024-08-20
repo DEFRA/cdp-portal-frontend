@@ -57,6 +57,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            browserslistEnv: 'javascripts',
+            cacheDirectory: true,
             presets: [['@babel/preset-env']]
           }
         }
@@ -121,5 +123,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[name].[fullhash].css'
     })
-  ]
+  ],
+  target: 'browserslist:javascripts'
 }

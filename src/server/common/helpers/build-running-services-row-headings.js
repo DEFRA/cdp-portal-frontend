@@ -1,6 +1,6 @@
 import { kebabCase, upperFirst } from 'lodash'
 
-function buildRunningServicesRowHeadings(environments, size) {
+function buildRunningServicesRowHeadings(environments) {
   return [
     ...Object.keys(environments).map((key) => ({
       text: upperFirst(kebabCase(key)),

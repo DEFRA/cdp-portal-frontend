@@ -65,7 +65,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabs.length).toEqual(2)
+      expect(mockResponse.source.context.tabs).toHaveLength(2)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -130,7 +130,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabs.length).toEqual(2)
+      expect(mockResponse.source.context.tabs).toHaveLength(2)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -187,7 +187,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}`
         }
       ])
-      expect(mockResponse.source.context.tabs.length).toEqual(1)
+      expect(mockResponse.source.context.tabs).toHaveLength(1)
     })
 
     test('Should mark matching url as Active', async () => {

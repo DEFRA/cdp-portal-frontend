@@ -33,12 +33,12 @@ describe('#banner', () => {
   })
 
   test('Should display the banner', () => {
-    expect(bannerElem.textContent.trim()).toEqual('Total and utter success!')
+    expect(bannerElem.textContent.trim()).toBe('Total and utter success!')
     expect(bannerElem.getAttribute('class')).toContain('app-banner--success')
   })
 
   test('Should not display the banner after removal period', () => {
-    expect(bannerElem.textContent.trim()).toEqual('Total and utter success!')
+    expect(bannerElem.textContent.trim()).toBe('Total and utter success!')
 
     jest.advanceTimersByTime(40000)
 

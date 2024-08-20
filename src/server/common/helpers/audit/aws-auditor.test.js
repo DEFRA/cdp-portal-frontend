@@ -30,7 +30,8 @@ describe('#AwsAuditor', () => {
       await auditor.send('example-message')
 
       expect(mockErrorLogger).toHaveBeenCalledWith(
-        `Audit invalid payload - Request id: undefined: ValidationError: "cdpRequestId" is required`
+        'cdpRequestId is required',
+        'Audit invalid payload - Request id: undefined'
       )
       expect(mockFirehoseSend).not.toHaveBeenCalled()
     })
@@ -110,7 +111,8 @@ describe('#AwsAuditor', () => {
         await auditor.send(null, { foo: 'bar' })
 
         expect(mockErrorLogger).toHaveBeenCalledWith(
-          `Audit invalid payload - Request id: mock-x-cdp-request-id: ValidationError: "message" contains an invalid value`
+          'message contains an invalid value',
+          'Audit invalid payload - Request id: mock-x-cdp-request-id'
         )
         expect(mockFirehoseSend).not.toHaveBeenCalled()
       })

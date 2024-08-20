@@ -16,7 +16,7 @@ function tabs($module) {
     $tabs.forEach(($tab) => prependQueryParams($tab, params))
   })
 
-  history.listen(({ _action, location }) => {
+  history.listen(({ location }) => {
     const destinationParams = qs.parse(location.search, {
       ignoreQueryPrefix: true
     })

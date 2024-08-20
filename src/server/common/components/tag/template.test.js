@@ -29,7 +29,7 @@ describe('Tag Component', () => {
     })
 
     test('Should have expected text', () => {
-      expect($tag.text().trim()).toEqual('Not today')
+      expect($tag.text().trim()).toBe('Not today')
     })
 
     test('Should render with expected additional class', () => {
@@ -41,11 +41,11 @@ describe('Tag Component', () => {
     })
 
     test('Should contain expected href', () => {
-      expect($link.attr('href')).toEqual('https://apples.com')
+      expect($link.attr('href')).toBe('https://apples.com')
     })
 
     test('Should contain expected target', () => {
-      expect($link.attr('target')).toEqual('_blank')
+      expect($link.attr('target')).toBe('_blank')
     })
 
     test('Should contain expected link classes', () => {

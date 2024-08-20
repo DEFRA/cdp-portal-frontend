@@ -2,7 +2,7 @@ import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/
 
 const mockRequest = (auth, pre = {}, isMemberOfATeam = false) => ({
   pre,
-  getUserSession: async () => auth,
+  getUserSession: () => auth,
   userIsMemberOfATeam: () => isMemberOfATeam
 })
 

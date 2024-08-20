@@ -2,36 +2,34 @@ import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpe
 
 describe('#getDeploymentStatusClassname', () => {
   test('Should provide expected "running" className', () => {
-    expect(provideDeploymentStatusClassname('running')).toEqual(
-      'govuk-tag--green'
-    )
+    expect(provideDeploymentStatusClassname('running')).toBe('govuk-tag--green')
   })
 
   test('Should provide expected "stopping" className', () => {
-    expect(provideDeploymentStatusClassname('stopping')).toEqual(
+    expect(provideDeploymentStatusClassname('stopping')).toBe(
       'govuk-tag--purple'
     )
   })
 
   test('Should provide expected "pending" className', () => {
-    expect(provideDeploymentStatusClassname('pending')).toEqual(
+    expect(provideDeploymentStatusClassname('pending')).toBe(
       'govuk-tag--purple'
     )
   })
 
   test('Should provide expected "requested" className', () => {
-    expect(provideDeploymentStatusClassname('requested')).toEqual(
+    expect(provideDeploymentStatusClassname('requested')).toBe(
       'govuk-tag--purple'
     )
   })
 
   test('Should provide expected "stopped" className', () => {
-    expect(provideDeploymentStatusClassname('stopped')).toEqual(
+    expect(provideDeploymentStatusClassname('stopped')).toBe(
       'govuk-tag--light-blue'
     )
   })
 
   test('Should provide expected default className', () => {
-    expect(provideDeploymentStatusClassname()).toEqual('govuk-tag--grey')
+    expect(provideDeploymentStatusClassname()).toBe('govuk-tag--grey')
   })
 })
