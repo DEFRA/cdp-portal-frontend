@@ -83,7 +83,8 @@ describe('#DevAuditor', () => {
       await auditor.send(null, { foo: 'bar' })
 
       expect(mockErrorLogger).toHaveBeenCalledWith(
-        `Mock Audit Invalid payload - Request id: x-cdp-request-id-header-not-set: ValidationError: "message" contains an invalid value`
+        'message contains an invalid value',
+        'Mock Audit Invalid payload - Request id: x-cdp-request-id-header-not-set'
       )
     })
   })

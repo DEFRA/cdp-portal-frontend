@@ -1,3 +1,4 @@
+/** @type {Record<string, string>} */
 const urls = {
   stepOne: '/deploy-service/details',
   stepTwo: '/deploy-service/options',
@@ -5,8 +6,23 @@ const urls = {
 }
 
 /**
+ * Deployment step data
+ * @typedef {object} StepData
+ * @property {string} id multistep form id
+ * @property {string} imageName deployments image name
+ * @property {string} version deployments version
+ * @property {string} environment deployments environment
+ * @property {string} instanceCount deployments instanceCount
+ * @property {string} cpu deployments cpu
+ * @property {string} memory deployments memory
+ * @property {Record<string, boolean>} isComplete map for steps marked complete
+ * @property {string} button form button name, one of "save", "next" or if not js, "search"
+ * @property {string} [redirectLocation] the path to redirect to, if present this is "summary"
+ */
+
+/**
  * Form steps
- * @typedef {Object} FormStep
+ * @typedef {object} FormStep
  * @property {string} [url] - url path for the step. If not present, this is usually the last step
  * @property {boolean} isComplete - boolean automatically provided by the multistep-form session data
  * @property {boolean} isCurrent - boolean match on the steps url path
@@ -15,10 +31,10 @@ const urls = {
 
 /**
  * Returns the objects that control the form steps
- * @param path
- * @param multiStepFormId
- * @param stepData
- * @param isMultistepComplete
+ * @param {string} path
+ * @param {string} multiStepFormId
+ * @param {StepData} stepData
+ * @param {Function} isMultistepComplete
  * @returns {Array<FormStep>}
  */
 function formSteps(path, multiStepFormId, stepData, isMultistepComplete) {

@@ -1,9 +1,8 @@
 /**
  * Returns a user-friendly version of the last deployment message.
  * We infer from the task status vs deployment status what in-progress actually means.
- *
  * @param {{status: string, lastDeploymentStatus: string, lastDeploymentMessage:string}} deployment
- * @return string
+ * @returns {string} message
  */
 import { deploymentStatus } from '~/src/server/deployments/constants/status'
 
@@ -33,7 +32,7 @@ function provideEcsDeploymentStatus(deployment) {
  *
  * @param {string} taskStatus
  * @param {string }lastDeploymentMessage
- * @return {string}
+ * @returns {string} message
  */
 function generateInProgressMessage(taskStatus, lastDeploymentMessage) {
   if (lastDeploymentMessage?.endsWith('in progress.')) {

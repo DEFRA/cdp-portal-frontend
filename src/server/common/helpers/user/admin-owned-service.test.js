@@ -7,7 +7,7 @@ describe('#adminOwnedService', () => {
 
     const result = adminOwnedService(teamScopes, oidcAdminGroupId)
 
-    expect(result).toEqual(true)
+    expect(result).toBe(true)
   })
 
   test('Should return false if teamScopes does not include oidcAdminGroupId', () => {
@@ -16,7 +16,7 @@ describe('#adminOwnedService', () => {
 
     const result = adminOwnedService(teamScopes, oidcAdminGroupId)
 
-    expect(result).toEqual(false)
+    expect(result).toBe(false)
   })
 
   test('Should return false if teamScopes is empty', () => {
@@ -25,6 +25,6 @@ describe('#adminOwnedService', () => {
 
     const result = adminOwnedService(teamScopes, oidcAdminGroupId)
 
-    expect(result).toEqual(false)
+    expect(result).toBe(false)
   })
 })

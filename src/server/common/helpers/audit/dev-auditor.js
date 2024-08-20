@@ -3,10 +3,10 @@ import { isUndefined } from 'lodash'
 import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
 import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
 import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
+import { sanitize } from '~/src/server/common/helpers/sanitize'
 
 /**
  * A development audit client for local development.
- *
  * DevAuditor uses the same payload validation as the real auditor, so you can test your audit message
  * generation in development.
  */
@@ -17,7 +17,7 @@ class DevAuditor {
     this.request = options.request
   }
 
-  async send(message, tags = {}) {
+  send(message, tags = {}) {
     const cdpRequestId = 'x-cdp-request-id-header-not-set'
     this.logger.info(`Mock Audit - Request id: ${cdpRequestId}`)
 
@@ -31,7 +31,8 @@ class DevAuditor {
 
     if (!isUndefined(error)) {
       this.logger.error(
-        `Mock Audit Invalid payload - Request id: ${cdpRequestId}: ${error}`
+        sanitize(error.message),
+        `Mock Audit Invalid payload - Request id: ${cdpRequestId}`
       )
       return
     }
@@ -47,14 +48,18 @@ class DevAuditor {
     )
   }
 
-  async sendMessage(message, tags = {}) {
+  sendMessage(message, tags = {}) {
     const { error: validationError, value: validatedPayload } =
       auditMessageSchema.validate(auditMessage(message))
 
     if (!isUndefined(validationError)) {
-      this.logger.error(`Audit invalid message payload: ${validationError}`)
+      this.logger.error(
+        sanitize(validationError.message),
+        'Audit invalid message payload'
+      )
       return
     }
+
     this.send(validatedPayload, tags)
   }
 }

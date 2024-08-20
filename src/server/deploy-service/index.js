@@ -26,8 +26,8 @@ const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 const deployService = {
   plugin: {
     name: 'deploy service',
-    register: (server) => {
-      server.register({
+    register: async (server) => {
+      await server.register({
         plugin: multistepForm,
         options: {
           urls,

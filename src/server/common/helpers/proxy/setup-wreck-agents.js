@@ -4,7 +4,7 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger'
 
 /**
  * Provide Wreck http client agents
- * @param proxy
+ * @param {ProxyAgent} proxy
  */
 function setupWreckAgents(proxy) {
   if (proxy?.agent) {
@@ -19,3 +19,6 @@ function setupWreckAgents(proxy) {
 }
 
 export { setupWreckAgents }
+/**
+ * import {ProxyAgent} from '~/src/server/common/helpers/proxy/proxy-agent.js'
+ */

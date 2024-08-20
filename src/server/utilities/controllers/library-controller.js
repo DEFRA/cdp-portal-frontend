@@ -8,7 +8,7 @@ const libraryController = {
   options: {
     validate: {
       params: Joi.object({
-        libraryId: Joi.string().required
+        libraryId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

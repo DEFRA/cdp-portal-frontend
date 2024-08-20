@@ -3,7 +3,7 @@
 /**
  * Client Side Notification
  * @param {string} textContent
- * @param {Kind} [kind='error'] - defaults to an error banner
+ * @param {Kind} [kind] - defaults to an error banner
  */
 function clientNotification(textContent, kind = 'error') {
   const $clientNotification = document.querySelector(

@@ -2,15 +2,15 @@ import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 
 describe('#removeUrlParts', () => {
   test('Should remove host from url', () => {
-    expect(removeUrlParts('https://superawesome.com/best/page/ever')).toEqual(
+    expect(removeUrlParts('https://superawesome.com/best/page/ever')).toBe(
       'best/page/ever'
     )
   })
 
   test('Should remove host and first part of path from url', () => {
-    expect(
-      removeUrlParts('https://superawesome.com/best/page/ever', 4)
-    ).toEqual('page/ever')
+    expect(removeUrlParts('https://superawesome.com/best/page/ever', 4)).toBe(
+      'page/ever'
+    )
   })
 
   describe('When url is falsey', () => {

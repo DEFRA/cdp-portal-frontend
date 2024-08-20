@@ -20,7 +20,6 @@ Portal Frontend for Core Delivery Platform (CDP)
       - [Debugging nock](#debugging-nock)
     - [Code Quality](#code-quality)
     - [Code formatting](#code-formatting)
-  - [Local JSON API](#local-json-api)
   - [Creating icons](#creating-icons)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
@@ -189,14 +188,6 @@ To format code:
 
 ```bash
 npm run format
-```
-
-### Local JSON API
-
-Whilst the APIs are being developed this app uses a local JSON mock API. To start this locally run:
-
-```bash
-npm run mockApi
 ```
 
 ### Creating icons

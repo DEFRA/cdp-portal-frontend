@@ -209,7 +209,7 @@ describe('#provideFormContextValues', () => {
           buildMockRequest(),
           mockResponseToolkit
         )
-      ).toEqual('mockContinue')
+      ).toBe('mockContinue')
     })
   })
 })

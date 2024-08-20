@@ -15,7 +15,7 @@ const testSuiteStatusController = {
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const testSuite = request.pre.service
 
     if (!testSuite) {

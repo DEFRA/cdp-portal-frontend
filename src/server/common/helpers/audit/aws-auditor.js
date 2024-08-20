@@ -4,6 +4,7 @@ import { fromNodeProviderChain } from '@aws-sdk/credential-providers'
 import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
 import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
 import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
+import { sanitize } from '~/src/server/common/helpers/sanitize'
 
 class AwsAuditor {
   constructor(options) {
@@ -39,7 +40,8 @@ class AwsAuditor {
 
     if (!isUndefined(validationError)) {
       this.logger.error(
-        `Audit invalid payload - Request id: ${cdpRequestId}: ${validationError}`
+        sanitize(validationError.message),
+        `Audit invalid payload - Request id: ${cdpRequestId}`
       )
       return
     }
@@ -74,10 +76,14 @@ class AwsAuditor {
       auditMessageSchema.validate(auditMessage(message))
 
     if (!isUndefined(validationError)) {
-      this.logger.error(`Audit invalid message payload: ${validationError}`)
+      this.logger.error(
+        sanitize(validationError.message),
+        'Audit invalid message payload'
+      )
       return
     }
-    this.send(validatedPayload, tags)
+
+    await this.send(validatedPayload, tags)
   }
 }
 

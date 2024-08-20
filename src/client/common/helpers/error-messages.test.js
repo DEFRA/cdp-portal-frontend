@@ -58,9 +58,9 @@ describe('#errorMessages', () => {
       )
       const errors = inputFormGroup.querySelectorAll('[data-js="app-error"]')
 
-      expect(errors.length).toEqual(0)
-      expect(inputFormGroup.className).toEqual('app-form-group-js')
-      expect(input.className).toEqual('')
+      expect(errors).toHaveLength(0)
+      expect(inputFormGroup.className).toBe('app-form-group-js')
+      expect(input.className).toBe('')
     })
 
     test('Other form group errors should remain', () => {
@@ -69,12 +69,12 @@ describe('#errorMessages', () => {
       )
       const errors = selectFormGroup.querySelectorAll('[data-js="app-error"]')
 
-      expect(errors.length).toEqual(1)
-      expect(errors[0].textContent.trim()).toEqual('Choose an entry')
-      expect(selectFormGroup.className).toEqual(
+      expect(errors).toHaveLength(1)
+      expect(errors[0].textContent.trim()).toBe('Choose an entry')
+      expect(selectFormGroup.className).toBe(
         'govuk-form-group--error app-form-group-js'
       )
-      expect(select.className).toEqual('govuk-select--error')
+      expect(select.className).toBe('govuk-select--error')
     })
   })
 
@@ -91,9 +91,9 @@ describe('#errorMessages', () => {
       )
       const errors = selectFormGroup.querySelectorAll('[data-js="app-error"]')
 
-      expect(errors.length).toEqual(0)
-      expect(selectFormGroup.className).toEqual('app-form-group-js')
-      expect(select.className).toEqual('')
+      expect(errors).toHaveLength(0)
+      expect(selectFormGroup.className).toBe('app-form-group-js')
+      expect(select.className).toBe('')
     })
 
     test('Other form group errors should remain', () => {
@@ -102,12 +102,12 @@ describe('#errorMessages', () => {
       )
       const errors = inputFormGroup.querySelectorAll('[data-js="app-error"]')
 
-      expect(errors.length).toEqual(1)
-      expect(errors[0].textContent.trim()).toEqual('Enter value')
-      expect(inputFormGroup.className).toEqual(
+      expect(errors).toHaveLength(1)
+      expect(errors[0].textContent.trim()).toBe('Enter value')
+      expect(inputFormGroup.className).toBe(
         'govuk-form-group--error app-form-group-js'
       )
-      expect(input.className).toEqual('govuk-input--error')
+      expect(input.className).toBe('govuk-input--error')
     })
   })
 })

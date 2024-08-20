@@ -1,7 +1,7 @@
 import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
 
 describe('#auditMessage', () => {
-  test('Should create json with repository and user', async () => {
+  test('Should create json with repository and user', () => {
     const result = auditMessage({
       event: 'audit event',
       data: { repository: 'repository name' },
@@ -22,7 +22,7 @@ describe('#auditMessage', () => {
     })
   })
 
-  test('Should create json without repository', async () => {
+  test('Should create json without repository', () => {
     const result = auditMessage({
       event: 'audit event',
       user: {
@@ -41,7 +41,7 @@ describe('#auditMessage', () => {
     })
   })
 
-  test('Should have user without email', async () => {
+  test('Should have user without email', () => {
     const result = auditMessage({
       event: 'audit event',
       user: {
@@ -58,7 +58,7 @@ describe('#auditMessage', () => {
     })
   })
 
-  test('Should allow without event', async () => {
+  test('Should allow without event', () => {
     const result = auditMessage({
       user: {
         id: 'id',

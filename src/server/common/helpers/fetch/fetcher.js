@@ -5,9 +5,8 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger'
 import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error'
 
 /**
- *
- * @param url
- * @param options
+ * @param {string} url
+ * @param {RequestOptions} options
  * @returns {Promise<{response: ({ok}|*), json: *}>}
  */
 async function fetcher(url, options = {}) {
@@ -40,3 +39,6 @@ async function fetcher(url, options = {}) {
 }
 
 export { fetcher }
+/**
+ * import { RequestOptions } from 'node-fetch'
+ */

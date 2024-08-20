@@ -49,7 +49,7 @@ describe('#checkNameAvailability', () => {
     expect(mockHelpers.message).toHaveBeenCalledWith({
       external: 'Name is already being used'
     })
-    expect(response).toEqual('mock-message-helper-return')
+    expect(response).toBe('mock-message-helper-return')
   })
 
   test('With matching in progress service name. Should provide not available response', async () => {
@@ -66,6 +66,6 @@ describe('#checkNameAvailability', () => {
     expect(mockHelpers.message).toHaveBeenCalledWith({
       external: 'Name is already being used'
     })
-    expect(response).toEqual('mock-message-helper-return')
+    expect(response).toBe('mock-message-helper-return')
   })
 })

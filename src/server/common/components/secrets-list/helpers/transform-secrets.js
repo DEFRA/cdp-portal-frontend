@@ -5,10 +5,9 @@ import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
 
 /**
  * Transforms the given secrets by excluding certain keys and sorting the remaining keys.
- *
- * @param {Object} secrets - The secrets object containing keys and lastChangedDate.
- * @param {Array<string>} [platformGlobalSecretKeys=config.get('platformGlobalSecretKeys')] - The keys to be excluded from the secrets.
- * @returns {Object} An object containing the transformed keys, platform keys, and the last changed date.
+ * @param {object} secrets - The secrets object containing keys and lastChangedDate.
+ * @param {string[]} [platformGlobalSecretKeys] - The keys to be excluded from the secrets. Defaults to config.get('platformGlobalSecretKeys')
+ * @returns {object} An object containing the transformed keys, platform keys, and the last changed date.
  */
 function transformSecrets(
   secrets,

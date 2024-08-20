@@ -16,7 +16,7 @@ const testSuiteResultsController = {
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: async (request, h) => h.redirect(request.pre.presignedUrl)
+  handler: (request, h) => h.redirect(request.pre.presignedUrl)
 }
 
 export { testSuiteResultsController }

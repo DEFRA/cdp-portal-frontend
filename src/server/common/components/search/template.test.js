@@ -21,20 +21,20 @@ describe('Search Component', () => {
   test('Should render with expected label', () => {
     const $label = $searchFormGroup.find('[data-testid="app-search-label"]')
 
-    expect($label.length).toEqual(1)
-    expect($label.text().trim()).toEqual('Search me')
+    expect($label).toHaveLength(1)
+    expect($label.text().trim()).toBe('Search me')
   })
 
   test('Should render with expected hint input', () => {
     const $hint = $searchFormGroup.find('[data-testid="app-search-hint"]')
 
-    expect($hint.length).toEqual(1)
-    expect($hint.text().trim()).toEqual('Search for deployments by name')
+    expect($hint).toHaveLength(1)
+    expect($hint.text().trim()).toBe('Search for deployments by name')
   })
 
   test('Should render with expected search input', () => {
     expect(
-      $searchFormGroup.find('[data-testid="app-search-input"]').length
-    ).toEqual(1)
+      $searchFormGroup.find('[data-testid="app-search-input"]')
+    ).toHaveLength(1)
   })
 })

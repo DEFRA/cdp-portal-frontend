@@ -32,11 +32,11 @@ describe('#toggleProtectedInputs', () => {
     })
 
     test('Form should have expected protect attribute', () => {
-      expect(form.dataset.protect).toEqual('true')
+      expect(form.dataset.protect).toBe('true')
     })
 
     test('Inputs should be disabled', () => {
-      expect(selectInput.getAttribute('disabled')).toEqual('disabled')
+      expect(selectInput.getAttribute('disabled')).toBe('disabled')
     })
 
     test('Expected hidden input should have been created', () => {
@@ -44,9 +44,9 @@ describe('#toggleProtectedInputs', () => {
         'instanceCount-protected-hidden'
       )
 
-      expect(hiddenInput.id).toEqual('instanceCount-protected-hidden')
-      expect(hiddenInput.name).toEqual('instanceCount')
-      expect(hiddenInput.value).toEqual('1')
+      expect(hiddenInput.id).toBe('instanceCount-protected-hidden')
+      expect(hiddenInput.name).toBe('instanceCount')
+      expect(hiddenInput.value).toBe('1')
     })
   })
 
@@ -57,7 +57,7 @@ describe('#toggleProtectedInputs', () => {
     })
 
     test('Form should have expected protect attribute', () => {
-      expect(form.dataset.protect).toEqual('false')
+      expect(form.dataset.protect).toBe('false')
     })
 
     test('Inputs should not be disabled', () => {

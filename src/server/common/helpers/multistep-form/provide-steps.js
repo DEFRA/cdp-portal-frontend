@@ -2,7 +2,7 @@ import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-s
 
 /**
  *
- * @param {function} formSteps - flow defined formSteps
+ * @param {Function} formSteps - flow defined formSteps
  * @param {Record<string, string>} urls - flow urls
  * @returns {function(*, *): *}
  */

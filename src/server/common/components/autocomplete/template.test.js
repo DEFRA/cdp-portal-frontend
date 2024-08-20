@@ -47,8 +47,8 @@ describe('Autocomplete Component', () => {
       '[data-testid="app-autocomplete-label"]'
     )
 
-    expect($label.length).toEqual(1)
-    expect($label.text().trim()).toEqual('By')
+    expect($label).toHaveLength(1)
+    expect($label.text().trim()).toBe('By')
   })
 
   test('Should render with expected hint input', () => {
@@ -56,20 +56,20 @@ describe('Autocomplete Component', () => {
       '[data-testid="app-autocomplete-hint"]'
     )
 
-    expect($hint.length).toEqual(1)
-    expect($hint.text().trim()).toEqual('Choose a user')
+    expect($hint).toHaveLength(1)
+    expect($hint.text().trim()).toBe('Choose a user')
   })
 
   test('Should render with expected select input', () => {
-    expect($select.length).toEqual(1)
+    expect($select).toHaveLength(1)
   })
 
   test('Should render with expected suggestions', () => {
     const $options = $select.children('option')
 
-    expect($options.length).toEqual(3)
-    expect($options.eq(0).text().trim()).toEqual('RoboCop')
-    expect($options.eq(1).text().trim()).toEqual('Roger Rabbit')
-    expect($options.eq(2).text().trim()).toEqual('Barbie')
+    expect($options).toHaveLength(3)
+    expect($options.eq(0).text().trim()).toBe('RoboCop')
+    expect($options.eq(1).text().trim()).toBe('Roger Rabbit')
+    expect($options.eq(2).text().trim()).toBe('Barbie')
   })
 })

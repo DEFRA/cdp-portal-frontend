@@ -11,9 +11,9 @@ describe('Input assistant Component', () => {
   })
 
   test('Should render with expected attributes', () => {
-    expect($inputAssistant.data('message')).toEqual(
+    expect($inputAssistant.data('message')).toBe(
       "Have a read of 'Naming your microservice best practice'"
     )
-    expect($inputAssistant.data('testid')).toEqual('app-input-assistant')
+    expect($inputAssistant.data('testid')).toBe('app-input-assistant')
   })
 })

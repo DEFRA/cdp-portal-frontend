@@ -7,7 +7,7 @@ function renderString(name, params, macroPath) {
   const macroParams = JSON.stringify(params, null, 2)
   const macroString = `{%- from "${macroPath}" import ${macroName} -%} {{- ${macroName}(${macroParams}) -}}`
 
-  return nunjucksEnvironment.renderString(macroString)
+  return nunjucksEnvironment.renderString(macroString, {})
 }
 
 function renderComponent(name, params) {

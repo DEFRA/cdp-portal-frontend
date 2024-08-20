@@ -1,7 +1,7 @@
 import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
 
 describe('#auditMessageSchema', () => {
-  test('Should allow standard audit message', async () => {
+  test('Should allow standard audit message', () => {
     const payload = {
       event: 'audit event',
       data: { repository: 'repository name' },
@@ -18,7 +18,7 @@ describe('#auditMessageSchema', () => {
     expect(value).toEqual(payload)
   })
 
-  test('Should allow only event', async () => {
+  test('Should allow only event', () => {
     const payload = {
       event: 'audit event'
     }
@@ -29,7 +29,7 @@ describe('#auditMessageSchema', () => {
     expect(value).toEqual(payload)
   })
 
-  test('Should not allow without event', async () => {
+  test('Should not allow without event', () => {
     const payload = {
       data: { repository: 'repository name' },
       user: {
@@ -40,10 +40,10 @@ describe('#auditMessageSchema', () => {
     }
     const { error } = auditMessageSchema.validate(payload)
 
-    expect(error.message).toEqual('"event" is required')
+    expect(error.message).toBe('"event" is required')
   })
 
-  test('Should not allow other user properties', async () => {
+  test('Should not allow other user properties', () => {
     const payload = {
       event: 'audit event',
       data: { repository: 'repository name' },
@@ -56,10 +56,10 @@ describe('#auditMessageSchema', () => {
     }
     const { error } = auditMessageSchema.validate(payload)
 
-    expect(error.message).toEqual('"user.token" is not allowed')
+    expect(error.message).toBe('"user.token" is not allowed')
   })
 
-  test('Should not allow other root properties', async () => {
+  test('Should not allow other root properties', () => {
     const payload = {
       event: 'audit event',
       data: { repository: 'repository name' },
@@ -72,6 +72,6 @@ describe('#auditMessageSchema', () => {
     }
     const { error } = auditMessageSchema.validate(payload)
 
-    expect(error.message).toEqual('"image" is not allowed')
+    expect(error.message).toBe('"image" is not allowed')
   })
 })

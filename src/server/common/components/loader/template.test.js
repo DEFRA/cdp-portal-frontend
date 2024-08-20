@@ -10,6 +10,6 @@ describe('Loader Component', () => {
   })
 
   test('Should render loader', () => {
-    expect($buttonLoader.length).toEqual(1)
+    expect($buttonLoader).toHaveLength(1)
   })
 })

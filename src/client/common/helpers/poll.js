@@ -6,8 +6,8 @@ import { clientNotification } from '~/src/client/common/helpers/client-notificat
 /**
  *
  * @param {string} url - poll url
- * @param {number} [interval=5000] - poll interval
- * @param {number} [limit=60] - poll limit in minutes. After this period, polling is paused
+ * @param {number} [interval] - poll interval
+ * @param {number} [limit] - poll limit in minutes. After this period, polling is paused
  * @param {number} pollBegin - when the poll started
  * @returns {(function(): Promise<void>)|*}
  */
@@ -59,7 +59,9 @@ function startPolling(url, interval, limit, pollBegin) {
 
     if (ok && isBeforePollLimit) {
       timerInfo.id = setTimeout(() => {
-        pollUrl()
+        pollUrl().catch(() => {
+          clientNotification('There has been a polling issue, refresh the page')
+        })
       }, interval)
     }
   }

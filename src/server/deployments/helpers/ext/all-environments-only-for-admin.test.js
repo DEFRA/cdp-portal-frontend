@@ -86,7 +86,7 @@ describe('#allEnvironmentsOnlyForAdmin', () => {
 
       expect(error).not.toBeInstanceOf(NoErrorThrownError)
       expect(error).toBeInstanceOf(Error)
-      expect(error.output.statusCode).toEqual(401)
+      expect(error.output.statusCode).toBe(401)
       expect(error).toHaveProperty('message', 'Unauthorized')
     })
 
@@ -100,7 +100,7 @@ describe('#allEnvironmentsOnlyForAdmin', () => {
 
       expect(error).not.toBeInstanceOf(NoErrorThrownError)
       expect(error).toBeInstanceOf(Error)
-      expect(error.output.statusCode).toEqual(401)
+      expect(error.output.statusCode).toBe(401)
       expect(error).toHaveProperty('message', 'Unauthorized')
     })
 

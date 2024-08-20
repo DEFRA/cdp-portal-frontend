@@ -50,7 +50,7 @@ describe('#xhr', () => {
     test('Should inject xhr content', () => {
       const xhrContainer = document.querySelector('[data-xhr="xhr-container"]')
 
-      expect(xhrContainer.textContent).toEqual('Xhr response')
+      expect(xhrContainer.textContent).toBe('Xhr response')
     })
 
     test('Should call history replace as expected', () => {

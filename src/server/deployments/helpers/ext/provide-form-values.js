@@ -1,5 +1,5 @@
 const provideFormValues = {
-  method: async (request, h) => {
+  method: (request, h) => {
     const response = request.response
 
     if (response.variety === 'view') {

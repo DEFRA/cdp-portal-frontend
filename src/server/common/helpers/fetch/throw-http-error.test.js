@@ -15,7 +15,7 @@ describe('#throwHttpError', () => {
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error.output.statusCode).toEqual(408)
+    expect(error.output.statusCode).toBe(408)
     expect(error).toHaveProperty('message', 'Something terrible has happened!')
   })
 
@@ -24,7 +24,7 @@ describe('#throwHttpError', () => {
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error.output.statusCode).toEqual(408)
+    expect(error.output.statusCode).toBe(408)
     expect(error).toHaveProperty('message', 'Oh dear!')
   })
 
@@ -35,7 +35,7 @@ describe('#throwHttpError', () => {
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error.output.statusCode).toEqual(500)
+    expect(error.output.statusCode).toBe(500)
     expect(error).toHaveProperty('message', 'Crikey')
   })
 })

@@ -21,7 +21,7 @@ const stopTestSuiteController = {
       request.logger.error(error)
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        `Failed to stop test suite ${runId}, ${error}.`
+        `Failed to stop test suite ${runId}, ${error.message}.`
       )
       return h.redirect(`/test-suites/${suite.serviceName}`)
     }

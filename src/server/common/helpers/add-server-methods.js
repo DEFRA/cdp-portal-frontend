@@ -3,7 +3,7 @@ import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-
 
 /**
  * Add global server methods
- * @param server {import("@hapi/hapi").Server}
+ * @param {Server} server
  */
 function addServerMethods(server) {
   const cache = {
@@ -18,3 +18,6 @@ function addServerMethods(server) {
 }
 
 export { addServerMethods }
+/**
+ * import {Server} from '@hapi/hapi'
+ */

@@ -102,15 +102,13 @@ describe('#populateSelectOptions', () => {
       })
 
       test('Should show client error', () => {
-        expect(clientNotification.textContent).toEqual(
+        expect(clientNotification.textContent).toBe(
           'Something terrible has happened!'
         )
       })
 
       test('Loader should not be spinning', () => {
-        expect(loader.classList.contains('app-loader--is-loading')).toEqual(
-          false
-        )
+        expect(loader.classList.contains('app-loader--is-loading')).toBe(false)
       })
     })
   })

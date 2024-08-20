@@ -2,7 +2,7 @@ import { format, parseISO } from 'date-fns'
 
 /**
  * Open search requires seconds and date-fns doesn't support seconds
- * @param value
+ * @param {string} value
  * @returns {string}
  */
 function formatDatesForOpenSearch(value) {
@@ -13,7 +13,7 @@ function formatDatesForOpenSearch(value) {
 
 /**
  * Open search requires only the second part of the arn to be escaped
- * @param arn
+ * @param {string} arn
  * @returns {string}
  */
 const encodeArn = (arn) => {
@@ -24,12 +24,17 @@ const encodeArn = (arn) => {
 }
 
 /**
- * Open search has some special requirements
- * @param environment
- * @param taskArn
- * @param created
- * @param taskLastUpdated
- * @param hasResult
+ * @typedef {object} Options
+ * @property {string} environment
+ * @property {string} taskArn
+ * @property {string} created
+ * @property {string} taskLastUpdated
+ */
+
+/**
+ * Build OpenSearch logs link
+ * @param {Options} options
+ * @param {boolean} hasResult
  * @returns {string}
  */
 function buildLogsLink(

@@ -187,7 +187,7 @@ describe('#provideFormContextValues', () => {
     test('Source return expected mock response tool kit continue value', () => {
       expect(
         provideFormContextValues(buildMockRequest(), mockResponseToolkit)
-      ).toEqual('mockContinue')
+      ).toBe('mockContinue')
     })
   })
 })

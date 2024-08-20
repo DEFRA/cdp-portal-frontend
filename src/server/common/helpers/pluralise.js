@@ -1,13 +1,15 @@
 function pluralise(string, count) {
+  let result = string
+
   if (count !== 1) {
     if (string.match(/[^aeiou]y$/)) {
-      string = string.replace(/y$/, 'ies')
+      result = string.replace(/y$/, 'ies')
     } else {
-      string += 's'
+      result += 's'
     }
   }
 
-  return string
+  return result
 }
 
 export { pluralise }

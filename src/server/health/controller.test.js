@@ -20,7 +20,7 @@ describe('#healthController', () => {
     })
 
     expect(result).toEqual({ message: 'success' })
-    expect(statusCode).toEqual(200)
+    expect(statusCode).toBe(200)
   })
 })
 

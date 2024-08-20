@@ -3,12 +3,22 @@ import { HttpsProxyAgent } from 'https-proxy-agent'
 
 import { config } from '~/src/config'
 
-const proxyAgent = () => {
+// TODO this needs updating to use the proxy work in user-service-backend
+
+/**
+ * @typedef {object} ProxyAgent
+ * @property {URL} url
+ * @property {HttpsProxyAgent} agent
+ */
+
+/**
+ * Get the proxy agent
+ * @returns {ProxyAgent|null}
+ */
+function proxyAgent() {
   const proxy = config.get('httpsProxy') ?? config.get('httpProxy')
 
-  if (!proxy) {
-    return null
-  } else {
+  if (proxy) {
     const proxyUrl = new URL(proxy)
 
     return {
@@ -16,6 +26,8 @@ const proxyAgent = () => {
       agent: new HttpsProxyAgent(proxyUrl)
     }
   }
+
+  return null
 }
 
 export { proxyAgent }

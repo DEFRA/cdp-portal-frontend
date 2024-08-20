@@ -1,7 +1,7 @@
 const provideCanRun = {
   /**
    * Check if the user can run the test suite
-   * @param request
+   * @param {Request} request
    * @returns {Promise<boolean>}
    */
   method: async function (request) {
@@ -29,3 +29,7 @@ const provideCanRun = {
 }
 
 export { provideCanRun }
+
+/**
+ * @import { Request } from '@hapi/hapi'
+ */

@@ -13,11 +13,11 @@ describe('#userIsTeamMember', () => {
   })
 
   test('Should have scope', () => {
-    expect(checkHasTeamScope('pear')).toEqual(true)
+    expect(checkHasTeamScope('pear')).toBe(true)
   })
 
   test('Should not have scope', () => {
-    expect(checkHasTeamScope('pineapple')).toEqual(false)
+    expect(checkHasTeamScope('pineapple')).toBe(false)
   })
 })
 
@@ -33,10 +33,10 @@ describe('#userIsTeamMemberDecorator', () => {
   })
 
   test('Should have scope', async () => {
-    expect(await checkHasTeamScopeDecorator('horse')).toEqual(true)
+    expect(await checkHasTeamScopeDecorator('horse')).toBe(true)
   })
 
   test('Should not have scope', async () => {
-    expect(await checkHasTeamScopeDecorator('volkswagen')).toEqual(false)
+    expect(await checkHasTeamScopeDecorator('volkswagen')).toBe(false)
   })
 })

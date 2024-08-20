@@ -24,11 +24,11 @@ describe('#routeLookup', () => {
   }
 
   test('Should provide a simple route', () => {
-    expect(routeLookup(mockServer, 'home')).toEqual('/home')
+    expect(routeLookup(mockServer, 'home')).toBe('/home')
   })
 
   test('Should provide a nested route', () => {
-    expect(routeLookup(mockServer, 'foo/bar')).toEqual('/foo/bar')
+    expect(routeLookup(mockServer, 'foo/bar')).toBe('/foo/bar')
   })
 
   test('Should provide a route with parameter substitution', () => {
@@ -36,7 +36,7 @@ describe('#routeLookup', () => {
       routeLookup(mockServer, 'services/serviceId', {
         params: { serviceId: 'cdp-portal-frontend' }
       })
-    ).toEqual('/services/cdp-portal-frontend')
+    ).toBe('/services/cdp-portal-frontend')
   })
 
   test('Should provide a route with multiple parameter substitution', () => {
@@ -47,11 +47,11 @@ describe('#routeLookup', () => {
           deploymentId: '3f5dff54-9bea-4a53-830d-96610af8c2b4'
         }
       })
-    ).toEqual('/deployments/infra-dev/3f5dff54-9bea-4a53-830d-96610af8c2b4')
+    ).toBe('/deployments/infra-dev/3f5dff54-9bea-4a53-830d-96610af8c2b4')
   })
 
   test('Should provide a simple route with query params', () => {
-    expect(routeLookup(mockServer, 'home', { query: { page: 1 } })).toEqual(
+    expect(routeLookup(mockServer, 'home', { query: { page: 1 } })).toBe(
       '/home?page=1'
     )
   })
@@ -59,7 +59,7 @@ describe('#routeLookup', () => {
   test('Should provide many query params in a simple route', () => {
     expect(
       routeLookup(mockServer, 'home', { query: { page: 1, offset: 9 } })
-    ).toEqual('/home?page=1&offset=9')
+    ).toBe('/home?page=1&offset=9')
   })
 
   test('Should provide a route with path and query params', () => {
@@ -74,7 +74,7 @@ describe('#routeLookup', () => {
           environment: 'dev'
         }
       })
-    ).toEqual(
+    ).toBe(
       '/deployments/management/346463456456-9bea-4a53-4564646-456456?admin=true&environment=dev'
     )
   })
@@ -84,7 +84,7 @@ describe('#routeLookup', () => {
       routeLookup(mockServer, 'services/serviceId', {
         params: { serviceId: 'cdp-user-service-backend-£$' }
       })
-    ).toEqual('/services/cdp-user-service-backend-%C2%A3$')
+    ).toBe('/services/cdp-user-service-backend-%C2%A3$')
   })
 
   test('Should escape url query params', () => {
@@ -92,7 +92,7 @@ describe('#routeLookup', () => {
       routeLookup(mockServer, 'home', {
         query: { redirect: 'login=callback/url?info=true' }
       })
-    ).toEqual('/home?redirect=login%3Dcallback%2Furl%3Finfo%3Dtrue')
+    ).toBe('/home?redirect=login%3Dcallback%2Furl%3Finfo%3Dtrue')
   })
 
   test('Should error on an unknown route', () => {
@@ -112,7 +112,7 @@ describe('#routeLookup', () => {
         routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}', {
           params: { multiStepFormId: '12345678' }
         })
-      ).toEqual('/deploy-service/details/12345678')
+      ).toBe('/deploy-service/details/12345678')
     })
 
     test('Should replace optional path params and query params', () => {
@@ -121,7 +121,7 @@ describe('#routeLookup', () => {
           params: { multiStepFormId: '12345678' },
           query: { imageName: 'cdp-portal-frontend', version: '0.3.0' }
         })
-      ).toEqual(
+      ).toBe(
         '/deploy-service/details/12345678?imageName=cdp-portal-frontend&version=0.3.0'
       )
     })
@@ -131,7 +131,7 @@ describe('#routeLookup', () => {
     test('Should remove optional path params', () => {
       expect(
         routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}')
-      ).toEqual('/deploy-service/details/')
+      ).toBe('/deploy-service/details/')
     })
 
     test('Should remove optional path params and query params', () => {
@@ -139,7 +139,7 @@ describe('#routeLookup', () => {
         routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}', {
           query: { imageName: 'cdp-portal-frontend', version: '0.3.0' }
         })
-      ).toEqual(
+      ).toBe(
         '/deploy-service/details/?imageName=cdp-portal-frontend&version=0.3.0'
       )
     })

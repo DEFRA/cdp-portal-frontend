@@ -15,7 +15,7 @@ const serviceCreateStatusController = {
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const service = request.pre.service
 
     // TODO update to use new polling helpers

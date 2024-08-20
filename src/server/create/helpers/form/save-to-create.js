@@ -1,30 +1,28 @@
 import { sessionNames } from '~/src/server/common/constants/session-names'
 
+/** @typedef {"microservice" | "repository"} Kind */
+
 /**
- * @param yar
- * @param h
- * @param valueObj
- * @param overwrite
+ * @typedef {object} Data - The item to create
+ * @property {Kind} kind
+ * @property {Record<string, string>} isComplete - Steps object
+ */
+/**
  *
- * @typedef {Object} valueObj - The item to create
- * @property {string} valueObj.kind - microservice | repository
- *
- * @typedef {Object} valueObj.isComplete - Steps object
- * @property {boolean} valueObj.isComplete.stepOne
- * @property {boolean} valueObj.isComplete.stepTwo
- * @property {boolean} valueObj.isComplete.stepThree
- * @property {boolean} valueObj.isComplete.allSteps
- *
+ * @param {Yar} yar
+ * @param {ResponseToolkit} h
+ * @param {Data} data
+ * @param {boolean} [overwrite]
  * @returns {Promise<*>}
  */
-async function saveToCreate({ yar }, h, valueObj, overwrite = false) {
+async function saveToCreate({ yar }, h, data, overwrite = false) {
   const key = sessionNames.create
   const create = yar.get(key)
 
   if (overwrite) {
-    yar.set(key, valueObj)
+    yar.set(key, data)
   } else {
-    yar.set(key, { ...create, ...valueObj })
+    yar.set(key, { ...create, ...data })
   }
 
   await yar.commit(h)
@@ -33,3 +31,8 @@ async function saveToCreate({ yar }, h, valueObj, overwrite = false) {
 }
 
 export { saveToCreate }
+
+/**
+ * @import {ResponseToolkit} from '@hapi/hapi'
+ * @import {Yar} from '@hapi/yar'
+ */

@@ -15,6 +15,6 @@ describe('#sanitiseUser', () => {
   })
 
   test('Should provide expected pass through', () => {
-    expect(sanitiseUser('Hipgnosis')).toEqual('Hipgnosis')
+    expect(sanitiseUser('Hipgnosis')).toBe('Hipgnosis')
   })
 })
