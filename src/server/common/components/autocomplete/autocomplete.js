@@ -637,7 +637,9 @@ class Autocomplete {
           suggestionIndex: this.suggestionIndex
         })
 
-        const $currentSuggestion = $filteredSuggestions.at(this.suggestionIndex)
+        const $currentSuggestion = $filteredSuggestions.at(
+          this.suggestionIndex ?? 0
+        )
 
         // Manage scrolling in the suggestions container
         if ($currentSuggestion) {
