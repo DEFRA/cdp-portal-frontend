@@ -1,3 +1,4 @@
+// TODO @deprecated - use jests .toThrow() instead
 class NoErrorThrownError extends Error {}
 
 function errorNoThrown() {

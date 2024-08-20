@@ -7,8 +7,8 @@ import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/ex
 import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session'
 
 describe('#provideOptionsFormValues', () => {
-  const mockRequest = (deployment = null) => ({
-    pre: { deployment }
+  const mockRequest = (stepData = null) => ({
+    pre: { stepData }
   })
 
   const optionsEndpointUrl = new URL(
@@ -29,29 +29,30 @@ describe('#provideOptionsFormValues', () => {
   describe('Without a deployment session', () => {
     test('Should provide expected form detail', async () => {
       expect(await provideOptionsFormValues.method(mockRequest())).toEqual({
-        availableMemoryOptions: [
-          {
-            attributes: {
-              selected: true
+        formValues: {
+          availableMemoryOptions: [
+            {
+              attributes: {
+                selected: true
+              },
+              disabled: true,
+              text: ' - - Choose a CPU value - - ',
+              value: ''
+            }
+          ],
+          cpuOptions: [
+            {
+              attributes: {
+                selected: true
+              },
+              disabled: true,
+              text: ' - - select - - ',
+              value: ''
             },
-            disabled: true,
-            text: ' - - Choose a CPU value - - ',
-            value: ''
-          }
-        ],
-        cpuOptions: [
-          {
-            attributes: {
-              selected: true
-            },
-            disabled: true,
-            text: ' - - select - - ',
-            value: ''
-          },
-          ...deployServiceOptionsFixture.cpuOptions
-        ],
-        formValues: {},
-        preExistingDetails: false
+            ...deployServiceOptionsFixture.cpuOptions
+          ],
+          preExistingDetails: false
+        }
       })
     })
   })
@@ -74,30 +75,31 @@ describe('#provideOptionsFormValues', () => {
             mockRequest(deploymentSessionFixture)
           )
         ).toEqual({
-          availableMemoryOptions: [
-            {
-              attributes: {
-                selected: true
+          formValues: {
+            availableMemoryOptions: [
+              {
+                attributes: {
+                  selected: true
+                },
+                disabled: true,
+                text: ' - - select - - ',
+                value: ''
               },
-              disabled: true,
-              text: ' - - select - - ',
-              value: ''
-            },
-            ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
-          ],
-          cpuOptions: [
-            {
-              attributes: {
-                selected: true
+              ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
+            ],
+            cpuOptions: [
+              {
+                attributes: {
+                  selected: true
+                },
+                disabled: true,
+                text: ' - - select - - ',
+                value: ''
               },
-              disabled: true,
-              text: ' - - select - - ',
-              value: ''
-            },
-            ...deployServiceOptionsFixture.cpuOptions
-          ],
-          formValues: {},
-          preExistingDetails: false
+              ...deployServiceOptionsFixture.cpuOptions
+            ],
+            preExistingDetails: false
+          }
         })
       })
     })
@@ -115,30 +117,31 @@ describe('#provideOptionsFormValues', () => {
             mockRequest(deploymentSessionFixture)
           )
         ).toEqual({
-          availableMemoryOptions: [
-            {
-              attributes: {
-                selected: true
+          formValues: {
+            availableMemoryOptions: [
+              {
+                attributes: {
+                  selected: true
+                },
+                disabled: true,
+                text: ' - - select - - ',
+                value: ''
               },
-              disabled: true,
-              text: ' - - select - - ',
-              value: ''
-            },
-            ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
-          ],
-          cpuOptions: [
-            {
-              attributes: {
-                selected: true
+              ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
+            ],
+            cpuOptions: [
+              {
+                attributes: {
+                  selected: true
+                },
+                disabled: true,
+                text: ' - - select - - ',
+                value: ''
               },
-              disabled: true,
-              text: ' - - select - - ',
-              value: ''
-            },
-            ...deployServiceOptionsFixture.cpuOptions
-          ],
-          formValues: {},
-          preExistingDetails: false
+              ...deployServiceOptionsFixture.cpuOptions
+            ],
+            preExistingDetails: false
+          }
         })
       })
     })
@@ -156,34 +159,34 @@ describe('#provideOptionsFormValues', () => {
             mockRequest(deploymentSessionFixture)
           )
         ).toEqual({
-          availableMemoryOptions: [
-            {
-              attributes: {
-                selected: true
-              },
-              disabled: true,
-              text: ' - - select - - ',
-              value: ''
-            },
-            ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
-          ],
-          cpuOptions: [
-            {
-              attributes: {
-                selected: true
-              },
-              disabled: true,
-              text: ' - - select - - ',
-              value: ''
-            },
-            ...deployServiceOptionsFixture.cpuOptions
-          ],
           formValues: {
             cpu: '1024',
             instanceCount: 2,
-            memory: '2048'
-          },
-          preExistingDetails: false
+            memory: '2048',
+            availableMemoryOptions: [
+              {
+                attributes: {
+                  selected: true
+                },
+                disabled: true,
+                text: ' - - select - - ',
+                value: ''
+              },
+              ...deployServiceOptionsFixture.ecsCpuToMemoryOptionsMap[2048]
+            ],
+            cpuOptions: [
+              {
+                attributes: {
+                  selected: true
+                },
+                disabled: true,
+                text: ' - - select - - ',
+                value: ''
+              },
+              ...deployServiceOptionsFixture.cpuOptions
+            ],
+            preExistingDetails: false
+          }
         })
       })
     })

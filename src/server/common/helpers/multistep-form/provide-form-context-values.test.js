@@ -1,4 +1,4 @@
-import { provideFormContextValues } from '~/src/server/deploy-service/helpers/form/provide-form-context-values'
+import { provideFormContextValues } from '~/src/server/common/helpers/multistep-form/provide-form-context-values'
 
 const buildMockRequest = ({
   variety = 'view',
@@ -36,7 +36,6 @@ describe('#provideFormContextValues', () => {
       provideFormContextValues(mockRequest, mockResponseToolkit)
 
       expect(mockRequest.response?.source?.context).toEqual({
-        availableMemoryOptions: [],
         formValues: {}
       })
     })
@@ -64,7 +63,6 @@ describe('#provideFormContextValues', () => {
         provideFormContextValues(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
-          availableMemoryOptions: [],
           formValues: {
             imageName: 'mock-validation-failure-image-name'
           },
@@ -72,7 +70,7 @@ describe('#provideFormContextValues', () => {
         })
       })
 
-      test('Deployment session values should have medium priority', () => {
+      test('Session values should have medium priority', () => {
         const mockRequest = buildMockRequest({
           get: () => ({ imageName: 'mock-deployment-image-name' }),
           source: {
@@ -87,7 +85,6 @@ describe('#provideFormContextValues', () => {
         provideFormContextValues(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
-          availableMemoryOptions: [],
           formValues: {
             imageName: 'mock-deployment-image-name'
           }
@@ -108,7 +105,6 @@ describe('#provideFormContextValues', () => {
         provideFormContextValues(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
-          availableMemoryOptions: [],
           formValues: {
             imageName: 'mock-view-context-image-name'
           }
@@ -143,12 +139,16 @@ describe('#provideFormContextValues', () => {
         const mockRequest = buildMockRequest({
           flash: () => [
             {
-              availableMemoryOptions: [{ value: 2048, text: '2 GB' }]
+              formValues: {
+                availableMemoryOptions: [{ value: 2048, text: '2 GB' }]
+              }
             }
           ],
           source: {
             context: {
-              availableMemoryOptions: [{ value: 3072, text: '3 GB' }]
+              formValues: {
+                availableMemoryOptions: [{ value: 3072, text: '3 GB' }]
+              }
             }
           }
         })
@@ -156,8 +156,9 @@ describe('#provideFormContextValues', () => {
         provideFormContextValues(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
-          availableMemoryOptions: [{ value: 2048, text: '2 GB' }],
-          formValues: {},
+          formValues: {
+            availableMemoryOptions: [{ value: 2048, text: '2 GB' }]
+          },
           isError: true
         })
       })
@@ -166,7 +167,9 @@ describe('#provideFormContextValues', () => {
         const mockRequest = buildMockRequest({
           source: {
             context: {
-              availableMemoryOptions: [{ value: 3072, text: '3 GB' }]
+              formValues: {
+                availableMemoryOptions: [{ value: 3072, text: '3 GB' }]
+              }
             }
           }
         })
@@ -174,8 +177,9 @@ describe('#provideFormContextValues', () => {
         provideFormContextValues(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
-          availableMemoryOptions: [{ value: 3072, text: '3 GB' }],
-          formValues: {}
+          formValues: {
+            availableMemoryOptions: [{ value: 3072, text: '3 GB' }]
+          }
         })
       })
     })

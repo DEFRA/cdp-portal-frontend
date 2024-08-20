@@ -1,5 +1,6 @@
+import { randomUUID } from 'node:crypto'
+
 import Boom from '@hapi/boom'
-import { v4 as uuidv4 } from 'uuid'
 
 import { createUserSession } from '~/src/server/common/helpers/auth/user-session'
 import { sessionNames } from '~/src/server/common/constants/session-names'
@@ -13,7 +14,7 @@ const authCallbackController = {
   },
   handler: async (request, h) => {
     if (request.auth.isAuthenticated) {
-      const sessionId = uuidv4()
+      const sessionId = randomUUID()
 
       await createUserSession(request, sessionId)
 

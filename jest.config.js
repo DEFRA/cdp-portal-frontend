@@ -4,7 +4,7 @@ module.exports = {
   verbose: true,
   resetModules: true,
   clearMocks: true,
-  silent: process.env.NODE_ENV !== 'development',
+  silent: false,
   testMatch: ['<rootDir>/src/**/*.test.js'],
   reporters: ['default', ['github-actions', { silent: false }], 'summary'],
   setupFiles: ['<rootDir>/.jest/setup-envs.js'],

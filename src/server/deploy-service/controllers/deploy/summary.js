@@ -1,35 +1,41 @@
+import Joi from 'joi'
+
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
 import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
-import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets'
+import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data'
+import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid'
 
 const summaryController = {
   options: {
     ext: {
-      onPreHandler: [noSessionRedirect]
+      onPreHandler: checkSessionIsValid('/deploy-service')
     },
-    pre: [provideDeployment]
+    pre: [provideStepData],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().required()
+      })
+    }
   },
   handler: async (request, h) => {
-    const deployment = request.pre?.deployment
+    const stepData = request.pre?.stepData
+    const multiStepFormId = request.params?.multiStepFormId
 
     const { cpuOptions, ecsCpuToMemoryOptionsMap } =
       await fetchDeployServiceOptions()
 
     const cpuDetail = cpuOptions.find(
-      ({ value }) => value === parseInt(deployment?.cpu, 10)
+      ({ value }) => value === parseInt(stepData?.cpu, 10)
     )
-    const memoryDetail = ecsCpuToMemoryOptionsMap[deployment?.cpu]?.find(
-      ({ value }) => value === parseInt(deployment?.memory, 10)
+    const memoryDetail = ecsCpuToMemoryOptionsMap[stepData?.cpu]?.find(
+      ({ value }) => value === parseInt(stepData?.memory, 10)
     )
 
-    const secrets = await fetchSecrets(
-      deployment.environment,
-      deployment.imageName
-    )
+    // TODO fix up this silently throwing a 404
+    const secrets = await fetchSecrets(stepData.environment, stepData.imageName)
     const secretDetail = transformSecrets(secrets)
 
     return h.view('deploy-service/views/summary', {
@@ -38,10 +44,16 @@ const summaryController = {
       headingCaption:
         'Information about the Microservice you are going to deploy.',
       helpText: buildHelpText(cpuDetail?.value, memoryDetail?.value),
-      deploymentRows: deploymentRows(deployment, cpuDetail, memoryDetail),
+      deploymentRows: deploymentRows(
+        stepData,
+        cpuDetail,
+        memoryDetail,
+        multiStepFormId
+      ),
       formButtonText: 'Deploy',
-      deployment,
-      secretDetail
+      stepData,
+      secretDetail,
+      multiStepFormId
     })
   }
 }

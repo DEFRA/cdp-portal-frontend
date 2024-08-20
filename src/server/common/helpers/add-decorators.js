@@ -9,7 +9,7 @@ import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/us
 
 /**
  * Add global server methods
- * @param server {Server}
+ * @param {Server} server
  */
 function addDecorators(server) {
   server.decorate('request', 'isXhr', isXhr)

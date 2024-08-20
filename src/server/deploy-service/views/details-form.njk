@@ -38,7 +38,8 @@
 
     <div class="govuk-grid-row">
       <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
-        <form action="/deploy-service/details" method="post" data-js="app-form-errors">
+        <form action="/deploy-service/details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}" method="post"
+              data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
 
@@ -142,9 +143,9 @@
 
           {{ govukButton({
             classes: "app-button",
-            text: formButtonText,
+            text: formButtonText | capitalize,
             name: "button",
-            value: "submit"
+            value: formButtonText | lower
           }) }}
 
         </form>

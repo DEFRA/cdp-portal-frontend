@@ -17,7 +17,7 @@
           html: helpText
         }) }}
 
-        <form action="/deploy-service/deploy" method="post">
+        <form action="/deploy-service/deploy/{{ multiStepFormId }}" method="post">
 
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
@@ -42,19 +42,19 @@
                     <li>
                       <a
                         class="app-link"
-                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ deployment.imageName }}/{{ deployment.environment }}/{{ deployment.imageName }}.env"
+                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ stepData.imageName }}/{{ stepData.environment }}/{{ stepData.imageName }}.env"
                         target="_blank"
                         rel="noopener noreferrer">
-                        {{ deployment.imageName }} - {{ deployment.environment }} - config
+                        {{ stepData.imageName }} - {{ stepData.environment }} - config
                       </a>
                     </li>
                     <li>
                       <a
                         class="app-link"
-                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ deployment.imageName }}/defaults.env"
+                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ stepData.imageName }}/defaults.env"
                         target="_blank"
                         rel="noopener noreferrer">
-                        {{ deployment.imageName }} - defaults
+                        {{ stepData.imageName }} - defaults
                       </a>
                     </li>
                   </ul>

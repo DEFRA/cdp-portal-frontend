@@ -1,19 +1,22 @@
+import Joi from 'joi'
+
 import { config } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { setStepComplete } from '~/src/server/deploy-service/helpers/form'
-import { noSessionRedirect } from '~/src/server/deploy-service/helpers/ext/no-session-redirect'
-import { provideDeployment } from '~/src/server/deploy-service/helpers/pre/provide-deployment'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
+import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data'
 
 const deployController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideDeployment, provideAuthedUser]
+    pre: [provideStepData, provideAuthedUser],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().required()
+      })
+    }
   },
   handler: async (request, h) => {
-    const deployment = request.pre?.deployment
+    const stepData = request.pre.stepData
+    const multiStepFormId = request.app.multiStepFormId
     const deployServiceEndpointUrl =
       config.get('selfServiceOpsUrl') + '/deploy-service'
 
@@ -23,18 +26,19 @@ const deployController = {
         {
           method: 'post',
           body: JSON.stringify({
-            imageName: deployment.imageName,
-            version: deployment.version,
-            environment: deployment.environment,
-            instanceCount: deployment.instanceCount,
-            cpu: deployment.cpu,
-            memory: deployment.memory
+            imageName: stepData.imageName,
+            version: stepData.version,
+            environment: stepData.environment,
+            instanceCount: stepData.instanceCount,
+            cpu: stepData.cpu,
+            memory: stepData.memory
           })
         }
       )
 
       if (response?.ok) {
-        await setStepComplete(request, h, 'allSteps')
+        // Remove step data session
+        request.yar.clear(multiStepFormId)
 
         request.yar.flash(sessionNames.notifications, {
           text: 'Deployment successfully requested',
@@ -44,22 +48,22 @@ const deployController = {
         const deploymentId = json.deploymentId
 
         request.audit.sendMessage({
-          event: `deployment requested: ${deployment.imageName}:${deployment.version} to ${deployment.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
           data: {
-            imageName: deployment.imageName,
-            environment: deployment.environment
+            imageName: stepData.imageName,
+            environment: stepData.environment
           },
           user: request.pre.authedUser
         })
 
         return h.redirect(
-          `/deployments/${deployment.environment}/${deploymentId}`
+          `/deployments/${stepData.environment}/${deploymentId}`
         )
       }
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect('/deploy-service/summary')
+      return h.redirect(`/deploy-service/summary/${multiStepFormId}`)
     }
   }
 }

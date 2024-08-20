@@ -4,7 +4,7 @@ function provideFormContextValues(request, h) {
   const response = request.response
 
   if (response.variety === 'view') {
-    const deployment = request.yar.get(sessionNames.deployment) ?? {}
+    const stepData = request.yar.get(request.app?.multiStepFormId) ?? {}
     const validationFailure = request.yar
       .flash(sessionNames.validationFailure)
       ?.at(0)
@@ -19,34 +19,19 @@ function provideFormContextValues(request, h) {
 
     // Override order for formValues:
     // 1 - formValues from validationFailure session - (The highest priority)
-    // 2 - values from deployment session
+    // 2 - values from stepData session
     // 3 - formValues from h.view() context          - (The lowest priority)
 
     response.source.context.formValues = {
       ...(response.source.context?.formValues &&
         response.source.context.formValues),
-      ...deployment,
+      ...stepData,
       ...(validationFailure?.formValues && validationFailure.formValues)
     }
 
     if (validationFailure?.formErrors) {
       response.source.context.formErrors = validationFailure?.formErrors
     }
-
-    // Override order:
-    // 1 - availableMemoryOptions from validationFailure session - (The highest priority)
-    // 2 - availableMemoryOptions from h.view() context          - (The lowest priority)
-
-    const availableMemoryOptions = response.source.context
-      ?.availableMemoryOptions
-      ? response.source.context.availableMemoryOptions
-      : []
-
-    response.source.context.availableMemoryOptions = [
-      ...(validationFailure?.availableMemoryOptions
-        ? validationFailure.availableMemoryOptions
-        : availableMemoryOptions)
-    ]
   }
 
   return h.continue

@@ -8,7 +8,7 @@ function serviceValidation(
   environments,
   buttonValue
 ) {
-  // No clientside js fallback search
+  // Without clientside js, fallback search
   if (buttonValue === 'search') {
     return Joi.object({
       imageName: Joi.string()
@@ -53,7 +53,7 @@ function serviceValidation(
         'any.only': validation.chooseAnEntry,
         'any.required': validation.chooseAnEntry
       }),
-    button: Joi.string().valid('submit'),
+    button: Joi.string().valid('next', 'save'),
     redirectLocation: Joi.string().valid('summary', '')
   })
 }

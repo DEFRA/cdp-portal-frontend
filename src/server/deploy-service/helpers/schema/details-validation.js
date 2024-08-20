@@ -28,7 +28,7 @@ async function detailsValidation(queryValues, options) {
     throw validationResult.error
   }
 
-  return queryValues
+  return validationResult.value
 }
 
 export { detailsValidation }
