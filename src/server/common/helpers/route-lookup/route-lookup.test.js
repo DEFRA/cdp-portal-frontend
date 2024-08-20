@@ -14,6 +14,9 @@ describe('#routeLookup', () => {
     },
     'deployments/environment/deploymentId': {
       path: '/deployments/{environment}/{deploymentId}'
+    },
+    'deploy-service/details/{multiStepFormId?}': {
+      path: '/deploy-service/details/{multiStepFormId?}'
     }
   }
   const mockServer = {
@@ -101,5 +104,44 @@ describe('#routeLookup', () => {
       'message',
       'Request route lookup failed, no controller with id: nowt'
     )
+  })
+
+  describe('When optional param key is provided', () => {
+    test('Should replace optional path params', () => {
+      expect(
+        routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}', {
+          params: { multiStepFormId: '12345678' }
+        })
+      ).toEqual('/deploy-service/details/12345678')
+    })
+
+    test('Should replace optional path params and query params', () => {
+      expect(
+        routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}', {
+          params: { multiStepFormId: '12345678' },
+          query: { imageName: 'cdp-portal-frontend', version: '0.3.0' }
+        })
+      ).toEqual(
+        '/deploy-service/details/12345678?imageName=cdp-portal-frontend&version=0.3.0'
+      )
+    })
+  })
+
+  describe('When optional param key is not provided', () => {
+    test('Should remove optional path params', () => {
+      expect(
+        routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}')
+      ).toEqual('/deploy-service/details/')
+    })
+
+    test('Should remove optional path params and query params', () => {
+      expect(
+        routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}', {
+          query: { imageName: 'cdp-portal-frontend', version: '0.3.0' }
+        })
+      ).toEqual(
+        '/deploy-service/details/?imageName=cdp-portal-frontend&version=0.3.0'
+      )
+    })
   })
 })
