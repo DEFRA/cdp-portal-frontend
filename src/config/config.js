@@ -139,7 +139,7 @@ const config = convict({
   isDevelopment: {
     doc: 'If this application running in the development environment',
     format: Boolean,
-    default: !isProduction
+    default: isDevelopment
   },
   isTest: {
     doc: 'If this application running in the test environment',
