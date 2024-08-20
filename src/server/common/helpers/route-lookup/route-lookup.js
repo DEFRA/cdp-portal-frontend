@@ -11,9 +11,13 @@ function removeOptionalParams(path, params) {
   const optionalParams = path.matchAll(/{(\w+)\??}/g) ?? []
   let result = path
 
-  for (const match of optionalParams) {
-    if (!paramKeys.includes(match.at(1))) {
-      result = path.replace(match.at(0), '')
+  for (const optionalParam of optionalParams) {
+    if (!paramKeys.includes(optionalParam.at(1))) {
+      const param = optionalParam.at(0)
+
+      if (param) {
+        result = path.replace(param, '')
+      }
     }
   }
 
