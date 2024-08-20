@@ -1,6 +1,5 @@
 {
   "watch": [".public", "./src", "./mock-api"],
   "ignore": ["**/*.test.*", "./test-helpers", "./src/client"],
-  "ext": "js,json",
-  "signal": "SIGKILL"
+  "ext": "js,json"
 }
