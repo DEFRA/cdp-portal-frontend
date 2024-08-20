@@ -4,7 +4,24 @@ const urls = {
   stepThree: '/deploy-service/summary'
 }
 
-function formSteps(path, multiStepFormId, stepData) {
+/**
+ * Form steps
+ * @typedef {Object} FormStep
+ * @property {string} [url] - url path for the step. If not present, this is usually the last step
+ * @property {boolean} isComplete - boolean automatically provided by the multistep-form session data
+ * @property {boolean} isCurrent - boolean match on the steps url path
+ * @property {string} text - Text for the step marker
+ */
+
+/**
+ * Returns the objects that control the form steps
+ * @param path
+ * @param multiStepFormId
+ * @param stepData
+ * @param isMultistepComplete
+ * @returns {Array<FormStep>}
+ */
+function formSteps(path, multiStepFormId, stepData, isMultistepComplete) {
   const isComplete = isMultistepComplete(stepData)
   const withId = (url) => `${url}/${multiStepFormId}`
 
@@ -22,29 +39,11 @@ function formSteps(path, multiStepFormId, stepData) {
       text: 'Options'
     },
     {
-      isComplete: isComplete.allSteps,
+      isComplete: isComplete.stepThree,
       isCurrent: path.endsWith(withId(urls.stepThree)),
       text: 'Summary'
     }
   ]
 }
 
-/**
- *
- * @param {string} path
- * @returns {string|undefined}
- */
-function getStepByPath(path) {
-  const result = Object.entries(urls).find(([, url]) => path.startsWith(url))
-  return result.at(0)
-}
-
-function isMultistepComplete(stepData) {
-  return {
-    stepOne: stepData?.isComplete?.stepOne,
-    stepTwo: stepData?.isComplete?.stepTwo,
-    stepThree: stepData?.isComplete?.allSteps
-  }
-}
-
-export { formSteps, isMultistepComplete, getStepByPath }
+export { formSteps, urls }

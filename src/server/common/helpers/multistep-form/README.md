@@ -1,10 +1,13 @@
-# Multistep plugin
+# Multistep-form plugin
 
 - [Using the multistep form plugin](#using-the-multistep-form-plugin)
   - [Installation](#installation)
   - [Custom options](#custom-options)
   - [Saving data in your flow](#saving-data-in-your-flow)
+  - [Providing form values and inline errors in your flow](#providing-form-values-and-inline-errors-in-your-flow)
+  - [Check session is valid helper](#check-session-is-valid-helper)
   - [Example](#example)
+    s
 
 ## Using the multistep form plugin
 
@@ -16,8 +19,8 @@ In a route file register the multistep plugin with the following options:
 server.register({
   plugin: multistepForm,
   options: {
+    urls,
     formSteps,
-    isMultistepComplete,
     routes: [
       {
         method: 'GET',
@@ -28,40 +31,16 @@ server.register({
         method: 'GET',
         path: '/deploy-service/details/{multiStepFormId?}',
         ...detailsFormController
-      },
-      {
-        method: 'POST',
-        path: '/deploy-service/details/{multiStepFormId?}',
-        ...detailsController
-      },
-      {
-        method: 'GET',
-        path: '/deploy-service/options/{multiStepFormId}',
-        ...optionsFormController
-      },
-      {
-        method: 'POST',
-        path: '/deploy-service/options/{multiStepFormId}',
-        ...optionsController
-      },
-      {
-        method: 'GET',
-        path: '/deploy-service/summary/{multiStepFormId}',
-        ...summaryController
-      },
-      {
-        method: 'POST',
-        path: '/deploy-service/deploy/{multiStepFormId}',
-        ...deployController
       }
-    ].map(serviceTeamAndAdminUserScope)
+    ]
   }
 })
 ```
 
 ### Custom options
 
-Provide the following custom options `formSteps` and `isMultistepComplete` for you flow:
+Provide the following custom options `formSteps` and `urls` for you flow. These control the steps in your flow and the
+completion of the steps. Everything else is taken care for you.
 
 ```javascript
 const urls = {
@@ -94,25 +73,30 @@ function formSteps(path, multiStepFormId, stepData) {
     }
   ]
 }
-
-function getStepByPath(path) {
-  const result = Object.entries(urls).find(([, url]) => path.startsWith(url))
-  return result.at(0)
-}
-
-function isMultistepComplete(stepData) {
-  return {
-    stepOne: stepData?.isComplete?.stepOne,
-    stepTwo: stepData?.isComplete?.stepTwo,
-    stepThree: stepData?.isComplete?.allSteps
-  }
-}
 ```
 
 ### Saving data in your flow
 
-In your flow use `await request.saveStepData(multiStepFormId, payload, h, getStepByPath)` to save the step data.
-Pass in your flows `getStepByPath` function to get the current step.
+In your flows `POST` controllers, use `await request.app.saveStepData(multiStepFormId, payload, h)` to save the step
+data.
+
+### Providing form values and inline errors in your flow
+
+You have `formValues` and `formErrors` available in context. These values are used to populate the form fields and
+error messages in your multistep-form flows views.
+
+### Check session is valid helper
+
+To bounce users to the start of a multistep-form flow if the session is invalid, use the `checkSessionIsValid`
+helper in a routes `options`.
+
+```javascript
+options: {
+  ext: {
+    onPreHandler: checkSessionIsValid('/deploy-service')
+  }
+}
+```
 
 ### Example
 

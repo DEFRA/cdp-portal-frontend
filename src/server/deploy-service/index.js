@@ -13,8 +13,8 @@ import {
 } from '~/src/server/deploy-service/controllers'
 import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form'
 import {
-  formSteps,
-  isMultistepComplete
+  urls,
+  formSteps
 } from '~/src/server/deploy-service/helpers/multistep-form/steps'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
@@ -30,8 +30,8 @@ const deployService = {
       server.register({
         plugin: multistepForm,
         options: {
+          urls,
           formSteps,
-          isMultistepComplete,
           routes: [
             {
               method: 'GET',

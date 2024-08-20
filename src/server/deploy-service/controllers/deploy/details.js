@@ -7,7 +7,6 @@ import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/f
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
-import { getStepByPath } from '~/src/server/deploy-service/helpers/multistep-form/steps'
 
 const detailsController = {
   options: {
@@ -80,7 +79,7 @@ const detailsController = {
 
     // No validation error
     if (!validationResult.error) {
-      await request.saveStepData(multiStepFormId, payload, h, getStepByPath)
+      await request.app.saveStepData(multiStepFormId, payload, h)
 
       const redirectTo = redirectLocation
         ? `/deploy-service/${redirectLocation}/${multiStepFormId}`

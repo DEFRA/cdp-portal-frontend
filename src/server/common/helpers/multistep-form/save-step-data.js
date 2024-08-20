@@ -53,13 +53,14 @@ async function saveStepData({ id, data, path, h, yar, logger, getStepByPath }) {
 }
 
 /**
- *Save step data decorator
+ * Save step data request helper
  * @param {Request} request
- * @returns {function(id: {string}, data: {object}, h: {ResponseToolkit}, getStepByPath: {function}): Promise<void>}
+ * @param {function} getStepByPath
+ * @returns {function(id: {string}, data: {object}, h: {ResponseToolkit}): Promise<void>}
  */
-function saveStepDataDecorator(request) {
-  return (id, data, h, getStepByPath) => {
-    return saveStepData({
+function saveStepDataRequestHelper(request, getStepByPath) {
+  return (id, data, h) =>
+    saveStepData({
       id,
       data,
       path: request.path,
@@ -68,10 +69,9 @@ function saveStepDataDecorator(request) {
       logger: request.logger,
       getStepByPath
     })
-  }
 }
 
-export { saveStepDataDecorator }
+export { saveStepDataRequestHelper }
 
 /**
  * @import {Request, ResponseToolkit} from '@hapi/hapi'

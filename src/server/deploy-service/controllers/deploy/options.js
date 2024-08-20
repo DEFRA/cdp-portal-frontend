@@ -8,7 +8,6 @@ import { availableInstances } from '~/src/server/deploy-service/constants/availa
 import { optionsValidation } from '~/src/server/deploy-service/helpers/schema/options-validation'
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { getStepByPath } from '~/src/server/deploy-service/helpers/multistep-form/steps'
 
 const optionsController = {
   options: {
@@ -60,7 +59,7 @@ const optionsController = {
     }
 
     if (!validationResult.error) {
-      await request.saveStepData(multiStepFormId, payload, h, getStepByPath)
+      await request.app.saveStepData(multiStepFormId, payload, h)
 
       return h.redirect(`/deploy-service/summary/${multiStepFormId}`)
     }

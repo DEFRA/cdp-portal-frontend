@@ -1,6 +1,6 @@
 import { provideSteps } from '~/src/server/common/helpers/multistep-form/provide-steps'
 import { provideFormContextValues } from '~/src/server/common/helpers/multistep-form/provide-form-context-values'
-import { provideMultistepFormId } from '~/src/server/common/helpers/multistep-form/provide-multistep-form-id'
+import { requestHelpers } from '~/src/server/common/helpers/multistep-form/request-helpers'
 
 const multistepForm = {
   name: 'multistepForm',
@@ -10,7 +10,7 @@ const multistepForm = {
     server.ext([
       {
         type: 'onPreAuth',
-        method: provideMultistepFormId,
+        method: requestHelpers(options.urls),
         options: {
           sandbox: 'plugin'
         }
@@ -22,7 +22,7 @@ const multistepForm = {
       },
       {
         type: 'onPostHandler',
-        method: provideSteps(options.formSteps, options.isMultistepComplete),
+        method: provideSteps(options.formSteps, options.urls),
         options: {
           sandbox: 'plugin'
         }

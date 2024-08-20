@@ -3,11 +3,19 @@ import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-s
 /**
  *
  * @param {function} formSteps - flow defined formSteps
- * @param {function} isMultistepComplete - flow defined isMultistepComplete
+ * @param {Record<string, string>} urls - flow urls
  * @returns {function(*, *): *}
  */
-function provideSteps(formSteps, isMultistepComplete) {
+function provideSteps(formSteps, urls) {
   return (request, h) => {
+    const isMultistepComplete = (stepSessionData) =>
+      Object.keys(urls).reduce(
+        (key) => ({
+          [key]: stepSessionData?.isComplete?.[key]
+        }),
+        {}
+      )
+
     const multiStepFormId = request.app.multiStepFormId
     const response = request.response
     const stepData = request.yar.get(multiStepFormId)
@@ -20,7 +28,12 @@ function provideSteps(formSteps, isMultistepComplete) {
       response.source.context.stepNavigation = {
         classes: 'app-step-navigation--slim',
         width: calculateStepWidth(isMultistepComplete(stepData)),
-        steps: formSteps(request.path, multiStepFormId, stepData)
+        steps: formSteps(
+          request.path,
+          multiStepFormId,
+          stepData,
+          isMultistepComplete
+        )
       }
     }
 
