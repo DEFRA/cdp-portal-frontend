@@ -8,13 +8,15 @@ import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-s
  */
 function provideSteps(formSteps, urls) {
   return (request, h) => {
-    const isMultistepComplete = (stepSessionData) =>
-      Object.keys(urls).reduce(
-        (key) => ({
+    const isMultistepComplete = (stepSessionData) => {
+      return Object.keys(urls).reduce(
+        (stepObj, key) => ({
+          ...stepObj,
           [key]: stepSessionData?.isComplete?.[key]
         }),
         {}
       )
+    }
 
     const multiStepFormId = request.app.multiStepFormId
     const response = request.response
