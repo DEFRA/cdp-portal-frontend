@@ -1,23 +1,16 @@
 import { config } from '~/src/config'
 
 import { createServer } from '~/src/server'
-import { createLogger } from '~/src/server/common/helpers/logging/logger'
 
 async function startServer() {
-  try {
-    const server = await createServer()
-    await server.start()
+  const server = await createServer()
+  await server.start()
 
-    server.logger.info('Server started successfully')
-    server.logger.info(
-      `Access your frontend on http://localhost:${config.get('port')}`
-    )
-    return server
-  } catch (error) {
-    const logger = createLogger()
-    logger.info('Server failed to start :(')
-    logger.error(error)
-  }
+  server.logger.info('Server started successfully')
+  server.logger.info(
+    `Access your frontend on http://localhost:${config.get('port')}`
+  )
+  return server
 }
 
 export { startServer }
