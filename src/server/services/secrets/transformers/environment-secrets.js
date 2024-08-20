@@ -8,7 +8,7 @@ import { noValue } from '~/src/server/common/constants/no-value'
 /**
  * Transforms secrets for a given environment by filtering out platform global keys and placeholders,
  * and categorizing them into service secrets and platform secrets.
- * @param {object} secrets - The secrets object containing keys and optional pending keys.
+ * @param {object | null} secrets - The secrets object containing keys and optional pending keys.
  * @param {string[]} [platformGlobalSecretKeys] - The list of platform global secret keys defaults to config.get('platformGlobalSecretKeys').
  * @returns {object} An object containing:
  *   - serviceSecrets: The filtered and sorted service secrets.
