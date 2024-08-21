@@ -15,6 +15,13 @@
     "target": "ESNext",
     "types": ["jest"]
   },
-  "include": ["src", "types/**/*.ts", "**/*.cjs", "**/*.js", "**/*.json"],
+  "include": [
+    "src",
+    ".eslintrc.cjs",
+    "types/**/*.ts",
+    "**/*.cjs",
+    "**/*.js",
+    "**/*.json"
+  ],
   "exclude": ["node_modules", "package-lock.json"]
 }
