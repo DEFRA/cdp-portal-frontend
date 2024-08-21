@@ -15,20 +15,6 @@
     "target": "ESNext",
     "types": ["jest"]
   },
-  "include": [
-    "types/**/*.d.ts",
-    "**/*.cjs",
-    "**/*.js",
-    "**/*.json",
-    ".eslintrc.*",
-    ".prettierrc.*"
-  ],
-  "exclude": [
-    ".cache",
-    ".public",
-    ".server",
-    "coverage",
-    "node_modules",
-    "raw-assets"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
