@@ -16,19 +16,12 @@
     "types": ["jest"]
   },
   "include": [
-    "types/**/*.d.ts",
+    "src",
+    ".eslintrc.cjs",
+    "types/**/*.ts",
     "**/*.cjs",
     "**/*.js",
-    "**/*.json",
-    ".eslintrc.*",
-    ".prettierrc.*"
+    "**/*.json"
   ],
-  "exclude": [
-    ".cache",
-    ".public",
-    ".server",
-    "coverage",
-    "node_modules",
-    "raw-assets"
-  ]
+  "exclude": ["node_modules", "package-lock.json"]
 }

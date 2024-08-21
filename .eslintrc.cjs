@@ -8,7 +8,17 @@ module.exports = {
     HTMLElement: true,
     location: true
   },
-  ignorePatterns: ['.server', '.public', 'src/__fixtures__', 'coverage'],
+  ignorePatterns: [
+    '.server',
+    '.public',
+    'src/__fixtures__',
+    'coverage',
+    '.husky',
+    '.github',
+    'node_modules',
+    '.sonarlint',
+    'raw-assets'
+  ],
   overrides: [
     {
       extends: [
