@@ -87,7 +87,7 @@ async function createServer() {
   }
 
   await server.register([
-    ...(enablePulse ? pulse : []),
+    ...(enablePulse ? [pulse] : []),
     sessionManager,
     azureOidc,
     sessionCookie,
