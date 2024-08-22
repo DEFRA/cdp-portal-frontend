@@ -1,19 +1,30 @@
-import ecsFormat from '@elastic/ecs-pino-format'
+import { ecsFormat } from '@elastic/ecs-pino-format'
 
 import { config } from '~/src/config'
 
-// TODO slimline dev logger
-const loggerOptions = {
-  enabled: !config.get('isTest'),
+/**
+ * @type {{ecs: Omit<LoggerOptions, "mixin"|"transport">, "pino-pretty": {transport: {target: string}}}}
+ */
+const formatters = {
+  ecs: ecsFormat(),
+  'pino-pretty': { transport: { target: 'pino-pretty' } }
+}
+
+/**
+ * @satisfies {Options}
+ */
+export const loggerOptions = {
+  enabled: config.get('log.enabled'),
   ignorePaths: ['/health'],
   redact: {
     paths: ['req.headers.authorization', 'req.headers.cookie', 'res.headers'],
     remove: true
   },
-  level: config.get('logLevel'),
-  ...(config.get('isDevelopment')
-    ? { transport: { target: 'pino-pretty' } }
-    : ecsFormat())
+  level: config.get('log.level'),
+  ...formatters[config.get('log.format')]
 }
 
-export { loggerOptions }
+/**
+ * @import { Options } from 'hapi-pino'
+ * @import { LoggerOptions } from 'pino'
+ */
