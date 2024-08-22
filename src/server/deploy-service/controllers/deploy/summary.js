@@ -39,8 +39,8 @@ const summaryController = {
     const secretDetail = transformSecrets(secrets)
 
     return h.view('deploy-service/views/summary', {
-      pageTitle: 'Deploy Service Summary',
-      heading: 'Summary',
+      pageTitle: 'Deploy Service summary',
+      heading: 'Deployment summary',
       headingCaption:
         'Information about the Microservice you are going to deploy.',
       helpText: buildHelpText(cpuDetail?.value, memoryDetail?.value),

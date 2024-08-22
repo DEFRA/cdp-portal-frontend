@@ -6,7 +6,7 @@ import { getUserGroups } from '~/src/server/common/helpers/auth/get-user-groups'
 /**
  * @typedef {object} Options
  * @property {Request} request
- * @property {string} scope
+ * @property {string} [scope]
  */
 
 /**
