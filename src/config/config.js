@@ -146,11 +146,25 @@ const config = convict({
     format: Boolean,
     default: isTest
   },
-  logLevel: {
-    doc: 'Logging level',
-    format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
-    default: isDevelopment ? 'debug' : 'info',
-    env: 'LOG_LEVEL'
+  log: {
+    enabled: {
+      doc: 'Is logging enabled',
+      format: Boolean,
+      default: !isTest,
+      env: 'LOG_ENABLED'
+    },
+    level: {
+      doc: 'Logging level',
+      format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
+      default: isProduction ? 'info' : 'debug',
+      env: 'LOG_LEVEL'
+    },
+    format: {
+      doc: 'Format to output logs in.',
+      format: ['ecs', 'pino-pretty'],
+      default: isProduction ? 'ecs' : 'pino-pretty',
+      env: 'LOG_FORMAT'
+    }
   },
   azureTenantId: {
     doc: 'Azure Active Directory Tenant ID',
