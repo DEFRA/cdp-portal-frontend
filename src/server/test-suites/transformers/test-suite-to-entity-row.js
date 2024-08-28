@@ -2,6 +2,13 @@ import { config } from '~/src/config'
 
 function transformTestSuiteToEntityRow(testSuite) {
   const githubOrg = config.get('githubOrg')
+  const teams = testSuite?.teams
+    ?.filter((team) => team.teamId)
+    ?.map((team) => ({
+      kind: 'link',
+      value: team.name,
+      url: `/teams/${team.teamId}`
+    }))
 
   return [
     {
@@ -11,11 +18,7 @@ function transformTestSuiteToEntityRow(testSuite) {
     },
     {
       kind: 'group',
-      value: testSuite?.teams?.map((team) => ({
-        kind: 'link',
-        value: team.name,
-        url: `/teams/${team.teamId}`
-      }))
+      value: teams?.length ? teams : null
     },
     {
       kind: 'text',

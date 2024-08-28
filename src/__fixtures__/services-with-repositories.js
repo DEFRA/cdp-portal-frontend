@@ -24,6 +24,11 @@ const servicesWithRepositoriesFixture = [
         github: 'cdp-platform',
         teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
         name: 'Platform'
+      },
+      {
+        github: 'core-ai',
+        teamId: null,
+        name: null
       }
     ]
   },
