@@ -90,7 +90,7 @@
                     <p>{{ deployment.cpu if deployment.cpu else noValue }}</p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Memory</h2>
-                    <p>{{ deployment.memory if deployment.memory  else noValue }}</p>
+                    <p>{{ deployment.memory / 1024 + " GB" if deployment.memory  else noValue }}</p>
 
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Image name</h2>
                     <p>{{ deployment.service }}</p>
