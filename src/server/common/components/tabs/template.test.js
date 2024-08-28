@@ -4,7 +4,7 @@ describe('Tabs Component', () => {
   let $tabs, $tabsList
 
   const getTab = (tabNumber) =>
-    $tabsList.find(`[data-testid="app-tabs-list-item-${tabNumber}"]`)
+    $tabsList.find(`[data-testid*="app-tabs-list-item-${tabNumber}"]`)
 
   describe('With child content', () => {
     beforeEach(() => {

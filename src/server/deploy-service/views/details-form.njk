@@ -21,7 +21,7 @@
 
   {{ latestPublishedTableRows.push([
     { html: createdHtml },
-    { html: versionLinkHtml }
+    { html: versionLinkHtml, attributes: { "data-testid": "latest-published-version" } }
   ]) }}
 {% endfor %}
 
