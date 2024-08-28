@@ -22,6 +22,11 @@ const serviceDetailFixture = {
       github: 'fisheries',
       teamId: '087d4a80-002b-48cf-a7d3-aa60b67784f0',
       name: 'Fish-and-octopus'
+    },
+    {
+      github: 'core-ai',
+      teamId: null,
+      name: null
     }
   ],
   runningServices: [

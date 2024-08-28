@@ -7,6 +7,13 @@ function serviceToEntityRow(service) {
   const githubOrg = config.get('githubOrg')
   const status = service?.serviceStatus?.status
   const hasStatus = Boolean(status)
+  const teams = service?.teams
+    ?.filter((team) => team.teamId)
+    ?.map((team) => ({
+      kind: 'link',
+      value: team.name,
+      url: `/teams/${team.teamId}`
+    }))
 
   // For services that are being created show, in-progress or failure tag. For created services show created date
   const createdEntity = hasStatus
@@ -27,11 +34,7 @@ function serviceToEntityRow(service) {
     },
     {
       kind: 'group',
-      value: service?.teams?.map((team) => ({
-        kind: 'link',
-        value: team.name,
-        url: `/teams/${team.teamId}`
-      }))
+      value: teams?.length ? teams : null
     },
     {
       kind: 'text',

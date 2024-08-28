@@ -4,6 +4,13 @@ import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
 function serviceToEntityDataList(service) {
   const dockerHubUrl = config.get('dockerHubUrl')
   const dockerHubServicePage = `${dockerHubUrl}/${service?.imageName}/tags`
+  const teams = service?.teams
+    ?.filter((team) => team.teamId)
+    ?.map((team) => ({
+      kind: 'link',
+      value: team.name,
+      url: `/teams/${team.teamId}`
+    }))
 
   return [
     {
@@ -18,14 +25,10 @@ function serviceToEntityDataList(service) {
       }
     },
     {
-      heading: { text: `Team${service?.teams?.length > 1 ? 's' : ''}` },
+      heading: { text: `Team${teams?.length > 1 ? 's' : ''}` },
       entity: {
         kind: 'group',
-        value: service?.teams?.map((team) => ({
-          kind: 'link',
-          value: team.name,
-          url: `/teams/${team.teamId}`
-        }))
+        value: teams?.length ? teams : null
       }
     },
     ...(service?.primaryLanguage

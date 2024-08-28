@@ -1,10 +1,19 @@
+import { compose } from 'lodash/fp'
+
 import { deploymentsFixture } from '~/src/__fixtures__/deployments'
 import { undeploymentsFixture } from '~/src/__fixtures__/undeployments'
+import { servicesFixture } from '~/src/__fixtures__/services'
 import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
+import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments'
 
 describe('#deploymentEntityRows', () => {
   test('Should provide expected deployed service transformation', () => {
-    expect(deploymentEntityRows(deploymentsFixture.data)).toEqual([
+    expect(
+      compose(
+        deploymentEntityRows,
+        decorateDeployments(servicesFixture)
+      )(deploymentsFixture.data)
+    ).toEqual([
       [
         {
           kind: 'link',
@@ -12,7 +21,8 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-self-service-ops'
         },
         {
-          kind: 'group'
+          kind: 'group',
+          value: null
         },
         {
           kind: 'link',
@@ -42,7 +52,14 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-user-service-backend'
         },
         {
-          kind: 'group'
+          kind: 'group',
+          value: [
+            {
+              kind: 'link',
+              url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+              value: 'Platform'
+            }
+          ]
         },
         {
           kind: 'link',
@@ -114,7 +131,14 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-portal-frontend'
         },
         {
-          kind: 'group'
+          kind: 'group',
+          value: [
+            {
+              kind: 'link',
+              url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+              value: 'Platform'
+            }
+          ]
         },
         {
           kind: 'link',
@@ -141,7 +165,12 @@ describe('#deploymentEntityRows', () => {
   })
 
   test('Should show un-deployment events as STOPPED', () => {
-    expect(deploymentEntityRows([undeploymentsFixture])).toEqual([
+    expect(
+      compose(
+        deploymentEntityRows,
+        decorateDeployments(servicesFixture)
+      )([undeploymentsFixture])
+    ).toEqual([
       [
         {
           kind: 'link',
@@ -149,7 +178,14 @@ describe('#deploymentEntityRows', () => {
           value: 'cdp-portal-frontend'
         },
         {
-          kind: 'group'
+          kind: 'group',
+          value: [
+            {
+              kind: 'link',
+              url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+              value: 'Platform'
+            }
+          ]
         },
         {
           kind: 'link',

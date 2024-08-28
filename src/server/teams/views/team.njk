@@ -8,7 +8,7 @@
   {% set actionHtml %}
     {% if userIsTeamMember(team.teamId) %}
       {{ govukButton({
-        classes: "app-button app-button--small app-button--destructive",
+        classes: "app-button app-button--small app-button--hover-destructive",
         text: "Remove",
         attributes: {
           formaction: "/admin/teams/" + team.teamId + "/remove-member/" + user.userId
