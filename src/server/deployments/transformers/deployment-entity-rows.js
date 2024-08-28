@@ -10,6 +10,13 @@ function deploymentEntityRows(deployments) {
 
 function deploymentToEntityRow(deployment) {
   const status = augmentStatus(deployment)
+  const teams = deployment?.teams
+    ?.filter((team) => team.teamId)
+    ?.map((team) => ({
+      kind: 'link',
+      value: team.name,
+      url: `/teams/${team.teamId}`
+    }))
 
   return [
     {
@@ -21,11 +28,7 @@ function deploymentToEntityRow(deployment) {
     },
     {
       kind: 'group',
-      value: deployment?.teams?.map((team) => ({
-        kind: 'link',
-        value: team.name,
-        url: `/teams/${team.teamId}`
-      }))
+      value: teams?.length ? teams : null
     },
     {
       kind: 'link',
