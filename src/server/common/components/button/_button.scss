@@ -1,10 +1,12 @@
+$shadow-opacity: 0.8;
+
 .app-button {
   border-radius: $app-border-radius;
   @include govuk-font(24);
   font-weight: bold;
-  box-shadow: none;
   padding: govuk-spacing(1) govuk-spacing(2);
   margin: 0;
+  box-shadow: 0 2px 0 rgba(0, 45, 24, $shadow-opacity);
 }
 
 .app-button__container {
@@ -24,6 +26,7 @@
 
 .app-button--secondary {
   background-color: govuk-colour("bright-purple");
+  box-shadow: 0 2px 0 rgba(58, 17, 54, $shadow-opacity);
 
   &:hover {
     background-color: govuk-shade(govuk-colour("bright-purple"), 20%);
@@ -33,6 +36,7 @@
 .app-button--primary {
   background-color: govuk-colour("blue");
   color: govuk-colour("white");
+  box-shadow: 0 2px 0 rgba(12, 45, 74, $shadow-opacity);
 
   &:hover {
     background-color: govuk-shade(govuk-colour("blue"), 20%);
@@ -42,9 +46,21 @@
 .app-button--destructive {
   background-color: govuk-colour("red");
   color: govuk-colour("white");
+  box-shadow: 0 2px 0 rgba(85, 21, 11, $shadow-opacity) ;
 
   &:hover {
     color: govuk-colour("white");
     background-color: govuk-shade(govuk-colour("red"), 20%);
+  }
+}
+
+.app-button--hover-destructive {
+  background-color: govuk-colour("light-grey");
+  color: govuk-colour("black");
+  box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity);
+
+  &:hover {
+    color: govuk-colour("white");
+    background-color: govuk-colour("red");
   }
 }

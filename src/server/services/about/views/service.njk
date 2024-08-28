@@ -23,7 +23,7 @@
   {% set deployButtonHtml %}
     <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
       query: { imageName: service.serviceName, version: version.tag }
-    }) }}" role="button" class="govuk-button app-button app-button--small app-button--primary">Deploy</a>
+    }) }}" role="button" class="govuk-button app-button app-button--primary app-button--small">Deploy</a>
   {% endset %}
 
   {% if canDeploy %}
