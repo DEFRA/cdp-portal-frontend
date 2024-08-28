@@ -1,6 +1,6 @@
 {% set content = params.html | safe if params.html else params.text %}
 {% set classes = ["app-panel", params.classes if params.classes, "app-panel--inverse" if params.isInverse] | join(" ") | trim %}
 
-<div class="{{ classes }}">
+<div class="{{ classes }}" {% if params.testId %}data-testid="{{ params.testId }}"{% endif %}>
   {{ caller() if caller else content }}
 </div>

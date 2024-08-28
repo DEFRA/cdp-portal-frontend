@@ -23,7 +23,8 @@
 
           {{ govukSummaryList({
             classes: "govuk-!-margin-bottom-7",
-            rows: deploymentRows
+            rows: deploymentRows,
+            attributes: { "data-testid": "deploy-summary" }
           }) }}
 
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
