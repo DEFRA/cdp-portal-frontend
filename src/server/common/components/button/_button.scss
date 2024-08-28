@@ -1,4 +1,5 @@
 $shadow-opacity: 0.8;
+$shadow-opacity-light: 0.4;
 
 .app-button {
   border-radius: $app-border-radius;
@@ -9,28 +10,9 @@ $shadow-opacity: 0.8;
   box-shadow: 0 2px 0 rgba(0, 45, 24, $shadow-opacity);
 }
 
-.app-button__container {
-  &:first-of-type {
-    margin-right: govuk-spacing(1);
-  }
-
-  .app-loader.app-loader--is-loading {
-    margin-top: govuk-spacing(2);
-  }
-}
-
 .app-button--small {
   @include govuk-font(19);
   padding: 0 govuk-spacing(1);
-}
-
-.app-button--secondary {
-  background-color: govuk-colour("bright-purple");
-  box-shadow: 0 2px 0 rgba(58, 17, 54, $shadow-opacity);
-
-  &:hover {
-    background-color: govuk-shade(govuk-colour("bright-purple"), 20%);
-  }
 }
 
 .app-button--primary {
@@ -41,6 +23,40 @@ $shadow-opacity: 0.8;
   &:hover {
     background-color: govuk-shade(govuk-colour("blue"), 20%);
   }
+
+  &:active,
+  &:visited {
+    color: govuk-colour("white");
+  }
+}
+
+.app-button--secondary {
+  background-color: govuk-colour("bright-purple");
+  box-shadow: 0 2px 0 rgba(58, 17, 54, $shadow-opacity);
+
+  &:hover {
+    background-color: govuk-shade(govuk-colour("bright-purple"), 20%);
+  }
+
+  &:active,
+  &:visited {
+    color: govuk-colour("white");
+  }
+}
+
+.app-button--tertiary {
+  background-color: govuk-colour("light-grey");
+  color: govuk-colour("black");
+  box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity-light);
+
+  &:hover {
+    background-color: govuk-shade(govuk-colour("light-grey"), 20%);
+  }
+
+  &:active,
+  &:visited {
+    color: govuk-colour("black");
+  }
 }
 
 .app-button--destructive {
@@ -49,18 +65,37 @@ $shadow-opacity: 0.8;
   box-shadow: 0 2px 0 rgba(85, 21, 11, $shadow-opacity) ;
 
   &:hover {
-    color: govuk-colour("white");
     background-color: govuk-shade(govuk-colour("red"), 20%);
+  }
+
+  &:active,
+  &:visited {
+    color: govuk-colour("white");
   }
 }
 
 .app-button--hover-destructive {
   background-color: govuk-colour("light-grey");
   color: govuk-colour("black");
-  box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity);
+  box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity-light);
 
   &:hover {
     color: govuk-colour("white");
     background-color: govuk-colour("red");
+  }
+
+  &:active,
+  &:visited {
+    color: govuk-colour("black");
+  }
+}
+
+.app-button__container {
+  &:first-of-type {
+    margin-right: govuk-spacing(1);
+  }
+
+  .app-loader.app-loader--is-loading {
+    margin-top: govuk-spacing(2);
   }
 }
