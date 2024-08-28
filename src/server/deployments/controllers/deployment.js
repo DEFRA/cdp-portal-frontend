@@ -39,7 +39,7 @@ const deploymentController = {
       caption: 'Microservice deployment information.',
       deployment,
       secretDetail,
-      teams: deployment?.teams,
+      teams: deployment?.teams?.filter((team) => team.teamId),
       breadcrumbs: [
         {
           text: 'Deployments',
