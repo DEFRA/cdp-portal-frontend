@@ -86,6 +86,18 @@ const config = convict({
     default: eightHours,
     env: 'SESSION_COOKIE_TTL'
   },
+  nunjucks: {
+    watch: {
+      doc: 'Reload templates when they are changed.',
+      format: Boolean,
+      default: isDevelopment
+    },
+    noCache: {
+      doc: 'Use a cache and recompile templates each time',
+      format: Boolean,
+      default: isDevelopment
+    }
+  },
   redis: {
     host: {
       doc: 'Redis cache host',
@@ -269,12 +281,6 @@ const config = convict({
     default:
       'SQUID_USERNAME,SQUID_PASSWORD,REDIS_USERNAME,REDIS_PASSWORD,REDIS_KEY_PREFIX,CDP_HTTP_PROXY,CDP_HTTPS_PROXY,HTTP_PROXY,HTTPS_PROXY',
     env: 'PLATFORM_GLOBAL_SECRET_KEYS'
-  },
-  enablePulse: {
-    doc: 'Enable Pulse',
-    format: Boolean,
-    default: isProduction,
-    env: 'ENABLE_PULSE'
   },
   enableSecureContext: {
     doc: 'Enable Secure Context',

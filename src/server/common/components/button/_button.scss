@@ -24,6 +24,7 @@ $shadow-opacity-light: 0.4;
     background-color: govuk-shade(govuk-colour("blue"), 20%);
   }
 
+  &:link,
   &:active,
   &:visited {
     color: govuk-colour("white");
@@ -38,6 +39,7 @@ $shadow-opacity-light: 0.4;
     background-color: govuk-shade(govuk-colour("bright-purple"), 20%);
   }
 
+  &:link,
   &:active,
   &:visited {
     color: govuk-colour("white");
@@ -53,6 +55,7 @@ $shadow-opacity-light: 0.4;
     background-color: govuk-shade(govuk-colour("light-grey"), 20%);
   }
 
+  &:link,
   &:active,
   &:visited {
     color: govuk-colour("black");
@@ -68,6 +71,7 @@ $shadow-opacity-light: 0.4;
     background-color: govuk-shade(govuk-colour("red"), 20%);
   }
 
+  &:link,
   &:active,
   &:visited {
     color: govuk-colour("white");
@@ -84,6 +88,7 @@ $shadow-opacity-light: 0.4;
     background-color: govuk-colour("red");
   }
 
+  &:link,
   &:active,
   &:visited {
     color: govuk-colour("black");

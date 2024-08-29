@@ -30,8 +30,8 @@ const nunjucksEnvironment = nunjucks.configure(
     throwOnUndefined: false,
     trimBlocks: true,
     lstripBlocks: true,
-    watch: !(config.get('isProduction') || config.get('isTest')),
-    noCache: config.get('isDevelopment')
+    watch: config.get('nunjucks.watch'),
+    noCache: config.get('nunjucks.noCache')
   }
 )
 
