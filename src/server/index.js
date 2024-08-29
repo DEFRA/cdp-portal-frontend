@@ -24,7 +24,6 @@ import { addServerMethods } from '~/src/server/common/helpers/add-server-methods
 import { addDecorators } from '~/src/server/common/helpers/add-decorators'
 
 const enableSecureContext = config.get('enableSecureContext')
-const enablePulse = config.get('enablePulse')
 
 async function createServer() {
   setupWreckAgents(proxyAgent())
@@ -86,11 +85,8 @@ async function createServer() {
     await server.register(secureContext)
   }
 
-  if (enablePulse) {
-    await server.register(pulse)
-  }
-
   await server.register([
+    pulse,
     sessionManager,
     azureOidc,
     sessionCookie,

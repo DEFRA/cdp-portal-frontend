@@ -282,12 +282,6 @@ const config = convict({
       'SQUID_USERNAME,SQUID_PASSWORD,REDIS_USERNAME,REDIS_PASSWORD,REDIS_KEY_PREFIX,CDP_HTTP_PROXY,CDP_HTTPS_PROXY,HTTP_PROXY,HTTPS_PROXY',
     env: 'PLATFORM_GLOBAL_SECRET_KEYS'
   },
-  enablePulse: {
-    doc: 'Enable Pulse',
-    format: Boolean,
-    default: isProduction,
-    env: 'ENABLE_PULSE'
-  },
   enableSecureContext: {
     doc: 'Enable Secure Context',
     format: Boolean,
