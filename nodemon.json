@@ -1,5 +1,11 @@
 {
   "watch": [".public", "./src"],
-  "ignore": ["**/*.test.*", "./test-helpers", "./src/client"],
+  "ignore": [
+    "**/*.test.*",
+    "./test-helpers",
+    "./src/client",
+    "./src/server/common/components",
+    "./src/server/common/templates/partials"
+  ],
   "ext": "js,json"
 }
