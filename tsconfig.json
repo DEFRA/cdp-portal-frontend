@@ -6,7 +6,7 @@
       "~/*": ["./*"]
     },
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
     "module": "es2022",
     "noEmit": true,
     "resolveJsonModule": true,
