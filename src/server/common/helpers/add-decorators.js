@@ -41,5 +41,5 @@ function addDecorators(server) {
 export { addDecorators }
 
 /**
- * import { Server } from '@hapi/hapi'
+ * @import {Server} from '@hapi/hapi'
  */
