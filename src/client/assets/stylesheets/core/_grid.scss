@@ -38,31 +38,9 @@
   }
 }
 
-.app-grid--3-to-4 {
-  @include govuk-media-query($from: desktop-huge) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-  }
-
-  @include govuk-media-query($from: desktop-massive) {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-  }
-}
-
-.app-grid--3-to-6 {
+.app-grid--fluid {
   @include govuk-media-query($from: desktop-big) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-  }
-
-  @include govuk-media-query($from: desktop-huge) {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-  }
-
-  @include govuk-media-query($from: desktop-massive) {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
     grid-template-rows: repeat(2, 1fr);
   }
 }
