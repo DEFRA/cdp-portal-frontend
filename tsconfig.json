@@ -6,8 +6,7 @@
       "~/*": ["./*"]
     },
     "allowJs": true,
-    "checkJs": true,
-    "module": "es2022",
+    "checkJs": false,
     "noEmit": true,
     "resolveJsonModule": true,
     "strictFunctionTypes": true,
