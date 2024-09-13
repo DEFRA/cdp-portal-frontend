@@ -68,7 +68,7 @@ about the Platform and its tenants.
 
 The Portal Frontend uses [Redis](https://redis.io/) for session storage.
 When the application is run on AWS it does so on a Redis/ElastiCache Cluster, locally it uses 1 Redis instance. To
-set up Redis locally refer to the documentation found:
+set up Redis locally, refer to the documentation found:
 
 - [https://redis.io/docs/getting-started/installation](https://redis.io/docs/getting-started/installation)
 
