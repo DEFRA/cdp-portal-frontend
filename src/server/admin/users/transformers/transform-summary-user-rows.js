@@ -8,10 +8,17 @@ function buildRow(name, value, stepPath, query, queryValue = value) {
     value !== noValue && query ? `&${query}=${queryValue}` : ''
 
   const href = `/admin/users/${stepPath}?redirectLocation=summary` + queryString
+  const withTestIdWrapper = (value) => {
+    if (value) {
+      return `<span data-testid="${name.toLowerCase().replace(/\s+/g, '-')}">${value}</span>`
+    }
+  }
 
   return {
     key: { text: name, classes: 'app-summary__heading' },
-    value: { html: value },
+    value: {
+      html: withTestIdWrapper(value)
+    },
     ...(stepPath && {
       actions: {
         classes: 'app-summary__action',
