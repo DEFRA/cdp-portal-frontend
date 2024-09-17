@@ -41,7 +41,7 @@ const findGithubUserFormController = {
     return h.view('admin/users/views/save/github-user-form', {
       pageTitle: heading,
       heading,
-      headingCaption: 'Search for the Defra GitHub user',
+      headingCaption: 'Search for the Defra GitHub user.',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       formValues: { githubSearch, github },
