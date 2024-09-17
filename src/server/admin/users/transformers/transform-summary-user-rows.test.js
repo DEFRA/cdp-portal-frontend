@@ -69,7 +69,7 @@ describe('#transformSummaryUserRows', () => {
           classes: 'app-summary__heading',
           text: 'Defra AWS ID'
         },
-        value: {}
+        value: { html: null }
       },
       {
         actions: {
@@ -87,7 +87,7 @@ describe('#transformSummaryUserRows', () => {
           classes: 'app-summary__heading',
           text: 'Defra VPN ID'
         },
-        value: {}
+        value: { html: null }
       }
     ])
   })
