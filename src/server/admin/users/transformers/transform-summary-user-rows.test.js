@@ -21,7 +21,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'AAD user email'
         },
         value: {
-          html: 'B.A.Baracus@defradev.onmicrosoft.com'
+          html: '<span data-testid="aad-user-email">B.A.Baracus@defradev.onmicrosoft.com</span>'
         }
       },
       {
@@ -30,7 +30,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'AAD user name'
         },
         value: {
-          html: 'B. A. Baracus'
+          html: '<span data-testid="aad-user-name">B. A. Baracus</span>'
         }
       },
       {
@@ -50,7 +50,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'GitHub user'
         },
         value: {
-          html: '<a class="app-link" href="https://github.com/BABaracus" target="_blank" rel="noopener noreferrer">@BABaracus</a>'
+          html: '<span data-testid="github-user"><a class="app-link" href="https://github.com/BABaracus" target="_blank" rel="noopener noreferrer">@BABaracus</a></span>'
         }
       },
       {
@@ -69,7 +69,7 @@ describe('#transformSummaryUserRows', () => {
           classes: 'app-summary__heading',
           text: 'Defra AWS ID'
         },
-        value: {}
+        value: { html: null }
       },
       {
         actions: {
@@ -87,7 +87,7 @@ describe('#transformSummaryUserRows', () => {
           classes: 'app-summary__heading',
           text: 'Defra VPN ID'
         },
-        value: {}
+        value: { html: null }
       }
     ])
   })

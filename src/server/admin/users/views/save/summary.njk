@@ -17,11 +17,12 @@
           {% set actionSuffix = "edit" if isEdit else "create" %}
 
           <form action="/admin/users/{{ actionSuffix }}" method="post">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
             {{ govukSummaryList({
               classes: "govuk-!-margin-bottom-9",
-              rows: userRows
+              rows: userRows,
+              attributes: { "data-testid": "govuk-summary-list" }
             }) }}
 
             {{ appButton({

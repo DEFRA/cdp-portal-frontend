@@ -1,6 +1,6 @@
 {% set content = params.html | safe if params.html else params.text %}
 
-<div class="app-split-pane">
+<div class="app-split-pane" data-testid="app-split-pane">
   <div class="app-split-pane__nav">
     {% include "split-pane/subnav/subnav.njk" %}
   </div>
