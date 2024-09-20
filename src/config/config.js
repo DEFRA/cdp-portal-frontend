@@ -44,11 +44,26 @@ const config = convict({
     default: '/public',
     env: 'ASSET_PATH'
   },
-  awsRegion: {
-    doc: 'AWS region',
-    format: String,
-    default: 'eu-west-2',
-    env: 'AWS_REGION'
+  aws: {
+    region: {
+      doc: 'AWS region',
+      format: String,
+      default: 'eu-west-2',
+      env: 'AWS_REGION'
+    },
+    s3: {
+      endpoint: {
+        doc: 'AWS S3 endpoint',
+        format: String,
+        default: 'http://localhost:4566',
+        env: 'S3_ENDPOINT'
+      },
+      forcePathStyle: {
+        doc: 'AWS S3 forcePathStyle option',
+        format: Boolean,
+        default: !isProduction
+      }
+    }
   },
   portalBackendUrl: {
     doc: 'Portal backend for deployments and deployables root API url',
