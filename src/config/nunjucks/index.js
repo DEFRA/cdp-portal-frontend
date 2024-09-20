@@ -2,6 +2,8 @@ import path from 'path'
 import yar from '@hapi/yar'
 import nunjucks from 'nunjucks'
 import hapiVision from '@hapi/vision'
+import nunjucksMarkdown from 'nunjucks-markdown'
+import markdownParser from 'markdown-it'
 
 import { config } from '~/src/config'
 import { context } from '~/src/config/nunjucks/context'
@@ -65,6 +67,17 @@ Object.keys(filters).forEach((filter) => {
 
 Object.keys(globals).forEach((global) => {
   nunjucksEnvironment.addGlobal(global, globals[global])
+})
+
+nunjucksMarkdown.register(nunjucksEnvironment, (body) => {
+  // TODO lots of config https://markdown-it.github.io/markdown-it/
+  return markdownParser({
+    // TODO do we need to support HTML?
+    html: false, // Be careful with this option, it can lead to XSS.
+    typographer: true,
+    breaks: true,
+    linkify: true
+  }).render(body)
 })
 
 export { nunjucksConfig, nunjucksEnvironment }

@@ -9,6 +9,11 @@ async function buildNavigation(request) {
         isActive: request?.path === '/'
       },
       {
+        text: 'Docs',
+        url: '/docs',
+        isActive: request?.path?.includes('/docs')
+      },
+      {
         text: 'Services',
         url: '/services',
         isActive: request?.path?.includes('/services')

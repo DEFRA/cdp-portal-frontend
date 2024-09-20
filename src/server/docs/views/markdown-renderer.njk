@@ -1,0 +1,7 @@
+{% extends "layouts/minimal-page.njk" %}
+
+{% block content %}
+  <div class="govuk-body">
+    {% markdown %}{{ markdown | safe }}{% endmarkdown %}
+  </div>
+{% endblock %}

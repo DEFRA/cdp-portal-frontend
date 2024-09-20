@@ -1,21 +1,22 @@
 import inert from '@hapi/inert'
 
-import { health } from '~/src/server/health'
-import { auth } from '~/src/server/auth'
 import { admin } from '~/src/server/admin'
-import { home } from '~/src/server/home'
+import { auth } from '~/src/server/auth'
+import { cookies } from '~/src/server/cookies'
 import { create } from '~/src/server/create'
 import { deployService } from '~/src/server/deploy-service'
 import { deployments } from '~/src/server/deployments'
-import { runningServices } from '~/src/server/running-services'
-import { services } from '~/src/server/services'
-import { teams } from '~/src/server/teams'
-import { utilities } from '~/src/server/utilities'
-import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
+import { docs } from '~/src/server/docs'
+import { health } from '~/src/server/health'
+import { home } from '~/src/server/home'
 import { login } from '~/src/server/login'
 import { logout } from '~/src/server/logout'
+import { runningServices } from '~/src/server/running-services'
+import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
+import { services } from '~/src/server/services'
+import { teams } from '~/src/server/teams'
 import { testSuites } from '~/src/server/test-suites'
-import { cookies } from '~/src/server/cookies'
+import { utilities } from '~/src/server/utilities'
 
 const router = {
   plugin: {
@@ -29,6 +30,7 @@ const router = {
         create,
         deployService,
         deployments,
+        docs,
         health,
         home,
         login,
