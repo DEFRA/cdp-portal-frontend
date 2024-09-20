@@ -1,0 +1,15 @@
+.app-iframe {
+  display: block;
+  border: none;
+  background-color: govuk-colour("white");
+  overflow: hidden;
+}
+
+.app-iframe-container {
+  margin: 0 govuk-spacing(-6) govuk-spacing(-2);
+}
+
+.app-iframe--full-page {
+  min-height: 100vh;
+  width: calc(100vw - 17px);
+}
