@@ -4,7 +4,8 @@ import {
   testSuiteListController,
   testSuiteStatusController,
   triggerTestSuiteRunController,
-  testSuiteResultsController
+  testResultsController,
+  testSuiteReportController
 } from '~/src/server/test-suites/controllers'
 import { stopTestSuiteController } from '~/src/server/test-suites/controllers/stop-test-suite'
 
@@ -45,14 +46,19 @@ const testSuites = {
           ...triggerTestSuiteRunController
         },
         {
-          method: 'GET',
-          path: '/test-suites/test-results/{environment}/{serviceId}/{runId}',
-          ...testSuiteResultsController
-        },
-        {
           method: 'POST',
           path: '/test-suites/{serviceId}/{runId}/stop',
           ...stopTestSuiteController
+        },
+        {
+          method: 'GET',
+          path: '/test-suites/test-results/{environment}/{tag}/{serviceId}/{runId}/{assetPath*}',
+          ...testResultsController
+        },
+        {
+          method: 'GET',
+          path: '/test-suites/report/{environment}/{serviceId}/{runId}/{assetPath*}',
+          ...testSuiteReportController
         }
       ])
     }
