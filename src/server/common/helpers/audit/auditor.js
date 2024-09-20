@@ -41,7 +41,7 @@ const auditor = {
     {
       audit,
       logger = server.logger,
-      region = config.get('awsRegion'),
+      region = config.get('aws.region'),
       isDevelopment = config.get('isDevelopment')
     }
   ) => {

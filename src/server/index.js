@@ -7,7 +7,7 @@ import { router } from '~/src/server/router'
 import { config } from '~/src/config'
 import { nunjucksConfig } from '~/src/config/nunjucks'
 import { csrf } from '~/src/server/common/helpers/auth/csrf'
-import { catchAll } from '~/src/server/common/helpers/errors'
+import { catchAll } from '~/src/server/common/helpers/errors/catch-all'
 import { azureOidc } from '~/src/server/common/helpers/auth/azure-oidc'
 import { buildRedisClient } from '~/src/server/common/helpers/redis-client'
 import { sessionManager } from '~/src/server/common/helpers/session-manager'
@@ -22,6 +22,7 @@ import { setupWreckAgents } from '~/src/server/common/helpers/proxy/setup-wreck-
 import { pulse } from '~/src/server/common/helpers/pulse'
 import { addServerMethods } from '~/src/server/common/helpers/add-server-methods'
 import { addDecorators } from '~/src/server/common/helpers/add-decorators'
+import { s3Client } from '~/src/server/common/helpers/aws/s3-client'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -97,6 +98,14 @@ async function createServer() {
     {
       plugin: auditor,
       options: { audit: config.get('audit') }
+    },
+    {
+      plugin: s3Client,
+      options: {
+        region: config.get('aws.region'),
+        endpoint: config.get('aws.s3.endpoint'),
+        forcePathStyle: config.get('aws.s3.forcePathStyle')
+      }
     }
   ])
 

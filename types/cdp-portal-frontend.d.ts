@@ -1,14 +1,12 @@
+import { S3Client } from '@aws-sdk/client-s3'
 import type { RequestOptions, Response } from 'node-fetch'
 
 declare module '@hapi/hapi' {
   interface Request {
-    isXhr: () => boolean
     authedFetcher: (url: string, options?: RequestOptions) => Promise<Response>
-    getUserSession: () => Promise<UserSession>
     dropUserSession: () => void
-    userIsTeamMember: (scope: string) => Promise<boolean>
-    userIsMemberOfATeam: (scopes: string[]) => Promise<boolean>
-    userIsServiceOwner: (scopes: string[]) => Promise<boolean>
+    getUserSession: () => Promise<UserSession>
+    isXhr: () => boolean
     routeLookup: (
       id: string,
       options?: {
@@ -16,5 +14,14 @@ declare module '@hapi/hapi' {
         params: Record<string, string>
       }
     ) => string
+    s3Client: S3Client
+    userIsMemberOfATeam: (scopes: string[]) => Promise<boolean>
+    userIsServiceOwner: (scopes: string[]) => Promise<boolean>
+    userIsTeamMember: (scope: string) => Promise<boolean>
+  }
+
+  interface Server {
+    s3Client: S3Client
+    secureContext: SecureContext
   }
 }

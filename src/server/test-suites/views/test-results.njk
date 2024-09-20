@@ -1,0 +1,28 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appHeading({
+    title: heading,
+    caption: "The " + heading + " test-suite report."
+  }) }}
+
+  <div class="app-iframe-container">
+    <iframe
+      class="app-iframe app-iframe--full-page"
+      title="Test results"
+      onload="resizeIframe(this)"
+      scrolling="no"
+      src="/test-suites/report/{{ environment + "/" + serviceId + "/" + runId + "/" + assetPath | urlencode }}">
+    </iframe>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="text/javascript">
+    function resizeIframe(iframe) {
+      iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+
+      window.requestAnimationFrame(() => resizeIframe(iframe));
+    }
+  </script>
+{% endblock %}

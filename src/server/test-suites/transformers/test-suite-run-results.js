@@ -64,15 +64,14 @@ function transformTestSuiteRunResults(testRun, canRun) {
     },
     {
       kind: 'link',
-      value: logsLinkDataAvailable && `logs.${testRun.environment}`,
+      value: logsLinkDataAvailable ? `logs.${testRun.environment}` : null,
       url: logsLinkDataAvailable && buildLogsLink(testRun, hasResult),
       newWindow: true
     },
     {
       kind: 'link',
       value: hasResult ? 'Report' : null,
-      url: `/test-suites/test-results/${testRun.environment}/${testRun.testSuite}/${testRun.runId}`,
-      newWindow: true,
+      url: `/test-suites/test-results/${testRun.environment}/${testRun.tag}/${testRun.testSuite}/${testRun.runId}/index.html`,
       icon: getTestStatusIcon(runTestStatus)
     },
     {
