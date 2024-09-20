@@ -1,0 +1,24 @@
+{# Minimal page template that provides a page without header or footer #}
+{% from "header/macro.njk" import appHeader with context %}
+
+{% extends "govuk/template.njk" %}
+
+{% set mainClasses = "app-main-wrapper" %}
+
+{% block headIcons %}{% endblock %}
+
+{% block head %}
+  <link href="{{ getAssetPath("application.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block pageTitle %}
+  {{ pageTitle }} | {{ serviceName }}
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block bodyEnd %}{% endblock %}

@@ -1,0 +1,11 @@
+{% from "heading/macro.njk" import appHeading %}
+
+{{ appHeading({
+  title: heading
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p data-testid="error-message">{{ message }}</p>
+  </div>
+</div>

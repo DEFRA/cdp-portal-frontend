@@ -1,13 +1,5 @@
 {% extends "layouts/page.njk" %}
 
 {% block content %}
-  {{ appHeading({
-    title: heading
-  }) }}
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <p data-testid="error-message">{{ message }}</p>
-    </div>
-  </div>
+  {% include "error/partials/error.njk" %}
 {% endblock %}
