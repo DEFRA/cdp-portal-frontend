@@ -22,7 +22,7 @@ const testSuiteReportController = {
     )
     const bucket = `cdp-${request.params.environment}-test-results`
 
-    return await s3FileHandler(request, h, key, bucket)
+    return s3FileHandler(request, h, key, bucket)
   }
 }
 

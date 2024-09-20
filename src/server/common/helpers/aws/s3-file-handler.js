@@ -1,6 +1,7 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 
 import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message'
+import { statusCodes } from '~/src/server/common/constants/status-codes'
 
 /**
  * @param {Request} request
@@ -22,11 +23,12 @@ async function s3FileHandler(request, h, key, bucket) {
       .response(response.Body)
       .header('Content-Type', response.ContentType)
       .header('X-Frame-Options', xFrameOptions)
-      .code(200)
+      .code(statusCodes.ok)
   } catch (error) {
     request.logger.error(error)
 
-    const statusCode = error.$metadata.httpStatusCode ?? 500
+    const statusCode =
+      error.$metadata.httpStatusCode ?? statusCodes.internalError
     const errorMessage = statusCodeMessage(statusCode)
 
     return h
