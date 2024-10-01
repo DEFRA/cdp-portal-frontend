@@ -2,7 +2,8 @@ import {
   isNameAvailableController,
   chooseKindController,
   chooseKindFormController,
-  startController
+  startController,
+  createDisabledController
 } from '~/src/server/create/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
 import { provideCreateSteps } from '~/src/server/create/helpers/form'
@@ -56,6 +57,11 @@ const create = {
             method: 'GET',
             path: '/create/choose-kind',
             ...chooseKindFormController
+          },
+          {
+            method: 'GET',
+            path: '/create/disabled',
+            ...createDisabledController
           },
           {
             method: 'POST',
