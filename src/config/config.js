@@ -1,6 +1,7 @@
 import path from 'node:path'
 import convict from 'convict'
 
+const oneHour = 1000 * 60 * 60
 const eightHours = 1000 * 60 * 60 * 8
 const oneDay = 1000 * 60 * 60 * 24
 const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
@@ -150,6 +151,20 @@ const config = convict({
       format: Boolean,
       default: process.env.NODE_ENV !== 'production',
       env: 'USE_SINGLE_INSTANCE_CACHE'
+    }
+  },
+  featureToggles: {
+    keyPrefix: {
+      doc: 'Key prefix for temporary feature toggles',
+      format: String,
+      default: 'temp-feature-toggle:',
+      env: 'FEATURE_TOGGLE_PREFIX'
+    },
+    ttl: {
+      doc: 'TTL for temporary feature toggles',
+      format: Number,
+      default: oneHour,
+      env: 'FEATURE_TOGGLE_TTL'
     }
   },
   serverCacheSegment: {
