@@ -5,7 +5,11 @@ import { isCreateFeatureTemporaryDisabled } from '~/src/server/create/helpers/fe
 const startController = {
   handler: async (request, h) => {
     if (isCreateFeatureTemporaryDisabled(request)) {
-      return h.redirect('/create/disabled')
+      request.logger.debug('Create feature is disabled')
+      return h.view('create/views/disabled', {
+        pageTitle: 'Create disabled',
+        heading: 'Create service disabled'
+      })
     }
 
     request.yar.clear(sessionNames.create)
