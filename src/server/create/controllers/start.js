@@ -7,8 +7,9 @@ const startController = {
     if (isCreateFeatureTemporaryDisabled(request)) {
       request.logger.debug('Create feature is disabled')
       return h.view('create/views/disabled', {
-        pageTitle: 'Create disabled',
-        heading: 'Create service disabled'
+        pageTitle: 'Sorry, this feature is unavailable – create-service-flow',
+        heading: 'Sorry, this feature is unavailable',
+        mainBody: 'You will be able to use this section of the portal later.'
       })
     }
 

@@ -27,12 +27,12 @@ const features = {
         [
           {
             method: 'POST',
-            path: '/admin/features/create-service-disable',
+            path: '/admin/features/create-service-disabled',
             ...enableCreateServiceDisabledToggleController
           },
           {
             method: 'POST',
-            path: '/admin/features/create-service-disable/delete',
+            path: '/admin/features/create-service-disabled/delete',
             ...expireCreateServiceDisabledToggleController
           },
           {

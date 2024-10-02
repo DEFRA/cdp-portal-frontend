@@ -1,6 +1,8 @@
 {% extends "layouts/page.njk" %}
 
 
+{% set mainClasses = "govuk-main-wrapper--l" %}
+
 {% block content %}
 
   <div class="govuk-main-wrapper app-main-wrapper">
@@ -10,24 +12,14 @@
       caption: headingCaption
     }) }}
 
-    <div class="govuk-grid-row">
-      <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
-
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Temporarily disabled</h2>
-        <p class="govuk-body">
-            The ability to create a new service is temporarily disabled.
-        </p>
-        <p class="govuk-body">
-            It will be available again very soon.
-            Please try again in an hour.
-        </p>
-        <p class="govuk-body">
-            Contact <a href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6">#cdp-support</a> in Slack
-            if this stays disabled for a longer than expected.
-        </p>
-
+   <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+         <p class="govuk-body">{{ mainBody }}</p>
+         <p class="govuk-body">
+         Contact <a href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6">#cdp-support</a> in Slack
+         if it stays unavailable for a longer than expected.
+         </p>
       </div>
-    </div>
+   </div>
   </div>
-
 {% endblock %}

@@ -2,12 +2,19 @@ import { config } from '~/src/config'
 
 const keyPrefix = config.get('featureToggles.keyPrefix')
 
-function findFeatureToggle(featureToggles, toggleName) {
-  return featureToggles[keyPrefix + toggleName]
-}
-
 function isFeatureToggleEnabled(featureToggles, toggleName) {
-  return findFeatureToggle.call(featureToggles, toggleName) === 'true'
+  //   return findFeatureToggle.call(featureToggles, toggleName) === 'true'
+  const toggle = featureToggles.get(keyPrefix + toggleName)
+  return toggle != null && toggle === 'true'
 }
 
-export { isFeatureToggleEnabled }
+function enableFeatureToggle(featureToggles, toggleName) {
+  //   featureToggles[keyPrefix + toggleName] = 'true'
+  featureToggles.set(keyPrefix + toggleName, 'true')
+}
+
+function removeFeatureToggle(featureToggles, toggleName) {
+  featureToggles.drop(keyPrefix + toggleName)
+}
+
+export { isFeatureToggleEnabled, enableFeatureToggle, removeFeatureToggle }

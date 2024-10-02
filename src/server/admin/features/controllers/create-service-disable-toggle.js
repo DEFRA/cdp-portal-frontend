@@ -1,7 +1,15 @@
+import {
+  enableFeatureToggle,
+  removeFeatureToggle
+} from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
+
 const enableCreateServiceDisabledToggleController = {
   handler: (request, h) => {
     request.logger('Create service disabled toggle enabled')
-    // TODO: Implement feature toggle logic
+    enableFeatureToggle(
+      request.featureToggles,
+      'create-service-temporary-disabled'
+    )
     return h.redirect(`/admin/features`)
   }
 }
@@ -9,7 +17,10 @@ const enableCreateServiceDisabledToggleController = {
 const expireCreateServiceDisabledToggleController = {
   handler: (request, h) => {
     request.logger('Create service disabled toggle expired')
-    // TODO: Implement feature toggle logic
+    removeFeatureToggle(
+      request.featureToggles,
+      'create-service-temporary-disabled'
+    )
     return h.redirect(`/admin/features`)
   }
 }
