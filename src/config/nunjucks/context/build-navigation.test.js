@@ -20,7 +20,7 @@ describe('#buildNavigation', () => {
           {
             isActive: false,
             text: 'Docs',
-            url: '/docs'
+            url: '/docs-browser'
           },
           {
             isActive: false,
@@ -84,7 +84,7 @@ describe('#buildNavigation', () => {
           {
             isActive: false,
             text: 'Docs',
-            url: '/docs'
+            url: '/docs-browser'
           },
           {
             isActive: false,
@@ -148,7 +148,7 @@ describe('#buildNavigation', () => {
           {
             isActive: false,
             text: 'Docs',
-            url: '/docs'
+            url: '/docs-browser'
           },
           {
             isActive: false,
@@ -206,7 +206,7 @@ describe('#buildNavigation', () => {
         {
           isActive: false,
           text: 'Docs',
-          url: '/docs'
+          url: '/docs-browser'
         },
         {
           isActive: false,

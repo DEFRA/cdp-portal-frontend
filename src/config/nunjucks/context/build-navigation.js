@@ -10,7 +10,7 @@ async function buildNavigation(request) {
       },
       {
         text: 'Docs',
-        url: '/docs',
+        url: '/docs-browser',
         isActive: request?.path?.includes('/docs')
       },
       {

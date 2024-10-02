@@ -1,4 +1,13 @@
 {% extends "layouts/minimal-page.njk" %}
+{% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
+
+{% block beforeContent %}
+  {% if breadcrumbs.length > 1 %}
+    {{ appBreadcrumbs({
+      items: breadcrumbs
+    }) }}
+  {% endif %}
+{% endblock %}
 
 {% block content %}
   <div class="govuk-body">

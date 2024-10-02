@@ -302,6 +302,14 @@ const config = convict({
     format: Boolean,
     default: isProduction,
     env: 'ENABLE_SECURE_CONTEXT'
+  },
+  documentation: {
+    bucket: {
+      doc: 'S3 bucket holding cdp-documentation markdown',
+      format: String,
+      default: 'cdp-documentation',
+      env: 'DOCUMENTATION_BUCKET'
+    }
   }
 })
 

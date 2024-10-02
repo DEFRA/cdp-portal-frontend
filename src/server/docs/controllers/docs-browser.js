@@ -5,7 +5,7 @@ const docsBrowserController = {
   options: {
     validate: {
       params: Joi.object({
-        docsPath: Joi.string().required()
+        docsPath: Joi.string().default('README.md')
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
@@ -16,16 +16,7 @@ const docsBrowserController = {
     return h.view('docs/views/docs-browser', {
       pageTitle: 'Docs',
       heading: 'Docs',
-      docsPath,
-      breadcrumbs: [
-        {
-          text: 'Docs',
-          href: '/docs-browser'
-        },
-        {
-          text: docsPath
-        }
-      ]
+      docsPath
     })
   }
 }

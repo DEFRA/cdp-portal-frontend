@@ -1,29 +1,35 @@
-import fs from 'node:fs'
-import path from 'node:path'
-
 import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message'
 import { statusCodes } from '~/src/server/common/constants/status-codes'
+import { GetObjectCommand } from '@aws-sdk/client-s3'
 
-function markdownRenderer(request, h, docsPath) {
+async function markdownRenderer(request, h, docsPath, bucket) {
   const xFrameOptions = 'SAMEORIGIN'
 
+  const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: docsPath
+  })
+
   try {
-    // TODO replace with a call to fetch markdown files
-    const markdown = fs.readFileSync(
-      path.join(__dirname, `/../${docsPath}.md`),
-      'utf8'
-    )
+    const response = await request.s3Client.send(command)
 
     return h
       .view('docs/views/markdown-renderer', {
-        markdown
+        markdown: await response.Body.transformToString(),
+        breadcrumbs: [
+          {
+            text: 'Docs',
+            href: '/docs'
+          },
+          {
+            text: docsPath
+          }
+        ]
       })
       .header('X-Frame-Options', xFrameOptions)
       .code(statusCodes.ok)
   } catch (error) {
     request.logger.error(error)
-
-    // TODO get the status code from somewhere this is just hardcoded
     const statusCode = statusCodes.notFound
     const errorMessage = statusCodeMessage(statusCode)
 
