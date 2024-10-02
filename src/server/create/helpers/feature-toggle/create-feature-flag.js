@@ -1,10 +1,17 @@
-import { isFeatureToggleEnabled } from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
+import {
+  findFeatureToggle,
+  isFeatureToggleEnabled
+} from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
 
-async function isCreateFeatureTemporaryDisabled(request) {
+async function isCreateServiceFeatureDisabled(request) {
   return isFeatureToggleEnabled(
     request.featureToggles,
-    'create-service-temporary-disabled'
+    'create-service-disabled'
   )
 }
 
-export { isCreateFeatureTemporaryDisabled }
+async function findCreateServiceFeatureDisabled(request) {
+  return findFeatureToggle(request.featureToggles, 'create-service-disabled')
+}
+
+export { findCreateServiceFeatureDisabled, isCreateServiceFeatureDisabled }

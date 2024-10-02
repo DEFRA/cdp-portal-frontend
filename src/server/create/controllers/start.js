@@ -1,6 +1,6 @@
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import { saveToCreate } from '~/src/server/create/helpers/form'
-import { isCreateFeatureTemporaryDisabled } from '~/src/server/create/helpers/feature-toggle/create-feature-flag'
+import { isCreateServiceFeatureDisabled } from '~/src/server/create/helpers/feature-toggle/create-feature-flag'
 
 const createDisabledProperties = {
   pageTitle: 'Create a Service is unavailable',
@@ -11,7 +11,7 @@ const createDisabledProperties = {
 
 const startController = {
   handler: async (request, h) => {
-    const createDisabled = await isCreateFeatureTemporaryDisabled(request)
+    const createDisabled = await isCreateServiceFeatureDisabled(request)
     if (createDisabled) {
       return h.view('create/views/disabled', createDisabledProperties)
     }

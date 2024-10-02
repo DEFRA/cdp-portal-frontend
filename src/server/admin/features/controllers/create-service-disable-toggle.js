@@ -5,20 +5,14 @@ import {
 
 const enableCreateServiceDisabledToggleController = {
   handler: async (request, h) => {
-    await enableFeatureToggle(
-      request.featureToggles,
-      'create-service-temporary-disabled'
-    )
+    await enableFeatureToggle(request.featureToggles, 'create-service-disabled')
     return h.redirect(`/admin/features`)
   }
 }
 
 const expireCreateServiceDisabledToggleController = {
   handler: async (request, h) => {
-    await removeFeatureToggle(
-      request.featureToggles,
-      'create-service-temporary-disabled'
-    )
+    await removeFeatureToggle(request.featureToggles, 'create-service-disabled')
     return h.redirect(`/admin/features`)
   }
 }

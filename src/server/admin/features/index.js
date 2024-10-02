@@ -26,19 +26,9 @@ const features = {
       server.route(
         [
           {
-            method: 'GET',
-            path: '/admin/features/create-service-disabled',
-            ...enableCreateServiceDisabledToggleController
-          },
-          {
             method: 'POST',
             path: '/admin/features/create-service-disabled',
             ...enableCreateServiceDisabledToggleController
-          },
-          {
-            method: 'GET',
-            path: '/admin/features/create-service-disabled/expire',
-            ...expireCreateServiceDisabledToggleController
           },
           {
             method: 'POST',
