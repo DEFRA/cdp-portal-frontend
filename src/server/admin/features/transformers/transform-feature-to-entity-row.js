@@ -20,7 +20,7 @@ function transformFeatureToEntityRow(feature) {
           },
           {
             kind: 'link',
-            value: 'Expire',
+            value: 'Deactivate',
             url: feature.urlPrefix + '/expire'
           }
         ]
