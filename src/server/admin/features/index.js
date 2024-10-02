@@ -26,13 +26,23 @@ const features = {
       server.route(
         [
           {
-            method: 'POST',
+            method: 'GET',
             path: '/admin/features/create-service-disabled',
             ...enableCreateServiceDisabledToggleController
           },
           {
             method: 'POST',
-            path: '/admin/features/create-service-disabled/delete',
+            path: '/admin/features/create-service-disabled',
+            ...enableCreateServiceDisabledToggleController
+          },
+          {
+            method: 'GET',
+            path: '/admin/features/create-service-disabled/expire',
+            ...expireCreateServiceDisabledToggleController
+          },
+          {
+            method: 'POST',
+            path: '/admin/features/create-service-disabled/expire',
             ...expireCreateServiceDisabledToggleController
           },
           {

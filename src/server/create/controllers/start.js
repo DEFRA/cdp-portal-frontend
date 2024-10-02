@@ -4,8 +4,8 @@ import { isCreateFeatureTemporaryDisabled } from '~/src/server/create/helpers/fe
 
 const startController = {
   handler: async (request, h) => {
-    if (isCreateFeatureTemporaryDisabled(request)) {
-      request.logger.debug('Create feature is disabled')
+    const createDisabled = await isCreateFeatureTemporaryDisabled(request)
+    if (createDisabled) {
       return h.view('create/views/disabled', {
         pageTitle: 'Sorry, this feature is unavailable – create-service-flow',
         heading: 'Sorry, this feature is unavailable',

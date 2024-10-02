@@ -2,20 +2,16 @@ import { isCreateFeatureTemporaryDisabled } from '~/src/server/create/helpers/fe
 import { transformFeaturesToEntityRows } from '~/src/server/admin/features/transformers/transform-feature-to-entity-row'
 
 const listFeaturesController = {
-  handler: (request, h) => {
-    const createFeatureTemporaryDisabled =
-      isCreateFeatureTemporaryDisabled(request)
+  handler: async (request, h) => {
+    const createDisabled = await isCreateFeatureTemporaryDisabled(request)
     const featureToggles = {
       createServiceDisabled: {
         title: 'Disable Create Service',
-        enabled: createFeatureTemporaryDisabled,
+        enabled: createDisabled,
         urlPrefix: '/admin/features/create-service-disabled'
       }
     }
-    const entityRows = transformFeaturesToEntityRows(
-      featureToggles,
-      request.logger
-    )
+    const entityRows = transformFeaturesToEntityRows(featureToggles)
     const title = 'Feature Toggles'
     return h.view('admin/features/views/features-list', {
       pageTitle: title,

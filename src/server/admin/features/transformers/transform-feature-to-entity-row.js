@@ -1,10 +1,8 @@
-function transformFeaturesToEntityRows(features, logger) {
-  logger.debug(features, 'Transforming features to entity rows')
-  return [transformFeatureToEntityRow(features.createServiceDisabled, logger)]
+function transformFeaturesToEntityRows(features) {
+  return [transformFeatureToEntityRow(features.createServiceDisabled)]
 }
 
-function transformFeatureToEntityRow(feature, logger) {
-  logger.debug(feature, 'Transforming feature to a entity row')
+function transformFeatureToEntityRow(feature) {
   return [
     {
       kind: 'text',
@@ -12,7 +10,7 @@ function transformFeatureToEntityRow(feature, logger) {
     },
     {
       kind: 'text',
-      value: feature.enabled ? 'Enabled' : 'Not active'
+      value: feature.enabled ? 'Active' : 'Not active'
     },
     ...(feature.enabled
       ? [

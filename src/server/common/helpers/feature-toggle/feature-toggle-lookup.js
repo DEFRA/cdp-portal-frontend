@@ -2,19 +2,17 @@ import { config } from '~/src/config'
 
 const keyPrefix = config.get('featureToggles.keyPrefix')
 
-function isFeatureToggleEnabled(featureToggles, toggleName) {
-  //   return findFeatureToggle.call(featureToggles, toggleName) === 'true'
-  const toggle = featureToggles.get(keyPrefix + toggleName)
+async function isFeatureToggleEnabled(featureToggles, toggleName) {
+  const toggle = await featureToggles.get(keyPrefix + toggleName)
   return toggle != null && toggle === 'true'
 }
 
-function enableFeatureToggle(featureToggles, toggleName) {
-  //   featureToggles[keyPrefix + toggleName] = 'true'
-  featureToggles.set(keyPrefix + toggleName, 'true')
+async function enableFeatureToggle(featureToggles, toggleName) {
+  await featureToggles.set(keyPrefix + toggleName, 'true')
 }
 
-function removeFeatureToggle(featureToggles, toggleName) {
-  featureToggles.drop(keyPrefix + toggleName)
+async function removeFeatureToggle(featureToggles, toggleName) {
+  await featureToggles.drop(keyPrefix + toggleName)
 }
 
 export { isFeatureToggleEnabled, enableFeatureToggle, removeFeatureToggle }
