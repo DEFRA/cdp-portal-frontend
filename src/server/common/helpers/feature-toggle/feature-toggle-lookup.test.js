@@ -8,7 +8,9 @@ import {
 describe('feature-toggle-lookup', () => {
   const keyPrefix = 'feature-toggle:'
   const toggleName = 'create-service-disabled'
-  const created = new Date().toISOString()
+  const createdDate = new Date()
+  const created = createdDate.toISOString()
+  const createdEpoch = createdDate.getTime()
 
   const mockTogglesGet = jest.fn()
   const featureTogglesRead = {
@@ -81,6 +83,34 @@ describe('feature-toggle-lookup', () => {
         `${keyPrefix}${toggleName}:created`,
         created
       )
+    })
+
+    test('Should create now-ish created date', async () => {
+      await enableFeatureToggle(featureToggles, toggleName)
+
+      const toggleCreated = mockTogglesSet.mock.lastCall[1]
+      const toggleEpoch = new Date(toggleCreated).getTime()
+      expect(toggleEpoch).toBeGreaterThanOrEqual(createdEpoch)
+      expect(toggleEpoch).toBeLessThanOrEqual(new Date().getTime())
+    })
+
+    test('Should create yesterday as created date', async () => {
+      const yesterday = new Date()
+      yesterday.setDate(new Date().getDate() - 1)
+
+      await enableFeatureToggle(
+        featureToggles,
+        toggleName,
+        yesterday.toISOString()
+      )
+
+      const toggleCreated = mockTogglesSet.mock.lastCall[1]
+      const toggleEpoch = new Date(toggleCreated).getTime()
+      expect(toggleEpoch).toBeGreaterThanOrEqual(yesterday.getTime())
+
+      const midnight = new Date()
+      midnight.setHours(0, 0, 0, 0)
+      expect(toggleEpoch).toBeLessThan(midnight.getTime())
     })
   })
 

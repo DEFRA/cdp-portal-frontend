@@ -1,4 +1,7 @@
 function transformFeaturesToEntityRows(features) {
+  if (!features) {
+    return []
+  }
   return features.map(transformFeatureToEntityRow)
 }
 
