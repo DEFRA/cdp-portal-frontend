@@ -1,24 +1,30 @@
 import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message'
 import { statusCodes } from '~/src/server/common/constants/status-codes'
-import { GetObjectCommand } from '@aws-sdk/client-s3'
-import { markdown } from '~/src/server/common/helpers/markdown/markdown'
+import { ListObjectsV2Command } from '@aws-sdk/client-s3'
+import path from 'node:path'
 import { generateDocsBreadcrumbs } from '~/src/server/docs/helpers/generate-docs-breadcrumbs'
 
-async function markdownRenderer(request, h, docsPath, bucket) {
+async function s3DirectoryRenderer(request, h, docsPath, bucket) {
   const xFrameOptions = 'SAMEORIGIN'
 
-  const command = new GetObjectCommand({
+  const command = new ListObjectsV2Command({
     Bucket: bucket,
-    Key: docsPath
+    Prefix: docsPath
   })
 
   try {
     const response = await request.s3Client.send(command)
-    const md = markdown.parse(await response.Body.transformToString())
 
+    const directoryListing = response.Contents.map((c) => {
+      return {
+        name: path.basename(c.Key),
+        href: path.join('/docs', c.Key)
+      }
+    })
     return h
-      .view('docs/views/markdown-renderer', {
-        content: md,
+      .view('docs/views/s3-directory-renderer', {
+        directoryListing,
+        docsPath,
         breadcrumbs: generateDocsBreadcrumbs(docsPath)
       })
       .header('X-Frame-Options', xFrameOptions)
@@ -38,4 +44,4 @@ async function markdownRenderer(request, h, docsPath, bucket) {
   }
 }
 
-export { markdownRenderer }
+export { s3DirectoryRenderer }

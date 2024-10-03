@@ -305,7 +305,7 @@ const config = convict({
   },
   documentation: {
     bucket: {
-      doc: 'S3 bucket holding cdp-documentation markdown',
+      doc: 'S3 bucket holding cdp-documentation docs',
       format: String,
       default: 'cdp-documentation',
       env: 'CDP_DOCUMENTATION_BUCKET'

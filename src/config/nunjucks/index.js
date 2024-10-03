@@ -2,13 +2,11 @@ import path from 'path'
 import yar from '@hapi/yar'
 import nunjucks from 'nunjucks'
 import hapiVision from '@hapi/vision'
-import nunjucksMarkdown from 'nunjucks-markdown'
 
 import { config } from '~/src/config'
 import { context } from '~/src/config/nunjucks/context'
 import * as filters from '~/src/config/nunjucks/filters'
 import * as globals from '~/src/config/nunjucks/globals'
-import { markdown } from '~/src/server/common/helpers/markdown'
 
 const paths = {
   templates: path.normalize(
@@ -67,11 +65,6 @@ Object.keys(filters).forEach((filter) => {
 
 Object.keys(globals).forEach((global) => {
   nunjucksEnvironment.addGlobal(global, globals[global])
-})
-
-nunjucksMarkdown.register(nunjucksEnvironment, (body) => {
-  // TODO lots of config https://markdown-it.github.io/markdown-it/
-  return markdown.render(body)
 })
 
 export { nunjucksConfig, nunjucksEnvironment }
