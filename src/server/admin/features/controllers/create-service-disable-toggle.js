@@ -3,14 +3,14 @@ import {
   removeFeatureToggle
 } from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
 
-const enableCreateServiceDisabledToggleController = {
+const activateCreateServiceDisabledController = {
   handler: async (request, h) => {
     await enableFeatureToggle(request.featureToggles, 'create-service-disabled')
     return h.redirect(`/admin/features`)
   }
 }
 
-const expireCreateServiceDisabledToggleController = {
+const deactivateCreateServiceDisabledController = {
   handler: async (request, h) => {
     await removeFeatureToggle(request.featureToggles, 'create-service-disabled')
     return h.redirect(`/admin/features`)
@@ -18,6 +18,6 @@ const expireCreateServiceDisabledToggleController = {
 }
 
 export {
-  enableCreateServiceDisabledToggleController,
-  expireCreateServiceDisabledToggleController
+  activateCreateServiceDisabledController,
+  deactivateCreateServiceDisabledController
 }

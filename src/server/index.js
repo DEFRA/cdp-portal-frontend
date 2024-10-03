@@ -87,8 +87,7 @@ async function createServer() {
 
   server.app.featureToggles = server.cache({
     cache: 'featureToggles',
-    segment: config.get('serverCacheSegment'),
-    //  segment: 'featureToggles', // TODO: verify this
+    segment: config.get('featureToggles.segment'),
     expiresIn: config.get('featureToggles.ttl')
   })
 

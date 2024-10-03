@@ -155,16 +155,22 @@ const config = convict({
   },
   featureToggles: {
     keyPrefix: {
-      doc: 'Key prefix for temporary feature toggles',
+      doc: 'Key prefix for feature toggles',
       format: String,
-      default: 'temp-feature-toggle:',
+      default: 'feature-toggle:',
       env: 'FEATURE_TOGGLE_PREFIX'
     },
     ttl: {
-      doc: 'TTL for temporary feature toggles',
+      doc: 'TTL for feature toggles',
       format: Number,
       default: oneHour,
       env: 'FEATURE_TOGGLE_TTL'
+    },
+    segment: {
+      doc: 'Isolate cached items within the cache partition',
+      format: String,
+      default: 'feature-toggle',
+      env: 'FEATURE_TOGGLE_SEGMENT'
     }
   },
   serverCacheSegment: {

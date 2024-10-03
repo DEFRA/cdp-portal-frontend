@@ -1,8 +1,8 @@
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
 import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation'
 import {
-  expireCreateServiceDisabledToggleController,
-  enableCreateServiceDisabledToggleController,
+  activateCreateServiceDisabledController,
+  deactivateCreateServiceDisabledController,
   listFeaturesController
 } from '~/src/server/admin/features/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
@@ -28,12 +28,12 @@ const features = {
           {
             method: 'POST',
             path: '/admin/features/create-service-disabled',
-            ...enableCreateServiceDisabledToggleController
+            ...activateCreateServiceDisabledController
           },
           {
             method: 'POST',
-            path: '/admin/features/create-service-disabled/expire',
-            ...expireCreateServiceDisabledToggleController
+            path: '/admin/features/create-service-disabled/delete',
+            ...deactivateCreateServiceDisabledController
           },
           {
             method: 'GET',

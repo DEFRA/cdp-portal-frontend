@@ -21,7 +21,7 @@ function transformFeatureToEntityRow(feature) {
           {
             kind: 'button',
             value: 'Deactivate',
-            url: feature.urlPrefix + '/expire',
+            url: feature.urlPrefix + '/delete',
             classes: 'app-button--small app-button--destructive'
           }
         ]
