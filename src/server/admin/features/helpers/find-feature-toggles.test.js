@@ -1,5 +1,3 @@
-import { when } from 'jest-when'
-
 import { findAllFeatureToggles } from '~/src/server/admin/features/helpers/find-feature-toggles'
 
 describe('findAllFeatureToggles', () => {
@@ -42,18 +40,21 @@ describe('findAllFeatureToggles', () => {
   })
 
   test('when disabled should return an array of disabled feature toggles', async () => {
-    const mockFeatureToggles = {
-      get: mockTogglesGet
+    const featureTogglesLookup = {
+      get: mockTogglesGet.mockImplementation((key) => {
+        switch (key) {
+          case `${createKey}:enabled`:
+            return 'false'
+          case `${createKey}:created`:
+            return created
+          default:
+            return null
+        }
+      })
     }
     const request = {
-      featureToggles: mockFeatureToggles
+      featureToggles: featureTogglesLookup
     }
-    when(mockTogglesGet)
-      .calledWith(`${createKey}:enabled`)
-      .mockReturnValue('false')
-    when(mockTogglesGet)
-      .calledWith(`${createKey}:created`)
-      .mockReturnValue(created)
 
     const featureToggles = await findAllFeatureToggles(request)
 
