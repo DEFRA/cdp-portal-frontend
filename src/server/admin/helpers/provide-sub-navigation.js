@@ -20,6 +20,13 @@ function provideSubNavigation(request, h) {
         label: {
           text: 'Teams'
         }
+      },
+      {
+        isActive: request.path.startsWith('/admin/features'),
+        url: '/admin/features',
+        label: {
+          text: 'Features'
+        }
       }
     ]
   }

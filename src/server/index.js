@@ -29,6 +29,8 @@ const enableSecureContext = config.get('enableSecureContext')
 async function createServer() {
   setupWreckAgents(proxyAgent())
 
+  const redisClient = buildRedisClient(config.get('redis'))
+
   const server = hapi.server({
     port: config.get('port'),
     routes: {
@@ -64,7 +66,13 @@ async function createServer() {
       {
         name: 'session',
         engine: new CatboxRedis({
-          client: buildRedisClient(config.get('redis'))
+          client: redisClient
+        })
+      },
+      {
+        name: 'featureToggles',
+        engine: new CatboxRedis({
+          client: redisClient
         })
       }
     ]
@@ -75,6 +83,12 @@ async function createServer() {
     cache: 'session',
     segment: config.get('serverCacheSegment'),
     expiresIn: config.get('redis.ttl')
+  })
+
+  server.app.featureToggles = server.cache({
+    cache: 'featureToggles',
+    segment: config.get('featureToggles.segment'),
+    expiresIn: config.get('featureToggles.ttl')
   })
 
   addDecorators(server)

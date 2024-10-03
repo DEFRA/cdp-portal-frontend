@@ -1,0 +1,26 @@
+{% extends "layouts/page.njk" %}
+
+{% set mainClasses = "govuk-main-wrapper--l" %}
+
+{% block content %}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+         {% for bodyParagraphs in mainBody %}
+            <p class="govuk-body">{{ bodyParagraphs }}</p>
+         {% endfor %}
+         <p class="govuk-body">
+         Contact <a href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6">#cdp-support</a> in Slack
+         if it stays unavailable for a longer than expected.
+         </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
