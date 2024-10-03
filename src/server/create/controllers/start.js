@@ -3,9 +3,8 @@ import { saveToCreate } from '~/src/server/create/helpers/form'
 import { isCreateServiceFeatureDisabled } from '~/src/server/create/helpers/feature-toggle/create-feature-flag'
 
 const createDisabledProperties = {
-  pageTitle: 'Create a Service is unavailable',
-  heading: 'Sorry, this feature is unavailable',
-  subHeading: 'Create a Service is undergoing maintenance',
+  pageTitle: 'Unavailable - Create a Service is undergoing maintenance',
+  heading: 'Create a Service is undergoing maintenance',
   mainBody: ['It will be available to use again shortly.']
 }
 
