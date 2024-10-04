@@ -1,0 +1,28 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {% call appSplitPane() %}
+
+    <section>
+      {{ appHeading({
+        title: heading,
+        caption: headingCaption
+      }) }}
+
+      {{ appEntityList({
+        headings: [
+          { text: "Feature", size: "large" },
+          { text: "Status", size: "medium" },
+          { text: "Activated", size: "medium" },
+          { text: "Actions", size: "medium" }
+        ],
+        entityRows: entityRows,
+        noResult: noResult
+      }) }}
+
+    </section>
+
+  {% endcall %}
+
+{% endblock %}
