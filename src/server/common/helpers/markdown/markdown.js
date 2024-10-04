@@ -1,7 +1,8 @@
 import { marked } from 'marked'
 import markedAlert from 'marked-alert'
 import { gfmHeadingId } from 'marked-gfm-heading-id'
-import { markedAlertsGDSRenderer } from '~/src/server/common/helpers/markdown/marked-alerts-gds-renderer'
+import { gdsAlertRenderer } from '~/src/server/common/helpers/markdown/gds-alert-renderer'
+import { gdsTableRenderer } from '~/src/server/common/helpers/markdown/gds-table-renderer'
 
 export const markdown = marked
   .use({
@@ -10,4 +11,5 @@ export const markdown = marked
   })
   .use(gfmHeadingId({}))
   .use(markedAlert())
-  .use(markedAlertsGDSRenderer())
+  .use(gdsAlertRenderer())
+  .use(gdsTableRenderer())

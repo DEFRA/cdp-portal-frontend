@@ -1,7 +1,7 @@
 /**
  * Overrides the renderer from the `marked-alerts` extension to render a GDS style alert box.
  */
-export function markedAlertsGDSRenderer() {
+export function gdsAlertRenderer() {
   return {
     extensions: [
       {

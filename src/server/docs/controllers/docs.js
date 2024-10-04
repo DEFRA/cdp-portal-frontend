@@ -21,7 +21,7 @@ const docsController = {
     const docsPath = request.params.docsPath
 
     if (!docsPath) {
-      return h.redirect(`docs/README.md`)
+      return h.redirect(`/docs/README.md`)
     }
 
     request.logger.info(`serving docs: ${docsPath}`)

@@ -1,11 +1,9 @@
 import { marked } from 'marked'
 import markedAlert from 'marked-alert'
-import { markedAlertsGDSRenderer } from '~/src/server/common/helpers/markdown/marked-alerts-gds-renderer'
+import { gdsAlertRenderer } from '~/src/server/common/helpers/markdown/gds-alert-renderer'
 
 describe('#markedAlertGdsRenderer', () => {
-  const markdownRenderer = marked
-    .use(markedAlert())
-    .use(markedAlertsGDSRenderer())
+  const markdownRenderer = marked.use(markedAlert()).use(gdsAlertRenderer())
 
   test('should generate GDS style alert boxes', () => {
     const html = markdownRenderer.parse(`> [!NOTE] This is a note alert`)
