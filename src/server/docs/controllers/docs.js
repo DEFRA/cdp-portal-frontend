@@ -5,7 +5,7 @@ import path from 'node:path'
 import { markdownRenderer } from '~/src/server/docs/helpers/markdown-renderer'
 import { s3FileHandler } from '~/src/server/common/helpers/aws/s3-file-handler'
 import { config } from '~/src/config'
-import { s3DirectoryRenderer } from '~/src/server/docs/helpers/s3-directory-renderer'
+import { s3DirectoryHandler } from '~/src/server/docs/helpers/s3-directory-handler'
 
 const docsController = {
   options: {
@@ -29,7 +29,7 @@ const docsController = {
     // Convert docs files to html, otherwise just return the file as is.
     switch (path.extname(docsPath).toLowerCase()) {
       case '':
-        return s3DirectoryRenderer(request, h, docsPath, bucket)
+        return s3DirectoryHandler(request, h, docsPath, bucket)
       case '.md':
         return markdownRenderer(request, h, docsPath, bucket)
       default:

@@ -4,9 +4,7 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 import path from 'node:path'
 import { generateDocsBreadcrumbs } from '~/src/server/docs/helpers/generate-docs-breadcrumbs'
 
-async function s3DirectoryRenderer(request, h, docsPath, bucket) {
-  const xFrameOptions = 'SAMEORIGIN'
-
+async function s3DirectoryHandler(request, h, docsPath, bucket) {
   const command = new ListObjectsV2Command({
     Bucket: bucket,
     Prefix: docsPath
@@ -22,12 +20,11 @@ async function s3DirectoryRenderer(request, h, docsPath, bucket) {
       }
     })
     return h
-      .view('docs/views/s3-directory-renderer', {
+      .view('docs/views/s3-directory', {
         directoryListing,
         docsPath,
         breadcrumbs: generateDocsBreadcrumbs(docsPath)
       })
-      .header('X-Frame-Options', xFrameOptions)
       .code(statusCodes.ok)
   } catch (error) {
     request.logger.error(error)
@@ -39,9 +36,8 @@ async function s3DirectoryRenderer(request, h, docsPath, bucket) {
         heading: statusCode,
         message: errorMessage
       })
-      .header('X-Frame-Options', xFrameOptions)
       .code(statusCode)
   }
 }
 
-export { s3DirectoryRenderer }
+export { s3DirectoryHandler }

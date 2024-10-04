@@ -5,8 +5,6 @@ import { markdown } from '~/src/server/common/helpers/markdown/markdown'
 import { generateDocsBreadcrumbs } from '~/src/server/docs/helpers/generate-docs-breadcrumbs'
 
 async function markdownRenderer(request, h, docsPath, bucket) {
-  const xFrameOptions = 'SAMEORIGIN'
-
   const command = new GetObjectCommand({
     Bucket: bucket,
     Key: docsPath
@@ -21,7 +19,6 @@ async function markdownRenderer(request, h, docsPath, bucket) {
         content: md,
         breadcrumbs: generateDocsBreadcrumbs(docsPath)
       })
-      .header('X-Frame-Options', xFrameOptions)
       .code(statusCodes.ok)
   } catch (error) {
     request.logger.error(error)
@@ -33,7 +30,6 @@ async function markdownRenderer(request, h, docsPath, bucket) {
         heading: statusCode,
         message: errorMessage
       })
-      .header('X-Frame-Options', xFrameOptions)
       .code(statusCode)
   }
 }
