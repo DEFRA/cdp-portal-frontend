@@ -10,11 +10,13 @@ export function generateDocsBreadcrumbs(docsPath) {
   ]
 
   docsPath.split('/').forEach((p) => {
-    basepath = path.join(basepath, p)
-    breadcrumbs.push({
-      text: p,
-      href: basepath
-    })
+    if (p !== '') {
+      basepath = path.join(basepath, p)
+      breadcrumbs.push({
+        text: p,
+        href: basepath
+      })
+    }
   })
 
   return breadcrumbs
