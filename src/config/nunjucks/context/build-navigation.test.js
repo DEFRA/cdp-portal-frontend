@@ -19,6 +19,11 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
+            text: 'Docs',
+            url: '/docs'
+          },
+          {
+            isActive: false,
             text: 'Services',
             url: '/services'
           },
@@ -75,6 +80,11 @@ describe('#buildNavigation', () => {
             isActive: false,
             text: 'Home',
             url: '/'
+          },
+          {
+            isActive: false,
+            text: 'Docs',
+            url: '/docs'
           },
           {
             isActive: false,
@@ -137,6 +147,11 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
+            text: 'Docs',
+            url: '/docs'
+          },
+          {
+            isActive: false,
             text: 'Services',
             url: '/services'
           },
@@ -187,6 +202,11 @@ describe('#buildNavigation', () => {
           isActive: false,
           text: 'Home',
           url: '/'
+        },
+        {
+          isActive: false,
+          text: 'Docs',
+          url: '/docs'
         },
         {
           isActive: false,

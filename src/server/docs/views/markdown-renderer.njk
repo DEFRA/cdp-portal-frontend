@@ -1,0 +1,15 @@
+{% extends "layouts/page.njk" %}
+{% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
+{% from "docs/macro.njk" import docs with context %}
+
+{% block beforeContent %}
+  {% if breadcrumbs.length > 1 %}
+    {{ appBreadcrumbs({
+      items: breadcrumbs
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {{ docs({content: content}) }}
+{% endblock %}
