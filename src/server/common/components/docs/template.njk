@@ -1,9 +1,0 @@
-{% set classes = ["govuk-body", "cdp-docs-panel", params.classes if params.classes, "app-panel--inverse" if params.isInverse] | join(" ") | trim %}
-
-<div class="{{ classes }}" {% if params.testId %}data-testid="{{ params.testId }}"{% endif %}>
-  <div class="gov-uk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {{ params.content | safe }}
-    </div>
-  </div>
-</div>

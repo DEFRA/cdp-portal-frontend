@@ -1,0 +1,29 @@
+<div class="govuk-body">
+  <div class="app-documentation__container">
+    <div class="app-documentation__nav-sidebar">
+      {{ params.nav | safe }}
+    </div>
+
+    <div class="app-documentation__body">
+      <div class="app-section app-section-wide">
+        <div class="app-documentation__markdown">
+          {{ params.content | safe }}
+        </div>
+
+        <p class="app-documentation__generated-from">
+          <em>
+            This documentation has been auto-generated from <a class="app-link"
+                                                               href="https://github.com/DEFRA/cdp-documentation"
+                                                               target="_blank"
+                                                               rel="noopener noreferrer">cdp-documentation</a>
+          </em>
+        </p>
+      </div>
+    </div>
+
+    <div class="app-documentation__toc-sidebar">
+      <strong class="govuk-heading-m">Table of contents</strong>
+      {{ params.toc | safe }}
+    </div>
+  </div>
+</div>

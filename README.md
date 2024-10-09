@@ -17,15 +17,18 @@ Portal Frontend for Core Delivery Platform (CDP)
     - [Debugging](#debugging)
     - [Testing](#testing)
       - [Run a specific test](#run-a-specific-test)
-      - [Debugging nock](#debugging-nock)
+    - [Debugging nock](#debugging-nock)
     - [Code Quality](#code-quality)
     - [Code formatting](#code-formatting)
   - [Creating icons](#creating-icons)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
 - [Docker](#docker)
-  - [Development Image](#development-image)
-  - [Production Image](#production-image)
+  - [Development image](#development-image)
+  - [Production image](#production-image)
+- [LocalStack](#localstack)
+  - [Test reports](#test-reports)
+  - [Documentation](#documentation)
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
@@ -192,7 +195,8 @@ npm run format
 
 ### Creating icons
 
-You can see examples of the icons used throughout the application in [src/server/common/components/icons](src/server/common/components/icons). To create icons:
+You can see examples of the icons used throughout the application
+in [src/server/common/components/icons](src/server/common/components/icons). To create icons:
 
 - Copy and rename an existing component from [src/server/common/components/icons](src/server/common/components/icons)
 - Choose an icon from [Material Symbols](https://fonts.google.com/icons)
@@ -255,6 +259,47 @@ Run:
 
 ```bash
 docker run -p 3000:3000 cdp-portal-frontend
+```
+
+## LocalStack
+
+A few examples of how to use LocalStack with the Portal Frontend.
+
+### Test reports
+
+```bash
+## Create buckets for environments
+awslocal s3 mb s3://cdp-<environment>-test-results --endpoint-url http://localhost:4566
+
+## fEx:
+awslocal s3 mb s3://cdp-dev-test-results --endpoint-url http://localhost:4566
+
+## Run tests
+> See smoke or perf test repositories for instructions
+
+## Upload test results to S3
+awslocal s3 cp <local-folder-name> s3://<s3-bucket-name/local-folder-name/> --recursive
+
+## fEx:
+awslocal s3 cp allure-report s3://cdp-dev-test-results/cdp-portal-smoke-tests/b5bab19f-d57a-4b9c-80a1-df04542382a7 --recursive
+```
+
+### Documentation
+
+```bash
+## Start localstack
+docker run --pull=always -d -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack:latest
+
+## Create S3 bucket
+awslocal s3 mb s3://cdp-documentation --endpoint-url http://localhost:4566
+
+## Upload docs to localstack S3
+git clone https://github.com/DEFRA/cdp-documentation/
+cd cdp-documentation
+awslocal s3 cp . s3://cdp-documentation --recursive --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md"
+
+## Remove existing files from bucket
+awslocal s3 rm s3://cdp-documentation --recursive
 ```
 
 ## Licence

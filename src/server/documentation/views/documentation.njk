@@ -1,0 +1,7 @@
+{% extends "layouts/page.njk" %}
+
+{% from "documentation/macro.njk" import appDocumentation %}
+
+{% block content %}
+  {{ appDocumentation({ nav: nav, content: content, toc: toc }) }}
+{% endblock %}

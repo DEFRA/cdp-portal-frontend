@@ -3,7 +3,7 @@ import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-cod
 function catchAll(request, h) {
   const { response } = request
 
-  if (!response.isBoom) {
+  if (!('isBoom' in response)) {
     return h.continue
   }
 

@@ -6,7 +6,7 @@ import { cookies } from '~/src/server/cookies'
 import { create } from '~/src/server/create'
 import { deployService } from '~/src/server/deploy-service'
 import { deployments } from '~/src/server/deployments'
-import { docs } from '~/src/server/docs'
+import { documentation } from '~/src/server/documentation'
 import { health } from '~/src/server/health'
 import { home } from '~/src/server/home'
 import { login } from '~/src/server/login'
@@ -30,7 +30,7 @@ const router = {
         create,
         deployService,
         deployments,
-        docs,
+        documentation,
         health,
         home,
         login,

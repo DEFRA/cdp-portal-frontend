@@ -9,9 +9,9 @@ async function buildNavigation(request) {
         isActive: request?.path === '/'
       },
       {
-        text: 'Docs',
-        url: '/docs',
-        isActive: request?.path?.includes('/docs')
+        text: 'Documentation',
+        url: '/documentation',
+        isActive: request?.path?.includes('/documentation')
       },
       {
         text: 'Services',
