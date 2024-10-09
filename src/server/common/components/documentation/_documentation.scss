@@ -34,6 +34,11 @@
   padding-right: govuk-spacing(4);
 
   @extend %nested-lists;
+
+  .is-active {
+    text-decoration: underline;
+    font-weight: bold;
+  }
 }
 
 $govuk-wrapper-margin: 60px;
