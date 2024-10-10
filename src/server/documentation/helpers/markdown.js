@@ -1,13 +1,24 @@
+import { Marked } from 'marked'
+import markedAlert from 'marked-alert'
 import { escapeHtml } from '@hapi/hoek'
-import { docsMarked } from '~/src/server/documentation/helpers/docs-marked'
 
-const getHtml = (markdown) => docsMarked(markdown)
+import {
+  linkExtension,
+  headingExtension
+} from '~/src/server/documentation/helpers/extensions'
 
-async function getTableOfContentsHTML(markdown) {
+const docsMarked = new Marked({
+  pedantic: false,
+  gfm: true,
+  extensions: [linkExtension, headingExtension]
+}).use(markedAlert())
+
+async function getHtml(markdown) {
   const headingElements = []
 
-  const renderer = {
-    heading({ text, depth: level }) {
+  const walkTokens = (token) => {
+    if (token.type === 'heading') {
+      const { text, depth: level } = token
       const internalAnchorId = text.toLowerCase().replace(/\W+/g, '-')
 
       headingElements.push({
@@ -15,17 +26,13 @@ async function getTableOfContentsHTML(markdown) {
         level,
         text: escapeHtml(text)
       })
-
-      return `<h${level} id="${internalAnchorId}" class="heading">
-                ${text}
-              </h${level}>`
     }
   }
 
-  docsMarked.use({ renderer })
-  await getHtml(markdown)
+  docsMarked.use({ walkTokens })
+  const html = await docsMarked.parse(markdown)
 
-  return buildTableOfContents(headingElements)
+  return { html, toc: buildTableOfContents(headingElements) }
 }
 
 function buildTableOfContents(elements) {
@@ -88,4 +95,4 @@ function buildDocsNav(elements, path) {
   return html
 }
 
-export { getHtml, getTableOfContentsHTML, buildDocsNav }
+export { getHtml, buildDocsNav }

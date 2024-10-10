@@ -6,8 +6,7 @@ import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcr
 import { statusCodes } from '~/src/server/common/constants/status-codes'
 import {
   buildDocsNav,
-  getHtml,
-  getTableOfContentsHTML
+  getHtml
 } from '~/src/server/documentation/helpers/markdown'
 
 async function fetchMarkdown(request, documentationPath, bucket) {
@@ -31,8 +30,7 @@ function buildPageTitle(documentationPath) {
 
 async function markdownHandler(request, h, documentationPath, bucket) {
   const markdown = await fetchMarkdown(request, documentationPath, bucket)
-  const pageHtml = await getHtml(markdown)
-  const toc = await getTableOfContentsHTML(markdown)
+  const { html, toc } = await getHtml(markdown)
   const directoryListings = await directoryStructure(request, bucket)
   const nav = buildDocsNav(directoryListings, request.path)
   const pageTitle = buildPageTitle(documentationPath)
@@ -40,7 +38,7 @@ async function markdownHandler(request, h, documentationPath, bucket) {
   return h
     .view('documentation/views/documentation', {
       pageTitle: `Documentation - ${pageTitle || 'Home'}`,
-      content: pageHtml,
+      content: html,
       breadcrumbs: docsBreadcrumbs(documentationPath),
       toc,
       nav
