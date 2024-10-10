@@ -20,7 +20,6 @@ import { auditor } from '~/src/server/common/helpers/audit/auditor'
 import { proxyAgent } from '~/src/server/common/helpers/proxy/proxy-agent'
 import { setupWreckAgents } from '~/src/server/common/helpers/proxy/setup-wreck-agents'
 import { pulse } from '~/src/server/common/helpers/pulse'
-import { addServerMethods } from '~/src/server/common/helpers/add-server-methods'
 import { addDecorators } from '~/src/server/common/helpers/add-decorators'
 import { s3Client } from '~/src/server/common/helpers/aws/s3-client'
 
@@ -122,8 +121,6 @@ async function createServer() {
       }
     }
   ])
-
-  addServerMethods(server)
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']

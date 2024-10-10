@@ -1,5 +1,4 @@
 import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs'
-import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters'
 import {
   deploymentController,
   deploymentsListController
@@ -10,15 +9,6 @@ const deployments = {
   plugin: {
     name: 'deployments',
     register: (server) => {
-      server.method('fetchFilters', fetchFilters, {
-        cache: {
-          expiresIn: 60 * 1000,
-          staleIn: 40 * 1000,
-          staleTimeout: 10 * 1000,
-          generateTimeout: 100
-        }
-      })
-
       server.ext([
         {
           type: 'onPostHandler',

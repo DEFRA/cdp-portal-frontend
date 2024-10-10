@@ -4,24 +4,23 @@ import { provideUserSteps } from '~/src/server/admin/users/helpers/form'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
 import { sessionNames } from '~/src/server/common/constants/session-names'
 import {
-  usersListController,
-  userController,
-  findAadUserFormController,
-  startCreateUserController,
+  confirmDeleteUserController,
+  createUserController,
+  deleteUserController,
+  editUserController,
   findAadUserController,
-  findGithubUserFormController,
+  findAadUserFormController,
   findGithubUserController,
+  findGithubUserFormController,
+  startCreateUserController,
+  startEditUserController,
+  userController,
   userDetailsController,
   userDetailsFormController,
-  userSummaryController,
-  createUserController,
-  startEditUserController,
-  editUserController,
-  confirmDeleteUserController,
-  deleteUserController
+  usersListController,
+  userSummaryController
 } from '~/src/server/admin/users/controllers'
 import { scopes } from '~/src/server/common/constants/scopes'
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -53,15 +52,6 @@ const adminUsers = {
           }
         }
       ])
-
-      server.method('fetchCdpUser', fetchCdpUser, {
-        cache: {
-          expiresIn: 60 * 1000,
-          staleIn: 40 * 1000,
-          staleTimeout: 10 * 1000,
-          generateTimeout: 100
-        }
-      })
 
       server.route(
         [

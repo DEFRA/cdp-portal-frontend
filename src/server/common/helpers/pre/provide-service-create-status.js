@@ -6,20 +6,19 @@ import { fetchCreateServiceStatus } from '~/src/server/common/helpers/fetch/fetc
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 
 /**
  * This prerequisite provides a value to `pre.service` which is:
  *  - a create service status
- *  - a create service status with github details
+ *  - a create service status with GitHub details
  *  - a service is currently a deployable artifact, a service or a test suite
  */
 const provideServiceCreateStatus = {
   method: async function (request) {
     const serviceId = request.params?.serviceId
 
-    const githubResponse = await request.server.methods
-      .fetchRepository(serviceId)
-      .catch(nullify404)
+    const githubResponse = await fetchRepository(serviceId).catch(nullify404)
     const repository = githubResponse?.repository ?? null
 
     const createServiceStatusResponse =

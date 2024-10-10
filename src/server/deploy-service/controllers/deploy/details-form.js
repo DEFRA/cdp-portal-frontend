@@ -40,7 +40,7 @@ const detailsFormController = {
       rowHeadings,
       availableVersionOptions,
       latestVersions
-    } = await getAdditionalData(request, imageName)
+    } = await getAdditionalData(imageName)
 
     return h.view('deploy-service/views/details-form', {
       pageTitle: 'Deploy Service details',

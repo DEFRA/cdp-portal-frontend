@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 
 import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
 import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
 
 const userController = {
   options: {
@@ -14,9 +15,7 @@ const userController = {
     }
   },
   handler: async (request, h) => {
-    const { user } = await request.server.methods.fetchCdpUser(
-      request.params?.userId
-    )
+    const { user } = await fetchCdpUser(request.params?.userId)
 
     return h.view('admin/users/views/user', {
       pageTitle: user.name,

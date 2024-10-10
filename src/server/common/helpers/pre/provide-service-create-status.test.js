@@ -3,20 +3,16 @@ import { fetchCreateServiceStatus } from '~/src/server/common/helpers/fetch/fetc
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
 import { createServiceStatusSuccessFixture } from '~/src/__fixtures__/create/service-status-success'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 
+jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
 jest.mock('~/src/server/common/helpers/fetch/fetch-create-service-status')
 
 describe('#provideServiceCreateStatus', () => {
   const mockIsXhr = jest.fn()
-  const mockFetchRepository = jest.fn()
   const mockRequest = {
     params: { serviceId: 'cdp-portal-frontend' },
-    isXhr: mockIsXhr,
-    server: {
-      methods: {
-        fetchRepository: mockFetchRepository
-      }
-    }
+    isXhr: mockIsXhr
   }
   const notFound = {
     output: { statusCode: 404 },
@@ -37,7 +33,7 @@ describe('#provideServiceCreateStatus', () => {
     })
 
     test('Should provide expected create service status', async () => {
-      mockFetchRepository.mockRejectedValue(notFound)
+      fetchRepository.mockRejectedValue(notFound)
 
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual({
         githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
@@ -55,7 +51,7 @@ describe('#provideServiceCreateStatus', () => {
     })
 
     test('Should provide expected create service status type property', async () => {
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
 
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual(
         expect.objectContaining({ isCreateService: true })
@@ -63,7 +59,7 @@ describe('#provideServiceCreateStatus', () => {
     })
 
     test('Should provide expected github decorated create service status', async () => {
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
 
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
@@ -99,7 +95,7 @@ describe('#provideServiceCreateStatus', () => {
     })
 
     test('Should provide expected create service status', async () => {
-      mockFetchRepository.mockRejectedValue(notFound)
+      fetchRepository.mockRejectedValue(notFound)
 
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual({
         githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
@@ -117,7 +113,7 @@ describe('#provideServiceCreateStatus', () => {
     })
 
     test('Should provide expected create service status type property', async () => {
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
 
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual(
         expect.objectContaining({ isCreateService: true })
@@ -125,7 +121,7 @@ describe('#provideServiceCreateStatus', () => {
     })
 
     test('Should provide expected github decorated create service status', async () => {
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
 
       expect(await provideServiceCreateStatus.method(mockRequest)).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
@@ -155,7 +151,7 @@ describe('#provideServiceCreateStatus', () => {
         fetchCreateServiceStatus.mockResolvedValue(
           createServiceStatusSuccessFixture
         )
-        mockFetchRepository.mockRejectedValue(notFound)
+        fetchRepository.mockRejectedValue(notFound)
 
         mockIsXhr.mockReturnValue(true)
       })

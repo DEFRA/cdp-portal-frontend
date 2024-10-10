@@ -1,18 +1,17 @@
 import { nullify404 } from '~/src/server/common/helpers/nullify-404'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
 
 /**
  * Provide a service which is:
  * - a deployable service
- * - a deployable service decorated with github details
+ * - a deployable service decorated with GitHub details
  * @param {string} serviceId
- * @param {Request} request
  * @returns {Promise<PartialObject<*>>}
  */
-async function toService(serviceId, request) {
-  const github = await request.server.methods
-    .fetchRepository(serviceId)
-    .catch(nullify404)
+async function toService(serviceId) {
+  const github = await fetchRepository(serviceId).catch(nullify404)
   const repository = github?.repository
     ? {
         ...github.repository,
@@ -21,8 +20,7 @@ async function toService(serviceId, request) {
       }
     : null
 
-  const deployableService =
-    await request.server.methods.fetchDeployableService(serviceId)
+  const deployableService = await fetchDeployableService(serviceId)
 
   return repositoryDecorator(
     { isDeployable: true, ...deployableService },
