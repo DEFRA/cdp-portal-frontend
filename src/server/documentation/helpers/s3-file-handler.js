@@ -19,4 +19,4 @@ async function s3FileHandler(request, h, documentationPath, bucket) {
     .code(statusCodes.ok)
 }
 
-export { s3FileHandler }
+export { s3FileHandler, fetchS3File }
