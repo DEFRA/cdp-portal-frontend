@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { environments } from '~/src/config'
-import { s3FileHandler } from '~/src/server/common/helpers/aws/s3-file-handler'
+import { iframeS3FileHandler } from '~/src/server/common/helpers/aws/iframe-s3-file-handler'
 
 const testSuiteReportController = {
   options: {
@@ -22,7 +22,7 @@ const testSuiteReportController = {
     )
     const bucket = `cdp-${request.params.environment}-test-results`
 
-    return s3FileHandler(request, h, key, bucket)
+    return iframeS3FileHandler(request, h, key, bucket)
   }
 }
 

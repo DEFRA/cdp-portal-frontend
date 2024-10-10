@@ -19,8 +19,8 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
-            text: 'Docs',
-            url: '/docs'
+            text: 'Documentation',
+            url: '/documentation'
           },
           {
             isActive: false,
@@ -83,8 +83,8 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
-            text: 'Docs',
-            url: '/docs'
+            text: 'Documentation',
+            url: '/documentation'
           },
           {
             isActive: false,
@@ -147,8 +147,8 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
-            text: 'Docs',
-            url: '/docs'
+            text: 'Documentation',
+            url: '/documentation'
           },
           {
             isActive: false,
@@ -205,8 +205,8 @@ describe('#buildNavigation', () => {
         },
         {
           isActive: false,
-          text: 'Docs',
-          url: '/docs'
+          text: 'Documentation',
+          url: '/documentation'
         },
         {
           isActive: false,

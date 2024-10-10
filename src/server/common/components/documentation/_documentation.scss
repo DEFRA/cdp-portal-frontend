@@ -1,0 +1,72 @@
+// stylelint-disable max-nesting-depth
+%nested-lists {
+  .govuk-list {
+    margin: 0;
+    list-style-type: circle;
+
+    .govuk-list {
+      list-style-type: disc;
+
+      .govuk-list {
+        list-style-type: circle;
+
+        .govuk-list {
+          list-style-type: disc;
+        }
+      }
+    }
+  }
+}
+
+// stylelint-enable max-nesting-depth
+
+.app-documentation__container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.app-documentation__nav-sidebar {
+  width: 15%;
+  height: 100%;
+  margin-top: govuk-spacing(4);
+  position: sticky;
+  top: govuk-spacing(6);
+  padding-right: govuk-spacing(4);
+
+  @extend %nested-lists;
+
+  .is-active {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
+$govuk-wrapper-margin: 60px;
+
+.app-documentation__body {
+  height: 100%;
+  width: calc(65% - $govuk-wrapper-margin);
+
+  @include govuk-media-query($from: desktop-huge) {
+    width: 60%;
+  }
+
+  @include govuk-media-query($from: desktop-massive) {
+    width: 40%;
+  }
+}
+
+.app-documentation__toc-sidebar {
+  width: 20%;
+  height: 100%;
+  margin-top: govuk-spacing(4);
+  position: sticky;
+  top: govuk-spacing(6);
+  padding-left: govuk-spacing(4);
+
+  @extend %nested-lists;
+}
+
+.app-documentation__generated-from {
+  margin-top: govuk-spacing(9) * 2;
+}

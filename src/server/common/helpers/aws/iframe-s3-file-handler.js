@@ -4,13 +4,14 @@ import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-cod
 import { statusCodes } from '~/src/server/common/constants/status-codes'
 
 /**
+ * S3 file handler for use with iFrames
  * @param {Request} request
  * @param {ResponseToolkit} h
  * @param {string} key
  * @param {string} bucket
  * @returns {Promise<*>}
  */
-async function s3FileHandler(request, h, key, bucket) {
+async function iframeS3FileHandler(request, h, key, bucket) {
   const xFrameOptions = 'SAMEORIGIN'
   const command = new GetObjectCommand({
     Bucket: bucket,
@@ -41,7 +42,7 @@ async function s3FileHandler(request, h, key, bucket) {
   }
 }
 
-export { s3FileHandler }
+export { iframeS3FileHandler }
 /**
  * @import { Request, ResponseToolkit } from '@hapi/hapi'
  */
