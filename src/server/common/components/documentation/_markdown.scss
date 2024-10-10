@@ -6,10 +6,6 @@ $caution: #cf222e;
 
 // stylelint-disable max-nesting-depth
 .app-documentation__markdown {
-  * {
-    line-height: 1.8;
-  }
-
   ul {
     @extend %govuk-list;
     @extend %govuk-list--bullet;
