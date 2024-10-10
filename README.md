@@ -296,10 +296,7 @@ awslocal s3 mb s3://cdp-documentation --endpoint-url http://localhost:4566
 ## Upload docs to localstack S3
 git clone https://github.com/DEFRA/cdp-documentation/
 cd cdp-documentation
-awslocal s3 cp . s3://cdp-documentation --recursive --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md"
-
-## Remove existing files from bucket
-awslocal s3 rm s3://cdp-documentation --recursive
+awslocal s3 sync . s3://cdp-documentation --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md"--delete
 ```
 
 ## Licence
