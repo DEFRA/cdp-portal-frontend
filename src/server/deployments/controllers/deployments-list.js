@@ -13,6 +13,7 @@ import { decorateDeployments } from '~/src/server/deployments/transformers/decor
 import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments'
 import { pagination } from '~/src/server/common/constants/pagination'
+import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters'
 
 const deploymentsListController = {
   options: {
@@ -37,7 +38,7 @@ const deploymentsListController = {
   handler: async (request, h) => {
     const environment = request.params?.environment
 
-    const filtersResponse = await request.server.methods.fetchFilters()
+    const filtersResponse = await fetchFilters()
     const serviceFilters = buildSuggestions(
       filtersResponse.filters.services.map((serviceName) => ({
         text: serviceName,

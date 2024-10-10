@@ -9,8 +9,9 @@ import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetc
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
 import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row'
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
+import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
 
-async function getAdditionalData(request, imageName) {
+async function getAdditionalData(imageName) {
   if (!imageName) {
     return {
       availableVersionOptions: optionsWithMessage('choose an image name')
@@ -25,7 +26,7 @@ async function getAdditionalData(request, imageName) {
       hint: relativeDate(version.created)
     }))
   )
-  const service = await request.server.methods.fetchDeployableService(imageName)
+  const service = await fetchDeployableService(imageName)
   const environments = getEnvironmentsByTeam(service?.teams)
   const runningServices = (await fetchRunningServicesById(imageName)) ?? []
   const runningServicesEntityRows = compose(

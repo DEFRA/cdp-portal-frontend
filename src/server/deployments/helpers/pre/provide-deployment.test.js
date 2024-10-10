@@ -3,20 +3,16 @@ import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-de
 import { deploymentInProgressFixture } from '~/src/__fixtures__/deployment-in-progress'
 import { deploymentSuccessFixture } from '~/src/__fixtures__/deployment-success'
 import { repositoryFixture } from '~/src/__fixtures__/repository'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
 
 jest.mock('~/src/server/deployments/helpers/fetch/fetch-deployment')
+jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
 
 describe('#provideDeployment', () => {
   const mockIsXhr = jest.fn()
-  const mockFetchRepository = jest.fn()
   const mockRequest = {
     params: { deploymentId: '3f5dff54-9bea-4a53-830d-96610af8c2b4' },
-    isXhr: mockIsXhr,
-    server: {
-      methods: {
-        fetchRepository: mockFetchRepository
-      }
-    }
+    isXhr: mockIsXhr
   }
 
   afterEach(() => {
@@ -26,7 +22,7 @@ describe('#provideDeployment', () => {
   describe('With an in-progress deployment', () => {
     beforeEach(() => {
       fetchDeployment.mockResolvedValue(deploymentInProgressFixture)
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
       mockIsXhr.mockReturnValue(false)
     })
 
@@ -44,7 +40,7 @@ describe('#provideDeployment', () => {
   describe('With a successful deployment', () => {
     beforeEach(() => {
       fetchDeployment.mockResolvedValue(deploymentSuccessFixture)
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
       mockIsXhr.mockReturnValue(false)
     })
 

@@ -1,11 +1,14 @@
 import { repositoryFixture } from '~/src/__fixtures__/repository'
 import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable'
 import { provideService } from '~/src/server/services/helpers/provide-service'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
+
+jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
+jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service')
 
 describe('#provideService', () => {
   const serviceId = 'cdp-portal-frontend'
-  const mockFetchRepository = jest.fn()
-  const mockFetchDeployableService = jest.fn()
   const mockResponseToolkit = {
     continue: 'mockContinue'
   }
@@ -15,19 +18,13 @@ describe('#provideService', () => {
     beforeEach(() => {
       mockRequest = {
         params: { serviceId },
-        app: {},
-        server: {
-          methods: {
-            fetchRepository: mockFetchRepository,
-            fetchDeployableService: mockFetchDeployableService
-          }
-        }
+        app: {}
       }
     })
 
     test('Should assign service to request.app', async () => {
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
-      mockFetchDeployableService.mockResolvedValue(serviceDeployableFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
+      fetchDeployableService.mockResolvedValue(serviceDeployableFixture)
 
       const result = await provideService(mockRequest, mockResponseToolkit)
 
@@ -62,19 +59,13 @@ describe('#provideService', () => {
     beforeEach(() => {
       mockRequest = {
         params: {},
-        app: {},
-        server: {
-          methods: {
-            fetchRepository: mockFetchRepository,
-            fetchDeployableService: mockFetchDeployableService
-          }
-        }
+        app: {}
       }
     })
 
     test('Should not assign service to request.app', async () => {
-      mockFetchRepository.mockResolvedValue(repositoryFixture)
-      mockFetchDeployableService.mockResolvedValue(serviceDeployableFixture)
+      fetchRepository.mockResolvedValue(repositoryFixture)
+      fetchDeployableService.mockResolvedValue(serviceDeployableFixture)
 
       const result = await provideService(mockRequest, mockResponseToolkit)
 
