@@ -35,10 +35,11 @@ async function markdownHandler(request, h, documentationPath, bucket) {
   const toc = await getTableOfContentsHTML(markdown)
   const directoryListings = await directoryStructure(request, bucket)
   const nav = buildDocsNav(directoryListings, request.path)
+  const pageTitle = buildPageTitle(documentationPath)
 
   return h
     .view('documentation/views/documentation', {
-      pageTitle: `Documentation - ${buildPageTitle(documentationPath)}`,
+      pageTitle: `Documentation - ${pageTitle || 'Home'}`,
       content: pageHtml,
       breadcrumbs: docsBreadcrumbs(documentationPath),
       toc,
