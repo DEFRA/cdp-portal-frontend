@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { environments } from '~/src/config'
-import { iframeS3FileHandler } from '~/src/server/common/helpers/aws/iframe-s3-file-handler'
+import { iframeS3FileHandler } from '~/src/server/test-suites/helpers/iframe-s3-file-handler'
 
 const testSuiteReportController = {
   options: {
