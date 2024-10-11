@@ -1,9 +1,9 @@
 import { load } from 'cheerio'
 
 import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav'
-import { directoryStructure } from '~/src/server/documentation/helpers/directory-structure'
+import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure'
 
-jest.mock('~/src/server/documentation/helpers/directory-structure')
+jest.mock('~/src/server/documentation/helpers/documentation-structure')
 
 describe('#buildDocsNav', () => {
   const mockRequest = {
@@ -12,7 +12,7 @@ describe('#buildDocsNav', () => {
   const mockBucket = 'mock-bucket'
 
   test('Should provide expected navigation', async () => {
-    directoryStructure.mockResolvedValue([
+    documentationStructure.mockResolvedValue([
       { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
       { text: 'Guides', anchor: '/documentation/guides/README.md', level: 1 },
       {
@@ -39,7 +39,7 @@ describe('#buildDocsNav', () => {
   })
 
   test('should handle an empty directory structure', async () => {
-    directoryStructure.mockResolvedValue([])
+    documentationStructure.mockResolvedValue([])
 
     const result = await buildDocsNav(mockRequest, mockBucket)
 
@@ -47,7 +47,7 @@ describe('#buildDocsNav', () => {
   })
 
   test('Should handle multiple levels as expected', async () => {
-    directoryStructure.mockResolvedValue([
+    documentationStructure.mockResolvedValue([
       { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
       { text: 'Guides', anchor: '/documentation/guides/README.md', level: 1 },
       {
@@ -83,7 +83,7 @@ describe('#buildDocsNav', () => {
   })
 
   test('Should mark the current path as active', async () => {
-    directoryStructure.mockResolvedValue([
+    documentationStructure.mockResolvedValue([
       { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
       { text: 'Guides', anchor: '/documentation/guides/README.md', level: 1 },
       {

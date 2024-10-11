@@ -1,7 +1,7 @@
-import { directoryStructure } from '~/src/server/documentation/helpers/directory-structure'
+import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure'
 
 async function buildDocsNav(request, bucket) {
-  const elements = await directoryStructure(request, bucket)
+  const elements = await documentationStructure(request, bucket)
 
   let html = ''
   let level = -1

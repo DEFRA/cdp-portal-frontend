@@ -1,5 +1,5 @@
 import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler'
-import { directoryStructure } from '~/src/server/documentation/helpers/directory-structure'
+import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure'
 
 jest.mock('@aws-sdk/client-s3')
 jest.mock('~/src/server/documentation/helpers/s3-file-handler')
@@ -18,8 +18,8 @@ describe('#directoryStructure', () => {
   }
   const mockBucket = 'mock-documentation-bucket'
 
-  test('Should return the directory structure for a simple case', async () => {
-    // List S3 objects mock response
+  test('Should return the expected directory structure', async () => {
+    // Alphabetically sorted list S3 objects mock response
     mockRequest.s3Client.send.mockResolvedValue({
       Contents: [
         { Key: 'README.md' },
@@ -42,7 +42,7 @@ describe('#directoryStructure', () => {
       }
     })
 
-    const result = await directoryStructure(mockRequest, mockBucket)
+    const result = await documentationStructure(mockRequest, mockBucket)
 
     expect(result).toEqual([
       { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
@@ -55,18 +55,18 @@ describe('#directoryStructure', () => {
     ])
   })
 
-  test('Should handle sections and sort files correctly', async () => {
-    // List S3 objects mock response
+  test('Should handle sections and sort files as expected', async () => {
+    // Alphabetically sorted list S3 objects mock response
     mockRequest.s3Client.send.mockResolvedValue({
       Contents: [
         { Key: 'README.md' },
         { Key: 'guides/README.md' },
-        { Key: 'guides/advanced/topics.md' },
         { Key: 'guides/advanced/README.md' },
+        { Key: 'guides/advanced/topics.md' },
         { Key: 'how-to/README.md' },
         { Key: 'how-to/long-process/README.md' },
-        { Key: 'how-to/long-process/node.md' },
-        { Key: 'how-to/long-process/dotnet.md' }
+        { Key: 'how-to/long-process/dotnet.md' },
+        { Key: 'how-to/long-process/node.md' }
       ]
     })
 
@@ -100,7 +100,7 @@ describe('#directoryStructure', () => {
       }
     })
 
-    const result = await directoryStructure(mockRequest, mockBucket)
+    const result = await documentationStructure(mockRequest, mockBucket)
 
     expect(result).toEqual([
       {
@@ -151,7 +151,7 @@ describe('#directoryStructure', () => {
       // List S3 objects mock response
       mockRequest.s3Client.send.mockResolvedValue({ Contents: [] })
 
-      const result = await directoryStructure(mockRequest, mockBucket)
+      const result = await documentationStructure(mockRequest, mockBucket)
 
       expect(result).toEqual([])
     })
