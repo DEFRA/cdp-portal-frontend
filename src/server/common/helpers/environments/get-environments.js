@@ -8,6 +8,7 @@ function getEnvironments(isAdmin = false) {
       dev: environments.dev,
       test: environments.test,
       perfTest: environments.perfTest,
+      extTest: environments.extTest,
       prod: environments.prod
     }
   }

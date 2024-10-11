@@ -45,6 +45,11 @@ async function provideTabs(request, h) {
           isActive: request.path.startsWith('/deployments/management'),
           url: `/deployments/management${paginationParams}`,
           label: 'Management'
+        },
+        {
+          isActive: request.path.startsWith('/deployments/ext-test'),
+          url: `/deployments/ext-test${paginationParams}`,
+          label: 'Ext-test'
         }
       )
     }
