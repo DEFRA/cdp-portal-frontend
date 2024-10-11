@@ -7,7 +7,6 @@ import { s3FileHandler } from '~/src/server/documentation/helpers/s3-file-handle
 import { markdownHandler } from '~/src/server/documentation/helpers/markdown-handler'
 import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message'
 
-const tenMinutes = 10 * 60 * 1000
 const documentationController = {
   options: {
     validate: {
@@ -15,10 +14,6 @@ const documentationController = {
         documentationPath: Joi.string()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
-    },
-    cache: {
-      expiresIn: tenMinutes,
-      privacy: 'public'
     }
   },
   handler: async (request, h) => {
