@@ -28,6 +28,10 @@ const serviceController = {
     const serviceId = request.params?.serviceId
     const service = request.pre.service
 
+    if (service === null) {
+      return Boom.notFound()
+    }
+
     const availableVersions = await fetchAvailableVersions(service.serviceName)
     const environments = getEnvironmentsByTeam(service.teams)
     const runningServices = (await fetchRunningServicesById(serviceId)) ?? []
