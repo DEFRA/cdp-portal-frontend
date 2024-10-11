@@ -5,8 +5,6 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler'
 
-const marked = new Marked()
-
 /**
  * Get the order of a README.md pages internal links
  * @param {string} markdown
@@ -25,7 +23,7 @@ async function getPageInternalLinksOrder(markdown) {
     }
   }
 
-  marked.use({ walkTokens })
+  const marked = new Marked().use({ walkTokens })
   await marked.parse(markdown)
 
   return [...new Set(internalLinksOrder)]
@@ -66,10 +64,13 @@ async function directoryStructure(request, bucket) {
   const command = new ListObjectsV2Command({
     Bucket: bucket
   })
-
   const listObjectsResponse = await request.s3Client.send(command)
-  const docsRoute = '/documentation'
 
+  if (listObjectsResponse.Contents.length === 0) {
+    return []
+  }
+
+  const docsRoute = '/documentation'
   const sections = {}
   let sectionOrder
 
