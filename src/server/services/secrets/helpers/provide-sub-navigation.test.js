@@ -82,6 +82,13 @@ describe('#provideSubNavigation', () => {
         {
           isActive: false,
           label: {
+            text: 'Ext-test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/ext-test'
+        },
+        {
+          isActive: false,
+          label: {
             text: 'Prod'
           },
           url: '/services/cdp-portal-frontend/secrets/prod'

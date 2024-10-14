@@ -6,12 +6,13 @@ describe('#getEnvironmentsByTeam', () => {
     const oidcAdminGroupId = 'adminGroupId'
     const result = getEnvironmentsByTeam(teams, oidcAdminGroupId)
     expect(result).toEqual({
-      dev: 'dev',
       infraDev: 'infra-dev',
       management: 'management',
+      dev: 'dev',
+      test: 'test',
       perfTest: 'perf-test',
-      prod: 'prod',
-      test: 'test'
+      extTest: 'ext-test',
+      prod: 'prod'
     })
   })
 
