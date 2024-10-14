@@ -41,6 +41,11 @@ describe('#provideTabs', () => {
         },
         {
           isActive: false,
+          label: 'Ext-test',
+          url: '/deployments/ext-test?page=1&size=50'
+        },
+        {
+          isActive: false,
           label: 'Dev',
           url: '/deployments/dev?page=1&size=50'
         },
@@ -82,6 +87,11 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'Management',
           url: '/deployments/management?page=1&size=50'
+        },
+        {
+          isActive: false,
+          label: 'Ext-test',
+          url: '/deployments/ext-test?page=1&size=50'
         },
         {
           isActive: false,

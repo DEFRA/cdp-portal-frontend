@@ -54,7 +54,7 @@ describe('#secretParamsValidation', () => {
 
       expect(() => secretParamsValidation(params, options)).toThrow(
         new Joi.ValidationError(
-          '"environment" must be one of [infra-dev, management, dev, test, perf-test, prod]'
+          '"environment" must be one of [infra-dev, management, dev, test, perf-test, ext-test, prod]'
         )
       )
     })

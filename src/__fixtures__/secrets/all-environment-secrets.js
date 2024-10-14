@@ -1,17 +1,6 @@
 // Response from portalBackendApi/secrets/cdp-portal-backend
 
 const allEnvironmentSecretsFixture = {
-  dev: {
-    keys: [
-      'automated_placeholder',
-      'placeholder',
-      'GOOGLE_APIS',
-      'OS_MAP_ENDPOINT',
-      'REDIS_KEY_PREFIX'
-    ],
-    lastChangedDate: '2024-08-02T16:08:35.2252690Z',
-    createdDate: '2024-07-14T08:11:00'
-  },
   'infra-dev': {
     keys: [
       'a_lower_case_secret',
@@ -34,14 +23,15 @@ const allEnvironmentSecretsFixture = {
     lastChangedDate: '2024-08-02T16:02:23.9872730Z',
     createdDate: '2024-07-14T08:11:00'
   },
-  'perf-test': {
-    keys: [],
-    lastChangedDate: null,
-    createdDate: null
-  },
-  prod: {
-    keys: ['automated_placeholder', 'placeholder', 'REDIS_KEY_PREFIX'],
-    lastChangedDate: '2024-08-02T14:10:17.3880790Z',
+  dev: {
+    keys: [
+      'automated_placeholder',
+      'placeholder',
+      'GOOGLE_APIS',
+      'OS_MAP_ENDPOINT',
+      'REDIS_KEY_PREFIX'
+    ],
+    lastChangedDate: '2024-08-02T16:08:35.2252690Z',
     createdDate: '2024-07-14T08:11:00'
   },
   test: {
@@ -52,6 +42,21 @@ const allEnvironmentSecretsFixture = {
       'REDIS_KEY_PREFIX'
     ],
     lastChangedDate: '2024-08-03T08:07:32.7548580Z',
+    createdDate: '2024-07-14T08:11:00'
+  },
+  'perf-test': {
+    keys: [],
+    lastChangedDate: null,
+    createdDate: null
+  },
+  'ext-test': {
+    keys: [],
+    lastChangedDate: null,
+    createdDate: null
+  },
+  prod: {
+    keys: ['automated_placeholder', 'placeholder', 'REDIS_KEY_PREFIX'],
+    lastChangedDate: '2024-08-02T14:10:17.3880790Z',
     createdDate: '2024-07-14T08:11:00'
   }
 }

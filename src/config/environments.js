@@ -4,6 +4,7 @@ const environments = {
   dev: 'dev',
   test: 'test',
   perfTest: 'perf-test',
+  extTest: 'ext-test',
   prod: 'prod'
 }
 
