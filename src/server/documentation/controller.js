@@ -27,7 +27,7 @@ const documentationController = {
         return await markdownHandler(request, h, documentationPath, bucket)
       }
 
-      return s3FileHandler(request, h, documentationPath, bucket)
+      return await s3FileHandler(request, h, documentationPath, bucket)
     } catch (error) {
       request.logger.error(error)
 

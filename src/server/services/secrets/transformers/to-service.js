@@ -22,6 +22,10 @@ async function toService(serviceId) {
 
   const deployableService = await fetchDeployableService(serviceId)
 
+  if (deployableService === null && repository === null) {
+    return null
+  }
+
   return repositoryDecorator(
     { isDeployable: true, ...deployableService },
     repository
