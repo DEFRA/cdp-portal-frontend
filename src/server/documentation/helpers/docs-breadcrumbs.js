@@ -22,16 +22,18 @@ function docsBreadcrumbs(docsPath) {
     return breadcrumbs
   }
 
-  pathParts.forEach((pathPart, i) => {
+  pathParts.forEach((pathPart, i, array) => {
     if (i === pathParts.length - 1) {
       // Last breadcrumb is not linkable
       breadcrumbs.push({
         text: startCase(pathPart.replace('.md', ''))
       })
     } else {
+      const path = array.slice(0, i + 1).join('/')
+
       breadcrumbs.push({
         text: startCase(pathPart),
-        href: `/documentation/${pathPart}/README.md`
+        href: `/documentation/${path}/README.md`
       })
     }
   })
