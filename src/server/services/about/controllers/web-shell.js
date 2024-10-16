@@ -30,6 +30,10 @@ const webShellController = {
       config.get('webShellUrl').replace('{environment}', environment) +
       `/${token}`
 
+    request.logger.info(
+      `WebShell on url: ${webShellUrl} requested for ${serviceId} in ${environment}`
+    )
+
     try {
       const webShellResponse = await fetchWebShellStatus(environment, token)
       webShell.shouldPoll = webShellResponse.status !== statusCodes.ok
