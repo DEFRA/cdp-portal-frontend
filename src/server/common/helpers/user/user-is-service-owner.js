@@ -1,5 +1,6 @@
 import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
 
+// TODO remove duplication
 function userIsServiceOwner(authedUser) {
   return userIsMemberOfATeam(authedUser)
 }

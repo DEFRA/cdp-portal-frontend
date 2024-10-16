@@ -29,6 +29,7 @@ Portal Frontend for Core Delivery Platform (CDP)
 - [LocalStack](#localstack)
   - [Test reports](#test-reports)
   - [Documentation](#documentation)
+  - [Web shell](#web-shell)
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
@@ -297,6 +298,37 @@ awslocal s3 mb s3://cdp-documentation --endpoint-url http://localhost:4566
 git clone https://github.com/DEFRA/cdp-documentation/
 cd cdp-documentation
 awslocal s3 sync . s3://cdp-documentation --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md"--delete
+```
+
+### Web shell
+
+- Web Shell Proxy - https://github.com/DEFRA/cdp-webshell-proxy
+- Web Shell - https://github.com/christopherjturner/webshell
+
+```bash
+cd cdp-webshell-proxy
+
+pip3 install -r requirements.txt
+pip3 install "fastapi[standard]"
+
+## Start proxy
+fast api dev app.py
+
+## Register a route
+curl --header "Content-type: application/json" --data-raw '{"id":"12345","target":"localhost"}' 'http://localhost:8080/admin/register'
+
+## Start the web shell
+git clone https://github.com/christopherjturner/webshell
+
+install go https://go.dev/doc/install
+
+go run . -port 8085 -token 12345
+
+## Open the web shell
+http://localhost:8000/12345/
+
+## De-register a route
+curl http://localhost:8080/admin/deregister/12345'
 ```
 
 ## Licence

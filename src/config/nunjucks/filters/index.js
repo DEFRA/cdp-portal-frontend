@@ -1,4 +1,4 @@
-import { assign, isArray, isNil, compact, union } from 'lodash'
+import { assign, isArray, isNil, compact, union, startCase } from 'lodash'
 
 import { formatDate } from '~/src/server/common/helpers/date/format-date'
 import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
@@ -12,5 +12,6 @@ export {
   sanitiseUser,
   isNil,
   compact,
-  union
+  union,
+  startCase
 }

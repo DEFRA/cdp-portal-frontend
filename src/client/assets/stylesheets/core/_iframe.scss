@@ -1,3 +1,5 @@
+$scrollbar-width: 15px;
+
 .app-iframe {
   display: block;
   border: none;
@@ -11,5 +13,5 @@
 
 .app-iframe--full-page {
   min-height: 100vh;
-  width: calc(100vw - 17px);
+  width: calc(100vw - $scrollbar-width);
 }
