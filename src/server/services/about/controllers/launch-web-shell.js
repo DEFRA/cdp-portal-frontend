@@ -37,7 +37,7 @@ const launchWebShellController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect(`/services/${serviceId}/web-shell/${environment}`)
+      return h.redirect(`/services/${serviceId}`)
     }
   }
 }
