@@ -5,10 +5,11 @@
 {% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/logs-icon/macro.njk" import appLogsIcon %}
+{% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
 {% from "icons/web-icon/macro.njk" import appWebIcon %}
 {% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
-{% from "summary-item/macro.njk" import appSummaryItem %}
 {% from "summary/macro.njk" import appSummary %}
+{% from "summary/summary-item/macro.njk" import appSummaryItem %}
 {% from "time/macro.njk" import appTime %}
 
 {% set latestPublishedTableRows = [] %}
@@ -26,7 +27,7 @@
     }) }}" role="button" class="govuk-button app-button app-button--primary app-button--small">Deploy</a>
   {% endset %}
 
-  {% if canDeploy %}
+  {% if isServiceOwner %}
     {{ latestPublishedTableRows.push([
       { html: appTime({ datetime: version.created }) },
       { html: versionLinkHtml },
@@ -39,6 +40,23 @@
     ]) }}
   {% endif %}
 {% endfor %}
+
+{% set webShellTableRows = [] %}
+
+{% for webShellEnv in webShellEnvs %}
+  {% set launchLinkHtml %}
+    <a href="/services/{{ service.serviceName }}/web-shell/{{ webShellEnv }}"
+       class="govuk-button app-button app-button--primary app-button--small"
+       target="_blank"
+       rel="noopener noreferrer">Launch</a>
+  {% endset %}
+
+  {{ webShellTableRows.push([
+    { text: webShellEnv | title },
+    { html: launchLinkHtml }
+  ]) }}
+{% endfor %}
+
 
 {% block beforeTabContent %}
 
@@ -122,7 +140,7 @@
             heading: "Logs",
             icon: appLogsIcon({ classes: "app-icon-small"}),
             intro: {
-              text: "OpenSearch logs for monitoring and troubleshooting issues with your service."
+              text: "OpenSearch logs for monitoring and troubleshooting your service."
             }
           }) %}
             <ul class="govuk-list govuk-!-margin-bottom-0">
@@ -166,9 +184,7 @@
 
             </ul>
           {% endcall %}
-        {% endcall %}
 
-        {% call appSummary() %}
           {% call appSummaryItem({
             heading: "Configuration",
             icon: appWrenchIcon({ classes: "app-icon-small"}),
@@ -180,6 +196,9 @@
                  target="_blank" rel="noopener noreferrer">DEFRA/cdp-app-config/{{ service.serviceName }}</a>
             </p>
           {% endcall %}
+        {% endcall %}
+
+        {% call appSummary() %}
 
           {% call appSummaryItem({
             heading: "Builds",
@@ -196,6 +215,31 @@
             </p>
           {% endcall %}
 
+          {# TODO update isAdmin to isServiceOwner when ready for release #}
+          {% if isAdmin %}
+            {% call appSummaryItem({
+              heading: "Web shell",
+              icon: appTerminalIcon({ classes: "app-icon-small"}),
+              intro: {
+                text: "Access your service in an environment via a secure web shell."
+              }
+            }) %}
+
+              {% if canLaunchWebShell %}
+                {{ govukTable({
+                  classes: "app-table govuk-!-margin-bottom-4",
+                  head: [{ text: "Environment" }, { text: "Action" }],
+                  rows: webShellTableRows
+                }) }}
+
+              {% else %}
+                <p class="govuk-!-margin-bottom-2">
+                  {{ service.serviceName }} has not been deployed to an environment.
+                </p>
+              {% endif %}
+            {% endcall %}
+          {% endif %}
+
           {% call appSummaryItem({
             heading: "Published Images",
             icon: appInstanceIcon({ classes: "app-icon-small"}),
@@ -207,7 +251,7 @@
             {% if latestPublishedTableRows | length %}
               {{ govukTable({
                 classes: "app-table govuk-!-margin-bottom-4",
-                head: [{ text: "Published" }, { text: "Version" }, { text: "Action" }] if canDeploy else [{ text: "Published" }, { text: "Version" }],
+                head: [{ text: "Published" }, { text: "Version" }, { text: "Action" }] if isServiceOwner else [{ text: "Published" }, { text: "Version" }],
                 rows: latestPublishedTableRows
                 }) }}
 
@@ -236,7 +280,7 @@
         {{ appEntityList({
           headings: rowHeadings,
           entityRows: runningServicesEntityRows,
-          noResult: "Currently there are no versions of " + service.imageName + " running in any environments"
+          noResult: "Currently there are no versions of " + service.imageName + " running in any environment."
         }) }}
       </section>
     </div>

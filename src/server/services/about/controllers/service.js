@@ -4,7 +4,7 @@ import { compose } from 'lodash/fp'
 
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { provideCanDeploy } from '~/src/server/services/helpers/pre/provide-can-deploy'
+import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner'
 import { withEnvironments } from '~/src/server/common/transformers/with-environments'
 import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id'
@@ -16,7 +16,7 @@ import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetc
 const serviceController = {
   options: {
     id: 'services/{serviceId}',
-    pre: [[provideService], provideCanDeploy],
+    pre: [[provideService], provideIsServiceOwner],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -27,6 +27,7 @@ const serviceController = {
   handler: async (request, h) => {
     const serviceId = request.params?.serviceId
     const service = request.pre.service
+    const isServiceOwner = request.pre.isServiceOwner
 
     if (service === null) {
       return Boom.notFound()
@@ -46,16 +47,20 @@ const serviceController = {
     ]
       .filter((env) => Object.values(environments).includes(env))
       .sort(sortByEnv)
+    const webShellEnvs = envsWithDeployment.filter((env) => env !== 'prod')
+    const canLaunchWebShell = webShellEnvs.length > 0
 
     return h.view('services/about/views/service', {
       pageTitle: `${service.serviceName} microservice`,
-      runningServicesEntityRows,
+      service,
+      isServiceOwner,
       envsWithDeployment,
+      canLaunchWebShell,
+      webShellEnvs,
+      runningServicesEntityRows,
       heading: service.serviceName,
       rowHeadings: buildRunningServicesRowHeadings(environments),
       entityDataList: serviceToEntityDataList(service),
-      service,
-      canDeploy: request.pre.canDeploy,
       latestVersions: availableVersions.slice(0, 4),
       breadcrumbs: [
         {
