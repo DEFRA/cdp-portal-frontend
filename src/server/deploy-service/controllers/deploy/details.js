@@ -35,7 +35,6 @@ const detailsController = {
       abortEarly: false
     })
 
-    // We have a validation error
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
 
@@ -77,7 +76,6 @@ const detailsController = {
       )
     }
 
-    // No validation error
     if (!validationResult.error) {
       await request.app.saveStepData(multiStepFormId, payload, h)
 
