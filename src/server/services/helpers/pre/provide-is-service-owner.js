@@ -1,4 +1,4 @@
-const provideCanDeploy = {
+const provideIsServiceOwner = {
   method: async function (request) {
     const authedUser = await request.getUserSession()
 
@@ -9,7 +9,7 @@ const provideCanDeploy = {
         return true
       }
 
-      const isServiceOwner = await request.userIsMemberOfATeam(
+      const isServiceOwner = await request.userIsServiceOwner(
         request.pre.service.teams.map((team) => team.teamId)
       )
 
@@ -20,7 +20,7 @@ const provideCanDeploy = {
 
     return false
   },
-  assign: 'canDeploy'
+  assign: 'isServiceOwner'
 }
 
-export { provideCanDeploy }
+export { provideIsServiceOwner }

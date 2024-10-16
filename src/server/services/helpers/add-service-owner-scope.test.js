@@ -1,4 +1,4 @@
-import { addServiceOwnerScope } from '~/src/server/services/secrets/helpers/add-service-owner-scope'
+import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
 import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner'
 
 describe('#addServiceOwnerScope', () => {
@@ -8,6 +8,42 @@ describe('#addServiceOwnerScope', () => {
 
   beforeEach(() => {
     mockGetUserSession = jest.fn()
+  })
+
+  describe('When un-authenticated and with a service', () => {
+    beforeEach(() => {
+      const teamId = '9e068bb9-1452-426e-a4ca-2e675a942a89'
+
+      mockRequest = {
+        app: {
+          service: {
+            teams: [{ teamId }]
+          }
+        },
+        auth: { isAuthenticated: false, credentials: null }
+      }
+    })
+
+    test('Should not have service owner scope', async () => {
+      await addServiceOwnerScope(mockRequest, mockResponseToolkit)
+
+      expect(mockRequest.auth.credentials?.scope).toBeUndefined()
+    })
+  })
+
+  describe('When un-authenticated and without a service', () => {
+    beforeEach(() => {
+      mockRequest = {
+        app: {},
+        auth: { isAuthenticated: false, credentials: null }
+      }
+    })
+
+    test('Should not have service owner scope', async () => {
+      await addServiceOwnerScope(mockRequest, mockResponseToolkit)
+
+      expect(mockRequest.auth.credentials?.scope).toBeUndefined()
+    })
   })
 
   describe('When authenticated user owns a service', () => {

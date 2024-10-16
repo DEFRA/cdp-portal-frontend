@@ -10,18 +10,21 @@ import { scopes } from '~/src/server/common/constants/scopes'
  */
 async function addServiceOwnerScope(request, h) {
   const service = request.app.service
-  const isServiceOwner = await request.userIsServiceOwner(
-    service.teams?.map((team) => team.teamId) ?? []
-  )
-  const { credentials } = request.auth
+  const { credentials, isAuthenticated } = request.auth
 
-  const scope = [...credentials.scope]
+  if (isAuthenticated && service) {
+    const isServiceOwner = await request.userIsServiceOwner(
+      service.teams?.map((team) => team.teamId) ?? []
+    )
 
-  if (isServiceOwner) {
-    scope.push(scopes.serviceOwner)
+    const scope = [...credentials.scope]
+
+    if (isServiceOwner) {
+      scope.push(scopes.serviceOwner)
+    }
+
+    credentials.scope = scope
   }
-
-  credentials.scope = scope
 
   return h.continue
 }

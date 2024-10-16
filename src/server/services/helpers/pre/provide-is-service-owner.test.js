@@ -1,12 +1,12 @@
-import { provideCanDeploy } from '~/src/server/services/helpers/pre/provide-can-deploy'
+import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner'
 
-describe('#provideCanDeploy', () => {
-  let request
+describe('#provideIsServiceOwner', () => {
+  let mockRequest
 
   beforeEach(() => {
-    request = {
+    mockRequest = {
       getUserSession: jest.fn(),
-      userIsMemberOfATeam: jest.fn(),
+      userIsServiceOwner: jest.fn(),
       pre: {
         service: {
           teams: [{ teamId: 'team1' }, { teamId: 'team2' }]
@@ -16,44 +16,44 @@ describe('#provideCanDeploy', () => {
   })
 
   test('Should return true if user is authenticated and is an admin', async () => {
-    request.getUserSession.mockResolvedValue({
+    mockRequest.getUserSession.mockResolvedValue({
       isAuthenticated: true,
       isAdmin: true
     })
 
-    const result = await provideCanDeploy.method(request)
+    const result = await provideIsServiceOwner.method(mockRequest)
 
     expect(result).toBe(true)
   })
 
   test('Should return true if user is authenticated and is a service owner', async () => {
-    request.getUserSession.mockResolvedValue({
+    mockRequest.getUserSession.mockResolvedValue({
       isAuthenticated: true,
       isAdmin: false
     })
-    request.userIsMemberOfATeam.mockResolvedValue(true)
+    mockRequest.userIsServiceOwner.mockResolvedValue(true)
 
-    const result = await provideCanDeploy.method(request)
+    const result = await provideIsServiceOwner.method(mockRequest)
 
     expect(result).toBe(true)
   })
 
   test('Should return false if user is authenticated but not an admin or service owner', async () => {
-    request.getUserSession.mockResolvedValue({
+    mockRequest.getUserSession.mockResolvedValue({
       isAuthenticated: true,
       isAdmin: false
     })
-    request.userIsMemberOfATeam.mockResolvedValue(false)
+    mockRequest.userIsServiceOwner.mockResolvedValue(false)
 
-    const result = await provideCanDeploy.method(request)
+    const result = await provideIsServiceOwner.method(mockRequest)
 
     expect(result).toBe(false)
   })
 
   test('Should return false if user is not authenticated', async () => {
-    request.getUserSession.mockResolvedValue(null)
+    mockRequest.getUserSession.mockResolvedValue(null)
 
-    const result = await provideCanDeploy.method(request)
+    const result = await provideIsServiceOwner.method(mockRequest)
 
     expect(result).toBe(false)
   })
