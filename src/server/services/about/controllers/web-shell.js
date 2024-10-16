@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 
 import { environments, config } from '~/src/config'
 import { fetchWebShellStatus } from '~/src/server/services/about/helpers/fetch/fetch-web-shell-status'
+import { statusCodes } from '~/src/server/common/constants/status-codes'
 
 const webShellController = {
   options: {
@@ -31,9 +32,9 @@ const webShellController = {
 
     try {
       const webShellResponse = await fetchWebShellStatus(environment, token)
-      webShell.shouldPoll = webShellResponse.status !== 200
+      webShell.shouldPoll = webShellResponse.status !== statusCodes.ok
 
-      const isReady = webShellResponse.status === 200
+      const isReady = webShellResponse.status === statusCodes.ok
       webShell.successMessage = isReady ? 'Web shell is ready' : ''
       webShell.url = isReady ? webShellUrl : ''
     } catch (error) {
