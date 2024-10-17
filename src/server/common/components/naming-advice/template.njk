@@ -31,12 +31,11 @@
     {% endfor %}. E.g.
   </p>
 
-  <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-1 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
+  <ul class="govuk-list govuk-!-margin-top-1 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
     {% for category in params.categories -%}
       <li>
         <div class="app-!-layout-centered">
-          seed-vault-{{ category }}
-          {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-left-1" }) }}
+          {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} seed-vault-{{ category }}
         </div>
       </li>
     {% endfor %}
@@ -46,11 +45,11 @@
     Avoid including words that do not belong in the name. For example do not include project phases, version numbers,
     temporary words, branch names, product names or excessive acronyms.
   </p>
-  <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
+  <ul class="govuk-list govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
     {% for badName in badNames %}
       <li>
         <div class="app-!-layout-centered">
-          {{ badName }} {{ appErrorIcon({ classes: "app-icon-tiny govuk-!-margin-left-1" }) }}
+          {{ appErrorIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ badName }}
         </div>
       </li>
     {% endfor %}

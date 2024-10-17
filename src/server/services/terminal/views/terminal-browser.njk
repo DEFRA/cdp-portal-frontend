@@ -1,0 +1,27 @@
+{% extends "layouts/page.njk" %}
+
+{% block header %}
+  {{ appHeader({
+    serviceName: serviceName,
+    serviceUrl: "/",
+    loginText: "Sign out" if isAuthenticated else "Sign in",
+    loginUrl: ("/logout" if isAuthenticated else "/login")
+  }) }}
+{% endblock %}
+
+{% block main %}
+
+  {# TODO update isAdmin to isServiceOwner when ready for release #}
+  {% if isAdmin %}
+    <main class="govuk-body">
+      <iframe
+        class="app-iframe app-iframe--full-page"
+        title="Terminal {{ serviceId }} - {{ environment }}"
+        onload="window.cdp.resizeIframe(this)"
+        scrolling="no"
+        src="{{ terminalUrl }}">
+      </iframe>
+    </main>
+  {% endif %}
+
+{% endblock %}
