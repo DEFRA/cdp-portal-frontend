@@ -9,13 +9,15 @@
   }) }}
 {% endblock %}
 
+{% set bodyClasses = "app-terminal-grey" %}
+
 {% block main %}
 
   {# TODO update isAdmin to isServiceOwner when ready for release #}
   {% if isAdmin %}
     <main class="govuk-body">
       <iframe
-        class="app-iframe app-iframe--full-page"
+        class="app-iframe app-iframe--full-page "
         title="Terminal {{ serviceId }} - {{ environment }}"
         onload="window.cdp.resizeIframe(this)"
         scrolling="no"
