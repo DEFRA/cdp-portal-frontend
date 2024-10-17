@@ -47,16 +47,12 @@ const serviceController = {
     ]
       .filter((env) => Object.values(environments).includes(env))
       .sort(sortByEnv)
-    const webShellEnvs = envsWithDeployment.filter((env) => env !== 'prod')
-    const canLaunchWebShell = webShellEnvs.length > 0
 
     return h.view('services/about/views/service', {
       pageTitle: `${service.serviceName} microservice`,
       service,
       isServiceOwner,
       envsWithDeployment,
-      canLaunchWebShell,
-      webShellEnvs,
       runningServicesEntityRows,
       heading: service.serviceName,
       rowHeadings: buildRunningServicesRowHeadings(environments),

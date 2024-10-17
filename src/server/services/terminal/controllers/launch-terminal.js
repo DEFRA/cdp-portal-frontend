@@ -3,14 +3,14 @@ import Boom from '@hapi/boom'
 
 import { environments } from '~/src/config'
 import { sessionNames } from '~/src/server/common/constants/session-names'
-import { deployWebShell } from '~/src/server/services/about/helpers/fetch/deploy-web-shell'
+import { deployTerminal } from '~/src/server/services/terminal/helpers/fetch/deploy-terminal'
+import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal'
 
-const launchWebShellController = {
+const launchTerminalController = {
   options: {
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required(),
-        // TODO tenant/Admin environments
         environment: Joi.string()
           .valid(...Object.values(environments).filter((env) => env !== 'prod'))
           .required()
@@ -23,7 +23,9 @@ const launchWebShellController = {
     const environment = request.params.environment
 
     try {
-      const { response, json } = await deployWebShell(
+      await canLaunchTerminal(request, environment)
+
+      const { response, json } = await deployTerminal(
         request,
         serviceId,
         environment
@@ -31,7 +33,7 @@ const launchWebShellController = {
 
       if (response?.ok) {
         return h.redirect(
-          `/services/${json.service}/web-shell/${json.environment}/${json.token}`
+          `/services/${json.service}/terminal/${json.environment}/${json.token}`
         )
       }
     } catch (error) {
@@ -42,4 +44,4 @@ const launchWebShellController = {
   }
 }
 
-export { launchWebShellController }
+export { launchTerminalController }

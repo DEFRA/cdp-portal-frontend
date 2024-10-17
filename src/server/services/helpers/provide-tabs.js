@@ -41,6 +41,19 @@ async function provideTabs(request, h) {
         }),
         label: 'Secrets'
       })
+
+      if (isAdmin) {
+        // TODO move to above when ready for release
+        response.source.context.tabs.push({
+          isActive: request.path.startsWith(`/services/${imageName}/terminal`),
+          url: request.routeLookup('services/{serviceId}/terminal', {
+            params: {
+              serviceId: imageName
+            }
+          }),
+          label: 'Terminal'
+        })
+      }
     } else {
       response.source.context.displayTabs = false
     }

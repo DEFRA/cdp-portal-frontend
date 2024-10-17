@@ -5,7 +5,6 @@
 {% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/logs-icon/macro.njk" import appLogsIcon %}
-{% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
 {% from "icons/web-icon/macro.njk" import appWebIcon %}
 {% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
 {% from "summary/macro.njk" import appSummary %}
@@ -40,23 +39,6 @@
     ]) }}
   {% endif %}
 {% endfor %}
-
-{% set webShellTableRows = [] %}
-
-{% for webShellEnv in webShellEnvs %}
-  {% set launchLinkHtml %}
-    <a href="/services/{{ service.serviceName }}/web-shell/{{ webShellEnv }}"
-       class="govuk-button app-button app-button--primary app-button--small"
-       target="_blank"
-       rel="noopener noreferrer">Launch</a>
-  {% endset %}
-
-  {{ webShellTableRows.push([
-    { text: webShellEnv | title },
-    { html: launchLinkHtml }
-  ]) }}
-{% endfor %}
-
 
 {% block beforeTabContent %}
 
@@ -185,6 +167,10 @@
             </ul>
           {% endcall %}
 
+        {% endcall %}
+
+        {% call appSummary() %}
+
           {% call appSummaryItem({
             heading: "Configuration",
             icon: appWrenchIcon({ classes: "app-icon-small"}),
@@ -196,9 +182,7 @@
                  target="_blank" rel="noopener noreferrer">DEFRA/cdp-app-config/{{ service.serviceName }}</a>
             </p>
           {% endcall %}
-        {% endcall %}
 
-        {% call appSummary() %}
 
           {% call appSummaryItem({
             heading: "Builds",
@@ -214,31 +198,6 @@
               </a>
             </p>
           {% endcall %}
-
-          {# TODO update isAdmin to isServiceOwner when ready for release #}
-          {% if isAdmin %}
-            {% call appSummaryItem({
-              heading: "Web shell",
-              icon: appTerminalIcon({ classes: "app-icon-small"}),
-              intro: {
-                text: "Access your service in an environment via a secure web shell."
-              }
-            }) %}
-
-              {% if canLaunchWebShell %}
-                {{ govukTable({
-                  classes: "app-table govuk-!-margin-bottom-4",
-                  head: [{ text: "Environment" }, { text: "Action" }],
-                  rows: webShellTableRows
-                }) }}
-
-              {% else %}
-                <p class="govuk-!-margin-bottom-2">
-                  {{ service.serviceName }} has not been deployed to an environment.
-                </p>
-              {% endif %}
-            {% endcall %}
-          {% endif %}
 
           {% call appSummaryItem({
             heading: "Published Images",

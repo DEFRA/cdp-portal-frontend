@@ -1,6 +1,6 @@
 import { config } from '~/src/config'
 
-async function deployWebShell(request, serviceId, environment) {
+async function deployTerminal(request, serviceId, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-webshell'
 
   const { json, response } = await request.authedFetcher(endpoint, {
@@ -15,4 +15,4 @@ async function deployWebShell(request, serviceId, environment) {
   return { json, response }
 }
 
-export { deployWebShell }
+export { deployTerminal }
