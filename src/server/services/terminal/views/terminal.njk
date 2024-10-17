@@ -38,16 +38,15 @@
   "You will have the same permissions as your service and can behave as your service",
   "Same security as your service",
   "You can upload files",
-  "Talk to MongoDB as if you are the service",
-  "Talk to Redis as if you are the service",
+  "Talk to MongoDB as if you are your service",
+  "Talk to Redis as if you are your service",
   "Access to the S3 buckets your service has access to",
   "Curl your backend service from your frontend service",
-  "The CDP Terminal is available in environments your service is deployed in",
-  "The CDP Terminal is not available in prod"
+  "Available in environments your service is deployed in"
 ] %}
 
 {% set warnings = [
-  "The connection is short lived, lasting around 2 hours",
+  "The connection is short-lived, lasting around 2 hours",
   "Any changes you make to your service will be lost when the terminal is closed",
   "When using the Terminal, you behave the same way as your service",
   "Removing items from S3 will remove these items from S3",
@@ -73,7 +72,7 @@
       <section class="govuk-!-margin-bottom-6">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
         <p class="govuk-!-margin-right-2">
-          Welcome to the CDP terminal for {{ service.serviceName }}. Launch a short lived terminal in an environment
+          Welcome to the CDP terminal for {{ service.serviceName }}. Launch a short-lived terminal in an environment
           with the same permissions, visibility and security as your service.
         </p>
       </section>
@@ -114,7 +113,7 @@
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tips</h2>
 
         <p class="govuk-!-margin-bottom-2">
-          The CDP Terminal is a web shell into dedicated container running with the permissions that your service has.
+          The CDP Terminal is a web shell into a dedicated container running with the permissions that your service has.
         </p>
         <p class="govuk-!-margin-bottom-2">
           With the CDP Terminal you can:
