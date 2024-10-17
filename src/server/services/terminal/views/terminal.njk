@@ -35,22 +35,24 @@
 {# Tips and warnings #}
 
 {% set tips = [
+  "You will have the same permissions as your service and can behave as your service",
+  "Same security as your service",
+  "You can upload files",
   "Talk to MongoDB as if you are the service",
   "Talk to Redis as if you are the service",
   "Access to the S3 buckets your service has access to",
-  "You will have the same permissions as your service",
-  "Same security as your service",
   "Curl your backend service from your frontend service",
-  "Behave as your service",
   "The CDP Terminal is available in environments your service is deployed in",
   "The CDP Terminal is not available in prod"
 ] %}
 
 {% set warnings = [
-  "Via the Terminal you behave the same way as your service",
+  "The connection is short lived, lasting around 2 hours",
+  "Any changes you make to your service will be lost when the terminal is closed",
+  "When using the Terminal, you behave the same way as your service",
   "Removing items from S3 will remove these items from S3",
   "Removing items from MongoDb will remove these items from MongoDb",
-  "Maximum 20 GB of storage"
+  "Maximum 20 GB of ephemeral storage"
 ] %}
 
 {% block beforeTabContent %}
@@ -70,9 +72,9 @@
 
       <section class="govuk-!-margin-bottom-6">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
-        <p>
-          Welcome to the CDP terminal for {{ service.serviceName }}. Launch a terminal in an environment with the same
-          permissions, visibility and security as your service.
+        <p class="govuk-!-margin-right-2">
+          Welcome to the CDP terminal for {{ service.serviceName }}. Launch a short lived terminal in an environment
+          with the same permissions, visibility and security as your service.
         </p>
       </section>
 
@@ -83,7 +85,7 @@
             heading: "Launch a terminal",
             icon: appTerminalIcon({ classes: "app-icon-small"}),
             intro: {
-              text: "Launch a secure terminal to your service in an environment."
+              text: "Launch a secure terminal, as your service in an environment."
             }
           }) %}
 
