@@ -23,6 +23,7 @@ import { protectForm } from '~/src/client/common/helpers/protect-form'
 import { search } from '~/src/server/common/components/search/search'
 import { tabs } from '~/src/server/common/components/tabs/tabs'
 import { xhrSubscriber } from '~/src/server/common/components/xhr-subscriber/xhr-subscriber'
+import { resizeIframe } from '~/src/client/common/helpers/resize-iframe'
 
 import '../stylesheets/application.scss'
 
@@ -43,6 +44,7 @@ window.cdp.fetchVersions = fetchVersions
 window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 window.cdp.clearDeploymentsListFilters = clearDeploymentsListFilters
+window.cdp.resizeIframe = resizeIframe
 
 initModule('app-input-assistant', inputAssistant, '*=')
 
