@@ -37,16 +37,19 @@
 {% set tips = [
   "Talk to MongoDB as if you are the service",
   "Talk to Redis as if you are the service",
-  "Access to the S3 buckets your service has access to, you will have the same permissions as your service",
+  "Access to the S3 buckets your service has access to",
+  "You will have the same permissions as your service",
   "Same security as your service",
   "Curl your backend service from your frontend service",
   "Behave as your service",
+  "The CDP Terminal is available in environments your service is deployed in",
   "The CDP Terminal is not available in prod"
 ] %}
 
 {% set warnings = [
   "Via the Terminal you behave the same way as your service",
-  "Removing items from S3, MongoDb or Redis will remove these items from S3, MongoDb or Redis",
+  "Removing items from S3 will remove these items from S3",
+  "Removing items from MongoDb will remove these items from MongoDb",
   "Maximum 20 GB of storage"
 ] %}
 
@@ -109,9 +112,7 @@
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tips</h2>
 
         <p class="govuk-!-margin-bottom-2">
-          The CDP Terminal is web shell into dedicated container running with the permissions that your service has.
-          Similar
-          to having a shell on your service.
+          The CDP Terminal is a web shell into dedicated container running with the permissions that your service has.
         </p>
         <p class="govuk-!-margin-bottom-2">
           With the CDP Terminal you can:
