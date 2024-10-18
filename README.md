@@ -29,7 +29,9 @@ Portal Frontend for Core Delivery Platform (CDP)
 - [LocalStack](#localstack)
   - [Test reports](#test-reports)
   - [Documentation](#documentation)
-  - [Web shell](#web-shell)
+  - [Terminal](#terminal)
+    - [Repositories](#repositories)
+  - [Set up](#set-up)
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
@@ -268,24 +270,39 @@ A few examples of how to use LocalStack with the Portal Frontend.
 
 ### Test reports
 
+To generate test reports and upload them to S3 to be displayed locally in the Portal Frontend UI:
+
 ```bash
-## Create buckets for environments
+## Start localstack
+docker run --pull=always -d -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack:latest
+
+## Create S3 bucket
 awslocal s3 mb s3://cdp-<environment>-test-results --endpoint-url http://localhost:4566
 
-## fEx:
+### fEx:
 awslocal s3 mb s3://cdp-dev-test-results --endpoint-url http://localhost:4566
 
 ## Run tests
-> See smoke or perf test repositories for instructions
+
+### Smoke tests
+cd cdp-portal-smoke-tests
+npm run report
+
+### Perf tests
+cd cdp-uploader-perf-tests
+jmeter -n -t scenarios/test.jmx -e -l test.csv -o reports -j logs/log.log -f -Jenv="perf-test"
 
 ## Upload test results to S3
 awslocal s3 cp <local-folder-name> s3://<s3-bucket-name/local-folder-name/> --recursive
 
-## fEx:
-awslocal s3 cp allure-report s3://cdp-dev-test-results/cdp-portal-smoke-tests/b5bab19f-d57a-4b9c-80a1-df04542382a7 --recursive
+### fEx:
+awslocal s3 cp reports s3://cdp-infra-dev-test-results/cdp-portal-perf-tests/95a01432-8f47-40d2-8233-76514da2236a --recursive
+awslocal s3 cp allure-report s3://cdp-infra-dev-test-results/cdp-portal-smoke-tests/5002a961-e6dd-4e7b-a544-a55c907b6b9f --recursive
 ```
 
 ### Documentation
+
+To upload documentation repository to localstack S3 so it displays locally in the Portal Frontend UI:
 
 ```bash
 ## Start localstack
@@ -300,10 +317,16 @@ cd cdp-documentation
 awslocal s3 sync . s3://cdp-documentation --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md"--delete
 ```
 
-### Web shell
+### Terminal
+
+To set up the web shell so it displays locally in the Portal Frontend UI:
+
+#### Repositories
 
 - Web Shell Proxy - https://github.com/DEFRA/cdp-webshell-proxy
 - Web Shell - https://github.com/christopherjturner/webshell
+
+### Set up
 
 ```bash
 cd cdp-webshell-proxy
