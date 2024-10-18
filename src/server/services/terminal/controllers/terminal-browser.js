@@ -23,12 +23,12 @@ const webShellBrowserController = {
     const serviceId = params.serviceId
     const environment = params.environment
     const token = params.token
-    const terminalUrl =
-      config.get('terminalUrl').replace('{environment}', environment) +
+    const terminalProxyUrl =
+      config.get('terminalProxyUrl').replace('{environment}', environment) +
       `/${token}`
 
     request.logger.info(
-      `Terminal on url: ${terminalUrl} requested for ${serviceId} in ${environment}`
+      `Terminal on url: ${terminalProxyUrl} requested for ${serviceId} in ${environment}`
     )
 
     try {
@@ -43,7 +43,7 @@ const webShellBrowserController = {
       pageTitle: `Terminal - ${serviceId} - ${environment}`,
       serviceId,
       environment,
-      terminalUrl
+      terminalProxyUrl
     })
   }
 }
