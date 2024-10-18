@@ -37,16 +37,16 @@
 {% set tips = [
   "Behave as your service does, same permissions, same visibility",
   "You can upload files",
-  "On a Backend service talk to MongoDb",
-  "On a Frontend service talk to Redis",
-  "Access your services S3 buckets",
-  "Curl your Backend from your Frontend"
+  "For a Backend service talk to MongoDb",
+  "For a Frontend service talk to Redis",
+  "Curl your Backend from your Frontend",
+  "Access your AWS services"
 ] %}
 
 {% set warnings = [
   "The connection is short-lived, lasting around 2 hours",
-  "Any changes you make to the environment, will be lost when the terminal is closed",
-  "Changes to external services will persist. E.g S3, MongoDb, Redis",
+  "Any changes you make to the container, will be lost when the terminal is closed",
+  "Changes to external services will persist. S3, MongoDb, Redis, etc",
   "Maximum 20 GB of ephemeral storage"
 ] %}
 
@@ -72,6 +72,35 @@
           with the same permissions, visibility and security as your service.
         </p>
       </section>
+
+
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tools available</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        A number of tools are available to you in the CDP terminal.
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <strong>Curl</strong> - <a class="app-link" href="https://curl.se" target="_blank" rel="noopener noreferrer">
+            https://curl.se</a>
+        </li>
+        <li>
+          <strong>AWS Cli</strong> - <a class="app-link" href="https://aws.amazon.com/cli" target="_blank"
+                                        rel="noopener noreferrer">
+            https://aws.amazon.com/cli</a>
+        </li>
+        <li>
+          <strong>MongoDb Cli</strong> - <a class="app-link" href="https://www.mongodb.com/docs/mongocli/current"
+                                            target="_blank" rel="noopener noreferrer">
+            https://www.mongodb.com/docs/mongocli/current</a>
+        </li>
+        <li>
+          <strong>Redis Cli</strong> - <a class="app-link" href="https://redis.io/docs/latest/develop/connect/cli"
+                                          target="_blank" rel="noopener noreferrer">
+            https://redis.io/docs/latest/develop/connect/cli</a>
+        </li>
+      </ul>
 
       <article class="govuk-!-margin-bottom-6">
         {# TODO update isAdmin to isServiceOwner when ready for release #}
@@ -106,13 +135,10 @@
 
       {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
 
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tips</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Info</h2>
 
         <p class="govuk-!-margin-bottom-2">
           The CDP Terminal is a web shell into a dedicated container running with the permissions that your service has.
-        </p>
-        <p class="govuk-!-margin-bottom-2">
-          With the CDP Terminal you can:
         </p>
 
         <ul class="govuk-list govuk-!-margin-left-2">
@@ -129,9 +155,9 @@
 
       {% call appWarning({ classes: "govuk-!-margin-top-0" }) %}
 
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Warnings</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Of note</h2>
         <p class="govuk-!-margin-bottom-2">
-          The CDP Terminal comes with a few warnings:
+          The CDP Terminal comes with a few things you need to know.
         </p>
 
         <ul class="govuk-list govuk-!-margin-left-2">
