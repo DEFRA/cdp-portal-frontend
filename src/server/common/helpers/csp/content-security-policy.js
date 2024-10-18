@@ -21,7 +21,7 @@ const contentSecurityPolicy = {
   options: {
     defaultSrc: ['self'],
     fontSrc: ['self', 'data:'],
-    connectSrc: ['self', ...terminalProxyDomains],
+    connectSrc: ['self'],
     scriptSrc: ['self', 'unsafe-inline'],
     styleSrc: ['self', 'unsafe-inline'],
     imgSrc: ['self', 'data:'],
