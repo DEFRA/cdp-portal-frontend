@@ -1,6 +1,7 @@
 import qs from 'qs'
 import path from 'path'
 import hapi from '@hapi/hapi'
+import Scooter from '@hapi/scooter'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from '~/src/server/router'
@@ -22,6 +23,7 @@ import { setupWreckAgents } from '~/src/server/common/helpers/proxy/setup-wreck-
 import { pulse } from '~/src/server/common/helpers/pulse'
 import { addDecorators } from '~/src/server/common/helpers/add-decorators'
 import { s3Client } from '~/src/server/common/helpers/aws/s3-client'
+import { contentSecurityPolicy } from '~/src/server/common/helpers/csp/content-security-policy'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -104,6 +106,8 @@ async function createServer() {
     sessionManager,
     azureOidc,
     sessionCookie,
+    Scooter,
+    contentSecurityPolicy,
     csrf,
     nunjucksConfig,
     sanitise,
