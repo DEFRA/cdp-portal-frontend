@@ -35,23 +35,28 @@ function createAuditor(options) {
 }
 
 const auditor = {
-  name: 'auditor',
-  register: (
-    server,
-    {
-      audit,
-      logger = server.logger,
-      region = config.get('aws.region'),
-      isDevelopment = config.get('isDevelopment')
+  plugin: {
+    name: 'auditor',
+    register: (server, options) => {
+      server.decorate(
+        'request',
+        'audit',
+        (request) =>
+          createAuditor({
+            audit: options.audit,
+            request,
+            logger: request.logger,
+            region: options.region,
+            isDevelopment: options.isDevelopment
+          }),
+        { apply: true }
+      )
     }
-  ) => {
-    server.decorate(
-      'request',
-      'audit',
-      (request) =>
-        createAuditor({ audit, request, logger, region, isDevelopment }),
-      { apply: true }
-    )
+  },
+  options: {
+    audit: config.get('audit'),
+    region: config.get('aws.region'),
+    isDevelopment: config.get('isDevelopment')
   }
 }
 

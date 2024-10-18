@@ -108,18 +108,8 @@ async function createServer() {
     nunjucksConfig,
     sanitise,
     router,
-    {
-      plugin: auditor,
-      options: { audit: config.get('audit') }
-    },
-    {
-      plugin: s3Client,
-      options: {
-        region: config.get('aws.region'),
-        endpoint: config.get('aws.s3.endpoint'),
-        forcePathStyle: config.get('aws.s3.forcePathStyle')
-      }
-    }
+    auditor,
+    s3Client
   ])
 
   server.ext('onPreResponse', addFlashMessagesToContext, {
