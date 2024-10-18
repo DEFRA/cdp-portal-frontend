@@ -45,7 +45,7 @@ const auditor = {
           createAuditor({
             audit: options.audit,
             request,
-            logger: request.logger,
+            logger: request.server.logger,
             region: options.region,
             isDevelopment: options.isDevelopment
           }),

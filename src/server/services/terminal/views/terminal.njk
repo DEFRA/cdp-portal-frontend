@@ -3,7 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "info/macro.njk" import appInfo %}
 {% from "warning/macro.njk" import appWarning %}
@@ -35,22 +35,18 @@
 {# Tips and warnings #}
 
 {% set tips = [
-  "You will have the same permissions as your service and can behave as your service",
-  "Same security as your service",
+  "Behave as your service does, same permissions, same visibility",
   "You can upload files",
-  "Talk to MongoDB as if you are your service",
-  "Talk to Redis as if you are your service",
-  "Access to the S3 buckets your service has access to",
-  "Curl your backend service from your frontend service",
-  "Available in environments your service is deployed in"
+  "On a Backend service talk to MongoDb",
+  "On a Frontend service talk to Redis",
+  "Access your services S3 buckets",
+  "Curl your Backend from your Frontend"
 ] %}
 
 {% set warnings = [
   "The connection is short-lived, lasting around 2 hours",
-  "Any changes you make to your service will be lost when the terminal is closed",
-  "When using the Terminal, you behave the same way as your service",
-  "Removing items from S3 will remove these items from S3",
-  "Removing items from MongoDb will remove these items from MongoDb",
+  "Any changes you make to the environment, will be lost when the terminal is closed",
+  "Changes to external services will persist. E.g S3, MongoDb, Redis",
   "Maximum 20 GB of ephemeral storage"
 ] %}
 
@@ -123,7 +119,7 @@
           {% for tip in tips -%}
             <li>
               <div class="app-!-layout-centered">
-                {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ tip }}
+                {{ appInfoIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ tip }}
               </div>
             </li>
           {% endfor %}
