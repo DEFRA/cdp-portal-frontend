@@ -1,0 +1,155 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+{% from "info/macro.njk" import appInfo %}
+{% from "warning/macro.njk" import appWarning %}
+{% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
+{% from "summary/macro.njk" import appSummary %}
+{% from "summary/summary-item/macro.njk" import appSummaryItem %}
+
+{# Construct table rows, tables and html contents #}
+{% set terminalTableRows = [] %}
+
+{% for terminalEnv in terminalEnvs %}
+  {% set launchFormHtml %}
+    <form method="post" action="/services/{{ service.serviceName }}/terminal/{{ terminalEnv }}" target="_blank">
+      <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+      {{ govukButton({
+        classes: "app-button app-button--primary app-button--small",
+        text: "Launch"
+      }) }}
+    </form>
+  {% endset %}
+
+  {{ terminalTableRows.push([
+    { text: terminalEnv | title },
+    { html: launchFormHtml }
+  ]) }}
+{% endfor %}
+
+{# Tips and warnings #}
+
+{% set tips = [
+  "You will have the same permissions as your service and can behave as your service",
+  "Same security as your service",
+  "You can upload files",
+  "Talk to MongoDB as if you are your service",
+  "Talk to Redis as if you are your service",
+  "Access to the S3 buckets your service has access to",
+  "Curl your backend service from your frontend service",
+  "Available in environments your service is deployed in"
+] %}
+
+{% set warnings = [
+  "The connection is short-lived, lasting around 2 hours",
+  "Any changes you make to your service will be lost when the terminal is closed",
+  "When using the Terminal, you behave the same way as your service",
+  "Removing items from S3 will remove these items from S3",
+  "Removing items from MongoDb will remove these items from MongoDb",
+  "Maximum 20 GB of ephemeral storage"
+] %}
+
+{% block beforeTabContent %}
+
+  {{ appHeading({
+    title: heading,
+    caption: "Information about the " + heading + " microservice.",
+    entities: headingEntities
+  }) }}
+
+{% endblock %}
+
+{% block tabContent %}
+
+  <div class="govuk-grid-row">
+    <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
+        <p class="govuk-!-margin-right-2">
+          Welcome to the CDP terminal for {{ service.serviceName }}. Launch a short-lived terminal in an environment
+          with the same permissions, visibility and security as your service.
+        </p>
+      </section>
+
+      <article class="govuk-!-margin-bottom-6">
+        {# TODO update isAdmin to isServiceOwner when ready for release #}
+        {% if isAdmin %}
+          {% call appSummaryItem({
+            heading: "Launch a terminal",
+            icon: appTerminalIcon({ classes: "app-icon-small"}),
+            intro: {
+              text: "Launch a secure terminal, as your service in an environment."
+            }
+          }) %}
+
+            {% if canLaunchTerminal %}
+              {{ govukTable({
+                classes: "app-table govuk-!-margin-bottom-4",
+                head: [{ text: "Environment" }, { text: "Action" }],
+                rows: terminalTableRows
+              }) }}
+
+            {% else %}
+              <p class="govuk-!-margin-bottom-2">
+                {{ service.serviceName }} has not been deployed to an environment.
+              </p>
+            {% endif %}
+          {% endcall %}
+        {% endif %}
+      </article>
+
+    </div>
+
+    <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+
+      {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tips</h2>
+
+        <p class="govuk-!-margin-bottom-2">
+          The CDP Terminal is a web shell into a dedicated container running with the permissions that your service has.
+        </p>
+        <p class="govuk-!-margin-bottom-2">
+          With the CDP Terminal you can:
+        </p>
+
+        <ul class="govuk-list govuk-!-margin-left-2">
+          {% for tip in tips -%}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ tip }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+      {% endcall %}
+
+      {% call appWarning({ classes: "govuk-!-margin-top-0" }) %}
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Warnings</h2>
+        <p class="govuk-!-margin-bottom-2">
+          The CDP Terminal comes with a few warnings:
+        </p>
+
+        <ul class="govuk-list govuk-!-margin-left-2">
+          {% for warning in warnings -%}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appWarningIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ warning }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endcall %}
+
+    </div>
+  </div>
+
+{% endblock %}
