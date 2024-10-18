@@ -3,13 +3,17 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
+{% from "icons/aws-icon/macro.njk" import appAwsIcon %}
+{% from "icons/curl-icon/macro.njk" import appCurlIcon %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
+{% from "icons/mongo-db-icon/macro.njk" import appMongoDbIcon %}
+{% from "icons/redis-icon/macro.njk" import appRedisIcon %}
+{% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "info/macro.njk" import appInfo %}
-{% from "warning/macro.njk" import appWarning %}
-{% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
+{% from "warning/macro.njk" import appWarning %}
 
 {# Construct table rows, tables and html contents #}
 {% set terminalTableRows = [] %}
@@ -37,16 +41,16 @@
 {% set tips = [
   "Behave as your service does, same permissions, same visibility",
   "You can upload files",
-  "On a Backend service talk to MongoDb",
-  "On a Frontend service talk to Redis",
-  "Access your services S3 buckets",
-  "Curl your Backend from your Frontend"
+  "For a Backend service talk to MongoDb",
+  "For a Frontend service talk to Redis",
+  "Curl your Backend from your Frontend",
+  "Access your AWS services"
 ] %}
 
 {% set warnings = [
   "The connection is short-lived, lasting around 2 hours",
-  "Any changes you make to the environment, will be lost when the terminal is closed",
-  "Changes to external services will persist. E.g S3, MongoDb, Redis",
+  "Any changes you make to the container, will be lost when the terminal is closed",
+  "Changes to external services will persist. S3, MongoDb, Redis, etc",
   "Maximum 20 GB of ephemeral storage"
 ] %}
 
@@ -99,46 +103,84 @@
           {% endcall %}
         {% endif %}
       </article>
-
     </div>
 
     <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
 
       {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tooling</h2>
 
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tips</h2>
+        <p class="govuk-!-margin-bottom-2">
+          A number of tools are available to you in the CDP terminal.
+        </p>
+
+        <ul class="govuk-list govuk-!-margin-left-2">
+          <li>
+            <div class="app-!-layout-flex-start">
+              {{ appCurlIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              <strong class="govuk-!-margin-right-1">Curl</strong>
+              <a class="app-link" href="https://curl.se"
+                 target="_blank" rel="noopener noreferrer">
+                https://curl.se</a>
+            </div>
+          </li>
+          <li>
+            <div class="app-!-layout-flex-start">
+              {{ appAwsIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              <strong class="govuk-!-margin-right-1">AWS Cli</strong>
+              <a class="app-link" href="https://aws.amazon.com/cli"
+                 target="_blank" rel="noopener noreferrer">
+                https://aws.amazon.com/cli</a>
+            </div>
+          </li>
+          <li>
+            <div class="app-!-layout-flex-start">
+              {{ appMongoDbIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              <strong class="govuk-!-margin-right-1">MongoDb Cli</strong>
+              <a class="app-link" href="https://www.mongodb.com/docs/mongocli/current"
+                 target="_blank" rel="noopener noreferrer">
+                https://www.mongodb.com/docs/mongocli/current</a>
+            </div>
+          </li>
+          <li>
+            <div class="app-!-layout-flex-start">
+              {{ appRedisIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              <strong class="govuk-!-margin-right-1">Redis Cli</strong>
+              <a class="app-link" href="https://redis.io/docs/latest/develop/connect/cli"
+                 target="_blank" rel="noopener noreferrer">
+                https://redis.io/docs/latest/develop/connect/cli</a>
+            </div>
+          </li>
+        </ul>
+      {% endcall %}
+
+
+      {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Info</h2>
 
         <p class="govuk-!-margin-bottom-2">
           The CDP Terminal is a web shell into a dedicated container running with the permissions that your service has.
-        </p>
-        <p class="govuk-!-margin-bottom-2">
-          With the CDP Terminal you can:
         </p>
 
         <ul class="govuk-list govuk-!-margin-left-2">
           {% for tip in tips -%}
             <li>
-              <div class="app-!-layout-centered">
-                {{ appInfoIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ tip }}
+              <div class="app-!-layout-flex-start">
+                {{ appInfoIcon({ classes: "app-icon-tiny govuk-!-margin-right-2" }) }} {{ tip }}
               </div>
             </li>
           {% endfor %}
         </ul>
 
-      {% endcall %}
-
-      {% call appWarning({ classes: "govuk-!-margin-top-0" }) %}
-
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Warnings</h2>
         <p class="govuk-!-margin-bottom-2">
-          The CDP Terminal comes with a few warnings:
+          The CDP Terminal also comes with a few things you need to be aware of.
         </p>
 
         <ul class="govuk-list govuk-!-margin-left-2">
           {% for warning in warnings -%}
             <li>
-              <div class="app-!-layout-centered">
-                {{ appWarningIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ warning }}
+              <div class="app-!-layout-flex-start">
+                {{ appWarningIcon({ classes: "app-icon-tiny govuk-!-margin-right-2" }) }} {{ warning }}
               </div>
             </li>
           {% endfor %}
