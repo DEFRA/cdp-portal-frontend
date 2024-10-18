@@ -14,3 +14,8 @@ $scrollbar-width: 15px;
   min-height: 100vh;
   width: calc(100vw - $scrollbar-width);
 }
+
+.app-iframe--terminal {
+  min-height: 85vh;
+  width: calc(100vw - $scrollbar-width);
+}
