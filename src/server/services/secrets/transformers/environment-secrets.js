@@ -23,39 +23,21 @@ function environmentSecrets(
 ) {
   const exceptionMessage = secrets?.exceptionMessage
 
-  const secretsCopy = secrets?.keys ? [...secrets.keys] : []
-  const excludedKeys = [
-    ...platformGlobalSecretKeys,
-    'automated_placeholder',
-    'placeholder',
-    ...(secrets?.pending ? secrets.pending : [])
-  ]
-  const secretsWithOutExcludedKeys = (
-    secrets?.keys ? pullAll(secretsCopy, excludedKeys) : []
-  ).map((key) => ({ key, status: 'available' }))
-
-  const pendingSecretKeys =
-    secrets?.pending?.map((pendingKey) => ({
-      key: pendingKey,
-      status: 'pending'
-    })) ?? []
+  const pendingSecretKeys = transformPending(secrets?.pending)
 
   const serviceSecrets = {
     ...secrets,
-    keys: [...secretsWithOutExcludedKeys, ...pendingSecretKeys].sort(
-      sortBy('key', 'asc')
+    keys: combinePendingKeys(
+      secrets,
+      platformGlobalSecretKeys,
+      pendingSecretKeys
     )
   }
-  const platformSecrets = platformGlobalSecretKeys
-    .map(
-      (key) =>
-        secrets?.keys?.includes(key) && {
-          key,
-          description: platformKeyDescriptions[key] ?? noValue
-        }
-    )
-    .filter(Boolean)
-    .sort(sortBy('key', 'asc'))
+
+  const platformSecrets = includePlatformSecrets(
+    secrets,
+    platformGlobalSecretKeys
+  )
 
   const shouldPoll = pendingSecretKeys.length > 0 && !exceptionMessage
   const successMessage =
@@ -77,6 +59,47 @@ function environmentSecrets(
     exceptionMessage,
     isSecretsSetup
   }
+}
+
+function withoutExcludedKeys(secrets, platformGlobalSecretKeys) {
+  const secretsCopy = secrets?.keys ? [...secrets.keys] : []
+  const excludedKeys = [
+    ...platformGlobalSecretKeys,
+    'automated_placeholder',
+    'placeholder',
+    ...(secrets?.pending ? secrets.pending : [])
+  ]
+  const secretsWithOutExcludedKeys = (
+    secrets?.keys ? pullAll(secretsCopy, excludedKeys) : []
+  ).map((key) => ({ key, status: 'available' }))
+
+  return secretsWithOutExcludedKeys
+}
+
+function transformPending(pending) {
+  return pending?.map((key) => ({ key, status: 'pending' })) ?? []
+}
+
+function sortCombinedKeys(keys, otherKeys) {
+  return [...keys, ...otherKeys].sort(sortBy('key', 'asc'))
+}
+
+function combinePendingKeys(secrets, platformGlobalSecretKeys, otherKeys) {
+  const trimmedKeys = withoutExcludedKeys(secrets, platformGlobalSecretKeys)
+  return sortCombinedKeys(trimmedKeys, otherKeys)
+}
+
+function includePlatformSecrets(secrets, keys) {
+  return keys
+    .map(
+      (key) =>
+        secrets?.keys?.includes(key) && {
+          key,
+          description: platformKeyDescriptions[key] ?? noValue
+        }
+    )
+    .filter(Boolean)
+    .sort(sortBy('key', 'asc'))
 }
 
 export { environmentSecrets }
