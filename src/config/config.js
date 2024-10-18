@@ -89,8 +89,7 @@ const config = convict({
     format: String,
     default: isProduction
       ? 'https://webshell.{environment}.cdp-int.defra.cloud'
-      : 'http://localhost:8000',
-    env: 'TERMINAL_PROXY_URL'
+      : 'http://localhost:8000'
   },
   githubOrg: {
     doc: 'The GitHub Organisation',
