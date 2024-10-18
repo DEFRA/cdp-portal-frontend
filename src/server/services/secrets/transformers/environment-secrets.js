@@ -62,11 +62,12 @@ function environmentSecrets(
     pendingSecretKeys.length === 0 && !exceptionMessage
       ? 'Secret added and now available'
       : null
+
   const isSecretsSetup =
     secrets &&
-    (secrets.keys?.length > 0 ||
-      secrets.pending?.length > 0 ||
-      secrets.lastUpdated)
+    (secrets.lastUpdated !== undefined ||
+      secrets.keys?.length > 0 ||
+      secrets.pending?.length > 0)
 
   return {
     serviceSecrets,

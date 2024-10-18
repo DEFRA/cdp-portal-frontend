@@ -99,4 +99,41 @@ describe('#environmentSecrets', () => {
     expect(result.serviceSecrets.keys).toEqual([])
     expect(result.platformSecrets).toEqual([])
   })
+
+  test('Should return secrets not setup if empty', () => {
+    const secrets = {}
+    const result = environmentSecrets(secrets, [])
+
+    expect(result.isSecretsSetup).toBe(false)
+  })
+
+  test('Should return secrets setup even if no keys', () => {
+    const secrets = {
+      keys: [],
+      pending: [],
+      lastUpdated: new Date().toISOString()
+    }
+    const result = environmentSecrets(secrets, [])
+
+    expect(result.isSecretsSetup).toBe(true)
+  })
+
+  test('Should return secrets setup even if no updated date', () => {
+    const secrets = {
+      keys: ['KEY_1'],
+      pending: []
+    }
+    const result = environmentSecrets(secrets, [])
+
+    expect(result.isSecretsSetup).toBe(true)
+  })
+
+  test('Should return secrets setup even if pending', () => {
+    const secrets = {
+      pending: ['KEY_1']
+    }
+    const result = environmentSecrets(secrets, [])
+
+    expect(result.isSecretsSetup).toBe(true)
+  })
 })
