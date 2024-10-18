@@ -84,13 +84,13 @@ const config = convict({
     default: 'http://localhost:3001',
     env: 'USER_SERVICE_BACKEND_URL'
   },
-  terminalUrl: {
-    doc: 'Terminal Url',
+  terminalProxyUrl: {
+    doc: 'Terminal Proxy Url',
     format: String,
     default: isProduction
       ? 'https://webshell.{environment}.cdp-int.defra.cloud'
       : 'http://localhost:8000',
-    env: 'TERMINAL_URL'
+    env: 'TERMINAL_PROXY_URL'
   },
   githubOrg: {
     doc: 'The GitHub Organisation',
