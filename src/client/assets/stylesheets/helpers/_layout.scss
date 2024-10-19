@@ -3,6 +3,11 @@
   align-items: center;
 }
 
+.app-\!-layout-flex-start {
+  display: flex;
+  align-items: flex-start;
+}
+
 .app-\!-layout-right-aligned {
   display: flex;
   align-items: flex-end;

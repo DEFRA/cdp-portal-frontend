@@ -35,7 +35,7 @@
     {% for category in params.categories -%}
       <li>
         <div class="app-!-layout-centered">
-          {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} seed-vault-{{ category }}
+          {{ appTickIcon({ classes: "app-icon-tiny govuk-!-margin-right-2" }) }} seed-vault-{{ category }}
         </div>
       </li>
     {% endfor %}
@@ -49,7 +49,7 @@
     {% for badName in badNames %}
       <li>
         <div class="app-!-layout-centered">
-          {{ appErrorIcon({ classes: "app-icon-tiny govuk-!-margin-right-1" }) }} {{ badName }}
+          {{ appErrorIcon({ classes: "app-icon-tiny govuk-!-margin-right-2" }) }} {{ badName }}
         </div>
       </li>
     {% endfor %}
