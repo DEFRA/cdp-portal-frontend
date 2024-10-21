@@ -1,5 +1,4 @@
 .app-summary-item {
-  margin-right: govuk-spacing(4);
   margin-bottom: govuk-spacing(4);
   padding: govuk-spacing(4);
   background-color: $app-light-grey;
@@ -8,6 +7,10 @@
   @include govuk-media-query($from: desktop-wide) {
     flex: 1;
     margin-bottom: 0;
+  }
+
+  @include govuk-media-query($from: desktop-massive) {
+    margin-right: govuk-spacing(4);
   }
 }
 
