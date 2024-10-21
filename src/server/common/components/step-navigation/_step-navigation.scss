@@ -58,7 +58,7 @@
     0 0 0 2px govuk-colour("white"),
     0 0 0 4px govuk-colour("white");
 
-  background: $app-mid-grey;
+  background: govuk-colour("light-grey");
   user-select: none;
 
   &:hover {
@@ -91,7 +91,7 @@
 .app-step-navigation__icon {
   @include govuk-font(24, "bold");
   display: inline-block;
-  color: govuk-colour("white");
+  color: govuk-colour("black");
 }
 
 .app-step-navigation__heading {
@@ -126,6 +126,10 @@
 }
 
 .app-step-navigation__item--current {
+  .app-step-navigation__icon {
+    color: govuk-colour("white");
+  }
+
   .app-step-navigation__heading {
     color: govuk-colour("black");
   }
