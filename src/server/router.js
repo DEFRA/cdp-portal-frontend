@@ -16,7 +16,6 @@ import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files
 import { services } from '~/src/server/services'
 import { teams } from '~/src/server/teams'
 import { testSuites } from '~/src/server/test-suites'
-import { utilities } from '~/src/server/utilities'
 
 const router = {
   plugin: {
@@ -39,8 +38,7 @@ const router = {
         serveStaticFiles,
         services,
         teams,
-        testSuites,
-        utilities
+        testSuites
       ])
     }
   }
