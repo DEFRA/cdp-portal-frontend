@@ -4,7 +4,7 @@ import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
 import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row'
-import { testRunDecorator } from '~/src/server/test-suites/helpers/decorators/test-run'
+import { testRunsDecorator } from '~/src/server/test-suites/helpers/decorators/test-runs'
 import { testTypeDecorator } from '~/src/server/test-suites/helpers/decorators/test-type'
 
 const testSuiteListController = {
@@ -13,7 +13,7 @@ const testSuiteListController = {
     const decorateRepositories = repositoriesDecorator(repositories)
     const testSuites = await fetchTestSuites()
     const testSuitesWithLastRun = await Promise.all(
-      testSuites.map(testRunDecorator)
+      testSuites.map(testRunsDecorator)
     )
     request.logger.debug(
       { repositories, testSuites, testSuitesWithLastRun },
