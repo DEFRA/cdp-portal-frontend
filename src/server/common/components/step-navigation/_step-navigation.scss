@@ -70,12 +70,6 @@
   }
 }
 
-.app-step-navigation__point--current {
-  box-shadow:
-    0 0 0 2px govuk-colour("white");
-  background: govuk-colour("blue");
-}
-
 .app-step-navigation__point--complete {
   box-shadow:
     0 0 0 2px govuk-colour("white");
@@ -86,6 +80,12 @@
     width: 22px;
     height: 22px;
   }
+}
+
+.app-step-navigation__point--current {
+  box-shadow:
+    0 0 0 2px govuk-colour("white");
+  background: govuk-colour("blue");
 }
 
 .app-step-navigation__icon {
