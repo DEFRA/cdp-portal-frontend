@@ -26,8 +26,8 @@ describe('#getHtml', () => {
 
     const $toc = load(toc)
     const $link1 = $toc('ul').first().find('a').first()
-    const $link2 = $toc('ul > ul').find('a').first()
-    const $link3 = $toc('ul > ul > ul').find('a').first()
+    const $link2 = $toc('ul > li > ul').find('a').first()
+    const $link3 = $toc('ul > li > ul > li > ul').find('a').first()
 
     expect($link1.text()).toBe('Heading 1')
     expect($link1.attr('href')).toBe('#heading-1')

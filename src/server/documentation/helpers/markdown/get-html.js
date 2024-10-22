@@ -34,16 +34,26 @@ async function getHtml(markdown) {
 }
 
 function buildTableOfContents(elements) {
+  const rootLevel = 1
   let html = ''
   let level = 0
 
   for (const element of elements) {
     while (element.level > level) {
+      if (element.level > rootLevel) {
+        html += '<li>'
+      }
+
       html += '<ul class="govuk-list govuk-list--bullet">'
       level++
     }
     while (element.level < level) {
       html += '</ul>'
+
+      if (element.level > rootLevel) {
+        html += '</li>'
+      }
+
       level--
     }
 
@@ -51,8 +61,8 @@ function buildTableOfContents(elements) {
   }
 
   // Close any open lists
-  while (level > 0) {
-    html += '</ul>'
+  while (level > rootLevel) {
+    html += '</ul></li>'
     level--
   }
 
