@@ -34,11 +34,6 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
-            text: 'Utilities',
-            url: '/utilities/templates'
-          },
-          {
-            isActive: false,
             text: 'Teams',
             url: '/teams'
           },
@@ -95,11 +90,6 @@ describe('#buildNavigation', () => {
             isActive: false,
             text: 'Test suites',
             url: '/test-suites'
-          },
-          {
-            isActive: false,
-            text: 'Utilities',
-            url: '/utilities/templates'
           },
           {
             isActive: false,
@@ -162,11 +152,6 @@ describe('#buildNavigation', () => {
           },
           {
             isActive: false,
-            text: 'Utilities',
-            url: '/utilities/templates'
-          },
-          {
-            isActive: false,
             text: 'Teams',
             url: '/teams'
           },
@@ -217,11 +202,6 @@ describe('#buildNavigation', () => {
           isActive: false,
           text: 'Test suites',
           url: '/test-suites'
-        },
-        {
-          isActive: false,
-          text: 'Utilities',
-          url: '/utilities/templates'
         },
         {
           isActive: false,
