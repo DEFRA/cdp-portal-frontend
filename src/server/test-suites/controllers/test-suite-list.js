@@ -4,15 +4,25 @@ import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
 import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row'
+import { testRunDecorator } from '~/src/server/test-suites/helpers/decorators/test-run'
+import { testTypeDecorator } from '~/src/server/test-suites/helpers/decorators/test-type'
 
 const testSuiteListController = {
   handler: async (request, h) => {
     const { repositories } = await fetchRepositories()
+    const decorateRepositories = repositoriesDecorator(repositories)
     const testSuites = await fetchTestSuites()
-    const decorator = repositoriesDecorator(repositories)
+    const testSuitesWithLastRun = await Promise.all(
+      testSuites.map(testRunDecorator)
+    )
+    request.logger.debug(
+      { repositories, testSuites, testSuitesWithLastRun },
+      'Test suites fetched'
+    )
 
-    const entityRows = testSuites
-      .map(decorator)
+    const entityRows = testSuitesWithLastRun
+      .map(decorateRepositories)
+      .map(testTypeDecorator)
       ?.sort(sortBy('serviceName', 'asc'))
       ?.map(transformTestSuiteToEntityRow)
 
