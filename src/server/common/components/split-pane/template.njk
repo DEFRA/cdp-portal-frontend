@@ -5,8 +5,8 @@
     {% include "split-pane/subnav/subnav.njk" %}
   </div>
   <div class="app-split-pane__content">
-    <main id="main-content" class="app-content" role="main">
+    <section class="app-content">
       {{ caller() if caller else content }}
-    </main>
+    </section>
   </div>
 </div>
