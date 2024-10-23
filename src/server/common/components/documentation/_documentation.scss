@@ -4,6 +4,10 @@
     margin: 0;
     list-style-type: circle;
 
+    li:has(> ul.govuk-list) {
+      list-style-type: none;
+    }
+
     .govuk-list {
       list-style-type: disc;
 

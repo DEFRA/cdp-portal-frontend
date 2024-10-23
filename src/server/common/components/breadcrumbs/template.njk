@@ -1,4 +1,5 @@
-<div class="app-breadcrumbs{% if params.classes %} {{ params.classes }}{% endif %}" data-testid="app-breadcrumbs">
+<nav class="app-breadcrumbs{% if params.classes %} {{ params.classes }}{% endif %}" data-testid="app-breadcrumbs"
+     aria-label="Breadcrumb">
   <ol class="app-breadcrumbs__list">
     {% for item in params.items %}
       {% if item.href %}
@@ -12,4 +13,4 @@
       {% endif %}
     {% endfor %}
   </ol>
-</div>
+</nav>
