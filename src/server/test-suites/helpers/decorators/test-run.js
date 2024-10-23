@@ -7,7 +7,7 @@ function testRunDecorator(testSuite, testRuns) {
   const orderedTestRuns = testRuns.sort(sortBy('created', 'desc'))
   return {
     ...testSuite,
-    lastRun: orderedTestRuns[0].created
+    lastRun: orderedTestRuns[0]
   }
 }
 

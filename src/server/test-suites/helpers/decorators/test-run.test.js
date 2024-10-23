@@ -21,8 +21,8 @@ describe('#testRunDecorator', () => {
 
     const result = testRunDecorator(testSuite, testRuns)
 
-    expect(result.lastRun).toBeDefined()
-    expect(result.lastRun).toBe('2020-06-11')
+    expect(result.lastRun.created).toBeDefined()
+    expect(result.lastRun.created).toBe('2020-06-11')
   })
 
   test('Should not decorate if no test runs', () => {
@@ -31,5 +31,22 @@ describe('#testRunDecorator', () => {
     const result = testRunDecorator(testSuite, testRuns)
 
     expect(result.lastRun).toBeUndefined()
+  })
+
+  test('Should decorate with last run status', () => {
+    const testRuns = [
+      {
+        created: '1994-01-05',
+        testStatus: 'passed'
+      },
+      {
+        created: '2020-06-11',
+        testStatus: 'failed'
+      }
+    ]
+
+    const result = testRunDecorator(testSuite, testRuns)
+
+    expect(result.lastRun.testStatus).toBe('failed')
   })
 })

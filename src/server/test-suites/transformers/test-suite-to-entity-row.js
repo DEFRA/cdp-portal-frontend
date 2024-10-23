@@ -30,7 +30,10 @@ function transformTestSuiteToEntityRow(testSuite) {
       url: `https://github.com/${githubOrg}/${testSuite.id}`,
       newWindow: true
     },
-    { kind: 'date', value: testSuite.lastRun }
+    {
+      kind: 'date',
+      value: testSuite.lastRun?.created
+    }
   ]
 }
 

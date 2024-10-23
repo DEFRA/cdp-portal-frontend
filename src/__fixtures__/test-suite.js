@@ -28,7 +28,10 @@ const testSuiteWithLastRunFixture = {
       name: 'Platform'
     }
   ],
-  lastRun: '2023-04-12T17:16:48Z',
+  lastRun: {
+    created: '2023-04-12T17:16:48Z',
+    testStatus: 'passed'
+  },
   testType: 'Smoke'
 }
 
