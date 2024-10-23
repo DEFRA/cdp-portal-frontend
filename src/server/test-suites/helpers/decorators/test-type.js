@@ -1,17 +1,19 @@
-function testTypeDecorator(testSuite) {
-  let testType
-  if (testSuite.topics.includes('environment')) {
-    testType = 'Environment'
-  } else if (testSuite.topics.includes('smoke')) {
-    testType = 'Smoke'
-  } else if (testSuite.topics.includes('performance')) {
-    testType = 'Performance'
-  } else if (testSuite.topics.includes('journey')) {
-    testType = 'Journey'
+function topicToTestType(topics) {
+  if (topics.includes('environment')) {
+    return 'Environment'
+  } else if (topics.includes('smoke')) {
+    return 'Smoke'
+  } else if (topics.includes('performance')) {
+    return 'Performance'
+  } else if (topics.includes('journey')) {
+    return 'Journey'
   } else {
-    return testSuite
+    return undefined
   }
+}
 
+function testTypeDecorator(testSuite) {
+  const testType = topicToTestType(testSuite.topics)
   return {
     ...testSuite,
     testType
