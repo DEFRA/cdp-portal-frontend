@@ -147,6 +147,17 @@ class Autocomplete {
     )
   }
 
+  /**
+   * @param {string|number} textValue
+   * @returns {number}
+   */
+  getSuggestionIndex(textValue) {
+    return this.getSuggestionsMarkup().findIndex(
+      (suggestion) =>
+        suggestion.dataset.text?.toLowerCase() === textValue?.toLowerCase()
+    )
+  }
+
   /** @returns {HTMLLIElement} */
   createSuggestionElementTemplate() {
     const $span = document.createElement('span')
@@ -268,7 +279,6 @@ class Autocomplete {
   }
 
   openSuggestions() {
-    this.suggestionIndex = null
     this.$suggestionsContainer.scrollTop = 0
     this.$suggestionsContainer.classList.add(
       'app-autocomplete__suggestions--show'
@@ -284,7 +294,6 @@ class Autocomplete {
   }
 
   closeSuggestions() {
-    this.suggestionIndex = null
     this.$suggestionsContainer.scrollTop = 0
     this.$suggestionsContainer.classList.remove(
       'app-autocomplete__suggestions--show'
@@ -348,13 +357,17 @@ class Autocomplete {
     this.suggestionsLength = $suggestions.length
     this.suggestionIndex = suggestionIndex
 
-    const oneBasedIndex = suggestionIndex + 1
+    const highlightIndex = (suggestionIndex ?? 0) + 1
 
-    if (oneBasedIndex) {
+    if (highlightIndex) {
       this.$autocomplete.setAttribute(
         'aria-activedescendant',
-        `app-autocomplete-${this.$select.name}-suggestion-${oneBasedIndex}`
+        `app-autocomplete-${this.$select.name}-suggestion-${highlightIndex}`
       )
+    }
+
+    if (suggestionIndex === null) {
+      this.$autocomplete.removeAttribute('aria-activedescendant')
     }
 
     return $suggestions
@@ -483,12 +496,13 @@ class Autocomplete {
 
       if (this.$autocomplete.value) {
         this.showCloseButton()
-      }
+        const matchIndex = this.getSuggestionIndex(this.$autocomplete.value)
 
-      this.populateSuggestions({
-        textValue: this.$autocomplete.value,
-        suggestionIndex: this.suggestionIndex
-      })
+        this.populateSuggestions({
+          textValue: this.$autocomplete.value,
+          suggestionIndex: matchIndex > -1 ? matchIndex : null
+        })
+      }
     })
 
     this.$clearButton.addEventListener('click', () => {
@@ -499,7 +513,7 @@ class Autocomplete {
       this.hideCloseButton()
       this.populateSuggestions({
         textValue: this.$autocomplete.value,
-        suggestionIndex: this.suggestionIndex
+        suggestionIndex: null
       })
     })
 
@@ -522,7 +536,7 @@ class Autocomplete {
     document.addEventListener('click', (event) => {
       if (event.target !== this.$autocomplete && this.isSuggestionsOpen()) {
         this.closeSuggestions()
-        this.populateSuggestions()
+        this.populateSuggestions({ suggestionIndex: null })
       }
     })
 
@@ -564,8 +578,6 @@ class Autocomplete {
         this.openSuggestions()
       }
 
-      this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
-
       const textValue = event?.target?.value
 
       if (textValue) {
@@ -573,6 +585,7 @@ class Autocomplete {
       } else {
         this.hideCloseButton()
         this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
+        this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
       }
 
       this.populateSuggestions({
@@ -591,12 +604,26 @@ class Autocomplete {
 
       if ((code === 'backspace' && !textValue) || code === 'escape') {
         this.closeSuggestions()
+        this.populateSuggestions({
+          textValue,
+          suggestionIndex: null
+        })
       }
 
       // Tab rather than blur is used to hide suggestions, as blur fires when clicking suggestion in suggestions container
       if (code === 'tab') {
         this.closeSuggestions()
         this.dispatchBlurEvent()
+
+        if (textValue && this.suggestionIndex === null) {
+          // Auto match a value for a user who has typed in the input and blurred without selection
+          const matchIndex = this.getSuggestionIndex(textValue)
+
+          this.populateSuggestions({
+            textValue,
+            suggestionIndex: matchIndex > -1 ? matchIndex : null
+          })
+        }
       }
 
       if (code === 'arrowup') {
@@ -757,15 +784,19 @@ class Autocomplete {
     this.$suggestionsContainer.addEventListener('click', (event) => {
       event.stopPropagation()
 
-      const suggestion = event?.target?.closest('.app-autocomplete__suggestion')
+      const $suggestion = event?.target?.closest(
+        '.app-autocomplete__suggestion'
+      )
 
-      if (suggestion && suggestion.dataset.interactive !== 'false') {
-        this.$autocomplete.value = suggestion?.dataset?.text
-        this.$autocompleteHiddenInput.value = suggestion?.dataset?.value
+      if ($suggestion && $suggestion.dataset.interactive !== 'false') {
+        this.$autocomplete.value = $suggestion?.dataset?.text
+        this.$autocompleteHiddenInput.value = $suggestion?.dataset?.value
         this.dispatchInputEvent()
 
+        this.suggestionIndex = $suggestion.getAttribute('aria-posinset') - 1
+
         this.populateSuggestions({
-          textValue: suggestion?.dataset?.text,
+          textValue: $suggestion?.dataset?.text,
           suggestionIndex: this.suggestionIndex
         })
 
