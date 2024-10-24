@@ -6,11 +6,20 @@ import { provideService } from '~/src/server/services/helpers/pre/provide-servic
 import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id'
 
-async function getTerminalEnvs({ teams, serviceName }) {
+async function getTerminalEnvs(service) {
+  const teams = service?.teams
+  const serviceName = service?.serviceName
+
+  if (!teams || !serviceName) {
+    return []
+  }
+
   const environments = getEnvironmentsByTeam(teams)
   const runningServices = (await fetchRunningServicesById(serviceName)) ?? []
   const envsWithDeployment = [
-    ...new Set(runningServices.map((service) => service.environment))
+    ...new Set(
+      runningServices.map((runningService) => runningService.environment)
+    )
   ]
     .filter((env) => Object.values(environments).includes(env))
     .sort(sortByEnv)

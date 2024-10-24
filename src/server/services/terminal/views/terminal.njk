@@ -97,7 +97,8 @@
 
             {% else %}
               <p class="govuk-!-margin-bottom-2">
-                {{ service.serviceName }} has not been deployed to an environment.
+                {{ service.serviceName if service.serviceName else "Your service" }} has not been deployed to an
+                environment.
               </p>
             {% endif %}
           {% endcall %}
