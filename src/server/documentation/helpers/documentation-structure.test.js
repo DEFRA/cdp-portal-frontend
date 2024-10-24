@@ -116,12 +116,12 @@ describe('#directoryStructure', () => {
       {
         anchor: '/documentation/guides/advanced/README.md',
         level: 2,
-        text: 'Guides Advanced'
+        text: 'Advanced'
       },
       {
         anchor: '/documentation/guides/advanced/topics.md',
         level: 3,
-        text: 'Advanced Topics'
+        text: 'Topics'
       },
       {
         anchor: '/documentation/how-to/README.md',
@@ -131,17 +131,17 @@ describe('#directoryStructure', () => {
       {
         anchor: '/documentation/how-to/long-process/README.md',
         level: 2,
-        text: 'How To Long Process'
+        text: 'Long Process'
       },
       {
         anchor: '/documentation/how-to/long-process/node.md',
         level: 3,
-        text: 'Long Process Node'
+        text: 'Node'
       },
       {
         anchor: '/documentation/how-to/long-process/dotnet.md',
         level: 3,
-        text: 'Long Process Dotnet'
+        text: 'Dotnet'
       }
     ])
   })

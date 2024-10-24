@@ -50,26 +50,24 @@ $caution: #cf222e;
     @include govuk-font(19);
   }
 
-  h1, h2 {
-    padding-bottom: govuk-spacing(1);
-    margin-top: govuk-spacing(2);
-    margin-bottom: govuk-spacing(4);
-  }
-
   h1 {
     @extend %govuk-heading-xl;
+    margin-bottom: govuk-spacing(3);
   }
 
   h2 {
     @extend %govuk-heading-l;
+    margin-bottom: govuk-spacing(2);
   }
 
   h3 {
     @extend %govuk-heading-m;
+    margin-bottom: govuk-spacing(1);
   }
 
   p {
     @extend %govuk-body-m;
+    margin-bottom: govuk-spacing(3);
 
     & + h2,
     & + h3 {
@@ -138,6 +136,7 @@ $caution: #cf222e;
       }
     }
   }
+
   // stylelint-enable max-nesting-depth
 
   blockquote {
