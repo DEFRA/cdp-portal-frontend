@@ -6,19 +6,8 @@ import {
   testStatus
 } from '~/src/server/test-suites/constants/test-run-status'
 import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/provide-test-run-status-classname'
-import { renderIcon } from '~/src/server/common/helpers/render-component'
 import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link'
-
-function getTestStatusIcon(runTestStatus) {
-  switch (true) {
-    case runTestStatus === testStatus.passed:
-      return renderIcon('tick-icon', { classes: 'app-icon-small' })
-    case runTestStatus === testStatus.failed:
-      return renderIcon('error-icon', { classes: 'app-icon-small' })
-    default:
-      return null
-  }
-}
+import { getTestStatusIcon } from '~/src/server/test-suites/helpers/get-test-status-icon'
 
 function getDuration({ created, taskLastUpdated }, hasResult) {
   if (created && taskLastUpdated && hasResult) {

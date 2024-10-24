@@ -16,4 +16,23 @@ const testSuiteFixture = {
   ]
 }
 
-export { testSuiteFixture }
+const testSuiteWithLastRunFixture = {
+  id: 'cdp-portal-smoke-tests',
+  serviceName: 'cdp-portal-smoke-tests',
+  githubUrl: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
+  url: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
+  teams: [
+    {
+      github: 'cdp-platform',
+      teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+      name: 'Platform'
+    }
+  ],
+  lastRun: {
+    created: '2023-04-12T17:16:48Z',
+    testStatus: 'passed'
+  },
+  testType: 'Smoke'
+}
+
+export { testSuiteFixture, testSuiteWithLastRunFixture }

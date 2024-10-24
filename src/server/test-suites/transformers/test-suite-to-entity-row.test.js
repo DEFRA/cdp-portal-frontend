@@ -1,18 +1,16 @@
 import { config } from '~/src/config'
-import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services-with-repositories'
+import { testSuiteWithLastRunFixture } from '~/src/__fixtures__/test-suite'
 import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row'
 
 const githubOrg = config.get('githubOrg')
 
 describe('#transformServiceToEntityRow', () => {
   test('Should provide expected service entity row transformation', () => {
-    expect(
-      transformTestSuiteToEntityRow(servicesWithRepositoriesFixture.at(0))
-    ).toEqual([
+    expect(transformTestSuiteToEntityRow(testSuiteWithLastRunFixture)).toEqual([
       {
         kind: 'link',
-        url: '/test-suites/cdp-portal-frontend',
-        value: 'cdp-portal-frontend'
+        url: '/test-suites/cdp-portal-smoke-tests',
+        value: 'cdp-portal-smoke-tests'
       },
       {
         kind: 'group',
@@ -26,13 +24,13 @@ describe('#transformServiceToEntityRow', () => {
       },
       {
         kind: 'text',
-        value: 'JavaScript'
+        value: 'Smoke'
       },
       {
         kind: 'link',
         newWindow: true,
-        url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
-        value: `${githubOrg}/cdp-portal-frontend`
+        url: `https://github.com/${githubOrg}/cdp-portal-smoke-tests`,
+        value: `${githubOrg}/cdp-portal-smoke-tests`
       },
       {
         kind: 'date',
