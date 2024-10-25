@@ -22,7 +22,7 @@ function transformTestSuiteToEntityRow(testSuite) {
     },
     {
       kind: 'text',
-      value: testSuite.primaryLanguage
+      value: testSuite.testType
     },
     {
       kind: 'link',
@@ -30,7 +30,10 @@ function transformTestSuiteToEntityRow(testSuite) {
       url: `https://github.com/${githubOrg}/${testSuite.id}`,
       newWindow: true
     },
-    { kind: 'date', value: testSuite.createdAt }
+    {
+      kind: 'date',
+      value: testSuite.lastRun?.created
+    }
   ]
 }
 
