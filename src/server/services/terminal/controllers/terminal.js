@@ -32,7 +32,7 @@ const webShellController = {
     pre: [provideService],
     validate: {
       params: Joi.object({
-        serviceId: Joi.string().required()
+        serviceId: Joi.string().invalid('undefined', 'null').required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

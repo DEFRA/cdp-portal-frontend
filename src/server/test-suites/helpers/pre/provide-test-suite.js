@@ -8,6 +8,8 @@ const provideTestSuite = {
 
     const githubResponse = await fetchRepository(testSuiteId)
     const repository = githubResponse?.repository ?? null
+
+    // this is not handling a 404. As a 404 is not json
     const testSuite = await fetchTestSuite(testSuiteId)
 
     return repositoryDecorator(testSuite, repository)
