@@ -51,25 +51,28 @@ function buildLinkStructure({ name, content, docsRoute, folders, pages }) {
     const parentFolder = name.replace(/\/?README.md/, '')
     const folderKey = `${parentFolder ? parentFolder + '/' : ''}${content}/README.md`
     const folder = folders.find((f) => f.name === folderKey)
-    const folderName = folder.name.replace('/README.md', '').split('/').at(-1)
-    const level = folder.name.split('/').length - 1
 
-    return [
-      {
-        text: startCase(folderName),
-        href: path.join(docsRoute, folder.name),
-        level
-      },
-      ...folder.contents.map((folderContent) =>
-        buildLinkStructure({
-          name: folder.name,
-          content: folderContent,
-          docsRoute,
-          folders,
-          pages
-        })
-      )
-    ]
+    if (folder) {
+      const folderName = folder.name.replace('/README.md', '').split('/').at(-1)
+      const level = folder.name.split('/').length - 1
+
+      return [
+        {
+          text: startCase(folderName),
+          href: path.join(docsRoute, folder.name),
+          level
+        },
+        ...folder.contents.map((folderContent) =>
+          buildLinkStructure({
+            name: folder.name,
+            content: folderContent,
+            docsRoute,
+            folders,
+            pages
+          })
+        )
+      ]
+    }
   }
 
   if (content.endsWith('.md')) {
@@ -77,13 +80,16 @@ function buildLinkStructure({ name, content, docsRoute, folders, pages }) {
     const parentFolder = name.replace(/\/?README.md/, '')
     const pageKey = `${parentFolder ? parentFolder + '/' : ''}${content}`
     const page = pages.find((p) => p.name === pageKey)
-    const pageName = startCase(page.name.split('/').at(-1).replace('.md', ''))
-    const level = page.name.split('/').length
 
-    return {
-      text: pageName,
-      href: path.join(docsRoute, page.name),
-      level
+    if (page) {
+      const pageName = startCase(page.name.split('/').at(-1).replace('.md', ''))
+      const level = page?.name?.split('/').length
+
+      return {
+        text: pageName,
+        href: path.join(docsRoute, page.name),
+        level
+      }
     }
   }
 }
@@ -172,7 +178,9 @@ async function documentationStructure(request, bucket) {
         pages
       })
     )
-  ].flat(2)
+  ]
+    .flat(2)
+    .filter(Boolean)
 }
 
 export { documentationStructure }
