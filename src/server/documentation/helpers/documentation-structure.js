@@ -5,6 +5,10 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler'
 
+/** @typedef {{ name: string, contents: string[] }} Folder */
+
+/** @typedef {{ name: string  }} Page */
+
 /**
  * Get the order of a README.md pages internal links
  * @param {string} markdown
@@ -28,50 +32,66 @@ async function getPageInternalLinksOrder(markdown) {
   return [...new Set(internalLinksOrder)]
 }
 
-/**
- * @typedef {Record<string, Array[string]>} Structure
- */
+/** @typedef {{ text: string, href: string, level: number }} Link */
 
 /**
- * Sort the structure object based on the order array
- * @param {Structure} structure
- * @param {Array<string>} order
- * @returns {object}
+ * Build the structure of the documentation repository as link objects
+ * @typedef {object} Options
+ * @property {string} name - list object key
+ * @property {string} content - folder or page key
+ * @property {string} docsRoute - documentation root route
+ * @property {Folder[]} folders
+ * @property {Page[]} pages
+ * @param {Options} options
+ * @returns Link[]
  */
-function sortStructure(structure, order) {
-  return Object.keys(structure)
-    .sort((a, b) => order.indexOf(a) - order.indexOf(b))
-    .reduce((obj, key) => ({ ...obj, [key]: structure[key] }), {})
-}
+function buildLinkStructure({ name, content, docsRoute, folders, pages }) {
+  if (!content.endsWith('.md')) {
+    // Folder
+    const parentFolder = name.replace(/\/?README.md/, '')
+    const folderKey = `${parentFolder ? parentFolder + '/' : ''}${content}/README.md`
+    const folder = folders.find((f) => f.name === folderKey)
 
-/**
- * Sort the docs links based on the order of internal links in a folders README.md file
- * @param {object} links
- * @param {Structure} structure
- * @returns {Array}
- */
-function sortDocsLinks(links, structure) {
-  const sorted = []
+    if (folder) {
+      const folderName = folder.name.replace('/README.md', '').split('/').at(-1)
+      const level = folder.name.split('/').length - 1
 
-  // Top level link
-  sorted.push(links.find((link) => link.level === 0))
-
-  // Sort links
-  for (const [folderName, folderFiles] of Object.entries(structure)) {
-    const sectionFiles = links
-      .filter((link) => link.anchor.includes(`/${folderName}/`))
-      .sort((a, b) => {
-        const aIndex = folderFiles.indexOf(a.anchor.split('/').at(-1))
-        const bIndex = folderFiles.indexOf(b.anchor.split('/').at(-1))
-        return aIndex - bIndex
-      })
-
-    if (sectionFiles.length > 0) {
-      sorted.push(sectionFiles)
+      return [
+        {
+          text: startCase(folderName),
+          href: path.join(docsRoute, folder.name),
+          level
+        },
+        ...folder.contents.map((folderContent) =>
+          buildLinkStructure({
+            name: folder.name,
+            content: folderContent,
+            docsRoute,
+            folders,
+            pages
+          })
+        )
+      ]
     }
   }
 
-  return sorted.flat()
+  if (content.endsWith('.md')) {
+    // Page
+    const parentFolder = name.replace(/\/?README.md/, '')
+    const pageKey = `${parentFolder ? parentFolder + '/' : ''}${content}`
+    const page = pages.find((p) => p.name === pageKey)
+
+    if (page) {
+      const pageName = startCase(page.name.split('/').at(-1).replace('.md', ''))
+      const level = page?.name?.split('/').length
+
+      return {
+        text: pageName,
+        href: path.join(docsRoute, page.name),
+        level
+      }
+    }
+  }
 }
 
 /**
@@ -91,29 +111,27 @@ async function documentationStructure(request, bucket) {
   }
 
   const docsRoute = '/documentation'
-  const docsStructure = {}
-  const rootFolderOrder = []
+
+  const mdFiles = listObjectsResponse.Contents.filter((content) =>
+    content.Key.endsWith('.md')
+  )
 
   /**
-   * @typedef {{level: number, anchor: string, text: string}} File
-   * @type {Promise<File>[]}
+   * Build Directory structure promises
+   * @type {Promise<Folder | Page>[]}
    */
-  const docsStructurePromises = listObjectsResponse.Contents.filter((content) =>
-    content.Key.endsWith('.md')
-  ).map(async (content) => {
+  const dirStructurePromises = mdFiles.map(async (content) => {
     const key = content.Key
 
     // Top level repository README.md
     if (key.toLowerCase() === 'readme.md') {
       const s3response = await fetchS3File(request, key, bucket)
       const mdFile = await s3response.Body.transformToString()
-
-      rootFolderOrder.push(...(await getPageInternalLinksOrder(mdFile)))
+      const contents = await getPageInternalLinksOrder(mdFile)
 
       return {
-        text: 'Documentation',
-        anchor: path.join(docsRoute, key),
-        level: 0
+        name: key,
+        contents
       }
     }
 
@@ -121,34 +139,48 @@ async function documentationStructure(request, bucket) {
     if (key.toLowerCase().endsWith('readme.md')) {
       const s3response = await fetchS3File(request, key, bucket)
       const mdFile = await s3response.Body.transformToString()
-      const fileOrder = await getPageInternalLinksOrder(mdFile)
-      const folderName = key.split('/').at(0)
-
-      docsStructure[folderName] = fileOrder
-
-      const text = key.replace(/\/readme.md/i, '')
+      const contents = await getPageInternalLinksOrder(mdFile)
 
       return {
-        text: startCase(text),
-        anchor: path.join(docsRoute, key),
-        level: text.split('/').length
+        name: key,
+        contents
       }
     }
 
-    // Folder .md files
-    const textParts = key.split('/')
-    textParts.shift()
-
+    // .md file
     return {
-      text: startCase(textParts.join(' ').replace('.md', '')),
-      anchor: path.join(docsRoute, key),
-      level: key.split('/').length
+      name: key
     }
   })
 
-  const links = await Promise.all(docsStructurePromises)
+  const dirStructure = await Promise.all(dirStructurePromises)
+  const folders = dirStructure.filter((content) =>
+    content.name.endsWith('README.md')
+  )
+  const pages = dirStructure.filter(
+    (content) =>
+      !content.name.endsWith('README.md') && content.name !== 'CONTRIBUTING.md'
+  )
+  const root = dirStructure.find((content) => content.name === 'README.md')
 
-  return sortDocsLinks(links, sortStructure(docsStructure, rootFolderOrder))
+  return [
+    {
+      text: 'Documentation',
+      href: path.join(docsRoute, 'README.md'),
+      level: 0
+    },
+    ...root.contents.map((content) =>
+      buildLinkStructure({
+        name: root.name,
+        content,
+        docsRoute,
+        folders,
+        pages
+      })
+    )
+  ]
+    .flat(2)
+    .filter(Boolean)
 }
 
 export { documentationStructure }

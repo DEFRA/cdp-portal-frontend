@@ -45,11 +45,11 @@ describe('#directoryStructure', () => {
     const result = await documentationStructure(mockRequest, mockBucket)
 
     expect(result).toEqual([
-      { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
-      { text: 'Guides', anchor: '/documentation/guides/README.md', level: 1 },
+      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
+      { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
       {
         text: 'Getting Started',
-        anchor: '/documentation/guides/getting-started.md',
+        href: '/documentation/guides/getting-started.md',
         level: 2
       }
     ])
@@ -104,44 +104,44 @@ describe('#directoryStructure', () => {
 
     expect(result).toEqual([
       {
-        anchor: '/documentation/README.md',
+        href: '/documentation/README.md',
         level: 0,
         text: 'Documentation'
       },
       {
-        anchor: '/documentation/guides/README.md',
+        href: '/documentation/guides/README.md',
         level: 1,
         text: 'Guides'
       },
       {
-        anchor: '/documentation/guides/advanced/README.md',
+        href: '/documentation/guides/advanced/README.md',
         level: 2,
-        text: 'Guides Advanced'
+        text: 'Advanced'
       },
       {
-        anchor: '/documentation/guides/advanced/topics.md',
+        href: '/documentation/guides/advanced/topics.md',
         level: 3,
-        text: 'Advanced Topics'
+        text: 'Topics'
       },
       {
-        anchor: '/documentation/how-to/README.md',
+        href: '/documentation/how-to/README.md',
         level: 1,
         text: 'How To'
       },
       {
-        anchor: '/documentation/how-to/long-process/README.md',
+        href: '/documentation/how-to/long-process/README.md',
         level: 2,
-        text: 'How To Long Process'
+        text: 'Long Process'
       },
       {
-        anchor: '/documentation/how-to/long-process/node.md',
+        href: '/documentation/how-to/long-process/node.md',
         level: 3,
-        text: 'Long Process Node'
+        text: 'Node'
       },
       {
-        anchor: '/documentation/how-to/long-process/dotnet.md',
+        href: '/documentation/how-to/long-process/dotnet.md',
         level: 3,
-        text: 'Long Process Dotnet'
+        text: 'Dotnet'
       }
     ])
   })
