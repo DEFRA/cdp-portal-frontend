@@ -7,25 +7,25 @@ import { documentationStructure } from '~/src/server/documentation/helpers/docum
  * @returns {Promise<string>}
  */
 async function buildDocsNav(request, bucket) {
-  const elements = await documentationStructure(request, bucket)
+  const links = await documentationStructure(request, bucket)
 
   const rootLevel = 0
   let html = ''
   let level = -1
 
-  for (const element of elements) {
-    while (element.level > level) {
-      if (element.level > rootLevel) {
+  for (const link of links) {
+    while (link.level > level) {
+      if (link.level > rootLevel) {
         html += '<li>'
       }
 
       html += '<ul class="govuk-list govuk-list--bullet">'
       level++
     }
-    while (element.level < level) {
+    while (link.level < level) {
       html += '</ul>'
 
-      if (element.level > rootLevel) {
+      if (link.level > rootLevel) {
         html += '</li>'
       }
 
@@ -34,12 +34,12 @@ async function buildDocsNav(request, bucket) {
 
     const classes = ['app-link']
 
-    if (request.path.endsWith(element.anchor)) {
+    if (request.path.endsWith(link.href)) {
       classes.push('is-active')
     }
 
     html += '<li>'
-    html += `<a class="${classes.join(' ')}" href="${element.anchor}">${element.text}</a>`
+    html += `<a class="${classes.join(' ')}" href="${link.href}">${link.text}</a>`
     html += '</li>'
   }
 

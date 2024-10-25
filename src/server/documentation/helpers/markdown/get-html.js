@@ -33,31 +33,31 @@ async function getHtml(markdown) {
   return { html, toc: buildTableOfContents(headingElements) }
 }
 
-function buildTableOfContents(elements) {
+function buildTableOfContents(links) {
   const rootLevel = 1
   let html = ''
   let level = 0
 
-  for (const element of elements) {
-    while (element.level > level) {
-      if (element.level > rootLevel) {
+  for (const link of links) {
+    while (link.level > level) {
+      if (link.level > rootLevel) {
         html += '<li>'
       }
 
       html += '<ul class="govuk-list govuk-list--bullet">'
       level++
     }
-    while (element.level < level) {
+    while (link.level < level) {
       html += '</ul>'
 
-      if (element.level > rootLevel) {
+      if (link.level > rootLevel) {
         html += '</li>'
       }
 
       level--
     }
 
-    html += `<li><a class="app-link" href="#${element.anchor}">${element.text}</a></li>`
+    html += `<li><a class="app-link" href="#${link.anchor}">${link.text}</a></li>`
   }
 
   // Close any open lists
