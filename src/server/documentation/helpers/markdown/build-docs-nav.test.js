@@ -13,11 +13,11 @@ describe('#buildDocsNav', () => {
 
   test('Should provide expected navigation', async () => {
     documentationStructure.mockResolvedValue([
-      { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
-      { text: 'Guides', anchor: '/documentation/guides/README.md', level: 1 },
+      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
+      { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
       {
         text: 'Getting Started',
-        anchor: '/documentation/guides/getting-started.md',
+        href: '/documentation/guides/getting-started.md',
         level: 2
       }
     ])
@@ -48,16 +48,16 @@ describe('#buildDocsNav', () => {
 
   test('Should handle multiple levels as expected', async () => {
     documentationStructure.mockResolvedValue([
-      { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
-      { text: 'Guides', anchor: '/documentation/guides/README.md', level: 1 },
+      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
+      { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
       {
         text: 'Advanced',
-        anchor: '/documentation/guides/advanced/README.md',
+        href: '/documentation/guides/advanced/README.md',
         level: 2
       },
       {
         text: 'Topics',
-        anchor: '/documentation/guides/advanced/topics.md',
+        href: '/documentation/guides/advanced/topics.md',
         level: 3
       }
     ])
@@ -84,11 +84,11 @@ describe('#buildDocsNav', () => {
 
   test('Should mark the current path as active', async () => {
     documentationStructure.mockResolvedValue([
-      { text: 'Documentation', anchor: '/documentation/README.md', level: 0 },
-      { text: 'Guides', anchor: '/documentation/guides/README.md', level: 1 },
+      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
+      { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
       {
         text: 'Getting Started',
-        anchor: '/documentation/guides/getting-started.md',
+        href: '/documentation/guides/getting-started.md',
         level: 2
       }
     ])
