@@ -61,6 +61,9 @@
 
 {% block head %}
   <link href="{{ getAssetPath("application.css") }}" rel="stylesheet">
+  {% if containerVersion %}
+    <meta name="container-version" content="{{ containerVersion }}">
+  {% endif %}
 {% endblock %}
 
 {% block header %}
