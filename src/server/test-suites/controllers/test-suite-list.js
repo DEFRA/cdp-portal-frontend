@@ -15,8 +15,6 @@ const testSuiteListController = {
       testSuiteRepositoriesDecorator(decorateRepositories)
     const testSuites = await fetchTestSuitesWithLastTestRun()
 
-    request.logger.debug({ repositories, testSuites }, 'Test suites fetched')
-
     const entityRows = testSuites
       .map(testSuiteDecorator)
       .map(testTypeDecorator)
