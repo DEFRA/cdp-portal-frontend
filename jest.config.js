@@ -1,4 +1,7 @@
-module.exports = {
+/**
+ * @type {Config}
+ */
+export default {
   rootDir: '.',
   testEnvironment: 'jsdom',
   verbose: true,
@@ -18,5 +21,18 @@ module.exports = {
     '<rootDir>/test-helpers',
     'index.js'
   ],
-  coverageDirectory: '<rootDir>/coverage'
+  coverageDirectory: '<rootDir>/coverage',
+  transform: {
+    '^.+\\.js$': [
+      'babel-jest',
+      {
+        plugins: ['babel-plugin-transform-import-meta']
+      }
+    ]
+  },
+  transformIgnorePatterns: []
 }
+
+/**
+ * @import { Config } from 'jest'
+ */
