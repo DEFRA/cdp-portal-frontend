@@ -1,8 +1,8 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { cdpTeamsFixture } from '~/src/__fixtures__/admin/cdp-teams'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
+import { config } from '~/src/config/index.js'
+import { cdpTeamsFixture } from '~/src/__fixtures__/admin/cdp-teams.js'
+import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.js'
 
 describe('#getUsersTeams', () => {
   const teamsEndpointUrl = new URL(

@@ -1,5 +1,5 @@
-import { testEnvironments } from '~/src/config/test-environments'
-import { createLogger } from '~/src/server/common/helpers/logging/logger'
+import { testEnvironments } from '~/src/config/test-environments.js'
+import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 
 const logger = createLogger()
 

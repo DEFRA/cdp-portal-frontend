@@ -1,5 +1,5 @@
-import { transformSummaryUserRows } from '~/src/server/admin/users/transformers/transform-summary-user-rows'
-import { cdpUserSessionFixture } from '~/src/__fixtures__/admin/cdp-user-session'
+import { transformSummaryUserRows } from '~/src/server/admin/users/transformers/transform-summary-user-rows.js'
+import { cdpUserSessionFixture } from '~/src/__fixtures__/admin/cdp-user-session.js'
 
 describe('#transformSummaryUserRows', () => {
   test('Should provide expected user row transformation', () => {

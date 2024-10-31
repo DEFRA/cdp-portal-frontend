@@ -1,6 +1,6 @@
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
-import { summaryEnvTestSuiteRows } from '~/src/server/create/env-test-suite/transformers/summary-env-test-suite-rows'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { summaryEnvTestSuiteRows } from '~/src/server/create/env-test-suite/transformers/summary-env-test-suite-rows.js'
 
 const envTestSuiteSummaryController = {
   options: {

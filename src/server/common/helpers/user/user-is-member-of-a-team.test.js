@@ -1,7 +1,7 @@
 import {
   userIsMemberOfATeam,
   userIsMemberOfATeamDecorator
-} from '~/src/server/common/helpers/user/user-is-member-of-a-team'
+} from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
 
 describe('#userIsMemberOfATeam', () => {
   let checkIsMemberOfATeam

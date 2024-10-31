@@ -1,5 +1,5 @@
-import { teamFixture } from '~/src/__fixtures__/team'
-import { teamToHeadingEntities } from '~/src/server/teams/transformers/team-to-heading-entities'
+import { teamFixture } from '~/src/__fixtures__/team.js'
+import { teamToHeadingEntities } from '~/src/server/teams/transformers/team-to-heading-entities.js'
 
 describe('#teamToHeadingEntities', () => {
   test('Should provide expected team heading transformation', () => {

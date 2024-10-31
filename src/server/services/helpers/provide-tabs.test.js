@@ -1,4 +1,4 @@
-import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
+import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
 
 const mockRouteLookup = jest.fn()
 const mockUserIsServiceOwner = jest.fn()

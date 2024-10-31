@@ -1,4 +1,4 @@
-import { logoutController } from '~/src/server/logout/controller'
+import { logoutController } from '~/src/server/logout/controller.js'
 
 const logout = {
   plugin: {

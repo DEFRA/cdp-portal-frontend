@@ -1,4 +1,4 @@
-import { defaultOption } from '~/src/server/common/helpers/options/default-option'
+import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
 
 function buildOptions(items, withDefault = true) {
   return [

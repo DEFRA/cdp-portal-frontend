@@ -1,5 +1,5 @@
-import { remove } from 'lodash'
-import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
+import remove from 'lodash/remove.js'
+import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list.js'
 
 const exclusions = []
 

@@ -1,17 +1,17 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { compose } from 'lodash/fp'
+import compose from 'lodash/fp/compose.js'
 
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
-import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner'
-import { withEnvironments } from '~/src/server/common/transformers/with-environments'
-import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list'
-import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id'
-import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
-import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
+import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
+import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
+import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
+import { withEnvironments } from '~/src/server/common/transformers/with-environments.js'
+import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list.js'
+import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
+import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings.js'
+import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
+import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row.js'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 
 const serviceController = {
   options: {

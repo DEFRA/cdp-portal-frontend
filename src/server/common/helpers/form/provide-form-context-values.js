@@ -1,6 +1,6 @@
-import { pickBy } from 'lodash'
+import pickBy from 'lodash/pickBy.js'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 function provideFormContextValues(sessionName = null) {
   return (request, h) => {

@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images'
-import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { config } from '~/src/config/index.js'
+import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images.js'
+import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetchDeployableImageNames', () => {
   const mockRequest = {

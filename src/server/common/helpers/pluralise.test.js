@@ -1,4 +1,4 @@
-import { pluralise } from '~/src/server/common/helpers/pluralise'
+import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
 describe('#pluralise', () => {
   test('When zero, Should make word plural', () => {

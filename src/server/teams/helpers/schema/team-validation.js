@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { validation } from '~/src/server/common/constants/validation'
+import { validation } from '~/src/server/common/constants/validation.js'
 
 const teamValidation = Joi.object({
   description: Joi.string()

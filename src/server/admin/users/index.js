@@ -1,8 +1,8 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation'
-import { provideUserSteps } from '~/src/server/admin/users/helpers/form'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
+import { provideUserSteps } from '~/src/server/admin/users/helpers/form/index.js'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import {
   confirmDeleteUserController,
   createUserController,
@@ -19,8 +19,8 @@ import {
   userDetailsFormController,
   usersListController,
   userSummaryController
-} from '~/src/server/admin/users/controllers'
-import { scopes } from '~/src/server/common/constants/scopes'
+} from '~/src/server/admin/users/controllers/index.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 

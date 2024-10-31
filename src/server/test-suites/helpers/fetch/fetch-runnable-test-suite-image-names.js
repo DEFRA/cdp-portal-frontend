@@ -1,8 +1,8 @@
 import qs from 'qs'
 
-import { config } from '~/src/config'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
-import { getUserGroups } from '~/src/server/common/helpers/auth/get-user-groups'
+import { config } from '~/src/config/index.js'
+import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { getUserGroups } from '~/src/server/common/helpers/auth/get-user-groups.js'
 
 async function fetchRunnableTestSuiteImageNames(request) {
   const userGroups = await getUserGroups(request)

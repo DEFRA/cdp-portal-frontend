@@ -1,6 +1,6 @@
-import { remove } from 'lodash'
+import remove from 'lodash/remove.js'
 
-import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
+import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list.js'
 
 const exclusions = ['teams', 'defra aws id', 'defra vpn id']
 

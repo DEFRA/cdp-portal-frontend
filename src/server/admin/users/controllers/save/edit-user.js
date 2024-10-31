@@ -1,8 +1,8 @@
-import { config } from '~/src/config'
-import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user'
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { setStepComplete } from '~/src/server/admin/users/helpers/form'
+import { config } from '~/src/config/index.js'
+import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user.js'
+import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { setStepComplete } from '~/src/server/admin/users/helpers/form/index.js'
 
 const editUserController = {
   options: {

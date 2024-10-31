@@ -1,10 +1,10 @@
-import { teamController } from '~/src/server/admin/teams/controllers/team'
-import { teamsListController } from '~/src/server/admin/teams/controllers/teams-list'
-import { removeMemberController } from '~/src/server/admin/teams/controllers/remove/remove-member'
+import { teamController } from '~/src/server/admin/teams/controllers/team.js'
+import { teamsListController } from '~/src/server/admin/teams/controllers/teams-list.js'
+import { removeMemberController } from '~/src/server/admin/teams/controllers/remove/remove-member.js'
 import {
   addMemberFormController,
   addMemberController
-} from '~/src/server/admin/teams/controllers/add'
+} from '~/src/server/admin/teams/controllers/add/index.js'
 import {
   editTeamController,
   teamDetailsController,
@@ -15,7 +15,7 @@ import {
   teamSummaryController,
   createTeamController,
   startEditTeamController
-} from '~/src/server/admin/teams/controllers/save'
+} from '~/src/server/admin/teams/controllers/save/index.js'
 
 export {
   startCreateTeamController,

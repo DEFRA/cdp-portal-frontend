@@ -1,4 +1,4 @@
-import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure'
+import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure.js'
 
 /**
  * Build the docs links nav. Note for accessibility reasons, nested ul elements are wrapped in li elements.

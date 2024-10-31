@@ -1,11 +1,11 @@
-import { isXhr } from '~/src/server/common/helpers/is-xhr'
-import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup'
-import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
-import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session'
-import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session'
-import { userIsTeamMemberDecorator } from '~/src/server/common/helpers/user/user-is-team-member'
-import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
-import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner'
+import { isXhr } from '~/src/server/common/helpers/is-xhr.js'
+import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup/index.js'
+import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
+import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session.js'
+import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session.js'
+import { userIsTeamMemberDecorator } from '~/src/server/common/helpers/user/user-is-team-member.js'
+import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
+import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner.js'
 
 /**
  * Add global server methods

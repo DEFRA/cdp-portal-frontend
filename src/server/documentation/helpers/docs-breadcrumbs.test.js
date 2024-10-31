@@ -1,4 +1,4 @@
-import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs'
+import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs.js'
 
 describe('#docsBreadcrumbs', () => {
   test('Should return expected documentation breadcrumbs for a single file path', () => {

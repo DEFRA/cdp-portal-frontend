@@ -1,10 +1,13 @@
 import qs from 'qs'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { saveToCreate, setStepComplete } from '~/src/server/create/helpers/form'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { chooseValidation } from '~/src/server/create/helpers/schema/choose-validation'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import {
+  saveToCreate,
+  setStepComplete
+} from '~/src/server/create/helpers/form/index.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { chooseValidation } from '~/src/server/create/helpers/schema/choose-validation.js'
 
 const chooseKindController = {
   options: {

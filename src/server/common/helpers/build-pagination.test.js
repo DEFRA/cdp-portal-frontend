@@ -1,4 +1,4 @@
-import { buildPagination } from '~/src/server/common/helpers/build-pagination'
+import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
 
 describe('#buildPagination', () => {
   test('Should provide expected pagination', () => {

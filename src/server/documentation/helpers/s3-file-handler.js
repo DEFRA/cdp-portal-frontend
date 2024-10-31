@@ -1,5 +1,5 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3'
-import { statusCodes } from '~/src/server/common/constants/status-codes'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 function fetchS3File(request, key, bucket) {
   const command = new GetObjectCommand({

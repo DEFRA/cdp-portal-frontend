@@ -1,5 +1,5 @@
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
-import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner'
+import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
+import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner.js'
 
 describe('#addServiceOwnerScope', () => {
   const mockResponseToolkit = { continue: 'mockContinue' }

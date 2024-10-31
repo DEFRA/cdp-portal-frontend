@@ -1,6 +1,6 @@
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
-import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows'
+import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect.js'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
+import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows.js'
 
 const teamSummaryController = {
   options: {

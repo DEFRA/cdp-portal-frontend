@@ -1,4 +1,4 @@
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
+import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
 
 describe('#relativeDate', () => {
   beforeAll(() => {

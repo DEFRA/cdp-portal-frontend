@@ -1,11 +1,14 @@
 import qs from 'qs'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
-import { saveToCreate, setStepComplete } from '~/src/server/create/helpers/form'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types'
-import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.js'
+import {
+  saveToCreate,
+  setStepComplete
+} from '~/src/server/create/helpers/form/index.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types.js'
+import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation.js'
 
 const microserviceDetailController = {
   handler: async (request, h) => {

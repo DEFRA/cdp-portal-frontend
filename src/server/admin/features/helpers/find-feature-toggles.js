@@ -1,4 +1,4 @@
-import { findFeatureToggle } from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
+import { findFeatureToggle } from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup.js'
 
 async function findAllFeatureToggles(request) {
   const createDisabled = await findFeatureToggle(

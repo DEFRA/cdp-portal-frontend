@@ -1,19 +1,21 @@
-import path from 'path'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import nunjucks from 'nunjucks'
 import { load } from 'cheerio'
 import { camelCase, upperFirst } from 'lodash'
 
-import * as filters from '~/src/config/nunjucks/filters'
+import * as filters from '~/src/config/nunjucks/filters/index.js'
 
+const dirname = path.dirname(fileURLToPath(import.meta.url))
 const nunjucksTestEnv = nunjucks.configure(
   [
     'node_modules/govuk-frontend/dist/',
     'server',
     path.normalize(
-      path.resolve(__dirname, '..', 'src', 'server', 'common', 'templates')
+      path.resolve(dirname, '..', 'src', 'server', 'common', 'templates')
     ),
     path.normalize(
-      path.resolve(__dirname, '..', 'src', 'server', 'common', 'components')
+      path.resolve(dirname, '..', 'src', 'server', 'common', 'components')
     )
   ],
   {

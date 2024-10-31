@@ -1,5 +1,5 @@
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
 
 const availableVersionsController = {
   handler: async (request, h) => {

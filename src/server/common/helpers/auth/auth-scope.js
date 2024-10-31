@@ -1,6 +1,6 @@
 /**
  * Used to add auth access entity to an array of routes
- * @param {string} scope
+ * @param {string|string[]} scope
  * @returns {function(*): *&{options: {auth: {mode: string, access: {scope: *}}}}}
  */
 function authScope(scope) {

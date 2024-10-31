@@ -1,5 +1,5 @@
-import { testStatus } from '~/src/server/test-suites/constants/test-run-status'
-import { renderIcon } from '~/src/server/common/helpers/render-component'
+import { testStatus } from '~/src/server/test-suites/constants/test-run-status.js'
+import { renderIcon } from '~/src/server/common/helpers/render-component.js'
 
 function getTestStatusIcon(runTestStatus) {
   switch (runTestStatus) {

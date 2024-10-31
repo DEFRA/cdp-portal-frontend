@@ -1,12 +1,12 @@
 import qs from 'qs'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { githubUserNameValidation } from '~/src/server/admin/users/helpers/schema/github-user-name-validation'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { githubUserNameValidation } from '~/src/server/admin/users/helpers/schema/github-user-name-validation.js'
 import {
   saveToCdpUser,
   setStepComplete
-} from '~/src/server/admin/users/helpers/form'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+} from '~/src/server/admin/users/helpers/form/index.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const findGithubUserController = {
   handler: async (request, h) => {

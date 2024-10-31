@@ -1,5 +1,5 @@
-import { config } from '~/src/config'
-import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
+import { config } from '~/src/config/index.js'
+import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts.js'
 
 function serviceToEntityDataList(service) {
   const dockerHubUrl = config.get('dockerHubUrl')

@@ -1,11 +1,12 @@
-import { compose } from 'lodash/fp'
-import { kebabCase, upperFirst } from 'lodash'
+import compose from 'lodash/fp/compose.js'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
-import { withEnvironments } from '~/src/server/common/transformers/with-environments'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
-import { servicesToEntityRows } from '~/src/server/running-services/transformers/services-to-entity-rows'
-import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { withEnvironments } from '~/src/server/common/transformers/with-environments.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { servicesToEntityRows } from '~/src/server/running-services/transformers/services-to-entity-rows.js'
+import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
 
 function buildRowHeadings(environments) {
   return [

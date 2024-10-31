@@ -1,6 +1,6 @@
-import { config } from '~/src/config'
-import { testSuiteWithLastRunFixture } from '~/src/__fixtures__/test-suite'
-import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row'
+import { config } from '~/src/config/index.js'
+import { testSuiteWithLastRunFixture } from '~/src/__fixtures__/test-suite.js'
+import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
 
 const githubOrg = config.get('githubOrg')
 
@@ -34,7 +34,7 @@ describe('#transformServiceToEntityRow', () => {
       },
       {
         kind: 'date',
-        value: '2023-04-12T17:16:48Z'
+        value: '2023-04-12T17:18:48Z'
       }
     ])
   })

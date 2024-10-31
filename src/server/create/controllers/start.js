@@ -1,6 +1,6 @@
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { saveToCreate } from '~/src/server/create/helpers/form'
-import { isCreateServiceFeatureDisabled } from '~/src/server/create/helpers/feature-toggle/create-service-disabled'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { saveToCreate } from '~/src/server/create/helpers/form/index.js'
+import { isCreateServiceFeatureDisabled } from '~/src/server/create/helpers/feature-toggle/create-service-disabled.js'
 
 const createDisabledProperties = {
   pageTitle: 'Unavailable - Create a Service is undergoing maintenance',

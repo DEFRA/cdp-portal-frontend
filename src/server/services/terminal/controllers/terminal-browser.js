@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { environments, config } from '~/src/config'
-import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { environments, config } from '~/src/config/index.js'
+import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const webShellBrowserController = {
   options: {

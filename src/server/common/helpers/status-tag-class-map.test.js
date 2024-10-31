@@ -1,5 +1,5 @@
-import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
-import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
+import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
+import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
 
 describe('#statusTagClassMap', () => {
   test('Should provide expected "raised" tag className', () => {

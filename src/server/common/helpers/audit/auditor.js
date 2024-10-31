@@ -1,8 +1,8 @@
-import { noop } from 'lodash'
+import noop from 'lodash/noop.js'
 
-import { config } from '~/src/config'
-import { DevAuditor } from '~/src/server/common/helpers/audit/dev-auditor'
-import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor'
+import { config } from '~/src/config/index.js'
+import { DevAuditor } from '~/src/server/common/helpers/audit/dev-auditor.js'
+import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor.js'
 
 /**
  * @typedef {object} Options

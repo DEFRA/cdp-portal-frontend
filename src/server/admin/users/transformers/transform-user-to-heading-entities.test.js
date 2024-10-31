@@ -1,5 +1,5 @@
-import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user'
-import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities'
+import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user.js'
+import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities.js'
 
 describe('#transformUserToHeadingEntities', () => {
   test('Should provide expected user heading entities transformation', () => {

@@ -1,5 +1,8 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import convict from 'convict'
+
+const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const oneHour = 1000 * 60 * 60
 const eightHours = 1000 * 60 * 60 * 8
@@ -38,7 +41,7 @@ const config = convict({
   root: {
     doc: 'Project root',
     format: String,
-    default: path.normalize(path.resolve(__dirname, '..', '..'))
+    default: path.normalize(path.resolve(dirname, '..', '..'))
   },
   appBaseUrl: {
     doc: 'Application base URL',

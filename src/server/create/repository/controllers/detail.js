@@ -1,10 +1,13 @@
 import qs from 'qs'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
-import { saveToCreate, setStepComplete } from '~/src/server/create/helpers/form'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { repositoryValidation } from '~/src/server/create/repository/helpers/schema/repository-validation'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.js'
+import {
+  saveToCreate,
+  setStepComplete
+} from '~/src/server/create/helpers/form/index.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { repositoryValidation } from '~/src/server/create/repository/helpers/schema/repository-validation.js'
 
 const repositoryDetailController = {
   handler: async (request, h) => {

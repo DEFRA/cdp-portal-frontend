@@ -1,5 +1,5 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
-import { scopes } from '~/src/server/common/constants/scopes'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 import {
   availableVersionsController,
   availableMemoryController,
@@ -10,12 +10,12 @@ import {
   optionsFormController,
   summaryController,
   deployController
-} from '~/src/server/deploy-service/controllers'
-import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form'
+} from '~/src/server/deploy-service/controllers/index.js'
+import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form.js'
 import {
   urls,
   formSteps
-} from '~/src/server/deploy-service/helpers/multistep-form/steps'
+} from '~/src/server/deploy-service/helpers/multistep-form/steps.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 

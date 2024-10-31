@@ -1,4 +1,4 @@
-import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message'
+import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message.js'
 
 describe('#statusCodeMessage', () => {
   test('Should provide expected Not Found message', () => {

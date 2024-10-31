@@ -1,5 +1,5 @@
-import { routeLookup } from '~/src/server/common/helpers/route-lookup'
-import { getErrorSync, NoErrorThrownError } from '~/test-helpers/get-error'
+import { routeLookup } from '~/src/server/common/helpers/route-lookup/index.js'
+import { getErrorSync, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#routeLookup', () => {
   const mockRoutes = {

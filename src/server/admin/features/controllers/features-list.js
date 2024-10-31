@@ -1,5 +1,5 @@
-import { transformFeaturesToEntityRows } from '~/src/server/admin/features/transformers/transform-feature-to-entity-row'
-import { findAllFeatureToggles } from '~/src/server/admin/features/helpers/find-feature-toggles'
+import { transformFeaturesToEntityRows } from '~/src/server/admin/features/transformers/transform-feature-to-entity-row.js'
+import { findAllFeatureToggles } from '~/src/server/admin/features/helpers/find-feature-toggles.js'
 
 const listFeaturesController = {
   handler: async (request, h) => {

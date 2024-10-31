@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { config } from '~/src/config/index.js'
 
 function transformTeamToEntityDataList(team) {
   const githubOrg = config.get('githubOrg')

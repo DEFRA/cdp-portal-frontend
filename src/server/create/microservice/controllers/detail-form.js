@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams'
-import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.js'
+import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
 
 const microserviceDetailFormController = {
   options: {

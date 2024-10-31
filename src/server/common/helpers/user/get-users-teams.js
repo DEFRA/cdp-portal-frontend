@@ -1,4 +1,4 @@
-import { fetchTeams } from '~/src/server/teams/helpers/fetch'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch/index.js'
 
 async function getUsersTeams(request) {
   const authedUser = await request.getUserSession()

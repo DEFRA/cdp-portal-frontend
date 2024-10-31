@@ -1,5 +1,5 @@
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
-import { fetchCreateStatus } from '~/src/server/services/helpers/fetch/fetch-create-status'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchCreateStatus } from '~/src/server/services/helpers/fetch/fetch-create-status.js'
 
 async function checkNameAvailability(value, helpers) {
   const responses = await Promise.allSettled([

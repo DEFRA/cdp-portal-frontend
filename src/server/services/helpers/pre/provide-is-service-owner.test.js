@@ -1,4 +1,4 @@
-import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner'
+import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
 
 describe('#provideIsServiceOwner', () => {
   let mockRequest

@@ -1,6 +1,6 @@
 import { load } from 'cheerio'
 
-import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading'
+import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
 
 describe('#headingExtension', () => {
   test('Should render expected heading', () => {

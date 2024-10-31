@@ -1,5 +1,5 @@
 import qs from 'qs'
-import { startCase } from 'lodash'
+import startCase from 'lodash/startCase.js'
 
 function buildRow(multiStepDataSessionId) {
   return (text, value, stepPath) => {

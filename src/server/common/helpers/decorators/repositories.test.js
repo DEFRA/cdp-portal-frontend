@@ -1,9 +1,9 @@
-import { config } from '~/src/config'
-import { repositoriesFixture } from '~/src/__fixtures__/repositories'
-import { servicesFixture } from '~/src/__fixtures__/services'
-import { createServicesStatusesFixture } from '~/src/__fixtures__/create-services-statuses'
-import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
-import { omit } from 'lodash'
+import { config } from '~/src/config/index.js'
+import { repositoriesFixture } from '~/src/__fixtures__/repositories.js'
+import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { createServicesStatusesFixture } from '~/src/__fixtures__/create-services-statuses.js'
+import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
+import omit from 'lodash/omit.js'
 
 const githubOrg = config.get('githubOrg')
 

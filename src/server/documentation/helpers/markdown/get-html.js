@@ -2,8 +2,8 @@ import { Marked } from 'marked'
 import markedAlert from 'marked-alert'
 import { escapeHtml } from '@hapi/hoek'
 
-import { linkExtension } from '~/src/server/documentation/helpers/extensions/link'
-import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading'
+import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
+import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
 
 const docsMarked = new Marked({
   pedantic: false,

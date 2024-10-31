@@ -4,7 +4,7 @@ import {
   repositorySummaryController,
   repositoryCreateController,
   repositorySuccessController
-} from '~/src/server/create/repository/controllers'
+} from '~/src/server/create/repository/controllers/index.js'
 
 const createRepositoryRoutes = [
   {

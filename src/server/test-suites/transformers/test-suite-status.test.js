@@ -1,9 +1,9 @@
-import { config } from '~/src/config'
-import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
-import { creatEnvTestSuiteStatusInProgressFixture } from '~/src/__fixtures__/create/env-test-suite-status-in-progress'
-import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
-import { testSuiteStatus } from '~/src/server/test-suites/transformers/test-suite-status'
+import { config } from '~/src/config/index.js'
+import { repositoryFixture } from '~/src/__fixtures__/repository.js'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'
+import { creatEnvTestSuiteStatusInProgressFixture } from '~/src/__fixtures__/create/env-test-suite-status-in-progress.js'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
+import { testSuiteStatus } from '~/src/server/test-suites/transformers/test-suite-status.js'
 
 const githubOrg = config.get('githubOrg')
 

@@ -1,4 +1,5 @@
-import { kebabCase, upperFirst } from 'lodash'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
 function buildRunningServicesRowHeadings(environments) {
   return [

@@ -1,4 +1,4 @@
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction.js'
 
 // Get component by name in templates
 function getComponent(name) {

@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
-import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
-import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id'
+import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
+import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
+import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
+import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
 
 async function getTerminalEnvs(service) {
   const teams = service?.teams

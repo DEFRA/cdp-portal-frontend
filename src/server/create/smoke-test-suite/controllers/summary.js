@@ -1,6 +1,6 @@
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
-import { summarySmokeTestSuiteRows } from '~/src/server/create/smoke-test-suite/transformers/summary-smoke-test-suite-rows'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { summarySmokeTestSuiteRows } from '~/src/server/create/smoke-test-suite/transformers/summary-smoke-test-suite-rows.js'
 
 const smokeTestSuiteSummaryController = {
   options: {

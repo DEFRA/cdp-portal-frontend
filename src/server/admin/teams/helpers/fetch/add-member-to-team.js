@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { config } from '~/src/config/index.js'
 
 async function addMemberToTeam(request, teamId, userId) {
   const endpoint =

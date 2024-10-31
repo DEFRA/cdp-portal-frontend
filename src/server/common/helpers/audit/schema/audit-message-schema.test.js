@@ -1,4 +1,4 @@
-import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
+import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema.js'
 
 describe('#auditMessageSchema', () => {
   test('Should allow standard audit message', () => {

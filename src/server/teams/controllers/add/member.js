@@ -1,9 +1,9 @@
 import qs from 'qs'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch'
-import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation.js'
 
 const addMemberController = {
   handler: async (request, h) => {

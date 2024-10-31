@@ -1,6 +1,6 @@
-import { provideSteps } from '~/src/server/common/helpers/multistep-form/provide-steps'
-import { provideFormContextValues } from '~/src/server/common/helpers/multistep-form/provide-form-context-values'
-import { requestHelpers } from '~/src/server/common/helpers/multistep-form/request-helpers'
+import { provideSteps } from '~/src/server/common/helpers/multistep-form/provide-steps.js'
+import { provideFormContextValues } from '~/src/server/common/helpers/multistep-form/provide-form-context-values.js'
+import { requestHelpers } from '~/src/server/common/helpers/multistep-form/request-helpers.js'
 
 const multistepForm = {
   name: 'multistepForm',

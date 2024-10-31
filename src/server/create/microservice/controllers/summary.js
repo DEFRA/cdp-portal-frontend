@@ -1,6 +1,6 @@
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
-import { summaryMicroserviceRows } from '~/src/server/create/microservice/transformers/summary-microservice-rows'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { summaryMicroserviceRows } from '~/src/server/create/microservice/transformers/summary-microservice-rows.js'
 
 const microserviceSummaryController = {
   options: {

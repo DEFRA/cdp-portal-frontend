@@ -1,4 +1,4 @@
-import { statusCodes } from '~/src/server/common/constants/status-codes'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 function statusCodeMessage(statusCode) {
   switch (true) {

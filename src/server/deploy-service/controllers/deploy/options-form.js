@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
-import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values'
-import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu'
-import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data'
-import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid'
+import { config } from '~/src/config/index.js'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { availableInstances } from '~/src/server/deploy-service/constants/available-instances.js'
+import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values.js'
+import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu.js'
+import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
+import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid.js'
 
 const optionsFormController = {
   options: {

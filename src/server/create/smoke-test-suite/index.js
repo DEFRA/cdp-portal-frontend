@@ -3,7 +3,7 @@ import {
   smokeTestSuiteDetailController,
   smokeTestSuiteSummaryController,
   smokeTestSuiteCreateController
-} from '~/src/server/create/smoke-test-suite/controllers'
+} from '~/src/server/create/smoke-test-suite/controllers/index.js'
 
 const createSmokeTestSuiteRoutes = [
   {

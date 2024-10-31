@@ -1,6 +1,6 @@
 import Wreck from '@hapi/wreck'
 
-import { createLogger } from '~/src/server/common/helpers/logging/logger'
+import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 
 /**
  * Provide Wreck http client agents

@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation'
+import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
 
 describe('#secretParamsValidation', () => {
   describe('With Admin user', () => {

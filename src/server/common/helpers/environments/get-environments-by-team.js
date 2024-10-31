@@ -1,5 +1,5 @@
-import { config } from '~/src/config'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
+import { config } from '~/src/config/index.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 /**
  * @typedef {string[]} AdminEnvironments

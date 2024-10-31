@@ -1,4 +1,4 @@
-import { testTypeDecorator } from '~/src/server/test-suites/helpers/decorators/test-type'
+import { testTypeDecorator } from '~/src/server/test-suites/helpers/decorators/test-type.js'
 
 describe('#testTypeDecorator', () => {
   test('Should decorate with test type if environment test', () => {

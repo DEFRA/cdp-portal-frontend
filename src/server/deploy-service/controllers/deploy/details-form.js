@@ -1,12 +1,12 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
-import { getAdditionalData } from '~/src/server/deploy-service/helpers/get-additional-data'
-import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation'
-import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data'
-import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { getAdditionalData } from '~/src/server/deploy-service/helpers/get-additional-data.js'
+import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation.js'
+import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
+import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names.js'
 
 const detailsFormController = {
   options: {

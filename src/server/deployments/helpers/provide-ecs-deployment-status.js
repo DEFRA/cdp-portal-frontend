@@ -4,7 +4,7 @@
  * @param {{status: string, lastDeploymentStatus: string, lastDeploymentMessage:string}} deployment
  * @returns {string} message
  */
-import { deploymentStatus } from '~/src/server/deployments/constants/status'
+import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
 
 function provideEcsDeploymentStatus(deployment) {
   switch (deployment.lastDeploymentStatus) {

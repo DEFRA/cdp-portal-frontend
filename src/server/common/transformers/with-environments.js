@@ -1,4 +1,4 @@
-import { camelCase } from 'lodash'
+import camelCase from 'lodash/camelCase.js'
 
 function withEnvironments(services) {
   return services.reduce(

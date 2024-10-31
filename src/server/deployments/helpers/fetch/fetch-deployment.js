@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
+import { config } from '~/src/config/index.js'
+import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
 // Portal Backend returns empty array for not found deployments
 function checkDeployment(json) {

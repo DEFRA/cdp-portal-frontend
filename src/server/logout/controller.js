@@ -1,5 +1,5 @@
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
-import { removeAuthenticatedUser } from '~/src/server/common/helpers/auth/user-session'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { removeAuthenticatedUser } from '~/src/server/common/helpers/auth/user-session.js'
 
 const logoutController = {
   options: {

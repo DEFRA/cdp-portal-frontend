@@ -1,5 +1,5 @@
-import { availableVersionsController } from '~/src/server/deploy-service/controllers/available-versions'
-import { availableMemoryController } from '~/src/server/deploy-service/controllers/available-memory'
+import { availableVersionsController } from '~/src/server/deploy-service/controllers/available-versions.js'
+import { availableMemoryController } from '~/src/server/deploy-service/controllers/available-memory.js'
 import {
   startDeployServiceController,
   detailsController,
@@ -8,7 +8,7 @@ import {
   optionsFormController,
   summaryController,
   deployController
-} from '~/src/server/deploy-service/controllers/deploy'
+} from '~/src/server/deploy-service/controllers/deploy/index.js'
 
 export {
   availableVersionsController,

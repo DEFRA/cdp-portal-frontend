@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { omit } from 'lodash'
+import omit from 'lodash/omit.js'
 
 import {
   fetchTeam,
   fetchGithubArtifacts
-} from '~/src/server/teams/helpers/fetch'
-import { teamToHeadingEntities } from '~/src/server/teams/transformers/team-to-heading-entities'
-import { teamToEntityDataList } from '~/src/server/teams/transformers/team-to-entity-data-list'
+} from '~/src/server/teams/helpers/fetch/index.js'
+import { teamToHeadingEntities } from '~/src/server/teams/transformers/team-to-heading-entities.js'
+import { teamToEntityDataList } from '~/src/server/teams/transformers/team-to-entity-data-list.js'
 
 const teamController = {
   options: {

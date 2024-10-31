@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { resetGithubAnswer } from '~/src/server/admin/teams/helpers/ext/reset-github-answer'
-import { searchGithubTeams } from '~/src/server/admin/teams/helpers/fetch'
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { resetGithubAnswer } from '~/src/server/admin/teams/helpers/ext/reset-github-answer.js'
+import { searchGithubTeams } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect.js'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
 
 const findGithubTeamFormController = {
   options: {

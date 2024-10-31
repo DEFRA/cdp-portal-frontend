@@ -1,4 +1,4 @@
-import { startCase } from 'lodash'
+import startCase from 'lodash/startCase.js'
 
 function docsBreadcrumbs(docsPath) {
   const breadcrumbs = [

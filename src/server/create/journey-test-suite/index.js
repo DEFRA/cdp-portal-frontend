@@ -4,7 +4,7 @@ import {
   testSuiteSummaryController,
   testSuiteCreateController,
   testSuiteSuccessController
-} from '~/src/server/create/journey-test-suite/controllers'
+} from '~/src/server/create/journey-test-suite/controllers/index.js'
 
 const createTestSuiteRoutes = [
   {

@@ -1,6 +1,6 @@
 import { load } from 'cheerio'
 
-import { linkExtension } from '~/src/server/documentation/helpers/extensions/link'
+import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
 
 describe('#linkExtension', () => {
   test('Should render an external link', () => {

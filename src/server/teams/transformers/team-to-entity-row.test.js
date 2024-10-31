@@ -1,7 +1,7 @@
-import { config } from '~/src/config'
-import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row'
-import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { cdpTeamWithoutGithubFixture } from '~/src/__fixtures__/admin/cdp-team-without-github'
+import { config } from '~/src/config/index.js'
+import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row.js'
+import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
+import { cdpTeamWithoutGithubFixture } from '~/src/__fixtures__/admin/cdp-team-without-github.js'
 
 const githubOrg = config.get('githubOrg')
 

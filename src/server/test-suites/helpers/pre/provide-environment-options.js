@@ -1,7 +1,7 @@
-import { environments } from '~/src/config'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
-import { findEnvironmentsForTestSuite } from '~/src/server/test-suites/helpers/find-environments-for-test-suite'
+import { environments } from '~/src/config/index.js'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
+import { findEnvironmentsForTestSuite } from '~/src/server/test-suites/helpers/find-environments-for-test-suite.js'
 
 const provideEnvironmentOptions = {
   method: async function (request) {

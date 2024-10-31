@@ -1,13 +1,13 @@
-import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import {
   createSteps,
   isCreateCdpUserComplete
-} from '~/src/server/admin/users/helpers/form/create-user-steps'
+} from '~/src/server/admin/users/helpers/form/create-user-steps.js'
 import {
   editSteps,
   isEditCdpUserComplete
-} from '~/src/server/admin/users/helpers/form/edit-user-steps'
+} from '~/src/server/admin/users/helpers/form/edit-user-steps.js'
 
 function steps(isEdit) {
   return isEdit ? editSteps : createSteps

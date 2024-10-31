@@ -1,10 +1,10 @@
-import { startCase } from 'lodash'
+import startCase from 'lodash/startCase.js'
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 
-import { statusCodes } from '~/src/server/common/constants/status-codes'
-import { getHtml } from '~/src/server/documentation/helpers/markdown/get-html'
-import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs'
-import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+import { getHtml } from '~/src/server/documentation/helpers/markdown/get-html.js'
+import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs.js'
+import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav.js'
 
 async function fetchMarkdown(request, documentationPath, bucket) {
   const command = new GetObjectCommand({

@@ -1,4 +1,4 @@
-import { cookiesController } from '~/src/server/cookies/controller'
+import { cookiesController } from '~/src/server/cookies/controller.js'
 
 const cookies = {
   plugin: {

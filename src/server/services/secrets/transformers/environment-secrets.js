@@ -1,9 +1,9 @@
-import { pullAll } from 'lodash'
+import pullAll from 'lodash/pullAll.js'
 
-import { config } from '~/src/config'
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
-import { platformKeyDescriptions } from '~/src/server/common/constants/platform-key-descriptions'
-import { noValue } from '~/src/server/common/constants/no-value'
+import { config } from '~/src/config/index.js'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { platformKeyDescriptions } from '~/src/server/common/constants/platform-key-descriptions.js'
+import { noValue } from '~/src/server/common/constants/no-value.js'
 
 /**
  * Transforms secrets for a given environment by filtering out platform global keys and placeholders,

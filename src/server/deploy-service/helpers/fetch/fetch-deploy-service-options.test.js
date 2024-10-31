@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
-import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { config } from '~/src/config/index.js'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
+import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetchDeployServiceOptions', () => {
   const deployServiceOptionsEndpoint = new URL(

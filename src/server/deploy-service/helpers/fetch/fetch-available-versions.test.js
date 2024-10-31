@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { config } from '~/src/config/index.js'
+import { availableVersionsFixture } from '~/src/__fixtures__/available-versions.js'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetchAvailableVersions', () => {
   const serviceName = 'cdp-portal-frontend'

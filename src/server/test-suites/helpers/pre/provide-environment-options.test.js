@@ -1,4 +1,4 @@
-import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options'
+import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options.js'
 
 const mockRequest = (auth, pre = {}, isMemberOfATeam = false) => ({
   pre,

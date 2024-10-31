@@ -1,4 +1,4 @@
-import { pagination } from '~/src/server/common/constants/pagination'
+import { pagination } from '~/src/server/common/constants/pagination.js'
 
 const paginationParams = `?page=${pagination.page}&size=${pagination.size}`
 

@@ -1,5 +1,5 @@
 import Boom from '@hapi/boom'
-import { environments } from '~/src/config'
+import { environments } from '~/src/config/index.js'
 
 const allEnvironmentsOnlyForAdmin = {
   method: async (request, h) => {

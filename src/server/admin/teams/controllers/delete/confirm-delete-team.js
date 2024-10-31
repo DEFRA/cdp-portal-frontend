@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch'
-import { transformDeleteTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-delete-team-to-entity-data-list'
+import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { transformDeleteTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-delete-team-to-entity-data-list.js'
 
 const confirmDeleteTeamController = {
   options: {

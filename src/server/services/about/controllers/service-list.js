@@ -1,12 +1,12 @@
-import { unionBy } from 'lodash'
+import unionBy from 'lodash/unionBy.js'
 
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
-import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories'
-import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services'
-import { fetchInProgress } from '~/src/server/services/helpers/fetch/fetch-in-progress'
-import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
-import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
-import { serviceToEntityRow } from '~/src/server/services/about/transformers/service-to-entity-row'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
+import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services.js'
+import { fetchInProgress } from '~/src/server/services/helpers/fetch/fetch-in-progress.js'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'
+import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
+import { serviceToEntityRow } from '~/src/server/services/about/transformers/service-to-entity-row.js'
 
 const serviceListController = {
   handler: async (request, h) => {

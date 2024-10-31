@@ -1,5 +1,5 @@
-import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities'
+import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
+import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities.js'
 
 describe('#transformCdpTeamToHeadingEntities', () => {
   test('Should provide expected team heading transformation', () => {

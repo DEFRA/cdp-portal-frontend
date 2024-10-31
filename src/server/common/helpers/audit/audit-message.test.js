@@ -1,4 +1,4 @@
-import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
+import { auditMessage } from '~/src/server/common/helpers/audit/audit-message.js'
 
 describe('#auditMessage', () => {
   test('Should create json with repository and user', () => {

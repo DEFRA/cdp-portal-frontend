@@ -1,6 +1,6 @@
-import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
-import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
+import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 
 const provideTestSuite = {
   method: async function (request) {

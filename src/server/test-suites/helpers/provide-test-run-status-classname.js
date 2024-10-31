@@ -1,4 +1,4 @@
-import { taskStatus } from '~/src/server/test-suites/constants/test-run-status'
+import { taskStatus } from '~/src/server/test-suites/constants/test-run-status.js'
 
 function provideTestRunStatusClassname(status) {
   const statusToLowerCase = status?.toLowerCase()

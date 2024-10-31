@@ -1,4 +1,4 @@
-import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs'
+import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs.js'
 
 const mockRequest = ({ response, path = '', isAdmin }) => ({
   response,

@@ -1,4 +1,4 @@
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import {
   testSuiteController,
   testSuiteListController,
@@ -6,8 +6,8 @@ import {
   triggerTestSuiteRunController,
   testResultsController,
   testSuiteReportController
-} from '~/src/server/test-suites/controllers'
-import { stopTestSuiteController } from '~/src/server/test-suites/controllers/stop-test-suite'
+} from '~/src/server/test-suites/controllers/index.js'
+import { stopTestSuiteController } from '~/src/server/test-suites/controllers/stop-test-suite.js'
 
 const testSuites = {
   plugin: {

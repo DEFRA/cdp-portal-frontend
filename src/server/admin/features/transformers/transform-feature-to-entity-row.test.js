@@ -1,7 +1,7 @@
 import {
   transformFeaturesToEntityRows,
   transformFeatureToEntityRow
-} from '~/src/server/admin/features/transformers/transform-feature-to-entity-row'
+} from '~/src/server/admin/features/transformers/transform-feature-to-entity-row.js'
 
 describe('transformFeatureToEntityRow', () => {
   test('Should return entity row for active feature', () => {

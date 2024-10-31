@@ -1,7 +1,8 @@
-import { kebabCase, upperFirst } from 'lodash'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { config } from '~/src/config'
-import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map'
+import { config } from '~/src/config/index.js'
+import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 
 function serviceToEntityRow(service) {
   const githubOrg = config.get('githubOrg')

@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { librariesFixture } from '~/src/__fixtures__/libraries'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { config } from '~/src/config/index.js'
+import { librariesFixture } from '~/src/__fixtures__/libraries.js'
+import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetcher', () => {
   const librariesEndpoint = config.get('portalBackendUrl') + '/libraries'

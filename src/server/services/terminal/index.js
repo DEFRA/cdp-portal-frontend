@@ -2,13 +2,13 @@ import {
   launchTerminalController,
   webShellController,
   webShellBrowserController
-} from '~/src/server/services/terminal/controllers'
-import { scopes } from '~/src/server/common/constants/scopes'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
-import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
-import { provideService } from '~/src/server/services/helpers/provide-service'
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+} from '~/src/server/services/terminal/controllers/index.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
+import { provideService } from '~/src/server/services/helpers/provide-service.js'
+import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,

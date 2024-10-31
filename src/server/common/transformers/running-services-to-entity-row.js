@@ -1,4 +1,5 @@
-import { kebabCase, upperFirst } from 'lodash'
+import upperFirst from 'lodash/upperFirst.js'
+import kebabCase from 'lodash/kebabCase.js'
 
 function buildVersion(version, environment, serviceName) {
   return {
