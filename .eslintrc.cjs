@@ -82,13 +82,30 @@ module.exports = {
         'jsdoc/require-returns-type': 'off',
         'jsdoc/require-returns': 'off',
 
+        // Check for mandatory file extensions
+        // https://nodejs.org/api/esm.html#mandatory-file-extensions
+        'import/extensions': ['error', 'always', { ignorePackages: true }],
+
         // Skip rules handled by TypeScript compiler
         'import/default': 'off',
         'import/namespace': 'off',
         'n/no-extraneous-require': 'off',
         'n/no-extraneous-import': 'off',
         'n/no-missing-require': 'off',
-        'n/no-missing-import': 'off'
+        'n/no-missing-import': 'off',
+
+        // Allow import devDependencies in tests
+        'n/no-unpublished-import': [
+          'error',
+          {
+            allowModules: [
+              'copy-webpack-plugin',
+              'clean-webpack-plugin',
+              'terser-webpack-plugin',
+              'webpack-assets-manifest'
+            ]
+          }
+        ]
       },
       settings: {
         'import/parsers': {
@@ -121,11 +138,7 @@ module.exports = {
         'n/no-unpublished-require': [
           'error',
           {
-            allowModules: [
-              'clean-webpack-plugin',
-              'mini-css-extract-plugin',
-              'webpack-assets-manifest'
-            ]
+            allowModules: []
           }
         ]
       }
