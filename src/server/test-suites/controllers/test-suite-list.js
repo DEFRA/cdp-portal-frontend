@@ -1,6 +1,6 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 
-import { fetchTestSuitesWithLastTestRun } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch/index.js'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
 import { testSuiteRepositoriesDecorator } from '~/src/server/test-suites/helpers/decorators/test-suite-repositories.js'
@@ -13,7 +13,7 @@ const testSuiteListController = {
     const decorateRepositories = repositoriesDecorator(repositories)
     const testSuiteDecorator =
       testSuiteRepositoriesDecorator(decorateRepositories)
-    const testSuites = await fetchTestSuitesWithLastTestRun()
+    const testSuites = await fetchTestSuites()
 
     const entityRows = testSuites
       .map(testSuiteDecorator)
