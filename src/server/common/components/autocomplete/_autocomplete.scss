@@ -1,3 +1,7 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
 $tiny-width: 12em;
 $small-width: 24em;
 $width: 30em;

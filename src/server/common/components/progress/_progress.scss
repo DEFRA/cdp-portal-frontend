@@ -1,3 +1,6 @@
+@use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
+
 .app-progress {
   max-width: 300px;
   margin-bottom: govuk-spacing(2);

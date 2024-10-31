@@ -1,3 +1,6 @@
+@use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
+
 $banner-width: 520px;
 
 .app-banner {

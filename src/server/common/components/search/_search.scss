@@ -1,3 +1,6 @@
+@use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
+
 .app-search {
   position: relative;
   width: 24em;

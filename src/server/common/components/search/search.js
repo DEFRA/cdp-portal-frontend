@@ -1,5 +1,5 @@
 import qs from 'qs'
-import { addHistoryListener } from '~/src/client/common/helpers/xhr'
+import { addHistoryListener } from '~/src/client/common/helpers/xhr.js'
 
 function search($module) {
   if (!$module) {

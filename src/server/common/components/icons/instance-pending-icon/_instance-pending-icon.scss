@@ -1,3 +1,5 @@
+@use "govuk-frontend" as *;
+
 .app-instance-pending {
   fill: govuk-tint(govuk-colour("purple"), 30%);
 }

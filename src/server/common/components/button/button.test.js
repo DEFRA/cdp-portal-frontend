@@ -1,5 +1,5 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { button } from '~/src/server/common/components/button/button'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { button } from '~/src/server/common/components/button/button.js'
 
 describe('#button', () => {
   let buttonElem

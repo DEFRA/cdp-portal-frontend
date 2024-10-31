@@ -1,4 +1,4 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
 
 describe('Info Component', () => {
   let $info

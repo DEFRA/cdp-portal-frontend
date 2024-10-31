@@ -1,3 +1,7 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
 .app-filters-form {
   padding: govuk-spacing(4);
   margin: govuk-spacing(4) govuk-spacing(-2) govuk-spacing(2);

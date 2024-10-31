@@ -1,3 +1,5 @@
+@use "govuk-frontend" as *;
+
 .app-heading {
   display: flex;
   margin-top: govuk-spacing(2);

@@ -1,5 +1,5 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant.js'
 
 describe('#inputAssistant', () => {
   let inputElem

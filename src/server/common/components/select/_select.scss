@@ -1,3 +1,6 @@
+@use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
+
 .app-select {
   min-width: 14em;
   border-radius: $app-border-radius;

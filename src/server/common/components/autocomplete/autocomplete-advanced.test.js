@@ -1,7 +1,7 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { AutocompleteAdvanced } from '~/src/server/common/components/autocomplete/autocomplete-advanced'
-import { publish } from '~/src/client/common/helpers/event-emitter'
-import { defaultOption } from '~/src/server/common/helpers/options/default-option'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { AutocompleteAdvanced } from '~/src/server/common/components/autocomplete/autocomplete-advanced.js'
+import { publish } from '~/src/client/common/helpers/event-emitter.js'
+import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
 
 describe('#autocomplete-advanced', () => {
   let autocompleteInput

@@ -1,4 +1,4 @@
-import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete'
+import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
 
 /**
  * @classdesc Advanced Autocomplete component, supports hints.

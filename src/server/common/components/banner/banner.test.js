@@ -1,5 +1,5 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { banner } from '~/src/server/common/components/banner/banner'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { banner } from '~/src/server/common/components/banner/banner.js'
 
 describe('#banner', () => {
   let bannerElem
