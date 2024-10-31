@@ -1,6 +1,6 @@
 # CDP Portal Frontend
 
-Portal Frontend for Core Delivery Platform (CDP)
+The Core Delivery Platform (CDP), Portal Frontend is a web application that provides a user interface for CDP.
 
 [![Publish](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml)
 [![Integration Tests](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml)
