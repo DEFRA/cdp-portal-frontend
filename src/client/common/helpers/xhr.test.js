@@ -1,11 +1,11 @@
 import fetchMock from 'jest-fetch-mock'
 
-import { xhrRequest } from '~/src/client/common/helpers/xhr'
+import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
 import {
   subscribe,
   unsubscribe
-} from '~/src/client/common/helpers/event-emitter'
-import { eventName } from '~/src/client/common/constants/event-name'
+} from '~/src/client/common/helpers/event-emitter.js'
+import { eventName } from '~/src/client/common/constants/event-name.js'
 
 const mockHistoryPush = jest.fn()
 const mockHistoryReplace = jest.fn()

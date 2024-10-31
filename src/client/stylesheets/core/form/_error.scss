@@ -1,0 +1,8 @@
+@use "govuk-frontend" as *;
+
+.app-error-message {
+  font-weight: normal;
+  margin-top: govuk-spacing(-1);
+  margin-bottom: govuk-spacing(1);
+  @include govuk-font(19);
+}

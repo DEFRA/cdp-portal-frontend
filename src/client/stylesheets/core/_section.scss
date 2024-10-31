@@ -1,0 +1,13 @@
+@use "helpers/reading-width" as *;
+
+.app-section {
+  @include app-reading-width;
+}
+
+.app-section-wide {
+  max-width: 64em;
+}
+
+.app-section-huge {
+  max-width: 84em;
+}

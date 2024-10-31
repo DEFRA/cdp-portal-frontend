@@ -1,0 +1,10 @@
+@use "govuk-frontend" as *;
+
+.app-label {
+  margin-bottom: govuk-spacing(1);
+  @include govuk-font(24, "bold");
+}
+
+.app-label--inline {
+  display: inline-block;
+}

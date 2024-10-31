@@ -1,0 +1,5 @@
+@use "variables/measurements" as *;
+
+@mixin app-reading-width {
+  max-width: $app-reading-width;
+}

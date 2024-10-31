@@ -1,0 +1,10 @@
+@use "govuk-frontend" as *;
+
+.app-width-container {
+  padding-top: govuk-spacing(4);
+  padding-bottom: govuk-spacing(4);
+
+  @include govuk-media-query($from: desktop-wide) {
+    width: 1100px;
+  }
+}

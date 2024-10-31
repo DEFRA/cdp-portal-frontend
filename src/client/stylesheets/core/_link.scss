@@ -1,0 +1,33 @@
+@use "govuk-frontend" as *;
+@use "helpers/link" as *;
+
+.app-link {
+  @include app-link;
+}
+
+// TODO fix up to use proper BEM classes
+.app-link-underline {
+  @include app-link-underline;
+}
+
+.app-link-without-underline {
+  @include app-link-without-underline;
+}
+
+.app-link--text-colour {
+  @include govuk-link-style-text;
+}
+
+.app-link--inverse {
+  @include govuk-link-style-inverse;
+
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    text-decoration: underline;
+  }
+}

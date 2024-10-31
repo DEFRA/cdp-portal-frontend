@@ -1,0 +1,23 @@
+@forward "pkg:govuk-frontend" with (
+  $govuk-assets-path: "/public/assets/",
+  $govuk-new-organisation-colours: true,
+  $govuk-global-styles: true,
+  $govuk-page-width: 4320px,
+  $govuk-grid-widths: (
+    one-quarter: 25%,
+    one-third: 33.3333%,
+    one-half: 50%,
+    two-thirds: 66.6666%,
+    three-quarters: 75%,
+    full: 100%
+  ),
+  $govuk-breakpoints: (
+    mobile: 320px,
+    tablet: 641px,
+    desktop: 769px,
+    desktop-big: 1080px,
+    desktop-wide: 1280px,
+    desktop-huge: 1440px,
+    desktop-massive: 1920px
+  )
+);

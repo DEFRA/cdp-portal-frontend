@@ -1,4 +1,4 @@
-import { initClass } from '~/src/client/common/helpers/init-class'
+import { initClass } from '~/src/client/common/helpers/init-class.js'
 
 describe('#initClass', () => {
   const mockKlass = jest.fn()

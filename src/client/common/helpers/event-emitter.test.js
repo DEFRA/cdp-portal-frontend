@@ -2,7 +2,7 @@ import {
   publish,
   subscribe,
   unsubscribe
-} from '~/src/client/common/helpers/event-emitter'
+} from '~/src/client/common/helpers/event-emitter.js'
 
 describe('#eventEmitter', () => {
   const eventName = 'mock-event'

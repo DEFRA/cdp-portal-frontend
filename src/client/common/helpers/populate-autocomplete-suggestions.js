@@ -1,8 +1,8 @@
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction.js'
 
-import { clientNotification } from '~/src/client/common/helpers/client-notification'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions'
-import { publish } from '~/src/client/common/helpers/event-emitter'
+import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
+import { publish } from '~/src/client/common/helpers/event-emitter.js'
 
 function populateAutocompleteSuggestions($controller) {
   if (!$controller) {

@@ -1,0 +1,12 @@
+@use "variables/colours" as *;
+
+// TODO tidy up
+.app-table {
+  .govuk-table__body {
+    .govuk-table__row {
+      &:hover {
+        background-color: $app-grey;
+      }
+    }
+  }
+}
