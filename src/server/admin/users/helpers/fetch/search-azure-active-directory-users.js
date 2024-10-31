@@ -1,5 +1,5 @@
-import { config } from '~/src/config'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher'
+import { config } from '~/src/config/index.js'
+import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
 async function searchAzureActiveDirectoryUsers(query) {
   const endpoint =

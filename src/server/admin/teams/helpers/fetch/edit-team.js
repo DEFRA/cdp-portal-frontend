@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { config } from '~/src/config/index.js'
 
 async function editTeam(request, teamId, payload) {
   const endpoint = config.get('userServiceBackendUrl') + '/teams/' + teamId

@@ -1,9 +1,9 @@
-import { fetchTestRun } from '~/src/server/test-suites/helpers/fetch/fetch-test-run'
-import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test-runs'
-import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch/fetch-test-suite'
-import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch/fetch-test-suites'
-import { fetchTestSuitesWithLastTestRun } from '~/src/server/test-suites/helpers/fetch/fetch-test-suites-with-last-test-run'
-import { runTest } from '~/src/server/test-suites/helpers/fetch/run-test'
+import { fetchTestRun } from '~/src/server/test-suites/helpers/fetch/fetch-test-run.js'
+import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test-runs.js'
+import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch/fetch-test-suite.js'
+import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch/fetch-test-suites.js'
+import { fetchTestSuitesWithLastTestRun } from '~/src/server/test-suites/helpers/fetch/fetch-test-suites-with-last-test-run.js'
+import { runTest } from '~/src/server/test-suites/helpers/fetch/run-test.js'
 
 export {
   fetchTestRun,

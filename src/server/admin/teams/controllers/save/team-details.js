@@ -1,12 +1,12 @@
 import qs from 'qs'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import {
   saveToCdpTeam,
   setStepComplete
-} from '~/src/server/admin/teams/helpers/form'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation'
+} from '~/src/server/admin/teams/helpers/form/index.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation.js'
 
 const teamDetailsController = {
   handler: async (request, h) => {

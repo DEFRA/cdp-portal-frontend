@@ -1,8 +1,8 @@
-import { isNull } from 'lodash'
+import isNull from 'lodash/isNull.js'
 
-import { config } from '~/src/config'
-import { noValue } from '~/src/server/common/constants/no-value'
-import { buildLink } from '~/src/server/common/helpers/build-link'
+import { config } from '~/src/config/index.js'
+import { noValue } from '~/src/server/common/constants/no-value.js'
+import { buildLink } from '~/src/server/common/helpers/build-link.js'
 
 function buildRow(name, value, stepPath, query, queryValue = value) {
   const queryString =

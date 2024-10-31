@@ -7,10 +7,10 @@ import {
   addMemberController,
   addMemberFormController,
   removeMemberController
-} from '~/src/server/teams/controllers'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
+} from '~/src/server/teams/controllers/index.js'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 
 const teamScope = authScope(['+{params.teamId}'])
 

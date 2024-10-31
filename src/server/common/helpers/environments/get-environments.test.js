@@ -1,4 +1,4 @@
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 describe('#getEnvironments', () => {
   describe('With Admin user', () => {

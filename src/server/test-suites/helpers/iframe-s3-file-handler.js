@@ -1,7 +1,7 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 
-import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message'
-import { statusCodes } from '~/src/server/common/constants/status-codes'
+import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 /**
  * S3 file handler for use with iFrames

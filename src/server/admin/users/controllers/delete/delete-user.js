@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { config } from '~/src/config/index.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const deleteUserController = {
   options: {

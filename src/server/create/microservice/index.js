@@ -3,7 +3,7 @@ import {
   microserviceDetailController,
   microserviceDetailFormController,
   microserviceSummaryController
-} from '~/src/server/create/microservice/controllers'
+} from '~/src/server/create/microservice/controllers/index.js'
 
 const createMicroserviceRoutes = [
   {

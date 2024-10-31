@@ -1,5 +1,5 @@
-import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
-import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'
 
 describe('#createServiceStatusToService', () => {
   test('Should provide expected create service status transformation', () => {

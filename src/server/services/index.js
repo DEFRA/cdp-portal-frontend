@@ -1,6 +1,6 @@
-import { aboutService } from '~/src/server/services/about'
-import { serviceSecrets } from '~/src/server/services/secrets'
-import { serviceTerminal } from '~/src/server/services/terminal'
+import { aboutService } from '~/src/server/services/about/index.js'
+import { serviceSecrets } from '~/src/server/services/secrets/index.js'
+import { serviceTerminal } from '~/src/server/services/terminal/index.js'
 
 const services = {
   plugin: {

@@ -1,4 +1,4 @@
-import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
+import { augmentStatus } from '~/src/server/deployments/helpers/augment-status.js'
 
 describe('#augmentStatus', () => {
   test('Should provide expected "running" status', () => {

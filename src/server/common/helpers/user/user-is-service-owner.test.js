@@ -1,7 +1,7 @@
 import {
   userIsServiceOwner,
   userIsServiceOwnerDecorator
-} from '~/src/server/common/helpers/user/user-is-service-owner'
+} from '~/src/server/common/helpers/user/user-is-service-owner.js'
 
 describe('#userIsServiceOwner', () => {
   let checkUserIsServiceOwner

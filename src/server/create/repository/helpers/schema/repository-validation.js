@@ -1,8 +1,8 @@
 import Joi from 'joi'
 
-import { validation } from '~/src/server/common/constants/validation'
-import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
+import { validation } from '~/src/server/common/constants/validation.js'
+import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility.js'
+import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
 
 function repositoryValidation() {
   return Joi.object({

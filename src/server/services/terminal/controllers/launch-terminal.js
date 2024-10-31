@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { environments } from '~/src/config'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { deployTerminal } from '~/src/server/services/terminal/helpers/fetch/deploy-terminal'
-import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal'
+import { environments } from '~/src/config/index.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { deployTerminal } from '~/src/server/services/terminal/helpers/fetch/deploy-terminal.js'
+import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
 
 const launchTerminalController = {
   options: {

@@ -1,4 +1,4 @@
-import { adminOwnedService } from '~/src/server/common/helpers/user/admin-owned-service'
+import { adminOwnedService } from '~/src/server/common/helpers/user/admin-owned-service.js'
 
 describe('#adminOwnedService', () => {
   test('Should return true if teamScopes includes oidcAdminGroupId', () => {

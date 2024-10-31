@@ -1,8 +1,8 @@
-import { editTeam } from '~/src/server/admin/teams/helpers/fetch'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { setStepComplete } from '~/src/server/admin/teams/helpers/form'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
+import { editTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { setStepComplete } from '~/src/server/admin/teams/helpers/form/index.js'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
+import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect.js'
 
 const editTeamController = {
   options: {

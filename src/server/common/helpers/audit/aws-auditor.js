@@ -1,10 +1,10 @@
-import { isUndefined } from 'lodash'
+import isUndefined from 'lodash/isUndefined.js'
 import { FirehoseClient, PutRecordCommand } from '@aws-sdk/client-firehose'
 import { fromNodeProviderChain } from '@aws-sdk/credential-providers'
-import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema'
-import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema'
-import { auditMessage } from '~/src/server/common/helpers/audit/audit-message'
-import { sanitize } from '~/src/server/common/helpers/sanitize'
+import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-schema.js'
+import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema.js'
+import { auditMessage } from '~/src/server/common/helpers/audit/audit-message.js'
+import { sanitize } from '~/src/server/common/helpers/sanitize.js'
 
 class AwsAuditor {
   constructor(options) {

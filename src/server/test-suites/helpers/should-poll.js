@@ -1,4 +1,4 @@
-import { taskStatus } from '~/src/server/test-suites/constants/test-run-status'
+import { taskStatus } from '~/src/server/test-suites/constants/test-run-status.js'
 
 function shouldPoll(testRuns) {
   const completeValues = [taskStatus.failed, taskStatus.finished]

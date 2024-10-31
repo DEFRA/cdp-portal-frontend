@@ -1,11 +1,11 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 
-import { fetchTestSuitesWithLastTestRun } from '~/src/server/test-suites/helpers/fetch'
-import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories'
-import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories'
-import { testSuiteRepositoriesDecorator } from '~/src/server/test-suites/helpers/decorators/test-suite-repositories'
-import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row'
-import { testTypeDecorator } from '~/src/server/test-suites/helpers/decorators/test-type'
+import { fetchTestSuitesWithLastTestRun } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
+import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
+import { testSuiteRepositoriesDecorator } from '~/src/server/test-suites/helpers/decorators/test-suite-repositories.js'
+import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
+import { testTypeDecorator } from '~/src/server/test-suites/helpers/decorators/test-type.js'
 
 const testSuiteListController = {
   handler: async (request, h) => {

@@ -1,5 +1,5 @@
-import { config } from '~/src/config'
-import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu'
+import { config } from '~/src/config/index.js'
+import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu.js'
 
 const platformCPUResource = config.get('platformCPUResource')
 const platformMemoryResource = config.get('platformMemoryResource')

@@ -1,4 +1,4 @@
-import { environments } from '~/src/config'
+import { environments } from '~/src/config/index.js'
 
 function getEnvironments(isAdmin = false) {
   if (isAdmin) {

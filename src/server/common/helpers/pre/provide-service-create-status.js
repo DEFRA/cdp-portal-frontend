@@ -1,12 +1,12 @@
-import { isNull } from 'lodash'
+import isNull from 'lodash/isNull.js'
 
-import { nullify404 } from '~/src/server/common/helpers/nullify-404'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 
-import { fetchCreateServiceStatus } from '~/src/server/common/helpers/fetch/fetch-create-service-status'
-import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
-import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
-import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { fetchCreateServiceStatus } from '~/src/server/common/helpers/fetch/fetch-create-service-status.js'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'
+import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 
 /**
  * This prerequisite provides a value to `pre.service` which is:

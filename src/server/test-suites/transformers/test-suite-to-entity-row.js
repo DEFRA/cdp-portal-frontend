@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { config } from '~/src/config/index.js'
 
 function transformTestSuiteToEntityRow(testSuite) {
   const githubOrg = config.get('githubOrg')
@@ -32,7 +32,7 @@ function transformTestSuiteToEntityRow(testSuite) {
     },
     {
       kind: 'date',
-      value: testSuite.lastRun?.created
+      value: testSuite.lastRun?.taskLastUpdated
     }
   ]
 }

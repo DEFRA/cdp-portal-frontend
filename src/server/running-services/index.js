@@ -1,4 +1,4 @@
-import { runningServicesListController } from '~/src/server/running-services/controllers'
+import { runningServicesListController } from '~/src/server/running-services/controllers/index.js'
 
 const runningServices = {
   plugin: {

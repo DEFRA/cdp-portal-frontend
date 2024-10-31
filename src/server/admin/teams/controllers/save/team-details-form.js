@@ -1,5 +1,5 @@
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team'
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
+import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect.js'
 
 const teamDetailsFormController = {
   options: {

@@ -1,4 +1,4 @@
-import { toService } from '~/src/server/services/secrets/transformers/to-service'
+import { toService } from '~/src/server/services/secrets/transformers/to-service.js'
 
 async function provideService(request, h) {
   const serviceId = request.params?.serviceId

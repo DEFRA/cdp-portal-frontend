@@ -1,11 +1,11 @@
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { runTest } from '~/src/server/test-suites/helpers/fetch'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { runTest } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 
-import { fetchRunnableTestSuiteImageNames } from '~/src/server/test-suites/helpers/fetch/fetch-runnable-test-suite-image-names'
-import { testSuiteValidation } from '~/src/server/test-suites/helpers/schema/test-suite-validation'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
+import { fetchRunnableTestSuiteImageNames } from '~/src/server/test-suites/helpers/fetch/fetch-runnable-test-suite-image-names.js'
+import { testSuiteValidation } from '~/src/server/test-suites/helpers/schema/test-suite-validation.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const triggerTestSuiteRunController = {
   options: {

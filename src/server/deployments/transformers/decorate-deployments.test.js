@@ -1,6 +1,6 @@
-import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments'
-import { servicesFixture } from '~/src/__fixtures__/services'
-import { deploymentsFixture } from '~/src/__fixtures__/deployments'
+import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
+import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
 
 describe('#decorateDeployments', () => {
   test('Should decorate deployable with teams', () => {

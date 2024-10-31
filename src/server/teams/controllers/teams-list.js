@@ -1,5 +1,5 @@
-import { fetchTeams } from '~/src/server/teams/helpers/fetch'
-import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch/index.js'
+import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row.js'
 
 const teamsListController = {
   handler: async (request, h) => {

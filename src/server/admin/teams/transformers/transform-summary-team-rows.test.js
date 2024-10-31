@@ -1,6 +1,6 @@
-import { config } from '~/src/config'
-import { cdpTeamSessionFixture } from '~/src/__fixtures__/admin/cdp-team-session'
-import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows'
+import { config } from '~/src/config/index.js'
+import { cdpTeamSessionFixture } from '~/src/__fixtures__/admin/cdp-team-session.js'
+import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows.js'
 
 const githubOrg = config.get('githubOrg')
 

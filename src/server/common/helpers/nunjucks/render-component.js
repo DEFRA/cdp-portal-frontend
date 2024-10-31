@@ -1,6 +1,7 @@
-import { camelCase, upperFirst } from 'lodash'
+import camelCase from 'lodash/camelCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { nunjucksEnvironment } from '~/src/config/nunjucks'
+import { nunjucksEnvironment } from '~/src/config/nunjucks/index.js'
 
 /**
  * Render component outside of .njk files

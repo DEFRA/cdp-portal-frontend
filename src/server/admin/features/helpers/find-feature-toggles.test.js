@@ -1,4 +1,4 @@
-import { findAllFeatureToggles } from '~/src/server/admin/features/helpers/find-feature-toggles'
+import { findAllFeatureToggles } from '~/src/server/admin/features/helpers/find-feature-toggles.js'
 
 describe('findAllFeatureToggles', () => {
   const keyPrefix = 'feature-toggle:'

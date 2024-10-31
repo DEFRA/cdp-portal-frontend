@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { config } from '~/src/config/index.js'
 
 const githubOrg = config.get('githubOrg')
 
@@ -30,6 +30,7 @@ const testSuiteWithLastRunFixture = {
   ],
   lastRun: {
     created: '2023-04-12T17:16:48Z',
+    taskLastUpdated: '2023-04-12T17:18:48Z',
     testStatus: 'passed'
   },
   testType: 'Smoke'

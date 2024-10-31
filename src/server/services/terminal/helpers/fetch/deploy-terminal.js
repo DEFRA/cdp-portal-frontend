@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { config } from '~/src/config/index.js'
 
 async function deployTerminal(request, serviceId, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-webshell'

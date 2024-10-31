@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import qs from 'qs'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message'
-import { availableInstances } from '~/src/server/deploy-service/constants/available-instances'
-import { optionsValidation } from '~/src/server/deploy-service/helpers/schema/options-validation'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message.js'
+import { availableInstances } from '~/src/server/deploy-service/constants/available-instances.js'
+import { optionsValidation } from '~/src/server/deploy-service/helpers/schema/options-validation.js'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const optionsController = {
   options: {

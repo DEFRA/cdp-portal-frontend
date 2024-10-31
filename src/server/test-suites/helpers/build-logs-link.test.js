@@ -1,4 +1,4 @@
-import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link'
+import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.js'
 
 describe('#buildLogsLink', () => {
   beforeAll(() => {

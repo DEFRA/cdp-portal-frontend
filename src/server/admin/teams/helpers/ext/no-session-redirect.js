@@ -1,6 +1,6 @@
-import { isNull } from 'lodash'
+import isNull from 'lodash/isNull.js'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const noSessionRedirect = {
   method: (request, h) => {

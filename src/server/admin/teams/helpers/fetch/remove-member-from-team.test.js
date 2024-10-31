@@ -1,10 +1,10 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch'
-import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { config } from '~/src/config/index.js'
+import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
+import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#removeUserFromTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'

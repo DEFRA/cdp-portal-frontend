@@ -1,10 +1,10 @@
 import jwt from '@hapi/jwt'
 import { addSeconds } from 'date-fns'
 
-import { config } from '~/src/config'
-import { isUserInAServiceTeam } from '~/src/server/common/helpers/user/is-user-in-a-service-team'
-import { scopes } from '~/src/server/common/constants/scopes'
-import { fetchTeams } from '~/src/server/teams/helpers/fetch'
+import { config } from '~/src/config/index.js'
+import { isUserInAServiceTeam } from '~/src/server/common/helpers/user/is-user-in-a-service-team.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch/index.js'
 
 function removeAuthenticatedUser(request) {
   request.dropUserSession()

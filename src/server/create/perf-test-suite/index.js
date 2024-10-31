@@ -3,7 +3,7 @@ import {
   perfTestSuiteDetailController,
   perfTestSuiteSummaryController,
   perfTestSuiteCreateController
-} from '~/src/server/create/perf-test-suite/controllers'
+} from '~/src/server/create/perf-test-suite/controllers/index.js'
 
 const createPerfTestSuiteRoutes = [
   {

@@ -1,5 +1,5 @@
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#allEnvironmentsOnlyForAdmin', () => {
   const mockRequest = ({ environment, isAdmin }) => ({

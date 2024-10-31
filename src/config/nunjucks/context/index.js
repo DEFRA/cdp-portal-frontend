@@ -1,33 +1,38 @@
+import path from 'node:path'
+import { readFileSync } from 'node:fs'
 import useragent from 'useragent'
-import path from 'path'
 
-import { config } from '~/src/config'
-import { isXhr } from '~/src/server/common/helpers/is-xhr'
-import { createLogger } from '~/src/server/common/helpers/logging/logger'
-import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation'
-import { defaultOption } from '~/src/server/common/helpers/options/default-option'
-import { noValue } from '~/src/server/common/constants/no-value'
-import { userIsTeamMember } from '~/src/server/common/helpers/user/user-is-team-member'
-import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
-import { eventName } from '~/src/client/common/constants/event-name'
+import { config } from '~/src/config/index.js'
+import { isXhr } from '~/src/server/common/helpers/is-xhr.js'
+import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
+import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation.js'
+import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
+import { noValue } from '~/src/server/common/constants/no-value.js'
+import { userIsTeamMember } from '~/src/server/common/helpers/user/user-is-team-member.js'
+import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
+import { eventName } from '~/src/client/common/constants/event-name.js'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')
-
-const manifestPath = path.resolve(
+const manifestPath = path.join(
   config.get('root'),
-  '.public',
-  'manifest.json'
+  '.public/assets-manifest.json'
 )
+/** @type {Record<string, string> | undefined} */
 let webpackManifest
 
-try {
-  webpackManifest = require(manifestPath)
-} catch (error) {
-  logger.error('Webpack Manifest assets file not found')
-}
-
+/**
+ * @param {Request | null} request
+ */
 async function context(request) {
+  if (!webpackManifest) {
+    try {
+      webpackManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
+    } catch (error) {
+      logger.error(error, `Webpack ${path.basename(manifestPath)} not found`)
+    }
+  }
+
   const userAgentHeader = request.headers['user-agent']
   const authedUser = await request.getUserSession()
 
@@ -39,7 +44,7 @@ async function context(request) {
 
   return {
     appBaseUrl: config.get('appBaseUrl'),
-    assetPath,
+    assetPath: `${assetPath}/assets`,
     authedUser,
     blankOption: defaultOption,
     breadcrumbs: [],
@@ -64,3 +69,7 @@ async function context(request) {
 }
 
 export { context }
+
+/**
+ * @import { Request } from '@hapi/hapi'
+ */

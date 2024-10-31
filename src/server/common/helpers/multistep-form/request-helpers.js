@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { saveStepDataRequestHelper } from '~/src/server/common/helpers/multistep-form/save-step-data'
+import { saveStepDataRequestHelper } from '~/src/server/common/helpers/multistep-form/save-step-data.js'
 
 function requestHelpers(urls) {
   return (request, h) => {

@@ -1,4 +1,4 @@
-import { documentationController } from '~/src/server/documentation/controller'
+import { documentationController } from '~/src/server/documentation/controller.js'
 
 const documentation = {
   plugin: {

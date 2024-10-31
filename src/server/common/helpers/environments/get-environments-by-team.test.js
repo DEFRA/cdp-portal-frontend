@@ -1,4 +1,4 @@
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
+import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
 
 describe('#getEnvironmentsByTeam', () => {
   test('Should return expected environments for admin team', () => {

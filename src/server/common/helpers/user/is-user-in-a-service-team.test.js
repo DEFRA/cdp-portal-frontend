@@ -1,5 +1,5 @@
-import { cdpTeamsFixture } from '~/src/__fixtures__/admin/cdp-teams'
-import { isUserInAServiceTeam } from '~/src/server/common/helpers/user/is-user-in-a-service-team'
+import { cdpTeamsFixture } from '~/src/__fixtures__/admin/cdp-teams.js'
+import { isUserInAServiceTeam } from '~/src/server/common/helpers/user/is-user-in-a-service-team.js'
 
 describe('#isUserInAServiceTeam', () => {
   describe('When user is in a service team', () => {

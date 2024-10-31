@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers'
-import { noSessionRedirect } from '~/src/server/teams/helpers/ext/no-session-redirect'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/index.js'
+import { noSessionRedirect } from '~/src/server/teams/helpers/ext/no-session-redirect.js'
 
 const teamDetailsFormController = {
   options: {

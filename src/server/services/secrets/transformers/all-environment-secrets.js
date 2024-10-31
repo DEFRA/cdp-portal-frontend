@@ -1,5 +1,5 @@
-import { config } from '~/src/config'
-import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
+import { config } from '~/src/config/index.js'
+import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
 
 /**
  * Transforms and filters secrets for all environments.

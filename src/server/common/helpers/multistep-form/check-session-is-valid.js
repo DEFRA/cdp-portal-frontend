@@ -1,6 +1,7 @@
-import { isNull, size } from 'lodash'
+import isNull from 'lodash/isNull.js'
+import size from 'lodash/size.js'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 /**
  * If the multistep session data does not exist or is marked as complete. Redirect to the start of the flow

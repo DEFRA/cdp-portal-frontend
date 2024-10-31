@@ -1,4 +1,4 @@
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
+import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
 
 describe('#getDeploymentStatusClassname', () => {
   test('Should provide expected "running" className', () => {

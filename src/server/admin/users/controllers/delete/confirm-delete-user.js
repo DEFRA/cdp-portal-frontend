@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformDeleteUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-delete-user-to-entity-data-list'
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
+import { transformDeleteUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-delete-user-to-entity-data-list.js'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
 
 const confirmDeleteUserController = {
   options: {

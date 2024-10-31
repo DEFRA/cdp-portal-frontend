@@ -1,4 +1,4 @@
-import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu'
+import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu.js'
 
 describe('#cpuToVCpu', () => {
   test('Should provide expected fixed point vCPU value', () => {

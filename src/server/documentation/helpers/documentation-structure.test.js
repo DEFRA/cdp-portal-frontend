@@ -1,5 +1,5 @@
-import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler'
-import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure'
+import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler.js'
+import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure.js'
 
 jest.mock('@aws-sdk/client-s3')
 jest.mock('~/src/server/documentation/helpers/s3-file-handler')

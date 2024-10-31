@@ -1,4 +1,4 @@
-import { config } from '~/src/config'
+import { config } from '~/src/config/index.js'
 
 /**
  * Is this user in any of our CDP teams that have a github team?

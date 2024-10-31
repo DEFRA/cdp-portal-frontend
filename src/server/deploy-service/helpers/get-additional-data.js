@@ -1,15 +1,15 @@
-import { compose } from 'lodash/fp'
+import compose from 'lodash/fp/compose.js'
 
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date'
-import { withEnvironments } from '~/src/server/common/transformers/with-environments'
-import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions'
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
-import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions'
-import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row'
-import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings'
-import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
+import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
+import { withEnvironments } from '~/src/server/common/transformers/with-environments.js'
+import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message.js'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
+import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
+import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row.js'
+import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings.js'
+import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
 
 async function getAdditionalData(imageName) {
   if (!imageName) {

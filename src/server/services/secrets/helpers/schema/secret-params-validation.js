@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team'
+import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
 
 /**
  * Validation for secret params

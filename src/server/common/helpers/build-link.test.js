@@ -1,4 +1,4 @@
-import { buildLink } from '~/src/server/common/helpers/build-link'
+import { buildLink } from '~/src/server/common/helpers/build-link.js'
 
 describe('#buildLink', () => {
   test('Should build expected link', () => {

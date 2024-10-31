@@ -1,10 +1,11 @@
 import Boom from '@hapi/boom'
-import { kebabCase, upperFirst } from 'lodash'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
-import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { environmentSecrets } from '~/src/server/services/secrets/transformers/environment-secrets'
-import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
+import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
+import { environmentSecrets } from '~/src/server/services/secrets/transformers/environment-secrets.js'
+import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
 
 const environmentSecretsController = {
   options: {

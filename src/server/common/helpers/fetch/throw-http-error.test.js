@@ -1,5 +1,5 @@
-import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error'
-import { getErrorSync, NoErrorThrownError } from '~/test-helpers/get-error'
+import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error.js'
+import { getErrorSync, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#throwHttpError', () => {
   const mockJson = {

@@ -1,11 +1,11 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
 import {
   activateCreateServiceDisabledController,
   deactivateCreateServiceDisabledController,
   listFeaturesController
-} from '~/src/server/admin/features/controllers'
-import { scopes } from '~/src/server/common/constants/scopes'
+} from '~/src/server/admin/features/controllers/index.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 

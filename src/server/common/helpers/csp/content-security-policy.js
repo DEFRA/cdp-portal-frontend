@@ -1,6 +1,6 @@
 import Blankie from 'blankie'
 
-import { config, environments } from '~/src/config'
+import { config, environments } from '~/src/config/index.js'
 
 const terminalProxyUrl = config.get('terminalProxyUrl')
 const terminalProxyDomains = [

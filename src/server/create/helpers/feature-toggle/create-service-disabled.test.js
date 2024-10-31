@@ -1,4 +1,4 @@
-import { isCreateServiceFeatureDisabled } from '~/src/server/create/helpers/feature-toggle/create-service-disabled'
+import { isCreateServiceFeatureDisabled } from '~/src/server/create/helpers/feature-toggle/create-service-disabled.js'
 
 describe('isCreateServiceFeatureDisabled', () => {
   const toggleKey = 'feature-toggle:create-service-disabled'

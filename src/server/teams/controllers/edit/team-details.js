@@ -1,12 +1,12 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers'
-import { teamValidation } from '~/src/server/teams/helpers/schema/team-validation'
-import { noSessionRedirect } from '~/src/server/teams/helpers/ext/no-session-redirect'
-import { editTeam } from '~/src/server/admin/teams/helpers/fetch'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/index.js'
+import { teamValidation } from '~/src/server/teams/helpers/schema/team-validation.js'
+import { noSessionRedirect } from '~/src/server/teams/helpers/ext/no-session-redirect.js'
+import { editTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
 
 const teamDetailsController = {
   options: {

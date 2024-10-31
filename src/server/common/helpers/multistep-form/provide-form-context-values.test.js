@@ -1,4 +1,4 @@
-import { provideFormContextValues } from '~/src/server/common/helpers/multistep-form/provide-form-context-values'
+import { provideFormContextValues } from '~/src/server/common/helpers/multistep-form/provide-form-context-values.js'
 
 const buildMockRequest = ({
   variety = 'view',

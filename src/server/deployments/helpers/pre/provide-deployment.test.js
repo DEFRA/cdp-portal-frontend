@@ -1,9 +1,9 @@
-import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment'
-import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment'
-import { deploymentInProgressFixture } from '~/src/__fixtures__/deployment-in-progress'
-import { deploymentSuccessFixture } from '~/src/__fixtures__/deployment-success'
-import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
+import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
+import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment.js'
+import { deploymentInProgressFixture } from '~/src/__fixtures__/deployment-in-progress.js'
+import { deploymentSuccessFixture } from '~/src/__fixtures__/deployment-success.js'
+import { repositoryFixture } from '~/src/__fixtures__/repository.js'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 
 jest.mock('~/src/server/deployments/helpers/fetch/fetch-deployment')
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository')

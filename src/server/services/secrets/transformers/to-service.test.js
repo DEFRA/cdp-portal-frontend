@@ -1,8 +1,8 @@
-import { toService } from '~/src/server/services/secrets/transformers/to-service'
-import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository'
-import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service'
+import { toService } from '~/src/server/services/secrets/transformers/to-service.js'
+import { repositoryFixture } from '~/src/__fixtures__/repository.js'
+import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable.js'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
 
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service')

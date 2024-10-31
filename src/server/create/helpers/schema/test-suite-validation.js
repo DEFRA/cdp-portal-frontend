@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
-import { validation } from '~/src/server/common/constants/validation'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
+import { validation } from '~/src/server/common/constants/validation.js'
+import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
 
 function testSuiteValidation() {
   return Joi.object({

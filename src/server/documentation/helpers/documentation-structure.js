@@ -1,9 +1,9 @@
 import path from 'node:path'
 import { Marked } from 'marked'
-import { startCase } from 'lodash'
+import startCase from 'lodash/startCase.js'
 import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 
-import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler'
+import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler.js'
 
 /** @typedef {{ name: string, contents: string[] }} Folder */
 

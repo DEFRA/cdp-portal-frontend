@@ -1,4 +1,4 @@
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env'
+import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 
 describe('#sortByEnv', () => {
   const unOrderedEnvs = [

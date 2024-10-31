@@ -3,9 +3,9 @@ import Boom from '@hapi/boom'
 import {
   removeAuthenticatedUser,
   updateUserSession
-} from '~/src/server/common/helpers/auth/user-session'
-import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token'
-import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error'
+} from '~/src/server/common/helpers/auth/user-session.js'
+import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
+import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error.js'
 
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args))

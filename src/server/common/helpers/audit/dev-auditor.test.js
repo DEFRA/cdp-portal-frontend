@@ -10,7 +10,7 @@ describe('#DevAuditor', () => {
 
     // Dynamic import needed so we can set jest.setSystemTime before the Joi validation schema is imported
     const auditorImport = await import(
-      '~/src/server/common/helpers/audit/dev-auditor'
+      '~/src/server/common/helpers/audit/dev-auditor.js'
     )
     DevAuditor = auditorImport.DevAuditor
   })

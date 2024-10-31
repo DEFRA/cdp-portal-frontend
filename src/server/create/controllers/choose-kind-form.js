@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { startCase } from 'lodash'
+import startCase from 'lodash/startCase.js'
 
-import { creations } from '~/src/server/create/constants/creations'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
+import { creations } from '~/src/server/create/constants/creations.js'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
 
 const chooseKindFormController = {
   options: {

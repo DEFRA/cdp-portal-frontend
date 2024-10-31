@@ -1,4 +1,4 @@
-import { isFeatureToggleEnabled } from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
+import { isFeatureToggleEnabled } from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup.js'
 
 async function isCreateServiceFeatureDisabled(request) {
   const toggle = await isFeatureToggleEnabled(

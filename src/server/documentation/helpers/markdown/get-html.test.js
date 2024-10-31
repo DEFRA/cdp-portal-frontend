@@ -1,6 +1,6 @@
 import { load } from 'cheerio'
 
-import { getHtml } from '~/src/server/documentation/helpers/markdown/get-html'
+import { getHtml } from '~/src/server/documentation/helpers/markdown/get-html.js'
 
 describe('#getHtml', () => {
   test('Should convert markdown to HTML', async () => {

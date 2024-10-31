@@ -51,16 +51,16 @@
 
 {% set mainClasses = "app-main-wrapper" %}
 
-{% block headIcons %}
-  <link rel="icon" sizes="48x48" href="{{ getAssetPath("images/favicon.ico") }}">
-  <link rel="icon" sizes="any" href="{{ getAssetPath("images/favicon.svg") }}" type="image/svg+xml">
-  <link rel="mask-icon" href="{{ getAssetPath("images/govuk-icon-mask.svg") }}"
-        color="{{ themeColor | default("#0b0c0c") }}"> {#- Hardcoded value of $govuk-black #}
-  <link rel="apple-touch-icon" href="{{ getAssetPath("images/govuk-icon-180.png") }}">
-{% endblock %}
+{#{% block headIcons %}#}
+{#  <link rel="icon" sizes="48x48" href="{{ getAssetPath("images/favicon.ico") }}">#}
+{#  <link rel="icon" sizes="any" href="{{ getAssetPath("images/favicon.svg") }}" type="image/svg+xml">#}
+{#  <link rel="mask-icon" href="{{ getAssetPath("images/govuk-icon-mask.svg") }}"#}
+{#        color="{{ themeColor | default("#0b0c0c") }}"> #}{#- Hardcoded value of $govuk-black #}
+{#  <link rel="apple-touch-icon" href="{{ getAssetPath("images/govuk-icon-180.png") }}">#}
+{#{% endblock %}#}
 
 {% block head %}
-  <link href="{{ getAssetPath("application.css") }}" rel="stylesheet">
+  <link href="{{ getAssetPath("stylesheets/application.scss") }}" rel="stylesheet">
   {% if containerVersion %}
     <meta name="container-version" content="{{ containerVersion }}">
   {% endif %}
@@ -127,5 +127,5 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script src="{{ getAssetPath("application.js") }}"></script>
+  <script type="module" src="{{ getAssetPath("application.js") }}"></script>
 {% endblock %}

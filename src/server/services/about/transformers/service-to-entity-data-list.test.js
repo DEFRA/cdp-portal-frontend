@@ -1,10 +1,10 @@
-import { config } from '~/src/config'
-import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list'
-import { serviceDetailFixture } from '~/src/__fixtures__/service-detail'
-import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
-import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service'
-import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
+import { config } from '~/src/config/index.js'
+import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list.js'
+import { serviceDetailFixture } from '~/src/__fixtures__/service-detail.js'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
+import { repositoryFixture } from '~/src/__fixtures__/repository.js'
+import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'
 
 const githubOrg = config.get('githubOrg')
 

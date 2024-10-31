@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch/fetch-existing-service-info'
-import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { config } from '~/src/config/index.js'
+import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch/fetch-existing-service-info.js'
+import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetchExistingServiceInfo', () => {
   const environment = 'infra-dev'

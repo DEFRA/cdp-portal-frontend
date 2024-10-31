@@ -1,6 +1,6 @@
-import { config } from '~/src/config'
-import { teamFixture } from '~/src/__fixtures__/team'
-import { teamToEntityDataList } from '~/src/server/teams/transformers/team-to-entity-data-list'
+import { config } from '~/src/config/index.js'
+import { teamFixture } from '~/src/__fixtures__/team.js'
+import { teamToEntityDataList } from '~/src/server/teams/transformers/team-to-entity-data-list.js'
 
 const githubOrg = config.get('githubOrg')
 

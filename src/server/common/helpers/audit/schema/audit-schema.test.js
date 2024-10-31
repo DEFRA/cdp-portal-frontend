@@ -7,7 +7,7 @@ describe('#auditSchema', () => {
 
     // Dynamic import needed so we can set jest.setSystemTime before the Joi validation schema is imported
     const schemaImport = await import(
-      '~/src/server/common/helpers/audit/schema/audit-schema'
+      '~/src/server/common/helpers/audit/schema/audit-schema.js'
     )
     auditSchema = schemaImport.auditSchema
   })

@@ -12,3 +12,4 @@ dump.rdb
 
 .envrc
 .eslintcache
+tsconfig.tsbuildinfo

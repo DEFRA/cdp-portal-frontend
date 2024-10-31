@@ -1,21 +1,24 @@
-import path from 'path'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import yar from '@hapi/yar'
 import nunjucks from 'nunjucks'
 import hapiVision from '@hapi/vision'
 
-import { config } from '~/src/config'
-import { context } from '~/src/config/nunjucks/context'
-import * as filters from '~/src/config/nunjucks/filters'
-import * as globals from '~/src/config/nunjucks/globals'
+import { config } from '~/src/config/index.js'
+import { context } from '~/src/config/nunjucks/context/index.js'
+import * as filters from '~/src/config/nunjucks/filters/index.js'
+import * as globals from '~/src/config/nunjucks/globals/index.js'
+
+const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const paths = {
   templates: path.normalize(
-    path.resolve(__dirname, '..', '..', 'server', 'common', 'templates')
+    path.resolve(dirname, '..', '..', 'server', 'common', 'templates')
   ),
   components: path.normalize(
-    path.resolve(__dirname, '..', '..', 'server', 'common', 'components')
+    path.resolve(dirname, '..', '..', 'server', 'common', 'components')
   ),
-  server: path.normalize(path.resolve(__dirname, '..', '..', 'server'))
+  server: path.normalize(path.resolve(dirname, '..', '..', 'server'))
 }
 
 const nunjucksEnvironment = nunjucks.configure(
@@ -52,7 +55,7 @@ const nunjucksConfig = {
     compileOptions: {
       environment: nunjucksEnvironment
     },
-    relativeTo: path.normalize(path.resolve(__dirname, '..', '..')),
+    relativeTo: path.normalize(path.resolve(dirname, '..', '..')),
     path: 'server',
     isCached: config.get('isProduction'),
     context

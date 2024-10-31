@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { deploymentsFixture } from '~/src/__fixtures__/deployments'
-import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { config } from '~/src/config/index.js'
+import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
+import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetchDeployment', () => {
   const deploymentId = '553E4E6B-05D7-4A2E-BF80-02ED34DEF864'

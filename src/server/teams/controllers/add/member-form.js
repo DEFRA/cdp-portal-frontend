@@ -1,16 +1,17 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { filter, uniqBy } from 'lodash'
+import uniqBy from 'lodash/uniqBy.js'
+import filter from 'lodash/filter.js'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import {
   presentUsersToAdd,
   provideCdpTeam
-} from '~/src/server/admin/teams/helpers'
+} from '~/src/server/admin/teams/helpers/index.js'
 import {
   searchCdpUsers,
   fetchCdpTeam
-} from '~/src/server/admin/teams/helpers/fetch'
+} from '~/src/server/admin/teams/helpers/fetch/index.js'
 
 const addMemberFormController = {
   options: {

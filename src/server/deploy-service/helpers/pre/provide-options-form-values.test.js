@@ -1,10 +1,10 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options'
-import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values'
-import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info'
-import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session'
+import { config } from '~/src/config/index.js'
+import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options.js'
+import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values.js'
+import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info.js'
+import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session.js'
 
 describe('#provideOptionsFormValues', () => {
   const mockRequest = (stepData = null) => ({

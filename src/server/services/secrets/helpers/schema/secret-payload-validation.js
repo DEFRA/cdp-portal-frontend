@@ -1,8 +1,8 @@
 import Joi from 'joi'
 
-import { config } from '~/src/config'
-import { validation } from '~/src/server/common/constants/validation'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
+import { config } from '~/src/config/index.js'
+import { validation } from '~/src/server/common/constants/validation.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 /** @type {string[]} */
 const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')

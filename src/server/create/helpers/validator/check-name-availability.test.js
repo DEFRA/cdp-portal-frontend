@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '~/src/config'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability'
-import { repositoryFixture } from '~/src/__fixtures__/repository'
-import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress'
+import { config } from '~/src/config/index.js'
+import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
+import { repositoryFixture } from '~/src/__fixtures__/repository.js'
+import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'
 
 describe('#checkNameAvailability', () => {
   const repositoryName = 'cdp-portal-frontend'

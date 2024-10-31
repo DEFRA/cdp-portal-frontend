@@ -1,6 +1,6 @@
-import { adminUsers } from '~/src/server/admin/users'
-import { adminTeams } from '~/src/server/admin/teams'
-import { features } from '~/src/server/admin/features'
+import { adminUsers } from '~/src/server/admin/users/index.js'
+import { adminTeams } from '~/src/server/admin/teams/index.js'
+import { features } from '~/src/server/admin/features/index.js'
 
 const admin = {
   plugin: {

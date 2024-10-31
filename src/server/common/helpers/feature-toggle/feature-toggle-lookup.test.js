@@ -3,7 +3,7 @@ import {
   findFeatureToggle,
   isFeatureToggleEnabled,
   removeFeatureToggle
-} from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
+} from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup.js'
 
 describe('feature-toggle-lookup', () => {
   const keyPrefix = 'feature-toggle:'

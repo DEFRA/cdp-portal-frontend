@@ -3,7 +3,7 @@ import {
   envTestSuiteDetailController,
   envTestSuiteSummaryController,
   envTestSuiteCreateController
-} from '~/src/server/create/env-test-suite/controllers'
+} from '~/src/server/create/env-test-suite/controllers/index.js'
 
 const createEnvTestSuiteRoutes = [
   {

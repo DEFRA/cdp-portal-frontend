@@ -1,4 +1,4 @@
-import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor'
+import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor.js'
 import { FirehoseClient, PutRecordCommand } from '@aws-sdk/client-firehose'
 
 jest.mock('@aws-sdk/client-firehose')

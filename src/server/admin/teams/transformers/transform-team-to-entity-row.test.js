@@ -1,6 +1,6 @@
-import { config } from '~/src/config'
-import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team'
-import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row'
+import { config } from '~/src/config/index.js'
+import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
+import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row.js'
 
 const githubOrg = config.get('githubOrg')
 

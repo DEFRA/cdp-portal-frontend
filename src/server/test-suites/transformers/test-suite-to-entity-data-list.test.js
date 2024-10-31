@@ -1,8 +1,8 @@
-import { config } from '~/src/config'
-import { testSuiteFixture } from '~/src/__fixtures__/test-suite'
-import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list'
-import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
-import { repositoryFixture } from '~/src/__fixtures__/repository'
+import { config } from '~/src/config/index.js'
+import { testSuiteFixture } from '~/src/__fixtures__/test-suite.js'
+import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list.js'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
+import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 
 const githubOrg = config.get('githubOrg')
 

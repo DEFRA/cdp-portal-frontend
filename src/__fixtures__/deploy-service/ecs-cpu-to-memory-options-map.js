@@ -1,4 +1,4 @@
-import { buildOptions } from '~/src/server/common/helpers/options/build-options'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 
 const ecsCpuToMemoryOptionsMapFixture = {
   512: [

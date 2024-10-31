@@ -1,7 +1,7 @@
 import {
   enableFeatureToggle,
   removeFeatureToggle
-} from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup'
+} from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup.js'
 
 const activateCreateServiceDisabledController = {
   handler: async (request, h) => {

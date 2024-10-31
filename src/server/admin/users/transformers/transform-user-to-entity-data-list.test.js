@@ -1,5 +1,5 @@
-import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user'
-import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
+import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user.js'
+import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list.js'
 
 describe('#transformUserToEntityDataList', () => {
   test('Should provide expected user entity list transformation', () => {

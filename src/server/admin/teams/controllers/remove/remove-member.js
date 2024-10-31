@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
 
 const removeMemberController = {
   options: {

@@ -1,8 +1,8 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope'
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation'
-import { provideTeamSteps } from '~/src/server/admin/teams/helpers/form'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values'
-import { sessionNames } from '~/src/server/common/constants/session-names'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
+import { provideTeamSteps } from '~/src/server/admin/teams/helpers/form/index.js'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import {
   startCreateTeamController,
   createTeamController,
@@ -18,10 +18,10 @@ import {
   removeMemberController,
   teamSummaryController,
   editTeamController
-} from '~/src/server/admin/teams/controllers'
-import { scopes } from '~/src/server/common/constants/scopes'
-import { deleteTeamController } from '~/src/server/admin/teams/controllers/delete/delete-team'
-import { confirmDeleteTeamController } from '~/src/server/admin/teams/controllers/delete/confirm-delete-team'
+} from '~/src/server/admin/teams/controllers/index.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
+import { deleteTeamController } from '~/src/server/admin/teams/controllers/delete/delete-team.js'
+import { confirmDeleteTeamController } from '~/src/server/admin/teams/controllers/delete/confirm-delete-team.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 

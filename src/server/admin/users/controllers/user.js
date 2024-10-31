@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list'
-import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities'
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
+import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list.js'
+import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities.js'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
 
 const userController = {
   options: {

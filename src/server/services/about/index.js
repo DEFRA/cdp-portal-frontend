@@ -2,9 +2,9 @@ import {
   serviceController,
   serviceListController,
   serviceCreateStatusController
-} from '~/src/server/services/about/controllers'
-import { provideTabs } from '~/src/server/services/helpers/provide-tabs'
-import { provideService } from '~/src/server/services/helpers/provide-service'
+} from '~/src/server/services/about/controllers/index.js'
+import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
+import { provideService } from '~/src/server/services/helpers/provide-service.js'
 
 const aboutService = {
   plugin: {

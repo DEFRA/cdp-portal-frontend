@@ -1,4 +1,4 @@
-import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team'
+import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
 
 // TODO remove duplication
 function userIsServiceOwner(authedUser) {

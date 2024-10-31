@@ -1,12 +1,12 @@
 import Boom from '@hapi/boom'
-import { omit } from 'lodash'
+import omit from 'lodash/omit.js'
 
-import { config } from '~/src/config'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation'
-import { secretPayloadValidation } from '~/src/server/services/secrets/helpers/schema/secret-payload-validation'
+import { config } from '~/src/config/index.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
+import { secretPayloadValidation } from '~/src/server/services/secrets/helpers/schema/secret-payload-validation.js'
 
 const updateSecretController = {
   options: {

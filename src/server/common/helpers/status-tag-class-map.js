@@ -1,4 +1,4 @@
-import { creationStatuses } from '~/src/server/common/constants/creation-statuses'
+import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
 
 function statusTagClassMap(status) {
   switch (true) {

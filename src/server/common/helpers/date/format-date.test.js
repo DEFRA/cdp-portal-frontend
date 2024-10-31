@@ -1,4 +1,4 @@
-import { formatDate } from '~/src/server/common/helpers/date/format-date'
+import { formatDate } from '~/src/server/common/helpers/date/format-date.js'
 
 describe('#formatDate', () => {
   beforeAll(() => {

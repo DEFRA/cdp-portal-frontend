@@ -1,4 +1,4 @@
-import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts'
+import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts.js'
 
 function testSuiteToEntityDataList(testSuite) {
   return [

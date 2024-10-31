@@ -2,9 +2,9 @@ import qs from 'qs'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch'
-import { saveToCdpUser } from '~/src/server/admin/users/helpers/form'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
+import { saveToCdpUser } from '~/src/server/admin/users/helpers/form/index.js'
 
 const startEditUserController = {
   options: {

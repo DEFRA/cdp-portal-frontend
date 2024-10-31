@@ -1,4 +1,4 @@
-import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal'
+import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
 
 describe('#canLaunchTerminal', () => {
   const mockRequest = (isAdmin) => ({

@@ -1,4 +1,4 @@
-import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository'
+import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
 
 function repositoriesDecorator(repositories) {
   return function addDetail(service) {

@@ -1,13 +1,13 @@
-import { config } from '~/src/config'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details'
-import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types'
-import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation'
-import { setStepComplete } from '~/src/server/create/helpers/form'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user'
-import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created'
-import { scopes } from '~/src/server/common/constants/scopes'
+import { config } from '~/src/config/index.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types.js'
+import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation.js'
+import { setStepComplete } from '~/src/server/create/helpers/form/index.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const microserviceCreateController = {
   options: {

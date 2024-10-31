@@ -1,5 +1,5 @@
-import { runningServicesFixture } from '~/src/__fixtures__/running-services'
-import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row'
+import { runningServicesFixture } from '~/src/__fixtures__/running-services.js'
+import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row.js'
 
 describe('#runningServicesToEntityRow', () => {
   test('Should provide expected running services transformation', () => {

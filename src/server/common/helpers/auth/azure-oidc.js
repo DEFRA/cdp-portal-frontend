@@ -1,10 +1,10 @@
 import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
-import { config } from '~/src/config'
-import { fetchTeams } from '~/src/server/teams/helpers/fetch'
-import { sessionNames } from '~/src/server/common/constants/session-names'
-import { proxyFetch } from '~/src/server/common/helpers/proxy/proxy-fetch'
+import { config } from '~/src/config/index.js'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch/index.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { proxyFetch } from '~/src/server/common/helpers/proxy/proxy-fetch.js'
 
 async function provideCdpGroups(groups = []) {
   const { teams: teamsWithGithub } = await fetchTeams(true)

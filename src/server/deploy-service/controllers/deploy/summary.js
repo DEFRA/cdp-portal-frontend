@@ -1,12 +1,12 @@
 import Joi from 'joi'
 
-import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text'
-import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options'
-import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
-import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets'
-import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data'
-import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid'
+import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text.js'
+import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows.js'
+import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
+import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
+import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
+import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid.js'
 
 const summaryController = {
   options: {

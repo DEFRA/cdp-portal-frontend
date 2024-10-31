@@ -1,4 +1,4 @@
-import { isNil } from 'lodash'
+import isNil from 'lodash/isNil.js'
 
 function removeNil(obj) {
   return Object.fromEntries(

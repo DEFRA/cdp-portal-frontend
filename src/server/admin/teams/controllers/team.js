@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch'
-import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list'
-import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities'
+import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list.js'
+import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities.js'
 
 const teamController = {
   options: {

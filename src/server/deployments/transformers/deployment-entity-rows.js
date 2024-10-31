@@ -1,8 +1,9 @@
-import { kebabCase, upperFirst } from 'lodash'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname'
-import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user'
-import { augmentStatus } from '~/src/server/deployments/helpers/augment-status'
+import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
+import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
+import { augmentStatus } from '~/src/server/deployments/helpers/augment-status.js'
 
 function deploymentEntityRows(deployments) {
   return deployments?.map(deploymentToEntityRow)

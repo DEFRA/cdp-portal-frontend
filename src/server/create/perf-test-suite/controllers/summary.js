@@ -1,6 +1,6 @@
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
-import { summaryPerfTestSuiteRows } from '~/src/server/create/perf-test-suite/transformers/summary-perf-test-suite-rows'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { summaryPerfTestSuiteRows } from '~/src/server/create/perf-test-suite/transformers/summary-perf-test-suite-rows.js'
 
 const perfTestSuiteSummaryController = {
   options: {

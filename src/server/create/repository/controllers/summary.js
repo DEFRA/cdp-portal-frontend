@@ -1,6 +1,6 @@
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
-import { summaryRepositoryRows } from '~/src/server/create/repository/transformers/summary-repository-rows'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { summaryRepositoryRows } from '~/src/server/create/repository/transformers/summary-repository-rows.js'
 
 const repositorySummaryController = {
   options: {

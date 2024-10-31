@@ -1,11 +1,12 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { kebabCase, upperFirst } from 'lodash'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { config } from '~/src/config'
-import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets'
-import { provideService } from '~/src/server/services/helpers/pre/provide-service'
-import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation'
+import { config } from '~/src/config/index.js'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
+import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
+import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
 
 const immutableKeys = config.get('platformGlobalSecretKeys')
 

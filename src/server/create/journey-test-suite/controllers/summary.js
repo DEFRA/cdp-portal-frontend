@@ -1,6 +1,6 @@
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
-import { summaryTestSuiteRows } from '~/src/server/create/journey-test-suite/transformers/summary-test-suite-rows'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { summaryTestSuiteRows } from '~/src/server/create/journey-test-suite/transformers/summary-test-suite-rows.js'
 
 const testSuiteSummaryController = {
   options: {

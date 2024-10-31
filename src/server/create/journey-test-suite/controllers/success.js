@@ -1,8 +1,8 @@
-import { config } from '~/src/config'
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create'
-import { buildLink } from '~/src/server/common/helpers/build-link'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect'
-import { setStepComplete } from '~/src/server/create/helpers/form'
+import { config } from '~/src/config/index.js'
+import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
+import { buildLink } from '~/src/server/common/helpers/build-link.js'
+import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { setStepComplete } from '~/src/server/create/helpers/form/index.js'
 
 const testSuiteSuccessController = {
   options: {

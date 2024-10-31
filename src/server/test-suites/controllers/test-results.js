@@ -1,8 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { kebabCase, upperFirst } from 'lodash'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { environments } from '~/src/config'
+import { environments } from '~/src/config/index.js'
 
 const testResultsController = {
   options: {

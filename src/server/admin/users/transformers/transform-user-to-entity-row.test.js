@@ -1,6 +1,6 @@
-import { config } from '~/src/config'
-import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user'
-import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row'
+import { config } from '~/src/config/index.js'
+import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user.js'
+import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row.js'
 
 const githubOrg = config.get('githubOrg')
 

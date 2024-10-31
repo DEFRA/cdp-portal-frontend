@@ -1,13 +1,15 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { isNull, kebabCase, upperFirst } from 'lodash'
+import isNull from 'lodash/isNull.js'
+import kebabCase from 'lodash/kebabCase.js'
+import upperFirst from 'lodash/upperFirst.js'
 
-import { environments } from '~/src/config'
-import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment'
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin'
-import { pagination } from '~/src/server/common/constants/pagination'
-import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status'
-import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets'
+import { environments } from '~/src/config/index.js'
+import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
+import { pagination } from '~/src/server/common/constants/pagination.js'
+import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
+import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
 
 const deploymentController = {
   options: {

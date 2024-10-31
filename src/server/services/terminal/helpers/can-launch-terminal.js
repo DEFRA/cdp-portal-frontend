@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 async function canLaunchTerminal(request, environment) {
   const authedUser = await request.getUserSession()

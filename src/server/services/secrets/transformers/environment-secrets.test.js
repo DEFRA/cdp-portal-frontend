@@ -1,5 +1,5 @@
-import { environmentSecrets } from '~/src/server/services/secrets/transformers/environment-secrets'
-import { serviceSecretsWithPendingFixture } from '~/src/__fixtures__/secrets/service-secrets'
+import { environmentSecrets } from '~/src/server/services/secrets/transformers/environment-secrets.js'
+import { serviceSecretsWithPendingFixture } from '~/src/__fixtures__/secrets/service-secrets.js'
 
 describe('#environmentSecrets', () => {
   test('Should return expected environment secret transformation', () => {

@@ -1,5 +1,5 @@
-import { whatsRunningWhereFixture } from '~/src/__fixtures__/whats-running-where'
-import { withEnvironments } from '~/src/server/common/transformers/with-environments'
+import { whatsRunningWhereFixture } from '~/src/__fixtures__/whats-running-where.js'
+import { withEnvironments } from '~/src/server/common/transformers/with-environments.js'
 
 describe('#withEnvironments', () => {
   test('Should provide expected running services transformation', () => {

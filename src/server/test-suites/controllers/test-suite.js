@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch'
-import { shouldPoll } from '~/src/server/test-suites/helpers/should-poll'
-import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite'
-import { transformTestSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results'
-import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options'
-import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list'
-import { provideCanRun } from '~/src/server/test-suites/helpers/pre/provide-can-run'
+import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { shouldPoll } from '~/src/server/test-suites/helpers/should-poll.js'
+import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite.js'
+import { transformTestSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results.js'
+import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options.js'
+import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list.js'
+import { provideCanRun } from '~/src/server/test-suites/helpers/pre/provide-can-run.js'
 
 const testSuiteController = {
   options: {

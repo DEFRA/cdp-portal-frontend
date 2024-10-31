@@ -1,7 +1,7 @@
 import { load } from 'cheerio'
 
-import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav'
-import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure'
+import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav.js'
+import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure.js'
 
 jest.mock('~/src/server/documentation/helpers/documentation-structure')
 
