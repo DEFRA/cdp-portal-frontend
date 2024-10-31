@@ -1,3 +1,8 @@
+@use "govuk-frontend" as *;
+@use "helpers/link" as *;
+@use "variables/border-radius" as *;
+@use "variables/colours" as *;
+
 $note: #0969da;
 $important: #8250df;
 $tip: #1a7f37;
@@ -52,17 +57,17 @@ $caution: #cf222e;
 
   h1 {
     @extend %govuk-heading-xl;
-    margin-bottom: govuk-spacing(3);
+    margin-bottom: govuk-spacing(4);
   }
 
   h2 {
     @extend %govuk-heading-l;
-    margin-bottom: govuk-spacing(2);
+    margin-bottom: govuk-spacing(3);
   }
 
   h3 {
     @extend %govuk-heading-m;
-    margin-bottom: govuk-spacing(1);
+    margin-bottom: govuk-spacing(2);
   }
 
   p {

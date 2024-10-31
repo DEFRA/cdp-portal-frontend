@@ -1,5 +1,5 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { search } from '~/src/server/common/components/search/search'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { search } from '~/src/server/common/components/search/search.js'
 
 describe('#search', () => {
   let searchInput

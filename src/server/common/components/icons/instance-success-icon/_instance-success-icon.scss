@@ -1,3 +1,5 @@
+@use "govuk-frontend" as *;
+
 .app-instance-success {
   fill: govuk-tint(govuk-colour("green"), 30%);
 }

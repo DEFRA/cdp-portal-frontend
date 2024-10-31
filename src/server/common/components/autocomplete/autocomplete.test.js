@@ -1,7 +1,7 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete'
-import { defaultOption } from '~/src/server/common/helpers/options/default-option'
-import { dispatchDomContentLoaded } from '~/test-helpers/dispatch-dom-content-loaded'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
+import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
+import { dispatchDomContentLoaded } from '~/test-helpers/dispatch-dom-content-loaded.js'
 
 const basicSuggestions = [
   defaultOption,

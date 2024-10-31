@@ -1,8 +1,8 @@
 import qs from 'qs'
 
-import { xhrRequest } from '~/src/client/common/helpers/xhr'
-import { subscribe } from '~/src/client/common/helpers/event-emitter'
-import { clientNotification } from '~/src/client/common/helpers/client-notification'
+import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
+import { subscribe } from '~/src/client/common/helpers/event-emitter.js'
+import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
 
 /**
  * Trigger a xhr request from a published, subscribed to event

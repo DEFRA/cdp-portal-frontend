@@ -1,7 +1,7 @@
 import qs from 'qs'
-import { isNull } from 'lodash'
+import isNull from 'lodash/isNull.js'
 
-import { subscribe } from '~/src/client/common/helpers/event-emitter'
+import { subscribe } from '~/src/client/common/helpers/event-emitter.js'
 
 const selectMessage = ' - - select - - '
 const tickSvgIcon = `

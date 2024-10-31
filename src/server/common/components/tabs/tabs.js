@@ -1,5 +1,5 @@
 import qs from 'qs'
-import { history } from '~/src/client/common/helpers/history'
+import { history } from '~/src/client/common/helpers/history.js'
 
 function prependQueryParams($elem, params) {
   const hrefParts = $elem.href.split('?')

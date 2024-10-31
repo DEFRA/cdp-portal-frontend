@@ -1,6 +1,6 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers'
-import { deploymentsFixture } from '~/src/__fixtures__/deployments'
-import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows'
+import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
+import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows.js'
 
 describe('Entity List Component', () => {
   let $entityList

@@ -1,3 +1,6 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+
 .app-entity-list {
   margin-top: 0;
   display: flex;

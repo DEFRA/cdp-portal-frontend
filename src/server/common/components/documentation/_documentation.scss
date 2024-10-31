@@ -1,3 +1,5 @@
+@use "govuk-frontend" as *;
+
 // stylelint-disable max-nesting-depth
 %nested-lists {
   .govuk-list {
@@ -27,6 +29,7 @@
 .app-documentation__container {
   display: flex;
   flex-wrap: wrap;
+  margin: govuk-spacing(4) 0;
 }
 
 .app-documentation__nav-sidebar {

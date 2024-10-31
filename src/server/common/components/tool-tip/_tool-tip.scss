@@ -1,3 +1,6 @@
+@use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
+
 $black-tint: govuk-tint(govuk-colour("black"), 30%);
 
 .app-tool-tip {

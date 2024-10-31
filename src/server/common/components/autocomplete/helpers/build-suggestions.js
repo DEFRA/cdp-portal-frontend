@@ -1,4 +1,5 @@
-import { pickBy, isNil } from 'lodash'
+import pickBy from 'lodash/pickBy.js'
+import isNil from 'lodash/isNil.js'
 
 const defaultSuggestion = {
   text: ' - - select - - ',

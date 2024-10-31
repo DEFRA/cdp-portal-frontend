@@ -1,3 +1,7 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
 .app-summary-item {
   margin-bottom: govuk-spacing(4);
   padding: govuk-spacing(4);

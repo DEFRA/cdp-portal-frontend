@@ -1,7 +1,7 @@
-import { pullAll } from 'lodash'
+import pullAll from 'lodash/pullAll.js'
 
-import { config } from '~/src/config'
-import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name'
+import { config } from '~/src/config/index.js'
+import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
 
 /**
  * Transforms the given secrets by excluding certain keys and sorting the remaining keys.

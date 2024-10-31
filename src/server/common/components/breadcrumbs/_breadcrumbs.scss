@@ -1,5 +1,6 @@
-$font-size: 19;
+@use "govuk-frontend" as *;
 
+$font-size: 19;
 $chevron-size: govuk-em(7px, $font-size);
 $chevron-border-min-width: 1px;
 $chevron-border-width: govuk-em($chevron-border-min-width, $font-size);

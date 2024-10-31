@@ -1,3 +1,5 @@
+@use "variables/border-radius" as *;
+
 .app-tag {
   border-radius: $app-border-radius;
   max-width: 100em;

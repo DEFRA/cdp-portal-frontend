@@ -1,3 +1,8 @@
+@use "govuk-frontend" as *;
+@use "helpers/link" as *;
+@use "variables/border-radius" as *;
+@use "variables/colours" as *;
+
 .app-tabs {
   margin-top: govuk-spacing(1);
 }

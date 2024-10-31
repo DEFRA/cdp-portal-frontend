@@ -1,3 +1,5 @@
+@use "govuk-frontend" as *;
+
 .app-entity {
   @include govuk-text-colour;
   margin-right: govuk-spacing(1);

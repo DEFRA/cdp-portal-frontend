@@ -1,3 +1,7 @@
+@use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
+@use "variables/colours" as *;
+
 .app-warning {
   display: flex;
   align-items: flex-start;
