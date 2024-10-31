@@ -1,4 +1,4 @@
-import { initModule } from '~/src/client/common/helpers/init-module'
+import { initModule } from '~/src/client/common/helpers/init-module.js'
 
 describe('#initModule', () => {
   const mockModule = jest.fn()

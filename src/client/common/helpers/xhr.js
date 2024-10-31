@@ -1,10 +1,10 @@
 import qs from 'qs'
 import { Action } from 'history'
 
-import { history } from '~/src/client/common/helpers/history'
+import { history } from '~/src/client/common/helpers/history.js'
 
-import { publish } from '~/src/client/common/helpers/event-emitter'
-import { eventName } from '~/src/client/common/constants/event-name'
+import { publish } from '~/src/client/common/helpers/event-emitter.js'
+import { eventName } from '~/src/client/common/constants/event-name.js'
 
 /**
  * Update data-xhr elements inside {% block xhrContent %}{% endblock %} with the contents of data-xhr elements

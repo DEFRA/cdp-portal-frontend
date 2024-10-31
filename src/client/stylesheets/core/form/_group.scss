@@ -1,0 +1,23 @@
+@use "govuk-frontend" as *;
+
+.app-form-group {
+  padding-left: 0;
+  border-left: none;
+  margin-bottom: govuk-spacing(6);
+}
+
+.app-form-group--slim {
+  margin-bottom: govuk-spacing(3);
+}
+
+.app-form-group--inline {
+  margin-bottom: 0;
+}
+
+.app-form-group,
+.govuk-form-group--error {
+  & .govuk-error-message {
+    font-weight: normal;
+    @include govuk-font(19);
+  }
+}

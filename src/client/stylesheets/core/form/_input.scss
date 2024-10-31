@@ -1,0 +1,39 @@
+@use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
+
+.app-input {
+  min-width: 12em;
+  border-radius: $app-border-radius;
+  border: 1px solid govuk-colour("mid-grey");
+
+  &:focus {
+    border: 1px solid govuk-colour("black");
+    box-shadow: none;
+  }
+
+  &.govuk-input--error {
+    border-color: govuk-colour("red");
+  }
+
+  &:read-only {
+    border: none;
+    color: govuk-colour("dark-grey");
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.app-input--wide {
+  width: 24em;
+}
+
+.app-input__suffix {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

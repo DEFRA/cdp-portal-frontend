@@ -1,8 +1,8 @@
 import fetchMock from 'jest-fetch-mock'
 
-import { availableVersionsFixture } from '~/src/__fixtures__/available-versions'
-import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete/fetch-versions'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error'
+import { availableVersionsFixture } from '~/src/__fixtures__/available-versions.js'
+import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete/fetch-versions.js'
+import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetchVersions', () => {
   beforeEach(() => {

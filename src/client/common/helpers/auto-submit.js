@@ -1,7 +1,9 @@
 import getFormData from 'get-form-data'
-import { debounce, omit, pickBy } from 'lodash'
+import debounce from 'lodash/debounce.js'
+import omit from 'lodash/omit.js'
+import pickBy from 'lodash/pickBy.js'
 
-import { xhrRequest } from '~/src/client/common/helpers/xhr'
+import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
 
 function handleFormSubmit(event) {
   const form = event.target.closest('form')

@@ -1,0 +1,10 @@
+@use "variables/colours" as *;
+
+.app-section-break {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid $app-mid-grey;
+  padding: 0;
+  margin: govuk-spacing(4) govuk-spacing(-2);
+}

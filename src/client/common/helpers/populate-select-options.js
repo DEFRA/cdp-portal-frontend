@@ -1,6 +1,6 @@
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction.js'
 
-import { clientNotification } from '~/src/client/common/helpers/client-notification'
+import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
 
 function populateSelectOptions($controller) {
   if (!$controller) {

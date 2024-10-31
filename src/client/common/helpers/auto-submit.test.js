@@ -1,5 +1,5 @@
-import { xhrRequest } from '~/src/client/common/helpers/xhr'
-import { autoSubmit } from '~/src/client/common/helpers/auto-submit'
+import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
+import { autoSubmit } from '~/src/client/common/helpers/auto-submit.js'
 
 jest.mock('~/src/client/common/helpers/xhr')
 

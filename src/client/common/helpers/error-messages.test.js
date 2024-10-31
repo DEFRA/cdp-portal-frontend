@@ -1,4 +1,4 @@
-import { errorMessages } from '~/src/client/common/helpers/error-messages'
+import { errorMessages } from '~/src/client/common/helpers/error-messages.js'
 
 describe('#errorMessages', () => {
   let input
