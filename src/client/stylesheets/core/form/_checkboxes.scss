@@ -1,3 +1,5 @@
+@use "govuk-frontend" as *;
+
 .app-checkboxes {
   &.govuk-input--error {
     border-color: govuk-colour("red");
