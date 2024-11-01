@@ -29,8 +29,8 @@ async function fetchDeployableImageNames({ request, scope }) {
       { arrayFormat: 'repeat', addQueryPrefix: true }
     )
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { fetchDeployableImageNames }

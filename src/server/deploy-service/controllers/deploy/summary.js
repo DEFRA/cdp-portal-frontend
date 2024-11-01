@@ -34,7 +34,6 @@ const summaryController = {
       ({ value }) => value === parseInt(stepData?.memory, 10)
     )
 
-    // TODO fix up this silently throwing a 404
     const secrets = await fetchSecrets(stepData.environment, stepData.imageName)
     const secretDetail = transformSecrets(secrets)
 

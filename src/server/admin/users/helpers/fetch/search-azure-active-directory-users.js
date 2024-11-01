@@ -6,8 +6,8 @@ async function searchAzureActiveDirectoryUsers(query) {
     config.get('userServiceBackendUrl') +
     `/aad-users${query ? '?query=' + query : ''}`
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { searchAzureActiveDirectoryUsers }

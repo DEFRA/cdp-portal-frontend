@@ -7,8 +7,8 @@ async function searchCdpUsers(query) {
     '/users' +
     `${query ? `?query=` + query : ''}`
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { searchCdpUsers }

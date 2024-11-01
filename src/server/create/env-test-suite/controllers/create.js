@@ -49,7 +49,7 @@ const envTestSuiteCreateController = {
         config.get('selfServiceOpsUrl') + '/create-env-test-suite'
 
       try {
-        const { json, response } = await request.authedFetcher(
+        const { data, response } = await request.authedFetcher(
           selfServiceOpsCreateEnvTestSuiteEndpointUrl,
           {
             method: 'post',
@@ -64,7 +64,7 @@ const envTestSuiteCreateController = {
           await request.yar.commit(h)
 
           request.yar.flash(sessionNames.notifications, {
-            text: json.message,
+            text: data.message,
             type: 'success'
           })
 
@@ -76,7 +76,7 @@ const envTestSuiteCreateController = {
             )
           )
 
-          return h.redirect(`/test-suites/create-status/${json.repositoryName}`)
+          return h.redirect(`/test-suites/create-status/${data.repositoryName}`)
         }
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {

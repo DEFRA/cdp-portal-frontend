@@ -13,8 +13,8 @@ async function fetchTeams(hasGithub = null) {
 
   const endpoint = config.get('userServiceBackendUrl') + `/teams${queryString}`
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { fetchTeams }

@@ -4,10 +4,10 @@ async function removeMemberFromTeam(request, teamId, userId) {
   const endpoint =
     config.get('userServiceBackendUrl') + `/teams/${teamId}/remove/${userId}`
 
-  const { json } = await request.authedFetcher(endpoint, {
+  const { data } = await request.authedFetcher(endpoint, {
     method: 'patch'
   })
-  return json
+  return data
 }
 
 export { removeMemberFromTeam }

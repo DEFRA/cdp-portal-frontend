@@ -48,7 +48,7 @@ const testSuiteCreateController = {
         config.get('selfServiceOpsUrl') + '/create-tests'
 
       try {
-        const { json, response } = await request.authedFetcher(
+        const { data, response } = await request.authedFetcher(
           selfServiceOpsCreateTestSuiteEndpointUrl,
           {
             method: 'post',
@@ -61,7 +61,7 @@ const testSuiteCreateController = {
           await request.yar.commit(h)
 
           request.yar.flash(sessionNames.notifications, {
-            text: json.message,
+            text: data.message,
             type: 'success'
           })
 

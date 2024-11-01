@@ -4,8 +4,8 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 async function fetchServiceTypes() {
   const endpoint = config.get('portalBackendUrl') + '/service-types'
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { fetchServiceTypes }

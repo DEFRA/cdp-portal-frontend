@@ -4,8 +4,8 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 async function fetchDeployServiceOptions() {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-service/options'
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { fetchDeployServiceOptions }

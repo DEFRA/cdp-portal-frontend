@@ -3,7 +3,7 @@ import { config } from '~/src/config/index.js'
 async function deployTerminal(request, serviceId, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-webshell'
 
-  const { json, response } = await request.authedFetcher(endpoint, {
+  const { data, response } = await request.authedFetcher(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -12,7 +12,7 @@ async function deployTerminal(request, serviceId, environment) {
     })
   })
 
-  return { json, response }
+  return { data, response }
 }
 
 export { deployTerminal }
