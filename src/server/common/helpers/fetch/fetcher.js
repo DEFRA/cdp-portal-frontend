@@ -2,12 +2,12 @@ import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error.js'
+import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 
 /**
  * @param {string} url
  * @param {RequestOptions} options
- * @returns {Promise<{response: ({ok}|*), json: *}>}
+ * @returns {Promise<{data: {object}, response: {Response}}>}
  */
 async function fetcher(url, options = {}) {
   const logger = createLogger()
@@ -21,14 +21,7 @@ async function fetcher(url, options = {}) {
   })
 
   try {
-    const json = await response?.json()
-
-    // status 200-299
-    if (response?.ok) {
-      return { json, response }
-    }
-
-    throwHttpError(json, response)
+    return await handleResponse(response)
   } catch (error) {
     logger.error(error, error.message)
 
@@ -40,5 +33,5 @@ async function fetcher(url, options = {}) {
 
 export { fetcher }
 /**
- * import { RequestOptions } from 'node-fetch'
+ * import { Response, RequestOptions } from 'node-fetch'
  */
