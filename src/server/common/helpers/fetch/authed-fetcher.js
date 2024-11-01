@@ -5,7 +5,7 @@ import {
   updateUserSession
 } from '~/src/server/common/helpers/auth/user-session.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
-import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error.js'
+import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args))
@@ -17,7 +17,6 @@ function authedFetcher(request) {
 
     const fetchWithAuth = (token) => {
       request.logger.debug('Fetching with auth')
-      request.logger.debug(`Token length is: ${token?.length}`)
 
       return fetch(url, {
         ...options,
@@ -61,14 +60,7 @@ function authedFetcher(request) {
       }
 
       try {
-        const json = await response.json()
-
-        // status 200-299
-        if (response?.ok) {
-          return { json, response }
-        }
-
-        return throwHttpError(json, response)
+        return await handleResponse(response)
       } catch (error) {
         request.logger.error(error, error.message)
 
