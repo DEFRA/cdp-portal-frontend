@@ -4,8 +4,8 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 async function fetchTestRun(testRunId) {
   const endpoint = config.get('portalBackendUrl') + `/test-run/${testRunId}`
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { fetchTestRun }

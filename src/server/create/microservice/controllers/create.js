@@ -57,7 +57,7 @@ const microserviceCreateController = {
         config.get('selfServiceOpsUrl') + '/create-microservice'
 
       try {
-        const { json, response } = await request.authedFetcher(
+        const { data, response } = await request.authedFetcher(
           selfServiceOpsCreateServiceEndpointUrl,
           {
             method: 'post',
@@ -72,7 +72,7 @@ const microserviceCreateController = {
           await request.yar.commit(h)
 
           request.yar.flash(sessionNames.notifications, {
-            text: json.message,
+            text: data.message,
             type: 'success'
           })
 
@@ -84,7 +84,7 @@ const microserviceCreateController = {
             )
           )
 
-          return h.redirect(`/services/create-status/${json.repositoryName}`)
+          return h.redirect(`/services/create-status/${data.repositoryName}`)
         }
       } catch (error) {
         request.logger.debug({ error }, 'Create service call failed')

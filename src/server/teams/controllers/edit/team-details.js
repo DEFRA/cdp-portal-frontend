@@ -48,13 +48,12 @@ const teamDetailsController = {
     if (!validationResult.error) {
       const cdpTeam = request.pre?.cdpTeam
 
-      const response = await editTeam(request, cdpTeam.teamId, {
+      const { data, response } = await editTeam(request, cdpTeam.teamId, {
         name: cdpTeam.name,
         description: sanitisedPayload.description,
         github: cdpTeam.github,
         ...(cdpTeam.serviceCode && { serviceCodes: [cdpTeam.serviceCode] })
       })
-      const json = await response.json()
 
       if (response?.ok) {
         request.yar.clear(sessionNames.cdpTeam)
@@ -69,7 +68,7 @@ const teamDetailsController = {
         return h.redirect(`/teams/${teamId}`)
       }
 
-      request.yar.flash(sessionNames.globalValidationFailures, json.message)
+      request.yar.flash(sessionNames.globalValidationFailures, data.message)
 
       return h.redirect(`/teams/${teamId}/team-details`)
     }

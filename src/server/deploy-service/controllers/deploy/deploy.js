@@ -21,7 +21,7 @@ const deployController = {
       config.get('selfServiceOpsUrl') + '/deploy-service'
 
     try {
-      const { json, response } = await request.authedFetcher(
+      const { data, response } = await request.authedFetcher(
         deployServiceEndpointUrl,
         {
           method: 'post',
@@ -45,7 +45,7 @@ const deployController = {
           type: 'success'
         })
 
-        const deploymentId = json.deploymentId
+        const deploymentId = data.deploymentId
 
         request.audit.sendMessage({
           event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,

@@ -14,7 +14,7 @@ describe('#fetcher', () => {
       .get(librariesEndpointUrl.pathname)
       .reply(200, librariesFixture)
 
-    const { json: librariesResponse } = await fetcher(librariesEndpoint)
+    const { data: librariesResponse } = await fetcher(librariesEndpoint)
 
     expect(librariesResponse).toEqual(librariesFixture)
   })

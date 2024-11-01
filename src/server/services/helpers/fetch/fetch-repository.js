@@ -5,8 +5,8 @@ async function fetchRepository(repositoryId) {
   const endpoint =
     config.get('portalBackendUrl') + `/repositories/${repositoryId}`
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { fetchRepository }

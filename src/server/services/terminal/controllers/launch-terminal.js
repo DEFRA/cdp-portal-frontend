@@ -25,7 +25,7 @@ const launchTerminalController = {
     try {
       await canLaunchTerminal(request, environment)
 
-      const { response, json } = await deployTerminal(
+      const { response, data } = await deployTerminal(
         request,
         serviceId,
         environment
@@ -33,7 +33,7 @@ const launchTerminalController = {
 
       if (response?.ok) {
         return h.redirect(
-          `/services/${json.service}/terminal/${json.environment}/${json.token}`
+          `/services/${data.service}/terminal/${data.environment}/${data.token}`
         )
       }
     } catch (error) {

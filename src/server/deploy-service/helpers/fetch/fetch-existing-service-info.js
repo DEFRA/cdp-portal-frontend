@@ -6,9 +6,9 @@ async function fetchExistingServiceInfo(environment, imageName) {
     const endpoint =
       config.get('portalBackendUrl') +
       `/v2/deployment-config/${imageName}/${environment}`
-    const { json } = await fetcher(endpoint)
+    const { data } = await fetcher(endpoint)
 
-    return json
+    return data
   } catch (error) {
     if (error.output.statusCode === 404) {
       return null

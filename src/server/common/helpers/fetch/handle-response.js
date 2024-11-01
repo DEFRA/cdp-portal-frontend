@@ -12,11 +12,11 @@ async function handleResponse(response) {
     data = null
   }
 
-  if (contentType?.startsWith('application/json;')) {
+  if (contentType?.startsWith('application/json')) {
     data = await response.json()
   }
 
-  if (contentType?.startsWith('text/plain;')) {
+  if (contentType?.startsWith('text/plain')) {
     data = await response.text()
   }
 

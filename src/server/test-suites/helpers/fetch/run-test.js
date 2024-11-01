@@ -3,7 +3,7 @@ import { config } from '~/src/config/index.js'
 async function runTest(request, imageName, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-test-suite'
 
-  const { json, response } = await request.authedFetcher(endpoint, {
+  const { response } = await request.authedFetcher(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -12,7 +12,7 @@ async function runTest(request, imageName, environment) {
     })
   })
 
-  return { json, response }
+  return { response }
 }
 
 export { runTest }

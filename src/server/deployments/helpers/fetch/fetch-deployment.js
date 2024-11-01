@@ -4,12 +4,12 @@ import { config } from '~/src/config/index.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
 // Portal Backend returns empty array for not found deployments
-function checkDeployment(json) {
-  if (json?.length === 0) {
+function checkDeployment(data) {
+  if (data?.length === 0) {
     throw Boom.boomify(Boom.notFound())
   }
 
-  return json
+  return data
 }
 
 async function fetchDeployment(deploymentId) {
@@ -17,8 +17,8 @@ async function fetchDeployment(deploymentId) {
     const endpoint =
       config.get('portalBackendUrl') + `/v2/deployments/${deploymentId}`
 
-    const { json } = await fetcher(endpoint)
-    return checkDeployment(json)
+    const { data } = await fetcher(endpoint)
+    return checkDeployment(data)
   } catch (error) {
     if (error.output.statusCode === 404) {
       throw Boom.boomify(Boom.notFound())

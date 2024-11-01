@@ -10,8 +10,8 @@ async function fetchRepositories(teamId = null) {
     config.get('portalBackendUrl') +
     `/repositories${teamId ? `?team=${teamId}` : ''}`
 
-  const { json } = await fetcher(endpoint)
-  return json
+  const { data } = await fetcher(endpoint)
+  return data
 }
 
 export { fetchRepositories }
