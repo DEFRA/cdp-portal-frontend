@@ -177,17 +177,17 @@
 
                           <span class="govuk-!-margin-right-1">
                           {% call appToolTip({
-                            text: tooltipText | title,
+                            text: "Instance " + tooltipText | title,
                             classes: "app-tool-tip--small"
                           }) %}
                             {% if instance.status === "running" %}
-                              {{ appInstanceSuccessIcon() }}
+                              {{ appInstanceSuccessIcon({ description: "Instance running" }) }}
                             {% elseif instance.status === "stopped" and deployment.unstable === true %}
-                              {{ appInstanceFailedIcon() }}
+                              {{ appInstanceFailedIcon({ description: "Instance failed to start" }) }}
                             {% elseif instance.status === "stopped" %}
-                              {{ appInstanceStoppedIcon() }}
+                              {{ appInstanceStoppedIcon({ description: "Instance stopped" }) }}
                             {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
-                              {{ appInstancePendingIcon() }}
+                              {{ appInstancePendingIcon({ description: "Instance pending" }) }}
                             {% endif %}
                           {% endcall %}
                         </span>
