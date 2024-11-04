@@ -2,7 +2,7 @@ import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-err
 
 /**
  * @param {Response} response
- * @returns {Promise<{data: {object}, response: {Response}}>}
+ * @returns {Promise<{data: {object} | string | null, response: {Response}}>}
  */
 async function handleResponse(response) {
   const contentType = response.headers.get('content-type')
