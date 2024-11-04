@@ -8,17 +8,24 @@
 {# Construct table rows, tables and html contents #}
 {% set iconHtml %}
   {% call appToolTip({
-    text: "Available",
+    text: "Secret available",
     classes: "app-tool-tip--small"
   }) %}
-    {{ appTickIcon({ classes: "app-icon-tiny" }) }}
+    {{ appTickIcon({ classes: "app-icon-tiny", description: "Secret available" }) }}
   {% endcall %}
 {% endset %}
 
 {% set tableRows = [] %}
 {% for key in params.keys %}
   {% set row = [
-    { html: appTag({ text: key, classes: "govuk-tag--green" }) },
+    { html: appTag({
+      text: key,
+      classes: "govuk-tag--green",
+      attributes: {
+        "title": "Service secret key",
+        "aria-label": "Service secret key"
+      }
+    }) },
     { html: iconHtml, classes: "app-!-width-one-tenth" }
   ] %}
   {% set tableRows = tableRows | union([row]) %}
@@ -26,7 +33,14 @@
 
 {% for platformKey in params.platformKeys %}
   {% set row = [
-    { html: appTag({ text: platformKey, classes: "govuk-tag--grey" }) },
+    { html: appTag({
+      text: platformKey,
+      classes: "govuk-tag--grey",
+      attributes: {
+        "title": "Platform secret key",
+        "aria-label": "Platform secret key"
+      }
+    }) },
     { html: iconHtml, classes: "app-!-width-one-tenth" }
   ] %}
   {% set tableRows = tableRows | union([row]) %}
