@@ -167,7 +167,10 @@
           {% for tip in tips -%}
             <li>
               <div class="app-!-layout-flex-start">
-                {{ appInfoIcon({ classes: "app-icon-tiny govuk-!-margin-right-2" }) }} {{ tip }}
+                {{ appInfoIcon({
+                  classes: "app-icon-tiny govuk-!-margin-right-2",
+                  description: "Info"
+                }) }} {{ tip }}
               </div>
             </li>
           {% endfor %}
@@ -181,7 +184,10 @@
           {% for warning in warnings -%}
             <li>
               <div class="app-!-layout-flex-start">
-                {{ appWarningIcon({ classes: "app-icon-tiny govuk-!-margin-right-2" }) }} {{ warning }}
+                {{ appWarningIcon({
+                  classes: "app-icon-tiny govuk-!-margin-right-2",
+                  description: "Warning"
+                }) }} {{ warning }}
               </div>
             </li>
           {% endfor %}

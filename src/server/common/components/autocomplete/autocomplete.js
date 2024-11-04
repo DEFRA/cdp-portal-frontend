@@ -13,7 +13,7 @@ const tickSvgIcon = `
  * @property {string} text
  * @property {string} [hint]
  * @property {boolean} [disabled]
- * @property {Record<string, string|number|boolean>} [atttributes]
+ * @property {Record<string, string|number|boolean>} [attributes]
  */
 
 /**

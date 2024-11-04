@@ -38,7 +38,7 @@
 
   <div class="app-search" data-js="app-search" data-testid="app-search">
     <div class="app-search__control">
-      {{ appSearchIcon() }}
+      {{ appSearchIcon({ description: params.iconDescription }) }}
       <input type="text"
              name="{{ params.name }}"
              id="{{ params.id }}"
@@ -61,7 +61,7 @@
               data-js="app-search-clear-button"
               data-testid="app-search-clear-button"
       >
-        {{ appCancelIcon({ title: "Clear GitHub Team" }) }}
+        {{ appCancelIcon({ description: "Clear GitHub Team" }) }}
       </button>
     </div>
   </div>

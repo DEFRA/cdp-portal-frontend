@@ -5,7 +5,6 @@
 {% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/logs-icon/macro.njk" import appLogsIcon %}
-{% from "icons/web-icon/macro.njk" import appWebIcon %}
 {% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
@@ -67,7 +66,7 @@
           {% if service.isFrontend %}
             {% call appSummaryItem({
               heading: "Application links",
-              icon: appGlobeIcon({ classes: "app-icon-small"}),
+              icon: appGlobeIcon({ classes: "app-icon-small", description: "Frontend application links" }),
               intro: {
                 text: "Access your service in CDP environments."
               }
@@ -94,7 +93,7 @@
           {% if service.isBackend %}
             {% call appSummaryItem({
               heading: "API root urls",
-              icon: appGlobeIcon({ classes: "app-icon-small"}),
+              icon: appGlobeIcon({ classes: "app-icon-small", description: "Frontend application links"}),
               intro: {
                 text: "Service backend API urls. These are intended to be called from a frontend."
               }
@@ -186,7 +185,7 @@
 
           {% call appSummaryItem({
             heading: "Builds",
-            icon: appCheckIcon({ classes: "app-icon-small"}),
+            icon: appCheckIcon({ classes: "app-icon-small", description: "Builds" }),
             intro: {
               text: "Test, build and publish ready-to-deploy docker images of your service, with GitHub Actions."
             }
@@ -201,7 +200,7 @@
 
           {% call appSummaryItem({
             heading: "Published Images",
-            icon: appInstanceIcon({ classes: "app-icon-small"}),
+            icon: appInstanceIcon({ classes: "app-icon-small", description: "Published Images" }),
             intro: {
               text: "Latest built and published Docker images by version."
             }
