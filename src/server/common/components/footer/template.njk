@@ -1,30 +1,44 @@
 {% from "icons/github-icon/macro.njk" import appGithubIcon %}
 
 <footer class="app-footer" role="contentinfo" data-testid="app-footer">
-  <div class="govuk-body">
-    <div class="app-row">
-      <div class="app-row__item-flex-two">
-        <p>
-          If you have a question, idea or suggestion. Contact the Platform team via Slack
-          <a class="app-link-underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
-             rel="noopener noreferrer">#cdp-support</a>
-        </p>
 
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="{{ supportChannel }}" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/cookies" class="app-footer__link">Cookies</a>
+        </li>
+      </ul>
+
+      {% if containerVersion %}
         <ul class="app-footer__list">
           <li class="app-footer__list-item">
-            <a href="/documentation" class="app-link-underline app-link--text-colour">Documentation</a>
-          </li>
-          <li class="app-footer__list-item">
-            <a href="/cookies" class="app-link-underline app-link--text-colour">Cookies</a>
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/{{ containerVersion }}"
+               target="_blank" rel="noopener noreferrer">{{ containerVersion }}</a>
           </li>
         </ul>
-      </div>
+      {% endif %}
+    </div>
 
-      <div class="app-row__item-flex-two app-!-layout-right-aligned">
-        <a class="app-link-underline app-link--text-colour" href="https://github.com/DEFRA/cdp-portal-frontend"
-           target="_blank"
-           rel="noopener noreferrer">{{ appGithubIcon({ classes: "app-icon-small" }) }}</a>
-      </div>
+    <div class="app-footer__secondary">
+      <a class="app-footer__link"
+         href="https://github.com/DEFRA/cdp-portal-frontend"
+         target="_blank"
+         rel="noopener noreferrer">{{ appGithubIcon({
+          classes: "app-icon-small",
+          description: "CDP Portal Frontend repository on GitHub"
+        }) }}</a>
     </div>
   </div>
+
 </footer>

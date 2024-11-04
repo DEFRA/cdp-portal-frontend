@@ -1,11 +1,33 @@
 @use "govuk-frontend" as *;
 @use "variables/colours" as *;
+@use "helpers/link" as *;
 
 .app-footer {
   padding: govuk-spacing(6);
   min-height: govuk-spacing(8);
   border-top: 1px solid $app-grey;
   background-color: $app-light-grey;
+}
+
+.app-footer__link {
+  @include app-link-underline;
+  @include govuk-link-style-text;
+}
+
+.app-footer__row {
+  @extend %govuk-body-m;
+  display: grid;
+  gap: govuk-spacing(4);
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: flex-start;
+}
+
+.app-footer__secondary {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .app-footer__list {
