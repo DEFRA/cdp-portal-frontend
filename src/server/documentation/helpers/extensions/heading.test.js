@@ -9,9 +9,8 @@ describe('#headingExtension', () => {
     const $heading = $html('h1')
     const $anchor = $heading.find('a')
 
-    expect($heading.text()).toContain('Introduction')
-
+    expect($heading).toHaveLength(1)
     expect($anchor.attr('href')).toBe('#introduction')
-    expect($anchor.text()).toBe('#')
+    expect($anchor.text()).toBe('Introduction')
   })
 })
