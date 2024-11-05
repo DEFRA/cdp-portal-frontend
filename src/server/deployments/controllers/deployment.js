@@ -27,6 +27,8 @@ const deploymentController = {
   },
   handler: (request, h) => {
     const deployment = request.pre.deployment
+    const environment = deployment.environment
+    const formattedEnvironment = upperFirst(kebabCase(environment))
 
     // TODO update to use new polling helpers
     if (isNull(deployment)) {
@@ -36,9 +38,9 @@ const deploymentController = {
     const secretDetail = transformSecrets(deployment.secrets)
 
     return h.view('deployments/views/deployment', {
-      pageTitle: `${deployment.service} Service Deployment`,
-      heading: 'Deployment',
-      caption: 'Microservice deployment information.',
+      pageTitle: `${deployment.service} deployment - ${formattedEnvironment}`,
+      heading: `${formattedEnvironment} deployment - ${deployment.service} - ${deployment.version}`,
+      caption: `Microservice deployment information for version ${deployment.version} of ${deployment.service} in the ${formattedEnvironment} environment.`,
       deployment,
       secretDetail,
       teams: deployment?.teams?.filter((team) => team.teamId),
@@ -48,8 +50,8 @@ const deploymentController = {
           href: `/deployments?page=${pagination.page}&size=${pagination.size}`
         },
         {
-          text: upperFirst(kebabCase(deployment.environment)),
-          href: `/deployments/${deployment.environment}?page=${pagination.page}&size=${pagination.size}`
+          text: formattedEnvironment,
+          href: `/deployments/${environment}?page=${pagination.page}&size=${pagination.size}`
         },
         {
           text: `${deployment.service} - ${deployment.version}`
