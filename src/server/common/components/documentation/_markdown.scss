@@ -44,7 +44,7 @@ $caution: #cf222e;
   }
 
   a {
-    @include app-link;
+    @include app-link-underline;
   }
 
   img {
@@ -53,6 +53,30 @@ $caution: #cf222e;
 
   .anchor-link {
     @include govuk-font(19);
+  }
+
+  .heading-link {
+    @include app-link;
+    @include govuk-link-style-text;
+
+    &::before {
+      color: govuk-colour("black");
+      content: "#";
+      display: inline-block;
+      @include govuk-font(27);
+      text-align: center;
+      margin-left: -1em;
+      width: 1em;
+      padding: govuk-spacing(1) 0;
+      text-decoration: none;
+      visibility: hidden;
+    }
+
+    &:hover {
+      &::before {
+        visibility: visible;
+      }
+    }
   }
 
   h1 {

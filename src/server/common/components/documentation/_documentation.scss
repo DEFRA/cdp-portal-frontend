@@ -1,4 +1,5 @@
 @use "govuk-frontend" as *;
+@use "helpers/link" as *;
 
 // stylelint-disable max-nesting-depth
 %nested-lists {
@@ -38,9 +39,13 @@
   margin-top: govuk-spacing(4);
   position: sticky;
   top: govuk-spacing(6);
-  padding-right: govuk-spacing(4);
 
   @extend %nested-lists;
+
+  .app-link {
+    @include app-link;
+    @include govuk-link-style-text;
+  }
 
   .is-active {
     text-decoration: underline;
@@ -53,6 +58,7 @@ $govuk-wrapper-margin: 60px;
 .app-documentation__body {
   height: 100%;
   width: calc(65% - $govuk-wrapper-margin);
+  margin: 0 govuk-spacing(4);
 
   @include govuk-media-query($from: desktop-huge) {
     width: 60%;
@@ -69,9 +75,13 @@ $govuk-wrapper-margin: 60px;
   margin-top: govuk-spacing(4);
   position: sticky;
   top: govuk-spacing(6);
-  padding-left: govuk-spacing(4);
 
   @extend %nested-lists;
+
+  .app-link {
+    @include app-link;
+    @include govuk-link-style-text;
+  }
 }
 
 .app-documentation__generated-from {

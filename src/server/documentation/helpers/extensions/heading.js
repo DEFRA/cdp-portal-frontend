@@ -6,8 +6,7 @@ const headingExtension = {
     const internalAnchorId = text.toLowerCase().replace(/\W+/g, '-')
 
     return `<h${level} id="${internalAnchorId}">
-                ${text}
-                <a class="anchor-link" href="#${internalAnchorId}">#</a>
+                <a class="heading-link" href="#${internalAnchorId}">${text}</a>
               </h${level}>`
   }
 }

@@ -12,10 +12,10 @@ describe('#getHtml', () => {
     const $headingAnchor = $heading.find('a')
     const $paragraph = $html('p')
 
-    expect($heading.text()).toContain('Heading')
+    expect($heading).toHaveLength(1)
 
     expect($headingAnchor.attr('href')).toBe('#heading')
-    expect($headingAnchor.text()).toBe('#')
+    expect($headingAnchor.text()).toContain('Heading')
 
     expect($paragraph.text()).toBe('This is a paragraph.')
   })
