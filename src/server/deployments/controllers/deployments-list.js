@@ -39,6 +39,7 @@ const deploymentsListController = {
   },
   handler: async (request, h) => {
     const environment = request.params?.environment
+    const formattedEnvironment = upperFirst(kebabCase(environment))
 
     const filtersResponse = await fetchFilters()
     const serviceFilters = buildSuggestions(
@@ -91,9 +92,9 @@ const deploymentsListController = {
     )(deployments)
 
     return h.view('deployments/views/list', {
-      pageTitle: 'Deployments',
-      heading: 'Deployments',
-      caption: 'Microservice deployment details.',
+      pageTitle: `${formattedEnvironment} deployments`,
+      heading: `${formattedEnvironment} deployments`,
+      caption: `${formattedEnvironment} microservice deployment details.`,
       serviceFilters,
       userFilters,
       statusFilters,
@@ -110,7 +111,7 @@ const deploymentsListController = {
           href: `/deployments?page=${pagination.page}&size=${pagination.size}`
         },
         {
-          text: upperFirst(kebabCase(environment))
+          text: formattedEnvironment
         }
       ]
     })
