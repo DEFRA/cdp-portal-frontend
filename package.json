@@ -81,7 +81,6 @@
     "qs": "6.13.0",
     "semver": "7.6.3",
     "undici": "6.20.1",
-    "useragent": "2.3.0",
     "uuid": "11.0.2"
   },
   "devDependencies": {
