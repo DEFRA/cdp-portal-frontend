@@ -3,13 +3,23 @@ import { ecsFormat } from '@elastic/ecs-pino-format'
 import { config } from '~/src/config/index.js'
 
 const logConfig = config.get('log')
-const containerVersion = config.get('containerVersion')
+const serviceName = config.get('serviceName')
+const serviceVersion = config.get('serviceVersion')
 
 /**
  * @type {{ecs: Omit<LoggerOptions, "mixin"|"transport">, "pino-pretty": {transport: {target: string}}}}
  */
 const formatters = {
-  ecs: ecsFormat(),
+  ecs: {
+    ...ecsFormat(),
+    base: {
+      service: {
+        name: serviceName,
+        type: 'nodeJs',
+        version: serviceVersion
+      }
+    }
+  },
   'pino-pretty': { transport: { target: 'pino-pretty' } }
 }
 
@@ -19,7 +29,6 @@ const formatters = {
 export const loggerOptions = {
   enabled: logConfig.enabled,
   ignorePaths: ['/health'],
-  base: { container_version: containerVersion },
   redact: {
     paths: logConfig.redact,
     remove: true

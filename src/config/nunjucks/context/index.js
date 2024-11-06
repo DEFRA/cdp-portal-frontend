@@ -48,7 +48,7 @@ async function context(request) {
     authedUser,
     blankOption: defaultOption,
     breadcrumbs: [],
-    containerVersion: config.get('containerVersion'),
+    serviceVersion: config.get('serviceVersion'),
     eventName,
     getAssetPath,
     githubOrg: config.get('githubOrg'),

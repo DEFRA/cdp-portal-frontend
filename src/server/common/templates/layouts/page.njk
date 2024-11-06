@@ -53,8 +53,8 @@
 
 {% block head %}
   <link href="{{ getAssetPath("stylesheets/application.scss") }}" rel="stylesheet">
-  {% if containerVersion %}
-    <meta name="container-version" content="{{ containerVersion }}">
+  {% if serviceVersion %}
+    <meta name="service-version" content="{{ serviceVersion }}">
   {% endif %}
 {% endblock %}
 

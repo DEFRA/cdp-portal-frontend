@@ -14,12 +14,12 @@ const isTest = process.env.NODE_ENV === 'test'
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 const config = convict({
-  containerVersion: {
-    doc: 'The container version, this variable is injected into your docker container in CDP environments',
+  serviceVersion: {
+    doc: 'The service version, this variable is injected into your docker container in CDP environments',
     format: String,
     nullable: true,
     default: null,
-    env: 'CONTAINER_VERSION'
+    env: 'SERVICE_VERSION'
   },
   port: {
     doc: 'The port to bind.',
@@ -235,7 +235,7 @@ const config = convict({
       format: Array,
       default: isProduction
         ? ['req.headers.authorization', 'req.headers.cookie', 'res.headers']
-        : ['req', 'res', 'container_version', 'responseTime']
+        : ['req', 'res', 'responseTime']
     }
   },
   azureTenantId: {
