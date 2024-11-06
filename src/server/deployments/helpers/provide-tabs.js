@@ -11,7 +11,10 @@ async function provideTabs(request, h) {
       response.source.context = {}
     }
 
-    response.source.context.tabs = [
+    response.source.context.tabDetails = {
+      label: 'Deployment tabs'
+    }
+    response.source.context.tabDetails.tabs = [
       {
         isActive: request.path.startsWith('/deployments/dev'),
         url: `/deployments/dev${paginationParams}`,
@@ -35,7 +38,7 @@ async function provideTabs(request, h) {
     ]
 
     if (authedUser?.isAdmin) {
-      response.source.context.tabs.unshift(
+      response.source.context.tabDetails.tabs.unshift(
         {
           isActive: request.path.startsWith('/deployments/infra-dev'),
           url: `/deployments/infra-dev${paginationParams}`,

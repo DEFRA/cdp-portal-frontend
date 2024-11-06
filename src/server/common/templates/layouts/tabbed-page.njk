@@ -4,7 +4,7 @@
 
   {% block beforeTabContent %}{% endblock %}
 
-  {% call appTabs({ tabs: tabs, displayTabs: displayTabs }) %}
+  {% call appTabs(tabDetails) %}
     {% block tabContent %}{% endblock %}
   {% endcall %}
 
