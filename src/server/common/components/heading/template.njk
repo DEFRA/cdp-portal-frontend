@@ -7,7 +7,7 @@
 
     {% if params.caption %}
       <span class="govuk-caption-m"
-            data-testid="app-heading-caption">{{ params.caption }}</span>
+            data-testid="app-heading-caption">{{ params.caption | safe }}</span>
     {% endif %}
 
     {% if params.entities | length %}
