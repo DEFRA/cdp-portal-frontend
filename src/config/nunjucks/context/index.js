@@ -1,9 +1,9 @@
 import path from 'node:path'
 import { readFileSync } from 'node:fs'
-import useragent from 'useragent'
 
 import { config } from '~/src/config/index.js'
 import { isXhr } from '~/src/server/common/helpers/is-xhr.js'
+import { isIe } from '~/src/config/nunjucks/context/is-ie.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation.js'
 import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
@@ -33,7 +33,6 @@ async function context(request) {
     }
   }
 
-  const userAgentHeader = request.headers['user-agent']
   const authedUser = await request.getUserSession()
 
   function getAssetPath(asset) {
@@ -54,7 +53,7 @@ async function context(request) {
     githubOrg: config.get('githubOrg'),
     isAdmin: authedUser?.isAdmin ?? false,
     isAuthenticated: authedUser?.isAuthenticated ?? false,
-    isIe: useragent.is(userAgentHeader).ie,
+    isIe: isIe(request.headers['user-agent']),
     isTenant: authedUser?.isTenant ?? false,
     isXhr: isXhr.call(request),
     navigation: await buildNavigation(request),
@@ -62,7 +61,6 @@ async function context(request) {
     routeLookup: (id, options) => request.routeLookup(id, options),
     serviceName: config.get('serviceName'),
     supportChannel: config.get('supportChannel'),
-    userAgent: useragent.lookup(userAgentHeader),
     userIsMemberOfATeam: userIsMemberOfATeam(authedUser),
     userIsTeamMember: userIsTeamMember(authedUser)
   }
