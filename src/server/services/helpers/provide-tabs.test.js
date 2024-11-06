@@ -56,7 +56,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: true,
           label: 'About',
@@ -73,7 +73,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabs).toHaveLength(3)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -94,7 +94,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: false,
           label: 'About',
@@ -134,7 +134,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: true,
           label: 'About',
@@ -146,7 +146,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabs).toHaveLength(2)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(2)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -164,7 +164,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: false,
           label: 'About',
@@ -196,14 +196,14 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: true,
           label: 'About',
           url: `/services/${mockServiceName}`
         }
       ])
-      expect(mockResponse.source.context.tabs).toHaveLength(1)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(1)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -221,7 +221,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: true,
           label: 'About',

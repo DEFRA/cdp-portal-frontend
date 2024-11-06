@@ -19,7 +19,10 @@ async function provideTabs(request, h) {
     const serviceTeamIds = teams.map((team) => team.teamId)
     const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
 
-    response.source.context.tabs = [
+    response.source.context.tabDetails = {
+      label: 'Service tabs'
+    }
+    response.source.context.tabDetails.tabs = [
       {
         isActive: request.path === `/services/${imageName}`,
         url: request.routeLookup('services/{serviceId}', {
@@ -32,7 +35,7 @@ async function provideTabs(request, h) {
     ]
 
     if (isAdmin || isServiceOwner) {
-      response.source.context.tabs.push({
+      response.source.context.tabDetails.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/secrets`),
         url: request.routeLookup('services/{serviceId}/secrets', {
           params: {
@@ -44,7 +47,7 @@ async function provideTabs(request, h) {
 
       if (isAdmin) {
         // TODO move to above when ready for release
-        response.source.context.tabs.push({
+        response.source.context.tabDetails.tabs.push({
           isActive: request.path.startsWith(`/services/${imageName}/terminal`),
           url: request.routeLookup('services/{serviceId}/terminal', {
             params: {
@@ -55,7 +58,7 @@ async function provideTabs(request, h) {
         })
       }
     } else {
-      response.source.context.displayTabs = false
+      response.source.context.tabDetails.displayTabs = false
     }
   }
 

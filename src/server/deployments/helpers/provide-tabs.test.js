@@ -28,7 +28,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: false,
           label: 'Infra-dev',
@@ -77,7 +77,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: true,
           label: 'Infra-dev',
@@ -124,7 +124,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: false,
           label: 'Dev',
@@ -158,7 +158,7 @@ describe('#provideTabs', () => {
         mockViewHelper
       )
 
-      expect(mockResponse.source.context.tabs).toEqual([
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: true,
           label: 'Dev',
