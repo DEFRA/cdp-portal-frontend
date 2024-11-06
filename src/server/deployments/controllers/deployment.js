@@ -38,9 +38,9 @@ const deploymentController = {
     const secretDetail = transformSecrets(deployment.secrets)
 
     return h.view('deployments/views/deployment', {
-      pageTitle: `${deployment.service} deployment - ${formattedEnvironment}`,
-      heading: `${formattedEnvironment} deployment - ${deployment.service} - ${deployment.version}`,
-      caption: `Microservice deployment information for version ${deployment.version} of ${deployment.service} in the ${formattedEnvironment} environment.`,
+      pageTitle: `${deployment.service} v${deployment.version} deployment - ${formattedEnvironment}`,
+      heading: `${formattedEnvironment} deployment`,
+      caption: `Microservice deployment for <strong>${deployment.service}</strong>, version <strong>${deployment.version}</strong>.`,
       deployment,
       secretDetail,
       teams: deployment?.teams?.filter((team) => team.teamId),
