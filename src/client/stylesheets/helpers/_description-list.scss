@@ -1,0 +1,14 @@
+@use "govuk-frontend" as *;
+
+.app-description-list {
+  @extend %govuk-body-m;
+  margin-bottom: 0;
+}
+
+.app-description-list__term {
+  font-weight: bold;
+}
+
+.app-description-list__details {
+  margin: 0 0 govuk-spacing(2);
+}

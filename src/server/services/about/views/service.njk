@@ -71,22 +71,20 @@
                 text: "Access your service in CDP environments."
               }
             }) %}
-              <ul class="govuk-list govuk-!-margin-bottom-0">
+              <dl class="app-description-list">
 
                 {% for environment in envsWithDeployment %}
-                  <li>
-                    <strong>{{ environment | title }}</strong>
-                    <div class="govuk-!-margin-bottom-2">
-                      <a class="app-link"
-                         href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                         target="_blank" rel="noopener noreferrer">
-                        {{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
-                      </a>
-                    </div>
-                  </li>
+                  <dt class="app-description-list__term">{{ environment | title }}</dt>
+                  <dd class="app-description-list__details">
+                    <a class="app-link"
+                       href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
+                       target="_blank" rel="noopener noreferrer">
+                      {{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                    </a>
+                  </dd>
                 {% endfor %}
 
-              </ul>
+              </dl>
             {% endcall %}
           {% endif %}
 
@@ -98,22 +96,20 @@
                 text: "Service backend API urls. These are intended to be called from a frontend."
               }
             }) %}
-              <ul class="govuk-list">
+              <dl class="app-description-list">
 
                 {% for environment in envsWithDeployment %}
-                  <li>
-                    <strong>{{ environment | title }}</strong>
-                    <div class="govuk-!-margin-bottom-2">
-                      <a class="app-link"
-                         href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                         target="_blank" rel="noopener noreferrer">
-                        https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
-                      </a>
-                    </div>
-                  </li>
+                  <dt class="app-description-list__term"> {{ environment | title }}</dt>
+                  <dd class="app-description-list">
+                    <a class="app-link"
+                       href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
+                       target="_blank" rel="noopener noreferrer">
+                      https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                    </a>
+                  </dd>
                 {% endfor %}
 
-              </ul>
+              </dl>
             {% endcall %}
           {% endif %}
 
@@ -124,21 +120,19 @@
               text: "OpenSearch logs for monitoring and troubleshooting your service."
             }
           }) %}
-            <ul class="govuk-list govuk-!-margin-bottom-0">
+            <dl class="app-description-list">
 
               {% for environment in envsWithDeployment %}
-                <li>
-                  <strong>{{ environment | title }}</strong>
-                  <div class="govuk-!-margin-bottom-2">
-                    {{ appLogsDashboardLink({
-                      serviceName: service.serviceName,
-                      environment: environment
-                    }) }}
-                  </div>
-                </li>
+                <dt class="app-description-list__term">{{ environment | title }}</dt>
+                <dd class="app-description-list__details">
+                  {{ appLogsDashboardLink({
+                    serviceName: service.serviceName,
+                    environment: environment
+                  }) }}
+                </dd>
               {% endfor %}
 
-            </ul>
+            </dl>
           {% endcall %}
 
           {% call appSummaryItem({
@@ -148,22 +142,20 @@
               text: "Grafana observability metrics data and graphs for your service."
             }
           }) %}
-            <ul class="govuk-list govuk-!-margin-bottom-0">
+            <dl class="app-description-list">
 
               {% for environment in envsWithDeployment %}
-                <li>
-                  <strong>{{ environment | title }}</strong>
-                  <div class="govuk-!-margin-bottom-2">
-                    <a class="app-link"
-                       href="https://metrics.{{ environment }}.cdp-int.defra.cloud/d/{{ service.serviceName }}/{{ service.serviceName }}-service"
-                       target="_blank" rel="noopener noreferrer">
-                      metrics.{{ environment }}.cdp-int.defra.cloud
-                    </a>
-                  </div>
-                </li>
+                <dt class="app-description-list__term">{{ environment | title }}</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://metrics.{{ environment }}.cdp-int.defra.cloud/d/{{ service.serviceName }}/{{ service.serviceName }}-service"
+                     target="_blank" rel="noopener noreferrer">
+                    metrics.{{ environment }}.cdp-int.defra.cloud
+                  </a>
+                </dd>
               {% endfor %}
 
-            </ul>
+            </dl>
           {% endcall %}
 
         {% endcall %}
