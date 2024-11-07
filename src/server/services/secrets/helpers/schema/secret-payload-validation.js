@@ -93,7 +93,7 @@ function secretPayloadValidation(action, teamId, existingSecretKeys = []) {
       .messages({
         'string.pattern.base': 'Should not include spaces',
         'string.min': validation.minCharacters(1),
-        'string.max': validation.maxCharacters(512),
+        'string.max': validation.maxCharacters(20000),
         'any.required': validation.enterValue,
         'string.empty': validation.enterValue
       }),
