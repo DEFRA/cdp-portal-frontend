@@ -88,7 +88,7 @@ function secretPayloadValidation(action, teamId, existingSecretKeys = []) {
     secretValue: Joi.string()
       .pattern(/^\S*$/)
       .min(1)
-      .max(512)
+      .max(20000)
       .required()
       .messages({
         'string.pattern.base': 'Should not include spaces',
