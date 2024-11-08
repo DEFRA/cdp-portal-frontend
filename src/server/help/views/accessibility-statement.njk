@@ -1,0 +1,45 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: "Accessibility statement for the Core Delivery Platform - Portal."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">How you should be able to use this website</h2>
+      <p>We want as many people as possible to be able to use this website.</p>
+      <p>You should be able to:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Change colours, contrast levels and fonts using browser or device settings</li>
+        <li>Zoom in up to 200% without the text spilling off the screen</li>
+        <li>Navigate most of the website using a keyboard or speech recognition software</li>
+        <li>Listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and
+          VoiceOver)
+        </li>
+        <li>We also make the website text as simple as possible to understand.</li>
+      </ul>
+
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">How accessible this website is</h2>
+      <p>Parts of this website are not fully accessible. For example:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Some pages do not reflow correctly</li>
+        <li>Some pages reload automatically</li>
+        <li>We have a number of improvements we are making to the website to improve accessibility. These tickets
+          with further details can be seen in our backlog
+        </li>
+      </ul>
+
+      {{ appHelp({
+        text: "Have some questions around accessibility?"
+      }) }}
+
+    </div>
+  </div>
+
+{% endblock %}
