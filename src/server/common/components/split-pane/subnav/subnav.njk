@@ -6,9 +6,10 @@
       {% set testId = item.label.text if item.label.text else loop.index %}
 
       <li class="app-subnav__section-item{% if item.isActive %} app-subnav__section-item--current{% endif %}"
-          data-testid="app-subnav-link-{{ testId | lower }}">
+          data-testid="app-subnav-item-{{ testId | lower }}">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="{{ item.url }}"
+           data-testid="app-subnav-link-{{ testId | lower }}"
         >{{ label }}</a>
       </li>
     {% endfor %}
