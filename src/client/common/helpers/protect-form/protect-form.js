@@ -18,7 +18,9 @@ function protectForm($form) {
     toggleProtectedInputs($form, $protectedInputs, true)
   )
 
-  $controlButton.addEventListener('click', () => {
+  $controlButton.addEventListener('click', (event) => {
+    event.preventDefault()
+
     toggleProtectedInputs(
       $form,
       $protectedInputs,
