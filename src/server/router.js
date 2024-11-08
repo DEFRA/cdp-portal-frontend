@@ -2,7 +2,6 @@ import inert from '@hapi/inert'
 
 import { admin } from '~/src/server/admin/index.js'
 import { auth } from '~/src/server/auth/index.js'
-import { cookies } from '~/src/server/cookies/index.js'
 import { create } from '~/src/server/create/index.js'
 import { deployService } from '~/src/server/deploy-service/index.js'
 import { deployments } from '~/src/server/deployments/index.js'
@@ -26,7 +25,6 @@ const router = {
       await server.register([
         admin,
         auth,
-        cookies,
         create,
         deployService,
         deployments,

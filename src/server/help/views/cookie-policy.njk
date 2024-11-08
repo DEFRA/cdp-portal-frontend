@@ -1,0 +1,50 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appHeading({
+    title: heading,
+    caption: "Cookies are small files saved on your phone, tablet or computer when you visit a website."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m">We use cookies to:</h2>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Enable users to sign in</li>
+        <li>To provide messaging to all users, signed in or not</li>
+        <li>To protect submissions to our forms</li>
+        <li>To provide multi-step forms</li>
+      </ul>
+
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Essential cookies</h2>
+
+      {{ govukTable({
+        head: [
+          { text: "Name" },
+          { text: "Purpose" },
+          { text: "Expires" }
+        ],
+        rows: [
+          [
+            { text: "userSession" },
+            { text: "Used to keep users signed in" },
+            { text: "8 hours" }
+          ],
+          [
+            { text: "cdpPortalSession" },
+            { text: "Session identifier" },
+            { text: "8 hours" }
+          ],
+          [
+            { text: "csrfToken" },
+            { text: "Cross Site Request Forgery (CSRF) token storage" },
+            { text: "8 hours" }
+          ]
+        ]
+      }) }}
+
+    </div>
+  </div>
+
+{% endblock %}
