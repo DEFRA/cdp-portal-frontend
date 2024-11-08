@@ -2,7 +2,7 @@
  * @satisfies {Partial<ServerRoute>}
  */
 const accessibilityStatement = {
-  handler: (request, h) => {
+  handler: (_request, h) => {
     const title = 'Accessibility statement'
 
     return h.view('help/views/accessibility-statement', {
