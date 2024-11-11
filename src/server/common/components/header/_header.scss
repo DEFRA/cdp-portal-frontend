@@ -1,4 +1,5 @@
 @use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
 
 .app-header {
   @include govuk-font(19);
@@ -14,30 +15,41 @@
 
 .app-header__container {
   margin-bottom: govuk-spacing(-2);
-  padding: govuk-spacing(3) govuk-spacing(6) govuk-spacing(1);
+  padding: govuk-spacing(3) govuk-spacing(6);
   border-bottom: govuk-spacing(2) solid $govuk-brand-colour;
-
-  @include govuk-media-query($from: desktop-big) {
-    display: flex;
-  }
+  display: flex;
 }
 
 .app-header__content {
   @include govuk-media-query($from: desktop-big) {
     flex: 4;
+    display: flex;
+    align-items: center;
+
   }
+}
+
+.app-header__service-name {
+  display: inline-block;
+  @include govuk-font(36);
+}
+
+.app-header__service-environment {
+  @include govuk-font(19);
+  padding: govuk-spacing(1) govuk-spacing(2);
+  margin-left: govuk-spacing(4);
+  border-radius: $app-border-radius;
+  background-color: govuk-colour("blue");
 }
 
 .app-header__actions {
   @include govuk-font(19);
-  margin-bottom: govuk-spacing(2);
 
   @include govuk-media-query($from: desktop-big) {
     flex: 2;
     display: flex;
     justify-content: flex-end;
-    align-self: center;
-    margin: govuk-spacing(1) 0 govuk-spacing(2) auto;
+    align-self: flex-end;
   }
 }
 
@@ -60,10 +72,4 @@
   &:focus {
     @include govuk-focused-text;
   }
-}
-
-.app-header__service-name {
-  display: inline-block;
-  margin-bottom: govuk-spacing(2);
-  @include govuk-font(36);
 }
