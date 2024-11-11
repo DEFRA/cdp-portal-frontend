@@ -7,6 +7,7 @@ const nonProxyFetch = (url, opts) => {
   })
 }
 
+// TODO update to the new proxyFetch work and tests
 const proxyFetch = (url, opts) => {
   const proxy = config.get('httpsProxy') ?? config.get('httpProxy')
   if (!proxy) {
