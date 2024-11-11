@@ -1,11 +1,11 @@
 import { load } from 'cheerio'
 
-import { getHtml } from '~/src/server/documentation/helpers/markdown/get-html.js'
+import { buildPageHtml } from '~/src/server/documentation/helpers/markdown/build-page-html.js'
 
-describe('#getHtml', () => {
+describe('#buildPageHtml', () => {
   test('Should convert markdown to HTML', async () => {
     const markdown = '# Heading\n\nThis is a paragraph.'
-    const { html } = await getHtml(markdown)
+    const { html } = await buildPageHtml(markdown)
 
     const $html = load(html)
     const $heading = $html('h1')
@@ -22,7 +22,7 @@ describe('#getHtml', () => {
 
   test('Should generate expected table of contents', async () => {
     const markdown = '# Heading 1\n\n## Heading 2\n\n### Heading 3'
-    const { toc } = await getHtml(markdown)
+    const { toc } = await buildPageHtml(markdown)
 
     const $toc = load(toc)
     const $link1 = $toc('ul').first().find('a').first()
@@ -40,7 +40,7 @@ describe('#getHtml', () => {
   })
 
   test('Should handle empty markdown input', async () => {
-    const { html, toc } = await getHtml('')
+    const { html, toc } = await buildPageHtml('')
 
     expect(html).toBe('')
     expect(toc).toBe('')

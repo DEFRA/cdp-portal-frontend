@@ -1,6 +1,5 @@
 import { Marked } from 'marked'
 import markedAlert from 'marked-alert'
-import { escapeHtml } from '@hapi/hoek'
 
 import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
 import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
@@ -11,18 +10,19 @@ const docsMarked = new Marked({
   extensions: [linkExtension, headingExtension]
 }).use(markedAlert())
 
-async function getHtml(markdown) {
+async function buildPageHtml(markdown) {
   const headingElements = []
 
   const walkTokens = (token) => {
     if (token.type === 'heading') {
       const { text, depth: level } = token
       const internalAnchorId = text.toLowerCase().replace(/\W+/g, '-')
+      const parsedText = docsMarked.parseInline(text)
 
       headingElements.push({
         anchor: internalAnchorId,
         level,
-        text: escapeHtml(text)
+        text: parsedText
       })
     }
   }
@@ -69,4 +69,4 @@ function buildTableOfContents(links) {
   return html
 }
 
-export { getHtml }
+export { buildPageHtml }
