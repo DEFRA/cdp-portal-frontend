@@ -5,9 +5,10 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler.js'
 
-/** @typedef {{ name: string, contents: string[] }} Folder */
-
-/** @typedef {{ name: string  }} Page */
+/**
+ * @typedef {{ name: string, contents: string[] }} Folder
+ * @typedef {{ name: string  }} Page
+ */
 
 /**
  * Get the order of a README.md pages internal links
@@ -35,15 +36,18 @@ async function getPageInternalLinksOrder(markdown) {
 /** @typedef {{ text: string, href: string, level: number }} Link */
 
 /**
- * Build the structure of the documentation repository as link objects
  * @typedef {object} Options
  * @property {string} name - list object key
  * @property {string} content - folder or page key
  * @property {string} docsRoute - documentation root route
  * @property {Folder[]} folders
  * @property {Page[]} pages
+ */
+
+/**
+ * Build the structure of the documentation repository as link objects
  * @param {Options} options
- * @returns Link[]
+ * @returns  Link[] | Link[][] | undefined
  */
 function buildLinkStructure({ name, content, docsRoute, folders, pages }) {
   if (!content.endsWith('.md')) {
@@ -98,7 +102,7 @@ function buildLinkStructure({ name, content, docsRoute, folders, pages }) {
  * Get ordered links that reflect the structure of the documentation repository
  * @param {Request} request
  * @param {string} bucket
- * @returns {Promise<Array>}
+ * @returns {Promise<[]>}
  */
 async function documentationStructure(request, bucket) {
   const command = new ListObjectsV2Command({
