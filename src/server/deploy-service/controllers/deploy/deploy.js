@@ -36,35 +36,37 @@ const deployController = {
         }
       )
 
-      if (!response?.ok) {
-        request.logger.warn(`Deploy service failed for ${stepData.imageName}`)
-        request.yar.flash(
-          sessionNames.globalValidationFailures,
-          'Deployment failed'
+      if (response?.ok) {
+        // Remove step data session
+        request.yar.clear(multiStepFormId)
+
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Deployment successfully requested',
+          type: 'success'
+        })
+
+        const deploymentId = data.deploymentId
+
+        request.audit.sendMessage({
+          event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          data: {
+            imageName: stepData.imageName,
+            environment: stepData.environment
+          },
+          user: request.pre.authedUser
+        })
+
+        return h.redirect(
+          `/deployments/${stepData.environment}/${deploymentId}`
         )
-        return h.redirect(`/deploy-service/summary/${multiStepFormId}`)
       }
 
-      // Remove step data session
-      request.yar.clear(multiStepFormId)
-
-      request.yar.flash(sessionNames.notifications, {
-        text: 'Deployment successfully requested',
-        type: 'success'
-      })
-
-      const deploymentId = data.deploymentId
-
-      request.audit.sendMessage({
-        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
-        data: {
-          imageName: stepData.imageName,
-          environment: stepData.environment
-        },
-        user: request.pre.authedUser
-      })
-
-      return h.redirect(`/deployments/${stepData.environment}/${deploymentId}`)
+      request.logger.warn(`Deploy service failed for ${stepData.imageName}`)
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        'Deployment failed'
+      )
+      return h.redirect(`/deploy-service/summary/${multiStepFormId}`)
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
