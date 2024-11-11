@@ -56,6 +56,9 @@
   {% if serviceVersion %}
     <meta name="service-version" content="{{ serviceVersion }}">
   {% endif %}
+  {% if serviceEnvironment %}
+    <meta name="service-environment" content="{{ serviceEnvironment }}">
+  {% endif %}
 {% endblock %}
 
 {% block header %}
