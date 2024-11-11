@@ -16,7 +16,8 @@ $caution: #cf222e;
     @extend %govuk-list--bullet;
 
     & + h2,
-    & + h3 {
+    & + h3,
+    & + h4 {
       padding-top: govuk-spacing(1);
     }
 
@@ -81,7 +82,7 @@ $caution: #cf222e;
 
   h1 {
     @extend %govuk-heading-xl;
-    margin-bottom: govuk-spacing(4);
+    margin-bottom: govuk-spacing(6);
   }
 
   h2 {
@@ -94,12 +95,18 @@ $caution: #cf222e;
     margin-bottom: govuk-spacing(2);
   }
 
+  h4 {
+    @extend %govuk-heading-s;
+    margin-bottom: govuk-spacing(2);
+  }
+
   p {
     @extend %govuk-body-m;
     margin-bottom: govuk-spacing(3);
 
     & + h2,
-    & + h3 {
+    & + h3,
+    & + h4 {
       padding-top: govuk-spacing(3);
     }
   }
@@ -113,7 +120,7 @@ $caution: #cf222e;
   }
 
   code {
-    padding: .2em .4em;
+    padding: .15em .3em;
     margin: 0;
     font-size: 85%;
     white-space: break-spaces;
