@@ -1,5 +1,7 @@
 @use "govuk-frontend" as *;
 @use "helpers/link" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
 
 // stylelint-disable max-nesting-depth
 %nested-lists {
@@ -81,6 +83,15 @@ $govuk-wrapper-margin: 60px;
   .app-link {
     @include app-link;
     @include govuk-link-style-text;
+
+    code {
+      padding: .15em .3em;
+      margin: 0;
+      font-size: 85%;
+      white-space: break-spaces;
+      background-color: $app-grey;
+      border-radius: $app-border-radius;
+    }
   }
 }
 
