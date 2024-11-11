@@ -3,8 +3,7 @@ import { ecsFormat } from '@elastic/ecs-pino-format'
 import { config } from '~/src/config/index.js'
 
 const logConfig = config.get('log')
-const serviceName = config.get('serviceName')
-const serviceVersion = config.get('serviceVersion')
+const serviceConfig = config.get('service')
 
 /**
  * @type {{ecs: Omit<LoggerOptions, "mixin"|"transport">, "pino-pretty": {transport: {target: string}}}}
@@ -14,9 +13,10 @@ const formatters = {
     ...ecsFormat(),
     base: {
       service: {
-        name: serviceName,
+        name: serviceConfig.name,
         type: 'nodeJs',
-        version: serviceVersion
+        version: serviceConfig.version,
+        environment: serviceConfig.environment
       }
     }
   },
