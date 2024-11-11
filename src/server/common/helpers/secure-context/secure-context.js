@@ -15,13 +15,13 @@ const secureContext = {
           server.logger.info('Could not find any TRUSTSTORE_ certificates')
         }
 
-        const secureContext = originalCreateSecureContext(options)
+        const tlsSecureContext = originalCreateSecureContext(options)
 
         trustStoreCerts.forEach((cert) => {
-          secureContext.context.addCACert(cert)
+          tlsSecureContext.context.addCACert(cert)
         })
 
-        return secureContext
+        return tlsSecureContext
       }
 
       server.decorate('server', 'secureContext', tls.createSecureContext())

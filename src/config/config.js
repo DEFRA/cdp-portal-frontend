@@ -14,12 +14,26 @@ const isTest = process.env.NODE_ENV === 'test'
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 const config = convict({
-  serviceVersion: {
-    doc: 'The service version, this variable is injected into your docker container in CDP environments',
-    format: String,
-    nullable: true,
-    default: null,
-    env: 'SERVICE_VERSION'
+  service: {
+    name: {
+      doc: 'Applications Service Name',
+      format: String,
+      default: 'Core Delivery Platform - Portal'
+    },
+    version: {
+      doc: 'The service version, this variable is injected into your docker container in CDP environments',
+      format: String,
+      nullable: true,
+      default: null,
+      env: 'SERVICE_VERSION'
+    },
+    environment: {
+      doc: 'The environment the app is running in',
+      format: String,
+      nullable: true,
+      default: null,
+      env: 'ENVIRONMENT'
+    }
   },
   port: {
     doc: 'The port to bind.',
@@ -32,11 +46,6 @@ const config = convict({
     format: Number,
     default: oneYear,
     env: 'STATIC_CACHE_TIMEOUT'
-  },
-  serviceName: {
-    doc: 'Applications Service Name',
-    format: String,
-    default: 'Core Delivery Platform - Portal'
   },
   root: {
     doc: 'Project root',

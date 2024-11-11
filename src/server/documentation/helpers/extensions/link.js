@@ -9,10 +9,12 @@ const linkExtension = {
   name: 'link',
   level: 'block',
   renderer(token) {
+    const parsedText = this.parser.parseInline(token.tokens)
+
     if (isExternalLink(token.href)) {
-      return `<a href="${token.href}" target="_blank" rel="noopener noreferrer">${token.text}</a>`
+      return `<a href="${token.href}" target="_blank" rel="noopener noreferrer">${parsedText}</a>`
     } else {
-      return `<a href="${token.href}">${token.text}</a>`
+      return `<a href="${token.href}">${parsedText}</a>`
     }
   }
 }

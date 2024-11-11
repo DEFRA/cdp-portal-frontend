@@ -6,6 +6,11 @@
          data-testid="app-header-service-name">
         {{ params.serviceName }}
       </a>
+
+      {% if serviceEnvironment === "infra-dev" %}
+        <span class="app-header__service-environment">{{ serviceEnvironment | title }}</span>
+      {% endif %}
+
     </div>
     <div class="app-header__actions">
       {% if authedUser.displayName %}

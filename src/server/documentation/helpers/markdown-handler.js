@@ -2,7 +2,7 @@ import startCase from 'lodash/startCase.js'
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 
 import { statusCodes } from '~/src/server/common/constants/status-codes.js'
-import { getHtml } from '~/src/server/documentation/helpers/markdown/get-html.js'
+import { buildPageHtml } from '~/src/server/documentation/helpers/markdown/build-page-html.js'
 import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs.js'
 import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav.js'
 
@@ -27,7 +27,7 @@ function buildPageTitle(documentationPath) {
 
 async function markdownHandler(request, h, documentationPath, bucket) {
   const markdown = await fetchMarkdown(request, documentationPath, bucket)
-  const { html, toc } = await getHtml(markdown)
+  const { html, toc } = await buildPageHtml(markdown)
   const nav = await buildDocsNav(request, bucket)
   const pageTitle = buildPageTitle(documentationPath)
 

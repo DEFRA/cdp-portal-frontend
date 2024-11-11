@@ -41,13 +41,17 @@ async function context(request) {
     return `${assetPath}/${webpackAssetPath}`
   }
 
+  const serviceConfig = config.get('service')
+
   return {
     appBaseUrl: config.get('appBaseUrl'),
     assetPath: `${assetPath}/assets`,
     authedUser,
     blankOption: defaultOption,
     breadcrumbs: [],
-    serviceVersion: config.get('serviceVersion'),
+    serviceName: serviceConfig.name,
+    serviceVersion: serviceConfig.version,
+    serviceEnvironment: serviceConfig.environment,
     eventName,
     getAssetPath,
     githubOrg: config.get('githubOrg'),
@@ -59,7 +63,6 @@ async function context(request) {
     navigation: await buildNavigation(request),
     noValue,
     routeLookup: (id, options) => request.routeLookup(id, options),
-    serviceName: config.get('serviceName'),
     supportChannel: config.get('supportChannel'),
     userIsMemberOfATeam: userIsMemberOfATeam(authedUser),
     userIsTeamMember: userIsTeamMember(authedUser)
