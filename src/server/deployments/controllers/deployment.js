@@ -38,7 +38,7 @@ const deploymentController = {
     const secretDetail = transformSecrets(deployment.secrets)
 
     return h.view('deployments/views/deployment', {
-      pageTitle: `${deployment.service} v${deployment.version} deployment - ${formattedEnvironment}`,
+      pageTitle: `${deployment.service} ${deployment.version} deployment - ${formattedEnvironment}`,
       heading: `${formattedEnvironment} deployment`,
       caption: `Microservice deployment for <strong>${deployment.service}</strong>, version <strong>${deployment.version}</strong>.`,
       deployment,
