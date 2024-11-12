@@ -20,7 +20,8 @@ const sessionCookie = {
           path: '/',
           password: config.get('sessionCookiePassword'),
           isSecure: config.get('isProduction'),
-          ttl: config.get('sessionCookieTtl')
+          ttl: config.get('sessionCookieTtl'),
+          clearInvalid: true
         },
         keepAlive: true,
         requestDecoratorName: 'sessionCookie',
