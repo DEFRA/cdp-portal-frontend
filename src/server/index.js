@@ -76,7 +76,10 @@ async function createServer() {
           client: redisClient
         })
       }
-    ]
+    ],
+    state: {
+      strictHeader: false
+    }
   })
 
   // TODO refactor cache and decorate it on to server and request. No need for it to be on server.app
