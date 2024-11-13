@@ -6,6 +6,7 @@ import {
   listFeaturesController
 } from '~/src/server/admin/features/controllers/index.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
+import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -40,7 +41,9 @@ const features = {
             path: '/admin/features',
             ...listFeaturesController
           }
-        ].map(adminScope)
+        ]
+          .map(adminScope)
+          .map(withTracing)
       )
     }
   }

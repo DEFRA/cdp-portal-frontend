@@ -9,6 +9,7 @@ import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
 import { provideService } from '~/src/server/services/helpers/provide-service.js'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
+import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
@@ -68,7 +69,9 @@ const serviceTerminal = {
             path: '/services/{serviceId}/terminal/{environment}/{token}',
             ...webShellBrowserController
           }
-        ].map(serviceOwnerOrAdminUserScope)
+        ]
+          .map(serviceOwnerOrAdminUserScope)
+          .map(withTracing)
       )
     }
   }
