@@ -11,14 +11,15 @@
         classes: "app-button app-button--small app-button--hover-destructive",
         text: "Remove",
         attributes: {
-          formaction: "/teams/" + team.teamId + "/remove-member/" + user.userId
+          formaction: "/teams/" + team.teamId + "/remove-member/" + user.userId,
+          "data-testid": "remove-member-button" +  user.name | replace(r/[^a-zA-Z0-9]/g, '' )
         }
       }) }}
     {% endif %}
   {% endset %}
 
   {{ userTableRows.push([
-    { text: user.name, classes: "govuk-!-padding-left-2" },
+    { text: user.name, classes: "govuk-!-padding-left-2", attributes: { "data-testid": "app-member-item"} },
     { html: actionHtml, classes: "app-!-width-one-tenth govuk-!-padding-right-2" }
   ]) }}
 {% endfor %}
@@ -83,12 +84,14 @@
       govukButton({
         classes: "app-button app-button--secondary",
         text: "Add",
-        href: "/teams/" + team.teamId + "/add-member"
+        href: "/teams/" + team.teamId + "/add-member",
+        attributes: { "data-testid": "add-button" }
       }),
       govukButton({
         classes: "app-button",
         text: "Edit",
-        href: "/teams/" + team.teamId + "/edit"
+        href: "/teams/" + team.teamId + "/edit",
+        attributes: { "data-testid": "edit-button" }
       })
     ] if userIsTeamMember(team.teamId)
   }) }}
