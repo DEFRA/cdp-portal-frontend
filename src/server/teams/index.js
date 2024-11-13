@@ -11,6 +11,7 @@ import {
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
+import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const teamScope = authScope(['+{params.teamId}'])
 
@@ -71,7 +72,9 @@ const teams = {
             path: '/teams/{teamId}/remove-member/{userId}',
             ...removeMemberController
           }
-        ].map(teamScope)
+        ]
+          .map(teamScope)
+          .map(withTracing)
       ])
     }
   }
