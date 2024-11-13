@@ -25,6 +25,7 @@ const teamValidation = Joi.object({
       'string.max': validation.exactLetters(3),
       'string.pattern.base': 'Provide 3 uppercase letters'
     }),
+  alertEmailAddresses: Joi.array().items(Joi.string().email()).optional(),
   description: Joi.string()
     .max(256)
     .optional()

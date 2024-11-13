@@ -53,6 +53,26 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
+              href: '/admin/teams/find-github-team?redirectLocation=summary&githubSearch=forestry-management',
+              text: 'Change',
+              visuallyHiddenText: 'GitHub team'
+            }
+          ]
+        },
+        key: {
+          classes: 'app-summary__heading',
+          text: 'GitHub team'
+        },
+        value: {
+          html: `<span data-testid="github-team"><a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a></span>`
+        }
+      },
+      {
+        actions: {
+          classes: 'app-summary__action',
+          items: [
+            {
+              classes: 'app-link',
               href: '/admin/teams/team-details?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Service Code'
@@ -73,18 +93,18 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/teams/find-github-team?redirectLocation=summary&githubSearch=forestry-management',
+              href: '/admin/teams/team-details?redirectLocation=summary',
               text: 'Change',
-              visuallyHiddenText: 'GitHub team'
+              visuallyHiddenText: 'Alert Emails'
             }
           ]
         },
         key: {
           classes: 'app-summary__heading',
-          text: 'GitHub team'
+          text: 'Alert Emails'
         },
         value: {
-          html: `<span data-testid="github-team"><a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a></span>`
+          html: null
         }
       }
     ])

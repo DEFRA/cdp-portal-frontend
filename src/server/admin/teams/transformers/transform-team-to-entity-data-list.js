@@ -26,6 +26,15 @@ function transformTeamToEntityDataList(team) {
     },
     {
       heading: {
+        text: 'Alert Emails'
+      },
+      entity: {
+        kind: 'html',
+        value: team.alertEmailAddresses?.join('<br>')
+      }
+    },
+    {
+      heading: {
         text: 'Created'
       },
       entity: {

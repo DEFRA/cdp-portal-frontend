@@ -7,6 +7,7 @@ const cdpTeamWithoutGithubFixture = {
     createdAt: '2023-08-23T16:18:28.742Z',
     updatedAt: '2023-08-30T08:03:23.657Z',
     teamId: '47c04343-4c0e-4326-9848-bef7c1e2eedd',
+    alertEmailAddresses: ['alerts@cdp.com'],
     users: [
       {
         userId: '014ee26b-e738-4bcc-9621-a5289dba7351',

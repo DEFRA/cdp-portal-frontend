@@ -27,6 +27,10 @@ describe('#transformCdpTeamToEntityRow', () => {
         value: ['CDP']
       },
       {
+        kind: 'html',
+        value: 'alerts@cdp.com'
+      },
+      {
         kind: 'text',
         value: 2
       }

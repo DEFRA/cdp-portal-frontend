@@ -29,6 +29,15 @@ describe('#teamToEntityDataList', () => {
       },
       {
         entity: {
+          kind: 'html',
+          value: 'alerts@cdp.com'
+        },
+        heading: {
+          text: 'Alert Emails'
+        }
+      },
+      {
+        entity: {
           kind: 'date',
           value: '2023-10-03T11:11:31.085Z'
         },

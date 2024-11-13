@@ -14,13 +14,16 @@ const teamDetailsController = {
     const redirectLocation = payload?.redirectLocation
 
     const name = payload?.name || undefined
-    const serviceCode = payload?.serviceCode || undefined
     const description = payload?.description || undefined
+    const serviceCode = payload?.serviceCode || undefined
+    const alertEmailAddresses =
+      payload?.alertEmailAddresses?.split(/\s*,\s*/) || undefined
 
     const sanitisedPayload = {
       name,
+      description,
       serviceCode,
-      description
+      alertEmailAddresses
     }
 
     const validationResult = teamValidation.validate(sanitisedPayload, {
