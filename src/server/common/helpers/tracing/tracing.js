@@ -5,14 +5,14 @@ const asyncLocalStorage = new AsyncLocalStorage()
 
 function tracingMiddleware(handler) {
   return (req, h) => {
-    const requestId = req.headers[config.get('tracing.header')]
-    return asyncLocalStorage.run(
-      { requestId: requestId || '' },
+    if (req.headers?.[config.get('tracing.header')]) {
+      const requestId = req.headers?.[config.get('tracing.header')] || ''
       // eslint-disable-next-line @typescript-eslint/require-await
-      async () => {
+      return asyncLocalStorage.run({ requestId }, async () => {
         return handler(req, h)
-      }
-    )
+      })
+    }
+    return handler(req, h)
   }
 }
 
