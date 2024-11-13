@@ -24,7 +24,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'Name'
         },
         value: {
-          html: 'Forests'
+          html: '<span data-testid="name">Forests</span>'
         }
       },
       {
@@ -44,7 +44,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'Description'
         },
         value: {
-          html: 'All things trees, squirrels and plants'
+          html: '<span data-testid="description">All things trees, squirrels and plants</span>'
         }
       },
       {
@@ -64,7 +64,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'Service Code'
         },
         value: {
-          html: 'AFM'
+          html: '<span data-testid="service-code">AFM</span>'
         }
       },
       {
@@ -84,7 +84,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'GitHub team'
         },
         value: {
-          html: `<a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a>`
+          html: `<span data-testid="github-team"><a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a></span>`
         }
       }
     ])
