@@ -9,7 +9,8 @@
       classes: "app-button app-button--small app-button--hover-destructive",
       text: "Remove",
       attributes: {
-        formaction: "/admin/teams/" + team.teamId + "/remove-member/" + user.userId
+        formaction: "/admin/teams/" + team.teamId + "/remove-member/" + user.userId,
+        "data-testid": "remove-member-button" +  user.name | replace(r/[^a-zA-Z0-9]/g, '' )
       }
     }) }}
   {% endset %}

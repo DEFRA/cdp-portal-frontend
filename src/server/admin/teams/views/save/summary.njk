@@ -22,7 +22,8 @@
 
             {{ govukSummaryList({
               classes: "govuk-!-margin-bottom-9",
-              rows: teamRows
+              rows: teamRows,
+              attributes: { "data-testid": "govuk-summary-list" }
             }) }}
 
             {{ appButton({
