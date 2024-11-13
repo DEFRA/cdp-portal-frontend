@@ -9,7 +9,7 @@ function tracingMiddleware(handler) {
       const requestId = req.headers?.[config.get('tracing.header')] || ''
       // eslint-disable-next-line @typescript-eslint/require-await
       return asyncLocalStorage.run({ requestId }, async () => {
-        return handler(req, h)
+        return await handler(req, h)
       })
     }
     return handler(req, h)

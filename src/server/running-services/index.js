@@ -6,15 +6,13 @@ const runningServices = {
     name: 'running services',
     register: (server) => {
       server.route(
-        withTracing(
-          [
-            {
-              method: 'GET',
-              path: '/running-services',
-              ...runningServicesListController
-            }
-          ].map(withTracing)
-        )
+        [
+          {
+            method: 'GET',
+            path: '/running-services',
+            ...runningServicesListController
+          }
+        ].map(withTracing)
       )
     }
   }

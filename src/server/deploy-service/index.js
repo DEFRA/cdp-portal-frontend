@@ -69,7 +69,9 @@ const deployService = {
               path: '/deploy-service/deploy/{multiStepFormId}',
               ...deployController
             }
-          ].map(serviceTeamAndAdminUserScope)
+          ]
+            .map(serviceTeamAndAdminUserScope)
+            .map(withTracing)
         }
       })
 

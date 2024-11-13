@@ -30,52 +30,52 @@ const teams = {
         }
       ])
 
-      server.route([
-        {
-          method: 'GET',
-          path: '/teams',
-          ...teamsListController
-        },
-        {
-          method: 'GET',
-          path: '/teams/{teamId}',
-          ...teamController
-        },
-        ...[
+      server.route(
+        [
           {
             method: 'GET',
-            path: '/teams/{teamId}/edit',
-            ...teamEditStartController
+            path: '/teams',
+            ...teamsListController
           },
           {
             method: 'GET',
-            path: '/teams/{teamId}/team-details',
-            ...teamDetailsFormController
+            path: '/teams/{teamId}',
+            ...teamController
           },
-          {
-            method: 'POST',
-            path: '/teams/{teamId}/team-details',
-            ...teamDetailsController
-          },
-          {
-            method: 'GET',
-            path: '/teams/{teamId}/add-member',
-            ...addMemberFormController
-          },
-          {
-            method: 'POST',
-            path: '/teams/{teamId}/add-member',
-            ...addMemberController
-          },
-          {
-            method: 'POST',
-            path: '/teams/{teamId}/remove-member/{userId}',
-            ...removeMemberController
-          }
-        ]
-          .map(teamScope)
-          .map(withTracing)
-      ])
+          ...[
+            {
+              method: 'GET',
+              path: '/teams/{teamId}/edit',
+              ...teamEditStartController
+            },
+            {
+              method: 'GET',
+              path: '/teams/{teamId}/team-details',
+              ...teamDetailsFormController
+            },
+            {
+              method: 'POST',
+              path: '/teams/{teamId}/team-details',
+              ...teamDetailsController
+            },
+            {
+              method: 'GET',
+              path: '/teams/{teamId}/add-member',
+              ...addMemberFormController
+            },
+            {
+              method: 'POST',
+              path: '/teams/{teamId}/add-member',
+              ...addMemberController
+            },
+            {
+              method: 'POST',
+              path: '/teams/{teamId}/remove-member/{userId}',
+              ...removeMemberController
+            }
+          ].map(teamScope)
+        ].map(withTracing)
+      )
     }
   }
 }
