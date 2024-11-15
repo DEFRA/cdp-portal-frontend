@@ -71,6 +71,33 @@
                 } if formErrors.serviceCode.message
               }) }}
 
+              {{ govukInput({
+                label: {
+                  text: "Alert Emails (optional)",
+                  classes: "app-label"
+                },
+                id: "alertEmailAddresses",
+                name: "alertEmailAddresses",
+                hint: {
+                  text: "Comma seperated list of email addresses"
+                },
+                classes: "app-input app-input--wide",
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                attributes: {
+                  "data-1p-ignore": ""
+                },
+                value: formValues.alertEmailAddresses,
+                errorMessage: {
+                  attributes: {
+                    "data-js": "app-error"
+                  },
+                  text: formErrors.alertEmailAddresses.message,
+                  classes: "govuk-!-margin-bottom-1 app-error-message"
+                } if formErrors.alertEmailAddresses.message
+              }) }}
+
               {{ govukTextarea({
                 label: {
                   text: "Description (optional)",

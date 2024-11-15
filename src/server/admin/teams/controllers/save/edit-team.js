@@ -19,7 +19,8 @@ const editTeamController = {
         name: cdpTeam.name,
         description: cdpTeam.description,
         github: cdpTeam.github,
-        serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : []
+        serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : [],
+        alertEmailAddresses: cdpTeam.alertEmailAddresses
       })
 
       if (response?.ok) {

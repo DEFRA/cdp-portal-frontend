@@ -9,6 +9,7 @@ async function editTeam(request, teamId, payload) {
       name: payload.name,
       description: payload.description,
       serviceCodes: payload.serviceCodes,
+      alertEmailAddresses: payload.alertEmailAddresses,
       github: payload.github
     })
   })

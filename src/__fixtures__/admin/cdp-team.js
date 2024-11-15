@@ -9,6 +9,7 @@ const cdpTeamFixture = {
     github: 'cdp-platform',
     teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
     serviceCodes: ['CDP'],
+    alertEmailAddresses: ['alerts@cdp.com'],
     users: [
       {
         userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',

@@ -24,6 +24,10 @@ function transformTeamToEntityRow(team) {
       value: team.serviceCodes
     },
     {
+      kind: 'html',
+      value: team.alertEmailAddresses?.join('<br>')
+    },
+    {
       kind: 'text',
       value: team.users.length
     }
