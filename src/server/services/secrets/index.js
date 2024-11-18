@@ -12,7 +12,6 @@ import { provideSubNavigation } from '~/src/server/services/secrets/helpers/prov
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { provideService } from '~/src/server/services/helpers/provide-service.js'
-import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
@@ -89,9 +88,7 @@ const serviceSecrets = {
             path: '/services/{serviceId}/secrets/{environment}/create',
             ...createSecretController
           }
-        ]
-          .map(serviceOwnerOrAdminUserScope)
-          .map(withTracing)
+        ].map(serviceOwnerOrAdminUserScope)
       )
     }
   }

@@ -21,7 +21,6 @@ import {
   userSummaryController
 } from '~/src/server/admin/users/controllers/index.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
-import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -131,9 +130,7 @@ const adminUsers = {
             path: '/admin/users/{userId}',
             ...userController
           }
-        ]
-          .map(adminScope)
-          .map(withTracing)
+        ].map(adminScope)
       )
     }
   }

@@ -15,7 +15,6 @@ import { createEnvTestSuiteRoutes } from '~/src/server/create/env-test-suite/ind
 import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite/index.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { createSmokeTestSuiteRoutes } from '~/src/server/create/smoke-test-suite/index.js'
-import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -69,9 +68,7 @@ const create = {
           ...createTestSuiteRoutes,
           ...createPerfTestSuiteRoutes,
           ...createSmokeTestSuiteRoutes
-        ]
-          .map(serviceTeamAndAdminUserScope)
-          .map(withTracing)
+        ].map(serviceTeamAndAdminUserScope)
       )
     }
   }
