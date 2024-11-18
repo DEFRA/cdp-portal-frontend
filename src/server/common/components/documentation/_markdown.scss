@@ -82,33 +82,30 @@ $caution: #cf222e;
 
   h1 {
     @extend %govuk-heading-xl;
-    margin-bottom: govuk-spacing(6);
+    padding-top: govuk-spacing(2);
+    margin-bottom: govuk-spacing(4);
   }
 
   h2 {
     @extend %govuk-heading-l;
+    padding-top: govuk-spacing(3);
     margin-bottom: govuk-spacing(3);
   }
 
   h3 {
     @extend %govuk-heading-m;
+    padding-top: govuk-spacing(3);
     margin-bottom: govuk-spacing(2);
   }
 
   h4 {
     @extend %govuk-heading-s;
+    padding-top: govuk-spacing(3);
     margin-bottom: govuk-spacing(2);
   }
 
   p {
     @extend %govuk-body-m;
-    margin-bottom: govuk-spacing(3);
-
-    & + h2,
-    & + h3,
-    & + h4 {
-      padding-top: govuk-spacing(3);
-    }
   }
 
   hr {
@@ -176,7 +173,7 @@ $caution: #cf222e;
   // stylelint-enable max-nesting-depth
 
   blockquote {
-    margin: 0;
+    margin: 0 0 govuk-spacing(4) govuk-spacing(2);
     padding: 0 govuk-spacing(2);
     border-left: .25em solid $app-mid-grey;
 
