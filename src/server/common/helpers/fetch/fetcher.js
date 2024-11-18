@@ -1,9 +1,10 @@
 import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
+import { config } from '~/src/config/index.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
-import { getTraceId } from '~/src/server/common/helpers/tracing/tracing.js'
+import { getTraceId } from '~/src/server/common/helpers/tracing/async-local-storage.js'
 
 /**
  * @param {string} url
@@ -12,13 +13,18 @@ import { getTraceId } from '~/src/server/common/helpers/tracing/tracing.js'
  */
 async function fetcher(url, options = {}) {
   const logger = createLogger()
+  const tracingHeader = config.get('tracing.header')
+  const traceId = getTraceId()
+
+  logger.debug({ url }, 'Fetching data')
+
   const response = await fetch(url, {
     ...options,
     method: options?.method || 'get',
     headers: {
       ...(options?.headers && options.headers),
-      'Content-Type': 'application/json',
-      ...(getTraceId() ? { 'x-cdp-request-id': getTraceId() } : {})
+      ...(traceId && { [tracingHeader]: traceId }),
+      'Content-Type': 'application/json'
     }
   })
 

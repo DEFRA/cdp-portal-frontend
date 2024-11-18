@@ -1,11 +1,13 @@
 import Boom from '@hapi/boom'
 
+import { config } from '~/src/config/index.js'
+import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
+import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
+import { getTraceId } from '~/src/server/common/helpers/tracing/async-local-storage.js'
 import {
   removeAuthenticatedUser,
   updateUserSession
 } from '~/src/server/common/helpers/auth/user-session.js'
-import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
-import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args))
@@ -16,13 +18,17 @@ function authedFetcher(request) {
     const token = authedUser?.token ?? null
 
     const fetchWithAuth = (token) => {
-      request.logger.debug('Fetching with auth')
+      const tracingHeader = config.get('tracing.header')
+      const traceId = getTraceId()
+
+      request.logger.debug({ url }, 'Fetching authenticated data')
 
       return fetch(url, {
         ...options,
         method: options?.method || 'get',
         headers: {
           ...(options?.headers && options.headers),
+          ...(traceId && { [tracingHeader]: traceId }),
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         }
