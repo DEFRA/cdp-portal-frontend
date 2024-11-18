@@ -24,6 +24,7 @@ import { pulse } from '~/src/server/common/helpers/pulse.js'
 import { addDecorators } from '~/src/server/common/helpers/add-decorators.js'
 import { s3Client } from '~/src/server/common/helpers/aws/s3-client.js'
 import { contentSecurityPolicy } from '~/src/server/common/helpers/csp/content-security-policy.js'
+import { tracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -97,8 +98,8 @@ async function createServer() {
 
   addDecorators(server)
 
-  // Add request logger before all other plugins, so we can see errors
-  await server.register(requestLogger)
+  // Add tracer and request logger before all other plugins
+  await server.register([tracing, requestLogger])
 
   if (enableSecureContext) {
     await server.register(secureContext)

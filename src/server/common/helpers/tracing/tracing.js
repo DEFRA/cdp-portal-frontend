@@ -1,38 +1,47 @@
-import { AsyncLocalStorage } from 'node:async_hooks'
+import {
+  asyncLocalStorage,
+  getTraceId
+} from '~/src/server/common/helpers/tracing/async-local-storage.js'
 import { config } from '~/src/config/index.js'
 
-const asyncLocalStorage = new AsyncLocalStorage()
+function wrapLifecycle(request, store) {
+  const requestLifecycle = request._lifecycle.bind(request)
+  request._lifecycle = () => asyncLocalStorage.run(store, requestLifecycle)
+}
 
-function tracingMiddleware(handler) {
-  return (req, h) => {
-    if (req.headers?.[config.get('tracing.header')]) {
-      const requestId = req.headers?.[config.get('tracing.header')] || ''
-      // eslint-disable-next-line @typescript-eslint/require-await
-      return asyncLocalStorage.run({ requestId }, async () => {
-        return await handler(req, h)
-      })
+/**
+ * @satisfies {Plugin}
+ */
+const tracing = {
+  plugin: {
+    name: 'tracing',
+    version: '0.1.0',
+    register(server, options) {
+      if (options.tracingEnabled) {
+        server.ext('onRequest', (request, h) => {
+          const tracingHeader = options.tracingHeader
+          const traceId = request.headers[tracingHeader]
+          const store = new Map()
+          store.set('traceId', traceId)
+
+          wrapLifecycle(request, store)
+
+          return h.continue
+        })
+      }
+
+      server.decorate('request', 'getTraceId', getTraceId)
+      server.decorate('server', 'getTraceId', getTraceId)
     }
-    return handler(req, h)
+  },
+  options: {
+    tracingEnabled: config.get('tracing.enabled'),
+    tracingHeader: config.get('tracing.header')
   }
 }
 
-export function getTraceId() {
-  return asyncLocalStorage.getStore()?.requestId
-}
+export { tracing }
 
-export function withTracing(routes) {
-  if (!config.get('tracing.enabled')) {
-    return routes
-  }
-
-  const applyTracing = (route) => ({
-    ...route,
-    handler: tracingMiddleware(route.handler)
-  })
-
-  if (Array.isArray(routes)) {
-    return routes.map(applyTracing)
-  }
-
-  return applyTracing(routes)
-}
+/**
+ * @import { Plugin } from '@hapi/hapi'
+ */

@@ -1,61 +1,155 @@
-import { config } from '~/src/config/index.js'
-import {
-  getTraceId,
-  withTracing
-} from '~/src/server/common/helpers/tracing/tracing.js'
+import { Server } from '@hapi/hapi'
+
+import { tracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 describe('#tracing', () => {
-  const route = {
-    handler: (req, h) => {
-      return { req, h, traceId: getTraceId() }
-    }
-  }
+  describe('When tracing is enabled', () => {
+    let server
 
-  const req = {
-    headers: {
-      'x-cdp-request-id': '12345'
-    }
-  }
+    beforeEach(async () => {
+      server = new Server()
 
-  it('apply tracing to a single route', async () => {
-    config.set('tracing.enabled', true)
-    const routeWithTracing = withTracing(route)
-    const resp = await routeWithTracing.handler(req, {})
-    expect(resp?.traceId).toBe('12345')
+      await server.register({
+        plugin: tracing.plugin,
+        options: { tracingEnabled: true, tracingHeader: 'x-cdp-request-id' }
+      })
+    })
+
+    afterEach(async () => {
+      await server.stop({ timeout: 0 })
+    })
+
+    test('Should register the plugin', () => {
+      expect(server.registrations).toEqual({
+        tracing: {
+          name: 'tracing',
+          options: { tracingEnabled: true, tracingHeader: 'x-cdp-request-id' },
+          version: '0.1.0'
+        }
+      })
+    })
+
+    test('Should have expected decorations', () => {
+      expect(server.decorations.request).toStrictEqual(['getTraceId'])
+      expect(server.decorations.server).toStrictEqual(['getTraceId'])
+    })
+
+    test('Should add "x-cdp-request-id" to the request store', async () => {
+      const mockTraceId = 'mock-trace-id-123456789'
+
+      server.route({
+        method: 'GET',
+        path: '/testing',
+        handler: (request, h) => {
+          expect(request.getTraceId()).toBe(mockTraceId)
+
+          return h.response({ message: 'success' }).code(200)
+        }
+      })
+
+      const { result, statusCode } = await server.inject({
+        method: 'GET',
+        url: '/testing',
+        headers: { 'x-cdp-request-id': mockTraceId }
+      })
+
+      expect(result).toEqual({ message: 'success' })
+      expect(statusCode).toBe(200)
+      expect.assertions(3)
+    })
   })
 
-  it('apply tracing to an array of routes', async () => {
-    config.set('tracing.enabled', true)
-    const routeWithTracing = withTracing([route, route])
+  describe('Without "x-cdp-request-id" header', () => {
+    let server
 
-    const resp1 = await routeWithTracing[0].handler(req, {})
-    expect(resp1?.traceId).toBe('12345')
+    beforeEach(async () => {
+      server = new Server()
 
-    const resp2 = await routeWithTracing[1].handler(req, {})
-    expect(resp2?.traceId).toBe('12345')
+      await server.register({
+        plugin: tracing.plugin,
+        options: { tracingEnabled: true, tracingHeader: 'x-cdp-request-id' }
+      })
+    })
+
+    afterEach(async () => {
+      await server.stop({ timeout: 0 })
+    })
+
+    test('"x-cdp-request-id" should not be in the request store', async () => {
+      server.route({
+        method: 'GET',
+        path: '/cats-url',
+        handler: (request, h) => {
+          expect(request.getTraceId()).toBeUndefined()
+
+          return h.response({ message: 'success' }).code(200)
+        }
+      })
+
+      const { result, statusCode } = await server.inject({
+        method: 'GET',
+        url: '/cats-url'
+      })
+
+      expect(result).toEqual({ message: 'success' })
+      expect(statusCode).toBe(200)
+      expect.assertions(3)
+    })
   })
 
-  it('not apply tracing to an array of routes when disabled', async () => {
-    config.set('tracing.enabled', false)
-    const routeWithTracing = withTracing(route)
-    const resp = await routeWithTracing.handler(req, {})
-    expect(resp?.traceId).toBeUndefined()
-  })
+  describe('When tracing is disabled', () => {
+    let server
 
-  it('work when header is not present', async () => {
-    config.set('tracing.enabled', true)
-    const routeWithTracing = withTracing(route)
-    const resp = await routeWithTracing.handler({}, {})
-    expect(resp?.traceId).toBeUndefined()
-  })
+    beforeEach(async () => {
+      server = new Server()
 
-  it('work when header is present but blank', async () => {
-    config.set('tracing.enabled', true)
-    const routeWithTracing = withTracing(route)
-    const resp = await routeWithTracing.handler(
-      { headers: { 'x-cdp-request-id': '' } },
-      {}
-    )
-    expect(resp?.traceId).toBeUndefined()
+      await server.register({
+        plugin: tracing.plugin,
+        options: { tracingEnabled: false, tracingHeader: 'x-cdp-request-id' }
+      })
+    })
+
+    afterEach(async () => {
+      await server.stop({ timeout: 0 })
+    })
+
+    test('Should have registered the plugin', () => {
+      expect(server.registrations).toEqual({
+        tracing: {
+          name: 'tracing',
+          options: { tracingEnabled: false, tracingHeader: 'x-cdp-request-id' },
+          version: '0.1.0'
+        }
+      })
+    })
+
+    test('Should have expected decorations', () => {
+      expect(server.decorations.request).toStrictEqual(['getTraceId'])
+      expect(server.decorations.server).toStrictEqual(['getTraceId'])
+    })
+
+    test('Should not add "x-cdp-request-id" to the request store', async () => {
+      const mockTraceId = 'mock-trace-id-4564569'
+
+      server.route({
+        method: 'GET',
+        path: '/different-url',
+        handler: (request, h) => {
+          expect(request.getTraceId()).toBeUndefined()
+
+          return h.response({ message: 'success' }).code(200)
+        }
+      })
+
+      const { result, statusCode } = await server.inject({
+        method: 'GET',
+        url: '/different-url',
+        headers: { 'x-cdp-request-id': mockTraceId }
+      })
+
+      expect(result).toEqual({ message: 'success' })
+      expect(statusCode).toBe(200)
+      expect.assertions(3)
+    })
   })
 })
