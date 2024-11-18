@@ -18,10 +18,12 @@ declare module '@hapi/hapi' {
     userIsMemberOfATeam: (scopes: string[]) => Promise<boolean>
     userIsServiceOwner: (scopes: string[]) => Promise<boolean>
     userIsTeamMember: (scope: string) => Promise<boolean>
+    getTraceId: () => string | undefined
   }
 
   interface Server {
     s3Client: S3Client
     secureContext: SecureContext
+    getTraceId: () => string | undefined
   }
 }
