@@ -22,7 +22,6 @@ import {
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { deleteTeamController } from '~/src/server/admin/teams/controllers/delete/delete-team.js'
 import { confirmDeleteTeamController } from '~/src/server/admin/teams/controllers/delete/confirm-delete-team.js'
-import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -137,9 +136,7 @@ const adminTeams = {
             path: '/admin/teams/{teamId}',
             ...teamController
           }
-        ]
-          .map(adminScope)
-          .map(withTracing)
+        ].map(adminScope)
       )
     }
   }

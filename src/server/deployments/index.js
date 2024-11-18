@@ -4,7 +4,6 @@ import {
   deploymentsListController
 } from '~/src/server/deployments/controllers/index.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
-import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const deployments = {
   plugin: {
@@ -20,28 +19,26 @@ const deployments = {
         }
       ])
 
-      server.route(
-        [
-          {
-            method: 'GET',
-            path: '/deployments',
-            handler: (request, h) =>
-              h.redirect(
-                `/deployments/dev?page=${pagination.page}&size=${pagination.size}`
-              )
-          },
-          {
-            method: 'GET',
-            path: '/deployments/{environment}',
-            ...deploymentsListController
-          },
-          {
-            method: 'GET',
-            path: '/deployments/{environment}/{deploymentId}',
-            ...deploymentController
-          }
-        ].map(withTracing)
-      )
+      server.route([
+        {
+          method: 'GET',
+          path: '/deployments',
+          handler: (request, h) =>
+            h.redirect(
+              `/deployments/dev?page=${pagination.page}&size=${pagination.size}`
+            )
+        },
+        {
+          method: 'GET',
+          path: '/deployments/{environment}',
+          ...deploymentsListController
+        },
+        {
+          method: 'GET',
+          path: '/deployments/{environment}/{deploymentId}',
+          ...deploymentController
+        }
+      ])
     }
   }
 }

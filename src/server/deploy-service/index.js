@@ -16,7 +16,6 @@ import {
   urls,
   formSteps
 } from '~/src/server/deploy-service/helpers/multistep-form/steps.js'
-import { withTracing } from '~/src/server/common/helpers/tracing/tracing.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -69,9 +68,7 @@ const deployService = {
               path: '/deploy-service/deploy/{multiStepFormId}',
               ...deployController
             }
-          ]
-            .map(serviceTeamAndAdminUserScope)
-            .map(withTracing)
+          ].map(serviceTeamAndAdminUserScope)
         }
       })
 
@@ -87,9 +84,7 @@ const deployService = {
             path: '/deploy-service/available-memory',
             ...availableMemoryController
           }
-        ]
-          .map(serviceTeamAndAdminUserScope)
-          .map(withTracing)
+        ].map(serviceTeamAndAdminUserScope)
       )
     }
   }
