@@ -1,8 +1,6 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import convict from 'convict'
+import { cwd } from 'node:process'
 
-const dirname = path.dirname(fileURLToPath(import.meta.url))
+import convict from 'convict'
 
 const oneHour = 1000 * 60 * 60
 const eightHours = 1000 * 60 * 60 * 8
@@ -50,7 +48,7 @@ const config = convict({
   root: {
     doc: 'Project root',
     format: String,
-    default: path.normalize(path.resolve(dirname, '..', '..'))
+    default: cwd()
   },
   appBaseUrl: {
     doc: 'Application base URL',
