@@ -5,7 +5,6 @@ import { config } from '~/src/config/index.js'
 
 const logConfig = config.get('log')
 const serviceConfig = config.get('service')
-const tracingHeader = config.get('tracing.header')
 
 /**
  * @type {{ecs: Omit<LoggerOptions, "mixin"|"transport">, "pino-pretty": {transport: {target: string}}}}
@@ -39,7 +38,9 @@ export const loggerOptions = {
   ...formatters[logConfig.format],
   mixin() {
     return {
-      [tracingHeader]: getTraceId()
+      trace: {
+        id: getTraceId()
+      }
     }
   }
 }
