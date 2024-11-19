@@ -4,6 +4,12 @@ import {
 } from '~/src/server/common/helpers/tracing/async-local-storage.js'
 import { config } from '~/src/config/index.js'
 
+/**
+ * Wrap the request lifecycle in an asyncLocalStorage run call. This allows the
+ * passed store to be available during the request lifecycle.
+ * @param { Request } request
+ * @param { Map<string, string> } store
+ */
 function wrapLifecycle(request, store) {
   const requestLifecycle = request._lifecycle.bind(request)
   request._lifecycle = () => asyncLocalStorage.run(store, requestLifecycle)
@@ -43,5 +49,5 @@ const tracing = {
 export { tracing }
 
 /**
- * @import { Plugin } from '@hapi/hapi'
+ * @import { Request, Plugin } from '@hapi/hapi'
  */
