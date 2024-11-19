@@ -13,11 +13,12 @@ const teamDetailsController = {
     const payload = request?.payload
     const redirectLocation = payload?.redirectLocation
 
-    const name = payload?.name || undefined
-    const description = payload?.description || undefined
-    const serviceCode = payload?.serviceCode || undefined
-    const alertEmailAddresses =
-      payload?.alertEmailAddresses?.split(/\s*,\s*/) || undefined
+    const name = payload.name
+    const description = payload.description || undefined
+    const serviceCode = payload.serviceCode || undefined
+    const alertEmailAddresses = payload.alertEmailAddresses
+      ? payload.alertEmailAddresses.split(/\s*,\s*/)
+      : undefined
 
     const sanitisedPayload = {
       name,
