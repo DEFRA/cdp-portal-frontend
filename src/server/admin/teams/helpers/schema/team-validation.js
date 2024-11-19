@@ -27,8 +27,8 @@ const teamValidation = Joi.object({
     }),
   alertEmailAddresses: Joi.array().items(Joi.string().email()).optional(),
   description: Joi.string()
-    .max(256)
     .optional()
+    .max(256)
     .messages({
       'string.max': validation.maxCharacters(256)
     })
