@@ -10,7 +10,17 @@ const serviceConfig = config.get('service')
  * @type {{ecs: Omit<LoggerOptions, "mixin"|"transport">, "pino-pretty": {transport: {target: string}}}}
  */
 const formatters = {
-  ecs: ecsFormat(),
+  ecs: {
+    ...ecsFormat(),
+    base: {
+      service: {
+        name: serviceConfig.name,
+        type: 'nodeJs',
+        version: serviceConfig.version,
+        environment: serviceConfig.environment
+      }
+    }
+  },
   'pino-pretty': { transport: { target: 'pino-pretty' } }
 }
 
@@ -29,15 +39,6 @@ export const loggerOptions = {
   mixin() {
     const mixinValues = {}
     const traceId = getTraceId()
-
-    if (serviceConfig.version) {
-      mixinValues.service = {
-        name: serviceConfig.name,
-        type: 'nodeJs',
-        version: serviceConfig.version,
-        environment: serviceConfig.environment
-      }
-    }
 
     if (traceId) {
       mixinValues.trace = { id: traceId }
