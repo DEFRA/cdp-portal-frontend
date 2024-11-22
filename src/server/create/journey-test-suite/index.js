@@ -2,8 +2,7 @@ import {
   testSuiteDetailFormController,
   testSuiteDetailController,
   testSuiteSummaryController,
-  testSuiteCreateController,
-  testSuiteSuccessController
+  testSuiteCreateController
 } from '~/src/server/create/journey-test-suite/controllers/index.js'
 
 const createTestSuiteRoutes = [
@@ -26,11 +25,6 @@ const createTestSuiteRoutes = [
     method: 'POST',
     path: '/create/journey-test-suite',
     ...testSuiteCreateController
-  },
-  {
-    method: 'GET',
-    path: '/create/journey-test-suite/success',
-    ...testSuiteSuccessController
   }
 ]
 
