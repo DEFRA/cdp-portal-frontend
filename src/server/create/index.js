@@ -11,10 +11,8 @@ import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { createRepositoryRoutes } from '~/src/server/create/repository/index.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { createMicroserviceRoutes } from '~/src/server/create/microservice/index.js'
-import { createEnvTestSuiteRoutes } from '~/src/server/create/env-test-suite/index.js'
 import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite/index.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { createSmokeTestSuiteRoutes } from '~/src/server/create/smoke-test-suite/index.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -64,10 +62,8 @@ const create = {
           },
           ...createMicroserviceRoutes,
           ...createRepositoryRoutes,
-          ...createEnvTestSuiteRoutes,
           ...createTestSuiteRoutes,
-          ...createPerfTestSuiteRoutes,
-          ...createSmokeTestSuiteRoutes
+          ...createPerfTestSuiteRoutes
         ].map(serviceTeamAndAdminUserScope)
       )
     }
