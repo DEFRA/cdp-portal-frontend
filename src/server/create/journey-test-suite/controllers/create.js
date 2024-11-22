@@ -45,7 +45,7 @@ const testSuiteCreateController = {
 
     if (!validationResult.error) {
       const selfServiceOpsCreateTestSuiteEndpointUrl =
-        config.get('selfServiceOpsUrl') + '/create-tests'
+        config.get('selfServiceOpsUrl') + '/create-env-test-suite'
 
       try {
         const { data, response } = await request.authedFetcher(
@@ -73,7 +73,7 @@ const testSuiteCreateController = {
             )
           )
 
-          return h.redirect('/create/journey-test-suite/success')
+          return h.redirect(`/test-suites/create-status/${data.repositoryName}`)
         }
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
