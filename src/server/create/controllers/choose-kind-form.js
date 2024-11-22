@@ -1,9 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import startCase from 'lodash/startCase.js'
 
 import { creations } from '~/src/server/create/constants/creations.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
 
 const chooseKindFormController = {
@@ -20,15 +18,19 @@ const chooseKindFormController = {
   },
   handler: (request, h) => {
     const query = request?.query
-    const creationItems = Object.entries(creations).map(([key, value]) => ({
-      text: startCase(value),
-      value: key
+    const creationItems = Object.values(creations).map((creation) => ({
+      value: creation.kind,
+      text: creation.title,
+      hint: {
+        text: creation.hint
+      },
+      label: { classes: 'govuk-!-font-weight-bold' }
     }))
 
     return h.view('create/views/choose-kind-form', {
       pageTitle: 'Create',
       heading: 'Create',
-      createItems: buildOptions(creationItems, false),
+      createItems: creationItems,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation
     })
