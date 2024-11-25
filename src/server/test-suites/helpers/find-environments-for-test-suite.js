@@ -6,16 +6,12 @@ const logger = createLogger()
 function findEnvironmentsForTestSuite(repo) {
   const topics = repo?.topics
 
-  if (topics.some((t) => t === 'smoke')) {
-    return testEnvironments.smoke
-  }
-
   if (topics.some((t) => t === 'performance')) {
     return testEnvironments.performance
   }
 
-  if (topics.some((t) => t === 'environment')) {
-    return testEnvironments.environment
+  if (topics.some((t) => t === 'journey')) {
+    return testEnvironments.journey
   }
 
   logger.error(

@@ -51,7 +51,7 @@ describe('#provideEnvironmentOptions', () => {
                   teamId: 'mock-team-id'
                 }
               ],
-              topics: ['smoke']
+              topics: ['journey']
             }
           },
           true
@@ -103,7 +103,7 @@ describe('#provideEnvironmentOptions', () => {
     ])
   })
 
-  test('Should provide environments test environments for non-admins', async () => {
+  test('Should provide "journey"" test environments for non-admins', async () => {
     expect(
       await provideEnvironmentOptions.method(
         mockRequest(
@@ -118,7 +118,7 @@ describe('#provideEnvironmentOptions', () => {
                   teamId: 'mock-team-id'
                 }
               ],
-              topics: ['environment']
+              topics: ['journey']
             }
           },
           true
@@ -132,7 +132,9 @@ describe('#provideEnvironmentOptions', () => {
         value: ''
       },
       { text: 'dev', value: 'dev' },
-      { text: 'test', value: 'test' }
+      { text: 'test', value: 'test' },
+      { text: 'perf-test', value: 'perf-test' },
+      { text: 'prod', value: 'prod' }
     ])
   })
 
