@@ -12,7 +12,7 @@ const creatEnvTestSuiteStatusInProgressFixture = {
     portalVersion: 2,
     status: 'in-progress',
     started: '2023-11-22T09:28:57.925Z',
-    serviceTypeTemplate: 'cdp-node-env-test-suite-template',
+    serviceTypeTemplate: 'cdp-node-journey-test-suite-template',
     team: {
       teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
       name: 'Platform'
