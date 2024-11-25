@@ -38,7 +38,7 @@ function testSuiteStatus(service) {
       text: serviceStatus?.status ? serviceStatus.status : unknownValue,
       classes: statusTagClassMap(serviceStatus?.status)
     },
-    serviceTypeTemplate: service.serviceTypeTemplate,
+    serviceTypeTemplate: serviceStatus.serviceTypeTemplate,
     createRepository: {
       name: 'GitHub Repository',
       part: 1,

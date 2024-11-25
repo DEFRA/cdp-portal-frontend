@@ -81,7 +81,7 @@ describe('#testSuiteStatus', () => {
         total: 3
       },
       started: '2023-11-22T09:28:57.925Z',
-      serviceTypeTemplate: undefined,
+      serviceTypeTemplate: 'cdp-node-journey-test-suite-template',
       status: {
         classes: 'govuk-tag--blue',
         isSuccess: false,
