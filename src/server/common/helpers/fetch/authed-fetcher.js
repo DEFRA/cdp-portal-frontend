@@ -1,3 +1,4 @@
+import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
 import { config } from '~/src/config/index.js'
@@ -8,34 +9,39 @@ import {
   removeAuthenticatedUser,
   updateUserSession
 } from '~/src/server/common/helpers/auth/user-session.js'
+import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 
-const fetch = (...args) =>
-  import('node-fetch').then(({ default: fetch }) => fetch(...args))
+/**
+ * @param {string} url
+ * @param {string} token
+ * @param {RequestOptions} options
+ * @returns {Promise<Response>}
+ */
+function authedFetcher(url, token, options = {}) {
+  const logger = createLogger()
+  const tracingHeader = config.get('tracing.header')
+  const traceId = getTraceId()
 
-function authedFetcher(request) {
+  logger.debug({ url }, 'Fetching authenticated data')
+
+  return fetch(url, {
+    ...options,
+    method: options?.method || 'get',
+    headers: {
+      ...(options?.headers && options.headers),
+      ...(traceId && { [tracingHeader]: traceId }),
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
+function authedFetcherDecorator(request) {
   return async (url, options = {}) => {
     const authedUser = await request.getUserSession()
     const token = authedUser?.token ?? null
 
-    const fetchWithAuth = (token) => {
-      const tracingHeader = config.get('tracing.header')
-      const traceId = getTraceId()
-
-      request.logger.debug({ url }, 'Fetching authenticated data')
-
-      return fetch(url, {
-        ...options,
-        method: options?.method || 'get',
-        headers: {
-          ...(options?.headers && options.headers),
-          ...(traceId && { [tracingHeader]: traceId }),
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      })
-    }
-
-    return fetchWithAuth(token).then(async (response) => {
+    return authedFetcher(url, token, options).then(async (response) => {
       if (response.status === 401) {
         // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
         const refreshTokenResponse = await refreshAccessToken(request)
@@ -61,7 +67,7 @@ function authedFetcher(request) {
           )
 
           // Replay initial request with new token
-          return await fetchWithAuth(newToken)
+          return await authedFetcher(url, newToken, options)
         }
       }
 
@@ -78,4 +84,7 @@ function authedFetcher(request) {
   }
 }
 
-export { authedFetcher }
+export { authedFetcherDecorator, authedFetcher }
+/**
+ * import { Response, RequestOptions } from 'node-fetch'
+ */

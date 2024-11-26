@@ -3,7 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config/index.js'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
 import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
+import { authedFetcherDecorator } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#removeUserFromTeam', () => {
@@ -13,7 +13,7 @@ describe('#removeUserFromTeam', () => {
     config.get('userServiceBackendUrl') + `/teams/${teamId}/remove/${userId}`
   )
   const mockRequest = {
-    authedFetcher: authedFetcher({
+    authedFetcher: authedFetcherDecorator({
       getUserSession: jest.fn().mockResolvedValue({}),
       logger: {
         error: jest.fn(),
