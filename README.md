@@ -328,6 +328,10 @@ To set up the web shell so it displays locally in the Portal Frontend UI:
 
 ### Set up
 
+Either launch [Terminal in Local Environment](https://github.com/DEFRA/cdp-local-environment?tab=readme-ov-file#terminal),
+
+or build and launch locally:
+
 ```bash
 cd cdp-webshell-proxy
 
@@ -348,10 +352,10 @@ install go https://go.dev/doc/install
 go run . -port 8085 -token 12345
 
 ## Open the web shell
-http://localhost:8000/12345/
+http://localhost:8085/12345/
 
 ## De-register a route
-curl http://localhost:8080/admin/deregister/12345'
+curl http://localhost:8085/admin/deregister/12345'
 ```
 
 ## Licence
