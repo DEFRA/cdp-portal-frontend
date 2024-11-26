@@ -1,6 +1,6 @@
 import { isXhr } from '~/src/server/common/helpers/is-xhr.js'
 import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup/index.js'
-import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
+import { authedFetcherDecorator } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session.js'
 import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session.js'
 import { userIsTeamMemberDecorator } from '~/src/server/common/helpers/user/user-is-team-member.js'
@@ -13,7 +13,7 @@ import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/us
  */
 function addDecorators(server) {
   server.decorate('request', 'isXhr', isXhr)
-  server.decorate('request', 'authedFetcher', authedFetcher, {
+  server.decorate('request', 'authedFetcher', authedFetcherDecorator, {
     apply: true
   })
   server.decorate('request', 'getUserSession', getUserSession)
