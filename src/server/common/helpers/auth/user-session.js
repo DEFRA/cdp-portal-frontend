@@ -1,10 +1,7 @@
 import jwt from '@hapi/jwt'
 import { addSeconds } from 'date-fns'
 
-import { config } from '~/src/config/index.js'
-import { isUserInAServiceTeam } from '~/src/server/common/helpers/user/is-user-in-a-service-team.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { fetchTeams } from '~/src/server/teams/helpers/fetch/index.js'
+import { fetchScopes } from '~/src/server/teams/helpers/fetch/index.js'
 
 function removeAuthenticatedUser(request) {
   request.dropUserSession()
@@ -21,44 +18,23 @@ async function createUserSession(request, sessionId) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
-  const { teams } = await fetchTeams(true)
-  const { profile } = request.auth.credentials
-  const userGroups = profile.groups?.slice()
-
-  const isAdmin = userGroups.includes(config.get('oidcAdminGroupId'))
-  if (isAdmin) {
-    userGroups.push(scopes.admin)
-  }
-
-  const isTenant = await isUserInAServiceTeam(teams, userGroups)
-  if (isTenant) {
-    userGroups.push(scopes.tenant)
-  }
+  const { id, email, displayName, loginHint, scopes, scopeFlags } =
+    request.auth.credentials.profile
 
   await request.server.app.cache.set(sessionId, {
-    id: profile.id,
-    email: profile.email,
-    displayName: profile.displayName,
-    loginHint: profile.loginHint,
+    id,
+    email,
+    displayName,
+    loginHint,
     isAuthenticated: request.auth.isAuthenticated,
     token: request.auth.credentials.token,
     refreshToken: request.auth.credentials.refreshToken,
-    isAdmin,
-    isTenant,
-    scope: userGroups,
+    isAdmin: scopeFlags.isAdmin,
+    isTenant: scopeFlags.isTenant,
+    scope: scopes,
     expiresIn: expiresInMilliSeconds,
     expiresAt
   })
-}
-
-async function provideCdpGroupDetail(groups = []) {
-  const { teams: teamsWithGithub } = await fetchTeams(true)
-  const teamIds = teamsWithGithub?.map((team) => team.teamId) ?? []
-
-  return {
-    teams: teamsWithGithub,
-    userGroups: groups.slice().filter((group) => teamIds.includes(group))
-  }
 }
 
 async function updateUserSession(request, refreshedSession) {
@@ -72,19 +48,7 @@ async function updateUserSession(request, refreshedSession) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
-  const { teams, userGroups } = await provideCdpGroupDetail(
-    refreshedPayload.groups
-  )
-
-  const isAdmin = userGroups.includes(config.get('oidcAdminGroupId'))
-  if (isAdmin) {
-    userGroups.push(scopes.admin)
-  }
-
-  const isTenant = await isUserInAServiceTeam(teams, userGroups)
-  if (isTenant) {
-    userGroups.push(scopes.tenant)
-  }
+  const { scopes, scopeFlags } = await fetchScopes(request)
 
   await request.server.app.cache.set(request.state.userSession.sessionId, {
     id: refreshedPayload.oid,
@@ -94,9 +58,9 @@ async function updateUserSession(request, refreshedSession) {
     isAuthenticated: true,
     token: refreshedSession.access_token,
     refreshToken: refreshedSession.refresh_token,
-    isAdmin,
-    isTenant,
-    scope: userGroups,
+    isAdmin: scopeFlags.isAdmin,
+    isTenant: scopeFlags.isTenant,
+    scope: scopes,
     expiresIn: expiresInMilliSeconds,
     expiresAt
   })

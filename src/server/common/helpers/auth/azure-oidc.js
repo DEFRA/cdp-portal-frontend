@@ -2,16 +2,8 @@ import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
 import { config } from '~/src/config/index.js'
-import { fetchTeams } from '~/src/server/teams/helpers/fetch/index.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { proxyFetch } from '~/src/server/common/helpers/proxy/proxy-fetch.js'
-
-async function provideCdpGroups(groups = []) {
-  const { teams: teamsWithGithub } = await fetchTeams(true)
-  const teamIds = teamsWithGithub?.map((team) => team.teamId)
-
-  return groups.slice().filter((group) => teamIds.includes(group))
-}
 
 const azureOidc = {
   plugin: {
@@ -50,15 +42,18 @@ const azureOidc = {
             'offline_access',
             'user.read'
           ],
-          profile: async function (credentials) {
+          profile: async function (credentials, _params, authedGet) {
             const payload = jwt.token.decode(credentials.token).decoded.payload
-            const groups = await provideCdpGroups(payload.groups)
+            const endpoint = config.get('userServiceBackendUrl') + `/scopes`
+
+            const { scopes, scopeFlags } = await authedGet(endpoint)
 
             credentials.profile = {
               id: payload.oid,
               displayName: payload.name,
               email: payload.upn ?? payload.preferred_username,
-              groups,
+              scopes,
+              scopeFlags,
               loginHint: payload.login_hint
             }
           }
