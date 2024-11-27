@@ -1,5 +1,6 @@
+@use "govuk-frontend" as *;
 @use "variables/colours" as *;
 
-.app-terminal-grey {
-  background-color: $app-terminal-grey;
+.app-terminal-background {
+  background-color: #000000;
 }
