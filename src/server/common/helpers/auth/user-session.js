@@ -48,7 +48,9 @@ async function updateUserSession(request, refreshedSession) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
-  const { scopes, scopeFlags } = await fetchScopes(request)
+  const { scopes, scopeFlags } = await fetchScopes(
+    refreshedSession.access_token
+  )
 
   await request.server.app.cache.set(request.state.userSession.sessionId, {
     id: refreshedPayload.oid,

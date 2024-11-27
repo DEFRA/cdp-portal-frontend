@@ -1,11 +1,12 @@
 import { config } from '~/src/config/index.js'
 
-async function fetchScopes(request) {
+import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
+
+async function fetchScopes(token) {
   const endpoint = config.get('userServiceBackendUrl') + `/scopes`
 
-  const response = await request.authedFetcher(endpoint)
-
-  return response.data
+  const response = await authedFetcher(endpoint, token)
+  return await response.json()
 }
 
 export { fetchScopes }
