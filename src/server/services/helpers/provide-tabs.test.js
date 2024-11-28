@@ -124,6 +124,9 @@ describe('#provideTabs', () => {
       mockRouteLookup.mockReturnValueOnce(
         `/services/${mockServiceName}/secrets`
       )
+      mockRouteLookup.mockReturnValueOnce(
+        `/services/${mockServiceName}/terminal`
+      )
 
       await provideTabs(
         mockRequest({
@@ -144,15 +147,23 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
+        },
+        {
+          isActive: false,
+          label: 'Terminal',
+          url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(2)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
     })
 
     test('Should mark matching url as Active', async () => {
       mockRouteLookup.mockReturnValueOnce(`/services/${mockServiceName}`)
       mockRouteLookup.mockReturnValueOnce(
         `/services/${mockServiceName}/secrets`
+      )
+      mockRouteLookup.mockReturnValueOnce(
+        `/services/${mockServiceName}/terminal`
       )
 
       await provideTabs(
@@ -174,6 +185,11 @@ describe('#provideTabs', () => {
           isActive: true,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
+        },
+        {
+          isActive: false,
+          label: 'Terminal',
+          url: `/services/${mockServiceName}/terminal`
         }
       ])
     })

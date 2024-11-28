@@ -35,19 +35,17 @@ async function provideTabs(request, h) {
     ]
 
     if (isAdmin || isServiceOwner) {
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/secrets`),
-        url: request.routeLookup('services/{serviceId}/secrets', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Secrets'
-      })
-
-      if (isAdmin) {
-        // TODO move to above when ready for release
-        response.source.context.tabDetails.tabs.push({
+      response.source.context.tabDetails.tabs.push(
+        {
+          isActive: request.path.startsWith(`/services/${imageName}/secrets`),
+          url: request.routeLookup('services/{serviceId}/secrets', {
+            params: {
+              serviceId: imageName
+            }
+          }),
+          label: 'Secrets'
+        },
+        {
           isActive: request.path.startsWith(`/services/${imageName}/terminal`),
           url: request.routeLookup('services/{serviceId}/terminal', {
             params: {
@@ -55,8 +53,8 @@ async function provideTabs(request, h) {
             }
           }),
           label: 'Terminal'
-        })
-      }
+        }
+      )
     } else {
       response.source.context.tabDetails.displayTabs = false
     }
