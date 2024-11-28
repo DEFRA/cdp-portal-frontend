@@ -13,16 +13,13 @@
 
 {% block main %}
 
-  {# TODO update isAdmin to isServiceOwner when ready for release #}
-  {% if isAdmin %}
-    <main id="main-content" class="govuk-body govuk-!-margin-0">
-      <iframe
-        class="app-iframe app-iframe--terminal"
-        title="Terminal {{ serviceId }} - {{ environment }}"
-        scrolling="no"
-        src="{{ terminalProxyUrl }}">
-      </iframe>
-    </main>
-  {% endif %}
+  <main id="main-content" class="govuk-body govuk-!-margin-0">
+    <iframe
+      class="app-iframe app-iframe--terminal"
+      title="Terminal {{ serviceId }} - {{ environment }}"
+      scrolling="no"
+      src="{{ terminalProxyUrl }}">
+    </iframe>
+  </main>
 
 {% endblock %}

@@ -78,31 +78,28 @@
       </section>
 
       <article class="govuk-!-margin-bottom-6">
-        {# TODO update isAdmin to isServiceOwner when ready for release #}
-        {% if isAdmin %}
-          {% call appSummaryItem({
-            heading: "Launch a terminal",
-            icon: appTerminalIcon({ classes: "app-icon-small"}),
-            intro: {
-              text: "Launch a secure terminal, as your service in an environment."
-            }
-          }) %}
+        {% call appSummaryItem({
+          heading: "Launch a terminal",
+          icon: appTerminalIcon({ classes: "app-icon-small"}),
+          intro: {
+            text: "Launch a secure terminal, as your service in an environment."
+          }
+        }) %}
 
-            {% if canLaunchTerminal %}
-              {{ govukTable({
-                classes: "app-table govuk-!-margin-bottom-4",
-                head: [{ text: "Environment" }, { text: "Action" }],
-                rows: terminalTableRows
-              }) }}
+          {% if canLaunchTerminal %}
+            {{ govukTable({
+              classes: "app-table govuk-!-margin-bottom-4",
+              head: [{ text: "Environment" }, { text: "Action" }],
+              rows: terminalTableRows
+            }) }}
 
-            {% else %}
-              <p class="govuk-!-margin-bottom-2">
-                {{ service.serviceName if service.serviceName else "Your service" }} has not been deployed to an
-                environment.
-              </p>
-            {% endif %}
-          {% endcall %}
-        {% endif %}
+          {% else %}
+            <p class="govuk-!-margin-bottom-2">
+              {{ service.serviceName if service.serviceName else "Your service" }} has not been deployed to an
+              environment.
+            </p>
+          {% endif %}
+        {% endcall %}
       </article>
     </div>
 
