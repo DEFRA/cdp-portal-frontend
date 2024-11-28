@@ -27,6 +27,13 @@ function provideSubNavigation(request, h) {
         label: {
           text: 'Features'
         }
+      },
+      {
+        isActive: request.path.startsWith('/admin/permissions'),
+        url: '/admin/permissions',
+        label: {
+          text: 'Permissions'
+        }
       }
     ]
   }
