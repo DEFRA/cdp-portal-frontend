@@ -100,7 +100,7 @@
 
                 {% for environment in envsWithDeployment %}
                   <dt class="app-description-list__term"> {{ environment | title }}</dt>
-                  <dd class="app-description-list">
+                  <dd class="app-description-list__details">
                     <a class="app-link"
                        href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
                        target="_blank" rel="noopener noreferrer">
