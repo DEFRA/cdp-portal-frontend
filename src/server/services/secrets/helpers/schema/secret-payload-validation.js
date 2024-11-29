@@ -47,21 +47,18 @@ const provideCustomErrorCode = (errorReports) => {
 /**
  * Validation for Create and Update forms payloads
  * @param {Action} action
- * @param {string} teamId
+ * @param {Array} [scopes]
  * @param {Array} [existingSecretKeys] existingSecretKeys
  * @returns {Joi.ObjectSchema<*>}
  */
-function secretPayloadValidation(action, teamId, existingSecretKeys = []) {
+function secretPayloadValidation(action, scopes, existingSecretKeys = []) {
   const immutableKeys = getImmutableKeys({
     action,
     platformFixedKeys: platformGlobalSecretKeys,
     existingSecretKeys
   })
 
-  const adminTeamId = config.get('oidcAdminGroupId')
-  const allowedEnvironments = Object.values(
-    getEnvironments(teamId === adminTeamId)
-  )
+  const allowedEnvironments = getEnvironments(scopes)
 
   return Joi.object({
     secretKey: Joi.string()

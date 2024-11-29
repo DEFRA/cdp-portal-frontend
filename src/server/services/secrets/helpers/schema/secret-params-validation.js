@@ -1,6 +1,5 @@
 import Joi from 'joi'
-
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 /**
  * Validation for secret params
@@ -9,12 +8,12 @@ import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/
  * @returns {any}
  */
 function secretParamsValidation(params, options) {
-  const service = options.context.app.request.service
+  const scopes = options.context.auth.credentials?.scope.slice()
 
   const validationResult = Joi.object({
     serviceId: Joi.string().required(),
     environment: Joi.string()
-      .valid(...Object.values(getEnvironmentsByTeam(service?.teams ?? [])))
+      .valid(...getEnvironments(scopes))
       .required()
   }).validate(params, options)
 

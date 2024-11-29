@@ -9,9 +9,9 @@ import { withEnvironments } from '~/src/server/common/transformers/with-environm
 import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list.js'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
 import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/build-running-services-row-headings.js'
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
 import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const serviceController = {
   options: {
@@ -34,7 +34,7 @@ const serviceController = {
     }
 
     const availableVersions = await fetchAvailableVersions(service.serviceName)
-    const environments = getEnvironmentsByTeam(service.teams)
+    const environments = getEnvironments(request.auth.credentials?.scope)
     const runningServices = (await fetchRunningServicesById(serviceId)) ?? []
     const runningServicesEntityRows = compose(
       runningServicesToEntityRow(environments),
@@ -45,7 +45,7 @@ const serviceController = {
         runningServices.map((runningService) => runningService.environment)
       )
     ]
-      .filter((env) => Object.values(environments).includes(env))
+      .filter((env) => environments.includes(env))
       .sort(sortByEnv)
 
     return h.view('services/about/views/service', {

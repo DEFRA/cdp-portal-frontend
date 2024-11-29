@@ -2,14 +2,13 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
-
-import { environments } from '~/src/config/index.js'
+import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const testResultsController = {
   options: {
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...Object.values(environments)),
+        environment: Joi.string().valid(...getAllEnvironmentKebabNames()),
         serviceId: Joi.string(),
         runId: Joi.string(),
         assetPath: Joi.string().required(),

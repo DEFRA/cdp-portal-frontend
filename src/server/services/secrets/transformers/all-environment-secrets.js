@@ -3,7 +3,7 @@ import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
 
 /**
  * Transforms and filters secrets for all environments.
- * @param {object} environments - An object containing environment names as keys.
+ * @param {Array} environments - An list of environment names.
  * @param {object} allSecrets - An object containing all secrets, keyed by environment.
  * @param {string[]} [platformGlobalSecretKeys] - An array of global secret keys to be excluded from the result,
  * defaults to config.get('platformGlobalSecretKeys').
@@ -17,7 +17,7 @@ function allEnvironmentSecrets(
   const result = {}
   const excludedKeys = ['automated_placeholder', 'placeholder']
 
-  for (const environment of Object.values(environments)) {
+  Array.from(environments).forEach(function (environment) {
     const secrets = allSecrets[environment]
 
     if (secrets) {
@@ -42,7 +42,7 @@ function allEnvironmentSecrets(
         isSecretsSetup: false
       }
     }
-  }
+  })
 
   return result
 }

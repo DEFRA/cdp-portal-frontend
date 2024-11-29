@@ -1,16 +1,14 @@
 import Boom from '@hapi/boom'
 
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { environments } from '~/src/config/environments.js'
 
-async function canLaunchTerminal(request, environment) {
-  const authedUser = await request.getUserSession()
-  const isAdmin = authedUser?.isAdmin
-
-  const environments = Object.values(getEnvironments(isAdmin)).filter(
-    (env) => env !== 'prod'
+function canLaunchTerminal(request, environment) {
+  const envs = getEnvironments(request.auth.credentials?.scope).filter(
+    (env) => env !== environments.prod.kebabName
   )
 
-  if (!environments.includes(environment)) {
+  if (!envs.includes(environment)) {
     throw Boom.forbidden('Cannot launch terminal in this environment')
   }
 }

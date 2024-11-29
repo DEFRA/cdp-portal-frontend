@@ -1,4 +1,5 @@
 import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/provide-environment-options.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const mockRequest = (auth, pre = {}, isMemberOfATeam = false) => ({
   pre,
@@ -13,7 +14,8 @@ describe('#provideEnvironmentOptions', () => {
         mockRequest(
           {
             isAuthenticated: true,
-            isAdmin: true
+            isAdmin: true,
+            scope: [scopes.admin]
           },
           {
             testSuite: {
@@ -30,9 +32,9 @@ describe('#provideEnvironmentOptions', () => {
         text: ' - - select - - ',
         value: ''
       },
-      { text: 'perf-test', value: 'perf-test' },
+      { text: 'infra-dev', value: 'infra-dev' },
       { text: 'management', value: 'management' },
-      { text: 'infra-dev', value: 'infra-dev' }
+      { text: 'perf-test', value: 'perf-test' }
     ])
   })
 

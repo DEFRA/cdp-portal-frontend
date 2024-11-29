@@ -1,7 +1,8 @@
 const scopes = {
   admin: 'admin',
   tenant: 'tenant',
-  serviceOwner: 'serviceOwner'
+  serviceOwner: 'serviceOwner',
+  externalTest: 'externalTest'
 }
 
 export { scopes }

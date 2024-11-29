@@ -4,8 +4,6 @@ import capitalize from 'lodash/capitalize.js'
 import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 import compose from 'lodash/fp/compose.js'
-
-import { environments } from '~/src/config/index.js'
 import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
@@ -16,6 +14,7 @@ import { deploymentEntityRows } from '~/src/server/deployments/transformers/depl
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
 import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters.js'
+import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const deploymentsListController = {
   options: {
@@ -25,7 +24,7 @@ const deploymentsListController = {
     },
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...Object.values(environments))
+        environment: Joi.string().valid(...getAllEnvironmentKebabNames())
       }),
       query: Joi.object({
         service: Joi.string().allow(''),

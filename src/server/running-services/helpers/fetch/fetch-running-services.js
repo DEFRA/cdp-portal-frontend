@@ -8,7 +8,7 @@ async function fetchRunningServices(environments) {
     config.get('portalBackendUrl') +
     '/v2/whats-running-where' +
     qs.stringify(
-      { environments: Object.values(environments) },
+      { environments },
       { arrayFormat: 'repeat', addQueryPrefix: true }
     )
 
