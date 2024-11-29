@@ -1,9 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { environments, config } from '~/src/config/index.js'
+import { config } from '~/src/config/index.js'
 import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { getAllEnvironmentKebabNamesExceptProd } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const webShellBrowserController = {
   options: {
@@ -11,14 +12,14 @@ const webShellBrowserController = {
       params: Joi.object({
         serviceId: Joi.string().required(),
         environment: Joi.string()
-          .valid(...Object.values(environments).filter((env) => env !== 'prod'))
+          .valid(...getAllEnvironmentKebabNamesExceptProd())
           .required(),
         token: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: async (request, h) => {
+  handler: (request, h) => {
     const params = request.params
     const serviceId = params.serviceId
     const environment = params.environment
@@ -32,7 +33,7 @@ const webShellBrowserController = {
     )
 
     try {
-      await canLaunchTerminal(request, environment)
+      canLaunchTerminal(request, environment)
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

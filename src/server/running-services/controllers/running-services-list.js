@@ -1,5 +1,4 @@
 import compose from 'lodash/fp/compose.js'
-import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
@@ -11,8 +10,8 @@ import { fetchRunningServices } from '~/src/server/running-services/helpers/fetc
 function buildRowHeadings(environments) {
   return [
     { text: 'Service', size: 'medium' },
-    ...Object.keys(environments).map((key) => ({
-      text: upperFirst(kebabCase(key)),
+    ...environments.map((environment) => ({
+      text: upperFirst(environment),
       size: 'small'
     }))
   ]
@@ -22,7 +21,7 @@ const runningServicesListController = {
   options: { id: 'running-services' },
   handler: async (request, h) => {
     const authedUser = await request.getUserSession()
-    const environments = getEnvironments(authedUser?.isAdmin)
+    const environments = getEnvironments(authedUser?.scope)
     const runningServices = (await fetchRunningServices(environments)) ?? []
     const sortedRunningServices = runningServices?.sort(
       sortBy('service', 'asc')

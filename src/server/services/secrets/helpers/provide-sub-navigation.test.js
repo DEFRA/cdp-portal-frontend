@@ -1,4 +1,5 @@
 import { provideSubNavigation } from '~/src/server/services/secrets/helpers/provide-sub-navigation.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 describe('#provideSubNavigation', () => {
   const mockToolkit = { continue: 'continue' }
@@ -8,13 +9,22 @@ describe('#provideSubNavigation', () => {
       : '/services/cdp-portal-frontend/secrets'
   })
 
-  const buildMockRequest = ({ variety = 'view', source = {} } = {}) => ({
+  const buildMockRequest = ({
+    variety = 'view',
+    source = {},
+    scope = []
+  } = {}) => ({
     response: {
       variety,
       source
     },
     path: '/services/cdp-portal-frontend/secrets/infra-dev',
-    routeLookup: mockRouteLookup
+    routeLookup: mockRouteLookup,
+    auth: {
+      credentials: {
+        scope
+      }
+    }
   })
 
   describe('When response variety is view', () => {
@@ -29,7 +39,8 @@ describe('#provideSubNavigation', () => {
               teams: [{ teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474' }]
             }
           }
-        }
+        },
+        scope: [scopes.admin, scopes.externalTest]
       })
     })
 
@@ -75,16 +86,16 @@ describe('#provideSubNavigation', () => {
         {
           isActive: false,
           label: {
-            text: 'Perf-test'
+            text: 'Ext-test'
           },
-          url: '/services/cdp-portal-frontend/secrets/perf-test'
+          url: '/services/cdp-portal-frontend/secrets/ext-test'
         },
         {
           isActive: false,
           label: {
-            text: 'Ext-test'
+            text: 'Perf-test'
           },
-          url: '/services/cdp-portal-frontend/secrets/ext-test'
+          url: '/services/cdp-portal-frontend/secrets/perf-test'
         },
         {
           isActive: false,
@@ -174,6 +185,80 @@ describe('#provideSubNavigation', () => {
             text: 'Test'
           },
           url: '/services/cdp-portal-frontend/secrets/test'
+        },
+        {
+          isActive: false,
+          label: {
+            text: 'Perf-test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/perf-test'
+        },
+        {
+          isActive: false,
+          label: {
+            text: 'Prod'
+          },
+          url: '/services/cdp-portal-frontend/secrets/prod'
+        }
+      ])
+    })
+  })
+
+  describe('With tenant service that has external-test', () => {
+    let mockRequest
+
+    beforeEach(() => {
+      mockRequest = buildMockRequest({
+        source: {
+          context: {
+            service: {
+              imageName: 'mock-tenant-service',
+              teams: [
+                {
+                  teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
+                },
+                {
+                  teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274'
+                }
+              ]
+            }
+          }
+        },
+        scope: [scopes.externalTest]
+      })
+    })
+
+    test('Should provide sub nav without platform environments but with ext-test', async () => {
+      await provideSubNavigation(mockRequest, mockToolkit)
+
+      expect(mockRequest.response.source.context.subNavigation).toEqual([
+        {
+          isActive: false,
+          label: {
+            text: 'All'
+          },
+          url: '/services/cdp-portal-frontend/secrets'
+        },
+        {
+          isActive: false,
+          label: {
+            text: 'Dev'
+          },
+          url: '/services/cdp-portal-frontend/secrets/dev'
+        },
+        {
+          isActive: false,
+          label: {
+            text: 'Test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/test'
+        },
+        {
+          isActive: false,
+          label: {
+            text: 'Ext-test'
+          },
+          url: '/services/cdp-portal-frontend/secrets/ext-test'
         },
         {
           isActive: false,

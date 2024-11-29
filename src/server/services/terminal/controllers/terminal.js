@@ -3,10 +3,10 @@ import Boom from '@hapi/boom'
 
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
-async function getTerminalEnvs(service) {
+async function getTerminalEnvs(service, scopes) {
   const teams = service?.teams
   const serviceName = service?.serviceName
 
@@ -14,14 +14,14 @@ async function getTerminalEnvs(service) {
     return []
   }
 
-  const environments = getEnvironmentsByTeam(teams)
+  const environments = getEnvironments(scopes)
   const runningServices = (await fetchRunningServicesById(serviceName)) ?? []
   const envsWithDeployment = [
     ...new Set(
       runningServices.map((runningService) => runningService.environment)
     )
   ]
-    .filter((env) => Object.values(environments).includes(env))
+    .filter((env) => environments.includes(env))
     .sort(sortByEnv)
   return envsWithDeployment.filter((env) => env !== 'prod')
 }
@@ -40,7 +40,10 @@ const webShellController = {
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
     const service = request.pre.service
-    const terminalEnvs = await getTerminalEnvs(service)
+    const terminalEnvs = await getTerminalEnvs(
+      service,
+      request.auth.credentials?.scope
+    )
     const canLaunchTerminal = terminalEnvs.length > 0
 
     return h.view('services/terminal/views/terminal', {

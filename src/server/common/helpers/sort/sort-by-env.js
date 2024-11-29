@@ -1,11 +1,13 @@
+import { environments } from '~/src/config/environments.js'
+
 const order = [
-  'infra-dev',
-  'management',
-  'dev',
-  'test',
-  'perf-test',
-  'ext-test',
-  'prod'
+  environments.infraDev.kebabName,
+  environments.management.kebabName,
+  environments.dev.kebabName,
+  environments.test.kebabName,
+  environments.extTest.kebabName,
+  environments.perfTest.kebabName,
+  environments.prod.kebabName
 ]
 
 const sortByEnv = (a, b) => order.indexOf(a) - order.indexOf(b)

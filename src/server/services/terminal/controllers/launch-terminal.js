@@ -1,10 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-
-import { environments } from '~/src/config/index.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { deployTerminal } from '~/src/server/services/terminal/helpers/fetch/deploy-terminal.js'
 import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
+import { getAllEnvironmentKebabNamesExceptProd } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const launchTerminalController = {
   options: {
@@ -12,7 +11,7 @@ const launchTerminalController = {
       params: Joi.object({
         serviceId: Joi.string().required(),
         environment: Joi.string()
-          .valid(...Object.values(environments).filter((env) => env !== 'prod'))
+          .valid(...getAllEnvironmentKebabNamesExceptProd())
           .required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
@@ -23,7 +22,7 @@ const launchTerminalController = {
     const environment = request.params.environment
 
     try {
-      await canLaunchTerminal(request, environment)
+      canLaunchTerminal(request, environment)
 
       const { response, data } = await deployTerminal(
         request,

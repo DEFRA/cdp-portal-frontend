@@ -43,10 +43,10 @@ const updateSecretController = {
       button
     }
 
-    const validationResult = secretPayloadValidation(button, teamId).validate(
-      sanitisedPayload,
-      { abortEarly: false }
-    )
+    const validationResult = secretPayloadValidation(
+      button,
+      request.auth.credentials?.scope
+    ).validate(sanitisedPayload, { abortEarly: false })
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)

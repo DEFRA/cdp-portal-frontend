@@ -4,14 +4,14 @@ import { runningServicesFixture } from '~/src/__fixtures__/running-services.js'
 describe('#servicesToEntityRows', () => {
   test('Should provide expected running services transformation', () => {
     expect(
-      servicesToEntityRows({
-        infraDev: 'infra-dev',
-        management: 'management',
-        dev: 'dev',
-        test: 'test',
-        perfTest: 'perf-test',
-        prod: 'prod'
-      })(runningServicesFixture)
+      servicesToEntityRows([
+        'infra-dev',
+        'management',
+        'dev',
+        'test',
+        'perf-test',
+        'prod'
+      ])(runningServicesFixture)
     ).toEqual([
       [
         {

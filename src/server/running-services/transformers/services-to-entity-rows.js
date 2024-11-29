@@ -1,5 +1,6 @@
 import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
+import camelCase from 'lodash/camelCase.js'
 
 function buildVersion(version, environment, serviceName) {
   return {
@@ -13,8 +14,12 @@ function servicesToEntityRows(environments) {
   return (services) =>
     Object.entries(services).map(([serviceName, versions]) => [
       { kind: 'text', value: serviceName },
-      ...Object.entries(environments).map(([key, environment]) =>
-        buildVersion(versions?.[key], environment, serviceName)
+      ...environments.map((environment) =>
+        buildVersion(
+          versions?.[camelCase(environment)],
+          environment,
+          serviceName
+        )
       )
     ])
 }

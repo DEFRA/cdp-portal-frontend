@@ -9,17 +9,9 @@ describe('#secretParamsValidation', () => {
     beforeEach(() => {
       options = {
         context: {
-          app: {
-            request: {
-              service: {
-                teams: [
-                  {
-                    github: 'cdp-platform',
-                    teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
-                    name: 'Platform'
-                  }
-                ]
-              }
+          auth: {
+            credentials: {
+              scope: ['admin']
             }
           }
         }
@@ -54,7 +46,33 @@ describe('#secretParamsValidation', () => {
 
       expect(() => secretParamsValidation(params, options)).toThrow(
         new Joi.ValidationError(
-          '"environment" must be one of [infra-dev, management, dev, test, perf-test, ext-test, prod]'
+          '"environment" must be one of [infra-dev, management, dev, test, perf-test, prod]'
+        )
+      )
+    })
+  })
+
+  describe('With Non-admin externalTest user', () => {
+    let options
+
+    beforeEach(() => {
+      options = {
+        context: {
+          auth: {
+            credentials: {
+              scope: ['externalTest']
+            }
+          }
+        }
+      }
+    })
+
+    test('Should throw error for invalid environment', () => {
+      const params = { serviceId: 'service123', environment: 'management' }
+
+      expect(() => secretParamsValidation(params, options)).toThrow(
+        new Joi.ValidationError(
+          '"environment" must be one of [dev, test, ext-test, perf-test, prod]'
         )
       )
     })
@@ -66,17 +84,9 @@ describe('#secretParamsValidation', () => {
     beforeEach(() => {
       options = {
         context: {
-          app: {
-            request: {
-              service: {
-                teams: [
-                  {
-                    github: 'bees',
-                    teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89',
-                    name: 'Bees'
-                  }
-                ]
-              }
+          auth: {
+            credentials: {
+              scope: []
             }
           }
         }

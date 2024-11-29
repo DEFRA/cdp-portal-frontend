@@ -1,7 +1,5 @@
-import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
-
-import { getEnvironmentsByTeam } from '~/src/server/common/helpers/environments/get-environments-by-team.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 function provideSubNavigation(request, h) {
   const response = request.response
@@ -12,8 +10,7 @@ function provideSubNavigation(request, h) {
     }
 
     const serviceId = response.source?.context?.service?.imageName
-    const servicesTeams = response.source?.context?.service?.teams ?? []
-    const environments = Object.values(getEnvironmentsByTeam(servicesTeams))
+    const environments = getEnvironments(request.auth.credentials?.scope)
 
     response.source.context.subNavigation = [
       {
@@ -35,7 +32,7 @@ function provideSubNavigation(request, h) {
             environment
           }
         }),
-        label: { text: upperFirst(kebabCase(environment)) }
+        label: { text: upperFirst(environment) }
       }))
     ]
   }

@@ -24,7 +24,7 @@ const detailsController = {
     const deployableImageNames = await fetchDeployableImageNames({ request })
     const availableVersions = await fetchAvailableVersions(payload?.imageName)
     const authedUser = await request.getUserSession()
-    const environments = Object.values(getEnvironments(authedUser?.isAdmin))
+    const environments = getEnvironments(authedUser?.scope)
 
     const validationResult = serviceValidation(
       deployableImageNames,

@@ -1,17 +1,20 @@
 import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 describe('#canLaunchTerminal', () => {
-  const mockRequest = (isAdmin) => ({
-    getUserSession: jest.fn().mockResolvedValue({ isAdmin })
+  const mockRequest = (scopes) => ({
+    auth: { credentials: { scope: scopes } }
   })
 
   test('Should not throw for Admin and allowed Admin environment', () => {
-    expect(() => canLaunchTerminal(mockRequest(true), 'dev')).not.toThrow()
+    expect(() =>
+      canLaunchTerminal(mockRequest([scopes.admin]), 'dev')
+    ).not.toThrow()
   })
 
-  test('Should throw for Tenant with unavailable environment', async () => {
-    await expect(() =>
-      canLaunchTerminal(mockRequest(false), 'management')
-    ).rejects.toThrow('Cannot launch terminal in this environment')
+  test('Should throw for Tenant with unavailable environment', () => {
+    expect(() =>
+      canLaunchTerminal(mockRequest([scopes.externalTest]), 'management')
+    ).toThrow('Cannot launch terminal in this environment')
   })
 })

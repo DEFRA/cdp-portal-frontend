@@ -2,6 +2,7 @@ import Joi from 'joi'
 
 import { secretPayloadValidation } from '~/src/server/services/secrets/helpers/schema/secret-payload-validation.js'
 import { teamFixture } from '~/src/__fixtures__/team.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 describe('#secretPayloadValidation', () => {
   const mockTenantTeamId = '087d4a80-002b-48cf-a7d3-aa60b67784f0'
@@ -18,11 +19,7 @@ describe('#secretPayloadValidation', () => {
         button: 'create'
       }
 
-      const schema = secretPayloadValidation(
-        action,
-        mockTenantTeamId,
-        existingSecretKeys
-      )
+      const schema = secretPayloadValidation(action, existingSecretKeys)
       const { error } = schema.validate(payload)
 
       expect(error).toBeUndefined()
@@ -39,11 +36,7 @@ describe('#secretPayloadValidation', () => {
         button: 'update'
       }
 
-      const schema = secretPayloadValidation(
-        action,
-        mockTenantTeamId,
-        existingSecretKeys
-      )
+      const schema = secretPayloadValidation(action, existingSecretKeys)
       const { error } = schema.validate(payload)
 
       expect(error).toBeUndefined()
@@ -60,11 +53,7 @@ describe('#secretPayloadValidation', () => {
         button: 'create'
       }
 
-      const schema = secretPayloadValidation(
-        action,
-        mockTenantTeamId,
-        existingSecretKeys
-      )
+      const schema = secretPayloadValidation(action, existingSecretKeys)
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
@@ -84,11 +73,7 @@ describe('#secretPayloadValidation', () => {
         button: 'create'
       }
 
-      const schema = secretPayloadValidation(
-        action,
-        mockTenantTeamId,
-        existingSecretKeys
-      )
+      const schema = secretPayloadValidation(action, existingSecretKeys)
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
@@ -106,11 +91,7 @@ describe('#secretPayloadValidation', () => {
         button: 'create'
       }
 
-      const schema = secretPayloadValidation(
-        action,
-        mockTenantTeamId,
-        existingSecretKeys
-      )
+      const schema = secretPayloadValidation(action, [], existingSecretKeys)
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
@@ -128,11 +109,7 @@ describe('#secretPayloadValidation', () => {
         button: 'create'
       }
 
-      const schema = secretPayloadValidation(
-        action,
-        mockTenantTeamId,
-        existingSecretKeys
-      )
+      const schema = secretPayloadValidation(action, [], existingSecretKeys)
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
@@ -154,7 +131,7 @@ describe('#secretPayloadValidation', () => {
 
       const schema = secretPayloadValidation(
         action,
-        teamFixture.teamId,
+        [scopes.admin],
         existingSecretKeys
       )
       const { error } = schema.validate(payload)

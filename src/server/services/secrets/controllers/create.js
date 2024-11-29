@@ -50,7 +50,7 @@ const createSecretController = {
 
     const validationResult = secretPayloadValidation(
       button,
-      teamId,
+      request.auth.credentials?.scope,
       secrets?.keys
     ).validate(sanitisedPayload, {
       abortEarly: false

@@ -15,11 +15,13 @@ const provideEnvironmentOptions = {
       )
 
       if (isAdmin) {
-        return buildOptions([
-          ...runnableEnvironments.sort(sortByEnv),
-          environments.management,
-          environments.infraDev
-        ])
+        return buildOptions(
+          [
+            ...runnableEnvironments,
+            environments.infraDev.kebabName,
+            environments.management.kebabName
+          ].sort(sortByEnv)
+        )
       }
 
       const userOwnsTestSuite = await request.userIsMemberOfATeam(

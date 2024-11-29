@@ -3,13 +3,12 @@ import Boom from '@hapi/boom'
 import isNull from 'lodash/isNull.js'
 import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
-
-import { environments } from '~/src/config/index.js'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
 import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
+import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const deploymentController = {
   options: {
@@ -19,7 +18,7 @@ const deploymentController = {
     pre: [provideDeployment],
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...Object.values(environments)),
+        environment: Joi.string().valid(...getAllEnvironmentKebabNames()),
         deploymentId: Joi.string()
       }),
       failAction: () => Boom.boomify(Boom.notFound())

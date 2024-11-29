@@ -1,10 +1,11 @@
 import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
-const mockRequest = ({ response, path = '', isAdmin }) => ({
+const mockRequest = ({ response, path = '', scope = [] }) => ({
   response,
   path,
   getUserSession: jest.fn().mockResolvedValue({
-    isAdmin
+    scope
   })
 })
 
@@ -24,7 +25,10 @@ describe('#provideTabs', () => {
   describe('With an Admin user', () => {
     test('Should provide expected context tabs', async () => {
       await provideTabs(
-        mockRequest({ response: mockResponse, isAdmin: true }),
+        mockRequest({
+          response: mockResponse,
+          scope: [scopes.admin, scopes.externalTest]
+        }),
         mockViewHelper
       )
 
@@ -41,11 +45,6 @@ describe('#provideTabs', () => {
         },
         {
           isActive: false,
-          label: 'Ext-test',
-          url: '/deployments/ext-test?page=1&size=50'
-        },
-        {
-          isActive: false,
           label: 'Dev',
           url: '/deployments/dev?page=1&size=50'
         },
@@ -53,6 +52,11 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'Test',
           url: '/deployments/test?page=1&size=50'
+        },
+        {
+          isActive: false,
+          label: 'Ext-test',
+          url: '/deployments/ext-test?page=1&size=50'
         },
         {
           isActive: false,
@@ -72,7 +76,7 @@ describe('#provideTabs', () => {
         mockRequest({
           response: mockResponse,
           path: '/deployments/infra-dev',
-          isAdmin: true
+          scope: [scopes.admin]
         }),
         mockViewHelper
       )
@@ -87,11 +91,6 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'Management',
           url: '/deployments/management?page=1&size=50'
-        },
-        {
-          isActive: false,
-          label: 'Ext-test',
-          url: '/deployments/ext-test?page=1&size=50'
         },
         {
           isActive: false,
@@ -120,7 +119,7 @@ describe('#provideTabs', () => {
   describe('With a Non-Admin user', () => {
     test('Should provide expected context tabs', async () => {
       await provideTabs(
-        mockRequest({ response: mockResponse, isAdmin: false }),
+        mockRequest({ response: mockResponse, scope: [] }),
         mockViewHelper
       )
 
@@ -153,7 +152,7 @@ describe('#provideTabs', () => {
         mockRequest({
           response: mockResponse,
           path: '/deployments/dev',
-          isAdmin: false
+          scope: []
         }),
         mockViewHelper
       )

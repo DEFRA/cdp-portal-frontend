@@ -4,14 +4,14 @@ import { runningServicesToEntityRow } from '~/src/server/common/transformers/run
 describe('#runningServicesToEntityRow', () => {
   test('Should provide expected running services transformation', () => {
     expect(
-      runningServicesToEntityRow({
-        infraDev: 'infra-dev',
-        management: 'management',
-        dev: 'dev',
-        test: 'test',
-        perfTest: 'perf-test',
-        prod: 'prod'
-      })(runningServicesFixture)
+      runningServicesToEntityRow([
+        'infra-dev',
+        'management',
+        'dev',
+        'test',
+        'perf-test',
+        'prod'
+      ])(runningServicesFixture)
     ).toEqual([
       [
         {

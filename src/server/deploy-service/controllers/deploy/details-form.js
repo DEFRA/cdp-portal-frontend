@@ -30,17 +30,15 @@ const detailsFormController = {
     const deployableImageNames = await fetchDeployableImageNames({ request })
     const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
     const authedUser = await request.getUserSession()
-    const environments = getEnvironments(authedUser?.isAdmin)
-    const environmentOptions = environments
-      ? buildOptions(Object.values(environments))
-      : []
+    const environments = getEnvironments(authedUser?.scope)
+    const environmentOptions = environments ? buildOptions(environments) : []
 
     const {
       runningServicesEntityRows,
       rowHeadings,
       availableVersionOptions,
       latestVersions
-    } = await getAdditionalData(imageName)
+    } = await getAdditionalData(imageName, request.auth.credentials?.scope)
 
     return h.view('deploy-service/views/details-form', {
       pageTitle: 'Deploy Service details',
