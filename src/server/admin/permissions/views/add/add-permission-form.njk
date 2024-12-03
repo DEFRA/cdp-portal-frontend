@@ -1,0 +1,101 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appPageHeading({
+      caption: "Add Permission To Team",
+      text: scope.value | formatText
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+
+        <form action="/admin/permissions/{{ scope.scopeId }}/add"
+              method="post"
+              data-js="auto-submit app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          {% call govukFieldset() %}
+
+            {{ appSearch({
+              iconDescription: "Search for CDP teams",
+              label: {
+                text: "CDP team"
+              },
+              id: "cdpTeamQuery",
+              name: "cdpTeamQuery",
+              hint: {
+                text: "Enter the team name"
+              },
+              value: formValues.cdpTeamQuery,
+              errorMessage: {
+                text: formErrors.cdpTeamQuery.message
+              } if formErrors.cdpTeamQuery.message
+            }) }}
+
+          {% endcall %}
+
+          {{ govukButton({
+            classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+            text: "Search",
+            name: "button",
+            value: "search",
+            attributes: {
+              "data-js": "app-no-js-submit-button"
+            }
+          }) }}
+
+          {% block xhrContent %}
+
+            <article class="app-scrollable-window" data-xhr="add-scope" data-children-can-submit="true">
+
+              {% if cdpTeams | length %}
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
+              {% endif %}
+
+              {% for team in cdpTeams %}
+                {{ team.disabled }}
+              {% endfor %}
+
+              {% if cdpTeams | length or formErrors.teamIds.message %}
+                {{ govukCheckboxes({
+                  name: "teamIds",
+                  classes: "govuk-checkboxes--small app-checkboxes",
+                  items: cdpTeams,
+                  values: formValues.teamIds,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: {
+                    attributes: {
+                      "data-js": "app-error"
+                    },
+                    text: formErrors.teamIds.message
+                  } if formErrors.teamIds.message
+                }) }}
+              {% endif %}
+
+              {% if formValues.cdpTeamQuery and not cdpTeams | length %}
+                <p class="govuk-hint">No team(s) found</p>
+              {% endif %}
+
+            </article>
+
+          {% endblock %}
+
+          <div class="govuk-body govuk-button-group">
+            {{ govukButton({
+              classes: "app-button",
+              text: "Add permission"
+            }) }}
+
+            <a class="app-link" href="/admin/permissions/{{ scope.scopeId }}">Cancel</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appPageHeading({
+      text: "Permissions",
+      cta: {
+        text: "Create new permission",
+        href: routeLookup('admin/permission/create')
+      }
+    }) }}
+
+    {{ appEntityList({
+      headings: [
+        { text: "Value", size: "medium" },
+        { text: "Description", size: "gargantuan" }
+      ],
+      entityRows: entityRows,
+      noResult: "Currently there are no permissions available"
+    }) }}
+
+  {% endcall %}
+
+{% endblock %}
+

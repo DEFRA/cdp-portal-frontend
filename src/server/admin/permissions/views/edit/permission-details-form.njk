@@ -1,0 +1,78 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appPageHeading({
+      caption: "Edit Permission",
+      text: scope.value | formatText
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <form action="/admin/permissions/{{ scope.scopeId }}/edit"
+              method="post"
+              data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          {% call govukFieldset() %}
+
+            {{ govukInput({
+              label: {
+                text: "Value",
+                classes: "app-label"
+              },
+              id: "value",
+              name: "value",
+              classes: "app-input app-input--wide",
+              formGroup: {
+                classes: "app-form-group"
+              },
+              attributes: {
+                "readonly": "readonly",
+                "data-1p-ignore": ""
+              },
+              value: scope.value
+            }) }}
+
+            {{ govukTextarea({
+              label: {
+                text: "Description (optional)",
+                classes: "app-label"
+              },
+              id: "description",
+              name: "description",
+              classes: "app-textarea app-textarea--wide",
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              attributes: {
+                "data-1p-ignore": ""
+              },
+              value: formValues.description or scope.description,
+              errorMessage: {
+                attributes: {
+                  "data-js": "app-error"
+                },
+                text: formErrors.description.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message"
+              } if formErrors.description.message
+            }) }}
+
+          {% endcall %}
+
+          <div class="govuk-body govuk-button-group">
+            {{ govukButton({
+              classes: "app-button",
+              text: "Save"
+            }) }}
+
+            <a class="app-link" href="/admin/permissions/{{ scope.scopeId }}">Cancel</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
