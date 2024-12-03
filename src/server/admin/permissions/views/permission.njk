@@ -1,0 +1,50 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appPageHeading({
+      caption: "Permission",
+      text: scope.value | formatText
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+
+        <ul class="govuk-list govuk-!-margin-bottom-6">
+          <li>
+            <a href="/admin/permissions/{{ scope.scopeId }}/add" class="app-link app-link--underline">Add permission to
+              team</a>
+          </li>
+          <li>
+            <a href="/admin/permissions/{{ scope.scopeId }}/confirm-delete" class="app-link app-link--underline">Delete
+              permission</a>
+          </li>
+        </ul>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Permission details</h2>
+
+        {{ govukSummaryList(summaryList) }}
+
+        <h2 class="govuk-heading-m">
+          {{ "Team" | pluralise(scope.teams | length) }} with permission
+        </h2>
+
+        {% if scope.teams | length %}
+          {{ govukTaskList(teamsTaskList) }}
+        {% else %}
+          <p>
+            This permission has not been added to any teams. <a href="/admin/permissions/{{ scope.scopeId }}/add"
+                                                                class="app-link app-link--underline">
+              Add permission to team
+            </a>
+          </p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
