@@ -8,7 +8,6 @@ const teamsListController = {
 
     return h.view('admin/teams/views/teams-list', {
       pageTitle: 'Teams',
-      heading: 'Teams',
       entityRows,
       noResult: 'Currently there are no teams'
     })

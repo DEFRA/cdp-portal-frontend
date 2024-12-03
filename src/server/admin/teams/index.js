@@ -2,6 +2,7 @@ import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
 import { provideTeamSteps } from '~/src/server/admin/teams/helpers/form/index.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import {
   startCreateTeamController,
@@ -15,13 +16,13 @@ import {
   teamController,
   addMemberFormController,
   addMemberController,
+  confirmRemoveMemberController,
   removeMemberController,
   teamSummaryController,
-  editTeamController
+  editTeamController,
+  deleteTeamController,
+  confirmDeleteTeamController
 } from '~/src/server/admin/teams/controllers/index.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { deleteTeamController } from '~/src/server/admin/teams/controllers/delete/delete-team.js'
-import { confirmDeleteTeamController } from '~/src/server/admin/teams/controllers/delete/confirm-delete-team.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -125,6 +126,11 @@ const adminTeams = {
             method: 'POST',
             path: '/admin/teams/{teamId}/add-member',
             ...addMemberController
+          },
+          {
+            method: 'GET',
+            path: '/admin/teams/{teamId}/remove-member/{userId}',
+            ...confirmRemoveMemberController
           },
           {
             method: 'POST',

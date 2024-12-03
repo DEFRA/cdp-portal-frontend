@@ -7,9 +7,9 @@
 
     <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption
+      {{ appPageHeading({
+        caption: "Team",
+        text: pageHeading.text
       }) }}
 
       <div class="govuk-grid-row">
@@ -44,6 +44,30 @@
                 } if formErrors.name.message
               }) }}
 
+              {{ govukTextarea({
+                label: {
+                  text: "Description (optional)",
+                  classes: "app-label"
+                },
+                id: "description",
+                name: "description",
+                classes: "app-textarea app-textarea--wide",
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                attributes: {
+                  "data-1p-ignore": ""
+                },
+                value: formValues.description,
+                errorMessage: {
+                  attributes: {
+                    "data-js": "app-error"
+                  },
+                  text: formErrors.description.message,
+                  classes: "govuk-!-margin-bottom-1 app-error-message"
+                } if formErrors.description.message
+              }) }}
+
               {{ govukInput({
                 label: {
                   text: "Service Code (optional)",
@@ -52,7 +76,8 @@
                 id: "serviceCode",
                 name: "serviceCode",
                 hint: {
-                  text: "A service code consists of 3 uppercase letters"
+                  text: "A service code consists of 3 uppercase letters",
+                  classes: "app-hint"
                 },
                 classes: "app-input app-input--wide",
                 formGroup: {
@@ -79,7 +104,8 @@
                 id: "alertEmailAddresses",
                 name: "alertEmailAddresses",
                 hint: {
-                  text: "Comma seperated list of email addresses"
+                  text: "Comma seperated list of email addresses",
+                  classes: "app-hint"
                 },
                 classes: "app-input app-input--wide",
                 formGroup: {
@@ -96,30 +122,6 @@
                   text: formErrors.alertEmailAddresses.message,
                   classes: "govuk-!-margin-bottom-1 app-error-message"
                 } if formErrors.alertEmailAddresses.message
-              }) }}
-
-              {{ govukTextarea({
-                label: {
-                  text: "Description (optional)",
-                  classes: "app-label"
-                },
-                id: "description",
-                name: "description",
-                classes: "app-textarea app-textarea--wide",
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                attributes: {
-                  "data-1p-ignore": ""
-                },
-                value: formValues.description,
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error"
-                  },
-                  text: formErrors.description.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.description.message
               }) }}
 
             {% endcall %}

@@ -13,13 +13,13 @@ function editSteps(path, cdpUser) {
       url: urls.stepTwo,
       isComplete: isComplete.stepTwo,
       isCurrent: path.includes(urls.stepTwo),
-      text: 'GitHub user'
+      text: 'GitHub User'
     },
     {
       url: urls.stepThree,
       isComplete: isComplete.stepThree,
       isCurrent: path.includes(urls.stepThree),
-      text: 'Details'
+      text: 'User Details'
     },
     {
       isComplete: isComplete.allSteps,

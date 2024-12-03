@@ -3,7 +3,7 @@ import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/form/index.js'
 
 const startCreateTeamController = {
   options: {
-    id: '/admin/teams/create'
+    id: 'admin/teams/create'
   },
   handler: async (request, h) => {
     request.yar.clear(sessionNames.cdpTeam)

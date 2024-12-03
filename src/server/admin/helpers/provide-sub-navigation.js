@@ -25,7 +25,14 @@ function provideSubNavigation(request, h) {
         isActive: request.path.startsWith('/admin/features'),
         url: '/admin/features',
         label: {
-          text: 'Features'
+          text: 'Feature Toggles'
+        }
+      },
+      {
+        isActive: request.path.startsWith('/admin/permissions'),
+        url: '/admin/permissions',
+        label: {
+          text: 'Permissions'
         }
       }
     ]

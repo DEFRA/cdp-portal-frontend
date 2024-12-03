@@ -41,8 +41,6 @@ const findGithubTeamFormController = {
 
     return h.view('admin/teams/views/save/github-team-form', {
       pageTitle: heading,
-      heading,
-      headingCaption: 'Link the Defra GitHub team.',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       formValues: { githubSearch, github },
@@ -63,7 +61,7 @@ const findGithubTeamFormController = {
           href: '/admin/teams'
         },
         {
-          text: updateOrCreate + ' team'
+          text: updateOrCreate
         }
       ]
     })

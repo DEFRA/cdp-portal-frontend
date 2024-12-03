@@ -12,15 +12,16 @@ const teamSummaryController = {
   handler: (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
     const isEdit = cdpTeam.isEdit ?? false
-
-    const heading = isEdit ? 'Edit team summary' : 'Create team summary'
+    const updateOrCreate = isEdit ? 'Edit' : 'Create'
 
     return h.view('admin/teams/views/save/summary', {
-      pageTitle: heading,
-      heading,
-      headingCaption: 'Information about the team you are going to create.',
+      pageTitle: `${updateOrCreate} Team Summary`,
       teamRows: transformSummaryTeamRows(cdpTeam),
       formButtonText: isEdit ? 'Save' : 'Create',
+      pageHeading: {
+        text: cdpTeam.name,
+        caption: isEdit ? 'Edit Team Summary' : 'Create Team Summary'
+      },
       isEdit,
       breadcrumbs: [
         {
@@ -32,7 +33,7 @@ const teamSummaryController = {
           href: '/admin/teams'
         },
         {
-          text: `${isEdit ? 'Edit' : 'Create'} team`
+          text: updateOrCreate
         }
       ]
     })

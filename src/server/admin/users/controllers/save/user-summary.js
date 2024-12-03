@@ -13,12 +13,14 @@ const userSummaryController = {
     const cdpUser = request.pre?.cdpUser
     const isEdit = cdpUser.isEdit ?? false
 
-    const heading = isEdit ? 'Edit user summary' : 'Create user summary'
+    const pageTitle = isEdit ? 'Edit User Summary' : 'Create User Summary'
 
     return h.view('admin/users/views/save/summary', {
-      pageTitle: heading,
-      heading,
-      headingCaption: 'Information about the user you are going to create.',
+      pageTitle,
+      pageHeading: {
+        text: cdpUser.name,
+        caption: pageTitle
+      },
       userRows: transformSummaryUserRows(cdpUser),
       formButtonText: isEdit ? 'Save' : 'Create',
       isEdit,
@@ -32,7 +34,7 @@ const userSummaryController = {
           href: '/admin/users'
         },
         {
-          text: `${isEdit ? 'Edit' : 'Create'} user`
+          text: isEdit ? 'Edit' : 'Create'
         }
       ]
     })

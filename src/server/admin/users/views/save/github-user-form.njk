@@ -2,8 +2,8 @@
 
 {% set searchHintHtml %}
   Search using the users GitHub username. <a href="https://github.com/orgs/{{ githubOrg }}/people"
-                                             class="app-link app-link-underline"
-                                             target="_blank">View ORG members</a>
+                                             class="app-link app-link--underline"
+                                             target="_blank">DEFRA GitHub members</a>
 {% endset %}
 
 {% block content %}
@@ -13,9 +13,9 @@
 
     <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption
+      {{ appPageHeading({
+        caption: "Find",
+        text: "DEFRA GitHub User"
       }) }}
 
       <div class="govuk-grid-row">

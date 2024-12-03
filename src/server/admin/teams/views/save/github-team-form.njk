@@ -2,7 +2,7 @@
 
 {% set searchHintHtml %}
   Search using the GitHub team name. <a href="https://github.com/orgs/{{ githubOrg }}/teams"
-                                        class="app-link-underline"
+                                        class="app-link app-link--underline"
                                         target="_blank">View ORG teams</a>
 {% endset %}
 
@@ -13,9 +13,9 @@
 
     <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption
+      {{ appPageHeading({
+        caption: "Find",
+        text: "DEFRA GitHub Team"
       }) }}
 
       <div class="govuk-grid-row">
