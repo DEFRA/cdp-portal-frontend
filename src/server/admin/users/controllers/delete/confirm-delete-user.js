@@ -1,11 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformDeleteUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-delete-user-to-entity-data-list.js'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
+import { transformUserToSummary } from '~/src/server/admin/users/transformers/user-to-summary.js'
+import { transformUserTeamsToTaskList } from '~/src/server/admin/users/transformers/user-teams-to-task-list.js'
 
 const confirmDeleteUserController = {
   options: {
+    id: 'admin/users/{userId}/confirm-delete',
     validate: {
       params: Joi.object({
         userId: Joi.string().uuid().required()
@@ -15,12 +17,11 @@ const confirmDeleteUserController = {
   },
   handler: async (request, h) => {
     const { user } = await fetchCdpUser(request.params?.userId)
-    const title = 'Confirm user deletion'
 
     return h.view('admin/users/views/delete/confirm-delete-user', {
-      pageTitle: title,
-      heading: title,
-      entityDataList: transformDeleteUserToEntityDataList(user),
+      pageTitle: 'Confirm User Deletion',
+      summaryList: transformUserToSummary(user, false),
+      teamsTaskList: transformUserTeamsToTaskList(user),
       user,
       breadcrumbs: [
         {
@@ -36,7 +37,7 @@ const confirmDeleteUserController = {
           href: `/admin/users/${user.userId}`
         },
         {
-          text: title
+          text: 'Delete'
         }
       ]
     })

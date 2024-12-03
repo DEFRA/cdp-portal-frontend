@@ -2,11 +2,13 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { transformTeamToEntityDataList } from '~/src/server/admin/teams/transformers/transform-team-to-entity-data-list.js'
-import { transformTeamToHeadingEntities } from '~/src/server/admin/teams/transformers/transform-team-to-heading-entities.js'
+import { transformTeamToSummary } from '~/src/server/admin/teams/transformers/team-to-summary.js'
+import { transformTeamUsersToTaskList } from '~/src/server/admin/teams/transformers/team-users-to-task-list.js'
+import { transformTeamScopesToTaskList } from '~/src/server/admin/teams/transformers/team-scopes-to-task-list.js'
 
 const teamController = {
   options: {
+    id: 'admin/teams/{teamId}',
     validate: {
       params: Joi.object({
         teamId: Joi.string().required()
@@ -18,11 +20,11 @@ const teamController = {
     const { team } = await fetchCdpTeam(request.params.teamId)
 
     return h.view('admin/teams/views/team', {
-      pageTitle: team.name,
-      heading: team.name,
-      entityDataList: transformTeamToEntityDataList(team),
-      headingEntities: transformTeamToHeadingEntities(team),
+      pageTitle: `${team.name} Team`,
       team,
+      summaryList: transformTeamToSummary(team),
+      usersTaskList: transformTeamUsersToTaskList(team),
+      scopesTaskList: transformTeamScopesToTaskList(team),
       breadcrumbs: [
         {
           text: 'Admin',

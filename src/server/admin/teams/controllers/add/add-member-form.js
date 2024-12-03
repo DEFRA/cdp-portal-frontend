@@ -13,6 +13,7 @@ import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp
 
 const addMemberFormController = {
   options: {
+    id: 'admin/teams/{teamId}/add-member',
     validate: {
       params: Joi.object({
         teamId: Joi.string().required()
@@ -44,12 +45,9 @@ const addMemberFormController = {
       uniqBy([...usersToAdd, ...cdpUsers], 'userId'),
       (user) => !team.users.some((teamUser) => teamUser.userId === user.userId)
     )
-    const title = 'Add team members'
 
     return h.view('admin/teams/views/add/member-form', {
-      pageTitle: title,
-      heading: title,
-      headingCaption: 'Search for Core Delivery Platform user.',
+      pageTitle: 'Add Team Member',
       formValues: {
         cdpUserQuery,
         userIds
@@ -75,11 +73,11 @@ const addMemberFormController = {
           href: '/admin/teams'
         },
         {
-          text: team.name + ' team',
+          text: team.name,
           href: '/admin/teams/' + team.teamId
         },
         {
-          text: title
+          text: 'Add'
         }
       ]
     })

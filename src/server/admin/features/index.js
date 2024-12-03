@@ -9,9 +9,9 @@ import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
-const features = {
+const adminFeatures = {
   plugin: {
-    name: 'features',
+    name: 'adminFeatures',
     register: (server) => {
       server.ext([
         {
@@ -46,4 +46,4 @@ const features = {
   }
 }
 
-export { features }
+export { adminFeatures }

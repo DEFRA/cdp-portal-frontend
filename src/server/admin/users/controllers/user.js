@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformUserToEntityDataList } from '~/src/server/admin/users/transformers/transform-user-to-entity-data-list.js'
-import { transformUserToHeadingEntities } from '~/src/server/admin/users/transformers/transform-user-to-heading-entities.js'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
+import { transformUserToSummary } from '~/src/server/admin/users/transformers/user-to-summary.js'
+import { transformUserTeamsToTaskList } from '~/src/server/admin/users/transformers/user-teams-to-task-list.js'
 
 const userController = {
   options: {
@@ -19,10 +19,9 @@ const userController = {
 
     return h.view('admin/users/views/user', {
       pageTitle: user.name,
-      heading: user.name,
-      headingEntities: transformUserToHeadingEntities(user),
-      entityDataList: transformUserToEntityDataList(user),
       user,
+      summaryList: transformUserToSummary(user),
+      teamsTaskList: transformUserTeamsToTaskList(user),
       breadcrumbs: [
         {
           text: 'Admin',

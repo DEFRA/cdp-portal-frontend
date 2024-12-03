@@ -2,24 +2,43 @@
 {% from "entity/macro.njk" import appEntity %}
 
 {% set helpHtml %}
-  Removing a team is non-recoverable. If you delete the wrong team
-  <a href="{{ routeLookup('/admin/teams/create') }}" class="govuk-link app-link">
-    create a new one.
-  </a>
+  <p class="govuk-!-margin-bottom-1">
+    When a team is deleted, team members will automatically be removed from the Team.
+  </p>
+  <p class="govuk-!-margin-bottom-1">
+    Deleting a team is non-recoverable. If you delete the wrong team
+    <a href="{{ routeLookup('admin/teams/create') }}" class="govuk-link app-link">
+      create a new one.
+    </a>
+  </p>
 {% endset %}
 
 {% block content %}
   {% call appSplitPane() %}
 
-    {{ appHeading({
-      title: heading,
-      caption: "Permanently delete team from the Core Delivery Platform."
+    {{ appPageHeading({
+      caption: "Delete Team",
+      text: team.name
     }) }}
 
-    <hr class="app-section-break">
-
-    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
+
+        <h2 class="govuk-heading-m">Delete the following team</h2>
+
+        {{ govukSummaryList(summaryList) }}
+
+        <h2 class="govuk-heading-m">
+          Team {{ "Member" | pluralise(scope.teams | length) }}
+        </h2>
+
+        {% if team.users | length %}
+          {{ govukTaskList(usersTaskList) }}
+        {% else %}
+          <p>
+            This team has no members
+          </p>
+        {% endif %}
 
         <div class="govuk-!-margin-bottom-6">
           {{ appInfo({
@@ -27,23 +46,19 @@
           }) }}
         </div>
 
-        {{ appEntityDataList({
-          heading: "Would you like to delete the following team?",
-          items: entityDataList
-        }) }}
-
         <form action="/admin/teams/{{ team.teamId }}/delete" method="post">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
           <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
             {{ govukButton({
               classes: "app-button app-button--destructive",
-              text: "Delete"
+              text: "Delete team"
             }) }}
 
             <a class="app-link" href="/admin/teams/{{ team.teamId }}">Cancel</a>
           </div>
         </form>
+
       </div>
     </div>
 

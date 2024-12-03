@@ -13,19 +13,19 @@ function createSteps(path, cdpUser) {
       url: urls.stepOne,
       isComplete: isComplete.stepOne,
       isCurrent: path.includes(urls.stepOne),
-      text: 'AAD'
+      text: 'DEFRA User'
     },
     {
       url: urls.stepTwo,
       isComplete: isComplete.stepTwo,
       isCurrent: path.includes(urls.stepTwo),
-      text: 'GitHub user'
+      text: 'GitHub User'
     },
     {
       url: urls.stepThree,
       isComplete: isComplete.stepThree,
       isCurrent: path.includes(urls.stepThree),
-      text: 'Details'
+      text: 'User Details'
     },
     {
       isComplete: isComplete.allSteps,

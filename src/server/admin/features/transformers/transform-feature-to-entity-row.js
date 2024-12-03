@@ -1,3 +1,5 @@
+import { noValue } from '~/src/server/common/constants/no-value.js'
+
 function transformFeaturesToEntityRows(features) {
   if (!features) {
     return []
@@ -31,7 +33,7 @@ function transformFeatureToEntityRow(feature) {
       : [
           {
             kind: 'text',
-            value: ''
+            value: noValue
           },
           {
             kind: 'button',

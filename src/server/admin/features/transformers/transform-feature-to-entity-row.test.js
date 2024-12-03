@@ -2,6 +2,7 @@ import {
   transformFeaturesToEntityRows,
   transformFeatureToEntityRow
 } from '~/src/server/admin/features/transformers/transform-feature-to-entity-row.js'
+import { noValue } from '~/src/server/common/constants/no-value.js'
 
 describe('transformFeatureToEntityRow', () => {
   test('Should return entity row for active feature', () => {
@@ -58,7 +59,7 @@ describe('transformFeatureToEntityRow', () => {
       },
       {
         kind: 'text',
-        value: ''
+        value: noValue
       },
       {
         kind: 'button',

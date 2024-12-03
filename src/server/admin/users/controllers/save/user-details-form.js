@@ -21,15 +21,14 @@ const userDetailsFormController = {
     const cdpUser = request.pre?.cdpUser
     const isEdit = cdpUser.isEdit ?? false
 
-    const heading = isEdit ? 'Edit CDP user details' : 'Add CDP user details'
+    const pageTitle = isEdit ? 'Edit User Details' : 'Add User Details'
     const redirectLocation = request.query?.redirectLocation
 
     return h.view('admin/users/views/save/user-details-form', {
-      pageTitle: heading,
-      heading,
-      headingCaption: 'Add Core Delivery Platform user details.',
+      pageTitle,
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
+      isEdit,
       breadcrumbs: [
         {
           text: 'Admin',
@@ -40,7 +39,7 @@ const userDetailsFormController = {
           href: '/admin/users'
         },
         {
-          text: `${isEdit ? 'Edit' : 'Create'} user`
+          text: isEdit ? 'Edit' : 'Create'
         }
       ]
     })

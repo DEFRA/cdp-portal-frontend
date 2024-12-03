@@ -2,34 +2,28 @@
 
 {% block content %}
   {% call appSplitPane() %}
-    <section>
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption,
-        actions: [
-          govukButton({
-            classes: "app-button",
-            text: "Create",
-            href: "/admin/teams/create",
-            attributes: { "data-testid": "create-team-button" }
-          })
-        ]
-      }) }}
 
-      {{ appEntityList({
-        headings: [
-          { text: "Name", size: "medium" },
-          { text: "Description", size: "medium" },
-          { text: "GitHub team", size: "medium" },
-          { text: "Service Codes", size: "small" },
-          { text: "Alert Emails", size: "large" },
-          { text: "Members", size: "small" }
-        ],
-        entityRows: entityRows,
-        noResult: noResult
-      }) }}
+    {{ appPageHeading({
+      text: "Teams",
+      cta: {
+        text: "Create new team",
+        href: routeLookup('admin/teams/create')
+      }
+    }) }}
 
-    </section>
+    {{ appEntityList({
+      headings: [
+        { text: "Name", size: "medium" },
+        { text: "Description", size: "medium" },
+        { text: "GitHub team", size: "medium" },
+        { text: "Service Codes", size: "small" },
+        { text: "Alert Emails", size: "large" },
+        { text: "Members", size: "small" }
+      ],
+      entityRows: entityRows,
+      noResult: noResult
+    }) }}
+
   {% endcall %}
 
 {% endblock %}

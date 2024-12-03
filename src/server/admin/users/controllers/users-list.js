@@ -9,9 +9,7 @@ const usersListController = {
 
     return h.view('admin/users/views/users-list', {
       pageTitle: 'Users',
-      heading: 'Users',
       entityRows,
-      headingCaption: ' Core Delivery Platform users.',
       noResult: 'Currently there are no users'
     })
   }

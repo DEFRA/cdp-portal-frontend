@@ -64,7 +64,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'GitHub team'
         },
         value: {
-          html: `<span data-testid="github-team"><a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" target="_blank" rel="noopener noreferrer">@forestry-management</a></span>`
+          html: `<span data-testid="github-team"><a class="app-link" href="https://github.com/orgs/${githubOrg}/teams/forestry-management" data-testid="app-link" target="_blank" rel="noopener noreferrer">@forestry-management</a></span>`
         }
       },
       {

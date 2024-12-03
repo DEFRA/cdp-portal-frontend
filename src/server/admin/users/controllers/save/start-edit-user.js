@@ -8,6 +8,7 @@ import { saveToCdpUser } from '~/src/server/admin/users/helpers/form/index.js'
 
 const startEditUserController = {
   options: {
+    id: 'admin/users/{userId}/edit',
     validate: {
       params: Joi.object({
         userId: Joi.string().guid().required()

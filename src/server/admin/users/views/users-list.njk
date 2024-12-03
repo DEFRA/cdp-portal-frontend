@@ -4,33 +4,26 @@
 
   {% call appSplitPane() %}
 
-    <section>
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption,
-        actions: [
-          govukButton({
-            classes: "app-button",
-            text: "Create",
-            href: "/admin/users/create",
-            attributes: { "data-testid": "create-user-button" }
-          })
-        ]
-      }) }}
+    {{ appPageHeading({
+      text: "Users",
+      cta: {
+        text: "Create new user",
+        href: routeLookup('admin/users/create')
+      }
+    }) }}
 
-      {{ appEntityList({
-        headings: [
-          { text: "Name", size: "large" },
-          { text: "Email", size: "massive" },
-          { text: "GitHub user", size: "medium" },
-          { text: "Defra AWS ID", size: "medium" },
-          { text: "Defra VPN ID", size: "medium" }
-        ],
-        entityRows: entityRows,
-        noResult: noResult
-      }) }}
+    {{ appEntityList({
+      headings: [
+        { text: "Name", size: "large" },
+        { text: "Email", size: "massive" },
+        { text: "GitHub user", size: "medium" },
+        { text: "Defra AWS ID", size: "medium" },
+        { text: "Defra VPN ID", size: "medium" }
+      ],
+      entityRows: entityRows,
+      noResult: noResult
+    }) }}
 
-    </section>
 
   {% endcall %}
 

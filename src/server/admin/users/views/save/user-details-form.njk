@@ -7,9 +7,9 @@
 
     <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption
+      {{ appPageHeading({
+        caption: "Edit" if isEdit else "Add",
+        text: "User Details"
       }) }}
 
       <div class="govuk-grid-row">
@@ -18,7 +18,7 @@
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
             {{ appInfo({
-              text: "We are using the users Azure Active Directory name."
+              text: "We are using the provided DEFRA Azure Active Directory (AAD) name"
             }) }}
 
             {% call govukFieldset() %}

@@ -16,14 +16,14 @@ const teamDetailsFormController = {
     const isEdit = cdpTeam?.isEdit
 
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
-    const heading = `${updateOrCreate} team`
 
     return h.view('admin/teams/views/save/team-details-form', {
-      pageTitle: heading,
-      heading,
-      headingCaption: `${updateOrCreate} Core Delivery Platform team.`,
+      pageTitle: `${updateOrCreate} Team`,
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
+      pageHeading: {
+        text: isEdit ? 'Edit' : 'Create New'
+      },
       breadcrumbs: [
         {
           text: 'Admin',
@@ -34,7 +34,7 @@ const teamDetailsFormController = {
           href: '/admin/teams'
         },
         {
-          text: updateOrCreate + ' team'
+          text: updateOrCreate
         }
       ]
     })

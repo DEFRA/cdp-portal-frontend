@@ -7,9 +7,9 @@
 
     <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appHeading({
-        title: heading,
-        caption: headingCaption
+      {{ appPageHeading({
+        caption: "Find",
+        text: "DEFRA user"
       }) }}
 
       <div class="govuk-grid-row">
@@ -30,7 +30,7 @@
                 id: "aadQuery",
                 name: "aadQuery",
                 hint: {
-                  text: "Enter the users name or Defra provided email"
+                  text: "Enter the users name or DEFRA provided email"
                 },
                 value: formValues.aadQuery,
                 errorMessage: {

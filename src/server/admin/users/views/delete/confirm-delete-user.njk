@@ -2,24 +2,43 @@
 {% from "entity/macro.njk" import appEntity %}
 
 {% set helpHtml %}
-  Removing a user is non-recoverable. If you delete the wrong user
-  <a href="{{ routeLookup('admin/users/create') }}" class="govuk-link app-link">
-    create a new one.
-  </a>
+  <p class="govuk-!-margin-bottom-1">
+    When a user is deleted, they are automatically removed from any teams they are a member of.
+  </p>
+  <p class="govuk-!-margin-bottom-1">
+    Deleting a user is non-recoverable. If you delete the wrong user
+    <a href="{{ routeLookup('admin/users/create') }}" class="govuk-link app-link">
+      create a new one.
+    </a>
+  </p>
 {% endset %}
 
 {% block content %}
   {% call appSplitPane() %}
 
-    {{ appHeading({
-      title: heading,
-      caption: "Permanently delete user from the Core Delivery Platform."
+    {{ appPageHeading({
+      caption: "Delete User",
+      text: user.name
     }) }}
 
-    <hr class="app-section-break">
-
-    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
+
+        <h2 class="govuk-heading-m">Delete the following user</h2>
+
+        {{ govukSummaryList(summaryList) }}
+
+        <h2 class="govuk-heading-m">
+          Member of {{ "Team" | pluralise(user.teams | length) }}
+        </h2>
+
+        {% if user.teams | length %}
+          {{ govukTaskList(teamsTaskList) }}
+        {% else %}
+          <p>
+            This user is not in any of our teams
+          </p>
+        {% endif %}
 
         <div class="govuk-!-margin-bottom-6">
           {{ appInfo({
@@ -27,25 +46,19 @@
           }) }}
         </div>
 
-        {% call appPanel() %}
-          {{ appEntityDataList({
-            heading: "Would you like to delete the following user?",
-            items: entityDataList
-          }) }}
-        {% endcall %}
-
         <form action="/admin/users/{{ user.userId }}/delete" method="post">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
           <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
             {{ govukButton({
               classes: "app-button app-button--destructive",
-              text: "Delete"
+              text: "Delete user"
             }) }}
 
             <a class="app-link" href="/admin/users/{{ user.userId }}">Cancel</a>
           </div>
         </form>
+
       </div>
     </div>
 

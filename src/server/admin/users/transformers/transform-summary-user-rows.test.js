@@ -50,7 +50,7 @@ describe('#transformSummaryUserRows', () => {
           text: 'GitHub user'
         },
         value: {
-          html: '<span data-testid="github-user"><a class="app-link" href="https://github.com/BABaracus" target="_blank" rel="noopener noreferrer">@BABaracus</a></span>'
+          html: '<span data-testid="github-user"><a class="app-link" href="https://github.com/BABaracus" data-testid="app-link" target="_blank" rel="noopener noreferrer">@BABaracus</a></span>'
         }
       },
       {

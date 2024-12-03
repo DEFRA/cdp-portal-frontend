@@ -3,32 +3,41 @@
 {% block content %}
   {% call appSplitPane() %}
 
-    {{ appHeading({
-      title: heading,
-      caption: "User details.",
-      entities: headingEntities,
-      actions: [
-        govukButton({
-          classes: "app-button",
-          text: "Edit",
-          href: "/admin/users/" + user.userId + "/edit"
-        }),
-        govukButton({
-          classes: "app-button app-button--tertiary",
-          text: "Delete",
-          href: "/admin/users/" + user.userId + "/confirm-delete",
-          attributes: { "data-testid": "delete-user-button" }
-        })
-      ]
+    {{ appPageHeading({
+      caption: "User",
+      text: user.name
     }) }}
 
-    <hr class="app-section-break">
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-full">
+        <ul class="govuk-list govuk-!-margin-bottom-6">
+          <li>
+            <a href="{{ routeLookup('admin/users/{userId}/confirm-delete', { params: { userId: user.userId } }) }}"
+               class="app-link app-link--underline" data-testid="admin-delete-user">Delete user</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
-      <div class="govuk-grid-column-one-quarter">
-        {{ appEntityDataList({
-          items: entityDataList
-        }) }}
+      <div class="govuk-grid-column-one-third-from-desktop">
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">User details</h2>
+
+        {{ govukSummaryList(summaryList) }}
+
+        <h2 class="govuk-heading-m">
+          Member of {{ "Team" | pluralise(user.teams | length) }}
+        </h2>
+
+        {% if user.teams | length %}
+          {{ govukTaskList(teamsTaskList) }}
+        {% else %}
+          <p>
+            This user is not in any of our teams
+          </p>
+        {% endif %}
+
       </div>
     </div>
 

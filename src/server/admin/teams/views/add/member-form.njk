@@ -3,9 +3,9 @@
 {% block content %}
   {% call appSplitPane() %}
 
-    {{ appHeading({
-      title: heading,
-      caption: headingCaption
+    {{ appPageHeading({
+      caption: "Add Member to Team",
+      text: team.name
     }) }}
 
     <div class="govuk-grid-row">

@@ -2,85 +2,67 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set userTableRows = [] %}
-{% for user in team.users %}
-  {% set actionHtml %}
-    {{ govukButton({
-      classes: "app-button app-button--small app-button--hover-destructive",
-      text: "Remove",
-      attributes: {
-        formaction: "/admin/teams/" + team.teamId + "/remove-member/" + user.userId,
-        "data-testid": "remove-member-button" +  user.name | replace(r/[^a-zA-Z0-9]/g, '' )
-      }
-    }) }}
-  {% endset %}
-
-  {% set userLinkHtml %}
-    <a class="app-link" data-testid="app-member-link" href="/admin/users/{{ user.userId }}">{{ user.name }}</a>
-  {% endset %}
-
-  {{ userTableRows.push([
-    { html: userLinkHtml, classes: "govuk-!-padding-left-2" },
-    { html: actionHtml, classes: "app-!-width-one-tenth govuk-!-padding-right-2" }
-  ]) }}
-{% endfor %}
-
 {% block content %}
   {% call appSplitPane() %}
 
-    {{ appHeading({
-      title: heading,
-      caption: "Team details.",
-      entities: headingEntities,
-      actions: [
-        govukButton({
-          classes: "app-button",
-          text: "Add",
-          href: "/admin/teams/" + team.teamId + "/add-member",
-          attributes: { "data-testid": "add-button" }
-        }),
-        govukButton({
-          classes: "app-button app-button--secondary",
-          text: "Edit",
-          href: "/admin/teams/" + team.teamId + "/edit"
-        }),
-        govukButton({
-          classes: "app-button app-button--tertiary",
-          text: "Delete",
-          href: "/admin/teams/" + team.teamId + "/confirm-delete",
-          attributes: { "data-testid": "delete-button" }
-        })
-      ]
+    {{ appPageHeading({
+      caption: "Team",
+      text: team.name
     }) }}
 
-    <hr class="app-section-break">
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-full">
+        <ul class="govuk-list govuk-!-margin-bottom-6">
+          <li>
+            <a href="{{ routeLookup('admin/teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
+               class="app-link app-link--underline" data-testid="admin-add-team-member">
+              Add member to team
+            </a>
+          </li>
+          <li>
+            <a href="{{ routeLookup('admin/teams/{teamId}/confirm-delete', { params: { teamId: team.teamId } }) }}"
+               class="app-link app-link--underline" data-testid="admin-delete-team">
+              Delete team
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
-      <div class="govuk-grid-column-one-quarter">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">About</h2>
-        <p>
-          {{ team.description }}
-        </p>
+      <div class="govuk-grid-column-one-third-from-desktop">
 
-        {{ appEntityDataList({
-          items: entityDataList
-        }) }}
-      </div>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Team details</h2>
 
-      <div class="govuk-grid-column-one-quarter">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Members</h2>
+        {{ govukSummaryList(summaryList) }}
+
+        <h2 class="govuk-heading-m">
+          Team {{ "Member" | pluralise(scope.teams | length) }}
+        </h2>
 
         {% if team.users | length %}
-          <form method="post">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-            {{ govukTable({
-              classes: "app-table govuk-!-margin-bottom-2",
-              rows: userTableRows
-            }) }}
-          </form>
+          {{ govukTaskList(usersTaskList) }}
         {% else %}
-          <p>This team does not currently have any members</p>
+          <p>This team has no members.
+            <a href="{{ routeLookup('admin/teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
+               class="app-link app-link--underline">
+              Add team members
+            </a>
+          </p>
         {% endif %}
+
+        <h2 class="govuk-heading-m">
+          Team {{ "Permission" | pluralise(team.scopes | length) }}
+        </h2>
+
+        {% if team.scopes | length %}
+          {{ govukTaskList(scopesTaskList) }}
+        {% else %}
+          <p>
+            This teams has no permissions
+          </p>
+        {% endif %}
+
       </div>
     </div>
 
