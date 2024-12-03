@@ -1,0 +1,18 @@
+<div class="govuk-!-margin-top-2">
+  {% if params.caption %}
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">{{ params.caption }}</span>
+  {% endif %}
+
+  <div class="app-page-heading">
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">{{ params.text }}</h1>
+
+    {% if params.cta %}
+      <p class="app-page-heading--cta">
+        <a href="{{ params.cta.href }}" class="app-link app-link--underline"
+           data-testid="app-page-heading-cta">
+          {{ params.cta.text }}
+        </a>
+      </p>
+    {% endif %}
+  </div>
+</div>

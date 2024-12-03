@@ -1,0 +1,14 @@
+@use "govuk-frontend" as *;
+
+.app-page-heading {
+  margin-bottom: govuk-spacing(6);
+}
+
+.app-page-heading--title {
+  @extend %govuk-heading-xl;
+  margin: 0;
+}
+
+.app-page-heading--cta {
+  margin: govuk-spacing(3) 0 govuk-spacing(6);
+}
