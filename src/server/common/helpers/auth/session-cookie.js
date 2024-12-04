@@ -34,7 +34,6 @@ const sessionCookie = {
 
           if (tokenHasExpired) {
             const response = await refreshAccessToken(request)
-            const refreshAccessTokenJson = await response.json()
 
             if (!response?.ok) {
               removeAuthenticatedUser(request)
@@ -42,6 +41,7 @@ const sessionCookie = {
               return { isValid: false }
             }
 
+            const refreshAccessTokenJson = await response.json()
             const updatedSession = await updateUserSession(
               request,
               refreshAccessTokenJson
