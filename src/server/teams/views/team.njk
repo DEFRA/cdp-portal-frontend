@@ -19,7 +19,7 @@
   {% endset %}
 
   {{ userTableRows.push([
-    { text: user.name, classes: "govuk-!-padding-left-2", attributes: { "data-testid": "app-member-item"} },
+    { text: user.name, classes: "govuk-!-padding-left-2", attributes: { "data-testid": "team-member" } },
     { html: actionHtml, classes: "app-!-width-one-tenth govuk-!-padding-right-2" }
   ]) }}
 {% endfor %}
@@ -120,6 +120,7 @@
 
             {{ govukTable({
               classes: "app-table govuk-!-margin-bottom-2",
+              attributes: { "data-testid": "team-members" },
               rows: userTableRows
             }) }}
 
