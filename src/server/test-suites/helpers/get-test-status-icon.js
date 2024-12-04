@@ -5,12 +5,12 @@ function getTestStatusIcon(runTestStatus) {
   switch (runTestStatus) {
     case testStatus.passed:
       return renderIcon('tick-icon', {
-        classes: 'app-icon-small',
+        classes: 'app-icon--small',
         description: 'Test passed'
       })
     case testStatus.failed:
       return renderIcon('error-icon', {
-        classes: 'app-icon-small',
+        classes: 'app-icon--small',
         description: 'Test failed'
       })
     default:

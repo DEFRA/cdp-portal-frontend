@@ -8,7 +8,7 @@
 
   {% set createdHtml %}
     <div class="app-row">
-      {{ appInstanceIcon({ classes: "app-icon-small", description: "Published Image " + version.tag }) }}
+      {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
       {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
     </div>
   {% endset %}

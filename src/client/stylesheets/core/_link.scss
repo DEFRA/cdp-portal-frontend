@@ -5,12 +5,12 @@
   @include app-link;
 }
 
-// TODO fix up to use proper BEM classes
-.app-link-underline {
+.app-link--underline {
   @include app-link-underline;
 }
 
-.app-link-without-underline {
+// TODO fix up to use proper BEM classes
+.app-link-remove-underline {
   @include app-link-without-underline;
 }
 
