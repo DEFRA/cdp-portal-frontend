@@ -12,7 +12,6 @@ $border-width: 4px;
 .app-navigation__list {
   @include govuk-media-query($from: desktop-big) {
     display: flex;
-    height: $navigation-height;
     height: govuk-px-to-rem($navigation-height);
   }
 }
