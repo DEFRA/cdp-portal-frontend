@@ -23,7 +23,7 @@ const removeMemberController = {
       await removeMemberFromTeam(request, teamId, userId)
 
       request.yar.flash(sessionNames.notifications, {
-        text: 'User removed from team',
+        text: 'Member removed from team',
         type: 'success'
       })
     } catch (error) {
