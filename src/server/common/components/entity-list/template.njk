@@ -23,9 +23,9 @@
           {% set classes = [
             "app-entity-list__item",
             "app-entity-list__item--" + headingDetail.size
-          ] | compact %}
+          ] %}
 
-          <div class="{{ classes | join(" ")  }}"
+          <div class="{{ classes | join(" ") }}"
                data-testid="app-entity-list-item-{{ loop.index }}">
             {{ appEntity(entity | assign({}, {index: loop.index}, entity)) }}
           </div>
