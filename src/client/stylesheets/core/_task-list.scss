@@ -1,0 +1,9 @@
+@use "variables/colours" as *;
+
+.app-task-list {
+  .govuk-task-list__item {
+    &:hover {
+      background-color: $app-grey;
+    }
+  }
+}
