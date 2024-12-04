@@ -18,6 +18,7 @@
   &:read-only {
     border: none;
     color: govuk-colour("dark-grey");
+    padding: 0 govuk-spacing(1) govuk-spacing(1) 0;
 
     &:focus {
       outline: none;
