@@ -61,8 +61,8 @@ const addPermissionController = {
     }
 
     if (!validationResult.error) {
-      const addScopeToTeamPromises = teamIds.map(
-        async (teamId) => await addScopeToTeam(request, teamId, scopeId)
+      const addScopeToTeamPromises = teamIds.map((teamId) =>
+        addScopeToTeam(request, teamId, scopeId)
       )
 
       const responses = await Promise.allSettled(addScopeToTeamPromises)
@@ -96,9 +96,7 @@ const addPermissionController = {
 
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        rejectedResponse.map(
-          (rejectedResponse) => rejectedResponse.reason.message
-        )
+        rejectedResponse.map((response) => response.reason.message)
       )
 
       return h.redirect(`/admin/permissions/${scopeId}/add/${queryString}`)

@@ -4,7 +4,6 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')
 
-// TODO check which of these throw on the USBE side
 async function addScopeToTeam(request, teamId, scopeId) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/add/${teamId}`
@@ -17,10 +16,10 @@ async function addScopeToTeam(request, teamId, scopeId) {
   return data
 }
 
-async function createScope(request, payload) {
+function createScope(request, payload) {
   const endpoint = userServiceBackendUrl + '/scopes/admin/'
 
-  return await request.authedFetcher(endpoint, {
+  return request.authedFetcher(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(removeNil(payload))
@@ -42,17 +41,17 @@ async function fetchScopes(request) {
 }
 
 async function searchCdpTeams(query) {
-  const endpoint =
-    userServiceBackendUrl + `/teams${query ? `?query=` + query : ''}`
+  const queryString = query ? `?query=${query}` : ''
+  const endpoint = userServiceBackendUrl + '/teams' + queryString
 
   const { data } = await fetcher(endpoint)
   return data
 }
 
-async function updateScope(request, scopeId, payload) {
+function updateScope(request, scopeId, payload) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
-  return await request.authedFetcher(endpoint, {
+  return request.authedFetcher(endpoint, {
     method: 'patch',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(removeNil(payload))
