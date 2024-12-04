@@ -33,7 +33,7 @@
       </li>
     {% else %}
       <li class="app-entity-list__row"
-          data-testid="app-entity-list-no-results">{{ params.noResult }}</li>
+          data-testid="app-entity-list-no-results">{{ params.noResult | safe }}</li>
     {% endfor %}
   </ul>
 
