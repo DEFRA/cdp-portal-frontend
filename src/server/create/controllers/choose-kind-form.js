@@ -30,6 +30,7 @@ const chooseKindFormController = {
     return h.view('create/views/choose-kind-form', {
       pageTitle: 'Create',
       heading: 'Create',
+      headingCaption: 'What would you like to create?',
       createItems: creationItems,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation
