@@ -12,5 +12,7 @@
 }
 
 .app-data-list-item {
+  @extend %govuk-body-m;
+
   margin: 0 0 govuk-spacing(4);
 }

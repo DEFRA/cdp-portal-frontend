@@ -1,23 +1,22 @@
 {% from "entity/macro.njk" import appEntity with context %}
 
-<div class="govuk-body">
-  {% if params.heading %}
-    <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="app-data-list-heading">
-      {{ params.heading }}
-    </h2>
-  {% endif %}
+{% if params.heading %}
+  <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="app-data-list-heading">
+    {{ params.heading }}
+  </h2>
+{% endif %}
 
-  <dl class="app-data-list" data-testid="app-data-list">
-    {% for item in params.items %}
-      <dt class="app-data-list-heading{% if item.heading.classes %} {{ item.heading.classes }}{% endif %}"
-          data-testid="app-data-list-heading-{{ loop.index }}">
-        {{ item.heading.text }}
-      </dt>
-      <dd class="app-data-list-item"
-          data-testid="app-data-list-item-{{ loop.index }}">
-        {{ appEntity(item.entity) }}
-      </dd>
+<dl class="app-data-list" data-testid="app-data-list">
+  {% for item in params.items %}
+    <dt class="app-data-list-heading{% if item.heading.classes %} {{ item.heading.classes }}{% endif %}"
+        data-testid="app-data-list-heading-{{ loop.index }}">
+      {{ item.heading.text }}
+    </dt>
+    <dd class="app-data-list-item"
+        data-testid="app-data-list-item-{{ loop.index }}">
+      {{ appEntity(item.entity) }}
+    </dd>
 
-    {% endfor %}
-  </dl>
-</div>
+  {% endfor %}
+</dl>
+
