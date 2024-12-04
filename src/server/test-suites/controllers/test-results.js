@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import kebabCase from 'lodash/kebabCase.js'
-import upperFirst from 'lodash/upperFirst.js'
+
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const testResultsController = {
@@ -23,7 +23,7 @@ const testResultsController = {
     const runId = request.params.runId
     const assetPath = request.params.assetPath
     const tag = request.params.tag
-    const reportInfo = `${upperFirst(kebabCase(environment))} - ${tag} report`
+    const reportInfo = `${formatText(environment)} - ${tag} report`
 
     return h.view('test-suites/views/test-results', {
       pageTitle: `${serviceId} - ${reportInfo}`,

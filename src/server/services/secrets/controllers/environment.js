@@ -1,7 +1,6 @@
 import Boom from '@hapi/boom'
-import kebabCase from 'lodash/kebabCase.js'
-import upperFirst from 'lodash/upperFirst.js'
 
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { environmentSecrets } from '~/src/server/services/secrets/transformers/environment-secrets.js'
@@ -22,7 +21,7 @@ const environmentSecretsController = {
     const serviceName = service.serviceName
     const team = service?.teams?.at(0)
     const teamId = team?.teamId
-    const formattedEnvironment = upperFirst(kebabCase(environment))
+    const formattedEnvironment = formatText(environment)
     const secrets = await fetchSecrets(environment, serviceName)
 
     const {
