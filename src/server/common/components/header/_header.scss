@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "govuk-frontend" as *;
 @use "variables/border-radius" as *;
 
@@ -45,17 +46,29 @@
 .app-header__actions {
   @include govuk-font(19);
 
-  @include govuk-media-query($from: desktop-big) {
-    flex: 2;
-    display: flex;
-    justify-content: flex-end;
-    align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & .app-user-icon {
+    margin-right: govuk-spacing(2);
   }
 }
 
 .app-header__login-link {
   margin-left: govuk-spacing(3);
   @include govuk-font(19, "bold");
+  display: block;
+
+
+  &.app-header__is-logged-in {
+    &::before {
+      content: "";
+      padding-right: govuk-spacing(3);
+      height: 100%;
+      border-left: 1px solid govuk-colour("white");
+    }
+  }
 }
 
 .app-header__link {

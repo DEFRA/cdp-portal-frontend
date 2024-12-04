@@ -1,3 +1,5 @@
+{% from "icons/user-icon/macro.njk" import appUserIcon %}
+
 <header class="app-header" role="banner" data-testid="app-header">
   <div class="app-header__container app-header__container--full-width">
     <div class="app-header__content">
@@ -14,13 +16,14 @@
     </div>
     <div class="app-header__actions">
       {% if authedUser.displayName %}
+        {{ appUserIcon({ classes: "app-icon--minute" }) }}
         <span data-testid="app-login-username">
           {{ authedUser.displayName }}
         </span>
       {% endif %}
 
       <a href="{{ params.loginUrl }}"
-         class="app-header__login-link app-header__link"
+         class="app-header__login-link app-header__link{% if isAuthenticated %} app-header__is-logged-in{% endif %}"
          data-testid="app-login-link">
         {{ params.loginText }}
       </a>
