@@ -12,7 +12,7 @@
         text: "Remove",
         attributes: {
           formaction: "/teams/" + team.teamId + "/remove-member/" + user.userId,
-          "data-testid": "remove-member-button" +  user.name | replace(r/[^a-zA-Z0-9]/g, '' )
+          "data-testid": "remove-member-button-" + user.userId
         }
       }) }}
     {% endif %}
