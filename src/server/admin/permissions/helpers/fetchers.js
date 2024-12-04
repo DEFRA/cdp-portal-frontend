@@ -1,3 +1,5 @@
+import qs from 'qs'
+
 import { config } from '~/src/config/index.js'
 import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
@@ -41,8 +43,10 @@ async function fetchScopes(request) {
 }
 
 async function searchCdpTeams(query) {
-  const queryString = query ? `?query=${query}` : ''
-  const endpoint = userServiceBackendUrl + '/teams' + queryString
+  const queryString = query
+    ? qs.stringify({ query }, { addQueryPrefix: true })
+    : ''
+  const endpoint = `${userServiceBackendUrl}/teams${queryString}`
 
   const { data } = await fetcher(endpoint)
   return data
