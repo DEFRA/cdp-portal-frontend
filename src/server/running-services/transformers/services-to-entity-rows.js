@@ -1,12 +1,12 @@
-import kebabCase from 'lodash/kebabCase.js'
-import upperFirst from 'lodash/upperFirst.js'
 import camelCase from 'lodash/camelCase.js'
+
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 
 function buildVersion(version, environment, serviceName) {
   return {
     kind: 'text',
     value: version ?? null,
-    title: `${serviceName} - ${version} - ${upperFirst(kebabCase(environment))}`
+    title: `${serviceName} - ${version} - ${formatText(environment)}`
   }
 }
 

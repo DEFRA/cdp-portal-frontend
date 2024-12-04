@@ -1,7 +1,5 @@
-import kebabCase from 'lodash/kebabCase.js'
-import upperFirst from 'lodash/upperFirst.js'
-
 import { config } from '~/src/config/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 
 function serviceToEntityRow(service) {
@@ -20,7 +18,7 @@ function serviceToEntityRow(service) {
   const createdEntity = hasStatus
     ? {
         kind: 'tag',
-        value: upperFirst(kebabCase(status)),
+        value: formatText(status),
         classes: statusTagClassMap(status)
       }
     : { kind: 'date', value: service.createdAt }

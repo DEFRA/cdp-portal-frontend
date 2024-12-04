@@ -1,9 +1,7 @@
-import kebabCase from 'lodash/kebabCase.js'
-import upperFirst from 'lodash/upperFirst.js'
-
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
 import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
 import { augmentStatus } from '~/src/server/deployments/helpers/augment-status.js'
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 
 function deploymentEntityRows(deployments) {
   return deployments?.map(deploymentToEntityRow)
@@ -39,7 +37,7 @@ function deploymentToEntityRow(deployment) {
     },
     {
       kind: 'tag',
-      value: upperFirst(kebabCase(status)),
+      value: formatText(status),
       classes: provideDeploymentStatusClassname(status)
     },
     {

@@ -1,14 +1,14 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import isNull from 'lodash/isNull.js'
-import kebabCase from 'lodash/kebabCase.js'
-import upperFirst from 'lodash/upperFirst.js'
-import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
+
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
-import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
-import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
+import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
+import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
+import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
 
 const deploymentController = {
   options: {
@@ -27,7 +27,7 @@ const deploymentController = {
   handler: (request, h) => {
     const deployment = request.pre.deployment
     const environment = deployment.environment
-    const formattedEnvironment = upperFirst(kebabCase(environment))
+    const formattedEnvironment = formatText(environment)
 
     // TODO update to use new polling helpers
     if (isNull(deployment)) {

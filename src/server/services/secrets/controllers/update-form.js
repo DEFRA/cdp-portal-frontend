@@ -1,9 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import kebabCase from 'lodash/kebabCase.js'
-import upperFirst from 'lodash/upperFirst.js'
 
 import { config } from '~/src/config/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
@@ -33,7 +32,7 @@ const updateSecretFormController = {
     const serviceName = service.serviceName
     const environment = request.params?.environment
     const secretKey = request.query?.secretKey
-    const formattedEnvironment = upperFirst(kebabCase(environment))
+    const formattedEnvironment = formatText(environment)
     const secrets = await fetchSecrets(environment, serviceName)
 
     return h.view('services/secrets/views/update-form', {
