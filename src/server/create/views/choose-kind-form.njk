@@ -21,11 +21,6 @@
             {{ govukRadios({
               name: "kind",
               classes: "govuk-radios--small app-radio",
-              fieldset: {
-                legend: {
-                  text: "What would you like to create?"
-                }
-              },
               items: createItems,
               value: formValues.kind,
               formGroup: {
