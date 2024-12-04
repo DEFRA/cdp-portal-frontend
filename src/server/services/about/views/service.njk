@@ -66,7 +66,7 @@
           {% if service.isFrontend %}
             {% call appSummaryItem({
               heading: "Application links",
-              icon: appGlobeIcon({ classes: "app-icon-small", description: "Frontend application links" }),
+              icon: appGlobeIcon({ classes: "app-icon--small", description: "Frontend application links" }),
               intro: {
                 text: "Access your service in CDP environments."
               }
@@ -91,7 +91,7 @@
           {% if service.isBackend %}
             {% call appSummaryItem({
               heading: "API root urls",
-              icon: appGlobeIcon({ classes: "app-icon-small", description: "Frontend application links"}),
+              icon: appGlobeIcon({ classes: "app-icon--small", description: "Frontend application links"}),
               intro: {
                 text: "Service backend API urls. These are intended to be called from a frontend."
               }
@@ -115,7 +115,7 @@
 
           {% call appSummaryItem({
             heading: "Logs",
-            icon: appLogsIcon({ classes: "app-icon-small"}),
+            icon: appLogsIcon({ classes: "app-icon--small"}),
             intro: {
               text: "OpenSearch logs for monitoring and troubleshooting your service."
             }
@@ -137,7 +137,7 @@
 
           {% call appSummaryItem({
             heading: "Metrics",
-            icon: appChartIcon({ classes: "app-icon-small"}),
+            icon: appChartIcon({ classes: "app-icon--small"}),
             intro: {
               text: "Grafana observability metrics data and graphs for your service."
             }
@@ -164,7 +164,7 @@
 
           {% call appSummaryItem({
             heading: "Configuration",
-            icon: appWrenchIcon({ classes: "app-icon-small"}),
+            icon: appWrenchIcon({ classes: "app-icon--small"}),
             intro: { text: "Manage service configuration across CDP environments." }
           }) %}
             <p>
@@ -177,7 +177,7 @@
 
           {% call appSummaryItem({
             heading: "Builds",
-            icon: appCheckIcon({ classes: "app-icon-small", description: "Builds" }),
+            icon: appCheckIcon({ classes: "app-icon--small", description: "Builds" }),
             intro: {
               text: "Test, build and publish ready-to-deploy docker images of your service, with GitHub Actions."
             }
@@ -192,7 +192,7 @@
 
           {% call appSummaryItem({
             heading: "Published Images",
-            icon: appInstanceIcon({ classes: "app-icon-small", description: "Published Images" }),
+            icon: appInstanceIcon({ classes: "app-icon--small", description: "Published Images" }),
             intro: {
               text: "Latest built and published Docker images by version."
             }

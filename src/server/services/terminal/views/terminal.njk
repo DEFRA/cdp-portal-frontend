@@ -80,7 +80,7 @@
       <article class="govuk-!-margin-bottom-6">
         {% call appSummaryItem({
           heading: "Launch a terminal",
-          icon: appTerminalIcon({ classes: "app-icon-small"}),
+          icon: appTerminalIcon({ classes: "app-icon--small"}),
           intro: {
             text: "Launch a secure terminal, as your service in an environment."
           }
@@ -115,7 +115,7 @@
         <ul class="govuk-list govuk-!-margin-left-2">
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appCurlIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              {{ appCurlIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
               <strong class="govuk-!-margin-right-1">Curl</strong>
               <a class="app-link" href="https://curl.se"
                  target="_blank" rel="noopener noreferrer">
@@ -124,7 +124,7 @@
           </li>
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appAwsIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              {{ appAwsIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
               <strong class="govuk-!-margin-right-1">AWS Cli</strong>
               <a class="app-link" href="https://aws.amazon.com/cli"
                  target="_blank" rel="noopener noreferrer">
@@ -133,7 +133,7 @@
           </li>
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appRedisIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              {{ appRedisIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
               <strong class="govuk-!-margin-right-1">Redis Cli</strong>
               <a class="app-link" href="https://redis.io/docs/latest/develop/connect/cli"
                  target="_blank" rel="noopener noreferrer">
@@ -142,7 +142,7 @@
           </li>
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appMongoDbIcon({ classes: "app-icon-small govuk-!-margin-right-2" }) }}
+              {{ appMongoDbIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
               <strong class="govuk-!-margin-right-1">MongoDb Cli</strong>
               <a class="app-link" href="https://www.mongodb.com/docs/mongocli/current"
                  target="_blank" rel="noopener noreferrer">
@@ -165,7 +165,7 @@
             <li>
               <div class="app-!-layout-flex-start">
                 {{ appInfoIcon({
-                  classes: "app-icon-tiny govuk-!-margin-right-2",
+                  classes: "app-icon--tiny govuk-!-margin-right-2",
                   description: "Info"
                 }) }} {{ tip }}
               </div>
@@ -182,7 +182,7 @@
             <li>
               <div class="app-!-layout-flex-start">
                 {{ appWarningIcon({
-                  classes: "app-icon-tiny govuk-!-margin-right-2",
+                  classes: "app-icon--tiny govuk-!-margin-right-2",
                   description: "Warning"
                 }) }} {{ warning }}
               </div>
