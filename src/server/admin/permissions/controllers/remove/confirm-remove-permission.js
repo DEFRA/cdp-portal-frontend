@@ -16,9 +16,7 @@ const confirmRemovePermissionController = {
   },
   handler: async (request, h) => {
     const { scope } = await fetchScope(request, request.params.scopeId)
-    const team = scope.teams.find(
-      (team) => team.teamId === request.params.teamId
-    )
+    const team = scope.teams.find((t) => t.teamId === request.params.teamId)
     const formattedValue = formatText(scope.value)
     const title = 'Remove'
 

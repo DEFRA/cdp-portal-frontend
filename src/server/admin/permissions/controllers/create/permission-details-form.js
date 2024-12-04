@@ -2,7 +2,7 @@ const createPermissionDetailsFormController = {
   options: {
     id: 'admin/permission/create'
   },
-  handler: (request, h) => {
+  handler: (_request, h) => {
     return h.view('admin/permissions/views/create/permission-details-form', {
       pageTitle: 'Create new permission',
       breadcrumbs: [
