@@ -1,11 +1,12 @@
 @use "govuk-frontend" as *;
 @use "subnav/subnav";
 
-$nav-width: 140px;
-$nav-width-slim: 120px;
+$nav-width: 160px;
+$nav-width-slim: 140px;
 
 .app-split-pane {
   display: flex;
+  gap: govuk-spacing(4);
 
   @include govuk-media-query($from: desktop-wide) {
     width: 100%;
