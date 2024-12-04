@@ -65,7 +65,11 @@ function transformTeamToSummary(team, withActions = true) {
         key: { text: 'Alert Emails' },
         value: {
           html: team.alertEmailAddresses?.length
-            ? buildList(team.alertEmailAddresses)
+            ? buildList(
+                team.alertEmailAddresses.map((email) =>
+                  buildLink(`mailto:${email}`, email)
+                )
+              )
             : noValue
         },
         actions
