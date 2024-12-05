@@ -3,7 +3,8 @@ import Wreck from '@hapi/wreck'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 
 /**
- * Provide Wreck http client agents
+ * Set the Global Wreck agents
+ * To disable for a specific instance pass the { agent: false } option
  * @param {ProxyAgent} proxy
  */
 function setupWreckAgents(proxy) {
