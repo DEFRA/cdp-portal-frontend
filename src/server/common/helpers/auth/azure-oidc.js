@@ -42,11 +42,11 @@ const azureOidc = {
             'offline_access',
             'user.read'
           ],
-          profile: async function (credentials, _params, authedGet) {
+          profile: async function (credentials, _params, get) {
             const payload = jwt.token.decode(credentials.token).decoded.payload
             const endpoint = config.get('userServiceBackendUrl') + '/scopes'
 
-            const { scopes, scopeFlags } = await authedGet(endpoint, {
+            const { scopes, scopeFlags } = await get(endpoint, {
               options: { agent: false }
             })
 
