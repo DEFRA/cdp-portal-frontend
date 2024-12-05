@@ -1,19 +1,13 @@
-import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { deployTerminal } from '~/src/server/services/terminal/helpers/fetch/deploy-terminal.js'
 import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
-import { getAllEnvironmentKebabNamesExceptProd } from '~/src/server/common/helpers/environments/get-environments.js'
+import { launchTerminalParamsValidation } from '~/src/server/services/terminal/helpers/schema/launch-terminal-params-validation.js'
 
 const launchTerminalController = {
   options: {
     validate: {
-      params: Joi.object({
-        serviceId: Joi.string().required(),
-        environment: Joi.string()
-          .valid(...getAllEnvironmentKebabNamesExceptProd())
-          .required()
-      }),
+      params: launchTerminalParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
@@ -22,7 +16,7 @@ const launchTerminalController = {
     const environment = request.params.environment
 
     try {
-      canLaunchTerminal(request, environment)
+      canLaunchTerminal(request.auth.credentials?.scope, environment)
 
       const { response, data } = await deployTerminal(
         request,

@@ -1,7 +1,7 @@
 import { config } from '~/src/config/index.js'
 
 async function deployTerminal(request, serviceId, environment) {
-  const endpoint = config.get('selfServiceOpsUrl') + '/deploy-webshell'
+  const endpoint = config.get('selfServiceOpsUrl') + '/deploy-terminal'
 
   const { data, response } = await request.authedFetcher(endpoint, {
     method: 'post',
