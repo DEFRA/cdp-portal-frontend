@@ -4,9 +4,9 @@ import Boom from '@hapi/boom'
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { terminalEnvironments } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
 
-async function getTerminalEnvs(service, scopes) {
+async function getTerminalEnvs(service, userScopes) {
   const teams = service?.teams
   const serviceName = service?.serviceName
 
@@ -14,16 +14,16 @@ async function getTerminalEnvs(service, scopes) {
     return []
   }
 
-  const environments = getEnvironments(scopes)
+  const environments = terminalEnvironments(userScopes)
   const runningServices = (await fetchRunningServicesById(serviceName)) ?? []
-  const envsWithDeployment = [
+
+  return [
     ...new Set(
       runningServices.map((runningService) => runningService.environment)
     )
   ]
     .filter((env) => environments.includes(env))
     .sort(sortByEnv)
-  return envsWithDeployment.filter((env) => env !== 'prod')
 }
 
 const webShellController = {

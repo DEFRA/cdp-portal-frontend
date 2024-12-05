@@ -2,19 +2,17 @@ import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-la
 import { scopes } from '~/src/server/common/constants/scopes.js'
 
 describe('#canLaunchTerminal', () => {
-  const mockRequest = (scopes) => ({
-    auth: { credentials: { scope: scopes } }
-  })
-
   test('Should not throw for Admin and allowed Admin environment', () => {
-    expect(() =>
-      canLaunchTerminal(mockRequest([scopes.admin]), 'dev')
-    ).not.toThrow()
+    expect(() => canLaunchTerminal([scopes.admin], 'dev')).not.toThrow()
   })
 
   test('Should throw for Tenant with unavailable environment', () => {
     expect(() =>
-      canLaunchTerminal(mockRequest([scopes.externalTest]), 'management')
+      canLaunchTerminal([scopes.externalTest], 'management')
     ).toThrow('Cannot launch terminal in this environment')
+  })
+
+  test('Should not throw for breakglass user with production environment', () => {
+    expect(() => canLaunchTerminal([scopes.breakglass], 'prod')).not.toThrow()
   })
 })
