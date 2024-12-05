@@ -44,7 +44,7 @@ const azureOidc = {
           ],
           profile: async function (credentials, _params, authedGet) {
             const payload = jwt.token.decode(credentials.token).decoded.payload
-            const endpoint = config.get('userServiceBackendUrl') + `/scopes`
+            const endpoint = config.get('userServiceBackendUrl') + '/scopes'
 
             const { scopes, scopeFlags } = await authedGet(endpoint)
 
