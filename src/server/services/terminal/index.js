@@ -1,7 +1,7 @@
 import {
   launchTerminalController,
-  webShellController,
-  webShellBrowserController
+  terminalController,
+  terminalBrowserController
 } from '~/src/server/services/terminal/controllers/index.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
@@ -56,7 +56,7 @@ const serviceTerminal = {
           {
             method: 'GET',
             path: '/services/{serviceId}/terminal',
-            ...webShellController
+            ...terminalController
           },
           {
             method: 'POST',
@@ -66,7 +66,7 @@ const serviceTerminal = {
           {
             method: 'GET',
             path: '/services/{serviceId}/terminal/{environment}/{token}',
-            ...webShellBrowserController
+            ...terminalBrowserController
           }
         ].map(serviceOwnerOrAdminUserScope)
       )

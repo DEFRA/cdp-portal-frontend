@@ -3,12 +3,12 @@ import Boom from '@hapi/boom'
 import { config } from '~/src/config/index.js'
 import { canLaunchTerminal } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { launchTerminalParamsValidation } from '~/src/server/services/terminal/helpers/schema/launch-terminal-params-validation.js'
+import { terminalBrowserParamsValidation } from '~/src/server/services/terminal/helpers/schema/terminal-browser-params-validation.js'
 
-const webShellBrowserController = {
+const terminalBrowserController = {
   options: {
     validate: {
-      params: launchTerminalParamsValidation,
+      params: terminalBrowserParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
@@ -42,4 +42,4 @@ const webShellBrowserController = {
   }
 }
 
-export { webShellBrowserController }
+export { terminalBrowserController }

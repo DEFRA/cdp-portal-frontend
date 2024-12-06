@@ -26,7 +26,7 @@ async function getTerminalEnvs(service, userScopes) {
     .sort(sortByEnv)
 }
 
-const webShellController = {
+const terminalController = {
   options: {
     id: 'services/{serviceId}/terminal',
     pre: [provideService],
@@ -69,4 +69,4 @@ const webShellController = {
   }
 }
 
-export { webShellController }
+export { terminalController }
