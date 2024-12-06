@@ -12,7 +12,7 @@ function terminalEnvironments(scope) {
 }
 
 function canLaunchTerminal(scope, environment) {
-  if (!getEnvironments(scope).includes(environment)) {
+  if (!terminalEnvironments(scope).includes(environment)) {
     throw Boom.forbidden('Cannot launch terminal in this environment')
   }
 }

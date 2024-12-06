@@ -1,12 +1,12 @@
 import Blankie from 'blankie'
 
 import { config } from '~/src/config/index.js'
-import { getAllEnvironmentKebabNamesExceptProd } from '~/src/server/common/helpers/environments/get-environments.js'
+import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const terminalProxyUrl = config.get('terminalProxyUrl')
 const terminalProxyDomains = [
   ...new Set(
-    getAllEnvironmentKebabNamesExceptProd().map((environment) =>
+    getAllEnvironmentKebabNames().map((environment) =>
       terminalProxyUrl.replace('{environment}', environment)
     )
   )
