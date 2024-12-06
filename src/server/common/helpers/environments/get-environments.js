@@ -21,16 +21,4 @@ function getEnvironmentsThatNeed(scopes = []) {
 function getAllEnvironmentKebabNames() {
   return Object.values(environments).map(({ kebabName }) => kebabName)
 }
-
-function getAllEnvironmentKebabNamesExceptProd() {
-  return getAllEnvironmentKebabNames().filter(
-    (env) => env !== environments.prod.kebabName
-  )
-}
-
-export {
-  getEnvironments,
-  getEnvironmentsThatNeed,
-  getAllEnvironmentKebabNames,
-  getAllEnvironmentKebabNamesExceptProd
-}
+export { getEnvironments, getEnvironmentsThatNeed, getAllEnvironmentKebabNames }
