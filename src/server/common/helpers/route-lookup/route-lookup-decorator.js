@@ -8,7 +8,7 @@ import { routeLookup } from '~/src/server/common/helpers/route-lookup/index.js'
 
 /**
  *
- * @param {Server} server
+ * @param {import('@hapi/hapi').Server} server
  * @returns {function(*, {}=): *}
  */
 function routeLookupDecorator({ server }) {
@@ -20,7 +20,3 @@ function routeLookupDecorator({ server }) {
 }
 
 export { routeLookupDecorator }
-
-/**
- * @import { Server } from '@hapi/hapi'
- */

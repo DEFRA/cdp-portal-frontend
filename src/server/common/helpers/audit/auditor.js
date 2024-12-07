@@ -6,9 +6,9 @@ import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor.js'
 
 /**
  * @typedef {object} Options
- * @property  {object} audit - Audit configuration
- * @property {Request} request - Request object
- * @property {Logger} logger - Logger object
+ * @property {object} audit - Audit configuration
+ * @property {import('@hapi/hapi').Request} request - Request object
+ * @property {import('pino').Logger} logger
  * @property {string} region - AWS region
  * @property {boolean} isDevelopment - Development flag
  */
@@ -61,7 +61,3 @@ const auditor = {
 }
 
 export { auditor }
-/**
- * @import {Request} from '@hapi/hapi'
- * @import {Logger} from 'pino'
- */

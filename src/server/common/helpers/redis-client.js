@@ -6,7 +6,7 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
  * Setup Redis and provide a redis client
  * Local development - 1 Redis instance
  * Out in the wild - Elasticache / Redis Cluster with username and password
- * @returns {Cluster | Redis}
+ * @returns {import('ioredis').Cluster | import('ioredis').Redis}
  */
 function buildRedisClient(redisConfig) {
   const logger = createLogger()
@@ -41,6 +41,3 @@ function buildRedisClient(redisConfig) {
 }
 
 export { buildRedisClient }
-/**
- * @import { Cluster, Redis } from 'ioredis'
- */

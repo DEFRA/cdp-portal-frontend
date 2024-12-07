@@ -7,7 +7,7 @@ const logConfig = config.get('log')
 const serviceConfig = config.get('service')
 
 /**
- * @type {{ecs: Omit<LoggerOptions, "mixin"|"transport">, "pino-pretty": {transport: {target: string}}}}
+ * @type {{ecs: Omit<import('pino').LoggerOptions, "mixin"|"transport">, "pino-pretty": {transport: {target: string}}}}
  */
 const formatters = {
   ecs: {
@@ -25,7 +25,7 @@ const formatters = {
 }
 
 /**
- * @satisfies {Options}
+ * @satisfies {import('@hapi/hapi').Options}
  */
 export const loggerOptions = {
   enabled: logConfig.enabled,
@@ -47,8 +47,3 @@ export const loggerOptions = {
     return mixinValues
   }
 }
-
-/**
- * @import { Options } from 'hapi-pino'
- * @import { LoggerOptions } from 'pino'
- */

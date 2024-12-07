@@ -22,8 +22,8 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 /**
  * Session for cdp user multistep form
- * @param {Yar} yar
- * @param {ResponseToolkit} h
+ * @param {import('@hapi/yar').Yar} yar
+ * @param {import('@hapi/hapi').ResponseToolkit} h
  * @param {Data} data
  * @returns {Promise<*>}
  */
@@ -38,8 +38,3 @@ async function saveToCdpUser({ yar }, h, data) {
 }
 
 export { saveToCdpUser }
-
-/**
- * @import {ResponseToolkit} from '@hapi/hapi'
- * @import {Yar} from '@hapi/yar'
- */

@@ -3,7 +3,7 @@ import { S3Client } from '@aws-sdk/client-s3'
 import { config } from '~/src/config/index.js'
 
 /**
- * @satisfies {Plugin}
+ * @satisfies {import('@hapi/hapi').Plugin}
  */
 const s3Client = {
   plugin: {
@@ -33,7 +33,3 @@ const s3Client = {
 }
 
 export { s3Client }
-
-/**
- * @import { Server, Plugin } from '@hapi/hapi'
- */

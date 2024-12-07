@@ -1,7 +1,7 @@
 /**
  * Provides tabs for the service view based on user authentication.
- * @param {Request} request - The request object.
- * @param {ResponseToolkit} h - The response toolkit.
+ * @param {import('@hapi/hapi').Request} request - The request object.
+ * @param {import('@hapi/hapi').ResponseToolkit} h
  * @returns {Promise<symbol>}
  */
 async function provideTabs(request, h) {
@@ -64,6 +64,3 @@ async function provideTabs(request, h) {
 }
 
 export { provideTabs }
-/**
- * @import { Request, ResponseToolkit } from '@hapi/hapi'
- */

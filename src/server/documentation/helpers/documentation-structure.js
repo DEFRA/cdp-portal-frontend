@@ -100,7 +100,7 @@ function buildLinkStructure({ name, content, docsRoute, folders, pages }) {
 
 /**
  * Get ordered links that reflect the structure of the documentation repository
- * @param {Request} request
+ * @param {import('@hapi/hapi').Request} request
  * @param {string} bucket
  * @returns {Promise<[]>}
  */
@@ -188,6 +188,3 @@ async function documentationStructure(request, bucket) {
 }
 
 export { documentationStructure }
-/**
- * @import {Request} from '@hapi/hapi'
- */

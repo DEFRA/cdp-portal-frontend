@@ -72,3 +72,6 @@ const sessionCookie = {
 }
 
 export { sessionCookie }
+/**
+ * @import {UserSession} from '~/src/server/common/helpers/auth/get-user-session.js'
+ */

@@ -21,7 +21,7 @@ const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
 /**
  * The deploy service plugin
- * @satisfies {ServerRegisterPluginObject<void>}
+ * @satisfies {import('@hapi/hapi').Plugin}
  */
 const deployService = {
   plugin: {
@@ -91,7 +91,3 @@ const deployService = {
 }
 
 export { deployService }
-
-/**
- * @import { ServerRegisterPluginObject } from '@hapi/hapi/lib'
- */

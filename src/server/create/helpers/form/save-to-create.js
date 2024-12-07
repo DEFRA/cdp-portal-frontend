@@ -9,8 +9,8 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
  */
 /**
  *
- * @param {Yar} yar
- * @param {ResponseToolkit} h
+ * @param {import('@hapi/yar').Yar} yar
+ * @param {import('@hapi/hapi').ResponseToolkit} h
  * @param {Data} data
  * @param {boolean} [overwrite]
  * @returns {Promise<*>}
@@ -31,8 +31,3 @@ async function saveToCreate({ yar }, h, data, overwrite = false) {
 }
 
 export { saveToCreate }
-
-/**
- * @import {ResponseToolkit} from '@hapi/hapi'
- * @import {Yar} from '@hapi/yar'
- */
