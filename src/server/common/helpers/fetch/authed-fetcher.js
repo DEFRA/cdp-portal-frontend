@@ -7,7 +7,7 @@ import { handleResponse } from '~/src/server/common/helpers/fetch/handle-respons
 import { getTraceId } from '~/src/server/common/helpers/tracing/async-local-storage.js'
 import {
   removeAuthenticatedUser,
-  updateUserSession
+  refreshUserSession
 } from '~/src/server/common/helpers/auth/user-session.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 
