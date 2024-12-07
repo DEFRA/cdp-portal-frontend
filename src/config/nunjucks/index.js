@@ -2,7 +2,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import yar from '@hapi/yar'
 import nunjucks from 'nunjucks'
-import hapiVision from '@hapi/vision'
+import Vision from '@hapi/vision'
 
 import { config } from '~/src/config/index.js'
 import { context } from '~/src/config/nunjucks/context/index.js'
@@ -40,7 +40,7 @@ const nunjucksEnvironment = nunjucks.configure(
 
 const nunjucksConfig = {
   plugin: {
-    ...hapiVision,
+    ...Vision,
     dependency: yar
   },
   options: {
