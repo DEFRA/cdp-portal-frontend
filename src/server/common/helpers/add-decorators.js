@@ -9,7 +9,7 @@ import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/us
 
 /**
  * Add global server methods
- * @param {Server} server
+ * @param {import('@hapi/hapi').Server} server
  */
 function addDecorators(server) {
   server.decorate('request', 'isXhr', isXhr)
@@ -40,7 +40,3 @@ function addDecorators(server) {
 }
 
 export { addDecorators }
-
-/**
- * @import {Server} from '@hapi/hapi'
- */

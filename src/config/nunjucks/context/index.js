@@ -22,7 +22,7 @@ const manifestPath = path.join(
 let webpackManifest
 
 /**
- * @param {Request | null} request
+ * @param {import('@hapi/hapi').Request | null} request
  */
 async function context(request) {
   if (!webpackManifest) {
@@ -70,7 +70,3 @@ async function context(request) {
 }
 
 export { context }
-
-/**
- * @import { Request } from '@hapi/hapi'
- */

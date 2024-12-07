@@ -33,6 +33,3 @@ async function toService(serviceId) {
 }
 
 export { toService }
-/**
- * @import { Request } from '@hapi/hapi'
- */

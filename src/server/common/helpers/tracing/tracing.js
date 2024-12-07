@@ -7,7 +7,7 @@ import { config } from '~/src/config/index.js'
 /**
  * Wrap the request lifecycle in an asyncLocalStorage run call. This allows the
  * passed store to be available during the request lifecycle.
- * @param { Request } request
+ * @param { import('@hapi/hapi').Request } request
  * @param { Map<string, string> } store
  */
 function wrapLifecycle(request, store) {
@@ -16,7 +16,7 @@ function wrapLifecycle(request, store) {
 }
 
 /**
- * @satisfies {Plugin}
+ * @satisfies {import('@hapi/hapi').Plugin}
  */
 const tracing = {
   plugin: {
@@ -47,7 +47,3 @@ const tracing = {
 }
 
 export { tracing }
-
-/**
- * @import { Request, Plugin } from '@hapi/hapi'
- */

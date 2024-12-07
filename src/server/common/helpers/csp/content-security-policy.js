@@ -13,7 +13,7 @@ const terminalProxyDomains = [
 ]
 
 /**
- * @satisfies {Plugin}
+ * @satisfies {import('@hapi/hapi').Plugin}
  */
 const contentSecurityPolicy = {
   plugin: Blankie,
@@ -30,7 +30,3 @@ const contentSecurityPolicy = {
 }
 
 export { contentSecurityPolicy }
-
-/**
- * @import { Plugin } from '@hapi/hapi'
- */

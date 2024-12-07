@@ -2,7 +2,7 @@ import { documentationStructure } from '~/src/server/documentation/helpers/docum
 
 /**
  * Build the docs links nav. Note for accessibility reasons, nested ul elements are wrapped in li elements.
- * @param {Request} request
+ * @param {import('@hapi/hapi').Request} request
  * @param {string} bucket
  * @returns {Promise<string>}
  */
@@ -53,6 +53,3 @@ async function buildDocsNav(request, bucket) {
 }
 
 export { buildDocsNav }
-/**
- * @import { Request } from '@hapi/hapi'
- */

@@ -5,8 +5,8 @@ import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 /**
  * S3 file handler for use with iFrames
- * @param {Request} request
- * @param {ResponseToolkit} h
+ * @param {import('@hapi/hapi').Request} request
+ * @param {import('@hapi/hapi').ResponseToolkit} h
  * @param {string} key
  * @param {string} bucket
  * @returns {Promise<*>}
@@ -43,6 +43,3 @@ async function iframeS3FileHandler(request, h, key, bucket) {
 }
 
 export { iframeS3FileHandler }
-/**
- * @import { Request, ResponseToolkit } from '@hapi/hapi'
- */

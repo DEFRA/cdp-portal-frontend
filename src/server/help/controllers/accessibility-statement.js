@@ -1,5 +1,5 @@
 /**
- * @satisfies {Partial<ServerRoute>}
+ * @satisfies {Partial<import('@hapi/hapi').ServerRoute>}
  */
 const accessibilityStatement = {
   handler: (_request, h) => {
@@ -13,6 +13,3 @@ const accessibilityStatement = {
 }
 
 export { accessibilityStatement }
-/**
- * @import { ServerRoute } from '@hapi/hapi'
- */
