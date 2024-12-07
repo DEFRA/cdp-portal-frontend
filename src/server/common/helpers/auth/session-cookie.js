@@ -9,6 +9,8 @@ import {
   updateUserScope
 } from '~/src/server/common/helpers/auth/user-session.js'
 
+const sessionCookieConfig = config.get('sessionCookie')
+
 const sessionCookie = {
   plugin: {
     name: 'user-session',
@@ -19,9 +21,9 @@ const sessionCookie = {
         cookie: {
           name: 'userSessionCookie',
           path: '/',
-          password: config.get('sessionCookiePassword'),
-          isSecure: config.get('isProduction'),
-          ttl: config.get('sessionCookieTtl'),
+          password: sessionCookieConfig.password,
+          isSecure: sessionCookieConfig.isSecure,
+          ttl: sessionCookieConfig.ttl,
           clearInvalid: true
         },
         keepAlive: true,

@@ -5,6 +5,8 @@ import { config } from '~/src/config/index.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { proxyFetch } from '~/src/server/common/helpers/proxy/proxy-fetch.js'
 
+const sessionCookieConfig = config.get('sessionCookie')
+
 const azureOidc = {
   plugin: {
     name: 'azure-oidc',
@@ -60,12 +62,13 @@ const azureOidc = {
             }
           }
         },
-        password: config.get('sessionCookiePassword'),
         clientId: config.get('azureClientId'),
         forceHttps: config.get('isProduction'),
         clientSecret: config.get('azureClientSecret'),
         cookie: 'bell-azure-oidc',
-        isSecure: config.get('isProduction'),
+        password: sessionCookieConfig.password,
+        isSecure: sessionCookieConfig.isSecure,
+        ttl: sessionCookieConfig.ttl,
         config: {
           tenant: config.get('azureTenantId')
         }
