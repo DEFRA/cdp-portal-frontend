@@ -19,6 +19,12 @@ declare module '@hapi/hapi' {
     userIsServiceOwner: (scopes: string[]) => Promise<boolean>
     userIsTeamMember: (scope: string) => Promise<boolean>
     getTraceId: () => string | undefined
+    sessionCookie: {
+      h: ResponseToolkit
+      set: (session: object) => void
+      clear: () => void
+      ttl: (msecs: number) => void
+    }
   }
 
   interface Server {
