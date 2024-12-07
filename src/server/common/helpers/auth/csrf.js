@@ -2,6 +2,8 @@ import crumb from '@hapi/crumb'
 
 import { config } from '~/src/config/index.js'
 
+const sessionCookieConfig = config.get('sessionCookie')
+
 const csrf = {
   plugin: {
     name: 'csrf',
@@ -11,9 +13,9 @@ const csrf = {
     key: 'csrfToken',
     cookieOptions: {
       path: '/',
-      password: config.get('sessionCookiePassword'),
-      isSecure: config.get('isProduction'),
-      ttl: config.get('sessionCookieTtl')
+      password: sessionCookieConfig.password,
+      isSecure: sessionCookieConfig.isSecure,
+      ttl: sessionCookieConfig.ttl
     }
   }
 }

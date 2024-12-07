@@ -113,18 +113,25 @@ const config = convict({
     format: String,
     default: 'DEFRA'
   },
-  sessionCookiePassword: {
-    doc: 'Session cookie password',
-    format: '*',
-    default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
-    sensitive: true,
-    env: 'SESSION_COOKIE_PASSWORD'
-  },
-  sessionCookieTtl: {
-    doc: 'Session cookie ttl',
-    format: Number,
-    default: eightHours,
-    env: 'SESSION_COOKIE_TTL'
+  sessionCookie: {
+    password: {
+      doc: 'Session cookie password',
+      format: '*',
+      default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
+      sensitive: true,
+      env: 'SESSION_COOKIE_PASSWORD'
+    },
+    ttl: {
+      doc: 'Session cookie ttl',
+      format: Number,
+      default: eightHours,
+      env: 'SESSION_COOKIE_TTL'
+    },
+    isSecure: {
+      doc: 'Session cookie isSecure flag',
+      format: Boolean,
+      default: isProduction
+    }
   },
   nunjucks: {
     watch: {

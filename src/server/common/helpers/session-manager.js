@@ -1,6 +1,8 @@
 import yar from '@hapi/yar'
 import { config } from '~/src/config/index.js'
 
+const sessionCookieConfig = config.get('sessionCookie')
+
 const sessionManager = {
   plugin: yar,
   options: {
@@ -10,9 +12,9 @@ const sessionManager = {
     storeBlank: false,
     errorOnCacheNotReady: true,
     cookieOptions: {
-      password: config.get('sessionCookiePassword'),
-      isSecure: config.get('isProduction'),
-      ttl: config.get('sessionCookieTtl')
+      password: sessionCookieConfig.password,
+      isSecure: sessionCookieConfig.isSecure,
+      ttl: sessionCookieConfig.ttl
     }
   }
 }
