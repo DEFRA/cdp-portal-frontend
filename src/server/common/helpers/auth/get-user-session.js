@@ -9,14 +9,14 @@
  * @property {string} refreshToken
  * @property {boolean} isAdmin
  * @property {boolean} isTenant
- * @property {boolean} user
- * @property {string[]} scope - users groups
+ * @property {string[]} scope
+ * @property {number} expiresIn
  * @property {Date} expiresAt
  */
 
 /**
  * Get the user session from the cache
- * @returns {Promise<UserSession|{}>}
+ * @returns {Promise<UserSession | null>}
  */
 async function getUserSession() {
   const sessionId = this.state?.userSessionCookie?.sessionId
