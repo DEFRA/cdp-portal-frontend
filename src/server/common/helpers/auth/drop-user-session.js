@@ -1,6 +1,6 @@
 function dropUserSession() {
-  if (this?.state?.userSession?.sessionId) {
-    this.server.app.cache.drop(this.state.userSession.sessionId)
+  if (this?.state?.userSessionCookie?.sessionId) {
+    this.server.app.cache.drop(this.state.userSessionCookie.sessionId)
   }
 }
 
