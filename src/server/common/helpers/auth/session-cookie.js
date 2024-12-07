@@ -5,7 +5,8 @@ import { config } from '~/src/config/index.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
 import {
   removeAuthenticatedUser,
-  updateUserSession
+  refreshUserSession,
+  updateUserScope
 } from '~/src/server/common/helpers/auth/user-session.js'
 
 const sessionCookie = {
@@ -25,26 +26,25 @@ const sessionCookie = {
         },
         keepAlive: true,
         requestDecoratorName: 'sessionCookie',
-        validate: async (request, session) => {
-          const authedUser = await request.getUserSession()
+        validate: async (request) => {
+          const userSession = await request.getUserSession()
 
           const tokenHasExpired =
-            Boolean(authedUser?.expiresAt) &&
-            isPast(subMinutes(parseISO(authedUser?.expiresAt), 1))
+            Boolean(userSession?.expiresAt) &&
+            isPast(subMinutes(parseISO(userSession?.expiresAt), 1))
 
           if (tokenHasExpired) {
-            const response = await refreshAccessToken(request)
+            const refreshTokenResponse = await refreshAccessToken(request)
 
-            if (!response?.ok) {
+            if (!refreshTokenResponse?.ok) {
               removeAuthenticatedUser(request)
 
               return { isValid: false }
             }
 
-            const refreshAccessTokenJson = await response.json()
-            const updatedSession = await updateUserSession(
+            const updatedSession = await refreshUserSession(
               request,
-              refreshAccessTokenJson
+              await refreshTokenResponse.json()
             )
 
             return {
@@ -53,12 +53,10 @@ const sessionCookie = {
             }
           }
 
-          const userSession = await server.app.cache.get(session.sessionId)
-
-          if (userSession) {
+          if (userSession?.isAuthenticated) {
             return {
               isValid: true,
-              credentials: userSession
+              credentials: await updateUserScope(request, userSession)
             }
           }
 
@@ -72,6 +70,3 @@ const sessionCookie = {
 }
 
 export { sessionCookie }
-/**
- * @import {UserSession} from '~/src/server/common/helpers/auth/get-user-session.js'
- */
