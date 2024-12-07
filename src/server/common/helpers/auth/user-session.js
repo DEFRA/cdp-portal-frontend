@@ -9,7 +9,7 @@ function removeAuthenticatedUser(request) {
   request.sessionCookie.h
     .response()
     .unstate('csrfToken')
-    .unstate('userSession')
+    .unstate('userSessionCookie')
     .unstate('cdpPortalSession')
 }
 
@@ -52,20 +52,25 @@ async function updateUserSession(request, refreshedSession) {
     refreshedSession.access_token
   )
 
-  await request.server.app.cache.set(request.state.userSession.sessionId, {
-    id: refreshedPayload.oid,
-    email: refreshedPayload.preferred_username,
-    displayName: refreshedPayload.name,
-    loginHint: refreshedPayload.login_hint,
-    isAuthenticated: true,
-    token: refreshedSession.access_token,
-    refreshToken: refreshedSession.refresh_token,
-    isAdmin: scopeFlags.isAdmin,
-    isTenant: scopeFlags.isTenant,
-    scope: scopes,
-    expiresIn: expiresInMilliSeconds,
-    expiresAt
-  })
+  await request.server.app.cache.set(
+    request.state.userSessionCookie.sessionId,
+    {
+      id: payload.oid,
+      email: payload.preferred_username,
+      displayName: payload.name,
+      loginHint: payload.login_hint,
+      isAuthenticated: true,
+      token: refreshTokenResponse.access_token,
+      refreshToken: refreshTokenResponse.refresh_token,
+      isAdmin: scopeFlags.isAdmin,
+      isTenant: scopeFlags.isTenant,
+      scope: scopes,
+      expiresIn: expiresInMilliSeconds,
+      expiresAt
+    }
+  )
+
+  request.logger.debug('User session refreshed')
 
   request.logger.debug('User session updated')
   return await request.getUserSession()
