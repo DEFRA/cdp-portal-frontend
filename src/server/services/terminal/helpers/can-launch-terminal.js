@@ -7,7 +7,7 @@ import { scopes } from '~/src/server/common/constants/scopes.js'
 function terminalEnvironments(scope) {
   return getEnvironments(scope).filter(
     (env) =>
-      scope.includes(scopes.breakglass) || env !== environments.prod.kebabName
+      scope.includes(scopes.breakGlass) || env !== environments.prod.kebabName
   )
 }
 

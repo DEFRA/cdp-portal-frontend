@@ -3,7 +3,7 @@ import { launchTerminalParamsValidation } from '~/src/server/services/terminal/h
 import { scopes } from '~/src/server/common/constants/scopes.js'
 
 describe('#launchTerminalParamsValidation', () => {
-  describe('With breakglass user', () => {
+  describe('With break glass user', () => {
     let options
 
     beforeEach(() => {
@@ -11,7 +11,7 @@ describe('#launchTerminalParamsValidation', () => {
         context: {
           auth: {
             credentials: {
-              scope: [scopes.breakglass]
+              scope: [scopes.breakGlass]
             }
           }
         }
@@ -52,7 +52,7 @@ describe('#launchTerminalParamsValidation', () => {
     })
   })
 
-  describe('With Non-breakglass user', () => {
+  describe('With Non break glass user', () => {
     let options
 
     beforeEach(() => {

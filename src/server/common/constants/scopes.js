@@ -3,7 +3,7 @@ const scopes = {
   tenant: 'tenant',
   serviceOwner: 'serviceOwner',
   externalTest: 'externalTest',
-  breakglass: 'breakglass'
+  breakGlass: 'breakGlass'
 }
 
 export { scopes }
