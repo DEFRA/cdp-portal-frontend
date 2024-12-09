@@ -1,18 +1,16 @@
-import {
-  isNameAvailableController,
-  chooseKindController,
-  chooseKindFormController,
-  startController
-} from '~/src/server/create/controllers/index.js'
+import { isNameAvailableController } from '~/src/server/create/controllers/is-name-available.js'
+import { startController } from '~/src/server/create/controllers/start.js'
+import { chooseKindController } from '~/src/server/create/controllers/choose-kind.js'
+import { chooseKindFormController } from '~/src/server/create/controllers/choose-kind-form.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { provideCreateSteps } from '~/src/server/create/helpers/form/index.js'
-import { createTestSuiteRoutes } from '~/src/server/create/journey-test-suite/index.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { createRepositoryRoutes } from '~/src/server/create/repository/index.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { createMicroserviceRoutes } from '~/src/server/create/microservice/index.js'
-import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite/index.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
+import { createJourneyTestSuiteRoutes } from '~/src/server/create/journey-test-suite/routes.js'
+import { createRepositoryRoutes } from '~/src/server/create/repository/routes.js'
+import { createMicroserviceRoutes } from '~/src/server/create/microservice/routes.js'
+import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite/routes.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -62,7 +60,7 @@ const create = {
           },
           ...createMicroserviceRoutes,
           ...createRepositoryRoutes,
-          ...createTestSuiteRoutes,
+          ...createJourneyTestSuiteRoutes,
           ...createPerfTestSuiteRoutes
         ].map(serviceTeamAndAdminUserScope)
       )

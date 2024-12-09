@@ -1,8 +1,6 @@
-import {
-  launchTerminalController,
-  terminalController,
-  terminalBrowserController
-} from '~/src/server/services/terminal/controllers/index.js'
+import { launchTerminalController } from '~/src/server/services/terminal/controllers/launch-terminal.js'
+import { terminalController } from '~/src/server/services/terminal/controllers/terminal.js'
+import { terminalBrowserController } from '~/src/server/services/terminal/controllers/terminal-browser.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'

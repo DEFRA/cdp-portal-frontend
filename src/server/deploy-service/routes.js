@@ -1,17 +1,15 @@
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
-import {
-  availableVersionsController,
-  availableMemoryController,
-  startDeployServiceController,
-  detailsController,
-  detailsFormController,
-  optionsController,
-  optionsFormController,
-  summaryController,
-  deployController
-} from '~/src/server/deploy-service/controllers/index.js'
+import { startDeployServiceController } from '~/src/server/deploy-service/controllers/deploy/start-deploy-service.js'
+import { optionsFormController } from '~/src/server/deploy-service/controllers/deploy/options-form.js'
+import { optionsController } from '~/src/server/deploy-service/controllers/deploy/options.js'
+import { detailsController } from '~/src/server/deploy-service/controllers/deploy/details.js'
+import { detailsFormController } from '~/src/server/deploy-service/controllers/deploy/details-form.js'
+import { summaryController } from '~/src/server/deploy-service/controllers/deploy/summary.js'
+import { deployController } from '~/src/server/deploy-service/controllers/deploy/deploy.js'
 import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form.js'
+import { availableVersionsController } from '~/src/server/deploy-service/controllers/available-versions.js'
+import { availableMemoryController } from '~/src/server/deploy-service/controllers/available-memory.js'
 import {
   urls,
   formSteps
