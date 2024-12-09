@@ -16,13 +16,13 @@ describe('#canLaunchTerminal', () => {
     ).toThrow('Cannot launch terminal in this environment')
   })
 
-  test('Should throw for admin without breakglass for prod', () => {
+  test('Should throw for admin without break glass for prod', () => {
     expect(() => canLaunchTerminal([scopes.admin], 'prod')).toThrow(
       'Cannot launch terminal in this environment'
     )
   })
 
-  test('Should not throw for breakglass user with production environment', () => {
-    expect(() => canLaunchTerminal([scopes.breakglass], 'prod')).not.toThrow()
+  test('Should not throw for break glass user with production environment', () => {
+    expect(() => canLaunchTerminal([scopes.breakGlass], 'prod')).not.toThrow()
   })
 })

@@ -3,7 +3,7 @@ import { terminalBrowserParamsValidation } from '~/src/server/services/terminal/
 import { scopes } from '~/src/server/common/constants/scopes.js'
 
 describe('#terminalBrowserParamsValidation', () => {
-  describe('With breakglass user', () => {
+  describe('With break glass user', () => {
     let options
 
     beforeEach(() => {
@@ -11,7 +11,7 @@ describe('#terminalBrowserParamsValidation', () => {
         context: {
           auth: {
             credentials: {
-              scope: [scopes.breakglass]
+              scope: [scopes.breakGlass]
             }
           }
         }
@@ -68,7 +68,7 @@ describe('#terminalBrowserParamsValidation', () => {
     })
   })
 
-  describe('With Non-breakglass user', () => {
+  describe('With Non break glass user', () => {
     let options
 
     beforeEach(() => {
