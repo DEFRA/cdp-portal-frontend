@@ -4,14 +4,14 @@
   {% call appSplitPane() %}
 
     {{ appPageHeading({
-      caption: "Add Permission To Team",
+      caption: "Add Permission to User",
       text: scope.value | formatText
     }) }}
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
 
-        <form action="/admin/permissions/{{ scope.scopeId }}/add"
+        <form action="/admin/permissions/{{ scope.scopeId }}/user/add"
               method="post"
               data-js="auto-submit app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
@@ -19,19 +19,19 @@
           {% call govukFieldset() %}
 
             {{ appSearch({
-              iconDescription: "Search for CDP teams",
+              iconDescription: "Search for CDP Users",
               label: {
-                text: "CDP team"
+                text: "CDP User"
               },
-              id: "cdpTeamQuery",
-              name: "cdpTeamQuery",
+              id: "cdpUserQuery",
+              name: "cdpUserQuery",
               hint: {
-                text: "Enter the team name"
+                text: "Enter a user name"
               },
-              value: formValues.cdpTeamQuery,
+              value: formValues.cdpUserQuery,
               errorMessage: {
-                text: formErrors.cdpTeamQuery.message
-              } if formErrors.cdpTeamQuery.message
+                text: formErrors.cdpUserQuery.message
+              } if formErrors.cdpUserQuery.message
             }) }}
 
           {% endcall %}
@@ -50,20 +50,20 @@
 
             <article class="app-scrollable-window" data-xhr="add-scope" data-children-can-submit="true">
 
-              {% if cdpTeams | length %}
+              {% if users | length %}
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
               {% endif %}
 
-              {% for team in cdpTeams %}
-                {{ team.disabled }}
+              {% for user in users %}
+                {{ user.disabled }}
               {% endfor %}
 
-              {% if cdpTeams | length or formErrors.teamIds.message %}
+              {% if users | length or formErrors.userIds.message %}
                 {{ govukCheckboxes({
-                  name: "teamIds",
+                  name: "userIds",
                   classes: "govuk-checkboxes--small app-checkboxes",
-                  items: cdpTeams,
-                  values: formValues.teamIds,
+                  items: users,
+                  values: formValues.userIds,
                   formGroup: {
                     classes: "app-form-group app-form-group-js"
                   },
@@ -71,13 +71,13 @@
                     attributes: {
                       "data-js": "app-error"
                     },
-                    text: formErrors.teamIds.message
-                  } if formErrors.teamIds.message
+                    text: formErrors.userIds.message
+                  } if formErrors.userIds.message
                 }) }}
               {% endif %}
 
-              {% if formValues.cdpTeamQuery and not cdpTeams | length %}
-                <p class="govuk-hint">No team(s) found</p>
+              {% if formValues.cdpUserQuery and not users | length %}
+                <p class="govuk-hint">No users found</p>
               {% endif %}
 
             </article>

@@ -4,7 +4,7 @@ import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { removeScopeFromTeam } from '~/src/server/admin/permissions/helpers/fetchers.js'
 
-const removePermissionController = {
+const removePermissionFromTeamController = {
   options: {
     validate: {
       params: Joi.object({
@@ -34,4 +34,4 @@ const removePermissionController = {
   }
 }
 
-export { removePermissionController }
+export { removePermissionFromTeamController }
