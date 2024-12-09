@@ -1,9 +1,7 @@
-import {
-  perfTestSuiteDetailFormController,
-  perfTestSuiteDetailController,
-  perfTestSuiteSummaryController,
-  perfTestSuiteCreateController
-} from '~/src/server/create/perf-test-suite/controllers/index.js'
+import { perfTestSuiteDetailController } from '~/src/server/create/perf-test-suite/controllers/detail.js'
+import { perfTestSuiteDetailFormController } from '~/src/server/create/perf-test-suite/controllers/detail-form.js'
+import { perfTestSuiteSummaryController } from '~/src/server/create/perf-test-suite/controllers/summary.js'
+import { perfTestSuiteCreateController } from '~/src/server/create/perf-test-suite/controllers/create.js'
 
 const createPerfTestSuiteRoutes = [
   {

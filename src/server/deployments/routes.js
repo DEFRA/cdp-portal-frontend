@@ -1,8 +1,6 @@
 import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs.js'
-import {
-  deploymentController,
-  deploymentsListController
-} from '~/src/server/deployments/controllers/index.js'
+import { deploymentController } from '~/src/server/deployments/controllers/deployment.js'
+import { deploymentsListController } from '~/src/server/deployments/controllers/deployments-list.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
 
 const deployments = {

@@ -3,7 +3,7 @@ const homeController = {
     id: 'home'
   },
   handler: (request, h) =>
-    h.view('home/index', {
+    h.view('home/views/home', {
       pageTitle: 'Home',
       heading: 'Welcome'
     })

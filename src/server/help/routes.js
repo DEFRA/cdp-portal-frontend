@@ -1,7 +1,5 @@
-import {
-  accessibilityStatement,
-  cookiePolicy
-} from '~/src/server/help/controllers/index.js'
+import { cookiePolicy } from '~/src/server/help/controllers/cookie-policy.js'
+import { accessibilityStatement } from '~/src/server/help/controllers/accessibility-statement.js'
 
 const help = {
   plugin: {
