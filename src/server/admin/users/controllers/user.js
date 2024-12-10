@@ -4,6 +4,7 @@ import Boom from '@hapi/boom'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
 import { transformUserToSummary } from '~/src/server/admin/users/transformers/user-to-summary.js'
 import { transformUserTeamsToTaskList } from '~/src/server/admin/users/transformers/user-teams-to-task-list.js'
+import { transformUserScopesToTaskList } from '~/src/server/admin/users/transformers/user-scopes-to-task-list.js'
 
 const userController = {
   options: {
@@ -22,6 +23,7 @@ const userController = {
       user,
       summaryList: transformUserToSummary(user),
       teamsTaskList: transformUserTeamsToTaskList(user),
+      scopesTaskList: transformUserScopesToTaskList(user),
       breadcrumbs: [
         {
           text: 'Admin',
