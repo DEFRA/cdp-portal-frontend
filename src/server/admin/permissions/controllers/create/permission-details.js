@@ -2,8 +2,12 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { createScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { createPermissionValidation } from '~/src/server/admin/permissions/helpers/schema/create-permission-validation.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 
 const createPermissionDetailsController = {
+  options: {
+    pre: [provideAuthedUser]
+  },
   handler: async (request, h) => {
     const payload = request?.payload
     const value = payload.value?.trim()
@@ -43,6 +47,15 @@ const createPermissionDetailsController = {
           request.yar.flash(sessionNames.notifications, {
             text: 'Permission created',
             type: 'success'
+          })
+
+          request.audit.sendMessage({
+            event: `permission: ${value}:${data.scope.scopeId} created by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+            data: {
+              value,
+              scopeId: data.scope.scopeId
+            },
+            user: request.pre.authedUser
           })
 
           return h.redirect(`/admin/permissions/${data.scope.scopeId}`)

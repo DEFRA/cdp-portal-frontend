@@ -1,0 +1,101 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appPageHeading({
+      caption: "Add Permission to User",
+      text: scope.value | formatText
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop">
+
+        <form action="/admin/permissions/{{ scope.scopeId }}/user/add"
+              method="post"
+              data-js="auto-submit app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          {% call govukFieldset() %}
+
+            {{ appSearch({
+              iconDescription: "Search for CDP Users",
+              label: {
+                text: "CDP User"
+              },
+              id: "cdpUserQuery",
+              name: "cdpUserQuery",
+              hint: {
+                text: "Enter a user name"
+              },
+              value: formValues.cdpUserQuery,
+              errorMessage: {
+                text: formErrors.cdpUserQuery.message
+              } if formErrors.cdpUserQuery.message
+            }) }}
+
+          {% endcall %}
+
+          {{ govukButton({
+            classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+            text: "Search",
+            name: "button",
+            value: "search",
+            attributes: {
+              "data-js": "app-no-js-submit-button"
+            }
+          }) }}
+
+          {% block xhrContent %}
+
+            <article class="app-scrollable-window" data-xhr="add-scope" data-children-can-submit="true">
+
+              {% if users | length %}
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
+              {% endif %}
+
+              {% for user in users %}
+                {{ user.disabled }}
+              {% endfor %}
+
+              {% if users | length or formErrors.userIds.message %}
+                {{ govukCheckboxes({
+                  name: "userIds",
+                  classes: "govuk-checkboxes--small app-checkboxes",
+                  items: users,
+                  values: formValues.userIds,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: {
+                    attributes: {
+                      "data-js": "app-error"
+                    },
+                    text: formErrors.userIds.message
+                  } if formErrors.userIds.message
+                }) }}
+              {% endif %}
+
+              {% if formValues.cdpUserQuery and not users | length %}
+                <p class="govuk-hint">No users found</p>
+              {% endif %}
+
+            </article>
+
+          {% endblock %}
+
+          <div class="govuk-body govuk-button-group">
+            {{ govukButton({
+              classes: "app-button",
+              text: "Add permission"
+            }) }}
+
+            <a class="app-link" href="/admin/permissions/{{ scope.scopeId }}">Cancel</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
