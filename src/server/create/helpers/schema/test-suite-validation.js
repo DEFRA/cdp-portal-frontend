@@ -27,6 +27,14 @@ function testSuiteValidation() {
         'any.required': validation.chooseAnEntry
       })
       .required(),
+    templateTag: Joi.string()
+      .pattern(/^[a-zA-Z0-9][a-zA-Z0-9-_\\.]*[a-zA-Z0-9]$/)
+      .allow('')
+      .messages({
+        'string.pattern.base':
+          'Branch or tag name: Alphanumeric characters, fullstops, underscores & hyphens only'
+      })
+      .optional(),
     redirectLocation: Joi.string().valid('summary', '')
   })
 }

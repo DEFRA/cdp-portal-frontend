@@ -16,6 +16,7 @@ const microserviceDetailController = {
     const repositoryName = payload.repositoryName
     const serviceTypeTemplate = payload.serviceTypeTemplate
     const teamId = payload.teamId
+    const templateTag = payload.templateTag ?? ''
     const redirectLocation = payload?.redirectLocation
 
     const { serviceTypes } = await fetchServiceTypes()
@@ -31,7 +32,8 @@ const microserviceDetailController = {
     const sanitisedPayload = {
       repositoryName,
       serviceTypeTemplate,
-      teamId
+      teamId,
+      templateTag
     }
 
     if (validationResult?.error) {

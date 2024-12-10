@@ -22,10 +22,12 @@ const perfTestSuiteCreateController = {
     const create = request.pre?.create
     const repositoryName = create.repositoryName
     const teamId = request.payload?.teamId
+    const templateTag = create.templateTag
 
     const sanitisedPayload = {
       repositoryName,
-      teamId
+      teamId,
+      templateTag
     }
 
     const validationResult = await testSuiteValidation()

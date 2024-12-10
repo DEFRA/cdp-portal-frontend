@@ -20,11 +20,13 @@ const testSuiteCreateController = {
   handler: async (request, h) => {
     const create = request.pre?.create
     const repositoryName = create.repositoryName
+    const templateTag = create.templateTag
     const teamId = request.payload?.teamId
 
     const sanitisedPayload = {
       repositoryName,
-      teamId
+      teamId,
+      templateTag
     }
 
     const validationResult = await testSuiteValidation()

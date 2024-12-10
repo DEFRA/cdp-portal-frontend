@@ -25,7 +25,7 @@ function buildRow(name, value, stepPath) {
   }
 }
 
-function summaryMicroserviceRows(create) {
+function summaryMicroserviceRows(create, isAdmin) {
   const detailPage = 'microservice/detail'
   const createDetails = Object.entries(create).reduce((obj, [key, value]) => {
     return {
@@ -34,12 +34,19 @@ function summaryMicroserviceRows(create) {
     }
   }, {})
 
-  return [
+  const rows = [
     buildRow('Kind', startCase(createDetails.kind), 'choose-kind'),
     buildRow('Name', createDetails.repositoryName, detailPage),
-    buildRow('Template', createDetails.serviceTypeName, detailPage),
-    buildRow('Owning Team', createDetails.teamName, detailPage)
+    buildRow('Template', createDetails.serviceTypeName, detailPage)
   ]
+
+  if (isAdmin) {
+    rows.push(buildRow('Template tag', createDetails.templateTag, detailPage))
+  }
+
+  rows.push(buildRow('Owning Team', createDetails.teamName, detailPage))
+
+  return rows
 }
 
 export { summaryMicroserviceRows }

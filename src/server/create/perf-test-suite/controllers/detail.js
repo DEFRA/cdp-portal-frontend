@@ -14,6 +14,7 @@ const perfTestSuiteDetailController = {
     const payload = request?.payload
     const repositoryName = payload.repositoryName
     const teamId = payload.teamId
+    const templateTag = payload.templateTag ?? ''
     const redirectLocation = payload?.redirectLocation
 
     const validationResult = await testSuiteValidation()
@@ -23,7 +24,8 @@ const perfTestSuiteDetailController = {
 
     const sanitisedPayload = {
       repositoryName,
-      teamId
+      teamId,
+      templateTag
     }
 
     if (validationResult?.error) {

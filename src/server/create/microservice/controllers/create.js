@@ -23,6 +23,7 @@ const microserviceCreateController = {
     const create = request.pre?.create
     const repositoryName = create.repositoryName
     const serviceTypeTemplate = create.serviceTypeTemplate
+    const templateTag = create.templateTag
     const teamId = request.payload?.teamId
 
     const { serviceTypes } = await fetchServiceTypes()
@@ -33,7 +34,8 @@ const microserviceCreateController = {
     const sanitisedPayload = {
       repositoryName,
       serviceTypeTemplate,
-      teamId
+      teamId,
+      templateTag
     }
 
     const validationResult = await microserviceValidation(serviceTypeTemplates)
