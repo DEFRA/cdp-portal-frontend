@@ -1,16 +1,16 @@
 import { buildLink } from '~/src/server/common/helpers/build-link.js'
 
-function transformScopeTeamsToTaskList(scope, withActions = true) {
-  const items = scope.teams.map((team) => {
+function transformScopeUsersToTaskList(scope, withActions = true) {
+  const items = scope.users.map((user) => {
     return {
       title: {
-        html: buildLink(`/admin/teams/${team.teamId}`, team.name, false)
+        html: buildLink(`/admin/users/${user.userId}`, user.name, false)
       },
       status: {
         classes: 'govuk-!-padding-right-1',
         html: withActions
           ? buildLink(
-              `/admin/permissions/${scope.scopeId}/team/remove/${team.teamId}`,
+              `/admin/permissions/${scope.scopeId}/user/remove/${user.userId}`,
               'Remove',
               false
             )
@@ -22,4 +22,4 @@ function transformScopeTeamsToTaskList(scope, withActions = true) {
   return { classes: 'app-task-list', items }
 }
 
-export { transformScopeTeamsToTaskList }
+export { transformScopeUsersToTaskList }

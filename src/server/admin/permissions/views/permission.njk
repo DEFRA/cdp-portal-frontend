@@ -11,22 +11,44 @@
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
+      <div class="govuk-grid-column-one-half-from-desktop">
 
         <ul class="govuk-list govuk-!-margin-bottom-6">
           <li>
-            <a href="/admin/permissions/{{ scope.scopeId }}/add" class="app-link app-link--underline">Add permission to
-              team</a>
+            <a href="/admin/permissions/{{ scope.scopeId }}/user/add" class="app-link app-link--underline">
+              Add permission to user
+            </a>
           </li>
           <li>
-            <a href="/admin/permissions/{{ scope.scopeId }}/confirm-delete" class="app-link app-link--underline">Delete
-              permission</a>
+            <a href="/admin/permissions/{{ scope.scopeId }}/team/add" class="app-link app-link--underline">
+              Add permission to team
+            </a>
+          </li>
+          <li>
+            <a href="/admin/permissions/{{ scope.scopeId }}/confirm-delete" class="app-link app-link--underline">
+              Delete permission
+            </a>
           </li>
         </ul>
 
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Permission details</h2>
 
         {{ govukSummaryList(summaryList) }}
+
+        <h2 class="govuk-heading-m">
+          {{ "User" | pluralise(scope.users | length) }} with permission
+        </h2>
+
+        {% if scope.users | length %}
+          {{ govukTaskList(usersTaskList) }}
+        {% else %}
+          <p>
+            This permission has not been added to any users. <a href="/admin/permissions/{{ scope.scopeId }}/user/add"
+                                                                class="app-link app-link--underline">
+              Add permission to user
+            </a>
+          </p>
+        {% endif %}
 
         <h2 class="govuk-heading-m">
           {{ "Team" | pluralise(scope.teams | length) }} with permission
@@ -36,7 +58,7 @@
           {{ govukTaskList(teamsTaskList) }}
         {% else %}
           <p>
-            This permission has not been added to any teams. <a href="/admin/permissions/{{ scope.scopeId }}/add"
+            This permission has not been added to any teams. <a href="/admin/permissions/{{ scope.scopeId }}/team/add"
                                                                 class="app-link app-link--underline">
               Add permission to team
             </a>

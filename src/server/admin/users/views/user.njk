@@ -20,7 +20,7 @@
     </div>
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
-      <div class="govuk-grid-column-one-third-from-desktop">
+      <div class="govuk-grid-column-one-half-from-desktop">
 
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">User details</h2>
 
@@ -35,6 +35,18 @@
         {% else %}
           <p>
             This user is not in any of our teams
+          </p>
+        {% endif %}
+
+        <h2 class="govuk-heading-m">
+          User {{ "Permission" | pluralise(user.scopes | length) }}
+        </h2>
+
+        {% if user.scopes | length %}
+          {{ govukTaskList(scopesTaskList) }}
+        {% else %}
+          <p>
+            This user has no permissions
           </p>
         {% endif %}
 
