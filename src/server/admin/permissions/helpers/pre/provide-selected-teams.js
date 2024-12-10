@@ -1,21 +1,21 @@
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
 
-const presentTeamsToAdd = {
+const provideSelectedTeams = {
   method: async (request) => {
     const teamIds = request.query?.teamIds ?? []
 
     if (teamIds.length) {
-      const fetchTeamPromises = teamIds.map(async (teamId) => {
+      const fetchTeamsPromises = teamIds.map(async (teamId) => {
         const { team } = await fetchCdpTeam(teamId)
         return { name: team.name, teamId: team.teamId }
       })
 
-      return Promise.all(fetchTeamPromises)
+      return Promise.all(fetchTeamsPromises)
     }
 
     return []
   },
-  assign: 'teamsToAdd'
+  assign: 'selectedTeams'
 }
 
-export { presentTeamsToAdd }
+export { provideSelectedTeams }

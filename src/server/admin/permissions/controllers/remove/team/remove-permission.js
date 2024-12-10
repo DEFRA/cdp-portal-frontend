@@ -3,8 +3,9 @@ import Boom from '@hapi/boom'
 import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { removeScopeFromTeam } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 
-const removePermissionController = {
+const removePermissionFromTeamController = {
   options: {
     validate: {
       params: Joi.object({
@@ -12,7 +13,8 @@ const removePermissionController = {
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
-    }
+    },
+    pre: [provideAuthedUser]
   },
   handler: async (request, h) => {
     const params = request.params
@@ -26,6 +28,15 @@ const removePermissionController = {
         text: 'Permission removed from team',
         type: 'success'
       })
+
+      request.audit.sendMessage({
+        event: `permission: ${scopeId} removed from team: ${teamId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        data: {
+          teamId,
+          scopeId
+        },
+        user: request.pre.authedUser
+      })
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
     }
@@ -34,4 +45,4 @@ const removePermissionController = {
   }
 }
 
-export { removePermissionController }
+export { removePermissionFromTeamController }

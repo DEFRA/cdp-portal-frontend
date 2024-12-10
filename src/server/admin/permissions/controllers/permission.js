@@ -5,6 +5,7 @@ import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { fetchScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
 import { transformScopeToSummary } from '~/src/server/admin/permissions/transformers/scope-to-summary.js'
 import { transformScopeTeamsToTaskList } from '~/src/server/admin/permissions/transformers/scope-teams-to-task-list.js'
+import { transformScopeUsersToTaskList } from '~/src/server/admin/permissions/transformers/scope-users-to-task-list.js'
 
 const permissionController = {
   options: {
@@ -23,6 +24,7 @@ const permissionController = {
       pageTitle: formattedValue,
       heading: formattedValue,
       summaryList: transformScopeToSummary(scope),
+      usersTaskList: transformScopeUsersToTaskList(scope),
       teamsTaskList: transformScopeTeamsToTaskList(scope),
       scope,
       breadcrumbs: [

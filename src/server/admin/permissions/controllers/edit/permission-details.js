@@ -5,6 +5,7 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { editPermissionValidation } from '~/src/server/admin/permissions/helpers/schema/edit-permission-validation.js'
 import { updateScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 
 const editPermissionDetailsController = {
   options: {
@@ -13,7 +14,8 @@ const editPermissionDetailsController = {
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
-    }
+    },
+    pre: [provideAuthedUser]
   },
   handler: async (request, h) => {
     const scopeId = request.params.scopeId
@@ -52,6 +54,14 @@ const editPermissionDetailsController = {
           request.yar.flash(sessionNames.notifications, {
             text: 'Permission updated',
             type: 'success'
+          })
+
+          request.audit.sendMessage({
+            event: `permission: ${scopeId} edited by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+            data: {
+              scopeId
+            },
+            user: request.pre.authedUser
           })
 
           return h.redirect(`/admin/permissions/${scopeId}`)
