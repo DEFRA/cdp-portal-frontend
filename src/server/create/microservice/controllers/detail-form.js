@@ -20,6 +20,7 @@ const microserviceDetailFormController = {
   },
   handler: async (request, h) => {
     const query = request?.query
+    const authedUser = await request.getUserSession()
 
     const { serviceTypes } = await fetchServiceTypes()
     const serviceTypesOptions = buildOptions(serviceTypes)
@@ -38,7 +39,8 @@ const microserviceDetailFormController = {
       serviceTypesOptions,
       teamsOptions,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
-      redirectLocation: query?.redirectLocation
+      redirectLocation: query?.redirectLocation,
+      showTemplateTag: authedUser.isAdmin
     })
   }
 }

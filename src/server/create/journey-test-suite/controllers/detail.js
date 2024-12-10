@@ -14,6 +14,7 @@ const testSuiteDetailController = {
     const payload = request?.payload
     const repositoryName = payload.repositoryName
     const repositoryVisibility = payload.repositoryVisibility
+    const templateTag = payload.templateTag ?? ''
     const teamId = payload.teamId
     const redirectLocation = payload?.redirectLocation
 
@@ -25,7 +26,8 @@ const testSuiteDetailController = {
     const sanitisedPayload = {
       repositoryName,
       repositoryVisibility,
-      teamId
+      teamId,
+      templateTag
     }
 
     if (validationResult?.error) {

@@ -64,6 +64,33 @@
               targetId: "name-input-assistant"
             }) }}
 
+            {% if showTemplateTag %}
+              {{ govukInput({
+                label: {
+                  text: "Template tag or branch",
+                  classes: "app-label"
+                },
+                id: "template-tag",
+                name: "templateTag",
+                classes: "app-input app-input--wide",
+                hint: {
+                  html: "To override the tag or branch used for the template e.g. `main`. Defaults to latest release if left blank",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                value: formValues.templateTag,
+                errorMessage: {
+                  text: formErrors.templateTag.message,
+                  classes: "app-error-message",
+                  attributes: {
+                    "data-js": "app-error"
+                  }
+                } if formErrors.templateTag.message
+              }) }}
+            {% endif %}
+
             {{ govukSelect({
               id: "team-id",
               name: "teamId",

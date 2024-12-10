@@ -1,6 +1,6 @@
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
-import { summaryTestSuiteRows } from '~/src/server/create/journey-test-suite/transformers/summary-test-suite-rows.js'
+import { summaryTestSuiteRows } from '~/src/server/create/helpers/transformers/summary-test-suite-rows.js'
 
 const testSuiteSummaryController = {
   options: {
@@ -9,8 +9,9 @@ const testSuiteSummaryController = {
     },
     pre: [provideCreate]
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const create = request.pre?.create
+    const authedUser = await request.getUserSession()
 
     return h.view('create/views/summary', {
       pageTitle: 'Summary journey test suite',
@@ -18,7 +19,11 @@ const testSuiteSummaryController = {
       headingCaption:
         'Information about the new journey test suite you are going to create.',
       action: '/create/journey-test-suite',
-      summaryRows: summaryTestSuiteRows(create),
+      summaryRows: summaryTestSuiteRows(
+        create,
+        'test-suite',
+        authedUser.isAdmin
+      ),
       formButtonText: 'Create',
       create
     })

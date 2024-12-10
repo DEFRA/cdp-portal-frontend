@@ -25,8 +25,8 @@ function buildRow(name, value, stepPath) {
   }
 }
 
-function summaryTestSuiteRows(create) {
-  const detailPage = 'test-suite/detail'
+function summaryTestSuiteRows(create, suiteType, isAdmin) {
+  const detailPage = suiteType + '/detail'
   const createDetails = Object.entries(create).reduce((obj, [key, value]) => {
     return {
       ...obj,
@@ -34,11 +34,17 @@ function summaryTestSuiteRows(create) {
     }
   }, {})
 
-  return [
+  const rows = [
     buildRow('Kind', startCase(createDetails.kind), 'choose-kind'),
     buildRow('Name', createDetails.repositoryName, detailPage),
     buildRow('Owning Team', createDetails.teamName, detailPage)
   ]
+
+  if (isAdmin) {
+    rows.push(buildRow('Template tag', createDetails.templateTag, detailPage))
+  }
+
+  return rows
 }
 
 export { summaryTestSuiteRows }

@@ -1,4 +1,5 @@
 import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 function catchAll(request, h) {
   const { response } = request
@@ -7,9 +8,12 @@ function catchAll(request, h) {
     return h.continue
   }
 
-  request.logger.error(response, response?.stack, response?.message)
-
   const statusCode = response.output.statusCode
+
+  if (statusCode >= statusCodes.internalError) {
+    request.logger.error(response, response?.stack, response?.message)
+  }
+
   const errorMessage = statusCodeMessage(statusCode)
 
   return h

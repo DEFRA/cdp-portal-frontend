@@ -9,8 +9,9 @@ const microserviceSummaryController = {
     },
     pre: [provideCreate]
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const create = request.pre?.create
+    const authedUser = await request.getUserSession()
 
     return h.view('create/views/summary', {
       pageTitle: 'Create microservice summary',
@@ -18,7 +19,7 @@ const microserviceSummaryController = {
       headingCaption:
         'Information about the new microservice you are going to create.',
       action: '/create/microservice',
-      summaryRows: summaryMicroserviceRows(create),
+      summaryRows: summaryMicroserviceRows(create, authedUser.isAdmin),
       formButtonText: 'Create',
       create
     })
