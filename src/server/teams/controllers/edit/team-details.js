@@ -3,10 +3,10 @@ import Boom from '@hapi/boom'
 
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/index.js'
 import { teamValidation } from '~/src/server/teams/helpers/schema/team-validation.js'
 import { noSessionRedirect } from '~/src/server/teams/helpers/ext/no-session-redirect.js'
 import { editTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
 
 const teamDetailsController = {
   options: {

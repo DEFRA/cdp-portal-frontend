@@ -19,7 +19,7 @@
       }) }}
 
       <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
+        <div class="govuk-grid-column-one-half-from-desktop">
           <form action="/admin/users/find-github-user"
                 method="post"
                 data-js="auto-submit app-form-errors">
@@ -66,7 +66,7 @@
                 {% if githubUsers | length or formErrors.github.message %}
                   {{ govukRadios({
                     name: "github",
-                    classes: "govuk-radios--small app-radio",
+                    classes: "govuk-radios--small app-radios",
                     fieldset: {
                       legend: {
                         text: "Choose a GitHub user (optional)"

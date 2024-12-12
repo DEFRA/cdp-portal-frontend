@@ -53,6 +53,35 @@ describe('#buildOptions', () => {
         }
       ])
     })
+
+    test('Should provide expected options with html', () => {
+      expect(
+        buildOptions([
+          { html: '<em>Version 0.6.0</em>', value: '0.6.0' },
+          {
+            html: '<em>Version 0.7.0</em>',
+            value: '0.7.0'
+          }
+        ])
+      ).toEqual([
+        {
+          attributes: {
+            selected: true
+          },
+          disabled: true,
+          text: ' - - select - - ',
+          value: ''
+        },
+        {
+          html: '<em>Version 0.6.0</em>',
+          value: '0.6.0'
+        },
+        {
+          html: '<em>Version 0.7.0</em>',
+          value: '0.7.0'
+        }
+      ])
+    })
   })
 
   describe('Without blank option', () => {
