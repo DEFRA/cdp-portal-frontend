@@ -11,10 +11,14 @@ const createPermissionDetailsController = {
   handler: async (request, h) => {
     const payload = request?.payload
     const value = payload.value?.trim()
+    const kind = Array.isArray(payload.kind)
+      ? payload?.kind
+      : [payload.kind].filter(Boolean)
     const description = payload.description?.trim() || null
 
     const sanitisedPayload = {
       value,
+      kind,
       description
     }
 
@@ -40,6 +44,7 @@ const createPermissionDetailsController = {
       try {
         const { data, response } = await createScope(request, {
           value,
+          kind,
           description
         })
 

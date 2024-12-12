@@ -54,6 +54,16 @@ async function fetchScopes(request) {
   return data
 }
 
+async function searchCdpUsers(query) {
+  const queryString = query
+    ? qs.stringify({ query }, { addQueryPrefix: true })
+    : ''
+  const endpoint = `${userServiceBackendUrl}/users${queryString}`
+
+  const { data } = await fetcher(endpoint)
+  return data
+}
+
 async function searchCdpTeams(query) {
   const queryString = query
     ? qs.stringify({ query }, { addQueryPrefix: true })
@@ -109,6 +119,7 @@ export {
   createScope,
   fetchScope,
   fetchScopes,
+  searchCdpUsers,
   searchCdpTeams,
   updateScope,
   removeScopeFromTeam,

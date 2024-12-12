@@ -4,12 +4,41 @@ import Boom from '@hapi/boom'
 import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { addScopeToUser } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import {
+  addScopeToTeam,
+  addScopeToUser
+} from '~/src/server/admin/permissions/helpers/fetchers.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { addUserValidation } from '~/src/server/admin/permissions/helpers/schema/add-user-validation.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { addPermissionValidation } from '~/src/server/admin/permissions/helpers/schema/add-permission-validation.js'
+import { extractIds } from '~/src/server/admin/permissions/helpers/extract-ids.js'
 
-const addPermissionToUserController = {
+function sendAuditLogs(request, userIds, teamIds, scopeId) {
+  const auditUserPromises = userIds.map((userId) =>
+    request.audit.sendMessage({
+      event: `permission: ${scopeId} added to user: ${userId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+      data: {
+        userId,
+        scopeId
+      },
+      user: request.pre.authedUser
+    })
+  )
+  const auditTeamPromises = teamIds.map((teamId) =>
+    request.audit.sendMessage({
+      event: `permission: ${scopeId} added to team: ${teamId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+      data: {
+        teamId,
+        scopeId
+      },
+      user: request.pre.authedUser
+    })
+  )
+
+  return Promise.all([...auditUserPromises, ...auditTeamPromises])
+}
+
+const addPermissionController = {
   options: {
     validate: {
       params: Joi.object({
@@ -26,25 +55,25 @@ const addPermissionToUserController = {
     const payload = request?.payload
     const button = payload?.button
 
-    const cdpUserQuery = payload?.cdpUserQuery || null
-    const userIds = Array.isArray(payload.userIds)
-      ? payload.userIds
-      : [payload.userIds].filter(Boolean)
+    const searchQuery = payload?.searchQuery || null
+    const entityIds = Array.isArray(payload.entityIds)
+      ? payload.entityIds
+      : [payload.entityIds].filter(Boolean)
 
-    const validationResult = addUserValidation(userIds, button).validate(
-      payload,
-      { abortEarly: false }
-    )
+    const validationResult = addPermissionValidation(
+      entityIds,
+      button
+    ).validate(payload, { abortEarly: false })
 
     const sanitisedPayload = {
-      cdpUserQuery,
-      userIds
+      searchQuery,
+      entityIds
     }
 
     const queryString = qs.stringify(
       {
-        ...(cdpUserQuery && { cdpUserQuery }),
-        ...(userIds.length && { userIds })
+        ...(searchQuery && { searchQuery }),
+        ...(entityIds.length && { entityIds })
       },
       {
         addQueryPrefix: true
@@ -59,15 +88,23 @@ const addPermissionToUserController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(`/admin/permissions/${scopeId}/user/add${queryString}`)
+      return h.redirect(`/admin/permissions/${scopeId}/add${queryString}`)
     }
 
     if (!validationResult.error) {
+      const userIds = extractIds(entityIds, 'user')
+      const teamIds = extractIds(entityIds, 'team')
       const addScopeToUserPromises = userIds.map((userId) =>
         addScopeToUser(request, userId, scopeId)
       )
+      const addScopeToTeamPromises = teamIds.map((teamId) =>
+        addScopeToTeam(request, teamId, scopeId)
+      )
 
-      const responses = await Promise.allSettled(addScopeToUserPromises)
+      const responses = await Promise.allSettled([
+        ...addScopeToUserPromises,
+        ...addScopeToTeamPromises
+      ])
       const rejectedResponse = responses.filter(
         (response) => response.status === 'rejected'
       )
@@ -78,28 +115,18 @@ const addPermissionToUserController = {
 
       if (rejectedResponse.length === 0) {
         request.yar.flash(sessionNames.notifications, {
-          text: `${message} added to user`,
+          text: `${message} added`,
           type: 'success'
         })
 
-        const auditPromises = userIds.map((userId) =>
-          request.audit.sendMessage({
-            event: `permission: ${scopeId} added to user: ${userId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
-            data: {
-              userId,
-              scopeId
-            },
-            user: request.pre.authedUser
-          })
-        )
-        await Promise.all(auditPromises)
+        await sendAuditLogs(request, userIds, teamIds, scopeId)
 
         return h.redirect(`/admin/permissions/${scopeId}`)
       }
 
       if (fulfilledResponse.length) {
         request.yar.flash(sessionNames.notifications, {
-          text: `${message} added to user`,
+          text: `${message} added to team`,
           type: 'success'
         })
       }
@@ -113,9 +140,9 @@ const addPermissionToUserController = {
         rejectedResponse.map((response) => response.reason.message)
       )
 
-      return h.redirect(`/admin/permissions/${scopeId}/user/add/${queryString}`)
+      return h.redirect(`/admin/permissions/${scopeId}/add/${queryString}`)
     }
   }
 }
 
-export { addPermissionToUserController }
+export { addPermissionController }

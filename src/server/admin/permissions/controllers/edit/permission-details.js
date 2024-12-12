@@ -20,9 +20,13 @@ const editPermissionDetailsController = {
   handler: async (request, h) => {
     const scopeId = request.params.scopeId
     const payload = request?.payload
+    const kind = Array.isArray(payload.kind)
+      ? payload?.kind
+      : [payload.kind].filter(Boolean)
     const description = payload.description?.trim() || null
 
     const sanitisedPayload = {
+      kind,
       description
     }
 
@@ -47,6 +51,7 @@ const editPermissionDetailsController = {
     if (!validationResult.error) {
       try {
         const { response } = await updateScope(request, scopeId, {
+          kind,
           description
         })
 

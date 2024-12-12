@@ -22,6 +22,10 @@
                 text: "Value",
                 classes: "app-label"
               },
+              hint: {
+                html: "The value used in code, ideally camelCase",
+                classes: "app-hint"
+              },
               id: "value",
               name: "value",
               classes: "app-input app-input--wide",
@@ -41,10 +45,41 @@
               } if formErrors.value.message
             }) }}
 
+            {{ govukCheckboxes({
+              name: "kind",
+              fieldset: {
+                legend: {
+                  text: "Applicable to",
+                  classes: "govuk-fieldset__legend--s govuk-!-margin-bottom-1"
+                }
+              },
+              hint: {
+                html: "What can this permission be applied to?",
+                classes: "app-hint"
+              },
+              classes: "govuk-checkboxes--small app-checkboxes",
+              items: kindOptions,
+              values: formValues.kind,
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: {
+                attributes: {
+                  "data-js": "app-error"
+                },
+                text: formErrors.kind.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message"
+              } if formErrors.kind.message
+            }) }}
+
             {{ govukTextarea({
               label: {
                 text: "Description (optional)",
                 classes: "app-label"
+              },
+              hint: {
+                html: "A sentence or two, describing what this permission is for",
+                classes: "app-hint"
               },
               id: "description",
               name: "description",

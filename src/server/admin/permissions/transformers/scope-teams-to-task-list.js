@@ -19,7 +19,7 @@ function transformScopeTeamsToTaskList(scope, withActions = true) {
     }
   })
 
-  return { classes: 'app-task-list', items }
+  return { classes: 'app-task-list govuk-!-margin-bottom-8', items }
 }
 
 export { transformScopeTeamsToTaskList }
