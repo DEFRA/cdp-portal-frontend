@@ -44,7 +44,7 @@ const addMemberFormController = {
     const allUsers = filter(
       uniqBy([...usersToAdd, ...cdpUsers], 'userId'),
       (user) => !team.users.some((teamUser) => teamUser.userId === user.userId)
-    )
+    ).sort((a, b) => a.name.localeCompare(b.name))
 
     return h.view('admin/teams/views/add/member-form', {
       pageTitle: 'Add Team Member',
