@@ -2,6 +2,7 @@ import { adminUsers } from '~/src/server/admin/users/routes.js'
 import { adminTeams } from '~/src/server/admin/teams/routes.js'
 import { adminFeatures } from '~/src/server/admin/features/routes.js'
 import { adminPermissions } from '~/src/server/admin/permissions/routes.js'
+import { adminDecommissionService } from '~/src/server/admin/decommission-service/routes.js'
 
 const admin = {
   plugin: {
@@ -11,7 +12,8 @@ const admin = {
         adminUsers,
         adminTeams,
         adminFeatures,
-        adminPermissions
+        adminPermissions,
+        adminDecommissionService
       ])
 
       server.route([

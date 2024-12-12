@@ -1,0 +1,75 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {% call appSplitPane() %}
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        text: heading
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+          <form action="/admin/decommission-service" method="post"
+                data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            {% call govukFieldset() %}
+
+              {{ govukSelect({
+                id: "service-name",
+                name: "serviceName",
+                label: {
+                  text: "Service Name",
+                  classes: "app-label"
+                },
+                classes: "app-select app-select--wide",
+                hint: {
+                  text: "Name of the existing service to be decommissioned",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                value: serviceName,
+                items: repositoriesOptions
+              }) }}
+
+            {% endcall %}
+
+            <h2 class="govuk-heading-m">Currently supported</h2>
+
+            <ul class="govuk-list govuk-list--bullet">
+              <li>✅ Delete mongo entries in SSOps</li>
+              <li>✅ Delete mongo entries in PBE</li>
+            </ul>
+
+            <h2 class="govuk-heading-m">NOT supported</h2>
+
+            <ul class="govuk-list govuk-list--bullet">
+              <li>❌ Undeploy a service in ECS</li>
+              <li>❌ Remove ECR images</li>
+              <li>❌ Remove Docker Hub images</li>
+              <li>❌ Call cdp-app-config remove workflow</li>
+              <li>❌ Call cdp-nginx-upstreams remove workflow</li>
+              <li>❌ Call cdp-squid-proxy remove workflow</li>
+              <li>❓ Call cdp-grafana-svc remove workflow - may not be needed</li>
+              <li>❌ Call cdp-tf-svc-infra remove workflow</li>
+              <li>❓ Remove Tenant MongoDB collections</li>
+              <li>❓ Remove Tenant Postgresql DBs</li>
+              <li>❓ Empty Tenant S3 buckets</li>
+            </ul>
+
+            {{ govukButton({
+              classes: "app-button app-button--destructive",
+              text: "Decommission service"
+            }) }}
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
