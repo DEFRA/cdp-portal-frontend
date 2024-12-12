@@ -21,12 +21,12 @@ async function buildEntitiesOptions(searchQuery, scope, selectedEntities) {
   if (searchQuery) {
     const escapedSearchQuery = escapeRegex(searchQuery)
     const searchPromises = kind
-      .map((kind) => {
-        if (kind === 'user') {
+      .map((k) => {
+        if (k === 'user') {
           return searchCdpUsers(escapedSearchQuery)
         }
 
-        if (kind === 'team') {
+        if (k === 'team') {
           return searchCdpTeams(escapedSearchQuery)
         }
 

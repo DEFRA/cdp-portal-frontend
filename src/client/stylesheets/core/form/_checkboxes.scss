@@ -1,7 +1,17 @@
 @use "govuk-frontend" as *;
 
 .app-checkboxes {
-  &.govuk-input--error {
-    border-color: govuk-colour("red");
+  margin-top: govuk-spacing(-1);
+}
+
+// stylelint-disable max-nesting-depth
+.govuk-form-group--error {
+  .app-checkboxes {
+    .govuk-checkboxes__label {
+      &::before {
+        border-color: govuk-colour("red");
+      }
+    }
   }
 }
+// stylelint-enable max-nesting-depth

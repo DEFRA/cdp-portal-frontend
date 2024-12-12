@@ -19,7 +19,7 @@ const provideSelectedEntities = {
         return { name: team.name, id: team.teamId, kind: 'team' }
       })
 
-      return await Promise.all([...fetchUsersPromises, ...fetchTeamsPromises])
+      return Promise.all([...fetchUsersPromises, ...fetchTeamsPromises])
     }
 
     return []

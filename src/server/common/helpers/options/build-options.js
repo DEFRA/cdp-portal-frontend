@@ -8,6 +8,10 @@ function buildOptions(items, withDefault = true) {
         return { value: item.value, text: item.text }
       }
 
+      if (item?.value && item?.html) {
+        return { value: item.value, html: item.html }
+      }
+
       return { value: item, text: item }
     })
   ]

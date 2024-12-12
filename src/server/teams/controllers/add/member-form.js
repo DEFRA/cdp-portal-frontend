@@ -5,13 +5,11 @@ import filter from 'lodash/filter.js'
 
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import {
-  presentUsersToAdd,
-  provideCdpTeam
-} from '~/src/server/admin/teams/helpers/index.js'
-import {
   searchCdpUsers,
   fetchCdpTeam
 } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
+import { presentUsersToAdd } from '~/src/server/admin/teams/helpers/pre/present-users-to-add.js'
 
 const addMemberFormController = {
   options: {
