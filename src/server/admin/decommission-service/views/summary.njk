@@ -1,0 +1,23 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {% call appSplitPane() %}
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        text: "Service Decommissioned"
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
+          {{ appWarning({
+            html: serviceName
+          }) }}
+
+        </div>
+      </div>
+    </div>
+  {% endcall %}
+
+{% endblock %}

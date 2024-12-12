@@ -34,6 +34,13 @@ function provideSubNavigation(request, h) {
         label: {
           text: 'Permissions'
         }
+      },
+      {
+        isActive: request.path.startsWith('/admin/decommission-service'),
+        url: '/admin/decommission-service',
+        label: {
+          text: 'Decommission'
+        }
       }
     ]
   }
