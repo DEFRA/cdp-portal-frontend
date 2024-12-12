@@ -2,12 +2,13 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{# TODO - once data migrated this check for scope.kind can be reduced to just check for team in scope.kind #}
 {% set addPermissionText %}
-  {% if scope.kind.includes("user") and scope.kind.includes("team") %}
+  {% if scope.kind and scope.kind.includes("user") and scope.kind.includes("team") %}
     Add permission to a user or a team
-  {% elseif scope.kind.includes("user") %}
+  {% elseif scope.kind and scope.kind.includes("user") %}
     Add permission to a user
-  {% elseif scope.kind.includes("team") %}
+  {% elseif scope.kind and scope.kind.includes("team") %}
     Add permission to a team
   {% endif %}
 {% endset %}
