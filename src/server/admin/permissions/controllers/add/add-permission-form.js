@@ -1,0 +1,177 @@
+import Joi from 'joi'
+import Boom from '@hapi/boom'
+import uniqBy from 'lodash/uniqBy.js'
+import filter from 'lodash/filter.js'
+import { escapeRegex } from '@hapi/hoek'
+
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { provideSelectedEntities } from '~/src/server/admin/permissions/helpers/pre/provide-selected-entities.js'
+import {
+  fetchScope,
+  searchCdpUsers,
+  searchCdpTeams
+} from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+
+async function buildEntitiesOptions(searchQuery, scope, selectedEntities) {
+  const kind = scope.kind
+  const foundEntities = []
+
+  if (searchQuery) {
+    const escapedSearchQuery = escapeRegex(searchQuery)
+    const searchPromises = kind
+      .map((kind) => {
+        if (kind === 'user') {
+          return searchCdpUsers(escapedSearchQuery)
+        }
+
+        if (kind === 'team') {
+          return searchCdpTeams(escapedSearchQuery)
+        }
+
+        return null
+      })
+      .filter(Boolean)
+
+    const searchResponse = await Promise.all(searchPromises)
+
+    for (const response of searchResponse) {
+      if (response?.users?.length) {
+        foundEntities.push(
+          ...response.users.map((user) => ({
+            name: user.name,
+            id: user.userId,
+            kind: 'user'
+          }))
+        )
+      }
+
+      if (response?.teams?.length) {
+        foundEntities.push(
+          ...response.teams.map((team) => ({
+            name: team.name,
+            id: team.teamId,
+            kind: 'team'
+          }))
+        )
+      }
+    }
+  }
+
+  const scopeTeams = scope.teams.map((team) => ({ id: team.teamId })) || []
+  const scopeUsers = scope.users.map((user) => ({ id: user.userId })) || []
+  const existingScopeEntities = [...scopeUsers, ...scopeTeams]
+
+  // Unique selected entities and search result entities. Don't show entities that already have the scope
+  const entities = filter(
+    uniqBy([...selectedEntities, ...foundEntities], 'id'),
+    (entity) =>
+      !existingScopeEntities?.some(
+        (existingEntity) => existingEntity.id === entity.id
+      )
+  ).sort((a, b) => a.name.localeCompare(b.name))
+
+  const renderOptionHtml = (entity) => {
+    if (entity.kind === 'user') {
+      return renderTag('user', ['govuk-tag--green']) + entity.name
+    }
+
+    return renderTag('team', ['govuk-tag--blue']) + entity.name
+  }
+
+  return entities?.length
+    ? buildOptions(
+        entities.map((entity) => ({
+          html: scope.kind.length > 1 ? renderOptionHtml(entity) : entity.name,
+          value: `${entity.kind}:${entity.id}`
+        })),
+        false
+      )
+    : null
+}
+
+function generateUiMessages(kind) {
+  switch (true) {
+    case kind.includes('user') && kind.includes('team'):
+      return {
+        search: {
+          label: 'Search for a User or Team',
+          hint: 'A user by their name or email and a team by its name',
+          noResults: 'No users or teams found'
+        }
+      }
+    case kind.includes('user') && !kind.includes('team'):
+      return {
+        search: {
+          label: 'Search for a User',
+          hint: 'By their name or email',
+          noResults: 'No users found'
+        }
+      }
+    case kind.includes('team') && !kind.includes('user'):
+      return {
+        search: {
+          label: 'Search for a Team',
+          hint: 'By its name',
+          noResults: 'No teams found'
+        }
+      }
+  }
+}
+
+const addPermissionFormController = {
+  options: {
+    id: 'admin/permissions/{scopeId}/add',
+    validate: {
+      query: Joi.object({
+        searchQuery: Joi.string().allow(''),
+        entityIds: Joi.array().items(Joi.string().allow('')).single().allow('')
+      }),
+      failAction: () => Boom.boomify(Boom.notFound())
+    },
+    pre: [provideSelectedEntities]
+  },
+  handler: async (request, h) => {
+    const searchQuery = request?.query?.searchQuery
+    const selectedEntities = request.pre.selectedEntities
+    const selectedEntityIds = selectedEntities.map(
+      (entity) => `${entity.kind}:${entity.id}`
+    )
+    const { scope } = await fetchScope(request, request.params.scopeId)
+
+    return h.view('admin/permissions/views/add/add-permission-form', {
+      pageTitle: 'Add Permission',
+      uiMessages: generateUiMessages(scope.kind),
+      formValues: {
+        searchQuery,
+        entityIds: selectedEntityIds
+      },
+      entities: await buildEntitiesOptions(
+        searchQuery,
+        scope,
+        selectedEntities
+      ),
+      scope,
+      breadcrumbs: [
+        {
+          text: 'Admin',
+          href: '/admin'
+        },
+        {
+          text: 'Permissions',
+          href: '/admin/permissions'
+        },
+        {
+          text: formatText(scope.value),
+          href: '/admin/permissions/' + scope.scopeId
+        },
+        {
+          text: 'Add'
+        }
+      ]
+    })
+  }
+}
+
+export { addPermissionFormController }

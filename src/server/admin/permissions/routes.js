@@ -1,13 +1,11 @@
+import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
 import { permissionsListController } from '~/src/server/admin/permissions/controllers/permissions-list.js'
 import { permissionController } from '~/src/server/admin/permissions/controllers/permission.js'
-import { addPermissionToTeamController } from '~/src/server/admin/permissions/controllers/add/team/add-permission.js'
-import { addPermissionToTeamFormController } from '~/src/server/admin/permissions/controllers/add/team/add-permission-form.js'
-import { addPermissionToUserController } from '~/src/server/admin/permissions/controllers/add/user/add-permission.js'
-import { addPermissionToUserFormController } from '~/src/server/admin/permissions/controllers/add/user/add-permission-form.js'
+import { addPermissionController } from '~/src/server/admin/permissions/controllers/add/add-permission.js'
+import { addPermissionFormController } from '~/src/server/admin/permissions/controllers/add/add-permission-form.js'
 import { createPermissionDetailsController } from '~/src/server/admin/permissions/controllers/create/permission-details.js'
 import { createPermissionDetailsFormController } from '~/src/server/admin/permissions/controllers/create/permission-details-form.js'
 import { editPermissionDetailsController } from '~/src/server/admin/permissions/controllers/edit/permission-details.js'
@@ -77,13 +75,13 @@ const adminPermissions = {
           },
           {
             method: 'GET',
-            path: '/admin/permissions/{scopeId}/team/add',
-            ...addPermissionToTeamFormController
+            path: '/admin/permissions/{scopeId}/add',
+            ...addPermissionFormController
           },
           {
             method: 'POST',
-            path: '/admin/permissions/{scopeId}/team/add',
-            ...addPermissionToTeamController
+            path: '/admin/permissions/{scopeId}/add',
+            ...addPermissionController
           },
           {
             method: 'GET',
@@ -94,16 +92,6 @@ const adminPermissions = {
             method: 'POST',
             path: '/admin/permissions/{scopeId}/team/remove/{teamId}',
             ...removePermissionFromTeamController
-          },
-          {
-            method: 'GET',
-            path: '/admin/permissions/{scopeId}/user/add',
-            ...addPermissionToUserFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/permissions/{scopeId}/user/add',
-            ...addPermissionToUserController
           },
           {
             method: 'GET',
