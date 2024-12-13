@@ -13,8 +13,6 @@ const decommissionFormController = {
 
     return h.view('admin/decommission-service/views/decommission-form', {
       pageTitle: 'Decommission Service',
-      heading: 'Decommission a service',
-      headingCaption: 'Provide the service name to decommission',
       repositoriesOptions
     })
   }
