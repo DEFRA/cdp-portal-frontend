@@ -4,7 +4,7 @@ import Boom from '@hapi/boom'
 import { config } from '~/src/config/index.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
-import { getTraceId } from '~/src/server/common/helpers/tracing/async-local-storage.js'
+import { getTraceId } from '@defra/hapi-tracing'
 import {
   removeAuthenticatedUser,
   refreshUserSession
