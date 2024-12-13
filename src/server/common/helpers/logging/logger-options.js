@@ -1,7 +1,6 @@
 import { ecsFormat } from '@elastic/ecs-pino-format'
-
-import { getTraceId } from '~/src/server/common/helpers/tracing/async-local-storage.js'
 import { config } from '~/src/config/index.js'
+import { getTraceId } from '@defra/hapi-tracing'
 
 const logConfig = config.get('log')
 const serviceConfig = config.get('service')

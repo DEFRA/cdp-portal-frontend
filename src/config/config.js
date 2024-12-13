@@ -253,12 +253,6 @@ const config = convict({
     }
   },
   tracing: {
-    enabled: {
-      doc: 'Propagate trace headers across calls',
-      format: Boolean,
-      default: true,
-      env: 'TRACING_ENABLED'
-    },
     header: {
       doc: 'Which header to track',
       format: String,
