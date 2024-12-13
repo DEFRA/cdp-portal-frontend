@@ -6,7 +6,7 @@ const decommissionFormController = {
     const { repositories } = await fetchRepositories()
 
     const repositoriesValues = repositories.map((repo) => {
-      return { value: repo.id, text: repo.description }
+      return { value: repo.id, text: repo.id }
     })
 
     const repositoriesOptions = buildOptions(repositoriesValues ?? [])
