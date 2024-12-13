@@ -1,21 +1,18 @@
 {% extends "layouts/page.njk" %}
 
 {% block content %}
-
   {% call appSplitPane() %}
-    <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appPageHeading({
-        text: "Service Decommissioned"
-      }) }}
+    {{ appPageHeading({
+      caption: "Decommissioned Service",
+      text: serviceName or "Service"
+    }) }}
 
-      <div class="govuk-grid-row">
-        <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
-          {{ appWarning({
-            html: serviceName
-          }) }}
-
-        </div>
+    <div class="govuk-grid-row">
+      <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
+        {{ appWarning({
+          html: serviceName
+        }) }}
       </div>
 
         <h2 class="govuk-heading-m">Executed workflows for services & test-suites:</h2>
@@ -35,6 +32,6 @@
 
 
     </div>
-  {% endcall %}
 
+  {% endcall %}
 {% endblock %}

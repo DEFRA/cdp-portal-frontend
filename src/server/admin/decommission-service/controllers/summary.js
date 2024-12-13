@@ -15,8 +15,20 @@ const summaryController = {
 
     return h.view('admin/decommission-service/views/summary', {
       pageTitle: 'Service Decommissioned - ' + serviceName,
-      heading: 'Service Decommissioned',
-      serviceName
+      serviceName,
+      breadcrumbs: [
+        {
+          text: 'Admin',
+          href: '/admin'
+        },
+        {
+          text: 'Decommission',
+          href: '/admin/decommission-service'
+        },
+        {
+          text: 'Summary'
+        }
+      ]
     })
   }
 }
