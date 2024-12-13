@@ -4,7 +4,6 @@
 {% from "icons/error-icon/macro.njk" import appErrorIcon %}
 
 {# Tips and warnings #}
-
 {% set tips = [
   "Delete MongoDB entries in cdp-self-service-ops",
   "Delete MongoDB entries in cdp-portal-backend",
@@ -25,112 +24,111 @@
 ] %}
 
 {% block content %}
-
   {% call appSplitPane() %}
-    <div class="govuk-main-wrapper app-main-wrapper">
 
-      {{ appPageHeading({
-        caption: "Service",
-        text: "Decommission"
-      }) }}
+    {{ appPageHeading({
+      caption: "Service",
+      text: "Decommission"
+    }) }}
 
-      <div class="govuk-grid-row">
-        <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
-          <form action="/admin/decommission-service" method="post" data-js="app-form-errors">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+    <div class="govuk-grid-row">
+      <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+        <form action="/admin/decommission-service" method="post" data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-            {% call govukFieldset() %}
+          {% call govukFieldset() %}
 
-              {{ appAutocomplete({
-                id: "service-name",
-                name: "serviceName",
-                label: {
-                  text: "Service Name",
-                  classes: "app-label"
+            {{ appAutocomplete({
+              id: "service-name",
+              name: "serviceName",
+              label: {
+                text: "Service Name",
+                classes: "app-label"
+              },
+              hint: {
+                text: 'Choose the service you wish to decommission'
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              value: formValues.serviceName,
+              suggestions: repositoriesOptions,
+              errorMessage: {
+                attributes: {
+                  "data-js": "app-error"
                 },
-                hint: {
-                  text: 'Choose the service you wish to decommission'
+                text: formErrors.serviceName.message
+              } if formErrors.serviceName.message
+            }) }}
+
+            {{ govukInput({
+              id: "service-name-confirmation",
+              name: "confirmServiceName",
+              label: {
+                text: "Confirm Service Name",
+                classes: "app-label"
+              },
+              hint: {
+                text: "Match the service name you have chosen above",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              classes: "app-input app-input--wide",
+              value: formValues.confirmServiceName,
+              errorMessage: {
+                attributes: {
+                  "data-js": "app-error"
                 },
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                value: formValues.serviceName,
-                suggestions: repositoriesOptions,
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error"
-                  },
-                  text: formErrors.serviceName.message
-                } if formErrors.serviceName.message
-              }) }}
+                text: formErrors.confirmServiceName.message,
+                classes: "govuk-!-margin-bottom-1 app-error-message"
+              } if formErrors.confirmServiceName.message
+            }) }}
 
-              {{ govukInput({
-                id: "service-name-confirmation",
-                name: "confirmServiceName",
-                label: {
-                  text: "Confirm Service Name",
-                  classes: "app-label"
-                },
-                hint: {
-                  text: "Match the service name you have chosen above",
-                  classes: "app-hint"
-                },
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                classes: "app-input app-input--wide",
-                value: formValues.confirmServiceName,
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error"
-                  },
-                  text: formErrors.confirmServiceName.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.confirmServiceName.message
-              }) }}
+          {% endcall %}
 
-            {% endcall %}
+          <article class="govuk-!-margin-bottom-8">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Supported</h2>
+            <p class="govuk-!-margin-bottom-2">
+              This decommission service functionality supports the following items:
+            </p>
+            <ul class="govuk-list govuk-!-margin-left-1">
+              {% for tip in tips %}
+                <li>
+                  <div class="app-!-layout-centered">
+                    {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                    {{ tip }}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
 
-            <article class="govuk-!-margin-bottom-8">
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Supported</h2>
-              <p>This decommission service functionality supports the following items:</p>
-              <ul class="govuk-list">
-                {% for tip in tips %}
-                  <li>
-                    <div class="app-!-layout-centered">
-                      {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                      {{ tip }}
-                    </div>
-                  </li>
-                {% endfor %}
-              </ul>
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">NOT supported</h2>
+            <p class="govuk-!-margin-bottom-2">
+              This decommission service functionality currently does not support the following items. They will
+              be coming in future iterations.
+            </p>
+            <ul class="govuk-list govuk-!-margin-left-1">
+              {% for warning in warnings %}
+                <li>
+                  <div class="app-!-layout-centered">
+                    {{ appErrorIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                    {{ warning }}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </article>
 
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">NOT supported</h2>
-              <p>
-                This decommission service functionality currently does not support the following items. They will
-                be coming in future iterations.
-              </p>
-              <ul class="govuk-list">
-                {% for warning in warnings %}
-                  <li>
-                    <div class="app-!-layout-centered">
-                      {{ appErrorIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                      {{ warning }}
-                    </div>
-                  </li>
-                {% endfor %}
-              </ul>
-            </article>
+          <div class="govuk-button-group">
+            {{ govukButton({
+              classes: "app-button app-button--destructive",
+              text: "Decommission service"
+            }) }}
+          </div>
 
-            <div class="govuk-button-group">
-              {{ govukButton({
-                classes: "app-button app-button--destructive",
-                text: "Decommission service"
-              }) }}
-            </div>
-
-          </form>
-        </div>
+        </form>
       </div>
     </div>
 

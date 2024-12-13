@@ -112,10 +112,10 @@
           A number of tools are available to you in the CDP terminal.
         </p>
 
-        <ul class="govuk-list govuk-!-margin-left-2">
+        <ul class="govuk-list govuk-!-margin-left-1">
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appCurlIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
+              {{ appCurlIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
               <strong class="govuk-!-margin-right-1">Curl</strong>
               <a class="app-link" href="https://curl.se"
                  target="_blank" rel="noopener noreferrer">
@@ -124,7 +124,7 @@
           </li>
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appAwsIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
+              {{ appAwsIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
               <strong class="govuk-!-margin-right-1">AWS Cli</strong>
               <a class="app-link" href="https://aws.amazon.com/cli"
                  target="_blank" rel="noopener noreferrer">
@@ -133,7 +133,7 @@
           </li>
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appRedisIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
+              {{ appRedisIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
               <strong class="govuk-!-margin-right-1">Redis Cli</strong>
               <a class="app-link" href="https://redis.io/docs/latest/develop/connect/cli"
                  target="_blank" rel="noopener noreferrer">
@@ -142,7 +142,7 @@
           </li>
           <li>
             <div class="app-!-layout-flex-start">
-              {{ appMongoDbIcon({ classes: "app-icon--small govuk-!-margin-right-2" }) }}
+              {{ appMongoDbIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
               <strong class="govuk-!-margin-right-1">MongoDb Cli</strong>
               <a class="app-link" href="https://www.mongodb.com/docs/mongocli/current"
                  target="_blank" rel="noopener noreferrer">
@@ -160,12 +160,12 @@
           The CDP Terminal is a web shell into a dedicated container running with the permissions that your service has.
         </p>
 
-        <ul class="govuk-list govuk-!-margin-left-2">
+        <ul class="govuk-list govuk-!-margin-left-1">
           {% for tip in tips -%}
             <li>
               <div class="app-!-layout-flex-start">
                 {{ appInfoIcon({
-                  classes: "app-icon--tiny govuk-!-margin-right-2",
+                  classes: "app-icon--tiny govuk-!-margin-right-1",
                   description: "Info"
                 }) }} {{ tip }}
               </div>
@@ -177,12 +177,12 @@
           The CDP Terminal also comes with a few things you need to be aware of.
         </p>
 
-        <ul class="govuk-list govuk-!-margin-left-2">
+        <ul class="govuk-list govuk-!-margin-left-1">
           {% for warning in warnings -%}
             <li>
               <div class="app-!-layout-flex-start">
                 {{ appWarningIcon({
-                  classes: "app-icon--tiny govuk-!-margin-right-2",
+                  classes: "app-icon--tiny govuk-!-margin-right-1",
                   description: "Warning"
                 }) }} {{ warning }}
               </div>
