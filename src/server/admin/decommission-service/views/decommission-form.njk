@@ -1,5 +1,29 @@
 {% extends "layouts/page.njk" %}
 
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/error-icon/macro.njk" import appErrorIcon %}
+
+{# Tips and warnings #}
+
+{% set tips = [
+  "Delete MongoDB entries in cdp-self-service-ops",
+  "Delete MongoDB entries in cdp-portal-backend"
+] %}
+
+{% set warnings = [
+  "Undeploy a service in ECS",
+  "Remove ECR images",
+  "Remove Docker Hub images",
+  "Call cdp-app-config remove workflow",
+  "Call cdp-nginx-upstreams remove workflow",
+  "Call cdp-squid-proxy remove workflow",
+  "Call cdp-grafana-svc remove workflow",
+  "Call cdp-tf-svc-infra remove workflow",
+  "Remove Tenant MongoDB collections",
+  "Remove Tenant Postgresql DBs",
+  "Empty Tenant S3 buckets"
+] %}
+
 {% block content %}
 
   {% call appSplitPane() %}
@@ -48,7 +72,7 @@
                   classes: "app-label"
                 },
                 hint: {
-                  text: "Match the service name you have chossen above",
+                  text: "Match the service name you have chosen above",
                   classes: "app-hint"
                 },
                 formGroup: {
@@ -70,9 +94,15 @@
             <article class="govuk-!-margin-bottom-8">
               <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Supported</h2>
               <p>This decommission service functionality supports the following items:</p>
-              <ul class="govuk-list govuk-list--bullet">
-                <li>✅ Delete MongoDB entries in cdp-self-service-ops</li>
-                <li>✅ Delete MongoDB entries in cdp-portal-backend</li>
+              <ul class="govuk-list">
+                {% for tip in tips %}
+                  <li>
+                    <div class="app-!-layout-centered">
+                      {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                      {{ tip }}
+                    </div>
+                  </li>
+                {% endfor %}
               </ul>
 
               <h2 class="govuk-heading-m govuk-!-margin-bottom-2">NOT supported</h2>
@@ -80,18 +110,15 @@
                 This decommission service functionality currently does not support the following items. They will
                 be coming in future iterations.
               </p>
-              <ul class="govuk-list govuk-list--bullet">
-                <li>❌ Undeploy a service in ECS</li>
-                <li>❌ Remove ECR images</li>
-                <li>❌ Remove Docker Hub images</li>
-                <li>❌ Call cdp-app-config remove workflow</li>
-                <li>❌ Call cdp-nginx-upstreams remove workflow</li>
-                <li>❌ Call cdp-squid-proxy remove workflow</li>
-                <li>❓ Call cdp-grafana-svc remove workflow</li>
-                <li>❌ Call cdp-tf-svc-infra remove workflow</li>
-                <li>❓ Remove Tenant MongoDB collections</li>
-                <li>❓ Remove Tenant Postgresql DBs</li>
-                <li>❓ Empty Tenant S3 buckets</li>
+              <ul class="govuk-list">
+                {% for warning in warnings %}
+                  <li>
+                    <div class="app-!-layout-centered">
+                      {{ appErrorIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                      {{ warning }}
+                    </div>
+                  </li>
+                {% endfor %}
               </ul>
             </article>
 
