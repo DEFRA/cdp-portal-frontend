@@ -2,13 +2,12 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{# TODO - once data migrated this check for scope.kind can be reduced to just check for team in scope.kind #}
 {% set addPermissionText %}
-  {% if scope.kind and scope.kind.includes("user") and scope.kind.includes("team") %}
+  {% if scope.kind.includes("user") and scope.kind.includes("team") %}
     Add permission to a user or a team
-  {% elseif scope.kind and scope.kind.includes("user") %}
+  {% elseif scope.kind.includes("user") %}
     Add permission to a user
-  {% elseif scope.kind and scope.kind.includes("team") %}
+  {% elseif scope.kind.includes("team") %}
     Add permission to a team
   {% endif %}
 {% endset %}
@@ -41,8 +40,7 @@
 
         {{ govukSummaryList(summaryList) }}
 
-        {# TODO - once data migrated this check for scope.kind can be reduced to just check for user in scope.kind #}
-        {% if scope.kind and "user" in scope.kind %}
+        {% if "user" in scope.kind %}
           <h2 class="govuk-heading-m">
             {{ "User" | pluralise(scope.users | length) }} with permission
           </h2>
@@ -59,8 +57,7 @@
           {% endif %}
         {% endif %}
 
-        {# TODO - once data migrated this check for scope.kind can be reduced to just check for team in scope.kind #}
-        {% if scope.kind and "team" in scope.kind %}
+        {% if "team" in scope.kind %}
           <h2 class="govuk-heading-m">
             {{ "Team" | pluralise(scope.teams | length) }} with permission
           </h2>
