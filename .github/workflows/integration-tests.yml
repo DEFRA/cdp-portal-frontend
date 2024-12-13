@@ -8,4 +8,4 @@ on:
       - completed
 jobs:
   test:
-    uses: defra/cdp-portal-tests/.github/workflows/run-tests.yaml@main
+    uses: defra/cdp-portal-journey-tests/.github/workflows/journey-tests.yml@main
