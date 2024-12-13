@@ -6,65 +6,101 @@
     <div class="govuk-main-wrapper app-main-wrapper">
 
       {{ appPageHeading({
-        text: heading
+        caption: "Service",
+        text: "Decommission"
       }) }}
 
       <div class="govuk-grid-row">
         <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
-          <form action="/admin/decommission-service" method="post"
-                data-js="app-form-errors">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <form action="/admin/decommission-service" method="post" data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
             {% call govukFieldset() %}
 
-              {{ govukSelect({
+              {{ appAutocomplete({
                 id: "service-name",
                 name: "serviceName",
                 label: {
                   text: "Service Name",
                   classes: "app-label"
                 },
-                classes: "app-select app-select--wide",
                 hint: {
-                  text: "Name of the existing service to be decommissioned",
+                  text: 'Choose the service you wish to decommission'
+                },
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                value: formValues.serviceName,
+                suggestions: repositoriesOptions,
+                errorMessage: {
+                  attributes: {
+                    "data-js": "app-error"
+                  },
+                  text: formErrors.serviceName.message
+                } if formErrors.serviceName.message
+              }) }}
+
+              {{ govukInput({
+                id: "service-name-confirmation",
+                name: "confirmServiceName",
+                label: {
+                  text: "Confirm Service Name",
+                  classes: "app-label"
+                },
+                hint: {
+                  text: "Match the service name you have chossen above",
                   classes: "app-hint"
                 },
                 formGroup: {
                   classes: "app-form-group app-form-group-js"
                 },
-                value: serviceName,
-                items: repositoriesOptions
+                classes: "app-input app-input--wide",
+                value: formValues.confirmServiceName,
+                errorMessage: {
+                  attributes: {
+                    "data-js": "app-error"
+                  },
+                  text: formErrors.confirmServiceName.message,
+                  classes: "govuk-!-margin-bottom-1 app-error-message"
+                } if formErrors.confirmServiceName.message
               }) }}
 
             {% endcall %}
 
-            <h2 class="govuk-heading-m">Currently supported</h2>
+            <article class="govuk-!-margin-bottom-8">
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Supported</h2>
+              <p>This decommission service functionality supports the following items:</p>
+              <ul class="govuk-list govuk-list--bullet">
+                <li>✅ Delete MongoDB entries in cdp-self-service-ops</li>
+                <li>✅ Delete MongoDB entries in cdp-portal-backend</li>
+              </ul>
 
-            <ul class="govuk-list govuk-list--bullet">
-              <li>✅ Delete mongo entries in SSOps</li>
-              <li>✅ Delete mongo entries in PBE</li>
-            </ul>
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">NOT supported</h2>
+              <p>
+                This decommission service functionality currently does not support the following items. They will
+                be coming in future iterations.
+              </p>
+              <ul class="govuk-list govuk-list--bullet">
+                <li>❌ Undeploy a service in ECS</li>
+                <li>❌ Remove ECR images</li>
+                <li>❌ Remove Docker Hub images</li>
+                <li>❌ Call cdp-app-config remove workflow</li>
+                <li>❌ Call cdp-nginx-upstreams remove workflow</li>
+                <li>❌ Call cdp-squid-proxy remove workflow</li>
+                <li>❓ Call cdp-grafana-svc remove workflow</li>
+                <li>❌ Call cdp-tf-svc-infra remove workflow</li>
+                <li>❓ Remove Tenant MongoDB collections</li>
+                <li>❓ Remove Tenant Postgresql DBs</li>
+                <li>❓ Empty Tenant S3 buckets</li>
+              </ul>
+            </article>
 
-            <h2 class="govuk-heading-m">NOT supported</h2>
-
-            <ul class="govuk-list govuk-list--bullet">
-              <li>❌ Undeploy a service in ECS</li>
-              <li>❌ Remove ECR images</li>
-              <li>❌ Remove Docker Hub images</li>
-              <li>❌ Call cdp-app-config remove workflow</li>
-              <li>❌ Call cdp-nginx-upstreams remove workflow</li>
-              <li>❌ Call cdp-squid-proxy remove workflow</li>
-              <li>❓ Call cdp-grafana-svc remove workflow - may not be needed</li>
-              <li>❌ Call cdp-tf-svc-infra remove workflow</li>
-              <li>❓ Remove Tenant MongoDB collections</li>
-              <li>❓ Remove Tenant Postgresql DBs</li>
-              <li>❓ Empty Tenant S3 buckets</li>
-            </ul>
-
-            {{ govukButton({
-              classes: "app-button app-button--destructive",
-              text: "Decommission service"
-            }) }}
+            <div class="govuk-button-group">
+              {{ govukButton({
+                classes: "app-button app-button--destructive",
+                text: "Decommission service"
+              }) }}
+            </div>
 
           </form>
         </div>

@@ -14,8 +14,10 @@ const decommissionServiceController = {
       return repo.id
     })
 
-    const validationResult =
-      serviceValidation(repositoryNames).validate(payload)
+    const validationResult = serviceValidation(
+      repositoryNames,
+      payload.serviceName
+    ).validate(payload)
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -25,14 +27,14 @@ const decommissionServiceController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(`/admin/decommission-service`)
+      return h.redirect('/admin/decommission-service')
     }
 
     if (!validationResult.error) {
       const serviceName = payload.serviceName
       try {
         const { data, response } = await request.authedFetcher(
-          `${config.get('selfServiceOpsUrl')}/decommission/${serviceName}`,
+          config.get('selfServiceOpsUrl') + `/decommission/${serviceName}`,
           {
             method: 'delete'
           }
@@ -63,7 +65,7 @@ const decommissionServiceController = {
         request.yar.flash(sessionNames.validationFailure)
         request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-        return h.redirect(`admin//decommission-service`)
+        return h.redirect('/admin/decommission-service')
       }
     }
   }

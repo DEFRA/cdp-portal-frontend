@@ -4,6 +4,7 @@ import { decommissionFormController } from '~/src/server/admin/decommission-serv
 import { decommissionServiceController } from '~/src/server/admin/decommission-service/controllers/decommission-service.js'
 import { summaryController } from '~/src/server/admin/decommission-service/controllers/summary.js'
 import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -16,6 +17,14 @@ const adminDecommissionService = {
           type: 'onPostHandler',
           method: provideSubNavigation,
           options: {
+            sandbox: 'plugin'
+          }
+        },
+        {
+          type: 'onPostHandler',
+          method: provideFormContextValues(),
+          options: {
+            before: ['yar'],
             sandbox: 'plugin'
           }
         }
