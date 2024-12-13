@@ -1,0 +1,19 @@
+#!/bin/sh
+set +e
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+TICKET_ID_REGEX="^[0-9]{5,8}"
+COMMIT_EDIT_MSG_PATH="$1"
+COMMIT_MSG=$(head -n1 "$1")
+
+# If the branch name contains a ticket ID
+if [[ $BRANCH_NAME =~ $TICKET_ID_REGEX ]]; then
+ TICKET_ID=${BASH_REMATCH[0]}
+
+ # If the ticket ID is not already in the commit message, prepend it.
+ # Don't add ticket ID for a second time, fEx. when doing fixups or amending commits
+ if [[ ! $COMMIT_MSG =~ $TICKET_ID ]]; then
+  # Prepend the ticket ID to the start of the 1st line
+  sed -i.bak -e "1s/^/${TICKET_ID}:/" "$COMMIT_EDIT_MSG_PATH"
+ fi
+fi
