@@ -1,16 +1,22 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import omit from 'lodash/omit.js'
 
+import { fetchTeam } from '~/src/server/teams/helpers/fetch/fetch-team.js'
+import { transformTeamToSummary } from '~/src/server/teams/transformers/team-to-summary.js'
+import { transformTeamUsersToTaskList } from '~/src/server/teams/transformers/team-users-to-task-list.js'
+import { teamServicesToDetailedList } from '~/src/server/teams/transformers/team-services-to-detailed-list.js'
+import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
+import { teamTestSuitesToDetailedList } from '~/src/server/teams/transformers/team-test-suites-to-detailed-list.js'
+import { transformToTaskList } from '~/src/server/teams/transformers/to-task-list.js'
 import {
-  fetchTeam,
-  fetchGithubArtifacts
-} from '~/src/server/teams/helpers/fetch/index.js'
-import { teamToHeadingEntities } from '~/src/server/teams/transformers/team-to-heading-entities.js'
-import { teamToEntityDataList } from '~/src/server/teams/transformers/team-to-entity-data-list.js'
+  fetchTeamServices,
+  fetchTeamTestSuites,
+  fetchTeamRepositories
+} from '~/src/server/teams/helpers/fetch/fetchers.js'
 
 const teamController = {
   options: {
+    id: 'teams/{teamId}',
     validate: {
       params: Joi.object({
         teamId: Joi.string().required()
@@ -19,34 +25,49 @@ const teamController = {
     }
   },
   handler: async (request, h) => {
-    const teamId = request.params?.teamId
+    const { team } = await fetchTeam(request.params.teamId)
+    const services = /** @type {Array} */ await fetchTeamServices(team.teamId)
+    const testSuites = /** @type {Array} */ await fetchTeamTestSuites(
+      team.teamId
+    )
 
-    const { team } = await fetchTeam(teamId)
+    const userIsTeamMember = await request.userIsMemberOfATeam([team.teamId])
+    const hasGitHub = Boolean(team?.github)
 
-    const github = team?.github
-    const githubArtifacts = github ? await fetchGithubArtifacts(github) : null
+    const {
+      services: gitHubServiceRepositories,
+      libraries: gitHubLibraryRepositories,
+      templates: gitHubTemplateRepositories,
+      tests: gitHubTestSuiteRepositories
+    } = hasGitHub ? await fetchTeamRepositories(team.teamId) : {}
 
-    const teamWithGithubArtifacts = {
-      ...team,
-      ...(githubArtifacts && omit(githubArtifacts, 'message'))
-    }
+    const testSuiteDecorator = repositoriesDecorator(
+      gitHubTestSuiteRepositories
+    )
 
     return h.view('teams/views/team', {
-      pageTitle: `${teamWithGithubArtifacts.name} team`,
-      heading: teamWithGithubArtifacts.name,
-      team: teamWithGithubArtifacts,
-      entityDataList: teamToEntityDataList(team),
-      headingEntities: teamToHeadingEntities(team),
-      teamRepositories: teamWithGithubArtifacts?.repositories ?? [],
-      teamTemplates: teamWithGithubArtifacts?.templates ?? [],
-      teamLibraries: teamWithGithubArtifacts?.libraries ?? [],
+      pageTitle: `${team.name} Team`,
+      summaryList: transformTeamToSummary(team, userIsTeamMember),
+      usersTaskList: transformTeamUsersToTaskList(team, userIsTeamMember),
+      teamServices: teamServicesToDetailedList(
+        services.map(repositoriesDecorator(gitHubServiceRepositories))
+      ),
+      teamTestSuites: teamTestSuitesToDetailedList(
+        testSuites.map(({ testSuite }) => testSuiteDecorator(testSuite))
+      ),
+      servicesTaskList: transformToTaskList(gitHubServiceRepositories),
+      librariesTaskList: transformToTaskList(gitHubLibraryRepositories),
+      templatesTaskList: transformToTaskList(gitHubTemplateRepositories),
+      testsTaskList: transformToTaskList(gitHubTestSuiteRepositories),
+      team,
+      userIsTeamMember,
       breadcrumbs: [
         {
           text: 'Teams',
           href: '/teams'
         },
         {
-          text: teamWithGithubArtifacts.name
+          text: team.name
         }
       ]
     })

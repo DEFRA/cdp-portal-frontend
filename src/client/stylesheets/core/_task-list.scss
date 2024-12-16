@@ -2,8 +2,20 @@
 
 .app-task-list {
   .govuk-task-list__item {
+    border-bottom: 1px solid $app-mid-grey;
+
     &:hover {
       background-color: $app-grey;
     }
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+}
+
+.app-task-list--no-border {
+  .govuk-task-list__item {
+    border-bottom: none;
   }
 }
