@@ -768,6 +768,7 @@ class Autocomplete {
           this.$autocompleteHiddenInput.value =
             $currentSuggestion.dataset?.value
           this.dispatchInputEvent()
+          this.suggestionIndex = null
         }
 
         if (this.$autocomplete.value) {
