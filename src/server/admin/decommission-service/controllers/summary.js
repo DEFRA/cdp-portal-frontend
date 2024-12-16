@@ -11,11 +11,11 @@ const summaryController = {
     }
   },
   handler: (request, h) => {
-    const serviceName = request.query.serviceName ?? 'Service'
+    const decommissionedServiceName = request.query.serviceName ?? 'Service'
 
     return h.view('admin/decommission-service/views/summary', {
-      pageTitle: 'Service Decommissioned - ' + serviceName,
-      serviceName,
+      pageTitle: 'Service Decommissioned - ' + decommissionedServiceName,
+      decommissionedServiceName,
       breadcrumbs: [
         {
           text: 'Admin',

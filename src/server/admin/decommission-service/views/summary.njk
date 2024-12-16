@@ -2,38 +2,16 @@
 
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
 
-{% set successMesages = [
-  "MongoDB entries in cdp-self-service-ops deleted",
-  "MongoDB entries in cdp-portal-backend deleted"
-] %}
-
 {% block content %}
   {% call appSplitPane() %}
 
     {{ appPageHeading({
       caption: "Decommissioned Service",
-      text: serviceName
+      text: decommissionedServiceName
     }) }}
 
     <div class="govuk-grid-row">
       <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
-
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-          Success
-        </h2>
-
-        <p>The following tasks have been performed:</p>
-
-        <ul class="govuk-list govuk-!-margin-left-1">
-          {% for message in successMesages %}
-            <li>
-              <div class="app-!-layout-centered">
-                {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                {{ message }}
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
 
         <h2 class="govuk-heading-m">Executed workflows for services & test-suites:</h2>
         <ul class="govuk-list govuk-list--bullet">
