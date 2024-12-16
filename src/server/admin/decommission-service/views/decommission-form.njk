@@ -23,6 +23,12 @@
   "Empty Tenant S3 buckets"
 ] %}
 
+{% set warningHtml %}
+  Decommissioning a service will remove all associated data and infrastructure. This action is
+  irreversible. If you accidentally decommission the wrong service
+  <a href="{{ routeLookup('create') }}" class="govuk-link app-link">create a new one.</a>
+{% endset %}
+
 {% block content %}
   {% call appSplitPane() %}
 
@@ -33,6 +39,13 @@
 
     <div class="govuk-grid-row">
       <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+
+        <div class="govuk-!-margin-bottom-6">
+          {{ appWarning({
+            html: warningHtml
+          }) }}
+        </div>
+
         <form action="/admin/decommission-service" method="post" data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
@@ -89,9 +102,8 @@
           {% endcall %}
 
           <article class="govuk-!-margin-bottom-8">
-            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Supported</h2>
             <p class="govuk-!-margin-bottom-2">
-              This decommission service functionality supports the following items:
+              When a service is decommissioned the following tasks are performed:
             </p>
             <ul class="govuk-list govuk-!-margin-left-1">
               {% for tip in tips %}
@@ -104,10 +116,9 @@
               {% endfor %}
             </ul>
 
-            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">NOT supported</h2>
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">What this doesn't do</h2>
             <p class="govuk-!-margin-bottom-2">
-              This decommission service functionality currently does not support the following items. They will
-              be coming in future iterations.
+              This decommission service functionality currently does not support the following items:
             </p>
             <ul class="govuk-list govuk-!-margin-left-1">
               {% for warning in warnings %}

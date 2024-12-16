@@ -3,7 +3,7 @@ import Joi from 'joi'
 import { validation } from '~/src/server/common/constants/validation.js'
 
 function serviceValidation(serviceNames, confirmServiceName) {
-  const matchServiceNameValue = 'Match the service name value'
+  const matchServiceNameValue = 'Service name value does not match'
 
   return Joi.object({
     serviceName: Joi.string()
