@@ -9,6 +9,9 @@ const createDisabledProperties = {
 }
 
 const startController = {
+  options: {
+    id: 'create'
+  },
   handler: async (request, h) => {
     const createDisabled = await isCreateServiceFeatureDisabled(request)
     if (createDisabled) {
