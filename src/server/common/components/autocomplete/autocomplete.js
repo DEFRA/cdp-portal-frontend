@@ -343,7 +343,6 @@ class Autocomplete {
         .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else {
       // Reset suggestions
-
       $suggestions = this.getSuggestionsMarkup().map(
         this.dressSuggestion({ textValue, suggestionIndex })
       )
@@ -546,7 +545,7 @@ class Autocomplete {
 
       this.populateSuggestions({
         textValue,
-        suggestionIndex: this.suggestionIndex
+        suggestionIndex: null
       })
       this.openSuggestions()
     })
@@ -567,7 +566,7 @@ class Autocomplete {
 
       this.populateSuggestions({
         textValue,
-        suggestionIndex: this.suggestionIndex
+        suggestionIndex: null
       })
       this.openSuggestions()
     })
@@ -658,7 +657,7 @@ class Autocomplete {
       }
 
       if (['arrowup', 'arrowdown'].includes(code)) {
-        // This is managing the highlights
+        // This is managing the highlight in the suggestions panel
         const $filteredSuggestions = this.populateSuggestions({
           textValue,
           suggestionIndex: this.suggestionIndex
