@@ -1,7 +1,7 @@
 import jwt from '@hapi/jwt'
 import { addSeconds } from 'date-fns'
 
-import { fetchScopes } from '~/src/server/teams/helpers/fetch/index.js'
+import { fetchScopes } from '~/src/server/teams/helpers/fetch/fetch-scopes.js'
 
 /**
  * @description MicroSoft refresh token response

@@ -1,5 +1,9 @@
 {% extends "layouts/page.njk" %}
 
+{% set helpHtml %}
+  Can't find a user? Have they been set up with a CDP user account?
+{% endset %}
+
 {% block content %}
   {% call appSplitPane() %}
 
@@ -7,6 +11,12 @@
       caption: "Add Member to Team",
       text: team.name
     }) }}
+
+    <div class="govuk-!-margin-bottom-6">
+      {{ appInfo({
+        html: helpHtml
+      }) }}
+    </div>
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
@@ -76,17 +86,21 @@
               {% endif %}
 
               {% if formValues.cdpUserQuery and not cdpUsers | length %}
-                <p class="govuk-hint">No user(s) found</p>
+                <p class="govuk-hint">No users found</p>
               {% endif %}
 
             </article>
 
           {% endblock %}
 
-          {{ govukButton({
-            classes: "app-button",
-            text: "Add"
-          }) }}
+          <div class="govuk-body govuk-button-group">
+            {{ govukButton({
+              classes: "app-button",
+              text: "Add"
+            }) }}
+
+            <a class="app-link" href="/admin/teams/{{ team.teamId }}">Cancel</a>
+          </div>
         </form>
       </div>
     </div>

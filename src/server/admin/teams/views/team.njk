@@ -43,7 +43,7 @@
         {% if team.users | length %}
           {{ govukTaskList(usersTaskList) }}
         {% else %}
-          <p>This team has no members.
+          <p>This team has no members
             <a href="{{ routeLookup('admin/teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
                class="app-link app-link--underline">
               Add team members

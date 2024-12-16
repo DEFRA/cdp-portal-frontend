@@ -1,0 +1,14 @@
+<ul class="app-detailed-list">
+  {% for item in params.items %}
+  <li class="app-detailed-list__item">
+    <span class="app-detailed-list__item-primary">
+      {{ item.title.html | safe }}
+    </span>
+    <span class="app-detailed-list__item-secondary">
+      {{ item.info.html | safe }}
+    </span>
+  </li>
+  {% endfor %}
+</ul>
+
+

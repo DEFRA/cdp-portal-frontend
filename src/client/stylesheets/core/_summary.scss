@@ -1,7 +1,15 @@
+@use "variables/colours" as *;
+
 .app-summary__heading {
   width: 20%;
 }
 
 .app-summary__action {
   width: 10%;
+}
+
+.app-summary-list {
+  .govuk-summary-list__row {
+    border-bottom: 1px solid $app-mid-grey;
+  }
 }

@@ -19,7 +19,7 @@ function transformScopeToSummary(scope, withActions = true) {
   const actions = withActions ? editActions : null
 
   return {
-    classes: 'govuk-!-margin-bottom-8',
+    classes: 'app-summary-list govuk-!-margin-bottom-8',
     rows: [
       {
         key: { text: 'Value' },

@@ -2,14 +2,14 @@
 
 {% block content %}
 
-  {{ appHeading({
-    title: heading,
-    caption: headingCaption
+  {{ appPageHeading({
+    caption: "Edit",
+    text: team.name
   }) }}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
-      <form action="/teams/{{ team.teamId }}/team-details"
+      <form action="/teams/{{ team.teamId }}/edit"
             method="post"
             data-js="app-form-errors">
         <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
@@ -31,7 +31,7 @@
               "readonly": "readonly",
               "data-1p-ignore": ""
             },
-            value: formValues.name
+            value: team.name or formValues.name
           }) }}
 
           {{ govukTextarea({
@@ -48,7 +48,7 @@
             attributes: {
               "data-1p-ignore": ""
             },
-            value: formValues.description,
+            value: team.description or formValues.description,
             errorMessage: {
               attributes: {
                 "data-js": "app-error"
@@ -60,11 +60,13 @@
 
         {% endcall %}
 
-        <div class="govuk-button-group">
+        <div class="govuk-body govuk-button-group">
           {{ govukButton({
             classes: "app-button",
             text: "Save"
           }) }}
+
+          <a class="app-link" href="/teams/{{ team.teamId }}">Cancel</a>
         </div>
       </form>
 

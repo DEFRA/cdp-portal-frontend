@@ -2,23 +2,27 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
 
-const teamDetailsFormController = {
+const confirmRemoveMemberController = {
   options: {
     validate: {
       params: Joi.object({
-        teamId: Joi.string().required()
+        teamId: Joi.string().guid().required(),
+        userId: Joi.string().guid().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
   handler: async (request, h) => {
     const { team } = await fetchCdpTeam(request.params.teamId)
-    const heading = 'Edit Team'
+    const { user } = await fetchCdpUser(request.params.userId)
+    const title = 'Remove'
 
-    return h.view('teams/views/edit/team-details-form', {
-      pageTitle: heading,
+    return h.view('teams/views/remove/confirm-remove-member', {
+      pageTitle: 'Remove Team Member',
       team,
+      user,
       breadcrumbs: [
         {
           text: 'Teams',
@@ -26,14 +30,14 @@ const teamDetailsFormController = {
         },
         {
           text: team.name,
-          href: '/teams/' + team.teamId
+          href: `/teams/${team.teamId}`
         },
         {
-          text: 'Edit'
+          text: title
         }
       ]
     })
   }
 }
 
-export { teamDetailsFormController }
+export { confirmRemoveMemberController }

@@ -2,8 +2,9 @@ import qs from 'qs'
 
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
 import { addUserValidation } from '~/src/server/admin/teams/helpers/schema/add-user-validation.js'
+import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
 const addMemberController = {
   handler: async (request, h) => {
@@ -16,7 +17,7 @@ const addMemberController = {
     const cdpUserQuery = payload?.cdpUserQuery || null
     const userIds = Array.isArray(payload.userIds)
       ? payload?.userIds
-      : [payload?.userIds].filter(Boolean)
+      : [payload.userIds].filter(Boolean)
 
     const validationResult = addUserValidation(userIds, button).validate(
       payload,
@@ -63,7 +64,7 @@ const addMemberController = {
       const fulfilledResponse = responses.filter(
         (response) => response.status === 'fulfilled'
       )
-      const memberMessage = fulfilledResponse.length > 1 ? 'Members' : 'Member'
+      const memberMessage = pluralise('Member', fulfilledResponse.length)
 
       if (rejectedResponse.length === 0) {
         request.yar.flash(sessionNames.notifications, {
@@ -92,7 +93,7 @@ const addMemberController = {
         )
       )
 
-      return h.redirect('/teams')
+      return h.redirect('/teams/' + teamId + '/add-member' + queryString)
     }
   }
 }
