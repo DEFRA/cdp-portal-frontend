@@ -53,8 +53,8 @@ const addMemberController = {
     }
 
     if (!validationResult.error) {
-      const addUserToTeamPromises = userIds.map(
-        async (userId) => await addMemberToTeam(request, teamId, userId)
+      const addUserToTeamPromises = userIds.map((userId) =>
+        addMemberToTeam(request, teamId, userId)
       )
 
       const responses = await Promise.allSettled(addUserToTeamPromises)
@@ -88,9 +88,7 @@ const addMemberController = {
 
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        rejectedResponse.map(
-          (rejectedResponse) => rejectedResponse.reason.message
-        )
+        rejectedResponse.map((response) => response.reason.message)
       )
 
       return h.redirect('/teams/' + teamId + '/add-member' + queryString)

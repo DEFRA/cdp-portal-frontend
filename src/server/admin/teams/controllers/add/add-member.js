@@ -88,9 +88,7 @@ const addMemberController = {
 
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        rejectedResponse.map(
-          (rejectedResponse) => rejectedResponse.reason.message
-        )
+        rejectedResponse.map((response) => response.reason.message)
       )
 
       return h.redirect('/admin/teams/' + teamId + '/add-member' + queryString)
