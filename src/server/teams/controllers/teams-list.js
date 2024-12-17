@@ -1,4 +1,4 @@
-import { fetchTeams } from '~/src/server/teams/helpers/fetch/index.js'
+import { fetchTeams } from '~/src/server/teams/helpers/fetch/fetch-teams.js'
 import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row.js'
 
 const teamsListController = {
@@ -8,7 +8,6 @@ const teamsListController = {
 
     return h.view('teams/views/list', {
       pageTitle: 'Teams',
-      heading: 'Teams',
       entityRows
     })
   }

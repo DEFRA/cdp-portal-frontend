@@ -2,185 +2,153 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{# User table row generation #}
-{% set userTableRows = [] %}
-{% for user in team.users %}
-  {% set actionHtml %}
-    {% if userIsTeamMember(team.teamId) %}
-      {{ govukButton({
-        classes: "app-button app-button--small app-button--hover-destructive",
-        text: "Remove",
-        attributes: {
-          formaction: "/teams/" + team.teamId + "/remove-member/" + user.userId,
-          "data-testid": "remove-member-button"
-        }
-      }) }}
-    {% endif %}
-  {% endset %}
-
-  {{ userTableRows.push([
-    { text: user.name, classes: "govuk-!-padding-left-2", attributes: { "data-testid": "team-member" } },
-    { html: actionHtml, classes: "app-!-width-one-tenth govuk-!-padding-right-2" }
-  ]) }}
-{% endfor %}
-
-{# Repositories table row generation #}
-{% set repositoryTableRows = [] %}
-{% for repository in teamRepositories %}
-  {% set repositoryLinkHtml %}
-    <a class="app-link" href="{{ repository.url }}" target="_blank">{{ githubOrg }}/{{ repository.id }}</a>
-  {% endset %}
-
-  {% if loop.index <= 12 %}
-    {{ repositoryTableRows.push([
-      { html: repositoryLinkHtml, classes: "govuk-!-padding-left-2 govuk-!-padding-right-2" }
-    ]) }}
-  {% endif %}
-{% endfor %}
-
-{% if teamRepositories | length > 12 %}
-  {% set teamRepositoriesLinkHtml %}
-    <a class="app-link" href="https://github.com/orgs/DEFRA/teams/{{ team.github }}/repositories"
-       target="_blank">
-      more
-    </a>
-  {% endset %}
-
-  {{ repositoryTableRows.push([
-    { html: teamRepositoriesLinkHtml, classes: "govuk-!-padding-left-2 govuk-!-padding-right-2" }
-  ]) }}
-{% endif %}
-
-{# Templates table row generation #}
-{% set templateTableRows = [] %}
-{% for template in teamTemplates %}
-  {% set templateLinkHtml %}
-    <a class="app-link" href="{{ template.url }}" target="_blank">{{ githubOrg }}/{{ template.id }}</a>
-  {% endset %}
-
-  {{ templateTableRows.push([
-    { html: templateLinkHtml, classes: "govuk-!-padding-left-2 govuk-!-padding-right-2" }
-  ]) }}
-{% endfor %}
-
-{# Libraries table row generation #}
-{% set libraryTableRows = [] %}
-{% for library in teamLibraries %}
-  {% set libraryLinkHtml %}
-    <a class="app-link" href="{{ library.url }}" target="_blank">{{ githubOrg }}/{{ library.id }}</a>
-  {% endset %}
-
-  {{ libraryTableRows.push([
-    { html: libraryLinkHtml, classes: "govuk-!-padding-left-2 govuk-!-padding-right-2" }
-  ]) }}
-{% endfor %}
-
 {% block content %}
 
-  {{ appHeading({
-    title: heading,
-    entities: headingEntities,
-    actions: [
-      govukButton({
-        classes: "app-button app-button--secondary",
-        text: "Add",
-        href: "/teams/" + team.teamId + "/add-member",
-        attributes: { "data-testid": "add-button" }
-      }),
-      govukButton({
-        classes: "app-button",
-        text: "Edit",
-        href: "/teams/" + team.teamId + "/edit",
-        attributes: { "data-testid": "edit-button" }
-      })
-    ] if userIsTeamMember(team.teamId)
+  {{ appPageHeading({
+    caption: "Team",
+    text: team.name
   }) }}
 
-  <hr class="app-section-break">
-
-  <div class="govuk-grid-row govuk-!-margin-bottom-8">
-    <div class="govuk-grid-column-three-quarters">
-      <div class="govuk-grid-row">
-
-        <div class="govuk-grid-column-one-third">
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-1">About</h2>
-          <p>
-            {{ team.description }}
-          </p>
-        </div>
-
-        <div class="govuk-grid-column-one-third">
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Members</h2>
-
-          {% if userTableRows | length %}
-            {% if userIsTeamMember(team.teamId) %}
-              <form method="POST">
-              <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-            {% endif %}
-
-            {{ govukTable({
-              classes: "app-table govuk-!-margin-bottom-2",
-              attributes: { "data-testid": "team-members" },
-              rows: userTableRows
-            }) }}
-
-            {% if userIsTeamMember(team.teamId) %}
-              </form>
-            {% endif %}
-          {% else %}
-            <p>This team does not currently have any members</p>
-          {% endif %}
-        </div>
-
-        <div class="govuk-grid-column-one-third">
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Repositories</h2>
-
-          {% if repositoryTableRows | length %}
-            {{ govukTable({
-              classes: "app-table govuk-!-margin-bottom-2",
-              rows: repositoryTableRows
-            }) }}
-          {% else %}
-            <p>This team does not currently have any repositories</p>
-          {% endif %}
-        </div>
-
+  {% if userIsTeamMember %}
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-full">
+        <ul class="govuk-list">
+          <li>
+            <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
+               class="app-link app-link--underline" data-testid="admin-add-team-member">
+              Add member to team
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="govuk-grid-column-one-quarter">
-      {{ appEntityDataList({
-        items: entityDataList
-      }) }}
+  {% endif %}
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-8">
+    <div class="govuk-grid-column-one-half-from-desktop">
+      {% call appPanel() %}
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
+        {{ govukSummaryList(summaryList) }}
+      {% endcall %}
+    </div>
+    <div class="govuk-grid-column-one-half-from-desktop">
+      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+        {{ "Member" | pluralise(team.users | length) }}
+      </h2>
+
+      {% if team.users | length %}
+        {{ govukTaskList(usersTaskList) }}
+      {% else %}
+        <p>This team has no members
+
+          {% if userIsTeamMember %}
+            <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
+               class="app-link app-link--underline">
+              Add team members
+            </a>
+          {% endif %}
+        </p>
+      {% endif %}
     </div>
   </div>
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-4">
-    <div class="govuk-grid-column-three-quarters">
-      <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Templates</h2>
+  <div class="govuk-grid-row govuk-!-margin-bottom-8">
+    <div class="govuk-grid-column-one-half-from-desktop">
+      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+        {{ "Service" | pluralise(teamServices.items | length) }}
+      </h2>
 
-        {% if templateTableRows | length %}
-          {{ govukTable({
-            classes: "app-table govuk-!-margin-bottom-2",
-            rows: templateTableRows
-          }) }}
-        {% else %}
-          <p>This team does not currently own any templates</p>
-        {% endif %}
+      {% if teamServices.items | length %}
+        {{ appDetailedList(teamServices) }}
+      {% else %}
+        <p>This team has no services.
+
+          {% if userIsTeamMember %}
+            <a href="{{ routeLookup('create') }}"
+               class="app-link app-link--underline">
+              Create a service
+            </a>
+          {% endif %}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="govuk-grid-column-one-half-from-desktop">
+      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+        {{ "Test-suite" | pluralise(teamTestSuites.items | length) }}
+      </h2>
+
+      {% if teamTestSuites.items | length %}
+        {{ appDetailedList(teamTestSuites) }}
+      {% else %}
+        <p>This team has no test-suites.
+
+          {% if userIsTeamMember %}
+            <a href="{{ routeLookup('create') }}"
+               class="app-link app-link--underline">
+              Create a test-suite
+            </a>
+          {% endif %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-8">
+    <div class="govuk-grid-column-full govuk-!-margin-bottom-2">
+      <div class="app-section app-section--wide">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Repositories</h2>
+        <p>
+          {{ team.name }} GitHub repositories organized by topic. To view all repositories owned by this team, visit
+          <a class="app-link app-link--underline"
+             href="https://github.com/orgs/DEFRA/teams/{{ team.github }}/repositories"
+             target="_blank" rel="noopener noreferrer">all GitHub repositories</a>.
+        </p>
       </div>
+    </div>
 
-      <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Libraries</h2>
+    <div class="govuk-grid-column-one-quarter-from-desktop">
+      <h3 class="govuk-heading-m govuk-!-margin-0">Services</h3>
 
-        {% if libraryTableRows | length %}
-          {{ govukTable({
-            classes: "app-table govuk-!-margin-bottom-2",
-            rows: libraryTableRows
-          }) }}
-        {% else %}
-          <p>This team does not currently own any libraries</p>
-        {% endif %}
-      </div>
+      {% if servicesTaskList.items | length %}
+        {{ govukTaskList(servicesTaskList) }}
+      {% else %}
+        <p class="govuk-!-margin-top-2">This team has no service repositories</p>
+      {% endif %}
+
+    </div>
+
+    <div class="govuk-grid-column-one-quarter-from-desktop">
+      <h3 class="govuk-heading-m govuk-!-margin-0">Tests</h3>
+
+      {% if testsTaskList.items | length %}
+        {{ govukTaskList(testsTaskList) }}
+      {% else %}
+        <p class="govuk-!-margin-top-2">This team has no test repositories</p>
+      {% endif %}
+
+    </div>
+
+    <div class="govuk-grid-column-one-quarter-from-desktop">
+      <h3 class="govuk-heading-m govuk-!-margin-0">Templates</h3>
+
+      {% if templatesTaskList.items | length %}
+        {{ govukTaskList(templatesTaskList) }}
+      {% else %}
+        <p class="govuk-!-margin-top-2">This team has no template repositories</p>
+      {% endif %}
+
+    </div>
+
+    <div class="govuk-grid-column-one-quarter-from-desktop">
+      <h3 class="govuk-heading-m govuk-!-margin-0">Libraries</h3>
+
+      {% if librariesTaskList.items | length %}
+        {{ govukTaskList(librariesTaskList) }}
+      {% else %}
+        <p class="govuk-!-margin-top-2">This team has no library repositories</p>
+      {% endif %}
+
     </div>
   </div>
 

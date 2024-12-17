@@ -1,12 +1,29 @@
 @use "variables/colours" as *;
 
-// TODO tidy up
+// stylelint-disable max-nesting-depth
 .app-table {
+  .govuk-table__head {
+    .govuk-table__row {
+      .govuk-table__header {
+        border-bottom: 1px solid $app-mid-grey;
+      }
+
+      &:hover {
+        background-color: $app-grey;
+      }
+    }
+  }
+
   .govuk-table__body {
     .govuk-table__row {
+      .govuk-table__cell {
+        border-bottom: 1px solid $app-mid-grey;
+      }
+
       &:hover {
         background-color: $app-grey;
       }
     }
   }
 }
+// stylelint-enable max-nesting-depth

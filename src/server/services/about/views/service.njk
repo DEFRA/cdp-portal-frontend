@@ -43,7 +43,7 @@
 
   {{ appHeading({
     title: heading,
-    caption: "Information about the " + heading + " microservice.",
+    caption: "Information about the " + heading + " microservice",
     entities: headingEntities
   }) }}
 
@@ -68,7 +68,7 @@
               heading: "Application links",
               icon: appGlobeIcon({ classes: "app-icon--small", description: "Frontend application links" }),
               intro: {
-                text: "Access your service in CDP environments."
+                text: "Access your service in CDP environments"
               }
             }) %}
               <dl class="app-description-list">
@@ -93,7 +93,7 @@
               heading: "API root urls",
               icon: appGlobeIcon({ classes: "app-icon--small", description: "Frontend application links"}),
               intro: {
-                text: "Service backend API urls. These are intended to be called from a frontend."
+                text: "Service backend API urls. These are intended to be called from a frontend"
               }
             }) %}
               <dl class="app-description-list">
@@ -117,7 +117,7 @@
             heading: "Logs",
             icon: appLogsIcon({ classes: "app-icon--small"}),
             intro: {
-              text: "OpenSearch logs for monitoring and troubleshooting your service."
+              text: "OpenSearch logs for monitoring and troubleshooting your service"
             }
           }) %}
             <dl class="app-description-list">
@@ -139,7 +139,7 @@
             heading: "Metrics",
             icon: appChartIcon({ classes: "app-icon--small"}),
             intro: {
-              text: "Grafana observability metrics data and graphs for your service."
+              text: "Grafana observability metrics data and graphs for your service"
             }
           }) %}
             <dl class="app-description-list">
@@ -165,7 +165,7 @@
           {% call appSummaryItem({
             heading: "Configuration",
             icon: appWrenchIcon({ classes: "app-icon--small"}),
-            intro: { text: "Manage service configuration across CDP environments." }
+            intro: { text: "Manage service configuration across CDP environments" }
           }) %}
             <p>
               <a class="app-link"
@@ -179,7 +179,7 @@
             heading: "Builds",
             icon: appCheckIcon({ classes: "app-icon--small", description: "Builds" }),
             intro: {
-              text: "Test, build and publish ready-to-deploy docker images of your service, with GitHub Actions."
+              text: "Test, build and publish ready-to-deploy docker images of your service, with GitHub Actions"
             }
           }) %}
             <p>
@@ -194,7 +194,7 @@
             heading: "Published Images",
             icon: appInstanceIcon({ classes: "app-icon--small", description: "Published Images" }),
             intro: {
-              text: "Latest built and published Docker images by version."
+              text: "Latest built and published Docker images by version"
             }
           }) %}
 
@@ -230,7 +230,7 @@
         {{ appEntityList({
           headings: rowHeadings,
           entityRows: runningServicesEntityRows,
-          noResult: "Currently there are no versions of " + service.imageName + " running in any environment."
+          noResult: "Currently there are no versions of " + service.imageName + " running in any environment"
         }) }}
       </section>
     </div>

@@ -1,14 +1,26 @@
 {% extends "layouts/page.njk" %}
 
+{% set helpHtml %}
+  Can't find a user? Have they been set up with a CDP user account? Contact the Platform team via Slack <a
+  class="app-link" href="{{ supportChannel }}" target="_blank"
+  rel="noopener noreferrer">#cdp-support</a> to set one up.
+{% endset %}
+
 {% block content %}
 
-  {{ appHeading({
-    title: heading,
-    caption: headingCaption
+  {{ appPageHeading({
+    caption: "Add Member to Team",
+    text: team.name
   }) }}
 
+  <div class="govuk-!-margin-bottom-6">
+    {{ appInfo({
+      html: helpHtml
+    }) }}
+  </div>
+
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-column-two-thirds">
       <form action="/teams/{{ team.teamId }}/add-member"
             method="post"
             data-js="auto-submit app-form-errors">
@@ -75,19 +87,22 @@
             {% endif %}
 
             {% if formValues.cdpUserQuery and not cdpUsers | length %}
-              <p class="govuk-hint">No user(s) found</p>
+              <p class="govuk-hint">No users found</p>
             {% endif %}
 
           </article>
 
         {% endblock %}
 
-        {{ govukButton({
-          classes: "app-button",
-          text: "Add"
-        }) }}
-      </form>
+        <div class="govuk-body govuk-button-group">
+          {{ govukButton({
+            classes: "app-button",
+            text: "Add"
+          }) }}
 
+          <a class="app-link" href="/teams/{{ team.teamId }}">Cancel</a>
+        </div>
+      </form>
     </div>
   </div>
 

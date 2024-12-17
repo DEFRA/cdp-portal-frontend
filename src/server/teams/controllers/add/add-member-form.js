@@ -5,14 +5,15 @@ import filter from 'lodash/filter.js'
 
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import {
-  searchCdpUsers,
-  fetchCdpTeam
+  fetchCdpTeam,
+  searchCdpUsers
 } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
 import { presentUsersToAdd } from '~/src/server/admin/teams/helpers/pre/present-users-to-add.js'
+import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
 
 const addMemberFormController = {
   options: {
+    id: 'teams/{teamId}/add-member',
     validate: {
       params: Joi.object({
         teamId: Joi.string().required()
@@ -43,12 +44,10 @@ const addMemberFormController = {
     const allUsers = filter(
       uniqBy([...usersToAdd, ...cdpUsers], 'userId'),
       (user) => !team.users.some((teamUser) => teamUser.userId === user.userId)
-    )
+    ).sort((a, b) => a.name.localeCompare(b.name))
 
     return h.view('teams/views/add/member-form', {
-      pageTitle: 'Add team members',
-      heading: 'Add team members',
-      headingCaption: 'Search for CDP - Portal user',
+      pageTitle: 'Add Team Member',
       formValues: {
         cdpUserQuery,
         userIds
@@ -70,11 +69,11 @@ const addMemberFormController = {
           href: '/teams'
         },
         {
-          text: team.name + ' team',
+          text: team.name,
           href: '/teams/' + team.teamId
         },
         {
-          text: 'Add team members'
+          text: 'Add'
         }
       ]
     })

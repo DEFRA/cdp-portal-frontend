@@ -8,7 +8,7 @@ const editActionItems = (teamId) => ({
   items: [
     {
       classes: 'app-link app-link--underline',
-      href: `/admin/teams/${teamId}/edit`,
+      href: `/teams/${teamId}/edit`,
       text: 'Edit',
       visuallyHiddenText: 'Edit team',
       attributes: { 'data-testid': 'edit-link' }
@@ -26,24 +26,27 @@ const buildList = (items) => {
   )
 }
 
-function transformTeamToSummary(team, withActions = true) {
+function transformTeamToSummary(team, withActions = false) {
   const editActions = editActionItems(team.teamId)
   const githubOrg = config.get('githubOrg')
   const actions = withActions ? editActions : null
 
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-8',
+    classes: 'app-summary-list',
     attributes: { 'data-testid': 'govuk-summary-list' },
     rows: [
       {
         key: { text: 'Name' },
-        value: { text: team.name },
-        actions
+        value: { text: team.name }
       },
       {
         key: { text: 'Description' },
         value: { text: team.description || noValue },
         actions
+      },
+      {
+        key: { text: 'Members' },
+        value: { text: team.users.length }
       },
       {
         key: { text: 'GitHub team' },
@@ -54,8 +57,7 @@ function transformTeamToSummary(team, withActions = true) {
                 `@${team.github}`
               )
             : noValue
-        },
-        actions
+        }
       },
       {
         key: { text: 'Service Codes' },
@@ -63,8 +65,7 @@ function transformTeamToSummary(team, withActions = true) {
           html: team.serviceCodes?.length
             ? buildList(team.serviceCodes)
             : noValue
-        },
-        actions
+        }
       },
       {
         key: { text: 'Alert Emails' },
@@ -76,8 +77,7 @@ function transformTeamToSummary(team, withActions = true) {
                 )
               )
             : noValue
-        },
-        actions
+        }
       },
       {
         key: { text: 'Last Updated' },

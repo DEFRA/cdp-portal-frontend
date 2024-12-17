@@ -1,0 +1,45 @@
+{% extends "layouts/page.njk" %}
+{% from "entity/macro.njk" import appEntity %}
+
+{% set helpHtml %}
+  If you accidentally remove a member from a team
+  <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId : team.teamId } }) }}"
+     class="govuk-link app-link">you can simply add them back into the team.</a>
+{% endset %}
+
+{% block content %}
+
+  {{ appPageHeading({
+    caption: "Remove Member from Team",
+    text: team.name
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third-from-desktop">
+
+      <h2 class="govuk-heading-m">Remove the following team member</h2>
+
+      <p>Would you like to remove <em>{{ user.name }}</em> from the <em>{{ team.name }}</em> team?</p>
+
+      <div class="govuk-!-margin-bottom-6">
+        {{ appInfo({
+          html: helpHtml
+        }) }}
+      </div>
+
+      <form action="/teams/{{ team.teamId }}/remove-member/{{ user.userId }}" method="post">
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
+        <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+          {{ govukButton({
+            classes: "app-button app-button--destructive",
+            text: "Remove team member"
+          }) }}
+
+          <a class="app-link" href="/teams/{{ team.teamId }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
