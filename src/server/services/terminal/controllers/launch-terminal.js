@@ -25,6 +25,14 @@ const launchTerminalController = {
       )
 
       if (response?.ok) {
+        request.audit.send({
+          event: 'terminal requested',
+          user: {
+            id: request.auth.credentials.id,
+            name: request.auth.credentials.displayName
+          },
+          terminal: data
+        })
         return h.redirect(
           `/services/${data.service}/terminal/${data.environment}/${data.token}`
         )
