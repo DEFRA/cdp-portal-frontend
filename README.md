@@ -3,7 +3,7 @@
 The Core Delivery Platform (CDP), Portal Frontend is a web application that provides a user interface for CDP.
 
 [![Publish](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/publish.yml)
-[![Integration Tests](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/integration-tests.yml)
+[![Journey Tests](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/journey-tests.yml/badge.svg)](https://github.com/DEFRA/cdp-portal-frontend/actions/workflows/journey-tests.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_cdp-portal-frontend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DEFRA_cdp-portal-frontend)
 
 - [Requirements](#requirements)
