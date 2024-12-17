@@ -33,6 +33,19 @@ const terminalBrowserController = {
       return h.redirect(`/services/${serviceId}`)
     }
 
+    request.audit.send({
+      event: 'terminal opened',
+      user: {
+        id: request.auth?.credentials?.id,
+        name: request.auth?.credentials?.displayName
+      },
+      terminal: {
+        token,
+        environment,
+        serviceId
+      }
+    })
+
     return h.view('services/terminal/views/terminal-browser', {
       pageTitle: `Terminal - ${serviceId} - ${environment}`,
       serviceId,
