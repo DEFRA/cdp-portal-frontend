@@ -5,6 +5,7 @@ import { auditSchema } from '~/src/server/common/helpers/audit/schema/audit-sche
 import { auditMessageSchema } from '~/src/server/common/helpers/audit/schema/audit-message-schema.js'
 import { auditMessage } from '~/src/server/common/helpers/audit/audit-message.js'
 import { sanitize } from '~/src/server/common/helpers/sanitize.js'
+import { getTraceId } from '@defra/hapi-tracing'
 
 class AwsAuditor {
   constructor(options) {
@@ -26,7 +27,7 @@ class AwsAuditor {
   }
 
   async send(message, tags = {}) {
-    const cdpRequestId = this.request.headers['x-cdp-request-id']
+    const cdpRequestId = getTraceId()
     this.logger.info(`Audit - Request id: ${cdpRequestId}`)
 
     const source = this.options.audit.source
