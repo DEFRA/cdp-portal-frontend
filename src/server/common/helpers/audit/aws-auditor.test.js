@@ -1,7 +1,9 @@
 import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor.js'
 import { FirehoseClient, PutRecordCommand } from '@aws-sdk/client-firehose'
+import { getTraceId } from '@defra/hapi-tracing'
 
 jest.mock('@aws-sdk/client-firehose')
+jest.mock('@defra/hapi-tracing')
 
 describe('#AwsAuditor', () => {
   const mockInfoLogger = jest.fn()
@@ -26,6 +28,7 @@ describe('#AwsAuditor', () => {
 
     test('Should not send audit with incorrect cdp request id', async () => {
       const mockFirehoseSend = FirehoseClient.mock.instances[0].send
+      getTraceId.mockReturnValue(undefined)
 
       await auditor.send('example-message')
 
@@ -39,6 +42,8 @@ describe('#AwsAuditor', () => {
 
   describe('With "x-cdp-request-id" header', () => {
     let auditor
+
+    getTraceId.mockReturnValue('mock-x-cdp-request-id')
 
     beforeEach(() => {
       auditor = new AwsAuditor({
@@ -67,6 +72,7 @@ describe('#AwsAuditor', () => {
       test('Should send audit with message string', async () => {
         const mockFirehoseSend = FirehoseClient.mock.instances[0].send
         mockFirehoseSend.mockResolvedValueOnce({ RecordId: 'Mock Record' })
+        getTraceId.mockReturnValue('mock-x-cdp-request-id')
 
         await auditor.send('example-message', { foo: 'bar' })
 
@@ -85,6 +91,7 @@ describe('#AwsAuditor', () => {
       test('Should send audit with message object', async () => {
         const mockFirehoseSend = FirehoseClient.mock.instances[0].send
         mockFirehoseSend.mockResolvedValueOnce({ RecordId: 'Mock Record' })
+        getTraceId.mockReturnValue('mock-x-cdp-request-id')
 
         await auditor.send(
           { user: 'jeff', age: 24, id: 'mock-user-id' },
