@@ -20,9 +20,9 @@ const contentSecurityPolicy = {
   options: {
     defaultSrc: ['self'],
     fontSrc: ['self', 'data:'],
-    connectSrc: ['self'],
-    scriptSrc: ['self', 'unsafe-inline'],
-    styleSrc: ['self', 'unsafe-inline'],
+    connectSrc: ['self', 'data:'],
+    scriptSrc: ['self', 'data:', 'unsafe-inline'],
+    styleSrc: ['self', 'data:', 'unsafe-inline'],
     imgSrc: ['self', 'data:'],
     frameSrc: ['self', 'data:', ...terminalProxyDomains],
     generateNonces: false
