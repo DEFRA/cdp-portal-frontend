@@ -11,16 +11,17 @@
   "Call cdp-nginx-upstreams remove workflow",
   "Call cdp-squid-proxy remove workflow",
   "Call cdp-grafana-svc remove workflow",
-  "Call cdp-tf-svc-infra remove workflow"
+  "Call cdp-tf-svc-infra remove workflow",
+  "Call remove ECR images workflow"
 ] %}
 
 {% set warnings = [
-  "Undeploy a service in ECS",
-  "Remove ECR images",
-  "Remove Docker Hub images",
-  "Remove Tenant MongoDB collections",
-  "Remove Tenant Postgresql DBs",
-  "Empty Tenant S3 buckets"
+  "Scale service to zero in ECS",
+  "Remove service from ECS",
+  "Docker Hub images are removed",
+  "Remove service MongoDB collections",
+  "Remove service Postgresql DBs",
+  "Empty service S3 buckets"
 ] %}
 
 {% set warningHtml %}
