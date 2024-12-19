@@ -1,10 +1,21 @@
 {% extends "layouts/page.njk" %}
 
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
 
 {% set successMesages = [
   "MongoDB entries in cdp-self-service-ops deleted",
   "MongoDB entries in cdp-portal-backend deleted"
+] %}
+
+{% set todos = [
+  "Scale service to zero in ECS",
+  "Remove service from ECS",
+  "Check the below workflows have succeeded",
+  "Ask a GitHub admin to delete/archive the repository",
+  "Remove service MongoDB collections",
+  "Remove service Postgresql DBs",
+  "Empty service S3 buckets"
 ] %}
 
 {% block content %}
@@ -12,7 +23,7 @@
 
     {{ appPageHeading({
       caption: "Decommissioned Service",
-      text: serviceName
+      text: decommissionedServiceName
     }) }}
 
     <div class="govuk-grid-row">
@@ -30,6 +41,21 @@
               <div class="app-!-layout-centered">
                 {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
                 {{ message }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">What I need to do now?</h2>
+        <p class="govuk-!-margin-bottom-2">
+          This following things need to be done by you:
+        </p>
+        <ul class="govuk-list govuk-!-margin-left-1">
+          {% for todo in todos %}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appInfoIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ todo }}
               </div>
             </li>
           {% endfor %}
@@ -56,13 +82,20 @@
               class="app-link"
               href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-service.yml"
               target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra
+              cdp-tf-svc-infra - Remove service
+            </a>
+          </li>
+          <li>
+            <a
+              class="app-link"
+              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-ecr.yml"
+              target="_blank" rel="noopener noreferrer">
+              cdp-tf-svc-infra - Remove Ecr
             </a>
           </li>
         </ul>
 
-        <h2 class="govuk-heading-m">Executed workflows only for services:</h2>
-
+        <h2 class="govuk-heading-m">Executed workflows for services only:</h2>
         <ul class="govuk-list govuk-list--bullet">
           <li>
             <a class="app-link"
