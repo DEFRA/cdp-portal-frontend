@@ -65,7 +65,7 @@
 
           {% if service.isFrontend %}
             {% call appSummaryItem({
-              heading: "Application links",
+              heading: "Application Urls",
               icon: appGlobeIcon({ classes: "app-icon--small", description: "Frontend application links" }),
               intro: {
                 text: "Access your service in CDP environments"
@@ -84,6 +84,27 @@
                   </dd>
                 {% endfor %}
 
+                <dl class="app-description-list">
+
+                  {% if envsWithVanityUrls|length %}
+                    <dt class="app-description-list__term">External Urls</dt>
+                    <dd class="app-description-list__details">
+                      <table>
+                      {% for environment, response in envsWithVanityUrls %}
+                        {% for vanityUrl in response.vanityUrls %}
+                        <tr>
+                          <td>{{ environment }}</td>
+                          <td><a class="app-link"
+                                 href="{{ vanityUrl }}"
+                                 target="_blank" rel="noopener noreferrer">
+                              {{ vanityUrl }}
+                            </a></td>
+                        </tr>
+                        {% endfor %}
+                      {% endfor %}
+                      </table>
+                    </dd>
+                  {% endif %}
               </dl>
             {% endcall %}
           {% endif %}
@@ -91,7 +112,7 @@
           {% if service.isBackend %}
             {% call appSummaryItem({
               heading: "API root urls",
-              icon: appGlobeIcon({ classes: "app-icon--small", description: "Frontend application links"}),
+              icon: appGlobeIcon({ classes: "app-icon--small", description: "Backend application links"}),
               intro: {
                 text: "Service backend API urls. These are intended to be called from a frontend"
               }

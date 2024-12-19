@@ -12,6 +12,7 @@ import { buildRunningServicesRowHeadings } from '~/src/server/common/helpers/bui
 import { runningServicesToEntityRow } from '~/src/server/common/transformers/running-services-to-entity-row.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { fetchVanityUrls } from '~/src/server/common/helpers/fetch/fetch-vanity-urls.js'
 
 const serviceController = {
   options: {
@@ -36,6 +37,16 @@ const serviceController = {
     const availableVersions = await fetchAvailableVersions(service.serviceName)
     const environments = getEnvironments(request.auth.credentials?.scope)
     const runningServices = (await fetchRunningServicesById(serviceId)) ?? []
+
+    const vanityUrls = await fetchVanityUrls(
+      service.serviceName,
+      request.logger
+    )
+
+    const envsWithVanityUrls = Object.entries(vanityUrls).filter(
+      ([key, value]) => value && environments.includes(key)
+    )
+
     const runningServicesEntityRows = compose(
       runningServicesToEntityRow(environments),
       withEnvironments
@@ -53,6 +64,7 @@ const serviceController = {
       service,
       isServiceOwner,
       envsWithDeployment,
+      envsWithVanityUrls,
       runningServicesEntityRows,
       heading: service.serviceName,
       rowHeadings: buildRunningServicesRowHeadings(environments),

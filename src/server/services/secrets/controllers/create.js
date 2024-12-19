@@ -46,7 +46,7 @@ const createSecretController = {
       button
     }
 
-    const secrets = await fetchSecrets(environment, serviceId)
+    const secrets = await fetchSecrets(environment, serviceId, request.logger)
 
     const validationResult = secretPayloadValidation(
       button,

@@ -9,9 +9,10 @@ import { getTraceId } from '@defra/hapi-tracing'
 /**
  * @param {string} url
  * @param {RequestOptions} options
+ * @param {boolean} logError
  * @returns {Promise<{data: {object}, response: {Response}}>}
  */
-async function fetcher(url, options = {}) {
+async function fetcher(url, options = {}, logError = true) {
   const logger = createLogger()
   const tracingHeader = config.get('tracing.header')
   const traceId = getTraceId()
@@ -31,8 +32,9 @@ async function fetcher(url, options = {}) {
   try {
     return await handleResponse(response)
   } catch (error) {
-    logger.error(error, error.message)
-
+    if (logError) {
+      logger.error(error, error.message)
+    }
     throw Boom.boomify(new Error(error.message), {
       statusCode: error?.output?.statusCode ?? 500
     })

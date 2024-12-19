@@ -7,7 +7,7 @@ async function fetchDeployableService(serviceId) {
   try {
     const endpoint = config.get('portalBackendUrl') + `/services/${serviceId}`
 
-    const { data } = await fetcher(endpoint)
+    const { data } = await fetcher(endpoint, {}, false)
     return data
   } catch (error) {
     const statusCode = error.output.statusCode
