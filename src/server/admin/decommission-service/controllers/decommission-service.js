@@ -2,7 +2,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 const decommissionServiceController = {
   handler: async (request, h) => {

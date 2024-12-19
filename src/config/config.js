@@ -247,9 +247,12 @@ const config = convict({
     redact: {
       doc: 'Log paths to redact',
       format: Array,
-      default: isProduction
-        ? ['req.headers.authorization', 'req.headers.cookie', 'res.headers']
-        : []
+      default: [
+        'req.headers.authorization',
+        'req.headers.cookie',
+        'res.headers'
+      ],
+      env: 'LOG_REDACT'
     }
   },
   tracing: {

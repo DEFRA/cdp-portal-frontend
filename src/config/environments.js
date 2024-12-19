@@ -1,6 +1,6 @@
 import { scopes } from '~/src/server/common/constants/scopes.js'
 
-const environments = {
+const environmentsDetail = {
   infraDev: { kebabName: 'infra-dev', scope: scopes.admin },
   management: { kebabName: 'management', scope: scopes.admin },
   dev: { kebabName: 'dev', scope: null },
@@ -10,4 +10,8 @@ const environments = {
   prod: { kebabName: 'prod', scope: null }
 }
 
-export { environments }
+const environments = Object.values(environmentsDetail).map(
+  ({ kebabName }) => kebabName
+)
+
+export { environments, environmentsDetail }

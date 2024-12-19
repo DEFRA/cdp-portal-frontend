@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 async function stopTest(request, runId) {
   const endpoint = config.get('selfServiceOpsUrl') + '/stop-test-suite'

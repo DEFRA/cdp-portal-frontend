@@ -1,7 +1,7 @@
 import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { proxyFetch } from '~/src/server/common/helpers/proxy/proxy-fetch.js'
 

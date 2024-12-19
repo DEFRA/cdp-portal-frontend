@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 import { s3FileHandler } from '~/src/server/documentation/helpers/s3-file-handler.js'
 import { markdownHandler } from '~/src/server/documentation/helpers/markdown-handler.js'

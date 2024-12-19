@@ -34,7 +34,11 @@ const summaryController = {
       ({ value }) => value === parseInt(stepData?.memory, 10)
     )
 
-    const secrets = await fetchSecrets(stepData.environment, stepData.imageName)
+    const secrets = await fetchSecrets(
+      stepData.environment,
+      stepData.imageName,
+      request.logger
+    )
     const secretDetail = transformSecrets(secrets)
 
     return h.view('deploy-service/views/summary', {

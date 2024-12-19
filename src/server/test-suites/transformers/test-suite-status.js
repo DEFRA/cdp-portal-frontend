@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { unknownValue } from '~/src/server/common/constants/no-value.js'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts.js'

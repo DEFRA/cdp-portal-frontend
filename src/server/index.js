@@ -5,7 +5,7 @@ import Scooter from '@hapi/scooter'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from '~/src/server/router.js'
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { nunjucksConfig } from '~/src/config/nunjucks/index.js'
 import { csrf } from '~/src/server/common/helpers/auth/csrf.js'
 import { catchAll } from '~/src/server/common/helpers/errors/catch-all.js'

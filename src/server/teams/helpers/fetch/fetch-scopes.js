@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
 

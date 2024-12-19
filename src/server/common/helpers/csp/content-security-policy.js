@@ -1,6 +1,6 @@
 import Blankie from 'blankie'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const terminalProxyUrl = config.get('terminalProxyUrl')

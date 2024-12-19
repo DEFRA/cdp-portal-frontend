@@ -1,15 +1,16 @@
-import { environments } from '~/src/config/environments.js'
+import { environmentsDetail } from '~/src/config/environments.js'
 
 const order = [
-  environments.infraDev.kebabName,
-  environments.management.kebabName,
-  environments.dev.kebabName,
-  environments.test.kebabName,
-  environments.extTest.kebabName,
-  environments.perfTest.kebabName,
-  environments.prod.kebabName
+  environmentsDetail.infraDev.kebabName,
+  environmentsDetail.management.kebabName,
+  environmentsDetail.dev.kebabName,
+  environmentsDetail.test.kebabName,
+  environmentsDetail.extTest.kebabName,
+  environmentsDetail.perfTest.kebabName,
+  environmentsDetail.prod.kebabName
 ]
 
 const sortByEnv = (a, b) => order.indexOf(a) - order.indexOf(b)
+const sortKeyByEnv = (key) => (a, b) => sortByEnv(a[key], b[key])
 
-export { sortByEnv }
+export { sortByEnv, sortKeyByEnv }

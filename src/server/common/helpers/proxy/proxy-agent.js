@@ -1,7 +1,7 @@
 import { URL } from 'node:url'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 // TODO this needs updating to use the proxy work in user-service-backend
 

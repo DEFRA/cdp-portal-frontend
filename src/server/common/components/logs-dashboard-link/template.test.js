@@ -23,7 +23,7 @@ describe('Logs Dashboard Link Component', () => {
 
     test('Should render with expected text', () => {
       expect(logsDashBoardLink.text().trim()).toBe(
-        'logs.management.cdp-int.defra.cloud'
+        'https://logs.management.cdp-int.defra.cloud'
       )
     })
   })

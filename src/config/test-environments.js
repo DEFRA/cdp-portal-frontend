@@ -1,12 +1,12 @@
-import { environments } from '~/src/config/index.js'
+import { environmentsDetail } from '~/src/config/environments.js'
 
 const testEnvironments = {
-  performance: [environments.perfTest.kebabName],
+  performance: [environmentsDetail.perfTest.kebabName],
   journey: [
-    environments.test.kebabName,
-    environments.dev.kebabName,
-    environments.perfTest.kebabName,
-    environments.prod.kebabName
+    environmentsDetail.test.kebabName,
+    environmentsDetail.dev.kebabName,
+    environmentsDetail.perfTest.kebabName,
+    environmentsDetail.prod.kebabName
   ]
 }
 

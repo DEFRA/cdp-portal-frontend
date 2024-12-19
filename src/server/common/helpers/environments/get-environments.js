@@ -1,7 +1,7 @@
-import { environments } from '~/src/config/environments.js'
+import { environmentsDetail } from '~/src/config/environments.js'
 
 function getEnvironments(scopes = []) {
-  return Object.values(environments)
+  return Object.values(environmentsDetail)
     .filter(({ scope }) => {
       if (!scope) {
         return true
@@ -13,12 +13,13 @@ function getEnvironments(scopes = []) {
 }
 
 function getEnvironmentsThatNeed(scopes = []) {
-  return Object.values(environments)
+  return Object.values(environmentsDetail)
     .filter(({ scope }) => scopes.includes(scope))
     .map(({ kebabName }) => kebabName)
 }
 
 function getAllEnvironmentKebabNames() {
-  return Object.values(environments).map(({ kebabName }) => kebabName)
+  return Object.values(environmentsDetail).map(({ kebabName }) => kebabName)
 }
+
 export { getEnvironments, getEnvironmentsThatNeed, getAllEnvironmentKebabNames }

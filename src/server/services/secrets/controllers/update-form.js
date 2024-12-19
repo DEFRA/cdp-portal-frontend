@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
@@ -33,7 +33,7 @@ const updateSecretFormController = {
     const environment = request.params?.environment
     const secretKey = request.query?.secretKey
     const formattedEnvironment = formatText(environment)
-    const secrets = await fetchSecrets(environment, serviceName)
+    const secrets = await fetchSecrets(environment, serviceName, request.logger)
 
     return h.view('services/secrets/views/update-form', {
       pageTitle: `${serviceName} - Update secret`,
