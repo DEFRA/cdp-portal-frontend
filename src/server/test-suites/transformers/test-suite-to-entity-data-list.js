@@ -14,6 +14,16 @@ function testSuiteToEntityDataList(testSuite) {
       }
     },
     {
+      heading: {
+        text: 'Service page'
+      },
+      entity: {
+        kind: 'link',
+        value: testSuite.serviceName,
+        url: `/services/${testSuite.serviceName}`
+      }
+    },
+    {
       heading: { text: `Team${testSuite?.teams?.length > 1 ? 's' : ''}` },
       entity: {
         kind: 'group',

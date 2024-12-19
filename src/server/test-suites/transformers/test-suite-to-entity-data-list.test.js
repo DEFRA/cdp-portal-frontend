@@ -27,6 +27,16 @@ describe('#testSuiteToEntityDataList', () => {
         },
         {
           entity: {
+            kind: 'link',
+            url: '/services/cdp-portal-smoke-tests',
+            value: 'cdp-portal-smoke-tests'
+          },
+          heading: {
+            text: 'Service page'
+          }
+        },
+        {
+          entity: {
             kind: 'group',
             value: [
               {
