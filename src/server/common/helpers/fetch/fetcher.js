@@ -31,7 +31,7 @@ async function fetcher(url, options = {}) {
   try {
     return await handleResponse(response)
   } catch (error) {
-    logger.error(error, error.message)
+    logger.debug({ error }, 'Fetcher error')
 
     throw Boom.boomify(new Error(error.message), {
       statusCode: error?.output?.statusCode ?? 500
