@@ -5,7 +5,9 @@ function buildVersion(version, environment, serviceName) {
   return {
     kind: 'text',
     value: version ?? null,
-    title: `${serviceName} - ${version} - ${upperFirst(environment)}`
+    title: version
+      ? `${serviceName} - ${version} - ${upperFirst(environment)}`
+      : null
   }
 }
 
