@@ -1,4 +1,4 @@
-import { environments } from '~/src/config/index.js'
+import { environments } from '~/src/config/environments.js'
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { findEnvironmentsForTestSuite } from '~/src/server/test-suites/helpers/find-environments-for-test-suite.js'
