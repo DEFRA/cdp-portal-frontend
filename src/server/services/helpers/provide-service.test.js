@@ -41,6 +41,7 @@ describe('#provideService', () => {
         isFrontend: true,
         isPrivate: true,
         isTemplate: false,
+        isTestSuite: false,
         primaryLanguage: 'JavaScript',
         serviceName: 'cdp-portal-frontend',
         teams: [
