@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { serviceToEntityRow } from '~/src/server/services/about/transformers/service-to-entity-row.js'
 import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services-with-repositories.js'
 

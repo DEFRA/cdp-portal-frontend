@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances.js'
 import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values.js'

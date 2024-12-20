@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'

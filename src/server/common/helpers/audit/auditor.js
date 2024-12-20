@@ -1,6 +1,6 @@
 import noop from 'lodash/noop.js'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { DevAuditor } from '~/src/server/common/helpers/audit/dev-auditor.js'
 import { AwsAuditor } from '~/src/server/common/helpers/audit/aws-auditor.js'
 

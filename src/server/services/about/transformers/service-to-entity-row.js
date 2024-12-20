@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 

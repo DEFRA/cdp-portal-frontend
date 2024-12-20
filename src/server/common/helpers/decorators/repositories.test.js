@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { repositoriesFixture } from '~/src/__fixtures__/repositories.js'
 import { servicesFixture } from '~/src/__fixtures__/services.js'
 import { createServicesStatusesFixture } from '~/src/__fixtures__/create-services-statuses.js'

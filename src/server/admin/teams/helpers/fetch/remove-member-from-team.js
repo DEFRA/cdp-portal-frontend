@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 async function removeMemberFromTeam(request, teamId, userId) {
   const endpoint =
