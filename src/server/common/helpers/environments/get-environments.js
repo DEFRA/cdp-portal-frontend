@@ -21,4 +21,5 @@ function getEnvironmentsThatNeed(scopes = []) {
 function getAllEnvironmentKebabNames() {
   return Object.values(environments).map(({ kebabName }) => kebabName)
 }
+
 export { getEnvironments, getEnvironmentsThatNeed, getAllEnvironmentKebabNames }
