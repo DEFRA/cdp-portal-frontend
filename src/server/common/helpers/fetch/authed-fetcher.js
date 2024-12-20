@@ -70,7 +70,7 @@ function authedFetcherDecorator(request) {
       try {
         return await handleResponse(response)
       } catch (error) {
-        request.logger.error(error, error.message)
+        request.logger.debug({ error }, 'Authenticated Fetcher error')
 
         throw Boom.boomify(new Error(error.message), {
           statusCode: error?.output?.statusCode ?? 500
