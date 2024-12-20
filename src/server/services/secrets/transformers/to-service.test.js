@@ -1,8 +1,12 @@
 import { toService } from '~/src/server/services/secrets/transformers/to-service.js'
-import { repositoryFixture } from '~/src/__fixtures__/repository.js'
+import {
+  repositoryFixture,
+  repositoryTestSuiteFixture
+} from '~/src/__fixtures__/repository.js'
 import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
+import { testSuiteFixture } from '~/src/__fixtures__/test-suite.js'
 
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service')
@@ -33,6 +37,7 @@ describe('#toService', () => {
         isFrontend: true,
         isPrivate: true,
         isTemplate: false,
+        isTestSuite: false,
         primaryLanguage: 'JavaScript',
         serviceName: 'cdp-portal-frontend',
         teams: [
@@ -43,6 +48,40 @@ describe('#toService', () => {
           }
         ],
         topics: ['frontend', 'node', 'cdp', 'service']
+      })
+    })
+  })
+
+  describe('With Deployable Test suite and Repository details', () => {
+    test('Should return expected test suite', async () => {
+      fetchRepository.mockResolvedValue(repositoryTestSuiteFixture)
+      fetchDeployableService.mockResolvedValue(testSuiteFixture)
+
+      const result = await toService(repositoryTestSuiteFixture.repository.id)
+
+      expect(result).toEqual({
+        createdAt: '2024-12-18T14:40:13+00:00',
+        description: 'Git repository for service cdp-bc-journey-test-suite',
+        githubUrl: 'https://github.com/DEFRA/cdp-portal-smoke-tests',
+        id: 'cdp-bc-journey-test-suite',
+        imageName: 'cdp-portal-smoke-tests',
+        isArchived: false,
+        isBackend: false,
+        isDeployable: true,
+        isFrontend: false,
+        isPrivate: false,
+        isTemplate: false,
+        isTestSuite: true,
+        primaryLanguage: 'JavaScript',
+        serviceName: 'cdp-portal-smoke-tests',
+        teams: [
+          {
+            github: 'cdp-platform',
+            name: 'Platform',
+            teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
+          }
+        ],
+        topics: ['cdp', 'journey', 'test', 'test-suite']
       })
     })
   })
