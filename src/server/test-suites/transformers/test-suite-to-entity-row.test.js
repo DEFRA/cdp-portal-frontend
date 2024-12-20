@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { testSuiteWithLastRunFixture } from '~/src/__fixtures__/test-suite.js'
 import { transformTestSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
 

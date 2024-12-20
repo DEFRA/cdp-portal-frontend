@@ -1,5 +1,5 @@
 import { buildLink } from '~/src/server/common/helpers/build-link.js'
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 function transformToTaskList(repositories = []) {
   const githubOrg = config.get('githubOrg')

@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 import { getTraceId } from '@defra/hapi-tracing'
@@ -31,7 +31,7 @@ async function fetcher(url, options = {}) {
   try {
     return await handleResponse(response)
   } catch (error) {
-    logger.error(error, error.message)
+    logger.debug({ error }, 'Fetcher error')
 
     throw Boom.boomify(new Error(error.message), {
       statusCode: error?.output?.statusCode ?? 500

@@ -16,7 +16,8 @@ async function toService(serviceId) {
     ? {
         ...github.repository,
         isFrontend: github.repository.topics?.includes('frontend') ?? false,
-        isBackend: github.repository.topics?.includes('backend') ?? false
+        isBackend: github.repository.topics?.includes('backend') ?? false,
+        isTestSuite: github.repository.topics?.includes('test') ?? false
       }
     : null
 

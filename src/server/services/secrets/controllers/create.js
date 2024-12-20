@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import omit from 'lodash/omit.js'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
@@ -46,7 +46,7 @@ const createSecretController = {
       button
     }
 
-    const secrets = await fetchSecrets(environment, serviceId)
+    const secrets = await fetchSecrets(environment, serviceId, request.logger)
 
     const validationResult = secretPayloadValidation(
       button,

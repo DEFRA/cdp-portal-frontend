@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { cdpTeamSessionFixture } from '~/src/__fixtures__/admin/cdp-team-session.js'
 import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows.js'
 

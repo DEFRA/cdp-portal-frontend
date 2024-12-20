@@ -1,4 +1,4 @@
-import { environments } from '~/src/config/index.js'
+import { environments } from '~/src/config/environments.js'
 
 const testEnvironments = {
   performance: [environments.perfTest.kebabName],

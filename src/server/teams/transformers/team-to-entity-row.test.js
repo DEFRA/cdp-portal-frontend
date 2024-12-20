@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row.js'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
 import { cdpTeamWithoutGithubFixture } from '~/src/__fixtures__/admin/cdp-team-without-github.js'

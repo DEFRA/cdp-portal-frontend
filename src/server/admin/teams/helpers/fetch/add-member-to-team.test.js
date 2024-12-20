@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
 import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
 import { authedFetcherDecorator } from '~/src/server/common/helpers/fetch/authed-fetcher.js'

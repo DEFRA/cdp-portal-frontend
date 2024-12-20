@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 import { serviceStatus } from '~/src/server/services/about/transformers/service-status.js'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'

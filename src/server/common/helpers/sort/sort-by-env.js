@@ -11,5 +11,6 @@ const order = [
 ]
 
 const sortByEnv = (a, b) => order.indexOf(a) - order.indexOf(b)
+const sortKeyByEnv = (key) => (a, b) => sortByEnv(a[key], b[key])
 
-export { sortByEnv }
+export { sortByEnv, sortKeyByEnv }

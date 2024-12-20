@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user.js'
 import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'

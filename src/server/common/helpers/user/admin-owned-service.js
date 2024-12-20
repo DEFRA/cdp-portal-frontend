@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 /**
  * Checks if the service is owned by an admin based on team scopes.

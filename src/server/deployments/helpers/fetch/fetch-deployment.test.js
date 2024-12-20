@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
 import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'

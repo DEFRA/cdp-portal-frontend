@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { setStepComplete } from '~/src/server/admin/teams/helpers/form/index.js'

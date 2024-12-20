@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user.js'
 import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row.js'
 

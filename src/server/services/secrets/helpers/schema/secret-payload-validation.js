@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { validation } from '~/src/server/common/constants/validation.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 

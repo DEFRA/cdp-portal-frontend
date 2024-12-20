@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 async function runTest(request, imageName, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-test-suite'

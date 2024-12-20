@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { librariesFixture } from '~/src/__fixtures__/libraries.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
