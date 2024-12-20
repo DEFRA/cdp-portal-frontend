@@ -1,5 +1,5 @@
 import yar from '@hapi/yar'
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 const sessionCookieConfig = config.get('sessionCookie')
 

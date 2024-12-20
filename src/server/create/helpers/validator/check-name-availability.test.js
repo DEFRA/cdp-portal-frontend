@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'

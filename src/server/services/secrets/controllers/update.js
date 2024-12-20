@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import omit from 'lodash/omit.js'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'

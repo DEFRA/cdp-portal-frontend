@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list.js'
 import { serviceDetailFixture } from '~/src/__fixtures__/service-detail.js'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'

@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { testSuiteFixture } from '~/src/__fixtures__/test-suite.js'
 import { testSuiteToEntityDataList } from '~/src/server/test-suites/transformers/test-suite-to-entity-data-list.js'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'

@@ -1,4 +1,4 @@
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 function transformTestSuiteToEntityRow(testSuite) {
   const githubOrg = config.get('githubOrg')

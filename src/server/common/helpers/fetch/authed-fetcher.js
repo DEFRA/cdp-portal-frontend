@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 import { getTraceId } from '@defra/hapi-tracing'

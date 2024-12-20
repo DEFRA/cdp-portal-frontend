@@ -1,7 +1,7 @@
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { buildLink } from '~/src/server/common/helpers/build-link.js'
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 
 const editActionItems = (teamId) => ({
   classes: 'govuk-!-padding-right-1',

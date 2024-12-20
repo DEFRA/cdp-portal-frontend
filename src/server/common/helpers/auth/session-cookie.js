@@ -1,7 +1,7 @@
 import authCookie from '@hapi/cookie'
 import { isPast, parseISO, subMinutes } from 'date-fns'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
 import {
   removeAuthenticatedUser,

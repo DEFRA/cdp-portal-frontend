@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { config } from '~/src/config/index.js'
+import { config } from '~/src/config/config.js'
 import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
