@@ -22,7 +22,7 @@ const environmentSecretsController = {
     const team = service?.teams?.at(0)
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
-    const secrets = await fetchSecrets(environment, serviceName)
+    const secrets = await fetchSecrets(environment, serviceName, request.logger)
 
     const {
       serviceSecrets,
