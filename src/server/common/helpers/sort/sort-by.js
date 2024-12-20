@@ -1,18 +1,18 @@
-function sortByAsc(value) {
-  return (a, b) => a[value].localeCompare(b[value])
+function sortByAsc(key) {
+  return (a, b) => a[key].localeCompare(b[key])
 }
 
-function sortByDesc(value) {
-  return (a, b) => b[value].localeCompare(a[value])
+function sortByDesc(key) {
+  return (a, b) => b[key].localeCompare(a[key])
 }
 
-function sortBy(value, direction = 'desc') {
+function sortBy(key, direction = 'desc') {
   if (direction === 'asc') {
-    return sortByAsc(value)
+    return sortByAsc(key)
   }
 
   if (direction === 'desc') {
-    return sortByDesc(value)
+    return sortByDesc(key)
   }
 }
 
