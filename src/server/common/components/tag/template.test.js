@@ -16,7 +16,7 @@ describe('Tag Component', () => {
         url: 'https://apples.com',
         newWindow: true,
         link: {
-          classes: 'app-link-without-underline'
+          classes: 'app-link--without-underline'
         }
       })
 
@@ -49,7 +49,7 @@ describe('Tag Component', () => {
     })
 
     test('Should contain expected link classes', () => {
-      expect($link.attr('class')).toContain('app-link-without-underline')
+      expect($link.attr('class')).toContain('app-link--without-underline')
     })
   })
 })

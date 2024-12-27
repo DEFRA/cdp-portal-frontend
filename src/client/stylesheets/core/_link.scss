@@ -9,8 +9,7 @@
   @include app-link-underline;
 }
 
-// TODO fix up to use proper BEM classes
-.app-link-remove-underline {
+.app-link--without-underline {
   @include app-link-without-underline;
 }
 
