@@ -1,3 +1,4 @@
+@use "govuk-frontend" as *;
 @use "icons/cancel-icon/cancel-icon";
 @use "icons/error-icon/error-icon";
 @use "icons/github-icon/github-icon";
@@ -42,4 +43,8 @@
   min-width: 32px;
   max-width: 32px;
   height: 32px;
+}
+
+.app-icon--fill-blue {
+  fill: govuk-colour("blue");
 }
