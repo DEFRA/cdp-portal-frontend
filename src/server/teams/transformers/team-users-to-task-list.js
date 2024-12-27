@@ -1,4 +1,4 @@
-import { buildLink } from '~/src/server/common/helpers/build-link.js'
+import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderIcon } from '~/src/server/common/helpers/nunjucks/render-component.js'
 
 function transformTeamUsersToTaskList(team, withActions = false) {

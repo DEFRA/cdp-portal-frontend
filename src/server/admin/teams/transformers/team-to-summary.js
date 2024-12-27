@@ -1,6 +1,6 @@
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
-import { buildLink } from '~/src/server/common/helpers/build-link.js'
+import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { config } from '~/src/config/config.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 

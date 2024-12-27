@@ -2,7 +2,7 @@ import isNull from 'lodash/isNull.js'
 
 import { config } from '~/src/config/config.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
-import { buildLink } from '~/src/server/common/helpers/build-link.js'
+import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 
 function buildRow(name, value, stepPath, query, queryValue = value) {
   const queryString =
