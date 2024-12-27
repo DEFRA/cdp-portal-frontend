@@ -39,9 +39,7 @@ async function provideRunningServicesData(request) {
 
   const environmentsWithADeployment = [
     ...new Set(runningServices.map((rs) => rs.environment))
-  ]
-    // .filter((env) => userViewableEnvironments.includes(env))
-    .sort(sortByEnv)
+  ].sort(sortByEnv)
 
   return { rowHeadings, runningServicesEntityRows, environmentsWithADeployment }
 }
