@@ -37,7 +37,12 @@ function transformServiceToSummary(service) {
     rows: [
       {
         key: { text: 'Kind' },
-        value: { html: renderComponent('tag', { text: getKind(service) }) }
+        value: {
+          html: renderComponent('tag', {
+            text: getKind(service),
+            classes: 'app-tag--blue'
+          })
+        }
       },
       {
         key: { text: 'GitHub Repository' },
