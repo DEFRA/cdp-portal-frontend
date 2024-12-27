@@ -4,7 +4,7 @@ import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 
-const getKind = (service) => {
+const getServiceKind = (service) => {
   switch (true) {
     case service.isFrontend:
       return 'Frontend'
@@ -40,9 +40,15 @@ function transformServiceToSummary(service) {
         key: { text: 'Kind' },
         value: {
           html: renderComponent('tag', {
-            text: getKind(service),
+            text: getServiceKind(service),
             classes: 'app-tag--blue'
           })
+        }
+      },
+      {
+        key: { text: 'Image name' },
+        value: {
+          text: service.imageName ?? noValue
         }
       },
       {
@@ -58,19 +64,19 @@ function transformServiceToSummary(service) {
         }
       },
       {
-        key: { text: 'Language' },
+        key: { text: 'Primary Language' },
         value: { text: service.primaryLanguage ?? noValue }
-      },
-      {
-        key: { text: 'Docker Hub' },
-        value: {
-          html: buildLink(dockerHubServicePage)
-        }
       },
       {
         key: { text: 'Topics' },
         value: {
           html: topics.length ? topics.join(' ') : noValue
+        }
+      },
+      {
+        key: { text: 'Docker Hub' },
+        value: {
+          html: buildLink(dockerHubServicePage)
         }
       },
       {

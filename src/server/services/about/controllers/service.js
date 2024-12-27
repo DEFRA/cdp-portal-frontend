@@ -38,7 +38,6 @@ const serviceController = {
 
     return h.view('services/about/views/service', {
       pageTitle: `${service.serviceName} microservice`,
-      heading: service.serviceName,
       summaryList: transformServiceToSummary(service),
       vanityUrls,
       service,

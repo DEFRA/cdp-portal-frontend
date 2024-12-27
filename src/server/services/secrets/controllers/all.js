@@ -30,7 +30,6 @@ const allSecretsController = {
 
     return h.view('services/secrets/views/all', {
       pageTitle: `${serviceName} - Secrets`,
-      heading: serviceName,
       service,
       secretsByEnvironment,
       isAdminOwnedService,
