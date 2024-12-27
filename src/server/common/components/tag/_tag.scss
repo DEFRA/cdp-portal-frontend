@@ -1,6 +1,16 @@
+@use "govuk-frontend" as *;
 @use "variables/border-radius" as *;
 
 .app-tag {
   border-radius: $app-border-radius;
   max-width: 100em;
+}
+
+.app-tag--blue {
+  color: govuk-colour("white");
+  background-color: govuk-colour("blue");
+
+  &:hover {
+    background-color: govuk-tint(govuk-colour("blue"), 30%);
+  }
 }
