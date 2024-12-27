@@ -51,7 +51,7 @@ function testSuiteToEntityDataList(testSuite) {
                 url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
                 newWindow: true,
                 link: {
-                  classes: 'app-link-without-underline'
+                  classes: 'app-link--without-underline'
                 }
               }))
             }

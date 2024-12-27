@@ -4,7 +4,7 @@ import { formatText } from '~/src/config/nunjucks/filters/index.js'
 const renderTag = (value, classes = []) =>
   renderComponent('tag', {
     text: formatText(value),
-    classes: ['app-link-without-underline', ...classes].join(' '),
+    classes: ['app-link--without-underline', ...classes].join(' '),
     attributes: {
       'data-testid': 'govuk-tag'
     }

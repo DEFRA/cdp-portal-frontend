@@ -123,7 +123,7 @@ describe('#serviceToEntityDataList', () => {
               {
                 kind: 'tag',
                 link: {
-                  classes: 'app-link-without-underline'
+                  classes: 'app-link--without-underline'
                 },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Afrontend&type=repositories',
@@ -132,7 +132,7 @@ describe('#serviceToEntityDataList', () => {
               {
                 kind: 'tag',
                 link: {
-                  classes: 'app-link-without-underline'
+                  classes: 'app-link--without-underline'
                 },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Anode&type=repositories',
@@ -141,7 +141,7 @@ describe('#serviceToEntityDataList', () => {
               {
                 kind: 'tag',
                 link: {
-                  classes: 'app-link-without-underline'
+                  classes: 'app-link--without-underline'
                 },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Acdp&type=repositories',
@@ -150,7 +150,7 @@ describe('#serviceToEntityDataList', () => {
               {
                 kind: 'tag',
                 link: {
-                  classes: 'app-link-without-underline'
+                  classes: 'app-link--without-underline'
                 },
                 newWindow: true,
                 url: 'https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Aservice&type=repositories',
