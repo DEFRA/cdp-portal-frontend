@@ -35,7 +35,6 @@ const environmentSecretsController = {
 
     return h.view('services/secrets/views/environment', {
       pageTitle: `${serviceName} - Secrets - ${formattedEnvironment}`,
-      heading: serviceName,
       service,
       teamId,
       environment,
