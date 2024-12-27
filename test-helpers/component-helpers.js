@@ -31,7 +31,7 @@ Object.keys(filters).forEach((filter) => {
 
 function renderTestComponent(name, params, callBlock) {
   const macroPath = `${name}/macro.njk`
-  const macroName = `app${upperFirst(camelCase(name))}`
+  const macroName = `app${upperFirst(camelCase(name.replace('icons', '')))}`
   const macroParams = JSON.stringify(params, null, 2)
   let macroString = `{%- from "${macroPath}" import ${macroName} -%}`
 
