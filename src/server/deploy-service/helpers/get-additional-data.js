@@ -37,7 +37,7 @@ async function getAdditionalData(imageName, scopes) {
     runningServicesEntityRows,
     rowHeadings,
     availableVersionOptions,
-    latestVersions: availableVersions.slice(0, 4)
+    latestVersions: availableVersions.slice(0, 6)
   }
 }
 
