@@ -1,7 +1,7 @@
 {% extends "layouts/page.njk" %}
 
 {% block header %}
-  {{ appHeader({
+  {{ appServiceHeader({
     serviceName: serviceName,
     serviceUrl: "/",
     loginText: "Sign out" if isAuthenticated else "Sign in",

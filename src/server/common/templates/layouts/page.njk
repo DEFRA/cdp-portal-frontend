@@ -37,6 +37,7 @@
 {% from "search/macro.njk" import appSearch %}
 {% from "secrets-list/macro.njk" import appSecretsList %}
 {% from "select/macro.njk" import appSelect %}
+{% from "service-header/macro.njk" import appServiceHeader with context %}
 {% from "split-pane/macro.njk" import appSplitPane with context %}
 {% from "step-navigation/macro.njk" import appStepNavigation %}
 {% from "tabs/macro.njk" import appTabs with context %}
@@ -72,7 +73,7 @@
     }) }}
   {% endif %}
 
-  {{ appHeader({
+  {{ appServiceHeader({
     serviceName: serviceName,
     serviceUrl: "/",
     loginText: "Sign out" if isAuthenticated else "Sign in",
