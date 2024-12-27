@@ -36,7 +36,7 @@
 
   @include govuk-media-query($from: desktop-big) {
     display: grid;
-    gap: govuk-spacing(4);
+    gap: govuk-spacing(6);
   }
 }
 
