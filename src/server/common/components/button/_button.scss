@@ -19,12 +19,12 @@ $shadow-opacity-light: 0.4;
 }
 
 .app-button--primary {
-  background-color: govuk-colour("blue");
+  background-color: govuk-colour("green");
   color: govuk-colour("white");
   box-shadow: 0 2px 0 rgba(12, 45, 74, $shadow-opacity);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour("blue"), 20%);
+    background-color: govuk-shade(govuk-colour("green"), 20%);
   }
 
   &:link,
