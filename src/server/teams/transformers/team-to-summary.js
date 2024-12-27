@@ -2,6 +2,7 @@ import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-com
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { buildLink } from '~/src/server/common/helpers/build-link.js'
 import { config } from '~/src/config/config.js'
+import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 
 const editActionItems = (teamId) => ({
   classes: 'govuk-!-padding-right-1',
@@ -15,16 +16,6 @@ const editActionItems = (teamId) => ({
     }
   ]
 })
-
-const buildList = (items) => {
-  const list = `<ul class="govuk-list">`
-
-  return (
-    items.reduce((acc, item) => {
-      return acc + `<li>${item}</li>`
-    }, list) + `</ul>`
-  )
-}
 
 function transformTeamToSummary(team, withActions = false) {
   const editActions = editActionItems(team.teamId)
