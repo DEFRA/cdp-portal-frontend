@@ -1,32 +1,16 @@
-{% from "icons/user-icon/macro.njk" import appUserIcon %}
+{% set headerSizeClassMap = {
+  "2": "govuk-heading-m",
+  "3": "govuk-heading-s"
+} %}
 
-<header class="app-header" role="banner" data-testid="app-header">
-  <div class="app-header__container app-header__container--full-width">
-    <div class="app-header__content">
-      <a href="{{ params.serviceUrl }}"
-         class="app-header__link app-header__service-name"
-         data-testid="app-header-service-name">
-        {{ params.serviceName }}
-      </a>
-
-      {% if serviceEnvironment === "infra-dev" %}
-        <span class="app-header__service-environment">{{ serviceEnvironment | title }}</span>
-      {% endif %}
-
-    </div>
-    <div class="app-header__actions">
-      {% if authedUser.displayName %}
-        {{ appUserIcon({ classes: "app-icon--minute" }) }}
-        <span data-testid="app-login-username">
-          {{ authedUser.displayName }}
-        </span>
-      {% endif %}
-
-      <a href="{{ params.loginUrl }}"
-         class="app-header__login-link app-header__link{% if isAuthenticated %} app-header__is-logged-in{% endif %}"
-         data-testid="app-login-link">
-        {{ params.loginText }}
-      </a>
-    </div>
-  </div>
+<header class="app-header">
+  <span class="govuk-!-margin-right-1">
+    {{ params.icon | safe }}
+  </span>
+  <h{{ params.heading.size }}
+    class="{{ headerSizeClassMap[params.heading.size] }} govuk-!-margin-bottom-1"
+    data-testid="app-header"
+  >
+    {{ params.heading.text }}
+  </h{{ params.heading.size }}>
 </header>
