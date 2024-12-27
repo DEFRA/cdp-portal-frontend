@@ -20,10 +20,10 @@
        target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
   {% endset %}
 
-  {% set deployLinkHtml %}
+  {% set deployButtonHtml %}
     <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
       query: { imageName: service.serviceName, version: version.tag }
-    }) }}" role="button" class="app-link">Deploy</a>
+    }) }}" role="button" class="govuk-button app-button app-button--primary app-button--small">Deploy</a>
   {% endset %}
 
   {% set createdHtml %}
@@ -37,7 +37,7 @@
     {{ latestPublishedTableRows.push([
       { html: createdHtml },
       { html: versionLinkHtml },
-      { html: deployLinkHtml }
+      { html: deployButtonHtml }
     ]) }}
   {% else %}
     {{ latestPublishedTableRows.push([
