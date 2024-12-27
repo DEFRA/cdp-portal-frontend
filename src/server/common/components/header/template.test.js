@@ -4,9 +4,17 @@ describe('Header Component', () => {
   let $header
 
   beforeEach(() => {
+    const $icon = renderTestComponent('icons/world-icon', {
+      classes: 'app-icon--small app-icon--fill-blue',
+      description: 'Frontend custom application urls'
+    })
+
     $header = renderTestComponent('header', {
-      serviceName: 'Totally MEGA service portal',
-      serviceUrl: '/'
+      heading: {
+        size: 2,
+        text: 'Service URls'
+      },
+      icon: $icon.html()
     })
   })
 
@@ -14,15 +22,13 @@ describe('Header Component', () => {
     expect($header('[data-testid="app-header"]')).toHaveLength(1)
   })
 
-  test('Should contain expected service name', () => {
-    expect(
-      $header('[data-testid="app-header-service-name"]').text().trim()
-    ).toBe('Totally MEGA service portal')
+  test('Should contain expected heading', () => {
+    expect($header('[data-testid="app-header"]').text().trim()).toBe(
+      'Service URls'
+    )
   })
 
-  test('Should have expected service url link', () => {
-    expect(
-      $header('[data-testid="app-header-service-name"]').attr('href')
-    ).toBe('/')
+  test('Should have expected icon', () => {
+    expect($header('[data-testid="app-world-icon"]')).toHaveLength(1)
   })
 })
