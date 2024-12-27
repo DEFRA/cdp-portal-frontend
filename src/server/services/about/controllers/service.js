@@ -3,10 +3,10 @@ import Boom from '@hapi/boom'
 
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
-import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import { provideRunningServicesData } from '~/src/server/services/about/transformers/running-services.js'
 import { provideVanityUrls } from '~/src/server/services/about/transformers/vanity-urls.js'
+import { transformServiceToSummary } from '~/src/server/services/about/transformers/service-to-summary.js'
 
 const serviceController = {
   options: {
@@ -27,9 +27,8 @@ const serviceController = {
       return Boom.notFound()
     }
 
-    const entityDataList = serviceToEntityDataList(service)
     const availableVersions = await fetchAvailableVersions(service.serviceName)
-    const latestVersions = availableVersions.slice(0, 4)
+    const latestPublishedImageVersions = availableVersions.slice(0, 6)
     const vanityUrls = await provideVanityUrls(request)
     const {
       rowHeadings,
@@ -40,14 +39,14 @@ const serviceController = {
     return h.view('services/about/views/service', {
       pageTitle: `${service.serviceName} microservice`,
       heading: service.serviceName,
+      summaryList: transformServiceToSummary(service),
       vanityUrls,
       service,
       isServiceOwner,
       environmentsWithADeployment,
       runningServicesEntityRows,
       rowHeadings,
-      entityDataList,
-      latestVersions,
+      latestPublishedImageVersions,
       breadcrumbs: [
         {
           text: 'Services',

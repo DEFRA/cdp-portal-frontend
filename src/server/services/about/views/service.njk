@@ -12,7 +12,7 @@
 {% from "time/macro.njk" import appTime %}
 
 {% set latestPublishedTableRows = [] %}
-{% for version in latestVersions %}
+{% for version in latestPublishedImageVersions %}
 
   {% set versionLinkHtml %}
     <a class="app-link"
@@ -20,17 +20,24 @@
        target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
   {% endset %}
 
-  {% set deployButtonHtml %}
+  {% set deployLinkHtml %}
     <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
       query: { imageName: service.serviceName, version: version.tag }
-    }) }}" role="button" class="govuk-button app-button app-button--primary app-button--small">Deploy</a>
+    }) }}" role="button" class="app-link">Deploy</a>
+  {% endset %}
+
+  {% set createdHtml %}
+    <div class="app-row">
+      {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
+      {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
+    </div>
   {% endset %}
 
   {% if isServiceOwner %}
     {{ latestPublishedTableRows.push([
-      { html: appTime({ datetime: version.created }) },
+      { html: createdHtml },
       { html: versionLinkHtml },
-      { html: deployButtonHtml }
+      { html: deployLinkHtml }
     ]) }}
   {% else %}
     {{ latestPublishedTableRows.push([
@@ -41,40 +48,144 @@
 {% endfor %}
 
 {% block beforeTabContent %}
-
   {{ appHeading({
     title: heading,
     caption: "Information about the " + heading + " microservice",
     entities: headingEntities
   }) }}
-
 {% endblock %}
 
 {% block tabContent %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
+  <article class="app-grid app-grid-service">
+
+    <section class="app-grid-service__details">
       <section class="govuk-!-margin-bottom-6">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-        <p>
+        <p class="govuk-!-margin-bottom-2">
           {{ service.description }}
         </p>
+
+        {{ govukSummaryList(summaryList) }}
       </section>
 
-      <section class="govuk-!-margin-bottom-6">
+      <section>
         {% call appSummary() %}
+          {% call appSummaryItem({
+            heading: "Environment Variables",
+            icon: appWrenchIcon({ classes: "app-icon--small"}),
+            intro: {
+              text: "Set non-sensitive environment variables and manage service configuration across CDP environments"
+            }
+          }) %}
+            <p>
+              <a class="app-link"
+                 href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
+                 target="_blank"
+                 rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/{{ service.serviceName }}</a>
+            </p>
+          {% endcall %}
 
-          {% if service.isFrontend %}
+          {% call appSummaryItem({
+            heading: "Continuous Integration",
+            icon: appCheckIcon({ classes: "app-icon--small", description: "Continuous Integration Builds" }),
+            intro: {
+              text: "Test, build and publish ready-to-deploy docker images of your service, with CI using GitHub
+              Actions workflows"
+            }
+          }) %}
+            <p>
+              <a class="app-link" target="_blank" rel="noopener noreferrer"
+                 href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
+                https://github.com/DEFRA/{{ service.serviceName }}/actions
+              </a>
+            </p>
+          {% endcall %}
+        {% endcall %}
+      </section>
+    </section>
 
-            {% call appSummaryItem({
-              heading: "Custom Service URLs",
-              icon: appWorldIcon({ classes: "app-icon--small", description: "Frontend custom application urls" }),
-              intro: {
-                text: "User friendly custom microservice URLs"
-              }
-            }) %}
+    <section class="app-grid-service__running">
+      <section class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
+        <p class="govuk-!-margin-bottom-2">
+          The versions of your service currently running on CDP environments
+        </p>
+
+        {{ appEntityList({
+          headings: rowHeadings,
+          entityRows: runningServicesEntityRows,
+          noResult: "Currently there are no versions of " + service.imageName + " running in any environment"
+        }) }}
+      </section>
+
+      <section>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Published Images</h2>
+        <p class="govuk-!-margin-bottom-2">
+          Latest available CDP built and published docker images, via
+          <a class="app-link" target="_blank" rel="noopener noreferrer"
+             href="https://github.com/DEFRA/{{ imageName }}/actions">
+            GitHub Actions
+          </a>
+        </p>
+
+        {% if latestPublishedTableRows | length %}
+          {{ govukTable({
+            classes: "app-table govuk-!-margin-bottom-4",
+            head: [{ text: "Published" }, { text: "Version" }, { text: "Action" }] if isServiceOwner else [{ text: "Published" }, { text: "Version" }],
+            rows: latestPublishedTableRows
+            }) }}
+
+          <p class="govuk-!-margin-bottom-2">
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/{{ service.serviceName }}/tags">
+              more versions
+            </a>
+          </p>
+
+        {% else %}
+          <p class="govuk-!-margin-bottom-2">
+            No published versions available.
+          </p>
+        {% endif %}
+      </section>
+    </section>
+
+    <section class="app-grid-service__links">
+      {% if service.isFrontend %}
+
+        {% if vanityUrls | length %}
+          {% set urlText = "URL" | pluralise(vanityUrls | length * vanityUrls[0].urls | length) %}
+          <section class="govuk-!-margin-bottom-6">
+            {{ appHeader({
+              heading: {
+                size: 2,
+                text: "Service " + urlText
+              },
+              icon: appWorldIcon({
+                classes: "app-icon--small app-icon--fill-blue",
+                description: "Frontend custom application urls"
+              })
+            }) }}
+
+            <p class="govuk-!-margin-bottom-2">
+              User-friendly custom microservice {{ urlText }}
+            </p>
+
+            {% if vanityUrls | length == 1 %}
+              {% set firstVanityUrl = vanityUrls | first %}
+
+              <ul class="govuk-list govuk-!-margin-0">
+                {% for url in firstVanityUrl.urls %}
+                  <li>
+                    <a class="app-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">
+                      {{ url }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% elseif vanityUrls | length %}
               <dl class="app-description-list">
-
                 {% for vanityUrl in vanityUrls %}
                   <dt class="app-description-list__term">{{ vanityUrl.environment | title }}</dt>
                   <dd class="app-description-list__details">
@@ -89,186 +200,128 @@
                     </ul>
                   </dd>
                 {% endfor %}
-
               </dl>
-            {% endcall %}
-
-            {% call appSummaryItem({
-              heading: "Service URLs",
-              icon: appGlobeIcon({ classes: "app-icon--small", description: "Frontend CDP application urls" }),
-              intro: {
-                text: "CDP generated, environment specific, microservice URLs"
-              }
-            }) %}
-              <dl class="app-description-list">
-
-                {% for environment in environmentsWithADeployment %}
-                  <dt class="app-description-list__term">{{ environment | title }}</dt>
-                  <dd class="app-description-list__details">
-                    <a class="app-link"
-                       href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                       target="_blank" rel="noopener noreferrer">
-                      https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
-                    </a>
-                  </dd>
-                {% endfor %}
-
-              </dl>
-            {% endcall %}
-          {% endif %}
-
-          {% if service.isBackend %}
-            {% call appSummaryItem({
-              heading: "API URLs",
-              icon: appGlobeIcon({ classes: "app-icon--small", description: "API Urls"}),
-              intro: {
-                text: "CDP generated, environment specific, microservice API URLs"
-              }
-            }) %}
-              <dl class="app-description-list">
-
-                {% for environment in environmentsWithADeployment %}
-                  <dt class="app-description-list__term"> {{ environment | title }}</dt>
-                  <dd class="app-description-list__details">
-                    <a class="app-link"
-                       href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                       target="_blank" rel="noopener noreferrer">
-                      https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
-                    </a>
-                  </dd>
-                {% endfor %}
-
-              </dl>
-            {% endcall %}
-          {% endif %}
-
-          {% call appSummaryItem({
-            heading: "Logs",
-            icon: appLogsIcon({ classes: "app-icon--small"}),
-            intro: {
-              text: "OpenSearch logs for monitoring and troubleshooting your service"
-            }
-          }) %}
-            <dl class="app-description-list">
-
-              {% for environment in environmentsWithADeployment %}
-                <dt class="app-description-list__term">{{ environment | title }}</dt>
-                <dd class="app-description-list__details">
-                  {{ appLogsDashboardLink({
-                    serviceName: service.serviceName,
-                    environment: environment
-                  }) }}
-                </dd>
-              {% endfor %}
-
-            </dl>
-          {% endcall %}
-
-          {% call appSummaryItem({
-            heading: "Metrics",
-            icon: appChartIcon({ classes: "app-icon--small"}),
-            intro: {
-              text: "Grafana observability metrics data and graphs for your service"
-            }
-          }) %}
-            <dl class="app-description-list">
-
-              {% for environment in environmentsWithADeployment %}
-                <dt class="app-description-list__term">{{ environment | title }}</dt>
-                <dd class="app-description-list__details">
-                  <a class="app-link"
-                     href="https://metrics.{{ environment }}.cdp-int.defra.cloud/d/{{ service.serviceName }}/{{ service.serviceName }}-service"
-                     target="_blank" rel="noopener noreferrer">
-                    https://metrics.{{ environment }}.cdp-int.defra.cloud
-                  </a>
-                </dd>
-              {% endfor %}
-
-            </dl>
-          {% endcall %}
-
-        {% endcall %}
-
-        {% call appSummary() %}
-
-          {% call appSummaryItem({
-            heading: "Configuration",
-            icon: appWrenchIcon({ classes: "app-icon--small"}),
-            intro: { text: "Manage service configuration across CDP environments" }
-          }) %}
-            <p>
-              <a class="app-link"
-                 href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
-                 target="_blank" rel="noopener noreferrer">DEFRA/cdp-app-config/{{ service.serviceName }}</a>
-            </p>
-          {% endcall %}
-
-          {% call appSummaryItem({
-            heading: "Builds",
-            icon: appCheckIcon({ classes: "app-icon--small", description: "Builds" }),
-            intro: {
-              text: "Test, build and publish ready-to-deploy docker images of your service, with GitHub Actions"
-            }
-          }) %}
-            <p>
-              <a class="app-link" target="_blank" rel="noopener noreferrer"
-                 href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
-                DEFRA/{{ service.serviceName }}/actions
-              </a>
-            </p>
-          {% endcall %}
-
-          {% call appSummaryItem({
-            heading: "Published Images",
-            icon: appInstanceIcon({ classes: "app-icon--small", description: "Published Images" }),
-            intro: {
-              text: "Latest built and published Docker images by version"
-            }
-          }) %}
-
-            {% if latestPublishedTableRows | length %}
-              {{ govukTable({
-                classes: "app-table govuk-!-margin-bottom-4",
-                head: [{ text: "Published" }, { text: "Version" }, { text: "Action" }] if isServiceOwner else [{ text: "Published" }, { text: "Version" }],
-                rows: latestPublishedTableRows
-                }) }}
-
-              <p>
-                <a class="app-link" target="_blank" rel="noopener noreferrer"
-                   href="https://github.com/DEFRA/{{ service.serviceName }}/tags">
-                  more versions
-                </a>
-              </p>
-
-            {% else %}
-              <p class="govuk-!-margin-bottom-2">
-                No published versions available.
-              </p>
             {% endif %}
+          </section>
+        {% endif %}
 
-          {% endcall %}
-        {% endcall %}
-      </section>
+        <section class="govuk-!-margin-bottom-6">
+          {{ appHeader({
+            heading: {
+              size: 2,
+              text: "CDP Service URLs"
+            },
+            icon: appGlobeIcon({
+              classes: "app-icon--small app-icon--fill-blue",
+              description: "Frontend CDP application urls"
+            })
+          }) }}
+
+          <p class="govuk-!-margin-bottom-2">
+            CDP generated microservice URLs
+          </p>
+
+          <dl class="app-description-list">
+            {% for environment in environmentsWithADeployment %}
+              <dt class="app-description-list__term">{{ environment | title }}</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
+                   target="_blank" rel="noopener noreferrer">
+                  https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                </a>
+              </dd>
+            {% endfor %}
+          </dl>
+        </section>
+      {% endif %}
+
+      {% if service.isBackend %}
+        <section class="govuk-!-margin-bottom-6">
+          {{ appHeader({
+            heading: {
+              size: 2,
+              text: "API URLs"
+            },
+            icon: appGlobeIcon({
+              classes: "app-icon--small app-icon--fill-blue",
+              description: "API Urls"
+            })
+          }) }}
+
+          <p class="govuk-!-margin-bottom-2">
+            CDP generated microservice API URLs
+          </p>
+
+          <dl class="app-description-list">
+            {% for environment in environmentsWithADeployment %}
+              <dt class="app-description-list__term"> {{ environment | title }}</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
+                   target="_blank" rel="noopener noreferrer">
+                  https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                </a>
+              </dd>
+            {% endfor %}
+          </dl>
+        </section>
+      {% endif %}
 
       <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
-        <p class="govuk-!-margin-bottom-1">
-          The versions of your service currently running on the CDP environments.
-        </p>
-        {{ appEntityList({
-          headings: rowHeadings,
-          entityRows: runningServicesEntityRows,
-          noResult: "Currently there are no versions of " + service.imageName + " running in any environment"
+        {{ appHeader({
+          heading: {
+            size: 2,
+            text: "Logs"
+          },
+          icon: appLogsIcon({ classes: "app-icon--small app-icon--fill-blue" })
         }) }}
-      </section>
-    </div>
 
-    <div class="govuk-grid-column-one-quarter">
-      {{ appEntityDataList({
-        heading: "Details",
-        items: entityDataList
-      }) }}
-    </div>
-  </div>
+        <p class="govuk-!-margin-bottom-2">
+          OpenSearch logs for monitoring and troubleshooting your service
+        </p>
+
+        <dl class="app-description-list">
+          {% for environment in environmentsWithADeployment %}
+            <dt class="app-description-list__term">{{ environment | title }}</dt>
+            <dd class="app-description-list__details">
+              {{ appLogsDashboardLink({
+                serviceName: service.serviceName,
+                environment: environment
+              }) }}
+            </dd>
+          {% endfor %}
+        </dl>
+      </section>
+
+      <section>
+        {{ appHeader({
+          heading: {
+            size: 2,
+            text: "Metrics"
+          },
+          icon: appChartIcon({ classes: "app-icon--small app-icon--fill-blue" })
+        }) }}
+
+        <p class="govuk-!-margin-bottom-2">
+          Grafana observability metrics data and graphs for your service
+        </p>
+
+        <dl class="app-description-list">
+          {% for environment in environmentsWithADeployment %}
+            <dt class="app-description-list__term">{{ environment | title }}</dt>
+            <dd class="app-description-list__details">
+              <a class="app-link"
+                 href="https://metrics.{{ environment }}.cdp-int.defra.cloud/d/{{ service.serviceName }}/{{ service.serviceName }}-service"
+                 target="_blank" rel="noopener noreferrer">
+                https://metrics.{{ environment }}.cdp-int.defra.cloud
+              </a>
+            </dd>
+          {% endfor %}
+        </dl>
+      </section>
+    </section>
+
+  </article>
 
 {% endblock %}
