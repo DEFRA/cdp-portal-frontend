@@ -3,7 +3,7 @@ import { fetchTemplates } from '~/src/server/utilities/helpers/fetch/fetch-templ
 import { utilityToEntityRow } from '~/src/server/utilities/transformers/utility-to-entity-row.js'
 
 const templatesListController = {
-  handler: async (request, h) => {
+  handler: async (_request, h) => {
     const { repositories } = await fetchTemplates()
 
     const entityRows = repositories
