@@ -6,31 +6,31 @@
   grid-template-columns: repeat(9, 1fr);
   grid-auto-rows: minmax(100px, auto);
   grid-template-areas:
-    "dt dt dt dt dt dt dt dt dt"
-    "rn rn rn rn rn rn rn rn rn"
-    "ln ln ln ln ln ln ln ln ln";
+    "details details details details details details details details details"
+    "run run run run run run run run run"
+    "link link link link link link link link link";
 
   @include govuk-media-query($from: desktop-big) {
     grid-template-areas:
-    "dt dt dt dt dt dt ln ln ln"
-    "rn rn rn rn rn rn ln ln ln";
+    "details details details details details details link link link"
+    "run run run run run run link link link";
   }
 
   @include govuk-media-query($from: desktop-massive) {
     grid-template-areas:
-    "dt dt dt rn rn rn rn ln ln"
-    "dt dt dt rn rn rn rn ln ln";
+    "details details details run run run run link link"
+    "details details details run run run run link link";
   }
 
   .app-grid-service__details {
-    grid-area: dt;
+    grid-area: details;
   }
 
   .app-grid-service__running {
-    grid-area: rn;
+    grid-area: run;
   }
 
   .app-grid-service__links {
-    grid-area: ln;
+    grid-area: link;
   }
 }
