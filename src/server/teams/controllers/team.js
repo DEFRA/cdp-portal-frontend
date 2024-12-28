@@ -4,10 +4,11 @@ import Boom from '@hapi/boom'
 import { fetchTeam } from '~/src/server/teams/helpers/fetch/fetch-team.js'
 import { transformTeamToSummary } from '~/src/server/teams/transformers/team-to-summary.js'
 import { transformTeamUsersToTaskList } from '~/src/server/teams/transformers/team-users-to-task-list.js'
-import { teamServicesToDetailedList } from '~/src/server/teams/transformers/team-services-to-detailed-list.js'
+import { servicesToDetailedList } from '~/src/server/teams/transformers/services-to-detailed-list.js'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
-import { teamTestSuitesToDetailedList } from '~/src/server/teams/transformers/team-test-suites-to-detailed-list.js'
-import { transformToTaskList } from '~/src/server/teams/transformers/to-task-list.js'
+import { testSuitesToDetailedList } from '~/src/server/teams/transformers/test-suites-to-detailed-list.js'
+import { librariesToDetailedList } from '~/src/server/teams/transformers/libraries-to-detailed-list.js'
+import { templatesToDetailedList } from '~/src/server/teams/transformers/templates-to-detailed-list.js'
 import {
   fetchTeamServices,
   fetchTeamTestSuites,
@@ -26,8 +27,10 @@ const teamController = {
   },
   handler: async (request, h) => {
     const { team } = await fetchTeam(request.params.teamId)
-    const services = /** @type {Array} */ await fetchTeamServices(team.teamId)
-    const testSuites = /** @type {Array} */ await fetchTeamTestSuites(
+    const teamsServices = /** @type {Array} */ await fetchTeamServices(
+      team.teamId
+    )
+    const teamTestSuites = /** @type {Array} */ await fetchTeamTestSuites(
       team.teamId
     )
 
@@ -41,24 +44,20 @@ const teamController = {
       tests: gitHubTestSuiteRepositories
     } = hasGitHub ? await fetchTeamRepositories(team.teamId) : {}
 
-    const testSuiteDecorator = repositoriesDecorator(
-      gitHubTestSuiteRepositories
-    )
-
     return h.view('teams/views/team', {
       pageTitle: `${team.name} Team`,
       summaryList: transformTeamToSummary(team, userIsTeamMember),
       usersTaskList: transformTeamUsersToTaskList(team, userIsTeamMember),
-      teamServices: teamServicesToDetailedList(
-        services.map(repositoriesDecorator(gitHubServiceRepositories))
+      services: servicesToDetailedList(
+        teamsServices.map(repositoriesDecorator(gitHubServiceRepositories))
       ),
-      teamTestSuites: teamTestSuitesToDetailedList(
-        testSuites.map(({ testSuite }) => testSuiteDecorator(testSuite))
+      testSuites: testSuitesToDetailedList(
+        teamTestSuites.map(({ testSuite }) =>
+          repositoriesDecorator(gitHubTestSuiteRepositories)(testSuite)
+        )
       ),
-      servicesTaskList: transformToTaskList(gitHubServiceRepositories),
-      librariesTaskList: transformToTaskList(gitHubLibraryRepositories),
-      templatesTaskList: transformToTaskList(gitHubTemplateRepositories),
-      testsTaskList: transformToTaskList(gitHubTestSuiteRepositories),
+      libraries: librariesToDetailedList(gitHubLibraryRepositories),
+      templates: templatesToDetailedList(gitHubTemplateRepositories),
       team,
       userIsTeamMember,
       breadcrumbs: [

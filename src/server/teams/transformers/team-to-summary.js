@@ -23,7 +23,7 @@ function transformTeamToSummary(team, withActions = false) {
   const actions = withActions ? editActions : null
 
   return {
-    classes: 'app-summary-list',
+    classes: 'app-summary-list govuk-!-margin-bottom-0',
     attributes: { 'data-testid': 'govuk-summary-list' },
     rows: [
       {

@@ -10,29 +10,26 @@
   }) }}
 
   {% if userIsTeamMember %}
-    <div class="govuk-grid-row govuk-!-margin-bottom-4">
-      <div class="govuk-grid-column-full">
-        <ul class="govuk-list">
-          <li>
-            <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
-               class="app-link app-link--underline" data-testid="add-team-member">
-              Add member to team
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <section>
+      <ul class="govuk-list">
+        <li>
+          <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
+             class="app-link app-link--underline" data-testid="add-team-member">
+            Add member to team
+          </a>
+        </li>
+      </ul>
+    </section>
   {% endif %}
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-8">
-    <div class="govuk-grid-column-one-half-from-desktop">
-      {% call appPanel() %}
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
-        {{ govukSummaryList(summaryList) }}
-      {% endcall %}
-    </div>
-    <div class="govuk-grid-column-one-half-from-desktop">
-      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+  <article class="app-grid app-grid-team">
+    <section class="app-grid-team__details">
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+      {{ govukSummaryList(summaryList) }}
+    </section>
+
+    <section class="app-grid-team__members">
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
         {{ "Member" | pluralise(team.users | length) }}
       </h2>
 
@@ -49,19 +46,17 @@
           {% endif %}
         </p>
       {% endif %}
-    </div>
-  </div>
+    </section>
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-8">
-    <div class="govuk-grid-column-one-half-from-desktop">
-      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+    <section class="app-grid-team__services">
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
         {{ "Service" | pluralise(teamServices.items | length) }}
       </h2>
 
-      {% if teamServices.items | length %}
-        {{ appDetailedList(teamServices) }}
+      {% if services.items | length %}
+        {{ appDetailedList(services) }}
       {% else %}
-        <p>This team has no services.
+        <p>This team has no services
 
           {% if userIsTeamMember %}
             <a href="{{ routeLookup('create') }}"
@@ -71,17 +66,17 @@
           {% endif %}
         </p>
       {% endif %}
-    </div>
+    </section>
 
-    <div class="govuk-grid-column-one-half-from-desktop">
-      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+    <section class="app-grid-team__test-suites">
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
         {{ "Test-suite" | pluralise(teamTestSuites.items | length) }}
       </h2>
 
-      {% if teamTestSuites.items | length %}
-        {{ appDetailedList(teamTestSuites) }}
+      {% if testSuites.items | length %}
+        {{ appDetailedList(testSuites) }}
       {% else %}
-        <p>This team has no test-suites.
+        <p>This team has no test-suites
 
           {% if userIsTeamMember %}
             <a href="{{ routeLookup('create') }}"
@@ -91,65 +86,32 @@
           {% endif %}
         </p>
       {% endif %}
-    </div>
-  </div>
+    </section>
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-8">
-    <div class="govuk-grid-column-full govuk-!-margin-bottom-2">
-      <div class="app-section app-section--wide">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Repositories</h2>
-        <p>
-          {{ team.name }} GitHub repositories organized by topic. To view all repositories owned by this team, visit
-          <a class="app-link app-link--underline"
-             href="https://github.com/orgs/DEFRA/teams/{{ team.github }}/repositories"
-             target="_blank" rel="noopener noreferrer">all GitHub repositories</a>.
-        </p>
-      </div>
-    </div>
+    <section class="app-grid-team__templates">
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+        {{ "Template" | pluralise(templates.items | length) }}
+      </h2>
 
-    <div class="govuk-grid-column-one-quarter-from-desktop">
-      <h3 class="govuk-heading-m govuk-!-margin-0">Services</h3>
-
-      {% if servicesTaskList.items | length %}
-        {{ govukTaskList(servicesTaskList) }}
+      {% if templates.items | length %}
+        {{ appDetailedList(templates) }}
       {% else %}
-        <p class="govuk-!-margin-top-2">This team has no service repositories</p>
+        <p>This team has no templates</p>
       {% endif %}
+    </section>
 
-    </div>
+    <section class="app-grid-team__libraries">
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+        {{ "Library" | pluralise(libraries.items | length) }}
+      </h2>
 
-    <div class="govuk-grid-column-one-quarter-from-desktop">
-      <h3 class="govuk-heading-m govuk-!-margin-0">Tests</h3>
-
-      {% if testsTaskList.items | length %}
-        {{ govukTaskList(testsTaskList) }}
+      {% if libraries.items | length %}
+        {{ appDetailedList(libraries) }}
       {% else %}
-        <p class="govuk-!-margin-top-2">This team has no test repositories</p>
+        <p>This team has no libraries</p>
       {% endif %}
+    </section>
 
-    </div>
-
-    <div class="govuk-grid-column-one-quarter-from-desktop">
-      <h3 class="govuk-heading-m govuk-!-margin-0">Templates</h3>
-
-      {% if templatesTaskList.items | length %}
-        {{ govukTaskList(templatesTaskList) }}
-      {% else %}
-        <p class="govuk-!-margin-top-2">This team has no template repositories</p>
-      {% endif %}
-
-    </div>
-
-    <div class="govuk-grid-column-one-quarter-from-desktop">
-      <h3 class="govuk-heading-m govuk-!-margin-0">Libraries</h3>
-
-      {% if librariesTaskList.items | length %}
-        {{ govukTaskList(librariesTaskList) }}
-      {% else %}
-        <p class="govuk-!-margin-top-2">This team has no library repositories</p>
-      {% endif %}
-
-    </div>
-  </div>
+  </article>
 
 {% endblock %}
