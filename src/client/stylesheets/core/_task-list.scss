@@ -1,8 +1,10 @@
+@use "govuk-frontend" as *;
 @use "variables/colours" as *;
 
 .app-task-list {
   .govuk-task-list__item {
     border-bottom: 1px solid $app-mid-grey;
+    padding: govuk-spacing(2) govuk-spacing(1);
 
     &:hover {
       background-color: $app-grey;
