@@ -8,22 +8,29 @@
   grid-template-areas:
     "details details details details details details details details details"
     "run run run run run run run run run"
+    "info info info info info info info info info"
     "link link link link link link link link link";
 
   @include govuk-media-query($from: desktop-big) {
     grid-template-areas:
     "details details details details details details link link link"
-    "run run run run run run link link link";
+    "run run run run run run link link link"
+    "info info info info info info link link link";
   }
 
   @include govuk-media-query($from: desktop-massive) {
     grid-template-areas:
     "details details details run run run run link link"
-    "details details details run run run run link link";
+    "details details details run run run run link link"
+    "info info info run run run run link link";
   }
 
   .app-grid-service__details {
     grid-area: details;
+  }
+
+  .app-grid-service__info {
+    grid-area: info;
   }
 
   .app-grid-service__running {
