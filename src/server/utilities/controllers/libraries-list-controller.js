@@ -3,7 +3,7 @@ import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libra
 import { utilityToEntityRow } from '~/src/server/utilities/transformers/utility-to-entity-row.js'
 
 const librariesListController = {
-  handler: async (request, h) => {
+  handler: async (_request, h) => {
     const { repositories } = await fetchLibraries()
 
     const entityRows = repositories
