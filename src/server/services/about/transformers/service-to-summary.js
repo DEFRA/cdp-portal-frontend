@@ -34,7 +34,7 @@ function transformServiceToSummary(service) {
   )
 
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-8',
+    classes: 'app-summary-list',
     rows: [
       {
         key: { text: 'Kind' },

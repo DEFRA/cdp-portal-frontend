@@ -58,7 +58,7 @@
 
   <article class="app-grid app-grid-service">
 
-    <section class="app-grid-service__details govuk-!-margin-bottom-6">
+    <section class="app-grid-service__details">
       <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
       <p class="govuk-!-margin-bottom-2">
         {{ service.description }}
@@ -68,50 +68,55 @@
     </section>
 
     <section class="app-grid-service__info">
-      <section class="govuk-!-margin-bottom-6">
-        {{ appHeader({
-          heading: {
-            size: 2,
-            text: "Configuration"
-          },
-          icon: appWrenchIcon({
-            classes: "app-icon--small app-icon--fill-blue"
-          })
-        }) }}
 
-        <p class="govuk-!-margin-bottom-2">
-          Manage service configuration and set environment variables across CDP environments. For more information see
-          our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>. To view
-          this services configuration go to
-          <a class="app-link"
-             href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
-             target="_blank"
-             rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/{{ service.serviceName }}</a>
-        </p>
-      </section>
+      {% call appPanel() %}
+        <section>
+          {{ appHeader({
+            heading: {
+              size: 2,
+              text: "Configuration"
+            },
+            icon: appWrenchIcon({
+              classes: "app-icon--small app-icon--fill-blue"
+            })
+          }) }}
 
-      <section class="govuk-!-margin-bottom-6">
-        {{ appHeader({
-          heading: {
-            size: 2,
-            text: "Continuous Integration"
-          },
-          icon: appCheckIcon({
-            classes: "app-icon--small app-icon--fill-blue",
-            description: "Continuous Integration Builds"
-          })
-        }) }}
+          <p class="govuk-!-margin-bottom-2">
+            Manage service configuration and set environment variables across CDP environments. For more information see
+            our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>. To view
+            this services configuration go to
+            <a class="app-link"
+               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
+               target="_blank"
+               rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/{{ service.serviceName }}</a>
+          </p>
+        </section>
+      {% endcall %}
 
-        <p class="govuk-!-margin-bottom-2">
-          Test, build and publish ready-to-deploy docker images of your service, with CI using GitHub
-          Actions workflows. Your service is built and published by GitHub Actions and comes with a number of useful
-          Workflows. To view these workflows and builds go to
-          <a class="app-link" target="_blank" rel="noopener noreferrer"
-             href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
-            https://github.com/DEFRA/{{ service.serviceName }}/actions
-          </a>
-        </p>
-      </section>
+      {% call appPanel() %}
+        <section>
+          {{ appHeader({
+            heading: {
+              size: 2,
+              text: "Continuous Integration"
+            },
+            icon: appCheckIcon({
+              classes: "app-icon--small app-icon--fill-blue",
+              description: "Continuous Integration Builds"
+            })
+          }) }}
+
+          <p class="govuk-!-margin-bottom-2">
+            Test, build and publish ready-to-deploy docker images of your service, with CI using GitHub
+            Actions workflows. Your service is built and published by GitHub Actions and comes with a number of useful
+            Workflows. To view these workflows and builds go to
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
+              https://github.com/DEFRA/{{ service.serviceName }}/actions
+            </a>
+          </p>
+        </section>
+      {% endcall %}
     </section>
 
     <section class="app-grid-service__running">
