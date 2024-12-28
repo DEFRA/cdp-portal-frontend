@@ -4,7 +4,7 @@ import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 async function fetchTemplates(name) {
   const endpoint =
     config.get('portalBackendUrl') +
-    `/repositories/templates${name ? '/name' : ''}`
+    `/repositories/templates${name ? `/${name}` : ''}`
 
   const { data } = await fetcher(endpoint)
   return data
