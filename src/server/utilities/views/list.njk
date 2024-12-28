@@ -1,0 +1,22 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane() %}
+    {{ appPageHeading({
+      text: heading
+    }) }}
+
+    {{ appEntityList({
+      headings: [
+        { text: "Item", size: "large" },
+        { text: "Team", size: "medium" },
+        { text: "Language", size: "small" },
+        { text: "GitHub Repository", size: "massive" },
+        { text: "Created", size: "medium" }
+      ],
+      entityRows: entityRows,
+      noResult: noResult
+    }) }}
+  {% endcall %}
+{% endblock %}
+
