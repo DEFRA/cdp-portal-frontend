@@ -4,14 +4,13 @@
   "4": "govuk-heading-s"
 } %}
 
+{% set classes = ["govuk-!-margin-bottom-1", headerSizeClassMap[params.heading.size], params.heading.classes if params.heading.classes] | join(" ") | trim %}
+
 <header class="app-header">
   <span class="govuk-!-margin-right-1">
     {{ params.icon | safe }}
   </span>
-  <h{{ params.heading.size }}
-    class="{{ headerSizeClassMap[params.heading.size] }} govuk-!-margin-bottom-1"
-    data-testid="app-header"
-  >
+  <h{{ params.heading.size }} class="{{ classes }}" data-testid="app-header">
     {{ params.heading.text }}
   </h{{ params.heading.size }}>
 </header>
