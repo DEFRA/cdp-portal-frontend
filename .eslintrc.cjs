@@ -102,7 +102,8 @@ module.exports = {
               'copy-webpack-plugin',
               'clean-webpack-plugin',
               'terser-webpack-plugin',
-              'webpack-assets-manifest'
+              'webpack-assets-manifest',
+              'webpack-shell-plugin-next'
             ]
           }
         ]

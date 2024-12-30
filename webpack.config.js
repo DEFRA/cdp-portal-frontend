@@ -5,8 +5,9 @@ import CopyPlugin from 'copy-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
+import WebpackShellPluginNext from 'webpack-shell-plugin-next'
 
-const { NODE_ENV = 'development' } = process.env
+const { NODE_ENV = 'development', DEBUG } = process.env
 
 const require = createRequire(import.meta.url)
 const dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -20,7 +21,8 @@ const ruleTypeAssetResource = 'asset/resource'
 /**
  * @type {Configuration}
  */
-export default {
+// TODO split this work in dev and prod configs
+const config = {
   context: path.resolve(dirname, 'src/client'),
   entry: {
     application: {
@@ -33,8 +35,7 @@ export default {
   mode: NODE_ENV === 'production' ? 'production' : 'development',
   devtool: NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
   watchOptions: {
-    aggregateTimeout: 200,
-    poll: 1000
+    aggregateTimeout: 0
   },
   output: {
     filename:
@@ -206,6 +207,25 @@ export default {
   },
   target: 'browserslist:javascripts'
 }
+
+if (NODE_ENV !== 'production') {
+  config.plugins.push(
+    new WebpackShellPluginNext({
+      onBuildStart: {
+        scripts: ['echo "Webpack build starting"'],
+        blocking: true,
+        parallel: false
+      },
+      onBuildEnd: {
+        scripts: [DEBUG ? 'npm run server:debug' : 'npm run server:watch'],
+        blocking: false,
+        parallel: true
+      }
+    })
+  )
+}
+
+export default config
 
 /**
  * @import { Configuration } from 'webpack'
