@@ -48,7 +48,6 @@ const terminalController = {
 
     return h.view('services/terminal/views/terminal', {
       pageTitle: `${serviceId} - Terminal`,
-      heading: serviceId,
       service,
       canLaunchTerminal,
       terminalEnvs,

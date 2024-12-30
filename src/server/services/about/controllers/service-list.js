@@ -37,7 +37,6 @@ const serviceListController = {
 
     return h.view('services/about/views/list', {
       pageTitle: 'Services',
-      heading: 'Services',
       entityRows
     })
   }

@@ -1,29 +1,14 @@
-import { config } from '~/src/config/config.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 
-const getServiceKind = (service) => {
-  switch (true) {
-    case service.isFrontend:
-      return 'Frontend'
-    case service.isBackend:
-      return 'Backend'
-    default:
-      return noValue
-  }
-}
-
-function transformServiceToSummary(service) {
-  const dockerHubUrl = config.get('dockerHubUrl')
-  const dockerHubServicePage = `${dockerHubUrl}/${service?.imageName}/tags`
-
-  const teams = service?.teams
+function transformRepositoryToSummary(repository) {
+  const teams = repository?.teams
     ?.filter((team) => team.teamId)
     ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
 
-  const topics = service?.topics.map((topic) =>
+  const topics = repository?.topics.map((topic) =>
     renderComponent('tag', {
       text: topic,
       url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
@@ -37,24 +22,9 @@ function transformServiceToSummary(service) {
     classes: 'app-summary-list',
     rows: [
       {
-        key: { text: 'Kind' },
-        value: {
-          html: renderComponent('tag', {
-            text: getServiceKind(service),
-            classes: 'app-tag--blue'
-          })
-        }
-      },
-      {
-        key: { text: 'Image name' },
-        value: {
-          text: service.imageName ?? noValue
-        }
-      },
-      {
         key: { text: 'GitHub Repository' },
         value: {
-          html: buildLink(service.githubUrl, service.githubUrl)
+          html: buildLink(repository.url, repository.url)
         }
       },
       {
@@ -65,7 +35,7 @@ function transformServiceToSummary(service) {
       },
       {
         key: { text: 'Primary Language' },
-        value: { text: service.primaryLanguage ?? noValue }
+        value: { text: repository.primaryLanguage ?? noValue }
       },
       {
         key: { text: 'Topics' },
@@ -74,19 +44,13 @@ function transformServiceToSummary(service) {
         }
       },
       {
-        key: { text: 'Docker Hub' },
-        value: {
-          html: buildLink(dockerHubServicePage)
-        }
-      },
-      {
         key: { text: 'Created' },
         value: {
-          html: renderComponent('time', { datetime: service.createdAt })
+          html: renderComponent('time', { datetime: repository.createdAt })
         }
       }
     ]
   }
 }
 
-export { transformServiceToSummary }
+export { transformRepositoryToSummary }

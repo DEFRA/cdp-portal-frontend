@@ -1,18 +1,14 @@
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
-function teamServicesToDetailedList(services = []) {
-  const doNotInclude = ['cdp', 'service']
-  const items = services.map((service) => ({
+function templatesToDetailedList(templates = []) {
+  const doNotInclude = ['cdp', 'service', 'template', 'repository']
+  const items = templates.map((template) => ({
     title: {
-      html: buildLink(
-        `/services/${service.serviceName}`,
-        service.serviceName,
-        false
-      )
+      html: buildLink(`/utilities/templates/${template.id}`, template.id, false)
     },
     info: {
-      html: service.topics
+      html: template.topics
         ?.filter((topic) => !doNotInclude.includes(topic))
         .sort()
         .map((topic) => renderTag(topic))
@@ -25,4 +21,4 @@ function teamServicesToDetailedList(services = []) {
   }
 }
 
-export { teamServicesToDetailedList }
+export { templatesToDetailedList }

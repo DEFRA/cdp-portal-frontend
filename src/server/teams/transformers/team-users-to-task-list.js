@@ -25,7 +25,7 @@ function transformTeamUsersToTaskList(team, withActions = false) {
   })
 
   return {
-    classes: 'app-task-list govuk-!-margin-bottom-8',
+    classes: 'app-task-list govuk-!-margin-bottom-0',
     attributes: { 'data-testid': 'team-members' },
     items
   }

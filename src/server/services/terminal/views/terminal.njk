@@ -56,10 +56,9 @@
 
 {% block beforeTabContent %}
 
-  {{ appHeading({
-    title: heading,
-    caption: "Information about the " + heading + " microservice.",
-    entities: headingEntities
+  {{ appPageHeading({
+    caption: "Terminal",
+    text: service.serviceName
   }) }}
 
 {% endblock %}

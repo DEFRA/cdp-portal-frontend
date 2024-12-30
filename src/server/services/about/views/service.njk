@@ -48,10 +48,9 @@
 {% endfor %}
 
 {% block beforeTabContent %}
-  {{ appHeading({
-    title: heading,
-    caption: "Information about the " + heading + " microservice",
-    entities: headingEntities
+  {{ appPageHeading({
+    caption: "Service",
+    text: service.serviceName
   }) }}
 {% endblock %}
 
@@ -60,49 +59,66 @@
   <article class="app-grid app-grid-service">
 
     <section class="app-grid-service__details">
-      <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-        <p class="govuk-!-margin-bottom-2">
-          {{ service.description }}
-        </p>
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+      <p class="govuk-!-margin-bottom-2">
+        {{ service.description }}
+      </p>
 
-        {{ govukSummaryList(summaryList) }}
-      </section>
+      {{ govukSummaryList(summaryList) }}
+    </section>
 
-      <section>
-        {% call appSummary() %}
-          {% call appSummaryItem({
-            heading: "Environment Variables",
-            icon: appWrenchIcon({ classes: "app-icon--small"}),
-            intro: {
-              text: "Set non-sensitive environment variables and manage service configuration across CDP environments"
-            }
-          }) %}
-            <p>
-              <a class="app-link"
-                 href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
-                 target="_blank"
-                 rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/{{ service.serviceName }}</a>
-            </p>
-          {% endcall %}
+    <section class="app-grid-service__info">
 
-          {% call appSummaryItem({
-            heading: "Continuous Integration",
-            icon: appCheckIcon({ classes: "app-icon--small", description: "Continuous Integration Builds" }),
-            intro: {
-              text: "Test, build and publish ready-to-deploy docker images of your service, with CI using GitHub
-              Actions workflows"
-            }
-          }) %}
-            <p>
-              <a class="app-link" target="_blank" rel="noopener noreferrer"
-                 href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
-                https://github.com/DEFRA/{{ service.serviceName }}/actions
-              </a>
-            </p>
-          {% endcall %}
-        {% endcall %}
-      </section>
+      {% call appPanel() %}
+        <section>
+          {{ appHeader({
+            heading: {
+              size: 2,
+              classes: "govuk-heading-m",
+              text: "Configuration"
+            },
+            icon: appWrenchIcon({
+              classes: "app-icon--small app-icon--fill-blue"
+            })
+          }) }}
+
+          <p class="govuk-!-margin-bottom-2">
+            Manage service configuration and set environment variables across CDP environments. For more information see
+            our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>. To view
+            this services configuration go to
+            <a class="app-link"
+               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
+               target="_blank"
+               rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/{{ service.serviceName }}</a>
+          </p>
+        </section>
+      {% endcall %}
+
+      {% call appPanel() %}
+        <section>
+          {{ appHeader({
+            heading: {
+              size: 2,
+              classes: "govuk-heading-m",
+              text: "Continuous Integration"
+            },
+            icon: appCheckIcon({
+              classes: "app-icon--small app-icon--fill-blue",
+              description: "Continuous Integration Builds"
+            })
+          }) }}
+
+          <p class="govuk-!-margin-bottom-2">
+            Test, build and publish ready-to-deploy docker images of your service with CI and GitHub
+            Actions workflows. Your service is built and published by GitHub Actions and comes with a number of
+            useful CDP Workflows. To view these workflows and builds go to
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
+              https://github.com/DEFRA/{{ service.serviceName }}/actions
+            </a>
+          </p>
+        </section>
+      {% endcall %}
     </section>
 
     <section class="app-grid-service__running">
@@ -159,7 +175,7 @@
           <section class="govuk-!-margin-bottom-6">
             {{ appHeader({
               heading: {
-                size: 2,
+                size: 3,
                 text: "Service " + urlText
               },
               icon: appWorldIcon({
@@ -208,7 +224,7 @@
         <section class="govuk-!-margin-bottom-6">
           {{ appHeader({
             heading: {
-              size: 2,
+              size: 3,
               text: "CDP Service URLs"
             },
             icon: appGlobeIcon({
@@ -240,7 +256,7 @@
         <section class="govuk-!-margin-bottom-6">
           {{ appHeader({
             heading: {
-              size: 2,
+              size: 3,
               text: "API URLs"
             },
             icon: appGlobeIcon({
@@ -271,7 +287,7 @@
       <section class="govuk-!-margin-bottom-6">
         {{ appHeader({
           heading: {
-            size: 2,
+            size: 3,
             text: "Logs"
           },
           icon: appLogsIcon({ classes: "app-icon--small app-icon--fill-blue" })
@@ -297,7 +313,7 @@
       <section>
         {{ appHeader({
           heading: {
-            size: 2,
+            size: 3,
             text: "Metrics"
           },
           icon: appChartIcon({ classes: "app-icon--small app-icon--fill-blue" })
