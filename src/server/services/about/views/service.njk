@@ -194,8 +194,8 @@
               <ul class="govuk-list govuk-!-margin-0">
                 {% for url in firstVanityUrl.urls %}
                   <li>
-                    <a class="app-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">
-                      {{ url }}
+                    <a class="app-link" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">
+                      {{ url.url }}
                     </a>
                   </li>
                 {% endfor %}
@@ -208,8 +208,8 @@
                     <ul class="govuk-list govuk-!-margin-0">
                       {% for url in vanityUrl.urls %}
                         <li>
-                          <a class="app-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">
-                            {{ url }}
+                          <a class="app-link" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">
+                            {{ url.url }}
                           </a>
                         </li>
                       {% endfor %}

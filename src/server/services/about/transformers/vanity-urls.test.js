@@ -27,21 +27,57 @@ describe('#provideVanityUrls', () => {
       expect(result).toEqual([
         {
           environment: 'infra-dev',
-          urls: ['https://portal-test.cdp-int.defra.cloud']
+          urls: [
+            {
+              url: 'portal-test.cdp-int.defra.cloud',
+              environment: 'infra-dev',
+              serviceName: 'cdp-portal-frontend',
+              enabled: false,
+              shuttered: false
+            }
+          ]
         },
         {
           environment: 'management',
-          urls: ['https://portal.cdp-int.defra.cloud']
+          urls: [
+            {
+              url: 'portal.cdp-int.defra.cloud',
+              environment: 'management',
+              serviceName: 'cdp-portal-frontend',
+              enabled: false,
+              shuttered: false
+            }
+          ]
         },
         {
           environment: 'dev',
-          urls: ['https://portal-dev.cdp-int.defra.cloud']
+          urls: [
+            {
+              url: 'portal-dev.cdp-int.defra.cloud',
+              environment: 'dev',
+              serviceName: 'cdp-portal-frontend',
+              enabled: false,
+              shuttered: false
+            }
+          ]
         },
         {
           environment: 'test',
           urls: [
-            'https://portal-test.cdp-int.defra.cloud',
-            'https://portal-test-other.cdp-int.defra.cloud'
+            {
+              url: 'portal-test.cdp-int.defra.cloud',
+              environment: 'test',
+              serviceName: 'cdp-portal-frontend',
+              enabled: false,
+              shuttered: false
+            },
+            {
+              url: "portal-test-other.cdp-int.defra.cloud'",
+              environment: 'test',
+              serviceName: 'cdp-portal-frontend',
+              enabled: false,
+              shuttered: false
+            }
           ]
         }
       ])
