@@ -40,8 +40,8 @@
       <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
         <form action="/deploy-service/details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}" method="post"
               data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
           {% call govukFieldset() %}
 
@@ -204,22 +204,32 @@
             {% endcall %}
 
             {% call appPanel() %}
-              <section class="app-row">
+              <div class="app-row">
 
                 <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
-                  <p>
+                  <p class="govuk-!-margin-bottom-2">
                     Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.
+                    {% if imageName %}
+                      For more information view <a class="app-link"
+                                                   href="/running-services?service={{ service.serviceName }}"
+                                                   target="_blank"
+                                                   rel="noopener noreferrer">Running services</a>
+                    {% endif %}
                   </p>
+
                   {% if imageName %}
-                    {{ appEntityList({
-                      headings: rowHeadings,
-                      entityRows: runningServicesEntityRows,
-                      classes: "app-entity-list__table--single",
-                      noResult: "Currently there are no versions of " + imageName + " running in any environments"
+
+                    {{ appRunningListService({
+                      runningServices: runningServices,
+                      environments: environments,
+                      inverseZeroDeploy: true
                     }) }}
+
                   {% endif %}
                 </div>
+
+              </div>
 
               </section>
             {% endcall %}

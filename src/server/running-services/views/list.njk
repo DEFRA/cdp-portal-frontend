@@ -2,15 +2,80 @@
 
 {% block content %}
 
-  {{ appHeading({
-    title: heading,
-    caption: "What microservices are running where? and on which environments."
+  {{ appPageHeading({
+    caption: "Whats running where?",
+    text: "Running Services"
   }) }}
 
-  {{ appEntityList({
-    headings: rowHeadings,
-    entityRows: entityRows,
-    noResult: "Currently there are no services running in any environments"
-    }) }}
+  {% call appFilters({
+    action: "/running-services",
+    noJsButton: {
+      text: "Search"
+    },
+    hiddenInputs: hiddenInputs
+  }) %}
+    {% call govukFieldset({
+      legend: {
+        text: "Search",
+        classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-2"
+      }
+    }) %}
+      <p class="govuk-caption-m govuk-!-margin-bottom-3">
+        Search and filter running microservices
+      </p>
+
+      <div class="app-filters">
+        <div class="app-filters__item">
+          {{ appAutocomplete({
+            id: "filters-service",
+            name: "service",
+            classes: "app-autocomplete--small app-autocomplete--inline",
+            label: {
+              text: "Service name",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.service,
+            suggestions: serviceFilters
+          }) }}
+        </div>
+
+        <div class="app-filters__item">
+          {{ appAutocomplete({
+            id: "filters-status",
+            name: "status",
+            classes: "app-autocomplete--tiny app-autocomplete--inline",
+            label: {
+              text: "Status",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.status,
+            suggestions: statusFilters
+          }) }}
+        </div>
+
+        <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
+          <a href="/running-services"
+             class="govuk-link govuk-link--text-colour"
+             data-clear-all="clearDeploymentsListFilters"
+             data-js="app-filters-clear-all">
+            Clear all
+          </a>
+        </p>
+      </div>
+
+    {% endcall %}
+  {% endcall %}
+
+  {% block xhrContent %}
+    <div data-xhr="running-services">
+      {{ appRunningList({ items: runningServices, environments: environments }) }}
+    </div>
+  {% endblock %}
 
 {% endblock %}

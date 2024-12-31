@@ -155,7 +155,7 @@
                   </div>
 
                   {% if (deployment.unstable === true) %}
-                    {% call appWarning() %}
+                    {% call appWarning({ isInverse: true }) %}
                       Your service is failing to start. Check
                       {{ appLogsDashboardLink({
                         text: "logs",

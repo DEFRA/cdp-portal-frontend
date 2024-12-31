@@ -125,14 +125,17 @@
       <section class="govuk-!-margin-bottom-6">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
         <p class="govuk-!-margin-bottom-2">
-          The versions of your service currently running on CDP environments
+          The versions of your service currently running on CDP environments. For more information view
+          <a class="app-link" href="/running-services?service={{ service.serviceName }}">
+            Running services
+          </a>
         </p>
 
-        {{ appEntityList({
-          headings: rowHeadings,
-          entityRows: runningServicesEntityRows,
-          noResult: "Currently there are no versions of " + service.imageName + " running in any environment"
+        {{ appRunningListService({
+          runningServices: runningServices,
+          environments: environments
         }) }}
+
       </section>
 
       <section>

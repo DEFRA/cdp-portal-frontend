@@ -16,6 +16,46 @@ import { pagination } from '~/src/server/common/constants/pagination.js'
 import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
+async function getFilters() {
+  const filtersResponse = await fetchFilters()
+  const serviceFilters = buildSuggestions(
+    filtersResponse.filters.services.map((serviceName) => ({
+      text: serviceName,
+      value: serviceName
+    }))
+  )
+
+  const userFilters = buildSuggestions(
+    filtersResponse.filters.users.map((user) => ({
+      text: user.displayName,
+      value: user.id
+    }))
+  )
+
+  const order = [
+    'running',
+    'requested',
+    'pending',
+    'stopped',
+    'stopping',
+    'undeployed'
+  ]
+  const statusFilters = buildSuggestions(
+    filtersResponse.filters.statuses
+      .sort((a, b) => order.indexOf(a) - order.indexOf(b))
+      .map((status) => ({
+        text: upperFirst(status),
+        value: status
+      }))
+  )
+
+  return {
+    serviceFilters,
+    userFilters,
+    statusFilters
+  }
+}
+
 const deploymentsListController = {
   options: {
     ext: {
@@ -40,37 +80,7 @@ const deploymentsListController = {
     const environment = request.params?.environment
     const formattedEnvironment = upperFirst(kebabCase(environment))
 
-    const filtersResponse = await fetchFilters()
-    const serviceFilters = buildSuggestions(
-      filtersResponse.filters.services.map((serviceName) => ({
-        text: serviceName,
-        value: serviceName
-      }))
-    )
-
-    const userFilters = buildSuggestions(
-      filtersResponse.filters.users.map((user) => ({
-        text: user.displayName,
-        value: user.id
-      }))
-    )
-
-    const order = [
-      'running',
-      'requested',
-      'pending',
-      'stopped',
-      'stopping',
-      'undeployed'
-    ]
-    const statusFilters = buildSuggestions(
-      filtersResponse.filters.statuses
-        .sort((a, b) => order.indexOf(a) - order.indexOf(b))
-        .map((status) => ({
-          text: upperFirst(status),
-          value: status
-        }))
-    )
+    const { serviceFilters, userFilters, statusFilters } = await getFilters()
 
     const deploymentsResponse = await fetchDeployments(environment, {
       page: request.query?.page,
