@@ -1,0 +1,149 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+$environment-width: 160px;
+$environment-height: 120px;
+
+.app-running-list-service {
+  display: flex;
+  gap: govuk-spacing(1);
+}
+
+.app-running-list-service__environment {
+  flex: 1;
+  display: grid;
+  align-items: start;
+  gap: govuk-spacing(1);
+  grid-auto-rows: auto auto auto 30px auto auto;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+      "unstable unstable"
+      "env env"
+      "status status"
+      "version version"
+      "deployed deployed"
+      "updated updated";
+  max-width: $environment-width;
+  min-height: $environment-height;
+  border-radius: $app-border-radius;
+  padding: govuk-spacing(1) govuk-spacing(2);
+  background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
+
+  &.item-detail--green {
+    background-color: govuk-tint(govuk-colour("green"), 80%);
+
+    .app-tag {
+      color: govuk-colour("white");
+      background-color: govuk-colour("green");
+    }
+  }
+
+  &.item-detail--purple {
+    background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
+
+    .app-tag {
+      color: govuk-colour("white");
+      background-color: govuk-colour("bright-purple");
+    }
+  }
+
+  &.item-detail--light-blue {
+    background-color: govuk-tint(govuk-colour("blue"), 90%);
+
+    .app-tag {
+      color: govuk-colour("white");
+      background-color: govuk-colour("blue");
+    }
+  }
+
+  &.item-detail--red {
+    background-color: govuk-tint(govuk-colour("red"), 75%);
+
+    .app-tag {
+      color: govuk-colour("white");
+      background-color: govuk-colour("red");
+    }
+  }
+
+  &.item-detail--grey {
+    background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
+
+    .app-tag {
+      color: govuk-colour("white");
+      background-color: govuk-colour("dark-grey");
+    }
+  }
+
+  .item {
+    margin: 0;
+  }
+
+  .item-unstable {
+    grid-area: unstable;
+    display: flex;
+    color: govuk-colour("white");
+    background-color: govuk-colour("red");
+    padding: govuk-spacing(1);
+    margin: govuk-spacing(-2) govuk-spacing(-2) 0;
+    border-radius: $app-border-radius-top;
+
+    .app-warning-icon {
+      fill: govuk-colour("white");
+    }
+  }
+
+  .item-env {
+    grid-area: env;
+  }
+
+  .item-status {
+    grid-area: status;
+  }
+
+  .item-version {
+    grid-area: version;
+
+    .app-link {
+      font-weight: bold;
+    }
+  }
+
+  .item-deployed {
+    grid-area: deployed;
+  }
+
+  .item-updated {
+    grid-area: updated;
+  }
+}
+
+.app-running-list-service__label {
+  color: govuk-colour("dark-grey");
+}
+
+.app-running-list-service__zero-deployment {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: govuk-colour("dark-grey");
+  padding: govuk-spacing(1) govuk-spacing(2);
+  margin: 0;
+  max-width: $environment-width;
+  min-height: $environment-height;
+  border-radius: $app-border-radius;
+  background-color: $app-light-grey;
+}
+
+.app-running-list-service__zero-deployment--inverse {
+  background-color: govuk-colour("white");
+}
+
+.app-running-list-service__item--no-results {
+  padding: govuk-spacing(3);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: govuk-colour("dark-grey");
+}

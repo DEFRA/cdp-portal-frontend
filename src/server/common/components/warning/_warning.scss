@@ -12,6 +12,10 @@
   border-radius: $app-border-radius-right;
 }
 
+.app-warning--inverse {
+  background-color: govuk-colour("white");
+}
+
 .app-warning-icon {
   margin-right: govuk-spacing(1);
   fill: govuk-colour("red");

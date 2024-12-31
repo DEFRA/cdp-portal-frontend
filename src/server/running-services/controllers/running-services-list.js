@@ -1,42 +1,60 @@
-import compose from 'lodash/fp/compose.js'
 import upperFirst from 'lodash/upperFirst.js'
 
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { withEnvironments } from '~/src/server/common/transformers/with-environments.js'
+import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { servicesToEntityRows } from '~/src/server/running-services/transformers/services-to-entity-rows.js'
-import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
+import { transformRunningServices } from '~/src/server/running-services/helpers/transformers/running-services.js'
 
-function buildRowHeadings(environments) {
-  return [
-    { text: 'Service', size: 'medium' },
-    ...environments.map((environment) => ({
-      text: upperFirst(environment),
-      size: 'small'
+async function getFilters() {
+  const filtersResponse = await fetchFilters()
+  const serviceFilters = buildSuggestions(
+    filtersResponse.filters.services.map((serviceName) => ({
+      text: serviceName,
+      value: serviceName
     }))
+  )
+
+  const order = [
+    'running',
+    'requested',
+    'pending',
+    'stopped',
+    'stopping',
+    'undeployed'
   ]
+  const statusFilters = buildSuggestions(
+    filtersResponse.filters.statuses
+      .sort((a, b) => order.indexOf(a) - order.indexOf(b))
+      .map((status) => ({
+        text: upperFirst(status),
+        value: status
+      }))
+  )
+
+  return {
+    serviceFilters,
+    statusFilters
+  }
 }
 
 const runningServicesListController = {
   options: { id: 'running-services' },
   handler: async (request, h) => {
+    const { serviceFilters, statusFilters } = await getFilters()
+
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
-    const runningServices = (await fetchRunningServices(environments)) ?? []
-    const sortedRunningServices = runningServices?.sort(
-      sortBy('service', 'asc')
+    const runningServices = await transformRunningServices(
+      request,
+      environments
     )
-
-    const entityRows = compose(
-      servicesToEntityRows(environments),
-      withEnvironments
-    )(sortedRunningServices)
 
     return h.view('running-services/views/list', {
       pageTitle: 'Running Services',
-      heading: 'Running Services',
-      rowHeadings: buildRowHeadings(environments),
-      entityRows
+      runningServices,
+      environments,
+      serviceFilters,
+      statusFilters
     })
   }
 }

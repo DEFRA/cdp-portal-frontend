@@ -17,18 +17,11 @@
   height: 40px;
 }
 
-.app-icon--minute {
-  width: 16px;
-  min-width: 16px;
-  max-width: 16px;
-  height: 16px;
-}
-
-.app-icon--tiny {
-  width: 20px;
-  min-width: 20px;
-  max-width: 20px;
-  height: 20px;
+.app-icon--medium {
+  width: 32px;
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
 }
 
 .app-icon--small {
@@ -38,11 +31,18 @@
   height: 24px;
 }
 
-.app-icon--medium {
-  width: 32px;
-  min-width: 32px;
-  max-width: 32px;
-  height: 32px;
+.app-icon--tiny {
+  width: 20px;
+  min-width: 20px;
+  max-width: 20px;
+  height: 20px;
+}
+
+.app-icon--minute {
+  width: 16px;
+  min-width: 16px;
+  max-width: 16px;
+  height: 16px;
 }
 
 .app-icon--fill-blue {

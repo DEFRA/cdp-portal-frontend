@@ -33,12 +33,8 @@ const detailsFormController = {
     const environments = getEnvironments(authedUser?.scope)
     const environmentOptions = environments ? buildOptions(environments) : []
 
-    const {
-      runningServicesEntityRows,
-      rowHeadings,
-      availableVersionOptions,
-      latestVersions
-    } = await getAdditionalData(imageName, request.auth.credentials?.scope)
+    const { runningServices, availableVersionOptions, latestVersions } =
+      await getAdditionalData(imageName)
 
     return h.view('deploy-service/views/details-form', {
       pageTitle: 'Deploy Service details',
@@ -53,8 +49,8 @@ const detailsFormController = {
       availableVersionOptions,
       imageName,
       latestVersions,
-      runningServicesEntityRows,
-      rowHeadings
+      runningServices,
+      environments
     })
   }
 }
