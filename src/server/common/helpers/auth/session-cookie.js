@@ -53,16 +53,14 @@ const sessionCookie = {
               isValid: true,
               credentials: updatedSession
             }
-          }
-
-          if (userSession?.isAuthenticated) {
+          } else if (userSession?.isAuthenticated) {
             return {
               isValid: true,
               credentials: await updateUserScope(request, userSession)
             }
+          } else {
+            return { isValid: false }
           }
-
-          return { isValid: false }
         }
       })
 
