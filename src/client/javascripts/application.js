@@ -6,7 +6,7 @@ import { autoSubmit } from '~/src/client/common/helpers/auto-submit.js'
 import { availability } from '~/src/server/common/components/availability/availability.js'
 import { banner } from '~/src/server/common/components/banner/banner.js'
 import { button } from '~/src/server/common/components/button/button.js'
-import { clearDeploymentsListFilters } from '~/src/client/common/helpers/fetch/filters/clear-deployments-list-filters.js'
+import { clearFilters } from '~/src/client/common/helpers/fetch/filters/clear-filters.js'
 import { errorMessages } from '~/src/client/common/helpers/error-messages.js'
 import { fetchIsNameAvailable } from '~/src/client/common/helpers/fetch/create/fetch-is-name-available.js'
 import { fetchMemory } from '~/src/client/common/helpers/fetch/select/index.js'
@@ -34,7 +34,7 @@ window.cdp = window.cdp || {}
 window.cdp.fetchVersions = fetchVersions
 window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
-window.cdp.clearDeploymentsListFilters = clearDeploymentsListFilters
+window.cdp.clearFilters = clearFilters
 window.cdp.resizeIframe = resizeIframe
 
 initModule('app-input-assistant', inputAssistant, '*=')
