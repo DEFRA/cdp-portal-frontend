@@ -4,6 +4,7 @@
 
 $environment-width: 400px;
 $environment-height: 200px;
+$negative-margin: -8px;
 
 .app-running-list {
   @extend %govuk-body-m;
@@ -50,16 +51,18 @@ $environment-height: 200px;
   display: grid;
   gap: govuk-spacing(2);
   align-items: start;
-  grid-auto-rows: auto 40px 15px 15px 15px 50px minmax(20px, auto);
-  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto minmax(36px, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(48px, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
-      "unstable unstable"
-      "env version"
-      "count count"
-      "cpu cpu"
-      "memory memory"
-      "icon icon"
-      "updated updated";
+      "unstable unstable unstable unstable"
+      "env env env version"
+      "count count count count"
+      "cpu cpu cpu cpu"
+      "memory memory memory memory"
+      "icon icon icon icon"
+      "updated updated updated updated"
+      "by by by by"
+      "team team team team";
   max-width: $environment-width;
   min-height: $environment-height;
   border-radius: $app-border-radius;
@@ -136,17 +139,15 @@ $environment-height: 200px;
   .item-version {
     justify-self: flex-end;
     grid-area: version;
-
-    .app-link {
-      font-weight: bold;
-    }
   }
 
   .item-cpu {
+    margin-top: $negative-margin;
     grid-area: cpu;
   }
 
   .item-memory {
+    margin-top: $negative-margin;
     grid-area: memory;
   }
 
@@ -156,11 +157,22 @@ $environment-height: 200px;
 
   .item-instances {
     grid-area: icon;
-    align-self: center;
+    align-self: start;
   }
 
   .item-updated {
+     margin-top: $negative-margin;
     grid-area: updated;
+  }
+
+  .item-deployed-by {
+     margin-top: $negative-margin;
+    grid-area: by;
+  }
+
+  .item-team {
+     margin-top: $negative-margin;
+    grid-area: team;
   }
 }
 

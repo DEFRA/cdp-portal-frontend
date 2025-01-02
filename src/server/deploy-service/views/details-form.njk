@@ -212,9 +212,9 @@
                     Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.
                     {% if imageName %}
                       For more information view <a class="app-link"
-                                                   href="/running-services?service={{ service.serviceName }}"
-                                                   target="_blank"
-                                                   rel="noopener noreferrer">Running services</a>
+                                                   href="/running-services?service={{ imageName }}">
+                      Running services
+                    </a>
                     {% endif %}
                   </p>
 

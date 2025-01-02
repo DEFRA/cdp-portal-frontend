@@ -20,32 +20,34 @@
         {% if runningService.unstable %}
           <p class="item item-unstable">
             {{ appWarningIcon({ classes: "app-icon--tiny", description: "Unstable!" }) }}
-            Deployment unstable
+            Unstable
           </p>
         {% endif %}
 
         <p class="item item-env">
-          {{ appTag({ text: envName | title, classes: "app-tag--grey" }) }}
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">{{ appTag({ text: envName | title, classes: "app-tag--grey" }) }}</span>
         </p>
 
         <p class="item item-status">
-          {{ runningService.status | title }}
+          <span id="status" class="govuk-visually-hidden">Status</span>
+          <span aria-labelledby="status">{{ runningService.status | title }}</span>
         </p>
 
         <p class="item item-version">
-          <span class="app-running-list-service__label">Version:</span>
-          <a class="app-link app-link--text-colour"
+          <span id="version" class="app-running-list-service__label">Version:</span>
+          <a class="app-link"
              href="https://github.com/DEFRA/{{ item.serviceName }}/releases/tag/{{ runningService.version }}"
-             target="_blank" rel="noopener noreferrer">
+             target="_blank" rel="noopener noreferrer"
+             aria-labelledby="version">
             {{ runningService.version }}
           </a>
         </p>
 
         <p class="item item-deployed">
-          <a class="app-link app-link--text-colour"
-             href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
+          <a class="app-link" href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
             Deployed
-          </a> -
+          </a>
         </p>
 
         <p class="item item-updated">

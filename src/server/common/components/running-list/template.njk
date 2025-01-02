@@ -11,7 +11,7 @@
   {% for item in params.items %}
     <li class="app-running-list__service">
       <div class="app-running-list__service-heading">
-          <h2 class="govuk-heading-l govuk-!-margin-0">{{ item.serviceName }}</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-0">{{ item.serviceName }}</h2>
       </div>
 
       <div class="app-running-list__service-environments">
@@ -23,44 +23,47 @@
             <div class="app-running-list__service-environment{% if runningService.statusClassname %} {{ runningService
             .statusClassname }}{% endif %}">
 
-                {% if runningService.unstable %}
-                  <p class="item item-unstable">
-                    {{ appWarningIcon({ classes: "app-icon--tiny", description: "Unstable!" }) }}
-                      Deployment unstable
-                  </p>
-                {% endif %}
+              {% if runningService.unstable %}
+                <p class="item item-unstable">
+                  {{ appWarningIcon({ classes: "app-icon--tiny", description: "Unstable!" }) }}
+                  Deployment unstable
+                </p>
+              {% endif %}
 
-              <span class="app-running-list__label govuk-visually-hidden">Environment:</span>
-              <p class="item item-env">
+              <span id="status" class="app-running-list__label govuk-visually-hidden">Environment:</span>
+              <p aria-labelledby="status" class="item item-env">
                 {{ appTag({ text: envName | title, classes: "app-tag--grey" }) }}
-                - <span>{{ runningService.status | title }}</span>
+                <span>{{ runningService.status | title }}</span>
               </p>
 
               <p class="item item-version">
-                <span class="app-running-list__label">Version:</span>
-                  <a class="app-link app-link--text-colour"
-                     href="https://github.com/DEFRA/{{ item.serviceName }}/releases/tag/{{ runningService.version }}"
-                     target="_blank" rel="noopener noreferrer">
-                    {{ runningService.version }}
-                  </a>
+                <span id="version" class="app-running-list__label govuk-visually-hidden">Version:</span>
+                <a class="app-link"
+                   href="https://github.com/DEFRA/{{ item.serviceName }}/releases/tag/{{ runningService.version }}"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-labelledby="version"
+                >
+                  {{ runningService.version }}
+                </a>
               </p>
 
               <p class="item item-instance-count">
-                  <span class="app-running-list__label">Instance Count:</span>
-                  {{ runningService.instanceCount }}
+                <span id="instance-count" class="app-running-list__label">Instance Count</span>
+                <span aria-labelledby="instance-count">{{ runningService.instanceCount }}</span>
               </p>
 
               <p class="item item-cpu">
-                <span class="app-running-list__label">CPU:</span>
-                {{ runningService.cpu if runningService.cpu else noValue }}
+                <span id="cpu" class="app-running-list__label">CPU</span>
+                <span aria-labelledby="instance-count">
+                  {{ runningService.cpu if runningService.cpu else noValue }}
+                </span>
               </p>
 
               <p class="item item-memory">
-                <span class="app-running-list__label">Memory:</span>
-                {{ runningService.memory / 1024 + " GB" if runningService.memory  else noValue }}
+                <span id="memory" class="app-running-list__label">Memory</span>
+                <span aria-labelledby="memory">{{ runningService.memory / 1024 + " GB" if runningService.memory  else
+                  noValue }}</span>
               </p>
-
-
 
               <p class="item item-instances">
                 {% for instanceId, instance in runningService.instances %}
@@ -88,13 +91,29 @@
               </p>
 
               <p class="item item-updated">
-                <a class="app-link app-link--text-colour"
-                   href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
-                    Deployed
-                </a> - <time datetime="{{ runningService.updated }}">
-                        {{ runningService.updated | formatDistanceToNow }}
-                       </time> ago
+                <a class="app-link" href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
+                  Deployed
+                </a>
+                <time datetime="{{ runningService.updated }}">
+                  {{ runningService.updated | formatDistanceToNow }}
+                </time>
+                ago
               </p>
+
+              <p class="item item-deployed-by">
+                <span id=deployed-by" class="app-running-list__label">By</span>
+                <span aria-labelledby="deployed-by">{{ runningService.user.displayName }}</span>
+              </p>
+
+              <div class="item item-team">
+                <span class="app-running-list__label">
+                  {{ "Team" | pluralise(runningService.teams | length) }}
+                </span>
+                {% for team in runningService.teams %}
+                  <a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a>
+                  {% if not loop.last %}, {% endif %}
+                {% endfor %}
+              </div>
             </div>
 
           {% else %}

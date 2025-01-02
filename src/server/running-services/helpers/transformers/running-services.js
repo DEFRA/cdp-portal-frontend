@@ -1,15 +1,24 @@
-import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideStatusClassname } from '~/src/server/running-services/helpers/provide-status-classname.js'
+import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
+import { decorateDeployment } from '~/src/server/running-services/helpers/transformers/decorate-deployment.js'
 
-async function transformRunningServices(request, environments) {
+async function transformRunningServices(
+  request,
+  environments,
+  deployableServices
+) {
   const response = /** @type {Array} */ await fetchRunningServices(
     environments,
     {
       service: request.query.service,
-      status: request.query.status
+      status: request.query.status,
+      team: request.query.team,
+      user: request.query.user
     }
   )
+
+  const deploymentDecorator = decorateDeployment(deployableServices)
 
   return Object.entries(
     response?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
@@ -19,15 +28,17 @@ async function transformRunningServices(request, environments) {
 
       acc[rs.service][rs.environment] = {
         statusClassname: provideStatusClassname(rs.status),
-        ...rs
+        ...deploymentDecorator(rs)
       }
 
       return acc
     }, {})
-  ).map(([serviceName, serviceEnvironments]) => ({
-    serviceName,
-    environments: serviceEnvironments
-  }))
+  ).map(([serviceName, serviceEnvironments]) => {
+    return {
+      serviceName,
+      environments: serviceEnvironments
+    }
+  })
 }
 
 export { transformRunningServices }
