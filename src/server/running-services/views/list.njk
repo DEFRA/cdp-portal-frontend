@@ -44,6 +44,40 @@
 
         <div class="app-filters__item">
           {{ appAutocomplete({
+            id: "filters-team",
+            name: "team",
+            classes: "app-autocomplete--small app-autocomplete--inline",
+            label: {
+              text: "Team",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.team,
+            suggestions: teamFilters
+          }) }}
+        </div>
+
+        <div class="app-filters__item">
+          {{ appAutocomplete({
+            id: "filters-user",
+            name: "user",
+            classes: "app-autocomplete--inline",
+            label: {
+              text: "User",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.user,
+            suggestions: userFilters
+          }) }}
+        </div>
+
+        <div class="app-filters__item">
+          {{ appAutocomplete({
             id: "filters-status",
             name: "status",
             classes: "app-autocomplete--tiny app-autocomplete--inline",

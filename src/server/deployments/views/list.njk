@@ -44,18 +44,18 @@
 
         <div class="app-filters__item">
           {{ appAutocomplete({
-            id: "filters-status",
-            name: "status",
-            classes: "app-autocomplete--tiny app-autocomplete--inline",
+            id: "filters-team",
+            name: "team",
+            classes: "app-autocomplete--small app-autocomplete--inline",
             label: {
-              text: "Status",
+              text: "Team",
               classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
             },
             formGroup: {
               classes: "app-form-group--inline"
             },
-            value: formValues.status,
-            suggestions: statusFilters
+            value: formValues.team,
+            suggestions: teamFilters
           }) }}
         </div>
 
@@ -73,6 +73,23 @@
             },
             value: formValues.user,
             suggestions: userFilters
+          }) }}
+        </div>
+
+        <div class="app-filters__item">
+          {{ appAutocomplete({
+            id: "filters-status",
+            name: "status",
+            classes: "app-autocomplete--tiny app-autocomplete--inline",
+            label: {
+              text: "Status",
+              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+            },
+            formGroup: {
+              classes: "app-form-group--inline"
+            },
+            value: formValues.status,
+            suggestions: statusFilters
           }) }}
         </div>
 

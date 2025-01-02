@@ -15,7 +15,7 @@ $environment-height: 120px;
   display: grid;
   align-items: start;
   gap: govuk-spacing(1);
-  grid-auto-rows: auto auto auto 30px auto auto;
+  grid-auto-rows: auto minmax(24px, auto) minmax(16px, auto) minmax(30px, auto) minmax(16px, auto) minmax(24px, auto);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"
@@ -103,10 +103,6 @@ $environment-height: 120px;
 
   .item-version {
     grid-area: version;
-
-    .app-link {
-      font-weight: bold;
-    }
   }
 
   .item-deployed {

@@ -4,20 +4,21 @@ import capitalize from 'lodash/capitalize.js'
 import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 import compose from 'lodash/fp/compose.js'
+
 import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
 import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values.js'
-import { fetchDeployableServices } from '~/src/server/services/helpers/fetch/fetch-deployable-services.js'
+import { fetchDeployableServices } from '~/src/server/common/helpers/fetch/fetch-deployable-services.js'
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
 import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows.js'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
-import { fetchFilters } from '~/src/server/deployments/helpers/fetch/fetch-filters.js'
+import { fetchDeploymentFilters } from '~/src/server/deployments/helpers/fetch/fetch-deployment-filters.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 
 async function getFilters() {
-  const filtersResponse = await fetchFilters()
+  const filtersResponse = await fetchDeploymentFilters()
   const serviceFilters = buildSuggestions(
     filtersResponse.filters.services.map((serviceName) => ({
       text: serviceName,
@@ -32,14 +33,7 @@ async function getFilters() {
     }))
   )
 
-  const order = [
-    'running',
-    'requested',
-    'pending',
-    'stopped',
-    'stopping',
-    'undeployed'
-  ]
+  const order = ['running', 'pending', 'undeployed']
   const statusFilters = buildSuggestions(
     filtersResponse.filters.statuses
       .sort((a, b) => order.indexOf(a) - order.indexOf(b))
@@ -49,10 +43,18 @@ async function getFilters() {
       }))
   )
 
+  const teamFilters = buildSuggestions(
+    filtersResponse.filters.teams.map((team) => ({
+      text: team.name,
+      value: team.teamId
+    }))
+  )
+
   return {
     serviceFilters,
     userFilters,
-    statusFilters
+    statusFilters,
+    teamFilters
   }
 }
 
@@ -70,6 +72,7 @@ const deploymentsListController = {
         service: Joi.string().allow(''),
         user: Joi.string().allow(''),
         status: Joi.string().allow(''),
+        team: Joi.string().allow(''),
         page: Joi.number(),
         size: Joi.number()
       }),
@@ -80,14 +83,16 @@ const deploymentsListController = {
     const environment = request.params?.environment
     const formattedEnvironment = upperFirst(kebabCase(environment))
 
-    const { serviceFilters, userFilters, statusFilters } = await getFilters()
+    const { serviceFilters, userFilters, statusFilters, teamFilters } =
+      await getFilters()
 
     const deploymentsResponse = await fetchDeployments(environment, {
       page: request.query?.page,
       size: request.query?.size,
       service: request.query.service,
       user: request.query.user,
-      status: request.query.status
+      status: request.query.status,
+      team: request.query.team
     })
     const deployments = deploymentsResponse?.data
     const page = deploymentsResponse?.page
@@ -103,10 +108,11 @@ const deploymentsListController = {
     return h.view('deployments/views/list', {
       pageTitle: `${formattedEnvironment} deployments`,
       heading: `${formattedEnvironment} deployments`,
-      caption: `${formattedEnvironment} microservice deployment details.`,
+      caption: `${formattedEnvironment} microservice deployment details`,
       serviceFilters,
       userFilters,
       statusFilters,
+      teamFilters,
       entityRows,
       environment,
       hiddenInputs: { page, size: pageSize },
