@@ -39,7 +39,7 @@ The Core Delivery Platform (CDP), Portal Frontend is a web application that prov
 
 ### Node.js
 
-Please install [Node.js](http://nodejs.org/) `>= v20` and [npm](https://nodejs.org/) `>= v9`.
+Please install [Node.js](http://nodejs.org/) `>= v22` and [npm](https://nodejs.org/) `>= v9`.
 
 > [!TIP]
 > To install Node.js and npm Use Node Version Manager [nvm](https://github.com/creationix/nvm)
