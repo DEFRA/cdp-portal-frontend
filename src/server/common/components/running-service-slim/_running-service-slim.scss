@@ -4,23 +4,22 @@
 
 $environment-width: 160px;
 $environment-height: 120px;
+$negative-margin: -6px;
 
-.app-running-list-service {
+.app-running-service-slim {
   display: flex;
   gap: govuk-spacing(1);
 }
 
-.app-running-list-service__environment {
+.app-running-service-slim__environment {
   flex: 1;
   display: grid;
-  align-items: start;
   gap: govuk-spacing(1);
-  grid-auto-rows: auto minmax(24px, auto) minmax(16px, auto) minmax(30px, auto) minmax(16px, auto) minmax(24px, auto);
+  grid-auto-rows: auto minmax(min-content, auto) minmax(30px, auto) minmax(min-content, auto) minmax(min-content, auto);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"
       "env env"
-      "status status"
       "version version"
       "deployed deployed"
       "updated updated";
@@ -48,33 +47,6 @@ $environment-height: 120px;
     }
   }
 
-  &.item-detail--light-blue {
-    background-color: govuk-tint(govuk-colour("blue"), 90%);
-
-    .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("blue");
-    }
-  }
-
-  &.item-detail--red {
-    background-color: govuk-tint(govuk-colour("red"), 75%);
-
-    .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("red");
-    }
-  }
-
-  &.item-detail--grey {
-    background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
-
-    .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("dark-grey");
-    }
-  }
-
   .item {
     margin: 0;
   }
@@ -85,7 +57,7 @@ $environment-height: 120px;
     color: govuk-colour("white");
     background-color: govuk-colour("red");
     padding: govuk-spacing(1);
-    margin: govuk-spacing(-2) govuk-spacing(-2) 0;
+    margin: govuk-spacing(-1) govuk-spacing(-2) govuk-spacing(1);
     border-radius: $app-border-radius-top;
 
     .app-warning-icon {
@@ -97,10 +69,6 @@ $environment-height: 120px;
     grid-area: env;
   }
 
-  .item-status {
-    grid-area: status;
-  }
-
   .item-version {
     grid-area: version;
   }
@@ -110,15 +78,16 @@ $environment-height: 120px;
   }
 
   .item-updated {
+    margin-top: $negative-margin;
     grid-area: updated;
   }
 }
 
-.app-running-list-service__label {
+.app-running-service-slim__label {
   color: govuk-colour("dark-grey");
 }
 
-.app-running-list-service__zero-deployment {
+.app-running-service-slim__zero-deployment {
   flex: 0.8;
   display: flex;
   justify-content: center;
@@ -132,11 +101,11 @@ $environment-height: 120px;
   background-color: $app-light-grey;
 }
 
-.app-running-list-service__zero-deployment--inverse {
+.app-running-service-slim__zero-deployment--inverse {
   background-color: govuk-colour("white");
 }
 
-.app-running-list-service__item--no-results {
+.app-running-service-slim__item--no-results {
   padding: govuk-spacing(3);
   display: flex;
   justify-content: flex-start;

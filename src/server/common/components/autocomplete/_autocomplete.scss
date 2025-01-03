@@ -109,7 +109,7 @@ $large-width: 40em;
 
 .app-autocomplete__suggestions {
   @include govuk-font(19);
-  z-index: 10;
+  z-index: 500;
   position: absolute;
   left: 0;
   background-color: govuk-colour("white");

@@ -1,0 +1,105 @@
+{% from "tag/macro.njk" import appTag %}
+{% from "time/macro.njk" import appTime %}
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+<table class="app-running-service-table">
+  <thead>
+  <tr>
+    <th id="service" scope="col" class="app-running-service-table__heading">Service</th>
+    {% for envName in params.environments %}
+      <th id="{{ envName }}" scope="col" class="app-running-service-table__heading">{{ envName | title }}</th>
+    {% endfor %}
+  </tr>
+  </thead>
+  <tbody>
+
+  {% for item in params.items %}
+    <tr class="app-running-service-table__service">
+      <th scope="row" headers="service" class="app-running-service-table__service-heading">
+        <h2 class="govuk-heading-m govuk-!-margin-0">
+          <a class="app-link" href="/running-services/{{ item.serviceName }}">
+            {{ item.serviceName }}
+          </a>
+        </h2>
+
+        <div class="app-running-service-table__service-team">
+            <span class="app-running-service-table__label">
+              {{ "Team" | pluralise(item.teams | length) }}
+            </span>
+          {% for team in item.teams %}
+            <a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a>
+            {% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </div>
+      </th>
+
+      {% for envName in params.environments %}
+        <td headers="{{ envName }}" class="app-running-service-table__cell">
+
+          {% set runningService = item.environments[envName] %}
+
+          {% if runningService %}
+            <div
+              class="app-running-service-table__service-environment{% if runningService.statusClassname %} {{ runningService
+              .statusClassname }}{% endif %}">
+
+              {% if runningService.unstable %}
+                <p class="item item-unstable">
+                  {{ appWarningIcon({ classes: "app-icon--tiny", description: "Unstable!" }) }}
+                  Deployment unstable
+                </p>
+              {% endif %}
+
+              <p aria-labelledby="status" class="item item-env">
+                <span id="status" class="app-running-service-table__label govuk-visually-hidden">Status:</span>
+                {{ appTag({ text: envName | title, classes: "app-tag--grey govuk-!-margin-right-1" }) }}
+              </p>
+
+              <p class="item item-version">
+                <span id="version" class="app-running-service-table__label govuk-visually-hidden">Version:</span>
+                <a class="app-link"
+                   href="https://github.com/DEFRA/{{ item.serviceName }}/releases/tag/{{ runningService.version }}"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-labelledby="version"
+                >
+                  {{ runningService.version }}
+                </a>
+              </p>
+
+              <p class="item item-updated">
+                <a class="app-link" href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
+                  Deployed
+                </a>
+                <time datetime="{{ runningService.updated }}">
+                  {{ runningService.updated | formatDistanceToNow }}
+                </time>
+                ago
+              </p>
+
+              <p class="item item-deployed-by">
+                <span id=deployed-by" class="app-running-service-table__label">By</span>
+                <span aria-labelledby="deployed-by">{{ runningService.user.displayName }}</span>
+              </p>
+            </div>
+
+          {% else %}
+
+            <p class="app-running-service-table__zero-deployment"></p>
+
+          {% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+
+  {% else %}
+
+    <tr class="app-running-service-table__service">
+      <td headers="{{ envName }}" class="app-running-service-table__cell--no-results">
+        No running services found
+      </td>
+    </tr>
+
+  {% endfor %}
+  </tbody>
+</table>

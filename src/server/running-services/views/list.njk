@@ -106,10 +106,14 @@
     {% endcall %}
   {% endcall %}
 
-  {% block xhrContent %}
-    <div data-xhr="running-services">
-      {{ appRunningList({ items: runningServices, environments: environments }) }}
+  <div class="govuk-grid-row">
+    <div class="app-grid-column app-grid-column-three-quarters-from-desktop-massive">
+      {% block xhrContent %}
+        <div data-xhr="running-services">
+          {{ appRunningServiceTable({ items: runningServices, environments: environments }) }}
+        </div>
+      {% endblock %}
     </div>
-  {% endblock %}
+  </div>
 
 {% endblock %}
