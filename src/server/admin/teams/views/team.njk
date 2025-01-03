@@ -10,9 +10,9 @@
       text: team.name
     }) }}
 
-    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
-        <ul class="govuk-list govuk-!-margin-bottom-6">
+        <ul class="govuk-list">
           <li>
             <a href="{{ routeLookup('admin/teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
                class="app-link app-link--underline" data-testid="admin-add-team-member">
@@ -32,7 +32,7 @@
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
       <div class="govuk-grid-column-one-half-from-desktop">
 
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Team details</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Team details</h2>
 
         {{ govukSummaryList(summaryList) }}
 

@@ -8,6 +8,7 @@ import { provideVanityUrls } from '~/src/server/services/about/transformers/vani
 import { transformServiceToSummary } from '~/src/server/services/about/transformers/service-to-summary.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformRunningServices } from '~/src/server/services/about/transformers/running-services.js'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 
 const serviceController = {
   options: {
@@ -29,7 +30,9 @@ const serviceController = {
     }
 
     const availableVersions = await fetchAvailableVersions(service.serviceName)
-    const latestPublishedImageVersions = availableVersions.slice(0, 6)
+    const latestPublishedImageVersions = availableVersions
+      .sort(sortBy('created'))
+      .slice(0, 6)
     const vanityUrls = await provideVanityUrls(request)
 
     const authedUser = await request.getUserSession()

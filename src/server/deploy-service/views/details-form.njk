@@ -211,8 +211,7 @@
                   <p class="govuk-!-margin-bottom-2">
                     Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.
                     {% if imageName %}
-                      For more information view <a class="app-link"
-                                                   href="/running-services?service={{ imageName }}">
+                      For more information view <a class="app-link" href="/running-services/{{ imageName }}">
                       Running services
                     </a>
                     {% endif %}
@@ -220,7 +219,7 @@
 
                   {% if imageName %}
 
-                    {{ appRunningListService({
+                    {{ appRunningServiceSlim({
                       runningServices: runningServices,
                       environments: environments,
                       inverseZeroDeploy: true

@@ -3,6 +3,7 @@ import { optionsWithMessage } from '~/src/server/common/helpers/options/options-
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import { transformRunningServices } from '~/src/server/services/about/transformers/running-services.js'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 
 async function getAdditionalData(imageName) {
   if (!imageName) {
@@ -24,7 +25,7 @@ async function getAdditionalData(imageName) {
   return {
     runningServices,
     availableVersionOptions,
-    latestVersions: availableVersions.slice(0, 6)
+    latestVersions: availableVersions.sort(sortBy('created')).slice(0, 6)
   }
 }
 

@@ -1,0 +1,127 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+$environment-height: 200px;
+$negative-margin: -4px;
+
+.app-running-service__environments {
+  grid-area: environment;
+  display: flex;
+  gap: govuk-spacing(2);
+  background-color: $app-light-grey;
+  padding: govuk-spacing(2);
+  border-radius: $app-border-radius;
+}
+
+.app-running-service__environment {
+  flex: 1;
+  display: grid;
+  gap: govuk-spacing(1);
+  align-items: start;
+  grid-auto-rows: auto minmax(36px, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(48px, auto) minmax(min-content, auto) minmax(min-content, auto);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+      "unstable unstable unstable unstable"
+      "env env env version"
+      "count count count count"
+      "cpu cpu cpu cpu"
+      "memory memory memory memory"
+      "icon icon icon icon"
+      "updated updated updated updated"
+      "by by by by";
+  min-height: $environment-height;
+  border-radius: $app-border-radius;
+  padding: govuk-spacing(1) govuk-spacing(2);
+  background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
+
+  &.item-detail--green {
+    background-color: govuk-tint(govuk-colour("green"), 80%);
+
+    .app-tag {
+      color: govuk-colour("white");
+      background-color: govuk-colour("green");
+    }
+  }
+
+  &.item-detail--purple {
+    background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
+
+    .app-tag {
+      color: govuk-colour("white");
+      background-color: govuk-colour("bright-purple");
+    }
+  }
+
+  .item {
+    margin: 0;
+  }
+
+  .item-unstable {
+    grid-area: unstable;
+    display: flex;
+    color: govuk-colour("white");
+    background-color: govuk-colour("red");
+    padding: govuk-spacing(1);
+    margin: govuk-spacing(-1) govuk-spacing(-2) govuk-spacing(1);
+    border-radius: $app-border-radius-top;
+
+    .app-warning-icon {
+      fill: govuk-colour("white");
+    }
+  }
+
+  .item-env {
+    grid-area: env;
+  }
+
+  .item-version {
+    justify-self: flex-end;
+    grid-area: version;
+  }
+
+  .item-instance-count {
+    grid-area: count;
+  }
+
+  .item-cpu {
+    grid-area: cpu;
+    margin-top: $negative-margin;
+  }
+
+  .item-memory {
+    grid-area: memory;
+    margin-top: $negative-margin;
+  }
+
+
+  .item-instances {
+    grid-area: icon;
+    align-self: start;
+  }
+
+  .item-updated {
+    grid-area: updated;
+  }
+
+  .item-deployed-by {
+    margin-top: $negative-margin;
+    grid-area: by;
+  }
+}
+
+.app-running-service-table__label {
+  color: govuk-colour("dark-grey");
+}
+
+.app-running-service__zero-deployment {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: govuk-colour("dark-grey");
+  padding: 0 govuk-spacing(2) govuk-spacing(2);
+  min-height: $environment-height;
+  background-color: govuk-colour("white");
+  margin-bottom: 0;
+}
