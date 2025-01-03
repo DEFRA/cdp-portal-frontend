@@ -75,7 +75,7 @@ $negative-margin: -4px;
   background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
 
   @include govuk-media-query($from: desktop-wide) {
-    grid-auto-rows: auto minmax(36px, auto) minmax(min-content, auto) minmax(min-content, auto);
+    grid-auto-rows: auto minmax(36px, auto) minmax(min-content, auto) min-content;
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas:
       "unstable unstable"
@@ -126,16 +126,8 @@ $negative-margin: -4px;
     display: flex;
     align-items: flex-start;
 
-    .app-tag {
-      margin-top: 1px;
-    }
-  }
-
-  .item-version {
-    grid-area: version;
-
-    @include govuk-media-query($from: desktop-wide) {
-      justify-self: flex-end;
+    .app-icon {
+      margin-top: -2px;
     }
   }
 
@@ -146,6 +138,9 @@ $negative-margin: -4px;
   .item-deployed-by {
     margin-top: $negative-margin;
     grid-area: by;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 

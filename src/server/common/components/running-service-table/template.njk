@@ -2,6 +2,8 @@
 {% from "time/macro.njk" import appTime %}
 {% from "tool-tip/macro.njk" import appToolTip %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+{% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
+{% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
 
 <table class="app-running-service-table">
   <thead>
@@ -41,8 +43,8 @@
 
           {% if runningService %}
             <div
-              class="app-running-service-table__service-environment{% if runningService.statusClassname %} {{ runningService
-              .statusClassname }}{% endif %}">
+                class="app-running-service-table__service-environment{% if runningService.statusClassname %} {{ runningService
+                .statusClassname }}{% endif %}">
 
               {% if runningService.unstable %}
                 <p class="item item-unstable">
@@ -52,13 +54,24 @@
               {% endif %}
 
               <p aria-labelledby="status" class="item item-env">
-                <span id="status" class="app-running-service-table__label govuk-visually-hidden">Status:</span>
-                {{ appTag({ text: envName | title, classes: "app-tag--grey govuk-!-margin-right-1" }) }}
-              </p>
-
-              <p class="item item-version">
                 <span id="version" class="app-running-service-table__label govuk-visually-hidden">Version:</span>
-                <a class="app-link"
+
+                {% set tooltipText = "failed" if runningService.unstable === true else runningService.status %}
+
+                {% call appToolTip({
+                  text: "Instance " + tooltipText | title,
+                  classes: "app-tool-tip--small"
+                }) %}
+
+                  {% if runningService.status === "running" %}
+                    {{ appInstanceSuccessIcon({ description: "Instance running", classes: "app-icon app-icon--small" }) }}
+                  {% elseif runningService.status === "pending"or runningService.status === "stopping" or runningService.status === "deploying" %}
+                    {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon app-icon--small"}) }}
+                  {% endif %}
+
+                {% endcall %}
+
+                <a class="app-link govuk-!-margin-left-1"
                    href="https://github.com/DEFRA/{{ item.serviceName }}/releases/tag/{{ runningService.version }}"
                    target="_blank" rel="noopener noreferrer"
                    aria-labelledby="version"

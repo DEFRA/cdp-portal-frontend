@@ -18,7 +18,7 @@ $black-tint: govuk-tint(govuk-colour("black"), 30%);
     color: govuk-colour("white");
     padding: govuk-spacing(2) govuk-spacing(1);
     border-radius: $app-border-radius;
-    z-index: 10;
+    z-index: 800;
     @include govuk-font(16);
     box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
     left: 0;
@@ -32,7 +32,7 @@ $black-tint: govuk-tint(govuk-colour("black"), 30%);
     display: none;
     border: 7px solid $black-tint;
     border-color: $black-tint transparent transparent transparent;
-    z-index: 11;
+    z-index: 900;
     left: govuk-spacing(2);
     margin-top: -4px;
   }
