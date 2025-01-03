@@ -58,10 +58,12 @@
         </p>
 
         <p class="item item-updated">
-          <time datetime="{{ runningService.updated }}">
-            {{ runningService.updated | formatDistanceToNow }}
-          </time>
-          ago
+          {% call appToolTip({ text: runningService.updated | formatDate }) %}
+            <time datetime="{{ runningService.updated }}">
+              {{ runningService.updated | formatDistanceToNow }}
+            </time>
+            ago
+          {% endcall %}
         </p>
       </div>
 

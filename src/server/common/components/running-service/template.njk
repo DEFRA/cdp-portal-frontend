@@ -86,10 +86,13 @@
           <a class="app-link" href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
             Deployed
           </a>
-          <time datetime="{{ runningService.updated }}">
-            {{ runningService.updated | formatDistanceToNow }}
-          </time>
-          ago
+
+          {% call appToolTip({ text: runningService.updated | formatDate }) %}
+            <time datetime="{{ runningService.updated }}">
+              {{ runningService.updated | formatDistanceToNow }}
+            </time>
+            ago
+          {% endcall %}
         </p>
 
         <p class="item item-deployed-by">
