@@ -3,9 +3,7 @@
 {% from "tool-tip/macro.njk" import appToolTip %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
-{% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
-{% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
 
 <section class="app-running-service-slim">
   {% for envName in params.environments %}
@@ -13,8 +11,8 @@
 
     {% if runningService %}
       <div
-        class="app-running-service-slim__environment{% if runningService.statusClassname %} {{ runningService
-        .statusClassname }}{% endif %}">
+          class="app-running-service-slim__environment{% if runningService.statusClassname %} {{ runningService
+          .statusClassname }}{% endif %}">
         <span class="app-running-service-slim__label govuk-visually-hidden">Environment:</span>
 
         {% if runningService.unstable %}
@@ -24,19 +22,33 @@
           </p>
         {% endif %}
 
-        <p class="item item-env">
-          <span id="environment" class="govuk-visually-hidden">Environment</span>
-          <span aria-labelledby="environment">{{ appTag({ text: envName | title, classes: "app-tag--grey" }) }}</span>
-        </p>
-
         <p class="item item-version">
+          {% set tooltipText = "failed" if runningService.unstable === true else runningService.status %}
+
+          {% call appToolTip({
+            text: "Instance " + tooltipText | title,
+            classes: "app-tool-tip--small"
+          }) %}
+
+            {% if runningService.status === "running" %}
+              {{ appInstanceSuccessIcon({ description: "Instance running", classes: "app-icon app-icon--small" }) }}
+            {% elseif runningService.status === "pending"or runningService.status === "stopping" or runningService.status === "deploying" %}
+              {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon app-icon--small"}) }}
+            {% endif %}
+
+          {% endcall %}
           <span id="version" class="app-running-service-slim__label govuk-visually-hidden">Version:</span>
-          <a class="app-link"
+          <a class="app-link govuk-!-margin-left-1"
              href="https://github.com/DEFRA/{{ runningService.service }}/releases/tag/{{ runningService.version }}"
              target="_blank" rel="noopener noreferrer"
              aria-labelledby="version">
             {{ runningService.version }}
           </a>
+        </p>
+
+        <p class="item item-env">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">{{ appTag({ text: envName | title, classes: "app-tag--grey" }) }}</span>
         </p>
 
         <p class="item item-deployed">

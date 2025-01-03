@@ -15,7 +15,7 @@ $negative-margin: -6px;
   flex: 1;
   display: grid;
   gap: govuk-spacing(1);
-  grid-auto-rows: auto minmax(min-content, auto) minmax(30px, auto) minmax(min-content, auto) minmax(min-content, auto);
+  grid-auto-rows: auto minmax(36px, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"
@@ -65,21 +65,28 @@ $negative-margin: -6px;
     }
   }
 
+  .item-version {
+    grid-area: version;
+    display: flex;
+    align-items: flex-start;
+
+    .app-icon {
+      margin-top: -2px;
+    }
+  }
+
   .item-env {
     grid-area: env;
   }
 
-  .item-version {
-    grid-area: version;
-  }
-
   .item-deployed {
     grid-area: deployed;
+    margin-top: $negative-margin;
   }
 
   .item-updated {
-    margin-top: $negative-margin;
     grid-area: updated;
+    margin-top: $negative-margin;
   }
 }
 
