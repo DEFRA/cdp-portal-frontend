@@ -34,7 +34,8 @@ async function transformRunningServices(
             service.serviceName.toLowerCase() === rs.service.toLowerCase()
         )
 
-        acc[rs.service].teams = deployableService?.teams ?? []
+        acc[rs.service].teams =
+          deployableService?.teams.filter((team) => team.teamId) ?? []
       }
 
       return acc
