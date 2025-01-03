@@ -11,7 +11,7 @@ async function transformRunningService(serviceName) {
       ...rs,
       statusClassname: provideStatusClassname(rs.status)
     })),
-    teams: deployableService?.teams ?? []
+    teams: deployableService?.teams?.filter((team) => team.teamId) ?? []
   }
 }
 
