@@ -15,7 +15,7 @@ $negative-margin: -6px;
   flex: 1;
   display: grid;
   gap: govuk-spacing(1);
-  grid-auto-rows: auto minmax(36px, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);
+  grid-auto-rows: auto minmax(28px, auto) minmax(42px, auto) minmax(min-content, auto) minmax(min-content, auto);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"
@@ -33,8 +33,7 @@ $negative-margin: -6px;
     background-color: govuk-tint(govuk-colour("green"), 80%);
 
     .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("green");
+      background-color: govuk-tint(govuk-colour("green"), 60%);
     }
   }
 
@@ -42,8 +41,7 @@ $negative-margin: -6px;
     background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
 
     .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("bright-purple");
+      background-color: govuk-tint(govuk-colour("green"), 65%);
     }
   }
 

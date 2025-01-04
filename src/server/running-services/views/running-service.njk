@@ -15,12 +15,14 @@
     </div>
   </div>
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-4">
-    <div class="govuk-grid-column-three-quarters">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Environments</h2>
+
+      <p>Information about the state of your service in CDP environments.</p>
 
       {{ appRunningService({ items: runningServices, environments: environments }) }}
 
     </div>
   </div>
-
 {% endblock %}

@@ -25,18 +25,14 @@
         <p class="item item-version">
           {% set tooltipText = "failed" if runningService.unstable === true else runningService.status %}
 
-          {% call appToolTip({
-            text: "Instance " + tooltipText | title,
-            classes: "app-tool-tip--small"
-          }) %}
-
+          {% call appToolTip({ text: tooltipText | title + " in " + envName | title }) %}
             {% if runningService.status === "running" %}
-              {{ appInstanceSuccessIcon({ description: "Instance running", classes: "app-icon app-icon--small" }) }}
+              {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon app-icon--small" }) }}
             {% elseif runningService.status === "pending"or runningService.status === "stopping" or runningService.status === "deploying" %}
-              {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon app-icon--small"}) }}
+              {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon app-icon--small"}) }}
             {% endif %}
-
           {% endcall %}
+
           <span id="version" class="app-running-service-slim__label govuk-visually-hidden">Version:</span>
           <a class="app-link govuk-!-margin-left-1"
              href="https://github.com/DEFRA/{{ runningService.service }}/releases/tag/{{ runningService.version }}"
@@ -57,6 +53,7 @@
           </a>
         </p>
 
+        {# TODO abstract #}
         <p class="item item-updated">
           {% call appToolTip({ text: runningService.updated | formatDate }) %}
             <time datetime="{{ runningService.updated }}">

@@ -26,6 +26,7 @@
         <span id="status" class="app-running-service-table__label govuk-visually-hidden">Environment:</span>
         <p aria-labelledby="status" class="item item-env">
           {{ appTag({ text: envName | title, classes: "app-tag--grey" }) }}
+          <span>{{ runningService.status | title }}</span>
         </p>
 
         <p class="item item-version">
@@ -61,23 +62,21 @@
           {% for instanceId, instance in runningService.instances %}
             {% set tooltipText = "failed" if runningService.unstable === true else instance.status %}
 
-            <span>
-              {% call appToolTip({
-                text: "Instance " + tooltipText | title,
-                classes: "app-tool-tip--small"
-              }) %}
-                {% if instance.status === "running" %}
-                  {{ appInstanceSuccessIcon({ description: "Instance running", classes: "app-icon--small" }) }}
-                {% elseif instance.status === "stopped" and deployment.unstable === true %}
-                  {{ appInstanceFailedIcon({ description: "Instance failed to start", classes: "app-icon--small"
-                  }) }}
-                {% elseif instance.status === "stopped" %}
-                  {{ appInstanceStoppedIcon({ description: "Instance stopped", classes: "app-icon--small" }) }}
-                {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
-                  {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon--small" }) }}
-                {% endif %}
-              {% endcall %}
-            </span>
+            {% call appToolTip({
+              text: "Instance " + tooltipText | title,
+              classes: "app-tool-tip--small"
+            }) %}
+              {% if instance.status === "running" %}
+                {{ appInstanceSuccessIcon({ description: "Instance running", classes: "app-icon--small" }) }}
+              {% elseif instance.status === "stopped" and deployment.unstable === true %}
+                {{ appInstanceFailedIcon({ description: "Instance failed to start", classes: "app-icon--small"
+                }) }}
+              {% elseif instance.status === "stopped" %}
+                {{ appInstanceStoppedIcon({ description: "Instance stopped", classes: "app-icon--small" }) }}
+              {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
+                {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon--small" }) }}
+              {% endif %}
+            {% endcall %}
 
           {% endfor %}
         </p>
@@ -87,6 +86,7 @@
             Deployed
           </a>
 
+          {# TODO abstract #}
           {% call appToolTip({ text: runningService.updated | formatDate }) %}
             <time datetime="{{ runningService.updated }}">
               {{ runningService.updated | formatDistanceToNow }}
