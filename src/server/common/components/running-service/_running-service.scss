@@ -19,7 +19,7 @@ $negative-margin: -4px;
   display: grid;
   gap: govuk-spacing(1);
   align-items: start;
-  grid-auto-rows: auto minmax(36px, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(48px, auto) minmax(min-content, auto) minmax(min-content, auto);
+  grid-auto-rows: auto minmax(28px, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(48px, auto) minmax(min-content, auto) minmax(min-content, auto);
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
       "unstable unstable unstable unstable"
@@ -39,8 +39,7 @@ $negative-margin: -4px;
     background-color: govuk-tint(govuk-colour("green"), 80%);
 
     .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("green");
+      background-color: govuk-tint(govuk-colour("green"), 60%);
     }
   }
 
@@ -48,8 +47,7 @@ $negative-margin: -4px;
     background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
 
     .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("bright-purple");
+      background-color: govuk-tint(govuk-colour("green"), 65%);
     }
   }
 
@@ -94,8 +92,8 @@ $negative-margin: -4px;
     margin-top: $negative-margin;
   }
 
-
   .item-instances {
+    margin-top: govuk-spacing(2);
     grid-area: icon;
     align-self: start;
   }
