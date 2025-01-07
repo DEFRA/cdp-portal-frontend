@@ -14,6 +14,24 @@
 {% from "time/macro.njk" import appTime %}
 {% from "warning/macro.njk" import appWarning %}
 
+{% macro vanityUrlComponent(params) %}
+  <div class="app-!-layout-flex-start">
+    {% if params.shuttered %}
+      {% call appToolTip({ text: "URL is shuttered", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+        {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is shuttered" }) }}
+      {% endcall %}
+    {% elif not params.enabled %}
+      {% call appToolTip({ text: "URL has not been enabled", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+        {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is not enabled" }) }}
+      {% endcall %}
+    {% endif %}
+
+    <a class="app-link" href="https://{{ params.url }}" target="_blank" rel="noopener noreferrer">
+      https://{{ params.url }}
+    </a>
+  </div>
+{% endmacro %}
+
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
 
@@ -211,20 +229,7 @@
               <ul class="govuk-list govuk-!-margin-0">
                 {% for url in firstVanityUrl.urls %}
                   <li>
-                    <div class="app-!-layout-centered">
-                    {% if url.shuttered %}
-                       {% call appToolTip({ text: "URL is shuttered.", classes: "app-tool-tip--small" }) %}
-                       {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is shuttered" }) }}
-                       {% endcall %}
-                     {% elif not url.enabled %}
-                       {% call appToolTip({ text: "URL has not been enabled yet. Contact #cdp-support to enable it.", classes: "app-tool-tip--small" }) %}
-                       {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is not enabled" }) }}
-                       {% endcall %}
-                     {% endif %}
-                    <a class="app-link" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">
-                      https://{{ url.url }}
-                    </a>
-                    </div>
+                    {{ vanityUrlComponent(url) }}
                   </li>
                 {% endfor %}
               </ul>
@@ -236,21 +241,7 @@
                     <ul class="govuk-list govuk-!-margin-0">
                       {% for url in vanityUrl.urls %}
                         <li>
-                          <div class="app-!-layout-centered">
-                            {% if url.shuttered %}
-                               {% call appToolTip({ text: "Shuttered", classes: "app-tool-tip--small" }) %}
-                               {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is shuttered." }) }}
-                               {% endcall %}
-                             {% elif not url.enabled %}
-                               {% call appToolTip({ text: "URL has not been enabled yet. Contact #cdp-support to enable it.", classes: "app-tool-tip--small" }) %}
-                               {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is not enabled" }) }}
-                               {% endcall %}
-                             {% endif %}
-
-                             <a class="app-link" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">
-                               https://{{ url.url }}
-                             </a>
-                           </div>
+                          {{ vanityUrlComponent(url) }}
                         </li>
                       {% endfor %}
                     </ul>
