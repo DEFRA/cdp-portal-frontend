@@ -2,20 +2,25 @@
 
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
+{% from "icons/help-icon/macro.njk" import appHelpIcon %}
 
 {% set successMesages = [
   "MongoDB entries in cdp-self-service-ops deleted",
-  "MongoDB entries in cdp-portal-backend deleted"
+  "MongoDB entries in cdp-portal-backend deleted",
+  "GitHub repository archived"
 ] %}
 
 {% set todos = [
   "Scale service to zero in ECS",
   "Remove service from ECS",
   "Check the below workflows have succeeded",
-  "Ask a GitHub admin to delete/archive the repository",
   "Remove service MongoDB collections",
   "Remove service Postgresql DBs",
   "Empty service S3 buckets"
+] %}
+
+{% set optionals = [
+  "If required, ask a GitHub admin to delete the repository"
 ] %}
 
 {% block content %}
@@ -56,6 +61,14 @@
               <div class="app-!-layout-centered">
                 {{ appInfoIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
                 {{ todo }}
+              </div>
+            </li>
+          {% endfor %}
+          {% for opt in optionals %}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appHelpIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ opt }}
               </div>
             </li>
           {% endfor %}
