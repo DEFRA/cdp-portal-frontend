@@ -60,13 +60,15 @@
 
 {% block tabContent %}
 
-  {% for vanityUrl in vanityUrls %}
-    {% for url in vanityUrl.urls | selectattr("shuttered") %}
-      {% call appWarning({ isInverse: false }) %}
-        <strong>https://{{ url.url }}</strong> is shuttered.
-      {% endcall %}
+  <div class="govuk-!-margin-bottom-4">
+    {% for vanityUrl in vanityUrls %}
+      {% for url in vanityUrl.urls | selectattr("shuttered") %}
+        {% call appWarning({ isInverse: false }) %}
+        <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">https://{{ url.url }}</a> is shuttered.
+        {% endcall %}
+      {% endfor %}
     {% endfor %}
-  {% endfor %}
+  </div>
 
   <article class="app-grid app-grid-service">
 
@@ -209,18 +211,20 @@
               <ul class="govuk-list govuk-!-margin-0">
                 {% for url in firstVanityUrl.urls %}
                   <li>
+                    <div class="app-!-layout-centered">
                     {% if url.shuttered %}
                        {% call appToolTip({ text: "URL is shuttered.", classes: "app-tool-tip--small" }) %}
                        {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is shuttered" }) }}
                        {% endcall %}
                      {% elif not url.enabled %}
                        {% call appToolTip({ text: "URL has not been enabled yet. Contact #cdp-support to enable it.", classes: "app-tool-tip--small" }) %}
-                       {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-gray", description: "URL is not enabled" }) }}
+                       {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is not enabled" }) }}
                        {% endcall %}
                      {% endif %}
                     <a class="app-link" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">
                       https://{{ url.url }}
                     </a>
+                    </div>
                   </li>
                 {% endfor %}
               </ul>
@@ -232,21 +236,21 @@
                     <ul class="govuk-list govuk-!-margin-0">
                       {% for url in vanityUrl.urls %}
                         <li>
+                          <div class="app-!-layout-centered">
+                            {% if url.shuttered %}
+                               {% call appToolTip({ text: "Shuttered", classes: "app-tool-tip--small" }) %}
+                               {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is shuttered." }) }}
+                               {% endcall %}
+                             {% elif not url.enabled %}
+                               {% call appToolTip({ text: "URL has not been enabled yet. Contact #cdp-support to enable it.", classes: "app-tool-tip--small" }) %}
+                               {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is not enabled" }) }}
+                               {% endcall %}
+                             {% endif %}
 
-                          {% if url.shuttered %}
-                             {% call appToolTip({ text: "Shuttered", classes: "app-tool-tip--small" }) %}
-                             {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is shuttered." }) }}
-                             {% endcall %}
-                           {% elif not url.enabled %}
-                             {% call appToolTip({ text: "URL not enabled", classes: "app-tool-tip--small" }) %}
-                             {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-gray", description: "URL has not been enabled yet. Contact #cdp-support to enable it." }) }}
-                             {% endcall %}
-                           {% endif %}
-
-                           <a class="app-link" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">
-                             https://{{ url.url }}
-                           </a>
-
+                             <a class="app-link" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">
+                               https://{{ url.url }}
+                             </a>
+                           </div>
                         </li>
                       {% endfor %}
                     </ul>
