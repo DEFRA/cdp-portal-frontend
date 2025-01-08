@@ -34,6 +34,20 @@ async function provideTabs(request, h) {
       }
     ]
 
+    if (authedUser) {
+      response.source.context.tabDetails.tabs.push({
+        isActive: request.path.startsWith(`/services/${imageName}/buckets`),
+        url: request.routeLookup('services/{serviceId}/buckets', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Buckets'
+      })
+    } else {
+      response.source.context.tabDetails.displayTabs = false
+    }
+
     if (isAdmin || isServiceOwner) {
       response.source.context.tabDetails.tabs.push(
         {
@@ -55,8 +69,6 @@ async function provideTabs(request, h) {
           label: 'Terminal'
         }
       )
-    } else {
-      response.source.context.tabDetails.displayTabs = false
     }
   }
 
