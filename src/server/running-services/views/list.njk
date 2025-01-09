@@ -108,7 +108,7 @@
 
   {% block xhrContent %}
     <div data-xhr="running-services">
-      {{ appRunningServiceTable({ items: runningServices, environments: environments }) }}
+      {{ appEntityTable(tableData) }}
     </div>
   {% endblock %}
 
