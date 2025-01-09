@@ -1,24 +1,14 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideStatusClassname } from '~/src/server/running-services/helpers/provide-status-classname.js'
-import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
 
-async function transformRunningServices(
+function transformRunningServices(
   request,
-  environments,
-  deployableServices
+  runningServices,
+  deployableServices,
+  userScope
 ) {
-  const response = /** @type {Array} */ await fetchRunningServices(
-    environments,
-    {
-      service: request.query.service,
-      status: request.query.status,
-      team: request.query.team,
-      user: request.query.user
-    }
-  )
-
   return Object.entries(
-    response?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
+    runningServices?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
       if (!acc[rs.service]) {
         acc[rs.service] = { envs: {} }
       }
@@ -38,11 +28,18 @@ async function transformRunningServices(
           deployableService?.teams.filter((team) => team.teamId) ?? []
       }
 
+      if (!acc[rs.service].userOwnsService) {
+        acc[rs.service].userOwnsService = acc[rs.service].teams.some((team) =>
+          userScope.includes(team.teamId)
+        )
+      }
+
       return acc
     }, {})
-  ).map(([serviceName, { envs, teams }]) => {
+  ).map(([serviceName, { envs, teams, userOwnsService }]) => {
     return {
       serviceName,
+      userOwnsService,
       environments: envs,
       teams
     }
