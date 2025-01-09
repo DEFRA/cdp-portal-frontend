@@ -5,6 +5,7 @@ function clearFilters(event) {
 
   queryParams.delete('service')
   queryParams.delete('team')
+  queryParams.delete('teamId')
   queryParams.delete('user')
   queryParams.delete('status')
 
