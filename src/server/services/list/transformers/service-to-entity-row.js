@@ -12,11 +12,10 @@ function serviceToEntityRow(isAuthenticated) {
     const githubOrg = config.get('githubOrg')
     const status = service?.serviceStatus?.status
     const hasStatus = Boolean(status)
-    const kind = service.topics?.includes('frontend')
-      ? 'Frontend'
-      : service.topics?.includes('backend')
-        ? 'Backend'
-        : false
+
+    const isFrontend = service.topics?.includes('frontend')
+    const isBackend = service.topics?.includes('backend')
+    const kind = isFrontend ? 'Frontend' : isBackend ? 'Backend' : false
 
     const teams = service?.teams
       ?.filter((team) => team.teamId)

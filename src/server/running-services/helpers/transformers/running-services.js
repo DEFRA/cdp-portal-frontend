@@ -2,7 +2,6 @@ import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideStatusClassname } from '~/src/server/running-services/helpers/provide-status-classname.js'
 
 function transformRunningServices(
-  request,
   runningServices,
   deployableServices,
   userScope

@@ -74,14 +74,13 @@ async function buildTableData(request) {
     getFilters(runningServicesFilters)
 
   const services = transformRunningServices(
-    request,
     runningServices,
     deployableServices,
     userScope
   )
 
   const decorator = runningServiceToEntityRow(environments, isAuthenticated)
-  const rows = services.sort(sortByOwner).map(decorator)
+  const rows = services.toSorted(sortByOwner).map(decorator)
 
   return {
     environments,
