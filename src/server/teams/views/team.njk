@@ -9,109 +9,111 @@
     text: team.name
   }) }}
 
-  {% if userIsTeamMember %}
-    <section>
-      <ul class="govuk-list">
-        <li>
-          <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
-             class="app-link app-link--underline" data-testid="add-team-member">
-            Add member to team
-          </a>
-        </li>
-      </ul>
-    </section>
-  {% endif %}
+  <hr class="app-section-break app-section-break--slim">
 
-  <article class="app-grid app-grid-team">
-    <section class="app-grid-team__details">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-      {{ govukSummaryList(summaryList) }}
-    </section>
+  <div class="govuk-grid-row govuk-!-margin-bottom-8">
+    <div class="app-grid-column app-grid-column-one-half-from-desktop-wide">
 
-    <section class="app-grid-team__members">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-        {{ "Member" | pluralise(team.users | length) }}
-      </h2>
-
-      {% if team.users | length %}
-        {{ govukTaskList(usersTaskList) }}
-      {% else %}
-        <p>This team has no members
-
-          {% if userIsTeamMember %}
+      {% if userIsTeamMember %}
+        <ul class="govuk-list">
+          <li>
             <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
-               class="app-link app-link--underline">
-              Add team members
+               class="app-link app-link--underline" data-testid="add-team-member">
+              Add member to team
             </a>
-          {% endif %}
+          </li>
+        </ul>
+      {% endif %}
+
+      <section>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+        <p class="govuk-!-margin-bottom-2">
+          Team information and the services, test-suites, templates and libraries they own
         </p>
-      {% endif %}
-    </section>
 
-    <section class="app-grid-team__services">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-        {{ "Service" | pluralise(teamServices.items | length) }}
-      </h2>
+        {{ govukSummaryList(summaryList) }}
+      </section>
 
-      {% if services.items | length %}
-        {{ appDetailedList(services) }}
-      {% else %}
-        <p>This team has no services
+    </div>
+  </div>
 
-          {% if userIsTeamMember %}
-            <a href="{{ routeLookup('create') }}"
-               class="app-link app-link--underline">
-              Create a service
-            </a>
+  <div class="govuk-grid-row">
+    <div class="app-grid-column app-grid-column-one-quarter-from-desktop-wide">
+      {% call appPanel() %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+            {{ "Service" | pluralise(teamServices.items | length) }}
+          </h2>
+
+          {% if services.items | length %}
+            {{ appDetailedList(services) }}
+          {% else %}
+            <p>This team has no services
+
+              {% if userIsTeamMember %}
+                <a href="{{ routeLookup('create') }}"
+                   class="app-link app-link--underline">
+                  Create a service
+                </a>
+              {% endif %}
+            </p>
           {% endif %}
-        </p>
-      {% endif %}
-    </section>
+        </section>
+      {% endcall %}
+    </div>
+    <div class="app-grid-column app-grid-column-one-quarter-from-desktop-wide">
+      {% call appPanel() %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+            {{ "Test-suite" | pluralise(teamTestSuites.items | length) }}
+          </h2>
 
-    <section class="app-grid-team__test-suites">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-        {{ "Test-suite" | pluralise(teamTestSuites.items | length) }}
-      </h2>
+          {% if testSuites.items | length %}
+            {{ appDetailedList(testSuites) }}
+          {% else %}
+            <p>This team has no test-suites
 
-      {% if testSuites.items | length %}
-        {{ appDetailedList(testSuites) }}
-      {% else %}
-        <p>This team has no test-suites
-
-          {% if userIsTeamMember %}
-            <a href="{{ routeLookup('create') }}"
-               class="app-link app-link--underline">
-              Create a test-suite
-            </a>
+              {% if userIsTeamMember %}
+                <a href="{{ routeLookup('create') }}"
+                   class="app-link app-link--underline">
+                  Create a test-suite
+                </a>
+              {% endif %}
+            </p>
           {% endif %}
-        </p>
-      {% endif %}
-    </section>
+        </section>
+      {% endcall %}
+    </div>
+    <div class="app-grid-column app-grid-column-one-quarter-from-desktop-wide">
+      {% call appPanel() %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+            {{ "Template" | pluralise(templates.items | length) }}
+          </h2>
 
-    <section class="app-grid-team__templates">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-        {{ "Template" | pluralise(templates.items | length) }}
-      </h2>
+          {% if templates.items | length %}
+            {{ appDetailedList(templates) }}
+          {% else %}
+            <p>This team has no templates</p>
+          {% endif %}
+        </section>
+      {% endcall %}
+    </div>
+    <div class="app-grid-column app-grid-column-one-quarter-from-desktop-wide">
+      {% call appPanel() %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+            {{ "Library" | pluralise(libraries.items | length) }}
+          </h2>
 
-      {% if templates.items | length %}
-        {{ appDetailedList(templates) }}
-      {% else %}
-        <p>This team has no templates</p>
-      {% endif %}
-    </section>
-
-    <section class="app-grid-team__libraries">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-        {{ "Library" | pluralise(libraries.items | length) }}
-      </h2>
-
-      {% if libraries.items | length %}
-        {{ appDetailedList(libraries) }}
-      {% else %}
-        <p>This team has no libraries</p>
-      {% endif %}
-    </section>
-
-  </article>
+          {% if libraries.items | length %}
+            {{ appDetailedList(libraries) }}
+          {% else %}
+            <p>This team has no libraries</p>
+          {% endif %}
+        </section>
+      {% endcall %}
+    </div>
+  </div>
 
 {% endblock %}
