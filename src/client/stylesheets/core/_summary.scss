@@ -17,5 +17,9 @@
     .govuk-summary-list__key {
       padding-left: govuk-spacing(1);
     }
+
+    &:hover {
+      background-color: $app-grey;
+    }
   }
 }

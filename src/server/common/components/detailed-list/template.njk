@@ -1,4 +1,4 @@
-<ul class="app-detailed-list">
+<ul class="app-detailed-list{% if params.isInverse %} app-detailed-list--inverse{% endif %}">
   {% for item in params.items %}
   <li class="app-detailed-list__item">
     <span class="app-detailed-list__item-primary">

@@ -1,4 +1,5 @@
 @use "govuk-frontend" as *;
+@use "icons/block-icon/block-icon";
 @use "icons/cancel-icon/cancel-icon";
 @use "icons/error-icon/error-icon";
 @use "icons/github-icon/github-icon";
@@ -8,6 +9,8 @@
 @use "icons/instance-stopped-icon/instance-stopped-icon";
 @use "icons/instance-success-icon/instance-success-icon";
 @use "icons/pending-icon/pending-icon";
+@use "icons/shutter-icon/shutter-icon";
+@use "icons/star-icon/star-icon";
 @use "icons/terminal-icon/terminal-icon";
 @use "icons/tick-icon/tick-icon";
 @use "icons/user-icon/user-icon";
@@ -48,8 +51,3 @@
 .app-icon--fill-blue {
   fill: govuk-colour("blue");
 }
-
-.app-icon--fill-red {
-  fill: govuk-colour("red");
-}
-
