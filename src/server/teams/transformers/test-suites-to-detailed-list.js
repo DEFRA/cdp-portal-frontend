@@ -2,14 +2,7 @@ import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
 function testSuitesToDetailedList(testSuites = []) {
-  const doNotInclude = [
-    'cdp',
-    'service',
-    'test-suite',
-    'frontend',
-    'backend',
-    'test'
-  ]
+  const doInclude = ['journey', 'performance']
   const items = testSuites.map((testSuite) => ({
     title: {
       html: buildLink(
@@ -20,7 +13,7 @@ function testSuitesToDetailedList(testSuites = []) {
     },
     info: {
       html: testSuite.topics
-        ?.filter((topic) => !doNotInclude.includes(topic))
+        ?.filter((topic) => doInclude.includes(topic))
         .sort()
         .map((topic) => renderTag(topic))
         .join('')
@@ -28,6 +21,7 @@ function testSuitesToDetailedList(testSuites = []) {
   }))
 
   return {
+    isInverse: true,
     items
   }
 }

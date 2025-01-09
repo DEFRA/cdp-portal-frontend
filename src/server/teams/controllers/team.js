@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 
 import { fetchTeam } from '~/src/server/teams/helpers/fetch/fetch-team.js'
 import { transformTeamToSummary } from '~/src/server/teams/transformers/team-to-summary.js'
-import { transformTeamUsersToTaskList } from '~/src/server/teams/transformers/team-users-to-task-list.js'
 import { servicesToDetailedList } from '~/src/server/teams/transformers/services-to-detailed-list.js'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
 import { testSuitesToDetailedList } from '~/src/server/teams/transformers/test-suites-to-detailed-list.js'
@@ -47,7 +46,6 @@ const teamController = {
     return h.view('teams/views/team', {
       pageTitle: `${team.name} Team`,
       summaryList: transformTeamToSummary(team, userIsTeamMember),
-      usersTaskList: transformTeamUsersToTaskList(team, userIsTeamMember),
       services: servicesToDetailedList(
         teamsServices.map(repositoriesDecorator(gitHubServiceRepositories))
       ),

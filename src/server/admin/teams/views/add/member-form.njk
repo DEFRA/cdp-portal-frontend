@@ -12,14 +12,18 @@
       text: team.name
     }) }}
 
-    <div class="govuk-!-margin-bottom-6">
-      {{ appInfo({
-        html: helpHtml
-      }) }}
-    </div>
+    <hr class="app-section-break app-section-break--slim">
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">Search for CDP users</h2>
+
+        <div class="govuk-!-margin-bottom-6">
+          {{ appInfo({
+            html: helpHtml
+          }) }}
+        </div>
+
         <form action="/admin/teams/{{ team.teamId }}/add-member"
               method="post"
               data-js="auto-submit app-form-errors">
