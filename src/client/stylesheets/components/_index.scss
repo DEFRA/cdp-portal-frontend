@@ -10,6 +10,7 @@
 @use "entity-actions/entity-actions";
 @use "entity-data-list/entity-data-list";
 @use "entity-list/entity-list";
+@use "entity-table/entity-table";
 @use "entity/entity";
 @use "filters/filters";
 @use "footer/footer";
@@ -17,14 +18,14 @@
 @use "heading/heading";
 @use "help/help";
 @use "hero/hero";
-@use "input-assistant/input-assistant";
 @use "info/info";
+@use "input-assistant/input-assistant";
 @use "loader/loader";
 @use "old-browser/old-browser";
-@use "panel/panel";
 @use "page-heading/page-heading";
+@use "panel/panel";
 @use "progress/progress";
-@use "running-service-table/running-service-table";
+@use "running-service-entity/running-service-entity";
 @use "running-service-slim/running-service-slim";
 @use "running-service/running-service";
 @use "search/search";

@@ -7,6 +7,10 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
+
+  :last-child {
+    border: none;
+  }
 }
 
 .app-detailed-list__item {
@@ -14,6 +18,7 @@
   align-items: center;
   border-bottom: 1px solid $app-mid-grey;
   padding: govuk-spacing(2) govuk-spacing(1);
+  background-color: govuk-colour("white");
 }
 
 .app-detailed-list__item-primary {
@@ -21,9 +26,16 @@
 }
 
 .app-detailed-list__item-secondary {
-  flex: 3;
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: end;
-  gap: 2px;
+  flex: 1.1;
+}
+
+.app-detailed-list--inverse {
+  .app-detailed-list__item {
+    border-bottom: 1px solid $app-mid-grey;
+    background-color: $app-light-grey;
+  }
+
+  :last-child {
+    border: none;
+  }
 }
