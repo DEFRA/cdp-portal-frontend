@@ -32,6 +32,18 @@ const servicesFixture = [
         name: 'Platform'
       }
     ]
+  },
+  {
+    serviceName: 'forms-designer',
+    githubUrl: `https://github.com/${githubOrg}/forms-designer`,
+    imageName: 'forms-designer',
+    teams: [
+      {
+        github: 'forms',
+        teamId: '0be2f4a1-3e1c-4675-a8ec-3af6d453b7ca',
+        name: 'Forms'
+      }
+    ]
   }
 ]
 
