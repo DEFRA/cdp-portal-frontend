@@ -21,49 +21,6 @@ describe('transformRunningServices', () => {
       {
         environments: {
           'infra-dev': {
-            cdpDeploymentId: '7c3e6971-fca4-4eef-a075-20ff5d72fadf',
-            configVersion: 'f4982d32ea8788b6c6a9b9f6a9306820fdb865c4',
-            cpu: '2048',
-            created: '2024-07-23T23:03:55.79Z',
-            deploymentTestRuns: [],
-            environment: 'infra-dev',
-            instanceCount: 1,
-            instances: {
-              'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/b2ab8209eb2b431a810c336c2b95a7cd':
-                {
-                  status: 'running',
-                  updated: '2024-05-10T14:54:15Z'
-                }
-            },
-            lambdaId: 'ecs-svc/2889706505373554708',
-            lastDeploymentMessage: null,
-            lastDeploymentStatus: null,
-            memory: '4096',
-            secrets: {
-              createdDate: '2024-07-14T08:11:00',
-              keys: [],
-              lastChangedDate: '2024-08-02T14:10:17.3880790Z'
-            },
-            service: 'cdp-portal-backend',
-            status: 'running',
-            statusClassname: 'item-detail--green',
-            taskDefinitionArn: null,
-            unstable: false,
-            updated: '2024-05-10T14:54:15Z',
-            user: {
-              displayName: 'Hendren, Philip',
-              id: '8ae455c8-2237-4cdb-b1f8-d53060c0bb8a'
-            },
-            version: '0.149.0'
-          }
-        },
-        serviceName: 'cdp-portal-backend',
-        teams: [],
-        userOwnsService: false
-      },
-      {
-        environments: {
-          'infra-dev': {
             cdpDeploymentId: '3c439dc3-014f-47ef-9433-57ef0a10d8aa',
             configVersion: null,
             cpu: '1024',
@@ -94,8 +51,8 @@ describe('transformRunningServices', () => {
             unstable: false,
             updated: '2024-05-10T14:49:42Z',
             user: {
-              displayName: 'Hendren, Philip',
-              id: '8ae455c8-2237-4cdb-b1f8-d53060c0bb8a'
+              name: 'RoboCop',
+              userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
             },
             version: '0.356.0'
           }
@@ -143,8 +100,8 @@ describe('transformRunningServices', () => {
             unstable: false,
             updated: '2024-04-25T10:27:58Z',
             user: {
-              displayName: 'Turner, Christopher',
-              id: '90552794-0613-4023-819a-512aa9d40023'
+              name: 'The Terminator',
+              userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d'
             },
             version: '0.188.0'
           }
@@ -152,6 +109,55 @@ describe('transformRunningServices', () => {
         serviceName: 'cdp-self-service-ops',
         teams: [],
         userOwnsService: false
+      },
+      {
+        environments: {
+          'infra-dev': {
+            cdpDeploymentId: '7c3e6971-fca4-4eef-a075-20ff5d72fadf',
+            configVersion: 'f4982d32ea8788b6c6a9b9f6a9306820fdb865c4',
+            cpu: '2048',
+            created: '2024-07-23T23:03:55.79Z',
+            deploymentTestRuns: [],
+            environment: 'infra-dev',
+            instanceCount: 1,
+            instances: {
+              'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-protected/b2ab8209eb2b431a810c336c2b95a7cd':
+                {
+                  status: 'running',
+                  updated: '2024-05-10T14:54:15Z'
+                }
+            },
+            lambdaId: 'ecs-svc/2889706505373554708',
+            lastDeploymentMessage: null,
+            lastDeploymentStatus: null,
+            memory: '4096',
+            secrets: {
+              createdDate: '2024-07-14T08:11:00',
+              keys: [],
+              lastChangedDate: '2024-08-02T14:10:17.3880790Z'
+            },
+            service: 'cdp-user-service-backend',
+            status: 'running',
+            statusClassname: 'item-detail--green',
+            taskDefinitionArn: null,
+            unstable: false,
+            updated: '2024-05-10T14:54:15Z',
+            user: {
+              name: 'RoboCop',
+              userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+            },
+            version: '0.149.0'
+          }
+        },
+        serviceName: 'cdp-user-service-backend',
+        teams: [
+          {
+            github: 'cdp-platform',
+            name: 'Platform',
+            teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
+          }
+        ],
+        userOwnsService: true
       }
     ])
   })
