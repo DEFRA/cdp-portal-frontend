@@ -7,8 +7,8 @@ const whatsRunningWhereFixture = [
     service: 'cdp-portal-frontend',
     version: '0.356.0',
     user: {
-      id: '8ae455c8-2237-4cdb-b1f8-d53060c0bb8a',
-      displayName: 'Hendren, Philip'
+      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+      name: 'RoboCop'
     },
     cpu: '1024',
     memory: '2048',
@@ -39,11 +39,11 @@ const whatsRunningWhereFixture = [
     cdpDeploymentId: '7c3e6971-fca4-4eef-a075-20ff5d72fadf',
     lambdaId: 'ecs-svc/2889706505373554708',
     environment: 'infra-dev',
-    service: 'cdp-portal-backend',
+    service: 'cdp-user-service-backend',
     version: '0.149.0',
     user: {
-      id: '8ae455c8-2237-4cdb-b1f8-d53060c0bb8a',
-      displayName: 'Hendren, Philip'
+      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+      name: 'RoboCop'
     },
     cpu: '2048',
     memory: '4096',
@@ -77,8 +77,8 @@ const whatsRunningWhereFixture = [
     service: 'cdp-self-service-ops',
     version: '0.188.0',
     user: {
-      id: '90552794-0613-4023-819a-512aa9d40023',
-      displayName: 'Turner, Christopher'
+      userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',
+      name: 'The Terminator'
     },
     cpu: '1024',
     memory: '2048',
