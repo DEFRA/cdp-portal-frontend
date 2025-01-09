@@ -63,17 +63,17 @@ async function buildTableData({ service, teamId, isAuthenticated, userScope }) {
       'teamId'
     )
       .sort(sortBy('name', 'asc'))
-      .map(({ name, teamId }) => ({
+      .map(({ name, teamId: value }) => ({
         text: name,
-        value: teamId
+        value
       }))
   )
 
   const rowDecorator = serviceToEntityRow(isAuthenticated)
   const rows = services
-    .map((service) => ({
-      ...service,
-      userOwnsService: service.teams.some((team) =>
+    .map((serviceDetail) => ({
+      ...serviceDetail,
+      userOwnsService: serviceDetail.teams.some((team) =>
         userScope.includes(team.teamId)
       )
     }))

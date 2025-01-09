@@ -24,7 +24,7 @@ function renderString(name, params, macroPath, caller = []) {
  * @param {Array} [caller] - caller array
  * @returns {string}
  */
-function renderComponent(name, params = {}, caller) {
+function renderComponent(name, params = {}, caller = []) {
   const macroPath = `${name}/macro.njk`
 
   return renderString(name, params, macroPath, caller)

@@ -7,13 +7,11 @@ describe('transformRunningServices', () => {
   const oidcAdminGroupId = config.get('oidcAdminGroupId')
 
   test('should transform running services correctly', () => {
-    const request = {}
     const runningServices = whatsRunningWhereFixture
     const deployableServices = servicesFixture
     const userScope = [oidcAdminGroupId]
 
     const result = transformRunningServices(
-      request,
       runningServices,
       deployableServices,
       userScope
@@ -159,13 +157,11 @@ describe('transformRunningServices', () => {
   })
 
   test('should handle empty running services', () => {
-    const request = {}
     const runningServices = []
     const deployableServices = []
     const userScope = []
 
     const result = transformRunningServices(
-      request,
       runningServices,
       deployableServices,
       userScope
