@@ -41,7 +41,7 @@ function transformServiceToSummary(service) {
         value: {
           html: renderComponent('tag', {
             text: getServiceKind(service),
-            classes: 'app-tag--blue'
+            classes: 'govuk-tag--blue'
           })
         }
       },
