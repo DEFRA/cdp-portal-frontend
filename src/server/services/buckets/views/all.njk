@@ -12,6 +12,11 @@
   <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
      rel="noopener noreferrer">#cdp-support</a>
 {% endset %}
+{% set bucketNamesInfoHtml %}
+  Why do bucket names have random characters at the end?
+  <a class="app-link app-link--underline app-link--text-colour" href="/documentation/how-to/buckets.md#bucket-naming" target="_blank"
+     rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
+{% endset %}
 
 {% set allEnvironmentsTables = [] %}
 {% for environment, detail in bucketsByEnvironment %}
@@ -71,6 +76,11 @@
           <p>
             View buckets for {{ service.serviceName }} in all CDP environments
           </p>
+
+          {{ appInfo({
+            classes: "govuk-!-margin-bottom-4",
+            html: bucketNamesInfoHtml
+          }) }}
 
           <div class="app-grid app-grid--fluid">
 
