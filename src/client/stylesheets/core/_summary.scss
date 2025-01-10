@@ -11,11 +11,17 @@
 
 .app-summary-list {
   .govuk-summary-list__row {
-    padding: govuk-spacing(2) govuk-spacing(1);
     border-bottom: 1px solid $app-mid-grey;
+    vertical-align: middle;
 
     .govuk-summary-list__key {
       padding-left: govuk-spacing(1);
+    }
+
+    .govuk-summary-list__key,
+    .govuk-summary-list__value,
+    .govuk-summary-list__actions {
+      vertical-align: middle;
     }
 
     &:hover {
