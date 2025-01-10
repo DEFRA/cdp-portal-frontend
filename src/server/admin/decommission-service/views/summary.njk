@@ -7,13 +7,20 @@
 {% set successMesages = [
   "MongoDB entries in cdp-self-service-ops deleted",
   "MongoDB entries in cdp-portal-backend deleted",
+  "Services in ECS scaled to zero",
+  "Triggered remove ECR images workflow",
+  "Triggered remove Docker Hub images workflow",
+  "Triggered cdp-app-config remove workflow",
+  "Triggered cdp-nginx-upstreams remove workflow",
+  "Triggered cdp-squid-proxy remove workflow",
+  "Triggered cdp-grafana-svc remove workflow",
+  "Triggered cdp-tf-svc-infra remove workflow",
   "GitHub repository archived"
 ] %}
 
 {% set todos = [
-  "Scale service to zero in ECS",
-  "Remove service from ECS",
   "Check the below workflows have succeeded",
+  "Remove service from ECS",
   "Remove service MongoDB collections",
   "Remove service Postgresql DBs",
   "Empty service S3 buckets"
@@ -95,7 +102,7 @@
               class="app-link"
               href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-service.yml"
               target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - Remove service
+              cdp-tf-svc-infra - remove service
             </a>
           </li>
           <li>
@@ -103,7 +110,15 @@
               class="app-link"
               href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-ecr.yml"
               target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - Remove Ecr
+              cdp-tf-svc-infra - remove ECR
+            </a>
+          </li>
+          <li>
+            <a
+              class="app-link"
+              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-dockerhub.yml"
+              target="_blank" rel="noopener noreferrer">
+              cdp-tf-svc-infra - remove DockerHub
             </a>
           </li>
         </ul>
