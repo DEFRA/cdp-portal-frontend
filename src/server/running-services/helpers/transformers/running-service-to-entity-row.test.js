@@ -1,6 +1,6 @@
 import { config } from '~/src/config/config.js'
 import { environments } from '~/src/config/environments.js'
-import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { whatsRunningWhereFixture } from '~/src/__fixtures__/whats-running-where.js'
 import { transformRunningServices } from '~/src/server/running-services/helpers/transformers/running-services.js'
 import { runningServiceToEntityRow } from '~/src/server/running-services/helpers/transformers/running-service-to-entity-row.js'
@@ -14,13 +14,13 @@ describe('#runningServiceToEntityRow', () => {
 
   const runningServices = whatsRunningWhereFixture
   const deployableServices = servicesFixture
-  const userScope = [oidcAdminGroupId]
+  const userScopeUUIDs = [oidcAdminGroupId]
 
-  const services = transformRunningServices(
+  const services = transformRunningServices({
     runningServices,
     deployableServices,
-    userScope
-  )
+    userScopeUUIDs
+  })
   const firstService = services.at(0)
 
   describe('When authenticated', () => {

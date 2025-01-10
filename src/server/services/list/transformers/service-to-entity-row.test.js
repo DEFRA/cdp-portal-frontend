@@ -1,5 +1,5 @@
 import { serviceToEntityRow } from '~/src/server/services/list/transformers/service-to-entity-row.js'
-import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services-with-repositories.js'
+import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services/services-with-repositories.js'
 
 describe('#serviceToEntityRow', () => {
   describe('When authenticated', () => {

@@ -1,6 +1,6 @@
 import { config } from '~/src/config/config.js'
 import { transformRunningServices } from './running-services.js'
-import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { whatsRunningWhereFixture } from '~/src/__fixtures__/whats-running-where.js'
 
 describe('transformRunningServices', () => {
@@ -9,13 +9,13 @@ describe('transformRunningServices', () => {
   test('should transform running services correctly', () => {
     const runningServices = whatsRunningWhereFixture
     const deployableServices = servicesFixture
-    const userScope = [oidcAdminGroupId]
+    const userScopeUUIDs = [oidcAdminGroupId]
 
-    const result = transformRunningServices(
+    const result = transformRunningServices({
       runningServices,
       deployableServices,
-      userScope
-    )
+      userScopeUUIDs
+    })
 
     expect(result).toEqual([
       {
@@ -165,13 +165,13 @@ describe('transformRunningServices', () => {
   test('should handle empty running services', () => {
     const runningServices = []
     const deployableServices = []
-    const userScope = []
+    const userScopeUUIDs = []
 
-    const result = transformRunningServices(
+    const result = transformRunningServices({
       runningServices,
       deployableServices,
-      userScope
-    )
+      userScopeUUIDs
+    })
 
     expect(result).toEqual([])
   })

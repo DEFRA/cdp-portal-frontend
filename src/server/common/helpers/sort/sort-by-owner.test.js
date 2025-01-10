@@ -1,5 +1,5 @@
 import { config } from '~/src/config/config.js'
-import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 
 describe('#sortByOwner', () => {

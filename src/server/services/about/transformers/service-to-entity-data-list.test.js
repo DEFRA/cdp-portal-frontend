@@ -1,6 +1,6 @@
 import { config } from '~/src/config/config.js'
 import { serviceToEntityDataList } from '~/src/server/services/about/transformers/service-to-entity-data-list.js'
-import { serviceDetailFixture } from '~/src/__fixtures__/service-detail.js'
+import { serviceDetailFixture } from '~/src/__fixtures__/services/service-detail.js'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'

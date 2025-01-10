@@ -1,5 +1,5 @@
 import { config } from '~/src/config/config.js'
-import { serviceFixture } from '~/src/__fixtures__/service.js'
+import { serviceFixture } from '~/src/__fixtures__/services/service.js'
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'
