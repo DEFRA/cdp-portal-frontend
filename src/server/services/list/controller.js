@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import { validate as uuidValidate } from 'uuid'
 
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { buildTableData } from '~/src/server/services/list/helpers/build-table-data.js'
+import { buildServicesTableData } from '~/src/server/services/list/helpers/build-services-table-data.js'
 
 const serviceListController = {
   options: {
@@ -21,15 +21,15 @@ const serviceListController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const isAuthenticated = authedUser?.isAuthenticated
-    const userScope = authedUser?.scope.filter(uuidValidate) ?? []
+    const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
     const service = request.query.service
     const teamId = request.query.teamId
 
-    const { rows, filters } = await buildTableData({
+    const { rows, filters } = await buildServicesTableData({
       service,
       teamId,
       isAuthenticated,
-      userScope
+      userScopeUUIDs
     })
 
     return h.view('services/list/views/list', {

@@ -1,11 +1,11 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideStatusClassname } from '~/src/server/running-services/helpers/provide-status-classname.js'
 
-function transformRunningServices(
+function transformRunningServices({
   runningServices,
   deployableServices,
-  userScope
-) {
+  userScopeUUIDs
+}) {
   return Object.entries(
     runningServices?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
       if (!acc[rs.service]) {
@@ -29,7 +29,7 @@ function transformRunningServices(
 
       if (!acc[rs.service].userOwnsService) {
         acc[rs.service].userOwnsService = acc[rs.service].teams.some((team) =>
-          userScope.includes(team.teamId)
+          userScopeUUIDs.includes(team.teamId)
         )
       }
 

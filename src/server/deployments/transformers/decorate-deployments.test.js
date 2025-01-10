@@ -1,5 +1,5 @@
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
-import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
 
 describe('#decorateDeployments', () => {

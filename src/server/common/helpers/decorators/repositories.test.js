@@ -1,6 +1,6 @@
 import { config } from '~/src/config/config.js'
 import { repositoriesFixture } from '~/src/__fixtures__/repositories.js'
-import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { createServicesStatusesFixture } from '~/src/__fixtures__/create-services-statuses.js'
 import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/repositories.js'
 

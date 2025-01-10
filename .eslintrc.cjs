@@ -166,6 +166,11 @@ module.exports = {
         // Allow Jest to assert on mocked unbound methods
         '@typescript-eslint/unbound-method': 'off',
         'jest/unbound-method': 'error',
+        // Allow custom expect functions in tests, that start with expect
+        'jest/expect-expect': [
+          'error',
+          { assertFunctionNames: ['expect', 'expect*'] }
+        ],
 
         // Allow import devDependencies in tests
         'n/no-unpublished-import': [

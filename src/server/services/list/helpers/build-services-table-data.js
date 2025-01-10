@@ -14,7 +14,12 @@ import { createServiceStatusToService } from '~/src/server/common/transformers/c
 import { fetchDeployableServicesFilters } from '~/src/server/services/list/helpers/fetch/fetch-deployable-services-filters.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 
-async function buildTableData({ service, teamId, isAuthenticated, userScope }) {
+async function buildServicesTableData({
+  service,
+  teamId,
+  isAuthenticated,
+  userScopeUUIDs
+}) {
   const kind = 'microservice'
 
   const [
@@ -74,7 +79,7 @@ async function buildTableData({ service, teamId, isAuthenticated, userScope }) {
     .map((serviceDetail) => ({
       ...serviceDetail,
       userOwnsService: serviceDetail.teams.some((team) =>
-        userScope.includes(team.teamId)
+        userScopeUUIDs.includes(team.teamId)
       )
     }))
     .sort(sortByOwner)
@@ -89,4 +94,4 @@ async function buildTableData({ service, teamId, isAuthenticated, userScope }) {
   }
 }
 
-export { buildTableData }
+export { buildServicesTableData }

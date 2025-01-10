@@ -52,32 +52,32 @@ function getFilters(runningServicesFilters) {
   }
 }
 
-async function buildTableData(request) {
-  const authedUser = request.pre.authedUser
+async function buildRunningServicesTableData({ pre, query }) {
+  const authedUser = pre.authedUser
   const isAuthenticated = authedUser?.isAuthenticated
   const environments = getEnvironments(authedUser?.scope)
-  const userScope = authedUser?.scope.filter(uuidValidate) ?? []
+  const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
 
   const [deployableServices, runningServicesFilters, runningServices] =
     await Promise.all([
       fetchDeployableServices(),
       fetchRunningServicesFilters(),
       fetchRunningServices(environments, {
-        service: request.query.service,
-        status: request.query.status,
-        team: request.query.team,
-        user: request.query.user
+        service: query.service,
+        status: query.status,
+        team: query.team,
+        user: query.user
       })
     ])
 
   const { serviceFilters, userFilters, statusFilters, teamFilters } =
     getFilters(runningServicesFilters)
 
-  const services = transformRunningServices(
+  const services = transformRunningServices({
     runningServices,
     deployableServices,
-    userScope
-  )
+    userScopeUUIDs
+  })
 
   const decorator = runningServiceToEntityRow(environments, isAuthenticated)
   const rows = services.toSorted(sortByOwner).map(decorator)
@@ -93,4 +93,4 @@ async function buildTableData(request) {
   }
 }
 
-export { buildTableData }
+export { buildRunningServicesTableData }

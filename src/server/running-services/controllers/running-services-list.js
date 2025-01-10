@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { buildTableData } from '~/src/server/running-services/helpers/build-table-data.js'
+import { buildRunningServicesTableData } from '~/src/server/running-services/helpers/build-running-services-table-data.js'
 
 const runningServicesListController = {
   options: {
@@ -27,7 +27,7 @@ const runningServicesListController = {
       teamFilters,
       environments,
       isAuthenticated
-    } = await buildTableData(request)
+    } = await buildRunningServicesTableData(request)
 
     return h.view('running-services/views/list', {
       pageTitle: 'Running Services',

@@ -31,8 +31,8 @@ describe('#provideSubNavigation', () => {
     provideSubNavigation(request, h)
 
     const subNavigation = request.response.source.context.subNavigation
-    expect(subNavigation[0].isActive).toBe(true)
-    expect(subNavigation[1].isActive).toBe(false)
+    expect(subNavigation.at(0).isActive).toBe(true)
+    expect(subNavigation.at(1).isActive).toBe(false)
   })
 
   test('Should set isActive to false for non-matching paths', () => {
