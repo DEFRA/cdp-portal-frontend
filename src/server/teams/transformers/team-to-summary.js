@@ -52,7 +52,7 @@ function transformTeamToSummary(team, withActions = false) {
 
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
-    attributes: { 'data-testid': 'govuk-summary-list' },
+    attributes: { 'data-testid': 'team-details' },
     rows: [
       {
         key: { text: 'Name' },
