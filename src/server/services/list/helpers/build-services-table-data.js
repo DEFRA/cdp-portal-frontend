@@ -41,10 +41,9 @@ async function buildServicesTableData({
 
   const { repositories } = repositoriesResponse
   const decorator = repositoriesDecorator(repositories)
-  const deployableServicesWithRepository =
-    deployableServices?.map(decorator) ?? []
-  const inProgressServicesWithRepository =
-    inProgressServices?.map(decorator) ?? []
+
+  const deployableServicesWithRepository = deployableServices.map(decorator)
+  const inProgressServicesWithRepository = inProgressServices.map(decorator)
 
   // Services from Self Service Ops /status/in-progress overwrite services from Portal Backends /services
   const services = unionBy(

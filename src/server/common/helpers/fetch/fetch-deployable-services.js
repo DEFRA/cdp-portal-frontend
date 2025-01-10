@@ -10,7 +10,7 @@ async function fetchDeployableServices(queryParams = {}) {
     qs.stringify(queryParams, { arrayFormat: 'repeat', addQueryPrefix: true })
 
   const { data } = await fetcher(endpoint)
-  return data
+  return data ?? []
 }
 
 export { fetchDeployableServices }
