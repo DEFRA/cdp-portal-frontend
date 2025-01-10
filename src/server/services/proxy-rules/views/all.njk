@@ -1,0 +1,101 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "info/macro.njk" import appInfo %}
+{% from "panel/macro.njk" import appPanel %}
+
+{# Construct table rows, tables and html contents #}
+
+{% set setupProxyRulesHtml %}
+  To set up Proxy Rules, contact the Platform team via Slack
+  <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+     rel="noopener noreferrer">#cdp-support</a>
+{% endset %}
+
+{% set allEnvironmentsTables = [] %}
+{% for environment, detail in ProxyRulesByEnvironment %}
+
+  {% set tableRows = [] %}
+  {% for bucket in detail.ProxyRules %}
+    {% set row = [
+      { html: bucket }
+    ] %}
+    {% set tableRows = tableRows | union([row]) %}
+  {% endfor %}
+
+  {% set table %}
+    {% if tableRows | length %}
+      {{ govukTable({
+        classes: "app-table govuk-!-margin-top-3 govuk-!-margin-bottom-2",
+        head: [
+          { text: "Name" }
+        ],
+        rows: tableRows
+      }) }}
+      {% elif not detail.isProxyRulesSetup %}
+      <p>
+        Proxy Rules not set up for this environment
+      </p>
+      {{ appInfo({ html: setupProxyRulesHtml, isInverse: true }) }}
+    {% else %}
+      <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+        No Proxy Rules currently set
+      </p>
+    {% endif %}
+  {% endset %}
+
+  {% set allEnvironmentsTables = allEnvironmentsTables | union([{
+    environment: environment, table:table,
+    isProxyRulesSetup: detail.isProxyRulesSetup, hasProxyRules: tableRows | length > 0
+  }]) %}
+{% endfor %}
+
+{% block beforeTabContent %}
+
+  {{ appPageHeading({
+    caption: "Proxy Rules",
+    text: service.serviceName
+  }) }}
+
+{% endblock %}
+
+{% block tabContent %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {% call appSplitPane() %}
+        <section class="govuk-!-margin-top-2 govuk-!-margin-left-2 govuk-!-padding-left-2 govuk-!-padding-right-2">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy Rules</h2>
+          <p>
+            View Proxy Rules for {{ service.serviceName }} in all CDP environments
+          </p>
+
+          <div class="app-grid app-grid--fluid">
+
+            {% for detail in allEnvironmentsTables %}
+              <article>
+
+                {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
+                  <div class="app-row govuk-!-margin-bottom-2">
+                    <div class="app-row__item-flex-four">
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+                        {{ detail.environment | title }}
+                      </h2>
+                    </div>
+                  </div>
+
+                  {{ detail.table | safe }}
+                {% endcall %}
+              </article>
+
+            {% endfor %}
+          </div>
+        </section>
+      {% endcall %}
+
+    </div>
+  </div>
+
+{% endblock %}

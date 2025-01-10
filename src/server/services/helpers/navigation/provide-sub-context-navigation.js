@@ -1,7 +1,7 @@
 import upperFirst from 'lodash/upperFirst.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
-export function provideSubContextNavigation(request, subPathContext, h) {
+export function provideSubContextNavigation(request, context, h) {
   const response = request.response
 
   if (response.variety === 'view') {
@@ -14,9 +14,9 @@ export function provideSubContextNavigation(request, subPathContext, h) {
 
     response.source.context.subNavigation = [
       {
-        isActive: request.path === `/services/${serviceId}/${subPathContext}`,
-        url: request.routeLookup('services/{serviceId}/{subPathContext}', {
-          params: { serviceId, subPathContext }
+        isActive: request.path === `/services/${serviceId}/${context}`,
+        url: request.routeLookup(`services/{serviceId}/${context}`, {
+          params: { serviceId }
         }),
         label: {
           text: 'All'
@@ -24,14 +24,13 @@ export function provideSubContextNavigation(request, subPathContext, h) {
       },
       ...environments.map((environment) => ({
         isActive: request.path.startsWith(
-          `/services/${serviceId}/${subPathContext}/${environment}`
+          `/services/${serviceId}/${context}/${environment}`
         ),
         url: request.routeLookup(
-          'services/{serviceId}/{subPathContext}/{environment}',
+          `services/{serviceId}/${context}/{environment}`,
           {
             params: {
               serviceId,
-              subPathContext,
               environment
             }
           }

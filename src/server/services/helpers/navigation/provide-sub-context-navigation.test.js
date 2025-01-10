@@ -1,5 +1,7 @@
-import { provideSubContextNavigation } from '~/src/server/services/common/helpers/navigation/provide-sub-context-navigation.js'
+import { provideSubContextNavigation } from '~/src/server/services/helpers/navigation/provide-sub-context-navigation.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
+
+const context = 'some-context'
 
 describe('#provideSubNavigation', () => {
   const mockToolkit = { continue: 'continue' }
@@ -18,7 +20,7 @@ describe('#provideSubNavigation', () => {
       variety,
       source
     },
-    path: '`/services/cdp-portal-frontend/some-context/infra-dev',
+    path: `/services/cdp-portal-frontend/${context}/infra-dev`,
     routeLookup: mockRouteLookup,
     auth: {
       credentials: {
@@ -45,7 +47,7 @@ describe('#provideSubNavigation', () => {
     })
 
     test('Should add sub navigation to response context', async () => {
-      await provideSubContextNavigation(mockRequest, 'some-context', mockToolkit)
+      await provideSubContextNavigation(mockRequest, context, mockToolkit)
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
         {
@@ -116,7 +118,11 @@ describe('#provideSubNavigation', () => {
     })
 
     test('Should not modify response context', async () => {
-      await provideSubNavigation(mockRequest, mockToolkit)
+      await provideSubContextNavigation(
+        mockRequest,
+        'some-context',
+        mockToolkit
+      )
 
       expect(
         mockRequest.response.source?.context?.subNavigation
@@ -132,7 +138,11 @@ describe('#provideSubNavigation', () => {
     })
 
     test('Should initialize response context', async () => {
-      await provideSubNavigation(mockRequest, mockToolkit)
+      await provideSubContextNavigation(
+        mockRequest,
+        'some-context',
+        mockToolkit
+      )
 
       expect(mockRequest.response.source.context).toBeDefined()
     })
@@ -162,7 +172,11 @@ describe('#provideSubNavigation', () => {
     })
 
     test('Should provide sub nav without platform environments', async () => {
-      await provideSubContextNavigation(mockRequest, 'some-context, mockToolkit)
+      await provideSubContextNavigation(
+        mockRequest,
+        'some-context',
+        mockToolkit
+      )
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
         {
@@ -299,7 +313,11 @@ describe('#provideSubNavigation', () => {
     })
 
     test('Should fallback as expected', async () => {
-      await provideSubContextNavigation(mockRequest, 'some-context, mockToolkit)
+      await provideSubContextNavigation(
+        mockRequest,
+        'some-context',
+        mockToolkit
+      )
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
         {

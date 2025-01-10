@@ -49,26 +49,39 @@ async function provideTabs(request, h) {
     }
 
     if (isAdmin || isServiceOwner) {
-      response.source.context.tabDetails.tabs.push(
-        {
-          isActive: request.path.startsWith(`/services/${imageName}/secrets`),
-          url: request.routeLookup('services/{serviceId}/secrets', {
-            params: {
-              serviceId: imageName
-            }
-          }),
-          label: 'Secrets'
-        },
-        {
-          isActive: request.path.startsWith(`/services/${imageName}/terminal`),
-          url: request.routeLookup('services/{serviceId}/terminal', {
-            params: {
-              serviceId: imageName
-            }
-          }),
-          label: 'Terminal'
-        }
-      )
+      response.source.context.tabDetails.tabs.push({
+        isActive: request.path.startsWith(`/services/${imageName}/secrets`),
+        url: request.routeLookup('services/{serviceId}/secrets', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Secrets'
+      })
+    }
+
+    if (isAdmin) {
+      response.source.context.tabDetails.tabs.push({
+        isActive: request.path.startsWith(`/services/${imageName}/proxy-rules`),
+        url: request.routeLookup('services/{serviceId}/proxy-rules', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Proxy Rules'
+      })
+    }
+
+    if (isAdmin || isServiceOwner) {
+      response.source.context.tabDetails.tabs.push({
+        isActive: request.path.startsWith(`/services/${imageName}/terminal`),
+        url: request.routeLookup('services/{serviceId}/terminal', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Terminal'
+      })
     }
   }
 
