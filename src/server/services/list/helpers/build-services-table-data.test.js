@@ -87,6 +87,7 @@ describe('#buildServicesTableData', () => {
 
       test('Should provide expected structure', () => {
         expect(result).toHaveProperty('rows')
+        expect(result).toHaveProperty('servicesCount')
         expect(result).toHaveProperty('filters')
         expect(result.filters).toHaveProperty('service')
         expect(result.filters).toHaveProperty('team')
@@ -134,6 +135,10 @@ describe('#buildServicesTableData', () => {
             ])
           })
         )
+      })
+
+      test('Should provide expected service count', () => {
+        expect(result.servicesCount).toBe(5)
       })
     })
 
@@ -186,6 +191,10 @@ describe('#buildServicesTableData', () => {
         expectRowHasService(result.rows.at(0), 'new-service-two')
 
         expect(result.rows).toHaveLength(1)
+      })
+
+      test('Should provide expected service count', () => {
+        expect(result.servicesCount).toBe(5)
       })
     })
 
@@ -244,6 +253,10 @@ describe('#buildServicesTableData', () => {
 
         expect(result.rows).toHaveLength(4)
       })
+
+      test('Should provide expected service count', () => {
+        expect(result.servicesCount).toBe(5)
+      })
     })
   })
 
@@ -267,6 +280,10 @@ describe('#buildServicesTableData', () => {
       expectRowHasService(result.rows.at(2), 'forms-designer')
       expectRowHasService(result.rows.at(3), 'new-service-one')
       expectRowHasService(result.rows.at(4), 'new-service-two')
+    })
+
+    test('Should provide expected service count', () => {
+      expect(result.servicesCount).toBe(5)
     })
   })
 })

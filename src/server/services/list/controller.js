@@ -4,6 +4,7 @@ import { validate as uuidValidate } from 'uuid'
 
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { buildServicesTableData } from '~/src/server/services/list/helpers/build-services-table-data.js'
+import { servicesInfoToDataList } from '~/src/server/services/list/transformers/services-info-to-data-list.js'
 
 const serviceListController = {
   options: {
@@ -25,7 +26,7 @@ const serviceListController = {
     const service = request.query.service
     const teamId = request.query.teamId
 
-    const { rows, filters } = await buildServicesTableData({
+    const { rows, servicesCount, filters } = await buildServicesTableData({
       service,
       teamId,
       isAuthenticated,
@@ -48,7 +49,8 @@ const serviceListController = {
         noResult: 'No services found'
       },
       serviceFilters: filters.service,
-      teamFilters: filters.team
+      teamFilters: filters.team,
+      servicesInfo: servicesInfoToDataList(servicesCount)
     })
   }
 }
