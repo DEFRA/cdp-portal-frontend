@@ -56,7 +56,7 @@ async function buildServicesTableData({
     deployableFilters.filters.services
   )
   const serviceFilters = buildSuggestions(
-    allFilters.sort(sortByName).map((serviceName) => ({
+    allFilters.toSorted(sortByName).map((serviceName) => ({
       text: serviceName,
       value: serviceName
     }))
