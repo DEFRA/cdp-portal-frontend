@@ -38,8 +38,8 @@
   </div>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
-      {% call appPanel() %}
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
+      {% call appPanel({ isSlim: true }) %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Service" | pluralise(teamServices.items | length) }}
@@ -61,8 +61,8 @@
         </section>
       {% endcall %}
     </div>
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
-      {% call appPanel() %}
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
+      {% call appPanel({ isSlim: true }) %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Test-suite" | pluralise(teamTestSuites.items | length) }}
@@ -84,8 +84,8 @@
         </section>
       {% endcall %}
     </div>
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
-      {% call appPanel() %}
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
+      {% call appPanel({ isSlim: true }) %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Template" | pluralise(templates.items | length) }}
@@ -99,8 +99,8 @@
         </section>
       {% endcall %}
     </div>
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
-      {% call appPanel() %}
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
+      {% call appPanel({ isSlim: true }) %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Library" | pluralise(libraries.items | length) }}
