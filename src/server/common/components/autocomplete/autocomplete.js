@@ -76,6 +76,7 @@ class Autocomplete {
     this.subscribeTo = $select.dataset.subscribeTo
     this.noSuggestionsMessage = $select.dataset.noSuggestionsMessage
     this.removePassWidgets = $select.dataset.removePassWidgets
+    this.placeholder = $select.dataset.placeholder
 
     const suggestion = this.getSuggestionByValue($select.value)
 
@@ -84,7 +85,7 @@ class Autocomplete {
     $autocomplete.name = '' // So the input value is not submitted, the hidden input submits the value
     $autocomplete.value = suggestion?.text ?? ''
     $autocomplete.classList.add('govuk-input', 'app-autocomplete__input')
-    $autocomplete.placeholder = selectMessage
+    $autocomplete.placeholder = this.placeholder ?? selectMessage
     $autocomplete.dataset.js = $select.dataset.js.replace(
       'app-progressive-input',
       'app-autocomplete-input'
