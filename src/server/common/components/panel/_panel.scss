@@ -15,3 +15,7 @@
 .app-panel--inverse {
   background-color: govuk-colour("white");
 }
+
+.app-panel--slim {
+  padding: govuk-spacing(2);
+}

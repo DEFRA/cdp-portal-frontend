@@ -25,7 +25,7 @@ const buildMembers = (team) =>
     return {
       key: { text: i === 0 ? 'Members' : '' },
       value: {
-        html: `<div class="app-!-layout-centered">${
+        html: `<div class="app-!-layout-flex-start">${
           renderIcon('user-icon', {
             classes: 'app-icon--minute govuk-!-margin-right-1'
           }) + user.name
@@ -52,7 +52,7 @@ function transformTeamToSummary(team, withActions = false) {
 
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
-    attributes: { 'data-testid': 'govuk-summary-list' },
+    attributes: { 'data-testid': 'team-details' },
     rows: [
       {
         key: { text: 'Name' },

@@ -41,6 +41,7 @@ async function buildServicesTableData({
 
   const { repositories } = repositoriesResponse
   const decorator = repositoriesDecorator(repositories)
+
   const deployableServicesWithRepository = deployableServices.map(decorator)
   const inProgressServicesWithRepository = inProgressServices.map(decorator)
 
@@ -50,16 +51,15 @@ async function buildServicesTableData({
     deployableServicesWithRepository,
     'serviceName'
   )
+  const allFilters = union(
+    inProgressFilters.filters.services,
+    deployableFilters.filters.services
+  )
   const serviceFilters = buildSuggestions(
-    union(
-      inProgressFilters.filters.services,
-      deployableFilters.filters.services
-    )
-      .sort(sortByName)
-      .map((serviceName) => ({
-        text: serviceName,
-        value: serviceName
-      }))
+    allFilters.toSorted(sortByName).map((serviceName) => ({
+      text: serviceName,
+      value: serviceName
+    }))
   )
   const teamFilters = buildSuggestions(
     unionBy(
@@ -87,6 +87,7 @@ async function buildServicesTableData({
 
   return {
     rows,
+    servicesCount: allFilters.length,
     filters: {
       service: serviceFilters,
       team: teamFilters

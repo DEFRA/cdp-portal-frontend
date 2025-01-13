@@ -51,7 +51,7 @@
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+      <div class="govuk-grid-column-one-half-from-desktop-wide">
         <form action="/create/repository/detail" method="post" data-js="app-form-errors"
               class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
@@ -164,7 +164,7 @@
         </form>
       </div>
 
-      <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+      <div class="govuk-grid-column-one-half-from-desktop-wide">
         <div class="govuk-!-margin-bottom-4">
           {{ appNamingAdvice({
             kind: "repository",

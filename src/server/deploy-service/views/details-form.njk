@@ -37,7 +37,7 @@
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="app-grid-column app-grid-column-one-third-from-desktop-wide">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
         <form action="/deploy-service/details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}" method="post"
               data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
@@ -153,7 +153,7 @@
       </div>
 
       {% block xhrContent %}
-        <div class="app-grid-column app-grid-column-two-thirds-from-desktop-wide">
+        <div class="govuk-grid-column-two-thirds-from-desktop-wide">
           {% call appXhrSubscriber({
             id: "deploy-data",
             subscribeTo: eventName.autocompleteUpdate + "-version",
