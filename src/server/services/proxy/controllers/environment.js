@@ -4,9 +4,9 @@ import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 
-export const environmentProxyRulesController = {
+export const environmentProxyController = {
   options: {
-    id: 'services/{serviceId}/proxy-rules/{environment}',
+    id: 'services/{serviceId}/proxy/{environment}',
     pre: [provideService],
     validate: {
       params: serviceParamsValidation,
@@ -21,8 +21,8 @@ export const environmentProxyRulesController = {
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
 
-    return h.view('services/proxy-rules/views/environment', {
-      pageTitle: `${serviceName} - Proxy Rules - ${formattedEnvironment}`,
+    return h.view('services/proxy/views/environment', {
+      pageTitle: `${serviceName} - Proxy - ${formattedEnvironment}`,
       service,
       teamId,
       environment,
@@ -37,7 +37,7 @@ export const environmentProxyRulesController = {
         },
         {
           text: 'Proxy-Rules',
-          href: `/services/${serviceName}/proxy-rules`
+          href: `/services/${serviceName}/proxy`
         },
         {
           text: formattedEnvironment

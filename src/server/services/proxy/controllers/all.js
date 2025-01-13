@@ -4,9 +4,9 @@ import Boom from '@hapi/boom'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
-export const allProxyRulesController = {
+export const allProxyController = {
   options: {
-    id: 'services/{serviceId}/proxy-rules',
+    id: 'services/{serviceId}/proxy',
     pre: [provideService],
     validate: {
       params: Joi.object({
@@ -20,8 +20,8 @@ export const allProxyRulesController = {
     const serviceName = service.serviceName
     const environments = getEnvironments(request.auth.credentials?.scope)
 
-    return h.view('services/proxy-rules/views/all', {
-      pageTitle: `${serviceName} - Proxy Rules`,
+    return h.view('services/proxy/views/all', {
+      pageTitle: `${serviceName} - Proxy`,
       service,
       breadcrumbs: [
         {
@@ -33,7 +33,7 @@ export const allProxyRulesController = {
           href: `/services/${serviceName}`
         },
         {
-          text: 'Proxy-Rules'
+          text: 'Proxy'
         }
       ]
     })

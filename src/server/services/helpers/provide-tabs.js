@@ -62,13 +62,13 @@ async function provideTabs(request, h) {
 
     if (isAdmin) {
       response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/proxy-rules`),
-        url: request.routeLookup('services/{serviceId}/proxy-rules', {
+        isActive: request.path.startsWith(`/services/${imageName}/proxy`),
+        url: request.routeLookup('services/{serviceId}/proxy', {
           params: {
             serviceId: imageName
           }
         }),
-        label: 'Proxy Rules'
+        label: 'Proxy'
       })
     }
 

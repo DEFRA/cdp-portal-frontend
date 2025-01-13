@@ -1,6 +1,6 @@
-import { allProxyRulesController } from '~/src/server/services/proxy-rules/controllers/all.js'
-import { environmentProxyRulesController } from '~/src/server/services/proxy-rules/controllers/environment.js'
-import { provideSubNavigation } from '~/src/server/services/proxy-rules/helpers/provide-sub-navigation.js'
+import { allProxyController } from '~/src/server/services/proxy/controllers/all.js'
+import { environmentProxyController } from '~/src/server/services/proxy/controllers/environment.js'
+import { provideSubNavigation } from '~/src/server/services/proxy/helpers/provide-sub-navigation.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
@@ -8,9 +8,9 @@ import { provideService } from '~/src/server/services/helpers/provide-service.js
 
 const adminUserScope = authScope([scopes.admin])
 
-export const serviceProxyRules = {
+export const serviceProxy = {
   plugin: {
-    name: 'serviceProxyRules',
+    name: 'serviceProxy',
     register: (server) => {
       server.ext([
         {
@@ -40,13 +40,13 @@ export const serviceProxyRules = {
         [
           {
             method: 'GET',
-            path: '/services/{serviceId}/proxy-rules',
-            ...allProxyRulesController
+            path: '/services/{serviceId}/proxy',
+            ...allProxyController
           },
           {
             method: 'GET',
-            path: '/services/{serviceId}/proxy-rules/{environment}',
-            ...environmentProxyRulesController
+            path: '/services/{serviceId}/proxy/{environment}',
+            ...environmentProxyController
           }
         ].map(adminUserScope)
       )

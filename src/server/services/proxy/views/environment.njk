@@ -7,17 +7,17 @@
 {% from "tag/macro.njk" import appTag %}
 {% from "tool-tip/macro.njk" import appToolTip %}
 
-{% set setupProxyRulesHtml %}
-  To set up Proxy Rules, contact the Platform team via Slack
+{% set setupProxyHtml %}
+  To set up Proxy rules, contact the Platform team via Slack
   <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
      rel="noopener noreferrer">#cdp-support</a>
 {% endset %}
 
 
-{% set ProxyRulesTableRows = [] %}
-{% for bucket in ProxyRules %}
+{% set ProxyTableRows = [] %}
+{% for bucket in Proxy %}
 
-  {{ ProxyRulesTableRows.push([
+  {{ ProxyTableRows.push([
     { html: bucket }
   ]) }}
 {% endfor %}
@@ -25,7 +25,7 @@
 {% block beforeTabContent %}
 
   {{ appPageHeading({
-    caption: "ProxyRules",
+    caption: "Proxy",
     text: service.serviceName
   }) }}
 
@@ -34,32 +34,32 @@
 {% block tabContent %}
   {% call appSplitPane() %}
     <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-left-2">
-      <section class="app-grid-column-two-thirds-from-desktop-big">
+      <section class="govuk-grid-column-two-thirds-from-desktop-big">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-            data-testid="app-environment-header">{{ environment | title }} Proxy Rules</h2>
+            data-testid="app-environment-header">{{ environment | title }} Proxy </h2>
         <div class="app-section app-section--wide">
-          {% if isProxyRulesSetup %}
+          {% if isProxySetup %}
 
             {% block xhrContent %}
-              <article data-xhr="ProxyRules-{{ service.serviceName }}-{{ environment }}">
+              <article data-xhr="Proxy-{{ service.serviceName }}-{{ environment }}">
 
                 <p>
-                  Proxy Rules available to your service
+                  Proxy rules available to your service
                 </p>
 
                 {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
-                  {% if ProxyRules | length %}
+                  {% if Proxy | length %}
                     {{ govukTable({
                       classes: "app-table govuk-!-margin-bottom-2",
                       head: [
                         { text: "Name" }
                       ],
-                      rows: ProxyRulesTableRows
+                      rows: ProxyTableRows
                     }) }}
 
                   {% else %}
                     <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-                      No Proxy Rules currently exist
+                      No Proxy rules currently exist
                     </p>
                   {% endif %}
                 {% endcall %}
@@ -71,7 +71,7 @@
             <p>
               Proxy rules not set up for this environment
             </p>
-            {{ appInfo({ html: setupProxyRulesHtml }) }}
+            {{ appInfo({ html: setupProxyHtml }) }}
           {% endif %}
         </div>
       </section>
