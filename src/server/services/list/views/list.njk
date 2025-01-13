@@ -2,6 +2,12 @@
 
 {% block content %}
 
+  {% set infoHtml %}
+    {{ appEntityDataList({
+      items: servicesInfo
+    }) }}
+  {% endset %}
+
   {{ appPageHeading({
     text: "Services"
   }) }}
@@ -11,66 +17,56 @@
     noJsButton: {
       text: "Search"
     },
+    legend: {
+      text: "Search",
+      classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-2"
+    },
+    caption: {
+      text: "Search and filter microservices"
+    },
+    info: {
+      html: infoHtml
+    },
+    clear: {
+      url: "/services"
+    },
     hiddenInputs: hiddenInputs
   }) %}
-    {% call govukFieldset({
-      legend: {
-        text: "Search",
-        classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-2"
-      }
-    }) %}
-      <p class="govuk-caption-m govuk-!-margin-bottom-3">
-        Search and filter services
-      </p>
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-service",
+        name: "service",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Service name",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.service,
+        suggestions: serviceFilters,
+        placeholder: "Search by service"
+      }) }}
+    </div>
 
-      <div class="app-filters">
-        <div class="app-filters__item">
-          {{ appAutocomplete({
-            id: "filters-service",
-            name: "service",
-            classes: "app-autocomplete--small app-autocomplete--inline",
-            label: {
-              text: "Service name",
-              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-            },
-            formGroup: {
-              classes: "app-form-group--inline"
-            },
-            value: formValues.service,
-            suggestions: serviceFilters,
-            placeholder: "Search by service"
-          }) }}
-        </div>
-
-        <div class="app-filters__item">
-          {{ appAutocomplete({
-            id: "filters-team",
-            name: "teamId",
-            classes: "app-autocomplete--small app-autocomplete--inline",
-            label: {
-              text: "Team",
-              classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-            },
-            formGroup: {
-              classes: "app-form-group--inline"
-            },
-            value: formValues.teamId,
-            suggestions: teamFilters,
-            placeholder: "Search by team"
-          }) }}
-        </div>
-
-        <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
-          <a href="/services"
-             class="govuk-link govuk-link--text-colour"
-             data-clear-all="clearFilters"
-             data-js="app-filters-clear-all">
-            Clear all
-          </a>
-        </p>
-      </div>
-
-    {% endcall %}
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-team",
+        name: "teamId",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Team",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.teamId,
+        suggestions: teamFilters,
+        placeholder: "Search by team"
+      }) }}
+    </div>
   {% endcall %}
 
   {% block xhrContent %}
@@ -78,5 +74,4 @@
       {{ appEntityTable(tableData) }}
     </div>
   {% endblock %}
-
 {% endblock %}

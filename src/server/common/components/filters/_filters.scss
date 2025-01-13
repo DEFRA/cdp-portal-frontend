@@ -2,8 +2,21 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
+.app-filters__heading {
+  display: flex;
+}
+
+.app-filters__header {
+  flex: 2;
+}
+
+.app-filters__info {
+  flex: 4;
+  justify-items: flex-end;
+}
+
 .app-filters-form {
-  padding: govuk-spacing(4);
+  padding: govuk-spacing(4) govuk-spacing(2);
   margin: govuk-spacing(4) govuk-spacing(-2) govuk-spacing(2);
   background-color: $app-light-grey;
   border-radius: $app-border-radius;
