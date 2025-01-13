@@ -22,7 +22,7 @@ let autocompleteInput
 let chevronButton
 let suggestionsContainer
 
-function setupAutoComplete(userSearchParam) {
+function setupAutoComplete({ userSearchParam, params = {} } = {}) {
   if (userSearchParam) {
     global.window = Object.create(window)
     Object.defineProperty(window, 'location', {
@@ -41,7 +41,8 @@ function setupAutoComplete(userSearchParam) {
     },
     id: 'user',
     name: 'user',
-    suggestions: basicSuggestions
+    suggestions: basicSuggestions,
+    ...params
   })
 
   // Add suggestions into the components <script /> tag
@@ -697,7 +698,7 @@ describe('#autocomplete', () => {
 
   describe('With query param', () => {
     beforeEach(() => {
-      setupAutoComplete('Barbie')
+      setupAutoComplete({ userSearchParam: 'Barbie' })
     })
 
     describe('On load with query param', () => {
@@ -750,6 +751,22 @@ describe('#autocomplete', () => {
         expect(thirdChild.dataset.text).toBe('Barbie')
         expect(thirdChild.dataset.hasHighlight).toBe('true')
       })
+    })
+  })
+
+  describe('With placeholder', () => {
+    const typeHere = ' - - type here - - '
+
+    beforeEach(() => {
+      setupAutoComplete({
+        params: {
+          placeholder: typeHere
+        }
+      })
+    })
+
+    test('Should have expected placeholder', () => {
+      expect(autocompleteInput.getAttribute('placeholder')).toBe(typeHere)
     })
   })
 })
