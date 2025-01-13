@@ -58,3 +58,18 @@
     }
   }
 }
+
+.govuk-grid-column--slim {
+  padding-left: govuk-spacing(1);
+  padding-right: govuk-spacing(1);
+
+  &:first-of-type {
+    padding-left: govuk-spacing(3);
+    padding-right: govuk-spacing(1);
+  }
+
+  &:last-of-type {
+    padding-left: govuk-spacing(1);
+    padding-right: govuk-spacing(3);
+  }
+}
