@@ -4,6 +4,7 @@
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
 <section class="app-running-service-slim">
   {% for envName in params.environments %}
@@ -30,6 +31,8 @@
               {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon app-icon--small" }) }}
             {% elseif runningService.status === "pending"or runningService.status === "stopping" or runningService.status === "deploying" %}
               {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon app-icon--small"}) }}
+            {% elseif runningService.status === "undeployed"  %}
+              {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
             {% endif %}
           {% endcall %}
 
