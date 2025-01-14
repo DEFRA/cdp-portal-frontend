@@ -2,7 +2,7 @@ import compose from 'lodash/fp/compose.js'
 
 import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
 import { undeploymentsFixture } from '~/src/__fixtures__/undeployments.js'
-import { servicesFixture } from '~/src/__fixtures__/services.js'
+import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows.js'
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
 

@@ -1,5 +1,5 @@
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
-import { serviceDeployableFixture } from '~/src/__fixtures__/service-deployable.js'
+import { serviceDeployableFixture } from '~/src/__fixtures__/services/service-deployable.js'
 import { provideService } from '~/src/server/services/helpers/provide-service.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'

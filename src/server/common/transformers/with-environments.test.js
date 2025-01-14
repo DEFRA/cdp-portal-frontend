@@ -5,16 +5,13 @@ describe('#withEnvironments', () => {
   test('Should provide expected running services transformation', () => {
     expect(withEnvironments(whatsRunningWhereFixture)).toEqual({
       'cdp-portal-frontend': {
-        dev: '0.2.0',
-        perfTest: '0.2.0',
-        prod: '0.2.0',
-        test: '0.2.0'
+        infraDev: '0.356.0'
       },
-      'cdp-teams-and-repositories': {
-        dev: '0.2.0',
-        perfTest: '0.2.0',
-        prod: '0.2.0',
-        test: '0.2.0'
+      'cdp-self-service-ops': {
+        management: '0.188.0'
+      },
+      'cdp-user-service-backend': {
+        infraDev: '0.149.0'
       }
     })
   })

@@ -1,5 +1,4 @@
 import { serviceController } from '~/src/server/services/about/controllers/service.js'
-import { serviceListController } from '~/src/server/services/about/controllers/service-list.js'
 import { serviceCreateStatusController } from '~/src/server/services/about/controllers/service-create-status.js'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
 import { provideService } from '~/src/server/services/helpers/provide-service.js'
@@ -26,11 +25,6 @@ const aboutService = {
       ])
 
       server.route([
-        {
-          method: 'GET',
-          path: '/services',
-          ...serviceListController
-        },
         {
           method: 'GET',
           path: '/services/{serviceId}',

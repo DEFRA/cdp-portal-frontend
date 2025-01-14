@@ -65,6 +65,9 @@
         {% if removePassWidgets %}
           data-remove-pass-widgets="{{ removePassWidgets }}"
         {% endif %}
+        {% if params.placeholder %}
+          data-placeholder="{{ params.placeholder }}"
+        {% endif %}
               data-testid="app-progressive-input">
         {% for suggestion in params.suggestions %}
           <option value="{{ suggestion.value }}"

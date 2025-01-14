@@ -1,0 +1,44 @@
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{% from "entity/macro.njk" import appEntity with context %}
+
+<article>
+  <table class="app-entity-table">
+    <thead>
+    <tr>
+      {% for header in params.headers %}
+        <th id="{{ header.text }}" scope="col"
+            class="app-entity-table__heading{% if header.size %} app-entity-table__cell--{{ header.size }}{% endif %}"
+            {% if header.width %}width="{{ header.width }}%"{% endif %}
+        >
+          {{ header.text | title }}
+        </th>
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in params.rows %}
+      <tr class="app-entity-table__row">
+        {% for cell in row.cells %}
+
+          {% set cellClasses = ["app-entity-table__cell", cell.classes if cell.classes,
+            "app-entity-table__cell--slim" if cell.isSlim] | join(" ") | trim %}
+
+          <td headers="{{ cell.headers }}"
+              class="{{ cellClasses }}">
+            {% if cell.entity %}
+              {{ appEntity(cell.entity | assign({}, {index: loop.index}, cell.entity)) }}
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% else %}
+      <tr class="app-entity-table__row--no-results">
+        <td class="app-entity-table__cell" colspan="{{ params.headers | length }}">
+          {{ params.noResult | safe }}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</article>

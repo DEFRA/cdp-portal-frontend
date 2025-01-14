@@ -1,4 +1,7 @@
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
+import {
+  renderComponent,
+  renderIcon
+} from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { config } from '~/src/config/config.js'
@@ -17,6 +20,31 @@ const editActionItems = (teamId) => ({
   ]
 })
 
+const buildMembers = (team) =>
+  team.users.map((user, i) => {
+    return {
+      key: { text: i === 0 ? 'Members' : '' },
+      value: {
+        html: `<div class="app-!-layout-flex-start">${
+          renderIcon('user-icon', {
+            classes: 'app-icon--minute govuk-!-margin-right-1'
+          }) + user.name
+        }</div>`
+      },
+      actions: {
+        items: [
+          {
+            classes: 'app-link app-link--underline',
+            href: `/teams/${team.teamId}/remove-member/${user.userId}`,
+            text: 'Remove',
+            visuallyHiddenText: 'Remove team member',
+            attributes: { 'data-testid': 'remove-link' }
+          }
+        ]
+      }
+    }
+  })
+
 function transformTeamToSummary(team, withActions = false) {
   const editActions = editActionItems(team.teamId)
   const githubOrg = config.get('githubOrg')
@@ -24,7 +52,7 @@ function transformTeamToSummary(team, withActions = false) {
 
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
-    attributes: { 'data-testid': 'govuk-summary-list' },
+    attributes: { 'data-testid': 'team-details' },
     rows: [
       {
         key: { text: 'Name' },
@@ -79,7 +107,8 @@ function transformTeamToSummary(team, withActions = false) {
         value: {
           html: renderComponent('time', { datetime: team.createdAt })
         }
-      }
+      },
+      ...buildMembers(team)
     ]
   }
 }

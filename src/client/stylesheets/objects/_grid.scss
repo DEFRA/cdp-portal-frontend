@@ -1,14 +1,14 @@
 @use "govuk-frontend" as *;
 @use 'sass:map';
 
-.app-grid-column {
+.govuk-grid-row {
   &:not(:first-of-type) {
     margin-top: govuk-spacing(4);
   }
 }
 
 @each $width in map.keys($govuk-grid-widths) {
-  .app-grid-column-#{$width}-from-desktop {
+  .govuk-grid-column-#{$width}-from-desktop {
     @include govuk-grid-column($width, $at: desktop);
 
     @include govuk-media-query($from: desktop) {
@@ -18,7 +18,7 @@
     }
   }
 
-  .app-grid-column-#{$width}-from-desktop-big {
+  .govuk-grid-column-#{$width}-from-desktop-big {
     @include govuk-grid-column($width, $at: desktop-big);
 
     @include govuk-media-query($from: desktop-big) {
@@ -28,7 +28,7 @@
     }
   }
 
-  .app-grid-column-#{$width}-from-desktop-wide {
+  .govuk-grid-column-#{$width}-from-desktop-wide {
     @include govuk-grid-column($width, $at: desktop-wide);
 
     @include govuk-media-query($from: desktop-wide) {
@@ -38,7 +38,7 @@
     }
   }
 
-  .app-grid-column-#{$width}-from-desktop-huge {
+  .govuk-grid-column-#{$width}-from-desktop-huge {
     @include govuk-grid-column($width, $at: desktop-huge);
 
     @include govuk-media-query($from: desktop-huge) {
@@ -48,7 +48,7 @@
     }
   }
 
-  .app-grid-column-#{$width}-from-desktop-massive {
+  .govuk-grid-column-#{$width}-from-desktop-massive {
     @include govuk-grid-column($width, $at: desktop-massive);
 
     @include govuk-media-query($from: desktop-massive) {
@@ -56,5 +56,20 @@
         margin-top: 0;
       }
     }
+  }
+}
+
+.govuk-grid-column--slim {
+  padding-left: govuk-spacing(1);
+  padding-right: govuk-spacing(1);
+
+  &:first-of-type {
+    padding-left: govuk-spacing(3);
+    padding-right: govuk-spacing(1);
+  }
+
+  &:last-of-type {
+    padding-left: govuk-spacing(1);
+    padding-right: govuk-spacing(3);
   }
 }

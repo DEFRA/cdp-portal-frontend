@@ -1,0 +1,66 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+.app-entity-table {
+  @extend %govuk-body-m;
+
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding: 0;
+  width: 100%;
+  margin-top: -8px;
+  text-align: left;
+
+  empty-cells: show;
+}
+
+.app-entity-table__row {
+  background-color: govuk-colour("white");
+
+  &:nth-child(even) {
+    background-color: $app-light-grey;
+  }
+
+  &:last-child {
+    border: none;
+  }
+
+  &:hover {
+    background-color: $app-grey;
+  }
+}
+
+.app-entity-table__heading {
+  @include govuk-font(24);
+  border-spacing: 0;
+  padding: govuk-spacing(3) govuk-spacing(2);
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  background-color: $app-light-grey;
+  border-bottom: 1px solid $app-mid-grey;
+  z-index: 100;
+}
+
+.app-entity-table__cell {
+  padding: govuk-spacing(3) govuk-spacing(2);
+  border: 1px solid govuk-colour("white");
+
+  .app-entity {
+    margin: 0;
+  }
+}
+
+.app-entity-table__cell--slim {
+  padding: 0;
+}
+
+.app-entity-table__row--no-results {
+  color: govuk-colour("dark-grey");
+}
+
+.app-entity-table__cell--20-fixed {
+  width: 20px;
+}

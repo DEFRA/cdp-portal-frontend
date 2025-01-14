@@ -2,7 +2,7 @@ import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
 function servicesToDetailedList(services = []) {
-  const doNotInclude = ['cdp', 'service']
+  const doInclude = ['frontend', 'backend']
   const items = services.map((service) => ({
     title: {
       html: buildLink(
@@ -13,7 +13,7 @@ function servicesToDetailedList(services = []) {
     },
     info: {
       html: service.topics
-        ?.filter((topic) => !doNotInclude.includes(topic))
+        ?.filter((topic) => doInclude.includes(topic))
         .sort()
         .map((topic) => renderTag(topic))
         .join('')
@@ -21,6 +21,7 @@ function servicesToDetailedList(services = []) {
   }))
 
   return {
+    isInverse: true,
     items
   }
 }

@@ -29,12 +29,14 @@ const serviceController = {
       return Boom.notFound()
     }
 
-    const availableVersions = await fetchAvailableVersions(service.serviceName)
+    const [availableVersions, vanityUrls] = await Promise.all([
+      fetchAvailableVersions(service.serviceName),
+      await provideVanityUrls(request)
+    ])
+
     const latestPublishedImageVersions = availableVersions
       .sort(sortBy('created'))
       .slice(0, 6)
-    const vanityUrls = await provideVanityUrls(request)
-
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
 

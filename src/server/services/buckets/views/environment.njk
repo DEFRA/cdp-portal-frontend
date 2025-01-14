@@ -1,0 +1,90 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "icons/pending-icon/macro.njk" import appPendingIcon %}
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "info/macro.njk" import appInfo %}
+{% from "loader/macro.njk" import appLoader %}
+{% from "tag/macro.njk" import appTag %}
+{% from "tool-tip/macro.njk" import appToolTip %}
+
+{% set setupBucketsHtml %}
+  To set up buckets, contact the Platform team via Slack
+  <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+     rel="noopener noreferrer">#cdp-support</a>
+{% endset %}
+{% set bucketNamesInfoHtml %}
+  Why do bucket names have random characters at the end?
+  <a class="app-link app-link--underline app-link--text-colour" href="/documentation/how-to/buckets.md#bucket-naming" target="_blank"
+     rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
+{% endset %}
+
+
+{% set bucketsTableRows = [] %}
+{% for bucket in buckets %}
+
+  {{ bucketsTableRows.push([
+    { html: bucket }
+  ]) }}
+{% endfor %}
+
+{% block beforeTabContent %}
+
+  {{ appPageHeading({
+    caption: "Buckets",
+    text: service.serviceName
+  }) }}
+
+{% endblock %}
+
+{% block tabContent %}
+  {% call appSplitPane() %}
+    <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-left-2">
+      <section class="govuk-grid-column-two-thirds-from-desktop-big">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+            data-testid="app-environment-header">{{ environment | title }} buckets</h2>
+        <div class="app-section app-section--wide">
+          {% if isBucketsSetup %}
+
+            {% block xhrContent %}
+              <article data-xhr="buckets-{{ service.serviceName }}-{{ environment }}">
+
+                <p>
+                  Buckets available to your service
+                </p>
+
+                {{ appInfo({
+                  classes: "govuk-!-margin-bottom-4",
+                  html: bucketNamesInfoHtml
+                }) }}
+
+                {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
+                  {% if buckets | length %}
+                    {{ govukTable({
+                      classes: "app-table govuk-!-margin-bottom-2",
+                      head: [
+                        { text: "Name" }
+                      ],
+                      rows: bucketsTableRows
+                    }) }}
+
+                  {% else %}
+                    <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                      No buckets currently exist
+                    </p>
+                  {% endif %}
+                {% endcall %}
+              </article>
+            {% endblock %}
+
+
+          {% else %}
+            <p>
+              Buckets not set up for this environment
+            </p>
+            {{ appInfo({ html: setupBucketsHtml }) }}
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  {% endcall %}
+{% endblock %}

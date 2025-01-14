@@ -1,28 +1,28 @@
 {% extends "layouts/tabbed-page.njk" %}
 
+{% from "icons/block-icon/macro.njk" import appBlockIcon %}
 {% from "icons/chart-icon/macro.njk" import appChartIcon %}
 {% from "icons/check-icon/macro.njk" import appCheckIcon %}
 {% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
-{% from "icons/block-icon/macro.njk" import appBlockIcon %}
+{% from "icons/internal-icon/macro.njk" import appInternalIcon %}
 {% from "icons/logs-icon/macro.njk" import appLogsIcon %}
 {% from "icons/shutter-icon/macro.njk" import appShutterIcon %}
-{% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
 {% from "icons/world-icon/macro.njk" import appWorldIcon %}
+{% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
 {% from "time/macro.njk" import appTime %}
-{% from "warning/macro.njk" import appWarning %}
 
 {% macro vanityUrlComponent(params) %}
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
-      {% call appToolTip({ text: "URL is shuttered", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is shuttered" }) }}
+      {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+        {{ appShutterIcon({ classes: "app-icon--small", description: "Shuttered URL" }) }}
       {% endcall %}
     {% elif not params.enabled %}
-      {% call appToolTip({ text: "URL has not been enabled", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appBlockIcon({ classes: "app-icon--tiny app-icon--fill-red", description: "URL is not enabled" }) }}
+      {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+        {{ appInternalIcon({ classes: "app-icon--small", description: "Internal URL" }) }}
       {% endcall %}
     {% endif %}
 
@@ -82,7 +82,8 @@
     {% for vanityUrl in vanityUrls %}
       {% for url in vanityUrl.urls | selectattr("shuttered") %}
         {% call appWarning({ isInverse: false }) %}
-        <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener noreferrer">https://{{ url.url }}</a> is shuttered.
+        <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
+        noreferrer">https://{{ url.url }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
     {% endfor %}
