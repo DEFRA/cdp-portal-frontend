@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
+import { findProxyRulesForEnvironment } from '~/src/server/services/proxy/helpers/find-proxy-rules.js'
 
 export const environmentProxyController = {
   options: {
@@ -13,19 +14,23 @@ export const environmentProxyController = {
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const environment = request.params.environment
     const service = request.pre.service
     const serviceName = service.serviceName
-    const team = service?.teams?.at(0)
-    const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
+    const proxyRules = await findProxyRulesForEnvironment(
+      serviceName,
+      environment
+    )
 
     return h.view('services/proxy/views/environment', {
       pageTitle: `${serviceName} - Proxy - ${formattedEnvironment}`,
       service,
-      teamId,
       environment,
+      isProxySetup: proxyRules.rules.isProxySetup,
+      allowedDomains: proxyRules.rules.allowedDomains,
+      defaultDomains: proxyRules.rules.defaultDomains,
       breadcrumbs: [
         {
           text: 'Services',

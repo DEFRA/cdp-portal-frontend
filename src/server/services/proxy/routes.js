@@ -6,7 +6,7 @@ import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
 import { provideService } from '~/src/server/services/helpers/provide-service.js'
 
-const adminUserScope = authScope([scopes.admin])
+const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
 export const serviceProxy = {
   plugin: {
@@ -48,7 +48,7 @@ export const serviceProxy = {
             path: '/services/{serviceId}/proxy/{environment}',
             ...environmentProxyController
           }
-        ].map(adminUserScope)
+        ].map(serviceTeamAndAdminUserScope)
       )
     }
   }

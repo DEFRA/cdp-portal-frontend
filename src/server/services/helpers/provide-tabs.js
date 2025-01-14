@@ -48,6 +48,18 @@ async function provideTabs(request, h) {
       response.source.context.tabDetails.displayTabs = false
     }
 
+    if (authedUser) {
+      response.source.context.tabDetails.tabs.push({
+        isActive: request.path.startsWith(`/services/${imageName}/proxy`),
+        url: request.routeLookup('services/{serviceId}/proxy', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Proxy'
+      })
+    }
+
     if (isAdmin || isServiceOwner) {
       response.source.context.tabDetails.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/secrets`),
@@ -57,18 +69,6 @@ async function provideTabs(request, h) {
           }
         }),
         label: 'Secrets'
-      })
-    }
-
-    if (isAdmin) {
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/proxy`),
-        url: request.routeLookup('services/{serviceId}/proxy', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Proxy'
       })
     }
 
