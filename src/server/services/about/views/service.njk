@@ -18,11 +18,11 @@
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
       {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appShutterIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
+        {{ appShutterIcon({ classes: "app-icon--small", description: "Shuttered URL" }) }}
       {% endcall %}
     {% elif not params.enabled %}
       {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appInternalIcon({ classes: "app-icon--tiny", description: "Internal URL" }) }}
+        {{ appInternalIcon({ classes: "app-icon--small", description: "Internal URL" }) }}
       {% endcall %}
     {% endif %}
 
