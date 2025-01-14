@@ -81,7 +81,7 @@
   <div class="govuk-!-margin-bottom-4">
     {% for vanityUrl in vanityUrls %}
       {% for url in vanityUrl.urls | selectattr("shuttered") %}
-        {% call appInfo({ isInverse: false }) %}
+        {% call appWarning({ isInverse: false }) %}
         <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
         noreferrer">https://{{ url.url }}</a> has been shuttered
         {% endcall %}
