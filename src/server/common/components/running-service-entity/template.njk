@@ -4,6 +4,7 @@
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
 <div class="app-running-service-entity{% if params.statusClassname %} {{ params.statusClassname }}{% endif %}">
   <div class="app-running-service-entity__env">
@@ -13,14 +14,16 @@
     {% call appToolTip({ text: tooltipText | title + " in " + params.environment | title }) %}
       {% if params.status === "running" %}
         {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon app-icon--small" }) }}
-      {% elseif params.status === "pending"or params.status === "stopping" or params.status ===
+      {% elseif params.status === "pending" or params.status === "stopping" or params.status ===
         "deploying" %}
         {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon app-icon--small"}) }}
+      {% elseif params.status === "undeployed"  %}
+        {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
       {% endif %}
     {% endcall %}
 
     <a class="app-link govuk-!-margin-left-1"
-       href="https://github.com/DEFRA/{{ item.serviceName }}/releases/tag/{{ params.version }}"
+       href="https://github.com/DEFRA/{{ params.service }}/releases/tag/{{ params.version }}"
        target="_blank" rel="noopener noreferrer"
        aria-labelledby="version"
     >
