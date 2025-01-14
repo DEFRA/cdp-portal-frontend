@@ -23,7 +23,7 @@ function transformServiceToSummary(service) {
     ?.filter((team) => team.teamId)
     ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
 
-  const topics = service?.topics.map((topic) =>
+  const topics = service?.topics?.map((topic) =>
     renderComponent('tag', {
       text: topic,
       url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
@@ -70,7 +70,7 @@ function transformServiceToSummary(service) {
       {
         key: { text: 'Topics' },
         value: {
-          html: topics.length ? topics.join(' ') : noValue
+          html: topics?.length ? topics.join(' ') : noValue
         }
       },
       {
