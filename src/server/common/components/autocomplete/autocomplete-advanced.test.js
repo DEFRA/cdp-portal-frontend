@@ -2,6 +2,7 @@ import { renderTestComponent } from '~/test-helpers/component-helpers.js'
 import { AutocompleteAdvanced } from '~/src/server/common/components/autocomplete/autocomplete-advanced.js'
 import { publish } from '~/src/client/common/helpers/event-emitter.js'
 import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
+import { enterValue, pressEnter } from '~/test-helpers/keyboard.js'
 
 describe('#autocomplete-advanced', () => {
   let autocompleteInput
@@ -165,9 +166,7 @@ describe('#autocomplete-advanced', () => {
     describe('When partial value', () => {
       describe('Entered into input', () => {
         beforeEach(() => {
-          autocompleteInput.focus()
-          autocompleteInput.value = 'abb'
-          autocompleteInput.dispatchEvent(new Event('input'))
+          enterValue(autocompleteInput, 'abb')
         })
 
         test('Should open suggestions', () => {
@@ -187,9 +186,7 @@ describe('#autocomplete-advanced', () => {
 
       describe('That matches multiple suggestions is entered into input', () => {
         beforeEach(() => {
-          autocompleteInput.focus()
-          autocompleteInput.value = 'ro'
-          autocompleteInput.dispatchEvent(new Event('input'))
+          enterValue(autocompleteInput, 'ro')
         })
 
         test('Should open suggestions', () => {
@@ -228,9 +225,7 @@ describe('#autocomplete-advanced', () => {
 
     describe('With exact match entered into input', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-        autocompleteInput.value = 'Barbie'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'Barbie')
       })
 
       test('Should show all suggestions', () => {
@@ -253,9 +248,7 @@ describe('#autocomplete-advanced', () => {
 
     describe('With hint text entered into input', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-        autocompleteInput.value = 'Id: 556'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'Id: 556')
         suggestionsContainer.children[0].click()
       })
 
@@ -282,15 +275,11 @@ describe('#autocomplete-advanced', () => {
 
     describe('When value removed from input', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-
         // Add value to input
-        autocompleteInput.value = 'fro'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'fro')
 
         // Remove value from input
-        autocompleteInput.value = ''
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, '')
       })
 
       test('Suggestions should be open', () => {
@@ -311,9 +300,7 @@ describe('#autocomplete-advanced', () => {
 
     describe('When value without results entered into input', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-        autocompleteInput.value = 'blah'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'blah')
       })
 
       test('Should open suggestions', () => {
@@ -331,9 +318,7 @@ describe('#autocomplete-advanced', () => {
 
     describe('When no results message is clicked', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-        autocompleteInput.value = 'ranDom'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'ranDom')
         suggestionsContainer.children[0].click()
       })
 
@@ -459,10 +444,7 @@ describe('#autocomplete-advanced', () => {
         autocompleteInput.dispatchEvent(arrowDownKeyEvent)
         autocompleteInput.dispatchEvent(arrowDownKeyEvent)
 
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        pressEnter(autocompleteInput)
       })
 
       test('Should provide expected suggestion value', () => {
@@ -604,16 +586,8 @@ describe('#autocomplete-advanced', () => {
 
     describe('When keyboard "enter" key is pressed with input value', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-
-        // Add value to input
-        autocompleteInput.value = 'fro'
-        autocompleteInput.dispatchEvent(new Event('input'))
-
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        enterValue(autocompleteInput, 'fro')
+        pressEnter(autocompleteInput)
       })
 
       test('Suggestions should be closed', () => {
@@ -624,16 +598,8 @@ describe('#autocomplete-advanced', () => {
 
     describe('When keyboard "enter" key is pressed with matching input value', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-
-        // Add value to input
-        autocompleteInput.value = 'RoboCop'
-        autocompleteInput.dispatchEvent(new Event('input'))
-
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        enterValue(autocompleteInput, 'RoboCop')
+        pressEnter(autocompleteInput)
       })
 
       test('Suggestions should be closed', () => {
@@ -701,10 +667,7 @@ describe('#autocomplete-advanced', () => {
         })
         autocompleteInput.dispatchEvent(escapeKeyEvent)
 
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        pressEnter(autocompleteInput)
       })
 
       test('Suggestions should be open', () => {
@@ -819,10 +782,7 @@ describe('#autocomplete-advanced', () => {
 
     describe('With publish event', () => {
       test('Should reset autocomplete', () => {
-        // enter value into autocomplete
-        autocompleteInput.focus()
-        autocompleteInput.value = 'Run get to the chopper'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'Run get to the chopper')
 
         // select first suggestion
         suggestionsContainer.children[0].click()

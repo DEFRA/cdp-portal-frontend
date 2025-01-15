@@ -83,11 +83,11 @@ function serviceToEntityRow(isAuthenticated) {
             : { kind: 'text', value: noValue }
         },
         {
-          headers: 'Language',
+          headers: 'language',
           entity: { kind: 'text', value: service.primaryLanguage }
         },
         {
-          headers: 'GitHub Repository',
+          headers: 'github-repository',
           entity: {
             kind: 'link',
             value: `${githubOrg}/${service.id}`,

@@ -37,13 +37,15 @@ const serviceListController = {
       pageTitle: 'Services',
       tableData: {
         headers: [
-          ...(isAuthenticated ? [{ text: null, size: '20-fixed' }] : []),
-          { text: 'Service', width: '15' },
-          { text: 'Team', width: '15' },
-          { text: 'Kind', width: '10' },
-          { text: 'Language', width: '10' },
-          { text: 'GitHub Repository', width: '20' },
-          { text: 'Created', width: '30' }
+          ...(isAuthenticated
+            ? [{ id: 'owner', text: null, size: '20-fixed' }]
+            : []),
+          { id: 'service', text: 'Service', width: '15' },
+          { id: 'team', text: 'Team', width: '15' },
+          { id: 'kind', text: 'Kind', width: '10' },
+          { id: 'language', text: 'Language', width: '10' },
+          { id: 'github-repository', text: 'GitHub Repository', width: '20' },
+          { id: 'created', text: 'Created', width: '30' }
         ],
         rows,
         noResult: 'No services found'

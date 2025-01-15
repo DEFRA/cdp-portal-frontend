@@ -10,20 +10,10 @@
 
   &.item-detail--green {
     background-color: govuk-tint(govuk-colour("green"), 80%);
-
-    .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("green");
-    }
   }
 
   &.item-detail--purple {
     background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
-
-    .app-tag {
-      color: govuk-colour("white");
-      background-color: govuk-colour("bright-purple");
-    }
   }
 
   &.item-detail--grey {
@@ -31,10 +21,6 @@
 
     .app-instance {
       fill: govuk-tint(govuk-colour("dark-grey"), 10%);
-    }
-
-    .app-tag {
-      background-color: govuk-tint(govuk-colour("dark-grey"), 65%);
     }
   }
 

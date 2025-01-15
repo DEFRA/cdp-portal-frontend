@@ -17,7 +17,6 @@ import { initModule } from '~/src/client/common/helpers/init-module.js'
 import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant.js'
 import { paramsToHiddenInputs } from '~/src/client/common/helpers/params-to-hidden-inputs.js'
 import { poll } from '~/src/client/common/helpers/poll.js'
-import { populateAutocompleteSuggestions } from '~/src/client/common/helpers/populate-autocomplete-suggestions.js'
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options.js'
 import { protectForm } from '~/src/client/common/helpers/protect-form/index.js'
 import { search } from '~/src/server/common/components/search/search.js'
@@ -60,9 +59,6 @@ initModule('app-search', search)
 // Autocomplete
 initClass('app-autocomplete', Autocomplete)
 initClass('app-autocomplete-advanced', AutocompleteAdvanced)
-
-// Populate autocomplete from a separate controller input
-initModule('app-autocomplete-controller', populateAutocompleteSuggestions)
 
 // Xhr Container
 initModule('app-xhr-subscriber', xhrSubscriber)

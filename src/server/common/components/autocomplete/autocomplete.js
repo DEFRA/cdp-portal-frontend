@@ -1,7 +1,12 @@
 import qs from 'qs'
 import isNull from 'lodash/isNull.js'
 
-import { subscribe } from '~/src/client/common/helpers/event-emitter.js'
+import {
+  publish,
+  subscribe
+} from '~/src/client/common/helpers/event-emitter.js'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
+import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
 
 const selectMessage = ' - - select - - '
 const tickSvgIcon = `
@@ -74,9 +79,23 @@ class Autocomplete {
     const $autocomplete = document.createElement('input')
 
     this.subscribeTo = $select.dataset.subscribeTo
+    this.publishTo = $select.dataset.publishTo
+
     this.noSuggestionsMessage = $select.dataset.noSuggestionsMessage
     this.removePassWidgets = $select.dataset.removePassWidgets
     this.placeholder = $select.dataset.placeholder
+    this.typeahead = $select.dataset.typeahead
+
+    this.siblingDataFetcher = {
+      isEnabled: $select.dataset.siblingDataFetcherName,
+      name: $select.dataset.siblingDataFetcherName,
+      $target: document.querySelector(
+        `[data-js*="${$select.dataset.siblingDataFetcherTarget}"]`
+      ),
+      $targetLoader: document.querySelector(
+        `[data-js*="${$select.dataset.siblingDataFetcherTargetLoader}"]`
+      )
+    }
 
     const suggestion = this.getSuggestionByValue($select.value)
 
@@ -460,9 +479,80 @@ class Autocomplete {
     subscribe(this.subscribeTo, this.resetAutocomplete.bind(this))
   }
 
+  publishEvent(name, value) {
+    publish(this.publishTo, { queryParams: { [name]: value } })
+  }
+
+  /**
+   * Call sibling data fetcher method to fetch suggestions for a targeted sibling input in the same form
+   * @param {string} value - text input value
+   * @returns {undefined|Suggestions|Error}
+   */
+  callSiblingDataFetcher(value) {
+    const siblingDataFetcherMethod = window.cdp[this.siblingDataFetcher.name]
+    const targetId = this.siblingDataFetcher.$target?.id
+
+    if (!targetId || typeof siblingDataFetcherMethod !== 'function') {
+      return
+    }
+
+    if (!value) {
+      window.cdp.suggestions[targetId] = []
+      return
+    }
+
+    const isLoadingClassName = 'app-loader--is-loading'
+    const $targetLoader = this.siblingDataFetcher.$targetLoader
+    const delayedLoader = setTimeout(() => {
+      $targetLoader.classList.add(isLoadingClassName)
+    }, 200)
+
+    return siblingDataFetcherMethod(value)
+      .then((fetchedSuggestions) => {
+        const suggestionOptions = buildSuggestions(fetchedSuggestions)
+        window.cdp.suggestions[targetId] = suggestionOptions
+
+        return suggestionOptions
+      })
+      .catch((error) => {
+        clientNotification(error.message)
+        return error
+      })
+      .finally(() => {
+        clearTimeout(delayedLoader)
+        $targetLoader?.classList?.remove(isLoadingClassName)
+      })
+  }
+
+  /**
+   * @typedef {object} Input
+   * @property {string|undefined} text - the visual text you see in the input
+   * @property {string|undefined} value - the value set to the hidden input
+   */
+
+  /**
+   * Set input text value and hidden input value. Both can be empty strings or undefined
+   * Also dispatch publish event if setup and call fetcher if enabled
+   * @param {Input} args
+   */
+  updateInputValue({ text, value, withPublish = true } = {}) {
+    const inputText = text ?? ''
+    const inputValue = value ?? ''
+
+    this.$autocomplete.value = inputText
+    this.$autocompleteHiddenInput.value = inputValue
+
+    if (this.publishTo && withPublish) {
+      this.publishEvent(this.$autocompleteHiddenInput.name, inputValue)
+    }
+
+    if (this.siblingDataFetcher.isEnabled) {
+      this.callSiblingDataFetcher(inputValue)
+    }
+  }
+
   resetAutocompleteValues() {
-    this.$autocomplete.value = ''
-    this.$autocompleteHiddenInput.value = ''
+    this.updateInputValue({ text: '', value: '' })
   }
 
   resetAutocomplete() {
@@ -488,9 +578,10 @@ class Autocomplete {
       if (queryParamValue) {
         const suggestion = this.getSuggestionByValue(queryParamValue)
 
-        this.$autocomplete.value = suggestion?.text ?? queryParamValue
-        this.$autocompleteHiddenInput.value =
-          suggestion?.value ?? queryParamValue
+        const text = suggestion?.text ?? queryParamValue
+        const value = suggestion?.value ?? queryParamValue
+        this.updateInputValue({ text, value, withPublish: false })
+
         this.showCloseButton()
       }
 
@@ -593,8 +684,21 @@ class Autocomplete {
         suggestionIndex: this.suggestionIndex
       })
 
-      const suggestion = this.getSuggestionByText(textValue)
-      this.$autocompleteHiddenInput.value = suggestion?.value ?? textValue
+      const foundSuggestion = this.getSuggestionByText(textValue)
+
+      // An exact match was found
+      if (foundSuggestion?.value) {
+        this.updateInputValue({
+          text: foundSuggestion.text,
+          value: foundSuggestion.value
+        })
+        return
+      }
+
+      // Only send request to search on typing if component is a typeahead. Always clear if value is empty
+      if (this.typeahead ?? !textValue) {
+        this.updateInputValue({ text: textValue, value: textValue })
+      }
     })
 
     // Mainly keyboard navigational events
@@ -765,9 +869,11 @@ class Autocomplete {
             this.suggestionIndex
           )
 
-          this.$autocomplete.value = $currentSuggestion.dataset?.text
-          this.$autocompleteHiddenInput.value =
-            $currentSuggestion.dataset?.value
+          this.updateInputValue({
+            text: $currentSuggestion.dataset?.text,
+            value: $currentSuggestion.dataset?.value
+          })
+
           this.dispatchInputEvent()
           this.suggestionIndex = null
         }
@@ -790,8 +896,10 @@ class Autocomplete {
       )
 
       if ($suggestion && $suggestion.dataset.interactive !== 'false') {
-        this.$autocomplete.value = $suggestion?.dataset?.text
-        this.$autocompleteHiddenInput.value = $suggestion?.dataset?.value
+        this.updateInputValue({
+          text: $suggestion?.dataset?.text,
+          value: $suggestion?.dataset?.value
+        })
         this.dispatchInputEvent()
 
         this.suggestionIndex = $suggestion.getAttribute('aria-posinset') - 1

@@ -80,7 +80,8 @@
                 {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
               {% endif %}
             {% endcall %}
-
+          {% else %}
+            {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
           {% endfor %}
         </p>
 

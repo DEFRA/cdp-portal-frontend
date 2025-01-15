@@ -45,29 +45,17 @@
 
           {% call govukFieldset() %}
 
-            {{ govukSelect({
+            {{ appAutocomplete({
               id: "image-name",
               name: "imageName",
               label: {
                 text: "Image Name",
                 classes: "app-label"
               },
-              classes: "app-select app-select--wide",
               hint: {
-                text: "Elastic Container Registry (ECR) image name",
-                classes: "app-hint"
-              },
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
+                text: "Elastic Container Registry (ECR) image name"
               },
               value: imageName or formValues.imageName,
-              attributes: {
-                "data-js": "app-autocomplete-controller",
-                "data-fetcher": "fetchVersions",
-                "data-target": "deploy-version",
-                "data-loader": "deploy-version-loader",
-                "data-publish-to": eventName.autocompleteUpdate + "-version"
-              },
               errorMessage: {
                 text: formErrors.imageName.message,
                 classes: "app-error-message",
@@ -75,7 +63,13 @@
                   "data-js": "app-error"
                 }
               } if formErrors.imageName.message,
-              items: deployableImageNameOptions
+              suggestions: deployableImageNameOptions,
+              siblingDataFetcher: {
+                name: "fetchVersions",
+                target: "deploy-version",
+                targetLoader: "deploy-version-loader"
+              },
+              publishTo: eventName.autocompleteUpdate + "-version"
             }) }}
 
             {% call appAutocomplete({
