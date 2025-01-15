@@ -1,7 +1,10 @@
+import { subscribe } from '~/src/client/common/helpers/event-emitter.js'
 import { renderTestComponent } from '~/test-helpers/component-helpers.js'
 import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
 import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
 import { dispatchDomContentLoaded } from '~/test-helpers/dispatch-dom-content-loaded.js'
+import { enterValue, pressEnter } from '~/test-helpers/keyboard.js'
+import { flushAsync } from '~/test-helpers/flush-async.js'
 
 const basicSuggestions = [
   defaultOption,
@@ -18,11 +21,8 @@ const basicSuggestions = [
     value: 'Barbie'
   }
 ]
-let autocompleteInput
-let chevronButton
-let suggestionsContainer
 
-function setupAutoComplete({ userSearchParam, params = {} } = {}) {
+function setupAutoComplete({ userSearchParam, params = {} }) {
   if (userSearchParam) {
     global.window = Object.create(window)
     Object.defineProperty(window, 'location', {
@@ -32,32 +32,31 @@ function setupAutoComplete({ userSearchParam, params = {} } = {}) {
     })
   }
 
-  const $component = renderTestComponent('autocomplete', {
-    label: {
-      text: 'By'
-    },
-    hint: {
-      text: 'Choose a user'
-    },
-    id: 'user',
-    name: 'user',
-    suggestions: basicSuggestions,
-    ...params
+  return renderTestComponent('autocomplete', params)
+}
+
+/**
+ * Set up mock form
+ */
+function setupForm($components) {
+  document.body.innerHTML = `<form id="mock-dropdown-form"></form>`
+
+  // Add components suggestions into the components <script/> tag
+  $components.forEach(($component) => {
+    const scriptElement = document.createElement('script')
+    scriptElement.innerHTML = $component(
+      '[data-testid="app-autocomplete-suggestions"]'
+    )
+      .first()
+      .html()
+    document.getElementsByTagName('html')[0].appendChild(scriptElement)
+
+    const form = document.getElementById('mock-dropdown-form')
+
+    form.innerHTML += $component('[data-testid="app-autocomplete-group"]')
+      .first()
+      .html()
   })
-
-  // Add suggestions into the components <script /> tag
-  const scriptElement = document.createElement('script')
-  scriptElement.innerHTML = $component(
-    '[data-testid="app-autocomplete-suggestions"]'
-  )
-    .first()
-    .html()
-  document.getElementsByTagName('html')[0].appendChild(scriptElement)
-
-  // Append dropdown component to a form and then add it to the document
-  document.body.innerHTML = `<form id="mock-dropdown-form">
-        ${$component('[data-testid="app-autocomplete-group"]').first().html()}
-      </form>`
 
   // Init ClientSide JavaScript
   const autocompletes = Array.from(
@@ -68,23 +67,123 @@ function setupAutoComplete({ userSearchParam, params = {} } = {}) {
     autocompletes.forEach(($autocomplete) => new Autocomplete($autocomplete))
   }
 
-  autocompleteInput = document.querySelector(
-    '[data-testid="app-autocomplete-input"]'
-  )
-  chevronButton = document.querySelector('[data-testid="app-chevron-button"]')
-  suggestionsContainer = document.querySelector(
-    '[data-testid="app-autocomplete-suggestions"]'
-  )
+  return autocompletes
+}
+
+function setupSingleAutoComplete({ userSearchParam, params = {} } = {}) {
+  const elements = setup([
+    setupAutoComplete({
+      params: {
+        label: { text: 'By' },
+        hint: { text: 'Choose a user' },
+        id: 'user',
+        name: 'user',
+        suggestions: basicSuggestions,
+        ...params
+      },
+      userSearchParam
+    })
+  ])
 
   if (userSearchParam) {
     dispatchDomContentLoaded()
   }
+
+  const firstElement = elements.at(0)
+
+  return {
+    autocompleteInput: firstElement.autocompleteInput,
+    autocompleteHiddenInput: firstElement.autocompleteHiddenInput,
+    chevronButton: firstElement.chevronButton,
+    suggestionsContainer: firstElement.suggestionsContainer
+  }
+}
+
+/**
+ * Setup multiple auto completes. One is a controller and the others data/suggestions is controlled by the first
+ * ones choice
+ */
+function setupMultipleAutoCompletes({ userSearchParam, params = {} } = {}) {
+  const elements = setup([
+    setupAutoComplete({
+      params: {
+        label: { text: 'By' },
+        hint: { text: 'Choose a user' },
+        id: 'user',
+        name: 'user',
+        suggestions: basicSuggestions,
+        ...params
+      }
+    }),
+    setupAutoComplete({
+      params: {
+        label: { text: 'Version' },
+        hint: { text: 'Choose a version' },
+        id: 'version',
+        name: 'version',
+        dataJs: 'version',
+        suggestions: [],
+        noSuggestionsMessage: 'choose Image name',
+        loader: {
+          name: 'version-loader'
+        }
+      }
+    })
+  ])
+
+  if (userSearchParam) {
+    dispatchDomContentLoaded()
+  }
+
+  const firstElement = elements.at(0)
+  const secondElement = elements.at(1)
+
+  return {
+    autocompleteInput: firstElement.autocompleteInput,
+    autocompleteHiddenInput: firstElement.autocompleteHiddenInput,
+    chevronButton: firstElement.chevronButton,
+    suggestionsContainer: firstElement.suggestionsContainer,
+    siblingAutocompleteInput: secondElement.autocompleteInput,
+    siblingAutocompleteHiddenInput: secondElement.autocompleteHiddenInput,
+    siblingChevronButton: secondElement.chevronButton,
+    siblingSuggestionsContainer: secondElement.suggestionsContainer
+  }
+}
+
+/**
+ * Setup Mock form and autocomplete functions. Provide autocomplete elements back for testing purposes
+ */
+function setup(components) {
+  const autoCompletes = setupForm(components)
+
+  return autoCompletes.map((autoComplete) => ({
+    autocompleteInput: autoComplete.querySelector(
+      '[data-testid="app-autocomplete-input"]'
+    ),
+    autocompleteHiddenInput: autoComplete.querySelector(`input[type="hidden"]`),
+    chevronButton: autoComplete.querySelector(
+      '[data-testid="app-chevron-button"]'
+    ),
+    suggestionsContainer: autoComplete.querySelector(
+      '[data-testid="app-autocomplete-suggestions"]'
+    )
+  }))
 }
 
 describe('#autocomplete', () => {
   describe('Without query param', () => {
+    let autocompleteInput
+    let autocompleteHiddenInput
+    let chevronButton
+    let suggestionsContainer
+
     beforeEach(() => {
-      setupAutoComplete()
+      ;({
+        autocompleteInput,
+        autocompleteHiddenInput,
+        chevronButton,
+        suggestionsContainer
+      } = setupSingleAutoComplete())
     })
 
     describe('On load', () => {
@@ -170,9 +269,7 @@ describe('#autocomplete', () => {
     describe('When partial value', () => {
       describe('Entered into input', () => {
         beforeEach(() => {
-          autocompleteInput.focus()
-          autocompleteInput.value = 'abb'
-          autocompleteInput.dispatchEvent(new Event('input'))
+          enterValue(autocompleteInput, 'abb')
         })
 
         test('Should open suggestions', () => {
@@ -188,13 +285,15 @@ describe('#autocomplete', () => {
             'Roger Rabbit'
           )
         })
+
+        test('Should not have set hidden input value', () => {
+          expect(autocompleteHiddenInput.value).toBe('')
+        })
       })
 
       describe('That matches multiple suggestions is entered into input', () => {
         beforeEach(() => {
-          autocompleteInput.focus()
-          autocompleteInput.value = 'ro'
-          autocompleteInput.dispatchEvent(new Event('input'))
+          enterValue(autocompleteInput, 'ro')
         })
 
         test('Should open suggestions', () => {
@@ -215,9 +314,7 @@ describe('#autocomplete', () => {
 
       describe('With crazy case value entered into input', () => {
         beforeEach(() => {
-          autocompleteInput.focus()
-          autocompleteInput.value = 'Barb'
-          autocompleteInput.dispatchEvent(new Event('input'))
+          enterValue(autocompleteInput, 'Barb')
         })
 
         test('Should narrow to only expected case insensitive suggestion', () => {
@@ -231,9 +328,7 @@ describe('#autocomplete', () => {
 
     describe('With exact match entered into input', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-        autocompleteInput.value = 'Barbie'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'Barbie')
       })
 
       test('Should show all suggestions', () => {
@@ -247,19 +342,16 @@ describe('#autocomplete', () => {
 
         expect(matchedSuggestion.textContent.trim()).toBe('Barbie')
       })
+
+      test('Should have set hidden input value', () => {
+        expect(autocompleteHiddenInput.value).toBe('Barbie')
+      })
     })
 
     describe('When value removed from input', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-
-        // Add value to input
-        autocompleteInput.value = 'fro'
-        autocompleteInput.dispatchEvent(new Event('input'))
-
-        // Remove value from input
-        autocompleteInput.value = ''
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'fro')
+        enterValue(autocompleteInput, '')
       })
 
       test('Suggestions should be open', () => {
@@ -280,9 +372,7 @@ describe('#autocomplete', () => {
 
     describe('When value without results entered into input', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-        autocompleteInput.value = 'blah'
-        autocompleteInput.dispatchEvent(new Event('input'))
+        enterValue(autocompleteInput, 'blah')
       })
 
       test('Should open suggestions', () => {
@@ -415,10 +505,7 @@ describe('#autocomplete', () => {
         autocompleteInput.dispatchEvent(arrowDownKeyEvent)
         autocompleteInput.dispatchEvent(arrowDownKeyEvent)
 
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        pressEnter(autocompleteInput)
       })
 
       test('Should provide expected suggestion value', () => {
@@ -557,16 +644,8 @@ describe('#autocomplete', () => {
 
     describe('When keyboard "enter" key is pressed with input value', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-
-        // Add value to input
-        autocompleteInput.value = 'fro'
-        autocompleteInput.dispatchEvent(new Event('input'))
-
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        enterValue(autocompleteInput, 'fro')
+        pressEnter(autocompleteInput)
       })
 
       test('Suggestions should be closed', () => {
@@ -577,16 +656,8 @@ describe('#autocomplete', () => {
 
     describe('When keyboard "enter" key is pressed with matching input value', () => {
       beforeEach(() => {
-        autocompleteInput.focus()
-
-        // Add value to input
-        autocompleteInput.value = 'RoboCop'
-        autocompleteInput.dispatchEvent(new Event('input'))
-
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        enterValue(autocompleteInput, 'RoboCop')
+        pressEnter(autocompleteInput)
       })
 
       test('Suggestions should be closed', () => {
@@ -654,10 +725,7 @@ describe('#autocomplete', () => {
         })
         autocompleteInput.dispatchEvent(escapeKeyEvent)
 
-        const enterKeyEvent = new KeyboardEvent('keydown', {
-          code: 'enter'
-        })
-        autocompleteInput.dispatchEvent(enterKeyEvent)
+        pressEnter(autocompleteInput)
       })
 
       test('Suggestions should be open', () => {
@@ -697,8 +765,13 @@ describe('#autocomplete', () => {
   })
 
   describe('With query param', () => {
+    let autocompleteInput
+    let suggestionsContainer
+
     beforeEach(() => {
-      setupAutoComplete({ userSearchParam: 'Barbie' })
+      ;({ autocompleteInput, suggestionsContainer } = setupSingleAutoComplete({
+        userSearchParam: 'Barbie'
+      }))
     })
 
     describe('On load with query param', () => {
@@ -756,17 +829,147 @@ describe('#autocomplete', () => {
 
   describe('With placeholder', () => {
     const typeHere = ' - - type here - - '
+    let autocompleteInput
 
     beforeEach(() => {
-      setupAutoComplete({
+      ;({ autocompleteInput } = setupSingleAutoComplete({
         params: {
           placeholder: typeHere
         }
-      })
+      }))
     })
 
     test('Should have expected placeholder', () => {
       expect(autocompleteInput.getAttribute('placeholder')).toBe(typeHere)
+    })
+  })
+
+  describe('With publish to', () => {
+    const eventName = 'mock-auto-complete-event'
+    const mockSubscriber = jest.fn()
+    let autocompleteInput
+
+    beforeEach(() => {
+      ;({ autocompleteInput } = setupSingleAutoComplete({
+        params: { publishTo: eventName }
+      }))
+      subscribe(eventName, mockSubscriber)
+    })
+
+    test('Should publish to subscriber as expected', () => {
+      enterValue(autocompleteInput, 'RoboCop')
+      pressEnter(autocompleteInput)
+
+      expect(mockSubscriber).toHaveBeenCalled()
+      expect(mockSubscriber.mock.calls[0][0].detail).toEqual({
+        queryParams: {
+          user: 'RoboCop'
+        }
+      })
+    })
+  })
+
+  describe('With sibling data fetcher', () => {
+    const mockFetchVersions = jest.fn()
+    let autocompleteInput
+    let siblingAutocompleteInput
+    let siblingSuggestionsContainer
+
+    beforeEach(() => {
+      window.cdp = window.cdp || {}
+      window.cdp.fetchVersions = mockFetchVersions
+      ;({
+        autocompleteInput,
+        siblingAutocompleteInput,
+        siblingSuggestionsContainer
+      } = setupMultipleAutoCompletes({
+        params: {
+          siblingDataFetcher: {
+            name: 'fetchVersions',
+            target: 'version',
+            targetLoader: 'version-loader'
+          }
+        }
+      }))
+    })
+
+    test('When sibling input clicked, Should contain expected suggestions', () => {
+      siblingAutocompleteInput.click()
+      const children = siblingSuggestionsContainer.children
+
+      expect(children).toHaveLength(1)
+      expect(children[0].textContent).toContain(' - - choose Image name - - ')
+    })
+
+    test('When choice made in parent autocomplete, Should provide sibling with fetched suggestions', async () => {
+      mockFetchVersions.mockResolvedValue([
+        { text: '1.0.0', value: '1.0.0' },
+        { text: '1.1.0', value: '1.1.0' }
+      ])
+
+      enterValue(autocompleteInput, 'RoboCop')
+
+      expect(mockFetchVersions).toHaveBeenCalledWith('RoboCop')
+
+      await flushAsync()
+
+      siblingAutocompleteInput.click()
+      const children = siblingSuggestionsContainer.children
+
+      expect(children).toHaveLength(2)
+      expect(children[0].textContent).toContain('1.0.0')
+      expect(children[1].textContent).toContain('1.1.0')
+    })
+
+    test('When choice made and deleted, Should clear sibling suggestions', async () => {
+      mockFetchVersions.mockResolvedValue([
+        { text: '2.0.0', value: '2.0.0' },
+        { text: '2.1.0', value: '2.1.0' }
+      ])
+
+      enterValue(autocompleteInput, 'RoboCop')
+
+      expect(mockFetchVersions).toHaveBeenCalledWith('RoboCop')
+
+      await flushAsync()
+
+      siblingAutocompleteInput.click()
+      const children = siblingSuggestionsContainer.children
+
+      expect(children).toHaveLength(2)
+      expect(children[0].textContent).toContain('2.0.0')
+      expect(children[1].textContent).toContain('2.1.0')
+
+      siblingAutocompleteInput.blur()
+
+      enterValue(autocompleteInput, '')
+
+      siblingAutocompleteInput.click()
+
+      expect(children).toHaveLength(1)
+      expect(children[0].textContent).toContain(' - - choose Image name - - ')
+    })
+  })
+
+  describe('As a type ahead', () => {
+    let autocompleteInput
+    let autocompleteHiddenInput
+
+    beforeEach(() => {
+      ;({ autocompleteInput, autocompleteHiddenInput } =
+        setupSingleAutoComplete({ params: { typeahead: true } }))
+    })
+
+    test('Should have set hidden input value with partial match', () => {
+      enterValue(autocompleteInput, 'Rob')
+
+      expect(autocompleteHiddenInput.value).toBe('Rob')
+    })
+
+    test('Should have set hidden input value with full match', () => {
+      enterValue(autocompleteInput, 'RoboCop')
+
+      expect(autocompleteHiddenInput.value).toBe('RoboCop')
     })
   })
 })
