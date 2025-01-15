@@ -31,8 +31,6 @@ export const environmentProxyController = {
       isProxySetup: proxyRules.rules.isProxySetup,
       allowedDomains: proxyRules.rules.allowedDomains,
       defaultDomains: proxyRules.rules.defaultDomains,
-      proxyDocumentationUrl:
-        'https://portal.cdp-int.defra.cloud/documentation/how-to/proxy.md',
       breadcrumbs: [
         {
           text: 'Services',

@@ -1,5 +1,5 @@
-import { fetchEnvironmentProxyRules } from '~/src/server/services/helpers/fetch/fetch-all-proxy-rules.js'
-
+import { fetchProxyRules } from '~/src/server/services/helpers/fetch/fetch-proxy-rules.js'
+import { transformProxyRules } from '~/src/server/services/proxy/transformers/transform-proxy-rules.js'
 /**
  * Find proxy rules for a service in all environments
  * @param {string} serviceName
@@ -7,7 +7,6 @@ import { fetchEnvironmentProxyRules } from '~/src/server/services/helpers/fetch/
  * @returns {Promise<{ environment: string, rules: object }[]>}
  */
 async function findAllProxyRules(serviceName, environments) {
-  //
   const environmentProxyRules = environments.map((environment) => {
     return findProxyRulesForEnvironment(serviceName, environment)
   })
@@ -21,22 +20,8 @@ async function findAllProxyRules(serviceName, environments) {
  * @returns {Promise<{ environment: string, rules: object }>}
  */
 async function findProxyRulesForEnvironment(serviceName, environment) {
-  const rules = await fetchEnvironmentProxyRules(serviceName, environment)
+  const rules = await fetchProxyRules(serviceName, environment)
   return transformProxyRules({ environment, rules })
-}
-
-function transformProxyRules({ environment, rules }) {
-  const allowedDomains = rules.allowedDomains ?? []
-  const defaultDomains = rules.defaultDomains ?? []
-  const isProxySetup = allowedDomains.length + defaultDomains.length > 0
-  return {
-    environment,
-    rules: {
-      allowedDomains,
-      defaultDomains,
-      isProxySetup
-    }
-  }
 }
 
 export { findAllProxyRules, findProxyRulesForEnvironment }

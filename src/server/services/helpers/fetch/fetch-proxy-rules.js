@@ -1,10 +1,12 @@
+import Boom from '@hapi/boom'
+
 import { config } from '~/src/config/config.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 
 const logger = createLogger()
 
-export async function fetchEnvironmentProxyRules(serviceName, environment) {
+export async function fetchProxyRules(serviceName, environment) {
   try {
     const endpoint =
       config.get('portalBackendUrl') +
@@ -20,6 +22,8 @@ export async function fetchEnvironmentProxyRules(serviceName, environment) {
       return {}
     }
     logger.warn(error, 'Looking up Proxy rules error')
-    return {}
+    throw Boom.boomify(new Error(error.message), {
+      statusCode: error?.output?.statusCode ?? 500
+    })
   }
 }

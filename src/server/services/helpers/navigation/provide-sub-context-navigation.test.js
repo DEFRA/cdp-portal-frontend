@@ -1,15 +1,15 @@
 import { provideSubContextNavigation } from '~/src/server/services/helpers/navigation/provide-sub-context-navigation.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 
-const context = 'some-context'
+const section = 'some-context'
 
 describe('#provideSubNavigation', () => {
   const mockToolkit = { continue: 'continue' }
-  const mockRouteLookup = jest.fn().mockImplementation((_url, { params }) => {
+  const mockRouteLookup = (_url, { params }) => {
     return params?.environment
       ? `/services/cdp-portal-frontend/some-context/${params.environment}`
       : '/services/cdp-portal-frontend/some-context'
-  })
+  }
 
   const buildMockRequest = ({
     variety = 'view',
@@ -20,7 +20,7 @@ describe('#provideSubNavigation', () => {
       variety,
       source
     },
-    path: `/services/cdp-portal-frontend/${context}/infra-dev`,
+    path: `/services/cdp-portal-frontend/some-context/infra-dev`,
     routeLookup: mockRouteLookup,
     auth: {
       credentials: {
@@ -47,7 +47,7 @@ describe('#provideSubNavigation', () => {
     })
 
     test('Should add sub navigation to response context', async () => {
-      await provideSubContextNavigation(mockRequest, context, mockToolkit)
+      await provideSubContextNavigation(mockRequest, section, mockToolkit)
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
         {

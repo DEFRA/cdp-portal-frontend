@@ -1,7 +1,7 @@
-import upperFirst from 'lodash/upperFirst.js'
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
-export function provideSubContextNavigation(request, context, h) {
+export function provideSubContextNavigation(request, section, h) {
   const response = request.response
 
   if (response.variety === 'view') {
@@ -14,8 +14,8 @@ export function provideSubContextNavigation(request, context, h) {
 
     response.source.context.subNavigation = [
       {
-        isActive: request.path === `/services/${serviceId}/${context}`,
-        url: request.routeLookup(`services/{serviceId}/${context}`, {
+        isActive: request.path === `/services/${serviceId}/${section}`,
+        url: request.routeLookup(`services/{serviceId}/${section}`, {
           params: { serviceId }
         }),
         label: {
@@ -24,10 +24,10 @@ export function provideSubContextNavigation(request, context, h) {
       },
       ...environments.map((environment) => ({
         isActive: request.path.startsWith(
-          `/services/${serviceId}/${context}/${environment}`
+          `/services/${serviceId}/${section}/${environment}`
         ),
         url: request.routeLookup(
-          `services/{serviceId}/${context}/{environment}`,
+          `services/{serviceId}/${section}/{environment}`,
           {
             params: {
               serviceId,
@@ -35,7 +35,7 @@ export function provideSubContextNavigation(request, context, h) {
             }
           }
         ),
-        label: { text: upperFirst(environment) }
+        label: { text: formatText(environment) }
       }))
     ]
   }

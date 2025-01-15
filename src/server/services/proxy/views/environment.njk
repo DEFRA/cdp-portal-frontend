@@ -15,13 +15,15 @@
 
 {% set modifyProxyRulesHtml %}
   To modify proxy rules,
-  follow the <a class="app-link app-link--underline app-link--text-colour" href="{{ proxyDocumentationUrl }}" target="_blank"
+  follow the <a class="app-link app-link--underline app-link--text-colour"
+     href="https://portal.cdp-int.defra.cloud/documentation/how-to/proxy.md" target="_blank"
      rel="noopener noreferrer">proxy documentation</a>.
 {% endset %}
 
 {% set addProxyRulesHtml %}
   To add proxy rules,
-  follow the <a class="app-link app-link--underline app-link--text-colour" href="{{ proxyDocumentationUrl }}" target="_blank"
+  follow the <a class="app-link app-link--underline app-link--text-colour"
+     href="https://portal.cdp-int.defra.cloud/documentation/how-to/proxy.md" target="_blank"
      rel="noopener noreferrer">proxy documentation</a>.
 {% endset %}
 
@@ -30,7 +32,7 @@
   {{ serviceProxyTableRows.push([
     { html: appTag({
       text: domain,
-      classes: "govuk-tag--turquoise",
+      classes: "govuk-tag--green",
       attributes: {
         "aria-label": "Service proxy rule",
         "data-testid": "app-secret-cell-" + domain.toLowerCase()

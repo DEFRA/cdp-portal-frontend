@@ -24,11 +24,15 @@ export const allProxyController = {
       serviceName,
       environments
     )
+    const hasServiceProxyRules = proxyRulesByEnvironment.some(
+      (proxyRules) => proxyRules.rules.isProxySetup
+    )
 
     return h.view('services/proxy/views/all', {
       pageTitle: `${serviceName} - Proxy`,
       service,
       proxyRulesByEnvironment,
+      hasServiceProxyRules,
       breadcrumbs: [
         {
           text: 'Services',
