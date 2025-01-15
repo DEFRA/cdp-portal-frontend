@@ -48,7 +48,7 @@ describe('#serviceToEntityRow', () => {
               kind: 'text',
               value: 'JavaScript'
             },
-            headers: 'Language'
+            headers: 'language'
           },
           {
             entity: {
@@ -57,7 +57,7 @@ describe('#serviceToEntityRow', () => {
               url: 'https://github.com/DEFRA/cdp-portal-frontend',
               value: 'DEFRA/cdp-portal-frontend'
             },
-            headers: 'GitHub Repository'
+            headers: 'github-repository'
           },
           {
             entity: {
@@ -110,7 +110,7 @@ describe('#serviceToEntityRow', () => {
               kind: 'text',
               value: 'JavaScript'
             },
-            headers: 'Language'
+            headers: 'language'
           },
           {
             entity: {
@@ -119,7 +119,7 @@ describe('#serviceToEntityRow', () => {
               url: 'https://github.com/DEFRA/cdp-portal-frontend',
               value: 'DEFRA/cdp-portal-frontend'
             },
-            headers: 'GitHub Repository'
+            headers: 'github-repository'
           },
           {
             entity: {

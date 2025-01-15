@@ -33,10 +33,13 @@ const runningServicesListController = {
       pageTitle: 'Running Services',
       tableData: {
         headers: [
-          ...(isAuthenticated ? [{ text: null, size: '20-fixed' }] : []),
-          { text: 'Service', width: '15' },
-          { text: 'Team', width: '15' },
+          ...(isAuthenticated
+            ? [{ id: 'owner', text: null, size: '20-fixed' }]
+            : []),
+          { id: 'service', text: 'Service', width: '15' },
+          { id: 'team', text: 'Team', width: '15' },
           ...environments.map((env) => ({
+            id: env.toLowerCase(),
             text: env,
             width: 70 / environments.length
           }))
