@@ -13,12 +13,24 @@
      rel="noopener noreferrer">#cdp-support</a>
 {% endset %}
 
+{% set modifyProxyRulesHtml %}
+  To modify proxy rules,
+  follow the <a class="app-link app-link--underline app-link--text-colour" href="{{ proxyDocumentationUrl }}" target="_blank"
+     rel="noopener noreferrer">proxy documentation</a>.
+{% endset %}
+
+{% set addProxyRulesHtml %}
+  To add proxy rules,
+  follow the <a class="app-link app-link--underline app-link--text-colour" href="{{ proxyDocumentationUrl }}" target="_blank"
+     rel="noopener noreferrer">proxy documentation</a>.
+{% endset %}
+
 {% set serviceProxyTableRows = [] %}
 {% for domain in allowedDomains %}
   {{ serviceProxyTableRows.push([
     { html: appTag({
       text: domain,
-      classes: "govuk-tag--green",
+      classes: "govuk-tag--turquoise",
       attributes: {
         "aria-label": "Service proxy rule",
         "data-testid": "app-secret-cell-" + domain.toLowerCase()
@@ -57,7 +69,7 @@
         <div class="app-section app-section--wide">
           {% if isProxySetup %}
             <p class="govuk-!-margin-bottom-4">
-              Manage proxy for {{ service.serviceName }} in {{ environment | title }}.
+              View proxy rules for {{ service.serviceName }} in {{ environment | title }}.
             </p>
 
             {% block xhrContent %}
@@ -69,8 +81,14 @@
                 </div>
 
                 <p>
-                  Proxy rules available to your service.
+                  Service specific proxy rules for your service.
                 </p>
+
+                {% if allowedDomains | length %}
+                  {{ appInfo({ html: modifyProxyRulesHtml }) }}
+                {% else %}
+                  {{ appInfo({ html: addProxyRulesHtml }) }}
+                {% endif %}
 
                 {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
                   {% if allowedDomains | length %}
@@ -88,12 +106,13 @@
                     </p>
                   {% endif %}
                 {% endcall %}
+
               </article>
             {% endblock %}
 
             <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Platform proxy rules</h2>
             <p>
-              Platform level proxy rules available to your service.
+              Platform level proxy rules for your service.
             </p>
 
             {% if defaultDomains | length %}

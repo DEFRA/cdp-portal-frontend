@@ -24,6 +24,12 @@
      rel="noopener noreferrer">#cdp-support</a>
 {% endset %}
 
+{% set modifyProxyRulesHtml %}
+  To modify proxy rules,
+  follow the <a class="app-link app-link--underline app-link--text-colour" href="{{ proxyDocumentationUrl }}" target="_blank"
+     rel="noopener noreferrer">proxy documentation</a>.
+{% endset %}
+
 {% set allEnvironmentsTables = [] %}
 {% for proxy in proxyRulesByEnvironment %}
   {% set tableRows = [] %}
@@ -31,7 +37,7 @@
     {% set row = [
       { html: appTag({
         text: domain,
-        classes: "govuk-tag--purple",
+        classes: "govuk-tag--turquoise",
         attributes: {
           "aria-label": "Service proxy rule"
         }
@@ -100,6 +106,8 @@
           <p>
             View proxy rules for {{ service.serviceName }} in all CDP environments.
           </p>
+
+          {{ appInfo({ html: modifyProxyRulesHtml }) }}
 
           <div class="app-grid app-grid--fluid">
 
