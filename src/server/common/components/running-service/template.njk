@@ -6,6 +6,7 @@
 {% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
 {% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
 <div class="app-running-service__environments">
   {% for envName in params.environments %}
@@ -75,6 +76,8 @@
                 {{ appInstanceStoppedIcon({ description: "Instance stopped", classes: "app-icon--small" }) }}
               {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
                 {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon--small" }) }}
+              {% elseif instance.status === "undeployed"  %}
+                {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
               {% endif %}
             {% endcall %}
 

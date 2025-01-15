@@ -4,7 +4,8 @@ const deploymentStatus = {
   pending: 'pending',
   requested: 'requested',
   stopped: 'stopped',
-  failed: 'failed'
+  failed: 'failed',
+  undeployed: 'undeployed'
 }
 
 export { deploymentStatus }

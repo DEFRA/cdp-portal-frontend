@@ -12,6 +12,8 @@ function provideStatusClassname(status) {
       return 'item-detail--light-blue'
     case deploymentStatus.failed:
       return 'item-detail--red'
+    case deploymentStatus.undeployed:
+      return 'item-detail--grey'
     default:
       return 'item-detail--grey'
   }

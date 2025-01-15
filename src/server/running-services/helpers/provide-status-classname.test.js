@@ -21,6 +21,10 @@ describe('#getDeploymentStatusClassname', () => {
     expect(provideStatusClassname('stopped')).toBe('item-detail--light-blue')
   })
 
+  test('Should provide expected "undeployed" className', () => {
+    expect(provideStatusClassname('undeployed')).toBe('item-detail--grey')
+  })
+
   test('Should provide expected default className', () => {
     expect(provideStatusClassname()).toBe('item-detail--grey')
   })
