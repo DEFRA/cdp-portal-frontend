@@ -62,7 +62,7 @@ describe('#provideSubNavigation', () => {
           label: {
             text: 'Infra-dev'
           },
-          url: '/services/cdp-portal-frontend/$some-context/infra-dev'
+          url: '/services/cdp-portal-frontend/some-context/infra-dev'
         },
         {
           isActive: false,

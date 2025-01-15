@@ -44,11 +44,6 @@ async function provideTabs(request, h) {
         }),
         label: 'Buckets'
       })
-    } else {
-      response.source.context.tabDetails.displayTabs = false
-    }
-
-    if (authedUser) {
       response.source.context.tabDetails.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/proxy`),
         url: request.routeLookup('services/{serviceId}/proxy', {
@@ -58,6 +53,8 @@ async function provideTabs(request, h) {
         }),
         label: 'Proxy'
       })
+    } else {
+      response.source.context.tabDetails.displayTabs = false
     }
 
     if (isAdmin || isServiceOwner) {
@@ -70,9 +67,6 @@ async function provideTabs(request, h) {
         }),
         label: 'Secrets'
       })
-    }
-
-    if (isAdmin || isServiceOwner) {
       response.source.context.tabDetails.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/terminal`),
         url: request.routeLookup('services/{serviceId}/terminal', {
