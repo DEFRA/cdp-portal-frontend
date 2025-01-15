@@ -4,14 +4,14 @@ import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { environmentSecrets } from '~/src/server/services/secrets/transformers/environment-secrets.js'
-import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
+import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 
 const environmentSecretsController = {
   options: {
     id: 'services/{serviceId}/secrets/{environment}',
     pre: [provideService],
     validate: {
-      params: secretParamsValidation,
+      params: serviceParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },

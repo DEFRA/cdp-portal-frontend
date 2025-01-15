@@ -5,7 +5,7 @@ import { config } from '~/src/config/config.js'
 import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
-import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
+import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 
 const immutableKeys = config.get('platformGlobalSecretKeys')
 
@@ -14,7 +14,7 @@ const updateSecretFormController = {
     id: 'services/{serviceId}/secrets/{environment}/update',
     pre: [provideService],
     validate: {
-      params: secretParamsValidation,
+      params: serviceParamsValidation,
       query: Joi.object({
         secretKey: Joi.string()
           .not(...immutableKeys)

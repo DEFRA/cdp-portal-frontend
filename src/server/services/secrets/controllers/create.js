@@ -6,7 +6,7 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { secretParamsValidation } from '~/src/server/services/secrets/helpers/schema/secret-params-validation.js'
+import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 import { secretPayloadValidation } from '~/src/server/services/secrets/helpers/schema/secret-payload-validation.js'
 
 const createSecretController = {
@@ -14,7 +14,7 @@ const createSecretController = {
     id: 'services/{serviceId}/secrets/{environment}/create',
     pre: [provideService],
     validate: {
-      params: secretParamsValidation,
+      params: serviceParamsValidation,
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },

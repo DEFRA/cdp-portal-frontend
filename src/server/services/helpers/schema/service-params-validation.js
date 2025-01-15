@@ -2,12 +2,12 @@ import Joi from 'joi'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 /**
- * Validation for secret params
+ * Validation for service params
  * @param {Record<string, string>} params
  * @param {ValidationOptions} options
  * @returns {any}
  */
-function secretParamsValidation(params, options) {
+function serviceParamsValidation(params, options) {
   const scopes = options.context.auth.credentials?.scope.slice()
 
   const validationResult = Joi.object({
@@ -24,7 +24,7 @@ function secretParamsValidation(params, options) {
   return validationResult.value
 }
 
-export { secretParamsValidation }
+export { serviceParamsValidation }
 
 /**
  * import('Joi').ValidationOptions

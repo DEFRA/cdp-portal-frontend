@@ -35,16 +35,12 @@ describe('#provideTabs', () => {
   describe('With an Admin user', () => {
     beforeEach(() => {
       mockUserIsServiceOwner.mockResolvedValue(false)
-      mockRouteLookup.mockReturnValueOnce(`/services/${mockServiceName}`)
-      mockRouteLookup.mockReturnValueOnce(
-        `/services/${mockServiceName}/buckets`
-      )
-      mockRouteLookup.mockReturnValueOnce(
-        `/services/${mockServiceName}/secrets`
-      )
-      mockRouteLookup.mockReturnValueOnce(
-        `/services/${mockServiceName}/terminal`
-      )
+      mockRouteLookup
+        .mockReturnValueOnce(`/services/${mockServiceName}`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/buckets`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/proxy`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/secrets`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/terminal`)
       mockUserSession.mockResolvedValue({
         isAdmin: true
       })
@@ -72,6 +68,11 @@ describe('#provideTabs', () => {
         },
         {
           isActive: false,
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: false,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
         },
@@ -81,7 +82,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -105,6 +106,11 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/buckets`
         },
         {
+          isActive: false,
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
+        },
+        {
           isActive: true,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
@@ -125,16 +131,12 @@ describe('#provideTabs', () => {
       mockUserSession.mockResolvedValue({
         isAdmin: false
       })
-      mockRouteLookup.mockReturnValueOnce(`/services/${mockServiceName}`)
-      mockRouteLookup.mockReturnValueOnce(
-        `/services/${mockServiceName}/buckets`
-      )
-      mockRouteLookup.mockReturnValueOnce(
-        `/services/${mockServiceName}/secrets`
-      )
-      mockRouteLookup.mockReturnValueOnce(
-        `/services/${mockServiceName}/terminal`
-      )
+      mockRouteLookup
+        .mockReturnValueOnce(`/services/${mockServiceName}`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/buckets`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/proxy`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/secrets`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/terminal`)
     })
 
     test('Should provide expected context tabs', async () => {
@@ -159,6 +161,11 @@ describe('#provideTabs', () => {
         },
         {
           isActive: false,
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: false,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
         },
@@ -168,7 +175,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -192,6 +199,11 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/buckets`
         },
         {
+          isActive: false,
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
+        },
+        {
           isActive: true,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
@@ -212,10 +224,10 @@ describe('#provideTabs', () => {
       mockUserSession.mockResolvedValue({
         isAdmin: false
       })
-      mockRouteLookup.mockReturnValueOnce(`/services/${mockServiceName}`)
-      mockRouteLookup.mockReturnValueOnce(
-        `/services/${mockServiceName}/buckets`
-      )
+      mockRouteLookup
+        .mockReturnValueOnce(`/services/${mockServiceName}`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/buckets`)
+        .mockReturnValueOnce(`/services/${mockServiceName}/proxy`)
     })
 
     test('Should provide expected context tabs', async () => {
@@ -237,9 +249,14 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'Buckets',
           url: `/services/${mockServiceName}/buckets`
+        },
+        {
+          isActive: false,
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(2)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -261,6 +278,11 @@ describe('#provideTabs', () => {
           isActive: true,
           label: 'Buckets',
           url: `/services/${mockServiceName}/buckets`
+        },
+        {
+          isActive: false,
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
         }
       ])
     })
