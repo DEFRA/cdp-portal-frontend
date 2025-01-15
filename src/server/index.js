@@ -18,19 +18,17 @@ import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash
 import { secureContext } from '~/src/server/common/helpers/secure-context/index.js'
 import { sanitise } from '~/src/server/common/helpers/sanitisation/sanitise.js'
 import { auditor } from '~/src/server/common/helpers/audit/auditor.js'
-import { proxyAgent } from '~/src/server/common/helpers/proxy/proxy-agent.js'
-import { setupWreckAgents } from '~/src/server/common/helpers/proxy/setup-wreck-agents.js'
 import { pulse } from '~/src/server/common/helpers/pulse.js'
 import { addDecorators } from '~/src/server/common/helpers/add-decorators.js'
 import { s3Client } from '~/src/server/common/helpers/aws/s3-client.js'
 import { contentSecurityPolicy } from '~/src/server/common/helpers/csp/content-security-policy.js'
 import { requestTracing } from '~/src/server/common/helpers/request-tracing.js'
+import { setupProxy } from '~/src/server/common/helpers/proxy/setup-proxy.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
 async function createServer() {
-  setupWreckAgents(proxyAgent())
-
+  setupProxy()
   const redisClient = buildRedisClient(config.get('redis'))
 
   const server = hapi.server({
