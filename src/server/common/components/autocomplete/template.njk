@@ -53,8 +53,7 @@
     <div class="app-autocomplete__control">
       <select name="{{ params.name }}"
               id="{{ params.id }}"
-              class="govuk-select app-select app-select--small{% if params.errorMessage.text %} govuk-select--error{%
-                endif %}"
+              class="govuk-select app-select app-select--small{% if params.errorMessage.text %} govuk-select--error{% endif %}"
               data-js="app-progressive-input{% if params.dataJs %} {{ params.dataJs }}{% endif %}"
         {% if params.subscribeTo %}
           data-subscribe-to="{{ params.subscribeTo }}"
@@ -67,6 +66,17 @@
         {% endif %}
         {% if params.placeholder %}
           data-placeholder="{{ params.placeholder }}"
+        {% endif %}
+        {% if params.siblingDataFetcher %}
+          data-sibling-data-fetcher-name="{{ params.siblingDataFetcher.name }}"
+          data-sibling-data-fetcher-target="{{ params.siblingDataFetcher.target }}"
+          data-sibling-data-fetcher-target-loader="{{ params.siblingDataFetcher.targetLoader }}"
+        {% endif %}
+        {% if params.publishTo %}
+          data-publish-to="{{ params.publishTo }}"
+        {% endif %}
+        {% if params.typeahead == true %}
+          data-typeahead="true"
         {% endif %}
               data-testid="app-progressive-input">
         {% for suggestion in params.suggestions %}
