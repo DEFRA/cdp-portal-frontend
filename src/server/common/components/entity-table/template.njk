@@ -7,7 +7,7 @@
     <thead>
     <tr>
       {% for header in params.headers %}
-        <th id="{{ header.text }}" scope="col"
+        <th id="{{ header.id }}" scope="col"
             class="app-entity-table__heading{% if header.size %} app-entity-table__cell--{{ header.size }}{% endif %}"
             {% if header.width %}width="{{ header.width }}%"{% endif %}
         >

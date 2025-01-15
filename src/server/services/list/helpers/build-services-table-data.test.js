@@ -129,8 +129,8 @@ describe('#buildServicesTableData', () => {
               expect.objectContaining({ headers: 'service' }),
               expect.objectContaining({ headers: 'team' }),
               expect.objectContaining({ headers: 'kind' }),
-              expect.objectContaining({ headers: 'Language' }),
-              expect.objectContaining({ headers: 'GitHub Repository' }),
+              expect.objectContaining({ headers: 'language' }),
+              expect.objectContaining({ headers: 'github-repository' }),
               expect.objectContaining({ headers: 'created' })
             ])
           })
