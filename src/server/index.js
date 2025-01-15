@@ -23,7 +23,7 @@ import { addDecorators } from '~/src/server/common/helpers/add-decorators.js'
 import { s3Client } from '~/src/server/common/helpers/aws/s3-client.js'
 import { contentSecurityPolicy } from '~/src/server/common/helpers/csp/content-security-policy.js'
 import { requestTracing } from '~/src/server/common/helpers/request-tracing.js'
-import { setupProxy } from '~/src/server/common/helpers/proxy/proxy.js'
+import { setupProxy } from '~/src/server/common/helpers/proxy/setup-proxy.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
