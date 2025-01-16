@@ -42,7 +42,8 @@ describe('#provideTabs', () => {
         .mockReturnValueOnce(`/services/${mockServiceName}/secrets`)
         .mockReturnValueOnce(`/services/${mockServiceName}/terminal`)
       mockUserSession.mockResolvedValue({
-        isAdmin: true
+        isAdmin: true,
+        isTenant: true
       })
     })
 
@@ -129,7 +130,8 @@ describe('#provideTabs', () => {
       mockUserIsServiceOwner.mockResolvedValue(true)
 
       mockUserSession.mockResolvedValue({
-        isAdmin: false
+        isAdmin: false,
+        isTenant: true
       })
       mockRouteLookup
         .mockReturnValueOnce(`/services/${mockServiceName}`)
@@ -222,7 +224,8 @@ describe('#provideTabs', () => {
       mockUserIsServiceOwner.mockResolvedValue(false)
 
       mockUserSession.mockResolvedValue({
-        isAdmin: false
+        isAdmin: false,
+        isTenant: true
       })
       mockRouteLookup
         .mockReturnValueOnce(`/services/${mockServiceName}`)

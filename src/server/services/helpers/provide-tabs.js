@@ -7,6 +7,7 @@
 async function provideTabs(request, h) {
   const authedUser = await request.getUserSession()
   const isAdmin = authedUser?.isAdmin
+  const isTenant = authedUser?.isTenant
   const response = request.response
 
   if (response.variety === 'view') {
@@ -34,7 +35,7 @@ async function provideTabs(request, h) {
       }
     ]
 
-    if (authedUser) {
+    if (isAdmin || isTenant) {
       response.source.context.tabDetails.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/buckets`),
         url: request.routeLookup('services/{serviceId}/buckets', {
