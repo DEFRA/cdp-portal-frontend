@@ -140,7 +140,9 @@ class Autocomplete {
    */
   getSuggestionByValue(value) {
     return window.cdp.suggestions?.[this.name].find(
-      (suggestion) => suggestion.disabled !== true && suggestion.value === value
+      (suggestion) =>
+        suggestion.disabled !== true &&
+        suggestion.value?.toLowerCase() === value?.toLowerCase()
     )
   }
 
@@ -152,7 +154,8 @@ class Autocomplete {
   getSuggestionByText(textValue) {
     return window.cdp.suggestions?.[this.name].find(
       (suggestion) =>
-        suggestion.disabled !== true && suggestion.text === textValue
+        suggestion.disabled !== true &&
+        suggestion.text?.toLowerCase() === textValue?.toLowerCase()
     )
   }
 
@@ -340,26 +343,32 @@ class Autocomplete {
     this.$clearButton.removeAttribute('aria-label')
   }
 
-  getPartialMatch(textValue) {
+  filterPartialMatch(textValue) {
     return ($suggestion) =>
       $suggestion?.dataset?.text.toLowerCase().includes(textValue.toLowerCase())
+  }
+
+  filterExactMatch(textValue) {
+    return ($suggestion) =>
+      $suggestion?.dataset?.text.toLowerCase() === textValue.toLowerCase()
   }
 
   populateSuggestions({ textValue, suggestionIndex } = {}) {
     let $suggestions
 
-    if (this.getSuggestionMarkup(textValue)) {
-      // Autocomplete input value matches a suggestion
-
-      $suggestions = this.getSuggestionsMarkup().map(
-        this.dressSuggestion({ textValue, suggestionIndex })
-      )
+    const match = this.getSuggestionMarkup(textValue)
+    if (match?.value) {
+      // Autocomplete input value exact matches a suggestion
+      const filterExactMatch = this.filterExactMatch(textValue)
+      $suggestions = this.getSuggestionsMarkup()
+        .filter(filterExactMatch)
+        .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else if (textValue) {
       // Partial match
 
-      const getPartialMatch = this.getPartialMatch(textValue)
+      const filterPartialMatch = this.filterPartialMatch(textValue)
       $suggestions = this.getSuggestionsMarkup()
-        .filter(getPartialMatch)
+        .filter(filterPartialMatch)
         .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else {
       // Reset suggestions
@@ -689,7 +698,7 @@ class Autocomplete {
       // An exact match was found
       if (foundSuggestion?.value) {
         this.updateInputValue({
-          text: foundSuggestion.text,
+          text: textValue,
           value: foundSuggestion.value
         })
         return

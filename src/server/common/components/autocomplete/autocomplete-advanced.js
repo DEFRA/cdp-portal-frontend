@@ -32,12 +32,18 @@ class AutocompleteAdvanced extends Autocomplete {
     return $li
   }
 
-  getPartialMatch(textValue) {
+  filterPartialMatch(textValue) {
     return ($suggestion) =>
       $suggestion?.dataset?.text
         .toLowerCase()
         .includes(textValue.toLowerCase()) ||
       $suggestion?.dataset?.hint.toLowerCase().includes(textValue.toLowerCase())
+  }
+
+  filterExactMatch(textValue) {
+    return ($suggestion) =>
+      $suggestion?.dataset?.text.toLowerCase() === textValue.toLowerCase() ||
+      $suggestion?.dataset?.hint.toLowerCase() === textValue.toLowerCase()
   }
 
   populateSuggestion($li, item) {
