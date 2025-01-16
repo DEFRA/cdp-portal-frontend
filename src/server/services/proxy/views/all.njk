@@ -24,16 +24,10 @@
      rel="noopener noreferrer">#cdp-support</a>
 {% endset %}
 
-{% set modifyProxyRulesHtml %}
-  To modify proxy rules,
-  follow the <a class="app-link app-link--underline app-link--text-colour" href="{{ proxyDocumentationUrl }}" target="_blank"
-     rel="noopener noreferrer">proxy documentation</a>.
-{% endset %}
-
-{% set addProxyRulesHtml %}
-  To add proxy rules,
-  follow the <a class="app-link app-link--underline app-link--text-colour" href="{{ proxyDocumentationUrl }}" target="_blank"
-     rel="noopener noreferrer">proxy documentation</a>.
+{% set explainProxyRulesHtml %}
+  For more information,
+  and how to modify the rules, follow the <a class="app-link app-link--underline app-link--text-colour" href="https://portal.cdp-int.defra.cloud/documentation/how-to/proxy.md" target="_blank"
+     rel="noopener noreferrer">proxy documentation</a>
 {% endset %}
 
 {% set allEnvironmentsTables = [] %}
@@ -111,13 +105,10 @@
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy</h2>
           <p>
             View proxy rules for {{ service.serviceName }} in all CDP environments.
+            These are rules for allowing outbound traffic from the service to anything outside of CDP.
           </p>
 
-          {% if hasServiceProxyRules %}
-            {{ appInfo({ html: modifyProxyRulesHtml }) }}
-          {% else %}
-            {{ appInfo({ html: addProxyRulesHtml }) }}
-          {% endif %}
+          {{ appInfo({ html: explainProxyRulesHtml }) }}
 
           <div class="app-grid app-grid--fluid">
 
