@@ -18,7 +18,7 @@
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
       {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appShutterIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
+        {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-blue", description: "Shuttered URL" }) }}
       {% endcall %}
     {% elif not params.enabled %}
       {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
