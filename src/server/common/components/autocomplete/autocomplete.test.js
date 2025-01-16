@@ -331,8 +331,8 @@ describe('#autocomplete', () => {
         enterValue(autocompleteInput, 'Barbie')
       })
 
-      test('Should show all suggestions', () => {
-        expect(suggestionsContainer.children).toHaveLength(3)
+      test('Should only show matched suggestion', () => {
+        expect(suggestionsContainer.children).toHaveLength(1)
       })
 
       test('Should highlight matched suggestion', () => {
@@ -529,46 +529,28 @@ describe('#autocomplete', () => {
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-posinset')).toBe('1')
-        expect(children[1].getAttribute('aria-posinset')).toBe('2')
-        expect(children[2].getAttribute('aria-posinset')).toBe('3')
+        expect(children[0].getAttribute('aria-posinset')).toBe('2')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-selected')).toBe('false')
-        expect(children[1].getAttribute('aria-selected')).toBe('true')
-        expect(children[2].getAttribute('aria-selected')).toBe('false')
+        expect(children[0].getAttribute('aria-selected')).toBe('true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
         expect(children[0].getAttribute('aria-setsize')).toBe('4')
-        expect(children[1].getAttribute('aria-setsize')).toBe('4')
-        expect(children[2].getAttribute('aria-setsize')).toBe('4')
       })
 
       test('suggestions Should have expected data attributes', () => {
         const children = suggestionsContainer.children
+
         const firstChild = children[0]
-
-        expect(firstChild.dataset.isMatch).toBe('false')
-        expect(firstChild.dataset.value).toBe('RoboCop')
-        expect(firstChild.dataset.text).toBe('RoboCop')
+        expect(firstChild.dataset.isMatch).toBe('true')
+        expect(firstChild.dataset.value).toBe('Roger Rabbit')
+        expect(firstChild.dataset.text).toBe('Roger Rabbit')
         expect(firstChild.dataset.hasHighlight).toBe('false')
-
-        const secondChild = children[1]
-        expect(secondChild.dataset.isMatch).toBe('true')
-        expect(secondChild.dataset.value).toBe('Roger Rabbit')
-        expect(secondChild.dataset.text).toBe('Roger Rabbit')
-        expect(secondChild.dataset.hasHighlight).toBe('true')
-
-        const thirdChild = children[2]
-        expect(thirdChild.dataset.isMatch).toBe('false')
-        expect(thirdChild.dataset.value).toBe('Barbie')
-        expect(thirdChild.dataset.text).toBe('Barbie')
-        expect(thirdChild.dataset.hasHighlight).toBe('false')
       })
     })
 
@@ -599,46 +581,28 @@ describe('#autocomplete', () => {
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-posinset')).toBe('1')
-        expect(children[1].getAttribute('aria-posinset')).toBe('2')
-        expect(children[2].getAttribute('aria-posinset')).toBe('3')
+        expect(children[0].getAttribute('aria-posinset')).toBe('3')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-selected')).toBe('false')
-        expect(children[1].getAttribute('aria-selected')).toBe('false')
-        expect(children[2].getAttribute('aria-selected')).toBe('true')
+        expect(children[0].getAttribute('aria-selected')).toBe('true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
         expect(children[0].getAttribute('aria-setsize')).toBe('4')
-        expect(children[1].getAttribute('aria-setsize')).toBe('4')
-        expect(children[2].getAttribute('aria-setsize')).toBe('4')
       })
 
       test('suggestions Should have expected data attributes', () => {
         const children = suggestionsContainer.children
         const firstChild = children[0]
 
-        expect(firstChild.dataset.isMatch).toBe('false')
-        expect(firstChild.dataset.value).toBe('RoboCop')
-        expect(firstChild.dataset.text).toBe('RoboCop')
+        expect(firstChild.dataset.isMatch).toBe('true')
+        expect(firstChild.dataset.value).toBe('Barbie')
+        expect(firstChild.dataset.text).toBe('Barbie')
         expect(firstChild.dataset.hasHighlight).toBe('false')
-
-        const secondChild = children[1]
-        expect(secondChild.dataset.isMatch).toBe('false')
-        expect(secondChild.dataset.value).toBe('Roger Rabbit')
-        expect(secondChild.dataset.text).toBe('Roger Rabbit')
-        expect(secondChild.dataset.hasHighlight).toBe('false')
-
-        const thirdChild = children[2]
-        expect(thirdChild.dataset.isMatch).toBe('true')
-        expect(thirdChild.dataset.value).toBe('Barbie')
-        expect(thirdChild.dataset.text).toBe('Barbie')
-        expect(thirdChild.dataset.hasHighlight).toBe('true')
       })
     })
 
@@ -668,23 +632,17 @@ describe('#autocomplete', () => {
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
         expect(children[0].getAttribute('aria-posinset')).toBe('1')
-        expect(children[1].getAttribute('aria-posinset')).toBe('2')
-        expect(children[2].getAttribute('aria-posinset')).toBe('3')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
         expect(children[0].getAttribute('aria-selected')).toBe('true')
-        expect(children[1].getAttribute('aria-selected')).toBe('false')
-        expect(children[2].getAttribute('aria-selected')).toBe('false')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
         expect(children[0].getAttribute('aria-setsize')).toBe('4')
-        expect(children[1].getAttribute('aria-setsize')).toBe('4')
-        expect(children[2].getAttribute('aria-setsize')).toBe('4')
       })
 
       test('suggestions Should have expected data attributes', () => {
@@ -694,24 +652,12 @@ describe('#autocomplete', () => {
         expect(firstChild.dataset.isMatch).toBe('true')
         expect(firstChild.dataset.value).toBe('RoboCop')
         expect(firstChild.dataset.text).toBe('RoboCop')
-
-        const secondChild = children[1]
-        expect(secondChild.dataset.isMatch).toBe('false')
-        expect(secondChild.dataset.value).toBe('Roger Rabbit')
-        expect(secondChild.dataset.text).toBe('Roger Rabbit')
-
-        const thirdChild = children[2]
-        expect(thirdChild.dataset.isMatch).toBe('false')
-        expect(thirdChild.dataset.value).toBe('Barbie')
-        expect(thirdChild.dataset.text).toBe('Barbie')
       })
 
       test('suggestions Should not have highlight data attributes', () => {
         const children = suggestionsContainer.children
 
         expect(children[0].dataset.hasHighlight).toBe('false')
-        expect(children[1].dataset.hasHighlight).toBe('false')
-        expect(children[2].dataset.hasHighlight).toBe('false')
       })
     })
 
@@ -783,46 +729,28 @@ describe('#autocomplete', () => {
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-posinset')).toBe('1')
-        expect(children[1].getAttribute('aria-posinset')).toBe('2')
-        expect(children[2].getAttribute('aria-posinset')).toBe('3')
+        expect(children[0].getAttribute('aria-posinset')).toBe('3')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-selected')).toBe('false')
-        expect(children[1].getAttribute('aria-selected')).toBe('false')
-        expect(children[2].getAttribute('aria-selected')).toBe('true')
+        expect(children[0].getAttribute('aria-selected')).toBe('true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
         expect(children[0].getAttribute('aria-setsize')).toBe('4')
-        expect(children[1].getAttribute('aria-setsize')).toBe('4')
-        expect(children[2].getAttribute('aria-setsize')).toBe('4')
       })
 
       test('suggestions Should have expected data attributes', () => {
         const children = suggestionsContainer.children
         const firstChild = children[0]
 
-        expect(firstChild.dataset.isMatch).toBe('false')
-        expect(firstChild.dataset.value).toBe('RoboCop')
-        expect(firstChild.dataset.text).toBe('RoboCop')
+        expect(firstChild.dataset.isMatch).toBe('true')
+        expect(firstChild.dataset.value).toBe('Barbie')
+        expect(firstChild.dataset.text).toBe('Barbie')
         expect(firstChild.dataset.hasHighlight).toBe('false')
-
-        const secondChild = children[1]
-        expect(secondChild.dataset.isMatch).toBe('false')
-        expect(secondChild.dataset.value).toBe('Roger Rabbit')
-        expect(secondChild.dataset.text).toBe('Roger Rabbit')
-        expect(secondChild.dataset.hasHighlight).toBe('false')
-
-        const thirdChild = children[2]
-        expect(thirdChild.dataset.isMatch).toBe('true')
-        expect(thirdChild.dataset.value).toBe('Barbie')
-        expect(thirdChild.dataset.text).toBe('Barbie')
-        expect(thirdChild.dataset.hasHighlight).toBe('true')
       })
     })
   })
