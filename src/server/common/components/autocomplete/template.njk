@@ -8,7 +8,7 @@
 <script data-testid="app-autocomplete-suggestions">
   window.cdp = window.cdp || {}
   window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions.{{ params.name }} = {{ params.suggestions | dump | safe }}
+  window.cdp.suggestions["{{ params.name }}"] = {{ params.suggestions | dump | safe }}
 </script>
 
 {% set content = params.html | safe if params.html else params.text %}
