@@ -3,5 +3,16 @@
 {% from "documentation/macro.njk" import appDocumentation %}
 
 {% block content %}
+  {{ appPageHeading({
+    text: "Documentation"
+  }) }}
+
+  <p class="govuk-!-margin-bottom-2">
+    All things Core Delivery Platform, onboarding, test suites, services, and more.
+  </p>
+
+  <hr class="app-section-break app-section-break--slim">
+
   {{ appDocumentation({ nav: nav, content: content, toc: toc }) }}
+
 {% endblock %}

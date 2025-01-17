@@ -169,7 +169,7 @@ async function documentationStructure(request, bucket) {
 
   return [
     {
-      text: 'Documentation',
+      text: 'CDP',
       href: path.join(docsRoute, 'README.md'),
       level: 0
     },

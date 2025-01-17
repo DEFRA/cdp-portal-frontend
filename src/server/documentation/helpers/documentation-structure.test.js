@@ -45,7 +45,7 @@ describe('#directoryStructure', () => {
     const result = await documentationStructure(mockRequest, mockBucket)
 
     expect(result).toEqual([
-      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
+      { text: 'CDP', href: '/documentation/README.md', level: 0 },
       { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
       {
         text: 'Getting Started',
@@ -106,7 +106,7 @@ describe('#directoryStructure', () => {
       {
         href: '/documentation/README.md',
         level: 0,
-        text: 'Documentation'
+        text: 'CDP'
       },
       {
         href: '/documentation/guides/README.md',

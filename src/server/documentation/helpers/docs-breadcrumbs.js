@@ -3,7 +3,7 @@ import startCase from 'lodash/startCase.js'
 function docsBreadcrumbs(docsPath) {
   const breadcrumbs = [
     {
-      text: 'Documentation',
+      text: 'CDP',
       href: '/documentation'
     }
   ]
