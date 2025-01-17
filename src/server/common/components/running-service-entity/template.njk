@@ -3,6 +3,7 @@
 {% from "tool-tip/macro.njk" import appToolTip %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
+{% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
@@ -13,12 +14,14 @@
 
     {% call appToolTip({ text: tooltipText | title + " in " + params.environment | title }) %}
       {% if params.status === "running" %}
-        {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon app-icon--small" }) }}
+        {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon--small" }) }}
       {% elseif params.status === "pending" or params.status === "stopping" or params.status ===
         "deploying" %}
-        {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon app-icon--small"}) }}
+        {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon--small"}) }}
+      {% elseif params.status === "failed" %}
+        {{ appInstanceFailedIcon({ description: "Failed", classes: " app-icon--small" }) }}
       {% elseif params.status === "undeployed"  %}
-        {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
+        {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon--small"}) }}
       {% endif %}
     {% endcall %}
 

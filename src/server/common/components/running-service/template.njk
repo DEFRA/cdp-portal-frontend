@@ -76,6 +76,8 @@
                 {{ appInstanceStoppedIcon({ description: "Instance stopped", classes: "app-icon--small" }) }}
               {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
                 {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon--small" }) }}
+              {% elseif instance.status === "failed" %}
+                {{ appInstanceFailedIcon({ description: "Instance failed", classes: "app-icon--small" }) }}
               {% elseif instance.status === "undeployed"  %}
                 {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
               {% endif %}

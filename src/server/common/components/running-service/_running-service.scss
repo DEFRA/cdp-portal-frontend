@@ -2,6 +2,7 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
+$environment-width: 400px;
 $environment-height: 200px;
 $negative-margin: -4px;
 
@@ -29,6 +30,7 @@ $negative-margin: -4px;
       "updated updated updated updated"
       "by by by by";
   min-height: $environment-height;
+  max-width: $environment-width;
   border-radius: $app-border-radius;
   padding: govuk-spacing(2);
   background-color: $app-light-grey;
@@ -58,6 +60,22 @@ $negative-margin: -4px;
 
     .app-tag {
       background-color: govuk-tint(govuk-colour("dark-grey"), 65%);
+    }
+  }
+
+  &.item-detail--light-blue {
+    background-color: govuk-tint(govuk-colour("blue"), 90%);
+
+    .app-tag {
+      background-color: govuk-tint(govuk-colour("blue"), 70%);
+    }
+  }
+
+  &.item-detail--red {
+    background-color: govuk-tint(govuk-colour("red"), 75%);
+
+    .app-tag {
+      background-color: govuk-tint(govuk-colour("red"), 45%);
     }
   }
 
@@ -130,6 +148,7 @@ $negative-margin: -4px;
   color: govuk-colour("dark-grey");
   padding: 0 govuk-spacing(2) govuk-spacing(2);
   min-height: $environment-height;
+  max-width: $environment-width;
   background-color: $app-light-grey;
   margin-bottom: 0;
 }
