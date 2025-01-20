@@ -50,7 +50,7 @@ const decommissionServiceController = {
           })
 
           request.audit.sendMessage({
-            event: `Service decommissioned: ${serviceName} by ${authedUser.id}:${authedUser.displayName}`,
+            event: `Service decommissioning started: ${serviceName} by ${authedUser.id}:${authedUser.displayName}`,
             data: {
               serviceName
             },
@@ -58,8 +58,10 @@ const decommissionServiceController = {
           })
 
           return h.redirect(
-            `/admin/decommission-service/summary?serviceName=${serviceName}`
+            `/admin/decommission-service/${serviceName}/started`
           )
+        } else {
+          throw new Error('Service decommission failed')
         }
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure)

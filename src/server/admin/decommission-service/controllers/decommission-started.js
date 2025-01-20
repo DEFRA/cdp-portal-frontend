@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-const summaryController = {
+export const decommissionStartedController = {
   options: {
     validate: {
       params: Joi.object({
-        serviceName: Joi.string()
+        serviceName: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
@@ -13,10 +13,11 @@ const summaryController = {
   handler: (request, h) => {
     const decommissionedServiceName = request.params.serviceName
 
-    return h.view('admin/decommission-service/views/summary', {
+    return h.view('admin/decommission-service/views/started', {
       pageTitle:
         'Service Decommissioning started - ' + decommissionedServiceName,
       decommissionedServiceName,
+      decommissionContinueUrl: `/admin/decommission-service/${decommissionedServiceName}/continue`,
       breadcrumbs: [
         {
           text: 'Admin',
@@ -27,15 +28,9 @@ const summaryController = {
           href: '/admin/decommission-service'
         },
         {
-          text: 'Started',
-          href: `/admin/decommission-service/${decommissionedServiceName}/started`
-        },
-        {
-          text: 'Summary'
+          text: 'Started'
         }
       ]
     })
   }
 }
-
-export { summaryController }

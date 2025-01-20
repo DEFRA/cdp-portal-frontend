@@ -4,7 +4,7 @@
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/help-icon/macro.njk" import appHelpIcon %}
 
-{% set successMesages = [
+{% set successMessages = [
   "MongoDB entries in cdp-self-service-ops deleted",
   "MongoDB entries in cdp-portal-backend deleted",
   "Services in ECS scaled to zero",
@@ -18,9 +18,14 @@
   "GitHub repository archived"
 ] %}
 
+{% set moreSuccess = [
+  "Remove service from ECS",
+  "Remove service from deployment files"
+] %}
+
+
 {% set todos = [
   "Check the below workflows have succeeded",
-  "Remove service from ECS",
   "Remove service MongoDB collections",
   "Remove service Postgresql DBs",
   "Empty service S3 buckets"
@@ -42,13 +47,34 @@
       <div class="govuk-grid-column-one-half-from-desktop-wide">
 
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-          Success
+         Service decommissioned
         </h2>
 
-        <p>The following tasks have been performed:</p>
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
+         Decommission already tasks completed
+        </h3>
+
+        <p>Previously the following tasks had been performed:</p>
 
         <ul class="govuk-list govuk-!-margin-left-1">
-          {% for message in successMesages %}
+          {% for message in successMessages %}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ message }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
+         Further decommission tasks completed
+        </h3>
+
+        <p>The following tasks have now been performed as well:</p>
+
+        <ul class="govuk-list govuk-!-margin-left-1">
+          {% for message in moreSuccess %}
             <li>
               <div class="app-!-layout-centered">
                 {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
@@ -85,58 +111,17 @@
         <ul class="govuk-list govuk-list--bullet">
           <li>
             <a class="app-link"
-               href="https://github.com/DEFRA/cdp-app-config/actions/workflows/remove-service.yml"
+               href="https://github.com/DEFRA/cdp-app-deployments/actions/workflows/remove-service.yml"
                target="_blank" rel="noopener noreferrer">
-              cdp-app-config
-            </a>
-          </li>
-          <li>
-            <a class="app-link"
-               href="https://github.com/DEFRA/cdp-squid-proxy/actions/workflows/remove-service.yml"
-               target="_blank" rel="noopener noreferrer">
-              cdp-squid-proxy
+              cdp-app-deployments
             </a>
           </li>
           <li>
             <a
               class="app-link"
-              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-service.yml"
+              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-ecs.yml"
               target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - remove service
-            </a>
-          </li>
-          <li>
-            <a
-              class="app-link"
-              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-ecr.yml"
-              target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - remove ECR
-            </a>
-          </li>
-          <li>
-            <a
-              class="app-link"
-              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-dockerhub.yml"
-              target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - remove DockerHub
-            </a>
-          </li>
-        </ul>
-
-        <h2 class="govuk-heading-m">Executed workflows for services only:</h2>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>
-            <a class="app-link"
-               href="https://github.com/DEFRA/cdp-grafana-svc/actions/workflows/remove-service.yml"
-               target="_blank" rel="noopener noreferrer">
-              cdp-grafana-svc
-            </a>
-          </li>
-          <li>
-            <a class="app-link"
-               href="https://github.com/DEFRA/cdp-nginx-upstreams/actions/workflows/remove-service.yml"
-               target="_blank" rel="noopener noreferrer">
-              cdp-nginx-upstreams
+              cdp-tf-svc-infra - remove ECS
             </a>
           </li>
         </ul>
