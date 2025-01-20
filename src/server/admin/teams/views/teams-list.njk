@@ -5,26 +5,15 @@
 
     {{ appPageHeading({
       text: "Teams",
+      intro: "Portal teams details, create, edit, view and add/remove users or permissions to teams",
       cta: {
         text: "Create new team",
         href: routeLookup('admin/teams/create')
       }
     }) }}
 
-    {{ appEntityList({
-      headings: [
-        { text: "Name", size: "medium" },
-        { text: "Description", size: "massive" },
-        { text: "GitHub team", size: "medium" },
-        { text: "Service Codes", size: "small" },
-        { text: "Alert Emails", size: "large" },
-        { text: "Members", size: "small" }
-      ],
-      entityRows: entityRows,
-      noResult: noResult
-    }) }}
+    {{ appEntityTable(tableData) }}
 
   {% endcall %}
-
 {% endblock %}
 

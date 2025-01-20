@@ -77,11 +77,13 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
       </form>
 
     {% elseif params.kind === "group" %}
-      {% for entity in params.value %}
-        {{ appEntity(entity) }}
-      {% else %}
-        <span class="app-entity-no-value">{{ noValue }}</span>
-      {% endfor %}
+      <span class="app-entity__group">
+        {% for entity in params.value %}
+          {{ appEntity(entity) }}
+        {% else %}
+          <span class="app-entity-no-value">{{ noValue }}</span>
+        {% endfor %}
+      </span>
 
     {% endif %}
 

@@ -4,13 +4,21 @@ import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/
 const usersListController = {
   handler: async (request, h) => {
     const { users } = await fetchCdpUsers()
-
-    const entityRows = users?.map(transformUserToEntityRow)
+    const rows = users?.map(transformUserToEntityRow)
 
     return h.view('admin/users/views/users-list', {
       pageTitle: 'Users',
-      entityRows,
-      noResult: 'Currently there are no users'
+      tableData: {
+        headers: [
+          { id: 'name', text: 'Name', width: '15' },
+          { id: 'email', text: 'Email', width: '15' },
+          { id: 'github-user', text: 'GitHub user', width: '15' },
+          { id: 'last-updated', text: 'Last Updated', width: '10' },
+          { id: 'created', text: 'Created', width: '10' }
+        ],
+        rows,
+        noResult: 'No users found'
+      }
     })
   }
 }

@@ -79,8 +79,9 @@ async function buildRunningServicesTableData({ pre, query }) {
     userScopeUUIDs
   })
 
+  const ownerSorter = sortByOwner('serviceName')
   const decorator = runningServiceToEntityRow(environments, isAuthenticated)
-  const rows = services.toSorted(sortByOwner).map(decorator)
+  const rows = services.toSorted(ownerSorter).map(decorator)
 
   return {
     environments,

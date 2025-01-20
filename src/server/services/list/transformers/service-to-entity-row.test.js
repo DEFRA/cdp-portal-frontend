@@ -13,7 +13,9 @@ describe('#serviceToEntityRow', () => {
               kind: 'html',
               value: ''
             },
-            headers: 'owner'
+            headers: 'owner',
+            isCentered: true,
+            classes: 'app-entity-table__cell--owned'
           },
           {
             entity: {

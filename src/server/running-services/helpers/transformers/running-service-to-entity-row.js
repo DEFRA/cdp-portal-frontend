@@ -4,7 +4,7 @@ import {
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
 
 function runningServiceToEntityRow(allEnvironments, isAuthenticated) {
-  return ({ serviceName, environments, teams, userOwnsService }) => {
+  return ({ serviceName, environments, teams, isOwner }) => {
     const serviceTeams = teams
       .filter((team) => team.teamId)
       .map((team) => ({
@@ -13,7 +13,7 @@ function runningServiceToEntityRow(allEnvironments, isAuthenticated) {
         url: `/teams/${team.teamId}`
       }))
 
-    const icon = userOwnsService
+    const icon = isOwner
       ? renderComponent(
           'tool-tip',
           {
@@ -53,6 +53,8 @@ function runningServiceToEntityRow(allEnvironments, isAuthenticated) {
           ? [
               {
                 headers: 'owner',
+                isCentered: true,
+                classes: 'app-entity-table__cell--owned',
                 entity: { kind: 'html', value: icon }
               }
             ]

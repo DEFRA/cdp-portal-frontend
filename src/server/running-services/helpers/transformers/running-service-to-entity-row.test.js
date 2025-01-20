@@ -37,7 +37,9 @@ describe('#runningServiceToEntityRow', () => {
               kind: 'html',
               value: expect.stringContaining('app-star-icon')
             },
-            headers: 'owner'
+            headers: 'owner',
+            isCentered: true,
+            classes: 'app-entity-table__cell--owned'
           },
           {
             entity: {
@@ -168,7 +170,9 @@ describe('#runningServiceToEntityRow', () => {
             kind: 'html',
             value: expect.stringContaining('app-star-icon')
           },
-          headers: 'owner'
+          headers: 'owner',
+          isCentered: true,
+          classes: 'app-entity-table__cell--owned'
         },
         {
           entity: {

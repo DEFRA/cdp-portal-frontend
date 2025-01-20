@@ -8,10 +8,15 @@
     <tr>
       {% for header in params.headers %}
         <th id="{{ header.id }}" scope="col"
-            class="app-entity-table__heading{% if header.size %} app-entity-table__cell--{{ header.size }}{% endif %}"
+            class="app-entity-table__heading{% if header.classes %} {{ header.classes }}{% endif %}"
             {% if header.width %}width="{{ header.width }}%"{% endif %}
+            {% if not header.text %}aria-labelledby="{{ header.id }}"{% endif %}
         >
-          {{ header.text | title }}
+          {% if header.text %}
+            {{ header.text | title }}
+          {% else %}
+            <span id="{{ header.id }}" class="govuk-visually-hidden">{{ header.id | title }}</span>
+          {% endif %}
         </th>
       {% endfor %}
     </tr>
@@ -21,8 +26,12 @@
       <tr class="app-entity-table__row">
         {% for cell in row.cells %}
 
-          {% set cellClasses = ["app-entity-table__cell", cell.classes if cell.classes,
-            "app-entity-table__cell--slim" if cell.isSlim] | join(" ") | trim %}
+          {% set cellClasses = [
+            "app-entity-table__cell",
+            cell.classes if cell.classes,
+            "app-entity-table__cell--slim" if cell.isSlim,
+            "app-entity-table__cell--centered" if cell.isCentered
+          ] | join(" ") | trim %}
 
           <td headers="{{ cell.headers }}"
               class="{{ cellClasses }}">

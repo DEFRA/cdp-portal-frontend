@@ -22,6 +22,11 @@
   @extend %govuk-list--bullet;
 }
 
+.app-entity__group {
+  display: flex;
+  align-items: center;
+}
+
 .app-entity__list-item {
   @include govuk-text-colour;
   margin: 0;

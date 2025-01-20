@@ -1,20 +1,48 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { validate as uuidValidate } from 'uuid'
+
 import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libraries.js'
-import { utilityToEntityRow } from '~/src/server/utilities/transformers/utility-to-entity-row.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { buildUtilitiesTableData } from '~/src/server/utilities/helpers/build-utilities-table-data.js'
 
 const librariesListController = {
-  handler: async (_request, h) => {
-    const { repositories } = await fetchLibraries()
+  options: {
+    pre: [provideAuthedUser]
+  },
+  handler: async (request, h) => {
+    const authedUser = request.pre.authedUser
+    const isAuthenticated = authedUser?.isAuthenticated
+    const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
 
-    const entityRows = repositories
-      ?.sort(sortBy('id', 'asc'))
-      ?.map(utilityToEntityRow('libraries'))
+    const { repositories: libraries } = await fetchLibraries()
+
+    const rows = buildUtilitiesTableData({
+      utilities: libraries,
+      utilityType: 'libraries',
+      isAuthenticated,
+      userScopeUUIDs
+    })
+    const title = 'Libraries'
 
     return h.view('utilities/views/list', {
-      pageTitle: 'Libraries',
-      heading: 'Libraries',
-      entityRows,
-      noResult: 'Currently there are no libraries'
+      pageTitle: title,
+      pageHeading: {
+        text: title,
+        intro: 'Microservice and test-suite libraries'
+      },
+      tableData: {
+        headers: [
+          ...(isAuthenticated
+            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
+            : []),
+          { id: 'utility', text: 'Utility', width: '20' },
+          { id: 'team', text: 'Team', width: '15' },
+          { id: 'language', text: 'Language', width: '10' },
+          { id: 'github-repository', text: 'GitHub Repository', width: '20' },
+          { id: 'created', text: 'Created', width: '30' }
+        ],
+        rows,
+        noResult: 'No libraries found'
+      }
     })
   }
 }

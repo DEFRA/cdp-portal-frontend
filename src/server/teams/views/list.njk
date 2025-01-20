@@ -2,19 +2,10 @@
 
 {% block content %}
   {{ appPageHeading({
-    text: "Teams"
+    text: "Teams",
+    intro: "Team details, members and assets"
   }) }}
 
-  {{ appEntityList({
-    headings: [
-      { text: "Team", size: "medium"},
-      { text: "GitHub team", size: "medium"},
-      { text: "Members", size: "small"},
-      { text: "Last updated", size: "medium"},
-      { text: "Created", size: "medium"}
-    ],
-    entityRows: entityRows,
-    noResult: "Currently there are no teams"
-  }) }}
+  {{ appEntityTable(tableData) }}
 
 {% endblock %}

@@ -65,7 +65,7 @@ describe('transformRunningServices', () => {
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
         ],
-        userOwnsService: true
+        isOwner: true
       },
       {
         environments: {
@@ -108,7 +108,7 @@ describe('transformRunningServices', () => {
         },
         serviceName: 'cdp-self-service-ops',
         teams: [],
-        userOwnsService: false
+        isOwner: false
       },
       {
         environments: {
@@ -157,7 +157,7 @@ describe('transformRunningServices', () => {
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
         ],
-        userOwnsService: true
+        isOwner: true
       }
     ])
   })

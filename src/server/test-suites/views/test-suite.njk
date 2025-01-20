@@ -2,32 +2,30 @@
 
 {% block content %}
 
-  {{ appHeading({
-    title: heading,
-    caption: "Information about the " + heading + " test-suite."
+  {{ appPageHeading({
+    caption: "Test Suite",
+    text: testSuite.serviceName
   }) }}
 
-  <hr class="app-section-break">
+  <hr class="app-section-break app-section-break--slim">
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
+    <div class="govuk-grid-column-three-quarters-from-desktop-massive">
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
-
           <section class="govuk-!-margin-bottom-6">
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
             <p>
               {{ testSuite.description }}
             </p>
-          </section>
 
+            {{ govukSummaryList(summaryList) }}
+          </section>
         </div>
 
         <div class="govuk-grid-column-one-half">
-
           {% if canRun %}
-
             {% call appPanel() %}
 
               <section class="govuk-!-margin-bottom-6">
@@ -81,9 +79,7 @@
               </section>
 
             {% endcall %}
-
           {% endif %}
-
         </div>
       </div>
 
@@ -102,22 +98,7 @@
                 Results from <em>{{ testSuite.serviceName }}</em> test suite runs.
               </p>
 
-              {{ appEntityList({
-                headings: [
-                  { text: "Version", size: "tiny" },
-                  { text: "Environment", size: "small" },
-                  { text: "Status", size: "small" },
-                  { text: "Logs", size: "small" },
-                  { text: "Results", size: "small" },
-                  { text: "User", size: "large" },
-                  { text: "Duration", size: "small" },
-                  { text: "Last Ran", size: "medium" },
-                  { text: "Action", size: "small"}
-                ],
-                entityRows: testSuiteRunResults,
-                noResult: "Currently there are no test suite run results"
-              }) }}
-
+              {{ appEntityTable(tableData) }}
             </section>
           </article>
         {% endblock %}
@@ -125,15 +106,6 @@
         {% if shouldPoll %}
       </div>
       {% endif %}
-
-    </div>
-
-    <div class="govuk-grid-column-one-quarter">
-
-      {{ appEntityDataList({
-        heading: "Details",
-        items: entityDataList
-      }) }}
 
     </div>
   </div>

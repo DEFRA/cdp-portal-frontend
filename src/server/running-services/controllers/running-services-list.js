@@ -34,7 +34,7 @@ const runningServicesListController = {
       tableData: {
         headers: [
           ...(isAuthenticated
-            ? [{ id: 'owner', text: null, size: '20-fixed' }]
+            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
             : []),
           { id: 'service', text: 'Service', width: '15' },
           { id: 'team', text: 'Team', width: '15' },

@@ -40,7 +40,7 @@ function serviceToEntityRow(isAuthenticated) {
           entity: { kind: 'date', value: service.createdAt }
         }
 
-    const icon = service.userOwnsService
+    const icon = service.isOwner
       ? renderComponent(
           'tool-tip',
           { text: 'Owned Service', classes: 'app-tool-tip--small' },
@@ -54,6 +54,8 @@ function serviceToEntityRow(isAuthenticated) {
           ? [
               {
                 headers: 'owner',
+                isCentered: true,
+                classes: 'app-entity-table__cell--owned',
                 entity: { kind: 'html', value: icon }
               }
             ]

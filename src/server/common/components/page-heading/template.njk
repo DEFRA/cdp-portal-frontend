@@ -6,6 +6,12 @@
   <div class="app-page-heading">
     <h1 class="app-page-heading--title" data-testid="app-page-heading-title">{{ params.text }}</h1>
 
+    {% if params.intro %}
+      <p class="app-page-heading--intro">
+        {{ params.intro }}
+      </p>
+    {% endif %}
+
     {% if params.cta %}
       <p class="app-page-heading--cta">
         <a href="{{ params.cta.href }}" class="app-link app-link--underline"
