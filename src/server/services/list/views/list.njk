@@ -9,7 +9,8 @@
   {% endset %}
 
   {{ appPageHeading({
-    text: "Services"
+    text: "Services",
+    intro: "Frontend and backend microservice details"
   }) }}
 
   {% call appFilters({
@@ -32,6 +33,7 @@
     },
     hiddenInputs: hiddenInputs
   }) %}
+
     <div class="app-filters__item">
       {{ appAutocomplete({
         id: "filters-service",
@@ -67,6 +69,7 @@
         suggestions: teamFilters
       }) }}
     </div>
+
   {% endcall %}
 
   {% block xhrContent %}

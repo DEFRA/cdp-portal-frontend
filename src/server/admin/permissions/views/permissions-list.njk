@@ -5,22 +5,15 @@
 
     {{ appPageHeading({
       text: "Permissions",
+      intro: "Portal wide permissions details, create, view and assign permissions to users and teams",
       cta: {
         text: "Create new permission",
         href: routeLookup('admin/permission/create')
       }
     }) }}
 
-    {{ appEntityList({
-      headings: [
-        { text: "Value", size: "medium" },
-        { text: "Description", size: "gargantuan" }
-      ],
-      entityRows: entityRows,
-      noResult: "Currently there are no permissions available"
-    }) }}
+    {{ appEntityTable(tableData) }}
 
   {% endcall %}
-
 {% endblock %}
 

@@ -1,12 +1,14 @@
-function sortByOwner(a, b) {
-  if (a.userOwnsService && !b.userOwnsService) {
-    return -1
-  }
-  if (!a.userOwnsService && b.userOwnsService) {
-    return 1
-  }
+function sortByOwner(prop) {
+  return (a, b) => {
+    if (a.isOwner && !b.isOwner) {
+      return -1
+    }
+    if (!a.isOwner && b.isOwner) {
+      return 1
+    }
 
-  return a.serviceName.localeCompare(b.serviceName)
+    return a[prop].localeCompare(b[prop])
+  }
 }
 
 export { sortByOwner }

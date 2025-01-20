@@ -10,7 +10,6 @@
   border-spacing: 0;
   padding: 0;
   width: 100%;
-  margin-top: -8px;
   text-align: left;
 
   empty-cells: show;
@@ -53,6 +52,11 @@
   }
 }
 
+.app-entity-table__cell--centered {
+  text-align: center;
+  vertical-align: middle;
+}
+
 .app-entity-table__cell--slim {
   padding: 0;
 }
@@ -61,6 +65,7 @@
   color: govuk-colour("dark-grey");
 }
 
-.app-entity-table__cell--20-fixed {
+.app-entity-table__cell--owned {
   width: 20px;
+  padding: 0 govuk-spacing(2);
 }

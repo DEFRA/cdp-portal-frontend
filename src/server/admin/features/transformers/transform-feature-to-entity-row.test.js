@@ -2,7 +2,6 @@ import {
   transformFeaturesToEntityRows,
   transformFeatureToEntityRow
 } from '~/src/server/admin/features/transformers/transform-feature-to-entity-row.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
 
 describe('transformFeatureToEntityRow', () => {
   test('Should return entity row for active feature', () => {
@@ -15,27 +14,40 @@ describe('transformFeatureToEntityRow', () => {
 
     const result = transformFeatureToEntityRow(feature)
 
-    expect(result).toHaveLength(4)
-    expect(result).toEqual([
-      {
-        kind: 'text',
-        value: 'Feature 1'
-      },
-      {
-        kind: 'text',
-        value: 'Active'
-      },
-      {
-        kind: 'date',
-        value: '2021-01-01'
-      },
-      {
-        kind: 'button',
-        value: 'Deactivate',
-        url: '/some-url/delete',
-        classes: 'app-button--small app-button--destructive'
-      }
-    ])
+    expect(result).toEqual({
+      cells: [
+        {
+          entity: {
+            kind: 'text',
+            value: 'Feature 1'
+          },
+          headers: 'feature'
+        },
+        {
+          entity: {
+            kind: 'text',
+            value: 'Active'
+          },
+          headers: 'status'
+        },
+        {
+          entity: {
+            kind: 'date',
+            value: '2021-01-01'
+          },
+          headers: 'activated'
+        },
+        {
+          entity: {
+            classes: 'app-button--small app-button--destructive',
+            kind: 'button',
+            url: '/some-url/delete',
+            value: 'Deactivate'
+          },
+          headers: 'actions'
+        }
+      ]
+    })
   })
 
   test('Should return entity row for inactive feature', () => {
@@ -47,27 +59,40 @@ describe('transformFeatureToEntityRow', () => {
 
     const result = transformFeatureToEntityRow(feature)
 
-    expect(result).toHaveLength(4)
-    expect(result).toEqual([
-      {
-        kind: 'text',
-        value: 'Feature 2'
-      },
-      {
-        kind: 'text',
-        value: 'Not active'
-      },
-      {
-        kind: 'text',
-        value: noValue
-      },
-      {
-        kind: 'button',
-        value: 'Activate',
-        url: '/some-url',
-        classes: 'app-button--small'
-      }
-    ])
+    expect(result).toEqual({
+      cells: [
+        {
+          entity: {
+            kind: 'text',
+            value: 'Feature 2'
+          },
+          headers: 'feature'
+        },
+        {
+          entity: {
+            kind: 'text',
+            value: 'Not active'
+          },
+          headers: 'status'
+        },
+        {
+          entity: {
+            kind: 'text',
+            value: '- - -'
+          },
+          headers: 'activated'
+        },
+        {
+          entity: {
+            classes: 'app-button--small',
+            kind: 'button',
+            url: '/some-url',
+            value: 'Activate'
+          },
+          headers: 'actions'
+        }
+      ]
+    })
   })
 })
 
@@ -89,12 +114,76 @@ describe('transformFeaturesToEntityRows', () => {
 
     const result = transformFeaturesToEntityRows(features)
 
-    expect(result).toHaveLength(2)
-
-    expect(result[0][0].value).toBe('Feature 1')
-    expect(result[0][1].value).toBe('Active')
-    expect(result[1][0].value).toBe('Feature 2')
-    expect(result[1][1].value).toBe('Not active')
+    expect(result).toEqual([
+      {
+        cells: [
+          {
+            entity: {
+              kind: 'text',
+              value: 'Feature 1'
+            },
+            headers: 'feature'
+          },
+          {
+            entity: {
+              kind: 'text',
+              value: 'Active'
+            },
+            headers: 'status'
+          },
+          {
+            entity: {
+              kind: 'date',
+              value: '2021-01-01'
+            },
+            headers: 'activated'
+          },
+          {
+            entity: {
+              classes: 'app-button--small app-button--destructive',
+              kind: 'button',
+              url: '/some-url/delete',
+              value: 'Deactivate'
+            },
+            headers: 'actions'
+          }
+        ]
+      },
+      {
+        cells: [
+          {
+            entity: {
+              kind: 'text',
+              value: 'Feature 2'
+            },
+            headers: 'feature'
+          },
+          {
+            entity: {
+              kind: 'text',
+              value: 'Not active'
+            },
+            headers: 'status'
+          },
+          {
+            entity: {
+              kind: 'text',
+              value: '- - -'
+            },
+            headers: 'activated'
+          },
+          {
+            entity: {
+              classes: 'app-button--small',
+              kind: 'button',
+              url: '/some-url',
+              value: 'Activate'
+            },
+            headers: 'actions'
+          }
+        ]
+      }
+    ])
   })
 
   test('Should return empty array when no features', () => {

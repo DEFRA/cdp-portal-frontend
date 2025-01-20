@@ -1,31 +1,19 @@
 {% extends "layouts/page.njk" %}
 
 {% block content %}
-
   {% call appSplitPane() %}
 
     {{ appPageHeading({
       text: "Users",
+      intro: "Portal users details, create, edit, view or delete users",
       cta: {
         text: "Create new user",
         href: routeLookup('admin/users/create')
       }
     }) }}
 
-    {{ appEntityList({
-      headings: [
-        { text: "Name", size: "large" },
-        { text: "Email", size: "massive" },
-        { text: "GitHub user", size: "medium" },
-        { text: "Defra AWS ID", size: "medium" },
-        { text: "Defra VPN ID", size: "medium" }
-      ],
-      entityRows: entityRows,
-      noResult: noResult
-    }) }}
-
+    {{ appEntityTable(tableData) }}
 
   {% endcall %}
-
 {% endblock %}
 

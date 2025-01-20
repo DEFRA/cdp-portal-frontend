@@ -75,14 +75,15 @@ async function buildServicesTableData({
   )
 
   const rowDecorator = serviceToEntityRow(isAuthenticated)
+  const ownerSorter = sortByOwner('serviceName')
   const rows = services
     .map((serviceDetail) => ({
       ...serviceDetail,
-      userOwnsService: serviceDetail.teams.some((team) =>
+      isOwner: serviceDetail.teams.some((team) =>
         userScopeUUIDs.includes(team.teamId)
       )
     }))
-    .sort(sortByOwner)
+    .toSorted(ownerSorter)
     .map(rowDecorator)
 
   return {

@@ -3,20 +3,12 @@
 {% block content %}
   {% call appSplitPane() %}
     {{ appPageHeading({
-      text: heading
+      text: pageHeading.text,
+      intro: pageHeading.intro
     }) }}
 
-    {{ appEntityList({
-      headings: [
-        { text: "Item", size: "large" },
-        { text: "Team", size: "medium" },
-        { text: "Language", size: "small" },
-        { text: "GitHub Repository", size: "massive" },
-        { text: "Created", size: "medium" }
-      ],
-      entityRows: entityRows,
-      noResult: noResult
-    }) }}
+    {{ appEntityTable(tableData) }}
+
   {% endcall %}
 {% endblock %}
 

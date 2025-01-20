@@ -25,7 +25,7 @@
       {% endif %}
     {% endcall %}
 
-    <a class="app-link govuk-!-margin-left-1"
+    <a class="app-link app-link--text-colour govuk-!-margin-left-1"
        href="https://github.com/DEFRA/{{ params.service }}/releases/tag/{{ params.version }}"
        target="_blank" rel="noopener noreferrer"
        aria-labelledby="version"
@@ -35,7 +35,7 @@
   </div>
 
   <div>
-    <a class="app-link" href="/deployments/{{ params.environment }}/{{ params.cdpDeploymentId }}">
+    <a class="app-link app-link--text-colour" href="/deployments/{{ params.environment }}/{{ params.cdpDeploymentId }}">
       Deployed
     </a>
 

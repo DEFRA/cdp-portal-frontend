@@ -4,19 +4,11 @@
   {% call appSplitPane() %}
 
     {{ appPageHeading({
-      text: "Feature Toggles"
+      text: "Feature Toggles",
+      intro: "Portal wide feature toggles, to toggle features on/off"
     }) }}
 
-    {{ appEntityList({
-      headings: [
-        { text: "Feature", size: "large" },
-        { text: "Status", size: "medium" },
-        { text: "Activated", size: "medium" },
-        { text: "Actions", size: "medium" }
-      ],
-      entityRows: entityRows,
-      noResult: noResult
-    }) }}
+    {{ appEntityTable(tableData) }}
 
   {% endcall %}
 {% endblock %}

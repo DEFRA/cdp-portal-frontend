@@ -9,6 +9,10 @@
   margin: 0;
 }
 
+.app-page-heading--intro {
+  margin: govuk-spacing(2) 0 govuk-spacing(4);
+}
+
 .app-page-heading--cta {
   margin: govuk-spacing(3) 0 govuk-spacing(6);
 }

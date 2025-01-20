@@ -27,18 +27,18 @@ function transformRunningServices({
           deployableService?.teams.filter((team) => team.teamId) ?? []
       }
 
-      if (!acc[rs.service].userOwnsService) {
-        acc[rs.service].userOwnsService = acc[rs.service].teams.some((team) =>
+      if (!acc[rs.service].isOwner) {
+        acc[rs.service].isOwner = acc[rs.service].teams.some((team) =>
           userScopeUUIDs.includes(team.teamId)
         )
       }
 
       return acc
     }, {})
-  ).map(([serviceName, { envs, teams, userOwnsService }]) => {
+  ).map(([serviceName, { envs, teams, isOwner }]) => {
     return {
       serviceName,
-      userOwnsService,
+      isOwner,
       environments: envs,
       teams
     }
