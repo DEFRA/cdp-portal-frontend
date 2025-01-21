@@ -5,7 +5,7 @@ export const decommissionSummaryController = {
   options: {
     validate: {
       params: Joi.object({
-        serviceName: Joi.string()
+        serviceName: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

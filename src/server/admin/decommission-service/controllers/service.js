@@ -63,6 +63,7 @@ const decommissionServiceController = {
         return h.redirect('/admin/decommission-service')
       }
     }
+    return h.redirect('/admin/decommission-service')
   }
 }
 

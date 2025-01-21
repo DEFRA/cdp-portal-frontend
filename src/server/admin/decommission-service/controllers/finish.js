@@ -1,12 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
-import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { deleteDeploymentFiles } from '~/src/server/admin/decommission-service/helpers/fetch/delete-deployment-files.js'
 import { deleteEcs } from '~/src/server/admin/decommission-service/helpers/fetch/delete-ecs.js'
+import { isServiceValid } from '~/src/server/admin/decommission-service/helpers/is-service-valid.js'
 
 export const decommissionFinishController = {
   options: {
@@ -21,25 +19,10 @@ export const decommissionFinishController = {
     const serviceName = request.params.serviceName
     const authedUser = await request.getUserSession()
 
-    const { repositories } = await fetchRepositories()
-    const repositoryNames = repositories.map((repo) => {
-      return repo.id
-    })
+    const serviceIsValid = await isServiceValid(serviceName, request)
 
-    const validationResult = serviceValidation(
-      repositoryNames,
-      serviceName
-    ).validate({ serviceName, confirmServiceName: serviceName })
-
-    if (validationResult?.error) {
-      const errorDetails = buildErrorDetails(validationResult.error.details)
-
-      request.yar.flash(sessionNames.validationFailure, {
-        formValues: { serviceName },
-        formErrors: errorDetails
-      })
-
-      return h.redirect(`/admin/decommission-service/${serviceName}/started`)
+    if (!serviceIsValid) {
+      return h.redirect(`/admin/decommission-service/${serviceName}/step-2`)
     }
 
     try {
@@ -75,7 +58,7 @@ export const decommissionFinishController = {
       request.yar.flash(sessionNames.validationFailure)
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect(`/admin/decommission-service/${serviceName}/started`)
+      return h.redirect(`/admin/decommission-service/${serviceName}/step-2`)
     }
   }
 }

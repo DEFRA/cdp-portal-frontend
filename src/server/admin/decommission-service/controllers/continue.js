@@ -1,11 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
-import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { decommissionService } from '~/src/server/admin/decommission-service/helpers/fetch/decommission-service.js'
+import { isServiceValid } from '~/src/server/admin/decommission-service/helpers/is-service-valid.js'
 
 export const decommissionContinueController = {
   options: {
@@ -18,26 +16,10 @@ export const decommissionContinueController = {
   },
   handler: async (request, h) => {
     const serviceName = request.params.serviceName
-    const authedUser = await request.getUserSession()
 
-    const { repositories } = await fetchRepositories()
-    const repositoryNames = repositories.map((repo) => {
-      return repo.id
-    })
+    const serviceIsValid = await isServiceValid(serviceName, request)
 
-    const validationResult = serviceValidation(
-      repositoryNames,
-      serviceName
-    ).validate({ serviceName, confirmServiceName: serviceName })
-
-    if (validationResult?.error) {
-      const errorDetails = buildErrorDetails(validationResult.error.details)
-
-      request.yar.flash(sessionNames.validationFailure, {
-        formValues: { serviceName },
-        formErrors: errorDetails
-      })
-
+    if (!serviceIsValid) {
       return h.redirect(`/admin/decommission-service/${serviceName}/step-1`)
     }
 
@@ -50,14 +32,6 @@ export const decommissionContinueController = {
         request.yar.flash(sessionNames.notifications, {
           text: 'Service decommissioned successfully so far',
           type: 'success'
-        })
-
-        request.audit.sendMessage({
-          event: `Service decommissioned: ${serviceName} by ${authedUser.id}:${authedUser.displayName}`,
-          data: {
-            serviceName
-          },
-          user: request.pre.authedUser
         })
 
         request.logger.info(`Service ${serviceName} decommissioned`)
