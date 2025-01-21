@@ -83,7 +83,7 @@
     "pino-pretty": "11.3.0",
     "qs": "6.13.0",
     "semver": "7.6.3",
-    "undici": "6.20.1",
+    "undici": "6.21.1",
     "uuid": "11.0.2"
   },
   "devDependencies": {
