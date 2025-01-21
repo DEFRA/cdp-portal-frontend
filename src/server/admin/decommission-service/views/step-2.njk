@@ -3,19 +3,28 @@
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/help-icon/macro.njk" import appHelpIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 
 {% set successMessages = [
   "MongoDB entries in cdp-self-service-ops deleted",
   "MongoDB entries in cdp-portal-backend deleted",
-  "Services in ECS scaled to zero",
-  "Triggered remove ECR images workflow",
-  "Triggered remove Docker Hub images workflow",
+  "Triggered cdp-tf-svc-infra remove ECR images workflow",
+  "Triggered cdp-tf-svc-infra remove Docker Hub images workflow",
   "Triggered cdp-app-config remove workflow",
   "Triggered cdp-nginx-upstreams remove workflow",
   "Triggered cdp-squid-proxy remove workflow",
   "Triggered cdp-grafana-svc remove workflow",
   "Triggered cdp-tf-svc-infra remove workflow",
   "GitHub repository archived"
+] %}
+
+{% set beforeSuccess = [
+  "Services in ECS scaled to zero"
+] %}
+
+{% set moreSuccess = [
+  "Remove service from ECS",
+  "Remove service from deployment files"
 ] %}
 
 {% set todos = [
@@ -34,16 +43,44 @@
       <div class="govuk-grid-column-one-half-from-desktop-wide">
 
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-          Decommissioning has started
+         Tasks triggered now
         </h2>
-
-        <p>The following tasks have been performed:</p>
 
         <ul class="govuk-list govuk-!-margin-left-1">
           {% for message in successMessages %}
             <li>
               <div class="app-!-layout-centered">
                 {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ message }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+         Tasks completed previously
+        </h2>
+
+        <ul class="govuk-list govuk-!-margin-left-1">
+          {% for message in beforeSuccess %}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ message }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+         Tasks still to do
+        </h2>
+
+        <ul class="govuk-list govuk-!-margin-left-1">
+          {% for message in moreSuccess %}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appInfoIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
                 {{ message }}
               </div>
             </li>
@@ -58,16 +95,8 @@
           {% for todo in todos %}
             <li>
               <div class="app-!-layout-centered">
-                {{ appInfoIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ appWarningIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
                 {{ todo }}
-              </div>
-            </li>
-          {% endfor %}
-          {% for opt in optionals %}
-            <li>
-              <div class="app-!-layout-centered">
-                {{ appHelpIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                {{ opt }}
               </div>
             </li>
           {% endfor %}
@@ -158,7 +187,7 @@
           <div class="govuk-button-group">
             {{ govukButton({
               classes: "app-button app-button--destructive",
-              text: "Continue decommissioning"
+              text: "Finish decommissioning"
             }) }}
           </div>
 

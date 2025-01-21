@@ -5,8 +5,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { deleteDeploymentFiles } from '~/src/server/admin/decommission-service/helpers/fetch/delete-deployment-files.js'
-import { deleteEcs } from '~/src/server/admin/decommission-service/helpers/fetch/delete-ecs.js'
+import { decommissionService } from '~/src/server/admin/decommission-service/helpers/fetch/decommission-service.js'
 
 export const decommissionContinueController = {
   options: {
@@ -39,21 +38,17 @@ export const decommissionContinueController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(`/admin/decommission-service/${serviceName}/started`)
+      return h.redirect(`/admin/decommission-service/${serviceName}/step-1`)
     }
 
     try {
-      const deleteFilesResponse = await deleteDeploymentFiles(
-        request,
-        serviceName
-      )
-      const deleteEcsResponse = await deleteEcs(request, serviceName)
-      if (deleteFilesResponse?.ok && deleteEcsResponse?.ok) {
+      const { response } = await decommissionService(request, serviceName)
+      if (response?.ok) {
         request.yar.clear(sessionNames.validationFailure)
         await request.yar.commit(h)
 
         request.yar.flash(sessionNames.notifications, {
-          text: 'Service decommissioned successfully',
+          text: 'Service decommissioned successfully so far',
           type: 'success'
         })
 
@@ -66,7 +61,7 @@ export const decommissionContinueController = {
         })
 
         request.logger.info(`Service ${serviceName} decommissioned`)
-        return h.redirect(`/admin/decommission-service/${serviceName}/summary`)
+        return h.redirect(`/admin/decommission-service/${serviceName}/step-2`)
       } else {
         request.logger.error(`Service ${serviceName} decommissioning failed`)
         throw new Error('Service decommission failed')
@@ -75,7 +70,7 @@ export const decommissionContinueController = {
       request.yar.flash(sessionNames.validationFailure)
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect(`/admin/decommission-service/${serviceName}/started`)
+      return h.redirect(`/admin/decommission-service/${serviceName}/step-1`)
     }
   }
 }

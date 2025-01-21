@@ -1,8 +1,8 @@
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
-import { config } from '~/src/config/config.js'
+import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
+import { scaleEcsToZero } from '~/src/server/admin/decommission-service/helpers/fetch/scale-ecs-to-zero.js'
 
 const decommissionServiceController = {
   handler: async (request, h) => {
@@ -33,19 +33,14 @@ const decommissionServiceController = {
     if (!validationResult.error) {
       const serviceName = payload.serviceName
       try {
-        const { data, response } = await request.authedFetcher(
-          config.get('selfServiceOpsUrl') + `/decommission/${serviceName}`,
-          {
-            method: 'delete'
-          }
-        )
+        const { response } = await scaleEcsToZero(request, serviceName)
 
         if (response?.ok) {
           request.yar.clear(sessionNames.validationFailure)
           await request.yar.commit(h)
 
           request.yar.flash(sessionNames.notifications, {
-            text: data.message,
+            text: 'Service decommissioned successfully so far',
             type: 'success'
           })
 
@@ -57,9 +52,7 @@ const decommissionServiceController = {
             user: request.pre.authedUser
           })
 
-          return h.redirect(
-            `/admin/decommission-service/${serviceName}/started`
-          )
+          return h.redirect(`/admin/decommission-service/${serviceName}/step-1`)
         } else {
           throw new Error('Service decommission failed')
         }

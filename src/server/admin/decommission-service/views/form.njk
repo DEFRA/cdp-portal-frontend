@@ -4,31 +4,47 @@
 {% from "icons/error-icon/macro.njk" import appErrorIcon %}
 
 {# Tips and warnings #}
-{% set tips = [
+{% set tipsStep1 = [
+  "Scale services in ECS to zero"
+] %}
+
+{% set tipsStep2 = [
   "Delete MongoDB entries in cdp-self-service-ops",
   "Delete MongoDB entries in cdp-portal-backend",
-  "Scale services in ECS to zero",
-  "Call remove ECR images workflow",
-  "Call remove Docker Hub images workflow",
-  "Call cdp-app-config remove workflow",
-  "Call cdp-nginx-upstreams remove workflow",
-  "Call cdp-squid-proxy remove workflow",
-  "Call cdp-grafana-svc remove workflow",
-  "Call cdp-tf-svc-infra remove workflow",
+  "Call cdp-tf-svc-infra remove ECR images workflow",
+  "Call cdp-tf-svc-infra remove Docker Hub images workflow",
+  "Call cdp-app-config remove service workflow",
+  "Call cdp-nginx-upstreams remove service workflow",
+  "Call cdp-squid-proxy remove service workflow",
+  "Call cdp-grafana-svc remove service workflow",
+  "Call cdp-tf-svc-infra remove service workflow",
   "Archive GitHub Repository"
 ] %}
 
-{% set warnings = [
-  "Remove service from ECS",
-  "Remove service MongoDB collections",
-  "Remove service Postgresql DBs",
-  "Empty service S3 buckets"
+{% set tipsStep3 = [
+  "Call cdp-app-deployments remove service workflow",
+  "Call cdp-tf-svc-infra remove ECS tasks workflow"
+] %}
+
+{% set todos = [
+] %}
+
+{% set tenantData = [
+  "The service's MongoDB collections",
+  "Any Postgresql DBs if allocated",
+  "Any S3 buckets if allocated",
+   "GitHub repository if archived is not sufficient"
 ] %}
 
 {% set warningHtml %}
   Decommissioning a service will remove all associated data and infrastructure. This action is
-  irreversible. If you accidentally decommission the wrong service
-  <a href="{{ routeLookup('create') }}" class="govuk-link app-link">create a new one.</a>
+  irreversible
+{% endset %}
+
+{% set infoHtml %}
+  If you accidentally decommission the wrong service
+  <a href="{{ routeLookup('create') }}" class="govuk-link app-link">create a new one</a>,
+  fork the source from the archived GitHub repository and rebuild the service
 {% endset %}
 
 {% block content %}
@@ -45,6 +61,12 @@
         <div class="govuk-!-margin-bottom-6">
           {{ appWarning({
             html: warningHtml
+          }) }}
+        </div>
+
+        <div class="govuk-!-margin-bottom-6">
+          {{ appInfo({
+            html: infoHtml
           }) }}
         </div>
 
@@ -107,8 +129,15 @@
             <p class="govuk-!-margin-bottom-2">
               When a service is decommissioned the following tasks are performed:
             </p>
+
+            <h4 class="govuk-heading-m govuk-!-margin-bottom-2">Step 1</h4>
+
+            <p class="govuk-!-margin-bottom-2">
+              No data or config lost but service is no longer running:
+            </p>
+
             <ul class="govuk-list govuk-!-margin-left-1">
-              {% for tip in tips %}
+              {% for tip in tipsStep1 %}
                 <li>
                   <div class="app-!-layout-centered">
                     {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
@@ -118,30 +147,74 @@
               {% endfor %}
             </ul>
 
-            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">What this doesn't do</h2>
+            <h4 class="govuk-heading-m govuk-!-margin-bottom-2">Step 2</h4>
+
             <p class="govuk-!-margin-bottom-2">
-              This decommission service functionality currently does not support the following items:
+              Most of the config and infrastructure are deleted:
             </p>
+
             <ul class="govuk-list govuk-!-margin-left-1">
-              {% for warning in warnings %}
+              {% for tip in tipsStep2 %}
                 <li>
                   <div class="app-!-layout-centered">
-                    {{ appErrorIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                    {{ warning }}
+                    {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                    {{ tip }}
                   </div>
                 </li>
               {% endfor %}
             </ul>
+
+            <h4 class="govuk-heading-m govuk-!-margin-bottom-2">Step 3</h4>
+
+            <p class="govuk-!-margin-bottom-2">
+             The final section of config and infrastructure are deleted:
+            </p>
+
+            <ul class="govuk-list govuk-!-margin-left-1">
+              {% for tip in tipsStep3 %}
+                <li>
+                  <div class="app-!-layout-centered">
+                    {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                    {{ tip }}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tenant Data</h2>
+
+            <p class="govuk-!-margin-bottom-2">
+              Tenant service data is not removed automatically
+            </p>
+
+            <ul class="govuk-list govuk-!-margin-left-1">
+              {% for tip in tenantData %}
+                <li>
+                  <div class="app-!-layout-centered">
+                    {{ appErrorIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                    {{ tip }}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+
           </article>
 
           <div class="govuk-button-group">
             {{ govukButton({
               classes: "app-button app-button--destructive",
-              text: "Decommission service"
+              text: "Start decommissioning"
             }) }}
           </div>
 
         </form>
+
+         <p class="govuk-!-margin-bottom-2">
+            <em>
+               <a class="app-link" href="https://portal.cdp-int.defra.cloud/documentation/how-to/platform-operations/remove-service.md" target="_blank" rel="noopener noreferrer">Remove service documentation</a>
+            </em>
+         </p>
+
       </div>
     </div>
 
