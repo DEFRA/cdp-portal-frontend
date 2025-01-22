@@ -39,14 +39,14 @@ const testSuiteController = {
       tableData: {
         headers: [
           { id: 'version', text: 'Version', width: '5' },
-          { id: 'environment', text: 'Environment', width: '15' },
-          { id: 'status', text: 'Status', width: '5' },
-          { id: 'logs', text: 'Logs', width: '15' },
+          { id: 'environment', text: 'Environment', width: '10' },
+          { id: 'status', text: 'Status', width: '10' },
+          { id: 'logs', text: 'Logs', width: '10' },
           { id: 'results', text: 'Results', width: '10' },
-          { id: 'user', text: 'User', width: '20' },
-          { id: 'duration', text: 'Duration', width: '5' },
+          { id: 'user', text: 'User', width: '25' },
+          { id: 'duration', text: 'Duration', width: '10' },
           { id: 'last-ran', text: 'Last Ran', width: '15' },
-          { id: 'action', text: 'Action', width: '10' }
+          { id: 'action', text: 'Action', width: '5' }
         ],
         rows,
         noResult: 'No test suite run results found'
