@@ -9,7 +9,8 @@
  * @property {string} refreshToken
  * @property {boolean} isAdmin
  * @property {boolean} isTenant
- * @property {string[]} scope
+ * @property {string[]} scope - all scopes
+ * @property {UUID[]} uuidScope - only scopes that are UUIDs
  * @property {number} expiresIn
  * @property {Date} expiresAt
  */

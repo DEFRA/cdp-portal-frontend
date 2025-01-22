@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 import capitalize from 'lodash/capitalize.js'
 import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
-import compose from 'lodash/fp/compose.js'
 
 import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
@@ -11,43 +10,36 @@ import { buildSuggestions } from '~/src/server/common/components/autocomplete/he
 import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values.js'
 import { fetchDeployableServices } from '~/src/server/common/helpers/fetch/fetch-deployable-services.js'
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
-import { deploymentEntityRows } from '~/src/server/deployments/transformers/deployment-entity-rows.js'
 import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
 import { fetchDeploymentFilters } from '~/src/server/deployments/helpers/fetch/fetch-deployment-filters.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
+import { statusFilterOrder as order } from '~/src/server/common/constants/status-filter-order.js'
 
 async function getFilters() {
-  const filtersResponse = await fetchDeploymentFilters()
+  const response = await fetchDeploymentFilters()
+  const {
+    filters: { services, users, statuses, teams }
+  } = response
+
   const serviceFilters = buildSuggestions(
-    filtersResponse.filters.services.map((serviceName) => ({
-      text: serviceName,
-      value: serviceName
-    }))
+    services.map((serviceName) => ({ text: serviceName, value: serviceName }))
   )
 
   const userFilters = buildSuggestions(
-    filtersResponse.filters.users.map((user) => ({
-      text: user.displayName,
-      value: user.id
-    }))
+    users.map((user) => ({ text: user.displayName, value: user.id }))
   )
 
-  const order = ['running', 'pending', 'undeployed']
   const statusFilters = buildSuggestions(
-    filtersResponse.filters.statuses
-      .sort((a, b) => order.indexOf(a) - order.indexOf(b))
-      .map((status) => ({
-        text: upperFirst(status),
-        value: status
-      }))
+    statuses
+      .toSorted((a, b) => order.indexOf(a) - order.indexOf(b))
+      .map((status) => ({ text: upperFirst(status), value: status }))
   )
 
   const teamFilters = buildSuggestions(
-    filtersResponse.filters.teams.map((team) => ({
-      text: team.name,
-      value: team.teamId
-    }))
+    teams.map((team) => ({ text: team.name, value: team.teamId }))
   )
 
   return {
@@ -60,6 +52,7 @@ async function getFilters() {
 
 const deploymentsListController = {
   options: {
+    pre: [provideAuthedUser],
     ext: {
       onPreAuth: [allEnvironmentsOnlyForAdmin],
       onPostHandler: [provideFormValues]
@@ -80,6 +73,10 @@ const deploymentsListController = {
     }
   },
   handler: async (request, h) => {
+    const authedUser = request.pre.authedUser
+    const isAuthenticated = authedUser?.isAuthenticated
+    const userScopeUUIDs = authedUser?.uuidScope ?? []
+
     const environment = request.params?.environment
     const formattedEnvironment = upperFirst(kebabCase(environment))
 
@@ -87,6 +84,7 @@ const deploymentsListController = {
       await getFilters()
 
     const deploymentsResponse = await fetchDeployments(environment, {
+      favouriteTeamIds: userScopeUUIDs,
       page: request.query?.page,
       size: request.query?.size,
       service: request.query.service,
@@ -100,10 +98,13 @@ const deploymentsListController = {
     const totalPages = deploymentsResponse?.totalPages
     const deployableServices = await fetchDeployableServices()
 
-    const entityRows = compose(
-      deploymentEntityRows,
-      decorateDeployments(deployableServices)
-    )(deployments)
+    const deploymentsDecorator = decorateDeployments({
+      deployableServices,
+      userScopeUUIDs
+    })
+    const deploymentsWithTeams = deploymentsDecorator(deployments)
+    const rowBuilder = deploymentToEntityRow(isAuthenticated)
+    const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
 
     return h.view('deployments/views/list', {
       pageTitle: `${formattedEnvironment} deployments`,
@@ -113,13 +114,27 @@ const deploymentsListController = {
       userFilters,
       statusFilters,
       teamFilters,
-      entityRows,
       environment,
       hiddenInputs: { page, size: pageSize },
-      pagination: buildPagination(page, pageSize, totalPages, request.query),
-      noResult: `Nothing has matched what you are looking for in ${capitalize(
-        environment
-      )}`,
+      tableData: {
+        head: { isInverse: true },
+        headers: [
+          ...(isAuthenticated
+            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
+            : []),
+          { id: 'deployment', text: 'Deployment', width: '15' },
+          { id: 'service-status', text: 'Service Status', width: '10' },
+          { id: 'version', text: 'Version', width: '10' },
+          { id: 'deployed-by', text: 'Deployed By', width: '20' },
+          { id: 'team', text: 'Team', width: '15' },
+          { id: 'deployment-started', text: 'Deployment Started', width: '30' }
+        ],
+        rows,
+        noResult: `Nothing has matched what you are looking for in ${capitalize(
+          environment
+        )}`,
+        pagination: buildPagination(page, pageSize, totalPages, request.query)
+      },
       breadcrumbs: [
         {
           text: 'Deployments',

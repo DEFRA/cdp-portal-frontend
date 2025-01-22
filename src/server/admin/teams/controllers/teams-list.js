@@ -12,7 +12,7 @@ const teamsListController = {
         headers: [
           { id: 'name', text: 'Name', width: '15' },
           { id: 'description', text: 'Description', width: '15' },
-          { id: 'github-team', text: 'GitHub team', width: '15' },
+          { id: 'github-team', text: 'GitHub Team', width: '15' },
           { id: 'service-codes', text: 'Service Codes', width: '5' },
           { id: 'alert-emails', text: 'Alert Emails', width: '20' },
           { id: 'members', text: 'Members', width: '10' },

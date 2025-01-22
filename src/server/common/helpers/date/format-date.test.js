@@ -2,7 +2,7 @@ import { formatDate } from '~/src/server/common/helpers/date/format-date.js'
 
 describe('#formatDate', () => {
   beforeAll(() => {
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(new Date('2023-04-01'))
   })
 

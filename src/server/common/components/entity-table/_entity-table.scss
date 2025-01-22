@@ -31,6 +31,22 @@
   }
 }
 
+.app-entity-table__head {
+  background-color: $app-light-grey;
+
+  .app-entity-table__heading {
+    background-color: $app-light-grey;
+  }
+}
+
+.app-entity-table__head--inverse {
+  background-color: govuk-colour("white");
+
+  .app-entity-table__heading {
+    background-color: govuk-colour("white");
+  }
+}
+
 .app-entity-table__heading {
   @include govuk-font(24);
   border-spacing: 0;
@@ -38,7 +54,6 @@
   font-weight: bold;
   position: sticky;
   top: 0;
-  background-color: $app-light-grey;
   border-bottom: 1px solid $app-mid-grey;
   z-index: 100;
 }

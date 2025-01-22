@@ -1,5 +1,3 @@
-import { validate as uuidValidate } from 'uuid'
-
 import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libraries.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { buildUtilitiesTableData } from '~/src/server/utilities/helpers/build-utilities-table-data.js'
@@ -11,7 +9,7 @@ const librariesListController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const isAuthenticated = authedUser?.isAuthenticated
-    const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
+    const userScopeUUIDs = authedUser?.uuidScope ?? []
 
     const { repositories: libraries } = await fetchLibraries()
 

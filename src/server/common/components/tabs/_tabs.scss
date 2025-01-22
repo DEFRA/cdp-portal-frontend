@@ -27,6 +27,10 @@
   padding: govuk-spacing(4) govuk-spacing(2);
 }
 
+.app-tabs__panel--slim {
+  padding: 0;
+}
+
 @include govuk-media-query($from: tablet) {
   .app-tabs__list {
     margin-bottom: 0;
