@@ -1,5 +1,4 @@
 import upperFirst from 'lodash/upperFirst.js'
-import { validate as uuidValidate } from 'uuid'
 
 import { fetchRunningServicesFilters } from '~/src/server/running-services/helpers/fetch/fetch-running-services-filters.js'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
@@ -9,39 +8,29 @@ import { transformRunningServices } from '~/src/server/running-services/helpers/
 import { runningServiceToEntityRow } from '~/src/server/running-services/helpers/transformers/running-service-to-entity-row.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
+import { statusFilterOrder as order } from '~/src/server/common/constants/status-filter-order.js'
 
 function getFilters(runningServicesFilters) {
-  const { filters } = runningServicesFilters
+  const {
+    filters: { services, users, statuses, teams }
+  } = runningServicesFilters
 
   const serviceFilters = buildSuggestions(
-    filters.services.map((serviceName) => ({
-      text: serviceName,
-      value: serviceName
-    }))
+    services.map((serviceName) => ({ text: serviceName, value: serviceName }))
   )
 
   const userFilters = buildSuggestions(
-    filters.users.map((user) => ({
-      text: user.displayName,
-      value: user.id
-    }))
+    users.map((user) => ({ text: user.displayName, value: user.id }))
   )
 
-  const order = ['running', 'pending', 'undeployed']
   const statusFilters = buildSuggestions(
-    filters.statuses
-      .sort((a, b) => order.indexOf(a) - order.indexOf(b))
-      .map((status) => ({
-        text: upperFirst(status),
-        value: status
-      }))
+    statuses
+      .toSorted((a, b) => order.indexOf(a) - order.indexOf(b))
+      .map((status) => ({ text: upperFirst(status), value: status }))
   )
 
   const teamFilters = buildSuggestions(
-    filters.teams.map((team) => ({
-      text: team.name,
-      value: team.teamId
-    }))
+    teams.map((team) => ({ text: team.name, value: team.teamId }))
   )
 
   return {
@@ -56,7 +45,7 @@ async function buildRunningServicesTableData({ pre, query }) {
   const authedUser = pre.authedUser
   const isAuthenticated = authedUser?.isAuthenticated
   const environments = getEnvironments(authedUser?.scope)
-  const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
+  const userScopeUUIDs = authedUser?.uuidScope ?? []
 
   const [deployableServices, runningServicesFilters, runningServices] =
     await Promise.all([

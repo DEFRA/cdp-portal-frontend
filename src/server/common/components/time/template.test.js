@@ -4,7 +4,7 @@ describe('Time Component', () => {
   let $time
 
   beforeAll(() => {
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(new Date('2023-04-01'))
   })
 

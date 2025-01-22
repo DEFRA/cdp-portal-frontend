@@ -32,7 +32,7 @@
     {% if tab.isActive %}
       {% set content = tab.panel.html | safe if tab.panel.html else tab.panel.text %}
       <section id="tab-panel-{{ activeTabId }}"
-               class="app-tabs__panel"
+               class="app-tabs__panel{% if tab.isSlim %} app-tabs__panel--slim{% endif %}"
                role="tabpanel"
                aria-labelledby="tab-{{ activeTabId }}"
                data-testid="app-tabs-panel">

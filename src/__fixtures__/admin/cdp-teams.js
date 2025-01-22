@@ -18,7 +18,10 @@ const cdpTeamsFixture = {
           userId: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
           name: 'Mumm-ra'
         }
-      ]
+      ],
+      serviceCodes: ['FO'],
+      alertEmailAddresses: ['robocop@robocop.com'],
+      scopes: []
     },
     {
       name: 'Trees-and-forests',
@@ -32,7 +35,10 @@ const cdpTeamsFixture = {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
           name: 'B. A. Baracus'
         }
-      ]
+      ],
+      serviceCodes: ['TF'],
+      alertEmailAddresses: [],
+      scopes: ['externalTest']
     },
     {
       name: 'Bees',
@@ -50,7 +56,10 @@ const cdpTeamsFixture = {
           userId: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
           name: 'Mumm-ra'
         }
-      ]
+      ],
+      serviceCodes: ['BEE'],
+      alertEmailAddresses: ['bee@bee.com'],
+      scopes: ['externalTest']
     },
     {
       name: 'Platform',
@@ -64,7 +73,10 @@ const cdpTeamsFixture = {
           userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
           name: 'B. A. Baracus'
         }
-      ]
+      ],
+      serviceCodes: ['CDP'],
+      alertEmailAddresses: ['platform@platform.com', 'platops@platops.com'],
+      scopes: ['breakGlass', 'externalTest']
     }
   ]
 }

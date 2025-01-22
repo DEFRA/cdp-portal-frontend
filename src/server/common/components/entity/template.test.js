@@ -2,7 +2,7 @@ import { renderTestComponent } from '~/test-helpers/component-helpers.js'
 
 describe('Entity Component', () => {
   beforeAll(() => {
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(new Date('2023-04-01'))
   })
 
@@ -142,7 +142,7 @@ describe('Entity Component', () => {
     let $dateEntity
 
     beforeAll(() => {
-      jest.useFakeTimers('modern')
+      jest.useFakeTimers()
       jest.setSystemTime(new Date('2023-04-01'))
     })
 
@@ -179,7 +179,7 @@ describe('Entity Component', () => {
     let $dateEntity
 
     beforeAll(() => {
-      jest.useFakeTimers('modern')
+      jest.useFakeTimers()
       jest.setSystemTime(new Date('2023-04-01'))
     })
 

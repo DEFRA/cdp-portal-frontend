@@ -1,4 +1,4 @@
-function decorateDeployments(deployableServices) {
+function decorateDeployments({ deployableServices, userScopeUUIDs }) {
   return (deployments) =>
     deployments?.map((deployment) => {
       const deployableService = deployableServices.find(
@@ -6,8 +6,11 @@ function decorateDeployments(deployableServices) {
           service.serviceName.toLowerCase() === deployment.service.toLowerCase()
       )
 
+      const teams = deployableService?.teams ?? []
+
       return {
-        teams: deployableService?.teams ?? [],
+        teams,
+        isOwner: teams.some((team) => userScopeUUIDs.includes(team.teamId)),
         ...deployment
       }
     })

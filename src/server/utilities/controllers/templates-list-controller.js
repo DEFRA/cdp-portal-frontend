@@ -1,5 +1,3 @@
-import { validate as uuidValidate } from 'uuid'
-
 import { fetchTemplates } from '~/src/server/utilities/helpers/fetch/fetch-templates.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { buildUtilitiesTableData } from '~/src/server/utilities/helpers/build-utilities-table-data.js'
@@ -11,7 +9,7 @@ const templatesListController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const isAuthenticated = authedUser?.isAuthenticated
-    const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
+    const userScopeUUIDs = authedUser?.uuidScope ?? []
 
     const { repositories: templates } = await fetchTemplates()
 
