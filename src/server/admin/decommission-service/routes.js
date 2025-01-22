@@ -1,14 +1,12 @@
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
-import {
-  decommissionFormController,
-  decommissionServiceController,
-  decommissionStep1Controller,
-  decommissionContinueController,
-  decommissionFinishController,
-  decommissionStep2Controller,
-  decommissionSummaryController
-} from '~/src/server/admin/decommission-service/controllers/index.js'
+import { decommissionFormController } from '~/src/server/admin/decommission-service/controllers/form.js'
+import { decommissionServiceController } from '~/src/server/admin/decommission-service/controllers/service.js'
+import { decommissionStep1Controller } from '~/src/server/admin/decommission-service/controllers/step-1.js'
+import { decommissionContinueController } from '~/src/server/admin/decommission-service/controllers/continue.js'
+import { decommissionStep2Controller } from '~/src/server/admin/decommission-service/controllers/step-2.js'
+import { decommissionFinishController } from '~/src/server/admin/decommission-service/controllers/finish.js'
+import { decommissionSummaryController } from '~/src/server/admin/decommission-service/controllers/summary.js'
 import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 

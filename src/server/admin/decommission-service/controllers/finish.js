@@ -5,9 +5,11 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { deleteDeploymentFiles } from '~/src/server/admin/decommission-service/helpers/fetch/delete-deployment-files.js'
 import { deleteEcs } from '~/src/server/admin/decommission-service/helpers/fetch/delete-ecs.js'
 import { isServiceValid } from '~/src/server/admin/decommission-service/helpers/is-service-valid.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 
 export const decommissionFinishController = {
   options: {
+    pre: [provideAuthedUser],
     validate: {
       params: Joi.object({
         serviceName: Joi.string().required()
@@ -17,7 +19,7 @@ export const decommissionFinishController = {
   },
   handler: async (request, h) => {
     const serviceName = request.params.serviceName
-    const authedUser = await request.getUserSession()
+    const authedUser = request.pre.authedUser
 
     const serviceIsValid = await isServiceValid(serviceName, request)
 
@@ -45,7 +47,7 @@ export const decommissionFinishController = {
           data: {
             serviceName
           },
-          user: request.pre.authedUser
+          user: authedUser
         })
 
         request.logger.info(`Service ${serviceName} decommissioned`)

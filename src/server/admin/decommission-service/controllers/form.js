@@ -11,9 +11,9 @@ const decommissionFormController = {
       })
     }
   },
-  handler: async (_request, h) => {
+  handler: async (request, h) => {
     const { repositories } = await fetchRepositories()
-    const serviceName = _request.query.serviceName ?? ''
+    const serviceName = request.query.serviceName ?? ''
 
     const repositoriesValues = repositories.map((repo) => {
       return { value: repo.id, text: repo.id }
