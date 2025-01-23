@@ -53,4 +53,10 @@ describe('#relativeDate', () => {
       )
     })
   })
+
+  describe('With no value', () => {
+    test('Result should be undefined', () => {
+      expect(relativeDate()).toBeUndefined()
+    })
+  })
 })

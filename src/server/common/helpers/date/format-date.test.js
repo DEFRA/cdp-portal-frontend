@@ -25,4 +25,10 @@ describe('#formatDate', () => {
       )
     })
   })
+
+  describe('With no value', () => {
+    test('Result should be undefined', () => {
+      expect(formatDate()).toBeUndefined()
+    })
+  })
 })
