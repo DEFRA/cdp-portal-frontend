@@ -1,12 +1,11 @@
-import { config } from '~/src/config/config.js'
 import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
 import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
 import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
 
 describe('#deploymentToEntityRow', () => {
-  const oidcAdminGroupId = config.get('oidcAdminGroupId')
-  const userScopeUUIDs = [oidcAdminGroupId]
+  const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
+  const userScopeUUIDs = [adminGroupId]
   const deploymentsDecorator = decorateDeployments({
     deployableServices: servicesFixture,
     userScopeUUIDs

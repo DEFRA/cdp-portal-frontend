@@ -15,7 +15,7 @@ function findEnvironmentsForTestSuite(repo) {
   }
 
   logger.error(
-    `Unable to detect test suite type for ${repo?.serviceName} from its topics topics ${topics}`
+    `Unable to detect test suite type for ${repo?.serviceName} from its topics ${topics}`
   )
 
   return []

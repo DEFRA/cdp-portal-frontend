@@ -1,15 +1,14 @@
-import { config } from '~/src/config/config.js'
 import { transformRunningServices } from './running-services.js'
 import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { whatsRunningWhereFixture } from '~/src/__fixtures__/whats-running-where.js'
 
 describe('transformRunningServices', () => {
-  const oidcAdminGroupId = config.get('oidcAdminGroupId')
+  const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
 
   test('should transform running services correctly', () => {
     const runningServices = whatsRunningWhereFixture
     const deployableServices = servicesFixture
-    const userScopeUUIDs = [oidcAdminGroupId]
+    const userScopeUUIDs = [adminGroupId]
 
     const result = transformRunningServices({
       runningServices,

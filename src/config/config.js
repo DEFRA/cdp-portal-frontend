@@ -289,12 +289,6 @@ const config = convict({
     default:
       'http://cdp.127.0.0.1.sslip.io:3939/63983fc2-cfff-45bb-8ec2-959e21062b9a/v2.0/.well-known/openid-configuration'
   },
-  oidcAdminGroupId: {
-    doc: 'OIDC Admin Group ID',
-    format: String,
-    env: 'OIDC_ADMIN_GROUP_ID',
-    default: 'aabe63e7-87ef-4beb-a596-c810631fc474'
-  },
   supportChannel: {
     doc: 'Support channel url',
     format: String,
