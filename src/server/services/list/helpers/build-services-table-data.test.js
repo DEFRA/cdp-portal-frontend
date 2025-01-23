@@ -40,8 +40,8 @@ const inProgressServicesEndpointUrl = new URL(
 const repositoriesEndpointUrl = new URL(`${portalBackendUrl}/repositories`)
 
 describe('#buildServicesTableData', () => {
-  const oidcAdminGroupId = config.get('oidcAdminGroupId')
-  const userScopeUUIDs = [oidcAdminGroupId]
+  const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
+  const userScopeUUIDs = [adminGroupId]
 
   beforeEach(() => {
     // Provide mock response for API calls
@@ -205,25 +205,25 @@ describe('#buildServicesTableData', () => {
         // Provide admin only services
         nock(deployableServicesEndpointUrl.origin)
           .get(deployableServicesEndpointUrl.pathname)
-          .query({ teamId: oidcAdminGroupId })
+          .query({ teamId: adminGroupId })
           .reply(
             200,
             servicesFixture.filter((item) =>
-              item.teams.some((team) => team.teamId === oidcAdminGroupId)
+              item.teams.some((team) => team.teamId === adminGroupId)
             )
           )
         // Provide admin only service status
         nock(inProgressServicesEndpointUrl.origin)
           .get(inProgressServicesEndpointUrl.pathname)
-          .query({ kind: 'microservice', teamId: oidcAdminGroupId })
+          .query({ kind: 'microservice', teamId: adminGroupId })
           .reply(200, {
             inProgress: inProgressStatusFixture.inProgress.filter(
-              (item) => item.team.teamId === oidcAdminGroupId
+              (item) => item.team.teamId === adminGroupId
             )
           })
 
         result = await buildServicesTableData({
-          teamId: oidcAdminGroupId,
+          teamId: adminGroupId,
           isAuthenticated: true,
           userScopeUUIDs
         })

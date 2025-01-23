@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { fetchAllBuckets } from '~/src/server/services/helpers/fetch/fetch-all-buckets.js'
-import { adminOwnedService } from '~/src/server/common/helpers/user/admin-owned-service.js'
 import { allEnvironmentBuckets } from '~/src/server/services/buckets/transformers/all-environment-buckets.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
@@ -25,14 +24,10 @@ const allBucketsController = {
     const allBuckets = await fetchAllBuckets(serviceName)
     const bucketsByEnvironment = allEnvironmentBuckets(environments, allBuckets)
 
-    const serviceTeamIds = service.teams?.map((team) => team.teamId)
-    const isAdminOwnedService = adminOwnedService(serviceTeamIds)
-
     return h.view('services/buckets/views/all', {
       pageTitle: `${serviceName} - Buckets`,
       service,
       bucketsByEnvironment,
-      isAdminOwnedService,
       breadcrumbs: [
         {
           text: 'Services',
