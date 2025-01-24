@@ -77,6 +77,12 @@ $min-width: 200px;
   }
 }
 
+@include govuk-media-query($until: tablet) {
+  .app-entity-table__row {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+}
+
 @include govuk-media-query($from: desktop-wide) {
   .app-entity-table__row {
     display: table-row;
