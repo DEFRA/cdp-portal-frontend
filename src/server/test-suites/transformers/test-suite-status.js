@@ -58,16 +58,16 @@ function testSuiteStatus(service) {
       info: () => {
         switch (createRepository?.status) {
           case creationStatuses.queued:
-            return `GitHub repository creation queued.`
+            return 'GitHub repository creation queued.'
           case creationStatuses.raised:
           case creationStatuses.prOpen:
-            return `Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.`
+            return 'Pull request has been raised and will shortly be automatically merged. The GitHub pull request link below has more information.'
           case creationStatuses.requested:
           case creationStatuses.inProgress:
             return `Creating new test suite GitHub repository from the ${service.serviceTypeTemplate} template.`
           case creationStatuses.created:
           case creationStatuses.success:
-            return `Your new test suite GitHub repository has been successfully created, you can now checkout your code and start developing.`
+            return 'Your new test suite GitHub repository has been successfully created, you can now checkout your code and start developing.'
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -94,13 +94,13 @@ function testSuiteStatus(service) {
       info: () => {
         switch (cdpSquidProxy?.status) {
           case creationStatuses.queued:
-            return `Proxy config queued.`
+            return 'Proxy config queued.'
           case creationStatuses.requested:
           case creationStatuses.inProgress:
-            return `Setting up proxy access.`
+            return 'Setting up proxy access.'
           case creationStatuses.created:
           case creationStatuses.success:
-            return `Your test suite can make outbound calls via the proxy.`
+            return 'Your test suite can make outbound calls via the proxy.'
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
@@ -153,7 +153,7 @@ function testSuiteStatus(service) {
                     </p>`
           case creationStatuses.created:
           case creationStatuses.success:
-            return `All the supporting infrastructure for your test suite has been created.`
+            return 'All the supporting infrastructure for your test suite has been created.'
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
