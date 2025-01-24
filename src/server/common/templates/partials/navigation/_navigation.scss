@@ -10,7 +10,7 @@ $border-width: 4px;
 }
 
 .app-navigation__list {
-  @include govuk-media-query($from: desktop-big) {
+  @include govuk-media-query($from: desktop-huge) {
     display: flex;
     height: govuk-px-to-rem($navigation-height);
   }
@@ -21,7 +21,7 @@ $border-width: 4px;
   padding: 0;
   list-style: none;
 
-  @include govuk-media-query($from: desktop-big) {
+  @include govuk-media-query($from: desktop-huge) {
     display: flex;
     flex: 3;
   }
@@ -32,7 +32,7 @@ $border-width: 4px;
   padding: 0;
   list-style: none;
 
-  @include govuk-media-query($from: desktop-big) {
+  @include govuk-media-query($from: desktop-huge) {
     display: flex;
     flex: 1;
     justify-content: flex-end;
@@ -44,7 +44,7 @@ $border-width: 4px;
   padding: 0;
   list-style: none;
 
-  @include govuk-media-query($from: desktop-big) {
+  @include govuk-media-query($from: desktop-huge) {
     position: relative;
     display: flex;
     flex: 0 0 75px;
@@ -91,7 +91,7 @@ $border-width: 4px;
   text-decoration: none;
   border-bottom: 4px solid transparent;
 
-  @include govuk-media-query($from: desktop-big) {
+  @include govuk-media-query($from: desktop-huge) {
     margin: 0;
     display: flex;
     height: $navigation-height - $border-width;
