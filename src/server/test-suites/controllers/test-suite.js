@@ -25,7 +25,7 @@ const testSuiteController = {
     const canRun = request.pre.canRun
     const serviceName = testSuite.serviceName
 
-    const testRuns = await fetchTestRuns(serviceName)
+    const testRuns = (await fetchTestRuns(serviceName)) ?? []
     const rows = testRuns.map((test) => testSuiteRunResults(test, canRun))
 
     return h.view('test-suites/views/test-suite', {
