@@ -2,6 +2,12 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
+@include govuk-media-query($until: desktop-wide) {
+  .app-running-service-entity {
+    max-width: 200px;
+  }
+}
+
 .app-running-service-entity {
   width: 100%;
   padding: govuk-spacing(1) govuk-spacing(2);
