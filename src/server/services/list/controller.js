@@ -1,6 +1,5 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { validate as uuidValidate } from 'uuid'
 
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { buildServicesTableData } from '~/src/server/services/list/helpers/build-services-table-data.js'
@@ -22,7 +21,7 @@ const serviceListController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const isAuthenticated = authedUser?.isAuthenticated
-    const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
+    const userScopeUUIDs = authedUser?.uuidScope ?? []
     const service = request.query.service
     const teamId = request.query.teamId
 

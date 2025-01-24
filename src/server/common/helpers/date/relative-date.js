@@ -2,6 +2,10 @@ import { formatRelative } from 'date-fns'
 import { enGB } from 'date-fns/locale/en-GB'
 
 function relativeDate(date, withSeconds = false) {
+  if (!date) {
+    return
+  }
+
   const weekStartsOn = 1 //  Monday
   const hours = withSeconds ? 'pp' : 'p'
 

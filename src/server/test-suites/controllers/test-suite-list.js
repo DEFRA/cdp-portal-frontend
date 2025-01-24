@@ -1,5 +1,3 @@
-import { validate as uuidValidate } from 'uuid'
-
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch/index.js'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
@@ -14,7 +12,7 @@ const testSuiteListController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const isAuthenticated = authedUser?.isAuthenticated
-    const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
+    const userScopeUUIDs = authedUser?.uuidScope ?? []
 
     const [testSuites, { repositories }] = await Promise.all([
       fetchTestSuites(),

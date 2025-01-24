@@ -2,7 +2,7 @@ import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
 
 describe('#relativeDate', () => {
   beforeAll(() => {
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(new Date('2024-06-28T14:16:00.000Z')) // Fri Jun 25 2024 15:16:00 GMT+0100 (British Summer Time)
   })
 
@@ -51,6 +51,12 @@ describe('#relativeDate', () => {
       expect(relativeDate('2024-06-07T14:15:45.000Z', true)).toBe(
         'Fri 7th Jun 2024 at 14:15:45'
       )
+    })
+  })
+
+  describe('With no value', () => {
+    test('Result should be undefined', () => {
+      expect(relativeDate()).toBeUndefined()
     })
   })
 })

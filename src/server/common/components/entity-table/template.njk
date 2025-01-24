@@ -4,18 +4,25 @@
 
 <article>
   <table class="app-entity-table" data-testid="app-entity-table">
-    <thead>
+    <thead class="app-entity-table__head{% if params.head.isInverse %} app-entity-table__head--inverse{% endif %}"
+           data-testid="app-entity-table-head">
     <tr>
       {% for header in params.headers %}
+        {% set headerClasses = [
+          "app-entity-table__heading",
+          header.classes if header.classes
+        ] | join(" ") | trim %}
+
         <th id="{{ header.id }}" scope="col"
-            class="app-entity-table__heading{% if header.classes %} {{ header.classes }}{% endif %}"
+            class="{{ headerClasses }}"
+            data-testid="app-entity-table-header-{{ loop.index }}"
             {% if header.width %}width="{{ header.width }}%"{% endif %}
-            {% if not header.text %}aria-labelledby="{{ header.id }}"{% endif %}
+          {% if not header.text %}aria-labelledby="{{ header.id }}"{% endif %}
         >
           {% if header.text %}
-            {{ header.text | title }}
+            {{ header.text }}
           {% else %}
-            <span id="{{ header.id }}" class="govuk-visually-hidden">{{ header.id | title }}</span>
+            <span id="{{ header.id }}" class="govuk-visually-hidden">{{ header.id }}</span>
           {% endif %}
         </th>
       {% endfor %}
@@ -23,7 +30,7 @@
     </thead>
     <tbody>
     {% for row in params.rows %}
-      <tr class="app-entity-table__row">
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-{{ loop.index }}">
         {% for cell in row.cells %}
 
           {% set cellClasses = [
@@ -34,7 +41,8 @@
           ] | join(" ") | trim %}
 
           <td headers="{{ cell.headers }}"
-              class="{{ cellClasses }}">
+              class="{{ cellClasses }}"
+              data-label="{{ cell.headers | formatText }}">
             {% if cell.entity %}
               {{ appEntity(cell.entity | assign({}, {index: loop.index}, cell.entity)) }}
             {% endif %}
@@ -42,7 +50,7 @@
         {% endfor %}
       </tr>
     {% else %}
-      <tr class="app-entity-table__row--no-results">
+      <tr class="app-entity-table__row--no-results" data-testid="app-entity-table-no-results">
         <td class="app-entity-table__cell" colspan="{{ params.headers | length }}">
           {{ params.noResult | safe }}
         </td>
@@ -50,4 +58,10 @@
     {% endfor %}
     </tbody>
   </table>
+
+  {% if params.pagination.items.length > 1 %}
+    <footer>
+      {{ govukPagination(params.pagination | assign({}, { classes: "app-pagination" }, params.pagination)) }}
+    </footer>
+  {% endif %}
 </article>

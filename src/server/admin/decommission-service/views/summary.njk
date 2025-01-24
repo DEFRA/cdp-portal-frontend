@@ -4,12 +4,12 @@
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/help-icon/macro.njk" import appHelpIcon %}
 
-{% set successMesages = [
+{% set successMessages = [
+  "Services in ECS scaled to zero",
   "MongoDB entries in cdp-self-service-ops deleted",
   "MongoDB entries in cdp-portal-backend deleted",
-  "Services in ECS scaled to zero",
-  "Triggered remove ECR images workflow",
-  "Triggered remove Docker Hub images workflow",
+  "Triggered cdp-tf-svc-infra remove ECR images workflow",
+  "Triggered cdp-tf-svc-infra remove Docker Hub images workflow",
   "Triggered cdp-app-config remove workflow",
   "Triggered cdp-nginx-upstreams remove workflow",
   "Triggered cdp-squid-proxy remove workflow",
@@ -18,16 +18,20 @@
   "GitHub repository archived"
 ] %}
 
-{% set todos = [
-  "Check the below workflows have succeeded",
+{% set moreSuccess = [
   "Remove service from ECS",
-  "Remove service MongoDB collections",
-  "Remove service Postgresql DBs",
-  "Empty service S3 buckets"
+  "Remove service from deployment files"
 ] %}
 
-{% set optionals = [
-  "If required, ask a GitHub admin to delete the repository"
+{% set todos = [
+  "Check the below workflows have succeeded"
+] %}
+
+{% set tenantData = [
+  "The service's MongoDB collections",
+  "Any Postgresql DBs if allocated",
+  "Any S3 buckets if allocated",
+   "GitHub repository if archived is not sufficient"
 ] %}
 
 {% block content %}
@@ -42,13 +46,26 @@
       <div class="govuk-grid-column-one-half-from-desktop-wide">
 
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-          Success
+         Tasks triggered now
         </h2>
 
-        <p>The following tasks have been performed:</p>
+        <ul class="govuk-list govuk-!-margin-left-1">
+          {% for message in moreSuccess %}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ message }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+         Tasks completed previously
+        </h2>
 
         <ul class="govuk-list govuk-!-margin-left-1">
-          {% for message in successMesages %}
+          {% for message in successMessages %}
             <li>
               <div class="app-!-layout-centered">
                 {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
@@ -59,9 +76,7 @@
         </ul>
 
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">What I need to do now?</h2>
-        <p class="govuk-!-margin-bottom-2">
-          The following things need to be done to complete the decommissioning of the service:
-        </p>
+
         <ul class="govuk-list govuk-!-margin-left-1">
           {% for todo in todos %}
             <li>
@@ -71,74 +86,42 @@
               </div>
             </li>
           {% endfor %}
-          {% for opt in optionals %}
-            <li>
-              <div class="app-!-layout-centered">
-                {{ appHelpIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                {{ opt }}
-              </div>
-            </li>
-          {% endfor %}
         </ul>
 
         <h2 class="govuk-heading-m">Executed workflows for services & test-suites:</h2>
         <ul class="govuk-list govuk-list--bullet">
           <li>
             <a class="app-link"
-               href="https://github.com/DEFRA/cdp-app-config/actions/workflows/remove-service.yml"
+               href="https://github.com/DEFRA/cdp-app-deployments/actions/workflows/remove-service.yml"
                target="_blank" rel="noopener noreferrer">
-              cdp-app-config
-            </a>
-          </li>
-          <li>
-            <a class="app-link"
-               href="https://github.com/DEFRA/cdp-squid-proxy/actions/workflows/remove-service.yml"
-               target="_blank" rel="noopener noreferrer">
-              cdp-squid-proxy
+              cdp-app-deployments
             </a>
           </li>
           <li>
             <a
               class="app-link"
-              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-service.yml"
+              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-ecs.yml"
               target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - remove service
-            </a>
-          </li>
-          <li>
-            <a
-              class="app-link"
-              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-ecr.yml"
-              target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - remove ECR
-            </a>
-          </li>
-          <li>
-            <a
-              class="app-link"
-              href="https://github.com/DEFRA/cdp-tf-svc-infra/actions/workflows/remove-dockerhub.yml"
-              target="_blank" rel="noopener noreferrer">
-              cdp-tf-svc-infra - remove DockerHub
+              cdp-tf-svc-infra - remove ECS
             </a>
           </li>
         </ul>
 
-        <h2 class="govuk-heading-m">Executed workflows for services only:</h2>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>
-            <a class="app-link"
-               href="https://github.com/DEFRA/cdp-grafana-svc/actions/workflows/remove-service.yml"
-               target="_blank" rel="noopener noreferrer">
-              cdp-grafana-svc
-            </a>
-          </li>
-          <li>
-            <a class="app-link"
-               href="https://github.com/DEFRA/cdp-nginx-upstreams/actions/workflows/remove-service.yml"
-               target="_blank" rel="noopener noreferrer">
-              cdp-nginx-upstreams
-            </a>
-          </li>
+         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tenant Data</h2>
+
+         <p class="govuk-!-margin-bottom-2">
+            Tenant service data is not removed automatically
+         </p>
+
+        <ul class="govuk-list govuk-!-margin-left-1">
+          {% for todo in tenantData %}
+            <li>
+              <div class="app-!-layout-centered">
+                {{ appHelpIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {{ todo }}
+              </div>
+            </li>
+          {% endfor %}
         </ul>
 
       </div>

@@ -57,7 +57,7 @@ function testSuiteRunResults(testRun, canRun) {
         headers: 'status',
         entity: {
           kind: 'tag',
-          value: formatText(testRun.taskStatus),
+          value: testRun.taskStatus ? formatText(testRun.taskStatus) : null,
           classes: provideTestRunStatusClassname(testRun.taskStatus),
           showLoader: inProgress
         }

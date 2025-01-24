@@ -2,7 +2,7 @@ import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.
 
 describe('#buildLogsLink', () => {
   beforeAll(() => {
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(new Date('2023-04-01'))
   })
 

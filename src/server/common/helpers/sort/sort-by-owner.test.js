@@ -1,17 +1,16 @@
-import { config } from '~/src/config/config.js'
 import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 import { librariesFixture } from '~/src/__fixtures__/libraries.js'
 
 describe('#sortByOwner', () => {
-  const oidcAdminGroupId = config.get('oidcAdminGroupId')
+  const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
   const servicesWithOwner = servicesFixture.map((service) => ({
     ...service,
-    isOwner: service.teams.some((team) => team.teamId === oidcAdminGroupId)
+    isOwner: service.teams.some((team) => team.teamId === adminGroupId)
   }))
   const librariesWithOwner = librariesFixture.repositories.map((library) => ({
     ...library,
-    isOwner: library.teams.some((team) => team.teamId === oidcAdminGroupId)
+    isOwner: library.teams.some((team) => team.teamId === adminGroupId)
   }))
 
   describe('With owner information', () => {

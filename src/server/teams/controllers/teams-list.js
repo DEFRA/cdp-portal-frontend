@@ -1,5 +1,3 @@
-import { validate as uuidValidate } from 'uuid'
-
 import { fetchTeams } from '~/src/server/teams/helpers/fetch/fetch-teams.js'
 import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
@@ -29,7 +27,7 @@ const teamsListController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const isAuthenticated = authedUser?.isAuthenticated
-    const userScopeUUIDs = authedUser?.scope.filter(uuidValidate) ?? []
+    const userScopeUUIDs = authedUser?.uuidScope ?? []
 
     const { teams } = await fetchTeams()
 
