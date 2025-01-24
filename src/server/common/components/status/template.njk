@@ -9,7 +9,10 @@
     <p class="govuk-!-margin-bottom-3">
       {{ appTag({
         text: params.status.text | title,
-        classes: params.status.classes
+        classes: params.status.classes,
+        attributes: {
+          "data-testid": params.name | replace(" ", "-") | lower + "-status-tag"
+        }
       }) }}
     </p>
 
