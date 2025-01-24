@@ -43,7 +43,9 @@ function runningServiceToEntityRow(allEnvironments, isAuthenticated) {
       }
 
       return {
-        headers: environmentName
+        headers: environmentName,
+        isSlim: true,
+        html: '<div class="app-running-service-entity--empty"></div>'
       }
     })
 

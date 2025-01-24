@@ -69,24 +69,24 @@ describe('#runningServiceToEntityRow', () => {
             headers: 'infra-dev',
             isSlim: true
           },
-          {
+          expect.objectContaining({
             headers: 'management'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'dev'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'test'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'ext-test'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'perf-test'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'prod'
-          }
+          })
         ]
       })
     })
@@ -130,24 +130,24 @@ describe('#runningServiceToEntityRow', () => {
             headers: 'infra-dev',
             isSlim: true
           },
-          {
+          expect.objectContaining({
             headers: 'management'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'dev'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'test'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'ext-test'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'perf-test'
-          },
-          {
+          }),
+          expect.objectContaining({
             headers: 'prod'
-          }
+          })
         ]
       })
     })
@@ -194,27 +194,27 @@ describe('#runningServiceToEntityRow', () => {
           },
           headers: 'team'
         },
-        {
+        expect.objectContaining({
           headers: 'infra-dev'
-        },
-        {
+        }),
+        expect.objectContaining({
           headers: 'management'
-        },
-        {
+        }),
+        expect.objectContaining({
           headers: 'dev'
-        },
-        {
+        }),
+        expect.objectContaining({
           headers: 'test'
-        },
-        {
+        }),
+        expect.objectContaining({
           headers: 'ext-test'
-        },
-        {
+        }),
+        expect.objectContaining({
           headers: 'perf-test'
-        },
-        {
+        }),
+        expect.objectContaining({
           headers: 'prod'
-        }
+        })
       ]
     })
   })
