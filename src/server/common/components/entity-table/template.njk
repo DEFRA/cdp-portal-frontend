@@ -45,6 +45,10 @@
               data-label="{{ cell.headers | formatText }}">
             {% if cell.entity %}
               {{ appEntity(cell.entity | assign({}, {index: loop.index}, cell.entity)) }}
+            {% elseif cell.html %}
+              {{ cell.html | safe }}
+            {% elseif cell.text %}
+              {{ cell.text }}
             {% endif %}
           </td>
         {% endfor %}

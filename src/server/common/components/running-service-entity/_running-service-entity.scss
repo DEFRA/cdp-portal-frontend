@@ -2,9 +2,19 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
+$max-width: 300px;
+
 @include govuk-media-query($until: desktop-wide) {
   .app-running-service-entity {
-    max-width: 200px;
+    max-width: $max-width;
+  }
+
+  .app-running-service-entity--empty {
+    max-width: $max-width;
+    min-height: 45px;
+    padding: govuk-spacing(1) govuk-spacing(2);
+    background-color: $app-light-grey;
+    border-radius: $app-border-radius;
   }
 }
 
@@ -47,4 +57,3 @@
     color: govuk-colour("dark-grey");
   }
 }
-
