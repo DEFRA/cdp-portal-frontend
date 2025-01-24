@@ -41,7 +41,8 @@
           ] | join(" ") | trim %}
 
           <td headers="{{ cell.headers }}"
-              class="{{ cellClasses }}">
+              class="{{ cellClasses }}"
+              data-label="{{ cell.headers | formatText }}">
             {% if cell.entity %}
               {{ appEntity(cell.entity | assign({}, {index: loop.index}, cell.entity)) }}
             {% endif %}
