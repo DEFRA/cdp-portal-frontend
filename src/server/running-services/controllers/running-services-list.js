@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { buildRunningServicesTableData } from '~/src/server/running-services/helpers/build-running-services-table-data.js'
+import { formatText } from '~/src/config/nunjucks/filters/index.js'
 
 const runningServicesListController = {
   options: {
@@ -40,7 +41,7 @@ const runningServicesListController = {
           { id: 'team', text: 'Team', width: '15' },
           ...environments.map((env) => ({
             id: env.toLowerCase(),
-            text: env,
+            text: formatText(env),
             width: 70 / environments.length
           }))
         ],
