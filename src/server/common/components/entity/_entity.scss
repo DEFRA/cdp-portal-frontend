@@ -4,6 +4,7 @@
   @include govuk-text-colour;
   display: flex;
   align-items: center;
+  word-break: break-word;
 }
 
 .app-entity-label {
