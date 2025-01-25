@@ -20,6 +20,11 @@
   border-bottom: govuk-spacing(2) solid $govuk-brand-colour;
 }
 
+// Center align service name and environment tag, which only shows on infra-dev
+.app-service-header__content {
+  display: flex;
+}
+
 .app-service-header__service-name {
   display: inline-block;
   @include govuk-font(36);
@@ -28,9 +33,9 @@
 .app-service-header__service-environment {
   @include govuk-font(19);
   padding: govuk-spacing(1) govuk-spacing(2);
-  margin-left: govuk-spacing(4);
+  margin-left: govuk-spacing(2);
   border-radius: $app-border-radius;
-  background-color: govuk-colour("blue");
+  background-color: govuk-colour("bright-purple");
 }
 
 .app-service-header__actions {
