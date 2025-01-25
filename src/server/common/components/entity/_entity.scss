@@ -2,7 +2,6 @@
 
 .app-entity {
   @include govuk-text-colour;
-  margin-right: govuk-spacing(1);
   display: flex;
   align-items: center;
 }
