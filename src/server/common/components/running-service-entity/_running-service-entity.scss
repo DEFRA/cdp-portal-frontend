@@ -2,17 +2,18 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
+$compact-label-height: govuk-spacing(4);
 $max-width: 300px;
 
 @include govuk-media-query($until: desktop-wide) {
   .app-running-service-entity {
     max-width: $max-width;
+    padding: govuk-spacing(1);
   }
 
   .app-running-service-entity--empty {
     max-width: $max-width;
-    min-height: 45px;
-    padding: govuk-spacing(1) govuk-spacing(2);
+    height: calc(100% - $compact-label-height); // So the height all off all entities in row match
     background-color: $app-light-grey;
     border-radius: $app-border-radius;
   }
@@ -20,7 +21,9 @@ $max-width: 300px;
 
 .app-running-service-entity {
   width: 100%;
-  padding: govuk-spacing(1) govuk-spacing(2);
+  height: 100%;
+  padding: govuk-spacing(2);
+  box-sizing: border-box;
   border-radius: $app-border-radius;
   background-color: $app-light-grey;
 
