@@ -44,12 +44,12 @@
 }
 
 .app-service-header__login-link {
-  margin-left: govuk-spacing(3);
   @include govuk-font(19, "bold");
   display: block;
 
-
   &.app-service-header__is-logged-in {
+    padding-left: govuk-spacing(3);
+
     &::before {
       content: "";
       padding-right: govuk-spacing(3);
