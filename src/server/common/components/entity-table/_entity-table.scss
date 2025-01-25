@@ -3,7 +3,7 @@
 @use "variables/border-radius" as *;
 
 $min-width: 200px;
-$min-grid-cell-width: 200px;
+$min-grid-cell-width: 100px;
 
 .app-entity-table {
   @extend %govuk-body-m;
