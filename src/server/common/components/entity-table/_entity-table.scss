@@ -2,10 +2,12 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
+$compact-label-height: govuk-spacing(4);
 $min-width: 200px;
 $min-grid-cell-width: 100px;
 
 .app-entity-table {
+  height: 1px; // Allow table cell height to stretch to full row height. Is ignored by browsers
   @extend %govuk-body-m;
   table-layout: fixed;
   border-collapse: separate;
@@ -14,6 +16,10 @@ $min-grid-cell-width: 100px;
   width: 100%;
   text-align: left;
   empty-cells: show;
+}
+
+.app-entity-table__cell {
+  height: 100%;
 }
 
 // Display compact table on small screens
@@ -34,7 +40,7 @@ $min-grid-cell-width: 100px;
     display: grid;
     grid-template-columns: repeat(4, minmax($min-grid-cell-width, 1fr));
     gap: govuk-spacing(1);
-    grid-auto-rows: minmax(50px, auto);
+    grid-auto-rows: 1fr;
     margin-bottom: govuk-spacing(3);
     background-color: govuk-colour("white");
     border-bottom: 2px solid $app-mid-grey;
@@ -47,7 +53,9 @@ $min-grid-cell-width: 100px;
   .app-entity-table__cell {
     border-bottom: 1px solid $app-grey;
     display: inline-block;
-    padding: govuk-spacing(2) govuk-spacing(1);
+    padding: govuk-spacing(2) 0;
+    box-sizing: border-box;
+    height: 100%;
 
     // Make icons tiny in compact view
     .app-icon {
@@ -57,9 +65,14 @@ $min-grid-cell-width: 100px;
       height: 20px;
     }
 
+    .app-entity {
+      height: calc(100% - $compact-label-height); // So the height all off all entities in row match
+    }
+
     &::before {
       content: attr(data-label);
-      display: inline-block;
+      display: block;
+      height: $compact-label-height;
       min-width: $min-width;
       font-weight: bold;
       padding-bottom: govuk-spacing(1);
@@ -124,6 +137,10 @@ $min-grid-cell-width: 100px;
   .app-entity-table__cell {
     padding: govuk-spacing(3) govuk-spacing(2);
     border: 1px solid govuk-colour("white");
+
+    .app-entity {
+      height: 100%;
+    }
   }
 
   .app-entity-table__cell--centered {
