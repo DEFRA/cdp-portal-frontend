@@ -25,6 +25,14 @@
 .app-entity__group {
   display: flex;
   align-items: center;
+
+  .app-entity {
+    margin-right: govuk-spacing(1);
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
 }
 
 .app-entity__list-item {
