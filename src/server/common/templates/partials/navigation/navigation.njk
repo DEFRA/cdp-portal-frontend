@@ -25,12 +25,10 @@
             </a>
           </li>
         {% endfor %}
-      </ul>
 
-      {% if navigation.admin | length %}
-        <ul class="app-navigation__admin">
+        {% if navigation.admin | length %}
           {% for item in navigation.admin %}
-            <li class="app-navigation__list-item">
+            <li class="app-navigation__list-item app-navigation__list-item--section">
               <a class="app-navigation__link{% if item.isActive %} app-navigation__link--active{% endif %}"
                  href="{{ item.url }}"
                  data-testid="nav-{{ item.text | lower | replace(" ", "-") }}"
@@ -39,8 +37,8 @@
               </a>
             </li>
           {% endfor %}
-        </ul>
-      {% endif %}
+        {% endif %}
+      </ul>
     </div>
   </div>
 </nav>
