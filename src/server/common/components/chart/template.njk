@@ -1,0 +1,11 @@
+<script data-testid="app-charts">
+  window.cdp = window.cdp || {}
+  window.cdp.chartData = window.cdp.chartData || {};
+  window.cdp.chartData["{{ params.id | camelCase }}"] = {{ params.data | dump | safe }}
+</script>
+
+{% set classes = ["app-chart", params.classes if params.classes] | join(" ") | trim %}
+
+<article class="{{ classes }}">
+  <canvas id="{{ params.id }}" data-js="app-chart" data-testid="{{ params.testId }}"></canvas>
+</article>

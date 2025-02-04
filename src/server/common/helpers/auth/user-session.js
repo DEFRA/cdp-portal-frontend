@@ -68,6 +68,7 @@ async function createUserSession(request, sessionId) {
  * @returns {Promise<UserSession> | UserSession}
  */
 async function updateUserScope(request, userSession) {
+  // TODO theres something odd going on here around refresh tokens
   const { scopes, scopeFlags } = await fetchScopes(userSession.token)
 
   await request.server.app.cache.set(
@@ -109,6 +110,7 @@ async function refreshUserSession(request, refreshTokenResponse) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
+  // TODO theres something odd going on here around refresh tokens
   const { scopes, scopeFlags } = await fetchScopes(
     refreshTokenResponse.access_token
   )

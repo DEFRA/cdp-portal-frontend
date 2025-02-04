@@ -101,6 +101,11 @@ const config = convict({
     default: 'http://localhost:3001',
     env: 'USER_SERVICE_BACKEND_URL'
   },
+  mockApiUrl: {
+    doc: 'Local Mock API url',
+    format: String,
+    default: 'http://localhost:3004/mock-api'
+  },
   terminalProxyUrl: {
     doc: 'Terminal Proxy Url',
     format: String,

@@ -7,6 +7,7 @@ import { availability } from '~/src/server/common/components/availability/availa
 import { banner } from '~/src/server/common/components/banner/banner.js'
 import { button } from '~/src/server/common/components/button/button.js'
 import { clearFilters } from '~/src/client/common/helpers/fetch/filters/clear-filters.js'
+import { chart } from '~/src/client/common/helpers/charts/chart.js'
 import { errorMessages } from '~/src/client/common/helpers/error-messages.js'
 import { fetchIsNameAvailable } from '~/src/client/common/helpers/fetch/create/fetch-is-name-available.js'
 import { fetchMemory } from '~/src/client/common/helpers/fetch/select/index.js'
@@ -80,3 +81,6 @@ initModule('app-filters', filters)
 
 // Tabs
 initModule('app-tabs', tabs)
+
+// Charts
+initModule('app-chart', chart)

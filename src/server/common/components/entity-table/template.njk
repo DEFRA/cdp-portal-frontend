@@ -1,5 +1,7 @@
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/sort-icon/macro.njk" import appSortIcon %}
 {% from "entity/macro.njk" import appEntity with context %}
 
 <article>
@@ -17,12 +19,25 @@
             class="{{ headerClasses }}"
             data-testid="app-entity-table-header-{{ loop.index }}"
             {% if header.width %}width="{{ header.width }}%"{% endif %}
-          {% if not header.text %}aria-labelledby="{{ header.id }}"{% endif %}
+          {% if header.text and header.isHidden %}aria-labelledby="{{ header.id }}"{% endif %}
+          {# TODO write a better explanation of why we need to do this with z-index #}
+          {# Tooltip use needs headers in a row to have their next sibling header have a reduced z-index #}
+          {% if header.sorting %}style="z-index: {{ 100 + loop.revindex }};"{% endif %}
         >
-          {% if header.text %}
-            {{ header.text }}
-          {% else %}
-            <span id="{{ header.id }}" class="govuk-visually-hidden">{{ header.id }}</span>
+          {% if header.text and not header.isHidden %}
+            {% if header.sorting %}
+              {{ header.text }}
+
+              {% call appToolTip({ text: header.sorting.text }) %}
+                {# TODO make from component the sets and flips input value #}
+                {{ appSortIcon({ classes: "app-icon--tiny govuk-!-margin-left-1" }) }}
+              {% endcall %}
+
+            {% else %}
+              {{ header.text }}
+            {% endif %}
+          {% elseif header.text and header.isHidden %}
+            <span id="{{ header.id }}" class="govuk-visually-hidden">{{ header.text }}</span>
           {% endif %}
         </th>
       {% endfor %}

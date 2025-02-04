@@ -1,5 +1,7 @@
 @use "govuk-frontend" as *;
 
+// TODO deprecate/remove this
+
 // Simple flex proportional grid. Use the govuk-grid if you need a fully functioning grid.
 .app-row {
   display: flex;

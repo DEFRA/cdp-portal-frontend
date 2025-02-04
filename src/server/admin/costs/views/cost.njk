@@ -1,0 +1,49 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appPageHeading({
+      caption: "Cost",
+      text: "Service Code - " + serviceCode,
+      intro: "Information around Amazon Web Service use in Environments"
+    }) }}
+
+    <hr class="app-section-break app-section-break--slim">
+
+    {# TODO make chart form control. This will persist across views. Use url as state store
+    <div class="app-costs-chart-controls">
+      <p class="govuk-body-l govuk-!-margin-bottom-2">
+        <strong>From:</strong> Friday 1st December 2025
+      </p>
+      <p class="govuk-body-l">
+        <strong>To:</strong> Tuesday 31st December 2025
+      </p>
+    </div>
+    #}
+
+    {# TODO make a little component for this #}
+    <div>
+      <label style="display: inline-block; width: 50px;"
+             for="from"
+             class="govuk-body-m govuk-!-margin-right-1">From:</label>
+      <input type="date" id="from" name="from" class="govuk-body-m" value="2025-01-012" />
+    </div>
+    <div>
+      <label style="display: inline-block; width: 50px;"
+             for="to"
+             class="govuk-body-m govuk-!-margin-right-1">To:</label>
+      <input type="date" id="to" name="to" class="govuk-body-m" value="31/12/2024"/>
+    </div>
+
+    <div class="govuk-grid-row govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      <div class="govuk-grid-column-one-half-from-desktop-massive">
+        {{ appChart(amazonWebServicesChartData) }}
+      </div>
+    </div>
+
+    {{ appEntityTable(tableData) }}
+
+  {% endcall %}
+{% endblock %}
+

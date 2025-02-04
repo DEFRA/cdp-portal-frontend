@@ -13,3 +13,5 @@ dump.rdb
 .envrc
 .eslintcache
 tsconfig.tsbuildinfo
+
+mock-api/cost-data

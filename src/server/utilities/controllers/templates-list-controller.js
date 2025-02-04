@@ -30,7 +30,14 @@ const templatesListController = {
       tableData: {
         headers: [
           ...(isAuthenticated
-            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
+            ? [
+                {
+                  id: 'owner',
+                  text: 'Owner',
+                  isHidden: true,
+                  classes: 'app-entity-table__cell--owned'
+                }
+              ]
             : []),
           { id: 'utility', text: 'Utility', width: '20' },
           { id: 'team', text: 'Team', width: '15' },

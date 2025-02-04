@@ -1,0 +1,94 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane() %}
+
+    {{ appPageHeading({
+      text: "Costs",
+      intro: "Portal costs by Service Code or Environment. Broken down by Amazon Web Services usage"
+    }) }}
+
+    <hr class="app-section-break app-section-break--slim">
+
+    {# TODO make chart form control. This will persist across views. Use url as state store #}
+    <div class="app-costs-chart-controls">
+      <p class="govuk-body-l govuk-!-margin-bottom-2">
+        <strong>From:</strong> Friday 1st December 2025
+      </p>
+      <p class="govuk-body-l">
+        <strong>To:</strong> Tuesday 31st December 2025
+      </p>
+    </div>
+
+    <div class="app-costs-grid govuk-!-margin-top-6 govuk-!-margin-bottom-8">
+
+      <section>
+        {{ appChart(platformCostsChartData) }}
+      </section>
+
+      <section>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+          Total Platform
+        </h2>
+        <p>{{ totals.platform | dollarFormatter }}</p>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+          Environments
+        </h2>
+        <ul class="govuk-list">
+          <li>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              Management
+            </h3>
+            <p>{{ totals.management | dollarFormatter }}</p>
+          </li>
+          <li>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              Infra-dev
+            </h3>
+            <p>{{ totals.infraDev | dollarFormatter }}</p>
+          </li>
+          <li>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              Dev
+            </h3>
+            <p>{{ totals.dev | dollarFormatter }}</p>
+          </li>
+          <li>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              Test
+            </h3>
+            <p>{{ totals.test | dollarFormatter }}</p>
+          </li>
+          <li>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              Ext-test
+            </h3>
+            <p>{{ totals.extTest | dollarFormatter }}</p>
+          </li>
+          <li>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              Perf-test
+            </h3>
+            <p>{{ totals.perfTest | dollarFormatter }}</p>
+          </li>
+          <li>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              Prod
+            </h3>
+            <p>{{ totals.prod | dollarFormatter }}</p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        {{ appChart(serviceCodesChartData) }}
+      </section>
+
+    </div>
+
+    {{ appEntityTable(tableData) }}
+
+  {% endcall %}
+{% endblock %}
+

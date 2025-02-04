@@ -33,7 +33,14 @@ const testSuiteListController = {
       tableData: {
         headers: [
           ...(isAuthenticated
-            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
+            ? [
+                {
+                  id: 'owner',
+                  text: 'Owner',
+                  isHidden: true,
+                  classes: 'app-entity-table__cell--owned'
+                }
+              ]
             : []),
           { id: 'test-suite', text: 'Test Suite', width: '15' },
           { id: 'team', text: 'Team', width: '15' },

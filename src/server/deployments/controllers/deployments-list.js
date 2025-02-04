@@ -120,7 +120,14 @@ const deploymentsListController = {
         head: { isInverse: true },
         headers: [
           ...(isAuthenticated
-            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
+            ? [
+                {
+                  id: 'owner',
+                  text: 'Owner',
+                  isHidden: true,
+                  classes: 'app-entity-table__cell--owned'
+                }
+              ]
             : []),
           { id: 'deployment', text: 'Deployment', width: '15' },
           { id: 'service-status', text: 'Service Status', width: '10' },

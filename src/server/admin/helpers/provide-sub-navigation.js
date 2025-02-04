@@ -8,17 +8,17 @@ function provideSubNavigation(request, h) {
 
     response.source.context.subNavigation = [
       {
-        isActive: request.path.startsWith('/admin/users'),
-        url: '/admin/users',
+        isActive: request.path.startsWith('/admin/costs'),
+        url: '/admin/costs',
         label: {
-          text: 'Users'
+          text: 'Costs'
         }
       },
       {
-        isActive: request.path.startsWith('/admin/teams'),
-        url: '/admin/teams',
+        isActive: request.path.startsWith('/admin/decommission-service'),
+        url: '/admin/decommission-service',
         label: {
-          text: 'Teams'
+          text: 'Decommission'
         }
       },
       {
@@ -36,10 +36,17 @@ function provideSubNavigation(request, h) {
         }
       },
       {
-        isActive: request.path.startsWith('/admin/decommission-service'),
-        url: '/admin/decommission-service',
+        isActive: request.path.startsWith('/admin/teams'),
+        url: '/admin/teams',
         label: {
-          text: 'Decommission'
+          text: 'Teams'
+        }
+      },
+      {
+        isActive: request.path.startsWith('/admin/users'),
+        url: '/admin/users',
+        label: {
+          text: 'Users'
         }
       }
     ]

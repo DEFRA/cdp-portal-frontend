@@ -11,6 +11,7 @@ $min-grid-cell-width: 100px;
   @extend %govuk-body-m;
   table-layout: fixed;
   border-collapse: separate;
+  //border-collapse: collapse; // TODO check this?
   border-spacing: 0;
   padding: 0;
   width: 100%;
@@ -112,6 +113,7 @@ $min-grid-cell-width: 100px;
 
     .app-entity-table__heading {
       background-color: $app-light-grey;
+      border-bottom: 2px solid $app-grey;
     }
   }
 
@@ -132,6 +134,13 @@ $min-grid-cell-width: 100px;
     top: 0;
     border-bottom: 1px solid $app-mid-grey;
     z-index: 100;
+    vertical-align: middle;
+
+    .app-sort-icon {
+      vertical-align: top;
+      margin-top: 2px;
+      cursor: pointer;
+    }
   }
 
   .app-entity-table__cell {

@@ -1,0 +1,40 @@
+@use "govuk-frontend" as *;
+
+.app-chart {
+  max-width: 1200px;
+  width: 100%;
+  height: 100%;
+
+  canvas {
+    max-width: min-content;
+  }
+}
+
+.app-chart--medium {
+  max-width: 600px;
+}
+
+
+// TODO Temp styles, need a refactor
+.app-costs-grid {
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  grid-auto-rows: 1fr;
+  gap: govuk-spacing(4);
+}
+
+.app-costs-controls {
+  @extend %govuk-heading-m;
+  display: flex;
+  align-items: start;
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-costs-controls__label {
+  margin-right: govuk-spacing(1);
+  display: inline-block;
+
+  &:not(:first-of-type) {
+    margin-left: govuk-spacing(2);
+  }
+}

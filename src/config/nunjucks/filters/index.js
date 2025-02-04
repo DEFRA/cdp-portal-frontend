@@ -1,5 +1,6 @@
 import upperFirst from 'lodash/upperFirst.js'
 import kebabCase from 'lodash/kebabCase.js'
+import camelCase from 'lodash/camelCase.js'
 import assign from 'lodash/assign.js'
 import isArray from 'lodash/isArray.js'
 import isNil from 'lodash/isNil.js'
@@ -13,11 +14,13 @@ import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 import { formatDate } from '~/src/server/common/helpers/date/format-date.js'
 import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
 import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
+import { dollarFormatter } from '~/src/server/common/helpers/currency/formatter.js'
 
 const formatText = (value) => upperFirst(kebabCase(value))
 
 export {
   assign,
+  camelCase,
   compact,
   find,
   formatDate,
@@ -29,5 +32,6 @@ export {
   relativeDate,
   sanitiseUser,
   startCase,
-  union
+  union,
+  dollarFormatter
 }
