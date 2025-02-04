@@ -32,6 +32,21 @@
   </div>
 {% endmacro %}
 
+
+{% macro apiGatewayComponent(params) %}
+  <div class="app-!-layout-flex-start">
+    {% if params.shuttered %}
+      {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+        {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-blue", description: "Shuttered URL" }) }}
+      {% endcall %}
+    {% endif %}
+
+    <a class="app-link" href="https://{{ params.api }}" target="_blank" rel="noopener noreferrer">
+      https://{{ params.api }}
+    </a>
+  </div>
+{% endmacro %}
+
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
 
@@ -84,6 +99,17 @@
         {% call appWarning({ isInverse: false }) %}
         <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
         noreferrer">https://{{ url.url }}</a> has been shuttered
+        {% endcall %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+  <div class="govuk-!-margin-bottom-4">
+    {% for apiGateway in apiGateways %}
+      {% for api in apiGateway.apis | selectattr("shuttered") %}
+        {% call appWarning({ isInverse: false }) %}
+        <a class="app-link app-link--underline" href="https://{{ api.api }}" target="_blank" rel="noopener
+        noreferrer">https://{{ api.api }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
     {% endfor %}
@@ -285,6 +311,41 @@
       {% endif %}
 
       {% if service.isBackend %}
+        {% if apiGateways | length %}
+          {% set urlText = "URL" | pluralise(apiGateways | length * apiGateways[0].apis | length) %}
+          <section class="govuk-!-margin-bottom-6">
+            {{ appHeader({
+              heading: {
+                size: 3,
+                text: "Service API " + urlText
+              },
+              icon: appWorldIcon({
+                classes: "app-icon--small app-icon--fill-blue",
+                description: "Backend API urls"
+              })
+            }) }}
+
+            <p class="govuk-!-margin-bottom-2">
+              API Gateway microservice API {{ urlText }}
+            </p>
+
+            <dl class="app-description-list">
+              {% for apiGateway in apiGateways %}
+                <dt class="app-description-list__term">{{ apiGateway.environment | title }}</dt>
+                <dd class="app-description-list__details">
+                  <ul class="govuk-list govuk-!-margin-0">
+                    {% for api in apiGateway.apis %}
+                      <li>
+                        {{ apiGatewayComponent(api) }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </dd>
+              {% endfor %}
+            </dl>
+          </section>
+        {% endif %}
+
         <section class="govuk-!-margin-bottom-6">
           {{ appHeader({
             heading: {

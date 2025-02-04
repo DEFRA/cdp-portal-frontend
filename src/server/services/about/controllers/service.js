@@ -9,6 +9,7 @@ import { transformServiceToSummary } from '~/src/server/services/about/transform
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformRunningServices } from '~/src/server/services/about/transformers/running-services.js'
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { provideApiGateways } from '~/src/server/services/about/transformers/api-gateways.js'
 
 const serviceController = {
   options: {
@@ -29,9 +30,10 @@ const serviceController = {
       return Boom.notFound()
     }
 
-    const [availableVersions, vanityUrls] = await Promise.all([
+    const [availableVersions, vanityUrls, apiGateways] = await Promise.all([
       fetchAvailableVersions(service.serviceName),
-      await provideVanityUrls(request)
+      provideVanityUrls(request),
+      provideApiGateways(request)
     ])
 
     const latestPublishedImageVersions = availableVersions
@@ -47,6 +49,7 @@ const serviceController = {
       pageTitle: `${service.serviceName} microservice`,
       summaryList: transformServiceToSummary(service),
       vanityUrls,
+      apiGateways,
       service,
       isServiceOwner,
       environmentsWithADeployment,
