@@ -85,6 +85,19 @@
   {% include "partials/navigation/navigation.njk" %}
 {% endblock %}
 
+{% block skipLink %}
+{# If the skiplink is the very first item in the page, VoiceOver will automatically read out the skiplink on each
+page load, not ideal. VoiceOver will also steal focus from JavaScript focused elements, fEx if you wish to focus the
+keyboard on the first error in a form, you cannot. Wrapping the skiplink in a div means VoiceOver doesn't automatically
+read out the skiplink on every page and errors can be focused when they occur. And the skiplink works as intended. #}
+  <div>
+    {{ govukSkipLink({
+      href: '#main-content',
+      text: 'Skip to main content'
+    }) }}
+  </div>
+{% endblock %}
+
 {% block pageTitle %}
   {{ "Error | " if isError }}{{ pageTitle }} | {{ serviceName }}
 {% endblock %}
