@@ -11,9 +11,8 @@ import { errorMessages } from '~/src/client/common/helpers/error-messages.js'
 import { fetchIsNameAvailable } from '~/src/client/common/helpers/fetch/create/fetch-is-name-available.js'
 import { fetchMemory } from '~/src/client/common/helpers/fetch/select/index.js'
 import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete/index.js'
+import { focusOnErrorMessage } from '~/src/client/common/helpers/focus-on-error-message.js'
 import { filters } from '~/src/server/common/components/filters/filters.js'
-import { initClass } from '~/src/client/common/helpers/init-class.js'
-import { initModule } from '~/src/client/common/helpers/init-module.js'
 import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant.js'
 import { paramsToHiddenInputs } from '~/src/client/common/helpers/params-to-hidden-inputs.js'
 import { poll } from '~/src/client/common/helpers/poll.js'
@@ -23,6 +22,11 @@ import { search } from '~/src/server/common/components/search/search.js'
 import { tabs } from '~/src/server/common/components/tabs/tabs.js'
 import { xhrSubscriber } from '~/src/server/common/components/xhr-subscriber/xhr-subscriber.js'
 import { resizeIframe } from '~/src/client/common/helpers/resize-iframe.js'
+import {
+  initClass,
+  initModules,
+  initModule
+} from '~/src/client/common/helpers/init.js'
 
 initAll()
 
@@ -36,47 +40,50 @@ window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 window.cdp.clearFilters = clearFilters
 window.cdp.resizeIframe = resizeIframe
 
-initModule('app-input-assistant', inputAssistant, '*=')
+initModules('app-input-assistant', inputAssistant, '*=')
 
 // Create multistep form flow, repository name availability
-initModule('app-availability', availability, '*=')
+initModules('app-availability', availability, '*=')
 
 // Form submit buttons with loaders. Create and Deploy service
-initModule('app-button', button)
+initModules('app-button', button)
 
 // Populate select options from a separate controller input
-initModule('app-select-controller', populateSelectOptions)
+initModules('app-select-controller', populateSelectOptions)
 
 // Remove server-side error messages on element blur
-initModule('app-form-errors', errorMessages, '*=')
+initModules('app-form-errors', errorMessages, '*=')
+
+// Focus on first error message on page
+initModule('app-error', focusOnErrorMessage)
 
 // Add UX friction to editing inputs on a protected form
-initModule('app-protected-inputs', protectForm, '*=')
+initModules('app-protected-inputs', protectForm, '*=')
 
 // Search
-initModule('app-search', search)
+initModules('app-search', search)
 
 // Autocomplete
 initClass('app-autocomplete', Autocomplete)
 initClass('app-autocomplete-advanced', AutocompleteAdvanced)
 
 // Xhr Container
-initModule('app-xhr-subscriber', xhrSubscriber)
+initModules('app-xhr-subscriber', xhrSubscriber)
 
 // Auto submit xhr functionality
-initModule('auto-submit', autoSubmit, '*=')
+initModules('auto-submit', autoSubmit, '*=')
 
 // Params to hidden inputs
-initModule('app-params', paramsToHiddenInputs, '*=')
+initModules('app-params', paramsToHiddenInputs, '*=')
 
 // Poll
-initModule('app-poll', poll)
+initModules('app-poll', poll)
 
 // Notification banner
-initModule('app-notification', banner)
+initModules('app-notification', banner)
 
 // Filters
-initModule('app-filters', filters)
+initModules('app-filters', filters)
 
 // Tabs
-initModule('app-tabs', tabs)
+initModules('app-tabs', tabs)
