@@ -48,7 +48,8 @@
                 text: formErrors.instanceCount.message,
                 classes: "app-error-message",
                 attributes: {
-                  "data-js": "app-error"
+                  "data-js": "app-error",
+                  "tabindex": "-1"
                 }
               } if formErrors.instanceCount.message,
               items: availableInstancesOptions
@@ -80,7 +81,8 @@
                 text: formErrors.cpu.message,
                 classes: "app-error-message",
                 attributes: {
-                  "data-js": "app-error"
+                  "data-js": "app-error",
+                  "tabindex": "-1"
                 }
               } if formErrors.cpu.message,
               items: formValues.cpuOptions
@@ -113,7 +115,8 @@
                 text: formErrors.memory.message,
                 classes: "app-error-message",
                 attributes: {
-                  "data-js": "app-error"
+                  "data-js": "app-error",
+                  "tabindex": "-1"
                 }
               } if formErrors.memory.message,
               items: formValues.availableMemoryOptions

@@ -56,7 +56,8 @@
             value: team.description or formValues.description,
             errorMessage: {
               attributes: {
-                "data-js": "app-error"
+                "data-js": "app-error",
+                "tabindex": "-1"
               },
               text: formErrors.description.message,
               classes: "govuk-!-margin-bottom-1 app-error-message"
