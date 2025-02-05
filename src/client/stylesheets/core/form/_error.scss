@@ -1,8 +1,16 @@
 @use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
 
+.govuk-error-message,
 .app-error-message {
   font-weight: normal;
   margin-top: govuk-spacing(-1);
   margin-bottom: govuk-spacing(1);
   @include govuk-font(19);
+  width: max-content;
+  border-radius: $app-border-radius;
+
+  &:focus {
+    outline: 3px solid govuk-colour("yellow");
+  }
 }
