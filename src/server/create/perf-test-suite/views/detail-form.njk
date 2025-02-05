@@ -47,7 +47,8 @@
                 text: formErrors.repositoryName.message,
                 classes: "app-error-message",
                 attributes: {
-                  "data-js": "app-error"
+                  "data-js": "app-error",
+                  "tabindex": "-1"
                 }
               } if formErrors.repositoryName.message,
               suffix: {
@@ -85,7 +86,8 @@
                   text: formErrors.templateTag.message,
                   classes: "app-error-message",
                   attributes: {
-                    "data-js": "app-error"
+                    "data-js": "app-error",
+                    "tabindex": "-1"
                   }
                 } if formErrors.templateTag.message
               }) }}
@@ -111,7 +113,8 @@
                 text: formErrors.teamId.message,
                 classes: "app-error-message",
                 attributes: {
-                  "data-js": "app-error"
+                  "data-js": "app-error",
+                  "tabindex": "-1"
                 }
               } if formErrors.teamId.message,
               items: teamsOptions

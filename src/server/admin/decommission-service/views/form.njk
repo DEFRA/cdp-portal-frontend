@@ -92,7 +92,8 @@
               suggestions: repositoriesOptions,
               errorMessage: {
                 attributes: {
-                  "data-js": "app-error"
+                  "data-js": "app-error",
+                  "tabindex": "-1"
                 },
                 text: formErrors.serviceName.message
               } if formErrors.serviceName.message
@@ -116,7 +117,8 @@
               value: formValues.confirmServiceName,
               errorMessage: {
                 attributes: {
-                  "data-js": "app-error"
+                  "data-js": "app-error",
+                  "tabindex": "-1"
                 },
                 text: formErrors.confirmServiceName.message,
                 classes: "govuk-!-margin-bottom-1 app-error-message"
