@@ -247,7 +247,7 @@
             }) }}
 
             <p class="govuk-!-margin-bottom-2">
-              User-friendly custom microservice {{ urlText }}
+              User-friendly custom {{ urlText }}
             </p>
 
             {% if vanityUrls | length == 1 %}
@@ -292,7 +292,7 @@
           }) }}
 
           <p class="govuk-!-margin-bottom-2">
-            CDP generated microservice URLs
+            Internal access URLs for service
           </p>
 
           <dl class="app-description-list">
@@ -317,16 +317,16 @@
             {{ appHeader({
               heading: {
                 size: 3,
-                text: "Service API " + urlText
+                text: "API Gateway " + urlText
               },
               icon: appWorldIcon({
                 classes: "app-icon--small app-icon--fill-blue",
-                description: "Backend API urls"
+                description: "External API Gateway " + urlText
               })
             }) }}
 
             <p class="govuk-!-margin-bottom-2">
-              API Gateway microservice API {{ urlText }}
+              Publicly accessible URL for the service
             </p>
 
             <dl class="app-description-list">
@@ -350,27 +350,23 @@
           {{ appHeader({
             heading: {
               size: 3,
-              text: "API URLs"
+              text: "CDP Service-to-Service URLs"
             },
             icon: appGlobeIcon({
               classes: "app-icon--small app-icon--fill-blue",
-              description: "API Urls"
+              description: "CDP Service-to-Service Urls"
             })
           }) }}
 
           <p class="govuk-!-margin-bottom-2">
-            CDP generated microservice API URLs
+            Internal access URLs for use between CDP services
           </p>
 
           <dl class="app-description-list">
-            {% for environment in environmentsWithADeployment %}
+            {% for environment in ['infra-dev', 'prod'] %}
               <dt class="app-description-list__term"> {{ environment | title }}</dt>
               <dd class="app-description-list__details">
-                <a class="app-link"
-                   href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                   target="_blank" rel="noopener noreferrer">
-                  https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
-                </a>
+                <span>https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud</span>
               </dd>
             {% endfor %}
           </dl>
