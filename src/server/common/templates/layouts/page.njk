@@ -99,7 +99,7 @@ read out the skiplink on every page and errors can be focused when they occur. A
 {% endblock %}
 
 {% block pageTitle %}
-  {{ "Error | " if isError }}{{ pageTitle }} | {{ serviceName }}
+  {{ "Error : " if isError }}{{ pageTitle }} | {{ serviceName }}
 {% endblock %}
 
 {% block beforeContent %}
