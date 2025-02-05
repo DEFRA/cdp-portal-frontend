@@ -40,7 +40,9 @@
       id: params.id + "-error",
       classes: "govuk-!-margin-bottom-1 app-error-message",
       attributes: {
-        "data-js": "app-error"
+        "data-js": "app-error",
+        "role": "alert",
+        "tabindex": "-1"
       },
       text: params.errorMessage.text
     }) }}

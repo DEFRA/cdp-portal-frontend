@@ -38,3 +38,23 @@
 @use "tag/tag";
 @use "tool-tip/tool-tip";
 @use "warning/warning";
+
+
+.app-skip-link {
+  position: absolute;
+  top: auto;
+  left: -999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Show keyboard focus */
+.app-skip-link:focus-visible {
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+

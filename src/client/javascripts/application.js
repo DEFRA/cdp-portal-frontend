@@ -23,6 +23,7 @@ import { search } from '~/src/server/common/components/search/search.js'
 import { tabs } from '~/src/server/common/components/tabs/tabs.js'
 import { xhrSubscriber } from '~/src/server/common/components/xhr-subscriber/xhr-subscriber.js'
 import { resizeIframe } from '~/src/client/common/helpers/resize-iframe.js'
+import { focusOnErrorMessage } from '~/src/client/common/helpers/focus-on-error-message.js'
 
 initAll()
 
@@ -49,6 +50,13 @@ initModule('app-select-controller', populateSelectOptions)
 
 // Remove server-side error messages on element blur
 initModule('app-form-errors', errorMessages, '*=')
+
+// console.log(document.querySelector('[data-js="app-error"]'), '-------------')
+
+// Focus on first error message on page
+focusOnErrorMessage(document.querySelector('[data-js="app-error"]'))
+// focusOnErrorMessage(document.getElementById('environment'))
+// focusOnErrorMessage(document.querySelector('.govuk-error-summary'))
 
 // Add UX friction to editing inputs on a protected form
 initModule('app-protected-inputs', protectForm, '*=')

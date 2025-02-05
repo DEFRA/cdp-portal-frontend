@@ -1,8 +1,14 @@
 @use "govuk-frontend" as *;
 
+.govuk-error-message,
 .app-error-message {
   font-weight: normal;
   margin-top: govuk-spacing(-1);
   margin-bottom: govuk-spacing(1);
   @include govuk-font(19);
+
+  &:focus {
+    outline: 3px solid green;
+    border: 3px solid green;
+  }
 }
