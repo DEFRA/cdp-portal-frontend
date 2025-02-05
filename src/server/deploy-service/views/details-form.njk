@@ -57,11 +57,7 @@
               },
               value: imageName or formValues.imageName,
               errorMessage: {
-                text: formErrors.imageName.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error"
-                }
+                text: formErrors.imageName.message
               } if formErrors.imageName.message,
               suggestions: deployableImageNameOptions,
               siblingDataFetcher: {
