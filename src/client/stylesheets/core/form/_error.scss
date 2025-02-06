@@ -6,9 +6,9 @@
   font-weight: normal;
   margin-top: govuk-spacing(-1);
   margin-bottom: govuk-spacing(1);
-  @include govuk-font(19);
   width: max-content;
   border-radius: $app-border-radius;
+  @include govuk-font(19);
 
   &:focus {
     outline: 3px solid govuk-colour("yellow");
