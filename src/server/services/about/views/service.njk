@@ -363,7 +363,7 @@
           </p>
 
           <dl class="app-description-list">
-            {% for environment in ['infra-dev', 'prod'] %}
+            {% for environment in environmentsWithADeployment %}
               <dt class="app-description-list__term"> {{ environment | title }}</dt>
               <dd class="app-description-list__details">
                 <span>https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud</span>
