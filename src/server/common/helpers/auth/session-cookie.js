@@ -39,7 +39,10 @@ const sessionCookie = {
             // refreshing access token with refresh token
             try {
               const { payload } = await refreshAccessToken(request)
-              const updatedSession = await refreshUserSession(request, payload)
+              const updatedSession = await refreshUserSession(
+                request,
+                JSON.parse(payload.toString())
+              )
 
               return {
                 isValid: true,
