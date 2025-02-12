@@ -45,7 +45,8 @@ const azureOidc = {
             'user.read'
           ],
           profile: async function (credentials, _params, get) {
-            const payload = jwt.token.decode(credentials.token).decoded.payload
+            const decodedPayload = jwt.token.decode(credentials.token).decoded
+              .payload
             const endpoint = config.get('userServiceBackendUrl') + '/scopes'
 
             const { scopes, scopeFlags } = await get(endpoint, {
@@ -53,12 +54,12 @@ const azureOidc = {
             })
 
             credentials.profile = {
-              id: payload.oid,
-              displayName: payload.name,
-              email: payload.upn ?? payload.preferred_username,
+              id: decodedPayload.oid,
+              displayName: decodedPayload.name,
+              email: decodedPayload.upn ?? decodedPayload.preferred_username,
               scopes,
               scopeFlags,
-              loginHint: payload.login_hint
+              loginHint: decodedPayload.login_hint
             }
           }
         },
