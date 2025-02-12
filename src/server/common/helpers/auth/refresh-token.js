@@ -1,3 +1,4 @@
+import qs from 'qs'
 import { config } from '~/src/config/config.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
@@ -22,7 +23,7 @@ async function refreshAccessToken(request) {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Cache-Control': 'no-cache'
     },
-    payload: params
+    payload: qs.stringify(params)
   })
 }
 
