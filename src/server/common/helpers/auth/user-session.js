@@ -98,7 +98,7 @@ async function updateUserScope(request, userSession) {
  * @returns {Promise<UserSession> | UserSession}
  */
 async function refreshUserSession(request, refreshTokenResponse) {
-  request.logger.debug('User session updating')
+  request.logger.debug({ refreshTokenResponse }, 'User session updating')
 
   /** @type {JwtPayload} */
   const payload = jwt.token.decode(refreshTokenResponse.access_token).decoded
