@@ -51,7 +51,10 @@ function authedFetcherDecorator(request) {
             'Token refresh succeeded'
           )
 
-          await refreshUserSession(request, refreshAccessTokenPayload)
+          await refreshUserSession(
+            request,
+            JSON.parse(refreshAccessTokenPayload.toString())
+          )
 
           const authedUser = await request.getUserSession()
           const newToken = authedUser?.token ?? null

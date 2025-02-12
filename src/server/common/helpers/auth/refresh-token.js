@@ -18,7 +18,7 @@ async function refreshAccessToken(request) {
 
   request.logger.debug('Azure OIDC access token expired, refreshing...')
 
-  return await Wreck.post(request.server.app.oidc.token_endpoint, {
+  return Wreck.post(request.server.app.oidc.token_endpoint, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Cache-Control': 'no-cache'
