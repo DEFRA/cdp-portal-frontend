@@ -1,6 +1,7 @@
 import qs from 'qs'
+import Wreck from '@hapi/wreck'
+
 import { config } from '~/src/config/config.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
 async function refreshAccessToken(request) {
   const authedUser = await request.getUserSession()
@@ -17,8 +18,7 @@ async function refreshAccessToken(request) {
 
   request.logger.debug('Azure OIDC access token expired, refreshing...')
 
-  return await fetcher(request.server.app.oidc.token_endpoint, {
-    method: 'post',
+  return await Wreck.post(request.server.app.oidc.token_endpoint, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Cache-Control': 'no-cache'
