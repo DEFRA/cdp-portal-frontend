@@ -34,7 +34,7 @@ describe('#fetchAvailableVersions', () => {
   test('With error, Should throw with expected message', async () => {
     nock(deployablesVersionsEndpoint.origin)
       .get(deployablesVersionsEndpoint.pathname)
-      .reply(423, { message: 'Arghhhhhhhhhhhhhh!' })
+      .replyWithError('Arghhhhhhhhhhhhhh!')
 
     const error = await getError(async () =>
       fetchAvailableVersions(serviceName)
@@ -42,20 +42,9 @@ describe('#fetchAvailableVersions', () => {
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Arghhhhhhhhhhhhhh!')
-  })
-
-  test('With different status code, Should throw with expected message', async () => {
-    nock(deployablesVersionsEndpoint.origin)
-      .get(deployablesVersionsEndpoint.pathname)
-      .reply(417, {})
-
-    const error = await getError(async () =>
-      fetchAvailableVersions(serviceName)
+    expect(error).toHaveProperty(
+      'message',
+      'Client request error: Arghhhhhhhhhhhhhh!'
     )
-
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Expectation Failed')
   })
 })

@@ -5,8 +5,8 @@ async function fetchRunningServicesFilters() {
   const endpoint =
     config.get('portalBackendUrl') + '/v2/whats-running-where/filters'
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchRunningServicesFilters }

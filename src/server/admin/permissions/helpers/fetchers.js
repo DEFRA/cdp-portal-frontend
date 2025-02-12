@@ -10,24 +10,24 @@ async function addScopeToTeam(request, teamId, scopeId) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/team/add/${teamId}`
 
-  const { data } = await request.authedFetcher(endpoint, {
+  const { payload } = await request.authedFetcher(endpoint, {
     method: 'patch',
     headers: { 'Content-Type': 'application/json' }
   })
 
-  return data
+  return payload
 }
 
 async function addScopeToUser(request, userId, scopeId) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/user/add/${userId}`
 
-  const { data } = await request.authedFetcher(endpoint, {
+  const { payload } = await request.authedFetcher(endpoint, {
     method: 'patch',
     headers: { 'Content-Type': 'application/json' }
   })
 
-  return data
+  return payload
 }
 
 function createScope(request, payload) {
@@ -36,22 +36,22 @@ function createScope(request, payload) {
   return request.authedFetcher(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(removeNil(payload))
+    payload: removeNil(payload)
   })
 }
 
 async function fetchScope(request, scopeId) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
-  const { data } = await request.authedFetcher(endpoint)
-  return data
+  const { payload } = await request.authedFetcher(endpoint)
+  return payload
 }
 
 async function fetchScopes(request) {
   const endpoint = userServiceBackendUrl + '/scopes/admin'
 
-  const { data } = await request.authedFetcher(endpoint)
-  return data
+  const { payload } = await request.authedFetcher(endpoint)
+  return payload
 }
 
 async function searchCdpUsers(query) {
@@ -60,8 +60,8 @@ async function searchCdpUsers(query) {
     : ''
   const endpoint = `${userServiceBackendUrl}/users${queryString}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 async function searchCdpTeams(query) {
@@ -70,8 +70,8 @@ async function searchCdpTeams(query) {
     : ''
   const endpoint = `${userServiceBackendUrl}/teams${queryString}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 function updateScope(request, scopeId, payload) {
@@ -80,7 +80,7 @@ function updateScope(request, scopeId, payload) {
   return request.authedFetcher(endpoint, {
     method: 'patch',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(removeNil(payload))
+    payload: removeNil(payload)
   })
 }
 
@@ -88,29 +88,28 @@ async function removeScopeFromTeam(request, teamId, scopeId) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/team/remove/${teamId}`
 
-  const { data } = await request.authedFetcher(endpoint, {
+  const { payload } = await request.authedFetcher(endpoint, {
     method: 'patch'
   })
-  return data
+  return payload
 }
 
 async function removeScopeFromUser(request, userId, scopeId) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/user/remove/${userId}`
 
-  const { data } = await request.authedFetcher(endpoint, {
+  const { payload } = await request.authedFetcher(endpoint, {
     method: 'patch'
   })
-  return data
+  return payload
 }
 
-async function deleteScope(request, scopeId) {
+function deleteScope(request, scopeId) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
-  const { response } = await request.authedFetcher(endpoint, {
+  return request.authedFetcher(endpoint, {
     method: 'delete'
   })
-  return response
 }
 
 export {

@@ -2,13 +2,11 @@ import { config } from '~/src/config/config.js'
 
 const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 
-export async function scaleEcsToZero(request, serviceName) {
+export function scaleEcsToZero(request, serviceName) {
   const endpoint = `${selfServiceOpsUrl}/scale-to-zero/${serviceName}`
 
-  const { data, response } = await request.authedFetcher(endpoint, {
-    method: 'POST',
+  return request.authedFetcher(endpoint, {
+    method: 'post',
     headers: { 'Content-Type': 'application/json' }
   })
-
-  return { data, response }
 }

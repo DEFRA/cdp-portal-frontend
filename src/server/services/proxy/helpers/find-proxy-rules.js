@@ -10,6 +10,7 @@ async function findAllProxyRules(serviceName, environments) {
   const environmentProxyRules = environments.map((environment) => {
     return findProxyRulesForEnvironment(serviceName, environment)
   })
+
   return Promise.all(environmentProxyRules)
 }
 
@@ -21,6 +22,7 @@ async function findAllProxyRules(serviceName, environments) {
  */
 async function findProxyRulesForEnvironment(serviceName, environment) {
   const rules = await fetchProxyRules(serviceName, environment)
+
   return transformProxyRules({ environment, rules })
 }
 

@@ -36,7 +36,7 @@ describe('#fetchExistingServiceInfo', () => {
   test('With error, Should throw with expected message', async () => {
     nock(existingServiceInfoEndpoint.origin)
       .get(existingServiceInfoEndpoint.pathname)
-      .reply(407, { message: 'Legally we cannot allow that!' })
+      .replyWithError('Legally we cannot allow that!')
 
     const error = await getError(async () =>
       fetchExistingServiceInfo(environment, imageName)
@@ -44,20 +44,9 @@ describe('#fetchExistingServiceInfo', () => {
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Legally we cannot allow that!')
-  })
-
-  test('With different status code, Should throw with expected message', async () => {
-    nock(existingServiceInfoEndpoint.origin)
-      .get(existingServiceInfoEndpoint.pathname)
-      .reply(429, {})
-
-    const error = await getError(async () =>
-      fetchExistingServiceInfo(environment, imageName)
+    expect(error).toHaveProperty(
+      'message',
+      'Client request error: Legally we cannot allow that!'
     )
-
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Too Many Requests')
   })
 })

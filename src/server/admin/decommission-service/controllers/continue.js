@@ -24,23 +24,21 @@ export const decommissionContinueController = {
     }
 
     try {
-      const { response } = await decommissionService(request, serviceName)
-      if (response?.ok) {
-        request.yar.clear(sessionNames.validationFailure)
-        await request.yar.commit(h)
+      await decommissionService(request, serviceName)
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Service decommissioned successfully so far',
-          type: 'success'
-        })
+      request.yar.clear(sessionNames.validationFailure)
+      await request.yar.commit(h)
 
-        request.logger.info(`Service ${serviceName} decommissioned`)
-        return h.redirect(`/admin/decommission-service/${serviceName}/step-2`)
-      } else {
-        request.logger.error(`Service ${serviceName} decommissioning failed`)
-        throw new Error('Service decommission failed')
-      }
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Service decommissioned successfully so far',
+        type: 'success'
+      })
+
+      request.logger.info(`Service ${serviceName} decommissioned`)
+      return h.redirect(`/admin/decommission-service/${serviceName}/step-2`)
     } catch (error) {
+      request.logger.error(`Service ${serviceName} decommissioning failed`)
+
       request.yar.flash(sessionNames.validationFailure)
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

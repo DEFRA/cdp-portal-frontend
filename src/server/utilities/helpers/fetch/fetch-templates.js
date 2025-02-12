@@ -6,8 +6,8 @@ async function fetchTemplates(name) {
     config.get('portalBackendUrl') +
     `/repositories/templates${name ? `/${name}` : ''}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchTemplates }

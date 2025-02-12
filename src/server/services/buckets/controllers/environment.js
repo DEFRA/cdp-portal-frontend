@@ -22,11 +22,7 @@ const environmentBucketsController = {
     const team = service?.teams?.at(0)
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
-    const bucketsForEnv = await fetchBuckets(
-      environment,
-      serviceName,
-      request.logger
-    )
+    const bucketsForEnv = await fetchBuckets(environment, serviceName)
 
     const { buckets, isBucketsSetup } = environmentBuckets(bucketsForEnv)
 

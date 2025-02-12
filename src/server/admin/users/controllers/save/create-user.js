@@ -17,30 +17,26 @@ const createUserController = {
     const createUserEndpointUrl = `${config.get('userServiceBackendUrl')}/users`
 
     try {
-      const { response } = await request.authedFetcher(createUserEndpointUrl, {
+      await request.authedFetcher(createUserEndpointUrl, {
         method: 'post',
-        body: JSON.stringify(
-          removeNil({
-            userId: cdpUser.userId,
-            name: cdpUser.name,
-            email: cdpUser.email,
-            github: cdpUser.github,
-            defraVpnId: cdpUser.defraVpnId,
-            defraAwsId: cdpUser.defraAwsId
-          })
-        )
+        payload: removeNil({
+          userId: cdpUser.userId,
+          name: cdpUser.name,
+          email: cdpUser.email,
+          github: cdpUser.github,
+          defraVpnId: cdpUser.defraVpnId,
+          defraAwsId: cdpUser.defraAwsId
+        })
       })
 
-      if (response?.ok) {
-        await setStepComplete(request, h, 'allSteps')
+      await setStepComplete(request, h, 'allSteps')
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'User created',
-          type: 'success'
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'User created',
+        type: 'success'
+      })
 
-        return h.redirect('/admin/users')
-      }
+      return h.redirect('/admin/users')
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

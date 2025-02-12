@@ -10,7 +10,7 @@ function allEnvironmentBuckets(environments, allBuckets) {
   const result = {}
 
   Array.from(environments).forEach(function (environment) {
-    const bucketsForEnv = allBuckets[environment]
+    const bucketsForEnv = allBuckets?.[environment]
 
     if (bucketsForEnv) {
       result[environment] = {

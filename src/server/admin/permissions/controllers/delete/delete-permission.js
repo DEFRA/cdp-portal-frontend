@@ -19,24 +19,22 @@ const deletePermissionController = {
     const scopeId = request.params.scopeId
 
     try {
-      const response = await deleteScope(request, scopeId)
+      await deleteScope(request, scopeId)
 
-      if (response.ok) {
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Permission deleted and removed from all teams',
-          type: 'success'
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Permission deleted and removed from all teams',
+        type: 'success'
+      })
 
-        request.audit.sendMessage({
-          event: `permission: ${scopeId} delete by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
-          data: {
-            scopeId
-          },
-          user: request.pre.authedUser
-        })
+      request.audit.sendMessage({
+        event: `permission: ${scopeId} delete by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        data: {
+          scopeId
+        },
+        user: request.pre.authedUser
+      })
 
-        return h.redirect('/admin/permissions')
-      }
+      return h.redirect('/admin/permissions')
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

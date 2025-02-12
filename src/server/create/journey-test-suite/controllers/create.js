@@ -50,7 +50,7 @@ const testSuiteCreateController = {
         config.get('selfServiceOpsUrl') + '/create-journey-test-suite'
 
       try {
-        const { data, response } = await request.authedFetcher(
+        const { payload } = await request.authedFetcher(
           selfServiceOpsCreateTestSuiteEndpointUrl,
           {
             method: 'post',
@@ -58,25 +58,25 @@ const testSuiteCreateController = {
           }
         )
 
-        if (response?.ok) {
-          request.yar.clear(sessionNames.validationFailure)
-          await request.yar.commit(h)
+        request.yar.clear(sessionNames.validationFailure)
+        await request.yar.commit(h)
 
-          request.yar.flash(sessionNames.notifications, {
-            text: data.message,
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: payload.message,
+          type: 'success'
+        })
 
-          request.audit.sendMessage(
-            auditMessageCreated(
-              'Journey Test Suite',
-              repositoryName,
-              request.pre.authedUser
-            )
+        request.audit.sendMessage(
+          auditMessageCreated(
+            'Journey Test Suite',
+            repositoryName,
+            request.pre.authedUser
           )
+        )
 
-          return h.redirect(`/test-suites/create-status/${data.repositoryName}`)
-        }
+        return h.redirect(
+          `/test-suites/create-status/${payload.repositoryName}`
+        )
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload

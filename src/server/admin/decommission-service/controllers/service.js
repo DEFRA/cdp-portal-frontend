@@ -33,29 +33,25 @@ const decommissionServiceController = {
     if (!validationResult.error) {
       const serviceName = payload.serviceName
       try {
-        const { response } = await scaleEcsToZero(request, serviceName)
+        await scaleEcsToZero(request, serviceName)
 
-        if (response?.ok) {
-          request.yar.clear(sessionNames.validationFailure)
-          await request.yar.commit(h)
+        request.yar.clear(sessionNames.validationFailure)
+        await request.yar.commit(h)
 
-          request.yar.flash(sessionNames.notifications, {
-            text: 'Service decommissioned successfully so far',
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Service decommissioned successfully so far',
+          type: 'success'
+        })
 
-          request.audit.sendMessage({
-            event: `Service decommissioning started: ${serviceName} by ${authedUser.id}:${authedUser.displayName}`,
-            data: {
-              serviceName
-            },
-            user: request.pre.authedUser
-          })
+        request.audit.sendMessage({
+          event: `Service decommissioning started: ${serviceName} by ${authedUser.id}:${authedUser.displayName}`,
+          data: {
+            serviceName
+          },
+          user: request.pre.authedUser
+        })
 
-          return h.redirect(`/admin/decommission-service/${serviceName}/step-1`)
-        } else {
-          throw new Error('Service decommission failed')
-        }
+        return h.redirect(`/admin/decommission-service/${serviceName}/step-1`)
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure)
         request.yar.flash(sessionNames.globalValidationFailures, error.message)

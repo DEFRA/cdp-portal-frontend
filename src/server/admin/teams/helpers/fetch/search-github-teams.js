@@ -6,8 +6,8 @@ async function searchGithubTeams(query) {
     config.get('userServiceBackendUrl') +
     `/github-teams${query ? '?query=' + query : ''}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { searchGithubTeams }

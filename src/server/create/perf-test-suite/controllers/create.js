@@ -51,7 +51,7 @@ const perfTestSuiteCreateController = {
         config.get('selfServiceOpsUrl') + '/create-perf-test-suite'
 
       try {
-        const { data, response } = await request.authedFetcher(
+        const { payload } = await request.authedFetcher(
           selfServiceOpsCreateEnvTestSuiteEndpointUrl,
           {
             method: 'post',
@@ -59,27 +59,27 @@ const perfTestSuiteCreateController = {
           }
         )
 
-        if (response?.ok) {
-          await setStepComplete(request, h, 'allSteps')
+        await setStepComplete(request, h, 'allSteps')
 
-          request.yar.clear(sessionNames.validationFailure)
-          await request.yar.commit(h)
+        request.yar.clear(sessionNames.validationFailure)
+        await request.yar.commit(h)
 
-          request.yar.flash(sessionNames.notifications, {
-            text: data.message,
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: payload.message,
+          type: 'success'
+        })
 
-          request.audit.sendMessage(
-            auditMessageCreated(
-              'Perf Test Suite',
-              repositoryName,
-              request.pre.authedUser
-            )
+        request.audit.sendMessage(
+          auditMessageCreated(
+            'Perf Test Suite',
+            repositoryName,
+            request.pre.authedUser
           )
+        )
 
-          return h.redirect(`/test-suites/create-status/${data.repositoryName}`)
-        }
+        return h.redirect(
+          `/test-suites/create-status/${payload.repositoryName}`
+        )
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload

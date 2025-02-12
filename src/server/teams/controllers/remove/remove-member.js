@@ -19,15 +19,17 @@ const removeMemberController = {
     const teamId = params.teamId
     const userId = params.userId
 
-    try {
-      await removeMemberFromTeam(request, teamId, userId)
+    const { error } = await removeMemberFromTeam(request, teamId, userId)
 
+    if (error) {
+      request.yar.flash(sessionNames.globalValidationFailures, error.message)
+    }
+
+    if (!error) {
       request.yar.flash(sessionNames.notifications, {
         text: 'Member removed from team',
         type: 'success'
       })
-    } catch (error) {
-      request.yar.flash(sessionNames.globalValidationFailures, error.message)
     }
 
     return h.redirect('/teams/' + teamId)

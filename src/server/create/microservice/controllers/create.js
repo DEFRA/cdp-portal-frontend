@@ -59,35 +59,29 @@ const microserviceCreateController = {
         config.get('selfServiceOpsUrl') + '/create-microservice'
 
       try {
-        const { data, response } = await request.authedFetcher(
+        const { payload } = await request.authedFetcher(
           selfServiceOpsCreateServiceEndpointUrl,
           {
             method: 'post',
-            body: JSON.stringify(sanitisedPayload)
+            payload: sanitisedPayload
           }
         )
 
-        if (response?.ok) {
-          await setStepComplete(request, h, 'allSteps')
+        await setStepComplete(request, h, 'allSteps')
 
-          request.yar.clear(sessionNames.validationFailure)
-          await request.yar.commit(h)
+        request.yar.clear(sessionNames.validationFailure)
+        await request.yar.commit(h)
 
-          request.yar.flash(sessionNames.notifications, {
-            text: data.message,
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: payload.message,
+          type: 'success'
+        })
 
-          request.audit.sendMessage(
-            auditMessageCreated(
-              'Service',
-              repositoryName,
-              request.pre.authedUser
-            )
-          )
+        request.audit.sendMessage(
+          auditMessageCreated('Service', repositoryName, request.pre.authedUser)
+        )
 
-          return h.redirect(`/services/create-status/${data.repositoryName}`)
-        }
+        return h.redirect(`/services/create-status/${payload.repositoryName}`)
       } catch (error) {
         request.logger.debug({ error }, 'Create service call failed')
         request.yar.flash(sessionNames.validationFailure, {

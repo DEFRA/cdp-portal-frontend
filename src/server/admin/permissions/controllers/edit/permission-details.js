@@ -50,27 +50,25 @@ const editPermissionDetailsController = {
 
     if (!validationResult.error) {
       try {
-        const { response } = await updateScope(request, scopeId, {
+        await updateScope(request, scopeId, {
           kind,
           description
         })
 
-        if (response?.ok) {
-          request.yar.flash(sessionNames.notifications, {
-            text: 'Permission updated',
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Permission updated',
+          type: 'success'
+        })
 
-          request.audit.sendMessage({
-            event: `permission: ${scopeId} edited by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
-            data: {
-              scopeId
-            },
-            user: request.pre.authedUser
-          })
+        request.audit.sendMessage({
+          event: `permission: ${scopeId} edited by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          data: {
+            scopeId
+          },
+          user: request.pre.authedUser
+        })
 
-          return h.redirect(`/admin/permissions/${scopeId}`)
-        }
+        return h.redirect(`/admin/permissions/${scopeId}`)
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload

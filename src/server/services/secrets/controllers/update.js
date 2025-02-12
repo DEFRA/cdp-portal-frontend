@@ -65,29 +65,22 @@ const updateSecretController = {
         `/secrets/add/${serviceId}/${environment}`
 
       try {
-        const { response } = await request.authedFetcher(
-          selfServiceOpsAddSecretEndpointUrl,
-          {
-            method: 'post',
-            body: JSON.stringify(
-              omit(sanitisedPayload, ['environment', 'button'])
-            )
-          }
-        )
+        await request.authedFetcher(selfServiceOpsAddSecretEndpointUrl, {
+          method: 'post',
+          payload: omit(sanitisedPayload, ['environment', 'button'])
+        })
 
-        if (response?.ok) {
-          request.yar.clear(sessionNames.validationFailure)
-          request.yar.flash(sessionNames.notifications, {
-            text: 'Secret being created', // TODO should have this in self service ops?
-            type: 'success'
+        request.yar.clear(sessionNames.validationFailure)
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Secret being created', // TODO should have this in self service ops?
+          type: 'success'
+        })
+
+        return h.redirect(
+          request.routeLookup('services/{serviceId}/secrets/{environment}', {
+            params: { serviceId, environment }
           })
-
-          return h.redirect(
-            request.routeLookup('services/{serviceId}/secrets/{environment}', {
-              params: { serviceId, environment }
-            })
-          )
-        }
+        )
       } catch (error) {
         request.logger.debug({ error }, 'Update secret call failed')
         request.yar.flash(sessionNames.validationFailure, {

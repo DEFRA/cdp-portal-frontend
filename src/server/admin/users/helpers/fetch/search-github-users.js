@@ -6,8 +6,8 @@ async function searchGithubUsers(query) {
     config.get('userServiceBackendUrl') +
     `/github-users${query ? '?query=' + query : ''}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { searchGithubUsers }

@@ -28,35 +28,32 @@ export const decommissionFinishController = {
     }
 
     try {
-      const deleteFilesResponse = await deleteDeploymentFiles(
-        request,
-        serviceName
-      )
-      const deleteEcsResponse = await deleteEcs(request, serviceName)
-      if (deleteFilesResponse?.ok && deleteEcsResponse?.ok) {
-        request.yar.clear(sessionNames.validationFailure)
-        await request.yar.commit(h)
+      await Promise.all([
+        deleteDeploymentFiles(request, serviceName),
+        deleteEcs(request, serviceName)
+      ])
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Service decommissioned successfully',
-          type: 'success'
-        })
+      request.yar.clear(sessionNames.validationFailure)
+      await request.yar.commit(h)
 
-        request.audit.sendMessage({
-          event: `Service decommissioned: ${serviceName} by ${authedUser.id}:${authedUser.displayName}`,
-          data: {
-            serviceName
-          },
-          user: authedUser
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Service decommissioned successfully',
+        type: 'success'
+      })
 
-        request.logger.info(`Service ${serviceName} decommissioned`)
-        return h.redirect(`/admin/decommission-service/${serviceName}/summary`)
-      } else {
-        request.logger.error(`Service ${serviceName} decommissioning failed`)
-        throw new Error('Service decommission failed')
-      }
+      request.audit.sendMessage({
+        event: `Service decommissioned: ${serviceName} by ${authedUser.id}:${authedUser.displayName}`,
+        data: {
+          serviceName
+        },
+        user: authedUser
+      })
+
+      request.logger.info(`Service ${serviceName} decommissioned`)
+      return h.redirect(`/admin/decommission-service/${serviceName}/summary`)
     } catch (error) {
+      request.logger.error(`Service ${serviceName} decommissioning failed`)
+
       request.yar.flash(sessionNames.validationFailure)
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

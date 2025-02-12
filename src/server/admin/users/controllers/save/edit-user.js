@@ -18,27 +18,25 @@ const editUserController = {
     }`
 
     try {
-      const { response } = await request.authedFetcher(editUserEndpointUrl, {
+      await request.authedFetcher(editUserEndpointUrl, {
         method: 'patch',
-        body: JSON.stringify({
+        payload: {
           name: cdpUser.name,
           email: cdpUser.email,
           github: cdpUser.github,
           defraVpnId: cdpUser.defraVpnId,
           defraAwsId: cdpUser.defraAwsId
-        })
+        }
       })
 
-      if (response?.ok) {
-        await setStepComplete(request, h, 'allSteps')
+      await setStepComplete(request, h, 'allSteps')
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'User updated',
-          type: 'success'
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'User updated',
+        type: 'success'
+      })
 
-        return h.redirect('/admin/users/' + cdpUser.userId)
-      }
+      return h.redirect('/admin/users/' + cdpUser.userId)
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

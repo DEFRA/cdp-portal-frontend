@@ -1,31 +1,11 @@
-import { throwHttpError } from '~/src/server/common/helpers/fetch/throw-http-error.js'
+import Boom from '@hapi/boom'
 
-/**
- * @param {Response} response
- * @returns {Promise<{data: {object} | string | null, response: {Response}}>}
- */
-async function handleResponse(response) {
-  const contentType = response.headers.get('content-type')
-  let data
-
-  if (contentType === null) {
-    data = null
+function handleResponse({ res, payload }) {
+  if (!res.statusCode || res.statusCode < 200 || res.statusCode > 299) {
+    return { res, error: payload || Boom.boomify(new Error('Unknown error')) }
   }
 
-  if (contentType?.startsWith('application/json')) {
-    data = await response.json()
-  }
-
-  if (contentType?.startsWith('text/plain')) {
-    data = await response.text()
-  }
-
-  // status 200-299
-  if (response?.ok) {
-    return { data, response }
-  }
-
-  throwHttpError(data, response)
+  return { res, payload }
 }
 
 export { handleResponse }

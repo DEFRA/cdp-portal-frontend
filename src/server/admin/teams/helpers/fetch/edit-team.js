@@ -1,11 +1,12 @@
 import { config } from '~/src/config/config.js'
+import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
 
-async function editTeam(request, teamId, payload) {
+function editTeam(request, teamId, payload) {
   const endpoint = config.get('userServiceBackendUrl') + '/teams/' + teamId
 
-  const { data, response } = await request.authedFetcher(endpoint, {
+  return request.authedFetcher(endpoint, {
     method: 'patch',
-    body: JSON.stringify({
+    payload: removeNil({
       name: payload.name,
       description: payload.description,
       serviceCodes: payload.serviceCodes,
@@ -13,8 +14,6 @@ async function editTeam(request, teamId, payload) {
       github: payload.github
     })
   })
-
-  return { data, response }
 }
 
 export { editTeam }

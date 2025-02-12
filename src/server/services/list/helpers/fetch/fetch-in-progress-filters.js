@@ -9,8 +9,8 @@ async function fetchInProgressFilters(queryParams = {}) {
     '/status/in-progress/filters' +
     qs.stringify(queryParams, { arrayFormat: 'repeat', addQueryPrefix: true })
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchInProgressFilters }

@@ -2,12 +2,12 @@ import { config } from '~/src/config/config.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
 
 async function fetchVanityUrls(serviceName, logger) {
-  try {
-    const endpoint =
-      config.get('portalBackendUrl') + `/vanity-urls/${serviceName}`
-    const { data } = await fetcher(endpoint)
+  const endpoint =
+    config.get('portalBackendUrl') + `/vanity-urls/${serviceName}`
 
-    return data
+  try {
+    const { payload } = await fetcher(endpoint)
+    return payload
   } catch (error) {
     logger.debug(error, 'No vanity urls found')
     return null

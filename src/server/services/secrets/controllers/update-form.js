@@ -33,7 +33,7 @@ const updateSecretFormController = {
     const environment = request.params?.environment
     const secretKey = request.query?.secretKey
     const formattedEnvironment = formatText(environment)
-    const secrets = await fetchSecrets(environment, serviceName, request.logger)
+    const secrets = await fetchSecrets(environment, serviceName)
 
     return h.view('services/secrets/views/update-form', {
       pageTitle: `${serviceName} - Update secret`,
