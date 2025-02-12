@@ -5,8 +5,8 @@ import { authedFetcher } from '~/src/server/common/helpers/fetch/authed-fetcher.
 async function fetchScopes(token) {
   const endpoint = config.get('userServiceBackendUrl') + `/scopes`
 
-  const response = await authedFetcher(endpoint, token)
-  return await response.json()
+  const { payload } = await authedFetcher(endpoint, token)
+  return payload
 }
 
 export { fetchScopes }

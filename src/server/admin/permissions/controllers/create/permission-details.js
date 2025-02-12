@@ -42,29 +42,27 @@ const createPermissionDetailsController = {
 
     if (!validationResult.error) {
       try {
-        const { data, response } = await createScope(request, {
+        const { payload } = await createScope(request, {
           value,
           kind,
           description
         })
 
-        if (response?.ok) {
-          request.yar.flash(sessionNames.notifications, {
-            text: 'Permission created',
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Permission created',
+          type: 'success'
+        })
 
-          request.audit.sendMessage({
-            event: `permission: ${value}:${data.scope.scopeId} created by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
-            data: {
-              value,
-              scopeId: data.scope.scopeId
-            },
-            user: request.pre.authedUser
-          })
+        request.audit.sendMessage({
+          event: `permission: ${value}:${payload.scope.scopeId} created by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          data: {
+            value,
+            scopeId: payload.scope.scopeId
+          },
+          user: request.pre.authedUser
+        })
 
-          return h.redirect(`/admin/permissions/${data.scope.scopeId}`)
-        }
+        return h.redirect(`/admin/permissions/${payload.scope.scopeId}`)
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload

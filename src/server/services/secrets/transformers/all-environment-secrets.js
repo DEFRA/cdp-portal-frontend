@@ -18,7 +18,7 @@ function allEnvironmentSecrets(
   const excludedKeys = ['automated_placeholder', 'placeholder']
 
   Array.from(environments).forEach(function (environment) {
-    const secrets = allSecrets[environment]
+    const secrets = allSecrets?.[environment]
 
     if (secrets) {
       result[environment] = {

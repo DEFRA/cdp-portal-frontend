@@ -41,26 +41,24 @@ const triggerTestSuiteRunController = {
 
     if (!validationResult.error) {
       try {
-        const { response } = await runTest(request, imageName, environment)
+        await runTest(request, imageName, environment)
 
-        if (response?.ok) {
-          // TODO align this to use sendMessage
-          request.audit.send({
-            event: 'test run requested',
-            user: { id: authedUser.id, name: authedUser.displayName },
-            testRun: {
-              imageName,
-              environment
-            }
-          })
+        // TODO align this to use sendMessage
+        request.audit.send({
+          event: 'test run requested',
+          user: { id: authedUser.id, name: authedUser.displayName },
+          testRun: {
+            imageName,
+            environment
+          }
+        })
 
-          request.yar.flash(sessionNames.notifications, {
-            text: 'Test run requested successfully',
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Test run requested successfully',
+          type: 'success'
+        })
 
-          return h.redirect(`/test-suites/${imageName}`)
-        }
+        return h.redirect(`/test-suites/${imageName}`)
       } catch (error) {
         request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

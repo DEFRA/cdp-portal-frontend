@@ -15,7 +15,7 @@ const editTeamController = {
     const cdpTeam = request.pre?.cdpTeam
 
     try {
-      const { response } = await editTeam(request, cdpTeam.teamId, {
+      await editTeam(request, cdpTeam.teamId, {
         name: cdpTeam.name,
         description: cdpTeam.description,
         github: cdpTeam.github,
@@ -23,16 +23,14 @@ const editTeamController = {
         alertEmailAddresses: cdpTeam.alertEmailAddresses
       })
 
-      if (response?.ok) {
-        await setStepComplete(request, h, 'allSteps')
+      await setStepComplete(request, h, 'allSteps')
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Team updated',
-          type: 'success'
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Team updated',
+        type: 'success'
+      })
 
-        return h.redirect('/admin/teams/' + cdpTeam.teamId)
-      }
+      return h.redirect('/admin/teams/' + cdpTeam.teamId)
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

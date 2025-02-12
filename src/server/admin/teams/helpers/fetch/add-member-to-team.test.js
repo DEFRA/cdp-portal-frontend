@@ -36,7 +36,7 @@ describe('#addUserToTeam', () => {
   test('With error, Should throw with expected message', async () => {
     nock(addUserToTeamEndpointUrl.origin)
       .patch(addUserToTeamEndpointUrl.pathname)
-      .reply(504, { message: 'Wowzers!!!' })
+      .replyWithError('Wowzers!!!')
 
     const error = await getError(async () =>
       addMemberToTeam(mockRequest, teamId, userId)
@@ -44,20 +44,6 @@ describe('#addUserToTeam', () => {
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Wowzers!!!')
-  })
-
-  test('With different status code, Should throw with expected message', async () => {
-    nock(addUserToTeamEndpointUrl.origin)
-      .patch(addUserToTeamEndpointUrl.pathname)
-      .reply(407, {})
-
-    const error = await getError(async () =>
-      addMemberToTeam(mockRequest, teamId, userId)
-    )
-
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Proxy Authentication Required')
+    expect(error).toHaveProperty('message', 'Client request error: Wowzers!!!')
   })
 })

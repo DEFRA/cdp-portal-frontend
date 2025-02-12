@@ -19,18 +19,16 @@ const deleteUserController = {
       config.get('userServiceBackendUrl') + `/users/${userId}`
 
     try {
-      const { response } = await request.authedFetcher(deleteUserEndpointUrl, {
+      await request.authedFetcher(deleteUserEndpointUrl, {
         method: 'delete'
       })
 
-      if (response?.ok) {
-        request.yar.flash(sessionNames.notifications, {
-          text: 'User deleted and removed from all teams',
-          type: 'success'
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'User deleted and removed from all teams',
+        type: 'success'
+      })
 
-        return h.redirect('/admin/users')
-      }
+      return h.redirect('/admin/users')
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

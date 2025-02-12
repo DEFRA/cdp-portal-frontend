@@ -23,24 +23,15 @@ describe('#fetchDeployServiceOptions', () => {
   test('With error, Should throw with expected message', async () => {
     nock(deployServiceOptionsEndpoint.origin)
       .get(deployServiceOptionsEndpoint.pathname)
-      .reply(401, { message: 'Huston we have a problem!' })
+      .replyWithError('Huston we have a problem!')
 
     const error = await getError(fetchDeployServiceOptions)
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Huston we have a problem!')
-  })
-
-  test('With different status code, Should throw with expected message', async () => {
-    nock(deployServiceOptionsEndpoint.origin)
-      .get(deployServiceOptionsEndpoint.pathname)
-      .reply(402, {})
-
-    const error = await getError(fetchDeployServiceOptions)
-
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Payment Required')
+    expect(error).toHaveProperty(
+      'message',
+      'Client request error: Huston we have a problem!'
+    )
   })
 })

@@ -5,8 +5,8 @@ async function fetchTestRuns(testSuiteName) {
   const endpoint =
     config.get('portalBackendUrl') + `/test-run?name=${testSuiteName}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchTestRuns }

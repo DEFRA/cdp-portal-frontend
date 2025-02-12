@@ -6,8 +6,8 @@ async function fetchLibraries(name) {
     config.get('portalBackendUrl') +
     `/repositories/libraries${name ? `/${name}` : ''}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchLibraries }

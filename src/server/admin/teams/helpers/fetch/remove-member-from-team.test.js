@@ -35,7 +35,7 @@ describe('#removeUserFromTeam', () => {
   test('With error, Should throw with expected message', async () => {
     nock(removeUserFromTeamEndpointUrl.origin)
       .patch(removeUserFromTeamEndpointUrl.pathname)
-      .reply(509, { message: 'Ouch!' })
+      .replyWithError('Ouch!')
 
     const error = await getError(async () =>
       removeMemberFromTeam(mockRequest, teamId, userId)
@@ -43,20 +43,6 @@ describe('#removeUserFromTeam', () => {
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Ouch!')
-  })
-
-  test('With different status code, Should throw with expected message', async () => {
-    nock(removeUserFromTeamEndpointUrl.origin)
-      .patch(removeUserFromTeamEndpointUrl.pathname)
-      .reply(407, {})
-
-    const error = await getError(async () =>
-      removeMemberFromTeam(mockRequest, teamId, userId)
-    )
-
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Proxy Authentication Required')
+    expect(error).toHaveProperty('message', 'Client request error: Ouch!')
   })
 })

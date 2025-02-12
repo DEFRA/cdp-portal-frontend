@@ -6,22 +6,22 @@ const portalBackendUrl = config.get('portalBackendUrl')
 async function fetchTeamServices(teamId) {
   const endpoint = portalBackendUrl + `/services?teamId=${teamId}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 async function fetchTeamTestSuites(teamId) {
   const endpoint = portalBackendUrl + `/test-suite?teamId=${teamId}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 async function fetchTeamRepositories(teamId) {
   const endpoint = portalBackendUrl + `/repositories/all/${teamId}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchTeamServices, fetchTeamTestSuites, fetchTeamRepositories }

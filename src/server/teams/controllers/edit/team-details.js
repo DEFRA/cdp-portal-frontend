@@ -45,12 +45,12 @@ const teamDetailsController = {
     if (!validationResult.error) {
       const { team } = await fetchCdpTeam(teamId)
 
-      const { data, response } = await editTeam(request, teamId, {
-        ...team,
-        description
-      })
+      try {
+        await editTeam(request, teamId, {
+          ...team,
+          description
+        })
 
-      if (response?.ok) {
         request.yar.clear(sessionNames.validationFailure)
         request.yar.flash(sessionNames.notifications, {
           text: 'Team updated',
@@ -58,11 +58,11 @@ const teamDetailsController = {
         })
 
         return h.redirect(`/teams/${teamId}`)
+      } catch (error) {
+        request.yar.flash(sessionNames.globalValidationFailures, error.message)
+
+        return h.redirect(`/teams/${teamId}/edit`)
       }
-
-      request.yar.flash(sessionNames.globalValidationFailures, data.message)
-
-      return h.redirect(`/teams/${teamId}/edit`)
     }
   }
 }

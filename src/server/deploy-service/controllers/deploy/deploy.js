@@ -21,45 +21,41 @@ const deployController = {
       config.get('selfServiceOpsUrl') + '/deploy-service'
 
     try {
-      const { data, response } = await request.authedFetcher(
+      const { payload } = await request.authedFetcher(
         deployServiceEndpointUrl,
         {
           method: 'post',
-          body: JSON.stringify({
+          payload: {
             imageName: stepData.imageName,
             version: stepData.version,
             environment: stepData.environment,
             instanceCount: stepData.instanceCount,
             cpu: stepData.cpu,
             memory: stepData.memory
-          })
+          }
         }
       )
 
-      if (response?.ok) {
-        // Remove step data session
-        request.yar.clear(multiStepFormId)
+      // Remove step payload session
+      request.yar.clear(multiStepFormId)
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Deployment successfully requested',
-          type: 'success'
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Deployment successfully requested',
+        type: 'success'
+      })
 
-        const deploymentId = data.deploymentId
+      const deploymentId = payload.deploymentId
 
-        request.audit.sendMessage({
-          event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
-          data: {
-            imageName: stepData.imageName,
-            environment: stepData.environment
-          },
-          user: request.pre.authedUser
-        })
+      request.audit.sendMessage({
+        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        data: {
+          imageName: stepData.imageName,
+          environment: stepData.environment
+        },
+        user: request.pre.authedUser
+      })
 
-        return h.redirect(
-          `/deployments/${stepData.environment}/${deploymentId}`
-        )
-      }
+      return h.redirect(`/deployments/${stepData.environment}/${deploymentId}`)
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

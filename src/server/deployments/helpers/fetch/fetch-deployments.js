@@ -11,8 +11,8 @@ async function fetchDeployments(environment, queryParams) {
       queryString ? `&${queryString}` : ''
     }`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchDeployments }

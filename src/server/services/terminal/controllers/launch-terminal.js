@@ -18,25 +18,19 @@ const launchTerminalController = {
     try {
       canLaunchTerminal(request.auth.credentials?.scope, environment)
 
-      const { response, data } = await deployTerminal(
-        request,
-        serviceId,
-        environment
-      )
+      const { payload } = await deployTerminal(request, serviceId, environment)
 
-      if (response?.ok) {
-        request.audit.send({
-          event: 'terminal requested',
-          user: {
-            id: request.auth.credentials.id,
-            name: request.auth.credentials.displayName
-          },
-          terminal: data
-        })
-        return h.redirect(
-          `/services/${data.service}/terminal/${data.environment}/${data.token}`
-        )
-      }
+      request.audit.send({
+        event: 'terminal requested',
+        user: {
+          id: request.auth.credentials.id,
+          name: request.auth.credentials.displayName
+        },
+        terminal: payload
+      })
+      return h.redirect(
+        `/services/${payload.service}/terminal/${payload.environment}/${payload.token}`
+      )
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 

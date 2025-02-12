@@ -50,33 +50,31 @@ const repositoryCreateController = {
         config.get('selfServiceOpsUrl') + '/create-repository'
 
       try {
-        const { data, response } = await request.authedFetcher(
+        const { payload } = await request.authedFetcher(
           selfServiceOpsCreateRepositoryEndpointUrl,
           {
             method: 'post',
-            body: JSON.stringify(sanitisedPayload)
+            payload: sanitisedPayload
           }
         )
 
-        if (response?.ok) {
-          request.yar.clear(sessionNames.validationFailure)
-          await request.yar.commit(h)
+        request.yar.clear(sessionNames.validationFailure)
+        await request.yar.commit(h)
 
-          request.yar.flash(sessionNames.notifications, {
-            text: data.message,
-            type: 'success'
-          })
+        request.yar.flash(sessionNames.notifications, {
+          text: payload.message,
+          type: 'success'
+        })
 
-          request.audit.sendMessage(
-            auditMessageCreated(
-              'Repository',
-              repositoryName,
-              request.pre.authedUser
-            )
+        request.audit.sendMessage(
+          auditMessageCreated(
+            'Repository',
+            repositoryName,
+            request.pre.authedUser
           )
+        )
 
-          return h.redirect('/create/repository/success')
-        }
+        return h.redirect('/create/repository/success')
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload

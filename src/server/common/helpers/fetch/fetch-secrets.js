@@ -1,13 +1,16 @@
 import { config } from '~/src/config/config.js'
 import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 
-async function fetchSecrets(environment, serviceName, logger) {
+const logger = createLogger()
+
+async function fetchSecrets(environment, serviceName) {
   try {
     const endpoint =
       config.get('portalBackendUrl') + `/secrets/${environment}/${serviceName}`
-    const { data } = await fetcher(endpoint)
+    const { payload } = await fetcher(endpoint)
 
-    return data
+    return payload
   } catch (error) {
     // We are catching here because a 404 can be thrown when a service has not had secrets set up on an environment
     logger.info(

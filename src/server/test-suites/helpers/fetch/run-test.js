@@ -1,18 +1,16 @@
 import { config } from '~/src/config/config.js'
 
-async function runTest(request, imageName, environment) {
+function runTest(request, imageName, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-test-suite'
 
-  const { response } = await request.authedFetcher(endpoint, {
+  return request.authedFetcher(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
+    payload: {
       imageName,
       environment
-    })
+    }
   })
-
-  return { response }
 }
 
 export { runTest }

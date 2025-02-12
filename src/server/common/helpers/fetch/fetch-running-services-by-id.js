@@ -5,8 +5,8 @@ async function fetchRunningServicesById(serviceId) {
   const endpoint =
     config.get('portalBackendUrl') + `/v2/whats-running-where/${serviceId}`
 
-  const { data } = await fetcher(endpoint)
-  return data
+  const { payload } = await fetcher(endpoint)
+  return payload
 }
 
 export { fetchRunningServicesById }

@@ -2,13 +2,11 @@ import { config } from '~/src/config/config.js'
 
 const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 
-export async function deleteEcs(request, serviceName) {
+export function deleteEcs(request, serviceName) {
   const endpoint = `${selfServiceOpsUrl}/delete-ecs/${serviceName}`
 
-  const { response } = await request.authedFetcher(endpoint, {
+  return request.authedFetcher(endpoint, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' }
   })
-
-  return response
 }

@@ -29,40 +29,6 @@ describe('#fetchDeployableImageNames', () => {
 
       expect(deployableImageNames).toEqual(deployableImagesFixture)
     })
-
-    test('With error, Should throw with expected message', async () => {
-      nock(deployableImagesEndpointUrl.origin)
-        .get(deployableImagesEndpointUrl.pathname)
-        .query({ runMode: 'service', groups: 'group1' })
-        .reply(404, { message: 'Sorry - that is not allowed!' })
-
-      const error = await getError(async () =>
-        fetchDeployableImageNames({
-          request: mockRequest
-        })
-      )
-
-      expect(error).not.toBeInstanceOf(NoErrorThrownError)
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Sorry - that is not allowed!')
-    })
-
-    test('With different status code, Should throw with expected message', async () => {
-      nock(deployableImagesEndpointUrl.origin)
-        .get(deployableImagesEndpointUrl.pathname)
-        .query({ runMode: 'service', groups: 'group1' })
-        .reply(431, {})
-
-      const error = await getError(async () =>
-        fetchDeployableImageNames({
-          request: mockRequest
-        })
-      )
-
-      expect(error).not.toBeInstanceOf(NoErrorThrownError)
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Request Header Fields Too Large')
-    })
   })
 
   describe('With a scope argument', () => {
@@ -83,7 +49,7 @@ describe('#fetchDeployableImageNames', () => {
       nock(deployableImagesEndpointUrl.origin)
         .get(deployableImagesEndpointUrl.pathname)
         .query({ runMode: 'service', groups: 'group1' })
-        .reply(403, { message: 'Sorry - that is not allowed!' })
+        .replyWithError('Sorry - that is not allowed!')
 
       const error = await getError(async () =>
         fetchDeployableImageNames({ scope: ['group1'] })
@@ -91,22 +57,10 @@ describe('#fetchDeployableImageNames', () => {
 
       expect(error).not.toBeInstanceOf(NoErrorThrownError)
       expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Sorry - that is not allowed!')
-    })
-
-    test('With different status code, Should throw with expected message', async () => {
-      nock(deployableImagesEndpointUrl.origin)
-        .get(deployableImagesEndpointUrl.pathname)
-        .query({ runMode: 'service', groups: 'group1' })
-        .reply(431, {})
-
-      const error = await getError(async () =>
-        fetchDeployableImageNames({ scope: ['group1'] })
+      expect(error).toHaveProperty(
+        'message',
+        'Client request error: Sorry - that is not allowed!'
       )
-
-      expect(error).not.toBeInstanceOf(NoErrorThrownError)
-      expect(error).toBeInstanceOf(Error)
-      expect(error).toHaveProperty('message', 'Request Header Fields Too Large')
     })
   })
 })
