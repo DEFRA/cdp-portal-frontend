@@ -54,7 +54,7 @@ const testSuiteCreateController = {
           selfServiceOpsCreateTestSuiteEndpointUrl,
           {
             method: 'post',
-            body: JSON.stringify(sanitisedPayload)
+            payload: sanitisedPayload
           }
         )
 
