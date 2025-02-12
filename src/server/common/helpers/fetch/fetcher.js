@@ -1,16 +1,10 @@
-import fetch from 'node-fetch'
-import Boom from '@hapi/boom'
+import Wreck from '@hapi/wreck'
+import { getTraceId } from '@defra/hapi-tracing'
 
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
-import { getTraceId } from '@defra/hapi-tracing'
 
-/**
- * @param {string} url
- * @param {RequestOptions} options
- * @returns {Promise<{data: {object}, response: {Response}}>}
- */
 async function fetcher(url, options = {}) {
   const logger = createLogger()
   const tracingHeader = config.get('tracing.header')
@@ -18,9 +12,11 @@ async function fetcher(url, options = {}) {
 
   logger.debug({ url }, 'Fetching data')
 
-  const response = await fetch(url, {
+  const method = (options?.method || 'get').toLowerCase()
+
+  const { res, payload } = await Wreck[method](url, {
     ...options,
-    method: options?.method || 'get',
+    json: true,
     headers: {
       ...(options?.headers && options.headers),
       ...(traceId && { [tracingHeader]: traceId }),
@@ -28,15 +24,7 @@ async function fetcher(url, options = {}) {
     }
   })
 
-  try {
-    return await handleResponse(response)
-  } catch (error) {
-    logger.debug({ error }, 'Fetcher error')
-
-    throw Boom.boomify(new Error(error.message), {
-      statusCode: error?.output?.statusCode ?? 500
-    })
-  }
+  return handleResponse({ res, payload })
 }
 
 export { fetcher }
