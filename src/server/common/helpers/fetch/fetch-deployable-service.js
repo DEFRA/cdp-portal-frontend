@@ -1,13 +1,13 @@
 import Boom from '@hapi/boom'
 
 import { config } from '~/src/config/config.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 async function fetchDeployableService(serviceId) {
   try {
     const endpoint = config.get('portalBackendUrl') + `/services/${serviceId}`
 
-    const { payload } = await fetcher(endpoint)
+    const { payload } = await fetchJson(endpoint)
     return payload
   } catch (error) {
     const statusCode = error.output.statusCode

@@ -5,7 +5,7 @@ const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 export function scaleEcsToZero(request, serviceName) {
   const endpoint = `${selfServiceOpsUrl}/scale-to-zero/${serviceName}`
 
-  return request.authedFetcher(endpoint, {
+  return request.authedFetchJson(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' }
   })

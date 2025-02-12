@@ -21,7 +21,7 @@ const deployController = {
       config.get('selfServiceOpsUrl') + '/deploy-service'
 
     try {
-      const { payload } = await request.authedFetcher(
+      const { payload } = await request.authedFetchJson(
         deployServiceEndpointUrl,
         {
           method: 'post',

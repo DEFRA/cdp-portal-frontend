@@ -3,7 +3,7 @@ import { config } from '~/src/config/config.js'
 function deployTerminal(request, serviceId, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-terminal'
 
-  return request.authedFetcher(endpoint, {
+  return request.authedFetchJson(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     payload: {

@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 import { config } from '~/src/config/config.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 import { getUserGroups } from '~/src/server/common/helpers/auth/get-user-groups.js'
 
 async function fetchRunnableTestSuiteImageNames(request) {
@@ -15,7 +15,7 @@ async function fetchRunnableTestSuiteImageNames(request) {
       { arrayFormat: 'repeat', addQueryPrefix: true }
     )
 
-  const { payload } = await fetcher(endpoint)
+  const { payload } = await fetchJson(endpoint)
   return payload
 }
 

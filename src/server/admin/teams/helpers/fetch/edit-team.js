@@ -4,7 +4,7 @@ import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
 function editTeam(request, teamId, payload) {
   const endpoint = config.get('userServiceBackendUrl') + '/teams/' + teamId
 
-  return request.authedFetcher(endpoint, {
+  return request.authedFetchJson(endpoint, {
     method: 'patch',
     payload: removeNil({
       name: payload.name,

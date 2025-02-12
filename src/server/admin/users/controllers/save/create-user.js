@@ -17,7 +17,7 @@ const createUserController = {
     const createUserEndpointUrl = `${config.get('userServiceBackendUrl')}/users`
 
     try {
-      await request.authedFetcher(createUserEndpointUrl, {
+      await request.authedFetchJson(createUserEndpointUrl, {
         method: 'post',
         payload: removeNil({
           userId: cdpUser.userId,

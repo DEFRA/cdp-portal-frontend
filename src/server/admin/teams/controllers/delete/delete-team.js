@@ -19,7 +19,7 @@ const deleteTeamController = {
       config.get('userServiceBackendUrl') + `/teams/${teamId}`
 
     try {
-      await request.authedFetcher(deleteTeamEndpointUrl, {
+      await request.authedFetchJson(deleteTeamEndpointUrl, {
         method: 'delete'
       })
 

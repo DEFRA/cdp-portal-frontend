@@ -1,15 +1,15 @@
 import { config } from '~/src/config/config.js'
 import { createServer } from '~/src/server/index.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetcher')
+jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 
 describe('#healthController', () => {
   /** @type {import('@hapi/hapi').Server} */
   let server
 
   beforeAll(async () => {
-    jest.mocked(fetcher).mockImplementationOnce((url) => {
+    jest.mocked(fetchJson).mockImplementationOnce((url) => {
       // Setting up oidc fetcher call
       if (url === config.get('oidcWellKnownConfigurationUrl')) {
         return Promise.resolve({

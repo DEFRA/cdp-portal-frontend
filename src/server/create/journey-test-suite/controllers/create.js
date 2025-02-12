@@ -50,7 +50,7 @@ const testSuiteCreateController = {
         config.get('selfServiceOpsUrl') + '/create-journey-test-suite'
 
       try {
-        const { payload } = await request.authedFetcher(
+        const { payload } = await request.authedFetchJson(
           selfServiceOpsCreateTestSuiteEndpointUrl,
           {
             method: 'post',
