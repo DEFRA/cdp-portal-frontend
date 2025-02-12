@@ -1,5 +1,5 @@
 import authCookie from '@hapi/cookie'
-import { isPast, parseISO, subMinutes } from 'date-fns'
+import { isPast, parseISO } from 'date-fns'
 
 import { config } from '~/src/config/config.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
@@ -33,27 +33,25 @@ const sessionCookie = {
 
           const tokenHasExpired =
             Boolean(userSession?.expiresAt) &&
-            isPast(subMinutes(parseISO(userSession?.expiresAt), 1))
+            isPast(parseISO(userSession?.expiresAt))
 
           if (tokenHasExpired) {
-            const refreshTokenResponse = await refreshAccessToken(request)
+            // refreshing access token with refresh token
+            try {
+              const { payload } = await refreshAccessToken(request)
+              const updatedSession = await refreshUserSession(request, payload)
 
-            if (!refreshTokenResponse?.ok) {
+              return {
+                isValid: true,
+                credentials: updatedSession
+              }
+            } catch (error) {
+              request.logger.debug(error, 'Token refresh failed')
               removeAuthenticatedUser(request)
 
               return { isValid: false }
             }
-
-            const updatedSession = await refreshUserSession(
-              request,
-              await refreshTokenResponse.json()
-            )
-
-            return {
-              isValid: true,
-              credentials: updatedSession
-            }
-          } else if (userSession?.isAuthenticated) {
+          } else if (!tokenHasExpired && userSession?.isAuthenticated) {
             return {
               isValid: true,
               credentials: await updateUserScope(request, userSession)
