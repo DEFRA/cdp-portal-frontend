@@ -3,7 +3,7 @@ import nock from 'nock'
 import { config } from '~/src/config/config.js'
 import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
 import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { authedFetcherDecorator } from '~/src/server/common/helpers/fetch/authed-fetcher.js'
+import { authedFetchJsonDecorator } from '~/src/server/common/helpers/fetch/authed-fetch-json.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#addUserToTeam', () => {
@@ -13,7 +13,7 @@ describe('#addUserToTeam', () => {
     config.get('userServiceBackendUrl') + `/teams/${teamId}/add/${userId}`
   )
   const mockRequest = {
-    authedFetcher: authedFetcherDecorator({
+    authedFetchJson: authedFetchJsonDecorator({
       getUserSession: jest.fn().mockResolvedValue({}),
       logger: {
         info: jest.fn(),

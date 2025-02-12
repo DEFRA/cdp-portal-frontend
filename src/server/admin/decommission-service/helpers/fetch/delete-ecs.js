@@ -5,7 +5,7 @@ const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 export function deleteEcs(request, serviceName) {
   const endpoint = `${selfServiceOpsUrl}/delete-ecs/${serviceName}`
 
-  return request.authedFetcher(endpoint, {
+  return request.authedFetchJson(endpoint, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' }
   })

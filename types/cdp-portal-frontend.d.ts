@@ -3,7 +3,10 @@ import type { RequestOptions, Response } from 'node-fetch'
 
 declare module '@hapi/hapi' {
   interface Request {
-    authedFetcher: (url: string, options?: RequestOptions) => Promise<Response>
+    authedFetchJson: (
+      url: string,
+      options?: RequestOptions
+    ) => Promise<Response>
     dropUserSession: () => void
     getUserSession: () => Promise<UserSession>
     isXhr: () => boolean

@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { config } from '~/src/config/config.js'
 import { librariesFixture } from '~/src/__fixtures__/libraries.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetcher', () => {
@@ -14,7 +14,7 @@ describe('#fetcher', () => {
       .get(librariesEndpointUrl.pathname)
       .reply(200, librariesFixture)
 
-    const { payload: librariesResponse } = await fetcher(librariesEndpoint)
+    const { payload: librariesResponse } = await fetchJson(librariesEndpoint)
 
     expect(librariesResponse).toEqual(librariesFixture)
   })
@@ -24,7 +24,7 @@ describe('#fetcher', () => {
       .get(librariesEndpointUrl.pathname)
       .replyWithError('Woaaaaaaaaaaaaaaaah calm down!')
 
-    const error = await getError(async () => fetcher(librariesEndpoint))
+    const error = await getError(async () => fetchJson(librariesEndpoint))
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)
@@ -45,7 +45,7 @@ describe('#fetcher', () => {
           'FetchError: invalid json response body at http://bad-url reason: Unexpected end of JSON input'
       })
 
-    const error = await getError(async () => fetcher(librariesEndpoint))
+    const error = await getError(async () => fetchJson(librariesEndpoint))
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error).toBeInstanceOf(Error)

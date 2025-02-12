@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 import { config } from '~/src/config/config.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 async function fetchDeployments(environment, queryParams) {
   const queryString = qs.stringify(queryParams, { arrayFormat: 'repeat' })
@@ -11,7 +11,7 @@ async function fetchDeployments(environment, queryParams) {
       queryString ? `&${queryString}` : ''
     }`
 
-  const { payload } = await fetcher(endpoint)
+  const { payload } = await fetchJson(endpoint)
   return payload
 }
 

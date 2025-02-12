@@ -5,7 +5,7 @@ const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 export function decommissionService(request, serviceName) {
   const endpoint = `${selfServiceOpsUrl}/decommission/${serviceName}`
 
-  return request.authedFetcher(endpoint, {
+  return request.authedFetchJson(endpoint, {
     method: 'delete',
     headers: { 'Content-Type': 'application/json' }
   })

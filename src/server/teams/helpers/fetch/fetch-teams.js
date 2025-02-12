@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 import { config } from '~/src/config/config.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 async function fetchTeams(hasGithub = null) {
   const queryString = qs.stringify(
@@ -13,7 +13,7 @@ async function fetchTeams(hasGithub = null) {
 
   const endpoint = config.get('userServiceBackendUrl') + `/teams${queryString}`
 
-  const { payload } = await fetcher(endpoint)
+  const { payload } = await fetchJson(endpoint)
   return payload
 }
 

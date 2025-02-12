@@ -51,7 +51,7 @@ const perfTestSuiteCreateController = {
         config.get('selfServiceOpsUrl') + '/create-perf-test-suite'
 
       try {
-        const { payload } = await request.authedFetcher(
+        const { payload } = await request.authedFetchJson(
           selfServiceOpsCreateEnvTestSuiteEndpointUrl,
           {
             method: 'post',

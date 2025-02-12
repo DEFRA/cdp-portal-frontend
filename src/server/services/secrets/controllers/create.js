@@ -73,7 +73,7 @@ const createSecretController = {
         `/secrets/add/${serviceId}/${environment}`
 
       try {
-        const { payload: createSecretPayload } = await request.authedFetcher(
+        const { payload: createSecretPayload } = await request.authedFetchJson(
           selfServiceOpsAddSecretEndpointUrl,
           {
             method: 'post',

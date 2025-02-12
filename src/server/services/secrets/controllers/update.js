@@ -65,7 +65,7 @@ const updateSecretController = {
         `/secrets/add/${serviceId}/${environment}`
 
       try {
-        await request.authedFetcher(selfServiceOpsAddSecretEndpointUrl, {
+        await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
           method: 'post',
           payload: omit(sanitisedPayload, ['environment', 'button'])
         })

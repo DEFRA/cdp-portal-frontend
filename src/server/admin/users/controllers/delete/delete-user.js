@@ -19,7 +19,7 @@ const deleteUserController = {
       config.get('userServiceBackendUrl') + `/users/${userId}`
 
     try {
-      await request.authedFetcher(deleteUserEndpointUrl, {
+      await request.authedFetchJson(deleteUserEndpointUrl, {
         method: 'delete'
       })
 

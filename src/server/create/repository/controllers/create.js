@@ -50,7 +50,7 @@ const repositoryCreateController = {
         config.get('selfServiceOpsUrl') + '/create-repository'
 
       try {
-        const { payload } = await request.authedFetcher(
+        const { payload } = await request.authedFetchJson(
           selfServiceOpsCreateRepositoryEndpointUrl,
           {
             method: 'post',

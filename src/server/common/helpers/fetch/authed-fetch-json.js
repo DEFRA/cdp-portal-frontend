@@ -11,7 +11,7 @@ import {
   refreshUserSession
 } from '~/src/server/common/helpers/auth/user-session.js'
 
-async function authedFetcher(url, token, options = {}) {
+async function authedFetchJson(url, token, options = {}) {
   const logger = createLogger()
   const tracingHeader = config.get('tracing.header')
   const traceId = getTraceId()
@@ -34,45 +34,47 @@ async function authedFetcher(url, token, options = {}) {
   return handleResponse({ res, payload })
 }
 
-function authedFetcherDecorator(request) {
+function authedFetchJsonDecorator(request) {
   return async (url, options = {}) => {
     const authedUser = await request.getUserSession()
     const token = authedUser?.token ?? null
 
-    return authedFetcher(url, token, options).then(async ({ res, payload }) => {
-      if (res.statusCode === statusCodes.unauthorized) {
-        // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
+    return authedFetchJson(url, token, options).then(
+      async ({ res, payload }) => {
+        if (res.statusCode === statusCodes.unauthorized) {
+          // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
 
-        try {
-          const { payload: refreshAccessTokenPayload } =
-            await refreshAccessToken(request)
-          request.logger.debug(
-            { refreshAccessTokenPayload },
-            'Token refresh succeeded'
-          )
+          try {
+            const { payload: refreshAccessTokenPayload } =
+              await refreshAccessToken(request)
+            request.logger.debug(
+              { refreshAccessTokenPayload },
+              'Token refresh succeeded'
+            )
 
-          await refreshUserSession(
-            request,
-            JSON.parse(refreshAccessTokenPayload.toString())
-          )
+            await refreshUserSession(
+              request,
+              JSON.parse(refreshAccessTokenPayload.toString())
+            )
 
-          const authedUser = await request.getUserSession()
-          const newToken = authedUser?.token ?? null
+            const authedUser = await request.getUserSession()
+            const newToken = authedUser?.token ?? null
 
-          // Replay initial request with new token
-          return await authedFetcher(url, newToken, options)
-        } catch (error) {
-          request.logger.debug(error, 'Token refresh failed')
-          removeAuthenticatedUser(request)
+            // Replay initial request with new token
+            return await authedFetchJson(url, newToken, options)
+          } catch (error) {
+            request.logger.debug(error, 'Token refresh failed')
+            removeAuthenticatedUser(request)
+          }
         }
-      }
 
-      return handleResponse({ res, payload })
-    })
+        return handleResponse({ res, payload })
+      }
+    )
   }
 }
 
-export { authedFetcherDecorator, authedFetcher }
+export { authedFetchJsonDecorator, authedFetchJson }
 /**
  * import { Response, RequestOptions } from 'node-fetch'
  */

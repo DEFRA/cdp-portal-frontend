@@ -3,7 +3,7 @@ import bell from '@hapi/bell'
 
 import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { fetcher } from '~/src/server/common/helpers/fetch/fetcher.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 const sessionCookieConfig = config.get('sessionCookie')
 
@@ -13,7 +13,7 @@ const azureOidc = {
     register: async (server) => {
       await server.register(bell)
 
-      const { payload } = await fetcher(
+      const { payload } = await fetchJson(
         config.get('oidcWellKnownConfigurationUrl')
       )
 
