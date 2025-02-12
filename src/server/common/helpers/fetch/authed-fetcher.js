@@ -2,6 +2,7 @@ import Wreck from '@hapi/wreck'
 import { getTraceId } from '@defra/hapi-tracing'
 
 import { config } from '~/src/config/config.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
@@ -39,7 +40,7 @@ function authedFetcherDecorator(request) {
     const token = authedUser?.token ?? null
 
     return authedFetcher(url, token, options).then(async ({ res, payload }) => {
-      if (res.statusCode === 401) {
+      if (res.statusCode === statusCodes.unauthorized) {
         // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
 
         try {
