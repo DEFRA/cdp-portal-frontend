@@ -73,7 +73,7 @@ const createSecretController = {
         `/secrets/add/${serviceId}/${environment}`
 
       try {
-        const { payload } = await request.authedFetcher(
+        const { payload: createSecretPayload } = await request.authedFetcher(
           selfServiceOpsAddSecretEndpointUrl,
           {
             method: 'post',
@@ -83,7 +83,7 @@ const createSecretController = {
 
         request.yar.clear(sessionNames.validationFailure)
         request.yar.flash(sessionNames.notifications, {
-          text: payload.message,
+          text: createSecretPayload.message,
           type: 'success'
         })
 

@@ -43,10 +43,14 @@ function authedFetcherDecorator(request) {
         // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
 
         try {
-          const { payload } = await refreshAccessToken(request)
-          request.logger.debug({ payload }, 'Token refresh succeeded')
+          const { payload: refreshAccessTokenPayload } =
+            await refreshAccessToken(request)
+          request.logger.debug(
+            { refreshAccessTokenPayload },
+            'Token refresh succeeded'
+          )
 
-          await refreshUserSession(request, payload)
+          await refreshUserSession(request, refreshAccessTokenPayload)
 
           const authedUser = await request.getUserSession()
           const newToken = authedUser?.token ?? null
