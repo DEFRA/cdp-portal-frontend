@@ -74,9 +74,9 @@ async function updateUserScope(request, userSession) {
     request.state.userSessionCookie.sessionId,
     {
       ...userSession,
-      isAdmin: scopeFlags.isAdmin,
-      isTenant: scopeFlags.isTenant,
-      scope: scopes
+      isAdmin: scopeFlags?.isAdmin,
+      isTenant: scopeFlags?.isTenant,
+      scope: scopes ?? []
     }
   )
 
