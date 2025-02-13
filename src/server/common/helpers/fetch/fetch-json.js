@@ -5,6 +5,12 @@ import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 
+/**
+ * Fetch JSON from a given URL
+ * @param {string} url
+ * @param {Wreck.options} options
+ * @returns {Promise<{res: *, error}|{res: *, payload: *}>}
+ */
 async function fetchJson(url, options = {}) {
   const logger = createLogger()
   const tracingHeader = config.get('tracing.header')
@@ -28,6 +34,3 @@ async function fetchJson(url, options = {}) {
 }
 
 export { fetchJson }
-/**
- * import { Response, RequestOptions } from 'node-fetch'
- */

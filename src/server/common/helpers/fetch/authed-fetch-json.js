@@ -11,6 +11,13 @@ import {
   refreshUserSession
 } from '~/src/server/common/helpers/auth/user-session.js'
 
+/**
+ * Fetch JSON from a given URL with the provided token
+ * @param {string} url
+ * @param {string} token
+ * @param {Wreck.options} options
+ * @returns {Promise<{res: *, error}|{res: *, payload: *}>}
+ */
 async function authedFetchJson(url, token, options = {}) {
   const logger = createLogger()
   const tracingHeader = config.get('tracing.header')
@@ -75,6 +82,3 @@ function authedFetchJsonDecorator(request) {
 }
 
 export { authedFetchJsonDecorator, authedFetchJson }
-/**
- * import { Response, RequestOptions } from 'node-fetch'
- */
