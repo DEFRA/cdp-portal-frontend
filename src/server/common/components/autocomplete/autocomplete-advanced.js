@@ -1,7 +1,7 @@
 import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
 
 /**
- * @classdesc Advanced Autocomplete component, supports hints.
+ * @classdesc Advanced Autocomplete component, supports suggestion hints/extra metadata.
  * @class
  * @augments Autocomplete
  */
@@ -46,6 +46,11 @@ class AutocompleteAdvanced extends Autocomplete {
       $suggestion?.dataset?.hint.toLowerCase() === textValue.toLowerCase()
   }
 
+  /**
+   * @param {HTMLLIElement} $li
+   * @param {Suggestion} item
+   * @returns {HTMLLIElement}
+   */
   populateSuggestion($li, item) {
     $li.dataset.value = item.value
     $li.dataset.text = item.text

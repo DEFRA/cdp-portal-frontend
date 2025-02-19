@@ -1,5 +1,6 @@
 import qs from 'qs'
 import isNull from 'lodash/isNull.js'
+import debounce from 'lodash/debounce.js'
 
 import {
   publish,
@@ -11,6 +12,33 @@ import { clientNotification } from '~/src/client/common/helpers/client-notificat
 const selectMessage = ' - - select - - '
 const tickSvgIcon = `
 <svg xmlns="http://www.w3.org/2000/svg" class="app-tick-icon" width="48" height="48" viewBox="0 -960 960 960"><path d="m419-285 291-292-63-64-228 228-111-111-63 64 174 175Zm60.679 226q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z"/></svg>`.trim()
+
+/**
+ * Async wrapper for lodash debounce
+ * @param {function} func
+ * @param {number} wait in milliseconds
+ * @returns {function(...[*]): Promise<unknown>}
+ */
+function asyncDebounce(func, wait) {
+  const debounced = debounce(async (resolve, reject, bindSelf, args) => {
+    try {
+      const result = await func.bind(bindSelf)(...args)
+      resolve(result)
+    } catch (error) {
+      reject(error)
+    }
+  }, wait)
+
+  // This is the function that will be bound by the caller, so it must contain the `function` keyword.
+  function returnFunc(...args) {
+    return new Promise((resolve, reject) => {
+      // eslint-disable-next-line
+      debounced(resolve, reject, this, args)
+    })
+  }
+
+  return returnFunc
+}
 
 /**
  * @typedef {object} Suggestion
@@ -28,12 +56,14 @@ const tickSvgIcon = `
 class Autocomplete {
   /**
    * @param {HTMLElement | null} $module
+   * @param {object} options
    */
-  constructor($module) {
+  constructor($module, options = {}) {
     if (!($module instanceof HTMLElement)) {
       return
     }
 
+    this.options = options
     this.$module = $module
     this.$select = this.$module.querySelector(
       `[data-js*="app-progressive-input"]`
@@ -45,6 +75,7 @@ class Autocomplete {
     this.$autocomplete = this.$module.querySelector(
       '[data-js*="app-autocomplete-input"]'
     )
+    this.$form = this.$autocomplete.form
     this.$noJsSubmitButton = this.$autocomplete.form.querySelector(
       '[data-js="app-no-js-submit-button"]'
     )
@@ -86,9 +117,19 @@ class Autocomplete {
     this.placeholder = $select.dataset.placeholder
     this.typeahead = $select.dataset.typeahead
 
+    const dataFetcherName = $select.dataset.fetcherName
+    this.dataFetcher = {
+      isEnabled: Boolean(dataFetcherName),
+      name: dataFetcherName,
+      $loader: document.querySelector(
+        `[data-js*="${$select.dataset.fetcherLoader}"]`
+      )
+    }
+
+    const siblingDataFetcherName = $select.dataset.siblingDataFetcherName
     this.siblingDataFetcher = {
-      isEnabled: $select.dataset.siblingDataFetcherName,
-      name: $select.dataset.siblingDataFetcherName,
+      isEnabled: Boolean(siblingDataFetcherName),
+      name: siblingDataFetcherName,
       $target: document.querySelector(
         `[data-js*="${$select.dataset.siblingDataFetcherTarget}"]`
       ),
@@ -101,7 +142,7 @@ class Autocomplete {
 
     $autocomplete.id = $select.id
     $autocomplete.type = 'text'
-    $autocomplete.name = '' // So the input value is not submitted, the hidden input submits the value
+    $autocomplete.name = this.options.includeInput ? `${$select.name}Text` : ''
     $autocomplete.value = suggestion?.text ?? ''
     $autocomplete.classList.add('govuk-input', 'app-autocomplete__input')
     $autocomplete.placeholder = this.placeholder ?? selectMessage
@@ -281,6 +322,10 @@ class Autocomplete {
     this.$autocomplete.dispatchEvent(new Event('input', { bubbles: true }))
   }
 
+  submitForm() {
+    this.$form.submit()
+  }
+
   scrollToHighlight() {
     const $hasHighlight = this.$suggestionsContainer.querySelector(
       '[data-has-highlight="true"]'
@@ -353,32 +398,40 @@ class Autocomplete {
       $suggestion?.dataset?.text.toLowerCase() === textValue.toLowerCase()
   }
 
-  populateSuggestions({ textValue, suggestionIndex } = {}) {
-    let $suggestions
-
+  provideSuggestions({ textValue, suggestionIndex } = {}) {
     const match = this.getSuggestionMarkup(textValue)
+
     if (match?.value) {
       // Autocomplete input value exact matches a suggestion
+
       const filterExactMatch = this.filterExactMatch(textValue)
-      $suggestions = this.getSuggestionsMarkup()
+      return this.getSuggestionsMarkup()
         .filter(filterExactMatch)
         .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else if (textValue) {
       // Partial match
 
       const filterPartialMatch = this.filterPartialMatch(textValue)
-      $suggestions = this.getSuggestionsMarkup()
+      return this.getSuggestionsMarkup()
         .filter(filterPartialMatch)
         .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else {
       // Reset suggestions
-      $suggestions = this.getSuggestionsMarkup().map(
+
+      return this.getSuggestionsMarkup().map(
         this.dressSuggestion({ textValue, suggestionIndex })
       )
     }
+  }
 
-    $suggestions = $suggestions.length
-      ? $suggestions
+  populateSuggestions({ textValue, suggestionIndex } = {}) {
+    const providedSuggestions = this.provideSuggestions({
+      textValue,
+      suggestionIndex
+    })
+
+    const $suggestions = providedSuggestions?.length
+      ? providedSuggestions
       : [this.buildNoSuggestionsMessage(textValue)]
 
     this.$suggestionsContainer.replaceChildren(...$suggestions)
@@ -492,6 +545,41 @@ class Autocomplete {
     publish(this.publishTo, { queryParams: { [name]: value } })
   }
 
+  callDataFetcher(value) {
+    const dataFetcherMethod = window.cdp[this.dataFetcher.name]
+    const name = this.name
+
+    if (typeof dataFetcherMethod !== 'function') {
+      return
+    }
+
+    if (value && value.length < 3) {
+      return
+    }
+
+    const isLoadingClassName = 'app-loader--is-loading'
+    const $loader = this.dataFetcher.$loader
+    const delayedLoader = setTimeout(() => {
+      $loader.classList.add(isLoadingClassName)
+    }, 600) // Long delay so only shown on heavy loads
+
+    return dataFetcherMethod(value)
+      .then((fetchedSuggestions) => {
+        const suggestionOptions = buildSuggestions(fetchedSuggestions)
+        window.cdp.suggestions[name] = suggestionOptions
+
+        return suggestionOptions
+      })
+      .catch((error) => {
+        clientNotification(error.message)
+        return error
+      })
+      .finally(() => {
+        clearTimeout(delayedLoader)
+        $loader?.classList?.remove(isLoadingClassName)
+      })
+  }
+
   /**
    * Call sibling data fetcher method to fetch suggestions for a targeted sibling input in the same form
    * @param {string} value - text input value
@@ -575,6 +663,22 @@ class Autocomplete {
     })
   }
 
+  choiceAction() {
+    this.dispatchInputEvent()
+  }
+
+  clearButtonEvent() {
+    this.resetAutocompleteValues()
+    this.$autocomplete.focus()
+
+    this.dispatchInputEvent()
+    this.hideCloseButton()
+    this.populateSuggestions({
+      textValue: this.$autocomplete.value,
+      suggestionIndex: null
+    })
+  }
+
   addEventListeners() {
     document.addEventListener('DOMContentLoaded', () => {
       if (this.$noJsSubmitButton) {
@@ -605,17 +709,10 @@ class Autocomplete {
       }
     })
 
-    this.$clearButton.addEventListener('click', () => {
-      this.resetAutocompleteValues()
-      this.$autocomplete.focus()
-
-      this.dispatchInputEvent()
-      this.hideCloseButton()
-      this.populateSuggestions({
-        textValue: this.$autocomplete.value,
-        suggestionIndex: null
-      })
-    })
+    this.$clearButton.addEventListener(
+      'click',
+      this.clearButtonEvent.bind(this)
+    )
 
     this.$chevronButton.addEventListener('click', (event) => {
       event.stopPropagation()
@@ -673,7 +770,7 @@ class Autocomplete {
     })
 
     // User typing inside input
-    this.$autocomplete.addEventListener('input', (event) => {
+    this.$autocomplete.addEventListener('input', async (event) => {
       if (this.isSuggestionsHidden) {
         this.openSuggestions()
       }
@@ -686,6 +783,11 @@ class Autocomplete {
         this.hideCloseButton()
         this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
         this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
+      }
+
+      if (this.dataFetcher.isEnabled) {
+        const debouncer = asyncDebounce(this.callDataFetcher.bind(this), 200)
+        await debouncer(textValue)
       }
 
       this.populateSuggestions({
@@ -883,7 +985,7 @@ class Autocomplete {
             value: $currentSuggestion.dataset?.value
           })
 
-          this.dispatchInputEvent()
+          this.choiceAction()
           this.suggestionIndex = null
         }
 
@@ -909,7 +1011,8 @@ class Autocomplete {
           text: $suggestion?.dataset?.text,
           value: $suggestion?.dataset?.value
         })
-        this.dispatchInputEvent()
+
+        this.choiceAction()
 
         this.suggestionIndex = $suggestion.getAttribute('aria-posinset') - 1
 

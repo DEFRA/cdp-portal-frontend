@@ -22,7 +22,6 @@ function filters($form) {
   }
 
   $form.addEventListener('input', debounce(handleFormSubmit, 300)) // minimal debounce whilst user is typing
-  $form.addEventListener('submit', handleFormSubmit)
 }
 
 function handleFormSubmit(event) {
@@ -41,6 +40,7 @@ async function submitForm($form) {
 
   $form.dataset.isSubmitting = 'true'
 
+  // TODO this shouldn't be querying for non typeahead components
   const queryParams = Array.from($form.elements).reduce(
     (validElements, element) => {
       if (element.name && element.value) {

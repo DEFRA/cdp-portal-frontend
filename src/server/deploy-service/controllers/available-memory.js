@@ -1,7 +1,13 @@
+import Boom from '@hapi/boom'
+
 import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
 
 const availableMemoryController = {
   handler: async (request, h) => {
+    if (!request.isXhr()) {
+      return Boom.methodNotAllowed('This route is only available via XHR')
+    }
+
     try {
       const cpu = request.query?.cpu
 

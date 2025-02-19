@@ -2,6 +2,7 @@ import { initAll } from 'govuk-frontend'
 
 import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
 import { AutocompleteAdvanced } from '~/src/server/common/components/autocomplete/autocomplete-advanced.js'
+import { AutocompleteSearch } from '~/src/server/common/components/autocomplete/autocomplete-search.js'
 import { autoSubmit } from '~/src/client/common/helpers/auto-submit.js'
 import { availability } from '~/src/server/common/components/availability/availability.js'
 import { banner } from '~/src/server/common/components/banner/banner.js'
@@ -9,8 +10,9 @@ import { button } from '~/src/server/common/components/button/button.js'
 import { clearFilters } from '~/src/client/common/helpers/fetch/filters/clear-filters.js'
 import { errorMessages } from '~/src/client/common/helpers/error-messages.js'
 import { fetchIsNameAvailable } from '~/src/client/common/helpers/fetch/create/fetch-is-name-available.js'
-import { fetchMemory } from '~/src/client/common/helpers/fetch/select/index.js'
-import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete/index.js'
+import { fetchMemory } from '~/src/client/common/helpers/fetch/select/fetch-memory.js'
+import { fetchDocsSearchSuggestions } from '~/src/client/common/helpers/fetch/autocomplete/fetch-docs-search-suggestions.js'
+import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete/fetch-versions.js'
 import { focusOnErrorMessage } from '~/src/client/common/helpers/focus-on-error-message.js'
 import { filters } from '~/src/server/common/components/filters/filters.js'
 import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant.js'
@@ -35,6 +37,7 @@ window.cdp = window.cdp || {}
 
 // Helper functions
 window.cdp.fetchVersions = fetchVersions
+window.cdp.fetchDocsSearchSuggestions = fetchDocsSearchSuggestions
 window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 window.cdp.clearFilters = clearFilters
@@ -66,6 +69,7 @@ initModules('app-search', search)
 // Autocomplete
 initClass('app-autocomplete', Autocomplete)
 initClass('app-autocomplete-advanced', AutocompleteAdvanced)
+initClass('app-autocomplete-search', AutocompleteSearch)
 
 // Xhr Container
 initModules('app-xhr-subscriber', xhrSubscriber)

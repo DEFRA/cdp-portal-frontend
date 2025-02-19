@@ -1,4 +1,8 @@
-import { GetObjectCommand } from '@aws-sdk/client-s3'
+import {
+  GetObjectCommand,
+  HeadObjectCommand,
+  ListObjectsV2Command
+} from '@aws-sdk/client-s3'
 import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 function fetchS3File(request, key, bucket) {
@@ -7,6 +11,22 @@ function fetchS3File(request, key, bucket) {
     Key: key
   })
 
+  return request.s3Client.send(command)
+}
+
+function fetchHeadObject(request, key, bucket) {
+  const command = new HeadObjectCommand({
+    Bucket: bucket,
+    Key: key
+  })
+
+  return request.s3Client.send(command)
+}
+
+function fetchListObjects(request, bucket) {
+  const command = new ListObjectsV2Command({
+    Bucket: bucket
+  })
   return request.s3Client.send(command)
 }
 
@@ -19,4 +39,4 @@ async function s3FileHandler(request, h, documentationPath, bucket) {
     .code(statusCodes.ok)
 }
 
-export { s3FileHandler, fetchS3File }
+export { s3FileHandler, fetchS3File, fetchHeadObject, fetchListObjects }

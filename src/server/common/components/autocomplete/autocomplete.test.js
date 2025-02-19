@@ -5,6 +5,8 @@ import { defaultOption } from '~/src/server/common/helpers/options/default-optio
 import { dispatchDomContentLoaded } from '~/test-helpers/dispatch-dom-content-loaded.js'
 import { enterValue, pressEnter } from '~/test-helpers/keyboard.js'
 import { flushAsync } from '~/test-helpers/flush-async.js'
+import { fetchDocsSearchSuggestions } from '~/src/client/common/helpers/fetch/autocomplete/fetch-docs-search-suggestions.js'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 
 const basicSuggestions = [
   defaultOption,
@@ -78,7 +80,6 @@ function setupSingleAutoComplete({ userSearchParam, params = {} } = {}) {
         hint: { text: 'Choose a user' },
         id: 'user',
         name: 'user',
-        suggestions: basicSuggestions,
         ...params
       },
       userSearchParam
@@ -183,7 +184,9 @@ describe('#autocomplete', () => {
         autocompleteHiddenInput,
         chevronButton,
         suggestionsContainer
-      } = setupSingleAutoComplete())
+      } = setupSingleAutoComplete({
+        params: { suggestions: basicSuggestions }
+      }))
     })
 
     describe('On load', () => {
@@ -716,7 +719,8 @@ describe('#autocomplete', () => {
 
     beforeEach(() => {
       ;({ autocompleteInput, suggestionsContainer } = setupSingleAutoComplete({
-        userSearchParam: 'Barbie'
+        userSearchParam: 'Barbie',
+        params: { suggestions: basicSuggestions }
       }))
     })
 
@@ -779,7 +783,7 @@ describe('#autocomplete', () => {
 
     beforeEach(() => {
       ;({ autocompleteInput } = setupSingleAutoComplete({
-        params: { publishTo: eventName }
+        params: { publishTo: eventName, suggestions: basicSuggestions }
       }))
       subscribe(eventName, mockSubscriber)
     })
@@ -794,6 +798,61 @@ describe('#autocomplete', () => {
           user: 'RoboCop'
         }
       })
+    })
+  })
+
+  describe('With data fetcher', () => {
+    const mockFetchDocsSearchSuggestions = jest.fn()
+    let autocompleteInput
+    let suggestionsContainer
+
+    beforeEach(() => {
+      jest.useFakeTimers()
+
+      window.cdp = window.cdp || {}
+      window.cdp.fetchDocsSearchSuggestions = mockFetchDocsSearchSuggestions
+      ;({ autocompleteInput, suggestionsContainer } = setupSingleAutoComplete({
+        suggestions: buildOptions([]),
+        params: {
+          dataFetcher: {
+            isEnabled: true,
+            name: 'fetchDocsSearchSuggestions',
+            loader: 'search-docs-loader'
+          },
+          noSuggestionsMessage: 'no results'
+        }
+      }))
+    })
+
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+
+    test('When input clicked, Should contain expected suggestions', () => {
+      autocompleteInput.click()
+      const children = suggestionsContainer.children
+
+      expect(children).toHaveLength(1)
+      expect(children[0].textContent).toContain(' - - no results - - ')
+    })
+
+    test('When text entered into autocomplete, Should fetch data', async () => {
+      mockFetchDocsSearchSuggestions.mockResolvedValue([
+        { text: 'run, get to the chopper', value: 'predator' }
+      ])
+
+      const fetchTerm = 'run, get to the chopper'
+      enterValue(autocompleteInput, fetchTerm)
+
+      await flushAsync()
+      jest.advanceTimersByTime(210)
+
+      expect(mockFetchDocsSearchSuggestions).toHaveBeenCalledWith(fetchTerm)
+
+      const children = suggestionsContainer.children
+
+      expect(children).toHaveLength(1)
+      expect(children[0].textContent).toContain('run, get to the chopper')
     })
   })
 
