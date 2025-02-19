@@ -32,3 +32,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         continue-on-error: true
+  test:
+    name: Run Journey Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t defradigital/cdp-portal-frontend:${{github.sha}} .
+      - uses: DEFRA/cdp-portal-journey-tests/run-journey-tests@main
+        with:
+          portal-frontend: ${{github.sha}}
