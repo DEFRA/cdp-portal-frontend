@@ -21,8 +21,8 @@ const contentSecurityPolicy = {
     defaultSrc: ['self'],
     fontSrc: ['self', 'data:'],
     connectSrc: ['self', 'data:'],
-    scriptSrc: ['self', 'data:', 'unsafe-inline'],
-    styleSrc: ['self', 'data:', 'unsafe-inline'],
+    scriptSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
+    styleSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     imgSrc: ['self', 'data:'],
     frameSrc: ['self', 'data:', ...terminalProxyDomains],
     generateNonces: false
