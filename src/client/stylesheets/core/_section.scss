@@ -1,3 +1,6 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
 @use "helpers/reading-width" as *;
 
 .app-section {
@@ -6,4 +9,13 @@
 
 .app-section--wide {
   max-width: 64em;
+}
+
+.app-section-highlight {
+  padding: govuk-spacing(4) govuk-spacing(2);
+  margin: govuk-spacing(4) govuk-spacing(-2);
+  background-color: $app-light-grey;
+  border-radius: $app-border-radius;
+  border-top: 1px solid $app-mid-grey;
+  border-bottom: 1px solid $app-mid-grey;
 }
