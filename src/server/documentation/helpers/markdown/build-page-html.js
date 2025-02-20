@@ -10,7 +10,7 @@ const docsMarked = new Marked({
   extensions: [linkExtension, headingExtension]
 }).use(markedAlert())
 
-async function buildPageHtml(markdown) {
+async function buildPageHtml(searchTerm, markdown) {
   const headingElements = []
 
   const walkTokens = (token) => {
@@ -28,7 +28,15 @@ async function buildPageHtml(markdown) {
   }
 
   docsMarked.use({ walkTokens })
-  const html = await docsMarked.parse(markdown)
+
+  const md = searchTerm
+    ? markdown.replace(
+        new RegExp(`(${searchTerm})`, 'gi'),
+        '<mark class="app-mark">$1</mark>'
+      )
+    : markdown
+
+  const html = await docsMarked.parse(md)
 
   return { html, toc: buildTableOfContents(headingElements) }
 }

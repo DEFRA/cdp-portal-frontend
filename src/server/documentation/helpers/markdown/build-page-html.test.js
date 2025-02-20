@@ -3,9 +3,11 @@ import { load } from 'cheerio'
 import { buildPageHtml } from '~/src/server/documentation/helpers/markdown/build-page-html.js'
 
 describe('#buildPageHtml', () => {
+  const searchTerm = ''
+
   test('Should convert markdown to HTML', async () => {
     const markdown = '# Heading\n\nThis is a paragraph.'
-    const { html } = await buildPageHtml(markdown)
+    const { html } = await buildPageHtml(searchTerm, markdown)
 
     const $html = load(html)
     const $heading = $html('h1')
@@ -20,9 +22,22 @@ describe('#buildPageHtml', () => {
     expect($paragraph.text()).toBe('This is a paragraph.')
   })
 
+  test('Should highlight search term', async () => {
+    const searchTerm = 'paragraph'
+    const markdown = '# Heading\n\nThis is a paragraph.'
+    const { html } = await buildPageHtml(searchTerm, markdown)
+
+    const $html = load(html)
+    const $paragraph = $html('p')
+
+    expect($paragraph.html()).toBe(
+      'This is a <mark class="app-mark">paragraph</mark>.'
+    )
+  })
+
   test('Should generate expected table of contents', async () => {
     const markdown = '# Heading 1\n\n## Heading 2\n\n### Heading 3'
-    const { toc } = await buildPageHtml(markdown)
+    const { toc } = await buildPageHtml(searchTerm, markdown)
 
     const $toc = load(toc)
     const $link1 = $toc('ul').first().find('a').first()
@@ -40,7 +55,7 @@ describe('#buildPageHtml', () => {
   })
 
   test('Should handle empty markdown input', async () => {
-    const { html, toc } = await buildPageHtml('')
+    const { html, toc } = await buildPageHtml(searchTerm, '')
 
     expect(html).toBe('')
     expect(toc).toBe('')

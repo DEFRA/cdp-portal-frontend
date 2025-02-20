@@ -1,6 +1,7 @@
 {% extends "layouts/page.njk" %}
 
 {% from "documentation/macro.njk" import appDocumentation %}
+{% from "icons/search-icon/macro.njk" import appSearchIcon %}
 
 {% block content %}
   {{ appPageHeading({
@@ -8,7 +9,42 @@
     intro: "All things Core Delivery Platform, Architecture, Onboarding, Services, Developer docs and more"
   }) }}
 
-  <hr class="app-section-break app-section-break--slim">
+  {% if isAdmin %}
+    <form action="/documentation/search" method="POST" class="app-section-highlight js-visible">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-2">
+        Search
+      </legend>
+
+      <fieldset class="govuk-fieldset">
+        {{ appAutocomplete({
+          id: "documentation-search",
+          name: "q",
+          classes: "app-autocomplete--inline",
+          template: "search",
+          icon: appSearchIcon,
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          noSuggestionsMessage: 'no results',
+          value: formValues.q,
+          suggestions: suggestions,
+          suggestionsContainer: {
+            classes: "app-autocomplete__suggestions--large"
+          },
+          placeholder: "Search CDP documentation",
+          dataFetcher: {
+            name: "fetchDocsSearchSuggestions",
+            loader: "search-docs-loader"
+          },
+          loader: {
+            name: "search-docs-loader"
+          }
+        }) }}
+      </fieldset>
+
+      <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+    </form>
+  {% endif %}
 
   {{ appDocumentation({ nav: nav, content: content, toc: toc }) }}
 
