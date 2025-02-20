@@ -107,19 +107,21 @@ function prepTextResult(textWithContext, searchTerm) {
 async function searchIndex(request, bucket, query) {
   const startBuildIndex = performance.now()
 
-  const searchIndex = await buildSearchIndex(request, bucket)
+  const builtSearchIndex = await buildSearchIndex(request, bucket)
 
   // Remove some lunr special characters
   const queryTerm = query?.replace(/[*^:~+-]/g, '') ?? null
   const results = queryTerm
-    ? searchIndex.index.search(
+    ? builtSearchIndex.index.search(
         `${queryTerm}^100 ${queryTerm}*^10 ${queryTerm}~2` // https://github.com/olivernn/lunr.js/issues/256#issuecomment-295407852
       )
     : []
 
   const searchSuggestions = results
     .flatMap((result) => {
-      const match = searchIndex.files.find((file) => file.name === result.ref)
+      const match = builtSearchIndex.files.find(
+        (file) => file.name === result.ref
+      )
 
       if (match) {
         const positions = Object.keys(result.matchData.metadata).flatMap(
