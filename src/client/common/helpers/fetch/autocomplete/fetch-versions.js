@@ -1,6 +1,7 @@
 async function fetchVersions(value) {
   const response = await fetch(
-    `${location.origin}/deploy-service/available-versions?serviceName=${value}`
+    `${location.origin}/deploy-service/available-versions?serviceName=${value}`,
+    { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
   )
   const json = await response.json()
 

@@ -1,6 +1,7 @@
 async function fetchMemory(value) {
   const response = await fetch(
-    `${location.origin}/deploy-service/available-memory?cpu=${value}`
+    `${location.origin}/deploy-service/available-memory?cpu=${value}`,
+    { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
   )
   const json = await response.json()
 

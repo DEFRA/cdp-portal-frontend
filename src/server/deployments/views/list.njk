@@ -1,5 +1,7 @@
 {% extends "layouts/tabbed-page.njk" %}
 
+{% from "icons/search-icon/macro.njk" import appSearchIcon %}
+
 {% block beforeTabContent %}
 
   {{ appHeading({
@@ -29,11 +31,12 @@
       {{ appAutocomplete({
         id: "filters-service",
         name: "service",
-        classes: "app-autocomplete--small app-autocomplete--inline",
+        classes: "app-autocomplete--medium app-autocomplete--inline",
         label: {
           text: "Service name",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
         },
+        icon: appSearchIcon,
         formGroup: {
           classes: "app-form-group--inline"
         },

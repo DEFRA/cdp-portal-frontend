@@ -22,8 +22,10 @@
     </div>
 
     <div class="app-documentation__toc-sidebar">
-      <strong class="govuk-heading-m">On this page</strong>
-      {{ params.toc | safe }}
+      {% if params.toc %}
+        <strong class="govuk-heading-m">On this page</strong>
+        {{ params.toc | safe }}
+      {% endif %}
     </div>
   </div>
 </div>

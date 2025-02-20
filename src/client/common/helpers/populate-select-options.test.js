@@ -1,7 +1,7 @@
 import fetchMock from 'jest-fetch-mock'
 
 import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options.js'
-import { fetchMemory } from '~/src/client/common/helpers/fetch/select/index.js'
+import { fetchMemory } from '~/src/client/common/helpers/fetch/select/fetch-memory.js'
 import { availableMemoryOptionsFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
 
 describe('#populateSelectOptions', () => {
