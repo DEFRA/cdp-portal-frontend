@@ -311,7 +311,7 @@ describe('#autocomplete-advanced', () => {
       test('Should provide no results message', () => {
         expect(suggestionsContainer.children).toHaveLength(1)
         expect(suggestionsContainer.children[0].textContent).toBe(
-          ' - - no result - - '
+          ' - - no results - - '
         )
       })
     })

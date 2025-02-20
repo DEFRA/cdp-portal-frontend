@@ -28,12 +28,14 @@ const tickSvgIcon = `
 class Autocomplete {
   /**
    * @param {HTMLElement | null} $module
+   * @param {object} options
    */
-  constructor($module) {
+  constructor($module, options = {}) {
     if (!($module instanceof HTMLElement)) {
       return
     }
 
+    this.options = options
     this.$module = $module
     this.$select = this.$module.querySelector(
       `[data-js*="app-progressive-input"]`
@@ -45,6 +47,7 @@ class Autocomplete {
     this.$autocomplete = this.$module.querySelector(
       '[data-js*="app-autocomplete-input"]'
     )
+    this.$form = this.$autocomplete.form
     this.$noJsSubmitButton = this.$autocomplete.form.querySelector(
       '[data-js="app-no-js-submit-button"]'
     )
@@ -86,9 +89,19 @@ class Autocomplete {
     this.placeholder = $select.dataset.placeholder
     this.typeahead = $select.dataset.typeahead
 
+    const dataFetcherName = $select.dataset.fetcherName
+    this.dataFetcher = {
+      isEnabled: Boolean(dataFetcherName),
+      name: dataFetcherName,
+      $loader: document.querySelector(
+        `[data-js*="${$select.dataset.fetcherLoader}"]`
+      )
+    }
+
+    const siblingDataFetcherName = $select.dataset.siblingDataFetcherName
     this.siblingDataFetcher = {
-      isEnabled: $select.dataset.siblingDataFetcherName,
-      name: $select.dataset.siblingDataFetcherName,
+      isEnabled: Boolean(siblingDataFetcherName),
+      name: siblingDataFetcherName,
       $target: document.querySelector(
         `[data-js*="${$select.dataset.siblingDataFetcherTarget}"]`
       ),
@@ -101,7 +114,7 @@ class Autocomplete {
 
     $autocomplete.id = $select.id
     $autocomplete.type = 'text'
-    $autocomplete.name = '' // So the input value is not submitted, the hidden input submits the value
+    $autocomplete.name = this.options.includeInput ? `${$select.name}Text` : ''
     $autocomplete.value = suggestion?.text ?? ''
     $autocomplete.classList.add('govuk-input', 'app-autocomplete__input')
     $autocomplete.placeholder = this.placeholder ?? selectMessage
@@ -281,6 +294,10 @@ class Autocomplete {
     this.$autocomplete.dispatchEvent(new Event('input', { bubbles: true }))
   }
 
+  submitForm() {
+    this.$form.submit()
+  }
+
   scrollToHighlight() {
     const $hasHighlight = this.$suggestionsContainer.querySelector(
       '[data-has-highlight="true"]'
@@ -353,32 +370,40 @@ class Autocomplete {
       $suggestion?.dataset?.text.toLowerCase() === textValue.toLowerCase()
   }
 
-  populateSuggestions({ textValue, suggestionIndex } = {}) {
-    let $suggestions
-
+  provideSuggestions({ textValue, suggestionIndex } = {}) {
     const match = this.getSuggestionMarkup(textValue)
+
     if (match?.value) {
       // Autocomplete input value exact matches a suggestion
+
       const filterExactMatch = this.filterExactMatch(textValue)
-      $suggestions = this.getSuggestionsMarkup()
+      return this.getSuggestionsMarkup()
         .filter(filterExactMatch)
         .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else if (textValue) {
       // Partial match
 
       const filterPartialMatch = this.filterPartialMatch(textValue)
-      $suggestions = this.getSuggestionsMarkup()
+      return this.getSuggestionsMarkup()
         .filter(filterPartialMatch)
         .map(this.dressSuggestion({ textValue, suggestionIndex }))
     } else {
       // Reset suggestions
-      $suggestions = this.getSuggestionsMarkup().map(
+
+      return this.getSuggestionsMarkup().map(
         this.dressSuggestion({ textValue, suggestionIndex })
       )
     }
+  }
 
-    $suggestions = $suggestions.length
-      ? $suggestions
+  populateSuggestions({ textValue, suggestionIndex } = {}) {
+    const providedSuggestions = this.provideSuggestions({
+      textValue,
+      suggestionIndex
+    })
+
+    const $suggestions = providedSuggestions?.length
+      ? providedSuggestions
       : [this.buildNoSuggestionsMessage(textValue)]
 
     this.$suggestionsContainer.replaceChildren(...$suggestions)
@@ -471,7 +496,7 @@ class Autocomplete {
     const noSuggestionsMessage = this.noSuggestionsMessage
       ? ` - - ${this.noSuggestionsMessage} - - `
       : selectMessage
-    const message = textValue ? ' - - no result - - ' : noSuggestionsMessage
+    const message = textValue ? ' - - no results - - ' : noSuggestionsMessage
 
     $li.classList.add(
       'app-autocomplete__suggestion',
@@ -490,6 +515,47 @@ class Autocomplete {
 
   publishEvent(name, value) {
     publish(this.publishTo, { queryParams: { [name]: value } })
+  }
+
+  callDataFetcher(value) {
+    const dataFetcherMethod = window.cdp[this.dataFetcher.name]
+    const name = this.name
+
+    if (typeof dataFetcherMethod !== 'function') {
+      return
+    }
+
+    if (value?.length <= 1) {
+      window.cdp.suggestions[name] = []
+      return
+    }
+
+    const isLoadingClassName = 'app-loader--is-loading'
+    const $loader = this.dataFetcher.$loader
+    const delayedLoader = setTimeout(() => {
+      $loader.classList.add(isLoadingClassName)
+    }, 600) // Long delay so only shown on heavy loads
+
+    return dataFetcherMethod(value)
+      .then((fetchedSuggestions) => {
+        const suggestionOptions = buildSuggestions(fetchedSuggestions)
+        window.cdp.suggestions[name] = suggestionOptions
+
+        this.populateSuggestions({
+          textValue: this.$autocomplete.value,
+          suggestionIndex: this.suggestionIndex
+        })
+
+        return suggestionOptions
+      })
+      .catch((error) => {
+        clientNotification(error.message)
+        return error
+      })
+      .finally(() => {
+        clearTimeout(delayedLoader)
+        $loader?.classList?.remove(isLoadingClassName)
+      })
   }
 
   /**
@@ -575,6 +641,22 @@ class Autocomplete {
     })
   }
 
+  choiceAction() {
+    this.dispatchInputEvent()
+  }
+
+  clearButtonEvent() {
+    this.resetAutocompleteValues()
+    this.$autocomplete.focus()
+
+    this.dispatchInputEvent()
+    this.hideCloseButton()
+    this.populateSuggestions({
+      textValue: this.$autocomplete.value,
+      suggestionIndex: null
+    })
+  }
+
   addEventListeners() {
     document.addEventListener('DOMContentLoaded', () => {
       if (this.$noJsSubmitButton) {
@@ -605,17 +687,10 @@ class Autocomplete {
       }
     })
 
-    this.$clearButton.addEventListener('click', () => {
-      this.resetAutocompleteValues()
-      this.$autocomplete.focus()
-
-      this.dispatchInputEvent()
-      this.hideCloseButton()
-      this.populateSuggestions({
-        textValue: this.$autocomplete.value,
-        suggestionIndex: null
-      })
-    })
+    this.$clearButton.addEventListener(
+      'click',
+      this.clearButtonEvent.bind(this)
+    )
 
     this.$chevronButton.addEventListener('click', (event) => {
       event.stopPropagation()
@@ -686,6 +761,10 @@ class Autocomplete {
         this.hideCloseButton()
         this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
         this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
+      }
+
+      if (this.dataFetcher.isEnabled) {
+        this.callDataFetcher(textValue)
       }
 
       this.populateSuggestions({
@@ -883,7 +962,7 @@ class Autocomplete {
             value: $currentSuggestion.dataset?.value
           })
 
-          this.dispatchInputEvent()
+          this.choiceAction()
           this.suggestionIndex = null
         }
 
@@ -909,7 +988,8 @@ class Autocomplete {
           text: $suggestion?.dataset?.text,
           value: $suggestion?.dataset?.value
         })
-        this.dispatchInputEvent()
+
+        this.choiceAction()
 
         this.suggestionIndex = $suggestion.getAttribute('aria-posinset') - 1
 
