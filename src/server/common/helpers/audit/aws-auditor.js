@@ -34,9 +34,10 @@ class AwsAuditor {
     const { error: validationError, value: validatedPayload } =
       auditSchema.validate({
         cdpRequestId,
+        source,
+        service: source,
         message,
-        tags,
-        source
+        tags
       })
 
     if (!isUndefined(validationError)) {

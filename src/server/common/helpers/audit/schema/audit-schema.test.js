@@ -15,6 +15,7 @@ describe('#auditSchema', () => {
   test('Should validate an audit schema', () => {
     const payload = {
       source: 'mock-service-name',
+      service: 'mock-service-name',
       created: new Date(),
       cdpRequestId: 'mock-x-cdp-request-id',
       message: 'this is a simple audit message',
@@ -33,6 +34,7 @@ describe('#auditSchema', () => {
   test('Should fill in default values from schema', () => {
     const { value } = auditSchema.validate({
       source: 'mock-service-name',
+      service: 'mock-service-name',
       cdpRequestId: 'mock-x-cdp-request-id',
       message: 'this is a simple audit message'
     })
