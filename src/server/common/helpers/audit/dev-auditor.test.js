@@ -43,6 +43,7 @@ describe('#DevAuditor', () => {
           auditDetail: {
             cdpRequestId: 'x-cdp-request-id-header-not-set',
             source: 'mock-service-name',
+            service: 'mock-service-name',
             message: 'example-message',
             tags: { example: 'tag' },
             created: '2023-04-01T00:00:00.000Z'
@@ -68,6 +69,7 @@ describe('#DevAuditor', () => {
           auditDetail: {
             cdpRequestId: 'x-cdp-request-id-header-not-set',
             source: 'mock-service-name',
+            service: 'mock-service-name',
             message: { user: 'jeff', age: 24, id: 'mock-user-id' },
             tags: { example: 'tag' },
             created: '2023-04-01T00:00:00.000Z'

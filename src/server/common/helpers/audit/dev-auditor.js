@@ -25,6 +25,7 @@ class DevAuditor {
     const { error, value: validatedPayload } = auditSchema.validate({
       cdpRequestId,
       source,
+      service: source,
       message,
       tags
     })
