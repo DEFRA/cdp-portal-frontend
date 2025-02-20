@@ -5,10 +5,12 @@
 {% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
 {% from "loader/macro.njk" import appLoader %}
 
+{% set suggestions = params.suggestions if params.suggestions else [] %}
+
 <script data-testid="app-autocomplete-suggestions">
-  window.cdp = window.cdp || {}
+  window.cdp = window.cdp || {};
   window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["{{ params.name }}"] = {{ params.suggestions | dump | safe }}
+  window.cdp.suggestions["{{ params.name }}"] = {{ suggestions | dump | safe }}
 </script>
 
 {% set content = params.html | safe if params.html else params.text %}
@@ -47,11 +49,18 @@
     }) }}
   {% endif %}
 
-  <div class="app-autocomplete{% if params.classes %} {{ params.classes }}{% endif %}"
+  {% set classes = ["app-autocomplete", params.classes if params.classes, "app-autocomplete--search" if params.template == "search", "app-autocomplete--with-icon" if params.icon] | join(" ") | trim %}
+
+  <div class="{{ classes }}"
        data-js="app-autocomplete{% if params.template %}-{{ params.template }}{% endif %}"
+       data-testid="app-autocomplete"
     {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
   >
     <div class="app-autocomplete__control">
+      {% if params.icon %}
+        {{ params.icon({ classes: "app-icon--before-input" }) | safe }}
+      {% endif %}
+
       <select name="{{ params.name }}"
               id="{{ params.id }}"
               class="govuk-select app-select app-select--small{% if params.errorMessage.text %} govuk-select--error{% endif %}"
@@ -67,6 +76,10 @@
         {% endif %}
         {% if params.placeholder %}
           data-placeholder="{{ params.placeholder }}"
+        {% endif %}
+        {% if params.dataFetcher %}
+          data-fetcher-name="{{ params.dataFetcher.name }}"
+          data-fetcher-loader="{{ params.dataFetcher.loader }}"
         {% endif %}
         {% if params.siblingDataFetcher %}
           data-sibling-data-fetcher-name="{{ params.siblingDataFetcher.name }}"
@@ -114,13 +127,14 @@
       {% endif %}
     </div>
 
-    <ul class="app-autocomplete__suggestions"
-        id="app-autocomplete-{{ params.id }}-suggestions"
-        aria-labelledby="{{ params.id }}-label"
-        aria-expanded="false"
-        role="listbox"
-        data-js="app-autocomplete-suggestions"
-        data-testid="app-autocomplete-suggestions"></ul>
+    <ul
+      class="app-autocomplete__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}"
+      id="app-autocomplete-{{ params.id }}-suggestions"
+      aria-labelledby="{{ params.id }}-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
   </div>
   {{ caller() if caller else content }}
 </div>

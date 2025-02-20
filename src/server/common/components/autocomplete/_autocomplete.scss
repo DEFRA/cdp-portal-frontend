@@ -41,6 +41,55 @@ $large-width: 40em;
   margin-bottom: 0;
 }
 
+.app-autocomplete--with-icon {
+  .app-autocomplete__control {
+    .app-icon--before-input {
+      position: absolute;
+      left: 4px;
+      fill: govuk-colour("mid-grey");
+      width: 26px;
+      height: 26px;
+    }
+
+    .app-autocomplete__input {
+      padding: govuk-spacing(1) govuk-spacing(6);
+    }
+  }
+}
+
+.app-autocomplete--search {
+  position: relative;
+  width: $large-width;
+
+  .app-autocomplete__suggestion {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+
+    .app-suggestion__value {
+      justify-content: flex-start;
+    }
+
+    .app-suggestion__context {
+      color: govuk-colour("mid-grey");
+      @include govuk-font(16);
+    }
+
+    &:focus,
+    &:hover {
+      .app-suggestion__context {
+        color: govuk-colour("white");
+      }
+    }
+  }
+
+  .app-autocomplete__suggestion--no-results {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .app-autocomplete__control {
   display: flex;
   align-items: center;
@@ -126,6 +175,10 @@ $large-width: 40em;
   width: calc(100% - 4px);
 }
 
+.app-autocomplete__suggestions--large {
+  max-height: govuk-spacing(9) * 8;
+}
+
 .app-autocomplete__suggestions--show {
   display: block;
 }
@@ -183,6 +236,10 @@ $large-width: 40em;
 
     .app-tick-icon {
       fill: govuk-colour("white");
+    }
+
+    .app-suggestion__context {
+      color: govuk-colour("white");
     }
   }
 }
