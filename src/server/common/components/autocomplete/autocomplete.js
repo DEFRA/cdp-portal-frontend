@@ -658,7 +658,7 @@ class Autocomplete {
   }
 
   addEventListeners() {
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       if (this.$noJsSubmitButton) {
         this.$noJsSubmitButton.remove()
       }
@@ -667,6 +667,10 @@ class Autocomplete {
         this.queryParams?.[this.$autocompleteHiddenInput.name]
 
       if (queryParamValue) {
+        if (this.dataFetcher.isEnabled) {
+          await this.callDataFetcher(queryParamValue)
+        }
+
         const suggestion = this.getSuggestionByValue(queryParamValue)
 
         const text = suggestion?.text ?? queryParamValue
