@@ -1,0 +1,16 @@
+<h1>Search Results</h1>
+
+<ul>
+  {% for result in params.results %}
+    <li class="govuk-!-margin-bottom-4">
+      <div>
+        {{ result.text | safe }}
+      </div>
+      <div>
+        <a href="{{ result.value }}">{{ result.value }}</a>
+      </div>
+    </li>
+  {% else %}
+    <li>No results</li>
+  {% endfor %}
+</ul>
