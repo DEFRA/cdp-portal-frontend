@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '~/src/config/nunjucks/filters/index.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
+import { fetchTestRun } from '~/src/server/test-suites/helpers/fetch/index.js'
 
 const testResultsController = {
   options: {
@@ -17,13 +18,14 @@ const testResultsController = {
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const environment = request.params.environment
     const serviceId = request.params.serviceId
     const runId = request.params.runId
     const assetPath = request.params.assetPath
     const tag = request.params.tag
     const reportInfo = `${formatText(environment)} - ${tag} report`
+    const testRun = await fetchTestRun(request.params.runId)
 
     return h.view('test-suites/views/test-results', {
       pageTitle: `${serviceId} - ${reportInfo}`,
@@ -32,6 +34,7 @@ const testResultsController = {
       serviceId,
       runId,
       assetPath,
+      failureReasons: testRun?.failureReasons ?? [],
       breadcrumbs: [
         {
           text: 'Test suites',
