@@ -1,10 +1,23 @@
 {% extends "layouts/page.njk" %}
-
+{% from "warning/macro.njk" import appWarning %}
 {% block content %}
   {{ appHeading({
-    title: heading,
-    caption: "The " + heading + " test-suite report."
+    title: heading
   }) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-thirds-from-desktop-wide">
+        <div class="govuk-!-margin-bottom-12">
+        {% for failure in failureReasons %}
+         {% call appWarning({ isInverse: false }) %}
+           <b>An error occurred in {{ failure.containerName }}</b>
+           <br>
+           {{ failure.reason }}
+         {% endcall %}
+        {% endfor %}
+        </div>
+      </div>
+  </div>
 
   <div class="app-iframe-container">
     <iframe
