@@ -100,7 +100,7 @@ describe('#searchIndex', () => {
     expect(result).toEqual([
       {
         value: 'test.md',
-        text: 'Test Markdown'
+        text: 'Test Markdown Content'
       }
     ])
     expect(request.logger.debug).toHaveBeenCalledWith(
