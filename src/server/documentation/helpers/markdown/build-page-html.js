@@ -5,7 +5,6 @@ import { linkExtension } from '~/src/server/documentation/helpers/extensions/lin
 import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
 
 const docsMarked = new Marked({
-  pedantic: false,
   gfm: true,
   extensions: [linkExtension, headingExtension]
 }).use(markedAlert())
