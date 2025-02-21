@@ -71,7 +71,7 @@ async function buildSearchIndex(request, bucket) {
 }
 
 /**
- * Remove half words from the start and finish of the match, if they don;t match the searchTerm
+ * Remove half words from the start and finish of the match, if they don't match the searchTerm
  * @param {string} searchTerm
  * @param {string} match
  * @returns {string}
@@ -105,6 +105,19 @@ function prepTextResult(textWithContext, searchTerm) {
   }
 
   return null
+}
+
+/**
+ * Provide suggestions unique by value, which is the docs url
+ * @param {Array} unique
+ * @param {{text: string, value: string}} suggestion
+ * @returns {Array}
+ */
+function makeUnique(unique, suggestion) {
+  if (!unique.some((obj) => obj.value === suggestion.value)) {
+    unique.push(suggestion)
+  }
+  return unique
 }
 
 async function searchIndex(request, bucket, query) {
@@ -162,12 +175,7 @@ async function searchIndex(request, bucket, query) {
       return null
     })
     .filter(Boolean)
-    .reduce((unique, o) => {
-      if (!unique.some((obj) => obj.value === o.value)) {
-        unique.push(o)
-      }
-      return unique
-    }, [])
+    .reduce(makeUnique, [])
 
   const endBuildIndex = performance.now()
   request.logger.debug(
