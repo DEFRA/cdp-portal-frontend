@@ -1,7 +1,9 @@
 import lunr from 'lunr'
+import { Marked } from 'marked'
 import { isAfter } from 'date-fns'
-import removeMarkdown from 'remove-markdown'
+import { stripHtml } from 'string-strip-html'
 import { performance } from 'node:perf_hooks'
+import markedPlaintify from 'marked-plaintify'
 
 import {
   fetchS3File,
@@ -10,6 +12,10 @@ import {
 } from '~/src/server/documentation/helpers/s3-file-handler.js'
 
 const store = {}
+
+const convertToPlainTextMarked = new Marked({ gfm: true }).use(
+  markedPlaintify()
+)
 
 async function buildSearchIndex(request, bucket) {
   const docsMetaData = await fetchHeadObject(
@@ -42,13 +48,11 @@ async function buildSearchIndex(request, bucket) {
 
       return {
         name: key,
-        file: removeMarkdown(mdFile)
+        file: stripHtml(convertToPlainTextMarked.parse(mdFile)).result
       }
     })
 
-    const textFiles = await Promise.all(fetchMarkdownPromises)
-
-    store.files = textFiles
+    store.files = await Promise.all(fetchMarkdownPromises)
     store.index = lunr(function () {
       this.ref('name')
       this.field('file')
@@ -67,6 +71,22 @@ async function buildSearchIndex(request, bucket) {
 }
 
 /**
+ * Remove half words from the start and finish of the match, if they don;t match the searchTerm
+ * @param {string} searchTerm
+ * @param {string} match
+ * @returns {string}
+ */
+function removeTruncatedWordsFromBoundaries(searchTerm, match) {
+  const line = match.replace(/\s\s+/g, ' ')
+
+  const cleanedLine = line.toLowerCase().startsWith(searchTerm.toLowerCase())
+    ? line
+    : line.substring(line.indexOf(' '), line.length)
+
+  return cleanedLine.substring(0, cleanedLine.lastIndexOf(' '))
+}
+
+/**
  * @param {string|null} textWithContext
  * @param {string} searchTerm
  * @returns {string|null}
@@ -81,24 +101,7 @@ function prepTextResult(textWithContext, searchTerm) {
   const lineWithSearchTerm = lines.find((line) => regex.test(line))
 
   if (lineWithSearchTerm) {
-    const words = lineWithSearchTerm.replace(/\s\s+/g, ' ').split(' ')
-
-    if (words.length > 4) {
-      // remove start and end words that do not match searchTerm, as its likely they are not full words and won't
-      // make sense in the results
-      return words
-        .map((word, i, array) => {
-          if (i === 0 || i === array.length - 1) {
-            return regex.test(word) ? word : null
-          }
-
-          return word
-        })
-        .filter(Boolean)
-        .join(' ')
-    }
-
-    return words.join(' ')
+    return removeTruncatedWordsFromBoundaries(searchTerm, lineWithSearchTerm)
   }
 
   return null
@@ -108,6 +111,10 @@ async function searchIndex(request, bucket, query) {
   const startBuildIndex = performance.now()
 
   const builtSearchIndex = await buildSearchIndex(request, bucket)
+
+  if (!builtSearchIndex.index || !builtSearchIndex.files) {
+    return []
+  }
 
   // Remove some lunr special characters
   const queryTerm = query?.replace(/[*^:~+-]/g, '') ?? null
@@ -124,37 +131,43 @@ async function searchIndex(request, bucket, query) {
       )
 
       if (match) {
-        const positions = Object.keys(result.matchData.metadata).flatMap(
-          (text) =>
-            Object.keys(result.matchData.metadata[text]).map((fieldName) => {
-              const [startPos, length] =
-                result.matchData.metadata[text][fieldName].position.at(0)
+        return Object.keys(result.matchData.metadata).flatMap((text) =>
+          Object.keys(result.matchData.metadata[text]).flatMap((fieldName) =>
+            result.matchData.metadata[text][fieldName].position
+              .map((positionDetail) => {
+                const [startPos, length] = positionDetail
 
-              const surroundingCharacters = 30
-              const slice = match.file.slice(
-                startPos - surroundingCharacters,
-                startPos + length + surroundingCharacters
-              )
+                const surroundingCharacters = 30
+                const slice = match.file.slice(
+                  startPos - surroundingCharacters,
+                  startPos + length + surroundingCharacters
+                )
 
-              const textResult = prepTextResult(slice, query)
+                const textResult = prepTextResult(slice, query)
 
-              if (!textResult) {
-                return null
-              }
+                if (!textResult) {
+                  return null
+                }
 
-              return {
-                value: result.ref,
-                text: textResult
-              }
-            })
+                return {
+                  value: result.ref,
+                  text: textResult
+                }
+              })
+              .filter(Boolean)
+          )
         )
-
-        return positions.filter(Boolean)
       }
 
       return null
     })
     .filter(Boolean)
+    .reduce((unique, o) => {
+      if (!unique.some((obj) => obj.value === o.value)) {
+        unique.push(o)
+      }
+      return unique
+    }, [])
 
   const endBuildIndex = performance.now()
   request.logger.debug(
