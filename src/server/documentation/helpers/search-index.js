@@ -71,22 +71,6 @@ async function buildSearchIndex(request, bucket) {
 }
 
 /**
- * Remove half words from the start and finish of the match, if they don't match the searchTerm
- * @param {string} searchTerm
- * @param {string} match
- * @returns {string}
- */
-function removeTruncatedWordsFromBoundaries(searchTerm, match) {
-  const line = match.replace(/\s\s+/g, ' ')
-
-  const cleanedLine = line.toLowerCase().startsWith(searchTerm.toLowerCase())
-    ? line
-    : line.substring(line.indexOf(' '), line.length)
-
-  return cleanedLine.substring(0, cleanedLine.lastIndexOf(' '))
-}
-
-/**
  * @param {string|null} textWithContext
  * @param {string} searchTerm
  * @returns {string|null}
@@ -96,15 +80,12 @@ function prepTextResult(textWithContext, searchTerm) {
     return null
   }
 
-  const lines = textWithContext.split('\n')
-  const regex = new RegExp(searchTerm, 'i')
-  const lineWithSearchTerm = lines.find((line) => regex.test(line))
+  const regex = new RegExp(searchTerm, 'ig')
+  const lineWithSearchTerm = textWithContext
+    .split('\n')
+    .find((line) => regex.test(line))
 
-  if (lineWithSearchTerm) {
-    return removeTruncatedWordsFromBoundaries(searchTerm, lineWithSearchTerm)
-  }
-
-  return null
+  return lineWithSearchTerm ?? null
 }
 
 /**
@@ -149,12 +130,10 @@ async function searchIndex(request, bucket, query) {
             result.matchData.metadata[text][fieldName].position
               .map((positionDetail) => {
                 const [startPos, length] = positionDetail
-
                 const surroundingCharacters = 30
-                const slice = match.file.slice(
-                  startPos - surroundingCharacters,
-                  startPos + length + surroundingCharacters
-                )
+                const sliceStart = Math.max(startPos - surroundingCharacters, 0)
+                const sliceEnd = startPos + length + surroundingCharacters
+                const slice = match.file.slice(sliceStart, sliceEnd)
 
                 const textResult = prepTextResult(slice, query)
 
