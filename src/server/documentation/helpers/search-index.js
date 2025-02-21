@@ -164,4 +164,4 @@ async function searchIndex(request, bucket, query) {
   return searchSuggestions
 }
 
-export { searchIndex }
+export { searchIndex, buildSearchIndex }
