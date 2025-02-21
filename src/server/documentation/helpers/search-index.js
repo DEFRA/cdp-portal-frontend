@@ -18,6 +18,8 @@ const convertToPlainTextMarked = new Marked({ gfm: true }).use(
 )
 
 async function buildSearchIndex(request, bucket) {
+  const startBuildIndex = performance.now()
+
   const docsMetaData = await fetchHeadObject(
     request,
     'docs-metadata.json',
@@ -67,6 +69,11 @@ async function buildSearchIndex(request, bucket) {
     request.logger.debug('Using stored in-memory search index')
   }
 
+  const endBuildIndex = performance.now()
+  request.logger.debug(
+    `Search index build took ${endBuildIndex - startBuildIndex} milliseconds`
+  )
+
   return store
 }
 
@@ -102,7 +109,7 @@ function makeUnique(unique, suggestion) {
 }
 
 async function searchIndex(request, bucket, query) {
-  const startBuildIndex = performance.now()
+  const startPrepareResults = performance.now()
 
   const builtSearchIndex = await buildSearchIndex(request, bucket)
 
@@ -156,9 +163,9 @@ async function searchIndex(request, bucket, query) {
     .filter(Boolean)
     .reduce(makeUnique, [])
 
-  const endBuildIndex = performance.now()
+  const endPrepareResults = performance.now()
   request.logger.debug(
-    `Search index build took ${endBuildIndex - startBuildIndex} milliseconds`
+    `Results prep took ${endPrepareResults - startPrepareResults} milliseconds`
   )
 
   return searchSuggestions
