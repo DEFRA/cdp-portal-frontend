@@ -2,7 +2,6 @@ import Wreck from '@hapi/wreck'
 import { getTraceId } from '@defra/hapi-tracing'
 
 import { config } from '~/src/config/config.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 
 /**
@@ -12,11 +11,8 @@ import { handleResponse } from '~/src/server/common/helpers/fetch/handle-respons
  * @returns {Promise<{res: *, error}|{res: *, payload: *}>}
  */
 async function fetchJson(url, options = {}) {
-  const logger = createLogger()
   const tracingHeader = config.get('tracing.header')
   const traceId = getTraceId()
-
-  logger.debug({ url }, 'Fetching data')
 
   const method = (options?.method || 'get').toLowerCase()
 

@@ -3,7 +3,6 @@ import { getTraceId } from '@defra/hapi-tracing'
 
 import { config } from '~/src/config/config.js'
 import { statusCodes } from '~/src/server/common/constants/status-codes.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
 import {
@@ -19,11 +18,8 @@ import {
  * @returns {Promise<{res: *, error}|{res: *, payload: *}>}
  */
 async function authedFetchJson(url, token, options = {}) {
-  const logger = createLogger()
   const tracingHeader = config.get('tracing.header')
   const traceId = getTraceId()
-
-  logger.debug({ url }, 'Fetching authenticated data')
 
   const method = (options?.method || 'get').toLowerCase()
 
