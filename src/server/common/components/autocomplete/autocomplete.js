@@ -85,7 +85,7 @@ class Autocomplete {
     this.publishTo = $select.dataset.publishTo
 
     this.noSuggestionsMessage = $select.dataset.noSuggestionsMessage
-    this.removePassWidgets = $select.dataset.removePassWidgets
+    this.removePasswordWidgets = $select.dataset.removePasswordWidgets
     this.placeholder = $select.dataset.placeholder
     this.typeahead = $select.dataset.typeahead
 
@@ -130,7 +130,7 @@ class Autocomplete {
     $autocomplete.setAttribute('aria-autocomplete', 'list')
     $autocomplete.setAttribute('aria-expanded', 'false')
 
-    if (this.removePassWidgets) {
+    if (this.removePasswordWidgets) {
       $autocomplete.setAttribute('data-1p-ignore', '') // Disable 1 password widget
       $autocomplete.setAttribute('data-lpignore', 'true') // Disable last password widget
     }
