@@ -78,6 +78,31 @@ async function buildSearchIndex(request, bucket) {
 }
 
 /**
+ * Remove broken words from the beginning and end of a line if they do not match the searchTerm
+ * @param {string} text
+ * @param {string} searchTerm
+ * @returns {string}
+ */
+function removeBrokenWords(text, searchTerm) {
+  const lowerSearchTerm = searchTerm.toLowerCase()
+  let line = text.trim()
+
+  if (line.toLowerCase() === lowerSearchTerm) {
+    return line
+  }
+
+  if (!line.toLowerCase().startsWith(lowerSearchTerm)) {
+    line = line.replace(/^\S+\s/, '')
+  }
+
+  if (!line.toLowerCase().endsWith(lowerSearchTerm)) {
+    line = line.replace(/\s\S+$/, '')
+  }
+
+  return line
+}
+
+/**
  * @param {string|null} textWithContext
  * @param {string} searchTerm
  * @returns {string|null}
@@ -92,17 +117,25 @@ function prepTextResult(textWithContext, searchTerm) {
     .split('\n')
     .find((line) => regex.test(line))
 
-  return lineWithSearchTerm ?? null
+  if (lineWithSearchTerm) {
+    return removeBrokenWords(lineWithSearchTerm, searchTerm)
+  }
+
+  return null
 }
 
 /**
- * Provide suggestions unique by value, which is the docs url
+ * Provide suggestions unique by value and text
  * @param {Array} unique
  * @param {{text: string, value: string}} suggestion
  * @returns {Array}
  */
 function makeUnique(unique, suggestion) {
-  if (!unique.some((obj) => obj.value === suggestion.value)) {
+  if (
+    !unique.some(
+      (obj) => obj.value === suggestion.value && obj.text === suggestion.text
+    )
+  ) {
     unique.push(suggestion)
   }
   return unique
