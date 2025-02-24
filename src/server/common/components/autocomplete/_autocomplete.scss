@@ -43,7 +43,7 @@ $large-width: 40em;
 
 .app-autocomplete--with-icon {
   .app-autocomplete__control {
-    .app-icon--before-input {
+    > .app-icon {
       position: absolute;
       left: 4px;
       fill: govuk-colour("mid-grey");
@@ -54,6 +54,11 @@ $large-width: 40em;
     .app-autocomplete__input {
       padding: govuk-spacing(1) govuk-spacing(6);
     }
+  }
+
+  .app-input,
+  .app-select {
+    padding-left: govuk-spacing(6);
   }
 }
 
