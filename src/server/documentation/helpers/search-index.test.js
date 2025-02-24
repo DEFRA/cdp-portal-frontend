@@ -37,6 +37,12 @@ const mockLunr = ({ ref, field, add }) => {
   })
 }
 
+const mockS3Response = (mockMarkdownFile) => {
+  fetchHeadObject.mockResolvedValue({ LastModified: new Date() })
+  fetchListObjects.mockResolvedValue({ Contents: [mockMarkdownFile] })
+  fetchS3File.mockResolvedValue(mockMarkdownFile)
+}
+
 describe('#searchIndex', () => {
   const mockMarkdownContent = '# Test Markdown Content'
   const mockMarkdownFile = {
@@ -82,9 +88,7 @@ describe('#searchIndex', () => {
   })
 
   test('Should return search suggestions for a valid query', async () => {
-    fetchHeadObject.mockResolvedValue({ LastModified: new Date() })
-    fetchListObjects.mockResolvedValue({ Contents: [mockMarkdownFile] })
-    fetchS3File.mockResolvedValue(mockMarkdownFile)
+    mockS3Response(mockMarkdownFile)
 
     mockLunr({ ref: mockRef, field: mockField, add: mockAdd })
 
@@ -100,11 +104,53 @@ describe('#searchIndex', () => {
     expect(result).toEqual([
       {
         value: 'test.md',
-        text: 'Test Markdown Content'
+        text: 'Test Markdown'
       }
     ])
     expect(request.logger.debug).toHaveBeenCalledWith(
       expect.stringContaining('Search index build took')
     )
+  })
+
+  test('Should return full match for matching query', async () => {
+    mockS3Response(mockMarkdownFile)
+
+    mockLunr({ ref: mockRef, field: mockField, add: mockAdd })
+
+    const result = await searchIndex(request, bucket, 'Test Markdown Content')
+    expect(result).toEqual([
+      {
+        value: 'test.md',
+        text: 'Test Markdown Content'
+      }
+    ])
+  })
+
+  test('Should strip first and last words', async () => {
+    mockS3Response(mockMarkdownFile)
+
+    mockLunr({ ref: mockRef, field: mockField, add: mockAdd })
+
+    const result = await searchIndex(request, bucket, 'markdo')
+    expect(result).toEqual([
+      {
+        value: 'test.md',
+        text: 'Markdown'
+      }
+    ])
+  })
+
+  test('Should provide expected result with query matching end of line', async () => {
+    mockS3Response(mockMarkdownFile)
+
+    mockLunr({ ref: mockRef, field: mockField, add: mockAdd })
+
+    const result = await searchIndex(request, bucket, 'content')
+    expect(result).toEqual([
+      {
+        value: 'test.md',
+        text: 'Markdown Content'
+      }
+    ])
   })
 })
