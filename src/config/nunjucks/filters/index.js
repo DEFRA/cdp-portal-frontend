@@ -7,6 +7,7 @@ import compact from 'lodash/compact.js'
 import union from 'lodash/union.js'
 import startCase from 'lodash/startCase.js'
 import find from 'lodash/find.js'
+import pickBy from 'lodash/pickBy.js'
 import { formatDistanceToNow } from 'date-fns'
 
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
@@ -29,5 +30,6 @@ export {
   relativeDate,
   sanitiseUser,
   startCase,
-  union
+  union,
+  pickBy
 }
