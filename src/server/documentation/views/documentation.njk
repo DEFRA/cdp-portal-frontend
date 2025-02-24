@@ -9,41 +9,39 @@
     intro: "All things Core Delivery Platform, Architecture, Onboarding, Services, Developer docs and more"
   }) }}
 
-  {% if isAdmin %}
-    <form action="/documentation/search" method="POST" class="app-section-highlight">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-2">
-        Search
-      </legend>
+  <form action="/documentation/search" method="POST" class="app-section-highlight">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-2">
+      Search
+    </legend>
 
-      <fieldset class="govuk-fieldset">
-        {{ appAutocomplete({
-          id: "documentation-search",
-          name: "q",
-          classes: "app-autocomplete--inline",
-          template: "search",
-          icon: appSearchIcon(),
-          formGroup: {
-            classes: "app-form-group--inline"
-          },
-          noSuggestionsMessage: 'no results',
-          suggestions: suggestions,
-          suggestionsContainer: {
-            classes: "app-autocomplete__suggestions--large"
-          },
-          placeholder: "Search CDP documentation",
-          dataFetcher: {
-            name: "fetchDocsSearchSuggestions",
-            loader: "search-docs-loader"
-          },
-          loader: {
-            name: "search-docs-loader"
-          }
-        }) }}
-      </fieldset>
+    <fieldset class="govuk-fieldset">
+      {{ appAutocomplete({
+        id: "documentation-search",
+        name: "q",
+        classes: "app-autocomplete--inline",
+        template: "search",
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        noSuggestionsMessage: 'no results',
+        suggestions: suggestions,
+        suggestionsContainer: {
+          classes: "app-autocomplete__suggestions--large"
+        },
+        placeholder: "Search CDP documentation",
+        dataFetcher: {
+          name: "fetchDocsSearchSuggestions",
+          loader: "search-docs-loader"
+        },
+        loader: {
+          name: "search-docs-loader"
+        }
+      }) }}
+    </fieldset>
 
-      <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-    </form>
-  {% endif %}
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+  </form>
 
   {{ appDocumentation({ nav: nav, content: content, toc: toc }) }}
 
