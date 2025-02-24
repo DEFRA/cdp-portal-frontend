@@ -7,7 +7,7 @@ const searchHandlerController = {
     validate: {
       payload: Joi.object({
         q: Joi.string().allow('').required(),
-        qText: Joi.string().allow('').required()
+        qText: Joi.string().allow('')
       }),
       failAction: () => Boom.badRequest()
     }
@@ -17,11 +17,18 @@ const searchHandlerController = {
     const qText = request.payload.qText
 
     if (!pageUrl?.endsWith('.md') && qText) {
-      // User has pressed enter with text in the input without choosing a suggestion. So let's provide them with the
-      // first result for their word, or redirect to docs home if no results
+      // User has pressed enter with text in the input without choosing a suggestion. Send to the search results page
       return h.redirect(
         '/documentation/search-results' +
           qs.stringify({ q: qText }, { addQueryPrefix: true })
+      )
+    }
+
+    if (pageUrl && !pageUrl?.endsWith('.md') && !qText) {
+      // Non js input
+      return h.redirect(
+        '/documentation/search-results' +
+          qs.stringify({ q: pageUrl }, { addQueryPrefix: true })
       )
     }
 
