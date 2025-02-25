@@ -5,6 +5,7 @@ import { stripHtml } from 'string-strip-html'
 import { performance } from 'node:perf_hooks'
 import markedPlaintify from 'marked-plaintify'
 
+import { excludedMarkdownFiles } from '~/src/server/documentation/constants/excluded-markdown-files.js'
 import {
   fetchS3File,
   fetchHeadObject,
@@ -12,7 +13,6 @@ import {
 } from '~/src/server/documentation/helpers/s3-file-handler.js'
 
 const store = {}
-
 const convertToPlainTextMarked = new Marked({ gfm: true }).use(
   markedPlaintify()
 )
@@ -38,8 +38,10 @@ async function buildSearchIndex(request, bucket) {
       return []
     }
 
-    const mdFiles = listObjectsResponse.Contents.filter((content) =>
-      content.Key.endsWith('.md')
+    const mdFiles = listObjectsResponse.Contents.filter(
+      (content) =>
+        content.Key.endsWith('.md') &&
+        !excludedMarkdownFiles.includes(content.Key)
     )
 
     const fetchMarkdownPromises = mdFiles.map(async (content) => {
