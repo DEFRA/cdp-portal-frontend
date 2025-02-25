@@ -6,6 +6,7 @@ import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 import { s3FileHandler } from '~/src/server/documentation/helpers/s3-file-handler.js'
 import { markdownHandler } from '~/src/server/documentation/helpers/markdown-handler.js'
 import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message.js'
+import { excludedMarkdownFiles } from '~/src/server/documentation/constants/excluded-markdown-files.js'
 
 const documentationController = {
   options: {
@@ -23,6 +24,10 @@ const documentationController = {
     request.logger.info(`Serving documentation: ${documentationPath}`)
 
     try {
+      if (excludedMarkdownFiles.includes(documentationPath)) {
+        throw Boom.notFound()
+      }
+
       if (documentationPath.toLowerCase().endsWith('.md')) {
         return await markdownHandler(request, h, documentationPath, bucket)
       }
@@ -32,7 +37,9 @@ const documentationController = {
       request.logger.error(error)
 
       const statusCode =
-        error?.$metadata?.httpStatusCode ?? statusCodes.internalError
+        error?.output?.statusCode ||
+        error?.$metadata?.httpStatusCode ||
+        statusCodes.internalError
       const errorMessage = statusCodeMessage(statusCode)
 
       return h
