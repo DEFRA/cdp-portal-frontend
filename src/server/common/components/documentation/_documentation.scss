@@ -5,28 +5,31 @@
 
 // stylelint-disable max-nesting-depth
 %nested-lists {
-  .govuk-list {
-    margin: 0;
-    list-style-type: circle;
+  ul {
+    @extend %govuk-list;
+    list-style-type: disc;
+    margin-top: govuk-spacing(1);
+    margin-bottom: govuk-spacing(1);
+    padding-left: govuk-spacing(3);
 
     li:has(> ul.govuk-list) {
       list-style-type: none;
     }
 
-    .govuk-list {
-      list-style-type: disc;
+    ul {
+      list-style-type: circle;
+      margin-top: govuk-spacing(1);
 
-      .govuk-list {
-        list-style-type: circle;
+      ul {
+        list-style-type: disc;
 
-        .govuk-list {
-          list-style-type: disc;
+        ul {
+          list-style-type: circle;
         }
       }
     }
   }
 }
-
 // stylelint-enable max-nesting-depth
 
 .app-documentation__container {
@@ -47,11 +50,11 @@
   .app-link {
     @include app-link;
     @include govuk-link-style-text;
-  }
 
-  .is-active {
-    text-decoration: underline;
-    font-weight: bold;
+    &.is-active {
+      text-decoration: underline;
+      font-weight: bold;
+    }
   }
 }
 
