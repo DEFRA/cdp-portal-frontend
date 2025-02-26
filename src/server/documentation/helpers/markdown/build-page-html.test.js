@@ -24,8 +24,9 @@ describe('#buildPageHtml', () => {
 
   test('Should highlight search term', async () => {
     const searchTerm = 'paragraph'
+    const mockRequest = { query: { q: searchTerm } }
     const markdown = '# Heading\n\nThis is a paragraph.'
-    const { html } = await buildPageHtml(searchTerm, markdown)
+    const { html } = await buildPageHtml(mockRequest, markdown)
 
     const $html = load(html)
     const $paragraph = $html('p')

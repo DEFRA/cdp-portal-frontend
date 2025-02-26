@@ -1,106 +1,49 @@
-import { load } from 'cheerio'
-
 import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav.js'
-import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure.js'
+import { fetchMarkdown } from '~/src/server/documentation/helpers/s3-file-handler.js'
 
-jest.mock('~/src/server/documentation/helpers/documentation-structure')
+jest.mock('~/src/server/documentation/helpers/s3-file-handler.js')
 
-describe('#buildDocsNav', () => {
-  const mockRequest = {
-    path: '/documentation/guides/getting-started.md'
-  }
-  const mockBucket = 'mock-bucket'
+describe('buildDocsNav', () => {
+  const mockNavMarkdown = `
+  - [CDP](/README.md)
+    - [Onboarding](/onboarding/README.md)`.trim()
 
-  test('Should provide expected navigation', async () => {
-    documentationStructure.mockResolvedValue([
-      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
-      { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
-      {
-        text: 'Getting Started',
-        href: '/documentation/guides/getting-started.md',
-        level: 2
+  let request
+  let bucket
+  let documentationPath
+
+  beforeEach(() => {
+    request = {
+      logger: {
+        debug: jest.fn()
       }
-    ])
-
-    const html = await buildDocsNav(mockRequest, mockBucket)
-    const $html = load(html)
-    const $link1 = $html('ul').first().find('a').first()
-    const $link2 = $html('ul > li > ul').find('a').first()
-    const $link3 = $html('ul > li > ul > li > ul').find('a').first()
-
-    expect($link1.text()).toBe('Documentation')
-    expect($link1.attr('href')).toBe('/documentation/README.md')
-
-    expect($link2.text()).toBe('Guides')
-    expect($link2.attr('href')).toBe('/documentation/guides/README.md')
-
-    expect($link3.text()).toBe('Getting Started')
-    expect($link3.attr('href')).toBe('/documentation/guides/getting-started.md')
+    }
+    bucket = 'mock-bucket'
+    documentationPath = 'README.md'
   })
 
-  test('should handle an empty directory structure', async () => {
-    documentationStructure.mockResolvedValue([])
+  test('Should return parsed markdown with nav link extension', async () => {
+    const expectedNavHtml = `<ul>
+<li><a class="app-link is-active" href="/documentation/README.md">CDP</a><ul>
+<li><a class="app-link" href="/documentation/onboarding/README.md">Onboarding</a></li>
+</ul>
+</li>
+</ul>`.trim()
 
-    const result = await buildDocsNav(mockRequest, mockBucket)
+    fetchMarkdown.mockResolvedValue(mockNavMarkdown)
 
-    expect(result).toBe('')
+    const result = await buildDocsNav(request, bucket, documentationPath)
+
+    expect(fetchMarkdown).toHaveBeenCalledWith(request, bucket, 'nav.md')
+    expect(result.trim()).toBe(expectedNavHtml)
   })
 
-  test('Should handle multiple levels as expected', async () => {
-    documentationStructure.mockResolvedValue([
-      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
-      { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
-      {
-        text: 'Advanced',
-        href: '/documentation/guides/advanced/README.md',
-        level: 2
-      },
-      {
-        text: 'Topics',
-        href: '/documentation/guides/advanced/topics.md',
-        level: 3
-      }
-    ])
+  test('Should handle errors when fetching markdown', async () => {
+    fetchMarkdown.mockRejectedValue(new Error('Failed to fetch markdown'))
 
-    const html = await buildDocsNav(mockRequest, mockBucket)
-    const $html = load(html)
-    const $link1 = $html('ul').first().find('a').first()
-    const $link2 = $html('ul > li > ul').find('a').first()
-    const $link3 = $html('ul > li > ul > li > ul').find('a').first()
-    const $link4 = $html('ul > li > ul > li > ul > li > ul').find('a').first()
-
-    expect($link1.text()).toBe('Documentation')
-    expect($link1.attr('href')).toBe('/documentation/README.md')
-
-    expect($link2.text()).toBe('Guides')
-    expect($link2.attr('href')).toBe('/documentation/guides/README.md')
-
-    expect($link3.text()).toBe('Advanced')
-    expect($link3.attr('href')).toBe('/documentation/guides/advanced/README.md')
-
-    expect($link4.text()).toBe('Topics')
-    expect($link4.attr('href')).toBe('/documentation/guides/advanced/topics.md')
-  })
-
-  test('Should mark the current path as active', async () => {
-    documentationStructure.mockResolvedValue([
-      { text: 'Documentation', href: '/documentation/README.md', level: 0 },
-      { text: 'Guides', href: '/documentation/guides/README.md', level: 1 },
-      {
-        text: 'Getting Started',
-        href: '/documentation/guides/getting-started.md',
-        level: 2
-      }
-    ])
-
-    const html = await buildDocsNav(mockRequest, mockBucket)
-    const $html = load(html)
-    const $link1 = $html('ul').first().find('a').first()
-    const $link2 = $html('ul > li > ul').find('a').first()
-    const $link3 = $html('ul > li > ul > li > ul').find('a').first()
-
-    expect($link1.attr('class')).toBe('app-link')
-    expect($link2.attr('class')).toBe('app-link')
-    expect($link3.attr('class')).toBe('app-link is-active')
+    await expect(
+      buildDocsNav(request, bucket, documentationPath)
+    ).rejects.toThrow('Failed to fetch markdown')
+    expect(fetchMarkdown).toHaveBeenCalledWith(request, bucket, 'nav.md')
   })
 })

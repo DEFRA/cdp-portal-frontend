@@ -11,12 +11,41 @@ class AutocompleteSearch extends Autocomplete {
     super($module, { includeInput: true })
   }
 
+  autocompleteInputEvent(event) {
+    if (this.isSuggestionsHidden) {
+      this.openSuggestions()
+    }
+
+    const textValue = event?.target?.value
+
+    if (textValue) {
+      this.showCloseButton()
+    } else {
+      this.hideCloseButton()
+      this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
+      this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
+    }
+
+    if (this.dataFetcher.isEnabled) {
+      this.callDataFetcher(textValue)
+    }
+
+    this.populateSuggestions({
+      textValue,
+      suggestionIndex: this.suggestionIndex
+    })
+
+    if (!textValue) {
+      this.updateInputValue({ text: textValue, value: textValue })
+    }
+  }
+
   choiceAction() {
     this.submitForm()
   }
 
-  clearButtonEvent() {
-    super.clearButtonEvent()
+  clearButtonClickEvent() {
+    super.clearButtonClickEvent()
 
     const currentUrl = new URL(location)
     currentUrl.search = ''

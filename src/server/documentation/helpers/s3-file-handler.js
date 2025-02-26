@@ -39,4 +39,20 @@ async function s3FileHandler(request, h, documentationPath, bucket) {
     .code(statusCodes.ok)
 }
 
-export { s3FileHandler, fetchS3File, fetchHeadObject, fetchListObjects }
+async function fetchMarkdown(request, bucket, documentationPath) {
+  const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: documentationPath
+  })
+  const response = await request.s3Client.send(command)
+
+  return response.Body.transformToString()
+}
+
+export {
+  s3FileHandler,
+  fetchS3File,
+  fetchHeadObject,
+  fetchListObjects,
+  fetchMarkdown
+}

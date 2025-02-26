@@ -9,37 +9,6 @@ const docsMarked = new Marked({
   extensions: [linkExtension, headingExtension]
 }).use(markedAlert())
 
-async function buildPageHtml(searchTerm, markdown) {
-  const headingElements = []
-
-  const walkTokens = (token) => {
-    if (token.type === 'heading') {
-      const { text, depth: level } = token
-      const internalAnchorId = text.toLowerCase().replace(/\W+/g, '-')
-      const parsedText = docsMarked.parseInline(text)
-
-      headingElements.push({
-        anchor: internalAnchorId,
-        level,
-        text: parsedText
-      })
-    }
-  }
-
-  docsMarked.use({ walkTokens })
-
-  const md = searchTerm
-    ? markdown.replace(
-        new RegExp(`(${searchTerm})`, 'gi'),
-        '<mark class="app-mark">$1</mark>'
-      )
-    : markdown
-
-  const html = await docsMarked.parse(md)
-
-  return { html, toc: buildTableOfContents(headingElements) }
-}
-
 function buildTableOfContents(links) {
   const rootLevel = 1
   let html = ''
@@ -74,6 +43,38 @@ function buildTableOfContents(links) {
   }
 
   return html
+}
+
+async function buildPageHtml(request, markdown) {
+  const searchTerm = request.query?.q
+  const headingElements = []
+
+  const walkTokens = (token) => {
+    if (token.type === 'heading') {
+      const { text, depth: level } = token
+      const internalAnchorId = text.toLowerCase().replace(/\W+/g, '-')
+      const parsedText = docsMarked.parseInline(text)
+
+      headingElements.push({
+        anchor: internalAnchorId,
+        level,
+        text: parsedText
+      })
+    }
+  }
+
+  docsMarked.use({ walkTokens })
+
+  const md = searchTerm
+    ? markdown.replace(
+        new RegExp(`(${searchTerm})`, 'gi'),
+        '<mark class="app-mark">$1</mark>'
+      )
+    : markdown
+
+  const html = await docsMarked.parse(md)
+
+  return { html, toc: buildTableOfContents(headingElements) }
 }
 
 export { buildPageHtml }

@@ -176,7 +176,12 @@ module.exports = {
         'n/no-unpublished-import': [
           'error',
           {
-            allowModules: ['nock', 'cheerio', 'jest-fetch-mock']
+            allowModules: [
+              'nock',
+              'cheerio',
+              'jest-fetch-mock',
+              'jest-file-snapshot'
+            ]
           }
         ]
       }

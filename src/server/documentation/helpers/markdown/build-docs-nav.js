@@ -1,55 +1,17 @@
-import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure.js'
+import { Marked } from 'marked'
 
-/**
- * Build the docs links nav. Note for accessibility reasons, nested ul elements are wrapped in li elements.
- * @param {import('@hapi/hapi').Request} request
- * @param {string} bucket
- * @returns {Promise<string>}
- */
-async function buildDocsNav(request, bucket) {
-  const links = await documentationStructure(request, bucket)
+import { fetchMarkdown } from '~/src/server/documentation/helpers/s3-file-handler.js'
+import { navLinkExtension } from '~/src/server/documentation/helpers/extensions/nav-link.js'
 
-  const rootLevel = 0
-  let html = ''
-  let level = -1
+const navMarked = new Marked({ gfm: true })
 
-  for (const link of links) {
-    while (link.level > level) {
-      if (link.level > rootLevel) {
-        html += '<li>'
-      }
+async function buildDocsNav(request, bucket, documentationPath) {
+  const navMarkdown = await fetchMarkdown(request, bucket, 'nav.md')
 
-      html += '<ul class="govuk-list govuk-list--bullet">'
-      level++
-    }
-    while (link.level < level) {
-      html += '</ul>'
+  const navLink = navLinkExtension(documentationPath)
+  navMarked.use({ extensions: [navLink] })
 
-      if (link.level > rootLevel) {
-        html += '</li>'
-      }
-
-      level--
-    }
-
-    const classes = ['app-link']
-
-    if (request.path.endsWith(link.href)) {
-      classes.push('is-active')
-    }
-
-    html += '<li>'
-    html += `<a class="${classes.join(' ')}" href="${link.href}">${link.text}</a>`
-    html += '</li>'
-  }
-
-  // Close any open lists
-  while (level > rootLevel) {
-    html += '</ul></li>'
-    level--
-  }
-
-  return html
+  return navMarked.parse(navMarkdown)
 }
 
 export { buildDocsNav }

@@ -10,7 +10,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 const nunjucksTestEnv = nunjucks.configure(
   [
     'node_modules/govuk-frontend/dist/',
-    'server',
+    path.normalize(path.resolve(dirname, '..', 'src', 'server')),
     path.normalize(
       path.resolve(dirname, '..', 'src', 'server', 'common', 'templates')
     ),
@@ -44,4 +44,4 @@ function renderTestComponent(name, params, callBlock) {
   return load(nunjucksTestEnv.renderString(macroString))
 }
 
-export { renderTestComponent }
+export { renderTestComponent, nunjucksTestEnv }

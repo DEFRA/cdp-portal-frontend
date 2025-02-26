@@ -645,7 +645,48 @@ class Autocomplete {
     this.dispatchInputEvent()
   }
 
-  clearButtonEvent() {
+  autocompleteInputEvent(event) {
+    if (this.isSuggestionsHidden) {
+      this.openSuggestions()
+    }
+
+    const textValue = event?.target?.value
+
+    if (textValue) {
+      this.showCloseButton()
+    } else {
+      this.hideCloseButton()
+      this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
+      this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
+    }
+
+    if (this.dataFetcher.isEnabled) {
+      this.callDataFetcher(textValue)
+    }
+
+    this.populateSuggestions({
+      textValue,
+      suggestionIndex: this.suggestionIndex
+    })
+
+    const foundSuggestion = this.getSuggestionByText(textValue)
+
+    // An exact match was found
+    if (foundSuggestion?.value) {
+      this.updateInputValue({
+        text: textValue,
+        value: foundSuggestion.value
+      })
+      return
+    }
+
+    // Only send request to search on typing if component is a typeahead. Always clear if value is empty
+    if (this.typeahead ?? !textValue) {
+      this.updateInputValue({ text: textValue, value: textValue })
+    }
+  }
+
+  clearButtonClickEvent() {
     this.resetAutocompleteValues()
     this.$autocomplete.focus()
 
@@ -693,7 +734,7 @@ class Autocomplete {
 
     this.$clearButton.addEventListener(
       'click',
-      this.clearButtonEvent.bind(this)
+      this.clearButtonClickEvent.bind(this)
     )
 
     this.$chevronButton.addEventListener('click', (event) => {
@@ -752,46 +793,10 @@ class Autocomplete {
     })
 
     // User typing inside input
-    this.$autocomplete.addEventListener('input', (event) => {
-      if (this.isSuggestionsHidden) {
-        this.openSuggestions()
-      }
-
-      const textValue = event?.target?.value
-
-      if (textValue) {
-        this.showCloseButton()
-      } else {
-        this.hideCloseButton()
-        this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
-        this.suggestionIndex = null // Typing in input, no current highlight of suggestion, reset selection index
-      }
-
-      if (this.dataFetcher.isEnabled) {
-        this.callDataFetcher(textValue)
-      }
-
-      this.populateSuggestions({
-        textValue,
-        suggestionIndex: this.suggestionIndex
-      })
-
-      const foundSuggestion = this.getSuggestionByText(textValue)
-
-      // An exact match was found
-      if (foundSuggestion?.value) {
-        this.updateInputValue({
-          text: textValue,
-          value: foundSuggestion.value
-        })
-        return
-      }
-
-      // Only send request to search on typing if component is a typeahead. Always clear if value is empty
-      if (this.typeahead ?? !textValue) {
-        this.updateInputValue({ text: textValue, value: textValue })
-      }
-    })
+    this.$autocomplete.addEventListener(
+      'input',
+      this.autocompleteInputEvent.bind(this)
+    )
 
     // Mainly keyboard navigational events
     this.$autocomplete.addEventListener('keydown', (event) => {
