@@ -5,6 +5,15 @@ describe('Page rendering test for services about page', () => {
     return item
   }
 
+  beforeAll(function () {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date('2025-02-25T10:04:35Z').getTime())
+  })
+
+  afterAll(function () {
+    jest.useRealTimers()
+  })
+
   test('renders the page for a frontend service', () => {
     const rendered = nunjucksTestEnv.render(
       'services/about/views/service.njk',
