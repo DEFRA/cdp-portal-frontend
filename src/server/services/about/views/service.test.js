@@ -1,16 +1,14 @@
 import { nunjucksTestEnv } from '~/test-helpers/component-helpers.js'
 
 describe('Page rendering test for services about page', () => {
-  function passThrough(item) {
-    return item
-  }
+  const passThrough = (item) => item
 
-  beforeAll(function () {
+  beforeAll(() => {
     jest.useFakeTimers()
     jest.setSystemTime(new Date('2025-02-25T10:04:35Z').getTime())
   })
 
-  afterAll(function () {
+  afterAll(() => {
     jest.useRealTimers()
   })
 
