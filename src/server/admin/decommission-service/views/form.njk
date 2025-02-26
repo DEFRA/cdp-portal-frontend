@@ -71,7 +71,7 @@
         </div>
 
         <form action="/admin/decommission-service" method="post" data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
           {% call govukFieldset() %}
 
@@ -169,7 +169,7 @@
             <h4 class="govuk-heading-m govuk-!-margin-bottom-2">Step 3</h4>
 
             <p class="govuk-!-margin-bottom-2">
-             The final section of config and infrastructure are deleted:
+              The final section of config and infrastructure are deleted:
             </p>
 
             <ul class="govuk-list govuk-!-margin-left-1">
@@ -211,11 +211,12 @@
 
         </form>
 
-         <p class="govuk-!-margin-bottom-2">
-            <em>
-               <a class="app-link" href="https://portal.cdp-int.defra.cloud/documentation/how-to/platform-operations/remove-service.md" target="_blank" rel="noopener noreferrer">Remove service documentation</a>
-            </em>
-         </p>
+        <p class="govuk-!-margin-bottom-2">
+          <em>
+            <a class="app-link" href="https://github.com/DEFRA/cdp-platform-documentation/blob/main/remove-service.md"
+               target="_blank" rel="noopener noreferrer">Remove service documentation</a>
+          </em>
+        </p>
 
       </div>
     </div>
