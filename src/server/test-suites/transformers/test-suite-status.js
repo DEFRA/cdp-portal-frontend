@@ -12,11 +12,13 @@ function testSuiteStatus(service) {
   const createRepository = serviceStatus?.['cdp-create-workflows']
   const cdpTfSvcInfra = serviceStatus?.['cdp-tf-svc-infra']
   const cdpSquidProxy = serviceStatus?.['cdp-squid-proxy']
+  const cdpAppConfig = serviceStatus?.['cdp-app-config']
 
   const jobStatuses = [
     createRepository?.status,
     cdpTfSvcInfra?.status,
-    cdpSquidProxy?.status
+    cdpSquidProxy?.status,
+    cdpAppConfig?.status
   ]
   const completeJobs = jobStatuses.filter(
     (status) => status === 'success'
@@ -80,9 +82,55 @@ function testSuiteStatus(service) {
         }
       }
     },
+    cdpAppConfig: {
+      name: 'Config',
+      part: 2,
+      url: {
+        text: `${githubOrg}/cdp-app-config`,
+        href: `https://github.com/${githubOrg}/cdp-app-config`
+      },
+      status: {
+        text: cdpAppConfig?.status ? cdpAppConfig.status : unknownValue,
+        classes: statusTagClassMap(cdpAppConfig?.status)
+      },
+      info: () => {
+        switch (cdpAppConfig?.status) {
+          case creationStatuses.queued:
+            return `Config creation queued.`
+          case creationStatuses.requested:
+          case creationStatuses.inProgress:
+            return `Config creation in progress.`
+          case creationStatuses.unknown:
+          case creationStatuses.failure:
+            return `Something has gone wrong, contact us using the details at the ${buildLink(
+              '#app-help',
+              'top of the page',
+              false
+            )}.`
+          default:
+            return `Test suites on the Core Delivery Platform are configured via environment variables. You can update your test suite config via pull request on the cdp-app-config
+        repository. For more detailed information see the ${buildLink(
+          `https://github.com/${githubOrg}/cdp-app-config`,
+          'DEFRA/cdp-app-config/README.md'
+        )}`
+        }
+      },
+      githubAction: {
+        name: cdpAppConfig?.main?.workflow?.name,
+        url: {
+          text: removeUrlParts(cdpAppConfig?.main?.workflow?.html_url),
+          href: cdpAppConfig?.main?.workflow?.html_url
+        },
+        started: cdpAppConfig?.main?.workflow?.created_at
+      },
+      errors:
+        cdpAppConfig?.result?.errors
+          ?.map((error) => error?.message)
+          .filter(Boolean) ?? []
+    },
     cdpSquidProxy: {
       name: 'Proxy',
-      part: 2,
+      part: 3,
       url: {
         text: `${githubOrg}/cdp-squid-proxy`,
         href: `https://github.com/${githubOrg}/cdp-squid-proxy`
@@ -127,7 +175,7 @@ function testSuiteStatus(service) {
     },
     cdpTfSvcInfra: {
       name: 'Infrastructure',
-      part: 3,
+      part: 4,
       url: {
         text: `${githubOrg}/cdp-tf-svc-infra`,
         href: `https://github.com/${githubOrg}/cdp-tf-svc-infra`
