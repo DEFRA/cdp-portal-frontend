@@ -4,7 +4,7 @@ import nunjucks from 'nunjucks'
 import { load } from 'cheerio'
 import { camelCase, upperFirst } from 'lodash'
 
-import * as filters from '~/src/config/nunjucks/filters/index.js'
+import * as filters from '~/src/config/nunjucks/filters/filters.js'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const nunjucksTestEnv = nunjucks.configure(

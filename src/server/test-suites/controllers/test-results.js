@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { fetchTestRun } from '~/src/server/test-suites/helpers/fetch/index.js'
 

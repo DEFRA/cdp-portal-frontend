@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
-import { fetchScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { fetchPermissionsScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
 
 const confirmRemovePermissionFromTeamController = {
   options: {
@@ -15,7 +15,10 @@ const confirmRemovePermissionFromTeamController = {
     }
   },
   handler: async (request, h) => {
-    const { scope } = await fetchScope(request, request.params.scopeId)
+    const { scope } = await fetchPermissionsScope(
+      request,
+      request.params.scopeId
+    )
     const team = scope.teams.find((t) => t.teamId === request.params.teamId)
     const formattedValue = formatText(scope.value)
     const title = 'Remove'

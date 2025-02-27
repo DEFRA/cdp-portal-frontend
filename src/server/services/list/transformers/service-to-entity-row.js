@@ -1,5 +1,5 @@
 import { config } from '~/src/config/config.js'
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import {

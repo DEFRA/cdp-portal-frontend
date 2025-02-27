@@ -8,7 +8,7 @@ import {
 import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/provide-test-run-status-classname.js'
 import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.js'
 import { getTestStatusIcon } from '~/src/server/test-suites/helpers/get-test-status-icon.js'
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 
 function getDuration({ created, taskLastUpdated }, hasResult) {
   if (created && taskLastUpdated && hasResult) {

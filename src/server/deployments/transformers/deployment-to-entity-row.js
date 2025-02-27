@@ -1,7 +1,7 @@
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
 import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
 import { augmentStatus } from '~/src/server/deployments/helpers/augment-status.js'
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import {
   renderComponent,
   renderIcon

@@ -11,6 +11,7 @@ import { noValue } from '~/src/server/common/constants/no-value.js'
 import { userIsTeamMember } from '~/src/server/common/helpers/user/user-is-team-member.js'
 import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
 import { eventName } from '~/src/client/common/constants/event-name.js'
+import { getAnnouncements } from '~/src/config/nunjucks/context/announcements.js'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')
@@ -41,11 +42,14 @@ async function context(request) {
     return `${assetPath}/${webpackAssetPath}`
   }
 
+  const announcements = getAnnouncements(authedUser)
+
   const serviceConfig = config.get('service')
 
   return {
     appBaseUrl: config.get('appBaseUrl'),
     assetPath: `${assetPath}/assets`,
+    announcements,
     authedUser,
     blankOption: defaultOption,
     breadcrumbs: [],

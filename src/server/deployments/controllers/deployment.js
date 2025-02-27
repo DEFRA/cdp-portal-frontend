@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import isNull from 'lodash/isNull.js'
 
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'

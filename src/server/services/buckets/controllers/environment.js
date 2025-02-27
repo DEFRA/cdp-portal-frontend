@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { fetchBuckets } from '~/src/server/common/helpers/fetch/fetch-buckets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { environmentBuckets } from '~/src/server/services/buckets/transformers/environment-buckets.js'
