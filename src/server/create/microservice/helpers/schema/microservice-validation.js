@@ -5,7 +5,7 @@ import { checkNameAvailability } from '~/src/server/create/helpers/validator/che
 
 function microserviceValidation(serviceTypeTemplates) {
   return Joi.object({
-    repositoryName: Joi.string()
+    microserviceName: Joi.string()
       .pattern(/^[a-z0-9-]*$/)
       .pattern(/^[a-z0-9][a-z0-9-]*[a-z0-9]$/, {
         name: 'startAndEndWithCharacter'
@@ -43,7 +43,7 @@ function microserviceValidation(serviceTypeTemplates) {
       })
       .optional(),
     redirectLocation: Joi.string().valid('summary', '')
-  })
+  }).unknown(true)
 }
 
 export { microserviceValidation }

@@ -27,7 +27,7 @@
                 classes: "app-label"
               },
               id: "name",
-              name: "repositoryName",
+              name: "microserviceName",
               classes: "app-input app-input--wide",
               hint: {
                 html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. seed-vault-frontend",
@@ -36,7 +36,7 @@
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              value: formValues.repositoryName,
+              value: formValues.microserviceName,
               attributes: {
                 "data-js": "app-availability app-input-assistant",
                 "data-availability-target-id": "name-availability",
@@ -44,13 +44,13 @@
                 "data-1p-ignore": ""
               },
               errorMessage: {
-                text: formErrors.repositoryName.message,
+                text: formErrors.microserviceName.message,
                 classes: "app-error-message",
                 attributes: {
                   "data-js": "app-error",
                   "tabindex": "-1"
                 }
-              } if formErrors.repositoryName.message,
+              } if formErrors.microserviceName.message,
               suffix: {
                 classes: "app-input__suffix",
                 html: appAvailability({
@@ -89,7 +89,7 @@
                   "tabindex": "-1"
                 }
               } if formErrors.serviceTypeTemplate.message,
-              items: serviceTypesOptions
+              items: serviceTemplatesOptions
             }) }}
 
             {% if showTemplateTag %}
