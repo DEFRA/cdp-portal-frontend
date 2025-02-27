@@ -49,7 +49,10 @@ const sessionCookie = {
                 credentials: updatedSession
               }
             } catch (error) {
-              request.logger.debug(error, 'Token refresh failed')
+              request.logger.debug(
+                error,
+                'Token refresh failed - sessionCookie'
+              )
               removeAuthenticatedUser(request)
 
               return { isValid: false }
