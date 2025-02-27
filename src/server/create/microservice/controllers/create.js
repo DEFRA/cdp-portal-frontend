@@ -2,12 +2,12 @@ import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { fetchServiceTypes } from '~/src/server/create/microservice/helpers/fetch/fetch-service-types.js'
 import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation.js'
 import { setStepComplete } from '~/src/server/create/helpers/form/index.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
+import { serviceTemplatesNames } from '~/src/server/create/microservice/helpers/fetch/fetch-service-templates.js'
 
 const microserviceCreateController = {
   options: {
@@ -21,27 +21,25 @@ const microserviceCreateController = {
   },
   handler: async (request, h) => {
     const create = request.pre?.create
-    const repositoryName = create.repositoryName
+    const availableServiceTemplateNames = await serviceTemplatesNames(request)
+
+    const validationResult = await microserviceValidation(
+      availableServiceTemplateNames
+    )
+      .validateAsync(create, { abortEarly: false })
+      .then((value) => ({ value }))
+      .catch((error) => ({ value: create, error }))
+
+    const repositoryName = create.microserviceName
     const serviceTypeTemplate = create.serviceTypeTemplate
     const templateTag = create.templateTag
     const teamId = request.payload?.teamId
-
-    const { serviceTypes } = await fetchServiceTypes()
-    const serviceTypeTemplates = serviceTypes.map(
-      (serviceType) => serviceType.value
-    )
-
     const sanitisedPayload = {
       repositoryName,
       serviceTypeTemplate,
       teamId,
       templateTag
     }
-
-    const validationResult = await microserviceValidation(serviceTypeTemplates)
-      .validateAsync(sanitisedPayload, { abortEarly: false })
-      .then((value) => ({ value }))
-      .catch((error) => ({ value: sanitisedPayload, error }))
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
