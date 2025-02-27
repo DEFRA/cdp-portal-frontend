@@ -66,7 +66,10 @@ function authedFetchJsonDecorator(request) {
             // Replay initial request with new token
             return await authedFetchJson(url, newToken, options)
           } catch (error) {
-            request.logger.debug(error, 'Token refresh failed')
+            request.logger.debug(
+              error,
+              'Token refresh failed - authedFetchJsonDecorator'
+            )
             removeAuthenticatedUser(request)
           }
         }
