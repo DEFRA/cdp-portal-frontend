@@ -1,0 +1,22 @@
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
+
+<div class="app-announcement"
+     tabindex="-1"
+     role="alert"
+     data-testid="app-announcement">
+  {{ appInfoIcon({
+    classes: "app-icon--medium"
+  }) }}
+  <span class="app-announcement__content" data-testid="app-announcement-content">
+    {% for announcement in params.announcements %}
+      <span class="app-announcement__message">
+        {% set content = announcement.html | safe if announcement.html else announcement.text %}
+        {{ content }}
+      </span>
+    {% endfor %}
+  </span>
+</div>
+
+
+
+

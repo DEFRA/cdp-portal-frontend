@@ -12,6 +12,7 @@
 {% from "govuk/components/task-list/macro.njk" import govukTaskList %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
+{% from "announcement/macro.njk" import appAnnouncement %}
 {% from "autocomplete/macro.njk" import appAutocomplete %}
 {% from "banner/macro.njk" import appBanner %}
 {% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
@@ -69,6 +70,9 @@
 {% endblock %}
 
 {% block header %}
+  {% if announcements | length %}
+    {{ appAnnouncement({ announcements: announcements }) }}
+  {% endif %}
   {% if isIe %}
     {{ appOldBrowser({
       text: "You are using an unsupported browser Internet Explorer. The Core Delivery Platform - Portal will not

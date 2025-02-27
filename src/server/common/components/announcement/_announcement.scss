@@ -1,0 +1,23 @@
+@use "govuk-frontend" as *;
+
+.app-announcement {
+  display: flex;
+  align-items: center;
+  background-color: govuk-colour("yellow");
+  padding: govuk-spacing(2);
+
+  & .app-info-icon {
+    fill: govuk-colour("blue");
+  }
+}
+
+.app-announcement__content {
+  @include govuk-font(19);
+
+  margin: 0 govuk-spacing(2);
+  color: govuk-colour("black");
+}
+
+.app-announcement__message {
+  margin-bottom: govuk-spacing(1);
+}
