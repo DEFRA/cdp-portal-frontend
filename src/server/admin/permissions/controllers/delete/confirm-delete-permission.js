@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
-import { fetchScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { fetchPermissionsScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
 import { transformScopeToSummary } from '~/src/server/admin/permissions/transformers/scope-to-summary.js'
 import { transformScopeTeamsToTaskList } from '~/src/server/admin/permissions/transformers/scope-teams-to-task-list.js'
 
@@ -16,7 +16,10 @@ const confirmDeletePermissionController = {
     }
   },
   handler: async (request, h) => {
-    const { scope } = await fetchScope(request, request.params.scopeId)
+    const { scope } = await fetchPermissionsScope(
+      request,
+      request.params.scopeId
+    )
     const formattedValue = formatText(scope.value)
 
     return h.view('admin/permissions/views/delete/confirm-delete-permission', {

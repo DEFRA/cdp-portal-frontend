@@ -1,8 +1,8 @@
-import { fetchScopes } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { fetchPermissionsScopes } from '~/src/server/admin/permissions/helpers/fetchers.js'
 
 const permissionsListController = {
   handler: async (request, h) => {
-    const { scopes } = await fetchScopes(request)
+    const { scopes } = await fetchPermissionsScopes(request)
     const rows = scopes.map((scope) => ({
       cells: [
         {

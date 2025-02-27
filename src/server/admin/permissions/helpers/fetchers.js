@@ -40,14 +40,14 @@ function createScope(request, payload) {
   })
 }
 
-async function fetchScope(request, scopeId) {
+async function fetchPermissionsScope(request, scopeId) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
   const { payload } = await request.authedFetchJson(endpoint)
   return payload
 }
 
-async function fetchScopes(request) {
+async function fetchPermissionsScopes(request) {
   const endpoint = userServiceBackendUrl + '/scopes/admin'
 
   const { payload } = await request.authedFetchJson(endpoint)
@@ -116,8 +116,8 @@ export {
   addScopeToTeam,
   addScopeToUser,
   createScope,
-  fetchScope,
-  fetchScopes,
+  fetchPermissionsScope,
+  fetchPermissionsScopes,
   searchCdpUsers,
   searchCdpTeams,
   updateScope,

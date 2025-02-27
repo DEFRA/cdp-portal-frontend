@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { config } from '~/src/config/config.js'
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'

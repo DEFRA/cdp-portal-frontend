@@ -4,13 +4,13 @@ import uniqBy from 'lodash/uniqBy.js'
 import filter from 'lodash/filter.js'
 import { escapeRegex } from '@hapi/hoek'
 
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { provideSelectedEntities } from '~/src/server/admin/permissions/helpers/pre/provide-selected-entities.js'
 import {
-  fetchScope,
   searchCdpUsers,
-  searchCdpTeams
+  searchCdpTeams,
+  fetchPermissionsScope
 } from '~/src/server/admin/permissions/helpers/fetchers.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
@@ -138,7 +138,10 @@ const addPermissionFormController = {
     const selectedEntityIds = selectedEntities.map(
       (entity) => `${entity.kind}:${entity.id}`
     )
-    const { scope } = await fetchScope(request, request.params.scopeId)
+    const { scope } = await fetchPermissionsScope(
+      request,
+      request.params.scopeId
+    )
 
     return h.view('admin/permissions/views/add/add-permission-form', {
       pageTitle: 'Add Permission',

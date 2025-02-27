@@ -1,4 +1,4 @@
-import { formatText } from '~/src/config/nunjucks/filters/index.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 export function provideSubContextNavigation(request, section, h) {
