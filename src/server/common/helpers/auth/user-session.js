@@ -137,11 +137,7 @@ async function refreshUserSession(request, refreshTokenResponse) {
   request.logger.info(
     userLog(
       'User session refreshed',
-      {
-        id: payload.oid,
-        displayName: payload.name,
-        email: payload.preferred_username
-      },
+      { id: payload.oid, displayName: payload.name },
       scopeFlags,
       scopes
     )

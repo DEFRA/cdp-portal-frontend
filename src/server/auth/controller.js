@@ -26,11 +26,7 @@ const authCallbackController = {
       request.logger.info(
         userLog(
           'User logged in',
-          {
-            id: profile?.id,
-            displayName: profile?.displayName,
-            email: profile?.email
-          },
+          { id: profile?.id, displayName: profile?.displayName },
           profile?.scopeFlags,
           profile?.scopes
         )
