@@ -19,5 +19,7 @@
 }
 
 .app-announcement__message {
-  margin-bottom: govuk-spacing(1);
+  & + * {
+    margin-top: govuk-spacing(1);
+  }
 }
