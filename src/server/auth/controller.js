@@ -4,6 +4,7 @@ import Boom from '@hapi/boom'
 
 import { createUserSession } from '~/src/server/common/helpers/auth/user-session.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
 
 const authCallbackController = {
   options: {
@@ -22,6 +23,18 @@ const authCallbackController = {
 
       const { profile } = request.auth.credentials
 
+      request.logger.info(
+        userLog(
+          'User logged in',
+          {
+            id: profile?.id,
+            displayName: profile?.displayName,
+            email: profile?.email
+          },
+          profile?.scopeFlags,
+          profile?.scopes
+        )
+      )
       request.audit.sendMessage({
         event: `User logged in ${profile?.id} ${profile?.displayName}`,
         user: profile

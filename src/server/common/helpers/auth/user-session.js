@@ -3,17 +3,7 @@ import { addSeconds } from 'date-fns'
 import { validate as uuidValidate } from 'uuid'
 
 import { fetchScopes } from '~/src/server/teams/helpers/fetch/fetch-scopes.js'
-
-const userLog = (prefix, user, scopes, scopeFlags) => {
-  const messages = [
-    prefix,
-    `UserId: ${user?.id}, displayName: ${user?.displayName}, email: ${user?.email}`,
-    `scopes: ${scopes?.join(' ') || 'null'}`,
-    `isAdmin: ${scopeFlags?.isAdmin ?? 'null'}, isTenant: ${scopeFlags?.isTenant ?? 'null'}`
-  ]
-
-  return messages.join(', ')
-}
+import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
 
 /**
  * @description MicroSoft refresh token response
@@ -81,9 +71,7 @@ async function createUserSession(request, sessionId) {
 async function updateUserScope(request, userSession) {
   const { scopes, scopeFlags } = await fetchScopes(userSession.token)
 
-  request.logger.info(
-    userLog('User session updated', userSession, scopes, scopeFlags)
-  )
+  request.logger.debug('User session updated')
 
   await request.server.app.cache.set(
     request.state.userSessionCookie.sessionId,
@@ -154,8 +142,8 @@ async function refreshUserSession(request, refreshTokenResponse) {
         displayName: payload.name,
         email: payload.preferred_username
       },
-      scopes,
-      scopeFlags
+      scopeFlags,
+      scopes
     )
   )
 
