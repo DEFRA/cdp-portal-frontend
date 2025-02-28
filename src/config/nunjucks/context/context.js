@@ -35,16 +35,14 @@ async function context(request) {
   }
 
   const authedUser = await request.getUserSession()
-
-  function getAssetPath(asset) {
+  const isInternetExplorer = isIe(request.headers['user-agent'])
+  const announcements = getAnnouncements(authedUser, isInternetExplorer)
+  const serviceConfig = config.get('service')
+  const getAssetPath = (asset) => {
     const webpackAssetPath = webpackManifest[asset]
 
     return `${assetPath}/${webpackAssetPath}`
   }
-
-  const announcements = getAnnouncements(authedUser)
-
-  const serviceConfig = config.get('service')
 
   return {
     appBaseUrl: config.get('appBaseUrl'),
@@ -61,7 +59,6 @@ async function context(request) {
     githubOrg: config.get('githubOrg'),
     isAdmin: authedUser?.isAdmin ?? false,
     isAuthenticated: authedUser?.isAuthenticated ?? false,
-    isIe: isIe(request.headers['user-agent']),
     isTenant: authedUser?.isTenant ?? false,
     isXhr: isXhr.call(request),
     navigation: await buildNavigation(request),
