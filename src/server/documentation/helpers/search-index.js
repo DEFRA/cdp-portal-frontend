@@ -87,17 +87,26 @@ async function buildSearchIndex(request, bucket) {
  */
 function removeBrokenWords(text, searchTerm) {
   const lowerSearchTerm = searchTerm.toLowerCase()
-  let line = text.trim()
+  let line = text
 
   if (line.toLowerCase() === lowerSearchTerm) {
     return line
   }
 
-  if (!line.toLowerCase().startsWith(lowerSearchTerm)) {
+  const firstWord = line.substr(0, line.indexOf(' ')).toLowerCase()
+  const lastWord = line.split(' ').splice(-1)[0].toLowerCase()
+
+  if (
+    !line.toLowerCase().startsWith(lowerSearchTerm) &&
+    !firstWord.includes(lowerSearchTerm)
+  ) {
     line = line.replace(/^\S+\s/, '')
   }
 
-  if (!line.toLowerCase().endsWith(lowerSearchTerm)) {
+  if (
+    !line.toLowerCase().endsWith(lowerSearchTerm) &&
+    !lastWord.includes(lowerSearchTerm)
+  ) {
     line = line.replace(/\s\S+$/, '')
   }
 
@@ -176,7 +185,6 @@ async function searchIndex(request, bucket, query) {
                 const sliceStart = Math.max(startPos - surroundingCharacters, 0)
                 const sliceEnd = startPos + length + surroundingCharacters
                 const slice = match.file.slice(sliceStart, sliceEnd)
-
                 const textResult = prepTextResult(slice, query)
 
                 if (!textResult) {
