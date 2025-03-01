@@ -165,7 +165,7 @@ async function searchIndex(request, bucket, query) {
   const queryTerm = query?.replace(/[*^:~+-]/g, '') ?? null
   const results = queryTerm
     ? builtSearchIndex.index.search(
-        `${queryTerm}^100 ${queryTerm}*^10 ${queryTerm}~2` // https://github.com/olivernn/lunr.js/issues/256#issuecomment-295407852
+        `${queryTerm}^100 ${queryTerm}*^50 *${queryTerm}^25 ${queryTerm}~4`
       )
     : []
 
