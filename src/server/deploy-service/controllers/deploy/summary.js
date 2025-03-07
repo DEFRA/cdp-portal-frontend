@@ -7,6 +7,7 @@ import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid.js'
+import { fetchLatestConfigVersion } from '~/src/server/common/helpers/fetch/fetch-latest-config-version.js'
 
 const summaryController = {
   options: {
@@ -37,6 +38,8 @@ const summaryController = {
     const secrets = await fetchSecrets(stepData.environment, stepData.imageName)
     const secretDetail = transformSecrets(secrets)
 
+    const configVersion = await fetchLatestConfigVersion(stepData.environment)
+
     return h.view('deploy-service/views/summary', {
       pageTitle: 'Deploy Service summary',
       heading: 'Deployment summary',
@@ -52,7 +55,8 @@ const summaryController = {
       formButtonText: 'Deploy',
       stepData,
       secretDetail,
-      multiStepFormId
+      multiStepFormId,
+      configVersion: configVersion.commitSha
     })
   }
 }

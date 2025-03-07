@@ -20,6 +20,7 @@
         <form action="/deploy-service/deploy/{{ multiStepFormId }}" method="post">
 
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="configVersion" value="{{ configVersion }}" />
 
           {{ govukSummaryList({
             classes: "govuk-!-margin-bottom-7",
@@ -43,7 +44,7 @@
                     <li>
                       <a
                         class="app-link"
-                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ stepData.imageName }}/{{ stepData.environment }}/{{ stepData.imageName }}.env"
+                        href="https://github.com/DEFRA/cdp-app-config/blob/{{ configVersion }}/services/{{ stepData.imageName }}/{{ stepData.environment }}/{{ stepData.imageName }}.env"
                         target="_blank"
                         rel="noopener noreferrer">
                         {{ stepData.imageName }} - {{ stepData.environment }} - config
@@ -52,7 +53,7 @@
                     <li>
                       <a
                         class="app-link"
-                        href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ stepData.imageName }}/defaults.env"
+                        href="https://github.com/DEFRA/cdp-app-config/blob/{{ configVersion }}/services/{{ stepData.imageName }}/defaults.env"
                         target="_blank"
                         rel="noopener noreferrer">
                         {{ stepData.imageName }} - defaults
