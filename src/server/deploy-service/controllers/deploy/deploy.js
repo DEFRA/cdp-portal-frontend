@@ -31,7 +31,8 @@ const deployController = {
             environment: stepData.environment,
             instanceCount: stepData.instanceCount,
             cpu: stepData.cpu,
-            memory: stepData.memory
+            memory: stepData.memory,
+            configVersion: request.payload.configVersion
           }
         }
       )
@@ -47,7 +48,7 @@ const deployController = {
       const deploymentId = payload.deploymentId
 
       request.audit.sendMessage({
-        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
         data: {
           imageName: stepData.imageName,
           environment: stepData.environment
