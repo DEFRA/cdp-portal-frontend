@@ -3,25 +3,20 @@ import Boom from '@hapi/boom'
 
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { provideService } from '~/src/server/services/helpers/pre/provide-service.js'
-import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
 import { terminalEnvironments } from '~/src/server/services/terminal/helpers/can-launch-terminal.js'
+import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 
-async function getTerminalEnvs(service, userScopes) {
-  const teams = service?.teams
+export async function getTerminalEnvs(service, userScopes) {
   const serviceName = service?.serviceName
 
-  if (!teams || !serviceName) {
+  if (!serviceName) {
     return []
   }
 
   const environments = terminalEnvironments(userScopes)
-  const runningServices = (await fetchRunningServicesById(serviceName)) ?? []
+  const tenantService = (await fetchTenantService(serviceName)) ?? {}
 
-  return [
-    ...new Set(
-      runningServices.map((runningService) => runningService.environment)
-    )
-  ]
+  return Object.keys(tenantService)
     .filter((env) => environments.includes(env))
     .sort(sortByEnv)
 }
