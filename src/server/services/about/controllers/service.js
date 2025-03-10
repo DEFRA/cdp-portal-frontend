@@ -26,10 +26,6 @@ const serviceController = {
     const service = request.pre.service
     const isServiceOwner = request.pre.isServiceOwner
 
-    if (service === null) {
-      return Boom.notFound()
-    }
-
     const [availableVersions, vanityUrls, apiGateways] = await Promise.all([
       fetchAvailableVersions(service.serviceName),
       provideVanityUrls(request),
