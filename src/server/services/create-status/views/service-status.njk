@@ -1,0 +1,31 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appHeading({
+    title: heading,
+    caption: caption,
+    entities: headingEntities
+  }) }}
+
+  <hr class="app-section-break">
+
+  <div class="govuk-grid-row">
+
+    {% if not isSuccess %}
+      <div data-js="app-poll"
+           data-poll-url="/services/create-status/{{ service.serviceName }}"
+           data-poll-interval="3000"
+           data-poll-limit="45">
+    {% endif %}
+
+      {% block xhrContent %}
+        {% include "services/service/about/partials/service-status.njk" %}
+      {% endblock %}
+
+    {% if not isSuccess %}
+      </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
