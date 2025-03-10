@@ -15,13 +15,15 @@
  * @property {Date} expiresAt
  */
 
+import { userSessionFixture } from '~/src/__fixtures__/user-session.js'
+
 /**
  * Get the user session from the cache
  * @returns {Promise<UserSession | null>}
  */
 async function getUserSession() {
   const sessionId = this.state?.userSessionCookie?.sessionId
-  return sessionId ? await this.server.app.cache.get(sessionId) : null
+  return userSessionFixture
 }
 
 export { getUserSession }

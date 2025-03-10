@@ -1,18 +1,18 @@
 import { nunjucksTestEnv } from '~/test-helpers/component-helpers.js'
 
-describe('Page rendering test for services about page', () => {
+describe('Services about page', () => {
   const passThrough = (item) => item
 
   beforeAll(() => {
     jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-02-25T10:04:35Z').getTime())
+    jest.setSystemTime(new Date('2025-02-25'))
   })
 
   afterAll(() => {
     jest.useRealTimers()
   })
 
-  test('renders the page for a frontend service', () => {
+  test('frontend service', () => {
     const rendered = nunjucksTestEnv.render(
       'services/about/views/service.njk',
       {
@@ -115,7 +115,7 @@ describe('Page rendering test for services about page', () => {
     expect(rendered).toMatchFile()
   })
 
-  test('renders the page for a backend service', () => {
+  test('backend service', () => {
     const rendered = nunjucksTestEnv.render(
       'services/about/views/service.njk',
       {

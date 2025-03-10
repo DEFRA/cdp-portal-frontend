@@ -10,6 +10,8 @@ import { getEnvironments } from '~/src/server/common/helpers/environments/get-en
 import { transformRunningServices } from '~/src/server/services/about/transformers/running-services.js'
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideApiGateways } from '~/src/server/services/about/transformers/api-gateways.js'
+import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 
 const serviceController = {
   options: {
@@ -30,11 +32,13 @@ const serviceController = {
       return Boom.notFound()
     }
 
-    const [availableVersions, vanityUrls, apiGateways] = await Promise.all([
-      fetchAvailableVersions(service.serviceName),
-      provideVanityUrls(request),
-      provideApiGateways(request)
-    ])
+    const [availableVersions, vanityUrls, apiGateways, tenantServiceInfo] =
+      await Promise.all([
+        fetchAvailableVersions(service.serviceName),
+        provideVanityUrls(request),
+        provideApiGateways(request),
+        fetchTenantService(service.serviceName)
+      ])
 
     const latestPublishedImageVersions = availableVersions
       .sort(sortBy('created'))
@@ -56,6 +60,9 @@ const serviceController = {
       environments,
       runningServices,
       latestPublishedImageVersions,
+      autoDeployEnvironments: buildOptions(
+        Object.keys(tenantServiceInfo) ?? []
+      ),
       breadcrumbs: [
         {
           text: 'Services',

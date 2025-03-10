@@ -20,7 +20,7 @@
       {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
         {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-blue", description: "Shuttered URL" }) }}
       {% endcall %}
-    {% elif not params.enabled %}
+      {% elif not params.enabled %}
       {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
         {{ appInternalIcon({ classes: "app-icon--tiny", description: "Internal URL" }) }}
       {% endcall %}
@@ -97,7 +97,7 @@
     {% for vanityUrl in vanityUrls %}
       {% for url in vanityUrl.urls | selectattr("shuttered") %}
         {% call appWarning({ isInverse: false }) %}
-        <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
+          <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
         noreferrer">https://{{ url.url }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
@@ -108,7 +108,7 @@
     {% for apiGateway in apiGateways %}
       {% for api in apiGateway.apis | selectattr("shuttered") %}
         {% call appWarning({ isInverse: false }) %}
-        <a class="app-link app-link--underline" href="https://{{ api.api }}" target="_blank" rel="noopener
+          <a class="app-link app-link--underline" href="https://{{ api.api }}" target="_blank" rel="noopener
         noreferrer">https://{{ api.api }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
@@ -124,6 +124,61 @@
       </p>
 
       {{ govukSummaryList(summaryList) }}
+    </section>
+
+    <section class="govuk-!-margin-bottom-6">
+      <form action="/admin/permissions/{{ scope.scopeId }}/add"
+            method="post"
+            data-js="auto-submit app-form-errors">
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+        {{ govukCheckboxes({
+          name: "autoDeployEnvironments",
+          classes: "govuk-checkboxes--small",
+          fieldset: {
+            legend: {
+              text: "Auto Deploy",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "Turn on auto deploy in the following environments"
+          },
+          items: [
+            {
+              value: "carcasses",
+              text: "Waste from animal carcasses"
+            },
+            {
+              value: "mines",
+              text: "Waste from mines or quarries"
+            },
+            {
+              value: "farm",
+              text: "Farm or agricultural waste"
+            }
+          ],
+          values: formValues.autoDeployEnvironments,
+          errorMessage: {
+            attributes: {
+              "data-js": "app-error",
+              "tabindex": "-1"
+            },
+            text: formErrors.autoDeployEnvironments.message
+          } if formErrors.autoDeployEnvironments.message
+        }) }}
+
+        <div class="govuk-body govuk-button-group">
+          {{ govukButton({
+            classes: "app-button",
+            text: "Save"
+          }) }}
+
+          <a class="app-link" href="/admin/permissions/{{ scope.scopeId }}">Cancel</a>
+        </div>
+
+      </form>
     </section>
 
     <section class="app-grid-service__info">

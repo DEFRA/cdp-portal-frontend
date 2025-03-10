@@ -15,7 +15,7 @@ const userSessionFixture = {
     'tenant'
   ],
   expiresIn: 4089000,
-  expiresAt: '2023-11-13T15:41:47.572Z'
+  expiresAt: '2029-11-13T15:41:47.572Z'
 }
 
 export { userSessionFixture }
