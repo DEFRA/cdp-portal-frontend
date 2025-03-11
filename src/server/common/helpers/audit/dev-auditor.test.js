@@ -6,7 +6,7 @@ describe('#DevAuditor', () => {
 
   beforeAll(async () => {
     jest.useFakeTimers()
-    jest.setSystemTime(new Date('2023-04-01').getTime())
+    jest.setSystemTime(new Date('2023-04-01'))
 
     // Dynamic import needed so we can set jest.setSystemTime before the Joi validation schema is imported
     const auditorImport = await import(
