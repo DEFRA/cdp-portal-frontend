@@ -1,7 +1,7 @@
 function buildErrorDetails(errorDetails) {
   return errorDetails.reduce((errors, detail) => {
     return {
-      [detail.context.key]: {
+      [detail.path.at(0)]: {
         message: detail.message
       },
       ...errors

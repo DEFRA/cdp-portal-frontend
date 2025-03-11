@@ -54,6 +54,17 @@ const joiValidationErrorDetailsFixture = [
       value: '',
       key: 'environment'
     }
+  },
+  {
+    message: 'Environment is not available for this service',
+    path: ['autoDeployEnvironments', 2],
+    type: 'any.only',
+    context: {
+      valids: ['infra-dev', 'management', 'dev', 'test', 'perf-test'],
+      label: 'autoDeployEnvironments[2]',
+      value: 'snd',
+      key: 2
+    }
   }
 ]
 
