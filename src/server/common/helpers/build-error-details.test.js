@@ -4,6 +4,9 @@ import { joiValidationErrorDetailsFixture } from '~/src/__fixtures__/joi-validat
 describe('#buildErrorDetails', () => {
   test('Should provide expected error details', () => {
     expect(buildErrorDetails(joiValidationErrorDetailsFixture)).toEqual({
+      autoDeployEnvironments: {
+        message: 'Environment is not available for this service'
+      },
       environment: {
         message: 'Choose an entry'
       },
