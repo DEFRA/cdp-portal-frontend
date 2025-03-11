@@ -1,5 +1,11 @@
 import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
 
+/**
+ * Build select, radio or checkbox options
+ * @param {Array<{value: string, text: string}> | Array<string>} items
+ * @param {boolean} withDefault
+ * @returns {Array<{value: string, text: string, disabled: boolean, attributes: {selected: boolean}}>}
+ */
 function buildOptions(items, withDefault = true) {
   return [
     ...(withDefault ? [defaultOption] : []),
