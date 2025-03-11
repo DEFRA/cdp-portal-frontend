@@ -6,15 +6,13 @@ import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide
 import { terminalEnvironments } from '~/src/server/services/service/terminal/helpers/can-launch-terminal.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 
-export async function getTerminalEnvs(service, userScopes) {
-  const serviceName = service?.serviceName
-
+export async function getTerminalEnvs(serviceName, userScopes) {
   if (!serviceName) {
     return []
   }
 
   const environments = terminalEnvironments(userScopes)
-  const tenantService = (await fetchTenantService(serviceName)) ?? {}
+  const tenantService = await fetchTenantService(serviceName)
 
   return Object.keys(tenantService)
     .filter((env) => environments.includes(env))
@@ -36,7 +34,7 @@ const terminalController = {
     const serviceId = request.params.serviceId
     const service = request.pre.service
     const terminalEnvs = await getTerminalEnvs(
-      service,
+      service.serviceName,
       request.auth.credentials?.scope
     )
     const canLaunchTerminal = terminalEnvs.length > 0
