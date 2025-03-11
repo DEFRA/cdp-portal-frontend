@@ -273,7 +273,7 @@ const config = convict({
     doc: 'Azure App Client ID',
     format: String,
     env: 'AZURE_CLIENT_ID',
-    default: '63983fc2-cfff-45bb-8ec2-959e21062b9a'
+    default: '26372ac9-d8f0-4da9-a17e-938eb3161d8e'
   },
   azureClientSecret: {
     doc: 'Azure App Client Secret. Defaults to stub secret',
