@@ -8,10 +8,16 @@ function protectForm($form) {
   }
 
   const allowedInputs = ['select', 'input']
+
+  if ($form.dataset.protectSubmitButton) {
+    allowedInputs.push('button')
+  }
+
   const $protectedInputs = Array.from($form.elements).filter(
     ($element) =>
       $element.type !== 'hidden' &&
-      allowedInputs.includes($element.tagName.toLowerCase())
+      allowedInputs.includes($element.tagName.toLowerCase()) &&
+      $element !== $controlButton
   )
 
   document.addEventListener('DOMContentLoaded', () =>
