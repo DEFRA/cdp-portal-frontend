@@ -2,8 +2,8 @@ import { allBucketsController } from '~/src/server/services/service/buckets/cont
 import { environmentBucketsController } from '~/src/server/services/service/buckets/controllers/environment.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { provideSubNavigation } from '~/src/server/services/service/buckets/helpers/provide-sub-navigation.js'
-import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
+import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
+import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -15,7 +15,7 @@ const serviceBuckets = {
         ...commonServiceExtensions,
         {
           type: 'onPostHandler',
-          method: provideSubNavigation,
+          method: provideSubNavForServiceOrTestSuite('buckets', 'service'),
           options: {
             sandbox: 'plugin'
           }
