@@ -3,17 +3,11 @@ import { environmentSecretsController } from '~/src/server/services/service/secr
 import { updateSecretController } from '~/src/server/services/service/secrets/controllers/update.js'
 import { createSecretController } from '~/src/server/services/service/secrets/controllers/create.js'
 import { updateSecretFormController } from '~/src/server/services/service/secrets/controllers/update-form.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
-import { provideSubNavigation } from '~/src/server/services/service/secrets/helpers/provide-sub-navigation.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
-
-const serviceOwnerOrAdminUserScope = authScope([
-  scopes.admin,
-  scopes.serviceOwner
-])
+import { serviceOwnerOrAdminUserScope } from '~/src/server/common/constants/scopes.js'
+import { provideSubNavForServiceOrTestSuite } from '~/src/server/common/extensions/provide-sub-navigation.js'
 
 const serviceSecrets = {
   plugin: {
@@ -38,7 +32,7 @@ const serviceSecrets = {
         },
         {
           type: 'onPostHandler',
-          method: provideSubNavigation,
+          method: provideSubNavForServiceOrTestSuite('secrets', 'service'),
           options: {
             sandbox: 'plugin'
           }
@@ -50,22 +44,22 @@ const serviceSecrets = {
           {
             method: 'GET',
             path: '/services/{serviceId}/secrets',
-            ...allSecretsController
+            ...allSecretsController('service')
           },
           {
             method: 'GET',
             path: '/services/{serviceId}/secrets/{environment}',
-            ...environmentSecretsController
+            ...environmentSecretsController('service')
           },
           {
             method: 'GET',
             path: '/services/{serviceId}/secrets/{environment}/update',
-            ...updateSecretFormController
+            ...updateSecretFormController('service')
           },
           {
             method: 'POST',
             path: '/services/{serviceId}/secrets/{environment}/update',
-            ...updateSecretController
+            ...updateSecretController('service')
           },
           {
             method: 'POST',

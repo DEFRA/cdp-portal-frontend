@@ -11,6 +11,7 @@ import { provideEnvironmentOptions } from '~/src/server/test-suites/helpers/pre/
 
 const testSuiteController = {
   options: {
+    id: 'test-suites/{serviceId}',
     pre: [[provideTestSuite], provideEnvironmentOptions, provideCanRun],
     validate: {
       params: Joi.object({
@@ -28,7 +29,7 @@ const testSuiteController = {
     const testRuns = (await fetchTestRuns(serviceName)) ?? []
     const rows = testRuns.map((test) => testSuiteRunResults(test, canRun))
 
-    return h.view('test-suites/views/test-suite', {
+    return h.view('test-suites/test-suite/about/views/test-suite', {
       pageTitle: `Test Suite - ${serviceName}`,
       testSuite,
       canRun,

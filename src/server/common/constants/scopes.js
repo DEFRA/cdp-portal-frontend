@@ -1,3 +1,5 @@
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+
 const scopes = {
   admin: 'admin',
   tenant: 'tenant',
@@ -7,4 +9,9 @@ const scopes = {
   restrictedTechPython: 'restrictedTechPython'
 }
 
-export { scopes }
+const serviceOwnerOrAdminUserScope = authScope([
+  scopes.admin,
+  scopes.serviceOwner
+])
+
+export { scopes, serviceOwnerOrAdminUserScope }
