@@ -3,7 +3,6 @@ import { terminalController } from '~/src/server/services/service/terminal/contr
 import { terminalBrowserController } from '~/src/server/services/service/terminal/controllers/terminal-browser.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
 
@@ -18,13 +17,6 @@ const serviceTerminal = {
     register: (server) => {
       server.ext([
         ...commonServiceExtensions,
-        {
-          type: 'onCredentials',
-          method: addServiceOwnerScope,
-          options: {
-            sandbox: 'plugin'
-          }
-        },
         {
           type: 'onPostHandler',
           method: provideFormContextValues(),
