@@ -9,6 +9,7 @@ import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
 import { provideSubNavigation } from '~/src/server/services/service/secrets/helpers/provide-sub-navigation.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
+import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
@@ -21,6 +22,13 @@ const serviceSecrets = {
     register: (server) => {
       server.ext([
         ...commonServiceExtensions,
+        {
+          type: 'onCredentials',
+          method: addServiceOwnerScope,
+          options: {
+            sandbox: 'plugin'
+          }
+        },
         {
           type: 'onPostHandler',
           method: provideFormContextValues(),
