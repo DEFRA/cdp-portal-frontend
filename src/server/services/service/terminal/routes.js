@@ -4,7 +4,7 @@ import { terminalBrowserController } from '~/src/server/services/service/termina
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
+import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
