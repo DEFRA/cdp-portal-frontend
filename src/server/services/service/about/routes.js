@@ -1,5 +1,5 @@
 import { serviceController } from '~/src/server/services/service/about/controllers/service.js'
-import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
+import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
 
 const aboutService = {
   plugin: {
