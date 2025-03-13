@@ -10,6 +10,8 @@
 }
 
 .app-summary-list {
+  margin-bottom: govuk-spacing(4);
+
   .govuk-summary-list__row {
     border-bottom: 1px solid $app-mid-grey;
     vertical-align: middle;
