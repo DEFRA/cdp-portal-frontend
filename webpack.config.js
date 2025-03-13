@@ -213,8 +213,8 @@ if (NODE_ENV !== 'production') {
     new WebpackShellPluginNext({
       onBuildStart: {
         scripts: ['echo "Webpack build starting"'],
-        blocking: true,
-        parallel: false
+        blocking: false,
+        parallel: true
       },
       onBuildEnd: {
         scripts: [DEBUG ? 'npm run server:debug' : 'npm run server:watch'],
