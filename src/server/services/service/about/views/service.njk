@@ -1,15 +1,9 @@
 {% extends "layouts/tabbed-page.njk" %}
 
 {% from "icons/block-icon/macro.njk" import appBlockIcon %}
-{% from "icons/chart-icon/macro.njk" import appChartIcon %}
-{% from "icons/check-icon/macro.njk" import appCheckIcon %}
-{% from "icons/globe-icon/macro.njk" import appGlobeIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/internal-icon/macro.njk" import appInternalIcon %}
-{% from "icons/logs-icon/macro.njk" import appLogsIcon %}
 {% from "icons/shutter-icon/macro.njk" import appShutterIcon %}
-{% from "icons/world-icon/macro.njk" import appWorldIcon %}
-{% from "icons/wrench-icon/macro.njk" import appWrenchIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
 {% from "time/macro.njk" import appTime %}
@@ -20,7 +14,7 @@
       {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
         {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-blue", description: "Shuttered URL" }) }}
       {% endcall %}
-    {% elif not params.enabled %}
+      {% elif not params.enabled %}
       {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
         {{ appInternalIcon({ classes: "app-icon--tiny", description: "Internal URL" }) }}
       {% endcall %}
@@ -49,7 +43,6 @@
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
-
   {% set versionLinkHtml %}
     <a class="app-link"
        href="https://github.com/DEFRA/{{ service.serviceName }}/releases/tag/{{ version.tag }}"
@@ -69,7 +62,7 @@
     </div>
   {% endset %}
 
-  {% if isServiceOwner %}
+  {% if isAdmin or isServiceOwner %}
     {{ latestPublishedTableRows.push([
       { html: createdHtml },
       { html: versionLinkHtml },
@@ -77,7 +70,7 @@
     ]) }}
   {% else %}
     {{ latestPublishedTableRows.push([
-      { html: appTime({ datetime: version.created }) },
+      { html: createdHtml },
       { html: versionLinkHtml }
     ]) }}
   {% endif %}
@@ -90,14 +83,12 @@
   }) }}
 {% endblock %}
 
-
 {% block tabContent %}
-
   <div class="govuk-!-margin-bottom-4">
     {% for vanityUrl in vanityUrls %}
       {% for url in vanityUrl.urls | selectattr("shuttered") %}
         {% call appWarning({ isInverse: false }) %}
-        <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
+          <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
         noreferrer">https://{{ url.url }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
@@ -108,103 +99,30 @@
     {% for apiGateway in apiGateways %}
       {% for api in apiGateway.apis | selectattr("shuttered") %}
         {% call appWarning({ isInverse: false }) %}
-        <a class="app-link app-link--underline" href="https://{{ api.api }}" target="_blank" rel="noopener
+          <a class="app-link app-link--underline" href="https://{{ api.api }}" target="_blank" rel="noopener
         noreferrer">https://{{ api.api }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
     {% endfor %}
   </div>
 
-  <article class="app-grid app-grid-service">
-
-    <section class="app-grid-service__details">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-      <p class="govuk-!-margin-bottom-2">
-        {{ service.description }}
-      </p>
-
-      {{ govukSummaryList(summaryList) }}
-    </section>
-
-    <section class="app-grid-service__info">
-
-      {% call appPanel() %}
-        <section>
-          {{ appHeader({
-            heading: {
-              size: 2,
-              classes: "govuk-heading-m",
-              text: "Configuration"
-            },
-            icon: appWrenchIcon({
-              classes: "app-icon--small app-icon--fill-blue"
-            })
-          }) }}
-
-          <p class="govuk-!-margin-bottom-2">
-            Manage service configuration and set environment variables across CDP environments. For more information see
-            our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>. To view
-            this services configuration go to
-            <a class="app-link"
-               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
-               target="_blank"
-               rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/{{ service.serviceName }}</a>
-          </p>
-        </section>
-      {% endcall %}
-
-      {% call appPanel() %}
-        <section>
-          {{ appHeader({
-            heading: {
-              size: 2,
-              classes: "govuk-heading-m",
-              text: "Continuous Integration"
-            },
-            icon: appCheckIcon({
-              classes: "app-icon--small app-icon--fill-blue",
-              description: "Continuous Integration Builds"
-            })
-          }) }}
-
-          <p class="govuk-!-margin-bottom-2">
-            Test, build and publish ready-to-deploy docker images of your service with CI and GitHub
-            Actions workflows. Your service is built and published by GitHub Actions and comes with a number of
-            useful CDP Workflows. To view these workflows and builds go to
-            <a class="app-link" target="_blank" rel="noopener noreferrer"
-               href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
-              https://github.com/DEFRA/{{ service.serviceName }}/actions
-            </a>
-          </p>
-        </section>
-      {% endcall %}
-    </section>
-
-    <section class="app-grid-service__running">
-      <section class="govuk-!-margin-bottom-6">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
+  <div class="app-service-container">
+    <article class="app-grid app-grid-service">
+      <section class="app-grid-service__details">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
         <p class="govuk-!-margin-bottom-2">
-          The versions of your service currently running on CDP environments. For more information view
-          <a class="app-link" href="/running-services/{{ service.serviceName }}">
-            Running services
-          </a>
+          {{ service.description }}
         </p>
 
-        {{ appRunningServiceSlim({
-          runningServices: runningServices,
-          environments: environments
-        }) }}
-
+        {{ govukSummaryList(summaryList) }}
       </section>
 
-      <section>
+      <section class="app-grid-service__published">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Published Images</h2>
         <p class="govuk-!-margin-bottom-2">
           Latest available CDP built and published docker images, via
           <a class="app-link" target="_blank" rel="noopener noreferrer"
-             href="https://github.com/DEFRA/{{ imageName }}/actions">
-            GitHub Actions
-          </a>
+             href="https://github.com/DEFRA/{{ imageName }}/actions">GitHub Actions</a>
         </p>
 
         {% if latestPublishedTableRows | length %}
@@ -227,119 +145,157 @@
           </p>
         {% endif %}
       </section>
-    </section>
 
-    <section class="app-grid-service__links">
-      {% if service.isFrontend %}
+      <section class="app-grid-service__run">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
+        <p class="govuk-!-margin-bottom-2">
+          The versions of your service currently running on CDP environments. For more information view
+          <a class="app-link" href="/running-services/{{ service.serviceName }}">Running services</a>
+        </p>
 
-        {% if vanityUrls | length %}
-          {% set urlText = "URL" | pluralise(vanityUrls | length * vanityUrls[0].urls | length) %}
+        {{ appRunningServiceSlim({
+          runningServices: runningServices,
+          environments: availableServiceEnvironments
+        }) }}
+      </section>
+
+      <section class="app-grid-service__info">
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
+          <p class="govuk-!-margin-bottom-6">
+            Manage service configuration and set environment variables across CDP environments. For more information
+            see
+            our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>.
+            To view this services configuration go to
+            <a class="app-link"
+               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
+               target="_blank"
+               rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/{{ service.serviceName }}</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Continuous Integration</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Test, build and publish ready-to-deploy docker images of your service with CI and GitHub
+            Actions workflows.
+            Your service is built and published by GitHub Actions and comes with a number of
+            useful CDP Workflows. To view these workflows and builds go to
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/{{ service.serviceName }}/actions">
+              https://github.com/DEFRA/{{ service.serviceName }}/actions</a>
+          </p>
+        </section>
+      </section>
+    </article>
+
+    <aside class="app-service-container__sidebar">
+      <section class="app-grid-service__links">
+        {% if service.isFrontend %}
+
+          {% if vanityUrls | length %}
+            {% set urlText = "URL" | pluralise(vanityUrls | length * vanityUrls[0].urls | length) %}
+            <section class="govuk-!-margin-bottom-6">
+              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
+              <p>
+                User-friendly custom {{ urlText }}
+              </p>
+
+              {% if vanityUrls | length == 1 %}
+                {% set firstVanityUrl = vanityUrls | first %}
+
+                <ul class="govuk-list govuk-!-margin-0">
+                  {% for url in firstVanityUrl.urls %}
+                    <li>
+                      {{ vanityUrlComponent(url) }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% elseif vanityUrls | length %}
+                <dl class="app-description-list">
+                  {% for vanityUrl in vanityUrls %}
+                    <dt class="app-description-list__term">{{ vanityUrl.environment | title }}</dt>
+                    <dd class="app-description-list__details">
+                      <ul class="govuk-list govuk-!-margin-0">
+                        {% for url in vanityUrl.urls %}
+                          <li>
+                            {{ vanityUrlComponent(url) }}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </dd>
+                  {% endfor %}
+                </dl>
+              {% endif %}
+            </section>
+          {% endif %}
+
           <section class="govuk-!-margin-bottom-6">
-            {{ appHeader({
-              heading: {
-                size: 3,
-                text: "Service " + urlText
-              },
-              icon: appWorldIcon({
-                classes: "app-icon--small app-icon--fill-blue",
-                description: "Frontend custom application urls"
-              })
-            }) }}
-
-            <p class="govuk-!-margin-bottom-2">
-              User-friendly custom {{ urlText }}
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
+            <p>
+              Internal access URLs for service
             </p>
 
-            {% if vanityUrls | length == 1 %}
-              {% set firstVanityUrl = vanityUrls | first %}
+            <dl class="app-description-list">
+              {% for environment in availableServiceEnvironments %}
+                <dt class="app-description-list__term">{{ environment | title }}</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              {% else %}
+                <dd class="app-description-list__details">
+                  No internal URLs available
+                </dd>
+              {% endfor %}
+            </dl>
+          </section>
+        {% endif %}
 
-              <ul class="govuk-list govuk-!-margin-0">
-                {% for url in firstVanityUrl.urls %}
-                  <li>
-                    {{ vanityUrlComponent(url) }}
-                  </li>
-                {% endfor %}
-              </ul>
-            {% elseif vanityUrls | length %}
+        {% if service.isBackend %}
+          {% if apiGateways | length %}
+            {% set urlText = "URL" | pluralise(apiGateways | length * apiGateways[0].apis | length) %}
+            <section class="govuk-!-margin-bottom-6">
+              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">API Gateway {{ urlText }}</h2>
+              <p>
+                Publicly accessible URL for the service
+              </p>
+
               <dl class="app-description-list">
-                {% for vanityUrl in vanityUrls %}
-                  <dt class="app-description-list__term">{{ vanityUrl.environment | title }}</dt>
+                {% for apiGateway in apiGateways %}
+                  <dt class="app-description-list__term">{{ apiGateway.environment | title }}</dt>
                   <dd class="app-description-list__details">
                     <ul class="govuk-list govuk-!-margin-0">
-                      {% for url in vanityUrl.urls %}
+                      {% for api in apiGateway.apis %}
                         <li>
-                          {{ vanityUrlComponent(url) }}
+                          {{ apiGatewayComponent(api) }}
                         </li>
                       {% endfor %}
                     </ul>
                   </dd>
                 {% endfor %}
               </dl>
-            {% endif %}
-          </section>
-        {% endif %}
+            </section>
+          {% endif %}
 
-        <section class="govuk-!-margin-bottom-6">
-          {{ appHeader({
-            heading: {
-              size: 3,
-              text: "CDP Service URLs"
-            },
-            icon: appGlobeIcon({
-              classes: "app-icon--small app-icon--fill-blue",
-              description: "Frontend CDP application urls"
-            })
-          }) }}
-
-          <p class="govuk-!-margin-bottom-2">
-            Internal access URLs for service
-          </p>
-
-          <dl class="app-description-list">
-            {% for environment in environmentsWithADeployment %}
-              <dt class="app-description-list__term">{{ environment | title }}</dt>
-              <dd class="app-description-list__details">
-                <a class="app-link"
-                   href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                   target="_blank" rel="noopener noreferrer">
-                  https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
-                </a>
-              </dd>
-            {% endfor %}
-          </dl>
-        </section>
-      {% endif %}
-
-      {% if service.isBackend %}
-        {% if apiGateways | length %}
-          {% set urlText = "URL" | pluralise(apiGateways | length * apiGateways[0].apis | length) %}
           <section class="govuk-!-margin-bottom-6">
-            {{ appHeader({
-              heading: {
-                size: 3,
-                text: "API Gateway " + urlText
-              },
-              icon: appWorldIcon({
-                classes: "app-icon--small app-icon--fill-blue",
-                description: "External API Gateway " + urlText
-              })
-            }) }}
-
-            <p class="govuk-!-margin-bottom-2">
-              Publicly accessible URL for the service
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service-to-Service URLs</h2>
+            <p>
+              Internal access URLs for use between CDP services
             </p>
 
             <dl class="app-description-list">
-              {% for apiGateway in apiGateways %}
-                <dt class="app-description-list__term">{{ apiGateway.environment | title }}</dt>
+              {% for environment in availableServiceEnvironments %}
+                <dt class="app-description-list__term"> {{ environment | title }}</dt>
                 <dd class="app-description-list__details">
-                  <ul class="govuk-list govuk-!-margin-0">
-                    {% for api in apiGateway.apis %}
-                      <li>
-                        {{ apiGatewayComponent(api) }}
-                      </li>
-                    {% endfor %}
-                  </ul>
+                  <span>https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud</span>
+                </dd>
+              {% else %}
+                <dd class="app-description-list__details">
+                  No internal URLs available
                 </dd>
               {% endfor %}
             </dl>
@@ -347,86 +303,50 @@
         {% endif %}
 
         <section class="govuk-!-margin-bottom-6">
-          {{ appHeader({
-            heading: {
-              size: 3,
-              text: "CDP Service-to-Service URLs"
-            },
-            icon: appGlobeIcon({
-              classes: "app-icon--small app-icon--fill-blue",
-              description: "CDP Service-to-Service Urls"
-            })
-          }) }}
-
-          <p class="govuk-!-margin-bottom-2">
-            Internal access URLs for use between CDP services
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>
+          <p>
+            OpenSearch logs for monitoring and troubleshooting your service
           </p>
-
           <dl class="app-description-list">
-            {% for environment in environmentsWithADeployment %}
-              <dt class="app-description-list__term"> {{ environment | title }}</dt>
+            {% for environment in availableServiceEnvironments %}
+              <dt class="app-description-list__term">{{ environment | title }}</dt>
               <dd class="app-description-list__details">
-                <span>https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud</span>
+                {{ appLogsDashboardLink({
+                  serviceName: service.serviceName,
+                  environment: environment
+                }) }}
+              </dd>
+            {% else %}
+              <dd class="app-description-list__details">
+                No log URLs available
               </dd>
             {% endfor %}
           </dl>
         </section>
-      {% endif %}
 
-      <section class="govuk-!-margin-bottom-6">
-        {{ appHeader({
-          heading: {
-            size: 3,
-            text: "Logs"
-          },
-          icon: appLogsIcon({ classes: "app-icon--small app-icon--fill-blue" })
-        }) }}
-
-        <p class="govuk-!-margin-bottom-2">
-          OpenSearch logs for monitoring and troubleshooting your service
-        </p>
-
-        <dl class="app-description-list">
-          {% for environment in environmentsWithADeployment %}
-            <dt class="app-description-list__term">{{ environment | title }}</dt>
-            <dd class="app-description-list__details">
-              {{ appLogsDashboardLink({
-                serviceName: service.serviceName,
-                environment: environment
-              }) }}
-            </dd>
-          {% endfor %}
-        </dl>
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Metrics</h2>
+          <p>
+            Grafana observability metrics data and graphs for your service
+          </p>
+          <dl class="app-description-list">
+            {% for environment in availableServiceEnvironments %}
+              <dt class="app-description-list__term">{{ environment | title }}</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://metrics.{{ environment }}.cdp-int.defra.cloud/d/{{ service.serviceName }}/{{ service.serviceName }}-service"
+                   target="_blank" rel="noopener noreferrer">
+                  https://metrics.{{ environment }}.cdp-int.defra.cloud
+                </a>
+              </dd>
+            {% else %}
+              <dd class="app-description-list__details">
+                No metrics URLs available
+              </dd>
+            {% endfor %}
+          </dl>
+        </section>
       </section>
-
-      <section>
-        {{ appHeader({
-          heading: {
-            size: 3,
-            text: "Metrics"
-          },
-          icon: appChartIcon({ classes: "app-icon--small app-icon--fill-blue" })
-        }) }}
-
-        <p class="govuk-!-margin-bottom-2">
-          Grafana observability metrics data and graphs for your service
-        </p>
-
-        <dl class="app-description-list">
-          {% for environment in environmentsWithADeployment %}
-            <dt class="app-description-list__term">{{ environment | title }}</dt>
-            <dd class="app-description-list__details">
-              <a class="app-link"
-                 href="https://metrics.{{ environment }}.cdp-int.defra.cloud/d/{{ service.serviceName }}/{{ service.serviceName }}-service"
-                 target="_blank" rel="noopener noreferrer">
-                https://metrics.{{ environment }}.cdp-int.defra.cloud
-              </a>
-            </dd>
-          {% endfor %}
-        </dl>
-      </section>
-    </section>
-
-  </article>
-
+    </aside>
+  </div>
 {% endblock %}
