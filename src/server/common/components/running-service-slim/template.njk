@@ -24,6 +24,24 @@
           </p>
         {% endif %}
 
+        <p class="item item-instance-count">
+          <span id="instance-count" class="app-running-service-table__label">Instance Count</span>
+          <span aria-labelledby="instance-count">{{ runningService.instanceCount }}</span>
+        </p>
+
+        <p class="item item-cpu">
+          <span id="cpu" class="app-running-service-table__label">CPU</span>
+          <span aria-labelledby="instance-count">
+            {{ runningService.cpu if runningService.cpu else noValue }}
+          </span>
+        </p>
+
+        <p class="item item-memory">
+          <span id="memory" class="app-running-service-table__label">Memory</span>
+          <span aria-labelledby="memory">{{ runningService.memory / 1024 + " GB" if runningService.memory  else
+            noValue }}</span>
+        </p>
+
         <p class="item item-version">
           {% set tooltipText = "failed" if runningService.unstable === true else runningService.status %}
 
@@ -67,6 +85,11 @@
             </time>
             ago
           {% endcall %}
+        </p>
+
+        <p class="item item-deployed-by">
+          <span id="deployed-by" class="app-running-service-table__label">By</span>
+          <span aria-labelledby="deployed-by">{{ runningService.user.displayName }}</span>
         </p>
       </div>
 
