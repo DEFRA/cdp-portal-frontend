@@ -282,12 +282,13 @@ const config = convict({
     env: 'AZURE_CLIENT_SECRET',
     default: 'test_value'
   },
-  oidcWellKnownConfigurationUrl: {
-    doc: 'OIDC .well-known configuration URL. Defaults to the stub',
-    format: String,
-    env: 'OIDC_WELL_KNOWN_CONFIGURATION_URL',
-    default:
-      'http://cdp.127.0.0.1.sslip.io:3939/63983fc2-cfff-45bb-8ec2-959e21062b9a/v2.0/.well-known/openid-configuration'
+  get oidcWellKnownConfigurationUrl() {
+    return {
+      doc: 'OIDC .well-known configuration URL. Defaults to the stub',
+      format: String,
+      env: 'OIDC_WELL_KNOWN_CONFIGURATION_URL',
+      default: `http://cdp.127.0.0.1.sslip.io:3939/${this.azureTenantId.default}/v2.0/.well-known/openid-configuration`
+    }
   },
   supportChannel: {
     doc: 'Support channel url',
