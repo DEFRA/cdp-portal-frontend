@@ -3,7 +3,7 @@
  */
 const preProvideService = {
   method: function preProvideService(request) {
-    return request.app.service
+    return request.app.service ?? null
   },
   assign: 'service'
 }
