@@ -8,6 +8,8 @@ import WebpackAssetsManifest from 'webpack-assets-manifest'
 import WebpackShellPluginNext from 'webpack-shell-plugin-next'
 
 const { NODE_ENV = 'development', DEBUG } = process.env
+const isProduction = NODE_ENV === 'production'
+const isDevelopment = NODE_ENV === 'development'
 
 const require = createRequire(import.meta.url)
 const dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -32,21 +34,19 @@ const config = {
   experiments: {
     outputModule: true
   },
-  mode: NODE_ENV === 'production' ? 'production' : 'development',
-  devtool: NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
+  mode: isProduction ? 'production' : 'development',
+  devtool: isProduction ? 'source-map' : 'inline-source-map',
   watchOptions: {
     aggregateTimeout: 0
   },
   output: {
-    filename:
-      NODE_ENV === 'production'
-        ? 'javascripts/[name].[contenthash:7].min.js'
-        : 'javascripts/[name].js',
+    filename: isProduction
+      ? 'javascripts/[name].[contenthash:7].min.js'
+      : 'javascripts/[name].js',
 
-    chunkFilename:
-      NODE_ENV === 'production'
-        ? 'javascripts/[name].[chunkhash:7].min.js'
-        : 'javascripts/[name].js',
+    chunkFilename: isProduction
+      ? 'javascripts/[name].[chunkhash:7].min.js'
+      : 'javascripts/[name].js',
 
     path: path.join(dirname, '.public'),
     publicPath: '/public/',
@@ -98,10 +98,9 @@ const config = {
         type: ruleTypeAssetResource,
         generator: {
           binary: false,
-          filename:
-            NODE_ENV === 'production'
-              ? 'stylesheets/[name].[contenthash:7].min.css'
-              : 'stylesheets/[name].css'
+          filename: isProduction
+            ? 'stylesheets/[name].[contenthash:7].min.css'
+            : 'stylesheets/[name].css'
         },
         use: [
           'postcss-loader',
@@ -147,7 +146,7 @@ const config = {
     ]
   },
   optimization: {
-    minimize: NODE_ENV === 'production',
+    minimize: isProduction,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -208,7 +207,7 @@ const config = {
   target: 'browserslist:javascripts'
 }
 
-if (NODE_ENV !== 'production') {
+if (isDevelopment) {
   config.plugins.push(
     new WebpackShellPluginNext({
       onBuildStart: {
