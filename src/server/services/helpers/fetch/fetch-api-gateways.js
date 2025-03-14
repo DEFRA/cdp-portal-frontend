@@ -9,7 +9,7 @@ async function fetchApiGateways(serviceName, logger) {
     const { payload } = await fetchJson(endpoint)
     return payload
   } catch (error) {
-    logger.debug(error, 'No api gateways found')
+    logger.debug('No api gateways found')
     return null
   }
 }
