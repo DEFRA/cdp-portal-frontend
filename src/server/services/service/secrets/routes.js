@@ -1,19 +1,14 @@
-import { allSecretsController } from '~/src/server/services/service/secrets/controllers/all.js'
-import { environmentSecretsController } from '~/src/server/services/service/secrets/controllers/environment.js'
-import { updateSecretController } from '~/src/server/services/service/secrets/controllers/update.js'
-import { createSecretController } from '~/src/server/services/service/secrets/controllers/create.js'
-import { updateSecretFormController } from '~/src/server/services/service/secrets/controllers/update-form.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { allSecretsController } from '~/src/server/common/tabs/secrets/controllers/all.js'
+import { environmentSecretsController } from '~/src/server/common/tabs/secrets/controllers/environment.js'
+import { updateSecretController } from '~/src/server/common/tabs/secrets/controllers/update.js'
+import { createSecretController } from '~/src/server/common/tabs/secrets/controllers/create.js'
+import { updateSecretFormController } from '~/src/server/common/tabs/secrets/controllers/update-form.js'
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
-import { provideSubNavigation } from '~/src/server/services/service/secrets/helpers/provide-sub-navigation.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
-
-const serviceOwnerOrAdminUserScope = authScope([
-  scopes.admin,
-  scopes.serviceOwner
-])
+import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
+import { serviceOwnerOrAdminUserScope } from '~/src/server/common/constants/scopes.js'
+import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
+import { SERVICE } from '~/src/server/common/tabs/constants.js'
 
 const serviceSecrets = {
   plugin: {
@@ -38,7 +33,7 @@ const serviceSecrets = {
         },
         {
           type: 'onPostHandler',
-          method: provideSubNavigation,
+          method: provideSubNavForServiceOrTestSuite('secrets', SERVICE),
           options: {
             sandbox: 'plugin'
           }
@@ -50,27 +45,27 @@ const serviceSecrets = {
           {
             method: 'GET',
             path: '/services/{serviceId}/secrets',
-            ...allSecretsController
+            ...allSecretsController(SERVICE)
           },
           {
             method: 'GET',
             path: '/services/{serviceId}/secrets/{environment}',
-            ...environmentSecretsController
+            ...environmentSecretsController(SERVICE)
           },
           {
             method: 'GET',
             path: '/services/{serviceId}/secrets/{environment}/update',
-            ...updateSecretFormController
+            ...updateSecretFormController(SERVICE)
           },
           {
             method: 'POST',
             path: '/services/{serviceId}/secrets/{environment}/update',
-            ...updateSecretController
+            ...updateSecretController(SERVICE)
           },
           {
             method: 'POST',
             path: '/services/{serviceId}/secrets/{environment}/create',
-            ...createSecretController
+            ...createSecretController(SERVICE)
           }
         ].map(serviceOwnerOrAdminUserScope)
       )

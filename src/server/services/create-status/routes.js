@@ -1,4 +1,4 @@
-import { provideServiceExtension } from '~/src/server/services/helpers/extensions.js'
+import { provideServiceExtension } from '~/src/server/common/helpers/extensions.js'
 import { serviceCreateStatusController } from '~/src/server/services/create-status/controller.js'
 
 const createStatus = {
