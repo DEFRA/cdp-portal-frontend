@@ -5,10 +5,11 @@
   {% if(params.displayTabs | default("true") and params.tabs | length) %}
     <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="{{ params.label }}">
       {% for tab in params.tabs %}
-        <li class="app-tabs__list-item{% if tab.isActive %} app-tabs__list-item--selected{% endif %}"
-            data-testid="app-tabs-list-item-{{ loop.index }}{% if tab.isActive %} app-tabs-list-item--selected{% endif %}">
 
-          {% set tabId =  tab.label | lower %}
+        {% set tabId =  tab.label | lower | kebabCase %}
+
+        <li class="app-tabs__list-item{% if tab.isActive %} app-tabs__list-item--selected{% endif %}"
+            data-testid="app-tabs-list-item-{{ tabId }}{% if tab.isActive %} app-tabs-list-item--selected{% endif %}">
 
           {% if tab.isActive %}
             {% set activeTabId = tabId %}
