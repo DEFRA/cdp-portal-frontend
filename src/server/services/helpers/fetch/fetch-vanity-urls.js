@@ -9,7 +9,7 @@ async function fetchVanityUrls(serviceName, logger) {
     const { payload } = await fetchJson(endpoint)
     return payload
   } catch (error) {
-    logger.debug(error, 'No vanity urls found')
+    logger.debug('No vanity urls found')
     return null
   }
 }
