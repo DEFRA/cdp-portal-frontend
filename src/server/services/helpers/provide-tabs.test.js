@@ -1,8 +1,12 @@
 import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
 
-const mockRouteLookup = jest.fn()
+const mockServiceName = 'cdp-portal-frontend'
 const mockUserIsServiceOwner = jest.fn()
 const mockUserSession = jest.fn()
+const mockRouteLookup = jest.fn(
+  (id) => `/${id.replace('{serviceId}', mockServiceName)}`
+)
+
 const mockRequest = ({ response, path = '' }) => ({
   response,
   path,
@@ -12,7 +16,6 @@ const mockRequest = ({ response, path = '' }) => ({
 })
 
 describe('#provideTabs', () => {
-  const mockServiceName = 'cdp-portal-frontend'
   const mockSource = {
     context: {
       service: {
@@ -35,12 +38,6 @@ describe('#provideTabs', () => {
   describe('With an Admin user', () => {
     beforeEach(() => {
       mockUserIsServiceOwner.mockResolvedValue(false)
-      mockRouteLookup
-        .mockReturnValueOnce(`/services/${mockServiceName}`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/buckets`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/proxy`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/secrets`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/terminal`)
       mockUserSession.mockResolvedValue({
         isAdmin: true,
         isTenant: true
@@ -64,6 +61,11 @@ describe('#provideTabs', () => {
         },
         {
           isActive: false,
+          label: 'Automation',
+          url: `/services/${mockServiceName}/automation`
+        },
+        {
+          isActive: false,
           label: 'Buckets',
           url: `/services/${mockServiceName}/buckets`
         },
@@ -83,7 +85,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(6)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -100,6 +102,11 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'About',
           url: `/services/${mockServiceName}`
+        },
+        {
+          isActive: false,
+          label: 'Automation',
+          url: `/services/${mockServiceName}/automation`
         },
         {
           isActive: false,
@@ -133,12 +140,6 @@ describe('#provideTabs', () => {
         isAdmin: false,
         isTenant: true
       })
-      mockRouteLookup
-        .mockReturnValueOnce(`/services/${mockServiceName}`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/buckets`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/proxy`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/secrets`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/terminal`)
     })
 
     test('Should provide expected context tabs', async () => {
@@ -155,6 +156,11 @@ describe('#provideTabs', () => {
           isActive: true,
           label: 'About',
           url: `/services/${mockServiceName}`
+        },
+        {
+          isActive: false,
+          label: 'Automation',
+          url: `/services/${mockServiceName}/automation`
         },
         {
           isActive: false,
@@ -177,7 +183,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(6)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -194,6 +200,11 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'About',
           url: `/services/${mockServiceName}`
+        },
+        {
+          isActive: false,
+          label: 'Automation',
+          url: `/services/${mockServiceName}/automation`
         },
         {
           isActive: false,
@@ -227,10 +238,6 @@ describe('#provideTabs', () => {
         isAdmin: false,
         isTenant: true
       })
-      mockRouteLookup
-        .mockReturnValueOnce(`/services/${mockServiceName}`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/buckets`)
-        .mockReturnValueOnce(`/services/${mockServiceName}/proxy`)
     })
 
     test('Should provide expected context tabs', async () => {
@@ -295,8 +302,6 @@ describe('#provideTabs', () => {
     beforeEach(() => {
       mockUserIsServiceOwner.mockResolvedValue(false)
       mockUserSession.mockResolvedValue(null)
-
-      mockRouteLookup.mockReturnValueOnce(`/services/${mockServiceName}`)
     })
 
     test('Should provide expected context tabs', async () => {
