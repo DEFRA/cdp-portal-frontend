@@ -9,24 +9,28 @@ $negative-margin: -6px;
 .app-running-service-slim {
   display: flex;
   gap: govuk-spacing(1);
+  margin-bottom: govuk-spacing(4);
 }
 
 .app-running-service-slim__environment {
   flex: 1;
   display: grid;
-  gap: govuk-spacing(1);
-  grid-auto-rows: auto minmax(28px, auto) minmax(42px, auto) minmax(min-content, auto) minmax(min-content, auto);
+  grid-auto-rows: repeat(auto, fit-content);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"
       "env env"
       "version version"
+      "count count"
+      "cpu cpu"
+      "memory memory"
       "deployed deployed"
-      "updated updated";
+      "updated updated"
+      "by by";
   max-width: $environment-width;
   min-height: $environment-height;
   border-radius: $app-border-radius;
-  padding: govuk-spacing(1) govuk-spacing(2);
+  padding: govuk-spacing(2);
   background-color: $app-light-grey;
 
   &.item-detail--green {
@@ -95,6 +99,7 @@ $negative-margin: -6px;
     grid-area: version;
     display: flex;
     align-items: flex-start;
+    margin-top: govuk-spacing(2);
 
     .app-icon {
       margin-top: -2px;
@@ -105,14 +110,30 @@ $negative-margin: -6px;
     grid-area: env;
   }
 
+  .item-instance-count {
+    margin-top: govuk-spacing(2);
+    grid-area: count;
+  }
+
+  .item-cpu {
+    grid-area: cpu;
+  }
+
+  .item-memory {
+    grid-area: memory;
+  }
+
   .item-deployed {
+    margin-top: govuk-spacing(3);
     grid-area: deployed;
-    margin-top: $negative-margin;
+  }
+
+  .item-deployed-by {
+    grid-area: by;
   }
 
   .item-updated {
     grid-area: updated;
-    margin-top: $negative-margin;
   }
 }
 
