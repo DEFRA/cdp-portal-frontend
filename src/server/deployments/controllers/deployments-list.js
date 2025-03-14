@@ -52,6 +52,7 @@ async function getFilters() {
 
 const deploymentsListController = {
   options: {
+    id: 'deployments/{environment}',
     pre: [provideAuthedUser],
     ext: {
       onPreAuth: [allEnvironmentsOnlyForAdmin],
