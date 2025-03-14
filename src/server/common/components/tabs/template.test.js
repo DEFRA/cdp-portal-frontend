@@ -3,8 +3,8 @@ import { renderTestComponent } from '~/test-helpers/component-helpers.js'
 describe('Tabs Component', () => {
   let $tabs, $tabsList
 
-  const getTab = (tabNumber) =>
-    $tabsList.find(`[data-testid*="app-tabs-list-item-${tabNumber}"]`)
+  const getTab = (value) =>
+    $tabsList.find(`[data-testid*="app-tabs-list-item-${value.toLowerCase()}"]`)
 
   describe('With child content', () => {
     beforeEach(() => {
@@ -24,7 +24,7 @@ describe('Tabs Component', () => {
     })
 
     test('Should render expected first tab', () => {
-      const $firstTab = getTab(1)
+      const $firstTab = getTab('One')
 
       expect($firstTab.attr('class')).toContain('app-tabs__list-item--selected')
       expect($firstTab.find('a').attr('href')).toBe('/tab-one')
@@ -32,7 +32,7 @@ describe('Tabs Component', () => {
     })
 
     test('Should render expected second tab', () => {
-      const $secondTab = getTab(2)
+      const $secondTab = getTab('Two')
 
       expect($secondTab.attr('class')).not.toContain(
         'app-tabs__list-item--selected'
@@ -42,7 +42,7 @@ describe('Tabs Component', () => {
     })
 
     test('Should render expected third tab', () => {
-      const $thirdTab = getTab(3)
+      const $thirdTab = getTab('Three')
 
       expect($thirdTab.attr('class')).not.toContain(
         'app-tabs__list-item--selected'
@@ -123,9 +123,9 @@ describe('Tabs Component', () => {
     })
 
     test('Should not render tabs', () => {
-      const $firstTab = getTab(1)
-      const $secondTab = getTab(2)
-      const $thirdTab = getTab(3)
+      const $firstTab = getTab('One')
+      const $secondTab = getTab('Two')
+      const $thirdTab = getTab('Three')
 
       expect($firstTab).toHaveLength(0)
       expect($secondTab).toHaveLength(0)
