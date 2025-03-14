@@ -15,17 +15,21 @@ import { getAnnouncements } from '~/src/config/nunjucks/context/announcements.js
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')
-const manifestPath = path.join(
-  config.get('root'),
-  '.public/assets-manifest.json'
-)
-/** @type {Record<string, string> | undefined} */
-let webpackManifest
 
 /**
- * @param {import('@hapi/hapi').Request | null} request
+ * Get asset path from assets-manifest.json
+ * @param {string} asset
+ * @returns {string}
  */
-async function context(request) {
+function getAssetPath(asset) {
+  const manifestPath = path.join(
+    config.get('root'),
+    '.public/assets-manifest.json'
+  )
+
+  /** @type {Record<string, string> | undefined} */
+  let webpackManifest
+
   if (!webpackManifest) {
     try {
       webpackManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
@@ -34,15 +38,19 @@ async function context(request) {
     }
   }
 
+  const webpackAssetPath = webpackManifest[asset]
+
+  return `${assetPath}/${webpackAssetPath}`
+}
+
+/**
+ * @param {import('@hapi/hapi').Request | null} request
+ */
+async function context(request) {
   const authedUser = await request.getUserSession()
   const isInternetExplorer = isIe(request.headers['user-agent'])
   const announcements = getAnnouncements(authedUser, isInternetExplorer)
   const serviceConfig = config.get('service')
-  const getAssetPath = (asset) => {
-    const webpackAssetPath = webpackManifest[asset]
-
-    return `${assetPath}/${webpackAssetPath}`
-  }
 
   return {
     appBaseUrl: config.get('appBaseUrl'),
@@ -70,4 +78,4 @@ async function context(request) {
   }
 }
 
-export { context }
+export { context, getAssetPath }
