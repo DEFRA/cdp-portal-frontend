@@ -24,6 +24,7 @@ export {
   formatDate,
   formatDistanceToNow,
   formatText,
+  kebabCase,
   isArray,
   isNil,
   pluralise,
