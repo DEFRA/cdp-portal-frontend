@@ -59,6 +59,15 @@ async function provideTabs(request, h) {
     }
 
     if (isAdmin || isServiceOwner) {
+      response.source.context.tabDetails.tabs.splice(1, 0, {
+        isActive: request.path.startsWith(`/services/${imageName}/automation`),
+        url: request.routeLookup('services/{serviceId}/automation', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Automation'
+      })
       response.source.context.tabDetails.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/secrets`),
         url: request.routeLookup('services/{serviceId}/secrets', {
