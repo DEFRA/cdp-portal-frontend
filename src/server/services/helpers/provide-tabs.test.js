@@ -133,16 +133,14 @@ describe('#provideTabs', () => {
   })
 
   describe('With a service owner', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       mockUserIsServiceOwner.mockResolvedValue(true)
 
       mockUserSession.mockResolvedValue({
         isAdmin: false,
         isTenant: true
       })
-    })
 
-    test('Should provide expected context tabs', async () => {
       await provideTabs(
         mockRequest({
           response: mockResponse,
@@ -150,17 +148,14 @@ describe('#provideTabs', () => {
         }),
         mockViewHelper
       )
+    })
 
+    test('Should provide expected context tabs', () => {
       expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
           isActive: true,
           label: 'About',
           url: `/services/${mockServiceName}`
-        },
-        {
-          isActive: false,
-          label: 'Automation',
-          url: `/services/${mockServiceName}/automation`
         },
         {
           isActive: false,
@@ -183,28 +178,27 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(6)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
     })
 
-    test('Should mark matching url as Active', async () => {
-      await provideTabs(
-        mockRequest({
-          response: mockResponse,
-          path: `/services/${mockServiceName}/secrets/test`
-        }),
-        mockViewHelper
+    test('Should not show admin only tabs', () => {
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual(
+        expect.not.arrayContaining([
+          {
+            isActive: false,
+            label: 'Automation',
+            url: `/services/${mockServiceName}/automation`
+          }
+        ])
       )
+    })
 
+    test('Should mark matching url as Active', () => {
       expect(mockResponse.source.context.tabDetails.tabs).toEqual([
         {
-          isActive: false,
+          isActive: true,
           label: 'About',
           url: `/services/${mockServiceName}`
-        },
-        {
-          isActive: false,
-          label: 'Automation',
-          url: `/services/${mockServiceName}/automation`
         },
         {
           isActive: false,
@@ -217,7 +211,7 @@ describe('#provideTabs', () => {
           url: `/services/${mockServiceName}/proxy`
         },
         {
-          isActive: true,
+          isActive: false,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
         },
