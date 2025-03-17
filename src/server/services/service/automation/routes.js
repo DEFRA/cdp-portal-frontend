@@ -5,10 +5,8 @@ import { automationController } from '~/src/server/services/service/automation/c
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { autoDeployController } from '~/src/server/services/service/automation/controllers/auto-deploy.js'
 
-const serviceOwnerOrAdminUserScope = authScope([
-  scopes.admin,
-  scopes.serviceOwner
-])
+// TODO - automation currently feature flagged as admin only, switch to admin and serviceOwner once ready
+const adminUserScope = authScope([scopes.admin])
 
 const serviceAutomation = {
   plugin: {
@@ -38,7 +36,7 @@ const serviceAutomation = {
             path: '/services/{serviceId}/automation/auto-deploy',
             ...autoDeployController
           }
-        ].map(serviceOwnerOrAdminUserScope)
+        ].map(adminUserScope)
       )
     }
   }
