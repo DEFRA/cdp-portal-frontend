@@ -7,7 +7,6 @@ import { buildOptions } from '~/src/server/common/helpers/options/build-options.
 import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
 import { getAutoDeployDetails } from '~/src/server/services/service/automation/helpers/fetchers.js'
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
-import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
 
 const automationController = {
   options: {
@@ -42,7 +41,6 @@ const automationController = {
 
     return h.view('services/service/automation/views/automation', {
       pageTitle: `${serviceId} - Automation`,
-      summaryList: transformServiceToSummary(service),
       formValues: {
         environments: autoDeployDetails?.environments ?? []
       },
