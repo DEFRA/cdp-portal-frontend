@@ -29,7 +29,7 @@
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Auto Deploy</h2>
 
         {% if autoDeployEnvironmentOptions | length %}
-          <p class="govuk-!-margin-bottom-2">Turn on auto deploy in the following environments.</p>
+          <p class="govuk-!-margin-bottom-2">Turn on auto deploy in the following environments</p>
 
           <form
             action="{{ routeLookup('services/{serviceId}/automation/auto-deploy', { params: { serviceId : service.serviceName } }) }}"
