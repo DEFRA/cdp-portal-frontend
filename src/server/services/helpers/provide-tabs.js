@@ -1,3 +1,4 @@
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 /**
  * Provides tabs for the service view based on user authentication.
  * @param {import('@hapi/hapi').Request} request - The request object.
@@ -81,7 +82,7 @@ async function provideTabs(request, h) {
 
     // TODO - automation currently feature flagged as admin only, switch to admin and serviceOwner once ready
     if (isAdmin) {
-      response.source.context.tabDetails.tabs.splice(1, 0, {
+      response.source.context.tabDetails.tabs.push({
         isActive: request.path.startsWith(`/services/${imageName}/automation`),
         url: request.routeLookup('services/{serviceId}/automation', {
           params: {
@@ -91,6 +92,8 @@ async function provideTabs(request, h) {
         label: 'Automation'
       })
     }
+
+    response.source.context.tabDetails.tabs.sort(sortBy('label', 'asc'))
   }
 
   return h.continue
