@@ -1,5 +1,19 @@
 {% extends "layouts/tabbed-page.njk" %}
 
+{% set infoHtml %}
+  After you merge code into your <a class="app-link app-link--underline app-link--text-colour"
+                                    href="{{ service.githubUrl }}" target="_blank"
+                                    rel="noopener noreferrer">GitHub repository</a> this service will auto
+  deploy to the following environments
+{% endset %}
+
+{% set deployNeededInfoHtml %}
+  To turn on up auto deploy first <a class="app-link app-link--underline app-link--text-colour"
+                                     href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
+                                       query: { imageName : service.serviceName }
+                                     }) }}">deploy</a> your service to an environment
+{% endset %}
+
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Automation",
@@ -15,10 +29,7 @@
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Auto Deploy</h2>
 
         {% if autoDeployEnvironmentOptions | length %}
-          <p>
-            Turn on auto deploy in the following environments. If an environment is not shown this is because you are yet
-            to deploy to it
-          </p>
+          <p class="govuk-!-margin-bottom-2">Turn on auto deploy in the following environments.</p>
 
           <form
             action="{{ routeLookup('services/{serviceId}/automation/auto-deploy', { params: { serviceId : service.serviceName } }) }}"
@@ -29,8 +40,7 @@
             <fieldset class="govuk-fieldset">
               {{ appInfo({
                 classes: "govuk-!-margin-bottom-4",
-                text: "Set up auto deployments to one or many environments. After you merge code into your services
-                GitHub repositories default branch, we will auto deploy this service to the selected environments"
+                html: infoHtml
               }) }}
 
               {{ govukCheckboxes({
@@ -56,7 +66,7 @@
         {% else %}
           {{ appInfo({
             classes: "govuk-!-margin-bottom-4",
-            text: "Deploy your service to an environment to be able to turn on auto deploy"
+            html: deployNeededInfoHtml
           }) }}
         {% endif %}
       </section>
