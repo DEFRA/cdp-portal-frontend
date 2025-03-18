@@ -1,6 +1,8 @@
 import { provideTabs } from '~/src/server/test-suites/helpers/provide-tabs.js'
-import { validateServiceIsATestSuite } from '~/src/server/common/helpers/validate-service-is-a-test-suite.js'
-import { provideServiceExtension } from '~/src/server/common/helpers/extensions.js'
+import {
+  addServiceOwnerScopeExtension,
+  provideServiceExtension
+} from '~/src/server/common/helpers/extensions.js'
 import { allSecretsController } from '~/src/server/common/tabs/secrets/controllers/all.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
@@ -17,13 +19,7 @@ export const testSuiteSecrets = {
     register: (server) => {
       server.ext([
         provideServiceExtension,
-        {
-          type: 'onPreHandler',
-          method: validateServiceIsATestSuite,
-          options: {
-            sandbox: 'plugin'
-          }
-        },
+        addServiceOwnerScopeExtension,
         {
           type: 'onPostHandler',
           method: provideTabs,

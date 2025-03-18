@@ -43,6 +43,7 @@ const commonServiceExtensions = [
 ]
 
 export {
+  addServiceOwnerScopeExtension,
   commonServiceExtensions,
   provideServiceExtension,
   provideTabsExtension

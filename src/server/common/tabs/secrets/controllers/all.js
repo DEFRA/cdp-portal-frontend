@@ -38,7 +38,7 @@ function allSecretsController(serviceOrTestSuite) {
         breadcrumbs: [
           {
             text: `${startCase(pluralise(serviceOrTestSuite))}`,
-            href: `/${serviceOrTestSuite}s`
+            href: `/${pluralise(serviceOrTestSuite)}`
           },
           {
             text: serviceName,

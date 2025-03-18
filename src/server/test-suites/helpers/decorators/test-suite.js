@@ -11,7 +11,7 @@ function testSuiteDecorator(repositories, userScopeUUIDs) {
       ...testSuiteWithRepo,
       lastRun,
       testType: provideTestType(testSuiteWithRepo.topics),
-      isOwner: testSuiteWithRepo?.teams.some((team) =>
+      isOwner: testSuiteWithRepo?.teams?.some((team) =>
         userScopeUUIDs.includes(team.teamId)
       )
     }

@@ -42,9 +42,10 @@ function environmentSecrets(
 
   const serviceSecrets = {
     ...secrets,
-    keys: [...secretsWithOutExcludedKeys, ...pendingSecretKeys].sort(
-      sortBy('key', 'asc')
-    )
+    keys:
+      [...secretsWithOutExcludedKeys, ...pendingSecretKeys].sort(
+        sortBy('key', 'asc')
+      ) ?? []
   }
   const platformSecrets = platformGlobalSecretKeys
     .map(
@@ -68,8 +69,7 @@ function environmentSecrets(
     platformSecrets,
     shouldPoll,
     successMessage,
-    exceptionMessage,
-    isSecretsSetup: secrets !== null
+    exceptionMessage
   }
 }
 

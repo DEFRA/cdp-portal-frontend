@@ -33,7 +33,7 @@
               <section class="govuk-!-margin-bottom-6">
                 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Run</h2>
                 <p>
-                  Run the latest version of your test suite against an environment of your choosing.
+                  Run the latest version of your test suite against an environment of your choosing
                 </p>
 
                 <form action="/test-suites/run" method="post" data-js="app-form-errors">
@@ -89,7 +89,7 @@
 
       {% if shouldPoll %}
       <div data-js="app-poll"
-           data-poll-url="/test-suites/{{ sservice.serviceName }}"
+           data-poll-url="/test-suites/{{ service.serviceName }}"
            data-poll-interval="3000"
            data-poll-limit="45">
         {% endif %}
@@ -99,7 +99,7 @@
             <section class="govuk-!-margin-bottom-6">
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Results</h2>
               <p>
-                Results from <em>{{ sservice.serviceName }}</em> test suite runs.
+                Results from <em>{{ service.serviceName }}</em> test suite runs
               </p>
 
               {{ appEntityTable(tableData) }}

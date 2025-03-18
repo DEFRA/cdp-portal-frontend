@@ -1,9 +1,9 @@
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { commonServiceExtensions } from '~/src/server/services/helpers/extensions.js'
 import { automationController } from '~/src/server/services/service/automation/controllers/automation.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { autoDeployController } from '~/src/server/services/service/automation/controllers/auto-deploy.js'
+import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
 
 // TODO - automation currently feature flagged as admin only, switch to admin and serviceOwner once ready
 const adminUserScope = authScope([scopes.admin])

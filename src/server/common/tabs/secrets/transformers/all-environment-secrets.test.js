@@ -15,7 +15,6 @@ describe('#allEnvironmentSecrets', () => {
       expect(result).toEqual({
         'infra-dev': {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: [
             'a_lower_case_secret',
             'EXAMPLE_SECRET',
@@ -26,42 +25,36 @@ describe('#allEnvironmentSecrets', () => {
         },
         management: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: ['AWESOME_SECRET'],
           lastChangedDate: '2024-08-02T16:02:23.9872730Z',
           platformKeys: ['REDIS_KEY_PREFIX']
         },
         dev: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: ['GOOGLE_APIS', 'OS_MAP_ENDPOINT'],
           lastChangedDate: '2024-08-02T16:08:35.2252690Z',
           platformKeys: ['REDIS_KEY_PREFIX']
         },
         test: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: ['GOOGLE_APIS'],
           lastChangedDate: '2024-08-03T08:07:32.7548580Z',
           platformKeys: ['REDIS_KEY_PREFIX']
         },
         'perf-test': {
           createdDate: null,
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: null,
           platformKeys: []
         },
         'ext-test': {
           createdDate: null,
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: null,
           platformKeys: []
         },
         prod: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: '2024-08-02T14:10:17.3880790Z',
           platformKeys: ['REDIS_KEY_PREFIX']
@@ -81,28 +74,24 @@ describe('#allEnvironmentSecrets', () => {
       expect(result).toEqual({
         dev: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: ['GOOGLE_APIS', 'OS_MAP_ENDPOINT'],
           lastChangedDate: '2024-08-02T16:08:35.2252690Z',
           platformKeys: ['REDIS_KEY_PREFIX']
         },
         test: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: ['GOOGLE_APIS'],
           lastChangedDate: '2024-08-03T08:07:32.7548580Z',
           platformKeys: ['REDIS_KEY_PREFIX']
         },
         'perf-test': {
           createdDate: null,
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: null,
           platformKeys: []
         },
         prod: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: '2024-08-02T14:10:17.3880790Z',
           platformKeys: ['REDIS_KEY_PREFIX']
@@ -122,35 +111,30 @@ describe('#allEnvironmentSecrets', () => {
       expect(result).toEqual({
         dev: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: ['GOOGLE_APIS', 'OS_MAP_ENDPOINT'],
           lastChangedDate: '2024-08-02T16:08:35.2252690Z',
           platformKeys: ['REDIS_KEY_PREFIX']
         },
         test: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: ['GOOGLE_APIS'],
           lastChangedDate: '2024-08-03T08:07:32.7548580Z',
           platformKeys: ['REDIS_KEY_PREFIX']
         },
         'perf-test': {
           createdDate: null,
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: null,
           platformKeys: []
         },
         'ext-test': {
           createdDate: null,
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: null,
           platformKeys: []
         },
         prod: {
           createdDate: '2024-07-14T08:11:00',
-          isSecretsSetup: true,
           keys: [],
           lastChangedDate: '2024-08-02T14:10:17.3880790Z',
           platformKeys: ['REDIS_KEY_PREFIX']
@@ -165,12 +149,8 @@ describe('#allEnvironmentSecrets', () => {
 
     const result = allEnvironmentSecrets(environments, allSecrets)
 
-    expect(result.dev).toEqual({
-      isSecretsSetup: false
-    })
-    expect(result.prod).toEqual({
-      isSecretsSetup: false
-    })
+    expect(result.dev).toEqual({})
+    expect(result.prod).toEqual({})
   })
 
   test('Should return empty keys and platformKeys if secrets.keys is undefined', () => {
