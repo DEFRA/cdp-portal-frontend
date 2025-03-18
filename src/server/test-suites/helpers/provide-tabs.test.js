@@ -60,11 +60,6 @@ describe('#provideTabs', () => {
           label: 'About',
           url: `/test-suites/${mockServiceName}`
         },
-        // {
-        //   isActive: false,
-        //   label: 'Proxy',
-        //   url: `/test-suites/${mockServiceName}/proxy`
-        // },
         {
           isActive: false,
           label: 'Secrets',
@@ -89,11 +84,6 @@ describe('#provideTabs', () => {
           label: 'About',
           url: `/test-suites/${mockServiceName}`
         },
-        // {
-        //   isActive: false,
-        //   label: 'Proxy',
-        //   url: `/test-suites/${mockServiceName}/proxy`
-        // },
         {
           isActive: true,
           label: 'Secrets',
@@ -132,11 +122,6 @@ describe('#provideTabs', () => {
           label: 'About',
           url: `/test-suites/${mockServiceName}`
         },
-        // {
-        //   isActive: false,
-        //   label: 'Proxy',
-        //   url: `/test-suites/${mockServiceName}/proxy`
-        // },
         {
           isActive: false,
           label: 'Secrets',
@@ -161,11 +146,6 @@ describe('#provideTabs', () => {
           label: 'About',
           url: `/test-suites/${mockServiceName}`
         },
-        // {
-        //   isActive: false,
-        //   label: 'Proxy',
-        //   url: `/test-suites/${mockServiceName}/proxy`
-        // },
         {
           isActive: true,
           label: 'Secrets',
@@ -203,11 +183,6 @@ describe('#provideTabs', () => {
           isActive: true,
           label: 'About',
           url: `/test-suites/${mockServiceName}`
-          // },
-          // {
-          //   isActive: false,
-          //   label: 'Proxy',
-          //   url: `/test-suites/${mockServiceName}/proxy`
         }
       ])
       expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(1)
@@ -227,11 +202,6 @@ describe('#provideTabs', () => {
           isActive: false,
           label: 'About',
           url: `/test-suites/${mockServiceName}`
-          // },
-          // {
-          //   isActive: false,
-          //   label: 'Proxy',
-          //   url: `/test-suites/${mockServiceName}/proxy`
         }
       ])
     })

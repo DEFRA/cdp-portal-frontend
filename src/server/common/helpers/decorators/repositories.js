@@ -4,9 +4,9 @@ function repositoriesDecorator(repositories) {
   return (service) => {
     let repository
 
-    if (service.githubUrl) {
+    if (service.serviceName) {
       repository = repositories.find(
-        (repo) => repo?.url?.toLowerCase() === service.githubUrl.toLowerCase()
+        (repo) => repo?.id.toLowerCase() === service.serviceName.toLowerCase()
       )
     }
 

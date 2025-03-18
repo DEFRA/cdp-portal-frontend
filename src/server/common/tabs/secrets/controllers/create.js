@@ -65,11 +65,7 @@ function createSecretController(serviceOrTestSuite) {
           formValues: sanitisedPayload,
           formErrors: errorDetails
         })
-
-        return h.redirect(redirectUrl)
-      }
-
-      if (!validationResult.error) {
+      } else {
         const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
 
         try {
@@ -84,8 +80,6 @@ function createSecretController(serviceOrTestSuite) {
             text: createSecretPayload.message,
             type: 'success'
           })
-
-          return h.redirect(redirectUrl)
         } catch (error) {
           request.logger.debug({ error }, 'Create secret call failed')
           request.yar.flash(sessionNames.validationFailure, {
@@ -95,9 +89,8 @@ function createSecretController(serviceOrTestSuite) {
             sessionNames.globalValidationFailures,
             error.message
           )
-
-          return h.redirect(redirectUrl)
         }
+        return h.redirect(redirectUrl)
       }
     }
   }

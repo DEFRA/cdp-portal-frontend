@@ -32,8 +32,7 @@ export function environmentSecretsController(serviceOrTestSuite) {
         platformSecrets,
         shouldPoll,
         successMessage,
-        exceptionMessage,
-        isSecretsSetup
+        exceptionMessage
       } = environmentSecrets(secrets)
 
       return h.view('common/tabs/secrets/views/environment', {
@@ -46,11 +45,10 @@ export function environmentSecretsController(serviceOrTestSuite) {
         shouldPoll,
         successMessage,
         exceptionMessage,
-        isSecretsSetup,
         serviceOrTestSuite,
         breadcrumbs: [
           {
-            text: `${startCase(serviceOrTestSuite)}s`,
+            text: `${pluralise(startCase(serviceOrTestSuite))}`,
             href: `/${pluralise(serviceOrTestSuite)}`
           },
           {

@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 
 import { config } from '~/src/config/config.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 import startCase from 'lodash/startCase.js'
@@ -28,7 +27,7 @@ function updateSecretFormController(serviceOrTestSuite) {
         failAction: () => Boom.boomify(Boom.notFound())
       }
     },
-    handler: async (request, h) => {
+    handler: (request, h) => {
       const service = request.pre.service
       const team = service?.teams?.at(0)
       const teamId = team?.teamId
@@ -36,7 +35,6 @@ function updateSecretFormController(serviceOrTestSuite) {
       const environment = request.params?.environment
       const secretKey = request.query?.secretKey
       const formattedEnvironment = formatText(environment)
-      const secrets = await fetchSecrets(environment, serviceName)
 
       return h.view('common/tabs/secrets/views/update-form', {
         pageTitle: `${serviceName} - Update secret`,
@@ -45,11 +43,10 @@ function updateSecretFormController(serviceOrTestSuite) {
         teamId,
         environment,
         secretKey,
-        isSecretsSetup: secrets !== null,
         serviceOrTestSuite,
         breadcrumbs: [
           {
-            text: `${startCase(serviceOrTestSuite)}s`,
+            text: `${pluralise(startCase(serviceOrTestSuite))}`,
             href: `/${pluralise(serviceOrTestSuite)}`
           },
           {

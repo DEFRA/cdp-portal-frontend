@@ -35,17 +35,7 @@ async function provideTabs(request, h) {
       }
     ]
 
-    if (isAdmin || isTenant) {
-      // response.source.context.tabDetails.tabs.push({
-      //   isActive: request.path.startsWith(`/test-suites/${imageName}/proxy`),
-      //   url: request.routeLookup('test-suites/{serviceId}/proxy', {
-      //     params: {
-      //       serviceId: imageName
-      //     }
-      //   }),
-      //   label: 'Proxy'
-      // })
-    } else {
+    if (!isAdmin && !isTenant) {
       response.source.context.tabDetails.displayTabs = false
     }
 

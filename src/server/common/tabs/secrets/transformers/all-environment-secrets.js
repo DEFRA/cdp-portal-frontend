@@ -22,7 +22,6 @@ function allEnvironmentSecrets(
 
     if (secrets) {
       result[environment] = {
-        isSecretsSetup: true,
         ...secrets,
         keys:
           secrets.keys
@@ -38,9 +37,7 @@ function allEnvironmentSecrets(
             .sort(sortByName) ?? []
       }
     } else {
-      result[environment] = {
-        isSecretsSetup: false
-      }
+      result[environment] = {}
     }
   })
 
