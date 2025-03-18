@@ -22,7 +22,7 @@ global.clearImmediate = clearImmediate
 Element.prototype.scrollIntoView = jest.fn()
 Element.prototype.scroll = jest.fn()
 
-// Curry the toMatchFile function to prefill fileExtension
+// Curry the toMatchFile function to prefill fileExtension argument
 function toMatchFileWithOptions(
   content,
   filename,
