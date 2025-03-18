@@ -5,21 +5,20 @@
     </div>
 
     <div class="app-documentation__body">
-      <div class="app-section app-section--wide">
-        <div class="app-documentation__markdown">
-          {{ params.content | safe }}
-        </div>
-
-        <p class="app-documentation__generated-from">
-          <em>
-            This documentation has been auto-generated from <a class="app-link"
-                                                               href="https://github.com/DEFRA/cdp-documentation"
-                                                               target="_blank"
-                                                               rel="noopener noreferrer">cdp-documentation</a>
-          </em>
-        </p>
+      <div class="app-documentation__markdown">
+        {{ params.content | safe }}
       </div>
+
+      <p class="app-documentation__generated-from">
+        <em>
+          This documentation has been auto-generated from <a class="app-link"
+                                                             href="https://github.com/DEFRA/cdp-documentation"
+                                                             target="_blank"
+                                                             rel="noopener noreferrer">cdp-documentation</a>
+        </em>
+      </p>
     </div>
+
 
     <div class="app-documentation__toc-sidebar">
       {% if params.toc %}
