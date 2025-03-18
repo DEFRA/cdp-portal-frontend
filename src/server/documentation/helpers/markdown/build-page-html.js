@@ -1,5 +1,6 @@
 import { Marked } from 'marked'
 import markedAlert from 'marked-alert'
+import { stripHtml } from 'string-strip-html'
 
 import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
 import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
@@ -49,10 +50,13 @@ async function buildPageHtml(request, markdown) {
   const searchTerm = request.query?.q
   const headingElements = []
 
+  const doNotIncludeMarkElement = ['code', 'codespan', 'heading']
+
   const walkTokens = (token) => {
     if (token.type === 'heading') {
       const { text, depth: level } = token
-      const internalAnchorId = text.toLowerCase().replace(/\W+/g, '-')
+      const cleanText = stripHtml(text).result
+      const internalAnchorId = cleanText.toLowerCase().replace(/\W+/g, '-')
       const parsedText = docsMarked.parseInline(text)
 
       headingElements.push({
@@ -61,18 +65,19 @@ async function buildPageHtml(request, markdown) {
         text: parsedText
       })
     }
+
+    if (!doNotIncludeMarkElement.includes(token.type)) {
+      if (searchTerm && token.text) {
+        token.text = token.text.replace(
+          new RegExp(`(${searchTerm})`, 'gi'),
+          '<mark class="app-mark">$1</mark>'
+        )
+      }
+    }
   }
 
   docsMarked.use({ walkTokens })
-
-  const md = searchTerm
-    ? markdown.replace(
-        new RegExp(`(${searchTerm})`, 'gi'),
-        '<mark class="app-mark">$1</mark>'
-      )
-    : markdown
-
-  const html = await docsMarked.parse(md)
+  const html = await docsMarked.parse(markdown)
 
   return { html, toc: buildTableOfContents(headingElements) }
 }
