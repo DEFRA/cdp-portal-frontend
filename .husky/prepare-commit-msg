@@ -2,7 +2,7 @@
 set +e
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
-TICKET_ID_REGEX="^[0-9]{5,8}"
+TICKET_ID_REGEX="^CORE-[0-9]{5,8}"
 COMMIT_EDIT_MSG_PATH="$1"
 COMMIT_MSG=$(head -n1 "$1")
 
