@@ -36,6 +36,25 @@ describe('#buildPageHtml', () => {
     )
   })
 
+  test('Should not add search term highlight on excluded elements', async () => {
+    const searchTerm = 'fetch'
+    const mockRequest = { query: { q: searchTerm } }
+    const markdown =
+      '# Fetch\n\n `inline fetch example` \n ```and this is a fetch code example``` \n [fetch](/fetch-in-url)'
+    const { html } = await buildPageHtml(mockRequest, markdown)
+
+    const $html = load(html)
+
+    expect($html('h1').prop('id')).toBe('fetch')
+    expect($html('h1 a').prop('href')).toBe('#fetch')
+    expect($html('h1 a').html()).toBe('<mark class="app-mark">Fetch</mark>')
+
+    expect($html('p code:first').text()).toBe('inline fetch example')
+    expect($html('p code:last').text()).toBe('and this is a fetch code example')
+    expect($html('p a').prop('href')).toBe('/fetch-in-url')
+    expect($html('p a').html()).toBe('<mark class="app-mark">fetch</mark>')
+  })
+
   test('Should generate expected table of contents', async () => {
     const markdown = '# Heading 1\n\n## Heading 2\n\n### Heading 3'
     const { toc } = await buildPageHtml(searchTerm, markdown)
