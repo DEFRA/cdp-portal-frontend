@@ -1,7 +1,7 @@
 import { fetchProxyRules } from '~/src/server/services/helpers/fetch/fetch-proxy-rules.js'
-import { findAllProxyRules } from '~/src/server/services/service/proxy/helpers/find-proxy-rules.js'
+import { findAllProxyRules } from '~/src/server/common/tabs/proxy/helpers/find-proxy-rules.js'
 
-jest.mock('~/src/server/services/helpers/fetch/fetch-proxy-rules')
+jest.mock('~/src/server/services/helpers/fetch/fetch-proxy-rules.js')
 
 describe('#findAllProxyRules', () => {
   test('Should return all proxy rules for a service in environments', async () => {

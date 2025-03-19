@@ -2,21 +2,21 @@ import { allProxyController } from '~/src/server/common/tabs/proxy/controllers/a
 import { environmentProxyController } from '~/src/server/common/tabs/proxy/controllers/environment.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
+import { commonTestSuiteExtensions } from '~/src/server/common/helpers/extensions.js'
 import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
-import { SERVICE } from '~/src/server/common/tabs/constants.js'
+import { TEST_SUITE } from '~/src/server/common/tabs/constants.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
-export const serviceProxy = {
+export const testSuiteProxies = {
   plugin: {
-    name: 'serviceProxy',
+    name: 'testSuiteProxies',
     register: (server) => {
       server.ext([
-        ...commonServiceExtensions,
+        ...commonTestSuiteExtensions,
         {
           type: 'onPostHandler',
-          method: provideSubNavForServiceOrTestSuite('proxy', SERVICE),
+          method: provideSubNavForServiceOrTestSuite('proxy', TEST_SUITE),
           options: {
             sandbox: 'plugin'
           }
@@ -27,13 +27,13 @@ export const serviceProxy = {
         [
           {
             method: 'GET',
-            path: '/services/{serviceId}/proxy',
-            ...allProxyController(SERVICE)
+            path: '/test-suites/{serviceId}/proxy',
+            ...allProxyController(TEST_SUITE)
           },
           {
             method: 'GET',
-            path: '/services/{serviceId}/proxy/{environment}',
-            ...environmentProxyController(SERVICE)
+            path: '/test-suites/{serviceId}/proxy/{environment}',
+            ...environmentProxyController(TEST_SUITE)
           }
         ].map(serviceTeamAndAdminUserScope)
       )

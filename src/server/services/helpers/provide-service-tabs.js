@@ -5,7 +5,7 @@ import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
  * @param {import('@hapi/hapi').ResponseToolkit} h
  * @returns {Promise<symbol>}
  */
-async function provideTabs(request, h) {
+async function provideServiceTabs(request, h) {
   const authedUser = await request.getUserSession()
   const isAdmin = authedUser?.isAdmin
   const isTenant = authedUser?.isTenant
@@ -99,4 +99,4 @@ async function provideTabs(request, h) {
   return h.continue
 }
 
-export { provideTabs }
+export { provideServiceTabs }
