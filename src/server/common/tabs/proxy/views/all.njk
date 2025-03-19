@@ -97,6 +97,8 @@
 
 {% endblock %}
 
+{% set pluralServiceOrTest = serviceOrTestSuite | pluralise %}
+
 {% block tabContent %}
 
   <div class="govuk-grid-row">
@@ -128,7 +130,7 @@
                       <div class="app-row__item-flex-two app-!-layout-right-aligned">
                         <p class="govuk-!-margin-bottom-0">
                           <a
-                            href="{{ routeLookup('services/{serviceId}/proxy/{environment}', {
+                            href="{{ routeLookup(pluralServiceOrTest + '/{serviceId}/proxy/{environment}', {
                               params: {
                                 serviceId: service.serviceName,
                                 environment: envProxy.environment
