@@ -43,6 +43,11 @@
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
   </form>
 
-  {{ appDocumentation({ nav: nav, content: content, toc: toc }) }}
+  {{ appDocumentation({
+    nav: nav,
+    content: content,
+    toc: toc,
+    documentationPath: documentationPath
+  }) }}
 
 {% endblock %}
