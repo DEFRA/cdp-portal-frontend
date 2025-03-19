@@ -90,8 +90,8 @@ function createSecretController(serviceOrTestSuite) {
             error.message
           )
         }
-        return h.redirect(redirectUrl)
       }
+      return h.redirect(redirectUrl)
     }
   }
 }

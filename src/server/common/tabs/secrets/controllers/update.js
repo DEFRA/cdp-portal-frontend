@@ -57,11 +57,7 @@ function updateSecretController(serviceOrTestSuite) {
           formValues: sanitisedPayload,
           formErrors: errorDetails
         })
-
-        return h.redirect(redirectUrl)
-      }
-
-      if (!validationResult.error) {
+      } else {
         const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
 
         try {
@@ -93,10 +89,9 @@ function updateSecretController(serviceOrTestSuite) {
             sessionNames.globalValidationFailures,
             error.message
           )
-
-          return h.redirect(redirectUrl)
         }
       }
+      return h.redirect(redirectUrl)
     }
   }
 }
