@@ -4,7 +4,7 @@
  * @param {import('@hapi/hapi').ResponseToolkit} h
  * @returns {Promise<symbol>}
  */
-async function provideTabs(request, h) {
+async function provideTestSuiteTabs(request, h) {
   const authedUser = await request.getUserSession()
   const isAdmin = authedUser?.isAdmin
   const isTenant = authedUser?.isTenant
@@ -35,7 +35,17 @@ async function provideTabs(request, h) {
       }
     ]
 
-    if (!isAdmin && !isTenant) {
+    if (isAdmin || isTenant) {
+      response.source.context.tabDetails.tabs.push({
+        isActive: request.path.startsWith(`/test-suites/${imageName}/proxy`),
+        url: request.routeLookup('test-suites/{serviceId}/proxy', {
+          params: {
+            serviceId: imageName
+          }
+        }),
+        label: 'Proxy'
+      })
+    } else {
       response.source.context.tabDetails.displayTabs = false
     }
 
@@ -55,4 +65,4 @@ async function provideTabs(request, h) {
   return h.continue
 }
 
-export { provideTabs }
+export { provideTestSuiteTabs }

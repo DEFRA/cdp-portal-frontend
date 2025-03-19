@@ -3,6 +3,7 @@ import { listTestSuites } from '~/src/server/test-suites/list/routes.js'
 import { testSuiteSecrets } from '~/src/server/test-suites/test-suite/secrets/routes.js'
 import { testSuiteCreateStatus } from '~/src/server/test-suites/create-status/routes.js'
 import { testSuiteRuns } from '~/src/server/test-suites/test-runs/routes.js'
+import { testSuiteProxies } from '~/src/server/test-suites/test-suite/proxy/routes.js'
 
 const testSuites = {
   plugin: {
@@ -13,7 +14,8 @@ const testSuites = {
         listTestSuites,
         testSuiteCreateStatus,
         testSuiteRuns,
-        testSuiteSecrets
+        testSuiteSecrets,
+        testSuiteProxies
       ])
     }
   }

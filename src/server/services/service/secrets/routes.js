@@ -3,7 +3,7 @@ import { environmentSecretsController } from '~/src/server/common/tabs/secrets/c
 import { updateSecretController } from '~/src/server/common/tabs/secrets/controllers/update.js'
 import { createSecretController } from '~/src/server/common/tabs/secrets/controllers/create.js'
 import { updateSecretFormController } from '~/src/server/common/tabs/secrets/controllers/update-form.js'
-import { provideTabs } from '~/src/server/services/helpers/provide-tabs.js'
+import { provideServiceTabs } from '~/src/server/services/helpers/provide-service-tabs.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
 import { serviceOwnerOrAdminUserScope } from '~/src/server/common/constants/scopes.js'
@@ -26,7 +26,7 @@ const serviceSecrets = {
         },
         {
           type: 'onPostHandler',
-          method: provideTabs,
+          method: provideServiceTabs,
           options: {
             sandbox: 'plugin'
           }
