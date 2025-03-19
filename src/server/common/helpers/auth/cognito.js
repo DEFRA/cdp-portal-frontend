@@ -46,12 +46,23 @@ async function getCognitoToken() {
 async function federatedCredentials() {
   const azureClientId = config.get('azureClientId')
   const azureTenantId = config.get('azureTenantId')
+  const options = {}
 
-  logger.info('Using federated credentials')
+  const proxy = config.get('httpProxy')
+  if (proxy != null) {
+    const proxyUrl = new URL(proxy)
+    logger.info('Using federated credentials')
+    options.proxyOptions = {
+      host: proxyUrl.href,
+      port: proxyUrl.port
+    }
+  }
+
   const credential = new ClientAssertionCredential(
     azureTenantId,
     azureClientId,
-    getCognitoToken
+    getCognitoToken,
+    options
   )
   return await credential.getToken()
 }
