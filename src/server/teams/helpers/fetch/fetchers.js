@@ -11,7 +11,7 @@ async function fetchTeamServices(teamId) {
 }
 
 async function fetchTeamTestSuites(teamId) {
-  const endpoint = portalBackendUrl + `/test-suite?teamId=${teamId}`
+  const endpoint = portalBackendUrl + `/test-suites?teamId=${teamId}`
 
   const { payload } = await fetchJson(endpoint)
   return payload
