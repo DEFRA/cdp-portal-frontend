@@ -15,7 +15,7 @@ $negative-margin: -6px;
 .app-running-service-slim__environment {
   flex: 1;
   display: grid;
-  grid-auto-rows: repeat(auto, fit-content);
+  grid-auto-rows: minmax(10px, max-content);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"

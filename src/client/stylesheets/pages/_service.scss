@@ -26,7 +26,7 @@
 .app-grid-service {
   display: grid;
   gap: govuk-spacing(6);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, auto);
   grid-auto-rows: minmax(10px, max-content);
   grid-template-areas:
     "details details details"
@@ -36,7 +36,8 @@
 
 
   @include govuk-media-query($from: desktop-massive) {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, auto);
+    grid-auto-rows: minmax(10px, max-content);
     grid-template-areas:
     "details details details published published published"
     "info info info run run run";
