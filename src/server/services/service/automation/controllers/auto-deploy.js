@@ -45,11 +45,7 @@ const autoDeployController = {
         formValues: sanitisedPayload,
         formErrors: errorDetails
       })
-
-      return h.redirect(redirectUrl)
-    }
-
-    if (!validationResult.error) {
+    } else {
       try {
         const { res } = await saveAutoDeployDetails(sanitisedPayload)
 
@@ -63,18 +59,15 @@ const autoDeployController = {
           text: successMessage,
           type: 'success'
         })
-
-        return h.redirect(redirectUrl)
       } catch (error) {
         request.logger.debug({ error }, 'Save auto deploy details failed')
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload
         })
         request.yar.flash(sessionNames.globalValidationFailures, error.message)
-
-        return h.redirect(redirectUrl)
       }
     }
+    return h.redirect(redirectUrl)
   }
 }
 

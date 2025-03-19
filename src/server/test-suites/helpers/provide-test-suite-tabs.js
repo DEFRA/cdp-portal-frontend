@@ -1,3 +1,5 @@
+import { buildTab } from '~/src/server/common/tabs/helpers/build-tab.js'
+
 /**
  * Provides tabs for the service view based on user authentication.
  * @param {import('@hapi/hapi').Request} request - The request object.
@@ -36,29 +38,13 @@ async function provideTestSuiteTabs(request, h) {
     ]
 
     if (isAdmin || isTenant) {
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/test-suites/${imageName}/proxy`),
-        url: request.routeLookup('test-suites/{serviceId}/proxy', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Proxy'
-      })
+      buildTab(response, request, 'test-suites', 'proxy', imageName)
     } else {
       response.source.context.tabDetails.displayTabs = false
     }
 
     if (isAdmin || isServiceOwner) {
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/test-suites/${imageName}/secrets`),
-        url: request.routeLookup('test-suites/{serviceId}/secrets', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Secrets'
-      })
+      buildTab(response, request, 'test-suites', 'secrets', imageName)
     }
   }
 

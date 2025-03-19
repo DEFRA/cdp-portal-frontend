@@ -1,4 +1,6 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { buildTab } from '~/src/server/common/tabs/helpers/build-tab.js'
+
 /**
  * Provides tabs for the service view based on user authentication.
  * @param {import('@hapi/hapi').Request} request - The request object.
@@ -37,60 +39,20 @@ async function provideServiceTabs(request, h) {
     ]
 
     if (isAdmin || isTenant) {
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/buckets`),
-        url: request.routeLookup('services/{serviceId}/buckets', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Buckets'
-      })
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/proxy`),
-        url: request.routeLookup('services/{serviceId}/proxy', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Proxy'
-      })
+      buildTab(response, request, 'services', 'buckets', imageName)
+      buildTab(response, request, 'services', 'proxy', imageName)
     } else {
       response.source.context.tabDetails.displayTabs = false
     }
 
     if (isAdmin || isServiceOwner) {
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/secrets`),
-        url: request.routeLookup('services/{serviceId}/secrets', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Secrets'
-      })
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/terminal`),
-        url: request.routeLookup('services/{serviceId}/terminal', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Terminal'
-      })
+      buildTab(response, request, 'services', 'secrets', imageName)
+      buildTab(response, request, 'services', 'terminal', imageName)
     }
 
     // TODO - automation currently feature flagged as admin only, switch to admin and serviceOwner once ready
     if (isAdmin) {
-      response.source.context.tabDetails.tabs.push({
-        isActive: request.path.startsWith(`/services/${imageName}/automation`),
-        url: request.routeLookup('services/{serviceId}/automation', {
-          params: {
-            serviceId: imageName
-          }
-        }),
-        label: 'Automation'
-      })
+      buildTab(response, request, 'services', 'automation', imageName)
     }
 
     response.source.context.tabDetails.tabs.sort(sortBy('label', 'asc'))
