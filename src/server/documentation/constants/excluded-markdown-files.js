@@ -1,1 +1,1 @@
-export const excludedMarkdownFiles = ['nav.md', 'README.md']
+export const excludedMarkdownFiles = ['nav.md']

@@ -24,6 +24,26 @@ describe('#linkExtension', () => {
     expect($link.attr('rel')).toBe('noopener noreferrer')
   })
 
+  test('Should render a linked .jpg image', async () => {
+    const html = await testMarked.parse('[Example](nice.jpg)')
+    const $html = load(html)
+    const $link = $html('a')
+
+    expect($link.attr('href')).toBe('nice.jpg')
+    expect($link.attr('target')).toBe('_blank')
+    expect($link.attr('rel')).toBe('noopener noreferrer')
+  })
+
+  test('Should render a linked .png image', async () => {
+    const html = await testMarked.parse('[Example](cats.png)')
+    const $html = load(html)
+    const $link = $html('a')
+
+    expect($link.attr('href')).toBe('cats.png')
+    expect($link.attr('target')).toBe('_blank')
+    expect($link.attr('rel')).toBe('noopener noreferrer')
+  })
+
   test('Should render a portal link', async () => {
     const html = await testMarked.parse('[Home](https://portal/home)')
     const $html = load(html)

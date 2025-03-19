@@ -34,6 +34,7 @@ async function markdownHandler(request, h, documentationPath, bucket) {
       pageTitle: `Documentation - ${pageTitle || 'Home'}`,
       content: html,
       breadcrumbs: docsBreadcrumbs(documentationPath),
+      documentationPath,
       toc,
       nav
     })
