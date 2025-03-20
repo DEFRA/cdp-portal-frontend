@@ -57,7 +57,6 @@ async function exchangeToken(clientAssertion) {
           if (!_containsPii) logger.info(`MSAL Logging: ${message}`)
         }
       },
-      proxyUrl: config.get('httpProxy'),
       piiLoggingEnabled: false,
       logLevel: LogLevel.Verbose
     }
