@@ -6,7 +6,7 @@
   "main": ".server/index.js",
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13.1"
   },
   "author": "Defra DDTS",
   "license": "OGL-UK-3.0",
