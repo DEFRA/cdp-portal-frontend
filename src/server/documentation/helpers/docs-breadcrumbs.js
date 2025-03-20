@@ -8,32 +8,32 @@ function docsBreadcrumbs(docsPath) {
     }
   ]
 
-  const pathParts = docsPath.split('/')
-
-  if (pathParts.at(-1)?.toLowerCase() === 'readme.md') {
-    pathParts.pop()
-  }
-
-  if (pathParts.length === 1) {
-    breadcrumbs.push({
-      text: startCase(pathParts.at(0).replace('.md', ''))
-    })
-
-    return breadcrumbs
-  }
+  const pathParts = docsPath.split('/').filter(Boolean)
 
   pathParts.forEach((pathPart, i, array) => {
-    if (i === pathParts.length - 1) {
-      // Last breadcrumb is not linkable
-      breadcrumbs.push({
-        text: startCase(pathPart.replace('.md', ''))
-      })
+    const isLastPart = i === pathParts.length - 1
+    const previousPart = array.at(i - 1)?.toLowerCase()
+    const currentPart = pathPart.replace('.md', '').toLowerCase()
+    const nextPart = array
+      .at(i + 1)
+      ?.replace('.md', '')
+      .toLowerCase()
+
+    if (isLastPart) {
+      if (previousPart !== currentPart) {
+        breadcrumbs.push({
+          text: startCase(pathPart.replace('.md', ''))
+        })
+      }
     } else {
       const path = array.slice(0, i + 1).join('/')
+      const isNextPartSame = nextPart === currentPart
 
       breadcrumbs.push({
         text: startCase(pathPart),
-        href: `/documentation/${path}/README.md`
+        ...(isNextPartSame
+          ? {}
+          : { href: `/documentation/${path}/${pathPart}.md` })
       })
     }
   })
