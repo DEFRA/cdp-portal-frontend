@@ -2,12 +2,9 @@ import {
   CognitoIdentityClient,
   GetOpenIdTokenForDeveloperIdentityCommand
 } from '@aws-sdk/client-cognito-identity'
-import { ClientAssertionCredential } from '@azure/identity'
-import { add } from 'date-fns'
+import { LogLevel, ConfidentialClientApplication } from '@azure/msal-node'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-
-const azureTokenLifespanMinutes = 10
 
 const logger = createLogger()
 const client = new CognitoIdentityClient()
@@ -43,32 +40,32 @@ async function getCognitoToken() {
   }
 }
 
-async function federatedCredentials() {
-  const azureClientId = config.get('azureClientId')
+async function exchangeToken(clientAssertion) {
+  const azureClientId = '26372ac9-d8f0-4da9-a17e-938eb3161d8e' // config.get('azureClientId')
   const azureTenantId = config.get('azureTenantId')
-  const options = {}
+  const aadAuthority = `https://login.microsoftonline.com/${azureTenantId}/`
 
-  const proxy = config.get('httpProxy')
-  if (proxy != null) {
-    const proxyUrl = new URL(proxy)
-    logger.info(
-      `ClientAssertionCredential proxy set to use ${proxyUrl.href}:${proxyUrl.port}`
-    )
-    options.proxyOptions = {
-      host: proxyUrl.href,
-      port: proxyUrl.port
+  const msalApp = new ConfidentialClientApplication({
+    auth: {
+      clientId: azureClientId,
+      authority: aadAuthority,
+      clientAssertion
+    },
+    system: {
+      loggerOptions: {
+        loggerCallback: (_level, message, _containsPii) => {
+          if (!_containsPii) logger.info(`MSAL Logging: ${message}`)
+        }
+      },
+      proxyUrl: config.get('httpProxy'),
+      piiLoggingEnabled: false,
+      logLevel: LogLevel.Verbose
     }
-  }
+  })
 
-  logger.info('Creating ClientAssertionCredential')
-  const credential = new ClientAssertionCredential(
-    azureTenantId,
-    azureClientId,
-    getCognitoToken,
-    options
-  )
-  logger.info('Created ClientAssertionCredential')
-  return await credential.getToken()
+  return await msalApp.acquireTokenByClientCredential({
+    scopes: [`api://${config.get('azureClientId')}/.default`]
+  })
 }
 
 export async function refreshFederatedCredentials() {
@@ -78,11 +75,13 @@ export async function refreshFederatedCredentials() {
   }
 
   if (expiresAt.getTime() < new Date().getTime()) {
-    const federatedToken = await federatedCredentials()
-    token = federatedToken.token
-    expiresAt = add(new Date(), { minutes: azureTokenLifespanMinutes }) // TODO: use date from token
+    const cognitoToken = await getCognitoToken()
+    const federatedToken = await exchangeToken(cognitoToken)
+    logger.info(`Token exchange complete ID: ${federatedToken.correlationId}`)
+    token = federatedToken.accessToken
+    expiresAt = federatedToken.expiresOn
     logger.info(
-      `Refreshed federated credentials ${federatedToken.tokenType} ${federatedToken.expiresOnTimestamp}`
+      `Refreshed federated credentials, new expiration at: ${expiresAt.toISOString()}`
     )
   } else {
     logger.info(
@@ -96,7 +95,7 @@ let expiresAt = new Date()
 
 export function getAzureCredentialsToken() {
   if (config.get('azureFederatedCredentials.enabled')) {
-    return token
+    return token?.accessToken
   } else {
     return config.get('azureClientSecret')
   }
