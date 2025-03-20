@@ -51,19 +51,23 @@ async function federatedCredentials() {
   const proxy = config.get('httpProxy')
   if (proxy != null) {
     const proxyUrl = new URL(proxy)
-    logger.info('Using federated credentials')
+    logger.info(
+      `ClientAssertionCredential proxy set to use ${proxyUrl.href}:${proxyUrl.port}`
+    )
     options.proxyOptions = {
       host: proxyUrl.href,
       port: proxyUrl.port
     }
   }
 
+  logger.info('Creating ClientAssertionCredential')
   const credential = new ClientAssertionCredential(
     azureTenantId,
     azureClientId,
     getCognitoToken,
     options
   )
+  logger.info('Created ClientAssertionCredential')
   return await credential.getToken()
 }
 
@@ -74,9 +78,12 @@ export async function refreshFederatedCredentials() {
   }
 
   if (expiresAt.getTime() < new Date().getTime()) {
-    token = await federatedCredentials()
-    expiresAt = add(new Date(), { minutes: azureTokenLifespanMinutes })
-    logger.info('Refreshed federated credentials')
+    const federatedToken = await federatedCredentials()
+    token = federatedToken.token
+    expiresAt = add(new Date(), { minutes: azureTokenLifespanMinutes }) // TODO: use date from token
+    logger.info(
+      `Refreshed federated credentials ${federatedToken.tokenType} ${federatedToken.expiresOnTimestamp}`
+    )
   } else {
     logger.info(
       `Refreshed federated are valid until ${expiresAt.toISOString()}`
