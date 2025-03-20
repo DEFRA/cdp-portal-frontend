@@ -13,13 +13,13 @@ describe('#docsBreadcrumbs', () => {
     const result = docsBreadcrumbs('guides/getting-started.md')
     expect(result).toEqual([
       { text: 'CDP', href: '/documentation' },
-      { text: 'Guides', href: '/documentation/guides/README.md' },
+      { text: 'Guides', href: '/documentation/guides/guides.md' },
       { text: 'Getting Started' }
     ])
   })
 
-  test('Should handle README.md files correctly', () => {
-    const result = docsBreadcrumbs('guides/README.md')
+  test('Should handle folder files correctly', () => {
+    const result = docsBreadcrumbs('guides/guides.md')
     expect(result).toEqual([
       { text: 'CDP', href: '/documentation' },
       { text: 'Guides' }
@@ -30,8 +30,18 @@ describe('#docsBreadcrumbs', () => {
     const result = docsBreadcrumbs('guides/advanced/topics.md')
     expect(result).toEqual([
       { text: 'CDP', href: '/documentation' },
-      { text: 'Guides', href: '/documentation/guides/README.md' },
-      { text: 'Advanced', href: '/documentation/guides/advanced/README.md' },
+      { text: 'Guides', href: '/documentation/guides/guides.md' },
+      { text: 'Advanced', href: '/documentation/guides/advanced/advanced.md' },
+      { text: 'Topics' }
+    ])
+  })
+
+  test('Should handle paths with different cases correctly', () => {
+    const result = docsBreadcrumbs('Guides/Advanced/Topics.md')
+    expect(result).toEqual([
+      { text: 'CDP', href: '/documentation' },
+      { text: 'Guides', href: '/documentation/Guides/Guides.md' },
+      { text: 'Advanced', href: '/documentation/Guides/Advanced/Advanced.md' },
       { text: 'Topics' }
     ])
   })
