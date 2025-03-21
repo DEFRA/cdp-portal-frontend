@@ -5,6 +5,7 @@ import {
 import { LogLevel, ConfidentialClientApplication } from '@azure/msal-node'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
+import { fetch } from 'undici'
 
 const logger = createLogger()
 const client = new CognitoIdentityClient()
@@ -55,6 +56,14 @@ async function exchangeToken(clientAssertion) {
       loggerOptions: {
         loggerCallback: (_level, message, _containsPii) => {
           if (!_containsPii) logger.info(`MSAL Logging: ${message}`)
+        },
+        networkClient: {
+          sendGetRequestAsync: async (url, options) => {
+            return await fetch(url, options)
+          },
+          sendPostRequestAsync: async (url, options) => {
+            return await fetch(url, options)
+          }
         }
       },
       piiLoggingEnabled: false,
@@ -74,7 +83,9 @@ export async function refreshFederatedCredentials() {
   }
 
   if (expiresAt.getTime() < new Date().getTime()) {
+    logger.info('Token expired, getting token from cognito')
     const cognitoToken = await getCognitoToken()
+    logger.info('Exchanging token via msal')
     const federatedToken = await exchangeToken(cognitoToken)
     logger.info(`Token exchange complete ID: ${federatedToken.correlationId}`)
     token = federatedToken.accessToken
