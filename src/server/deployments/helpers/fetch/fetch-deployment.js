@@ -8,7 +8,7 @@ const logger = createLogger()
 
 async function fetchDeployment(deploymentId) {
   const endpoint =
-    config.get('portalBackendUrl') + `/v2/deployments/${deploymentId}`
+    config.get('portalBackendUrl') + `/deployments/${deploymentId}`
 
   try {
     const { payload } = await fetchJson(endpoint)

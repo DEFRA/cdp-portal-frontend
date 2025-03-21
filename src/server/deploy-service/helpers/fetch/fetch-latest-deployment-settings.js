@@ -1,11 +1,11 @@
 import { config } from '~/src/config/config.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
-async function fetchExistingServiceInfo(environment, imageName) {
+async function fetchLatestDeploymentSettings(environment, imageName) {
   try {
     const endpoint =
       config.get('portalBackendUrl') +
-      `/v2/deployment-config/${imageName}/${environment}`
+      `/deployment-settings/${imageName}/${environment}`
     const { payload } = await fetchJson(endpoint)
 
     return payload
@@ -18,4 +18,4 @@ async function fetchExistingServiceInfo(environment, imageName) {
   }
 }
 
-export { fetchExistingServiceInfo }
+export { fetchLatestDeploymentSettings }

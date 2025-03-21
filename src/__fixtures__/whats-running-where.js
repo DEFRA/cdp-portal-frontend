@@ -1,4 +1,4 @@
-// Response from portalBackendApi/v2/whats-running-where
+// Response from portalBackendApi/whats-running-where
 const whatsRunningWhereFixture = [
   {
     cdpDeploymentId: '3c439dc3-014f-47ef-9433-57ef0a10d8aa',

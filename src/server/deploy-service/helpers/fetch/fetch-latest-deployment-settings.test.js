@@ -1,16 +1,16 @@
 import nock from 'nock'
 
 import { config } from '~/src/config/config.js'
-import { fetchExistingServiceInfo } from '~/src/server/deploy-service/helpers/fetch/fetch-existing-service-info.js'
+import { fetchLatestDeploymentSettings } from '~/src/server/deploy-service/helpers/fetch/fetch-latest-deployment-settings.js'
 import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
-describe('#fetchExistingServiceInfo', () => {
+describe('#fetchLatestDeploymentSettings', () => {
   const environment = 'infra-dev'
   const imageName = 'cdp-portal-frontend'
   const existingServiceInfoEndpoint = new URL(
     config.get('portalBackendUrl') +
-      `/v2/deployment-config/${imageName}/${environment}`
+      `/deployment-settings/${imageName}/${environment}`
   )
 
   test('Should provide expected fetch cdp user response', async () => {
@@ -18,7 +18,10 @@ describe('#fetchExistingServiceInfo', () => {
       .get(existingServiceInfoEndpoint.pathname)
       .reply(200, existingServiceInfoFixture)
 
-    const serviceInfo = await fetchExistingServiceInfo(environment, imageName)
+    const serviceInfo = await fetchLatestDeploymentSettings(
+      environment,
+      imageName
+    )
 
     expect(serviceInfo).toEqual(existingServiceInfoFixture)
   })
@@ -28,7 +31,10 @@ describe('#fetchExistingServiceInfo', () => {
       .get(existingServiceInfoEndpoint.pathname)
       .reply(404, {})
 
-    const serviceInfo = await fetchExistingServiceInfo(environment, imageName)
+    const serviceInfo = await fetchLatestDeploymentSettings(
+      environment,
+      imageName
+    )
 
     expect(serviceInfo).toBeNull()
   })
@@ -39,7 +45,7 @@ describe('#fetchExistingServiceInfo', () => {
       .replyWithError('Legally we cannot allow that!')
 
     const error = await getError(async () =>
-      fetchExistingServiceInfo(environment, imageName)
+      fetchLatestDeploymentSettings(environment, imageName)
     )
 
     expect(error).not.toBeInstanceOf(NoErrorThrownError)

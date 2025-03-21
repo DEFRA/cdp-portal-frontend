@@ -17,7 +17,7 @@ describe('#provideOptionsFormValues', () => {
 
   const deploymentConfigEndpoint = new URL(
     config.get('portalBackendUrl') +
-      `/v2/deployment-config/cdp-portal-frontend/management`
+      `/deployment-settings/cdp-portal-frontend/management`
   )
 
   beforeEach(() => {
