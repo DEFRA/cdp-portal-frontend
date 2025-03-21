@@ -3,6 +3,8 @@ import {
   GetOpenIdTokenForDeveloperIdentityCommand
 } from '@aws-sdk/client-cognito-identity'
 import { LogLevel, ConfidentialClientApplication } from '@azure/msal-node'
+import { NodeHttpHandler } from '@smithy/node-http-handler'
+import { HttpsProxyAgent } from 'https-proxy-agent'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { fetch } from 'undici'
@@ -18,7 +20,13 @@ let client = null
 async function getCognitoToken() {
   if (client == null) {
     logger.info('setting up cognito client')
-    client = new CognitoIdentityClient()
+    const cognitoOptions = {}
+    if (config.get('httpProxy')) {
+      cognitoOptions.requestHandler = new NodeHttpHandler({
+        httpAgent: new HttpsProxyAgent(config.get('httpProxy'))
+      })
+    }
+    client = new CognitoIdentityClient(cognitoOptions)
   }
 
   // Don't pull service name from config as PFE store it as a human-readable version.
