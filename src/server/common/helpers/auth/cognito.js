@@ -8,13 +8,19 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { fetch } from 'undici'
 
 const logger = createLogger()
-const client = new CognitoIdentityClient()
+
+let client = null
 
 /**
  * Attempts to get a federated token from cognito
  * @returns {Promise<string>}
  */
 async function getCognitoToken() {
+  if (client == null) {
+    logger.info('setting up cognito client')
+    client = new CognitoIdentityClient()
+  }
+
   // Don't pull service name from config as PFE store it as a human-readable version.
   const serviceName = 'cdp-portal-frontend'
   const poolId = config.get('azureFederatedCredentials.identityPoolId')
