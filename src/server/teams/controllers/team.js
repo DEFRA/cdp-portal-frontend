@@ -29,9 +29,9 @@ const teamController = {
     const teamsServices = /** @type {Array} */ await fetchTeamServices(
       team.teamId
     )
-    const teamTestSuites = /** @type {Array} */ await fetchTeamTestSuites(
-      team.teamId
-    )
+    const teamTestSuites = /** @type {Array} */ team?.github
+      ? await fetchTeamTestSuites(team.github)
+      : []
 
     const userIsTeamMember = await request.userIsMemberOfATeam([team.teamId])
     const hasGitHub = Boolean(team?.github)
