@@ -13,20 +13,42 @@ const logger = createLogger()
 
 let client = null
 
+function createClient() {
+  const cognitoOptions = {}
+  const proxyUrl = config.get('httpProxy')
+  try {
+    if (proxyUrl) {
+      logger.info('Setting up proxy for cognito')
+      cognitoOptions.requestHandler = new NodeHttpHandler({
+        httpAgent: new HttpsProxyAgent(proxyUrl),
+        logger: {
+          info(...args) {
+            logger.info(args)
+          },
+          debug(...args) {
+            logger.info(args)
+          },
+          trace(...args) {
+            logger.info(args)
+          }
+        }
+      })
+    }
+    logger.info('Setting up cognito client')
+    return new CognitoIdentityClient(cognitoOptions)
+  } catch (e) {
+    logger.error('Failed to create cognito client', e)
+    throw e
+  }
+}
+
 /**
  * Attempts to get a federated token from cognito
  * @returns {Promise<string>}
  */
 async function getCognitoToken() {
   if (client == null) {
-    logger.info('setting up cognito client')
-    const cognitoOptions = {}
-    if (config.get('httpProxy')) {
-      cognitoOptions.requestHandler = new NodeHttpHandler({
-        httpAgent: new HttpsProxyAgent(config.get('httpProxy'))
-      })
-    }
-    client = new CognitoIdentityClient(cognitoOptions)
+    client = createClient()
   }
 
   // Don't pull service name from config as PFE store it as a human-readable version.
@@ -50,7 +72,7 @@ async function getCognitoToken() {
     logger.info(`Got token from Cognition ${result?.IdentityId}`)
     return result.Token
   } catch (e) {
-    logger.error(e)
+    logger.error('Failed to get Cognito Token', e)
     throw e
   }
 }
