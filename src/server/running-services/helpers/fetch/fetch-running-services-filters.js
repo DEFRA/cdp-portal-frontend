@@ -3,7 +3,7 @@ import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 async function fetchRunningServicesFilters() {
   const endpoint =
-    config.get('portalBackendUrl') + '/v2/whats-running-where/filters'
+    config.get('portalBackendUrl') + '/whats-running-where/filters'
 
   const { payload } = await fetchJson(endpoint)
   return payload

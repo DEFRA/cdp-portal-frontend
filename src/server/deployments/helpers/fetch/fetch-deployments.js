@@ -7,7 +7,7 @@ async function fetchDeployments(environment, queryParams) {
   const queryString = qs.stringify(queryParams, { arrayFormat: 'repeat' })
   const endpoint =
     config.get('portalBackendUrl') +
-    `/v2/deployments?environment=${environment}${
+    `/deployments?environment=${environment}${
       queryString ? `&${queryString}` : ''
     }`
 

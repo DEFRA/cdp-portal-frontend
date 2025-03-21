@@ -3,7 +3,7 @@ import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 async function fetchRunningServicesById(serviceId) {
   const endpoint =
-    config.get('portalBackendUrl') + `/v2/whats-running-where/${serviceId}`
+    config.get('portalBackendUrl') + `/whats-running-where/${serviceId}`
 
   const { payload } = await fetchJson(endpoint)
   return payload
