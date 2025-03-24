@@ -15,7 +15,7 @@ let client = null
 
 function createClient() {
   const cognitoOptions = {}
-  const proxyUrl = config.get('httpProxy')
+  const proxyUrl = process.env.CDP_HTTPS_PROXY
   try {
     if (proxyUrl) {
       logger.info('Setting up proxy for cognito')
