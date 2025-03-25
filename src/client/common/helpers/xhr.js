@@ -64,21 +64,15 @@ async function xhrRequest(url, params = {}) {
     })
     history.push(url)
 
-    const response = await fetch(
-      `${url}${qs.stringify(params, {
-        arrayFormat: 'repeat',
-        addQueryPrefix: true
-      })}`,
-      {
-        cache: 'no-store',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Cache-Control': 'no-cache, no-store, max-age=0',
-          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
-          Pragma: 'no-cache'
-        }
+    const response = await fetch(url, {
+      cache: 'no-store',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Cache-Control': 'no-cache, no-store, max-age=0',
+        Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+        Pragma: 'no-cache'
       }
-    )
+    })
 
     const text = await response.text()
     updatePage(text, queryParams)
