@@ -54,10 +54,15 @@ function updatePage(text, params = {}) {
  */
 async function xhrRequest(url, params = {}) {
   try {
-    if (params) {
-      const url = qs.stringify(params, { addQueryPrefix: true })
-      history.push(url)
-    }
+    const urlParams = new URLSearchParams(window.location.search)
+    const search = Object.fromEntries(urlParams) ?? {}
+    const queryParams = { ...search, ...params }
+
+    const url = qs.stringify(queryParams, {
+      arrayFormat: 'repeat',
+      addQueryPrefix: true
+    })
+    history.push(url)
 
     const response = await fetch(
       `${url}${qs.stringify(params, {
@@ -76,7 +81,7 @@ async function xhrRequest(url, params = {}) {
     )
 
     const text = await response.text()
-    updatePage(text, params)
+    updatePage(text, queryParams)
 
     return { ok: true, text }
   } catch (error) {
