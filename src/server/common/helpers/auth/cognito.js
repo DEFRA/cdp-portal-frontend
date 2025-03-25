@@ -88,26 +88,24 @@ export async function refreshFederatedCredentials() {
     return
   }
 
-  if (expiresAt.getTime() < new Date().getTime()) {
+  if (token == null || token.expiresOn.getTime() < new Date().getTime()) {
     logger.info('Token expired, getting token from cognito')
     const cognitoToken = await getCognitoToken()
     logger.info('Exchanging token via msal')
     const federatedToken = await exchangeToken(cognitoToken)
     logger.info(`Token exchange complete ID: ${federatedToken.correlationId}`)
-    token = federatedToken.accessToken
-    expiresAt = federatedToken.expiresOn
+    token = federatedToken
     logger.info(
-      `Refreshed federated credentials, new expiration at: ${expiresAt.toISOString()}`
+      `Refreshed federated credentials, new expiration at: ${federatedToken.expiresOn?.toISOString()}`
     )
   } else {
     logger.info(
-      `Refreshed federated are valid until ${expiresAt.toISOString()}`
+      `Refreshed federated are valid until ${token.expiresOn.toISOString()}`
     )
   }
 }
 
-let token = ''
-let expiresAt = new Date()
+let token = null
 
 export function getAzureCredentialsToken() {
   if (config.get('azureFederatedCredentials.enabled')) {
