@@ -3,8 +3,6 @@ import {
   GetOpenIdTokenForDeveloperIdentityCommand
 } from '@aws-sdk/client-cognito-identity'
 import { LogLevel, ConfidentialClientApplication } from '@azure/msal-node'
-import { NodeHttpHandler } from '@smithy/node-http-handler'
-import { HttpsProxyAgent } from 'https-proxy-agent'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { fetch } from 'undici'
@@ -13,42 +11,14 @@ const logger = createLogger()
 
 let client = null
 
-function createClient() {
-  const cognitoOptions = {}
-  const proxyUrl = process.env.CDP_HTTPS_PROXY
-  try {
-    if (proxyUrl) {
-      logger.info('Setting up proxy for cognito')
-      cognitoOptions.requestHandler = new NodeHttpHandler({
-        httpAgent: new HttpsProxyAgent(proxyUrl),
-        logger: {
-          info(...args) {
-            logger.info(args)
-          },
-          debug(...args) {
-            logger.info(args)
-          },
-          trace(...args) {
-            logger.info(args)
-          }
-        }
-      })
-    }
-    logger.info('Setting up cognito client')
-    return new CognitoIdentityClient(cognitoOptions)
-  } catch (e) {
-    logger.error('Failed to create cognito client', e)
-    throw e
-  }
-}
-
 /**
  * Attempts to get a federated token from cognito
  * @returns {Promise<string>}
  */
 async function getCognitoToken() {
   if (client == null) {
-    client = createClient()
+    const cognitoOptions = {}
+    client = new CognitoIdentityClient(cognitoOptions)
   }
 
   // Don't pull service name from config as PFE store it as a human-readable version.
