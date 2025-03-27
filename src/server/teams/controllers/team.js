@@ -34,6 +34,7 @@ const teamController = {
       : []
 
     const userIsTeamMember = await request.userIsMemberOfATeam([team.teamId])
+    const authedUser = await request.getUserSession()
     const hasGitHub = Boolean(team?.github)
 
     const {
@@ -45,7 +46,10 @@ const teamController = {
 
     return h.view('teams/views/team', {
       pageTitle: `${team.name} Team`,
-      summaryList: transformTeamToSummary(team, userIsTeamMember),
+      summaryList: transformTeamToSummary(
+        team,
+        userIsTeamMember || authedUser?.isAdmin
+      ),
       services: servicesToDetailedList(
         teamsServices.map(repositoriesDecorator(gitHubServiceRepositories))
       ),

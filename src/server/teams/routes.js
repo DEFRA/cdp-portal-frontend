@@ -9,8 +9,9 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { removeMemberController } from '~/src/server/teams/controllers/remove/remove-member.js'
 import { confirmRemoveMemberController } from '~/src/server/teams/controllers/remove/confirm-remove-member.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
-const teamScope = authScope(['+{params.teamId}'])
+const teamOrAdminScope = authScope([scopes.admin, '{params.teamId}'])
 
 const teams = {
   plugin: {
@@ -69,7 +70,7 @@ const teams = {
             path: '/teams/{teamId}/remove-member/{userId}',
             ...removeMemberController
           }
-        ].map(teamScope)
+        ].map(teamOrAdminScope)
       ])
     }
   }
