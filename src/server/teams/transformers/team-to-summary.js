@@ -20,7 +20,7 @@ const editActionItems = (teamId) => ({
   ]
 })
 
-const buildMembers = (team) =>
+const buildMembers = (team, withActions) =>
   team.users.map((user, i) => {
     return {
       key: { text: i === 0 ? 'Members' : '' },
@@ -32,15 +32,17 @@ const buildMembers = (team) =>
         }</div>`
       },
       actions: {
-        items: [
-          {
-            classes: 'app-link app-link--underline',
-            href: `/teams/${team.teamId}/remove-member/${user.userId}`,
-            text: 'Remove',
-            visuallyHiddenText: 'Remove team member',
-            attributes: { 'data-testid': 'remove-link' }
-          }
-        ]
+        items: withActions
+          ? [
+              {
+                classes: 'app-link app-link--underline',
+                href: `/teams/${team.teamId}/remove-member/${user.userId}`,
+                text: 'Remove',
+                visuallyHiddenText: 'Remove team member',
+                attributes: { 'data-testid': 'remove-link' }
+              }
+            ]
+          : []
       }
     }
   })
@@ -108,7 +110,7 @@ function transformTeamToSummary(team, withActions = false) {
           html: renderComponent('time', { datetime: team.createdAt })
         }
       },
-      ...buildMembers(team)
+      ...buildMembers(team, withActions)
     ]
   }
 }
