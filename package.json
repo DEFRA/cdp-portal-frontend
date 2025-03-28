@@ -88,6 +88,7 @@
     "marked-alert": "2.1.1",
     "marked-plaintify": "1.1.0",
     "nunjucks": "3.2.4",
+    "openid-client": "6.3.4",
     "pino": "9.5.0",
     "pino-pretty": "11.3.0",
     "qs": "6.13.0",
