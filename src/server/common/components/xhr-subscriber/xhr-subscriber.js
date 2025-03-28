@@ -1,5 +1,3 @@
-import qs from 'qs'
-
 import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
 import { subscribe } from '~/src/client/common/helpers/event-emitter.js'
 import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
@@ -17,14 +15,7 @@ function xhrSubscriber($module) {
   const xhrUrl = $module.dataset.xhrUrl
 
   subscribe(subscribeTo, async ({ detail }) => {
-    const queryParamString = detail?.queryParams
-      ? qs.stringify(detail?.queryParams, {
-          addQueryPrefix: true
-        })
-      : ''
-    const url = xhrUrl + queryParamString
-
-    const { ok } = await xhrRequest(url)
+    const { ok } = await xhrRequest(xhrUrl, detail?.queryParams)
 
     if (!ok) {
       clientNotification('Could not fetch details, refresh the page')

@@ -6,7 +6,8 @@ module.exports = {
     KeyboardEvent: true,
     Element: true,
     HTMLElement: true,
-    location: true
+    location: true,
+    window: true
   },
   ignorePatterns: [
     '.server',
@@ -153,6 +154,7 @@ module.exports = {
     },
     {
       env: {
+        node: true,
         'jest/globals': true
       },
       extends: [

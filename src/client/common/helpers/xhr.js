@@ -36,7 +36,10 @@ function updatePage(text, params = {}) {
   publish(eventName.xhrUpdate, { params })
 
   if (params) {
-    const url = qs.stringify(params, { addQueryPrefix: true })
+    const url = qs.stringify(params, {
+      arrayFormat: 'repeat',
+      addQueryPrefix: true
+    })
 
     try {
       history.replace(url, { xhrData: text }) // Data saved to state for forward/back button replay
@@ -54,17 +57,18 @@ function updatePage(text, params = {}) {
  */
 async function xhrRequest(url, params = {}) {
   try {
-    const urlParams = new URLSearchParams(window.location.search)
-    const search = Object.fromEntries(urlParams) ?? {}
-    const queryParams = { ...search, ...params }
-
-    const url = qs.stringify(queryParams, {
+    const urlSearchParams = window.location.search
+      ? qs.parse(window.location.search, { ignoreQueryPrefix: true })
+      : {}
+    const allParams = { ...urlSearchParams, ...params }
+    const queryParams = qs.stringify(allParams, {
       arrayFormat: 'repeat',
       addQueryPrefix: true
     })
-    history.push(url)
 
-    const response = await fetch(url, {
+    history.push(queryParams)
+
+    const response = await fetch(url + queryParams, {
       cache: 'no-store',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -75,7 +79,7 @@ async function xhrRequest(url, params = {}) {
     })
 
     const text = await response.text()
-    updatePage(text, queryParams)
+    updatePage(text, allParams)
 
     return { ok: true, text }
   } catch (error) {
