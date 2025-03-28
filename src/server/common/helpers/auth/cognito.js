@@ -47,8 +47,9 @@ async function getCognitoToken() {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function exchangeToken(clientAssertion) {
-  const azureClientId = '26372ac9-d8f0-4da9-a17e-938eb3161d8e' // config.get('azureClientId')
+  const azureClientId = config.get('azureClientId')
   const azureTenantId = config.get('azureTenantId')
   const aadAuthority = `https://login.microsoftonline.com/${azureTenantId}/`
 
@@ -78,7 +79,12 @@ async function exchangeToken(clientAssertion) {
   })
 
   return await msalApp.acquireTokenByClientCredential({
-    scopes: [`api://${config.get('azureClientId')}/.default`]
+    scopes: [
+      `api://${config.get('azureClientId')}/.default`,
+      'openid',
+      'offline_access',
+      'profile'
+    ]
   })
 }
 
@@ -88,28 +94,17 @@ export async function refreshFederatedCredentials() {
     return
   }
 
-  if (token == null || token.expiresOn.getTime() < new Date().getTime()) {
-    logger.info('Token expired, getting token from cognito')
-    const cognitoToken = await getCognitoToken()
-    logger.info('Exchanging token via msal')
-    const federatedToken = await exchangeToken(cognitoToken)
-    logger.info(`Token exchange complete ID: ${federatedToken.correlationId}`)
-    token = federatedToken
-    logger.info(
-      `Refreshed federated credentials, new expiration at: ${federatedToken.expiresOn?.toISOString()}`
-    )
-  } else {
-    logger.info(
-      `Refreshed federated are valid until ${token.expiresOn.toISOString()}`
-    )
-  }
+  logger.info('Token expired, getting token from cognito')
+  const cognitoToken = await getCognitoToken()
+  logger.info('Got cognito token')
+  token = cognitoToken
 }
 
 let token = null
 
 export function getAzureCredentialsToken() {
   if (config.get('azureFederatedCredentials.enabled')) {
-    return token?.accessToken
+    return token
   } else {
     return config.get('azureClientSecret')
   }
