@@ -1,5 +1,5 @@
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
-import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch/fetch-test-suite.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 

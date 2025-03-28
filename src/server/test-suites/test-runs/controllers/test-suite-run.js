@@ -1,5 +1,5 @@
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { runTest } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { runTest } from '~/src/server/test-suites/helpers/fetch/run-test.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 
 import { fetchRunnableTestSuiteImageNames } from '~/src/server/test-suites/helpers/fetch/fetch-runnable-test-suite-image-names.js'
@@ -13,7 +13,7 @@ const triggerTestSuiteRunController = {
   },
   handler: async (request, h) => {
     const payload = request.payload
-    const { imageName, environment } = request.payload
+    const { imageName, environment, profile } = request.payload
 
     const runnableTestSuiteImageNames =
       await fetchRunnableTestSuiteImageNames(request)
@@ -24,9 +24,7 @@ const triggerTestSuiteRunController = {
     const validationResult = testSuiteValidation(
       runnableTestSuiteImageNames,
       environments
-    ).validate(payload, {
-      abortEarly: false
-    })
+    ).validate(payload, { abortEarly: false })
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -41,9 +39,8 @@ const triggerTestSuiteRunController = {
 
     if (!validationResult.error) {
       try {
-        await runTest(request, imageName, environment)
+        await runTest({ request, imageName, environment, profile })
 
-        // TODO align this to use sendMessage
         request.audit.send({
           event: 'test run requested',
           user: { id: authedUser.id, name: authedUser.displayName },

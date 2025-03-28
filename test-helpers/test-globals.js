@@ -1,3 +1,4 @@
+import * as globals from '~/src/config/nunjucks/globals/globals.js'
 import { getAssetPath } from '~/src/config/nunjucks/context/context.js'
 
 /**
@@ -23,4 +24,8 @@ function getTestAssetPath(asset) {
  */
 const routeLookup = (id) => id
 
-export const testGlobals = { getAssetPath: getTestAssetPath, routeLookup }
+export const testGlobals = {
+  ...globals,
+  getAssetPath: getTestAssetPath,
+  routeLookup
+}

@@ -54,14 +54,7 @@
               "data-1p-ignore": ""
             },
             value: team.description or formValues.description,
-            errorMessage: {
-              attributes: {
-                "data-js": "app-error",
-                "tabindex": "-1"
-              },
-              text: formErrors.description.message,
-              classes: "govuk-!-margin-bottom-1 app-error-message"
-            } if formErrors.description.message
+            errorMessage: errorMessageHelper(formErrors.description.message)
           }) }}
 
         {% endcall %}

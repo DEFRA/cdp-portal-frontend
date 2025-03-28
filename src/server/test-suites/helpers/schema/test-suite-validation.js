@@ -1,4 +1,9 @@
 import Joi from 'joi'
+import { validation } from '~/src/server/common/constants/validation.js'
+import { runnerProfiles } from '~/src/server/test-suites/constants/runner-profiles.js'
+
+const chooseProfile = validation.choose('profile')
+const chooseEnvironment = validation.choose('environment')
 
 function testSuiteValidation(imageNames, environments) {
   return Joi.object({
@@ -9,8 +14,15 @@ function testSuiteValidation(imageNames, environments) {
       .valid(...environments)
       .required()
       .messages({
-        'any.only': 'Choose an environment',
-        'any.required': 'Choose an environment'
+        'any.only': chooseEnvironment,
+        'any.required': chooseEnvironment
+      }),
+    profile: Joi.string()
+      .valid(...Object.keys(runnerProfiles))
+      .required()
+      .messages({
+        'any.only': chooseProfile,
+        'any.required': chooseProfile
       })
   })
 }

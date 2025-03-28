@@ -29,9 +29,7 @@
                 text: uiMessages.search.hint
               },
               value: formValues.searchQuery,
-              errorMessage: {
-                text: formErrors.searchQuery.message
-              } if formErrors.searchQuery.message
+              errorMessage: errorMessageHelper(formErrors.searchQuery.message)
             }) }}
 
           {% endcall %}
@@ -67,13 +65,7 @@
                   formGroup: {
                     classes: "app-form-group app-form-group-js"
                   },
-                  errorMessage: {
-                    attributes: {
-                      "data-js": "app-error",
-                      "tabindex": "-1"
-                    },
-                    text: formErrors.entityIds.message
-                  } if formErrors.entityIds.message
+                  errorMessage: errorMessageHelper(formErrors.entityIds.message)
                 }) }}
               {% endif %}
 

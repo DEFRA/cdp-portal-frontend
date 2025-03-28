@@ -6,7 +6,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message.js'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances.js'
 import { optionsValidation } from '~/src/server/deploy-service/helpers/schema/options-validation.js'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
+import { fetchDeployServiceOptions } from '~/src/server/common/helpers/fetch/fetch-deploy-service-options.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const optionsController = {

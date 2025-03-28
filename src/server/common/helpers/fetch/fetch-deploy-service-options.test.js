@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '~/src/config/config.js'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
+import { fetchDeployServiceOptions } from '~/src/server/common/helpers/fetch/fetch-deploy-service-options.js'
 import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 

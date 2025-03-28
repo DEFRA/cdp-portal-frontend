@@ -3,6 +3,7 @@ import { buildOptions } from '~/src/server/common/helpers/options/build-options.
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { findEnvironmentsForTestSuite } from '~/src/server/test-suites/helpers/find-environments-for-test-suite.js'
 
+// TODO put this in with the runnerSizeOptions
 const provideEnvironmentOptions = {
   method: async function (request) {
     const authedUser = await request.getUserSession()

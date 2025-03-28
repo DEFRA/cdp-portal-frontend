@@ -36,14 +36,7 @@
                 "data-1p-ignore": ""
               },
               value: formValues.value,
-              errorMessage: {
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                },
-                text: formErrors.value.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message"
-              } if formErrors.value.message
+              errorMessage: errorMessageHelper(formErrors.value.message)
             }) }}
 
             {{ govukCheckboxes({
@@ -64,14 +57,7 @@
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              errorMessage: {
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                },
-                text: formErrors.kind.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message"
-              } if formErrors.kind.message
+              errorMessage: errorMessageHelper(formErrors.kind.message)
             }) }}
 
             {{ govukTextarea({
@@ -93,14 +79,7 @@
                 "data-1p-ignore": ""
               },
               value: formValues.description,
-              errorMessage: {
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                },
-                text: formErrors.description.message,
-                classes: "govuk-!-margin-bottom-1 app-error-message"
-              } if formErrors.description.message
+              errorMessage: errorMessageHelper(formErrors.description.message)
             }) }}
 
           {% endcall %}

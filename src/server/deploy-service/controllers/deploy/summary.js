@@ -2,7 +2,7 @@ import Joi from 'joi'
 
 import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text.js'
 import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows.js'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
+import { fetchDeployServiceOptions } from '~/src/server/common/helpers/fetch/fetch-deploy-service-options.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'

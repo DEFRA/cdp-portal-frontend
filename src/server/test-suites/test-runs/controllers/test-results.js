@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
-import { fetchTestRun } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { fetchTestRun } from '~/src/server/test-suites/helpers/fetch/fetch-test-run.js'
 
 const testResultsController = {
   options: {

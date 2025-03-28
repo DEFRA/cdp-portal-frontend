@@ -4,7 +4,7 @@ import Boom from '@hapi/boom'
 import { config } from '~/src/config/config.js'
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { availableInstances } from '~/src/server/deploy-service/constants/available-instances.js'
-import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values.js'
+import { provideFormValues } from '~/src/server/deploy-service/helpers/pre/provide-form-values.js'
 import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid.js'
@@ -14,7 +14,7 @@ const optionsFormController = {
     ext: {
       onPreHandler: checkSessionIsValid('/deploy-service')
     },
-    pre: [provideStepData, provideOptionsFormValues],
+    pre: [provideStepData, provideFormValues],
     validate: {
       params: Joi.object({
         multiStepFormId: Joi.string().uuid()
