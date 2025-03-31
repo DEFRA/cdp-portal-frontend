@@ -44,9 +44,7 @@
               text: "Enter the users name or the users Defra provided email"
             },
             value: formValues.cdpUserQuery,
-            errorMessage: {
-              text: formErrors.cdpUserQuery.message
-            } if formErrors.cdpUserQuery.message
+            errorMessage: errorMessageHelper(formErrors.cdpUserQuery.message)
           }) }}
 
         {% endcall %}
@@ -82,13 +80,7 @@
                 formGroup: {
                   classes: "app-form-group app-form-group-js"
                 },
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error",
-                    "tabindex": "-1"
-                  },
-                  text: formErrors.userIds.message
-                } if formErrors.userIds.message
+                errorMessage: errorMessageHelper(formErrors.userIds.message)
               }) }}
             {% endif %}
 

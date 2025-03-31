@@ -44,14 +44,7 @@
                 classes: "app-form-group app-form-group-js"
               },
               value: formValues.instanceCount,
-              errorMessage: {
-                text: formErrors.instanceCount.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                }
-              } if formErrors.instanceCount.message,
+              errorMessage: errorMessageHelper(formErrors.instanceCount.message),
               items: availableInstancesOptions
             }) }}
 
@@ -77,14 +70,7 @@
                 "data-target": "deploy-memory",
                 "data-loader": "memory-loader"
               },
-              errorMessage: {
-                text: formErrors.cpu.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                }
-              } if formErrors.cpu.message,
+              errorMessage: errorMessageHelper(formErrors.cpu.message),
               items: formValues.cpuOptions
             }) }}
 
@@ -111,14 +97,7 @@
               loader: {
                 name: "memory-loader"
               },
-              errorMessage: {
-                text: formErrors.memory.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                }
-              } if formErrors.memory.message,
+              errorMessage: errorMessageHelper(formErrors.memory.message),
               items: formValues.availableMemoryOptions
             }) }}
 
