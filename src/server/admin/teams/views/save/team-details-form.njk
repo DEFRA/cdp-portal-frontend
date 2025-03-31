@@ -35,14 +35,7 @@
                   "data-1p-ignore": ""
                 },
                 value: formValues.name,
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error",
-                    "tabindex": "-1"
-                  },
-                  text: formErrors.name.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.name.message
+                errorMessage: errorMessageHelper(formErrors.name.message)
               }) }}
 
               {{ govukTextarea({
@@ -60,14 +53,7 @@
                   "data-1p-ignore": ""
                 },
                 value: formValues.description,
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error",
-                    "tabindex": "-1"
-                  },
-                  text: formErrors.description.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.description.message
+                errorMessage: errorMessageHelper(formErrors.description.message)
               }) }}
 
               {{ govukInput({
@@ -89,14 +75,7 @@
                   "data-1p-ignore": ""
                 },
                 value: formValues.serviceCode,
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error",
-                    "tabindex": "-1"
-                  },
-                  text: formErrors.serviceCode.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.serviceCode.message
+                errorMessage: errorMessageHelper(formErrors.serviceCode.message)
               }) }}
 
               {{ govukInput({
@@ -118,14 +97,7 @@
                   "data-1p-ignore": ""
                 },
                 value: formValues.alertEmailAddresses,
-                errorMessage: {
-                  attributes: {
-                    "data-js": "app-error",
-                    "tabindex": "-1"
-                  },
-                  text: formErrors.alertEmailAddresses.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.alertEmailAddresses.message
+                errorMessage: errorMessageHelper(formErrors.alertEmailAddresses.message)
               }) }}
 
             {% endcall %}

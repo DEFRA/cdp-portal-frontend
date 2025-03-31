@@ -33,9 +33,7 @@
                   text: "Enter the users name or DEFRA provided email"
                 },
                 value: formValues.aadQuery,
-                errorMessage: {
-                  text: formErrors.aadQuery.message
-                } if formErrors.aadQuery.message
+                errorMessage: errorMessageHelper(formErrors.aadQuery.message)
               }) }}
 
             {% endcall %}
@@ -67,13 +65,7 @@
                     formGroup: {
                       classes: "app-form-group app-form-group-js"
                     },
-                    errorMessage: {
-                      attributes: {
-                        "data-js": "app-error",
-                        "tabindex": "-1"
-                      },
-                      text: formErrors.email.message
-                    } if formErrors.email.message
+                    errorMessage: errorMessageHelper(formErrors.email.message)
                   }) }}
                 {% endif %}
 

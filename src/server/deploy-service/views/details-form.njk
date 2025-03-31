@@ -56,9 +56,7 @@
                 text: "Elastic Container Registry (ECR) image name"
               },
               value: imageName or formValues.imageName,
-              errorMessage: {
-                text: formErrors.imageName.message
-              } if formErrors.imageName.message,
+              errorMessage: errorMessageHelper(formErrors.imageName.message),
               suggestions: deployableImageNameOptions,
               siblingDataFetcher: {
                 name: "fetchVersions",
@@ -83,9 +81,7 @@
               dataJs: "deploy-version",
               subscribeTo: eventName.autocompleteUpdate + "-version",
               noSuggestionsMessage: "choose Image name",
-              errorMessage: {
-                text: formErrors.version.message
-              },
+              errorMessage: errorMessageHelper(formErrors.version.message),
               suggestions: availableVersionOptions,
               loader: {
                 name: "deploy-version-loader"
@@ -120,14 +116,7 @@
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              errorMessage: {
-                text: formErrors.environment.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                }
-              } if formErrors.environment.message,
+              errorMessage: errorMessageHelper(formErrors.environment.message),
               items: environmentOptions
             }) }}
 

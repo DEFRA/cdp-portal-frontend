@@ -56,10 +56,7 @@
                   "data-1p-ignore": ""
                 },
                 value: formValues.defraAwsId,
-                errorMessage: {
-                  text: formErrors.defraAwsId.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.defraAwsId.message
+                errorMessage: errorMessageHelper(formErrors.defraAwsId.message)
               }) }}
 
               {{ govukInput({
@@ -77,10 +74,7 @@
                   "data-1p-ignore": ""
                 },
                 value: formValues.defraVpnId,
-                errorMessage: {
-                  text: formErrors.defraVpnId.message,
-                  classes: "govuk-!-margin-bottom-1 app-error-message"
-                } if formErrors.defraVpnId.message
+                errorMessage: errorMessageHelper(formErrors.defraVpnId.message)
               }) }}
 
             {% endcall %}

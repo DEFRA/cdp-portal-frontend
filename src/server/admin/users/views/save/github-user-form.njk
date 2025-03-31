@@ -39,9 +39,7 @@
                   html: searchHintHtml
                 },
                 value: formValues.githubSearch,
-                errorMessage: {
-                  text: formErrors.githubSearch.message
-                } if formErrors.githubSearch.message
+                errorMessage: errorMessageHelper(formErrors.githubSearch.message)
               }) }}
 
             {% endcall %}
@@ -77,13 +75,7 @@
                     formGroup: {
                       classes: "app-form-group app-form-group-js"
                     },
-                    errorMessage: {
-                      attributes: {
-                        "data-js": "app-error",
-                        "tabindex": "-1"
-                      },
-                      text: formErrors.github.message
-                    } if formErrors.github.message
+                    errorMessage: errorMessageHelper(formErrors.github.message)
                   }) }}
                 {% endif %}
 

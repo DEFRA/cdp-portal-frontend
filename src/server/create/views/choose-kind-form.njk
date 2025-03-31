@@ -26,13 +26,7 @@
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              errorMessage: {
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                },
-                text: formErrors.kind.message
-              } if formErrors.kind.message
+              errorMessage: errorMessageHelper(formErrors.kind.message)
             }) }}
 
           {% endcall %}

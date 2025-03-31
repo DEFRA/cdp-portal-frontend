@@ -43,14 +43,7 @@
                 "data-input-assistant-target-id": "name-input-assistant",
                 "data-1p-ignore": ""
               },
-              errorMessage: {
-                text: formErrors.microserviceName.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                }
-              } if formErrors.microserviceName.message,
+              errorMessage: errorMessageHelper(formErrors.microserviceName.message),
               suffix: {
                 classes: "app-input__suffix",
                 html: appAvailability({
@@ -81,14 +74,7 @@
                 classes: "app-form-group app-form-group-js"
               },
               value: formValues.serviceTypeTemplate,
-              errorMessage: {
-                text: formErrors.serviceTypeTemplate.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                }
-              } if formErrors.serviceTypeTemplate.message,
+              errorMessage: errorMessageHelper(formErrors.serviceTypeTemplate.message),
               items: serviceTemplatesOptions
             }) }}
 
@@ -109,14 +95,7 @@
                   classes: "app-form-group app-form-group-js"
                 },
                 value: formValues.templateTag,
-                errorMessage: {
-                  text: formErrors.templateTag.message,
-                  classes: "app-error-message",
-                  attributes: {
-                    "data-js": "app-error",
-                    "tabindex": "-1"
-                  }
-                } if formErrors.templateTag.message
+                errorMessage: errorMessageHelper(formErrors.templateTag.message)
               }) }}
             {% endif %}
 
@@ -136,14 +115,7 @@
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              errorMessage: {
-                text: formErrors.teamId.message,
-                classes: "app-error-message",
-                attributes: {
-                  "data-js": "app-error",
-                  "tabindex": "-1"
-                }
-              } if formErrors.teamId.message,
+              errorMessage: errorMessageHelper(formErrors.teamId.message),
               items: teamsOptions
             }) }}
 
