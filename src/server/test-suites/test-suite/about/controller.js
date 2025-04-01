@@ -43,7 +43,7 @@ const testSuiteController = {
       testSuite,
       service: request.app.service,
       canRun,
-      summaryList: transformTestSuiteToSummary(testSuite), // TODO rename
+      summaryList: transformTestSuiteToSummary(testSuite),
       formValues,
       owningTeamIds: testSuite.teams.map((team) => team.teamId),
       shouldPoll: shouldPoll(testRuns),

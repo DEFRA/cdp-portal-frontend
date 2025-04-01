@@ -1,5 +1,6 @@
 import { config } from '~/src/config/config.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 async function fetchLatestDeploymentSettings(environment, imageName) {
   try {
@@ -10,7 +11,7 @@ async function fetchLatestDeploymentSettings(environment, imageName) {
 
     return payload
   } catch (error) {
-    if (error.output.statusCode === 404) {
+    if (error.output.statusCode === statusCodes.notFound) {
       return null
     }
 

@@ -30,7 +30,9 @@ const buildEnvironmentOptions = async (request, isAdmin = false) => {
     options.push(...runnableEnvironments)
   }
 
-  return options.length > 0 ? buildOptions(options.sort(sortByEnv)) : options
+  return options.length > 0
+    ? buildOptions(options.toSorted(sortByEnv))
+    : options
 }
 
 const provideFormValues = {
