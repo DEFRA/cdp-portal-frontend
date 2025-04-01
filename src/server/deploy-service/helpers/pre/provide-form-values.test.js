@@ -2,11 +2,11 @@ import nock from 'nock'
 
 import { config } from '~/src/config/config.js'
 import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options.js'
-import { provideOptionsFormValues } from '~/src/server/deploy-service/helpers/pre/provide-options-form-values.js'
+import { provideFormValues } from '~/src/server/deploy-service/helpers/pre/provide-form-values.js'
 import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info.js'
 import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session.js'
 
-describe('#provideOptionsFormValues', () => {
+describe('#provideFormValues', () => {
   const mockRequest = (stepData = null) => ({
     pre: { stepData }
   })
@@ -28,7 +28,7 @@ describe('#provideOptionsFormValues', () => {
 
   describe('Without a deployment session', () => {
     test('Should provide expected form detail', async () => {
-      expect(await provideOptionsFormValues.method(mockRequest())).toEqual({
+      expect(await provideFormValues.method(mockRequest())).toEqual({
         formValues: {
           availableMemoryOptions: [
             {
@@ -71,9 +71,7 @@ describe('#provideOptionsFormValues', () => {
 
       test('Should provide expected form detail', async () => {
         expect(
-          await provideOptionsFormValues.method(
-            mockRequest(deploymentSessionFixture)
-          )
+          await provideFormValues.method(mockRequest(deploymentSessionFixture))
         ).toEqual({
           formValues: {
             availableMemoryOptions: [
@@ -113,9 +111,7 @@ describe('#provideOptionsFormValues', () => {
 
       test('Should provide expected form detail', async () => {
         expect(
-          await provideOptionsFormValues.method(
-            mockRequest(deploymentSessionFixture)
-          )
+          await provideFormValues.method(mockRequest(deploymentSessionFixture))
         ).toEqual({
           formValues: {
             availableMemoryOptions: [
@@ -155,9 +151,7 @@ describe('#provideOptionsFormValues', () => {
 
       test('Should provide expected form detail', async () => {
         expect(
-          await provideOptionsFormValues.method(
-            mockRequest(deploymentSessionFixture)
-          )
+          await provideFormValues.method(mockRequest(deploymentSessionFixture))
         ).toEqual({
           formValues: {
             cpu: '1024',

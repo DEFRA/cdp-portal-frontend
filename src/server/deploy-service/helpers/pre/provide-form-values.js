@@ -1,10 +1,10 @@
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message.js'
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
-import { fetchLatestDeploymentSettings } from '~/src/server/deploy-service/helpers/fetch/fetch-latest-deployment-settings.js'
+import { fetchDeployServiceOptions } from '~/src/server/common/helpers/fetch/fetch-deploy-service-options.js'
+import { fetchLatestDeploymentSettings } from '~/src/server/common/helpers/fetch/fetch-latest-deployment-settings.js'
 import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
 
-const provideOptionsFormValues = {
+const provideFormValues = {
   method: async (request) => {
     const stepData = request.pre?.stepData
 
@@ -61,4 +61,4 @@ const provideOptionsFormValues = {
   assign: 'formDetail'
 }
 
-export { provideOptionsFormValues }
+export { provideFormValues }
