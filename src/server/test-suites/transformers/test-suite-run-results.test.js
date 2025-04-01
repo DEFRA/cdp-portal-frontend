@@ -27,6 +27,20 @@ describe('#transformTestSuiteRunResults', () => {
             },
             {
               entity: {
+                kind: 'text',
+                value: '4 vCPU'
+              },
+              headers: 'cpu'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: '8 GB'
+              },
+              headers: 'memory'
+            },
+            {
+              entity: {
                 classes: 'govuk-tag--light-blue',
                 kind: 'tag',
                 showLoader: true,
@@ -103,6 +117,20 @@ describe('#transformTestSuiteRunResults', () => {
                 value: 'Infra Dev'
               },
               headers: 'environment'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: '8 vCPU'
+              },
+              headers: 'cpu'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: '16 GB'
+              },
+              headers: 'memory'
             },
             {
               entity: {
@@ -194,6 +222,20 @@ describe('#transformTestSuiteRunResults', () => {
             },
             {
               entity: {
+                kind: 'text',
+                value: '4 vCPU'
+              },
+              headers: 'cpu'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: '8 GB'
+              },
+              headers: 'memory'
+            },
+            {
+              entity: {
                 classes: 'govuk-tag--light-blue',
                 kind: 'tag',
                 showLoader: true,
@@ -270,6 +312,20 @@ describe('#transformTestSuiteRunResults', () => {
                 value: 'Infra Dev'
               },
               headers: 'environment'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: '8 vCPU'
+              },
+              headers: 'cpu'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: '16 GB'
+              },
+              headers: 'memory'
             },
             {
               entity: {
