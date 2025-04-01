@@ -55,6 +55,20 @@ describe('#buildPageHtml', () => {
     expect($html('p a').html()).toBe('<mark class="app-mark">fetch</mark>')
   })
 
+  test('Should escape search term containing regex characters', async () => {
+    const searchTerm = 'file that sets up Pino (the log'
+    const mockRequest = { query: { q: searchTerm } }
+    const markdown =
+      'Templated node projects should have a `logger-options.js` file that sets up Pino (the log library).'
+    const { html } = await buildPageHtml(mockRequest, markdown)
+
+    const $html = load(html)
+
+    expect($html('p').html()).toBe(
+      `Templated node projects should have a <code>logger-options.js</code> <mark class="app-mark">file that sets up Pino (the log</mark> library).`
+    )
+  })
+
   test('Should generate expected table of contents', async () => {
     const markdown = '# Heading 1\n\n## Heading 2\n\n### Heading 3'
     const { toc } = await buildPageHtml(searchTerm, markdown)
