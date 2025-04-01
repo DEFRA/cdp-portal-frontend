@@ -15,7 +15,7 @@ let client = null
  * Attempts to get a federated token from cognito
  * @returns {Promise<string>}
  */
-async function getCognitoToken() {
+export async function getCognitoToken() {
   if (client == null) {
     const cognitoOptions = {}
     client = new CognitoIdentityClient(cognitoOptions)
@@ -97,6 +97,7 @@ export async function refreshFederatedCredentials() {
   logger.info('Token expired, getting token from cognito')
   const cognitoToken = await getCognitoToken()
   logger.info('Got cognito token')
+  console.log(cognitoToken)
   token = cognitoToken
 }
 

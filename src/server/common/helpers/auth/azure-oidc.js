@@ -34,10 +34,12 @@ const azureOidc = {
 
           return authCallbackUrl
         },
+        providerParams: (req) => { return {"Foo": "bar"} },
         provider: {
           name: 'azure-oidc',
           protocol: 'oauth2',
           useParamsAuth: true,
+
           auth: payload.authorization_endpoint,
           token: payload.token_endpoint,
           scope: [
@@ -69,7 +71,8 @@ const azureOidc = {
         },
         clientId: config.get('azureClientId'),
         forceHttps: config.get('isProduction'),
-        clientSecret: getAzureCredentialsToken,
+        clientSecret: {},
+        clientAssertion: getAzureCredentialsToken,
         cookie: 'bell-azure-oidc',
         password: sessionCookieConfig.password,
         isSecure: sessionCookieConfig.isSecure,
