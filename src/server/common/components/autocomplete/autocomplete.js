@@ -1,5 +1,6 @@
 import qs from 'qs'
 import isNull from 'lodash/isNull.js'
+import escapeRegExp from 'lodash/escapeRegExp.js'
 
 import {
   publish,
@@ -440,7 +441,7 @@ class Autocomplete {
     if (textValue) {
       $suggestion.firstElementChild.innerHTML =
         $suggestion.dataset?.text.replace(
-          new RegExp(textValue, 'gi'),
+          new RegExp(escapeRegExp(textValue), 'gi'),
           `<strong>$&</strong>`
         )
     } else {
