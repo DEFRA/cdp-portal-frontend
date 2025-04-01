@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '~/src/config/config.js'
-import { fetchLatestDeploymentSettings } from '~/src/server/deploy-service/helpers/fetch/fetch-latest-deployment-settings.js'
+import { fetchLatestDeploymentSettings } from '~/src/server/common/helpers/fetch/fetch-latest-deployment-settings.js'
 import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 

@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import { fetchDeployServiceOptions } from '~/src/server/deploy-service/helpers/fetch/fetch-deploy-service-options.js'
+import { fetchDeployServiceOptions } from '~/src/server/common/helpers/fetch/fetch-deploy-service-options.js'
 
 const availableMemoryController = {
   handler: async (request, h) => {
