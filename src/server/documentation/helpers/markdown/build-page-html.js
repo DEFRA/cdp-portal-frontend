@@ -1,6 +1,7 @@
 import { Marked } from 'marked'
 import markedAlert from 'marked-alert'
 import { stripHtml } from 'string-strip-html'
+import { escapeRegex } from '@hapi/hoek'
 
 import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
 import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
@@ -69,7 +70,7 @@ async function buildPageHtml(request, markdown) {
     if (!doNotIncludeMarkElement.includes(token.type)) {
       if (searchTerm && token.text) {
         token.text = token.text.replace(
-          new RegExp(`(${searchTerm})`, 'gi'),
+          new RegExp(`(${escapeRegex(searchTerm)})`, 'gi'),
           '<mark class="app-mark">$1</mark>'
         )
       }
