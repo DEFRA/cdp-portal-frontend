@@ -4,6 +4,7 @@ import { isAfter } from 'date-fns'
 import { stripHtml } from 'string-strip-html'
 import { performance } from 'node:perf_hooks'
 import markedPlaintify from 'marked-plaintify'
+import { escapeRegex } from '@hapi/hoek'
 
 import { excludedMarkdownFiles } from '~/src/server/documentation/constants/excluded-markdown-files.js'
 import {
@@ -123,7 +124,7 @@ function prepTextResult(textWithContext, searchTerm) {
     return null
   }
 
-  const regex = new RegExp(searchTerm, 'ig')
+  const regex = new RegExp(escapeRegex(searchTerm), 'ig')
   const lineWithSearchTerm = textWithContext
     .split('\n')
     .find((line) => regex.test(line))
