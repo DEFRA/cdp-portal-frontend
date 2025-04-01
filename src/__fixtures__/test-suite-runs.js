@@ -4,6 +4,8 @@ const testSuiteRunsFixture = [
     runId: '383547d8-f71c-4e7e-8b03-4ddf09fd84fe',
     testSuite: 'cdp-portal-smoke-tests',
     environment: 'infra-dev',
+    cpu: 4096,
+    memory: 8192,
     user: {
       id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
       displayName: 'B. A. Baracus'
@@ -20,6 +22,8 @@ const testSuiteRunsFixture = [
     runId: 'dc34cdaf-1f51-44cf-8c63-e9b6800d9609',
     testSuite: 'cdp-portal-smoke-tests',
     environment: 'infra-dev',
+    cpu: 8192,
+    memory: 16384,
     user: {
       id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
       displayName: 'B. A. Baracus'

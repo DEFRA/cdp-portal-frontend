@@ -9,6 +9,23 @@ import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/
 import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.js'
 import { getTestStatusIcon } from '~/src/server/test-suites/helpers/get-test-status-icon.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { runnerProfiles } from '~/src/server/test-suites/constants/runner-profiles.js'
+
+function getUiText(prop, value) {
+  const result = Object.entries(runnerProfiles)
+    .reduce((props, [key, { cpu, memory }]) => {
+      props.push({
+        kind: key,
+        cpu,
+        memory
+      })
+
+      return props
+    }, [])
+    .find((item) => item[prop].value === value)
+
+  return result ? result[prop] : null
+}
 
 function getDuration({ created, taskLastUpdated }, hasResult) {
   if (created && taskLastUpdated && hasResult) {
@@ -21,12 +38,15 @@ function getDuration({ created, taskLastUpdated }, hasResult) {
 function testSuiteRunResults(testRun, canRun) {
   const runTaskStatus = testRun.taskStatus?.toLowerCase()
   const runTestStatus = testRun.testStatus?.toLowerCase()
+  const inProgressStatus = [
+    taskStatus.starting,
+    taskStatus.inProgress,
+    taskStatus.stopping
+  ]
 
   const hasResult =
     runTestStatus === testStatus.passed || runTestStatus === testStatus.failed
-  const inProgress =
-    runTaskStatus === taskStatus.starting ||
-    runTaskStatus === taskStatus.inProgress
+  const inProgress = inProgressStatus.includes(runTaskStatus)
 
   const logsLinkDataAvailable = [
     testRun.environment,
@@ -51,6 +71,20 @@ function testSuiteRunResults(testRun, canRun) {
         entity: {
           kind: 'text',
           value: startCase(testRun.environment)
+        }
+      },
+      {
+        headers: 'cpu',
+        entity: {
+          kind: 'text',
+          value: getUiText('cpu', testRun.cpu)?.text
+        }
+      },
+      {
+        headers: 'memory',
+        entity: {
+          kind: 'text',
+          value: getUiText('memory', testRun.memory)?.text
         }
       },
       {

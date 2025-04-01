@@ -1,17 +1,13 @@
 import { testSuiteListController } from '~/src/server/test-suites/list/controller.js'
-import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch/index.js'
+import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch/fetch-test-suites.js'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
 import { testSuiteDecorator } from '~/src/server/test-suites/helpers/decorators/test-suite.js'
 import { testSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
 
-jest.mock('~/src/server/test-suites/helpers/fetch/index.js')
-
+jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-suites.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-repositories.js')
-
 jest.mock('~/src/server/test-suites/helpers/decorators/test-suite.js')
-
 jest.mock('~/src/server/test-suites/transformers/test-suite-to-entity-row.js')
-
 jest.mock('~/src/server/common/helpers/auth/pre/provide-authed-user.js')
 
 describe('testSuiteListController.handler', () => {
