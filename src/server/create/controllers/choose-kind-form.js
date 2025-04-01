@@ -18,7 +18,7 @@ const chooseKindFormController = {
   },
   handler: (request, h) => {
     const query = request?.query
-    const creationItems = Object.values(creations).map((creation) => ({
+    const createItems = Object.values(creations).map((creation) => ({
       value: creation.kind,
       text: creation.title,
       hint: {
@@ -31,7 +31,7 @@ const chooseKindFormController = {
       pageTitle: 'Create',
       heading: 'Create',
       headingCaption: 'What would you like to create?',
-      createItems: creationItems,
+      createItems,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation
     })
