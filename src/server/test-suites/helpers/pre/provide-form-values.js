@@ -57,6 +57,7 @@ const provideFormValues = {
             value: 'regular',
             text: 'Regular',
             label: { classes: 'govuk-!-font-weight-bold' },
+            checked: true,
             hint: {
               html: profileHtmlTemplate(runnerProfiles.regular)
             }

@@ -71,6 +71,7 @@ describe('#provideFormValues', () => {
       ],
       runnerProfileOptions: [
         {
+          checked: true,
           hint: {
             html: '<div><span>CPU:</span><span class="govuk-!-margin-left-1">4 vCPU</span></div>\n   <div><span>Memory:</span><span class="govuk-!-margin-left-1">8 GB</span></div>'
           },
@@ -141,6 +142,7 @@ describe('#provideFormValues', () => {
       ],
       runnerProfileOptions: [
         {
+          checked: true,
           hint: {
             html: '<div><span>CPU:</span><span class="govuk-!-margin-left-1">4 vCPU</span></div>\n   <div><span>Memory:</span><span class="govuk-!-margin-left-1">8 GB</span></div>'
           },
