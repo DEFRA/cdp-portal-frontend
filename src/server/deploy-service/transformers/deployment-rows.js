@@ -42,11 +42,7 @@ function deploymentRows(
     row('Environment', startCase(details.environment), 'details'),
     row('Instance count', details.instanceCount, 'options'),
     row('CPU size', cpuDetail?.text, 'options'),
-    row(
-      'Memory allocation',
-      `${memoryDetail?.text} (${memoryDetail?.value} MB)`,
-      'options'
-    )
+    row('Memory allocation', memoryDetail?.text, 'options')
   ]
 }
 
