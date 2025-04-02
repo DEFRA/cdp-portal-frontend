@@ -112,7 +112,7 @@ describe('#deploymentRows', () => {
           text: 'CPU size'
         },
         value: {
-          html: '1024 (1 vCPU)'
+          html: '1 vCPU'
         }
       },
       {
@@ -132,7 +132,7 @@ describe('#deploymentRows', () => {
           text: 'Memory allocation'
         },
         value: {
-          html: '6 GB (6144 MB)'
+          html: '6 GB'
         }
       }
     ])

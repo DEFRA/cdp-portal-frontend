@@ -42,19 +42,19 @@
         </p>
 
         <p class="item item-instance-count">
-          <span id="instance-count" class="app-running-service-table__label">Instance Count</span>
+          <span id="instance-count" class="app-running-service-table__label">Instance Count:</span>
           <span aria-labelledby="instance-count">{{ runningService.instanceCount }}</span>
         </p>
 
         <p class="item item-cpu">
-          <span id="cpu" class="app-running-service-table__label">CPU</span>
+          <span id="cpu" class="app-running-service-table__label">CPU:</span>
           <span aria-labelledby="instance-count">
-            {{ runningService.cpu if runningService.cpu else noValue }}
+            {{ runningService.cpu / 1024 + " vCPU" if runningService.cpu else noValue }}
           </span>
         </p>
 
         <p class="item item-memory">
-          <span id="memory" class="app-running-service-table__label">Memory</span>
+          <span id="memory" class="app-running-service-table__label">Memory:</span>
           <span aria-labelledby="memory">{{ runningService.memory / 1024 + " GB" if runningService.memory  else
             noValue }}</span>
         </p>
