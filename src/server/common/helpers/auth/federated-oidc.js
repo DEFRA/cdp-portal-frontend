@@ -12,7 +12,7 @@ const logger = createLogger()
 export const federatedOidc = {
   name: 'federatedOidc',
   register: function (server) {
-    server.auth.scheme('azure-oidc', scheme)
+    server.auth.scheme('federated-oidc', scheme)
     server.auth.strategy('azure-oidc', 'federated-oidc', {
       discoveryUri: config.get('oidcWellKnownConfigurationUrl'),
       redirectUri: config.get('appBaseUrl') + '/auth/callback',
@@ -45,7 +45,7 @@ const scheme = function (server, options) {
           const redirectTo = await preLogin(request, oidcConfig, settings)
           return h.redirect(redirectTo).takeover()
         } catch (err) {
-          logger.error('Federated credential pre-login auth failed', err)
+          logger.error(err)
           return Boom.unauthorized(err)
         }
       } else {
@@ -54,7 +54,7 @@ const scheme = function (server, options) {
           const credentials = await postLogin(request, oidcConfig, settings)
           return h.authenticated({ credentials })
         } catch (err) {
-          logger.error('Federated credential post-login auth failed', err)
+          logger.error(err)
           return Boom.unauthorized(err)
         }
       }
@@ -102,7 +102,7 @@ async function postLogin(request, oidcConfig, settings) {
   // These values are set in the first part, if they're missing its probably because
   // they've gone directly to the redirect link or refreshed it etc.
   Hoek.assert(
-    !codeVerifier && !nonce,
+    codeVerifier || nonce,
     'No verifier set in session, try logging in again.'
   )
 
