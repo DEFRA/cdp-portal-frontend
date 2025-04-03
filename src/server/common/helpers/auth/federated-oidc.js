@@ -6,7 +6,7 @@ import Boom from '@hapi/boom'
 import { getAADCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-
+import * as undici from 'undici'
 const logger = createLogger()
 
 export const federatedOidc = {
@@ -30,12 +30,31 @@ const scheme = function (server, options) {
   return {
     authenticate: async function (request, h) {
       const federatedToken = await options.tokenProvider()
+
       const oidcConfig = await openid.discovery(
         new URL(settings.discoveryUri),
         settings.clientId,
         {},
         ClientFederatedCredential(federatedToken)
       )
+
+      oidcConfig[openid.customFetch] = async (...args) => {
+        logger.info(`[OIDC Fetch Request] ${args[0]}`)
+
+        const response = await undici.fetch(args[0], { ...args[1] })
+        const bodyText = await response.text()
+
+        logger.info(`[OIDC Fetch Response] ${args[0]}`)
+        logger.info(`[OIDC Fetch Response] Status: ${response.status}`)
+        logger.info(`[OIDC Fetch Response] Body: ${bodyText}`)
+
+        // Recreate the response so it's usable downstream
+        return new Response(bodyText, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: response.headers
+        })
+      }
 
       const isPreLogin = !request.query.code
 
@@ -45,6 +64,7 @@ const scheme = function (server, options) {
           const redirectTo = await preLogin(request, oidcConfig, settings)
           return h.redirect(redirectTo).takeover()
         } catch (err) {
+          logger.error('PreLogin Federated login failed')
           logger.error(err)
           return Boom.unauthorized(err)
         }
@@ -54,6 +74,7 @@ const scheme = function (server, options) {
           const credentials = await postLogin(request, oidcConfig, settings)
           return h.authenticated({ credentials })
         } catch (err) {
+          logger.error('Post Federated login failed')
           logger.error(err)
           return Boom.unauthorized(err)
         }
@@ -68,7 +89,7 @@ const scheme = function (server, options) {
 async function preLogin(request, oidcConfig, settings) {
   const codeVerifier = openid.randomPKCECodeVerifier()
   const codeChallenge = await openid.calculatePKCECodeChallenge(codeVerifier)
-  let nonce = ''
+  let nonce
 
   const parameters = {
     redirect_uri: settings.redirectUri,
@@ -78,6 +99,7 @@ async function preLogin(request, oidcConfig, settings) {
   }
 
   if (!oidcConfig.serverMetadata().supportsPKCE()) {
+    logger.info("server doesn't support PKCE, generating nonce")
     nonce = openid.randomNonce()
     parameters.nonce = nonce
   }
@@ -107,10 +129,11 @@ async function postLogin(request, oidcConfig, settings) {
   )
 
   const currentUrl = new URL(request.url)
-
+  logger.info(`Remove me: codeVerifier ${codeVerifier} nonce ${nonce}`)
   const token = await openid.authorizationCodeGrant(oidcConfig, currentUrl, {
     pkceCodeVerifier: codeVerifier,
-    expectedNonce: nonce
+    expectedNonce: nonce,
+    idTokenExpected: true
   })
 
   Hoek.assert(token, 'Failed to validate token')
