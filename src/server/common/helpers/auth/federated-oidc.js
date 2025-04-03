@@ -65,7 +65,7 @@ const scheme = function (server, options) {
           return h.redirect(redirectTo).takeover()
         } catch (err) {
           logger.error('PreLogin Federated login failed')
-          logger.error(err)
+          logger.error(JSON.stringify(err))
           return Boom.unauthorized(err)
         }
       } else {
@@ -75,7 +75,14 @@ const scheme = function (server, options) {
           return h.authenticated({ credentials })
         } catch (err) {
           logger.error('Post Federated login failed')
-          logger.error(err)
+          if (err instanceof openid.ClientError) {
+            logger.error(
+              `${err.name} ${err.code} ${err.message}\n${err.cause.stack}`
+            )
+          } else {
+            logger.error(err)
+          }
+
           return Boom.unauthorized(err)
         }
       }
@@ -129,7 +136,7 @@ async function postLogin(request, oidcConfig, settings) {
   )
 
   // CurrentUrl must match the full external url, including hostname.
-  const currentUrl = new URL(config.get('appBaseUrl') + request.url.pathname)
+  const currentUrl = asExternalUrl(request.url)
 
   logger.info(`validating token from ${currentUrl.toString()}`)
   const token = await openid.authorizationCodeGrant(oidcConfig, currentUrl, {
@@ -184,6 +191,16 @@ function ClientFederatedCredential(assertion) {
     )
     body.set('client_assertion', assertion)
   }
+}
+
+function asExternalUrl(url) {
+  const currentUrl = new URL(url)
+  const externalBaseUrl = new URL(config.get('appBaseUrl'))
+
+  currentUrl.protocol = externalBaseUrl.protocol
+  currentUrl.hostname = externalBaseUrl.hostname
+  currentUrl.port = externalBaseUrl.port
+  return currentUrl
 }
 
 /**
