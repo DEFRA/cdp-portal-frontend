@@ -128,8 +128,10 @@ async function postLogin(request, oidcConfig, settings) {
     'No verifier set in session, try logging in again.'
   )
 
-  const currentUrl = new URL(request.url)
-  logger.info(`Remove me: codeVerifier ${codeVerifier} nonce ${nonce}`)
+  // CurrentUrl must match the full external url, including hostname.
+  const currentUrl = new URL(config.get('appBaseUrl') + request.url.pathname)
+
+  logger.info(`validating token from ${currentUrl.toString()}`)
   const token = await openid.authorizationCodeGrant(oidcConfig, currentUrl, {
     pkceCodeVerifier: codeVerifier,
     expectedNonce: nonce,
