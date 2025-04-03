@@ -4,10 +4,6 @@ import bell from '@hapi/bell'
 import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import {
-  getAzureCredentialsToken,
-  refreshFederatedCredentials
-} from '~/src/server/common/helpers/auth/cognito.js'
 
 const sessionCookieConfig = config.get('sessionCookie')
 
@@ -20,7 +16,6 @@ const azureOidc = {
         config.get('oidcWellKnownConfigurationUrl')
       )
 
-      await refreshFederatedCredentials()
       const authCallbackUrl = config.get('appBaseUrl') + '/auth/callback'
 
       // making the OIDC config available to server
@@ -34,7 +29,6 @@ const azureOidc = {
 
           return authCallbackUrl
         },
-        providerParams: (req) => { return {"Foo": "bar"} },
         provider: {
           name: 'azure-oidc',
           protocol: 'oauth2',
@@ -71,8 +65,7 @@ const azureOidc = {
         },
         clientId: config.get('azureClientId'),
         forceHttps: config.get('isProduction'),
-        clientSecret: {},
-        clientAssertion: getAzureCredentialsToken,
+        clientSecret: config.get('azureClientSecret'),
         cookie: 'bell-azure-oidc',
         password: sessionCookieConfig.password,
         isSecure: sessionCookieConfig.isSecure,
