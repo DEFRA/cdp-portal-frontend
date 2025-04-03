@@ -8,7 +8,6 @@ import {
   refreshUserSession,
   updateUserScope
 } from '~/src/server/common/helpers/auth/user-session.js'
-import { refreshFederatedCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 
 const sessionCookieConfig = config.get('sessionCookie')
 
@@ -30,12 +29,6 @@ const sessionCookie = {
         keepAlive: true,
         requestDecoratorName: 'sessionCookie',
         validate: async (request) => {
-          try {
-            await refreshFederatedCredentials()
-          } catch (e) {
-            server.logger.error('Failed to refresh federated azure token', e)
-          }
-
           const userSession = await request.getUserSession()
 
           const tokenHasExpired =

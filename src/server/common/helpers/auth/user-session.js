@@ -42,8 +42,11 @@ async function createUserSession(request, sessionId) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
-  const { id, email, displayName, loginHint, scopes, scopeFlags } =
-    request.auth.credentials.profile
+  const { id, email, displayName, loginHint } = request.auth.credentials.profile
+
+  const { scopes, scopeFlags } = await fetchScopes(
+    request.auth.credentials.token
+  )
 
   await request.server.app.cache.set(sessionId, {
     id,

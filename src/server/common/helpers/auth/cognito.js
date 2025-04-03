@@ -1,35 +1,42 @@
+import jwt from '@hapi/jwt'
+import * as Hoek from '@hapi/hoek'
 import {
   CognitoIdentityClient,
   GetOpenIdTokenForDeveloperIdentityCommand
 } from '@aws-sdk/client-cognito-identity'
-import { LogLevel, ConfidentialClientApplication } from '@azure/msal-node'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import { fetch } from 'undici'
 
 const logger = createLogger()
 
+/**
+ * Cognito Client
+ * @type {CognitoIdentityClient|null}
+ */
 let client = null
+
+/**
+ * Cognito federated credential token
+ * @type {string|null}
+ */
+let token = null
 
 /**
  * Attempts to get a federated token from cognito
  * @returns {Promise<string>}
  */
-export async function getCognitoToken() {
-  if (client == null) {
+async function requestCognitoToken() {
+  if (!client) {
     const cognitoOptions = {}
     client = new CognitoIdentityClient(cognitoOptions)
   }
 
-  // Don't pull service name from config as PFE store it as a human-readable version.
-  const serviceName = 'cdp-portal-frontend'
   const poolId = config.get('azureFederatedCredentials.identityPoolId')
-  if (poolId == null) {
-    throw new Error('AZURE_IDENTITY_POOL_ID is not set')
-  }
+  Hoek.assert(poolId, 'AZURE_IDENTITY_POOL_ID is not set')
 
-  const logins = {}
-  logins[`${serviceName}-aad-access`] = serviceName
+  const logins = {
+    'cdp-portal-frontend-aad-access': 'cdp-portal-frontend'
+  }
 
   const input = {
     IdentityPoolId: poolId,
@@ -47,66 +54,26 @@ export async function getCognitoToken() {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function exchangeToken(clientAssertion) {
-  const azureClientId = config.get('azureClientId')
-  const azureTenantId = config.get('azureTenantId')
-  const aadAuthority = `https://login.microsoftonline.com/${azureTenantId}/`
-
-  const msalApp = new ConfidentialClientApplication({
-    auth: {
-      clientId: azureClientId,
-      authority: aadAuthority,
-      clientAssertion
-    },
-    system: {
-      loggerOptions: {
-        loggerCallback: (_level, message, _containsPii) => {
-          if (!_containsPii) logger.info(`MSAL Logging: ${message}`)
-        },
-        networkClient: {
-          sendGetRequestAsync: async (url, options) => {
-            return await fetch(url, options)
-          },
-          sendPostRequestAsync: async (url, options) => {
-            return await fetch(url, options)
-          }
-        }
-      },
-      piiLoggingEnabled: false,
-      logLevel: LogLevel.Verbose
-    }
-  })
-
-  return await msalApp.acquireTokenByClientCredential({
-    scopes: [
-      `api://${config.get('azureClientId')}/.default`,
-      'openid',
-      'offline_access',
-      'profile'
-    ]
-  })
+export function tokenHasExpired(token) {
+  try {
+    const decodedToken = jwt.token.decode(token)
+    jwt.token.verifyTime(decodedToken)
+  } catch (err) {
+    logger.debug('Cognito token has expired', err)
+    return true
+  }
+  return false
 }
 
-export async function refreshFederatedCredentials() {
-  if (!config.get('azureFederatedCredentials.enabled')) {
-    logger.debug('Federated credentials not enabled')
-    return
+/**
+ * Returns a federated credential token for use with AAD.
+ * If the token is not set or has expired it requests a new one.
+ * @returns {Promise<string>}
+ */
+export async function getAADCredentials() {
+  if (!token || tokenHasExpired(token)) {
+    logger.info('Refreshing cognito token')
+    token = await requestCognitoToken()
   }
-
-  logger.info('Token expired, getting token from cognito')
-  const cognitoToken = await getCognitoToken()
-  logger.info('Got cognito token')
-  console.log(cognitoToken)
-  token = cognitoToken
-}
-
-let token = null
-
-export function getAzureCredentialsToken() {
-  if (config.get('azureFederatedCredentials.enabled')) {
-    return token
-  } else {
-    return config.get('azureClientSecret')
-  }
+  return token
 }
