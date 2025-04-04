@@ -12,7 +12,6 @@ const azureOidc = {
     name: 'azure-oidc',
     register: async (server) => {
       await server.register(bell)
-
       const { payload } = await fetchJson(
         config.get('oidcWellKnownConfigurationUrl')
       )
@@ -34,6 +33,7 @@ const azureOidc = {
           name: 'azure-oidc',
           protocol: 'oauth2',
           useParamsAuth: true,
+
           auth: payload.authorization_endpoint,
           token: payload.token_endpoint,
           scope: [

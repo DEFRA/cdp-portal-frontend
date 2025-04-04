@@ -1,18 +1,24 @@
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { removeAuthenticatedUser } from '~/src/server/common/helpers/auth/user-session.js'
+import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
+import { config } from '~/src/config/config.js'
 
 const logoutController = {
   options: {
     pre: [provideAuthedUser]
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const authedUser = request.pre.authedUser
 
     if (!authedUser) {
       return h.redirect('/')
     }
 
-    const logoutBaseUrl = request.server.app.oidc.end_session_endpoint
+    const { payload } = await fetchJson(
+      config.get('oidcWellKnownConfigurationUrl')
+    )
+
+    const logoutBaseUrl = payload.end_session_endpoint
     const referrer = request.info.referrer
     const loginHint = authedUser.loginHint
 

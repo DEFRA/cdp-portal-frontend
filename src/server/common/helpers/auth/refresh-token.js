@@ -6,6 +6,14 @@ import { config } from '~/src/config/config.js'
 async function refreshAccessToken(request) {
   const authedUser = await request.getUserSession()
   const refreshToken = authedUser?.refreshToken ?? null
+
+  if (config.get('azureFederatedCredentials.enabled')) {
+    const token = await request.refreshToken(refreshToken)
+    return {
+      payload: token
+    }
+  }
+
   const azureClientId = config.get('azureClientId')
   const azureClientSecret = config.get('azureClientSecret')
   const params = {
@@ -18,13 +26,15 @@ async function refreshAccessToken(request) {
 
   request.logger.debug('Azure OIDC access token expired, refreshing...')
 
-  return Wreck.post(request.server.app.oidc.token_endpoint, {
+  const response = await Wreck.post(request.server.app.oidc.token_endpoint, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Cache-Control': 'no-cache'
     },
     payload: qs.stringify(params)
   })
+
+  return JSON.parse(response.payload.toString())
 }
 
 export { refreshAccessToken }

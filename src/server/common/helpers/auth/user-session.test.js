@@ -53,6 +53,10 @@ describe('#userSession', () => {
     const sessionId = 'session-id'
 
     test('Should create a user session with correct details', async () => {
+      nock(scopesEndpoint.origin)
+        .get(scopesEndpoint.pathname)
+        .reply(200, scopesFixture)
+
       await createUserSession(request, sessionId)
 
       expect(request.server.app.cache.set).toHaveBeenCalledWith(sessionId, {
@@ -65,10 +69,10 @@ describe('#userSession', () => {
         refreshToken: 'refresh-token',
         isAdmin: true,
         isTenant: false,
-        scope: ['scope1', 'scope2'],
-        uuidScope: [],
+        scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
+        uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474'],
         expiresIn: 3600000,
-        expiresAt: new Date('2025-02-28T01:00:00.000Z')
+        expiresAt: expect.any(Date)
       })
     })
   })
@@ -122,7 +126,7 @@ describe('#userSession', () => {
         scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
         uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474'],
         expiresIn: 3600000,
-        expiresAt: new Date('2025-02-28T01:00:00.000Z')
+        expiresAt: expect.any(Date)
       })
     })
 

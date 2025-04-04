@@ -38,10 +38,10 @@ const sessionCookie = {
           if (tokenHasExpired) {
             // refreshing access token with refresh token
             try {
-              const { payload } = await refreshAccessToken(request)
+              const refreshTokenResponse = await refreshAccessToken(request)
               const updatedSession = await refreshUserSession(
                 request,
-                JSON.parse(payload.toString())
+                refreshTokenResponse
               )
 
               return {
