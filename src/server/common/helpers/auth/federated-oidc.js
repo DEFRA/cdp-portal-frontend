@@ -7,6 +7,8 @@ import { getAADCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import * as undici from 'undici'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
+
 const logger = createLogger()
 
 export const federatedOidc = {
@@ -27,9 +29,15 @@ const scheme = function (server, options) {
   Hoek.assert(options, 'Federated ODIC authentication options missing')
   const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
 
+  // Provide request level access to the refreshToken call
+  server.decorate(
+    'request',
+    'refreshToken',
+    async (token) => await refreshToken(settings, token)
+  )
   return {
     authenticate: async function (request, h) {
-      const federatedToken = await options.tokenProvider()
+      const federatedToken = await settings.tokenProvider()
 
       const oidcConfig = await openid.discovery(
         new URL(settings.discoveryUri),
@@ -63,27 +71,18 @@ const scheme = function (server, options) {
           // User has just started the login flow.
           const redirectTo = await preLogin(request, oidcConfig, settings)
           return h.redirect(redirectTo).takeover()
-        } catch (err) {
-          logger.error('PreLogin Federated login failed')
-          logger.error(JSON.stringify(err))
-          return Boom.unauthorized(err)
+        } catch (e) {
+          logClientError('PreLogin Federated login failed', e)
+          return Boom.unauthorized(e)
         }
       } else {
         // User has logged in and been redirected back to the auth callback
         try {
           const credentials = await postLogin(request, oidcConfig, settings)
           return h.authenticated({ credentials })
-        } catch (err) {
-          logger.error('Post Federated login failed')
-          if (err instanceof openid.ClientError) {
-            logger.error(
-              `${err.name} ${err.code} ${err.message}\n${err.cause.stack}`
-            )
-          } else {
-            logger.error(err)
-          }
-
-          return Boom.unauthorized(err)
+        } catch (e) {
+          logClientError('Post Federated login failed', e)
+          return Boom.unauthorized(e)
         }
       }
     }
@@ -115,6 +114,9 @@ async function preLogin(request, oidcConfig, settings) {
     codeVerifier,
     nonce
   })
+
+  const refererPath = getRefererAsRelativeURL(request?.info?.referrer, '/')
+  request.yar.flash(sessionNames.referrer, refererPath)
 
   return openid.buildAuthorizationUrl(oidcConfig, parameters)
 }
@@ -149,12 +151,12 @@ async function postLogin(request, oidcConfig, settings) {
 
   const expiresIn = token.expiresIn()
   const claims = token.claims()
-
   return {
     expiresIn,
-    token: token.id_token,
+    token: token.access_token,
     accessToken: token.access_token,
     refreshToken: token.refresh_token,
+    idToken: token.id_token,
     claims,
     // The profile section is portal/AAD specific, to make this more generic we can build it later on.
     profile: {
@@ -162,6 +164,40 @@ async function postLogin(request, oidcConfig, settings) {
       displayName: claims.name,
       email: claims.email ?? claims.preferred_username
     }
+  }
+}
+
+/**
+ * Refreshes the client credentials using a refresh token.
+ * Decorates the request object as `request.refreshToken(token)`
+ */
+async function refreshToken(settings, refreshToken) {
+  const federatedToken = await settings.tokenProvider()
+
+  const oidcConfig = await openid.discovery(
+    new URL(settings.discoveryUri),
+    settings.clientId,
+    {},
+    ClientFederatedCredential(federatedToken)
+  )
+
+  try {
+    return await openid.refreshTokenGrant(oidcConfig, refreshToken, {
+      scope: settings.scope
+    })
+  } catch (e) {
+    logClientError('refreshToken failed', e)
+    throw e
+  }
+}
+
+function logClientError(msg, err) {
+  if (err instanceof openid.ClientError) {
+    logger.error(
+      `${msg}: ${err.name} ${err.code} ${err.message}\n${err.cause.stack}`
+    )
+  } else {
+    logger.error(msg, err)
   }
 }
 
@@ -201,6 +237,27 @@ function asExternalUrl(url) {
   currentUrl.hostname = externalBaseUrl.hostname
   currentUrl.port = externalBaseUrl.port
   return currentUrl
+}
+
+function getRefererAsRelativeURL(referer, defaultPath) {
+  let relative = defaultPath
+  if (referer) {
+    try {
+      const url = new URL(referer)
+      relative = url.pathname + url.search
+    } catch {
+      if (referer.startsWith('/')) {
+        relative = referer
+      }
+    }
+  }
+
+  // Don't redirect back to the auth callback page as the content can only be processed once.
+  if (relative.startsWith('/auth/callback')) {
+    relative = defaultPath
+  }
+
+  return relative
 }
 
 /**
