@@ -1,8 +1,11 @@
 @use "govuk-frontend" as *;
 @use "subnav/subnav";
 
-$nav-width: 160px;
-$nav-width-slim: 140px;
+$nav-width: 120px;
+$nav-width-slim: 100px;
+
+$nav-wide-width: 160px;
+$nav-wide-width-slim: 140px;
 
 .app-split-pane {
   display: flex;
@@ -23,6 +26,16 @@ $nav-width-slim: 140px;
 
   @include govuk-media-query($from: desktop) {
     width: $nav-width;
+  }
+}
+
+.app-split-pane__nav--wide {
+  @include govuk-media-query($from: tablet) {
+    width: $nav-wide-width-slim;
+  }
+
+  @include govuk-media-query($from: desktop) {
+    width: $nav-wide-width;
   }
 }
 

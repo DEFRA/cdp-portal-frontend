@@ -8,7 +8,7 @@
 {% endset %}
 
 {% block content %}
-  {% call appSplitPane() %}
+  {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
       caption: "Remove Permission from User",

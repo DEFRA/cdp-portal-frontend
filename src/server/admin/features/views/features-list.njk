@@ -1,7 +1,7 @@
 {% extends "layouts/page.njk" %}
 
 {% block content %}
-  {% call appSplitPane() %}
+  {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
       text: "Feature Toggles",

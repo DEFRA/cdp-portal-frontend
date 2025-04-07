@@ -3,7 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block content %}
-  {% call appSplitPane() %}
+  {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
       caption: "Team",
