@@ -8,10 +8,7 @@ async function refreshAccessToken(request) {
   const refreshToken = authedUser?.refreshToken ?? null
 
   if (config.get('azureFederatedCredentials.enabled')) {
-    const token = await request.refreshToken(refreshToken)
-    return {
-      payload: token
-    }
+    return await request.refreshToken(refreshToken)
   }
 
   const azureClientId = config.get('azureClientId')

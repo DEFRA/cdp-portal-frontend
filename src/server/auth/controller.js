@@ -9,6 +9,7 @@ import {
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
 import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
+import { redirectWithRefresh } from '~/src/server/common/helpers/url/url-helpers.js'
 
 const authCallbackController = {
   options: {
@@ -43,20 +44,12 @@ const authCallbackController = {
 
     const redirect = request.yar.flash(sessionNames.referrer)?.at(0) ?? '/'
 
-    // Borrowed from hapi/bell
-    // Workaround for some browsers where due to CORS and the redirection method, the state
-    // cookie is not included with the request unless the request comes directly from the same origin.
-    return h
-      .response(
-        `<html><head><meta http-equiv="refresh" content="0;URL='${redirect}'"></head><body></body></html>`
-      )
-      .takeover()
+    return redirectWithRefresh(h, redirect)
   }
 }
 
 /**
  * This endpoint is for debugging/testing the refresh token flow.
- * Likely to be removed, don't build anything on top of it!
  */
 const refreshTokenController = {
   handler: async (request, h) => {
@@ -64,8 +57,11 @@ const refreshTokenController = {
       // refreshing access token with refresh token
       try {
         const sessionBeforeRefresh = await request.getUserSession()
-        const { payload } = await refreshAccessToken(request)
-        const sessionAfterRefresh = await refreshUserSession(request, payload)
+        const refreshedToken = await refreshAccessToken(request)
+        const sessionAfterRefresh = await refreshUserSession(
+          request,
+          refreshedToken
+        )
         return h.response(
           JSON.stringify({
             before: { expiresAt: sessionBeforeRefresh.expiresAt },

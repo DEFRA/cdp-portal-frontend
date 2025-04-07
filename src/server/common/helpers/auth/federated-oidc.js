@@ -7,8 +7,10 @@ import { getAADCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { asExternalUrl } from '~/src/server/common/helpers/url/url-helpers.js'
 
 const logger = createLogger()
+const callbackPath = '/auth/callback'
 
 export const federatedOidc = {
   name: 'federatedOidc',
@@ -16,7 +18,7 @@ export const federatedOidc = {
     server.auth.scheme('federated-oidc', scheme)
     server.auth.strategy('azure-oidc', 'federated-oidc', {
       discoveryUri: config.get('oidcWellKnownConfigurationUrl'),
-      redirectUri: config.get('appBaseUrl') + '/auth/callback',
+      redirectUri: config.get('appBaseUrl') + callbackPath,
       clientId: config.get('azureClientId'),
       scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
       tokenProvider: getAADCredentials
@@ -117,7 +119,7 @@ async function postLogin(request, oidcConfig, settings) {
     'No verifier set in session, try logging in again.'
   )
 
-  // CurrentUrl must match the full external url, including hostname.
+  // `currentUrl` must match the full external url, including hostname.
   const currentUrl = asExternalUrl(request.url)
 
   logger.info(`validating token from ${currentUrl.toString()}`)
@@ -212,16 +214,6 @@ function ClientFederatedCredential(assertion) {
   }
 }
 
-function asExternalUrl(url) {
-  const currentUrl = new URL(url)
-  const externalBaseUrl = new URL(config.get('appBaseUrl'))
-
-  currentUrl.protocol = externalBaseUrl.protocol
-  currentUrl.hostname = externalBaseUrl.hostname
-  currentUrl.port = externalBaseUrl.port
-  return currentUrl
-}
-
 function getRefererAsRelativeURL(referer, defaultPath) {
   let relative = defaultPath
   if (referer) {
@@ -236,7 +228,7 @@ function getRefererAsRelativeURL(referer, defaultPath) {
   }
 
   // Don't redirect back to the auth callback page as the content can only be processed once.
-  if (relative.startsWith('/auth/callback')) {
+  if (relative.startsWith(callbackPath)) {
     relative = defaultPath
   }
 
