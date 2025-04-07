@@ -7,7 +7,7 @@
 {% endset %}
 
 {% block content %}
-  {% call appSplitPane() %}
+  {% call appSplitPane({ isWide: true }) %}
 
     {{ appStepNavigation(stepNavigation) }}
 
