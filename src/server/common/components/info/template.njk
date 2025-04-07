@@ -13,7 +13,7 @@
   data-testid="app-info">
 
   {{ appInfoIcon({
-    classes: "app-icon--medium",
+    classes: "app-icon--small",
     description: "Info"
   }) }}
 
@@ -24,7 +24,7 @@
   {% if params.actionText %}
     <span class="app-info__action">
       {{ govukButton({
-        classes: "app-button app-button--secondary js-visible",
+        classes: "app-button app-button--small app-button--secondary js-visible",
         text: params.actionText,
         attributes: {
           "data-js": "protected-button"
