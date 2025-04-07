@@ -6,7 +6,6 @@ import Boom from '@hapi/boom'
 import { getAADCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import * as undici from 'undici'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const logger = createLogger()
@@ -29,11 +28,10 @@ const scheme = function (server, options) {
   Hoek.assert(options, 'Federated ODIC authentication options missing')
   const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
 
-  // Provide request level access to the refreshToken call
   server.decorate(
     'request',
     'refreshToken',
-    async (token) => await refreshToken(settings, token)
+    async (jwtRefreshToken) => await refreshToken(settings, jwtRefreshToken)
   )
   return {
     authenticate: async function (request, h) {
@@ -45,24 +43,6 @@ const scheme = function (server, options) {
         {},
         ClientFederatedCredential(federatedToken)
       )
-
-      oidcConfig[openid.customFetch] = async (...args) => {
-        logger.info(`[OIDC Fetch Request] ${args[0]}`)
-
-        const response = await undici.fetch(args[0], { ...args[1] })
-        const bodyText = await response.text()
-
-        logger.info(`[OIDC Fetch Response] ${args[0]}`)
-        logger.info(`[OIDC Fetch Response] Status: ${response.status}`)
-        logger.info(`[OIDC Fetch Response] Body: ${bodyText}`)
-
-        // Recreate the response so it's usable downstream
-        return new Response(bodyText, {
-          status: response.status,
-          statusText: response.statusText,
-          headers: response.headers
-        })
-      }
 
       const isPreLogin = !request.query.code
 
@@ -105,7 +85,7 @@ async function preLogin(request, oidcConfig, settings) {
   }
 
   if (!oidcConfig.serverMetadata().supportsPKCE()) {
-    logger.info("server doesn't support PKCE, generating nonce")
+    logger.debug("server doesn't support PKCE")
     nonce = openid.randomNonce()
     parameters.nonce = nonce
   }
@@ -158,7 +138,7 @@ async function postLogin(request, oidcConfig, settings) {
     refreshToken: token.refresh_token,
     idToken: token.id_token,
     claims,
-    // The profile section is portal/AAD specific, to make this more generic we can build it later on.
+    // This bit is fairly portal specific, maybe build it in the callback handler?
     profile: {
       id: claims.oid,
       displayName: claims.name,
@@ -170,8 +150,11 @@ async function postLogin(request, oidcConfig, settings) {
 /**
  * Refreshes the client credentials using a refresh token.
  * Decorates the request object as `request.refreshToken(token)`
+ * @param {{}} settings
+ * @param {string} jwtRefreshToken
+ * @returns {Promise<{}>}
  */
-async function refreshToken(settings, refreshToken) {
+async function refreshToken(settings, jwtRefreshToken) {
   const federatedToken = await settings.tokenProvider()
 
   const oidcConfig = await openid.discovery(
@@ -182,7 +165,7 @@ async function refreshToken(settings, refreshToken) {
   )
 
   try {
-    return await openid.refreshTokenGrant(oidcConfig, refreshToken, {
+    return await openid.refreshTokenGrant(oidcConfig, jwtRefreshToken, {
       scope: settings.scope
     })
   } catch (e) {
@@ -219,7 +202,7 @@ const optionsSchema = Joi.object({
  * @class ClientFederatedCredential
  */
 function ClientFederatedCredential(assertion) {
-  return (as, client, body) => {
+  return (_as, client, body) => {
     body.set('client_id', client.client_id)
     body.set(
       'client_assertion_type',
