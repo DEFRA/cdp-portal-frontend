@@ -49,6 +49,8 @@
 {% from "warning/macro.njk" import appWarning %}
 {% from "xhr-subscriber/macro.njk" import appXhrSubscriber with context %}
 
+{% from "icons/search-icon/macro.njk" import appSearchIcon %}
+
 {% if isXhr %}
   {% extends "layouts/xhr.njk" %}
 {% else %}
