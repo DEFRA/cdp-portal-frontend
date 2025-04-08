@@ -54,9 +54,9 @@ async function requestCognitoToken() {
   }
 }
 
-export function tokenHasExpired(token) {
+export function tokenHasExpired(tokenToCheck) {
   try {
-    const decodedToken = jwt.token.decode(token)
+    const decodedToken = jwt.token.decode(tokenToCheck)
     jwt.token.verifyTime(decodedToken)
   } catch (err) {
     logger.debug('Cognito token has expired', err)

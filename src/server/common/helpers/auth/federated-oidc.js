@@ -30,10 +30,8 @@ const scheme = function (server, options) {
   Hoek.assert(options, 'Federated ODIC authentication options missing')
   const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
 
-  server.decorate(
-    'request',
-    'refreshToken',
-    async (jwtRefreshToken) => await refreshToken(settings, jwtRefreshToken)
+  server.decorate('request', 'refreshToken', async (jwtRefreshToken) =>
+    refreshToken(settings, jwtRefreshToken)
   )
   return {
     authenticate: async function (request, h) {
