@@ -24,8 +24,8 @@ const authCallbackController = {
 
       request.logger.info('Creating user session')
       await createUserSession(request, sessionId)
+
       request.sessionCookie.set({ sessionId })
-      request.logger.info('Setting session id')
       const { profile } = request.auth.credentials
 
       request.logger.info(
@@ -43,7 +43,7 @@ const authCallbackController = {
     }
 
     const redirect = request.yar.flash(sessionNames.referrer)?.at(0) ?? '/'
-
+    request.logger.info(`Login complete, redirecting user to ${redirect}`)
     return redirectWithRefresh(h, redirect)
   }
 }
@@ -54,8 +54,8 @@ const authCallbackController = {
 const refreshTokenController = {
   handler: async (request, h) => {
     if (request.auth.isAuthenticated) {
-      // refreshing access token with refresh token
       try {
+        request.logger.info('Forcing token refresh')
         const sessionBeforeRefresh = await request.getUserSession()
         const refreshedToken = await refreshAccessToken(request)
         const sessionAfterRefresh = await refreshUserSession(
