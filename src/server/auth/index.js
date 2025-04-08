@@ -14,7 +14,7 @@ const auth = {
           ...authCallbackController
         },
         {
-          method: ['GET', 'POST'],
+          method: ['GET'],
           path: '/auth/refresh',
           ...refreshTokenController
         }

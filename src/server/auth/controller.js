@@ -62,12 +62,10 @@ const refreshTokenController = {
           request,
           refreshedToken
         )
-        return h.response(
-          JSON.stringify({
-            before: { expiresAt: sessionBeforeRefresh.expiresAt },
-            after: { expiresAt: sessionAfterRefresh.expiresAt }
-          })
-        )
+        return h.response({
+          before: { expiresAt: sessionBeforeRefresh.expiresAt },
+          after: { expiresAt: sessionAfterRefresh.expiresAt }
+        })
       } catch (error) {
         request.logger.error(error, 'Token refresh failed')
         return h.response(error.message)
