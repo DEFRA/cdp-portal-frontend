@@ -22,10 +22,10 @@ const authCallbackController = {
     if (request.auth.isAuthenticated) {
       const sessionId = randomUUID()
 
+      request.logger.info('Creating user session')
       await createUserSession(request, sessionId)
-
       request.sessionCookie.set({ sessionId })
-
+      request.logger.info('Setting session id')
       const { profile } = request.auth.credentials
 
       request.logger.info(

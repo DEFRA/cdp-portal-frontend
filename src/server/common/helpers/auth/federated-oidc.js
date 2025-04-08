@@ -63,6 +63,7 @@ const scheme = function (server, options) {
           const credentials = await postLogin(request, oidcConfig, settings)
           return h.authenticated({ credentials })
         } catch (e) {
+          logger.error(e, 'Post Federated login failed')
           logClientError('Post Federated login failed', e)
           return Boom.unauthorized(e)
         }
@@ -120,9 +121,9 @@ async function postLogin(request, oidcConfig, settings) {
   )
 
   // `currentUrl` must match the full external url, including hostname.
-  const currentUrl = asExternalUrl(request.url)
+  const currentUrl = asExternalUrl(request.url, config.get('appBaseUrl'))
 
-  logger.info(`validating token from ${currentUrl.toString()}`)
+  logger.info('validating token')
   const token = await openid.authorizationCodeGrant(oidcConfig, currentUrl, {
     pkceCodeVerifier: codeVerifier,
     expectedNonce: nonce,

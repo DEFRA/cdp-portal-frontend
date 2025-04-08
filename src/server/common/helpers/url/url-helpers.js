@@ -1,4 +1,4 @@
-import { escape } from 'lodash'
+import escape from 'lodash/escape.js'
 
 /**
  * Sets the host, protocol and port of a URL to use the external address
