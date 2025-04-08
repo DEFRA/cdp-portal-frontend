@@ -3,7 +3,6 @@ import * as openid from 'openid-client'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getAADCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
@@ -14,6 +13,7 @@ const callbackPath = '/auth/callback'
 
 export const federatedOidc = {
   name: 'federatedOidc',
+  dependencies: ['federated-credentials'],
   register: function (server) {
     server.auth.scheme('federated-oidc', scheme)
     server.auth.strategy('azure-oidc', 'federated-oidc', {
@@ -21,13 +21,12 @@ export const federatedOidc = {
       redirectUri: config.get('appBaseUrl') + callbackPath,
       clientId: config.get('azureClientId'),
       scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
-      tokenProvider: getAADCredentials
+      tokenProvider: () => server.federatedCredentials.getToken()
     })
   }
 }
 
-const scheme = function (server, options) {
-  Hoek.assert(options, 'Federated ODIC authentication options missing')
+function scheme(server, options) {
   const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
 
   server.decorate('request', 'refreshToken', async (jwtRefreshToken) =>
@@ -52,7 +51,7 @@ const scheme = function (server, options) {
           const redirectTo = await preLogin(request, oidcConfig, settings)
           return h.redirect(redirectTo).takeover()
         } catch (e) {
-          logClientError('PreLogin Federated login failed', e)
+          logger.error(e, 'PreLogin Federated login failed')
           return Boom.unauthorized(e)
         }
       } else {
@@ -62,7 +61,6 @@ const scheme = function (server, options) {
           return h.authenticated({ credentials })
         } catch (e) {
           logger.error(e, 'Post Federated login failed')
-          logClientError('Post Federated login failed', e)
           return Boom.unauthorized(e)
         }
       }
@@ -170,18 +168,8 @@ async function refreshToken(settings, jwtRefreshToken) {
       scope: settings.scope
     })
   } catch (e) {
-    logClientError('refreshToken failed', e)
+    logger.error(e, 'refreshToken failed')
     throw e
-  }
-}
-
-function logClientError(msg, err) {
-  if (err instanceof openid.ClientError) {
-    logger.error(
-      `${msg}: ${err.name} ${err.code} ${err.message}\n${err.cause.stack}`
-    )
-  } else {
-    logger.error(msg, err)
   }
 }
 
