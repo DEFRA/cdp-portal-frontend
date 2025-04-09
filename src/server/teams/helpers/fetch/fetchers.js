@@ -10,13 +10,6 @@ async function fetchTeamServices(teamId) {
   return payload
 }
 
-async function fetchTeamTestSuites(teamId) {
-  const endpoint = portalBackendUrl + `/test-suites?teamId=${teamId}`
-
-  const { payload } = await fetchJson(endpoint)
-  return payload
-}
-
 async function fetchTeamRepositories(teamId) {
   const endpoint = portalBackendUrl + `/repositories/all/${teamId}`
 
@@ -24,4 +17,4 @@ async function fetchTeamRepositories(teamId) {
   return payload
 }
 
-export { fetchTeamServices, fetchTeamTestSuites, fetchTeamRepositories }
+export { fetchTeamServices, fetchTeamRepositories }

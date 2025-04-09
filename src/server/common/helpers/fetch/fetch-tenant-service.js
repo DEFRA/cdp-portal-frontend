@@ -41,7 +41,7 @@ async function fetchTenantService(serviceName) {
     const statusCode = error.output.statusCode
 
     if (statusCode === 404) {
-      logger.info(error, 'Tenant Service not found.')
+      logger.info('Tenant Service not found.')
     } else {
       logger.error(error)
     }
