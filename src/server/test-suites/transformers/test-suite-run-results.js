@@ -1,31 +1,14 @@
 import startCase from 'lodash/startCase.js'
 import { formatDistance, parseISO } from 'date-fns'
 
-import {
-  taskStatus,
-  testStatus
-} from '~/src/server/test-suites/constants/test-run-status.js'
 import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/provide-test-run-status-classname.js'
 import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.js'
 import { getTestStatusIcon } from '~/src/server/test-suites/helpers/get-test-status-icon.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { runnerProfiles } from '~/src/server/test-suites/constants/runner-profiles.js'
-
-function getUiText(prop, value) {
-  const result = Object.entries(runnerProfiles)
-    .reduce((props, [key, { cpu, memory }]) => {
-      props.push({
-        kind: key,
-        cpu,
-        memory
-      })
-
-      return props
-    }, [])
-    .find((item) => item[prop].value === value)
-
-  return result ? result[prop] : null
-}
+import {
+  taskStatus,
+  testStatus
+} from '~/src/server/test-suites/constants/test-run-status.js'
 
 function getDuration({ created, taskLastUpdated }, hasResult) {
   if (created && taskLastUpdated && hasResult) {
@@ -77,14 +60,14 @@ function testSuiteRunResults(testRun, canRun) {
         headers: 'cpu',
         entity: {
           kind: 'text',
-          value: getUiText('cpu', testRun.cpu)?.text
+          value: testRun.cpu / 1024 + ' vCPU'
         }
       },
       {
         headers: 'memory',
         entity: {
           kind: 'text',
-          value: getUiText('memory', testRun.memory)?.text
+          value: testRun.memory / 1024 + ' GB'
         }
       },
       {
