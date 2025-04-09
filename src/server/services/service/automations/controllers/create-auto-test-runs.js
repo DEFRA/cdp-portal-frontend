@@ -3,12 +3,14 @@ import Joi from 'joi'
 
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { autoDeployValidation } from '~/src/server/services/service/automation/helpers/schema/auto-deploy-validation.js'
-import { saveAutoDeployDetails } from '~/src/server/services/service/automation/helpers/fetchers.js'
+import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { autoTestRunValidation } from '~/src/server/services/service/automations/helpers/schema/auto-test-run-validation.js'
+import { saveAutoTestRunDetails } from '~/src/server/services/service/automations/helpers/fetchers.js'
 
-const autoDeployController = {
+const setupAutoTestRunController = {
   options: {
-    id: 'services/{serviceId}/automation/auto-deploy',
+    id: 'post:services/{serviceId}/automations/test-runs',
+    pre: [provideAuthedUser],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -17,23 +19,29 @@ const autoDeployController = {
     }
   },
   handler: async (request, h) => {
-    const userScopes = request.auth.credentials?.scope
-    const serviceId = request.params.serviceId
+    const authedUser = request.pre.authedUser
     const payload = request.payload
+    const userScopes = authedUser.scope
+    const serviceId = request.params.serviceId
+    const testSuite = payload.testSuite
     const environments = Array.isArray(payload.environments)
       ? payload.environments
       : [payload.environments].filter(Boolean)
 
-    const redirectUrl = request.routeLookup('services/{serviceId}/automation', {
-      params: { serviceId }
-    })
+    const redirectUrl = request.routeLookup(
+      'services/{serviceId}/automations/test-runs',
+      {
+        params: { serviceId }
+      }
+    )
 
     const sanitisedPayload = {
       serviceId,
+      testSuite,
       environments
     }
 
-    const validationResult = autoDeployValidation(userScopes).validate(
+    const validationResult = autoTestRunValidation(userScopes).validate(
       sanitisedPayload,
       { abortEarly: false }
     )
@@ -47,12 +55,12 @@ const autoDeployController = {
       })
     } else {
       try {
-        const { res } = await saveAutoDeployDetails(sanitisedPayload)
+        const { res } = await saveAutoTestRunDetails(sanitisedPayload)
 
         const successMessage =
           res?.status === 201
-            ? 'Auto deploy details saved successfully'
-            : 'Auto deploy details updated successfully'
+            ? 'Auto test runs saved successfully'
+            : 'Auto test runs updated successfully'
 
         request.yar.clear(sessionNames.validationFailure)
         request.yar.flash(sessionNames.notifications, {
@@ -60,7 +68,7 @@ const autoDeployController = {
           type: 'success'
         })
       } catch (error) {
-        request.logger.debug({ error }, 'Save auto deploy details failed')
+        request.logger.error({ error }, 'Auto test run failed')
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload
         })
@@ -71,4 +79,4 @@ const autoDeployController = {
   }
 }
 
-export { autoDeployController }
+export { setupAutoTestRunController }

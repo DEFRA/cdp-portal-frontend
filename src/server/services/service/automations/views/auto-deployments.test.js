@@ -57,7 +57,7 @@ describe('Service automation tab', () => {
 
   test('Never deployed', () => {
     const rendered = renderPage(
-      'services/service/automation/views/automation',
+      'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({
         service,
         formOptions: [],
@@ -69,7 +69,7 @@ describe('Service automation tab', () => {
 
   test('Previously deployed', () => {
     const rendered = renderPage(
-      'services/service/automation/views/automation',
+      'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({
         service,
         formOptions,
@@ -81,7 +81,7 @@ describe('Service automation tab', () => {
 
   test('With auto deploy turned on', () => {
     const rendered = renderPage(
-      'services/service/automation/views/automation',
+      'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({
         service,
         formOptions,

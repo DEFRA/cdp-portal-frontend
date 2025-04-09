@@ -1,0 +1,69 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Automatic Deployments",
+    text: service.serviceName
+  }) }}
+{% endblock %}
+
+{% block tabContent %}
+  {% call appSplitPane() %}
+
+    <div class="govuk-grid-row govuk-!-margin-top-2">
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <section class="app-section--wide">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Automatic Deployments</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Turn on auto deployments in one or more environments.
+          </p>
+          <p>
+            After you merge code into the default branch on this services
+            <a class="app-link"
+               href="{{ service.githubUrl }}"
+               target="_blank"
+               rel="noopener noreferrer">GitHub repository</a>. The service will be automatically deployed to the
+            following environments:
+          </p>
+
+          <form
+            action="{{ routeLookup('post:services/{serviceId}/automations/deployments', {
+              params: { serviceId: service.serviceName }
+            }) }}"
+            method="POST"
+            data-js="app-form-group">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            {{ govukCheckboxes({
+              name: "environments",
+              classes: "app-checkboxes govuk-checkboxes--small",
+              fieldset: {
+                legend: {
+                  text: "Environments",
+                  classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+                }
+              },
+              hint: {
+                text: "Select the environments you wish to provide auto deploy on",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group"
+              },
+              items: environmentOptions,
+              values: formValues.environments,
+              errorMessage: errorMessageHelper(formErrors.environments.message)
+            }) }}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: "Save"
+            }) }}
+
+          </form>
+        </section>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}

@@ -96,7 +96,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
   <div class="govuk-!-margin-top-2">
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Automation</span>
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Automatic Deployments</span>
 
   <div class="app-page-heading">
     <h1 class="app-page-heading--title" data-testid="app-page-heading-title">cdp-portal-frontend</h1>
@@ -134,79 +134,66 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                aria-labelledby="tab-"
                data-testid="app-tabs-panel">
         
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds-from-desktop">
-      <section class="app-section--wide">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Auto Deploy</h2>
-
-          <p class="govuk-!-margin-bottom-2">Turn on auto deploy in the following environments</p>
+<div class="app-split-pane" data-testid="app-split-pane">
+  <div class="app-split-pane__nav">
+<nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
+  <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
+  <ul class="app-subnav__section">
+  </ul>
+</nav>
+  </div>
+  <div class="app-split-pane__content">
+    <section class="app-content">
+      
+    <div class="govuk-grid-row govuk-!-margin-top-2">
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <section class="app-section--wide">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Automatic Deployments</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Turn on auto deployments in one or more environments.
+          </p>
+          <p>
+            After you merge code into the default branch on this services
+            <a class="app-link"
+               href="https://github.com/DEFRA/cdp-portal-frontend"
+               target="_blank"
+               rel="noopener noreferrer">GitHub repository</a>. The service will be automatically deployed to the
+            following environments:
+          </p>
 
           <form
-            action="services/{serviceId}/automation/auto-deploy"
+            action="post:services/{serviceId}/automations/deployments"
             method="POST"
-            data-js="app-form-group app-form-errors">
+            data-js="app-form-group">
             <input type="hidden" name="csrfToken" value="" />
 
-            <fieldset class="govuk-fieldset">
-              
-
-
-<div
-  class="app-info govuk-!-margin-bottom-4"
-  tabindex="-1"
-  role="alert"
-  data-testid="app-info">
-
-  <svg class="app-icon app-info-icon app-icon--medium"
-     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 -960 960 960"
-     role="img" aria-label="Info">
-  <path
-    d="M443-271h79v-249h-79v249Zm36.982-306q20.518 0 33.768-12.9Q527-602.799 527-622.825q0-23.125-13.182-35.65Q500.636-671 480.193-671q-22.693 0-34.943 12.35Q433-646.301 433-624.175q0 21.275 13.232 34.225Q459.465-577 479.982-577Zm-.037 518q-87.053 0-164.146-32.604-77.094-32.603-134.343-89.852-57.249-57.249-89.852-134.41Q59-393.028 59-480.362q0-87.228 32.662-163.934 32.663-76.706 90.203-134.253 57.54-57.547 134.252-90.499Q392.829-902 479.836-902q87.369 0 164.544 32.858 77.175 32.858 134.401 90.257 57.225 57.399 90.222 134.514Q902-567.257 902-479.724q0 87.468-32.952 163.882t-90.499 133.781q-57.547 57.367-134.421 90.214Q567.255-59 479.945-59Z"/>
-</svg>
-
-
-  <span class="app-info__content" data-testid="app-info-content">
-      After you merge code into the default branch on your <a class="app-link app-link--underline app-link--text-colour"
-                                                          href="https://github.com/DEFRA/cdp-portal-frontend" target="_blank"
-                                                          rel="noopener noreferrer">GitHub
-  repository</a> this service will auto
-  deploy to the following environments
-
-  </span>
-
+            <div class="govuk-form-group app-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="environments-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-1">
+      Environments
+    </legend>
+    <div id="environments-hint" class="govuk-hint app-hint">
+      Select the environments you wish to provide auto deploy on
+    </div>
+    <div class="govuk-checkboxes app-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+    </div>
+  </fieldset>
 </div>
 
-
-
-              <div class="govuk-form-group app-form-group">
-  <div class="govuk-checkboxes app-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-    <div class="govuk-checkboxes__item">
-      <input class="govuk-checkboxes__input" id="environments" name="environments" type="checkbox" value="infra-dev" checked>
-      <label class="govuk-label govuk-checkboxes__label" for="environments">
-        infra-dev
-      </label>
-    </div>
-    <div class="govuk-checkboxes__item">
-      <input class="govuk-checkboxes__input" id="environments-2" name="environments" type="checkbox" value="management" checked>
-      <label class="govuk-label govuk-checkboxes__label" for="environments-2">
-        management
-      </label>
-    </div>
-  </div>
-</div>
-
-            </fieldset>
 
             <button type="submit" class="govuk-button app-button" data-module="govuk-button">
   Save
 </button>
 
           </form>
-      </section>
-
+        </section>
+      </div>
     </div>
-  </div>
 
+
+    </section>
+  </div>
+</div>
 
       </section>
 </div>
