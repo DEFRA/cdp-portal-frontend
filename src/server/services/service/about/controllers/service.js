@@ -67,7 +67,7 @@ const serviceController = {
       apiGateways,
       service,
       isServiceOwner,
-      availableServiceEnvironments,
+      availableServiceEnvironments, // TODO something has changed here in my local
       runningServices,
       latestPublishedImageVersions,
       breadcrumbs: [

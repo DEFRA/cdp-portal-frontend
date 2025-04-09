@@ -61,8 +61,8 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Automation',
-          url: `/services/${mockServiceName}/automation`
+          label: 'Automations',
+          url: `/services/${mockServiceName}/automations`
         },
         {
           isActive: false,
@@ -105,8 +105,8 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Automation',
-          url: `/services/${mockServiceName}/automation`
+          label: 'Automations',
+          url: `/services/${mockServiceName}/automations`
         },
         {
           isActive: false,
@@ -187,7 +187,7 @@ describe('#provideServiceTabs', () => {
           {
             isActive: false,
             label: 'Automation',
-            url: `/services/${mockServiceName}/automation`
+            url: `/services/${mockServiceName}/automations`
           }
         ])
       )
