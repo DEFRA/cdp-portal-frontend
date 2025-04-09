@@ -8,9 +8,9 @@ import { repositoriesDecorator } from '~/src/server/common/helpers/decorators/re
 import { testSuitesToDetailedList } from '~/src/server/teams/transformers/test-suites-to-detailed-list.js'
 import { librariesToDetailedList } from '~/src/server/teams/transformers/libraries-to-detailed-list.js'
 import { templatesToDetailedList } from '~/src/server/teams/transformers/templates-to-detailed-list.js'
+import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-test-suites.js'
 import {
   fetchTeamServices,
-  fetchTeamTestSuites,
   fetchTeamRepositories
 } from '~/src/server/teams/helpers/fetch/fetchers.js'
 
@@ -25,15 +25,13 @@ const teamController = {
     }
   },
   handler: async (request, h) => {
+    // TODO parallelise these requests
     const { team } = await fetchTeam(request.params.teamId)
-    const teamsServices = /** @type {Array} */ await fetchTeamServices(
-      team.teamId
-    )
-    const teamTestSuites = /** @type {Array} */ team?.github
-      ? await fetchTeamTestSuites(team.github)
-      : []
+    const teamId = team.teamId
+    const teamsServices = await fetchTeamServices(teamId)
+    const teamTestSuites = await fetchTestSuites(teamId)
 
-    const userIsTeamMember = await request.userIsMemberOfATeam([team.teamId])
+    const userIsTeamMember = await request.userIsMemberOfATeam([teamId])
     const authedUser = await request.getUserSession()
     const hasGitHub = Boolean(team?.github)
 
@@ -42,7 +40,7 @@ const teamController = {
       libraries: gitHubLibraryRepositories,
       templates: gitHubTemplateRepositories,
       tests: gitHubTestSuiteRepositories
-    } = hasGitHub ? await fetchTeamRepositories(team.teamId) : {}
+    } = hasGitHub ? await fetchTeamRepositories(teamId) : {}
 
     return h.view('teams/views/team', {
       pageTitle: `${team.name} Team`,
