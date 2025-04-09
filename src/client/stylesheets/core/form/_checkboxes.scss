@@ -2,6 +2,10 @@
 
 .app-checkboxes {
   margin-top: govuk-spacing(-1);
+
+  .govuk-checkboxes__label::before {
+    border: 1px solid govuk-colour("mid-grey");
+  }
 }
 
 // stylelint-disable max-nesting-depth
