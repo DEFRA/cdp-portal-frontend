@@ -36,7 +36,7 @@ class Autocomplete {
       return
     }
 
-    this.options = options
+    this.options = options // For sending options via extended class
     this.$module = $module
     this.$select = this.$module.querySelector(
       `[data-js*="app-progressive-input"]`
@@ -82,6 +82,7 @@ class Autocomplete {
     const suggestionsContainerId = `app-autocomplete-${$select.id}-suggestions`
     const $autocomplete = document.createElement('input')
 
+    this.suggestionClasses = $select.dataset.suggestionClasses
     this.subscribeTo = $select.dataset.subscribeTo
     this.publishTo = $select.dataset.publishTo
 

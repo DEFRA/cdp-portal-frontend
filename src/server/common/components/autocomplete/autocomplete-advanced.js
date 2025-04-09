@@ -21,6 +21,12 @@ class AutocompleteAdvanced extends Autocomplete {
     const $li = document.createElement('li')
 
     $li.classList.add('app-autocomplete__suggestion')
+
+    if (this.suggestionClasses) {
+      const suggestionClasses = this.suggestionClasses?.split(' ') ?? []
+      $li.classList.add(...suggestionClasses)
+    }
+
     $li.dataset.isMatch = 'false'
     $li.setAttribute('role', 'option')
     $li.setAttribute('tabindex', '-1')
