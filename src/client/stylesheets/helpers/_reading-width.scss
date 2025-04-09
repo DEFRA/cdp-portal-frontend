@@ -3,3 +3,11 @@
 @mixin app-reading-width {
   max-width: $app-reading-width;
 }
+
+@mixin app-section-width {
+  max-width: $app-section-width;
+}
+
+@mixin app-section-wide-width {
+  max-width: $app-section-wide-width;
+}

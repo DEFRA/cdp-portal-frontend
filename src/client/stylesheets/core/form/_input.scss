@@ -4,7 +4,7 @@
 .app-input {
   min-width: 12em;
   border-radius: $app-border-radius;
-  border: 1px solid govuk-colour("mid-grey");
+  border: 1px solid govuk-colour("mid-grey"); // TODO should these be darker?
 
   &:focus {
     border: 1px solid govuk-colour("black");
