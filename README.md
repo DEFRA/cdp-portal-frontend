@@ -315,7 +315,7 @@ awslocal s3 mb s3://cdp-documentation --endpoint-url http://localhost:4566
 git clone https://github.com/DEFRA/cdp-documentation/
 cd cdp-documentation
 awslocal s3 sync . "s3://cdp-documentation/" \
-          --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md" --exclude "LICENSE" --exclude "TODO.js" --exclude ".idea/*" --exclude ".config/*" \
+          --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md" --exclude "LICENSE" --exclude ".idea/*" --exclude ".config/*" \
           --metadata "git-commit=$head_ref" \
           --delete
 ```
