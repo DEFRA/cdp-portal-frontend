@@ -3,7 +3,7 @@
 {% from "icons/block-icon/macro.njk" import appBlockIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/internal-icon/macro.njk" import appInternalIcon %}
-{% from "icons/shutter-icon/macro.njk" import appShutterIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
 {% from "time/macro.njk" import appTime %}
@@ -12,7 +12,7 @@
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
       {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-blue", description: "Shuttered URL" }) }}
+        {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
       {% endcall %}
       {% elif not params.enabled %}
       {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
@@ -31,7 +31,7 @@
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
       {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appShutterIcon({ classes: "app-icon--tiny app-icon--fill-blue", description: "Shuttered URL" }) }}
+        {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
       {% endcall %}
     {% endif %}
 

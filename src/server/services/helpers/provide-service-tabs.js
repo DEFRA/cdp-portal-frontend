@@ -51,8 +51,9 @@ async function provideServiceTabs(request, h) {
     }
 
     // TODO - automation currently feature flagged as admin only, switch to admin and serviceOwner once ready
+    // TODO double check these buildTabs helpers
     if (isAdmin) {
-      buildTab(response, request, 'services', 'automation', imageName)
+      buildTab(response, request, 'services', 'automations', imageName)
     }
 
     response.source.context.tabDetails.tabs.sort(sortBy('label', 'asc'))
