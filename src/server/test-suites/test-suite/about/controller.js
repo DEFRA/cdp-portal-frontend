@@ -40,7 +40,7 @@ const testSuiteController = {
 
     return h.view('test-suites/test-suite/about/views/test-suite', {
       pageTitle: `Test Suite - ${serviceName}`,
-      testSuite,
+      testSuite, // TODO we have both a service and a testSuite here, we should only have 1?
       service: request.app.service,
       canRun,
       summaryList: transformTestSuiteToSummary(testSuite),
@@ -56,7 +56,7 @@ const testSuiteController = {
           { id: 'status', text: 'Status', width: '10' },
           { id: 'logs', text: 'Logs', width: '10' },
           { id: 'results', text: 'Results', width: '10' },
-          { id: 'user', text: 'User', width: '20' },
+          { id: 'user', text: 'Ran By', width: '20' },
           { id: 'duration', text: 'Duration', width: '10' },
           { id: 'last-ran', text: 'Last Ran', width: '15' },
           { id: 'action', text: 'Action', width: '5' }

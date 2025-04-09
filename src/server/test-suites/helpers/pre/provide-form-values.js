@@ -10,6 +10,7 @@ const profileHtmlTemplate = ({
 }) => `<div><span>CPU:</span><span class="govuk-!-margin-left-1">${cpu.text}</span></div>
    <div><span>Memory:</span><span class="govuk-!-margin-left-1">${memory.text}</span></div>`
 
+// TODO potentially abstract?
 const buildEnvironmentOptions = async (request, isAdmin = false) => {
   const options = []
   const runnableEnvironments = findEnvironmentsForTestSuite(

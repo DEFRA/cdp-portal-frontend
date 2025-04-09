@@ -1,5 +1,5 @@
+import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-test-suites.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
-import { fetchTestSuites } from '~/src/server/test-suites/helpers/fetch/fetch-test-suites.js'
 import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
 import { testSuiteDecorator } from '~/src/server/test-suites/helpers/decorators/test-suite.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
@@ -7,6 +7,7 @@ import { testSuiteToEntityRow } from '~/src/server/test-suites/transformers/test
 
 const testSuiteListController = {
   options: {
+    id: 'test-suites',
     pre: [provideAuthedUser]
   },
   handler: async (request, h) => {
