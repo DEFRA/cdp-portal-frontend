@@ -1,0 +1,36 @@
+@use "govuk-frontend" as *;
+
+$check-width: 24px;
+
+// GOVUK Frontend checkbox custom check styles
+// This is only to be used to visually represent data that has been chosen by the user via a checkbox form control
+.app-check {
+  margin: 0;
+  padding: 0;
+  width: $check-width;
+  position: relative;
+
+  &::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    width: $check-width;
+    height: $check-width;
+    color: govuk-colour("black");
+  }
+
+  &::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    left: 5px;
+    top: -4px;
+    width: 12px;
+    height: 6.5px;
+    transform: rotate(-45deg);
+    border: solid;
+    border-top-color: transparent;
+    border-width: 0 0 3px 3px;
+    background: transparent;
+  }
+}
