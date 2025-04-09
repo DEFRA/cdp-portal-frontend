@@ -40,6 +40,7 @@
     "type:check": "tsc --build tsconfig.json"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity": "3.768.0",
     "@aws-sdk/client-firehose": "3.682.0",
     "@aws-sdk/client-s3": "3.682.0",
     "@aws-sdk/credential-providers": "3.682.0",
@@ -82,6 +83,7 @@
     "marked-alert": "2.1.1",
     "marked-plaintify": "1.1.0",
     "nunjucks": "3.2.4",
+    "openid-client": "6.3.4",
     "pino": "9.5.0",
     "pino-pretty": "11.3.0",
     "qs": "6.13.0",

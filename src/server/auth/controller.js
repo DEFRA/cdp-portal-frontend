@@ -2,9 +2,14 @@ import { randomUUID } from 'node:crypto'
 
 import Boom from '@hapi/boom'
 
-import { createUserSession } from '~/src/server/common/helpers/auth/user-session.js'
+import {
+  createUserSession,
+  refreshUserSession
+} from '~/src/server/common/helpers/auth/user-session.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
+import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
+import { redirectWithRefresh } from '~/src/server/common/helpers/url/url-helpers.js'
 
 const authCallbackController = {
   options: {
@@ -17,10 +22,10 @@ const authCallbackController = {
     if (request.auth.isAuthenticated) {
       const sessionId = randomUUID()
 
+      request.logger.info('Creating user session')
       await createUserSession(request, sessionId)
 
       request.sessionCookie.set({ sessionId })
-
       const { profile } = request.auth.credentials
 
       request.logger.info(
@@ -38,9 +43,36 @@ const authCallbackController = {
     }
 
     const redirect = request.yar.flash(sessionNames.referrer)?.at(0) ?? '/'
-
-    return h.redirect(redirect)
+    request.logger.info(`Login complete, redirecting user to ${redirect}`)
+    return redirectWithRefresh(h, redirect)
   }
 }
 
-export { authCallbackController }
+/**
+ * This endpoint is for debugging/testing the refresh token flow.
+ */
+const refreshTokenController = {
+  handler: async (request, h) => {
+    if (request.auth.isAuthenticated) {
+      try {
+        request.logger.info('Forcing token refresh')
+        const sessionBeforeRefresh = await request.getUserSession()
+        const refreshedToken = await refreshAccessToken(request)
+        const sessionAfterRefresh = await refreshUserSession(
+          request,
+          refreshedToken
+        )
+        return h.response({
+          before: { expiresAt: sessionBeforeRefresh.expiresAt },
+          after: { expiresAt: sessionAfterRefresh.expiresAt }
+        })
+      } catch (error) {
+        request.logger.error(error, 'Token refresh failed')
+        return h.response(error.message)
+      }
+    }
+    return h.response('Not logged in, cant refresh token')
+  }
+}
+
+export { authCallbackController, refreshTokenController }

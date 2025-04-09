@@ -1,14 +1,24 @@
-import { authCallbackController } from '~/src/server/auth/controller.js'
+import {
+  authCallbackController,
+  refreshTokenController
+} from '~/src/server/auth/controller.js'
 
 const auth = {
   plugin: {
     name: 'auth',
     register: (server) => {
-      server.route({
-        method: ['GET', 'POST'],
-        path: '/auth/callback',
-        ...authCallbackController
-      })
+      server.route([
+        {
+          method: ['GET', 'POST'],
+          path: '/auth/callback',
+          ...authCallbackController
+        },
+        {
+          method: ['GET'],
+          path: '/auth/refresh',
+          ...refreshTokenController
+        }
+      ])
     }
   }
 }

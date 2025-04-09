@@ -24,6 +24,8 @@ import { s3Client } from '~/src/server/common/helpers/aws/s3-client.js'
 import { contentSecurityPolicy } from '~/src/server/common/helpers/csp/content-security-policy.js'
 import { requestTracing } from '~/src/server/common/helpers/request-tracing.js'
 import { setupProxy } from '~/src/server/common/helpers/proxy/setup-proxy.js'
+import { federatedOidc } from '~/src/server/common/helpers/auth/federated-oidc.js'
+import { cognitoFederatedCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -103,10 +105,14 @@ async function createServer() {
     await server.register(secureContext)
   }
 
+  const authPlugins = config.get('azureFederatedCredentials.enabled')
+    ? [cognitoFederatedCredentials, federatedOidc]
+    : [azureOidc]
+
   await server.register([
     pulse,
     sessionManager,
-    azureOidc,
+    ...authPlugins,
     sessionCookie,
     Scooter,
     contentSecurityPolicy,
