@@ -1,6 +1,12 @@
 async function buildNavigation(request) {
   const authedUser = await request.getUserSession()
 
+  // TODO update this file to use routeLookup all over
+  const isActive = (value) => {
+    const firstPathPart = request?.path?.split('/').at(1)
+    return firstPathPart === value
+  }
+
   return {
     primary: [
       {
@@ -37,7 +43,7 @@ async function buildNavigation(request) {
       {
         text: 'Deployments',
         url: '/deployments',
-        isActive: request?.path?.includes('/deployments')
+        isActive: isActive('deployments')
       },
       {
         text: 'Running Services',

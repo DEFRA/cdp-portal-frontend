@@ -17,6 +17,7 @@
 {% from "banner/macro.njk" import appBanner %}
 {% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
 {% from "button/macro.njk" import appButton %}
+{% from "details/macro.njk" import appDetails %}
 {% from "detailed-list/macro.njk" import appDetailedList %}
 {% from "entity-actions/macro.njk" import appEntityActions %}
 {% from "entity-data-list/macro.njk" import appEntityDataList with context %}
@@ -50,6 +51,7 @@
 {% from "xhr-subscriber/macro.njk" import appXhrSubscriber with context %}
 
 {% from "icons/search-icon/macro.njk" import appSearchIcon %}
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
 
 {% if isXhr %}
   {% extends "layouts/xhr.njk" %}

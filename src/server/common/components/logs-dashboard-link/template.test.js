@@ -32,7 +32,7 @@ describe('Logs Dashboard Link Component', () => {
     beforeEach(() => {
       const $component = renderTestComponent('logs-dashboard-link', {
         text: 'logs',
-        classes: 'app-link-underline app-link--text-colour',
+        classes: 'app-link--underline app-link--text-colour',
         serviceName: 'cdp-portal-frontend',
         environment: 'management'
       })
@@ -44,7 +44,7 @@ describe('Logs Dashboard Link Component', () => {
 
     test('Should render with expected custom class names', () => {
       expect(logsDashBoardLink.attr('class')).toContain(
-        'app-link-underline app-link--text-colour'
+        'app-link--underline app-link--text-colour'
       )
     })
 
