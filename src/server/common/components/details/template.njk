@@ -1,0 +1,15 @@
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
+
+{% set summary = params.summaryHtml | safe if params.summaryHtml else params.summaryText %}
+{% set content = params.html | safe if params.html else params.text %}
+
+<details {% if params.id %}id="{{ params.id }}"{% endif %}
+         class="app-details"
+         data-testid="app-details" {{- " open" if params.open }}>
+  <summary class="app-details__summary">
+    {{- summary | trim -}}
+  </summary>
+  <div class="app-details__content" data-testid="app-details-content">
+    {{- caller() if caller else content -}}
+  </div>
+</details>
