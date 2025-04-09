@@ -32,6 +32,7 @@ const autoTestRunsController = {
     const environments = getEnvironments(authedUser?.scope).filter(
       (env) => !excludedEnvironments.includes(env.toLowerCase())
     )
+
     const environmentOptions = buildOptions(
       environments.map((env) => ({ text: formatText(env), value: env })),
       false
@@ -51,13 +52,14 @@ const autoTestRunsController = {
       tableData: {
         headers: [
           { id: 'test-suite', text: 'Test suite', width: '20' },
-          { id: 'kind', text: 'Kind', width: '10' },
+          { id: 'kind', text: 'Kind', width: '8' },
           ...environments.map((env) => ({
+            allowVerticalText: true,
             id: env.toLowerCase(),
             text: formatText(env),
-            width: 42 / environments.length
+            width: env.length
           })),
-          { id: 'actions', text: 'Actions', width: '8' }
+          { id: 'actions', text: 'Actions', isRightAligned: true, width: '10' }
         ],
         rows,
         noResult:

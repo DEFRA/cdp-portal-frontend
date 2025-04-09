@@ -13,7 +13,7 @@
   {% call appSplitPane() %}
 
     <div class="govuk-grid-row govuk-!-margin-top-2">
-      <div class="govuk-grid-column-one-half-from-desktop">
+      <div class="govuk-grid-column-two-thirds-from-desktop-huge">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Automatic Test Runs</h2>
         <p class="govuk-!-margin-bottom-2">
           Automatically trigger a test suite to run after this service has been manually or automatically deployed to
@@ -75,12 +75,12 @@
           </ul>
         {% endcall %}
 
-        <div class="app-section app-section--extra-wide">
+        <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
           {{ appEntityTable(tableData) }}
         </div>
       </div>
 
-      <div class="govuk-grid-column-one-third-from-desktop">
+      <div class="govuk-grid-column-one-third-from-desktop-huge">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Add Test Run</h2>
         <p>
           Choose a test suite to automatically run after a deployment of this service
@@ -97,7 +97,6 @@
             {{ appAutocomplete({
               id: "test-suite",
               name: "testSuite",
-              classes: "app-autocomplete--wide",
               label: {
                 text: "Test Suite",
                 classes: "govuk-label app-label"

@@ -3,18 +3,16 @@ import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { renderTestSuiteTagHtml } from '~/src/server/services/service/automations/helpers/render-test-suite-tag-html.js'
 
 function actions(serviceName, testRunName) {
-  return `<ul class="app-entity-table__actions-list">
-           <li class="app-entity-table__actions-list-item">
+  return ` <div>
              <a class="app-link app-link--underline"
                 href="/services/${serviceName}/automations/test-runs/${testRunName}/update"
                 data-testid="app-link">Update</a>
-           </li>
-           <li class="app-entity-table__actions-list-item">
+           </div>
+           <div class="govuk-!-margin-left-1">
              <a class="app-link app-link--underline"
                 href="/services/${serviceName}/automations/test-runs/${testRunName}/remove"
                 data-testid="app-link">Remove</a>
-           </li>
-          </ul>`
+           </div>`
 }
 
 function testSuiteToEntityRow({
