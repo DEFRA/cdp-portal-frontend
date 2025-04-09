@@ -70,7 +70,8 @@
     "data-sibling-data-fetcher-target-loader": params.siblingDataFetcher.targetLoader,
     "data-publish-to": params.publishTo,
     "data-typeahead": true if params.typeahead == true,
-    "data-testid": "app-progressive-input"
+    "data-testid": "app-progressive-input",
+    "data-suggestion-classes": params.suggestionClasses
   } | pickBy %}
 
   <div class="{{ classes }}"
