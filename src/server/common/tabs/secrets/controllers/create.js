@@ -81,7 +81,7 @@ function createSecretController(serviceOrTestSuite) {
             type: 'success'
           })
         } catch (error) {
-          request.logger.debug({ error }, 'Create secret call failed')
+          request.logger.error({ error }, 'Create secret call failed')
           request.yar.flash(sessionNames.validationFailure, {
             formValues: omit(sanitisedPayload, ['button'])
           })

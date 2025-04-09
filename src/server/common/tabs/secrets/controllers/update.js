@@ -81,7 +81,7 @@ function updateSecretController(serviceOrTestSuite) {
             )
           )
         } catch (error) {
-          request.logger.debug({ error }, 'Update secret call failed')
+          request.logger.error({ error }, 'Update secret call failed')
           request.yar.flash(sessionNames.validationFailure, {
             formValues: omit(sanitisedPayload, ['button'])
           })
