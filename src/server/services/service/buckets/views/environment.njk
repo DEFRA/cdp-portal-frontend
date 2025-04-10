@@ -14,7 +14,8 @@
 {% endset %}
 {% set bucketNamesInfoHtml %}
   Why do bucket names have random characters at the end?
-  <a class="app-link app-link--underline app-link--text-colour" href="/documentation/how-to/buckets.md#bucket-naming" target="_blank"
+  <a class="app-link app-link--underline app-link--text-colour" href="/documentation/how-to/buckets.md#bucket-naming"
+     target="_blank"
      rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
 {% endset %}
 
@@ -38,7 +39,8 @@
 
 {% block tabContent %}
   {% call appSplitPane() %}
-    <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-left-2">
+
+    <div class="govuk-grid-row">
       <section class="govuk-grid-column-two-thirds-from-desktop-big">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
             data-testid="app-environment-header">{{ environment | title }} buckets</h2>
@@ -86,5 +88,6 @@
         </div>
       </section>
     </div>
+
   {% endcall %}
 {% endblock %}

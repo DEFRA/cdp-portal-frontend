@@ -84,27 +84,28 @@
 {% endblock %}
 
 {% block tabContent %}
-  <div class="govuk-!-margin-bottom-4">
-    {% for vanityUrl in vanityUrls %}
+
+  {% for vanityUrl in vanityUrls %}
+    <div class="govuk-!-margin-bottom-4">
       {% for url in vanityUrl.urls | selectattr("shuttered") %}
         {% call appWarning({ isInverse: false }) %}
           <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
         noreferrer">https://{{ url.url }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
 
-  <div class="govuk-!-margin-bottom-4">
-    {% for apiGateway in apiGateways %}
+  {% for apiGateway in apiGateways %}
+    <div class="govuk-!-margin-bottom-4">
       {% for api in apiGateway.apis | selectattr("shuttered") %}
         {% call appWarning({ isInverse: false }) %}
           <a class="app-link app-link--underline" href="https://{{ api.api }}" target="_blank" rel="noopener
         noreferrer">https://{{ api.api }}</a> has been shuttered
         {% endcall %}
       {% endfor %}
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
 
   <div class="app-service-container">
     <article class="app-grid app-grid-service">
