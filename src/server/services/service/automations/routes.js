@@ -12,11 +12,7 @@ import { removeTestRunController } from '~/src/server/services/service/automatio
 import { updateTestRunFormController } from '~/src/server/services/service/automations/controllers/update/update-test-run-form.js'
 import { updateTestRunController } from '~/src/server/services/service/automations/controllers/update/update-test-run.js'
 
-// TODO - automation currently feature flagged as admin only, switch to admin and serviceOwner once ready
-const adminUserScope = authScope([
-  scopes.admin
-  // scopes.serviceOwner,
-])
+const adminUserScope = authScope([scopes.admin, scopes.serviceOwner])
 
 const serviceAutomations = {
   plugin: {
@@ -32,7 +28,6 @@ const serviceAutomations = {
             sandbox: 'plugin'
           }
         },
-        // TODO improve
         {
           type: 'onPostHandler',
           method: provideAutomationSubNavigation,
