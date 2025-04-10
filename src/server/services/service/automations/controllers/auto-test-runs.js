@@ -43,6 +43,7 @@ const autoTestRunsController = {
       serviceId,
       environments
     })
+    const supportVerticalHeadings = environments.length >= 5
 
     return h.view('services/service/automations/views/auto-test-runs', {
       pageTitle: `Test Runs | Automations - ${serviceId}`,
@@ -54,7 +55,7 @@ const autoTestRunsController = {
           { id: 'test-suite', text: 'Test suite', width: '20' },
           { id: 'kind', text: 'Kind', width: '8' },
           ...environments.map((env) => ({
-            allowVerticalText: true,
+            ...(supportVerticalHeadings && { verticalText: true }),
             id: env.toLowerCase(),
             text: formatText(env),
             width: env.length

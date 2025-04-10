@@ -11,7 +11,7 @@
         {% set headerClasses = [
           "app-entity-table__heading",
           header.classes if header.classes,
-          "app-entity-table__heading--vertical-text" if header.allowVerticalText
+          "app-entity-table__heading--vertical-text" if header.verticalText
         ] | join(" ") | trim %}
 
         <th id="{{ header.id }}" scope="col"
