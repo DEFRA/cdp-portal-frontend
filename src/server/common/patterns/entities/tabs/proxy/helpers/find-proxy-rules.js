@@ -1,5 +1,5 @@
 import { fetchProxyRules } from '~/src/server/services/helpers/fetch/fetch-proxy-rules.js'
-import { transformProxyRules } from '~/src/server/common/tabs/proxy/transformers/transform-proxy-rules.js'
+import { transformProxyRules } from '~/src/server/common/patterns/entities/tabs/proxy/transformers/transform-proxy-rules.js'
 
 /**
  * Find proxy rules for a service in all environments

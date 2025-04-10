@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { secretPayloadValidation } from '~/src/server/common/tabs/secrets/schema/secret-payload-validation.js'
+import { secretPayloadValidation } from '~/src/server/common/patterns/entities/tabs/secrets/schema/secret-payload-validation.js'
 import { teamFixture } from '~/src/__fixtures__/team.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 

@@ -1,5 +1,5 @@
 import { fetchProxyRules } from '~/src/server/services/helpers/fetch/fetch-proxy-rules.js'
-import { findAllProxyRules } from '~/src/server/common/tabs/proxy/helpers/find-proxy-rules.js'
+import { findAllProxyRules } from '~/src/server/common/patterns/entities/tabs/proxy/helpers/find-proxy-rules.js'
 
 jest.mock('~/src/server/services/helpers/fetch/fetch-proxy-rules.js')
 

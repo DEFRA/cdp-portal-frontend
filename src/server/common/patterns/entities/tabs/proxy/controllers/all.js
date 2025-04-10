@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { findAllProxyRules } from '~/src/server/common/tabs/proxy/helpers/find-proxy-rules.js'
+import { findAllProxyRules } from '~/src/server/common/patterns/entities/tabs/proxy/helpers/find-proxy-rules.js'
 import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
 import startCase from 'lodash/startCase.js'
 
@@ -29,7 +29,7 @@ export function allProxyController(serviceOrTestSuite) {
         (proxyRules) => proxyRules.rules.isProxySetup
       )
 
-      return h.view('common/tabs/proxy/views/all', {
+      return h.view('common/patterns/entities/tabs/proxy/views/all', {
         pageTitle: `${serviceName} - Proxy`,
         service,
         proxyRulesByEnvironment,

@@ -1,4 +1,4 @@
-import { transformProxyRules } from '~/src/server/common/tabs/proxy/transformers/transform-proxy-rules.js'
+import { transformProxyRules } from '~/src/server/common/patterns/entities/tabs/proxy/transformers/transform-proxy-rules.js'
 
 describe('#transformProxyRules', () => {
   test('Should return transformed proxy rules', () => {

@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import startCase from 'lodash/startCase.js'
 
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
-import { allEnvironmentSecrets } from '~/src/server/common/tabs/secrets/transformers/all-environment-secrets.js'
+import { allEnvironmentSecrets } from '~/src/server/common/patterns/entities/tabs/secrets/transformers/all-environment-secrets.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
@@ -28,7 +28,7 @@ function allSecretsController(serviceOrTestSuite) {
         allSecrets
       )
 
-      return h.view('common/tabs/secrets/views/all', {
+      return h.view('common/patterns/entities/tabs/secrets/views/all', {
         pageTitle: `${serviceName} - Secrets`,
         service,
         secretsByEnvironment,

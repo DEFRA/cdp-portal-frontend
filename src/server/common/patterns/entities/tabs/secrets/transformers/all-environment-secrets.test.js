@@ -1,4 +1,4 @@
-import { allEnvironmentSecrets } from '~/src/server/common/tabs/secrets/transformers/all-environment-secrets.js'
+import { allEnvironmentSecrets } from '~/src/server/common/patterns/entities/tabs/secrets/transformers/all-environment-secrets.js'
 import { allEnvironmentSecretsFixture } from '~/src/__fixtures__/secrets/all-environment-secrets.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'

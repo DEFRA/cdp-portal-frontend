@@ -3,15 +3,16 @@ import omit from 'lodash/omit.js'
 
 import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
-import { secretPayloadValidation } from '~/src/server/common/tabs/secrets/schema/secret-payload-validation.js'
+import { secretPayloadValidation } from '~/src/server/common/patterns/entities/tabs/secrets/schema/secret-payload-validation.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
-function updateSecretController(serviceOrTestSuite) {
+function createSecretController(serviceOrTestSuite) {
   return {
     options: {
-      id: `post:${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}/update`,
+      id: `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}/create`,
       validate: {
         params: serviceParamsValidation,
         failAction: () => Boom.boomify(Boom.badRequest())
@@ -28,10 +29,12 @@ function updateSecretController(serviceOrTestSuite) {
       const button = payload?.button
 
       const redirectUrl = request.routeLookup(
-        `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}/update`,
+        `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}`,
         {
-          params: { serviceId, environment },
-          query: { secretKey }
+          params: {
+            serviceId,
+            environment
+          }
         }
       )
 
@@ -43,10 +46,15 @@ function updateSecretController(serviceOrTestSuite) {
         button
       }
 
+      const secrets = await fetchSecrets(environment, serviceId, request.logger)
+
       const validationResult = secretPayloadValidation(
         button,
-        request.auth.credentials?.scope
-      ).validate(sanitisedPayload, { abortEarly: false })
+        request.auth.credentials?.scope,
+        secrets?.keys
+      ).validate(sanitisedPayload, {
+        abortEarly: false
+      })
 
       if (validationResult?.error) {
         const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -59,27 +67,19 @@ function updateSecretController(serviceOrTestSuite) {
         const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
 
         try {
-          await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
-            method: 'post',
-            payload: omit(sanitisedPayload, ['environment', 'button'])
-          })
+          const { payload: createSecretPayload } =
+            await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
+              method: 'post',
+              payload: omit(sanitisedPayload, ['environment', 'button'])
+            })
 
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
-            text: 'Secret being created', // TODO should have this in self service ops?
+            text: createSecretPayload.message,
             type: 'success'
           })
-
-          return h.redirect(
-            request.routeLookup(
-              `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}`,
-              {
-                params: { serviceId, environment }
-              }
-            )
-          )
         } catch (error) {
-          request.logger.error({ error }, 'Update secret call failed')
+          request.logger.error({ error }, 'Create secret call failed')
           request.yar.flash(sessionNames.validationFailure, {
             formValues: omit(sanitisedPayload, ['button'])
           })
@@ -94,4 +94,4 @@ function updateSecretController(serviceOrTestSuite) {
   }
 }
 
-export { updateSecretController }
+export { createSecretController }

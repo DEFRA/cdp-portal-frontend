@@ -1,5 +1,5 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { buildTab } from '~/src/server/common/tabs/helpers/build-tab.js'
+import { buildTab } from '~/src/server/common/patterns/entities/tabs/helpers/build-tab.js'
 
 /**
  * Provides tabs for the service view based on user authentication.

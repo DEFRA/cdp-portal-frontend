@@ -3,7 +3,7 @@ import startCase from 'lodash/startCase.js'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
-import { environmentSecrets } from '~/src/server/common/tabs/secrets/transformers/environment-secrets.js'
+import { environmentSecrets } from '~/src/server/common/patterns/entities/tabs/secrets/transformers/environment-secrets.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
@@ -33,7 +33,7 @@ export function environmentSecretsController(serviceOrTestSuite) {
         exceptionMessage
       } = environmentSecrets(secrets)
 
-      return h.view('common/tabs/secrets/views/environment', {
+      return h.view('common/patterns/entities/tabs/secrets/views/environment', {
         pageTitle: `${serviceName} - Secrets - ${formattedEnvironment}`,
         service,
         teamId,
