@@ -69,6 +69,20 @@ class AutocompleteAdvanced extends Autocomplete {
     return $li
   }
 
+  highlightHint(hint, textValue) {
+    const fragment = document.createElement('div')
+    fragment.innerHTML = hint
+
+    Array.from(fragment.children).forEach((child) => {
+      child.innerHTML = child.innerHTML.replace(
+        new RegExp(textValue, 'gi'),
+        `<strong>$&</strong>`
+      )
+    })
+
+    return fragment.outerHTML
+  }
+
   manageTextHighlight($suggestion, textValue = null) {
     if (textValue) {
       $suggestion.firstElementChild.innerHTML =
@@ -78,10 +92,7 @@ class AutocompleteAdvanced extends Autocomplete {
         )
 
       $suggestion.firstElementChild.nextElementSibling.innerHTML =
-        $suggestion.dataset?.hint.replace(
-          new RegExp(textValue, 'gi'),
-          `<strong>$&</strong>`
-        )
+        this.highlightHint($suggestion.dataset?.hint, textValue)
     } else {
       $suggestion.firstElementChild.innerHTML = $suggestion.dataset?.text
       $suggestion.firstElementChild.nextElementSibling.innerHTML =
