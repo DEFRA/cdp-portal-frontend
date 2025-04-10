@@ -1,3 +1,5 @@
+import escape from 'lodash/escape.js'
+
 import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
 
 /**
@@ -75,7 +77,7 @@ class AutocompleteAdvanced extends Autocomplete {
 
     Array.from(fragment.children).forEach((child) => {
       child.innerHTML = child.innerHTML.replace(
-        new RegExp(textValue, 'gi'),
+        new RegExp(escape(textValue), 'gi'),
         `<strong>$&</strong>`
       )
     })
@@ -87,7 +89,7 @@ class AutocompleteAdvanced extends Autocomplete {
     if (textValue) {
       $suggestion.firstElementChild.innerHTML =
         $suggestion.dataset?.text.replace(
-          new RegExp(textValue, 'gi'),
+          new RegExp(escape(textValue), 'gi'),
           `<strong>$&</strong>`
         )
 
