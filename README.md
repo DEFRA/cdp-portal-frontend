@@ -44,7 +44,7 @@ Please install [Node.js](http://nodejs.org/) `>= v22` and [npm](https://nodejs.o
 > [!TIP]
 > To install Node.js and npm Use Node Version Manager [nvm](https://github.com/creationix/nvm)
 
-To use the correct version of Node.js for this application via nvm:
+To use the correct version of Node.js for this application, via nvm:
 
 ```bash
 cd cdp-portal-frontend
