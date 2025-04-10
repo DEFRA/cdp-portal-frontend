@@ -1,7 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { findAllProxyRules } from '~/src/server/common/tabs/proxy/helpers/find-proxy-rules.js'
 import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
@@ -11,7 +10,6 @@ export function allProxyController(serviceOrTestSuite) {
   return {
     options: {
       id: `${pluralise(serviceOrTestSuite)}/{serviceId}/proxy`,
-      pre: [preProvideService],
       validate: {
         params: Joi.object({
           serviceId: Joi.string().required()
@@ -20,7 +18,7 @@ export function allProxyController(serviceOrTestSuite) {
       }
     },
     handler: async (request, h) => {
-      const service = request.pre.service
+      const service = request.app.service
       const serviceName = service.serviceName
       const environments = getEnvironments(request.auth.credentials?.scope)
       const proxyRulesByEnvironment = await findAllProxyRules(
