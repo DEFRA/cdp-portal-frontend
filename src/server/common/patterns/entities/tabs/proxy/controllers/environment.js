@@ -3,7 +3,7 @@ import startCase from 'lodash/startCase.js'
 
 import { formatText, pluralise } from '~/src/config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
-import { findProxyRulesForEnvironment } from '~/src/server/common/tabs/proxy/helpers/find-proxy-rules.js'
+import { findProxyRulesForEnvironment } from '~/src/server/common/patterns/entities/tabs/proxy/helpers/find-proxy-rules.js'
 
 export function environmentProxyController(serviceOrTestSuite) {
   return {
@@ -24,7 +24,7 @@ export function environmentProxyController(serviceOrTestSuite) {
         environment
       )
 
-      return h.view('common/tabs/proxy/views/environment', {
+      return h.view('common/patterns/entities/tabs/proxy/views/environment', {
         pageTitle: `${serviceName} - Proxy - ${formattedEnvironment}`,
         service,
         environment,

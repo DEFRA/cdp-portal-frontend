@@ -34,7 +34,7 @@ function updateSecretFormController(serviceOrTestSuite) {
       const secretKey = request.query?.secretKey
       const formattedEnvironment = formatText(environment)
 
-      return h.view('common/tabs/secrets/views/update-form', {
+      return h.view('common/patterns/entities/tabs/secrets/views/update-form', {
         pageTitle: `${serviceName} - Update secret`,
         heading: serviceName,
         service,

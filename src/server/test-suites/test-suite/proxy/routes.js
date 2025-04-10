@@ -1,10 +1,10 @@
-import { allProxyController } from '~/src/server/common/tabs/proxy/controllers/all.js'
-import { environmentProxyController } from '~/src/server/common/tabs/proxy/controllers/environment.js'
+import { allProxyController } from '~/src/server/common/patterns/entities/tabs/proxy/controllers/all.js'
+import { environmentProxyController } from '~/src/server/common/patterns/entities/tabs/proxy/controllers/environment.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { commonTestSuiteExtensions } from '~/src/server/common/helpers/extensions.js'
 import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
-import { TEST_SUITE } from '~/src/server/common/tabs/constants.js'
+import { TEST_SUITE } from '~/src/server/common/patterns/entities/tabs/constants.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
