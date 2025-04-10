@@ -159,6 +159,11 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
+          label: 'Automations',
+          url: `/services/${mockServiceName}/automations`
+        },
+        {
+          isActive: false,
           label: 'Buckets',
           url: `/services/${mockServiceName}/buckets`
         },
@@ -178,7 +183,7 @@ describe('#provideServiceTabs', () => {
           url: `/services/${mockServiceName}/terminal`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(6)
     })
 
     test('Should not show admin only tabs', () => {
@@ -199,6 +204,11 @@ describe('#provideServiceTabs', () => {
           isActive: true,
           label: 'About',
           url: `/services/${mockServiceName}`
+        },
+        {
+          isActive: false,
+          label: 'Automations',
+          url: `/services/${mockServiceName}/automations`
         },
         {
           isActive: false,
