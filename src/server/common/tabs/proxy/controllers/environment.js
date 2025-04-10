@@ -1,16 +1,14 @@
 import Boom from '@hapi/boom'
+import startCase from 'lodash/startCase.js'
 
 import { formatText, pluralise } from '~/src/config/nunjucks/filters/filters.js'
-import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 import { findProxyRulesForEnvironment } from '~/src/server/common/tabs/proxy/helpers/find-proxy-rules.js'
-import startCase from 'lodash/startCase.js'
 
 export function environmentProxyController(serviceOrTestSuite) {
   return {
     options: {
       id: `${pluralise(serviceOrTestSuite)}/{serviceId}/proxy/{environment}`,
-      pre: [preProvideService],
       validate: {
         params: serviceParamsValidation,
         failAction: () => Boom.boomify(Boom.notFound())
@@ -18,7 +16,7 @@ export function environmentProxyController(serviceOrTestSuite) {
     },
     handler: async (request, h) => {
       const environment = request.params.environment
-      const service = request.pre.service
+      const service = request.app.service
       const serviceName = service.serviceName
       const formattedEnvironment = formatText(environment)
       const proxyRules = await findProxyRulesForEnvironment(

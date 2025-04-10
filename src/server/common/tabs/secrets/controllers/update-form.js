@@ -1,11 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
+import startCase from 'lodash/startCase.js'
 
 import { config } from '~/src/config/config.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
-import startCase from 'lodash/startCase.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
 const immutableKeys = config.get('platformGlobalSecretKeys')
@@ -14,7 +13,6 @@ function updateSecretFormController(serviceOrTestSuite) {
   return {
     options: {
       id: `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}/update`,
-      pre: [preProvideService],
       validate: {
         params: serviceParamsValidation,
         query: Joi.object({
@@ -28,7 +26,7 @@ function updateSecretFormController(serviceOrTestSuite) {
       }
     },
     handler: (request, h) => {
-      const service = request.pre.service
+      const service = request.app.service
       const team = service?.teams?.at(0)
       const teamId = team?.teamId
       const serviceName = service.serviceName

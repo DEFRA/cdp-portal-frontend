@@ -2,14 +2,12 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { fetchBuckets } from '~/src/server/common/helpers/fetch/fetch-buckets.js'
-import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
 import { environmentBuckets } from '~/src/server/services/service/buckets/transformers/environment-buckets.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 
 const environmentBucketsController = {
   options: {
     id: 'services/{serviceId}/buckets/{environment}',
-    pre: [preProvideService],
     validate: {
       params: serviceParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
@@ -17,7 +15,7 @@ const environmentBucketsController = {
   },
   handler: async (request, h) => {
     const environment = request.params.environment
-    const service = request.pre.service
+    const service = request.app.service
     const serviceName = service.serviceName
     const team = service?.teams?.at(0)
     const teamId = team?.teamId
