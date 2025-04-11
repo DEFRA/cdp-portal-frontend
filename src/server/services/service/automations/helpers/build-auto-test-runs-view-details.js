@@ -38,17 +38,26 @@ function buildOptions(testSuites, testSuiteRepos) {
 }
 
 async function buildAutoTestRunsViewDetails({
-  servicesTeamId,
+  serviceTeams,
   serviceId,
   environments
 }) {
-  const [autoTestRunDetails, testSuites = [], teamTestRepositories = []] =
-    await Promise.all([
-      getAutoTestRunDetails(serviceId),
-      fetchTestSuites(servicesTeamId),
-      fetchTeamTestRepositories(servicesTeamId)
-    ])
-  const testSuiteRepos = teamTestRepositories?.repositories ?? []
+  const serviceTeamIds = serviceTeams.map((team) => team.teamId)
+  const promisesTestSuites = serviceTeamIds.map(fetchTestSuites)
+  const promisesTestRepositories = serviceTeamIds.map(fetchTeamTestRepositories)
+
+  const [
+    autoTestRunDetails,
+    testSuitesResponse = [],
+    testSuiteReposResponse = []
+  ] = await Promise.all([
+    getAutoTestRunDetails(serviceId),
+    Promise.all(promisesTestSuites),
+    Promise.all(promisesTestRepositories)
+  ])
+
+  const testSuites = testSuitesResponse.flat()
+  const testSuiteRepos = testSuiteReposResponse.flat()
 
   const rowBuilder = testSuiteToEntityRow({
     serviceName: serviceId,

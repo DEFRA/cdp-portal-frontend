@@ -1,10 +1,12 @@
 import startCase from 'lodash/startCase.js'
+
 import { formatDistance, parseISO } from 'date-fns'
 
 import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/provide-test-run-status-classname.js'
 import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.js'
 import { getTestStatusIcon } from '~/src/server/test-suites/helpers/get-test-status-icon.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import {
   taskStatus,
   testStatus
@@ -37,6 +39,13 @@ function testSuiteRunResults(testRun, canRun) {
     testRun.created,
     testRun.taskLastUpdated
   ].every(Boolean)
+
+  const buildTriggeredByLink = (runInfo) => `
+    Deployment of ${buildLink(`/deployments/${runInfo.environment}/${runInfo.deployment.deploymentId}`, `${runInfo.deployment.service} v${runInfo.deployment.version}`)}`
+
+  const user = testRun.deployment?.deploymentId
+    ? buildTriggeredByLink(testRun)
+    : testRun.user.displayName
 
   return {
     cells: [
@@ -101,10 +110,7 @@ function testSuiteRunResults(testRun, canRun) {
       },
       {
         headers: 'user',
-        entity: {
-          kind: 'text',
-          value: testRun.user.displayName
-        }
+        html: user
       },
       {
         headers: 'duration',

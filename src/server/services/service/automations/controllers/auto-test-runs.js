@@ -23,7 +23,7 @@ const autoTestRunsController = {
     const authedUser = request.pre.authedUser
     const serviceId = request.params.serviceId
     const service = request.app.service
-    const servicesTeamId = service?.teams?.at(0)?.teamId
+    const serviceTeams = service?.teams
 
     if (service === null) {
       return Boom.notFound()
@@ -39,7 +39,7 @@ const autoTestRunsController = {
     )
 
     const { testSuiteOptions, rows } = await buildAutoTestRunsViewDetails({
-      servicesTeamId,
+      serviceTeams,
       serviceId,
       environments
     })

@@ -69,11 +69,8 @@ describe('#transformTestSuiteRunResults', () => {
               isCentered: true
             },
             {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'user'
+              headers: 'user',
+              html: 'B. A. Baracus'
             },
             {
               entity: {
@@ -162,11 +159,8 @@ describe('#transformTestSuiteRunResults', () => {
               isCentered: true
             },
             {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'user'
+              headers: 'user',
+              html: 'B. A. Baracus'
             },
             {
               entity: {
@@ -264,11 +258,8 @@ describe('#transformTestSuiteRunResults', () => {
               isCentered: true
             },
             {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'user'
+              headers: 'user',
+              html: 'B. A. Baracus'
             },
             {
               entity: {
@@ -357,11 +348,8 @@ describe('#transformTestSuiteRunResults', () => {
               isCentered: true
             },
             {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'user'
+              headers: 'user',
+              html: 'B. A. Baracus'
             },
             {
               entity: {
