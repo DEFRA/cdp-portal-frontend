@@ -2,7 +2,6 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
-import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
 import { terminalEnvironments } from '~/src/server/services/service/terminal/helpers/can-launch-terminal.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 
@@ -22,7 +21,6 @@ export async function getTerminalEnvs(serviceName, userScopes) {
 const terminalController = {
   options: {
     id: 'services/{serviceId}/terminal',
-    pre: [preProvideService],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -32,7 +30,7 @@ const terminalController = {
   },
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
-    const service = request.pre.service
+    const service = request.app.service
     const terminalEnvs = await getTerminalEnvs(
       service.serviceName,
       request.auth.credentials?.scope

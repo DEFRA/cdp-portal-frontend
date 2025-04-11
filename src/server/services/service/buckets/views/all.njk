@@ -71,16 +71,13 @@
     <div class="govuk-grid-column-full">
 
       {% call appSplitPane() %}
-        <section class="govuk-!-margin-top-2 govuk-!-margin-left-2 govuk-!-padding-left-2 govuk-!-padding-right-2">
+        <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Buckets</h2>
           <p>
             View buckets for {{ service.serviceName }} in all CDP environments
           </p>
 
-          {{ appInfo({
-            classes: "govuk-!-margin-bottom-4",
-            html: bucketNamesInfoHtml
-          }) }}
+          {{ appInfo({ html: bucketNamesInfoHtml }) }}
 
           <div class="app-grid app-grid--fluid">
 
@@ -90,9 +87,9 @@
                 {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
                   <div class="app-row govuk-!-margin-bottom-2">
                     <div class="app-row__item-flex-four">
-                      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
                         {{ detail.environment | title }}
-                      </h2>
+                      </h3>
                     </div>
                   </div>
 

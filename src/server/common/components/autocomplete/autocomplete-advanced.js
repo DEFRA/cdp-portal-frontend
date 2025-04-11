@@ -1,3 +1,5 @@
+import escape from 'lodash/escape.js'
+
 import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
 
 /**
@@ -21,6 +23,12 @@ class AutocompleteAdvanced extends Autocomplete {
     const $li = document.createElement('li')
 
     $li.classList.add('app-autocomplete__suggestion')
+
+    if (this.suggestionClasses) {
+      const suggestionClasses = this.suggestionClasses?.split(' ') ?? []
+      $li.classList.add(...suggestionClasses)
+    }
+
     $li.dataset.isMatch = 'false'
     $li.setAttribute('role', 'option')
     $li.setAttribute('tabindex', '-1')
@@ -63,19 +71,30 @@ class AutocompleteAdvanced extends Autocomplete {
     return $li
   }
 
+  highlightHint(hint, textValue) {
+    const fragment = document.createElement('div')
+    fragment.innerHTML = hint
+
+    Array.from(fragment.children).forEach((child) => {
+      child.innerHTML = child.innerHTML.replace(
+        new RegExp(escape(textValue), 'gi'),
+        `<strong>$&</strong>`
+      )
+    })
+
+    return fragment.outerHTML
+  }
+
   manageTextHighlight($suggestion, textValue = null) {
     if (textValue) {
       $suggestion.firstElementChild.innerHTML =
         $suggestion.dataset?.text.replace(
-          new RegExp(textValue, 'gi'),
+          new RegExp(escape(textValue), 'gi'),
           `<strong>$&</strong>`
         )
 
       $suggestion.firstElementChild.nextElementSibling.innerHTML =
-        $suggestion.dataset?.hint.replace(
-          new RegExp(textValue, 'gi'),
-          `<strong>$&</strong>`
-        )
+        this.highlightHint($suggestion.dataset?.hint, textValue)
     } else {
       $suggestion.firstElementChild.innerHTML = $suggestion.dataset?.text
       $suggestion.firstElementChild.nextElementSibling.innerHTML =

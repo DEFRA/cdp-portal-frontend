@@ -17,7 +17,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 const govukFrontendPath = path.dirname(
   require.resolve('govuk-frontend/package.json')
 )
-
+const clientPath = path.resolve(dirname, 'src/client')
 const ruleTypeAssetResource = 'asset/resource'
 
 /**
@@ -25,7 +25,7 @@ const ruleTypeAssetResource = 'asset/resource'
  */
 // TODO split this work in dev and prod configs
 const config = {
-  context: path.resolve(dirname, 'src/client'),
+  context: clientPath,
   entry: {
     application: {
       import: ['./javascripts/application.js', './stylesheets/application.scss']
@@ -195,6 +195,10 @@ const config = {
         {
           from: path.join(govukFrontendPath, 'dist/govuk/assets'),
           to: 'assets'
+        },
+        {
+          from: path.join(clientPath, 'images'),
+          to: 'assets/images'
         }
       ]
     })

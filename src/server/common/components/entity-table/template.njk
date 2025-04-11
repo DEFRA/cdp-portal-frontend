@@ -10,7 +10,8 @@
       {% for header in params.headers %}
         {% set headerClasses = [
           "app-entity-table__heading",
-          header.classes if header.classes
+          header.classes if header.classes,
+          "app-entity-table__heading--vertical-text" if header.verticalText
         ] | join(" ") | trim %}
 
         <th id="{{ header.id }}" scope="col"
@@ -41,7 +42,7 @@
           ] | join(" ") | trim %}
 
           <td headers="{{ cell.headers }}"
-              class="{{ cellClasses }}"
+              class="{{- cellClasses -}}"
               data-label="{{ cell.headers | formatText }}">
             {% if cell.entity %}
               {{ appEntity(cell.entity | assign({}, {index: loop.index}, cell.entity)) }}

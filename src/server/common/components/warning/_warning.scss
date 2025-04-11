@@ -1,29 +1,32 @@
 @use "govuk-frontend" as *;
 @use "variables/border-radius" as *;
 @use "variables/colours" as *;
+@use "helpers/reading-width" as *;
 
 .app-warning {
-  display: flex;
-  align-items: flex-start;
-  border-left: 4px solid govuk-colour("red");
-  margin: govuk-spacing(2) govuk-spacing(0);
-  padding: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) govuk-spacing(1);
+  display: inline-flex;
+  border-left: 6px solid govuk-colour("red");
+  margin: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) 0;
+  padding: govuk-spacing(4) govuk-spacing(4) govuk-spacing(4) govuk-spacing(2);
   background-color: $app-light-grey;
   border-radius: $app-border-radius-right;
-}
+  @include app-section-width;
 
-.app-warning--inverse {
-  background-color: govuk-colour("white");
-}
 
-.app-warning-icon {
-  margin-right: govuk-spacing(1);
-  fill: govuk-colour("red");
-}
+  .app-warning--inverse {
+    background-color: govuk-colour("white");
+  }
 
-.app-warning__content {
-  flex: 8;
-  @include govuk-font(19);
-  margin-top: govuk-spacing(1);
-  color: govuk-colour("black");
+  .app-warning-icon {
+    align-self: start;
+    margin-right: govuk-spacing(2);
+    fill: govuk-colour("red");
+  }
+
+  .app-warning__content {
+    flex: 8;
+    align-self: center;
+    @include govuk-font(19);
+    color: govuk-colour("black");
+  }
 }

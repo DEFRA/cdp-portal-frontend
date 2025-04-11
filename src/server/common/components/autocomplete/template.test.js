@@ -175,6 +175,7 @@ describe('Autocomplete Component', () => {
       targetLoader: 'deploy-version-loader'
     }
     const publishTo = 'autocompleteUpdate-version'
+    const suggestionClasses = 'app-autocomplete__suggestion--custom'
 
     beforeEach(() => {
       ;({ $autocomplete, $input } = renderAutoComplete({
@@ -184,7 +185,8 @@ describe('Autocomplete Component', () => {
         typeahead: true,
         dataFetcher,
         siblingDataFetcher,
-        publishTo
+        publishTo,
+        suggestionClasses
       }))
     })
 
@@ -223,6 +225,10 @@ describe('Autocomplete Component', () => {
 
     test('Should render with expected publish to pub-sub attribute', () => {
       expect($input.data('publish-to')).toBe(publishTo)
+    })
+
+    test('Should render with expected suggestionClasses attribute', () => {
+      expect($input.data('suggestion-classes')).toBe(suggestionClasses)
     })
   })
 

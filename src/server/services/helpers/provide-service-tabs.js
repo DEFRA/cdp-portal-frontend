@@ -1,5 +1,5 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { buildTab } from '~/src/server/common/tabs/helpers/build-tab.js'
+import { buildTab } from '~/src/server/common/patterns/entities/tabs/helpers/build-tab.js'
 
 /**
  * Provides tabs for the service view based on user authentication.
@@ -46,13 +46,9 @@ async function provideServiceTabs(request, h) {
     }
 
     if (isAdmin || isServiceOwner) {
+      buildTab(response, request, 'services', 'automations', imageName)
       buildTab(response, request, 'services', 'secrets', imageName)
       buildTab(response, request, 'services', 'terminal', imageName)
-    }
-
-    // TODO - automation currently feature flagged as admin only, switch to admin and serviceOwner once ready
-    if (isAdmin) {
-      buildTab(response, request, 'services', 'automation', imageName)
     }
 
     response.source.context.tabDetails.tabs.sort(sortBy('label', 'asc'))

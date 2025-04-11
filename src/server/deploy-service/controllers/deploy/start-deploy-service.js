@@ -3,6 +3,9 @@ import qs from 'qs'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const startDeployServiceController = {
+  options: {
+    id: 'deploy-service'
+  },
   handler: (request, h) => {
     const query = request.yar.flash(sessionNames.query)?.at(0)
 

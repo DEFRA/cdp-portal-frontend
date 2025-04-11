@@ -8,7 +8,11 @@
 }
 
 .app-section--wide {
-  max-width: 64em;
+  @include app-section-width;
+}
+
+.app-section--extra-wide {
+  @include app-section-wide-width;
 }
 
 .app-section-highlight {

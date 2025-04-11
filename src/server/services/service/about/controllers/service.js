@@ -1,8 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { preProvideService } from '~/src/server/services/helpers/pre/pre-provide-service.js'
-import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import { provideVanityUrls } from '~/src/server/services/service/about/transformers/vanity-urls.js'
 import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
@@ -24,7 +22,6 @@ const availableEnvironments = ({ scopes, tenantServiceInfo }) => {
 const serviceController = {
   options: {
     id: 'services/{serviceId}',
-    pre: [[preProvideService], provideIsServiceOwner],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -33,7 +30,7 @@ const serviceController = {
     }
   },
   handler: async (request, h) => {
-    const service = request.pre.service
+    const service = request.app.service
     const serviceName = service.serviceName
     const isServiceOwner = request.pre.isServiceOwner
 
@@ -67,7 +64,7 @@ const serviceController = {
       apiGateways,
       service,
       isServiceOwner,
-      availableServiceEnvironments,
+      availableServiceEnvironments, // TODO something has changed here in my local
       runningServices,
       latestPublishedImageVersions,
       breadcrumbs: [

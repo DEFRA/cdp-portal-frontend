@@ -1,0 +1,5 @@
+@use "govuk-frontend" as *;
+
+.app-warning-icon {
+  fill: govuk-colour("red");
+}

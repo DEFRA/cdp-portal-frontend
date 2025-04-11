@@ -1,0 +1,156 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "icons/pending-icon/macro.njk" import appPendingIcon %}
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "info/macro.njk" import appInfo %}
+{% from "loader/macro.njk" import appLoader %}
+{% from "tag/macro.njk" import appTag %}
+{% from "tool-tip/macro.njk" import appToolTip %}
+
+{% set setupProxyHtml %}
+  To set up proxy, contact the Platform team via Slack
+  <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+     rel="noopener noreferrer">#cdp-support</a>
+{% endset %}
+
+{% set modifyProxyRulesHtml %}
+  To modify proxy rules,
+  follow the <a class="app-link app-link--underline app-link--text-colour"
+                href="https://portal.cdp-int.defra.cloud/documentation/how-to/proxy.md" target="_blank"
+                rel="noopener noreferrer">proxy documentation</a>.
+{% endset %}
+
+{% set addProxyRulesHtml %}
+  To add proxy rules,
+  follow the <a class="app-link app-link--underline app-link--text-colour"
+                href="https://portal.cdp-int.defra.cloud/documentation/how-to/proxy.md" target="_blank"
+                rel="noopener noreferrer">proxy documentation</a>.
+{% endset %}
+
+{% set serviceProxyTableRows = [] %}
+{% for domain in allowedDomains %}
+  {{ serviceProxyTableRows.push([
+    { html: appTag({
+      text: domain,
+      classes: "govuk-tag--green",
+      attributes: {
+        "aria-label": "Service proxy rule",
+        "data-testid": "app-secret-cell-" + domain.toLowerCase()
+      }
+    }) }
+  ]) }}
+{% endfor %}
+
+{% set platformProxyTableRows = [] %}
+{% for domain in defaultDomains %}
+  {{ platformProxyTableRows.push([
+    { html: appTag({
+      text: domain,
+      classes: "govuk-tag--grey",
+      attributes: {
+        "aria-label": "Platform proxy rule"
+      }
+    }), classes: "govuk-!-width-one-quarter" }
+  ]) }}
+{% endfor %}
+
+{% block beforeTabContent %}
+
+  {{ appPageHeading({
+    caption: "Proxy",
+    text: service.serviceName
+  }) }}
+
+{% endblock %}
+
+{% block tabContent %}
+  {% call appSplitPane() %}
+    <div class="govuk-grid-row">
+      <section class="govuk-grid-column-two-thirds-from-desktop-big">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+            data-testid="app-environment-header">{{ environment | title }} proxy</h2>
+        <div class="app-section app-section--wide">
+          {% if isProxySetup %}
+            <p class="govuk-!-margin-bottom-4">
+              View proxy rules for {{ service.serviceName }} in {{ environment | title }}
+            </p>
+
+            {% block xhrContent %}
+              <article>
+                <div class="app-row">
+                  <div class="app-row__item-flex-two">
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service proxy rules</h2>
+                  </div>
+                </div>
+
+                <p>
+                  Service specific proxy rules for your {{ serviceOrTestSuite }}
+                </p>
+
+                {% if allowedDomains | length %}
+                  {{ appInfo({ html: modifyProxyRulesHtml }) }}
+                {% else %}
+                  {{ appInfo({ html: addProxyRulesHtml }) }}
+                {% endif %}
+
+                {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
+                  {% if allowedDomains | length %}
+                    {{ govukTable({
+                      classes: "app-table govuk-!-margin-bottom-2",
+                      head: [
+                        { text: "Domain" }
+                      ],
+                      rows: serviceProxyTableRows
+                    }) }}
+
+                  {% else %}
+                    <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                      No service proxy rules currently set
+                    </p>
+                  {% endif %}
+                {% endcall %}
+
+              </article>
+            {% endblock %}
+
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Platform proxy rules</h2>
+            <p>
+              Platform level proxy rules for your {{ serviceOrTestSuite }}
+            </p>
+
+            {% if defaultDomains | length %}
+              {{ appInfo({
+                classes: "govuk-!-margin-bottom-4",
+                text: "These proxy rules are set by the platform. They cannot be changed."
+              }) }}
+            {% endif %}
+
+            {% call appPanel({ classes: "govuk-!-margin-bottom-4" }) %}
+              {% if defaultDomains | length %}
+                {{ govukTable({
+                  classes: "app-table govuk-!-margin-bottom-2",
+                  head: [
+                    { text: "Domain", classes: "govuk-!-width-one-quarter" }
+                  ],
+                  rows: platformProxyTableRows
+                }) }}
+
+              {% else %}
+                <p class="govuk-!-margin-top-4">
+                  No platform proxy rules currently set
+                </p>
+              {% endif %}
+            {% endcall %}
+
+          {% else %}
+            <p>
+              Proxy rules not set up for this environment
+            </p>
+            {{ appInfo({ html: setupProxyHtml }) }}
+
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  {% endcall %}
+{% endblock %}

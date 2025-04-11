@@ -5,7 +5,7 @@
 {% endset %}
 
 {% block content %}
-  {% call appSplitPane() %}
+  {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
       caption: "Add Member to Team",

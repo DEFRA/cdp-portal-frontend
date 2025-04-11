@@ -1,0 +1,158 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "info/macro.njk" import appInfo %}
+{% from "panel/macro.njk" import appPanel %}
+{% from "tag/macro.njk" import appTag %}
+{% from "tool-tip/macro.njk" import appToolTip %}
+
+{# Construct table rows, tables and html contents #}
+{% set iconHtml %}
+  {% call appToolTip({
+    text: "Proxy rule available",
+    classes: "app-tool-tip--small"
+  }) %}
+    {{ appTickIcon({ classes: "app-icon--tiny", description: "Proxy available" }) }}
+  {% endcall %}
+{% endset %}
+
+{% set setupProxyRulesHtml %}
+  To set up proxy rules, contact the Platform team via Slack
+  <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+     rel="noopener noreferrer">#cdp-support</a>
+{% endset %}
+
+{% set explainProxyRulesHtml %}
+  For more information,
+  and how to modify the rules, follow the <a class="app-link app-link--underline app-link--text-colour"
+                                             href="https://portal.cdp-int.defra.cloud/documentation/how-to/proxy.md"
+                                             target="_blank"
+                                             rel="noopener noreferrer">proxy documentation</a>
+{% endset %}
+
+{% set allEnvironmentsTables = [] %}
+{% for proxy in proxyRulesByEnvironment %}
+  {% set tableRows = [] %}
+  {% for domain in proxy.rules.allowedDomains %}
+    {% set row = [
+      { html: appTag({
+        text: domain,
+        classes: "govuk-tag--green",
+        attributes: {
+          "aria-label": "Service proxy rule"
+        }
+      }) }
+    ] %}
+    {% set tableRows = tableRows | union([row]) %}
+  {% endfor %}
+
+  {% for domain in proxy.rules.defaultDomains %}
+    {% set row = [
+      { html: appTag({
+        text: domain,
+        classes: "govuk-tag--grey",
+        attributes: {
+          "aria-label": "Platform proxy rule"
+        }
+      }) }
+    ] %}
+    {% set tableRows = tableRows | union([row]) %}
+  {% endfor %}
+
+  {% set table %}
+    {% if tableRows | length %}
+      {{ govukTable({
+        classes: "app-table govuk-!-margin-top-3 govuk-!-margin-bottom-2",
+        head: [
+          { text: "Domain" }
+        ],
+        rows: tableRows
+      }) }}
+      {% elif not proxy.rules.isProxySetup %}
+      <p>
+        Proxy rules not set up for this environment
+      </p>
+      {{ appInfo({ html: setupProxyRulesHtml, isInverse: true }) }}
+    {% else %}
+      <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+        No proxy rules currently set
+      </p>
+    {% endif %}
+  {% endset %}
+
+  {% set allEnvironmentsTables = allEnvironmentsTables | union([{
+    environment: proxy.environment, table:table,
+    isProxySetup: proxy.rules.isProxySetup, hasProxyRule: tableRows | length > 0
+  }]) %}
+{% endfor %}
+
+{% block beforeTabContent %}
+
+  {{ appPageHeading({
+    caption: "Proxy",
+    text: service.serviceName
+  }) }}
+
+{% endblock %}
+
+{% set pluralServiceOrTest = serviceOrTestSuite | pluralise %}
+
+{% block tabContent %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {% call appSplitPane() %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy</h2>
+          <p>
+            View proxy rules for {{ service.serviceName }} in all CDP environments.
+            These are rules for allowing outbound traffic from the {{ serviceOrTestSuite }} to anything outside of CDP.
+          </p>
+
+          {{ appInfo({ html: explainProxyRulesHtml }) }}
+
+          <div class="app-grid app-grid--fluid">
+
+            {% for envProxy in allEnvironmentsTables %}
+              <article>
+                {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
+                  <div class="app-row govuk-!-margin-bottom-2">
+                    <div class="app-row__item-flex-four">
+                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
+                        {{ envProxy.environment | title }}
+                      </h3>
+                    </div>
+
+                    {% if envProxy.isProxySetup %}
+                      <div class="app-row__item-flex-two app-!-layout-right-aligned">
+                        <p class="govuk-!-margin-bottom-0">
+                          <a
+                            href="{{ routeLookup(pluralServiceOrTest + '/{serviceId}/proxy/{environment}', {
+                              params: {
+                                serviceId: service.serviceName,
+                                environment: envProxy.environment
+                              }
+                            }) }}" class="app-link app-link--underline">
+                            View
+                          </a>
+                        </p>
+                      </div>
+                    {% endif %}
+                  </div>
+
+                  {{ envProxy.table | safe }}
+                {% endcall %}
+              </article>
+
+            {% endfor %}
+          </div>
+        </section>
+      {% endcall %}
+
+    </div>
+  </div>
+
+{% endblock %}

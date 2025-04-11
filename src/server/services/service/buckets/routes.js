@@ -15,7 +15,9 @@ const serviceBuckets = {
         ...commonServiceExtensions,
         {
           type: 'onPostHandler',
+          // TODO this is a very long name - can it be improved?
           method: provideSubNavForServiceOrTestSuite('buckets', 'service'),
+
           options: {
             sandbox: 'plugin'
           }

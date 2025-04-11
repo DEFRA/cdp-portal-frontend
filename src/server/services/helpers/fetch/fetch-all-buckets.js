@@ -12,8 +12,14 @@ async function fetchAllBuckets(serviceName) {
     const { payload } = await fetchJson(endpoint)
     return payload
   } catch (error) {
-    logger.debug(error, 'Buckets error')
-    return null
+    // We are catching here because a 404 because 404 is an expected error
+    const statusCode = error.output.statusCode
+
+    if (statusCode === 404) {
+      logger.info('Tenant Bucket not found')
+    } else {
+      logger.error(error)
+    }
   }
 }
 

@@ -27,9 +27,10 @@
     {{ params.label.text }}
   </label>
 
-  {% if params.hint.text %}
+  {% if params.hint.text or params.hint.html %}
     {{ govukHint({
-      text: params.hint.text,
+      text: params.hint.text if params.hint.text,
+      html: params.hint.html if params.hint.html,
       classes: "app-hint",
       attributes: {
         "data-testid": "app-autocomplete-hint"
@@ -69,7 +70,8 @@
     "data-sibling-data-fetcher-target-loader": params.siblingDataFetcher.targetLoader,
     "data-publish-to": params.publishTo,
     "data-typeahead": true if params.typeahead == true,
-    "data-testid": "app-progressive-input"
+    "data-testid": "app-progressive-input",
+    "data-suggestion-classes": params.suggestionClasses
   } | pickBy %}
 
   <div class="{{ classes }}"

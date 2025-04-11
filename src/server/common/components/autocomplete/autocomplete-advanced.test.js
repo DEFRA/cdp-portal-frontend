@@ -743,4 +743,50 @@ describe('#autocomplete-advanced', () => {
       })
     })
   })
+
+  describe('When suggestion styles class provided', () => {
+    beforeEach(() => {
+      setupAdvancedAutoComplete({
+        label: {
+          text: 'By'
+        },
+        hint: {
+          text: 'Choose a user'
+        },
+        id: 'user',
+        name: 'user',
+        template: 'advanced',
+        suggestionClasses: 'app-autocomplete__suggestion--leading-hint',
+        noSuggestionsMessage: 'choose Image name',
+        suggestions: [
+          {
+            text: 'B. A. Baracus',
+            value: 'B. A. Baracus',
+            hint: 'Drink milk fool'
+          },
+          {
+            text: 'Arnold Schwarzenegger',
+            value: 'Arnold Schwarzenegger',
+            hint: 'Run get to the chopper'
+          }
+        ]
+      })
+    })
+
+    describe('Suggestion should have expected class extra attribute', () => {
+      beforeEach(() => {
+        enterValue(autocompleteInput, 'Baracus')
+      })
+
+      test('Extra class attribute should be as expected', () => {
+        expect(suggestionsContainer.children).toHaveLength(1)
+        expect(suggestionsContainer.children[0].textContent).toContain(
+          'Drink milk fool'
+        )
+        expect(suggestionsContainer.children[0].getAttribute('class')).toBe(
+          'app-autocomplete__suggestion app-autocomplete__suggestion--leading-hint'
+        )
+      })
+    })
+  })
 })

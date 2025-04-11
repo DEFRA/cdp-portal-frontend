@@ -45,6 +45,10 @@ $min-grid-cell-width: 100px;
     background-color: govuk-colour("white");
     border-bottom: 2px solid $app-mid-grey;
 
+    &:last-child {
+      border-bottom: none;
+    }
+
     &:hover, &:nth-child(even) {
       background-color: govuk-colour("white");
     }
@@ -159,5 +163,26 @@ $min-grid-cell-width: 100px;
   .app-entity-table__cell--owned {
     width: 20px;
     padding: 0 govuk-spacing(2);
+  }
+}
+
+@include govuk-media-query($from: desktop-huge, $until: desktop-massive) {
+  .app-entity-table__heading {
+    vertical-align: bottom;
+    text-align: left;
+    padding: govuk-spacing(1) govuk-spacing(2);
+  }
+
+  .app-entity-table__heading--vertical-text {
+    text-orientation: sideways;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    writing-mode: vertical-rl;
+    padding: govuk-spacing(2);
+    margin: 0;
+    border-bottom: none;
+    border-top: 1px solid $app-mid-grey;
+    vertical-align: top;
+    width: 4%;
   }
 }
