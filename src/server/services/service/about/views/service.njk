@@ -76,6 +76,21 @@
   {% endif %}
 {% endfor %}
 
+{% set shutteredUrls = [] %}
+{% for vanityUrl in vanityUrls %}
+  {% for url in vanityUrl.urls | selectattr("shuttered") %}
+    {{ shutteredUrls.push(url.url) }}
+    {{ shutteredUrls.push(url.url) }}
+  {% endfor %}
+{% endfor %}
+
+{% set apiGatewaydUrls = [] %}
+{% for apiGateway in apiGateways %}
+  {% for api in apiGateway.apis | selectattr("shuttered") %}
+    {{ apiGatewaydUrls.push(api.api) }}
+  {% endfor %}
+{% endfor %}
+
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Service",
@@ -85,27 +100,34 @@
 
 {% block tabContent %}
 
-  {% for vanityUrl in vanityUrls %}
-    <div class="govuk-!-margin-bottom-4">
-      {% for url in vanityUrl.urls | selectattr("shuttered") %}
-        {% call appWarning({ isInverse: false }) %}
-          <a class="app-link app-link--underline" href="https://{{ url.url }}" target="_blank" rel="noopener
-        noreferrer">https://{{ url.url }}</a> has been shuttered
-        {% endcall %}
+  {% if shutteredUrls | length %}
+    <ul class="govuk-list govuk-!-margin-bottom-0">
+      {% for shutteredUrl in shutteredUrls %}
+        <li>
+          {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
+            <a class="app-link app-link--underline"
+               href="https://{{ shutteredUrl }}"
+               target="_blank" rel="noopener noreferrer">https://{{ shutteredUrl }}</a> has been shuttered
+          {% endcall %}
+        </li>
       {% endfor %}
-    </div>
-  {% endfor %}
+    </ul>
+  {% endif %}
 
-  {% for apiGateway in apiGateways %}
-    <div class="govuk-!-margin-bottom-4">
-      {% for api in apiGateway.apis | selectattr("shuttered") %}
-        {% call appWarning({ isInverse: false }) %}
-          <a class="app-link app-link--underline" href="https://{{ api.api }}" target="_blank" rel="noopener
-        noreferrer">https://{{ api.api }}</a> has been shuttered
-        {% endcall %}
+  {% if apiGatewaydUrls | length %}
+    <ul class="govuk-list govuk-!-margin-bottom-0">
+      {% for apiGatewaydUrl in apiGatewaydUrls %}
+        <li>
+          {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
+            <a class="app-link app-link--underline"
+               href="https://{{ apiGatewaydUrl }}"
+               target="_blank"
+               rel="noopener noreferrer">https://{{ apiGatewaydUrl }}</a> has been shuttered
+          {% endcall %}
+        </li>
       {% endfor %}
-    </div>
-  {% endfor %}
+    </ul>
+  {% endif %}
 
   <div class="app-service-container">
     <article class="app-grid app-grid-service">
