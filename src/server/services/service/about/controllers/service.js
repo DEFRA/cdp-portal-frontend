@@ -10,6 +10,7 @@ import { provideApiGateways } from '~/src/server/services/service/about/transfor
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
 
 const availableEnvironments = ({ scopes, tenantServiceInfo }) => {
   const environments = getEnvironments(scopes)
@@ -22,6 +23,7 @@ const availableEnvironments = ({ scopes, tenantServiceInfo }) => {
 const serviceController = {
   options: {
     id: 'services/{serviceId}',
+    pre: [provideIsServiceOwner],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
