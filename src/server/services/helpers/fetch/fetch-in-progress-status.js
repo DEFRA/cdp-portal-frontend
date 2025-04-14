@@ -5,8 +5,8 @@ import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 async function fetchInProgressStatus(queryParams = {}) {
   const endpoint =
-    config.get('selfServiceOpsUrl') +
-    '/status/in-progress' +
+    config.get('portalBackendUrl') +
+    '/legacy-statuses/in-progress' +
     qs.stringify(queryParams, { arrayFormat: 'repeat', addQueryPrefix: true })
 
   const { payload } = await fetchJson(endpoint)

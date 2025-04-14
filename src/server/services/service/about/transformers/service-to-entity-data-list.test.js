@@ -74,9 +74,7 @@ describe('#serviceToEntityDataList', () => {
   describe('With an in progress service status', () => {
     test('Should provide expected service data list entities transformation', () => {
       const service = repositoryDecorator(
-        createServiceStatusToService(
-          createServiceStatusInProgressFixture.repositoryStatus
-        ),
+        createServiceStatusToService(createServiceStatusInProgressFixture),
         repositoryFixture.repository
       )
 

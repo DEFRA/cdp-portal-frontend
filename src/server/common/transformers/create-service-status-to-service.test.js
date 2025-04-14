@@ -4,15 +4,13 @@ import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/
 describe('#createServiceStatusToService', () => {
   test('Should provide expected create service status transformation', () => {
     expect(
-      createServiceStatusToService(
-        createServiceStatusInProgressFixture.repositoryStatus
-      )
+      createServiceStatusToService(createServiceStatusInProgressFixture)
     ).toEqual({
       githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
       id: 'cdp-portal-frontend',
       isCreateService: true,
       serviceName: 'cdp-portal-frontend',
-      serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
+      serviceStatus: createServiceStatusInProgressFixture,
       teams: [
         {
           name: 'Platform',
