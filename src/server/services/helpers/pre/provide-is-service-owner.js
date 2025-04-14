@@ -10,7 +10,7 @@ const provideIsServiceOwner = {
       }
 
       const isServiceOwner = await request.userIsServiceOwner(
-        request.pre.service.teams.map((team) => team.teamId)
+        request.app.service.teams.map((team) => team.teamId)
       )
 
       if (isServiceOwner) {
