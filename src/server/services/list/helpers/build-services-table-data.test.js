@@ -25,17 +25,16 @@ const expectFilterHasValue = (filterPosition, serviceName) =>
   expect(filterPosition).toEqual(expect.objectContaining({ text: serviceName }))
 
 const portalBackendUrl = config.get('portalBackendUrl')
-const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 
 const servicesFiltersEndpointUrl = new URL(
   `${portalBackendUrl}/services/filters`
 )
 const inProgressFiltersEndpointUrl = new URL(
-  `${selfServiceOpsUrl}/status/in-progress/filters`
+  `${portalBackendUrl}/legacy-statuses/in-progress/filters`
 )
 const deployableServicesEndpointUrl = new URL(`${portalBackendUrl}/services`)
 const inProgressServicesEndpointUrl = new URL(
-  `${selfServiceOpsUrl}/status/in-progress`
+  `${portalBackendUrl}/legacy-statuses/in-progress`
 )
 const repositoriesEndpointUrl = new URL(`${portalBackendUrl}/repositories`)
 
@@ -156,13 +155,11 @@ describe('#buildServicesTableData', () => {
         nock(inProgressServicesEndpointUrl.origin)
           .get(inProgressServicesEndpointUrl.pathname)
           .query({ kind: 'microservice', service: 'new-service-two' })
-          .reply(200, {
-            inProgress: [
-              inProgressStatusFixture.inProgress.find(
-                (item) => item.repositoryName === 'new-service-two'
-              )
-            ]
-          })
+          .reply(200, [
+            inProgressStatusFixture.find(
+              (item) => item.repositoryName === 'new-service-two'
+            )
+          ])
 
         result = await buildServicesTableData({
           service: 'new-service-two',
@@ -216,11 +213,12 @@ describe('#buildServicesTableData', () => {
         nock(inProgressServicesEndpointUrl.origin)
           .get(inProgressServicesEndpointUrl.pathname)
           .query({ kind: 'microservice', teamId: adminGroupId })
-          .reply(200, {
-            inProgress: inProgressStatusFixture.inProgress.filter(
+          .reply(
+            200,
+            inProgressStatusFixture.filter(
               (item) => item.team.teamId === adminGroupId
             )
-          })
+          )
 
         result = await buildServicesTableData({
           teamId: adminGroupId,

@@ -10,9 +10,7 @@ const githubOrg = config.get('githubOrg')
 describe('#testSuiteStatus', () => {
   test('Should provide expected transformed service status', () => {
     const service = repositoryDecorator(
-      createServiceStatusToService(
-        creatEnvTestSuiteStatusInProgressFixture.repositoryStatus
-      ),
+      createServiceStatusToService(creatEnvTestSuiteStatusInProgressFixture),
       repositoryFixture.repository
     )
 

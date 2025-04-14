@@ -1,12 +1,12 @@
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
-import { fetchCreateServiceStatus } from '~/src/server/common/helpers/fetch/fetch-create-service-status.js'
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status.js'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'
 import { createServiceStatusSuccessFixture } from '~/src/__fixtures__/create/service-status-success.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchLegacyServiceStatus } from '~/src/server/common/helpers/fetch/fetch-legacy-service-status.js'
 
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
-jest.mock('~/src/server/common/helpers/fetch/fetch-create-service-status')
+jest.mock('~/src/server/common/helpers/fetch/fetch-legacy-service-status.js')
 
 describe('#provideServiceCreateStatus', () => {
   const mockIsXhr = jest.fn()
@@ -25,7 +25,7 @@ describe('#provideServiceCreateStatus', () => {
 
   describe('With an in-progress create service status', () => {
     beforeEach(() => {
-      fetchCreateServiceStatus.mockResolvedValue(
+      fetchLegacyServiceStatus.mockResolvedValue(
         createServiceStatusInProgressFixture
       )
 
@@ -40,7 +40,7 @@ describe('#provideServiceCreateStatus', () => {
         id: 'cdp-portal-frontend',
         isCreateService: true,
         serviceName: 'cdp-portal-frontend',
-        serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
+        serviceStatus: createServiceStatusInProgressFixture,
         teams: [
           {
             name: 'Platform',
@@ -72,7 +72,7 @@ describe('#provideServiceCreateStatus', () => {
         isTemplate: false,
         primaryLanguage: 'JavaScript',
         serviceName: 'cdp-portal-frontend',
-        serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
+        serviceStatus: createServiceStatusInProgressFixture,
         teams: [
           {
             github: 'cdp-platform',
@@ -87,7 +87,7 @@ describe('#provideServiceCreateStatus', () => {
 
   describe('With a success create service status', () => {
     beforeEach(() => {
-      fetchCreateServiceStatus.mockResolvedValue(
+      fetchLegacyServiceStatus.mockResolvedValue(
         createServiceStatusSuccessFixture
       )
 
@@ -102,7 +102,7 @@ describe('#provideServiceCreateStatus', () => {
         id: 'cdp-portal-frontend',
         isCreateService: true,
         serviceName: 'cdp-portal-frontend',
-        serviceStatus: createServiceStatusSuccessFixture.repositoryStatus,
+        serviceStatus: createServiceStatusSuccessFixture,
         teams: [
           {
             name: 'Platform',
@@ -134,7 +134,7 @@ describe('#provideServiceCreateStatus', () => {
         isTemplate: false,
         primaryLanguage: 'JavaScript',
         serviceName: 'cdp-portal-frontend',
-        serviceStatus: createServiceStatusSuccessFixture.repositoryStatus,
+        serviceStatus: createServiceStatusSuccessFixture,
         teams: [
           {
             github: 'cdp-platform',
@@ -148,7 +148,7 @@ describe('#provideServiceCreateStatus', () => {
 
     describe('When the request is an Xhr request', () => {
       beforeEach(() => {
-        fetchCreateServiceStatus.mockResolvedValue(
+        fetchLegacyServiceStatus.mockResolvedValue(
           createServiceStatusSuccessFixture
         )
         fetchRepository.mockRejectedValue(notFound)

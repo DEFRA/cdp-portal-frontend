@@ -39,9 +39,7 @@ describe('#repositoryDecorator', () => {
     test('Should provide expected service when decorated with repository', () => {
       expect(
         repositoryDecorator(
-          createServiceStatusToService(
-            createServiceStatusInProgressFixture.repositoryStatus
-          ),
+          createServiceStatusToService(createServiceStatusInProgressFixture),
           repositoryFixture.repository
         )
       ).toEqual({
@@ -55,7 +53,7 @@ describe('#repositoryDecorator', () => {
         isTemplate: false,
         primaryLanguage: 'JavaScript',
         serviceName: 'cdp-portal-frontend',
-        serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
+        serviceStatus: createServiceStatusInProgressFixture,
         teams: [
           {
             github: 'cdp-platform',
@@ -72,16 +70,14 @@ describe('#repositoryDecorator', () => {
     test('Should provide expected service without repository decoration', () => {
       expect(
         repositoryDecorator(
-          createServiceStatusToService(
-            createServiceStatusInProgressFixture.repositoryStatus
-          )
+          createServiceStatusToService(createServiceStatusInProgressFixture)
         )
       ).toEqual({
         githubUrl: 'https://github.com/DEFRA/cdp-portal-frontend',
         id: 'cdp-portal-frontend',
         isCreateService: true,
         serviceName: 'cdp-portal-frontend',
-        serviceStatus: createServiceStatusInProgressFixture.repositoryStatus,
+        serviceStatus: createServiceStatusInProgressFixture,
         teams: [
           {
             name: 'Platform',

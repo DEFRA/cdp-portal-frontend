@@ -26,7 +26,7 @@ async function buildServicesTableData({
     deployableFilters,
     inProgressFilters,
     deployableServices,
-    inProgressStatusResponse,
+    inProgressStatuses,
     repositoriesResponse
   ] = await Promise.all([
     fetchDeployableServicesFilters(),
@@ -36,8 +36,9 @@ async function buildServicesTableData({
     fetchRepositories()
   ])
 
-  const { inProgress } = inProgressStatusResponse
-  const inProgressServices = inProgress?.map(createServiceStatusToService)
+  const inProgressServices = inProgressStatuses?.map(
+    createServiceStatusToService
+  )
 
   const { repositories } = repositoriesResponse
   const decorator = repositoriesDecorator(repositories)
@@ -52,7 +53,7 @@ async function buildServicesTableData({
     'serviceName'
   )
   const allFilters = union(
-    inProgressFilters.filters.services,
+    inProgressFilters.services,
     deployableFilters.filters.services
   )
   const serviceFilters = buildSuggestions(
@@ -62,11 +63,7 @@ async function buildServicesTableData({
     }))
   )
   const teamFilters = buildSuggestions(
-    unionBy(
-      inProgressFilters.filters.teams,
-      deployableFilters.filters.teams,
-      'teamId'
-    )
+    unionBy(inProgressFilters.teams, deployableFilters.filters.teams, 'teamId')
       .sort(sortBy('name', 'asc'))
       .map(({ name, teamId: value }) => ({
         text: name,
