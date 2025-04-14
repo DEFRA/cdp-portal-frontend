@@ -7,6 +7,7 @@ import {
   fetchTeamTestRepositories,
   getAutoTestRunDetails
 } from '~/src/server/services/service/automations/helpers/fetchers.js'
+import { testKind } from '~/src/server/test-suites/constants/test-kind.js'
 
 function sortRows(rowA, rowB) {
   const aHeader = rowA.cells.find(
@@ -25,6 +26,7 @@ function buildOptions(testSuites, testSuiteRepos) {
       ...testSuite,
       ...testSuiteRepos.find((repo) => repo.id === testSuite.serviceName)
     }))
+    .filter((testSuite) => !testSuite?.topics.includes(testKind.performance))
     .map((testSuite) => ({
       text: testSuite.serviceName,
       value: testSuite.serviceName,
