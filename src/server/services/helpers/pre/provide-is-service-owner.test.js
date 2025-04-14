@@ -7,7 +7,7 @@ describe('#provideIsServiceOwner', () => {
     mockRequest = {
       getUserSession: jest.fn(),
       userIsServiceOwner: jest.fn(),
-      pre: {
+      app: {
         service: {
           teams: [{ teamId: 'team1' }, { teamId: 'team2' }]
         }
