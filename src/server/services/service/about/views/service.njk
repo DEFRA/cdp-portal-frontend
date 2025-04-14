@@ -52,7 +52,10 @@
   {% set deployButtonHtml %}
     <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
       query: { imageName: service.serviceName, version: version.tag }
-    }) }}" role="button" class="govuk-button app-button app-button--primary app-button--small">Deploy</a>
+    }) }}"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button">Deploy</a>
   {% endset %}
 
   {% set createdHtml %}
@@ -139,7 +142,7 @@
         {{ govukSummaryList(summaryList) }}
       </section>
 
-      <section class="app-grid-service__published">
+      <section class="app-grid-service__published" data-testid="published-images">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Published Images</h2>
         <p class="govuk-!-margin-bottom-2">
           Latest available CDP built and published docker images, via
