@@ -57,11 +57,7 @@ function updatePage(text, params = {}) {
  */
 async function xhrRequest(url, params = {}) {
   try {
-    const urlSearchParams = window.location.search
-      ? qs.parse(window.location.search, { ignoreQueryPrefix: true })
-      : {}
-    const allParams = { ...urlSearchParams, ...params }
-    const queryParams = qs.stringify(allParams, {
+    const queryParams = qs.stringify(params, {
       arrayFormat: 'repeat',
       addQueryPrefix: true
     })
@@ -79,7 +75,7 @@ async function xhrRequest(url, params = {}) {
     })
 
     const text = await response.text()
-    updatePage(text, allParams)
+    updatePage(text, params)
 
     return { ok: true, text }
   } catch (error) {
