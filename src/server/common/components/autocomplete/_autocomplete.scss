@@ -148,7 +148,7 @@ $large-width: 40em;
 
 .app-autocomplete__input {
   padding: govuk-spacing(1) govuk-spacing(6) govuk-spacing(1) govuk-spacing(1);
-  border-radius: $app-border-radius;
+  border-radius: $app-border-radius-min;
   border: 1px solid govuk-colour("mid-grey");
 
   &:focus {

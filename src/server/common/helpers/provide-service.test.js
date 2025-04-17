@@ -3,9 +3,12 @@ import { serviceDeployableFixture } from '~/src/__fixtures__/services/service-de
 import { provideService } from '~/src/server/common/helpers/provide-service.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
+import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
+import { tenantServicesFixture } from '~/src/__fixtures__/tenant-services.js'
 
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service.js')
+jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
 
 describe('#provideService', () => {
   const serviceId = 'cdp-portal-frontend'
@@ -25,6 +28,7 @@ describe('#provideService', () => {
     test('Should assign service to request.app', async () => {
       fetchRepository.mockResolvedValue(repositoryFixture)
       fetchDeployableService.mockResolvedValue(serviceDeployableFixture)
+      fetchTenantService.mockResolvedValue(tenantServicesFixture)
 
       const result = await provideService(mockRequest, mockResponseToolkit)
 
@@ -51,7 +55,9 @@ describe('#provideService', () => {
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
         ],
-        topics: ['frontend', 'node', 'cdp', 'service']
+        topics: ['frontend', 'node', 'cdp', 'service'],
+        tenantServices: tenantServicesFixture,
+        isPostgres: true
       })
     })
   })

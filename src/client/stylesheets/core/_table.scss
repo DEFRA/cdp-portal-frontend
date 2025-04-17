@@ -1,15 +1,18 @@
+@use "govuk-frontend" as *;
 @use "variables/colours" as *;
+@use "variables/border-radius" as *;
 
 // stylelint-disable max-nesting-depth
 .app-table {
   .govuk-table__head {
     .govuk-table__row {
       .govuk-table__header {
-        border-bottom: 1px solid $app-mid-grey;
+        border-bottom: 2px solid $app-light-grey;
+        padding: govuk-spacing(2);
       }
 
       &:hover {
-        background-color: $app-grey;
+        background-color: $app-light-grey;
       }
     }
   }
@@ -17,13 +20,34 @@
   .govuk-table__body {
     .govuk-table__row {
       .govuk-table__cell {
-        border-bottom: 1px solid $app-mid-grey;
+        padding: govuk-spacing(2);
+        border-top: 1px solid $app-grey;
+        border-bottom: 1px solid $app-grey;
+
+        &:first-child {
+          border-radius: $app-border-radius-left;
+          border-left: 1px solid $app-grey;
+        }
+
+        &:last-child {
+          border-radius: $app-border-radius-right;
+          border-right: 1px solid $app-grey;
+        }
       }
 
       &:hover {
-        background-color: $app-grey;
+        background-color: $app-light-grey;
       }
     }
   }
 }
+
+.app-table--inverse {
+  .govuk-table__body {
+    .govuk-table__row {
+      background-color: govuk-colour("white");
+    }
+  }
+}
+
 // stylelint-enable max-nesting-depth

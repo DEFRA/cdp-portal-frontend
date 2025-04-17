@@ -130,9 +130,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                aria-labelledby="tab-about"
                data-testid="app-tabs-panel">
         
+  <div class="govuk-!-padding-top-3 govuk-!-padding-bottom-3">
 
-    <ul class="govuk-list">
-        <li>
+      <ul class="govuk-list govuk-!-margin-bottom-0">
+          <li>
 
 
 <div
@@ -150,19 +151,21 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
   <span class="app-warning__content" data-testid="app-warning-content">
-                <a class="app-link app-link--underline"
-               href="https://https://cdp-backend.microservice.com"
-               target="_blank"
-               rel="noopener noreferrer">https://https://cdp-backend.microservice.com</a> has been shuttered
+                  <a class="app-link app-link--underline"
+                 href="https://https://cdp-backend.microservice.com"
+                 target="_blank"
+                 rel="noopener noreferrer">https://https://cdp-backend.microservice.com</a> has been shuttered
 
   </span>
 </div>
 
-        </li>
-    </ul>
+          </li>
+      </ul>
+  </div>
+
 
   <div class="app-service-container">
-    <article class="app-grid app-grid-service">
+    <article class="app-grid app-grid-service app-grid-service--standard">
       <section class="app-grid-service__details">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
         <p class="govuk-!-margin-bottom-2">
@@ -181,7 +184,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              href="https://github.com/DEFRA//actions">GitHub Actions</a>
         </p>
 
-          <table class="govuk-table app-table govuk-!-margin-bottom-4">
+          <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Published</th>
@@ -286,7 +289,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </table>
 
 
-          <p class="govuk-!-margin-bottom-2">
+          <p class="govuk-!-margin-bottom-0">
             <a class="app-link" target="_blank" rel="noopener noreferrer"
                href="https://github.com/DEFRA/my-backend-service/tags">
               more versions
@@ -294,6 +297,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           </p>
 
       </section>
+
 
       <section class="app-grid-service__run">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
@@ -334,7 +338,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Continuous Integration</h2>
-          <p class="govuk-!-margin-bottom-2">
+          <p class="govuk-!-margin-bottom-0">
             Test, build and publish ready-to-deploy docker images of your service with CI and GitHub
             Actions workflows. Your service is built and published by GitHub Actions and comes with a number of
             useful CDP Workflows. To view these workflows and builds go to

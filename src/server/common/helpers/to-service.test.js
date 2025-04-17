@@ -6,10 +6,13 @@ import {
 import { serviceDeployableFixture } from '~/src/__fixtures__/services/service-deployable.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
+import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { testSuiteFixture } from '~/src/__fixtures__/test-suite.js'
+import { tenantServicesFixture } from '~/src/__fixtures__/tenant-services.js'
 
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service.js')
+jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
 
 describe('#toService', () => {
   const serviceId = 'cdp-portal-frontend'
@@ -22,6 +25,7 @@ describe('#toService', () => {
     test('Should return expected service', async () => {
       fetchRepository.mockResolvedValue(repositoryFixture)
       fetchDeployableService.mockResolvedValue(serviceDeployableFixture)
+      fetchTenantService.mockResolvedValue(tenantServicesFixture)
 
       const result = await toService(serviceId)
 
@@ -47,7 +51,9 @@ describe('#toService', () => {
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
         ],
-        topics: ['frontend', 'node', 'cdp', 'service']
+        topics: ['frontend', 'node', 'cdp', 'service'],
+        tenantServices: tenantServicesFixture,
+        isPostgres: true
       })
     })
   })
@@ -81,7 +87,9 @@ describe('#toService', () => {
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
         ],
-        topics: ['cdp', 'journey', 'test', 'test-suite']
+        topics: ['cdp', 'journey', 'test', 'test-suite'],
+        tenantServices: tenantServicesFixture,
+        isPostgres: true
       })
     })
   })
@@ -97,7 +105,9 @@ describe('#toService', () => {
         githubUrl: 'https://github.com/DEFRA',
         imageName: 'cdp-portal-frontend',
         isDeployable: true,
-        serviceName: 'cdp-portal-frontend'
+        serviceName: 'cdp-portal-frontend',
+        tenantServices: tenantServicesFixture,
+        isPostgres: true
       })
     })
   })
