@@ -38,56 +38,58 @@
 {% endblock %}
 
 {% block tabContent %}
-  {% call appSplitPane() %}
+  <section class="govuk-!-margin-top-4">
+    {% call appSplitPane() %}
 
-    <div class="govuk-grid-row">
-      <section class="govuk-grid-column-two-thirds-from-desktop-big">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-            data-testid="app-environment-header">{{ environment | title }} buckets</h2>
-        <div class="app-section app-section--wide">
-          {% if isBucketsSetup %}
+      <div class="govuk-grid-row">
+        <section class="govuk-grid-column-two-thirds-from-desktop-big">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="app-environment-header">{{ environment | title }} buckets</h2>
+          <div class="app-section app-section--wide">
+            {% if isBucketsSetup %}
 
-            {% block xhrContent %}
-              <article data-xhr="buckets-{{ service.serviceName }}-{{ environment }}">
+              {% block xhrContent %}
+                <article data-xhr="buckets-{{ service.serviceName }}-{{ environment }}">
 
-                <p>
-                  Buckets available to your service
-                </p>
+                  <p>
+                    Buckets available to your service
+                  </p>
 
-                {{ appInfo({
-                  classes: "govuk-!-margin-bottom-4",
-                  html: bucketNamesInfoHtml
-                }) }}
+                  {{ appInfo({
+                    classes: "govuk-!-margin-bottom-4",
+                    html: bucketNamesInfoHtml
+                  }) }}
 
-                {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
-                  {% if buckets | length %}
-                    {{ govukTable({
-                      classes: "app-table app-table--inverse govuk-!-margin-bottom-2",
-                      head: [
-                        { text: "Name" }
-                      ],
-                      rows: bucketsTableRows
-                    }) }}
+                  {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
+                    {% if buckets | length %}
+                      {{ govukTable({
+                        classes: "app-table app-table--inverse govuk-!-margin-bottom-2",
+                        head: [
+                          { text: "Name" }
+                        ],
+                        rows: bucketsTableRows
+                      }) }}
 
-                  {% else %}
-                    <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-                      No buckets currently exist
-                    </p>
-                  {% endif %}
-                {% endcall %}
-              </article>
-            {% endblock %}
+                    {% else %}
+                      <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                        No buckets currently exist
+                      </p>
+                    {% endif %}
+                  {% endcall %}
+                </article>
+              {% endblock %}
 
 
-          {% else %}
-            <p>
-              Buckets not set up for this environment
-            </p>
-            {{ appInfo({ html: setupBucketsHtml }) }}
-          {% endif %}
-        </div>
-      </section>
-    </div>
+            {% else %}
+              <p>
+                Buckets not set up for this environment
+              </p>
+              {{ appInfo({ html: setupBucketsHtml }) }}
+            {% endif %}
+          </div>
+        </section>
+      </div>
 
-  {% endcall %}
+    {% endcall %}
+  </section>
 {% endblock %}

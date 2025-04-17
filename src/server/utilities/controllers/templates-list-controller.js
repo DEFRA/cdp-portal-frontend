@@ -4,6 +4,7 @@ import { buildUtilitiesTableData } from '~/src/server/utilities/helpers/build-ut
 
 const templatesListController = {
   options: {
+    id: 'utilities/templates',
     pre: [provideAuthedUser]
   },
   handler: async (request, h) => {

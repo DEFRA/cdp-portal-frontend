@@ -3,7 +3,7 @@
 @use "variables/border-radius" as *;
 
 $environment-width: 260px;
-$environment-height: 120px;
+$environment-height: 200px;
 $negative-margin: -6px;
 
 .app-running-service-slim {
@@ -15,7 +15,7 @@ $negative-margin: -6px;
 .app-running-service-slim__environment {
   flex: 1;
   display: grid;
-  grid-auto-rows: minmax(auto-fill, max-content);
+  grid-auto-rows: minmax(0, max-content);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"

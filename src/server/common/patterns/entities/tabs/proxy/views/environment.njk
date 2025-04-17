@@ -64,93 +64,95 @@
 {% endblock %}
 
 {% block tabContent %}
-  {% call appSplitPane() %}
-    <div class="govuk-grid-row">
-      <section class="govuk-grid-column-two-thirds-from-desktop-big">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-            data-testid="app-environment-header">{{ environment | title }} proxy</h2>
-        <div class="app-section app-section--wide">
-          {% if isProxySetup %}
-            <p class="govuk-!-margin-bottom-4">
-              View proxy rules for {{ service.serviceName }} in {{ environment | title }}
-            </p>
+  <section class="govuk-!-margin-top-4">
+    {% call appSplitPane() %}
+      <div class="govuk-grid-row">
+        <section class="govuk-grid-column-two-thirds-from-desktop-big">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="app-environment-header">{{ environment | title }} proxy</h2>
+          <div class="app-section app-section--wide">
+            {% if isProxySetup %}
+              <p class="govuk-!-margin-bottom-4">
+                View proxy rules for {{ service.serviceName }} in {{ environment | title }}
+              </p>
 
-            {% block xhrContent %}
-              <article>
-                <div class="app-row">
-                  <div class="app-row__item-flex-two">
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service proxy rules</h2>
+              {% block xhrContent %}
+                <article>
+                  <div class="app-row">
+                    <div class="app-row__item-flex-two">
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service proxy rules</h2>
+                    </div>
                   </div>
-                </div>
 
-                <p>
-                  Service specific proxy rules for your {{ serviceOrTestSuite }}
-                </p>
+                  <p>
+                    Service specific proxy rules for your {{ serviceOrTestSuite }}
+                  </p>
 
-                {% if allowedDomains | length %}
-                  {{ appInfo({ html: modifyProxyRulesHtml }) }}
-                {% else %}
-                  {{ appInfo({ html: addProxyRulesHtml }) }}
-                {% endif %}
-
-                {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
                   {% if allowedDomains | length %}
-                    {{ govukTable({
-                      classes: "app-table app-table--inverse govuk-!-margin-bottom-2",
-                      head: [
-                        { text: "Domain" }
-                      ],
-                      rows: serviceProxyTableRows
-                    }) }}
-
+                    {{ appInfo({ html: modifyProxyRulesHtml }) }}
                   {% else %}
-                    <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-                      No service proxy rules currently set
-                    </p>
+                    {{ appInfo({ html: addProxyRulesHtml }) }}
                   {% endif %}
-                {% endcall %}
 
-              </article>
-            {% endblock %}
+                  {% call appPanel({ classes: "govuk-!-margin-bottom-6" }) %}
+                    {% if allowedDomains | length %}
+                      {{ govukTable({
+                        classes: "app-table app-table--inverse govuk-!-margin-bottom-2",
+                        head: [
+                          { text: "Domain" }
+                        ],
+                        rows: serviceProxyTableRows
+                      }) }}
 
-            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Platform proxy rules</h2>
-            <p>
-              Platform level proxy rules for your {{ serviceOrTestSuite }}
-            </p>
+                    {% else %}
+                      <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                        No service proxy rules currently set
+                      </p>
+                    {% endif %}
+                  {% endcall %}
 
-            {% if defaultDomains | length %}
-              {{ appInfo({
-                classes: "govuk-!-margin-bottom-4",
-                text: "These proxy rules are set by the platform. They cannot be changed."
-              }) }}
-            {% endif %}
+                </article>
+              {% endblock %}
 
-            {% call appPanel({ classes: "govuk-!-margin-bottom-4" }) %}
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Platform proxy rules</h2>
+              <p>
+                Platform level proxy rules for your {{ serviceOrTestSuite }}
+              </p>
+
               {% if defaultDomains | length %}
-                {{ govukTable({
-                  classes: "app-table app-table--inverse govuk-!-margin-bottom-2",
-                  head: [
-                    { text: "Domain", classes: "govuk-!-width-one-quarter" }
-                  ],
-                  rows: platformProxyTableRows
+                {{ appInfo({
+                  classes: "govuk-!-margin-bottom-4",
+                  text: "These proxy rules are set by the platform. They cannot be changed."
                 }) }}
-
-              {% else %}
-                <p class="govuk-!-margin-top-4">
-                  No platform proxy rules currently set
-                </p>
               {% endif %}
-            {% endcall %}
 
-          {% else %}
-            <p>
-              Proxy rules not set up for this environment
-            </p>
-            {{ appInfo({ html: setupProxyHtml }) }}
+              {% call appPanel({ classes: "govuk-!-margin-bottom-4" }) %}
+                {% if defaultDomains | length %}
+                  {{ govukTable({
+                    classes: "app-table app-table--inverse govuk-!-margin-bottom-2",
+                    head: [
+                      { text: "Domain", classes: "govuk-!-width-one-quarter" }
+                    ],
+                    rows: platformProxyTableRows
+                  }) }}
 
-          {% endif %}
-        </div>
-      </section>
-    </div>
-  {% endcall %}
+                {% else %}
+                  <p class="govuk-!-margin-top-4">
+                    No platform proxy rules currently set
+                  </p>
+                {% endif %}
+              {% endcall %}
+
+            {% else %}
+              <p>
+                Proxy rules not set up for this environment
+              </p>
+              {{ appInfo({ html: setupProxyHtml }) }}
+
+            {% endif %}
+          </div>
+        </section>
+      </div>
+    {% endcall %}
+  </section>
 {% endblock %}

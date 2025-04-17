@@ -10,144 +10,148 @@
 {% endblock %}
 
 {% block tabContent %}
-  {% call appSplitPane() %}
+  <section class="govuk-!-margin-top-4">
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds-from-desktop-huge">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Automatic Test Runs</h2>
-        <p class="govuk-!-margin-bottom-2">
-          Automatically trigger a test suite to run after this service has been manually or automatically deployed to
-          an environment.
-        </p>
+    {% call appSplitPane() %}
 
-        {% call appDetails({
-          summaryText: "Setting up automatic test runs"
-        }) %}
-
-          <p class="app-!-layout-centered govuk-!-margin-bottom-2">
-            {{ appInfoIcon({ classes: "app-icon--tiny", description: "Info" }) }} How to set up automatic test runs
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop-huge">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Automatic Test Runs</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Automatically trigger a test suite to run after this service has been manually or automatically deployed to
+            an environment.
           </p>
 
-          <ul class="govuk-list govuk-list--number">
-            <li>
-              <a class="app-link app-link--underline" href="{{ routeLookup('create') }}"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Create a Journey test suite
-              </a>
-              or use a previously created one
-            </li>
-            <li>
-              Develop/write your journey tests locally and commit your work
-            </li>
-            <li>
-              <a class="app-link app-link--underline" href="{{ routeLookup('test-suites') }}"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Run the journey tests
-              </a> via the Portal Frontend UI
-            </li>
-            <li>
-              Add an automatic test run to this service, using the form on this page
-            </li>
-            <li>
-              Choose the environments you wish the tests to be triggered on
-            </li>
-            <li>
-              <a class="app-link app-link--underline" href="{{ routeLookup('deploy-service') }}"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Deploy this service
-              </a>
-            </li>
-            <li>
-              Once this service has deployed
-              <a class="app-link app-link--underline" href="{{ routeLookup('test-suites') }}"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                check the test run results
-              </a>
-            </li>
-            <li>
-              Every time your service is deployed to an environment with a test suite trigger, the test suite will
-              automatically run
-            </li>
-          </ul>
-        {% endcall %}
+          {% call appDetails({
+            summaryText: "Setting up automatic test runs"
+          }) %}
 
-        <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
-          {{ appEntityTable(tableData) }}
+            <p class="app-!-layout-centered govuk-!-margin-bottom-2">
+              {{ appInfoIcon({ classes: "app-icon--tiny", description: "Info" }) }} How to set up automatic test runs
+            </p>
+
+            <ul class="govuk-list govuk-list--number">
+              <li>
+                <a class="app-link app-link--underline" href="{{ routeLookup('create') }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Create a Journey test suite
+                </a>
+                or use a previously created one
+              </li>
+              <li>
+                Develop/write your journey tests locally and commit your work
+              </li>
+              <li>
+                <a class="app-link app-link--underline" href="{{ routeLookup('test-suites') }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Run the journey tests
+                </a> via the Portal Frontend UI
+              </li>
+              <li>
+                Add an automatic test run to this service, using the form on this page
+              </li>
+              <li>
+                Choose the environments you wish the tests to be triggered on
+              </li>
+              <li>
+                <a class="app-link app-link--underline" href="{{ routeLookup('deploy-service') }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Deploy this service
+                </a>
+              </li>
+              <li>
+                Once this service has deployed
+                <a class="app-link app-link--underline" href="{{ routeLookup('test-suites') }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  check the test run results
+                </a>
+              </li>
+              <li>
+                Every time your service is deployed to an environment with a test suite trigger, the test suite will
+                automatically run
+              </li>
+            </ul>
+          {% endcall %}
+
+          <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
+            {{ appEntityTable(tableData) }}
+          </div>
+        </div>
+
+        <div class="govuk-grid-column-one-third-from-desktop-huge">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Add Test Run</h2>
+          <p>
+            Choose a test suite to automatically run after a deployment of this service
+          </p>
+
+          <form
+            action="{{ routeLookup('post:services/{serviceId}/automations/test-runs', { params: { serviceId : service.serviceName } }) }}"
+            method="POST"
+            data-js="app-form-group app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            {% call govukFieldset() %}
+
+              {{ appAutocomplete({
+                id: "test-suite",
+                name: "testSuite",
+                label: {
+                  text: "Test Suite",
+                  classes: "govuk-label app-label"
+                },
+                hint: {
+                  text: "Choose a test suite to run against this service"
+                },
+                template: "advanced",
+                suggestionClasses: "app-autocomplete__suggestion--leading-hint",
+                icon: appSearchIcon(),
+                formGroup: {
+                  classes: "app-form-group"
+                },
+                value: formValues.testSuite,
+                suggestions: testSuiteOptions,
+                placeholder: "Search for a test suite",
+                noSuggestionsMessage: "No test suites found",
+                errorMessage: errorMessageHelper(formErrors.testSuite.message)
+              }) }}
+
+              {{ govukCheckboxes({
+                name: "environments",
+                classes: "app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline",
+                fieldset: {
+                  legend: {
+                    text: "Environments",
+                    classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+                  }
+                },
+                hint: {
+                  text: "Select one or more environments to trigger the tests in",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group"
+                },
+                items: environmentOptions,
+                values: formValues.environments,
+                errorMessage: errorMessageHelper(formErrors.environments.message)
+              }) }}
+
+            {% endcall %}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: "Add"
+            }) }}
+
+          </form>
         </div>
       </div>
 
-      <div class="govuk-grid-column-one-third-from-desktop-huge">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Add Test Run</h2>
-        <p>
-          Choose a test suite to automatically run after a deployment of this service
-        </p>
+    {% endcall %}
 
-        <form
-          action="{{ routeLookup('post:services/{serviceId}/automations/test-runs', { params: { serviceId : service.serviceName } }) }}"
-          method="POST"
-          data-js="app-form-group app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-
-          {% call govukFieldset() %}
-
-            {{ appAutocomplete({
-              id: "test-suite",
-              name: "testSuite",
-              label: {
-                text: "Test Suite",
-                classes: "govuk-label app-label"
-              },
-              hint: {
-                text: "Choose a test suite to run against this service"
-              },
-              template: "advanced",
-              suggestionClasses: "app-autocomplete__suggestion--leading-hint",
-              icon: appSearchIcon(),
-              formGroup: {
-                classes: "app-form-group"
-              },
-              value: formValues.testSuite,
-              suggestions: testSuiteOptions,
-              placeholder: "Search for a test suite",
-              noSuggestionsMessage: "No test suites found",
-              errorMessage: errorMessageHelper(formErrors.testSuite.message)
-            }) }}
-
-            {{ govukCheckboxes({
-              name: "environments",
-              classes: "app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline",
-              fieldset: {
-                legend: {
-                  text: "Environments",
-                  classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
-                }
-              },
-              hint: {
-                text: "Select one or more environments to trigger the tests in",
-                classes: "app-hint"
-              },
-              formGroup: {
-                classes: "app-form-group"
-              },
-              items: environmentOptions,
-              values: formValues.environments,
-              errorMessage: errorMessageHelper(formErrors.environments.message)
-            }) }}
-
-          {% endcall %}
-
-          {{ govukButton({
-            classes: "app-button",
-            text: "Add"
-          }) }}
-
-        </form>
-      </div>
-    </div>
-
-  {% endcall %}
+  </section>
 {% endblock %}

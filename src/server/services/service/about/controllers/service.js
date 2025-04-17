@@ -75,7 +75,7 @@ const serviceController = {
       availableServiceEnvironments,
       runningServices,
       latestPublishedImageVersions,
-      migrations,
+      schemas: migrations,
       breadcrumbs: [
         {
           text: 'Services',

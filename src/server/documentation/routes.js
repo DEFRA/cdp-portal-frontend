@@ -11,6 +11,9 @@ const documentation = {
         {
           method: 'GET',
           path: '/documentation',
+          options: {
+            id: 'documentation'
+          },
           handler: (_request, h) => h.redirect('/documentation/README.md')
         },
         {

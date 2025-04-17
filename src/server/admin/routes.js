@@ -20,6 +20,9 @@ const admin = {
         {
           method: 'GET',
           path: '/admin',
+          options: {
+            id: 'admin'
+          },
           handler: (_request, h) => h.redirect('/admin/users')
         }
       ])

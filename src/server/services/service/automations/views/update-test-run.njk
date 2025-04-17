@@ -8,96 +8,98 @@
 {% endblock %}
 
 {% block tabContent %}
-  {% call appSplitPane() %}
+  <section class="govuk-!-margin-top-4">
+    {% call appSplitPane() %}
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third-from-desktop">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Update Test Run</h2>
-        <p>
-          Update test run details
-        </p>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third-from-desktop">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Update Test Run</h2>
+          <p>
+            Update test run details
+          </p>
 
-        <form
-          action="{{ routeLookup('post:services/{serviceId}/automations/test-runs/{testSuiteId}/update', {
-            params: { serviceId: service.serviceName, testSuiteId: testSuiteId }
-          }) }}"
-          method="POST"
-          data-js="app-form-group app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <form
+            action="{{ routeLookup('post:services/{serviceId}/automations/test-runs/{testSuiteId}/update', {
+              params: { serviceId: service.serviceName, testSuiteId: testSuiteId }
+            }) }}"
+            method="POST"
+            data-js="app-form-group app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-          {% call govukFieldset() %}
-            {{ govukLabel({
-              text: "Test Suite",
-              classes: "app-label govuk-!-margin-bottom-2"
-            }) }}
+            {% call govukFieldset() %}
+              {{ govukLabel({
+                text: "Test Suite",
+                classes: "app-label govuk-!-margin-bottom-2"
+              }) }}
 
-            <p>
-              <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}', {
-                params: { serviceId: testSuiteId }
-              }) }}">{{ testSuiteId }}</a>
-            </p>
+              <p>
+                <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}', {
+                  params: { serviceId: testSuiteId }
+                }) }}">{{ testSuiteId }}</a>
+              </p>
 
-            {{ govukLabel({
-              text: "Kind",
-              classes: "app-label govuk-!-margin-bottom-2"
-            }) }}
+              {{ govukLabel({
+                text: "Kind",
+                classes: "app-label govuk-!-margin-bottom-2"
+              }) }}
 
-            <p>
-              {% if "performance" in testRun.repository.topics %}
-                {{ appTag({
-                  text: "Performance",
-                  classes: "govuk-tag--green"
-                }) }}
-              {% elseif "journey" in testRun.repository.topics %}
-                {{ appTag({
-                  text: "Journey",
-                  classes: "govuk-tag--blue"
-                }) }}
-              {% else %}
-                {{ appTag({
-                  text: "Test Suite",
-                  classes: "govuk-tag--purple"
-                }) }}
-              {% endif %}
-            </p>
+              <p>
+                {% if "performance" in testRun.repository.topics %}
+                  {{ appTag({
+                    text: "Performance",
+                    classes: "govuk-tag--green"
+                  }) }}
+                {% elseif "journey" in testRun.repository.topics %}
+                  {{ appTag({
+                    text: "Journey",
+                    classes: "govuk-tag--blue"
+                  }) }}
+                {% else %}
+                  {{ appTag({
+                    text: "Test Suite",
+                    classes: "govuk-tag--purple"
+                  }) }}
+                {% endif %}
+              </p>
 
-            {{ govukCheckboxes({
-              name: "environments",
-              classes: "app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline",
-              fieldset: {
-                legend: {
-                  text: "Environments",
-                  classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
-                }
-              },
-              hint: {
-                text: "Select one or more environments to trigger the tests in",
-                classes: "app-hint"
-              },
-              formGroup: {
-                classes: "app-form-group"
-              },
-              items: environmentOptions,
-              values: formValues.environments,
-              errorMessage: errorMessageHelper(formErrors.environments.message)
-            }) }}
+              {{ govukCheckboxes({
+                name: "environments",
+                classes: "app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline",
+                fieldset: {
+                  legend: {
+                    text: "Environments",
+                    classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+                  }
+                },
+                hint: {
+                  text: "Select one or more environments to trigger the tests in",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group"
+                },
+                items: environmentOptions,
+                values: formValues.environments,
+                errorMessage: errorMessageHelper(formErrors.environments.message)
+              }) }}
 
-          {% endcall %}
+            {% endcall %}
 
-          <div class="govuk-body govuk-button-group">
-            {{ govukButton({
-              classes: "app-button",
-              text: "Update"
-            }) }}
+            <div class="govuk-body govuk-button-group">
+              {{ govukButton({
+                classes: "app-button",
+                text: "Update"
+              }) }}
 
-            <a class="app-link" href="{{ routeLookup('services/{serviceId}/automations/test-runs', {
-              params: { serviceId: service.serviceName }
-            }) }}">Cancel</a>
-          </div>
+              <a class="app-link" href="{{ routeLookup('services/{serviceId}/automations/test-runs', {
+                params: { serviceId: service.serviceName }
+              }) }}">Cancel</a>
+            </div>
 
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
 
-  {% endcall %}
+    {% endcall %}
+  </section>
 {% endblock %}

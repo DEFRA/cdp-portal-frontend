@@ -26,7 +26,7 @@ function buildOptions(testSuites, testSuiteRepos) {
       ...testSuite,
       ...testSuiteRepos.find((repo) => repo.id === testSuite.serviceName)
     }))
-    .filter((testSuite) => !testSuite?.topics.includes(testKind.performance))
+    .filter((testSuite) => !testSuite?.topics?.includes(testKind.performance))
     .map((testSuite) => ({
       text: testSuite.serviceName,
       value: testSuite.serviceName,

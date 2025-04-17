@@ -1,0 +1,221 @@
+{% extends "layouts/page.njk" %}
+
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
+{% from "time/macro.njk" import appTime %}
+
+{% set latestPublishedTableRows = [] %}
+{% for version in latestVersions %}
+
+  {% set createdHtml %}
+    <div class="app-row">
+      {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
+      {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
+    </div>
+  {% endset %}
+
+  {% set versionLinkHtml %}
+    <a class="app-link"
+       href="https://github.com/DEFRA/{{ imageName }}/releases/tag/{{ version.tag }}"
+       target="_blank" rel="noopener noreferrer">{{ version.tag }}</a>
+  {% endset %}
+
+  {{ latestPublishedTableRows.push([
+    { html: createdHtml },
+    { html: versionLinkHtml, attributes: { "data-testid": "latest-published-version" } }
+  ]) }}
+{% endfor %}
+
+{% block content %}
+
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appHeading({
+      title: heading,
+      caption: headingCaption
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        <form action="/deploy-service/details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}" method="post"
+              data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+          {% call govukFieldset() %}
+
+            {{ appAutocomplete({
+              id: "image-name",
+              name: "imageName",
+              label: {
+                text: "Image Name",
+                classes: "app-label"
+              },
+              hint: {
+                text: "Elastic Container Registry (ECR) image name"
+              },
+              value: imageName or formValues.imageName,
+              errorMessage: errorMessageHelper(formErrors.imageName.message),
+              suggestions: deployableImageNameOptions,
+              siblingDataFetcher: {
+                name: "fetchVersions",
+                target: "deploy-version",
+                targetLoader: "deploy-version-loader"
+              },
+              publishTo: eventName.autocompleteUpdate + "-version"
+            }) }}
+
+            {% call appAutocomplete({
+              id: "version",
+              name: "version",
+              label: {
+                text: "Image Version",
+                classes: "app-label"
+              },
+              hint: {
+                text: "Elastic Container Registry (ECR) image version"
+              },
+              template: "advanced",
+              value: formValues.version,
+              dataJs: "deploy-version",
+              subscribeTo: eventName.autocompleteUpdate + "-version",
+              noSuggestionsMessage: "choose Image name",
+              errorMessage: errorMessageHelper(formErrors.version.message),
+              suggestions: availableVersionOptions,
+              loader: {
+                name: "deploy-version-loader"
+              }
+            }) %}
+
+              {{ govukButton({
+                classes: "app-button app-button--secondary js-hidden",
+                text: "Search",
+                name: "button",
+                value: "search",
+                attributes: {
+                  "data-js": "app-no-js-submit-button"
+                }
+              }) }}
+
+            {% endcall %}
+
+            {{ govukSelect({
+              id: "environment",
+              name: "environment",
+              label: {
+                text: "Environment",
+                classes: "app-label"
+              },
+              classes: "app-select",
+              value: formValues.environment,
+              hint: {
+                text: "The environment to deploy to",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: errorMessageHelper(formErrors.environment.message),
+              items: environmentOptions
+            }) }}
+
+          {% endcall %}
+
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText | capitalize,
+            name: "button",
+            value: formButtonText | lower
+          }) }}
+
+        </form>
+      </div>
+
+      {% block xhrContent %}
+        <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+          {% call appXhrSubscriber({
+            id: "deploy-data",
+            subscribeTo: eventName.autocompleteUpdate + "-version",
+            xhrUrl: "/deploy-service/details"
+          }) %}
+
+            {% call appPanel() %}
+              <section class="app-row">
+
+                <div class="app-row__item-flex-two">
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Published Images</h2>
+                  <p>
+                    Latest published Docker images by version{%- if imageName %} for {{ imageName }}{% endif -%}.
+                    {% if imageName %}
+                      Images built and published via
+                      <a class="app-link" target="_blank" rel="noopener noreferrer"
+                         href="https://github.com/DEFRA/{{ imageName }}/actions">
+                        GitHub Actions</a>.
+                    {% endif %}
+                  </p>
+
+                  <div class="app-section">
+                    {% if latestPublishedTableRows | length %}
+                      {{ govukTable({
+                        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                        head: [{ text: "Published" }, { text: "Version" }],
+                        rows: latestPublishedTableRows
+                      }) }}
+
+                      <p>
+                        <a class="app-link" target="_blank" rel="noopener noreferrer"
+                           href="https://github.com/DEFRA/{{ imageName }}/tags">
+                          more versions
+                        </a>
+                      </p>
+
+                    {% else %}
+                      <p class="govuk-!-margin-bottom-2">
+                        No published versions available.
+                      </p>
+                    {% endif %}
+
+
+                  </div>
+
+                </div>
+              </section>
+            {% endcall %}
+
+            {% call appPanel() %}
+              <div class="app-row">
+
+                <div class="app-row__item-flex-two">
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
+                  <p class="govuk-!-margin-bottom-2">
+                    Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}.
+                    {% if imageName %}
+                      For more information view <a class="app-link" href="/running-services/{{ imageName }}">
+                      Running services
+                    </a>
+                    {% endif %}
+                  </p>
+
+                  {% if imageName %}
+
+                    {{ appRunningServiceSlim({
+                      runningServices: runningServices,
+                      environments: environments,
+                      inverseZeroDeploy: true
+                    }) }}
+
+                  {% endif %}
+                </div>
+
+              </div>
+            {% endcall %}
+
+          {% endcall %}
+        </div>
+      {% endblock %}
+
+    </div>
+  </div>
+
+{% endblock %}
