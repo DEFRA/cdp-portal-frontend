@@ -21,7 +21,7 @@ function filters($form) {
     $clearAll.addEventListener('click', clearFiltersFunction)
   }
 
-  $form.addEventListener('input', debounce(handleFormSubmit, 300)) // minimal debounce whilst user is typing
+  $form.addEventListener('input', debounce(handleFormSubmit, 200)) // minimal debounce whilst user is typing
 }
 
 function handleFormSubmit(event) {
