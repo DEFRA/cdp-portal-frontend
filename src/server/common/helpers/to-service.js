@@ -2,6 +2,7 @@ import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
+import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 
 /**
  * Provide a service which is:
@@ -11,7 +12,12 @@ import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-
  * @returns {Promise<PartialObject<*>>}
  */
 async function toService(serviceId) {
-  const github = await fetchRepository(serviceId).catch(nullify404)
+  const [github, deployableService, tenantServices] = await Promise.all([
+    fetchRepository(serviceId).catch(nullify404),
+    fetchDeployableService(serviceId),
+    fetchTenantService(serviceId)
+  ])
+
   const repository = github?.repository
     ? {
         ...github.repository,
@@ -21,7 +27,13 @@ async function toService(serviceId) {
       }
     : null
 
-  const deployableService = await fetchDeployableService(serviceId)
+  const meta = tenantServices
+    ? {
+        isPostgres: Object.values(tenantServices).some(
+          (valueObj) => valueObj.postgres === true
+        )
+      }
+    : {}
 
   if (deployableService === null && repository === null) {
     return null
@@ -29,7 +41,9 @@ async function toService(serviceId) {
 
   return repositoryDecorator(
     { isDeployable: true, ...deployableService },
-    repository
+    repository,
+    tenantServices,
+    meta
   )
 }
 

@@ -1,5 +1,6 @@
 @use "govuk-frontend" as *;
 @use "variables/colours" as *;
+@use "variables/border-radius" as *;
 
 .app-service-container {
   .app-service-container__sidebar {
@@ -26,9 +27,12 @@
 .app-grid-service {
   flex: 1;
   display: grid;
-  gap: govuk-spacing(6);
+  gap: govuk-spacing(2);
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(10px, max-content);
+  grid-auto-rows: minmax(auto, max-content);
+}
+
+.app-grid-service--standard {
   grid-template-areas:
     "details details details"
     "run run run"
@@ -43,20 +47,55 @@
     "details details details published published published"
     "info info info run run run";
   }
+}
 
-  .app-grid-service__details {
-    grid-area: details;
-  }
+.app-grid-service--postgres {
+  grid-template-areas:
+    "details details details"
+    "run run run"
+    "published published published"
+    "migrations migrations migrations"
+    "info info info";
 
-  .app-grid-service__info {
-    grid-area: info;
-  }
 
-  .app-grid-service__run {
-    grid-area: run;
+  @include govuk-media-query($from: desktop-massive) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(10px, max-content);
+    grid-template-areas:
+    "details details details published published published"
+    "run run run migrations migrations migrations"
+    "info info info . . .";
   }
+}
 
-  .app-grid-service__published {
-    grid-area: published;
-  }
+%background {
+  padding: govuk-spacing(4);
+  background-color: $app-light-grey;
+  border: 1px solid $app-grey;
+  border-radius: $app-border-radius;
+}
+
+.app-grid-service__details {
+  @extend %background;
+  grid-area: details;
+}
+
+.app-grid-service__info {
+  @extend %background;
+  grid-area: info;
+}
+
+.app-grid-service__run {
+  @extend %background;
+  grid-area: run;
+}
+
+.app-grid-service__published {
+  @extend %background;
+  grid-area: published;
+}
+
+.app-grid-service__migrations {
+  @extend %background;
+  grid-area: migrations;
 }

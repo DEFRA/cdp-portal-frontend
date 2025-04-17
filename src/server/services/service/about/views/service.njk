@@ -4,9 +4,11 @@
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/internal-icon/macro.njk" import appInternalIcon %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+{% from "icons/schema-icon/macro.njk" import appSchemaIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
 {% from "time/macro.njk" import appTime %}
+{% from "tag/macro.njk" import appTag %}
 
 {% macro vanityUrlComponent(params) %}
   <div class="app-!-layout-flex-start">
@@ -58,7 +60,7 @@
        data-testid="deploy-button">Deploy</a>
   {% endset %}
 
-  {% set createdHtml %}
+  {% set detailHtml %}
     <div class="app-row">
       {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
       {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
@@ -67,14 +69,52 @@
 
   {% if isAdmin or isServiceOwner %}
     {{ latestPublishedTableRows.push([
-      { html: createdHtml },
+      { html: detailHtml },
       { html: versionLinkHtml },
       { html: deployButtonHtml }
     ]) }}
   {% else %}
     {{ latestPublishedTableRows.push([
-      { html: createdHtml },
+      { html: detailHtml },
       { html: versionLinkHtml }
+    ]) }}
+  {% endif %}
+{% endfor %}
+
+{% set migrationsTableRows = [] %}
+{% for migration in migrations %}
+  {% set migrationButtonHtml %}
+    <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
+      query: { imageName: service.serviceName, migration: migration.version }
+    }) }}"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button">Deploy schema</a>
+  {% endset %}
+
+  {% set detailHtml %}
+    <div class="app-row">
+      {{ appSchemaIcon({ classes: "app-icon--small", description: "Migration " + migration.version }) }}
+      {{ appTime({ datetime: migration.created, classes: "govuk-!-margin-left-2" }) }}
+    </div>
+  {% endset %}
+
+  {% set kind %}
+    {{ appTag({ text: migration.kind | title, classes: "govuk-tag--purple" }) }}
+  {% endset %}
+
+  {% if hasPostgresPermission and (isAdmin or isServiceOwner) %}
+    {{ migrationsTableRows.push([
+      { html: detailHtml },
+      { html: migration.version },
+      { html: kind },
+      { html: migrationButtonHtml }
+    ]) }}
+  {% else %}
+    {{ migrationsTableRows.push([
+      { html: detailHtml },
+      { html: migration.version },
+      { html: kind}
     ]) }}
   {% endif %}
 {% endfor %}
@@ -102,37 +142,42 @@
 
 {% block tabContent %}
 
-  {% if shutteredUrls | length %}
-    <ul class="govuk-list">
-      {% for shutteredUrl in shutteredUrls %}
-        <li>
-          {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
-            <a class="app-link app-link--underline"
-               href="https://{{ shutteredUrl }}"
-               target="_blank" rel="noopener noreferrer">https://{{ shutteredUrl }}</a> has been shuttered
-          {% endcall %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  <div class="govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+    {% if shutteredUrls | length %}
+      <ul class="govuk-list govuk-!-margin-bottom-0">
+        {% for shutteredUrl in shutteredUrls %}
+          <li>
+            {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
+              <a class="app-link app-link--underline"
+                 href="https://{{ shutteredUrl }}"
+                 target="_blank" rel="noopener noreferrer">https://{{ shutteredUrl }}</a> has been shuttered
+            {% endcall %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 
-  {% if apiGatewaydUrls | length %}
-    <ul class="govuk-list">
-      {% for apiGatewaydUrl in apiGatewaydUrls %}
-        <li>
-          {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
-            <a class="app-link app-link--underline"
-               href="https://{{ apiGatewaydUrl }}"
-               target="_blank"
-               rel="noopener noreferrer">https://{{ apiGatewaydUrl }}</a> has been shuttered
-          {% endcall %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+    {% if apiGatewaydUrls | length %}
+      <ul class="govuk-list govuk-!-margin-bottom-0">
+        {% for apiGatewaydUrl in apiGatewaydUrls %}
+          <li>
+            {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
+              <a class="app-link app-link--underline"
+                 href="https://{{ apiGatewaydUrl }}"
+                 target="_blank"
+                 rel="noopener noreferrer">https://{{ apiGatewaydUrl }}</a> has been shuttered
+            {% endcall %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+  {% set gridClasses = ["app-grid app-grid-service", "app-grid-service--postgres" if service.isPostgres else
+  "app-grid-service--standard"] | join(" ") | trim %}
 
   <div class="app-service-container">
-    <article class="app-grid app-grid-service">
+    <article class="{{ gridClasses }}">
       <section class="app-grid-service__details">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
         <p class="govuk-!-margin-bottom-2">
@@ -152,12 +197,12 @@
 
         {% if latestPublishedTableRows | length %}
           {{ govukTable({
-            classes: "app-table govuk-!-margin-bottom-4",
+            classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
             head: [{ text: "Published" }, { text: "Version" }, { text: "Action" }] if isServiceOwner else [{ text: "Published" }, { text: "Version" }],
             rows: latestPublishedTableRows
             }) }}
 
-          <p class="govuk-!-margin-bottom-2">
+          <p class="govuk-!-margin-bottom-0">
             <a class="app-link" target="_blank" rel="noopener noreferrer"
                href="https://github.com/DEFRA/{{ service.serviceName }}/tags">
               more versions
@@ -171,6 +216,31 @@
         {% endif %}
       </section>
 
+      {% if service.isPostgres %}
+        <section class="app-grid-service__migrations" data-testid="migrations">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Schemas</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Latest available schemas for your service
+          </p>
+
+          {% set headings = [{ text: "Created" }, { text: "Version" }, { text: "Kind" }, { text: "Action" } if
+          hasPostgresPermission and (isAdmin or isServiceOwner) ] %}
+
+          {% if migrationsTableRows | length %}
+            {{ govukTable({
+              classes: "app-table app-table--inverse govuk-!-margin-bottom-0",
+              head: headings,
+              rows: migrationsTableRows
+              }) }}
+
+          {% else %}
+            <p class="govuk-!-margin-bottom-2">
+              No migrations available.
+            </p>
+          {% endif %}
+        </section>
+      {% endif %}
+
       <section class="app-grid-service__run">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
         <p class="govuk-!-margin-bottom-2">
@@ -180,7 +250,8 @@
 
         {{ appRunningServiceSlim({
           runningServices: runningServices,
-          environments: availableServiceEnvironments
+          environments: availableServiceEnvironments,
+          inverseZeroDeploy: true
         }) }}
       </section>
 
@@ -213,7 +284,7 @@
 
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Continuous Integration</h2>
-          <p class="govuk-!-margin-bottom-2">
+          <p class="govuk-!-margin-bottom-0">
             Test, build and publish ready-to-deploy docker images of your service with CI and GitHub
             Actions workflows. Your service is built and published by GitHub Actions and comes with a number of
             useful CDP Workflows. To view these workflows and builds go to

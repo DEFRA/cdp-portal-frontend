@@ -7,7 +7,7 @@
   margin-top: govuk-spacing(-1);
   margin-bottom: govuk-spacing(1);
   width: max-content;
-  border-radius: $app-border-radius;
+  border-radius: $app-border-radius-min;
   @include govuk-font(19);
 
   &:focus {

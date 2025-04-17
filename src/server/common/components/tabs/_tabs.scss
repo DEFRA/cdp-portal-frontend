@@ -24,7 +24,7 @@
 }
 
 .app-tabs__panel {
-  padding: govuk-spacing(6) 0;
+  padding: 0 govuk-spacing(4) govuk-spacing(4);
 }
 
 .app-tabs__panel--slim {
@@ -70,7 +70,8 @@
 
   .app-tabs__panel {
     border-top: 1px solid $app-mid-grey;
-    margin-left: govuk-spacing(-2);
-    margin-right: govuk-spacing(-2);
+    margin-left: govuk-spacing(-6);
+    margin-right: govuk-spacing(-6);
+    padding: 0 govuk-spacing(6) govuk-spacing(6);
   }
 }

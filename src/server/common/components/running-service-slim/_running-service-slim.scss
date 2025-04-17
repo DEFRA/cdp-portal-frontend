@@ -2,20 +2,20 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
-$environment-width: 160px;
+$environment-width: 260px;
 $environment-height: 120px;
 $negative-margin: -6px;
 
 .app-running-service-slim {
   display: flex;
   gap: govuk-spacing(1);
-  margin-bottom: govuk-spacing(4);
+  margin-bottom: 0;
 }
 
 .app-running-service-slim__environment {
   flex: 1;
   display: grid;
-  grid-auto-rows: minmax(10px, max-content);
+  grid-auto-rows: minmax(auto-fill, max-content);
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
       "unstable unstable"
@@ -35,6 +35,7 @@ $negative-margin: -6px;
 
   &.item-detail--green {
     background-color: govuk-tint(govuk-colour("green"), 80%);
+    border: 1px solid govuk-tint(govuk-colour("green"), 90%);
 
     .app-tag {
       background-color: govuk-tint(govuk-colour("green"), 60%);
@@ -43,6 +44,7 @@ $negative-margin: -6px;
 
   &.item-detail--purple {
     background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
+    border: 1px solid govuk-tint(govuk-colour("bright-purple"), 95%);
 
     .app-tag {
       background-color: govuk-tint(govuk-colour("bright-purple"), 65%);
@@ -51,6 +53,7 @@ $negative-margin: -6px;
 
   &.item-detail--grey {
     background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
+    border: 1px solid govuk-tint(govuk-colour("dark-grey"), 90%);
 
     .app-instance {
       fill: govuk-tint(govuk-colour("dark-grey"), 10%);
@@ -63,6 +66,7 @@ $negative-margin: -6px;
 
   &.item-detail--light-blue {
     background-color: govuk-tint(govuk-colour("blue"), 90%);
+    border: 1px solid govuk-tint(govuk-colour("blue"), 100%);
 
     .app-tag {
       background-color: govuk-tint(govuk-colour("blue"), 60%);
@@ -71,6 +75,7 @@ $negative-margin: -6px;
 
   &.item-detail--red {
     background-color: govuk-tint(govuk-colour("red"), 75%);
+    border: 1px solid govuk-tint(govuk-colour("red"), 85%);
 
     .app-tag {
       background-color: govuk-tint(govuk-colour("red"), 45%);
@@ -153,6 +158,7 @@ $negative-margin: -6px;
   min-height: $environment-height;
   border-radius: $app-border-radius;
   background-color: $app-light-grey;
+  border: 1px solid $app-grey;
 }
 
 .app-running-service-slim__zero-deployment--inverse {

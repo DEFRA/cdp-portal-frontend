@@ -4,7 +4,7 @@
 
 .app-textarea {
   min-width: 12em;
-  border-radius: $app-border-radius;
+  border-radius: $app-border-radius-min;
   border: 1px solid govuk-colour("mid-grey");
 
   &:focus {

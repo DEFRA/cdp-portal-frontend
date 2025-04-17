@@ -6,7 +6,8 @@ const scopes = {
   serviceOwner: 'serviceOwner',
   externalTest: 'externalTest',
   breakGlass: 'breakGlass',
-  restrictedTechPython: 'restrictedTechPython'
+  restrictedTechPython: 'restrictedTechPython',
+  restrictedTechPostgres: 'restrictedTechPostgres'
 }
 
 const serviceOwnerOrAdminUserScope = authScope([
@@ -14,4 +15,9 @@ const serviceOwnerOrAdminUserScope = authScope([
   scopes.serviceOwner
 ])
 
-export { scopes, serviceOwnerOrAdminUserScope }
+function hasScope(request, scope) {
+  const scopes = request.auth?.credentials?.scope ?? []
+  return scopes.includes(scope)
+}
+
+export { scopes, serviceOwnerOrAdminUserScope, hasScope }
