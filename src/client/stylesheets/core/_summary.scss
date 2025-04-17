@@ -1,5 +1,6 @@
 @use "govuk-frontend" as *;
 @use "variables/colours" as *;
+@use "variables/border-radius" as *;
 
 .app-summary__heading {
   width: 20%;
@@ -13,21 +14,33 @@
   margin-bottom: govuk-spacing(4);
 
   .govuk-summary-list__row {
-    border-bottom: 1px solid $app-mid-grey;
+    border: 1px solid $app-grey;
     vertical-align: middle;
 
     .govuk-summary-list__key {
-      padding-left: govuk-spacing(1);
+      padding-left: govuk-spacing(2);
+      border-radius: $app-border-radius-left;
+    }
+
+    .govuk-summary-list__value {
+      border-radius: $app-border-radius-right;
     }
 
     .govuk-summary-list__key,
     .govuk-summary-list__value,
     .govuk-summary-list__actions {
       vertical-align: middle;
+      padding-right: govuk-spacing(2);
     }
 
     &:hover {
-      background-color: $app-grey;
+      background-color: $app-light-grey;
     }
+  }
+}
+
+.app-summary-list--inverse {
+  .govuk-summary-list__row {
+    background-color: govuk-colour("white");
   }
 }
