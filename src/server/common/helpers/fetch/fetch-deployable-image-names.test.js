@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { config } from '~/src/config/config.js'
 import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images.js'
-import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names.js'
+import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#fetchDeployableImageNames', () => {
