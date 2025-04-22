@@ -71,7 +71,7 @@
     {{ latestPublishedTableRows.push([
       { html: detailHtml },
       { html: versionLinkHtml },
-      { html: deployButtonHtml }
+      { html: deployButtonHtml, classes: "govuk-table__header--numeric" }
     ]) }}
   {% else %}
     {{ latestPublishedTableRows.push([
@@ -81,39 +81,39 @@
   {% endif %}
 {% endfor %}
 
-{% set migrationsTableRows = [] %}
-{% for migration in migrations %}
-  {% set migrationButtonHtml %}
+{% set schemaTableRows = [] %}
+{% for schema in schemas %}
+  {% set schemaButtonHtml %}
     <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
-      query: { imageName: service.serviceName, migration: migration.version }
+      query: { imageName: service.serviceName, schema: schema.version }
     }) }}"
        role="button"
-       class="govuk-button app-button app-button--primary app-button--small"
-       data-testid="deploy-button">Deploy schema</a>
+       class="govuk-button app-button app-button--secondary app-button--small"
+       data-testid="deploy-button">Deploy</a>
   {% endset %}
 
   {% set detailHtml %}
     <div class="app-row">
-      {{ appSchemaIcon({ classes: "app-icon--small", description: "Migration " + migration.version }) }}
-      {{ appTime({ datetime: migration.created, classes: "govuk-!-margin-left-2" }) }}
+      {{ appSchemaIcon({ classes: "app-icon--small", description: "Migration " + schema.version }) }}
+      {{ appTime({ datetime: schema.created, classes: "govuk-!-margin-left-2" }) }}
     </div>
   {% endset %}
 
   {% set kind %}
-    {{ appTag({ text: migration.kind | title, classes: "govuk-tag--purple" }) }}
+    {{ appTag({ text: schema.kind | title, classes: "govuk-tag--purple" }) }}
   {% endset %}
 
   {% if hasPostgresPermission and (isAdmin or isServiceOwner) %}
-    {{ migrationsTableRows.push([
+    {{ schemaTableRows.push([
       { html: detailHtml },
-      { html: migration.version },
+      { html: schema.version },
       { html: kind },
-      { html: migrationButtonHtml }
+      { html: schemaButtonHtml, classes: "govuk-table__header--numeric" }
     ]) }}
   {% else %}
-    {{ migrationsTableRows.push([
+    {{ schemaTableRows.push([
       { html: detailHtml },
-      { html: migration.version },
+      { html: schema.version },
       { html: kind}
     ]) }}
   {% endif %}
@@ -198,8 +198,14 @@
         {% if latestPublishedTableRows | length %}
           {{ govukTable({
             classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-            head: [{ text: "Published" }, { text: "Version" }, { text: "Action" }] if isServiceOwner else [{ text: "Published" }, { text: "Version" }],
-            rows: latestPublishedTableRows
+            head: [
+              { text: "Published" },
+              { text: "Version" },
+              {
+                text: "Action",
+                classes: "govuk-!-width-one-quarter govuk-table__header--numeric govuk-!-padding-right-5"
+              } if isServiceOwner],
+              rows: latestPublishedTableRows
             }) }}
 
           <p class="govuk-!-margin-bottom-0">
@@ -217,25 +223,31 @@
       </section>
 
       {% if service.isPostgres %}
-        <section class="app-grid-service__migrations" data-testid="migrations">
+        <section class="app-grid-service__schemas" data-testid="schema">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Schemas</h2>
           <p class="govuk-!-margin-bottom-2">
             Latest available schemas for your service
           </p>
 
-          {% set headings = [{ text: "Created" }, { text: "Version" }, { text: "Kind" }, { text: "Action" } if
-          hasPostgresPermission and (isAdmin or isServiceOwner) ] %}
+          {% set headings = [
+            { text: "Created" },
+            { text: "Version" },
+            { text: "Kind" },
+            {
+              text: "Action",
+              classes: "govuk-!-width-one-quarter govuk-table__header--numeric govuk-!-padding-right-5"
+            } if hasPostgresPermission and (isAdmin or isServiceOwner) ] %}
 
-          {% if migrationsTableRows | length %}
+          {% if schemaTableRows | length %}
             {{ govukTable({
               classes: "app-table app-table--inverse govuk-!-margin-bottom-0",
               head: headings,
-              rows: migrationsTableRows
+              rows: schemaTableRows
               }) }}
 
           {% else %}
             <p class="govuk-!-margin-bottom-2">
-              No migrations available.
+              No schemas available.
             </p>
           {% endif %}
         </section>

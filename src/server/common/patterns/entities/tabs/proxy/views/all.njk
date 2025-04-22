@@ -100,59 +100,61 @@
 {% set pluralServiceOrTest = serviceOrTestSuite | pluralise %}
 
 {% block tabContent %}
+  <section class="govuk-!-margin-top-4">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+        {% call appSplitPane() %}
+          <section>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy</h2>
+            <p>
+              View proxy rules for {{ service.serviceName }} in all CDP environments.
+              These are rules for allowing outbound traffic from the {{ serviceOrTestSuite }} to anything outside of
+              CDP.
+            </p>
 
-      {% call appSplitPane() %}
-        <section>
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy</h2>
-          <p>
-            View proxy rules for {{ service.serviceName }} in all CDP environments.
-            These are rules for allowing outbound traffic from the {{ serviceOrTestSuite }} to anything outside of CDP.
-          </p>
+            {{ appInfo({ html: explainProxyRulesHtml }) }}
 
-          {{ appInfo({ html: explainProxyRulesHtml }) }}
+            <div class="app-grid app-grid--fluid">
 
-          <div class="app-grid app-grid--fluid">
+              {% for envProxy in allEnvironmentsTables %}
+                <article>
+                  {% call appPanel() %}
+                    <div class="app-row govuk-!-margin-bottom-2">
+                      <div class="app-row__item-flex-four">
+                        <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
+                          {{ envProxy.environment | title }}
+                        </h3>
+                      </div>
 
-            {% for envProxy in allEnvironmentsTables %}
-              <article>
-                {% call appPanel() %}
-                  <div class="app-row govuk-!-margin-bottom-2">
-                    <div class="app-row__item-flex-four">
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                        {{ envProxy.environment | title }}
-                      </h3>
+                      {% if envProxy.isProxySetup %}
+                        <div class="app-row__item-flex-two app-!-layout-right-aligned">
+                          <p class="govuk-!-margin-bottom-0">
+                            <a
+                              href="{{ routeLookup(pluralServiceOrTest + '/{serviceId}/proxy/{environment}', {
+                                params: {
+                                  serviceId: service.serviceName,
+                                  environment: envProxy.environment
+                                }
+                              }) }}" class="app-link app-link--underline">
+                              View
+                            </a>
+                          </p>
+                        </div>
+                      {% endif %}
                     </div>
 
-                    {% if envProxy.isProxySetup %}
-                      <div class="app-row__item-flex-two app-!-layout-right-aligned">
-                        <p class="govuk-!-margin-bottom-0">
-                          <a
-                            href="{{ routeLookup(pluralServiceOrTest + '/{serviceId}/proxy/{environment}', {
-                              params: {
-                                serviceId: service.serviceName,
-                                environment: envProxy.environment
-                              }
-                            }) }}" class="app-link app-link--underline">
-                            View
-                          </a>
-                        </p>
-                      </div>
-                    {% endif %}
-                  </div>
+                    {{ envProxy.table | safe }}
+                  {% endcall %}
+                </article>
 
-                  {{ envProxy.table | safe }}
-                {% endcall %}
-              </article>
+              {% endfor %}
+            </div>
+          </section>
+        {% endcall %}
 
-            {% endfor %}
-          </div>
-        </section>
-      {% endcall %}
-
+      </div>
     </div>
-  </div>
+  </section>
 
 {% endblock %}
