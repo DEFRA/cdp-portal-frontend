@@ -5,6 +5,7 @@
 .app-panel {
   padding: govuk-spacing(4);
   background-color: $app-light-grey;
+  border: 1px solid $app-grey;
   border-radius: $app-border-radius;
 
   & + & {
