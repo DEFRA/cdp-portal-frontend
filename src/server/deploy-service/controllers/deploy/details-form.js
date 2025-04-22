@@ -6,7 +6,7 @@ import { getEnvironments } from '~/src/server/common/helpers/environments/get-en
 import { getAdditionalData } from '~/src/server/deploy-service/helpers/get-additional-data.js'
 import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
-import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names.js'
+import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
 
 const detailsFormController = {
   options: {

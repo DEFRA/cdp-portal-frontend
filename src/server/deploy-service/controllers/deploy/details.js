@@ -1,12 +1,12 @@
 import Joi from 'joi'
 import qs from 'qs'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { serviceValidation } from '~/src/server/deploy-service/helpers/schema/service-validation.js'
-import { fetchDeployableImageNames } from '~/src/server/deploy-service/helpers/fetch/fetch-deployable-image-names.js'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { serviceValidation } from '~/src/server/deploy-service/helpers/schema/service-validation.js'
+import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
+import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 
 const detailsController = {
   options: {
