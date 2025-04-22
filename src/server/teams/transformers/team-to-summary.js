@@ -53,7 +53,7 @@ function transformTeamToSummary(team, withActions = false) {
   const actions = withActions ? editActions : null
 
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-0',
+    classes: 'app-summary-list app-summary-list--inverse',
     attributes: { 'data-testid': 'team-details' },
     rows: [
       {

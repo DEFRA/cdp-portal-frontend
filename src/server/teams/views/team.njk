@@ -25,14 +25,16 @@
         </ul>
       {% endif %}
 
-      <section>
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-        <p class="govuk-!-margin-bottom-2">
-          Team information and the services, test-suites, templates and libraries they own
-        </p>
+      {% call appPanel() %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Team information and the services, test-suites, templates and libraries they own
+          </p>
 
-        {{ govukSummaryList(summaryList) }}
-      </section>
+          {{ govukSummaryList(summaryList) }}
+        </section>
+      {% endcall %}
 
     </div>
   </div>

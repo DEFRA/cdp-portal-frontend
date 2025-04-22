@@ -22,6 +22,7 @@ function sortByTeam(a, b) {
 
 const teamsListController = {
   options: {
+    id: 'teams',
     pre: [provideAuthedUser]
   },
   handler: async (request, h) => {
