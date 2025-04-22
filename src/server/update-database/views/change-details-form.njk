@@ -1,0 +1,207 @@
+{% extends "layouts/page.njk" %}
+
+{% from "icons/schema-icon/macro.njk" import appSchemaIcon %}
+{% from "time/macro.njk" import appTime %}
+{% from "tag/macro.njk" import appTag %}
+
+{% set latestDbUpdatesTableRows = [] %}
+{% for dbChange in latestDbChanges %}
+
+  {% set createdHtml %}
+    <div class="app-row">
+      {{ appSchemaIcon({ classes: "app-icon--small", description: "Database Update " + dbChange.version }) }}
+      {{ appTime({ datetime: dbChange.created, classes: "govuk-!-margin-left-2" }) }}
+    </div>
+  {% endset %}
+
+  {% set kind %}
+    {{ appTag({ text: dbChange.kind | title, classes: "govuk-tag--purple" }) }}
+  {% endset %}
+
+  {{ latestDbUpdatesTableRows.push([
+    { html: createdHtml },
+    { html: dbChange.version, attributes: { "data-testid": "latest-migration-version" } },
+    { html: kind }
+  ]) }}
+{% endfor %}
+
+{% block content %}
+
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appPageHeading({
+      text: "Details",
+      intro: "Provide the postgres microservice image name, database update version and environment"
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        <form action="/update-database/change-details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}"
+              method="post"
+              data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+          {% call govukFieldset() %}
+
+            {{ appAutocomplete({
+              id: "image-name",
+              name: "imageName",
+              label: {
+                text: "Image Name",
+                classes: "app-label"
+              },
+              hint: {
+                text: "Elastic Container Registry (ECR) image name"
+              },
+              value: imageName or formValues.imageName,
+              errorMessage: errorMessageHelper(formErrors.imageName.message),
+              suggestions: deployableImageNameOptions,
+              siblingDataFetcher: {
+                name: "fetchMigrations",
+                target: "db-update-version",
+                targetLoader: "db-update-version-loader"
+              },
+              publishTo: eventName.autocompleteUpdate + "db-update-version"
+            }) }}
+
+            {% call appAutocomplete({
+              id: "version",
+              name: "version",
+              label: {
+                text: "Database Update Version",
+                classes: "app-label"
+              },
+              hint: {
+                text: "Database update version to run"
+              },
+              template: "advanced",
+              value: formValues.version,
+              dataJs: "db-update-version",
+              subscribeTo: eventName.autocompleteUpdate + "db-update-version",
+              noSuggestionsMessage: "choose Image name",
+              errorMessage: errorMessageHelper(formErrors.version.message),
+              suggestions: dbChangeOptions,
+              loader: {
+                name: "db-update-version-loader"
+              }
+            }) %}
+
+              {{ govukButton({
+                classes: "app-button app-button--secondary js-hidden",
+                text: "Search",
+                name: "button",
+                value: "search",
+                attributes: {
+                  "data-js": "app-no-js-submit-button"
+                }
+              }) }}
+
+            {% endcall %}
+
+            {{ govukSelect({
+              id: "environment",
+              name: "environment",
+              label: {
+                text: "Environment",
+                classes: "app-label"
+              },
+              classes: "app-select",
+              value: formValues.environment,
+              hint: {
+                text: "The environment to run your database update on",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: errorMessageHelper(formErrors.environment.message),
+              items: environmentOptions
+            }) }}
+
+          {% endcall %}
+
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText | capitalize,
+            name: "button",
+            value: formButtonText | lower
+          }) }}
+
+        </form>
+      </div>
+
+      {% block xhrContent %}
+        <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+          {% call appXhrSubscriber({
+            id: "update-data",
+            subscribeTo: eventName.autocompleteUpdate + "db-update-version",
+            xhrUrl: "/update-database/change-details"
+          }) %}
+
+            {% call appPanel() %}
+              <section class="app-row">
+
+                <div class="app-row__item-flex-two">
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Database Changes</h2>
+                  <p>
+                    Latest database changes available{%- if imageName %} for {{ imageName }}{% endif -%}
+                  </p>
+
+                  <div class="app-section">
+                    {% if latestDbUpdatesTableRows | length %}
+                      {{ govukTable({
+                        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                        head: [{ text: "Created" }, { text: "Version" }, { text: "Kind" }],
+                        rows: latestDbUpdatesTableRows
+                      }) }}
+
+                    {% else %}
+                      <p class="govuk-!-margin-bottom-2">
+                        No changes available
+                      </p>
+                    {% endif %}
+                  </div>
+
+                </div>
+              </section>
+            {% endcall %}
+
+            {% call appPanel() %}
+              <div class="app-row">
+
+                <div class="app-row__item-flex-two">
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
+                  <p class="govuk-!-margin-bottom-2">
+                    Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}
+                    {% if imageName %}
+                      For more information view <a class="app-link" href="/running-services/{{ imageName }}">
+                      Running services
+                    </a>
+                    {% endif %}
+                  </p>
+
+                  {% if imageName %}
+
+                    {{ appRunningServiceSlim({
+                      runningServices: runningServices,
+                      environments: environments,
+                      inverseZeroDeploy: true
+                    }) }}
+
+                  {% endif %}
+                </div>
+
+              </div>
+            {% endcall %}
+
+          {% endcall %}
+        </div>
+      {% endblock %}
+
+    </div>
+  </div>
+
+{% endblock %}
