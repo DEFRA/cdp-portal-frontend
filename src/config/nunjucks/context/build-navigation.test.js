@@ -1,9 +1,10 @@
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,
   getUserSession: () => auth,
-  routeLookup: () => '/'
+  routeLookup: (value) => (value === 'home' ? '/' : `/${value}`)
 })
 
 describe('#buildNavigation', () => {
@@ -188,6 +189,78 @@ describe('#buildNavigation', () => {
             url: '/admin'
           }
         ]
+      })
+    })
+
+    describe('When user has postgres permission', () => {
+      test('Should provide expected navigation details', async () => {
+        expect(
+          await buildNavigation(
+            mockRequest({
+              auth: { isTenant: true, scope: [scopes.restrictedTechPostgres] }
+            })
+          )
+        ).toEqual({
+          actions: [
+            {
+              isActive: false,
+              text: 'Update Database',
+              url: '/update-database'
+            },
+            {
+              isActive: false,
+              text: 'Deploy Service',
+              url: '/deploy-service'
+            },
+            {
+              isActive: false,
+              text: 'Create',
+              url: '/create'
+            }
+          ],
+          primary: [
+            {
+              isActive: false,
+              text: 'Home',
+              url: '/'
+            },
+            {
+              isActive: false,
+              text: 'Documentation',
+              url: '/documentation'
+            },
+            {
+              isActive: false,
+              text: 'Services',
+              url: '/services'
+            },
+            {
+              isActive: false,
+              text: 'Test suites',
+              url: '/test-suites'
+            },
+            {
+              isActive: false,
+              text: 'Utilities',
+              url: '/utilities/templates'
+            },
+            {
+              isActive: false,
+              text: 'Teams',
+              url: '/teams'
+            },
+            {
+              isActive: false,
+              text: 'Deployments',
+              url: '/deployments'
+            },
+            {
+              isActive: false,
+              text: 'Running Services',
+              url: '/running-services'
+            }
+          ]
+        })
       })
     })
   })

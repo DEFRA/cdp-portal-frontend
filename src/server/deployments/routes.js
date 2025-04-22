@@ -21,6 +21,9 @@ const deployments = {
         {
           method: 'GET',
           path: '/deployments',
+          options: {
+            id: 'deployments'
+          },
           handler: (_request, h) =>
             h.redirect(
               `/deployments/dev?page=${pagination.page}&size=${pagination.size}`

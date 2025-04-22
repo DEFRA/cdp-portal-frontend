@@ -1,10 +1,45 @@
+import { scopes } from '~/src/server/common/constants/scopes.js'
+
 async function buildNavigation(request) {
   const authedUser = await request.getUserSession()
 
-  // TODO update this file to use routeLookup all over
+  const hasPostgresPermission = authedUser?.scope?.includes(
+    scopes.restrictedTechPostgres
+  )
+
   const isActive = (value) => {
     const firstPathPart = request?.path?.split('/').at(1)
     return firstPathPart === value
+  }
+
+  const documentationPath = request.routeLookup('documentation')
+  const servicesPath = request.routeLookup('services')
+  const testSuitesPath = request.routeLookup('test-suites')
+  const runningServicesPath = request.routeLookup('running-services')
+  const deployServicePath = request.routeLookup('deploy-service')
+  const createPath = request.routeLookup('create')
+  const adminPath = request.routeLookup('admin')
+  const updateDatabasePath = request.routeLookup('update-database')
+
+  const actions = (authedUser?.isTenant || authedUser?.isAdmin) && [
+    {
+      text: 'Deploy Service',
+      url: deployServicePath,
+      isActive: request?.path?.includes(deployServicePath)
+    },
+    {
+      text: 'Create',
+      url: createPath,
+      isActive: request?.path?.includes(createPath)
+    }
+  ]
+
+  if (hasPostgresPermission) {
+    actions.unshift({
+      text: 'Update Database',
+      url: updateDatabasePath,
+      isActive: request?.path?.includes(updateDatabasePath)
+    })
   }
 
   return {
@@ -16,58 +51,47 @@ async function buildNavigation(request) {
       },
       {
         text: 'Documentation',
-        url: '/documentation',
-        isActive: request?.path?.includes('/documentation')
+        url: documentationPath,
+        isActive: request?.path?.includes(documentationPath)
       },
       {
         text: 'Services',
-        url: '/services',
-        isActive: request?.path?.includes('/services')
+        url: servicesPath,
+        isActive: request?.path?.includes(servicesPath)
       },
       {
         text: 'Test suites',
-        url: '/test-suites',
-        isActive: request?.path?.includes('/test-suites')
+        url: testSuitesPath,
+        isActive: request?.path?.includes(testSuitesPath)
       },
       {
         text: 'Utilities',
-        url: '/utilities/templates',
+        url: request.routeLookup('utilities/templates'),
         isActive: request?.path?.includes('/utilities')
       },
       {
         text: 'Teams',
-        url: '/teams',
+        url: request.routeLookup('teams'),
         isActive:
           request?.path?.includes('/teams') && !request?.path?.includes('admin')
       },
       {
         text: 'Deployments',
-        url: '/deployments',
+        url: request.routeLookup('deployments'),
         isActive: isActive('deployments')
       },
       {
         text: 'Running Services',
-        url: '/running-services',
-        isActive: request?.path?.includes('/running-services')
+        url: runningServicesPath,
+        isActive: request?.path?.includes(runningServicesPath)
       }
     ],
-    actions: (authedUser?.isTenant || authedUser?.isAdmin) && [
-      {
-        text: 'Deploy Service',
-        url: '/deploy-service',
-        isActive: request?.path?.includes('/deploy-service')
-      },
-      {
-        text: 'Create',
-        url: '/create',
-        isActive: request?.path?.includes('/create/')
-      }
-    ],
+    actions,
     admin: authedUser?.isAdmin && [
       {
         text: 'Admin',
-        url: '/admin',
-        isActive: request?.path?.includes('/admin')
+        url: adminPath,
+        isActive: request?.path?.includes(adminPath)
       }
     ]
   }
