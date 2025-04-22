@@ -1,12 +1,14 @@
 import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width.js'
 
 /**
- *
- * @param {Function} formSteps - flow defined formSteps
- * @param {Record<string, string>} urls - flow urls
+ * @typedef {object} Options
+ * @property {Function} formSteps - flow defined formSteps
+ * @property {Record<string, string>} urls - flow urls
+ * @property {string} classes - component classes
+ * @param {Options} options
  * @returns {function(*, *): *}
  */
-function provideSteps(formSteps, urls) {
+function provideSteps({ formSteps, urls, classes }) {
   return (request, h) => {
     const isMultistepComplete = (stepSessionData) => {
       return Object.keys(urls).reduce(
@@ -27,8 +29,14 @@ function provideSteps(formSteps, urls) {
         response.source.context = {}
       }
 
+      const stepClasses = ['app-step-navigation--slim']
+
+      if (classes) {
+        stepClasses.push(classes)
+      }
+
       response.source.context.stepNavigation = {
-        classes: 'app-step-navigation--slim',
+        classes: stepClasses.join(' '),
         width: calculateStepWidth(isMultistepComplete(stepData)),
         steps: formSteps(
           request.path,

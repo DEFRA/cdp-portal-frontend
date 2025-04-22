@@ -22,7 +22,7 @@ const multistepForm = {
       },
       {
         type: 'onPostHandler',
-        method: provideSteps(options.formSteps, options.urls),
+        method: provideSteps(options),
         options: {
           sandbox: 'plugin'
         }

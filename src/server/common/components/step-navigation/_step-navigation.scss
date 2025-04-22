@@ -7,6 +7,10 @@
   padding: 0;
 }
 
+.app-step-navigation-container--small {
+  max-width: 300px;
+}
+
 %connecting-line {
   content: "";
   position: absolute;
