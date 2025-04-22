@@ -1,0 +1,40 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appPageHeading({
+      text: "Database Update Summary",
+      intro: "Information about the database update you are going to run"
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop-wide">
+        <form action="/update-database/run/{{ multiStepFormId }}" method="post">
+
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          {{ govukSummaryList({
+            classes: "govuk-!-margin-bottom-7",
+            rows: dbUpdateRows,
+            attributes: { "data-testid": "deploy-summary" }
+          }) }}
+
+          <div class="govuk-!-margin-top-6">
+            {{ appButton({
+              text: "Run",
+              loader: {
+                name: "deploy-submit-button"
+              }
+            }) }}
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

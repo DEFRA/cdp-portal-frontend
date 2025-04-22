@@ -17,6 +17,7 @@ import { services } from '~/src/server/services/routes.js'
 import { teams } from '~/src/server/teams/routes.js'
 import { testSuites } from '~/src/server/test-suites/routes.js'
 import { utilities } from '~/src/server/utilities/routes.js'
+import { updateDatabase } from '~/src/server/update-database/routes.js'
 
 const router = {
   plugin: {
@@ -40,7 +41,8 @@ const router = {
         services,
         teams,
         testSuites,
-        utilities
+        utilities,
+        updateDatabase
       ])
     }
   }
