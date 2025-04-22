@@ -24,6 +24,7 @@ import { search } from '~/src/server/common/components/search/search.js'
 import { tabs } from '~/src/server/common/components/tabs/tabs.js'
 import { xhrSubscriber } from '~/src/server/common/components/xhr-subscriber/xhr-subscriber.js'
 import { resizeIframe } from '~/src/client/common/helpers/resize-iframe.js'
+import { fetchMigrations } from '~/src/client/common/helpers/fetch/autocomplete/fetch-migrations.js'
 import {
   initClass,
   initModules,
@@ -37,6 +38,7 @@ window.cdp = window.cdp || {}
 
 // Helper functions
 window.cdp.fetchVersions = fetchVersions
+window.cdp.fetchMigrations = fetchMigrations
 window.cdp.fetchDocsSearchSuggestions = fetchDocsSearchSuggestions
 window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
