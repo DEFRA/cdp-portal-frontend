@@ -21,77 +21,79 @@
 {% endblock %}
 
 {% block tabContent %}
-  {% call appSplitPane() %}
+  <section class="govuk-!-margin-top-4">
+    {% call appSplitPane() %}
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half-from-desktop">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Remove Test Run</h2>
-        <p class="govuk-!-margin-bottom-2">
-          Remove the following test run from the service:
-        </p>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half-from-desktop">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Remove Test Run</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Remove the following test run from the service:
+          </p>
 
-        <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Test Suite</h3>
-        <p class="govuk-!-margin-bottom-2">
-          <a
-            href="{{ routeLookup('test-suites/{serviceId}', { params: { serviceId : testSuiteId } }) }}"
-            class="govuk-link app-link">
-            {{ testSuiteId }}
-          </a>
-        </p>
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Test Suite</h3>
+          <p class="govuk-!-margin-bottom-2">
+            <a
+              href="{{ routeLookup('test-suites/{serviceId}', { params: { serviceId : testSuiteId } }) }}"
+              class="govuk-link app-link">
+              {{ testSuiteId }}
+            </a>
+          </p>
 
-        <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Kind</h3>
-        <p>
-          {% if "performance" in testRun.repository.topics %}
-            {{ appTag({
-              text: "Performance",
-              classes: "govuk-tag--green"
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Kind</h3>
+          <p>
+            {% if "performance" in testRun.repository.topics %}
+              {{ appTag({
+                text: "Performance",
+                classes: "govuk-tag--green"
+              }) }}
+            {% elseif "journey" in testRun.repository.topics %}
+              {{ appTag({
+                text: "Journey",
+                classes: "govuk-tag--blue"
+              }) }}
+            {% else %}
+              {{ appTag({
+                text: "Test Suite",
+                classes: "govuk-tag--purple"
+              }) }}
+            {% endif %}
+          </p>
+
+          <h3 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Environments</h3>
+          <ul class="govuk-list govuk-list--spaced">
+            {% for environment in testRun.environments %}
+              <li class="app-!-layout-centered">
+                <div class="app-check"></div> {{ environment | formatText }}
+              </li>
+            {% endfor %}
+          </ul>
+
+          <div class="govuk-!-margin-bottom-4">
+            {{ appInfo({
+              html: helpHtml
             }) }}
-          {% elseif "journey" in testRun.repository.topics %}
-            {{ appTag({
-              text: "Journey",
-              classes: "govuk-tag--blue"
-            }) }}
-          {% else %}
-            {{ appTag({
-              text: "Test Suite",
-              classes: "govuk-tag--purple"
-            }) }}
-          {% endif %}
-        </p>
-
-        <h3 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Environments</h3>
-        <ul class="govuk-list govuk-list--spaced">
-          {% for environment in testRun.environments %}
-            <li class="app-!-layout-centered">
-              <div class="app-check"></div> {{ environment | formatText }}
-            </li>
-          {% endfor %}
-        </ul>
-
-        <div class="govuk-!-margin-bottom-4">
-          {{ appInfo({
-            html: helpHtml
-          }) }}
-        </div>
-
-        <form action="{{ routeLookup('post:services/{serviceId}/automations/test-runs/{testSuiteId}/remove', {
-          params: { serviceId: service.serviceName, testSuiteId: testSuiteId }
-        }) }}" method="post">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-
-          <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
-            {{ govukButton({
-              classes: "app-button app-button--destructive",
-              text: "Remove test run"
-            }) }}
-
-            <a class="app-link" href="{{ routeLookup('services/{serviceId}/automations/test-runs', {
-              params: { serviceId: service.serviceName }
-            }) }}">Cancel</a>
           </div>
-        </form>
-      </div>
-    </div>
 
-  {% endcall %}
+          <form action="{{ routeLookup('post:services/{serviceId}/automations/test-runs/{testSuiteId}/remove', {
+            params: { serviceId: service.serviceName, testSuiteId: testSuiteId }
+          }) }}" method="post">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+              {{ govukButton({
+                classes: "app-button app-button--destructive",
+                text: "Remove test run"
+              }) }}
+
+              <a class="app-link" href="{{ routeLookup('services/{serviceId}/automations/test-runs', {
+                params: { serviceId: service.serviceName }
+              }) }}">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    {% endcall %}
+  </section>
 {% endblock %}

@@ -7,6 +7,7 @@ import { servicesInfoToDataList } from '~/src/server/services/list/transformers/
 
 const servicesListController = {
   options: {
+    id: 'services',
     pre: [provideAuthedUser],
     validate: {
       query: Joi.object({
