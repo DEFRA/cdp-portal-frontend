@@ -19,7 +19,7 @@ function transformTestSuiteToSummary(testSuite) {
   )
 
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-8',
+    classes: 'app-summary-list app-summary-list--inverse',
     attributes: {
       'data-testid': 'govuk-summary-list'
     },
