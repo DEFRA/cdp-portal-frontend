@@ -1,12 +1,12 @@
-import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-test-suites.js'
+import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { testSuiteListController } from '~/src/server/test-suites/list/controller.js'
-import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
-import { testSuiteDecorator } from '~/src/server/test-suites/helpers/decorators/test-suite.js'
+import { entityOwnerDecorator } from '~/src/server/test-suites/helpers/decorators/entity-owner-decorator.js'
 import { testSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-test-suites.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-repositories.js')
-jest.mock('~/src/server/test-suites/helpers/decorators/test-suite.js')
+jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
+jest.mock(
+  '~/src/server/test-suites/helpers/decorators/entity-owner-decorator.js'
+)
 jest.mock('~/src/server/test-suites/transformers/test-suite-to-entity-row.js')
 jest.mock('~/src/server/common/helpers/auth/pre/provide-authed-user.js')
 
@@ -35,11 +35,9 @@ describe('testSuiteListController.handler', () => {
 
   test('should return a view with correct data when test suites are available', async () => {
     const testSuitesMock = [{ id: 1, name: 'Test Suite 1' }]
-    const repositoriesMock = [{ id: 1, name: 'Repository 1' }]
 
     fetchTestSuites.mockResolvedValue(testSuitesMock)
-    fetchRepositories.mockResolvedValue({ repositories: repositoriesMock })
-    testSuiteDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
+    entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
     testSuiteToEntityRow.mockReturnValue((isAuthenticated) =>
       isAuthenticated ? { row: 'data' } : {}
     )
@@ -47,10 +45,7 @@ describe('testSuiteListController.handler', () => {
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
-    expect(fetchRepositories).toHaveBeenCalled()
-    expect(testSuiteDecorator).toHaveBeenCalledWith(repositoriesMock, [
-      'scope-1'
-    ])
+    expect(entityOwnerDecorator).toHaveBeenCalledWith(['scope-1'])
     expect(testSuiteToEntityRow).toHaveBeenCalledWith(true)
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
@@ -65,14 +60,12 @@ describe('testSuiteListController.handler', () => {
 
   test('should handle the case when no test suites are available', async () => {
     fetchTestSuites.mockResolvedValue([])
-    fetchRepositories.mockResolvedValue({ repositories: [] })
-    testSuiteDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
+    entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
     testSuiteToEntityRow.mockReturnValue(() => ({}))
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
-    expect(fetchRepositories).toHaveBeenCalled()
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
@@ -89,14 +82,12 @@ describe('testSuiteListController.handler', () => {
     request.pre.authedUser.isAuthenticated = false
 
     fetchTestSuites.mockResolvedValue([])
-    fetchRepositories.mockResolvedValue({ repositories: [] })
-    testSuiteDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
+    entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
     testSuiteToEntityRow.mockReturnValue(() => ({}))
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
-    expect(fetchRepositories).toHaveBeenCalled()
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({

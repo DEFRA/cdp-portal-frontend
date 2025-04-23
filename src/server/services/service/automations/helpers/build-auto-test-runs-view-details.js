@@ -1,5 +1,5 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-test-suites.js'
+import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { testSuiteToEntityRow } from '~/src/server/services/service/automations/helpers/transformers/test-suite-to-entity-row.js'
 import { renderTestSuiteTagHtml } from '~/src/server/services/service/automations/helpers/render-test-suite-tag-html.js'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'

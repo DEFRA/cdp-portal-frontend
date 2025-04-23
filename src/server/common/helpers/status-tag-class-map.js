@@ -9,9 +9,11 @@ function statusTagClassMap(status) {
     ].includes(status):
       return 'govuk-tag--purple'
 
-    case [creationStatuses.requested, creationStatuses.inProgress].includes(
-      status
-    ):
+    case [
+      creationStatuses.requested,
+      creationStatuses.inProgress,
+      creationStatuses.InProgress
+    ].includes(status):
       return 'govuk-tag--blue'
 
     case status === creationStatuses.notRequested:
@@ -27,6 +29,7 @@ function statusTagClassMap(status) {
     case [
       creationStatuses.unknown,
       creationStatuses.failure,
+      creationStatuses.failed,
       creationStatuses.prClosed
     ].includes(status):
       return 'govuk-tag--red'

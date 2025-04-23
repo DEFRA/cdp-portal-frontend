@@ -1,12 +1,10 @@
-import { serviceToEntityRow } from '~/src/server/services/list/transformers/service-to-entity-row.js'
-import { servicesWithRepositoriesFixture } from '~/src/__fixtures__/services/services-with-repositories.js'
+import { entityToEntityRow } from '~/src/server/services/list/transformers/entity-to-entity-row.js'
+import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
 
 describe('#serviceToEntityRow', () => {
   describe('When authenticated', () => {
-    test('Should provide expected service entity row transformation', () => {
-      expect(
-        serviceToEntityRow(true)(servicesWithRepositoriesFixture.at(0))
-      ).toEqual({
+    test('Should provide expected entity row transformation', () => {
+      expect(entityToEntityRow(true)(entityServicesFixture.at(0))).toEqual({
         cells: [
           {
             entity: {
@@ -20,14 +18,14 @@ describe('#serviceToEntityRow', () => {
           {
             entity: {
               kind: 'link',
-              url: '/services/cdp-portal-frontend',
-              value: 'cdp-portal-frontend'
+              url: '/services/cdp-portal-backend',
+              value: 'cdp-portal-backend'
             },
             headers: 'service'
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -40,31 +38,16 @@ describe('#serviceToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'text',
-              value: '- - -'
+              classes: 'govuk-tag--blue',
+              kind: 'tag',
+              value: 'Backend'
             },
             headers: 'kind'
           },
           {
             entity: {
-              kind: 'text',
-              value: 'JavaScript'
-            },
-            headers: 'language'
-          },
-          {
-            entity: {
-              kind: 'link',
-              newWindow: true,
-              url: 'https://github.com/DEFRA/cdp-portal-frontend',
-              value: 'DEFRA/cdp-portal-frontend'
-            },
-            headers: 'github-repository'
-          },
-          {
-            entity: {
               kind: 'date',
-              value: '2023-04-12T17:16:48Z'
+              value: '2016-12-05T11:21:25Z'
             },
             headers: 'created'
           }
@@ -75,9 +58,7 @@ describe('#serviceToEntityRow', () => {
 
   describe('When un-authenticated', () => {
     test('Should provide expected service entity row transformation', () => {
-      expect(
-        serviceToEntityRow(false)(servicesWithRepositoriesFixture.at(0))
-      ).toEqual({
+      expect(entityToEntityRow(false)(entityServicesFixture.at(1))).toEqual({
         cells: [
           {
             entity: {
@@ -89,7 +70,7 @@ describe('#serviceToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -102,31 +83,16 @@ describe('#serviceToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'text',
-              value: '- - -'
+              classes: 'govuk-tag--blue',
+              kind: 'tag',
+              value: 'Frontend'
             },
             headers: 'kind'
           },
           {
             entity: {
-              kind: 'text',
-              value: 'JavaScript'
-            },
-            headers: 'language'
-          },
-          {
-            entity: {
-              kind: 'link',
-              newWindow: true,
-              url: 'https://github.com/DEFRA/cdp-portal-frontend',
-              value: 'DEFRA/cdp-portal-frontend'
-            },
-            headers: 'github-repository'
-          },
-          {
-            entity: {
               kind: 'date',
-              value: '2023-04-12T17:16:48Z'
+              value: '2016-12-05T11:21:25Z'
             },
             headers: 'created'
           }

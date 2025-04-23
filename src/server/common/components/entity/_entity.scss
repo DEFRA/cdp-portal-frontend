@@ -19,7 +19,8 @@
 
 .app-entity__list {
   margin: 0;
-  @extend %govuk-list--bullet;
+  padding-left: 0;
+  list-style: none;
 }
 
 .app-entity__group {

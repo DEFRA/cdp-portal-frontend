@@ -7,11 +7,13 @@ const creationStatuses = {
   prClosed: 'pr_closed',
   merged: 'merged',
   inProgress: 'in-progress',
+  InProgress: 'InProgress',
   notRequested: 'not-requested',
   success: 'success',
   created: 'created',
   workflowCompleted: 'workflow_completed',
-  failure: 'failure'
+  failure: 'failure',
+  failed: 'Failed'
 }
 
 export { creationStatuses }

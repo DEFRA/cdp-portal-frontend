@@ -1,10 +1,10 @@
-import { testSuiteWithLastRunFixture } from '~/src/__fixtures__/test-suite.js'
+import { entityTestSuiteFixture } from '~/src/__fixtures__/test-suite.js'
 import { testSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
 
-describe('#transformServiceToEntityRow', () => {
+describe('#transformTestSuiteToEntityRow', () => {
   describe('When authenticated', () => {
-    test('Should provide expected service entity row transformation', () => {
-      expect(testSuiteToEntityRow(true)(testSuiteWithLastRunFixture)).toEqual({
+    test('Should provide expected entity row transformation', () => {
+      expect(testSuiteToEntityRow(true)(entityTestSuiteFixture)).toEqual({
         cells: [
           {
             classes: 'app-entity-table__cell--owned',
@@ -18,14 +18,14 @@ describe('#transformServiceToEntityRow', () => {
           {
             entity: {
               kind: 'link',
-              url: '/test-suites/cdp-portal-smoke-tests',
-              value: 'cdp-portal-smoke-tests'
+              url: '/test-suites/jrny-test-suite-1745403279072',
+              value: 'jrny-test-suite-1745403279072'
             },
             headers: 'test-suite'
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -39,29 +39,14 @@ describe('#transformServiceToEntityRow', () => {
           {
             entity: {
               kind: 'text',
-              value: 'Smoke'
+              value: 'Journey'
             },
             headers: 'kind'
           },
           {
             entity: {
-              kind: 'link',
-              newWindow: true,
-              url: 'https://github.com/DEFRA/cdp-portal-smoke-tests',
-              value: 'DEFRA/cdp-portal-smoke-tests'
-            },
-            headers: 'github-repository'
-          },
-          {
-            entity: {
               kind: 'date',
-              value: '2023-04-12T17:18:48Z'
-            },
-            headers: 'last-ran'
-          },
-          {
-            entity: {
-              kind: 'date'
+              value: '2025-04-23T10:14:49.589Z'
             },
             headers: 'created'
           }
@@ -71,20 +56,20 @@ describe('#transformServiceToEntityRow', () => {
   })
 
   describe('When not authenticated', () => {
-    test('Should provide expected service entity row transformation', () => {
-      expect(testSuiteToEntityRow(false)(testSuiteWithLastRunFixture)).toEqual({
+    test('Should provide expected entity row transformation', () => {
+      expect(testSuiteToEntityRow(false)(entityTestSuiteFixture)).toEqual({
         cells: [
           {
             entity: {
               kind: 'link',
-              url: '/test-suites/cdp-portal-smoke-tests',
-              value: 'cdp-portal-smoke-tests'
+              url: '/test-suites/jrny-test-suite-1745403279072',
+              value: 'jrny-test-suite-1745403279072'
             },
             headers: 'test-suite'
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -98,29 +83,14 @@ describe('#transformServiceToEntityRow', () => {
           {
             entity: {
               kind: 'text',
-              value: 'Smoke'
+              value: 'Journey'
             },
             headers: 'kind'
           },
           {
             entity: {
-              kind: 'link',
-              newWindow: true,
-              url: 'https://github.com/DEFRA/cdp-portal-smoke-tests',
-              value: 'DEFRA/cdp-portal-smoke-tests'
-            },
-            headers: 'github-repository'
-          },
-          {
-            entity: {
               kind: 'date',
-              value: '2023-04-12T17:18:48Z'
-            },
-            headers: 'last-ran'
-          },
-          {
-            entity: {
-              kind: 'date'
+              value: '2025-04-23T10:14:49.589Z'
             },
             headers: 'created'
           }
