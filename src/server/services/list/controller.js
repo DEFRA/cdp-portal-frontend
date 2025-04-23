@@ -5,7 +5,7 @@ import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-
 import { buildServicesTableData } from '~/src/server/services/list/helpers/build-services-table-data.js'
 import { servicesInfoToDataList } from '~/src/server/services/list/transformers/services-info-to-data-list.js'
 
-const serviceListController = {
+const servicesListController = {
   options: {
     pre: [provideAuthedUser],
     validate: {
@@ -39,11 +39,9 @@ const serviceListController = {
           ...(isAuthenticated
             ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
             : []),
-          { id: 'service', text: 'Service', width: '15' },
-          { id: 'team', text: 'Team', width: '15' },
+          { id: 'service', text: 'Service', width: '35' },
+          { id: 'team', text: 'Team', width: '25' },
           { id: 'kind', text: 'Kind', width: '10' },
-          { id: 'language', text: 'Language', width: '10' },
-          { id: 'github-repository', text: 'GitHub Repository', width: '20' },
           { id: 'created', text: 'Created', width: '30' }
         ],
         rows,
@@ -56,4 +54,4 @@ const serviceListController = {
   }
 }
 
-export { serviceListController }
+export { servicesListController }

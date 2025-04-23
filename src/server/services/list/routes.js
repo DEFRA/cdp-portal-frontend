@@ -1,4 +1,4 @@
-import { serviceListController } from '~/src/server/services/list/controller.js'
+import { servicesListController } from '~/src/server/services/list/controller.js'
 
 const listServices = {
   plugin: {
@@ -8,7 +8,7 @@ const listServices = {
         {
           method: 'GET',
           path: '/services',
-          ...serviceListController
+          ...servicesListController
         }
       ])
     }

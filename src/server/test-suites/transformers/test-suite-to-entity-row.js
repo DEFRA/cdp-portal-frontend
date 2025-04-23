@@ -1,4 +1,3 @@
-import { config } from '~/src/config/config.js'
 import {
   renderComponent,
   renderIcon
@@ -6,8 +5,6 @@ import {
 
 function testSuiteToEntityRow(isAuthenticated) {
   return (testSuite) => {
-    const githubOrg = config.get('githubOrg')
-
     const icon = testSuite.isOwner
       ? renderComponent(
           'tool-tip',
@@ -47,14 +44,14 @@ function testSuiteToEntityRow(isAuthenticated) {
           headers: 'test-suite',
           entity: {
             kind: 'link',
-            value: testSuite.serviceName,
-            url: `/test-suites/${testSuite.serviceName}`
+            value: testSuite.name,
+            url: `/test-suites/${testSuite.name}`
           }
         },
         {
           headers: 'team',
           entity: {
-            kind: 'group',
+            kind: 'list',
             value: teams?.length ? teams : null
           }
         },
@@ -62,30 +59,14 @@ function testSuiteToEntityRow(isAuthenticated) {
           headers: 'kind',
           entity: {
             kind: 'text',
-            value: testSuite.testType
-          }
-        },
-        {
-          headers: 'github-repository',
-          entity: {
-            kind: 'link',
-            value: `${githubOrg}/${testSuite.id}`,
-            url: `https://github.com/${githubOrg}/${testSuite.id}`,
-            newWindow: true
-          }
-        },
-        {
-          headers: 'last-ran',
-          entity: {
-            kind: 'date',
-            value: testSuite.lastRun?.taskLastUpdated
+            value: testSuite.subType
           }
         },
         {
           headers: 'created',
           entity: {
             kind: 'date',
-            value: testSuite.createdAt
+            value: testSuite.created
           }
         }
       ]

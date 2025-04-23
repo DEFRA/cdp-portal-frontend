@@ -3,13 +3,6 @@ import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 
-async function fetchTeamServices(teamId) {
-  const endpoint = portalBackendUrl + `/services?teamId=${teamId}`
-
-  const { payload } = await fetchJson(endpoint)
-  return payload
-}
-
 async function fetchTeamRepositories(teamId) {
   const endpoint = portalBackendUrl + `/repositories/all/${teamId}`
 
@@ -17,4 +10,4 @@ async function fetchTeamRepositories(teamId) {
   return payload
 }
 
-export { fetchTeamServices, fetchTeamRepositories }
+export { fetchTeamRepositories }
