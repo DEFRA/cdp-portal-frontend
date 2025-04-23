@@ -95,7 +95,7 @@
   grid-area: published;
 }
 
-.app-grid-service__db-changes {
+.app-grid-service__migrations {
   @extend %background;
   grid-area: migrations;
 }
