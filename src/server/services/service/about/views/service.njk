@@ -28,7 +28,6 @@
   </div>
 {% endmacro %}
 
-
 {% macro apiGatewayComponent(params) %}
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
@@ -85,7 +84,7 @@
 {% for migration in migrations %}
   {% set migrationButtonHtml %}
     <a href="{{ routeLookup('update-database/change-details/{multiStepFormId?}', {
-      query: { imageName: service.serviceName, version: migration.version }
+      query: { serviceName: service.serviceName, version: migration.version }
     }) }}"
        role="button"
        class="govuk-button app-button app-button--secondary app-button--small"
