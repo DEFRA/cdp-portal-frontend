@@ -22,13 +22,13 @@ const changeDetailsController = {
     const multiStepFormId = request.app.multiStepFormId
 
     const deployableImageNames = await fetchDeployableImageNames({ request })
-    const migrations = await fetchMigrations(payload?.imageName)
+    const migrations = await fetchMigrations(payload?.serviceName)
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
 
     const validationResult = dbChangeValidation(
       deployableImageNames,
-      migrations.map((migration) => migration.version),
+      migrations.map((migration) => migration.version).filter(Boolean),
       environments,
       payload.button
     ).validate(payload, {
@@ -43,11 +43,11 @@ const changeDetailsController = {
         formErrors: errorDetails
       })
 
-      const imageName = payload?.imageName
+      const serviceName = payload?.serviceName
       const queryString = qs.stringify(
         {
           ...(redirectLocation && { redirectLocation }),
-          ...(imageName && { imageName })
+          ...(serviceName && { serviceName })
         },
         { addQueryPrefix: true }
       )
@@ -62,11 +62,11 @@ const changeDetailsController = {
         formValues: payload
       })
 
-      const imageName = payload?.imageName
+      const serviceName = payload?.serviceName
       const queryString = qs.stringify(
         {
           ...(redirectLocation && { redirectLocation }),
-          ...(imageName && { imageName })
+          ...(serviceName && { serviceName })
         },
         { addQueryPrefix: true }
       )

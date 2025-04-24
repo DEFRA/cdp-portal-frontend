@@ -6,7 +6,7 @@ import { getEnvironments } from '~/src/server/common/helpers/environments/get-en
 import { getAdditionalData } from '~/src/server/update-database/helpers/get-additional-data.js'
 import { detailsValidation } from '~/src/server/update-database/helpers/schema/details-validation.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
-import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
+import { fetchPostgresServices } from '~/src/server/update-database/helpers/fetchers.js'
 
 const changeDetailsFormController = {
   options: {
@@ -23,18 +23,19 @@ const changeDetailsFormController = {
   handler: async (request, h) => {
     const query = request?.query
     const stepData = request.pre.stepData
-    const imageName = query?.imageName ?? stepData?.imageName
+    const serviceName = query?.serviceName ?? stepData?.serviceName
     const redirectLocation = query?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
 
-    const deployableImageNames = await fetchDeployableImageNames({ request })
-    const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
+    // TODO the image names should only be ones a user owns. Update API to work with teams, same as /deployables
+    const postgresServiceNames = await fetchPostgresServices({ request })
+    const postgresImageNameOptions = buildOptions(postgresServiceNames ?? [])
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
     const environmentOptions = environments ? buildOptions(environments) : []
 
     const { runningServices, dbChangeOptions, latestDbChanges } =
-      await getAdditionalData(imageName)
+      await getAdditionalData(serviceName)
 
     return h.view('update-database/views/change-details-form', {
       pageTitle: 'Update Database change details',
@@ -42,9 +43,9 @@ const changeDetailsFormController = {
       redirectLocation,
       multiStepFormId,
       environmentOptions,
-      deployableImageNameOptions,
+      postgresImageNameOptions,
       dbChangeOptions,
-      imageName,
+      serviceName,
       latestDbChanges,
       runningServices,
       environments

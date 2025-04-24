@@ -6,7 +6,7 @@ import { startUpdateDatabaseController } from '~/src/server/update-database/cont
 import { availableMigrationsController } from '~/src/server/update-database/controllers/available-migrations.js'
 import { changeDetailsFormController } from '~/src/server/update-database/controllers/change-details-form.js'
 import { changeDetailsController } from '~/src/server/update-database/controllers/change-details.js'
-import { runController } from '~/src/server/update-database/controllers/run.js'
+import { updateController } from '~/src/server/update-database/controllers/update.js'
 import {
   urls,
   formSteps
@@ -24,7 +24,7 @@ const serviceTeamAndAdminWithPostgresRestrictedTechUserScope = authScope([
  */
 const updateDatabase = {
   plugin: {
-    name: 'update database',
+    name: 'updateDatabase',
     register: async (server) => {
       await server.register({
         plugin: multistepForm,
@@ -56,7 +56,7 @@ const updateDatabase = {
             {
               method: 'POST',
               path: '/update-database/run/{multiStepFormId}',
-              ...runController
+              ...updateController
             }
           ].map(serviceTeamAndAdminWithPostgresRestrictedTechUserScope)
         }

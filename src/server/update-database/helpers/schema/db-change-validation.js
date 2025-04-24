@@ -2,12 +2,17 @@ import Joi from 'joi'
 
 import { validation } from '~/src/server/common/constants/validation.js'
 
-function dbChangeValidation(imageNames, migrations, environments, buttonValue) {
+function dbChangeValidation(
+  serviceNames,
+  migrations,
+  environments,
+  buttonValue
+) {
   // Without clientside js, fallback search
   if (buttonValue === 'search') {
     return Joi.object({
-      imageName: Joi.string()
-        .valid(...imageNames)
+      serviceName: Joi.string()
+        .valid(...serviceNames)
         .required()
         .messages({
           'any.only': validation.chooseAnEntry,
@@ -24,8 +29,8 @@ function dbChangeValidation(imageNames, migrations, environments, buttonValue) {
   }
 
   return Joi.object({
-    imageName: Joi.string()
-      .valid(...imageNames)
+    serviceName: Joi.string()
+      .valid(...serviceNames)
       .required()
       .messages({
         'any.only': validation.chooseAnEntry,

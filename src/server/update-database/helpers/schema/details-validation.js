@@ -10,9 +10,9 @@ async function detailsValidation(queryValues, options) {
     throw Boom.boomify(Boom.unauthorized())
   }
 
-  const migrations = await fetchMigrations(queryValues?.imageName)
+  const migrations = await fetchMigrations(queryValues?.serviceName)
   const validationResult = Joi.object({
-    imageName: Joi.string().allow(''),
+    serviceName: Joi.string().allow(''),
     version: Joi.string().valid(
       ...migrations.map((migration) => migration.version)
     ),

@@ -32,8 +32,8 @@ function updateRows(details, multiStepDataSessionId) {
   const row = buildRow(multiStepDataSessionId)
 
   return [
-    row('Image name', details.imageName, 'change-details'),
-    row('Database Update version', details.version, 'change-details'),
+    row('Service name', details.serviceName, 'change-details'),
+    row('Version', details.version, 'change-details'),
     row('Environment', startCase(details.environment), 'change-details')
   ]
 }
