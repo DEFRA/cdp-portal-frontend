@@ -39,10 +39,11 @@ const servicesListController = {
           ...(isAuthenticated
             ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
             : []),
-          { id: 'service', text: 'Service', width: '35' },
-          { id: 'team', text: 'Team', width: '25' },
+          { id: 'service', text: 'Service', width: '20' },
+          { id: 'team', text: 'Team', width: '15' },
           { id: 'kind', text: 'Kind', width: '10' },
-          { id: 'created', text: 'Created', width: '30' }
+          { id: 'github-url', text: 'GitHub Repository', width: '35' },
+          { id: 'created', text: 'Created', width: '20' }
         ],
         rows,
         noResult: 'No services found'

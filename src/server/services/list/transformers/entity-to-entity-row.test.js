@@ -46,6 +46,14 @@ describe('#serviceToEntityRow', () => {
           },
           {
             entity: {
+              kind: 'link',
+              url: 'https://github.com/DEFRA/cdp-portal-backend',
+              value: 'https://github.com/DEFRA/cdp-portal-backend'
+            },
+            headers: 'github-url'
+          },
+          {
+            entity: {
               kind: 'date',
               value: '2016-12-05T11:21:25Z'
             },
@@ -88,6 +96,14 @@ describe('#serviceToEntityRow', () => {
               value: 'Frontend'
             },
             headers: 'kind'
+          },
+          {
+            entity: {
+              kind: 'link',
+              url: 'https://github.com/DEFRA/cdp-portal-frontend',
+              value: 'https://github.com/DEFRA/cdp-portal-frontend'
+            },
+            headers: 'github-url'
           },
           {
             entity: {
