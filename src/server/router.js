@@ -3,6 +3,7 @@ import inert from '@hapi/inert'
 import { admin } from '~/src/server/admin/routes.js'
 import { auth } from '~/src/server/auth/index.js'
 import { create } from '~/src/server/create/routes.js'
+import { databaseDeployments } from '~/src/server/database-deployments/routes.js'
 import { deployService } from '~/src/server/deploy-service/routes.js'
 import { deployments } from '~/src/server/deployments/routes.js'
 import { documentation } from '~/src/server/documentation/routes.js'
@@ -28,6 +29,7 @@ const router = {
         admin,
         auth,
         create,
+        databaseDeployments,
         deployService,
         deployments,
         documentation,

@@ -1,0 +1,58 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {% block beforeTabContent %}
+    {{ appPageHeading({
+      text: heading,
+      intro: caption
+    }) }}
+  {% endblock %}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {% if shouldPoll %}
+    <div data-js="app-poll"
+         data-poll-url="/database-deployments/{{ migration.environment }}/{{ migration.cdpMigrationId }}"
+         data-poll-interval="3000"
+         data-poll-limit="45">
+      {% endif %}
+
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+
+          {% call appPanel() %}
+            {% block xhrContent %}
+              <div data-xhr="migration-{{ migration.serviceName }}-{{ environment }}"
+                   data-xhr-stop="{{ not shouldPoll }}">
+
+                <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Details</h2>
+                  <div>
+                    {{ appTag({
+                      text: migration.status | formatText,
+                      classes: migration.statusClasses,
+                      attributes: { "data-testid": "migration-status" }
+                    }) }}
+                  </div>
+                  <div>
+                    {% if migration.status == "IN_PROGRESS" or migration.status == "REQUESTED" %}
+                      {{ appLoader({ classes: "app-loader--is-loading" }) }}
+                    {% endif %}
+                  </div>
+                </div>
+
+                {{ govukSummaryList(summaryList) }}
+
+              </div>
+            {% endblock %}
+          {% endcall %}
+
+        </div>
+      </div>
+
+      {% if shouldPoll %}</div>{% endif %}
+
+  </div>
+{% endblock %}
