@@ -8,7 +8,7 @@ import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
 import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 
 const deploymentController = {
   options: {

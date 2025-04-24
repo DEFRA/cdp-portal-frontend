@@ -1,4 +1,4 @@
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
 
 describe('#allEnvironmentsOnlyForAdmin', () => {
