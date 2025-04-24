@@ -9,19 +9,10 @@ async function fetchServiceTemplates(request) {
 
 async function serviceTemplatesForNamesAndRepos(request) {
   const { serviceTemplates } = await fetchServiceTemplates(request)
-  return serviceTemplates.map(({ repositoryName, templateName }) => ({
-    value: repositoryName,
+  return serviceTemplates.map(({ id, templateName }) => ({
+    value: id,
     text: templateName
   }))
 }
 
-async function serviceTemplatesNames(request) {
-  const { serviceTemplates } = await fetchServiceTemplates(request)
-  return serviceTemplates.map(({ repositoryName }) => repositoryName)
-}
-
-export {
-  fetchServiceTemplates,
-  serviceTemplatesForNamesAndRepos,
-  serviceTemplatesNames
-}
+export { fetchServiceTemplates, serviceTemplatesForNamesAndRepos }

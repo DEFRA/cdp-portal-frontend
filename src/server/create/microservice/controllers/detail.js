@@ -19,13 +19,9 @@ const microserviceDetailController = {
     const redirectLocation = payload?.redirectLocation
 
     const { serviceTemplates } = await fetchServiceTemplates(request)
-    const templateRepositoryNames = serviceTemplates.map(
-      ({ repositoryName }) => repositoryName
-    )
+    const templateIds = serviceTemplates.map((template) => template.id)
 
-    const validationResult = await microserviceValidation(
-      templateRepositoryNames
-    )
+    const validationResult = await microserviceValidation(templateIds)
       .validateAsync(payload, { abortEarly: false })
       .then((value) => ({ value }))
       .catch((error) => ({ value: payload, error }))
@@ -56,8 +52,7 @@ const microserviceDetailController = {
       const usersTeams = await getUsersTeams(request)
       const team = usersTeams.find((team) => team.teamId === teamId)
       const serviceTemplateDetail = serviceTemplates.find(
-        (serviceTemplate) =>
-          serviceTemplate.repositoryName === serviceTypeTemplate
+        (serviceTemplate) => serviceTemplate.id === serviceTypeTemplate
       )
 
       await saveToCreate(request, h, {
