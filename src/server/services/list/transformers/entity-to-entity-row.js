@@ -18,6 +18,8 @@ function entityToEntityRow(isAuthenticated) {
         url: `/teams/${team.teamId}`
       }))
 
+    const githubUrl = `https://github.com/DEFRA/${entity.name}`
+
     // For services that are being created show in-progress or failure tag. For created services show created date
     const isCreatedSuccessfully = status === 'Success'
     const createdEntity = isCreatedSuccessfully
@@ -77,6 +79,14 @@ function entityToEntityRow(isAuthenticated) {
                 value: entity.subType
               }
             : { kind: 'text', value: noValue }
+        },
+        {
+          headers: 'github-url',
+          entity: {
+            kind: 'link',
+            value: githubUrl,
+            url: githubUrl
+          }
         },
         createdEntity
       ]

@@ -62,11 +62,15 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
       {{ params.value | safe }}
 
     {% elseif params.kind === "list" %}
-      <ul class="app-entity__list">
-        {% for entity in params.value %}
-          {{ appEntity(entity | assign({}, { isChild: true }, entity)) }}
-        {% endfor %}
-      </ul>
+      {% if params.value | length %}
+        <ul class="app-entity__list">
+          {% for entity in params.value %}
+            {{ appEntity(entity | assign({}, { isChild: true }, entity)) }}
+          {% endfor %}
+        </ul>
+      {% else %}
+        <span class="app-entity-no-value">{{ noValue }}</span>
+      {% endif %}
 
     {% elseif params.kind === "button" %}
       <form action="{{ params.url }}" method="POST">
