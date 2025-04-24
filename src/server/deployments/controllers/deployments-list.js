@@ -5,7 +5,7 @@ import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 
 import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/deployments/helpers/ext/all-environments-only-for-admin.js'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
 import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values.js'
 import { fetchDeployableServices } from '~/src/server/common/helpers/fetch/fetch-deployable-services.js'
@@ -27,17 +27,14 @@ async function getFilters() {
   const serviceFilters = buildSuggestions(
     services.map((serviceName) => ({ text: serviceName, value: serviceName }))
   )
-
   const userFilters = buildSuggestions(
     users.map((user) => ({ text: user.displayName, value: user.id }))
   )
-
   const statusFilters = buildSuggestions(
     statuses
       .toSorted((a, b) => order.indexOf(a) - order.indexOf(b))
       .map((status) => ({ text: upperFirst(status), value: status }))
   )
-
   const teamFilters = buildSuggestions(
     teams.map((team) => ({ text: team.name, value: team.teamId }))
   )
