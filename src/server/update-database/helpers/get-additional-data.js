@@ -5,14 +5,14 @@ import { optionsWithMessage } from '~/src/server/common/helpers/options/options-
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
 import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
 
-async function getAdditionalData(imageName) {
-  if (!imageName) {
+async function getAdditionalData(serviceName) {
+  if (!serviceName) {
     return {
-      migrationOptions: optionsWithMessage('choose an image name')
+      migrationOptions: optionsWithMessage('choose a service name')
     }
   }
 
-  const migrations = await fetchMigrations(imageName)
+  const migrations = await fetchMigrations(serviceName)
   const dbChangeOptions = buildSuggestions(
     migrations.map((migration) => ({
       text: migration.version,
@@ -20,7 +20,7 @@ async function getAdditionalData(imageName) {
       hint: relativeDate(migration.created)
     }))
   )
-  const { runningServices } = await transformRunningServices(imageName)
+  const { runningServices } = await transformRunningServices(serviceName)
 
   return {
     runningServices,

@@ -8,7 +8,7 @@ const urls = {
  * Update database step data
  * @typedef {object} StepData
  * @property {string} id multistep form id
- * @property {string} imageName service image name
+ * @property {string} serviceName service name
  * @property {string} migrationVersion db update version
  * @property {string} environment db update environment
  * @property {Record<string, boolean>} isComplete map for steps marked complete

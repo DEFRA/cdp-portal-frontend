@@ -5,7 +5,7 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 
-const runController = {
+const updateController = {
   options: {
     pre: [provideStepData, provideAuthedUser],
     validate: {
@@ -26,7 +26,7 @@ const runController = {
         {
           method: 'post',
           payload: {
-            service: stepData.imageName,
+            service: stepData.serviceName,
             version: stepData.version,
             environment: stepData.environment
           }
@@ -41,18 +41,20 @@ const runController = {
         type: 'success'
       })
 
-      const migrationId = payload.migrationId
+      const migrationId = payload?.migrationId
 
       request.audit.sendMessage({
-        event: `database update requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        event: `database update requested: ${stepData.serviceName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
         data: {
-          imageName: stepData.imageName,
+          serviceName: stepData.serviceName,
           environment: stepData.environment
         },
         user: request.pre.authedUser
       })
 
-      return h.redirect(`/deployments/${stepData.environment}/${migrationId}`)
+      return h.redirect(
+        `/database-deployments/${stepData.environment}/${migrationId}`
+      )
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
@@ -61,4 +63,4 @@ const runController = {
   }
 }
 
-export { runController }
+export { updateController }

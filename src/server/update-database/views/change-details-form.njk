@@ -33,7 +33,7 @@
 
     {{ appPageHeading({
       text: "Details",
-      intro: "Provide the postgres microservice image name, database update version and environment"
+      intro: "Provide the microservice service name, database update version and environment"
     }) }}
 
     <div class="govuk-grid-row">
@@ -47,18 +47,18 @@
           {% call govukFieldset() %}
 
             {{ appAutocomplete({
-              id: "image-name",
-              name: "imageName",
+              id: "service-name",
+              name: "serviceName",
               label: {
-                text: "Image Name",
+                text: "Service Name",
                 classes: "app-label"
               },
               hint: {
-                text: "Elastic Container Registry (ECR) image name"
+                text: "Postgres service name connected to the database that will be updated"
               },
-              value: imageName or formValues.imageName,
-              errorMessage: errorMessageHelper(formErrors.imageName.message),
-              suggestions: deployableImageNameOptions,
+              value: serviceName or formValues.serviceName,
+              errorMessage: errorMessageHelper(formErrors.serviceName.message),
+              suggestions: postgresImageNameOptions,
               siblingDataFetcher: {
                 name: "fetchMigrations",
                 target: "db-update-version",
@@ -71,11 +71,11 @@
               id: "version",
               name: "version",
               label: {
-                text: "Database Update Version",
+                text: "Version",
                 classes: "app-label"
               },
               hint: {
-                text: "Database update version to run"
+                text: "Database update version to use"
               },
               template: "advanced",
               value: formValues.version,
@@ -147,7 +147,7 @@
                 <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Database Changes</h2>
                   <p>
-                    Latest database changes available{%- if imageName %} for {{ imageName }}{% endif -%}
+                    Latest database changes available{%- if serviceName %} for {{ serviceName }}{% endif -%}
                   </p>
 
                   <div class="app-section">
@@ -175,15 +175,15 @@
                 <div class="app-row__item-flex-two">
                   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
                   <p class="govuk-!-margin-bottom-2">
-                    Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}
-                    {% if imageName %}
-                      For more information view <a class="app-link" href="/running-services/{{ imageName }}">
+                    Currently, deployed Image versions{%- if serviceName %} for {{ serviceName }}{% endif -%}
+                    {% if serviceName %}
+                      For more information view <a class="app-link" href="/running-services/{{ serviceName }}">
                       Running services
                     </a>
                     {% endif %}
                   </p>
 
-                  {% if imageName %}
+                  {% if serviceName %}
 
                     {{ appRunningServiceSlim({
                       runningServices: runningServices,
