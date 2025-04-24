@@ -21,11 +21,12 @@ async function getAdditionalData(serviceName) {
     }))
   )
   const { runningServices } = await transformRunningServices(serviceName)
+  const maxDbChanges = 6
 
   return {
     runningServices,
     dbChangeOptions,
-    latestDbChanges: migrations.sort(sortBy('created')).slice(0, 6)
+    latestDbChanges: migrations.sort(sortBy('created')).slice(0, maxDbChanges)
   }
 }
 

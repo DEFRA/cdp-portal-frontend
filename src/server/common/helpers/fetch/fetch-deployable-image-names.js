@@ -21,13 +21,10 @@ import { getUserGroups } from '~/src/server/common/helpers/auth/get-user-groups.
 async function fetchDeployableImageNames({ request, scope }) {
   const userGroups = scope ?? (await getUserGroups(request))
 
-  const endpoint =
-    config.get('portalBackendUrl') +
-    '/deployables' +
-    qs.stringify(
-      { runMode: 'service', groups: userGroups },
-      { arrayFormat: 'repeat', addQueryPrefix: true }
-    )
+  const endpoint = `${config.get('portalBackendUrl')}/deployables${qs.stringify(
+    { runMode: 'service', groups: userGroups },
+    { arrayFormat: 'repeat', addQueryPrefix: true }
+  )}`
 
   const { payload } = await fetchJson(endpoint)
   return payload

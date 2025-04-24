@@ -20,8 +20,8 @@ function filters($form) {
 
     $clearAll.addEventListener('click', clearFiltersFunction)
   }
-
-  $form.addEventListener('input', debounce(handleFormSubmit, 200)) // minimal debounce whilst user is typing
+  const minimalDebounce = 200
+  $form.addEventListener('input', debounce(handleFormSubmit, minimalDebounce)) // minimal debounce whilst user is typing
 }
 
 function handleFormSubmit(event) {

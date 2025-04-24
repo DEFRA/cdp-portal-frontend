@@ -30,11 +30,12 @@ function buildRow(multiStepDataSessionId) {
 
 function updateRows(details, multiStepDataSessionId) {
   const row = buildRow(multiStepDataSessionId)
+  const changeDetailsPath = 'change-details'
 
   return [
-    row('Service name', details.serviceName, 'change-details'),
-    row('Version', details.version, 'change-details'),
-    row('Environment', startCase(details.environment), 'change-details')
+    row('Service name', details.serviceName, changeDetailsPath),
+    row('Version', details.version, changeDetailsPath),
+    row('Environment', startCase(details.environment), changeDetailsPath)
   ]
 }
 
