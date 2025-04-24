@@ -14,7 +14,7 @@ async function detailsValidation(queryValues, options) {
   const validationResult = Joi.object({
     serviceName: Joi.string().allow(''),
     version: Joi.string().valid(
-      ...migrations.map((migration) => migration.version)
+      ...migrations.map((migration) => migration.version).filter(Boolean)
     ),
     redirectLocation: Joi.string().valid('summary')
   }).validate(queryValues, options)
