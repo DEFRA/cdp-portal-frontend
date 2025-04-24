@@ -13,7 +13,7 @@ async function fetchEntities(queryParams = {}) {
   return payload ?? []
 }
 
-async function fetchTestSuites(teamId = null) {
+async function fetchTestSuites(teamId) {
   return fetchEntities({ type: 'TestSuite', teamId })
 }
 
