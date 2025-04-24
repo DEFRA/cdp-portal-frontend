@@ -9,9 +9,9 @@ function repositoryDecorator(
   return omit(
     {
       ...service,
-      ...(repository && repository),
+      ...(repository ?? {}),
       ...(tenantServices && { tenantServices }),
-      ...(meta && meta)
+      ...(meta ?? {})
     },
     ['url']
   )

@@ -16,8 +16,8 @@ const serviceOwnerOrAdminUserScope = authScope([
 ])
 
 function hasScope(request, scope) {
-  const scopes = request.auth?.credentials?.scope ?? []
-  return scopes.includes(scope)
+  const userScopes = request.auth?.credentials?.scope ?? []
+  return userScopes.includes(scope)
 }
 
 export { scopes, serviceOwnerOrAdminUserScope, hasScope }

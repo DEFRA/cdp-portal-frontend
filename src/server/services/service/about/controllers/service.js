@@ -13,8 +13,8 @@ import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide
 import { fetchMigrations } from '~/src/server/services/helpers/fetch/fetch-migrations.js'
 import { hasScope, scopes } from '~/src/server/common/constants/scopes.js'
 
-const availableEnvironments = ({ scopes, tenantServiceInfo }) => {
-  const environments = getEnvironments(scopes)
+const availableEnvironments = ({ userScopes, tenantServiceInfo }) => {
+  const environments = getEnvironments(userScopes)
 
   return Object.keys(tenantServiceInfo)
     .filter((e) => environments.includes(e))
@@ -60,7 +60,7 @@ const serviceController = {
     const { runningServices } = await transformRunningServices(serviceName)
 
     const availableServiceEnvironments = availableEnvironments({
-      scopes: request.auth?.credentials?.scope,
+      userScopes: request.auth?.credentials?.scope,
       tenantServiceInfo: service.tenantServices
     })
 
