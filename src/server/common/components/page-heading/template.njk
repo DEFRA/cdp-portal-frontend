@@ -8,7 +8,7 @@
 
     {% if params.intro %}
       <p class="app-page-heading--intro">
-        {{ params.intro }}
+        {{ params.intro | safe }}
       </p>
     {% endif %}
 
