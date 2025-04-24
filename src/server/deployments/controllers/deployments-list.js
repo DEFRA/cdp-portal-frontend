@@ -106,7 +106,7 @@ const deploymentsListController = {
 
     return h.view('deployments/views/list', {
       pageTitle: `${formattedEnvironment} deployments`,
-      heading: `${formattedEnvironment} deployments`,
+      heading: 'Deployments',
       caption: `${formattedEnvironment} microservice deployment details`,
       serviceFilters,
       userFilters,
@@ -125,7 +125,7 @@ const deploymentsListController = {
           { id: 'version', text: 'Version', width: '10' },
           { id: 'deployed-by', text: 'Deployed By', width: '20' },
           { id: 'team', text: 'Team', width: '15' },
-          { id: 'deployment-started', text: 'Deployment Started', width: '30' }
+          { id: 'deployment-started', text: 'Started', width: '30' }
         ],
         rows,
         noResult: `Nothing has matched what you are looking for in ${capitalize(
