@@ -5,6 +5,7 @@
 .app-service-header {
   @include govuk-font(19);
 
+  margin: 0 govuk-spacing(-3);
   border-bottom: govuk-spacing(2) solid govuk-colour("white");
   color: govuk-colour("white");
   background: govuk-colour("black");
