@@ -34,6 +34,50 @@ async function buildNavigation(request) {
     }
   ]
 
+  const primary = [
+    {
+      text: 'Home',
+      url: request.routeLookup('home'),
+      isActive: request?.path === '/'
+    },
+    {
+      text: 'Documentation',
+      url: documentationPath,
+      isActive: request?.path?.includes(documentationPath)
+    },
+    {
+      text: 'Services',
+      url: servicesPath,
+      isActive: request?.path?.includes(servicesPath)
+    },
+    {
+      text: 'Test suites',
+      url: testSuitesPath,
+      isActive: request?.path?.includes(testSuitesPath)
+    },
+    {
+      text: 'Utilities',
+      url: request.routeLookup('utilities/templates'),
+      isActive: request?.path?.includes('/utilities')
+    },
+    {
+      text: 'Teams',
+      url: request.routeLookup('teams'),
+      isActive:
+        request?.path?.includes('/teams') && !request?.path?.includes('admin')
+    },
+    {
+      text: 'Deployments',
+      url: request.routeLookup('deployments'),
+      isActive: isActive('deployments')
+    },
+    {
+      text: 'Running Services',
+      url: runningServicesPath,
+      isActive: request?.path?.includes(runningServicesPath)
+    }
+  ]
+
   if (hasPostgresPermission) {
     actions.unshift({
       text: 'Update Database',
@@ -43,49 +87,7 @@ async function buildNavigation(request) {
   }
 
   return {
-    primary: [
-      {
-        text: 'Home',
-        url: request.routeLookup('home'),
-        isActive: request?.path === '/'
-      },
-      {
-        text: 'Documentation',
-        url: documentationPath,
-        isActive: request?.path?.includes(documentationPath)
-      },
-      {
-        text: 'Services',
-        url: servicesPath,
-        isActive: request?.path?.includes(servicesPath)
-      },
-      {
-        text: 'Test suites',
-        url: testSuitesPath,
-        isActive: request?.path?.includes(testSuitesPath)
-      },
-      {
-        text: 'Utilities',
-        url: request.routeLookup('utilities/templates'),
-        isActive: request?.path?.includes('/utilities')
-      },
-      {
-        text: 'Teams',
-        url: request.routeLookup('teams'),
-        isActive:
-          request?.path?.includes('/teams') && !request?.path?.includes('admin')
-      },
-      {
-        text: 'Deployments',
-        url: request.routeLookup('deployments'),
-        isActive: isActive('deployments')
-      },
-      {
-        text: 'Running Services',
-        url: runningServicesPath,
-        isActive: request?.path?.includes(runningServicesPath)
-      }
-    ],
+    primary,
     actions,
     admin: authedUser?.isAdmin && [
       {
