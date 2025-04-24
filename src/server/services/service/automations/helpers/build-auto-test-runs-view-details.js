@@ -20,11 +20,11 @@ function sortRows(rowA, rowB) {
   return aHeader.localeCompare(bHeader)
 }
 
-function buildOptions(testSuites, testSuiteRepos) {
+function buildOptions(testSuites, testSuiteRepos = []) {
   const testSuitesWithRepoDetail = testSuites
     .map(({ testSuite }) => ({
       ...testSuite,
-      ...testSuiteRepos.find((repo) => repo.id === testSuite.serviceName)
+      ...testSuiteRepos.find((repo) => repo?.id === testSuite?.serviceName)
     }))
     .filter((testSuite) => !testSuite?.topics.includes(testKind.performance))
     .map((testSuite) => ({
