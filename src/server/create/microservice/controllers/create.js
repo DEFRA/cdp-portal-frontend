@@ -7,7 +7,7 @@ import { setStepComplete } from '~/src/server/create/helpers/form/index.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
-import { serviceTemplatesNames } from '~/src/server/create/microservice/helpers/fetch/fetch-service-templates.js'
+import { fetchServiceTemplates } from '~/src/server/create/microservice/helpers/fetch/fetch-service-templates.js'
 
 const microserviceCreateController = {
   options: {
@@ -21,10 +21,16 @@ const microserviceCreateController = {
   },
   handler: async (request, h) => {
     const create = request.pre?.create
-    const availableServiceTemplateNames = await serviceTemplatesNames(request)
+    const { serviceTemplates } = await fetchServiceTemplates(request)
+    const availableServiceTemplateIds = serviceTemplates.map(
+      (template) => template.id
+    )
+    const { defaultBranch } = serviceTemplates.find(
+      (o) => o.id === create.serviceTypeTemplate
+    )
 
     const validationResult = await microserviceValidation(
-      availableServiceTemplateNames
+      availableServiceTemplateIds
     )
       .validateAsync(create, { abortEarly: false })
       .then((value) => ({ value }))
@@ -32,7 +38,8 @@ const microserviceCreateController = {
 
     const repositoryName = create.microserviceName
     const serviceTypeTemplate = create.serviceTypeTemplate
-    const templateTag = create.templateTag
+    const templateTag =
+      !create.templateTag && defaultBranch ? defaultBranch : create.templateTag
     const teamId = request.payload?.teamId
     const sanitisedPayload = {
       repositoryName,
