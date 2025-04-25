@@ -4,7 +4,7 @@ import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 const portalBackendUrl = config.get('portalBackendUrl')
 
 async function fetchPostgresServices() {
-  const endpoint = `${portalBackendUrl}/migrations/available`
+  const endpoint = `${portalBackendUrl}/migrations/services`
 
   const { payload } = await fetchJson(endpoint)
   return payload

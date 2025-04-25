@@ -8,7 +8,7 @@ const logger = createLogger()
 async function fetchMigrations(serviceName) {
   try {
     const endpoint =
-      config.get('portalBackendUrl') + `/migrations/available/${serviceName}`
+      config.get('portalBackendUrl') + `/migrations/services/${serviceName}`
 
     const { payload } = await fetchJson(endpoint)
     return payload
