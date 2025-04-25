@@ -7,7 +7,7 @@ function entitiesToDetailedList(section, entities = []) {
       html: buildLink(`/${section}/${entity.name}`, entity.name, false)
     },
     info: {
-      html: renderTag(entity.subType.toLowerCase())
+      html: renderTag(entity.subType?.toLowerCase())
     }
   }))
 
