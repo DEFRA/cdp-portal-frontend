@@ -22,15 +22,15 @@ function sortRows(rowA, rowB) {
 
 function buildOptions(testSuites, testSuiteRepos = []) {
   const testSuitesWithRepoDetail = testSuites
-    .map(({ testSuite }) => ({
-      ...testSuite,
-      ...testSuiteRepos.find((repo) => repo?.id === testSuite?.serviceName)
-    }))
-    .filter((testSuite) => !testSuite?.topics.includes(testKind.performance))
     .map((testSuite) => ({
-      text: testSuite.serviceName,
-      value: testSuite.serviceName,
-      hint: renderTestSuiteTagHtml(testSuite?.topics) ?? ''
+      ...testSuite,
+      ...testSuiteRepos.find((repo) => repo?.id === testSuite?.name)
+    }))
+    .filter((testSuite) => testSuite?.subType === testKind.Journey)
+    .map((testSuite) => ({
+      text: testSuite.name,
+      value: testSuite.name,
+      hint: renderTestSuiteTagHtml(testSuite?.subType) ?? ''
     }))
     .toSorted(sortBy('text', 'asc'))
 
