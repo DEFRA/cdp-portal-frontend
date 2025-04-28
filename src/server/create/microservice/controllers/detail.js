@@ -14,7 +14,7 @@ const microserviceDetailController = {
   handler: async (request, h) => {
     const payload = request?.payload
     const microserviceName = payload.microserviceName
-    const serviceTypeTemplate = payload.serviceTypeTemplate
+    const serviceTypeTemplateId = payload.serviceTypeTemplateId
     const teamId = payload.teamId
     const redirectLocation = payload?.redirectLocation
 
@@ -28,7 +28,7 @@ const microserviceDetailController = {
 
     const sanitisedPayload = {
       microserviceName,
-      serviceTypeTemplate,
+      serviceTypeTemplateId,
       teamId,
       templateTag: payload.templateTag ?? ''
     }
@@ -52,7 +52,7 @@ const microserviceDetailController = {
       const usersTeams = await getUsersTeams(request)
       const team = usersTeams.find((team) => team.teamId === teamId)
       const serviceTemplateDetail = serviceTemplates.find(
-        (serviceTemplate) => serviceTemplate.id === serviceTypeTemplate
+        (serviceTemplate) => serviceTemplate.id === serviceTypeTemplateId
       )
 
       await saveToCreate(request, h, {

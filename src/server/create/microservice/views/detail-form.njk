@@ -60,7 +60,7 @@
 
             {{ govukSelect({
               id: "service-type",
-              name: "serviceTypeTemplate",
+              name: "serviceTypeTemplateId",
               label: {
                 text: "Template",
                 classes: "app-label"
@@ -73,9 +73,9 @@
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              value: formValues.serviceTypeTemplate,
-              errorMessage: errorMessageHelper(formErrors.serviceTypeTemplate.message),
-              items: serviceTemplatesOptions
+              value: formValues.serviceTypeTemplateId,
+              errorMessage: errorMessageHelper(formErrors.serviceTypeTemplateId.message),
+              items: serviceTemplateIdOptions
             }) }}
 
             {% if showTemplateTag %}
