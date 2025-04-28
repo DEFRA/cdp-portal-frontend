@@ -1,17 +1,17 @@
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { fetchRepositories } from '~/src/server/common/helpers/fetch/fetch-repositories.js'
 import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
 import { scaleEcsToZero } from '~/src/server/admin/decommission-service/helpers/fetch/scale-ecs-to-zero.js'
+import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 
 const decommissionServiceController = {
   handler: async (request, h) => {
     const authedUser = await request.getUserSession()
     const payload = request?.payload
 
-    const { repositories } = await fetchRepositories()
-    const repositoryNames = repositories.map((repo) => {
-      return repo.id
+    const entities = await fetchEntities()
+    const repositoryNames = entities.map((entity) => {
+      return entity.name
     })
 
     const validationResult = serviceValidation(
