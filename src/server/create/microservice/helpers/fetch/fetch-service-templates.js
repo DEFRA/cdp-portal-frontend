@@ -7,7 +7,7 @@ async function fetchServiceTemplates(request) {
   return payload
 }
 
-async function serviceTemplatesForNamesAndRepos(request) {
+async function serviceTemplateIdsForNamesAndRepos(request) {
   const { serviceTemplates } = await fetchServiceTemplates(request)
   return serviceTemplates.map(({ id, templateName }) => ({
     value: id,
@@ -15,4 +15,4 @@ async function serviceTemplatesForNamesAndRepos(request) {
   }))
 }
 
-export { fetchServiceTemplates, serviceTemplatesForNamesAndRepos }
+export { fetchServiceTemplates, serviceTemplateIdsForNamesAndRepos }

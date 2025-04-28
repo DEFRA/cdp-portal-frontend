@@ -3,7 +3,7 @@ import Joi from 'joi'
 import { validation } from '~/src/server/common/constants/validation.js'
 import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
 
-function microserviceValidation(serviceTypeTemplates) {
+function microserviceValidation(templateIds) {
   return Joi.object({
     microserviceName: Joi.string()
       .pattern(/^[a-z0-9-]*$/)
@@ -22,8 +22,8 @@ function microserviceValidation(serviceTypeTemplates) {
         'string.min': validation.minCharacters(1),
         'string.max': validation.maxCharacters(32)
       }),
-    serviceTypeTemplate: Joi.string()
-      .valid(...serviceTypeTemplates)
+    serviceTypeTemplateId: Joi.string()
+      .valid(...templateIds)
       .messages({
         'any.only': validation.chooseAnEntry,
         'any.required': validation.chooseAnEntry

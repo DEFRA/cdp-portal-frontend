@@ -25,8 +25,8 @@ const microserviceCreateController = {
     const availableServiceTemplateIds = serviceTemplates.map(
       (template) => template.id
     )
-    const { defaultBranch, repositoryName: templateRepositoryName } =
-      serviceTemplates.find((o) => o.id === create.serviceTypeTemplate)
+    const { defaultBranch, repositoryName: serviceTypeTemplate } =
+      serviceTemplates.find((o) => o.id === create.serviceTypeTemplateId)
 
     const validationResult = await microserviceValidation(
       availableServiceTemplateIds
@@ -41,7 +41,7 @@ const microserviceCreateController = {
     const teamId = request.payload?.teamId
     const sanitisedPayload = {
       repositoryName,
-      templateRepositoryName,
+      serviceTypeTemplate,
       teamId,
       templateTag
     }
