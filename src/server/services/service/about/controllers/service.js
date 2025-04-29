@@ -22,6 +22,39 @@ const availableEnvironments = ({ userScopes, tenantServiceInfo }) => {
     .sort(sortByEnv)
 }
 
+async function fetchData({ request, serviceName, isPostgres }) {
+  const promises = []
+
+  promises.push(
+    fetchAvailableVersions(serviceName),
+    provideVanityUrls(request),
+    provideApiGateways(request)
+  )
+
+  if (isPostgres) {
+    promises.push(
+      fetchAvailableMigrations(serviceName),
+      fetchLatestMigrations(serviceName)
+    )
+  }
+
+  const [
+    availableVersions,
+    vanityUrls,
+    apiGateways,
+    availableMigrations = [],
+    latestMigrations = []
+  ] = await Promise.all(promises)
+
+  return {
+    availableVersions,
+    vanityUrls,
+    apiGateways,
+    availableMigrations,
+    latestMigrations
+  }
+}
+
 const serviceController = {
   options: {
     id: 'services/{serviceId}',
@@ -48,23 +81,24 @@ const serviceController = {
       scopes.restrictedTechPostgres
     )
 
-    // TODO branch in service.isPostgres
-    const [
+    const {
       availableVersions,
       vanityUrls,
       apiGateways,
-      availableMigrations,
+      availableMigrations: migrations,
       latestMigrations
-    ] = await Promise.all([
-      fetchAvailableVersions(serviceName),
-      provideVanityUrls(request),
-      provideApiGateways(request),
-      fetchAvailableMigrations(serviceName),
-      fetchLatestMigrations(serviceName)
-    ])
+    } = await fetchData({
+      request,
+      serviceName,
+      isPostgres: service.isPostgres
+    })
+    const latestPublishedImageVersions = availableVersions
+      .sort(sortBy('created'))
+      .slice(0, latestCount)
+    const availableMigrations = migrations.slice(0, latestCount)
+
     const { runningServices } = await transformRunningServices(serviceName)
 
-    // TODO refactor how this works
     const availableServiceEnvironments = availableEnvironments({
       userScopes: request.auth?.credentials?.scope,
       tenantServiceInfo: service.tenantServices
@@ -80,10 +114,8 @@ const serviceController = {
       hasPostgresPermission,
       availableServiceEnvironments,
       runningServices,
-      latestPublishedImageVersions: availableVersions
-        .sort(sortBy('created'))
-        .slice(0, latestCount),
-      availableMigrations: availableMigrations.slice(0, latestCount),
+      latestPublishedImageVersions,
+      availableMigrations,
       latestMigrations,
       breadcrumbs: [
         {
