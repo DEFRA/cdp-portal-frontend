@@ -11,11 +11,12 @@
 }
 
 .app-summary-list {
-  margin-bottom: govuk-spacing(4);
+  margin-bottom: 0;
 
   .govuk-summary-list__row {
     border: 1px solid $app-grey;
     vertical-align: middle;
+    background-color: govuk-colour("white");
 
     .govuk-summary-list__key {
       padding-left: govuk-spacing(2);
@@ -36,11 +37,5 @@
     &:hover {
       background-color: $app-light-grey;
     }
-  }
-}
-
-.app-summary-list--inverse {
-  .govuk-summary-list__row {
-    background-color: govuk-colour("white");
   }
 }

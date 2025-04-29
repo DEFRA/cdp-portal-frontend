@@ -6,6 +6,7 @@
 @use "banner/banner";
 @use "breadcrumbs/breadcrumbs";
 @use "button/button";
+@use "database-detail/database-detail";
 @use "details/details";
 @use "detailed-list/detailed-list";
 @use "documentation";
@@ -25,7 +26,7 @@
 @use "panel/panel";
 @use "progress/progress";
 @use "running-service-entity/running-service-entity";
-@use "running-service-slim/running-service-slim";
+@use "running-service-mini/running-service-mini";
 @use "running-service/running-service";
 @use "search/search";
 @use "select/select";
