@@ -15,14 +15,16 @@
           {% set actionSuffix = "edit" if isEdit else "create" %}
 
           <form action="/admin/teams/{{ actionSuffix }}" method="post">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-
-            {{ govukSummaryList({
-              classes: "govuk-!-margin-bottom-9",
-              rows: teamRows,
-              attributes: { "data-testid": "govuk-summary-list" }
-            }) }}
-
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            {% call appPanel({
+              classes: "govuk-!-margin-bottom-4"
+            }) %}
+              {{ govukSummaryList({
+                classes: "app-summary-list",
+                rows: teamRows,
+                attributes: { "data-testid": "govuk-summary-list" }
+              }) }}
+            {% endcall %}
             {{ appButton({
               text: formButtonText,
               loader: {

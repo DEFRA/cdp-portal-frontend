@@ -5,7 +5,6 @@ import { config } from '~/src/config/config.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 
 const editActionItems = (teamId) => ({
-  classes: 'govuk-!-padding-right-1',
   items: [
     {
       classes: 'app-link app-link--underline',
@@ -23,7 +22,7 @@ function transformTeamToSummary(team, withActions = true) {
   const actions = withActions ? editActions : null
 
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-8',
+    classes: 'app-summary-list',
     attributes: { 'data-testid': 'govuk-summary-list' },
     rows: [
       {

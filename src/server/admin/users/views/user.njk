@@ -23,35 +23,39 @@
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
       <div class="govuk-grid-column-one-half-from-desktop">
+        {% call appPanel() %}
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">User details</h2>
 
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">User details</h2>
+          {{ govukSummaryList(summaryList) }}
+        {% endcall %}
 
-        {{ govukSummaryList(summaryList) }}
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">
+            Member of {{ "Team" | pluralise(user.teams | length) }}
+          </h2>
 
-        <h2 class="govuk-heading-m">
-          Member of {{ "Team" | pluralise(user.teams | length) }}
-        </h2>
+          {% if user.teams | length %}
+            {{ govukTaskList(teamsTaskList) }}
+          {% else %}
+            <p>
+              This user is not in any of our teams
+            </p>
+          {% endif %}
+        {% endcall %}
 
-        {% if user.teams | length %}
-          {{ govukTaskList(teamsTaskList) }}
-        {% else %}
-          <p>
-            This user is not in any of our teams
-          </p>
-        {% endif %}
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">
+            User {{ "Permission" | pluralise(user.scopes | length) }}
+          </h2>
 
-        <h2 class="govuk-heading-m">
-          User {{ "Permission" | pluralise(user.scopes | length) }}
-        </h2>
-
-        {% if user.scopes | length %}
-          {{ govukTaskList(scopesTaskList) }}
-        {% else %}
-          <p>
-            This user has no permissions
-          </p>
-        {% endif %}
-
+          {% if user.scopes | length %}
+            {{ govukTaskList(scopesTaskList) }}
+          {% else %}
+            <p>
+              This user has no permissions
+            </p>
+          {% endif %}
+        {% endcall %}
       </div>
     </div>
 

@@ -3,7 +3,6 @@ import { noValue } from '~/src/server/common/constants/no-value.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
 const editActionItems = (scopeId) => ({
-  classes: 'govuk-!-padding-right-1',
   items: [
     {
       classes: 'app-link app-link--underline',
@@ -19,7 +18,7 @@ function transformScopeToSummary(scope, withActions = true) {
   const actions = withActions ? editActions : null
 
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-8',
+    classes: 'app-summary-list',
     rows: [
       {
         key: { text: 'Value' },

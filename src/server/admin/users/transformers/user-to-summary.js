@@ -3,7 +3,6 @@ import { noValue } from '~/src/server/common/constants/no-value.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 
 const editActionItems = (userId) => ({
-  classes: 'govuk-!-padding-right-1',
   items: [
     {
       classes: 'app-link app-link--underline',
