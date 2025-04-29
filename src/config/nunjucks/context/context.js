@@ -59,7 +59,7 @@ async function context(request) {
     authedUser,
     blankOption: defaultOption,
     breadcrumbs: [],
-    serviceName: serviceConfig.name,
+    appServiceName: serviceConfig.name,
     serviceVersion: serviceConfig.version,
     serviceEnvironment: serviceConfig.environment,
     eventName,

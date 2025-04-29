@@ -54,6 +54,7 @@ $max-width: 300px;
   .app-running-service-entity__env {
     display: flex;
     align-items: center;
+    margin-bottom: govuk-spacing(1);
   }
 
   .app-running-service-entity__label {

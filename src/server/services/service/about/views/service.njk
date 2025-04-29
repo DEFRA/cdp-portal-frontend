@@ -81,7 +81,7 @@
 {% endfor %}
 
 {% set migrationsTableRows = [] %}
-{% for migration in migrations %}
+{% for migration in availableMigrations %}
   {% set migrationButtonHtml %}
     <a href="{{ routeLookup('update-database/change-details/{multiStepFormId?}', {
       query: { serviceName: service.serviceName, version: migration.version }
@@ -93,7 +93,7 @@
 
   {% set detailHtml %}
     <div class="app-row">
-      {{ appSchemaIcon({ classes: "app-icon--small", description: "Migration " + migration.version }) }}
+      {{ appSchemaIcon({ classes: "app-icon--small", description: "Database Change " + migration.version }) }}
       {{ appTime({ datetime: migration.created, classes: "govuk-!-margin-left-2" }) }}
     </div>
   {% endset %}
@@ -204,8 +204,8 @@
                 text: "Action",
                 classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-5"
               } if isServiceOwner],
-              rows: latestPublishedTableRows
-            }) }}
+            rows: latestPublishedTableRows
+          }) }}
 
           <p class="govuk-!-margin-bottom-0">
             <a class="app-link" target="_blank" rel="noopener noreferrer"
@@ -225,7 +225,7 @@
         <section class="app-grid-service__migrations" data-testid="migrations">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Changes</h2>
           <p class="govuk-!-margin-bottom-2">
-            Latest database changes available for your service
+            Latest database changes available for this service
           </p>
 
           {% set headings = [
@@ -242,7 +242,7 @@
               classes: "app-table app-table--inverse govuk-!-margin-bottom-0",
               head: headings,
               rows: migrationsTableRows
-              }) }}
+            }) }}
 
           {% else %}
             <p class="govuk-!-margin-bottom-2">
@@ -250,19 +250,30 @@
             </p>
           {% endif %}
         </section>
+
+        <section class="app-grid-service__database-details" data-testid="database-details">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Details</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Current database changes applied to this services database
+          </p>
+
+          {{ appDatabaseDetail({
+            databaseDetails: latestMigrations,
+            environments: availableServiceEnvironments
+          }) }}
+        </section>
       {% endif %}
 
       <section class="app-grid-service__run">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
         <p class="govuk-!-margin-bottom-2">
-          The versions of your service currently running on CDP environments. For more information view
+          The versions of this service currently running on CDP environments. For more information view
           <a class="app-link" href="/running-services/{{ service.serviceName }}">Running services</a>
         </p>
 
-        {{ appRunningServiceSlim({
+        {{ appRunningServiceMini({
           runningServices: runningServices,
-          environments: availableServiceEnvironments,
-          inverseZeroDeploy: true
+          environments: availableServiceEnvironments
         }) }}
       </section>
 
@@ -296,8 +307,8 @@
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Continuous Integration</h2>
           <p class="govuk-!-margin-bottom-0">
-            Test, build and publish ready-to-deploy docker images of your service with CI and GitHub
-            Actions workflows. Your service is built and published by GitHub Actions and comes with a number of
+            Test, build and publish ready-to-deploy docker images of this service with CI and GitHub
+            Actions workflows. This service is built and published by GitHub Actions and comes with a number of
             useful CDP Workflows. To view these workflows and builds go to
             <a class="app-link" target="_blank" rel="noopener noreferrer"
                href="https://github.com/DEFRA/{{ service.serviceName }}/actions">

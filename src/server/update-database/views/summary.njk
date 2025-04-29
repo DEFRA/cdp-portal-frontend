@@ -16,11 +16,15 @@
         <form action="/update-database/run/{{ multiStepFormId }}" method="post">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-          {{ govukSummaryList({
-            classes: "govuk-!-margin-bottom-7",
-            rows: dbUpdateRows,
-            attributes: { "data-testid": "deploy-summary" }
-          }) }}
+          {% call appPanel({
+            classes: "govuk-!-margin-bottom-4"
+          }) %}
+            {{ govukSummaryList({
+              classes: "app-summary-list",
+              rows: dbUpdateRows,
+              attributes: { "data-testid": "deploy-summary" }
+            }) }}
+          {% endcall %}
 
           <div class="govuk-!-margin-top-6">
             {{ appButton({

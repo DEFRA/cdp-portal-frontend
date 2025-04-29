@@ -10,8 +10,9 @@ import { provideApiGateways } from '~/src/server/services/service/about/transfor
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
-import { fetchMigrations } from '~/src/server/services/helpers/fetch/fetch-migrations.js'
+import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { hasScope, scopes } from '~/src/server/common/constants/scopes.js'
+import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 
 const availableEnvironments = ({ userScopes, tenantServiceInfo }) => {
   const environments = getEnvironments(userScopes)
@@ -33,32 +34,37 @@ const serviceController = {
     }
   },
   handler: async (request, h) => {
-    const hasPostgresPermission = hasScope(
-      request,
-      scopes.restrictedTechPostgres
-    )
     const service = request.app.service
-    const serviceName = service.serviceName
-    const isServiceOwner = request.pre.isServiceOwner
 
     if (service === null) {
       return Boom.notFound()
     }
 
-    const [availableVersions, vanityUrls, apiGateways, migrations] =
-      await Promise.all([
-        fetchAvailableVersions(serviceName),
-        provideVanityUrls(request),
-        provideApiGateways(request),
-        fetchMigrations(serviceName)
-      ])
+    const serviceName = service.serviceName
+    const isServiceOwner = request.pre.isServiceOwner
+    const latestCount = 6
+    const hasPostgresPermission = hasScope(
+      request,
+      scopes.restrictedTechPostgres
+    )
 
-    const latestPublishedImageVersions = availableVersions
-      .sort(sortBy('created'))
-      .slice(0, 6)
-
+    // TODO branch in service.isPostgres
+    const [
+      availableVersions,
+      vanityUrls,
+      apiGateways,
+      availableMigrations,
+      latestMigrations
+    ] = await Promise.all([
+      fetchAvailableVersions(serviceName),
+      provideVanityUrls(request),
+      provideApiGateways(request),
+      fetchAvailableMigrations(serviceName),
+      fetchLatestMigrations(serviceName)
+    ])
     const { runningServices } = await transformRunningServices(serviceName)
 
+    // TODO refactor how this works
     const availableServiceEnvironments = availableEnvironments({
       userScopes: request.auth?.credentials?.scope,
       tenantServiceInfo: service.tenantServices
@@ -74,8 +80,11 @@ const serviceController = {
       hasPostgresPermission,
       availableServiceEnvironments,
       runningServices,
-      latestPublishedImageVersions,
-      migrations,
+      latestPublishedImageVersions: availableVersions
+        .sort(sortBy('created'))
+        .slice(0, latestCount),
+      availableMigrations: availableMigrations.slice(0, latestCount),
+      latestMigrations,
       breadcrumbs: [
         {
           text: 'Services',

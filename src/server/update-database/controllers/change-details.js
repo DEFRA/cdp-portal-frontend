@@ -5,7 +5,7 @@ import { buildErrorDetails } from '~/src/server/common/helpers/build-error-detai
 import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { fetchMigrations } from '~/src/server/services/helpers/fetch/fetch-migrations.js'
+import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { dbChangeValidation } from '~/src/server/update-database/helpers/schema/db-change-validation.js'
 
 const changeDetailsController = {
@@ -22,7 +22,7 @@ const changeDetailsController = {
     const multiStepFormId = request.app.multiStepFormId
 
     const deployableImageNames = await fetchDeployableImageNames({ request })
-    const migrations = await fetchMigrations(payload?.serviceName)
+    const migrations = await fetchAvailableMigrations(payload?.serviceName)
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
 

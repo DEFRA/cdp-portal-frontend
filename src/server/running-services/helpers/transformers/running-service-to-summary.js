@@ -5,7 +5,7 @@ import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
 function transformRunningServiceToSummary(serviceName, teams) {
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-8',
+    classes: 'app-summary-list',
     attributes: {
       'data-testid': 'govuk-summary-list'
     },

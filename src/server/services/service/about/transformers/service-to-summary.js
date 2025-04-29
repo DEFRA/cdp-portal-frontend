@@ -34,8 +34,7 @@ function transformServiceToSummary(service) {
   )
 
   return {
-    classes:
-      'app-summary-list app-summary-list--inverse govuk-!-margin-bottom-0',
+    classes: 'app-summary-list govuk-!-margin-bottom-0',
     attributes: { 'data-testid': 'service-summary' },
     rows: [
       {

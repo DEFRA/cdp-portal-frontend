@@ -1,14 +1,20 @@
 {% from "tool-tip/macro.njk" import appToolTip %}
 
+{% set content %}
+  {% if params.text %}
+    {{ params.text }}
+  {% elseif params.withSeconds %}
+    {{ params.datetime | relativeDate(params.withSeconds) }}
+  {% else %}
+    {{ params.datetime | relativeDate }}
+  {% endif %}
+{% endset %}
+
 {% call appToolTip({ text: params.datetime | formatDate }) %}
   <time{% if params.classes %} class="{{ params.classes }}"{% endif %}
-        datetime="{{ params.datetime }}"
-        data-testid="app-time">
-    {% if params.withSeconds %}
-      {{ params.datetime | relativeDate(params.withSeconds) }}
-    {% else %}
-      {{ params.datetime | relativeDate }}
-    {% endif %}
+    datetime="{{ params.datetime }}"
+    data-testid="app-time">
+    {{ content }}
   </time>
 {% endcall %}
 

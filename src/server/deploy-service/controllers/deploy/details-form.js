@@ -7,6 +7,7 @@ import { getAdditionalData } from '~/src/server/deploy-service/helpers/get-addit
 import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
+import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 
 const detailsFormController = {
   options: {
@@ -28,6 +29,7 @@ const detailsFormController = {
     const multiStepFormId = request.app.multiStepFormId
 
     const deployableImageNames = await fetchDeployableImageNames({ request })
+    const latestMigrations = await fetchLatestMigrations(imageName)
     const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
@@ -50,6 +52,7 @@ const detailsFormController = {
       imageName,
       latestVersions,
       runningServices,
+      latestMigrations,
       environments
     })
   }

@@ -1,0 +1,53 @@
+{% from "tag/macro.njk" import appTag %}
+{% from "time/macro.njk" import appTime %}
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/schema-icon/macro.njk" import appSchemaIcon %}
+{% from "icons/database-icon/macro.njk" import appDatabaseIcon %}
+
+<div class="app-database-detail">
+  {% for envName in params.environments %}
+    {% set databaseDetail = params.databaseDetails | find({ environment: envName }) %}
+
+    {% if databaseDetail %}
+      <div class="app-database-detail__card">
+        <div class="app-database-detail__item app-database-detail__item--heading">
+          {{ appTag({ text: envName | title, classes: "app-tag--white" }) }}
+
+          <div class="app-database-detail__item app-database-detail__item--version">
+            <span id="version" class="govuk-visually-hidden">Version:</span>
+            <span aria-labelledby="version">{{ databaseDetail.version if databaseDetail.version else noValue }}</span>
+            {% call appToolTip({ text: "Current database change in " + envName | title }) %}
+              {{ appDatabaseIcon({
+                classes: "app-icon--small govuk-!-margin-left-2",
+                description: "Database Change " + databaseDetail.version
+              }) }}
+            {% endcall %}
+          </div>
+        </div>
+
+        <div class="app-database-detail__item app-database-detail__item--kind">
+          {{ appTag({
+            text: databaseDetail.kind | title,
+            classes: "govuk-tag--purple"
+          }) }}
+        </div>
+
+        <div class="app-database-detail__item app-database-detail__item--updated">
+          <a class="app-link" href="/database-deployments/{{ envName }}/{{ databaseDetail.cdpMigrationId }}">
+            Updated
+          </a>
+          {{ appTime({
+            text: databaseDetail.created | formatDistanceToNow,
+            datetime: databaseDetail.created
+          }) }} ago by {{ databaseDetail.user.displayName }}
+        </div>
+      </div>
+    {% else %}
+      <div class="app-database-detail__card app-database-detail__card--empty">
+        <div class="app-database-detail__item app-database-detail__item--heading">
+          {{ appTag({ text: envName | title, classes: "app-tag--white" }) }}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

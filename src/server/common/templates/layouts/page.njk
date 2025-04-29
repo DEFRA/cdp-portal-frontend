@@ -17,8 +17,9 @@
 {% from "banner/macro.njk" import appBanner %}
 {% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
 {% from "button/macro.njk" import appButton %}
-{% from "details/macro.njk" import appDetails %}
+{% from "database-detail/macro.njk" import appDatabaseDetail %}
 {% from "detailed-list/macro.njk" import appDetailedList %}
+{% from "details/macro.njk" import appDetails %}
 {% from "entity-actions/macro.njk" import appEntityActions %}
 {% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 {% from "entity-table/macro.njk" import appEntityTable with context %}
@@ -35,7 +36,7 @@
 {% from "page-heading/macro.njk" import appPageHeading %}
 {% from "panel/macro.njk" import appPanel %}
 {% from "running-service-entity/macro.njk" import appRunningServiceEntity %}
-{% from "running-service-slim/macro.njk" import appRunningServiceSlim %}
+{% from "running-service-mini/macro.njk" import appRunningServiceMini %}
 {% from "running-service/macro.njk" import appRunningService %}
 {% from "search/macro.njk" import appSearch %}
 {% from "secrets-list/macro.njk" import appSecretsList %}
@@ -77,7 +78,7 @@
   {% endif %}
 
   {{ appServiceHeader({
-    serviceName: serviceName,
+    serviceName: appServiceName,
     serviceUrl: "/",
     loginText: "Sign out" if isAuthenticated else "Sign in",
     loginUrl: ("/logout" if isAuthenticated else "/login")
@@ -93,13 +94,14 @@ read out the skiplink on every page and errors can be focused when they occur. A
   <div>
     {{ govukSkipLink({
       href: '#main-content',
-      text: 'Skip to main content'
+      text: 'Skip to main content',
+      classes: "app-skip-link"
     }) }}
   </div>
 {% endblock %}
 
 {% block pageTitle %}
-  {{ "Error : " if isError }}{{ pageTitle }} | {{ serviceName }}
+  {{ "Error : " if isError }}{{ pageTitle }} | {{ appServiceName }}
 {% endblock %}
 
 {% block beforeContent %}

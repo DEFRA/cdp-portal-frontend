@@ -30,7 +30,7 @@ describe('#provideDeployment', () => {
       expect(await provideDeployment.method(mockRequest)).toEqual({
         ...deploymentInProgressFixture,
         ...repositoryFixture.repository,
-        statusClasses: 'govuk-tag--purple',
+        statusClass: 'govuk-tag--purple',
         isBackend: false,
         isFrontend: true
       })
@@ -48,7 +48,7 @@ describe('#provideDeployment', () => {
       expect(await provideDeployment.method(mockRequest)).toEqual({
         ...deploymentSuccessFixture,
         ...repositoryFixture.repository,
-        statusClasses: 'govuk-tag--green',
+        statusClass: 'govuk-tag--green',
         isBackend: false,
         isFrontend: true
       })

@@ -17,7 +17,7 @@ const provideDeployment = {
       ...deployment,
       ...repository,
       status,
-      statusClasses: provideDeploymentStatusClassname(status),
+      statusClass: provideDeploymentStatusClassname(status),
       isFrontend: repository?.topics?.includes('frontend') ?? false,
       isBackend: repository?.topics?.includes('backend') ?? false
     }

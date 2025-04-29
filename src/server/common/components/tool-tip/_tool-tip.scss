@@ -5,7 +5,7 @@ $black-tint: govuk-tint(govuk-colour("black"), 20%);
 
 .app-tool-tip {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
 
   &::before {
     content: attr(data-text);
@@ -21,7 +21,7 @@ $black-tint: govuk-tint(govuk-colour("black"), 20%);
     border-radius: $app-border-radius;
     z-index: 800;
     @include govuk-font(16);
-    box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
+    box-shadow: 3px 5px 4px -4px govuk-colour("dark-grey");
     left: govuk-spacing(-2);
   }
 

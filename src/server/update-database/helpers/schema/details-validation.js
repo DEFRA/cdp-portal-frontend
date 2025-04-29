@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchMigrations } from '~/src/server/services/helpers/fetch/fetch-migrations.js'
+import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 
 async function detailsValidation(queryValues, options) {
   const isAuthenticated = options?.context?.auth?.isAuthenticated ?? false
@@ -10,7 +10,7 @@ async function detailsValidation(queryValues, options) {
     throw Boom.boomify(Boom.unauthorized())
   }
 
-  const migrations = await fetchMigrations(queryValues?.serviceName)
+  const migrations = await fetchAvailableMigrations(queryValues?.serviceName)
   const validationResult = Joi.object({
     serviceName: Joi.string().allow(''),
     version: Joi.string().valid(

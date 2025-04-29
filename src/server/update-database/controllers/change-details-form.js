@@ -7,6 +7,7 @@ import { getAdditionalData } from '~/src/server/update-database/helpers/get-addi
 import { detailsValidation } from '~/src/server/update-database/helpers/schema/details-validation.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { fetchPostgresServices } from '~/src/server/update-database/helpers/fetchers.js'
+import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 
 const changeDetailsFormController = {
   options: {
@@ -29,6 +30,8 @@ const changeDetailsFormController = {
 
     // TODO the image names should only be ones a user owns. Update API to work with teams, same as /deployables
     const postgresServiceNames = await fetchPostgresServices({ request })
+    const latestMigrations = await fetchLatestMigrations(serviceName)
+
     const postgresImageNameOptions = buildOptions(postgresServiceNames ?? [])
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
@@ -48,6 +51,7 @@ const changeDetailsFormController = {
       serviceName,
       latestDbChanges,
       runningServices,
+      latestMigrations,
       environments
     })
   }
