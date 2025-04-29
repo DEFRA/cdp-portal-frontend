@@ -1,0 +1,77 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+$card-width: 240px;
+$card-height: 170px;
+
+.app-database-detail {
+  @extend %govuk-body-m;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($card-width, 1fr));
+  grid-auto-rows: max-content;
+  gap: govuk-spacing(2);
+  margin: 0;
+}
+
+.app-database-detail__card {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  border: 1px solid govuk-tint(govuk-colour("blue"), 60%);
+  border-radius: $app-border-radius;
+  min-height: $card-height;
+  min-width: $card-width;
+  background-color: govuk-colour("white");
+}
+
+.app-database-detail__item {
+  padding: govuk-spacing(2);
+}
+
+.app-database-detail__item--heading {
+  padding: govuk-spacing(2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: govuk-spacing(2);
+  background-color: govuk-colour("blue");
+  min-height: govuk-spacing(5);
+
+  .app-tick-icon {
+    background-color: govuk-colour("white");
+    border-radius: 50%;
+  }
+}
+
+.app-database-detail__item--kind {
+  padding-top: govuk-spacing(1);
+}
+
+.app-database-detail__item--version {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  color: govuk-colour("white");
+
+  .app-icon {
+    fill: govuk-colour("white");
+  }
+}
+
+.app-database-detail__item--updated {
+  padding-top: govuk-spacing(3);
+  margin: auto 0 0;
+}
+
+.app-database-detail__card--empty {
+  color: govuk-colour("dark-grey");
+  border: 1px solid $app-grey;
+
+  .app-database-detail__item--heading {
+    border: none;
+    border-bottom: 1px solid $app-grey;
+    background-color: $app-grey;
+    border-radius: $app-border-radius-top;
+  }
+}

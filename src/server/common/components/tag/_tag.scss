@@ -8,3 +8,8 @@
   border-radius: $app-border-radius;
   max-width: 100em;
 }
+
+.app-tag--white {
+  background-color: govuk-colour("white");
+  color: govuk-colour("black");
+}

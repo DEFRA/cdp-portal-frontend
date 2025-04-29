@@ -2,7 +2,7 @@
 
 {% block header %}
   {{ appServiceHeader({
-    serviceName: serviceName,
+    serviceName: appServiceName,
     serviceUrl: "/",
     loginText: "Sign out" if isAuthenticated else "Sign in",
     loginUrl: ("/logout" if isAuthenticated else "/login")

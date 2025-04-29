@@ -1,6 +1,10 @@
 import { config } from '~/src/config/config.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
+/**
+ * @param {string} serviceName
+ * @returns {Promise<*>}
+ */
 async function fetchAvailableVersions(serviceName) {
   const endpoint =
     config.get('portalBackendUrl') + `/deployables/${serviceName}`

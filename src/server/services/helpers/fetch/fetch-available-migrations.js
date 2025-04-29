@@ -5,7 +5,11 @@ import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 const logger = createLogger()
 
-async function fetchMigrations(serviceName) {
+/**
+ * @param {string} serviceName
+ * @returns {Promise<*|*[]>}
+ */
+async function fetchAvailableMigrations(serviceName) {
   try {
     const endpoint =
       config.get('portalBackendUrl') + `/migrations/services/${serviceName}`
@@ -26,4 +30,4 @@ async function fetchMigrations(serviceName) {
   }
 }
 
-export { fetchMigrations }
+export { fetchAvailableMigrations }

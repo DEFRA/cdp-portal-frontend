@@ -14,7 +14,7 @@ async function detailsValidation(queryValues, options) {
   const validationResult = Joi.object({
     imageName: Joi.string().allow(''),
     version: Joi.string().valid(
-      ...availableVersions.map((version) => version.tag)
+      ...availableVersions.map((version) => version?.tag).filter(Boolean)
     ),
     redirectLocation: Joi.string().valid('summary')
   }).validate(queryValues, options)

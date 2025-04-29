@@ -22,11 +22,15 @@
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
           <input type="hidden" name="configVersion" value="{{ configVersion }}" />
 
-          {{ govukSummaryList({
-            classes: "govuk-!-margin-bottom-7",
-            rows: deploymentRows,
-            attributes: { "data-testid": "deploy-summary" }
-          }) }}
+          {% call appPanel({
+            classes: "govuk-!-margin-bottom-4"
+          }) %}
+            {{ govukSummaryList({
+              classes: "app-summary-list",
+              rows: deploymentRows,
+              attributes: { "data-testid": "deploy-summary" }
+            }) }}
+          {% endcall %}
 
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
 

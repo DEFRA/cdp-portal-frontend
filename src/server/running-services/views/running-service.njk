@@ -10,23 +10,46 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third-from-desktop-huge">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-      <p class="govuk-!-margin-bottom-2">
-        Service information and the environments it is running in
-      </p>
 
-      {{ govukSummaryList(summaryList) }}
+      {% call appPanel() %}
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+        <p class="govuk-!-margin-bottom-2">
+          Service information and the environments it is running in
+        </p>
+
+        {{ govukSummaryList(summaryList) }}
+      {% endcall %}
     </div>
   </div>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Environments</h2>
+    <div class="govuk-grid-column-three-quarters-from-desktop-massive">
 
-      <p>Information about the state of your service in CDP environments</p>
-
-      {{ appRunningService({ items: runningServices, environments: environments }) }}
-
+      {% call appPanel() %}
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
+        <p class="govuk-!-margin-bottom-2">
+          Information about the state of your service in CDP environments
+        </p>
+        {{ appRunningService({ items: runningServices, environments: environments }) }}
+      {% endcall %}
     </div>
   </div>
+
+  {% if latestMigrations | length %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters-from-desktop-massive">
+        {% call appPanel() %}
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Details</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Currently, applied database changes in CDP environments
+          </p>
+          {{ appDatabaseDetail({
+            databaseDetails: latestMigrations,
+            environments: environments
+          }) }}
+        {% endcall %}
+      </div>
+    </div>
+  {% endif %}
+
 {% endblock %}

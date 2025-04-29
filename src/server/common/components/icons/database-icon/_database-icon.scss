@@ -1,0 +1,5 @@
+@use "govuk-frontend" as *;
+
+.app-database {
+  fill: govuk-tint(govuk-colour("blue"), 10%);
+}

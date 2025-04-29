@@ -8,7 +8,7 @@ const provideMigration = {
 
     return {
       ...migration,
-      statusClasses: provideStatusClassname(migration.status)
+      statusClass: provideStatusClassname(migration.status)
     }
   },
   assign: 'migration'

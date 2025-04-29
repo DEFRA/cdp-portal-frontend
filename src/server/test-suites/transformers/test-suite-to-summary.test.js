@@ -14,7 +14,7 @@ describe('#testSuiteToEntityDataList', () => {
         attributes: {
           'data-testid': 'govuk-summary-list'
         },
-        classes: 'app-summary-list app-summary-list--inverse',
+        classes: 'app-summary-list',
         rows: [
           {
             key: {
