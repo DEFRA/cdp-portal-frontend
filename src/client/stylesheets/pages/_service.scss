@@ -44,8 +44,8 @@
     grid-template-columns: repeat(6, 1fr);
     grid-auto-rows: minmax(10px, max-content);
     grid-template-areas:
-    "details details details published published published"
-    "info info info run run run";
+    "details details details run run run"
+    "info info info published published published";
   }
 }
 
@@ -64,8 +64,8 @@
     grid-auto-rows: minmax(10px, max-content);
     grid-template-areas:
     "details details details info info info"
-    "run run run published published published"
-    "db-details db-details db-details migrations migrations migrations";
+    "run run run db-details db-details db-details"
+    "published published published migrations migrations migrations";
   }
 }
 

@@ -3,7 +3,7 @@
 @use "variables/border-radius" as *;
 
 $card-width: 240px;
-$card-height: 170px;
+$card-height: 180px;
 
 .app-database-detail {
   @extend %govuk-body-m;
