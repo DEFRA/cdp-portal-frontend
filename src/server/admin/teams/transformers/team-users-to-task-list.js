@@ -7,7 +7,6 @@ function transformTeamUsersToTaskList(team, withActions = true) {
         html: buildLink(`/admin/users/${user.userId}`, user.name, false)
       },
       status: {
-        classes: 'govuk-!-padding-right-1',
         html: withActions
           ? buildLink(
               `/admin/teams/${team.teamId}/remove-member/${user.userId}`,
@@ -20,7 +19,7 @@ function transformTeamUsersToTaskList(team, withActions = true) {
   })
 
   return {
-    classes: 'app-task-list govuk-!-margin-bottom-8',
+    classes: 'app-task-list',
     attributes: { 'data-testid': 'admin-team-members' },
     items
   }

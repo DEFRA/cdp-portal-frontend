@@ -14,7 +14,7 @@ function transformTeamScopesToTaskList(team) {
       }
     }) ?? []
 
-  return { classes: 'app-task-list govuk-!-margin-bottom-8', items }
+  return { classes: 'app-task-list', items }
 }
 
 export { transformTeamScopesToTaskList }

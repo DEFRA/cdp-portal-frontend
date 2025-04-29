@@ -16,11 +16,15 @@
           <form action="/admin/users/{{ actionSuffix }}" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-            {{ govukSummaryList({
-              classes: "govuk-!-margin-bottom-9",
-              rows: userRows,
-              attributes: { "data-testid": "govuk-summary-list" }
-            }) }}
+            {% call appPanel({
+              classes: "govuk-!-margin-bottom-4"
+            }) %}
+              {{ govukSummaryList({
+                classes: "app-summary-list",
+                rows: userRows,
+                attributes: { "data-testid": "govuk-summary-list" }
+              }) }}
+            {% endcall %}
 
             {{ appButton({
               text: formButtonText,

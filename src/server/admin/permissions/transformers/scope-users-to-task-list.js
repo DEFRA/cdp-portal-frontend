@@ -7,7 +7,6 @@ function transformScopeUsersToTaskList(scope, withActions = true) {
         html: buildLink(`/admin/users/${user.userId}`, user.name, false)
       },
       status: {
-        classes: 'govuk-!-padding-right-1',
         html: withActions
           ? buildLink(
               `/admin/permissions/${scope.scopeId}/user/remove/${user.userId}`,
@@ -19,7 +18,7 @@ function transformScopeUsersToTaskList(scope, withActions = true) {
     }
   })
 
-  return { classes: 'app-task-list govuk-!-margin-bottom-8', items }
+  return { classes: 'app-task-list', items }
 }
 
 export { transformScopeUsersToTaskList }

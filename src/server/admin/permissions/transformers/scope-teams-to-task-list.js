@@ -7,7 +7,6 @@ function transformScopeTeamsToTaskList(scope, withActions = true) {
         html: buildLink(`/admin/teams/${team.teamId}`, team.name, false)
       },
       status: {
-        classes: 'govuk-!-padding-right-1',
         html: withActions
           ? buildLink(
               `/admin/permissions/${scope.scopeId}/team/remove/${team.teamId}`,
@@ -19,7 +18,7 @@ function transformScopeTeamsToTaskList(scope, withActions = true) {
     }
   })
 
-  return { classes: 'app-task-list govuk-!-margin-bottom-8', items }
+  return { classes: 'app-task-list', items }
 }
 
 export { transformScopeTeamsToTaskList }

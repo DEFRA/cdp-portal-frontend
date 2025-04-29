@@ -33,38 +33,42 @@
 
     <div class="govuk-grid-row govuk-!-margin-bottom-4">
       <div class="govuk-grid-column-one-half-from-desktop">
+        {% call appPanel() %}
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Team details</h2>
 
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Team details</h2>
+          {{ govukSummaryList(summaryList) }}
+        {% endcall %}
 
-        {{ govukSummaryList(summaryList) }}
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">
+            Team {{ "Member" | pluralise(scope.teams | length) }}
+          </h2>
 
-        <h2 class="govuk-heading-m">
-          Team {{ "Member" | pluralise(scope.teams | length) }}
-        </h2>
+          {% if team.users | length %}
+            {{ govukTaskList(usersTaskList) }}
+          {% else %}
+            <p>This team has no members
+              <a href="{{ routeLookup('admin/teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
+                 class="app-link app-link--underline">
+                Add team members
+              </a>
+            </p>
+          {% endif %}
+        {% endcall %}
 
-        {% if team.users | length %}
-          {{ govukTaskList(usersTaskList) }}
-        {% else %}
-          <p>This team has no members
-            <a href="{{ routeLookup('admin/teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
-               class="app-link app-link--underline">
-              Add team members
-            </a>
-          </p>
-        {% endif %}
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">
+            Team {{ "Permission" | pluralise(team.scopes | length) }}
+          </h2>
 
-        <h2 class="govuk-heading-m">
-          Team {{ "Permission" | pluralise(team.scopes | length) }}
-        </h2>
-
-        {% if team.scopes | length %}
-          {{ govukTaskList(scopesTaskList) }}
-        {% else %}
-          <p>
-            This teams has no permissions
-          </p>
-        {% endif %}
-
+          {% if team.scopes | length %}
+            {{ govukTaskList(scopesTaskList) }}
+          {% else %}
+            <p>
+              This teams has no permissions
+            </p>
+          {% endif %}
+        {% endcall %}
       </div>
     </div>
 

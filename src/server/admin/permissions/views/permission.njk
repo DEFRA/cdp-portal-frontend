@@ -41,44 +41,50 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half-from-desktop">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Permission details</h2>
 
-        {{ govukSummaryList(summaryList) }}
+        {% call appPanel() %}
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Permission details</h2>
 
-        {% if "user" in scope.kind %}
-          <h2 class="govuk-heading-m">
-            {{ "User" | pluralise(scope.users | length) }} with permission
-          </h2>
+          {{ govukSummaryList(summaryList) }}
+        {% endcall %}
 
-          {% if scope.users | length %}
-            {{ govukTaskList(usersTaskList) }}
-          {% else %}
-            <p>
-              This permission has not been added to any users. <a href="/admin/permissions/{{ scope.scopeId }}/add"
-                                                                  class="app-link app-link--underline">
-                Add permission
-              </a>
-            </p>
+        {% call appPanel() %}
+          {% if "user" in scope.kind %}
+            <h2 class="govuk-heading-m">
+              {{ "User" | pluralise(scope.users | length) }} with permission
+            </h2>
+
+            {% if scope.users | length %}
+              {{ govukTaskList(usersTaskList) }}
+            {% else %}
+              <p>
+                This permission has not been added to any users. <a href="/admin/permissions/{{ scope.scopeId }}/add"
+                                                                    class="app-link app-link--underline">
+                  Add permission
+                </a>
+              </p>
+            {% endif %}
           {% endif %}
-        {% endif %}
+        {% endcall %}
 
-        {% if "team" in scope.kind %}
-          <h2 class="govuk-heading-m">
-            {{ "Team" | pluralise(scope.teams | length) }} with permission
-          </h2>
+        {% call appPanel() %}
+          {% if "team" in scope.kind %}
+            <h2 class="govuk-heading-m">
+              {{ "Team" | pluralise(scope.teams | length) }} with permission
+            </h2>
 
-          {% if scope.teams | length %}
-            {{ govukTaskList(teamsTaskList) }}
-          {% else %}
-            <p>
-              This permission has not been added to any teams. <a href="/admin/permissions/{{ scope.scopeId }}/add"
-                                                                  class="app-link app-link--underline">
-                Add permission
-              </a>
-            </p>
+            {% if scope.teams | length %}
+              {{ govukTaskList(teamsTaskList) }}
+            {% else %}
+              <p>
+                This permission has not been added to any teams. <a href="/admin/permissions/{{ scope.scopeId }}/add"
+                                                                    class="app-link app-link--underline">
+                  Add permission
+                </a>
+              </p>
+            {% endif %}
           {% endif %}
-        {% endif %}
-
+        {% endcall %}
       </div>
     </div>
 
