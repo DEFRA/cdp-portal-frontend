@@ -1,0 +1,5 @@
+@use "govuk-frontend" as *;
+
+.app-skip-link {
+  @include govuk-font(19);
+}

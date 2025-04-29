@@ -3,11 +3,12 @@
 
 .app-task-list {
   .govuk-task-list__item {
-    border-bottom: 1px solid $app-mid-grey;
+    border-bottom: 1px solid $app-grey;
     padding: govuk-spacing(2) govuk-spacing(1);
+    background-color: govuk-colour("white");
 
     &:hover {
-      background-color: $app-grey;
+      background-color: $app-light-grey;
     }
 
     &:first-child {
