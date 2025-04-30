@@ -4,6 +4,9 @@ import hapi from '@hapi/hapi'
 import Scooter from '@hapi/scooter'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
+// TODO move dependency into devDependencies
+import { Engine as CatboxMemory } from '@hapi/catbox-memory'
+
 import { router } from '~/src/server/router.js'
 import { config } from '~/src/config/config.js'
 import { nunjucksConfig } from '~/src/config/nunjucks/index.js'
@@ -32,6 +35,38 @@ const enableSecureContext = config.get('enableSecureContext')
 async function createServer() {
   setupProxy()
   const redisClient = buildRedisClient(config.get('redis'))
+
+  // TODO this needs fixing to remove test code from production file
+  const cacheProvider =
+    process.env.NODE_ENV === 'test'
+      ? [
+          {
+            name: 'session',
+            provider: {
+              constructor: CatboxMemory
+            }
+          },
+          {
+            name: 'featureToggles',
+            provider: {
+              constructor: CatboxMemory
+            }
+          }
+        ]
+      : [
+          {
+            name: 'session',
+            engine: new CatboxRedis({
+              client: redisClient
+            })
+          },
+          {
+            name: 'featureToggles',
+            engine: new CatboxRedis({
+              client: redisClient
+            })
+          }
+        ]
 
   const server = hapi.server({
     port: config.get('port'),
@@ -64,20 +99,7 @@ async function createServer() {
     query: {
       parser: (query) => qs.parse(query)
     },
-    cache: [
-      {
-        name: 'session',
-        engine: new CatboxRedis({
-          client: redisClient
-        })
-      },
-      {
-        name: 'featureToggles',
-        engine: new CatboxRedis({
-          client: redisClient
-        })
-      }
-    ],
+    cache: cacheProvider,
     state: {
       strictHeader: false
     }
