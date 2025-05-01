@@ -1,7 +1,7 @@
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment.js'
-import { deploymentInProgressFixture } from '~/src/__fixtures__/deployment-in-progress.js'
-import { deploymentSuccessFixture } from '~/src/__fixtures__/deployment-success.js'
+import { deploymentInProgressFixture } from '~/src/__fixtures__/deployments/deployment-in-progress.js'
+import { deploymentSuccessFixture } from '~/src/__fixtures__/deployments/deployment-success.js'
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 

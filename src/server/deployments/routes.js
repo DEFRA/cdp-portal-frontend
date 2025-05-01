@@ -2,6 +2,7 @@ import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs.js'
 import { deploymentController } from '~/src/server/deployments/controllers/deployment.js'
 import { deploymentsListController } from '~/src/server/deployments/controllers/deployments-list.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
+import { databaseUpdateController } from '~/src/server/deployments/controllers/database-update.js'
 
 const deployments = {
   plugin: {
@@ -38,6 +39,11 @@ const deployments = {
           method: 'GET',
           path: '/deployments/{environment}/{deploymentId}',
           ...deploymentController
+        },
+        {
+          method: 'GET',
+          path: '/deployments/database-updates/{environment}/{migrationId}',
+          ...databaseUpdateController
         }
       ])
     }

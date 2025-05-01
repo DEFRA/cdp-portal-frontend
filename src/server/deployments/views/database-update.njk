@@ -13,7 +13,7 @@
 
     {% if shouldPoll %}
     <div data-js="app-poll"
-         data-poll-url="/database-deployments/{{ migration.environment }}/{{ migration.cdpMigrationId }}"
+         data-poll-url="/deployments/migrations/{{ migration.environment }}/{{ migration.cdpMigrationId }}"
          data-poll-interval="3000"
          data-poll-limit="45">
       {% endif %}

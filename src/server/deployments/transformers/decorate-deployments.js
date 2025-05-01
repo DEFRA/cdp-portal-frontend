@@ -1,9 +1,11 @@
 function decorateDeployments({ deployableServices, userScopeUUIDs }) {
   return (deployments) =>
-    deployments?.map((deployment) => {
+    deployments?.map(({ deployment, migration }) => {
+      const entity = deployment ?? migration
+
       const deployableService = deployableServices.find(
         (service) =>
-          service.serviceName.toLowerCase() === deployment.service.toLowerCase()
+          service.serviceName.toLowerCase() === entity.service.toLowerCase()
       )
 
       const teams = deployableService?.teams ?? []
@@ -11,7 +13,8 @@ function decorateDeployments({ deployableServices, userScopeUUIDs }) {
       return {
         teams,
         isOwner: teams.some((team) => userScopeUUIDs.includes(team.teamId)),
-        ...deployment
+        ...entity,
+        kind: deployment ? 'deployment' : 'migration'
       }
     })
 }

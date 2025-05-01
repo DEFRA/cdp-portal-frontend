@@ -1,4 +1,4 @@
-const databaseDeploymentStatus = {
+const databaseStatus = {
   requested: 'REQUESTED',
   succeeded: 'SUCCEEDED',
   failed: 'FAILED',
@@ -8,4 +8,4 @@ const databaseDeploymentStatus = {
   timedOut: 'TIMED_OUT'
 }
 
-export { databaseDeploymentStatus }
+export { databaseStatus }
