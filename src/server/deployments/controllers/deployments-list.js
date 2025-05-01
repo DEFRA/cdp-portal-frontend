@@ -10,18 +10,19 @@ import { buildSuggestions } from '~/src/server/common/components/autocomplete/he
 import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values.js'
 import { fetchDeployableServices } from '~/src/server/common/helpers/fetch/fetch-deployable-services.js'
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
-import { fetchDeployments } from '~/src/server/deployments/helpers/fetch/fetch-deployments.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
 import { fetchDeploymentFilters } from '~/src/server/deployments/helpers/fetch/fetch-deployment-filters.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
-import { statusFilterOrder as order } from '~/src/server/common/constants/status-filter-order.js'
+import { fetchDeploymentsWithMigrations } from '~/src/server/deployments/helpers/fetch/fetch-deployments-with-migrations.js'
+import { migrationToEntityRow } from '~/src/server/deployments/transformers/migration-to-entity-row.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 
 async function getFilters() {
   const response = await fetchDeploymentFilters()
   const {
-    filters: { services, users, statuses, teams }
+    filters: { services, users, statuses, teams, kinds }
   } = response
 
   const serviceFilters = buildSuggestions(
@@ -31,19 +32,25 @@ async function getFilters() {
     users.map((user) => ({ text: user.displayName, value: user.id }))
   )
   const statusFilters = buildSuggestions(
-    statuses
-      .toSorted((a, b) => order.indexOf(a) - order.indexOf(b))
-      .map((status) => ({ text: upperFirst(status), value: status }))
+    statuses.map((status) => ({
+      text: upperFirst(status.toLowerCase()),
+      value: status
+    }))
   )
   const teamFilters = buildSuggestions(
     teams.map((team) => ({ text: team.name, value: team.teamId }))
+  )
+
+  const kindFilters = buildSuggestions(
+    kinds.map((kind) => ({ text: formatText(kind), value: kind }))
   )
 
   return {
     serviceFilters,
     userFilters,
     statusFilters,
-    teamFilters
+    teamFilters,
+    kindFilters
   }
 }
 
@@ -64,6 +71,7 @@ const deploymentsListController = {
         user: Joi.string().allow(''),
         status: Joi.string().allow(''),
         team: Joi.string().allow(''),
+        kind: Joi.string().allow(''),
         page: Joi.number(),
         size: Joi.number()
       }),
@@ -78,18 +86,27 @@ const deploymentsListController = {
     const environment = request.params?.environment
     const formattedEnvironment = upperFirst(kebabCase(environment))
 
-    const { serviceFilters, userFilters, statusFilters, teamFilters } =
-      await getFilters()
+    const {
+      serviceFilters,
+      userFilters,
+      statusFilters,
+      teamFilters,
+      kindFilters
+    } = await getFilters()
 
-    const deploymentsResponse = await fetchDeployments(environment, {
-      favouriteTeamIds: userScopeUUIDs,
-      page: request.query?.page,
-      size: request.query?.size,
-      service: request.query.service,
-      user: request.query.user,
-      status: request.query.status,
-      team: request.query.team
-    })
+    const deploymentsResponse = await fetchDeploymentsWithMigrations(
+      environment,
+      {
+        favouriteTeamIds: userScopeUUIDs,
+        page: request.query?.page,
+        size: request.query?.size,
+        service: request.query.service,
+        user: request.query.user,
+        status: request.query.status,
+        team: request.query.team,
+        kind: request.query.kind
+      }
+    )
     const deployments = deploymentsResponse?.data
     const page = deploymentsResponse?.page
     const pageSize = deploymentsResponse?.pageSize
@@ -101,17 +118,25 @@ const deploymentsListController = {
       userScopeUUIDs
     })
     const deploymentsWithTeams = deploymentsDecorator(deployments)
-    const rowBuilder = deploymentToEntityRow(isAuthenticated)
+    const rowBuilder = (entity) => {
+      const rowBuilderMap = {
+        deployment: deploymentToEntityRow(isAuthenticated),
+        migration: migrationToEntityRow(isAuthenticated)
+      }
+
+      return rowBuilderMap[entity.kind](entity)
+    }
     const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
 
     return h.view('deployments/views/list', {
       pageTitle: `${formattedEnvironment} deployments`,
-      heading: 'Deployments',
-      caption: `${formattedEnvironment} microservice deployment details`,
+      heading: 'Deployments and Updates',
+      caption: `${formattedEnvironment} microservice deployments and database updates`,
       serviceFilters,
       userFilters,
       statusFilters,
       teamFilters,
+      kindFilters,
       environment,
       hiddenInputs: { page, size: pageSize },
       tableData: {
@@ -120,12 +145,13 @@ const deploymentsListController = {
           ...(isAuthenticated
             ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
             : []),
-          { id: 'deployment', text: 'Deployment', width: '15' },
-          { id: 'service-status', text: 'Service Status', width: '10' },
+          { id: 'description', text: 'Description', width: '20' },
           { id: 'version', text: 'Version', width: '10' },
-          { id: 'deployed-by', text: 'Deployed By', width: '20' },
+          { id: 'status', text: 'Status', width: '10' },
+          { id: 'kind', text: 'Kind', width: '10' },
+          { id: 'by', text: 'By', width: '20' },
           { id: 'team', text: 'Team', width: '15' },
-          { id: 'deployment-started', text: 'Started', width: '30' }
+          { id: 'started', text: 'Started', width: '20' }
         ],
         rows,
         noResult: `Nothing has matched what you are looking for in ${capitalize(

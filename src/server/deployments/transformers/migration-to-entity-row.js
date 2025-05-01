@@ -1,30 +1,29 @@
+import { noValue } from '~/src/server/common/constants/no-value.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { augmentStatus } from '~/src/server/deployments/helpers/augment-status.js'
 import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
+import { provideStatusClassname } from '~/src/server/deployments/helpers/provide-status-classname.js'
 import {
   renderComponent,
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
 
-function buildDescription(deployment) {
-  const tooltipText = `Service Deployment: ${deployment.version} - ${formatText(deployment.status)}`
+function buildDescription(migration) {
+  const tooltipText = `Database Update: ${migration.version} - ${formatText(migration.status)}`
 
-  return `<a class="app-link app-entity-table__row-header" href="/deployments/${deployment.environment.toLowerCase()}/${deployment.cdpDeploymentId}" data-testid="app-link">${deployment.service}</a>
-          <div class="app-!-layout-centered govuk-!-margin-top-1">
+  return `<a class="app-link app-entity-table__row-header" href="/deployments/database-updates/${migration.environment.toLowerCase()}/${migration.cdpMigrationId}" data-testid="app-link">${migration.service}</a>
+         <div class="app-!-layout-centered govuk-!-margin-top-1">
             ${renderComponent('tool-tip', { text: tooltipText }, [
-              renderIcon('instance-icon', {
+              renderIcon('database-icon', {
                 classes: 'app-icon--small govuk-!-margin-right-1'
               })
             ])}
-            <div class="app-entity-table__row-caption">Microservice Deployment</div>
-          </div>`
+            <div class="app-entity-table__row-caption">Database Update</div>
+         </div>`
 }
 
-function deploymentToEntityRow(isAuthenticated) {
-  return (deployment) => {
-    const status = augmentStatus(deployment)
-    const teams = deployment?.teams
+function migrationToEntityRow(isAuthenticated) {
+  return (migration) => {
+    const teams = migration?.teams
       ?.filter((team) => team.teamId)
       ?.map((team) => ({
         kind: 'link',
@@ -32,7 +31,7 @@ function deploymentToEntityRow(isAuthenticated) {
         url: `/teams/${team.teamId}`
       }))
 
-    const icon = deployment.isOwner
+    const icon = migration.isOwner
       ? renderComponent(
           'tool-tip',
           {
@@ -57,30 +56,28 @@ function deploymentToEntityRow(isAuthenticated) {
           : []),
         {
           headers: 'description',
-          html: buildDescription(deployment)
+          html: buildDescription(migration)
         },
         {
           headers: 'version',
           entity: {
-            kind: 'link',
-            value: deployment.version,
-            url: `https://github.com/DEFRA/${deployment.service}/releases/tag/${deployment.version}`,
-            newWindow: true
+            kind: 'text',
+            value: migration.version ?? noValue
           }
         },
         {
           headers: 'status',
           entity: {
             kind: 'tag',
-            value: formatText(status),
-            classes: provideDeploymentStatusClassname(status)
+            value: formatText(migration.status),
+            classes: provideStatusClassname(migration.status)
           }
         },
         {
           headers: 'kind',
           entity: {
             kind: 'tag',
-            value: 'Microservice',
+            value: 'Liquabase',
             classes: 'govuk-tag--blue'
           }
         },
@@ -88,7 +85,7 @@ function deploymentToEntityRow(isAuthenticated) {
           headers: 'by',
           entity: {
             kind: 'text',
-            value: sanitiseUser(deployment.user?.displayName)
+            value: sanitiseUser(migration.user?.displayName)
           }
         },
         {
@@ -102,7 +99,7 @@ function deploymentToEntityRow(isAuthenticated) {
           headers: 'started',
           entity: {
             kind: 'date',
-            value: deployment.created,
+            value: migration.created,
             withSeconds: true
           }
         }
@@ -111,4 +108,4 @@ function deploymentToEntityRow(isAuthenticated) {
   }
 }
 
-export { deploymentToEntityRow }
+export { migrationToEntityRow }

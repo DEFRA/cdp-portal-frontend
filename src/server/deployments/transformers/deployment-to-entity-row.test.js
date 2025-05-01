@@ -1,7 +1,7 @@
-import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
 import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
 import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
+import { deploymentsWithMigrationsFixture } from '~/src/__fixtures__/deployments/deployments-with-migrations.js'
 
 describe('#deploymentToEntityRow', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
@@ -10,7 +10,9 @@ describe('#deploymentToEntityRow', () => {
     deployableServices: servicesFixture,
     userScopeUUIDs
   })
-  const deploymentsWithTeams = deploymentsDecorator(deploymentsFixture.data)
+  const deploymentsWithTeams = deploymentsDecorator(
+    deploymentsWithMigrationsFixture.data
+  )
 
   describe('When authenticated', () => {
     test('Should provide expected table rows', () => {
@@ -29,12 +31,17 @@ describe('#deploymentToEntityRow', () => {
               isCentered: true
             },
             {
+              headers: 'description',
+              html: expect.stringContaining('cdp-example-node-postgres-be')
+            },
+            {
               entity: {
                 kind: 'link',
-                url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
-                value: 'cdp-self-service-ops'
+                newWindow: true,
+                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.356.0',
+                value: '0.356.0'
               },
-              headers: 'deployment'
+              headers: 'version'
             },
             {
               entity: {
@@ -42,23 +49,22 @@ describe('#deploymentToEntityRow', () => {
                 kind: 'tag',
                 value: 'Running'
               },
-              headers: 'service-status'
+              headers: 'status'
             },
             {
               entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-self-service-ops/releases/tag/0.133.0',
-                value: '0.133.0'
+                classes: 'govuk-tag--blue',
+                kind: 'tag',
+                value: 'Microservice'
               },
-              headers: 'version'
+              headers: 'kind'
             },
             {
               entity: {
                 kind: 'text',
-                value: 'B. A. Baracus'
+                value: 'Mumm-ra'
               },
-              headers: 'service-status'
+              headers: 'by'
             },
             {
               entity: {
@@ -70,76 +76,10 @@ describe('#deploymentToEntityRow', () => {
             {
               entity: {
                 kind: 'date',
-                value: '2023-12-14T14:04:49Z',
+                value: '2025-04-30T14:48:34.001Z',
                 withSeconds: true
               },
-              headers: 'deployment-started'
-            }
-          ]
-        },
-        {
-          cells: [
-            {
-              classes: 'app-entity-table__cell--owned',
-              entity: {
-                kind: 'html',
-                value: expect.stringContaining('Owned Service')
-              },
-              headers: 'owner',
-              isCentered: true
-            },
-            {
-              entity: {
-                kind: 'link',
-                url: '/deployments/infra-dev/undefined',
-                value: 'cdp-user-service-backend'
-              },
-              headers: 'deployment'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Running'
-              },
-              headers: 'service-status'
-            },
-            {
-              entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-user-service-backend/releases/tag/0.54.0',
-                value: '0.54.0'
-              },
-              headers: 'version'
-            },
-            {
-              entity: {
-                kind: 'text',
-                value: '- - -'
-              },
-              headers: 'service-status'
-            },
-            {
-              entity: {
-                kind: 'group',
-                value: [
-                  {
-                    kind: 'link',
-                    url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                    value: 'Platform'
-                  }
-                ]
-              },
-              headers: 'team'
-            },
-            {
-              entity: {
-                kind: 'date',
-                value: '2023-12-14T14:02:34Z',
-                withSeconds: true
-              },
-              headers: 'deployment-started'
+              headers: 'started'
             }
           ]
         },
@@ -155,128 +95,55 @@ describe('#deploymentToEntityRow', () => {
               isCentered: true
             },
             {
-              entity: {
-                kind: 'link',
-                url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
-                value: 'cdp-portal-backend'
-              },
-              headers: 'deployment'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Running'
-              },
-              headers: 'service-status'
+              headers: 'description',
+              html: expect.stringContaining('cdp-example-node-postgres-be')
             },
             {
               entity: {
                 kind: 'link',
                 newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-portal-backend/releases/tag/0.94.0',
-                value: '0.94.0'
+                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.8.0',
+                value: '0.8.0'
               },
               headers: 'version'
+            },
+            {
+              entity: {
+                classes: 'govuk-tag--grey',
+                kind: 'tag',
+                value: 'Succeeded'
+              },
+              headers: 'status'
+            },
+            {
+              entity: {
+                classes: 'govuk-tag--blue',
+                kind: 'tag',
+                value: 'Microservice'
+              },
+              headers: 'kind'
             },
             {
               entity: {
                 kind: 'text',
                 value: 'B. A. Baracus'
               },
-              headers: 'service-status'
+              headers: 'by'
             },
             {
               entity: {
                 kind: 'group',
-                value: [
-                  {
-                    kind: 'link',
-                    url: '/teams/team1Id',
-                    value: 'team1'
-                  },
-                  {
-                    kind: 'link',
-                    url: '/teams/team2Id',
-                    value: 'team2'
-                  }
-                ]
+                value: null
               },
               headers: 'team'
             },
             {
               entity: {
                 kind: 'date',
-                value: '2023-12-14T13:58:13Z',
+                value: '2025-04-30T09:21:54.816Z',
                 withSeconds: true
               },
-              headers: 'deployment-started'
-            }
-          ]
-        },
-        {
-          cells: [
-            {
-              classes: 'app-entity-table__cell--owned',
-              entity: {
-                kind: 'html',
-                value: expect.stringContaining('Owned Service')
-              },
-              headers: 'owner',
-              isCentered: true
-            },
-            {
-              entity: {
-                kind: 'link',
-                url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
-                value: 'cdp-portal-frontend'
-              },
-              headers: 'deployment'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Running'
-              },
-              headers: 'service-status'
-            },
-            {
-              entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.211.0',
-                value: '0.211.0'
-              },
-              headers: 'version'
-            },
-            {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'service-status'
-            },
-            {
-              entity: {
-                kind: 'group',
-                value: [
-                  {
-                    kind: 'link',
-                    url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                    value: 'Platform'
-                  }
-                ]
-              },
-              headers: 'team'
-            },
-            {
-              entity: {
-                kind: 'date',
-                value: '2023-12-14T13:40:52Z',
-                withSeconds: true
-              },
-              headers: 'deployment-started'
+              headers: 'started'
             }
           ]
         }
@@ -292,12 +159,17 @@ describe('#deploymentToEntityRow', () => {
         {
           cells: [
             {
+              headers: 'description',
+              html: expect.stringContaining('cdp-example-node-postgres-be')
+            },
+            {
               entity: {
                 kind: 'link',
-                url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
-                value: 'cdp-self-service-ops'
+                newWindow: true,
+                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.356.0',
+                value: '0.356.0'
               },
-              headers: 'deployment'
+              headers: 'version'
             },
             {
               entity: {
@@ -305,23 +177,22 @@ describe('#deploymentToEntityRow', () => {
                 kind: 'tag',
                 value: 'Running'
               },
-              headers: 'service-status'
+              headers: 'status'
             },
             {
               entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-self-service-ops/releases/tag/0.133.0',
-                value: '0.133.0'
+                classes: 'govuk-tag--blue',
+                kind: 'tag',
+                value: 'Microservice'
               },
-              headers: 'version'
+              headers: 'kind'
             },
             {
               entity: {
                 kind: 'text',
-                value: 'B. A. Baracus'
+                value: 'Mumm-ra'
               },
-              headers: 'service-status'
+              headers: 'by'
             },
             {
               entity: {
@@ -333,186 +204,65 @@ describe('#deploymentToEntityRow', () => {
             {
               entity: {
                 kind: 'date',
-                value: '2023-12-14T14:04:49Z',
+                value: '2025-04-30T14:48:34.001Z',
                 withSeconds: true
               },
-              headers: 'deployment-started'
+              headers: 'started'
             }
           ]
         },
         {
           cells: [
             {
-              entity: {
-                kind: 'link',
-                url: '/deployments/infra-dev/undefined',
-                value: 'cdp-user-service-backend'
-              },
-              headers: 'deployment'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Running'
-              },
-              headers: 'service-status'
+              headers: 'description',
+              html: expect.stringContaining('cdp-example-node-postgres-be')
             },
             {
               entity: {
                 kind: 'link',
                 newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-user-service-backend/releases/tag/0.54.0',
-                value: '0.54.0'
+                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.8.0',
+                value: '0.8.0'
               },
               headers: 'version'
             },
             {
               entity: {
-                kind: 'text',
-                value: '- - -'
-              },
-              headers: 'service-status'
-            },
-            {
-              entity: {
-                kind: 'group',
-                value: [
-                  {
-                    kind: 'link',
-                    url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                    value: 'Platform'
-                  }
-                ]
-              },
-              headers: 'team'
-            },
-            {
-              entity: {
-                kind: 'date',
-                value: '2023-12-14T14:02:34Z',
-                withSeconds: true
-              },
-              headers: 'deployment-started'
-            }
-          ]
-        },
-        {
-          cells: [
-            {
-              entity: {
-                kind: 'link',
-                url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
-                value: 'cdp-portal-backend'
-              },
-              headers: 'deployment'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
+                classes: 'govuk-tag--grey',
                 kind: 'tag',
-                value: 'Running'
+                value: 'Succeeded'
               },
-              headers: 'service-status'
+              headers: 'status'
             },
             {
               entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-portal-backend/releases/tag/0.94.0',
-                value: '0.94.0'
+                classes: 'govuk-tag--blue',
+                kind: 'tag',
+                value: 'Microservice'
               },
-              headers: 'version'
+              headers: 'kind'
             },
             {
               entity: {
                 kind: 'text',
                 value: 'B. A. Baracus'
               },
-              headers: 'service-status'
+              headers: 'by'
             },
             {
               entity: {
                 kind: 'group',
-                value: [
-                  {
-                    kind: 'link',
-                    url: '/teams/team1Id',
-                    value: 'team1'
-                  },
-                  {
-                    kind: 'link',
-                    url: '/teams/team2Id',
-                    value: 'team2'
-                  }
-                ]
+                value: null
               },
               headers: 'team'
             },
             {
               entity: {
                 kind: 'date',
-                value: '2023-12-14T13:58:13Z',
+                value: '2025-04-30T09:21:54.816Z',
                 withSeconds: true
               },
-              headers: 'deployment-started'
-            }
-          ]
-        },
-        {
-          cells: [
-            {
-              entity: {
-                kind: 'link',
-                url: '/deployments/infra-dev/7dda5224-84c0-4a67-a64f-04e55d95befb',
-                value: 'cdp-portal-frontend'
-              },
-              headers: 'deployment'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Running'
-              },
-              headers: 'service-status'
-            },
-            {
-              entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.211.0',
-                value: '0.211.0'
-              },
-              headers: 'version'
-            },
-            {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'service-status'
-            },
-            {
-              entity: {
-                kind: 'group',
-                value: [
-                  {
-                    kind: 'link',
-                    url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                    value: 'Platform'
-                  }
-                ]
-              },
-              headers: 'team'
-            },
-            {
-              entity: {
-                kind: 'date',
-                value: '2023-12-14T13:40:52Z',
-                withSeconds: true
-              },
-              headers: 'deployment-started'
+              headers: 'started'
             }
           ]
         }

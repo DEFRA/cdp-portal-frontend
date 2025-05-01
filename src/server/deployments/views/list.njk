@@ -17,7 +17,7 @@
       classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-2"
     },
     caption: {
-      text: "Search and filter deployments"
+      text: "Search and filter microservice deployments and database updates"
     },
     clear: {
       url: "/deployments/" + environment
@@ -42,6 +42,23 @@
         suggestions: serviceFilters,
         typeahead: true,
         placeholder: "Search by service"
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-kind",
+        name: "kind",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Kind",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.kind,
+        suggestions: kindFilters
       }) }}
     </div>
 
