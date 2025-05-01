@@ -1,6 +1,6 @@
 import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
 
-function provideStatusClassname(status) {
+function provideDeploymentStatusClassname(status) {
   switch (status) {
     case deploymentStatus.running:
       return 'item-detail--green'
@@ -19,4 +19,4 @@ function provideStatusClassname(status) {
   }
 }
 
-export { provideStatusClassname }
+export { provideDeploymentStatusClassname }

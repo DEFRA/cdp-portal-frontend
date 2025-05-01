@@ -1,5 +1,5 @@
 import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
-import { provideStatusClassname } from '~/src/server/running-services/helpers/provide-status-classname.js'
+import { provideDeploymentStatusClassname } from '~/src/server/running-services/helpers/provide-deployment-status-classname.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
 
 async function transformRunningService(serviceName) {
@@ -9,7 +9,7 @@ async function transformRunningService(serviceName) {
   return {
     runningServices: runningServices?.map((rs) => ({
       ...rs,
-      statusClassname: provideStatusClassname(rs.status)
+      statusClassname: provideDeploymentStatusClassname(rs.status)
     })),
     teams: deployableService?.teams?.filter((team) => team.teamId) ?? []
   }

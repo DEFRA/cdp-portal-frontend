@@ -14,6 +14,17 @@ const availableMigrationsController = {
         request.query?.serviceName
       )
 
+      if (migrations.length === 0) {
+        return [
+          {
+            text: ' - - no versions - - ',
+            hint: '',
+            disabled: true,
+            attributes: { selected: true }
+          }
+        ]
+      }
+
       return migrations.map((migration) => ({
         text: migration.version,
         value: migration.version,

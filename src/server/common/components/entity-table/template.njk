@@ -31,7 +31,9 @@
     </thead>
     <tbody>
     {% for row in params.rows %}
-      <tr class="app-entity-table__row" data-testid="app-entity-table-row-{{ loop.index }}">
+      {% set rowClasses = ["app-entity-table__row", row.classes if row.classes] | join(" ") | trim %}
+
+      <tr class="{{ rowClasses }}" data-testid="app-entity-table-row-{{ loop.index }}">
         {% for cell in row.cells %}
 
           {% set cellClasses = [

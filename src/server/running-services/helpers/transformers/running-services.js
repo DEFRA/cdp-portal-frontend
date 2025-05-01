@@ -1,5 +1,5 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { provideStatusClassname } from '~/src/server/running-services/helpers/provide-status-classname.js'
+import { provideDeploymentStatusClassname } from '~/src/server/running-services/helpers/provide-deployment-status-classname.js'
 
 function transformRunningServices({
   runningServices,
@@ -13,7 +13,7 @@ function transformRunningServices({
       }
 
       acc[rs.service].envs[rs.environment] = {
-        statusClassname: provideStatusClassname(rs.status),
+        statusClassname: provideDeploymentStatusClassname(rs.status),
         ...rs
       }
 

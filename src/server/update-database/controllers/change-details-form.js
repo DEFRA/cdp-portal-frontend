@@ -8,6 +8,7 @@ import { detailsValidation } from '~/src/server/update-database/helpers/schema/d
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { fetchPostgresServices } from '~/src/server/update-database/helpers/fetchers.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
+import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 const changeDetailsFormController = {
   options: {
@@ -51,7 +52,10 @@ const changeDetailsFormController = {
       serviceName,
       latestDbChanges,
       runningServices,
-      latestMigrations,
+      latestMigrations: latestMigrations.map((migration) => ({
+        ...migration,
+        statusClassname: provideDatabaseStatusClassname(migration.status)
+      })),
       environments
     })
   }

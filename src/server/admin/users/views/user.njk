@@ -51,7 +51,7 @@
           {% if user.scopes | length %}
             {{ govukTaskList(scopesTaskList) }}
           {% else %}
-            <p>
+            <p class="govuk-!-margin-bottom-2">
               This user has no permissions
             </p>
           {% endif %}

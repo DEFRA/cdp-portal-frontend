@@ -8,6 +8,7 @@ import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/de
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
+import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 const detailsFormController = {
   options: {
@@ -52,7 +53,10 @@ const detailsFormController = {
       imageName,
       latestVersions,
       runningServices,
-      latestMigrations,
+      latestMigrations: latestMigrations.map((migration) => ({
+        ...migration,
+        statusClassname: provideDatabaseStatusClassname(migration.status)
+      })),
       environments
     })
   }

@@ -62,15 +62,14 @@ function transformMigrationToSummary(migration) {
       {
         key: { text: 'Kind' },
         value: {
-          html:
-            '<div class="app-!-layout-centered">' +
-            renderIcon('database-icon', {
-              classes: 'app-icon--small govuk-!-margin-right-1'
-            }) +
-            renderComponent('tag', {
-              text: formatText(migration.kind)
-            }) +
-            '</div>'
+          html: `<div class="app-!-layout-centered">
+                  ${renderIcon('database-icon', {
+                    classes: 'app-icon--small govuk-!-margin-right-1'
+                  })}
+                  ${renderComponent('tag', {
+                    text: formatText(migration.kind)
+                  })}
+                </div>`
         }
       },
       {

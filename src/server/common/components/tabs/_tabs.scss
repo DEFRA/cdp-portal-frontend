@@ -10,7 +10,7 @@
 .app-tabs__list {
   margin: govuk-spacing(0);
   padding: govuk-spacing(0);
-  list-style: inside;
+  list-style: none;
 }
 
 .app-tabs__list-item {
@@ -25,10 +25,6 @@
 
 .app-tabs__panel {
   padding: 0 govuk-spacing(4) govuk-spacing(4);
-}
-
-.app-tabs__panel--slim {
-  padding: 0;
 }
 
 @include govuk-media-query($from: tablet) {
@@ -73,5 +69,11 @@
     margin-left: govuk-spacing(-6);
     margin-right: govuk-spacing(-6);
     padding: 0 govuk-spacing(6) govuk-spacing(6);
+  }
+}
+
+@include govuk-media-query($from: desktop-huge) {
+  .app-tabs__panel--slim {
+    padding: 0;
   }
 }

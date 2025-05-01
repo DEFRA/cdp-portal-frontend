@@ -13,6 +13,7 @@ import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide
 import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { hasScope, scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
+import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 const availableEnvironments = ({ userScopes, tenantServiceInfo }) => {
   const environments = getEnvironments(userScopes)
@@ -116,7 +117,10 @@ const serviceController = {
       runningServices,
       latestPublishedImageVersions,
       availableMigrations,
-      latestMigrations,
+      latestMigrations: latestMigrations.map((migration) => ({
+        ...migration,
+        statusClassname: provideDatabaseStatusClassname(migration.status)
+      })),
       breadcrumbs: [
         {
           text: 'Services',

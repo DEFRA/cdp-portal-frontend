@@ -5,26 +5,27 @@
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
 {% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
-{% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
-<div class="app-running-service">
+<section class="app-running-service">
   {% for envName in params.environments %}
-    {% set runningService = params.items | find({ environment: envName }) %}
+    {% set runningService = params.runningServices | find({ environment: envName }) %}
 
     {% if runningService %}
-      {% set classes = ["app-running-service__card", runningService.statusClassname if runningService.statusClassname] | join(" ") | trim %}
+      {% set classes = ["app-running-service__card", runningService.statusClassname if runningService
+      .statusClassname] | join(" ") | trim %}
 
       <div class="{{ classes }}">
+
         {% if runningService.unstable %}
-          <div class="app-running-service__item app-running-service__item-unstable">
+          <div class="app-running-service__item app-running-service__item--unstable">
             {{ appWarningIcon({ classes: "app-icon--tiny govuk-!-margin-right-1", description: "Unstable!" }) }}
             Unstable
           </div>
         {% endif %}
 
-        <div aria-labelledby="status" class="app-running-service__item app-running-service__item--heading">
-          <span id="status" class="govuk-visually-hidden">Environment:</span>
+        <div class="app-running-service__item app-running-service__item--heading">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
           <span aria-labelledby="environment">{{ appTag({ text: envName | title }) }}</span>
 
           <div class="app-running-service__item app-running-service__item--version">
@@ -32,36 +33,22 @@
             <a class="app-link govuk-!-margin-right-2"
                href="https://github.com/DEFRA/{{ runningService.service }}/releases/tag/{{ runningService.version }}"
                target="_blank" rel="noopener noreferrer"
-               aria-labelledby="version"
-            >
+               aria-labelledby="version">
               {{ runningService.version }}
             </a>
+            {% set tooltipText = "failed" if runningService.unstable === true else runningService.status %}
 
-            {% for instanceId, instance in runningService.instances %}
-              {% set tooltipText = "failed" if runningService.unstable === true else instance.status %}
-
-              {% call appToolTip({
-                text: "Instance " + tooltipText | title,
-                classes: "app-tool-tip--small"
-              }) %}
-                {% if instance.status === "running" %}
-                  {{ appInstanceSuccessIcon({ description: "Instance running", classes: "app-icon--small" }) }}
-                {% elseif instance.status === "stopped" and deployment.unstable === true %}
-                  {{ appInstanceFailedIcon({ description: "Instance failed to start", classes: "app-icon--small"
-                  }) }}
-                {% elseif instance.status === "stopped" %}
-                  {{ appInstanceStoppedIcon({ description: "Instance stopped", classes: "app-icon--small" }) }}
-                {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
-                  {{ appInstancePendingIcon({ description: "Instance pending", classes: "app-icon--small" }) }}
-                {% elseif instance.status === "failed" %}
-                  {{ appInstanceFailedIcon({ description: "Instance failed", classes: "app-icon--small" }) }}
-                {% elseif instance.status === "undeployed" %}
-                  {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
-                {% endif %}
-              {% endcall %}
-            {% else %}
-              {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon app-icon--small"}) }}
-            {% endfor %}
+            {% call appToolTip({ text: tooltipText | title + " in " + envName | title }) %}
+              {% if runningService.status === "running" %}
+                {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon--small" }) }}
+              {% elseif runningService.status === "pending"or runningService.status === "stopping" or runningService.status === "deploying" %}
+                {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon--small"}) }}
+              {% elseif runningService.status === "failed" %}
+                {{ appInstanceFailedIcon({ description: "Failed", classes: "app-icon--small" }) }}
+              {% elseif runningService.status === "undeployed" %}
+                {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon--small"}) }}
+              {% endif %}
+            {% endcall %}
           </div>
         </div>
 
@@ -73,30 +60,29 @@
           <div>
             <span id="cpu" class="app-running-service__label">CPU:</span>
             <span aria-labelledby="instance-count">
-            {{ runningService.cpu / 1024 + " vCPU" if runningService.cpu else noValue }}
-          </span>
+              {{ runningService.cpu / 1024 + " vCPU" if runningService.cpu else noValue }}
+            </span>
           </div>
           <div>
             <span id="memory" class="app-running-service__label">Memory:</span>
-            <span aria-labelledby="memory">{{ runningService.memory / 1024 + " GB" if runningService.memory  else
-              noValue }}</span>
+            <span aria-labelledby="memory">
+            {{ runningService.memory / 1024 + " GB" if runningService.memory  else noValue }}
+          </span>
           </div>
         </div>
 
-        <p class="app-running-service__item app-running-service__item--deployed-by">
+        <div class="app-running-service__item app-running-service__item--deployed-by">
           <a class="app-link" href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
             Deployed
           </a>
-
           {{ appTime({
             text: runningService.updated | formatDistanceToNow,
             datetime: runningService.updated
           }) }} ago by {{ runningService.user.displayName }}
-        </p>
+        </div>
       </div>
 
     {% else %}
-
       <div class="app-running-service__card app-running-service__card--empty">
         <div class="app-running-service__item app-running-service__item--heading">
           <span id="environment" class="govuk-visually-hidden">Environment</span>
@@ -108,9 +94,6 @@
           </span>
         </div>
       </div>
-
     {% endif %}
-
   {% endfor %}
-</div>
-
+</section>

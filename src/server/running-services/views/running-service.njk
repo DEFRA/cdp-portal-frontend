@@ -30,7 +30,7 @@
         <p class="govuk-!-margin-bottom-2">
           Information about the state of your service in CDP environments
         </p>
-        {{ appRunningService({ items: runningServices, environments: environments }) }}
+        {{ appRunningService({ runningServices: runningServices, environments: environments }) }}
       {% endcall %}
     </div>
   </div>

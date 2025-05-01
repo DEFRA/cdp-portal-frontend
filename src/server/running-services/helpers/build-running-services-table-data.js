@@ -8,7 +8,6 @@ import { transformRunningServices } from '~/src/server/running-services/helpers/
 import { runningServiceToEntityRow } from '~/src/server/running-services/helpers/transformers/running-service-to-entity-row.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
-import { statusFilterOrder as order } from '~/src/server/common/constants/status-filter-order.js'
 
 function getFilters(runningServicesFilters) {
   const {
@@ -24,9 +23,7 @@ function getFilters(runningServicesFilters) {
   )
 
   const statusFilters = buildSuggestions(
-    statuses
-      .toSorted((a, b) => order.indexOf(a) - order.indexOf(b))
-      .map((status) => ({ text: upperFirst(status), value: status }))
+    statuses.map((status) => ({ text: upperFirst(status), value: status }))
   )
 
   const teamFilters = buildSuggestions(
