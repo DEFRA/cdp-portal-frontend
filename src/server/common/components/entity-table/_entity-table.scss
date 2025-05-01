@@ -149,8 +149,8 @@ $min-grid-cell-width: 100px;
   }
 
   .app-entity-table__cell--centered {
-    text-align: center;
-    vertical-align: middle;
+    display: flex;
+    justify-content: center;
   }
 
   .app-entity-table__cell--slim {
