@@ -18,7 +18,7 @@ function transformUserToSummary(user, withActions = true) {
   const actions = withActions ? editActions : null
 
   return {
-    classes: 'app-summary-list govuk-!-margin-bottom-8',
+    classes: 'app-summary-list',
     attributes: {
       'data-testid': 'govuk-summary-list'
     },

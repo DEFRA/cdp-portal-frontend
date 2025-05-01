@@ -15,7 +15,7 @@
   {% endset %}
 
   {% set kind %}
-    {{ appTag({ text: dbChange.kind | title, classes: "govuk-tag--purple" }) }}
+    {{ appTag({ text: dbChange.kind | title }) }}
   {% endset %}
 
   {{ latestDbUpdatesTableRows.push([
@@ -202,7 +202,7 @@
 
                   {% if serviceName %}
                     <div class="app-section app-section--extra-wide">
-                      {{ appRunningServiceMini({
+                      {{ appRunningService({
                         runningServices: runningServices,
                         environments: environments
                       }) }}

@@ -53,7 +53,7 @@ const updateController = {
       })
 
       return h.redirect(
-        `/database-deployments/${stepData.environment}/${migrationId}`
+        `/deployments/database-updates/${stepData.environment}/${migrationId}`
       )
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)

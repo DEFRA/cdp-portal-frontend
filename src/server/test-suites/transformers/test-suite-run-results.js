@@ -92,7 +92,9 @@ function testSuiteRunResults(testRun, canRun) {
         headers: 'logs',
         entity: {
           kind: 'link',
-          value: logsLinkDataAvailable ? `logs.${testRun.environment}` : null,
+          value: logsLinkDataAvailable
+            ? `https://logs.${testRun.environment}.cdp-int.defra.cloud`
+            : null,
           url: logsLinkDataAvailable && buildLogsLink(testRun, hasResult),
           newWindow: true
         }

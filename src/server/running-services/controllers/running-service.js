@@ -5,6 +5,7 @@ import { transformRunningService } from '~/src/server/running-services/helpers/t
 import { transformRunningServiceToSummary } from '~/src/server/running-services/helpers/transformers/running-service-to-summary.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
+import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 const runningServiceController = {
   options: {
@@ -29,7 +30,10 @@ const runningServiceController = {
       summaryList: transformRunningServiceToSummary(serviceName, teams),
       runningServiceName: serviceName,
       runningServices,
-      latestMigrations,
+      latestMigrations: latestMigrations.map((migration) => ({
+        ...migration,
+        statusClassname: provideDatabaseStatusClassname(migration.status)
+      })),
       environments,
       breadcrumbs: [
         {

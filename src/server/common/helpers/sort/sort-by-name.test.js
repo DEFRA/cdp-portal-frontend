@@ -1,5 +1,5 @@
 import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
-import { deploymentsFixture } from '~/src/__fixtures__/deployments.js'
+import { deploymentsFixture } from '~/src/__fixtures__/deployments/deployments.js'
 
 describe('#sortByName', () => {
   const serviceNames = deploymentsFixture.data.map(

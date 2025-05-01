@@ -163,7 +163,7 @@
                         rows: latestPublishedTableRows
                       }) }}
 
-                      <p>
+                      <p class="govuk-!-margin-bottom-0">
                         <a class="app-link" target="_blank" rel="noopener noreferrer"
                            href="https://github.com/DEFRA/{{ imageName }}/tags">
                           more versions
@@ -176,9 +176,7 @@
                       </p>
                     {% endif %}
 
-
                   </div>
-
                 </div>
               </section>
             {% endcall %}
@@ -198,7 +196,7 @@
 
                   {% if imageName %}
                     <div class="app-section app-section--extra-wide">
-                      {{ appRunningServiceMini({
+                      {{ appRunningService({
                         runningServices: runningServices,
                         environments: environments
                       }) }}

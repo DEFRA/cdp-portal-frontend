@@ -9,7 +9,10 @@
     {% set databaseDetail = params.databaseDetails | find({ environment: envName }) %}
 
     {% if databaseDetail %}
-      <div class="app-database-detail__card">
+      {% set classes = ["app-database-detail__card", databaseDetail.statusClassname if databaseDetail
+      .statusClassname] | join(" ") | trim %}
+
+      <div class="{{ classes }}">
         <div class="app-database-detail__item app-database-detail__item--heading">
           {{ appTag({ text: envName | title, classes: "app-tag--white" }) }}
 
@@ -26,14 +29,12 @@
         </div>
 
         <div class="app-database-detail__item app-database-detail__item--kind">
-          {{ appTag({
-            text: databaseDetail.kind | title,
-            classes: "govuk-tag--purple"
-          }) }}
+          <span id="kind" class="app-database-detail__label">Kind:</span>
+          <span aria-labelledby="kind">{{ databaseDetail.kind | title }}</span>
         </div>
 
         <div class="app-database-detail__item app-database-detail__item--updated">
-          <a class="app-link" href="/database-deployments/{{ envName }}/{{ databaseDetail.cdpMigrationId }}">
+          <a class="app-link" href="/deployments/database-updates/{{ envName }}/{{ databaseDetail.cdpMigrationId }}">
             Updated
           </a>
           {{ appTime({

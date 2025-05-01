@@ -87,7 +87,7 @@
       query: { serviceName: service.serviceName, version: migration.version }
     }) }}"
        role="button"
-       class="govuk-button app-button app-button--secondary app-button--small"
+       class="govuk-button app-button app-button--small"
        data-testid="deploy-button">Update</a>
   {% endset %}
 
@@ -99,7 +99,7 @@
   {% endset %}
 
   {% set kind %}
-    {{ appTag({ text: migration.kind | title, classes: "govuk-tag--purple" }) }}
+    {{ appTag({ text: migration.kind | title, classes: "govuk-tag--blue" }) }}
   {% endset %}
 
   {% if hasPostgresPermission and (isAdmin or isServiceOwner) %}
@@ -225,7 +225,13 @@
         <section class="app-grid-service__migrations" data-testid="migrations">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Changes</h2>
           <p class="govuk-!-margin-bottom-2">
-            Latest database changes available for this service
+            Latest database changes available for this service. To view this services database updates across all
+            available environments go to
+            <a class="app-link"
+               href="{{ routeLookup('deployments/{environment}', {
+                 query: { service : service.serviceName },
+                 params: { environment : "infra-dev" if isAdmin else "dev"}
+               }) }}">Deployments and Updates</a>
           </p>
 
           {% set headings = [
@@ -239,7 +245,7 @@
 
           {% if migrationsTableRows | length %}
             {{ govukTable({
-              classes: "app-table app-table--inverse govuk-!-margin-bottom-0",
+              classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
               head: headings,
               rows: migrationsTableRows
             }) }}
@@ -254,7 +260,8 @@
         <section class="app-grid-service__database-details" data-testid="database-details">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Details</h2>
           <p class="govuk-!-margin-bottom-2">
-            Current database changes applied to this services database
+            Current database details across CDP environments. For more information view
+            <a class="app-link" href="/running-services/{{ service.serviceName }}">Running services</a>
           </p>
 
           {{ appDatabaseDetail({
@@ -271,7 +278,7 @@
           <a class="app-link" href="/running-services/{{ service.serviceName }}">Running services</a>
         </p>
 
-        {{ appRunningServiceMini({
+        {{ appRunningService({
           runningServices: runningServices,
           environments: availableServiceEnvironments
         }) }}
@@ -294,8 +301,7 @@
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
           <p class="govuk-!-margin-bottom-6">
             Manage service configuration and set environment variables across CDP environments. For more information
-            see
-            our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>.
+            see our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>.
             To view this services configuration go to
             <a class="app-link"
                href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"

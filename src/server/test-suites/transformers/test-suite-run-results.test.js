@@ -53,7 +53,7 @@ describe('#transformTestSuiteRunResults', () => {
                 kind: 'link',
                 newWindow: true,
                 url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-27T10:29:32.000',to:'2024-02-27T10:31:36.000'))&amp;_a=(columns:!(_source),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:'ecs_task_arn:arn:aws:ecs:eu-west-2:123456789:task%2Finfra-dev-ecs-public%2Ff5cffc31e21149208f38b8ec2b168c50'),sort:!())&_a=(columns:!(log),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:''),sort:!())",
-                value: 'logs.infra-dev'
+                value: 'https://logs.infra-dev.cdp-int.defra.cloud'
               },
               headers: 'logs'
             },
@@ -143,7 +143,7 @@ describe('#transformTestSuiteRunResults', () => {
                 kind: 'link',
                 newWindow: true,
                 url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-26T16:38:28.000',to:'2024-02-26T16:40:34.000'))&amp;_a=(columns:!(_source),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:'ecs_task_arn:arn:aws:ecs:eu-west-2:123456789:task%2Finfra-dev-ecs-public%2F7e4c74aa41e44a0399bef08711563715'),sort:!())&_a=(columns:!(log),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:''),sort:!())",
-                value: 'logs.infra-dev'
+                value: 'https://logs.infra-dev.cdp-int.defra.cloud'
               },
               headers: 'logs'
             },
@@ -242,7 +242,7 @@ describe('#transformTestSuiteRunResults', () => {
                 kind: 'link',
                 newWindow: true,
                 url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-27T10:29:32.000',to:'2024-02-27T10:31:36.000'))&amp;_a=(columns:!(_source),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:'ecs_task_arn:arn:aws:ecs:eu-west-2:123456789:task%2Finfra-dev-ecs-public%2Ff5cffc31e21149208f38b8ec2b168c50'),sort:!())&_a=(columns:!(log),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:''),sort:!())",
-                value: 'logs.infra-dev'
+                value: 'https://logs.infra-dev.cdp-int.defra.cloud'
               },
               headers: 'logs'
             },
@@ -332,7 +332,7 @@ describe('#transformTestSuiteRunResults', () => {
                 kind: 'link',
                 newWindow: true,
                 url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-26T16:38:28.000',to:'2024-02-26T16:40:34.000'))&amp;_a=(columns:!(_source),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:'ecs_task_arn:arn:aws:ecs:eu-west-2:123456789:task%2Finfra-dev-ecs-public%2F7e4c74aa41e44a0399bef08711563715'),sort:!())&_a=(columns:!(log),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:''),sort:!())",
-                value: 'logs.infra-dev'
+                value: 'https://logs.infra-dev.cdp-int.defra.cloud'
               },
               headers: 'logs'
             },

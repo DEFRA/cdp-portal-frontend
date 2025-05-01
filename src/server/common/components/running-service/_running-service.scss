@@ -5,6 +5,20 @@
 $card-width: 240px;
 $card-height: 180px;
 
+@mixin rs-item-colours($colourName) {
+  background-color: govuk-tint(govuk-colour($colourName), 80%);
+  border: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+
+  .app-tag {
+    background-color: govuk-tint(govuk-colour($colourName), 60%);
+  }
+
+  .app-running-service__item--heading {
+    background-color: govuk-tint(govuk-colour($colourName), 70%);
+    border-bottom: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+  }
+}
+
 .app-running-service {
   @extend %govuk-body-m;
   display: grid;
@@ -24,84 +38,30 @@ $card-height: 180px;
   background-color: govuk-colour("white");
 
   &.item-detail--green {
-    background-color: govuk-tint(govuk-colour("green"), 80%);
-    border: 1px solid govuk-tint(govuk-colour("green"), 60%);
-
-    .app-tag {
-      background-color: govuk-tint(govuk-colour("green"), 60%);
-    }
-
-    .app-running-service__item--heading {
-      background-color: govuk-tint(govuk-colour("green"), 70%);
-      border-bottom: 1px solid govuk-tint(govuk-colour("green"), 60%);
-    }
+    @include rs-item-colours("green");
   }
 
   &.item-detail--purple {
-    background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
-    border: 1px solid govuk-tint(govuk-colour("bright-purple"), 65%);
-
-    .app-tag {
-      background-color: govuk-tint(govuk-colour("bright-purple"), 65%);
-    }
-
-    .app-running-service__item--heading {
-      background-color: govuk-tint(govuk-colour("bright-purple"), 75%);
-      border-bottom: 1px solid govuk-tint(govuk-colour("bright-purple"), 65%);
-    }
+    @include rs-item-colours("bright-purple");
   }
 
   &.item-detail--grey {
-    background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
-    border: 1px solid govuk-tint(govuk-colour("dark-grey"), 65%);
-
-    .app-instance {
-      fill: govuk-tint(govuk-colour("dark-grey"), 10%);
-    }
-
-    .app-tag {
-      background-color: govuk-tint(govuk-colour("dark-grey"), 65%);
-    }
-
-    .app-running-service__item--heading {
-      background-color: govuk-tint(govuk-colour("dark-grey"), 75%);
-      border-bottom: 1px solid govuk-tint(govuk-colour("dark-grey"), 65%);
-    }
+    @include rs-item-colours("dark-grey");
   }
 
   &.item-detail--light-blue {
-    background-color: govuk-tint(govuk-colour("blue"), 90%);
-    border: 1px solid govuk-tint(govuk-colour("blue"), 70%);
-
-    .app-tag {
-      background-color: govuk-tint(govuk-colour("blue"), 60%);
-    }
-
-    .app-running-service__item--heading {
-      background-color: govuk-tint(govuk-colour("blue"), 80%);
-      border-bottom: 1px solid govuk-tint(govuk-colour("blue"), 70%);
-    }
+    @include rs-item-colours("blue");
   }
 
   &.item-detail--red {
-    background-color: govuk-tint(govuk-colour("red"), 75%);
-    border: 1px solid govuk-tint(govuk-colour("red"), 55%);
-
-    .app-tag {
-      background-color: govuk-tint(govuk-colour("red"), 45%);
-    }
-
-    .app-running-service__item--heading {
-      background-color: govuk-tint(govuk-colour("red"), 65%);
-      border-bottom: 1px solid govuk-tint(govuk-colour("red"), 55%);
-    }
+    @include rs-item-colours("red");
   }
 
   .app-running-service__item {
     padding: govuk-spacing(2);
   }
 
-  .app-running-service__item-unstable {
+  .app-running-service__item--unstable {
     display: flex;
     align-items: center;
     color: govuk-colour("white");

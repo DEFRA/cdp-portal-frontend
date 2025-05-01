@@ -20,6 +20,7 @@ $min-grid-cell-width: 100px;
 
 .app-entity-table__cell {
   height: 100%;
+  border-radius: $app-border-radius;
 }
 
 // Display compact table on small screens
@@ -184,5 +185,38 @@ $min-grid-cell-width: 100px;
     border-top: 1px solid $app-mid-grey;
     vertical-align: top;
     width: 4%;
+  }
+}
+
+.app-entity-table__row-header {
+  padding: 0;
+  margin-bottom: govuk-spacing(1);
+}
+
+.app-entity-table__row-caption {
+  color: govuk-colour("dark-grey");
+}
+
+.app-entity-table__row--service-deployment {
+  background-color: govuk-tint(govuk-colour("green"), 85%);
+
+  &:nth-child(even) {
+    background-color: govuk-tint(govuk-colour("green"), 85%);
+  }
+
+  &:hover {
+    background-color: govuk-tint(govuk-colour("green"), 90%);
+  }
+}
+
+.app-entity-table__row--database-update {
+  background-color: govuk-tint(govuk-colour("blue"), 85%);
+
+  &:nth-child(even) {
+    background-color: govuk-tint(govuk-colour("blue"), 85%);
+  }
+
+  &:hover {
+    background-color: govuk-tint(govuk-colour("blue"), 90%);
   }
 }
