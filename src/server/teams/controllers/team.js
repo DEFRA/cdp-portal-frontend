@@ -21,8 +21,8 @@ const teamController = {
   },
   handler: async (request, h) => {
     // TODO parallelise these requests
-    const { team } = await fetchTeam(request.params.teamId)
-    const teamId = team.teamId
+    const teamId = request.params.teamId
+    const { team } = await fetchTeam(teamId)
     const teamsServices = await fetchEntities({ type: 'Microservice', teamId })
     const teamTestSuites = await fetchEntities({ type: 'TestSuite', teamId })
 
