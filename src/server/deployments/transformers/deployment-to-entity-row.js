@@ -17,7 +17,7 @@ function buildDescription(deployment) {
                 classes: 'app-icon--small govuk-!-margin-right-1'
               })
             ])}
-            <div class="app-entity-table__row-caption">Microservice Deployment</div>
+            <div class="app-entity-table__row-caption">Microservice deployment</div>
           </div>`
 }
 
