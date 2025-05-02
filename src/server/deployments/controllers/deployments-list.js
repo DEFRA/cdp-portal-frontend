@@ -17,7 +17,6 @@ import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-
 import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
 import { fetchDeploymentsWithMigrations } from '~/src/server/deployments/helpers/fetch/fetch-deployments-with-migrations.js'
 import { migrationToEntityRow } from '~/src/server/deployments/transformers/migration-to-entity-row.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 
 async function getFilters() {
   const response = await fetchDeploymentFilters()
@@ -41,8 +40,13 @@ async function getFilters() {
     teams.map((team) => ({ text: team.name, value: team.teamId }))
   )
 
+  const uiTextDisplayMap = {
+    deployment: 'Deployment',
+    migration: 'Update'
+  }
+
   const kindFilters = buildSuggestions(
-    kinds.map((kind) => ({ text: formatText(kind), value: kind }))
+    kinds.map((kind) => ({ text: uiTextDisplayMap[kind], value: kind }))
   )
 
   return {
@@ -97,7 +101,7 @@ const deploymentsListController = {
     const deploymentsResponse = await fetchDeploymentsWithMigrations(
       environment,
       {
-        favouriteTeamIds: userScopeUUIDs,
+        favourites: userScopeUUIDs,
         page: request.query?.page,
         size: request.query?.size,
         service: request.query.service,

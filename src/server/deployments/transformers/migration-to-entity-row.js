@@ -77,7 +77,7 @@ function migrationToEntityRow(isAuthenticated) {
           headers: 'kind',
           entity: {
             kind: 'tag',
-            value: 'Liquabase',
+            value: 'Update',
             classes: 'govuk-tag--blue'
           }
         },
