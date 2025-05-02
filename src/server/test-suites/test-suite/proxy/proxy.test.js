@@ -4,7 +4,7 @@ import {
   initialiseServer,
   mockAuthResponse,
   mockCommonTestSuiteCalls
-} from '~/src/server/common/helpers/common-page-rendering.js'
+} from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service.js')

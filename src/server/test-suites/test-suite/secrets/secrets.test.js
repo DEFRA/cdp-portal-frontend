@@ -3,7 +3,7 @@ import {
   initialiseServer,
   mockAuthResponse,
   mockCommonTestSuiteCalls
-} from '~/src/server/common/helpers/common-page-rendering.js'
+} from '~/test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
 
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
