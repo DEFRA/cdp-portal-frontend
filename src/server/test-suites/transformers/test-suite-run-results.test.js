@@ -58,15 +58,13 @@ describe('#transformTestSuiteRunResults', () => {
               headers: 'logs'
             },
             {
-              classes: 'app-entity-table__cell--owned',
               entity: {
                 icon: expect.stringContaining('app-tick-icon'),
                 kind: 'link',
                 url: '/test-suites/test-results/infra-dev/0.2.0/cdp-portal-smoke-tests/383547d8-f71c-4e7e-8b03-4ddf09fd84fe/index.html',
                 value: 'Report'
               },
-              headers: 'results',
-              isCentered: true
+              headers: 'results'
             },
             {
               headers: 'user',
@@ -148,15 +146,13 @@ describe('#transformTestSuiteRunResults', () => {
               headers: 'logs'
             },
             {
-              classes: 'app-entity-table__cell--owned',
               entity: {
                 icon: expect.stringContaining('app-tick-icon'),
                 kind: 'link',
                 url: '/test-suites/test-results/infra-dev/0.1.0/cdp-portal-smoke-tests/dc34cdaf-1f51-44cf-8c63-e9b6800d9609/index.html',
                 value: 'Report'
               },
-              headers: 'results',
-              isCentered: true
+              headers: 'results'
             },
             {
               headers: 'user',
@@ -247,15 +243,13 @@ describe('#transformTestSuiteRunResults', () => {
               headers: 'logs'
             },
             {
-              classes: 'app-entity-table__cell--owned',
               entity: {
                 icon: expect.stringContaining('app-tick-icon'),
                 kind: 'link',
                 url: '/test-suites/test-results/infra-dev/0.2.0/cdp-portal-smoke-tests/383547d8-f71c-4e7e-8b03-4ddf09fd84fe/index.html',
                 value: 'Report'
               },
-              headers: 'results',
-              isCentered: true
+              headers: 'results'
             },
             {
               headers: 'user',
@@ -337,15 +331,13 @@ describe('#transformTestSuiteRunResults', () => {
               headers: 'logs'
             },
             {
-              classes: 'app-entity-table__cell--owned',
               entity: {
                 icon: expect.stringContaining('app-tick-icon'),
                 kind: 'link',
                 url: '/test-suites/test-results/infra-dev/0.1.0/cdp-portal-smoke-tests/dc34cdaf-1f51-44cf-8c63-e9b6800d9609/index.html',
                 value: 'Report'
               },
-              headers: 'results',
-              isCentered: true
+              headers: 'results'
             },
             {
               headers: 'user',
