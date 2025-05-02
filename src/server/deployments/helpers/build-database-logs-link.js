@@ -48,7 +48,7 @@ function buildDatabaseLogsLink(
   const fromIso = formatDatesForOpenSearch(created)
   const to = hasResult ? formatDatesForOpenSearch(updated) : 'now'
 
-  return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(_source),isDirty:!t,sort:!()),metadata:(indexPattern:'${index}',view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'${fromIso}',to:'${to}'))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'${index}',key:build.id,negate:!f,params:(query:'${id}'),type:phrase),query:(match_phrase:(build.id:'${id}'))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'${index}',key:service,negate:!f,params:(query:${service}),type:phrase),query:(match_phrase:(service:${service})))),query:(language:kuery,query:''))`
+  return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(message,version,service),isDirty:!t,sort:!()),metadata:(indexPattern:'${index}',view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'${fromIso}',to:'${to}'))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'${index}',key:build.id,negate:!f,params:(query:'${id}'),type:phrase),query:(match_phrase:(build.id:'${id}'))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'${index}',key:service,negate:!f,params:(query:${service}),type:phrase),query:(match_phrase:(service:${service})))),query:(language:kuery,query:''))`
 }
 
 export { buildDatabaseLogsLink }
