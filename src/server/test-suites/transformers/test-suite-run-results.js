@@ -101,8 +101,6 @@ function testSuiteRunResults(testRun, canRun) {
       },
       {
         headers: 'results',
-        isCentered: true,
-        classes: 'app-entity-table__cell--owned',
         entity: {
           kind: 'link',
           value: hasResult ? 'Report' : null,
