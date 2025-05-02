@@ -43,10 +43,8 @@ describe('#userSession', () => {
         isAuthenticated: true
       },
       server: {
-        app: {
-          cache: {
-            set: jest.fn()
-          }
+        session: {
+          set: jest.fn()
         }
       }
     }
@@ -59,7 +57,7 @@ describe('#userSession', () => {
 
       await createUserSession(request, sessionId)
 
-      expect(request.server.app.cache.set).toHaveBeenCalledWith(sessionId, {
+      expect(request.server.session.set).toHaveBeenCalledWith(sessionId, {
         id: 'user-id',
         email: 'user@example.com',
         displayName: 'User Name',
@@ -84,7 +82,7 @@ describe('#userSession', () => {
         info: jest.fn()
       },
       state: { userSessionCookie: { sessionId: 'session-id' } },
-      server: { app: { cache: { set: jest.fn() } } },
+      server: { session: { set: jest.fn() } },
       getUserSession: jest.fn()
     }
     const refreshTokenResponse = {
@@ -113,7 +111,7 @@ describe('#userSession', () => {
     })
 
     test('Should refresh the user session with new token and expiry details', () => {
-      expect(request.server.app.cache.set).toHaveBeenCalledWith('session-id', {
+      expect(request.server.session.set).toHaveBeenCalledWith('session-id', {
         id: 'user-id',
         email: 'user@example.com',
         displayName: 'User Name',
@@ -172,7 +170,7 @@ describe('#userSession', () => {
           sessionId: 'session-id'
         }
       },
-      server: { app: { cache: { set: jest.fn() } } },
+      server: { session: { set: jest.fn() } },
       getUserSession: jest.fn(),
       logger: { debug: jest.fn() }
     }
@@ -189,7 +187,7 @@ describe('#userSession', () => {
     })
 
     test('Should update the user scope with new scopes and flags', () => {
-      expect(request.server.app.cache.set).toHaveBeenCalledWith('session-id', {
+      expect(request.server.session.set).toHaveBeenCalledWith('session-id', {
         ...userSession,
         isAdmin: true,
         isTenant: false,

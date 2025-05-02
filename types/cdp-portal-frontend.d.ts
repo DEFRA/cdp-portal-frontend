@@ -1,5 +1,6 @@
 import { S3Client } from '@aws-sdk/client-s3'
 import type { RequestOptions, Response } from 'node-fetch'
+import { Policy } from '@hapi/catbox'
 
 declare module '@hapi/hapi' {
   interface Request {
@@ -28,11 +29,15 @@ declare module '@hapi/hapi' {
       clear: () => void
       ttl: (msecs: number) => void
     }
+    session: Policy
+    featureToggles: Policy
   }
 
   interface Server {
     s3Client: S3Client
     secureContext: SecureContext
     getTraceId: () => string | undefined
+    session: Policy
+    featureToggles: Policy
   }
 }

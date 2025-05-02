@@ -36,7 +36,6 @@ function addDecorators(server) {
   server.decorate('request', 'routeLookup', routeLookupDecorator, {
     apply: true
   })
-  server.decorate('request', 'featureToggles', server.app.featureToggles)
 }
 
 export { addDecorators }

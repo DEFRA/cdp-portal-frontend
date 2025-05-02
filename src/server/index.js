@@ -4,9 +4,6 @@ import hapi from '@hapi/hapi'
 import Scooter from '@hapi/scooter'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
-// TODO move dependency into devDependencies
-import { Engine as CatboxMemory } from '@hapi/catbox-memory'
-
 import { router } from '~/src/server/router.js'
 import { config } from '~/src/config/config.js'
 import { nunjucksConfig } from '~/src/config/nunjucks/index.js'
@@ -29,44 +26,29 @@ import { requestTracing } from '~/src/server/common/helpers/request-tracing.js'
 import { setupProxy } from '~/src/server/common/helpers/proxy/setup-proxy.js'
 import { federatedOidc } from '~/src/server/common/helpers/auth/federated-oidc.js'
 import { cognitoFederatedCredentials } from '~/src/server/common/helpers/auth/cognito.js'
+import { setupCaches } from '~/src/server/common/helpers/setup-caches.js'
 
 const enableSecureContext = config.get('enableSecureContext')
+const redisClient = buildRedisClient(config.get('redis'))
+const serverCache = [
+  {
+    name: 'session',
+    engine: new CatboxRedis({ client: redisClient })
+  },
+  {
+    name: 'featureToggles',
+    engine: new CatboxRedis({ client: redisClient })
+  }
+]
 
-async function createServer() {
+/**
+ * @typedef {object} Options
+ * @property {import('@hapi/hapi').ServerCache} cache
+ * @param {Options} options
+ * @returns {Promise<import('@hapi/hapi').Server>}
+ */
+async function createServer({ cache } = { cache: serverCache }) {
   setupProxy()
-  const redisClient = buildRedisClient(config.get('redis'))
-
-  // TODO this needs fixing to remove test code from production file
-  const cacheProvider =
-    process.env.NODE_ENV === 'test'
-      ? [
-          {
-            name: 'session',
-            provider: {
-              constructor: CatboxMemory
-            }
-          },
-          {
-            name: 'featureToggles',
-            provider: {
-              constructor: CatboxMemory
-            }
-          }
-        ]
-      : [
-          {
-            name: 'session',
-            engine: new CatboxRedis({
-              client: redisClient
-            })
-          },
-          {
-            name: 'featureToggles',
-            engine: new CatboxRedis({
-              client: redisClient
-            })
-          }
-        ]
 
   const server = hapi.server({
     port: config.get('port'),
@@ -99,25 +81,13 @@ async function createServer() {
     query: {
       parser: (query) => qs.parse(query)
     },
-    cache: cacheProvider,
+    cache,
     state: {
       strictHeader: false
     }
   })
 
-  // TODO refactor cache and decorate it on to server and request. No need for it to be on server.app
-  server.app.cache = server.cache({
-    cache: 'session',
-    segment: config.get('serverCacheSegment'),
-    expiresIn: config.get('redis.ttl')
-  })
-
-  server.app.featureToggles = server.cache({
-    cache: 'featureToggles',
-    segment: config.get('featureToggles.segment'),
-    expiresIn: config.get('featureToggles.ttl')
-  })
-
+  setupCaches(server)
   addDecorators(server)
 
   // Add tracer and request logger before all other plugins

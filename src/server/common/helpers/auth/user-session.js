@@ -48,7 +48,7 @@ async function createUserSession(request, sessionId) {
     request.auth.credentials.token
   )
 
-  await request.server.app.cache.set(sessionId, {
+  await request.server.session.set(sessionId, {
     id,
     email,
     displayName,
@@ -76,15 +76,12 @@ async function updateUserScope(request, userSession) {
 
   request.logger.debug('User session updated')
 
-  await request.server.app.cache.set(
-    request.state.userSessionCookie.sessionId,
-    {
-      ...userSession,
-      isAdmin: scopeFlags?.isAdmin,
-      isTenant: scopeFlags?.isTenant,
-      scope: scopes ?? []
-    }
-  )
+  await request.server.session.set(request.state.userSessionCookie.sessionId, {
+    ...userSession,
+    isAdmin: scopeFlags?.isAdmin,
+    isTenant: scopeFlags?.isTenant,
+    scope: scopes ?? []
+  })
 
   return await request.getUserSession()
 }
@@ -118,24 +115,21 @@ async function refreshUserSession(request, refreshTokenResponse) {
 
   const { scopes, scopeFlags } = await fetchScopes(refreshedToken)
 
-  await request.server.app.cache.set(
-    request.state.userSessionCookie.sessionId,
-    {
-      id: payload.oid,
-      email: payload.preferred_username,
-      displayName: payload.name,
-      loginHint: payload.login_hint,
-      isAuthenticated: true,
-      token: refreshTokenResponse.access_token,
-      refreshToken: refreshTokenResponse.refresh_token,
-      isAdmin: scopeFlags.isAdmin,
-      isTenant: scopeFlags.isTenant,
-      scope: scopes,
-      uuidScope: scopes.filter(uuidValidate),
-      expiresIn: expiresInMilliSeconds,
-      expiresAt
-    }
-  )
+  await request.server.session.set(request.state.userSessionCookie.sessionId, {
+    id: payload.oid,
+    email: payload.preferred_username,
+    displayName: payload.name,
+    loginHint: payload.login_hint,
+    isAuthenticated: true,
+    token: refreshTokenResponse.access_token,
+    refreshToken: refreshTokenResponse.refresh_token,
+    isAdmin: scopeFlags.isAdmin,
+    isTenant: scopeFlags.isTenant,
+    scope: scopes,
+    uuidScope: scopes.filter(uuidValidate),
+    expiresIn: expiresInMilliSeconds,
+    expiresAt
+  })
 
   request.logger.info(
     userLog(
