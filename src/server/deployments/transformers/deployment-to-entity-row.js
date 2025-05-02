@@ -80,7 +80,7 @@ function deploymentToEntityRow(isAuthenticated) {
           headers: 'kind',
           entity: {
             kind: 'tag',
-            value: 'Microservice',
+            value: 'Deployment',
             classes: 'govuk-tag--blue'
           }
         },

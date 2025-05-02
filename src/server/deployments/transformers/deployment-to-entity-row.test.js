@@ -55,7 +55,7 @@ describe('#deploymentToEntityRow', () => {
               entity: {
                 classes: 'govuk-tag--blue',
                 kind: 'tag',
-                value: 'Microservice'
+                value: 'Deployment'
               },
               headers: 'kind'
             },
@@ -119,7 +119,7 @@ describe('#deploymentToEntityRow', () => {
               entity: {
                 classes: 'govuk-tag--blue',
                 kind: 'tag',
-                value: 'Microservice'
+                value: 'Deployment'
               },
               headers: 'kind'
             },
@@ -183,7 +183,7 @@ describe('#deploymentToEntityRow', () => {
               entity: {
                 classes: 'govuk-tag--blue',
                 kind: 'tag',
-                value: 'Microservice'
+                value: 'Deployment'
               },
               headers: 'kind'
             },
@@ -238,7 +238,7 @@ describe('#deploymentToEntityRow', () => {
               entity: {
                 classes: 'govuk-tag--blue',
                 kind: 'tag',
-                value: 'Microservice'
+                value: 'Deployment'
               },
               headers: 'kind'
             },
