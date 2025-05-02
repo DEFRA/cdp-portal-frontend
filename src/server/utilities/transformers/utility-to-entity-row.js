@@ -1,4 +1,3 @@
-import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts.js'
 import {
   renderComponent,
   renderIcon
@@ -27,7 +26,7 @@ function utilityToEntityRow(utilityType, isAuthenticated) {
             ]
           : []),
         {
-          headers: 'service',
+          headers: 'utility',
           entity: {
             kind: 'link',
             value: utility.id,
@@ -35,7 +34,7 @@ function utilityToEntityRow(utilityType, isAuthenticated) {
           }
         },
         {
-          headers: 'service',
+          headers: 'team',
           entity: {
             kind: 'group',
             value: utility?.teams?.map((team) => ({
@@ -46,23 +45,23 @@ function utilityToEntityRow(utilityType, isAuthenticated) {
           }
         },
         {
-          headers: 'service',
+          headers: 'language',
           entity: {
             kind: 'text',
             value: utility.primaryLanguage
           }
         },
         {
-          headers: 'service',
+          headers: 'github-repository',
           entity: {
             kind: 'link',
-            value: removeUrlParts(utility.url),
+            value: utility.url,
             url: utility.url,
             newWindow: true
           }
         },
         {
-          headers: 'service',
+          headers: 'created',
           entity: {
             kind: 'date',
             value: utility.createdAt

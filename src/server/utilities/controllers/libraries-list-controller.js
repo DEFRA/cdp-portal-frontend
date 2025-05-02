@@ -33,7 +33,7 @@ const librariesListController = {
             ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
             : []),
           { id: 'utility', text: 'Utility', width: '20' },
-          { id: 'team', text: 'Team', width: '15' },
+          { id: 'team', text: 'Team', width: '20' },
           { id: 'language', text: 'Language', width: '10' },
           { id: 'github-repository', text: 'GitHub Repository', width: '20' },
           { id: 'created', text: 'Created', width: '30' }
