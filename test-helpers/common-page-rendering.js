@@ -1,3 +1,5 @@
+import { Engine as CatboxMemory } from '@hapi/catbox-memory'
+
 import { createServer } from '~/src/server/index.js'
 import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test-runs.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
@@ -26,7 +28,19 @@ async function mockCsrfToken(server) {
 }
 
 export async function initialiseServer() {
-  const server = await createServer()
+  const inMemoryCache = [
+    {
+      name: 'session',
+      engine: new CatboxMemory()
+    },
+    {
+      name: 'featureToggles',
+      engine: new CatboxMemory()
+    }
+  ]
+  const server = await createServer({
+    cache: inMemoryCache
+  })
 
   await mockCsrfToken(server)
 

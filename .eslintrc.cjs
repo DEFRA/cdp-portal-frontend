@@ -182,7 +182,8 @@ module.exports = {
               'nock',
               'cheerio',
               'jest-fetch-mock',
-              'jest-file-snapshot'
+              'jest-file-snapshot',
+              '@hapi/catbox-memory'
             ]
           }
         ]
