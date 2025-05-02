@@ -17,7 +17,7 @@ function buildDescription(migration) {
                 classes: 'app-icon--small govuk-!-margin-right-1'
               })
             ])}
-            <div class="app-entity-table__row-caption">Database Update</div>
+            <div class="app-entity-table__row-caption">Database update</div>
          </div>`
 }
 
