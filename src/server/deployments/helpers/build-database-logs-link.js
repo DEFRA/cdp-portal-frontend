@@ -43,11 +43,12 @@ function buildDatabaseLogsLink(
   { environment, buildId, created, updated, service },
   hasResult
 ) {
+  const index = '4e3049b0-2697-11f0-a796-05acfef0cbab'
   const id = getBuildIdFromArn(buildId, service)
   const fromIso = formatDatesForOpenSearch(created)
   const to = hasResult ? formatDatesForOpenSearch(updated) : 'now'
 
-  return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(_source),isDirty:!t,sort:!()),metadata:(indexPattern:'894813c0-2665-11f0-9fe1-f1edecda3ce8',view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'${fromIso}',to:'${to}'))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'894813c0-2665-11f0-9fe1-f1edecda3ce8',key:service,negate:!f,params:(query:${service}),type:phrase),query:(match_phrase:(service:${service}))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'894813c0-2665-11f0-9fe1-f1edecda3ce8',key:build.id,negate:!f,params:(query:'${id}'),type:phrase),query:(match_phrase:(build.id:'${id}')))),query:(language:kuery,query:''))`
+  return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(_source),isDirty:!t,sort:!()),metadata:(indexPattern:'${index}',view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'${fromIso}',to:'${to}'))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'${index}',key:build.id,negate:!f,params:(query:'${id}'),type:phrase),query:(match_phrase:(build.id:'${id}'))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'${index}',key:service,negate:!f,params:(query:${service}),type:phrase),query:(match_phrase:(service:${service})))),query:(language:kuery,query:''))`
 }
 
 export { buildDatabaseLogsLink }
