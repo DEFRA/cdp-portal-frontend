@@ -26,7 +26,7 @@ describe('#utilityToEntityRow', () => {
               url: '/utilities/templates/cdp-dotnet-backend-template',
               value: 'cdp-dotnet-backend-template'
             },
-            headers: 'service'
+            headers: 'utility'
           },
           {
             entity: {
@@ -39,30 +39,30 @@ describe('#utilityToEntityRow', () => {
                 }
               ]
             },
-            headers: 'service'
+            headers: 'team'
           },
           {
             entity: {
               kind: 'text',
               value: 'C#'
             },
-            headers: 'service'
+            headers: 'language'
           },
           {
             entity: {
               kind: 'link',
               newWindow: true,
               url: 'https://github.com/DEFRA/cdp-dotnet-backend-template',
-              value: 'DEFRA/cdp-dotnet-backend-template'
+              value: 'https://github.com/DEFRA/cdp-dotnet-backend-template'
             },
-            headers: 'service'
+            headers: 'github-repository'
           },
           {
             entity: {
               kind: 'date',
               value: '2023-08-24T07:08:56+00:00'
             },
-            headers: 'service'
+            headers: 'created'
           }
         ]
       })
@@ -84,7 +84,7 @@ describe('#utilityToEntityRow', () => {
               url: '/utilities/templates/cdp-dotnet-backend-template',
               value: 'cdp-dotnet-backend-template'
             },
-            headers: 'service'
+            headers: 'utility'
           },
           {
             entity: {
@@ -97,30 +97,30 @@ describe('#utilityToEntityRow', () => {
                 }
               ]
             },
-            headers: 'service'
+            headers: 'team'
           },
           {
             entity: {
               kind: 'text',
               value: 'C#'
             },
-            headers: 'service'
+            headers: 'language'
           },
           {
             entity: {
               kind: 'link',
               newWindow: true,
               url: 'https://github.com/DEFRA/cdp-dotnet-backend-template',
-              value: 'DEFRA/cdp-dotnet-backend-template'
+              value: 'https://github.com/DEFRA/cdp-dotnet-backend-template'
             },
-            headers: 'service'
+            headers: 'github-repository'
           },
           {
             entity: {
               kind: 'date',
               value: '2023-08-24T07:08:56+00:00'
             },
-            headers: 'service'
+            headers: 'created'
           }
         ]
       })
