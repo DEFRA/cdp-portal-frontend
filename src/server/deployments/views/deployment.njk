@@ -147,6 +147,11 @@
                         }) }}
                       </p>
 
+                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Started</h3>
+                      <p>
+                        {{ appTime({ datetime: deployment.created, formatString: "k:mm:ss EE do MMM yyyy" }) }}
+                      </p>
+
                       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Updated</h3>
                       <p>
                         {{ appTime({ datetime: deployment.updated, formatString: "k:mm:ss EE do MMM yyyy" }) }}
