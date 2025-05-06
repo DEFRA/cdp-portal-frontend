@@ -8,8 +8,8 @@ jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
-jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-suite.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
+jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 
 describe('About Test Suite page', () => {

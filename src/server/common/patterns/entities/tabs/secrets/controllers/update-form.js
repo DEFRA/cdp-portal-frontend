@@ -26,18 +26,18 @@ function updateSecretFormController(serviceOrTestSuite) {
       }
     },
     handler: (request, h) => {
-      const service = request.app.service
-      const team = service?.teams?.at(0)
+      const entity = request.app.entity
+      const team = entity?.teams?.at(0)
       const teamId = team?.teamId
-      const serviceName = service.serviceName
+      const entityName = entity.name
       const environment = request.params?.environment
       const secretKey = request.query?.secretKey
       const formattedEnvironment = formatText(environment)
 
       return h.view('common/patterns/entities/tabs/secrets/views/update-form', {
-        pageTitle: `${serviceName} - Update secret`,
-        heading: serviceName,
-        service,
+        pageTitle: `${entityName} - Update secret`,
+        heading: entityName,
+        entity,
         teamId,
         environment,
         secretKey,
@@ -48,16 +48,16 @@ function updateSecretFormController(serviceOrTestSuite) {
             href: `/${pluralise(serviceOrTestSuite)}`
           },
           {
-            text: serviceName,
-            href: `/${pluralise(serviceOrTestSuite)}/${serviceName}`
+            text: entityName,
+            href: `/${pluralise(serviceOrTestSuite)}/${entityName}`
           },
           {
             text: 'Secrets',
-            href: `/${pluralise(serviceOrTestSuite)}/${serviceName}/secrets`
+            href: `/${pluralise(serviceOrTestSuite)}/${entityName}/secrets`
           },
           {
             text: formattedEnvironment,
-            href: `/${pluralise(serviceOrTestSuite)}/${serviceName}/secrets/${environment}`
+            href: `/${pluralise(serviceOrTestSuite)}/${entityName}/secrets/${environment}`
           },
           {
             text: `Update secret`
