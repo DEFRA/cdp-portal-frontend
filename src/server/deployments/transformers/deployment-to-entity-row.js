@@ -32,11 +32,11 @@ function deploymentToEntityRow(isAuthenticated) {
         url: `/teams/${team.teamId}`
       }))
 
-    const icon = deployment.isOwner
+    const icon = deployment.isFavourite
       ? renderComponent(
           'tool-tip',
           {
-            text: 'Owned Service',
+            text: 'Favourite microservice',
             classes: 'app-tool-tip--small'
           },
           [renderIcon('star-icon', { classes: 'app-icon--tiny' })]

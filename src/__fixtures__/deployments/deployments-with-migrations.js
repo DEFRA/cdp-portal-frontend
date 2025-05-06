@@ -40,7 +40,8 @@ const deploymentsWithMigrationsFixture = {
         taskDefinitionArn: null
       },
       migration: null,
-      updated: '2025-04-30T14:49:42Z'
+      updated: '2025-04-30T14:49:42Z',
+      isFavourite: true
     },
     {
       deployment: null,
@@ -60,7 +61,8 @@ const deploymentsWithMigrationsFixture = {
         updated: '2025-04-30T09:21:54.831Z',
         status: 'SUCCEEDED'
       },
-      updated: '2025-04-30T09:21:54.831Z'
+      updated: '2025-04-30T09:21:54.831Z',
+      isFavourite: true
     }
   ],
   page: 1,

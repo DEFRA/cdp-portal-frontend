@@ -1,6 +1,6 @@
-function decorateDeployments({ deployableServices, userScopeUUIDs }) {
+function decorateDeployments({ deployableServices }) {
   return (deployments) =>
-    deployments?.map(({ deployment, migration }) => {
+    deployments?.map(({ deployment, migration, isFavourite }) => {
       const entity = deployment ?? migration
 
       const deployableService = deployableServices.find(
@@ -12,7 +12,7 @@ function decorateDeployments({ deployableServices, userScopeUUIDs }) {
 
       return {
         teams,
-        isOwner: teams.some((team) => userScopeUUIDs.includes(team.teamId)),
+        isFavourite,
         ...entity,
         kind: deployment ? 'deployment' : 'migration'
       }

@@ -118,8 +118,7 @@ const deploymentsListController = {
     const deployableServices = await fetchDeployableServices()
 
     const deploymentsDecorator = decorateDeployments({
-      deployableServices,
-      userScopeUUIDs
+      deployableServices
     })
     const deploymentsWithTeams = deploymentsDecorator(deployments)
     const rowBuilder = (entity) => {

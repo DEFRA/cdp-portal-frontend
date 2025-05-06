@@ -31,11 +31,11 @@ function migrationToEntityRow(isAuthenticated) {
         url: `/teams/${team.teamId}`
       }))
 
-    const icon = migration.isOwner
+    const icon = migration.isFavourite
       ? renderComponent(
           'tool-tip',
           {
-            text: 'Owned Service',
+            text: 'Favourite Service',
             classes: 'app-tool-tip--small'
           },
           [renderIcon('star-icon', { classes: 'app-icon--tiny' })]

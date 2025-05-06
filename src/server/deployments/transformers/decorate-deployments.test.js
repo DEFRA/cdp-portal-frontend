@@ -26,7 +26,7 @@ describe('#decorateDeployments', () => {
               updated: '2024-05-10T14:49:42Z'
             }
         },
-        isOwner: false,
+        isFavourite: true,
         kind: 'deployment',
         lambdaId: 'ecs-svc/5038252746496072911',
         lastDeploymentMessage:
@@ -56,7 +56,7 @@ describe('#decorateDeployments', () => {
         cdpMigrationId: 'dec18492-04ac-4b70-bac9-c3ed0f45b50c',
         created: '2025-04-30T09:21:54.816Z',
         environment: 'test',
-        isOwner: false,
+        isFavourite: true,
         kind: 'migration',
         service: 'cdp-example-node-postgres-be',
         status: 'SUCCEEDED',

@@ -25,7 +25,7 @@ describe('#deploymentToEntityRow', () => {
               classes: 'app-entity-table__cell--owned',
               entity: {
                 kind: 'html',
-                value: ''
+                value: expect.stringContaining('Favourite microservice')
               },
               headers: 'owner',
               isCentered: true
@@ -89,7 +89,7 @@ describe('#deploymentToEntityRow', () => {
               classes: 'app-entity-table__cell--owned',
               entity: {
                 kind: 'html',
-                value: ''
+                value: expect.stringContaining('Favourite microservice')
               },
               headers: 'owner',
               isCentered: true
