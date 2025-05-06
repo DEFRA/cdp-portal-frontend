@@ -4,8 +4,9 @@
 
   {% block beforeTabContent %}
     {{ appPageHeading({
+      caption: caption,
       text: heading,
-      intro: caption
+      intro: intro
     }) }}
   {% endblock %}
 
@@ -33,7 +34,9 @@
                     {{ appTag({
                       text: migration.status | formatText,
                       classes: migration.statusClass,
-                      attributes: { "data-testid": "migration-status" }
+                      attributes: {
+                        "data-testid": migration.status  | replace(" ", "-") | lower + "-status-tag"
+                      }
                     }) }}
                   </div>
                   <div>

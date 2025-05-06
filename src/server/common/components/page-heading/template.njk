@@ -7,7 +7,7 @@
     <h1 class="app-page-heading--title" data-testid="app-page-heading-title">{{ params.text }}</h1>
 
     {% if params.intro %}
-      <p class="app-page-heading--intro">
+      <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
         {{ params.intro | safe }}
       </p>
     {% endif %}

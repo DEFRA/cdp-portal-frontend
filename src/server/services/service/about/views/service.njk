@@ -88,7 +88,7 @@
     }) }}"
        role="button"
        class="govuk-button app-button app-button--small"
-       data-testid="deploy-button">Update</a>
+       data-testid="update-button">Update</a>
   {% endset %}
 
   {% set detailHtml %}
@@ -222,7 +222,7 @@
       </section>
 
       {% if service.isPostgres %}
-        <section class="app-grid-service__migrations" data-testid="migrations">
+        <section class="app-grid-service__migrations" data-testid="database-changes">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Changes</h2>
           <p class="govuk-!-margin-bottom-2">
             Latest database changes available for this service. To view this services database updates across all

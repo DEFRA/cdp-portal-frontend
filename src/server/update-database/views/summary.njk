@@ -7,7 +7,8 @@
   <div class="govuk-main-wrapper app-main-wrapper">
 
     {{ appPageHeading({
-      text: "Update database summary",
+      caption: "Summary",
+      text: "Update database",
       intro: "Information about the database update you are about to run"
     }) }}
 
@@ -22,7 +23,7 @@
             {{ govukSummaryList({
               classes: "app-summary-list",
               rows: dbUpdateRows,
-              attributes: { "data-testid": "deploy-summary" }
+              attributes: { "data-testid": "update-database-summary" }
             }) }}
           {% endcall %}
 
