@@ -17,7 +17,7 @@
 
     {{ appPageHeading({
       caption: "Permission",
-      text: scope.value | formatText
+      text: scope.value
     }) }}
 
     <hr class="app-section-break app-section-break--slim">
@@ -26,12 +26,16 @@
       <div class="govuk-grid-column-full">
         <ul class="govuk-list">
           <li>
-            <a href="/admin/permissions/{{ scope.scopeId }}/add" class="app-link app-link--underline">
+            <a href="/admin/permissions/{{ scope.scopeId }}/add"
+               class="app-link app-link--underline"
+               data-testid="add-permission">
               {{ addPermissionText }}
             </a>
           </li>
           <li>
-            <a href="/admin/permissions/{{ scope.scopeId }}/confirm-delete" class="app-link app-link--underline">
+            <a href="/admin/permissions/{{ scope.scopeId }}/confirm-delete"
+               class="app-link app-link--underline"
+               data-testid="delete-permission">
               Delete permission
             </a>
           </li>
