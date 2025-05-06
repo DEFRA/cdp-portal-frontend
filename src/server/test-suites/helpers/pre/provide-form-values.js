@@ -13,11 +13,9 @@ const profileHtmlTemplate = ({
 // TODO potentially abstract?
 const buildEnvironmentOptions = async (request, isAdmin = false) => {
   const options = []
-  const runnableEnvironments = findEnvironmentsForTestSuite(
-    request.pre.testSuite
-  )
+  const runnableEnvironments = findEnvironmentsForTestSuite(request.app.entity)
   const userOwnsTestSuite = await request.userIsMemberOfATeam(
-    request.pre.testSuite.teams.map((team) => team.teamId)
+    request.app.entity.teams.map((team) => team.teamId)
   )
 
   if (isAdmin) {
@@ -46,7 +44,7 @@ const provideFormValues = {
     if (authedUser?.isAuthenticated) {
       const isAdmin = authedUser?.isAdmin
       const userOwnsTestSuite = await request.userIsMemberOfATeam(
-        request.pre.testSuite.teams.map((team) => team.teamId)
+        request.app.entity.teams.map((team) => team.teamId)
       )
 
       const options = await buildEnvironmentOptions(request, isAdmin)

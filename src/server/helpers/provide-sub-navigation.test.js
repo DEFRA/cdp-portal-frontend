@@ -22,11 +22,11 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
       variety,
       source
     },
-    path: `/${pluralise(serviceKind)}/${source?.context?.service?.imageName}/${section}/infra-dev`,
+    path: `/${pluralise(serviceKind)}/${source?.context?.entity?.name}/${section}/infra-dev`,
     routeLookup: mockRouteLookup(
       serviceKind,
       section,
-      source?.context?.service?.imageName
+      source?.context?.entity?.name
     ),
     auth: {
       credentials: {
@@ -42,8 +42,8 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
       mockRequest = buildMockRequest('service', 'buckets', {
         source: {
           context: {
-            service: {
-              imageName: 'cdp-portal-frontend',
+            entity: {
+              name: 'cdp-portal-frontend',
               teams: [{ teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474' }]
             }
           }
@@ -167,8 +167,8 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
       mockRequest = buildMockRequest('service', 'terminal', {
         source: {
           context: {
-            service: {
-              imageName: 'mock-tenant-service',
+            entity: {
+              name: 'mock-tenant-service',
               teams: [
                 {
                   teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
@@ -237,8 +237,8 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
       mockRequest = buildMockRequest('service', 'proxy', {
         source: {
           context: {
-            service: {
-              imageName: 'mock-tenant-service',
+            entity: {
+              name: 'mock-tenant-service',
               teams: [
                 {
                   teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
@@ -315,8 +315,8 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
       mockRequest = buildMockRequest('test-suite', 'some-sub-section', {
         source: {
           context: {
-            service: {
-              imageName: 'mock-tenant-service',
+            entity: {
+              name: 'mock-tenant-service',
               teams: []
             }
           }

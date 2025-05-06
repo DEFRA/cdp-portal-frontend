@@ -18,11 +18,11 @@ export function allProxyController(serviceOrTestSuite) {
       }
     },
     handler: async (request, h) => {
-      const service = request.app.service
-      const serviceName = service.serviceName
+      const entityName = request.params.serviceId
+      const entity = request.app.entity
       const environments = getEnvironments(request.auth.credentials?.scope)
       const proxyRulesByEnvironment = await findAllProxyRules(
-        serviceName,
+        entityName,
         environments
       )
       const hasServiceProxyRules = proxyRulesByEnvironment.some(
@@ -30,8 +30,9 @@ export function allProxyController(serviceOrTestSuite) {
       )
 
       return h.view('common/patterns/entities/tabs/proxy/views/all', {
-        pageTitle: `${serviceName} - Proxy`,
-        service,
+        pageTitle: `${entityName} - Proxy`,
+        entityName,
+        entity,
         proxyRulesByEnvironment,
         hasServiceProxyRules,
         serviceOrTestSuite,
@@ -41,8 +42,8 @@ export function allProxyController(serviceOrTestSuite) {
             href: `/${pluralise(serviceOrTestSuite)}`
           },
           {
-            text: serviceName,
-            href: `/${pluralise(serviceOrTestSuite)}/${serviceName}`
+            text: entityName,
+            href: `/${pluralise(serviceOrTestSuite)}/${entityName}`
           },
           {
             text: 'Proxy'

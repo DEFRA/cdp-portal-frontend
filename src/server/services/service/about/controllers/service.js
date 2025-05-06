@@ -9,7 +9,6 @@ import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideApiGateways } from '~/src/server/services/service/about/transformers/api-gateways.js'
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
 import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
@@ -59,7 +58,6 @@ async function fetchData({ request, serviceName, isPostgres }) {
 const serviceController = {
   options: {
     id: 'services/{serviceId}',
-    pre: [provideIsServiceOwner],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -75,7 +73,8 @@ const serviceController = {
     }
 
     const serviceName = service.serviceName
-    const isServiceOwner = request.pre.isServiceOwner
+    const userScopes = request.auth?.credentials?.scope
+    const isServiceOwner = userScopes.isServiceOwner
     const latestCount = 6
     const hasPostgresPermission = request.hasScope(
       scopes.restrictedTechPostgres
@@ -100,7 +99,7 @@ const serviceController = {
     const { runningServices } = await transformRunningServices(serviceName)
 
     const availableServiceEnvironments = availableEnvironments({
-      userScopes: request.auth?.credentials?.scope,
+      userScopes,
       tenantServiceInfo: service.tenantServices
     })
 

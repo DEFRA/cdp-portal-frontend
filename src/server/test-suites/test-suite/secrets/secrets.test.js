@@ -9,6 +9,7 @@ import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-s
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
+jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-suite.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
@@ -102,7 +103,7 @@ describe('Secrets Test Suite page', () => {
         auth: {
           credentials: {
             user: { id: '123', displayName: 'My Test User' },
-            scope: [scopes.admin, scopes.tenant, 'mock-team-id']
+            scope: [scopes.tenant, 'mock-team-id']
           },
           strategy: 'default'
         }
@@ -186,7 +187,7 @@ describe('Secrets Test Suite page', () => {
         auth: {
           credentials: {
             user: { id: '123', displayName: 'My Test User' },
-            scope: [scopes.admin, scopes.tenant, 'mock-team-id']
+            scope: [scopes.tenant, 'mock-team-id']
           },
           strategy: 'default'
         }

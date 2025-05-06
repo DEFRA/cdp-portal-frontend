@@ -18,12 +18,12 @@ export function environmentSecretsController(serviceOrTestSuite) {
     },
     handler: async (request, h) => {
       const environment = request.params.environment
-      const service = request.app.service
-      const serviceName = service.serviceName
-      const team = service?.teams?.at(0)
+      const entity = request.app.entity
+      const entityName = entity.name
+      const team = entity?.teams?.at(0)
       const teamId = team?.teamId
       const formattedEnvironment = formatText(environment)
-      const secrets = await fetchSecrets(environment, serviceName)
+      const secrets = await fetchSecrets(environment, entityName)
 
       const {
         serviceSecrets,
@@ -34,8 +34,8 @@ export function environmentSecretsController(serviceOrTestSuite) {
       } = environmentSecrets(secrets)
 
       return h.view('common/patterns/entities/tabs/secrets/views/environment', {
-        pageTitle: `${serviceName} - Secrets - ${formattedEnvironment}`,
-        service,
+        pageTitle: `${entityName} - Secrets - ${formattedEnvironment}`,
+        entity,
         teamId,
         environment,
         platformSecrets,
@@ -50,12 +50,12 @@ export function environmentSecretsController(serviceOrTestSuite) {
             href: `/${pluralise(serviceOrTestSuite)}`
           },
           {
-            text: serviceName,
-            href: `/${pluralise(serviceOrTestSuite)}/${serviceName}`
+            text: entityName,
+            href: `/${pluralise(serviceOrTestSuite)}/${entityName}`
           },
           {
             text: 'Secrets',
-            href: `/${pluralise(serviceOrTestSuite)}/${serviceName}/secrets`
+            href: `/${pluralise(serviceOrTestSuite)}/${entityName}/secrets`
           },
           {
             text: formattedEnvironment

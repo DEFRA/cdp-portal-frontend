@@ -7,8 +7,8 @@ describe('#provideCanRun', () => {
     request = {
       getUserSession: jest.fn(),
       userIsMemberOfATeam: jest.fn(),
-      pre: {
-        testSuite: {
+      app: {
+        entity: {
           teams: [{ teamId: 'team1' }, { teamId: 'team2' }]
         }
       }

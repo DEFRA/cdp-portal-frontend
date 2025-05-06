@@ -15,7 +15,7 @@ const provideCanRun = {
       }
 
       const isServiceOwner = await request.userIsMemberOfATeam(
-        request.pre.testSuite.teams.map((team) => team.teamId)
+        request.app.entity.teams.map((team) => team.teamId)
       )
 
       if (isServiceOwner) {

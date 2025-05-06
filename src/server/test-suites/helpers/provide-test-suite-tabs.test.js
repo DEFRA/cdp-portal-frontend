@@ -12,11 +12,11 @@ const mockRequest = ({ response, path = '' }) => ({
 })
 
 describe('#provideTestSuiteTabs', () => {
-  const mockServiceName = 'cdp-env-test-suite'
+  const mockEntityName = 'cdp-env-test-suite'
   const mockSource = {
     context: {
-      service: {
-        imageName: `${mockServiceName}`
+      entity: {
+        name: `${mockEntityName}`
       }
     }
   }
@@ -49,7 +49,7 @@ describe('#provideTestSuiteTabs', () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}`
+          path: `/test-suites/${mockEntityName}`
         }),
         mockViewHelper
       )
@@ -58,17 +58,17 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: true,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         },
         {
           isActive: false,
           label: 'Proxy',
-          url: `/test-suites/${mockServiceName}/proxy`
+          url: `/test-suites/${mockEntityName}/proxy`
         },
         {
           isActive: false,
           label: 'Secrets',
-          url: `/test-suites/${mockServiceName}/secrets`
+          url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
       expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
@@ -78,7 +78,7 @@ describe('#provideTestSuiteTabs', () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}/secrets/dev`
+          path: `/test-suites/${mockEntityName}/secrets/dev`
         }),
         mockViewHelper
       )
@@ -87,17 +87,17 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: false,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         },
         {
           isActive: false,
           label: 'Proxy',
-          url: `/test-suites/${mockServiceName}/proxy`
+          url: `/test-suites/${mockEntityName}/proxy`
         },
         {
           isActive: true,
           label: 'Secrets',
-          url: `/test-suites/${mockServiceName}/secrets`
+          url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
     })
@@ -121,7 +121,7 @@ describe('#provideTestSuiteTabs', () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}`
+          path: `/test-suites/${mockEntityName}`
         }),
         mockViewHelper
       )
@@ -130,17 +130,17 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: true,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         },
         {
           isActive: false,
           label: 'Proxy',
-          url: `/test-suites/${mockServiceName}/proxy`
+          url: `/test-suites/${mockEntityName}/proxy`
         },
         {
           isActive: false,
           label: 'Secrets',
-          url: `/test-suites/${mockServiceName}/secrets`
+          url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
       expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
@@ -150,7 +150,7 @@ describe('#provideTestSuiteTabs', () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}/secrets/test`
+          path: `/test-suites/${mockEntityName}/secrets/test`
         }),
         mockViewHelper
       )
@@ -159,17 +159,17 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: false,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         },
         {
           isActive: false,
           label: 'Proxy',
-          url: `/test-suites/${mockServiceName}/proxy`
+          url: `/test-suites/${mockEntityName}/proxy`
         },
         {
           isActive: true,
           label: 'Secrets',
-          url: `/test-suites/${mockServiceName}/secrets`
+          url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
     })
@@ -193,7 +193,7 @@ describe('#provideTestSuiteTabs', () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}`
+          path: `/test-suites/${mockEntityName}`
         }),
         mockViewHelper
       )
@@ -202,12 +202,12 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: true,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         },
         {
           isActive: false,
           label: 'Proxy',
-          url: `/test-suites/${mockServiceName}/proxy`
+          url: `/test-suites/${mockEntityName}/proxy`
         }
       ])
       expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(2)
@@ -217,7 +217,7 @@ describe('#provideTestSuiteTabs', () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}/buckets/test`
+          path: `/test-suites/${mockEntityName}/buckets/test`
         }),
         mockViewHelper
       )
@@ -226,12 +226,12 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: false,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         },
         {
           isActive: false,
           label: 'Proxy',
-          url: `/test-suites/${mockServiceName}/proxy`
+          url: `/test-suites/${mockEntityName}/proxy`
         }
       ])
     })
@@ -242,14 +242,14 @@ describe('#provideTestSuiteTabs', () => {
       mockUserIsServiceOwner.mockResolvedValue(false)
       mockUserSession.mockResolvedValue(null)
 
-      mockRouteLookup.mockReturnValueOnce(`/test-suites/${mockServiceName}`)
+      mockRouteLookup.mockReturnValueOnce(`/test-suites/${mockEntityName}`)
     })
 
     test('Should provide expected context tabs', async () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}`
+          path: `/test-suites/${mockEntityName}`
         }),
         mockViewHelper
       )
@@ -258,7 +258,7 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: true,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         }
       ])
       expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(1)
@@ -268,7 +268,7 @@ describe('#provideTestSuiteTabs', () => {
       await provideTestSuiteTabs(
         mockRequest({
           response: mockResponse,
-          path: `/test-suites/${mockServiceName}`
+          path: `/test-suites/${mockEntityName}`
         }),
         mockViewHelper
       )
@@ -277,7 +277,7 @@ describe('#provideTestSuiteTabs', () => {
         {
           isActive: true,
           label: 'About',
-          url: `/test-suites/${mockServiceName}`
+          url: `/test-suites/${mockEntityName}`
         }
       ])
     })

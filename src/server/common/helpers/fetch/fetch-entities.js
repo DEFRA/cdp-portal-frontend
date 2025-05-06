@@ -3,6 +3,13 @@ import qs from 'qs'
 import { config } from '~/src/config/config.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
+async function fetchEntity(entityName) {
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${entityName}`
+
+  const { payload } = await fetchJson(endpoint)
+  return payload
+}
+
 async function fetchEntities(queryParams = {}) {
   const endpoint =
     config.get('portalBackendUrl') +
@@ -21,4 +28,4 @@ async function fetchServices(queryParams) {
   return fetchEntities({ type: 'Microservice', ...queryParams })
 }
 
-export { fetchServices, fetchTestSuites, fetchEntities }
+export { fetchServices, fetchTestSuites, fetchEntities, fetchEntity }

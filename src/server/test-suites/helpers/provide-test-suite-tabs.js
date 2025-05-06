@@ -17,20 +17,21 @@ async function provideTestSuiteTabs(request, h) {
       response.source.context = {}
     }
 
-    const imageName = response.source?.context?.service?.imageName
-    const teams = response.source?.context?.service?.teams ?? []
-    const serviceTeamIds = teams.map((team) => team.teamId)
-    const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
+    const testSuite = response.source?.context.entity
+    const testSuiteName = testSuite?.name
+    const teams = testSuite?.teams ?? []
+    const teamIds = teams.map((team) => team.teamId)
+    const isServiceOwner = await request.userIsServiceOwner(teamIds)
 
     response.source.context.tabDetails = {
       label: 'Test Suite tabs'
     }
     response.source.context.tabDetails.tabs = [
       {
-        isActive: request.path === `/test-suites/${imageName}`,
+        isActive: request.path === `/test-suites/${testSuiteName}`,
         url: request.routeLookup('test-suites/{serviceId}', {
           params: {
-            serviceId: imageName
+            serviceId: testSuiteName
           }
         }),
         label: 'About'
@@ -38,13 +39,13 @@ async function provideTestSuiteTabs(request, h) {
     ]
 
     if (isAdmin || isTenant) {
-      buildTab(response, request, 'test-suites', 'proxy', imageName)
+      buildTab(response, request, 'test-suites', 'proxy', testSuiteName)
     } else {
       response.source.context.tabDetails.displayTabs = false
     }
 
     if (isAdmin || isServiceOwner) {
-      buildTab(response, request, 'test-suites', 'secrets', imageName)
+      buildTab(response, request, 'test-suites', 'secrets', testSuiteName)
     }
   }
 
