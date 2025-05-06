@@ -19,18 +19,18 @@ function allSecretsController(serviceOrTestSuite) {
       }
     },
     handler: async (request, h) => {
-      const service = request.app.service
-      const serviceName = service.serviceName
+      const entity = request.app.entity
+      const entityName = entity.name
       const environments = getEnvironments(request.auth.credentials?.scope)
-      const allSecrets = await fetchAllSecrets(serviceName)
+      const allSecrets = await fetchAllSecrets(entityName)
       const secretsByEnvironment = allEnvironmentSecrets(
         environments,
         allSecrets
       )
 
       return h.view('common/patterns/entities/tabs/secrets/views/all', {
-        pageTitle: `${serviceName} - Secrets`,
-        service,
+        pageTitle: `${entityName} - Secrets`,
+        entity,
         secretsByEnvironment,
         serviceOrTestSuite,
         breadcrumbs: [
@@ -39,8 +39,8 @@ function allSecretsController(serviceOrTestSuite) {
             href: `/${pluralise(serviceOrTestSuite)}`
           },
           {
-            text: serviceName,
-            href: `/${pluralise(serviceOrTestSuite)}/${serviceName}`
+            text: entityName,
+            href: `/${pluralise(serviceOrTestSuite)}/${entityName}`
           },
           {
             text: 'Secrets'

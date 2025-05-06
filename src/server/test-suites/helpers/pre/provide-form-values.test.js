@@ -1,14 +1,14 @@
 import { provideFormValues } from '~/src/server/test-suites/helpers/pre/provide-form-values.js'
 
 describe('#provideFormValues', () => {
-  const testSuite = { teams: [{ teamId: 'team1' }], topics: ['journey'] }
+  const entity = { teams: [{ teamId: 'team1' }], subType: 'Journey' }
 
   test('Should provide expected values for an authenticated user', async () => {
     const mockRequest = {
       getUserSession: jest
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
-      pre: { testSuite },
+      app: { entity },
       userIsMemberOfATeam: jest.fn().mockResolvedValue(false)
     }
     const result = await provideFormValues.method(mockRequest)
@@ -37,7 +37,7 @@ describe('#provideFormValues', () => {
       getUserSession: jest
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
-      pre: { testSuite },
+      app: { entity },
       userIsMemberOfATeam: jest.fn().mockResolvedValue(true)
     }
     const result = await provideFormValues.method(mockRequest)
@@ -100,7 +100,7 @@ describe('#provideFormValues', () => {
       getUserSession: jest
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: true }),
-      pre: { testSuite },
+      app: { entity },
       userIsMemberOfATeam: jest.fn().mockResolvedValue(false)
     }
     const result = await provideFormValues.method(mockRequest)

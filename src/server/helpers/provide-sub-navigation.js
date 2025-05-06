@@ -11,7 +11,7 @@ function provideSubNavForServiceOrTestSuite(subTitle, serviceOrTestSuite) {
         response.source.context = {}
       }
 
-      const serviceId = response.source?.context?.service?.imageName
+      const serviceId = response.source?.context?.entity?.name
       const environments = getEnvironments(request.auth.credentials?.scope)
 
       response.source.context.subNavigation = [

@@ -5,12 +5,17 @@ import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
-import { fetchTestSuite } from '~/src/server/test-suites/helpers/fetch/fetch-test-suite.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 import { config } from '~/src/config/config.js'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+
+const mockTeam = {
+  teamId: 'mock-team-id',
+  name: 'Mock Team'
+}
 
 async function mockCsrfToken(server) {
   await server.register({
@@ -54,19 +59,16 @@ function mockSharedServicesCalls(jest, repositoryName, additionalTopics) {
     imageName: repositoryName,
     description: 'Mock service description'
   })
-
   jest.mocked(fetchRepository).mockResolvedValue({
+    message: 'success',
     repository: {
       repositoryName,
+      description: 'Mock service description',
       createdAt: '2016-12-05T11:21:25+00:00',
+      url: `https://github.com/DEFRA/${repositoryName}`,
       topics: ['cdp', ...additionalTopics],
       primaryLanguage: 'JavaScript',
-      teams: [
-        {
-          teamId: 'mock-team-id',
-          name: 'Mock Team'
-        }
-      ]
+      teams: [mockTeam]
     }
   })
 
@@ -74,9 +76,16 @@ function mockSharedServicesCalls(jest, repositoryName, additionalTopics) {
 }
 
 function mockTestSuiteCall(jest, repositoryName) {
-  jest.mocked(fetchTestSuite).mockResolvedValue({
-    serviceName: repositoryName,
-    githubUrl: `github.com/DEFRA/${repositoryName}`
+  jest.mocked(fetchEntity).mockResolvedValue({
+    name: repositoryName,
+    type: 'TestSuite',
+    subType: 'Journey',
+    primaryLanguage: 'JavaScript',
+    created: '2016-12-05T11:21:25Z',
+    creator: null,
+    teams: [mockTeam],
+    status: 'Success',
+    decommissioned: null
   })
 }
 

@@ -9,12 +9,12 @@ import { scopes } from '~/src/server/common/constants/scopes.js'
  * @returns {Promise<*>}
  */
 async function addServiceOwnerScope(request, h) {
-  const service = request.app.service
+  const entity = request.app.entity
   const { credentials, isAuthenticated } = request.auth
 
-  if (isAuthenticated && service) {
+  if (isAuthenticated && entity) {
     const isServiceOwner = await request.userIsServiceOwner(
-      service.teams?.map((team) => team.teamId) ?? []
+      entity.teams?.map((team) => team.teamId) ?? []
     )
 
     const scope = [...credentials.scope]
