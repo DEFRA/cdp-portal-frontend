@@ -1,4 +1,4 @@
-import { serviceController } from '~/src/server/services/service/about/controllers/service.js'
+import { serviceController } from '~/src/server/services/service/about/controller.js'
 import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
 
 const aboutService = {

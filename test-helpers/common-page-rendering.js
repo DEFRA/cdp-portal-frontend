@@ -2,7 +2,6 @@ import { Engine as CatboxMemory } from '@hapi/catbox-memory'
 
 import { createServer } from '~/src/server/index.js'
 import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test-runs.js'
-import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
@@ -11,8 +10,13 @@ import { getUserSession } from '~/src/server/common/helpers/auth/get-user-sessio
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { fetchVanityUrls } from '~/src/server/services/helpers/fetch/fetch-vanity-urls.js'
+import { fetchApiGateways } from '~/src/server/services/helpers/fetch/fetch-api-gateways.js'
+import capitalize from 'lodash/capitalize.js'
+import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
+import { fetchAllBuckets } from '~/src/server/services/helpers/fetch/fetch-all-buckets.js'
 
-const mockTeam = {
+export const mockTeam = {
   teamId: 'mock-team-id',
   name: 'Mock Team'
 }
@@ -53,12 +57,7 @@ export async function initialiseServer() {
   return server
 }
 
-function mockSharedServicesCalls(jest, repositoryName, additionalTopics) {
-  jest.mocked(fetchDeployableService).mockResolvedValue({
-    serviceName: repositoryName,
-    imageName: repositoryName,
-    description: 'Mock service description'
-  })
+function mockRepositoryCall(jest, repositoryName, additionalTopics) {
   jest.mocked(fetchRepository).mockResolvedValue({
     message: 'success',
     repository: {
@@ -71,11 +70,76 @@ function mockSharedServicesCalls(jest, repositoryName, additionalTopics) {
       teams: [mockTeam]
     }
   })
-
-  jest.mocked(fetchTenantService).mockResolvedValue({ repositoryName })
 }
 
-function mockTestSuiteCall(jest, repositoryName) {
+export function mockBucketsCall(jest, repositoryName) {
+  jest.mocked(fetchAllBuckets).mockResolvedValue({
+    buckets: [
+      {
+        service: `${repositoryName}`,
+        environment: 'infra-dev',
+        bucket: 'SERVICE_BUCKET'
+      },
+      {
+        service: `${repositoryName}`,
+        environment: 'infra-dev',
+        bucket: 'z_ordered_bucket'
+      },
+      {
+        service: `${repositoryName}`,
+        environment: 'dev',
+        bucket: 'some_bucket'
+      },
+      {
+        service: `${repositoryName}`,
+        environment: 'dev',
+        bucket: 'some_other_bucket'
+      }
+    ]
+  })
+}
+
+export function mockTenantServicesCall(jest) {
+  jest.mocked(fetchTenantService).mockResolvedValue({
+    prod: {
+      serviceCode: 'CDP',
+      zone: 'protected',
+      postgres: false
+    },
+    'perf-test': {
+      serviceCode: 'CDP',
+      zone: 'protected',
+      postgres: false
+    },
+    dev: {
+      serviceCode: 'CDP',
+      zone: 'protected',
+      postgres: false
+    },
+    test: {
+      serviceCode: 'CDP',
+      zone: 'protected',
+      postgres: false
+    },
+    management: {
+      serviceCode: 'CDP',
+      zone: 'protected',
+      postgres: false
+    },
+    'infra-dev': {
+      serviceCode: 'CDP',
+      zone: 'protected',
+      postgres: false
+    },
+    'ext-test': {
+      serviceCode: 'CDP',
+      zone: 'protected',
+      postgres: false
+    }
+  })
+}
+
+function mockTestSuiteEntityCall(jest, repositoryName) {
   jest.mocked(fetchEntity).mockResolvedValue({
     name: repositoryName,
     type: 'TestSuite',
@@ -89,7 +153,21 @@ function mockTestSuiteCall(jest, repositoryName) {
   })
 }
 
-function mockTestRuns(jest, repositoryName) {
+function mockServiceEntityCall(jest, repositoryName, frontendOrBackend) {
+  jest.mocked(fetchEntity).mockResolvedValue({
+    name: repositoryName,
+    type: 'Microservice',
+    subType: capitalize(frontendOrBackend),
+    primaryLanguage: 'JavaScript',
+    created: '2024-12-05T11:21:25Z',
+    creator: null,
+    teams: [mockTeam],
+    status: 'Success',
+    decommissioned: null
+  })
+}
+
+export function mockTestRuns(jest, repositoryName) {
   jest.mocked(fetchTestRuns).mockResolvedValue({
     testRuns: [
       {
@@ -141,9 +219,8 @@ function mockOidcCall(jest) {
 
 export function mockCommonTestSuiteCalls(jest, repositoryName) {
   mockOidcCall(jest)
-  mockTestRuns(jest, repositoryName)
-  mockSharedServicesCalls(jest, repositoryName, ['test-suite', 'journey'])
-  mockTestSuiteCall(jest, repositoryName)
+  mockRepositoryCall(jest, repositoryName, ['test-suite', 'journey'])
+  mockTestSuiteEntityCall(jest, repositoryName)
 }
 
 function mockAvailableVersions(jest) {
@@ -175,37 +252,174 @@ function mockAvailableVersions(jest) {
   ])
 }
 
+function mockVanityUrlsCall(jest, repositoryName) {
+  jest.mocked(fetchVanityUrls).mockResolvedValue({
+    prod: {
+      vanityUrls: [
+        {
+          url: `${repositoryName}.defra.gov`,
+          environment: 'prod',
+          serviceName: repositoryName,
+          enabled: false,
+          shuttered: false
+        }
+      ]
+    },
+    management: {
+      vanityUrls: [
+        {
+          url: `${repositoryName}.cdp-int.defra.cloud`,
+          environment: 'management',
+          serviceName: repositoryName,
+          enabled: true,
+          shuttered: false
+        }
+      ]
+    },
+    'infra-dev': {
+      vanityUrls: [
+        {
+          url: `${repositoryName}.cdp-int.defra.cloud`,
+          environment: 'infra-dev',
+          serviceName: repositoryName,
+          enabled: true,
+          shuttered: true
+        }
+      ]
+    }
+  })
+}
+
+function mockApiGatewaysCall(jest, repositoryName) {
+  jest.mocked(fetchApiGateways).mockResolvedValue([
+    {
+      api: `http://${repositoryName}.api.com`,
+      environment: 'dev',
+      service: repositoryName,
+      shuttered: false
+    },
+    {
+      api: `http://${repositoryName}-old.api.com`,
+      environment: 'dev',
+      service: repositoryName,
+      shuttered: true
+    }
+  ])
+}
+
+function mockWhatsRunningWhereCall(jest, repositoryName) {
+  jest.mocked(fetchRunningServices).mockResolvedValue([
+    {
+      environment: 'dev',
+      service: repositoryName,
+      version: '0.1.0',
+      cpu: '1024',
+      memory: '2048',
+      instanceCount: 1,
+      status: 'running',
+      created: '2023-12-14T14:10:49Z'
+    },
+    {
+      environment: 'test',
+      service: repositoryName,
+      version: '0.3.0',
+      cpu: '1024',
+      memory: '2048',
+      instanceCount: 2,
+      status: 'requested',
+      created: '2023-12-14T14:10:49Z'
+    },
+    {
+      environment: 'perf-test',
+      service: repositoryName,
+      version: '0.3.0',
+      cpu: '1024',
+      memory: '2048',
+      instanceCount: 2,
+      status: 'stopped',
+      created: '2025-03-14T14:10:49Z'
+    },
+    {
+      environment: 'prod',
+      service: repositoryName,
+      version: '0.3.0',
+      cpu: '1024',
+      memory: '2048',
+      instanceCount: 2,
+      status: 'failed',
+      created: '2025-02-14T14:10:49Z'
+    }
+  ])
+}
+
 export function mockCommonServicesCalls(
   jest,
   repositoryName,
   frontendOrBackend
 ) {
   mockOidcCall(jest)
-  mockSharedServicesCalls(jest, repositoryName, [
-    'microservice',
-    frontendOrBackend
-  ])
-  mockAvailableVersions(jest)
+  mockServiceEntityCall(jest, repositoryName, frontendOrBackend)
 }
 
-export function mockAuthResponse({
+export function mockServicesAdditionalCalls(
   jest,
-  isAdmin,
-  isTenant,
-  isAuthenticated,
-  teamScope = 'some-other-team-id',
-  additionalScopes = []
-}) {
+  repositoryName,
+  frontendOrBackend
+) {
+  mockRepositoryCall(jest, repositoryName, ['microservice', frontendOrBackend])
+  mockTenantServicesCall(jest)
+  mockAvailableVersions(jest)
+  if (frontendOrBackend.lowercase === 'frontend') {
+    mockVanityUrlsCall(jest, repositoryName)
+  }
+  if (frontendOrBackend.lowercase === 'backend') {
+    mockApiGatewaysCall(jest, repositoryName)
+  }
+  mockWhatsRunningWhereCall(jest, repositoryName)
+}
+
+export async function mockAuthAndRenderUrl(
+  server,
+  jest,
+  {
+    targetUrl,
+    isAdmin,
+    isTenant,
+    teamScope = 'some-other-team-id',
+    additionalScopes = []
+  }
+) {
+  const scope = [
+    teamScope,
+    isAdmin ? scopes.admin : '',
+    isTenant ? scopes.tenant : '',
+    ...additionalScopes
+  ]
+
+  const user = { id: 12345, displayName: 'Mr Test User' }
+
+  const isAuthenticated = isAdmin || isTenant
   jest.mocked(getUserSession).mockReturnValue({
-    user: { id: 12345, displayName: 'Mr Test User' },
+    user,
     isAdmin,
     isTenant,
     isAuthenticated,
-    scope: [
-      teamScope,
-      isAdmin ? scopes.admin : '',
-      isTenant ? scopes.tenant : '',
-      ...additionalScopes
-    ]
+    scope
   })
+
+  const auth = isAuthenticated
+    ? {
+        credentials: {
+          user,
+          scope
+        },
+        strategy: 'default'
+      }
+    : undefined
+  const { result, statusCode } = await server.inject({
+    method: 'GET',
+    url: targetUrl,
+    auth
+  })
+  return { result, statusCode }
 }

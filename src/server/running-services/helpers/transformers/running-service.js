@@ -1,17 +1,17 @@
-import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
+import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
 import { provideDeploymentStatusClassname } from '~/src/server/running-services/helpers/provide-deployment-status-classname.js'
-import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
+import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 
 async function transformRunningService(serviceName) {
-  const deployableService = await fetchDeployableService(serviceName)
-  const runningServices = await fetchRunningServicesById(serviceName)
+  const entity = await fetchEntity(serviceName)
+  const runningServices = await fetchRunningServices(serviceName)
 
   return {
     runningServices: runningServices?.map((rs) => ({
       ...rs,
       statusClassname: provideDeploymentStatusClassname(rs.status)
     })),
-    teams: deployableService?.teams?.filter((team) => team.teamId) ?? []
+    teams: entity?.teams?.filter((team) => team.teamId) ?? []
   }
 }
 

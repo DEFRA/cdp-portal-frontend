@@ -19,8 +19,7 @@ function allSecretsController(serviceOrTestSuite) {
       }
     },
     handler: async (request, h) => {
-      const entity = request.app.entity
-      const entityName = entity.name
+      const entityName = request.params.serviceId
       const environments = getEnvironments(request.auth.credentials?.scope)
       const allSecrets = await fetchAllSecrets(entityName)
       const secretsByEnvironment = allEnvironmentSecrets(
@@ -30,7 +29,7 @@ function allSecretsController(serviceOrTestSuite) {
 
       return h.view('common/patterns/entities/tabs/secrets/views/all', {
         pageTitle: `${entityName} - Secrets`,
-        entity,
+        entityName,
         secretsByEnvironment,
         serviceOrTestSuite,
         breadcrumbs: [
