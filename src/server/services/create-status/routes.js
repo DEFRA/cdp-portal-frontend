@@ -1,5 +1,5 @@
-import { provideServiceExtension } from '~/src/server/common/helpers/extensions.js'
 import { serviceCreateStatusController } from '~/src/server/services/create-status/controller.js'
+import { provideServiceExtension } from '~/src/server/common/helpers/extensions.js'
 
 const createStatus = {
   plugin: {

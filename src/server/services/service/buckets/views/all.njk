@@ -61,7 +61,7 @@
 
   {{ appPageHeading({
     caption: "Buckets",
-    text: service.serviceName
+    text: entity.name
   }) }}
 
 {% endblock %}
@@ -76,7 +76,7 @@
           <section>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Buckets</h2>
             <p>
-              View buckets for {{ service.serviceName }} in all CDP environments
+              View buckets for {{ entity.name }} in all CDP environments
             </p>
 
             {{ appInfo({ html: bucketNamesInfoHtml }) }}
