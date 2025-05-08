@@ -20,7 +20,7 @@
 
 {% for terminalEnv in terminalEnvs %}
   {% set launchFormHtml %}
-    <form method="post" action="/services/{{ service.serviceName }}/terminal/{{ terminalEnv }}" target="_blank">
+    <form method="post" action="/services/{{ serviceName }}/terminal/{{ terminalEnv }}" target="_blank">
       <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
       {{ govukButton({
@@ -58,7 +58,7 @@
 
   {{ appPageHeading({
     caption: "Terminal",
-    text: service.serviceName
+    text: serviceName
   }) }}
 
 {% endblock %}
@@ -71,7 +71,7 @@
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
           <p class="govuk-!-margin-right-2">
-            Welcome to the CDP terminal for {{ service.serviceName }}. Launch a short-lived terminal in an environment
+            Welcome to the CDP terminal for {{ serviceName }}. Launch a short-lived terminal in an environment
             with the same permissions, visibility and security as your service.
           </p>
         </section>
@@ -94,7 +94,7 @@
 
             {% else %}
               <p class="govuk-!-margin-bottom-2">
-                {{ service.serviceName if service.serviceName else "Your service" }} has not been deployed to an
+                {{ serviceName if serviceName else "Your service" }} has not been deployed to an
                 environment.
               </p>
             {% endif %}

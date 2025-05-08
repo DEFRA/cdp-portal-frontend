@@ -19,7 +19,6 @@ export function allProxyController(serviceOrTestSuite) {
     },
     handler: async (request, h) => {
       const entityName = request.params.serviceId
-      const entity = request.app.entity
       const environments = getEnvironments(request.auth.credentials?.scope)
       const proxyRulesByEnvironment = await findAllProxyRules(
         entityName,
@@ -32,7 +31,6 @@ export function allProxyController(serviceOrTestSuite) {
       return h.view('common/patterns/entities/tabs/proxy/views/all', {
         pageTitle: `${entityName} - Proxy`,
         entityName,
-        entity,
         proxyRulesByEnvironment,
         hasServiceProxyRules,
         serviceOrTestSuite,

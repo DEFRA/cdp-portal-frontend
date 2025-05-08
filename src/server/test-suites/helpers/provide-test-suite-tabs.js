@@ -17,7 +17,7 @@ async function provideTestSuiteTabs(request, h) {
       response.source.context = {}
     }
 
-    const testSuite = response.source?.context.entity
+    const testSuite = request.app.entity
     const testSuiteName = testSuite?.name
     const teams = testSuite?.teams ?? []
     const teamIds = teams.map((team) => team.teamId)

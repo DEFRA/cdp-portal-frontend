@@ -3,33 +3,33 @@ import { provideTestSuiteTabs } from '~/src/server/test-suites/helpers/provide-t
 const mockRouteLookup = jest.fn()
 const mockUserIsServiceOwner = jest.fn()
 const mockUserSession = jest.fn()
-const mockRequest = ({ response, path = '' }) => ({
-  response,
-  path,
-  getUserSession: mockUserSession,
-  userIsServiceOwner: mockUserIsServiceOwner,
-  routeLookup: mockRouteLookup
-})
 
 describe('#provideTestSuiteTabs', () => {
   const mockEntityName = 'cdp-env-test-suite'
-  const mockSource = {
-    context: {
+
+  const mockRequest = ({ response, path = '' }) => ({
+    response,
+    path,
+    getUserSession: mockUserSession,
+    userIsServiceOwner: mockUserIsServiceOwner,
+    routeLookup: mockRouteLookup,
+    app: {
       entity: {
-        name: `${mockEntityName}`
+        name: mockEntityName
       }
     }
-  }
+  })
+
   const mockResponse = {
     variety: 'view',
-    source: mockSource
+    source: {}
   }
   const mockViewHelper = {
     continue: 'mockContinue'
   }
 
   afterEach(() => {
-    mockResponse.source = mockSource
+    mockResponse.source = {}
   })
 
   describe('With an Admin user', () => {

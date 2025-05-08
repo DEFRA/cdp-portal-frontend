@@ -16,8 +16,7 @@ export function environmentProxyController(serviceOrTestSuite) {
     },
     handler: async (request, h) => {
       const environment = request.params.environment
-      const entity = request.app.entity
-      const entityName = entity.name
+      const entityName = request.params.serviceId
       const formattedEnvironment = formatText(environment)
       const proxyRules = await findProxyRulesForEnvironment(
         entityName,
@@ -26,7 +25,7 @@ export function environmentProxyController(serviceOrTestSuite) {
 
       return h.view('common/patterns/entities/tabs/proxy/views/environment', {
         pageTitle: `${entityName} - Proxy - ${formattedEnvironment}`,
-        entity,
+        entityName,
         environment,
         isProxySetup: proxyRules.rules.isProxySetup,
         allowedDomains: proxyRules.rules.allowedDomains,

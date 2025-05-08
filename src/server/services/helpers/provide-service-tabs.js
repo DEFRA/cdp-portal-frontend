@@ -18,8 +18,8 @@ async function provideServiceTabs(request, h) {
       response.source.context = {}
     }
 
-    const imageName = response.source?.context?.service?.imageName
-    const teams = response.source?.context?.service?.teams ?? []
+    const entityName = request.app.entity?.name
+    const teams = request.app.entity?.teams ?? []
     const serviceTeamIds = teams.map((team) => team.teamId)
     const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
 
@@ -28,10 +28,10 @@ async function provideServiceTabs(request, h) {
     }
     response.source.context.tabDetails.tabs = [
       {
-        isActive: request.path === `/services/${imageName}`,
+        isActive: request.path === `/services/${entityName}`,
         url: request.routeLookup('services/{serviceId}', {
           params: {
-            serviceId: imageName
+            serviceId: entityName
           }
         }),
         label: 'About'
@@ -39,16 +39,16 @@ async function provideServiceTabs(request, h) {
     ]
 
     if (isAdmin || isTenant) {
-      buildTab(response, request, 'services', 'buckets', imageName)
-      buildTab(response, request, 'services', 'proxy', imageName)
+      buildTab(response, request, 'services', 'buckets', entityName)
+      buildTab(response, request, 'services', 'proxy', entityName)
     } else {
       response.source.context.tabDetails.displayTabs = false
     }
 
     if (isAdmin || isServiceOwner) {
-      buildTab(response, request, 'services', 'automations', imageName)
-      buildTab(response, request, 'services', 'secrets', imageName)
-      buildTab(response, request, 'services', 'terminal', imageName)
+      buildTab(response, request, 'services', 'automations', entityName)
+      buildTab(response, request, 'services', 'secrets', entityName)
+      buildTab(response, request, 'services', 'terminal', entityName)
     }
 
     response.source.context.tabDetails.tabs.sort(sortBy('label', 'asc'))

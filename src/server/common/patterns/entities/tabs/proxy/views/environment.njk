@@ -58,7 +58,7 @@
 
   {{ appPageHeading({
     caption: "Proxy",
-    text: entity.name
+    text: entityName
   }) }}
 
 {% endblock %}
@@ -73,7 +73,7 @@
           <div class="app-section app-section--wide">
             {% if isProxySetup %}
               <p class="govuk-!-margin-bottom-4">
-                View proxy rules for {{ entity.name }} in {{ environment | title }}
+                View proxy rules for {{ entityName }} in {{ environment | title }}
               </p>
 
               {% block xhrContent %}

@@ -24,7 +24,7 @@ function transformRepositoryToSummary(repository) {
       {
         key: { text: 'GitHub Repository' },
         value: {
-          html: buildLink(repository.url, repository.url)
+          html: buildLink(repository?.url)
         }
       },
       {
@@ -35,7 +35,7 @@ function transformRepositoryToSummary(repository) {
       },
       {
         key: { text: 'Primary Language' },
-        value: { text: repository.primaryLanguage ?? noValue }
+        value: { text: repository?.primaryLanguage ?? noValue }
       },
       {
         key: { text: 'Topics' },
@@ -46,7 +46,7 @@ function transformRepositoryToSummary(repository) {
       {
         key: { text: 'Created' },
         value: {
-          html: renderComponent('time', { datetime: repository.createdAt })
+          html: renderComponent('time', { datetime: repository?.createdAt })
         }
       }
     ]

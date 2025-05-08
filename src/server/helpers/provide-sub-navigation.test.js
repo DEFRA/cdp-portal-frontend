@@ -16,23 +16,20 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
   const buildMockRequest = (
     serviceKind,
     section,
-    { variety = 'view', source = {}, scope = [] } = {}
+    { variety = 'view', source = {}, scope = [], app } = {}
   ) => ({
     response: {
       variety,
       source
     },
-    path: `/${pluralise(serviceKind)}/${source?.context?.entity?.name}/${section}/infra-dev`,
-    routeLookup: mockRouteLookup(
-      serviceKind,
-      section,
-      source?.context?.entity?.name
-    ),
+    path: `/${pluralise(serviceKind)}/${app?.entity?.name}/${section}/infra-dev`,
+    routeLookup: mockRouteLookup(serviceKind, section, app?.entity?.name),
     auth: {
       credentials: {
         scope
       }
-    }
+    },
+    app
   })
 
   describe('When response variety is view', () => {
@@ -41,14 +38,15 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     beforeEach(() => {
       mockRequest = buildMockRequest('service', 'buckets', {
         source: {
-          context: {
-            entity: {
-              name: 'cdp-portal-frontend',
-              teams: [{ teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474' }]
-            }
-          }
+          context: {}
         },
-        scope: [scopes.admin, scopes.externalTest]
+        scope: [scopes.admin, scopes.externalTest],
+        app: {
+          entity: {
+            name: 'cdp-portal-frontend',
+            teams: [{ teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474' }]
+          }
+        }
       })
     })
 
@@ -146,7 +144,13 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     let mockRequest
 
     beforeEach(() => {
-      mockRequest = buildMockRequest()
+      mockRequest = buildMockRequest('service', 'buckets', {
+        app: {
+          entity: {
+            name: 'some-service'
+          }
+        }
+      })
     })
 
     test('Should initialize response context', async () => {
@@ -165,19 +169,18 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
 
     beforeEach(() => {
       mockRequest = buildMockRequest('service', 'terminal', {
-        source: {
-          context: {
-            entity: {
-              name: 'mock-tenant-service',
-              teams: [
-                {
-                  teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
-                },
-                {
-                  teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274'
-                }
-              ]
-            }
+        source: {},
+        app: {
+          entity: {
+            name: 'mock-tenant-service',
+            teams: [
+              {
+                teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
+              },
+              {
+                teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274'
+              }
+            ]
           }
         }
       })
@@ -235,22 +238,21 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
 
     beforeEach(() => {
       mockRequest = buildMockRequest('service', 'proxy', {
-        source: {
-          context: {
-            entity: {
-              name: 'mock-tenant-service',
-              teams: [
-                {
-                  teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
-                },
-                {
-                  teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274'
-                }
-              ]
-            }
+        source: {},
+        scope: [scopes.externalTest],
+        app: {
+          entity: {
+            name: 'mock-tenant-service',
+            teams: [
+              {
+                teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
+              },
+              {
+                teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274'
+              }
+            ]
           }
-        },
-        scope: [scopes.externalTest]
+        }
       })
     })
 
@@ -313,12 +315,10 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
 
     beforeEach(() => {
       mockRequest = buildMockRequest('test-suite', 'some-sub-section', {
-        source: {
-          context: {
-            entity: {
-              name: 'mock-tenant-service',
-              teams: []
-            }
+        app: {
+          entity: {
+            name: 'mock-tenant-service',
+            teams: []
           }
         }
       })

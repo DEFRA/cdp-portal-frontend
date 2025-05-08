@@ -1,7 +1,7 @@
 import { config } from '~/src/config/config.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
-async function fetchRunningServicesById(serviceId) {
+async function fetchRunningServices(serviceId) {
   const endpoint =
     config.get('portalBackendUrl') + `/whats-running-where/${serviceId}`
 
@@ -9,4 +9,4 @@ async function fetchRunningServicesById(serviceId) {
   return payload
 }
 
-export { fetchRunningServicesById }
+export { fetchRunningServices }

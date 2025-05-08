@@ -22,7 +22,7 @@ const autoTestRunsController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const serviceId = request.params.serviceId
-    const service = request.app.service
+    const service = request.app.entity
     const serviceTeams = service?.teams
 
     if (service === null) {

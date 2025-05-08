@@ -4,26 +4,17 @@ import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 
-const getServiceKind = (service) => {
-  switch (true) {
-    case service.isFrontend:
-      return 'Frontend'
-    case service.isBackend:
-      return 'Backend'
-    default:
-      return noValue
-  }
-}
-
-function transformServiceToSummary(service) {
+function transformServiceToSummary(repository, entity) {
   const dockerHubUrl = config.get('dockerHubUrl')
-  const dockerHubServicePage = `${dockerHubUrl}/${service?.imageName}/tags`
+  const dockerHubServicePage = `${dockerHubUrl}/${entity?.name}/tags`
 
-  const teams = service?.teams
+  const githubUrl = repository?.url ?? `https://github.com/DEFRA/${entity.name}`
+
+  const teams = entity?.teams
     ?.filter((team) => team.teamId)
     ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
 
-  const topics = service?.topics?.map((topic) =>
+  const topics = repository?.topics?.map((topic) =>
     renderComponent('tag', {
       text: topic,
       url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
@@ -41,7 +32,7 @@ function transformServiceToSummary(service) {
         key: { text: 'Kind' },
         value: {
           html: renderComponent('tag', {
-            text: getServiceKind(service),
+            text: entity.subType ?? noValue,
             classes: 'govuk-tag--blue'
           })
         }
@@ -49,13 +40,13 @@ function transformServiceToSummary(service) {
       {
         key: { text: 'Image name' },
         value: {
-          text: service.imageName ?? noValue
+          text: entity.name ?? noValue
         }
       },
       {
         key: { text: 'GitHub Repository' },
         value: {
-          html: buildLink(service.githubUrl, service.githubUrl)
+          html: buildLink(githubUrl)
         }
       },
       {
@@ -66,7 +57,7 @@ function transformServiceToSummary(service) {
       },
       {
         key: { text: 'Primary Language' },
-        value: { text: service.primaryLanguage ?? noValue }
+        value: { text: repository?.primaryLanguage ?? noValue }
       },
       {
         key: { text: 'Topics' },
@@ -83,7 +74,7 @@ function transformServiceToSummary(service) {
       {
         key: { text: 'Created' },
         value: {
-          html: renderComponent('time', { datetime: service.createdAt })
+          html: renderComponent('time', { datetime: entity.created })
         }
       }
     ]
