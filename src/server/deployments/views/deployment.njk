@@ -96,6 +96,11 @@
 
                       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Image name</h3>
                       <p>{{ deployment.service }}</p>
+
+                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Started</h3>
+                      <p>
+                        {{ appTime({ datetime: deployment.created, formatString: "k:mm:ss EE do MMM yyyy" }) }}
+                      </p>
                     </div>
 
                     <div class="app-row__item-flex-two">
@@ -145,11 +150,6 @@
                           serviceName: deployment.service,
                           environment: deployment.environment
                         }) }}
-                      </p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Started</h3>
-                      <p>
-                        {{ appTime({ datetime: deployment.created, formatString: "k:mm:ss EE do MMM yyyy" }) }}
                       </p>
 
                       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Updated</h3>
