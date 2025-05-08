@@ -15,9 +15,9 @@ const environmentBucketsController = {
   },
   handler: async (request, h) => {
     const environment = request.params.environment
-    const service = request.app.service
-    const serviceName = service.serviceName
-    const team = service?.teams?.at(0)
+    const entity = request.app.entity
+    const serviceName = entity.name
+    const team = entity?.teams?.at(0)
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
     const bucketsForEnv = await fetchBuckets(environment, serviceName)
@@ -26,7 +26,7 @@ const environmentBucketsController = {
 
     return h.view('services/service/buckets/views/environment', {
       pageTitle: `${serviceName} - Buckets - ${formattedEnvironment}`,
-      service,
+      entity,
       teamId,
       environment,
       buckets,

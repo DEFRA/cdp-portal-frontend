@@ -29,17 +29,16 @@ const terminalController = {
     }
   },
   handler: async (request, h) => {
-    const serviceId = request.params.serviceId
-    const service = request.app.service
+    const serviceName = request.params.serviceId
     const terminalEnvs = await getTerminalEnvs(
-      service.serviceName,
+      serviceName,
       request.auth.credentials?.scope
     )
     const canLaunchTerminal = terminalEnvs.length > 0
 
     return h.view('services/service/terminal/views/terminal', {
-      pageTitle: `${serviceId} - Terminal`,
-      service,
+      pageTitle: `${serviceName} - Terminal`,
+      serviceName,
       canLaunchTerminal,
       terminalEnvs,
       breadcrumbs: [
@@ -48,8 +47,8 @@ const terminalController = {
           href: '/services'
         },
         {
-          text: serviceId,
-          href: `/services/${serviceId}`
+          text: serviceName,
+          href: `/services/${serviceName}`
         },
         {
           text: 'Terminal'

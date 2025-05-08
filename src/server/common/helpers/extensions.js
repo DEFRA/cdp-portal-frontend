@@ -1,9 +1,10 @@
 import { provideService } from '~/src/server/common/helpers/provide-service.js'
 import { provideServiceTabs } from '~/src/server/services/helpers/provide-service-tabs.js'
-import { validateServiceIsNotATestSuite } from '~/src/server/common/helpers/validate-service-is-not-a-test-suite.js'
+import { validateEntityIsAService } from '~/src/server/common/helpers/validate-entity-is-a-service.js'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
 import { provideTestSuiteTabs } from '~/src/server/test-suites/helpers/provide-test-suite-tabs.js'
 import { provideEntity } from '~/src/server/test-suites/helpers/pre/provide-test-suite.js'
+import { validateEntityIsATestSuite } from '~/src/server/common/helpers/validate-entity-is-a-test-suite.js'
 
 const provideServiceExtension = {
   type: 'onPreAuth',
@@ -29,9 +30,17 @@ const addServiceOwnerScopeExtension = {
   }
 }
 
-const notATestSuiteExtension = {
+const entityIsAServiceExtension = {
   type: 'onPreHandler',
-  method: validateServiceIsNotATestSuite,
+  method: validateEntityIsAService,
+  options: {
+    sandbox: 'plugin'
+  }
+}
+
+const entityIsATestSuiteExtension = {
+  type: 'onPreHandler',
+  method: validateEntityIsATestSuite,
   options: {
     sandbox: 'plugin'
   }
@@ -54,20 +63,20 @@ const provideTestSuiteTabsExtension = {
 }
 
 const commonServiceExtensions = [
-  provideServiceExtension,
+  provideEntityExtension,
   addServiceOwnerScopeExtension,
-  notATestSuiteExtension,
+  entityIsAServiceExtension,
   provideServiceTabsExtension
 ]
 
 const commonTestSuiteExtensions = [
   provideEntityExtension,
   addServiceOwnerScopeExtension,
+  entityIsATestSuiteExtension,
   provideTestSuiteTabsExtension
 ]
 
 export {
-  addServiceOwnerScopeExtension,
   commonServiceExtensions,
   commonTestSuiteExtensions,
   provideServiceExtension,

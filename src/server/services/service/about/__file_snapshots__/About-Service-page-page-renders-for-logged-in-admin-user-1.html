@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+  <head>
+    <meta charset="utf-8">
+    <title>  mock-service microservice | Core Delivery Platform - Portal
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0b0c0c">
+
+      <link rel="icon" sizes="48x48" href="/public/assets/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/public/assets/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/public/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+      <link rel="apple-touch-icon" href="/public/assets/images/govuk-icon-180.png">
+      <link rel="manifest" href="/public/assets/manifest.json">
+
+  <link href="/public/stylesheets/application.css" rel="stylesheet">
+    <meta name="service-version" content="0.1.0">
+    <meta name="service-environment" content="test">
+
+  </head>
+  <body class="govuk-template__body">
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+
+  <div>
+    <a href="#main-content" class="govuk-skip-link app-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+  </div>
+
+
+  
+<header class="app-service-header" role="banner" data-testid="app-service-header">
+  <div class="app-service-header__container app-service-header__container--full-width">
+    <div class="app-service-header__content">
+      <a href="/"
+         class="app-service-header__link app-service-header__service-name"
+         data-testid="app-service-header-service-name">
+        Core Delivery Platform - Portal
+      </a>
+
+
+    </div>
+    <div class="app-service-header__actions">
+
+      <a href="/logout"
+         class="app-service-header__login-link app-service-header__link         app-service-header__is-logged-in"
+         data-testid="app-login-link">
+        Sign out
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="app-navigation" role="navigation" aria-label="Navigation">
+  <div class="govuk-width-container">
+    <div class="app-navigation__list">
+      <ul class="app-navigation__primary">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/"
+               data-testid="nav-home"
+            >
+              Home
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/documentation"
+               data-testid="nav-documentation"
+            >
+              Documentation
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link app-navigation__link--active"
+               href="/services"
+               data-testid="nav-services"
+            >
+              Services
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/test-suites"
+               data-testid="nav-test-suites"
+            >
+              Test suites
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/utilities/templates"
+               data-testid="nav-utilities"
+            >
+              Utilities
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/teams"
+               data-testid="nav-teams"
+            >
+              Teams
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deployments"
+               data-testid="nav-deployments"
+            >
+              Deployments
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/running-services"
+               data-testid="nav-running-services"
+            >
+              Running Services
+            </a>
+          </li>
+      </ul>
+
+      <ul class="app-navigation__actions">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deploy-service"
+               data-testid="nav-deploy-service"
+            >
+              Deploy Service
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/create"
+               data-testid="nav-create"
+            >
+              Create
+            </a>
+          </li>
+
+            <li class="app-navigation__list-item app-navigation__list-item--section">
+              <a class="app-navigation__link"
+                 href="/admin"
+                 data-testid="nav-admin"
+              >
+                Admin
+              </a>
+            </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="govuk-width-container">
+  
+  <div
+  class="app-banner app-banner--hidden"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-banner"
+data-js="app-client-notifications">
+  <p class="app-banner__content"
+data-js="app-client-notifications-content"     data-testid="app-banner-content"></p>
+</div>
+
+
+
+
+    <nav class="app-breadcrumbs" data-testid="app-breadcrumbs"
+     aria-label="Breadcrumb">
+  <ol class="app-breadcrumbs__list">
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services"
+             data-testid="app-breadcrumbs-link">Services</a>
+        </li>
+        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+            data-testid="app-breadcrumbs-list-item">mock-service</li>
+  </ol>
+</nav>
+
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+
+  <div class="govuk-!-margin-top-2">
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Service</span>
+
+  <div class="app-page-heading">
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service</h1>
+
+
+  </div>
+</div>
+
+
+
+<div class="app-tabs"
+     data-js="app-tabs">
+    <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Service tabs">
+
+
+        <li class="app-tabs__list-item app-tabs__list-item--selected"
+            data-testid="app-tabs-list-item-about app-tabs-list-item--selected">
+
+
+          <a id="tab-about"
+             class="app-tabs__tab"
+             href="/services/mock-service"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-about"
+             aria-selected="true">
+            About
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-automations">
+
+
+          <a id="tab-automations"
+             class="app-tabs__tab"
+             href="/services/mock-service/automations"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-automations"
+             aria-selected="false">
+            Automations
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-buckets">
+
+
+          <a id="tab-buckets"
+             class="app-tabs__tab"
+             href="/services/mock-service/buckets"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-buckets"
+             aria-selected="false">
+            Buckets
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-proxy">
+
+
+          <a id="tab-proxy"
+             class="app-tabs__tab"
+             href="/services/mock-service/proxy"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-proxy"
+             aria-selected="false">
+            Proxy
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-secrets">
+
+
+          <a id="tab-secrets"
+             class="app-tabs__tab"
+             href="/services/mock-service/secrets"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-secrets"
+             aria-selected="false">
+            Secrets
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-terminal">
+
+
+          <a id="tab-terminal"
+             class="app-tabs__tab"
+             href="/services/mock-service/terminal"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-terminal"
+             aria-selected="false">
+            Terminal
+          </a>
+        </li>
+    </ul>
+
+      <section id="tab-panel-about"
+               class="app-tabs__panel"
+               role="tabpanel"
+               aria-labelledby="tab-about"
+               data-testid="app-tabs-panel">
+        
+  <div class="govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+
+  </div>
+
+
+  <div class="app-service-container">
+    <article class="app-grid app-grid-service app-grid-service--standard">
+      <section class="app-grid-service__details">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+        <p class="govuk-!-margin-bottom-2">
+          Mock service description
+        </p>
+
+        <dl class="govuk-summary-list app-summary-list govuk-!-margin-bottom-0" data-testid="service-summary">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Kind
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <strong class="govuk-tag app-tag govuk-tag--blue">
+        Frontend
+      </strong>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Image name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      mock-service
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      GitHub Repository
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="https://github.com/DEFRA/mock-service" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://github.com/DEFRA/mock-service</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Team
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <ul class="govuk-list"><li><a class="app-link" href="/teams/mock-team-id" data-testid="app-link" >Mock Team</a></li></ul>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Primary Language
+    </dt>
+    <dd class="govuk-summary-list__value">
+      JavaScript
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Topics
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Acdp&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        cdp
+      </strong>
+      
+      
+        </a> <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Amicroservice&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        microservice
+      </strong>
+      
+      
+        </a> <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Afrontend&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        frontend
+      </strong>
+      
+      
+        </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Docker Hub
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="https://hub.docker.com/r/defradigital/mock-service/tags" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://hub.docker.com/r/defradigital/mock-service/tags</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Created
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span
+        class="app-tool-tip"
+        data-text="Thursday 5th December 2024, 11:21:25"
+      >
+          <time    datetime="2024-12-05T11:21:25Z"
+          data-testid="app-time">
+              Thu 5th Dec 2024 at 11:21
+      
+        </time>
+      
+      </span>
+    </dd>
+  </div>
+</dl>
+      </section>
+
+      <section class="app-grid-service__published" data-testid="published-images">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Published Images</h2>
+        <p class="govuk-!-margin-bottom-2">
+          Latest available CDP built and published docker images, via
+          <a class="app-link" target="_blank" rel="noopener noreferrer"
+             href="https://github.com/DEFRA//actions">GitHub Actions</a>
+        </p>
+
+          <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Published</th>
+      <th scope="col" class="govuk-table__header">Version</th>
+      <th scope="col" class="govuk-table__header"></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">    <div class="app-row">
+      <svg class="app-icon app-instance app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Published Image 0.3.0">
+  <path fill-rule="nonzero"
+        d="M17.056 37.1501V22.5459L4.264 15.1372v14.6042l12.792 7.4087Zm4.264 0 12.792-7.4087V15.1372L21.32 22.5459v14.6042Zm-2.132-18.2819 12.6321-7.3021L19.188 4.264 6.5559 11.5661l12.6321 7.3021ZM2.132 33.4724c-.67513333-.3908667-1.19925-.9061-1.57235-1.5457C.18655 31.2871 0 30.5764333 0 29.7947V12.8453c0-.7817333.18655-1.4924.55965-2.132.3731-.6396.89721667-1.15483333 1.57235-1.5457L17.056.5863C17.7311333.19543333 18.4418 0 19.188 0c.7462 0 1.4568667.19543333 2.132.5863l14.924 8.5813c.6751333.39086667 1.19925.9061 1.57235 1.5457.3731.6396.55965 1.3502667.55965 2.132v16.9494c0 .7817333-.18655 1.4924-.55965 2.132-.3731.6396-.8972167 1.1548333-1.57235 1.5457L21.32 42.0537c-.6751333.3908667-1.3858.5863-2.132.5863-.7462 0-1.4568667-.1954333-2.132-.5863L2.132 33.4724Z" />
+</svg>
+
+      
+
+
+<span
+  class="app-tool-tip"
+  data-text="Monday 28th April 2025, 12:22:32"
+>
+    <time class="govuk-!-margin-left-2"    datetime="2025-04-28T12:22:32.164Z"
+    data-testid="app-time">
+        Mon 28th Apr 2025 at 12:22
+
+  </time>
+
+</span>
+
+
+
+    </div>
+</td>
+      <td class="govuk-table__cell">    <a class="app-link"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
+       target="_blank" rel="noopener noreferrer">0.3.0</a>
+</td>
+      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.3.0"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button-0.3.0">Deploy</a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">    <div class="app-row">
+      <svg class="app-icon app-instance app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Published Image 0.2.0">
+  <path fill-rule="nonzero"
+        d="M17.056 37.1501V22.5459L4.264 15.1372v14.6042l12.792 7.4087Zm4.264 0 12.792-7.4087V15.1372L21.32 22.5459v14.6042Zm-2.132-18.2819 12.6321-7.3021L19.188 4.264 6.5559 11.5661l12.6321 7.3021ZM2.132 33.4724c-.67513333-.3908667-1.19925-.9061-1.57235-1.5457C.18655 31.2871 0 30.5764333 0 29.7947V12.8453c0-.7817333.18655-1.4924.55965-2.132.3731-.6396.89721667-1.15483333 1.57235-1.5457L17.056.5863C17.7311333.19543333 18.4418 0 19.188 0c.7462 0 1.4568667.19543333 2.132.5863l14.924 8.5813c.6751333.39086667 1.19925.9061 1.57235 1.5457.3731.6396.55965 1.3502667.55965 2.132v16.9494c0 .7817333-.18655 1.4924-.55965 2.132-.3731.6396-.8972167 1.1548333-1.57235 1.5457L21.32 42.0537c-.6751333.3908667-1.3858.5863-2.132.5863-.7462 0-1.4568667-.1954333-2.132-.5863L2.132 33.4724Z" />
+</svg>
+
+      
+
+
+<span
+  class="app-tool-tip"
+  data-text="Monday 28th April 2025, 12:22:31"
+>
+    <time class="govuk-!-margin-left-2"    datetime="2025-04-28T12:22:31.767Z"
+    data-testid="app-time">
+        Mon 28th Apr 2025 at 12:22
+
+  </time>
+
+</span>
+
+
+
+    </div>
+</td>
+      <td class="govuk-table__cell">    <a class="app-link"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.2.0"
+       target="_blank" rel="noopener noreferrer">0.2.0</a>
+</td>
+      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.2.0"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button-0.2.0">Deploy</a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">    <div class="app-row">
+      <svg class="app-icon app-instance app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Published Image 0.1.0">
+  <path fill-rule="nonzero"
+        d="M17.056 37.1501V22.5459L4.264 15.1372v14.6042l12.792 7.4087Zm4.264 0 12.792-7.4087V15.1372L21.32 22.5459v14.6042Zm-2.132-18.2819 12.6321-7.3021L19.188 4.264 6.5559 11.5661l12.6321 7.3021ZM2.132 33.4724c-.67513333-.3908667-1.19925-.9061-1.57235-1.5457C.18655 31.2871 0 30.5764333 0 29.7947V12.8453c0-.7817333.18655-1.4924.55965-2.132.3731-.6396.89721667-1.15483333 1.57235-1.5457L17.056.5863C17.7311333.19543333 18.4418 0 19.188 0c.7462 0 1.4568667.19543333 2.132.5863l14.924 8.5813c.6751333.39086667 1.19925.9061 1.57235 1.5457.3731.6396.55965 1.3502667.55965 2.132v16.9494c0 .7817333-.18655 1.4924-.55965 2.132-.3731.6396-.8972167 1.1548333-1.57235 1.5457L21.32 42.0537c-.6751333.3908667-1.3858.5863-2.132.5863-.7462 0-1.4568667-.1954333-2.132-.5863L2.132 33.4724Z" />
+</svg>
+
+      
+
+
+<span
+  class="app-tool-tip"
+  data-text="Monday 28th April 2025, 12:22:30"
+>
+    <time class="govuk-!-margin-left-2"    datetime="2025-04-28T12:22:30.722Z"
+    data-testid="app-time">
+        Mon 28th Apr 2025 at 12:22
+
+  </time>
+
+</span>
+
+
+
+    </div>
+</td>
+      <td class="govuk-table__cell">    <a class="app-link"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.1.0"
+       target="_blank" rel="noopener noreferrer">0.1.0</a>
+</td>
+      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.1.0"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button-0.1.0">Deploy</a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">    <div class="app-row">
+      <svg class="app-icon app-instance app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Published Image 0.172.0">
+  <path fill-rule="nonzero"
+        d="M17.056 37.1501V22.5459L4.264 15.1372v14.6042l12.792 7.4087Zm4.264 0 12.792-7.4087V15.1372L21.32 22.5459v14.6042Zm-2.132-18.2819 12.6321-7.3021L19.188 4.264 6.5559 11.5661l12.6321 7.3021ZM2.132 33.4724c-.67513333-.3908667-1.19925-.9061-1.57235-1.5457C.18655 31.2871 0 30.5764333 0 29.7947V12.8453c0-.7817333.18655-1.4924.55965-2.132.3731-.6396.89721667-1.15483333 1.57235-1.5457L17.056.5863C17.7311333.19543333 18.4418 0 19.188 0c.7462 0 1.4568667.19543333 2.132.5863l14.924 8.5813c.6751333.39086667 1.19925.9061 1.57235 1.5457.3731.6396.55965 1.3502667.55965 2.132v16.9494c0 .7817333-.18655 1.4924-.55965 2.132-.3731.6396-.8972167 1.1548333-1.57235 1.5457L21.32 42.0537c-.6751333.3908667-1.3858.5863-2.132.5863-.7462 0-1.4568667-.1954333-2.132-.5863L2.132 33.4724Z" />
+</svg>
+
+      
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 2nd November 2023, 12:59:56"
+>
+    <time class="govuk-!-margin-left-2"    datetime="2023-11-02T12:59:56.102Z"
+    data-testid="app-time">
+        Thu 2nd Nov 2023 at 12:59
+
+  </time>
+
+</span>
+
+
+
+    </div>
+</td>
+      <td class="govuk-table__cell">    <a class="app-link"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.172.0"
+       target="_blank" rel="noopener noreferrer">0.172.0</a>
+</td>
+      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.172.0"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button-0.172.0">Deploy</a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">    <div class="app-row">
+      <svg class="app-icon app-instance app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Published Image 0.171.0">
+  <path fill-rule="nonzero"
+        d="M17.056 37.1501V22.5459L4.264 15.1372v14.6042l12.792 7.4087Zm4.264 0 12.792-7.4087V15.1372L21.32 22.5459v14.6042Zm-2.132-18.2819 12.6321-7.3021L19.188 4.264 6.5559 11.5661l12.6321 7.3021ZM2.132 33.4724c-.67513333-.3908667-1.19925-.9061-1.57235-1.5457C.18655 31.2871 0 30.5764333 0 29.7947V12.8453c0-.7817333.18655-1.4924.55965-2.132.3731-.6396.89721667-1.15483333 1.57235-1.5457L17.056.5863C17.7311333.19543333 18.4418 0 19.188 0c.7462 0 1.4568667.19543333 2.132.5863l14.924 8.5813c.6751333.39086667 1.19925.9061 1.57235 1.5457.3731.6396.55965 1.3502667.55965 2.132v16.9494c0 .7817333-.18655 1.4924-.55965 2.132-.3731.6396-.8972167 1.1548333-1.57235 1.5457L21.32 42.0537c-.6751333.3908667-1.3858.5863-2.132.5863-.7462 0-1.4568667-.1954333-2.132-.5863L2.132 33.4724Z" />
+</svg>
+
+      
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 1st November 2023, 12:27:57"
+>
+    <time class="govuk-!-margin-left-2"    datetime="2023-11-01T12:27:57.452Z"
+    data-testid="app-time">
+        Wed 1st Nov 2023 at 12:27
+
+  </time>
+
+</span>
+
+
+
+    </div>
+</td>
+      <td class="govuk-table__cell">    <a class="app-link"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.171.0"
+       target="_blank" rel="noopener noreferrer">0.171.0</a>
+</td>
+      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.171.0"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button-0.171.0">Deploy</a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">    <div class="app-row">
+      <svg class="app-icon app-instance app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Published Image 0.170.0">
+  <path fill-rule="nonzero"
+        d="M17.056 37.1501V22.5459L4.264 15.1372v14.6042l12.792 7.4087Zm4.264 0 12.792-7.4087V15.1372L21.32 22.5459v14.6042Zm-2.132-18.2819 12.6321-7.3021L19.188 4.264 6.5559 11.5661l12.6321 7.3021ZM2.132 33.4724c-.67513333-.3908667-1.19925-.9061-1.57235-1.5457C.18655 31.2871 0 30.5764333 0 29.7947V12.8453c0-.7817333.18655-1.4924.55965-2.132.3731-.6396.89721667-1.15483333 1.57235-1.5457L17.056.5863C17.7311333.19543333 18.4418 0 19.188 0c.7462 0 1.4568667.19543333 2.132.5863l14.924 8.5813c.6751333.39086667 1.19925.9061 1.57235 1.5457.3731.6396.55965 1.3502667.55965 2.132v16.9494c0 .7817333-.18655 1.4924-.55965 2.132-.3731.6396-.8972167 1.1548333-1.57235 1.5457L21.32 42.0537c-.6751333.3908667-1.3858.5863-2.132.5863-.7462 0-1.4568667-.1954333-2.132-.5863L2.132 33.4724Z" />
+</svg>
+
+      
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 1st November 2023, 10:43:15"
+>
+    <time class="govuk-!-margin-left-2"    datetime="2023-11-01T10:43:15.125Z"
+    data-testid="app-time">
+        Wed 1st Nov 2023 at 10:43
+
+  </time>
+
+</span>
+
+
+
+    </div>
+</td>
+      <td class="govuk-table__cell">    <a class="app-link"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.170.0"
+       target="_blank" rel="noopener noreferrer">0.170.0</a>
+</td>
+      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.170.0"
+       role="button"
+       class="govuk-button app-button app-button--primary app-button--small"
+       data-testid="deploy-button-0.170.0">Deploy</a>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+
+          <p class="govuk-!-margin-bottom-0">
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/mock-service/tags">
+              more versions
+            </a>
+          </p>
+
+      </section>
+
+
+      <section class="app-grid-service__run">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
+        <p class="govuk-!-margin-bottom-2">
+          The versions of this microservice currently running on CDP environments. For more information view
+          <a class="app-link" href="/running-services/mock-service">Running services</a>
+        </p>
+
+        
+<section class="app-running-service">
+
+      <div class="app-running-service__card app-running-service__card--empty">
+        <div class="app-running-service__item app-running-service__item--heading">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">
+            
+
+
+<strong class="govuk-tag app-tag app-tag--white">
+  Infra-dev
+</strong>
+
+
+
+          </span>
+        </div>
+        <span class="app-running-service__no-data">No deployment</span>
+      </div>
+
+      <div class="app-running-service__card app-running-service__card--empty">
+        <div class="app-running-service__item app-running-service__item--heading">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">
+            
+
+
+<strong class="govuk-tag app-tag app-tag--white">
+  Management
+</strong>
+
+
+
+          </span>
+        </div>
+        <span class="app-running-service__no-data">No deployment</span>
+      </div>
+
+
+      <div class="app-running-service__card item-detail--green">
+
+
+        <div class="app-running-service__item app-running-service__item--heading">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">
+
+
+<strong class="govuk-tag app-tag">
+  Dev
+</strong>
+
+
+</span>
+
+          <div class="app-running-service__item app-running-service__item--version">
+            <span id="version" class="govuk-visually-hidden">Version:</span>
+            <a class="app-link govuk-!-margin-right-2"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer"
+               aria-labelledby="version">
+              0.1.0
+            </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Running in Dev"
+>
+                  <svg class="app-icon app-icon--medium app-instance-success app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Running">
+  <path fill-rule="nonzero"
+        d="M19.1033.2c.7644667 0 1.5300333.2 2.2967.6l14.5 8.4c.775.44753333 1.3604167 1.0226333 1.75625 1.7253.3958333.7026667.59375 1.4442333.59375 2.2247v8.75c-.6517333-.6802-1.3646667-1.2669167-2.1388-1.76015-.7741333-.4932333-1.5945333-.8774-2.4612-1.1525V15.35L28.5 18.4c-2.6.1333333-4.9083333.9333333-6.925 2.4-2.0166667 1.4666667-3.5416667 3.3-4.575 5.5v-3.8L4.6 15.35v14.2252L17.15 36.8c.3077 1.2377333.81475 2.3495167 1.52115 3.33535.7064.9858333 1.54935 1.82405 2.52885 2.51465-.7666667.2-1.5166667.2416667-2.25.125-.7333333-.1166667-1.4333333-.3916667-2.1-.825l-14.5-8.4c-.80833333-.4475333-1.39375-1.02205-1.75625-1.72355C.23125 31.1249167.05 30.3994333.05 29.65v-16.5c0-.7804667.18125-1.5220333.54375-2.2247.3625-.7026667.94791667-1.27776667 1.75625-1.7253L16.85.8c.7377-.4 1.4888-.6 2.2533-.6Zm10.1708794 22.05c1.2947291 0 2.5135861.2422361 3.6565709.7267084 1.14297.4844871 2.1380038 1.1504226 2.9851012 1.9978066.8470974.847384 1.5145669 1.839418 2.0024084 2.976102.4878267 1.1366839.7317401 2.3524958.7317401 3.6474356 0 1.2792321-.2434623 2.4852802-.730387 3.6181442-.4869098 1.1328492-1.1560799 2.1224939-2.0075104 2.968934-.8514156.8464401-1.8455473 1.510532-2.9823949 1.9922757-1.1368328.481729-2.352806.7225935-3.6479197.7225935-1.2765245 0-2.4865602-.2404368-3.630107-.7213103-1.1435615-.4808588-2.1386544-1.1434685-2.9852786-1.987829-.8466242-.8443605-1.5110103-1.836741-1.9931583-2.9771417C20.1910814 34.0733331 19.95 32.8651316 19.95 31.5891147c0-1.2892024.2415102-2.5006413.7245307-3.6343164.4830353-1.1336752 1.1488263-2.1250823 1.997373-2.9742215.8485319-.8491539 1.8423973-1.5165348 2.9815963-2.0021428 1.1391842-.4856227 2.3460773-.728434 3.6206794-.728434Zm4.8921194 4.8157895-5.883871 6.4044944-2.8645161-3.1179776-1.6258064 1.7977528 4.4903225 4.9157304 7.5096775-8.2022472-1.6258065-1.7977528ZM19.1 4.75l-12.25 7.1L19.1 19l12.25-7.15-12.25-7.1Z" />
+</svg>
+
+
+</span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item">
+          <div>
+            <span id="instance-count" class="app-running-service__label">Instance Count:</span>
+            <span aria-labelledby="instance-count">1</span>
+          </div>
+          <div>
+            <span id="cpu" class="app-running-service__label">CPU:</span>
+            <span aria-labelledby="instance-count">
+              1 vCPU
+            </span>
+          </div>
+          <div>
+            <span id="memory" class="app-running-service__label">Memory:</span>
+            <span aria-labelledby="memory">
+            2 GB
+          </span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item app-running-service__item--deployed-by">
+          <a class="app-link" href="/deployments/dev/">
+            Deployed
+          </a>
+          
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 14th December 2023, 14:10:49"
+>
+    <time    datetime="2023-12-14T14:10:49Z"
+    data-testid="app-time">
+        over 1 year
+
+  </time>
+
+</span>
+
+
+ ago by 
+        </div>
+      </div>
+
+
+
+      <div class="app-running-service__card item-detail--purple">
+
+
+        <div class="app-running-service__item app-running-service__item--heading">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">
+
+
+<strong class="govuk-tag app-tag">
+  Test
+</strong>
+
+
+</span>
+
+          <div class="app-running-service__item app-running-service__item--version">
+            <span id="version" class="govuk-visually-hidden">Version:</span>
+            <a class="app-link govuk-!-margin-right-2"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
+               target="_blank" rel="noopener noreferrer"
+               aria-labelledby="version">
+              0.3.0
+            </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Requested in Test"
+>
+  
+</span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item">
+          <div>
+            <span id="instance-count" class="app-running-service__label">Instance Count:</span>
+            <span aria-labelledby="instance-count">2</span>
+          </div>
+          <div>
+            <span id="cpu" class="app-running-service__label">CPU:</span>
+            <span aria-labelledby="instance-count">
+              1 vCPU
+            </span>
+          </div>
+          <div>
+            <span id="memory" class="app-running-service__label">Memory:</span>
+            <span aria-labelledby="memory">
+            2 GB
+          </span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item app-running-service__item--deployed-by">
+          <a class="app-link" href="/deployments/test/">
+            Deployed
+          </a>
+          
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 14th December 2023, 14:10:49"
+>
+    <time    datetime="2023-12-14T14:10:49Z"
+    data-testid="app-time">
+        over 1 year
+
+  </time>
+
+</span>
+
+
+ ago by 
+        </div>
+      </div>
+
+
+
+      <div class="app-running-service__card item-detail--light-blue">
+
+
+        <div class="app-running-service__item app-running-service__item--heading">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">
+
+
+<strong class="govuk-tag app-tag">
+  Perf-test
+</strong>
+
+
+</span>
+
+          <div class="app-running-service__item app-running-service__item--version">
+            <span id="version" class="govuk-visually-hidden">Version:</span>
+            <a class="app-link govuk-!-margin-right-2"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
+               target="_blank" rel="noopener noreferrer"
+               aria-labelledby="version">
+              0.3.0
+            </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Stopped in Perf-test"
+>
+  
+</span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item">
+          <div>
+            <span id="instance-count" class="app-running-service__label">Instance Count:</span>
+            <span aria-labelledby="instance-count">2</span>
+          </div>
+          <div>
+            <span id="cpu" class="app-running-service__label">CPU:</span>
+            <span aria-labelledby="instance-count">
+              1 vCPU
+            </span>
+          </div>
+          <div>
+            <span id="memory" class="app-running-service__label">Memory:</span>
+            <span aria-labelledby="memory">
+            2 GB
+          </span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item app-running-service__item--deployed-by">
+          <a class="app-link" href="/deployments/perf-test/">
+            Deployed
+          </a>
+          
+
+
+<span
+  class="app-tool-tip"
+  data-text="Friday 14th March 2025, 14:10:49"
+>
+    <time    datetime="2025-03-14T14:10:49Z"
+    data-testid="app-time">
+        about 2 months
+
+  </time>
+
+</span>
+
+
+ ago by 
+        </div>
+      </div>
+
+
+
+      <div class="app-running-service__card item-detail--red">
+
+
+        <div class="app-running-service__item app-running-service__item--heading">
+          <span id="environment" class="govuk-visually-hidden">Environment</span>
+          <span aria-labelledby="environment">
+
+
+<strong class="govuk-tag app-tag">
+  Prod
+</strong>
+
+
+</span>
+
+          <div class="app-running-service__item app-running-service__item--version">
+            <span id="version" class="govuk-visually-hidden">Version:</span>
+            <a class="app-link govuk-!-margin-right-2"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
+               target="_blank" rel="noopener noreferrer"
+               aria-labelledby="version">
+              0.3.0
+            </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Failed in Prod"
+>
+                  <svg class="app-icon app-icon--medium app-instance-failed app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Failed">
+  <path fill-rule="nonzero"
+        d="M23.9184576 20.8010471c6.1853831 0 11.2453193-.9162303 15.1798085-2.7486911C43.0327554 16.2198953 45 14.1867365 45 11.95287958c0-2.33856893-1.9672446-4.41535776-5.9017339-6.23036649C35.1637769 3.90750436 30.1038407 3 23.9184576 3c-6.1487832 0-11.16296954.90750436-15.04255894 2.72251309-3.87958941 1.81500873-5.8193841 3.89179756-5.8193841 6.23036649 0 2.23385692 1.93979469 4.26701572 5.8193841 6.09947642 3.8795894 1.8324608 8.89377574 2.7486911 15.04255894 2.7486911Zm.0548998 4.7120419c2.5253931 0 5.0599362-.1832461 7.6036293-.5497382 2.543693-.3664922 4.8037368-.9336824 6.7801314-1.7015707s3.5776403-1.6666667 4.8037369-2.6963351C44.3869517 19.5357766 45 18.3752182 45 17.0837696v6.3874346c0 1.2914485-.6130483 2.460733-1.839145 3.5078534-1.2260966 1.0471204-2.8273423 1.9371728-4.8037369 2.6701571-1.9763946.7329843-4.2364384 1.2914485-6.7801314 1.6753926-2.5436931.3839442-5.0782362.5759163-7.6036293.5759163-2.5985929 0-5.1422859-.2006981-7.6310791-.6020943-2.4887932-.4013961-4.73968709-.9685864-6.75268159-1.7015707-2.0129945-.7329843-3.62339011-1.6230366-4.83118681-2.670157-1.2077967-1.0471204-1.7933951-2.1989529-1.7567952-3.4554974v-6.3874346c-.0365999 1.2914486.5489985 2.434555 1.7567952 3.4293194 1.2077967.9947644 2.81819231 1.8673648 4.83118681 2.6178011 2.0129945.7504363 4.26388839 1.3350785 6.75268159 1.7539267 2.4887932.4188481 5.0324862.6282722 7.6310791.6282722Zm0 11.0994764c2.5253931 0 5.0599362-.200698 7.6036293-.6020942 2.543693-.4013962 4.8037368-.9685864 6.7801314-1.7015707s3.5776403-1.6230366 4.8037369-2.670157C44.3869517 30.591623 45 29.4048866 45 28.078534v6.4921466c0 1.2565445-.6130483 2.408377-1.839145 3.4554974-1.2260966 1.0471204-2.8273423 1.9458988-4.8037369 2.6963351-1.9763946.7504363-4.2364384 1.3176265-6.7801314 1.7015707C29.0332936 42.8080279 26.4987505 43 23.9733574 43c-2.5985929 0-5.1422859-.2006981-7.6310791-.6020942-2.4887932-.4013962-4.73968709-.9773124-6.75268159-1.7277487C7.57660221 39.9197208 5.9662066 39.0296684 4.7584099 38c-1.2077967-1.0296684-1.7933951-2.1727749-1.7567952-3.4293194V28.078534c-.0365999 1.2914485.5489985 2.452007 1.7567952 3.4816754 1.2077967 1.0296684 2.81819231 1.9197208 4.83118681 2.6701571 2.0129945.7504363 4.26388839 1.3350785 6.75268159 1.7539267s5.0324862.6282722 7.6310791.6282722Z" />
+</svg>
+
+
+</span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item">
+          <div>
+            <span id="instance-count" class="app-running-service__label">Instance Count:</span>
+            <span aria-labelledby="instance-count">2</span>
+          </div>
+          <div>
+            <span id="cpu" class="app-running-service__label">CPU:</span>
+            <span aria-labelledby="instance-count">
+              1 vCPU
+            </span>
+          </div>
+          <div>
+            <span id="memory" class="app-running-service__label">Memory:</span>
+            <span aria-labelledby="memory">
+            2 GB
+          </span>
+          </div>
+        </div>
+
+        <div class="app-running-service__item app-running-service__item--deployed-by">
+          <a class="app-link" href="/deployments/prod/">
+            Deployed
+          </a>
+          
+
+
+<span
+  class="app-tool-tip"
+  data-text="Friday 14th February 2025, 14:10:49"
+>
+    <time    datetime="2025-02-14T14:10:49Z"
+    data-testid="app-time">
+        3 months
+
+  </time>
+
+</span>
+
+
+ ago by 
+        </div>
+      </div>
+
+</section>
+
+      </section>
+
+      <section class="app-grid-service__info">
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Deployments</h2>
+          <p class="govuk-!-margin-bottom-6">
+            To view microservice deployments across all available environments go to
+            <a class="app-link"
+               href="/deployments/infra-dev?service=mock-service">Deployments</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
+          <p class="govuk-!-margin-bottom-6">
+            Manage microservice configuration and set environment variables across CDP environments. For more
+            information see our <a class="app-link" href="/documentation/how-to/config.md">documentation for service
+              config</a>.
+            To view this microservices configuration go to
+            <a class="app-link"
+               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/mock-service"
+               target="_blank"
+               rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/mock-service</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Continuous Integration</h2>
+          <p class="govuk-!-margin-bottom-0">
+            Test, build and publish ready-to-deploy docker images of this microservice with CI and GitHub
+            Actions workflows. This microservice is built and published by GitHub Actions and comes with a number of
+            useful CDP Workflows. To view these workflows and builds go to
+            <a class="app-link" target="_blank" rel="noopener noreferrer"
+               href="https://github.com/DEFRA/mock-service/actions">
+              https://github.com/DEFRA/mock-service/actions</a>
+          </p>
+        </section>
+      </section>
+    </article>
+
+    <aside class="app-service-container__sidebar">
+      <section class="app-grid-service__links">
+
+
+          <section class="govuk-!-margin-bottom-6">
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
+            <p>
+              Internal access URLs for service
+            </p>
+
+            <dl class="app-description-list">
+                <dt class="app-description-list__term">Infra-dev</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://mock-service.infra-dev.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.infra-dev.cdp-int.defra.cloud
+                  </a>
+                </dd>
+                <dt class="app-description-list__term">Management</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://mock-service.management.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.management.cdp-int.defra.cloud
+                  </a>
+                </dd>
+                <dt class="app-description-list__term">Dev</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://mock-service.dev.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.dev.cdp-int.defra.cloud
+                  </a>
+                </dd>
+                <dt class="app-description-list__term">Test</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://mock-service.test.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.test.cdp-int.defra.cloud
+                  </a>
+                </dd>
+                <dt class="app-description-list__term">Perf-test</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://mock-service.perf-test.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.perf-test.cdp-int.defra.cloud
+                  </a>
+                </dd>
+                <dt class="app-description-list__term">Prod</dt>
+                <dd class="app-description-list__details">
+                  <a class="app-link"
+                     href="https://mock-service.prod.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.prod.cdp-int.defra.cloud
+                  </a>
+                </dd>
+            </dl>
+          </section>
+
+
+        <section class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>
+          <p>
+            OpenSearch logs for monitoring and troubleshooting your service
+          </p>
+          <dl class="app-description-list">
+              <dt class="app-description-list__term">Infra-dev</dt>
+              <dd class="app-description-list__details">
+                
+<a class="app-link"
+   href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   target="_blank" rel="noopener noreferrer"
+   data-testid="app-logs-dashboard-link">https://logs.infra-dev.cdp-int.defra.cloud</a>
+
+              </dd>
+              <dt class="app-description-list__term">Management</dt>
+              <dd class="app-description-list__details">
+                
+<a class="app-link"
+   href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   target="_blank" rel="noopener noreferrer"
+   data-testid="app-logs-dashboard-link">https://logs.management.cdp-int.defra.cloud</a>
+
+              </dd>
+              <dt class="app-description-list__term">Dev</dt>
+              <dd class="app-description-list__details">
+                
+<a class="app-link"
+   href="https://logs.dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   target="_blank" rel="noopener noreferrer"
+   data-testid="app-logs-dashboard-link">https://logs.dev.cdp-int.defra.cloud</a>
+
+              </dd>
+              <dt class="app-description-list__term">Test</dt>
+              <dd class="app-description-list__details">
+                
+<a class="app-link"
+   href="https://logs.test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   target="_blank" rel="noopener noreferrer"
+   data-testid="app-logs-dashboard-link">https://logs.test.cdp-int.defra.cloud</a>
+
+              </dd>
+              <dt class="app-description-list__term">Perf-test</dt>
+              <dd class="app-description-list__details">
+                
+<a class="app-link"
+   href="https://logs.perf-test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   target="_blank" rel="noopener noreferrer"
+   data-testid="app-logs-dashboard-link">https://logs.perf-test.cdp-int.defra.cloud</a>
+
+              </dd>
+              <dt class="app-description-list__term">Prod</dt>
+              <dd class="app-description-list__details">
+                
+<a class="app-link"
+   href="https://logs.prod.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   target="_blank" rel="noopener noreferrer"
+   data-testid="app-logs-dashboard-link">https://logs.prod.cdp-int.defra.cloud</a>
+
+              </dd>
+          </dl>
+        </section>
+
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Metrics</h2>
+          <p>
+            Grafana observability metrics data and graphs for your service
+          </p>
+          <dl class="app-description-list">
+              <dt class="app-description-list__term">Infra-dev</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://metrics.infra-dev.cdp-int.defra.cloud/dashboards/f/mock-service"
+                   target="_blank" rel="noopener noreferrer">
+                  https://metrics.infra-dev.cdp-int.defra.cloud
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Management</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://metrics.management.cdp-int.defra.cloud/dashboards/f/mock-service"
+                   target="_blank" rel="noopener noreferrer">
+                  https://metrics.management.cdp-int.defra.cloud
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Dev</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://metrics.dev.cdp-int.defra.cloud/dashboards/f/mock-service"
+                   target="_blank" rel="noopener noreferrer">
+                  https://metrics.dev.cdp-int.defra.cloud
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Test</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://metrics.test.cdp-int.defra.cloud/dashboards/f/mock-service"
+                   target="_blank" rel="noopener noreferrer">
+                  https://metrics.test.cdp-int.defra.cloud
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Perf-test</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://metrics.perf-test.cdp-int.defra.cloud/dashboards/f/mock-service"
+                   target="_blank" rel="noopener noreferrer">
+                  https://metrics.perf-test.cdp-int.defra.cloud
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Prod</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link"
+                   href="https://metrics.prod.cdp-int.defra.cloud/dashboards/f/mock-service"
+                   target="_blank" rel="noopener noreferrer">
+                  https://metrics.prod.cdp-int.defra.cloud
+                </a>
+              </dd>
+          </dl>
+        </section>
+      </section>
+    </aside>
+  </div>
+
+      </section>
+</div>
+
+        </main>
+      </div>
+
+  
+<footer class="app-footer" role="contentinfo" data-testid="app-footer">
+
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/cookie-policy" class="app-footer__link">Cookie policy</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/accessibility-statement" class="app-footer__link">Accessibility statement</a>
+        </li>
+      </ul>
+
+        <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer">0.1.0</a>
+          </li>
+        </ul>
+    </div>
+
+    <div class="app-footer__secondary">
+      <a class="app-footer__link"
+         href="https://github.com/DEFRA/cdp-portal-frontend"
+         target="_blank"
+         rel="noopener noreferrer"><svg class="app-icon app-github-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="CDP Portal Frontend repository on GitHub">
+  <path d="M23.9284898 0C10.6966531 0 0 11 0 24.6085c0 10.878 6.85371429 20.086 16.3616327 23.345 1.1887346.245 1.6241632-.5295 1.6241632-1.181 0-.5705-.0391837-2.526-.0391837-4.5635-6.6563265 1.467-8.04244893-2.9335-8.04244893-2.9335-1.06971429-2.852-2.65469388-3.585-2.65469388-3.585-2.17861225-1.5075.15869388-1.5075.15869388-1.5075 2.41665306.163 3.68473473 2.526 3.68473473 2.526 2.1389387 3.748 5.5856326 2.689 6.9722449 2.037.1978775-1.589.8321632-2.689 1.5056326-3.3-5.3088979-.5705-10.8945306-2.689-10.8945306-12.1415 0-2.689.95020408-4.889 2.4558367-6.6-.237551-.611-1.0697143-3.1375.2380408-6.519 0 0 2.0204082-.652 6.576 2.526 1.9504109-.5386687 3.9618381-.8126928 5.9823674-.815 2.0204082 0 4.08.2855 5.9818775.815 4.5560817-3.178 6.5764898-2.526 6.5764898-2.526 1.3077551 3.3815.4751021 5.908.2375511 6.519 1.5453061 1.711 2.4563265 3.911 2.4563265 6.6 0 9.4525-5.5856327 11.53-10.9342041 12.1415.8718367.774 1.6241633 2.2405 1.6241633 4.563 0 3.3-.0391837 5.9485-.0391837 6.763 0 .652.4359184 1.4265 1.6241633 1.182 9.5079183-3.26 16.3617395-12.4675 16.3617395-23.3455C47.8564898 11 37.1206531 0 23.9284898 0Z" />
+</svg>
+</a>
+    </div>
+  </div>
+
+</footer>
+
+
+  <script type="module" src="/public/javascripts/application.js"></script>
+  </body>
+</html>

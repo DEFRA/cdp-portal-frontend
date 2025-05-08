@@ -8,7 +8,7 @@ function transformTestSuiteToSummary(testSuite, repo) {
     ?.filter((team) => team.teamId)
     ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
 
-  const githubUrl = repo.url ?? `https://github.com/DEFRA/${testSuite.name}`
+  const githubUrl = repo?.url ?? `https://github.com/DEFRA/${testSuite.name}`
 
   const subType = renderComponent('tag', {
     text: testSuite.subType,
