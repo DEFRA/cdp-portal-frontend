@@ -7,14 +7,14 @@
   <div class="govuk-main-wrapper app-main-wrapper">
 
     {{ appPageHeading({
-      caption: "Summary",
-      text: "Update database",
-      intro: "Information about the database update you are about to run"
+      caption: "Apply Changelog",
+      text: "Summary",
+      intro: "Information about the database changelog update you are about to run"
     }) }}
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <form action="/update-database/run/{{ multiStepFormId }}" method="post">
+        <form action="/apply-changelog/run/{{ multiStepFormId }}" method="post">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
           {% call appPanel({
@@ -22,14 +22,14 @@
           }) %}
             {{ govukSummaryList({
               classes: "app-summary-list",
-              rows: dbUpdateRows,
-              attributes: { "data-testid": "update-database-summary" }
+              rows: dbApplyChangelogRows,
+              attributes: { "data-testid": "apply-changelog-summary" }
             }) }}
           {% endcall %}
 
           <div class="govuk-!-margin-top-6">
             {{ appButton({
-              text: "Update",
+              text: "Apply",
               loader: {
                 name: "deploy-submit-button"
               }
