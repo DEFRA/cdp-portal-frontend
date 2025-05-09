@@ -1,6 +1,5 @@
-import { testSuiteFixture } from '~/src/__fixtures__/test-suite.js'
-import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
-import { repositoryFixture } from '~/src/__fixtures__/repository.js'
+import { testSuiteFixture } from '~/src/__fixtures__/entity.js'
+import { repositoryTestSuiteFixture } from '~/src/__fixtures__/repository.js'
 import { transformTestSuiteToSummary } from '~/src/server/test-suites/transformers/test-suite-to-summary.js'
 
 describe('#testSuiteToEntityDataList', () => {
@@ -8,7 +7,8 @@ describe('#testSuiteToEntityDataList', () => {
     test('Should provide expected test suite summary transformation', () => {
       expect(
         transformTestSuiteToSummary(
-          repositoryDecorator(testSuiteFixture, repositoryFixture.repository)
+          testSuiteFixture,
+          repositoryTestSuiteFixture.repository
         )
       ).toEqual({
         attributes: {
@@ -38,16 +38,16 @@ describe('#testSuiteToEntityDataList', () => {
             },
             value: {
               html: expect.stringContaining(
-                'https://github.com/DEFRA/cdp-portal-smoke-tests'
+                'https://github.com/DEFRA/cdp-bc-journey-test-suite'
               )
             }
           },
           {
             key: {
-              text: 'Topics'
+              text: 'Type'
             },
             value: {
-              html: expect.stringContaining('frontend')
+              html: expect.stringContaining('Journey')
             }
           },
           {
@@ -55,7 +55,7 @@ describe('#testSuiteToEntityDataList', () => {
               text: 'Created'
             },
             value: {
-              html: expect.stringContaining('Wed 12th Apr 2023 at 17:16')
+              html: expect.stringContaining('Mon 5th Dec 2016 at 11:21')
             }
           }
         ]

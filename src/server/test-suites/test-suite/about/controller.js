@@ -7,13 +7,14 @@ import { provideCanRun } from '~/src/server/test-suites/helpers/pre/provide-can-
 import { testSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results.js'
 import { transformTestSuiteToSummary } from '~/src/server/test-suites/transformers/test-suite-to-summary.js'
 import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
-import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite.js'
 import { provideFormValues } from '~/src/server/test-suites/helpers/pre/provide-form-values.js'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 
 const testSuiteController = {
   options: {
     id: 'test-suites/{serviceId}',
-    pre: [[provideTestSuite], provideCanRun, provideFormValues],
+    pre: [provideCanRun, provideFormValues],
     validate: {
       query: Joi.object({
         page: Joi.number(),
@@ -26,26 +27,27 @@ const testSuiteController = {
     }
   },
   handler: async (request, h) => {
-    const testSuite = request.pre.testSuite
+    const entity = request.app.entity
     const formValues = request.pre.formValues
     const canRun = request.pre.canRun
-    const serviceName = testSuite.serviceName
+    const testSuiteName = entity.name
     const query = request.query
 
+    const { repository } = await fetchRepository(entity.name).catch(nullify404)
+
     const { testRuns, page, pageSize, totalPages } = await fetchTestRuns(
-      serviceName,
+      testSuiteName,
       { page: query?.page, size: query?.size }
     )
     const rows = testRuns.map((test) => testSuiteRunResults(test, canRun))
 
     return h.view('test-suites/test-suite/about/views/test-suite', {
-      pageTitle: `Test Suite - ${serviceName}`,
-      testSuite, // TODO we have both a service and a testSuite here, we should only have 1?
-      service: request.app.service,
+      pageTitle: `Test Suite - ${testSuiteName}`,
+      entity,
+      repository,
       canRun,
-      summaryList: transformTestSuiteToSummary(testSuite),
+      summaryList: transformTestSuiteToSummary(entity, repository),
       formValues,
-      owningTeamIds: testSuite.teams.map((team) => team.teamId),
       shouldPoll: shouldPoll(testRuns),
       tableData: {
         headers: [
@@ -71,7 +73,7 @@ const testSuiteController = {
           href: '/test-suites'
         },
         {
-          text: serviceName
+          text: testSuiteName
         }
       ]
     })

@@ -92,7 +92,7 @@
 
   {{ appPageHeading({
     caption: "Proxy",
-    text: service.serviceName
+    text: entityName
   }) }}
 
 {% endblock %}
@@ -108,7 +108,7 @@
           <section>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy</h2>
             <p>
-              View proxy rules for {{ service.serviceName }} in all CDP environments.
+              View proxy rules for {{ entityName }} in all CDP environments.
               These are rules for allowing outbound traffic from the {{ serviceOrTestSuite }} to anything outside of
               CDP.
             </p>
@@ -133,7 +133,7 @@
                             <a
                               href="{{ routeLookup(pluralServiceOrTest + '/{serviceId}/proxy/{environment}', {
                                 params: {
-                                  serviceId: service.serviceName,
+                                  serviceId: entityName,
                                   environment: envProxy.environment
                                 }
                               }) }}" class="app-link app-link--underline">

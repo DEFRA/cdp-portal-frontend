@@ -3,7 +3,7 @@
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Test Suite",
-    text: service.serviceName
+    text: entity.name
   }) }}
 
 {% endblock %}
@@ -19,7 +19,7 @@
               <section>
                 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
                 <p>
-                  {{ service.description }}
+                  {{ repository.description }}
                 </p>
 
                 {{ govukSummaryList(summaryList) }}
@@ -41,7 +41,7 @@
                         method="post"
                         data-js="app-form-errors">
                     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-                    <input type="hidden" name="imageName" value="{{ testSuite.serviceName }}" />
+                    <input type="hidden" name="imageName" value="{{ entity.name }}" />
 
                     {% call govukFieldset() %}
 
@@ -105,7 +105,7 @@
 
         {% if shouldPoll %}
         <div data-js="app-poll"
-             data-poll-url="/test-suites/{{ service.serviceName }}"
+             data-poll-url="/test-suites/{{ entity.name }}"
              data-poll-interval="3000"
              data-poll-limit="45">
           {% endif %}
@@ -115,7 +115,7 @@
               <section class="govuk-!-margin-bottom-6">
                 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Results</h2>
                 <p>
-                  Results from <em>{{ service.serviceName }}</em> test suite runs
+                  Results from <em>{{ entity.name }}</em> test suite runs
                 </p>
 
                 {{ appEntityTable(tableData) }}

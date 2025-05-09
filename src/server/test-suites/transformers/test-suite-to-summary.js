@@ -3,20 +3,19 @@ import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 
-function transformTestSuiteToSummary(testSuite) {
+function transformTestSuiteToSummary(testSuite, repo) {
   const teams = testSuite?.teams
     ?.filter((team) => team.teamId)
     ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
 
-  const topics = testSuite?.topics?.map((topic) =>
-    renderComponent('tag', {
-      text: topic,
-      url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
-      newWindow: true,
-      link: { classes: 'app-link--without-underline' },
-      attributes: { 'data-testid': 'govuk-tag' }
-    }).trim()
-  )
+  const githubUrl = repo.url ?? `https://github.com/DEFRA/${testSuite.name}`
+
+  const subType = renderComponent('tag', {
+    text: testSuite.subType,
+    newWindow: true,
+    link: { classes: 'app-link--without-underline' },
+    attributes: { 'data-testid': 'govuk-tag' }
+  }).trim()
 
   return {
     classes: 'app-summary-list',
@@ -32,26 +31,26 @@ function transformTestSuiteToSummary(testSuite) {
       },
       {
         key: { text: 'Primary Language' },
-        value: { text: testSuite.primaryLanguage ?? noValue }
+        value: { text: repo?.primaryLanguage ?? noValue }
       },
       {
         key: {
           text: 'GitHub Repository'
         },
         value: {
-          html: buildLink(testSuite.githubUrl)
+          html: buildLink(githubUrl)
         }
       },
       {
-        key: { text: 'Topics' },
+        key: { text: 'Type' },
         value: {
-          html: topics?.length ? topics.join(' ') : noValue
+          html: subType ?? noValue
         }
       },
       {
         key: { text: 'Created' },
         value: {
-          html: renderComponent('time', { datetime: testSuite.createdAt })
+          html: renderComponent('time', { datetime: testSuite.created })
         }
       }
     ]

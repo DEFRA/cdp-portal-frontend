@@ -4,19 +4,17 @@ import { testKind } from '~/src/server/test-suites/constants/test-kind.js'
 
 const logger = createLogger()
 
-function findEnvironmentsForTestSuite(repo) {
-  const topics = repo?.topics
-
-  if (topics?.some((t) => t === testKind.performance)) {
+function findEnvironmentsForTestSuite(entity) {
+  if (entity?.subType === testKind.Performance) {
     return testEnvironments.performance
   }
 
-  if (topics?.some((t) => t === testKind.journey)) {
+  if (entity?.subType === testKind.Journey) {
     return testEnvironments.journey
   }
 
   logger.error(
-    `Unable to detect test suite type for ${repo?.serviceName} from its topics ${topics}`
+    `Unable to detect test suite type for ${entity?.name} from its subType ${entity?.subType}. Defaulting to empty array.`
   )
 
   return []

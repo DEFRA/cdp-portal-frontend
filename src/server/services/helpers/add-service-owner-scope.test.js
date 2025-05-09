@@ -16,7 +16,7 @@ describe('#addServiceOwnerScope', () => {
 
       mockRequest = {
         app: {
-          service: {
+          entity: {
             teams: [{ teamId }]
           }
         },
@@ -57,7 +57,7 @@ describe('#addServiceOwnerScope', () => {
 
       mockRequest = {
         app: {
-          service: {
+          entity: {
             teams: [{ teamId }]
           }
         },
@@ -90,7 +90,7 @@ describe('#addServiceOwnerScope', () => {
 
       mockRequest = {
         app: {
-          service: {
+          entity: {
             teams: [{ teamId: serviceTeamId }]
           }
         },

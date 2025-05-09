@@ -1,8 +1,8 @@
 import { provideDeploymentStatusClassname } from '~/src/server/running-services/helpers/provide-deployment-status-classname.js'
-import { fetchRunningServicesById } from '~/src/server/common/helpers/fetch/fetch-running-services-by-id.js'
+import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
 
 async function transformRunningServices(serviceName) {
-  const runningServices = await fetchRunningServicesById(serviceName)
+  const runningServices = await fetchRunningServices(serviceName)
 
   return {
     runningServices: runningServices?.map((rs) => ({

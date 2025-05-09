@@ -8,10 +8,6 @@ const deploymentsFixture = {
       environment: 'infra-dev',
       service: 'cdp-self-service-ops',
       version: '0.133.0',
-      user: {
-        displayName: 'B. A. Baracus',
-        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
-      },
       cpu: '1024',
       memory: '2048',
       instanceCount: 1,

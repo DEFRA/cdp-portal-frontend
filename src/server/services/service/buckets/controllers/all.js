@@ -16,15 +16,15 @@ const allBucketsController = {
     }
   },
   handler: async (request, h) => {
-    const service = request.app.service
-    const serviceName = service.serviceName
+    const entity = request.app.entity
+    const serviceName = entity.name
     const environments = getEnvironments(request.auth.credentials?.scope)
     const allBuckets = await fetchAllBuckets(serviceName)
     const bucketsByEnvironment = allEnvironmentBuckets(environments, allBuckets)
 
     return h.view('services/service/buckets/views/all', {
       pageTitle: `${serviceName} - Buckets`,
-      service,
+      entity,
       bucketsByEnvironment,
       breadcrumbs: [
         {

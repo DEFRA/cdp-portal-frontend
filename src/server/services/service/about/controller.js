@@ -9,11 +9,13 @@ import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideApiGateways } from '~/src/server/services/service/about/transformers/api-gateways.js'
 import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
 import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
-import { hasScope, scopes } from '~/src/server/common/constants/scopes.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
+import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
+import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 
 const availableEnvironments = ({ userScopes, tenantServiceInfo }) => {
   const environments = getEnvironments(userScopes)
@@ -29,7 +31,8 @@ async function fetchData({ request, serviceName, isPostgres }) {
   promises.push(
     fetchAvailableVersions(serviceName),
     provideVanityUrls(request),
-    provideApiGateways(request)
+    provideApiGateways(request),
+    fetchRepository(serviceName).catch(nullify404)
   )
 
   if (isPostgres) {
@@ -43,6 +46,7 @@ async function fetchData({ request, serviceName, isPostgres }) {
     availableVersions,
     vanityUrls,
     apiGateways,
+    repositoryResponse,
     availableMigrations = [],
     latestMigrations = []
   ] = await Promise.all(promises)
@@ -51,6 +55,7 @@ async function fetchData({ request, serviceName, isPostgres }) {
     availableVersions,
     vanityUrls,
     apiGateways,
+    repository: repositoryResponse?.repository ?? null,
     availableMigrations,
     latestMigrations
   }
@@ -59,7 +64,6 @@ async function fetchData({ request, serviceName, isPostgres }) {
 const serviceController = {
   options: {
     id: 'services/{serviceId}',
-    pre: [provideIsServiceOwner],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -68,30 +72,36 @@ const serviceController = {
     }
   },
   handler: async (request, h) => {
-    const service = request.app.service
+    const entity = request.app.entity
 
-    if (service === null) {
+    if (entity === null) {
       return Boom.notFound()
     }
 
-    const serviceName = service.serviceName
-    const isServiceOwner = request.pre.isServiceOwner
-    const latestCount = 6
-    const hasPostgresPermission = hasScope(
-      request,
+    const serviceName = entity.name
+    const userScopes = request.auth?.credentials?.scope
+    const isServiceOwner = userScopes?.includes(scopes.serviceOwner)
+    const hasPostgresPermission = userScopes?.includes(
       scopes.restrictedTechPostgres
+    )
+    const latestCount = 6
+
+    const tenantServices = await fetchTenantService(serviceName)
+    const isPostgres = Object.values(tenantServices).some(
+      (valueObj) => valueObj.postgres === true
     )
 
     const {
       availableVersions,
       vanityUrls,
       apiGateways,
+      repository,
       availableMigrations: migrations,
       latestMigrations
     } = await fetchData({
       request,
       serviceName,
-      isPostgres: service.isPostgres
+      isPostgres
     })
     const latestPublishedImageVersions = availableVersions
       .sort(sortBy('created'))
@@ -101,13 +111,25 @@ const serviceController = {
     const { runningServices } = await transformRunningServices(serviceName)
 
     const availableServiceEnvironments = availableEnvironments({
-      userScopes: request.auth?.credentials?.scope,
-      tenantServiceInfo: service.tenantServices
+      userScopes,
+      tenantServiceInfo: tenantServices
     })
+
+    const isFrontend = entity.subType === 'Frontend'
+    const isBackend = entity.subType === 'Backend'
+    const description = repository?.description
+
+    const service = {
+      serviceName,
+      isBackend,
+      isFrontend,
+      isPostgres,
+      description
+    }
 
     return h.view('services/service/about/views/service', {
       pageTitle: `${serviceName} microservice`,
-      summaryList: transformServiceToSummary(service),
+      summaryList: transformServiceToSummary(repository, entity),
       vanityUrls,
       apiGateways,
       service,

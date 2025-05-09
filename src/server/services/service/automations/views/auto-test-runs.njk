@@ -5,7 +5,7 @@
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Automatic Test Runs",
-    text: service.serviceName
+    text: entity.name
   }) }}
 {% endblock %}
 
@@ -89,7 +89,7 @@
           </p>
 
           <form
-            action="{{ routeLookup('post:services/{serviceId}/automations/test-runs', { params: { serviceId : service.serviceName } }) }}"
+            action="{{ routeLookup('post:services/{serviceId}/automations/test-runs', { params: { serviceId : entity.name } }) }}"
             method="POST"
             data-js="app-form-group app-form-errors">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />

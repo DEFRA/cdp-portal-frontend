@@ -7,32 +7,29 @@ const mockRouteLookup = jest.fn(
   (id) => `/${id.replace('{serviceId}', mockServiceName)}`
 )
 
-const mockRequest = ({ response, path = '' }) => ({
-  response,
-  path,
-  getUserSession: mockUserSession,
-  userIsServiceOwner: mockUserIsServiceOwner,
-  routeLookup: mockRouteLookup
-})
-
 describe('#provideServiceTabs', () => {
-  const mockSource = {
-    context: {
-      service: {
-        imageName: `${mockServiceName}`
+  const mockRequest = ({ response, path = '' }) => ({
+    response,
+    path,
+    getUserSession: mockUserSession,
+    userIsServiceOwner: mockUserIsServiceOwner,
+    routeLookup: mockRouteLookup,
+    app: {
+      entity: {
+        name: mockServiceName
       }
     }
-  }
+  })
   const mockResponse = {
     variety: 'view',
-    source: mockSource
+    source: {}
   }
   const mockViewHelper = {
     continue: 'mockContinue'
   }
 
   afterEach(() => {
-    mockResponse.source = mockSource
+    mockResponse.source = {}
   })
 
   describe('With an Admin user', () => {
