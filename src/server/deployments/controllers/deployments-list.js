@@ -133,9 +133,12 @@ const deploymentsListController = {
     const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
 
     return h.view('deployments/views/list', {
-      pageTitle: `${formattedEnvironment} deployments`,
-      heading: 'Deployments and Updates',
-      caption: `${formattedEnvironment} microservice deployments and database updates`,
+      pageTitle: `${formattedEnvironment} microservice deployments and database updates`,
+      pageHeading: {
+        caption: formattedEnvironment,
+        text: 'Deployments and updates',
+        intro: `${formattedEnvironment} microservice deployments and database updates`
+      },
       serviceFilters,
       userFilters,
       statusFilters,

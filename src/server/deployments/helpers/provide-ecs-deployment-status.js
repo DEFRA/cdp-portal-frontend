@@ -24,7 +24,7 @@ function provideEcsDeploymentStatus(deployment) {
         message: deployment.lastDeploymentMessage
       }
     default:
-      return { message: '' }
+      return { message: null }
   }
 }
 
