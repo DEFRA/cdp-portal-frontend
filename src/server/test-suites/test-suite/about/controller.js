@@ -48,6 +48,7 @@ const testSuiteController = {
       owningTeamIds: testSuite.teams.map((team) => team.teamId),
       shouldPoll: shouldPoll(testRuns),
       tableData: {
+        isWide: true,
         headers: [
           { id: 'version', text: 'Version', width: '5' },
           { id: 'environment', text: 'Environment', width: '5' },

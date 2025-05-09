@@ -33,6 +33,7 @@ const runningServicesListController = {
     return h.view('running-services/views/list', {
       pageTitle: 'Running Services',
       tableData: {
+        isWide: true,
         headers: [
           ...(isAuthenticated
             ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
