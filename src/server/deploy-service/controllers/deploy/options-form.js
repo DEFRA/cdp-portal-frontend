@@ -31,10 +31,7 @@ const optionsFormController = {
     const multiStepFormId = request.app.multiStepFormId
 
     return h.view('deploy-service/views/options-form', {
-      pageTitle: 'Deploy Service options',
-      heading: 'Options',
-      headingCaption:
-        'Choose Microservice Instance count, CPU and Memory allocation.',
+      pageTitle: 'Deploy service options',
       multiStepFormId,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation,
