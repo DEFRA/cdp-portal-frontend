@@ -76,8 +76,8 @@
             Deployed
           </a>
           {{ appTime({
-            text: runningService.updated | formatDistanceToNow,
-            datetime: runningService.updated
+            text: runningService.created | formatDistanceToNow,
+            datetime: runningService.created
           }) }} ago by {{ runningService.user.displayName }}
         </div>
       </div>
