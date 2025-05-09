@@ -40,6 +40,7 @@ const teamsListController = {
     return h.view('teams/views/list', {
       pageTitle: 'Teams',
       tableData: {
+        isWide: true,
         headers: [
           ...(isAuthenticated
             ? [{ id: 'member', classes: 'app-entity-table__cell--owned' }]

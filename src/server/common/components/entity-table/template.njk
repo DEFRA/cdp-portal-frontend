@@ -2,8 +2,14 @@
 
 {% from "entity/macro.njk" import appEntity with context %}
 
+{% set tableClasses = [
+  "app-entity-table",
+  params.classes if params.classes,
+  "app-entity-table--wide" if params.isWide
+] | join(" ") | trim %}
+
 <article>
-  <table class="app-entity-table" data-testid="app-entity-table">
+  <table class="{{ tableClasses }}" data-testid="app-entity-table">
     <thead class="app-entity-table__head{% if params.head.isInverse %} app-entity-table__head--inverse{% endif %}"
            data-testid="app-entity-table-head">
     <tr>

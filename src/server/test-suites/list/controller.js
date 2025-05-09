@@ -28,6 +28,7 @@ const testSuiteListController = {
     return h.view('test-suites/views/list', {
       pageTitle: 'Test Suites',
       tableData: {
+        isWide: true,
         headers: [
           ...(isAuthenticated
             ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
