@@ -83,12 +83,12 @@
 {% set migrationsTableRows = [] %}
 {% for migration in availableMigrations %}
   {% set migrationButtonHtml %}
-    <a href="{{ routeLookup('update-database/change-details/{multiStepFormId?}', {
+    <a href="{{ routeLookup('apply-changelog/change-details/{multiStepFormId?}', {
       query: { serviceName: service.serviceName, version: migration.version }
     }) }}"
        role="button"
        class="govuk-button app-button app-button--small"
-       data-testid="update-button-{{ migration.version }}">Update</a>
+       data-testid="apply-button-{{ migration.version }}">Apply</a>
   {% endset %}
 
   {% set detailHtml %}
@@ -98,6 +98,12 @@
     </div>
   {% endset %}
 
+  {% set changelogVersionLinkHtml %}
+    <a class="app-link"
+       href="https://github.com/DEFRA/{{ service.serviceName }}/releases/tag/{{ migration.version }}"
+       target="_blank" rel="noopener noreferrer">{{ migration.version }}</a>
+  {% endset %}
+
   {% set kind %}
     {{ appTag({ text: migration.kind | title, classes: "govuk-tag--blue" }) }}
   {% endset %}
@@ -105,14 +111,14 @@
   {% if hasPostgresPermission and (isAdmin or isServiceOwner) %}
     {{ migrationsTableRows.push([
       { html: detailHtml },
-      { html: migration.version },
+      { html: changelogVersionLinkHtml },
       { html: kind },
       { html: migrationButtonHtml, classes: "app-!-text-align-right" }
     ]) }}
   {% else %}
     {{ migrationsTableRows.push([
       { html: detailHtml },
-      { html: migration.version },
+      { html: changelogVersionLinkHtml },
       { html: kind}
     ]) }}
   {% endif %}
@@ -200,8 +206,7 @@
             head: [
               { text: "Published" },
               { text: "Version" },
-              {
-                text: "Action",
+              { text: "Action",
                 classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-5"
               } if isServiceOwner],
             rows: latestPublishedTableRows
@@ -223,10 +228,9 @@
 
       {% if service.isPostgres %}
         <section class="app-grid-service__migrations" data-testid="database-changes">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Changes</h2>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Changelogs</h2>
           <p class="govuk-!-margin-bottom-2">
-            Latest database changes available for this service. To view this services database updates across all
-            available environments go to
+            Latest database changelogs available for this microservice. For more information view
             <a class="app-link"
                href="{{ routeLookup('deployments/{environment}', {
                  query: { service : service.serviceName },
@@ -240,7 +244,7 @@
             { text: "Kind" },
             {
               text: "Action",
-              classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-5"
+              classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-3"
             } if hasPostgresPermission and (isAdmin or isServiceOwner) ] %}
 
           {% if migrationsTableRows | length %}
@@ -274,7 +278,7 @@
       <section class="app-grid-service__run">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
         <p class="govuk-!-margin-bottom-2">
-          The versions of this service currently running on CDP environments. For more information view
+          The versions of this microservice currently running on CDP environments. For more information view
           <a class="app-link" href="/running-services/{{ service.serviceName }}">Running services</a>
         </p>
 
@@ -288,7 +292,7 @@
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Deployments</h2>
           <p class="govuk-!-margin-bottom-6">
-            To view this services deployments across all available environments go to
+            To view microservice deployments across all available environments go to
             <a class="app-link"
                href="{{ routeLookup('deployments/{environment}', {
                  query: { service : service.serviceName },
@@ -300,9 +304,10 @@
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
           <p class="govuk-!-margin-bottom-6">
-            Manage service configuration and set environment variables across CDP environments. For more information
-            see our <a class="app-link" href="/documentation/how-to/config.md">documentation for service config</a>.
-            To view this services configuration go to
+            Manage microservice configuration and set environment variables across CDP environments. For more
+            information see our <a class="app-link" href="/documentation/how-to/config.md">documentation for service
+              config</a>.
+            To view this microservices configuration go to
             <a class="app-link"
                href="https://github.com/DEFRA/cdp-app-config/tree/main/services/{{ service.serviceName }}"
                target="_blank"
@@ -313,8 +318,8 @@
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Continuous Integration</h2>
           <p class="govuk-!-margin-bottom-0">
-            Test, build and publish ready-to-deploy docker images of this service with CI and GitHub
-            Actions workflows. This service is built and published by GitHub Actions and comes with a number of
+            Test, build and publish ready-to-deploy docker images of this microservice with CI and GitHub
+            Actions workflows. This microservice is built and published by GitHub Actions and comes with a number of
             useful CDP Workflows. To view these workflows and builds go to
             <a class="app-link" target="_blank" rel="noopener noreferrer"
                href="https://github.com/DEFRA/{{ service.serviceName }}/actions">

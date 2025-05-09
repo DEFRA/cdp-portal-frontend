@@ -6,7 +6,7 @@ import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fet
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
-import { dbChangeValidation } from '~/src/server/update-database/helpers/schema/db-change-validation.js'
+import { dbChangeValidation } from '~/src/server/apply-changelog/helpers/schema/db-change-validation.js'
 
 const changeDetailsController = {
   options: {
@@ -53,7 +53,7 @@ const changeDetailsController = {
       )
 
       return h.redirect(
-        `/update-database/change-details/${multiStepFormId}${queryString}`
+        `/apply-changelog/change-details/${multiStepFormId}${queryString}`
       )
     }
 
@@ -72,7 +72,7 @@ const changeDetailsController = {
       )
 
       return h.redirect(
-        `/update-database/change-details/${multiStepFormId}${queryString}`
+        `/apply-changelog/change-details/${multiStepFormId}${queryString}`
       )
     }
 
@@ -80,8 +80,8 @@ const changeDetailsController = {
       await request.app.saveStepData(multiStepFormId, payload, h)
 
       const redirectTo = redirectLocation
-        ? `/update-database/${redirectLocation}/${multiStepFormId}`
-        : `/update-database/summary/${multiStepFormId}`
+        ? `/apply-changelog/${redirectLocation}/${multiStepFormId}`
+        : `/apply-changelog/summary/${multiStepFormId}`
 
       return h.redirect(redirectTo)
     }

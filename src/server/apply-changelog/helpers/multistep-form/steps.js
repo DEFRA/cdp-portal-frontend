@@ -1,7 +1,7 @@
 /** @type {Record<string, string>} */
 const urls = {
-  stepOne: '/update-database/change-details',
-  stepTwo: '/update-database/summary'
+  stepOne: '/apply-changelog/change-details',
+  stepTwo: '/apply-changelog/summary'
 }
 
 /**

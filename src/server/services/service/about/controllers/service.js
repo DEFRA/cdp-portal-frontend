@@ -100,6 +100,7 @@ const serviceController = {
 
     const { runningServices } = await transformRunningServices(serviceName)
 
+    // TODO fix
     const availableServiceEnvironments = availableEnvironments({
       userScopes: request.auth?.credentials?.scope,
       tenantServiceInfo: service.tenantServices

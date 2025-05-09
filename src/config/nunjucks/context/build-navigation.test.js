@@ -204,8 +204,8 @@ describe('#buildNavigation', () => {
           actions: [
             {
               isActive: false,
-              text: 'Update Database',
-              url: '/update-database'
+              text: 'Apply Changelog',
+              url: '/apply-changelog'
             },
             {
               isActive: false,

@@ -19,7 +19,7 @@ async function buildNavigation(request) {
   const deployServicePath = request.routeLookup('deploy-service')
   const createPath = request.routeLookup('create')
   const adminPath = request.routeLookup('admin')
-  const updateDatabasePath = request.routeLookup('update-database')
+  const applyChangelogPath = request.routeLookup('apply-changelog')
 
   const actions = (authedUser?.isTenant || authedUser?.isAdmin) && [
     {
@@ -80,9 +80,9 @@ async function buildNavigation(request) {
 
   if (hasPostgresPermission) {
     actions.unshift({
-      text: 'Update Database',
-      url: updateDatabasePath,
-      isActive: request?.path?.includes(updateDatabasePath)
+      text: 'Apply Changelog',
+      url: applyChangelogPath,
+      isActive: request?.path?.includes(applyChangelogPath)
     })
   }
 
