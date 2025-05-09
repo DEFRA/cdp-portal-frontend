@@ -40,10 +40,7 @@ const detailsFormController = {
       await getAdditionalData(imageName)
 
     return h.view('deploy-service/views/details-form', {
-      pageTitle: 'Deploy Service details',
-      heading: 'Details',
-      headingCaption:
-        'Provide the microservice image name, version and environment to deploy to.',
+      pageTitle: 'Deploy service details',
       formButtonText: redirectLocation ? 'save' : 'next',
       redirectLocation,
       multiStepFormId,

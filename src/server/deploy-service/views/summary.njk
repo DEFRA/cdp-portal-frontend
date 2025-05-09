@@ -6,9 +6,10 @@
 
   <div class="govuk-main-wrapper app-main-wrapper">
 
-    {{ appHeading({
-      title: heading,
-      caption: headingCaption
+    {{ appPageHeading({
+      caption: "Deploy service",
+      text: "Summary",
+      intro: "Information about the microservice you are going to deploy"
     }) }}
 
     <div class="govuk-grid-row">
@@ -32,9 +33,9 @@
             }) }}
           {% endcall %}
 
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
-
           {% call appPanel() %}
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
+
             <section>
               <div class="app-row">
                 <div class="app-row__item-flex-two">

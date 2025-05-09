@@ -1,5 +1,4 @@
 import qs from 'qs'
-import startCase from 'lodash/startCase.js'
 
 function buildRow(multiStepDataSessionId) {
   return (text, value, stepPath) => {
@@ -39,7 +38,7 @@ function deploymentRows(
   return [
     row('Image name', details.imageName, 'details'),
     row('Image version', details.version, 'details'),
-    row('Environment', startCase(details.environment), 'details'),
+    row('Environment', details.environment, 'details'),
     row('Instance count', details.instanceCount, 'options'),
     row('CPU size', cpuDetail?.text, 'options'),
     row('Memory allocation', memoryDetail?.text, 'options')

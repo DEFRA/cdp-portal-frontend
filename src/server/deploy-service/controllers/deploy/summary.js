@@ -41,10 +41,7 @@ const summaryController = {
     const configVersion = await fetchLatestConfigVersion(stepData.environment)
 
     return h.view('deploy-service/views/summary', {
-      pageTitle: 'Deploy Service summary',
-      heading: 'Deployment summary',
-      headingCaption:
-        'Information about the Microservice you are going to deploy.',
+      pageTitle: 'Deploy service summary',
       helpText: buildHelpText(cpuDetail?.value, memoryDetail?.value),
       deploymentRows: deploymentRows(
         stepData,
