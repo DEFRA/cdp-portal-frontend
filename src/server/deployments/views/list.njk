@@ -2,10 +2,7 @@
 
 {% block beforeTabContent %}
 
-  {{ appHeading({
-    title: heading,
-    caption: caption
-  }) }}
+  {{ appPageHeading(pageHeading) }}
 
   {% call appFilters({
     action: "/deployments/" + environment,

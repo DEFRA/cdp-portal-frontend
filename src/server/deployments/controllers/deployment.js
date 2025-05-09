@@ -1,12 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import isNull from 'lodash/isNull.js'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
+import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
+import { transformDeploymentToSummary } from '~/src/server/deployments/transformers/deployment-to-summary.js'
 import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 
@@ -28,19 +29,19 @@ const deploymentController = {
     const deployment = request.pre.deployment
     const environment = deployment.environment
     const formattedEnvironment = formatText(environment)
-
-    // TODO update to use new polling helpers
-    if (isNull(deployment)) {
-      return null
-    }
-
     const secretDetail = transformSecrets(deployment.secrets)
+    const ecsDeployment = provideEcsDeploymentStatus(deployment)
 
     return h.view('deployments/views/deployment', {
       pageTitle: `${deployment.service} ${deployment.version} deployment - ${formattedEnvironment}`,
-      heading: `${formattedEnvironment} deployment`,
-      caption: `Microservice deployment for <strong>${deployment.service}</strong>, version <strong>${deployment.version}</strong>`,
+      pageHeading: {
+        caption: 'Microservice deployment',
+        text: deployment.service,
+        intro: `Microservice deployment for <strong>${deployment.service}</strong>, version <strong>${deployment.version}</strong> in <strong>${deployment.environment}</strong>`
+      },
       deployment,
+      shouldPoll: deployment.status !== deploymentStatus.running,
+      summaryList: transformDeploymentToSummary(deployment, ecsDeployment),
       secretDetail,
       teams: deployment?.teams?.filter((team) => team.teamId),
       breadcrumbs: [
@@ -55,8 +56,7 @@ const deploymentController = {
         {
           text: `${deployment.service} - ${deployment.version}`
         }
-      ],
-      ecsDeployment: provideEcsDeploymentStatus(deployment)
+      ]
     })
   }
 }

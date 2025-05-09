@@ -31,7 +31,7 @@ function transformMigrationToSummary(migration) {
     },
     rows: [
       {
-        key: { text: 'Service Name' },
+        key: { text: 'Microservice name' },
         value: {
           html: buildLink(
             `/services/${migration.service}`,
@@ -45,8 +45,15 @@ function transformMigrationToSummary(migration) {
         value: { text: migration.environment ?? noValue }
       },
       {
-        key: { text: 'Version' },
-        value: { text: migration.version ?? noValue }
+        key: { text: 'Changelog version' },
+        value: {
+          html: migration.version
+            ? buildLink(
+                `https://github.com/DEFRA/${migration.service}/releases/tag/${migration.version}`,
+                migration.version
+              )
+            : noValue
+        }
       },
       {
         key: {
@@ -67,13 +74,13 @@ function transformMigrationToSummary(migration) {
                     classes: 'app-icon--small govuk-!-margin-right-1'
                   })}
                   ${renderComponent('tag', {
-                    text: formatText(migration.kind)
+                    text: `Database update - ${migration.kind}`
                   })}
                 </div>`
         }
       },
       {
-        key: { text: 'Deployed By' },
+        key: { text: 'Deployed by' },
         value: {
           text: sanitiseUser(migration.user?.displayName)
         }
