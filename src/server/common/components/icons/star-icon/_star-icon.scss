@@ -1,8 +1,6 @@
 @use "govuk-frontend" as *;
 
 .app-star-icon {
-  background-color: govuk-colour("white");
   fill: govuk-colour("yellow");
   padding: 2px;
-  border-radius: 50%;
 }
