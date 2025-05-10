@@ -27,7 +27,7 @@ const buildMembers = (team, withActions) =>
       value: {
         html: `<div class="app-!-layout-flex-start">${
           renderIcon('user-icon', {
-            classes: 'app-icon--minute govuk-!-margin-right-1'
+            classes: 'app-icon--minuscule govuk-!-margin-right-1'
           }) + user.name
         }</div>`
       },

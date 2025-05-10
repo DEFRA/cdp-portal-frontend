@@ -14,259 +14,136 @@ describe('#deploymentToEntityRow', () => {
     deploymentsWithMigrationsFixture.data
   )
 
-  describe('When authenticated', () => {
-    test('Should provide expected table rows', () => {
-      const rowBuilder = deploymentToEntityRow(true)
-
-      expect(deploymentsWithTeams.map(rowBuilder)).toEqual([
-        {
-          cells: [
-            {
-              classes: 'app-entity-table__cell--owned',
-              entity: {
-                kind: 'html',
-                value: ''
-              },
-              headers: 'owner',
-              isCentered: true
+  test('Should provide expected table rows', () => {
+    expect(deploymentsWithTeams.map(deploymentToEntityRow)).toEqual([
+      {
+        cells: [
+          {
+            classes: 'app-entity-table__cell--owned',
+            entity: {
+              kind: 'html',
+              value: ''
             },
-            {
-              headers: 'description',
-              html: expect.stringContaining('cdp-example-node-postgres-be')
+            headers: 'owner',
+            isCentered: true
+          },
+          {
+            headers: 'description',
+            html: expect.stringContaining('cdp-example-node-postgres-be')
+          },
+          {
+            entity: {
+              kind: 'link',
+              newWindow: true,
+              url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.356.0',
+              value: '0.356.0'
             },
-            {
-              entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.356.0',
-                value: '0.356.0'
-              },
-              headers: 'version'
+            headers: 'version'
+          },
+          {
+            entity: {
+              classes: 'govuk-tag--green',
+              kind: 'tag',
+              value: 'Running'
             },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Running'
-              },
-              headers: 'status'
+            headers: 'status'
+          },
+          {
+            entity: {
+              classes: 'govuk-tag--blue',
+              kind: 'tag',
+              value: 'Deployment'
             },
-            {
-              entity: {
-                classes: 'govuk-tag--blue',
-                kind: 'tag',
-                value: 'Deployment'
-              },
-              headers: 'kind'
+            headers: 'kind'
+          },
+          {
+            entity: {
+              kind: 'text',
+              value: 'Mumm-ra'
             },
-            {
-              entity: {
-                kind: 'text',
-                value: 'Mumm-ra'
-              },
-              headers: 'by'
+            headers: 'by'
+          },
+          {
+            entity: {
+              kind: 'group',
+              value: null
             },
-            {
-              entity: {
-                kind: 'group',
-                value: null
-              },
-              headers: 'team'
+            headers: 'team'
+          },
+          {
+            entity: {
+              kind: 'date',
+              value: '2025-04-30T14:48:34.001Z',
+              withSeconds: true
             },
-            {
-              entity: {
-                kind: 'date',
-                value: '2025-04-30T14:48:34.001Z',
-                withSeconds: true
-              },
-              headers: 'started'
-            }
-          ]
-        },
-        {
-          cells: [
-            {
-              classes: 'app-entity-table__cell--owned',
-              entity: {
-                kind: 'html',
-                value: ''
-              },
-              headers: 'owner',
-              isCentered: true
+            headers: 'started'
+          }
+        ]
+      },
+      {
+        cells: [
+          {
+            classes: 'app-entity-table__cell--owned',
+            entity: {
+              kind: 'html',
+              value: ''
             },
-            {
-              headers: 'description',
-              html: expect.stringContaining('cdp-example-node-postgres-be')
+            headers: 'owner',
+            isCentered: true
+          },
+          {
+            headers: 'description',
+            html: expect.stringContaining('cdp-example-node-postgres-be')
+          },
+          {
+            entity: {
+              kind: 'link',
+              newWindow: true,
+              url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.8.0',
+              value: '0.8.0'
             },
-            {
-              entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.8.0',
-                value: '0.8.0'
-              },
-              headers: 'version'
+            headers: 'version'
+          },
+          {
+            entity: {
+              classes: 'govuk-tag--grey',
+              kind: 'tag',
+              value: 'Succeeded'
             },
-            {
-              entity: {
-                classes: 'govuk-tag--grey',
-                kind: 'tag',
-                value: 'Succeeded'
-              },
-              headers: 'status'
+            headers: 'status'
+          },
+          {
+            entity: {
+              classes: 'govuk-tag--blue',
+              kind: 'tag',
+              value: 'Deployment'
             },
-            {
-              entity: {
-                classes: 'govuk-tag--blue',
-                kind: 'tag',
-                value: 'Deployment'
-              },
-              headers: 'kind'
+            headers: 'kind'
+          },
+          {
+            entity: {
+              kind: 'text',
+              value: 'B. A. Baracus'
             },
-            {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'by'
+            headers: 'by'
+          },
+          {
+            entity: {
+              kind: 'group',
+              value: null
             },
-            {
-              entity: {
-                kind: 'group',
-                value: null
-              },
-              headers: 'team'
+            headers: 'team'
+          },
+          {
+            entity: {
+              kind: 'date',
+              value: '2025-04-30T09:21:54.816Z',
+              withSeconds: true
             },
-            {
-              entity: {
-                kind: 'date',
-                value: '2025-04-30T09:21:54.816Z',
-                withSeconds: true
-              },
-              headers: 'started'
-            }
-          ]
-        }
-      ])
-    })
-  })
-
-  describe('When not authenticated', () => {
-    test('Should provide expected table rows', () => {
-      const rowBuilder = deploymentToEntityRow(false)
-
-      expect(deploymentsWithTeams.map(rowBuilder)).toEqual([
-        {
-          cells: [
-            {
-              headers: 'description',
-              html: expect.stringContaining('cdp-example-node-postgres-be')
-            },
-            {
-              entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.356.0',
-                value: '0.356.0'
-              },
-              headers: 'version'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Running'
-              },
-              headers: 'status'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--blue',
-                kind: 'tag',
-                value: 'Deployment'
-              },
-              headers: 'kind'
-            },
-            {
-              entity: {
-                kind: 'text',
-                value: 'Mumm-ra'
-              },
-              headers: 'by'
-            },
-            {
-              entity: {
-                kind: 'group',
-                value: null
-              },
-              headers: 'team'
-            },
-            {
-              entity: {
-                kind: 'date',
-                value: '2025-04-30T14:48:34.001Z',
-                withSeconds: true
-              },
-              headers: 'started'
-            }
-          ]
-        },
-        {
-          cells: [
-            {
-              headers: 'description',
-              html: expect.stringContaining('cdp-example-node-postgres-be')
-            },
-            {
-              entity: {
-                kind: 'link',
-                newWindow: true,
-                url: 'https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/0.8.0',
-                value: '0.8.0'
-              },
-              headers: 'version'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--grey',
-                kind: 'tag',
-                value: 'Succeeded'
-              },
-              headers: 'status'
-            },
-            {
-              entity: {
-                classes: 'govuk-tag--blue',
-                kind: 'tag',
-                value: 'Deployment'
-              },
-              headers: 'kind'
-            },
-            {
-              entity: {
-                kind: 'text',
-                value: 'B. A. Baracus'
-              },
-              headers: 'by'
-            },
-            {
-              entity: {
-                kind: 'group',
-                value: null
-              },
-              headers: 'team'
-            },
-            {
-              entity: {
-                kind: 'date',
-                value: '2025-04-30T09:21:54.816Z',
-                withSeconds: true
-              },
-              headers: 'started'
-            }
-          ]
-        }
-      ])
-    })
+            headers: 'started'
+          }
+        ]
+      }
+    ])
   })
 })

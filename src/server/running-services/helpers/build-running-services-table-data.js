@@ -40,7 +40,6 @@ function getFilters(runningServicesFilters) {
 
 async function buildRunningServicesTableData({ pre, query }) {
   const authedUser = pre.authedUser
-  const isAuthenticated = authedUser?.isAuthenticated
   const environments = getEnvironments(authedUser?.scope)
   const userScopeUUIDs = authedUser?.uuidScope ?? []
 
@@ -66,12 +65,11 @@ async function buildRunningServicesTableData({ pre, query }) {
   })
 
   const ownerSorter = sortByOwner('serviceName')
-  const decorator = runningServiceToEntityRow(environments, isAuthenticated)
+  const decorator = runningServiceToEntityRow(environments)
   const rows = services.toSorted(ownerSorter).map(decorator)
 
   return {
     environments,
-    isAuthenticated,
     rows,
     serviceFilters,
     userFilters,

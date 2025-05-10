@@ -1,15 +1,22 @@
+import { pagination } from '~/src/server/common/constants/pagination.js'
+
 function clearFilters(event) {
   event.preventDefault()
 
-  const queryParams = new URLSearchParams(window.location.search)
+  const preserveKeys = ['page', 'size']
+  const searchParams = new URLSearchParams(window.location.search)
 
-  queryParams.delete('service')
-  queryParams.delete('team')
-  queryParams.delete('teamId')
-  queryParams.delete('user')
-  queryParams.delete('status')
+  for (const [key] of searchParams.entries()) {
+    if (!preserveKeys.includes(key)) {
+      searchParams.delete(key)
+    }
+    if (preserveKeys.includes(key)) {
+      // reset pagination to defaults
+      searchParams.set(key, pagination[key])
+    }
+  }
 
-  window.location.search = queryParams.toString()
+  window.location.search = searchParams.toString()
 }
 
 export { clearFilters }

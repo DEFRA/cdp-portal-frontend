@@ -21,7 +21,6 @@ const servicesListController = {
   },
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
-    const isAuthenticated = authedUser?.isAuthenticated
     const userScopeUUIDs = authedUser?.uuidScope ?? []
     const service = request.query.service
     const teamId = request.query.teamId
@@ -29,7 +28,6 @@ const servicesListController = {
     const { rows, servicesCount, filters } = await buildServicesTableData({
       service,
       teamId,
-      isAuthenticated,
       userScopeUUIDs
     })
 
@@ -38,10 +36,8 @@ const servicesListController = {
       tableData: {
         isWide: true,
         headers: [
-          ...(isAuthenticated
-            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
-            : []),
-          { id: 'service', text: 'Service', width: '20' },
+          { id: 'owner', classes: 'app-entity-table__cell--owned' },
+          { id: 'service', text: 'Service', width: '20', isLeftAligned: true },
           { id: 'team', text: 'Team', width: '15' },
           { id: 'kind', text: 'Kind', width: '10' },
           { id: 'github-url', text: 'GitHub Repository', width: '35' },

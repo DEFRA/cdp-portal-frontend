@@ -9,8 +9,6 @@ describe('#runningServiceToEntityRow', () => {
   const allEnvironments = Object.values(environments).map(
     (env) => env.kebabName
   )
-  const isAuthenticated = true
-
   const runningServices = whatsRunningWhereFixture
   const deployableServices = servicesFixture
   const userScopeUUIDs = [adminGroupId]
@@ -24,10 +22,7 @@ describe('#runningServiceToEntityRow', () => {
 
   describe('When authenticated', () => {
     test('Should return the correct row structure', () => {
-      const result = runningServiceToEntityRow(
-        allEnvironments,
-        isAuthenticated
-      )(firstService)
+      const result = runningServiceToEntityRow(allEnvironments)(firstService)
 
       expect(result).toEqual({
         cells: [
@@ -92,76 +87,14 @@ describe('#runningServiceToEntityRow', () => {
     })
   })
 
-  describe('When not authenticated', () => {
-    test('Should return the correct row structure', () => {
-      const result = runningServiceToEntityRow(
-        allEnvironments,
-        false
-      )(firstService)
-
-      expect(result).toEqual({
-        cells: [
-          {
-            entity: {
-              kind: 'link',
-              url: '/running-services/cdp-portal-frontend',
-              value: 'cdp-portal-frontend'
-            },
-            headers: 'service'
-          },
-          {
-            entity: {
-              kind: 'group',
-              value: [
-                {
-                  kind: 'link',
-                  url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                  value: 'Platform'
-                }
-              ]
-            },
-            headers: 'team'
-          },
-          {
-            entity: {
-              kind: 'html',
-              value: expect.stringContaining('Running in Infra-dev')
-            },
-            headers: 'infra-dev',
-            isSlim: true
-          },
-          expect.objectContaining({
-            headers: 'management'
-          }),
-          expect.objectContaining({
-            headers: 'dev'
-          }),
-          expect.objectContaining({
-            headers: 'test'
-          }),
-          expect.objectContaining({
-            headers: 'ext-test'
-          }),
-          expect.objectContaining({
-            headers: 'perf-test'
-          }),
-          expect.objectContaining({
-            headers: 'prod'
-          })
-        ]
-      })
-    })
-  })
-
   test('Should handle services without environments', () => {
     const serviceDataWithoutEnvironments = {
       ...firstService,
       environments: {}
     }
-    const result = runningServiceToEntityRow(
-      allEnvironments,
-      isAuthenticated
-    )(serviceDataWithoutEnvironments)
+    const result = runningServiceToEntityRow(allEnvironments)(
+      serviceDataWithoutEnvironments
+    )
     expect(result).toEqual({
       cells: [
         {
