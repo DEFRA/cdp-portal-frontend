@@ -26,8 +26,7 @@ const runningServicesListController = {
       userFilters,
       statusFilters,
       teamFilters,
-      environments,
-      isAuthenticated
+      environments
     } = await buildRunningServicesTableData(request)
 
     return h.view('running-services/views/list', {
@@ -35,10 +34,8 @@ const runningServicesListController = {
       tableData: {
         isWide: true,
         headers: [
-          ...(isAuthenticated
-            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
-            : []),
-          { id: 'service', text: 'Service', width: '15' },
+          { id: 'owner', classes: 'app-entity-table__cell--owned' },
+          { id: 'service', text: 'Service', width: '15', isLeftAligned: true },
           { id: 'team', text: 'Team', width: '15' },
           ...environments.map((env) => ({
             id: env.toLowerCase(),

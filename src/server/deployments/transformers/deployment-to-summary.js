@@ -135,7 +135,7 @@ function transformDeploymentToSummary(deployment, ecsDeployment) {
                     classes: 'app-icon--small govuk-!-margin-right-1'
                   })}
                   ${renderComponent('tag', {
-                    text: 'Microservice deployment'
+                    text: 'Deployment'
                   })}
                 </div>`
         }

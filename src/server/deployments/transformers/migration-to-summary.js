@@ -74,7 +74,7 @@ function transformMigrationToSummary(migration) {
                     classes: 'app-icon--small govuk-!-margin-right-1'
                   })}
                   ${renderComponent('tag', {
-                    text: `Database update - ${migration.kind}`
+                    text: 'Update'
                   })}
                 </div>`
         }

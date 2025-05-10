@@ -27,25 +27,21 @@ const teamsListController = {
   },
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
-    const isAuthenticated = authedUser?.isAuthenticated
     const userScopeUUIDs = authedUser?.uuidScope ?? []
 
     const { teams } = await fetchTeams()
 
     const teamDecorator = belongsToTeam(userScopeUUIDs)
-    const rowBuilder = teamToEntityRow(isAuthenticated, userScopeUUIDs)
     const rows =
-      teams?.map(teamDecorator).toSorted(sortByTeam).map(rowBuilder) ?? []
+      teams?.map(teamDecorator).toSorted(sortByTeam).map(teamToEntityRow) ?? []
 
     return h.view('teams/views/list', {
       pageTitle: 'Teams',
       tableData: {
         isWide: true,
         headers: [
-          ...(isAuthenticated
-            ? [{ id: 'member', classes: 'app-entity-table__cell--owned' }]
-            : []),
-          { id: 'name', text: 'Name', width: '15' },
+          { id: 'member', classes: 'app-entity-table__cell--owned' },
+          { id: 'name', text: 'Name', width: '15', isLeftAligned: true },
           { id: 'github-team', text: 'GitHub Team', width: '15' },
           { id: 'user-count', text: 'Members', width: '5' },
           { id: 'updated', text: 'Last Updated', width: '30' },
