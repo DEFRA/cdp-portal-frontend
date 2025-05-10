@@ -1,16 +1,16 @@
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
-import { summaryController } from '~/src/server/update-database/controllers/summary.js'
+import { summaryController } from '~/src/server/apply-changelog/controllers/summary.js'
 import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form.js'
-import { startUpdateDatabaseController } from '~/src/server/update-database/controllers/start-update-database.js'
-import { availableMigrationsController } from '~/src/server/update-database/controllers/available-migrations.js'
-import { changeDetailsFormController } from '~/src/server/update-database/controllers/change-details-form.js'
-import { changeDetailsController } from '~/src/server/update-database/controllers/change-details.js'
-import { updateController } from '~/src/server/update-database/controllers/update.js'
+import { availableMigrationsController } from '~/src/server/apply-changelog/controllers/available-migrations.js'
+import { changeDetailsFormController } from '~/src/server/apply-changelog/controllers/change-details-form.js'
+import { changeDetailsController } from '~/src/server/apply-changelog/controllers/change-details.js'
+import { applyController } from '~/src/server/apply-changelog/controllers/apply.js'
+import { startApplyChangelogController } from '~/src/server/apply-changelog/controllers/start-apply-changelog.js'
 import {
   urls,
   formSteps
-} from '~/src/server/update-database/helpers/multistep-form/steps.js'
+} from '~/src/server/apply-changelog/helpers/multistep-form/steps.js'
 
 const serviceTeamAndAdminWithPostgresRestrictedTechUserScope = authScope([
   scopes.tenant,
@@ -19,12 +19,12 @@ const serviceTeamAndAdminWithPostgresRestrictedTechUserScope = authScope([
 ])
 
 /**
- * The update database schema plugin
+ * The apply changelog plugin
  * @satisfies {import('@hapi/hapi').Plugin}
  */
-const updateDatabase = {
+const applyChangelog = {
   plugin: {
-    name: 'updateDatabase',
+    name: 'applyChangelog',
     register: async (server) => {
       await server.register({
         plugin: multistepForm,
@@ -35,28 +35,28 @@ const updateDatabase = {
           routes: [
             {
               method: 'GET',
-              path: '/update-database',
-              ...startUpdateDatabaseController
+              path: '/apply-changelog',
+              ...startApplyChangelogController
             },
             {
               method: 'GET',
-              path: '/update-database/change-details/{multiStepFormId?}',
+              path: '/apply-changelog/change-details/{multiStepFormId?}',
               ...changeDetailsFormController
             },
             {
               method: 'POST',
-              path: '/update-database/change-details/{multiStepFormId?}',
+              path: '/apply-changelog/change-details/{multiStepFormId?}',
               ...changeDetailsController
             },
             {
               method: 'GET',
-              path: '/update-database/summary/{multiStepFormId}',
+              path: '/apply-changelog/summary/{multiStepFormId}',
               ...summaryController
             },
             {
               method: 'POST',
-              path: '/update-database/run/{multiStepFormId}',
-              ...updateController
+              path: '/apply-changelog/run/{multiStepFormId}',
+              ...applyController
             }
           ].map(serviceTeamAndAdminWithPostgresRestrictedTechUserScope)
         }
@@ -66,7 +66,7 @@ const updateDatabase = {
         [
           {
             method: 'GET',
-            path: '/update-database/available-migrations',
+            path: '/apply-changelog/available-migrations',
             ...availableMigrationsController
           }
         ].map(serviceTeamAndAdminWithPostgresRestrictedTechUserScope)
@@ -75,4 +75,4 @@ const updateDatabase = {
   }
 }
 
-export { updateDatabase }
+export { applyChangelog }

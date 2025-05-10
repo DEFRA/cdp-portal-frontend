@@ -3,11 +3,7 @@
 {% block content %}
 
   {% block beforeTabContent %}
-    {{ appPageHeading({
-      caption: caption,
-      text: heading,
-      intro: intro
-    }) }}
+    {{ appPageHeading(pageHeading) }}
   {% endblock %}
 
   <div class="govuk-main-wrapper app-main-wrapper">
@@ -18,7 +14,6 @@
          data-poll-interval="3000"
          data-poll-limit="45">
       {% endif %}
-
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
@@ -56,6 +51,5 @@
       </div>
 
       {% if shouldPoll %}</div>{% endif %}
-
   </div>
 {% endblock %}

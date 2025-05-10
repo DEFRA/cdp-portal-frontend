@@ -4,23 +4,31 @@
 {% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
 
-{% set latestDbUpdatesTableRows = [] %}
+{% set latestDbChangelogTableRows = [] %}
 {% for dbChange in latestDbChanges %}
 
   {% set createdHtml %}
     <div class="app-row">
-      {{ appSchemaIcon({ classes: "app-icon--small", description: "Database Update " + dbChange.version }) }}
+      {{ appSchemaIcon({ classes: "app-icon--small", description: "Database changelog " + dbChange.version }) }}
       {{ appTime({ datetime: dbChange.created, classes: "govuk-!-margin-left-2" }) }}
     </div>
+  {% endset %}
+
+  {% set changelogVersionLinkHtml %}
+    <a class="app-link"
+       href="https://github.com/DEFRA/{{ serviceName }}/releases/tag/{{ dbChange.version }}"
+       target="_blank" rel="noopener noreferrer" data-testid="latest-migration-version-link">
+      {{ dbChange.version }}
+    </a>
   {% endset %}
 
   {% set kind %}
     {{ appTag({ text: dbChange.kind | title }) }}
   {% endset %}
 
-  {{ latestDbUpdatesTableRows.push([
+  {{ latestDbChangelogTableRows.push([
     { html: createdHtml },
-    { html: dbChange.version, attributes: { "data-testid": "latest-migration-version" } },
+    { html: changelogVersionLinkHtml },
     { html: kind }
   ]) }}
 {% endfor %}
@@ -32,14 +40,15 @@
   <div class="govuk-main-wrapper app-main-wrapper">
 
     {{ appPageHeading({
-      caption: "Update database",
+      caption: "Apply changelog",
       text: "Details",
-      intro: "Provide the microservice service name, database update version and environment"
+      intro: "Provide the microservice name, database changelog version and environment you wish to apply your
+      database changes to"
     }) }}
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <form action="/update-database/change-details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}"
+        <form action="/apply-changelog/change-details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}"
               method="post"
               data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
@@ -51,11 +60,11 @@
               id: "service-name",
               name: "serviceName",
               label: {
-                text: "Service Name",
+                text: "Microservice name",
                 classes: "app-label"
               },
               hint: {
-                text: "Postgres service name connected to the database that will be updated"
+                text: "Microservice connected to the database you want to update"
               },
               value: serviceName or formValues.serviceName,
               errorMessage: errorMessageHelper(formErrors.serviceName.message),
@@ -72,11 +81,11 @@
               id: "version",
               name: "version",
               label: {
-                text: "Version",
+                text: "Changelog version",
                 classes: "app-label"
               },
               hint: {
-                text: "Database update version to use"
+                text: "Database changelog version to apply to your database"
               },
               template: "advanced",
               value: formValues.version,
@@ -112,7 +121,7 @@
               classes: "app-select",
               value: formValues.environment,
               hint: {
-                text: "The environment to run your database update on",
+                text: "The environment to run your database changelog update on",
                 classes: "app-hint"
               },
               formGroup: {
@@ -137,31 +146,26 @@
       {% block xhrContent %}
         <div class="govuk-grid-column-two-thirds-from-desktop-wide">
           {% call appXhrSubscriber({
-            id: "update-data",
+            id: "apply-changelog",
             subscribeTo: eventName.autocompleteUpdate + "db-update-version",
-            xhrUrl: "/update-database/change-details"
+            xhrUrl: "/apply-changelog/change-details"
           }) %}
 
             {% call appPanel() %}
               <section class="app-row">
                 <div class="app-row__item-flex-two">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Database Changes</h2>
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Database Changelogs</h2>
                   <p>
-                    Latest database changes available{%- if serviceName %} for {{ serviceName }}{% endif -%}
+                    Latest database changelogs available{%- if serviceName %} for {{ serviceName }}{% endif -%}
                   </p>
 
                   <div class="app-section">
-                    {% if latestDbUpdatesTableRows | length %}
+                    {% if latestDbChangelogTableRows | length %}
                       {{ govukTable({
                         classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
                         head: [{ text: "Created" }, { text: "Version" }, { text: "Kind" }],
-                        rows: latestDbUpdatesTableRows
+                        rows: latestDbChangelogTableRows
                       }) }}
-
-                    {% else %}
-                      <p class="govuk-!-margin-bottom-2">
-                        No changes available
-                      </p>
                     {% endif %}
                   </div>
                 </div>

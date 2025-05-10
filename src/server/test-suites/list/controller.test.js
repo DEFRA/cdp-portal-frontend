@@ -38,15 +38,17 @@ describe('testSuiteListController.handler', () => {
 
     fetchTestSuites.mockResolvedValue(testSuitesMock)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
-    testSuiteToEntityRow.mockReturnValue((isAuthenticated) =>
-      isAuthenticated ? { row: 'data' } : {}
-    )
+    testSuiteToEntityRow.mockReturnValue({ row: 'data' })
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
     expect(entityOwnerDecorator).toHaveBeenCalledWith(['scope-1'])
-    expect(testSuiteToEntityRow).toHaveBeenCalledWith(true)
+    expect(testSuiteToEntityRow).toHaveBeenCalledWith(
+      { id: 1, name: 'Test Suite 1' },
+      0,
+      [{ id: 1, name: 'Test Suite 1' }]
+    )
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({

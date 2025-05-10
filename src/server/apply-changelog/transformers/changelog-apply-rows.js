@@ -1,5 +1,4 @@
 import qs from 'qs'
-import startCase from 'lodash/startCase.js'
 
 function buildRow(multiStepDataSessionId) {
   return (text, value, stepPath) => {
@@ -17,7 +16,7 @@ function buildRow(multiStepDataSessionId) {
         classes: 'app-summary__action',
         items: [
           {
-            href: `/update-database/${stepPath}/${multiStepDataSessionId}${queryString}`,
+            href: `/apply-changelog/${stepPath}/${multiStepDataSessionId}${queryString}`,
             text: 'Change',
             classes: 'app-link',
             visuallyHiddenText: text
@@ -28,15 +27,15 @@ function buildRow(multiStepDataSessionId) {
   }
 }
 
-function updateRows(details, multiStepDataSessionId) {
+function changelogApplyRows(details, multiStepDataSessionId) {
   const row = buildRow(multiStepDataSessionId)
   const changeDetailsPath = 'change-details'
 
   return [
-    row('Service name', details.serviceName, changeDetailsPath),
-    row('Version', details.version, changeDetailsPath),
-    row('Environment', startCase(details.environment), changeDetailsPath)
+    row('Microservice name', details.serviceName, changeDetailsPath),
+    row('Changelog version', details.version, changeDetailsPath),
+    row('Environment', details.environment, changeDetailsPath)
   ]
 }
 
-export { updateRows }
+export { changelogApplyRows }

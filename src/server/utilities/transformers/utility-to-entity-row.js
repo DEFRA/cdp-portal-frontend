@@ -9,7 +9,7 @@ function utilityToEntityRow(utilityType, isAuthenticated) {
       ? renderComponent(
           'tool-tip',
           { text: 'Owned Utility', classes: 'app-tool-tip--small' },
-          [renderIcon('star-icon', { classes: 'app-icon--tiny' })]
+          [renderIcon('star-icon', { classes: 'app-icon--minuscule' })]
         )
       : ''
 

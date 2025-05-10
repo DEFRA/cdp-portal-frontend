@@ -1,6 +1,6 @@
 async function fetchMigrations(value) {
   const response = await fetch(
-    `${location.origin}/update-database/available-migrations?serviceName=${value}`,
+    `${location.origin}/apply-changelog/available-migrations?serviceName=${value}`,
     { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
   )
   const json = await response.json()

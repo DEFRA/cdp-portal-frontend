@@ -4,8 +4,7 @@ const cookiePolicy = {
   },
   handler: (_request, h) =>
     h.view('help/views/cookie-policy', {
-      pageTitle: 'Cookie policy',
-      heading: 'Cookie policy'
+      pageTitle: 'Cookie policy'
     })
 }
 

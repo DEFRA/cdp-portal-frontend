@@ -72,7 +72,7 @@ describe('#deploymentRows', () => {
           text: 'Environment'
         },
         value: {
-          html: 'Management'
+          html: 'management'
         }
       },
       {

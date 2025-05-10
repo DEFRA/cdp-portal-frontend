@@ -18,6 +18,12 @@ $min-grid-cell-width: 100px;
   empty-cells: show;
 }
 
+.app-entity-table--wide {
+  margin-left: govuk-spacing(-6);
+  margin-right: govuk-spacing(-6);
+  width: calc(100% + govuk-spacing(6) * 2);
+}
+
 .app-entity-table__cell {
   height: 100%;
   border-radius: $app-border-radius;
@@ -148,9 +154,17 @@ $min-grid-cell-width: 100px;
     }
   }
 
+  .app-entity-table__heading--left-aligned {
+    padding-left: govuk-spacing(1);
+  }
+
   .app-entity-table__cell--centered {
     display: flex;
     justify-content: center;
+  }
+
+  .app-entity-table__cell--left-aligned {
+    padding-left: govuk-spacing(1);
   }
 
   .app-entity-table__cell--slim {
@@ -163,7 +177,7 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table__cell--owned {
     width: 20px;
-    padding: 0 govuk-spacing(2);
+    padding: 0 4px;
   }
 }
 
@@ -171,7 +185,6 @@ $min-grid-cell-width: 100px;
   .app-entity-table__heading {
     vertical-align: bottom;
     text-align: left;
-    padding: govuk-spacing(1) govuk-spacing(2);
   }
 
   .app-entity-table__heading--vertical-text {

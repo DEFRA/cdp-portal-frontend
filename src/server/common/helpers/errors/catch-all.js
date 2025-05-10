@@ -20,7 +20,8 @@ function catchAll(request, h) {
     .view('error/index', {
       pageTitle: errorMessage,
       heading: statusCode,
-      message: errorMessage
+      message: errorMessage,
+      stack: response?.stack
     })
     .code(statusCode)
 }

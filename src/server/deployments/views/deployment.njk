@@ -8,268 +8,115 @@
 {% block content %}
 
   {% block beforeTabContent %}
-    {{ appHeading({
-      title: heading,
-      caption: caption
-    }) }}
+    {{ appPageHeading(pageHeading) }}
   {% endblock %}
 
   <div class="govuk-main-wrapper app-main-wrapper">
+
+    {% if shouldPoll %}
     <div data-js="app-poll"
          data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.cdpDeploymentId }}"
          data-poll-interval="3000"
          data-poll-limit="45">
+      {% endif %}
 
-      {% block xhrContent %}
-        <article data-xhr="deployment">
-          <div class="govuk-grid-row govuk-!-margin-bottom-4">
-            <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-
-              <div class="app-row govuk-!-margin-bottom-2">
-                <h2 class="govuk-heading-l govuk-!-margin-0 govuk-!-margin-right-2">Details</h2>
-                <div>
-                  {{ appTag({
-                    text: deployment.status | title,
-                    classes: deployment.statusClass,
-                    attributes: {
-                      "data-testid": "deployment-status"
-                    }
-                  }) }}
-                </div>
-                <div>
-                  {% if deployment.status == "pending" or deployment.status == "requested" or deployment.status == "stopping" %}
-                    {{ appLoader({ classes: "app-loader--is-loading" }) }}
-                  {% endif %}
-                </div>
-              </div>
-
-              {% call appPanel({ testId: "deployment-summary" }) %}
-                <section>
-                  <div class="app-row">
-                    <div class="app-row__item-flex-two">
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Service</h3>
-                      <p>
-                        <a class="app-link" href="/services/{{ deployment.service }}">{{ deployment.service }}</a>
-                      </p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Team</h3>
-                      <p>
-                        {% for team in teams %}
-                          <a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a>
-                          {% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                      </p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Version</h3>
-                      <p>
-                        <a class="app-link"
-                           href="https://github.com/DEFRA/{{ deployment.service }}/releases/tag/{{ deployment.version }}"
-                           target="_blank" rel="noopener noreferrer">{{ deployment.version }}</a>
-                      </p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Environment</h3>
-                      <p>
-                        {{ appTag({
-                          text: deployment.environment | title,
-                          classes: "govuk-tag--blue",
-                          attributes: {
-                            "data-testid": "deployment-environment"
-                          }
-                        }) }}
-                      </p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Deployed By</h3>
-                      <p>{{ deployment.user.displayName | sanitiseUser }}</p>
-                    </div>
-
-                    <div class="app-row__item-flex-two">
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Instance count</h3>
-                      <p>
-                        {{ noValue if deployment.instanceCount | isNil else deployment.instanceCount }}
-                      </p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">CPU</h3>
-                      <p>{{ deployment.cpu / 1024 + " vCPU" if deployment.cpu else noValue }}</p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Memory</h3>
-                      <p>{{ deployment.memory / 1024 + " GB" if deployment.memory  else noValue }}</p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Image name</h3>
-                      <p>{{ deployment.service }}</p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Started</h3>
-                      <p>
-                        {{ appTime({ datetime: deployment.created, formatString: "k:mm:ss EE do MMM yyyy" }) }}
-                      </p>
-                    </div>
-
-                    <div class="app-row__item-flex-two">
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Topics</h3>
-                      <div class="govuk-!-margin-bottom-4">
-                        {% for topic in deployment.topics %}
-                          {{ appTag({
-                            text: topic,
-                            url: "https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A" + topic  + "&type=repositories",
-                            link: {
-                              classes: "app-link--without-underline"
-                            },
-                            newWindow: true
-                          }) }}
-                        {% endfor %}
-                      </div>
-
-                      {% if deployment.isFrontend %}
-
-                        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Application link</h3>
-                        <p>
-                          <a class="app-link"
-                             href="https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud"
-                             target="_blank" rel="noopener noreferrer">
-                            {{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud
-                          </a>
-                        </p>
-
-                      {% endif %}
-
-                      {% if deployment.isBackend %}
-
-                        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">API root url</h3>
-                        <p>
-                          <a class="app-link"
-                             href="https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud"
-                             target="_blank" rel="noopener noreferrer">
-                            https://{{ deployment.service }}.{{ deployment.environment }}.cdp-int.defra.cloud
-                          </a>
-                        </p>
-
-                      {% endif %}
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Application logs</h3>
-                      <p>
-                        {{ appLogsDashboardLink({
-                          serviceName: deployment.service,
-                          environment: deployment.environment
-                        }) }}
-                      </p>
-
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Updated</h3>
-                      <p>
-                        {{ appTime({ datetime: deployment.updated, formatString: "k:mm:ss EE do MMM yyyy" }) }}
-                      </p>
-                    </div>
-                  </div>
-
-                  {% if (deployment.unstable === true) %}
-                    {% call appWarning({ isInverse: true }) %}
-                      Your service is failing to start. Check
-                      {{ appLogsDashboardLink({
-                        text: "logs",
-                        classes: "app-link app-link--underline app-link--text-colour",
-                        serviceName: deployment.service,
-                        environment: deployment.environment
-                      }) }}
-                      to diagnose why this is happening.
-                    {% endcall %}
-                  {% endif %}
-
-                  <div class="app-row">
-                    <div class="app-row__item-flex-two">
-                      <h3 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">Instance status</h3>
-
-                      <div class="govuk-!-margin-bottom-4">
-                        {% for instanceId, instance in deployment.instances %}
-                          {% set tooltipText = "failed" if deployment.unstable === true else instance.status %}
-
-                          <span class="govuk-!-margin-right-1">
-                          {% call appToolTip({
-                            text: "Instance " + tooltipText | title,
-                            classes: "app-tool-tip--small"
-                          }) %}
-                            {% if instance.status === "running" %}
-                              {{ appInstanceSuccessIcon({ description: "Instance running" }) }}
-                            {% elseif instance.status === "stopped" and deployment.unstable === true %}
-                              {{ appInstanceFailedIcon({ description: "Instance failed to start" }) }}
-                            {% elseif instance.status === "stopped" %}
-                              {{ appInstanceStoppedIcon({ description: "Instance stopped" }) }}
-                            {% elseif instance.status === "pending"or instance.status === "stopping" or instance.status === "deploying" %}
-                              {{ appInstancePendingIcon({ description: "Instance pending" }) }}
-                            {% endif %}
-                          {% endcall %}
-                        </span>
-
-                        {% else %}
-                          <p class="govuk-!-margin-0">Deployment requested, information coming very soon</p>
-
-                        {% endfor %}
-                      </div>
-                    </div>
-                    <div class="app-row__item-flex-four">
-                      <h3 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-1">
-                        Deployment information
-                      </h3>
-                      <p>
-                        {{ ecsDeployment.message }}
-                      </p>
-                    </div>
-                  </div>
-                </section>
-
-              {% endcall %}
-
-            </div>
-          </div>
-        </article>
-      {% endblock %}
-
-      <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-          <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">Configuration</h2>
 
-          {% call appPanel() %}
-            <section>
-              <div class="app-row">
-                <div class="app-row__item-flex-two">
-                  <div class="govuk-!-margin-right-4">
-                    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Service Config</h3>
+          {% block xhrContent %}
 
-                    <p class="govuk-!-margin-bottom-2">
-                      Environment variables included in this deployment can be seen in:
-                    </p>
+            {% if deployment.unstable %}
+              {% call appWarning({ isInverse: true }) %}
+                Your service is failing to start. Check
+                {{ appLogsDashboardLink({
+                  classes: "app-link app-link--underline app-link--text-colour",
+                  serviceName: deployment.service,
+                  environment: deployment.environment
+                }) }}
+                to diagnose why this is happening.
+              {% endcall %}
+            {% endif %}
 
-                    <ul class="govuk-list govuk-list--bullet">
-                      <li>
-                        <a
-                          class="app-link"
-                          href="https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/{{ deployment.environment }}/{{ deployment.service }}.env"
-                          target="_blank"
-                          rel="noopener noreferrer">
-                          {{ deployment.service }} - {{ deployment.environment }} - config
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          class="app-link"
-                          href="https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/defaults.env"
-                          target="_blank"
-                          rel="noopener noreferrer">
-                          {{ deployment.service }} - defaults
-                        </a>
-                      </li>
-                    </ul>
+
+            {% call appPanel({ testId: "deployment-summary" }) %}
+              <article data-xhr="deployment-{{ deployment.cdpDeploymentId }}"
+                       data-xhr-stop="{{ not shouldPoll }}">
+
+                <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Details</h2>
+                  <div>
+                    {{ appTag({
+                      text: deployment.status | title,
+                      classes: deployment.statusClass,
+                      attributes: {
+                        "data-testid": "deployment-status"
+                      }
+                    }) }}
+                  </div>
+                  <div>
+                    {% if deployment.status == "pending" or deployment.status == "requested" or deployment.status == "stopping" %}
+                      {{ appLoader({ classes: "app-loader--is-loading" }) }}
+                    {% endif %}
                   </div>
                 </div>
-                <div class="app-row__item-flex-two">
-                  <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h3>
-                  <p class="govuk-!-margin-bottom-2">
-                    The secret environment variables included in this deployment
-                  </p>
-                  {{ appSecretsList(secretDetail) }}
-                </div>
-                <div class="app-row__item-flex-two"></div>
-              </div>
-            </section>
-          {% endcall %}
+
+                {{ govukSummaryList(summaryList) }}
+
+              </article>
+            {% endcall %}
+          {% endblock %}
+
         </div>
+      </div>
+
+      {% if shouldPoll %}</div>{% endif %}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+
+        {% call appPanel() %}
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
+          <section>
+            <div class="app-row">
+              <div class="app-row__item-flex-two">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Microservice Config</h3>
+
+                <p class="govuk-!-margin-bottom-2">
+                  Environment variables included in this deployment can be seen in:
+                </p>
+
+                <ul class="govuk-list govuk-list--bullet">
+                  <li>
+                    <a
+                      class="app-link"
+                      href="https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/{{ deployment.environment }}/{{ deployment.service }}.env"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {{ deployment.service }} - {{ deployment.environment }} - config
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="app-link"
+                      href="https://github.com/DEFRA/cdp-app-config/blob/{{ deployment.configVersion }}/services/{{ deployment.service }}/defaults.env"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {{ deployment.service }} - defaults
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="app-row__item-flex-two">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Secrets</h3>
+                <p class="govuk-!-margin-bottom-2">
+                  The secret environment variables included in this deployment
+                </p>
+                {{ appSecretsList(secretDetail) }}
+              </div>
+              <div class="app-row__item-flex-two"></div>
+            </div>
+          </section>
+        {% endcall %}
       </div>
     </div>
   </div>

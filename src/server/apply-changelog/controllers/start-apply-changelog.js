@@ -2,9 +2,9 @@ import qs from 'qs'
 
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
-const startUpdateDatabaseController = {
+const startApplyChangelogController = {
   options: {
-    id: 'update-database'
+    id: 'apply-changelog'
   },
   handler: (request, h) => {
     const query = request.yar.flash(sessionNames.query)?.at(0)
@@ -13,10 +13,10 @@ const startUpdateDatabaseController = {
     request.yar.clear(sessionNames.query)
 
     return h.redirect(
-      '/update-database/change-details' +
+      '/apply-changelog/change-details' +
         qs.stringify(query, { addQueryPrefix: true })
     )
   }
 }
 
-export { startUpdateDatabaseController }
+export { startApplyChangelogController }

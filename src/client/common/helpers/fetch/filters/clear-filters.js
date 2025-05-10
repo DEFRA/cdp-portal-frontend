@@ -1,15 +1,9 @@
+import { pagination } from '~/src/server/common/constants/pagination.js'
+
 function clearFilters(event) {
   event.preventDefault()
 
-  const queryParams = new URLSearchParams(window.location.search)
-
-  queryParams.delete('service')
-  queryParams.delete('team')
-  queryParams.delete('teamId')
-  queryParams.delete('user')
-  queryParams.delete('status')
-
-  window.location.search = queryParams.toString()
+  window.location.search = `page=${pagination.page}&size=${pagination.size}`
 }
 
 export { clearFilters }

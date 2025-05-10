@@ -2,12 +2,12 @@ import Joi from 'joi'
 
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid.js'
-import { updateRows } from '~/src/server/update-database/transformers/update-rows.js'
+import { changelogApplyRows } from '~/src/server/apply-changelog/transformers/changelog-apply-rows.js'
 
 const summaryController = {
   options: {
     ext: {
-      onPreHandler: checkSessionIsValid('/update-database')
+      onPreHandler: checkSessionIsValid('/apply-changelog')
     },
     pre: [provideStepData],
     validate: {
@@ -20,9 +20,9 @@ const summaryController = {
     const stepData = request.pre?.stepData
     const multiStepFormId = request.params?.multiStepFormId
 
-    return h.view('update-database/views/summary', {
-      pageTitle: 'Update Database summary',
-      dbUpdateRows: updateRows(stepData, multiStepFormId),
+    return h.view('apply-changelog/views/summary', {
+      pageTitle: 'Apply changelog summary',
+      dbApplyChangelogRows: changelogApplyRows(stepData, multiStepFormId),
       stepData,
       multiStepFormId
     })

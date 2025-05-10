@@ -3,16 +3,16 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { getAdditionalData } from '~/src/server/update-database/helpers/get-additional-data.js'
-import { detailsValidation } from '~/src/server/update-database/helpers/schema/details-validation.js'
+import { getAdditionalData } from '~/src/server/apply-changelog/helpers/get-additional-data.js'
+import { detailsValidation } from '~/src/server/apply-changelog/helpers/schema/details-validation.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
-import { fetchPostgresServices } from '~/src/server/update-database/helpers/fetchers.js'
+import { fetchPostgresServices } from '~/src/server/apply-changelog/helpers/fetchers.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 const changeDetailsFormController = {
   options: {
-    id: 'update-database/change-details/{multiStepFormId?}',
+    id: 'apply-changelog/change-details/{multiStepFormId?}',
     pre: [provideStepData],
     validate: {
       params: Joi.object({
@@ -41,8 +41,8 @@ const changeDetailsFormController = {
     const { runningServices, dbChangeOptions, latestDbChanges } =
       await getAdditionalData(serviceName)
 
-    return h.view('update-database/views/change-details-form', {
-      pageTitle: 'Update Database change details',
+    return h.view('apply-changelog/views/change-details-form', {
+      pageTitle: 'Apply changelog details',
       formButtonText: redirectLocation ? 'save' : 'next',
       redirectLocation,
       multiStepFormId,

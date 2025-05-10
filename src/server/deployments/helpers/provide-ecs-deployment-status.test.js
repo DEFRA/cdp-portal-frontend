@@ -2,7 +2,7 @@ import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/pro
 import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
 
 describe('provideEcsDeploymentStatus', () => {
-  it('should return "Stopping previous deployment." when status is running and message ends with "in progress."', () => {
+  test('should return "Stopping previous deployment." when status is running and message ends with "in progress."', () => {
     const deployment = {
       status: deploymentStatus.running,
       lastDeploymentStatus: 'SERVICE_DEPLOYMENT_IN_PROGRESS',
@@ -13,7 +13,7 @@ describe('provideEcsDeploymentStatus', () => {
     )
   })
 
-  it('should return "In progress" when status is not running and message ends with "in progress."', () => {
+  test('should return "In progress" when status is not running and message ends with "in progress."', () => {
     const deployment = {
       status: deploymentStatus.stopped,
       lastDeploymentStatus: 'SERVICE_DEPLOYMENT_IN_PROGRESS',
@@ -22,7 +22,7 @@ describe('provideEcsDeploymentStatus', () => {
     expect(provideEcsDeploymentStatus(deployment).message).toBe('In progress')
   })
 
-  it('should return the last deployment message when deployment has failed', () => {
+  test('should return the last deployment message when deployment has failed', () => {
     const deployment = {
       status: deploymentStatus.stopped,
       lastDeploymentStatus: 'SERVICE_DEPLOYMENT_FAILED',
@@ -34,7 +34,7 @@ describe('provideEcsDeploymentStatus', () => {
     )
   })
 
-  it('should return "Complete" when deployment status is completed', () => {
+  test('should return "Complete" when deployment status is completed', () => {
     const deployment = {
       status: deploymentStatus.running,
       lastDeploymentStatus: 'SERVICE_DEPLOYMENT_COMPLETED',
@@ -43,16 +43,16 @@ describe('provideEcsDeploymentStatus', () => {
     expect(provideEcsDeploymentStatus(deployment).message).toBe('Complete')
   })
 
-  it('should return an empty string for unknown deployment statuses', () => {
+  test('should return an empty string for unknown deployment statuses', () => {
     const deployment = {
       status: deploymentStatus.stopped,
       lastDeploymentStatus: 'UNKNOWN_STATUS',
       lastDeploymentMessage: 'Unknown deployment status.'
     }
-    expect(provideEcsDeploymentStatus(deployment).message).toBe('')
+    expect(provideEcsDeploymentStatus(deployment).message).toBeNull()
   })
 
-  it('should return the last deployment message if it does not end with "in progress."', () => {
+  test('should return the last deployment message if it does not end with "in progress."', () => {
     const deployment = {
       status: deploymentStatus.running,
       lastDeploymentStatus: 'SERVICE_DEPLOYMENT_IN_PROGRESS',

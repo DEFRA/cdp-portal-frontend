@@ -3,7 +3,7 @@ import {
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
 
-function runningServiceToEntityRow(allEnvironments, isAuthenticated) {
+function runningServiceToEntityRow(allEnvironments) {
   return ({ serviceName, environments, teams, isOwner }) => {
     const serviceTeams = teams
       .filter((team) => team.teamId)
@@ -20,7 +20,7 @@ function runningServiceToEntityRow(allEnvironments, isAuthenticated) {
             text: 'Owned Service',
             classes: 'app-tool-tip--small'
           },
-          [renderIcon('star-icon', { classes: 'app-icon--tiny' })]
+          [renderIcon('star-icon', { classes: 'app-icon--minuscule' })]
         )
       : ''
 
@@ -51,16 +51,12 @@ function runningServiceToEntityRow(allEnvironments, isAuthenticated) {
 
     return {
       cells: [
-        ...(isAuthenticated
-          ? [
-              {
-                headers: 'owner',
-                isCentered: true,
-                classes: 'app-entity-table__cell--owned',
-                entity: { kind: 'html', value: icon }
-              }
-            ]
-          : []),
+        {
+          headers: 'owner',
+          isCentered: true,
+          classes: 'app-entity-table__cell--owned',
+          entity: { kind: 'html', value: icon }
+        },
         {
           headers: 'service',
           entity: {

@@ -26,9 +26,11 @@ const databaseUpdateController = {
 
     return h.view('deployments/views/database-update', {
       pageTitle: `${migration.service} ${migration.version} database update - ${formattedEnvironment}`,
-      caption: 'Database update',
-      heading: formattedEnvironment,
-      intro: `Database update for <strong>${migration.service}</strong>, version <strong>${migration.version}</strong>`,
+      pageHeading: {
+        caption: 'Database update',
+        text: migration.service,
+        intro: `Database update for <strong>${migration.service}</strong>, changelog version <strong>${migration.version}</strong> in <strong>${migration.environment}</strong>`
+      },
       migration,
       shouldPoll: migration.status !== databaseStatus.succeeded,
       summaryList: transformMigrationToSummary(migration),

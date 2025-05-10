@@ -84,7 +84,6 @@ const deploymentsListController = {
   },
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
-    const isAuthenticated = authedUser?.isAuthenticated
     const userScopeUUIDs = authedUser?.uuidScope ?? []
 
     const environment = request.params?.environment
@@ -124,8 +123,8 @@ const deploymentsListController = {
     const deploymentsWithTeams = deploymentsDecorator(deployments)
     const rowBuilder = (entity) => {
       const rowBuilderMap = {
-        deployment: deploymentToEntityRow(isAuthenticated),
-        migration: migrationToEntityRow(isAuthenticated)
+        deployment: deploymentToEntityRow,
+        migration: migrationToEntityRow
       }
 
       return rowBuilderMap[entity.kind](entity)
@@ -133,9 +132,12 @@ const deploymentsListController = {
     const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
 
     return h.view('deployments/views/list', {
-      pageTitle: `${formattedEnvironment} deployments`,
-      heading: 'Deployments and Updates',
-      caption: `${formattedEnvironment} microservice deployments and database updates`,
+      pageTitle: `${formattedEnvironment} microservice deployments and database updates`,
+      pageHeading: {
+        caption: formattedEnvironment,
+        text: 'Deployments and updates',
+        intro: `${formattedEnvironment} microservice deployments and database updates`
+      },
       serviceFilters,
       userFilters,
       statusFilters,
@@ -146,10 +148,13 @@ const deploymentsListController = {
       tableData: {
         head: { isInverse: true },
         headers: [
-          ...(isAuthenticated
-            ? [{ id: 'owner', classes: 'app-entity-table__cell--owned' }]
-            : []),
-          { id: 'description', text: 'Description', width: '20' },
+          { id: 'owner', classes: 'app-entity-table__cell--owned' },
+          {
+            id: 'description',
+            text: 'Description',
+            width: '20',
+            isLeftAligned: true
+          },
           { id: 'version', text: 'Version', width: '10' },
           { id: 'status', text: 'Status', width: '10' },
           { id: 'kind', text: 'Kind', width: '10' },
