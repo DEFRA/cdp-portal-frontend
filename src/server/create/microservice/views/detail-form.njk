@@ -1,6 +1,7 @@
 {% extends "layouts/page.njk" %}
 
 {% from "availability/macro.njk" import appAvailability %}
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
 
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
@@ -13,124 +14,290 @@
     }) }}
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half-from-desktop-wide">
-        <form action="/create/microservice/detail" method="post" data-js="app-form-errors"
-              class="govuk-!-margin-bottom-4">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        <section class="govuk-!-margin-bottom-8">
+          <form action="/create/microservice/detail" method="post" data-js="app-form-errors"
+                class="govuk-!-margin-bottom-4">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
 
-          {% call govukFieldset() %}
+            {% call govukFieldset() %}
 
-            {{ govukInput({
-              label: {
-                text: "Name",
-                classes: "app-label"
-              },
-              id: "name",
-              name: "microserviceName",
-              classes: "app-input app-input--wide",
-              hint: {
-                html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. seed-vault-frontend",
-                classes: "app-hint"
-              },
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
-              value: formValues.microserviceName,
-              attributes: {
-                "data-js": "app-availability app-input-assistant",
-                "data-availability-target-id": "name-availability",
-                "data-input-assistant-target-id": "name-input-assistant",
-                "data-1p-ignore": ""
-              },
-              errorMessage: errorMessageHelper(formErrors.microserviceName.message),
-              suffix: {
-                classes: "app-input__suffix",
-                html: appAvailability({
-                  dataFetcher: "fetchIsNameAvailable",
-                  targetId: "name-availability"
-                })
-              }
-            }) }}
-
-            {{ appInputAssistant({
-              message: "That name is not ideal. Read ‘Naming conventions’ for some tips",
-              targetId: "name-input-assistant"
-            }) }}
-
-            {{ govukSelect({
-              id: "service-type",
-              name: "serviceTypeTemplateId",
-              label: {
-                text: "Template",
-                classes: "app-label"
-              },
-              classes: "app-select",
-              hint: {
-                text: "The template your service is created from",
-                classes: "app-hint"
-              },
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
-              value: formValues.serviceTypeTemplateId,
-              errorMessage: errorMessageHelper(formErrors.serviceTypeTemplateId.message),
-              items: serviceTemplateIdOptions
-            }) }}
-
-            {% if showTemplateTag %}
               {{ govukInput({
                 label: {
-                  text: "Template tag or branch",
+                  text: "Name",
                   classes: "app-label"
                 },
-                id: "template-tag",
-                name: "templateTag",
+                id: "name",
+                name: "microserviceName",
                 classes: "app-input app-input--wide",
                 hint: {
-                  html: "To override the tag or branch used for the template e.g. `main`. Defaults to latest release if left blank",
+                  html: "Lowercase letters, numbers and hyphens. Maximum 32 characters",
                   classes: "app-hint"
                 },
                 formGroup: {
                   classes: "app-form-group app-form-group-js"
                 },
-                value: formValues.templateTag,
-                errorMessage: errorMessageHelper(formErrors.templateTag.message)
+                value: formValues.microserviceName,
+                attributes: {
+                  "data-js": "app-availability app-input-assistant",
+                  "data-availability-target-id": "name-availability",
+                  "data-input-assistant-target-id": "name-input-assistant",
+                  "data-1p-ignore": ""
+                },
+                errorMessage: errorMessageHelper(formErrors.microserviceName.message),
+                suffix: {
+                  classes: "app-input__suffix",
+                  html: appAvailability({
+                    dataFetcher: "fetchIsNameAvailable",
+                    targetId: "name-availability"
+                  })
+                }
               }) }}
-            {% endif %}
 
-            {{ govukSelect({
-              id: "team-id",
-              name: "teamId",
-              label: {
-                text: "Owning Team",
-                classes: "app-label"
-              },
-              classes: "app-select",
-              value: formValues.teamId,
-              hint: {
-                text: "The CDP team that owns your service",
-                classes: "app-hint"
-              },
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
-              errorMessage: errorMessageHelper(formErrors.teamId.message),
-              items: teamsOptions
+              {{ appInputAssistant({
+                message: "That name is not ideal. Read “Naming conventions” for some tips",
+                targetId: "name-input-assistant"
+              }) }}
+
+              {{ govukSelect({
+                id: "service-type",
+                name: "serviceTypeTemplateId",
+                label: {
+                  text: "Template",
+                  classes: "app-label"
+                },
+                classes: "app-select",
+                hint: {
+                  text: "The template your microservice is created from",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                value: formValues.serviceTypeTemplateId,
+                errorMessage: errorMessageHelper(formErrors.serviceTypeTemplateId.message),
+                items: serviceTemplateIdOptions
+              }) }}
+
+              {% if isAdmin %}
+                {% call appPanel({
+                  classes: "govuk-!-margin-bottom-6",
+                  withHighlight: true
+                }) %}
+                  <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+                    {{ appInfoIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                    <p class="govuk-!-margin-0">
+                      Admin only form input
+                    </p>
+                  </div>
+
+                  {{ govukInput({
+                    label: {
+                      text: "Branch or Tag (optional)",
+                      classes: "app-label"
+                    },
+                    id: "template-tag",
+                    name: "templateTag",
+                    classes: "app-input app-input--wide",
+                    hint: {
+                      html: "Override the templates branch or tag. <em>Defaults to latest release</em>",
+                      classes: "app-hint"
+                    },
+                    attributes: {
+                      placeholder: "E.g: “main”"
+                    },
+                    formGroup: {
+                      classes: "app-form-group app-form-group--inline app-form-group-js"
+                    },
+                    value: formValues.templateTag,
+                    errorMessage: errorMessageHelper(formErrors.templateTag.message)
+                  }) }}
+                {% endcall %}
+              {% endif %}
+
+              {{ govukSelect({
+                id: "team-id",
+                name: "teamId",
+                label: {
+                  text: "Owning Team",
+                  classes: "app-label"
+                },
+                classes: "app-select",
+                value: formValues.teamId,
+                hint: {
+                  text: "The CDP team that will own your microservice",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                errorMessage: errorMessageHelper(formErrors.teamId.message),
+                items: teamsOptions
+              }) }}
+
+            {% endcall %}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: formButtonText
             }) }}
-
-          {% endcall %}
-
-          {{ govukButton({
-            classes: "app-button",
-            text: formButtonText
-          }) }}
-
-        </form>
+          </form>
+        </section>
       </div>
 
-      <div class="govuk-grid-column-one-half-from-desktop-wide">
-        <div class="govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        <section class="govuk-!-margin-bottom-8">
+          {% call appPanel() %}
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-4">Templates</h2>
+
+            <article class="govuk-!-margin-bottom-7">
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Node.js Frontend</h3>
+
+              <p class="govuk-!-margin-bottom-2">
+                The <a class="app-link"
+                       href="https://github.com/DEFRA/cdp-node-frontend-template"
+                       target="_blank" rel="noopener noreferrer">
+                  CDP Node.js Frontend template
+                </a> is a Hapi.js application used for building frontends
+              </p>
+
+              <ul class="govuk-list govuk-list--bullet">
+                <li>
+                  <a class="app-link" href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">
+                    Node.js frontend server
+                  </a>
+                  with the
+                  <a class="app-link" href="https://hapi.dev" target="_blank" rel="noopener noreferrer">
+                    Hapi.js framework
+                  </a>
+                </li>
+                <li>
+                  <a class="app-link" href="https://design-system.service.gov.uk" target="_blank"
+                     rel="noopener noreferrer">
+                    GOV.UK Frontend
+                  </a>
+                </li>
+                <li>
+                  Client-side vanilla JavaScript, Sass and HTML (Nunjucks)
+                </li>
+                <li>
+                  <a class="app-link" href="https://redis.io" target="_blank" rel="noopener noreferrer">Redis</a>
+                </li>
+              </ul>
+            </article>
+
+            <article class="govuk-!-margin-bottom-7">
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Node.js Backend</h3>
+
+              <p class="govuk-!-margin-bottom-2">
+                The <a class="app-link"
+                       href="https://github.com/DEFRA/cdp-node-backend-template"
+                       target="_blank" rel="noopener noreferrer">
+                  CDP Node.js backend template
+                </a> is a Hapi.js application used for building APIs
+              </p>
+
+              <ul class="govuk-list govuk-list--bullet">
+                <li>
+                  <a class="app-link" href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">
+                    Node.js backend server
+                  </a>
+                  with the
+                  <a class="app-link" href="https://hapi.dev" target="_blank" rel="noopener noreferrer">
+                    Hapi.js framework
+                  </a>
+                </li>
+                <li>
+                  <a class="app-link" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
+                    MongoDB database
+                  </a>
+                </li>
+              </ul>
+            </article>
+
+            <article class="govuk-!-margin-bottom-7">
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Node.js Backend - Minimal</h3>
+
+              <p class="govuk-!-margin-bottom-2">
+                The <a class="app-link"
+                       href="https://github.com/DEFRA/cdp-node-backend-template/tree/minimal"
+                       target="_blank" rel="noopener noreferrer">
+                  CDP Node.js backend template
+                </a> is a <em>minimal</em> Hapi.js application without a database
+              </p>
+
+              <ul class="govuk-list govuk-list--bullet">
+                <li>
+                  <a class="app-link" href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">
+                    Node.js backend server
+                  </a>
+                  with the
+                  <a class="app-link" href="https://hapi.dev" target="_blank" rel="noopener noreferrer">
+                    Hapi.js framework
+                  </a>
+                </li>
+              </ul>
+            </article>
+
+            <article class="govuk-!-margin-bottom-7">
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">DotNet Backend</h3>
+
+              <p class="govuk-!-margin-bottom-2">
+                The <a class="app-link"
+                       href="https://github.com/DEFRA/cdp-dotnet-backend-template"
+                       target="_blank" rel="noopener noreferrer">
+                  CDP DotNet Backend template
+                </a> is a DotNet backend application
+              </p>
+
+              <ul class="govuk-list govuk-list--bullet">
+                <li>
+                  <a class="app-link" href="https://dotnet.microsoft.com/en-us" target="_blank"
+                     rel="noopener noreferrer">
+                    DotNet
+                  </a>
+                  with
+                  <a class="app-link" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
+                    MongoDB
+                  </a>
+                </li>
+              </ul>
+            </article>
+
+            {% if hasScope(scopes.restrictedTechPython) %}
+              <article class="govuk-!-margin-bottom-7">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Python Backend</h3>
+
+                <p class="govuk-!-margin-bottom-2">
+                  The <a class="app-link"
+                         href="https://github.com/DEFRA/cdp-python-backend-template"
+                         target="_blank" rel="noopener noreferrer">
+                    CDP Python Backend template
+                  </a> is a Python backend application
+                </p>
+
+                <ul class="govuk-list govuk-list--bullet">
+                  <li>
+                    <a class="app-link" href="https://www.python.org" target="_blank"
+                       rel="noopener noreferrer">
+                      Python
+                    </a>
+                    with
+                    <a class="app-link" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
+                      MongoDB
+                    </a>
+                  </li>
+                </ul>
+              </article>
+            {% endif %}
+
+          {% endcall %}
+        </section>
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        <section class="govuk-!-margin-bottom-8">
           {{ appNamingAdvice({
             kind: "microservice",
             categories: [
@@ -139,9 +306,10 @@
               "backend",
               "api",
               "prototype"
-            ]
+            ],
+            isMuted: true
           } ) }}
-        </div>
+        </section>
       </div>
     </div>
   </div>
