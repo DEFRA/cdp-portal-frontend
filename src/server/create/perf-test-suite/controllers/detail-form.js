@@ -19,7 +19,6 @@ const perfTestSuiteDetailFormController = {
   },
   handler: async (request, h) => {
     const query = request?.query
-    const authedUser = await request.getUserSession()
 
     const usersTeams = await getUsersTeams(request)
     const teamsOptions = buildOptions(
@@ -34,8 +33,7 @@ const perfTestSuiteDetailFormController = {
       heading: 'Create performance test suite',
       teamsOptions,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
-      redirectLocation: query?.redirectLocation,
-      showTemplateTag: authedUser.isAdmin
+      redirectLocation: query?.redirectLocation
     })
   }
 }
