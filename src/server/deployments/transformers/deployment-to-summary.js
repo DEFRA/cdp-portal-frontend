@@ -53,7 +53,7 @@ function getIcon(status, unstable) {
 
 function buildInstanceStatus(deployment) {
   const deploymentInstances = Object.values(deployment.instances)
-  const waitingMessage = 'Deployment requested, information coming very soon'
+  const waitingMessage = 'Deployment requested, information coming soon'
 
   if (deploymentInstances.length === 0) {
     return waitingMessage
@@ -72,7 +72,7 @@ function buildInstanceStatus(deployment) {
   }, '')
 }
 
-function transformDeploymentToSummary(deployment, ecsDeployment) {
+function transformDeploymentToSummary(deployment) {
   const teams = deployment?.teams
     ?.filter((team) => team.teamId)
     ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
@@ -123,17 +123,6 @@ function transformDeploymentToSummary(deployment, ecsDeployment) {
         }
       },
       {
-        key: {
-          text: 'Status'
-        },
-        value: {
-          html: renderComponent('tag', {
-            text: formatText(deployment.status),
-            classes: provideDeploymentStatusClassname(deployment.status)
-          })
-        }
-      },
-      {
         key: { text: 'Kind' },
         value: {
           html: `<div class="app-!-layout-centered">
@@ -163,27 +152,6 @@ function transformDeploymentToSummary(deployment, ecsDeployment) {
         }
       },
       {
-        key: { text: 'Instance status' },
-        value: {
-          html: buildInstanceStatus(deployment)
-        }
-      },
-      {
-        key: { text: 'Deployment information' },
-        value: {
-          text: ecsDeployment.message ?? noValue
-        }
-      },
-      {
-        key: { text: 'Application logs' },
-        value: {
-          html: renderComponent('logs-dashboard-link', {
-            serviceName: deployment.service,
-            environment: deployment.environment
-          })
-        }
-      },
-      {
         key: { text: serviceLinkText },
         value: {
           html: buildLink(
@@ -208,6 +176,49 @@ function transformDeploymentToSummary(deployment, ecsDeployment) {
         value: {
           html: teams?.length ? buildList(teams) : noValue
         }
+      }
+    ]
+  }
+}
+
+function transformDeploymentToStatusSummary(deployment, ecsDeployment) {
+  return {
+    classes: 'app-summary-list govuk-!-margin-bottom-0',
+    attributes: {
+      'data-testid': 'govuk-summary-list'
+    },
+    rows: [
+      {
+        key: {
+          text: 'Status'
+        },
+        value: {
+          html: renderComponent('tag', {
+            text: formatText(deployment.status),
+            classes: provideDeploymentStatusClassname(deployment.status)
+          })
+        }
+      },
+      {
+        key: { text: 'Instance status' },
+        value: {
+          html: buildInstanceStatus(deployment)
+        }
+      },
+      {
+        key: { text: 'Deployment information' },
+        value: {
+          text: ecsDeployment.message ?? noValue
+        }
+      },
+      {
+        key: { text: 'Application logs' },
+        value: {
+          html: renderComponent('logs-dashboard-link', {
+            serviceName: deployment.service,
+            environment: deployment.environment
+          })
+        }
       },
       {
         key: { text: 'Started' },
@@ -225,4 +236,4 @@ function transformDeploymentToSummary(deployment, ecsDeployment) {
   }
 }
 
-export { transformDeploymentToSummary }
+export { transformDeploymentToSummary, transformDeploymentToStatusSummary }
