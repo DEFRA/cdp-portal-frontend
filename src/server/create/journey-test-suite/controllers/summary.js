@@ -21,7 +21,7 @@ const testSuiteSummaryController = {
       action: '/create/journey-test-suite',
       summaryRows: summaryTestSuiteRows(
         create,
-        'test-suite',
+        'journey-test-suite',
         authedUser.isAdmin
       ),
       formButtonText: 'Create',
