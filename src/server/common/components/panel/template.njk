@@ -2,7 +2,8 @@
 {% set classes = [
   "app-panel", params.classes if params.classes,
   "app-panel--inverse" if params.isInverse,
-  "app-panel--slim" if params.isSlim
+  "app-panel--slim" if params.isSlim,
+  "app-panel--with-highlight" if params.withHighlight
 ] | join(" ") | trim %}
 
 <div class="{{ classes }}" {% if params.testId %}data-testid="{{ params.testId }}"{% endif %}>

@@ -12,6 +12,10 @@ import {
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
 
+const instanceIcon = renderIcon('instance-icon', {
+  description: 'Instance',
+  classes: 'app-icon--small govuk-!-margin-right-1'
+})
 const instanceSuccessIcon = renderIcon('instance-success-icon', {
   description: 'Instance running',
   classes: 'app-icon--small govuk-!-margin-right-1'
@@ -42,6 +46,8 @@ function getIcon(status, unstable) {
     status === 'deploying'
   ) {
     return instancePendingIcon
+  } else {
+    return instanceIcon
   }
 }
 
