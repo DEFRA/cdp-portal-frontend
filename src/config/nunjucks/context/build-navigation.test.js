@@ -3,6 +3,7 @@ import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,
+  hasScope: (scope) => auth?.scope?.includes(scope),
   getUserSession: () => auth,
   routeLookup: (value) => (value === 'home' ? '/' : `/${value}`)
 })

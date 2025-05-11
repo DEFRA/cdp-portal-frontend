@@ -12,6 +12,8 @@ import { userIsTeamMember } from '~/src/server/common/helpers/user/user-is-team-
 import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
 import { eventName } from '~/src/client/common/constants/event-name.js'
 import { getAnnouncements } from '~/src/config/nunjucks/context/announcements.js'
+import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')
@@ -71,6 +73,8 @@ async function context(request) {
     isXhr: isXhr.call(request),
     navigation: await buildNavigation(request),
     noValue,
+    hasScope: hasScopeDecorator(request),
+    scopes,
     routeLookup: (id, options) => request.routeLookup(id, options),
     supportChannel: config.get('supportChannel'),
     userIsMemberOfATeam: userIsMemberOfATeam(authedUser),

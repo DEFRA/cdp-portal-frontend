@@ -11,7 +11,7 @@ import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { provideIsServiceOwner } from '~/src/server/services/helpers/pre/provide-is-service-owner.js'
 import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
-import { hasScope, scopes } from '~/src/server/common/constants/scopes.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
@@ -77,8 +77,7 @@ const serviceController = {
     const serviceName = service.serviceName
     const isServiceOwner = request.pre.isServiceOwner
     const latestCount = 6
-    const hasPostgresPermission = hasScope(
-      request,
+    const hasPostgresPermission = request.hasScope(
       scopes.restrictedTechPostgres
     )
 

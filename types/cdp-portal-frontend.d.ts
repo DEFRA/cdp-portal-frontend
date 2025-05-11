@@ -1,6 +1,7 @@
 import { S3Client } from '@aws-sdk/client-s3'
-import type { RequestOptions, Response } from 'node-fetch'
 import { Policy } from '@hapi/catbox'
+
+import type { RequestOptions, Response } from 'node-fetch'
 
 declare module '@hapi/hapi' {
   interface Request {
@@ -31,6 +32,7 @@ declare module '@hapi/hapi' {
     }
     session: Policy
     featureToggles: Policy
+    hasScope: (scope: string) => boolean
   }
 
   interface Server {
