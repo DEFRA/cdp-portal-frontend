@@ -6,6 +6,7 @@ import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-sess
 import { userIsTeamMemberDecorator } from '~/src/server/common/helpers/user/user-is-team-member.js'
 import { userIsMemberOfATeamDecorator } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
 import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner.js'
+import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
 
 /**
  * Add global server methods
@@ -34,6 +35,9 @@ function addDecorators(server) {
     { apply: true }
   )
   server.decorate('request', 'routeLookup', routeLookupDecorator, {
+    apply: true
+  })
+  server.decorate('request', 'hasScope', hasScopeDecorator, {
     apply: true
   })
 }

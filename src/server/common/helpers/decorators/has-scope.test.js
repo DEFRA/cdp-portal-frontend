@@ -1,6 +1,6 @@
-import { hasScope } from './scopes.js'
+import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
 
-describe('#hasScope', () => {
+describe('#hasScopeDecorator', () => {
   test('Should return true if the user has the required scope', () => {
     const request = {
       auth: {
@@ -9,7 +9,9 @@ describe('#hasScope', () => {
         }
       }
     }
-    expect(hasScope(request, 'admin')).toBe(true)
+    const hasScope = hasScopeDecorator(request)
+
+    expect(hasScope('admin')).toBe(true)
   })
 
   test('Should return false if the user does not have the required scope', () => {
@@ -20,7 +22,9 @@ describe('#hasScope', () => {
         }
       }
     }
-    expect(hasScope(request, 'admin')).toBe(false)
+    const hasScope = hasScopeDecorator(request)
+
+    expect(hasScope('admin')).toBe(false)
   })
 
   test('Should return false if the user has no scopes', () => {
@@ -31,18 +35,24 @@ describe('#hasScope', () => {
         }
       }
     }
-    expect(hasScope(request, 'admin')).toBe(false)
+    const hasScope = hasScopeDecorator(request)
+
+    expect(hasScope('admin')).toBe(false)
   })
 
   test('Should return false if the request has no auth credentials', () => {
     const request = {
       auth: {}
     }
-    expect(hasScope(request, 'admin')).toBe(false)
+    const hasScope = hasScopeDecorator(request)
+
+    expect(hasScope('admin')).toBe(false)
   })
 
   test('Should return false if the request has no auth object', () => {
     const request = {}
-    expect(hasScope(request, 'admin')).toBe(false)
+    const hasScope = hasScopeDecorator(request)
+
+    expect(hasScope('admin')).toBe(false)
   })
 })

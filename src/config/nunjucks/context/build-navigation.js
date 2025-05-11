@@ -2,10 +2,7 @@ import { scopes } from '~/src/server/common/constants/scopes.js'
 
 async function buildNavigation(request) {
   const authedUser = await request.getUserSession()
-
-  const hasPostgresPermission = authedUser?.scope?.includes(
-    scopes.restrictedTechPostgres
-  )
+  const hasPostgresPermission = request.hasScope(scopes.restrictedTechPostgres)
 
   const isActive = (value) => {
     const firstPathPart = request?.path?.split('/').at(1)
