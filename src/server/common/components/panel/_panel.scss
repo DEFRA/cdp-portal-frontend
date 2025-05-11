@@ -17,6 +17,11 @@
   background-color: govuk-colour("white");
 }
 
+.app-panel--with-highlight {
+  border-left: 6px solid $app-mid-grey;
+  border-radius: $app-border-radius-right;
+}
+
 .app-panel--slim {
   padding: govuk-spacing(2);
 }

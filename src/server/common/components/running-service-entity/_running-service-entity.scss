@@ -5,10 +5,15 @@
 $compact-label-height: govuk-spacing(4);
 $max-width: 300px;
 
+@mixin rs-entity-colours($colourName) {
+  background-color: govuk-tint(govuk-colour($colourName), 80%);
+  border: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+}
+
 @include govuk-media-query($until: desktop-wide) {
   .app-running-service-entity {
     max-width: $max-width;
-    padding: govuk-spacing(1);
+    padding: 2px;
   }
 
   .app-running-service-entity--empty {
@@ -24,19 +29,18 @@ $max-width: 300px;
   height: 100%;
   padding: govuk-spacing(2);
   box-sizing: border-box;
-  border-radius: $app-border-radius;
   background-color: $app-light-grey;
 
   &.item-detail--green {
-    background-color: govuk-tint(govuk-colour("green"), 80%);
+    @include rs-entity-colours("green");
   }
 
   &.item-detail--purple {
-    background-color: govuk-tint(govuk-colour("bright-purple"), 85%);
+    @include rs-entity-colours("bright-purple");
   }
 
   &.item-detail--grey {
-    background-color: govuk-tint(govuk-colour("dark-grey"), 85%);
+    @include rs-entity-colours("dark-grey");
 
     .app-instance {
       fill: govuk-tint(govuk-colour("dark-grey"), 10%);
@@ -44,11 +48,11 @@ $max-width: 300px;
   }
 
   &.item-detail--light-blue {
-    background-color: govuk-tint(govuk-colour("blue"), 90%);
+    @include rs-entity-colours("blue");
   }
 
   &.item-detail--red {
-    background-color: govuk-tint(govuk-colour("red"), 75%);
+    @include rs-entity-colours("red");
   }
 
   .app-running-service-entity__env {

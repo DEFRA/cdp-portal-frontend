@@ -30,6 +30,12 @@ $min-grid-cell-width: 100px;
 
 // Display compact table on small screens
 @include govuk-media-query($until: desktop-wide) {
+  .app-entity-table--wide {
+    margin-left: govuk-spacing(1);
+    margin-right: govuk-spacing(1);
+    width: 100%;
+  }
+
   // Hide header, we place headings on individual cells on small screens
   .app-entity-table__head {
     border: none;
