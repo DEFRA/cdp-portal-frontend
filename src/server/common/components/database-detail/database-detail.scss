@@ -106,9 +106,16 @@ $card-height: 180px;
     border-bottom: 1px solid $app-grey;
     background-color: $app-grey;
     border-radius: $app-border-radius-top;
+    margin-bottom: 0;
 
     .app-tag {
       background-color: govuk-colour("white");
     }
+  }
+
+  .app-database-detail__no-data {
+    margin: auto;
+    color: $app-dark-grey;
+    @include govuk-font(16);
   }
 }
