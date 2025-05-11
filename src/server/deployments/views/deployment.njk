@@ -20,12 +20,12 @@
          data-poll-limit="45">
       {% endif %}
 
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+      {% block xhrContent %}
 
-          {% block xhrContent %}
+        {% if deployment.unstable %}
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
 
-            {% if deployment.unstable %}
               {% call appWarning({ isInverse: true }) %}
                 Your service is failing to start. Check
                 {{ appLogsDashboardLink({
@@ -35,15 +35,19 @@
                 }) }}
                 to diagnose why this is happening.
               {% endcall %}
-            {% endif %}
 
+            </div>
+          </div>
+        {% endif %}
 
-            {% call appPanel({ testId: "deployment-summary" }) %}
-              <article data-xhr="deployment-{{ deployment.cdpDeploymentId }}"
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-third-from-desktop-massive">
+            {% call appPanel({ testId: "deployment-status-summary" }) %}
+              <article data-xhr="deployment-status-{{ deployment.cdpDeploymentId }}"
                        data-xhr-stop="{{ not shouldPoll }}">
 
                 <div class="app-!-layout-centered govuk-!-margin-bottom-2">
-                  <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Details</h2>
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Status</h2>
                   <div>
                     {{ appTag({
                       text: deployment.status | title,
@@ -60,26 +64,25 @@
                   </div>
                 </div>
 
-                {{ govukSummaryList(summaryList) }}
+                {{ govukSummaryList(statusSummaryList) }}
 
               </article>
             {% endcall %}
-          {% endblock %}
 
-        </div>
-      </div>
+            {% call appPanel({ classes: "govuk-!-margin-bottom-4", testId: "deployment-summary" }) %}
+              <article data-xhr="deployment-{{ deployment.cdpDeploymentId }}"
+                       data-xhr-stop="{{ not shouldPoll }}">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
 
-      {% if shouldPoll %}</div>{% endif %}
+                {{ govukSummaryList(deploymentSummaryList) }}
+              </article>
+            {% endcall %}
+          </div>
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-
-        {% call appPanel() %}
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
-          <section>
-            <div class="app-row">
-              <div class="app-row__item-flex-two">
-                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Microservice Config</h3>
+          <div class="govuk-grid-column-one-third-from-desktop-massive govuk-!-margin-bottom-4">
+            {% call appPanel() %}
+              <article>
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
 
                 <p class="govuk-!-margin-bottom-2">
                   Environment variables included in this deployment can be seen in:
@@ -105,19 +108,21 @@
                     </a>
                   </li>
                 </ul>
-              </div>
-              <div class="app-row__item-flex-two">
-                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Secrets</h3>
-                <p class="govuk-!-margin-bottom-2">
-                  The secret environment variables included in this deployment
-                </p>
+              </article>
+            {% endcall %}
+
+            {% call appPanel({ testId: "deployment-summary" }) %}
+              <article>
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Secrets</h2>
+
                 {{ appSecretsList(secretDetail) }}
-              </div>
-              <div class="app-row__item-flex-two"></div>
-            </div>
-          </section>
-        {% endcall %}
-      </div>
-    </div>
+              </article>
+            {% endcall %}
+          </div>
+        </div>
+      {% endblock %}
+
+      {% if shouldPoll %}</div>{% endif %}
+
   </div>
 {% endblock %}

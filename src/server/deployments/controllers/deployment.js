@@ -7,7 +7,10 @@ import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
-import { transformDeploymentToSummary } from '~/src/server/deployments/transformers/deployment-to-summary.js'
+import {
+  transformDeploymentToStatusSummary,
+  transformDeploymentToSummary
+} from '~/src/server/deployments/transformers/deployment-to-summary.js'
 import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 
@@ -41,7 +44,11 @@ const deploymentController = {
       },
       deployment,
       shouldPoll: deployment.status !== deploymentStatus.running,
-      summaryList: transformDeploymentToSummary(deployment, ecsDeployment),
+      statusSummaryList: transformDeploymentToStatusSummary(
+        deployment,
+        ecsDeployment
+      ),
+      deploymentSummaryList: transformDeploymentToSummary(deployment),
       secretDetail,
       teams: deployment?.teams?.filter((team) => team.teamId),
       breadcrumbs: [
