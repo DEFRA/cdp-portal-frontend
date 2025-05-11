@@ -107,4 +107,10 @@ $card-height: 180px;
     background-color: $app-grey;
     border-radius: $app-border-radius-top;
   }
+
+  .app-running-service__no-data {
+    margin: auto;
+    color: $app-dark-grey;
+    @include govuk-font(16);
+  }
 }
