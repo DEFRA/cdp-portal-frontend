@@ -48,8 +48,7 @@
             "app-entity-table__cell",
             cell.classes if cell.classes,
             "app-entity-table__cell--slim" if cell.isSlim,
-            "app-entity-table__cell--centered" if cell.isCentered,
-            "app-entity-table__cell--left-aligned" if headerDetail.isLeftAligned
+            "app-entity-table__cell--centered" if cell.isCentered
           ] | join(" ") | trim %}
 
           <td headers="{{ cell.headers }}"
