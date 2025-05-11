@@ -1,7 +1,6 @@
 {% extends "layouts/page.njk" %}
 
 {% from "availability/macro.njk" import appAvailability %}
-{% from "icons/info-icon/macro.njk" import appInfoIcon %}
 
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
@@ -80,41 +79,7 @@
                 items: serviceTemplateIdOptions
               }) }}
 
-              {% if isAdmin %}
-                {% call appPanel({
-                  classes: "govuk-!-margin-bottom-6",
-                  withHighlight: true
-                }) %}
-                  <div class="app-!-layout-centered govuk-!-margin-bottom-2">
-                    {{ appInfoIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                    <p class="govuk-!-margin-0">
-                      Admin only form input
-                    </p>
-                  </div>
-
-                  {{ govukInput({
-                    label: {
-                      text: "Branch or Tag (optional)",
-                      classes: "app-label"
-                    },
-                    id: "template-tag",
-                    name: "templateTag",
-                    classes: "app-input app-input--wide",
-                    hint: {
-                      html: "Override the templates branch or tag. <em>Defaults to latest release</em>",
-                      classes: "app-hint"
-                    },
-                    attributes: {
-                      placeholder: "E.g: “main”"
-                    },
-                    formGroup: {
-                      classes: "app-form-group app-form-group--inline app-form-group-js"
-                    },
-                    value: formValues.templateTag,
-                    errorMessage: errorMessageHelper(formErrors.templateTag.message)
-                  }) }}
-                {% endcall %}
-              {% endif %}
+              {% include "create/partials/branch-text-input.njk" %}
 
               {{ govukSelect({
                 id: "team-id",
