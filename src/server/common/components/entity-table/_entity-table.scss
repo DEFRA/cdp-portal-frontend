@@ -26,7 +26,6 @@ $min-grid-cell-width: 100px;
 
 .app-entity-table__cell {
   height: 100%;
-  border-radius: $app-border-radius;
 }
 
 // Display compact table on small screens
@@ -105,19 +104,6 @@ $min-grid-cell-width: 100px;
 
 // Display full table on large screens
 @include govuk-media-query($from: desktop-wide) {
-  .app-entity-table__row {
-    display: table-row;
-    background-color: govuk-colour("white");
-
-    &:nth-child(even) {
-      background-color: $app-light-grey;
-    }
-
-    &:hover {
-      background-color: $app-grey;
-    }
-  }
-
   .app-entity-table__head {
     background-color: $app-light-grey;
 
@@ -146,8 +132,7 @@ $min-grid-cell-width: 100px;
   }
 
   .app-entity-table__cell {
-    padding: govuk-spacing(3) govuk-spacing(2);
-    border: 1px solid govuk-colour("white");
+    padding: govuk-spacing(4) govuk-spacing(2);
 
     .app-entity {
       height: 100%;
@@ -163,10 +148,6 @@ $min-grid-cell-width: 100px;
     justify-content: center;
   }
 
-  .app-entity-table__cell--left-aligned {
-    padding-left: govuk-spacing(1);
-  }
-
   .app-entity-table__cell--slim {
     padding: 0;
   }
@@ -176,8 +157,25 @@ $min-grid-cell-width: 100px;
   }
 
   .app-entity-table__cell--owned {
-    width: 20px;
+    width: 18px;
     padding: 0 4px;
+  }
+
+  .app-entity-table__row {
+    display: table-row;
+    background-color: govuk-colour("white");
+
+    .app-entity-table__cell {
+      border: 1px solid govuk-colour("white");
+    }
+
+    &:nth-child(even) {
+      background-color: $app-light-grey;
+    }
+
+    &:hover {
+      background-color: $app-grey;
+    }
   }
 }
 
@@ -208,28 +206,4 @@ $min-grid-cell-width: 100px;
 
 .app-entity-table__row-caption {
   color: govuk-colour("dark-grey");
-}
-
-.app-entity-table__row--service-deployment {
-  background-color: govuk-tint(govuk-colour("green"), 85%);
-
-  &:nth-child(even) {
-    background-color: govuk-tint(govuk-colour("green"), 85%);
-  }
-
-  &:hover {
-    background-color: govuk-tint(govuk-colour("green"), 90%);
-  }
-}
-
-.app-entity-table__row--database-update {
-  background-color: govuk-tint(govuk-colour("blue"), 85%);
-
-  &:nth-child(even) {
-    background-color: govuk-tint(govuk-colour("blue"), 85%);
-  }
-
-  &:hover {
-    background-color: govuk-tint(govuk-colour("blue"), 90%);
-  }
 }
