@@ -1,3 +1,4 @@
+import capitalize from 'lodash/capitalize.js'
 import { Engine as CatboxMemory } from '@hapi/catbox-memory'
 
 import { createServer } from '~/src/server/index.js'
@@ -12,9 +13,12 @@ import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetc
 import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { fetchVanityUrls } from '~/src/server/services/helpers/fetch/fetch-vanity-urls.js'
 import { fetchApiGateways } from '~/src/server/services/helpers/fetch/fetch-api-gateways.js'
-import capitalize from 'lodash/capitalize.js'
 import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
 import { fetchAllBuckets } from '~/src/server/services/helpers/fetch/fetch-all-buckets.js'
+import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
+import { availableMigrationsFixture } from '~/src/__fixtures__/migrations/available-migrations.js'
+import { latestMigrationsFixture } from '~/src/__fixtures__/migrations/latest-migrations.js'
+import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 
 export const mockTeam = {
   teamId: 'mock-team-id',
@@ -99,42 +103,42 @@ export function mockBucketsCall(jest, repositoryName) {
   })
 }
 
-export function mockTenantServicesCall(jest) {
+export function mockTenantServicesCall({ jest, isPostgresService = false }) {
   jest.mocked(fetchTenantService).mockResolvedValue({
     prod: {
       serviceCode: 'CDP',
       zone: 'protected',
-      postgres: false
+      postgres: isPostgresService
     },
     'perf-test': {
       serviceCode: 'CDP',
       zone: 'protected',
-      postgres: false
+      postgres: isPostgresService
     },
     dev: {
       serviceCode: 'CDP',
       zone: 'protected',
-      postgres: false
+      postgres: isPostgresService
     },
     test: {
       serviceCode: 'CDP',
       zone: 'protected',
-      postgres: false
+      postgres: isPostgresService
     },
     management: {
       serviceCode: 'CDP',
       zone: 'protected',
-      postgres: false
+      postgres: isPostgresService
     },
     'infra-dev': {
       serviceCode: 'CDP',
       zone: 'protected',
-      postgres: false
+      postgres: isPostgresService
     },
     'ext-test': {
       serviceCode: 'CDP',
       zone: 'protected',
-      postgres: false
+      postgres: isPostgresService
     }
   })
 }
@@ -352,6 +356,18 @@ function mockWhatsRunningWhereCall(jest, repositoryName) {
   ])
 }
 
+function mockFetchAvailableMigrations(jest, repositoryName) {
+  jest
+    .mocked(fetchAvailableMigrations)
+    .mockResolvedValue(availableMigrationsFixture(repositoryName))
+}
+
+function mockFetchLatestMigrations(jest, repositoryName) {
+  jest
+    .mocked(fetchLatestMigrations)
+    .mockResolvedValue(latestMigrationsFixture(repositoryName))
+}
+
 export function mockCommonServicesCalls(
   jest,
   repositoryName,
@@ -361,19 +377,24 @@ export function mockCommonServicesCalls(
   mockServiceEntityCall(jest, repositoryName, frontendOrBackend)
 }
 
-export function mockServicesAdditionalCalls(
+export function mockServicesAdditionalCalls({
   jest,
   repositoryName,
-  frontendOrBackend
-) {
+  frontendOrBackend,
+  isPostgresService
+}) {
   mockRepositoryCall(jest, repositoryName, ['microservice', frontendOrBackend])
-  mockTenantServicesCall(jest)
+  mockTenantServicesCall({ jest, isPostgresService })
   mockAvailableVersions(jest)
   if (frontendOrBackend.lowercase === 'frontend') {
     mockVanityUrlsCall(jest, repositoryName)
   }
   if (frontendOrBackend.lowercase === 'backend') {
     mockApiGatewaysCall(jest, repositoryName)
+  }
+  if (isPostgresService === true) {
+    mockFetchAvailableMigrations(jest, repositoryName)
+    mockFetchLatestMigrations(jest, repositoryName)
   }
   mockWhatsRunningWhereCall(jest, repositoryName)
 }

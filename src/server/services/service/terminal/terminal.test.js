@@ -17,7 +17,7 @@ describe('Service Terminal page', () => {
   beforeAll(async () => {
     const serviceName = 'mock-service-with-terminal'
     mockCommonServicesCalls(jest, serviceName)
-    mockTenantServicesCall(jest, serviceName)
+    mockTenantServicesCall({ jest })
     server = await initialiseServer()
   })
 
