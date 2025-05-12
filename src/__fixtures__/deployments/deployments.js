@@ -29,7 +29,7 @@ const deploymentsFixture = {
       service: 'cdp-user-service-backend',
       version: '0.54.0',
       user: 'B. A. Baracus',
-      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+      id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
       created: '2023-12-14T14:02:34Z',
       updated: '2023-12-14T14:10:34Z',
       status: 'running',
@@ -52,7 +52,7 @@ const deploymentsFixture = {
       version: '0.94.0',
       user: {
         displayName: 'B. A. Baracus',
-        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+        id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
       },
       cpu: '1024',
       memory: '2048',
@@ -88,7 +88,7 @@ const deploymentsFixture = {
       version: '0.211.0',
       user: {
         displayName: 'B. A. Baracus',
-        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+        id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
       },
       cpu: '1024',
       memory: '2048',
