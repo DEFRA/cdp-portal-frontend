@@ -7,7 +7,7 @@ function provideAutomationSubNavigation(request, h) {
       response.source.context = {}
     }
 
-    const serviceId = response.source?.context?.service?.imageName
+    const serviceId = request.app.entity?.name
     const autoDeploymentsUrl = request.routeLookup(
       'post:services/{serviceId}/automations/deployments',
       { params: { serviceId } }
