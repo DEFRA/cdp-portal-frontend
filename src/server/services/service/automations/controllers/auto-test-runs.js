@@ -22,10 +22,10 @@ const autoTestRunsController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const serviceId = request.params.serviceId
-    const service = request.app.entity
-    const serviceTeams = service?.teams
+    const entity = request.app.entity
+    const serviceTeams = entity?.teams
 
-    if (service === null) {
+    if (entity === null) {
       return Boom.notFound()
     }
 
@@ -47,7 +47,7 @@ const autoTestRunsController = {
 
     return h.view('services/service/automations/views/auto-test-runs', {
       pageTitle: `Test Runs | Automations - ${serviceId}`,
-      service,
+      entity,
       testSuiteOptions,
       environmentOptions,
       tableData: {

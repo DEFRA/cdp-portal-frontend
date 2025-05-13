@@ -3,7 +3,7 @@
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Automatic Deployments",
-    text: service.serviceName
+    text: entity.name
   }) }}
 {% endblock %}
 
@@ -22,7 +22,7 @@
             <p>
               After you merge code into the default branch on this services
               <a class="app-link"
-                 href="{{ service.githubUrl }}"
+                 href="https://github.com/DEFRA/{{ entity.name }}"
                  target="_blank"
                  rel="noopener noreferrer">GitHub repository</a>. The service will be automatically deployed to the
               following environments:
@@ -30,7 +30,7 @@
 
             <form
               action="{{ routeLookup('post:services/{serviceId}/automations/deployments', {
-                params: { serviceId: service.serviceName }
+                params: { serviceId: entity.name }
               }) }}"
               method="POST"
               data-js="app-form-group">

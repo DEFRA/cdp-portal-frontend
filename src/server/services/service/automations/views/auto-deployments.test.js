@@ -1,13 +1,13 @@
 import { renderPage } from '~/test-helpers/component-helpers.js'
-import { serviceFixture } from '~/src/__fixtures__/services/service.js'
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
 
 function buildServiceAutomationContext({
-  service,
+  entity,
   formOptions,
   formEnvironments
 }) {
-  const serviceId = service.serviceId
+  const serviceId = entity.name
 
   return {
     isAdmin: true,
@@ -23,7 +23,7 @@ function buildServiceAutomationContext({
     formValues: {
       environments: formEnvironments
     },
-    service,
+    entity,
     autoDeployEnvironmentOptions: formOptions,
     breadcrumbs: [
       {
@@ -41,7 +41,7 @@ function buildServiceAutomationContext({
   }
 }
 
-const service = serviceFixture
+const entity = entityServicesFixture[0]
 const formOptions = buildOptions(['infra-dev', 'management'], false)
 const formEnvironments = ['infra-dev', 'management']
 
@@ -59,7 +59,7 @@ describe('Service automation tab', () => {
     const rendered = renderPage(
       'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({
-        service,
+        entity,
         formOptions: [],
         formEnvironments: []
       })
@@ -71,7 +71,7 @@ describe('Service automation tab', () => {
     const rendered = renderPage(
       'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({
-        service,
+        entity,
         formOptions,
         formEnvironments: []
       })
@@ -83,7 +83,7 @@ describe('Service automation tab', () => {
     const rendered = renderPage(
       'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({
-        service,
+        entity,
         formOptions,
         formEnvironments
       })

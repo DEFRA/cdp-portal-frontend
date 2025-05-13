@@ -185,7 +185,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <span class="govuk-caption-l" data-testid="app-page-heading-caption">Automatic Deployments</span>
 
   <div class="app-page-heading">
-    <h1 class="app-page-heading--title" data-testid="app-page-heading-title"></h1>
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service-with-automations</h1>
 
 
   </div>
@@ -311,7 +311,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <li class="app-subnav__section-item app-subnav__section-item--current"
           data-testid="app-subnav-item-deployments">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/undefined/automations/deployments"
+           href="/services/mock-service-with-automations/automations/deployments"
            data-testid="app-subnav-link-deployments"
         >Deployments</a>
       </li>
@@ -319,7 +319,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <li class="app-subnav__section-item"
           data-testid="app-subnav-item-test runs">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/undefined/automations/test-runs"
+           href="/services/mock-service-with-automations/automations/test-runs"
            data-testid="app-subnav-link-test runs"
         >Test Runs</a>
       </li>
@@ -339,14 +339,14 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             <p>
               After you merge code into the default branch on this services
               <a class="app-link"
-                 href=""
+                 href="https://github.com/DEFRA/mock-service-with-automations"
                  target="_blank"
                  rel="noopener noreferrer">GitHub repository</a>. The service will be automatically deployed to the
               following environments:
             </p>
 
             <form
-              action="/services/undefined/automations/deployments"
+              action="/services/mock-service-with-automations/automations/deployments"
               method="POST"
               data-js="app-form-group">
               <input type="hidden" name="csrfToken" value="test-token" />

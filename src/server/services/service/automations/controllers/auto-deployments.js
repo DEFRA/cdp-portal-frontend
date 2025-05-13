@@ -22,9 +22,9 @@ const autoDeploymentsController = {
   handler: async (request, h) => {
     const authedUser = request.pre.authedUser
     const serviceId = request.params.serviceId
-    const service = request.app.service
+    const entity = request.app.entity
 
-    if (service === null) {
+    if (entity === null) {
       return Boom.notFound()
     }
 
@@ -45,7 +45,7 @@ const autoDeploymentsController = {
       formValues: {
         environments: autoDeployDetails?.environments ?? []
       },
-      service,
+      entity,
       environmentOptions,
       breadcrumbs: [
         {
