@@ -2,27 +2,11 @@ import Joi from 'joi'
 
 import { validation } from '~/src/server/common/constants/validation.js'
 import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility.js'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
+import { repositoryNameValidation } from '~/src/server/common/common-validation.js'
 
 function repositoryValidation() {
   return Joi.object({
-    repositoryName: Joi.string()
-      .pattern(/^[a-z0-9-]*$/)
-      .pattern(/^[a-z0-9][a-z0-9-]*[a-z0-9]$/, {
-        name: 'startAndEndWithCharacter'
-      })
-      .min(1)
-      .max(32)
-      .required()
-      .external(checkNameAvailability)
-      .messages({
-        'string.empty': validation.enterValue,
-        'string.pattern.base':
-          'Lowercase letters and numbers with hyphen separators',
-        'string.pattern.name': 'Start and end with a letter or number',
-        'string.min': validation.minCharacters(1),
-        'string.max': validation.maxCharacters(32)
-      }),
+    repositoryName: repositoryNameValidation,
     repositoryVisibility: Joi.string()
       .valid(...repositoryVisibility)
       .messages({
