@@ -97,6 +97,15 @@ function transformMigrationToSummary(migration) {
         }
       },
       {
+        key: { text: 'Metrics' },
+        value: {
+          html: buildLink(
+            `https://metrics.${migration.environment}.cdp-int.defra.cloud/dashboards/f/${migration.service}`,
+            `https://metrics.${migration.environment}.cdp-int.defra.cloud`
+          )
+        }
+      },
+      {
         key: { text: 'Updated' },
         value: {
           html: renderComponent('time', { datetime: migration.updated })
