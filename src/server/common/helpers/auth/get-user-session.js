@@ -10,7 +10,7 @@
  * @property {boolean} isAdmin
  * @property {boolean} isTenant
  * @property {string[]} scope - all scopes
- * @property {UUID[]} uuidScope - only scopes that are UUIDs
+ * @property {UUID[]} uuidScope - an array that holds only scopes that are UUIDs. For sending in API calls
  * @property {number} expiresIn
  * @property {Date} expiresAt
  */

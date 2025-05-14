@@ -15,7 +15,7 @@ describe('#provideApiGateways', () => {
     beforeEach(async () => {
       nock(apiGatewaysEndpointUrl.origin)
         .get(apiGatewaysEndpointUrl.pathname)
-        .reply(200, apiGatewaysFixture)
+        .reply(200, apiGatewaysFixture('cdp-portal-backend'))
 
       result = await provideApiGateways({
         params: { serviceId: 'cdp-portal-backend' },

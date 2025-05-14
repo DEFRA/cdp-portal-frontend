@@ -3,7 +3,7 @@ import bell from '@hapi/bell'
 
 import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
+import { fetchWellknown } from '~/src/server/common/helpers/fetch/fetch-well-known.js'
 
 const sessionCookieConfig = config.get('sessionCookie')
 
@@ -12,14 +12,11 @@ const azureOidc = {
     name: 'azure-oidc',
     register: async (server) => {
       await server.register(bell)
-      const { payload } = await fetchJson(
-        config.get('oidcWellKnownConfigurationUrl')
-      )
-
+      const wellKnown = await fetchWellknown()
       const authCallbackUrl = config.get('appBaseUrl') + '/auth/callback'
 
       // making the OIDC config available to server
-      server.app.oidc = payload
+      server.app.oidc = wellKnown
 
       server.auth.strategy('azure-oidc', 'bell', {
         location: (request) => {
@@ -34,8 +31,8 @@ const azureOidc = {
           protocol: 'oauth2',
           useParamsAuth: true,
 
-          auth: payload.authorization_endpoint,
-          token: payload.token_endpoint,
+          auth: wellKnown.authorization_endpoint,
+          token: wellKnown.token_endpoint,
           scope: [
             `api://${config.get('azureClientId')}/cdp.user`,
             'openid',

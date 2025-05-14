@@ -6,7 +6,6 @@ import {
 } from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-proxy-rules.js')
 
@@ -26,7 +25,7 @@ describe('Service Proxy page', () => {
         }
       })
 
-    mockCommonServicesCalls(jest, 'mock-service-with-proxy')
+    mockCommonServicesCalls('mock-service-with-proxy')
     server = await initialiseServer()
   })
 
@@ -36,7 +35,7 @@ describe('Service Proxy page', () => {
 
   describe('all envs view', () => {
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy',
         isAdmin: true,
         isTenant: true
@@ -46,7 +45,7 @@ describe('Service Proxy page', () => {
     })
 
     test('page renders for logged in tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy',
         isAdmin: false,
         isTenant: true
@@ -56,7 +55,7 @@ describe('Service Proxy page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy',
         isAdmin: false,
         isTenant: true,
@@ -67,7 +66,7 @@ describe('Service Proxy page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy',
         isAdmin: false,
         isTenant: false
@@ -78,7 +77,7 @@ describe('Service Proxy page', () => {
 
   describe('single envs view', () => {
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy/infra-dev',
         isAdmin: true,
         isTenant: true
@@ -88,7 +87,7 @@ describe('Service Proxy page', () => {
     })
 
     test('page renders for logged in tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy/dev',
         isAdmin: false,
         isTenant: true
@@ -98,7 +97,7 @@ describe('Service Proxy page', () => {
     })
 
     test('admin only env page errors for logged in tenant', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy/infra-dev',
         isAdmin: false,
         isTenant: true
@@ -107,7 +106,7 @@ describe('Service Proxy page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy/prod',
         isAdmin: false,
         isTenant: true,
@@ -118,7 +117,7 @@ describe('Service Proxy page', () => {
     })
 
     test('admin only env page errors for logged in service owner tenant', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy/management',
         isAdmin: false,
         isTenant: true,
@@ -128,7 +127,7 @@ describe('Service Proxy page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service-with-proxy/proxy/management',
         isAdmin: false,
         isTenant: false

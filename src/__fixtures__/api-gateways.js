@@ -1,11 +1,11 @@
 // Response from portalBackendApi/vanity-urls/cdp-portal-backend
-const apiGatewaysFixture = {
+const apiGatewaysFixture = (serviceName = 'cdp-portal-backend') => ({
   'infra-dev': {
     apiGateways: [
       {
         api: 'portal-test.cdp-int.defra.cloud',
         environment: 'infra-dev',
-        serviceName: 'cdp-portal-backend',
+        serviceName,
         shuttered: false
       }
     ]
@@ -15,7 +15,7 @@ const apiGatewaysFixture = {
       {
         api: 'portal.cdp-int.defra.cloud',
         environment: 'management',
-        serviceName: 'cdp-portal-backend',
+        serviceName,
         shuttered: false
       }
     ]
@@ -25,7 +25,7 @@ const apiGatewaysFixture = {
       {
         api: 'portal-dev.cdp-int.defra.cloud',
         environment: 'dev',
-        serviceName: 'cdp-portal-backend',
+        serviceName,
         shuttered: false
       }
     ]
@@ -35,16 +35,17 @@ const apiGatewaysFixture = {
       {
         api: 'portal-test.cdp-int.defra.cloud',
         environment: 'test',
-        serviceName: 'cdp-portal-backend',
+        serviceName,
         shuttered: false
       },
       {
         api: "portal-test-other.cdp-int.defra.cloud'",
         environment: 'test',
-        serviceName: 'cdp-portal-backend',
+        serviceName,
         shuttered: false
       }
     ]
   }
-}
+})
+
 export { apiGatewaysFixture }

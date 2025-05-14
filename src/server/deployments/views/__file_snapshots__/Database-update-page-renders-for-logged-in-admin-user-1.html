@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template">
   <head>
     <meta charset="utf-8">
-    <title>  mock-test-suite - Secrets | Core Delivery Platform - Portal
+    <title>  cdp-example-node-postgres-be 1.0.0 database update - Dev | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b0c0c">
@@ -93,7 +93,7 @@
             </a>
           </li>
           <li class="app-navigation__list-item">
-            <a class="app-navigation__link app-navigation__link--active"
+            <a class="app-navigation__link"
                href="/test-suites"
                data-testid="nav-test-suites"
             >
@@ -117,7 +117,7 @@
             </a>
           </li>
           <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
+            <a class="app-navigation__link app-navigation__link--active"
                href="/deployments"
                data-testid="nav-deployments"
             >
@@ -152,6 +152,14 @@
             </a>
           </li>
 
+            <li class="app-navigation__list-item app-navigation__list-item--section">
+              <a class="app-navigation__link"
+                 href="/admin"
+                 data-testid="nav-admin"
+              >
+                Admin
+              </a>
+            </li>
       </ul>
     </div>
   </div>
@@ -176,285 +184,191 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
      aria-label="Breadcrumb">
   <ol class="app-breadcrumbs__list">
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/test-suites"
-             data-testid="app-breadcrumbs-link">Test Suites</a>
+          <a class="app-breadcrumbs__link" href="/deployments?page=1&amp;size=50"
+             data-testid="app-breadcrumbs-link">Deployments</a>
         </li>
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/test-suites/mock-test-suite"
-             data-testid="app-breadcrumbs-link">mock-test-suite</a>
+          <a class="app-breadcrumbs__link" href="/deployments/dev?page=1&amp;size=50"
+             data-testid="app-breadcrumbs-link">Dev</a>
         </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Secrets</li>
+            data-testid="app-breadcrumbs-list-item">cdp-example-node-postgres-be - 1.0.0</li>
   </ol>
 </nav>
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
-
-  <div class="govuk-!-margin-top-2">
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Secrets</span>
+    <div class="govuk-!-margin-top-2">
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Database update</span>
 
   <div class="app-page-heading">
-    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-test-suite</h1>
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">cdp-example-node-postgres-be</h1>
 
+      <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
+        Database update for <strong>cdp-example-node-postgres-be</strong>, changelog version <strong>1.0.0</strong> in <strong>dev</strong>
+      </p>
 
   </div>
 </div>
 
 
+  <div class="govuk-main-wrapper app-main-wrapper">
 
 
-<div class="app-tabs"
-     data-js="app-tabs">
-    <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Test Suite tabs">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
 
 
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-about">
+<div class="app-panel" >
+                <div data-xhr="migration--"
+                   data-xhr-stop="true">
+
+                <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Details</h2>
+                  <div>
+                    
 
 
-          <a id="tab-about"
-             class="app-tabs__tab"
-             href="/test-suites/mock-test-suite"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-about"
-             aria-selected="false">
-            About
-          </a>
-        </li>
+<strong class="govuk-tag app-tag govuk-tag--green" data-testid="succeeded-status-tag">
+  Succeeded
+</strong>
 
 
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-proxy">
 
+                  </div>
+                  <div>
+                  </div>
+                </div>
 
-          <a id="tab-proxy"
-             class="app-tabs__tab"
-             href="/test-suites/mock-test-suite/proxy"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-proxy"
-             aria-selected="false">
-            Proxy
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-secrets app-tabs-list-item--selected">
-
-
-          <a id="tab-secrets"
-             class="app-tabs__tab"
-             href="/test-suites/mock-test-suite/secrets"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-secrets"
-             aria-selected="true">
-            Secrets
-          </a>
-        </li>
-    </ul>
-
-      <section id="tab-panel-secrets"
-               class="app-tabs__panel"
-               role="tabpanel"
-               aria-labelledby="tab-secrets"
-               data-testid="app-tabs-panel">
-          <section class="govuk-!-margin-top-4">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-
-
-<div class="app-split-pane" data-testid="app-split-pane">
-  <div class="app-split-pane__nav">
-<nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
-  <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
-  <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item app-subnav__section-item--current"
-          data-testid="app-subnav-item-all">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/test-suites/mock-test-suite/secrets"
-           data-testid="app-subnav-link-all"
-        >All</a>
-      </li>
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-dev">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/test-suites/mock-test-suite/secrets/dev"
-           data-testid="app-subnav-link-dev"
-        >Dev</a>
-      </li>
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/test-suites/mock-test-suite/secrets/test"
-           data-testid="app-subnav-link-test"
-        >Test</a>
-      </li>
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-perf-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/test-suites/mock-test-suite/secrets/perf-test"
-           data-testid="app-subnav-link-perf-test"
-        >Perf-test</a>
-      </li>
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-prod">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/test-suites/mock-test-suite/secrets/prod"
-           data-testid="app-subnav-link-prod"
-        >Prod</a>
-      </li>
-  </ul>
-</nav>
+                <dl class="govuk-summary-list app-summary-list govuk-!-margin-bottom-0" data-testid="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Microservice name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="/services/cdp-example-node-postgres-be" data-testid="app-link" >cdp-example-node-postgres-be</a>
+    </dd>
   </div>
-  <div class="app-split-pane__content">
-    <section class="app-content">
-                <section>
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Secrets</h2>
-            <p>
-              View secrets for mock-test-suite in all CDP environments.
-            </p>
-
-            <div class="app-grid app-grid--fluid">
-
-                <article>
-
-
-<div class="app-panel" >
-                      <div class="app-row govuk-!-margin-bottom-2">
-                      <div class="app-row__item-flex-four">
-                        <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                          Dev
-                        </h3>
-                      </div>
-
-                      <div class="app-row__item-flex-two app-!-layout-right-aligned">
-                        <p class="govuk-!-margin-bottom-0">
-                          <a
-                            href="/test-suites/mock-test-suite/secrets/dev" class="app-link app-link--underline">
-Create                          </a>
-                        </p>
-                      </div>
-                    </div>
-
-
-                          <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-        No secrets currently set
-      </p>
-
-
-</div>
-                </article>
-
-                <article>
-
-
-<div class="app-panel" >
-                      <div class="app-row govuk-!-margin-bottom-2">
-                      <div class="app-row__item-flex-four">
-                        <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                          Test
-                        </h3>
-                      </div>
-
-                      <div class="app-row__item-flex-two app-!-layout-right-aligned">
-                        <p class="govuk-!-margin-bottom-0">
-                          <a
-                            href="/test-suites/mock-test-suite/secrets/test" class="app-link app-link--underline">
-Create                          </a>
-                        </p>
-                      </div>
-                    </div>
-
-
-                          <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-        No secrets currently set
-      </p>
-
-
-</div>
-                </article>
-
-                <article>
-
-
-<div class="app-panel" >
-                      <div class="app-row govuk-!-margin-bottom-2">
-                      <div class="app-row__item-flex-four">
-                        <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                          Perf-test
-                        </h3>
-                      </div>
-
-                      <div class="app-row__item-flex-two app-!-layout-right-aligned">
-                        <p class="govuk-!-margin-bottom-0">
-                          <a
-                            href="/test-suites/mock-test-suite/secrets/perf-test" class="app-link app-link--underline">
-Create                          </a>
-                        </p>
-                      </div>
-                    </div>
-
-
-                          <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-        No secrets currently set
-      </p>
-
-
-</div>
-                </article>
-
-                <article>
-
-
-<div class="app-panel" >
-                      <div class="app-row govuk-!-margin-bottom-2">
-                      <div class="app-row__item-flex-four">
-                        <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                          Prod
-                        </h3>
-                      </div>
-
-                      <div class="app-row__item-flex-two app-!-layout-right-aligned">
-                        <p class="govuk-!-margin-bottom-0">
-                          <a
-                            href="/test-suites/mock-test-suite/secrets/prod" class="app-link app-link--underline">
-Create                          </a>
-                        </p>
-                      </div>
-                    </div>
-
-
-                          <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-        No secrets currently set
-      </p>
-
-
-</div>
-                </article>
-
-            </div>
-          </section>
-
-    </section>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Environment
+    </dt>
+    <dd class="govuk-summary-list__value">
+      dev
+    </dd>
   </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Changelog version
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="https://github.com/DEFRA/cdp-example-node-postgres-be/releases/tag/1.0.0" data-testid="app-link" target="_blank" rel="noopener noreferrer">1.0.0</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Status
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <strong class="govuk-tag app-tag govuk-tag--green">
+        Succeeded
+      </strong>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Kind
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <div class="app-!-layout-centered">
+                        <svg class="app-icon app-database app-icon--small govuk-!-margin-right-1" width="48" height="48"
+           role="img" aria-label="Database icon" viewBox="0 0 48 48">
+        <path fill-rule="nonzero"
+              d="M23.9262235 21.4659686c5.596299 0 10.1743365-.8475131 13.7341125-2.5425393C41.220112 17.2284031 43 15.3477312 43 13.28141361c0-2.16317626-1.779888-4.08420593-5.339664-5.763089C34.10056 5.83944154 29.5225225 5 23.9262235 5c-5.5631848 0-10.09982954.83944154-13.60993424 2.51832461-3.5101047 1.67888307-5.26515705 3.59991274-5.26515705 5.763089 0 2.06631759 1.75505235 3.94698949 5.26515705 5.64201569 3.5101047 1.6950262 8.04674944 2.5425393 13.60993424 2.5425393Zm.0496713 4.3586387c2.2848795 0 4.5780375-.1695026 6.8794741-.5085078 2.3014366-.3390053 4.3462381-.8636562 6.1344047-1.5739529 1.7881665-.7102967 3.2369125-1.5416667 4.3462381-2.49411C42.4453372 20.2955934 43 19.2220768 43 18.0274869v5.908377c0 1.1945899-.5546628 2.276178-1.6639883 3.2447644-1.1093256.9685864-2.5580716 1.7918848-4.3462381 2.4698953-1.7881666.6780104-3.8329681 1.1945898-6.1344047 1.5497382-2.3014366.3551483-4.5945946.5327225-6.8794741.5327225-2.3511079 0-4.6525444-.1856457-6.9043097-.5569372-2.25176528-.3712914-4.28828829-.8959424-6.10956903-1.5739529-1.82128074-.6780104-3.27830533-1.5013089-4.37107378-2.4698952-1.09276844-.9685864-1.62259556-2.0340315-1.58948137-3.1963351v-5.908377c-.0331142 1.1945899.49671293 2.2519634 1.58948137 3.1721204 1.09276845.9201571 2.54979304 1.7273124 4.37107378 2.421466 1.82128074.6941536 3.85780375 1.2349476 6.10956903 1.6223822 2.2517653.3874346 4.5532018.5811518 6.9043097.5811518Zm0 10.2670157c2.2848795 0 4.5780375-.1856457 6.8794741-.5569371 2.3014366-.3712915 4.3462381-.8959424 6.1344047-1.5739529 1.7881665-.6780105 3.2369125-1.5013089 4.3462381-2.4698953C42.4453372 30.5222513 43 29.4245201 43 28.197644v6.0052356c0 1.1623036-.5546628 2.2277487-1.6639883 3.1963351-1.1093256.9685863-2.5580716 1.7999563-4.3462381 2.4941099-1.7881666.6941536-3.8329681 1.2188045-6.1344047 1.5739529C28.5539323 41.8224258 26.2607743 42 23.9758948 42c-2.3511079 0-4.6525444-.1856457-6.9043097-.5569372-2.25176528-.3712914-4.28828829-.9040139-6.10956903-1.5981675-1.82128074-.6941536-3.27830533-1.517452-4.37107378-2.4698953-1.09276844-.9524433-1.62259556-2.0098168-1.58948137-3.1721204V28.197644c-.0331142 1.1945899.49671293 2.2681064 1.58948137 3.2205497 1.09276845.9524433 2.54979304 1.7757417 4.37107378 2.4698953 1.82128074.6941536 3.85780375 1.2349476 6.10956903 1.6223822 2.2517653.3874346 4.5532018.5811518 6.9043097.5811518Z" />
+      </svg>
+      
+                        
+      
+      
+      <strong class="govuk-tag app-tag">
+        Update
+      </strong>
+      
+      
+      
+                      </div>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Deployed by
+    </dt>
+    <dd class="govuk-summary-list__value">
+      The Terminator
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Logs
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="https://logs.dev.cdp-int.defra.cloud/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(message,version,service),isDirty:!t,sort:!()),metadata:(indexPattern:'4e3049b0-2697-11f0-a796-05acfef0cbab',view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2025-05-11T19:27:14.000',to:'2025-05-11T19:27:14.000'))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'4e3049b0-2697-11f0-a796-05acfef0cbab',key:build.id,negate:!f,params:(query:'cdp-example-node-postgres-be%3A75185528-cd7d-42af-b41b-b0d9531cfa23'),type:phrase),query:(match_phrase:(build.id:'cdp-example-node-postgres-be%3A75185528-cd7d-42af-b41b-b0d9531cfa23'))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'4e3049b0-2697-11f0-a796-05acfef0cbab',key:service,negate:!f,params:(query:cdp-example-node-postgres-be),type:phrase),query:(match_phrase:(service:cdp-example-node-postgres-be)))),query:(language:kuery,query:''))" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://logs.dev.cdp-int.defra.cloud</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Metrics
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="https://metrics.dev.cdp-int.defra.cloud/dashboards/f/cdp-example-node-postgres-be" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://metrics.dev.cdp-int.defra.cloud</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Updated
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span
+        class="app-tool-tip"
+        data-text="Sunday 11th May 2025, 19:27:14"
+      >
+          <time    datetime="2025-05-11T19:27:14.211Z"
+          data-testid="app-time">
+              Last Sunday at 19:27
+      
+        </time>
+      
+      </span>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Created
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span
+        class="app-tool-tip"
+        data-text="Sunday 11th May 2025, 19:27:14"
+      >
+          <time    datetime="2025-05-11T19:27:14.194Z"
+          data-testid="app-time">
+              Last Sunday at 19:27
+      
+        </time>
+      
+      </span>
+    </dd>
+  </div>
+</dl>
+
+              </div>
+
 </div>
 
+        </div>
       </div>
-    </div>
-  </section>
 
-      </section>
-</div>
-
+  </div>
         </main>
       </div>
 

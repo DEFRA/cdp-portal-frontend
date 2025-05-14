@@ -22,6 +22,22 @@ const servicesFixture = [
     ]
   },
   {
+    serviceName: 'ai-backend',
+    githubUrl: `https://github.com/${githubOrg}/ai-backend`,
+    imageName: 'ai-backend',
+    teams: [
+      {
+        github: 'bees',
+        teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89',
+        name: 'Bees'
+      },
+      {
+        teamId: '6ed0400a-a8a0-482b-b45a-109634cd1274',
+        name: 'Trees-and-forests'
+      }
+    ]
+  },
+  {
     serviceName: 'cdp-user-service-backend',
     githubUrl: `https://github.com/${githubOrg}/cdp-user-service-backend`,
     imageName: 'cdp-user-service-backend',
@@ -42,6 +58,18 @@ const servicesFixture = [
         github: 'forms',
         teamId: '0be2f4a1-3e1c-4675-a8ec-3af6d453b7ca',
         name: 'Forms'
+      }
+    ]
+  },
+  {
+    serviceName: 'cdp-example-node-postgres-be',
+    githubUrl: `https://github.com/${githubOrg}/cdp-example-node-postgres-be`,
+    imageName: 'cdp-example-node-postgres-be',
+    teams: [
+      {
+        github: 'cdp-platform',
+        teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+        name: 'Platform'
       }
     ]
   }

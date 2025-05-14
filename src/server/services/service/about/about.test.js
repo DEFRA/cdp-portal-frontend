@@ -13,7 +13,6 @@ jest.mock('~/src/server/common/helpers/fetch/fetch-running-services.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-vanity-urls.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-api-gateways.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-available-migrations.js')
@@ -30,9 +29,8 @@ describe('About Service page', () => {
     jest.useFakeTimers({ advanceTimers: true })
     jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
-    mockCommonServicesCalls(jest, 'mock-service', 'frontend')
+    mockCommonServicesCalls('mock-service', 'frontend')
     mockServicesAdditionalCalls({
-      jest,
       repositoryName: 'mock-service',
       frontendOrBackend: 'frontend'
     })
@@ -44,8 +42,8 @@ describe('About Service page', () => {
     jest.useRealTimers()
   })
 
-  test('page renders for logged in admin user', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+  test('renders for logged in admin user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service',
       isAdmin: true,
       isTenant: true
@@ -54,8 +52,8 @@ describe('About Service page', () => {
     expect(result).toMatchFile()
   })
 
-  test('page renders for logged in tenant', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+  test('renders for logged in tenant', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service',
       isAdmin: false,
       isTenant: true
@@ -64,8 +62,8 @@ describe('About Service page', () => {
     expect(result).toMatchFile()
   })
 
-  test('page renders for logged in service owner tenant', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+  test('renders for logged in service owner tenant', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service',
       isAdmin: false,
       isTenant: true,
@@ -75,8 +73,8 @@ describe('About Service page', () => {
     expect(result).toMatchFile()
   })
 
-  test('page renders for logged out user', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+  test('renders for logged out user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service',
       isAdmin: false,
       isTenant: false
@@ -86,7 +84,7 @@ describe('About Service page', () => {
   })
 })
 
-describe('About Service page postgres', () => {
+describe('About Service postgres page', () => {
   /** @type {import('@hapi/hapi').Server} */
   let server
   const serviceName = 'mock-postgres-service'
@@ -100,9 +98,8 @@ describe('About Service page postgres', () => {
     jest.useFakeTimers({ advanceTimers: true })
     jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
-    mockCommonServicesCalls(jest, serviceName, 'backend')
+    mockCommonServicesCalls(serviceName, 'backend')
     mockServicesAdditionalCalls({
-      jest,
       repositoryName: serviceName,
       frontendOrBackend: 'backend',
       isPostgresService: true
@@ -115,8 +112,8 @@ describe('About Service page postgres', () => {
     jest.useRealTimers()
   })
 
-  test('page renders for logged in user with permission', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+  test('renders for logged in user with permission', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/services/${serviceName}`,
       isAdmin: true,
       isTenant: true,
@@ -135,8 +132,8 @@ describe('About Service page postgres', () => {
     })
   })
 
-  test('page renders for logged in user without permission', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+  test('renders for logged in user without permission', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/services/${serviceName}`,
       isAdmin: false,
       isTenant: true
@@ -154,8 +151,8 @@ describe('About Service page postgres', () => {
     })
   })
 
-  test('page renders for logged out user', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+  test('renders for logged out user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/services/${serviceName}`,
       isAdmin: false,
       isTenant: false

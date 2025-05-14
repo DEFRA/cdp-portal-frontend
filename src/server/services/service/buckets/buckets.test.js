@@ -6,7 +6,6 @@ import {
 } from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-all-buckets.js')
 
@@ -17,8 +16,8 @@ describe('Service Buckets page', () => {
   let server
 
   beforeAll(async () => {
-    mockCommonServicesCalls(jest, serviceName)
-    mockBucketsCall(jest, serviceName)
+    mockCommonServicesCalls(serviceName)
+    mockBucketsCall(serviceName)
     server = await initialiseServer()
   })
 
@@ -28,7 +27,7 @@ describe('Service Buckets page', () => {
 
   describe('all envs view', () => {
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets`,
         isAdmin: true,
         isTenant: true
@@ -38,7 +37,7 @@ describe('Service Buckets page', () => {
     })
 
     test('page renders for logged in tenant who doesnt own service', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets`,
         isAdmin: false,
         isTenant: true
@@ -48,7 +47,7 @@ describe('Service Buckets page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets`,
         isAdmin: false,
         isTenant: true,
@@ -59,7 +58,7 @@ describe('Service Buckets page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets`,
         isAdmin: false,
         isTenant: false
@@ -70,7 +69,7 @@ describe('Service Buckets page', () => {
 
   describe('single envs view', () => {
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets/infra-dev`,
         isAdmin: true,
         isTenant: true
@@ -80,7 +79,7 @@ describe('Service Buckets page', () => {
     })
 
     test('page renders for logged in tenant who doesnt own service', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets/dev`,
         isAdmin: false,
         isTenant: true
@@ -90,7 +89,7 @@ describe('Service Buckets page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets/prod`,
         isAdmin: false,
         isTenant: true,
@@ -101,7 +100,7 @@ describe('Service Buckets page', () => {
     })
 
     test('admin only env page errors for logged in service owner tenant', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets/management`,
         isAdmin: false,
         isTenant: true,
@@ -111,7 +110,7 @@ describe('Service Buckets page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/buckets/management`,
         isAdmin: false,
         isTenant: false
