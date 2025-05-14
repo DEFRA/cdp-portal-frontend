@@ -11,9 +11,7 @@ const githubOrg = config.get('githubOrg')
 describe('#repositoryDecorator', () => {
   describe('With deployable service', () => {
     test('Should provide expected service when decorated with repository', () => {
-      expect(
-        repositoryDecorator(serviceFixture, repositoryFixture.repository)
-      ).toEqual({
+      expect(repositoryDecorator(serviceFixture, repositoryFixture)).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
         description: 'The Core Delivery Platform Portal.',
         githubUrl: `https://github.com/${githubOrg}/cdp-portal-frontend`,
@@ -41,7 +39,7 @@ describe('#repositoryDecorator', () => {
       expect(
         repositoryDecorator(
           createServiceStatusToService(createServiceStatusInProgressFixture),
-          repositoryFixture.repository
+          repositoryFixture
         )
       ).toEqual({
         createdAt: '2023-04-12T17:16:48+00:00',
@@ -72,7 +70,7 @@ describe('#repositoryDecorator', () => {
       expect(
         repositoryDecorator(
           createServiceStatusToService(createServiceStatusInProgressFixture),
-          repositoryFixture.repository,
+          repositoryFixture,
           tenantServicesFixture
         )
       ).toEqual({
@@ -105,7 +103,7 @@ describe('#repositoryDecorator', () => {
       expect(
         repositoryDecorator(
           createServiceStatusToService(createServiceStatusInProgressFixture),
-          repositoryFixture.repository,
+          repositoryFixture,
           tenantServicesFixture,
           { isPostgres: true }
         )

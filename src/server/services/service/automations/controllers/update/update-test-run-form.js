@@ -29,7 +29,7 @@ const updateTestRunFormController = {
     const testSuiteId = request.params.testSuiteId
     const service = request.app.service
 
-    const [autoTestRunDetails, testRepository] = await Promise.all([
+    const [autoTestRunDetails, repository] = await Promise.all([
       getAutoTestRunDetails(serviceId),
       fetchTestRepository(testSuiteId)
     ])
@@ -50,7 +50,7 @@ const updateTestRunFormController = {
         environments: autoTestRunDetails?.testSuites?.[testSuiteId] ?? []
       },
       testRun: {
-        repository: testRepository?.repository,
+        repository,
         environments: autoTestRunDetails?.testSuites?.[testSuiteId]
       },
       environmentOptions,

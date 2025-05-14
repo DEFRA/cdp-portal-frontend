@@ -1,6 +1,6 @@
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
-import { serviceFixture } from '~/src/__fixtures__/entity.js'
+import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
 
 describe('#transformServiceToSummary', () => {
   beforeAll(() => {
@@ -14,7 +14,7 @@ describe('#transformServiceToSummary', () => {
 
   test('Should provide expected service summary', () => {
     expect(
-      transformServiceToSummary(repositoryFixture, serviceFixture)
+      transformServiceToSummary(repositoryFixture, entityServicesFixture[1])
     ).toEqual({
       attributes: {
         'data-testid': 'service-summary'
@@ -60,7 +60,7 @@ describe('#transformServiceToSummary', () => {
             text: 'Primary Language'
           },
           value: {
-            text: '- - -'
+            text: 'JavaScript'
           }
         },
         {
@@ -68,7 +68,7 @@ describe('#transformServiceToSummary', () => {
             text: 'Topics'
           },
           value: {
-            html: '- - -'
+            html: expect.stringContaining('frontend')
           }
         },
         {
@@ -86,7 +86,7 @@ describe('#transformServiceToSummary', () => {
             text: 'Created'
           },
           value: {
-            html: expect.stringContaining('Wed 12th Apr 2023 at 17:16')
+            html: expect.stringContaining('Mon 5th Dec 2016 at 11:21')
           }
         }
       ]

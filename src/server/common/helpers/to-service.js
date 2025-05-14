@@ -18,12 +18,12 @@ async function toService(serviceId) {
     fetchTenantService(serviceId)
   ])
 
-  const repository = github?.repository
+  const repository = github
     ? {
-        ...github.repository,
-        isFrontend: github.repository.topics?.includes('frontend') ?? false,
-        isBackend: github.repository.topics?.includes('backend') ?? false,
-        isTestSuite: github.repository.topics?.includes('test') ?? false
+        ...github,
+        isFrontend: github.topics?.includes('frontend') ?? false,
+        isBackend: github.topics?.includes('backend') ?? false,
+        isTestSuite: github.topics?.includes('test') ?? false
       }
     : null
 

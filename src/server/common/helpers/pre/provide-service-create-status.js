@@ -18,8 +18,7 @@ const provideServiceCreateStatus = {
   method: async function (request) {
     const serviceId = request.params?.serviceId
 
-    const githubResponse = await fetchRepository(serviceId).catch(nullify404)
-    const repository = githubResponse?.repository ?? null
+    const repository = await fetchRepository(serviceId).catch(nullify404)
 
     const createServiceStatusResponse =
       await fetchLegacyServiceStatus(serviceId).catch(nullify404)

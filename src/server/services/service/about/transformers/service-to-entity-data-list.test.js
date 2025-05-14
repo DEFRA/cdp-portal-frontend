@@ -75,7 +75,7 @@ describe('#serviceToEntityDataList', () => {
     test('Should provide expected service data list entities transformation', () => {
       const service = repositoryDecorator(
         createServiceStatusToService(createServiceStatusInProgressFixture),
-        repositoryFixture.repository
+        repositoryFixture
       )
 
       expect(serviceToEntityDataList(service)).toEqual([

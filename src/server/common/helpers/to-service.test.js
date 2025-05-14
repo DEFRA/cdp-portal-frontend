@@ -63,7 +63,7 @@ describe('#toService', () => {
       fetchRepository.mockResolvedValue(repositoryTestSuiteFixture)
       fetchDeployableService.mockResolvedValue(testSuiteFixture)
 
-      const result = await toService(repositoryTestSuiteFixture.repository.id)
+      const result = await toService(repositoryTestSuiteFixture.id)
 
       expect(result).toEqual({
         createdAt: '2024-12-18T14:40:13+00:00',

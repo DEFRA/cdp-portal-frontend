@@ -14,7 +14,7 @@ const libraryController = {
     }
   },
   handler: async (request, h) => {
-    const { repository } = await fetchLibraries(request.params?.libraryId)
+    const repository = await fetchLibraries(request.params?.libraryId)
 
     return h.view('utilities/views/library', {
       pageTitle: repository.id,
