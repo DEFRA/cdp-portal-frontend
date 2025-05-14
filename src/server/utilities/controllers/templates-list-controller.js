@@ -12,7 +12,7 @@ const templatesListController = {
     const isAuthenticated = authedUser?.isAuthenticated
     const userScopeUUIDs = authedUser?.uuidScope ?? []
 
-    const { repositories: templates } = await fetchTemplates()
+    const templates = await fetchTemplates()
 
     const rows = buildUtilitiesTableData({
       utilities: templates,

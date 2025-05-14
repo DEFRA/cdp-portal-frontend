@@ -22,7 +22,7 @@ const removeTestRunFormController = {
     const testSuiteId = request.params.testSuiteId
     const service = request.app.service
 
-    const [autoTestRunDetails, testRepository] = await Promise.all([
+    const [autoTestRunDetails, repository] = await Promise.all([
       getAutoTestRunDetails(serviceId),
       fetchTestRepository(testSuiteId)
     ])
@@ -32,7 +32,7 @@ const removeTestRunFormController = {
       service,
       testSuiteId,
       testRun: {
-        repository: testRepository?.repository,
+        repository,
         environments: autoTestRunDetails?.testSuites?.[testSuiteId]
       },
       breadcrumbs: [

@@ -14,7 +14,7 @@ const templateController = {
     }
   },
   handler: async (request, h) => {
-    const { repository } = await fetchTemplates(request.params?.templateId)
+    const repository = await fetchTemplates(request.params?.templateId)
 
     return h.view('utilities/views/template', {
       pageTitle: repository.id,

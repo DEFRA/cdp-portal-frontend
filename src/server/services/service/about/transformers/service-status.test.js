@@ -11,7 +11,7 @@ describe('#serviceStatus', () => {
   test('Should provide expected transformed service status', () => {
     const service = repositoryDecorator(
       createServiceStatusToService(createServiceStatusInProgressFixture),
-      repositoryFixture.repository
+      repositoryFixture
     )
 
     const result = serviceStatus(service)

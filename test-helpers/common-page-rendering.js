@@ -63,16 +63,13 @@ export async function initialiseServer() {
 
 function mockRepositoryCall(jest, repositoryName, additionalTopics) {
   jest.mocked(fetchRepository).mockResolvedValue({
-    message: 'success',
-    repository: {
-      repositoryName,
-      description: 'Mock service description',
-      createdAt: '2016-12-05T11:21:25+00:00',
-      url: `https://github.com/DEFRA/${repositoryName}`,
-      topics: ['cdp', ...additionalTopics],
-      primaryLanguage: 'JavaScript',
-      teams: [mockTeam]
-    }
+    repositoryName,
+    description: 'Mock service description',
+    createdAt: '2016-12-05T11:21:25+00:00',
+    url: `https://github.com/DEFRA/${repositoryName}`,
+    topics: ['cdp', ...additionalTopics],
+    primaryLanguage: 'JavaScript',
+    teams: [mockTeam]
   })
 }
 

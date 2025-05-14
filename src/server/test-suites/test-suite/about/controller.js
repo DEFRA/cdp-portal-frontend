@@ -33,11 +33,7 @@ const testSuiteController = {
     const testSuiteName = entity.name
     const query = request.query
 
-    const repositoryResponse = await fetchRepository(entity.name).catch(
-      nullify404
-    )
-
-    const repository = repositoryResponse?.repository
+    const repository = await fetchRepository(entity.name).catch(nullify404)
 
     const { testRuns, page, pageSize, totalPages } = await fetchTestRuns(
       testSuiteName,

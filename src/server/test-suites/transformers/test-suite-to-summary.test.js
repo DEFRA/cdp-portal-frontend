@@ -1,14 +1,14 @@
-import { testSuiteFixture } from '~/src/__fixtures__/entity.js'
 import { repositoryTestSuiteFixture } from '~/src/__fixtures__/repository.js'
 import { transformTestSuiteToSummary } from '~/src/server/test-suites/transformers/test-suite-to-summary.js'
+import { entityTestSuiteFixture } from '~/src/__fixtures__/test-suite.js'
 
 describe('#testSuiteToEntityDataList', () => {
   describe('With a test suite', () => {
     test('Should provide expected test suite summary transformation', () => {
       expect(
         transformTestSuiteToSummary(
-          testSuiteFixture,
-          repositoryTestSuiteFixture.repository
+          entityTestSuiteFixture,
+          repositoryTestSuiteFixture
         )
       ).toEqual({
         attributes: {
@@ -55,7 +55,7 @@ describe('#testSuiteToEntityDataList', () => {
               text: 'Created'
             },
             value: {
-              html: expect.stringContaining('Mon 5th Dec 2016 at 11:21')
+              html: expect.stringContaining('Wed 23rd Apr 2025 at 10:14')
             }
           }
         ]

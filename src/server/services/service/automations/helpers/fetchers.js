@@ -95,7 +95,7 @@ async function fetchTeamTestRepositories(teamId) {
   const endpoint = portalBackendUrl + `/repositories/all/tests/${teamId}`
 
   const { payload } = await fetchJson(endpoint)
-  return payload.repositories
+  return payload
 }
 
 export {

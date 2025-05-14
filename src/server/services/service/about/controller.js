@@ -46,7 +46,7 @@ async function fetchData({ request, serviceName, isPostgres }) {
     availableVersions,
     vanityUrls,
     apiGateways,
-    repositoryResponse,
+    repository,
     availableMigrations = [],
     latestMigrations = []
   ] = await Promise.all(promises)
@@ -55,7 +55,7 @@ async function fetchData({ request, serviceName, isPostgres }) {
     availableVersions,
     vanityUrls,
     apiGateways,
-    repository: repositoryResponse?.repository ?? null,
+    repository,
     availableMigrations,
     latestMigrations
   }

@@ -11,7 +11,7 @@ describe('#testSuiteToEntityDataList', () => {
     test('Should provide expected service data list entities transformation', () => {
       expect(
         testSuiteToEntityDataList(
-          repositoryDecorator(testSuiteFixture, repositoryFixture.repository)
+          repositoryDecorator(testSuiteFixture, repositoryFixture)
         )
       ).toEqual([
         {
