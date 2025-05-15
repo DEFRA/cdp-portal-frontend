@@ -5,6 +5,7 @@ export const statusCodes = {
   ok: 200,
   noContent: 204,
   miscellaneousPersistentWarning: 299,
+  redirect: 302,
   badRequest: 400,
   unauthorized: 401,
   forbidden: 403,
