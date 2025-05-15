@@ -10,7 +10,6 @@ jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-suite.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-all-secrets.js')
 
@@ -19,7 +18,7 @@ describe('Secrets Test Suite page', () => {
   let server
 
   beforeAll(async () => {
-    jest.mocked(fetchAllSecrets).mockResolvedValue({
+    fetchAllSecrets.mockResolvedValue({
       'infra-dev': {
         keys: ['SOME_KEY'],
         lastChangedDate: '2024-11-15T16:03:38.3139986Z',
@@ -32,7 +31,7 @@ describe('Secrets Test Suite page', () => {
       }
     })
 
-    mockCommonTestSuiteCalls(jest, 'mock-test-suite')
+    mockCommonTestSuiteCalls('mock-test-suite')
     server = await initialiseServer()
   })
 
@@ -42,7 +41,7 @@ describe('Secrets Test Suite page', () => {
 
   describe('all envs view', () => {
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets',
         isAdmin: true,
         isTenant: true
@@ -52,7 +51,7 @@ describe('Secrets Test Suite page', () => {
     })
 
     test('page errors for logged in tenant who doesnt own service', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets',
         isAdmin: false,
         isTenant: true
@@ -61,7 +60,7 @@ describe('Secrets Test Suite page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets',
         isAdmin: false,
         isTenant: true,
@@ -72,7 +71,7 @@ describe('Secrets Test Suite page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets',
         isAdmin: false,
         isTenant: false
@@ -83,7 +82,7 @@ describe('Secrets Test Suite page', () => {
 
   describe('single envs view', () => {
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets/infra-dev',
         isAdmin: true,
         isTenant: true
@@ -93,7 +92,7 @@ describe('Secrets Test Suite page', () => {
     })
 
     test('page errors for logged in tenant who doesnt own service', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets/dev',
         isAdmin: false,
         isTenant: true
@@ -102,7 +101,7 @@ describe('Secrets Test Suite page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets/prod',
         isAdmin: false,
         isTenant: true,
@@ -113,7 +112,7 @@ describe('Secrets Test Suite page', () => {
     })
 
     test('admin only env page errors for logged in service owner tenant', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets/management',
         isAdmin: false,
         isTenant: true,
@@ -123,7 +122,7 @@ describe('Secrets Test Suite page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/test-suites/mock-test-suite/secrets/management',
         isAdmin: false,
         isTenant: false

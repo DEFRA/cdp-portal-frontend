@@ -1,4 +1,4 @@
-// Response from portalBackendApi/services
+// Response from portalBackendApi/entities
 const entityServicesFixture = [
   {
     name: 'cdp-portal-backend',

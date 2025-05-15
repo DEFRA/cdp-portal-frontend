@@ -12,7 +12,6 @@ import {
 import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/service/automations/helpers/fetchers.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
@@ -24,7 +23,7 @@ describe('Service Automations page', () => {
   let server
 
   beforeAll(async () => {
-    mockCommonServicesCalls(jest, serviceName)
+    mockCommonServicesCalls(serviceName)
     server = await initialiseServer()
   })
 
@@ -34,14 +33,14 @@ describe('Service Automations page', () => {
 
   describe('deployments view', () => {
     beforeAll(() => {
-      jest.mocked(getAutoDeployDetails).mockResolvedValue({
+      getAutoDeployDetails.mockResolvedValue({
         serviceName,
         environments: ['dev', 'prod']
       })
     })
 
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/deployments`,
         isAdmin: true,
         isTenant: true
@@ -51,7 +50,7 @@ describe('Service Automations page', () => {
     })
 
     test('page errors for logged in tenant who doesnt own service', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/deployments`,
         isAdmin: false,
         isTenant: true
@@ -60,7 +59,7 @@ describe('Service Automations page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/deployments`,
         isAdmin: false,
         isTenant: true,
@@ -71,7 +70,7 @@ describe('Service Automations page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/deployments`,
         isAdmin: false,
         isTenant: false
@@ -82,7 +81,7 @@ describe('Service Automations page', () => {
 
   describe('test-runs view', () => {
     beforeAll(() => {
-      jest.mocked(fetchTeamTestRepositories).mockResolvedValue({
+      fetchTeamTestRepositories.mockResolvedValue({
         repositories: [
           {
             repositoryName: 'some-test-repo',
@@ -113,13 +112,13 @@ describe('Service Automations page', () => {
           }
         ]
       })
-      jest.mocked(getAutoTestRunDetails).mockResolvedValue({
+      getAutoTestRunDetails.mockResolvedValue({
         serviceName,
         testSuites: {
           'some-test-repo': ['dev', 'test']
         }
       })
-      jest.mocked(fetchTestSuites).mockResolvedValue([
+      fetchTestSuites.mockResolvedValue([
         {
           name: 'some-test-repo',
           type: 'TestSuite',
@@ -157,7 +156,7 @@ describe('Service Automations page', () => {
     })
 
     test('page renders for logged in admin user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/test-runs`,
         isAdmin: true,
         isTenant: true
@@ -167,7 +166,7 @@ describe('Service Automations page', () => {
     })
 
     test('page errors for logged in tenant who doesnt own service', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/test-runs`,
         isAdmin: false,
         isTenant: true
@@ -176,7 +175,7 @@ describe('Service Automations page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/test-runs`,
         isAdmin: false,
         isTenant: true,
@@ -187,7 +186,7 @@ describe('Service Automations page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/automations/test-runs`,
         isAdmin: false,
         isTenant: false

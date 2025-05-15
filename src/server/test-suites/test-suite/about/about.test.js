@@ -5,7 +5,6 @@ import {
   mockTestRuns
 } from '~/test-helpers/common-page-rendering.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
@@ -17,8 +16,8 @@ describe('About Test Suite page', () => {
 
   beforeAll(async () => {
     const testSuite = 'mock-test-suite'
-    mockCommonTestSuiteCalls(jest, testSuite)
-    mockTestRuns(jest, testSuite)
+    mockCommonTestSuiteCalls(testSuite)
+    mockTestRuns(testSuite)
     server = await initialiseServer()
   })
 
@@ -27,7 +26,7 @@ describe('About Test Suite page', () => {
   })
 
   test('page renders for logged in admin user', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/test-suites/mock-test-suite',
       isAdmin: true,
       isTenant: true
@@ -37,7 +36,7 @@ describe('About Test Suite page', () => {
   })
 
   test('page renders for logged in tenant', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/test-suites/mock-test-suite',
       isAdmin: false,
       isTenant: true
@@ -47,7 +46,7 @@ describe('About Test Suite page', () => {
   })
 
   test('page renders for logged in service owner tenant', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/test-suites/mock-test-suite',
       isAdmin: false,
       isTenant: true,
@@ -59,7 +58,7 @@ describe('About Test Suite page', () => {
   })
 
   test('page renders for logged out user', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/test-suites/mock-test-suite',
       isAdmin: false,
       isTenant: false
