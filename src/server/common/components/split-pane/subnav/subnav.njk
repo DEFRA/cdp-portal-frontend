@@ -3,13 +3,13 @@
   <ul class="app-subnav__section">
     {% for item in subNavigation %}
       {% set label = item.label.html | safe if item.label.html else item.label.text %}
-      {% set testId = item.label.text if item.label.text else loop.index %}
+      {% set testId = (item.label.text if item.label.text else loop.index) | lower | replace(" ", "-") %}
 
       <li class="app-subnav__section-item{% if item.isActive %} app-subnav__section-item--current{% endif %}"
-          data-testid="app-subnav-item-{{ testId | lower }}">
+          data-testid="app-subnav-item-{{ testId }}">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="{{ item.url }}"
-           data-testid="app-subnav-link-{{ testId | lower }}"
+           data-testid="app-subnav-link-{{ testId }}"
         >{{ label }}</a>
       </li>
     {% endfor %}
