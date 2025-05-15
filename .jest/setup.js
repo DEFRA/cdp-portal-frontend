@@ -2,10 +2,10 @@ import { TextEncoder, TextDecoder } from 'node:util'
 import { ReadableStream, TransformStream } from 'node:stream/web'
 import { clearImmediate, setImmediate } from 'node:timers'
 
-import { toMatchFile } from 'jest-file-snapshot'
+import { fetchWellknown } from '~/src/server/common/helpers/fetch/fetch-well-known.js'
+import { toMatchFileWithOptions } from '~/test-helpers/to-match-file.js'
 
-// TODO - split into separate projects for client and server side tests.
-// We support both node and client side unit tests. Using jsdom and poly-filling individual Node.js server needs
+jest.mock('~/src/server/common/helpers/fetch/fetch-well-known.js')
 
 // Globally mock redis
 jest.mock('ioredis')
@@ -22,18 +22,17 @@ global.clearImmediate = clearImmediate
 Element.prototype.scrollIntoView = jest.fn()
 Element.prototype.scroll = jest.fn()
 
-// Curry the toMatchFile function to prefill fileExtension argument
-function toMatchFileWithOptions(
-  content,
-  filename,
-  options = { fileExtension: '.html' }
-) {
-  return toMatchFile.call(this, content, filename, options)
-}
-
 expect.extend({ toMatchFile: toMatchFileWithOptions })
 
+beforeAll(() => {
+  // Mock wellknown fetch on server startup
+  jest.mocked(fetchWellknown).mockResolvedValue({
+    token_endpoint: 'https://mock-login/oauth2/v2.0/token',
+    authorization_endpoint: 'https://mock-login/oauth2/v2.0/authorize'
+  })
+})
+
 afterEach(() => {
-  // Clear down JSDOM document after each test
+  // Clear down JSDOM dom
   document.getElementsByTagName('html')[0].innerHTML = ''
 })
