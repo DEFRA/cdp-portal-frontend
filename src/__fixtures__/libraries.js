@@ -19,6 +19,24 @@ const librariesFixture = {
         }
       ],
       topics: ['cdp', 'repository', 'library']
+    },
+    {
+      id: 'useful-util',
+      description: 'Git repository for useful-util',
+      primaryLanguage: 'JavaScript',
+      url: 'https://github.com/DEFRA/useful-util',
+      isArchived: false,
+      isTemplate: false,
+      isPrivate: false,
+      createdAt: '2025-04-09T11:10:52+00:00',
+      teams: [
+        {
+          github: 'bees',
+          teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89',
+          name: 'Bees'
+        }
+      ],
+      topics: ['cdp', 'repository', 'library']
     }
   ]
 }

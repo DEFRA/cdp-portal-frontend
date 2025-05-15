@@ -17,12 +17,20 @@ describe('#sortByOwner', () => {
     test('Should sort owned teams first', () => {
       expect(servicesWithOwner.sort(sortByOwner('serviceName'))).toEqual([
         expect.objectContaining({
+          serviceName: 'cdp-example-node-postgres-be',
+          isOwner: true
+        }),
+        expect.objectContaining({
           serviceName: 'cdp-portal-frontend',
           isOwner: true
         }),
         expect.objectContaining({
           serviceName: 'cdp-user-service-backend',
           isOwner: true
+        }),
+        expect.objectContaining({
+          serviceName: 'ai-backend',
+          isOwner: false
         }),
         expect.objectContaining({
           serviceName: 'forms-designer',
@@ -35,6 +43,12 @@ describe('#sortByOwner', () => {
   describe('Without owner information', () => {
     test('Should sort alphabetically by service name', () => {
       expect(servicesFixture.sort(sortByOwner('serviceName'))).toEqual([
+        expect.objectContaining({
+          serviceName: 'ai-backend'
+        }),
+        expect.objectContaining({
+          serviceName: 'cdp-example-node-postgres-be'
+        }),
         expect.objectContaining({
           serviceName: 'cdp-portal-frontend'
         }),
@@ -54,6 +68,10 @@ describe('#sortByOwner', () => {
         expect.objectContaining({
           id: 'hapi-tracing',
           isOwner: true
+        }),
+        expect.objectContaining({
+          id: 'useful-util',
+          isOwner: false
         })
       ])
     })

@@ -6,7 +6,6 @@ import {
 } from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-json.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
 
@@ -16,8 +15,8 @@ describe('Service Terminal page', () => {
 
   beforeAll(async () => {
     const serviceName = 'mock-service-with-terminal'
-    mockCommonServicesCalls(jest, serviceName)
-    mockTenantServicesCall({ jest })
+    mockCommonServicesCalls(serviceName)
+    mockTenantServicesCall()
     server = await initialiseServer()
   })
 
@@ -26,7 +25,7 @@ describe('Service Terminal page', () => {
   })
 
   test('page renders for logged in admin user', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service-with-terminal/terminal',
       isAdmin: true,
       isTenant: true
@@ -36,7 +35,7 @@ describe('Service Terminal page', () => {
   })
 
   test('page errors for logged in non-service owner tenant', async () => {
-    const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service-with-terminal/terminal',
       isAdmin: false,
       isTenant: true
@@ -45,7 +44,7 @@ describe('Service Terminal page', () => {
   })
 
   test('page renders for logged in service owner tenant', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service-with-terminal/terminal',
       isAdmin: false,
       isTenant: true,
@@ -56,7 +55,7 @@ describe('Service Terminal page', () => {
   })
 
   test('page errors with 401 for logged out user', async () => {
-    const { statusCode } = await mockAuthAndRenderUrl(server, jest, {
+    const { statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service-with-terminal/terminal',
       isAdmin: false,
       isTenant: false

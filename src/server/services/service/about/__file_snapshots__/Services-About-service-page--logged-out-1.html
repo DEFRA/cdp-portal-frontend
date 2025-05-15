@@ -2,18 +2,18 @@
 <html lang="en" class="govuk-template">
   <head>
     <meta charset="utf-8">
-    <title>  mock-postgres-service microservice | Core Delivery Platform - Portal
+    <title>  mock-service microservice | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b0c0c">
 
-      <link rel="icon" sizes="48x48" href="/public/assets/images/favicon.ico">
-      <link rel="icon" sizes="any" href="/public/assets/images/favicon.svg" type="image/svg+xml">
-      <link rel="mask-icon" href="/public/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
-      <link rel="apple-touch-icon" href="/public/assets/images/govuk-icon-180.png">
-      <link rel="manifest" href="/public/assets/manifest.json">
+      <link rel="icon" sizes="48x48" href="/.public/assets/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/.public/assets/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/.public/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+      <link rel="apple-touch-icon" href="/.public/assets/images/govuk-icon-180.png">
+      <link rel="manifest" href="/.public/assets/manifest.json">
 
-  <link href="/public/stylesheets/application.css" rel="stylesheet">
+  <link href="/.public/stylesheets/application.css" rel="stylesheet">
     <meta name="service-version" content="0.1.0">
     <meta name="service-environment" content="test">
 
@@ -42,10 +42,10 @@
     </div>
     <div class="app-service-header__actions">
 
-      <a href="/logout"
-         class="app-service-header__login-link app-service-header__link         app-service-header__is-logged-in"
+      <a href="/login"
+         class="app-service-header__login-link app-service-header__link"
          data-testid="app-login-link">
-        Sign out
+        Sign in
       </a>
     </div>
   </div>
@@ -122,22 +122,6 @@
       </ul>
 
       <ul class="app-navigation__actions">
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/deploy-service"
-               data-testid="nav-deploy-service"
-            >
-              Deploy Service
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/create"
-               data-testid="nav-create"
-            >
-              Create
-            </a>
-          </li>
 
       </ul>
     </div>
@@ -167,7 +151,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-testid="app-breadcrumbs-link">Services</a>
         </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">mock-postgres-service</li>
+            data-testid="app-breadcrumbs-list-item">mock-service</li>
   </ol>
 </nav>
 
@@ -177,7 +161,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <span class="govuk-caption-l" data-testid="app-page-heading-caption">Service</span>
 
   <div class="app-page-heading">
-    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-postgres-service</h1>
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service</h1>
 
 
   </div>
@@ -187,70 +171,48 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 <div class="app-tabs"
      data-js="app-tabs">
-    <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Service tabs">
 
-
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-about app-tabs-list-item--selected">
-
-
-          <a id="tab-about"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-about"
-             aria-selected="true">
-            About
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-buckets">
-
-
-          <a id="tab-buckets"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/buckets"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-buckets"
-             aria-selected="false">
-            Buckets
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-proxy">
-
-
-          <a id="tab-proxy"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/proxy"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-proxy"
-             aria-selected="false">
-            Proxy
-          </a>
-        </li>
-    </ul>
-
-      <section id="tab-panel-about"
+      <section id="tab-panel-"
                class="app-tabs__panel"
                role="tabpanel"
-               aria-labelledby="tab-about"
+               aria-labelledby="tab-"
                data-testid="app-tabs-panel">
         
   <div class="govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+      <ul class="govuk-list govuk-!-margin-bottom-0">
+          <li>
+
+
+<div
+  class="app-warning govuk-!-margin-top-0 govuk-!-margin-bottom-0"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-warning">
+
+  <svg class="app-icon app-warning-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Warning">
+  <path fill-rule="nonzero"
+        d="M23.9476157 36.7259786c.9649347 0 1.7226097-.2577461 2.2730249-.7732384.5504152-.5154923.8256227-1.2557058.8256227-2.2206406 0-.9649347-.267236-1.7320996-.8017081-2.3014946-.5344722-.569395-1.2841756-.8540925-2.2491104-.8540925-.9649347 0-1.7226097.2810913-2.2730249.843274-.5504152.5618031-.8256227 1.3253618-.8256227 2.2906761 0 .9649348.267236 1.7087545.8017081 2.2314591.5344722.5227046 1.2841756.7840569 2.2491104.7840569Zm.1867615-9.9644128c.7645077 0 1.3840095-.2397153 1.8585054-.7191459.4744958-.479051.7117437-1.112408.7117437-1.9000711V14.0071174c0-.7508422-.2406643-1.365599-.7219928-1.8442704-.480949-.4786714-1.1036774-.7180071-1.8681851-.7180071-.726548 0-1.3401661.2393357-1.8408541.7180071-.5003084.4786714-.7504626 1.0934282-.7504626 1.8442704v10.1352314c0 .7876631.2535706 1.4210201.7607117 1.9000711.5071412.4794306 1.1239858.7191459 1.8505338.7191459ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.94908659-5.46011862 5.12683274-7.64583629 2.17812574-2.18533808 4.72635823-3.90282325 7.64469753-5.15245552C17.549134.62500593 20.6595492 0 23.9624199 0c3.3165362 0 6.4385291.62348754 9.3659787 1.87046263 2.9278292 1.24697509 5.4789086 2.9608541 7.6532384 5.14163701 2.1747094 2.18116252 3.888019 4.73432976 5.1399288 7.65950176C47.3738553 17.597153 48 20.7214235 48 24.0444128c0 3.3199526-.6250059 6.4334045-1.8750178 9.3403559-1.2496323 2.9069513-2.9671174 5.4460735-5.1524555 7.6173665-2.1857177 2.1716726-4.7375564 3.8808067-7.655516 5.1274022C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+
+
+  <span class="app-warning__content" data-testid="app-warning-content">
+                  <a class="app-link app-link--underline"
+                 href="https://mock-service.cdp-int.defra.cloud"
+                 target="_blank" rel="noopener noreferrer">https://mock-service.cdp-int.defra.cloud</a> has been shuttered
+
+  </span>
+</div>
+
+          </li>
+      </ul>
 
   </div>
 
 
   <div class="app-service-container">
-    <article class="app-grid app-grid-service app-grid-service--postgres">
+    <article class="app-grid app-grid-service app-grid-service--standard">
       <section class="app-grid-service__details">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
         <p class="govuk-!-margin-bottom-2">
@@ -264,7 +226,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </dt>
     <dd class="govuk-summary-list__value">
       <strong class="govuk-tag app-tag govuk-tag--blue">
-        Backend
+        Frontend
       </strong>
     </dd>
   </div>
@@ -273,7 +235,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       Image name
     </dt>
     <dd class="govuk-summary-list__value">
-      mock-postgres-service
+      mock-service
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -281,7 +243,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       GitHub Repository
     </dt>
     <dd class="govuk-summary-list__value">
-      <a class="app-link" href="https://github.com/DEFRA/mock-postgres-service" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://github.com/DEFRA/mock-postgres-service</a>
+      <a class="app-link" href="https://github.com/DEFRA/mock-service" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://github.com/DEFRA/mock-service</a>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -324,11 +286,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         </a> <a class="app-link govuk-link app-link--without-underline"
-           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Abackend&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Afrontend&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
       
       
       <strong class="govuk-tag app-tag" data-testid="govuk-tag">
-        backend
+        frontend
       </strong>
       
       
@@ -340,7 +302,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       Docker Hub
     </dt>
     <dd class="govuk-summary-list__value">
-      <a class="app-link" href="https://hub.docker.com/r/defradigital/mock-postgres-service/tags" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://hub.docker.com/r/defradigital/mock-postgres-service/tags</a>
+      <a class="app-link" href="https://hub.docker.com/r/defradigital/mock-service/tags" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://hub.docker.com/r/defradigital/mock-service/tags</a>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -410,7 +372,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </div>
 </td>
       <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.3.0"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
        target="_blank" rel="noopener noreferrer">0.3.0</a>
 </td>
     </tr>
@@ -443,7 +405,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </div>
 </td>
       <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.2.0"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.2.0"
        target="_blank" rel="noopener noreferrer">0.2.0</a>
 </td>
     </tr>
@@ -476,7 +438,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </div>
 </td>
       <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.1.0"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.1.0"
        target="_blank" rel="noopener noreferrer">0.1.0</a>
 </td>
     </tr>
@@ -509,7 +471,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </div>
 </td>
       <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.172.0"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.172.0"
        target="_blank" rel="noopener noreferrer">0.172.0</a>
 </td>
     </tr>
@@ -542,7 +504,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </div>
 </td>
       <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.171.0"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.171.0"
        target="_blank" rel="noopener noreferrer">0.171.0</a>
 </td>
     </tr>
@@ -575,7 +537,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </div>
 </td>
       <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.170.0"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.170.0"
        target="_blank" rel="noopener noreferrer">0.170.0</a>
 </td>
     </tr>
@@ -585,334 +547,19 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
           <p class="govuk-!-margin-bottom-0">
             <a class="app-link" target="_blank" rel="noopener noreferrer"
-               href="https://github.com/DEFRA/mock-postgres-service/tags">
+               href="https://github.com/DEFRA/mock-service/tags">
               more versions
             </a>
           </p>
 
       </section>
 
-        <section class="app-grid-service__migrations" data-testid="database-changes">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Changelogs</h2>
-          <p class="govuk-!-margin-bottom-2">
-            Latest database changelogs available for this microservice. For more information view
-            <a class="app-link"
-               href="/deployments/dev?service=mock-postgres-service">Deployments and Updates</a>
-          </p>
-
-
-            <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Created</th>
-      <th scope="col" class="govuk-table__header">Version</th>
-      <th scope="col" class="govuk-table__header">Kind</th>
-      <th scope="col" class="govuk-table__header"></th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">    <div class="app-row">
-      <svg class="app-icon app-schema app-icon--small" width="48" height="48"
-     role="img" aria-label="Schema icon" viewBox="0 0 48 48">
-  <path fill-rule="nonzero"
-        d="M17.4116788 37.1245552h14.1766424c.569343 0 1.0343065-.189229 1.3948905-.5676869.3605839-.3780783.5408759-.8468802.5408759-1.4064057 0-.5432028-.180292-1.0047924-.5408759-1.3847686-.360584-.3799763-.8255475-.5699645-1.3948905-.5699645H17.3547445c-.5913576 0-1.0618248.1877106-1.4114014.5631317-.3495767.3750415-.524365.8400475-.524365 1.3950178 0 .5545908.180292 1.0216845.5408759 1.4012811.360584.3795967.8445256.5693951 1.4518248.5693951Zm0-9.6227758h14.2335767c.5484671 0 1.0081168-.189229 1.3789489-.5676869.3712117-.3780783.5568175-.8468802.5568175-1.4064057 0-.5432028-.1856058-.9953025-.5568175-1.3562989-.3708321-.3609964-.8304818-.5414947-1.3789489-.5414947h-14.290511c-.5913576 0-1.0618248.1803085-1.4114014.5409253-.3495767.3606168-.524365.8127165-.524365 1.3562989 0 .5432029.180292 1.0082088.5408759 1.3950178.360584.3864295.8445256.5796442 1.4518248.5796442ZM10.1810219 48c-1.35807299 0-2.56109489-.5107473-3.6090657-1.532242C5.5239854 45.4458837 5 44.2294662 5 42.8185053V5.23843416c0-1.42690391.5239854-2.65660735 1.5719562-3.68911032C7.61992701.51644128 8.82294891 0 10.1810219 0h18.5605839c.718511 0 1.4032409.14310795 2.0541898.42932384.6509489.2865955 1.1997956.6749229 1.6465402 1.16498221l9.9065693 9.85053385c.4900146.5151127.8877956 1.0915302 1.1933431 1.7292526C43.8474161 13.8114353 44 14.5066667 44 15.2597865v27.5587188c0 1.4109609-.5296788 2.6273784-1.5890365 3.6492527C41.3519854 47.4892527 40.1356788 48 38.7620438 48H10.1810219Zm17.9912409-35.0177936V5.23843416H10.1810219V42.8185053h28.5810219V15.6014235h-7.9708029c-.7875913 0-1.4208905-.2397153-1.8998978-.7191459-.4793869-.479051-.7190803-1.1124081-.7190803-1.9000712ZM10.20948905 5.23843416V15.6014235 5.23843416 42.8185053 5.23843416Z" />
-</svg>
-
-      
-
-
-<span
-  class="app-tool-tip"
-  data-text="Saturday 10th May 2025, 17:48:22"
->
-    <time class="govuk-!-margin-left-2"    datetime="2025-05-10T18:48:22+01:00"
-    data-testid="app-time">
-        Today at 17:48
-
-  </time>
-
-</span>
-
-
-
-    </div>
-</td>
-      <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.3.0"
-       target="_blank" rel="noopener noreferrer">0.3.0</a>
-</td>
-      <td class="govuk-table__cell">    
-
-
-<strong class="govuk-tag app-tag govuk-tag--blue">
-  Liquibase
-</strong>
-
-
-
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">    <div class="app-row">
-      <svg class="app-icon app-schema app-icon--small" width="48" height="48"
-     role="img" aria-label="Schema icon" viewBox="0 0 48 48">
-  <path fill-rule="nonzero"
-        d="M17.4116788 37.1245552h14.1766424c.569343 0 1.0343065-.189229 1.3948905-.5676869.3605839-.3780783.5408759-.8468802.5408759-1.4064057 0-.5432028-.180292-1.0047924-.5408759-1.3847686-.360584-.3799763-.8255475-.5699645-1.3948905-.5699645H17.3547445c-.5913576 0-1.0618248.1877106-1.4114014.5631317-.3495767.3750415-.524365.8400475-.524365 1.3950178 0 .5545908.180292 1.0216845.5408759 1.4012811.360584.3795967.8445256.5693951 1.4518248.5693951Zm0-9.6227758h14.2335767c.5484671 0 1.0081168-.189229 1.3789489-.5676869.3712117-.3780783.5568175-.8468802.5568175-1.4064057 0-.5432028-.1856058-.9953025-.5568175-1.3562989-.3708321-.3609964-.8304818-.5414947-1.3789489-.5414947h-14.290511c-.5913576 0-1.0618248.1803085-1.4114014.5409253-.3495767.3606168-.524365.8127165-.524365 1.3562989 0 .5432029.180292 1.0082088.5408759 1.3950178.360584.3864295.8445256.5796442 1.4518248.5796442ZM10.1810219 48c-1.35807299 0-2.56109489-.5107473-3.6090657-1.532242C5.5239854 45.4458837 5 44.2294662 5 42.8185053V5.23843416c0-1.42690391.5239854-2.65660735 1.5719562-3.68911032C7.61992701.51644128 8.82294891 0 10.1810219 0h18.5605839c.718511 0 1.4032409.14310795 2.0541898.42932384.6509489.2865955 1.1997956.6749229 1.6465402 1.16498221l9.9065693 9.85053385c.4900146.5151127.8877956 1.0915302 1.1933431 1.7292526C43.8474161 13.8114353 44 14.5066667 44 15.2597865v27.5587188c0 1.4109609-.5296788 2.6273784-1.5890365 3.6492527C41.3519854 47.4892527 40.1356788 48 38.7620438 48H10.1810219Zm17.9912409-35.0177936V5.23843416H10.1810219V42.8185053h28.5810219V15.6014235h-7.9708029c-.7875913 0-1.4208905-.2397153-1.8998978-.7191459-.4793869-.479051-.7190803-1.1124081-.7190803-1.9000712ZM10.20948905 5.23843416V15.6014235 5.23843416 42.8185053 5.23843416Z" />
-</svg>
-
-      
-
-
-<span
-  class="app-tool-tip"
-  data-text="Saturday 10th May 2025, 17:48:19"
->
-    <time class="govuk-!-margin-left-2"    datetime="2025-05-10T18:48:19+01:00"
-    data-testid="app-time">
-        Today at 17:48
-
-  </time>
-
-</span>
-
-
-
-    </div>
-</td>
-      <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.2.0"
-       target="_blank" rel="noopener noreferrer">0.2.0</a>
-</td>
-      <td class="govuk-table__cell">    
-
-
-<strong class="govuk-tag app-tag govuk-tag--blue">
-  Liquibase
-</strong>
-
-
-
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">    <div class="app-row">
-      <svg class="app-icon app-schema app-icon--small" width="48" height="48"
-     role="img" aria-label="Schema icon" viewBox="0 0 48 48">
-  <path fill-rule="nonzero"
-        d="M17.4116788 37.1245552h14.1766424c.569343 0 1.0343065-.189229 1.3948905-.5676869.3605839-.3780783.5408759-.8468802.5408759-1.4064057 0-.5432028-.180292-1.0047924-.5408759-1.3847686-.360584-.3799763-.8255475-.5699645-1.3948905-.5699645H17.3547445c-.5913576 0-1.0618248.1877106-1.4114014.5631317-.3495767.3750415-.524365.8400475-.524365 1.3950178 0 .5545908.180292 1.0216845.5408759 1.4012811.360584.3795967.8445256.5693951 1.4518248.5693951Zm0-9.6227758h14.2335767c.5484671 0 1.0081168-.189229 1.3789489-.5676869.3712117-.3780783.5568175-.8468802.5568175-1.4064057 0-.5432028-.1856058-.9953025-.5568175-1.3562989-.3708321-.3609964-.8304818-.5414947-1.3789489-.5414947h-14.290511c-.5913576 0-1.0618248.1803085-1.4114014.5409253-.3495767.3606168-.524365.8127165-.524365 1.3562989 0 .5432029.180292 1.0082088.5408759 1.3950178.360584.3864295.8445256.5796442 1.4518248.5796442ZM10.1810219 48c-1.35807299 0-2.56109489-.5107473-3.6090657-1.532242C5.5239854 45.4458837 5 44.2294662 5 42.8185053V5.23843416c0-1.42690391.5239854-2.65660735 1.5719562-3.68911032C7.61992701.51644128 8.82294891 0 10.1810219 0h18.5605839c.718511 0 1.4032409.14310795 2.0541898.42932384.6509489.2865955 1.1997956.6749229 1.6465402 1.16498221l9.9065693 9.85053385c.4900146.5151127.8877956 1.0915302 1.1933431 1.7292526C43.8474161 13.8114353 44 14.5066667 44 15.2597865v27.5587188c0 1.4109609-.5296788 2.6273784-1.5890365 3.6492527C41.3519854 47.4892527 40.1356788 48 38.7620438 48H10.1810219Zm17.9912409-35.0177936V5.23843416H10.1810219V42.8185053h28.5810219V15.6014235h-7.9708029c-.7875913 0-1.4208905-.2397153-1.8998978-.7191459-.4793869-.479051-.7190803-1.1124081-.7190803-1.9000712ZM10.20948905 5.23843416V15.6014235 5.23843416 42.8185053 5.23843416Z" />
-</svg>
-
-      
-
-
-<span
-  class="app-tool-tip"
-  data-text="Saturday 10th May 2025, 17:48:17"
->
-    <time class="govuk-!-margin-left-2"    datetime="2025-05-10T18:48:17+01:00"
-    data-testid="app-time">
-        Today at 17:48
-
-  </time>
-
-</span>
-
-
-
-    </div>
-</td>
-      <td class="govuk-table__cell">    <a class="app-link"
-       href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.1.0"
-       target="_blank" rel="noopener noreferrer">0.1.0</a>
-</td>
-      <td class="govuk-table__cell">    
-
-
-<strong class="govuk-tag app-tag govuk-tag--blue">
-  Liquibase
-</strong>
-
-
-
-</td>
-    </tr>
-  </tbody>
-</table>
-
-
-        </section>
-
-        <section class="app-grid-service__database-details" data-testid="database-details">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Database Details</h2>
-          <p class="govuk-!-margin-bottom-2">
-            Current database details across CDP environments. For more information view
-            <a class="app-link" href="/running-services/mock-postgres-service">Running services</a>
-          </p>
-
-          
-<div class="app-database-detail">
-
-
-      <div class="app-database-detail__card item-detail--green">
-        <div class="app-database-detail__item app-database-detail__item--heading">
-          
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Dev
-</strong>
-
-
-
-
-          <div class="app-database-detail__item app-database-detail__item--version">
-            <span id="version" class="govuk-visually-hidden">Version:</span>
-            <span aria-labelledby="version">0.7.0</span>
-
-<span
-  class="app-tool-tip"
-  data-text="Current database change in Dev"
->
-                <svg class="app-icon app-database app-icon--small govuk-!-margin-left-2" width="48" height="48"
-     role="img" aria-label="Database icon" viewBox="0 0 48 48">
-  <path fill-rule="nonzero"
-        d="M23.9262235 21.4659686c5.596299 0 10.1743365-.8475131 13.7341125-2.5425393C41.220112 17.2284031 43 15.3477312 43 13.28141361c0-2.16317626-1.779888-4.08420593-5.339664-5.763089C34.10056 5.83944154 29.5225225 5 23.9262235 5c-5.5631848 0-10.09982954.83944154-13.60993424 2.51832461-3.5101047 1.67888307-5.26515705 3.59991274-5.26515705 5.763089 0 2.06631759 1.75505235 3.94698949 5.26515705 5.64201569 3.5101047 1.6950262 8.04674944 2.5425393 13.60993424 2.5425393Zm.0496713 4.3586387c2.2848795 0 4.5780375-.1695026 6.8794741-.5085078 2.3014366-.3390053 4.3462381-.8636562 6.1344047-1.5739529 1.7881665-.7102967 3.2369125-1.5416667 4.3462381-2.49411C42.4453372 20.2955934 43 19.2220768 43 18.0274869v5.908377c0 1.1945899-.5546628 2.276178-1.6639883 3.2447644-1.1093256.9685864-2.5580716 1.7918848-4.3462381 2.4698953-1.7881666.6780104-3.8329681 1.1945898-6.1344047 1.5497382-2.3014366.3551483-4.5945946.5327225-6.8794741.5327225-2.3511079 0-4.6525444-.1856457-6.9043097-.5569372-2.25176528-.3712914-4.28828829-.8959424-6.10956903-1.5739529-1.82128074-.6780104-3.27830533-1.5013089-4.37107378-2.4698952-1.09276844-.9685864-1.62259556-2.0340315-1.58948137-3.1963351v-5.908377c-.0331142 1.1945899.49671293 2.2519634 1.58948137 3.1721204 1.09276845.9201571 2.54979304 1.7273124 4.37107378 2.421466 1.82128074.6941536 3.85780375 1.2349476 6.10956903 1.6223822 2.2517653.3874346 4.5532018.5811518 6.9043097.5811518Zm0 10.2670157c2.2848795 0 4.5780375-.1856457 6.8794741-.5569371 2.3014366-.3712915 4.3462381-.8959424 6.1344047-1.5739529 1.7881665-.6780105 3.2369125-1.5013089 4.3462381-2.4698953C42.4453372 30.5222513 43 29.4245201 43 28.197644v6.0052356c0 1.1623036-.5546628 2.2277487-1.6639883 3.1963351-1.1093256.9685863-2.5580716 1.7999563-4.3462381 2.4941099-1.7881666.6941536-3.8329681 1.2188045-6.1344047 1.5739529C28.5539323 41.8224258 26.2607743 42 23.9758948 42c-2.3511079 0-4.6525444-.1856457-6.9043097-.5569372-2.25176528-.3712914-4.28828829-.9040139-6.10956903-1.5981675-1.82128074-.6941536-3.27830533-1.517452-4.37107378-2.4698953-1.09276844-.9524433-1.62259556-2.0098168-1.58948137-3.1721204V28.197644c-.0331142 1.1945899.49671293 2.2681064 1.58948137 3.2205497 1.09276845.9524433 2.54979304 1.7757417 4.37107378 2.4698953 1.82128074.6941536 3.85780375 1.2349476 6.10956903 1.6223822 2.2517653.3874346 4.5532018.5811518 6.9043097.5811518Z" />
-</svg>
-
-
-</span>
-          </div>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--kind">
-          <span id="kind" class="app-database-detail__label">Kind:</span>
-          <span aria-labelledby="kind">Liquibase</span>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--updated">
-          <a class="app-link" href="/deployments/database-updates/dev/75be64bb-d36b-4f98-a177-4f3fdec7a6c6">
-            Updated
-          </a>
-          
-
-
-<span
-  class="app-tool-tip"
-  data-text="Sunday 11th May 2025, 15:59:24"
->
-    <time    datetime="2025-05-11T15:59:24.328Z"
-    data-testid="app-time">
-        1 day
-
-  </time>
-
-</span>
-
-
- ago by Mumm-ra
-        </div>
-      </div>
-
-
-      <div class="app-database-detail__card item-detail--green">
-        <div class="app-database-detail__item app-database-detail__item--heading">
-          
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Test
-</strong>
-
-
-
-
-          <div class="app-database-detail__item app-database-detail__item--version">
-            <span id="version" class="govuk-visually-hidden">Version:</span>
-            <span aria-labelledby="version">1.0.0</span>
-
-<span
-  class="app-tool-tip"
-  data-text="Current database change in Test"
->
-                <svg class="app-icon app-database app-icon--small govuk-!-margin-left-2" width="48" height="48"
-     role="img" aria-label="Database icon" viewBox="0 0 48 48">
-  <path fill-rule="nonzero"
-        d="M23.9262235 21.4659686c5.596299 0 10.1743365-.8475131 13.7341125-2.5425393C41.220112 17.2284031 43 15.3477312 43 13.28141361c0-2.16317626-1.779888-4.08420593-5.339664-5.763089C34.10056 5.83944154 29.5225225 5 23.9262235 5c-5.5631848 0-10.09982954.83944154-13.60993424 2.51832461-3.5101047 1.67888307-5.26515705 3.59991274-5.26515705 5.763089 0 2.06631759 1.75505235 3.94698949 5.26515705 5.64201569 3.5101047 1.6950262 8.04674944 2.5425393 13.60993424 2.5425393Zm.0496713 4.3586387c2.2848795 0 4.5780375-.1695026 6.8794741-.5085078 2.3014366-.3390053 4.3462381-.8636562 6.1344047-1.5739529 1.7881665-.7102967 3.2369125-1.5416667 4.3462381-2.49411C42.4453372 20.2955934 43 19.2220768 43 18.0274869v5.908377c0 1.1945899-.5546628 2.276178-1.6639883 3.2447644-1.1093256.9685864-2.5580716 1.7918848-4.3462381 2.4698953-1.7881666.6780104-3.8329681 1.1945898-6.1344047 1.5497382-2.3014366.3551483-4.5945946.5327225-6.8794741.5327225-2.3511079 0-4.6525444-.1856457-6.9043097-.5569372-2.25176528-.3712914-4.28828829-.8959424-6.10956903-1.5739529-1.82128074-.6780104-3.27830533-1.5013089-4.37107378-2.4698952-1.09276844-.9685864-1.62259556-2.0340315-1.58948137-3.1963351v-5.908377c-.0331142 1.1945899.49671293 2.2519634 1.58948137 3.1721204 1.09276845.9201571 2.54979304 1.7273124 4.37107378 2.421466 1.82128074.6941536 3.85780375 1.2349476 6.10956903 1.6223822 2.2517653.3874346 4.5532018.5811518 6.9043097.5811518Zm0 10.2670157c2.2848795 0 4.5780375-.1856457 6.8794741-.5569371 2.3014366-.3712915 4.3462381-.8959424 6.1344047-1.5739529 1.7881665-.6780105 3.2369125-1.5013089 4.3462381-2.4698953C42.4453372 30.5222513 43 29.4245201 43 28.197644v6.0052356c0 1.1623036-.5546628 2.2277487-1.6639883 3.1963351-1.1093256.9685863-2.5580716 1.7999563-4.3462381 2.4941099-1.7881666.6941536-3.8329681 1.2188045-6.1344047 1.5739529C28.5539323 41.8224258 26.2607743 42 23.9758948 42c-2.3511079 0-4.6525444-.1856457-6.9043097-.5569372-2.25176528-.3712914-4.28828829-.9040139-6.10956903-1.5981675-1.82128074-.6941536-3.27830533-1.517452-4.37107378-2.4698953-1.09276844-.9524433-1.62259556-2.0098168-1.58948137-3.1721204V28.197644c-.0331142 1.1945899.49671293 2.2681064 1.58948137 3.2205497 1.09276845.9524433 2.54979304 1.7757417 4.37107378 2.4698953 1.82128074.6941536 3.85780375 1.2349476 6.10956903 1.6223822 2.2517653.3874346 4.5532018.5811518 6.9043097.5811518Z" />
-</svg>
-
-
-</span>
-          </div>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--kind">
-          <span id="kind" class="app-database-detail__label">Kind:</span>
-          <span aria-labelledby="kind">Liquibase</span>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--updated">
-          <a class="app-link" href="/deployments/database-updates/test/150b8924-bdac-4e4d-899b-64979954eb6d">
-            Updated
-          </a>
-          
-
-
-<span
-  class="app-tool-tip"
-  data-text="Monday 12th May 2025, 10:03:44"
->
-    <time    datetime="2025-05-12T10:03:44.875Z"
-    data-testid="app-time">
-        2 days
-
-  </time>
-
-</span>
-
-
- ago by 
-        </div>
-      </div>
-
-      <div class="app-database-detail__card app-database-detail__card--empty">
-        <div class="app-database-detail__item app-database-detail__item--heading">
-          
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Perf-test
-</strong>
-
-
-
-        </div>
-        <span class="app-database-detail__no-data">No changelog applied</span>
-      </div>
-
-      <div class="app-database-detail__card app-database-detail__card--empty">
-        <div class="app-database-detail__item app-database-detail__item--heading">
-          
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Prod
-</strong>
-
-
-
-        </div>
-        <span class="app-database-detail__no-data">No changelog applied</span>
-      </div>
-</div>
-
-        </section>
 
       <section class="app-grid-service__run">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
         <p class="govuk-!-margin-bottom-2">
           The versions of this microservice currently running on CDP environments. For more information view
-          <a class="app-link" href="/running-services/mock-postgres-service">Running services</a>
+          <a class="app-link" href="/running-services/mock-service">Running services</a>
         </p>
 
         
@@ -937,7 +584,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <div class="app-running-service__item app-running-service__item--version">
             <span id="version" class="govuk-visually-hidden">Version:</span>
             <a class="app-link govuk-!-margin-right-2"
-               href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.1.0"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.1.0"
                target="_blank" rel="noopener noreferrer"
                aria-labelledby="version">
               0.1.0
@@ -1024,7 +671,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <div class="app-running-service__item app-running-service__item--version">
             <span id="version" class="govuk-visually-hidden">Version:</span>
             <a class="app-link govuk-!-margin-right-2"
-               href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.3.0"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
                target="_blank" rel="noopener noreferrer"
                aria-labelledby="version">
               0.3.0
@@ -1035,7 +682,15 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   class="app-tool-tip"
   data-text="Requested in Test"
 >
-  
+                  <svg class="app-icon app-icon--medium app-instance-pending app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Pending">
+  <path
+    d="M16.8.6c.7519-.4 1.50655-.6 2.26395-.6.7573667 0 1.5193833.2 2.28605.6L35.85 9c.775.44753333 1.3604167 1.01775 1.75625 1.71065.3958333.6929.59375 1.43935.59375 2.23935v8.75c-.6517333-.6802-1.3646667-1.2669167-2.1388-1.76015-.7741333-.4932333-1.5945333-.8731833-2.4612-1.13985v-3.65l-5.15 3.05c-2.6.1333333-4.9083333.9333333-6.925 2.4-2.0166667 1.4666667-3.5416667 3.3-4.575 5.5v-3.8l-12.4-7.15V29.4l12.55 7.2c.3 1.2333333.8083333 2.3416667 1.525 3.325.7166667.9833333 1.5583333 1.825 2.525 2.525-.7666667.2-1.5166667.2416667-2.25.125-.7333333-.1166667-1.4333333-.3916667-2.1-.825l-14.5-8.4c-.80833333-.4475333-1.39375-1.0171667-1.75625-1.7089C.18125 30.9493333 0 30.2189667 0 29.45v-16.5c0-.8.18125-1.54645.54375-2.23935C.90625 10.01775 1.49166667 9.44753333 2.3 9L16.8.6Zm2.25 3.95L6.8 11.65l12.25 7.15 12.25-7.15-12.25-7.1ZM29.24805 40.7c-2.5653667 0-4.7647167-.9105667-6.59805-2.7317-1.8333333-1.8211667-2.75-4.0005833-2.75-6.53825 0-2.5848667.9173167-4.7944333 2.75195-6.6287 1.8346333-1.8342333 4.0346333-2.75135 6.6-2.75135 2.4987 0 4.6813833.9151 6.54805 2.7453 1.8666667 1.8302333 2.8 4.0491167 2.8 6.65665 0 2.5465333-.9339833 4.7245-2.80195 6.5339-1.8679667 1.8094333-4.0513 2.71415-6.55 2.71415ZM30.35 31.19085V24.9h-2.6v7.0888l5.2 4.8612 1.7-1.8-4.3-3.85915Z" />
+</svg>
+
+
 </span>
           </div>
         </div>
@@ -1103,7 +758,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <div class="app-running-service__item app-running-service__item--version">
             <span id="version" class="govuk-visually-hidden">Version:</span>
             <a class="app-link govuk-!-margin-right-2"
-               href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.3.0"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
                target="_blank" rel="noopener noreferrer"
                aria-labelledby="version">
               0.3.0
@@ -1114,7 +769,15 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   class="app-tool-tip"
   data-text="Stopped in Perf-test"
 >
-  
+                  <svg class="app-icon app-icon--medium app-instance-stopped app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="39" height="43" viewBox="0 0 39 43"
+     role="img" aria-label="Stopped">
+  <path fill-rule="nonzero"
+        d="M19.0533 0c.7644667 0 1.5300333.2 2.2967.6L35.85 9c.775.44753333 1.3604167 1.0226333 1.75625 1.7253.3958333.7026667.59375 1.4442333.59375 2.2247v8.75c-.6517333-.6802-1.3646667-1.2669167-2.1388-1.76015-.7741333-.4932333-1.5945333-.8774-2.4612-1.1525V15.15l-5.15 3.05c-2.6.1333333-4.9083333.9333333-6.925 2.4-2.0166667 1.4666667-3.5416667 3.3-4.575 5.5v-3.8l-12.4-7.15v14.2252L17.1 36.6c.3077 1.2377333.81475 2.3495167 1.52115 3.33535.7064.9858333 1.54935 1.82405 2.52885 2.51465-.7666667.2-1.5166667.2416667-2.25.125-.7333333-.1166667-1.4333333-.3916667-2.1-.825l-14.5-8.4c-.80833333-.4475333-1.39375-1.02205-1.75625-1.72355C.18125 30.9249167 0 30.1994333 0 29.45v-16.5c0-.7804667.18125-1.5220333.54375-2.2247C.90625 10.0226333 1.49166667 9.44753333 2.3 9L16.8.6c.7377-.4 1.4888-.6 2.2533-.6Zm10.1708794 22.05c1.2947291 0 2.5135861.2422361 3.6565709.7267084 1.14297.4844871 2.1380038 1.1504226 2.9851012 1.9978066.8470974.847384 1.5145669 1.839418 2.0024084 2.976102.4878267 1.1366839.7317401 2.3524958.7317401 3.6474356 0 1.2792321-.2434623 2.4852802-.730387 3.6181442-.4869098 1.1328492-1.1560799 2.1224939-2.0075104 2.968934-.8514156.8464401-1.8455473 1.510532-2.9823949 1.9922757-1.1368328.481729-2.352806.7225935-3.6479197.7225935-1.2765245 0-2.4865602-.2404368-3.630107-.7213103-1.1435615-.4808588-2.1386544-1.1434685-2.9852786-1.987829-.8466242-.8443605-1.5110103-1.836741-1.9931583-2.9771417C20.1410814 33.8733331 19.9 32.6651316 19.9 31.3891147c0-1.2892024.2415102-2.5006413.7245307-3.6343164.4830353-1.1336752 1.1488263-2.1250823 1.997373-2.9742215.8485319-.8491539 1.8423973-1.5165348 2.9815963-2.0021428 1.1391842-.4856227 2.3460773-.728434 3.6206794-.728434Zm4.0668654 4-3.9074627 3.9402985L25.4761194 26.05 23.9 27.6589552l3.9074627 3.9074627L23.9 35.4738806 25.4761194 37.05l3.9074627-3.9074627L33.2910448 37.05 34.9 35.4738806l-3.9402985-3.9074627L34.9 27.6589552 33.2910448 26.05ZM19.05 4.55 6.8 11.65l12.25 7.15 12.25-7.15-12.25-7.1Z" />
+</svg>
+
+
 </span>
           </div>
         </div>
@@ -1182,7 +845,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <div class="app-running-service__item app-running-service__item--version">
             <span id="version" class="govuk-visually-hidden">Version:</span>
             <a class="app-link govuk-!-margin-right-2"
-               href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.3.0"
+               href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
                target="_blank" rel="noopener noreferrer"
                aria-labelledby="version">
               0.3.0
@@ -1198,7 +861,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
      width="39" height="43" viewBox="0 0 39 43"
      role="img" aria-label="Failed">
   <path fill-rule="nonzero"
-        d="M23.9184576 20.8010471c6.1853831 0 11.2453193-.9162303 15.1798085-2.7486911C43.0327554 16.2198953 45 14.1867365 45 11.95287958c0-2.33856893-1.9672446-4.41535776-5.9017339-6.23036649C35.1637769 3.90750436 30.1038407 3 23.9184576 3c-6.1487832 0-11.16296954.90750436-15.04255894 2.72251309-3.87958941 1.81500873-5.8193841 3.89179756-5.8193841 6.23036649 0 2.23385692 1.93979469 4.26701572 5.8193841 6.09947642 3.8795894 1.8324608 8.89377574 2.7486911 15.04255894 2.7486911Zm.0548998 4.7120419c2.5253931 0 5.0599362-.1832461 7.6036293-.5497382 2.543693-.3664922 4.8037368-.9336824 6.7801314-1.7015707s3.5776403-1.6666667 4.8037369-2.6963351C44.3869517 19.5357766 45 18.3752182 45 17.0837696v6.3874346c0 1.2914485-.6130483 2.460733-1.839145 3.5078534-1.2260966 1.0471204-2.8273423 1.9371728-4.8037369 2.6701571-1.9763946.7329843-4.2364384 1.2914485-6.7801314 1.6753926-2.5436931.3839442-5.0782362.5759163-7.6036293.5759163-2.5985929 0-5.1422859-.2006981-7.6310791-.6020943-2.4887932-.4013961-4.73968709-.9685864-6.75268159-1.7015707-2.0129945-.7329843-3.62339011-1.6230366-4.83118681-2.670157-1.2077967-1.0471204-1.7933951-2.1989529-1.7567952-3.4554974v-6.3874346c-.0365999 1.2914486.5489985 2.434555 1.7567952 3.4293194 1.2077967.9947644 2.81819231 1.8673648 4.83118681 2.6178011 2.0129945.7504363 4.26388839 1.3350785 6.75268159 1.7539267 2.4887932.4188481 5.0324862.6282722 7.6310791.6282722Zm0 11.0994764c2.5253931 0 5.0599362-.200698 7.6036293-.6020942 2.543693-.4013962 4.8037368-.9685864 6.7801314-1.7015707s3.5776403-1.6230366 4.8037369-2.670157C44.3869517 30.591623 45 29.4048866 45 28.078534v6.4921466c0 1.2565445-.6130483 2.408377-1.839145 3.4554974-1.2260966 1.0471204-2.8273423 1.9458988-4.8037369 2.6963351-1.9763946.7504363-4.2364384 1.3176265-6.7801314 1.7015707C29.0332936 42.8080279 26.4987505 43 23.9733574 43c-2.5985929 0-5.1422859-.2006981-7.6310791-.6020942-2.4887932-.4013962-4.73968709-.9773124-6.75268159-1.7277487C7.57660221 39.9197208 5.9662066 39.0296684 4.7584099 38c-1.2077967-1.0296684-1.7933951-2.1727749-1.7567952-3.4293194V28.078534c-.0365999 1.2914485.5489985 2.452007 1.7567952 3.4816754 1.2077967 1.0296684 2.81819231 1.9197208 4.83118681 2.6701571 2.0129945.7504363 4.26388839 1.3350785 6.75268159 1.7539267s5.0324862.6282722 7.6310791.6282722Z" />
+        d="M19.1033.2c.7644667 0 1.5300333.2 2.2967.6l14.5 8.4c.775.44753333 1.3604167 1.0226333 1.75625 1.7253.3958333.7026667.59375 1.4442333.59375 2.2247v8.75c-.6517333-.6802-1.3646667-1.2669167-2.1388-1.76015-.7741333-.4932333-1.5945333-.8774-2.4612-1.1525V15.35L28.5 18.4c-2.6.1333333-4.9083333.9333333-6.925 2.4-2.0166667 1.4666667-3.5416667 3.3-4.575 5.5v-3.8L4.6 15.35v14.2252L17.15 36.8c.3077 1.2377333.81475 2.3495167 1.52115 3.33535.7064.9858333 1.54935 1.82405 2.52885 2.51465-.7666667.2-1.5166667.2416667-2.25.125-.7333333-.1166667-1.4333333-.3916667-2.1-.825l-14.5-8.4c-.80833333-.4475333-1.39375-1.02205-1.75625-1.72355C.23125 31.1249167.05 30.3994333.05 29.65v-16.5c0-.7804667.18125-1.5220333.54375-2.2247.3625-.7026667.94791667-1.27776667 1.75625-1.7253L16.85.8c.7377-.4 1.4888-.6 2.2533-.6Zm10.1708794 22.05c1.2947291 0 2.5135861.2422361 3.6565709.7267084 1.14297.4844871 2.1380038 1.1504226 2.9851012 1.9978066.8470974.847384 1.5145669 1.839418 2.0024084 2.976102.4878267 1.1366839.7317401 2.3524958.7317401 3.6474356 0 1.2792321-.2434623 2.4852802-.730387 3.6181442-.4869098 1.1328492-1.1560799 2.1224939-2.0075104 2.968934-.8514156.8464401-1.8455473 1.510532-2.9823949 1.9922757-1.1368328.481729-2.352806.7225935-3.6479197.7225935-1.2765245 0-2.4865602-.2404368-3.630107-.7213103-1.1435615-.4808588-2.1386544-1.1434685-2.9852786-1.987829-.8466242-.8443605-1.5110103-1.836741-1.9931583-2.9771417C20.1910814 34.0733331 19.95 32.8651316 19.95 31.5891147c0-1.2892024.2415102-2.5006413.7245307-3.6343164.4830353-1.1336752 1.1488263-2.1250823 1.997373-2.9742215.8485319-.8491539 1.8423973-1.5165348 2.9815963-2.0021428 1.1391842-.4856227 2.3460773-.728434 3.6206794-.728434Zm4.8921194 4.8157895-5.883871 6.4044944-2.8645161-3.1179776-1.6258064 1.7977528 4.4903225 4.9157304 7.5096775-8.2022472-1.6258065-1.7977528ZM19.1 4.75l-12.25 7.1L19.1 19l12.25-7.15-12.25-7.1Z" />
 </svg>
 
 
@@ -1259,7 +922,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <p class="govuk-!-margin-bottom-6">
             To view microservice deployments across all available environments go to
             <a class="app-link"
-               href="/deployments/dev?service=mock-postgres-service">Deployments</a>
+               href="/deployments/dev?service=mock-service">Deployments</a>
           </p>
         </section>
 
@@ -1271,9 +934,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               config</a>.
             To view this microservices configuration go to
             <a class="app-link"
-               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/mock-postgres-service"
+               href="https://github.com/DEFRA/cdp-app-config/tree/main/services/mock-service"
                target="_blank"
-               rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/mock-postgres-service</a>
+               rel="noopener noreferrer">https://github.com/DEFRA/cdp-app-config/mock-service</a>
           </p>
         </section>
 
@@ -1284,8 +947,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             Actions workflows. This microservice is built and published by GitHub Actions and comes with a number of
             useful CDP Workflows. To view these workflows and builds go to
             <a class="app-link" target="_blank" rel="noopener noreferrer"
-               href="https://github.com/DEFRA/mock-postgres-service/actions">
-              https://github.com/DEFRA/mock-postgres-service/actions</a>
+               href="https://github.com/DEFRA/mock-service/actions">
+              https://github.com/DEFRA/mock-service/actions</a>
           </p>
         </section>
       </section>
@@ -1294,32 +957,131 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <aside class="app-service-container__sidebar">
       <section class="app-grid-service__links">
 
+            <section class="govuk-!-margin-bottom-6">
+              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service URLs</h2>
+              <p>
+                User-friendly custom URLs
+              </p>
+
+                <dl class="app-description-list">
+                    <dt class="app-description-list__term">Infra-dev</dt>
+                    <dd class="app-description-list__details">
+                      <ul class="govuk-list govuk-!-margin-0">
+                          <li>
+                              <div class="app-!-layout-flex-start">
+
+<span
+  class="app-tool-tip app-tool-tip--small govuk-!-margin-right-1"
+  data-text="Shuttered URL"
+>
+          <svg class="app-icon app-warning-icon app-icon--tiny"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Shuttered URL">
+  <path fill-rule="nonzero"
+        d="M23.9476157 36.7259786c.9649347 0 1.7226097-.2577461 2.2730249-.7732384.5504152-.5154923.8256227-1.2557058.8256227-2.2206406 0-.9649347-.267236-1.7320996-.8017081-2.3014946-.5344722-.569395-1.2841756-.8540925-2.2491104-.8540925-.9649347 0-1.7226097.2810913-2.2730249.843274-.5504152.5618031-.8256227 1.3253618-.8256227 2.2906761 0 .9649348.267236 1.7087545.8017081 2.2314591.5344722.5227046 1.2841756.7840569 2.2491104.7840569Zm.1867615-9.9644128c.7645077 0 1.3840095-.2397153 1.8585054-.7191459.4744958-.479051.7117437-1.112408.7117437-1.9000711V14.0071174c0-.7508422-.2406643-1.365599-.7219928-1.8442704-.480949-.4786714-1.1036774-.7180071-1.8681851-.7180071-.726548 0-1.3401661.2393357-1.8408541.7180071-.5003084.4786714-.7504626 1.0934282-.7504626 1.8442704v10.1352314c0 .7876631.2535706 1.4210201.7607117 1.9000711.5071412.4794306 1.1239858.7191459 1.8505338.7191459ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.94908659-5.46011862 5.12683274-7.64583629 2.17812574-2.18533808 4.72635823-3.90282325 7.64469753-5.15245552C17.549134.62500593 20.6595492 0 23.9624199 0c3.3165362 0 6.4385291.62348754 9.3659787 1.87046263 2.9278292 1.24697509 5.4789086 2.9608541 7.6532384 5.14163701 2.1747094 2.18116252 3.888019 4.73432976 5.1399288 7.65950176C47.3738553 17.597153 48 20.7214235 48 24.0444128c0 3.3199526-.6250059 6.4334045-1.8750178 9.3403559-1.2496323 2.9069513-2.9671174 5.4460735-5.1524555 7.6173665-2.1857177 2.1716726-4.7375564 3.8808067-7.655516 5.1274022C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+
+
+</span>
+
+    <a class="app-link" href="https://mock-service.cdp-int.defra.cloud" target="_blank" rel="noopener noreferrer">
+      https://mock-service.cdp-int.defra.cloud
+    </a>
+  </div>
+
+                          </li>
+                      </ul>
+                    </dd>
+                    <dt class="app-description-list__term">Management</dt>
+                    <dd class="app-description-list__details">
+                      <ul class="govuk-list govuk-!-margin-0">
+                          <li>
+                              <div class="app-!-layout-flex-start">
+
+    <a class="app-link" href="https://mock-service.cdp-int.defra.cloud" target="_blank" rel="noopener noreferrer">
+      https://mock-service.cdp-int.defra.cloud
+    </a>
+  </div>
+
+                          </li>
+                      </ul>
+                    </dd>
+                    <dt class="app-description-list__term">Prod</dt>
+                    <dd class="app-description-list__details">
+                      <ul class="govuk-list govuk-!-margin-0">
+                          <li>
+                              <div class="app-!-layout-flex-start">
+
+<span
+  class="app-tool-tip app-tool-tip--small govuk-!-margin-right-1"
+  data-text="Internal URL"
+>
+          <svg xmlns="http://www.w3.org/2000/svg"
+     class="app-icon app-internal-icon app-icon--tiny"
+     width="48" height="48" fill="#e8eaed" viewBox="0 -960 960 960"
+     role="img" aria-label="Internal URL">
+  <path
+    d="M481.08-61q-88.55 0-165.31-32.17-76.76-32.16-133.6-89-56.84-56.84-89-133.35Q61-392.04 61-479.93 61-569 93.16-644.87q32.17-75.87 88.5-133Q238-835 313.3-867.5 388.61-900 473-900q31.66 0 63.72 4.11Q568.79-891.78 592-884q19.18 1.56 29.09 16.49Q631-852.58 631-835v64q0 32.35-26.09 57.68Q578.83-688 545.88-688H435v78q0 19-13.83 31.5T389.33-566H313v84h245.03q18.56 0 32.27 14.14 13.7 14.15 13.7 31.62V-313h38.42q26.58 0 49.05 16t29.27 41q41.58-47 64.92-104.44Q809-417.88 809-476v-18q0-10-1-21-1-19 13-33t32.89-14q18.89 0 31.5 12.53Q898-536.95 899-519q1 10 1 19.5v18.5q0 91.07-32.16 166.59-32.17 75.51-88.5 132.46Q723-125 646.77-93q-76.24 32-165.69 32ZM435-147v-89.04q-31.76 0-54.38-21.76T358-313.43v-38.32L158.89-550q-3.89 22.75-5.39 36.67Q152-499.42 152-485q0 130.55 79.86 226.77Q311.73-162 435-147Zm291-449q-20.55 0-33.28-12.93Q680-621.85 680-641v-127q0-17.68 7.5-29.34T710-813h16v-39.67q0-38.2 25.4-65.26Q776.8-945 814.08-945t62.6 27.07Q902-890.87 902-852.67V-813h17q16 4 23 15.66t7 29.34v127q0 19.15-12.93 32.07Q923.15-596 904-596H726Zm50-217h76v-47.3q0-17-10.13-29.85Q831.74-903 814-903q-18.74 0-28.37 12.71-9.63 12.7-9.63 29.79v47.5Z"/>
+</svg>
+
+
+
+
+</span>
+
+    <a class="app-link" href="https://mock-service.defra.gov" target="_blank" rel="noopener noreferrer">
+      https://mock-service.defra.gov
+    </a>
+  </div>
+
+                          </li>
+                      </ul>
+                    </dd>
+                </dl>
+            </section>
 
           <section class="govuk-!-margin-bottom-6">
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
             <p>
-              Internal access URLs for use between CDP services
+              Internal access URLs for service
             </p>
 
             <dl class="app-description-list">
-                <dt class="app-description-list__term"> Dev</dt>
+                <dt class="app-description-list__term">Dev</dt>
                 <dd class="app-description-list__details">
-                  <span>https://mock-postgres-service.dev.cdp-int.defra.cloud</span>
+                  <a class="app-link"
+                     href="https://mock-service.dev.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.dev.cdp-int.defra.cloud
+                  </a>
                 </dd>
-                <dt class="app-description-list__term"> Test</dt>
+                <dt class="app-description-list__term">Test</dt>
                 <dd class="app-description-list__details">
-                  <span>https://mock-postgres-service.test.cdp-int.defra.cloud</span>
+                  <a class="app-link"
+                     href="https://mock-service.test.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.test.cdp-int.defra.cloud
+                  </a>
                 </dd>
-                <dt class="app-description-list__term"> Perf-test</dt>
+                <dt class="app-description-list__term">Perf-test</dt>
                 <dd class="app-description-list__details">
-                  <span>https://mock-postgres-service.perf-test.cdp-int.defra.cloud</span>
+                  <a class="app-link"
+                     href="https://mock-service.perf-test.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.perf-test.cdp-int.defra.cloud
+                  </a>
                 </dd>
-                <dt class="app-description-list__term"> Prod</dt>
+                <dt class="app-description-list__term">Prod</dt>
                 <dd class="app-description-list__details">
-                  <span>https://mock-postgres-service.prod.cdp-int.defra.cloud</span>
+                  <a class="app-link"
+                     href="https://mock-service.prod.cdp-int.defra.cloud"
+                     target="_blank" rel="noopener noreferrer">
+                    https://mock-service.prod.cdp-int.defra.cloud
+                  </a>
                 </dd>
             </dl>
           </section>
+
 
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>
@@ -1331,7 +1093,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dd class="app-description-list__details">
                 
 <a class="app-link"
-   href="https://logs.dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-postgres-service),type:phrase),query:(match_phrase:(container_name:mock-postgres-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   href="https://logs.dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
    target="_blank" rel="noopener noreferrer"
    data-testid="app-logs-dashboard-link">https://logs.dev.cdp-int.defra.cloud</a>
 
@@ -1340,7 +1102,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dd class="app-description-list__details">
                 
 <a class="app-link"
-   href="https://logs.test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-postgres-service),type:phrase),query:(match_phrase:(container_name:mock-postgres-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   href="https://logs.test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
    target="_blank" rel="noopener noreferrer"
    data-testid="app-logs-dashboard-link">https://logs.test.cdp-int.defra.cloud</a>
 
@@ -1349,7 +1111,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dd class="app-description-list__details">
                 
 <a class="app-link"
-   href="https://logs.perf-test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-postgres-service),type:phrase),query:(match_phrase:(container_name:mock-postgres-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   href="https://logs.perf-test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
    target="_blank" rel="noopener noreferrer"
    data-testid="app-logs-dashboard-link">https://logs.perf-test.cdp-int.defra.cloud</a>
 
@@ -1358,7 +1120,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dd class="app-description-list__details">
                 
 <a class="app-link"
-   href="https://logs.prod.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-postgres-service),type:phrase),query:(match_phrase:(container_name:mock-postgres-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
+   href="https://logs.prod.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/89f63d50-b6eb-11ee-a385-15667195f827?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,controlledBy:'1705679462997',disabled:!f,index:e55f3890-5d4a-11ee-8f40-670c9b0b8093,key:container_name,negate:!f,params:(query:mock-service),type:phrase),query:(match_phrase:(container_name:mock-service)))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'CDP%20Service%20Dashboard',viewMode:view)"
    target="_blank" rel="noopener noreferrer"
    data-testid="app-logs-dashboard-link">https://logs.prod.cdp-int.defra.cloud</a>
 
@@ -1375,7 +1137,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dt class="app-description-list__term">Dev</dt>
               <dd class="app-description-list__details">
                 <a class="app-link"
-                   href="https://metrics.dev.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
+                   href="https://metrics.dev.cdp-int.defra.cloud/dashboards/f/mock-service"
                    target="_blank" rel="noopener noreferrer">
                   https://metrics.dev.cdp-int.defra.cloud
                 </a>
@@ -1383,7 +1145,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dt class="app-description-list__term">Test</dt>
               <dd class="app-description-list__details">
                 <a class="app-link"
-                   href="https://metrics.test.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
+                   href="https://metrics.test.cdp-int.defra.cloud/dashboards/f/mock-service"
                    target="_blank" rel="noopener noreferrer">
                   https://metrics.test.cdp-int.defra.cloud
                 </a>
@@ -1391,7 +1153,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dt class="app-description-list__term">Perf-test</dt>
               <dd class="app-description-list__details">
                 <a class="app-link"
-                   href="https://metrics.perf-test.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
+                   href="https://metrics.perf-test.cdp-int.defra.cloud/dashboards/f/mock-service"
                    target="_blank" rel="noopener noreferrer">
                   https://metrics.perf-test.cdp-int.defra.cloud
                 </a>
@@ -1399,7 +1161,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <dt class="app-description-list__term">Prod</dt>
               <dd class="app-description-list__details">
                 <a class="app-link"
-                   href="https://metrics.prod.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
+                   href="https://metrics.prod.cdp-int.defra.cloud/dashboards/f/mock-service"
                    target="_blank" rel="noopener noreferrer">
                   https://metrics.prod.cdp-int.defra.cloud
                 </a>
@@ -1465,6 +1227,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </footer>
 
 
-  <script type="module" src="/public/javascripts/application.js"></script>
+  <script type="module" src="/.public/javascripts/application.js"></script>
   </body>
 </html>

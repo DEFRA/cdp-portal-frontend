@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b0c0c">
 
-      <link rel="icon" sizes="48x48" href="/public/assets/images/favicon.ico">
-      <link rel="icon" sizes="any" href="/public/assets/images/favicon.svg" type="image/svg+xml">
-      <link rel="mask-icon" href="/public/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
-      <link rel="apple-touch-icon" href="/public/assets/images/govuk-icon-180.png">
-      <link rel="manifest" href="/public/assets/manifest.json">
+      <link rel="icon" sizes="48x48" href="/.public/assets/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/.public/assets/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/.public/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+      <link rel="apple-touch-icon" href="/.public/assets/images/govuk-icon-180.png">
+      <link rel="manifest" href="/.public/assets/manifest.json">
 
-  <link href="/public/stylesheets/application.css" rel="stylesheet">
+  <link href="/.public/stylesheets/application.css" rel="stylesheet">
     <meta name="service-version" content="0.1.0">
     <meta name="service-environment" content="test">
 
@@ -41,6 +41,19 @@
 
     </div>
     <div class="app-service-header__actions">
+        <svg class="app-icon app-user-icon app-icon--minuscule"
+     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
+     aria-label="User">
+  <g fill-rule="evenodd">
+    <circle cx="19" cy="12" r="8" />
+    <path
+      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
+  </g>
+</svg>
+
+        <span data-testid="app-login-username">
+          B. A. Baracus
+        </span>
 
       <a href="/logout"
          class="app-service-header__login-link app-service-header__link         app-service-header__is-logged-in"
@@ -478,6 +491,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </footer>
 
 
-  <script type="module" src="/public/javascripts/application.js"></script>
+  <script type="module" src="/.public/javascripts/application.js"></script>
   </body>
 </html>
