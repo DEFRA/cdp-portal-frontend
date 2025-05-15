@@ -1,12 +1,11 @@
 import capitalize from 'lodash/capitalize.js'
 import { Engine as CatboxMemory } from '@hapi/catbox-memory'
+import { validate as uuidValidate } from 'uuid'
 
 import { createServer } from '~/src/server/index.js'
 import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test-runs.js'
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { config } from '~/src/config/config.js'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
@@ -19,6 +18,7 @@ import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fe
 import { availableMigrationsFixture } from '~/src/__fixtures__/migrations/available-migrations.js'
 import { latestMigrationsFixture } from '~/src/__fixtures__/migrations/latest-migrations.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
+import { apiGatewaysFixture } from '~/src/__fixtures__/api-gateways.js'
 
 export const mockTeam = {
   teamId: 'mock-team-id',
@@ -61,8 +61,8 @@ export async function initialiseServer() {
   return server
 }
 
-function mockRepositoryCall(jest, repositoryName, additionalTopics) {
-  jest.mocked(fetchRepository).mockResolvedValue({
+function mockRepositoryCall(repositoryName, additionalTopics) {
+  fetchRepository.mockResolvedValue({
     repositoryName,
     description: 'Mock service description',
     createdAt: '2016-12-05T11:21:25+00:00',
@@ -73,8 +73,8 @@ function mockRepositoryCall(jest, repositoryName, additionalTopics) {
   })
 }
 
-export function mockBucketsCall(jest, repositoryName) {
-  jest.mocked(fetchAllBuckets).mockResolvedValue({
+export function mockBucketsCall(repositoryName) {
+  fetchAllBuckets.mockResolvedValue({
     buckets: [
       {
         service: `${repositoryName}`,
@@ -100,8 +100,8 @@ export function mockBucketsCall(jest, repositoryName) {
   })
 }
 
-export function mockTenantServicesCall({ jest, isPostgresService = false }) {
-  jest.mocked(fetchTenantService).mockResolvedValue({
+export function mockTenantServicesCall(isPostgresService = false) {
+  fetchTenantService.mockResolvedValue({
     prod: {
       serviceCode: 'CDP',
       zone: 'protected',
@@ -140,8 +140,8 @@ export function mockTenantServicesCall({ jest, isPostgresService = false }) {
   })
 }
 
-function mockTestSuiteEntityCall(jest, repositoryName) {
-  jest.mocked(fetchEntity).mockResolvedValue({
+function mockTestSuiteEntityCall(repositoryName) {
+  fetchEntity.mockResolvedValue({
     name: repositoryName,
     type: 'TestSuite',
     subType: 'Journey',
@@ -154,8 +154,8 @@ function mockTestSuiteEntityCall(jest, repositoryName) {
   })
 }
 
-function mockServiceEntityCall(jest, repositoryName, frontendOrBackend) {
-  jest.mocked(fetchEntity).mockResolvedValue({
+function mockServiceEntityCall(repositoryName, frontendOrBackend) {
+  fetchEntity.mockResolvedValue({
     name: repositoryName,
     type: 'Microservice',
     subType: capitalize(frontendOrBackend),
@@ -168,8 +168,8 @@ function mockServiceEntityCall(jest, repositoryName, frontendOrBackend) {
   })
 }
 
-export function mockTestRuns(jest, repositoryName) {
-  jest.mocked(fetchTestRuns).mockResolvedValue({
+export function mockTestRuns(repositoryName) {
+  fetchTestRuns.mockResolvedValue({
     testRuns: [
       {
         runId: '3ec0b267-e513-4dd1-a525-8a3a798a9c4b',
@@ -199,33 +199,13 @@ export function mockTestRuns(jest, repositoryName) {
   })
 }
 
-function mockOidcCall(jest) {
-  jest.mocked(fetchJson).mockImplementationOnce((url) => {
-    // Setting up oidc fetcher call
-    if (url === config.get('oidcWellKnownConfigurationUrl')) {
-      return Promise.resolve({
-        res: {
-          statusCode: 200
-        },
-        payload: {
-          token_endpoint: 'https://mock-login/oauth2/v2.0/token',
-          authorization_endpoint: 'https://mock-login/oauth2/v2.0/authorize'
-        }
-      })
-    }
-
-    return Promise.resolve({})
-  })
+export function mockCommonTestSuiteCalls(repositoryName) {
+  mockRepositoryCall(repositoryName, ['test-suite', 'journey'])
+  mockTestSuiteEntityCall(repositoryName)
 }
 
-export function mockCommonTestSuiteCalls(jest, repositoryName) {
-  mockOidcCall(jest)
-  mockRepositoryCall(jest, repositoryName, ['test-suite', 'journey'])
-  mockTestSuiteEntityCall(jest, repositoryName)
-}
-
-function mockAvailableVersions(jest) {
-  jest.mocked(fetchAvailableVersions).mockResolvedValue([
+function mockAvailableVersions() {
+  fetchAvailableVersions.mockResolvedValue([
     {
       tag: '0.172.0',
       created: '2023-11-02T12:59:56.102Z'
@@ -253,8 +233,8 @@ function mockAvailableVersions(jest) {
   ])
 }
 
-function mockVanityUrlsCall(jest, repositoryName) {
-  jest.mocked(fetchVanityUrls).mockResolvedValue({
+function mockVanityUrlsCall(repositoryName) {
+  fetchVanityUrls.mockResolvedValue({
     prod: {
       vanityUrls: [
         {
@@ -291,25 +271,12 @@ function mockVanityUrlsCall(jest, repositoryName) {
   })
 }
 
-function mockApiGatewaysCall(jest, repositoryName) {
-  jest.mocked(fetchApiGateways).mockResolvedValue([
-    {
-      api: `http://${repositoryName}.api.com`,
-      environment: 'dev',
-      service: repositoryName,
-      shuttered: false
-    },
-    {
-      api: `http://${repositoryName}-old.api.com`,
-      environment: 'dev',
-      service: repositoryName,
-      shuttered: true
-    }
-  ])
+function mockApiGatewaysCall(repositoryName) {
+  fetchApiGateways.mockResolvedValue(apiGatewaysFixture(repositoryName))
 }
 
-function mockWhatsRunningWhereCall(jest, repositoryName) {
-  jest.mocked(fetchRunningServices).mockResolvedValue([
+function mockWhatsRunningWhereCall(repositoryName) {
+  fetchRunningServices.mockResolvedValue([
     {
       environment: 'dev',
       service: repositoryName,
@@ -353,91 +320,95 @@ function mockWhatsRunningWhereCall(jest, repositoryName) {
   ])
 }
 
-function mockFetchAvailableMigrations(jest, repositoryName) {
-  jest
-    .mocked(fetchAvailableMigrations)
-    .mockResolvedValue(availableMigrationsFixture(repositoryName))
+function mockFetchAvailableMigrations(repositoryName) {
+  fetchAvailableMigrations.mockResolvedValue(
+    availableMigrationsFixture(repositoryName)
+  )
 }
 
-function mockFetchLatestMigrations(jest, repositoryName) {
-  jest
-    .mocked(fetchLatestMigrations)
-    .mockResolvedValue(latestMigrationsFixture(repositoryName))
+function mockFetchLatestMigrations(repositoryName) {
+  fetchLatestMigrations.mockResolvedValue(
+    latestMigrationsFixture(repositoryName)
+  )
 }
 
-export function mockCommonServicesCalls(
-  jest,
-  repositoryName,
-  frontendOrBackend
-) {
-  mockOidcCall(jest)
-  mockServiceEntityCall(jest, repositoryName, frontendOrBackend)
+export function mockCommonServicesCalls(repositoryName, frontendOrBackend) {
+  mockServiceEntityCall(repositoryName, frontendOrBackend)
 }
 
 export function mockServicesAdditionalCalls({
-  jest,
   repositoryName,
   frontendOrBackend,
   isPostgresService
 }) {
-  mockRepositoryCall(jest, repositoryName, ['microservice', frontendOrBackend])
-  mockTenantServicesCall({ jest, isPostgresService })
-  mockAvailableVersions(jest)
-  if (frontendOrBackend.lowercase === 'frontend') {
-    mockVanityUrlsCall(jest, repositoryName)
+  mockRepositoryCall(repositoryName, ['microservice', frontendOrBackend])
+  mockTenantServicesCall(isPostgresService)
+  mockAvailableVersions()
+
+  if (frontendOrBackend.toLowerCase() === 'frontend') {
+    mockVanityUrlsCall(repositoryName)
   }
-  if (frontendOrBackend.lowercase === 'backend') {
-    mockApiGatewaysCall(jest, repositoryName)
+
+  if (frontendOrBackend.toLowerCase() === 'backend') {
+    mockApiGatewaysCall(repositoryName)
   }
+
   if (isPostgresService === true) {
-    mockFetchAvailableMigrations(jest, repositoryName)
-    mockFetchLatestMigrations(jest, repositoryName)
+    mockFetchAvailableMigrations(repositoryName)
+    mockFetchLatestMigrations(repositoryName)
   }
-  mockWhatsRunningWhereCall(jest, repositoryName)
+
+  mockWhatsRunningWhereCall(repositoryName)
 }
 
-export async function mockAuthAndRenderUrl(
+function buildAuthDetail(
   server,
-  jest,
-  {
-    targetUrl,
-    isAdmin,
-    isTenant,
-    teamScope = 'some-other-team-id',
-    additionalScopes = []
-  }
+  { isAdmin, isTenant, teamScope = 'some-other-team-id', additionalScopes = [] }
 ) {
+  const user = {
+    id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+    displayName: 'B. A. Baracus'
+  }
   const scope = [
     teamScope,
-    isAdmin ? scopes.admin : '',
-    isTenant ? scopes.tenant : '',
+    isAdmin && scopes.admin,
+    isTenant && scopes.tenant,
     ...additionalScopes
-  ]
-
-  const user = { id: 12345, displayName: 'Mr Test User' }
-
+  ].filter(Boolean)
   const isAuthenticated = isAdmin || isTenant
-  jest.mocked(getUserSession).mockReturnValue({
-    user,
-    isAdmin,
-    isTenant,
-    isAuthenticated,
-    scope
-  })
 
-  const auth = isAuthenticated
-    ? {
-        credentials: {
-          user,
-          scope
-        },
+  if (isAuthenticated) {
+    return {
+      userSession: {
+        ...user,
+        isAdmin,
+        isTenant,
+        isAuthenticated,
+        scope,
+        uuidScope: additionalScopes.filter(uuidValidate)
+      },
+      auth: {
+        credentials: { user, scope },
         strategy: 'default'
       }
-    : undefined
+    }
+  }
+
+  return {
+    userSession: null
+  }
+}
+
+export async function mockAuthAndRenderUrl(server, { targetUrl, ...options }) {
+  const { userSession, auth } = buildAuthDetail(server, options)
+
+  getUserSession.mockResolvedValue(userSession)
+
   const { result, statusCode } = await server.inject({
     method: 'GET',
     url: targetUrl,
     auth
   })
+
   return { result, statusCode }
 }
