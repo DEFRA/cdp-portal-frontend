@@ -20,7 +20,6 @@ const removeTestRunFormController = {
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
     const testSuiteId = request.params.testSuiteId
-    const service = request.app.service
 
     const [autoTestRunDetails, repository] = await Promise.all([
       getAutoTestRunDetails(serviceId),
@@ -29,7 +28,7 @@ const removeTestRunFormController = {
 
     return h.view('services/service/automations/views/remove-test-run', {
       pageTitle: `Remove Test Run | Automations - ${serviceId}`,
-      service,
+      serviceId,
       testSuiteId,
       testRun: {
         repository,

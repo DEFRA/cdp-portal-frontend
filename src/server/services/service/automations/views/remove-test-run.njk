@@ -6,7 +6,7 @@
     <br>
     Removing a test run is non-recoverable. If you remove the wrong test run simply
     <a
-      href="{{ routeLookup('services/{serviceId}/automations/test-runs', { params: { serviceId : service.serviceName } }) }}"
+      href="{{ routeLookup('services/{serviceId}/automations/test-runs', { params: { serviceId : serviceId } }) }}"
       class="govuk-link app-link">
       add a new one
     </a>
@@ -16,7 +16,7 @@
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Remove Test Run",
-    text: service.serviceName
+    text: serviceId
   }) }}
 {% endblock %}
 
@@ -76,7 +76,7 @@
           </div>
 
           <form action="{{ routeLookup('post:services/{serviceId}/automations/test-runs/{testSuiteId}/remove', {
-            params: { serviceId: service.serviceName, testSuiteId: testSuiteId }
+            params: { serviceId: serviceId, testSuiteId: testSuiteId }
           }) }}" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
@@ -87,7 +87,7 @@
               }) }}
 
               <a class="app-link" href="{{ routeLookup('services/{serviceId}/automations/test-runs', {
-                params: { serviceId: service.serviceName }
+                params: { serviceId: serviceId }
               }) }}">Cancel</a>
             </div>
           </form>

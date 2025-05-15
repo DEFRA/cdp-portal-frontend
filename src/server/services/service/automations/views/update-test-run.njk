@@ -3,7 +3,7 @@
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Update Test Runs",
-    text: service.serviceName
+    text: serviceId
   }) }}
 {% endblock %}
 
@@ -20,7 +20,7 @@
 
           <form
             action="{{ routeLookup('post:services/{serviceId}/automations/test-runs/{testSuiteId}/update', {
-              params: { serviceId: service.serviceName, testSuiteId: testSuiteId }
+              params: { serviceId: serviceId, testSuiteId: testSuiteId }
             }) }}"
             method="POST"
             data-js="app-form-group app-form-errors">
@@ -92,7 +92,7 @@
               }) }}
 
               <a class="app-link" href="{{ routeLookup('services/{serviceId}/automations/test-runs', {
-                params: { serviceId: service.serviceName }
+                params: { serviceId: serviceId }
               }) }}">Cancel</a>
             </div>
 
