@@ -13,16 +13,23 @@
     {% set tooltipText = "failed" if params.unstable === true else params.status %}
 
     {% call appToolTip({ text: tooltipText | title + " in " + params.environment | title }) %}
-      {% if params.status === "running" %}
-        {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon--small" }) }}
-      {% elseif params.status === "pending" or params.status === "stopping" or params.status ===
-        "deploying" %}
-        {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon--small"}) }}
-      {% elseif params.status === "failed" %}
-        {{ appInstanceFailedIcon({ description: "Failed", classes: " app-icon--small" }) }}
-      {% elseif params.status === "undeployed"  %}
-        {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon--small"}) }}
-      {% endif %}
+      {% switch params.status %}
+      {% case "running" %}
+        {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon--tiny" }) }}
+      {% case "requested" %}
+      {% case "pending" %}
+      {% case "stopping" %}
+      {% case "deploying" %}
+        {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon--tiny" }) }}
+      {% case "failed" %}
+        {{ appInstanceFailedIcon({ description: "Failed", classes: "app-icon--tiny" }) }}
+      {% case "undeployed" %}
+        {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon--tiny" }) }}
+      {% case "stopped" %}
+        {{ appInstanceStoppedIcon({ description: "Stopped", classes: "app-icon--tiny" }) }}
+      {% default %}
+        {{ appInstanceIcon({ description: "Unknown", classes: "app-icon--tiny" }) }}
+      {% endswitch %}
     {% endcall %}
 
     <a class="app-link govuk-!-margin-left-1"
