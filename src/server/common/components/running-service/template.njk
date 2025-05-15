@@ -5,6 +5,7 @@
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
 {% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
+{% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
 <section class="app-running-service">
@@ -39,15 +40,23 @@
             {% set tooltipText = "failed" if runningService.unstable === true else runningService.status %}
 
             {% call appToolTip({ text: tooltipText | title + " in " + envName | title }) %}
-              {% if runningService.status === "running" %}
+              {% switch runningService.status %}
+              {% case "running" %}
                 {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon--small" }) }}
-              {% elseif runningService.status === "pending"or runningService.status === "stopping" or runningService.status === "deploying" %}
+              {% case "requested" %}
+              {% case "pending" %}
+              {% case "stopping" %}
+              {% case "deploying" %}
                 {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon--small"}) }}
-              {% elseif runningService.status === "failed" %}
+              {% case "failed" %}
                 {{ appInstanceFailedIcon({ description: "Failed", classes: "app-icon--small" }) }}
-              {% elseif runningService.status === "undeployed" %}
+              {% case "undeployed" %}
                 {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon--small"}) }}
-              {% endif %}
+              {% case "stopped" %}
+                {{ appInstanceStoppedIcon({ description: "Stopped", classes: "app-icon--small"}) }}
+              {% default %}
+                {{ appInstanceIcon({ description: "Unknown", classes: "app-icon--small"}) }}
+              {% endswitch %}
             {% endcall %}
           </div>
         </div>
