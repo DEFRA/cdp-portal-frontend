@@ -61,6 +61,23 @@
 
 {% set mainClasses = "app-main-wrapper" %}
 
+{% block headIcons %}
+
+  {% block xhrHeadContent %}
+    {% if pageState.isPending %}
+      <link rel="icon" data-xhr-element="page-state-icon" sizes="any"
+            href="{{ getAssetPath("assets/images/pending.svg") }}" type="image/svg+xml">
+    {% elseif pageState.hasSucceeded %}
+      <link rel="icon" data-xhr-element="page-state-icon" sizes="any"
+            href="{{ getAssetPath("assets/images/success.svg") }}" type="image/svg+xml">
+    {% elseif pageState.hasFailed %}
+      <link rel="icon" data-xhr-element="page-state-icon" sizes="any"
+            href="{{ getAssetPath("assets/images/failed.svg") }}" type="image/svg+xml">
+    {% endif %}
+  {% endblock %}
+
+{% endblock %}
+
 {% block head %}
   <link href="{{ getAssetPath("stylesheets/application.scss") }}" rel="stylesheet">
   {% if serviceVersion %}
@@ -86,7 +103,7 @@
 {% endblock %}
 
 {% block skipLink %}
-{# If the skiplink is the very first item in the page, VoiceOver will automatically read out the skiplink on each
+  {# If the skiplink is the very first item in the page, VoiceOver will automatically read out the skiplink on each
 page load, not ideal. VoiceOver will also steal focus from JavaScript focused elements, fEx if you wish to focus the
 keyboard on the first error in a form, you cannot. Wrapping the skiplink in a div means VoiceOver doesn't automatically
 read out the skiplink on every page and errors can be focused when they occur. And the skiplink works as intended. #}

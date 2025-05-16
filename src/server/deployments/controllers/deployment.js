@@ -7,12 +7,53 @@ import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
+import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
+import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 import {
   transformDeploymentToStatusSummary,
   transformDeploymentToSummary
 } from '~/src/server/deployments/transformers/deployment-to-summary.js'
-import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
+
+/**
+ * @typedef {object} PageState
+ * @property {boolean} isPending
+ * @property {boolean} hasSucceeded
+ * @property {boolean} hasFailed
+ */
+
+/**
+ * @param {string} status
+ * @returns {PageState}
+ */
+function buildPageState(status) {
+  const pendingStatuses = [
+    deploymentStatus.stopping,
+    deploymentStatus.pending,
+    deploymentStatus.requested
+  ]
+  const succeededStatuses = [
+    deploymentStatus.running,
+    deploymentStatus.stopping // TODO what to do here?
+  ]
+  const pageState = {
+    isPending: false,
+    hasSucceeded: false,
+    hasFailed: false
+  }
+
+  if (pendingStatuses.includes(status)) {
+    pageState.isPending = true
+  }
+
+  if (succeededStatuses.includes(status)) {
+    pageState.hasSucceeded = true
+  }
+  if (status === deploymentStatus.failed) {
+    pageState.hasFailed = true
+  }
+
+  return pageState
+}
 
 const deploymentController = {
   options: {
@@ -36,6 +77,7 @@ const deploymentController = {
     const ecsDeployment = provideEcsDeploymentStatus(deployment)
 
     return h.view('deployments/views/deployment', {
+      pageState: buildPageState(deployment.status),
       pageTitle: `${deployment.service} ${deployment.version} deployment - ${formattedEnvironment}`,
       pageHeading: {
         caption: 'Microservice deployment',

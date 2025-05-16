@@ -25,17 +25,20 @@
         {% if deployment.unstable %}
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-full">
+              <article data-xhr="deployment-unstable-{{ deployment.cdpDeploymentId }}"
+                       data-xhr-stop="{{ not shouldPoll }}">
 
-              {% call appWarning({ isInverse: true }) %}
-                Your service is failing to start. Check
-                {{ appLogsDashboardLink({
-                  classes: "app-link app-link--underline app-link--text-colour",
-                  serviceName: deployment.service,
-                  environment: deployment.environment
-                }) }}
-                to diagnose why this is happening.
-              {% endcall %}
+                {% call appWarning({ isInverse: true }) %}
+                  Your service is failing to start. Check
+                  {{ appLogsDashboardLink({
+                    classes: "app-link app-link--underline app-link--text-colour",
+                    serviceName: deployment.service,
+                    environment: deployment.environment
+                  }) }}
+                  to diagnose why this is happening.
+                {% endcall %}
 
+              </article>
             </div>
           </div>
         {% endif %}
