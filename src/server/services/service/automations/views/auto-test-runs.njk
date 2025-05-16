@@ -101,7 +101,7 @@
             {% call govukFieldset() %}
 
               {{ appAutocomplete({
-                id: "test-suite",
+                id: "auto-test-run-test-suite",
                 name: "testSuite",
                 label: {
                   text: "Test Suite",
@@ -124,6 +124,7 @@
               }) }}
 
               {{ govukCheckboxes({
+                id: "auto-test-run-environments",
                 name: "environments",
                 classes: "app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline",
                 fieldset: {

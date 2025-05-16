@@ -28,7 +28,9 @@ function testSuiteToEntityRow({
           headers: environmentName,
           entity: {
             kind: 'html',
-            value: hasTestRun ? `<div class="app-check"></div>` : noValue
+            value: hasTestRun
+              ? `<div class="app-check" data-testid="check-${environmentName}"></div>`
+              : noValue
           }
         }
       })
