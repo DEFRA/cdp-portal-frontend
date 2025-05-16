@@ -1,18 +1,9 @@
-import { provideService } from '~/src/server/common/helpers/provide-service.js'
 import { provideServiceTabs } from '~/src/server/services/helpers/provide-service-tabs.js'
 import { validateEntityIsAService } from '~/src/server/common/helpers/validate-entity-is-a-service.js'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
 import { provideTestSuiteTabs } from '~/src/server/test-suites/helpers/provide-test-suite-tabs.js'
 import { provideEntity } from '~/src/server/test-suites/helpers/pre/provide-test-suite.js'
 import { validateEntityIsATestSuite } from '~/src/server/common/helpers/validate-entity-is-a-test-suite.js'
-
-const provideServiceExtension = {
-  type: 'onPreAuth',
-  method: provideService,
-  options: {
-    sandbox: 'plugin'
-  }
-}
 
 const provideEntityExtension = {
   type: 'onPreAuth',
@@ -79,7 +70,6 @@ const commonTestSuiteExtensions = [
 export {
   commonServiceExtensions,
   commonTestSuiteExtensions,
-  provideServiceExtension,
   provideServiceTabsExtension,
   provideTestSuiteTabsExtension
 }
