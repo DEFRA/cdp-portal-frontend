@@ -525,7 +525,7 @@ width="10%"        >
 
 
 
-      <div class="app-check"></div>
+      <div class="app-check" data-testid="check-dev"></div>
 
 
 </div>
@@ -543,7 +543,7 @@ width="10%"        >
 
 
 
-      <div class="app-check"></div>
+      <div class="app-check" data-testid="check-test"></div>
 
 
 </div>
@@ -616,8 +616,8 @@ width="10%"        >
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
   <label class="govuk-label govuk-label app-label"
-         id="test-suite-label"
-         for="test-suite"
+         id="auto-test-run-test-suite-label"
+         for="auto-test-run-test-suite"
          data-testid="app-autocomplete-label">
     Test Suite
   </label>
@@ -646,7 +646,7 @@ width="10%"        >
 </svg>
 
 
-        <select name="testSuite" id="test-suite" class="govuk-select app-select" data-js="app-progressive-input" data-no-suggestions-message="No test suites found" data-remove-password-widgets="true" data-placeholder="Search for a test suite" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" >
+        <select name="testSuite" id="auto-test-run-test-suite" class="govuk-select app-select" data-js="app-progressive-input" data-no-suggestions-message="No test suites found" data-remove-password-widgets="true" data-placeholder="Search for a test suite" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" >
           <option value=""
 selected="selected">
              - - select - - 
@@ -680,7 +680,7 @@ selected="selected">
       <button class="app-autocomplete__chevron-button js-visible"
               type="button"
               tabindex="-1"
-              aria-owns="app-autocomplete-test-suite-suggestions"
+              aria-owns="app-autocomplete-auto-test-run-test-suite-suggestions"
               aria-label="Show"
               data-js="app-chevron-button"
               data-testid="app-chevron-button"
@@ -715,8 +715,8 @@ selected="selected">
 
     <ul
       class="app-autocomplete__suggestions"
-      id="app-autocomplete-test-suite-suggestions"
-      aria-labelledby="test-suite-label"
+      id="app-autocomplete-auto-test-run-test-suite-suggestions"
+      aria-labelledby="auto-test-run-test-suite-label"
       aria-expanded="false"
       role="listbox"
       data-js="app-autocomplete-suggestions"
