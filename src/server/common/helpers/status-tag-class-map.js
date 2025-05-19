@@ -7,7 +7,7 @@ function statusTagClassMap(status) {
       creationStatuses.prOpen,
       creationStatuses.merged
     ].includes(status):
-      return 'govuk-tag--purple'
+      return 'app-tag--purple'
 
     case [
       creationStatuses.requested,
@@ -35,7 +35,7 @@ function statusTagClassMap(status) {
       return 'govuk-tag--red'
 
     case status === creationStatuses.queued:
-      return 'govuk-tag--yellow'
+      return 'app-tag--purple'
 
     default:
       return 'govuk-tag--grey'

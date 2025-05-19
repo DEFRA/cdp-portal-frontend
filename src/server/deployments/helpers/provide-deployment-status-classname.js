@@ -7,7 +7,7 @@ function provideDeploymentStatusClassname(status) {
     case deploymentStatus.stopping:
     case deploymentStatus.pending:
     case deploymentStatus.requested:
-      return 'govuk-tag--purple'
+      return 'app-tag--purple'
     case deploymentStatus.stopped:
       return 'govuk-tag--light-blue'
     case deploymentStatus.failed:

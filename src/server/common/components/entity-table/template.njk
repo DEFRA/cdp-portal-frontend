@@ -3,16 +3,24 @@
 {% from "entity/macro.njk" import appEntity with context %}
 
 {% set tableClasses = [
-  "app-entity-table",
-  params.classes if params.classes,
-  "app-entity-table--wide" if params.isWide
+  "app-entity-table", params.classes if params.classes, "app-entity-table--wide" if params.isWide
 ] | join(" ") | trim %}
+
+{% set paddedHeading %}
+  <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
+{% endset %}
+
+{% set paddedCell %}
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+{% endset %}
 
 <article>
   <table class="{{ tableClasses }}" data-testid="app-entity-table">
     <thead class="app-entity-table__head{% if params.head.isInverse %} app-entity-table__head--inverse{% endif %}"
            data-testid="app-entity-table-head">
     <tr>
+      {% if params.isWide %}{{ paddedHeading | safe }}{% endif %}
+
       {% for header in params.headers %}
         {% set headerClasses = [
           "app-entity-table__heading",
@@ -34,6 +42,8 @@
           {% endif %}
         </th>
       {% endfor %}
+
+      {% if params.isWide %}{{ paddedHeading | safe }}{% endif %}
     </tr>
     </thead>
     <tbody>
@@ -41,6 +51,8 @@
       {% set rowClasses = ["app-entity-table__row", row.classes if row.classes] | join(" ") | trim %}
 
       <tr class="{{ rowClasses }}" data-testid="app-entity-table-row-{{ loop.index }}">
+        {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
+
         {% for cell in row.cells %}
           {% set headerDetail = params.headers | find({ id: cell.headers }) %}
 
@@ -63,6 +75,8 @@
             {% endif %}
           </td>
         {% endfor %}
+
+        {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
       </tr>
     {% else %}
       <tr class="app-entity-table__row--no-results" data-testid="app-entity-table-no-results">

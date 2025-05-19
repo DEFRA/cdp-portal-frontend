@@ -13,3 +13,8 @@
   background-color: govuk-colour("white");
   color: govuk-colour("black");
 }
+
+.app-tag--purple {
+  color: govuk-shade(govuk-colour("bright-purple"), 40%);
+  background-color: govuk-tint(govuk-colour("bright-purple"), 75%);
+}

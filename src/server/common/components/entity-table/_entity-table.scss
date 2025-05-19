@@ -22,6 +22,11 @@ $min-grid-cell-width: 100px;
   margin-left: govuk-spacing(-6);
   margin-right: govuk-spacing(-6);
   width: calc(100% + govuk-spacing(6) * 2);
+
+  .app-entity-table__heading--padded,
+  .app-entity-table__cell--padded {
+    width: govuk-spacing(2); // with padding and border we get a total of 30px width on the padded cells
+  }
 }
 
 .app-entity-table__cell {
@@ -34,6 +39,11 @@ $min-grid-cell-width: 100px;
     margin-left: govuk-spacing(1);
     margin-right: govuk-spacing(1);
     width: 100%;
+
+    .app-entity-table__heading--padded,
+    .app-entity-table__cell--padded {
+      display: none;
+    }
   }
 
   // Hide header, we place headings on individual cells on small screens
@@ -72,14 +82,6 @@ $min-grid-cell-width: 100px;
     padding: govuk-spacing(2) 0;
     box-sizing: border-box;
     height: 100%;
-
-    // Make icons tiny in compact view
-    .app-icon {
-      width: 20px;
-      min-width: 20px;
-      max-width: 20px;
-      height: 20px;
-    }
 
     .app-entity {
       height: calc(100% - $compact-label-height); // So the height all off all entities in row match

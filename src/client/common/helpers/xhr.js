@@ -13,19 +13,39 @@ import { eventName } from '~/src/client/common/constants/event-name.js'
  */
 function injectHtmlResponseIntoPage(text) {
   const domParser = new DOMParser()
-  const dataDocument = domParser.parseFromString(text, 'text/html')
+  const xhrDataDocument = domParser.parseFromString(text, 'text/html')
 
   const xhrContainers = Array.from(document.querySelectorAll('[data-xhr]'))
 
   xhrContainers.forEach((xhrContainer) => {
     const xhrContainerId = xhrContainer.dataset?.xhr
 
-    const xhrContent = dataDocument.querySelector(
+    const xhrContent = xhrDataDocument.querySelector(
       `[data-xhr="${xhrContainerId}"]`
     )
 
     if (xhrContent) {
-      xhrContainer.outerHTML = xhrContent.outerHTML
+      xhrContainer.replaceWith(xhrContent)
+    }
+  })
+
+  // TODO refactor
+  // Replace elements in page with XHR data from the server
+  const xhrElements = Array.from(
+    document.querySelectorAll('[data-xhr-element]')
+  )
+
+  xhrElements.forEach((xhrElement) => {
+    const xhrElementId = xhrElement.dataset?.xhrElement
+
+    // Found matching xhr content in the response
+    const xhrContent = xhrDataDocument.querySelector(
+      `[data-xhr-element="${xhrElementId}"]`
+    )
+
+    // Update dom with xhr content
+    if (xhrContent) {
+      xhrElement.replaceWith(xhrContent)
     }
   })
 }

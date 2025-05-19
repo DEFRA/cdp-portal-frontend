@@ -146,6 +146,7 @@ const deploymentsListController = {
       environment,
       hiddenInputs: { page, size: pageSize },
       tableData: {
+        isWide: true,
         head: { isInverse: true },
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
