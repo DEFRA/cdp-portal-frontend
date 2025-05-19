@@ -27,7 +27,6 @@ const updateTestRunFormController = {
     const authedUser = request.pre.authedUser
     const serviceId = request.params.serviceId
     const testSuiteId = request.params.testSuiteId
-    const service = request.app.service
 
     const [autoTestRunDetails, repository] = await Promise.all([
       getAutoTestRunDetails(serviceId),
@@ -44,7 +43,7 @@ const updateTestRunFormController = {
 
     return h.view('services/service/automations/views/update-test-run', {
       pageTitle: `Update Test Run | Automations - ${serviceId}`,
-      service,
+      serviceId,
       testSuiteId,
       formValues: {
         environments: autoTestRunDetails?.testSuites?.[testSuiteId] ?? []

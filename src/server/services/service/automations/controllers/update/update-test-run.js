@@ -24,7 +24,7 @@ const updateTestRunController = {
     const payload = request.payload
     const userScopes = authedUser.scope
     const serviceId = request.params.serviceId
-    const testSuiteId = request.params.testSuiteId // Normalise this name
+    const testSuiteId = request.params.testSuiteId
     const environments = Array.isArray(payload.environments)
       ? payload.environments
       : [payload.environments].filter(Boolean)

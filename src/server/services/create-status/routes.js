@@ -1,12 +1,9 @@
 import { serviceCreateStatusController } from '~/src/server/services/create-status/controller.js'
-import { provideServiceExtension } from '~/src/server/common/helpers/extensions.js'
 
 const createStatus = {
   plugin: {
     name: 'createStatus',
     register: (server) => {
-      server.ext([provideServiceExtension])
-
       server.route([
         {
           method: 'GET',

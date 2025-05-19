@@ -338,10 +338,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       </li>
 
       <li class="app-subnav__section-item app-subnav__section-item--current"
-          data-testid="app-subnav-item-test runs">
+          data-testid="app-subnav-item-test-runs">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="/services/mock-service-with-automations/automations/test-runs"
-           data-testid="app-subnav-link-test runs"
+           data-testid="app-subnav-link-test-runs"
         >Test Runs</a>
       </li>
   </ul>
@@ -352,7 +352,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop-huge">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Automatic Test Runs</h2>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="automatic-test-runs">
+            Automatic Test Runs
+          </h2>
           <p class="govuk-!-margin-bottom-2">
             Automatically trigger a test suite to run after this service has been manually or automatically deployed to
             an environment.
@@ -580,7 +583,7 @@ width="10%"        >
 
 
 
-      <div class="app-check"></div>
+      <div class="app-check" data-testid="check-dev"></div>
 
 
 </div>
@@ -598,7 +601,7 @@ width="10%"        >
 
 
 
-      <div class="app-check"></div>
+      <div class="app-check" data-testid="check-test"></div>
 
 
 </div>
@@ -642,7 +645,8 @@ width="10%"        >
         </div>
 
         <div class="govuk-grid-column-one-third-from-desktop-huge">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Add Test Run</h2>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="add-test-run">Add Test Run</h2>
           <p>
             Choose a test suite to automatically run after a deployment of this service
           </p>
@@ -670,8 +674,8 @@ width="10%"        >
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
   <label class="govuk-label govuk-label app-label"
-         id="test-suite-label"
-         for="test-suite"
+         id="auto-test-run-test-suite-label"
+         for="auto-test-run-test-suite"
          data-testid="app-autocomplete-label">
     Test Suite
   </label>
@@ -700,7 +704,7 @@ width="10%"        >
 </svg>
 
 
-        <select name="testSuite" id="test-suite" class="govuk-select app-select" data-js="app-progressive-input" data-no-suggestions-message="No test suites found" data-remove-password-widgets="true" data-placeholder="Search for a test suite" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" >
+        <select name="testSuite" id="auto-test-run-test-suite" class="govuk-select app-select" data-js="app-progressive-input" data-no-suggestions-message="No test suites found" data-remove-password-widgets="true" data-placeholder="Search for a test suite" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" >
           <option value=""
 selected="selected">
              - - select - - 
@@ -734,7 +738,7 @@ selected="selected">
       <button class="app-autocomplete__chevron-button js-visible"
               type="button"
               tabindex="-1"
-              aria-owns="app-autocomplete-test-suite-suggestions"
+              aria-owns="app-autocomplete-auto-test-run-test-suite-suggestions"
               aria-label="Show"
               data-js="app-chevron-button"
               data-testid="app-chevron-button"
@@ -769,8 +773,8 @@ selected="selected">
 
     <ul
       class="app-autocomplete__suggestions"
-      id="app-autocomplete-test-suite-suggestions"
-      aria-labelledby="test-suite-label"
+      id="app-autocomplete-auto-test-run-test-suite-suggestions"
+      aria-labelledby="auto-test-run-test-suite-label"
       aria-expanded="false"
       role="listbox"
       data-js="app-autocomplete-suggestions"

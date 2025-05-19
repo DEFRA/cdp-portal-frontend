@@ -338,10 +338,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       </li>
 
       <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-test runs">
+          data-testid="app-subnav-item-test-runs">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="/services/mock-service-with-automations/automations/test-runs"
-           data-testid="app-subnav-link-test runs"
+           data-testid="app-subnav-link-test-runs"
         >Test Runs</a>
       </li>
   </ul>
@@ -353,7 +353,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third-from-desktop">
           <section class="app-section--wide">
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Automatic Deployments</h2>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+                data-testid="automatic-deployments">
+              Automatic Deployments
+            </h2>
             <p class="govuk-!-margin-bottom-2">
               Turn on auto deployments in one or more environments.
             </p>
