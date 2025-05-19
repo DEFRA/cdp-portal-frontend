@@ -214,6 +214,7 @@
                     {% if imageName %}
                       <div class="app-section app-section--extra-wide">
                         {{ appDatabaseDetail({
+                          serviceName: imageName,
                           databaseDetails: latestMigrations,
                           environments: environments
                         }) }}

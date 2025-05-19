@@ -32,7 +32,6 @@ const runningServicesListController = {
     return h.view('running-services/views/list', {
       pageTitle: 'Running Services',
       tableData: {
-        isWide: true,
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
           { id: 'service', text: 'Service', width: '15', isLeftAligned: true },
@@ -44,7 +43,8 @@ const runningServicesListController = {
           }))
         ],
         rows,
-        noResult: 'No running services found'
+        noResult: 'No running services found',
+        isWide: true
       },
       serviceFilters,
       userFilters,

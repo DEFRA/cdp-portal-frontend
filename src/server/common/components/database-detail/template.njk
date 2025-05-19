@@ -18,13 +18,20 @@
 
           <div class="app-database-detail__item app-database-detail__item--version">
             <span id="version" class="govuk-visually-hidden">Version:</span>
-            <span aria-labelledby="version">{{ databaseDetail.version if databaseDetail.version else noValue }}</span>
-            {% call appToolTip({ text: "Current database change in " + envName | title }) %}
-              {{ appDatabaseIcon({
-                classes: "app-icon--small govuk-!-margin-left-2",
-                description: "Database Change " + databaseDetail.version
-              }) }}
-            {% endcall %}
+            {% if databaseDetail.version %}
+              <a class="app-link"
+                 href="https://github.com/DEFRA/{{ params.serviceName }}/releases/tag/{{ databaseDetail.version }}"
+                 target="_blank" rel="noopener noreferrer">{{ databaseDetail.version }}</a>
+            {% else %}
+              <span>{{ noValue }}</span>
+            {% endif %}
+            <span aria-labelledby="version">
+              {% call appToolTip({ text: "Current database change in " + envName | title }) %}
+                {{ appDatabaseIcon({
+                  classes: "app-icon--small govuk-!-margin-left-2",
+                  description: "Database Change " + databaseDetail.version
+                }) }}
+              {% endcall %}
           </div>
         </div>
 

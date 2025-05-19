@@ -166,7 +166,8 @@ const deploymentsListController = {
         noResult: `Nothing has matched what you are looking for in ${capitalize(
           environment
         )}`,
-        pagination: buildPagination(page, pageSize, totalPages, request.query)
+        pagination: buildPagination(page, pageSize, totalPages, request.query),
+        isWide: true
       },
       breadcrumbs: [
         {

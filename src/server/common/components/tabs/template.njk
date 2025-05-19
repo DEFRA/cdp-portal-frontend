@@ -1,6 +1,7 @@
 {% set activeTabId = "" %}
+{% set classes = ["app-tabs"] | join(" ") | trim %}
 
-<div class="app-tabs"
+<div class="{{ classes }}"
      data-js="app-tabs">
   {% if(params.displayTabs | default("true") and params.tabs | length) %}
     <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="{{ params.label }}">
@@ -33,7 +34,7 @@
     {% if tab.isActive %}
       {% set content = tab.panel.html | safe if tab.panel.html else tab.panel.text %}
       <section id="tab-panel-{{ activeTabId }}"
-               class="app-tabs__panel{% if tab.isSlim %} app-tabs__panel--slim{% endif %}"
+               class="app-tabs__panel"
                role="tabpanel"
                aria-labelledby="tab-{{ activeTabId }}"
                data-testid="app-tabs-panel">

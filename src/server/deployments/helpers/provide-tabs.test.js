@@ -36,44 +36,37 @@ describe('#provideTabs', () => {
         {
           isActive: false,
           label: 'Infra-dev',
-          url: '/deployments/infra-dev?page=1&size=50',
-          isSlim: true
+          url: '/deployments/infra-dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Management',
-          url: '/deployments/management?page=1&size=50',
-          isSlim: true
+          url: '/deployments/management?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Dev',
-          url: '/deployments/dev?page=1&size=50',
-          isSlim: true
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Ext-test',
-          url: '/deployments/ext-test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/ext-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod?page=1&size=50',
-          isSlim: true
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })
@@ -92,38 +85,32 @@ describe('#provideTabs', () => {
         {
           isActive: true,
           label: 'Infra-dev',
-          url: '/deployments/infra-dev?page=1&size=50',
-          isSlim: true
+          url: '/deployments/infra-dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Management',
-          url: '/deployments/management?page=1&size=50',
-          isSlim: true
+          url: '/deployments/management?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Dev',
-          url: '/deployments/dev?page=1&size=50',
-          isSlim: true
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod?page=1&size=50',
-          isSlim: true
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })
@@ -140,26 +127,22 @@ describe('#provideTabs', () => {
         {
           isActive: false,
           label: 'Dev',
-          url: '/deployments/dev?page=1&size=50',
-          isSlim: true
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod?page=1&size=50',
-          isSlim: true
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })
@@ -178,26 +161,22 @@ describe('#provideTabs', () => {
         {
           isActive: true,
           label: 'Dev',
-          url: '/deployments/dev?page=1&size=50',
-          isSlim: true
+          url: '/deployments/dev?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Test',
-          url: '/deployments/test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Perf-test',
-          url: '/deployments/perf-test?page=1&size=50',
-          isSlim: true
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
           label: 'Prod',
-          url: '/deployments/prod?page=1&size=50',
-          isSlim: true
+          url: '/deployments/prod?page=1&size=50'
         }
       ])
     })

@@ -6,20 +6,16 @@ describe('#getDeploymentStatusClassname', () => {
   })
 
   test('Should provide expected "stopping" className', () => {
-    expect(provideDeploymentStatusClassname('stopping')).toBe(
-      'govuk-tag--purple'
-    )
+    expect(provideDeploymentStatusClassname('stopping')).toBe('app-tag--purple')
   })
 
   test('Should provide expected "pending" className', () => {
-    expect(provideDeploymentStatusClassname('pending')).toBe(
-      'govuk-tag--purple'
-    )
+    expect(provideDeploymentStatusClassname('pending')).toBe('app-tag--purple')
   })
 
   test('Should provide expected "requested" className', () => {
     expect(provideDeploymentStatusClassname('requested')).toBe(
-      'govuk-tag--purple'
+      'app-tag--purple'
     )
   })
 

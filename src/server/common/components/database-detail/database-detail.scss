@@ -20,6 +20,7 @@ $card-height: 180px;
     .app-database-detail__item--version {
       .app-icon {
         fill: govuk-tint(govuk-colour($colourName), 30%);
+        stroke: govuk-tint(govuk-colour($colourName), 70%);
       }
     }
   }

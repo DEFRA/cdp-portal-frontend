@@ -7,27 +7,36 @@ import { publish } from '~/src/client/common/helpers/event-emitter.js'
 import { eventName } from '~/src/client/common/constants/event-name.js'
 
 /**
+ * Update data-xhr elements in the DOM inside xhrContent or xhrHeadContent nunjucks blocks with the contents of
+ * data-xhr elements received via a Xhr request
+ * @param {string} xhrDocument
+ */
+function updateWithXhrContent(xhrDocument) {
+  const $elements = Array.from(document.querySelectorAll('[data-xhr]'))
+
+  $elements.forEach((xhrContainer) => {
+    const xhrContainerId = xhrContainer.dataset?.xhr
+
+    const xhrContent = xhrDocument.querySelector(
+      `[data-xhr="${xhrContainerId}"]`
+    )
+
+    if (xhrContent) {
+      xhrContainer.replaceWith(xhrContent)
+    }
+  })
+}
+
+/**
  * Update data-xhr elements inside {% block xhrContent %}{% endblock %} with the contents of data-xhr elements
  * of the same name returned from the Xhr request
  * @param {string} text - text/html returned from the Xhr request
  */
 function injectHtmlResponseIntoPage(text) {
   const domParser = new DOMParser()
-  const dataDocument = domParser.parseFromString(text, 'text/html')
+  const xhrDataDocument = domParser.parseFromString(text, 'text/html')
 
-  const xhrContainers = Array.from(document.querySelectorAll('[data-xhr]'))
-
-  xhrContainers.forEach((xhrContainer) => {
-    const xhrContainerId = xhrContainer.dataset?.xhr
-
-    const xhrContent = dataDocument.querySelector(
-      `[data-xhr="${xhrContainerId}"]`
-    )
-
-    if (xhrContent) {
-      xhrContainer.outerHTML = xhrContent.outerHTML
-    }
-  })
+  updateWithXhrContent(xhrDataDocument)
 }
 
 function updatePage(text, params = {}) {
@@ -113,7 +122,7 @@ function addHistoryListener() {
 }
 
 /**
- * import {Location} from 'history
+ * import {Location} from 'history'
  */
 
 export { xhrRequest, addHistoryListener }

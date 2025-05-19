@@ -34,7 +34,6 @@ const servicesListController = {
     return h.view('services/list/views/list', {
       pageTitle: 'Services',
       tableData: {
-        isWide: true,
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
           { id: 'service', text: 'Service', width: '20', isLeftAligned: true },
@@ -44,7 +43,8 @@ const servicesListController = {
           { id: 'created', text: 'Created', width: '20' }
         ],
         rows,
-        noResult: 'No services found'
+        noResult: 'No services found',
+        isWide: true
       },
       serviceFilters: filters.service,
       teamFilters: filters.team,
