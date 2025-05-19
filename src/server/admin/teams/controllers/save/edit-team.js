@@ -20,7 +20,8 @@ const editTeamController = {
         description: cdpTeam.description,
         github: cdpTeam.github,
         serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : [],
-        alertEmailAddresses: cdpTeam.alertEmailAddresses
+        alertEmailAddresses: cdpTeam.alertEmailAddresses,
+        alertEnvironments: cdpTeam.alertEnvironments
       })
 
       await setStepComplete(request, h, 'allSteps')

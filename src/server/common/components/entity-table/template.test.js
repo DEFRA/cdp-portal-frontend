@@ -88,13 +88,16 @@ describe('Entity Table Component', () => {
       expect(getEntity(5).html()).toContain('robocop@robocop.com')
 
       expect(getEntity(6)).toHaveLength(1)
-      expect(getEntity(6).html()).toContain('2')
+      expect(getEntity(6).html()).toContain('- - -')
 
       expect(getEntity(7)).toHaveLength(1)
-      expect(getEntity(7).html()).toContain('Wed 30th Aug 2023 at 08:08')
+      expect(getEntity(7).html()).toContain('2')
 
       expect(getEntity(8)).toHaveLength(1)
-      expect(getEntity(8).html()).toContain('Thu 24th Aug 2023 at 14:20')
+      expect(getEntity(8).html()).toContain('Wed 30th Aug 2023 at 08:08')
+
+      expect(getEntity(9)).toHaveLength(1)
+      expect(getEntity(9).html()).toContain('Thu 24th Aug 2023 at 14:20')
     })
   })
 

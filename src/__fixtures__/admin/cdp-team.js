@@ -10,6 +10,7 @@ const cdpTeamFixture = {
     teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
     serviceCodes: ['CDP'],
     alertEmailAddresses: ['alerts@cdp.com'],
+    alertEnvironments: ['infra-dev', 'management'],
     users: [
       {
         userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',

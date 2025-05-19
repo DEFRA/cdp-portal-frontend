@@ -70,6 +70,15 @@ function transformTeamToSummary(team, withActions = true) {
         actions
       },
       {
+        key: { text: 'Alert Environments' },
+        value: {
+          html: team.alertEnvironments?.length
+            ? team.alertEnvironments.join(', ')
+            : noValue
+        },
+        actions
+      },
+      {
         key: { text: 'Last Updated' },
         value: { html: renderComponent('time', { datetime: team.updatedAt }) }
       },

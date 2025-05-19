@@ -100,6 +100,19 @@
                 errorMessage: errorMessageHelper(formErrors.alertEmailAddresses.message)
               }) }}
 
+              {{ govukCheckboxes({
+                name: "alertEnvironments",
+                classes: "govuk-checkboxes--small",
+                fieldset: {
+                  legend: {
+                    text: "Alert Environments (optional)",
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                items: alertEnvironmentsCheckboxes
+              }) }}
+
             {% endcall %}
 
             <div class="govuk-button-group">

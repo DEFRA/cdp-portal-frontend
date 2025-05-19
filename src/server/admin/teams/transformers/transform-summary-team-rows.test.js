@@ -106,6 +106,26 @@ describe('#transformSummaryTeamRows', () => {
         value: {
           html: null
         }
+      },
+      {
+        actions: {
+          classes: 'app-summary__action',
+          items: [
+            {
+              classes: 'app-link',
+              href: '/admin/teams/team-details?redirectLocation=summary',
+              text: 'Change',
+              visuallyHiddenText: 'Alert Environments'
+            }
+          ]
+        },
+        key: {
+          classes: 'app-summary__heading',
+          text: 'Alert Environments'
+        },
+        value: {
+          html: null
+        }
       }
     ])
   })

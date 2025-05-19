@@ -68,6 +68,11 @@ function transformSummaryTeamRows(cdpTeam) {
       'Alert Emails',
       teamDetails.alertEmailAddresses?.join('<br>'),
       teamDetailsPath
+    ),
+    buildRow(
+      'Alert Environments',
+      teamDetails.alertEnvironments?.join(', '),
+      teamDetailsPath
     )
   ]
 }
