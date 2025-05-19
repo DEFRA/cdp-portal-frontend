@@ -22,8 +22,7 @@ async function provideTabs(request, h) {
     ).map((env) => ({
       isActive: request.path.startsWith(`/deployments/${env}`),
       url: `/deployments/${env}${paginationParams}`,
-      label: `${upperFirst(env)}`,
-      isSlim: true
+      label: `${upperFirst(env)}`
     }))
   }
   return h.continue

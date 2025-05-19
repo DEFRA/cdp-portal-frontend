@@ -17,7 +17,7 @@
 {% from "banner/macro.njk" import appBanner %}
 {% from "breadcrumbs/macro.njk" import appBreadcrumbs with context %}
 {% from "button/macro.njk" import appButton %}
-{% from "database-detail/macro.njk" import appDatabaseDetail %}
+{% from "database-detail/macro.njk" import appDatabaseDetail with context %}
 {% from "detailed-list/macro.njk" import appDetailedList %}
 {% from "details/macro.njk" import appDetails %}
 {% from "entity-actions/macro.njk" import appEntityActions %}
@@ -61,6 +61,18 @@
 
 {% set mainClasses = "app-main-wrapper" %}
 
+{% block headIcons %}
+  {% if faviconState %}
+    {% block xhrHeadContent %}
+      <link rel="icon" sizes="any"
+            href="{{ getAssetPath("assets/images/" + faviconState + ".svg") }}" type="image/svg+xml"
+            data-xhr="page-state-icon">
+    {% endblock %}
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+
 {% block head %}
   <link href="{{ getAssetPath("stylesheets/application.scss") }}" rel="stylesheet">
   {% if serviceVersion %}
@@ -86,7 +98,7 @@
 {% endblock %}
 
 {% block skipLink %}
-{# If the skiplink is the very first item in the page, VoiceOver will automatically read out the skiplink on each
+  {# If the skiplink is the very first item in the page, VoiceOver will automatically read out the skiplink on each
 page load, not ideal. VoiceOver will also steal focus from JavaScript focused elements, fEx if you wish to focus the
 keyboard on the first error in a form, you cannot. Wrapping the skiplink in a div means VoiceOver doesn't automatically
 read out the skiplink on every page and errors can be focused when they occur. And the skiplink works as intended. #}

@@ -26,7 +26,6 @@ const testSuiteListController = {
     return h.view('test-suites/views/list', {
       pageTitle: 'Test Suites',
       tableData: {
-        isWide: true,
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
           {
@@ -40,7 +39,8 @@ const testSuiteListController = {
           { id: 'created', text: 'Created', width: '25' }
         ],
         rows,
-        noResult: 'No test suites found'
+        noResult: 'No test suites found',
+        isWide: true
       }
     })
   }

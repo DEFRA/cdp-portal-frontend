@@ -6,6 +6,8 @@ $compact-label-height: govuk-spacing(4);
 $min-width: 200px;
 $min-grid-cell-width: 100px;
 
+// TODO responsive styles in this file need a tidy up
+
 .app-entity-table {
   height: 1px; // Allow table cell height to stretch to full row height. Is ignored by browsers
   @extend %govuk-body-m;
@@ -22,6 +24,11 @@ $min-grid-cell-width: 100px;
   margin-left: govuk-spacing(-6);
   margin-right: govuk-spacing(-6);
   width: calc(100% + govuk-spacing(6) * 2);
+
+  .app-entity-table__heading--padded,
+  .app-entity-table__cell--padded {
+    width: 10px; // provide an empty "padded" cell each end of the row
+  }
 }
 
 .app-entity-table__cell {
@@ -34,6 +41,11 @@ $min-grid-cell-width: 100px;
     margin-left: govuk-spacing(1);
     margin-right: govuk-spacing(1);
     width: 100%;
+
+    .app-entity-table__heading--padded,
+    .app-entity-table__cell--padded {
+      display: none;
+    }
   }
 
   // Hide header, we place headings on individual cells on small screens
@@ -72,14 +84,6 @@ $min-grid-cell-width: 100px;
     padding: govuk-spacing(2) 0;
     box-sizing: border-box;
     height: 100%;
-
-    // Make icons tiny in compact view
-    .app-icon {
-      width: 20px;
-      min-width: 20px;
-      max-width: 20px;
-      height: 20px;
-    }
 
     .app-entity {
       height: calc(100% - $compact-label-height); // So the height all off all entities in row match

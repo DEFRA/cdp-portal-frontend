@@ -8,8 +8,8 @@
 }
 
 .app-tabs__list {
-  margin: govuk-spacing(0);
-  padding: govuk-spacing(0);
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -69,11 +69,5 @@
     margin-left: govuk-spacing(-6);
     margin-right: govuk-spacing(-6);
     padding: 0 govuk-spacing(6) govuk-spacing(6);
-  }
-}
-
-@include govuk-media-query($from: desktop-huge) {
-  .app-tabs__panel--slim {
-    padding: 0;
   }
 }

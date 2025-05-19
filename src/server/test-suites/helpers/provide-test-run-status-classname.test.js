@@ -2,7 +2,7 @@ import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/
 
 describe('#provideTestRunStatusClassname', () => {
   test('Should provide expected "starting" className', () => {
-    expect(provideTestRunStatusClassname('starting')).toBe('govuk-tag--purple')
+    expect(provideTestRunStatusClassname('starting')).toBe('app-tag--purple')
   })
 
   test('Should provide expected "inProgress" className', () => {

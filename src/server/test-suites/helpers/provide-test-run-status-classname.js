@@ -5,7 +5,7 @@ function provideTestRunStatusClassname(status) {
 
   switch (true) {
     case statusToLowerCase === taskStatus.starting:
-      return 'govuk-tag--purple'
+      return 'app-tag--purple'
     case statusToLowerCase === taskStatus.inProgress:
       return 'govuk-tag--light-blue'
     case statusToLowerCase === taskStatus.stopping:

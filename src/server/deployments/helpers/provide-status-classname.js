@@ -6,7 +6,7 @@ function provideStatusClassname(status) {
       return 'govuk-tag--green'
     case databaseStatus.inProgress:
     case databaseStatus.requested:
-      return 'govuk-tag--purple'
+      return 'app-tag--purple'
     case databaseStatus.stopped:
     case databaseStatus.timedOut:
       return 'govuk-tag--light-blue'

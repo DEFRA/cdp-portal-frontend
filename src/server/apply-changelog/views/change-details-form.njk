@@ -183,6 +183,7 @@
                   {% if serviceName %}
                     <div class="app-section app-section--extra-wide">
                       {{ appDatabaseDetail({
+                        serviceName: serviceName,
                         databaseDetails: latestMigrations,
                         environments: environments
                       }) }}

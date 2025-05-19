@@ -11,7 +11,7 @@ function renderTestSuiteTagHtml(topics = []) {
     return renderTag(formatText(testKind.journey), ['govuk-tag--blue'])
   }
 
-  return renderTag(formatText(testKind.testSuite), ['govuk-tag--purple'])
+  return renderTag(formatText(testKind.testSuite), ['app-tag--purple'])
 }
 
 export { renderTestSuiteTagHtml }

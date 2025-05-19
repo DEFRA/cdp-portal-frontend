@@ -38,7 +38,6 @@ const teamsListController = {
     return h.view('teams/views/list', {
       pageTitle: 'Teams',
       tableData: {
-        isWide: true,
         headers: [
           { id: 'member', classes: 'app-entity-table__cell--owned' },
           { id: 'name', text: 'Name', width: '15', isLeftAligned: true },
@@ -48,7 +47,8 @@ const teamsListController = {
           { id: 'created', text: 'Created', width: '35' }
         ],
         rows,
-        noResult: 'No running services found'
+        noResult: 'No running services found',
+        isWide: true
       }
     })
   }

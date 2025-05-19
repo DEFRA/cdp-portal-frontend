@@ -2,11 +2,12 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { pagination } from '~/src/server/common/constants/pagination.js'
+import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
 import { provideMigration } from '~/src/server/deployments/helpers/pre/provide-migration.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformMigrationToSummary } from '~/src/server/deployments/transformers/migration-to-summary.js'
-import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
-import { pagination } from '~/src/server/common/constants/pagination.js'
+import { databaseUpdateFaviconState } from '~/src/server/deployments/helpers/database-update-favicon-state.js'
 
 const databaseUpdateController = {
   options: {
@@ -25,6 +26,7 @@ const databaseUpdateController = {
     const formattedEnvironment = formatText(environment)
 
     return h.view('deployments/views/database-update', {
+      faviconState: databaseUpdateFaviconState(migration.status),
       pageTitle: `${migration.service} ${migration.version} database update - ${formattedEnvironment}`,
       pageHeading: {
         caption: 'Database update',

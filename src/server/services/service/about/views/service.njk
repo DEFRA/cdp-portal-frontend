@@ -269,6 +269,7 @@
           </p>
 
           {{ appDatabaseDetail({
+            serviceName: service.serviceName,
             databaseDetails: latestMigrations,
             environments: availableServiceEnvironments
           }) }}

@@ -3,11 +3,11 @@ import { creationStatuses } from '~/src/server/common/constants/creation-statuse
 
 describe('#statusTagClassMap', () => {
   test('Should provide expected "raised" tag className', () => {
-    expect(statusTagClassMap(creationStatuses.raised)).toBe('govuk-tag--purple')
+    expect(statusTagClassMap(creationStatuses.raised)).toBe('app-tag--purple')
   })
 
   test('Should provide expected "prOpen" tag className', () => {
-    expect(statusTagClassMap(creationStatuses.raised)).toBe('govuk-tag--purple')
+    expect(statusTagClassMap(creationStatuses.raised)).toBe('app-tag--purple')
   })
 
   test('Should provide expected "in-progress" tag className', () => {
