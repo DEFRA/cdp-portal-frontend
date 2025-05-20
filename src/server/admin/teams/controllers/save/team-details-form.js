@@ -2,6 +2,7 @@ import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp
 import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { environments } from '~/src/config/environments.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 
 const teamDetailsFormController = {
   options: {
@@ -24,7 +25,7 @@ const teamDetailsFormController = {
     ).map((env) => {
       return {
         value: env,
-        text: env[0].toUpperCase() + env.slice(1),
+        text: formatText(env),
         checked:
           cdpTeam.alertEnvironments?.includes(env) === true ||
           (env === environments.prod.kebabName && !isEdit) // prod checked by default when creating new team
