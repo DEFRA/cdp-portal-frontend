@@ -89,7 +89,7 @@
     "qs": "6.13.0",
     "semver": "7.6.3",
     "string-strip-html": "13.4.8",
-    "undici": "6.21.1",
+    "undici": "6.21.3",
     "uuid": "11.0.2"
   },
   "devDependencies": {
