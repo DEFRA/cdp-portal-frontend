@@ -45,6 +45,13 @@ describe('#transformCdpTeamToEntityRow', () => {
         },
         {
           entity: {
+            kind: 'html',
+            value: 'infra-dev, management'
+          },
+          headers: 'alert-environments'
+        },
+        {
+          entity: {
             kind: 'text',
             value: 2
           },

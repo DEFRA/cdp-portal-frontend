@@ -7,6 +7,7 @@ import {
 } from '~/src/server/admin/teams/helpers/form/index.js'
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { teamValidation } from '~/src/server/admin/teams/helpers/schema/team-validation.js'
+import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 
 const teamDetailsController = {
   handler: async (request, h) => {
@@ -19,17 +20,25 @@ const teamDetailsController = {
     const alertEmailAddresses = payload.alertEmailAddresses
       ? payload.alertEmailAddresses.split(/\s*,\s*/)
       : undefined
+    const environments = getEnvironments(request.auth.credentials?.scope)
+    const alertEnvironments = Array.isArray(payload.alertEnvironments)
+      ? payload.alertEnvironments
+      : [payload.alertEnvironments].filter(Boolean)
 
     const sanitisedPayload = {
       name,
       description,
       serviceCode,
-      alertEmailAddresses
+      alertEmailAddresses,
+      alertEnvironments
     }
 
-    const validationResult = teamValidation.validate(sanitisedPayload, {
-      abortEarly: false
-    })
+    const validationResult = teamValidation(environments).validate(
+      sanitisedPayload,
+      {
+        abortEarly: false
+      }
+    )
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)

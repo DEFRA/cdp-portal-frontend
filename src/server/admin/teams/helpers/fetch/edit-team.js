@@ -11,6 +11,7 @@ function editTeam(request, teamId, payload) {
       description: payload.description,
       serviceCodes: payload.serviceCodes,
       alertEmailAddresses: payload.alertEmailAddresses,
+      alertEnvironments: payload.alertEnvironments,
       github: payload.github
     })
   })

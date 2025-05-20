@@ -10,14 +10,15 @@ const teamsListController = {
       pageTitle: 'Teams',
       tableData: {
         headers: [
-          { id: 'name', text: 'Name', width: '15' },
+          { id: 'name', text: 'Name', width: '10' },
           { id: 'description', text: 'Description', width: '15' },
-          { id: 'github-team', text: 'GitHub Team', width: '15' },
+          { id: 'github-team', text: 'GitHub Team', width: '10' },
           { id: 'service-codes', text: 'Service Codes', width: '5' },
-          { id: 'alert-emails', text: 'Alert Emails', width: '20' },
-          { id: 'members', text: 'Members', width: '10' },
-          { id: 'last-updated', text: 'Last Updated', width: '10' },
-          { id: 'created', text: 'Created', width: '10' }
+          { id: 'alert-emails', text: 'Alert Emails', width: '15' },
+          { id: 'alert-environments', text: 'Alert Environments', width: '15' },
+          { id: 'members', text: 'Members', width: '6' },
+          { id: 'last-updated', text: 'Last Updated', width: '13' },
+          { id: 'created', text: 'Created', width: '13' }
         ],
         rows,
         noResult: 'No teams found'

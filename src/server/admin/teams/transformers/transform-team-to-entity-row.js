@@ -1,4 +1,5 @@
 import { config } from '~/src/config/config.js'
+import { noValue } from '~/src/server/common/constants/no-value.js'
 
 function transformTeamToEntityRow(team) {
   const githubOrg = config.get('githubOrg')
@@ -41,6 +42,15 @@ function transformTeamToEntityRow(team) {
         entity: {
           kind: 'html',
           value: team.alertEmailAddresses?.join('<br>')
+        }
+      },
+      {
+        headers: 'alert-environments',
+        entity: {
+          kind: 'html',
+          value: team.alertEnvironments?.length
+            ? team.alertEnvironments?.join(', ')
+            : noValue
         }
       },
       {
