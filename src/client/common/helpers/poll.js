@@ -20,7 +20,9 @@ function startPolling(url, interval, limit, pollBegin) {
     // TODO roll out the data xhrStop, xhrSuccessMessage, xhrErrorMessage attribute to all pollers
     const domParser = new DOMParser()
     const dataDocument = domParser.parseFromString(text, 'text/html')
-    const xhrElement = dataDocument.querySelector('[data-xhr]')
+    const xhrElements = Array.from(dataDocument.querySelectorAll('[data-xhr]'))
+    const xhrElement = xhrElements.find((element) => element.dataset.xhrStop)
+
     const shouldStopPolling = xhrElement?.dataset?.xhrStop === 'true' || false
     const successMessage = xhrElement?.dataset?.xhrSuccessMessage
     const errorMessage = xhrElement?.dataset?.xhrErrorMessage
