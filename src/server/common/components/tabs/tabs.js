@@ -14,6 +14,7 @@ function tabs($module) {
   const params = qs.parse(location.search, { ignoreQueryPrefix: true })
   const $tabs = Array.from($module.querySelectorAll(`[data-js="app-tab"]`))
 
+  // TODO fix this
   params.page = pagination.page
   params.size = pagination.size
 

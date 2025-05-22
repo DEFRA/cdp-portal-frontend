@@ -20,6 +20,11 @@ const confirmRemovePermissionFromTeamController = {
       request.params.scopeId
     )
     const team = scope.teams.find((t) => t.teamId === request.params.teamId)
+
+    if (!team) {
+      return Boom.notFound()
+    }
+
     const formattedValue = formatText(scope.value)
     const title = 'Remove'
 

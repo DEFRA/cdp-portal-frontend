@@ -1,0 +1,161 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/internal-icon/macro.njk" import appInternalIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+{% set helpHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    You can use any CSS class selectors available in the <a class="app-link"
+                                                            href="https://github.com/alphagov/govuk-frontend"
+                                                            target="_blank" rel="noopener noreferrer">GOV.UK
+      Frontend</a>.
+    JavaScript is not available on the shutter page and our content security policy (CSP) limits what items can be
+    added to this page.
+  </p>
+{% endset %}
+
+{# TODO abstract #}
+{% macro vanityUrlComponent(params) %}
+  <div class="app-!-layout-flex-start">
+    {% if params.shuttered %}
+      {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+        {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
+      {% endcall %}
+      {% elif not params.enabled %}
+      {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+        {{ appInternalIcon({ classes: "app-icon--tiny", description: "Internal URL" }) }}
+      {% endcall %}
+    {% endif %}
+
+    <a class="app-link" href="https://{{ params.url }}" target="_blank" rel="noopener noreferrer">
+      https://{{ params.url }}
+    </a>
+  </div>
+{% endmacro %}
+
+{% set vanityUrlsTableRows = [] %}
+{% for serviceUrl in serviceUrls %}
+  {% set shutterLinkHtml %}
+    <a href="{{ routeLookup('services/{serviceId}/shuttering/confirm', {
+      params: { serviceId: entity.name },
+      query: { vanityUrl: serviceUrl.url }
+    }) }}"
+       role="button" class="app-link app-link--underline" data-testid="vanity-url">Shutter service</a>
+  {% endset %}
+
+  {{ vanityUrlsTableRows.push([
+    { html: vanityUrlComponent(serviceUrl) },
+    { html: serviceUrl.environment | formatText },
+    { html: shutterLinkHtml, classes: "app-!-text-align-right" }
+  ]) }}
+{% endfor %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Shuttering",
+    text: entity.name
+  }) }}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <section class="app-section--wide">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+            Shuttering
+          </h2>
+          <p>
+            Shutter your service on the following urls. Shuttering your service will mean all users who go to any of
+            your services urls will be redirected to the shuttering page. This is useful when you want to close your
+            service to investigate a serious problem or to make planned changes/updates to your service.
+          </p>
+
+          {% call appPanel() %}
+            {% if serviceUrls | length %}
+              {% set urlText = "URL" | pluralise(serviceUrls | length) %}
+
+              <section class="govuk-!-margin-bottom-6">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
+                <p>
+                  User-friendly custom {{ urlText }}
+                </p>
+
+                {{ govukTable({
+                  classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                  head: [
+                    { text: "Vanity Url" },
+                    { text: "Environment" },
+                    { text: "Action",
+                      classes: "govuk-!-width-one-quarter app-!-text-align-right"
+                    }
+                  ],
+                  rows: vanityUrlsTableRows
+                }) }}
+
+              </section>
+            {% endif %}
+          {% endcall %}
+
+        </section>
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <section class="app-section--wide">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+            Custom Message
+          </h2>
+          <p>
+            The default shutter page provided to your service <a class="app-link"
+                                                                 href="{{ params.url }}"
+                                                                 target="_blank" rel="noopener noreferrer"
+                                                                 data-testid="app-entity-link">can be seen here</a>.
+            If you wish to provide a custom message on your shutter page, you can with the following form.
+          </p>
+
+          <div class="govuk-!-margin-bottom-6">
+            {{ appInfo({
+              html: helpHtml
+            }) }}
+          </div>
+
+          <form action="/admin/permissions/create"
+                method="post"
+                data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            {{ govukTextarea({
+              id: "custom-html",
+              name: "customHtml",
+              label: {
+                text: "Html Markup",
+                classes: "app-label"
+              },
+              classes: "app-textarea app-textarea--markup",
+              hint: {
+                text: "Add valid html markup to be displayed on the shutter page",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              attributes: {
+                "data-1p-ignore": ""
+              },
+              value: formValues.customHtml,
+              errorMessage: errorMessageHelper(formErrors.customHtml.message)
+            }) }}
+
+            {{ govukButton({
+              classes: "app-button",
+              text: "Save"
+            }) }}
+
+          </form>
+        </section>
+      </div>
+    </div>
+
+  </section>
+{% endblock %}

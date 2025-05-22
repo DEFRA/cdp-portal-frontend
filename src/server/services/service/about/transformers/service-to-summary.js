@@ -12,7 +12,13 @@ function transformServiceToSummary(repository, entity) {
 
   const teams = entity?.teams
     ?.filter((team) => team.teamId)
-    ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
+    ?.map((team) =>
+      buildLink({
+        href: `/teams/${team.teamId}`,
+        text: team.name,
+        newTab: false
+      })
+    )
 
   const topics = repository?.topics?.map((topic) =>
     renderComponent('tag', {
@@ -46,7 +52,7 @@ function transformServiceToSummary(repository, entity) {
       {
         key: { text: 'GitHub Repository' },
         value: {
-          html: buildLink(githubUrl)
+          html: buildLink({ href: githubUrl })
         }
       },
       {
@@ -68,7 +74,7 @@ function transformServiceToSummary(repository, entity) {
       {
         key: { text: 'Docker Hub' },
         value: {
-          html: buildLink(dockerHubServicePage)
+          html: buildLink({ href: dockerHubServicePage })
         }
       },
       {

@@ -23,10 +23,10 @@ const repositorySuccessController = {
       pageTitle: 'Status',
       heading: 'Status',
       caption: 'Your repository is being created',
-      repositoryLink: buildLink(
-        `https://github.com/${githubOrg}/${repositoryName}`,
-        repositoryName
-      )
+      repositoryLink: buildLink({
+        href: `https://github.com/${githubOrg}/${repositoryName}`,
+        text: repositoryName
+      })
     })
   }
 }

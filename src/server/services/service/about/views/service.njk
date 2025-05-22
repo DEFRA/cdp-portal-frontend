@@ -10,6 +10,7 @@
 {% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
 
+{# TODO abstract #}
 {% macro vanityUrlComponent(params) %}
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
@@ -28,6 +29,7 @@
   </div>
 {% endmacro %}
 
+{# TODO abstract #}
 {% macro apiGatewayComponent(params) %}
   <div class="app-!-layout-flex-start">
     {% if params.shuttered %}
@@ -162,6 +164,7 @@
       </ul>
     {% endif %}
 
+{# TODO check the naming for these? Is it correct #}
     {% if apiGatewaydUrls | length %}
       <ul class="govuk-list govuk-!-margin-bottom-0">
         {% for apiGatewaydUrl in apiGatewaydUrls %}
@@ -207,7 +210,7 @@
               { text: "Published" },
               { text: "Version" },
               { text: "Action",
-                classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-5"
+                classes: "govuk-!-width-one-quarter app-!-text-align-right"
               } if isServiceOwner],
             rows: latestPublishedTableRows
           }) }}
@@ -244,7 +247,7 @@
             { text: "Kind" },
             {
               text: "Action",
-              classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-3"
+              classes: "govuk-!-width-one-quarter app-!-text-align-right"
             } if hasPostgresPermission and (isAdmin or isServiceOwner) ] %}
 
           {% if migrationsTableRows | length %}
