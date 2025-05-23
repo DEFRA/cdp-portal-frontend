@@ -6,7 +6,11 @@ function templatesToDetailedList(templates = []) {
   const doInclude = ['journey', 'performance', 'dotnet', 'node']
   const items = templates.sort(sortBy('id', 'asc')).map((template) => ({
     title: {
-      html: buildLink(`/utilities/templates/${template.id}`, template.id, false)
+      html: buildLink({
+        href: `/utilities/templates/${template.id}`,
+        text: template.id,
+        newTab: false
+      })
     },
     info: {
       html: template.topics

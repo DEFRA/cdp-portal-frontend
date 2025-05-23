@@ -47,10 +47,10 @@ function transformSummaryTeamRows(cdpTeam) {
   }, {})
   const teamDetailsPath = 'team-details'
   const githubTeamUiValue = cdpTeam.github
-    ? buildLink(
-        `https://github.com/orgs/${githubOrg}/teams/${teamDetails.github}`,
-        `@${teamDetails.github}`
-      )
+    ? buildLink({
+        href: `https://github.com/orgs/${githubOrg}/teams/${teamDetails.github}`,
+        text: `@${teamDetails.github}`
+      })
     : noValue
 
   return [

@@ -5,7 +5,11 @@ import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 function entitiesToDetailedList(section, entities = []) {
   const items = entities.sort(sortBy('name', 'asc')).map((entity) => ({
     title: {
-      html: buildLink(`/${section}/${entity.name}`, entity.name, false)
+      html: buildLink({
+        href: `/${section}/${entity.name}`,
+        text: entity.name,
+        newTab: false
+      })
     },
     info: {
       html: renderTag(entity.subType?.toLowerCase())

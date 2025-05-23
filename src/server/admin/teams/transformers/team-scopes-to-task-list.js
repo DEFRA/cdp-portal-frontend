@@ -5,11 +5,11 @@ function transformTeamScopesToTaskList(team) {
     team.scopes?.map((scope) => {
       return {
         title: {
-          html: buildLink(
-            `/admin/permissions/${scope.scopeId}`,
-            scope.value,
-            false
-          )
+          html: buildLink({
+            href: `/admin/permissions/${scope.scopeId}`,
+            text: scope.value,
+            newTab: false
+          })
         }
       }
     }) ?? []
