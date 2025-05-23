@@ -4,15 +4,19 @@ function transformTeamUsersToTaskList(team, withActions = true) {
   const items = team.users.map((user) => {
     return {
       title: {
-        html: buildLink(`/admin/users/${user.userId}`, user.name, false)
+        html: buildLink({
+          href: `/admin/users/${user.userId}`,
+          text: user.name,
+          newTab: false
+        })
       },
       status: {
         html: withActions
-          ? buildLink(
-              `/admin/teams/${team.teamId}/remove-member/${user.userId}`,
-              'Remove',
-              false
-            )
+          ? buildLink({
+              href: `/admin/teams/${team.teamId}/remove-member/${user.userId}`,
+              text: 'Remove',
+              newTab: false
+            })
           : null
       }
     }

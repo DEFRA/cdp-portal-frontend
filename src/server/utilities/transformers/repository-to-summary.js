@@ -6,7 +6,13 @@ import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 function transformRepositoryToSummary(repository) {
   const teams = repository?.teams
     ?.filter((team) => team.teamId)
-    ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
+    ?.map((team) =>
+      buildLink({
+        href: `/teams/${team.teamId}`,
+        text: team.name,
+        newTab: false
+      })
+    )
 
   const topics = repository?.topics.map((topic) =>
     renderComponent('tag', {
@@ -24,7 +30,7 @@ function transformRepositoryToSummary(repository) {
       {
         key: { text: 'GitHub Repository' },
         value: {
-          html: buildLink(repository?.url)
+          html: buildLink({ href: repository?.url })
         }
       },
       {

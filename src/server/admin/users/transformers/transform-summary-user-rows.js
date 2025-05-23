@@ -46,10 +46,10 @@ function transformSummaryUserRows(cdpUser) {
     }
   }, {})
   const githubUserUiValue = cdpUser.github
-    ? buildLink(
-        `https://github.com/${userDetails.github}`,
-        `@${userDetails.github}`
-      )
+    ? buildLink({
+        href: `https://github.com/${userDetails.github}`,
+        text: `@${userDetails.github}`
+      })
     : noValue
 
   return [

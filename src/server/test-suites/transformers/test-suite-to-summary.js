@@ -6,7 +6,13 @@ import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-com
 function transformTestSuiteToSummary(testSuite, repo) {
   const teams = testSuite?.teams
     ?.filter((team) => team.teamId)
-    ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
+    ?.map((team) =>
+      buildLink({
+        href: `/teams/${team.teamId}`,
+        text: team.name,
+        newTab: false
+      })
+    )
 
   const githubUrl = repo?.url ?? `https://github.com/DEFRA/${testSuite.name}`
 
@@ -38,7 +44,7 @@ function transformTestSuiteToSummary(testSuite, repo) {
           text: 'GitHub Repository'
         },
         value: {
-          html: buildLink(githubUrl)
+          html: buildLink({ href: githubUrl })
         }
       },
       {

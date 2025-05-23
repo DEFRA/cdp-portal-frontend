@@ -39,10 +39,10 @@ function transformTeamToSummary(team, withActions = true) {
         key: { text: 'GitHub team' },
         value: {
           html: team.github
-            ? buildLink(
-                `https://github.com/orgs/${githubOrg}/teams/${team.github}`,
-                `@${team.github}`
-              )
+            ? buildLink({
+                href: `https://github.com/orgs/${githubOrg}/teams/${team.github}`,
+                text: `@${team.github}`
+              })
             : noValue
         },
         actions
@@ -62,7 +62,7 @@ function transformTeamToSummary(team, withActions = true) {
           html: team.alertEmailAddresses?.length
             ? buildList(
                 team.alertEmailAddresses.map((email) =>
-                  buildLink(`mailto:${email}`, email)
+                  buildLink({ href: `mailto:${email}`, text: email })
                 )
               )
             : noValue

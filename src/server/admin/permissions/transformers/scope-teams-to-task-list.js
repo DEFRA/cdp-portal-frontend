@@ -4,15 +4,19 @@ function transformScopeTeamsToTaskList(scope, withActions = true) {
   const items = scope.teams.map((team) => {
     return {
       title: {
-        html: buildLink(`/admin/teams/${team.teamId}`, team.name, false)
+        html: buildLink({
+          href: `/admin/teams/${team.teamId}`,
+          text: team.name,
+          newTab: false
+        })
       },
       status: {
         html: withActions
-          ? buildLink(
-              `/admin/permissions/${scope.scopeId}/team/remove/${team.teamId}`,
-              'Remove',
-              false
-            )
+          ? buildLink({
+              href: `/admin/permissions/${scope.scopeId}/team/remove/${team.teamId}`,
+              text: 'Remove',
+              newTab: false
+            })
           : null
       }
     }
