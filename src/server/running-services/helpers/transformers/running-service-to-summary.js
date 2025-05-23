@@ -13,7 +13,11 @@ function transformRunningServiceToSummary(serviceName, teams) {
       {
         key: { text: 'Service' },
         value: {
-          html: buildLink(`/services/${serviceName}`, serviceName, false)
+          html: buildLink({
+            href: `/services/${serviceName}`,
+            text: serviceName,
+            newTab: false
+          })
         }
       },
       {
@@ -22,7 +26,11 @@ function transformRunningServiceToSummary(serviceName, teams) {
           html: teams.length
             ? buildList(
                 teams.map((team) =>
-                  buildLink(`/teams/${team.teamId}`, team.name, false)
+                  buildLink({
+                    href: `/teams/${team.teamId}`,
+                    text: team.name,
+                    newTab: false
+                  })
                 )
               )
             : noValue

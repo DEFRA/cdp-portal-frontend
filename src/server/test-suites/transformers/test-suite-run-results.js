@@ -41,7 +41,7 @@ function testSuiteRunResults(testRun, canRun) {
   ].every(Boolean)
 
   const buildTriggeredByLink = (runInfo) => `
-    Deployment of ${buildLink(`/deployments/${runInfo.environment}/${runInfo.deployment.deploymentId}`, `${runInfo.deployment.service} v${runInfo.deployment.version}`)}`
+    Deployment of ${buildLink({ href: `/deployments/${runInfo.environment}/${runInfo.deployment.deploymentId}`, text: `${runInfo.deployment.service} v${runInfo.deployment.version}` })}`
 
   const user = testRun.deployment?.deploymentId
     ? buildTriggeredByLink(testRun)

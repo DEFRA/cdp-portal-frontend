@@ -75,7 +75,13 @@ function buildInstanceStatus(deployment) {
 function transformDeploymentToSummary(deployment) {
   const teams = deployment?.teams
     ?.filter((team) => team.teamId)
-    ?.map((team) => buildLink(`/teams/${team.teamId}`, team.name, false))
+    ?.map((team) =>
+      buildLink({
+        href: `/teams/${team.teamId}`,
+        text: team.name,
+        newTab: false
+      })
+    )
 
   const topics = deployment?.topics?.map((topic) =>
     renderComponent('tag', {
@@ -100,11 +106,11 @@ function transformDeploymentToSummary(deployment) {
       {
         key: { text: 'Microservice name' },
         value: {
-          html: buildLink(
-            `/services/${deployment.service}`,
-            deployment.service,
-            false
-          )
+          html: buildLink({
+            href: `/services/${deployment.service}`,
+            text: deployment.service,
+            newTab: false
+          })
         }
       },
       {
@@ -115,10 +121,10 @@ function transformDeploymentToSummary(deployment) {
         key: { text: 'Version' },
         value: {
           html: deployment.version
-            ? buildLink(
-                `https://github.com/DEFRA/${deployment.service}/releases/tag/${deployment.version}`,
-                deployment.version
-              )
+            ? buildLink({
+                href: `https://github.com/DEFRA/${deployment.service}/releases/tag/${deployment.version}`,
+                text: deployment.version
+              })
             : noValue
         }
       },
@@ -154,9 +160,9 @@ function transformDeploymentToSummary(deployment) {
       {
         key: { text: serviceLinkText },
         value: {
-          html: buildLink(
-            `https://${deployment.service}.${deployment.environment}.cdp-int.defra.cloud`
-          )
+          html: buildLink({
+            href: `https://${deployment.service}.${deployment.environment}.cdp-int.defra.cloud`
+          })
         }
       },
       {

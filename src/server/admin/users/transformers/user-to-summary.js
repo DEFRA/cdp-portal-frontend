@@ -31,7 +31,7 @@ function transformUserToSummary(user, withActions = true) {
         key: { text: 'Email' },
         value: {
           html: user.email
-            ? buildLink(`mailto:${user.email}`, user.email)
+            ? buildLink({ href: `mailto:${user.email}`, text: user.email })
             : noValue
         }
       },
@@ -39,7 +39,10 @@ function transformUserToSummary(user, withActions = true) {
         key: { text: 'GitHub user' },
         value: {
           html: user.github
-            ? buildLink(`https://github.com/${user.github}`, `@${user.github}`)
+            ? buildLink({
+                href: `https://github.com/${user.github}`,
+                text: `@${user.github}`
+              })
             : noValue
         },
         actions

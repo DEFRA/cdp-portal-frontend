@@ -4,7 +4,11 @@ function transformUserTeamsToTaskList(user) {
   const items = user.teams.map((team) => {
     return {
       title: {
-        html: buildLink(`/admin/teams/${team.teamId}`, team.name, false)
+        html: buildLink({
+          href: `/admin/teams/${team.teamId}`,
+          text: team.name,
+          newTab: false
+        })
       }
     }
   })
