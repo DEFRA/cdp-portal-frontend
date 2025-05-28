@@ -20,3 +20,9 @@
 .app-textarea--wide {
   width: 24em;
 }
+
+.app-textarea--markup {
+  min-width: 40em;
+  min-height: 30em;
+  resize: both;
+}

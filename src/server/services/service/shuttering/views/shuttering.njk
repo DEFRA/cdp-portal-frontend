@@ -1,0 +1,135 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/internal-icon/macro.njk" import appInternalIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+{% from "services/components/vanity-url/macro.njk" import appVanityUrl %}
+
+{% set vanityUrlsTableRows = [] %}
+{% for serviceUrl in serviceUrls %}
+  {% set shutterLinkHtml %}
+    <a href="{{ routeLookup('services/{serviceId}/shuttering/confirm', {
+      params: { serviceId: entity.name },
+      query: { vanityUrl: serviceUrl.url }
+    }) }}"
+       role="button" class="app-link app-link--underline" data-testid="vanity-url">shutter</a>
+  {% endset %}
+
+  {{ vanityUrlsTableRows.push([
+    { html: appVanityUrl(serviceUrl) },
+    { html: serviceUrl.environment | formatText },
+    { html: "Yes" if serviceUrl.shuttered else "No" | formatText },
+    { html: "Yes" if not serviceUrl.enabled else "No" | formatText },
+    { html: shutterLinkHtml, classes: "app-!-text-align-right" }
+  ]) }}
+{% endfor %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Shuttering",
+    text: entity.name
+  }) }}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row govuk-!-margin-bottom-6">
+      <div class="govuk-grid-column-one-half-from-desktop-massive">
+        <div class="app-section--extra-wide">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+            Shuttering
+          </h2>
+          <p>
+            Shutter your service on the following urls. Shuttering your service will mean all users who go to any of
+            your services urls will be redirected to the shuttering page. This is useful when you want to close your
+            service to investigate a serious problem or to make planned changes/updates to your service.
+          </p>
+        </div>
+
+        {% call appPanel() %}
+          {% if serviceUrls | length %}
+            {% set urlText = "URL" | pluralise(serviceUrls | length) %}
+
+            <section class="govuk-!-margin-bottom-6">
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
+              <p class="govuk-!-margin-bottom-2">
+                User-friendly custom {{ urlText }}
+              </p>
+
+              {{ govukTable({
+                classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                head: [
+                  { text: "Vanity Url" },
+                  { text: "Environment" },
+                  { text: "Shuttered" },
+                  { text: "Internal" },
+                  { text: "Action",
+                    classes: "app-!-text-align-right"
+                  }
+                ],
+                rows: vanityUrlsTableRows
+              }) }}
+
+            </section>
+          {% endif %}
+        {% endcall %}
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop-massive">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+          Custom Shutter Page
+        </h2>
+        <p class="govuk-!-margin-bottom-2">
+          To provide custom markup and text on your shutter page, you can update it using the following form.
+        </p>
+
+        <p>
+          You can use any CSS class selectors available in the <a class="app-link"
+                                                                  href="https://github.com/alphagov/govuk-frontend"
+                                                                  target="_blank" rel="noopener noreferrer">GOV.UK
+            Frontend</a>. JavaScript is not available on the shutter page and our content security policy (CSP) limits
+          what items can be loaded on this page, E.g. external images. You have all the basics you need to provide a
+          page with contact details that has the relevant GOV.UK Frontend appearance.
+        </p>
+
+        <form
+          action="{{ routeLookup('services/{serviceId}/shuttering/custom-message', {
+            params: { serviceId: entity.name }
+          }) }}"
+          method="post" data-js="app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          {{ govukTextarea({
+            id: "custom-html",
+            name: "customHtml",
+            label: {
+              text: "Html Markup",
+              classes: "app-label"
+            },
+            classes: "app-textarea app-textarea--markup",
+            hint: {
+              html: "Add valid html markup to be displayed on the shutter page",
+              classes: "app-hint"
+            },
+            formGroup: {
+              classes: "app-form-group app-form-group-js"
+            },
+            attributes: {
+              "data-1p-ignore": ""
+            },
+            value: formValues.customHtml,
+            errorMessage: errorMessageHelper(formErrors.customHtml.message)
+          }) }}
+
+          {{ govukButton({
+            classes: "app-button",
+            text: "Save"
+          }) }}
+
+        </form>
+      </div>
+    </div>
+
+  </section>
+{% endblock %}
