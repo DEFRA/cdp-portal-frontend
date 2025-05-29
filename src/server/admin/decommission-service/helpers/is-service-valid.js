@@ -3,8 +3,12 @@ import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { serviceValidation } from '~/src/server/admin/decommission-service/helpers/schema/service-validation.js'
 import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 
-export async function isServiceValid(serviceName, request) {
-  const entities = await fetchEntities()
+export async function isServiceValid(
+  serviceName,
+  request,
+  includeDecommissioned = false
+) {
+  const entities = await fetchEntities({ includeDecommissioned })
   const repositoryNames = entities.map((entity) => {
     return entity.name
   })
