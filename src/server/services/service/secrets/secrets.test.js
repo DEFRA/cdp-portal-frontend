@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockCommonServicesCalls
+  mockServiceEntityCall
 } from '~/test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
 
@@ -27,7 +27,7 @@ describe('Service Secrets page', () => {
       }
     })
 
-    mockCommonServicesCalls('mock-service-with-secrets')
+    mockServiceEntityCall('mock-service-with-secrets', 'backend')
     server = await initialiseServer()
   })
 

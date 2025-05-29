@@ -85,6 +85,7 @@ const microserviceCreateController = {
         )
 
         return h.redirect(`/services/create-status/${payload.repositoryName}`)
+        // return h.redirect(`/services/${payload.repositoryName}`)
       } catch (error) {
         request.logger.error({ error }, 'Create service call failed')
         request.yar.flash(sessionNames.validationFailure, {

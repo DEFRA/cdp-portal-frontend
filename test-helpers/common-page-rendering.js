@@ -9,7 +9,10 @@ import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tena
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
-import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import {
+  fetchEntity,
+  fetchEntityStatus
+} from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { fetchVanityUrls } from '~/src/server/services/helpers/fetch/fetch-vanity-urls.js'
 import { fetchApiGateways } from '~/src/server/services/helpers/fetch/fetch-api-gateways.js'
 import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
@@ -154,7 +157,11 @@ function mockTestSuiteEntityCall(repositoryName) {
   })
 }
 
-function mockServiceEntityCall(repositoryName, frontendOrBackend) {
+export function mockServiceEntityCall(
+  repositoryName,
+  frontendOrBackend,
+  status = 'Created'
+) {
   fetchEntity.mockResolvedValue({
     name: repositoryName,
     type: 'Microservice',
@@ -163,8 +170,36 @@ function mockServiceEntityCall(repositoryName, frontendOrBackend) {
     created: '2024-12-05T11:21:25Z',
     creator: null,
     teams: [mockTeam],
-    status: 'Success',
+    status,
     decommissioned: null
+  })
+}
+
+export function mockServiceEntityStatusCall(
+  repositoryName,
+  frontendOrBackend,
+  status = 'Created'
+) {
+  fetchEntityStatus.mockResolvedValue({
+    entity: {
+      name: repositoryName,
+      type: 'Microservice',
+      subType: capitalize(frontendOrBackend),
+      primaryLanguage: 'JavaScript',
+      created: '2024-12-05T11:21:25Z',
+      creator: null,
+      teams: [mockTeam],
+      status,
+      decommissioned: null
+    },
+    resources: {
+      Repository: true,
+      NginxUpstreams: false,
+      SquidProxy: false,
+      AppConfig: true,
+      TenantServices: false,
+      GrafanaDashboards: false
+    }
   })
 }
 
@@ -330,10 +365,6 @@ function mockFetchLatestMigrations(repositoryName) {
   fetchLatestMigrations.mockResolvedValue(
     latestMigrationsFixture(repositoryName)
   )
-}
-
-export function mockCommonServicesCalls(repositoryName, frontendOrBackend) {
-  mockServiceEntityCall(repositoryName, frontendOrBackend)
 }
 
 export function mockServicesAdditionalCalls({

@@ -20,7 +20,7 @@ function entityToEntityRow(entity) {
   const githubUrl = `https://github.com/DEFRA/${entity.name}`
 
   // For services that are being created show in-progress or failure tag. For created services show created date
-  const isCreatedSuccessfully = status === 'Success'
+  const isCreatedSuccessfully = status === 'Success' || status === 'Created'
   const createdEntity = isCreatedSuccessfully
     ? {
         headers: 'created',
