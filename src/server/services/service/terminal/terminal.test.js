@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockCommonServicesCalls,
+  mockServiceEntityCall,
   mockTenantServicesCall
 } from '~/test-helpers/common-page-rendering.js'
 
@@ -15,7 +15,7 @@ describe('Service Terminal page', () => {
 
   beforeAll(async () => {
     const serviceName = 'mock-service-with-terminal'
-    mockCommonServicesCalls(serviceName)
+    mockServiceEntityCall(serviceName, undefined)
     mockTenantServicesCall()
     server = await initialiseServer()
   })

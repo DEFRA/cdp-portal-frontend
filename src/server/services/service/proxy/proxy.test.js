@@ -2,7 +2,7 @@ import { fetchProxyRules } from '~/src/server/services/helpers/fetch/fetch-proxy
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockCommonServicesCalls
+  mockServiceEntityCall
 } from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
@@ -25,7 +25,7 @@ describe('Service Proxy page', () => {
         }
       })
 
-    mockCommonServicesCalls('mock-service-with-proxy')
+    mockServiceEntityCall('mock-service-with-proxy', undefined)
     server = await initialiseServer()
   })
 

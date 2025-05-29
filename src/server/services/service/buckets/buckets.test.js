@@ -2,7 +2,7 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockBucketsCall,
-  mockCommonServicesCalls
+  mockServiceEntityCall
 } from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
@@ -16,7 +16,7 @@ describe('Service Buckets page', () => {
   let server
 
   beforeAll(async () => {
-    mockCommonServicesCalls(serviceName)
+    mockServiceEntityCall(serviceName, undefined)
     mockBucketsCall(serviceName)
     server = await initialiseServer()
   })
