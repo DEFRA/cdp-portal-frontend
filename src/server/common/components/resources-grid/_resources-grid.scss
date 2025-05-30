@@ -1,0 +1,116 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+$card-width: 240px;
+$card-height: 180px;
+
+@mixin rs-item-colours($colourName) {
+  background-color: govuk-tint(govuk-colour($colourName), 80%);
+  border: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+
+  .app-tag {
+    background-color: govuk-tint(govuk-colour($colourName), 60%);
+  }
+
+  .app-resources-grid__item--heading {
+    background-color: govuk-tint(govuk-colour($colourName), 70%);
+    border-bottom: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+  }
+}
+
+.app-resources-grid {
+  @extend %govuk-body-m;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($card-width, 1fr));
+  grid-auto-rows: max-content;
+  gap: govuk-spacing(2);
+  margin: 0;
+}
+
+.app-resources-grid__card {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  border-radius: $app-border-radius;
+  min-height: $card-height;
+  min-width: $card-width;
+  background-color: govuk-colour("white");
+
+  &.item-detail--green {
+    @include rs-item-colours("green");
+  }
+
+  &.item-detail--purple {
+    @include rs-item-colours("bright-purple");
+  }
+
+  &.item-detail--grey {
+    @include rs-item-colours("dark-grey");
+  }
+
+  &.item-detail--light-blue {
+    @include rs-item-colours("blue");
+  }
+
+  &.item-detail--red {
+    @include rs-item-colours("red");
+  }
+
+  .app-resources-grid__item {
+    padding: govuk-spacing(2);
+  }
+
+  .app-resources-grid__item--unstable {
+    display: flex;
+    align-items: center;
+    color: govuk-colour("white");
+    background-color: govuk-colour("red");
+    padding: govuk-spacing(2);
+    border-radius: $app-border-radius-top;
+
+    .app-warning-icon {
+      fill: govuk-colour("white");
+    }
+  }
+
+  .app-resources-grid__item--heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: govuk-spacing(2);
+    min-height: govuk-spacing(5);
+  }
+
+  .app-resources-grid__item--version {
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+
+  .app-resources-grid__item--deployed-by {
+    padding-top: 0;
+    margin: auto 0 0;
+  }
+}
+
+.app-resources-grid__label {
+  color: govuk-colour("dark-grey");
+}
+
+.app-resources-grid__card--empty {
+  color: govuk-colour("dark-grey");
+  border: 1px solid $app-grey;
+
+  .app-resources-grid__item--heading {
+    border-bottom: 1px solid $app-grey;
+    background-color: $app-grey;
+    border-radius: $app-border-radius-top;
+  }
+
+  .app-resources-grid__no-data {
+    margin: auto;
+    color: $app-dark-grey;
+    @include govuk-font(16);
+  }
+}

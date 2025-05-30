@@ -21,7 +21,7 @@ export const decommissionFinishController = {
     const serviceName = request.params.serviceName
     const authedUser = request.pre.authedUser
 
-    const serviceIsValid = await isServiceValid(serviceName, request)
+    const serviceIsValid = await isServiceValid(serviceName, request, true)
 
     if (!serviceIsValid) {
       return h.redirect(`/admin/decommission-service/${serviceName}/step-2`)

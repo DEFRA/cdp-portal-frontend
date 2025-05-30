@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+  <head>
+    <meta charset="utf-8">
+    <title>  mock-service microservice | Core Delivery Platform - Portal
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0b0c0c">
+
+          <link rel="icon" sizes="48x48" href="/.public/assets/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/.public/assets/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/.public/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+      <link rel="apple-touch-icon" href="/.public/assets/images/govuk-icon-180.png">
+      <link rel="manifest" href="/.public/assets/manifest.json">
+
+
+  <link href="/.public/stylesheets/application.css" rel="stylesheet">
+    <meta name="service-version" content="0.1.0">
+    <meta name="service-environment" content="test">
+
+  </head>
+  <body class="govuk-template__body">
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+  
+  <div>
+    <a href="#main-content" class="govuk-skip-link app-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+  </div>
+
+
+  
+<header class="app-service-header" role="banner" data-testid="app-service-header">
+  <div class="app-service-header__container app-service-header__container--full-width">
+    <div class="app-service-header__content">
+      <a href="/"
+         class="app-service-header__link app-service-header__service-name"
+         data-testid="app-service-header-service-name">
+        Core Delivery Platform - Portal
+      </a>
+
+
+    </div>
+    <div class="app-service-header__actions">
+        <svg class="app-icon app-user-icon app-icon--minuscule"
+     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
+     aria-label="User">
+  <g fill-rule="evenodd">
+    <circle cx="19" cy="12" r="8" />
+    <path
+      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
+  </g>
+</svg>
+
+        <span data-testid="app-login-username">
+          B. A. Baracus
+        </span>
+
+      <a href="/logout"
+         class="app-service-header__login-link app-service-header__link         app-service-header__is-logged-in"
+         data-testid="app-login-link">
+        Sign out
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="app-navigation" role="navigation" aria-label="Navigation">
+  <div class="govuk-width-container">
+    <div class="app-navigation__list">
+      <ul class="app-navigation__primary">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/"
+               data-testid="nav-home"
+            >
+              Home
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/documentation"
+               data-testid="nav-documentation"
+            >
+              Documentation
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link app-navigation__link--active"
+               href="/services"
+               data-testid="nav-services"
+            >
+              Services
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/test-suites"
+               data-testid="nav-test-suites"
+            >
+              Test suites
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/utilities/templates"
+               data-testid="nav-utilities"
+            >
+              Utilities
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/teams"
+               data-testid="nav-teams"
+            >
+              Teams
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deployments"
+               data-testid="nav-deployments"
+            >
+              Deployments
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/running-services"
+               data-testid="nav-running-services"
+            >
+              Running Services
+            </a>
+          </li>
+      </ul>
+
+      <ul class="app-navigation__actions">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deploy-service"
+               data-testid="nav-deploy-service"
+            >
+              Deploy Service
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/create"
+               data-testid="nav-create"
+            >
+              Create
+            </a>
+          </li>
+
+            <li class="app-navigation__list-item app-navigation__list-item--section">
+              <a class="app-navigation__link"
+                 href="/admin"
+                 data-testid="nav-admin"
+              >
+                Admin
+              </a>
+            </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="govuk-width-container">
+  
+  <div
+  class="app-banner app-banner--hidden"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-banner"
+data-js="app-client-notifications">
+  <p class="app-banner__content"
+data-js="app-client-notifications-content"     data-testid="app-banner-content"></p>
+</div>
+
+
+
+
+    <nav class="app-breadcrumbs" data-testid="app-breadcrumbs"
+     aria-label="Breadcrumb">
+  <ol class="app-breadcrumbs__list">
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services"
+             data-testid="app-breadcrumbs-link">Services</a>
+        </li>
+        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+            data-testid="app-breadcrumbs-list-item">mock-service</li>
+  </ol>
+</nav>
+
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+
+
+
+  <div class="govuk-!-margin-top-2">
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Service</span>
+
+  <div class="app-page-heading">
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service</h1>
+
+
+  </div>
+</div>
+
+
+
+
+  <div class="app-service-container">
+
+
+      <div data-js="app-poll"
+      data-poll-url="/services/mock-service"
+      data-poll-interval="3000"
+      data-poll-limit="45">
+
+    <article class="app-grid app-grid-service app-grid-service--standard"
+       data-xhr="service-creating-mock-service"
+       data-xhr-stop="false">
+
+      <section class="app-grid-service__details">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+        <p class="govuk-!-margin-bottom-2">
+          Mock service description
+        </p>
+
+        <dl class="govuk-summary-list app-summary-list govuk-!-margin-bottom-0" data-testid="service-summary">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Kind
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <strong class="govuk-tag app-tag govuk-tag--blue">
+        Frontend
+      </strong>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Image name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      mock-service
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      GitHub Repository
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="https://github.com/DEFRA/mock-service" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://github.com/DEFRA/mock-service</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Team
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <ul class="govuk-list"><li><a class="app-link" href="/teams/mock-team-id" data-testid="app-link" >Mock Team</a></li></ul>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Primary Language
+    </dt>
+    <dd class="govuk-summary-list__value">
+      JavaScript
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Topics
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Acdp&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        cdp
+      </strong>
+      
+      
+        </a> <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Amicroservice&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        microservice
+      </strong>
+      
+      
+        </a> <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Afrontend&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        frontend
+      </strong>
+      
+      
+        </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Docker Hub
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link" href="https://hub.docker.com/r/defradigital/mock-service/tags" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://hub.docker.com/r/defradigital/mock-service/tags</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Created
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span
+        class="app-tool-tip"
+        data-text="Thursday 5th December 2024, 11:21:25"
+      >
+          <time    datetime="2024-12-05T11:21:25Z"
+          data-testid="app-time">
+              Thu 5th Dec 2024 at 11:21
+      
+        </time>
+      
+      </span>
+    </dd>
+  </div>
+</dl>
+      </section>
+
+      <section class="app-grid-service__run">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
+
+        
+<section class="app-resources-grid">
+
+
+    <div class="app-resources-grid__card item-detail--green">
+
+      <div class="app-resources-grid__item app-resources-grid__item--heading">
+        <span id="resource" class="govuk-visually-hidden">Repository</span>
+        <span aria-labelledby="resource">
+
+
+<strong class="govuk-tag app-tag">
+  Repository
+</strong>
+
+
+</span>
+
+        <div class="app-resources-grid__item app-resources-grid__item--version">
+          <span id="version" class="govuk-visually-hidden">Version:</span>
+          <a class="app-link govuk-!-margin-right-2"
+             href="https://github.com/DEFRA//releases/tag/"
+             target="_blank" rel="noopener noreferrer"
+             aria-labelledby="version">
+            
+          </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Repository in "
+>
+                <svg class="app-icon app-icon--medium app-instance-success app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="41" height="43" viewBox="0 0 41 43"
+     role="img" aria-label="Ready">
+  <path fill-rule="nonzero"
+        d="M19.4995857 0c.7583173 0 1.4805242.19708333 2.1666207.59125L36.8325508 9.245c.6860965.39416667 1.2187241.91375 1.5978827 1.55875.3791587.645.568738 1.3616667.568738 2.15l.0006175 8.5454481c-1.0863272-.9379572-2.3183709-1.6988429-3.6961311-2.2826571-.2108739-.0893404-.4234515-.1730577-.637733-.2511518L34.6659302 15.265l-5.0330715 2.8904803c-1.7630281.0384755-3.4320559.3932391-5.0070835 1.0642906-1.6708264.711652-3.1284597 1.6860015-4.3728999 2.9230486-1.1407369 1.1337624-2.0564757 2.4449302-2.7472166 3.9335032L17.332 26.464l.0009651-3.72775L4.33324127 15.265v14.7275l12.99972383 7.47125-.0004194-.3538096c.7066431 1.6504506 1.6776994 3.0886719 2.9131689 4.3146638.3904797.3874843.8024735.7487582 1.2359813 1.0838219l.1845105-.0996761C20.9801099 42.8029167 20.257903 43 19.4995857 43c-.7583172 0-1.4805241-.1970833-2.1666206-.59125L2.16662064 33.755c-.68609653-.3941667-1.21872411-.91375-1.59788272-1.55875C.1895793 31.55125 0 30.8345833 0 30.04625v-17.0925c0-.7883333.1895793-1.505.56873792-2.15.3791586-.645.91178619-1.16458333 1.59788272-1.55875L17.3329651.59125C18.0190616.19708333 18.7412685 0 19.4995857 0Zm9.9824784 21c1.4466666 0 2.8110438.2736892 4.0931316.8210676 1.2822539.5475445 2.3995967 1.2970344 3.3520285 2.2484698.9525979.9514353 1.7028351 2.0678647 2.2507117 3.3492882C39.7259786 28.7002491 40 30.0654567 40 31.5144484c0 1.4481613-.2745196 2.8100474-.8235587 4.0856584-.5488731 1.2756109-1.3003559 2.3899644-2.2544484 3.3430605-.9539265.95293-2.0695255 1.7006761-3.3467972 2.2432384C32.297758 41.7288019 30.9363701 42 29.491032 42c-1.4411862 0-2.8039027-.2706999-4.0881494-.8120996-1.2840807-.5415659-2.4015066-1.2877343-3.3522776-2.2385054-.9507711-.950771-1.6969395-2.0670344-2.2385054-3.34879C19.2706999 34.3186833 19 32.9571293 19 31.5159431c0-1.4455042.2711981-2.8080546.8135943-4.0876513.5425623-1.2795967 1.2900593-2.3963582 2.2424911-3.3502847.9524318-.9540925 2.0680309-1.7055753 3.3467972-2.2544484C26.6816489 21.2745196 28.041376 21 29.4820641 21Zm5.4270537 5.9300981c-.4182636.0105312-.7660931.1421711-1.0434884.3949197l-6.3488372 6.1923417-2.572093-2.5274864c-.2778295-.2527486-.6197985-.3791229-1.025907-.3791229-.4061085 0-.7587132.1316399-1.057814.3949197-.2821705.2843422-.4232558.626606-.4232558 1.0267914 0 .4001853.151938.7161211.455814.9478074l3.5813953 3.5068874c.2663256.2948734.6097054.4423101 1.0301396.4423101.420217 0 .7822635-.1474367 1.0861395-.4423101l7.3906977-7.1717427c.3038759-.2695986.4558139-.5961709.4558139-.979717 0-.383546-.1502015-.7309701-.4506046-1.0422722-.3004031-.2527486-.6597365-.3738573-1.078-.3633261ZM19.4995857 4.3 6.66235846 11.66375 19.4995857 19.0275l12.8372273-7.36375L19.4995857 4.3Z" />
+</svg>
+
+
+</span>
+        </div>
+      </div>
+
+      <div class="app-resources-grid__item">
+        <div>
+          <span id="instance-count" class="app-resources-grid__label">Instance Count:</span>
+          <span aria-labelledby="instance-count"></span>
+        </div>
+        <div>
+          <span id="cpu" class="app-resources-grid__label">CPU:</span>
+          <span aria-labelledby="instance-count">
+            
+          </span>
+        </div>
+        <div>
+          <span id="memory" class="app-resources-grid__label">Memory:</span>
+          <span aria-labelledby="memory">
+          
+        </span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="app-resources-grid__card item-detail--red">
+
+      <div class="app-resources-grid__item app-resources-grid__item--heading">
+        <span id="resource" class="govuk-visually-hidden">NginxUpstreams</span>
+        <span aria-labelledby="resource">
+
+
+<strong class="govuk-tag app-tag">
+  NginxUpstreams
+</strong>
+
+
+</span>
+
+        <div class="app-resources-grid__item app-resources-grid__item--version">
+          <span id="version" class="govuk-visually-hidden">Version:</span>
+          <a class="app-link govuk-!-margin-right-2"
+             href="https://github.com/DEFRA//releases/tag/"
+             target="_blank" rel="noopener noreferrer"
+             aria-labelledby="version">
+            
+          </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Nginxupstreams in "
+>
+                <svg class="app-icon app-icon--medium app-instance-stopped app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="41" height="43" viewBox="0 0 41 43"
+     role="img" aria-label="Pending">
+  <path fill-rule="nonzero"
+        d="M19.4995857 0c.7583173 0 1.4805242.19708333 2.1666207.59125L36.8325508 9.245c.6860965.39416667 1.2187241.91375 1.5978827 1.55875.3791587.645.568738 1.3616667.568738 2.15l.0006175 8.5454481c-1.0863272-.9379572-2.3183709-1.6988429-3.6961311-2.2826571-.2108739-.0893404-.4234515-.1730577-.637733-.2511518L34.6659302 15.265l-5.0330715 2.8904803c-1.7630281.0384755-3.4320559.3932391-5.0070835 1.0642906-1.6708264.711652-3.1284597 1.6860015-4.3728999 2.9230486-1.1407369 1.1337624-2.0564757 2.4449302-2.7472166 3.9335032L17.332 26.464l.0009651-3.72775L4.33324127 15.265v14.7275l12.99972383 7.47125-.0004194-.3538096c.7066431 1.6504506 1.6776994 3.0886719 2.9131689 4.3146638.3904797.3874843.8024735.7487582 1.2359813 1.0838219l.1845105-.0996761C20.9801099 42.8029167 20.257903 43 19.4995857 43c-.7583172 0-1.4805241-.1970833-2.1666206-.59125L2.16662064 33.755c-.68609653-.3941667-1.21872411-.91375-1.59788272-1.55875C.1895793 31.55125 0 30.8345833 0 30.04625v-17.0925c0-.7883333.1895793-1.505.56873792-2.15.3791586-.645.91178619-1.16458333 1.59788272-1.55875L17.3329651.59125C18.0190616.19708333 18.7412685 0 19.4995857 0Zm9.7752748 21c1.4198604 0 2.7575116.2675465 4.0129535.8026395 1.2554418.5350931 2.3509418 1.2700117 3.2865 2.2047558.9357209.9347442 1.6714534 2.0291861 2.2071976 3.2833256.5355814 1.2541396.8033721 2.5921163.8033721 4.0139303 0 1.4208372-.2681977 2.7578372-.804593 4.011-.5362326 1.2531628-1.2728605 2.3467907-2.2098837 3.2808837-.9368605.934093-2.0308954 1.6656744-3.2821047 2.1947442-1.2512093.5290697-2.586093.7936046-4.0046511.7936046-1.4185582 0-2.7545814-.2645349-4.0080698-.7936046-1.2534884-.5290698-2.3482558-1.2616279-3.2843023-2.1976744-.9360465-.9360466-1.6686047-2.0296745-2.1976744-3.2808838C19.2645349 34.0615116 19 32.7266279 19 31.3080698c0-1.4185582.2645349-2.7545814.7936047-4.0080698.5290697-1.2534884 1.2603255-2.3486628 2.1937674-3.2855233.9336046-.9370232 2.0265814-1.6736511 3.2789302-2.2098837C26.518814 21.2681977 27.855 21 29.2748605 21Zm4.8107825 4.2924419c-.2966572 0-.5629462.1246459-.7988669.3739376l-4.0113314 4.0113315-3.9773371-4.0113315c-.2266289-.203966-.4929179-.3172804-.7988669-.3399433-.305949-.0226629-.5722379.0906516-.7988668.3399433-.2719547.2585836-.407932.536204-.407932.8328612 0 .2966573.1359773.5629462.407932.7988669l3.9433427 4.0113314-3.9773371 3.9773371c-.2266289.2266289-.345609.4929179-.3569405.7988669-.0113314.305949.1134278.572238.3742776.7988668.2379604.2719547.5069689.4079321.8070255.4079321.3000567 0 .58051-.1359774.8413598-.4079321l3.9433428-3.9433427 4.0113314 3.9773371c.203966.2266289.4645893.345609.7818697.3569405.3172805.0113314.6005666-.1134278.8498584-.3742776.2492918-.2379604.3739377-.5069689.3739377-.8070255 0-.3000567-.1246459-.5805099-.3739377-.8413598l-4.0113315-3.9433428 4.0113315-4.0113314c.203966-.203966.3172804-.4645893.3399433-.7818697.0226629-.3172805-.0906515-.6005666-.3399433-.8498584-.2585836-.2492917-.536204-.3739376-.8328612-.3739376ZM19.4995857 4.3 6.66235846 11.66375 19.4995857 19.0275l12.8372273-7.36375L19.4995857 4.3Z" />
+</svg>
+
+
+</span>
+        </div>
+      </div>
+
+      <div class="app-resources-grid__item">
+        <div>
+          <span id="instance-count" class="app-resources-grid__label">Instance Count:</span>
+          <span aria-labelledby="instance-count"></span>
+        </div>
+        <div>
+          <span id="cpu" class="app-resources-grid__label">CPU:</span>
+          <span aria-labelledby="instance-count">
+            
+          </span>
+        </div>
+        <div>
+          <span id="memory" class="app-resources-grid__label">Memory:</span>
+          <span aria-labelledby="memory">
+          
+        </span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="app-resources-grid__card item-detail--red">
+
+      <div class="app-resources-grid__item app-resources-grid__item--heading">
+        <span id="resource" class="govuk-visually-hidden">SquidProxy</span>
+        <span aria-labelledby="resource">
+
+
+<strong class="govuk-tag app-tag">
+  SquidProxy
+</strong>
+
+
+</span>
+
+        <div class="app-resources-grid__item app-resources-grid__item--version">
+          <span id="version" class="govuk-visually-hidden">Version:</span>
+          <a class="app-link govuk-!-margin-right-2"
+             href="https://github.com/DEFRA//releases/tag/"
+             target="_blank" rel="noopener noreferrer"
+             aria-labelledby="version">
+            
+          </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Squidproxy in "
+>
+                <svg class="app-icon app-icon--medium app-instance-stopped app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="41" height="43" viewBox="0 0 41 43"
+     role="img" aria-label="Pending">
+  <path fill-rule="nonzero"
+        d="M19.4995857 0c.7583173 0 1.4805242.19708333 2.1666207.59125L36.8325508 9.245c.6860965.39416667 1.2187241.91375 1.5978827 1.55875.3791587.645.568738 1.3616667.568738 2.15l.0006175 8.5454481c-1.0863272-.9379572-2.3183709-1.6988429-3.6961311-2.2826571-.2108739-.0893404-.4234515-.1730577-.637733-.2511518L34.6659302 15.265l-5.0330715 2.8904803c-1.7630281.0384755-3.4320559.3932391-5.0070835 1.0642906-1.6708264.711652-3.1284597 1.6860015-4.3728999 2.9230486-1.1407369 1.1337624-2.0564757 2.4449302-2.7472166 3.9335032L17.332 26.464l.0009651-3.72775L4.33324127 15.265v14.7275l12.99972383 7.47125-.0004194-.3538096c.7066431 1.6504506 1.6776994 3.0886719 2.9131689 4.3146638.3904797.3874843.8024735.7487582 1.2359813 1.0838219l.1845105-.0996761C20.9801099 42.8029167 20.257903 43 19.4995857 43c-.7583172 0-1.4805241-.1970833-2.1666206-.59125L2.16662064 33.755c-.68609653-.3941667-1.21872411-.91375-1.59788272-1.55875C.1895793 31.55125 0 30.8345833 0 30.04625v-17.0925c0-.7883333.1895793-1.505.56873792-2.15.3791586-.645.91178619-1.16458333 1.59788272-1.55875L17.3329651.59125C18.0190616.19708333 18.7412685 0 19.4995857 0Zm9.7752748 21c1.4198604 0 2.7575116.2675465 4.0129535.8026395 1.2554418.5350931 2.3509418 1.2700117 3.2865 2.2047558.9357209.9347442 1.6714534 2.0291861 2.2071976 3.2833256.5355814 1.2541396.8033721 2.5921163.8033721 4.0139303 0 1.4208372-.2681977 2.7578372-.804593 4.011-.5362326 1.2531628-1.2728605 2.3467907-2.2098837 3.2808837-.9368605.934093-2.0308954 1.6656744-3.2821047 2.1947442-1.2512093.5290697-2.586093.7936046-4.0046511.7936046-1.4185582 0-2.7545814-.2645349-4.0080698-.7936046-1.2534884-.5290698-2.3482558-1.2616279-3.2843023-2.1976744-.9360465-.9360466-1.6686047-2.0296745-2.1976744-3.2808838C19.2645349 34.0615116 19 32.7266279 19 31.3080698c0-1.4185582.2645349-2.7545814.7936047-4.0080698.5290697-1.2534884 1.2603255-2.3486628 2.1937674-3.2855233.9336046-.9370232 2.0265814-1.6736511 3.2789302-2.2098837C26.518814 21.2681977 27.855 21 29.2748605 21Zm4.8107825 4.2924419c-.2966572 0-.5629462.1246459-.7988669.3739376l-4.0113314 4.0113315-3.9773371-4.0113315c-.2266289-.203966-.4929179-.3172804-.7988669-.3399433-.305949-.0226629-.5722379.0906516-.7988668.3399433-.2719547.2585836-.407932.536204-.407932.8328612 0 .2966573.1359773.5629462.407932.7988669l3.9433427 4.0113314-3.9773371 3.9773371c-.2266289.2266289-.345609.4929179-.3569405.7988669-.0113314.305949.1134278.572238.3742776.7988668.2379604.2719547.5069689.4079321.8070255.4079321.3000567 0 .58051-.1359774.8413598-.4079321l3.9433428-3.9433427 4.0113314 3.9773371c.203966.2266289.4645893.345609.7818697.3569405.3172805.0113314.6005666-.1134278.8498584-.3742776.2492918-.2379604.3739377-.5069689.3739377-.8070255 0-.3000567-.1246459-.5805099-.3739377-.8413598l-4.0113315-3.9433428 4.0113315-4.0113314c.203966-.203966.3172804-.4645893.3399433-.7818697.0226629-.3172805-.0906515-.6005666-.3399433-.8498584-.2585836-.2492917-.536204-.3739376-.8328612-.3739376ZM19.4995857 4.3 6.66235846 11.66375 19.4995857 19.0275l12.8372273-7.36375L19.4995857 4.3Z" />
+</svg>
+
+
+</span>
+        </div>
+      </div>
+
+      <div class="app-resources-grid__item">
+        <div>
+          <span id="instance-count" class="app-resources-grid__label">Instance Count:</span>
+          <span aria-labelledby="instance-count"></span>
+        </div>
+        <div>
+          <span id="cpu" class="app-resources-grid__label">CPU:</span>
+          <span aria-labelledby="instance-count">
+            
+          </span>
+        </div>
+        <div>
+          <span id="memory" class="app-resources-grid__label">Memory:</span>
+          <span aria-labelledby="memory">
+          
+        </span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="app-resources-grid__card item-detail--green">
+
+      <div class="app-resources-grid__item app-resources-grid__item--heading">
+        <span id="resource" class="govuk-visually-hidden">AppConfig</span>
+        <span aria-labelledby="resource">
+
+
+<strong class="govuk-tag app-tag">
+  AppConfig
+</strong>
+
+
+</span>
+
+        <div class="app-resources-grid__item app-resources-grid__item--version">
+          <span id="version" class="govuk-visually-hidden">Version:</span>
+          <a class="app-link govuk-!-margin-right-2"
+             href="https://github.com/DEFRA//releases/tag/"
+             target="_blank" rel="noopener noreferrer"
+             aria-labelledby="version">
+            
+          </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Appconfig in "
+>
+                <svg class="app-icon app-icon--medium app-instance-success app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="41" height="43" viewBox="0 0 41 43"
+     role="img" aria-label="Ready">
+  <path fill-rule="nonzero"
+        d="M19.4995857 0c.7583173 0 1.4805242.19708333 2.1666207.59125L36.8325508 9.245c.6860965.39416667 1.2187241.91375 1.5978827 1.55875.3791587.645.568738 1.3616667.568738 2.15l.0006175 8.5454481c-1.0863272-.9379572-2.3183709-1.6988429-3.6961311-2.2826571-.2108739-.0893404-.4234515-.1730577-.637733-.2511518L34.6659302 15.265l-5.0330715 2.8904803c-1.7630281.0384755-3.4320559.3932391-5.0070835 1.0642906-1.6708264.711652-3.1284597 1.6860015-4.3728999 2.9230486-1.1407369 1.1337624-2.0564757 2.4449302-2.7472166 3.9335032L17.332 26.464l.0009651-3.72775L4.33324127 15.265v14.7275l12.99972383 7.47125-.0004194-.3538096c.7066431 1.6504506 1.6776994 3.0886719 2.9131689 4.3146638.3904797.3874843.8024735.7487582 1.2359813 1.0838219l.1845105-.0996761C20.9801099 42.8029167 20.257903 43 19.4995857 43c-.7583172 0-1.4805241-.1970833-2.1666206-.59125L2.16662064 33.755c-.68609653-.3941667-1.21872411-.91375-1.59788272-1.55875C.1895793 31.55125 0 30.8345833 0 30.04625v-17.0925c0-.7883333.1895793-1.505.56873792-2.15.3791586-.645.91178619-1.16458333 1.59788272-1.55875L17.3329651.59125C18.0190616.19708333 18.7412685 0 19.4995857 0Zm9.9824784 21c1.4466666 0 2.8110438.2736892 4.0931316.8210676 1.2822539.5475445 2.3995967 1.2970344 3.3520285 2.2484698.9525979.9514353 1.7028351 2.0678647 2.2507117 3.3492882C39.7259786 28.7002491 40 30.0654567 40 31.5144484c0 1.4481613-.2745196 2.8100474-.8235587 4.0856584-.5488731 1.2756109-1.3003559 2.3899644-2.2544484 3.3430605-.9539265.95293-2.0695255 1.7006761-3.3467972 2.2432384C32.297758 41.7288019 30.9363701 42 29.491032 42c-1.4411862 0-2.8039027-.2706999-4.0881494-.8120996-1.2840807-.5415659-2.4015066-1.2877343-3.3522776-2.2385054-.9507711-.950771-1.6969395-2.0670344-2.2385054-3.34879C19.2706999 34.3186833 19 32.9571293 19 31.5159431c0-1.4455042.2711981-2.8080546.8135943-4.0876513.5425623-1.2795967 1.2900593-2.3963582 2.2424911-3.3502847.9524318-.9540925 2.0680309-1.7055753 3.3467972-2.2544484C26.6816489 21.2745196 28.041376 21 29.4820641 21Zm5.4270537 5.9300981c-.4182636.0105312-.7660931.1421711-1.0434884.3949197l-6.3488372 6.1923417-2.572093-2.5274864c-.2778295-.2527486-.6197985-.3791229-1.025907-.3791229-.4061085 0-.7587132.1316399-1.057814.3949197-.2821705.2843422-.4232558.626606-.4232558 1.0267914 0 .4001853.151938.7161211.455814.9478074l3.5813953 3.5068874c.2663256.2948734.6097054.4423101 1.0301396.4423101.420217 0 .7822635-.1474367 1.0861395-.4423101l7.3906977-7.1717427c.3038759-.2695986.4558139-.5961709.4558139-.979717 0-.383546-.1502015-.7309701-.4506046-1.0422722-.3004031-.2527486-.6597365-.3738573-1.078-.3633261ZM19.4995857 4.3 6.66235846 11.66375 19.4995857 19.0275l12.8372273-7.36375L19.4995857 4.3Z" />
+</svg>
+
+
+</span>
+        </div>
+      </div>
+
+      <div class="app-resources-grid__item">
+        <div>
+          <span id="instance-count" class="app-resources-grid__label">Instance Count:</span>
+          <span aria-labelledby="instance-count"></span>
+        </div>
+        <div>
+          <span id="cpu" class="app-resources-grid__label">CPU:</span>
+          <span aria-labelledby="instance-count">
+            
+          </span>
+        </div>
+        <div>
+          <span id="memory" class="app-resources-grid__label">Memory:</span>
+          <span aria-labelledby="memory">
+          
+        </span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="app-resources-grid__card item-detail--red">
+
+      <div class="app-resources-grid__item app-resources-grid__item--heading">
+        <span id="resource" class="govuk-visually-hidden">TenantServices</span>
+        <span aria-labelledby="resource">
+
+
+<strong class="govuk-tag app-tag">
+  TenantServices
+</strong>
+
+
+</span>
+
+        <div class="app-resources-grid__item app-resources-grid__item--version">
+          <span id="version" class="govuk-visually-hidden">Version:</span>
+          <a class="app-link govuk-!-margin-right-2"
+             href="https://github.com/DEFRA//releases/tag/"
+             target="_blank" rel="noopener noreferrer"
+             aria-labelledby="version">
+            
+          </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Tenantservices in "
+>
+                <svg class="app-icon app-icon--medium app-instance-stopped app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="41" height="43" viewBox="0 0 41 43"
+     role="img" aria-label="Pending">
+  <path fill-rule="nonzero"
+        d="M19.4995857 0c.7583173 0 1.4805242.19708333 2.1666207.59125L36.8325508 9.245c.6860965.39416667 1.2187241.91375 1.5978827 1.55875.3791587.645.568738 1.3616667.568738 2.15l.0006175 8.5454481c-1.0863272-.9379572-2.3183709-1.6988429-3.6961311-2.2826571-.2108739-.0893404-.4234515-.1730577-.637733-.2511518L34.6659302 15.265l-5.0330715 2.8904803c-1.7630281.0384755-3.4320559.3932391-5.0070835 1.0642906-1.6708264.711652-3.1284597 1.6860015-4.3728999 2.9230486-1.1407369 1.1337624-2.0564757 2.4449302-2.7472166 3.9335032L17.332 26.464l.0009651-3.72775L4.33324127 15.265v14.7275l12.99972383 7.47125-.0004194-.3538096c.7066431 1.6504506 1.6776994 3.0886719 2.9131689 4.3146638.3904797.3874843.8024735.7487582 1.2359813 1.0838219l.1845105-.0996761C20.9801099 42.8029167 20.257903 43 19.4995857 43c-.7583172 0-1.4805241-.1970833-2.1666206-.59125L2.16662064 33.755c-.68609653-.3941667-1.21872411-.91375-1.59788272-1.55875C.1895793 31.55125 0 30.8345833 0 30.04625v-17.0925c0-.7883333.1895793-1.505.56873792-2.15.3791586-.645.91178619-1.16458333 1.59788272-1.55875L17.3329651.59125C18.0190616.19708333 18.7412685 0 19.4995857 0Zm9.7752748 21c1.4198604 0 2.7575116.2675465 4.0129535.8026395 1.2554418.5350931 2.3509418 1.2700117 3.2865 2.2047558.9357209.9347442 1.6714534 2.0291861 2.2071976 3.2833256.5355814 1.2541396.8033721 2.5921163.8033721 4.0139303 0 1.4208372-.2681977 2.7578372-.804593 4.011-.5362326 1.2531628-1.2728605 2.3467907-2.2098837 3.2808837-.9368605.934093-2.0308954 1.6656744-3.2821047 2.1947442-1.2512093.5290697-2.586093.7936046-4.0046511.7936046-1.4185582 0-2.7545814-.2645349-4.0080698-.7936046-1.2534884-.5290698-2.3482558-1.2616279-3.2843023-2.1976744-.9360465-.9360466-1.6686047-2.0296745-2.1976744-3.2808838C19.2645349 34.0615116 19 32.7266279 19 31.3080698c0-1.4185582.2645349-2.7545814.7936047-4.0080698.5290697-1.2534884 1.2603255-2.3486628 2.1937674-3.2855233.9336046-.9370232 2.0265814-1.6736511 3.2789302-2.2098837C26.518814 21.2681977 27.855 21 29.2748605 21Zm4.8107825 4.2924419c-.2966572 0-.5629462.1246459-.7988669.3739376l-4.0113314 4.0113315-3.9773371-4.0113315c-.2266289-.203966-.4929179-.3172804-.7988669-.3399433-.305949-.0226629-.5722379.0906516-.7988668.3399433-.2719547.2585836-.407932.536204-.407932.8328612 0 .2966573.1359773.5629462.407932.7988669l3.9433427 4.0113314-3.9773371 3.9773371c-.2266289.2266289-.345609.4929179-.3569405.7988669-.0113314.305949.1134278.572238.3742776.7988668.2379604.2719547.5069689.4079321.8070255.4079321.3000567 0 .58051-.1359774.8413598-.4079321l3.9433428-3.9433427 4.0113314 3.9773371c.203966.2266289.4645893.345609.7818697.3569405.3172805.0113314.6005666-.1134278.8498584-.3742776.2492918-.2379604.3739377-.5069689.3739377-.8070255 0-.3000567-.1246459-.5805099-.3739377-.8413598l-4.0113315-3.9433428 4.0113315-4.0113314c.203966-.203966.3172804-.4645893.3399433-.7818697.0226629-.3172805-.0906515-.6005666-.3399433-.8498584-.2585836-.2492917-.536204-.3739376-.8328612-.3739376ZM19.4995857 4.3 6.66235846 11.66375 19.4995857 19.0275l12.8372273-7.36375L19.4995857 4.3Z" />
+</svg>
+
+
+</span>
+        </div>
+      </div>
+
+      <div class="app-resources-grid__item">
+        <div>
+          <span id="instance-count" class="app-resources-grid__label">Instance Count:</span>
+          <span aria-labelledby="instance-count"></span>
+        </div>
+        <div>
+          <span id="cpu" class="app-resources-grid__label">CPU:</span>
+          <span aria-labelledby="instance-count">
+            
+          </span>
+        </div>
+        <div>
+          <span id="memory" class="app-resources-grid__label">Memory:</span>
+          <span aria-labelledby="memory">
+          
+        </span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="app-resources-grid__card item-detail--red">
+
+      <div class="app-resources-grid__item app-resources-grid__item--heading">
+        <span id="resource" class="govuk-visually-hidden">GrafanaDashboards</span>
+        <span aria-labelledby="resource">
+
+
+<strong class="govuk-tag app-tag">
+  GrafanaDashboards
+</strong>
+
+
+</span>
+
+        <div class="app-resources-grid__item app-resources-grid__item--version">
+          <span id="version" class="govuk-visually-hidden">Version:</span>
+          <a class="app-link govuk-!-margin-right-2"
+             href="https://github.com/DEFRA//releases/tag/"
+             target="_blank" rel="noopener noreferrer"
+             aria-labelledby="version">
+            
+          </a>
+
+
+<span
+  class="app-tool-tip"
+  data-text="Grafanadashboards in "
+>
+                <svg class="app-icon app-icon--medium app-instance-stopped app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="41" height="43" viewBox="0 0 41 43"
+     role="img" aria-label="Pending">
+  <path fill-rule="nonzero"
+        d="M19.4995857 0c.7583173 0 1.4805242.19708333 2.1666207.59125L36.8325508 9.245c.6860965.39416667 1.2187241.91375 1.5978827 1.55875.3791587.645.568738 1.3616667.568738 2.15l.0006175 8.5454481c-1.0863272-.9379572-2.3183709-1.6988429-3.6961311-2.2826571-.2108739-.0893404-.4234515-.1730577-.637733-.2511518L34.6659302 15.265l-5.0330715 2.8904803c-1.7630281.0384755-3.4320559.3932391-5.0070835 1.0642906-1.6708264.711652-3.1284597 1.6860015-4.3728999 2.9230486-1.1407369 1.1337624-2.0564757 2.4449302-2.7472166 3.9335032L17.332 26.464l.0009651-3.72775L4.33324127 15.265v14.7275l12.99972383 7.47125-.0004194-.3538096c.7066431 1.6504506 1.6776994 3.0886719 2.9131689 4.3146638.3904797.3874843.8024735.7487582 1.2359813 1.0838219l.1845105-.0996761C20.9801099 42.8029167 20.257903 43 19.4995857 43c-.7583172 0-1.4805241-.1970833-2.1666206-.59125L2.16662064 33.755c-.68609653-.3941667-1.21872411-.91375-1.59788272-1.55875C.1895793 31.55125 0 30.8345833 0 30.04625v-17.0925c0-.7883333.1895793-1.505.56873792-2.15.3791586-.645.91178619-1.16458333 1.59788272-1.55875L17.3329651.59125C18.0190616.19708333 18.7412685 0 19.4995857 0Zm9.7752748 21c1.4198604 0 2.7575116.2675465 4.0129535.8026395 1.2554418.5350931 2.3509418 1.2700117 3.2865 2.2047558.9357209.9347442 1.6714534 2.0291861 2.2071976 3.2833256.5355814 1.2541396.8033721 2.5921163.8033721 4.0139303 0 1.4208372-.2681977 2.7578372-.804593 4.011-.5362326 1.2531628-1.2728605 2.3467907-2.2098837 3.2808837-.9368605.934093-2.0308954 1.6656744-3.2821047 2.1947442-1.2512093.5290697-2.586093.7936046-4.0046511.7936046-1.4185582 0-2.7545814-.2645349-4.0080698-.7936046-1.2534884-.5290698-2.3482558-1.2616279-3.2843023-2.1976744-.9360465-.9360466-1.6686047-2.0296745-2.1976744-3.2808838C19.2645349 34.0615116 19 32.7266279 19 31.3080698c0-1.4185582.2645349-2.7545814.7936047-4.0080698.5290697-1.2534884 1.2603255-2.3486628 2.1937674-3.2855233.9336046-.9370232 2.0265814-1.6736511 3.2789302-2.2098837C26.518814 21.2681977 27.855 21 29.2748605 21Zm4.8107825 4.2924419c-.2966572 0-.5629462.1246459-.7988669.3739376l-4.0113314 4.0113315-3.9773371-4.0113315c-.2266289-.203966-.4929179-.3172804-.7988669-.3399433-.305949-.0226629-.5722379.0906516-.7988668.3399433-.2719547.2585836-.407932.536204-.407932.8328612 0 .2966573.1359773.5629462.407932.7988669l3.9433427 4.0113314-3.9773371 3.9773371c-.2266289.2266289-.345609.4929179-.3569405.7988669-.0113314.305949.1134278.572238.3742776.7988668.2379604.2719547.5069689.4079321.8070255.4079321.3000567 0 .58051-.1359774.8413598-.4079321l3.9433428-3.9433427 4.0113314 3.9773371c.203966.2266289.4645893.345609.7818697.3569405.3172805.0113314.6005666-.1134278.8498584-.3742776.2492918-.2379604.3739377-.5069689.3739377-.8070255 0-.3000567-.1246459-.5805099-.3739377-.8413598l-4.0113315-3.9433428 4.0113315-4.0113314c.203966-.203966.3172804-.4645893.3399433-.7818697.0226629-.3172805-.0906515-.6005666-.3399433-.8498584-.2585836-.2492917-.536204-.3739376-.8328612-.3739376ZM19.4995857 4.3 6.66235846 11.66375 19.4995857 19.0275l12.8372273-7.36375L19.4995857 4.3Z" />
+</svg>
+
+
+</span>
+        </div>
+      </div>
+
+      <div class="app-resources-grid__item">
+        <div>
+          <span id="instance-count" class="app-resources-grid__label">Instance Count:</span>
+          <span aria-labelledby="instance-count"></span>
+        </div>
+        <div>
+          <span id="cpu" class="app-resources-grid__label">CPU:</span>
+          <span aria-labelledby="instance-count">
+            
+          </span>
+        </div>
+        <div>
+          <span id="memory" class="app-resources-grid__label">Memory:</span>
+          <span aria-labelledby="memory">
+          
+        </span>
+        </div>
+      </div>
+    </div>
+
+</section>
+
+      </section>
+    </article>
+
+</div>
+  </div>
+
+        </main>
+      </div>
+
+  
+<footer class="app-footer" role="contentinfo" data-testid="app-footer">
+
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/cookie-policy" class="app-footer__link">Cookie policy</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/accessibility-statement" class="app-footer__link">Accessibility statement</a>
+        </li>
+      </ul>
+
+        <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer">0.1.0</a>
+          </li>
+        </ul>
+    </div>
+
+    <div class="app-footer__secondary">
+      <a class="app-footer__link"
+         href="https://github.com/DEFRA/cdp-portal-frontend"
+         target="_blank"
+         rel="noopener noreferrer"><svg class="app-icon app-github-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="CDP Portal Frontend repository on GitHub">
+  <path d="M23.9284898 0C10.6966531 0 0 11 0 24.6085c0 10.878 6.85371429 20.086 16.3616327 23.345 1.1887346.245 1.6241632-.5295 1.6241632-1.181 0-.5705-.0391837-2.526-.0391837-4.5635-6.6563265 1.467-8.04244893-2.9335-8.04244893-2.9335-1.06971429-2.852-2.65469388-3.585-2.65469388-3.585-2.17861225-1.5075.15869388-1.5075.15869388-1.5075 2.41665306.163 3.68473473 2.526 3.68473473 2.526 2.1389387 3.748 5.5856326 2.689 6.9722449 2.037.1978775-1.589.8321632-2.689 1.5056326-3.3-5.3088979-.5705-10.8945306-2.689-10.8945306-12.1415 0-2.689.95020408-4.889 2.4558367-6.6-.237551-.611-1.0697143-3.1375.2380408-6.519 0 0 2.0204082-.652 6.576 2.526 1.9504109-.5386687 3.9618381-.8126928 5.9823674-.815 2.0204082 0 4.08.2855 5.9818775.815 4.5560817-3.178 6.5764898-2.526 6.5764898-2.526 1.3077551 3.3815.4751021 5.908.2375511 6.519 1.5453061 1.711 2.4563265 3.911 2.4563265 6.6 0 9.4525-5.5856327 11.53-10.9342041 12.1415.8718367.774 1.6241633 2.2405 1.6241633 4.563 0 3.3-.0391837 5.9485-.0391837 6.763 0 .652.4359184 1.4265 1.6241633 1.182 9.5079183-3.26 16.3617395-12.4675 16.3617395-23.3455C47.8564898 11 37.1206531 0 23.9284898 0Z" />
+</svg>
+</a>
+    </div>
+  </div>
+
+</footer>
+
+
+  <script type="module" src="/.public/javascripts/application.js"></script>
+  </body>
+</html>

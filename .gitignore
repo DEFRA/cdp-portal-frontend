@@ -13,3 +13,4 @@ dump.rdb
 .envrc
 .eslintcache
 tsconfig.tsbuildinfo
+*.actual.html

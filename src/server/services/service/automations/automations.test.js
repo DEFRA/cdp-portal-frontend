@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockCommonServicesCalls,
+  mockServiceEntityCall,
   mockTeam
 } from '~/test-helpers/common-page-rendering.js'
 import {
@@ -23,7 +23,7 @@ describe('Service Automations page', () => {
   let server
 
   beforeAll(async () => {
-    mockCommonServicesCalls(serviceName)
+    mockServiceEntityCall(serviceName, undefined)
     server = await initialiseServer()
   })
 

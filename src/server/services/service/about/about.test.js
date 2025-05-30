@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockCommonServicesCalls,
+  mockServiceEntityCall,
   mockServicesAdditionalCalls
 } from '~/test-helpers/common-page-rendering.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
@@ -30,7 +30,7 @@ describe('Services', () => {
       jest.useFakeTimers({ advanceTimers: true })
       jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
-      mockCommonServicesCalls('mock-service', 'frontend')
+      mockServiceEntityCall('mock-service', 'frontend')
       mockServicesAdditionalCalls({
         repositoryName: 'mock-service',
         frontendOrBackend: 'frontend'
@@ -97,7 +97,7 @@ describe('Services', () => {
       jest.useFakeTimers({ advanceTimers: true })
       jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
-      mockCommonServicesCalls(serviceName, 'backend')
+      mockServiceEntityCall(serviceName, 'backend')
       mockServicesAdditionalCalls({
         repositoryName: serviceName,
         frontendOrBackend: 'backend',
