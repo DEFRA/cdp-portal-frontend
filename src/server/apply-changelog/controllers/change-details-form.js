@@ -29,7 +29,6 @@ const changeDetailsFormController = {
     const redirectLocation = query?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
 
-    // TODO the image names should only be ones a user owns. Update API to work with teams, same as /deployables
     const postgresServiceNames = await fetchPostgresServices({ request })
     const latestMigrations = await fetchLatestMigrations(serviceName)
 
