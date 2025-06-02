@@ -1,0 +1,67 @@
+{% extends "layouts/page.njk" %}
+
+{% set helpHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    When a user is deleted, they are automatically removed from any teams they are a member of.
+  </p>
+  <p class="govuk-!-margin-bottom-1">
+    Deleting a user is non-recoverable. If you delete the wrong user
+    <a href="{{ routeLookup('admin/users/create') }}" class="govuk-link app-link">
+      create a new one.
+    </a>
+  </p>
+{% endset %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      caption: "Delete User",
+      text: user.name
+    }) }}
+
+    <hr class="app-section-break app-section-break--slim">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop">
+
+        <h2 class="govuk-heading-m">Delete the following user</h2>
+
+        {{ govukSummaryList(summaryList) }}
+
+        <h2 class="govuk-heading-m">
+          Member of {{ "Team" | pluralise(user.teams | length) }}
+        </h2>
+
+        {% if user.teams | length %}
+          {{ govukTaskList(teamsTaskList) }}
+        {% else %}
+          <p>
+            This user is not in any of our teams
+          </p>
+        {% endif %}
+
+        <div class="govuk-!-margin-bottom-6">
+          {{ appInfo({
+            html: helpHtml
+          }) }}
+        </div>
+
+        <form action="/admin/users/{{ user.userId }}/delete" method="post">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+            {{ govukButton({
+              classes: "app-button app-button--destructive",
+              text: "Delete user"
+            }) }}
+
+            <a class="app-link" href="/admin/users/{{ user.userId }}">Cancel</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}

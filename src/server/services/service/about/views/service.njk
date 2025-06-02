@@ -42,8 +42,25 @@
   </div>
 {% endmacro %}
 
+{% set serviceGridModifier = "app-grid-service--standard" %}
+
+{% if service.isPostgres and (isAdmin or isServiceOwner) %}
+  {% set serviceGridModifier = "app-grid-service--postgres-owner" %}
+  {% elif service.isPostgres %}
+  {% set serviceGridModifier = "app-grid-service--postgres" %}
+  {% elif isAdmin or isServiceOwner %}
+  {% set serviceGridModifier = "app-grid-service--owner" %}
+{% endif %}
+
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
+  {% set detailHtml %}
+    <div class="app-row">
+      {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
+      {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
+    </div>
+  {% endset %}
+
   {% set versionLinkHtml %}
     <a class="app-link"
        href="https://github.com/DEFRA/{{ service.serviceName }}/releases/tag/{{ version.tag }}"
@@ -59,13 +76,6 @@
        data-testid="deploy-button-{{ version.tag }}">Deploy</a>
   {% endset %}
 
-  {% set detailHtml %}
-    <div class="app-row">
-      {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
-      {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
-    </div>
-  {% endset %}
-
   {% if isAdmin or isServiceOwner %}
     {{ latestPublishedTableRows.push([
       { html: detailHtml },
@@ -79,6 +89,32 @@
     ]) }}
   {% endif %}
 {% endfor %}
+
+{% set undeployEnvironmentsTableRows = [] %}
+{% if isAdmin or isServiceOwner %}
+  {% for runningService in runningServices %}
+
+    {% set environmentHtml %}
+      <div class="app-row">
+        {{ runningService.environment | title }}
+      </div>
+    {% endset %}
+
+    {% set undeployLinkHtml %}
+      {#      <a href="{{ routeLookup('admin/users/{userId}/confirm-delete', { params: { userId: user.userId } }) }}" #}
+      {#         class="app-link app-link--underline" data-testid="admin-delete-user">Delete user</a> #}
+
+      <a href=href="https://github.com/DEFRA/{{ service.serviceName }}/releases/tag/"
+         class="app-link app-link--underline" data-testid="undeploy-service">undeploy</a>
+    {% endset %}
+
+    {{ undeployEnvironmentsTableRows.push([
+      { html: environmentHtml },
+      { html: undeployLinkHtml, classes: "govuk-table__header--numeric" }
+    ]) }}
+  {% endfor %}
+{% endif %}
+
 
 {% set migrationsTableRows = [] %}
 {% for migration in availableMigrations %}
@@ -178,8 +214,7 @@
     {% endif %}
   </div>
 
-  {% set gridClasses = ["app-grid app-grid-service", "app-grid-service--postgres" if service.isPostgres else
-  "app-grid-service--standard"] | join(" ") | trim %}
+  {% set gridClasses = ["app-grid app-grid-service", serviceGridModifier] | join(" ") | trim %}
 
   <div class="app-service-container">
     <article class="{{ gridClasses }}">
@@ -225,6 +260,30 @@
           </p>
         {% endif %}
       </section>
+
+      {% if isAdmin or isServiceOwner %}
+        <section class="app-grid-service__undeployed">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Undeploy Service</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Stop all running instances of this service.
+          </p>
+
+          {% if undeployEnvironmentsTableRows | length %}
+            {{ govukTable({
+              classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+              head: [
+                { text: "Environment" },
+                { text: "Action", classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-5" }],
+              rows: undeployEnvironmentsTableRows
+            }) }}
+
+          {% else %}
+            <p class="govuk-!-margin-bottom-2">
+              No running instances can be undeployed.
+            </p>
+          {% endif %}
+        </section>
+      {% endif %}
 
       {% if service.isPostgres %}
         <section class="app-grid-service__migrations" data-testid="database-changes">
