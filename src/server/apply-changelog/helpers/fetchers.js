@@ -6,13 +6,24 @@ import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.
 const portalBackendUrl = config.get('portalBackendUrl')
 
 async function fetchPostgresServices({ request }) {
+  const userSession = request.getUserSession()
+
+  // Admins can view all migrations
+  if (userSession.isAdmin) {
+    const endpoint = `${portalBackendUrl}/migrations/services`
+    const { payload } = await fetchJson(endpoint)
+    return payload
+  }
+
+  // Only return results for the services owned by the user.
   const teams = await getUsersTeams(request)
+
+  // Users not in a team cannot see anything.
   if (!teams) {
     return []
   }
 
   const teamIds = teams.map((t) => t.teamId)
-
   const endpoint = `${portalBackendUrl}/migrations/services${qs.stringify(
     { teamIds },
     { arrayFormat: 'repeat', addQueryPrefix: true }
