@@ -3,44 +3,15 @@
 {% from "icons/block-icon/macro.njk" import appBlockIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/internal-icon/macro.njk" import appInternalIcon %}
-{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "icons/schema-icon/macro.njk" import appSchemaIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
-{% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
+{% from "time/macro.njk" import appTime %}
 
-{% macro vanityUrlComponent(params) %}
-  <div class="app-!-layout-flex-start">
-    {% if params.shuttered %}
-      {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
-      {% endcall %}
-      {% elif not params.enabled %}
-      {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appInternalIcon({ classes: "app-icon--tiny", description: "Internal URL" }) }}
-      {% endcall %}
-    {% endif %}
-
-    <a class="app-link" href="https://{{ params.url }}" target="_blank" rel="noopener noreferrer">
-      https://{{ params.url }}
-    </a>
-  </div>
-{% endmacro %}
-
-{% macro apiGatewayComponent(params) %}
-  <div class="app-!-layout-flex-start">
-    {% if params.shuttered %}
-      {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
-      {% endcall %}
-    {% endif %}
-
-    <a class="app-link" href="https://{{ params.api }}" target="_blank" rel="noopener noreferrer">
-      https://{{ params.api }}
-    </a>
-  </div>
-{% endmacro %}
+{% from "services/components/api-gateway-url/macro.njk" import appApiGatewayUrl %}
+{% from "services/components/vanity-url/macro.njk" import appVanityUrl %}
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
@@ -207,7 +178,7 @@
               { text: "Published" },
               { text: "Version" },
               { text: "Action",
-                classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-5"
+                classes: "govuk-!-width-one-quarter app-!-text-align-right"
               } if isServiceOwner],
             rows: latestPublishedTableRows
           }) }}
@@ -244,7 +215,7 @@
             { text: "Kind" },
             {
               text: "Action",
-              classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-3"
+              classes: "govuk-!-width-one-quarter app-!-text-align-right"
             } if hasPostgresPermission and (isAdmin or isServiceOwner) ] %}
 
           {% if migrationsTableRows | length %}
@@ -348,7 +319,7 @@
                 <ul class="govuk-list govuk-!-margin-0">
                   {% for url in firstVanityUrl.urls %}
                     <li>
-                      {{ vanityUrlComponent(url) }}
+                      {{ appVanityUrl(url) }}
                     </li>
                   {% endfor %}
                 </ul>
@@ -360,7 +331,7 @@
                       <ul class="govuk-list govuk-!-margin-0">
                         {% for url in vanityUrl.urls %}
                           <li>
-                            {{ vanityUrlComponent(url) }}
+                            {{ appVanityUrl(url) }}
                           </li>
                         {% endfor %}
                       </ul>
@@ -412,7 +383,7 @@
                     <ul class="govuk-list govuk-!-margin-0">
                       {% for api in apiGateway.apis %}
                         <li>
-                          {{ apiGatewayComponent(api) }}
+                          {{ appApiGatewayUrl(api) }}
                         </li>
                       {% endfor %}
                     </ul>
