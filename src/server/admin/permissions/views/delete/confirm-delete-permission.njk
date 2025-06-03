@@ -24,21 +24,25 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half-from-desktop">
 
-        <h2 class="govuk-heading-m">Delete the following permission</h2>
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">Delete the following permission</h2>
 
-        {{ govukSummaryList(summaryList) }}
+          {{ govukSummaryList(summaryList) }}
+        {% endcall %}
 
-        <h2 class="govuk-heading-m">
-          {{ "Team" | pluralise(scope.teams | length) }} with permission
-        </h2>
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">
+            {{ "Team" | pluralise(scope.teams | length) }} with permission
+          </h2>
 
-        {% if scope.teams | length %}
-          {{ govukTaskList(teamsTaskList) }}
-        {% else %}
-          <p>
-            This permission has not been added to any teams
-          </p>
-        {% endif %}
+          {% if scope.teams | length %}
+            {{ govukTaskList(teamsTaskList) }}
+          {% else %}
+            <p>
+              This permission has not been added to any teams
+            </p>
+          {% endif %}
+        {% endcall %}
 
         <div class="govuk-!-margin-bottom-6">
           {{ appInfo({
