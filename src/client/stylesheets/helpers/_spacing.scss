@@ -1,0 +1,5 @@
+@use "govuk-frontend" as *;
+
+.app-\!-margin-top-negative-1 {
+  margin-top: govuk-spacing(-1);
+}
