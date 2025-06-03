@@ -17,6 +17,7 @@ import {
 
 const deploymentController = {
   options: {
+    id: 'deployments/{environment}/{deploymentId}',
     ext: {
       onPreAuth: [allEnvironmentsOnlyForAdmin]
     },
@@ -35,6 +36,9 @@ const deploymentController = {
     const formattedEnvironment = formatText(environment)
     const secretDetail = transformSecrets(deployment.secrets)
     const ecsDeployment = provideEcsDeploymentStatus(deployment)
+    const shouldPoll =
+      deployment.status !== deploymentStatus.running ||
+      deployment.status !== deploymentStatus.undeployed
 
     return h.view('deployments/views/deployment', {
       faviconState: deploymentFaviconState(deployment.status),
@@ -45,7 +49,7 @@ const deploymentController = {
         intro: `Microservice deployment for <strong>${deployment.service}</strong>, version <strong>${deployment.version}</strong> in <strong>${deployment.environment}</strong>`
       },
       deployment,
-      shouldPoll: deployment.status !== deploymentStatus.running,
+      shouldPoll,
       statusSummaryList: transformDeploymentToStatusSummary(
         deployment,
         ecsDeployment
