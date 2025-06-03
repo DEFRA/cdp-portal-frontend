@@ -12,7 +12,7 @@ import {
   formSteps
 } from '~/src/server/apply-changelog/helpers/multistep-form/steps.js'
 
-const serviceTeamAndAdminWithPostgresRestrictedTechUserScope = authScope([
+const serviceTeamAndAdminWithPostgresRestrictedTechScope = authScope([
   scopes.tenant,
   scopes.admin,
   `+${scopes.restrictedTechPostgres}`
@@ -58,7 +58,7 @@ const applyChangelog = {
               path: '/apply-changelog/run/{multiStepFormId}',
               ...applyController
             }
-          ].map(serviceTeamAndAdminWithPostgresRestrictedTechUserScope)
+          ].map(serviceTeamAndAdminWithPostgresRestrictedTechScope)
         }
       })
 
@@ -69,7 +69,7 @@ const applyChangelog = {
             path: '/apply-changelog/available-migrations',
             ...availableMigrationsController
           }
-        ].map(serviceTeamAndAdminWithPostgresRestrictedTechUserScope)
+        ].map(serviceTeamAndAdminWithPostgresRestrictedTechScope)
       )
     }
   }
