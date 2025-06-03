@@ -14,8 +14,11 @@ function tabs($module) {
   const params = qs.parse(location.search, { ignoreQueryPrefix: true })
   const $tabs = Array.from($module.querySelectorAll(`[data-js="app-tab"]`))
 
-  params.page = pagination.page
-  params.size = pagination.size
+  if (Object.keys(params).includes('page')) {
+    // reset pagination params only on tabs where they already exist
+    params.page = pagination.page
+    params.size = pagination.size
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     $tabs.forEach(($tab) => prependQueryParams($tab, params))
