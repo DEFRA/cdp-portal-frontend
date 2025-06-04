@@ -84,8 +84,7 @@ const microserviceCreateController = {
           auditMessageCreated('Service', repositoryName, request.pre.authedUser)
         )
 
-        return h.redirect(`/services/create-status/${payload.repositoryName}`)
-        // return h.redirect(`/services/${payload.repositoryName}`)
+        return h.redirect(`/services/${payload.repositoryName}/status`)
       } catch (error) {
         request.logger.error({ error }, 'Create service call failed')
         request.yar.flash(sessionNames.validationFailure, {

@@ -1,2 +1,7 @@
+{% block xhrPageTitle %}
+  <div data-xhr-page-title>
+    {{ "Error : " if isError }}{{ pageTitle }} | {{ appServiceName }}
+  </div>
+{% endblock %}
 {% block xhrHeadContent %}{% endblock %}
 {% block xhrContent %}{% endblock %}

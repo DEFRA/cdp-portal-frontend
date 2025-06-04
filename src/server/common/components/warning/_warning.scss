@@ -13,7 +13,7 @@
   @include app-section-width;
 
 
-  .app-warning--inverse {
+  &.app-warning--inverse {
     background-color: govuk-colour("white");
   }
 

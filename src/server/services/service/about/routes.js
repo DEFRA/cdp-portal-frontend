@@ -1,6 +1,5 @@
 import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
-import { serviceHomeController } from '~/src/server/services/service/service-home.js'
-import { serviceStatusController } from '~/src/server/services/service/service-status.js'
+import { aboutServiceController } from '~/src/server/services/service/about/controller.js'
 
 const aboutService = {
   plugin: {
@@ -12,13 +11,7 @@ const aboutService = {
         {
           method: 'GET',
           path: '/services/{serviceId}',
-          ...serviceHomeController
-        },
-        // remove this once new status view is ready
-        {
-          method: 'GET',
-          path: '/services/{serviceId}/status',
-          ...serviceStatusController
+          ...aboutServiceController
         }
       ])
     }

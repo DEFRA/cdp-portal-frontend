@@ -17,14 +17,23 @@ function updateWithXhrContent(xhrDocument) {
   $elements.forEach((xhrContainer) => {
     const xhrContainerId = xhrContainer.dataset?.xhr
 
-    const xhrContent = xhrDocument.querySelector(
+    const $xhrContent = xhrDocument.querySelector(
       `[data-xhr="${xhrContainerId}"]`
     )
 
-    if (xhrContent) {
-      xhrContainer.replaceWith(xhrContent)
+    if ($xhrContent) {
+      xhrContainer.replaceWith($xhrContent)
     }
   })
+}
+
+function updatePageTitle(xhrDocument) {
+  const $pageTitle = document.querySelector('title')
+  const $xhrPageTitle = xhrDocument.querySelector(`[data-xhr-page-title]`)
+
+  if ($xhrPageTitle) {
+    $pageTitle.textContent = $xhrPageTitle.textContent
+  }
 }
 
 /**
@@ -37,6 +46,7 @@ function injectHtmlResponseIntoPage(text) {
   const xhrDataDocument = domParser.parseFromString(text, 'text/html')
 
   updateWithXhrContent(xhrDataDocument)
+  updatePageTitle(xhrDataDocument)
 }
 
 function updatePage(text, params = {}) {

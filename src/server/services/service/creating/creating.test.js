@@ -20,9 +20,7 @@ jest.mock(
   '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 )
 
-// TODO remove skip once the service creation page is fully implemented
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Services', () => {
+describe('Services', () => {
   /** @type {import('@hapi/hapi').Server} */
   let server
 

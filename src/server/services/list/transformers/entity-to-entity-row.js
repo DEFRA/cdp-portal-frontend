@@ -58,7 +58,7 @@ function entityToEntityRow(entity) {
           value: entity.name,
           url: isCreatedSuccessfully
             ? `/services/${entity.name}`
-            : `/services/create-status/${entity.name}`
+            : `/services/${entity.name}/status`
         }
       },
       {

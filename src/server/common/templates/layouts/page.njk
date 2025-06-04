@@ -37,7 +37,6 @@
 {% from "panel/macro.njk" import appPanel %}
 {% from "running-service-entity/macro.njk" import appRunningServiceEntity %}
 {% from "running-service/macro.njk" import appRunningService %}
-{% from "resources-grid/macro.njk" import appResourcesGrid %}
 {% from "search/macro.njk" import appSearch %}
 {% from "secrets-list/macro.njk" import appSecretsList %}
 {% from "select/macro.njk" import appSelect %}
@@ -63,13 +62,15 @@
 {% set mainClasses = "app-main-wrapper" %}
 
 {% block headIcons %}
-  {% if faviconState %}
-    {% block xhrHeadContent %}
+  {% block xhrHeadContent %}
+    {% if faviconState %}
       <link rel="icon" sizes="any"
             href="{{ getAssetPath("assets/images/" + faviconState + ".svg") }}" type="image/svg+xml"
             data-xhr="page-state-icon">
-    {% endblock %}
-  {% else %}
+    {% endif %}
+  {% endblock %}
+
+  {% if not faviconState %}
     {{ super() }}
   {% endif %}
 {% endblock %}
