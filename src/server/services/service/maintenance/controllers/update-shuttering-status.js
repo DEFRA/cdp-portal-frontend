@@ -30,7 +30,7 @@ const updateShutteringStatusController = {
           .valid(...Object.values(waf))
           .required(),
         url: Joi.string().required(),
-        shouldUnshutter: Joi.boolean().required()
+        shouldShutter: Joi.boolean().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }
@@ -38,7 +38,7 @@ const updateShutteringStatusController = {
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
     const payload = request.payload
-    const shouldUnshutter = payload.shouldUnshutter
+    const shouldShutter = payload.shouldShutter
 
     const sanitisedPayload = {
       serviceName: payload.serviceName,
@@ -48,11 +48,11 @@ const updateShutteringStatusController = {
     }
 
     try {
-      await requestShutterUpdate(request, sanitisedPayload, shouldUnshutter)
+      await requestShutterUpdate(request, sanitisedPayload, shouldShutter)
 
       request.yar.clear(sessionNames.validationFailure)
       request.yar.flash(sessionNames.notifications, {
-        text: `Shutter requested for ${sanitisedPayload.url}`,
+        text: `${shouldShutter ? 'Shutter' : 'Unshutter'} requested for https://${sanitisedPayload.url}`,
         type: 'success'
       })
 
