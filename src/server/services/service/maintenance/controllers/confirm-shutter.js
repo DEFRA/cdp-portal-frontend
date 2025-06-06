@@ -30,19 +30,14 @@ const confirmShutterController = {
       return Boom.notFound()
     }
 
-    const isShuttered =
-      shutteringDetail.status === shutteringStatus.shuttered ?? false
+    const isShuttered = shutteringDetail.status === shutteringStatus.shuttered
 
     return h.view('services/service/maintenance/views/confirm-shutter', {
       pageTitle: `Confirm shutter - ${serviceId}`,
       entity,
       shutteringDetail,
       isShuttered,
-      summaryList: shutteringDetailToSummary(
-        shutteringDetail,
-        entity,
-        authedUser
-      ),
+      summaryList: shutteringDetailToSummary(shutteringDetail, authedUser),
       breadcrumbs: [
         {
           text: 'Services',

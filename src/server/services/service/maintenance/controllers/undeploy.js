@@ -34,7 +34,10 @@ const undeployController = {
     }
 
     try {
-      const { payload } = await requestUndeploy(request, sanitisedPayload)
+      const { payload: responsePayload } = await requestUndeploy(
+        request,
+        sanitisedPayload
+      )
 
       request.yar.clear(sessionNames.validationFailure)
       request.yar.flash(sessionNames.notifications, {
@@ -55,7 +58,7 @@ const undeployController = {
         request.routeLookup('deployments/{environment}/{deploymentId}', {
           params: {
             environment: sanitisedPayload.environment,
-            deploymentId: payload?.deploymentId
+            deploymentId: responsePayload?.deploymentId
           }
         })
       )
