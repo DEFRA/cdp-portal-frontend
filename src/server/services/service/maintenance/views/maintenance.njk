@@ -176,7 +176,10 @@
             {% else %}
               <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
               <p class="govuk-!-margin-bottom-2">
-                Currently, this service has no deployments on any CDP environments
+                Currently, this service has no deployments on any CDP environments. To undeploy a service, one must
+                first deploy a service. You can start your services journey via the
+                <a href="{{ routeLookup('deploy-service') }}"
+                   role="button" class="app-link app-link--underline" data-testid="vanity-url">Deploy Service</a> flow.
               </p>
             {% endif %}
           </section>
