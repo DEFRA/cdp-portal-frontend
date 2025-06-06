@@ -23,6 +23,7 @@ function testSuiteStatus(service) {
   const completeJobs = jobStatuses.filter(
     (status) => status === 'success'
   ).length
+  const topOfThePage = 'top of the page'
 
   return {
     started: serviceStatus?.started,
@@ -73,7 +74,7 @@ function testSuiteStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              { href: '#app-help', text: 'top of the page', newTab: false }
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return 'Status unknown'
@@ -101,7 +102,7 @@ function testSuiteStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              { href: '#app-help', text: 'top of the page', newTab: false }
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return `Test suites on the Core Delivery Platform are configured via environment variables. You can update your test suite config via pull request on the cdp-app-config
@@ -148,7 +149,7 @@ function testSuiteStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              { href: '#app-help', text: 'top of the page', newTab: false }
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return 'Status unknown'
@@ -199,7 +200,7 @@ function testSuiteStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              { href: '#app-help', text: 'top of the page', newTab: false }
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return 'Status unknown'

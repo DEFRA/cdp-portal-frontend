@@ -3,7 +3,7 @@ import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 import { shutteringStatus } from '~/src/server/common/constants/shuttering.js'
 
-function shutteringDetailToSummary(detail, entity, authedUser) {
+function shutteringDetailToSummary(detail, authedUser) {
   return {
     classes: 'app-summary-list',
     attributes: {
