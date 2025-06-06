@@ -1,0 +1,96 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% set warningHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    When a services url has been shuttered all requests to the service and any of its paths will be redirected to the
+    shutter page
+  </p>
+{% endset %}
+
+{% set infoHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    Unshuttering a services url will mean that all requests to the service and any of its paths will return
+  </p>
+{% endset %}
+
+{% set summaryHeading %}
+  {% if isShuttered %}
+    Unshutter the following service url
+  {% endif %}
+
+  {% if not isShuttered %}
+    Shutter the following service url
+  {% endif %}
+{% endset %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Confirm shutter",
+    text: entity.name
+  }) }}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop-massive">
+
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">{{ summaryHeading }}</h2>
+
+          {{ govukSummaryList(summaryList) }}
+        {% endcall %}
+
+        <form
+          action="{{ routeLookup('post:services/{serviceId}/maintenance/shuttering', {
+            params: { serviceId: entity.name } }) }}"
+          method="POST"
+          data-js="app-form-group">
+
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="serviceName" value="{{ shutteringDetail.serviceName }}" />
+          <input type="hidden" name="environment" value="{{ shutteringDetail.environment }}" />
+          <input type="hidden" name="waf" value="{{ shutteringDetail.waf }}" />
+          <input type="hidden" name="url" value="{{ shutteringDetail.url }}" />
+          <input type="hidden" name="shouldUnshutter" value="{{ isShuttered }}" />
+
+          {% if isShuttered %}
+            <div class="govuk-!-margin-bottom-2">
+              {{ appInfo({
+                html: infoHtml
+              }) }}
+            </div>
+          {% endif %}
+
+          {% if not isShuttered %}
+            <div class="govuk-!-margin-bottom-2">
+              {{ appWarning({
+                html: warningHtml
+              }) }}
+            </div>
+          {% endif %}
+
+          <div class="govuk-body govuk-button-group govuk-!-margin-bottom-0">
+
+            {% if isShuttered %}
+              {{ govukButton({
+                classes: "app-button",
+                text: "Unshutter url"
+              }) }}
+            {% endif %}
+
+            {% if not isShuttered %}
+              {{ govukButton({
+                classes: "app-button app-button--destructive",
+                text: "Shutter url"
+              }) }}
+            {% endif %}
+
+            <a class="app-link"
+               href="{{ routeLookup('services/{serviceId}/maintenance', { params: { serviceId: entity.name } }) }}">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}

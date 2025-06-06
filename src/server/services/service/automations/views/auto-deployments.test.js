@@ -41,7 +41,7 @@ function buildServiceAutomationContext({
   }
 }
 
-const entity = entityServicesFixture[0]
+const entity = entityServicesFixture.at(0)
 const formOptions = buildOptions(['infra-dev', 'management'], false)
 const formEnvironments = ['infra-dev', 'management']
 

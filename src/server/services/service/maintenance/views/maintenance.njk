@@ -1,0 +1,188 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "tag/macro.njk" import appTag %}
+{% from "loader/macro.njk" import appLoader %}
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/internal-icon/macro.njk" import appInternalIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+{% from "services/components/shutter-url/macro.njk" import appShutterUrl %}
+
+{% set infoHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    Your request may take a few minutes to complete, please be patient.
+  </p>
+{% endset %}
+
+{% set shutteredUrlsTableRows = [] %}
+{% for detail in shutteringDetails %}
+  {% set status %}
+    {% if detail.status == "Shuttered" %}
+      {{ appTag({ text: detail.status, classes: "govuk-tag--red" }) }}
+    {% elseif detail.status == "Active" %}
+      {{ appTag({ text: detail.status, classes: "govuk-tag--green" }) }}
+    {% else %}
+      {{ appTag({ text: "Pending", classes: "govuk-tag--blue" }) }}
+    {% endif %}
+  {% endset %}
+
+  {% set shutterLinkHtml %}
+    {% if detail.status == "PendingActive"  or detail.status == "PendingShuttered" %}
+      {{ appLoader({
+        classes: "app-loader--small app-loader--is-loading govuk-!-margin-right-2"
+      }) }}
+    {% else %}
+      <a href="{{ routeLookup('services/{serviceId}/maintenance/shuttering', {
+        params: { serviceId: detail.serviceName },
+        query: { url: detail.url }
+      }) }}"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        {{ "Unshutter" if detail.status == "Shuttered" else "Shutter" }}
+      </a>
+    {% endif %}
+  {% endset %}
+
+  {{ shutteredUrlsTableRows.push([
+    { html: appShutterUrl(detail) },
+    { html: detail.environment | formatText },
+    { html: status },
+    { html: "Yes" if not detail.internal else "No" },
+    { html: shutterLinkHtml, classes: "app-!-text-align-right" }
+  ]) }}
+{% endfor %}
+
+{% set undeployTableRows = [] %}
+{% for deployedService in deployedServices %}
+  {% set updeployLinkHtml %}
+    <a href="{{ routeLookup('services/{serviceId}/undeploy/confirm', {
+      params: { serviceId: deployedService.service },
+      query: { environment: deployedService.environment }
+    }) }}"
+       role="button" class="app-link app-link--underline" data-testid="vanity-url">Undeploy</a>
+  {% endset %}
+
+  {{ undeployTableRows.push([
+    { html: deployedService.environment | formatText },
+    { html: updeployLinkHtml, classes: "app-!-text-align-right" }
+  ]) }}
+{% endfor %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Shuttering",
+    text: entity.name
+  }) }}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+
+      {% if shouldPoll %}
+      <div data-js="app-poll"
+           data-poll-url="/services/{{ entity.name }}/maintenance"
+           data-poll-interval="3000"
+           data-poll-limit="45">
+        {% endif %}
+
+        {% block xhrContent %}
+          <article data-xhr="maintenance-{{ entity.name }}"
+                   data-xhr-stop="{{ not shouldPoll }}">
+
+            {% if shutteredUrlsTableRows | length %}
+              <div class="govuk-grid-column-one-half-from-desktop-massive govuk-!-margin-bottom-6">
+                <div class="app-section--extra-wide">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+                    Shuttering
+                  </h2>
+                  <p class="govuk-!-margin-bottom-2">
+                    Shutter your service on the following urls. Shuttering your service will mean all users who go to
+                    any of
+                    your services urls will be redirected to the shuttering page. This is useful when you want to close
+                    your
+                    service to investigate a serious problem or to make planned changes/updates to your service.
+                  </p>
+
+                  {% if shouldPoll %}
+                    {{ appInfo({ html: infoHtml }) }}
+                  {% endif %}
+                </div>
+
+                {% call appPanel() %}
+                  {% if shutteringDetails | length %}
+                    {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
+
+                    <section class="govuk-!-margin-bottom-6">
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
+                      <p class="govuk-!-margin-bottom-2">
+                        User-friendly custom {{ urlText }}
+                      </p>
+
+                      {{ govukTable({
+                        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                        head: [
+                          { text: "Url" },
+                          { text: "Environment" },
+                          { text: "Status" },
+                          { text: "Internal" },
+                          { text: "Action",
+                            classes: "app-!-text-align-right"
+                          }
+                        ],
+                        rows: shutteredUrlsTableRows
+                      }) }}
+
+                    </section>
+                  {% endif %}
+                {% endcall %}
+              </div>
+            {% endif %}
+
+          </article>
+        {% endblock %}
+
+        {% if shouldPoll %}</div>{% endif %}
+
+      <div class="govuk-grid-column-one-half-from-desktop-massive">
+        <div class="app-section--extra-wide">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
+            Undeploy
+          </h2>
+          <p class="govuk-!-margin-bottom-2">
+            To undeploy your service means to stop your service from running in the environment. This is useful when
+            you want to completely stop your service from running due to a serious problem or to make planned
+            changes/updates to your service or to reduce costs.
+          </p>
+        </div>
+
+        {% call appPanel() %}
+          <section class="govuk-!-margin-bottom-6">
+            {% if deployedServices | length %}
+              {% set titleText = "Deployment" | pluralise(deployedServices | length) %}
+
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
+              <p class="govuk-!-margin-bottom-2">
+                The currently running deployments of your service, listed by environment
+              </p>
+
+              {{ govukTable({
+                classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                head: [
+                  { text: "Environment" },
+                  { text: "Action", classes: "app-!-text-align-right"}
+                ],
+                rows: undeployTableRows
+              }) }}
+            {% else %}
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
+              <p class="govuk-!-margin-bottom-2">
+                Currently, this service has no deployments on any CDP environments
+              </p>
+            {% endif %}
+          </section>
+        {% endcall %}
+      </div>
+    </div>
+
+  </section>
+{% endblock %}

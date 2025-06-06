@@ -1,0 +1,5 @@
+@use "govuk-frontend" as *;
+
+.app-instance-undeployed {
+  fill: govuk-tint(govuk-colour("dark-grey"), 20%);
+}

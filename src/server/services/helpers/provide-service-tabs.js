@@ -1,5 +1,6 @@
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { buildTab } from '~/src/server/common/patterns/entities/tabs/helpers/build-tab.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 /**
  * Provides tabs for the service view based on user authentication.
@@ -48,6 +49,11 @@ async function provideServiceTabs(request, h) {
     if (isAdmin || isServiceOwner) {
       buildTab(response, request, 'services', 'automations', entityName)
       buildTab(response, request, 'services', 'secrets', entityName)
+
+      if (request.hasScope(scopes.restrictedTechMaintenance)) {
+        buildTab(response, request, 'services', 'maintenance', entityName)
+      }
+
       buildTab(response, request, 'services', 'terminal', entityName)
     }
 
