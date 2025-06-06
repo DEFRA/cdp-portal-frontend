@@ -3,8 +3,8 @@ import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
 
 const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 
-function requestShutterUpdate(request, details, shouldUnshutter) {
-  const endpoint = `${selfServiceOpsUrl}/${shouldUnshutter ? 'unshutter-url' : 'shutter-url'}`
+function requestShutterUpdate(request, details, shouldShutter) {
+  const endpoint = `${selfServiceOpsUrl}/${shouldShutter ? 'shutter-url' : 'unshutter-url'}`
 
   return request.authedFetchJson(endpoint, {
     method: 'post',

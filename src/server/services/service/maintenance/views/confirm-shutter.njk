@@ -52,7 +52,7 @@
           <input type="hidden" name="environment" value="{{ shutteringDetail.environment }}" />
           <input type="hidden" name="waf" value="{{ shutteringDetail.waf }}" />
           <input type="hidden" name="url" value="{{ shutteringDetail.url }}" />
-          <input type="hidden" name="shouldUnshutter" value="{{ isShuttered }}" />
+          <input type="hidden" name="shouldShutter" value="{{ not isShuttered }}" />
 
           {% if isShuttered %}
             <div class="govuk-!-margin-bottom-2">
