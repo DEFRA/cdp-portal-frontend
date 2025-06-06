@@ -11,10 +11,11 @@
 {% endset %}
 
 {% set infoHtml %}
- Your service has been created successfully. Refresh the page to access your services portal page
-  <a class="govuk-button app-button app-button--primary app-button--small"
+ Your service has been created successfully. Use the following link to
+  <a class="app-link app-link--underline govuk-!-margin-right-1"
      role="button"
-     href="{{ routeLookup('services/{serviceId}', { params: { serviceId : service.serviceName } }) }}">refresh page</a>
+     href="{{ routeLookup('services/{serviceId}', { params: { serviceId : service.serviceName } }) }}">
+    go to your new service's home page</a>
 {% endset %}
 
 {% block content %}

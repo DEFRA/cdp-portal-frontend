@@ -11,7 +11,7 @@
 {% from "time/macro.njk" import appTime %}
 
 {% from "services/components/api-gateway-url/macro.njk" import appApiGatewayUrl %}
-{% from "services/components/vanity-url/macro.njk" import appVanityUrl %}
+{% from "services/components/shutter-url/macro.njk" import appShutterUrl %}
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
@@ -96,10 +96,10 @@
 {% endfor %}
 
 {% set shutteredUrls = [] %}
-{% for vanityUrl in vanityUrls %}
-  {% for url in vanityUrl.urls | selectattr("shuttered") %}
-    {{ shutteredUrls.push(url.url) }}
-  {% endfor %}
+{% for detail in shutteringDetails %}
+  {% if detail.status == "Shuttered" %}
+    {{ shutteredUrls.push(detail.url) }}
+  {% endif %}
 {% endfor %}
 
 {% set apiGatewaydUrls = [] %}
@@ -115,6 +115,8 @@
     text: service.serviceName
   }) }}
 {% endblock %}
+
+{{ shutteredUrls | dump }}
 
 {% block tabContent %}
 
@@ -305,35 +307,31 @@
       <section class="app-grid-service__links">
         {% if service.isFrontend %}
 
-          {% if vanityUrls | length %}
-            {% set urlText = "URL" | pluralise(vanityUrls | length * vanityUrls[0].urls | length) %}
+          {% if shutteringDetails | length %}
+            {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
             <section class="govuk-!-margin-bottom-6">
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
               <p>
                 User-friendly custom {{ urlText }}
               </p>
 
-              {% if vanityUrls | length == 1 %}
-                {% set firstVanityUrl = vanityUrls | first %}
+              {% if shutteringDetails | length == 1 %}
+                {% set firstDetail = shutteringDetails | first %}
 
                 <ul class="govuk-list govuk-!-margin-0">
-                  {% for url in firstVanityUrl.urls %}
-                    <li>
-                      {{ appVanityUrl(url) }}
-                    </li>
-                  {% endfor %}
+                  <li>
+                    {{ appShutterUrl(firstDetail) }}
+                  </li>
                 </ul>
-              {% elseif vanityUrls | length %}
+              {% elseif shutteringDetails | length %}
                 <dl class="app-description-list">
-                  {% for vanityUrl in vanityUrls %}
-                    <dt class="app-description-list__term">{{ vanityUrl.environment | title }}</dt>
+                  {% for detail in shutteringDetails %}
+                    <dt class="app-description-list__term">{{ detail.environment | title }}</dt>
                     <dd class="app-description-list__details">
                       <ul class="govuk-list govuk-!-margin-0">
-                        {% for url in vanityUrl.urls %}
-                          <li>
-                            {{ appVanityUrl(url) }}
-                          </li>
-                        {% endfor %}
+                        <li>
+                          {{ appShutterUrl(detail) }}
+                        </li>
                       </ul>
                     </dd>
                   {% endfor %}
