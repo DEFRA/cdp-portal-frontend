@@ -66,7 +66,7 @@ export async function initialiseServer() {
 }
 
 function mockRepositoryCall(repositoryName, additionalTopics) {
-  fetchRepository.mockResolvedValue({
+  fetchRepository.mockResolvedValue?.({
     repositoryName,
     description: 'Mock service description',
     createdAt: '2016-12-05T11:21:25+00:00',
@@ -78,7 +78,7 @@ function mockRepositoryCall(repositoryName, additionalTopics) {
 }
 
 export function mockBucketsCall(repositoryName) {
-  fetchAllBuckets.mockResolvedValue({
+  fetchAllBuckets.mockResolvedValue?.({
     buckets: [
       {
         service: `${repositoryName}`,
@@ -105,7 +105,7 @@ export function mockBucketsCall(repositoryName) {
 }
 
 export function mockTenantServicesCall(isPostgresService = false) {
-  fetchTenantService.mockResolvedValue({
+  fetchTenantService.mockResolvedValue?.({
     prod: {
       serviceCode: 'CDP',
       zone: 'protected',
@@ -145,7 +145,7 @@ export function mockTenantServicesCall(isPostgresService = false) {
 }
 
 function mockTestSuiteEntityCall(repositoryName) {
-  fetchEntity.mockResolvedValue({
+  fetchEntity.mockResolvedValue?.({
     name: repositoryName,
     type: 'TestSuite',
     subType: 'Journey',
@@ -163,7 +163,7 @@ export function mockServiceEntityCall(
   frontendOrBackend,
   status = 'Created'
 ) {
-  fetchEntity.mockResolvedValue({
+  fetchEntity.mockResolvedValue?.({
     name: repositoryName,
     type: 'Microservice',
     subType: capitalize(frontendOrBackend),
@@ -181,7 +181,7 @@ export function mockServiceEntityStatusCall(
   frontendOrBackend,
   status = 'Created'
 ) {
-  fetchEntityStatus.mockResolvedValue({
+  fetchEntityStatus.mockResolvedValue?.({
     entity: {
       name: repositoryName,
       type: 'Microservice',
@@ -205,7 +205,7 @@ export function mockServiceEntityStatusCall(
 }
 
 export function mockTestRuns(repositoryName) {
-  fetchTestRuns.mockResolvedValue({
+  fetchTestRuns.mockResolvedValue?.({
     testRuns: [
       {
         runId: '3ec0b267-e513-4dd1-a525-8a3a798a9c4b',
@@ -241,7 +241,7 @@ export function mockCommonTestSuiteCalls(repositoryName) {
 }
 
 function mockAvailableVersions() {
-  fetchAvailableVersions.mockResolvedValue([
+  fetchAvailableVersions.mockResolvedValue?.([
     {
       tag: '0.172.0',
       created: '2023-11-02T12:59:56.102Z'
@@ -270,15 +270,15 @@ function mockAvailableVersions() {
 }
 
 function mockFetchShutteringUrlsCall(repositoryName) {
-  fetchShutteringUrls.mockResolvedValue(shutteringUrlsFixture(repositoryName))
+  fetchShutteringUrls.mockResolvedValue?.(shutteringUrlsFixture(repositoryName))
 }
 
 function mockApiGatewaysCall(repositoryName) {
-  fetchApiGateways.mockResolvedValue(apiGatewaysFixture(repositoryName))
+  fetchApiGateways.mockResolvedValue?.(apiGatewaysFixture(repositoryName))
 }
 
 function mockWhatsRunningWhereCall(repositoryName) {
-  fetchRunningServices.mockResolvedValue([
+  fetchRunningServices.mockResolvedValue?.([
     {
       environment: 'dev',
       service: repositoryName,
@@ -323,13 +323,13 @@ function mockWhatsRunningWhereCall(repositoryName) {
 }
 
 function mockFetchAvailableMigrations(repositoryName) {
-  fetchAvailableMigrations.mockResolvedValue(
+  fetchAvailableMigrations.mockResolvedValue?.(
     availableMigrationsFixture(repositoryName)
   )
 }
 
 function mockFetchLatestMigrations(repositoryName) {
-  fetchLatestMigrations.mockResolvedValue(
+  fetchLatestMigrations.mockResolvedValue?.(
     latestMigrationsFixture(repositoryName)
   )
 }
@@ -400,7 +400,7 @@ function buildAuthDetail(
 export async function mockAuthAndRenderUrl(server, { targetUrl, ...options }) {
   const { userSession, auth } = buildAuthDetail(server, options)
 
-  getUserSession.mockResolvedValue(userSession)
+  getUserSession.mockResolvedValue?.(userSession)
 
   const { result, statusCode } = await server.inject({
     method: 'GET',
