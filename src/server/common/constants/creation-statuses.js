@@ -1,3 +1,4 @@
+// TODO when appropriate sort out the mismatch of casing and flags being different but meaning the same thing
 const creationStatuses = {
   unknown: 'unknown',
   requested: 'requested',
@@ -11,6 +12,7 @@ const creationStatuses = {
   notRequested: 'not-requested',
   success: 'success',
   created: 'created',
+  creating: 'Creating',
   workflowCompleted: 'workflow_completed',
   failure: 'failure',
   failed: 'Failed'

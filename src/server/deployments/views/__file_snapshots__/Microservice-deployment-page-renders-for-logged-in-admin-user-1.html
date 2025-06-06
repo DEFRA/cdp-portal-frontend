@@ -213,6 +213,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
   <div class="govuk-main-wrapper app-main-wrapper">
 
+        <div data-js="app-poll"
+        data-poll-url="/deployments/dev/3c439dc3-014f-47ef-9433-57ef0a10d8aa"
+        data-poll-interval="3000"
+        data-poll-limit="45">
 
 
       <div class="govuk-grid-row">
@@ -220,7 +224,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 <div class="app-panel" data-testid="deployment-status-summary">
               <article data-xhr="deployment-status-3c439dc3-014f-47ef-9433-57ef0a10d8aa"
-                     data-xhr-stop="true">
+                     data-xhr-stop="false">
 
               <div class="app-!-layout-centered govuk-!-margin-bottom-2">
                 <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Status</h2>
@@ -334,7 +338,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 <div class="app-panel govuk-!-margin-bottom-4" data-testid="deployment-summary">
               <article data-xhr="deployment-3c439dc3-014f-47ef-9433-57ef0a10d8aa"
-                     data-xhr-stop="true">
+                     data-xhr-stop="false">
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
 
               <dl class="govuk-summary-list app-summary-list govuk-!-margin-bottom-0" data-testid="govuk-summary-list">
@@ -343,7 +347,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       Microservice name
     </dt>
     <dd class="govuk-summary-list__value">
-      <a class="app-link" href="/services/cdp-portal-frontend" data-testid="app-link" >cdp-portal-frontend</a>
+      <a class="app-link"
+                   href="/services/cdp-portal-frontend"
+                   
+                   data-testid="app-link" >cdp-portal-frontend</a>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -359,7 +366,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       Version
     </dt>
     <dd class="govuk-summary-list__value">
-      <a class="app-link" href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.356.0" data-testid="app-link" target="_blank" rel="noopener noreferrer">0.356.0</a>
+      <a class="app-link"
+                   href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.356.0"
+                   target="_blank" rel="noopener noreferrer"
+                   data-testid="app-link" >0.356.0</a>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -414,7 +424,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       Application link
     </dt>
     <dd class="govuk-summary-list__value">
-      <a class="app-link" href="https://cdp-portal-frontend.dev.cdp-int.defra.cloud" data-testid="app-link" target="_blank" rel="noopener noreferrer">https://cdp-portal-frontend.dev.cdp-int.defra.cloud</a>
+      <a class="app-link"
+                   href="https://cdp-portal-frontend.dev.cdp-int.defra.cloud"
+                   target="_blank" rel="noopener noreferrer"
+                   data-testid="app-link" >https://cdp-portal-frontend.dev.cdp-int.defra.cloud</a>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -474,7 +487,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       Team
     </dt>
     <dd class="govuk-summary-list__value">
-      <ul class="govuk-list"><li><a class="app-link" href="/teams/aabe63e7-87ef-4beb-a596-c810631fc474" data-testid="app-link" >Platform</a></li></ul>
+      <ul class="govuk-list"><li><a class="app-link"
+                   href="/teams/aabe63e7-87ef-4beb-a596-c810631fc474"
+                   
+                   data-testid="app-link" >Platform</a></li></ul>
     </dd>
   </div>
 </dl>
@@ -655,7 +671,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
         </div>
       </div>
-
+</div>
   </div>
         </main>
       </div>

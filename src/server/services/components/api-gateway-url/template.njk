@@ -1,0 +1,14 @@
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+<div class="app-!-layout-flex-start">
+  {% if params.shuttered %}
+    {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
+      {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
+    {% endcall %}
+  {% endif %}
+
+  <a class="app-link" href="https://{{ params.api }}" target="_blank" rel="noopener noreferrer">
+    https://{{ params.api }}
+  </a>
+</div>

@@ -3,6 +3,7 @@
 
 .app-task-list {
   margin-bottom: 0;
+  margin-right: govuk-spacing(2);
 
   .govuk-task-list__item {
     border-bottom: 1px solid $app-grey;

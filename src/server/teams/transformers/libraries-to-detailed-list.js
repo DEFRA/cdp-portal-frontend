@@ -6,7 +6,11 @@ function librariesToDetailedList(libraries = []) {
   const doInclude = ['library']
   const items = libraries.sort(sortBy('id', 'asc')).map((library) => ({
     title: {
-      html: buildLink(`/utilities/libraries/${library.id}`, library.id, false)
+      html: buildLink({
+        href: `/utilities/libraries/${library.id}`,
+        text: library.id,
+        newTab: false
+      })
     },
     info: {
       html: library.topics

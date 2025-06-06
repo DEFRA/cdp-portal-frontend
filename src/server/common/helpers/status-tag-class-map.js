@@ -21,6 +21,7 @@ function statusTagClassMap(status) {
 
     case [
       creationStatuses.created,
+      creationStatuses.creating,
       creationStatuses.success,
       creationStatuses.workflowCompleted
     ].includes(status):

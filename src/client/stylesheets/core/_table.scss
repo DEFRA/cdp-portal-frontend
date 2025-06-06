@@ -8,6 +8,8 @@
 
   .govuk-table__head {
     .govuk-table__row {
+      background-color: $app-light-grey;
+
       .govuk-table__header {
         border-bottom: 2px solid $app-light-grey;
         padding: govuk-spacing(2);
@@ -21,6 +23,8 @@
 
   .govuk-table__body {
     .govuk-table__row {
+      background-color: $app-light-grey;
+
       .govuk-table__cell {
         padding: govuk-spacing(2);
         border-top: 1px solid $app-grey;

@@ -33,11 +33,11 @@ function transformMigrationToSummary(migration) {
       {
         key: { text: 'Microservice name' },
         value: {
-          html: buildLink(
-            `/services/${migration.service}`,
-            migration.service,
-            false
-          )
+          html: buildLink({
+            href: `/services/${migration.service}`,
+            text: migration.service,
+            newTab: false
+          })
         }
       },
       {
@@ -48,10 +48,10 @@ function transformMigrationToSummary(migration) {
         key: { text: 'Changelog version' },
         value: {
           html: migration.version
-            ? buildLink(
-                `https://github.com/DEFRA/${migration.service}/releases/tag/${migration.version}`,
-                migration.version
-              )
+            ? buildLink({
+                href: `https://github.com/DEFRA/${migration.service}/releases/tag/${migration.version}`,
+                text: migration.version
+              })
             : noValue
         }
       },
@@ -89,20 +89,20 @@ function transformMigrationToSummary(migration) {
         key: { text: 'Logs' },
         value: {
           html: logsLinkDataAvailable
-            ? buildLink(
-                buildDatabaseLogsLink(migration, hasResult),
-                `https://logs.${migration.environment}.cdp-int.defra.cloud`
-              )
+            ? buildLink({
+                href: buildDatabaseLogsLink(migration, hasResult),
+                text: `https://logs.${migration.environment}.cdp-int.defra.cloud`
+              })
             : noValue
         }
       },
       {
         key: { text: 'Metrics' },
         value: {
-          html: buildLink(
-            `https://metrics.${migration.environment}.cdp-int.defra.cloud/dashboards/f/${migration.service}`,
-            `https://metrics.${migration.environment}.cdp-int.defra.cloud`
-          )
+          html: buildLink({
+            href: `https://metrics.${migration.environment}.cdp-int.defra.cloud/dashboards/f/${migration.service}`,
+            text: `https://metrics.${migration.environment}.cdp-int.defra.cloud`
+          })
         }
       },
       {

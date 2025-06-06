@@ -27,6 +27,7 @@ function serviceStatus(service) {
   const completeJobs = jobStatuses.filter(
     (status) => status === 'success'
   ).length
+  const topOfThePage = 'top of the page'
 
   return {
     started: createStatusInfo?.started,
@@ -74,9 +75,7 @@ function serviceStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              '#app-help',
-              'top of the page',
-              false
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return 'Status unknown'
@@ -104,16 +103,14 @@ function serviceStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              '#app-help',
-              'top of the page',
-              false
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return `Services on the Core Delivery Platform are configured via environment variables. You can update your services config via pull request on the cdp-app-config
-        repository. For more detailed information see the ${buildLink(
-          `https://github.com/${githubOrg}/cdp-app-config`,
-          'DEFRA/cdp-app-config/README.md'
-        )}`
+        repository. For more detailed information see the ${buildLink({
+          href: `https://github.com/${githubOrg}/cdp-app-config`,
+          text: 'DEFRA/cdp-app-config/README.md'
+        })}`
         }
       },
       githubAction: {
@@ -155,9 +152,7 @@ function serviceStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              '#app-help',
-              'top of the page',
-              false
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return 'Status unknown'
@@ -200,9 +195,7 @@ function serviceStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              '#app-help',
-              'top of the page',
-              false
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return 'Status unknown'
@@ -245,9 +238,7 @@ function serviceStatus(service) {
           case creationStatuses.unknown:
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
-              '#app-help',
-              'top of the page',
-              false
+              { href: '#app-help', text: topOfThePage, newTab: false }
             )}.`
           default:
             return 'Status unknown'
@@ -304,7 +295,7 @@ function serviceStatus(service) {
           case creationStatuses.failure:
             return `Something has gone wrong, contact us using the details at the ${buildLink(
               '#app-help',
-              'top of the page',
+              topOfThePage,
               false
             )}.`
           default:

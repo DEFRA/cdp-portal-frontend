@@ -1,0 +1,67 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% set warningHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    When a service has been undeployed all requests to the service and any of its paths will stop working
+  </p>
+{% endset %}
+
+{% set summaryHeading %}
+  {% if isShuttered %}
+    Unshutter the following service url
+  {% endif %}
+
+  {% if not isShuttered %}
+    Shutter the following service url
+  {% endif %}
+{% endset %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Confirm shutter",
+    text: entity.name
+  }) }}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop-massive">
+
+        <div class="govuk-!-margin-bottom-2">
+          {{ appWarning({
+            html: warningHtml
+          }) }}
+        </div>
+
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">Undeploy the following service</h2>
+
+          {{ govukSummaryList(summaryList) }}
+        {% endcall %}
+
+        {% call appPanel() %}
+          <form
+            action="{{ routeLookup('post:services/{serviceId}/maintenance/undeploy', { params: { serviceId: entity.name } }) }}"
+            method="POST"
+            data-js="app-form-group">
+
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            <input type="hidden" name="environment" value="{{ environment }}" />
+
+            <div class="govuk-body govuk-button-group govuk-!-margin-bottom-0">
+
+              {{ govukButton({
+                classes: "app-button app-button--destructive",
+                text: "Undeploy service"
+              }) }}
+
+              <a class="app-link"
+                 href="{{ routeLookup('services/{serviceId}/maintenance', { params: { serviceId: entity.name } }) }}">Cancel</a>
+            </div>
+          </form>
+        {% endcall %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

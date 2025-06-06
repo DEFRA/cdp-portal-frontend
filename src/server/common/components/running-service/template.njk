@@ -6,6 +6,7 @@
 {% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
 {% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
+{% from "icons/instance-undeployed-icon/macro.njk" import appInstanceUndeployedIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
 <section class="app-running-service">
@@ -51,7 +52,7 @@
               {% case "failed" %}
                 {{ appInstanceFailedIcon({ description: "Failed", classes: "app-icon--small" }) }}
               {% case "undeployed" %}
-                {{ appInstanceIcon({ description: "Undeployed", classes: "app-icon--small"}) }}
+                {{ appInstanceUndeployedIcon({ description: "Undeployed", classes: "app-icon--small"}) }}
               {% case "stopped" %}
                 {{ appInstanceStoppedIcon({ description: "Stopped", classes: "app-icon--small"}) }}
               {% default %}
@@ -82,7 +83,7 @@
 
         <div class="app-running-service__item app-running-service__item--deployed-by">
           <a class="app-link" href="/deployments/{{ envName }}/{{ runningService.cdpDeploymentId }}">
-            Deployed
+            {{ "Undeployed" if runningService.status == "undeployed" else "Deployed" }}
           </a>
           {{ appTime({
             text: runningService.created | formatDistanceToNow,

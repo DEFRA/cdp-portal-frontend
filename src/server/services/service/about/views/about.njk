@@ -3,44 +3,15 @@
 {% from "icons/block-icon/macro.njk" import appBlockIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 {% from "icons/internal-icon/macro.njk" import appInternalIcon %}
-{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "icons/schema-icon/macro.njk" import appSchemaIcon %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "summary/macro.njk" import appSummary %}
 {% from "summary/summary-item/macro.njk" import appSummaryItem %}
-{% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
+{% from "time/macro.njk" import appTime %}
 
-{% macro vanityUrlComponent(params) %}
-  <div class="app-!-layout-flex-start">
-    {% if params.shuttered %}
-      {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
-      {% endcall %}
-      {% elif not params.enabled %}
-      {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appInternalIcon({ classes: "app-icon--tiny", description: "Internal URL" }) }}
-      {% endcall %}
-    {% endif %}
-
-    <a class="app-link" href="https://{{ params.url }}" target="_blank" rel="noopener noreferrer">
-      https://{{ params.url }}
-    </a>
-  </div>
-{% endmacro %}
-
-{% macro apiGatewayComponent(params) %}
-  <div class="app-!-layout-flex-start">
-    {% if params.shuttered %}
-      {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-        {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
-      {% endcall %}
-    {% endif %}
-
-    <a class="app-link" href="https://{{ params.api }}" target="_blank" rel="noopener noreferrer">
-      https://{{ params.api }}
-    </a>
-  </div>
-{% endmacro %}
+{% from "services/components/api-gateway-url/macro.njk" import appApiGatewayUrl %}
+{% from "services/components/shutter-url/macro.njk" import appShutterUrl %}
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
@@ -125,10 +96,10 @@
 {% endfor %}
 
 {% set shutteredUrls = [] %}
-{% for vanityUrl in vanityUrls %}
-  {% for url in vanityUrl.urls | selectattr("shuttered") %}
-    {{ shutteredUrls.push(url.url) }}
-  {% endfor %}
+{% for detail in shutteringDetails %}
+  {% if detail.status == "Shuttered" %}
+    {{ shutteredUrls.push(detail.url) }}
+  {% endif %}
 {% endfor %}
 
 {% set apiGatewaydUrls = [] %}
@@ -144,6 +115,8 @@
     text: service.serviceName
   }) }}
 {% endblock %}
+
+{{ shutteredUrls | dump }}
 
 {% block tabContent %}
 
@@ -207,7 +180,7 @@
               { text: "Published" },
               { text: "Version" },
               { text: "Action",
-                classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-5"
+                classes: "govuk-!-width-one-quarter app-!-text-align-right"
               } if isServiceOwner],
             rows: latestPublishedTableRows
           }) }}
@@ -244,7 +217,7 @@
             { text: "Kind" },
             {
               text: "Action",
-              classes: "govuk-!-width-one-quarter app-!-text-align-right govuk-!-padding-right-3"
+              classes: "govuk-!-width-one-quarter app-!-text-align-right"
             } if hasPostgresPermission and (isAdmin or isServiceOwner) ] %}
 
           {% if migrationsTableRows | length %}
@@ -334,35 +307,31 @@
       <section class="app-grid-service__links">
         {% if service.isFrontend %}
 
-          {% if vanityUrls | length %}
-            {% set urlText = "URL" | pluralise(vanityUrls | length * vanityUrls[0].urls | length) %}
+          {% if shutteringDetails | length %}
+            {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
             <section class="govuk-!-margin-bottom-6">
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
               <p>
                 User-friendly custom {{ urlText }}
               </p>
 
-              {% if vanityUrls | length == 1 %}
-                {% set firstVanityUrl = vanityUrls | first %}
+              {% if shutteringDetails | length == 1 %}
+                {% set firstDetail = shutteringDetails | first %}
 
                 <ul class="govuk-list govuk-!-margin-0">
-                  {% for url in firstVanityUrl.urls %}
-                    <li>
-                      {{ vanityUrlComponent(url) }}
-                    </li>
-                  {% endfor %}
+                  <li>
+                    {{ appShutterUrl(firstDetail) }}
+                  </li>
                 </ul>
-              {% elseif vanityUrls | length %}
+              {% elseif shutteringDetails | length %}
                 <dl class="app-description-list">
-                  {% for vanityUrl in vanityUrls %}
-                    <dt class="app-description-list__term">{{ vanityUrl.environment | title }}</dt>
+                  {% for detail in shutteringDetails %}
+                    <dt class="app-description-list__term">{{ detail.environment | title }}</dt>
                     <dd class="app-description-list__details">
                       <ul class="govuk-list govuk-!-margin-0">
-                        {% for url in vanityUrl.urls %}
-                          <li>
-                            {{ vanityUrlComponent(url) }}
-                          </li>
-                        {% endfor %}
+                        <li>
+                          {{ appShutterUrl(detail) }}
+                        </li>
                       </ul>
                     </dd>
                   {% endfor %}
@@ -412,7 +381,7 @@
                     <ul class="govuk-list govuk-!-margin-0">
                       {% for api in apiGateway.apis %}
                         <li>
-                          {{ apiGatewayComponent(api) }}
+                          {{ appApiGatewayUrl(api) }}
                         </li>
                       {% endfor %}
                     </ul>

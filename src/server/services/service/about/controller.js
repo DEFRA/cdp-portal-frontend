@@ -1,12 +1,15 @@
+import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
-import { provideVanityUrls } from '~/src/server/services/service/about/transformers/vanity-urls.js'
 import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
 import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { provideApiGateways } from '~/src/server/services/service/about/transformers/api-gateways.js'
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
+import {
+  sortByEnv,
+  sortKeyByEnv
+} from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
@@ -15,7 +18,7 @@ import { provideDatabaseStatusClassname } from '~/src/server/common/components/d
 import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
 import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
-import Joi from 'joi'
+import { fetchShutteringUrls } from '~/src/server/services/helpers/fetch/fetch-shuttering-urls.js'
 
 const availableEnvironments = ({ userScopes, tenantServiceInfo }) => {
   const environments = getEnvironments(userScopes)
@@ -30,7 +33,7 @@ async function fetchData({ request, serviceName, isPostgres }) {
 
   promises.push(
     fetchAvailableVersions(serviceName),
-    provideVanityUrls(request),
+    fetchShutteringUrls(serviceName),
     provideApiGateways(request),
     fetchRepository(serviceName).catch(nullify404)
   )
@@ -44,7 +47,7 @@ async function fetchData({ request, serviceName, isPostgres }) {
 
   const [
     availableVersions,
-    vanityUrls,
+    shutteringDetails,
     apiGateways,
     repository,
     availableMigrations = [],
@@ -53,7 +56,7 @@ async function fetchData({ request, serviceName, isPostgres }) {
 
   return {
     availableVersions,
-    vanityUrls,
+    shutteringDetails: shutteringDetails.toSorted(sortKeyByEnv('environment')),
     apiGateways,
     repository,
     availableMigrations,
@@ -93,7 +96,7 @@ const aboutServiceController = {
 
     const {
       availableVersions,
-      vanityUrls,
+      shutteringDetails,
       apiGateways,
       repository,
       availableMigrations: migrations,
@@ -130,7 +133,7 @@ const aboutServiceController = {
     return h.view('services/service/about/views/about', {
       pageTitle: `${serviceName} microservice`,
       summaryList: transformServiceToSummary(repository, entity),
-      vanityUrls,
+      shutteringDetails,
       apiGateways,
       service,
       isServiceOwner,

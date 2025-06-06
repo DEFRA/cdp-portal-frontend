@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+  <head>
+    <meta charset="utf-8">
+    <title>  Maintenance - mock-service | Core Delivery Platform - Portal
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0b0c0c">
+
+
+          <link rel="icon" sizes="48x48" href="/.public/assets/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/.public/assets/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/.public/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+      <link rel="apple-touch-icon" href="/.public/assets/images/govuk-icon-180.png">
+      <link rel="manifest" href="/.public/assets/manifest.json">
+
+
+  <link href="/.public/stylesheets/application.css" rel="stylesheet">
+    <meta name="service-version" content="0.1.0">
+    <meta name="service-environment" content="test">
+
+  </head>
+  <body class="govuk-template__body">
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+  
+  <div>
+    <a href="#main-content" class="govuk-skip-link app-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+  </div>
+
+
+  
+<header class="app-service-header" role="banner" data-testid="app-service-header">
+  <div class="app-service-header__container app-service-header__container--full-width">
+    <div class="app-service-header__content">
+      <a href="/"
+         class="app-service-header__link app-service-header__service-name"
+         data-testid="app-service-header-service-name">
+        Core Delivery Platform - Portal
+      </a>
+
+
+    </div>
+    <div class="app-service-header__actions">
+        <svg class="app-icon app-user-icon app-icon--minuscule"
+     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
+     aria-label="User">
+  <g fill-rule="evenodd">
+    <circle cx="19" cy="12" r="8" />
+    <path
+      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
+  </g>
+</svg>
+
+        <span data-testid="app-login-username">
+          B. A. Baracus
+        </span>
+
+      <a href="/logout"
+         class="app-service-header__login-link app-service-header__link         app-service-header__is-logged-in"
+         data-testid="app-login-link">
+        Sign out
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="app-navigation" role="navigation" aria-label="Navigation">
+  <div class="govuk-width-container">
+    <div class="app-navigation__list">
+      <ul class="app-navigation__primary">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/"
+               data-testid="nav-home"
+            >
+              Home
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/documentation"
+               data-testid="nav-documentation"
+            >
+              Documentation
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link app-navigation__link--active"
+               href="/services"
+               data-testid="nav-services"
+            >
+              Services
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/test-suites"
+               data-testid="nav-test-suites"
+            >
+              Test suites
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/utilities/templates"
+               data-testid="nav-utilities"
+            >
+              Utilities
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/teams"
+               data-testid="nav-teams"
+            >
+              Teams
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deployments"
+               data-testid="nav-deployments"
+            >
+              Deployments
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/running-services"
+               data-testid="nav-running-services"
+            >
+              Running Services
+            </a>
+          </li>
+      </ul>
+
+      <ul class="app-navigation__actions">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deploy-service"
+               data-testid="nav-deploy-service"
+            >
+              Deploy Service
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/create"
+               data-testid="nav-create"
+            >
+              Create
+            </a>
+          </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="govuk-width-container">
+  
+  <div
+  class="app-banner app-banner--hidden"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-banner"
+data-js="app-client-notifications">
+  <p class="app-banner__content"
+data-js="app-client-notifications-content"     data-testid="app-banner-content"></p>
+</div>
+
+
+
+
+    <nav class="app-breadcrumbs" data-testid="app-breadcrumbs"
+     aria-label="Breadcrumb">
+  <ol class="app-breadcrumbs__list">
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services"
+             data-testid="app-breadcrumbs-link">Services</a>
+        </li>
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services/mock-service"
+             data-testid="app-breadcrumbs-link">mock-service</a>
+        </li>
+        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+            data-testid="app-breadcrumbs-list-item">Maintenance</li>
+  </ol>
+</nav>
+
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+
+  <div class="govuk-!-margin-top-2">
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Shuttering</span>
+
+  <div class="app-page-heading">
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service</h1>
+
+
+  </div>
+</div>
+
+
+
+<div class="app-tabs"
+     data-js="app-tabs">
+    <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Service tabs">
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-about">
+
+
+          <a id="tab-about"
+             class="app-tabs__tab"
+             href="/services/mock-service"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-about"
+             aria-selected="false">
+            About
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-automations">
+
+
+          <a id="tab-automations"
+             class="app-tabs__tab"
+             href="/services/mock-service/automations"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-automations"
+             aria-selected="false">
+            Automations
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-buckets">
+
+
+          <a id="tab-buckets"
+             class="app-tabs__tab"
+             href="/services/mock-service/buckets"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-buckets"
+             aria-selected="false">
+            Buckets
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item app-tabs__list-item--selected"
+            data-testid="app-tabs-list-item-maintenance app-tabs-list-item--selected">
+
+
+          <a id="tab-maintenance"
+             class="app-tabs__tab"
+             href="/services/mock-service/maintenance"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-maintenance"
+             aria-selected="true">
+            Maintenance
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-proxy">
+
+
+          <a id="tab-proxy"
+             class="app-tabs__tab"
+             href="/services/mock-service/proxy"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-proxy"
+             aria-selected="false">
+            Proxy
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-secrets">
+
+
+          <a id="tab-secrets"
+             class="app-tabs__tab"
+             href="/services/mock-service/secrets"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-secrets"
+             aria-selected="false">
+            Secrets
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-terminal">
+
+
+          <a id="tab-terminal"
+             class="app-tabs__tab"
+             href="/services/mock-service/terminal"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-terminal"
+             aria-selected="false">
+            Terminal
+          </a>
+        </li>
+    </ul>
+
+      <section id="tab-panel-maintenance"
+               class="app-tabs__panel"
+               role="tabpanel"
+               aria-labelledby="tab-maintenance"
+               data-testid="app-tabs-panel">
+          <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+
+
+          <article data-xhr="maintenance-mock-service"
+                   data-xhr-stop="true">
+
+              <div class="govuk-grid-column-one-half-from-desktop-massive govuk-!-margin-bottom-6">
+                <div class="app-section--extra-wide">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+                    Shuttering
+                  </h2>
+                  <p class="govuk-!-margin-bottom-2">
+                    Shutter your service on the following urls. Shuttering your service will mean all users who go to
+                    any of
+                    your services urls will be redirected to the shuttering page. This is useful when you want to close
+                    your
+                    service to investigate a serious problem or to make planned changes/updates to your service.
+                  </p>
+
+                </div>
+
+
+<div class="app-panel" >
+  
+                    <section class="govuk-!-margin-bottom-6">
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service URLs</h2>
+                      <p class="govuk-!-margin-bottom-2">
+                        User-friendly custom URLs
+                      </p>
+
+                      <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Url</th>
+      <th scope="col" class="govuk-table__header">Environment</th>
+      <th scope="col" class="govuk-table__header">Status</th>
+      <th scope="col" class="govuk-table__header">Internal</th>
+      <th scope="col" class="govuk-table__header app-!-text-align-right">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+<div class="app-!-layout-flex-start">
+
+
+<span
+  class="app-tool-tip app-tool-tip--small govuk-!-margin-right-1"
+  data-text="Shuttered URL"
+>
+        <svg class="app-icon app-warning-icon app-icon--tiny"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Shuttered URL">
+  <path fill-rule="nonzero"
+        d="M23.9476157 36.7259786c.9649347 0 1.7226097-.2577461 2.2730249-.7732384.5504152-.5154923.8256227-1.2557058.8256227-2.2206406 0-.9649347-.267236-1.7320996-.8017081-2.3014946-.5344722-.569395-1.2841756-.8540925-2.2491104-.8540925-.9649347 0-1.7226097.2810913-2.2730249.843274-.5504152.5618031-.8256227 1.3253618-.8256227 2.2906761 0 .9649348.267236 1.7087545.8017081 2.2314591.5344722.5227046 1.2841756.7840569 2.2491104.7840569Zm.1867615-9.9644128c.7645077 0 1.3840095-.2397153 1.8585054-.7191459.4744958-.479051.7117437-1.112408.7117437-1.9000711V14.0071174c0-.7508422-.2406643-1.365599-.7219928-1.8442704-.480949-.4786714-1.1036774-.7180071-1.8681851-.7180071-.726548 0-1.3401661.2393357-1.8408541.7180071-.5003084.4786714-.7504626 1.0934282-.7504626 1.8442704v10.1352314c0 .7876631.2535706 1.4210201.7607117 1.9000711.5071412.4794306 1.1239858.7191459 1.8505338.7191459ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.94908659-5.46011862 5.12683274-7.64583629 2.17812574-2.18533808 4.72635823-3.90282325 7.64469753-5.15245552C17.549134.62500593 20.6595492 0 23.9624199 0c3.3165362 0 6.4385291.62348754 9.3659787 1.87046263 2.9278292 1.24697509 5.4789086 2.9608541 7.6532384 5.14163701 2.1747094 2.18116252 3.888019 4.73432976 5.1399288 7.65950176C47.3738553 17.597153 48 20.7214235 48 24.0444128c0 3.3199526-.6250059 6.4334045-1.8750178 9.3403559-1.2496323 2.9069513-2.9671174 5.4460735-5.1524555 7.6173665-2.1857177 2.1716726-4.7375564 3.8808067-7.655516 5.1274022C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+
+
+</span>
+
+  <a class="app-link" href="https://portal-test.cdp-int.defra.cloud" target="_blank" rel="noopener noreferrer">
+    https://portal-test.cdp-int.defra.cloud
+  </a>
+
+</div>
+</td>
+      <td class="govuk-table__cell">Infra-dev</td>
+      <td class="govuk-table__cell">      
+
+
+<strong class="govuk-tag app-tag govuk-tag--red">
+  Shuttered
+</strong>
+
+
+
+</td>
+      <td class="govuk-table__cell">No</td>
+      <td class="govuk-table__cell app-!-text-align-right">      <a href="/services/mock-service/maintenance/shuttering?url=portal-test.cdp-int.defra.cloud"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Unshutter
+      </a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+<div class="app-!-layout-flex-start">
+
+
+  <a class="app-link" href="https://portal.cdp-int.defra.cloud" target="_blank" rel="noopener noreferrer">
+    https://portal.cdp-int.defra.cloud
+  </a>
+
+</div>
+</td>
+      <td class="govuk-table__cell">Management</td>
+      <td class="govuk-table__cell">      
+
+
+<strong class="govuk-tag app-tag govuk-tag--green">
+  Active
+</strong>
+
+
+
+</td>
+      <td class="govuk-table__cell">No</td>
+      <td class="govuk-table__cell app-!-text-align-right">      <a href="/services/mock-service/maintenance/shuttering?url=portal.cdp-int.defra.cloud"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Shutter
+      </a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+<div class="app-!-layout-flex-start">
+
+
+<span
+  class="app-tool-tip app-tool-tip--small govuk-!-margin-right-1"
+  data-text="Internal URL"
+>
+        <svg xmlns="http://www.w3.org/2000/svg"
+     class="app-icon app-internal-icon app-icon--tiny"
+     width="48" height="48" fill="#e8eaed" viewBox="0 -960 960 960"
+     role="img" aria-label="Internal URL">
+  <path
+    d="M481.08-61q-88.55 0-165.31-32.17-76.76-32.16-133.6-89-56.84-56.84-89-133.35Q61-392.04 61-479.93 61-569 93.16-644.87q32.17-75.87 88.5-133Q238-835 313.3-867.5 388.61-900 473-900q31.66 0 63.72 4.11Q568.79-891.78 592-884q19.18 1.56 29.09 16.49Q631-852.58 631-835v64q0 32.35-26.09 57.68Q578.83-688 545.88-688H435v78q0 19-13.83 31.5T389.33-566H313v84h245.03q18.56 0 32.27 14.14 13.7 14.15 13.7 31.62V-313h38.42q26.58 0 49.05 16t29.27 41q41.58-47 64.92-104.44Q809-417.88 809-476v-18q0-10-1-21-1-19 13-33t32.89-14q18.89 0 31.5 12.53Q898-536.95 899-519q1 10 1 19.5v18.5q0 91.07-32.16 166.59-32.17 75.51-88.5 132.46Q723-125 646.77-93q-76.24 32-165.69 32ZM435-147v-89.04q-31.76 0-54.38-21.76T358-313.43v-38.32L158.89-550q-3.89 22.75-5.39 36.67Q152-499.42 152-485q0 130.55 79.86 226.77Q311.73-162 435-147Zm291-449q-20.55 0-33.28-12.93Q680-621.85 680-641v-127q0-17.68 7.5-29.34T710-813h16v-39.67q0-38.2 25.4-65.26Q776.8-945 814.08-945t62.6 27.07Q902-890.87 902-852.67V-813h17q16 4 23 15.66t7 29.34v127q0 19.15-12.93 32.07Q923.15-596 904-596H726Zm50-217h76v-47.3q0-17-10.13-29.85Q831.74-903 814-903q-18.74 0-28.37 12.71-9.63 12.7-9.63 29.79v47.5Z"/>
+</svg>
+
+
+
+
+</span>
+
+  <a class="app-link" href="https://portal.defra.gov" target="_blank" rel="noopener noreferrer">
+    https://portal.defra.gov
+  </a>
+
+</div>
+</td>
+      <td class="govuk-table__cell">Prod</td>
+      <td class="govuk-table__cell">      
+
+
+<strong class="govuk-tag app-tag govuk-tag--green">
+  Active
+</strong>
+
+
+
+</td>
+      <td class="govuk-table__cell">Yes</td>
+      <td class="govuk-table__cell app-!-text-align-right">      <a href="/services/mock-service/maintenance/shuttering?url=portal.defra.gov"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Shutter
+      </a>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+
+                    </section>
+
+</div>
+              </div>
+
+          </article>
+
+
+      <div class="govuk-grid-column-one-half-from-desktop-massive">
+        <div class="app-section--extra-wide">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
+            Undeploy
+          </h2>
+          <p class="govuk-!-margin-bottom-2">
+            To undeploy your service means to stop your service from running in the environment. This is useful when
+            you want to completely stop your service from running due to a serious problem or to make planned
+            changes/updates to your service or to reduce costs.
+          </p>
+        </div>
+
+
+<div class="app-panel" >
+            <section class="govuk-!-margin-bottom-6">
+
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running Deployment</h2>
+              <p class="govuk-!-margin-bottom-2">
+                The currently running deployments of your service, listed by environment
+              </p>
+
+              <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Environment</th>
+      <th scope="col" class="govuk-table__header app-!-text-align-right">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Dev</td>
+      <td class="govuk-table__cell app-!-text-align-right">    <a href="/services/mock-service/maintenance/undeploy?environment=dev"
+       role="button" class="app-link app-link--underline" data-testid="vanity-url">Undeploy</a>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+          </section>
+
+</div>
+      </div>
+    </div>
+
+  </section>
+
+      </section>
+</div>
+
+        </main>
+      </div>
+
+  
+<footer class="app-footer" role="contentinfo" data-testid="app-footer">
+
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/cookie-policy" class="app-footer__link">Cookie policy</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/accessibility-statement" class="app-footer__link">Accessibility statement</a>
+        </li>
+      </ul>
+
+        <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer">0.1.0</a>
+          </li>
+        </ul>
+    </div>
+
+    <div class="app-footer__secondary">
+      <a class="app-footer__link"
+         href="https://github.com/DEFRA/cdp-portal-frontend"
+         target="_blank"
+         rel="noopener noreferrer"><svg class="app-icon app-github-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="CDP Portal Frontend repository on GitHub">
+  <path d="M23.9284898 0C10.6966531 0 0 11 0 24.6085c0 10.878 6.85371429 20.086 16.3616327 23.345 1.1887346.245 1.6241632-.5295 1.6241632-1.181 0-.5705-.0391837-2.526-.0391837-4.5635-6.6563265 1.467-8.04244893-2.9335-8.04244893-2.9335-1.06971429-2.852-2.65469388-3.585-2.65469388-3.585-2.17861225-1.5075.15869388-1.5075.15869388-1.5075 2.41665306.163 3.68473473 2.526 3.68473473 2.526 2.1389387 3.748 5.5856326 2.689 6.9722449 2.037.1978775-1.589.8321632-2.689 1.5056326-3.3-5.3088979-.5705-10.8945306-2.689-10.8945306-12.1415 0-2.689.95020408-4.889 2.4558367-6.6-.237551-.611-1.0697143-3.1375.2380408-6.519 0 0 2.0204082-.652 6.576 2.526 1.9504109-.5386687 3.9618381-.8126928 5.9823674-.815 2.0204082 0 4.08.2855 5.9818775.815 4.5560817-3.178 6.5764898-2.526 6.5764898-2.526 1.3077551 3.3815.4751021 5.908.2375511 6.519 1.5453061 1.711 2.4563265 3.911 2.4563265 6.6 0 9.4525-5.5856327 11.53-10.9342041 12.1415.8718367.774 1.6241633 2.2405 1.6241633 4.563 0 3.3-.0391837 5.9485-.0391837 6.763 0 .652.4359184 1.4265 1.6241633 1.182 9.5079183-3.26 16.3617395-12.4675 16.3617395-23.3455C47.8564898 11 37.1206531 0 23.9284898 0Z" />
+</svg>
+</a>
+    </div>
+  </div>
+
+</footer>
+
+
+  <script type="module" src="/.public/javascripts/application.js"></script>
+  </body>
+</html>

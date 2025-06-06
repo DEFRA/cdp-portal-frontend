@@ -1,16 +1,18 @@
 @use "govuk-frontend" as *;
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
+@use "helpers/reading-width" as *;
 
 .app-info {
   display: flex;
   align-items: start;
   border-left: 6px solid govuk-colour("blue");
   margin: govuk-spacing(2) 0;
-  padding: govuk-spacing(4);
+  padding: govuk-spacing(4) govuk-spacing(2);
   background-color: $app-light-grey;
   border-radius: $app-border-radius-right;
   word-break: break-word;
+  @include app-section-wide-width;
 }
 
 .app-info--inverse {

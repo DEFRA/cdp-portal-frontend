@@ -5,6 +5,7 @@ import { serviceSecrets } from '~/src/server/services/service/secrets/routes.js'
 import { serviceTerminal } from '~/src/server/services/service/terminal/routes.js'
 import { serviceAutomations } from '~/src/server/services/service/automations/routes.js'
 import { creatingService } from '~/src/server/services/service/creating/routes.js'
+import { serviceMaintenance } from '~/src/server/services/service/maintenance/routes.js'
 
 export const service = {
   plugin: {
@@ -17,6 +18,7 @@ export const service = {
         serviceBuckets,
         serviceProxy,
         serviceSecrets,
+        serviceMaintenance,
         serviceTerminal
       ])
     }
