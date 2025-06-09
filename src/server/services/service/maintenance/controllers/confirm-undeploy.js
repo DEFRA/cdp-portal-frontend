@@ -2,6 +2,8 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { entityToSummary } from '~/src/server/services/service/maintenance/helpers/transformers/entity-to-summary.js'
+import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
+import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
 
 const confirmUndeployController = {
   options: {
@@ -26,11 +28,25 @@ const confirmUndeployController = {
       return Boom.notFound()
     }
 
+    const runningServices = await fetchRunningServices(serviceId)
+    const runningService = runningServices.find(
+      (rs) => rs.environment === environment
+    )
+    const deployedService = {
+      ...runningService,
+      statusClassname: provideDeploymentStatusClassname(runningService.status)
+    }
+
     return h.view('services/service/maintenance/views/confirm-undeploy', {
       pageTitle: `Confirm Undeploy - ${serviceId}`,
       entity,
       environment,
-      summaryList: entityToSummary(entity, environment, authedUser),
+      summaryList: entityToSummary(
+        entity,
+        deployedService,
+        environment,
+        authedUser
+      ),
       breadcrumbs: [
         {
           text: 'Services',

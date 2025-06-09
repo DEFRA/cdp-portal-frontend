@@ -3,8 +3,9 @@ import Boom from '@hapi/boom'
 
 import { sortKeyByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { fetchShutteringUrls } from '~/src/server/services/helpers/fetch/fetch-shuttering-urls.js'
-import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
 import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
+import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
+import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
 
 const maintenanceController = {
   options: {
@@ -26,10 +27,13 @@ const maintenanceController = {
 
     const shutteringDetails = await fetchShutteringUrls(serviceId)
 
-    const { runningServices } = await transformRunningServices(serviceId)
-    const deployedServices = runningServices.filter(
-      (service) => service.status === deploymentStatus.running
-    )
+    const runningServices = await fetchRunningServices(serviceId)
+    const deployedServices = runningServices
+      .filter((service) => service.status === deploymentStatus.running)
+      .map((service) => ({
+        ...service,
+        statusClassname: provideDeploymentStatusClassname(service.status)
+      }))
 
     const shouldPoll = shutteringDetails.some((detail) =>
       detail.status.includes('Pending')
