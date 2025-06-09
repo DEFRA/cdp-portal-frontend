@@ -6,10 +6,10 @@ import { findAllProxyRules } from '~/src/server/common/patterns/entities/tabs/pr
 import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
 import startCase from 'lodash/startCase.js'
 
-export function allProxyController(serviceOrTestSuite) {
+export function allProxyController(entityType) {
   return {
     options: {
-      id: `${pluralise(serviceOrTestSuite)}/{serviceId}/proxy`,
+      id: `${pluralise(entityType)}/{serviceId}/proxy`,
       validate: {
         params: Joi.object({
           serviceId: Joi.string().required()
@@ -33,15 +33,15 @@ export function allProxyController(serviceOrTestSuite) {
         entityName,
         proxyRulesByEnvironment,
         hasServiceProxyRules,
-        serviceOrTestSuite,
+        entityType,
         breadcrumbs: [
           {
-            text: pluralise(startCase(serviceOrTestSuite)),
-            href: `/${pluralise(serviceOrTestSuite)}`
+            text: pluralise(startCase(entityType)),
+            href: `/${pluralise(entityType)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(serviceOrTestSuite)}/${entityName}`
+            href: `/${pluralise(entityType)}/${entityName}`
           },
           {
             text: 'Proxy'

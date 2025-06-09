@@ -3,7 +3,7 @@
  * @param {UserSession} authedUser
  * @returns {function(*): *}
  */
-// TODO remove duplication
+// TODO remove duplication & user-is-team-member.js
 function userIsMemberOfATeam(authedUser) {
   /** @param {string[]} teamScopes */
   return (teamScopes) =>

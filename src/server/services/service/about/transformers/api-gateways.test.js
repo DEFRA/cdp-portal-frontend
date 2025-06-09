@@ -68,7 +68,7 @@ describe('#provideApiGateways', () => {
               shuttered: false
             },
             {
-              api: "portal-test-other.cdp-int.defra.cloud'",
+              api: 'portal-test-other.cdp-int.defra.cloud',
               environment: 'test',
               serviceName: 'cdp-portal-backend',
               shuttered: false

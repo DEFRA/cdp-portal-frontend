@@ -39,7 +39,7 @@ const apiGatewaysFixture = (serviceName = 'cdp-portal-backend') => ({
         shuttered: false
       },
       {
-        api: "portal-test-other.cdp-int.defra.cloud'",
+        api: 'portal-test-other.cdp-int.defra.cloud',
         environment: 'test',
         serviceName,
         shuttered: false

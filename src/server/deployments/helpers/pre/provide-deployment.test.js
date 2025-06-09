@@ -3,10 +3,10 @@ import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-de
 import { deploymentInProgressFixture } from '~/src/__fixtures__/deployments/deployment-in-progress.js'
 import { deploymentSuccessFixture } from '~/src/__fixtures__/deployments/deployment-success.js'
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
 
 jest.mock('~/src/server/deployments/helpers/fetch/fetch-deployment')
-jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
+jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
 
 describe('#provideDeployment', () => {
   const mockIsXhr = jest.fn()

@@ -77,9 +77,7 @@ const perfTestSuiteCreateController = {
           )
         )
 
-        return h.redirect(
-          `/test-suites/create-status/${payload.repositoryName}`
-        )
+        return h.redirect(`/test-suites/${payload.repositoryName}`)
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload

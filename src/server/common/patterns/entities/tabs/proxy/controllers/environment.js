@@ -5,10 +5,10 @@ import { formatText, pluralise } from '~/src/config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
 import { findProxyRulesForEnvironment } from '~/src/server/common/patterns/entities/tabs/proxy/helpers/find-proxy-rules.js'
 
-export function environmentProxyController(serviceOrTestSuite) {
+export function environmentProxyController(entityType) {
   return {
     options: {
-      id: `${pluralise(serviceOrTestSuite)}/{serviceId}/proxy/{environment}`,
+      id: `${pluralise(entityType)}/{serviceId}/proxy/{environment}`,
       validate: {
         params: serviceParamsValidation,
         failAction: () => Boom.boomify(Boom.notFound())
@@ -32,16 +32,16 @@ export function environmentProxyController(serviceOrTestSuite) {
         defaultDomains: proxyRules.rules.defaultDomains,
         breadcrumbs: [
           {
-            text: `${pluralise(startCase(serviceOrTestSuite))}`,
-            href: `/${pluralise(serviceOrTestSuite)}`
+            text: `${pluralise(startCase(entityType))}`,
+            href: `/${pluralise(entityType)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(serviceOrTestSuite)}/${entityName}`
+            href: `/${pluralise(entityType)}/${entityName}`
           },
           {
             text: 'Proxy-Rules',
-            href: `/${pluralise(serviceOrTestSuite)}/${entityName}/proxy`
+            href: `/${pluralise(entityType)}/${entityName}/proxy`
           },
           {
             text: formattedEnvironment

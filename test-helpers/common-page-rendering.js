@@ -4,7 +4,7 @@ import { validate as uuidValidate } from 'uuid'
 
 import { createServer } from '~/src/server/index.js'
 import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test-runs.js'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
@@ -65,7 +65,7 @@ export async function initialiseServer() {
   return server
 }
 
-function mockRepositoryCall(repositoryName, additionalTopics) {
+export function mockRepositoryCall(repositoryName, additionalTopics) {
   fetchRepository.mockResolvedValue?.({
     repositoryName,
     description: 'Mock service description',
@@ -144,18 +144,44 @@ export function mockTenantServicesCall(isPostgresService = false) {
   })
 }
 
-function mockTestSuiteEntityCall(repositoryName) {
-  fetchEntity.mockResolvedValue?.({
+function mockTestSuiteEntityCall(repositoryName, status) {
+  mockEntityCall(repositoryName, 'TestSuite', 'journey', status)
+}
+
+export function mockTestSuiteEntityStatusCall(
+  repositoryName,
+  frontendOrBackend,
+  status = 'Created'
+) {
+  fetchEntityStatus.mockResolvedValue?.({
+    entity: getEntity(repositoryName, 'TestSuite', frontendOrBackend, status),
+    resources: {
+      Repository: true,
+      SquidProxy: false,
+      AppConfig: true,
+      TenantServices: false
+    }
+  })
+}
+
+function getEntity(repositoryName, type, subType, status) {
+  return {
     name: repositoryName,
-    type: 'TestSuite',
-    subType: 'Journey',
+    type,
+    subType: subType ? capitalize(subType) : null,
     primaryLanguage: 'JavaScript',
-    created: '2016-12-05T11:21:25Z',
+    created: '2024-12-05T11:21:25Z',
     creator: null,
     teams: [mockTeam],
-    status: 'Success',
+    status,
     decommissioned: null
-  })
+  }
+}
+
+export function mockEntityCall(repositoryName, type, subType, status) {
+  fetchEntity.mockResolvedValue?.(
+    getEntity(repositoryName, type, subType, status)
+  )
 }
 
 export function mockServiceEntityCall(
@@ -163,17 +189,7 @@ export function mockServiceEntityCall(
   frontendOrBackend,
   status = 'Created'
 ) {
-  fetchEntity.mockResolvedValue?.({
-    name: repositoryName,
-    type: 'Microservice',
-    subType: capitalize(frontendOrBackend),
-    primaryLanguage: 'JavaScript',
-    created: '2024-12-05T11:21:25Z',
-    creator: null,
-    teams: [mockTeam],
-    status,
-    decommissioned: null
-  })
+  mockEntityCall(repositoryName, 'Microservice', frontendOrBackend, status)
 }
 
 export function mockServiceEntityStatusCall(
@@ -182,17 +198,12 @@ export function mockServiceEntityStatusCall(
   status = 'Created'
 ) {
   fetchEntityStatus.mockResolvedValue?.({
-    entity: {
-      name: repositoryName,
-      type: 'Microservice',
-      subType: capitalize(frontendOrBackend),
-      primaryLanguage: 'JavaScript',
-      created: '2024-12-05T11:21:25Z',
-      creator: null,
-      teams: [mockTeam],
-      status,
-      decommissioned: null
-    },
+    entity: getEntity(
+      repositoryName,
+      'Microservice',
+      frontendOrBackend,
+      status
+    ),
     resources: {
       Repository: true,
       NginxUpstreams: false,
@@ -200,6 +211,15 @@ export function mockServiceEntityStatusCall(
       AppConfig: true,
       TenantServices: false,
       GrafanaDashboards: false
+    }
+  })
+}
+
+export function mockRepositoryEntityStatusCall(repositoryName, status) {
+  fetchEntityStatus.mockResolvedValue?.({
+    entity: getEntity(repositoryName, 'Repository', null, status),
+    resources: {
+      Repository: true
     }
   })
 }
@@ -235,9 +255,9 @@ export function mockTestRuns(repositoryName) {
   })
 }
 
-export function mockCommonTestSuiteCalls(repositoryName) {
+export function mockCommonTestSuiteCalls(repositoryName, status = 'Created') {
   mockRepositoryCall(repositoryName, ['test-suite', 'journey'])
-  mockTestSuiteEntityCall(repositoryName)
+  mockTestSuiteEntityCall(repositoryName, status)
 }
 
 function mockAvailableVersions() {

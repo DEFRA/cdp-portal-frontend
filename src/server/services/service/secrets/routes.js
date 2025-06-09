@@ -7,7 +7,7 @@ import { provideServiceTabs } from '~/src/server/services/helpers/provide-servic
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
 import { serviceOwnerOrAdminUserScope } from '~/src/server/common/constants/scopes.js'
-import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
+import { provideSubNav } from '~/src/server/helpers/provide-sub-navigation.js'
 import { SERVICE } from '~/src/server/common/patterns/entities/tabs/constants.js'
 
 const serviceSecrets = {
@@ -34,7 +34,7 @@ const serviceSecrets = {
         },
         {
           type: 'onPostHandler',
-          method: provideSubNavForServiceOrTestSuite('secrets', SERVICE),
+          method: provideSubNav('secrets', SERVICE),
           options: {
             sandbox: 'plugin'
           }

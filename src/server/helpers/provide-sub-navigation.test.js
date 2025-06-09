@@ -1,8 +1,8 @@
-import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
+import { provideSubNav } from '~/src/server/helpers/provide-sub-navigation.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
-describe('#provideSubNavForServiceOrTestSuite', () => {
+describe('#provideSubNavForentityType', () => {
   const mockToolkit = { continue: 'continue' }
 
   function mockRouteLookup(serviceKind, section, serviceId) {
@@ -51,10 +51,7 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     })
 
     test('Should add sub navigation to response context for correct subtitle and serviceKind', async () => {
-      const provideSubNavigation = provideSubNavForServiceOrTestSuite(
-        'buckets',
-        'service'
-      )
+      const provideSubNavigation = provideSubNav('buckets', 'service')
       await provideSubNavigation(mockRequest, mockToolkit)
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
@@ -128,7 +125,7 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     })
 
     test('Should not modify response context', async () => {
-      const provideSubNavigation = provideSubNavForServiceOrTestSuite(
+      const provideSubNavigation = provideSubNav(
         'some-sub-section',
         'test-suite'
       )
@@ -154,10 +151,7 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     })
 
     test('Should initialize response context', async () => {
-      const provideSubNavigation = provideSubNavForServiceOrTestSuite(
-        'proxy',
-        'service'
-      )
+      const provideSubNavigation = provideSubNav('proxy', 'service')
       await provideSubNavigation(mockRequest, mockToolkit)
 
       expect(mockRequest.response.source.context).toBeDefined()
@@ -187,10 +181,7 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     })
 
     test('Should provide sub nav without platform environments', async () => {
-      const provideSubNavigation = provideSubNavForServiceOrTestSuite(
-        'terminal',
-        'service'
-      )
+      const provideSubNavigation = provideSubNav('terminal', 'service')
       await provideSubNavigation(mockRequest, mockToolkit)
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
@@ -257,10 +248,7 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     })
 
     test('Should provide sub nav without platform environments but with ext-test', async () => {
-      const provideSubNavigation = provideSubNavForServiceOrTestSuite(
-        'proxy',
-        'service'
-      )
+      const provideSubNavigation = provideSubNav('proxy', 'service')
       await provideSubNavigation(mockRequest, mockToolkit)
 
       expect(mockRequest.response.source.context.subNavigation).toEqual([
@@ -325,7 +313,7 @@ describe('#provideSubNavForServiceOrTestSuite', () => {
     })
 
     test('Should fallback as expected', async () => {
-      const provideSubNavigation = provideSubNavForServiceOrTestSuite(
+      const provideSubNavigation = provideSubNav(
         'some-sub-section',
         'test-suite'
       )

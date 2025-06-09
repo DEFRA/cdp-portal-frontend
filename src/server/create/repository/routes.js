@@ -2,7 +2,6 @@ import { repositoryDetailController } from '~/src/server/create/repository/contr
 import { repositoryDetailFormController } from '~/src/server/create/repository/controllers/detail-form.js'
 import { repositorySummaryController } from '~/src/server/create/repository/controllers/summary.js'
 import { repositoryCreateController } from '~/src/server/create/repository/controllers/create.js'
-import { repositorySuccessController } from '~/src/server/create/repository/controllers/success.js'
 
 const createRepositoryRoutes = [
   {
@@ -24,11 +23,6 @@ const createRepositoryRoutes = [
     method: 'POST',
     path: '/create/repository',
     ...repositoryCreateController
-  },
-  {
-    method: 'GET',
-    path: '/create/repository/success',
-    ...repositorySuccessController
   }
 ]
 
