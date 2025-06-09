@@ -25,6 +25,10 @@ function deploymentFaviconState(status) {
     favicon = faviconState.stopped
   }
 
+  if (status === deploymentStatus.undeployed) {
+    favicon = faviconState.undeployed
+  }
+
   if (status === deploymentStatus.failed) {
     favicon = faviconState.failed
   }
