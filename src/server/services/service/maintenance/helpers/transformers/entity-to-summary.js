@@ -21,6 +21,14 @@ function entityToSummary(entity, deployment, environment, authedUser) {
         }
       },
       {
+        key: { text: 'Url' },
+        value: {
+          html: buildLink({
+            href: `https://${deployment.service}.${deployment.environment}.cdp-int.defra.cloud`
+          })
+        }
+      },
+      {
         key: { text: 'Version' },
         value: {
           html: deployment.version

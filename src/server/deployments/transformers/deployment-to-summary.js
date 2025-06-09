@@ -93,10 +93,6 @@ function transformDeploymentToSummary(deployment) {
     }).trim()
   )
 
-  const serviceLinkText = deployment.isFrontend
-    ? 'Application link'
-    : 'API root url'
-
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
     attributes: {
@@ -158,7 +154,7 @@ function transformDeploymentToSummary(deployment) {
         }
       },
       {
-        key: { text: serviceLinkText },
+        key: { text: 'Url' },
         value: {
           html: buildLink({
             href: `https://${deployment.service}.${deployment.environment}.cdp-int.defra.cloud`
