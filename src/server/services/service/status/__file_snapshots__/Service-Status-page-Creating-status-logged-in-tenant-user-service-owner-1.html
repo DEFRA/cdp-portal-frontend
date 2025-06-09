@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+  <head>
+    <meta charset="utf-8">
+    <title>  Creating mock-service microservice | Core Delivery Platform - Portal
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0b0c0c">
+
+      <link rel="icon" sizes="any"
+            href="/.public/assets/images/pending.svg" type="image/svg+xml"
+            data-xhr="page-state-icon">
+
+
+  <link href="/.public/stylesheets/application.css" rel="stylesheet">
+    <meta name="service-version" content="0.1.0">
+    <meta name="service-environment" content="test">
+
+  </head>
+  <body class="govuk-template__body">
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+  
+  <div>
+    <a href="#main-content" class="govuk-skip-link app-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+  </div>
+
+
+  
+<header class="app-service-header" role="banner" data-testid="app-service-header">
+  <div class="app-service-header__container app-service-header__container--full-width">
+    <div class="app-service-header__content">
+      <a href="/"
+         class="app-service-header__link app-service-header__service-name"
+         data-testid="app-service-header-service-name">
+        Core Delivery Platform - Portal
+      </a>
+
+
+    </div>
+    <div class="app-service-header__actions">
+        <svg class="app-icon app-user-icon app-icon--minuscule"
+     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
+     aria-label="User">
+  <g fill-rule="evenodd">
+    <circle cx="19" cy="12" r="8" />
+    <path
+      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
+  </g>
+</svg>
+
+        <span data-testid="app-login-username">
+          B. A. Baracus
+        </span>
+
+      <a href="/logout"
+         class="app-service-header__login-link app-service-header__link         app-service-header__is-logged-in"
+         data-testid="app-login-link">
+        Sign out
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="app-navigation" role="navigation" aria-label="Navigation">
+  <div class="govuk-width-container">
+    <div class="app-navigation__list">
+      <ul class="app-navigation__primary">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/"
+               data-testid="nav-home"
+            >
+              Home
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/documentation"
+               data-testid="nav-documentation"
+            >
+              Documentation
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link app-navigation__link--active"
+               href="/services"
+               data-testid="nav-services"
+            >
+              Services
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/test-suites"
+               data-testid="nav-test-suites"
+            >
+              Test suites
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/utilities/templates"
+               data-testid="nav-utilities"
+            >
+              Utilities
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/teams"
+               data-testid="nav-teams"
+            >
+              Teams
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deployments"
+               data-testid="nav-deployments"
+            >
+              Deployments
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/running-services"
+               data-testid="nav-running-services"
+            >
+              Running Services
+            </a>
+          </li>
+      </ul>
+
+      <ul class="app-navigation__actions">
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/deploy-service"
+               data-testid="nav-deploy-service"
+            >
+              Deploy Service
+            </a>
+          </li>
+          <li class="app-navigation__list-item">
+            <a class="app-navigation__link"
+               href="/create"
+               data-testid="nav-create"
+            >
+              Create
+            </a>
+          </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="govuk-width-container">
+  
+  <div
+  class="app-banner app-banner--hidden"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-banner"
+data-js="app-client-notifications">
+  <p class="app-banner__content"
+data-js="app-client-notifications-content"     data-testid="app-banner-content"></p>
+</div>
+
+
+
+
+    <nav class="app-breadcrumbs" data-testid="app-breadcrumbs"
+     aria-label="Breadcrumb">
+  <ol class="app-breadcrumbs__list">
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services"
+             data-testid="app-breadcrumbs-link">Services</a>
+        </li>
+        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+            data-testid="app-breadcrumbs-list-item">mock-service</li>
+  </ol>
+</nav>
+
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+  <div class="govuk-!-margin-top-2">
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Service</span>
+
+  <div class="app-page-heading">
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service</h1>
+
+
+  </div>
+</div>
+
+
+  <div class="app-service-container">
+
+
+        <div data-js="app-poll"
+        data-poll-url="/services/mock-service/status"
+        data-poll-interval="3000"
+        data-poll-limit="200">
+
+      <article class="app-grid app-grid-service app-grid-service--standard"
+               data-xhr="service-creating-mock-service"
+               data-xhr-stop="false">
+
+        <section class="app-grid-service__details">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+          <p class="govuk-!-margin-bottom-2">
+            
+          </p>
+
+          <dl class="govuk-summary-list app-summary-list govuk-!-margin-bottom-0" data-testid="service-summary">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Kind
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <strong class="govuk-tag app-tag govuk-tag--blue">
+        Frontend
+      </strong>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Image name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      mock-service
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      GitHub Repository
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link"
+                   href="https://github.com/DEFRA/mock-service"
+                   target="_blank" rel="noopener noreferrer"
+                   data-testid="app-link" >https://github.com/DEFRA/mock-service</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Team
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <ul class="govuk-list"><li><a class="app-link"
+                   href="/teams/mock-team-id"
+                   
+                   data-testid="app-link" >Mock Team</a></li></ul>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Primary Language
+    </dt>
+    <dd class="govuk-summary-list__value">
+      JavaScript
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Topics
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Acdp&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        cdp
+      </strong>
+      
+      
+        </a> <a class="app-link govuk-link app-link--without-underline"
+           href="https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3Afrontend&amp;type=repositories" target="_blank" rel="noopener noreferrer"     data-testid="app-entity-link">
+      
+      
+      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
+        frontend
+      </strong>
+      
+      
+        </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Docker Hub
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a class="app-link"
+                   href="https://hub.docker.com/r/defradigital/mock-service/tags"
+                   target="_blank" rel="noopener noreferrer"
+                   data-testid="app-link" >https://hub.docker.com/r/defradigital/mock-service/tags</a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Created
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span
+        class="app-tool-tip"
+        data-text="Thursday 5th December 2024, 11:21:25"
+      >
+          <time    datetime="2024-12-05T11:21:25Z"
+          data-testid="app-time">
+              Thu 5th Dec 2024 at 11:21
+      
+        </time>
+      
+      </span>
+    </dd>
+  </div>
+</dl>
+        </section>
+
+        <section class="app-grid-service__run">
+
+            <div class="govuk-!-margin-bottom-6">
+              
+
+<div
+  class="app-warning  app-warning--inverse"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-warning">
+
+  <svg class="app-icon app-warning-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Warning">
+  <path fill-rule="nonzero"
+        d="M23.9476157 36.7259786c.9649347 0 1.7226097-.2577461 2.2730249-.7732384.5504152-.5154923.8256227-1.2557058.8256227-2.2206406 0-.9649347-.267236-1.7320996-.8017081-2.3014946-.5344722-.569395-1.2841756-.8540925-2.2491104-.8540925-.9649347 0-1.7226097.2810913-2.2730249.843274-.5504152.5618031-.8256227 1.3253618-.8256227 2.2906761 0 .9649348.267236 1.7087545.8017081 2.2314591.5344722.5227046 1.2841756.7840569 2.2491104.7840569Zm.1867615-9.9644128c.7645077 0 1.3840095-.2397153 1.8585054-.7191459.4744958-.479051.7117437-1.112408.7117437-1.9000711V14.0071174c0-.7508422-.2406643-1.365599-.7219928-1.8442704-.480949-.4786714-1.1036774-.7180071-1.8681851-.7180071-.726548 0-1.3401661.2393357-1.8408541.7180071-.5003084.4786714-.7504626 1.0934282-.7504626 1.8442704v10.1352314c0 .7876631.2535706 1.4210201.7607117 1.9000711.5071412.4794306 1.1239858.7191459 1.8505338.7191459ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.94908659-5.46011862 5.12683274-7.64583629 2.17812574-2.18533808 4.72635823-3.90282325 7.64469753-5.15245552C17.549134.62500593 20.6595492 0 23.9624199 0c3.3165362 0 6.4385291.62348754 9.3659787 1.87046263 2.9278292 1.24697509 5.4789086 2.9608541 7.6532384 5.14163701 2.1747094 2.18116252 3.888019 4.73432976 5.1399288 7.65950176C47.3738553 17.597153 48 20.7214235 48 24.0444128c0 3.3199526-.6250059 6.4334045-1.8750178 9.3403559-1.2496323 2.9069513-2.9671174 5.4460735-5.1524555 7.6173665-2.1857177 2.1716726-4.7375564 3.8808067-7.655516 5.1274022C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+
+
+  <span class="app-warning__content" data-testid="app-warning-content">
+     It looks like your service's creation is taking a while, contact the Platform team via Slack
+  <a class="app-link app-link--underline app-link--text-colour" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+     rel="noopener noreferrer">#cdp-support</a> with this page's url for help
+
+  </span>
+</div>
+
+
+            </div>
+
+
+          <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+            <h2 class="govuk-heading-l govuk-!-margin-0">Resources</h2>
+            <div class="govuk-!-margin-left-1">
+              
+
+
+<strong class="govuk-tag app-tag" data-testid="app-overall-progress">
+  Creating
+</strong>
+
+
+
+            </div>
+            <div>
+                <span class="app-loader app-loader--is-loading"
+      data-testid="app-loader"
+>
+</span>
+
+            </div>
+          </div>
+
+          <p>
+            Your service and associated resources are currently being created
+          </p>
+
+          <ul class="govuk-list">
+              <li>
+                <div class="app-!-layout-centered">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+     class="app-icon app-tick-icon app-icon--tiny govuk-!-margin-right-1"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img"
+data-testid="Repository-created">
+  <path
+    d="m419-285 291-292-63-64-228 228-111-111-63 64 174 175Zm60.679 226q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z"/>
+</svg>
+
+
+                  Repository
+                </div>
+                <div class="govuk-hint govuk-!-margin-bottom-2">
+                  Your service&#39;s GitHub repository based on the template you chose
+                </div>
+              </li>
+              <li>
+                <div class="app-!-layout-centered">
+                    <svg class="app-icon app-pending app-icon--tiny govuk-!-margin-right-1"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img">
+  <path fill-rule="nonzero"
+        d="M23.504484 2c5.7456738 0 10.7646782 2.10988204 15.0570133 6.32964611C42.8538324 12.549487 45 17.6654111 45 23.6774182c0 5.8713637-2.1476622 10.8929491-6.4429866 15.0647561C34.2616889 42.9140581 29.2411898 45 23.495516 45c-5.8989714 0-10.9563003-2.0994298-15.17198659-6.2982895C4.10784314 34.5027739 2 29.4778454 2 23.6269249c0-5.9597462 2.10933779-11.0541894 6.32801337-15.28332973C12.5466889 4.11453172 17.6055125 2 23.504484 2Zm2.0900289 9.2225201h-5.198791v13.6771131l10.397582 9.3791872 3.3992095-3.4729155-8.5980005-7.4458345V11.2225201Z" />
+</svg>
+
+
+                  NginxUpstreams
+                </div>
+                <div class="govuk-hint govuk-!-margin-bottom-2">
+                  Enable your service to be accessible to other services/.public on the Core Delivery Platform environments
+                </div>
+              </li>
+              <li>
+                <div class="app-!-layout-centered">
+                    <svg class="app-icon app-pending app-icon--tiny govuk-!-margin-right-1"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img">
+  <path fill-rule="nonzero"
+        d="M23.504484 2c5.7456738 0 10.7646782 2.10988204 15.0570133 6.32964611C42.8538324 12.549487 45 17.6654111 45 23.6774182c0 5.8713637-2.1476622 10.8929491-6.4429866 15.0647561C34.2616889 42.9140581 29.2411898 45 23.495516 45c-5.8989714 0-10.9563003-2.0994298-15.17198659-6.2982895C4.10784314 34.5027739 2 29.4778454 2 23.6269249c0-5.9597462 2.10933779-11.0541894 6.32801337-15.28332973C12.5466889 4.11453172 17.6055125 2 23.504484 2Zm2.0900289 9.2225201h-5.198791v13.6771131l10.397582 9.3791872 3.3992095-3.4729155-8.5980005-7.4458345V11.2225201Z" />
+</svg>
+
+
+                  SquidProxy
+                </div>
+                <div class="govuk-hint govuk-!-margin-bottom-2">
+                  Proxy access set up for your service
+                </div>
+              </li>
+              <li>
+                <div class="app-!-layout-centered">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+     class="app-icon app-tick-icon app-icon--tiny govuk-!-margin-right-1"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img"
+data-testid="AppConfig-created">
+  <path
+    d="m419-285 291-292-63-64-228 228-111-111-63 64 174 175Zm60.679 226q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z"/>
+</svg>
+
+
+                  AppConfig
+                </div>
+                <div class="govuk-hint govuk-!-margin-bottom-2">
+                  Application config creation
+                </div>
+              </li>
+              <li>
+                <div class="app-!-layout-centered">
+                    <svg class="app-icon app-pending app-icon--tiny govuk-!-margin-right-1"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img">
+  <path fill-rule="nonzero"
+        d="M23.504484 2c5.7456738 0 10.7646782 2.10988204 15.0570133 6.32964611C42.8538324 12.549487 45 17.6654111 45 23.6774182c0 5.8713637-2.1476622 10.8929491-6.4429866 15.0647561C34.2616889 42.9140581 29.2411898 45 23.495516 45c-5.8989714 0-10.9563003-2.0994298-15.17198659-6.2982895C4.10784314 34.5027739 2 29.4778454 2 23.6269249c0-5.9597462 2.10933779-11.0541894 6.32801337-15.28332973C12.5466889 4.11453172 17.6055125 2 23.504484 2Zm2.0900289 9.2225201h-5.198791v13.6771131l10.397582 9.3791872 3.3992095-3.4729155-8.5980005-7.4458345V11.2225201Z" />
+</svg>
+
+
+                  TenantServices
+                </div>
+                <div class="govuk-hint govuk-!-margin-bottom-2">
+                  Supporting infrastructure for your service
+                </div>
+              </li>
+              <li>
+                <div class="app-!-layout-centered">
+                    <svg class="app-icon app-pending app-icon--tiny govuk-!-margin-right-1"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img">
+  <path fill-rule="nonzero"
+        d="M23.504484 2c5.7456738 0 10.7646782 2.10988204 15.0570133 6.32964611C42.8538324 12.549487 45 17.6654111 45 23.6774182c0 5.8713637-2.1476622 10.8929491-6.4429866 15.0647561C34.2616889 42.9140581 29.2411898 45 23.495516 45c-5.8989714 0-10.9563003-2.0994298-15.17198659-6.2982895C4.10784314 34.5027739 2 29.4778454 2 23.6269249c0-5.9597462 2.10933779-11.0541894 6.32801337-15.28332973C12.5466889 4.11453172 17.6055125 2 23.504484 2Zm2.0900289 9.2225201h-5.198791v13.6771131l10.397582 9.3791872 3.3992095-3.4729155-8.5980005-7.4458345V11.2225201Z" />
+</svg>
+
+
+                  GrafanaDashboards
+                </div>
+                <div class="govuk-hint govuk-!-margin-bottom-2">
+                  
+                </div>
+              </li>
+          </ul>
+        </section>
+      </article>
+
+</div>
+  </div>
+
+        </main>
+      </div>
+
+  
+<footer class="app-footer" role="contentinfo" data-testid="app-footer">
+
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/cookie-policy" class="app-footer__link">Cookie policy</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/accessibility-statement" class="app-footer__link">Accessibility statement</a>
+        </li>
+      </ul>
+
+        <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer">0.1.0</a>
+          </li>
+        </ul>
+    </div>
+
+    <div class="app-footer__secondary">
+      <a class="app-footer__link"
+         href="https://github.com/DEFRA/cdp-portal-frontend"
+         target="_blank"
+         rel="noopener noreferrer"><svg class="app-icon app-github-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="CDP Portal Frontend repository on GitHub">
+  <path d="M23.9284898 0C10.6966531 0 0 11 0 24.6085c0 10.878 6.85371429 20.086 16.3616327 23.345 1.1887346.245 1.6241632-.5295 1.6241632-1.181 0-.5705-.0391837-2.526-.0391837-4.5635-6.6563265 1.467-8.04244893-2.9335-8.04244893-2.9335-1.06971429-2.852-2.65469388-3.585-2.65469388-3.585-2.17861225-1.5075.15869388-1.5075.15869388-1.5075 2.41665306.163 3.68473473 2.526 3.68473473 2.526 2.1389387 3.748 5.5856326 2.689 6.9722449 2.037.1978775-1.589.8321632-2.689 1.5056326-3.3-5.3088979-.5705-10.8945306-2.689-10.8945306-12.1415 0-2.689.95020408-4.889 2.4558367-6.6-.237551-.611-1.0697143-3.1375.2380408-6.519 0 0 2.0204082-.652 6.576 2.526 1.9504109-.5386687 3.9618381-.8126928 5.9823674-.815 2.0204082 0 4.08.2855 5.9818775.815 4.5560817-3.178 6.5764898-2.526 6.5764898-2.526 1.3077551 3.3815.4751021 5.908.2375511 6.519 1.5453061 1.711 2.4563265 3.911 2.4563265 6.6 0 9.4525-5.5856327 11.53-10.9342041 12.1415.8718367.774 1.6241633 2.2405 1.6241633 4.563 0 3.3-.0391837 5.9485-.0391837 6.763 0 .652.4359184 1.4265 1.6241633 1.182 9.5079183-3.26 16.3617395-12.4675 16.3617395-23.3455C47.8564898 11 37.1206531 0 23.9284898 0Z" />
+</svg>
+</a>
+    </div>
+  </div>
+
+</footer>
+
+
+  <script type="module" src="/.public/javascripts/application.js"></script>
+  </body>
+</html>

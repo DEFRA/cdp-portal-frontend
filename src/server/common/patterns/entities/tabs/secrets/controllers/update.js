@@ -8,10 +8,10 @@ import { serviceParamsValidation } from '~/src/server/services/helpers/schema/se
 import { secretPayloadValidation } from '~/src/server/common/patterns/entities/tabs/secrets/schema/secret-payload-validation.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
-function updateSecretController(serviceOrTestSuite) {
+function updateSecretController(entityType) {
   return {
     options: {
-      id: `post:${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}/update`,
+      id: `post:${pluralise(entityType)}/{serviceId}/secrets/{environment}/update`,
       validate: {
         params: serviceParamsValidation,
         failAction: () => Boom.boomify(Boom.badRequest())
@@ -28,7 +28,7 @@ function updateSecretController(serviceOrTestSuite) {
       const button = payload?.button
 
       const redirectUrl = request.routeLookup(
-        `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}/update`,
+        `${pluralise(entityType)}/{serviceId}/secrets/{environment}/update`,
         {
           params: { serviceId, environment },
           query: { secretKey }
@@ -72,7 +72,7 @@ function updateSecretController(serviceOrTestSuite) {
 
           return h.redirect(
             request.routeLookup(
-              `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets/{environment}`,
+              `${pluralise(entityType)}/{serviceId}/secrets/{environment}`,
               {
                 params: { serviceId, environment }
               }

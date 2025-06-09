@@ -97,7 +97,7 @@
 
 {% endblock %}
 
-{% set pluralServiceOrTest = serviceOrTestSuite | pluralise %}
+{% set pluralEntityType = entityType | pluralise %}
 
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
@@ -109,7 +109,7 @@
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy</h2>
             <p>
               View proxy rules for {{ entityName }} in all CDP environments.
-              These are rules for allowing outbound traffic from the {{ serviceOrTestSuite }} to anything outside of
+              These are rules for allowing outbound traffic from the {{ entityType }} to anything outside of
               CDP.
             </p>
 
@@ -131,7 +131,7 @@
                         <div class="app-row__item-flex-two app-!-layout-right-aligned">
                           <p class="govuk-!-margin-bottom-0">
                             <a
-                              href="{{ routeLookup(pluralServiceOrTest + '/{serviceId}/proxy/{environment}', {
+                              href="{{ routeLookup(pluralEntityType + '/{serviceId}/proxy/{environment}', {
                                 params: {
                                   serviceId: entityName,
                                   environment: envProxy.environment

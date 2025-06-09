@@ -5,7 +5,7 @@ import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 import { createServiceStatusToService } from '~/src/server/common/transformers/create-service-status-to-service.js'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
 import { fetchLegacyServiceStatus } from '~/src/server/common/helpers/fetch/fetch-legacy-service-status.js'
 
 /**

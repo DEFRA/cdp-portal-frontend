@@ -1,0 +1,120 @@
+{% extends "layouts/page.njk" %}
+
+{% from "info/macro.njk" import appInfo %}
+{% from "warning/macro.njk" import appWarning %}
+{% from "icons/pending-icon/macro.njk" import appPendingIcon %}
+
+
+{% set pluralEntityType = entityType | pluralise %}
+
+{% set warningHtml %}
+ It looks like your {{ entityType }}'s creation is taking a while, contact the Platform team via Slack
+  <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+     rel="noopener noreferrer">#cdp-support</a> with this page's url for help
+{% endset %}
+
+{% set infoHtml %}
+ Your {{ entityType }} has been created successfully.
+  {% if entityType != 'repository' %}
+    Refresh the page to access your {{ entityType }}'s portal page
+    <a class="govuk-button app-button app-button--primary app-button--small"
+       role="button"
+       href="{{ routeLookup(pluralEntityType + '/{serviceId}', { params: { serviceId : entity.name } }) }}">Refresh</a>
+  {% endif %}
+{% endset %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: entityType | startCase,
+    text: entity.name
+  }) }}
+
+  <div class="app-service-container">
+
+    {% block xhrContent %}
+
+      {% if shouldPoll %}
+        <div data-js="app-poll"
+        data-poll-url="/{{ pluralEntityType }}/{{ entity.name }}/status"
+        data-poll-interval="3000"
+        data-poll-limit="200">
+      {% endif %}
+
+      <article class="app-grid app-grid-service app-grid-service--standard"
+               data-xhr="service-creating-{{ entity.name }}"
+               data-xhr-stop="{{ not shouldPoll }}">
+
+        <section class="app-grid-service__details">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+          <p class="govuk-!-margin-bottom-2">
+            {{ entity.description }}
+          </p>
+
+          {{ govukSummaryList(summaryList) }}
+        </section>
+
+        <section class="app-grid-service__run">
+
+          {% if takingTooLong %}
+            <div class="govuk-!-margin-bottom-6">
+              {{ appWarning({ html: warningHtml, isInverse: true }) }}
+            </div>
+          {% endif %}
+
+          {% if not shouldPoll %}
+            <div class="govuk-!-margin-bottom-6">
+              {{ appInfo({ html: infoHtml, isInverse: true }) }}
+            </div>
+          {% endif %}
+
+          <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+            <h2 class="govuk-heading-l govuk-!-margin-0">Resources</h2>
+            <div class="govuk-!-margin-left-1">
+              {{ appTag({
+                text: entity.status | title,
+                attributes: {
+                  "data-testid": "app-overall-progress"
+                }
+              }) }}
+            </div>
+            <div>
+              {% if shouldPoll %}
+                {{ appLoader({ classes: "app-loader--is-loading" }) }}
+              {% endif %}
+            </div>
+          </div>
+
+          <p>
+            Your {{ entityType }} and associated resources are currently being created
+          </p>
+
+          <ul class="govuk-list">
+            {% for resource in resources %}
+              <li>
+                <div class="app-!-layout-centered">
+                  {% if resource.isReady %}
+                    {{ appTickIcon({
+                      classes: "app-icon--tiny govuk-!-margin-right-1",
+                      attributes: { "data-testid": resource.name + "-created" }
+                    }) }}
+                  {% else %}
+                    {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                  {% endif %}
+
+                  {{ resource.name }}
+                </div>
+                <div class="govuk-hint govuk-!-margin-bottom-2">
+                  {{ resourceDescriptions[resource.name] }}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      </article>
+
+      {% if shouldPoll %}</div>{% endif %}
+
+    {% endblock %}
+  </div>
+
+{% endblock %}

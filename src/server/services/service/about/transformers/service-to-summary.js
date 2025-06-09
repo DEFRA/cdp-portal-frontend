@@ -38,7 +38,7 @@ function transformServiceToSummary(repository, entity) {
         key: { text: 'Kind' },
         value: {
           html: renderComponent('tag', {
-            text: entity.subType ?? noValue,
+            text: entity.subType ?? entity.type ?? noValue,
             classes: 'govuk-tag--blue'
           })
         }

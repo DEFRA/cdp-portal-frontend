@@ -18,6 +18,7 @@ import { services } from '~/src/server/services/routes.js'
 import { teams } from '~/src/server/teams/routes.js'
 import { testSuites } from '~/src/server/test-suites/routes.js'
 import { utilities } from '~/src/server/utilities/routes.js'
+import { repositories } from '~/src/server/repositories/routes.js'
 
 const router = {
   plugin: {
@@ -37,6 +38,7 @@ const router = {
         home,
         login,
         logout,
+        repositories,
         runningServices,
         serveStaticFiles,
         services,

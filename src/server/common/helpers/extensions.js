@@ -70,6 +70,7 @@ const commonTestSuiteExtensions = [
 export {
   commonServiceExtensions,
   commonTestSuiteExtensions,
+  provideEntityExtension,
   provideServiceTabsExtension,
   provideTestSuiteTabsExtension
 }

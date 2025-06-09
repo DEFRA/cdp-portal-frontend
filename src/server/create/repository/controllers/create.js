@@ -74,7 +74,7 @@ const repositoryCreateController = {
           )
         )
 
-        return h.redirect('/create/repository/success')
+        return h.redirect(`/repositories/${repositoryName}/status`)
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: sanitisedPayload

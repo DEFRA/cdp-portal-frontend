@@ -2,10 +2,10 @@ import { repositoryFixture } from '~/src/__fixtures__/repository.js'
 import { provideServiceCreateStatus } from '~/src/server/common/helpers/pre/provide-service-create-status.js'
 import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'
 import { createServiceStatusSuccessFixture } from '~/src/__fixtures__/create/service-status-success.js'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
 import { fetchLegacyServiceStatus } from '~/src/server/common/helpers/fetch/fetch-legacy-service-status.js'
 
-jest.mock('~/src/server/services/helpers/fetch/fetch-repository')
+jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-legacy-service-status.js')
 
 describe('#provideServiceCreateStatus', () => {

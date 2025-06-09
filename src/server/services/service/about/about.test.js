@@ -10,7 +10,8 @@ import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-running-services.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
+jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
+jest.mock('~/src/server/services/helpers/fetch/fetch-vanity-urls.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-api-gateways.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')

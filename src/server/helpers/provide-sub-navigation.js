@@ -2,7 +2,7 @@ import upperFirst from 'lodash/upperFirst.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
-function provideSubNavForServiceOrTestSuite(subTitle, serviceOrTestSuite) {
+function provideSubNav(subTitle, entityType) {
   return function provideSubNavigation(request, h) {
     const response = request.response
 
@@ -18,9 +18,9 @@ function provideSubNavForServiceOrTestSuite(subTitle, serviceOrTestSuite) {
         {
           isActive:
             request.path ===
-            `/${pluralise(serviceOrTestSuite)}/${serviceId}/${subTitle}`,
+            `/${pluralise(entityType)}/${serviceId}/${subTitle}`,
           url: request.routeLookup(
-            `${pluralise(serviceOrTestSuite)}/{serviceId}/${subTitle}`,
+            `${pluralise(entityType)}/{serviceId}/${subTitle}`,
             {
               params: { serviceId }
             }
@@ -31,10 +31,10 @@ function provideSubNavForServiceOrTestSuite(subTitle, serviceOrTestSuite) {
         },
         ...environments.map((environment) => ({
           isActive: request.path.startsWith(
-            `/${pluralise(serviceOrTestSuite)}/${serviceId}/${subTitle}/${environment}`
+            `/${pluralise(entityType)}/${serviceId}/${subTitle}/${environment}`
           ),
           url: request.routeLookup(
-            `${pluralise(serviceOrTestSuite)}/{serviceId}/${subTitle}/{environment}`,
+            `${pluralise(entityType)}/{serviceId}/${subTitle}/{environment}`,
             {
               params: {
                 serviceId,
@@ -51,4 +51,4 @@ function provideSubNavForServiceOrTestSuite(subTitle, serviceOrTestSuite) {
   }
 }
 
-export { provideSubNavForServiceOrTestSuite }
+export { provideSubNav }

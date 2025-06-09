@@ -1,7 +1,7 @@
 import { commonTestSuiteExtensions } from '~/src/server/common/helpers/extensions.js'
 import { allSecretsController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/all.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
+import { provideSubNav } from '~/src/server/helpers/provide-sub-navigation.js'
 import { environmentSecretsController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/environment.js'
 import { serviceOwnerOrAdminUserScope } from '~/src/server/common/constants/scopes.js'
 import { updateSecretFormController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/update-form.js'
@@ -25,7 +25,7 @@ export const testSuiteSecrets = {
         },
         {
           type: 'onPostHandler',
-          method: provideSubNavForServiceOrTestSuite('secrets', TEST_SUITE),
+          method: provideSubNav('secrets', TEST_SUITE),
           options: {
             sandbox: 'plugin'
           }

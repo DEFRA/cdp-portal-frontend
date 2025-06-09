@@ -4,13 +4,13 @@ import {
   repositoryTestSuiteFixture
 } from '~/src/__fixtures__/repository.js'
 import { serviceDeployableFixture } from '~/src/__fixtures__/services/service-deployable.js'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { testSuiteFixture } from '~/src/__fixtures__/test-suite.js'
 import { tenantServicesFixture } from '~/src/__fixtures__/tenant-services.js'
 
-jest.mock('~/src/server/services/helpers/fetch/fetch-repository.js')
+jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-deployable-service.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
 

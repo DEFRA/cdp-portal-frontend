@@ -25,7 +25,7 @@ const autoTestRunsController = {
     const entity = request.app.entity
     const serviceTeams = entity?.teams
 
-    if (entity === null) {
+    if (entity == null) {
       return Boom.notFound()
     }
 

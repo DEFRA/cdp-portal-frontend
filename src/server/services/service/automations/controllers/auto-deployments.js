@@ -24,7 +24,7 @@ const autoDeploymentsController = {
     const serviceId = request.params.serviceId
     const entity = request.app.entity
 
-    if (entity === null) {
+    if (entity == null) {
       return Boom.notFound()
     }
 

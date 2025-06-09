@@ -1,6 +1,6 @@
 import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 import { repositoryDecorator } from '~/src/server/common/helpers/decorators/repository.js'
-import { fetchRepository } from '~/src/server/services/helpers/fetch/fetch-repository.js'
+import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
 import { fetchDeployableService } from '~/src/server/common/helpers/fetch/fetch-deployable-service.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
 

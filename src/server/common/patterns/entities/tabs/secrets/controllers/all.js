@@ -7,10 +7,10 @@ import { allEnvironmentSecrets } from '~/src/server/common/patterns/entities/tab
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { pluralise } from '~/src/server/common/helpers/pluralise.js'
 
-function allSecretsController(serviceOrTestSuite) {
+function allSecretsController(entityType) {
   return {
     options: {
-      id: `${pluralise(serviceOrTestSuite)}/{serviceId}/secrets`,
+      id: `${pluralise(entityType)}/{serviceId}/secrets`,
       validate: {
         params: Joi.object({
           serviceId: Joi.string().required()
@@ -31,15 +31,15 @@ function allSecretsController(serviceOrTestSuite) {
         pageTitle: `${entityName} - Secrets`,
         entityName,
         secretsByEnvironment,
-        serviceOrTestSuite,
+        entityType,
         breadcrumbs: [
           {
-            text: `${startCase(pluralise(serviceOrTestSuite))}`,
-            href: `/${pluralise(serviceOrTestSuite)}`
+            text: `${startCase(pluralise(entityType))}`,
+            href: `/${pluralise(entityType)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(serviceOrTestSuite)}/${entityName}`
+            href: `/${pluralise(entityType)}/${entityName}`
           },
           {
             text: 'Secrets'

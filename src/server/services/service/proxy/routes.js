@@ -3,7 +3,7 @@ import { environmentProxyController } from '~/src/server/common/patterns/entitie
 import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
-import { provideSubNavForServiceOrTestSuite } from '~/src/server/helpers/provide-sub-navigation.js'
+import { provideSubNav } from '~/src/server/helpers/provide-sub-navigation.js'
 import { SERVICE } from '~/src/server/common/patterns/entities/tabs/constants.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
@@ -16,7 +16,7 @@ export const serviceProxy = {
         ...commonServiceExtensions,
         {
           type: 'onPostHandler',
-          method: provideSubNavForServiceOrTestSuite('proxy', SERVICE),
+          method: provideSubNav('proxy', SERVICE),
           options: {
             sandbox: 'plugin'
           }
