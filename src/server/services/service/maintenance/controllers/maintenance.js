@@ -34,6 +34,7 @@ const maintenanceController = {
         ...service,
         statusClassname: provideDeploymentStatusClassname(service.status)
       }))
+      .toSorted(sortKeyByEnv('environment'))
 
     const shouldPoll = shutteringDetails.some((detail) =>
       detail.status.includes('Pending')
