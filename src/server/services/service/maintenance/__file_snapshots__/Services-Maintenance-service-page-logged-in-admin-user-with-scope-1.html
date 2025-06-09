@@ -531,12 +531,31 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Environment</th>
+      <th scope="col" class="govuk-table__header">Version</th>
+      <th scope="col" class="govuk-table__header">Status</th>
       <th scope="col" class="govuk-table__header app-!-text-align-right">Action</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">Dev</td>
+      <td class="govuk-table__cell">    <a class="app-link govuk-!-margin-right-2"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.1.0"
+       target="_blank" rel="noopener noreferrer"
+       aria-labelledby="version">
+      0.1.0
+    </a>
+</td>
+      <td class="govuk-table__cell">    
+
+
+<strong class="govuk-tag app-tag govuk-tag--green">
+  Running
+</strong>
+
+
+
+</td>
       <td class="govuk-table__cell app-!-text-align-right">    <a href="/services/mock-service/maintenance/undeploy?environment=dev"
        role="button" class="app-link app-link--underline" data-testid="vanity-url">Undeploy</a>
 </td>

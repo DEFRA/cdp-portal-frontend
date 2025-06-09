@@ -1,5 +1,5 @@
 import { faviconState } from '~/src/server/common/constants/favicon-state.js'
-import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
+import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
 import { deploymentFaviconState } from '~/src/server/deployments/helpers/deployment-favicon-state.js'
 
 describe('deploymentFaviconState', () => {

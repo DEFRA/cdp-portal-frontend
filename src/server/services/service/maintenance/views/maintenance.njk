@@ -53,6 +53,22 @@
 
 {% set undeployTableRows = [] %}
 {% for deployedService in deployedServices %}
+  {% set status %}
+    {{ appTag({
+      text: deployedService.status | formatText,
+      classes: deployedService.statusClassname
+    }) }}
+  {% endset %}
+
+  {% set version %}
+    <a class="app-link govuk-!-margin-right-2"
+       href="https://github.com/DEFRA/{{ deployedService.service }}/releases/tag/{{ deployedService.version }}"
+       target="_blank" rel="noopener noreferrer"
+       aria-labelledby="version">
+      {{ deployedService.version }}
+    </a>
+  {% endset %}
+
   {% set updeployLinkHtml %}
     <a href="{{ routeLookup('services/{serviceId}/undeploy/confirm', {
       params: { serviceId: deployedService.service },
@@ -63,6 +79,8 @@
 
   {{ undeployTableRows.push([
     { html: deployedService.environment | formatText },
+    { html: version },
+    { html: status },
     { html: updeployLinkHtml, classes: "app-!-text-align-right" }
   ]) }}
 {% endfor %}
@@ -169,6 +187,8 @@
                 classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
                 head: [
                   { text: "Environment" },
+                  { text: "Version" },
+                  { text: "Status" },
                   { text: "Action", classes: "app-!-text-align-right"}
                 ],
                 rows: undeployTableRows

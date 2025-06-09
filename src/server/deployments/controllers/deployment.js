@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
-import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
+import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
 import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
 import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'

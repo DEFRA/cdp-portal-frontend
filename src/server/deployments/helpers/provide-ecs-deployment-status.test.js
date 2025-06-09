@@ -1,5 +1,5 @@
 import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
-import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
+import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
 
 describe('provideEcsDeploymentStatus', () => {
   test('should return "Stopping previous deployment." when status is running and message ends with "in progress."', () => {

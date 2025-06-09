@@ -1,4 +1,4 @@
-import { deploymentStatus } from '~/src/server/deployments/constants/status.js'
+import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
 import { faviconState } from '~/src/server/common/constants/favicon-state.js'
 
 /**
