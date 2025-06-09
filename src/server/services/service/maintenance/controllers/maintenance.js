@@ -26,6 +26,9 @@ const maintenanceController = {
     }
 
     const shutteringDetails = await fetchShutteringUrls(serviceId)
+    const pendingShutter = shutteringDetails.find((s) =>
+      s.status.includes('Pending')
+    )
 
     const runningServices = await fetchRunningServices(serviceId)
     const deployedServices = runningServices
@@ -44,6 +47,7 @@ const maintenanceController = {
       pageTitle: `Maintenance - ${serviceId}`,
       entity,
       shouldPoll,
+      pendingShutter,
       shutteringDetails: shutteringDetails.toSorted(
         sortKeyByEnv('environment')
       ),

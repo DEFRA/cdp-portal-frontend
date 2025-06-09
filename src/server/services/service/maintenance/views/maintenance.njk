@@ -1,6 +1,7 @@
 {% extends "layouts/tabbed-page.njk" %}
 
 {% from "tag/macro.njk" import appTag %}
+{% from "time/macro.njk" import appTime %}
 {% from "loader/macro.njk" import appLoader %}
 {% from "tool-tip/macro.njk" import appToolTip %}
 {% from "icons/internal-icon/macro.njk" import appInternalIcon %}
@@ -10,7 +11,8 @@
 
 {% set infoHtml %}
   <p class="govuk-!-margin-bottom-1">
-    Your request may take a few minutes to complete, please be patient.
+    Your request will take 2-3 minutes to complete. Requested by {{ pendingShutter.lastActionedBy.displayName }}.
+    {{ appTime({ datetime: pendingShutter.lastActionedAt}) }}
   </p>
 {% endset %}
 
