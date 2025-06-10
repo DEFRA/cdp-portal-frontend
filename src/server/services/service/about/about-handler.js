@@ -7,7 +7,6 @@ import { availableEnvironments } from '~/src/server/services/service/about/helpe
 import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
 import { fetchAboutServiceData } from '~/src/server/services/service/about/helpers/fetch-about-service-data.js'
 import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
-import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
@@ -75,10 +74,7 @@ async function aboutHandler(request, h) {
     runningServices,
     latestPublishedImageVersions,
     availableMigrations,
-    latestMigrations: latestMigrations.map((migration) => ({
-      ...migration,
-      statusClassname: provideDatabaseStatusClassname(migration.status)
-    })),
+    latestMigrations,
     breadcrumbs: [
       {
         text: 'Services',

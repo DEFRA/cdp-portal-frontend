@@ -2,12 +2,14 @@ import { fetchProxyRules } from '~/src/server/services/helpers/fetch/fetch-proxy
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
+  mockFetchShutteringUrlsCall,
   mockServiceEntityCall
 } from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-proxy-rules.js')
+jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
 
 describe('Service Proxy page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -25,6 +27,7 @@ describe('Service Proxy page', () => {
         }
       })
 
+    mockFetchShutteringUrlsCall()
     mockServiceEntityCall('mock-service-with-proxy', undefined)
     server = await initialiseServer()
   })

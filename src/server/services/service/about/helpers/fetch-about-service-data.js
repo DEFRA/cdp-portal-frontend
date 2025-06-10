@@ -4,6 +4,7 @@ import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-l
 import { provideApiGateways } from '~/src/server/services/service/about/transformers/api-gateways.js'
 import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 async function fetchAboutServiceData({ request, serviceName, isPostgres }) {
   const promises = []
@@ -26,7 +27,7 @@ async function fetchAboutServiceData({ request, serviceName, isPostgres }) {
     apiGateways,
     repository,
     availableMigrations = [],
-    latestMigrations = []
+    latestMigrationsResponse = []
   ] = await Promise.all(promises)
 
   return {
@@ -34,7 +35,10 @@ async function fetchAboutServiceData({ request, serviceName, isPostgres }) {
     apiGateways,
     repository,
     availableMigrations,
-    latestMigrations
+    latestMigrations: latestMigrationsResponse.map((migration) => ({
+      ...migration,
+      statusClassname: provideDatabaseStatusClassname(migration.status)
+    }))
   }
 }
 

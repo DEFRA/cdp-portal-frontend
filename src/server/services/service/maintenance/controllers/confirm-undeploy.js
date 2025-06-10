@@ -41,12 +41,7 @@ const confirmUndeployController = {
       pageTitle: `Confirm Undeploy - ${serviceId}`,
       entity,
       environment,
-      summaryList: entityToSummary(
-        entity,
-        deployedService,
-        environment,
-        authedUser
-      ),
+      summaryList: entityToSummary(deployedService, environment, authedUser),
       breadcrumbs: [
         {
           text: 'Services',

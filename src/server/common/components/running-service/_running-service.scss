@@ -82,6 +82,7 @@ $card-height: 180px;
     min-height: govuk-spacing(5);
   }
 
+  .app-running-service__item--environment,
   .app-running-service__item--version {
     display: flex;
     align-items: center;

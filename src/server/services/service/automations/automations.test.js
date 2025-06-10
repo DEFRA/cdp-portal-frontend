@@ -1,6 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
+  mockFetchShutteringUrlsCall,
   mockServiceEntityCall,
   mockTeam
 } from '~/test-helpers/common-page-rendering.js'
@@ -14,7 +15,7 @@ import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entitie
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/service/automations/helpers/fetchers.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
+jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
 
 const serviceName = 'mock-service-with-automations'
 
@@ -25,6 +26,7 @@ describe('Service Automations page', () => {
   beforeAll(async () => {
     mockServiceEntityCall(serviceName, undefined)
     server = await initialiseServer()
+    mockFetchShutteringUrlsCall()
   })
 
   afterAll(async () => {
