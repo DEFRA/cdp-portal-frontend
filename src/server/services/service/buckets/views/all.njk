@@ -58,12 +58,12 @@
 {% endfor %}
 
 {% block beforeTabContent %}
-
   {{ appPageHeading({
     caption: "Buckets",
     text: entity.name
   }) }}
 
+  {% include "partials/entity/messages.njk" %}
 {% endblock %}
 
 {% block tabContent %}

@@ -2,6 +2,7 @@
 @use "variables/border-radius" as *;
 @use "variables/colours" as *;
 @use "helpers/reading-width" as *;
+@use "variables/measurements" as *;
 
 .app-warning {
   display: inline-flex;
@@ -10,8 +11,7 @@
   padding: govuk-spacing(4) govuk-spacing(4) govuk-spacing(4) govuk-spacing(2);
   background-color: $app-light-grey;
   border-radius: $app-border-radius-right;
-  @include app-section-wide-width;
-
+  min-width: $app-reading-width;
 
   &.app-warning--inverse {
     background-color: govuk-colour("white");

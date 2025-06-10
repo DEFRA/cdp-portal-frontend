@@ -2,10 +2,9 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sortKeyByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
-import { fetchShutteringUrls } from '~/src/server/services/helpers/fetch/fetch-shuttering-urls.js'
-import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
 import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
+import { fetchShutteringUrls } from '~/src/server/services/helpers/fetch/fetch-shuttering-urls.js'
+import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
 
 const maintenanceController = {
   options: {
@@ -30,9 +29,8 @@ const maintenanceController = {
       s.status.includes('Pending')
     )
 
-    const runningServices = await fetchRunningServices(serviceId)
-    const deployedServices = runningServices
-      .filter((service) => service.status === deploymentStatus.running)
+    const runningServicesResponse = await fetchRunningServices(serviceId)
+    const runningServices = runningServicesResponse
       .map((service) => ({
         ...service,
         statusClassname: provideDeploymentStatusClassname(service.status)
@@ -51,7 +49,7 @@ const maintenanceController = {
       shutteringDetails: shutteringDetails.toSorted(
         sortKeyByEnv('environment')
       ),
-      deployedServices,
+      runningServices,
       breadcrumbs: [
         {
           text: 'Services',

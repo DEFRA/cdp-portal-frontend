@@ -11,8 +11,8 @@
 
 {% set infoHtml %}
   <p class="govuk-!-margin-bottom-1">
-    Your request will take 2-3 minutes to complete. Requested by {{ pendingShutter.lastActionedBy.displayName }}.
-    {{ appTime({ datetime: pendingShutter.lastActionedAt}) }}
+    Your request will take a few minutes to complete. Requested by {{ pendingShutter.lastActionedBy.displayName }}.
+    {{ appTime({ datetime: pendingShutter.lastActionedAt, withSeconds: true }) }}
   </p>
 {% endset %}
 
@@ -48,48 +48,64 @@
     { html: appShutterUrl(detail) },
     { html: detail.environment | formatText },
     { html: status },
-    { html: "Yes" if not detail.internal else "No" },
     { html: shutterLinkHtml, classes: "app-!-text-align-right" }
   ]) }}
 {% endfor %}
 
 {% set undeployTableRows = [] %}
-{% for deployedService in deployedServices %}
+{% for runningService in runningServices %}
   {% set status %}
     {{ appTag({
-      text: deployedService.status | formatText,
-      classes: deployedService.statusClassname
+      text: runningService.status | formatText,
+      classes: runningService.statusClassname
     }) }}
   {% endset %}
 
   {% set version %}
     <a class="app-link govuk-!-margin-right-2"
-       href="https://github.com/DEFRA/{{ deployedService.service }}/releases/tag/{{ deployedService.version }}"
+       href="https://github.com/DEFRA/{{ runningService.service }}/releases/tag/{{ runningService.version }}"
        target="_blank" rel="noopener noreferrer" aria-labelledby="version">
-      {{ deployedService.version }}
+      {{ runningService.version }}
     </a>
   {% endset %}
 
   {% set applicationLinkHtml %}
-    <a href="https://{{ deployedService.service }}.{{ deployedService.environment }}.cdp-int.defra.cloud"
+    <a href="https://{{ runningService.service }}.{{ runningService.environment }}.cdp-int.defra.cloud"
        role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
-      https://{{ deployedService.service }}.{{ deployedService.environment }}.cdp-int.defra.cloud
+      https://{{ runningService.service }}.{{ runningService.environment }}.cdp-int.defra.cloud
     </a>
   {% endset %}
 
+  {% set terminalStatuses = ["stopped", "failed", "undeployed"] %}
+
   {% set undeployLinkHtml %}
-    <a href="{{ routeLookup('services/{serviceId}/undeploy/confirm', {
-      params: { serviceId: deployedService.service },
-      query: { environment: deployedService.environment }
-    }) }}"
-       role="button" class="app-link app-link--underline" data-testid="vanity-url">Undeploy</a>
+    {% if runningService.status == "running" %}
+      <a href="{{ routeLookup('services/{serviceId}/undeploy/confirm', {
+        params: { serviceId: runningService.service },
+        query: { environment: runningService.environment }
+      }) }}"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Undeploy
+      </a>
+    {% elseif terminalStatuses.includes(runningService.status) %}
+      <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
+        query: { imageName: runningService.service, version: runningService.version }
+      }) }}"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Deploy
+      </a>
+    {% else %}
+      {{ appLoader({
+        classes: "app-loader--small app-loader--is-loading govuk-!-margin-right-2"
+      }) }}
+    {% endif %}
   {% endset %}
 
   {{ undeployTableRows.push([
-    { html: applicationLinkHtml },
-    { html: deployedService.environment | formatText },
-    { html: version },
+    { html: runningService.environment | formatText },
     { html: status },
+    { html: version },
+    { html: applicationLinkHtml },
     { html: undeployLinkHtml, classes: "app-!-text-align-right" }
   ]) }}
 {% endfor %}
@@ -99,6 +115,8 @@
     caption: "Shuttering",
     text: entity.name
   }) }}
+
+  {% include "partials/entity/messages.njk" %}
 {% endblock %}
 
 {% block tabContent %}
@@ -124,10 +142,9 @@
                   </h2>
                   <p class="govuk-!-margin-bottom-2">
                     Shutter your service on the following urls. Shuttering your service will mean all users who go to
-                    any of
-                    your services urls will be redirected to the shuttering page. This is useful when you want to close
-                    your
-                    service to investigate a serious problem or to make planned changes/updates to your service.
+                    any of your services urls will be redirected to the shuttering page. This is useful when you want to
+                    close your service to investigate a serious problem or to make planned changes/updates to your
+                    service.
                   </p>
 
                   {% if shouldPoll %}
@@ -151,7 +168,6 @@
                           { text: "Url" },
                           { text: "Environment" },
                           { text: "Status" },
-                          { text: "Internal" },
                           { text: "Action",
                             classes: "app-!-text-align-right"
                           }
@@ -178,27 +194,27 @@
           <p class="govuk-!-margin-bottom-2">
             To undeploy your service means to stop your service from running in the environment. This is useful when
             you want to completely stop your service from running due to a serious problem or to make planned
-            changes/updates to your service or to reduce costs.
+            changes/updates to your service or simply to reduce costs.
           </p>
         </div>
 
         {% call appPanel() %}
           <section class="govuk-!-margin-bottom-6">
-            {% if deployedServices | length %}
-              {% set titleText = "Deployment" | pluralise(deployedServices | length) %}
+            {% if runningServices | length %}
+              {% set titleText = "Deployment" | pluralise(runningServices | length) %}
 
               <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
               <p class="govuk-!-margin-bottom-2">
-                The currently running deployments of your service, listed by environment
+                Deployments of your service, listed by environment
               </p>
 
               {{ govukTable({
                 classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
                 head: [
-                  { text: "Url" },
                   { text: "Environment" },
-                  { text: "Version" },
                   { text: "Status" },
+                  { text: "Version" },
+                  { text: "Url" },
                   { text: "Action", classes: "app-!-text-align-right"}
                 ],
                 rows: undeployTableRows

@@ -31,12 +31,6 @@ function shutteringDetailToSummary(detail, authedUser) {
         }
       },
       {
-        key: {
-          text: 'Internal'
-        },
-        value: { text: detail.internal ? 'No' : 'Yes' }
-      },
-      {
         key: { text: 'Requested By' },
         value: { text: authedUser.displayName }
       }
