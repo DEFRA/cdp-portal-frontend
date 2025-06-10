@@ -13,9 +13,7 @@ async function addServiceOwnerScope(request, h) {
   const { credentials, isAuthenticated } = request.auth
 
   if (isAuthenticated && entity) {
-    const isServiceOwner = await request.userIsServiceOwner(
-      entity.teams?.map((team) => team.teamId) ?? []
-    )
+    const isServiceOwner = await request.userIsOwner(entity)
 
     const scope = [...credentials.scope]
 

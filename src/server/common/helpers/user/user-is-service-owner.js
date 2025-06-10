@@ -1,16 +1,14 @@
-import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
-
-// TODO remove duplication
 function userIsServiceOwner(authedUser) {
-  return userIsMemberOfATeam(authedUser)
+  return (teams) =>
+    authedUser && teams.some((team) => authedUser?.scope?.includes(team))
 }
 
 function userIsServiceOwnerDecorator(request) {
-  /** @param {string[]} teamScopes */
-  return async (teamScopes) => {
+  /** @param {string[]} teamsForTheService */
+  return async (teamsForTheService) => {
     const authedUser = await request.getUserSession()
 
-    return userIsServiceOwner(authedUser)(teamScopes)
+    return userIsServiceOwner(authedUser)(teamsForTheService)
   }
 }
 

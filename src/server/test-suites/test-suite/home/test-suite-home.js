@@ -4,7 +4,6 @@ import { aboutTestSuiteHandler } from '~/src/server/test-suites/test-suite/about
 import { entityStatusHandler } from '~/src/server/common/patterns/entities/status/status-handler.js'
 import { TEST_SUITE } from '~/src/server/common/patterns/entities/tabs/constants.js'
 import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
-import { provideCanRun } from '~/src/server/test-suites/helpers/pre/provide-can-run.js'
 import { provideFormValues } from '~/src/server/test-suites/helpers/pre/provide-form-values.js'
 
 const entityType = TEST_SUITE
@@ -12,7 +11,7 @@ const entityType = TEST_SUITE
 const testSuiteHomeController = {
   options: {
     id: `${pluralise(entityType)}/{serviceId}`,
-    pre: [provideCanRun, provideFormValues],
+    pre: [provideFormValues],
     validate: {
       query: Joi.object({
         page: Joi.number(),

@@ -11,12 +11,9 @@ const profileHtmlTemplate = ({
    <div><span>Memory:</span><span class="govuk-!-margin-left-1">${memory.text}</span></div>`
 
 // TODO potentially abstract?
-const buildEnvironmentOptions = async (request, isAdmin = false) => {
+const buildEnvironmentOptions = (entity, isAdmin, userOwnsTestSuite) => {
   const options = []
-  const runnableEnvironments = findEnvironmentsForTestSuite(request.app.entity)
-  const userOwnsTestSuite = await request.userIsMemberOfATeam(
-    request.app.entity.teams.map((team) => team.teamId)
-  )
+  const runnableEnvironments = findEnvironmentsForTestSuite(entity)
 
   if (isAdmin) {
     options.push(
@@ -42,12 +39,15 @@ const provideFormValues = {
     const authedUser = await request.getUserSession()
 
     if (authedUser?.isAuthenticated) {
-      const isAdmin = authedUser?.isAdmin
-      const userOwnsTestSuite = await request.userIsMemberOfATeam(
-        request.app.entity.teams.map((team) => team.teamId)
-      )
+      const isAdmin = await request.userIsAdmin()
+      const entity = request.app.entity
+      const userOwnsTestSuite = await request.userIsOwner(entity)
 
-      const options = await buildEnvironmentOptions(request, isAdmin)
+      const options = buildEnvironmentOptions(
+        entity,
+        isAdmin,
+        userOwnsTestSuite
+      )
       environmentOptions.push(...options)
 
       if (isAdmin || userOwnsTestSuite) {

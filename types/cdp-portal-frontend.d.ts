@@ -20,9 +20,10 @@ declare module '@hapi/hapi' {
       }
     ) => string
     s3Client: S3Client
-    userIsMemberOfATeam: (scopes: string[]) => Promise<boolean>
-    userIsServiceOwner: (scopes: string[]) => Promise<boolean>
-    userIsTeamMember: (scope: string) => Promise<boolean>
+    userIsOwner: (entity: object) => Promise<boolean>
+    userIsServiceOwner: (teams: string[]) => Promise<boolean>
+    userIsAdmin: () => Promise<boolean>
+    userIsTenant: () => Promise<boolean>
     getTraceId: () => string | undefined
     sessionCookie: {
       h: ResponseToolkit
