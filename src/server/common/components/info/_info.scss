@@ -2,6 +2,7 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 @use "helpers/reading-width" as *;
+@use "variables/measurements" as *;
 
 .app-info {
   display: flex;
@@ -12,7 +13,7 @@
   background-color: $app-light-grey;
   border-radius: $app-border-radius-right;
   word-break: break-word;
-  @include app-section-wide-width;
+  min-width: $app-reading-width;
 }
 
 .app-info--inverse {

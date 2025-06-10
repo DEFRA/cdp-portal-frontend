@@ -55,12 +55,12 @@
 {% endfor %}
 
 {% block beforeTabContent %}
-
   {{ appPageHeading({
     caption: "Proxy",
     text: entityName
   }) }}
 
+  {% include "partials/entity/messages.njk" %}
 {% endblock %}
 
 {% block tabContent %}

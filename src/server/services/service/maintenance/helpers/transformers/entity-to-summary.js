@@ -11,21 +11,15 @@ function entityToSummary(entity, deployment, environment, authedUser) {
     },
     rows: [
       {
-        key: { text: 'Service name' },
-        value: {
-          html: buildLink({
-            href: `/services/${entity.name}`,
-            text: entity.name,
-            newTab: false
-          })
-        }
+        key: { text: 'Environment' },
+        value: { text: formatText(environment) }
       },
       {
-        key: { text: 'Url' },
+        key: { text: 'Status' },
         value: {
-          html: buildLink({
-            href: `https://${deployment.service}.${deployment.environment}.cdp-int.defra.cloud`
-          })
+          html: renderTag(formatText(deployment.status), [
+            deployment.statusClassname
+          ])
         }
       },
       {
@@ -40,16 +34,12 @@ function entityToSummary(entity, deployment, environment, authedUser) {
         }
       },
       {
-        key: { text: 'Status' },
+        key: { text: 'Url' },
         value: {
-          html: renderTag(formatText(deployment.status), [
-            deployment.statusClassname
-          ])
+          html: buildLink({
+            href: `https://${deployment.service}.${deployment.environment}.cdp-int.defra.cloud`
+          })
         }
-      },
-      {
-        key: { text: 'Environment' },
-        value: { text: formatText(environment) }
       },
       {
         key: { text: 'Requested By' },

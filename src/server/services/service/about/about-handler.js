@@ -1,67 +1,13 @@
 import Boom from '@hapi/boom'
 
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
-import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
-import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { provideApiGateways } from '~/src/server/services/service/about/transformers/api-gateways.js'
-import {
-  sortByEnv,
-  sortKeyByEnv
-} from '~/src/server/common/helpers/sort/sort-by-env.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
-import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
-import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
+import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
-import { fetchShutteringUrls } from '~/src/server/services/helpers/fetch/fetch-shuttering-urls.js'
-
-const availableEnvironments = ({ userScopes, tenantServiceInfo }) => {
-  const environments = getEnvironments(userScopes)
-
-  return Object.keys(tenantServiceInfo)
-    .filter((e) => environments.includes(e))
-    .sort(sortByEnv)
-}
-
-async function fetchData({ request, serviceName, isPostgres }) {
-  const promises = []
-
-  promises.push(
-    fetchAvailableVersions(serviceName),
-    fetchShutteringUrls(serviceName),
-    provideApiGateways(request),
-    fetchRepository(serviceName).catch(nullify404)
-  )
-
-  if (isPostgres) {
-    promises.push(
-      fetchAvailableMigrations(serviceName),
-      fetchLatestMigrations(serviceName)
-    )
-  }
-
-  const [
-    availableVersions,
-    shutteringDetails,
-    apiGateways,
-    repository,
-    availableMigrations = [],
-    latestMigrations = []
-  ] = await Promise.all(promises)
-
-  return {
-    availableVersions,
-    shutteringDetails: shutteringDetails.toSorted(sortKeyByEnv('environment')),
-    apiGateways,
-    repository,
-    availableMigrations,
-    latestMigrations
-  }
-}
+import { availableEnvironments } from '~/src/server/services/service/about/helpers/available-environments.js'
+import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
+import { fetchAboutServiceData } from '~/src/server/services/service/about/helpers/fetch-about-service-data.js'
+import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
+import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
@@ -85,12 +31,11 @@ async function aboutHandler(request, h) {
 
   const {
     availableVersions,
-    shutteringDetails,
     apiGateways,
     repository,
     availableMigrations: migrations,
     latestMigrations
-  } = await fetchData({
+  } = await fetchAboutServiceData({
     request,
     serviceName,
     isPostgres
@@ -122,7 +67,6 @@ async function aboutHandler(request, h) {
   return h.view('services/service/about/views/about', {
     pageTitle: `${serviceName} microservice`,
     summaryList: transformServiceToSummary(repository, entity),
-    shutteringDetails,
     apiGateways,
     service,
     isServiceOwner,
