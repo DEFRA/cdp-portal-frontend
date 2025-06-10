@@ -211,6 +211,36 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
+  <div>
+    <ul class="govuk-list govuk-!-margin-bottom-0">
+        <li>
+
+
+<div
+  class="app-warning govuk-!-margin-top-0 govuk-!-margin-bottom-0"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-warning">
+
+  <svg class="app-icon app-warning-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Warning">
+  <path fill-rule="nonzero"
+        d="M23.9476157 36.7259786c.9649347 0 1.7226097-.2577461 2.2730249-.7732384.5504152-.5154923.8256227-1.2557058.8256227-2.2206406 0-.9649347-.267236-1.7320996-.8017081-2.3014946-.5344722-.569395-1.2841756-.8540925-2.2491104-.8540925-.9649347 0-1.7226097.2810913-2.2730249.843274-.5504152.5618031-.8256227 1.3253618-.8256227 2.2906761 0 .9649348.267236 1.7087545.8017081 2.2314591.5344722.5227046 1.2841756.7840569 2.2491104.7840569Zm.1867615-9.9644128c.7645077 0 1.3840095-.2397153 1.8585054-.7191459.4744958-.479051.7117437-1.112408.7117437-1.9000711V14.0071174c0-.7508422-.2406643-1.365599-.7219928-1.8442704-.480949-.4786714-1.1036774-.7180071-1.8681851-.7180071-.726548 0-1.3401661.2393357-1.8408541.7180071-.5003084.4786714-.7504626 1.0934282-.7504626 1.8442704v10.1352314c0 .7876631.2535706 1.4210201.7607117 1.9000711.5071412.4794306 1.1239858.7191459 1.8505338.7191459ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.94908659-5.46011862 5.12683274-7.64583629 2.17812574-2.18533808 4.72635823-3.90282325 7.64469753-5.15245552C17.549134.62500593 20.6595492 0 23.9624199 0c3.3165362 0 6.4385291.62348754 9.3659787 1.87046263 2.9278292 1.24697509 5.4789086 2.9608541 7.6532384 5.14163701 2.1747094 2.18116252 3.888019 4.73432976 5.1399288 7.65950176C47.3738553 17.597153 48 20.7214235 48 24.0444128c0 3.3199526-.6250059 6.4334045-1.8750178 9.3403559-1.2496323 2.9069513-2.9671174 5.4460735-5.1524555 7.6173665-2.1857177 2.1716726-4.7375564 3.8808067-7.655516 5.1274022C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+
+
+  <span class="app-warning__content" data-testid="app-warning-content">
+                <a class="app-link app-link--underline"
+               href="https://portal-test.cdp-int.defra.cloud"
+               target="_blank" rel="noopener noreferrer">https://portal-test.cdp-int.defra.cloud</a> is currently shuttered
+  </span>
+</div>
+
+        </li>
+    </ul>
+  </div>
+
 
 <div class="app-tabs"
      data-js="app-tabs">
@@ -348,10 +378,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                   </h2>
                   <p class="govuk-!-margin-bottom-2">
                     Shutter your service on the following urls. Shuttering your service will mean all users who go to
-                    any of
-                    your services urls will be redirected to the shuttering page. This is useful when you want to close
-                    your
-                    service to investigate a serious problem or to make planned changes/updates to your service.
+                    any of your services urls will be redirected to the shuttering page. This is useful when you want to
+                    close your service to investigate a serious problem or to make planned changes/updates to your
+                    service.
                   </p>
 
                 </div>
@@ -371,7 +400,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <th scope="col" class="govuk-table__header">Url</th>
       <th scope="col" class="govuk-table__header">Environment</th>
       <th scope="col" class="govuk-table__header">Status</th>
-      <th scope="col" class="govuk-table__header">Internal</th>
       <th scope="col" class="govuk-table__header app-!-text-align-right">Action</th>
     </tr>
   </thead>
@@ -412,7 +440,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell">No</td>
       <td class="govuk-table__cell app-!-text-align-right">      <a href="/services/mock-service/maintenance/shuttering?url=portal-test.cdp-int.defra.cloud"
          role="button" class="app-link app-link--underline" data-testid="vanity-url">
         Unshutter
@@ -441,7 +468,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell">No</td>
       <td class="govuk-table__cell app-!-text-align-right">      <a href="/services/mock-service/maintenance/shuttering?url=portal.cdp-int.defra.cloud"
          role="button" class="app-link app-link--underline" data-testid="vanity-url">
         Shutter
@@ -487,7 +513,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell">Yes</td>
       <td class="govuk-table__cell app-!-text-align-right">      <a href="/services/mock-service/maintenance/shuttering?url=portal.defra.gov"
          role="button" class="app-link app-link--underline" data-testid="vanity-url">
         Shutter
@@ -514,7 +539,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <p class="govuk-!-margin-bottom-2">
             To undeploy your service means to stop your service from running in the environment. This is useful when
             you want to completely stop your service from running due to a serious problem or to make planned
-            changes/updates to your service or to reduce costs.
+            changes/updates to your service or simply to reduce costs.
           </p>
         </div>
 
@@ -522,35 +547,24 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 <div class="app-panel" >
             <section class="govuk-!-margin-bottom-6">
 
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running Deployment</h2>
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running Deployments</h2>
               <p class="govuk-!-margin-bottom-2">
-                The currently running deployments of your service, listed by environment
+                Deployments of your service, listed by environment
               </p>
 
               <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Url</th>
       <th scope="col" class="govuk-table__header">Environment</th>
-      <th scope="col" class="govuk-table__header">Version</th>
       <th scope="col" class="govuk-table__header">Status</th>
+      <th scope="col" class="govuk-table__header">Version</th>
+      <th scope="col" class="govuk-table__header">Url</th>
       <th scope="col" class="govuk-table__header app-!-text-align-right">Action</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell">    <a href="https://mock-service.dev.cdp-int.defra.cloud"
-       role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
-      https://mock-service.dev.cdp-int.defra.cloud
-    </a>
-</td>
       <td class="govuk-table__cell">Dev</td>
-      <td class="govuk-table__cell">    <a class="app-link govuk-!-margin-right-2"
-       href="https://github.com/DEFRA/mock-service/releases/tag/0.1.0"
-       target="_blank" rel="noopener noreferrer" aria-labelledby="version">
-      0.1.0
-    </a>
-</td>
       <td class="govuk-table__cell">    
 
 
@@ -561,8 +575,109 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell app-!-text-align-right">    <a href="/services/mock-service/maintenance/undeploy?environment=dev"
-       role="button" class="app-link app-link--underline" data-testid="vanity-url">Undeploy</a>
+      <td class="govuk-table__cell">    <a class="app-link govuk-!-margin-right-2"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.1.0"
+       target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      0.1.0
+    </a>
+</td>
+      <td class="govuk-table__cell">    <a href="https://mock-service.dev.cdp-int.defra.cloud"
+       role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      https://mock-service.dev.cdp-int.defra.cloud
+    </a>
+</td>
+      <td class="govuk-table__cell app-!-text-align-right">      <a href="/services/mock-service/maintenance/undeploy?environment=dev"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Undeploy
+      </a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Test</td>
+      <td class="govuk-table__cell">    
+
+
+<strong class="govuk-tag app-tag app-tag--purple">
+  Requested
+</strong>
+
+
+
+</td>
+      <td class="govuk-table__cell">    <a class="app-link govuk-!-margin-right-2"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
+       target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      0.3.0
+    </a>
+</td>
+      <td class="govuk-table__cell">    <a href="https://mock-service.test.cdp-int.defra.cloud"
+       role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      https://mock-service.test.cdp-int.defra.cloud
+    </a>
+</td>
+      <td class="govuk-table__cell app-!-text-align-right">      <span class="app-loader app-loader--small app-loader--is-loading govuk-!-margin-right-2"
+      data-testid="app-loader"
+>
+</span>
+
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Perf-test</td>
+      <td class="govuk-table__cell">    
+
+
+<strong class="govuk-tag app-tag govuk-tag--light-blue">
+  Stopped
+</strong>
+
+
+
+</td>
+      <td class="govuk-table__cell">    <a class="app-link govuk-!-margin-right-2"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
+       target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      0.3.0
+    </a>
+</td>
+      <td class="govuk-table__cell">    <a href="https://mock-service.perf-test.cdp-int.defra.cloud"
+       role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      https://mock-service.perf-test.cdp-int.defra.cloud
+    </a>
+</td>
+      <td class="govuk-table__cell app-!-text-align-right">      <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.3.0"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Deploy
+      </a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Prod</td>
+      <td class="govuk-table__cell">    
+
+
+<strong class="govuk-tag app-tag govuk-tag--red">
+  Failed
+</strong>
+
+
+
+</td>
+      <td class="govuk-table__cell">    <a class="app-link govuk-!-margin-right-2"
+       href="https://github.com/DEFRA/mock-service/releases/tag/0.3.0"
+       target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      0.3.0
+    </a>
+</td>
+      <td class="govuk-table__cell">    <a href="https://mock-service.prod.cdp-int.defra.cloud"
+       role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+      https://mock-service.prod.cdp-int.defra.cloud
+    </a>
+</td>
+      <td class="govuk-table__cell app-!-text-align-right">      <a href="/deploy-service/details/?imageName=mock-service&amp;version=0.3.0"
+         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+        Deploy
+      </a>
 </td>
     </tr>
   </tbody>

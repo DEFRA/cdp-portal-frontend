@@ -95,66 +95,20 @@
   {% endif %}
 {% endfor %}
 
-{% set shutteredUrls = [] %}
-{% for detail in shutteringDetails %}
-  {% if detail.status == "Shuttered" %}
-    {{ shutteredUrls.push(detail.url) }}
-  {% endif %}
-{% endfor %}
-
-{% set apiGatewaydUrls = [] %}
-{% for apiGateway in apiGateways %}
-  {% for api in apiGateway.apis | selectattr("shuttered") %}
-    {{ apiGatewaydUrls.push(api.api) }}
-  {% endfor %}
-{% endfor %}
-
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Service",
     text: service.serviceName
   }) }}
-{% endblock %}
 
-{{ shutteredUrls | dump }}
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
 
 {% block tabContent %}
 
-  <div class="govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-    {% if shutteredUrls | length %}
-      <ul class="govuk-list govuk-!-margin-bottom-0">
-        {% for shutteredUrl in shutteredUrls %}
-          <li>
-            {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
-              <a class="app-link app-link--underline"
-                 href="https://{{ shutteredUrl }}"
-                 target="_blank" rel="noopener noreferrer">https://{{ shutteredUrl }}</a> has been shuttered
-            {% endcall %}
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-    {% if apiGatewaydUrls | length %}
-      <ul class="govuk-list govuk-!-margin-bottom-0">
-        {% for apiGatewaydUrl in apiGatewaydUrls %}
-          <li>
-            {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
-              <a class="app-link app-link--underline"
-                 href="https://{{ apiGatewaydUrl }}"
-                 target="_blank"
-                 rel="noopener noreferrer">https://{{ apiGatewaydUrl }}</a> has been shuttered
-            {% endcall %}
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
-
   {% set gridClasses = ["app-grid app-grid-service", "app-grid-service--postgres" if service.isPostgres else
   "app-grid-service--standard"] | join(" ") | trim %}
-
-  <div class="app-service-container">
+  <div class="app-service-container govuk-!-margin-top-6">
     <article class="{{ gridClasses }}">
       <section class="app-grid-service__details">
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>

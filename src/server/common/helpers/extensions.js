@@ -2,8 +2,9 @@ import { provideServiceTabs } from '~/src/server/services/helpers/provide-servic
 import { validateEntityIsAService } from '~/src/server/common/helpers/validate-entity-is-a-service.js'
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
 import { provideTestSuiteTabs } from '~/src/server/test-suites/helpers/provide-test-suite-tabs.js'
-import { provideEntity } from '~/src/server/test-suites/helpers/pre/provide-test-suite.js'
 import { validateEntityIsATestSuite } from '~/src/server/common/helpers/validate-entity-is-a-test-suite.js'
+import { provideMessages } from '~/src/server/services/helpers/provide-messages.js'
+import { provideEntity } from '~/src/server/common/helpers/provide-entitiy.js'
 
 const provideEntityExtension = {
   type: 'onPreAuth',
@@ -53,11 +54,20 @@ const provideTestSuiteTabsExtension = {
   }
 }
 
+const provideMessagesExtension = {
+  type: 'onPostHandler',
+  method: provideMessages,
+  options: {
+    sandbox: 'plugin'
+  }
+}
+
 const commonServiceExtensions = [
   provideEntityExtension,
   addServiceOwnerScopeExtension,
   entityIsAServiceExtension,
-  provideServiceTabsExtension
+  provideServiceTabsExtension,
+  provideMessagesExtension
 ]
 
 const commonTestSuiteExtensions = [

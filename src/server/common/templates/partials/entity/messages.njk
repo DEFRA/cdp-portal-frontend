@@ -1,0 +1,23 @@
+{% if shutteredUrls | length %}
+  <div>
+    <ul class="govuk-list govuk-!-margin-bottom-0">
+      {% for shutteredUrl in shutteredUrls %}
+        <li>
+          {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
+            <a class="app-link app-link--underline"
+               href="https://{{ shutteredUrl.url }}"
+               target="_blank" rel="noopener noreferrer">https://{{ shutteredUrl.url }}</a> is currently shuttered
+            {{- "." if hasScope(scopes.serviceOwner) -}}
+
+            {% if hasScope(scopes.serviceOwner) %}
+              To unshutter go to the
+              <a class="app-link app-link--underline"
+                 href="{{ routeLookup('services/{serviceId}/maintenance', {
+                   params: { serviceId: entity.name } }) }}">Maintenance</a> page
+            {% endif %}
+          {% endcall %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

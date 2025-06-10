@@ -21,6 +21,8 @@
     caption: "Confirm shutter",
     text: entity.name
   }) }}
+
+  {% include "partials/entity/messages.njk" %}
 {% endblock %}
 
 {% block tabContent %}
@@ -28,39 +30,37 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half-from-desktop-massive">
 
-        <div class="govuk-!-margin-bottom-2">
-          {{ appWarning({
-            html: warningHtml
-          }) }}
-        </div>
-
         {% call appPanel() %}
           <h2 class="govuk-heading-m">Undeploy the following service</h2>
 
           {{ govukSummaryList(summaryList) }}
         {% endcall %}
 
-        {% call appPanel() %}
-          <form
-            action="{{ routeLookup('post:services/{serviceId}/maintenance/undeploy', { params: { serviceId: entity.name } }) }}"
-            method="POST"
-            data-js="app-form-group">
+        <form
+          action="{{ routeLookup('post:services/{serviceId}/maintenance/undeploy', { params: { serviceId: entity.name } }) }}"
+          method="POST"
+          data-js="app-form-group">
 
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-            <input type="hidden" name="environment" value="{{ environment }}" />
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="environment" value="{{ environment }}" />
 
-            <div class="govuk-body govuk-button-group govuk-!-margin-bottom-0">
+          <div class="govuk-!-margin-bottom-2">
+            {{ appWarning({
+              html: warningHtml
+            }) }}
+          </div>
 
-              {{ govukButton({
-                classes: "app-button app-button--destructive",
-                text: "Undeploy service"
-              }) }}
+          <div class="govuk-body govuk-button-group govuk-!-margin-bottom-0">
 
-              <a class="app-link"
-                 href="{{ routeLookup('services/{serviceId}/maintenance', { params: { serviceId: entity.name } }) }}">Cancel</a>
-            </div>
-          </form>
-        {% endcall %}
+            {{ govukButton({
+              classes: "app-button app-button--destructive",
+              text: "Undeploy service"
+            }) }}
+
+            <a class="app-link"
+               href="{{ routeLookup('services/{serviceId}/maintenance', { params: { serviceId: entity.name } }) }}">Cancel</a>
+          </div>
+        </form>
       </div>
     </div>
   </section>
