@@ -30,7 +30,11 @@ const detailsFormController = {
     const multiStepFormId = request.app.multiStepFormId
 
     const deployableImageNames = await fetchDeployableImageNames({ request })
-    const latestMigrations = await fetchLatestMigrations(imageName)
+    const latestMigrationsResponse = await fetchLatestMigrations(imageName)
+    const latestMigrations = latestMigrationsResponse.map((migration) => ({
+      ...migration,
+      statusClassname: provideDatabaseStatusClassname(migration.status)
+    }))
     const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
     const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
@@ -50,10 +54,7 @@ const detailsFormController = {
       imageName,
       latestVersions,
       runningServices,
-      latestMigrations: latestMigrations.map((migration) => ({
-        ...migration,
-        statusClassname: provideDatabaseStatusClassname(migration.status)
-      })),
+      latestMigrations,
       environments
     })
   }
