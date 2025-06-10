@@ -9,7 +9,9 @@ import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 async function aboutTestSuiteHandler(request, h) {
   const entity = request.app.entity
   const formValues = request.pre.formValues
-  const canRun = request.pre.canRun
+  const canRun =
+    (await request.userIsOwner(entity)) || (await request.userIsAdmin())
+
   const testSuiteName = entity.name
   const query = request.query
 

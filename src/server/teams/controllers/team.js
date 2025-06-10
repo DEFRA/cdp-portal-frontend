@@ -20,14 +20,16 @@ const teamController = {
     }
   },
   handler: async (request, h) => {
-    // TODO parallelise these requests
     const teamId = request.params.teamId
-    const { team } = await fetchTeam(teamId)
-    const teamsServices = await fetchEntities({ type: 'Microservice', teamId })
-    const teamTestSuites = await fetchEntities({ type: 'TestSuite', teamId })
+    const userIsServiceOwner = await request.userIsServiceOwner([teamId])
+    const userIsAdmin = await request.userIsAdmin()
 
-    const userIsTeamMember = await request.userIsMemberOfATeam([teamId])
-    const authedUser = await request.getUserSession()
+    const [{ team }, teamsServices, teamTestSuites] = await Promise.all([
+      fetchTeam(teamId),
+      fetchEntities({ type: 'Microservice', teamId }),
+      fetchEntities({ type: 'TestSuite', teamId })
+    ])
+
     const hasGitHub = Boolean(team?.github)
 
     const { libraries, templates } = hasGitHub
@@ -38,14 +40,14 @@ const teamController = {
       pageTitle: `${team.name} Team`,
       summaryList: transformTeamToSummary(
         team,
-        userIsTeamMember || authedUser?.isAdmin
+        userIsServiceOwner || userIsAdmin
       ),
       services: entitiesToDetailedList('services', teamsServices),
       testSuites: entitiesToDetailedList('test-suites', teamTestSuites),
       libraries: librariesToDetailedList(libraries),
       templates: templatesToDetailedList(templates),
       team,
-      userIsTeamMember,
+      userIsServiceOwner,
       breadcrumbs: [
         {
           text: 'Teams',

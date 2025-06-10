@@ -9,7 +9,8 @@ describe('#provideFormValues', () => {
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
       app: { entity },
-      userIsMemberOfATeam: jest.fn().mockResolvedValue(false)
+      userIsOwner: jest.fn().mockResolvedValue(false),
+      userIsAdmin: jest.fn().mockResolvedValue(false)
     }
     const result = await provideFormValues.method(mockRequest)
 
@@ -21,7 +22,9 @@ describe('#provideFormValues', () => {
 
   test('Should return expect values for an unauthenticated user', async () => {
     const mockRequest = {
-      getUserSession: jest.fn().mockResolvedValue({ isAuthenticated: false })
+      getUserSession: jest.fn().mockResolvedValue({ isAuthenticated: false }),
+      userIsOwner: jest.fn().mockResolvedValue(false),
+      userIsAdmin: jest.fn().mockResolvedValue(false)
     }
 
     const result = await provideFormValues.method(mockRequest)
@@ -38,7 +41,8 @@ describe('#provideFormValues', () => {
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
       app: { entity },
-      userIsMemberOfATeam: jest.fn().mockResolvedValue(true)
+      userIsOwner: jest.fn().mockResolvedValue(true),
+      userIsAdmin: jest.fn().mockResolvedValue(false)
     }
     const result = await provideFormValues.method(mockRequest)
 
@@ -101,7 +105,8 @@ describe('#provideFormValues', () => {
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: true }),
       app: { entity },
-      userIsMemberOfATeam: jest.fn().mockResolvedValue(false)
+      userIsOwner: jest.fn().mockResolvedValue(false),
+      userIsAdmin: jest.fn().mockResolvedValue(true)
     }
     const result = await provideFormValues.method(mockRequest)
 

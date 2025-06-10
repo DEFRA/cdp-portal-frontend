@@ -1,8 +1,10 @@
 import { provideTestSuiteTabs } from '~/src/server/test-suites/helpers/provide-test-suite-tabs.js'
 
 const mockRouteLookup = jest.fn()
-const mockUserIsServiceOwner = jest.fn()
+const mockUserIsOwner = jest.fn()
 const mockUserSession = jest.fn()
+const mockUserIsAdmin = jest.fn()
+const mockUserIsTenant = jest.fn()
 
 describe('#provideTestSuiteTabs', () => {
   const mockEntityName = 'cdp-env-test-suite'
@@ -11,7 +13,9 @@ describe('#provideTestSuiteTabs', () => {
     response,
     path,
     getUserSession: mockUserSession,
-    userIsServiceOwner: mockUserIsServiceOwner,
+    userIsOwner: mockUserIsOwner,
+    userIsAdmin: mockUserIsAdmin,
+    userIsTenant: mockUserIsTenant,
     routeLookup: mockRouteLookup,
     app: {
       entity: {
@@ -34,7 +38,7 @@ describe('#provideTestSuiteTabs', () => {
 
   describe('With an Admin user', () => {
     beforeEach(() => {
-      mockUserIsServiceOwner.mockResolvedValue(false)
+      mockUserIsOwner.mockResolvedValue(false)
       mockRouteLookup.mockImplementation(
         (path, options) =>
           '/' + path.replace('{serviceId}', options.params.serviceId)
@@ -43,6 +47,8 @@ describe('#provideTestSuiteTabs', () => {
         isAdmin: true,
         isTenant: true
       })
+      mockUserIsAdmin.mockResolvedValue(true)
+      mockUserIsTenant.mockResolvedValue(true)
     })
 
     test('Should provide expected context tabs', async () => {
@@ -105,7 +111,7 @@ describe('#provideTestSuiteTabs', () => {
 
   describe('With a service owner', () => {
     beforeEach(() => {
-      mockUserIsServiceOwner.mockResolvedValue(true)
+      mockUserIsOwner.mockResolvedValue(true)
 
       mockUserSession.mockResolvedValue({
         isAdmin: false,
@@ -177,7 +183,7 @@ describe('#provideTestSuiteTabs', () => {
 
   describe('With a tenant', () => {
     beforeEach(() => {
-      mockUserIsServiceOwner.mockResolvedValue(false)
+      mockUserIsOwner.mockResolvedValue(false)
 
       mockUserSession.mockResolvedValue({
         isAdmin: false,
@@ -187,6 +193,8 @@ describe('#provideTestSuiteTabs', () => {
         (path, options) =>
           '/' + path.replace('{serviceId}', options.params.serviceId)
       )
+      mockUserIsAdmin.mockResolvedValue(false)
+      mockUserIsTenant.mockResolvedValue(true)
     })
 
     test('Should provide expected context tabs', async () => {
@@ -239,10 +247,12 @@ describe('#provideTestSuiteTabs', () => {
 
   describe('With a logged out user', () => {
     beforeEach(() => {
-      mockUserIsServiceOwner.mockResolvedValue(false)
+      mockUserIsOwner.mockResolvedValue(false)
       mockUserSession.mockResolvedValue(null)
 
       mockRouteLookup.mockReturnValueOnce(`/test-suites/${mockEntityName}`)
+      mockUserIsAdmin.mockResolvedValue(false)
+      mockUserIsTenant.mockResolvedValue(false)
     })
 
     test('Should provide expected context tabs', async () => {

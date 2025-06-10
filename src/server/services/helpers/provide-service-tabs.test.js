@@ -3,7 +3,7 @@ import { scopes } from '~/src/server/common/constants/scopes.js'
 import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
 
 const mockServiceName = 'cdp-portal-frontend'
-const mockUserIsServiceOwner = jest.fn()
+const mockUserIsOwner = jest.fn()
 const mockUserSession = jest.fn()
 const mockRouteLookup = jest.fn(
   (id) => `/${id.replace('{serviceId}', mockServiceName)}`
@@ -14,7 +14,7 @@ describe('#provideServiceTabs', () => {
     response,
     path,
     getUserSession: mockUserSession,
-    userIsServiceOwner: mockUserIsServiceOwner,
+    userIsOwner: mockUserIsOwner,
     routeLookup: mockRouteLookup,
     hasScope: hasScopeDecorator({
       auth: { credentials: { scope } }
@@ -39,7 +39,7 @@ describe('#provideServiceTabs', () => {
 
   describe('With an Admin user', () => {
     beforeEach(() => {
-      mockUserIsServiceOwner.mockResolvedValue(false)
+      mockUserIsOwner.mockResolvedValue(false)
       mockUserSession.mockResolvedValue({
         isAdmin: true,
         isTenant: true
@@ -136,7 +136,7 @@ describe('#provideServiceTabs', () => {
 
   describe('With a service owner', () => {
     beforeEach(async () => {
-      mockUserIsServiceOwner.mockResolvedValue(true)
+      mockUserIsOwner.mockResolvedValue(true)
 
       mockUserSession.mockResolvedValue({
         isAdmin: false,
@@ -238,7 +238,7 @@ describe('#provideServiceTabs', () => {
 
   describe('With a tenant', () => {
     beforeEach(() => {
-      mockUserIsServiceOwner.mockResolvedValue(false)
+      mockUserIsOwner.mockResolvedValue(false)
 
       mockUserSession.mockResolvedValue({
         isAdmin: false,
@@ -307,7 +307,7 @@ describe('#provideServiceTabs', () => {
   describe('With an restrictedTech permission', () => {
     describe('With an Admin user', () => {
       beforeEach(() => {
-        mockUserIsServiceOwner.mockResolvedValue(false)
+        mockUserIsOwner.mockResolvedValue(false)
         mockUserSession.mockResolvedValue({
           isAdmin: true,
           isTenant: true
@@ -367,7 +367,7 @@ describe('#provideServiceTabs', () => {
 
     describe('With a service owner', () => {
       beforeEach(async () => {
-        mockUserIsServiceOwner.mockResolvedValue(true)
+        mockUserIsOwner.mockResolvedValue(true)
 
         mockUserSession.mockResolvedValue({
           isAdmin: false,
@@ -428,7 +428,7 @@ describe('#provideServiceTabs', () => {
 
     describe('With a tenant', () => {
       beforeEach(() => {
-        mockUserIsServiceOwner.mockResolvedValue(false)
+        mockUserIsOwner.mockResolvedValue(false)
 
         mockUserSession.mockResolvedValue({
           isAdmin: false,
@@ -498,7 +498,7 @@ describe('#provideServiceTabs', () => {
 
   describe('With a logged out user', () => {
     beforeEach(() => {
-      mockUserIsServiceOwner.mockResolvedValue(false)
+      mockUserIsOwner.mockResolvedValue(false)
       mockUserSession.mockResolvedValue(null)
     })
 

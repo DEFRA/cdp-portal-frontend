@@ -7,9 +7,8 @@ import { buildTab } from '~/src/server/common/patterns/entities/tabs/helpers/bui
  * @returns {Promise<symbol>}
  */
 async function provideTestSuiteTabs(request, h) {
-  const authedUser = await request.getUserSession()
-  const isAdmin = authedUser?.isAdmin
-  const isTenant = authedUser?.isTenant
+  const isAdmin = await request.userIsAdmin()
+  const isTenant = await request.userIsTenant()
   const response = request.response
 
   if (response.variety === 'view') {
@@ -19,9 +18,7 @@ async function provideTestSuiteTabs(request, h) {
 
     const testSuite = request.app.entity
     const testSuiteName = testSuite?.name
-    const teams = testSuite?.teams ?? []
-    const teamIds = teams.map((team) => team.teamId)
-    const isServiceOwner = await request.userIsServiceOwner(teamIds)
+    const isServiceOwner = await request.userIsOwner(testSuite)
 
     response.source.context.tabDetails = {
       label: 'Test Suite tabs'

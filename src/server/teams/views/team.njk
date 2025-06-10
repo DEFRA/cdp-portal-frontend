@@ -14,7 +14,7 @@
   <div class="govuk-grid-row govuk-!-margin-bottom-8">
     <div class="govuk-grid-column-one-half-from-desktop-wide">
 
-      {% if userIsTeamMember %}
+      {% if userIsServiceOwner %}
         <ul class="govuk-list">
           <li>
             <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
@@ -52,7 +52,7 @@
           {% else %}
             <p>This team has no services
 
-              {% if userIsTeamMember %}
+              {% if userIsServiceOwner %}
                 <a href="{{ routeLookup('create') }}"
                    class="app-link app-link--underline">
                   Create a service
@@ -75,7 +75,7 @@
           {% else %}
             <p>This team has no test-suites
 
-              {% if userIsTeamMember %}
+              {% if userIsServiceOwner %}
                 <a href="{{ routeLookup('create') }}"
                    class="app-link app-link--underline">
                   Create a test-suite

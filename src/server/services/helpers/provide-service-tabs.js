@@ -20,9 +20,8 @@ async function provideServiceTabs(request, h) {
     }
 
     const entityName = request.app.entity?.name
-    const teams = request.app.entity?.teams ?? []
-    const serviceTeamIds = teams.map((team) => team.teamId)
-    const isServiceOwner = await request.userIsServiceOwner(serviceTeamIds)
+    const entity = request.app.entity
+    const isServiceOwner = await request.userIsOwner(entity)
 
     response.source.context.tabDetails = {
       label: 'Service tabs'

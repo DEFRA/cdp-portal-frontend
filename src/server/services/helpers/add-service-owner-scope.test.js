@@ -1,5 +1,5 @@
 import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
-import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner.js'
+import { userIsOwnerDecorator } from '~/src/server/common/helpers/user/user-is-owner.js'
 
 describe('#addServiceOwnerScope', () => {
   const mockResponseToolkit = { continue: 'mockContinue' }
@@ -20,7 +20,8 @@ describe('#addServiceOwnerScope', () => {
             teams: [{ teamId }]
           }
         },
-        auth: { isAuthenticated: false, credentials: null }
+        auth: { isAuthenticated: false, credentials: null },
+        userIsOwner: jest.fn().mockResolvedValue(false)
       }
     })
 
@@ -65,7 +66,7 @@ describe('#addServiceOwnerScope', () => {
         params: {
           serviceId: 'mock-service-id'
         },
-        userIsServiceOwner: userIsServiceOwnerDecorator({
+        userIsOwner: userIsOwnerDecorator({
           getUserSession: mockGetUserSession
         })
       }
@@ -98,7 +99,7 @@ describe('#addServiceOwnerScope', () => {
         params: {
           serviceId: 'mock-service-id'
         },
-        userIsServiceOwner: userIsServiceOwnerDecorator({
+        userIsOwner: userIsOwnerDecorator({
           getUserSession: mockGetUserSession
         })
       }

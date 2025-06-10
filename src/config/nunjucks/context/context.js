@@ -8,8 +8,6 @@ import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation.js'
 import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
-import { userIsTeamMember } from '~/src/server/common/helpers/user/user-is-team-member.js'
-import { userIsMemberOfATeam } from '~/src/server/common/helpers/user/user-is-member-of-a-team.js'
 import { eventName } from '~/src/client/common/constants/event-name.js'
 import { getAnnouncements } from '~/src/config/nunjucks/context/announcements.js'
 import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
@@ -76,9 +74,7 @@ async function context(request) {
     scopes,
     serviceEnvironment: serviceConfig.environment,
     serviceVersion: serviceConfig.version,
-    supportChannel: config.get('supportChannel'),
-    userIsMemberOfATeam: userIsMemberOfATeam(authedUser),
-    userIsTeamMember: userIsTeamMember(authedUser)
+    supportChannel: config.get('supportChannel')
   }
 }
 
