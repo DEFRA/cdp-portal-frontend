@@ -1,6 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
+  mockFetchShutteringUrlsCall,
   mockServiceEntityCall,
   mockTenantServicesCall
 } from '~/test-helpers/common-page-rendering.js'
@@ -8,6 +9,7 @@ import {
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
+jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
 
 describe('Service Terminal page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -17,6 +19,7 @@ describe('Service Terminal page', () => {
     const serviceName = 'mock-service-with-terminal'
     mockServiceEntityCall(serviceName, undefined)
     mockTenantServicesCall()
+    mockFetchShutteringUrlsCall()
     server = await initialiseServer()
   })
 

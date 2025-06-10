@@ -2,12 +2,14 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockBucketsCall,
+  mockFetchShutteringUrlsCall,
   mockServiceEntityCall
 } from '~/test-helpers/common-page-rendering.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-all-buckets.js')
+jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
 
 const serviceName = 'mock-service-with-buckets'
 
@@ -18,6 +20,7 @@ describe('Service Buckets page', () => {
   beforeAll(async () => {
     mockServiceEntityCall(serviceName, undefined)
     mockBucketsCall(serviceName)
+    mockFetchShutteringUrlsCall()
     server = await initialiseServer()
   })
 

@@ -3,7 +3,7 @@ import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
 
-function entityToSummary(entity, deployment, environment, authedUser) {
+function entityToSummary(deployment, environment, authedUser) {
   return {
     classes: 'app-summary-list',
     attributes: {

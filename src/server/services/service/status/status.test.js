@@ -1,6 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
+  mockFetchShutteringUrlsCall,
   mockRepositoryCall,
   mockServiceEntityCall,
   mockServiceEntityStatusCall
@@ -10,6 +11,7 @@ import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
+jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
 
 describe('Service Status page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -25,6 +27,7 @@ describe('Service Status page', () => {
       mockServiceEntityCall(repositoryName, 'frontend', status)
       mockServiceEntityStatusCall(repositoryName, 'frontend', status)
       mockRepositoryCall(repositoryName, ['frontend'])
+      mockFetchShutteringUrlsCall()
       server = await initialiseServer()
     })
 

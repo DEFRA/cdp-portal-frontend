@@ -1,6 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
+  mockFetchShutteringUrlsCall,
   mockServiceEntityCall
 } from '~/test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
@@ -8,6 +9,7 @@ import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-s
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
 jest.mock('~/src/server/services/helpers/fetch/fetch-all-secrets.js')
+jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
 
 describe('Service Secrets page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -26,7 +28,7 @@ describe('Service Secrets page', () => {
         createdDate: null
       }
     })
-
+    mockFetchShutteringUrlsCall()
     mockServiceEntityCall('mock-service-with-secrets', 'backend')
     server = await initialiseServer()
   })
