@@ -37,11 +37,19 @@ const confirmUndeployController = {
       statusClassname: provideDeploymentStatusClassname(runningService.status)
     }
 
+    const isFrontend = entity.subType === 'Frontend'
+
     return h.view('services/service/maintenance/views/confirm-undeploy', {
       pageTitle: `Confirm Undeploy - ${serviceId}`,
       entity,
       environment,
-      summaryList: entityToSummary(deployedService, environment, authedUser),
+      summaryList: entityToSummary({
+        entity,
+        deployedService,
+        environment,
+        authedUser,
+        isFrontend
+      }),
       breadcrumbs: [
         {
           text: 'Services',

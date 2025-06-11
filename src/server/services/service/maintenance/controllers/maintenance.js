@@ -40,10 +40,12 @@ const maintenanceController = {
     const shouldPoll = shutteringDetails.some((detail) =>
       detail.status.includes('Pending')
     )
+    const isFrontend = entity.subType === 'Frontend'
 
     return h.view('services/service/maintenance/views/maintenance', {
       pageTitle: `Maintenance - ${serviceId}`,
       entity,
+      isFrontend,
       shouldPoll,
       pendingShutter,
       shutteringDetails: shutteringDetails.toSorted(

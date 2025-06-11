@@ -70,10 +70,14 @@
   {% endset %}
 
   {% set applicationLinkHtml %}
-    <a href="https://{{ runningService.service }}.{{ runningService.environment }}.cdp-int.defra.cloud"
-       role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+    {% if isFrontend %}
+      <a href="https://{{ runningService.service }}.{{ runningService.environment }}.cdp-int.defra.cloud"
+         role="button" class="app-link" target="_blank" rel="noopener noreferrer" aria-labelledby="version">
+        https://{{ runningService.service }}.{{ runningService.environment }}.cdp-int.defra.cloud
+      </a>
+    {% else %}
       https://{{ runningService.service }}.{{ runningService.environment }}.cdp-int.defra.cloud
-    </a>
+    {% endif %}
   {% endset %}
 
   {% set terminalStatuses = ["stopped", "failed", "undeployed"] %}
@@ -157,15 +161,20 @@
                     {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
 
                     <section class="govuk-!-margin-bottom-6">
-                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                        {{ "Service" if isFrontend else "API Gateway" }} {{ urlText }}</h2>
                       <p class="govuk-!-margin-bottom-2">
-                        User-friendly custom {{ urlText }}
+                        {% if isFrontend %}
+                          User-friendly custom {{ urlText }}
+                        {% else %}
+                          Publicly accessible {{ urlText }} for the service
+                        {% endif %}
                       </p>
 
                       {{ govukTable({
                         classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
                         head: [
-                          { text: "Url" },
+                          { text: "Service URL" if isFrontend else "API Gateway URL" },
                           { text: "Environment" },
                           { text: "Status" },
                           { text: "Action",
@@ -214,7 +223,7 @@
                   { text: "Environment" },
                   { text: "Status" },
                   { text: "Version" },
-                  { text: "Url" },
+                  { text: "CDP Service URL" },
                   { text: "Action", classes: "app-!-text-align-right"}
                 ],
                 rows: undeployTableRows
