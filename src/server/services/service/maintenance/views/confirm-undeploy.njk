@@ -30,7 +30,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half-from-desktop-massive">
 
-        {% call appPanel() %}
+        {% call appPanel({ testId: "confirm-undeploy-panel" }) %}
           <h2 class="govuk-heading-m">Undeploy the following service</h2>
 
           {{ govukSummaryList(summaryList) }}

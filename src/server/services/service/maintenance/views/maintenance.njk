@@ -20,11 +20,23 @@
 {% for detail in shutteringDetails %}
   {% set status %}
     {% if detail.status == "Shuttered" %}
-      {{ appTag({ text: detail.status, classes: "govuk-tag--red" }) }}
+      {{ appTag({
+        text: detail.status,
+        classes: "govuk-tag--red",
+        attributes: { "data-testid": "shuttered-status-" + loop.index }
+      }) }}
     {% elseif detail.status == "Active" %}
-      {{ appTag({ text: detail.status, classes: "govuk-tag--green" }) }}
+      {{ appTag({
+        text: detail.status,
+        classes: "govuk-tag--green",
+        attributes: { "data-testid": "shuttered-status-" + loop.index }
+      }) }}
     {% else %}
-      {{ appTag({ text: "Pending", classes: "govuk-tag--blue" }) }}
+      {{ appTag({
+        text: "Pending",
+        classes: "govuk-tag--blue",
+        attributes: { "data-testid": "shuttered-status-" + loop.index }
+      }) }}
     {% endif %}
   {% endset %}
 
@@ -38,7 +50,7 @@
         params: { serviceId: detail.serviceName },
         query: { url: detail.url }
       }) }}"
-         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+         role="button" class="app-link app-link--underline" data-testid="shutter-link-{{ loop.index }}">
         {{ "Unshutter" if detail.status == "Shuttered" else "Shutter" }}
       </a>
     {% endif %}
@@ -88,14 +100,14 @@
         params: { serviceId: runningService.service },
         query: { environment: runningService.environment }
       }) }}"
-         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+         role="button" class="app-link app-link--underline" data-testid="undeploy-link-{{ loop.index }}">
         Undeploy
       </a>
     {% elseif terminalStatuses.includes(runningService.status) %}
       <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
         query: { imageName: runningService.service, version: runningService.version }
       }) }}"
-         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+         role="button" class="app-link app-link--underline" data-testid="undeploy-link-{{ loop.index }}">
         Deploy
       </a>
     {% else %}
@@ -156,7 +168,7 @@
                   {% endif %}
                 </div>
 
-                {% call appPanel() %}
+                {% call appPanel({ testId: "shuttering-panel" }) %}
                   {% if shutteringDetails | length %}
                     {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
 
@@ -207,7 +219,7 @@
           </p>
         </div>
 
-        {% call appPanel() %}
+        {% call appPanel({ testId: "undeploy-panel" }) %}
           <section class="govuk-!-margin-bottom-6">
             {% if runningServices | length %}
               {% set titleText = "Deployment" | pluralise(runningServices | length) %}
@@ -234,7 +246,8 @@
                 Currently, this service has no deployments on any CDP environments. To undeploy a service, one must
                 first deploy a service. You can start your services journey via the
                 <a href="{{ routeLookup('deploy-service') }}"
-                   role="button" class="app-link app-link--underline" data-testid="vanity-url">Deploy Service</a> flow.
+                   role="button" class="app-link app-link--underline" data-testid="deploy-service">Deploy Service</a>
+                flow.
               </p>
             {% endif %}
           </section>
