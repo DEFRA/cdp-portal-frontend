@@ -1,7 +1,8 @@
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
+import { noValue } from '~/src/server/common/constants/no-value.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { shutteringStatus } from '~/src/server/common/constants/shuttering.js'
+import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
 function shutteringDetailToSummary({
   isFrontend,
@@ -36,7 +37,7 @@ function shutteringDetailToSummary({
       },
       {
         key: { text: 'Requested By' },
-        value: { text: authedUser.displayName }
+        value: { text: authedUser?.displayName ?? noValue }
       }
     ]
   }
