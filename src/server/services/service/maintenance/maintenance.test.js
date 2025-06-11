@@ -4,7 +4,6 @@ import {
   mockServiceEntityCall,
   mockServicesAdditionalCalls
 } from '~/test-helpers/common-page-rendering.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
 import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-running-services.js')
@@ -35,12 +34,11 @@ describe('Services', () => {
       jest.useRealTimers()
     })
 
-    test('logged in admin user with scope', async () => {
+    test('logged in admin user', async () => {
       const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: '/services/mock-service/maintenance',
         isAdmin: true,
-        isTenant: true,
-        additionalScopes: [scopes.restrictedTechMaintenance]
+        isTenant: true
       })
       expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
@@ -61,8 +59,7 @@ describe('Services', () => {
         targetUrl: '/services/mock-service/maintenance',
         isAdmin: false,
         isTenant: true,
-        teamScope: 'mock-team-id',
-        additionalScopes: [scopes.restrictedTechMaintenance]
+        teamScope: 'mock-team-id'
       })
       expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()

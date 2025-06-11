@@ -8,11 +8,7 @@ import { confirmUndeployController } from '~/src/server/services/service/mainten
 import { maintenanceController } from '~/src/server/services/service/maintenance/controllers/maintenance.js'
 import { undeployController } from '~/src/server/services/service/maintenance/controllers/undeploy.js'
 
-const serviceTeamAndAdminWithShutteringRestrictedTechScope = authScope([
-  scopes.serviceOwner,
-  scopes.admin,
-  `+${scopes.restrictedTechMaintenance}`
-])
+const serviceTeamAndAdminScope = authScope([scopes.serviceOwner, scopes.admin])
 
 const serviceMaintenance = {
   plugin: {
@@ -57,7 +53,7 @@ const serviceMaintenance = {
             path: '/services/{serviceId}/maintenance/undeploy',
             ...undeployController
           }
-        ].map(serviceTeamAndAdminWithShutteringRestrictedTechScope)
+        ].map(serviceTeamAndAdminScope)
       )
     }
   }
