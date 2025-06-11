@@ -31,13 +31,18 @@ const confirmShutterController = {
     }
 
     const isShuttered = shutteringDetail.status === shutteringStatus.shuttered
+    const isFrontend = entity.subType === 'Frontend'
 
     return h.view('services/service/maintenance/views/confirm-shutter', {
       pageTitle: `Confirm shutter - ${serviceId}`,
       entity,
       shutteringDetail,
       isShuttered,
-      summaryList: shutteringDetailToSummary(shutteringDetail, authedUser),
+      summaryList: shutteringDetailToSummary({
+        isFrontend,
+        shutteringDetail,
+        authedUser
+      }),
       breadcrumbs: [
         {
           text: 'Services',

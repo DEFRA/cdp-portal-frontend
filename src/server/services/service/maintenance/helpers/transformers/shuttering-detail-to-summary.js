@@ -3,7 +3,11 @@ import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 import { shutteringStatus } from '~/src/server/common/constants/shuttering.js'
 
-function shutteringDetailToSummary(detail, authedUser) {
+function shutteringDetailToSummary({
+  isFrontend,
+  shutteringDetail,
+  authedUser
+}) {
   return {
     classes: 'app-summary-list',
     attributes: {
@@ -11,20 +15,20 @@ function shutteringDetailToSummary(detail, authedUser) {
     },
     rows: [
       {
-        key: { text: 'Url' },
-        value: { html: buildLink({ href: `https://${detail.url}` }) }
+        key: { text: isFrontend ? 'Service URL' : 'API Gateway URL' },
+        value: { html: buildLink({ href: `https://${shutteringDetail.url}` }) }
       },
       {
         key: { text: 'Environment' },
-        value: { text: formatText(detail.environment) }
+        value: { text: formatText(shutteringDetail.environment) }
       },
       {
         key: {
           text: 'Status'
         },
         value: {
-          html: renderTag(detail.status, [
-            detail.status === shutteringStatus.shuttered
+          html: renderTag(shutteringDetail.status, [
+            shutteringDetail.status === shutteringStatus.shuttered
               ? 'govuk-tag--red'
               : 'govuk-tag--green'
           ])
