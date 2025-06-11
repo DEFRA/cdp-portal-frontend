@@ -1,8 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
-import { fetchCreateStatus } from '~/src/server/services/helpers/fetch/fetch-create-status.js'
+import { checkNameIsAvailable } from '~/src/server/create/helpers/validator/check-name-is-available.js'
 
 const isNameAvailableController = {
   options: {
@@ -15,16 +13,9 @@ const isNameAvailableController = {
   },
   handler: async (request, h) => {
     const repositoryName = request.params?.repositoryName
-    const responses = await Promise.allSettled([
-      fetchRepository(repositoryName),
-      fetchCreateStatus(repositoryName)
-    ])
+    const nameIsAvailable = await checkNameIsAvailable(repositoryName)
 
-    const rejected404Statuses = responses
-      .filter((response) => response.status === 'rejected')
-      .filter((response) => response?.reason?.output?.statusCode === 404)
-
-    if (rejected404Statuses.length === 2) {
+    if (nameIsAvailable) {
       return h.response({
         message: 'success',
         isAvailable: true

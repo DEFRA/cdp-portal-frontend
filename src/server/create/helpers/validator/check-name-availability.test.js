@@ -3,15 +3,15 @@ import nock from 'nock'
 import { config } from '~/src/config/config.js'
 import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
 import { repositoryFixture } from '~/src/__fixtures__/repository.js'
-import { createServiceStatusInProgressFixture } from '~/src/__fixtures__/create/service-status-in-progress.js'
+import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
 
 describe('#checkNameAvailability', () => {
   const repositoryName = 'cdp-portal-frontend'
   const repositoryEndpointUrl = new URL(
     `${config.get('portalBackendUrl')}/repositories/${repositoryName}`
   )
-  const createServiceStatusEndpointUrl = new URL(
-    `${config.get('portalBackendUrl')}/legacy-statuses/${repositoryName}`
+  const fetchEntitiesEndpointUrl = new URL(
+    `${config.get('portalBackendUrl')}/entities/${repositoryName}`
   )
   let mockHelpers
 
@@ -26,8 +26,8 @@ describe('#checkNameAvailability', () => {
       .get(repositoryEndpointUrl.pathname)
       .reply(404, { message: 'Not Found' })
 
-    nock(createServiceStatusEndpointUrl.origin)
-      .get(createServiceStatusEndpointUrl.pathname)
+    nock(fetchEntitiesEndpointUrl.origin)
+      .get(fetchEntitiesEndpointUrl.pathname)
       .reply(404, { message: 'Not Found' })
 
     const response = await checkNameAvailability(repositoryName, mockHelpers)
@@ -40,8 +40,8 @@ describe('#checkNameAvailability', () => {
       .get(repositoryEndpointUrl.pathname)
       .reply(200, repositoryFixture)
 
-    nock(createServiceStatusEndpointUrl.origin)
-      .get(createServiceStatusEndpointUrl.pathname)
+    nock(fetchEntitiesEndpointUrl.origin)
+      .get(fetchEntitiesEndpointUrl.pathname)
       .reply(404, { message: 'Not Found' })
 
     const response = await checkNameAvailability(repositoryName, mockHelpers)
@@ -57,9 +57,9 @@ describe('#checkNameAvailability', () => {
       .get(repositoryEndpointUrl.pathname)
       .reply(200, repositoryFixture)
 
-    nock(createServiceStatusEndpointUrl.origin)
-      .get(createServiceStatusEndpointUrl.pathname)
-      .reply(200, createServiceStatusInProgressFixture)
+    nock(fetchEntitiesEndpointUrl.origin)
+      .get(fetchEntitiesEndpointUrl.pathname)
+      .reply(200, entityServicesFixture[0])
 
     const response = await checkNameAvailability(repositoryName, mockHelpers)
 

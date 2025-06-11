@@ -1,17 +1,9 @@
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
-import { fetchCreateStatus } from '~/src/server/services/helpers/fetch/fetch-create-status.js'
+import { checkNameIsAvailable } from '~/src/server/create/helpers/validator/check-name-is-available.js'
 
 async function checkNameAvailability(value, helpers) {
-  const responses = await Promise.allSettled([
-    fetchRepository(value),
-    fetchCreateStatus(value)
-  ])
+  const nameIsAvailable = await checkNameIsAvailable(value)
 
-  const rejected404Statuses = responses
-    .filter((response) => response.status === 'rejected')
-    .filter((response) => response?.reason?.output?.statusCode === 404)
-
-  if (rejected404Statuses.length === 2) {
+  if (nameIsAvailable) {
     return value
   }
 
