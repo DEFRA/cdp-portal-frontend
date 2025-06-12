@@ -12,11 +12,7 @@ const updateShutteringStatusController = {
     auth: {
       mode: 'required',
       access: {
-        scope: [
-          scopes.serviceOwner,
-          scopes.admin,
-          `+${scopes.restrictedTechMaintenance}`
-        ]
+        scope: [scopes.serviceOwner, scopes.admin]
       }
     },
     validate: {

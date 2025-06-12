@@ -53,7 +53,9 @@ function getIcon(status, unstable) {
 
 function buildInstanceStatus(deployment) {
   const deploymentInstances = Object.values(deployment.instances)
-  const waitingMessage = 'Deployment requested, information coming soon'
+  const deploymentType =
+    deployment.instanceCount === 0 ? 'Undeployment' : 'Deployment'
+  const waitingMessage = `${deploymentType} requested, information coming soon`
 
   if (deploymentInstances.length === 0) {
     return waitingMessage

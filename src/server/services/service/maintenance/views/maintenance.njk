@@ -11,8 +11,11 @@
 
 {% set infoHtml %}
   <p class="govuk-!-margin-bottom-1">
-    Your request will take a few minutes to complete. Requested by {{ pendingShutter.lastActionedBy.displayName }}.
-    {{ appTime({ datetime: pendingShutter.lastActionedAt, withSeconds: true }) }}
+    Your request will take a few minutes to complete.
+    {% if pendingShutter.lastActionedBy %}
+      Requested by {{ pendingShutter.lastActionedBy.displayName }}.
+      {{ appTime({ datetime: pendingShutter.lastActionedAt, withSeconds: true }) }}
+    {% endif %}
   </p>
 {% endset %}
 
@@ -20,11 +23,23 @@
 {% for detail in shutteringDetails %}
   {% set status %}
     {% if detail.status == "Shuttered" %}
-      {{ appTag({ text: detail.status, classes: "govuk-tag--red" }) }}
+      {{ appTag({
+        text: detail.status,
+        classes: "govuk-tag--red",
+        attributes: { "data-testid": "shuttered-status-" + loop.index }
+      }) }}
     {% elseif detail.status == "Active" %}
-      {{ appTag({ text: detail.status, classes: "govuk-tag--green" }) }}
+      {{ appTag({
+        text: detail.status,
+        classes: "govuk-tag--green",
+        attributes: { "data-testid": "shuttered-status-" + loop.index }
+      }) }}
     {% else %}
-      {{ appTag({ text: "Pending", classes: "govuk-tag--blue" }) }}
+      {{ appTag({
+        text: "Pending",
+        classes: "govuk-tag--blue",
+        attributes: { "data-testid": "shuttered-status-" + loop.index }
+      }) }}
     {% endif %}
   {% endset %}
 
@@ -38,7 +53,7 @@
         params: { serviceId: detail.serviceName },
         query: { url: detail.url }
       }) }}"
-         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+         role="button" class="app-link app-link--underline" data-testid="shutter-link-{{ loop.index }}">
         {{ "Unshutter" if detail.status == "Shuttered" else "Shutter" }}
       </a>
     {% endif %}
@@ -88,14 +103,14 @@
         params: { serviceId: runningService.service },
         query: { environment: runningService.environment }
       }) }}"
-         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+         role="button" class="app-link app-link--underline" data-testid="undeploy-link-{{ loop.index }}">
         Undeploy
       </a>
     {% elseif terminalStatuses.includes(runningService.status) %}
       <a href="{{ routeLookup('deploy-service/details/{multiStepFormId?}', {
         query: { imageName: runningService.service, version: runningService.version }
       }) }}"
-         role="button" class="app-link app-link--underline" data-testid="vanity-url">
+         role="button" class="app-link app-link--underline" data-testid="undeploy-link-{{ loop.index }}">
         Deploy
       </a>
     {% else %}
@@ -156,7 +171,7 @@
                   {% endif %}
                 </div>
 
-                {% call appPanel() %}
+                {% call appPanel({ testId: "shuttering-panel" }) %}
                   {% if shutteringDetails | length %}
                     {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
 
@@ -189,58 +204,65 @@
                 {% endcall %}
               </div>
             {% endif %}
+          </article>
+
+          <article data-xhr="undeploy-{{ entity.name }}"
+                   data-xhr-stop="{{ not shouldPoll }}">
+            <div class="govuk-grid-column-one-half-from-desktop-massive">
+              <div class="app-section--extra-wide">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
+                  Undeploy
+                </h2>
+                <p class="govuk-!-margin-bottom-2">
+                  To undeploy your service means to stop your service from running in the environment. This is useful
+                  when
+                  you want to completely stop your service from running due to a serious problem or to make planned
+                  changes/updates to your service or simply to reduce costs.
+                </p>
+              </div>
+
+              {% call appPanel({ testId: "undeploy-panel" }) %}
+                <section class="govuk-!-margin-bottom-6">
+                  {% if runningServices | length %}
+                    {% set titleText = "Deployment" | pluralise(runningServices | length) %}
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
+                    <p class="govuk-!-margin-bottom-2">
+                      Deployments of your service, listed by environment
+                    </p>
+
+                    {{ govukTable({
+                      classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                      head: [
+                        { text: "Environment" },
+                        { text: "Status" },
+                        { text: "Version" },
+                        { text: "CDP Service URL" },
+                        { text: "Action", classes: "app-!-text-align-right"}
+                      ],
+                      rows: undeployTableRows
+                    }) }}
+                  {% else %}
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
+                    <p class="govuk-!-margin-bottom-2">
+                      Currently, this service has no deployments on any CDP environments. To undeploy a service, one
+                      must
+                      first deploy a service. You can start your services journey via the
+                      <a href="{{ routeLookup('deploy-service') }}"
+                         role="button" class="app-link app-link--underline" data-testid="deploy-service">Deploy
+                        Service</a>
+                      flow.
+                    </p>
+                  {% endif %}
+                </section>
+              {% endcall %}
+            </div>
 
           </article>
         {% endblock %}
 
         {% if shouldPoll %}</div>{% endif %}
 
-      <div class="govuk-grid-column-one-half-from-desktop-massive">
-        <div class="app-section--extra-wide">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
-            Undeploy
-          </h2>
-          <p class="govuk-!-margin-bottom-2">
-            To undeploy your service means to stop your service from running in the environment. This is useful when
-            you want to completely stop your service from running due to a serious problem or to make planned
-            changes/updates to your service or simply to reduce costs.
-          </p>
-        </div>
-
-        {% call appPanel() %}
-          <section class="govuk-!-margin-bottom-6">
-            {% if runningServices | length %}
-              {% set titleText = "Deployment" | pluralise(runningServices | length) %}
-
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
-              <p class="govuk-!-margin-bottom-2">
-                Deployments of your service, listed by environment
-              </p>
-
-              {{ govukTable({
-                classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                head: [
-                  { text: "Environment" },
-                  { text: "Status" },
-                  { text: "Version" },
-                  { text: "CDP Service URL" },
-                  { text: "Action", classes: "app-!-text-align-right"}
-                ],
-                rows: undeployTableRows
-              }) }}
-            {% else %}
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
-              <p class="govuk-!-margin-bottom-2">
-                Currently, this service has no deployments on any CDP environments. To undeploy a service, one must
-                first deploy a service. You can start your services journey via the
-                <a href="{{ routeLookup('deploy-service') }}"
-                   role="button" class="app-link app-link--underline" data-testid="vanity-url">Deploy Service</a> flow.
-              </p>
-            {% endif %}
-          </section>
-        {% endcall %}
-      </div>
     </div>
-
   </section>
 {% endblock %}
