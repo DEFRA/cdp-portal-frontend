@@ -1,0 +1,21 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      text: "Service Tags",
+      intro: "Apply or remove a tag from a service"
+    }) }}
+
+    <p>
+    Service tags are metadata that can attached to a tenant service to provide additional information such as their level of support cover.
+    </p>
+
+    <div>
+    {{ appEntityTable(tableData) }}
+    </div>
+
+  {% endcall %}
+{% endblock %}
+
