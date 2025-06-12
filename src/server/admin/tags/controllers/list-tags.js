@@ -1,0 +1,23 @@
+import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
+import { transformTagToRow } from '~/src/server/admin/tags/transformers/transform-tag-to-row.js'
+
+const listTagsListController = {
+  handler: (request, h) => {
+    const rows = Object.values(serviceTags).map(transformTagToRow)
+
+    return h.view('admin/tags/views/tags-list', {
+      pageTitle: 'Tags',
+      tableData: {
+        headers: [
+          { id: 'tag', text: 'Tag', width: '3' },
+          { id: 'description', text: 'Description', width: '10' },
+          { id: 'actions', text: 'Action', width: '5' }
+        ],
+        rows,
+        noResult: 'No tags found'
+      }
+    })
+  }
+}
+
+export { listTagsListController }
