@@ -5,6 +5,7 @@ import { sortKeyByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
 import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
 import { fetchShutteringUrls } from '~/src/server/services/helpers/fetch/fetch-shuttering-urls.js'
 import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
+import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
 
 const maintenanceController = {
   options: {
@@ -37,9 +38,18 @@ const maintenanceController = {
       }))
       .toSorted(sortKeyByEnv('environment'))
 
-    const shouldPoll = shutteringDetails.some((detail) =>
-      detail.status.includes('Pending')
-    )
+    const deploymentPendingStatus = [
+      deploymentStatus.requested,
+      deploymentStatus.pending,
+      deploymentStatus.stopping
+    ]
+
+    const shouldPoll =
+      shutteringDetails.some((detail) => detail.status.includes('Pending')) ||
+      runningServices.some((service) =>
+        deploymentPendingStatus.includes(service.status)
+      )
+
     const isFrontend = entity.subType === 'Frontend'
 
     return h.view('services/service/maintenance/views/maintenance', {

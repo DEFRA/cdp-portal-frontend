@@ -201,59 +201,65 @@
                 {% endcall %}
               </div>
             {% endif %}
+          </article>
+
+          <article data-xhr="undeploy-{{ entity.name }}"
+                   data-xhr-stop="{{ not shouldPoll }}">
+            <div class="govuk-grid-column-one-half-from-desktop-massive">
+              <div class="app-section--extra-wide">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
+                  Undeploy
+                </h2>
+                <p class="govuk-!-margin-bottom-2">
+                  To undeploy your service means to stop your service from running in the environment. This is useful
+                  when
+                  you want to completely stop your service from running due to a serious problem or to make planned
+                  changes/updates to your service or simply to reduce costs.
+                </p>
+              </div>
+
+              {% call appPanel({ testId: "undeploy-panel" }) %}
+                <section class="govuk-!-margin-bottom-6">
+                  {% if runningServices | length %}
+                    {% set titleText = "Deployment" | pluralise(runningServices | length) %}
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
+                    <p class="govuk-!-margin-bottom-2">
+                      Deployments of your service, listed by environment
+                    </p>
+
+                    {{ govukTable({
+                      classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                      head: [
+                        { text: "Environment" },
+                        { text: "Status" },
+                        { text: "Version" },
+                        { text: "CDP Service URL" },
+                        { text: "Action", classes: "app-!-text-align-right"}
+                      ],
+                      rows: undeployTableRows
+                    }) }}
+                  {% else %}
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
+                    <p class="govuk-!-margin-bottom-2">
+                      Currently, this service has no deployments on any CDP environments. To undeploy a service, one
+                      must
+                      first deploy a service. You can start your services journey via the
+                      <a href="{{ routeLookup('deploy-service') }}"
+                         role="button" class="app-link app-link--underline" data-testid="deploy-service">Deploy
+                        Service</a>
+                      flow.
+                    </p>
+                  {% endif %}
+                </section>
+              {% endcall %}
+            </div>
 
           </article>
         {% endblock %}
 
         {% if shouldPoll %}</div>{% endif %}
 
-      <div class="govuk-grid-column-one-half-from-desktop-massive">
-        <div class="app-section--extra-wide">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
-            Undeploy
-          </h2>
-          <p class="govuk-!-margin-bottom-2">
-            To undeploy your service means to stop your service from running in the environment. This is useful when
-            you want to completely stop your service from running due to a serious problem or to make planned
-            changes/updates to your service or simply to reduce costs.
-          </p>
-        </div>
-
-        {% call appPanel({ testId: "undeploy-panel" }) %}
-          <section class="govuk-!-margin-bottom-6">
-            {% if runningServices | length %}
-              {% set titleText = "Deployment" | pluralise(runningServices | length) %}
-
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
-              <p class="govuk-!-margin-bottom-2">
-                Deployments of your service, listed by environment
-              </p>
-
-              {{ govukTable({
-                classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                head: [
-                  { text: "Environment" },
-                  { text: "Status" },
-                  { text: "Version" },
-                  { text: "CDP Service URL" },
-                  { text: "Action", classes: "app-!-text-align-right"}
-                ],
-                rows: undeployTableRows
-              }) }}
-            {% else %}
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
-              <p class="govuk-!-margin-bottom-2">
-                Currently, this service has no deployments on any CDP environments. To undeploy a service, one must
-                first deploy a service. You can start your services journey via the
-                <a href="{{ routeLookup('deploy-service') }}"
-                   role="button" class="app-link app-link--underline" data-testid="deploy-service">Deploy Service</a>
-                flow.
-              </p>
-            {% endif %}
-          </section>
-        {% endcall %}
-      </div>
     </div>
-
   </section>
 {% endblock %}
