@@ -74,19 +74,10 @@
 
           <div class="govuk-body govuk-button-group govuk-!-margin-bottom-0">
 
-            {% if isShuttered %}
-              {{ govukButton({
-                classes: "app-button",
-                text: "Unshutter url"
-              }) }}
-            {% endif %}
-
-            {% if not isShuttered %}
-              {{ govukButton({
-                classes: "app-button app-button--destructive",
-                text: "Shutter url"
-              }) }}
-            {% endif %}
+            {{ govukButton({
+              classes: "app-button app-button--destructive",
+              text: "Unshutter url" if isShuttered else "Shutter url"
+            }) }}
 
             <a class="app-link"
                href="{{ routeLookup('services/{serviceId}/maintenance', { params: { serviceId: entity.name } }) }}">Cancel</a>
