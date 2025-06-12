@@ -22,6 +22,13 @@ function provideSubNavigation(request, h) {
         }
       },
       {
+        isActive: request.path.startsWith('/admin/tags'),
+        url: '/admin/tags',
+        label: {
+          text: 'Service tags'
+        }
+      },
+      {
         isActive: request.path.startsWith('/admin/features'),
         url: '/admin/features',
         label: {

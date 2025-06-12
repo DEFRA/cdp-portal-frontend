@@ -13,13 +13,12 @@ export const addTagController = {
     }
   },
   handler: async (request, h) => {
-    const tag = request.payload.tag
-    const service = request.payload.service
+    const { service, tag } = request.payload
+
     request.logger.info(`Added ${tag} tag to ${service}`)
 
     try {
-      const result = await addTagToService(tag, service)
-      request.logger.info(result)
+      await addTagToService(tag, service)
     } catch (error) {
       request.logger.error(error)
       return boomify(error)

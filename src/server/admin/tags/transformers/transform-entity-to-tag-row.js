@@ -1,6 +1,6 @@
-import { tagToEntity } from '~/src/server/admin/tags/helpers/tag-to-entity.js'
+import { transformTagToEntity } from '~/src/server/admin/tags/transformers/transform-tag-to-entity.js'
 
-export function transformEntityToTagRow(entity, withActions = true) {
+export function transformEntityToRow(entity, tag) {
   const teams = entity?.teams
     ?.filter((team) => team.teamId)
     ?.map((team) => ({
@@ -20,12 +20,24 @@ export function transformEntityToTagRow(entity, withActions = true) {
         }
       },
       {
+        headers: 'tags',
+        entity: {
+          kind: 'group',
+          value: entity.tags.map(transformTagToEntity).filter(Boolean)
+        }
+      },
+      {
         headers: 'team',
         entity: { kind: 'list', value: teams }
       },
       {
-        headers: 'tags',
-        entity: { kind: 'group', value: entity.tags.map(tagToEntity) }
+        entity: {
+          classes: 'app-button--small app-button--danger',
+          kind: 'button',
+          url: `/admin/tags/${tag.name}/remove?service=${entity.name}`,
+          value: 'Remove'
+        },
+        headers: 'actions'
       }
     ]
   }

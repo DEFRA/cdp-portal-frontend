@@ -31,6 +31,14 @@ describe('#transformServiceToSummary', () => {
         },
         {
           key: {
+            text: 'Tags'
+          },
+          value: {
+            html: ''
+          }
+        },
+        {
+          key: {
             text: 'Image name'
           },
           value: {
