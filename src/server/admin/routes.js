@@ -3,6 +3,7 @@ import { adminTeams } from '~/src/server/admin/teams/routes.js'
 import { adminFeatures } from '~/src/server/admin/features/routes.js'
 import { adminPermissions } from '~/src/server/admin/permissions/routes.js'
 import { adminDecommissionService } from '~/src/server/admin/decommission-service/routes.js'
+import { adminTags } from '~/src/server/admin/tags/routes.js'
 
 const admin = {
   plugin: {
@@ -13,7 +14,8 @@ const admin = {
         adminTeams,
         adminFeatures,
         adminPermissions,
-        adminDecommissionService
+        adminDecommissionService,
+        adminTags
       ])
 
       server.route([

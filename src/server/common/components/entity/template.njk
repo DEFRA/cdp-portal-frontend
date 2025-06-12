@@ -85,7 +85,9 @@ data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}">
         {% for entity in params.value %}
           {{ appEntity(entity) }}
         {% else %}
+          {% if params.blank !== true %}
           <span class="app-entity-no-value">{{ noValue }}</span>
+          {% endif %}
         {% endfor %}
       </span>
 

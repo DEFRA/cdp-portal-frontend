@@ -5,6 +5,7 @@ import {
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import startCase from 'lodash/startCase.js'
+import { transformTagToEntity } from '~/src/server/admin/tags/transformers/transform-tag-to-entity.js'
 
 function entityToEntityRow(entity) {
   const status = entity.status
@@ -57,6 +58,16 @@ function entityToEntityRow(entity) {
           kind: 'link',
           value: entity.name,
           url: `/services/${entity.name}`
+        }
+      },
+      {
+        headers: 'tags',
+        entity: {
+          kind: 'group',
+          blank: true,
+          value: (entity.tags ?? [])
+            .map((tag) => transformTagToEntity(tag))
+            .filter(Boolean)
         }
       },
       {

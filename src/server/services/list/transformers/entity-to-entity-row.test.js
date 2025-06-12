@@ -24,6 +24,14 @@ describe('#serviceToEntityRow', () => {
         },
         {
           entity: {
+            kind: 'group',
+            blank: true,
+            value: []
+          },
+          headers: 'tags'
+        },
+        {
+          entity: {
             kind: 'list',
             value: [
               {

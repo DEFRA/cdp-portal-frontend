@@ -1,0 +1,75 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      text: "Add and remove tag",
+      intro: "Service tags are metadata that can attached to a tenant service to provide additional information such as their level of support cover."
+    }) }}
+
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-one-third">
+      {% call appPanel() %}
+        <article>
+            {{ govukSummaryList(tagSummaryList) }}
+        </article>
+        {% endcall %}
+      </div>
+   </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {% call appPanel() %}
+        <article>
+            <h2 class="govuk-heading-l">Add tag</h2>
+             <form action="/admin/tags/{{ tag.name }}/add" method="post" data-js="app-form-errors">
+               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+               <input type="hidden" name="tag" value="{{ tag.name }}" />
+
+                {% call govukFieldset() %}
+
+                  {{ appAutocomplete({
+                    id: "service",
+                    name: "service",
+                    label: {
+                      text: "Service",
+                      classes: "app-label"
+                    },
+                    hint: {
+                      text: "Service to add tag to."
+                    },
+                    errorMessage: errorMessageHelper(formErrors.service.message),
+                    suggestions: entitiesWithoutTag
+                  }) }}
+
+                  {{ govukButton({
+                    classes: "app-button",
+                    text: "Add Tag",
+                    name: "button",
+                    value: "add"
+                  }) }}
+
+                {% endcall %}
+
+             </form>
+        </article>
+        {% endcall %}
+      </div>
+   </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <article>
+
+      <h2 class="govuk-heading-l">Services with tag</h2>
+      {{ appEntityTable(tableData) }}
+        </article>
+      </div>
+   </div>
+
+
+  {% endcall %}
+{% endblock %}
+
