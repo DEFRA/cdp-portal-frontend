@@ -11,8 +11,11 @@
 
 {% set infoHtml %}
   <p class="govuk-!-margin-bottom-1">
-    Your request will take a few minutes to complete. Requested by {{ pendingShutter.lastActionedBy.displayName }}.
-    {{ appTime({ datetime: pendingShutter.lastActionedAt, withSeconds: true }) }}
+    Your request will take a few minutes to complete.
+    {% if pendingShutter.lastActionedBy %}
+      Requested by {{ pendingShutter.lastActionedBy.displayName }}.
+      {{ appTime({ datetime: pendingShutter.lastActionedAt, withSeconds: true }) }}
+    {% endif %}
   </p>
 {% endset %}
 
