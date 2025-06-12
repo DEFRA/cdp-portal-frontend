@@ -14,8 +14,7 @@ export function transformTagToRow(tag) {
       },
       {
         entity: {
-          classes: 'app-button--small app-button--primary',
-          kind: 'button',
+          kind: 'link',
           url: `/admin/tags/${tag.name}/edit`,
           value: 'Edit'
         },
