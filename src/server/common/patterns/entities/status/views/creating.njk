@@ -8,13 +8,13 @@
 {% set pluralEntityType = entityType | pluralise %}
 
 {% set warningHtml %}
- It looks like your {{ entityType }}'s creation is taking a while, contact the Platform team via Slack
+  It looks like your {{ entityType }}'s creation is taking a while, contact the Platform team via Slack
   <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
      rel="noopener noreferrer">#cdp-support</a> with this page's url for help
 {% endset %}
 
 {% set infoHtml %}
- Your {{ entityType }} has been created successfully.
+  Your {{ entityType }} has been created successfully.
   {% if entityType != 'repository' %}
     Refresh the page to access your {{ entityType }}'s portal page
     <a class="govuk-button app-button app-button--primary app-button--small"
@@ -29,17 +29,16 @@
     text: entity.name
   }) }}
 
-  <div class="app-service-container">
+  {% block xhrContent %}
 
-    {% block xhrContent %}
+    {% if shouldPoll %}
+      <div data-js="app-poll"
+      data-poll-url="/{{ pluralEntityType }}/{{ entity.name }}/status"
+      data-poll-interval="3000"
+      data-poll-limit="200">
+    {% endif %}
 
-      {% if shouldPoll %}
-        <div data-js="app-poll"
-        data-poll-url="/{{ pluralEntityType }}/{{ entity.name }}/status"
-        data-poll-interval="3000"
-        data-poll-limit="200">
-      {% endif %}
-
+    <div class="app-service-container">
       <article class="app-grid app-grid-service app-grid-service--standard"
                data-xhr="service-creating-{{ entity.name }}"
                data-xhr-stop="{{ not shouldPoll }}">
@@ -111,10 +110,8 @@
           </ul>
         </section>
       </article>
+    </div>
+    {% if shouldPoll %}</div>{% endif %}
 
-      {% if shouldPoll %}</div>{% endif %}
-
-    {% endblock %}
-  </div>
-
+  {% endblock %}
 {% endblock %}
