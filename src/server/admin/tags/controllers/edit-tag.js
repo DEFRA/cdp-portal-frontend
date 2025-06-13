@@ -43,10 +43,10 @@ export const editTagController = {
       pageTitle: `Edit Tag ${tag.name}`,
       tableData: {
         headers: [
-          { id: 'service', text: 'Service', width: '3' },
-          { id: 'tags', text: 'Tags', width: '5' },
-          { id: 'team', text: 'Team', width: '10' },
-          { id: 'action', text: 'Action', width: '5' }
+          { id: 'service', text: 'Service', width: '20' },
+          { id: 'tags', text: 'Tags', width: '20' },
+          { id: 'team', text: 'Team', width: '30' },
+          { id: 'action', text: 'Action', width: '30' }
         ],
         rows,
         noResult: 'No tags found'
@@ -54,7 +54,21 @@ export const editTagController = {
       tag,
       renderedTag: renderServiceTag(tag.name),
       tagSummaryList,
-      entitiesWithoutTag
+      entitiesWithoutTag,
+      breadcrumbs: [
+        {
+          text: 'Admin',
+          href: '/admin'
+        },
+        {
+          text: 'Tags',
+          href: '/admin/tags'
+        },
+        {
+          text: tag.displayName,
+          href: `/admin/tags/${tag.name}`
+        }
+      ]
     })
   }
 }

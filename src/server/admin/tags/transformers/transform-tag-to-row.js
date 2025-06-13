@@ -5,20 +5,20 @@ export function transformTagToRow(tag) {
   return {
     cells: [
       {
+        headers: 'name',
+        entity: {
+          kind: 'link',
+          url: `/admin/tags/${tag.name}`,
+          value: tag.name
+        }
+      },
+      {
         headers: 'tag',
         entity: transformTagToEntity(tag)
       },
       {
         headers: 'description',
         entity: { kind: 'text', value: tag.description ?? noValue }
-      },
-      {
-        entity: {
-          kind: 'link',
-          url: `/admin/tags/${tag.name}/edit`,
-          value: 'Edit'
-        },
-        headers: 'actions'
       }
     ]
   }

@@ -1,7 +1,7 @@
 import { addTagToService } from '~/src/server/admin/tags/helpers/fetchers.js'
-import { boomify } from '@hapi/boom'
 import Joi from 'joi'
 import { validServiceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
+import Boom from '@hapi/boom'
 
 export const addTagController = {
   options: {
@@ -9,21 +9,16 @@ export const addTagController = {
       payload: Joi.object({
         tag: validServiceTags.required(),
         service: Joi.string().min(1).required()
-      }).unknown(true)
+      }).unknown(true),
+      failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
   handler: async (request, h) => {
     const { service, tag } = request.payload
 
-    request.logger.info(`Added ${tag} tag to ${service}`)
+    request.logger.info(`Adding ${tag} tag to ${service}`)
+    await addTagToService(tag, service)
 
-    try {
-      await addTagToService(tag, service)
-    } catch (error) {
-      request.logger.error(error)
-      return boomify(error)
-    }
-
-    return h.redirect(`/admin/tags/${tag}/edit`)
+    return h.redirect(`/admin/tags/${tag}`)
   }
 }

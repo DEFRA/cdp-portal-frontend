@@ -27,7 +27,7 @@ const adminTags = {
         [
           {
             method: 'GET',
-            path: '/admin/tags/{tag}/edit',
+            path: '/admin/tags/{tag}',
             ...editTagController
           },
           {

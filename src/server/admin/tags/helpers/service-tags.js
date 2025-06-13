@@ -1,5 +1,5 @@
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import Joi from 'joi'
+import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
 /**
  * List of tags that can be applied to a service.
@@ -15,8 +15,20 @@ export const serviceTags = {
   live: {
     name: 'live',
     displayName: 'Live',
-    description: 'Service has passed its Platform Readiness Review',
+    description: 'Service is live and available to the public.',
     colour: 'green'
+  },
+  beta: {
+    name: 'beta',
+    displayName: 'Beta',
+    description: 'Service is like but in public/private beta',
+    colour: 'yellow'
+  },
+  prr: {
+    name: 'prr',
+    displayName: 'PRR',
+    description: 'Service has passed it PRR',
+    colour: 'orange'
   }
 }
 
@@ -39,9 +51,5 @@ export function renderServiceTag(tagOrName) {
     return null
   }
 
-  return renderComponent('tag', {
-    text: tag.displayName,
-    classes: `govuk-tag--${tag.colour}`,
-    attributes: { 'data-testid': 'govuk-tag' }
-  })
+  return renderTag(tag.displayName, [`govuk-tag--${tag.colour}`])
 }

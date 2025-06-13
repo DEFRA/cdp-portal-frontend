@@ -9,9 +9,9 @@ const listTagsListController = {
       pageTitle: 'Tags',
       tableData: {
         headers: [
-          { id: 'tag', text: 'Tag', width: '3' },
-          { id: 'description', text: 'Description', width: '10' },
-          { id: 'actions', text: 'Action', width: '5' }
+          { id: 'name', text: 'Name', width: '30' },
+          { id: 'tag', text: 'Tag', width: '10' },
+          { id: 'description', text: 'Description', width: '60' }
         ],
         rows,
         noResult: 'No tags found'
