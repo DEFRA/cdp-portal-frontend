@@ -6,11 +6,6 @@ import { escapeRegex } from '@hapi/hoek'
 import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
 import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
 
-const docsMarked = new Marked({
-  gfm: true,
-  extensions: [linkExtension, headingExtension]
-}).use(markedAlert())
-
 function buildTableOfContents(links) {
   const rootLevel = 1
   let html = ''
@@ -50,6 +45,10 @@ function buildTableOfContents(links) {
 async function buildPageHtml(request, markdown) {
   const searchTerm = request.query?.q
   const headingElements = []
+  const docsMarked = new Marked({
+    gfm: true,
+    extensions: [linkExtension, headingExtension]
+  }).use(markedAlert())
 
   const doNotIncludeMarkElement = ['code', 'codespan', 'heading']
 
