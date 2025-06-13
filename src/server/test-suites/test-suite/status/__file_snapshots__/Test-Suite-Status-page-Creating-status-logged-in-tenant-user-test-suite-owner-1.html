@@ -195,14 +195,13 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-  <div class="app-service-container">
 
+      <div data-js="app-poll"
+      data-poll-url="/test-suites/mock-test-suite/status"
+      data-poll-interval="3000"
+      data-poll-limit="200">
 
-        <div data-js="app-poll"
-        data-poll-url="/test-suites/mock-test-suite/status"
-        data-poll-interval="3000"
-        data-poll-limit="200">
-
+    <div class="app-service-container">
       <article class="app-grid app-grid-service app-grid-service--standard"
                data-xhr="service-creating-mock-test-suite"
                data-xhr-stop="false">
@@ -357,7 +356,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
   <span class="app-warning__content" data-testid="app-warning-content">
-     It looks like your test-suite's creation is taking a while, contact the Platform team via Slack
+      It looks like your test-suite's creation is taking a while, contact the Platform team via Slack
   <a class="app-link app-link--underline app-link--text-colour" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
      rel="noopener noreferrer">#cdp-support</a> with this page's url for help
 
@@ -468,10 +467,8 @@ data-testid="AppConfig-created">
           </ul>
         </section>
       </article>
-
+    </div>
 </div>
-  </div>
-
         </main>
       </div>
 
