@@ -1,4 +1,4 @@
-import { transformTagToEntity } from '~/src/server/admin/tags/transformers/transform-tag-to-entity.js'
+import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
 
 export function transformEntityToRow(entity, tag) {
   const teams = entity?.teams
@@ -8,6 +8,10 @@ export function transformEntityToRow(entity, tag) {
       value: team.name,
       url: `/teams/${team.teamId}`
     }))
+
+  const tags = entity.tags
+    .map((tagName) => serviceTags[tagName])
+    .filter(Boolean)
 
   return {
     cells: [
@@ -23,7 +27,11 @@ export function transformEntityToRow(entity, tag) {
         headers: 'tags',
         entity: {
           kind: 'group',
-          value: entity.tags.map(transformTagToEntity).filter(Boolean)
+          value: tags.map((tagDetail) => ({
+            kind: 'tag',
+            value: tagDetail.displayName,
+            classes: tagDetail.className
+          }))
         }
       },
       {

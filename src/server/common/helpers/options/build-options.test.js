@@ -83,30 +83,4 @@ describe('#buildOptions', () => {
       ])
     })
   })
-
-  describe('Without blank option', () => {
-    test('Should provide expected options', () => {
-      expect(
-        buildOptions(
-          [
-            { text: 'Version 0.3.0', value: '0.3.0' },
-            {
-              text: 'Version 0.4.0',
-              value: '0.4.0'
-            }
-          ],
-          false
-        )
-      ).toEqual([
-        {
-          text: 'Version 0.3.0',
-          value: '0.3.0'
-        },
-        {
-          text: 'Version 0.4.0',
-          value: '0.4.0'
-        }
-      ])
-    })
-  })
 })

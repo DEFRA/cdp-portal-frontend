@@ -4,8 +4,8 @@
   {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
-      text: "Add and remove tag",
-      intro: "Service tags are metadata that can attached to a tenant service to provide additional information such as their level of support cover."
+      text: "Add or remove tag",
+      intro: "Service tags are metadata that can attached to a tenant service to provide additional information such as their level of support cover"
     }) }}
 
     <div class="govuk-grid-row">
@@ -38,7 +38,7 @@
                       classes: "app-label"
                     },
                     hint: {
-                      text: "Service to add tag to."
+                      text: "Service to add tag to"
                     },
                     errorMessage: errorMessageHelper(formErrors.serviceId.message),
                     suggestions: entitiesWithoutTag

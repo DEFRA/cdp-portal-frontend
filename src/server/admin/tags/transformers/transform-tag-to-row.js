@@ -1,5 +1,5 @@
 import { noValue } from '~/src/server/common/constants/no-value.js'
-import { transformTagToEntity } from '~/src/server/admin/tags/transformers/transform-tag-to-entity.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 
 export function transformTagToRow(tag) {
   return {
@@ -14,7 +14,11 @@ export function transformTagToRow(tag) {
       },
       {
         headers: 'tag',
-        entity: transformTagToEntity(tag)
+        entity: {
+          kind: 'tag',
+          value: formatText(tag.displayName),
+          classes: tag.className
+        }
       },
       {
         headers: 'description',
