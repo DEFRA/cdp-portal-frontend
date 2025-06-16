@@ -18,7 +18,7 @@ export const editTagController = {
 
     const entitiesWithoutTag = buildOptions(
       entities
-        .filter((entity) => !entity.tags?.includes(tag.name))
+        .filter((entity) => !entity.tags?.includes(tag?.name))
         .map((entity) => ({ text: entity.name, value: entity.name })),
       true
     )
@@ -32,13 +32,13 @@ export const editTagController = {
         },
         {
           key: { text: 'Description' },
-          value: { text: tag.description }
+          value: { text: tag?.description }
         }
       ]
     }
 
     return h.view('admin/tags/views/edit-tag', {
-      pageTitle: `Edit Tag ${tag.name}`,
+      pageTitle: `Edit Tag ${tag?.name}`,
       tableData: {
         headers: [
           { id: 'service', text: 'Service', width: '20' },
@@ -50,7 +50,7 @@ export const editTagController = {
         noResult: 'No tags found'
       },
       tag,
-      renderedTag: renderServiceTag(tag.name),
+      renderedTag: renderServiceTag(tag?.name),
       tagSummaryList,
       entitiesWithoutTag,
       breadcrumbs: [
@@ -63,8 +63,8 @@ export const editTagController = {
           href: '/admin/tags'
         },
         {
-          text: tag.displayName,
-          href: `/admin/tags/${tag.name}`
+          text: tag?.displayName,
+          href: `/admin/tags/${tag?.name}`
         }
       ]
     })

@@ -1,23 +1,32 @@
 import { addTagToService } from '~/src/server/admin/tags/helpers/fetchers.js'
-import Joi from 'joi'
-import { validServiceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import Boom from '@hapi/boom'
+import { tagValidation } from '~/src/server/admin/tags/helpers/schema/tag-validation.js'
+import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 export const addTagController = {
-  options: {
-    validate: {
-      payload: Joi.object({
-        tag: validServiceTags.required(),
-        service: Joi.string().min(1).required()
-      }).unknown(true),
-      failAction: () => Boom.boomify(Boom.badRequest())
-    }
-  },
   handler: async (request, h) => {
-    const { service, tag } = request.payload
+    const { serviceId, tag } = request.payload
 
-    request.logger.info(`Adding ${tag} tag to ${service}`)
-    await addTagToService(tag, service)
+    const validationResult = tagValidation.validate(
+      { serviceId, tag },
+      {
+        abortEarly: false
+      }
+    )
+
+    if (validationResult?.error) {
+      const errorDetails = buildErrorDetails(validationResult.error.details)
+
+      request.yar.flash(sessionNames.validationFailure, {
+        formValues: { serviceId, tag },
+        formErrors: errorDetails
+      })
+    }
+
+    if (!validationResult.error) {
+      request.logger.info(`Adding ${tag} tag to ${serviceId}`)
+      await addTagToService(tag, serviceId)
+    }
 
     return h.redirect(`/admin/tags/${tag}`)
   }

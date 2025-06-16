@@ -6,6 +6,7 @@ import { listTagsListController } from '~/src/server/admin/tags/controllers/list
 import { editTagController } from '~/src/server/admin/tags/controllers/edit-tag.js'
 import { addTagController } from '~/src/server/admin/tags/controllers/add-tag.js'
 import { removeTagController } from '~/src/server/admin/tags/controllers/remove-tag.js'
+import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -18,6 +19,14 @@ const adminTags = {
           type: 'onPostHandler',
           method: provideSubNavigation,
           options: {
+            sandbox: 'plugin'
+          }
+        },
+        {
+          type: 'onPostHandler',
+          method: provideFormContextValues(),
+          options: {
+            before: ['yar'],
             sandbox: 'plugin'
           }
         }
@@ -42,7 +51,7 @@ const adminTags = {
           },
           {
             method: 'POST',
-            path: '/admin/tags/{tag}/remove',
+            path: '/admin/tags/{tag}/remove/{serviceId}',
             ...removeTagController
           }
         ].map(adminScope)

@@ -10,7 +10,7 @@
 
     <div class="govuk-grid-row">
 
-      <div class="govuk-grid-column-one-third">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
       {% call appPanel() %}
         <article>
             {{ govukSummaryList(tagSummaryList) }}
@@ -20,7 +20,7 @@
    </div>
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
       {% call appPanel() %}
         <article>
             <h2 class="govuk-heading-l">Add tag</h2>
@@ -31,8 +31,8 @@
                 {% call govukFieldset() %}
 
                   {{ appAutocomplete({
-                    id: "service",
-                    name: "service",
+                    id: "serviceId",
+                    name: "serviceId",
                     label: {
                       text: "Service",
                       classes: "app-label"
@@ -40,7 +40,7 @@
                     hint: {
                       text: "Service to add tag to."
                     },
-                    errorMessage: errorMessageHelper(formErrors.service.message),
+                    errorMessage: errorMessageHelper(formErrors.serviceId.message),
                     suggestions: entitiesWithoutTag
                   }) }}
 
@@ -60,7 +60,7 @@
    </div>
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
         <article>
 
       <h2 class="govuk-heading-l">Services with tag</h2>
