@@ -32,7 +32,7 @@ export function transformEntityToRow(entity, tag) {
       },
       {
         entity: {
-          classes: 'app-button--small app-button--danger',
+          classes: 'app-button--small app-button--destructive',
           kind: 'button',
           url: `/admin/tags/${tag.name}/remove?service=${entity.name}`,
           value: 'Remove'
