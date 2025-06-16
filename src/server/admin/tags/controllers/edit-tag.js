@@ -13,15 +13,13 @@ export const editTagController = {
 
     const entities = await fetchEntities()
     const rows = entities
-      .filter((e) => e.tags.includes(tag?.name))
-      .map((e) => transformEntityToRow(e, tag))
+      .filter((entity) => entity.tags?.includes(tag?.name))
+      .map((entity) => transformEntityToRow(entity, tag))
 
     const entitiesWithoutTag = buildOptions(
       entities
-        .filter((e) => !e.tags.includes(tag.name))
-        .map((e) => {
-          return { text: e.name, value: e.name }
-        }),
+        .filter((entity) => !entity.tags?.includes(tag.name))
+        .map((entity) => ({ text: entity.name, value: entity.name })),
       true
     )
 
