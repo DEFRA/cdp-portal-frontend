@@ -3,7 +3,8 @@ import { noValue } from '~/src/server/common/constants/no-value.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
-import { renderServiceTag } from '~/src/server/admin/tags/helpers/service-tags.js'
+import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
+import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
 function transformServiceToSummary(repository, entity) {
   const dockerHubUrl = config.get('dockerHubUrl')
@@ -31,7 +32,9 @@ function transformServiceToSummary(repository, entity) {
     }).trim()
   )
 
-  const tags = (entity?.tags?.map(renderServiceTag) ?? []).filter(Boolean)
+  const tags = entity.tags
+    ?.map((tagName) => serviceTags[tagName])
+    .filter(Boolean)
 
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
@@ -49,7 +52,11 @@ function transformServiceToSummary(repository, entity) {
       {
         key: { text: 'Tags' },
         value: {
-          html: tags.join(' ')
+          html: tags.length
+            ? tags
+                ?.map((tag) => renderTag(tag.displayName, [tag.className]))
+                .join(' ')
+            : noValue
         }
       },
       {

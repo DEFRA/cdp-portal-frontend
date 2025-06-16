@@ -25,8 +25,18 @@ describe('#serviceToEntityRow', () => {
         {
           entity: {
             kind: 'group',
-            blank: true,
-            value: []
+            value: [
+              {
+                classes: 'govuk-tag--green',
+                kind: 'tag',
+                value: 'Live'
+              },
+              {
+                classes: 'govuk-tag--yellow',
+                kind: 'tag',
+                value: 'Beta'
+              }
+            ]
           },
           headers: 'tags'
         },

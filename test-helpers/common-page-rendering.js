@@ -174,7 +174,8 @@ function getEntity(repositoryName, type, subType, status) {
     creator: null,
     teams: [mockTeam],
     status,
-    decommissioned: null
+    decommissioned: null,
+    tags: ['live']
   }
 }
 

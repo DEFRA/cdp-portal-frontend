@@ -1,52 +1,32 @@
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
-
 /**
  * List of tags that can be applied to a service.
- * @type {Map<string, {colour: string, displayName: string, name: string, description: string}>}
+ * @type {Map<string, {className: string, displayName: string, name: string, description: string}>}
  */
-export const serviceTags = {
+const serviceTags = {
   'tier-1': {
     name: 'tier-1',
     displayName: 'Tier 1',
     description: 'Service has Tier 1 support coverage.',
-    colour: 'purple'
+    className: 'govuk-tag--purple'
   },
   live: {
     name: 'live',
     displayName: 'Live',
     description: 'Service is live and available to the public.',
-    colour: 'green'
+    className: 'govuk-tag--green'
   },
   beta: {
     name: 'beta',
     displayName: 'Beta',
     description: 'Service is like but in public/private beta',
-    colour: 'yellow'
+    className: 'govuk-tag--yellow'
   },
   prr: {
     name: 'prr',
     displayName: 'PRR',
     description: 'Service has passed it PRR',
-    colour: 'orange'
+    className: 'govuk-tag--orange'
   }
 }
 
-/**
- * Returns an HTML representation of a tag.
- * Takes either the name of a valid tag or a tag object.
- * If the tag name is invalid it returns null.
- * @param {string|{name:string, displayName:string, description:string, colour: string}} tagOrName
- * @returns {string|null}
- */
-export function renderServiceTag(tagOrName) {
-  const tag =
-    typeof tagOrName === 'string'
-      ? serviceTags[tagOrName.toLowerCase()]
-      : tagOrName
-
-  if (!tag) {
-    return null
-  }
-
-  return renderTag(tag.displayName, [`govuk-tag--${tag.colour}`])
-}
+export { serviceTags }

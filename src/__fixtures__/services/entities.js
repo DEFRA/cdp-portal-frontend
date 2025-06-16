@@ -12,7 +12,8 @@ const entityServicesFixture = [
         name: 'Platform'
       }
     ],
-    status: 'Success'
+    status: 'Success',
+    tags: ['live', 'beta']
   },
   {
     name: 'cdp-portal-frontend',
@@ -26,7 +27,8 @@ const entityServicesFixture = [
         name: 'Platform'
       }
     ],
-    status: 'Success'
+    status: 'Success',
+    tags: ['live']
   },
   {
     name: 'cdp-portal-stubs',
@@ -40,7 +42,8 @@ const entityServicesFixture = [
         name: 'Platform'
       }
     ],
-    status: 'Success'
+    status: 'Success',
+    tags: []
   },
   {
     name: 'forms-service',
@@ -54,7 +57,8 @@ const entityServicesFixture = [
         name: 'Forms'
       }
     ],
-    status: 'InProgress'
+    status: 'InProgress',
+    tags: ['prr']
   }
 ]
 

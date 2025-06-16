@@ -34,7 +34,7 @@ describe('#transformServiceToSummary', () => {
             text: 'Tags'
           },
           value: {
-            html: ''
+            html: expect.stringContaining('Live')
           }
         },
         {

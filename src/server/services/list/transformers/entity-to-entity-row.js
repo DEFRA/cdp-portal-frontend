@@ -1,11 +1,11 @@
-import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
+import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
+import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
 import {
   renderComponent,
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import startCase from 'lodash/startCase.js'
-import { transformTagToEntity } from '~/src/server/admin/tags/transformers/transform-tag-to-entity.js'
 
 function entityToEntityRow(entity) {
   const status = entity.status
@@ -31,7 +31,7 @@ function entityToEntityRow(entity) {
         headers: 'created',
         entity: {
           kind: 'tag',
-          value: startCase(status),
+          value: formatText(status),
           classes: statusTagClassMap(status)
         }
       }
@@ -43,6 +43,9 @@ function entityToEntityRow(entity) {
         [renderIcon('star-icon', { classes: 'app-icon--minuscule' })]
       )
     : ''
+
+  const tags =
+    entity.tags?.map((tagName) => serviceTags[tagName]).filter(Boolean) ?? []
 
   return {
     cells: [
@@ -64,10 +67,11 @@ function entityToEntityRow(entity) {
         headers: 'tags',
         entity: {
           kind: 'group',
-          blank: true,
-          value: (entity.tags ?? [])
-            .map((tag) => transformTagToEntity(tag))
-            .filter(Boolean)
+          value: tags.map((tag) => ({
+            kind: 'tag',
+            value: tag.displayName,
+            classes: tag.className
+          }))
         }
       },
       {
