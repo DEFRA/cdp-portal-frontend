@@ -3,7 +3,7 @@ import { tagValidation } from '~/src/server/admin/tags/helpers/schema/tag-valida
 import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
-export const addTagController = {
+const addTagController = {
   handler: async (request, h) => {
     const { serviceId, tag } = request.payload
 
@@ -31,3 +31,5 @@ export const addTagController = {
     return h.redirect(`/admin/tags/${tag}`)
   }
 }
+
+export { addTagController }

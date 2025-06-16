@@ -1,12 +1,24 @@
+import Joi from 'joi'
+import Boom from '@hapi/boom'
+
 import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { transformEntityToRow } from '~/src/server/admin/tags/transformers/transform-entity-to-tag-row.js'
+import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { serviceTagValues } from '~/src/server/admin/tags/helpers/schema/tag-validation.js'
 import {
   renderServiceTag,
   serviceTags
 } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { transformEntityToRow } from '~/src/server/admin/tags/transformers/transform-entity-to-tag-row.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 
-export const editTagController = {
+const tagController = {
+  options: {
+    validate: {
+      params: Joi.object({
+        tag: serviceTagValues
+      }),
+      failAction: () => Boom.boomify(Boom.badRequest())
+    }
+  },
   handler: async (request, h) => {
     const tag = serviceTags[request.params.tag]
     const renderedTag = renderServiceTag(tag)
@@ -37,7 +49,7 @@ export const editTagController = {
       ]
     }
 
-    return h.view('admin/tags/views/edit-tag', {
+    return h.view('admin/tags/views/tag', {
       pageTitle: `Edit Tag ${tag?.name}`,
       tableData: {
         headers: [
@@ -70,3 +82,5 @@ export const editTagController = {
     })
   }
 }
+
+export { tagController }

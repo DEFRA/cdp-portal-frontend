@@ -1,11 +1,10 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
-
 import { scopes } from '~/src/server/common/constants/scopes.js'
-import { listTagsListController } from '~/src/server/admin/tags/controllers/list-tags.js'
-import { editTagController } from '~/src/server/admin/tags/controllers/edit-tag.js'
+import { tagController } from '~/src/server/admin/tags/controllers/tag.js'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { addTagController } from '~/src/server/admin/tags/controllers/add-tag.js'
 import { removeTagController } from '~/src/server/admin/tags/controllers/remove-tag.js'
+import { listTagsListController } from '~/src/server/admin/tags/controllers/list-tags.js'
+import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
 import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
@@ -36,13 +35,13 @@ const adminTags = {
         [
           {
             method: 'GET',
-            path: '/admin/tags/{tag}',
-            ...editTagController
+            path: '/admin/tags',
+            ...listTagsListController
           },
           {
             method: 'GET',
-            path: '/admin/tags',
-            ...listTagsListController
+            path: '/admin/tags/{tag}',
+            ...tagController
           },
           {
             method: 'POST',
