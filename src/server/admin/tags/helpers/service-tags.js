@@ -1,4 +1,3 @@
-import Joi from 'joi'
 import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
 
 /**
@@ -31,8 +30,6 @@ export const serviceTags = {
     colour: 'orange'
   }
 }
-
-export const validServiceTags = Joi.string().valid(...Object.keys(serviceTags))
 
 /**
  * Returns an HTML representation of a tag.
