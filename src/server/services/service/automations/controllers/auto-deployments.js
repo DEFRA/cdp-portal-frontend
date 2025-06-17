@@ -6,7 +6,6 @@ import { buildOptions } from '~/src/server/common/helpers/options/build-options.
 import { getAutoDeployDetails } from '~/src/server/services/service/automations/helpers/fetchers.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { excludedEnvironments } from '~/src/server/services/service/automations/helpers/constants/excluded-environments.js'
 
 const autoDeploymentsController = {
   options: {
@@ -30,7 +29,7 @@ const autoDeploymentsController = {
 
     const autoDeployDetails = await getAutoDeployDetails(serviceId)
     const environments = getEnvironments(authedUser?.scope).filter(
-      (environment) => !excludedEnvironments.includes(environment.toLowerCase())
+      (environment) => environment.toLowerCase() !== 'prod'
     )
     const environmentOptions = buildOptions(
       environments.map((environment) => ({
