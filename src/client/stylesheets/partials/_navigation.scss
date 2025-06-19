@@ -2,8 +2,6 @@
 
 .app-navigation {
   .govuk-service-navigation__item {
-    @include govuk-font(24);
-
     &:not(:last-child) {
       @include govuk-responsive-margin(3, $direction: right);
     }
@@ -20,6 +18,12 @@
   margin: 0;
   list-style: none;
   display: contents;
+}
+
+@include govuk-media-query($from: tablet) {
+  .govuk-service-navigation__item {
+    padding: govuk-spacing(3) 0;
+  }
 }
 
 @include govuk-media-query($from: desktop-big) {
