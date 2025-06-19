@@ -21,65 +21,98 @@ async function buildNavigation(request) {
   const actions = (authedUser?.isTenant || authedUser?.isAdmin) && [
     {
       text: 'Deploy Service',
-      url: deployServicePath,
-      isActive: request?.path?.includes(deployServicePath)
+      href: deployServicePath,
+      current: request?.path?.includes(deployServicePath),
+      attributes: {
+        'data-testid': 'nav-deploy-service'
+      }
     },
     {
       text: 'Create',
-      url: createPath,
-      isActive: request?.path?.includes(createPath)
+      href: createPath,
+      current: request?.path?.includes(createPath),
+      attributes: {
+        'data-testid': 'nav-create'
+      }
     }
   ]
 
   const primary = [
     {
       text: 'Home',
-      url: request.routeLookup('home'),
-      isActive: request?.path === '/'
+      href: request.routeLookup('home'),
+      current: request?.path === '/',
+      attributes: {
+        'data-testid': 'nav-home'
+      }
     },
     {
       text: 'Documentation',
-      url: documentationPath,
-      isActive: request?.path?.includes(documentationPath)
+      href: documentationPath,
+      current: request?.path?.includes(documentationPath),
+      attributes: {
+        'data-testid': 'nav-documentation'
+      }
     },
     {
       text: 'Services',
-      url: servicesPath,
-      isActive: request?.path?.includes(servicesPath)
+      href: servicesPath,
+      current: request?.path?.includes(servicesPath),
+      attributes: {
+        'data-testid': 'nav-services'
+      }
     },
     {
       text: 'Test suites',
-      url: testSuitesPath,
-      isActive: request?.path?.includes(testSuitesPath)
+      href: testSuitesPath,
+      current: request?.path?.includes(testSuitesPath),
+      attributes: {
+        'data-testid': 'nav-test-suites'
+      }
     },
     {
       text: 'Utilities',
-      url: request.routeLookup('utilities/templates'),
-      isActive: request?.path?.includes('/utilities')
+      href: request.routeLookup('utilities/templates'),
+      current: request?.path?.includes('/utilities'),
+      attributes: {
+        'data-testid': 'nav-utilities'
+      }
     },
     {
       text: 'Teams',
-      url: request.routeLookup('teams'),
-      isActive:
-        request?.path?.includes('/teams') && !request?.path?.includes('admin')
+      href: request.routeLookup('teams'),
+      current:
+        request?.path?.includes('/teams') && !request?.path?.includes('admin'),
+      attributes: {
+        'data-testid': 'nav-teams'
+      }
     },
     {
       text: 'Deployments',
-      url: request.routeLookup('deployments'),
-      isActive: isActive('deployments')
+      href: request.routeLookup('deployments'),
+      current: isActive('deployments'),
+      attributes: {
+        'data-testid': 'nav-deployments'
+      }
     },
     {
       text: 'Running Services',
-      url: runningServicesPath,
-      isActive: request?.path?.includes(runningServicesPath)
+      href: runningServicesPath,
+      current: request?.path?.includes(runningServicesPath),
+      attributes: {
+        'data-testid': 'nav-running-services'
+      }
     }
   ]
 
   if (hasPostgresPermission) {
     actions.unshift({
       text: 'Apply Changelog',
-      url: applyChangelogPath,
-      isActive: request?.path?.includes(applyChangelogPath)
+      href: applyChangelogPath,
+      current: request?.path?.includes(applyChangelogPath),
+      attributes: {
+        'data-testid': 'nav-apply-changelog'
+      }
     })
   }
 
@@ -89,8 +122,11 @@ async function buildNavigation(request) {
     admin: authedUser?.isAdmin && [
       {
         text: 'Admin',
-        url: adminPath,
-        isActive: request?.path?.includes(adminPath)
+        href: adminPath,
+        current: request?.path?.includes(adminPath),
+        attributes: {
+          'data-testid': 'nav-admin'
+        }
       }
     ]
   }
