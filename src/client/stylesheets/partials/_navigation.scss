@@ -2,8 +2,10 @@
 
 .app-navigation {
   .govuk-service-navigation__item {
+    @include govuk-font(24);
+
     &:not(:last-child) {
-      @include govuk-responsive-margin(4, $direction: right);
+      @include govuk-responsive-margin(3, $direction: right);
     }
   }
 
@@ -40,7 +42,7 @@
   .app-navigation__admin {
     display: inline-block;
     position: relative;
-    padding-left: govuk-spacing(4);
+    padding-left: govuk-spacing(3);
 
     &::before {
       content: "";
