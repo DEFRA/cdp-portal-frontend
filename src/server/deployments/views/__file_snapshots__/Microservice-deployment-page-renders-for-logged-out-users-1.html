@@ -50,82 +50,101 @@
   </div>
 </header>
 
-<nav class="app-navigation" role="navigation" aria-label="Navigation">
-  <div class="govuk-width-container">
-    <div class="app-navigation__list">
-      <ul class="app-navigation__primary">
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/"
-               data-testid="nav-home"
-            >
-              Home
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/documentation"
-               data-testid="nav-documentation"
-            >
-              Documentation
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/services"
-               data-testid="nav-services"
-            >
-              Services
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/test-suites"
-               data-testid="nav-test-suites"
-            >
-              Test suites
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/utilities/templates"
-               data-testid="nav-utilities"
-            >
-              Utilities
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/teams"
-               data-testid="nav-teams"
-            >
-              Teams
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link app-navigation__link--active"
-               href="/deployments"
-               data-testid="nav-deployments"
-            >
-              Deployments
-            </a>
-          </li>
-          <li class="app-navigation__list-item">
-            <a class="app-navigation__link"
-               href="/running-services"
-               data-testid="nav-running-services"
-            >
-              Running Services
-            </a>
-          </li>
-      </ul>
 
-      <ul class="app-navigation__actions">
+  
+  <div class="govuk-service-navigation"
+data-module="govuk-service-navigation"
+>
+      <div class="govuk-width-container">
 
-      </ul>
+    <div class="govuk-service-navigation__container">
+      
+
+      
+        <nav aria-label="Menu" class="govuk-service-navigation__wrapper app-navigation">
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+            Menu
+          </button>
+
+          <ul class="govuk-service-navigation__list" id="navigation" >
+
+            
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/" data-testid="nav-home">
+                                    
+Home
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/documentation" data-testid="nav-documentation">
+                                    
+Documentation
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/services" data-testid="nav-services">
+                                    
+Services
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/test-suites" data-testid="nav-test-suites">
+                                    
+Test suites
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/utilities/templates" data-testid="nav-utilities">
+                                    
+Utilities
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/teams" data-testid="nav-teams">
+                                    
+Teams
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+                  <a class="govuk-service-navigation__link" href="/deployments" aria-current="page" data-testid="nav-deployments">
+                                    
+                  <strong class="govuk-service-navigation__active-fallback">Deployments</strong>
+
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/running-services" data-testid="nav-running-services">
+                                    
+Running Services
+                  </a>
+              </li>
+
+              <ul class="app-navigation__actions">
+
+  </ul>
+</ul>
+        </nav>
     </div>
+
+    </div>
+
   </div>
-</nav>
+
 
       <div class="govuk-width-container">
   
