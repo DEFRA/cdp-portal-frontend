@@ -1,0 +1,33 @@
+{#  From https://github.com/alphagov/govuk-frontend/blob/93eb70b2a5a1b01e91456ef3adad8581cd34c732/packages/govuk
+-frontend/src/govuk/components/service-navigation/template.njk#L51-L79 for use in the GOV service navigation
+This is essentially a GOV uk component that has been adapted to work with the CDP Portal service navigation
+#}
+
+{% from "../../../../../node_modules/govuk-frontend/dist/govuk/macros/attributes.njk" import govukAttributes %}
+
+{% set linkInnerContent %}
+  {% if params.active or params.current %}
+    <strong
+      class="govuk-service-navigation__active-fallback">{{- params.html | safe if params.html else params.text -}}</strong>
+  {% else %}
+    {{- params.html | safe if params.html else params.text -}}
+  {% endif %}
+{% endset %}
+
+<li
+  class="govuk-service-navigation__item {%- if params.active or params.current %}
+    govuk-service-navigation__item--active{% endif %}">
+  {% if params.href %}
+    <a class="govuk-service-navigation__link" href="{{ params.href }}"
+      {%- if params.active or params.current %} aria-current="{{ 'page' if params.current else 'true' }}"{% endif %}
+      {{- govukAttributes(params.attributes) -}}>
+      {{ linkInnerContent | safe }}
+    </a>
+    {% elif params.html or params.text %}
+    <span class="govuk-service-navigation__text"
+                  {%- if params.active or params.current %} aria-current="{{ 'page' if params.current else 'true' }}"{% endif %}>
+                  {{ linkInnerContent | safe }}
+                </span>
+  {% endif %}
+</li>
+

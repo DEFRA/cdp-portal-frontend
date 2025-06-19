@@ -15,44 +15,68 @@ describe('#buildNavigation', () => {
         actions: undefined,
         primary: [
           {
-            isActive: false,
+            current: false,
             text: 'Home',
-            url: '/'
+            href: '/',
+            attributes: {
+              'data-testid': 'nav-home'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Documentation',
-            url: '/documentation'
+            href: '/documentation',
+            attributes: {
+              'data-testid': 'nav-documentation'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Services',
-            url: '/services'
+            href: '/services',
+            attributes: {
+              'data-testid': 'nav-services'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Test suites',
-            url: '/test-suites'
+            href: '/test-suites',
+            attributes: {
+              'data-testid': 'nav-test-suites'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Utilities',
-            url: '/utilities/templates'
+            href: '/utilities/templates',
+            attributes: {
+              'data-testid': 'nav-utilities'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Teams',
-            url: '/teams'
+            href: '/teams',
+            attributes: {
+              'data-testid': 'nav-teams'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Deployments',
-            url: '/deployments'
+            href: '/deployments',
+            attributes: {
+              'data-testid': 'nav-deployments'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Running Services',
-            url: '/running-services'
+            href: '/running-services',
+            attributes: {
+              'data-testid': 'nav-running-services'
+            }
           }
         ],
         admin: undefined
@@ -67,56 +91,86 @@ describe('#buildNavigation', () => {
       ).toEqual({
         actions: [
           {
-            isActive: false,
+            current: false,
             text: 'Deploy Service',
-            url: '/deploy-service'
+            href: '/deploy-service',
+            attributes: {
+              'data-testid': 'nav-deploy-service'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Create',
-            url: '/create'
+            href: '/create',
+            attributes: {
+              'data-testid': 'nav-create'
+            }
           }
         ],
         primary: [
           {
-            isActive: false,
+            current: false,
             text: 'Home',
-            url: '/'
+            href: '/',
+            attributes: {
+              'data-testid': 'nav-home'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Documentation',
-            url: '/documentation'
+            href: '/documentation',
+            attributes: {
+              'data-testid': 'nav-documentation'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Services',
-            url: '/services'
+            href: '/services',
+            attributes: {
+              'data-testid': 'nav-services'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Test suites',
-            url: '/test-suites'
+            href: '/test-suites',
+            attributes: {
+              'data-testid': 'nav-test-suites'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Utilities',
-            url: '/utilities/templates'
+            href: '/utilities/templates',
+            attributes: {
+              'data-testid': 'nav-utilities'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Teams',
-            url: '/teams'
+            href: '/teams',
+            attributes: {
+              'data-testid': 'nav-teams'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Deployments',
-            url: '/deployments'
+            href: '/deployments',
+            attributes: {
+              'data-testid': 'nav-deployments'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Running Services',
-            url: '/running-services'
+            href: '/running-services',
+            attributes: {
+              'data-testid': 'nav-running-services'
+            }
           }
         ],
         admin: undefined
@@ -131,63 +185,96 @@ describe('#buildNavigation', () => {
       ).toEqual({
         actions: [
           {
-            isActive: false,
+            current: false,
             text: 'Deploy Service',
-            url: '/deploy-service'
+            href: '/deploy-service',
+            attributes: {
+              'data-testid': 'nav-deploy-service'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Create',
-            url: '/create'
+            href: '/create',
+            attributes: {
+              'data-testid': 'nav-create'
+            }
           }
         ],
         primary: [
           {
-            isActive: false,
+            current: false,
             text: 'Home',
-            url: '/'
+            href: '/',
+            attributes: {
+              'data-testid': 'nav-home'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Documentation',
-            url: '/documentation'
+            href: '/documentation',
+            attributes: {
+              'data-testid': 'nav-documentation'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Services',
-            url: '/services'
+            href: '/services',
+            attributes: {
+              'data-testid': 'nav-services'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Test suites',
-            url: '/test-suites'
+            href: '/test-suites',
+            attributes: {
+              'data-testid': 'nav-test-suites'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Utilities',
-            url: '/utilities/templates'
+            href: '/utilities/templates',
+            attributes: {
+              'data-testid': 'nav-utilities'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Teams',
-            url: '/teams'
+            href: '/teams',
+            attributes: {
+              'data-testid': 'nav-teams'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Deployments',
-            url: '/deployments'
+            href: '/deployments',
+            attributes: {
+              'data-testid': 'nav-deployments'
+            }
           },
           {
-            isActive: false,
+            current: false,
             text: 'Running Services',
-            url: '/running-services'
+            href: '/running-services',
+            attributes: {
+              'data-testid': 'nav-running-services'
+            }
           }
         ],
         admin: [
           {
-            isActive: false,
+            current: false,
             text: 'Admin',
-            url: '/admin'
+            href: '/admin',
+            attributes: {
+              'data-testid': 'nav-admin'
+            }
           }
         ]
       })
@@ -204,61 +291,94 @@ describe('#buildNavigation', () => {
         ).toEqual({
           actions: [
             {
-              isActive: false,
+              current: false,
               text: 'Apply Changelog',
-              url: '/apply-changelog'
+              href: '/apply-changelog',
+              attributes: {
+                'data-testid': 'nav-apply-changelog'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Deploy Service',
-              url: '/deploy-service'
+              href: '/deploy-service',
+              attributes: {
+                'data-testid': 'nav-deploy-service'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Create',
-              url: '/create'
+              href: '/create',
+              attributes: {
+                'data-testid': 'nav-create'
+              }
             }
           ],
           primary: [
             {
-              isActive: false,
+              current: false,
               text: 'Home',
-              url: '/'
+              href: '/',
+              attributes: {
+                'data-testid': 'nav-home'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Documentation',
-              url: '/documentation'
+              href: '/documentation',
+              attributes: {
+                'data-testid': 'nav-documentation'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Services',
-              url: '/services'
+              href: '/services',
+              attributes: {
+                'data-testid': 'nav-services'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Test suites',
-              url: '/test-suites'
+              href: '/test-suites',
+              attributes: {
+                'data-testid': 'nav-test-suites'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Utilities',
-              url: '/utilities/templates'
+              href: '/utilities/templates',
+              attributes: {
+                'data-testid': 'nav-utilities'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Teams',
-              url: '/teams'
+              href: '/teams',
+              attributes: {
+                'data-testid': 'nav-teams'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Deployments',
-              url: '/deployments'
+              href: '/deployments',
+              attributes: {
+                'data-testid': 'nav-deployments'
+              }
             },
             {
-              isActive: false,
+              current: false,
               text: 'Running Services',
-              url: '/running-services'
+              href: '/running-services',
+              attributes: {
+                'data-testid': 'nav-running-services'
+              }
             }
           ]
         })
@@ -266,51 +386,75 @@ describe('#buildNavigation', () => {
     })
   })
 
-  test('Should mark matching url as Active', async () => {
+  test('Should mark matching href as Active', async () => {
     expect(
       await buildNavigation(mockRequest({ path: '/running-services' }))
     ).toEqual({
       actions: undefined,
       primary: [
         {
-          isActive: false,
+          current: false,
           text: 'Home',
-          url: '/'
+          href: '/',
+          attributes: {
+            'data-testid': 'nav-home'
+          }
         },
         {
-          isActive: false,
+          current: false,
           text: 'Documentation',
-          url: '/documentation'
+          href: '/documentation',
+          attributes: {
+            'data-testid': 'nav-documentation'
+          }
         },
         {
-          isActive: false,
+          current: false,
           text: 'Services',
-          url: '/services'
+          href: '/services',
+          attributes: {
+            'data-testid': 'nav-services'
+          }
         },
         {
-          isActive: false,
+          current: false,
           text: 'Test suites',
-          url: '/test-suites'
+          href: '/test-suites',
+          attributes: {
+            'data-testid': 'nav-test-suites'
+          }
         },
         {
-          isActive: false,
+          current: false,
           text: 'Utilities',
-          url: '/utilities/templates'
+          href: '/utilities/templates',
+          attributes: {
+            'data-testid': 'nav-utilities'
+          }
         },
         {
-          isActive: false,
+          current: false,
           text: 'Teams',
-          url: '/teams'
+          href: '/teams',
+          attributes: {
+            'data-testid': 'nav-teams'
+          }
         },
         {
-          isActive: false,
+          current: false,
           text: 'Deployments',
-          url: '/deployments'
+          href: '/deployments',
+          attributes: {
+            'data-testid': 'nav-deployments'
+          }
         },
         {
-          isActive: true,
+          current: true,
           text: 'Running Services',
-          url: '/running-services'
+          href: '/running-services',
+          attributes: {
+            'data-testid': 'nav-running-services'
+          }
         }
       ],
       admin: undefined
