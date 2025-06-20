@@ -1,12 +1,15 @@
 import Joi from 'joi'
 
 import { validation } from '~/src/server/common/constants/validation.js'
-import { repositoryNameValidation } from '~/src/server/common/common-validation.js'
+import {
+  repositoryNameValidation,
+  teamIdValidation
+} from '@defra/cdp-validation-kit/src/validations.js'
 
 function testSuiteValidation() {
   return Joi.object({
     repositoryName: repositoryNameValidation,
-    teamId: Joi.string()
+    teamId: teamIdValidation
       .messages({
         'any.required': validation.chooseAnEntry
       })

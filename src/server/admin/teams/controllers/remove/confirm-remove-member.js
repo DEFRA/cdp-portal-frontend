@@ -3,13 +3,17 @@ import Boom from '@hapi/boom'
 
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
+import {
+  teamIdValidation,
+  userIdValidation
+} from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmRemoveMemberController = {
   options: {
     validate: {
       params: Joi.object({
-        teamId: Joi.string().guid().required(),
-        userId: Joi.string().guid().required()
+        teamId: teamIdValidation,
+        userId: userIdValidation
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

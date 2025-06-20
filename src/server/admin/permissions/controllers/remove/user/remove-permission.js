@@ -4,12 +4,13 @@ import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { removeScopeFromUser } from '~/src/server/admin/permissions/helpers/fetchers.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const removePermissionFromUserController = {
   options: {
     validate: {
       params: Joi.object({
-        userId: Joi.string().guid().required(),
+        userId: userIdValidation,
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
