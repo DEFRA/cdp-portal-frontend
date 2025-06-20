@@ -3,12 +3,13 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { fetchPermissionsScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmRemovePermissionFromTeamController = {
   options: {
     validate: {
       params: Joi.object({
-        teamId: Joi.string().guid().required(),
+        teamId: teamIdValidation,
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())

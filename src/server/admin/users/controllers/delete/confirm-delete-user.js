@@ -4,13 +4,14 @@ import Boom from '@hapi/boom'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
 import { transformUserToSummary } from '~/src/server/admin/users/transformers/user-to-summary.js'
 import { transformUserTeamsToTaskList } from '~/src/server/admin/users/transformers/user-teams-to-task-list.js'
+import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmDeleteUserController = {
   options: {
     id: 'admin/users/{userId}/confirm-delete',
     validate: {
       params: Joi.object({
-        userId: Joi.string().uuid().required()
+        userId: userIdValidation
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

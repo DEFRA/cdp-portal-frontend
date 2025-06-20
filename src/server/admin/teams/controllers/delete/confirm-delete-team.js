@@ -4,13 +4,14 @@ import Boom from '@hapi/boom'
 import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
 import { transformTeamToSummary } from '~/src/server/admin/teams/transformers/team-to-summary.js'
 import { transformTeamUsersToTaskList } from '~/src/server/admin/teams/transformers/team-users-to-task-list.js'
+import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmDeleteTeamController = {
   options: {
     id: 'admin/teams/{teamId}/confirm-delete',
     validate: {
       params: Joi.object({
-        teamId: Joi.string().uuid().required()
+        teamId: teamIdValidation
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

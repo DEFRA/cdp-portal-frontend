@@ -2,7 +2,10 @@ import Joi from 'joi'
 
 import { validation } from '~/src/server/common/constants/validation.js'
 import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility.js'
-import { repositoryNameValidation } from '~/src/server/common/common-validation.js'
+import {
+  repositoryNameValidation,
+  teamIdValidation
+} from '@defra/cdp-validation-kit/src/validations.js'
 
 function repositoryValidation() {
   return Joi.object({
@@ -14,7 +17,7 @@ function repositoryValidation() {
         'any.required': validation.chooseAnEntry
       })
       .required(),
-    teamId: Joi.string()
+    teamId: teamIdValidation
       .messages({
         'any.required': validation.chooseAnEntry
       })

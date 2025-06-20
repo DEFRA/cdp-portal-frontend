@@ -3,13 +3,17 @@ import Boom from '@hapi/boom'
 
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { removeMemberFromTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import {
+  teamIdValidation,
+  userIdValidation
+} from '@defra/cdp-validation-kit/src/validations.js'
 
 const removeMemberController = {
   options: {
     validate: {
       params: Joi.object({
-        teamId: Joi.string().guid().required(),
-        userId: Joi.string().guid().required()
+        teamId: teamIdValidation,
+        userId: userIdValidation
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }

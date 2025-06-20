@@ -2,6 +2,7 @@ import Joi from 'joi'
 
 import { validation } from '~/src/server/common/constants/validation.js'
 import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const serviceTagValues = Joi.string()
   .valid(...Object.keys(serviceTags))
@@ -12,7 +13,7 @@ const tagValidation = Joi.object({
     'string.base': validation.chooseAnEntry,
     'any.required': validation.chooseAnEntry
   }),
-  serviceId: Joi.string().min(1).required().messages({
+  serviceId: repositoryNameValidation.messages({
     'string.empty': validation.chooseAnEntry,
     'any.required': validation.chooseAnEntry
   })

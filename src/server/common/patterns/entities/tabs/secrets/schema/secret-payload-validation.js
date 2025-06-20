@@ -3,6 +3,7 @@ import Joi from 'joi'
 import { config } from '~/src/config/config.js'
 import { validation } from '~/src/server/common/constants/validation.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 /** @type {string[]} */
 const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
@@ -94,7 +95,7 @@ function secretPayloadValidation(action, scopes, existingSecretKeys = []) {
         'any.required': validation.enterValue,
         'string.empty': validation.enterValue
       }),
-    teamId: Joi.string().uuid().required(),
+    teamId: teamIdValidation,
     environment: Joi.string()
       .valid(...allowedEnvironments)
       .required()

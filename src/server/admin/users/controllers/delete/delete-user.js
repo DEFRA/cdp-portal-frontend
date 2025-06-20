@@ -3,12 +3,13 @@ import Boom from '@hapi/boom'
 
 import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const deleteUserController = {
   options: {
     validate: {
       params: Joi.object({
-        userId: Joi.string().uuid().required()
+        userId: userIdValidation
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }

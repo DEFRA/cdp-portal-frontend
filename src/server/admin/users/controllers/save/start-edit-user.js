@@ -5,13 +5,14 @@ import Boom from '@hapi/boom'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
 import { saveToCdpUser } from '~/src/server/admin/users/helpers/form/index.js'
+import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const startEditUserController = {
   options: {
     id: 'admin/users/{userId}/edit',
     validate: {
       params: Joi.object({
-        userId: Joi.string().guid().required()
+        userId: userIdValidation
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }

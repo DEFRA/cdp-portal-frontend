@@ -4,12 +4,13 @@ import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { removeScopeFromTeam } from '~/src/server/admin/permissions/helpers/fetchers.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const removePermissionFromTeamController = {
   options: {
     validate: {
       params: Joi.object({
-        teamId: Joi.string().guid().required(),
+        teamId: teamIdValidation,
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())

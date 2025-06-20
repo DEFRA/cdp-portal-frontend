@@ -3,12 +3,13 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { fetchPermissionsScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmRemovePermissionFromUserController = {
   options: {
     validate: {
       params: Joi.object({
-        userId: Joi.string().guid().required(),
+        userId: userIdValidation,
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
