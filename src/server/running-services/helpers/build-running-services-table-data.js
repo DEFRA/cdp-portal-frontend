@@ -2,12 +2,12 @@ import upperFirst from 'lodash/upperFirst.js'
 
 import { fetchRunningServicesFilters } from '~/src/server/running-services/helpers/fetch/fetch-running-services-filters.js'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
-import { fetchDeployableServices } from '~/src/server/common/helpers/fetch/fetch-deployable-services.js'
 import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
 import { transformRunningServices } from '~/src/server/running-services/helpers/transformers/running-services.js'
 import { runningServiceToEntityRow } from '~/src/server/running-services/helpers/transformers/running-service-to-entity-row.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 import { fetchRunningServices } from '~/src/server/running-services/helpers/fetch/fetch-running-services.js'
+import { fetchServices } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 
 function getFilters(runningServicesFilters) {
   const {
@@ -45,7 +45,7 @@ async function buildRunningServicesTableData({ pre, query }) {
 
   const [deployableServices, runningServicesFilters, runningServices] =
     await Promise.all([
-      fetchDeployableServices(),
+      fetchServices(),
       fetchRunningServicesFilters(),
       fetchRunningServices(environments, {
         service: query.service,

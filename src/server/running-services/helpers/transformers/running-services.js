@@ -19,8 +19,7 @@ function transformRunningServices({
 
       if (!acc[rs.service].teams) {
         const deployableService = deployableServices.find(
-          (service) =>
-            service.serviceName.toLowerCase() === rs.service.toLowerCase()
+          (service) => service.name.toLowerCase() === rs.service.toLowerCase()
         )
 
         acc[rs.service].teams =

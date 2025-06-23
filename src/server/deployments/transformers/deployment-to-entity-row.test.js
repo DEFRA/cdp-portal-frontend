@@ -1,13 +1,13 @@
-import { servicesFixture } from '~/src/__fixtures__/services/services.js'
-import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
+import { decorateRollouts } from '~/src/server/deployments/transformers/decorate-rollouts.js'
 import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
 import { deploymentsWithMigrationsFixture } from '~/src/__fixtures__/deployments/deployments-with-migrations.js'
+import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
 
 describe('#deploymentToEntityRow', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
   const userScopeUUIDs = [adminGroupId]
-  const deploymentsDecorator = decorateDeployments({
-    deployableServices: servicesFixture,
+  const deploymentsDecorator = decorateRollouts({
+    deployableServices: entityServicesFixture,
     userScopeUUIDs
   })
   const deploymentsWithTeams = deploymentsDecorator(

@@ -1,12 +1,12 @@
-import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
-import { servicesFixture } from '~/src/__fixtures__/services/services.js'
+import { decorateRollouts } from '~/src/server/deployments/transformers/decorate-rollouts.js'
 import { deploymentsWithMigrationsFixture } from '~/src/__fixtures__/deployments/deployments-with-migrations.js'
+import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
 
-describe('#decorateDeployments', () => {
+describe('#decorateRollouts', () => {
   test('Should decorate deployable with teams and owner information', () => {
     const mockUserScopeUUIDs = ['aabe63e7-87ef-4beb-a596-c810631fc474']
-    const decorator = decorateDeployments({
-      deployableServices: servicesFixture,
+    const decorator = decorateRollouts({
+      deployableServices: entityServicesFixture,
       userScopeUUIDs: mockUserScopeUUIDs
     })
 
@@ -17,7 +17,6 @@ describe('#decorateDeployments', () => {
         service: 'cdp-example-node-postgres-be',
         teams: [
           {
-            github: 'cdp-platform',
             name: 'Platform',
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
@@ -29,7 +28,6 @@ describe('#decorateDeployments', () => {
         service: 'cdp-example-node-postgres-be',
         teams: [
           {
-            github: 'cdp-platform',
             name: 'Platform',
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
@@ -41,14 +39,8 @@ describe('#decorateDeployments', () => {
         service: 'cdp-portal-frontend',
         teams: [
           {
-            github: 'cdp-platform',
             name: 'Platform',
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
-          },
-          {
-            github: 'core-ai',
-            name: null,
-            teamId: null
           }
         ]
       }),
@@ -57,7 +49,6 @@ describe('#decorateDeployments', () => {
         kind: 'deployment',
         teams: [
           {
-            github: 'forms',
             name: 'Forms',
             teamId: '0be2f4a1-3e1c-4675-a8ec-3af6d453b7ca'
           }
@@ -69,7 +60,6 @@ describe('#decorateDeployments', () => {
         service: 'cdp-user-service-backend',
         teams: [
           {
-            github: 'cdp-platform',
             name: 'Platform',
             teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
           }
