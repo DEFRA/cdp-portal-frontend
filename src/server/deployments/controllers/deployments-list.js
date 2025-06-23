@@ -8,15 +8,20 @@ import { buildPagination } from '~/src/server/common/helpers/build-pagination.js
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
 import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values.js'
-import { fetchDeployableServices } from '~/src/server/common/helpers/fetch/fetch-deployable-services.js'
-import { decorateDeployments } from '~/src/server/deployments/transformers/decorate-deployments.js'
+import { decorateRollouts } from '~/src/server/deployments/transformers/decorate-rollouts.js'
 import { pagination } from '~/src/server/common/constants/pagination.js'
 import { fetchDeploymentFilters } from '~/src/server/deployments/helpers/fetch/fetch-deployment-filters.js'
-import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
 import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
 import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
 import { fetchDeploymentsWithMigrations } from '~/src/server/deployments/helpers/fetch/fetch-deployments-with-migrations.js'
 import { migrationToEntityRow } from '~/src/server/deployments/transformers/migration-to-entity-row.js'
+import {
+  environmentValidation,
+  repositoryNameValidation,
+  teamIdValidation,
+  userIdValidation
+} from '@defra/cdp-validation-kit/src/validations.js'
+import { fetchServices } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 
 async function getFilters() {
   const response = await fetchDeploymentFilters()
@@ -68,13 +73,13 @@ const deploymentsListController = {
     },
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...getAllEnvironmentKebabNames())
+        environment: environmentValidation
       }),
       query: Joi.object({
-        service: Joi.string().allow(''),
-        user: Joi.string().allow(''),
+        service: repositoryNameValidation.allow('').optional(),
+        user: userIdValidation.allow('').optional(),
         status: Joi.string().allow(''),
-        team: Joi.string().allow(''),
+        team: teamIdValidation.allow('').optional(),
         kind: Joi.string().allow(''),
         page: Joi.number(),
         size: Joi.number()
@@ -114,9 +119,9 @@ const deploymentsListController = {
     const page = deploymentsResponse?.page
     const pageSize = deploymentsResponse?.pageSize
     const totalPages = deploymentsResponse?.totalPages
-    const deployableServices = await fetchDeployableServices()
+    const deployableServices = await fetchServices()
 
-    const deploymentsDecorator = decorateDeployments({
+    const deploymentsDecorator = decorateRollouts({
       deployableServices,
       userScopeUUIDs
     })

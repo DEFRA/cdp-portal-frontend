@@ -55,7 +55,6 @@ describe('#buildServicesTableData', () => {
 
       beforeEach(async () => {
         result = await buildServicesTableData({
-          isAuthenticated: true,
           userScopeUUIDs
         })
       })
@@ -83,14 +82,16 @@ describe('#buildServicesTableData', () => {
       })
 
       test('Should provide rows with "Platform" team services first', () => {
-        expectRowHasService(result.rows.at(0), 'cdp-portal-backend')
-        expectRowHasService(result.rows.at(1), 'cdp-portal-frontend')
-        expectRowHasService(result.rows.at(2), 'cdp-portal-stubs')
-        expectRowHasService(result.rows.at(3), 'forms-service')
+        expectRowHasService(result.rows.at(0), 'cdp-example-node-postgres-be')
+        expectRowHasService(result.rows.at(1), 'cdp-portal-backend')
+        expectRowHasService(result.rows.at(2), 'cdp-portal-frontend')
+        expectRowHasService(result.rows.at(3), 'cdp-portal-stubs')
+        expectRowHasService(result.rows.at(4), 'cdp-user-service-backend')
+        expectRowHasService(result.rows.at(5), 'forms-designer')
       })
 
       test('Should provide expected rows', () => {
-        expect(result.rows).toHaveLength(4)
+        expect(result.rows).toHaveLength(7)
       })
 
       test('Should provide expected row structure', () => {
@@ -129,7 +130,6 @@ describe('#buildServicesTableData', () => {
 
         result = await buildServicesTableData({
           service: 'forms-service',
-          isAuthenticated: true,
           userScopeUUIDs
         })
       })
@@ -176,7 +176,6 @@ describe('#buildServicesTableData', () => {
 
         result = await buildServicesTableData({
           teamId: adminGroupId,
-          isAuthenticated: true,
           userScopeUUIDs
         })
       })
@@ -196,11 +195,13 @@ describe('#buildServicesTableData', () => {
       })
 
       test('Should provide "Platform" only teams', () => {
-        expectRowHasService(result.rows.at(0), 'cdp-portal-backend')
-        expectRowHasService(result.rows.at(1), 'cdp-portal-frontend')
-        expectRowHasService(result.rows.at(2), 'cdp-portal-stubs')
+        expectRowHasService(result.rows.at(0), 'cdp-example-node-postgres-be')
+        expectRowHasService(result.rows.at(1), 'cdp-portal-backend')
+        expectRowHasService(result.rows.at(2), 'cdp-portal-frontend')
+        expectRowHasService(result.rows.at(3), 'cdp-portal-stubs')
+        expectRowHasService(result.rows.at(4), 'cdp-user-service-backend')
 
-        expect(result.rows).toHaveLength(3)
+        expect(result.rows).toHaveLength(5)
       })
 
       test('Should provide expected service count', () => {
@@ -219,16 +220,18 @@ describe('#buildServicesTableData', () => {
         .reply(200, entityServicesFixture)
 
       result = await buildServicesTableData({
-        isAuthenticated: false,
         userScopeUUIDs: []
       })
     })
 
     test('Should provide alphabetically listed rows', () => {
-      expectRowHasService(result.rows.at(0), 'cdp-portal-backend')
-      expectRowHasService(result.rows.at(1), 'cdp-portal-frontend')
-      expectRowHasService(result.rows.at(2), 'cdp-portal-stubs')
-      expectRowHasService(result.rows.at(3), 'forms-service')
+      expectRowHasService(result.rows.at(0), 'cdp-example-node-postgres-be')
+      expectRowHasService(result.rows.at(1), 'cdp-portal-backend')
+      expectRowHasService(result.rows.at(2), 'cdp-portal-frontend')
+      expectRowHasService(result.rows.at(3), 'cdp-portal-stubs')
+      expectRowHasService(result.rows.at(4), 'cdp-user-service-backend')
+      expectRowHasService(result.rows.at(5), 'forms-designer')
+      expectRowHasService(result.rows.at(6), 'forms-service')
     })
 
     test('Should provide expected service count', () => {
