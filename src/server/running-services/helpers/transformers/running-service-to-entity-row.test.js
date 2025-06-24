@@ -1,5 +1,5 @@
 import { environments } from '~/src/config/environments.js'
-import { whatsRunningWhereFixture } from '~/src/__fixtures__/whats-running-where.js'
+import { runningServicesFixture } from '~/src/__fixtures__/running-services.js'
 import { transformRunningServices } from '~/src/server/running-services/helpers/transformers/running-services.js'
 import { runningServiceToEntityRow } from '~/src/server/running-services/helpers/transformers/running-service-to-entity-row.js'
 import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
@@ -9,7 +9,7 @@ describe('#runningServiceToEntityRow', () => {
   const allEnvironments = Object.values(environments).map(
     (env) => env.kebabName
   )
-  const runningServices = whatsRunningWhereFixture
+  const runningServices = runningServicesFixture
   const deployableServices = entityServicesFixture
   const userScopeUUIDs = [adminGroupId]
 
