@@ -342,25 +342,6 @@ const config = convict({
       format: Boolean,
       default: false,
       env: 'CDP_AUDIT_ENABLED'
-    },
-    stream: {
-      doc: 'AWS Firehose stream to send audit events to',
-      format: String,
-      default: 'cdp-firehose-audit',
-      env: 'CDP_AUDIT_STREAM'
-    },
-    firehoseEndpoint: {
-      doc: 'Override for testing aws firehose with localstack',
-      format: String,
-      nullable: true,
-      default: null,
-      env: 'AWS_FIREHOSE_ENDPOINT'
-    },
-    source: {
-      doc: 'Audit source, typically your services name',
-      format: String,
-      default: 'cdp-portal-frontend',
-      env: 'AUDIT_SOURCE'
     }
   },
   platformGlobalSecretKeys: {
