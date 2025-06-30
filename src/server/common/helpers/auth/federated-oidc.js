@@ -15,23 +15,28 @@ export const federatedOidc = {
   name: 'federatedOidc',
   dependencies: ['federated-credentials'],
   register: function (server) {
-    server.auth.scheme('federated-oidc', scheme)
-    server.auth.strategy('azure-oidc', 'federated-oidc', {
+    const settings = {
       discoveryUri: config.get('oidcWellKnownConfigurationUrl'),
       redirectUri: config.get('appBaseUrl') + callbackPath,
       clientId: config.get('azureClientId'),
-      scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
+      scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`
+    }
+
+    server.auth.scheme('federated-oidc', scheme)
+    server.auth.strategy('azure-oidc', 'federated-oidc', {
+      ...settings,
       tokenProvider: () => server.federatedCredentials.getToken()
     })
+
+    server.decorate('request', 'refreshToken', (token) =>
+      refreshToken(settings, token)
+    )
   }
 }
 
 function scheme(server, options) {
   const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
 
-  server.decorate('request', 'refreshToken', async (jwtRefreshToken) =>
-    refreshToken(settings, jwtRefreshToken)
-  )
   return {
     authenticate: async function (request, h) {
       const federatedToken = await settings.tokenProvider()
@@ -149,7 +154,7 @@ async function postLogin(request, oidcConfig, settings) {
 /**
  * Refreshes the client credentials using a refresh token.
  * Decorates the request object as `request.refreshToken(token)`
- * @param {{}} settings
+ * @param {{discoveryUri: string, clientId: string, scope: string}} settings
  * @param {string} jwtRefreshToken
  * @returns {Promise<{}>}
  */
@@ -163,14 +168,9 @@ async function refreshToken(settings, jwtRefreshToken) {
     ClientFederatedCredential(federatedToken)
   )
 
-  try {
-    return await openid.refreshTokenGrant(oidcConfig, jwtRefreshToken, {
-      scope: settings.scope
-    })
-  } catch (e) {
-    logger.error(e, 'refreshToken failed')
-    throw e
-  }
+  return await openid.refreshTokenGrant(oidcConfig, jwtRefreshToken, {
+    scope: settings.scope
+  })
 }
 
 const optionsSchema = Joi.object({

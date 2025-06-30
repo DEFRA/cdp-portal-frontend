@@ -1,5 +1,7 @@
 import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
+import qs from 'qs'
+import Wreck from '@hapi/wreck'
 
 import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
@@ -71,8 +73,34 @@ const azureOidc = {
           tenant: config.get('azureTenantId')
         }
       })
+
+      server.decorate('request', 'refreshToken', (token) =>
+        refreshAccessToken(token, wellKnown)
+      )
     }
   }
+}
+
+async function refreshAccessToken(refreshToken, oidcConfig) {
+  const azureClientId = config.get('azureClientId')
+  const azureClientSecret = config.get('azureClientSecret')
+  const params = {
+    client_id: azureClientId,
+    client_secret: azureClientSecret,
+    grant_type: 'refresh_token',
+    refresh_token: refreshToken,
+    scope: `api://${azureClientId}/cdp.user openid profile email offline_access user.read`
+  }
+
+  const response = await Wreck.post(oidcConfig.token_endpoint, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cache-Control': 'no-cache'
+    },
+    payload: qs.stringify(params)
+  })
+
+  return JSON.parse(response.payload.toString())
 }
 
 export { azureOidc }
