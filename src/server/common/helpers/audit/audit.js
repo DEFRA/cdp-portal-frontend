@@ -13,7 +13,7 @@ const auditLoggerConfig = {
   base: null,
   formatters: {
     level(label) {
-      return { 'log.level': label.toUpperCase() }
+      return { 'log.level': label.toLowerCase() }
     }
   }
 }
@@ -32,13 +32,13 @@ export const auditing = {
         server.logger.info('Disabling auditing')
         auditLogger.level = 'silent'
       }
-      audit('Auditing is enabled')
-
       server.decorate('server', 'audit', {
-        sendMessage: audit
+        sendMessage: audit,
+        send: audit
       })
       server.decorate('request', 'audit', {
-        sendMessage: audit
+        sendMessage: audit,
+        send: audit
       })
     }
   },
