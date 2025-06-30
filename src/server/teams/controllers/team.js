@@ -26,8 +26,8 @@ const teamController = {
 
     const [{ team }, teamsServices, teamTestSuites] = await Promise.all([
       fetchTeam(teamId),
-      fetchEntities({ type: 'Microservice', teamId }),
-      fetchEntities({ type: 'TestSuite', teamId })
+      fetchEntities({ type: 'Microservice', teamIds: teamId }),
+      fetchEntities({ type: 'TestSuite', teamIds: teamId })
     ])
 
     const hasGitHub = Boolean(team?.github)
