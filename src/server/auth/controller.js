@@ -8,7 +8,6 @@ import {
 } from '~/src/server/common/helpers/auth/user-session.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
-import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
 import { redirectWithRefresh } from '~/src/server/common/helpers/url/url-helpers.js'
 
 const authCallbackController = {
@@ -56,8 +55,11 @@ const refreshTokenController = {
     if (request.auth.isAuthenticated) {
       try {
         request.logger.info('Forcing token refresh')
+        const authedUser = await request.getUserSession()
+        const refreshToken = authedUser?.refreshToken ?? null
+
         const sessionBeforeRefresh = await request.getUserSession()
-        const refreshedToken = await refreshAccessToken(request)
+        const refreshedToken = await request.refreshToken(refreshToken)
         const sessionAfterRefresh = await refreshUserSession(
           request,
           refreshedToken
