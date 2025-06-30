@@ -37,11 +37,11 @@ const servicesListController = {
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
           { id: 'service', text: 'Service', width: '20', isLeftAligned: true },
-          { id: 'tags', text: 'Tags', width: '5' },
+          { id: 'tags', text: 'Tags', width: '10' },
           { id: 'team', text: 'Team', width: '15' },
           { id: 'kind', text: 'Kind', width: '10' },
-          { id: 'github-url', text: 'GitHub Repository', width: '35' },
-          { id: 'created', text: 'Created', width: '20' }
+          { id: 'github-url', text: 'GitHub Repository', width: '30' },
+          { id: 'created', text: 'Created', width: '15' }
         ],
         rows,
         noResult: 'No services found',
