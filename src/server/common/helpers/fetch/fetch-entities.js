@@ -27,8 +27,8 @@ async function fetchEntities(queryParams = {}) {
   return payload ?? []
 }
 
-async function fetchTestSuites(teamId) {
-  return fetchEntities({ type: 'TestSuite', teamId })
+async function fetchTestSuites(queryParams) {
+  return fetchEntities({ type: 'TestSuite', ...queryParams })
 }
 
 async function fetchServices(queryParams) {

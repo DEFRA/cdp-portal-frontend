@@ -6,9 +6,9 @@ import { getEnvironments } from '~/src/server/common/helpers/environments/get-en
 import { getAdditionalData } from '~/src/server/deploy-service/helpers/get-additional-data.js'
 import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation.js'
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
-import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
+import { fetchServices } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 
 const detailsFormController = {
   options: {
@@ -28,16 +28,23 @@ const detailsFormController = {
     const imageName = query?.imageName ?? stepData?.imageName
     const redirectLocation = query?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
+    const authedUser = await request.getUserSession()
+    const userScopes = authedUser?.scope
 
-    const deployableImageNames = await fetchDeployableImageNames({ request })
+    const teamIds = authedUser?.isAdmin ? [] : userScopes
+
+    const services = await fetchServices({ teamIds })
     const latestMigrationsResponse = await fetchLatestMigrations(imageName)
+
     const latestMigrations = latestMigrationsResponse.map((migration) => ({
       ...migration,
       statusClassname: provideDatabaseStatusClassname(migration.status)
     }))
-    const deployableImageNameOptions = buildOptions(deployableImageNames ?? [])
-    const authedUser = await request.getUserSession()
-    const environments = getEnvironments(authedUser?.scope)
+
+    const imageNameOptions = buildOptions(
+      services.map((service) => service.name)
+    )
+    const environments = getEnvironments(userScopes)
     const environmentOptions = environments ? buildOptions(environments) : []
 
     const { runningServices, availableVersionOptions, latestVersions } =
@@ -49,7 +56,7 @@ const detailsFormController = {
       redirectLocation,
       multiStepFormId,
       environmentOptions,
-      deployableImageNameOptions,
+      imageNameOptions,
       availableVersionOptions,
       imageName,
       latestVersions,

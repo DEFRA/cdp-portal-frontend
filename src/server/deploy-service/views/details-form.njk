@@ -58,7 +58,7 @@
               },
               value: imageName or formValues.imageName,
               errorMessage: errorMessageHelper(formErrors.imageName.message),
-              suggestions: deployableImageNameOptions,
+              suggestions: imageNameOptions,
               siblingDataFetcher: {
                 name: "fetchVersions",
                 target: "deploy-version",
