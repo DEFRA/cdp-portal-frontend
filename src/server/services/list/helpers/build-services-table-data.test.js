@@ -166,7 +166,7 @@ describe('#buildServicesTableData', () => {
         // Provide admin only services
         nock(entitiesEndpointUrl.origin)
           .get(entitiesEndpointUrl.pathname)
-          .query({ type: 'Microservice', teamId: adminGroupId })
+          .query({ type: 'Microservice', teamIds: adminGroupId })
           .reply(
             200,
             entityServicesFixture.filter((item) =>
