@@ -4,11 +4,7 @@ import { getTraceId } from '@defra/hapi-tracing'
 import { config } from '~/src/config/config.js'
 import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
-import { refreshAccessToken } from '~/src/server/common/helpers/auth/refresh-token.js'
-import {
-  removeAuthenticatedUser,
-  refreshUserSession
-} from '~/src/server/common/helpers/auth/user-session.js'
+import { removeAuthenticatedUser } from '~/src/server/common/helpers/auth/user-session.js'
 
 /**
  * Fetch JSON from a given URL with the provided token
@@ -48,11 +44,6 @@ function authedFetchJsonDecorator(request) {
           // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
 
           try {
-            const refreshTokenResponse = await refreshAccessToken(request)
-            request.logger.debug('Token refresh succeeded')
-
-            await refreshUserSession(request, refreshTokenResponse)
-
             const authedUser = await request.getUserSession()
             const newToken = authedUser?.token ?? null
 

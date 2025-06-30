@@ -27,6 +27,7 @@ import { setupProxy } from '~/src/server/common/helpers/proxy/setup-proxy.js'
 import { federatedOidc } from '~/src/server/common/helpers/auth/federated-oidc.js'
 import { cognitoFederatedCredentials } from '~/src/server/common/helpers/auth/cognito.js'
 import { setupCaches } from '~/src/server/common/helpers/setup-caches.js'
+import { refreshToken } from '~/src/server/common/helpers/auth/refresh-token.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 const redisClient = buildRedisClient(config.get('redis'))
@@ -98,8 +99,8 @@ async function createServer({ cache } = { cache: serverCache }) {
   }
 
   const authPlugins = config.get('azureFederatedCredentials.enabled')
-    ? [cognitoFederatedCredentials, federatedOidc]
-    : [azureOidc]
+    ? [cognitoFederatedCredentials, federatedOidc, refreshToken]
+    : [azureOidc, refreshToken]
 
   await server.register([
     pulse,

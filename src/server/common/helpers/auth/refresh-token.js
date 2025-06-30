@@ -1,37 +1,52 @@
-import qs from 'qs'
-import Wreck from '@hapi/wreck'
+import {
+  refreshUserSession,
+  removeAuthenticatedUser
+} from '~/src/server/common/helpers/auth/user-session.js'
+import { isPast, parseISO } from 'date-fns'
+import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-
-async function refreshAccessToken(request) {
-  const authedUser = await request.getUserSession()
-  const refreshToken = authedUser?.refreshToken ?? null
-
-  if (config.get('azureFederatedCredentials.enabled')) {
-    return request.refreshToken(refreshToken)
+/**
+ * Plugin to check if a user is logged in and if their token has expired.
+ * If the token has expired then it will attempt to use the refresh-token
+ * to get a new token.
+ * @type {{plugin: {name: string, register: refreshToken.plugin.register}}}
+ */
+export const refreshToken = {
+  plugin: {
+    name: 'refresh-token',
+    register: function (server) {
+      server.ext('onPreAuth', refreshTokenIfExpired)
+    }
   }
-
-  const azureClientId = config.get('azureClientId')
-  const azureClientSecret = config.get('azureClientSecret')
-  const params = {
-    client_id: azureClientId,
-    client_secret: azureClientSecret,
-    grant_type: 'refresh_token',
-    refresh_token: refreshToken,
-    scope: `api://${azureClientId}/cdp.user openid profile email offline_access user.read`
-  }
-
-  request.logger.debug('Azure OIDC access token expired, refreshing...')
-
-  const response = await Wreck.post(request.server.app.oidc.token_endpoint, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Cache-Control': 'no-cache'
-    },
-    payload: qs.stringify(params)
-  })
-
-  return JSON.parse(response.payload.toString())
 }
 
-export { refreshAccessToken }
+async function refreshTokenIfExpired(request, h) {
+  const userSession = await request.getUserSession()
+
+  if (!userSession?.expiresAt) {
+    return h.continue
+  }
+
+  const tokenHasExpired =
+    Boolean(userSession?.expiresAt) && isPast(parseISO(userSession?.expiresAt))
+
+  if (tokenHasExpired) {
+    request.logger.info(
+      `Token for user ${userSession.displayName} has expired, attempting to refresh`
+    )
+    try {
+      const refreshToken = userSession?.refreshToken ?? null
+      const refreshTokenResponse = await request.refreshToken(refreshToken)
+      await refreshUserSession(request, refreshTokenResponse)
+      return h.continue
+    } catch (error) {
+      request.logger.debug(
+        error,
+        `Token refresh for ${userSession.displayName} failed`
+      )
+      removeAuthenticatedUser(request)
+      return h.unauthenticated(Boom.unauthorized('Token expired'))
+    }
+  }
+  return h.continue
+}
