@@ -35,8 +35,9 @@ async function refreshTokenIfExpired(request, h) {
       `Token for user ${userSession.displayName} has expired, attempting to refresh`
     )
     try {
-      const refreshToken = userSession?.refreshToken ?? null
-      const refreshTokenResponse = await request.refreshToken(refreshToken)
+      const refreshTokenResponse = await request.refreshToken(
+        userSession?.refreshToken
+      )
       await refreshUserSession(request, refreshTokenResponse)
       return h.continue
     } catch (error) {

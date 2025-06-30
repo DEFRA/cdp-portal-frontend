@@ -168,7 +168,7 @@ async function refreshToken(settings, jwtRefreshToken) {
     ClientFederatedCredential(federatedToken)
   )
 
-  return await openid.refreshTokenGrant(oidcConfig, jwtRefreshToken, {
+  return openid.refreshTokenGrant(oidcConfig, jwtRefreshToken, {
     scope: settings.scope
   })
 }
