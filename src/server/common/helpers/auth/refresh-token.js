@@ -46,7 +46,10 @@ async function refreshTokenIfExpired(request, h) {
         `Token refresh for ${userSession.displayName} failed`
       )
       removeAuthenticatedUser(request)
-      return h.unauthenticated(Boom.unauthorized('Token expired'))
+      return h
+        .unauthenticated(Boom.unauthorized('Login has expired'))
+        .unstate('userSessionCookie')
+        .unstate('cdpPortalSession')
     }
   }
   return h.continue

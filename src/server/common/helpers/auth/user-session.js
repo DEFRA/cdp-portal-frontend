@@ -23,12 +23,9 @@ import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
  */
 function removeAuthenticatedUser(request) {
   request.dropUserSession()
-  request.sessionCookie.clear()
-  request.sessionCookie.h
-    .response()
-    .unstate('csrfToken')
-    .unstate('userSessionCookie')
-    .unstate('cdpPortalSession')
+  if (request.sessionCookie?.h) {
+    request.sessionCookie.clear()
+  }
 }
 
 /**
