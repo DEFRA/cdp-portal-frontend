@@ -24,20 +24,6 @@ const removePermissionFromUserController = {
 
     try {
       await removeScopeFromUser(request, userId, scopeId)
-
-      request.yar.flash(sessionNames.notifications, {
-        text: 'Permission removed from user',
-        type: 'success'
-      })
-
-      request.audit.sendMessage({
-        event: `permission: ${scopeId} removed from user: ${userId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
-        data: {
-          userId,
-          scopeId
-        },
-        user: request.pre.authedUser
-      })
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
     }

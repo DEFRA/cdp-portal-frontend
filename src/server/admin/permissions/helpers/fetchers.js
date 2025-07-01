@@ -3,6 +3,7 @@ import qs from 'qs'
 import { config } from '~/src/config/config.js'
 import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
 import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')
 
@@ -42,6 +43,13 @@ function createScope(request, payload) {
 
 async function fetchPermissionsScope(request, scopeId) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
+
+  const { payload } = await request.authedFetchJson(endpoint)
+  return payload
+}
+
+async function fetchPermissionsScopeByName(request, scopeName) {
+  const endpoint = userServiceBackendUrl + `/scopes/admin/name/${scopeName}`
 
   const { payload } = await request.authedFetchJson(endpoint)
   return payload
@@ -101,6 +109,21 @@ async function removeScopeFromUser(request, userId, scopeId) {
   const { payload } = await request.authedFetchJson(endpoint, {
     method: 'patch'
   })
+
+  request.yar.flash(sessionNames.notifications, {
+    text: 'Permission removed from user',
+    type: 'success'
+  })
+
+  request.audit.sendMessage({
+    event: `permission: ${scopeId} removed from user: ${userId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+    data: {
+      userId,
+      scopeId
+    },
+    user: request.pre.authedUser
+  })
+
   return payload
 }
 
@@ -117,6 +140,7 @@ export {
   addScopeToUser,
   createScope,
   fetchPermissionsScope,
+  fetchPermissionsScopeByName,
   fetchPermissionsScopes,
   searchCdpUsers,
   searchCdpTeams,

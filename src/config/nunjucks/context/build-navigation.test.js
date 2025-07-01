@@ -384,6 +384,112 @@ describe('#buildNavigation', () => {
         })
       })
     })
+
+    describe('When user has testAsTenant permission', () => {
+      test('Should provide expected navigation details', async () => {
+        expect(
+          await buildNavigation(
+            mockRequest({
+              auth: { isTenant: true, scope: [scopes.testAsTenant] }
+            })
+          )
+        ).toEqual({
+          actions: [
+            {
+              current: false,
+              text: 'Deploy Service',
+              href: '/deploy-service',
+              attributes: {
+                'data-testid': 'nav-deploy-service'
+              }
+            },
+            {
+              current: false,
+              text: 'Create',
+              href: '/create',
+              attributes: {
+                'data-testid': 'nav-create'
+              }
+            }
+          ],
+          primary: [
+            {
+              current: false,
+              text: 'Home',
+              href: '/',
+              attributes: {
+                'data-testid': 'nav-home'
+              }
+            },
+            {
+              current: false,
+              text: 'Documentation',
+              href: '/documentation',
+              attributes: {
+                'data-testid': 'nav-documentation'
+              }
+            },
+            {
+              current: false,
+              text: 'Services',
+              href: '/services',
+              attributes: {
+                'data-testid': 'nav-services'
+              }
+            },
+            {
+              current: false,
+              text: 'Test suites',
+              href: '/test-suites',
+              attributes: {
+                'data-testid': 'nav-test-suites'
+              }
+            },
+            {
+              current: false,
+              text: 'Utilities',
+              href: '/utilities/templates',
+              attributes: {
+                'data-testid': 'nav-utilities'
+              }
+            },
+            {
+              current: false,
+              text: 'Teams',
+              href: '/teams',
+              attributes: {
+                'data-testid': 'nav-teams'
+              }
+            },
+            {
+              current: false,
+              text: 'Deployments',
+              href: '/deployments',
+              attributes: {
+                'data-testid': 'nav-deployments'
+              }
+            },
+            {
+              current: false,
+              text: 'Running Services',
+              href: '/running-services',
+              attributes: {
+                'data-testid': 'nav-running-services'
+              }
+            }
+          ],
+          admin: [
+            {
+              text: 'Exit Test as Tenant Mode',
+              href: '/admin/removeTestAsTenant',
+              attributes: {
+                'data-testid': 'nav-admin'
+              }
+            }
+          ]
+        })
+      })
+    })
   })
 
   test('Should mark matching href as Active', async () => {

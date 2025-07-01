@@ -4,6 +4,9 @@ import { adminFeatures } from '~/src/server/admin/features/routes.js'
 import { adminPermissions } from '~/src/server/admin/permissions/routes.js'
 import { adminDecommissionService } from '~/src/server/admin/decommission-service/routes.js'
 import { adminTags } from '~/src/server/admin/tags/routes.js'
+import { removeTestAsTenantScopeController } from '~/src/server/admin/permissions/controllers/remove/user/remove-test-as-tenant-permission.js'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { scopes } from '~/src/server/common/constants/scopes.js'
 
 const admin = {
   plugin: {
@@ -26,6 +29,12 @@ const admin = {
             id: 'admin'
           },
           handler: (_request, h) => h.redirect('/admin/users')
+        },
+        {
+          method: 'GET',
+          path: '/admin/removeTestAsTenant',
+          ...removeTestAsTenantScopeController,
+          ...authScope([`+${scopes.testAsTenant}`])
         }
       ])
     }

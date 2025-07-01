@@ -10,7 +10,8 @@ const scopes = {
   externalTest: 'externalTest',
   breakGlass: 'breakGlass',
   restrictedTechPython: 'restrictedTechPython',
-  restrictedTechPostgres: 'restrictedTechPostgres'
+  restrictedTechPostgres: 'restrictedTechPostgres',
+  testAsTenant: 'testAsTenant'
 }
 
 const serviceOwnerOrAdminUserScope = authScope([
