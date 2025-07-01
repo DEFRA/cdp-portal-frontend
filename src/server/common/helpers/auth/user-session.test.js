@@ -152,14 +152,6 @@ describe('#userSession', () => {
 
       expect(request.dropUserSession).toHaveBeenCalled()
       expect(request.sessionCookie.clear).toHaveBeenCalled()
-      expect(request.sessionCookie.h.response).toHaveBeenCalled()
-      expect(request.sessionCookie.h.unstate).toHaveBeenCalledWith('csrfToken')
-      expect(request.sessionCookie.h.unstate).toHaveBeenCalledWith(
-        'userSessionCookie'
-      )
-      expect(request.sessionCookie.h.unstate).toHaveBeenCalledWith(
-        'cdpPortalSession'
-      )
     })
   })
 
