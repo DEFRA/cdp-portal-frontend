@@ -3,6 +3,7 @@ import { scopes } from '~/src/server/common/constants/scopes.js'
 async function buildNavigation(request) {
   const authedUser = await request.getUserSession()
   const hasPostgresPermission = request.hasScope(scopes.restrictedTechPostgres)
+  const hasTestAsTenantPermission = request.hasScope(scopes.testAsTenant)
 
   const isActive = (value) => {
     const firstPathPart = request?.path?.split('/').at(1)
@@ -16,6 +17,7 @@ async function buildNavigation(request) {
   const deployServicePath = request.routeLookup('deploy-service')
   const createPath = request.routeLookup('create')
   const adminPath = request.routeLookup('admin')
+  const removeTestAsTenantPath = request.routeLookup('admin/removeTestAsTenant')
   const applyChangelogPath = request.routeLookup('apply-changelog')
 
   const actions = (authedUser?.isTenant || authedUser?.isAdmin) && [
@@ -116,19 +118,35 @@ async function buildNavigation(request) {
     })
   }
 
+  const testAsTenantNav = hasTestAsTenantPermission
+    ? [
+        {
+          text: 'Exit Test as Tenant Mode',
+          href: removeTestAsTenantPath,
+          attributes: {
+            'data-testid': 'nav-admin'
+          }
+        }
+      ]
+    : undefined
+
+  const admin = authedUser?.isAdmin
+    ? [
+        {
+          text: 'Admin',
+          href: adminPath,
+          current: request?.path?.includes(adminPath),
+          attributes: {
+            'data-testid': 'nav-admin'
+          }
+        }
+      ]
+    : testAsTenantNav
+
   return {
     primary,
     actions,
-    admin: authedUser?.isAdmin && [
-      {
-        text: 'Admin',
-        href: adminPath,
-        current: request?.path?.includes(adminPath),
-        attributes: {
-          'data-testid': 'nav-admin'
-        }
-      }
-    ]
+    admin
   }
 }
 
