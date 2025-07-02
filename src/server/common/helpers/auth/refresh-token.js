@@ -3,7 +3,7 @@ import {
   removeAuthenticatedUser
 } from '~/src/server/common/helpers/auth/user-session.js'
 import { isPast, parseISO } from 'date-fns'
-import Boom from '@hapi/boom'
+import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 /**
  * Plugin to check if a user is logged in and if their token has expired.
@@ -46,10 +46,11 @@ async function refreshTokenIfExpired(request, h) {
         `Token refresh for ${userSession.displayName} failed`
       )
       removeAuthenticatedUser(request)
-      return h
-        .unauthenticated(Boom.unauthorized('Login has expired'))
-        .unstate('userSessionCookie')
-        .unstate('cdpPortalSession')
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        'Your login expired'
+      )
+      return h.continue
     }
   }
   return h.continue

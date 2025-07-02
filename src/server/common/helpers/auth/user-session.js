@@ -25,6 +25,9 @@ function removeAuthenticatedUser(request) {
   request.dropUserSession()
   if (request.sessionCookie?.h) {
     request.sessionCookie.clear()
+    request.sessionCookie.h.unstate('csrfToken')
+    request.sessionCookie.h.unstate('userSessionCookie')
+    request.sessionCookie.h.unstate('cdpPortalSession')
   }
 }
 
