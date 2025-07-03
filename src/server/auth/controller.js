@@ -2,10 +2,7 @@ import { randomUUID } from 'node:crypto'
 
 import Boom from '@hapi/boom'
 
-import {
-  createUserSession,
-  refreshUserSession
-} from '~/src/server/common/helpers/auth/user-session.js'
+import { createUserSession } from '~/src/server/common/helpers/auth/user-session.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
 import { redirectWithRefresh } from '~/src/server/common/helpers/url/url-helpers.js'
@@ -47,34 +44,4 @@ const authCallbackController = {
   }
 }
 
-/**
- * This endpoint is for debugging/testing the refresh token flow.
- */
-const refreshTokenController = {
-  handler: async (request, h) => {
-    if (request.auth.isAuthenticated) {
-      try {
-        request.logger.info('Forcing token refresh')
-        const authedUser = await request.getUserSession()
-        const refreshToken = authedUser?.refreshToken ?? null
-
-        const sessionBeforeRefresh = await request.getUserSession()
-        const refreshedToken = await request.refreshToken(refreshToken)
-        const sessionAfterRefresh = await refreshUserSession(
-          request,
-          refreshedToken
-        )
-        return h.response({
-          before: { expiresAt: sessionBeforeRefresh.expiresAt },
-          after: { expiresAt: sessionAfterRefresh.expiresAt }
-        })
-      } catch (error) {
-        request.logger.error(error, 'Token refresh failed')
-        return h.response(error.message)
-      }
-    }
-    return h.response('Not logged in, cant refresh token')
-  }
-}
-
-export { authCallbackController, refreshTokenController }
+export { authCallbackController }

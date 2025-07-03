@@ -6,6 +6,7 @@ import Wreck from '@hapi/wreck'
 import { config } from '~/src/config/config.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { fetchWellknown } from '~/src/server/common/helpers/fetch/fetch-well-known.js'
+import { refreshTokenIfExpired } from '~/src/server/common/helpers/auth/refresh-token.js'
 
 const sessionCookieConfig = config.get('sessionCookie')
 
@@ -76,6 +77,14 @@ const azureOidc = {
 
       server.decorate('request', 'refreshToken', (token) =>
         refreshAccessToken(token, wellKnown)
+      )
+
+      server.ext('onPreAuth', (request, h) =>
+        refreshTokenIfExpired(
+          (t) => refreshAccessToken(t, wellKnown),
+          request,
+          h
+        )
       )
     }
   }

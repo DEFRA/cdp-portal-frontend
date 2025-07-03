@@ -34,7 +34,7 @@
     "prestart": "npm run build",
     "start": "NODE_ENV=production node --use-strict .",
     "pretest": "npm run test:build:client",
-    "test": "TZ=UTC jest --colors --coverage --verbose",
+    "test": "TZ=UTC jest --colors --coverage --verbose --maxWorkers='50%'",
     "test:build:client": "NODE_ENV=test webpack",
     "test:watch": "TZ=UTC jest --colors --watch",
     "type:check": "tsc --build tsconfig.json"

@@ -1,7 +1,4 @@
-import {
-  authCallbackController,
-  refreshTokenController
-} from '~/src/server/auth/controller.js'
+import { authCallbackController } from '~/src/server/auth/controller.js'
 
 const auth = {
   plugin: {
@@ -12,11 +9,6 @@ const auth = {
           method: ['GET', 'POST'],
           path: '/auth/callback',
           ...authCallbackController
-        },
-        {
-          method: ['GET'],
-          path: '/auth/refresh',
-          ...refreshTokenController
         }
       ])
     }

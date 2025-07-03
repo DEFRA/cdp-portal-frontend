@@ -7,6 +7,7 @@ import { config } from '~/src/config/config.js'
 import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 import { asExternalUrl } from '~/src/server/common/helpers/url/url-helpers.js'
+import { refreshTokenIfExpired } from '~/src/server/common/helpers/auth/refresh-token.js'
 
 const logger = createLogger()
 const callbackPath = '/auth/callback'
@@ -19,17 +20,19 @@ export const federatedOidc = {
       discoveryUri: config.get('oidcWellKnownConfigurationUrl'),
       redirectUri: config.get('appBaseUrl') + callbackPath,
       clientId: config.get('azureClientId'),
-      scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`
+      scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
+      tokenProvider: () => server.federatedCredentials.getToken()
     }
 
     server.auth.scheme('federated-oidc', scheme)
-    server.auth.strategy('azure-oidc', 'federated-oidc', {
-      ...settings,
-      tokenProvider: () => server.federatedCredentials.getToken()
-    })
+    server.auth.strategy('azure-oidc', 'federated-oidc', settings)
 
-    server.decorate('request', 'refreshToken', (token) =>
-      refreshToken(settings, token)
+    server.ext('onPreAuth', (request, h) =>
+      refreshTokenIfExpired(
+        (token) => refreshToken(settings, token),
+        request,
+        h
+      )
     )
   }
 }
@@ -153,8 +156,7 @@ async function postLogin(request, oidcConfig, settings) {
 
 /**
  * Refreshes the client credentials using a refresh token.
- * Decorates the request object as `request.refreshToken(token)`
- * @param {{discoveryUri: string, clientId: string, scope: string}} settings
+ * @param {{discoveryUri: string, clientId: string, scope: string, tokenProvider: () => Promise<string>}} settings
  * @param {string} jwtRefreshToken
  * @returns {Promise<{}>}
  */

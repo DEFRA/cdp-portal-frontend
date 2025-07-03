@@ -6,21 +6,15 @@ import { isPast, parseISO } from 'date-fns'
 import { sessionNames } from '~/src/server/common/constants/session-names.js'
 
 /**
- * Plugin to check if a user is logged in and if their token has expired.
- * If the token has expired then it will attempt to use the refresh-token
- * to get a new token.
- * @type {{plugin: {name: string, register: refreshToken.plugin.register}}}
+ * To be used as a server ext method to check if a token has expired and attempt to use the refresh token to get a
+ * new one.
+ * Requires a refreshToken function as the first param to provide a new token.
+ * @param {Function} refreshToken
+ * @param {{}} request
+ * @param {{}} h
+ * @returns {Promise<*>}
  */
-export const refreshToken = {
-  plugin: {
-    name: 'refresh-token',
-    register: function (server) {
-      server.ext('onPreAuth', refreshTokenIfExpired)
-    }
-  }
-}
-
-async function refreshTokenIfExpired(request, h) {
+export async function refreshTokenIfExpired(refreshToken, request, h) {
   const userSession = await request.getUserSession()
 
   if (!userSession?.expiresAt) {
@@ -34,10 +28,9 @@ async function refreshTokenIfExpired(request, h) {
     request.logger.info(
       `Token for user ${userSession.displayName} has expired, attempting to refresh`
     )
+
     try {
-      const refreshTokenResponse = await request.refreshToken(
-        userSession?.refreshToken
-      )
+      const refreshTokenResponse = await refreshToken(userSession?.refreshToken)
       await refreshUserSession(request, refreshTokenResponse)
       return h.continue
     } catch (error) {
