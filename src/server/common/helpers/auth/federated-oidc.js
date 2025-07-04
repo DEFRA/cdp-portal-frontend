@@ -37,7 +37,7 @@ export const federatedOidc = {
   }
 }
 
-function scheme(server, options) {
+function scheme(_server, options) {
   const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
 
   return {
