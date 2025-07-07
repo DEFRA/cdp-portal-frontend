@@ -17,7 +17,7 @@ import { requestLogger } from '~/src/server/common/helpers/logging/request-logge
 import { addFlashMessagesToContext } from '~/src/server/common/helpers/add-flash-messages-to-context.js'
 import { secureContext } from '~/src/server/common/helpers/secure-context/index.js'
 import { sanitise } from '~/src/server/common/helpers/sanitisation/sanitise.js'
-import { auditing } from '~/src/server/common/helpers/audit/audit.js'
+import { auditing } from '~/src/server/common/helpers/audit/auditing.js'
 import { pulse } from '~/src/server/common/helpers/pulse.js'
 import { addDecorators } from '~/src/server/common/helpers/add-decorators.js'
 import { s3Client } from '~/src/server/common/helpers/aws/s3-client.js'
