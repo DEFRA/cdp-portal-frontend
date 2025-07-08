@@ -14,7 +14,7 @@
   margin-bottom: 0;
 
   .govuk-summary-list__row {
-    border: 1px solid $app-grey;
+    border: 1px solid $app-brand-background-colour;
     vertical-align: middle;
     background-color: govuk-colour("white");
 
@@ -35,7 +35,7 @@
     }
 
     &:hover {
-      background-color: $app-light-grey;
+      background-color: $app-brand-background-colour-light;
     }
   }
 }

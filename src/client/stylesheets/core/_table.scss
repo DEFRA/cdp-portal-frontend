@@ -8,41 +8,41 @@
 
   .govuk-table__head {
     .govuk-table__row {
-      background-color: $app-light-grey;
+      background-color: $app-brand-background-colour-light;
 
       .govuk-table__header {
-        border-bottom: 2px solid $app-light-grey;
+        border-bottom: 1px solid $app-brand-background-colour;
         padding: govuk-spacing(2);
       }
 
       &:hover {
-        background-color: $app-light-grey;
+        background-color: $app-brand-background-colour-light;
       }
     }
   }
 
   .govuk-table__body {
     .govuk-table__row {
-      background-color: $app-light-grey;
+      background-color: $app-brand-background-colour-light;
 
       .govuk-table__cell {
         padding: govuk-spacing(2);
-        border-top: 1px solid $app-grey;
-        border-bottom: 1px solid $app-grey;
+        border-top: 1px solid $app-brand-background-colour;
+        border-bottom: 1px solid $app-brand-background-colour;
 
         &:first-child {
           border-radius: $app-border-radius-left;
-          border-left: 1px solid $app-grey;
+          border-left: 1px solid $app-brand-background-colour;
         }
 
         &:last-child {
           border-radius: $app-border-radius-right;
-          border-right: 1px solid $app-grey;
+          border-right: 1px solid $app-brand-background-colour;
         }
       }
 
       &:hover {
-        background-color: $app-light-grey;
+        background-color: $app-brand-background-colour-light;
       }
     }
   }

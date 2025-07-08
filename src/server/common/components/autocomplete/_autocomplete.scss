@@ -168,7 +168,7 @@ $large-width: 40em;
   left: 0;
   background-color: govuk-colour("white");
   border-radius: 0 0 $app-border-radius $app-border-radius;
-  border: 1px solid $app-mid-grey;
+  border: 1px solid $app-brand-background-colour-border;
   box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
   list-style: none;
   padding: govuk-spacing(1) 0;
@@ -197,7 +197,7 @@ $large-width: 40em;
   list-style-type: none;
 
   &:nth-child(even) {
-    background-color: $app-light-grey;
+    background-color: $app-brand-background-colour-light;
   }
 
   &:hover,

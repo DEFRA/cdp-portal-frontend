@@ -2,15 +2,13 @@
 
 .app-navigation {
   .govuk-service-navigation__item {
+    padding: govuk-spacing(3) 0;
+
     @include govuk-font(24);
 
     &:not(:last-child) {
       @include govuk-responsive-margin(3, $direction: right);
     }
-  }
-
-  .govuk-service-navigation__item--active {
-    font-weight: bold;
   }
 }
 
@@ -43,6 +41,7 @@
     display: inline-block;
     position: relative;
     padding-left: govuk-spacing(3);
+    padding-right: govuk-spacing(1);
 
     &::before {
       content: "";
@@ -56,5 +55,3 @@
     }
   }
 }
-
-

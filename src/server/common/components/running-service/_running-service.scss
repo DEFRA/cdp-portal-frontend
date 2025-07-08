@@ -101,17 +101,16 @@ $card-height: 180px;
 
 .app-running-service__card--empty {
   color: govuk-colour("dark-grey");
-  border: 1px solid $app-grey;
+  border: 1px solid $app-brand-background-colour;
 
   .app-running-service__item--heading {
-    border-bottom: 1px solid $app-grey;
-    background-color: $app-grey;
+    border-bottom: 1px solid $app-brand-background-colour;
+    background-color: $app-brand-background-colour;
     border-radius: $app-border-radius-top;
   }
 
   .app-running-service__no-data {
     margin: auto;
-    color: $app-dark-grey;
     @include govuk-font(16);
   }
 }

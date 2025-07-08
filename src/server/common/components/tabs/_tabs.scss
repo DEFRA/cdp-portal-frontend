@@ -37,7 +37,7 @@
   .app-tabs__list-item {
     border-radius: $app-border-radius $app-border-radius 0 0;
     margin: govuk-spacing(2) govuk-spacing(1) 0 0;
-    background-color: $app-light-grey;
+    background-color: $app-brand-background-colour-light;
   }
 
   .app-tabs__tab {
@@ -53,7 +53,7 @@
     margin-top: govuk-spacing(2);
     margin-bottom: -$border-width;
 
-    border: $border-width solid $app-mid-grey;
+    border: $border-width solid $app-brand-background-colour-border;
     border-bottom: 0;
     border-radius: $app-border-radius $app-border-radius 0 0;
     background-color: $govuk-body-background-colour;
@@ -65,7 +65,7 @@
   }
 
   .app-tabs__panel {
-    border-top: 1px solid $app-mid-grey;
+    border-top: 1px solid $app-brand-background-colour-border;
     margin-left: govuk-spacing(-6);
     margin-right: govuk-spacing(-6);
     padding: 0 govuk-spacing(6) govuk-spacing(6);
