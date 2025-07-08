@@ -1,4 +1,6 @@
-$app-light-grey: #f8f8f8;
-$app-grey: #f1f1f1;
-$app-mid-grey: #d6d6d6;
-$app-dark-grey: #979797;
+@use "govuk-frontend" as *;
+
+$defra-brand-colour: govuk-organisation-colour(department-for-environment-food-rural-affairs);
+$app-brand-background-colour: govuk-tint($govuk-brand-colour, 85%);
+$app-brand-background-colour-light: govuk-tint($govuk-brand-colour, 95%);
+$app-brand-background-colour-border: govuk-tint($govuk-brand-colour, 80%);

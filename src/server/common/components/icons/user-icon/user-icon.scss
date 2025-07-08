@@ -1,8 +1,9 @@
 @use "govuk-frontend" as *;
+@use "variables/colours" as *;
 
 .app-user-icon {
   fill: govuk-colour("white");
-  background-color: govuk-colour("blue");
+  background-color: $defra-brand-colour;
   border-radius: 50%;
   padding: 2px;
   border: 1px solid govuk-colour("white");

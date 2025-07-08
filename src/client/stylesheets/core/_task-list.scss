@@ -6,12 +6,12 @@
   margin-right: govuk-spacing(2);
 
   .govuk-task-list__item {
-    border-bottom: 1px solid $app-grey;
+    border-bottom: 1px solid $app-brand-background-colour;
     padding: govuk-spacing(2) govuk-spacing(1);
     background-color: govuk-colour("white");
 
     &:hover {
-      background-color: $app-light-grey;
+      background-color: $app-brand-background-colour-light;
     }
 
     &:first-child {

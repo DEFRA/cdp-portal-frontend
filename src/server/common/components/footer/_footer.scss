@@ -5,8 +5,8 @@
 .app-footer {
   padding: govuk-spacing(6);
   min-height: govuk-spacing(8);
-  border-top: 1px solid $app-grey;
-  background-color: $app-light-grey;
+  border-top: 1px solid $app-brand-background-colour;
+  background-color: $app-brand-background-colour-light;
 }
 
 .app-footer__link {

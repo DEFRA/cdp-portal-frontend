@@ -67,7 +67,7 @@ $min-grid-cell-width: 100px;
     grid-auto-rows: 1fr;
     margin-bottom: govuk-spacing(3);
     background-color: govuk-colour("white");
-    border-bottom: 2px solid $app-mid-grey;
+    border-bottom: 2px solid $app-brand-background-colour-border;
 
     &:last-child {
       border-bottom: none;
@@ -79,7 +79,7 @@ $min-grid-cell-width: 100px;
   }
 
   .app-entity-table__cell {
-    border-bottom: 1px solid $app-grey;
+    border-bottom: 1px solid $app-brand-background-colour;
     display: inline-block;
     padding: govuk-spacing(2) 0;
     box-sizing: border-box;
@@ -115,10 +115,10 @@ $min-grid-cell-width: 100px;
 // Display full table on large screens
 @include govuk-media-query($from: desktop-wide) {
   .app-entity-table__head {
-    background-color: $app-light-grey;
+    background-color: $app-brand-background-colour-light;
 
     .app-entity-table__heading {
-      background-color: $app-light-grey;
+      background-color: $app-brand-background-colour-light;
     }
   }
 
@@ -137,7 +137,7 @@ $min-grid-cell-width: 100px;
     font-weight: bold;
     position: sticky;
     top: 0;
-    border-bottom: 1px solid $app-mid-grey;
+    border-bottom: 1px solid $app-brand-background-colour-border;
     z-index: 100;
   }
 
@@ -180,11 +180,11 @@ $min-grid-cell-width: 100px;
     }
 
     &:nth-child(even) {
-      background-color: $app-light-grey;
+      background-color: $app-brand-background-colour-light;
     }
 
     &:hover {
-      background-color: $app-grey;
+      background-color: $app-brand-background-colour;
     }
   }
 }
@@ -203,7 +203,7 @@ $min-grid-cell-width: 100px;
     padding: govuk-spacing(2);
     margin: 0;
     border-bottom: none;
-    border-top: 1px solid $app-mid-grey;
+    border-top: 1px solid $app-brand-background-colour-border;
     vertical-align: top;
     width: 4%;
   }
