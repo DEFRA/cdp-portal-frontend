@@ -24,7 +24,7 @@
 
 .app-service-header__service-name {
   display: inline-block;
-  @include govuk-font(36);
+  @include govuk-font(36, "bold");
 }
 
 .app-service-header__service-environment {
