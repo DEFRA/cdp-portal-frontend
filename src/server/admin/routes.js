@@ -7,6 +7,7 @@ import { adminTags } from '~/src/server/admin/tags/routes.js'
 import { removeTestAsTenantScopeController } from '~/src/server/admin/permissions/controllers/remove/user/remove-test-as-tenant-permission.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
+import { adminDecommissions } from '~/src/server/admin/decommissions/routes.js'
 
 const admin = {
   plugin: {
@@ -17,7 +18,8 @@ const admin = {
         adminTeams,
         adminFeatures,
         adminPermissions,
-        adminDecommissionService,
+        adminDecommissions,
+        adminDecommissionService, // @DEPRECATED - will be removed in the near future
         adminTags
       ])
 
