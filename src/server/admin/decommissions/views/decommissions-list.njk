@@ -1,0 +1,19 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      text: "Decommissions",
+      intro: "The place to decommission micro-services",
+      cta: {
+        text: "Decommission micro-service",
+        href: routeLookup('admin/decommissions/start')
+      }
+    }) }}
+
+    {{ appEntityTable(tableData) }}
+
+  {% endcall %}
+{% endblock %}
+
