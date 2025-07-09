@@ -1,7 +1,7 @@
 import {
   enableFeatureToggle,
   findFeatureToggle,
-  isFeatureToggleEnabled,
+  isFeatureToggleActive,
   removeFeatureToggle
 } from '~/src/server/common/helpers/feature-toggle/feature-toggle-lookup.js'
 
@@ -48,7 +48,7 @@ describe('feature-toggle-lookup', () => {
 
   describe('isFeatureToggleEnabled', () => {
     test('Should return false when feature toggle is not found', async () => {
-      const toggle = await isFeatureToggleEnabled(
+      const toggle = await isFeatureToggleActive(
         featureTogglesRead,
         'non-existent-toggle'
       )
@@ -57,10 +57,7 @@ describe('feature-toggle-lookup', () => {
     })
 
     test('Should return true when toggle is enabled', async () => {
-      const toggle = await isFeatureToggleEnabled(
-        featureTogglesRead,
-        toggleName
-      )
+      const toggle = await isFeatureToggleActive(featureTogglesRead, toggleName)
 
       expect(toggle).toBeTruthy()
     })

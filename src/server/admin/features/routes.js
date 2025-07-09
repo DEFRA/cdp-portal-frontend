@@ -6,6 +6,10 @@ import {
   listFeaturesController
 } from '~/src/server/admin/features/controllers/index.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
+import {
+  activateDecommissionDisabledController,
+  deactivateDecommissionDisabledController
+} from '~/src/server/admin/features/controllers/decommission-disable-toggle.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -34,6 +38,16 @@ const adminFeatures = {
             method: 'POST',
             path: '/admin/features/create-service-disabled/delete',
             ...deactivateCreateServiceDisabledController
+          },
+          {
+            method: 'POST',
+            path: '/admin/features/decommission-disabled',
+            ...activateDecommissionDisabledController
+          },
+          {
+            method: 'POST',
+            path: '/admin/features/decommission-disabled/delete',
+            ...deactivateDecommissionDisabledController
           },
           {
             method: 'GET',

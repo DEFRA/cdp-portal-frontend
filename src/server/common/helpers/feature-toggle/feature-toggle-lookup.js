@@ -15,7 +15,7 @@ async function findFeatureToggle(featureToggles, toggleName) {
   }
 }
 
-async function isFeatureToggleEnabled(featureToggles, toggleName) {
+async function isFeatureToggleActive(featureToggles, toggleName) {
   const toggle = await findFeatureToggle(featureToggles, toggleName)
   return toggle ? toggle.enabled : false
 }
@@ -38,7 +38,7 @@ async function removeFeatureToggle(featureToggles, toggleName) {
 
 export {
   findFeatureToggle,
-  isFeatureToggleEnabled,
+  isFeatureToggleActive,
   enableFeatureToggle,
   removeFeatureToggle
 }

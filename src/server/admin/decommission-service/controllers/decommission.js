@@ -7,8 +7,13 @@ const decommissionServiceController = {
     const authedUser = await request.getUserSession()
     const payload = request?.payload
     const serviceName = payload.serviceName
+    const confirmServiceName = payload.confirmServiceName
 
-    const serviceIsValid = await isServiceValid(serviceName, request)
+    const serviceIsValid = await isServiceValid(
+      serviceName,
+      confirmServiceName,
+      request
+    )
 
     if (!serviceIsValid) {
       return h.redirect('/admin/decommission-service')

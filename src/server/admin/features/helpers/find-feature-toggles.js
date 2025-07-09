@@ -5,15 +5,24 @@ async function findAllFeatureToggles(request) {
     request.featureToggles,
     'create-service-disabled'
   )
-  const featureToggles = [
+  const decommissionDisabled = await findFeatureToggle(
+    request.featureToggles,
+    'decommission-disabled'
+  )
+  return [
     {
       title: 'Disable Create Service',
       enabled: createDisabled?.enabled ?? false,
       created: createDisabled?.created,
       urlPrefix: '/admin/features/create-service-disabled'
+    },
+    {
+      title: 'Disable Decommissions',
+      enabled: decommissionDisabled?.enabled ?? false,
+      created: decommissionDisabled?.created,
+      urlPrefix: '/admin/features/decommission-disabled'
     }
   ]
-  return featureToggles
 }
 
 export { findAllFeatureToggles }
