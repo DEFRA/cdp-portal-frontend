@@ -33,7 +33,7 @@ const startDecommissionController = {
     if (!validationResult.error) {
       try {
         // TODO is anything useful going to be coming back that can be displayed?
-        await decommission(request, repositoryName)
+        await decommission(repositoryName)
 
         request.yar.flash(sessionNames.notifications, {
           text: 'Decommission requested',

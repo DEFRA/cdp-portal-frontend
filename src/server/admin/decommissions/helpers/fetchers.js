@@ -3,10 +3,10 @@ import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 
-function decommission(request, repositoryName) {
+function decommission(repositoryName) {
   const endpoint = `${portalBackendUrl}/entities/${repositoryName}/decommission`
 
-  return request.authedFetchJson(endpoint, {
+  return fetchJson(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' }
   })
