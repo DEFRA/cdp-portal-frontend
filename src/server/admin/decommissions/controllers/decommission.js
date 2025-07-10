@@ -4,12 +4,13 @@ import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { fetchDecommission } from '~/src/server/admin/decommissions/helpers/fetchers.js'
 import { transformDecommissionToSummary } from '~/src/server/admin/decommissions/transformers/decommission-to-summary.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const decommissionController = {
   options: {
     validate: {
       params: Joi.object({
-        repositoryName: Joi.string().required()
+        repositoryName: repositoryNameValidation
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }
