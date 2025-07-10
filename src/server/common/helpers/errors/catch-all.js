@@ -14,6 +14,11 @@ function catchAll(request, h) {
     request.logger.error(response, response?.stack, response?.message)
   }
 
+  // Log the error payload if it exists
+  if (response.data?.payload) {
+    request.logger.error(response.data.payload.toString())
+  }
+
   const errorMessage = statusCodeMessage(statusCode)
 
   return h
