@@ -15,7 +15,9 @@ const creationStatuses = {
   creating: 'Creating',
   workflowCompleted: 'workflow_completed',
   failure: 'failure',
-  failed: 'Failed'
+  failed: 'Failed',
+  decommissioned: 'Decommissioned',
+  decommissioning: 'Decommissioning'
 }
 
 export { creationStatuses }

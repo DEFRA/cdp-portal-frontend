@@ -4,8 +4,9 @@
   {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
-      caption: "Micro-service",
-      text: "Decommission"
+      caption: "Request",
+      text: "Decommission",
+      intro: "Request a decommission of a service or a test-suite"
     }) }}
 
     <div class="govuk-grid-row">
@@ -20,11 +21,11 @@
               id: "repository-name",
               name: "repositoryName",
               label: {
-                text: "Micro-service name",
+                text: "Name",
                 classes: "app-label"
               },
               hint: {
-                text: 'Find the micro-service you wish to decommission'
+                text: 'Find the service or test-suite you wish to decommission'
               },
               formGroup: {
                 classes: "app-form-group app-form-group-js"

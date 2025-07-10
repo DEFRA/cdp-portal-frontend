@@ -1,10 +1,11 @@
 import Boom from '@hapi/boom'
 
 import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { fetchDecommission } from '~/src/server/admin/decommissions/helpers/fetchers.js'
+import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { transformDecommissionToSummary } from '~/src/server/admin/decommissions/transformers/decommission-to-summary.js'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
+import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
 
 const decommissionController = {
   options: {
@@ -16,15 +17,21 @@ const decommissionController = {
     }
   },
   handler: async (request, h) => {
-    const decommission = await fetchDecommission(request.params.repositoryName)
-    const formattedValue = formatText(decommission.repositoryName)
+    const entity = await fetchEntity(request.params.repositoryName)
 
-    // TODO polling
-    return h.view('admin/permissions/views/permission', {
-      pageTitle: formattedValue,
-      heading: formattedValue,
-      summaryList: transformDecommissionToSummary(decommission),
-      decommission,
+    const entityType = entity.type
+    const shouldPoll = entity.status !== creationStatuses.decommissioned
+    const faviconState = shouldPoll ? 'pending' : 'success'
+
+    return h.view('admin/decommissions/views/decommission', {
+      faviconState,
+      pageTitle: `${entity.status} decommission ${entity.name}`,
+      heading: entity.name,
+      summaryList: transformDecommissionToSummary(entity),
+      resourceDescriptions: resourceDescriptions(entityType),
+      entityType,
+      entity,
+      shouldPoll,
       breadcrumbs: [
         {
           text: 'Admin',
@@ -35,7 +42,7 @@ const decommissionController = {
           href: '/admin/decommissions'
         },
         {
-          text: formattedValue
+          text: entity.name
         }
       ]
     })
