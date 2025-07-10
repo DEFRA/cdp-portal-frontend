@@ -42,11 +42,11 @@ const startDecommissionController = {
         })
 
         request.audit.sendMessage({
-          event: `Decommission: ${repositoryName} requested by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          event: `Decommission: ${repositoryName} requested by ${authedUser.id}:${authedUser.email}`,
           data: {
             repositoryName
           },
-          user: request.pre.authedUser
+          user: authedUser
         })
 
         return h.redirect(`/admin/decommissions/${repositoryName}`)
