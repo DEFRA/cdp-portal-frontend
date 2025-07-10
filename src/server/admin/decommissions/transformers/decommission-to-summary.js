@@ -11,7 +11,9 @@ function transformDecommissionToSummary(entity) {
       },
       {
         key: { text: 'By' },
-        value: { text: entity.decommissioned?.decommissionedBy ?? noValue }
+        value: {
+          text: entity.decommissioned?.decommissionedBy?.displayName ?? noValue
+        }
       },
       {
         key: { text: 'On' },

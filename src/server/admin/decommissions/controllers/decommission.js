@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 
 import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { fetchEntityStatus } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { transformDecommissionToSummary } from '~/src/server/admin/decommissions/transformers/decommission-to-summary.js'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
 import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
@@ -17,20 +17,26 @@ const decommissionController = {
     }
   },
   handler: async (request, h) => {
-    const entity = await fetchEntity(request.params.repositoryName)
+    const entityStatus = await fetchEntityStatus(request.params.repositoryName)
 
-    const entityType = entity.type
-    const shouldPoll = entity.status !== creationStatuses.decommissioned
+    const entityType = entityStatus.entity.type
+    const shouldPoll =
+      entityStatus.entity.status !== creationStatuses.decommissioned
     const faviconState = shouldPoll ? 'pending' : 'success'
+
+    const resources = Object.entries(entityStatus.resources).map(
+      ([name, isReady]) => ({ name, isReady })
+    )
 
     return h.view('admin/decommissions/views/decommission', {
       faviconState,
-      pageTitle: `${entity.status} decommission ${entity.name}`,
-      heading: entity.name,
-      summaryList: transformDecommissionToSummary(entity),
+      pageTitle: `${entityStatus.entity.status} decommission ${entityStatus.entity.name}`,
+      heading: entityStatus.entity.name,
+      summaryList: transformDecommissionToSummary(entityStatus.entity),
       resourceDescriptions: resourceDescriptions(entityType),
+      resources,
       entityType,
-      entity,
+      entity: entityStatus.entity,
       shouldPoll,
       breadcrumbs: [
         {
@@ -42,7 +48,7 @@ const decommissionController = {
           href: '/admin/decommissions'
         },
         {
-          text: entity.name
+          text: entityStatus.name
         }
       ]
     })

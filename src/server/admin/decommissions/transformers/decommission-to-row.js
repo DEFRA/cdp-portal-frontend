@@ -37,7 +37,7 @@ function transformDecommissionToRow(entity) {
         headers: 'by',
         entity: {
           kind: 'text',
-          value: entity.decommissioned?.decommissionedBy ?? noValue
+          value: entity.decommissioned?.decommissionedBy?.displayName ?? noValue
         }
       },
       {
