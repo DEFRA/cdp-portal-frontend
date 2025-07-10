@@ -23,7 +23,8 @@ function statusTagClassMap(status) {
       creationStatuses.created,
       creationStatuses.creating,
       creationStatuses.success,
-      creationStatuses.workflowCompleted
+      creationStatuses.workflowCompleted,
+      creationStatuses.decommissioned
     ].includes(status):
       return 'govuk-tag--green'
 

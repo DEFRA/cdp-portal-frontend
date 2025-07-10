@@ -13,6 +13,7 @@ import {
   SERVICE,
   TEST_SUITE
 } from '~/src/server/common/patterns/entities/tabs/constants.js'
+import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
 
 export async function entityStatusHandler(request, h, entityType) {
   const entity = request.app.entity
@@ -32,15 +33,6 @@ export async function entityStatusHandler(request, h, entityType) {
   const resources = Object.entries(entityStatus.resources).map(
     ([name, isReady]) => ({ name, isReady })
   )
-
-  const resourceDescriptions = {
-    Repository: `Your ${entityType}'s GitHub repository based on the template you chose`,
-    TenantServices: `Supporting infrastructure for your ${entityType}`,
-    SquidProxy: `Proxy access set up for your ${entityType}`,
-    NginxUpstreams: `Enable your ${entityType} to be accessible to other services/public on the Core Delivery Platform environments`,
-    AppConfig: 'Application config creation',
-    GrafanaDashboard: `Grafana dashboards for your ${entityType}`
-  }
 
   const terminalStatuses = ['Created', 'Success']
 
@@ -80,11 +72,11 @@ export async function entityStatusHandler(request, h, entityType) {
     faviconState,
     pageTitle: `${entity.status} ${serviceName} ${entityTitle}`,
     summaryList: transformServiceToSummary(repository, entity),
+    resourceDescriptions: resourceDescriptions(entityType),
     entityType,
     entity,
     isServiceOwner,
     resources,
-    resourceDescriptions,
     takingTooLong,
     shouldPoll,
     breadcrumbs: [

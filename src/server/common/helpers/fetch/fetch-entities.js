@@ -20,18 +20,33 @@ async function fetchEntity(entityName) {
 }
 
 async function fetchEntities(queryParams = {}) {
-  const endpoint = `${portalBackendUrl}/entities${qs.stringify(queryParams, { arrayFormat: 'repeat', addQueryPrefix: true })}`
+  const endpoint = `${portalBackendUrl}/entities${qs.stringify(queryParams, {
+    arrayFormat: 'repeat',
+    addQueryPrefix: true
+  })}`
 
   const { payload } = await fetchJson(endpoint)
   return payload ?? []
 }
 
-async function fetchTestSuites(queryParams) {
+function fetchTestSuites(queryParams) {
   return fetchEntities({ type: 'TestSuite', ...queryParams })
 }
 
-async function fetchServices(queryParams) {
+function fetchServices(queryParams) {
   return fetchEntities({ type: 'Microservice', ...queryParams })
+}
+
+async function fetchDecommissions(queryParams) {
+  const decommissionedStatuses = ['Decommissioned', 'Decommissioning']
+  const entities = await fetchEntities({
+    includeDecommissioned: true,
+    ...queryParams
+  })
+
+  return entities.filter((entity) =>
+    decommissionedStatuses.includes(entity.status)
+  )
 }
 
 export {
@@ -39,5 +54,6 @@ export {
   fetchTestSuites,
   fetchEntities,
   fetchEntity,
-  fetchEntityStatus
+  fetchEntityStatus,
+  fetchDecommissions
 }
