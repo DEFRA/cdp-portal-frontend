@@ -44,7 +44,7 @@ export async function entityStatusHandler(request, h, entityType) {
   const shouldPoll =
     !terminalStatuses.includes(entity.status) && poll.count === 0
 
-  // Provide a final xhr fetch after the entity status is 'Created'
+  // Provide a final xhr fetch after the creation process has finished
   if (entity.status === 'Created') {
     poll.count += 1
   }

@@ -1,12 +1,39 @@
 {% extends "layouts/page.njk" %}
 
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/pending-icon/macro.njk" import appPendingIcon %}
 
+{% set infoHtml %}
+  <p class="app-!-layout-centered govuk-!-margin-bottom-2">
+    The following actions {{ "were" if entity.status == "Decommissioned" else "are" }} ran during the decommission
+    of the {{ entityType }}:
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    {% for actionLink in actionLinks %}
+      <li>
+        <a class="app-link"
+           href="{{ actionLink.href }}"
+           target="_blank" rel="noopener noreferrer">
+          {{ actionLink.text }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endset %}
+
+{% set warningHtml %}
+  <p class="govuk-!-margin-bottom-0">
+    It looks like your {{ entityType }}'s decommission is taking a while. Check the decommission GitHub actions have
+    completed successfully
+  </p>
+{% endset %}
+
 {% block content %}
-  {% call appSplitPane() %}
+  {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
-      caption: "Decommission Status",
+      caption: "Decommission",
       text: entity.name
     }) }}
 
@@ -14,14 +41,14 @@
 
       {% if shouldPoll %}
         <div data-js="app-poll"
-        data-poll-url="/admin/decommissions/{{ entity.name }}"
-        data-poll-interval="3000"
+        data-poll-url="{{ routeLookup("admin/decommissions/{repositoryName}", { params: { repositoryName: entity.name } }) }}"
+        data-poll-interval="10000"
         data-poll-limit="200">
       {% endif %}
 
       <div class="app-service-container">
         <article class="app-grid app-grid-service app-grid-service--standard"
-                 data-xhr="service-decommission-{{ entity.name }}"
+                 data-xhr="decommission-{{ entity.name }}"
                  data-xhr-stop="{{ not shouldPoll }}">
 
           <section class="app-grid-service__details">
@@ -30,48 +57,49 @@
           </section>
 
           <section class="app-grid-service__run">
-            <div class="app-!-layout-centered govuk-!-margin-bottom-2">
-              <h2 class="govuk-heading-l govuk-!-margin-0">Resources</h2>
-              <div class="govuk-!-margin-left-1">
-                {{ appTag({
-                  text: entity.status | title,
-                  attributes: {
-                    "data-testid": "app-overall-progress"
-                  }
-                }) }}
-              </div>
-              <div>
-                {% if shouldPoll %}
-                  {{ appLoader({ classes: "app-loader--is-loading" }) }}
+            {% if takingTooLong %}
+              {{ appWarning({ html: warningHtml, isInverse: true }) }}
+            {% endif %}
+
+            {% call appPanel({ isInverse: true }) %}
+              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
+              <p class="govuk-!-margin-bottom-4">
+                {% if entity.status == "Decommissioned" %}
+                  {{ entityType }} {{ entity.name }} and associated resources have been decommissioned
+                {% else %}
+                  {{ entityType }} {{ entity.name }} and associated resources are currently being decommissioned
                 {% endif %}
-              </div>
-            </div>
+              </p>
 
-            <p>
-              Your {{ entityType }} and associated resources are currently being decommissioned
-            </p>
+              <ul class="govuk-list">
+                {% for resource in resources %}
+                  <li>
+                    <div class="app-!-layout-centered">
+                      {% if not resource.isReady %}
+                        {{ appTickIcon({
+                          classes: "app-icon--tiny govuk-!-margin-right-1",
+                          attributes: { "data-testid": resource.name + "-created" }
+                        }) }}
+                      {% else %}
+                        {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                      {% endif %}
 
-            <ul class="govuk-list">
-              {% for resource in resources %}
-                <li>
-                  <div class="app-!-layout-centered">
-                    {% if not resource.isReady %}
-                      {{ appTickIcon({
-                        classes: "app-icon--tiny govuk-!-margin-right-1",
-                        attributes: { "data-testid": resource.name + "-created" }
-                      }) }}
-                    {% else %}
-                      {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                    {% endif %}
+                      {{ resource.name }}
+                    </div>
+                    <div class="govuk-hint govuk-!-margin-bottom-2">
+                      {{ resourceDescriptions[resource.name] }}
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
 
-                    {{ resource.name }}
-                  </div>
-                  <div class="govuk-hint govuk-!-margin-bottom-2">
-                    {{ resourceDescriptions[resource.name] }}
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+            {% endcall %}
+
+            {{ appInfo({
+              html: infoHtml,
+              isInverse: true
+            }) }}
+
           </section>
         </article>
       </div>
