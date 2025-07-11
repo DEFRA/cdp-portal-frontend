@@ -10,7 +10,7 @@ function transformDecommissionToRow(entity) {
     entity.status !== creationStatuses.decommissioned
       ? `<div class="app-!-layout-centered">
               ${statusTag}
-              ${renderComponent('loader', { classes: 'app-loader--is-loading app-loader--minimal' })}
+              ${renderComponent('loader', { classes: 'app-loader--is-loading app-loader--minimal app-loader--small' })}
             </div>`
       : statusTag
 
@@ -27,7 +27,7 @@ function transformDecommissionToRow(entity) {
       {
         headers: 'type',
         html: renderComponent('tag', {
-          text: `${entity.type}:${entity.subType}`,
+          text: `${entity.type} - ${entity.subType}`,
           classes: 'govuk-tag--blue'
         })
       },
