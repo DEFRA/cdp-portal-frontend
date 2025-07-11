@@ -23,6 +23,10 @@
     margin-left: govuk-spacing(1);
   }
 
+  .app-loader--minimal {
+    margin-top: 0;
+  }
+
   .app-loader--small {
     width: 14px;
     height: 14px;
