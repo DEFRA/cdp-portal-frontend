@@ -22,13 +22,6 @@ function provideSubNavigation(request, h) {
         }
       },
       {
-        isActive: request.path.startsWith('/admin/tags'),
-        url: '/admin/tags',
-        label: {
-          text: 'Service tags'
-        }
-      },
-      {
         isActive: request.path.startsWith('/admin/features'),
         url: '/admin/features',
         label: {
@@ -43,10 +36,17 @@ function provideSubNavigation(request, h) {
         }
       },
       {
-        isActive: request.path.startsWith('/admin/decommission-service'),
-        url: '/admin/decommission-service',
+        isActive: request.path.startsWith('/admin/tags'),
+        url: '/admin/tags',
         label: {
-          text: 'Decommission'
+          text: 'Service tags'
+        }
+      },
+      {
+        isActive: request.path.startsWith('/admin/decommissions'),
+        url: '/admin/decommissions',
+        label: {
+          text: 'Decommissions'
         }
       }
     ]
