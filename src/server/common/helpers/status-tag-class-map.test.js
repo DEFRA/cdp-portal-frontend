@@ -12,13 +12,13 @@ describe('#statusTagClassMap', () => {
 
   test('Should provide expected "in-progress" tag className', () => {
     expect(statusTagClassMap(creationStatuses.inProgress)).toBe(
-      'govuk-tag--blue'
+      'app-tag--purple'
     )
   })
 
   test('Should provide expected "requested" tag className', () => {
     expect(statusTagClassMap(creationStatuses.requested)).toBe(
-      'govuk-tag--blue'
+      'app-tag--purple'
     )
   })
 

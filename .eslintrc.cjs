@@ -3,11 +3,13 @@
  */
 module.exports = {
   globals: {
+    document: true,
     KeyboardEvent: true,
     Element: true,
     HTMLElement: true,
     location: true,
-    window: true
+    window: true,
+    localStorage: true
   },
   ignorePatterns: [
     '.server',

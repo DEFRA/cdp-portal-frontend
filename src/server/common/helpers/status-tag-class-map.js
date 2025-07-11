@@ -5,16 +5,13 @@ function statusTagClassMap(status) {
     case [
       creationStatuses.raised,
       creationStatuses.prOpen,
-      creationStatuses.merged
-    ].includes(status):
-      return 'app-tag--purple'
-
-    case [
+      creationStatuses.merged,
       creationStatuses.requested,
       creationStatuses.inProgress,
-      creationStatuses.InProgress
+      creationStatuses.InProgress,
+      creationStatuses.decommissioning
     ].includes(status):
-      return 'govuk-tag--blue'
+      return 'app-tag--purple'
 
     case status === creationStatuses.notRequested:
       return 'govuk-tag--grey'

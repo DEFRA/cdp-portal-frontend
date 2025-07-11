@@ -1,13 +1,12 @@
+import { adminTags } from '~/src/server/admin/tags/routes.js'
 import { adminUsers } from '~/src/server/admin/users/routes.js'
 import { adminTeams } from '~/src/server/admin/teams/routes.js'
-import { adminFeatures } from '~/src/server/admin/features/routes.js'
-import { adminPermissions } from '~/src/server/admin/permissions/routes.js'
-import { adminDecommissionService } from '~/src/server/admin/decommission-service/routes.js'
-import { adminTags } from '~/src/server/admin/tags/routes.js'
-import { removeTestAsTenantScopeController } from '~/src/server/admin/permissions/controllers/remove/user/remove-test-as-tenant-permission.js'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { scopes } from '~/src/server/common/constants/scopes.js'
+import { adminFeatures } from '~/src/server/admin/features/routes.js'
+import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { adminPermissions } from '~/src/server/admin/permissions/routes.js'
 import { adminDecommissions } from '~/src/server/admin/decommissions/routes.js'
+import { removeTestAsTenantScopeController } from '~/src/server/admin/permissions/controllers/remove/user/remove-test-as-tenant-permission.js'
 
 const admin = {
   plugin: {
@@ -19,7 +18,6 @@ const admin = {
         adminFeatures,
         adminPermissions,
         adminDecommissions,
-        adminDecommissionService, // @DEPRECATED - will be removed in the near future
         adminTags
       ])
 

@@ -6,7 +6,7 @@
   @include govuk-responsive-padding(8, "top");
   @include govuk-responsive-padding(6, "bottom");
 
-  border-bottom: 1px solid $app-brand-background-colour-border;
+  border-bottom: 1px solid $app-brand-border-colour;
   color: govuk-colour("white");
   background-color: $defra-brand-colour;
 }

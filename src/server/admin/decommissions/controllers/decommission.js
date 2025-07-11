@@ -1,14 +1,20 @@
 import Boom from '@hapi/boom'
 
 import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { fetchEntityStatus } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { transformDecommissionToSummary } from '~/src/server/admin/decommissions/transformers/decommission-to-summary.js'
-import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
-import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
+import { fetchEntityStatus } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
+import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
+import { transformDecommissionToSummary } from '~/src/server/admin/decommissions/transformers/decommission-to-summary.js'
+import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
+import { parseISO, subHours } from 'date-fns'
+import { getActions } from '~/src/server/admin/decommissions/helpers/actions.js'
 
 const decommissionController = {
   options: {
+    id: 'admin/decommissions/{repositoryName}',
     validate: {
       params: Joi.object({
         repositoryName: repositoryNameValidation
@@ -17,27 +23,50 @@ const decommissionController = {
     }
   },
   handler: async (request, h) => {
-    const entityStatus = await fetchEntityStatus(request.params.repositoryName)
+    const repositoryName = request.params.repositoryName
+    const entityStatus = await fetchEntityStatus(repositoryName)
 
-    const entityType = entityStatus.entity.type
+    entityStatus.entity.statusClass = statusTagClassMap(
+      entityStatus.entity.status
+    )
+
+    const repository = await fetchRepository(repositoryName).catch(nullify404)
+    const entity = entityStatus.entity
+    const entityType = entity.type
+
+    const isTwoHoursOld =
+      parseISO(entity.decommissioned.decommissionedAt) < subHours(Date.now(), 2)
+    const takingTooLong =
+      isTwoHoursOld && entity.status !== creationStatuses.decommissioned
+
+    const poll = { count: 0 }
     const shouldPoll =
-      entityStatus.entity.status !== creationStatuses.decommissioned
-    const faviconState = shouldPoll ? 'pending' : 'success'
+      entity.status !== creationStatuses.decommissioned && poll.count === 0
 
+    // Provide a final xhr fetch after the decommissioning process has finished
+    if (entity.status === creationStatuses.decommissioned) {
+      poll.count += 1
+    }
+
+    const faviconState = shouldPoll ? 'pending' : 'success'
     const resources = Object.entries(entityStatus.resources).map(
       ([name, isReady]) => ({ name, isReady })
     )
 
+    const actionLinks = getActions(entityType)
+
     return h.view('admin/decommissions/views/decommission', {
       faviconState,
-      pageTitle: `${entityStatus.entity.status} decommission ${entityStatus.entity.name}`,
-      heading: entityStatus.entity.name,
-      summaryList: transformDecommissionToSummary(entityStatus.entity),
+      pageTitle: `${entity.status} ${entity.name}`,
+      heading: entity.name,
+      summaryList: transformDecommissionToSummary(repository, entity),
       resourceDescriptions: resourceDescriptions(entityType),
       resources,
       entityType,
-      entity: entityStatus.entity,
+      entity,
       shouldPoll,
+      takingTooLong,
+      actionLinks,
       breadcrumbs: [
         {
           text: 'Admin',
@@ -48,7 +77,7 @@ const decommissionController = {
           href: '/admin/decommissions'
         },
         {
-          text: entityStatus.name
+          text: entity.name
         }
       ]
     })
