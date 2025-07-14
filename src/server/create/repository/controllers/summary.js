@@ -14,9 +14,9 @@ const repositorySummaryController = {
 
     return h.view('create/views/summary', {
       pageTitle: 'Create repository summary',
-      heading: 'Create repository summary',
+      heading: 'Create repository',
       headingCaption:
-        'Information about the new repository you are going to create.',
+        'Information about the new repository you are going to create',
       action: '/create/repository',
       summaryRows: summaryRepositoryRows(create),
       formButtonText: 'Create',

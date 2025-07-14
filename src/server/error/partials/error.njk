@@ -1,14 +1,8 @@
-{% from "heading/macro.njk" import appHeading %}
-
-{{ appHeading({
-  title: heading
+{{ appPageHeading({
+  caption: "Error",
+  text: heading,
+  intro: message
 }) }}
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <p data-testid="error-message">{{ message }}</p>
-  </div>
-</div>
 
 {% if isAdmin and stack %}
   <div class="govuk-grid-row">

@@ -32,7 +32,6 @@ const repositoryDetailFormController = {
 
     return h.view('create/repository/views/detail-form', {
       pageTitle: 'Create a new repository',
-      heading: 'Create a new repository',
       visibilityOptions: buildOptions(
         repositoryVisibility.map((visibility) => ({
           text: startCase(visibility),

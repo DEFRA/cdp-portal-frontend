@@ -14,10 +14,10 @@ const perfTestSuiteSummaryController = {
     const authedUser = await request.getUserSession()
 
     return h.view('create/views/summary', {
-      pageTitle: 'Summary performance test suite',
-      heading: 'Summary performance test suite',
+      pageTitle: 'Create performance test suite summary',
+      heading: 'Create performance test suite',
       headingCaption:
-        'Information about the new performance test suite you are going to create.',
+        'Information about the new performance test suite you are going to create',
       action: '/create/perf-test-suite',
       summaryRows: summaryTestSuiteRows(
         create,
