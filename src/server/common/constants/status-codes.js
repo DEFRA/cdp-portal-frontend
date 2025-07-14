@@ -11,5 +11,6 @@ export const statusCodes = {
   forbidden: 403,
   notFound: 404,
   imATeapot: 418,
-  internalError: 500
+  internalError: 500,
+  serviceUnavailable: 503
 }

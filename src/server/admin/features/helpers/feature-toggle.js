@@ -117,9 +117,7 @@ class FeatureToggleHelper {
    */
   async isEnabled(requestPath) {
     const featureToggleDetail = this.featureToggles.find(
-      (featureToggle) =>
-        requestPath.startsWith(featureToggle.url) ||
-        requestPath === featureToggle.url
+      (ft) => requestPath.startsWith(ft.url) || requestPath === ft.url
     )
 
     if (!featureToggleDetail) {
