@@ -19,11 +19,19 @@ import { teams } from '~/src/server/teams/routes.js'
 import { testSuites } from '~/src/server/test-suites/routes.js'
 import { utilities } from '~/src/server/utilities/routes.js'
 import { repositories } from '~/src/server/repositories/routes.js'
+import { checkFeatureToggles } from '~/src/server/admin/features/helpers/check-feature-toggles.js'
 
 const router = {
   plugin: {
     name: 'router',
     register: async (server) => {
+      server.ext([
+        {
+          type: 'onPreHandler',
+          method: checkFeatureToggles
+        }
+      ])
+
       await server.register([inert])
       await server.register([
         admin,
