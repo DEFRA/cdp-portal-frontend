@@ -1,4 +1,13 @@
 @use "govuk-frontend" as *;
+@use "variables/colours" as *;
+
+.app-service-navigation--inverse {
+  .app-navigation__admin {
+    &::before {
+      border-left: 1px solid govuk-colour("white");
+    }
+  }
+}
 
 .app-navigation {
   .govuk-service-navigation__item {
@@ -51,7 +60,7 @@
       left: 0;
       width: 2px;
       height: 60%;
-      border-left: 2px solid govuk-colour("blue");
+      border-left: 1px solid govuk-colour("blue");
     }
   }
 }

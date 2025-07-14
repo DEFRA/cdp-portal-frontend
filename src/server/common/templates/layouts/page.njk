@@ -116,6 +116,7 @@
   }) }}
 
   {{ govukServiceNavigation({
+    classes: "govuk-service-navigation--inverse app-service-navigation--inverse" if invertServiceNav,
     navigationClasses: "app-navigation",
     navigation: navigation.primary,
     slots: {
