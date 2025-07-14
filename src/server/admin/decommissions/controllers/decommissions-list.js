@@ -34,10 +34,10 @@ const decommissionsListController = {
       tableData: {
         headers: [
           { id: 'name', text: 'Name', width: '30', isLeftAligned: true },
-          { id: 'type', text: 'Type', width: '10' },
+          { id: 'type', text: 'Type', width: '14' },
           { id: 'status', text: 'Status', width: '10' },
           { id: 'started', text: 'Started', width: '20' },
-          { id: 'by', text: 'By', width: '30' }
+          { id: 'by', text: 'By', width: '26' }
         ],
         rows,
         noResult: 'No decommissions found'
