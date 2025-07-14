@@ -3,7 +3,7 @@ export const featuresFixture = [
     id: 'disable-create-service',
     name: 'Disable create service',
     url: '/create',
-    enabled: false,
+    enabled: true,
     enabledAt: '2025-07-10T08:10:54.596Z',
     expiresAt: '2025-07-11T08:10:54.596Z'
   },
