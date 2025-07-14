@@ -34,7 +34,6 @@ const microserviceDetailFormController = {
 
     return h.view('create/microservice/views/detail-form', {
       pageTitle: 'Create a new microservice',
-      heading: 'Create a new microservice',
       serviceTemplateIdOptions,
       teamsOptions,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',

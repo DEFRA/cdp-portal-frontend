@@ -15,9 +15,9 @@ const microserviceSummaryController = {
 
     return h.view('create/views/summary', {
       pageTitle: 'Create microservice summary',
-      heading: 'Create microservice summary',
+      heading: 'Create microservice',
       headingCaption:
-        'Information about the new microservice you are going to create.',
+        'Information about the new microservice you are going to create',
       action: '/create/microservice',
       summaryRows: summaryMicroserviceRows(create, authedUser.isAdmin),
       formButtonText: 'Create',

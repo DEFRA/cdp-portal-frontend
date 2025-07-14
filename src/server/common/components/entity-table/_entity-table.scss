@@ -164,6 +164,10 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table__row--no-results {
     color: govuk-colour("dark-grey");
+
+    .app-entity-table__cell {
+      padding-left: govuk-spacing(9);
+    }
   }
 
   .app-entity-table__cell--owned {

@@ -14,10 +14,10 @@ const testSuiteSummaryController = {
     const authedUser = await request.getUserSession()
 
     return h.view('create/views/summary', {
-      pageTitle: 'Summary journey test suite',
-      heading: 'Summary journey test suite',
+      pageTitle: 'Create journey test suite summary',
+      heading: 'Create journey test suite',
       headingCaption:
-        'Information about the new journey test suite you are going to create.',
+        'Information about the new journey test suite you are going to create',
       action: '/create/journey-test-suite',
       summaryRows: summaryTestSuiteRows(
         create,
