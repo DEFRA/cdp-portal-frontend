@@ -1,0 +1,21 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Unavailable",
+    text: "Feature",
+    intro: "This feature is currently unavailable"
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <p class="govuk-!-margin-bottom-2">
+        Rest assured our experts are working on this and the feature will become available to you soon. If you would
+        like to know more, contact the team via Slack <a class="app-link"
+                                                         href="{{ supportChannel }}"
+                                                         target="_blank"
+                                                         rel="noopener noreferrer">#cdp-support</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

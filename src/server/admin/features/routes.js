@@ -1,15 +1,8 @@
+import { scopes } from '~/src/server/common/constants/scopes.js'
 import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
-import {
-  activateCreateServiceDisabledController,
-  deactivateCreateServiceDisabledController,
-  listFeaturesController
-} from '~/src/server/admin/features/controllers/index.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import {
-  activateDecommissionDisabledController,
-  deactivateDecommissionDisabledController
-} from '~/src/server/admin/features/controllers/decommission-disable-toggle.js'
+import { listFeaturesController } from '~/src/server/admin/features/controllers/features-list.js'
+import { toggleFeatureController } from '~/src/server/admin/features/controllers/toggle-feature.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -30,29 +23,14 @@ const adminFeatures = {
       server.route(
         [
           {
-            method: 'POST',
-            path: '/admin/features/create-service-disabled',
-            ...activateCreateServiceDisabledController
-          },
-          {
-            method: 'POST',
-            path: '/admin/features/create-service-disabled/delete',
-            ...deactivateCreateServiceDisabledController
-          },
-          {
-            method: 'POST',
-            path: '/admin/features/decommission-disabled',
-            ...activateDecommissionDisabledController
-          },
-          {
-            method: 'POST',
-            path: '/admin/features/decommission-disabled/delete',
-            ...deactivateDecommissionDisabledController
-          },
-          {
             method: 'GET',
             path: '/admin/features',
             ...listFeaturesController
+          },
+          {
+            method: 'POST',
+            path: '/admin/features/{featureName}/toggle',
+            ...toggleFeatureController
           }
         ].map(adminScope)
       )
