@@ -1,10 +1,12 @@
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
+import { checkFeatureToggle } from '~/src/server/admin/features/helpers/check-feature-toggle.js'
 
 const decommissionFormController = {
   options: {
-    id: 'admin/decommissions/start'
+    id: 'admin/decommissions/start',
+    pre: [checkFeatureToggle]
   },
   handler: async (request, h) => {
     const entities = await fetchEntities()

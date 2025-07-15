@@ -12,7 +12,7 @@ const entityServicesFixture = [
         name: 'Platform'
       }
     ],
-    status: 'Success',
+    status: 'Created',
     tags: ['live', 'beta']
   },
   {
@@ -27,7 +27,7 @@ const entityServicesFixture = [
         name: 'Platform'
       }
     ],
-    status: 'Success',
+    status: 'Created',
     tags: ['live']
   },
   {
@@ -42,7 +42,7 @@ const entityServicesFixture = [
         name: 'Platform'
       }
     ],
-    status: 'Success',
+    status: 'Created',
     tags: []
   },
   {
@@ -57,7 +57,7 @@ const entityServicesFixture = [
         name: 'Platform'
       }
     ],
-    status: 'Success',
+    status: 'Created',
     tags: []
   },
   {
@@ -85,6 +85,21 @@ const entityServicesFixture = [
       {
         teamId: '0be2f4a1-3e1c-4675-a8ec-3af6d453b7ca',
         name: 'Forms'
+      }
+    ],
+    status: 'Created',
+    tags: []
+  },
+  {
+    name: 'ai-service',
+    type: 'Microservice',
+    subType: 'Frontend',
+    primaryLanguage: 'JavaScript',
+    created: '2023-10-16T11:58:32Z',
+    teams: [
+      {
+        teamId: '0be2f4a1-3e1c-4675-a8ec-3af6d453b7de',
+        name: 'AI Team'
       }
     ],
     status: 'Created',

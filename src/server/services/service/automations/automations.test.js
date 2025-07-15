@@ -11,6 +11,7 @@ import {
   getAutoTestRunDetails
 } from '~/src/server/services/service/automations/helpers/fetchers.js'
 import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
@@ -47,7 +48,7 @@ describe('Service Automations page', () => {
         isAdmin: true,
         isTenant: true
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -57,7 +58,7 @@ describe('Service Automations page', () => {
         isAdmin: false,
         isTenant: true
       })
-      expect(statusCode).toBe(403)
+      expect(statusCode).toBe(statusCodes.forbidden)
     })
 
     test('page renders for logged in service owner tenant', async () => {
@@ -67,7 +68,7 @@ describe('Service Automations page', () => {
         isTenant: true,
         teamScope: 'mock-team-id'
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -77,7 +78,7 @@ describe('Service Automations page', () => {
         isAdmin: false,
         isTenant: false
       })
-      expect(statusCode).toBe(401)
+      expect(statusCode).toBe(statusCodes.unauthorized)
     })
   })
 
@@ -163,7 +164,7 @@ describe('Service Automations page', () => {
         isAdmin: true,
         isTenant: true
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -173,7 +174,7 @@ describe('Service Automations page', () => {
         isAdmin: false,
         isTenant: true
       })
-      expect(statusCode).toBe(403)
+      expect(statusCode).toBe(statusCodes.forbidden)
     })
 
     test('page renders for logged in service owner tenant', async () => {
@@ -183,7 +184,7 @@ describe('Service Automations page', () => {
         isTenant: true,
         teamScope: 'mock-team-id'
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -193,7 +194,7 @@ describe('Service Automations page', () => {
         isAdmin: false,
         isTenant: false
       })
-      expect(statusCode).toBe(401)
+      expect(statusCode).toBe(statusCodes.unauthorized)
     })
   })
 })

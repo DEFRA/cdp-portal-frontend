@@ -1,9 +1,10 @@
 import { featureToEntityRow } from '~/src/server/admin/features/transformers/feature-to-entity-row.js'
 import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { fetchFeatureToggles } from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
 
 const listFeaturesController = {
-  handler: async (request, h) => {
-    const featureToggles = await request.featureToggles.getAll()
+  handler: async (_request, h) => {
+    const featureToggles = await fetchFeatureToggles()
     const rows = featureToggles
       .toSorted(sortBy('name', 'asc'))
       .map(featureToEntityRow)
@@ -15,8 +16,6 @@ const listFeaturesController = {
           { id: 'feature', text: 'Feature', width: '15' },
           { id: 'url', text: 'Url', width: '20' },
           { id: 'status', text: 'Status', width: '15' },
-          { id: 'enabled', text: 'Enabled', width: '20' },
-          { id: 'expires', text: 'Expires', width: '20' },
           { id: 'actions', text: 'Actions', width: '10' }
         ],
         rows,

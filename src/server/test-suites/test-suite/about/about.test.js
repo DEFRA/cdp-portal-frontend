@@ -4,6 +4,7 @@ import {
   mockCommonTestSuiteCalls,
   mockTestRuns
 } from '~/test-helpers/common-page-rendering.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
@@ -31,7 +32,7 @@ describe('About Test Suite page', () => {
       isAdmin: true,
       isTenant: true
     })
-    expect(statusCode).toBe(200)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 
@@ -41,7 +42,7 @@ describe('About Test Suite page', () => {
       isAdmin: false,
       isTenant: true
     })
-    expect(statusCode).toBe(200)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 
@@ -53,7 +54,7 @@ describe('About Test Suite page', () => {
       teamScope: 'mock-team-id'
     })
 
-    expect(statusCode).toBe(200)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 
@@ -63,7 +64,7 @@ describe('About Test Suite page', () => {
       isAdmin: false,
       isTenant: false
     })
-    expect(statusCode).toBe(200)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 })

@@ -4,6 +4,7 @@ import {
   mockCommonTestSuiteCalls
 } from '~/test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
 jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
@@ -45,7 +46,7 @@ describe('Secrets Test Suite page', () => {
         isAdmin: true,
         isTenant: true
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -55,7 +56,7 @@ describe('Secrets Test Suite page', () => {
         isAdmin: false,
         isTenant: true
       })
-      expect(statusCode).toBe(403)
+      expect(statusCode).toBe(statusCodes.forbidden)
     })
 
     test('page renders for logged in service owner tenant', async () => {
@@ -65,7 +66,7 @@ describe('Secrets Test Suite page', () => {
         isTenant: true,
         teamScope: 'mock-team-id'
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -75,7 +76,7 @@ describe('Secrets Test Suite page', () => {
         isAdmin: false,
         isTenant: false
       })
-      expect(statusCode).toBe(401)
+      expect(statusCode).toBe(statusCodes.unauthorized)
     })
   })
 
@@ -86,7 +87,7 @@ describe('Secrets Test Suite page', () => {
         isAdmin: true,
         isTenant: true
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -96,7 +97,7 @@ describe('Secrets Test Suite page', () => {
         isAdmin: false,
         isTenant: true
       })
-      expect(statusCode).toBe(403)
+      expect(statusCode).toBe(statusCodes.forbidden)
     })
 
     test('page renders for logged in service owner tenant', async () => {
@@ -106,7 +107,7 @@ describe('Secrets Test Suite page', () => {
         isTenant: true,
         teamScope: 'mock-team-id'
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -126,7 +127,7 @@ describe('Secrets Test Suite page', () => {
         isAdmin: false,
         isTenant: false
       })
-      expect(statusCode).toBe(401)
+      expect(statusCode).toBe(statusCodes.unauthorized)
     })
   })
 })

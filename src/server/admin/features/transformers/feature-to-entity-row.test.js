@@ -1,9 +1,8 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
 import { featureToEntityRow } from '~/src/server/admin/features/transformers/feature-to-entity-row.js'
 import { featuresFixture } from '~/src/__fixtures__/features.js'
 
 describe('featureToEntityRow', () => {
-  test('Should return correct row structure for an enabled feature', () => {
+  test('Should return correct row structure for an active feature', () => {
     const result = featureToEntityRow(featuresFixture.at(0))
 
     expect(result.cells).toEqual([
@@ -26,37 +25,23 @@ describe('featureToEntityRow', () => {
         entity: {
           classes: 'govuk-tag--green',
           kind: 'tag',
-          value: 'Enabled'
+          value: 'Active'
         },
         headers: 'status'
       },
       {
         entity: {
-          kind: 'date',
-          value: '2025-07-10T08:10:54.596Z'
-        },
-        headers: 'enabled'
-      },
-      {
-        entity: {
-          kind: 'date',
-          value: '2025-07-11T08:10:54.596Z'
-        },
-        headers: 'expires'
-      },
-      {
-        entity: {
           classes: 'app-button--small app-button--destructive',
           kind: 'button',
-          url: '/admin/features/disable-create-service/toggle',
-          value: 'Disable'
+          url: '/admin/features/disable-create-service/toggle/false',
+          value: 'Deactivate'
         },
         headers: 'actions'
       }
     ])
   })
 
-  test('Should return correct row structure for a disabled feature', () => {
+  test('Should return correct row structure for an inactive feature', () => {
     const result = featureToEntityRow(featuresFixture.at(1))
 
     expect(result.cells).toEqual([
@@ -79,30 +64,16 @@ describe('featureToEntityRow', () => {
         entity: {
           classes: 'govuk-tag--grey',
           kind: 'tag',
-          value: 'Disabled'
+          value: 'Inactive'
         },
         headers: 'status'
       },
       {
         entity: {
-          kind: 'text',
-          value: '- - -'
-        },
-        headers: 'enabled'
-      },
-      {
-        entity: {
-          kind: 'text',
-          value: '- - -'
-        },
-        headers: 'expires'
-      },
-      {
-        entity: {
           classes: 'app-button--small',
           kind: 'button',
-          url: '/admin/features/disable-decommission/toggle',
-          value: 'Enable'
+          url: '/admin/features/disable-decommission/toggle/true',
+          value: 'Activate'
         },
         headers: 'actions'
       }
@@ -114,9 +85,7 @@ describe('featureToEntityRow', () => {
       id: '789',
       name: 'Feature Without URL',
       url: null,
-      enabled: true,
-      enabledAt: '2023-10-01T00:00:00Z',
-      expiresAt: '2023-12-01T00:00:00Z'
+      active: true
     }
 
     const result = featureToEntityRow(feature)
@@ -130,32 +99,6 @@ describe('featureToEntityRow', () => {
             value: null,
             url: null
           }
-        })
-      ])
-    )
-  })
-
-  test('Should handle missing enabledAt and expiresAt gracefully', () => {
-    const feature = {
-      id: '101',
-      name: 'Feature Without Dates',
-      url: 'https://example.net',
-      enabled: false,
-      enabledAt: null,
-      expiresAt: null
-    }
-
-    const result = featureToEntityRow(feature)
-
-    expect(result.cells).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          headers: 'enabled',
-          entity: { kind: 'text', value: noValue }
-        }),
-        expect.objectContaining({
-          headers: 'expires',
-          entity: { kind: 'text', value: noValue }
         })
       ])
     )

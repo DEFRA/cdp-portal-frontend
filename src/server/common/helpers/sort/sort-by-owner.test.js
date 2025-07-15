@@ -1,12 +1,12 @@
-import { servicesFixture } from '~/src/__fixtures__/services/services.js'
 import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
 import { librariesFixture } from '~/src/__fixtures__/libraries.js'
+import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
 
 describe('#sortByOwner', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
-  const servicesWithOwner = servicesFixture.map((service) => ({
-    ...service,
-    isOwner: service.teams.some((team) => team.teamId === adminGroupId)
+  const servicesWithOwner = entityServicesFixture.map((entity) => ({
+    ...entity,
+    isOwner: entity.teams.some((team) => team.teamId === adminGroupId)
   }))
   const librariesWithOwner = librariesFixture.repositories.map((library) => ({
     ...library,
@@ -15,25 +15,37 @@ describe('#sortByOwner', () => {
 
   describe('With owner information', () => {
     test('Should sort owned teams first', () => {
-      expect(servicesWithOwner.sort(sortByOwner('serviceName'))).toEqual([
+      expect(servicesWithOwner.sort(sortByOwner('name'))).toEqual([
         expect.objectContaining({
-          serviceName: 'cdp-example-node-postgres-be',
+          name: 'cdp-example-node-postgres-be',
           isOwner: true
         }),
         expect.objectContaining({
-          serviceName: 'cdp-portal-frontend',
+          name: 'cdp-portal-backend',
           isOwner: true
         }),
         expect.objectContaining({
-          serviceName: 'cdp-user-service-backend',
+          name: 'cdp-portal-frontend',
           isOwner: true
         }),
         expect.objectContaining({
-          serviceName: 'ai-backend',
+          name: 'cdp-portal-stubs',
+          isOwner: true
+        }),
+        expect.objectContaining({
+          name: 'cdp-user-service-backend',
+          isOwner: true
+        }),
+        expect.objectContaining({
+          name: 'ai-service',
           isOwner: false
         }),
         expect.objectContaining({
-          serviceName: 'forms-designer',
+          name: 'forms-designer',
+          isOwner: false
+        }),
+        expect.objectContaining({
+          name: 'forms-service',
           isOwner: false
         })
       ])
@@ -42,21 +54,30 @@ describe('#sortByOwner', () => {
 
   describe('Without owner information', () => {
     test('Should sort alphabetically by service name', () => {
-      expect(servicesFixture.sort(sortByOwner('serviceName'))).toEqual([
+      expect(entityServicesFixture.sort(sortByOwner('name'))).toEqual([
         expect.objectContaining({
-          serviceName: 'ai-backend'
+          name: 'ai-service'
         }),
         expect.objectContaining({
-          serviceName: 'cdp-example-node-postgres-be'
+          name: 'cdp-example-node-postgres-be'
         }),
         expect.objectContaining({
-          serviceName: 'cdp-portal-frontend'
+          name: 'cdp-portal-backend'
         }),
         expect.objectContaining({
-          serviceName: 'cdp-user-service-backend'
+          name: 'cdp-portal-frontend'
         }),
         expect.objectContaining({
-          serviceName: 'forms-designer'
+          name: 'cdp-portal-stubs'
+        }),
+        expect.objectContaining({
+          name: 'cdp-user-service-backend'
+        }),
+        expect.objectContaining({
+          name: 'forms-designer'
+        }),
+        expect.objectContaining({
+          name: 'forms-service'
         })
       ])
     })
