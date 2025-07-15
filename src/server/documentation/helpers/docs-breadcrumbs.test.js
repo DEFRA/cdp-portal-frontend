@@ -1,6 +1,14 @@
 import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs.js'
 
 describe('#docsBreadcrumbs', () => {
+  test('Should return expected documentation breadcrumbs for a single file path named "README.md', () => {
+    const result = docsBreadcrumbs('README.md')
+    expect(result).toEqual([
+      { text: 'CDP', href: '/documentation' },
+      { text: 'Documentation' }
+    ])
+  })
+
   test('Should return expected documentation breadcrumbs for a single file path', () => {
     const result = docsBreadcrumbs('introduction.md')
     expect(result).toEqual([
