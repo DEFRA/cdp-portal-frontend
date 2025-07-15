@@ -20,7 +20,11 @@ function docsBreadcrumbs(docsPath) {
       .toLowerCase()
 
     if (isLastPart) {
-      if (previousPart !== currentPart) {
+      if (pathParts.length === 1 && pathPart === 'README.md') {
+        breadcrumbs.push({
+          text: 'Documentation'
+        })
+      } else if (previousPart !== currentPart) {
         breadcrumbs.push({
           text: startCase(pathPart.replace('.md', ''))
         })
