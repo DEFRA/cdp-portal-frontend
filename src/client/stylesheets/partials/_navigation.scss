@@ -1,13 +1,22 @@
 @use "govuk-frontend" as *;
 @use "variables/colours" as *;
 
-.app-service-navigation--inverse {
-  .app-navigation__admin {
-    &::before {
-      border-left: 1px solid govuk-colour("white");
+// stylelint-disable max-nesting-depth
+.govuk-template--rebranded {
+  .app-service-navigation--inverse {
+    .govuk-width-container {
+      border-bottom: none;
+      border-top: 1px solid $app-brand-border-colour-light;
+    }
+
+    .app-navigation__admin {
+      &::before {
+        border-left: 1px solid govuk-colour("white");
+      }
     }
   }
 }
+// stylelint-enable max-nesting-depth
 
 .app-navigation {
   .govuk-service-navigation__item {
@@ -60,7 +69,7 @@
       left: 0;
       width: 2px;
       height: 60%;
-      border-left: 1px solid govuk-colour("blue");
+      border-left: 1px solid $app-brand-border-colour-light;
     }
   }
 }
