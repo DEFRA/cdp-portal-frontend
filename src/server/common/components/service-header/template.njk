@@ -22,12 +22,14 @@
         </span>
       {% endif %}
 
-      <a href="{{ params.loginUrl }}"
-         class="app-service-header__login-link app-service-header__link{% if isAuthenticated %}
-         app-service-header__is-logged-in{% endif %}"
-         data-testid="app-login-link">
-        {{ params.loginText }}
-      </a>
+      <span class="app-service-header__login{% if isAuthenticated %} app-service-header__login--logged-in{% endif %}">
+        <a href="{{ params.loginUrl }}"
+           class="app-service-header__link app-service-header__login-link"
+           data-testid="app-login-link">
+            {{ params.loginText }}
+        </a>
+      </span>
+
     </div>
   </div>
 </header>
