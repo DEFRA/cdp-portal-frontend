@@ -1,5 +1,6 @@
 import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
 import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 describe('#allEnvironmentsOnlyForAdmin', () => {
   const mockRequest = ({ environment, isAdmin }) => ({
@@ -86,7 +87,7 @@ describe('#allEnvironmentsOnlyForAdmin', () => {
 
       expect(error).not.toBeInstanceOf(NoErrorThrownError)
       expect(error).toBeInstanceOf(Error)
-      expect(error.output.statusCode).toBe(401)
+      expect(error.output.statusCode).toBe(statusCodes.unauthorized)
       expect(error).toHaveProperty('message', 'Unauthorized')
     })
 
@@ -100,7 +101,7 @@ describe('#allEnvironmentsOnlyForAdmin', () => {
 
       expect(error).not.toBeInstanceOf(NoErrorThrownError)
       expect(error).toBeInstanceOf(Error)
-      expect(error.output.statusCode).toBe(401)
+      expect(error.output.statusCode).toBe(statusCodes.unauthorized)
       expect(error).toHaveProperty('message', 'Unauthorized')
     })
 

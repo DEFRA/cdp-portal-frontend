@@ -87,11 +87,12 @@ describe('#buildServicesTableData', () => {
         expectRowHasService(result.rows.at(2), 'cdp-portal-frontend')
         expectRowHasService(result.rows.at(3), 'cdp-portal-stubs')
         expectRowHasService(result.rows.at(4), 'cdp-user-service-backend')
-        expectRowHasService(result.rows.at(5), 'forms-designer')
+        expectRowHasService(result.rows.at(5), 'ai-service')
+        expectRowHasService(result.rows.at(6), 'forms-designer')
       })
 
       test('Should provide expected rows', () => {
-        expect(result.rows).toHaveLength(7)
+        expect(result.rows).toHaveLength(8)
       })
 
       test('Should provide expected row structure', () => {
@@ -225,13 +226,14 @@ describe('#buildServicesTableData', () => {
     })
 
     test('Should provide alphabetically listed rows', () => {
-      expectRowHasService(result.rows.at(0), 'cdp-example-node-postgres-be')
-      expectRowHasService(result.rows.at(1), 'cdp-portal-backend')
-      expectRowHasService(result.rows.at(2), 'cdp-portal-frontend')
-      expectRowHasService(result.rows.at(3), 'cdp-portal-stubs')
-      expectRowHasService(result.rows.at(4), 'cdp-user-service-backend')
-      expectRowHasService(result.rows.at(5), 'forms-designer')
-      expectRowHasService(result.rows.at(6), 'forms-service')
+      expectRowHasService(result.rows.at(0), 'ai-service')
+      expectRowHasService(result.rows.at(1), 'cdp-example-node-postgres-be')
+      expectRowHasService(result.rows.at(2), 'cdp-portal-backend')
+      expectRowHasService(result.rows.at(3), 'cdp-portal-frontend')
+      expectRowHasService(result.rows.at(4), 'cdp-portal-stubs')
+      expectRowHasService(result.rows.at(5), 'cdp-user-service-backend')
+      expectRowHasService(result.rows.at(6), 'forms-designer')
+      expectRowHasService(result.rows.at(7), 'forms-service')
     })
 
     test('Should provide expected service count', () => {

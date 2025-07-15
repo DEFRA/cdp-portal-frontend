@@ -1,19 +1,9 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
-
 function featureToEntityRow(feature) {
   const actionClasses = ['app-button--small']
 
-  if (feature.enabled) {
+  if (feature.active) {
     actionClasses.push('app-button--destructive')
   }
-
-  const enabledEntity = feature.enabled
-    ? { entity: { kind: 'date', value: feature.enabledAt } }
-    : { entity: { kind: 'text', value: noValue } }
-
-  const expiresEntity = feature.enabled
-    ? { entity: { kind: 'date', value: feature.expiresAt } }
-    : { entity: { kind: 'text', value: noValue } }
 
   return {
     cells: [
@@ -33,24 +23,16 @@ function featureToEntityRow(feature) {
         headers: 'status',
         entity: {
           kind: 'tag',
-          value: feature.enabled ? 'Enabled' : 'Disabled',
-          classes: feature.enabled ? 'govuk-tag--green' : 'govuk-tag--grey'
+          value: feature.active ? 'Active' : 'Inactive',
+          classes: feature.active ? 'govuk-tag--green' : 'govuk-tag--grey'
         }
-      },
-      {
-        headers: 'enabled',
-        ...enabledEntity
-      },
-      {
-        headers: 'expires',
-        ...expiresEntity
       },
       {
         headers: 'actions',
         entity: {
           kind: 'button',
-          value: feature.enabled ? 'Disable' : 'Enable',
-          url: `/admin/features/${feature.id}/toggle`,
+          value: feature.active ? 'Deactivate' : 'Activate',
+          url: `/admin/features/${feature.id}/toggle/${!feature.active}`,
           classes: actionClasses.join(' ')
         }
       }

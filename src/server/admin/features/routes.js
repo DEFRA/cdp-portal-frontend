@@ -29,7 +29,7 @@ const adminFeatures = {
           },
           {
             method: 'POST',
-            path: '/admin/features/{featureName}/toggle',
+            path: '/admin/features/{featureId}/toggle/{active}',
             ...toggleFeatureController
           }
         ].map(adminScope)

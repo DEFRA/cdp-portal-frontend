@@ -1,4 +1,5 @@
 import { createServer } from '~/src/server/index.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 describe('#healthController', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -20,6 +21,6 @@ describe('#healthController', () => {
     })
 
     expect(result).toEqual({ message: 'success' })
-    expect(statusCode).toBe(200)
+    expect(statusCode).toBe(statusCodes.ok)
   })
 })

@@ -11,6 +11,7 @@ import { createJourneyTestSuiteRoutes } from '~/src/server/create/journey-test-s
 import { createRepositoryRoutes } from '~/src/server/create/repository/routes.js'
 import { createMicroserviceRoutes } from '~/src/server/create/microservice/routes.js'
 import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite/routes.js'
+import { checkFeatureToggle } from '~/src/server/admin/features/helpers/check-feature-toggle.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -30,6 +31,13 @@ const create = {
         {
           type: 'onPostHandler',
           method: provideCreateSteps,
+          options: {
+            sandbox: 'plugin'
+          }
+        },
+        {
+          type: 'onPreHandler',
+          method: checkFeatureToggle,
           options: {
             sandbox: 'plugin'
           }

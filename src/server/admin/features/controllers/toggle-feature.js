@@ -1,27 +1,24 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-
-import { FeatureToggleHelper } from '~/src/server/admin/features/helpers/feature-toggle.js'
-
-const featureToggleIds = Object.values(FeatureToggleHelper.featureToggles).map(
-  (feature) => feature.id
-)
+import { updateFeatureToggle } from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
 
 const toggleFeatureController = {
   options: {
-    id: 'admin/features/{featureName}/toggle',
+    id: 'admin/features/{featureId}/toggle/{active}',
     validate: {
       params: Joi.object({
-        featureName: Joi.string()
-          .valid(...featureToggleIds)
-          .required()
+        featureId: Joi.string().required(),
+        active: Joi.boolean().required()
       }),
       failAction: () => Boom.boomify(Boom.badData())
     }
   },
   handler: async (request, h) => {
-    const featureName = request.params.featureName
-    await request.featureToggles.toggle(featureName)
+    await updateFeatureToggle(
+      request,
+      request.params.featureId,
+      request.params.active
+    )
 
     return h.redirect(`/admin/features`)
   }

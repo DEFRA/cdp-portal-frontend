@@ -5,6 +5,7 @@ import {
   mockServiceEntityCall
 } from '~/test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
+import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
 jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
@@ -44,7 +45,7 @@ describe('Service Secrets page', () => {
         isAdmin: true,
         isTenant: true
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -54,7 +55,7 @@ describe('Service Secrets page', () => {
         isAdmin: false,
         isTenant: true
       })
-      expect(statusCode).toBe(403)
+      expect(statusCode).toBe(statusCodes.forbidden)
     })
 
     test('page renders for logged in service owner tenant', async () => {
@@ -64,7 +65,7 @@ describe('Service Secrets page', () => {
         isTenant: true,
         teamScope: 'mock-team-id'
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -74,7 +75,7 @@ describe('Service Secrets page', () => {
         isAdmin: false,
         isTenant: false
       })
-      expect(statusCode).toBe(401)
+      expect(statusCode).toBe(statusCodes.unauthorized)
     })
   })
 
@@ -85,7 +86,7 @@ describe('Service Secrets page', () => {
         isAdmin: true,
         isTenant: true
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -95,7 +96,7 @@ describe('Service Secrets page', () => {
         isAdmin: false,
         isTenant: true
       })
-      expect(statusCode).toBe(403)
+      expect(statusCode).toBe(statusCodes.forbidden)
       expect(result).toMatchFile()
     })
 
@@ -105,7 +106,7 @@ describe('Service Secrets page', () => {
         isAdmin: false,
         isTenant: true
       })
-      expect(statusCode).toBe(403)
+      expect(statusCode).toBe(statusCodes.forbidden)
     })
 
     test('page renders for logged in service owner tenant', async () => {
@@ -115,7 +116,7 @@ describe('Service Secrets page', () => {
         isTenant: true,
         teamScope: 'mock-team-id'
       })
-      expect(statusCode).toBe(200)
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
 
@@ -135,7 +136,7 @@ describe('Service Secrets page', () => {
         isAdmin: false,
         isTenant: false
       })
-      expect(statusCode).toBe(401)
+      expect(statusCode).toBe(statusCodes.unauthorized)
     })
   })
 })
