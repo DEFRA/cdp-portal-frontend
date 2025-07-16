@@ -57,9 +57,9 @@ function transformDecommissionToSummary(repository, entity) {
       {
         key: { text: 'Started' },
         value: {
-          html: entity.decommissioned?.decommissionedAt
+          html: entity.decommissioned?.started
             ? renderComponent('time', {
-                datetime: entity.decommissioned.decommissionedAt
+                datetime: entity.decommissioned.started
               })
             : noValue
         }

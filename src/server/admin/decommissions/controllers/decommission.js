@@ -1,16 +1,16 @@
 import Boom from '@hapi/boom'
+import { parseISO, subHours, formatDistance } from 'date-fns'
 
 import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
+import { getActions } from '~/src/server/admin/decommissions/helpers/actions.js'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
 import { fetchEntityStatus } from '~/src/server/common/helpers/fetch/fetch-entities.js'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
 import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
+import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
 import { transformDecommissionToSummary } from '~/src/server/admin/decommissions/transformers/decommission-to-summary.js'
-import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
-import { parseISO, subHours } from 'date-fns'
-import { getActions } from '~/src/server/admin/decommissions/helpers/actions.js'
 
 const decommissionController = {
   options: {
@@ -35,7 +35,7 @@ const decommissionController = {
     const entityType = entity.type
 
     const isTwoHoursOld =
-      parseISO(entity.decommissioned.decommissionedAt) < subHours(Date.now(), 2)
+      parseISO(entity.decommissioned.started) < subHours(Date.now(), 2)
     const takingTooLong =
       isTwoHoursOld && entity.status !== creationStatuses.decommissioned
 
@@ -55,6 +55,18 @@ const decommissionController = {
 
     const actionLinks = getActions(entityType)
 
+    const durationDetail = {
+      started: entity.decommissioned.started,
+      finished: entity.decommissioned.finished,
+      get elapsed() {
+        return formatDistance(
+          this.started,
+          this.finished ?? new Date().toISOString(),
+          { includeSeconds: true }
+        )
+      }
+    }
+
     return h.view('admin/decommissions/views/decommission', {
       faviconState,
       pageTitle: `${entity.status} ${entity.name}`,
@@ -67,6 +79,7 @@ const decommissionController = {
       shouldPoll,
       takingTooLong,
       actionLinks,
+      durationDetail,
       breadcrumbs: [
         {
           text: 'Admin',

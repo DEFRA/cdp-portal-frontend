@@ -1,9 +1,14 @@
 {% extends "layouts/page.njk" %}
 
+{% from "time/macro.njk" import appTime %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/pending-icon/macro.njk" import appPendingIcon %}
 
 {% set infoHtml %}
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+    GitHub Actions
+  </h2>
+
   <p class="app-!-layout-centered govuk-!-margin-bottom-2">
     The following actions are run during the decommission of a {{ entityType }}:
   </p>
@@ -26,6 +31,33 @@
     It looks like your {{ entityType }}'s decommission is taking a while. Check the decommission GitHub actions have
     completed successfully
   </p>
+{% endset %}
+
+{% set durationHtml %}
+  <dl class="app-data-list app-data-list--inline" data-testid="app-data-list">
+    <dt class="app-data-list-heading">
+      Started:
+    </dt>
+    <dd class="app-data-list-item">
+      {{ appTime({ datetime: durationDetail.started }) }}
+    </dd>
+
+    {% if durationDetail.finished %}
+      <dt class="app-data-list-heading">
+        Finished:
+      </dt>
+      <dd class="app-data-list-item">
+        {{ appTime({ datetime: durationDetail.finished }) }}
+      </dd>
+    {% endif %}
+
+    <dt class="app-data-list-heading">
+      {{ "Duration:" if durationDetail.finished else "Elapsed time:" }}
+    </dt>
+    <dd class="app-data-list-item">
+      {{ durationDetail.elapsed }}
+    </dd>
+  </dl>
 {% endset %}
 
 {% block content %}
@@ -51,14 +83,29 @@
                  data-xhr-stop="{{ not shouldPoll }}">
 
           <section class="app-grid-service__details">
+            {% if takingTooLong %}
+              {{ appWarning({
+                html: warningHtml,
+                isInverse: true
+              }) }}
+            {% endif %}
+
+            {{ appInfo({
+              classes: "govuk-!-margin-bottom-4",
+              html: durationHtml,
+              isInverse: true
+            }) }}
+
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
             {{ govukSummaryList(summaryList) }}
           </section>
 
           <section class="app-grid-service__run">
-            {% if takingTooLong %}
-              {{ appWarning({ html: warningHtml, isInverse: true }) }}
-            {% endif %}
+            {{ appInfo({
+              classes: "govuk-!-margin-bottom-5",
+              html: infoHtml,
+              isInverse: true
+            }) }}
 
             {% call appPanel({ isInverse: true }) %}
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
@@ -93,11 +140,6 @@
               </ul>
 
             {% endcall %}
-
-            {{ appInfo({
-              html: infoHtml,
-              isInverse: true
-            }) }}
 
           </section>
         </article>

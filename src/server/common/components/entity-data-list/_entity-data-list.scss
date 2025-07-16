@@ -4,8 +4,24 @@
   margin-top: govuk-spacing(0);
 }
 
+.app-data-list--inline {
+  display: flex;
+  align-items: center;
+  margin: 0;
+
+  .app-data-list-heading {
+    padding: 0;
+    margin: 0;
+  }
+
+  .app-data-list-item {
+    padding: 0;
+    margin: 0 govuk-spacing(2) 0 govuk-spacing(1);
+  }
+}
+
 .app-data-list-heading {
-  @extend %govuk-heading-m;
+  @extend %govuk-heading-s;
 
   display: flex;
   margin-bottom: govuk-spacing(1);
@@ -16,3 +32,5 @@
 
   margin: 0 0 govuk-spacing(4);
 }
+
+

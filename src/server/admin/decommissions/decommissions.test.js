@@ -43,7 +43,7 @@ describe('Decommissions pages', () => {
             id: randomUUID(),
             displayName: 'test-user'
           },
-          decommissionedAt: '2024-01-01T00:00:00Z'
+          started: '2024-01-01T00:00:00Z'
         }
       },
       {
@@ -65,7 +65,7 @@ describe('Decommissions pages', () => {
             id: randomUUID(),
             displayName: 'test-user-2'
           },
-          decommissionedAt: '2024-01-02T00:00:00Z'
+          started: '2024-01-02T00:00:00Z'
         }
       }
     ])
