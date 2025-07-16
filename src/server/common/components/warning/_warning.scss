@@ -6,12 +6,13 @@
 
 .app-warning {
   display: inline-flex;
-  border-left: 6px solid govuk-colour("red");
   margin: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) 0;
   padding: govuk-spacing(4) govuk-spacing(4) govuk-spacing(4) govuk-spacing(2);
   background-color: $app-brand-background-colour-light;
   border-radius: $app-border-radius-right;
   min-width: $app-reading-width;
+  border: 1px solid $app-brand-background-colour;
+  border-left: 6px solid govuk-colour("red");
 
   &.app-warning--inverse {
     background-color: govuk-colour("white");

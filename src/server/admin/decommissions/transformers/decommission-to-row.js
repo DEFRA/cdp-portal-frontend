@@ -39,7 +39,7 @@ function transformDecommissionToRow(entity) {
         headers: 'started',
         entity: {
           kind: 'date',
-          value: entity.decommissioned?.decommissionedAt
+          value: entity.decommissioned?.started
         }
       },
       {
