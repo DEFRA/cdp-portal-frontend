@@ -5,7 +5,8 @@
 .govuk-template--rebranded {
   .app-service-navigation--inverse {
     .govuk-width-container {
-      border-bottom: none;
+      border-top: 1px solid $app-brand-border-colour-light;
+      border-bottom: 1px solid $app-brand-border-colour-light;
     }
 
     .app-navigation__admin {
