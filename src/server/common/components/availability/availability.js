@@ -87,15 +87,15 @@ function availability($input) {
     }
   })
 
-  window.addEventListener('DOMContentLoaded', async () => {
+  window.addEventListener('DOMContentLoaded', () => {
     if ($input?.value) {
-      await getAvailability(
+      getAvailability(
         $input?.value,
         dataFetcher,
         $loader,
         $successIcon,
         $failureIcon
-      )
+      ).catch((error) => clientNotification(error.message))
     }
   })
 }

@@ -701,37 +701,41 @@ class Autocomplete {
   }
 
   addEventListeners() {
-    document.addEventListener('DOMContentLoaded', async () => {
-      if (this.$noJsSubmitButton) {
-        this.$noJsSubmitButton.remove()
-      }
-
-      const queryParamValue =
-        this.queryParams?.[this.$autocompleteHiddenInput.name]
-
-      if (queryParamValue) {
-        if (this.dataFetcher.isEnabled) {
-          await this.callDataFetcher(queryParamValue)
+    document.addEventListener('DOMContentLoaded', () => {
+      const initializeAutocomplete = async () => {
+        if (this.$noJsSubmitButton) {
+          this.$noJsSubmitButton.remove()
         }
 
-        const suggestion = this.getSuggestionByValue(queryParamValue)
+        const queryParamValue =
+          this.queryParams?.[this.$autocompleteHiddenInput.name]
 
-        const text = suggestion?.text ?? queryParamValue
-        const value = suggestion?.value ?? queryParamValue
-        this.updateInputValue({ text, value, withPublish: false })
+        if (queryParamValue) {
+          if (this.dataFetcher.isEnabled) {
+            await this.callDataFetcher(queryParamValue)
+          }
 
-        this.showCloseButton()
+          const suggestion = this.getSuggestionByValue(queryParamValue)
+
+          const text = suggestion?.text ?? queryParamValue
+          const value = suggestion?.value ?? queryParamValue
+          this.updateInputValue({ text, value, withPublish: false })
+
+          this.showCloseButton()
+        }
+
+        if (this.$autocomplete.value) {
+          this.showCloseButton()
+          const matchIndex = this.getSuggestionIndex(this.$autocomplete.value)
+
+          this.populateSuggestions({
+            textValue: this.$autocomplete.value,
+            suggestionIndex: matchIndex > -1 ? matchIndex : null
+          })
+        }
       }
 
-      if (this.$autocomplete.value) {
-        this.showCloseButton()
-        const matchIndex = this.getSuggestionIndex(this.$autocomplete.value)
-
-        this.populateSuggestions({
-          textValue: this.$autocomplete.value,
-          suggestionIndex: matchIndex > -1 ? matchIndex : null
-        })
-      }
+      initializeAutocomplete().catch(clientNotification)
     })
 
     this.$clearButton.addEventListener(
