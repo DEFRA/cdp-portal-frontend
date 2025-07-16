@@ -319,21 +319,21 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         <th id="name" scope="col"
             class="app-entity-table__heading   app-entity-table__heading--left-aligned"
             data-testid="app-entity-table-header-1"
-width="30%"        >
+width="20%"        >
             Name
         </th>
 
         <th id="type" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-2"
-width="14%"        >
+width="10%"        >
             Type
         </th>
 
         <th id="status" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-3"
-width="10%"        >
+width="15%"        >
             Status
         </th>
 
@@ -344,10 +344,17 @@ width="20%"        >
             Started
         </th>
 
-        <th id="by" scope="col"
+        <th id="duration" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-5"
-width="26%"        >
+width="20%"        >
+            Duration
+        </th>
+
+        <th id="by" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-6"
+width="20%"        >
             By
         </th>
 
@@ -384,15 +391,7 @@ width="26%"        >
           <td headers="type"
               class="app-entity-table__cell"
               data-label="Type">
-              
-
-
-<strong class="govuk-tag app-tag govuk-tag--blue">
-  Microservice - Backend
-</strong>
-
-
-
+              <strong>Microservice</strong> Backend
           </td>
 
 
@@ -402,7 +401,9 @@ width="26%"        >
               
 
 
-<strong class="govuk-tag app-tag app-link--without-underline govuk-tag--green" data-testid="govuk-tag">
+
+
+<strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
   Decommissioned
 </strong>
 
@@ -445,12 +446,31 @@ width="26%"        >
           </td>
 
 
+          <td headers="duration"
+              class="app-entity-table__cell"
+              data-label="Duration">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
           <td headers="by"
               class="app-entity-table__cell"
               data-label="By">
               
 
-<div class="app-entity" data-testid="app-entity-5">
+<div class="app-entity" data-testid="app-entity-6">
 
 
 
@@ -494,37 +514,28 @@ width="26%"        >
           <td headers="type"
               class="app-entity-table__cell"
               data-label="Type">
-              
-
-
-<strong class="govuk-tag app-tag govuk-tag--blue">
-  Microservice - Frontend
-</strong>
-
-
-
+              <strong>Microservice</strong> Frontend
           </td>
 
 
           <td headers="status"
               class="app-entity-table__cell"
               data-label="Status">
-              <div class="app-!-layout-centered">
               
 
 
-<strong class="govuk-tag app-tag app-link--without-underline app-tag--purple" data-testid="govuk-tag">
+
+
+<strong class="govuk-tag app-tag app-tag--purple app-tag--with-loader" data-testid="govuk-tag">
   Decommissioning
+  <span class="app-loader govuk-!-margin-left-1 app-loader--small app-loader--is-loading"
+        data-testid="app-loader"
+  >
+  </span>
 </strong>
 
 
 
-              <span class="app-loader app-loader--is-loading app-loader--minimal app-loader--small"
-      data-testid="app-loader"
->
-</span>
-
-            </div>
           </td>
 
 
@@ -562,12 +573,31 @@ width="26%"        >
           </td>
 
 
+          <td headers="duration"
+              class="app-entity-table__cell"
+              data-label="Duration">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
           <td headers="by"
               class="app-entity-table__cell"
               data-label="By">
               
 
-<div class="app-entity" data-testid="app-entity-5">
+<div class="app-entity" data-testid="app-entity-6">
 
 
 
