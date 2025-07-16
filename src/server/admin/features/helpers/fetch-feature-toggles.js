@@ -24,6 +24,7 @@ async function isFeatureToggleActiveForPath(requestPath) {
   const { payload } = await fetchJson(endpoint)
   return payload
 }
+
 export {
   fetchFeatureToggles,
   isFeatureToggleActiveForPath,
