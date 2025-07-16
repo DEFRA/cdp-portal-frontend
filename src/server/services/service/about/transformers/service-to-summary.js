@@ -4,7 +4,7 @@ import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 function transformServiceToSummary(repository, entity) {
   const dockerHubUrl = config.get('dockerHubUrl')
@@ -54,7 +54,9 @@ function transformServiceToSummary(repository, entity) {
         value: {
           html: tags.length
             ? tags
-                ?.map((tag) => renderTag(tag.displayName, [tag.className]))
+                ?.map((tag) =>
+                  renderTag({ text: tag.displayName, classes: [tag.className] })
+                )
                 .join(' ')
             : noValue
         }

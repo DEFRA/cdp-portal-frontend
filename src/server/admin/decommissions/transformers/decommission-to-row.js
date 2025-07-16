@@ -1,18 +1,34 @@
+import { formatDistanceStrict } from 'date-fns'
+
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
 
 function transformDecommissionToRow(entity) {
-  const statusTag = renderTag(formatText(entity.status), [entity.statusClass])
-  const statusHtml =
-    entity.status !== creationStatuses.decommissioned
-      ? `<div class="app-!-layout-centered">
-              ${statusTag}
-              ${renderComponent('loader', { classes: 'app-loader--is-loading app-loader--minimal app-loader--small' })}
-            </div>`
-      : statusTag
+  const statusTag = renderTag({
+    text: formatText(entity.status),
+    classes: [entity.statusClass],
+    isLoading: entity.status !== creationStatuses.decommissioned
+  })
+
+  const durationEntity = entity.decommissioned?.finished
+    ? {
+        entity: {
+          kind: 'text',
+          value: formatDistanceStrict(
+            entity.decommissioned.started,
+            entity.decommissioned.finished,
+            { includeSeconds: true }
+          )
+        }
+      }
+    : {
+        entity: {
+          kind: 'text',
+          value: noValue
+        }
+      }
 
   return {
     cells: [
@@ -26,14 +42,11 @@ function transformDecommissionToRow(entity) {
       },
       {
         headers: 'type',
-        html: renderComponent('tag', {
-          text: `${entity.type} - ${entity.subType}`,
-          classes: 'govuk-tag--blue'
-        })
+        html: `<strong>${entity.type}</strong> ${entity.subType}`
       },
       {
         headers: 'status',
-        html: statusHtml
+        html: statusTag
       },
       {
         headers: 'started',
@@ -41,6 +54,10 @@ function transformDecommissionToRow(entity) {
           kind: 'date',
           value: entity.decommissioned?.started
         }
+      },
+      {
+        headers: 'duration',
+        ...durationEntity
       },
       {
         headers: 'by',

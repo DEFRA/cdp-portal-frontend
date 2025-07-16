@@ -37,7 +37,7 @@ describe('#protectForm', () => {
     })
 
     test('Inputs should be disabled', () => {
-      expect(selectInput.getAttribute('disabled')).toBe('disabled')
+      expect(selectInput).toHaveAttribute('disabled', 'disabled')
     })
 
     test('Expected hidden input should have been created', () => {
@@ -61,7 +61,7 @@ describe('#protectForm', () => {
     test('Inputs should not be disabled', () => {
       editButton.click()
 
-      expect(selectInput.getAttribute('disabled')).toBeNull()
+      expect(selectInput).toBeEnabled()
     })
 
     test('Expected hidden input should not have been created', () => {

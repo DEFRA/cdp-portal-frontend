@@ -48,7 +48,7 @@ describe('#search', () => {
         '[data-testid="app-search-clear-button"]'
       )
 
-      expect(clearButton.getAttribute('aria-hidden')).toBe('false')
+      expect(clearButton).toHaveAttribute('aria-hidden', 'false')
     })
   })
 
@@ -70,7 +70,7 @@ describe('#search', () => {
         '[data-testid="app-search-clear-button"]'
       )
 
-      expect(clearButton.getAttribute('aria-hidden')).toBe('true')
+      expect(clearButton).toHaveAttribute('aria-hidden', 'true')
     })
   })
 })

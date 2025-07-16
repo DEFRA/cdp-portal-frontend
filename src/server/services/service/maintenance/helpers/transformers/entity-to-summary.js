@@ -1,7 +1,7 @@
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 function entityToSummary({
   entity,
@@ -35,9 +35,10 @@ function entityToSummary({
       {
         key: { text: 'Status' },
         value: {
-          html: renderTag(formatText(deployedService.status), [
-            deployedService.statusClassname
-          ])
+          html: renderTag({
+            text: formatText(deployedService.status),
+            classes: [deployedService.statusClassname]
+          })
         }
       },
       {

@@ -190,7 +190,7 @@ describe('#autocomplete', () => {
 
     describe('On load', () => {
       test('Should not show suggestions', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
       })
 
       test('Should have enhanced select input', () => {
@@ -198,19 +198,21 @@ describe('#autocomplete', () => {
       })
 
       test('Input should have control of suggestions', () => {
-        expect(autocompleteInput.getAttribute('aria-controls')).toBe(
+        expect(autocompleteInput).toHaveAttribute(
+          'aria-controls',
           'app-autocomplete-user-suggestions'
         )
       })
 
       test('Chevron button should have control of suggestions', () => {
-        expect(chevronButton.getAttribute('aria-owns')).toBe(
+        expect(chevronButton).toHaveAttribute(
+          'aria-owns',
           'app-autocomplete-user-suggestions'
         )
       })
 
       test('Chevron should be in closed position', () => {
-        expect(chevronButton.getAttribute('aria-label')).toBe('Show')
+        expect(chevronButton).toHaveAttribute('aria-label', 'Show')
       })
     })
 
@@ -220,7 +222,7 @@ describe('#autocomplete', () => {
       })
 
       test('Should open suggestions', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('true')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
       })
 
       test('Should contain expected suggestions when input clicked', () => {
@@ -228,9 +230,9 @@ describe('#autocomplete', () => {
 
         expect(children).toHaveLength(3)
 
-        expect(children[0].textContent).toContain('RoboCop')
-        expect(children[1].textContent).toBe('Roger Rabbit')
-        expect(children[2].textContent).toBe('Barbie')
+        expect(children[0]).toHaveTextContent(/RoboCop/)
+        expect(children[1]).toHaveTextContent('Roger Rabbit')
+        expect(children[2]).toHaveTextContent('Barbie')
       })
     })
 
@@ -240,8 +242,8 @@ describe('#autocomplete', () => {
       })
 
       test('Should open suggestions', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('true')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('true')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'true')
       })
 
       test('Should contain expected suggestions when input focused', () => {
@@ -249,9 +251,9 @@ describe('#autocomplete', () => {
 
         expect(children).toHaveLength(3)
 
-        expect(children[0].textContent).toBe('RoboCop')
-        expect(children[1].textContent).toBe('Roger Rabbit')
-        expect(children[2].textContent).toBe('Barbie')
+        expect(children[0]).toHaveTextContent('RoboCop')
+        expect(children[1]).toHaveTextContent('Roger Rabbit')
+        expect(children[2]).toHaveTextContent('Barbie')
       })
     })
 
@@ -263,8 +265,8 @@ describe('#autocomplete', () => {
       })
 
       test('Should close suggestions', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
     })
 
@@ -275,15 +277,13 @@ describe('#autocomplete', () => {
         })
 
         test('Should open suggestions', () => {
-          expect(suggestionsContainer.getAttribute('aria-expanded')).toBe(
-            'true'
-          )
-          expect(autocompleteInput.getAttribute('aria-expanded')).toBe('true')
+          expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
+          expect(autocompleteInput).toHaveAttribute('aria-expanded', 'true')
         })
 
         test('Should narrow to only expected suggestion', () => {
           expect(suggestionsContainer.children).toHaveLength(1)
-          expect(suggestionsContainer.children[0].textContent).toBe(
+          expect(suggestionsContainer.children[0]).toHaveTextContent(
             'Roger Rabbit'
           )
         })
@@ -299,16 +299,14 @@ describe('#autocomplete', () => {
         })
 
         test('Should open suggestions', () => {
-          expect(suggestionsContainer.getAttribute('aria-expanded')).toBe(
-            'true'
-          )
-          expect(autocompleteInput.getAttribute('aria-expanded')).toBe('true')
+          expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
+          expect(autocompleteInput).toHaveAttribute('aria-expanded', 'true')
         })
 
         test('Should narrow to only expected suggestions', () => {
           expect(suggestionsContainer.children).toHaveLength(2)
-          expect(suggestionsContainer.children[0].textContent).toBe('RoboCop')
-          expect(suggestionsContainer.children[1].textContent).toBe(
+          expect(suggestionsContainer.children[0]).toHaveTextContent('RoboCop')
+          expect(suggestionsContainer.children[1]).toHaveTextContent(
             'Roger Rabbit'
           )
         })
@@ -357,8 +355,8 @@ describe('#autocomplete', () => {
       })
 
       test('Suggestions should be open', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('true')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('true')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'true')
       })
 
       test('Should contain expected suggestions', () => {
@@ -366,9 +364,9 @@ describe('#autocomplete', () => {
 
         expect(children).toHaveLength(3)
 
-        expect(children[0].textContent).toBe('RoboCop')
-        expect(children[1].textContent).toBe('Roger Rabbit')
-        expect(children[2].textContent).toBe('Barbie')
+        expect(children[0]).toHaveTextContent('RoboCop')
+        expect(children[1]).toHaveTextContent('Roger Rabbit')
+        expect(children[2]).toHaveTextContent('Barbie')
       })
     })
 
@@ -378,13 +376,13 @@ describe('#autocomplete', () => {
       })
 
       test('Should open suggestions', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('true')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('true')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'true')
       })
 
       test('Should provide no results message', () => {
         expect(suggestionsContainer.children).toHaveLength(1)
-        expect(suggestionsContainer.children[0].textContent).toBe(
+        expect(suggestionsContainer.children[0]).toHaveTextContent(
           ' - - no results - - '
         )
       })
@@ -402,12 +400,12 @@ describe('#autocomplete', () => {
       })
 
       test('Input should keep focus', () => {
-        expect(document.activeElement).toBe(autocompleteInput)
+        expect(autocompleteInput).toHaveFocus()
       })
 
       test('Suggestions should be closed', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
     })
 
@@ -422,12 +420,12 @@ describe('#autocomplete', () => {
       })
 
       test('Input should keep focus', () => {
-        expect(document.activeElement).toBe(autocompleteInput)
+        expect(autocompleteInput).toHaveFocus()
       })
 
       test('Suggestions should be closed', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
     })
 
@@ -448,7 +446,8 @@ describe('#autocomplete', () => {
         expect(children[1].dataset.hasHighlight).toBe('false')
         expect(children[2].dataset.hasHighlight).toBe('false')
 
-        expect(autocompleteInput.getAttribute('aria-activedescendant')).toBe(
+        expect(autocompleteInput).toHaveAttribute(
+          'aria-activedescendant',
           'app-autocomplete-user-suggestion-1'
         )
       })
@@ -466,7 +465,8 @@ describe('#autocomplete', () => {
         expect(children[1].dataset.hasHighlight).toBe('true')
         expect(children[2].dataset.hasHighlight).toBe('false')
 
-        expect(autocompleteInput.getAttribute('aria-activedescendant')).toBe(
+        expect(autocompleteInput).toHaveAttribute(
+          'aria-activedescendant',
           'app-autocomplete-user-suggestion-2'
         )
       })
@@ -491,7 +491,8 @@ describe('#autocomplete', () => {
         expect(children[1].dataset.hasHighlight).toBe('false')
         expect(children[2].dataset.hasHighlight).toBe('false')
 
-        expect(autocompleteInput.getAttribute('aria-activedescendant')).toBe(
+        expect(autocompleteInput).toHaveAttribute(
+          'aria-activedescendant',
           'app-autocomplete-user-suggestion-1'
         )
       })
@@ -515,34 +516,35 @@ describe('#autocomplete', () => {
       })
 
       test('Input should keep focus', () => {
-        expect(document.activeElement).toBe(autocompleteInput)
+        expect(autocompleteInput).toHaveFocus()
       })
 
       test('Suggestions should be closed', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
 
       test('Should have correct aria activedescendant value', () => {
-        expect(autocompleteInput.getAttribute('aria-activedescendant')).toBe(
+        expect(autocompleteInput).toHaveAttribute(
+          'aria-activedescendant',
           'app-autocomplete-user-suggestion-2'
         )
       })
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-posinset')).toBe('2')
+        expect(children[0]).toHaveAttribute('aria-posinset', '2')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-selected')).toBe('true')
+        expect(children[0]).toHaveAttribute('aria-selected', 'true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
-        expect(children[0].getAttribute('aria-setsize')).toBe('4')
+        expect(children[0]).toHaveAttribute('aria-setsize', '4')
       })
 
       test('suggestions Should have expected data attributes', () => {
@@ -567,34 +569,35 @@ describe('#autocomplete', () => {
       })
 
       test('Input should keep focus', () => {
-        expect(document.activeElement).toBe(autocompleteInput)
+        expect(autocompleteInput).toHaveFocus()
       })
 
       test('Suggestions should be closed', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
 
       test('Should have correct aria activedescendant value', () => {
-        expect(autocompleteInput.getAttribute('aria-activedescendant')).toBe(
+        expect(autocompleteInput).toHaveAttribute(
+          'aria-activedescendant',
           'app-autocomplete-user-suggestion-3'
         )
       })
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-posinset')).toBe('3')
+        expect(children[0]).toHaveAttribute('aria-posinset', '3')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-selected')).toBe('true')
+        expect(children[0]).toHaveAttribute('aria-selected', 'true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
-        expect(children[0].getAttribute('aria-setsize')).toBe('4')
+        expect(children[0]).toHaveAttribute('aria-setsize', '4')
       })
 
       test('suggestions Should have expected data attributes', () => {
@@ -615,8 +618,8 @@ describe('#autocomplete', () => {
       })
 
       test('Suggestions should be closed', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
     })
 
@@ -627,24 +630,24 @@ describe('#autocomplete', () => {
       })
 
       test('Suggestions should be closed', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-posinset')).toBe('1')
+        expect(children[0]).toHaveAttribute('aria-posinset', '1')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-selected')).toBe('true')
+        expect(children[0]).toHaveAttribute('aria-selected', 'true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
-        expect(children[0].getAttribute('aria-setsize')).toBe('4')
+        expect(children[0]).toHaveAttribute('aria-setsize', '4')
       })
 
       test('suggestions Should have expected data attributes', () => {
@@ -677,8 +680,8 @@ describe('#autocomplete', () => {
       })
 
       test('Suggestions should be open', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('true')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('true')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'true')
       })
     })
 
@@ -689,8 +692,8 @@ describe('#autocomplete', () => {
       })
 
       test('Suggestions should be closed', () => {
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
-        expect(autocompleteInput.getAttribute('aria-expanded')).toBe('false')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
+        expect(autocompleteInput).toHaveAttribute('aria-expanded', 'false')
       })
     })
 
@@ -698,16 +701,16 @@ describe('#autocomplete', () => {
       test('Once, should open suggestions', () => {
         chevronButton.click()
 
-        expect(chevronButton.getAttribute('aria-label')).toBe('Hide')
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('true')
+        expect(chevronButton).toHaveAttribute('aria-label', 'Hide')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'true')
       })
 
       test('Twice, should close suggestions', () => {
         chevronButton.click()
         chevronButton.click()
 
-        expect(chevronButton.getAttribute('aria-label')).toBe('Show')
-        expect(suggestionsContainer.getAttribute('aria-expanded')).toBe('false')
+        expect(chevronButton).toHaveAttribute('aria-label', 'Show')
+        expect(suggestionsContainer).toHaveAttribute('aria-expanded', 'false')
       })
     })
   })
@@ -725,25 +728,26 @@ describe('#autocomplete', () => {
 
     describe('On load with query param', () => {
       test('Should have correct aria activedescendant value', () => {
-        expect(autocompleteInput.getAttribute('aria-activedescendant')).toBe(
+        expect(autocompleteInput).toHaveAttribute(
+          'aria-activedescendant',
           'app-autocomplete-user-suggestion-3'
         )
       })
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-posinset')).toBe('3')
+        expect(children[0]).toHaveAttribute('aria-posinset', '3')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[0].getAttribute('aria-selected')).toBe('true')
+        expect(children[0]).toHaveAttribute('aria-selected', 'true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
-        expect(children[0].getAttribute('aria-setsize')).toBe('4')
+        expect(children[0]).toHaveAttribute('aria-setsize', '4')
       })
 
       test('suggestions Should have expected data attributes', () => {
@@ -771,7 +775,7 @@ describe('#autocomplete', () => {
     })
 
     test('Should have expected placeholder', () => {
-      expect(autocompleteInput.getAttribute('placeholder')).toBe(typeHere)
+      expect(autocompleteInput).toHaveAttribute('placeholder', typeHere)
     })
   })
 
@@ -826,7 +830,7 @@ describe('#autocomplete', () => {
       const children = suggestionsContainer.children
 
       expect(children).toHaveLength(1)
-      expect(children[0].textContent).toContain(' - - no results - - ')
+      expect(children[0]).toHaveTextContent(' - - no results - - ')
     })
 
     test('When text entered into autocomplete, Should fetch data', async () => {
@@ -844,7 +848,7 @@ describe('#autocomplete', () => {
       const children = suggestionsContainer.children
 
       expect(children).toHaveLength(1)
-      expect(children[0].textContent).toContain('run, get to the chopper')
+      expect(children[0]).toHaveTextContent(/run, get to the chopper/)
     })
   })
 
@@ -877,7 +881,7 @@ describe('#autocomplete', () => {
       const children = siblingSuggestionsContainer.children
 
       expect(children).toHaveLength(1)
-      expect(children[0].textContent).toContain(' - - choose Image name - - ')
+      expect(children[0]).toHaveTextContent(' - - choose Image name - - ')
     })
 
     test('When choice made in parent autocomplete, Should provide sibling with fetched suggestions', async () => {
@@ -896,8 +900,8 @@ describe('#autocomplete', () => {
       const children = siblingSuggestionsContainer.children
 
       expect(children).toHaveLength(2)
-      expect(children[0].textContent).toContain('1.0.0')
-      expect(children[1].textContent).toContain('1.1.0')
+      expect(children[0]).toHaveTextContent(/1\.0\.0/)
+      expect(children[1]).toHaveTextContent(/1\.1\.0/)
     })
 
     test('When choice made and deleted, Should clear sibling suggestions', async () => {
@@ -916,8 +920,8 @@ describe('#autocomplete', () => {
       const children = siblingSuggestionsContainer.children
 
       expect(children).toHaveLength(2)
-      expect(children[0].textContent).toContain('2.0.0')
-      expect(children[1].textContent).toContain('2.1.0')
+      expect(children[0]).toHaveTextContent(/2\.0\.0/)
+      expect(children[1]).toHaveTextContent(/2\.1\.0/)
 
       siblingAutocompleteInput.blur()
 
@@ -926,7 +930,7 @@ describe('#autocomplete', () => {
       siblingAutocompleteInput.click()
 
       expect(children).toHaveLength(1)
-      expect(children[0].textContent).toContain(' - - choose Image name - - ')
+      expect(children[0]).toHaveTextContent(' - - choose Image name - - ')
     })
   })
 

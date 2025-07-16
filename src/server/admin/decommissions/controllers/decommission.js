@@ -1,5 +1,5 @@
 import Boom from '@hapi/boom'
-import { parseISO, subHours, formatDistance } from 'date-fns'
+import { parseISO, subHours, formatDistanceStrict } from 'date-fns'
 
 import Joi from '~/src/server/common/helpers/extended-joi.js'
 import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
@@ -59,7 +59,7 @@ const decommissionController = {
       started: entity.decommissioned.started,
       finished: entity.decommissioned.finished,
       get elapsed() {
-        return formatDistance(
+        return formatDistanceStrict(
           this.started,
           this.finished ?? new Date().toISOString(),
           { includeSeconds: true }

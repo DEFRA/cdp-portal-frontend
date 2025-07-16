@@ -48,7 +48,7 @@ describe('#inputAssistant', () => {
       inputElem.value = 'awesome-service'
       inputElem.dispatchEvent(event)
 
-      expect(inputAssistantElem.textContent).toBe('')
+      expect(inputAssistantElem).toHaveTextContent('')
     })
   })
 
@@ -62,7 +62,7 @@ describe('#inputAssistant', () => {
       inputElem.value = 'awesome-new-service'
       inputElem.dispatchEvent(event)
 
-      expect(inputAssistantElem.textContent).toBe(
+      expect(inputAssistantElem).toHaveTextContent(
         "Have a read of 'Naming your microservice best practice'"
       )
     })
