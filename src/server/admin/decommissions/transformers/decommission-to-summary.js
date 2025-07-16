@@ -3,7 +3,7 @@ import { noValue } from '~/src/server/common/constants/no-value.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
@@ -35,14 +35,11 @@ function transformDecommissionToSummary(repository, entity) {
     ?.map((tagName) => serviceTags[tagName])
     .filter(Boolean)
 
-  const statusTag = renderTag(formatText(entity.status), [entity.statusClass])
-  const statusHtml =
-    entity.status !== creationStatuses.decommissioned
-      ? `<div class="app-!-layout-centered">
-              ${statusTag}
-              ${renderComponent('loader', { classes: 'app-loader--is-loading app-loader--minimal' })}
-            </div>`
-      : statusTag
+  const statusTag = renderTag({
+    text: formatText(entity.status),
+    classes: [entity.statusClass],
+    isLoading: entity.status !== creationStatuses.decommissioned
+  })
 
   return {
     classes: 'app-summary-list',
@@ -51,7 +48,7 @@ function transformDecommissionToSummary(repository, entity) {
       {
         key: { text: 'Status' },
         value: {
-          html: statusHtml
+          html: statusTag
         }
       },
       {
@@ -71,12 +68,9 @@ function transformDecommissionToSummary(repository, entity) {
         }
       },
       {
-        key: { text: 'Kind' },
+        key: { text: 'Type' },
         value: {
-          html: renderComponent('tag', {
-            text: entity.subType ?? entity.type ?? noValue,
-            classes: 'govuk-tag--blue'
-          })
+          html: `<strong>${entity.type}</strong> ${entity.subType}`
         }
       },
       {

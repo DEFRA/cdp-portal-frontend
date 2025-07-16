@@ -6,7 +6,7 @@ import { transformEntityToRow } from '~/src/server/admin/tags/transformers/trans
 import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
 import { serviceTagValues } from '~/src/server/admin/tags/helpers/schema/tag-validation.js'
 import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 const tagController = {
   options: {
@@ -19,7 +19,10 @@ const tagController = {
   },
   handler: async (request, h) => {
     const tag = serviceTags[request.params.tag]
-    const renderedTag = renderTag(tag.displayName, [tag.className])
+    const renderedTag = renderTag({
+      text: tag.displayName,
+      classes: [tag.className]
+    })
 
     const entities = await fetchEntities()
     const rows = entities

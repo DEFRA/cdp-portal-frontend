@@ -1,3 +1,4 @@
+{% from "loader/macro.njk" import appLoader %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
 {% if params.url %}
@@ -6,10 +7,27 @@
      data-testid="app-entity-link">
 {% endif %}
 
-{% set classes = ["app-tag", params.classes if params.classes] | join(" ") | trim %}
+{% set classes = [
+  "app-tag", params.classes if params.classes,
+  "app-tag--with-loader" if params.isLoading
+] | join(" ") | trim %}
+
+{% set loaderClasses = [
+  "govuk-!-margin-left-1", "app-loader--small",
+  params.loaderClasses if params.loaderClasses
+] | join(" ") | trim %}
+
+{% set contentHtml %}
+  {{ params.text }}
+  {% if params.isLoading -%}
+    {{ appLoader({
+      classes: loaderClasses
+    }) }}
+  {%- endif %}
+{% endset %}
 
 {{ govukTag({
-  text: params.text,
+  html: contentHtml,
   classes: classes,
   attributes: params.attributes if params.attributes
 }) }}

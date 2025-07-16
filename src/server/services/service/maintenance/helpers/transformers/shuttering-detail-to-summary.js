@@ -2,7 +2,7 @@ import { noValue } from '~/src/server/common/constants/no-value.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { shutteringStatus } from '~/src/server/common/constants/shuttering.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 function shutteringDetailToSummary({
   isFrontend,
@@ -28,11 +28,14 @@ function shutteringDetailToSummary({
           text: 'Status'
         },
         value: {
-          html: renderTag(shutteringDetail.status, [
-            shutteringDetail.status === shutteringStatus.shuttered
-              ? 'govuk-tag--red'
-              : 'govuk-tag--green'
-          ])
+          html: renderTag({
+            text: shutteringDetail.status,
+            classes: [
+              shutteringDetail.status === shutteringStatus.shuttered
+                ? 'govuk-tag--red'
+                : 'govuk-tag--green'
+            ]
+          })
         }
       },
       {

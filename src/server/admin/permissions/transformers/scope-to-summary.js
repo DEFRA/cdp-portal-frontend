@@ -1,6 +1,6 @@
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 const editActionItems = (scopeId) => ({
   items: [
@@ -31,16 +31,16 @@ function transformScopeToSummary(scope, withActions = true) {
             ? scope.kind
                 ?.map((k) => {
                   if (k === 'user') {
-                    return renderTag('user', [
-                      'govuk-tag--green',
-                      'govuk-!-margin-right-1'
-                    ])
+                    return renderTag({
+                      text: 'user',
+                      classes: ['govuk-tag--green', 'govuk-!-margin-right-1']
+                    })
                   }
 
-                  return renderTag('team', [
-                    'govuk-tag--blue',
-                    'govuk-!-margin-right-1'
-                  ])
+                  return renderTag({
+                    text: 'team',
+                    classes: ['govuk-tag--blue', 'govuk-!-margin-right-1']
+                  })
                 })
                 .join('')
             : noValue

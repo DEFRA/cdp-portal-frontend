@@ -12,7 +12,7 @@ import {
   searchCdpTeams,
   fetchPermissionsScope
 } from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { renderTag } from '~/src/server/admin/permissions/helpers/render-tag.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 async function buildEntitiesOptions(searchQuery, scope, selectedEntities) {
   const kind = scope.kind
@@ -74,10 +74,14 @@ async function buildEntitiesOptions(searchQuery, scope, selectedEntities) {
 
   const renderOptionHtml = (entity) => {
     if (entity.kind === 'user') {
-      return renderTag('user', ['govuk-tag--green']) + entity.name
+      return (
+        renderTag({ text: 'user', classes: ['govuk-tag--green'] }) + entity.name
+      )
     }
 
-    return renderTag('team', ['govuk-tag--blue']) + entity.name
+    return (
+      renderTag({ text: 'team', classes: ['govuk-tag--blue'] }) + entity.name
+    )
   }
 
   return entities?.length

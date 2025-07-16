@@ -53,29 +53,30 @@ describe('#button', () => {
     submitForm(mockForm)
     jest.advanceTimersByTime(100)
 
-    expect(buttonElem.getAttribute('disabled')).toBeNull()
+    expect(buttonElem).toBeEnabled()
   })
 
   test('Should not add loading class to loader before specified delay', () => {
     submitForm(mockForm)
     jest.advanceTimersByTime(100)
 
-    expect(buttonElem.getAttribute('disabled')).toBeNull()
+    expect(buttonElem).toBeEnabled()
   })
 
   test('Should disable button on form submit after specified delay', () => {
     submitForm(mockForm)
     jest.advanceTimersByTime(200)
 
-    expect(buttonElem.getAttribute('disabled')).toBe('disabled')
+    expect(buttonElem).toHaveAttribute('disabled', 'disabled')
   })
 
   test('Should add loading class to loader on form submit after specified delay', () => {
     submitForm(mockForm)
     jest.advanceTimersByTime(200)
 
-    expect(buttonLoaderElem.getAttribute('class')).toContain(
-      'app-loader--is-loading'
+    expect(buttonLoaderElem).toHaveAttribute(
+      'class',
+      expect.stringContaining('app-loader--is-loading')
     )
   })
 })
