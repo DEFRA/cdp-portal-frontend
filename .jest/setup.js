@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { TextEncoder, TextDecoder } from 'node:util'
 import { ReadableStream, TransformStream } from 'node:stream/web'
 import { clearImmediate, setImmediate } from 'node:timers'

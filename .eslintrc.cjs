@@ -33,6 +33,7 @@ module.exports = {
         'plugin:promise/recommended',
         'plugin:@typescript-eslint/recommended-type-checked',
         'plugin:@typescript-eslint/stylistic-type-checked',
+        'plugin:jest-dom/recommended',
         'prettier'
       ],
       env: {

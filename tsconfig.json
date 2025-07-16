@@ -14,7 +14,8 @@
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "target": "ESNext",
-    "types": ["jest"]
+    "lib": ["DOM", "ES2020"],
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "include": [
     "src",
