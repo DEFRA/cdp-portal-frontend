@@ -383,7 +383,7 @@ describe('#autocomplete', () => {
       test('Should provide no results message', () => {
         expect(suggestionsContainer.children).toHaveLength(1)
         expect(suggestionsContainer.children[0]).toHaveTextContent(
-          ' - - no results - - '
+          ` - - no results - - `.trim()
         )
       })
     })
@@ -830,7 +830,7 @@ describe('#autocomplete', () => {
       const children = suggestionsContainer.children
 
       expect(children).toHaveLength(1)
-      expect(children[0]).toHaveTextContent(' - - no results - - ')
+      expect(children[0]).toHaveTextContent(` - - no results - - `.trim())
     })
 
     test('When text entered into autocomplete, Should fetch data', async () => {
@@ -881,7 +881,9 @@ describe('#autocomplete', () => {
       const children = siblingSuggestionsContainer.children
 
       expect(children).toHaveLength(1)
-      expect(children[0]).toHaveTextContent(' - - choose Image name - - ')
+      expect(children[0]).toHaveTextContent(
+        ` - - choose Image name - - `.trim()
+      )
     })
 
     test('When choice made in parent autocomplete, Should provide sibling with fetched suggestions', async () => {
@@ -930,7 +932,9 @@ describe('#autocomplete', () => {
       siblingAutocompleteInput.click()
 
       expect(children).toHaveLength(1)
-      expect(children[0]).toHaveTextContent(' - - choose Image name - - ')
+      expect(children[0]).toHaveTextContent(
+        ` - - choose Image name - - `.trim()
+      )
     })
   })
 

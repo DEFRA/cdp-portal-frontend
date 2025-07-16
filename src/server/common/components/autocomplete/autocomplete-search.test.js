@@ -205,7 +205,7 @@ describe('#autocompleteSearch', () => {
         const children = suggestionsContainer.children
 
         expect(children).toHaveLength(1)
-        expect(children[0]).toHaveTextContent(' - - no results - - ')
+        expect(children[0]).toHaveTextContent(` - - no results - - `.trim())
       })
     })
 
@@ -223,7 +223,7 @@ describe('#autocompleteSearch', () => {
         const children = suggestionsContainer.children
 
         expect(children).toHaveLength(1)
-        expect(children[0]).toHaveTextContent(' - - no results - - ')
+        expect(children[0]).toHaveTextContent(` - - no results - - `.trim())
       })
     })
 
@@ -365,7 +365,7 @@ describe('#autocompleteSearch', () => {
 
         expect(children).toHaveLength(1)
 
-        expect(children[0]).toHaveTextContent(' - - select - - ')
+        expect(children[0]).toHaveTextContent(` - - select - - `.trim())
       })
     })
 
@@ -384,7 +384,7 @@ describe('#autocompleteSearch', () => {
       test('Should provide no results message', () => {
         expect(suggestionsContainer.children).toHaveLength(1)
         expect(suggestionsContainer.children[0]).toHaveTextContent(
-          ' - - no results - - '
+          ` - - no results - - `.trim()
         )
       })
     })
@@ -823,7 +823,7 @@ describe('#autocompleteSearch', () => {
       const children = suggestionsContainer.children
 
       expect(children).toHaveLength(1)
-      expect(children[0]).toHaveTextContent(' - - no results - - ')
+      expect(children[0]).toHaveTextContent(` - - no results - - `.trim())
     })
 
     test('When text entered into autocomplete, Should fetch data', async () => {
