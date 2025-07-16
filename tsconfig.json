@@ -22,7 +22,8 @@
     "types/**/*.ts",
     "**/*.cjs",
     "**/*.js",
-    "**/*.json"
+    "**/*.json",
+    ".jest"
   ],
   "exclude": [
     "node_modules",
