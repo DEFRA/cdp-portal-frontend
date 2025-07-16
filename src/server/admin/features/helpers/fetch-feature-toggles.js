@@ -10,10 +10,10 @@ async function fetchFeatureToggles() {
   return payload
 }
 
-async function updateFeatureToggle(request, featureToggleId, active) {
+async function updateFeatureToggle(featureToggleId, active) {
   const endpoint = `${portalBackendUrl}/feature-toggles/${featureToggleId}/${active}`
 
-  await request.authedFetchJson(endpoint, {
+  await fetchJson(endpoint, {
     method: 'put'
   })
 }

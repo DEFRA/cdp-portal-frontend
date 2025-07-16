@@ -14,11 +14,7 @@ const toggleFeatureController = {
     }
   },
   handler: async (request, h) => {
-    await updateFeatureToggle(
-      request,
-      request.params.featureId,
-      request.params.active
-    )
+    await updateFeatureToggle(request.params.featureId, request.params.active)
 
     return h.redirect(`/admin/features`)
   }
