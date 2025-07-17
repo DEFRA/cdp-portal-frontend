@@ -22,13 +22,13 @@ function transformDecommissionToSummary(repository, entity) {
     )
 
   const topics = repository?.topics?.map((topic) =>
-    renderComponent('tag', {
+    renderTag({
       text: topic,
       url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
       newWindow: true,
       link: { classes: 'app-link--without-underline' },
       attributes: { 'data-testid': 'govuk-tag' }
-    }).trim()
+    })
   )
 
   const tags = entity.tags
@@ -70,7 +70,7 @@ function transformDecommissionToSummary(repository, entity) {
       {
         key: { text: 'Type' },
         value: {
-          html: `<strong>${entity.type}</strong> ${entity.subType}`
+          html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType}`
         }
       },
       {

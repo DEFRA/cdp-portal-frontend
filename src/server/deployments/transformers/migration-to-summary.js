@@ -11,6 +11,7 @@ import {
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 function transformMigrationToSummary(migration) {
   const logsLinkDataAvailable = [
@@ -60,7 +61,7 @@ function transformMigrationToSummary(migration) {
           text: 'Status'
         },
         value: {
-          html: renderComponent('tag', {
+          html: renderTag({
             text: formatText(migration.status),
             classes: provideStatusClassname(migration.status)
           })
@@ -70,12 +71,8 @@ function transformMigrationToSummary(migration) {
         key: { text: 'Kind' },
         value: {
           html: `<div class="app-!-layout-centered">
-                  ${renderIcon('database-icon', {
-                    classes: 'app-icon--small govuk-!-margin-right-1'
-                  })}
-                  ${renderComponent('tag', {
-                    text: 'Update'
-                  })}
+                  ${renderIcon('database-icon', { classes: 'app-icon--small govuk-!-margin-right-1' })}
+                  ${renderTag({ text: 'Update' })}
                 </div>`
         }
       },

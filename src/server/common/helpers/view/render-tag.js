@@ -3,9 +3,10 @@ import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-com
 /**
  * @typedef {object} Params
  * @property {string} text
- * @property {string} [classes] - tag classes
- * @property {boolean} isLoading - add a loading spinner to the tag
- * @property {string} url - wrap the tag in an anchor
+ * @property {string|string[]} [classes] - tag classes, space seperated string or array of classes
+ * @property {boolean} [isLoading] - add a loading spinner to the tag
+ * @property {string} [url] - wrap the tag in an anchor
+ * @property {Record<string, string>} [attributes] - additional attributes for the tag
  */
 
 /**
@@ -15,12 +16,11 @@ import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-com
  */
 export function renderTag(params = {}) {
   const text = params.text
-  const classes = params.classes ?? []
   const loaderClasses = []
+  const attributes = params.attributes ?? {}
 
-  if (params.isLoading) {
-    loaderClasses.push('app-loader--is-loading')
-  }
+  const classes = params.classes ?? []
+  const classesArray = Array.isArray(classes) ? classes : classes.split(' ')
 
   if (params.url) {
     classes.push('app-link--without-underline')
@@ -29,10 +29,10 @@ export function renderTag(params = {}) {
   return renderComponent('tag', {
     ...params,
     text,
-    classes: classes.join(' '),
+    classes: classesArray.join(' '),
     attributes: {
       'data-testid': 'govuk-tag',
-      ...(params.attributes && params.attributes)
+      ...attributes
     },
     loaderClasses
   })

@@ -11,6 +11,7 @@ import {
   renderComponent,
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 const instanceIcon = renderIcon('instance-icon', {
   description: 'Instance',
@@ -86,13 +87,13 @@ function transformDeploymentToSummary(deployment) {
     )
 
   const topics = deployment?.topics?.map((topic) =>
-    renderComponent('tag', {
+    renderTag({
       text: topic,
       url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
       newWindow: true,
       link: { classes: 'app-link--without-underline' },
       attributes: { 'data-testid': 'govuk-tag' }
-    }).trim()
+    })
   )
 
   return {
@@ -130,12 +131,8 @@ function transformDeploymentToSummary(deployment) {
         key: { text: 'Kind' },
         value: {
           html: `<div class="app-!-layout-centered">
-                  ${renderIcon('instance-icon', {
-                    classes: 'app-icon--small govuk-!-margin-right-1'
-                  })}
-                  ${renderComponent('tag', {
-                    text: 'Deployment'
-                  })}
+                  ${renderIcon('instance-icon', { classes: 'app-icon--small govuk-!-margin-right-1' })}
+                  ${renderTag({ text: 'Deployment' })}
                 </div>`
         }
       },
@@ -197,7 +194,7 @@ function transformDeploymentToStatusSummary(deployment, ecsDeployment) {
           text: 'Status'
         },
         value: {
-          html: renderComponent('tag', {
+          html: renderTag({
             text: formatText(deployment.status),
             classes: provideDeploymentStatusClassname(deployment.status)
           })

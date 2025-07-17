@@ -44,9 +44,11 @@ async function fetchDecommissions(queryParams) {
     ...queryParams
   })
 
-  return entities.filter((entity) =>
-    decommissionedStatuses.includes(entity.status)
-  )
+  return entities
+    .filter((entity) => decommissionedStatuses.includes(entity.status))
+    .toSorted((a, b) =>
+      b.decommissioned.started.localeCompare(a.decommissioned.started)
+    )
 }
 
 export {

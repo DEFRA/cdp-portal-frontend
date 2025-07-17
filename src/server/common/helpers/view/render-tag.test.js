@@ -76,4 +76,23 @@ describe('renderTag', () => {
     expect($link).toHaveAttribute('target', '_blank')
     expect($link).toHaveAttribute('rel', 'noopener noreferrer')
   })
+
+  test('Should provide expected attributes when passed', () => {
+    setupComponent({
+      text: 'Other attributes',
+      attributes: {
+        'aria-label': 'No.1 tag',
+        'aria-description': 'Great strong tag, the best 💪🏻'
+      }
+    })
+
+    const $tag = document.querySelector('[data-testid="govuk-tag"]')
+
+    expect($tag).toBeInTheDocument()
+    expect($tag).toHaveAttribute('aria-label', 'No.1 tag')
+    expect($tag).toHaveAttribute(
+      'aria-description',
+      'Great strong tag, the best 💪🏻'
+    )
+  })
 })

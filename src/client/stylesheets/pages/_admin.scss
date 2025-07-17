@@ -1,0 +1,56 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+.app-grid-admin {
+  flex: 1;
+  display: grid;
+  gap: govuk-spacing(2);
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(auto, max-content);
+}
+
+.app-grid-admin--decommission {
+  grid-template-areas:
+  "details details details"
+  "resources resources resources"
+  "info info info";
+
+  @include govuk-media-query($from: desktop-huge) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(10px, max-content);
+    grid-template-areas:
+    "details details details details"
+    "resources resources info info";
+  }
+
+  @include govuk-media-query($from: desktop-massive) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(10px, max-content);
+    grid-template-areas:
+    "details details resources resources"
+    "details details info info";
+  }
+}
+
+%background {
+  padding: govuk-spacing(4);
+  background-color: $app-brand-background-colour-light;
+  border: 1px solid $app-brand-background-colour;
+  border-radius: $app-border-radius;
+}
+
+.app-grid-admin__details {
+  @extend %background;
+  grid-area: details;
+}
+
+.app-grid-admin__info {
+  @extend %background;
+  grid-area: info;
+}
+
+.app-grid-admin__resources {
+  @extend %background;
+  grid-area: resources;
+}

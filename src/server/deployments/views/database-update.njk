@@ -1,5 +1,7 @@
 {% extends "layouts/page.njk" %}
 
+{% set isLoading = migration.status == "IN_PROGRESS" or migration.status == "REQUESTED" %}
+
 {% block content %}
 
   {% block beforeTabContent %}
@@ -11,7 +13,7 @@
     {% if shouldPoll %}
     <div data-js="app-poll"
          data-poll-url="/deployments/database-updates/{{ migration.environment }}/{{ migration.cdpMigrationId }}"
-         data-poll-interval="3000"
+         data-poll-interval="6000"
          data-poll-limit="45">
       {% endif %}
 
@@ -29,15 +31,11 @@
                     {{ appTag({
                       text: migration.status | formatText,
                       classes: migration.statusClass,
+                      isLoading: isLoading,
                       attributes: {
                         "data-testid": migration.status  | replace(" ", "-") | lower + "-status-tag"
                       }
                     }) }}
-                  </div>
-                  <div>
-                    {% if migration.status == "IN_PROGRESS" or migration.status == "REQUESTED" %}
-                      {{ appLoader({ classes: "app-loader--is-loading" }) }}
-                    {% endif %}
                   </div>
                 </div>
 
