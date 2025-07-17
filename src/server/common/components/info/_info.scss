@@ -5,7 +5,7 @@
 @use "variables/measurements" as *;
 
 .app-info {
-  display: flex;
+  display: inline-flex;
   align-items: start;
   margin: govuk-spacing(2) 0;
   padding: govuk-spacing(4) govuk-spacing(2);

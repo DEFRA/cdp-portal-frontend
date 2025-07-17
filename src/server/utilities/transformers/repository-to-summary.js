@@ -2,6 +2,7 @@ import { noValue } from '~/src/server/common/constants/no-value.js'
 import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 function transformRepositoryToSummary(repository) {
   const teams = repository?.teams
@@ -15,7 +16,7 @@ function transformRepositoryToSummary(repository) {
     )
 
   const topics = repository?.topics.map((topic) =>
-    renderComponent('tag', {
+    renderTag({
       text: topic,
       url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
       newWindow: true,

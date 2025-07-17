@@ -1,4 +1,3 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
 import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 import { fetchDecommissions } from '~/src/server/common/helpers/fetch/fetch-entities.js'
@@ -10,14 +9,12 @@ const decommissionsListController = {
   },
   handler: async (request, h) => {
     const decommissionedEntities = await fetchDecommissions()
-    const rows = decommissionedEntities
-      .toSorted(sortBy('name', 'asc'))
-      .map((entity) =>
-        transformDecommissionToRow({
-          ...entity,
-          statusClass: statusTagClassMap(entity.status)
-        })
-      )
+    const rows = decommissionedEntities.map((entity) =>
+      transformDecommissionToRow({
+        ...entity,
+        statusClass: statusTagClassMap(entity.status)
+      })
+    )
     const hasInProgressEntity = decommissionedEntities.some(
       (entity) => entity.status === creationStatuses.decommissioning
     )
@@ -37,11 +34,11 @@ const decommissionsListController = {
       tableData: {
         headers: [
           { id: 'name', text: 'Name', width: '20', isLeftAligned: true },
-          { id: 'type', text: 'Type', width: '10' },
+          { id: 'type', text: 'Type', width: '15' },
           { id: 'status', text: 'Status', width: '15' },
           { id: 'started', text: 'Started', width: '20' },
-          { id: 'duration', text: 'Duration', width: '20' },
-          { id: 'by', text: 'By', width: '20' }
+          { id: 'duration', text: 'Duration', width: '15' },
+          { id: 'by', text: 'By', width: '15' }
         ],
         rows,
         noResult: 'No decommissions found'

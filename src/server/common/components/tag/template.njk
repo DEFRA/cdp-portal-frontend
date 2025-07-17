@@ -14,7 +14,8 @@
 
 {% set loaderClasses = [
   "govuk-!-margin-left-1", "app-loader--small",
-  params.loaderClasses if params.loaderClasses
+  params.loaderClasses if params.loaderClasses,
+  "app-loader--is-loading" if params.isLoading
 ] | join(" ") | trim %}
 
 {% set contentHtml %}

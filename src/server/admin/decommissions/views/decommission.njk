@@ -4,28 +4,6 @@
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/pending-icon/macro.njk" import appPendingIcon %}
 
-{% set infoHtml %}
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-    GitHub Actions
-  </h2>
-
-  <p class="app-!-layout-centered govuk-!-margin-bottom-2">
-    The following actions are run during the decommission of a {{ entityType }}:
-  </p>
-
-  <ul class="govuk-list govuk-list--bullet">
-    {% for actionLink in actionLinks %}
-      <li>
-        <a class="app-link"
-           href="{{ actionLink.href }}"
-           target="_blank" rel="noopener noreferrer">
-          {{ actionLink.text }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-{% endset %}
-
 {% set warningHtml %}
   <p class="govuk-!-margin-bottom-0">
     It looks like your {{ entityType }}'s decommission is taking a while. Check the decommission GitHub actions have
@@ -78,35 +56,55 @@
       {% endif %}
 
       <div class="app-service-container">
-        <article class="app-grid app-grid-service app-grid-service--standard"
+        <article class="app-grid app-grid-admin app-grid-admin--decommission"
                  data-xhr="decommission-{{ entity.name }}"
                  data-xhr-stop="{{ not shouldPoll }}">
 
-          <section class="app-grid-service__details">
+          <section class="app-grid-admin__details">
             {% if takingTooLong %}
-              {{ appWarning({
-                html: warningHtml,
-                isInverse: true
-              }) }}
+              <div>
+                {{ appWarning({
+                  html: warningHtml,
+                  isInverse: true
+                }) }}
+              </div>
             {% endif %}
 
-            {{ appInfo({
-              classes: "govuk-!-margin-bottom-4",
-              html: durationHtml,
-              isInverse: true
-            }) }}
+            <div>
+              {{ appInfo({
+                classes: "govuk-!-margin-bottom-4",
+                html: durationHtml,
+                isInverse: true
+              }) }}
+            </div>
 
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
             {{ govukSummaryList(summaryList) }}
           </section>
 
-          <section class="app-grid-service__run">
-            {{ appInfo({
-              classes: "govuk-!-margin-bottom-5",
-              html: infoHtml,
-              isInverse: true
-            }) }}
+          <section class="app-grid-admin__info">
+            {% call appPanel({ isInverse: true }) %}
+              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Actions</h2>
+              <p class="app-!-layout-centered govuk-!-margin-bottom-2">
+                The following actions are run during the decommission of a {{ entityType }}:
+              </p>
 
+              <ul class="govuk-list govuk-list--bullet">
+                {% for actionLink in actionLinks %}
+                  <li>
+                    <a class="app-link"
+                       href="{{ actionLink.href }}"
+                       target="_blank" rel="noopener noreferrer">
+                      {{ actionLink.text }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+
+            {% endcall %}
+          </section>
+
+          <section class="app-grid-admin__resources">
             {% call appPanel({ isInverse: true }) %}
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
               <p class="govuk-!-margin-bottom-4">
@@ -140,7 +138,6 @@
               </ul>
 
             {% endcall %}
-
           </section>
         </article>
       </div>

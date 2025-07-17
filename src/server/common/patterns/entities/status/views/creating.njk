@@ -33,7 +33,7 @@
     {% if shouldPoll %}
       <div data-js="app-poll"
       data-poll-url="/{{ pluralEntityType }}/{{ entity.name }}/status"
-      data-poll-interval="3000"
+      data-poll-interval="6000"
       data-poll-limit="200">
     {% endif %}
 
@@ -70,15 +70,12 @@
             <div class="govuk-!-margin-left-1">
               {{ appTag({
                 text: entity.status | title,
+                classes: entity.statusClass,
+                isLoading: shouldPoll,
                 attributes: {
                   "data-testid": "app-overall-progress"
                 }
               }) }}
-            </div>
-            <div>
-              {% if shouldPoll %}
-                {{ appLoader({ classes: "app-loader--is-loading" }) }}
-              {% endif %}
             </div>
           </div>
 

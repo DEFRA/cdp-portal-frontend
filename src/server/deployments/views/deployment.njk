@@ -5,6 +5,8 @@
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
 {% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
 
+{% set isLoading = deployment.status == "pending" or deployment.status == "requested" or deployment.status == "stopping" %}
+
 {% block content %}
 
   {% block beforeTabContent %}
@@ -17,7 +19,7 @@
       {% if shouldPoll %}
         <div data-js="app-poll"
         data-poll-url="/deployments/{{ deployment.environment }}/{{ deployment.cdpDeploymentId }}"
-        data-poll-interval="3000"
+        data-poll-interval="6000"
         data-poll-limit="45">
       {% endif %}
 
@@ -54,15 +56,11 @@
                   {{ appTag({
                     text: deployment.status | title,
                     classes: deployment.statusClass,
+                    isLoading: isLoading,
                     attributes: {
                       "data-testid": "deployment-status"
                     }
                   }) }}
-                </div>
-                <div>
-                  {% if deployment.status == "pending" or deployment.status == "requested" or deployment.status == "stopping" %}
-                    {{ appLoader({ classes: "app-loader--is-loading" }) }}
-                  {% endif %}
                 </div>
               </div>
 

@@ -2,6 +2,7 @@ import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
 import { buildList } from '~/src/server/common/helpers/view/build-list.js'
 import { noValue } from '~/src/server/common/constants/no-value.js'
 import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 
 function transformTestSuiteToSummary(testSuite, repo) {
   const teams = testSuite?.teams
@@ -16,12 +17,12 @@ function transformTestSuiteToSummary(testSuite, repo) {
 
   const githubUrl = repo?.url ?? `https://github.com/DEFRA/${testSuite.name}`
 
-  const subType = renderComponent('tag', {
+  const subType = renderTag({
     text: testSuite.subType,
     newWindow: true,
     link: { classes: 'app-link--without-underline' },
     attributes: { 'data-testid': 'govuk-tag' }
-  }).trim()
+  })
 
   return {
     classes: 'app-summary-list',
