@@ -5,10 +5,11 @@ import {
   repositoryNameValidation,
   teamIdValidation
 } from '@defra/cdp-validation-kit/src/validations.js'
+import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
 
 function testSuiteValidation() {
   return Joi.object({
-    repositoryName: repositoryNameValidation,
+    repositoryName: repositoryNameValidation.external(checkNameAvailability),
     teamId: teamIdValidation
       .messages({
         'any.required': validation.chooseAnEntry
