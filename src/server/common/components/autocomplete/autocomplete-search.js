@@ -40,6 +40,7 @@ class AutocompleteSearch extends Autocomplete {
     }
   }
 
+  // Action to perform when a choice is made by the user
   choiceAction() {
     this.submitForm()
   }
