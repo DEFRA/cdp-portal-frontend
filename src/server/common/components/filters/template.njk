@@ -2,19 +2,21 @@
 
 {% set method = params.method | default("get") %}
 
-<form action="{{ params.action }}" method="{{ method }}" class="app-filters-form" data-js="app-filters">
+<form action="{{ params.action }}" method="{{ method }}" class="app-filters-form" data-js="app-filters"
+      data-testid="app-filters-form">
   <fieldset class="govuk-fieldset {%- if params.fieldset.classes %} {{ params.fieldset.classes }}{% endif %}">
     <div class="app-filters__heading">
       <div class="app-filters__header">
-        <legend class="govuk-fieldset__legend {%- if params.legend.classes %} {{ params.legend.classes }}{% endif %}">
+        <legend class="govuk-fieldset__legend {%- if params.legend.classes %} {{ params.legend.classes }}{% endif %}"
+                data-testid="app-filters-legend">
           {{ params.legend.text }}
         </legend>
 
-        <p class="govuk-caption-m govuk-!-margin-bottom-3">
+        <p class="govuk-caption-m govuk-!-margin-bottom-3" data-testid="app-filters-caption">
           {{ params.caption.text }}
         </p>
       </div>
-      <div class="app-filters__info">
+      <div class="app-filters__info" data-testid="app-filters-info">
         {% if params.info.html %}
           {{ params.info.html | safe }}
         {% endif %}
@@ -27,6 +29,7 @@
       <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
         <a href="{{ params.clear.url }}"
            class="govuk-link govuk-link--text-colour"
+           data-testid="app-filters-clear-all"
            data-clear-all="clearFilters"
            data-js="app-filters-clear-all">
           Clear all
@@ -35,13 +38,14 @@
     </div>
 
     {% for key, value in params.hiddenInputs %}
-      <input type="hidden" name="{{ key }}" value="{{ value }}">
+      <input type="hidden" name="{{ key }}" value="{{ value }}" data-testid="app-filters-hidden-input-{{ key }}">
     {% endfor %}
 
     {{ govukButton({
       classes: "app-button app-button--secondary js-hidden govuk-!-margin-top-2",
       text: params.noJsButton.text,
       attributes: {
+        "data-testid": "app-filters-submit-button",
         "data-js": "app-no-js-submit-button"
       }
     }) }}

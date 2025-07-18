@@ -34,14 +34,14 @@ Object.keys(testGlobals).forEach((global) => {
   nunjucksTestEnv.addGlobal(global, testGlobals[global])
 })
 
-function renderTestComponent(name, params, callBlock) {
+function renderTestComponent(name, params, callBlock = []) {
   const macroPath = `${name}/macro.njk`
   const macroName = `app${upperFirst(camelCase(name.replace('icons', '')))}`
   const macroParams = JSON.stringify(params, null, 2)
   let macroString = `{%- from "${macroPath}" import ${macroName} -%}`
 
   if (callBlock) {
-    macroString += `{%- call ${macroName}(${macroParams}) -%}${callBlock}{%- endcall -%}`
+    macroString += `{%- call ${macroName}(${macroParams}) -%}${callBlock.join(' ')}{%- endcall -%}`
   } else {
     macroString += `{{- ${macroName}(${macroParams}) -}}`
   }
