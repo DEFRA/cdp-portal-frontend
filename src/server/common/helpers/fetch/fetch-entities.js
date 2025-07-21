@@ -30,12 +30,17 @@ async function fetchEntities(queryParams = {}) {
 }
 
 function fetchTestSuites(queryParams) {
-  return fetchEntities({ type: 'TestSuite', ...queryParams })
+  return fetchEntities({
+    type: 'TestSuite',
+    status: ['Created', 'Creating'],
+    ...queryParams
+  })
 }
 
 function fetchServices(queryParams) {
   return fetchEntities({
     type: ['Microservice', 'Prototype'],
+    status: ['Created', 'Creating'],
     ...queryParams
   })
 }
