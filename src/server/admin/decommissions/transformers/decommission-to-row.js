@@ -42,7 +42,7 @@ function transformDecommissionToRow(entity) {
       },
       {
         headers: 'type',
-        html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong>${entity.subType}`
+        html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong>${entity.subType ?? ''}`
       },
       {
         headers: 'status',
