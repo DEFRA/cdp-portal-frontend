@@ -34,21 +34,21 @@ function fetchTestSuites(queryParams) {
 }
 
 function fetchServices(queryParams) {
-  return fetchEntities({ type: 'Microservice', ...queryParams })
+  return fetchEntities({
+    type: ['Microservice', 'Prototype'],
+    ...queryParams
+  })
 }
 
 async function fetchDecommissions(queryParams) {
-  const decommissionedStatuses = ['Decommissioned', 'Decommissioning']
   const entities = await fetchEntities({
-    includeDecommissioned: true,
+    status: ['Decommissioned', 'Decommissioning'],
     ...queryParams
   })
 
-  return entities
-    .filter((entity) => decommissionedStatuses.includes(entity.status))
-    .toSorted((a, b) =>
-      b.decommissioned.started.localeCompare(a.decommissioned.started)
-    )
+  return entities.toSorted((a, b) =>
+    b.decommissioned.started.localeCompare(a.decommissioned.started)
+  )
 }
 
 export {

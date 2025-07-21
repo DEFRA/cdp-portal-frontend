@@ -1,4 +1,3 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
@@ -64,6 +63,14 @@ function entityToEntityRow(entity) {
         }
       },
       {
+        headers: 'team',
+        entity: { kind: 'list', value: teams }
+      },
+      {
+        headers: 'kind',
+        html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType ? entity.subType : ''}`
+      },
+      {
         headers: 'tags',
         entity: {
           kind: 'group',
@@ -73,20 +80,6 @@ function entityToEntityRow(entity) {
             classes: tag.className
           }))
         }
-      },
-      {
-        headers: 'team',
-        entity: { kind: 'list', value: teams }
-      },
-      {
-        headers: 'kind',
-        entity: entity.subType
-          ? {
-              kind: 'tag',
-              classes: 'govuk-tag--blue',
-              value: entity.subType
-            }
-          : { kind: 'text', value: noValue }
       },
       {
         headers: 'github-url',

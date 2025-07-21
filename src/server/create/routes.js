@@ -12,6 +12,7 @@ import { createRepositoryRoutes } from '~/src/server/create/repository/routes.js
 import { createMicroserviceRoutes } from '~/src/server/create/microservice/routes.js'
 import { createPerfTestSuiteRoutes } from '~/src/server/create/perf-test-suite/routes.js'
 import { checkFeatureToggle } from '~/src/server/admin/features/helpers/check-feature-toggle.js'
+import { createPrototypeRoutes } from '~/src/server/create/prototype/routes.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -69,7 +70,8 @@ const create = {
           ...createMicroserviceRoutes,
           ...createRepositoryRoutes,
           ...createJourneyTestSuiteRoutes,
-          ...createPerfTestSuiteRoutes
+          ...createPerfTestSuiteRoutes,
+          ...createPrototypeRoutes
         ].map(serviceTeamAndAdminUserScope)
       )
     }

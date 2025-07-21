@@ -34,7 +34,7 @@ describe('#buildServicesTableData', () => {
     // Provide mock response for API calls
     nock(filtersEndpointUrl.origin)
       .get(filtersEndpointUrl.pathname)
-      .query({ type: 'Microservice' })
+      .query({ type: ['Microservice', 'Prototype'] })
       .reply(200, entitiesFiltersFixture)
   })
 
@@ -46,7 +46,7 @@ describe('#buildServicesTableData', () => {
     beforeEach(() => {
       nock(entitiesEndpointUrl.origin)
         .get(entitiesEndpointUrl.pathname)
-        .query({ type: 'Microservice' })
+        .query({ type: ['Microservice', 'Prototype'] })
         .reply(200, entityServicesFixture)
     })
 
@@ -121,7 +121,7 @@ describe('#buildServicesTableData', () => {
         // return no services
         nock(entitiesEndpointUrl.origin)
           .get(entitiesEndpointUrl.pathname)
-          .query({ type: 'Microservice', name: 'forms-service' })
+          .query({ type: ['Microservice', 'Prototype'], name: 'forms-service' })
           .reply(
             200,
             entityServicesFixture.filter(
@@ -167,7 +167,7 @@ describe('#buildServicesTableData', () => {
         // Provide admin only services
         nock(entitiesEndpointUrl.origin)
           .get(entitiesEndpointUrl.pathname)
-          .query({ type: 'Microservice', teamIds: adminGroupId })
+          .query({ type: ['Microservice', 'Prototype'], teamIds: adminGroupId })
           .reply(
             200,
             entityServicesFixture.filter((item) =>
@@ -217,7 +217,7 @@ describe('#buildServicesTableData', () => {
     beforeEach(async () => {
       nock(entitiesEndpointUrl.origin)
         .get(entitiesEndpointUrl.pathname)
-        .query({ type: 'Microservice' })
+        .query({ type: ['Microservice', 'Prototype'] })
         .reply(200, entityServicesFixture)
 
       result = await buildServicesTableData({

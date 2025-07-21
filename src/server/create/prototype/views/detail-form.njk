@@ -1,0 +1,105 @@
+{% extends "layouts/page.njk" %}
+
+{% from "availability/macro.njk" import appAvailability %}
+
+{% block content %}
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appPageHeading({
+      caption: "Create",
+      text: "Prototype",
+      intro: 'Built using <a href="https://prototype-kit.service.gov.uk/" class="app-link app-link--underline" target="_blank"
+      rel="noopener noreferrer">GOV.UK Prototype kit</a>. '
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        <form action="/create/prototype/detail" method="post" data-js="app-form-errors"
+              class="govuk-!-margin-bottom-4">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+
+          {% call govukFieldset() %}
+
+            {{ govukInput({
+              label: {
+                text: "Name",
+                classes: "app-label"
+              },
+              id: "name",
+              name: "repositoryName",
+              classes: "app-input app-input--wide",
+              hint: {
+                html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. my-service-prototype",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              value: formValues.repositoryName,
+              attributes: {
+                "data-js": "app-availability app-input-assistant",
+                "data-availability-target-id": "test-suite-name-availability",
+                "data-input-assistant-target-id": "name-input-assistant",
+                "data-1p-ignore": ""
+              },
+              errorMessage: errorMessageHelper(formErrors.repositoryName.message),
+              suffix: {
+                classes: "app-input__suffix",
+                html: appAvailability({
+                  dataFetcher: "fetchIsNameAvailable",
+                  targetId: "test-suite-name-availability"
+                })
+              }
+            }) }}
+
+            {{ appInputAssistant({
+              message: "That name is not ideal. Read ‘Naming conventions’ for some tips",
+              targetId: "name-input-assistant"
+            }) }}
+
+            {% include "create/partials/branch-text-input.njk" %}
+
+            {{ govukSelect({
+              id: "team-id",
+              name: "teamId",
+              label: {
+                text: "Owning Team",
+                classes: "app-label"
+              },
+              classes: "app-select",
+              value: formValues.teamId,
+              hint: {
+                text: "The CDP team that owns your repository",
+                classes: "app-hint"
+              },
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: errorMessageHelper(formErrors.teamId.message),
+              items: teamsOptions
+            }) }}
+
+          {% endcall %}
+
+          {{ govukButton({
+            classes: "app-button",
+            text: formButtonText
+          }) }}
+
+        </form>
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        <div class="govuk-!-margin-bottom-4">
+          {{ appNamingAdvice({
+            kind: "prototype",
+            categories: ['prototype', 'poc', 'mockup', 'user-research', 'ab-testing']
+          } ) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

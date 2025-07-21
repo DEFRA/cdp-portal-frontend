@@ -24,6 +24,23 @@ describe('#serviceToEntityRow', () => {
         },
         {
           entity: {
+            kind: 'list',
+            value: [
+              {
+                kind: 'link',
+                url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+                value: 'Platform'
+              }
+            ]
+          },
+          headers: 'team'
+        },
+        {
+          headers: 'kind',
+          html: '<strong class="govuk-!-margin-right-1">Microservice</strong> Backend'
+        },
+        {
+          entity: {
             kind: 'group',
             value: [
               {
@@ -39,27 +56,6 @@ describe('#serviceToEntityRow', () => {
             ]
           },
           headers: 'tags'
-        },
-        {
-          entity: {
-            kind: 'list',
-            value: [
-              {
-                kind: 'link',
-                url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                value: 'Platform'
-              }
-            ]
-          },
-          headers: 'team'
-        },
-        {
-          entity: {
-            classes: 'govuk-tag--blue',
-            kind: 'tag',
-            value: 'Backend'
-          },
-          headers: 'kind'
         },
         {
           entity: {
