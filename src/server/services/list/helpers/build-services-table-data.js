@@ -9,7 +9,10 @@ import { entityOwnerDecorator } from '~/src/server/test-suites/helpers/decorator
 
 async function buildServicesTableData({ service, teamId, userScopeUUIDs }) {
   const [filters, microservices] = await Promise.all([
-    fetchFilters({ type: ['Microservice', 'Prototype'] }),
+    fetchFilters({
+      type: ['Microservice', 'Prototype'],
+      status: ['Created', 'Creating']
+    }),
     fetchServices({ name: service, teamIds: [teamId] })
   ])
 
