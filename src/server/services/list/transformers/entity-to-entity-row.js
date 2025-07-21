@@ -68,7 +68,7 @@ function entityToEntityRow(entity) {
       },
       {
         headers: 'kind',
-        html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType ? entity.subType : ''}`
+        html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType ?? ''}`
       },
       {
         headers: 'tags',
