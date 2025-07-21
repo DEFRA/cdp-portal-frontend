@@ -1,8 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { creations } from '~/src/server/create/constants/creations.js'
+import { getCreations } from '~/src/server/create/constants/creations.js'
 import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
+import { isFeatureToggleActiveForPath } from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
 
 const chooseKindFormController = {
   options: {
@@ -16,16 +17,22 @@ const chooseKindFormController = {
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
     const query = request?.query
-    const createItems = Object.values(creations).map((creation) => ({
-      value: creation.kind,
-      text: creation.title,
-      hint: {
-        text: creation.hint
-      },
-      label: { classes: 'govuk-!-font-weight-bold' }
-    }))
+
+    const prototypesDisabled =
+      await isFeatureToggleActiveForPath('/create/prototype')
+
+    const createItems = Object.values(getCreations(prototypesDisabled)).map(
+      (creation) => ({
+        value: creation.kind,
+        text: creation.title,
+        hint: {
+          text: creation.hint
+        },
+        label: { classes: 'govuk-!-font-weight-bold' }
+      })
+    )
 
     return h.view('create/views/choose-kind-form', {
       pageTitle: 'Create',
