@@ -70,7 +70,7 @@ function transformDecommissionToSummary(repository, entity) {
       {
         key: { text: 'Type' },
         value: {
-          html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType}`
+          html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType ?? ''}`
         }
       },
       {
