@@ -1,6 +1,6 @@
 {% if shutteredUrls | length %}
   <div>
-    <ul class="govuk-list govuk-!-margin-bottom-0">
+    <ul class="govuk-list govuk-!-margin-bottom-2">
       {% for shutteredUrl in shutteredUrls %}
         <li>
           {% call appWarning({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-0", isInverse: false }) %}
