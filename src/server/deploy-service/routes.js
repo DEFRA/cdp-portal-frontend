@@ -10,6 +10,7 @@ import { deployController } from '~/src/server/deploy-service/controllers/deploy
 import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form.js'
 import { availableVersionsController } from '~/src/server/deploy-service/controllers/available-versions.js'
 import { availableMemoryController } from '~/src/server/deploy-service/controllers/available-memory.js'
+import { availableEnvironmentsController } from '~/src/server/deploy-service/controllers/available-environments.js'
 import {
   urls,
   formSteps
@@ -81,6 +82,11 @@ const deployService = {
             method: 'GET',
             path: '/deploy-service/available-memory',
             ...availableMemoryController
+          },
+          {
+            method: 'GET',
+            path: '/deploy-service/available-environments',
+            ...availableEnvironmentsController
           }
         ].map(serviceTeamAndAdminUserScope)
       )

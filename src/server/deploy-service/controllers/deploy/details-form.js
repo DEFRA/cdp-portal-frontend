@@ -9,6 +9,7 @@ import { provideStepData } from '~/src/server/common/helpers/multistep-form/prov
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
 import { fetchServices } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
 
 const detailsFormController = {
   options: {
@@ -45,7 +46,9 @@ const detailsFormController = {
       services.map((service) => service.name)
     )
     const environments = getEnvironments(userScopes)
-    const environmentOptions = environments ? buildOptions(environments) : []
+    const environmentOptions = environments
+      ? buildSuggestions(environments)
+      : []
 
     const { runningServices, availableVersionOptions, latestVersions } =
       await getAdditionalData(imageName)

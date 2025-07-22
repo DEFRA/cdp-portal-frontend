@@ -170,9 +170,9 @@ describe('Autocomplete Component', () => {
       loader: 'mock-loader'
     }
     const siblingDataFetcher = {
-      name: 'fetchVersions',
-      target: 'deploy-version',
-      targetLoader: 'deploy-version-loader'
+      names: ['fetchVersions'],
+      targets: ['deploy-version'],
+      targetLoaders: ['deploy-version-loader']
     }
     const publishTo = 'autocompleteUpdate-version'
     const suggestionClasses = 'app-autocomplete__suggestion--custom'
@@ -212,14 +212,14 @@ describe('Autocomplete Component', () => {
     })
 
     test('Should render with expected data sibling fetcher attributes', () => {
-      expect($input.data('sibling-data-fetcher-name')).toBe(
-        siblingDataFetcher.name
+      expect($input.data('sibling-data-fetcher-names')).toBe(
+        siblingDataFetcher.names.at(0)
       )
-      expect($input.data('sibling-data-fetcher-target')).toBe(
-        siblingDataFetcher.target
+      expect($input.data('sibling-data-fetcher-targets')).toBe(
+        siblingDataFetcher.targets.at(0)
       )
-      expect($input.data('sibling-data-fetcher-target-loader')).toBe(
-        siblingDataFetcher.targetLoader
+      expect($input.data('sibling-data-fetcher-target-loaders')).toBe(
+        siblingDataFetcher.targetLoaders.at(0)
       )
     })
 

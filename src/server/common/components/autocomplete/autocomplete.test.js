@@ -868,9 +868,9 @@ describe('#autocomplete', () => {
       } = setupMultipleAutoCompletes({
         params: {
           siblingDataFetcher: {
-            name: 'fetchVersions',
-            target: 'version',
-            targetLoader: 'version-loader'
+            names: ['fetchVersions'],
+            targets: ['version'],
+            targetLoaders: ['version-loader']
           }
         }
       }))
