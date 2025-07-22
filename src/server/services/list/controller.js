@@ -37,9 +37,8 @@ const servicesListController = {
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
           { id: 'service', text: 'Service', width: '20', isLeftAligned: true },
-          { id: 'team', text: 'Team', width: '15' },
-          { id: 'type', text: 'Type', width: '15' },
-          { id: 'tags', text: 'Tags', width: '10' },
+          { id: 'team', text: 'Team', width: '20' },
+          { id: 'type', text: 'Type', width: '20' },
           { id: 'github-url', text: 'GitHub Repository', width: '25' },
           { id: 'created', text: 'Created', width: '15' }
         ],

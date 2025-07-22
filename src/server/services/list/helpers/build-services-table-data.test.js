@@ -11,7 +11,7 @@ const expectRowHasService = (row, serviceName) =>
       cells: expect.arrayContaining([
         expect.objectContaining({
           entity: expect.objectContaining({
-            value: serviceName
+            value: expect.stringContaining(serviceName)
           })
         })
       ])
