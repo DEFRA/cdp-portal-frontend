@@ -24,7 +24,7 @@ describe('Service Status page', () => {
 
       const repositoryName = 'mock-service'
       const status = 'Creating'
-      mockServiceEntityCall(repositoryName, 'frontend', status)
+      mockServiceEntityCall(repositoryName, 'frontend', status, 'Microservice')
       mockServiceEntityStatusCall(repositoryName, 'frontend', status)
       mockRepositoryCall(repositoryName, ['frontend'])
       mockFetchShutteringUrlsCall()
@@ -85,7 +85,7 @@ describe('Service Status page', () => {
 
       const repositoryName = 'mock-service'
       const status = 'Created'
-      mockServiceEntityCall(repositoryName, 'frontend', status)
+      mockServiceEntityCall(repositoryName, 'frontend', status, 'Microservice')
       mockServiceEntityStatusCall(repositoryName, 'frontend', status)
       mockRepositoryCall(repositoryName, ['frontend'])
       server = await initialiseServer()

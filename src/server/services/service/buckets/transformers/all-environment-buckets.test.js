@@ -47,7 +47,7 @@ describe('#allEnvironmentBuckets', () => {
   describe('With a tenant team', () => {
     test('Should return expected transformed buckets', () => {
       const result = allEnvironmentBuckets(
-        getEnvironments(),
+        getEnvironments([]),
         allEnvironmentBucketsFixture
       )
 
