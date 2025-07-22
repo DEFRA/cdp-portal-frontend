@@ -20,7 +20,8 @@ const decommissionFormController = {
     const repositoriesOptions = buildOptions(repositoriesValues)
 
     return h.view('admin/decommissions/views/decommission-form', {
-      pageTitle: 'Decommission micro-service',
+      pageTitle:
+        'Decommission Microservice, Prototype, Test-Suite and Repository',
       repositoriesOptions,
       breadcrumbs: [
         {

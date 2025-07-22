@@ -188,9 +188,10 @@ export function mockEntityCall(repositoryName, type, subType, status) {
 export function mockServiceEntityCall(
   repositoryName,
   frontendOrBackend,
-  status = 'Created'
+  status = 'Created',
+  type = 'Microservice'
 ) {
-  mockEntityCall(repositoryName, 'Microservice', frontendOrBackend, status)
+  mockEntityCall(repositoryName, type, frontendOrBackend, status)
 }
 
 export function mockServiceEntityStatusCall(
@@ -365,7 +366,7 @@ export function mockServicesAdditionalCalls({
   mockAvailableVersions()
   mockFetchShutteringUrlsCall(repositoryName)
 
-  if (frontendOrBackend.toLowerCase() === 'backend') {
+  if (frontendOrBackend?.toLowerCase() === 'backend') {
     mockApiGatewaysCall(repositoryName)
   }
 

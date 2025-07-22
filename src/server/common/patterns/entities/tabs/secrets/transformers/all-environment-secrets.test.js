@@ -66,7 +66,7 @@ describe('#allEnvironmentSecrets', () => {
   describe('With a tenant team', () => {
     test('Should return expected transformed secrets', () => {
       const result = allEnvironmentSecrets(
-        getEnvironments(),
+        getEnvironments([]),
         allEnvironmentSecretsFixture,
         ['REDIS_KEY_PREFIX']
       )

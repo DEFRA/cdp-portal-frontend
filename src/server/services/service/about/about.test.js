@@ -190,4 +190,68 @@ describe('Services', () => {
       })
     })
   })
+
+  describe('About prototype service page', () => {
+    const serviceName = 'mock-prototype'
+
+    beforeAll(async () => {
+      jest.useFakeTimers({ advanceTimers: true })
+      jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+
+      mockServiceEntityCall(serviceName, 'frontend', 'Created', 'Prototype')
+      mockServicesAdditionalCalls({
+        repositoryName: serviceName
+      })
+      server = await initialiseServer()
+    })
+
+    afterAll(async () => {
+      await server.stop({ timeout: 0 })
+      jest.useRealTimers()
+    })
+
+    test('logged in admin user restrictedTechPostgres permission', async () => {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}`,
+        isAdmin: true,
+        isTenant: true
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toMatchFile()
+    })
+
+    test('logged in tenant user restrictedTechPostgres permission', async () => {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}`,
+        isAdmin: false,
+        isTenant: true
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toMatchFile()
+    })
+
+    test('logged in tenant user', async () => {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}`,
+        isAdmin: false,
+        isTenant: true
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toMatchFile()
+    })
+
+    test('logged out user', async () => {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}`,
+        isAdmin: false,
+        isTenant: false
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toMatchFile()
+    })
+  })
 })

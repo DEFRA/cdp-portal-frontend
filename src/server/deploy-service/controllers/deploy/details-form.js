@@ -8,7 +8,11 @@ import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/de
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
-import { fetchServices } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import {
+  fetchEntity,
+  fetchServices
+} from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 
 const detailsFormController = {
   options: {
@@ -41,10 +45,12 @@ const detailsFormController = {
       statusClassname: provideDatabaseStatusClassname(migration.status)
     }))
 
+    const entity = await fetchEntity(imageName).catch(nullify404)
+
     const imageNameOptions = buildOptions(
       services.map((service) => service.name)
     )
-    const environments = getEnvironments(userScopes)
+    const environments = getEnvironments(userScopes, entity?.type)
     const environmentOptions = environments ? buildOptions(environments) : []
 
     const { runningServices, availableVersionOptions, latestVersions } =

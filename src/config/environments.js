@@ -10,4 +10,10 @@ const environments = {
   prod: { kebabName: 'prod', scope: null }
 }
 
-export { environments }
+const prototypeEnvironments = [
+  environments.infraDev,
+  environments.dev,
+  environments.extTest
+]
+
+export { environments, prototypeEnvironments }

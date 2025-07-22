@@ -59,11 +59,16 @@
               value: imageName or formValues.imageName,
               errorMessage: errorMessageHelper(formErrors.imageName.message),
               suggestions: imageNameOptions,
-              siblingDataFetcher: {
+              siblingDataFetchers: [{
                 name: "fetchVersions",
                 target: "deploy-version",
                 targetLoader: "deploy-version-loader"
-              },
+              },{
+                name: "fetchEnvironments",
+                target: "deploy-environments",
+                targetLoader: "deploy-environments-loader"
+              }
+          ],
               publishTo: eventName.autocompleteUpdate + "-version"
             }) }}
 
