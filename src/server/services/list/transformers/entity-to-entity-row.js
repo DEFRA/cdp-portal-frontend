@@ -1,10 +1,32 @@
 import { formatText } from '~/src/config/nunjucks/filters/filters.js'
 import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
 import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
+import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
 import {
   renderComponent,
   renderIcon
 } from '~/src/server/common/helpers/nunjucks/render-component.js'
+
+function buildServiceDescription(entity) {
+  const tagsHtml =
+    entity.tags
+      ?.map((tagName) => {
+        const tagDetail = serviceTags[tagName]
+
+        return renderTag({
+          text: tagDetail.displayName,
+          classes: tagDetail.className
+        })
+      })
+      .filter(Boolean) ?? []
+
+  const tagsMarkup = `<div class="app-!-layout-centered govuk-!-margin-top-2">
+                        <div class="app-entity-table__row-caption">${tagsHtml.join(' ')}</div>
+                      </div>`
+
+  return `<a class="app-link app-entity-table__row-header" href="/services/${entity.name}" data-testid="app-link">${entity.name}</a>
+          ${tagsHtml.length > 0 ? tagsMarkup : ''}`
+}
 
 function entityToEntityRow(entity) {
   const status = entity.status
@@ -38,13 +60,13 @@ function entityToEntityRow(entity) {
   const icon = entity.isOwner
     ? renderComponent(
         'tool-tip',
-        { text: 'Owned Service', classes: 'app-tool-tip--small' },
+        {
+          text: 'Owned Service',
+          classes: 'app-tool-tip--small'
+        },
         [renderIcon('star-icon', { classes: 'app-icon--minuscule' })]
       )
     : ''
-
-  const tags =
-    entity.tags?.map((tagName) => serviceTags[tagName]).filter(Boolean) ?? []
 
   return {
     cells: [
@@ -56,11 +78,7 @@ function entityToEntityRow(entity) {
       },
       {
         headers: 'service',
-        entity: {
-          kind: 'link',
-          value: entity.name,
-          url: `/services/${entity.name}`
-        }
+        html: buildServiceDescription(entity)
       },
       {
         headers: 'team',
@@ -69,17 +87,6 @@ function entityToEntityRow(entity) {
       {
         headers: 'kind',
         html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType ?? ''}`
-      },
-      {
-        headers: 'tags',
-        entity: {
-          kind: 'group',
-          value: tags.map((tag) => ({
-            kind: 'tag',
-            value: tag.displayName,
-            classes: tag.className
-          }))
-        }
       },
       {
         headers: 'github-url',

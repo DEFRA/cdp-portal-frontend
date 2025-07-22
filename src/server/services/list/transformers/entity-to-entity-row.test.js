@@ -6,21 +6,17 @@ describe('#serviceToEntityRow', () => {
     expect(entityToEntityRow(entityServicesFixture.at(0))).toEqual({
       cells: [
         {
+          classes: 'app-entity-table__cell--owned',
           entity: {
             kind: 'html',
             value: ''
           },
           headers: 'owner',
-          isCentered: true,
-          classes: 'app-entity-table__cell--owned'
+          isCentered: true
         },
         {
-          entity: {
-            kind: 'link',
-            url: '/services/cdp-portal-backend',
-            value: 'cdp-portal-backend'
-          },
-          headers: 'service'
+          headers: 'service',
+          html: expect.stringContaining('cdp-portal-backend')
         },
         {
           entity: {
@@ -38,24 +34,6 @@ describe('#serviceToEntityRow', () => {
         {
           headers: 'kind',
           html: '<strong class="govuk-!-margin-right-1">Microservice</strong> Backend'
-        },
-        {
-          entity: {
-            kind: 'group',
-            value: [
-              {
-                classes: 'govuk-tag--green',
-                kind: 'tag',
-                value: 'Live'
-              },
-              {
-                classes: 'govuk-tag--yellow',
-                kind: 'tag',
-                value: 'Beta'
-              }
-            ]
-          },
-          headers: 'tags'
         },
         {
           entity: {

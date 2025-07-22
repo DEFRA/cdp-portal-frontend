@@ -19,13 +19,13 @@ const serviceTags = {
     name: 'beta',
     displayName: 'Beta',
     description: 'Service is like but in public/private beta',
-    className: 'govuk-tag--yellow'
+    className: 'govuk-tag--light-blue'
   },
   prr: {
     name: 'prr',
     displayName: 'PRR',
     description: 'Service has passed it PRR',
-    className: 'govuk-tag--orange'
+    className: 'govuk-tag--turquoise'
   }
 }
 
