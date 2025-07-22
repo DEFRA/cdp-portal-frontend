@@ -1,10 +1,5 @@
 {% extends "layouts/page.njk" %}
 
-{% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
-{% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
-{% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
-{% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
-
 {% set isLoading = deployment.status == "pending" or deployment.status == "requested" or deployment.status == "stopping" %}
 
 {% block content %}
