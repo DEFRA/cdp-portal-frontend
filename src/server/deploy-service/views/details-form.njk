@@ -39,7 +39,9 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <form action="/deploy-service/details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}" method="post"
+        <form action="/deploy-service/details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}"
+              method="post"
+              class="govuk-!-margin-bottom-4"
               data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
@@ -59,16 +61,11 @@
               value: imageName or formValues.imageName,
               errorMessage: errorMessageHelper(formErrors.imageName.message),
               suggestions: imageNameOptions,
-              siblingDataFetchers: [{
-                name: "fetchVersions",
-                target: "deploy-version",
-                targetLoader: "deploy-version-loader"
-              },{
-                name: "fetchEnvironments",
-                target: "deploy-environments",
-                targetLoader: "deploy-environments-loader"
-              }
-          ],
+              siblingDataFetcher: {
+                names: ["fetchVersions", "fetchEnvironments"],
+                targets: ["deploy-version", "deploy-environment"],
+                targetLoaders: ["deploy-version-loader", "deploy-environment-loader"]
+              },
               publishTo: eventName.autocompleteUpdate + "-version"
             }) }}
 
@@ -106,26 +103,26 @@
 
             {% endcall %}
 
-            {{ govukSelect({
+            {{ appAutocomplete({
               id: "environment",
               name: "environment",
               label: {
                 text: "Environment",
                 classes: "app-label"
               },
-              classes: "app-select",
-              value: formValues.environment,
               hint: {
-                text: "The environment to deploy to",
-                classes: "app-hint"
+                text: "The environment to deploy to"
               },
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
+              value: formValues.environment,
+              dataJs: "deploy-environment",
+              subscribeTo: eventName.autocompleteUpdate + "-version",
+              noSuggestionsMessage: "choose Image name",
               errorMessage: errorMessageHelper(formErrors.environment.message),
-              items: environmentOptions
+              suggestions: environmentOptions,
+              loader: {
+                name: "deploy-environment-loader"
+              }
             }) }}
-
           {% endcall %}
 
           {{ govukButton({

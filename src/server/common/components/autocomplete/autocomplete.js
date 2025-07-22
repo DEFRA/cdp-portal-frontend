@@ -100,17 +100,22 @@ class Autocomplete {
       )
     }
 
-    const siblingDataFetcherName = $select.dataset.siblingDataFetcherName
-    this.siblingDataFetcher = {
-      isEnabled: Boolean(siblingDataFetcherName),
-      name: siblingDataFetcherName,
+    const siblingDataFetcherNames =
+      $select.dataset.siblingDataFetcherNames?.split(',') ?? []
+    const siblingDataFetcherTargets =
+      $select.dataset.siblingDataFetcherTargets?.split(',') ?? []
+    const siblingDataFetcherTargetLoaders =
+      $select.dataset.siblingDataFetcherTargetLoaders?.split(',') ?? []
+
+    this.siblingDataFetchers = siblingDataFetcherNames.map((name, index) => ({
+      name,
       $target: document.querySelector(
-        `[data-js*="${$select.dataset.siblingDataFetcherTarget}"]`
+        `[data-js*="${siblingDataFetcherTargets.at(index)}"]`
       ),
       $targetLoader: document.querySelector(
-        `[data-js*="${$select.dataset.siblingDataFetcherTargetLoader}"]`
+        `[data-js*="${siblingDataFetcherTargetLoaders.at(index)}"]`
       )
-    }
+    }))
 
     const suggestion = this.getSuggestionByValue($select.value)
 
@@ -561,30 +566,39 @@ class Autocomplete {
   }
 
   /**
-   * Call sibling data fetcher method to fetch suggestions for a targeted sibling input in the same form
-   * @param {string} value - text input value
+   * Call all sibling data fetcher methods to fetch suggestions for a targeted sibling input in the same form
+   * @param {string} inputValue - text input value
    * @returns {undefined|Suggestions|Error}
    */
-  callSiblingDataFetcher(value) {
-    const siblingDataFetcherMethod = window.cdp[this.siblingDataFetcher.name]
-    const targetId = this.siblingDataFetcher.$target?.id
+  callSiblingDataFetchers(inputValue) {
+    this.siblingDataFetchers.map((siblingDataFetcher) =>
+      this.callSiblingFetcher(
+        inputValue,
+        siblingDataFetcher.name,
+        siblingDataFetcher.$target?.id,
+        siblingDataFetcher.$targetLoader
+      )
+    )
+  }
+
+  callSiblingFetcher(inputValue, name, targetId, $targetLoader) {
+    const siblingDataFetcherMethod = window.cdp[name]
 
     if (!targetId || typeof siblingDataFetcherMethod !== 'function') {
       return
     }
 
-    if (!value) {
+    if (!inputValue) {
       window.cdp.suggestions[targetId] = []
       return
     }
 
     const isLoadingClassName = 'app-loader--is-loading'
-    const $targetLoader = this.siblingDataFetcher.$targetLoader
     const delayedLoader = setTimeout(() => {
       $targetLoader.classList.add(isLoadingClassName)
     }, 200)
 
-    return siblingDataFetcherMethod(value)
+    return siblingDataFetcherMethod(inputValue)
       .then((fetchedSuggestions) => {
         const suggestionOptions = buildSuggestions(fetchedSuggestions)
         window.cdp.suggestions[targetId] = suggestionOptions
@@ -623,8 +637,8 @@ class Autocomplete {
       this.publishEvent(this.$autocompleteHiddenInput.name, inputValue)
     }
 
-    if (this.siblingDataFetcher.isEnabled) {
-      this.callSiblingDataFetcher(inputValue)
+    if (this.siblingDataFetchers?.length) {
+      this.callSiblingDataFetchers(inputValue)
     }
   }
 
