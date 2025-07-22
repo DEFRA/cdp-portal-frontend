@@ -8,11 +8,12 @@ import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/de
 import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
 import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
+import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
+import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
 import {
   fetchEntity,
   fetchServices
 } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
 
 const detailsFormController = {
   options: {
@@ -50,8 +51,11 @@ const detailsFormController = {
     const imageNameOptions = buildOptions(
       services.map((service) => service.name)
     )
+
     const environments = getEnvironments(userScopes, entity?.type)
-    const environmentOptions = environments ? buildOptions(environments) : []
+    const environmentOptions = environments.length
+      ? buildSuggestions(environments)
+      : []
 
     const { runningServices, availableVersionOptions, latestVersions } =
       await getAdditionalData(imageName)

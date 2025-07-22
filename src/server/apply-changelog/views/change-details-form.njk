@@ -70,9 +70,9 @@
               errorMessage: errorMessageHelper(formErrors.serviceName.message),
               suggestions: postgresImageNameOptions,
               siblingDataFetcher: {
-                name: "fetchMigrations",
-                target: "db-update-version",
-                targetLoader: "db-update-version-loader"
+                names: ["fetchMigrations"],
+                targets: ["db-update-version"],
+                targetLoaders: ["db-update-version-loader"]
               },
               publishTo: eventName.autocompleteUpdate + "db-update-version"
             }) }}
