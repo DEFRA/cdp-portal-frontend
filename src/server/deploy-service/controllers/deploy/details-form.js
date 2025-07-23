@@ -54,7 +54,12 @@ const detailsFormController = {
 
     const environments = getEnvironments(userScopes, entity?.type)
     const environmentOptions = environments.length
-      ? buildSuggestions(environments)
+      ? buildSuggestions(
+          environments.map((environment) => ({
+            text: environment,
+            value: environment
+          }))
+        )
       : []
 
     const { runningServices, availableVersionOptions, latestVersions } =
