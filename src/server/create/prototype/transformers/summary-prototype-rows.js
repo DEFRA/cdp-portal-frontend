@@ -8,7 +8,9 @@ function buildRow(name, value, stepPath) {
 
   return {
     key: { text: name, classes: 'app-summary__heading' },
-    value: { html: value },
+    value: {
+      html: `<span data-testid='row-${name.replaceAll(/\s/g, '')}'>${value}</span>`
+    },
     ...(stepPath && {
       actions: {
         classes: 'app-summary__action',
