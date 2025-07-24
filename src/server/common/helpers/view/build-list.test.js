@@ -1,4 +1,5 @@
-import { buildList } from '~/src/server/common/helpers/view/build-list.js'
+import { describe, expect, test } from 'vitest'
+import { buildList } from './build-list.js'
 
 describe('#buildList', () => {
   test('Should provide expected list', () => {

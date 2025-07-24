@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchTemplates } from '~/src/server/utilities/helpers/fetch/fetch-templates.js'
-import { transformRepositoryToSummary } from '~/src/server/utilities/transformers/repository-to-summary.js'
+import { fetchTemplates } from '../helpers/fetch/fetch-templates.js'
+import { transformRepositoryToSummary } from '../transformers/repository-to-summary.js'
 
 const templateController = {
   options: {

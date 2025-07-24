@@ -1,4 +1,4 @@
-import { pagination } from '~/src/server/common/constants/pagination.js'
+import { pagination } from '../../../../../server/common/constants/pagination.js'
 
 function clearFilters(event) {
   event.preventDefault()

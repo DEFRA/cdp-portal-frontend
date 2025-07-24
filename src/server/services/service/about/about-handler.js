@@ -1,12 +1,12 @@
 import Boom from '@hapi/boom'
 
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
-import { availableEnvironments } from '~/src/server/services/service/about/helpers/available-environments.js'
-import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
-import { fetchAboutServiceData } from '~/src/server/services/service/about/helpers/fetch-about-service-data.js'
-import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
+import { scopes } from '../../../common/constants/scopes.js'
+import { sortBy } from '../../../common/helpers/sort/sort-by.js'
+import { fetchTenantService } from '../../../common/helpers/fetch/fetch-tenant-service.js'
+import { availableEnvironments } from './helpers/available-environments.js'
+import { transformRunningServices } from './transformers/running-services.js'
+import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
+import { transformServiceToSummary } from './transformers/service-to-summary.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity

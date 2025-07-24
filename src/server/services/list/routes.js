@@ -1,4 +1,4 @@
-import { servicesListController } from '~/src/server/services/list/controller.js'
+import { servicesListController } from './controller.js'
 
 const listServices = {
   plugin: {

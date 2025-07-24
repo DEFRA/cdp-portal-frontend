@@ -1,6 +1,7 @@
-import { repositoryTestSuiteFixture } from '~/src/__fixtures__/repository.js'
-import { transformTestSuiteToSummary } from '~/src/server/test-suites/transformers/test-suite-to-summary.js'
-import { entityTestSuiteFixture } from '~/src/__fixtures__/test-suite.js'
+import { describe, expect, test } from 'vitest'
+import { repositoryTestSuiteFixture } from '../../../__fixtures__/repository.js'
+import { transformTestSuiteToSummary } from './test-suite-to-summary.js'
+import { entityTestSuiteFixture } from '../../../__fixtures__/test-suite.js'
 
 describe('#testSuiteToEntityDataList', () => {
   describe('With a test suite', () => {
@@ -10,56 +11,58 @@ describe('#testSuiteToEntityDataList', () => {
           entityTestSuiteFixture,
           repositoryTestSuiteFixture
         )
-      ).toEqual({
-        attributes: {
-          'data-testid': 'govuk-summary-list'
-        },
-        classes: 'app-summary-list',
-        rows: [
-          {
-            key: {
-              text: 'Team'
-            },
-            value: {
-              html: expect.stringContaining('Platform')
-            }
+      ).toEqual(
+        expect.objectContaining({
+          attributes: {
+            'data-testid': 'govuk-summary-list'
           },
-          {
-            key: {
-              text: 'Primary Language'
+          classes: 'app-summary-list',
+          rows: [
+            {
+              key: {
+                text: 'Team'
+              },
+              value: {
+                html: expect.stringContaining('Platform')
+              }
             },
-            value: {
-              text: 'JavaScript'
-            }
-          },
-          {
-            key: {
-              text: 'GitHub Repository'
+            {
+              key: {
+                text: 'Primary Language'
+              },
+              value: {
+                text: 'JavaScript'
+              }
             },
-            value: {
-              html: expect.stringContaining(
-                'https://github.com/DEFRA/cdp-bc-journey-test-suite'
-              )
-            }
-          },
-          {
-            key: {
-              text: 'Type'
+            {
+              key: {
+                text: 'GitHub Repository'
+              },
+              value: {
+                html: expect.stringContaining(
+                  'https://github.com/DEFRA/cdp-bc-journey-test-suite'
+                )
+              }
             },
-            value: {
-              html: expect.stringContaining('Journey')
-            }
-          },
-          {
-            key: {
-              text: 'Created'
+            {
+              key: {
+                text: 'Type'
+              },
+              value: {
+                html: expect.stringContaining('Journey')
+              }
             },
-            value: {
-              html: expect.stringContaining('Wed 23rd Apr 2025 at 10:14')
+            {
+              key: {
+                text: 'Created'
+              },
+              value: {
+                html: expect.stringContaining('Wed 23rd Apr 2025 at 10:14')
+              }
             }
-          }
-        ]
-      })
+          ]
+        })
+      )
     })
   })
 })

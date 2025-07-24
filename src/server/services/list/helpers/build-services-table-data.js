@@ -1,11 +1,11 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
-import { entityToEntityRow } from '~/src/server/services/list/transformers/entity-to-entity-row.js'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
-import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
-import { fetchServices } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { fetchFilters } from '~/src/server/common/helpers/fetch/fetch-filters.js'
-import { entityOwnerDecorator } from '~/src/server/test-suites/helpers/decorators/entity-owner-decorator.js'
+import { sortBy } from '../../../common/helpers/sort/sort-by.js'
+import { sortByName } from '../../../common/helpers/sort/sort-by-name.js'
+import { entityToEntityRow } from '../transformers/entity-to-entity-row.js'
+import { buildSuggestions } from '../../../common/components/autocomplete/helpers/build-suggestions.js'
+import { sortByOwner } from '../../../common/helpers/sort/sort-by-owner.js'
+import { fetchServices } from '../../../common/helpers/fetch/fetch-entities.js'
+import { fetchFilters } from '../../../common/helpers/fetch/fetch-filters.js'
+import { entityOwnerDecorator } from '../../../test-suites/helpers/decorators/entity-owner-decorator.js'
 
 async function buildServicesTableData({ service, teamId, userScopeUUIDs }) {
   const [filters, microservices] = await Promise.all([

@@ -3,13 +3,13 @@ import Boom from '@hapi/boom'
 import uniqBy from 'lodash/uniqBy.js'
 import filter from 'lodash/filter.js'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
 import {
   fetchCdpTeam,
   searchCdpUsers
-} from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { presentUsersToAdd } from '~/src/server/admin/teams/helpers/pre/present-users-to-add.js'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
+} from '../../../admin/teams/helpers/fetch/index.js'
+import { presentUsersToAdd } from '../../../admin/teams/helpers/pre/present-users-to-add.js'
+import { provideCdpTeam } from '../../../admin/teams/helpers/pre/provide-cdp-team.js'
 
 const addMemberFormController = {
   options: {

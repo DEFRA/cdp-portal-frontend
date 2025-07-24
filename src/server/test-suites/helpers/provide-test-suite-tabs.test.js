@@ -1,10 +1,11 @@
-import { provideTestSuiteTabs } from '~/src/server/test-suites/helpers/provide-test-suite-tabs.js'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { provideTestSuiteTabs } from './provide-test-suite-tabs.js'
 
-const mockRouteLookup = jest.fn()
-const mockUserIsOwner = jest.fn()
-const mockUserSession = jest.fn()
-const mockUserIsAdmin = jest.fn()
-const mockUserIsTenant = jest.fn()
+const mockRouteLookup = vi.fn()
+const mockUserIsOwner = vi.fn()
+const mockUserSession = vi.fn()
+const mockUserIsAdmin = vi.fn()
+const mockUserIsTenant = vi.fn()
 
 describe('#provideTestSuiteTabs', () => {
   const mockEntityName = 'cdp-env-test-suite'

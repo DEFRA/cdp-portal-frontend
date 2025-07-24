@@ -1,8 +1,8 @@
-import { config } from '~/src/config/config.js'
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
-import { setStepComplete } from '~/src/server/create/helpers/form/index.js'
+import { config } from '../../../../config/config.js'
+import { provideCreate } from '../../helpers/pre/provide-create.js'
+import { buildLink } from '../../../common/helpers/view/build-link.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { setStepComplete } from '../../helpers/form/index.js'
 
 const repositorySuccessController = {
   options: {

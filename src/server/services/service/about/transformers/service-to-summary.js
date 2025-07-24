@@ -1,10 +1,10 @@
-import { config } from '~/src/config/config.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { buildList } from '~/src/server/common/helpers/view/build-list.js'
-import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+import { config } from '../../../../../config/config.js'
+import { noValue } from '../../../../common/constants/no-value.js'
+import { buildLink } from '../../../../common/helpers/view/build-link.js'
+import { renderComponent } from '../../../../common/helpers/nunjucks/render-component.js'
+import { buildList } from '../../../../common/helpers/view/build-list.js'
+import { serviceTags } from '../../../../admin/tags/helpers/service-tags.js'
+import { renderTag } from '../../../../common/helpers/view/render-tag.js'
 
 function transformServiceToSummary(repository, entity) {
   const dockerHubUrl = config.get('dockerHubUrl')

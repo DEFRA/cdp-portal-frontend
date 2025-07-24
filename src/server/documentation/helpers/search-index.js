@@ -6,12 +6,12 @@ import { performance } from 'node:perf_hooks'
 import markedPlaintify from 'marked-plaintify'
 import { escapeRegex } from '@hapi/hoek'
 
-import { excludedMarkdownFiles } from '~/src/server/documentation/constants/excluded-markdown-files.js'
+import { excludedMarkdownFiles } from '../constants/excluded-markdown-files.js'
 import {
   fetchS3File,
   fetchHeadObject,
   fetchListObjects
-} from '~/src/server/documentation/helpers/s3-file-handler.js'
+} from './s3-file-handler.js'
 
 const store = {}
 const convertToPlainTextMarked = new Marked({ gfm: true }).use(

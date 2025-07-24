@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { checkNameIsAvailable } from '~/src/server/create/helpers/validator/check-name-is-available.js'
+import { checkNameIsAvailable } from '../helpers/validator/check-name-is-available.js'
 
 const isNameAvailableController = {
   options: {

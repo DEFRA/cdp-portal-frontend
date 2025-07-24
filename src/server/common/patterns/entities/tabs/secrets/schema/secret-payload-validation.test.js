@@ -1,8 +1,9 @@
+import { describe, expect, test } from 'vitest'
 import Joi from 'joi'
 
-import { secretPayloadValidation } from '~/src/server/common/patterns/entities/tabs/secrets/schema/secret-payload-validation.js'
-import { teamFixture } from '~/src/__fixtures__/team.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { secretPayloadValidation } from './secret-payload-validation.js'
+import { teamFixture } from '../../../../../../../__fixtures__/team.js'
+import { scopes } from '../../../../../constants/scopes.js'
 
 describe('#secretPayloadValidation', () => {
   const mockTenantTeamId = '087d4a80-002b-48cf-a7d3-aa60b67784f0'

@@ -1,16 +1,17 @@
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockEntityCall,
   mockRepositoryCall,
   mockRepositoryEntityStatusCall
-} from '~/test-helpers/common-page-rendering.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
-import { REPOSITORY } from '~/src/server/common/patterns/entities/tabs/constants.js'
+} from '../../../test-helpers/common-page-rendering.js'
+import { statusCodes } from '../common/constants/status-codes.js'
+import { REPOSITORY } from '../common/patterns/entities/tabs/constants.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
+vi.mock('../common/helpers/fetch/fetch-repository.js')
+vi.mock('../common/helpers/fetch/fetch-entities.js')
+vi.mock('../common/helpers/auth/get-user-session.js')
 
 describe('Repository Status page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -18,8 +19,8 @@ describe('Repository Status page', () => {
 
   describe('Creating status', () => {
     beforeAll(async () => {
-      jest.useFakeTimers({ advanceTimers: true })
-      jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
       const repositoryName = 'mock-repository'
       const status = 'Creating'
@@ -31,7 +32,7 @@ describe('Repository Status page', () => {
 
     afterAll(async () => {
       await server.stop({ timeout: 0 })
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     test('logged in admin user', async () => {
@@ -78,8 +79,8 @@ describe('Repository Status page', () => {
 
   describe('Created status', () => {
     beforeAll(async () => {
-      jest.useFakeTimers({ advanceTimers: true })
-      jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
       const repositoryName = 'mock-repository'
       const status = 'Created'
@@ -91,7 +92,7 @@ describe('Repository Status page', () => {
 
     afterAll(async () => {
       await server.stop({ timeout: 0 })
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     test('logged in admin user', async () => {

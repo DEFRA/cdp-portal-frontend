@@ -1,5 +1,5 @@
-import { history } from '~/src/client/common/helpers/history.js'
-import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
+import { history } from '../../../../client/common/helpers/history.js'
+import { Autocomplete } from './autocomplete.js'
 
 /**
  * @classdesc AutoComplete Search component

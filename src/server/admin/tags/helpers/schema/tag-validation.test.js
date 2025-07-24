@@ -1,6 +1,7 @@
-import { tagValidation } from '~/src/server/admin/tags/helpers/schema/tag-validation.js'
+import { describe, expect, test } from 'vitest'
+import { tagValidation } from './tag-validation.js'
 import Joi from 'joi'
-import { validation } from '~/src/server/common/constants/validation.js'
+import { validation } from '../../../../common/constants/validation.js'
 
 describe('tagValidation', () => {
   test('Should validate a valid tag and service', () => {

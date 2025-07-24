@@ -1,19 +1,19 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { getAdditionalData } from '~/src/server/deploy-service/helpers/get-additional-data.js'
-import { detailsValidation } from '~/src/server/deploy-service/helpers/schema/details-validation.js'
-import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
-import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
-import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
+import { getAdditionalData } from '../../helpers/get-additional-data.js'
+import { detailsValidation } from '../../helpers/schema/details-validation.js'
+import { provideStepData } from '../../../common/helpers/multistep-form/provide-step-data.js'
+import { fetchLatestMigrations } from '../../../common/helpers/fetch/fetch-latest-migrations.js'
+import { provideDatabaseStatusClassname } from '../../../common/components/database-detail/provide-database-status-classname.js'
+import { nullify404 } from '../../../common/helpers/nullify-404.js'
+import { buildSuggestions } from '../../../common/components/autocomplete/helpers/build-suggestions.js'
 import {
   fetchEntity,
   fetchServices
-} from '~/src/server/common/helpers/fetch/fetch-entities.js'
+} from '../../../common/helpers/fetch/fetch-entities.js'
 
 const detailsFormController = {
   options: {

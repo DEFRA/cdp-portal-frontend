@@ -1,19 +1,15 @@
 import Boom from '@hapi/boom'
 import { parseISO, subHours } from 'date-fns'
 
-import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
-import { fetchEntityStatus } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
+import { transformServiceToSummary } from '../../../../services/service/about/transformers/service-to-summary.js'
+import { scopes } from '../../../constants/scopes.js'
+import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
+import { nullify404 } from '../../../helpers/nullify-404.js'
+import { fetchEntityStatus } from '../../../helpers/fetch/fetch-entities.js'
+import { pluralise } from '../../../../../config/nunjucks/filters/filters.js'
 import startCase from 'lodash/startCase.js'
-import {
-  REPOSITORY,
-  SERVICE,
-  TEST_SUITE
-} from '~/src/server/common/patterns/entities/tabs/constants.js'
-import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
+import { REPOSITORY, SERVICE, TEST_SUITE } from '../tabs/constants.js'
+import { resourceDescriptions } from './helpers/resource-descriptions.js'
 
 export async function entityStatusHandler(request, h, entityType) {
   const entity = request.app.entity

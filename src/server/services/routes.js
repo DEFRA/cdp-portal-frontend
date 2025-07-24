@@ -1,5 +1,5 @@
-import { service } from '~/src/server/services/service/routes.js'
-import { listServices } from '~/src/server/services/list/routes.js'
+import { service } from './service/routes.js'
+import { listServices } from './list/routes.js'
 
 const services = {
   plugin: {

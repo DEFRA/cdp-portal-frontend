@@ -1,22 +1,23 @@
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockFetchShutteringUrlsCall,
   mockServiceEntityCall,
   mockTeam
-} from '~/test-helpers/common-page-rendering.js'
+} from '../../../../../test-helpers/common-page-rendering.js'
 import {
   fetchTeamTestRepositories,
   getAutoDeployDetails,
   getAutoTestRunDetails
-} from '~/src/server/services/service/automations/helpers/fetchers.js'
-import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+} from './helpers/fetchers.js'
+import { fetchTestSuites } from '../../../common/helpers/fetch/fetch-entities.js'
+import { statusCodes } from '../../../common/constants/status-codes.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
-jest.mock('~/src/server/services/service/automations/helpers/fetchers.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
+vi.mock('../../../common/helpers/fetch/fetch-entities.js')
+vi.mock('../../../common/helpers/auth/get-user-session.js')
+vi.mock('./helpers/fetchers.js')
+vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
 
 const serviceName = 'mock-service-with-automations'
 

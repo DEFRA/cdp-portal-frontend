@@ -1,8 +1,8 @@
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { buildList } from '~/src/server/common/helpers/view/build-list.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+import { buildLink } from '../../common/helpers/view/build-link.js'
+import { buildList } from '../../common/helpers/view/build-list.js'
+import { noValue } from '../../common/constants/no-value.js'
+import { renderComponent } from '../../common/helpers/nunjucks/render-component.js'
+import { renderTag } from '../../common/helpers/view/render-tag.js'
 
 function transformTestSuiteToSummary(testSuite, repo) {
   const teams = testSuite?.teams

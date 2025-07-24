@@ -1,5 +1,5 @@
-import { fetchVanityUrls } from '~/src/server/services/helpers/fetch/fetch-vanity-urls.js'
-import { sortKeyByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
+import { fetchVanityUrls } from '../../../helpers/fetch/fetch-vanity-urls.js'
+import { sortKeyByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
 
 /**
  * @typedef {object} VanityUrl

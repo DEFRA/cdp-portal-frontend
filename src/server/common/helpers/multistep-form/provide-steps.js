@@ -1,4 +1,4 @@
-import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width.js'
+import { calculateStepWidth } from '../form/calculate-step-width.js'
 
 /**
  * @typedef {object} Options

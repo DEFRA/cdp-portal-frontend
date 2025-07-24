@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { findAllProxyRules } from '~/src/server/common/patterns/entities/tabs/proxy/helpers/find-proxy-rules.js'
-import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
+import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
+import { findAllProxyRules } from '../helpers/find-proxy-rules.js'
+import { pluralise } from '../../../../../../../config/nunjucks/filters/filters.js'
 import startCase from 'lodash/startCase.js'
 
 export function allProxyController(entityType) {

@@ -1,5 +1,5 @@
-import { sortKeyByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
-import { fetchApiGateways } from '~/src/server/services/helpers/fetch/fetch-api-gateways.js'
+import { sortKeyByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
+import { fetchApiGateways } from '../../../helpers/fetch/fetch-api-gateways.js'
 
 /**
  * @typedef {object} ApiGateway

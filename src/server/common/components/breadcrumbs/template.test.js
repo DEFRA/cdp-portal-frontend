@@ -1,4 +1,5 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 
 describe('Breadcrumbs Component', () => {
   let $breadcrumbs

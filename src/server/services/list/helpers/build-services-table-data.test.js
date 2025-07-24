@@ -1,9 +1,10 @@
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { buildServicesTableData } from '~/src/server/services/list/helpers/build-services-table-data.js'
-import { entitiesFiltersFixture } from '~/src/__fixtures__/services/entities-filters.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { config } from '../../../../config/config.js'
+import { buildServicesTableData } from './build-services-table-data.js'
+import { entitiesFiltersFixture } from '../../../../__fixtures__/services/entities-filters.js'
+import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 const expectRowHasService = (row, serviceName) =>
   expect(row).toEqual(

@@ -1,5 +1,6 @@
-import { utilityToEntityRow } from '~/src/server/utilities/transformers/utility-to-entity-row.js'
-import { templatesFixture } from '~/src/__fixtures__/templates.js'
+import { describe, expect, test } from 'vitest'
+import { utilityToEntityRow } from './utility-to-entity-row.js'
+import { templatesFixture } from '../../../__fixtures__/templates.js'
 
 describe('#utilityToEntityRow', () => {
   describe('When authenticated', () => {

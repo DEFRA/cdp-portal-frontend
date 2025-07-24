@@ -1,6 +1,7 @@
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
-import { availableVersionsFixture } from '~/src/__fixtures__/available-versions.js'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
+import { describe, expect, test } from 'vitest'
+import { relativeDate } from '../../../helpers/date/relative-date.js'
+import { availableVersionsFixture } from '../../../../../__fixtures__/available-versions.js'
+import { buildSuggestions } from './build-suggestions.js'
 
 describe('#buildSuggestions', () => {
   test('Should provide expected suggestions with hint', () => {

@@ -1,22 +1,23 @@
+import { expect } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl
-} from '~/test-helpers/common-page-rendering.js'
+} from '../../../../test-helpers/common-page-rendering.js'
 import {
   fetchFeatureToggles,
   isFeatureToggleActiveForPath
-} from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
+} from '../features/helpers/fetch-feature-toggles.js'
 import {
   fetchDecommissions,
   fetchEntities
-} from '~/src/server/common/helpers/fetch/fetch-entities.js'
+} from '../../common/helpers/fetch/fetch-entities.js'
 import { randomUUID } from 'node:crypto'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+import { entityServicesFixture } from '../../../__fixtures__/services/entities.js'
+import { statusCodes } from '../../common/constants/status-codes.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
-jest.mock('~/src/server/admin/features/helpers/fetch-feature-toggles.js')
+vi.mock('../../common/helpers/fetch/fetch-entities.js')
+vi.mock('../../common/helpers/auth/get-user-session.js')
+vi.mock('../features/helpers/fetch-feature-toggles.js')
 
 describe('Decommissions pages', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -86,6 +87,7 @@ describe('Decommissions pages', () => {
         isAdmin: true,
         isTenant: true
       })
+
       expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })

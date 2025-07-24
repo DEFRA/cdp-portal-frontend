@@ -1,4 +1,4 @@
-// TODO @deprecated - use jests .toThrow() instead
+// TODO @deprecated - use vitest .toThrow() instead
 class NoErrorThrownError extends Error {}
 
 function errorNoThrown() {

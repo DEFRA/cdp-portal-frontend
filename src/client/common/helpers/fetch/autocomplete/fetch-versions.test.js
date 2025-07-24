@@ -1,18 +1,13 @@
-import fetchMock from 'jest-fetch-mock'
+import { describe, expect, test } from 'vitest'
 
-import { availableVersionsFixture } from '~/src/__fixtures__/available-versions.js'
-import { fetchVersions } from '~/src/client/common/helpers/fetch/autocomplete/fetch-versions.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { availableVersionsFixture } from '../../../../../__fixtures__/available-versions.js'
+import { fetchVersions } from './fetch-versions.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../../test-helpers/get-error.js'
 
 describe('#fetchVersions', () => {
-  beforeEach(() => {
-    fetchMock.enableMocks()
-  })
-
-  afterEach(() => {
-    fetchMock.disableMocks()
-  })
-
   test('Should provide expected available versions response', async () => {
     fetch.mockResponse(() =>
       Promise.resolve(JSON.stringify(availableVersionsFixture))

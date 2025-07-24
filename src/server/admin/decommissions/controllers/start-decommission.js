@@ -1,8 +1,8 @@
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { decommissionValidation } from '~/src/server/admin/decommissions/helpers/schema/decommission-validation.js'
-import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { decommission } from '~/src/server/admin/decommissions/helpers/fetchers.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
+import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
+import { decommissionValidation } from '../helpers/schema/decommission-validation.js'
+import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
+import { decommission } from '../helpers/fetchers.js'
 
 const startDecommissionController = {
   options: {

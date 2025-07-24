@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce.js'
 import omit from 'lodash/omit.js'
 import pickBy from 'lodash/pickBy.js'
 
-import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
+import { xhrRequest } from './xhr.js'
 
 function handleFormSubmit(event) {
   const form = event.target.closest('form')

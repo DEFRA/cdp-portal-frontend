@@ -1,4 +1,4 @@
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { scopes } from '../../common/constants/scopes.js'
 
 /**
  * Get the teams for a given services serviceId

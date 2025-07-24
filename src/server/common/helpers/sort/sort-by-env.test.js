@@ -1,4 +1,5 @@
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
+import { describe, expect, test } from 'vitest'
+import { sortByEnv } from './sort-by-env.js'
 
 describe('#sortByEnv', () => {
   const unOrderedEnvs = [

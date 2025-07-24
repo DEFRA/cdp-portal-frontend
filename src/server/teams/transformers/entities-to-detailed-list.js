@@ -1,7 +1,7 @@
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
+import { buildLink } from '../../common/helpers/view/build-link.js'
+import { renderTag } from '../../common/helpers/view/render-tag.js'
+import { sortBy } from '../../common/helpers/sort/sort-by.js'
+import { noValue } from '../../common/constants/no-value.js'
 
 function entitiesToDetailedList(section, entities = []) {
   const items = entities.sort(sortBy('name', 'asc')).map((entity) => ({

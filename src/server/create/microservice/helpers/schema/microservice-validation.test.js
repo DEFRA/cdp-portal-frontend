@@ -1,9 +1,9 @@
-import Joi from 'joi'
+import { describe, expect, test } from 'vitest'
 
-import { microserviceValidation } from '~/src/server/create/microservice/helpers/schema/microservice-validation.js'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
+import { microserviceValidation } from './microservice-validation.js'
+import { checkNameAvailability } from '../../../helpers/validator/check-name-availability.js'
 
-jest.mock('~/src/server/create/helpers/validator/check-name-availability')
+vi.mock('../../../helpers/validator/check-name-availability')
 
 describe('#microserviceValidation', () => {
   const templateIds = ['aTemplateid']
@@ -34,9 +34,7 @@ describe('#microserviceValidation', () => {
     }
     await expect(
       microserviceValidation(templateIds).validateAsync(request)
-    ).rejects.toThrow(
-      new Joi.ValidationError('Start and end with a letter or number')
-    )
+    ).rejects.toThrow('Start and end with a letter or number')
   })
 
   test('Should error with name that ends with hyphen', async () => {
@@ -49,9 +47,7 @@ describe('#microserviceValidation', () => {
     }
     await expect(
       microserviceValidation(templateIds).validateAsync(request)
-    ).rejects.toThrow(
-      new Joi.ValidationError('Start and end with a letter or number')
-    )
+    ).rejects.toThrow('Start and end with a letter or number')
   })
 
   test('Should error with name that is longer than 32 characters', async () => {
@@ -64,7 +60,7 @@ describe('#microserviceValidation', () => {
     }
     await expect(
       microserviceValidation(templateIds).validateAsync(request)
-    ).rejects.toThrow(new Joi.ValidationError('32 characters or less'))
+    ).rejects.toThrow('32 characters or less')
   })
 
   test('Should error with name that ends with -ddl', async () => {
@@ -77,6 +73,6 @@ describe('#microserviceValidation', () => {
     }
     await expect(
       microserviceValidation(templateIds).validateAsync(request)
-    ).rejects.toThrow(new Joi.ValidationError('Must not end with "-ddl"'))
+    ).rejects.toThrow('Must not end with "-ddl"')
   })
 })

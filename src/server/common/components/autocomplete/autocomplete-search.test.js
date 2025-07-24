@@ -1,9 +1,10 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { dispatchDomContentLoaded } from '~/test-helpers/dispatch-dom-content-loaded.js'
-import { enterValue, pressEnter } from '~/test-helpers/keyboard.js'
-import { flushAsync } from '~/test-helpers/flush-async.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { AutocompleteSearch } from '~/src/server/common/components/autocomplete/autocomplete-search.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-dom-content-loaded.js'
+import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
+import { flushAsync } from '../../../../../test-helpers/flush-async.js'
+import { buildOptions } from '../../helpers/options/build-options.js'
+import { AutocompleteSearch } from './autocomplete-search.js'
 
 const emptySuggestions = buildOptions([])
 const searchSuggestions = buildOptions([
@@ -38,7 +39,7 @@ function setupAutoComplete({ searchParam, params = {} }) {
   return renderTestComponent('autocomplete', params)
 }
 
-const mockFormSubmit = jest.fn().mockReturnValue(false)
+const mockFormSubmit = vi.fn().mockReturnValue(false)
 
 /**
  * Set up mock form
@@ -142,7 +143,7 @@ function setup(components) {
 }
 
 describe('#autocompleteSearch', () => {
-  const mockFetchSuggestions = jest.fn()
+  const mockFetchSuggestions = vi.fn()
 
   beforeEach(() => {
     window.cdp = window.cdp || {}

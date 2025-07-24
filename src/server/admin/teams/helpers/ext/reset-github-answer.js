@@ -1,7 +1,7 @@
 import isUndefined from 'lodash/isUndefined.js'
 import omit from 'lodash/omit.js'
 
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
 
 const resetGithubAnswer = {
   method: (request, h) => {

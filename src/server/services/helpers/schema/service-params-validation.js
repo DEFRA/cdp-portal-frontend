@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
 
 /**
  * Validation for service params

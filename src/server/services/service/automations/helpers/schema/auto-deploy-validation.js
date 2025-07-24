@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
-import { validation } from '~/src/server/common/constants/validation.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { validation } from '../../../../../common/constants/validation.js'
+import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
 
 function autoDeployValidation(scopes) {
   const allowedEnvironments = getEnvironments(scopes).filter(

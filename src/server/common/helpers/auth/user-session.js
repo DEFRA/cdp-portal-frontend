@@ -2,8 +2,8 @@ import jwt from '@hapi/jwt'
 import { addSeconds } from 'date-fns'
 import { validate as uuidValidate } from 'uuid'
 
-import { fetchScopes } from '~/src/server/teams/helpers/fetch/fetch-scopes.js'
-import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
+import { fetchScopes } from '../../../teams/helpers/fetch/fetch-scopes.js'
+import { userLog } from '../logging/user-log.js'
 
 /**
  * @description MicroSoft refresh token response
@@ -150,5 +150,5 @@ export {
   updateUserScope
 }
 /**
- * @import {UserSession} from '~/src/server/common/helpers/auth/get-user-session.js'
+ * @import {UserSession} from './get-user-session.js'
  */

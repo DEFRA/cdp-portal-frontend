@@ -1,12 +1,12 @@
 import Joi from 'joi'
 import qs from 'qs'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
-import { dbChangeValidation } from '~/src/server/apply-changelog/helpers/schema/db-change-validation.js'
+import { buildErrorDetails } from '../../common/helpers/build-error-details.js'
+import { fetchDeployableImageNames } from '../../common/helpers/fetch/fetch-deployable-image-names.js'
+import { sessionNames } from '../../common/constants/session-names.js'
+import { getEnvironments } from '../../common/helpers/environments/get-environments.js'
+import { fetchAvailableMigrations } from '../../services/helpers/fetch/fetch-available-migrations.js'
+import { dbChangeValidation } from '../helpers/schema/db-change-validation.js'
 
 const changeDetailsController = {
   options: {

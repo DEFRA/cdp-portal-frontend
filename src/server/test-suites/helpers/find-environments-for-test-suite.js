@@ -1,6 +1,6 @@
-import { testEnvironments } from '~/src/config/test-environments.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import { testKind } from '~/src/server/test-suites/constants/test-kind.js'
+import { testEnvironments } from '../../../config/test-environments.js'
+import { createLogger } from '../../common/helpers/logging/logger.js'
+import { testKind } from '../constants/test-kind.js'
 
 const logger = createLogger()
 

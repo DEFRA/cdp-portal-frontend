@@ -1,4 +1,5 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { describe, expect, test } from 'vitest'
+import { authScope } from './auth-scope.js'
 
 describe('#authScope', () => {
   test('Should add scope to route as expected', () => {

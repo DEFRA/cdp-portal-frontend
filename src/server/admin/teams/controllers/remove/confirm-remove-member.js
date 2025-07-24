@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../helpers/fetch/index.js'
+import { fetchCdpUser } from '../../../users/helpers/fetch/index.js'
 import {
   teamIdValidation,
   userIdValidation

@@ -1,7 +1,8 @@
+import { beforeEach, describe, expect, test } from 'vitest'
 import { Marked } from 'marked'
 import { load } from 'cheerio'
 
-import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
+import { linkExtension } from './link.js'
 
 describe('#linkExtension', () => {
   let testMarked

@@ -1,5 +1,6 @@
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
-import { userIsOwnerDecorator } from '~/src/server/common/helpers/user/user-is-owner.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { addServiceOwnerScope } from './add-service-owner-scope.js'
+import { userIsOwnerDecorator } from '../../common/helpers/user/user-is-owner.js'
 
 describe('#addServiceOwnerScope', () => {
   const mockResponseToolkit = { continue: 'mockContinue' }
@@ -7,7 +8,7 @@ describe('#addServiceOwnerScope', () => {
   let mockRequest
 
   beforeEach(() => {
-    mockGetUserSession = jest.fn()
+    mockGetUserSession = vi.fn()
   })
 
   describe('When un-authenticated and with a service', () => {
@@ -21,7 +22,7 @@ describe('#addServiceOwnerScope', () => {
           }
         },
         auth: { isAuthenticated: false, credentials: null },
-        userIsOwner: jest.fn().mockResolvedValue(false)
+        userIsOwner: vi.fn().mockResolvedValue(false)
       }
     })
 

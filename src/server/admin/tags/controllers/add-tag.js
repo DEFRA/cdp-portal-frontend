@@ -1,7 +1,7 @@
-import { addTagToService } from '~/src/server/admin/tags/helpers/fetchers.js'
-import { tagValidation } from '~/src/server/admin/tags/helpers/schema/tag-validation.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { addTagToService } from '../helpers/fetchers.js'
+import { tagValidation } from '../helpers/schema/tag-validation.js'
+import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
 
 const addTagController = {
   handler: async (request, h) => {

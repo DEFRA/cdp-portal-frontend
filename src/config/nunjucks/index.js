@@ -4,10 +4,10 @@ import yar from '@hapi/yar'
 import nunjucks from 'nunjucks'
 import Vision from '@hapi/vision'
 
-import { config } from '~/src/config/config.js'
-import { context } from '~/src/config/nunjucks/context/context.js'
-import * as filters from '~/src/config/nunjucks/filters/filters.js'
-import * as globals from '~/src/config/nunjucks/globals/globals.js'
+import { config } from '../config.js'
+import { context } from './context/context.js'
+import * as filters from './filters/filters.js'
+import * as globals from './globals/globals.js'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 

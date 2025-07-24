@@ -1,6 +1,6 @@
-import { provideEntityExtension } from '~/src/server/common/helpers/extensions.js'
-import { entityStatusController } from '~/src/server/common/patterns/entities/status/controller.js'
-import { REPOSITORY } from '~/src/server/common/patterns/entities/tabs/constants.js'
+import { provideEntityExtension } from '../common/helpers/extensions.js'
+import { entityStatusController } from '../common/patterns/entities/status/controller.js'
+import { REPOSITORY } from '../common/patterns/entities/tabs/constants.js'
 
 const repositories = {
   plugin: {

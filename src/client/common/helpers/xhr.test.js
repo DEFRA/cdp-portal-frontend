@@ -1,16 +1,11 @@
-import fetchMock from 'jest-fetch-mock'
+import { xhrRequest } from './xhr.js'
+import { eventName } from '../constants/event-name.js'
+import { subscribe, unsubscribe } from './event-emitter.js'
 
-import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
-import { eventName } from '~/src/client/common/constants/event-name.js'
-import {
-  subscribe,
-  unsubscribe
-} from '~/src/client/common/helpers/event-emitter.js'
+const mockHistoryPush = vi.fn()
+const mockHistoryReplace = vi.fn()
 
-const mockHistoryPush = jest.fn()
-const mockHistoryReplace = jest.fn()
-
-jest.mock('history', () => ({
+vi.mock('history', () => ({
   createBrowserHistory: () => ({
     push: (url) => mockHistoryPush(url),
     replace: (url, options) => mockHistoryReplace(url, options)
@@ -23,9 +18,7 @@ describe('#xhr', () => {
   let mockEventListener
 
   beforeEach(() => {
-    mockEventListener = jest.fn()
-
-    fetchMock.enableMocks()
+    mockEventListener = vi.fn()
 
     // Append xhr container to the document
     document.body.innerHTML = '<div data-xhr="xhr-container"></div>'
@@ -36,7 +29,6 @@ describe('#xhr', () => {
 
   afterEach(() => {
     unsubscribe(eventName.xhrUpdate, mockEventListener)
-    fetchMock.disableMocks()
   })
 
   describe('When making an xhr request', () => {

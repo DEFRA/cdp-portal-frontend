@@ -1,12 +1,12 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { transformEntityToRow } from '~/src/server/admin/tags/transformers/transform-entity-to-tag-row.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { serviceTagValues } from '~/src/server/admin/tags/helpers/schema/tag-validation.js'
-import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
+import { transformEntityToRow } from '../transformers/transform-entity-to-tag-row.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { serviceTagValues } from '../helpers/schema/tag-validation.js'
+import { serviceTags } from '../helpers/service-tags.js'
+import { renderTag } from '../../../common/helpers/view/render-tag.js'
 
 const tagController = {
   options: {

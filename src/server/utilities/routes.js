@@ -1,8 +1,8 @@
-import { provideSubNavigation } from '~/src/server/utilities/helpers/provide-sub-navigation.js'
-import { templatesListController } from '~/src/server/utilities/controllers/templates-list-controller.js'
-import { templateController } from '~/src/server/utilities/controllers/template-controller.js'
-import { librariesListController } from '~/src/server/utilities/controllers/libraries-list-controller.js'
-import { libraryController } from '~/src/server/utilities/controllers/library-controller.js'
+import { provideSubNavigation } from './helpers/provide-sub-navigation.js'
+import { templatesListController } from './controllers/templates-list-controller.js'
+import { templateController } from './controllers/template-controller.js'
+import { librariesListController } from './controllers/libraries-list-controller.js'
+import { libraryController } from './controllers/library-controller.js'
 
 const utilities = {
   plugin: {

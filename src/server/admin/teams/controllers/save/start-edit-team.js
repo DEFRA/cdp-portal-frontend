@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { fetchCdpTeam } from '../../helpers/fetch/index.js'
 import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const startEditTeamController = {

@@ -1,15 +1,16 @@
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockCommonTestSuiteCalls,
   mockTestRuns
-} from '~/test-helpers/common-page-rendering.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+} from '../../../../../test-helpers/common-page-rendering.js'
+import { statusCodes } from '../../../common/constants/status-codes.js'
 
-jest.mock('~/src/server/test-suites/helpers/fetch/fetch-test-runs.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
+vi.mock('../../helpers/fetch/fetch-test-runs.js')
+vi.mock('../../../common/helpers/fetch/fetch-repository.js')
+vi.mock('../../../common/helpers/fetch/fetch-entities.js')
+vi.mock('../../../common/helpers/auth/get-user-session.js')
 
 describe('About Test Suite page', () => {
   /** @type {import('@hapi/hapi').Server} */

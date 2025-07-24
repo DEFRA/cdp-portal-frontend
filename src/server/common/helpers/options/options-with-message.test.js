@@ -1,4 +1,5 @@
-import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message.js'
+import { describe, expect, test } from 'vitest'
+import { optionsWithMessage } from './options-with-message.js'
 
 describe('#optionsWithMessage', () => {
   test('Should provide expected options', () => {

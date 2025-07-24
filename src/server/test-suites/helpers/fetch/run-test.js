@@ -1,5 +1,5 @@
-import { config } from '~/src/config/config.js'
-import { runnerProfiles } from '~/src/server/test-suites/constants/runner-profiles.js'
+import { config } from '../../../../config/config.js'
+import { runnerProfiles } from '../../constants/runner-profiles.js'
 
 function runTest({ request, imageName, environment, profile }) {
   const { cpu, memory } = runnerProfiles[profile]

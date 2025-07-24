@@ -1,27 +1,36 @@
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi
+} from 'vitest'
 import jwt from '@hapi/jwt'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { scopesFixture } from '~/src/__fixtures__/scopes.js'
+import { config } from '../../../../config/config.js'
+import { scopesFixture } from '../../../../__fixtures__/scopes.js'
 import {
   createUserSession,
   refreshUserSession,
   removeAuthenticatedUser,
   updateUserScope
-} from '~/src/server/common/helpers/auth/user-session.js'
+} from './user-session.js'
 
-jest.mock('@hapi/jwt')
+vi.mock('@hapi/jwt')
 
 const scopesEndpoint = new URL(config.get('userServiceBackendUrl') + '/scopes')
 
 describe('#userSession', () => {
   beforeAll(() => {
-    jest.useFakeTimers({ advanceTimers: true })
-    jest.setSystemTime(new Date('2025-02-28'))
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-02-28'))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('#createUserSession', () => {
@@ -44,7 +53,7 @@ describe('#userSession', () => {
       },
       server: {
         session: {
-          set: jest.fn()
+          set: vi.fn()
         }
       }
     }
@@ -78,12 +87,12 @@ describe('#userSession', () => {
   describe('#refreshUserSession', () => {
     const request = {
       logger: {
-        debug: jest.fn(),
-        info: jest.fn()
+        debug: vi.fn(),
+        info: vi.fn()
       },
       state: { userSessionCookie: { sessionId: 'session-id' } },
-      server: { session: { set: jest.fn() } },
-      getUserSession: jest.fn()
+      server: { session: { set: vi.fn() } },
+      getUserSession: vi.fn()
     }
     const refreshTokenResponse = {
       access_token: 'new-access-token',
@@ -138,12 +147,12 @@ describe('#userSession', () => {
   describe('#removeAuthenticatedUser', () => {
     test('Should remove the authenticated user from the portal', () => {
       const request = {
-        dropUserSession: jest.fn(),
+        dropUserSession: vi.fn(),
         sessionCookie: {
-          clear: jest.fn(),
+          clear: vi.fn(),
           h: {
-            response: jest.fn().mockReturnThis(),
-            unstate: jest.fn().mockReturnThis()
+            response: vi.fn().mockReturnThis(),
+            unstate: vi.fn().mockReturnThis()
           }
         }
       }
@@ -162,9 +171,9 @@ describe('#userSession', () => {
           sessionId: 'session-id'
         }
       },
-      server: { session: { set: jest.fn() } },
-      getUserSession: jest.fn(),
-      logger: { debug: jest.fn() }
+      server: { session: { set: vi.fn() } },
+      getUserSession: vi.fn(),
+      logger: { debug: vi.fn() }
     }
     const userSession = {
       token: 'access-token'

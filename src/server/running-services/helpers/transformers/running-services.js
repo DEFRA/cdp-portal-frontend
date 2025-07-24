@@ -1,5 +1,5 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { provideDeploymentStatusClassname } from '~/src/server/running-services/helpers/provide-deployment-status-classname.js'
+import { sortBy } from '../../../common/helpers/sort/sort-by.js'
+import { provideDeploymentStatusClassname } from '../provide-deployment-status-classname.js'
 
 function transformRunningServices({
   runningServices,

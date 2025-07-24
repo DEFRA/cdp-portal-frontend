@@ -1,4 +1,5 @@
-import { createHiddenInput } from '~/src/client/common/helpers/protect-form/create-hidden-input.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { createHiddenInput } from './create-hidden-input.js'
 
 describe('#createHiddenInput', () => {
   let $element

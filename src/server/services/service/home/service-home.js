@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { aboutHandler } from '~/src/server/services/service/about/about-handler.js'
-import { entityStatusHandler } from '~/src/server/common/patterns/entities/status/status-handler.js'
-import { SERVICE } from '~/src/server/common/patterns/entities/tabs/constants.js'
+import { aboutHandler } from '../about/about-handler.js'
+import { entityStatusHandler } from '../../../common/patterns/entities/status/status-handler.js'
+import { SERVICE } from '../../../common/patterns/entities/tabs/constants.js'
 
 const serviceHomeController = {
   options: {

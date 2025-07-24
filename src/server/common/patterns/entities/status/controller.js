@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { entityStatusHandler } from '~/src/server/common/patterns/entities/status/status-handler.js'
-import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
+import { entityStatusHandler } from './status-handler.js'
+import { pluralise } from '../../../../../config/nunjucks/filters/filters.js'
 
 export function entityStatusController(entityType) {
   return {

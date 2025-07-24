@@ -1,12 +1,12 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
-import { s3FileHandler } from '~/src/server/documentation/helpers/s3-file-handler.js'
-import { markdownHandler } from '~/src/server/documentation/helpers/markdown-handler.js'
-import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message.js'
-import { excludedMarkdownFiles } from '~/src/server/documentation/constants/excluded-markdown-files.js'
+import { config } from '../../../config/config.js'
+import { statusCodes } from '../../common/constants/status-codes.js'
+import { s3FileHandler } from '../helpers/s3-file-handler.js'
+import { markdownHandler } from '../helpers/markdown-handler.js'
+import { statusCodeMessage } from '../../common/helpers/errors/status-code-message.js'
+import { excludedMarkdownFiles } from '../constants/excluded-markdown-files.js'
 
 const documentationController = {
   options: {

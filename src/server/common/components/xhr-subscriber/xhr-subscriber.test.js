@@ -1,12 +1,14 @@
-import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { xhrSubscriber } from '~/src/server/common/components/xhr-subscriber/xhr-subscriber.js'
-import { publish } from '~/src/client/common/helpers/event-emitter.js'
-import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
-import { flushAsync } from '~/test-helpers/flush-async.js'
+import { beforeEach, describe, expect, test } from 'vitest'
 
-jest.mock('~/src/client/common/helpers/client-notification.js')
-jest.mock('~/src/client/common/helpers/xhr.js')
+import { xhrRequest } from '../../../../client/common/helpers/xhr.js'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { xhrSubscriber } from './xhr-subscriber.js'
+import { publish } from '../../../../client/common/helpers/event-emitter.js'
+import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
+import { flushAsync } from '../../../../../test-helpers/flush-async.js'
+
+vi.mock('../../../../client/common/helpers/client-notification.js')
+vi.mock('../../../../client/common/helpers/xhr.js')
 
 describe('#xhrSubscriber', () => {
   const mockEventName = 'test-event'

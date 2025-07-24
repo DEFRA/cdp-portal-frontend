@@ -1,6 +1,7 @@
-import { faviconState } from '~/src/server/common/constants/favicon-state.js'
-import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
-import { deploymentFaviconState } from '~/src/server/deployments/helpers/deployment-favicon-state.js'
+import { describe, expect, test } from 'vitest'
+import { faviconState } from '../../common/constants/favicon-state.js'
+import { deploymentStatus } from '../../common/constants/deployment.js'
+import { deploymentFaviconState } from './deployment-favicon-state.js'
 
 describe('deploymentFaviconState', () => {
   test('returns pending favicon for stopping status', () => {

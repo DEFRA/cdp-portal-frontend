@@ -1,9 +1,13 @@
+import { describe, expect, test } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { fetchLatestDeploymentSettings } from '~/src/server/common/helpers/fetch/fetch-latest-deployment-settings.js'
-import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { config } from '../../../../config/config.js'
+import { fetchLatestDeploymentSettings } from './fetch-latest-deployment-settings.js'
+import { existingServiceInfoFixture } from '../../../../__fixtures__/deploy-service/existing-service-info.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../test-helpers/get-error.js'
 
 describe('#fetchLatestDeploymentSettings', () => {
   const environment = 'infra-dev'

@@ -1,5 +1,5 @@
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
-import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
+import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
 
 async function checkNameIsAvailable(value) {
   const responses = await Promise.allSettled([

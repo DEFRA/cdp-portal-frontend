@@ -1,8 +1,8 @@
-import fetchMock from 'jest-fetch-mock'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 
-import { populateSelectOptions } from '~/src/client/common/helpers/populate-select-options.js'
-import { fetchMemory } from '~/src/client/common/helpers/fetch/select/fetch-memory.js'
-import { availableMemoryOptionsFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
+import { populateSelectOptions } from './populate-select-options.js'
+import { fetchMemory } from './fetch/select/fetch-memory.js'
+import { availableMemoryOptionsFixture } from '../../../__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
 
 describe('#populateSelectOptions', () => {
   let controllerSelect
@@ -11,7 +11,7 @@ describe('#populateSelectOptions', () => {
   let clientNotification
 
   beforeEach(() => {
-    fetchMock.enableMocks()
+    // fetchMock.enableMocks()
     window.cdp = { fetchMemory }
 
     // Add select controller and target to dom
@@ -56,7 +56,7 @@ describe('#populateSelectOptions', () => {
   })
 
   afterEach(() => {
-    fetchMock.disableMocks()
+    // fetchMock.disableMocks()
 
     delete window.cdp
   })

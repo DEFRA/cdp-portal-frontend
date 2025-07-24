@@ -1,11 +1,11 @@
 import startCase from 'lodash/startCase.js'
 
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
-import { buildSearchIndex } from '~/src/server/documentation/helpers/search-index.js'
-import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs.js'
-import { fetchMarkdown } from '~/src/server/documentation/helpers/s3-file-handler.js'
-import { buildPageHtml } from '~/src/server/documentation/helpers/markdown/build-page-html.js'
-import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav.js'
+import { statusCodes } from '../../common/constants/status-codes.js'
+import { buildSearchIndex } from './search-index.js'
+import { docsBreadcrumbs } from './docs-breadcrumbs.js'
+import { fetchMarkdown } from './s3-file-handler.js'
+import { buildPageHtml } from './markdown/build-page-html.js'
+import { buildDocsNav } from './markdown/build-docs-nav.js'
 
 function buildPageTitle(documentationPath) {
   return documentationPath

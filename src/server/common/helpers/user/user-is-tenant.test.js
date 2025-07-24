@@ -1,4 +1,5 @@
-import { userIsTenant } from '~/src/server/common/helpers/user/user-is-tenant.js'
+import { describe, expect, test } from 'vitest'
+import { userIsTenant } from './user-is-tenant.js'
 
 describe('#userIsTenant', () => {
   test('Should have scope', () => {

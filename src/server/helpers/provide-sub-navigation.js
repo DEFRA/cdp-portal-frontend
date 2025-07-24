@@ -1,6 +1,6 @@
 import upperFirst from 'lodash/upperFirst.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
+import { getEnvironments } from '../common/helpers/environments/get-environments.js'
+import { pluralise } from '../common/helpers/pluralise.js'
 
 function provideSubNav(subTitle, entityType) {
   return function provideSubNavigation(request, h) {

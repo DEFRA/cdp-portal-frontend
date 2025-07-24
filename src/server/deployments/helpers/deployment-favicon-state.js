@@ -1,5 +1,5 @@
-import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
-import { faviconState } from '~/src/server/common/constants/favicon-state.js'
+import { deploymentStatus } from '../../common/constants/deployment.js'
+import { faviconState } from '../../common/constants/favicon-state.js'
 
 /**
  * @param {string} status

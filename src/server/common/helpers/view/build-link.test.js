@@ -1,5 +1,6 @@
+import { describe, expect, test } from 'vitest'
 import { load } from 'cheerio'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
+import { buildLink } from './build-link.js'
 
 describe('#buildLink', () => {
   test('Should build expected link', () => {

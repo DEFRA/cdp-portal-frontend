@@ -1,7 +1,7 @@
 import {
   renderComponent,
   renderIcon
-} from '~/src/server/common/helpers/nunjucks/render-component.js'
+} from '../../common/helpers/nunjucks/render-component.js'
 
 function testSuiteToEntityRow(testSuite) {
   const icon = testSuite.isOwner

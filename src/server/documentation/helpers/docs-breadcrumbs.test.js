@@ -1,4 +1,5 @@
-import { docsBreadcrumbs } from '~/src/server/documentation/helpers/docs-breadcrumbs.js'
+import { describe, expect, test } from 'vitest'
+import { docsBreadcrumbs } from './docs-breadcrumbs.js'
 
 describe('#docsBreadcrumbs', () => {
   test('Should return expected documentation breadcrumbs for a single file path named "README.md', () => {

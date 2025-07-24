@@ -1,4 +1,4 @@
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { scopes } from '../../../server/common/constants/scopes.js'
 
 async function buildNavigation(request) {
   const authedUser = await request.getUserSession()

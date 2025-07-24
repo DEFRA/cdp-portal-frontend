@@ -1,6 +1,6 @@
-import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
-import { provideDeploymentStatusClassname } from '~/src/server/running-services/helpers/provide-deployment-status-classname.js'
-import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { fetchRunningServices } from '../../../common/helpers/fetch/fetch-running-services.js'
+import { provideDeploymentStatusClassname } from '../provide-deployment-status-classname.js'
+import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
 
 async function transformRunningService(serviceName) {
   const entity = await fetchEntity(serviceName)

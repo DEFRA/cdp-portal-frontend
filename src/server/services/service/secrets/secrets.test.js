@@ -1,16 +1,17 @@
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockFetchShutteringUrlsCall,
   mockServiceEntityCall
-} from '~/test-helpers/common-page-rendering.js'
-import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+} from '../../../../../test-helpers/common-page-rendering.js'
+import { fetchAllSecrets } from '../../helpers/fetch/fetch-all-secrets.js'
+import { statusCodes } from '../../../common/constants/status-codes.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-all-secrets.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
+vi.mock('../../../common/helpers/fetch/fetch-entities.js')
+vi.mock('../../../common/helpers/auth/get-user-session.js')
+vi.mock('../../helpers/fetch/fetch-all-secrets.js')
+vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
 
 describe('Service Secrets page', () => {
   /** @type {import('@hapi/hapi').Server} */

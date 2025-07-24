@@ -1,6 +1,6 @@
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
+import { noValue } from '../../../common/constants/no-value.js'
+import { renderTag } from '../../../common/helpers/view/render-tag.js'
 
 const editActionItems = (scopeId) => ({
   items: [

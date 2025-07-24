@@ -1,7 +1,7 @@
 import {
   environments,
   prototypeEnvironments
-} from '~/src/config/environments.js'
+} from '../../../../config/environments.js'
 
 function getEnvironments(scopes, entityType = undefined) {
   return getEnvironmentValuesForEntityType(entityType)

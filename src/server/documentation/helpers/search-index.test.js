@@ -1,21 +1,22 @@
+import { afterAll, beforeEach, describe, expect, test, vi } from 'vitest'
 import lunr from 'lunr'
 
-import { searchIndex } from '~/src/server/documentation/helpers/search-index.js'
+import { searchIndex } from './search-index.js'
 import {
   fetchS3File,
   fetchHeadObject,
   fetchListObjects
-} from '~/src/server/documentation/helpers/s3-file-handler.js'
+} from './s3-file-handler.js'
 
-jest.mock('lunr')
-jest.mock('~/src/server/documentation/helpers/s3-file-handler.js')
+vi.mock('lunr')
+vi.mock('./s3-file-handler.js')
 
 const mockLunr = ({ ref, field, add }) => {
   const mockIndex = {
     ref,
     field,
     add,
-    search: jest.fn().mockReturnValue([
+    search: vi.fn().mockReturnValue([
       {
         ref: 'test.md',
         matchData: {
@@ -31,7 +32,7 @@ const mockLunr = ({ ref, field, add }) => {
     ])
   }
 
-  jest.mocked(lunr).mockImplementationOnce((config) => {
+  vi.mocked(lunr).mockImplementationOnce((config) => {
     config.call(mockIndex)
     return mockIndex
   })
@@ -48,23 +49,23 @@ describe('#searchIndex', () => {
   const mockMarkdownFile = {
     Key: 'test.md',
     Body: {
-      transformToString: jest.fn().mockResolvedValue(mockMarkdownContent)
+      transformToString: vi.fn().mockResolvedValue(mockMarkdownContent)
     }
   }
-  const mockRef = jest.fn()
-  const mockField = jest.fn()
-  const mockAdd = jest.fn()
+  const mockRef = vi.fn()
+  const mockField = vi.fn()
+  const mockAdd = vi.fn()
   let request
   let bucket
   let query
 
   beforeEach(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-02-21'))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2025-02-21'))
 
     request = {
       logger: {
-        debug: jest.fn()
+        debug: vi.fn()
       }
     }
     bucket = 'test-bucket'
@@ -72,7 +73,7 @@ describe('#searchIndex', () => {
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   test('Should return empty array if no markdown files are found', async () => {

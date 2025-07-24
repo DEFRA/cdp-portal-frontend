@@ -1,12 +1,9 @@
-import {
-  publish,
-  subscribe,
-  unsubscribe
-} from '~/src/client/common/helpers/event-emitter.js'
+import { describe, expect, test, vi } from 'vitest'
+import { publish, subscribe, unsubscribe } from './event-emitter.js'
 
 describe('#eventEmitter', () => {
   const eventName = 'mock-event'
-  const mockEventListener = jest.fn()
+  const mockEventListener = vi.fn()
 
   test('Subscribed should fire as expected when published to', () => {
     subscribe(eventName, mockEventListener)

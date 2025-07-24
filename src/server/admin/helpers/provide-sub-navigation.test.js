@@ -1,4 +1,5 @@
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { provideSubNavigation } from './provide-sub-navigation.js'
 
 describe('#provideSubNavigation', () => {
   let request, h

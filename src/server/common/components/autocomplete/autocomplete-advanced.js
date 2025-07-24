@@ -1,6 +1,6 @@
 import escape from 'lodash/escape.js'
 
-import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
+import { Autocomplete } from './autocomplete.js'
 
 /**
  * @classdesc Advanced Autocomplete component, supports suggestion hints/extra metadata.

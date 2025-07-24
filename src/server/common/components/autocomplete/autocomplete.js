@@ -5,9 +5,9 @@ import escapeRegExp from 'lodash/escapeRegExp.js'
 import {
   publish,
   subscribe
-} from '~/src/client/common/helpers/event-emitter.js'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
-import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
+} from '../../../../client/common/helpers/event-emitter.js'
+import { buildSuggestions } from './helpers/build-suggestions.js'
+import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
 
 const selectMessage = ' - - select - - '
 const tickSvgIcon = `

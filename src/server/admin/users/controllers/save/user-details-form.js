@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect.js'
-import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
 
 const userDetailsFormController = {
   options: {

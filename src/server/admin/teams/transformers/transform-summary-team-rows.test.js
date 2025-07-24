@@ -1,5 +1,6 @@
-import { cdpTeamSessionFixture } from '~/src/__fixtures__/admin/cdp-team-session.js'
-import { transformSummaryTeamRows } from '~/src/server/admin/teams/transformers/transform-summary-team-rows.js'
+import { describe, expect, test } from 'vitest'
+import { cdpTeamSessionFixture } from '../../../../__fixtures__/admin/cdp-team-session.js'
+import { transformSummaryTeamRows } from './transform-summary-team-rows.js'
 
 describe('#transformSummaryTeamRows', () => {
   test('Should provide expected team row transformation', () => {

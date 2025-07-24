@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { iframeS3FileHandler } from '~/src/server/test-suites/helpers/iframe-s3-file-handler.js'
-import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
+import { iframeS3FileHandler } from '../../helpers/iframe-s3-file-handler.js'
+import { getAllEnvironmentKebabNames } from '../../../common/helpers/environments/get-environments.js'
 
 const testSuiteReportController = {
   options: {

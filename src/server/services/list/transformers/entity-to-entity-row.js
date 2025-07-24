@@ -1,11 +1,11 @@
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
-import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+import { formatText } from '../../../../config/nunjucks/filters/filters.js'
+import { statusTagClassMap } from '../../../common/helpers/status-tag-class-map.js'
+import { serviceTags } from '../../../admin/tags/helpers/service-tags.js'
+import { renderTag } from '../../../common/helpers/view/render-tag.js'
 import {
   renderComponent,
   renderIcon
-} from '~/src/server/common/helpers/nunjucks/render-component.js'
+} from '../../../common/helpers/nunjucks/render-component.js'
 
 function buildServiceDescription(entity) {
   const tagsHtml =

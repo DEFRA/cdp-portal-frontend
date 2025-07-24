@@ -1,11 +1,12 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import nunjucks from 'nunjucks'
-import { load } from 'cheerio'
+import * as cheerio from 'cheerio'
+
 import { camelCase, upperFirst } from 'lodash'
 
-import * as filters from '~/src/config/nunjucks/filters/filters.js'
-import { testGlobals } from '~/test-helpers/test-globals.js'
+import * as filters from '../src/config/nunjucks/filters/filters.js'
+import { testGlobals } from './test-globals.js'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const nunjucksTestEnv = nunjucks.configure(
@@ -46,7 +47,7 @@ function renderTestComponent(name, params, callBlock) {
     macroString += `{{- ${macroName}(${macroParams}) -}}`
   }
 
-  return load(nunjucksTestEnv.renderString(macroString))
+  return cheerio.load(nunjucksTestEnv.renderString(macroString))
 }
 
 function renderPage(viewPath, context) {

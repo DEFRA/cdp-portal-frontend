@@ -1,19 +1,20 @@
-import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler.js'
-import { documentationStructure } from '~/src/server/documentation/helpers/documentation-structure.js'
+import { describe, expect, test, vi } from 'vitest'
+import { fetchS3File } from './s3-file-handler.js'
+import { documentationStructure } from './documentation-structure.js'
 
-jest.mock('@aws-sdk/client-s3')
-jest.mock('~/src/server/documentation/helpers/s3-file-handler')
+vi.mock('@aws-sdk/client-s3')
+vi.mock('./s3-file-handler')
 
 const provideMarkdown = (markdown) => ({
   Body: {
-    transformToString: jest.fn().mockResolvedValue(markdown)
+    transformToString: vi.fn().mockResolvedValue(markdown)
   }
 })
 
 describe('#directoryStructure', () => {
   const mockRequest = {
     s3Client: {
-      send: jest.fn()
+      send: vi.fn()
     }
   }
   const mockBucket = 'mock-documentation-bucket'

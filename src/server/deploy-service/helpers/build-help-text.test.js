@@ -1,5 +1,6 @@
-import { buildHelpText } from '~/src/server/deploy-service/helpers/build-help-text.js'
-import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options.js'
+import { describe, expect, test } from 'vitest'
+import { buildHelpText } from './build-help-text.js'
+import { deployServiceOptionsFixture } from '../../../__fixtures__/deploy-service/deploy-service-options.js'
 
 describe('#buildHelpText', () => {
   test('Should provide expected help text', () => {

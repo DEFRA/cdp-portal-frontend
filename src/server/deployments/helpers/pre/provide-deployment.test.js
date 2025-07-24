@@ -1,22 +1,23 @@
-import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
-import { fetchDeployment } from '~/src/server/deployments/helpers/fetch/fetch-deployment.js'
-import { deploymentInProgressFixture } from '~/src/__fixtures__/deployments/deployment-in-progress.js'
-import { deploymentSuccessFixture } from '~/src/__fixtures__/deployments/deployment-success.js'
-import { repositoryFixture } from '~/src/__fixtures__/repository.js'
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { provideDeployment } from './provide-deployment.js'
+import { fetchDeployment } from '../fetch/fetch-deployment.js'
+import { deploymentInProgressFixture } from '../../../../__fixtures__/deployments/deployment-in-progress.js'
+import { deploymentSuccessFixture } from '../../../../__fixtures__/deployments/deployment-success.js'
+import { repositoryFixture } from '../../../../__fixtures__/repository.js'
+import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
 
-jest.mock('~/src/server/deployments/helpers/fetch/fetch-deployment')
-jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
+vi.mock('../fetch/fetch-deployment')
+vi.mock('../../../common/helpers/fetch/fetch-repository.js')
 
 describe('#provideDeployment', () => {
-  const mockIsXhr = jest.fn()
+  const mockIsXhr = vi.fn()
   const mockRequest = {
     params: { deploymentId: '3f5dff54-9bea-4a53-830d-96610af8c2b4' },
     isXhr: mockIsXhr
   }
 
   afterEach(() => {
-    jest.resetAllMocks()
+    vi.resetAllMocks()
   })
 
   describe('With an in-progress deployment', () => {

@@ -2,10 +2,10 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import startCase from 'lodash/startCase.js'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.js'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
-import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { getUsersTeams } from '../../../common/helpers/user/get-users-teams.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { repositoryVisibility } from '../../constants/repository-visibility.js'
 
 const repositoryDetailFormController = {
   options: {

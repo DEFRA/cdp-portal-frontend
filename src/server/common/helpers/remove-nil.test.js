@@ -1,4 +1,5 @@
-import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
+import { describe, expect, test } from 'vitest'
+import { removeNil } from './remove-nil.js'
 
 describe('#removeNil', () => {
   test('Should provide object without nil properties', () => {

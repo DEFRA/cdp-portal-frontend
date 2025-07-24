@@ -1,5 +1,5 @@
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/form/index.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { saveToCdpTeam } from '../../helpers/form/index.js'
 
 const startCreateTeamController = {
   options: {

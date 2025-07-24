@@ -1,6 +1,7 @@
-import { faviconState } from '~/src/server/common/constants/favicon-state.js'
-import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
-import { databaseUpdateFaviconState } from '~/src/server/deployments/helpers/database-update-favicon-state.js'
+import { describe, expect, test } from 'vitest'
+import { faviconState } from '../../common/constants/favicon-state.js'
+import { databaseStatus } from '../constants/database-status.js'
+import { databaseUpdateFaviconState } from './database-update-favicon-state.js'
 
 describe('#databaseUpdateFaviconState', () => {
   test('returns pending favicon for inProgress status', () => {

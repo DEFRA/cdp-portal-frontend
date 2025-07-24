@@ -1,5 +1,6 @@
-import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
-import { serviceSecretsFixture } from '~/src/__fixtures__/secrets/service-secrets.js'
+import { describe, expect, test } from 'vitest'
+import { transformSecrets } from './transform-secrets.js'
+import { serviceSecretsFixture } from '../../../../../__fixtures__/secrets/service-secrets.js'
 
 describe('#transformSecrets', () => {
   test('Should return keys excluding platform global keys', () => {

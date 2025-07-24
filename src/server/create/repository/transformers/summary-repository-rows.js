@@ -1,7 +1,7 @@
 import startCase from 'lodash/startCase.js'
 import isNull from 'lodash/isNull.js'
 
-import { noValue } from '~/src/server/common/constants/no-value.js'
+import { noValue } from '../../../common/constants/no-value.js'
 
 function buildRow(name, value, stepPath) {
   const href = `/create/${stepPath}?redirectLocation=summary`

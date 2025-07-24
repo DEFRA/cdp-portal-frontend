@@ -1,4 +1,5 @@
-import { toggleProtectedInputs } from '~/src/client/common/helpers/protect-form/toggle-protected-inputs.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { toggleProtectedInputs } from './toggle-protected-inputs.js'
 
 const getProtectedInputs = (form) =>
   Array.from(form.elements).filter(

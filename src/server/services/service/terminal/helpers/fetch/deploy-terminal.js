@@ -1,4 +1,4 @@
-import { config } from '~/src/config/config.js'
+import { config } from '../../../../../../config/config.js'
 
 function deployTerminal(request, serviceId, environment) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-terminal'

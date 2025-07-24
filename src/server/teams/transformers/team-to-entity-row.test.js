@@ -1,6 +1,7 @@
-import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row.js'
-import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
-import { cdpTeamWithoutGithubFixture } from '~/src/__fixtures__/admin/cdp-team-without-github.js'
+import { describe, expect, test } from 'vitest'
+import { teamToEntityRow } from './team-to-entity-row.js'
+import { cdpTeamFixture } from '../../../__fixtures__/admin/cdp-team.js'
+import { cdpTeamWithoutGithubFixture } from '../../../__fixtures__/admin/cdp-team-without-github.js'
 
 describe('#teamToEntityRow', () => {
   test('Should provide expected team transformation', () => {

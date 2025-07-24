@@ -1,5 +1,6 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { deploymentsFixture } from '~/src/__fixtures__/deployments/deployments.js'
+import { describe, expect, test } from 'vitest'
+import { sortBy } from './sort-by.js'
+import { deploymentsFixture } from '../../../../__fixtures__/deployments/deployments.js'
 
 describe('#sortBy', () => {
   test('Should provide "desc" sorting by default', () => {

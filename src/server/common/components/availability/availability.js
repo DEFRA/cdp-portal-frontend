@@ -1,6 +1,6 @@
 import isFunction from 'lodash/isFunction.js'
 
-import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
+import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
 
 const isLoading = 'app-loader--is-loading'
 const isVisible = 'app-icon--visible'

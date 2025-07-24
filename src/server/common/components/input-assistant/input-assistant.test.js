@@ -1,12 +1,13 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { inputAssistant } from '~/src/server/common/components/input-assistant/input-assistant.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { inputAssistant } from './input-assistant.js'
 
 describe('#inputAssistant', () => {
   let inputElem
   let inputAssistantElem
 
   beforeEach(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
 
     const $component = renderTestComponent('input-assistant', {
       message: "Have a read of 'Naming your microservice best practice'",

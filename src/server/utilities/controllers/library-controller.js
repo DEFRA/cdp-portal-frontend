@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libraries.js'
-import { transformRepositoryToSummary } from '~/src/server/utilities/transformers/repository-to-summary.js'
+import { fetchLibraries } from '../helpers/fetch/fetch-libraries.js'
+import { transformRepositoryToSummary } from '../transformers/repository-to-summary.js'
 
 const libraryController = {
   options: {

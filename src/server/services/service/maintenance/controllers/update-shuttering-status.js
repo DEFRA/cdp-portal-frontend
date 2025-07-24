@@ -1,10 +1,10 @@
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { waf } from '~/src/server/common/constants/waf.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { requestShutterUpdate } from '~/src/server/services/service/maintenance/helpers/fetchers.js'
+import { waf } from '../../../../common/constants/waf.js'
+import { scopes } from '../../../../common/constants/scopes.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { requestShutterUpdate } from '../helpers/fetchers.js'
 
 const updateShutteringStatusController = {
   options: {

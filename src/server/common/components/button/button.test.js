@@ -1,5 +1,6 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { button } from '~/src/server/common/components/button/button.js'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { button } from './button.js'
 
 /**
  *  Helper to preventDefault for the form, and then fire the submit form event. ClientSide JavaScript reacts to the
@@ -17,7 +18,7 @@ describe('#button', () => {
   let mockForm
 
   beforeEach(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
 
     const $component = renderTestComponent('button', {
       text: 'Press me!',
@@ -46,33 +47,33 @@ describe('#button', () => {
   })
 
   afterEach(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   test('Should not disable button before specified delay', () => {
     submitForm(mockForm)
-    jest.advanceTimersByTime(100)
+    vi.advanceTimersByTime(100)
 
     expect(buttonElem).toBeEnabled()
   })
 
   test('Should not add loading class to loader before specified delay', () => {
     submitForm(mockForm)
-    jest.advanceTimersByTime(100)
+    vi.advanceTimersByTime(100)
 
     expect(buttonElem).toBeEnabled()
   })
 
   test('Should disable button on form submit after specified delay', () => {
     submitForm(mockForm)
-    jest.advanceTimersByTime(200)
+    vi.advanceTimersByTime(200)
 
     expect(buttonElem).toHaveAttribute('disabled', 'disabled')
   })
 
   test('Should add loading class to loader on form submit after specified delay', () => {
     submitForm(mockForm)
-    jest.advanceTimersByTime(200)
+    vi.advanceTimersByTime(200)
 
     expect(buttonLoaderElem).toHaveAttribute(
       'class',

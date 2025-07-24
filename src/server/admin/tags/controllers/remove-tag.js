@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 
-import { removeTagFromService } from '~/src/server/admin/tags/helpers/fetchers.js'
-import { tagValidation } from '~/src/server/admin/tags/helpers/schema/tag-validation.js'
+import { removeTagFromService } from '../helpers/fetchers.js'
+import { tagValidation } from '../helpers/schema/tag-validation.js'
 
 const removeTagController = {
   options: {

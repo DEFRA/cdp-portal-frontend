@@ -1,26 +1,25 @@
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockServiceEntityCall,
   mockServicesAdditionalCalls
-} from '~/test-helpers/common-page-rendering.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { availableMigrationsFixture } from '~/src/__fixtures__/migrations/available-migrations.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+} from '../../../../../test-helpers/common-page-rendering.js'
+import { scopes } from '../../../common/constants/scopes.js'
+import { availableMigrationsFixture } from '../../../../__fixtures__/migrations/available-migrations.js'
+import { statusCodes } from '../../../common/constants/status-codes.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-tenant-service.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-running-services.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-repository.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-vanity-urls.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-api-gateways.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-available-migrations.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-latest-migrations.js')
-jest.mock(
-  '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
-)
+vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
+vi.mock('../../../common/helpers/fetch/fetch-running-services.js')
+vi.mock('../../../common/helpers/fetch/fetch-repository.js')
+vi.mock('../../helpers/fetch/fetch-vanity-urls.js')
+vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
+vi.mock('../../helpers/fetch/fetch-api-gateways.js')
+vi.mock('../../../common/helpers/fetch/fetch-entities.js')
+vi.mock('../../../common/helpers/auth/get-user-session.js')
+vi.mock('../../helpers/fetch/fetch-available-migrations.js')
+vi.mock('../../../common/helpers/fetch/fetch-latest-migrations.js')
+vi.mock('../../../deploy-service/helpers/fetch/fetch-available-versions.js')
 
 describe('Services', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -28,8 +27,8 @@ describe('Services', () => {
 
   describe('About service page', () => {
     beforeAll(async () => {
-      jest.useFakeTimers({ advanceTimers: true })
-      jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
       mockServiceEntityCall('mock-service', 'frontend')
       mockServicesAdditionalCalls({
@@ -41,7 +40,7 @@ describe('Services', () => {
 
     afterAll(async () => {
       await server.stop({ timeout: 0 })
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     test('logged in admin user', async () => {
@@ -95,8 +94,8 @@ describe('Services', () => {
     )
 
     beforeAll(async () => {
-      jest.useFakeTimers({ advanceTimers: true })
-      jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
       mockServiceEntityCall(serviceName, 'backend')
       mockServicesAdditionalCalls({
@@ -109,7 +108,7 @@ describe('Services', () => {
 
     afterAll(async () => {
       await server.stop({ timeout: 0 })
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     test('logged in admin user restrictedTechPostgres permission', async () => {

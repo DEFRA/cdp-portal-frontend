@@ -1,10 +1,11 @@
-import { provideTabs } from '~/src/server/deployments/helpers/provide-tabs.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { afterEach, describe, expect, test, vi } from 'vitest'
+import { provideTabs } from './provide-tabs.js'
+import { scopes } from '../../common/constants/scopes.js'
 
 const mockRequest = ({ response, path = '', scope = [] }) => ({
   response,
   path,
-  getUserSession: jest.fn().mockResolvedValue({
+  getUserSession: vi.fn().mockResolvedValue({
     scope
   })
 })

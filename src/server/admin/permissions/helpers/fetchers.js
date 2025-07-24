@@ -1,9 +1,9 @@
 import qs from 'qs'
 
-import { config } from '~/src/config/config.js'
-import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { config } from '../../../../config/config.js'
+import { removeNil } from '../../../common/helpers/remove-nil.js'
+import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')
 

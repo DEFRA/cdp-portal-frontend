@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { terminalEnvironments } from '~/src/server/services/service/terminal/helpers/can-launch-terminal.js'
+import { terminalEnvironments } from '../can-launch-terminal.js'
 
 function launchTerminalParamsValidation(params, options) {
   const scopes = options.context.auth.credentials?.scope

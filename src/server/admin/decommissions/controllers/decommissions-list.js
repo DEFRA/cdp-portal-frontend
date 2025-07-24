@@ -1,7 +1,7 @@
-import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
-import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
-import { fetchDecommissions } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { transformDecommissionToRow } from '~/src/server/admin/decommissions/transformers/decommission-to-row.js'
+import { creationStatuses } from '../../../common/constants/creation-statuses.js'
+import { statusTagClassMap } from '../../../common/helpers/status-tag-class-map.js'
+import { fetchDecommissions } from '../../../common/helpers/fetch/fetch-entities.js'
+import { transformDecommissionToRow } from '../transformers/decommission-to-row.js'
 
 const decommissionsListController = {
   options: {

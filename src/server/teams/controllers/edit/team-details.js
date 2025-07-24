@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { teamValidation } from '~/src/server/teams/helpers/schema/team-validation.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
+import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
+import { teamValidation } from '../../helpers/schema/team-validation.js'
 import {
   editTeam,
   fetchCdpTeam
-} from '~/src/server/admin/teams/helpers/fetch/index.js'
+} from '../../../admin/teams/helpers/fetch/index.js'
 
 const teamDetailsController = {
   options: {

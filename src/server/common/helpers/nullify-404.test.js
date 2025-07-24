@@ -1,5 +1,9 @@
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
-import { getErrorSync, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { describe, expect, test } from 'vitest'
+import { nullify404 } from './nullify-404.js'
+import {
+  getErrorSync,
+  NoErrorThrownError
+} from '../../../../test-helpers/get-error.js'
 
 const mock404Error = { message: 'Not Found', output: { statusCode: 404 } }
 const mock500Error = { message: 'Holy smokes!', output: { statusCode: 50 } }

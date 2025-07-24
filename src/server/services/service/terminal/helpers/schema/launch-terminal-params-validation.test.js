@@ -1,6 +1,6 @@
-import Joi from 'joi'
-import { launchTerminalParamsValidation } from '~/src/server/services/service/terminal/helpers/schema/launch-terminal-params-validation.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { launchTerminalParamsValidation } from './launch-terminal-params-validation.js'
+import { scopes } from '../../../../../common/constants/scopes.js'
 
 describe('#launchTerminalParamsValidation', () => {
   describe('With break glass user', () => {
@@ -22,7 +22,7 @@ describe('#launchTerminalParamsValidation', () => {
       const params = { serviceId: 'service123' }
 
       expect(() => launchTerminalParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError('"environment" is required')
+        '"environment" is required'
       )
     })
 
@@ -30,7 +30,7 @@ describe('#launchTerminalParamsValidation', () => {
       const params = { environment: 'dev' }
 
       expect(() => launchTerminalParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError('"serviceId" is required')
+        '"serviceId" is required'
       )
     })
 
@@ -45,9 +45,7 @@ describe('#launchTerminalParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'invalidEnv' }
 
       expect(() => launchTerminalParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, perf-test, prod]'
-        )
+        '"environment" must be one of [dev, test, perf-test, prod]'
       )
     })
   })
@@ -71,9 +69,7 @@ describe('#launchTerminalParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'prod' }
 
       expect(() => launchTerminalParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, perf-test]'
-        )
+        '"environment" must be one of [dev, test, perf-test]'
       )
     })
 
@@ -81,9 +77,7 @@ describe('#launchTerminalParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'management' }
 
       expect(() => launchTerminalParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, perf-test]'
-        )
+        '"environment" must be one of [dev, test, perf-test]'
       )
     })
 
@@ -114,9 +108,7 @@ describe('#launchTerminalParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'prod' }
 
       expect(() => launchTerminalParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
-        )
+        '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
       )
     })
 
@@ -124,9 +116,7 @@ describe('#launchTerminalParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'not-an-env' }
 
       expect(() => launchTerminalParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
-        )
+        '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
       )
     })
 

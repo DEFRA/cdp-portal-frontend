@@ -1,4 +1,4 @@
-import { environments } from '~/src/config/environments.js'
+import { environments } from '../../../../config/environments.js'
 
 const order = [
   environments.infraDev.kebabName,

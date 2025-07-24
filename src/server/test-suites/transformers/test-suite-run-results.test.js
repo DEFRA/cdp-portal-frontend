@@ -1,5 +1,6 @@
-import { testSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results.js'
-import { testSuiteRunsFixture } from '~/src/__fixtures__/test-suite-runs.js'
+import { describe, expect, test } from 'vitest'
+import { testSuiteRunResults } from './test-suite-run-results.js'
+import { testSuiteRunsFixture } from '../../../__fixtures__/test-suite-runs.js'
 
 describe('#transformTestSuiteRunResults', () => {
   describe('When a user can NOT run the tests', () => {

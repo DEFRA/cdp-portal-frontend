@@ -1,5 +1,6 @@
+import { describe, expect, test } from 'vitest'
 import jwt from '@hapi/jwt'
-import { tokenHasExpired } from '~/src/server/common/helpers/auth/cognito.js'
+import { tokenHasExpired } from './cognito.js'
 
 describe('tokenHasExpired', () => {
   test('Should return true if the token has expired', () => {

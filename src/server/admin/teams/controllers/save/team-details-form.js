@@ -1,8 +1,8 @@
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { environments } from '~/src/config/environments.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { environments } from '../../../../../config/environments.js'
+import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 
 const teamDetailsFormController = {
   options: {

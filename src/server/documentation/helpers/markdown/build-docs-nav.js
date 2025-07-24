@@ -1,7 +1,7 @@
 import { Marked } from 'marked'
 
-import { fetchMarkdown } from '~/src/server/documentation/helpers/s3-file-handler.js'
-import { navLinkExtension } from '~/src/server/documentation/helpers/extensions/nav-link.js'
+import { fetchMarkdown } from '../s3-file-handler.js'
+import { navLinkExtension } from '../extensions/nav-link.js'
 
 const navMarked = new Marked({ gfm: true })
 

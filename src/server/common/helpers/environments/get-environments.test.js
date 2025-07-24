@@ -1,8 +1,6 @@
-import {
-  getEnvironments,
-  getEnvironmentsThatNeed
-} from '~/src/server/common/helpers/environments/get-environments.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { describe, expect, test } from 'vitest'
+import { getEnvironments, getEnvironmentsThatNeed } from './get-environments.js'
+import { scopes } from '../../constants/scopes.js'
 
 describe('#getEnvironments', () => {
   describe('With Admin user', () => {

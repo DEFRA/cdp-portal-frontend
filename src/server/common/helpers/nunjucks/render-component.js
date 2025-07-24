@@ -1,7 +1,7 @@
 import camelCase from 'lodash/camelCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 
-import { nunjucksEnvironment } from '~/src/config/nunjucks/index.js'
+import { nunjucksEnvironment } from '../../../../config/nunjucks/index.js'
 
 function renderString(name, params, macroPath, caller = []) {
   const macroName = `app${upperFirst(camelCase(name))}`

@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { buildRunningServicesTableData } from '~/src/server/running-services/helpers/build-running-services-table-data.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
+import { buildRunningServicesTableData } from '../helpers/build-running-services-table-data.js'
+import { formatText } from '../../../config/nunjucks/filters/filters.js'
 
 const runningServicesListController = {
   options: {

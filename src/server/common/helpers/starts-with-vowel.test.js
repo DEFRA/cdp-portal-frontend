@@ -1,4 +1,5 @@
-import { startsWithVowel } from '~/src/server/common/helpers/starts-with-vowel.js'
+import { describe, expect, test } from 'vitest'
+import { startsWithVowel } from './starts-with-vowel.js'
 
 describe('#startsWithVowel', () => {
   test('When string starts with vowel should return true', () => {

@@ -1,16 +1,13 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { summaryController } from '~/src/server/apply-changelog/controllers/summary.js'
-import { multistepForm } from '~/src/server/common/helpers/multistep-form/multistep-form.js'
-import { availableMigrationsController } from '~/src/server/apply-changelog/controllers/available-migrations.js'
-import { changeDetailsFormController } from '~/src/server/apply-changelog/controllers/change-details-form.js'
-import { changeDetailsController } from '~/src/server/apply-changelog/controllers/change-details.js'
-import { applyController } from '~/src/server/apply-changelog/controllers/apply.js'
-import { startApplyChangelogController } from '~/src/server/apply-changelog/controllers/start-apply-changelog.js'
-import {
-  urls,
-  formSteps
-} from '~/src/server/apply-changelog/helpers/multistep-form/steps.js'
+import { authScope } from '../common/helpers/auth/auth-scope.js'
+import { scopes } from '../common/constants/scopes.js'
+import { summaryController } from './controllers/summary.js'
+import { multistepForm } from '../common/helpers/multistep-form/multistep-form.js'
+import { availableMigrationsController } from './controllers/available-migrations.js'
+import { changeDetailsFormController } from './controllers/change-details-form.js'
+import { changeDetailsController } from './controllers/change-details.js'
+import { applyController } from './controllers/apply.js'
+import { startApplyChangelogController } from './controllers/start-apply-changelog.js'
+import { urls, formSteps } from './helpers/multistep-form/steps.js'
 
 const serviceTeamAndAdminWithPostgresRestrictedTechScope = authScope([
   scopes.tenant,

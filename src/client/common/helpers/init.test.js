@@ -1,12 +1,9 @@
-import {
-  initClass,
-  initModule,
-  initModules
-} from '~/src/client/common/helpers/init.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { initClass, initModule, initModules } from './init.js'
 
 describe('#init', () => {
   describe('#initClass', () => {
-    const mockClass = jest.fn()
+    const mockClass = vi.fn()
 
     describe('With elements', () => {
       beforeEach(() => {
@@ -38,7 +35,7 @@ describe('#init', () => {
   })
 
   describe('#initModule', () => {
-    const mockModule = jest.fn()
+    const mockModule = vi.fn()
 
     describe('With elements', () => {
       beforeEach(() => {
@@ -69,7 +66,7 @@ describe('#init', () => {
   })
 
   describe('#initModules', () => {
-    const mockModule = jest.fn()
+    const mockModule = vi.fn()
 
     describe('With elements', () => {
       beforeEach(() => {

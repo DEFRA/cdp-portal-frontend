@@ -4,12 +4,12 @@ import Boom from '@hapi/boom'
 import {
   fetchTestRepository,
   getAutoTestRunDetails
-} from '~/src/server/services/service/automations/helpers/fetchers.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { excludedEnvironments } from '~/src/server/services/service/automations/helpers/constants/excluded-environments.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+} from '../../helpers/fetchers.js'
+import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
+import { excludedEnvironments } from '../../helpers/constants/excluded-environments.js'
+import { buildOptions } from '../../../../../common/helpers/options/build-options.js'
+import { formatText } from '../../../../../../config/nunjucks/filters/filters.js'
+import { provideAuthedUser } from '../../../../../common/helpers/auth/pre/provide-authed-user.js'
 
 const updateTestRunFormController = {
   options: {

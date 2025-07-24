@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
-import { transformUserToSummary } from '~/src/server/admin/users/transformers/user-to-summary.js'
-import { transformUserTeamsToTaskList } from '~/src/server/admin/users/transformers/user-teams-to-task-list.js'
+import { fetchCdpUser } from '../../helpers/fetch/index.js'
+import { transformUserToSummary } from '../../transformers/user-to-summary.js'
+import { transformUserTeamsToTaskList } from '../../transformers/user-teams-to-task-list.js'
 import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmDeleteUserController = {

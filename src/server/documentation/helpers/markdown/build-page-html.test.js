@@ -1,6 +1,7 @@
+import { describe, expect, test } from 'vitest'
 import { load } from 'cheerio'
 
-import { buildPageHtml } from '~/src/server/documentation/helpers/markdown/build-page-html.js'
+import { buildPageHtml } from './build-page-html.js'
 
 describe('#buildPageHtml', () => {
   const searchTerm = ''

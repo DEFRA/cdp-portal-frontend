@@ -3,7 +3,7 @@ import { Marked } from 'marked'
 import startCase from 'lodash/startCase.js'
 import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 
-import { fetchS3File } from '~/src/server/documentation/helpers/s3-file-handler.js'
+import { fetchS3File } from './s3-file-handler.js'
 
 /**
  * @typedef {{ name: string, contents: string[] }} Folder

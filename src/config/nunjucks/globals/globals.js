@@ -1,5 +1,5 @@
-import { getComponent } from '~/src/config/nunjucks/globals/get-component.js'
-import { errorMessageHelper } from '~/src/config/nunjucks/globals/error-message-helper.js'
+import { getComponent } from './get-component.js'
+import { errorMessageHelper } from './error-message-helper.js'
 
 const govukRebrand = true
 

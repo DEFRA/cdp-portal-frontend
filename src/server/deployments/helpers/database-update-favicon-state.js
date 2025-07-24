@@ -1,5 +1,5 @@
-import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
-import { faviconState } from '~/src/server/common/constants/favicon-state.js'
+import { databaseStatus } from '../constants/database-status.js'
+import { faviconState } from '../../common/constants/favicon-state.js'
 
 /**
  * @param {string} migrationStatus

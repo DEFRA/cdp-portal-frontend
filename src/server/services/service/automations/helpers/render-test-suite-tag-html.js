@@ -1,6 +1,6 @@
-import { testKind } from '~/src/server/test-suites/constants/test-kind.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
+import { testKind } from '../../../../test-suites/constants/test-kind.js'
+import { renderTag } from '../../../../common/helpers/view/render-tag.js'
+import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 
 function renderTestSuiteTagHtml(topics = []) {
   if (topics.includes(testKind.performance)) {

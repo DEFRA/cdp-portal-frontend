@@ -1,13 +1,22 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi
+} from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 
 describe('Entity Component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2023-04-01'))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2023-04-01'))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('Entity', () => {
@@ -142,12 +151,12 @@ describe('Entity Component', () => {
     let $dateEntity
 
     beforeAll(() => {
-      jest.useFakeTimers()
-      jest.setSystemTime(new Date('2023-04-01'))
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2023-04-01'))
     })
 
     afterAll(() => {
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     beforeEach(() => {
@@ -179,12 +188,12 @@ describe('Entity Component', () => {
     let $dateEntity
 
     beforeAll(() => {
-      jest.useFakeTimers()
-      jest.setSystemTime(new Date('2023-04-01'))
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2023-04-01'))
     })
 
     afterAll(() => {
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     beforeEach(() => {

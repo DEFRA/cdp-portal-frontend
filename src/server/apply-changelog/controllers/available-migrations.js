@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
-import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
+import { relativeDate } from '../../common/helpers/date/relative-date.js'
+import { fetchAvailableMigrations } from '../../services/helpers/fetch/fetch-available-migrations.js'
 
 const availableMigrationsController = {
   handler: async (request, h) => {

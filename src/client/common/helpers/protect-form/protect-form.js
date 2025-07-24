@@ -1,4 +1,4 @@
-import { toggleProtectedInputs } from '~/src/client/common/helpers/protect-form/toggle-protected-inputs.js'
+import { toggleProtectedInputs } from './toggle-protected-inputs.js'
 
 function protectForm($form) {
   const $controlButton = document.querySelector('[data-js="protected-button"]')

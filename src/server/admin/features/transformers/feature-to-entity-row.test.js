@@ -1,5 +1,6 @@
-import { featureToEntityRow } from '~/src/server/admin/features/transformers/feature-to-entity-row.js'
-import { featuresFixture } from '~/src/__fixtures__/features.js'
+import { describe, expect, test } from 'vitest'
+import { featureToEntityRow } from './feature-to-entity-row.js'
+import { featuresFixture } from '../../../../__fixtures__/features.js'
 
 describe('featureToEntityRow', () => {
   test('Should return correct row structure for an active feature', () => {

@@ -1,4 +1,4 @@
-import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
+import { deploymentStatus } from '../../common/constants/deployment.js'
 
 function provideDeploymentStatusClassname(status) {
   switch (status) {

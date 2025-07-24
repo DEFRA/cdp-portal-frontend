@@ -1,9 +1,9 @@
-import { config } from '~/src/config/config.js'
-import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user.js'
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { setStepComplete } from '~/src/server/admin/users/helpers/form/index.js'
-import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
+import { config } from '../../../../../config/config.js'
+import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { setStepComplete } from '../../helpers/form/index.js'
+import { removeNil } from '../../../../common/helpers/remove-nil.js'
 
 const createUserController = {
   options: {

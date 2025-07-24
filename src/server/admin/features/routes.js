@@ -1,8 +1,8 @@
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
-import { listFeaturesController } from '~/src/server/admin/features/controllers/features-list.js'
-import { toggleFeatureController } from '~/src/server/admin/features/controllers/toggle-feature.js'
+import { scopes } from '../../common/constants/scopes.js'
+import { authScope } from '../../common/helpers/auth/auth-scope.js'
+import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
+import { listFeaturesController } from './controllers/features-list.js'
+import { toggleFeatureController } from './controllers/toggle-feature.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 

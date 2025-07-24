@@ -2,10 +2,10 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import startCase from 'lodash/startCase.js'
 
-import { fetchAllSecrets } from '~/src/server/services/helpers/fetch/fetch-all-secrets.js'
-import { allEnvironmentSecrets } from '~/src/server/common/patterns/entities/tabs/secrets/transformers/all-environment-secrets.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
+import { fetchAllSecrets } from '../../../../../../services/helpers/fetch/fetch-all-secrets.js'
+import { allEnvironmentSecrets } from '../transformers/all-environment-secrets.js'
+import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
+import { pluralise } from '../../../../../helpers/pluralise.js'
 
 function allSecretsController(entityType) {
   return {

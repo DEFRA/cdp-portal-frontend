@@ -1,8 +1,8 @@
-import { config } from '~/src/config/config.js'
+import { config } from '../../../config/config.js'
 import {
   renderComponent,
   renderIcon
-} from '~/src/server/common/helpers/nunjucks/render-component.js'
+} from '../../common/helpers/nunjucks/render-component.js'
 
 function teamToEntityRow(team) {
   const githubOrg = config.get('githubOrg')

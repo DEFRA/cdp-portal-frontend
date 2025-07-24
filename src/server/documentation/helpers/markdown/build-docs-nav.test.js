@@ -1,7 +1,8 @@
-import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav.js'
-import { fetchMarkdown } from '~/src/server/documentation/helpers/s3-file-handler.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { buildDocsNav } from './build-docs-nav.js'
+import { fetchMarkdown } from '../s3-file-handler.js'
 
-jest.mock('~/src/server/documentation/helpers/s3-file-handler.js')
+vi.mock('../s3-file-handler.js')
 
 describe('buildDocsNav', () => {
   const mockNavMarkdown = `
@@ -15,7 +16,7 @@ describe('buildDocsNav', () => {
   beforeEach(() => {
     request = {
       logger: {
-        debug: jest.fn()
+        debug: vi.fn()
       }
     }
     bucket = 'mock-bucket'

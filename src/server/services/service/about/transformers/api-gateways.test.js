@@ -1,8 +1,9 @@
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { apiGatewaysFixture } from '~/src/__fixtures__/api-gateways.js'
-import { provideApiGateways } from '~/src/server/services/service/about/transformers/api-gateways.js'
+import { config } from '../../../../../config/config.js'
+import { apiGatewaysFixture } from '../../../../../__fixtures__/api-gateways.js'
+import { provideApiGateways } from './api-gateways.js'
 
 describe('#provideApiGateways', () => {
   const serviceName = 'cdp-portal-backend'
@@ -19,7 +20,7 @@ describe('#provideApiGateways', () => {
 
       result = await provideApiGateways({
         params: { serviceId: 'cdp-portal-backend' },
-        logger: { debug: jest.fn() }
+        logger: { debug: vi.fn() }
       })
     })
 
@@ -87,7 +88,7 @@ describe('#provideApiGateways', () => {
 
       result = await provideApiGateways({
         params: { serviceId: 'cdp-portal-backend' },
-        logger: { debug: jest.fn() }
+        logger: { debug: vi.fn() }
       })
     })
 

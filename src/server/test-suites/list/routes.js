@@ -1,4 +1,4 @@
-import { testSuiteListController } from '~/src/server/test-suites/list/controller.js'
+import { testSuiteListController } from './controller.js'
 
 const listTestSuites = {
   plugin: {

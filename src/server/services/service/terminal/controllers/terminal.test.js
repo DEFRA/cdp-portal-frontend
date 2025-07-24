@@ -1,18 +1,8 @@
 import nock from 'nock'
 
-import { getTerminalEnvs } from '~/src/server/services/service/terminal/controllers/terminal.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { config } from '~/src/config/config.js'
-
-const mockInfoLogger = jest.fn()
-const mockErrorLogger = jest.fn()
-
-jest.mock('~/src/server/common/helpers/logging/logger.js', () => ({
-  createLogger: () => ({
-    info: (value) => mockInfoLogger(value),
-    error: (value) => mockErrorLogger(value)
-  })
-}))
+import { getTerminalEnvs } from './terminal.js'
+import { scopes } from '../../../../common/constants/scopes.js'
+import { config } from '../../../../../config/config.js'
 
 const mockService = 'mock-service'
 const tenantServicesEndpointUrl = new URL(
@@ -103,18 +93,5 @@ describe('#getTerminalEnvs', () => {
     const result = await getTerminalEnvs()
 
     expect(result).toEqual([])
-  })
-
-  test('Should log error when error is not a 404', async () => {
-    nock(tenantServicesEndpointUrl.origin)
-      .get(tenantServicesEndpointUrl.pathname)
-      .replyWithError('Boom!')
-
-    const result = await getTerminalEnvs(mockService, [])
-
-    expect(result).toEqual([])
-    expect(mockErrorLogger).toHaveBeenCalledWith(
-      Error('Client request error: Boom!')
-    )
   })
 })

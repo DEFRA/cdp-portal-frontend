@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
-import { getCreations } from '~/src/server/create/constants/creations.js'
-import { validation } from '~/src/server/common/constants/validation.js'
+import { getCreations } from '../../constants/creations.js'
+import { validation } from '../../../common/constants/validation.js'
 
 const chooseValidation = Joi.object({
   kind: Joi.string()

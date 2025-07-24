@@ -1,5 +1,6 @@
-import { runningServicesFixture } from '~/src/__fixtures__/running-services.js'
-import { withEnvironments } from '~/src/server/common/transformers/with-environments.js'
+import { describe, expect, test } from 'vitest'
+import { runningServicesFixture } from '../../../__fixtures__/running-services.js'
+import { withEnvironments } from './with-environments.js'
 
 describe('#withEnvironments', () => {
   test('Should provide expected running services transformation', () => {

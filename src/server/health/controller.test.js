@@ -1,5 +1,6 @@
-import { createServer } from '~/src/server/index.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { createServer } from '../index.js'
+import { statusCodes } from '../common/constants/status-codes.js'
 
 describe('#healthController', () => {
   /** @type {import('@hapi/hapi').Server} */

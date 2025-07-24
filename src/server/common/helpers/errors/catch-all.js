@@ -1,5 +1,5 @@
-import { statusCodeMessage } from '~/src/server/common/helpers/errors/status-code-message.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+import { statusCodeMessage } from './status-code-message.js'
+import { statusCodes } from '../../constants/status-codes.js'
 
 function catchAll(request, h) {
   const { response } = request

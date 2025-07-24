@@ -1,4 +1,5 @@
-import { auditMessage } from '~/src/server/common/helpers/audit/audit-message.js'
+import { describe, expect, test } from 'vitest'
+import { auditMessage } from './audit-message.js'
 
 describe('#auditMessage', () => {
   test('Should create json with repository and user', () => {

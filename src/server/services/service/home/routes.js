@@ -1,7 +1,7 @@
-import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
-import { serviceHomeController } from '~/src/server/services/service/home/service-home.js'
-import { SERVICE } from '~/src/server/common/patterns/entities/tabs/constants.js'
-import { entityStatusController } from '~/src/server/common/patterns/entities/status/controller.js'
+import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
+import { serviceHomeController } from './service-home.js'
+import { SERVICE } from '../../../common/patterns/entities/tabs/constants.js'
+import { entityStatusController } from '../../../common/patterns/entities/status/controller.js'
 
 const serviceHome = {
   plugin: {

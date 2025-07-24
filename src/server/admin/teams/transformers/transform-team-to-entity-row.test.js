@@ -1,5 +1,6 @@
-import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
-import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row.js'
+import { describe, expect, test } from 'vitest'
+import { cdpTeamFixture } from '../../../../__fixtures__/admin/cdp-team.js'
+import { transformTeamToEntityRow } from './transform-team-to-entity-row.js'
 
 describe('#transformCdpTeamToEntityRow', () => {
   test('Should provide expected team row transformation', () => {

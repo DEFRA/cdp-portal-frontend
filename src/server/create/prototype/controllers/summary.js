@@ -1,6 +1,6 @@
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
-import { summaryPrototypeRows } from '~/src/server/create/prototype/transformers/summary-prototype-rows.js'
+import { provideCreate } from '../../helpers/pre/provide-create.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { summaryPrototypeRows } from '../transformers/summary-prototype-rows.js'
 
 const prototypeSummaryController = {
   options: {

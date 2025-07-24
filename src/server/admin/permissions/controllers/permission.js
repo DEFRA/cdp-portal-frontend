@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 
-import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { fetchPermissionsScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { transformScopeToSummary } from '~/src/server/admin/permissions/transformers/scope-to-summary.js'
-import { transformScopeTeamsToTaskList } from '~/src/server/admin/permissions/transformers/scope-teams-to-task-list.js'
-import { transformScopeUsersToTaskList } from '~/src/server/admin/permissions/transformers/scope-users-to-task-list.js'
+import Joi from '../../../common/helpers/extended-joi.js'
+import { formatText } from '../../../../config/nunjucks/filters/filters.js'
+import { fetchPermissionsScope } from '../helpers/fetchers.js'
+import { transformScopeToSummary } from '../transformers/scope-to-summary.js'
+import { transformScopeTeamsToTaskList } from '../transformers/scope-teams-to-task-list.js'
+import { transformScopeUsersToTaskList } from '../transformers/scope-users-to-task-list.js'
 
 const permissionController = {
   options: {

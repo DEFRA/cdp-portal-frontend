@@ -1,7 +1,8 @@
+import { beforeEach, describe, expect, test } from 'vitest'
 import { Marked } from 'marked'
 import { load } from 'cheerio'
 
-import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
+import { headingExtension } from './heading.js'
 
 describe('#headingExtension', () => {
   let testMarked

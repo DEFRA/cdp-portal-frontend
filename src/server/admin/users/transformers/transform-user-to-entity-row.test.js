@@ -1,5 +1,6 @@
-import { cdpUserFixture } from '~/src/__fixtures__/admin/cdp-user.js'
-import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row.js'
+import { describe, expect, test } from 'vitest'
+import { cdpUserFixture } from '../../../../__fixtures__/admin/cdp-user.js'
+import { transformUserToEntityRow } from './transform-user-to-entity-row.js'
 
 describe('#transformUserToEntityRow', () => {
   test('Should provide expected user entity row transformation', () => {

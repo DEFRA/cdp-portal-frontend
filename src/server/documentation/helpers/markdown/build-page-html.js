@@ -3,8 +3,8 @@ import markedAlert from 'marked-alert'
 import { stripHtml } from 'string-strip-html'
 import { escapeRegex } from '@hapi/hoek'
 
-import { linkExtension } from '~/src/server/documentation/helpers/extensions/link.js'
-import { headingExtension } from '~/src/server/documentation/helpers/extensions/heading.js'
+import { linkExtension } from '../extensions/link.js'
+import { headingExtension } from '../extensions/heading.js'
 
 function buildTableOfContents(links) {
   const rootLevel = 1

@@ -1,4 +1,4 @@
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
 
 const provideCreate = {
   method: (request) => request.yar.get(sessionNames.create),

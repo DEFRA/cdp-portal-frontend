@@ -1,12 +1,13 @@
-import { provideSubNav } from '~/src/server/helpers/provide-sub-navigation.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { provideSubNav } from './provide-sub-navigation.js'
+import { scopes } from '../common/constants/scopes.js'
+import { pluralise } from '../common/helpers/pluralise.js'
 
 describe('#provideSubNavForentityType', () => {
   const mockToolkit = { continue: 'continue' }
 
   function mockRouteLookup(serviceKind, section, serviceId) {
-    return jest.fn().mockImplementation((_url, { params }) => {
+    return vi.fn().mockImplementation((_url, { params }) => {
       return params?.environment
         ? `/${pluralise(serviceKind)}/${serviceId}/${section}/${params.environment}`
         : `/${pluralise(serviceKind)}/${serviceId}/${section}`

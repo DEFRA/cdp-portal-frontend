@@ -1,6 +1,6 @@
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect.js'
-import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user.js'
-import { transformSummaryUserRows } from '~/src/server/admin/users/transformers/transform-summary-user-rows.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
+import { transformSummaryUserRows } from '../../transformers/transform-summary-user-rows.js'
 
 const userSummaryController = {
   options: {

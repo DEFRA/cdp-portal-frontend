@@ -1,6 +1,7 @@
-import { renderPage } from '~/test-helpers/component-helpers.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
+import { renderPage } from '../../../../../../test-helpers/component-helpers.js'
+import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { entityServicesFixture } from '../../../../../__fixtures__/services/entities.js'
 
 function buildServiceAutomationContext({
   entity,
@@ -47,12 +48,12 @@ const formEnvironments = ['infra-dev', 'management']
 
 describe('Service automation tab', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-02-25'))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2025-02-25'))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   test('Never deployed', () => {

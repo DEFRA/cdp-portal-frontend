@@ -1,11 +1,12 @@
-import { subscribe } from '~/src/client/common/helpers/event-emitter.js'
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { Autocomplete } from '~/src/server/common/components/autocomplete/autocomplete.js'
-import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
-import { dispatchDomContentLoaded } from '~/test-helpers/dispatch-dom-content-loaded.js'
-import { enterValue, pressEnter } from '~/test-helpers/keyboard.js'
-import { flushAsync } from '~/test-helpers/flush-async.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { subscribe } from '../../../../client/common/helpers/event-emitter.js'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { Autocomplete } from './autocomplete.js'
+import { defaultOption } from '../../helpers/options/default-option.js'
+import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-dom-content-loaded.js'
+import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
+import { flushAsync } from '../../../../../test-helpers/flush-async.js'
+import { buildOptions } from '../../helpers/options/build-options.js'
 
 const basicSuggestions = [
   defaultOption,
@@ -781,7 +782,7 @@ describe('#autocomplete', () => {
 
   describe('With publish to', () => {
     const eventName = 'mock-auto-complete-event'
-    const mockSubscriber = jest.fn()
+    const mockSubscriber = vi.fn()
     let autocompleteInput
 
     beforeEach(() => {
@@ -805,7 +806,7 @@ describe('#autocomplete', () => {
   })
 
   describe('With data fetcher', () => {
-    const mockFetchDocsSearchSuggestions = jest.fn()
+    const mockFetchDocsSearchSuggestions = vi.fn()
     let autocompleteInput
     let suggestionsContainer
 
@@ -853,7 +854,7 @@ describe('#autocomplete', () => {
   })
 
   describe('With sibling data fetcher', () => {
-    const mockFetchVersions = jest.fn()
+    const mockFetchVersions = vi.fn()
     let autocompleteInput
     let siblingAutocompleteInput
     let siblingSuggestionsContainer

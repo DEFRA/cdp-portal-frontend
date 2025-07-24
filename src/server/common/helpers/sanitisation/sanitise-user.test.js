@@ -1,5 +1,6 @@
-import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
+import { describe, expect, test } from 'vitest'
+import { sanitiseUser } from './sanitise-user.js'
+import { noValue } from '../../constants/no-value.js'
 
 describe('#sanitiseUser', () => {
   test('Should provide expected sanitized user from no input', () => {

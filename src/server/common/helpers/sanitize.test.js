@@ -1,4 +1,5 @@
-import { sanitize } from '~/src/server/common/helpers/sanitize.js'
+import { describe, expect, test } from 'vitest'
+import { sanitize } from './sanitize.js'
 
 describe('#sanitize', () => {
   test('Should sanitize string as expected', () => {

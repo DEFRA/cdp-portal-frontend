@@ -1,10 +1,14 @@
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+import { describe, expect, test, vi } from 'vitest'
+import { allEnvironmentsOnlyForAdmin } from './all-environments-only-for-admin.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../test-helpers/get-error.js'
+import { statusCodes } from '../../constants/status-codes.js'
 
 describe('#allEnvironmentsOnlyForAdmin', () => {
   const mockRequest = ({ environment, isAdmin }) => ({
-    getUserSession: jest.fn().mockResolvedValue({
+    getUserSession: vi.fn().mockResolvedValue({
       isAdmin
     }),
     params: {

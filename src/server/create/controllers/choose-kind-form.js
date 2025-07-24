@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getCreations } from '~/src/server/create/constants/creations.js'
-import { noSessionRedirect } from '~/src/server/create/helpers/ext/no-session-redirect.js'
-import { isFeatureToggleActiveForPath } from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
+import { getCreations } from '../constants/creations.js'
+import { noSessionRedirect } from '../helpers/ext/no-session-redirect.js'
+import { isFeatureToggleActiveForPath } from '../../admin/features/helpers/fetch-feature-toggles.js'
 
 const chooseKindFormController = {
   options: {

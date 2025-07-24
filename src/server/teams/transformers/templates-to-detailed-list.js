@@ -1,6 +1,6 @@
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
+import { buildLink } from '../../common/helpers/view/build-link.js'
+import { renderTag } from '../../common/helpers/view/render-tag.js'
+import { sortBy } from '../../common/helpers/sort/sort-by.js'
 
 function templatesToDetailedList(templates = []) {
   const doInclude = ['journey', 'performance', 'dotnet', 'node']

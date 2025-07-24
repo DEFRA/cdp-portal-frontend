@@ -1,18 +1,13 @@
-import fetchMock from 'jest-fetch-mock'
+import { describe, expect, test } from 'vitest'
 
-import { fetchMemory } from '~/src/client/common/helpers/fetch/select/fetch-memory.js'
-import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { fetchMemory } from './fetch-memory.js'
+import { ecsCpuToMemoryOptionsMapFixture } from '../../../../../__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../../test-helpers/get-error.js'
 
 describe('#fetchMemory', () => {
-  beforeEach(() => {
-    fetchMock.enableMocks()
-  })
-
-  afterEach(() => {
-    fetchMock.disableMocks()
-  })
-
   test('Should provide expected available memory response', async () => {
     fetch.mockResponse(() =>
       Promise.resolve(JSON.stringify(ecsCpuToMemoryOptionsMapFixture[512]))

@@ -1,4 +1,5 @@
-import { transformProxyRules } from '~/src/server/common/patterns/entities/tabs/proxy/transformers/transform-proxy-rules.js'
+import { describe, expect, test } from 'vitest'
+import { transformProxyRules } from './transform-proxy-rules.js'
 
 describe('#transformProxyRules', () => {
   test('Should return transformed proxy rules', () => {

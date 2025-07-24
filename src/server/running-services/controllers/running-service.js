@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { transformRunningService } from '~/src/server/running-services/helpers/transformers/running-service.js'
-import { transformRunningServiceToSummary } from '~/src/server/running-services/helpers/transformers/running-service-to-summary.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
-import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
+import { transformRunningService } from '../helpers/transformers/running-service.js'
+import { transformRunningServiceToSummary } from '../helpers/transformers/running-service-to-summary.js'
+import { getEnvironments } from '../../common/helpers/environments/get-environments.js'
+import { fetchLatestMigrations } from '../../common/helpers/fetch/fetch-latest-migrations.js'
+import { provideDatabaseStatusClassname } from '../../common/components/database-detail/provide-database-status-classname.js'
 
 const runningServiceController = {
   options: {

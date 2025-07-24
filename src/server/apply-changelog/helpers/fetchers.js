@@ -1,7 +1,7 @@
-import { config } from '~/src/config/config.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
+import { config } from '../../../config/config.js'
+import { fetchJson } from '../../common/helpers/fetch/fetch-json.js'
 import qs from 'qs'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.js'
+import { getUsersTeams } from '../../common/helpers/user/get-users-teams.js'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 

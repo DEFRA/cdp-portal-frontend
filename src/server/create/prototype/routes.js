@@ -1,7 +1,7 @@
-import { prototypeDetailController } from '~/src/server/create/prototype/controllers/detail.js'
-import { prototypeDetailFormController } from '~/src/server/create/prototype/controllers/detail-form.js'
-import { prototypeSummaryController } from '~/src/server/create/prototype/controllers/summary.js'
-import { prototypeCreateController } from '~/src/server/create/prototype/controllers/create.js'
+import { prototypeDetailController } from './controllers/detail.js'
+import { prototypeDetailFormController } from './controllers/detail-form.js'
+import { prototypeSummaryController } from './controllers/summary.js'
+import { prototypeCreateController } from './controllers/create.js'
 
 const createPrototypeRoutes = [
   {

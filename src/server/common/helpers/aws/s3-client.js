@@ -1,6 +1,6 @@
 import { S3Client } from '@aws-sdk/client-s3'
 
-import { config } from '~/src/config/config.js'
+import { config } from '../../../../config/config.js'
 
 /**
  * @satisfies {import('@hapi/hapi').Plugin}

@@ -1,4 +1,4 @@
-import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
+import { serviceTags } from '../helpers/service-tags.js'
 
 export function transformEntityToRow(entity, tag) {
   const teams = entity?.teams

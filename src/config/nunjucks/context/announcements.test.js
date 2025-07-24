@@ -1,5 +1,6 @@
-import { getAnnouncements } from '~/src/config/nunjucks/context/announcements.js'
-import { config } from '~/src/config/config.js'
+import { describe, expect, test } from 'vitest'
+import { getAnnouncements } from './announcements.js'
+import { config } from '../../config.js'
 
 const supportChannel = config.get('supportChannel')
 

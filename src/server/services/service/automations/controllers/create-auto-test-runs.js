@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { autoTestRunValidation } from '~/src/server/services/service/automations/helpers/schema/auto-test-run-validation.js'
-import { saveAutoTestRunDetails } from '~/src/server/services/service/automations/helpers/fetchers.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
+import { autoTestRunValidation } from '../helpers/schema/auto-test-run-validation.js'
+import { saveAutoTestRunDetails } from '../helpers/fetchers.js'
 
 const setupAutoTestRunController = {
   options: {

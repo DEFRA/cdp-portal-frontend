@@ -1,13 +1,14 @@
-import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.js'
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
+import { buildLogsLink } from './build-logs-link.js'
 
 describe('#buildLogsLink', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2023-04-01'))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2023-04-01'))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('Whilst tests are running', () => {

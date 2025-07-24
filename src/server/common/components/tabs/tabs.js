@@ -1,7 +1,7 @@
 import qs from 'qs'
 
-import { history } from '~/src/client/common/helpers/history.js'
-import { pagination } from '~/src/server/common/constants/pagination.js'
+import { history } from '../../../../client/common/helpers/history.js'
+import { pagination } from '../../constants/pagination.js'
 
 function prependQueryParams($elem, params) {
   const hrefParts = $elem.href.split('?')

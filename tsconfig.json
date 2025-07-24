@@ -2,9 +2,6 @@
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "~/*": ["./*"]
-    },
     "allowJs": true,
     "checkJs": false,
     "module": "NodeNext",
@@ -15,7 +12,7 @@
     "strictNullChecks": true,
     "target": "ESNext",
     "lib": ["DOM", "ES2020"],
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["vitest", "@testing-library/jest-dom"]
   },
   "include": [
     "src",

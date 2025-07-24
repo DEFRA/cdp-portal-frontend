@@ -1,6 +1,6 @@
-import Joi from 'joi'
-import { terminalBrowserParamsValidation } from '~/src/server/services/service/terminal/helpers/schema/terminal-browser-params-validation.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { terminalBrowserParamsValidation } from './terminal-browser-params-validation.js'
+import { scopes } from '../../../../../common/constants/scopes.js'
 
 describe('#terminalBrowserParamsValidation', () => {
   describe('With break glass user', () => {
@@ -22,7 +22,7 @@ describe('#terminalBrowserParamsValidation', () => {
       const params = { serviceId: 'service123', token: 'abc123' }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError('"environment" is required')
+        '"environment" is required'
       )
     })
 
@@ -30,7 +30,7 @@ describe('#terminalBrowserParamsValidation', () => {
       const params = { environment: 'dev', token: 'abc123' }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError('"serviceId" is required')
+        '"serviceId" is required'
       )
     })
 
@@ -38,7 +38,7 @@ describe('#terminalBrowserParamsValidation', () => {
       const params = { environment: 'dev', serviceId: 'serviceId' }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError('"token" is required')
+        '"token" is required'
       )
     })
 
@@ -61,9 +61,7 @@ describe('#terminalBrowserParamsValidation', () => {
       }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, perf-test, prod]'
-        )
+        '"environment" must be one of [dev, test, perf-test, prod]'
       )
     })
   })
@@ -91,9 +89,7 @@ describe('#terminalBrowserParamsValidation', () => {
       }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, perf-test]'
-        )
+        '"environment" must be one of [dev, test, perf-test]'
       )
     })
 
@@ -105,9 +101,7 @@ describe('#terminalBrowserParamsValidation', () => {
       }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, perf-test]'
-        )
+        '"environment" must be one of [dev, test, perf-test]'
       )
     })
 
@@ -146,9 +140,7 @@ describe('#terminalBrowserParamsValidation', () => {
       }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
-        )
+        '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
       )
     })
 
@@ -160,9 +152,7 @@ describe('#terminalBrowserParamsValidation', () => {
       }
 
       expect(() => terminalBrowserParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
-        )
+        '"environment" must be one of [infra-dev, management, dev, test, perf-test]'
       )
     })
 

@@ -1,4 +1,5 @@
-import { validateEntityIsATestSuite } from '~/src/server/common/helpers/validate-entity-is-a-test-suite.js'
+import { describe, expect, test } from 'vitest'
+import { validateEntityIsATestSuite } from './validate-entity-is-a-test-suite.js'
 import Boom from '@hapi/boom'
 
 describe('#validateEntityIsATestSuite', () => {

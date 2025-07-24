@@ -1,5 +1,5 @@
-import { config } from '~/src/config/config.js'
-import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
+import { config } from '../../../../../config/config.js'
+import { removeNil } from '../../../../common/helpers/remove-nil.js'
 
 function editTeam(request, teamId, payload) {
   const endpoint = config.get('userServiceBackendUrl') + '/teams/' + teamId

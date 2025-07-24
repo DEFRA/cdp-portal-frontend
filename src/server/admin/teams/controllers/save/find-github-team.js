@@ -1,12 +1,9 @@
 import qs from 'qs'
 
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import {
-  saveToCdpTeam,
-  setStepComplete
-} from '~/src/server/admin/teams/helpers/form/index.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { githubTeamNameValidation } from '~/src/server/admin/teams/helpers/schema/github-team-name-validation.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { saveToCdpTeam, setStepComplete } from '../../helpers/form/index.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { githubTeamNameValidation } from '../../helpers/schema/github-team-name-validation.js'
 
 const findGithubTeamController = {
   handler: async (request, h) => {

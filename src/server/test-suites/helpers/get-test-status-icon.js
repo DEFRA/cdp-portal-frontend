@@ -1,5 +1,5 @@
-import { testStatus } from '~/src/server/test-suites/constants/test-run-status.js'
-import { renderIcon } from '~/src/server/common/helpers/nunjucks/render-component.js'
+import { testStatus } from '../constants/test-run-status.js'
+import { renderIcon } from '../../common/helpers/nunjucks/render-component.js'
 
 function getTestStatusIcon(runTestStatus) {
   switch (runTestStatus) {
