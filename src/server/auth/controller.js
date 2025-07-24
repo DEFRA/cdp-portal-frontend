@@ -2,10 +2,10 @@ import { randomUUID } from 'node:crypto'
 
 import Boom from '@hapi/boom'
 
-import { createUserSession } from '~/src/server/common/helpers/auth/user-session.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { userLog } from '~/src/server/common/helpers/logging/user-log.js'
-import { redirectWithRefresh } from '~/src/server/common/helpers/url/url-helpers.js'
+import { createUserSession } from '../common/helpers/auth/user-session.js'
+import { sessionNames } from '../common/constants/session-names.js'
+import { userLog } from '../common/helpers/logging/user-log.js'
+import { redirectWithRefresh } from '../common/helpers/url/url-helpers.js'
 
 const authCallbackController = {
   options: {

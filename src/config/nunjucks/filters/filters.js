@@ -10,10 +10,10 @@ import find from 'lodash/find.js'
 import pickBy from 'lodash/pickBy.js'
 import { formatDistanceToNow } from 'date-fns'
 
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
-import { formatDate } from '~/src/server/common/helpers/date/format-date.js'
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
-import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
+import { pluralise } from '../../../server/common/helpers/pluralise.js'
+import { formatDate } from '../../../server/common/helpers/date/format-date.js'
+import { relativeDate } from '../../../server/common/helpers/date/relative-date.js'
+import { sanitiseUser } from '../../../server/common/helpers/sanitisation/sanitise-user.js'
 
 const formatText = (value) => upperFirst(kebabCase(value))
 

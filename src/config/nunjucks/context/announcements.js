@@ -1,4 +1,4 @@
-import { config } from '~/src/config/config.js'
+import { config } from '../../config.js'
 
 /**
  * Retrieves the support channel URL from the configuration.

@@ -1,4 +1,5 @@
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
+import { describe, expect, test } from 'vitest'
+import { pluralise } from './pluralise.js'
 
 describe('#pluralise', () => {
   test('When zero, should make word plural', () => {

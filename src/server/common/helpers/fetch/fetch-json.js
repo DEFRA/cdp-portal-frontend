@@ -1,8 +1,8 @@
 import Wreck from '@hapi/wreck'
 import { getTraceId } from '@defra/hapi-tracing'
 
-import { config } from '~/src/config/config.js'
-import { handleResponse } from '~/src/server/common/helpers/fetch/handle-response.js'
+import { config } from '../../../../config/config.js'
+import { handleResponse } from './handle-response.js'
 
 /**
  * Fetch JSON from a given URL

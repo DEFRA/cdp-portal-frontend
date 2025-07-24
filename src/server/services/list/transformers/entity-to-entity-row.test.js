@@ -1,5 +1,6 @@
-import { entityToEntityRow } from '~/src/server/services/list/transformers/entity-to-entity-row.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { describe, expect, test } from 'vitest'
+import { entityToEntityRow } from './entity-to-entity-row.js'
+import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 describe('#serviceToEntityRow', () => {
   test('Should provide expected entity row transformation', () => {

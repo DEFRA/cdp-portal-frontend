@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { noSessionRedirect } from '~/src/server/admin/users/helpers/ext/no-session-redirect.js'
-import { resetGithubUserNameAnswer } from '~/src/server/admin/users/helpers/ext/reset-github-user-name-answer.js'
-import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user.js'
-import { searchGithubUsers } from '~/src/server/admin/users/helpers/fetch/index.js'
+import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { resetGithubUserNameAnswer } from '../../helpers/ext/reset-github-user-name-answer.js'
+import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
+import { searchGithubUsers } from '../../helpers/fetch/index.js'
 
 const findGithubUserFormController = {
   options: {

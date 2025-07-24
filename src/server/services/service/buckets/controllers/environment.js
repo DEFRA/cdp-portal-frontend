@@ -1,9 +1,9 @@
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { fetchBuckets } from '~/src/server/common/helpers/fetch/fetch-buckets.js'
-import { environmentBuckets } from '~/src/server/services/service/buckets/transformers/environment-buckets.js'
-import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
+import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
+import { fetchBuckets } from '../../../../common/helpers/fetch/fetch-buckets.js'
+import { environmentBuckets } from '../transformers/environment-buckets.js'
+import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
 
 const environmentBucketsController = {
   options: {

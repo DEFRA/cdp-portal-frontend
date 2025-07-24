@@ -1,8 +1,8 @@
 import Joi from 'joi'
 
-import { validation } from '~/src/server/common/constants/validation.js'
+import { validation } from '../../../../common/constants/validation.js'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
+import { checkNameAvailability } from '../../../helpers/validator/check-name-availability.js'
 
 function microserviceValidation(templateIds) {
   return Joi.object({

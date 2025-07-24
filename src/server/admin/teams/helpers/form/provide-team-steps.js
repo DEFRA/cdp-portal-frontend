@@ -1,9 +1,6 @@
-import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width.js'
-import {
-  teamSteps,
-  isCdpTeamComplete
-} from '~/src/server/admin/teams/helpers/form/team-steps.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { calculateStepWidth } from '../../../../common/helpers/form/calculate-step-width.js'
+import { teamSteps, isCdpTeamComplete } from './team-steps.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
 
 function provideTeamSteps(request, h) {
   const response = request.response

@@ -1,17 +1,17 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { availableInstances } from '~/src/server/deploy-service/constants/available-instances.js'
-import { provideFormValues } from '~/src/server/deploy-service/helpers/pre/provide-form-values.js'
-import { cpuToVCpu } from '~/src/server/deploy-service/helpers/cpu-to-vcpu.js'
-import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
-import { checkSessionIsValid } from '~/src/server/common/helpers/multistep-form/check-session-is-valid.js'
-import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
-import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
+import { config } from '../../../../config/config.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { availableInstances } from '../../constants/available-instances.js'
+import { provideFormValues } from '../../helpers/pre/provide-form-values.js'
+import { cpuToVCpu } from '../../helpers/cpu-to-vcpu.js'
+import { provideStepData } from '../../../common/helpers/multistep-form/provide-step-data.js'
+import { checkSessionIsValid } from '../../../common/helpers/multistep-form/check-session-is-valid.js'
+import { transformRunningServices } from '../../../services/service/about/transformers/running-services.js'
+import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
+import { provideDatabaseStatusClassname } from '../../../common/components/database-detail/provide-database-status-classname.js'
+import { fetchLatestMigrations } from '../../../common/helpers/fetch/fetch-latest-migrations.js'
 
 const optionsFormController = {
   options: {

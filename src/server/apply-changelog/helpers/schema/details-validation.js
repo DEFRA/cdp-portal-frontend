@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
+import { fetchAvailableMigrations } from '../../../services/helpers/fetch/fetch-available-migrations.js'
 
 async function detailsValidation(queryValues, options) {
   const isAuthenticated = options?.context?.auth?.isAuthenticated ?? false

@@ -1,4 +1,4 @@
-import { isUsingBadNamingConventions } from '~/src/server/common/components/input-assistant/helpers/is-using-bad-naming-conventions.js'
+import { isUsingBadNamingConventions } from './helpers/is-using-bad-naming-conventions.js'
 
 function checkForBadName(value, $elem, $message) {
   const message = $elem.dataset.message

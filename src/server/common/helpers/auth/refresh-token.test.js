@@ -1,18 +1,16 @@
-import { refreshTokenIfExpired } from '~/src/server/common/helpers/auth/refresh-token.js'
+import { describe, expect, it, vi } from 'vitest'
+import { refreshTokenIfExpired } from './refresh-token.js'
 import pino from 'pino'
 import { add, sub } from 'date-fns'
-import {
-  refreshUserSession,
-  removeAuthenticatedUser
-} from '~/src/server/common/helpers/auth/user-session.js'
+import { refreshUserSession, removeAuthenticatedUser } from './user-session.js'
 
-jest.mock('~/src/server/common/helpers/auth/user-session.js')
+vi.mock('./user-session.js')
 
 describe('#refresh-token', () => {
   it('Should continue when there is no user session', async () => {
     const request = {
       logger: pino({ level: 'silent' }),
-      getUserSession: jest.fn().mockResolvedValue(null)
+      getUserSession: vi.fn().mockResolvedValue(null)
     }
 
     const h = {
@@ -26,7 +24,7 @@ describe('#refresh-token', () => {
   it('Should continue when the token hasnt expired', async () => {
     const request = {
       logger: pino({ level: 'silent' }),
-      getUserSession: jest.fn().mockReturnValue({
+      getUserSession: vi.fn().mockReturnValue({
         expiresAt: add(Date.now(), { hours: 1 }).toISOString()
       })
     }
@@ -42,7 +40,7 @@ describe('#refresh-token', () => {
   it('Should refresh the token if expired', async () => {
     const request = {
       logger: pino({ level: 'silent' }),
-      getUserSession: jest.fn().mockResolvedValue({
+      getUserSession: vi.fn().mockResolvedValue({
         expiresAt: sub(Date.now(), { hours: 1 }).toISOString()
       })
     }
@@ -52,7 +50,7 @@ describe('#refresh-token', () => {
       refresh_token: 'mock refresh token',
       expires_in: 1000
     }
-    const refreshTokenFn = jest.fn().mockResolvedValue(token)
+    const refreshTokenFn = vi.fn().mockResolvedValue(token)
 
     const h = {
       continue: {}
@@ -64,18 +62,16 @@ describe('#refresh-token', () => {
   })
 
   it('Should remove the session and flash an error if the refresh fails', async () => {
-    const flash = jest.fn()
+    const flash = vi.fn()
     const request = {
       logger: pino({ level: 'silent' }),
       yar: { flash },
-      getUserSession: jest.fn().mockResolvedValue({
+      getUserSession: vi.fn().mockResolvedValue({
         expiresAt: sub(Date.now(), { hours: 1 }).toISOString()
       })
     }
 
-    const refreshTokenFn = jest
-      .fn()
-      .mockRejectedValue(new Error('Token expired'))
+    const refreshTokenFn = vi.fn().mockRejectedValue(new Error('Token expired'))
 
     const h = {
       continue: {}

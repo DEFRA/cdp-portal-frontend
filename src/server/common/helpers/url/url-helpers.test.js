@@ -1,7 +1,5 @@
-import {
-  asExternalUrl,
-  redirectWithRefresh
-} from '~/src/server/common/helpers/url/url-helpers.js'
+import { describe, expect, test, vi } from 'vitest'
+import { asExternalUrl, redirectWithRefresh } from './url-helpers.js'
 
 describe('asExternalUrl', () => {
   test('should replaces the host, protocol and port with an external url', () => {
@@ -26,7 +24,7 @@ describe('asExternalUrl', () => {
 describe('redirectWithRefresh', () => {
   test('should response with forced redirect', () => {
     const h = {
-      response: jest.fn().mockReturnValue({ takeover: jest.fn() })
+      response: vi.fn().mockReturnValue({ takeover: vi.fn() })
     }
     redirectWithRefresh(h, '/foo/bar')
     expect(h.response).toHaveBeenCalledWith(
@@ -36,7 +34,7 @@ describe('redirectWithRefresh', () => {
 
   test('should response with forced redirect with absolute url', () => {
     const h = {
-      response: jest.fn().mockReturnValue({ takeover: jest.fn() })
+      response: vi.fn().mockReturnValue({ takeover: vi.fn() })
     }
     redirectWithRefresh(h, 'https://example.com/foo/bar')
     expect(h.response).toHaveBeenCalledWith(
@@ -46,7 +44,7 @@ describe('redirectWithRefresh', () => {
 
   test('should escape the url correctly', () => {
     const h = {
-      response: jest.fn().mockReturnValue({ takeover: jest.fn() })
+      response: vi.fn().mockReturnValue({ takeover: vi.fn() })
     }
     redirectWithRefresh(h, '/foo/bar?a="/><script>alert()</script>')
     expect(h.response).toHaveBeenCalledWith(

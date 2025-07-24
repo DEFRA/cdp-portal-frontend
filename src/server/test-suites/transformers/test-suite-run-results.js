@@ -2,15 +2,12 @@ import startCase from 'lodash/startCase.js'
 
 import { formatDistance, parseISO } from 'date-fns'
 
-import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/provide-test-run-status-classname.js'
-import { buildLogsLink } from '~/src/server/test-suites/helpers/build-logs-link.js'
-import { getTestStatusIcon } from '~/src/server/test-suites/helpers/get-test-status-icon.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import {
-  taskStatus,
-  testStatus
-} from '~/src/server/test-suites/constants/test-run-status.js'
+import { provideTestRunStatusClassname } from '../helpers/provide-test-run-status-classname.js'
+import { buildLogsLink } from '../helpers/build-logs-link.js'
+import { getTestStatusIcon } from '../helpers/get-test-status-icon.js'
+import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { buildLink } from '../../common/helpers/view/build-link.js'
+import { taskStatus, testStatus } from '../constants/test-run-status.js'
 
 function getDuration({ created, taskLastUpdated }, hasResult) {
   if (created && taskLastUpdated && hasResult) {

@@ -1,9 +1,9 @@
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-import { canLaunchTerminal } from '~/src/server/services/service/terminal/helpers/can-launch-terminal.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { terminalBrowserParamsValidation } from '~/src/server/services/service/terminal/helpers/schema/terminal-browser-params-validation.js'
+import { config } from '../../../../../config/config.js'
+import { canLaunchTerminal } from '../helpers/can-launch-terminal.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { terminalBrowserParamsValidation } from '../helpers/schema/terminal-browser-params-validation.js'
 
 const terminalBrowserController = {
   options: {

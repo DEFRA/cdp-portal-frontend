@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchShutteringUrl } from '~/src/server/services/helpers/fetch/fetch-shuttering-url.js'
-import { shutteringDetailToSummary } from '~/src/server/services/service/maintenance/helpers/transformers/shuttering-detail-to-summary.js'
-import { shutteringStatus } from '~/src/server/common/constants/shuttering.js'
+import { fetchShutteringUrl } from '../../../helpers/fetch/fetch-shuttering-url.js'
+import { shutteringDetailToSummary } from '../helpers/transformers/shuttering-detail-to-summary.js'
+import { shutteringStatus } from '../../../../common/constants/shuttering.js'
 
 const confirmShutterController = {
   options: {

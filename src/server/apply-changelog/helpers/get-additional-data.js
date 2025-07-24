@@ -1,9 +1,9 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
-import { fetchAvailableMigrations } from '~/src/server/services/helpers/fetch/fetch-available-migrations.js'
-import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message.js'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
-import { transformRunningServices } from '~/src/server/services/service/about/transformers/running-services.js'
+import { sortBy } from '../../common/helpers/sort/sort-by.js'
+import { relativeDate } from '../../common/helpers/date/relative-date.js'
+import { fetchAvailableMigrations } from '../../services/helpers/fetch/fetch-available-migrations.js'
+import { optionsWithMessage } from '../../common/helpers/options/options-with-message.js'
+import { buildSuggestions } from '../../common/components/autocomplete/helpers/build-suggestions.js'
+import { transformRunningServices } from '../../services/service/about/transformers/running-services.js'
 
 async function getAdditionalData(serviceName) {
   if (!serviceName) {

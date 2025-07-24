@@ -1,8 +1,8 @@
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { createScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { createPermissionValidation } from '~/src/server/admin/permissions/helpers/schema/create-permission-validation.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { createScope } from '../../helpers/fetchers.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { createPermissionValidation } from '../../helpers/schema/create-permission-validation.js'
+import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 
 const createPermissionDetailsController = {
   options: {

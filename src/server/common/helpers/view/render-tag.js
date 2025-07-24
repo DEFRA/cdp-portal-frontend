@@ -1,4 +1,4 @@
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
+import { renderComponent } from '../nunjucks/render-component.js'
 
 /**
  * @typedef {object} Params

@@ -1,17 +1,14 @@
 import qs from 'qs'
 import Boom from '@hapi/boom'
 
-import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import {
-  addScopeToTeam,
-  addScopeToUser
-} from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { addPermissionValidation } from '~/src/server/admin/permissions/helpers/schema/add-permission-validation.js'
-import { extractIds } from '~/src/server/admin/permissions/helpers/extract-ids.js'
+import Joi from '../../../../common/helpers/extended-joi.js'
+import { pluralise } from '../../../../common/helpers/pluralise.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { addScopeToTeam, addScopeToUser } from '../../helpers/fetchers.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
+import { addPermissionValidation } from '../../helpers/schema/add-permission-validation.js'
+import { extractIds } from '../../helpers/extract-ids.js'
 
 function sendAuditLogs(request, userIds, teamIds, scopeId) {
   const auditUserPromises = userIds.map((userId) =>

@@ -1,7 +1,8 @@
-import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
-import { autoSubmit } from '~/src/client/common/helpers/auto-submit.js'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { xhrRequest } from './xhr.js'
+import { autoSubmit } from './auto-submit.js'
 
-jest.mock('~/src/client/common/helpers/xhr')
+vi.mock('./xhr')
 
 describe('#autoSubmit', () => {
   describe('Default behaviour', () => {
@@ -10,7 +11,7 @@ describe('#autoSubmit', () => {
     let xhrElementInput
 
     beforeEach(() => {
-      jest.useFakeTimers()
+      vi.useFakeTimers()
 
       // Add auto submit form to the document
       document.body.innerHTML = `<form data-js="auto-submit" data-testid="auto-submit" action="/mock-action">
@@ -41,7 +42,7 @@ describe('#autoSubmit', () => {
     })
 
     afterEach(() => {
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     describe('When value entered into input', () => {
@@ -51,7 +52,7 @@ describe('#autoSubmit', () => {
 
         form.dispatchEvent(new Event('input'))
 
-        jest.advanceTimersByTime(310)
+        vi.advanceTimersByTime(310)
       })
 
       test('Should submit form', () => {
@@ -88,7 +89,7 @@ describe('#autoSubmit', () => {
         xhrElementInput.value = 'scooby'
         xhrElementInput.dispatchEvent(new Event('input', { bubbles: true }))
 
-        jest.advanceTimersByTime(310)
+        vi.advanceTimersByTime(310)
       })
 
       test('Should not submit form', () => {
@@ -101,7 +102,7 @@ describe('#autoSubmit', () => {
     let childrenCanSubmitElementInput
 
     beforeEach(() => {
-      jest.useFakeTimers()
+      vi.useFakeTimers()
 
       // Add auto submit form to the document
       document.body.innerHTML = `<form data-js="auto-submit-with-bypass" data-testid="auto-submit-with-bypass" action="/mock-action-with-bypass">
@@ -125,7 +126,7 @@ describe('#autoSubmit', () => {
     })
 
     afterEach(() => {
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     describe('When input inside of xhr element is interacted with', () => {
@@ -136,7 +137,7 @@ describe('#autoSubmit', () => {
           new Event('input', { bubbles: true })
         )
 
-        jest.advanceTimersByTime(310)
+        vi.advanceTimersByTime(310)
       })
 
       test('Should not submit form', () => {

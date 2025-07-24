@@ -1,6 +1,6 @@
-import { fetchLibraries } from '~/src/server/utilities/helpers/fetch/fetch-libraries.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { buildUtilitiesTableData } from '~/src/server/utilities/helpers/build-utilities-table-data.js'
+import { fetchLibraries } from '../helpers/fetch/fetch-libraries.js'
+import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
+import { buildUtilitiesTableData } from '../helpers/build-utilities-table-data.js'
 
 const librariesListController = {
   options: {

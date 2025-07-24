@@ -1,7 +1,7 @@
 import qs from 'qs'
-import { config } from '~/src/config/config.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { getUserGroups } from '~/src/server/common/helpers/auth/get-user-groups.js'
+import { config } from '../../../../config/config.js'
+import { fetchJson } from './fetch-json.js'
+import { getUserGroups } from '../auth/get-user-groups.js'
 
 /**
  * @typedef {object} Options

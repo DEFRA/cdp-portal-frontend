@@ -1,4 +1,4 @@
-import { userIsServiceOwner } from '~/src/server/common/helpers/user/user-is-service-owner.js'
+import { userIsServiceOwner } from './user-is-service-owner.js'
 
 function userIsOwnerDecorator(request) {
   /** @param {{ entity }} entity */

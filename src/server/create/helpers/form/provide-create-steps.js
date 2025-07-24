@@ -1,9 +1,6 @@
-import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width.js'
-import {
-  createSteps,
-  isCreateComplete
-} from '~/src/server/create/helpers/form/create-steps.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { calculateStepWidth } from '../../../common/helpers/form/calculate-step-width.js'
+import { createSteps, isCreateComplete } from './create-steps.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
 
 function provideCreateSteps(request, h) {
   const response = request.response

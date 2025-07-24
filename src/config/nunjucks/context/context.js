@@ -1,17 +1,17 @@
 import path from 'node:path'
 import { readFileSync } from 'node:fs'
 
-import { config } from '~/src/config/config.js'
-import { isXhr } from '~/src/server/common/helpers/is-xhr.js'
-import { isIe } from '~/src/config/nunjucks/context/is-ie.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation.js'
-import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { eventName } from '~/src/client/common/constants/event-name.js'
-import { getAnnouncements } from '~/src/config/nunjucks/context/announcements.js'
-import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { config } from '../../config.js'
+import { isXhr } from '../../../server/common/helpers/is-xhr.js'
+import { isIe } from './is-ie.js'
+import { createLogger } from '../../../server/common/helpers/logging/logger.js'
+import { buildNavigation } from './build-navigation.js'
+import { defaultOption } from '../../../server/common/helpers/options/default-option.js'
+import { noValue } from '../../../server/common/constants/no-value.js'
+import { eventName } from '../../../client/common/constants/event-name.js'
+import { getAnnouncements } from './announcements.js'
+import { hasScopeDecorator } from '../../../server/common/helpers/decorators/has-scope.js'
+import { scopes } from '../../../server/common/constants/scopes.js'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')

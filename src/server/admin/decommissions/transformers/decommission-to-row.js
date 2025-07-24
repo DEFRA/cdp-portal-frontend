@@ -1,9 +1,9 @@
 import { formatDistanceStrict } from 'date-fns'
 
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
-import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
+import { noValue } from '../../../common/constants/no-value.js'
+import { formatText } from '../../../../config/nunjucks/filters/filters.js'
+import { renderTag } from '../../../common/helpers/view/render-tag.js'
+import { creationStatuses } from '../../../common/constants/creation-statuses.js'
 
 function transformDecommissionToRow(entity) {
   const statusTag = renderTag({

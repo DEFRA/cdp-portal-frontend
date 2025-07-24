@@ -1,4 +1,4 @@
-import { checkNameIsAvailable } from '~/src/server/create/helpers/validator/check-name-is-available.js'
+import { checkNameIsAvailable } from './check-name-is-available.js'
 
 async function checkNameAvailability(value, helpers) {
   const nameIsAvailable = await checkNameIsAvailable(value)

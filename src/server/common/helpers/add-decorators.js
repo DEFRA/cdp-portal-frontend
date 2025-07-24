@@ -1,13 +1,13 @@
-import { isXhr } from '~/src/server/common/helpers/is-xhr.js'
-import { routeLookupDecorator } from '~/src/server/common/helpers/route-lookup/index.js'
-import { authedFetchJsonDecorator } from '~/src/server/common/helpers/fetch/authed-fetch-json.js'
-import { getUserSession } from '~/src/server/common/helpers/auth/get-user-session.js'
-import { dropUserSession } from '~/src/server/common/helpers/auth/drop-user-session.js'
-import { userIsServiceOwnerDecorator } from '~/src/server/common/helpers/user/user-is-service-owner.js'
-import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
-import { userIsAdminDecorator } from '~/src/server/common/helpers/user/user-is-admin.js'
-import { userIsTenantDecorator } from '~/src/server/common/helpers/user/user-is-tenant.js'
-import { userIsOwnerDecorator } from '~/src/server/common/helpers/user/user-is-owner.js'
+import { isXhr } from './is-xhr.js'
+import { routeLookupDecorator } from './route-lookup/index.js'
+import { authedFetchJsonDecorator } from './fetch/authed-fetch-json.js'
+import { getUserSession } from './auth/get-user-session.js'
+import { dropUserSession } from './auth/drop-user-session.js'
+import { userIsServiceOwnerDecorator } from './user/user-is-service-owner.js'
+import { hasScopeDecorator } from './decorators/has-scope.js'
+import { userIsAdminDecorator } from './user/user-is-admin.js'
+import { userIsTenantDecorator } from './user/user-is-tenant.js'
+import { userIsOwnerDecorator } from './user/user-is-owner.js'
 
 /**
  * Add global server methods

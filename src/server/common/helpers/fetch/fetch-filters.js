@@ -1,7 +1,7 @@
 import qs from 'qs'
 
-import { config } from '~/src/config/config.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
+import { config } from '../../../../config/config.js'
+import { fetchJson } from './fetch-json.js'
 
 async function fetchFilters(queryParams = {}) {
   const endpoint =

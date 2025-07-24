@@ -1,13 +1,14 @@
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl
-} from '~/test-helpers/common-page-rendering.js'
-import { fetchFeatureToggles } from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
-import { featuresFixture } from '~/src/__fixtures__/features.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+} from '../../../../test-helpers/common-page-rendering.js'
+import { fetchFeatureToggles } from './helpers/fetch-feature-toggles.js'
+import { featuresFixture } from '../../../__fixtures__/features.js'
+import { statusCodes } from '../../common/constants/status-codes.js'
 
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
-jest.mock('~/src/server/admin/features/helpers/fetch-feature-toggles.js')
+vi.mock('../../common/helpers/auth/get-user-session.js')
+vi.mock('./helpers/fetch-feature-toggles.js')
 
 describe('Feature Toggles page', () => {
   /** @type {import('@hapi/hapi').Server} */

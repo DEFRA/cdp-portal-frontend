@@ -1,5 +1,6 @@
-import { environmentSecrets } from '~/src/server/common/patterns/entities/tabs/secrets/transformers/environment-secrets.js'
-import { serviceSecretsWithPendingFixture } from '~/src/__fixtures__/secrets/service-secrets.js'
+import { describe, expect, test } from 'vitest'
+import { environmentSecrets } from './environment-secrets.js'
+import { serviceSecretsWithPendingFixture } from '../../../../../../../__fixtures__/secrets/service-secrets.js'
 
 describe('#environmentSecrets', () => {
   test('Should return expected environment secret transformation', () => {

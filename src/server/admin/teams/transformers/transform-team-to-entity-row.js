@@ -1,5 +1,5 @@
-import { config } from '~/src/config/config.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
+import { config } from '../../../../config/config.js'
+import { noValue } from '../../../common/constants/no-value.js'
 
 function transformTeamToEntityRow(team) {
   const githubOrg = config.get('githubOrg')

@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
-import { searchIndex } from '~/src/server/documentation/helpers/search-index.js'
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { buildDocsNav } from '~/src/server/documentation/helpers/markdown/build-docs-nav.js'
+import { config } from '../../../config/config.js'
+import { statusCodes } from '../../common/constants/status-codes.js'
+import { searchIndex } from '../helpers/search-index.js'
+import { renderComponent } from '../../common/helpers/nunjucks/render-component.js'
+import { buildDocsNav } from '../helpers/markdown/build-docs-nav.js'
 
 const searchResultsController = {
   options: {

@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
+import { createLogger } from './logging/logger.js'
 
 async function stopServer(server) {
   const logger = createLogger()

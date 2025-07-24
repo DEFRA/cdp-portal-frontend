@@ -1,7 +1,7 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+import { noValue } from '../../../../../common/constants/no-value.js'
+import { formatText } from '../../../../../../config/nunjucks/filters/filters.js'
+import { buildLink } from '../../../../../common/helpers/view/build-link.js'
+import { renderTag } from '../../../../../common/helpers/view/render-tag.js'
 
 function entityToSummary({
   entity,

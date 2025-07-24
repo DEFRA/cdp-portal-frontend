@@ -1,16 +1,20 @@
+import { describe, expect, test, vi } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { deployableImagesFixture } from '~/src/__fixtures__/deploy-service/deployable-images.js'
-import { fetchDeployableImageNames } from '~/src/server/common/helpers/fetch/fetch-deployable-image-names.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { config } from '../../../../config/config.js'
+import { deployableImagesFixture } from '../../../../__fixtures__/deploy-service/deployable-images.js'
+import { fetchDeployableImageNames } from './fetch-deployable-image-names.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../test-helpers/get-error.js'
 
 describe('#fetchDeployableImageNames', () => {
   const mockRequest = {
     logger: {
-      info: jest.fn()
+      info: vi.fn()
     },
-    getUserSession: jest.fn().mockResolvedValue({ scope: ['group1'] })
+    getUserSession: vi.fn().mockResolvedValue({ scope: ['group1'] })
   }
   const deployableImagesEndpointUrl = new URL(
     config.get('portalBackendUrl') + '/deployables'

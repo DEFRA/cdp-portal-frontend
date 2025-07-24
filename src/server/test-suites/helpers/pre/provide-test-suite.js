@@ -1,4 +1,4 @@
-import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
 
 const provideTestSuite = {
   method: async function (request) {

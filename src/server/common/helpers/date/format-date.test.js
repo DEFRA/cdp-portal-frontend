@@ -1,13 +1,14 @@
-import { formatDate } from '~/src/server/common/helpers/date/format-date.js'
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
+import { formatDate } from './format-date.js'
 
 describe('#formatDate', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2023-04-01'))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2023-04-01'))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('With defaults', () => {

@@ -1,6 +1,15 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { cdpTeamsFixture } from '~/src/__fixtures__/admin/cdp-teams.js'
-import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row.js'
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi
+} from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { cdpTeamsFixture } from '../../../../__fixtures__/admin/cdp-teams.js'
+import { transformTeamToEntityRow } from '../../../admin/teams/transformers/transform-team-to-entity-row.js'
 
 describe('Entity Table Component', () => {
   let $entityTable
@@ -12,12 +21,12 @@ describe('Entity Table Component', () => {
 
   describe('With entities', () => {
     beforeAll(() => {
-      jest.useFakeTimers()
-      jest.setSystemTime(new Date('2025-01-20'))
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2025-01-20'))
     })
 
     afterAll(() => {
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     beforeEach(() => {

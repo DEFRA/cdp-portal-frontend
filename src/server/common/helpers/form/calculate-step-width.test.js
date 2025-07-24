@@ -1,4 +1,5 @@
-import { calculateStepWidth } from '~/src/server/common/helpers/form/calculate-step-width.js'
+import { describe, expect, test } from 'vitest'
+import { calculateStepWidth } from './calculate-step-width.js'
 
 describe('#calculateStepWidth', () => {
   test('With no complete steps, width should be zero', () => {

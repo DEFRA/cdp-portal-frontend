@@ -1,4 +1,5 @@
-import { errorMessages } from '~/src/client/common/helpers/error-messages.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { errorMessages } from './error-messages.js'
 
 describe('#errorMessages', () => {
   let input

@@ -1,4 +1,5 @@
-import { removeUrlParts } from '~/src/server/common/helpers/remove-url-parts.js'
+import { describe, expect, test } from 'vitest'
+import { removeUrlParts } from './remove-url-parts.js'
 
 describe('#removeUrlParts', () => {
   test('Should remove host from url', () => {

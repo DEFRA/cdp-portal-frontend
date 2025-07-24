@@ -1,5 +1,6 @@
-import { shouldPoll } from '~/src/server/test-suites/helpers/should-poll.js'
-import { taskStatus } from '~/src/server/test-suites/constants/test-run-status.js'
+import { describe, expect, test } from 'vitest'
+import { shouldPoll } from './should-poll.js'
+import { taskStatus } from '../constants/test-run-status.js'
 
 describe('#shouldPoll', () => {
   test('When complete, should not poll', () => {

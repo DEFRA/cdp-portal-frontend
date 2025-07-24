@@ -1,9 +1,9 @@
 import Joi from 'joi'
 
-import { config } from '~/src/config/config.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
+import { config } from '../../../../config/config.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
+import { provideAuthedUser } from '../../../common/helpers/auth/pre/provide-authed-user.js'
+import { provideStepData } from '../../../common/helpers/multistep-form/provide-step-data.js'
 
 const deployController = {
   options: {

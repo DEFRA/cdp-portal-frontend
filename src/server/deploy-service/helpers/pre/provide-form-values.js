@@ -1,8 +1,8 @@
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { optionsWithMessage } from '~/src/server/common/helpers/options/options-with-message.js'
-import { fetchDeployServiceOptions } from '~/src/server/common/helpers/fetch/fetch-deploy-service-options.js'
-import { fetchLatestDeploymentSettings } from '~/src/server/common/helpers/fetch/fetch-latest-deployment-settings.js'
-import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { optionsWithMessage } from '../../../common/helpers/options/options-with-message.js'
+import { fetchDeployServiceOptions } from '../../../common/helpers/fetch/fetch-deploy-service-options.js'
+import { fetchLatestDeploymentSettings } from '../../../common/helpers/fetch/fetch-latest-deployment-settings.js'
+import { defaultOption } from '../../../common/helpers/options/default-option.js'
 
 const provideFormValues = {
   method: async (request) => {

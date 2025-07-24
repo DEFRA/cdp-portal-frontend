@@ -1,13 +1,14 @@
-import { relativeDate } from '~/src/server/common/helpers/date/relative-date.js'
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
+import { relativeDate } from './relative-date.js'
 
 describe('#relativeDate', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2024-06-28T14:16:00.000Z')) // Fri Jun 25 2024 15:16:00 GMT+0100 (British Summer Time)
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2024-06-28T14:16:00.000Z')) // Fri Jun 25 2024 15:16:00 GMT+0100 (British Summer Time)
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('When date is today', () => {

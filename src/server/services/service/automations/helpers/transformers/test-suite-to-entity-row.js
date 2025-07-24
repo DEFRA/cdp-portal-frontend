@@ -1,6 +1,6 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
-import { renderTestSuiteTagHtml } from '~/src/server/services/service/automations/helpers/render-test-suite-tag-html.js'
+import { noValue } from '../../../../../common/constants/no-value.js'
+import { sortByEnv } from '../../../../../common/helpers/sort/sort-by-env.js'
+import { renderTestSuiteTagHtml } from '../render-test-suite-tag-html.js'
 
 function actions(serviceName, testRunName) {
   return ` <div>

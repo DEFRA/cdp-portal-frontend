@@ -1,9 +1,6 @@
-import {
-  refreshUserSession,
-  removeAuthenticatedUser
-} from '~/src/server/common/helpers/auth/user-session.js'
+import { refreshUserSession, removeAuthenticatedUser } from './user-session.js'
 import { isPast, parseISO } from 'date-fns'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { sessionNames } from '../../constants/session-names.js'
 
 /**
  * To be used as a server ext method to check if a token has expired and attempt to use the refresh token to get a

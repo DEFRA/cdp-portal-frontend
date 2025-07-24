@@ -1,4 +1,4 @@
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 
 const createPermissionDetailsFormController = {
   options: {

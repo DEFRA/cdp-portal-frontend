@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
-import { terminalEnvironments } from '~/src/server/services/service/terminal/helpers/can-launch-terminal.js'
-import { fetchTenantService } from '~/src/server/common/helpers/fetch/fetch-tenant-service.js'
+import { sortByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
+import { terminalEnvironments } from '../helpers/can-launch-terminal.js'
+import { fetchTenantService } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
 
 export async function getTerminalEnvs(serviceName, userScopes) {
   if (!serviceName) {

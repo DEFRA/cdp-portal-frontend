@@ -1,9 +1,10 @@
-import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session.js'
-import { deploymentRows } from '~/src/server/deploy-service/transformers/deployment-rows.js'
-import { cpuOptionsFixture } from '~/src/__fixtures__/deploy-service/cpu-options.js'
-import { ecsCpuToMemoryOptionsMapFixture } from '~/src/__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
+import { describe, expect, test } from 'vitest'
+import { deploymentSessionFixture } from '../../../__fixtures__/deploy-service/deployment-session.js'
+import { deploymentRows } from './deployment-rows.js'
+import { cpuOptionsFixture } from '../../../__fixtures__/deploy-service/cpu-options.js'
+import { ecsCpuToMemoryOptionsMapFixture } from '../../../__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-deploy-service-options.js')
+vi.mock('../../common/helpers/fetch/fetch-deploy-service-options.js')
 
 describe('#deploymentRows', () => {
   test('Should provide expected deployment row transformation', () => {

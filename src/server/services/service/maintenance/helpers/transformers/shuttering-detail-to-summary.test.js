@@ -1,6 +1,7 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
+import { describe, expect, test } from 'vitest'
+import { noValue } from '../../../../../common/constants/no-value.js'
 import { shutteringDetailToSummary } from './shuttering-detail-to-summary.js'
-import { shutteringStatus } from '~/src/server/common/constants/shuttering.js'
+import { shutteringStatus } from '../../../../../common/constants/shuttering.js'
 
 describe('#shutteringDetailToSummary', () => {
   test('Should return summary with all fields populated for a frontend service', () => {

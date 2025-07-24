@@ -1,4 +1,4 @@
-import { startsWithVowel } from '~/src/server/common/helpers/starts-with-vowel.js'
+import { startsWithVowel } from '../helpers/starts-with-vowel.js'
 
 const validation = {
   enterValue: 'Enter value',

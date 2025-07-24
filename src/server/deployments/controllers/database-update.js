@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { pagination } from '~/src/server/common/constants/pagination.js'
-import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
-import { provideMigration } from '~/src/server/deployments/helpers/pre/provide-migration.js'
-import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
-import { transformMigrationToSummary } from '~/src/server/deployments/transformers/migration-to-summary.js'
-import { databaseUpdateFaviconState } from '~/src/server/deployments/helpers/database-update-favicon-state.js'
+import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { pagination } from '../../common/constants/pagination.js'
+import { databaseStatus } from '../constants/database-status.js'
+import { provideMigration } from '../helpers/pre/provide-migration.js'
+import { getAllEnvironmentKebabNames } from '../../common/helpers/environments/get-environments.js'
+import { transformMigrationToSummary } from '../transformers/migration-to-summary.js'
+import { databaseUpdateFaviconState } from '../helpers/database-update-favicon-state.js'
 
 const databaseUpdateController = {
   options: {

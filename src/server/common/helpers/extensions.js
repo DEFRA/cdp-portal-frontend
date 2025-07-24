@@ -1,10 +1,10 @@
-import { provideServiceTabs } from '~/src/server/services/helpers/provide-service-tabs.js'
-import { validateEntityIsAService } from '~/src/server/common/helpers/validate-entity-is-a-service.js'
-import { addServiceOwnerScope } from '~/src/server/services/helpers/add-service-owner-scope.js'
-import { provideTestSuiteTabs } from '~/src/server/test-suites/helpers/provide-test-suite-tabs.js'
-import { validateEntityIsATestSuite } from '~/src/server/common/helpers/validate-entity-is-a-test-suite.js'
-import { provideMessages } from '~/src/server/services/helpers/provide-messages.js'
-import { provideEntity } from '~/src/server/common/helpers/provide-entitiy.js'
+import { provideServiceTabs } from '../../services/helpers/provide-service-tabs.js'
+import { validateEntityIsAService } from './validate-entity-is-a-service.js'
+import { addServiceOwnerScope } from '../../services/helpers/add-service-owner-scope.js'
+import { provideTestSuiteTabs } from '../../test-suites/helpers/provide-test-suite-tabs.js'
+import { validateEntityIsATestSuite } from './validate-entity-is-a-test-suite.js'
+import { provideMessages } from '../../services/helpers/provide-messages.js'
+import { provideEntity } from './provide-entitiy.js'
 
 const provideEntityExtension = {
   type: 'onPreAuth',

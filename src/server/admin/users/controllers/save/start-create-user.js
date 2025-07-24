@@ -1,5 +1,5 @@
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { saveToCdpUser } from '~/src/server/admin/users/helpers/form/index.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { saveToCdpUser } from '../../helpers/form/index.js'
 
 const startCreateUserController = {
   options: {

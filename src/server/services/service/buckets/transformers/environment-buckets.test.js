@@ -1,5 +1,6 @@
-import { environmentBuckets } from '~/src/server/services/service/buckets/transformers/environment-buckets.js'
-import { bucketsWithPendingFixture } from '~/src/__fixtures__/buckets/buckets.js'
+import { describe, expect, test } from 'vitest'
+import { environmentBuckets } from './environment-buckets.js'
+import { bucketsWithPendingFixture } from '../../../../../__fixtures__/buckets/buckets.js'
 
 describe('#environmentBuckets', () => {
   test('Should return expected environment bucket transformation', () => {

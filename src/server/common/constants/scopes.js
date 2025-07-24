@@ -1,4 +1,4 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
+import { authScope } from '../helpers/auth/auth-scope.js'
 
 /**
  * @type {{admin: string, tenant: string, serviceOwner: string, externalTest: string, breakGlass: string, restrictedTechPython: string, restrictedTechPostgres: string }}

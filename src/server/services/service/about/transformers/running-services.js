@@ -1,5 +1,5 @@
-import { provideDeploymentStatusClassname } from '~/src/server/running-services/helpers/provide-deployment-status-classname.js'
-import { fetchRunningServices } from '~/src/server/common/helpers/fetch/fetch-running-services.js'
+import { provideDeploymentStatusClassname } from '../../../../running-services/helpers/provide-deployment-status-classname.js'
+import { fetchRunningServices } from '../../../../common/helpers/fetch/fetch-running-services.js'
 
 async function transformRunningServices(serviceName) {
   const runningServices = await fetchRunningServices(serviceName)

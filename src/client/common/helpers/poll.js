@@ -1,7 +1,7 @@
 import { addMinutes, isBefore } from 'date-fns'
 
-import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
-import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
+import { xhrRequest } from './xhr.js'
+import { clientNotification } from './client-notification.js'
 
 /**
  *

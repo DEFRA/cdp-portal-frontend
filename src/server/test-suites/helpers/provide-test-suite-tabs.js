@@ -1,4 +1,4 @@
-import { buildTab } from '~/src/server/common/patterns/entities/tabs/helpers/build-tab.js'
+import { buildTab } from '../../common/patterns/entities/tabs/helpers/build-tab.js'
 
 /**
  * Provides tabs for the service view based on user authentication.

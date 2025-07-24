@@ -1,5 +1,5 @@
-import { pagination } from '~/src/server/common/constants/pagination.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { pagination } from '../../common/constants/pagination.js'
+import { getEnvironments } from '../../common/helpers/environments/get-environments.js'
 import upperFirst from 'lodash/upperFirst.js'
 
 const paginationParams = `?page=${pagination.page}&size=${pagination.size}`

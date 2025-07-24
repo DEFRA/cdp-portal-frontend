@@ -1,5 +1,5 @@
-import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { transformTagToRow } from '~/src/server/admin/tags/transformers/transform-tag-to-row.js'
+import { serviceTags } from '../helpers/service-tags.js'
+import { transformTagToRow } from '../transformers/transform-tag-to-row.js'
 
 const listTagsListController = {
   handler: (request, h) => {

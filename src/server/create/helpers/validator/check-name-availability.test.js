@@ -1,9 +1,10 @@
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
-import { repositoryFixture } from '~/src/__fixtures__/repository.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { config } from '../../../../config/config.js'
+import { checkNameAvailability } from './check-name-availability.js'
+import { repositoryFixture } from '../../../../__fixtures__/repository.js'
+import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 describe('#checkNameAvailability', () => {
   const repositoryName = 'cdp-portal-frontend'
@@ -17,7 +18,7 @@ describe('#checkNameAvailability', () => {
 
   beforeEach(() => {
     mockHelpers = {
-      message: jest.fn().mockReturnValue('mock-message-helper-return')
+      message: vi.fn().mockReturnValue('mock-message-helper-return')
     }
   })
 

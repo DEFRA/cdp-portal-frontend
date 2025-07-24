@@ -1,6 +1,7 @@
-import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
-import { librariesFixture } from '~/src/__fixtures__/libraries.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { describe, expect, test } from 'vitest'
+import { sortByOwner } from './sort-by-owner.js'
+import { librariesFixture } from '../../../../__fixtures__/libraries.js'
+import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 describe('#sortByOwner', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'

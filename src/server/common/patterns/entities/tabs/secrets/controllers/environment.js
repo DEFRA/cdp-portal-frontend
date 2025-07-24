@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import startCase from 'lodash/startCase.js'
 
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { fetchSecrets } from '~/src/server/common/helpers/fetch/fetch-secrets.js'
-import { environmentSecrets } from '~/src/server/common/patterns/entities/tabs/secrets/transformers/environment-secrets.js'
-import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
+import { formatText } from '../../../../../../../config/nunjucks/filters/filters.js'
+import { fetchSecrets } from '../../../../../helpers/fetch/fetch-secrets.js'
+import { environmentSecrets } from '../transformers/environment-secrets.js'
+import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
+import { pluralise } from '../../../../../helpers/pluralise.js'
 
 export function environmentSecretsController(entityType) {
   return {

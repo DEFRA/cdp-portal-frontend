@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchAllBuckets } from '~/src/server/services/helpers/fetch/fetch-all-buckets.js'
-import { allEnvironmentBuckets } from '~/src/server/services/service/buckets/transformers/all-environment-buckets.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { fetchAllBuckets } from '../../../helpers/fetch/fetch-all-buckets.js'
+import { allEnvironmentBuckets } from '../transformers/all-environment-buckets.js'
+import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 
 const allBucketsController = {
   options: {

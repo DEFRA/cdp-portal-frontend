@@ -1,5 +1,5 @@
-import { fetchCdpTeams } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { transformTeamToEntityRow } from '~/src/server/admin/teams/transformers/transform-team-to-entity-row.js'
+import { fetchCdpTeams } from '../helpers/fetch/index.js'
+import { transformTeamToEntityRow } from '../transformers/transform-team-to-entity-row.js'
 
 const teamsListController = {
   handler: async (request, h) => {

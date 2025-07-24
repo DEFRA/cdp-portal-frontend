@@ -1,6 +1,6 @@
 import authCookie from '@hapi/cookie'
-import { config } from '~/src/config/config.js'
-import { updateUserScope } from '~/src/server/common/helpers/auth/user-session.js'
+import { config } from '../../../../config/config.js'
+import { updateUserScope } from './user-session.js'
 
 const sessionCookieConfig = config.get('sessionCookie')
 

@@ -1,4 +1,5 @@
-import { changelogApplyRows } from '~/src/server/apply-changelog/transformers/changelog-apply-rows.js'
+import { describe, expect, test } from 'vitest'
+import { changelogApplyRows } from './changelog-apply-rows.js'
 
 describe('#changelogApplyRows', () => {
   test('Should return rows with correct keys and values for valid details', () => {

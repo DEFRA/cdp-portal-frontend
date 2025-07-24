@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { updateFeatureToggle } from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
+import { updateFeatureToggle } from '../helpers/fetch-feature-toggles.js'
 
 const toggleFeatureController = {
   options: {

@@ -1,6 +1,6 @@
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
+import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
+import { noValue } from '../../../common/constants/no-value.js'
+import { buildLink } from '../../../common/helpers/view/build-link.js'
 
 const editActionItems = (userId) => ({
   items: [

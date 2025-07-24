@@ -1,10 +1,10 @@
 import qs from 'qs'
 import { Action } from 'history'
 
-import { history } from '~/src/client/common/helpers/history.js'
+import { history } from './history.js'
 
-import { publish } from '~/src/client/common/helpers/event-emitter.js'
-import { eventName } from '~/src/client/common/constants/event-name.js'
+import { publish } from './event-emitter.js'
+import { eventName } from '../constants/event-name.js'
 
 /**
  * Update data-xhr elements in the DOM inside xhrContent or xhrHeadContent nunjucks blocks with the contents of

@@ -1,7 +1,8 @@
-import { allEnvironmentBuckets } from '~/src/server/services/service/buckets/transformers/all-environment-buckets.js'
-import { allEnvironmentBucketsFixture } from '~/src/__fixtures__/buckets/all-environment-buckets.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { describe, expect, test } from 'vitest'
+import { allEnvironmentBuckets } from './all-environment-buckets.js'
+import { allEnvironmentBucketsFixture } from '../../../../../__fixtures__/buckets/all-environment-buckets.js'
+import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { scopes } from '../../../../common/constants/scopes.js'
 
 describe('#allEnvironmentBuckets', () => {
   describe('With an admin team', () => {

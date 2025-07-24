@@ -1,16 +1,17 @@
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockServiceEntityCall,
   mockServicesAdditionalCalls
-} from '~/test-helpers/common-page-rendering.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+} from '../../../../../test-helpers/common-page-rendering.js'
+import { statusCodes } from '../../../common/constants/status-codes.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-running-services.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-shuttering-urls.js')
-jest.mock('~/src/server/services/helpers/fetch/fetch-api-gateways.js')
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock('~/src/server/common/helpers/auth/get-user-session.js')
+vi.mock('../../../common/helpers/fetch/fetch-running-services.js')
+vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
+vi.mock('../../helpers/fetch/fetch-api-gateways.js')
+vi.mock('../../../common/helpers/fetch/fetch-entities.js')
+vi.mock('../../../common/helpers/auth/get-user-session.js')
 
 describe('Services', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -18,8 +19,8 @@ describe('Services', () => {
 
   describe('Maintenance service page', () => {
     beforeAll(async () => {
-      jest.useFakeTimers({ advanceTimers: true })
-      jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
       mockServiceEntityCall('mock-service', 'frontend')
       mockServicesAdditionalCalls({
@@ -31,7 +32,7 @@ describe('Services', () => {
 
     afterAll(async () => {
       await server.stop({ timeout: 0 })
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     test('logged in admin user', async () => {

@@ -1,7 +1,7 @@
-import { triggerTestSuiteRunController } from '~/src/server/test-suites/test-runs/controllers/test-suite-run.js'
-import { stopTestSuiteController } from '~/src/server/test-suites/test-runs/controllers/stop-test-suite.js'
-import { testResultsController } from '~/src/server/test-suites/test-runs/controllers/test-results.js'
-import { testSuiteReportController } from '~/src/server/test-suites/test-runs/controllers/test-suite-report.js'
+import { triggerTestSuiteRunController } from './controllers/test-suite-run.js'
+import { stopTestSuiteController } from './controllers/stop-test-suite.js'
+import { testResultsController } from './controllers/test-results.js'
+import { testSuiteReportController } from './controllers/test-suite-report.js'
 
 const testSuiteRuns = {
   plugin: {

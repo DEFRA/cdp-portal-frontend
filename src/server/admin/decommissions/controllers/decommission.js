@@ -1,16 +1,16 @@
 import Boom from '@hapi/boom'
 import { parseISO, subHours, formatDistanceStrict } from 'date-fns'
 
-import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
-import { getActions } from '~/src/server/admin/decommissions/helpers/actions.js'
-import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
-import { fetchEntityStatus } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import Joi from '../../../common/helpers/extended-joi.js'
+import { nullify404 } from '../../../common/helpers/nullify-404.js'
+import { getActions } from '../helpers/actions.js'
+import { creationStatuses } from '../../../common/constants/creation-statuses.js'
+import { fetchEntityStatus } from '../../../common/helpers/fetch/fetch-entities.js'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
-import { statusTagClassMap } from '~/src/server/common/helpers/status-tag-class-map.js'
-import { resourceDescriptions } from '~/src/server/common/patterns/entities/status/helpers/resource-descriptions.js'
-import { transformDecommissionToSummary } from '~/src/server/admin/decommissions/transformers/decommission-to-summary.js'
+import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
+import { statusTagClassMap } from '../../../common/helpers/status-tag-class-map.js'
+import { resourceDescriptions } from '../../../common/patterns/entities/status/helpers/resource-descriptions.js'
+import { transformDecommissionToSummary } from '../transformers/decommission-to-summary.js'
 
 const decommissionController = {
   options: {

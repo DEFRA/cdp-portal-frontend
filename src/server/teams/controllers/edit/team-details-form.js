@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../../admin/teams/helpers/fetch/index.js'
 
 const teamDetailsFormController = {
   options: {

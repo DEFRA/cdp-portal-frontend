@@ -1,5 +1,6 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { entityToSummary } from '~/src/server/services/service/maintenance/helpers/transformers/entity-to-summary.js'
+import { describe, expect, test } from 'vitest'
+import { noValue } from '../../../../../common/constants/no-value.js'
+import { entityToSummary } from './entity-to-summary.js'
 
 describe('#entityToSummary', () => {
   const mockEntity = { name: 'mock-service' }

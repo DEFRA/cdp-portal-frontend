@@ -1,4 +1,4 @@
-import { createHiddenInput } from '~/src/client/common/helpers/protect-form/create-hidden-input.js'
+import { createHiddenInput } from './create-hidden-input.js'
 
 function toggleProtectedInputs($form, $protectedInputs, protect) {
   $protectedInputs.forEach(($input) => {

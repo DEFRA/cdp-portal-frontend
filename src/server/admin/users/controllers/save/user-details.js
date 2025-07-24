@@ -1,12 +1,9 @@
 import qs from 'qs'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import {
-  saveToCdpUser,
-  setStepComplete
-} from '~/src/server/admin/users/helpers/form/index.js'
-import { userDetailsValidation } from '~/src/server/admin/users/helpers/schema/user-details-validation.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { saveToCdpUser, setStepComplete } from '../../helpers/form/index.js'
+import { userDetailsValidation } from '../../helpers/schema/user-details-validation.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
 
 const userDetailsController = {
   handler: async (request, h) => {

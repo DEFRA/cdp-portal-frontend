@@ -1,16 +1,17 @@
-import { provideFormValues } from '~/src/server/test-suites/helpers/pre/provide-form-values.js'
+import { describe, expect, test, vi } from 'vitest'
+import { provideFormValues } from './provide-form-values.js'
 
 describe('#provideFormValues', () => {
   const entity = { teams: [{ teamId: 'team1' }], subType: 'Journey' }
 
   test('Should provide expected values for an authenticated user', async () => {
     const mockRequest = {
-      getUserSession: jest
+      getUserSession: vi
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
       app: { entity },
-      userIsOwner: jest.fn().mockResolvedValue(false),
-      userIsAdmin: jest.fn().mockResolvedValue(false)
+      userIsOwner: vi.fn().mockResolvedValue(false),
+      userIsAdmin: vi.fn().mockResolvedValue(false)
     }
     const result = await provideFormValues.method(mockRequest)
 
@@ -22,9 +23,9 @@ describe('#provideFormValues', () => {
 
   test('Should return expect values for an unauthenticated user', async () => {
     const mockRequest = {
-      getUserSession: jest.fn().mockResolvedValue({ isAuthenticated: false }),
-      userIsOwner: jest.fn().mockResolvedValue(false),
-      userIsAdmin: jest.fn().mockResolvedValue(false)
+      getUserSession: vi.fn().mockResolvedValue({ isAuthenticated: false }),
+      userIsOwner: vi.fn().mockResolvedValue(false),
+      userIsAdmin: vi.fn().mockResolvedValue(false)
     }
 
     const result = await provideFormValues.method(mockRequest)
@@ -37,12 +38,12 @@ describe('#provideFormValues', () => {
 
   test('Should return expected values for a test suite owner', async () => {
     const mockRequest = {
-      getUserSession: jest
+      getUserSession: vi
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
       app: { entity },
-      userIsOwner: jest.fn().mockResolvedValue(true),
-      userIsAdmin: jest.fn().mockResolvedValue(false)
+      userIsOwner: vi.fn().mockResolvedValue(true),
+      userIsAdmin: vi.fn().mockResolvedValue(false)
     }
     const result = await provideFormValues.method(mockRequest)
 
@@ -101,12 +102,12 @@ describe('#provideFormValues', () => {
 
   test('Should return expected values for an admin user', async () => {
     const mockRequest = {
-      getUserSession: jest
+      getUserSession: vi
         .fn()
         .mockResolvedValue({ isAuthenticated: true, isAdmin: true }),
       app: { entity },
-      userIsOwner: jest.fn().mockResolvedValue(false),
-      userIsAdmin: jest.fn().mockResolvedValue(true)
+      userIsOwner: vi.fn().mockResolvedValue(false),
+      userIsAdmin: vi.fn().mockResolvedValue(true)
     }
     const result = await provideFormValues.method(mockRequest)
 

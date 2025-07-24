@@ -1,10 +1,14 @@
+import { describe, expect, test, vi } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { cdpTeamFixture } from '~/src/__fixtures__/admin/cdp-team.js'
-import { addMemberToTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { authedFetchJsonDecorator } from '~/src/server/common/helpers/fetch/authed-fetch-json.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { config } from '../../../../../config/config.js'
+import { cdpTeamFixture } from '../../../../../__fixtures__/admin/cdp-team.js'
+import { addMemberToTeam } from './index.js'
+import { authedFetchJsonDecorator } from '../../../../common/helpers/fetch/authed-fetch-json.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../../test-helpers/get-error.js'
 
 describe('#addUserToTeam', () => {
   const teamId = '47c04343-4c0e-4326-9848-bef7c1e2eedd'
@@ -14,11 +18,11 @@ describe('#addUserToTeam', () => {
   )
   const mockRequest = {
     authedFetchJson: authedFetchJsonDecorator({
-      getUserSession: jest.fn().mockResolvedValue({}),
+      getUserSession: vi.fn().mockResolvedValue({}),
       logger: {
-        info: jest.fn(),
-        error: jest.fn(),
-        debug: jest.fn()
+        info: vi.fn(),
+        error: vi.fn(),
+        debug: vi.fn()
       }
     })
   }

@@ -1,8 +1,9 @@
+import { describe, expect, test, vi } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { cdpTeamsFixture } from '~/src/__fixtures__/admin/cdp-teams.js'
-import { getUsersTeams } from '~/src/server/common/helpers/user/get-users-teams.js'
+import { config } from '../../../../config/config.js'
+import { cdpTeamsFixture } from '../../../../__fixtures__/admin/cdp-teams.js'
+import { getUsersTeams } from './get-users-teams.js'
 
 describe('#getUsersTeams', () => {
   const teamsEndpointUrl = new URL(
@@ -12,7 +13,7 @@ describe('#getUsersTeams', () => {
   describe('With Admin user', () => {
     test('Should receive all teams in response', async () => {
       const mockRequest = {
-        getUserSession: jest.fn().mockResolvedValue({
+        getUserSession: vi.fn().mockResolvedValue({
           isAdmin: true
         })
       }
@@ -37,7 +38,7 @@ describe('#getUsersTeams', () => {
   describe('With service team user', () => {
     test('Should receive only teams they are in, in response', async () => {
       const mockRequest = {
-        getUserSession: jest.fn().mockResolvedValue({
+        getUserSession: vi.fn().mockResolvedValue({
           scope: [
             '9e068bb9-1452-426e-a4ca-2e675a942a89',
             '087d4a80-002b-48cf-a7d3-aa60b67784f0'

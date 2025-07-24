@@ -1,7 +1,8 @@
+import { beforeAll, describe, expect, test } from 'vitest'
 import Hapi from '@hapi/hapi'
 import Boom from '@hapi/boom'
 
-import { searchHandlerController } from '~/src/server/documentation/controllers/search-handler.js'
+import { searchHandlerController } from './search-handler.js'
 
 const search = (server) => (payload) =>
   server.inject({

@@ -1,13 +1,13 @@
-import { commonTestSuiteExtensions } from '~/src/server/common/helpers/extensions.js'
-import { allSecretsController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/all.js'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { provideSubNav } from '~/src/server/helpers/provide-sub-navigation.js'
-import { environmentSecretsController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/environment.js'
-import { serviceOwnerOrAdminUserScope } from '~/src/server/common/constants/scopes.js'
-import { updateSecretFormController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/update-form.js'
-import { updateSecretController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/update.js'
-import { createSecretController } from '~/src/server/common/patterns/entities/tabs/secrets/controllers/create.js'
-import { TEST_SUITE } from '~/src/server/common/patterns/entities/tabs/constants.js'
+import { commonTestSuiteExtensions } from '../../../common/helpers/extensions.js'
+import { allSecretsController } from '../../../common/patterns/entities/tabs/secrets/controllers/all.js'
+import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
+import { provideSubNav } from '../../../helpers/provide-sub-navigation.js'
+import { environmentSecretsController } from '../../../common/patterns/entities/tabs/secrets/controllers/environment.js'
+import { serviceOwnerOrAdminUserScope } from '../../../common/constants/scopes.js'
+import { updateSecretFormController } from '../../../common/patterns/entities/tabs/secrets/controllers/update-form.js'
+import { updateSecretController } from '../../../common/patterns/entities/tabs/secrets/controllers/update.js'
+import { createSecretController } from '../../../common/patterns/entities/tabs/secrets/controllers/create.js'
+import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
 
 export const testSuiteSecrets = {
   plugin: {

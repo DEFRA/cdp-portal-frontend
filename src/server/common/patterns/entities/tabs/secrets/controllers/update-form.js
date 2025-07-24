@@ -2,10 +2,10 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import startCase from 'lodash/startCase.js'
 
-import { config } from '~/src/config/config.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
+import { config } from '../../../../../../../config/config.js'
+import { formatText } from '../../../../../../../config/nunjucks/filters/filters.js'
+import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
+import { pluralise } from '../../../../../helpers/pluralise.js'
 
 const immutableKeys = config.get('platformGlobalSecretKeys')
 

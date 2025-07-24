@@ -1,5 +1,6 @@
-import { buildNavigation } from '~/src/config/nunjucks/context/build-navigation.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { describe, expect, test } from 'vitest'
+import { buildNavigation } from './build-navigation.js'
+import { scopes } from '../../../server/common/constants/scopes.js'
 
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,

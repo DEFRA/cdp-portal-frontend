@@ -1,9 +1,13 @@
+import { describe, expect, test } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { availableVersionsFixture } from '~/src/__fixtures__/available-versions.js'
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { config } from '../../../../config/config.js'
+import { availableVersionsFixture } from '../../../../__fixtures__/available-versions.js'
+import { fetchAvailableVersions } from './fetch-available-versions.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../test-helpers/get-error.js'
 
 describe('#fetchAvailableVersions', () => {
   const serviceName = 'cdp-portal-frontend'

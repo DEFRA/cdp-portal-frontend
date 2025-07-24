@@ -1,9 +1,13 @@
+import { describe, expect, test } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { librariesFixture } from '~/src/__fixtures__/libraries.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { getError, NoErrorThrownError } from '~/test-helpers/get-error.js'
+import { config } from '../../../../config/config.js'
+import { librariesFixture } from '../../../../__fixtures__/libraries.js'
+import { fetchJson } from './fetch-json.js'
+import {
+  getError,
+  NoErrorThrownError
+} from '../../../../../test-helpers/get-error.js'
 
 describe('#fetcher', () => {
   const librariesEndpoint = config.get('portalBackendUrl') + '/libraries'

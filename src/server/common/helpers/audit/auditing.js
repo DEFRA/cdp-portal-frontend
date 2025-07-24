@@ -1,6 +1,6 @@
-import { config } from '~/src/config/config.js'
+import { config } from '../../../../config/config.js'
 import { audit, enableAuditing } from '@defra/cdp-auditing'
-import { auditMessage } from '~/src/server/common/helpers/audit/audit-message.js'
+import { auditMessage } from './audit-message.js'
 
 export const auditing = {
   plugin: {

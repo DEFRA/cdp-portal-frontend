@@ -1,4 +1,4 @@
-import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
+import { databaseStatus } from '../constants/database-status.js'
 
 function provideStatusClassname(status) {
   switch (status) {

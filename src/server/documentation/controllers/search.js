@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-import { searchIndex } from '~/src/server/documentation/helpers/search-index.js'
+import { config } from '../../../config/config.js'
+import { searchIndex } from '../helpers/search-index.js'
 
 const searchController = {
   options: {

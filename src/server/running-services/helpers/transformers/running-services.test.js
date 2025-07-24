@@ -1,6 +1,7 @@
+import { describe, expect, test } from 'vitest'
 import { transformRunningServices } from './running-services.js'
-import { runningServicesFixture } from '~/src/__fixtures__/running-services.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { runningServicesFixture } from '../../../../__fixtures__/running-services.js'
+import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 describe('transformRunningServices', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'

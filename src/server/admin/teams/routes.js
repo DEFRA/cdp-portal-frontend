@@ -1,9 +1,9 @@
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
-import { provideTeamSteps } from '~/src/server/admin/teams/helpers/form/index.js'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { authScope } from '../../common/helpers/auth/auth-scope.js'
+import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
+import { provideTeamSteps } from './helpers/form/index.js'
+import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
+import { scopes } from '../../common/constants/scopes.js'
+import { sessionNames } from '../../common/constants/session-names.js'
 import {
   startCreateTeamController,
   createTeamController,
@@ -22,7 +22,7 @@ import {
   editTeamController,
   deleteTeamController,
   confirmDeleteTeamController
-} from '~/src/server/admin/teams/controllers/index.js'
+} from './controllers/index.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 

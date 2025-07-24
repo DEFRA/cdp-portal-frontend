@@ -1,6 +1,6 @@
-import { provideTestSuite } from '~/src/server/test-suites/helpers/pre/provide-test-suite.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { stopTest } from '~/src/server/test-suites/helpers/fetch/stop-test.js'
+import { provideTestSuite } from '../../helpers/pre/provide-test-suite.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
+import { stopTest } from '../../helpers/fetch/stop-test.js'
 
 const stopTestSuiteController = {
   options: {

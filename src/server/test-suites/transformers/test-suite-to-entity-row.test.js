@@ -1,5 +1,6 @@
-import { entityTestSuiteFixture } from '~/src/__fixtures__/test-suite.js'
-import { testSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
+import { describe, expect, test } from 'vitest'
+import { entityTestSuiteFixture } from '../../../__fixtures__/test-suite.js'
+import { testSuiteToEntityRow } from './test-suite-to-entity-row.js'
 
 describe('#transformTestSuiteToEntityRow', () => {
   test('Should provide expected entity row transformation', () => {

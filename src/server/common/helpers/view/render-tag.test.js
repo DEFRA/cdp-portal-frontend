@@ -1,4 +1,5 @@
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+import { describe, expect, test } from 'vitest'
+import { renderTag } from './render-tag.js'
 
 function setupComponent(params = {}) {
   document.body.innerHTML = renderTag(params)

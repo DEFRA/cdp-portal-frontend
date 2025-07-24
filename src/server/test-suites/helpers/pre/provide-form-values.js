@@ -1,8 +1,8 @@
-import { runnerProfiles } from '~/src/server/test-suites/constants/runner-profiles.js'
-import { findEnvironmentsForTestSuite } from '~/src/server/test-suites/helpers/find-environments-for-test-suite.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { environments } from '~/src/config/environments.js'
-import { sortByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
+import { runnerProfiles } from '../../constants/runner-profiles.js'
+import { findEnvironmentsForTestSuite } from '../find-environments-for-test-suite.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { environments } from '../../../../config/environments.js'
+import { sortByEnv } from '../../../common/helpers/sort/sort-by-env.js'
 
 const profileHtmlTemplate = ({
   cpu,

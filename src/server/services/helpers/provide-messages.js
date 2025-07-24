@@ -1,6 +1,6 @@
-import { fetchShutteringUrls } from '~/src/server/services/helpers/fetch/fetch-shuttering-urls.js'
-import { sortKeyByEnv } from '~/src/server/common/helpers/sort/sort-by-env.js'
-import { shutteringStatus } from '~/src/server/common/constants/shuttering.js'
+import { fetchShutteringUrls } from './fetch/fetch-shuttering-urls.js'
+import { sortKeyByEnv } from '../../common/helpers/sort/sort-by-env.js'
+import { shutteringStatus } from '../../common/constants/shuttering.js'
 
 async function provideMessages(request, h) {
   const shutteringDetailsResponse = await fetchShutteringUrls(

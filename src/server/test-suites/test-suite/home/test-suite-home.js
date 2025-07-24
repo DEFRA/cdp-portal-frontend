@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { aboutTestSuiteHandler } from '~/src/server/test-suites/test-suite/about/about-handler.js'
-import { entityStatusHandler } from '~/src/server/common/patterns/entities/status/status-handler.js'
-import { TEST_SUITE } from '~/src/server/common/patterns/entities/tabs/constants.js'
-import { pluralise } from '~/src/config/nunjucks/filters/filters.js'
-import { provideFormValues } from '~/src/server/test-suites/helpers/pre/provide-form-values.js'
+import { aboutTestSuiteHandler } from '../about/about-handler.js'
+import { entityStatusHandler } from '../../../common/patterns/entities/status/status-handler.js'
+import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
+import { pluralise } from '../../../../config/nunjucks/filters/filters.js'
+import { provideFormValues } from '../../helpers/pre/provide-form-values.js'
 
 const entityType = TEST_SUITE
 

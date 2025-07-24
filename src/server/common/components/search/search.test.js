@@ -1,12 +1,13 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { search } from '~/src/server/common/components/search/search.js'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { search } from './search.js'
 
 describe('#search', () => {
   let searchInput
 
   beforeEach(() => {
     // Mock scroll function that's not available in JSDOM
-    Element.prototype.scroll = jest.fn()
+    Element.prototype.scroll = vi.fn()
 
     const $component = renderTestComponent('search', {
       label: {

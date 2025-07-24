@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchAvailableVersions } from '~/src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { fetchAvailableVersions } from '../fetch/fetch-available-versions.js'
 
 async function detailsValidation(queryValues, options) {
   const isAuthenticated = options?.context?.auth?.isAuthenticated ?? false

@@ -4,15 +4,15 @@ import uniqBy from 'lodash/uniqBy.js'
 import filter from 'lodash/filter.js'
 import { escapeRegex } from '@hapi/hoek'
 
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { provideSelectedEntities } from '~/src/server/admin/permissions/helpers/pre/provide-selected-entities.js'
+import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
+import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { provideSelectedEntities } from '../../helpers/pre/provide-selected-entities.js'
 import {
   searchCdpUsers,
   searchCdpTeams,
   fetchPermissionsScope
-} from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+} from '../../helpers/fetchers.js'
+import { renderTag } from '../../../../common/helpers/view/render-tag.js'
 
 async function buildEntitiesOptions(searchQuery, scope, selectedEntities) {
   const kind = scope.kind

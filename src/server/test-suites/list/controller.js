@@ -1,8 +1,8 @@
-import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { sortByOwner } from '~/src/server/common/helpers/sort/sort-by-owner.js'
-import { entityOwnerDecorator } from '~/src/server/test-suites/helpers/decorators/entity-owner-decorator.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { testSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
+import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
+import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
+import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
+import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
+import { testSuiteToEntityRow } from '../transformers/test-suite-to-entity-row.js'
 
 const testSuiteListController = {
   options: {

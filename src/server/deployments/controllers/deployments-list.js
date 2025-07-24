@@ -4,24 +4,24 @@ import capitalize from 'lodash/capitalize.js'
 import kebabCase from 'lodash/kebabCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 
-import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
-import { provideFormValues } from '~/src/server/deployments/helpers/ext/provide-form-values.js'
-import { decorateRollouts } from '~/src/server/deployments/transformers/decorate-rollouts.js'
-import { pagination } from '~/src/server/common/constants/pagination.js'
-import { fetchDeploymentFilters } from '~/src/server/deployments/helpers/fetch/fetch-deployment-filters.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { deploymentToEntityRow } from '~/src/server/deployments/transformers/deployment-to-entity-row.js'
-import { fetchDeploymentsWithMigrations } from '~/src/server/deployments/helpers/fetch/fetch-deployments-with-migrations.js'
-import { migrationToEntityRow } from '~/src/server/deployments/transformers/migration-to-entity-row.js'
+import { buildPagination } from '../../common/helpers/build-pagination.js'
+import { allEnvironmentsOnlyForAdmin } from '../../common/helpers/ext/all-environments-only-for-admin.js'
+import { buildSuggestions } from '../../common/components/autocomplete/helpers/build-suggestions.js'
+import { provideFormValues } from '../helpers/ext/provide-form-values.js'
+import { decorateRollouts } from '../transformers/decorate-rollouts.js'
+import { pagination } from '../../common/constants/pagination.js'
+import { fetchDeploymentFilters } from '../helpers/fetch/fetch-deployment-filters.js'
+import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
+import { deploymentToEntityRow } from '../transformers/deployment-to-entity-row.js'
+import { fetchDeploymentsWithMigrations } from '../helpers/fetch/fetch-deployments-with-migrations.js'
+import { migrationToEntityRow } from '../transformers/migration-to-entity-row.js'
 import {
   environmentValidation,
   repositoryNameValidation,
   teamIdValidation,
   userIdValidation
 } from '@defra/cdp-validation-kit/src/validations.js'
-import { fetchServices } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
 
 async function getFilters() {
   const response = await fetchDeploymentFilters()

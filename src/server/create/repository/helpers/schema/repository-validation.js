@@ -1,12 +1,12 @@
 import Joi from 'joi'
 
-import { validation } from '~/src/server/common/constants/validation.js'
-import { repositoryVisibility } from '~/src/server/create/constants/repository-visibility.js'
+import { validation } from '../../../../common/constants/validation.js'
+import { repositoryVisibility } from '../../../constants/repository-visibility.js'
 import {
   repositoryNameValidation,
   teamIdValidation
 } from '@defra/cdp-validation-kit/src/validations.js'
-import { checkNameAvailability } from '~/src/server/create/helpers/validator/check-name-availability.js'
+import { checkNameAvailability } from '../../../helpers/validator/check-name-availability.js'
 
 function repositoryValidation() {
   return Joi.object({

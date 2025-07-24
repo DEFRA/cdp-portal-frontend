@@ -1,8 +1,8 @@
 import Boom from '@hapi/boom'
 
-import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { fetchPermissionsScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
+import Joi from '../../../../common/helpers/extended-joi.js'
+import { fetchPermissionsScope } from '../../helpers/fetchers.js'
+import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 
 const editPermissionDetailsFormController = {
   options: {

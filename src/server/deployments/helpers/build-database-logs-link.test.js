@@ -1,13 +1,14 @@
-import { buildDatabaseLogsLink } from '~/src/server/deployments/helpers/build-database-logs-link.js'
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
+import { buildDatabaseLogsLink } from './build-database-logs-link.js'
 
 describe('#buildDatabaseLogsLink', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-04-01'))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2025-04-01'))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   test('Should return a valid link when all parameters are provided', () => {

@@ -1,12 +1,12 @@
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { commonServiceExtensions } from '~/src/server/common/helpers/extensions.js'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { updateShutteringStatusController } from '~/src/server/services/service/maintenance/controllers/update-shuttering-status.js'
-import { confirmShutterController } from '~/src/server/services/service/maintenance/controllers/confirm-shutter.js'
-import { confirmUndeployController } from '~/src/server/services/service/maintenance/controllers/confirm-undeploy.js'
-import { maintenanceController } from '~/src/server/services/service/maintenance/controllers/maintenance.js'
-import { undeployController } from '~/src/server/services/service/maintenance/controllers/undeploy.js'
+import { scopes } from '../../../common/constants/scopes.js'
+import { authScope } from '../../../common/helpers/auth/auth-scope.js'
+import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
+import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
+import { updateShutteringStatusController } from './controllers/update-shuttering-status.js'
+import { confirmShutterController } from './controllers/confirm-shutter.js'
+import { confirmUndeployController } from './controllers/confirm-undeploy.js'
+import { maintenanceController } from './controllers/maintenance.js'
+import { undeployController } from './controllers/undeploy.js'
 
 const serviceTeamAndAdminScope = authScope([scopes.serviceOwner, scopes.admin])
 

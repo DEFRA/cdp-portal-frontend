@@ -1,4 +1,5 @@
-import { isIe } from '~/src/config/nunjucks/context/is-ie.js'
+import { describe, expect, test } from 'vitest'
+import { isIe } from './is-ie.js'
 
 describe('#isIe', () => {
   test('Should detect IE11', () => {

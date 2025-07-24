@@ -1,10 +1,11 @@
+import { beforeEach, describe, expect, test } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { deployServiceOptionsFixture } from '~/src/__fixtures__/deploy-service/deploy-service-options.js'
-import { provideFormValues } from '~/src/server/deploy-service/helpers/pre/provide-form-values.js'
-import { existingServiceInfoFixture } from '~/src/__fixtures__/deploy-service/existing-service-info.js'
-import { deploymentSessionFixture } from '~/src/__fixtures__/deploy-service/deployment-session.js'
+import { config } from '../../../../config/config.js'
+import { deployServiceOptionsFixture } from '../../../../__fixtures__/deploy-service/deploy-service-options.js'
+import { provideFormValues } from './provide-form-values.js'
+import { existingServiceInfoFixture } from '../../../../__fixtures__/deploy-service/existing-service-info.js'
+import { deploymentSessionFixture } from '../../../../__fixtures__/deploy-service/deployment-session.js'
 
 describe('#provideFormValues', () => {
   const mockRequest = (stepData = null) => ({

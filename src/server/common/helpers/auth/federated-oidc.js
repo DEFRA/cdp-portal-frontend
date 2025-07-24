@@ -3,11 +3,11 @@ import * as openid from 'openid-client'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { asExternalUrl } from '~/src/server/common/helpers/url/url-helpers.js'
-import { refreshTokenIfExpired } from '~/src/server/common/helpers/auth/refresh-token.js'
+import { config } from '../../../../config/config.js'
+import { createLogger } from '../logging/logger.js'
+import { sessionNames } from '../../constants/session-names.js'
+import { asExternalUrl } from '../url/url-helpers.js'
+import { refreshTokenIfExpired } from './refresh-token.js'
 
 const logger = createLogger()
 const callbackPath = '/auth/callback'

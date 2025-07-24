@@ -1,10 +1,10 @@
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { autoDeployValidation } from '~/src/server/services/service/automations/helpers/schema/auto-deploy-validation.js'
-import { saveAutoDeployDetails } from '~/src/server/services/service/automations/helpers/fetchers.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { autoDeployValidation } from '../helpers/schema/auto-deploy-validation.js'
+import { saveAutoDeployDetails } from '../helpers/fetchers.js'
 
 const setupAutoDeployController = {
   options: {

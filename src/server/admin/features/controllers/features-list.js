@@ -1,6 +1,6 @@
-import { featureToEntityRow } from '~/src/server/admin/features/transformers/feature-to-entity-row.js'
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { fetchFeatureToggles } from '~/src/server/admin/features/helpers/fetch-feature-toggles.js'
+import { featureToEntityRow } from '../transformers/feature-to-entity-row.js'
+import { sortBy } from '../../../common/helpers/sort/sort-by.js'
+import { fetchFeatureToggles } from '../helpers/fetch-feature-toggles.js'
 
 const listFeaturesController = {
   handler: async (_request, h) => {

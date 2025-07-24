@@ -1,6 +1,6 @@
-import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
-import { subscribe } from '~/src/client/common/helpers/event-emitter.js'
-import { clientNotification } from '~/src/client/common/helpers/client-notification.js'
+import { xhrRequest } from '../../../../client/common/helpers/xhr.js'
+import { subscribe } from '../../../../client/common/helpers/event-emitter.js'
+import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
 
 /**
  * Trigger a xhr request from a published, subscribed to event

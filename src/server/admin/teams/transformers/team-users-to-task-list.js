@@ -1,4 +1,4 @@
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
+import { buildLink } from '../../../common/helpers/view/build-link.js'
 
 function transformTeamUsersToTaskList(team, withActions = true) {
   const items = team.users.map((user) => {

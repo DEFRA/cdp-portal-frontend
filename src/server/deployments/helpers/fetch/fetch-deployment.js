@@ -1,8 +1,8 @@
 import Boom from '@hapi/boom'
 
-import { config } from '~/src/config/config.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
+import { config } from '../../../../config/config.js'
+import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
+import { createLogger } from '../../../common/helpers/logging/logger.js'
 
 const logger = createLogger()
 

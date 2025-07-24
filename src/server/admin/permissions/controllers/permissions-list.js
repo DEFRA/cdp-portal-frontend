@@ -1,4 +1,4 @@
-import { fetchPermissionsScopes } from '~/src/server/admin/permissions/helpers/fetchers.js'
+import { fetchPermissionsScopes } from '../helpers/fetchers.js'
 
 const permissionsListController = {
   handler: async (request, h) => {

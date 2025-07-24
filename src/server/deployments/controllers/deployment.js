@@ -1,19 +1,19 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { pagination } from '~/src/server/common/constants/pagination.js'
-import { deploymentStatus } from '~/src/server/common/constants/deployment.js'
-import { provideDeployment } from '~/src/server/deployments/helpers/pre/provide-deployment.js'
-import { getAllEnvironmentKebabNames } from '~/src/server/common/helpers/environments/get-environments.js'
-import { transformSecrets } from '~/src/server/common/components/secrets-list/helpers/transform-secrets.js'
-import { provideEcsDeploymentStatus } from '~/src/server/deployments/helpers/provide-ecs-deployment-status.js'
-import { allEnvironmentsOnlyForAdmin } from '~/src/server/common/helpers/ext/all-environments-only-for-admin.js'
-import { deploymentFaviconState } from '~/src/server/deployments/helpers/deployment-favicon-state.js'
+import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { pagination } from '../../common/constants/pagination.js'
+import { deploymentStatus } from '../../common/constants/deployment.js'
+import { provideDeployment } from '../helpers/pre/provide-deployment.js'
+import { getAllEnvironmentKebabNames } from '../../common/helpers/environments/get-environments.js'
+import { transformSecrets } from '../../common/components/secrets-list/helpers/transform-secrets.js'
+import { provideEcsDeploymentStatus } from '../helpers/provide-ecs-deployment-status.js'
+import { allEnvironmentsOnlyForAdmin } from '../../common/helpers/ext/all-environments-only-for-admin.js'
+import { deploymentFaviconState } from '../helpers/deployment-favicon-state.js'
 import {
   transformDeploymentToStatusSummary,
   transformDeploymentToSummary
-} from '~/src/server/deployments/transformers/deployment-to-summary.js'
+} from '../transformers/deployment-to-summary.js'
 
 const deploymentController = {
   options: {

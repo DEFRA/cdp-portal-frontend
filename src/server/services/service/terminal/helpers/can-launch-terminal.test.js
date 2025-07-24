@@ -1,5 +1,6 @@
-import { canLaunchTerminal } from '~/src/server/services/service/terminal/helpers/can-launch-terminal.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { describe, expect, test } from 'vitest'
+import { canLaunchTerminal } from './can-launch-terminal.js'
+import { scopes } from '../../../../common/constants/scopes.js'
 
 describe('#canLaunchTerminal', () => {
   test('Should not throw for Admin and allowed environment', () => {

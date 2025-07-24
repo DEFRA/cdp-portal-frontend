@@ -1,4 +1,5 @@
-import { provideTestRunStatusClassname } from '~/src/server/test-suites/helpers/provide-test-run-status-classname.js'
+import { describe, expect, test } from 'vitest'
+import { provideTestRunStatusClassname } from './provide-test-run-status-classname.js'
 
 describe('#provideTestRunStatusClassname', () => {
   test('Should provide expected "starting" className', () => {

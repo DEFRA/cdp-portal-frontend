@@ -1,6 +1,6 @@
-import { fetchTeams } from '~/src/server/teams/helpers/fetch/fetch-teams.js'
-import { teamToEntityRow } from '~/src/server/teams/transformers/team-to-entity-row.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { fetchTeams } from '../helpers/fetch/fetch-teams.js'
+import { teamToEntityRow } from '../transformers/team-to-entity-row.js'
+import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 
 function belongsToTeam(userScopeUUIDs) {
   return (team) => ({

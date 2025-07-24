@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { buildServicesTableData } from '~/src/server/services/list/helpers/build-services-table-data.js'
-import { servicesInfoToDataList } from '~/src/server/services/list/transformers/services-info-to-data-list.js'
+import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
+import { buildServicesTableData } from './helpers/build-services-table-data.js'
+import { servicesInfoToDataList } from './transformers/services-info-to-data-list.js'
 
 const servicesListController = {
   options: {

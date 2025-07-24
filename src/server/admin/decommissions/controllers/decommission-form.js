@@ -1,7 +1,7 @@
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
-import { checkFeatureToggle } from '~/src/server/admin/features/helpers/check-feature-toggle.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
+import { sortByName } from '../../../common/helpers/sort/sort-by-name.js'
+import { checkFeatureToggle } from '../../features/helpers/check-feature-toggle.js'
 
 const decommissionFormController = {
   options: {

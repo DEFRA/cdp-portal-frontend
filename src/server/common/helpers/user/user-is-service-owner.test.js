@@ -1,7 +1,8 @@
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import {
   userIsServiceOwner,
   userIsServiceOwnerDecorator
-} from '~/src/server/common/helpers/user/user-is-service-owner.js'
+} from './user-is-service-owner.js'
 
 describe('#userIsServiceOwner', () => {
   let checkUserIsServiceOwner
@@ -30,7 +31,7 @@ describe('#userIsServiceOwnerDecorator', () => {
   beforeEach(() => {
     const adminScopes = ['teamTenScope', 'teamElevenScope', 'teamTwelveScope']
     checkUserIsServiceOwnerDecorator = userIsServiceOwnerDecorator({
-      getUserSession: jest.fn().mockResolvedValue({
+      getUserSession: vi.fn().mockResolvedValue({
         scope: adminScopes
       })
     })

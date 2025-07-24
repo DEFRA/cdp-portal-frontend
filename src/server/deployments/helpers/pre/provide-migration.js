@@ -1,5 +1,5 @@
-import { fetchMigrationRun } from '~/src/server/deployments/helpers/fetchers.js'
-import { provideStatusClassname } from '~/src/server/deployments/helpers/provide-status-classname.js'
+import { fetchMigrationRun } from '../fetchers.js'
+import { provideStatusClassname } from '../provide-status-classname.js'
 
 const provideMigration = {
   method: async function (request) {

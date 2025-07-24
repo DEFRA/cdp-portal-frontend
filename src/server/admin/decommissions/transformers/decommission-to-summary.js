@@ -1,12 +1,12 @@
-import { config } from '~/src/config/config.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { buildList } from '~/src/server/common/helpers/view/build-list.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
-import { renderComponent } from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { serviceTags } from '~/src/server/admin/tags/helpers/service-tags.js'
-import { creationStatuses } from '~/src/server/common/constants/creation-statuses.js'
+import { config } from '../../../../config/config.js'
+import { noValue } from '../../../common/constants/no-value.js'
+import { formatText } from '../../../../config/nunjucks/filters/filters.js'
+import { buildLink } from '../../../common/helpers/view/build-link.js'
+import { buildList } from '../../../common/helpers/view/build-list.js'
+import { renderTag } from '../../../common/helpers/view/render-tag.js'
+import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
+import { serviceTags } from '../../tags/helpers/service-tags.js'
+import { creationStatuses } from '../../../common/constants/creation-statuses.js'
 
 function transformDecommissionToSummary(repository, entity) {
   const dockerHubUrl = config.get('dockerHubUrl')

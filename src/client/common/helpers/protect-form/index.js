@@ -1,3 +1,3 @@
-import { protectForm } from '~/src/client/common/helpers/protect-form/protect-form.js'
+import { protectForm } from './protect-form.js'
 
 export { protectForm }

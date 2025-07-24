@@ -1,6 +1,6 @@
-import { fetchCdpTeam } from '~/src/server/admin/teams/helpers/fetch/index.js'
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
-import { extractIds } from '~/src/server/admin/permissions/helpers/extract-ids.js'
+import { fetchCdpTeam } from '../../../teams/helpers/fetch/index.js'
+import { fetchCdpUser } from '../../../users/helpers/fetch/index.js'
+import { extractIds } from '../extract-ids.js'
 
 const provideSelectedEntities = {
   method: async (request) => {

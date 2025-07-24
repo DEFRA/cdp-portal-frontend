@@ -1,6 +1,7 @@
-import { decorateRollouts } from '~/src/server/deployments/transformers/decorate-rollouts.js'
-import { deploymentsWithMigrationsFixture } from '~/src/__fixtures__/deployments/deployments-with-migrations.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { describe, expect, test } from 'vitest'
+import { decorateRollouts } from './decorate-rollouts.js'
+import { deploymentsWithMigrationsFixture } from '../../../__fixtures__/deployments/deployments-with-migrations.js'
+import { entityServicesFixture } from '../../../__fixtures__/services/entities.js'
 
 describe('#decorateRollouts', () => {
   test('Should decorate deployable with teams and owner information', () => {

@@ -1,4 +1,4 @@
-import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
+import { defaultOption } from './default-option.js'
 
 /**
  * Build select, radio or checkbox options

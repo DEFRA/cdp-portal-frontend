@@ -1,4 +1,5 @@
-import { isUsingBadNamingConventions } from '~/src/server/common/components/input-assistant/helpers/is-using-bad-naming-conventions.js'
+import { describe, expect, test } from 'vitest'
+import { isUsingBadNamingConventions } from './is-using-bad-naming-conventions.js'
 
 describe('#isUsingBadNames', () => {
   test('Should report as expected when bad name is not used', () => {

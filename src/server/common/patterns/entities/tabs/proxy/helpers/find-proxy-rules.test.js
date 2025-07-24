@@ -1,7 +1,8 @@
-import { fetchProxyRules } from '~/src/server/services/helpers/fetch/fetch-proxy-rules.js'
-import { findAllProxyRules } from '~/src/server/common/patterns/entities/tabs/proxy/helpers/find-proxy-rules.js'
+import { describe, expect, test } from 'vitest'
+import { fetchProxyRules } from '../../../../../../services/helpers/fetch/fetch-proxy-rules.js'
+import { findAllProxyRules } from './find-proxy-rules.js'
 
-jest.mock('~/src/server/services/helpers/fetch/fetch-proxy-rules.js')
+vi.mock('../../../../../../services/helpers/fetch/fetch-proxy-rules.js')
 
 describe('#findAllProxyRules', () => {
   test('Should return all proxy rules for a service in environments', async () => {

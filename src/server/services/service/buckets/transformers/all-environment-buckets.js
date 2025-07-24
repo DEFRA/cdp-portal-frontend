@@ -1,4 +1,4 @@
-import { sortByName } from '~/src/server/common/helpers/sort/sort-by-name.js'
+import { sortByName } from '../../../../common/helpers/sort/sort-by-name.js'
 
 /**
  * Transforms and filters buckets for all environments.

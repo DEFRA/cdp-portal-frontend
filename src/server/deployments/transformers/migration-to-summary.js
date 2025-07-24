@@ -1,17 +1,17 @@
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { provideStatusClassname } from '~/src/server/deployments/helpers/provide-status-classname.js'
-import { buildDatabaseLogsLink } from '~/src/server/deployments/helpers/build-database-logs-link.js'
+import { buildLink } from '../../common/helpers/view/build-link.js'
+import { noValue } from '../../common/constants/no-value.js'
+import { provideStatusClassname } from '../helpers/provide-status-classname.js'
+import { buildDatabaseLogsLink } from '../helpers/build-database-logs-link.js'
 import {
   formatText,
   sanitiseUser
-} from '~/src/config/nunjucks/filters/filters.js'
+} from '../../../config/nunjucks/filters/filters.js'
 import {
   renderComponent,
   renderIcon
-} from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { databaseStatus } from '~/src/server/deployments/constants/database-status.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+} from '../../common/helpers/nunjucks/render-component.js'
+import { databaseStatus } from '../constants/database-status.js'
+import { renderTag } from '../../common/helpers/view/render-tag.js'
 
 function transformMigrationToSummary(migration) {
   const logsLinkDataAvailable = [

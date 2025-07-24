@@ -1,9 +1,9 @@
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { requestUndeploy } from '~/src/server/services/service/maintenance/helpers/fetchers.js'
+import { scopes } from '../../../../common/constants/scopes.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { requestUndeploy } from '../helpers/fetchers.js'
 
 const undeployController = {
   options: {

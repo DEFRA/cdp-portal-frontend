@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 
-import Joi from '~/src/server/common/helpers/extended-joi.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { editPermissionValidation } from '~/src/server/admin/permissions/helpers/schema/edit-permission-validation.js'
-import { updateScope } from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import Joi from '../../../../common/helpers/extended-joi.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { editPermissionValidation } from '../../helpers/schema/edit-permission-validation.js'
+import { updateScope } from '../../helpers/fetchers.js'
+import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 
 const editPermissionDetailsController = {
   options: {

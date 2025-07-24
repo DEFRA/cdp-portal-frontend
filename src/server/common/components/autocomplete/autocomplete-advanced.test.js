@@ -1,8 +1,9 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
-import { AutocompleteAdvanced } from '~/src/server/common/components/autocomplete/autocomplete-advanced.js'
-import { publish } from '~/src/client/common/helpers/event-emitter.js'
-import { defaultOption } from '~/src/server/common/helpers/options/default-option.js'
-import { enterValue, pressEnter } from '~/test-helpers/keyboard.js'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { AutocompleteAdvanced } from './autocomplete-advanced.js'
+import { publish } from '../../../../client/common/helpers/event-emitter.js'
+import { defaultOption } from '../../helpers/options/default-option.js'
+import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
 
 describe('#autocomplete-advanced', () => {
   let autocompleteInput

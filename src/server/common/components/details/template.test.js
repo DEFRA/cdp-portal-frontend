@@ -1,4 +1,5 @@
-import { renderTestComponent } from '~/test-helpers/component-helpers.js'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 
 describe('Details Component', () => {
   const detailsId = 'details-id'

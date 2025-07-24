@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce.js'
 import isFunction from 'lodash/isFunction.js'
 
-import { xhrRequest } from '~/src/client/common/helpers/xhr.js'
+import { xhrRequest } from '../../../../client/common/helpers/xhr.js'
 
 function filters($form) {
   if (!$form) {

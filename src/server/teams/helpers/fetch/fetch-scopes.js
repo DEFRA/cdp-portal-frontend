@@ -1,6 +1,6 @@
-import { config } from '~/src/config/config.js'
+import { config } from '../../../../config/config.js'
 
-import { authedFetchJson } from '~/src/server/common/helpers/fetch/authed-fetch-json.js'
+import { authedFetchJson } from '../../../common/helpers/fetch/authed-fetch-json.js'
 
 async function fetchScopes(token) {
   const endpoint = config.get('userServiceBackendUrl') + '/scopes'

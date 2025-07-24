@@ -1,5 +1,6 @@
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { joiValidationErrorDetailsFixture } from '~/src/__fixtures__/joi-validation-error-details.js'
+import { describe, expect, test } from 'vitest'
+import { buildErrorDetails } from './build-error-details.js'
+import { joiValidationErrorDetailsFixture } from '../../../__fixtures__/joi-validation-error-details.js'
 
 describe('#buildErrorDetails', () => {
   test('Should provide expected error details', () => {

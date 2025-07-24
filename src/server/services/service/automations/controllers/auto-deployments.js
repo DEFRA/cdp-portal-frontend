@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { getAutoDeployDetails } from '~/src/server/services/service/automations/helpers/fetchers.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
+import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
+import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { getAutoDeployDetails } from '../helpers/fetchers.js'
+import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 
 const autoDeploymentsController = {
   options: {

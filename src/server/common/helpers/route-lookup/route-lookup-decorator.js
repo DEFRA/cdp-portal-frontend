@@ -1,4 +1,4 @@
-import { routeLookup } from '~/src/server/common/helpers/route-lookup/index.js'
+import { routeLookup } from './index.js'
 
 /**
  * @typedef {object} Options

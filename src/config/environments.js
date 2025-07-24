@@ -1,4 +1,4 @@
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { scopes } from '../server/common/constants/scopes.js'
 
 const environments = {
   infraDev: { kebabName: 'infra-dev', scope: scopes.admin },

@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchTeam } from '~/src/server/teams/helpers/fetch/fetch-team.js'
-import { transformTeamToSummary } from '~/src/server/teams/transformers/team-to-summary.js'
-import { entitiesToDetailedList } from '~/src/server/teams/transformers/entities-to-detailed-list.js'
-import { librariesToDetailedList } from '~/src/server/teams/transformers/libraries-to-detailed-list.js'
-import { templatesToDetailedList } from '~/src/server/teams/transformers/templates-to-detailed-list.js'
-import { fetchTeamRepositories } from '~/src/server/teams/helpers/fetch/fetchers.js'
-import { fetchEntities } from '~/src/server/common/helpers/fetch/fetch-entities.js'
+import { fetchTeam } from '../helpers/fetch/fetch-team.js'
+import { transformTeamToSummary } from '../transformers/team-to-summary.js'
+import { entitiesToDetailedList } from '../transformers/entities-to-detailed-list.js'
+import { librariesToDetailedList } from '../transformers/libraries-to-detailed-list.js'
+import { templatesToDetailedList } from '../transformers/templates-to-detailed-list.js'
+import { fetchTeamRepositories } from '../helpers/fetch/fetchers.js'
+import { fetchEntities } from '../../common/helpers/fetch/fetch-entities.js'
 
 const teamController = {
   options: {

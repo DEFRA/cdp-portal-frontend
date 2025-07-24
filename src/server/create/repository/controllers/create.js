@@ -1,11 +1,11 @@
-import { config } from '~/src/config/config.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { provideCreate } from '~/src/server/create/helpers/pre/provide-create.js'
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { repositoryValidation } from '~/src/server/create/repository/helpers/schema/repository-validation.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { auditMessageCreated } from '~/src/server/common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { config } from '../../../../config/config.js'
+import { sessionNames } from '../../../common/constants/session-names.js'
+import { provideCreate } from '../../helpers/pre/provide-create.js'
+import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
+import { repositoryValidation } from '../helpers/schema/repository-validation.js'
+import { provideAuthedUser } from '../../../common/helpers/auth/pre/provide-authed-user.js'
+import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
+import { scopes } from '../../../common/constants/scopes.js'
 
 const repositoryCreateController = {
   options: {

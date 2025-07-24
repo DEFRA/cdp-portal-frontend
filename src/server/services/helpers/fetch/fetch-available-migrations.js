@@ -1,7 +1,7 @@
-import { config } from '~/src/config/config.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+import { config } from '../../../../config/config.js'
+import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
+import { createLogger } from '../../../common/helpers/logging/logger.js'
+import { statusCodes } from '../../../common/constants/status-codes.js'
 
 const logger = createLogger()
 

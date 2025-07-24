@@ -1,7 +1,7 @@
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { removeAuthenticatedUser } from '~/src/server/common/helpers/auth/user-session.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { config } from '~/src/config/config.js'
+import { provideAuthedUser } from '../common/helpers/auth/pre/provide-authed-user.js'
+import { removeAuthenticatedUser } from '../common/helpers/auth/user-session.js'
+import { fetchJson } from '../common/helpers/fetch/fetch-json.js'
+import { config } from '../../config/config.js'
 
 const logoutController = {
   options: {

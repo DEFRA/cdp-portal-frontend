@@ -1,14 +1,11 @@
 import qs from 'qs'
 
-import { buildErrorDetails } from '~/src/server/common/helpers/build-error-details.js'
-import { aadIdValidation } from '~/src/server/admin/users/helpers/schema/aad-id-validation.js'
-import {
-  saveToCdpUser,
-  setStepComplete
-} from '~/src/server/admin/users/helpers/form/index.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { provideCdpUser } from '~/src/server/admin/users/helpers/pre/provide-cdp-user.js'
-import { searchAzureActiveDirectoryUsers } from '~/src/server/admin/users/helpers/fetch/index.js'
+import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { aadIdValidation } from '../../helpers/schema/aad-id-validation.js'
+import { saveToCdpUser, setStepComplete } from '../../helpers/form/index.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
+import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/index.js'
 
 const findAadUserController = {
   options: {

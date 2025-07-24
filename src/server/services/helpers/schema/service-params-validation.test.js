@@ -1,6 +1,6 @@
-import Joi from 'joi'
+import { beforeEach, describe, expect, test } from 'vitest'
 
-import { serviceParamsValidation } from '~/src/server/services/helpers/schema/service-params-validation.js'
+import { serviceParamsValidation } from './service-params-validation.js'
 
 describe('#serviceParamsValidation', () => {
   describe('With Admin user', () => {
@@ -22,7 +22,7 @@ describe('#serviceParamsValidation', () => {
       const params = { serviceId: 'service123' }
 
       expect(() => serviceParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError('"environment" is required')
+        '"environment" is required'
       )
     })
 
@@ -30,7 +30,7 @@ describe('#serviceParamsValidation', () => {
       const params = { environment: 'dev' }
 
       expect(() => serviceParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError('"serviceId" is required')
+        '"serviceId" is required'
       )
     })
 
@@ -45,9 +45,7 @@ describe('#serviceParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'invalidEnv' }
 
       expect(() => serviceParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [infra-dev, management, dev, test, perf-test, prod]'
-        )
+        '"environment" must be one of [infra-dev, management, dev, test, perf-test, prod]'
       )
     })
   })
@@ -71,9 +69,7 @@ describe('#serviceParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'management' }
 
       expect(() => serviceParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, ext-test, perf-test, prod]'
-        )
+        '"environment" must be one of [dev, test, ext-test, perf-test, prod]'
       )
     })
   })
@@ -97,9 +93,7 @@ describe('#serviceParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'management' }
 
       expect(() => serviceParamsValidation(params, options)).toThrow(
-        new Joi.ValidationError(
-          '"environment" must be one of [dev, test, perf-test, prod]'
-        )
+        '"environment" must be one of [dev, test, perf-test, prod]'
       )
     })
   })

@@ -1,10 +1,11 @@
-import { hasScopeDecorator } from '~/src/server/common/helpers/decorators/has-scope.js'
-import { provideServiceTabs } from '~/src/server/services/helpers/provide-service-tabs.js'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { hasScopeDecorator } from '../../common/helpers/decorators/has-scope.js'
+import { provideServiceTabs } from './provide-service-tabs.js'
 
 const mockServiceName = 'cdp-portal-frontend'
-const mockUserIsOwner = jest.fn()
-const mockUserSession = jest.fn()
-const mockRouteLookup = jest.fn(
+const mockUserIsOwner = vi.fn()
+const mockUserSession = vi.fn()
+const mockRouteLookup = vi.fn(
   (id) => `/${id.replace('{serviceId}', mockServiceName)}`
 )
 

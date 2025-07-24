@@ -1,4 +1,4 @@
-import { fetchTeams } from '~/src/server/teams/helpers/fetch/fetch-teams.js'
+import { fetchTeams } from '../../../teams/helpers/fetch/fetch-teams.js'
 
 /**
  * Returns a list of teams the user is a member of.

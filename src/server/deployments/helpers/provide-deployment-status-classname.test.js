@@ -1,4 +1,5 @@
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
+import { describe, expect, test } from 'vitest'
+import { provideDeploymentStatusClassname } from './provide-deployment-status-classname.js'
 
 describe('#getDeploymentStatusClassname', () => {
   test('Should provide expected "running" className', () => {

@@ -1,7 +1,7 @@
 import uniqBy from 'lodash/uniqBy.js'
 
-import { fetchCdpUser } from '~/src/server/admin/users/helpers/fetch/index.js'
-import { saveToCdpTeam } from '~/src/server/admin/teams/helpers/form/index.js'
+import { fetchCdpUser } from '../../../users/helpers/fetch/index.js'
+import { saveToCdpTeam } from '../form/index.js'
 
 const presentUsersToAdd = {
   method: async (request, h) => {

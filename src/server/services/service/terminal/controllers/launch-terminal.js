@@ -1,8 +1,8 @@
 import Boom from '@hapi/boom'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { deployTerminal } from '~/src/server/services/service/terminal/helpers/fetch/deploy-terminal.js'
-import { canLaunchTerminal } from '~/src/server/services/service/terminal/helpers/can-launch-terminal.js'
-import { launchTerminalParamsValidation } from '~/src/server/services/service/terminal/helpers/schema/launch-terminal-params-validation.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { deployTerminal } from '../helpers/fetch/deploy-terminal.js'
+import { canLaunchTerminal } from '../helpers/can-launch-terminal.js'
+import { launchTerminalParamsValidation } from '../helpers/schema/launch-terminal-params-validation.js'
 
 const launchTerminalController = {
   options: {

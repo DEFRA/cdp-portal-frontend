@@ -1,4 +1,5 @@
-import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
+import { describe, expect, test } from 'vitest'
+import { buildPagination } from './build-pagination.js'
 
 describe('#buildPagination', () => {
   test('Should provide expected pagination', () => {

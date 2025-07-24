@@ -4,7 +4,7 @@ import Boom from '@hapi/boom'
 import {
   fetchTestRepository,
   getAutoTestRunDetails
-} from '~/src/server/services/service/automations/helpers/fetchers.js'
+} from '../../helpers/fetchers.js'
 
 const removeTestRunFormController = {
   options: {

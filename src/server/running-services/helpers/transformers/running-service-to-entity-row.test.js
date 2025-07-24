@@ -1,8 +1,9 @@
-import { environments } from '~/src/config/environments.js'
-import { runningServicesFixture } from '~/src/__fixtures__/running-services.js'
-import { transformRunningServices } from '~/src/server/running-services/helpers/transformers/running-services.js'
-import { runningServiceToEntityRow } from '~/src/server/running-services/helpers/transformers/running-service-to-entity-row.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { describe, expect, test } from 'vitest'
+import { environments } from '../../../../config/environments.js'
+import { runningServicesFixture } from '../../../../__fixtures__/running-services.js'
+import { transformRunningServices } from './running-services.js'
+import { runningServiceToEntityRow } from './running-service-to-entity-row.js'
+import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 describe('#runningServiceToEntityRow', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'

@@ -1,6 +1,6 @@
 import Joi from 'joi'
-import { validation } from '~/src/server/common/constants/validation.js'
-import { runnerProfiles } from '~/src/server/test-suites/constants/runner-profiles.js'
+import { validation } from '../../../common/constants/validation.js'
+import { runnerProfiles } from '../../constants/runner-profiles.js'
 
 const chooseProfile = validation.choose('profile')
 const chooseEnvironment = validation.choose('environment')

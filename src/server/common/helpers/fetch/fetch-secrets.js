@@ -1,6 +1,6 @@
-import { config } from '~/src/config/config.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
+import { config } from '../../../../config/config.js'
+import { fetchJson } from './fetch-json.js'
+import { createLogger } from '../logging/logger.js'
 
 const logger = createLogger()
 

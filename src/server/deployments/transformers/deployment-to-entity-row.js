@@ -1,11 +1,11 @@
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { augmentStatus } from '~/src/server/deployments/helpers/augment-status.js'
-import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
+import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { augmentStatus } from '../helpers/augment-status.js'
+import { sanitiseUser } from '../../common/helpers/sanitisation/sanitise-user.js'
+import { provideDeploymentStatusClassname } from '../helpers/provide-deployment-status-classname.js'
 import {
   renderComponent,
   renderIcon
-} from '~/src/server/common/helpers/nunjucks/render-component.js'
+} from '../../common/helpers/nunjucks/render-component.js'
 
 function buildDescription(deployment) {
   const tooltipText = `Service Deployment: ${deployment.version} - ${formatText(deployment.status)}`

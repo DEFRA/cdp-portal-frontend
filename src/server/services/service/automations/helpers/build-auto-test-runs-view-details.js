@@ -1,13 +1,10 @@
-import { sortBy } from '~/src/server/common/helpers/sort/sort-by.js'
-import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { testSuiteToEntityRow } from '~/src/server/services/service/automations/helpers/transformers/test-suite-to-entity-row.js'
-import { renderTestSuiteTagHtml } from '~/src/server/services/service/automations/helpers/render-test-suite-tag-html.js'
-import { buildSuggestions } from '~/src/server/common/components/autocomplete/helpers/build-suggestions.js'
-import {
-  fetchTeamTestRepositories,
-  getAutoTestRunDetails
-} from '~/src/server/services/service/automations/helpers/fetchers.js'
-import { testKind } from '~/src/server/test-suites/constants/test-kind.js'
+import { sortBy } from '../../../../common/helpers/sort/sort-by.js'
+import { fetchTestSuites } from '../../../../common/helpers/fetch/fetch-entities.js'
+import { testSuiteToEntityRow } from './transformers/test-suite-to-entity-row.js'
+import { renderTestSuiteTagHtml } from './render-test-suite-tag-html.js'
+import { buildSuggestions } from '../../../../common/components/autocomplete/helpers/build-suggestions.js'
+import { fetchTeamTestRepositories, getAutoTestRunDetails } from './fetchers.js'
+import { testKind } from '../../../../test-suites/constants/test-kind.js'
 
 function sortRows(rowA, rowB) {
   const aHeader = rowA.cells.find(

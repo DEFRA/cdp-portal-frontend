@@ -1,6 +1,6 @@
-import { config } from '~/src/config/config.js'
-import { fetchJson } from '~/src/server/common/helpers/fetch/fetch-json.js'
-import { statusCodes } from '~/src/server/common/constants/status-codes.js'
+import { config } from '../../../../config/config.js'
+import { fetchJson } from './fetch-json.js'
+import { statusCodes } from '../../constants/status-codes.js'
 
 async function fetchLatestDeploymentSettings(environment, imageName) {
   try {

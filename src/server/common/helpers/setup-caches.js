@@ -1,4 +1,4 @@
-import { config } from '~/src/config/config.js'
+import { config } from '../../../config/config.js'
 
 function setupCaches(server) {
   const session = server.cache({

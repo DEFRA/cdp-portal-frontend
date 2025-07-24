@@ -1,5 +1,5 @@
-import { fetchCdpUsers } from '~/src/server/admin/users/helpers/fetch/index.js'
-import { transformUserToEntityRow } from '~/src/server/admin/users/transformers/transform-user-to-entity-row.js'
+import { fetchCdpUsers } from '../helpers/fetch/index.js'
+import { transformUserToEntityRow } from '../transformers/transform-user-to-entity-row.js'
 
 const usersListController = {
   handler: async (request, h) => {

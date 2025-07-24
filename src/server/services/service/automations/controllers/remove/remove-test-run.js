@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { removeAutoTestRun } from '~/src/server/services/service/automations/helpers/fetchers.js'
+import { sessionNames } from '../../../../../common/constants/session-names.js'
+import { removeAutoTestRun } from '../../helpers/fetchers.js'
 
 const removeTestRunController = {
   options: {

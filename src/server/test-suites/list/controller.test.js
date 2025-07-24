@@ -1,14 +1,13 @@
-import { fetchTestSuites } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { testSuiteListController } from '~/src/server/test-suites/list/controller.js'
-import { entityOwnerDecorator } from '~/src/server/test-suites/helpers/decorators/entity-owner-decorator.js'
-import { testSuiteToEntityRow } from '~/src/server/test-suites/transformers/test-suite-to-entity-row.js'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
+import { testSuiteListController } from './controller.js'
+import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
+import { testSuiteToEntityRow } from '../transformers/test-suite-to-entity-row.js'
 
-jest.mock('~/src/server/common/helpers/fetch/fetch-entities.js')
-jest.mock(
-  '~/src/server/test-suites/helpers/decorators/entity-owner-decorator.js'
-)
-jest.mock('~/src/server/test-suites/transformers/test-suite-to-entity-row.js')
-jest.mock('~/src/server/common/helpers/auth/pre/provide-authed-user.js')
+vi.mock('../../common/helpers/fetch/fetch-entities.js')
+vi.mock('../helpers/decorators/entity-owner-decorator.js')
+vi.mock('../transformers/test-suite-to-entity-row.js')
+vi.mock('../../common/helpers/auth/pre/provide-authed-user.js')
 
 describe('testSuiteListController.handler', () => {
   let h
@@ -16,7 +15,7 @@ describe('testSuiteListController.handler', () => {
 
   beforeEach(() => {
     h = {
-      view: jest.fn()
+      view: vi.fn()
     }
 
     request = {
@@ -30,7 +29,7 @@ describe('testSuiteListController.handler', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   test('should return a view with correct data when test suites are available', async () => {

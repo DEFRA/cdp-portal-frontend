@@ -1,14 +1,14 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { getAdditionalData } from '~/src/server/apply-changelog/helpers/get-additional-data.js'
-import { detailsValidation } from '~/src/server/apply-changelog/helpers/schema/details-validation.js'
-import { provideStepData } from '~/src/server/common/helpers/multistep-form/provide-step-data.js'
-import { fetchPostgresServices } from '~/src/server/apply-changelog/helpers/fetchers.js'
-import { fetchLatestMigrations } from '~/src/server/common/helpers/fetch/fetch-latest-migrations.js'
-import { provideDatabaseStatusClassname } from '~/src/server/common/components/database-detail/provide-database-status-classname.js'
+import { buildOptions } from '../../common/helpers/options/build-options.js'
+import { getEnvironments } from '../../common/helpers/environments/get-environments.js'
+import { getAdditionalData } from '../helpers/get-additional-data.js'
+import { detailsValidation } from '../helpers/schema/details-validation.js'
+import { provideStepData } from '../../common/helpers/multistep-form/provide-step-data.js'
+import { fetchPostgresServices } from '../helpers/fetchers.js'
+import { fetchLatestMigrations } from '../../common/helpers/fetch/fetch-latest-migrations.js'
+import { provideDatabaseStatusClassname } from '../../common/components/database-detail/provide-database-status-classname.js'
 
 const changeDetailsFormController = {
   options: {

@@ -1,10 +1,10 @@
-import { shouldPoll } from '~/src/server/test-suites/helpers/should-poll.js'
-import { fetchTestRuns } from '~/src/server/test-suites/helpers/fetch/fetch-test-runs.js'
-import { testSuiteRunResults } from '~/src/server/test-suites/transformers/test-suite-run-results.js'
-import { transformTestSuiteToSummary } from '~/src/server/test-suites/transformers/test-suite-to-summary.js'
-import { buildPagination } from '~/src/server/common/helpers/build-pagination.js'
-import { fetchRepository } from '~/src/server/common/helpers/fetch/fetch-repository.js'
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
+import { shouldPoll } from '../../helpers/should-poll.js'
+import { fetchTestRuns } from '../../helpers/fetch/fetch-test-runs.js'
+import { testSuiteRunResults } from '../../transformers/test-suite-run-results.js'
+import { transformTestSuiteToSummary } from '../../transformers/test-suite-to-summary.js'
+import { buildPagination } from '../../../common/helpers/build-pagination.js'
+import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
+import { nullify404 } from '../../../common/helpers/nullify-404.js'
 
 async function aboutTestSuiteHandler(request, h) {
   const entity = request.app.entity

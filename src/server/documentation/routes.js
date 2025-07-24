@@ -1,7 +1,7 @@
-import { searchController } from '~/src/server/documentation/controllers/search.js'
-import { documentationController } from '~/src/server/documentation/controllers/documentation.js'
-import { searchHandlerController } from '~/src/server/documentation/controllers/search-handler.js'
-import { searchResultsController } from '~/src/server/documentation/controllers/search-results.js'
+import { searchController } from './controllers/search.js'
+import { documentationController } from './controllers/documentation.js'
+import { searchHandlerController } from './controllers/search-handler.js'
+import { searchResultsController } from './controllers/search-results.js'
 
 const documentation = {
   plugin: {

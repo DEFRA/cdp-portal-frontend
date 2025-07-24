@@ -1,15 +1,16 @@
-import { repositoryFixture } from '~/src/__fixtures__/repository.js'
-import { transformServiceToSummary } from '~/src/server/services/service/about/transformers/service-to-summary.js'
-import { entityServicesFixture } from '~/src/__fixtures__/services/entities.js'
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
+import { repositoryFixture } from '../../../../../__fixtures__/repository.js'
+import { transformServiceToSummary } from './service-to-summary.js'
+import { entityServicesFixture } from '../../../../../__fixtures__/services/entities.js'
 
 describe('#transformServiceToSummary', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-04-01'))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2025-04-01'))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   test('Should provide expected service summary', () => {

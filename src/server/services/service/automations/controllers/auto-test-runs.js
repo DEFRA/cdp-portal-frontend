@@ -1,12 +1,12 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { buildOptions } from '~/src/server/common/helpers/options/build-options.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { buildAutoTestRunsViewDetails } from '~/src/server/services/service/automations/helpers/build-auto-test-runs-view-details.js'
-import { excludedEnvironments } from '~/src/server/services/service/automations/helpers/constants/excluded-environments.js'
+import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
+import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
+import { buildAutoTestRunsViewDetails } from '../helpers/build-auto-test-runs-view-details.js'
+import { excludedEnvironments } from '../helpers/constants/excluded-environments.js'
 
 const autoTestRunsController = {
   options: {

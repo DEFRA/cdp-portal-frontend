@@ -1,9 +1,9 @@
-import { config } from '~/src/config/config.js'
-import { removeNil } from '~/src/server/common/helpers/remove-nil.js'
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
-import { setStepComplete } from '~/src/server/admin/teams/helpers/form/index.js'
-import { provideCdpTeam } from '~/src/server/admin/teams/helpers/pre/provide-cdp-team.js'
-import { noSessionRedirect } from '~/src/server/admin/teams/helpers/ext/no-session-redirect.js'
+import { config } from '../../../../../config/config.js'
+import { removeNil } from '../../../../common/helpers/remove-nil.js'
+import { sessionNames } from '../../../../common/constants/session-names.js'
+import { setStepComplete } from '../../helpers/form/index.js'
+import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
+import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 
 const createTeamController = {
   options: {

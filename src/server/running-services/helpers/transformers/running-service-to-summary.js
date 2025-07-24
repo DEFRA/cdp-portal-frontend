@@ -1,7 +1,7 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { buildList } from '~/src/server/common/helpers/view/build-list.js'
-import { pluralise } from '~/src/server/common/helpers/pluralise.js'
+import { noValue } from '../../../common/constants/no-value.js'
+import { buildLink } from '../../../common/helpers/view/build-link.js'
+import { buildList } from '../../../common/helpers/view/build-list.js'
+import { pluralise } from '../../../common/helpers/pluralise.js'
 
 function transformRunningServiceToSummary(serviceName, teams) {
   return {

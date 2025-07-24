@@ -1,10 +1,10 @@
-import { sessionNames } from '~/src/server/common/constants/session-names.js'
+import { sessionNames } from '../../../../../common/constants/session-names.js'
 import {
   fetchPermissionsScopeByName,
   removeScopeFromUser
-} from '~/src/server/admin/permissions/helpers/fetchers.js'
-import { provideAuthedUser } from '~/src/server/common/helpers/auth/pre/provide-authed-user.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+} from '../../../helpers/fetchers.js'
+import { provideAuthedUser } from '../../../../../common/helpers/auth/pre/provide-authed-user.js'
+import { scopes } from '../../../../../common/constants/scopes.js'
 
 const removeTestAsTenantScopeController = {
   options: {

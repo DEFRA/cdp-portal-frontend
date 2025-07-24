@@ -1,11 +1,11 @@
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { formatText } from '~/src/config/nunjucks/filters/filters.js'
-import { sanitiseUser } from '~/src/server/common/helpers/sanitisation/sanitise-user.js'
-import { provideStatusClassname } from '~/src/server/deployments/helpers/provide-status-classname.js'
+import { noValue } from '../../common/constants/no-value.js'
+import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { sanitiseUser } from '../../common/helpers/sanitisation/sanitise-user.js'
+import { provideStatusClassname } from '../helpers/provide-status-classname.js'
 import {
   renderComponent,
   renderIcon
-} from '~/src/server/common/helpers/nunjucks/render-component.js'
+} from '../../common/helpers/nunjucks/render-component.js'
 
 function buildDescription(migration) {
   const tooltipText = `Database Update: ${migration.version} - ${formatText(migration.status)}`

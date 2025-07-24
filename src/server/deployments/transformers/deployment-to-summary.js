@@ -1,17 +1,17 @@
-import { buildLink } from '~/src/server/common/helpers/view/build-link.js'
-import { noValue } from '~/src/server/common/constants/no-value.js'
-import { provideDeploymentStatusClassname } from '~/src/server/deployments/helpers/provide-deployment-status-classname.js'
-import { buildList } from '~/src/server/common/helpers/view/build-list.js'
+import { buildLink } from '../../common/helpers/view/build-link.js'
+import { noValue } from '../../common/constants/no-value.js'
+import { provideDeploymentStatusClassname } from '../helpers/provide-deployment-status-classname.js'
+import { buildList } from '../../common/helpers/view/build-list.js'
 import {
   formatText,
   pluralise,
   sanitiseUser
-} from '~/src/config/nunjucks/filters/filters.js'
+} from '../../../config/nunjucks/filters/filters.js'
 import {
   renderComponent,
   renderIcon
-} from '~/src/server/common/helpers/nunjucks/render-component.js'
-import { renderTag } from '~/src/server/common/helpers/view/render-tag.js'
+} from '../../common/helpers/nunjucks/render-component.js'
+import { renderTag } from '../../common/helpers/view/render-tag.js'
 
 const instanceIcon = renderIcon('instance-icon', {
   description: 'Instance',

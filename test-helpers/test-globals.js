@@ -1,5 +1,5 @@
-import * as globals from '~/src/config/nunjucks/globals/globals.js'
-import { getAssetPath } from '~/src/config/nunjucks/context/context.js'
+import * as globals from '../src/config/nunjucks/globals/globals.js'
+import { getAssetPath } from '../src/config/nunjucks/context/context.js'
 
 /**
  * Ideally minmise mocks or creating test version of context or globals. But if you need to...

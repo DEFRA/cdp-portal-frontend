@@ -1,4 +1,5 @@
-import { userIsAdmin } from '~/src/server/common/helpers/user/user-is-admin.js'
+import { describe, expect, test } from 'vitest'
+import { userIsAdmin } from './user-is-admin.js'
 
 describe('#userIsAdmin', () => {
   test('Should have scope', () => {

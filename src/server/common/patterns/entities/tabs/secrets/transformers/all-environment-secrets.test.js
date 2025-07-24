@@ -1,7 +1,8 @@
-import { allEnvironmentSecrets } from '~/src/server/common/patterns/entities/tabs/secrets/transformers/all-environment-secrets.js'
-import { allEnvironmentSecretsFixture } from '~/src/__fixtures__/secrets/all-environment-secrets.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
-import { scopes } from '~/src/server/common/constants/scopes.js'
+import { describe, expect, test } from 'vitest'
+import { allEnvironmentSecrets } from './all-environment-secrets.js'
+import { allEnvironmentSecretsFixture } from '../../../../../../../__fixtures__/secrets/all-environment-secrets.js'
+import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
+import { scopes } from '../../../../../constants/scopes.js'
 
 describe('#allEnvironmentSecrets', () => {
   describe('With an admin team', () => {

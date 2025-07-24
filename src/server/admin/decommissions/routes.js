@@ -1,11 +1,11 @@
-import { scopes } from '~/src/server/common/constants/scopes.js'
-import { authScope } from '~/src/server/common/helpers/auth/auth-scope.js'
-import { decommissionController } from '~/src/server/admin/decommissions/controllers/decommission.js'
-import { provideFormContextValues } from '~/src/server/common/helpers/form/provide-form-context-values.js'
-import { decommissionFormController } from '~/src/server/admin/decommissions/controllers/decommission-form.js'
-import { decommissionsListController } from '~/src/server/admin/decommissions/controllers/decommissions-list.js'
-import { startDecommissionController } from '~/src/server/admin/decommissions/controllers/start-decommission.js'
-import { provideSubNavigation } from '~/src/server/admin/helpers/provide-sub-navigation.js'
+import { scopes } from '../../common/constants/scopes.js'
+import { authScope } from '../../common/helpers/auth/auth-scope.js'
+import { decommissionController } from './controllers/decommission.js'
+import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
+import { decommissionFormController } from './controllers/decommission-form.js'
+import { decommissionsListController } from './controllers/decommissions-list.js'
+import { startDecommissionController } from './controllers/start-decommission.js'
+import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 

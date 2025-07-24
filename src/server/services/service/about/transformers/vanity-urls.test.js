@@ -1,8 +1,9 @@
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import nock from 'nock'
 
-import { config } from '~/src/config/config.js'
-import { vanityUrlsFixture } from '~/src/__fixtures__/vanity-urls.js'
-import { provideVanityUrls } from '~/src/server/services/service/about/transformers/vanity-urls.js'
+import { config } from '../../../../../config/config.js'
+import { vanityUrlsFixture } from '../../../../../__fixtures__/vanity-urls.js'
+import { provideVanityUrls } from './vanity-urls.js'
 
 describe('#provideVanityUrls', () => {
   const serviceName = 'cdp-portal-frontend'
@@ -19,7 +20,7 @@ describe('#provideVanityUrls', () => {
 
       result = await provideVanityUrls({
         params: { serviceId: 'cdp-portal-frontend' },
-        logger: { debug: jest.fn() }
+        logger: { debug: vi.fn() }
       })
     })
 
@@ -92,7 +93,7 @@ describe('#provideVanityUrls', () => {
 
       result = await provideVanityUrls({
         params: { serviceId: 'cdp-portal-frontend' },
-        logger: { debug: jest.fn() }
+        logger: { debug: vi.fn() }
       })
     })
 
