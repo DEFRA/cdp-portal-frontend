@@ -57,7 +57,7 @@ describe('#autoSubmit', () => {
 
       test('Should submit form', () => {
         expect(xhrRequest).toHaveBeenCalledWith(
-          'http://localhost/mock-action',
+          'http://localhost:3000/mock-action',
           {
             weather: 'sunshine'
           }
@@ -75,7 +75,7 @@ describe('#autoSubmit', () => {
 
       test('Should submit form', () => {
         expect(xhrRequest).toHaveBeenCalledWith(
-          'http://localhost/mock-action',
+          'http://localhost:3000/mock-action',
           {
             weather: 'snow'
           }
@@ -142,7 +142,7 @@ describe('#autoSubmit', () => {
 
       test('Should not submit form', () => {
         expect(xhrRequest).toHaveBeenCalledWith(
-          'http://localhost/mock-action-with-bypass',
+          'http://localhost:3000/mock-action-with-bypass',
           {
             cats: 'garfield'
           }
