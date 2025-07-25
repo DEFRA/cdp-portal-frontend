@@ -9,7 +9,8 @@ module.exports = {
     HTMLElement: true,
     location: true,
     window: true,
-    localStorage: true
+    localStorage: true,
+    fetchMock: true
   },
   ignorePatterns: [
     '.server',
@@ -110,6 +111,11 @@ module.exports = {
               'webpack-shell-plugin-next'
             ]
           }
+        ],
+
+        'vitest/expect-expect': [
+          'error',
+          { assertFunctionNames: ['expect', 'expect*'] }
         ]
       },
       settings: {
@@ -159,7 +165,13 @@ module.exports = {
       env: {
         'vitest/env': true
       },
-      files: ['**/*.test.{js,cjs}', '**/__mocks__/**', '**/__fixtures__/**'],
+      files: [
+        '**/*.test.{js,cjs}',
+        '**/__mocks__/**',
+        '**/__fixtures__/**',
+        'vitest.config.js',
+        'test-helpers/**'
+      ],
       extends: ['plugin:vitest/recommended'],
       plugins: ['vitest'],
       rules: {

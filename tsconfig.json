@@ -23,10 +23,5 @@
     "**/*.json",
     ".jest"
   ],
-  "exclude": [
-    "node_modules",
-    "package-lock.json",
-    "coverage",
-    ".public"
-  ]
+  "exclude": ["node_modules", "package-lock.json", "coverage", ".public"]
 }

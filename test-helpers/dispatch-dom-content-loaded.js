@@ -1,10 +1,5 @@
 const dispatchDomContentLoaded = () => {
-  window.document.dispatchEvent(
-    new Event('DOMContentLoaded', {
-      bubbles: true,
-      cancelable: true
-    })
-  )
+  document.dispatchEvent(new Event('DOMContentLoaded'))
 }
 
 export { dispatchDomContentLoaded }
