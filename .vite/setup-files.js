@@ -25,7 +25,6 @@ Element.prototype.scrollIntoView = vi.fn()
 Element.prototype.scroll = vi.fn()
 
 beforeAll(async () => {
-  fetchMock.enableMocks()
   global.fetch = fetchMock
   global.fetchMock = fetchMock
 
