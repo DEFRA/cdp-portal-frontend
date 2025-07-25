@@ -48,7 +48,9 @@ expect.extend({
     } catch (err) {
       return {
         pass: false,
-        message: () => err.message || 'Did not match snapshot'
+        message: () =>
+          `${err.message} Inspect your code changes or run \`npm test -- -u\` to update them.` ||
+          'Did not match snapshot'
       }
     }
   }
