@@ -4,6 +4,7 @@ import { AutocompleteAdvanced } from './autocomplete-advanced.js'
 import { publish } from '../../../../client/common/helpers/event-emitter.js'
 import { defaultOption } from '../../helpers/options/default-option.js'
 import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
+import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
 
 describe('#autocomplete-advanced', () => {
   let autocompleteInput
@@ -12,15 +13,11 @@ describe('#autocomplete-advanced', () => {
 
   function setupAdvancedAutoComplete(params) {
     const $component = renderTestComponent('autocomplete', params)
-
-    // Add suggestions into the components <script /> tag
-    const scriptElement = document.createElement('script')
-    scriptElement.innerHTML = $component(
-      '[data-testid="app-autocomplete-suggestions"]'
-    )
+    const js = $component('[data-testid="app-autocomplete-suggestions"]')
       .first()
-      .html()
-    document.getElementsByTagName('html')[0].appendChild(scriptElement)
+      .text()
+
+    injectAndRunScript(js)
 
     // Append dropdown component to a form and then add it to the document
     document.body.innerHTML = `<form id="mock-dropdown-form">
