@@ -21,7 +21,7 @@
     "**/*.cjs",
     "**/*.js",
     "**/*.json",
-    ".jest"
+    ".vite/**/*.js"
   ],
   "exclude": ["node_modules", "package-lock.json", "coverage", ".public"]
 }
