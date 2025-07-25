@@ -171,7 +171,8 @@ module.exports = {
               'vitest',
               'nock',
               'cheerio',
-              '@hapi/catbox-memory'
+              '@hapi/catbox-memory',
+              '@testing-library/dom'
             ]
           }
         ]
