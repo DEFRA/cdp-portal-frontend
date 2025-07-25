@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { waitFor } from '@testing-library/dom'
 
 import { populateSelectOptions } from './populate-select-options.js'
 import { fetchMemory } from './fetch/select/fetch-memory.js'
@@ -11,7 +12,7 @@ describe('#populateSelectOptions', () => {
   let clientNotification
 
   beforeEach(() => {
-    // fetchMock.enableMocks()
+    fetchMock.enableMocks()
     window.cdp = { fetchMemory }
 
     // Add select controller and target to dom
@@ -56,7 +57,7 @@ describe('#populateSelectOptions', () => {
   })
 
   afterEach(() => {
-    // fetchMock.disableMocks()
+    fetchMock.disableMocks()
 
     delete window.cdp
   })
@@ -74,16 +75,18 @@ describe('#populateSelectOptions', () => {
         controllerSelect.dispatchEvent(new Event('change'))
       })
 
-      test('Should populate target select options as expected', () => {
-        expect(targetSelect.outerHTML).toEqual(
-          `<select name="memory" data-js="deploy-memory" data-testid="deploy-memory">
+      test('Should populate target select options as expected', async () => {
+        await waitFor(() => {
+          expect(targetSelect.outerHTML).toEqual(
+            `<select name="memory" data-js="deploy-memory" data-testid="deploy-memory">
             <option value="" disabled=""> - - select - - </option>
             <option value="1024">1 GB</option>
             <option value="2048">2 GB</option>
             <option value="3072">3 GB</option>
             <option value="4096">4 GB</option>
           </select>`.replace(/\s\s+/g, '')
-        )
+          )
+        })
       })
     })
   })
@@ -101,10 +104,12 @@ describe('#populateSelectOptions', () => {
         controllerSelect.dispatchEvent(new Event('change'))
       })
 
-      test('Should show client error', () => {
-        expect(clientNotification).toHaveTextContent(
-          'Something terrible has happened!'
-        )
+      test('Should show client error', async () => {
+        await waitFor(() => {
+          expect(clientNotification).toHaveTextContent(
+            'Something terrible has happened!'
+          )
+        })
       })
 
       test('Loader should not be spinning', () => {
