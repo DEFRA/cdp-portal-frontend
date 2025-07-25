@@ -194,8 +194,8 @@ describe('Services', () => {
     const serviceName = 'mock-prototype'
 
     beforeAll(async () => {
-      jest.useFakeTimers({ advanceTimers: true })
-      jest.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
       mockServiceEntityCall(serviceName, 'frontend', 'Created', 'Prototype')
       mockServicesAdditionalCalls({
@@ -206,7 +206,7 @@ describe('Services', () => {
 
     afterAll(async () => {
       await server.stop({ timeout: 0 })
-      jest.useRealTimers()
+      vi.useRealTimers()
     })
 
     test('logged in admin user restrictedTechPostgres permission', async () => {
