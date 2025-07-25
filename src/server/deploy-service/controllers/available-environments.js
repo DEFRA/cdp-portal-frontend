@@ -1,8 +1,8 @@
 import Boom from '@hapi/boom'
 
-import { fetchEntity } from '~/src/server/common/helpers/fetch/fetch-entities.js'
-import { nullify404 } from '~/src/server/common/helpers/nullify-404.js'
-import { getEnvironments } from '~/src/server/common/helpers/environments/get-environments.js'
+import { fetchEntity } from '../../common/helpers/fetch/fetch-entities.js'
+import { nullify404 } from '../../common/helpers/nullify-404.js'
+import { getEnvironments } from '../../common/helpers/environments/get-environments.js'
 
 const availableEnvironmentsController = {
   handler: async (request, h) => {
