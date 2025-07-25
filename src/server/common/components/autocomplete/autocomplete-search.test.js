@@ -5,6 +5,8 @@ import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
 import { flushAsync } from '../../../../../test-helpers/flush-async.js'
 import { buildOptions } from '../../helpers/options/build-options.js'
 import { AutocompleteSearch } from './autocomplete-search.js'
+import { waitFor } from '@testing-library/dom'
+import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
 
 const emptySuggestions = buildOptions([])
 const searchSuggestions = buildOptions([
@@ -28,9 +30,11 @@ const searchSuggestions = buildOptions([
 
 function setupAutoComplete({ searchParam, params = {} }) {
   if (searchParam) {
-    global.window = Object.create(window)
     Object.defineProperty(window, 'location', {
+      configurable: true,
+      writable: true,
       value: {
+        ...window.location,
         search: `?q=${searchParam}`
       }
     })
@@ -47,15 +51,12 @@ const mockFormSubmit = vi.fn().mockReturnValue(false)
 function setupForm($components) {
   document.body.innerHTML = `<form id="mock-search-form"></form>`
 
-  // Add components suggestions into the components <script/> tag
   $components.forEach(($component) => {
-    const scriptElement = document.createElement('script')
-    scriptElement.innerHTML = $component(
-      '[data-testid="app-autocomplete-suggestions"]'
-    )
+    const js = $component('[data-testid="app-autocomplete-suggestions"]')
       .first()
-      .html()
-    document.getElementsByTagName('html')[0].appendChild(scriptElement)
+      .text()
+
+    injectAndRunScript(js)
 
     const form = document.getElementById('mock-search-form')
     form.submit = mockFormSubmit
@@ -758,36 +759,47 @@ describe('#autocompleteSearch', () => {
     })
 
     describe('On load with query param', () => {
-      test('Should have correct aria activedescendant value', () => {
-        expect(autocompleteInput).toHaveAttribute(
-          'aria-activedescendant',
-          'app-autocomplete-q-suggestion-2'
-        )
+      test('Should have correct aria activedescendant value', async () => {
+        await waitFor(() => {
+          expect(autocompleteInput).toHaveAttribute(
+            'aria-activedescendant',
+            'app-autocomplete-q-suggestion-2'
+          )
+        })
       })
 
-      test('suggestions Should have correct aria posinset values', () => {
-        const children = suggestionsContainer.children
-        expect(children[0]).toHaveAttribute('aria-posinset', '2')
+      test('suggestions Should have correct aria posinset values', async () => {
+        await waitFor(() => {
+          const children = suggestionsContainer.children
+          expect(children[0]).toHaveAttribute('aria-posinset', '2')
+        })
       })
 
-      test('suggestions Should have correct aria selected values', () => {
-        const children = suggestionsContainer.children
-        expect(children[0]).toHaveAttribute('aria-selected', 'false')
+      test('suggestions Should have correct aria selected values', async () => {
+        await waitFor(() => {
+          const children = suggestionsContainer.children
+          expect(children[0]).toHaveAttribute('aria-selected', 'false')
+        })
       })
 
-      test('suggestions Should have correct aria setsize values', () => {
+      test('suggestions Should have correct aria setsize values', async () => {
         const children = suggestionsContainer.children
 
-        expect(children[0]).toHaveAttribute('aria-setsize', '6')
+        await waitFor(() => {
+          expect(children[0]).toHaveAttribute('aria-setsize', '6')
+        })
       })
 
-      test('suggestions Should have expected data attributes', () => {
+      test('suggestions Should have expected data attributes', async () => {
         const children = suggestionsContainer.children
-        const firstChild = children[0]
 
-        expect(firstChild.dataset.value).toBe('how-to/sqs-sns.md')
-        expect(firstChild.dataset.text).toBe('SQS queue details:')
-        expect(firstChild.dataset.hasHighlight).toBe('false')
+        await waitFor(() => {
+          const firstChild = children[0]
+
+          expect(firstChild.dataset.value).toBe('how-to/sqs-sns.md')
+          expect(firstChild.dataset.text).toBe('SQS queue details:')
+          expect(firstChild.dataset.hasHighlight).toBe('false')
+        })
       })
     })
   })

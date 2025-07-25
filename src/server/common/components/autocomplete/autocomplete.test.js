@@ -7,6 +7,7 @@ import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-d
 import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
 import { flushAsync } from '../../../../../test-helpers/flush-async.js'
 import { buildOptions } from '../../helpers/options/build-options.js'
+import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
 
 const basicSuggestions = [
   defaultOption,
@@ -26,9 +27,11 @@ const basicSuggestions = [
 
 function setupAutoComplete({ userSearchParam, params = {} }) {
   if (userSearchParam) {
-    global.window = Object.create(window)
     Object.defineProperty(window, 'location', {
+      configurable: true,
+      writable: true,
       value: {
+        ...window.location,
         search: `?user=${userSearchParam}`
       }
     })
@@ -43,15 +46,12 @@ function setupAutoComplete({ userSearchParam, params = {} }) {
 function setupForm($components) {
   document.body.innerHTML = `<form id="mock-dropdown-form"></form>`
 
-  // Add components suggestions into the components <script/> tag
   $components.forEach(($component) => {
-    const scriptElement = document.createElement('script')
-    scriptElement.innerHTML = $component(
-      '[data-testid="app-autocomplete-suggestions"]'
-    )
+    const js = $component('[data-testid="app-autocomplete-suggestions"]')
       .first()
-      .html()
-    document.getElementsByTagName('html')[0].appendChild(scriptElement)
+      .text()
+
+    injectAndRunScript(js)
 
     const form = document.getElementById('mock-dropdown-form')
 
