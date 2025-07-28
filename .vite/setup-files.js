@@ -35,8 +35,6 @@ beforeAll(async () => {
   })
 })
 
-afterAll(async () => {
-  fetchMock.disableMocks()
-  // TODO: check if this should be afterEach once tests all pass
+afterEach(async () => {
   document.getElementsByTagName('html')[0].innerHTML = ''
 })
