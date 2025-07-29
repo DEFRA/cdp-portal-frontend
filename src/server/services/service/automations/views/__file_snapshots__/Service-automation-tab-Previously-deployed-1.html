@@ -134,37 +134,39 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
         <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item- app-tabs-list-item--selected">
+            data-testid="app-tabs-list-item-automation app-tabs-list-item--selected">
 
 
-          <a id="tab-"
+          <a id="tab-automation"
              class="app-tabs__tab"
              href="services/cdp-portal-backend/automation"
              data-js="app-tab"
              role="tab"
-             aria-controls="tab-panel-"
-             aria-selected="true">
-            
+             aria-controls="tab-panel-automation"
+             aria-selected="true"
+             data-testid="app-tabs-list-item__anchor-automation">
+            Automation
           </a>
         </li>
     </ul>
 
-      <section id="tab-panel-"
+      <section id="tab-panel-automation"
                class="app-tabs__panel"
                role="tabpanel"
-               aria-labelledby="tab-"
+               aria-labelledby="tab-automation"
                data-testid="app-tabs-panel">
           <section class="govuk-!-margin-top-6">
 
 <div class="app-split-pane" data-testid="app-split-pane">
-  <div class="app-split-pane__nav">
+  <div class="app-split-pane__nav"
+       data-testid="app-split-pane-nav">
 <nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
   <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
   <ul class="app-subnav__section">
   </ul>
 </nav>
   </div>
-  <div class="app-split-pane__content">
+  <div class="app-split-pane__content" data-testid="app-split-pane-content">
     <section class="app-content">
             <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third-from-desktop">
