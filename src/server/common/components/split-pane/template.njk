@@ -1,10 +1,11 @@
 {% set content = params.html | safe if params.html else params.text %}
 
 <div class="app-split-pane" data-testid="app-split-pane">
-  <div class="app-split-pane__nav{% if params.isWide %} app-split-pane__nav--wide{% endif %}">
+  <div class="app-split-pane__nav{% if params.isWide %} app-split-pane__nav--wide{% endif %}"
+       data-testid="app-split-pane-nav">
     {% include "split-pane/subnav/subnav.njk" %}
   </div>
-  <div class="app-split-pane__content">
+  <div class="app-split-pane__content" data-testid="app-split-pane-content">
     <section class="app-content">
       {{ caller() if caller else content }}
     </section>

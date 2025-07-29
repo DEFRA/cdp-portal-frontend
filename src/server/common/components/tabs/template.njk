@@ -22,7 +22,8 @@
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-{{ tabId }}"
-             aria-selected="{{ tab.isActive }}">
+             aria-selected="{{ tab.isActive }}"
+             data-testid="app-tabs-list-item__anchor-{{ tabId }}">
             {{ tab.label }}
           </a>
         </li>
