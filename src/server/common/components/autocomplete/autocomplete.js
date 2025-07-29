@@ -657,6 +657,7 @@ class Autocomplete {
     })
   }
 
+  // Action to perform when a choice is made by the user click or enter in suggestions, enter or typing in input
   choiceAction() {
     this.dispatchInputEvent()
   }
