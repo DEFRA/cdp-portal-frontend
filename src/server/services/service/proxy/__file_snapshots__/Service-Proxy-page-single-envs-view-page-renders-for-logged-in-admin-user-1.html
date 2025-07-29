@@ -297,7 +297,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-about"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-about">
             About
           </a>
         </li>
@@ -313,7 +314,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-automations"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-automations">
             Automations
           </a>
         </li>
@@ -329,7 +331,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-buckets"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-buckets">
             Buckets
           </a>
         </li>
@@ -345,7 +348,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-maintenance"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-maintenance">
             Maintenance
           </a>
         </li>
@@ -361,7 +365,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-proxy"
-             aria-selected="true">
+             aria-selected="true"
+             data-testid="app-tabs-list-item__anchor-proxy">
             Proxy
           </a>
         </li>
@@ -377,7 +382,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-secrets"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-secrets">
             Secrets
           </a>
         </li>
@@ -393,7 +399,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-terminal"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-terminal">
             Terminal
           </a>
         </li>
@@ -407,7 +414,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <section class="govuk-!-margin-top-6">
 
 <div class="app-split-pane" data-testid="app-split-pane">
-  <div class="app-split-pane__nav">
+  <div class="app-split-pane__nav"
+       data-testid="app-split-pane-nav">
 <nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
   <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
   <ul class="app-subnav__section">
@@ -470,7 +478,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </ul>
 </nav>
   </div>
-  <div class="app-split-pane__content">
+  <div class="app-split-pane__content" data-testid="app-split-pane-content">
     <section class="app-content">
             <div class="govuk-grid-row">
         <section class="govuk-grid-column-two-thirds-from-desktop-big">

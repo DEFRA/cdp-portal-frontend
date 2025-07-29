@@ -249,19 +249,21 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-<form action="/deployments/dev" method="get" class="app-filters-form" data-js="app-filters">
+<form action="/deployments/dev" method="get" class="app-filters-form" data-js="app-filters"
+      data-testid="app-filters-form">
   <fieldset class="govuk-fieldset">
     <div class="app-filters__heading">
       <div class="app-filters__header">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-2">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-2"
+                data-testid="app-filters-legend">
           Search
         </legend>
 
-        <p class="govuk-caption-m govuk-!-margin-bottom-3">
+        <p class="govuk-caption-m govuk-!-margin-bottom-3" data-testid="app-filters-caption">
           Search and filter microservice deployments and database updates
         </p>
       </div>
-      <div class="app-filters__info">
+      <div class="app-filters__info" data-testid="app-filters-info">
       </div>
     </div>
 
@@ -818,6 +820,7 @@ selected="selected">
       <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
         <a href="/deployments/dev"
            class="govuk-link govuk-link--text-colour"
+           data-testid="app-filters-clear-all"
            data-clear-all="clearFilters"
            data-js="app-filters-clear-all">
           Clear all
@@ -825,10 +828,10 @@ selected="selected">
       </p>
     </div>
 
-      <input type="hidden" name="page" value="1">
-      <input type="hidden" name="size" value="50">
+      <input type="hidden" name="page" value="1" data-testid="app-filters-hidden-input-page">
+      <input type="hidden" name="size" value="50" data-testid="app-filters-hidden-input-size">
 
-    <button type="submit" class="govuk-button app-button app-button--secondary js-hidden govuk-!-margin-top-2" data-module="govuk-button" data-js="app-no-js-submit-button">
+    <button type="submit" class="govuk-button app-button app-button--secondary js-hidden govuk-!-margin-top-2" data-module="govuk-button" data-testid="app-filters-submit-button" data-js="app-no-js-submit-button">
   Search
 </button>
   </fieldset>
@@ -850,7 +853,8 @@ selected="selected">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-infra-dev"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-infra-dev">
             Infra-dev
           </a>
         </li>
@@ -866,7 +870,8 @@ selected="selected">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-management"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-management">
             Management
           </a>
         </li>
@@ -882,7 +887,8 @@ selected="selected">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-dev"
-             aria-selected="true">
+             aria-selected="true"
+             data-testid="app-tabs-list-item__anchor-dev">
             Dev
           </a>
         </li>
@@ -898,7 +904,8 @@ selected="selected">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-test"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-test">
             Test
           </a>
         </li>
@@ -914,7 +921,8 @@ selected="selected">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-perf-test"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-perf-test">
             Perf-test
           </a>
         </li>
@@ -930,7 +938,8 @@ selected="selected">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-prod"
-             aria-selected="false">
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-prod">
             Prod
           </a>
         </li>
@@ -1184,10 +1193,10 @@ width="20%"        >
 
 
 
-      <span class="app-entity__group">
-          
+        <ul class="app-entity__list">
+            
 
-<div class="app-entity" data-testid="app-entity">
+<li class="app-entity__list-item" data-testid="app-entity">
 
 
 
@@ -1198,10 +1207,10 @@ width="20%"        >
 
 
 
-</div>
+</li>
 
 
-      </span>
+        </ul>
 
 
 </div>
@@ -1414,10 +1423,10 @@ width="20%"        >
 
 
 
-      <span class="app-entity__group">
-          
+        <ul class="app-entity__list">
+            
 
-<div class="app-entity" data-testid="app-entity">
+<li class="app-entity__list-item" data-testid="app-entity">
 
 
 
@@ -1428,10 +1437,10 @@ width="20%"        >
 
 
 
-</div>
+</li>
 
 
-      </span>
+        </ul>
 
 
 </div>
@@ -1643,10 +1652,10 @@ width="20%"        >
 
 
 
-      <span class="app-entity__group">
-          
+        <ul class="app-entity__list">
+            
 
-<div class="app-entity" data-testid="app-entity">
+<li class="app-entity__list-item" data-testid="app-entity">
 
 
 
@@ -1657,10 +1666,10 @@ width="20%"        >
 
 
 
-</div>
+</li>
 
 
-      </span>
+        </ul>
 
 
 </div>
@@ -1858,10 +1867,10 @@ width="20%"        >
 
 
 
-      <span class="app-entity__group">
-          
+        <ul class="app-entity__list">
+            
 
-<div class="app-entity" data-testid="app-entity">
+<li class="app-entity__list-item" data-testid="app-entity">
 
 
 
@@ -1872,10 +1881,10 @@ width="20%"        >
 
 
 
-</div>
+</li>
 
 
-      </span>
+        </ul>
 
 
 </div>
@@ -2087,10 +2096,10 @@ width="20%"        >
 
 
 
-      <span class="app-entity__group">
-          
+        <ul class="app-entity__list">
+            
 
-<div class="app-entity" data-testid="app-entity">
+<li class="app-entity__list-item" data-testid="app-entity">
 
 
 
@@ -2101,10 +2110,10 @@ width="20%"        >
 
 
 
-</div>
+</li>
 
 
-      </span>
+        </ul>
 
 
 </div>
