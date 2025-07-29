@@ -15,7 +15,8 @@ function buildServiceAutomationContext({
       tabs: [
         {
           isActive: true,
-          url: `services/${serviceId}/automation`
+          url: `services/${serviceId}/automation`,
+          label: 'Automation'
         }
       ]
     },
