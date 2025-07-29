@@ -13,12 +13,12 @@ const cdpTeamFixture = {
     alertEnvironments: ['infra-dev', 'management'],
     users: [
       {
-        userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',
-        name: 'The Terminator'
+        displayName: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',
+        id: 'The Terminator'
       },
       {
-        userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-        name: 'RoboCop'
+        displayName: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+        id: 'RoboCop'
       }
     ]
   }

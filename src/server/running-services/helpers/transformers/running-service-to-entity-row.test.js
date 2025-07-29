@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { environments } from '../../../../config/environments.js'
-import { runningServicesFixture } from '../../../../__fixtures__/running-services.js'
+import { runningServicesFixture } from '../../../../__fixtures__/running-services/running-services.js'
 import { transformRunningServices } from './running-services.js'
 import { runningServiceToEntityRow } from './running-service-to-entity-row.js'
 import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'

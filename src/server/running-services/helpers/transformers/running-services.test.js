@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { transformRunningServices } from './running-services.js'
-import { runningServicesFixture } from '../../../../__fixtures__/running-services.js'
+import { runningServicesFixture } from '../../../../__fixtures__/running-services/running-services.js'
 import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 describe('transformRunningServices', () => {
@@ -51,8 +51,8 @@ describe('transformRunningServices', () => {
             unstable: false,
             updated: '2024-05-10T14:49:42Z',
             user: {
-              name: 'RoboCop',
-              userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+              displayName: 'RoboCop',
+              id: '01b99595-27b5-4ab0-9807-f104c09d2cd0'
             },
             version: '0.356.0'
           }
@@ -99,8 +99,8 @@ describe('transformRunningServices', () => {
             unstable: false,
             updated: '2024-04-25T10:27:58Z',
             user: {
-              name: 'The Terminator',
-              userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d'
+              displayName: 'The Terminator',
+              id: '0ddadf17-beaf-4aef-a415-ca044dbdd18d'
             },
             version: '0.188.0'
           }
@@ -142,8 +142,8 @@ describe('transformRunningServices', () => {
             unstable: false,
             updated: '2024-05-10T14:54:15Z',
             user: {
-              name: 'RoboCop',
-              userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec'
+              displayName: 'RoboCop',
+              id: '01b99595-27b5-4ab0-9807-f104c09d2cd0'
             },
             version: '0.149.0'
           }
