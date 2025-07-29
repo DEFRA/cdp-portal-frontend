@@ -2,32 +2,34 @@ import { renderTestComponent } from '../../../../../test-helpers/component-helpe
 
 const renderAutoComplete = (params = {}) => {
   const $component = renderTestComponent('autocomplete', {
-    label: {
-      text: 'By'
-    },
-    hint: {
-      text: 'Choose a user'
-    },
-    id: 'user',
-    name: 'user',
-    suggestions: [
-      {
-        text: 'RoboCop',
-        value: 'RoboCop',
-        helper: 'User Id: 12454878'
+    params: {
+      label: {
+        text: 'By'
       },
-      {
-        text: 'Roger Rabbit',
-        value: 'Roger Rabbit',
-        helper: 'User Id: 556456465'
+      hint: {
+        text: 'Choose a user'
       },
-      {
-        text: 'Barbie',
-        value: 'Barbie',
-        helper: 'User Id: 67567576'
-      }
-    ],
-    ...params
+      id: 'user',
+      name: 'user',
+      suggestions: [
+        {
+          text: 'RoboCop',
+          value: 'RoboCop',
+          helper: 'User Id: 12454878'
+        },
+        {
+          text: 'Roger Rabbit',
+          value: 'Roger Rabbit',
+          helper: 'User Id: 556456465'
+        },
+        {
+          text: 'Barbie',
+          value: 'Barbie',
+          helper: 'User Id: 67567576'
+        }
+      ],
+      ...params
+    }
   })
 
   const $autocompleteFromGroup = $component(

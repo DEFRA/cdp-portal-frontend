@@ -6,11 +6,13 @@ describe('App select with loader Component', () => {
 
   beforeEach(() => {
     const $component = renderTestComponent('select', {
-      attributes: {
-        'data-testid': 'app-select'
-      },
-      loader: {
-        name: 'app-select-loader'
+      params: {
+        attributes: {
+          'data-testid': 'app-select'
+        },
+        loader: {
+          name: 'app-select-loader'
+        }
       }
     })
 

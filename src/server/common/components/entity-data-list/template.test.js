@@ -38,8 +38,10 @@ describe('Entity Data List Component', () => {
 
   beforeEach(() => {
     const $component = renderTestComponent('entity-data-list', {
-      heading: 'Fruits',
-      items: dataListFixture
+      params: {
+        heading: 'Fruits',
+        items: dataListFixture
+      }
     })
 
     $heading = $component('[data-testid="app-data-list-heading"]').first()

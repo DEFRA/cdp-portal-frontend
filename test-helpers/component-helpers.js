@@ -35,19 +35,23 @@ Object.keys(testGlobals).forEach((global) => {
   nunjucksTestEnv.addGlobal(global, testGlobals[global])
 })
 
-function renderTestComponent(name, params, callBlock) {
+function renderTestComponent(name, options = {}) {
+  const params = options?.params ?? {}
+  const callBlock = options?.callBlock ?? []
+  const context = options?.context ?? {}
+
   const macroPath = `${name}/macro.njk`
   const macroName = `app${upperFirst(camelCase(name.replace('icons', '')))}`
   const macroParams = JSON.stringify(params, null, 2)
-  let macroString = `{%- from "${macroPath}" import ${macroName} -%}`
+  let macroString = `{%- from "${macroPath}" import ${macroName} with context -%}`
 
-  if (callBlock) {
-    macroString += `{%- call ${macroName}(${macroParams}) -%}${callBlock}{%- endcall -%}`
+  if (Array.isArray(callBlock) && callBlock.length > 0) {
+    macroString += `{%- call ${macroName}(${macroParams}) -%}${callBlock.join(' ')}{%- endcall -%}`
   } else {
     macroString += `{{- ${macroName}(${macroParams}) -}}`
   }
 
-  return cheerio.load(nunjucksTestEnv.renderString(macroString))
+  return cheerio.load(nunjucksTestEnv.renderString(macroString, context))
 }
 
 function renderPage(viewPath, context) {

@@ -9,14 +9,16 @@ describe('#search', () => {
     Element.prototype.scroll = vi.fn()
 
     const $component = renderTestComponent('search', {
-      label: {
-        text: 'Search me'
-      },
-      hint: {
-        text: 'Search for deployments by name'
-      },
-      id: 'search',
-      name: 'q'
+      params: {
+        label: {
+          text: 'Search me'
+        },
+        hint: {
+          text: 'Search for deployments by name'
+        },
+        id: 'search',
+        name: 'q'
+      }
     })
 
     // Append search component to a form and then add it to the document

@@ -36,7 +36,7 @@ function setupAutoComplete({ userSearchParam, params = {} }) {
     })
   }
 
-  return renderTestComponent('autocomplete', params)
+  return renderTestComponent('autocomplete', { params })
 }
 
 /**

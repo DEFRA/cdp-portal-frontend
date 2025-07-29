@@ -25,18 +25,20 @@ describe('Entity Table Component', () => {
         transformTeamToEntityRow
       )
       $entityTable = renderTestComponent('entity-table', {
-        headers: [
-          { id: 'name', text: 'Name', width: '15' },
-          { id: 'description', text: 'Description', width: '15' },
-          { id: 'github-team', text: 'GitHub Team', width: '15' },
-          { id: 'service-codes', text: 'Service Codes', width: '5' },
-          { id: 'alert-emails', text: 'Alert Emails', width: '20' },
-          { id: 'members', text: 'Members', width: '10' },
-          { id: 'last-updated', text: 'Last Updated', width: '10' },
-          { id: 'created', text: 'Created', width: '10' }
-        ],
-        rows: mockTeamEntityRows,
-        noResult: 'No teams found'
+        params: {
+          headers: [
+            { id: 'name', text: 'Name', width: '15' },
+            { id: 'description', text: 'Description', width: '15' },
+            { id: 'github-team', text: 'GitHub Team', width: '15' },
+            { id: 'service-codes', text: 'Service Codes', width: '5' },
+            { id: 'alert-emails', text: 'Alert Emails', width: '20' },
+            { id: 'members', text: 'Members', width: '10' },
+            { id: 'last-updated', text: 'Last Updated', width: '10' },
+            { id: 'created', text: 'Created', width: '10' }
+          ],
+          rows: mockTeamEntityRows,
+          noResult: 'No teams found'
+        }
       })
     })
 
@@ -104,18 +106,20 @@ describe('Entity Table Component', () => {
   describe('Without entities', () => {
     beforeEach(() => {
       $entityTable = renderTestComponent('entity-table', {
-        headers: [
-          { id: 'name', text: 'Name', width: '15' },
-          { id: 'description', text: 'Description', width: '15' },
-          { id: 'github-team', text: 'GitHub Team', width: '15' },
-          { id: 'service-codes', text: 'Service Codes', width: '5' },
-          { id: 'alert-emails', text: 'Alert Emails', width: '20' },
-          { id: 'members', text: 'Members', width: '10' },
-          { id: 'last-updated', text: 'Last Updated', width: '10' },
-          { id: 'created', text: 'Created', width: '10' }
-        ],
-        rows: [],
-        noResult: 'No teams found'
+        params: {
+          headers: [
+            { id: 'name', text: 'Name', width: '15' },
+            { id: 'description', text: 'Description', width: '15' },
+            { id: 'github-team', text: 'GitHub Team', width: '15' },
+            { id: 'service-codes', text: 'Service Codes', width: '5' },
+            { id: 'alert-emails', text: 'Alert Emails', width: '20' },
+            { id: 'members', text: 'Members', width: '10' },
+            { id: 'last-updated', text: 'Last Updated', width: '10' },
+            { id: 'created', text: 'Created', width: '10' }
+          ],
+          rows: [],
+          noResult: 'No teams found'
+        }
       })
     })
 

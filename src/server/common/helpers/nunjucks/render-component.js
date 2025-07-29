@@ -3,13 +3,13 @@ import upperFirst from 'lodash/upperFirst.js'
 
 import { nunjucksEnvironment } from '../../../../config/nunjucks/index.js'
 
-function renderString(name, params, macroPath, caller = []) {
+function renderString(name, params, macroPath, callBlock = []) {
   const macroName = `app${upperFirst(camelCase(name))}`
   const macroParams = JSON.stringify(params, null, 2)
   let macroString = `{%- from "${macroPath}" import ${macroName} -%}`
 
-  if (caller.length) {
-    macroString += `{% call ${macroName}(${macroParams}) %} ${caller.join(' ')} {% endcall %}`
+  if (Array.isArray(callBlock) && callBlock.length > 0) {
+    macroString += `{% call ${macroName}(${macroParams}) %} ${callBlock.join(' ')} {% endcall %}`
   } else {
     macroString += `{{- ${macroName}(${macroParams}) -}}`
   }
@@ -21,13 +21,13 @@ function renderString(name, params, macroPath, caller = []) {
  * Render component outside of .njk files
  * @param {string} name - component name
  * @param {object} [params] - component params
- * @param {Array} [caller] - caller array
+ * @param {Array} [callBlock] - caller array
  * @returns {string}
  */
-function renderComponent(name, params = {}, caller = []) {
+function renderComponent(name, params = {}, callBlock = []) {
   const macroPath = `${name}/macro.njk`
 
-  return renderString(name, params, macroPath, caller)
+  return renderString(name, params, macroPath, callBlock)
 }
 
 function renderIcon(name, params = {}) {

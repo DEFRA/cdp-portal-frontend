@@ -5,15 +5,17 @@ describe('Breadcrumbs Component', () => {
 
   beforeEach(() => {
     $breadcrumbs = renderTestComponent('breadcrumbs', {
-      items: [
-        {
-          text: 'Deployments',
-          href: '/deployments'
-        },
-        {
-          text: 'Magic service'
-        }
-      ]
+      params: {
+        items: [
+          {
+            text: 'Deployments',
+            href: '/deployments'
+          },
+          {
+            text: 'Magic service'
+          }
+        ]
+      }
     })('[data-testid="app-breadcrumbs"]').first()
   })
 

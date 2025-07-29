@@ -8,15 +8,17 @@ describe('Tag Component', () => {
   describe('On render', () => {
     beforeEach(() => {
       $component = renderTestComponent('tag', {
-        text: 'Not today',
-        classes: 'additional-class',
-        attributes: {
-          'data-testid': 'app-tag'
-        },
-        url: 'https://apples.com',
-        newWindow: true,
-        link: {
-          classes: 'app-link--without-underline'
+        params: {
+          text: 'Not today',
+          classes: 'additional-class',
+          attributes: {
+            'data-testid': 'app-tag'
+          },
+          url: 'https://apples.com',
+          newWindow: true,
+          link: {
+            classes: 'app-link--without-underline'
+          }
         }
       })
 

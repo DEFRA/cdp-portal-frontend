@@ -15,10 +15,12 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $entity = renderTestComponent('entity', {
-        kind: 'text',
-        value: 'Rod License Service',
-        size: 'large',
-        label: 'Service'
+        params: {
+          kind: 'text',
+          value: 'Rod License Service',
+          size: 'large',
+          label: 'Service'
+        }
       })('[data-testid="app-entity"]').first()
     })
 
@@ -34,10 +36,12 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $linkEntity = renderTestComponent('entity', {
-        kind: 'link',
-        value: 'Rod License Service',
-        url: '/deployments/12345678',
-        size: 'large'
+        params: {
+          kind: 'link',
+          value: 'Rod License Service',
+          url: '/deployments/12345678',
+          size: 'large'
+        }
       })('[data-testid="app-entity"]').first()
     })
 
@@ -71,11 +75,13 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $linkEntity = renderTestComponent('entity', {
-        kind: 'link',
-        value: 'Cracking service',
-        url: '/services/09876543',
-        size: 'medium',
-        newWindow: true
+        params: {
+          kind: 'link',
+          value: 'Cracking service',
+          url: '/services/09876543',
+          size: 'medium',
+          newWindow: true
+        }
       })('[data-testid="app-entity"]').first()
     })
 
@@ -91,10 +97,12 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $tagEntity = renderTestComponent('entity', {
-        kind: 'tag',
-        value: 'Production',
-        classes: 'govuk-tag--blue',
-        size: 'medium'
+        params: {
+          kind: 'tag',
+          value: 'Production',
+          classes: 'govuk-tag--blue',
+          size: 'medium'
+        }
       })('[data-testid="app-entity"]').first()
     })
 
@@ -112,12 +120,14 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $tagEntity = renderTestComponent('entity', {
-        kind: 'tag',
-        value: 'Production',
-        classes: 'govuk-tag--blue',
-        size: 'medium',
-        url: 'https://chocolate.com',
-        newWindow: true
+        params: {
+          kind: 'tag',
+          value: 'Production',
+          classes: 'govuk-tag--blue',
+          size: 'medium',
+          url: 'https://chocolate.com',
+          newWindow: true
+        }
       })('[data-testid="app-entity"]').first()
     })
 
@@ -152,9 +162,11 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $dateEntity = renderTestComponent('entity', {
-        kind: 'date',
-        value: '2023-04-11T14:40:02.242Z',
-        size: 'large'
+        params: {
+          kind: 'date',
+          value: '2023-04-11T14:40:02.242Z',
+          size: 'large'
+        }
       })('[data-testid="app-entity"]').first()
     })
 
@@ -189,10 +201,12 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $dateEntity = renderTestComponent('entity', {
-        kind: 'date',
-        value: '2024-04-11T14:40:02.242Z',
-        size: 'large',
-        withSeconds: true
+        params: {
+          kind: 'date',
+          value: '2024-04-11T14:40:02.242Z',
+          size: 'large',
+          withSeconds: true
+        }
       })('[data-testid="app-entity"]').first()
     })
 
@@ -218,10 +232,12 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $textEntity = renderTestComponent('entity', {
-        kind: 'text',
-        value: '0.1.0',
-        size: 'small',
-        title: 'Something wonderful here'
+        params: {
+          kind: 'text',
+          value: '0.1.0',
+          size: 'small',
+          title: 'Something wonderful here'
+        }
       })('[data-testid="app-entity-text"]').first()
     })
 
@@ -239,8 +255,10 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $htmlEntity = renderTestComponent('entity', {
-        kind: 'html',
-        value: '<p data-testid="app-entity-html">Green tea rocks</p>'
+        params: {
+          kind: 'html',
+          value: '<p data-testid="app-entity-html">Green tea rocks</p>'
+        }
       })('[data-testid="app-entity-html"]').first()
     })
 
@@ -256,18 +274,20 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $listEntity = renderTestComponent('entity', {
-        kind: 'list',
-        value: [
-          {
-            kind: 'date',
-            value: '2023-04-12T17:16:48+00:00'
-          },
-          {
-            kind: 'link',
-            url: '/animal/aabe63e7-87ef-4beb-a596-c810631fc474',
-            value: 'Super animals'
-          }
-        ]
+        params: {
+          kind: 'list',
+          value: [
+            {
+              kind: 'date',
+              value: '2023-04-12T17:16:48+00:00'
+            },
+            {
+              kind: 'link',
+              url: '/animal/aabe63e7-87ef-4beb-a596-c810631fc474',
+              value: 'Super animals'
+            }
+          ]
+        }
       })('[data-testid="app-entity"]').first()
 
       $dateEntity = $listEntity.find('[data-testid="app-time"]')
@@ -296,17 +316,19 @@ describe('Entity Component', () => {
 
     beforeEach(() => {
       $groupEntity = renderTestComponent('entity', {
-        kind: 'group',
-        value: [
-          {
-            kind: 'tag',
-            value: 'Frontend'
-          },
-          {
-            kind: 'tag',
-            value: 'Backend'
-          }
-        ]
+        params: {
+          kind: 'group',
+          value: [
+            {
+              kind: 'tag',
+              value: 'Frontend'
+            },
+            {
+              kind: 'tag',
+              value: 'Backend'
+            }
+          ]
+        }
       })('[data-testid="app-entity"]').first()
 
       $firstTag = $groupEntity.find('[data-testid="govuk-tag"]').first()

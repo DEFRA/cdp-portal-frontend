@@ -6,8 +6,10 @@ describe('Banner Component', () => {
   describe('Success Banner', () => {
     beforeEach(() => {
       $banner = renderTestComponent('banner', {
-        type: 'success',
-        text: 'Well done!'
+        params: {
+          type: 'success',
+          text: 'Well done!'
+        }
       })('[data-testid="app-banner"]').first()
     })
 
@@ -25,8 +27,10 @@ describe('Banner Component', () => {
   describe('Info Banner', () => {
     beforeEach(() => {
       $banner = renderTestComponent('banner', {
-        type: 'info',
-        text: 'Today is Wednesday'
+        params: {
+          type: 'info',
+          text: 'Today is Wednesday'
+        }
       })('[data-testid="app-banner"]').first()
     })
 
@@ -44,8 +48,10 @@ describe('Banner Component', () => {
   describe('Error Banner', () => {
     beforeEach(() => {
       $banner = renderTestComponent('banner', {
-        type: 'error',
-        text: 'Something has gone terribly wrong!'
+        params: {
+          type: 'error',
+          text: 'Something has gone terribly wrong!'
+        }
       })('[data-testid="app-banner"]').first()
     })
 

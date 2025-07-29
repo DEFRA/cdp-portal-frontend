@@ -9,8 +9,10 @@ describe('#inputAssistant', () => {
     vi.useFakeTimers()
 
     const $component = renderTestComponent('input-assistant', {
-      message: "Have a read of 'Naming your microservice best practice'",
-      targetId: 'input-assistant'
+      params: {
+        message: "Have a read of 'Naming your microservice best practice'",
+        targetId: 'input-assistant'
+      }
     })
 
     // Add component with companion input

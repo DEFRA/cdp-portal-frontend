@@ -15,9 +15,11 @@ describe('Details Component', () => {
   describe('Defaults', () => {
     beforeEach(() => {
       $details = renderTestComponent('details', {
-        id: detailsId,
-        summaryText: 'Hello Sunshine',
-        text: 'Wall to wall sunshine coming for the UK in 2025!'
+        params: {
+          id: detailsId,
+          summaryText: 'Hello Sunshine',
+          text: 'Wall to wall sunshine coming for the UK in 2025!'
+        }
       })('[data-testid="app-details"]').first()
     })
 
@@ -39,8 +41,10 @@ describe('Details Component', () => {
   describe('With html content', () => {
     beforeEach(() => {
       $details = renderTestComponent('details', {
-        summaryHtml: 'Hello <strong>Trigger</strong>',
-        html: 'Alright <em>dave?</em>'
+        params: {
+          summaryHtml: 'Hello <strong>Trigger</strong>',
+          html: 'Alright <em>dave?</em>'
+        }
       })('[data-testid="app-details"]').first()
       $summary = $details.find('summary')
       $content = $details.find('[data-testid="app-details-content"]')
@@ -59,11 +63,10 @@ describe('Details Component', () => {
 
   describe('With html caller content', () => {
     beforeEach(() => {
-      $details = renderTestComponent(
-        'details',
-        { summaryHtml: '<h2>Good evening sir</h2>' },
-        `<p>Hello and <strong>Welcome</strong></p>`
-      )('[data-testid="app-details"]').first()
+      $details = renderTestComponent('details', {
+        params: { summaryHtml: '<h2>Good evening sir</h2>' },
+        callBlock: [`<p>Hello and <strong>Welcome</strong></p>`]
+      })('[data-testid="app-details"]').first()
       $summary = $details.find('summary')
       $content = $details.find('[data-testid="app-details-content"]')
     })

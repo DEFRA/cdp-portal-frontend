@@ -14,9 +14,11 @@ describe('#xhrSubscriber', () => {
 
   beforeEach(() => {
     const $component = renderTestComponent('xhr-subscriber', {
-      id: 'mock-subscriber',
-      subscribeTo: mockEventName,
-      xhrUrl: mockXhrUrl
+      params: {
+        id: 'mock-subscriber',
+        subscribeTo: mockEventName,
+        xhrUrl: mockXhrUrl
+      }
     })
 
     // Append xhrSubscriber component to the document
