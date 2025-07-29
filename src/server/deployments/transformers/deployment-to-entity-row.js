@@ -89,7 +89,7 @@ function deploymentToEntityRow(deployment) {
       {
         headers: 'team',
         entity: {
-          kind: 'group',
+          kind: 'list',
           value: teams?.length ? teams : null
         }
       },

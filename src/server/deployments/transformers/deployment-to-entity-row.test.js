@@ -65,7 +65,7 @@ describe('#deploymentToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -135,7 +135,7 @@ describe('#deploymentToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -205,7 +205,7 @@ describe('#deploymentToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -275,7 +275,7 @@ describe('#deploymentToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
@@ -345,7 +345,7 @@ describe('#deploymentToEntityRow', () => {
           },
           {
             entity: {
-              kind: 'group',
+              kind: 'list',
               value: [
                 {
                   kind: 'link',
