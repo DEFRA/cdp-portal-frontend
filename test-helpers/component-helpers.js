@@ -23,7 +23,8 @@ const nunjucksTestEnv = nunjucks.configure(
   {
     trimBlocks: true,
     lstripBlocks: true,
-    watch: false
+    watch: false,
+    noCache: true
   }
 )
 
