@@ -52,8 +52,8 @@
           {{ govukSummaryList(summaryList) }}
         {% endcall %}
 
-        {% call appPanel() %}
-          {% if "user" in scope.kind %}
+        {% if "user" in scope.kind %}
+          {% call appPanel() %}
             <h2 class="govuk-heading-m">
               {{ "User" | pluralise(scope.users | length) }} with permission
             </h2>
@@ -68,11 +68,11 @@
                 </a>
               </p>
             {% endif %}
-          {% endif %}
-        {% endcall %}
+          {% endcall %}
+        {% endif %}
 
-        {% call appPanel() %}
-          {% if "team" in scope.kind %}
+        {% if "team" in scope.kind %}
+          {% call appPanel() %}
             <h2 class="govuk-heading-m">
               {{ "Team" | pluralise(scope.teams | length) }} with permission
             </h2>
@@ -87,8 +87,8 @@
                 </a>
               </p>
             {% endif %}
-          {% endif %}
-        {% endcall %}
+          {% endcall %}
+        {% endif %}
       </div>
     </div>
 
