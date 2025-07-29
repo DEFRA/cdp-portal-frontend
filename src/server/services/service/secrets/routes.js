@@ -24,7 +24,6 @@ const serviceSecrets = {
             sandbox: 'plugin'
           }
         },
-        // TODO can these postHandlers be combined?
         {
           type: 'onPostHandler',
           method: provideServiceTabs,
