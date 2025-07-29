@@ -1,4 +1,3 @@
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
 import { fetchProxyRules } from '../../../services/helpers/fetch/fetch-proxy-rules.js'
 import {
   initialiseServer,

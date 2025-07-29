@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import Joi from 'joi'
 
 import { secretPayloadValidation } from './secret-payload-validation.js'

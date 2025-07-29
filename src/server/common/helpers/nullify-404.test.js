@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { nullify404 } from './nullify-404.js'
 import {
   getErrorSync,

@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { sortBy } from './sort-by.js'
 import { deploymentsFixture } from '../../../../__fixtures__/deployments/deployments.js'
 

@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-dom-content-loaded.js'
 import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'

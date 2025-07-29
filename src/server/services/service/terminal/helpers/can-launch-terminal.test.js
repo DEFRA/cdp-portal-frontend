@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { canLaunchTerminal } from './can-launch-terminal.js'
 import { scopes } from '../../../../common/constants/scopes.js'
 

@@ -1,4 +1,3 @@
-import { afterEach, describe, expect, test, vi } from 'vitest'
 import { provideTabs } from './provide-tabs.js'
 import { scopes } from '../../common/constants/scopes.js'
 

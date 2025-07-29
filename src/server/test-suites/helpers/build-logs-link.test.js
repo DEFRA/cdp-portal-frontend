@@ -1,4 +1,3 @@
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
 import { buildLogsLink } from './build-logs-link.js'
 
 describe('#buildLogsLink', () => {

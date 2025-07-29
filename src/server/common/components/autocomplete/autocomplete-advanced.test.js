@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test } from 'vitest'
 import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 import { AutocompleteAdvanced } from './autocomplete-advanced.js'
 import { publish } from '../../../../client/common/helpers/event-emitter.js'

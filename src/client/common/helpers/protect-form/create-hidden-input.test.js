@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test } from 'vitest'
 import { createHiddenInput } from './create-hidden-input.js'
 
 describe('#createHiddenInput', () => {

@@ -1,4 +1,3 @@
-import { afterAll, beforeEach, describe, expect, test, vi } from 'vitest'
 import lunr from 'lunr'
 
 import { searchIndex } from './search-index.js'

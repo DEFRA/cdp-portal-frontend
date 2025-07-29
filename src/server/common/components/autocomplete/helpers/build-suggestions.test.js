@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { relativeDate } from '../../../helpers/date/relative-date.js'
 import { availableVersionsFixture } from '../../../../../__fixtures__/available-versions.js'
 import { buildSuggestions } from './build-suggestions.js'

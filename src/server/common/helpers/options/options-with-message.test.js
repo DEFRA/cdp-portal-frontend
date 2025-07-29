@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { optionsWithMessage } from './options-with-message.js'
 
 describe('#optionsWithMessage', () => {

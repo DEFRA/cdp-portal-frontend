@@ -1,4 +1,3 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { xhrRequest } from './xhr.js'
 import { autoSubmit } from './auto-submit.js'
 

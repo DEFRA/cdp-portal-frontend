@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { subscribe } from '../../../../client/common/helpers/event-emitter.js'
 import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 import { Autocomplete } from './autocomplete.js'

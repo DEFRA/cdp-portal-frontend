@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { getAnnouncements } from './announcements.js'
 import { config } from '../../config.js'
 

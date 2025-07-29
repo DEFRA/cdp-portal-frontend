@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { buildNavigation } from './build-navigation.js'
 import { scopes } from '../../../server/common/constants/scopes.js'
 

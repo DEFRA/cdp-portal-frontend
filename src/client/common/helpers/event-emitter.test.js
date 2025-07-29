@@ -1,4 +1,3 @@
-import { describe, expect, test, vi } from 'vitest'
 import { publish, subscribe, unsubscribe } from './event-emitter.js'
 
 describe('#eventEmitter', () => {

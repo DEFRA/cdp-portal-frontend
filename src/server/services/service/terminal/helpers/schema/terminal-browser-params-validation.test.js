@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test } from 'vitest'
 import { terminalBrowserParamsValidation } from './terminal-browser-params-validation.js'
 import { scopes } from '../../../../../common/constants/scopes.js'
 

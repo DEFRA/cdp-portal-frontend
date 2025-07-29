@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { buildPagination } from './build-pagination.js'
 
 describe('#buildPagination', () => {

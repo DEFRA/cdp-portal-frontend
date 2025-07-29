@@ -1,5 +1,3 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-
 import { serviceParamsValidation } from './service-params-validation.js'
 
 describe('#serviceParamsValidation', () => {

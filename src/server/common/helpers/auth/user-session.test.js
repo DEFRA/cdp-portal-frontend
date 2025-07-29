@@ -1,12 +1,3 @@
-import {
-  afterAll,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  test,
-  vi
-} from 'vitest'
 import jwt from '@hapi/jwt'
 import nock from 'nock'
 

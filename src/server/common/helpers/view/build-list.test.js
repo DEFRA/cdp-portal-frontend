@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { buildList } from './build-list.js'
 
 describe('#buildList', () => {

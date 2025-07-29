@@ -1,5 +1,3 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-
 import { xhrRequest } from '../../../../client/common/helpers/xhr.js'
 import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 import { xhrSubscriber } from './xhr-subscriber.js'

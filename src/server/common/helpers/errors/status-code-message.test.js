@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { statusCodeMessage } from './status-code-message.js'
 
 describe('#statusCodeMessage', () => {

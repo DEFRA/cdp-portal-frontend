@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { buildHelpText } from './build-help-text.js'
 import { deployServiceOptionsFixture } from '../../../__fixtures__/deploy-service/deploy-service-options.js'
 

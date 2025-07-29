@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { isUsingBadNamingConventions } from './is-using-bad-naming-conventions.js'
 
 describe('#isUsingBadNames', () => {

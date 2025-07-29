@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { provideDeploymentStatusClassname } from './provide-deployment-status-classname.js'
 
 describe('#getDeploymentStatusClassname', () => {

@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { removeUrlParts } from './remove-url-parts.js'
 
 describe('#removeUrlParts', () => {

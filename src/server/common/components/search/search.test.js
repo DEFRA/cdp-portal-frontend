@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 import { search } from './search.js'
 

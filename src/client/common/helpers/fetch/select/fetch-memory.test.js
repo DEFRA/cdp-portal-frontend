@@ -1,5 +1,3 @@
-import { describe, expect, test } from 'vitest'
-
 import { fetchMemory } from './fetch-memory.js'
 import { ecsCpuToMemoryOptionsMapFixture } from '../../../../../__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
 import {

@@ -1,4 +1,3 @@
-import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { waitFor } from '@testing-library/dom'
 
 import { populateSelectOptions } from './populate-select-options.js'

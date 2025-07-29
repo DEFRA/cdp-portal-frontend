@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { faviconState } from '../../common/constants/favicon-state.js'
 import { databaseStatus } from '../constants/database-status.js'
 import { databaseUpdateFaviconState } from './database-update-favicon-state.js'

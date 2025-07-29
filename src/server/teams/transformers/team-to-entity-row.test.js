@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { teamToEntityRow } from './team-to-entity-row.js'
 import { cdpTeamFixture } from '../../../__fixtures__/admin/cdp-team.js'
 import { cdpTeamWithoutGithubFixture } from '../../../__fixtures__/admin/cdp-team-without-github.js'

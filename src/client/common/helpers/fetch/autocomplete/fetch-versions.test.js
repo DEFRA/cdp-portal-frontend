@@ -1,5 +1,3 @@
-import { describe, expect, test } from 'vitest'
-
 import { availableVersionsFixture } from '../../../../../__fixtures__/available-versions.js'
 import { fetchVersions } from './fetch-versions.js'
 import {
