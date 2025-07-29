@@ -6,9 +6,11 @@ describe('Button Component', () => {
 
   beforeEach(() => {
     const $component = renderTestComponent('button', {
-      text: 'Press me!',
-      loader: {
-        name: 'button-loader'
+      params: {
+        text: 'Press me!',
+        loader: {
+          name: 'button-loader'
+        }
       }
     })
 

@@ -39,7 +39,7 @@ function setupAutoComplete({ searchParam, params = {} }) {
     })
   }
 
-  return renderTestComponent('autocomplete', params)
+  return renderTestComponent('autocomplete', { params })
 }
 
 const mockFormSubmit = vi.fn().mockReturnValue(false)

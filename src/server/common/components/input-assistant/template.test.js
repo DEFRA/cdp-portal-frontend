@@ -5,8 +5,10 @@ describe('Input assistant Component', () => {
 
   beforeEach(() => {
     $inputAssistant = renderTestComponent('input-assistant', {
-      message: "Have a read of 'Naming your microservice best practice'",
-      targetId: 'input-assistant'
+      params: {
+        message: "Have a read of 'Naming your microservice best practice'",
+        targetId: 'input-assistant'
+      }
     })('[data-testid="app-input-assistant"]').first()
   })
 

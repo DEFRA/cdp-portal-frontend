@@ -6,8 +6,10 @@ describe('Logs Dashboard Link Component', () => {
   describe('With default attributes', () => {
     beforeEach(() => {
       const $component = renderTestComponent('logs-dashboard-link', {
-        serviceName: 'cdp-portal-frontend',
-        environment: 'management'
+        params: {
+          serviceName: 'cdp-portal-frontend',
+          environment: 'management'
+        }
       })
 
       logsDashBoardLink = $component(
@@ -31,10 +33,12 @@ describe('Logs Dashboard Link Component', () => {
   describe('With extended attributes', () => {
     beforeEach(() => {
       const $component = renderTestComponent('logs-dashboard-link', {
-        text: 'logs',
-        classes: 'app-link--underline app-link--text-colour',
-        serviceName: 'cdp-portal-frontend',
-        environment: 'management'
+        params: {
+          text: 'logs',
+          classes: 'app-link--underline app-link--text-colour',
+          serviceName: 'cdp-portal-frontend',
+          environment: 'management'
+        }
       })
 
       logsDashBoardLink = $component(

@@ -14,7 +14,9 @@ describe('Time Component', () => {
 
   beforeEach(() => {
     $time = renderTestComponent('time', {
-      datetime: '2023-04-11T16:11:31.722Z'
+      params: {
+        datetime: '2023-04-11T16:11:31.722Z'
+      }
     })
   })
 

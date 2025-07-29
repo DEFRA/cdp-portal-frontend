@@ -5,7 +5,9 @@ describe('Loader Component', () => {
 
   beforeEach(() => {
     $buttonLoader = renderTestComponent('loader', {
-      name: 'button-loader'
+      params: {
+        name: 'button-loader'
+      }
     })('[data-testid="app-loader"]').first()
   })
 

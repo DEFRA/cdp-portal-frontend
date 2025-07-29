@@ -8,9 +8,11 @@ describe('#banner', () => {
     vi.useFakeTimers()
 
     const $component = renderTestComponent('banner', {
-      text: 'Total and utter success!',
-      type: 'success',
-      js: 'app-banner'
+      params: {
+        text: 'Total and utter success!',
+        type: 'success',
+        js: 'app-banner'
+      }
     })
 
     // Append banner component to the document

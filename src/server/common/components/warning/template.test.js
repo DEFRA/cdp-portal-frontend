@@ -6,7 +6,9 @@ describe('Info Component', () => {
   describe('With text content', () => {
     beforeEach(() => {
       $info = renderTestComponent('info', {
-        text: 'Something interesting'
+        params: {
+          text: 'Something interesting'
+        }
       })('[data-testid="app-info"]').first()
     })
 
@@ -20,7 +22,9 @@ describe('Info Component', () => {
   describe('With html content', () => {
     beforeEach(() => {
       $info = renderTestComponent('info', {
-        html: '<em>Something fascinating with markup!</em>'
+        params: {
+          html: '<em>Something fascinating with markup!</em>'
+        }
       })('[data-testid="app-info"]').first()
     })
 

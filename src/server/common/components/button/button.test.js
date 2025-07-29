@@ -12,17 +12,17 @@ const submitForm = (form) => {
 }
 
 describe('#button', () => {
-  let buttonElem
-  let buttonLoaderElem
-  let mockForm
+  let $buttonElem, $buttonLoaderElem, $mockForm
 
   beforeEach(() => {
     vi.useFakeTimers()
 
     const $component = renderTestComponent('button', {
-      text: 'Press me!',
-      loader: {
-        name: 'button-loader'
+      params: {
+        text: 'Press me!',
+        loader: {
+          name: 'button-loader'
+        }
       }
     })
 
@@ -40,9 +40,9 @@ describe('#button', () => {
       buttons.forEach(button)
     }
 
-    buttonElem = document.querySelector('[data-testid="app-button"]')
-    buttonLoaderElem = document.querySelector('[data-testid="app-loader"]')
-    mockForm = document.getElementById('mock-form')
+    $buttonElem = document.querySelector('[data-testid="app-button"]')
+    $buttonLoaderElem = document.querySelector('[data-testid="app-loader"]')
+    $mockForm = document.getElementById('mock-form')
   })
 
   afterEach(() => {
@@ -50,31 +50,31 @@ describe('#button', () => {
   })
 
   test('Should not disable button before specified delay', () => {
-    submitForm(mockForm)
+    submitForm($mockForm)
     vi.advanceTimersByTime(100)
 
-    expect(buttonElem).toBeEnabled()
+    expect($buttonElem).toBeEnabled()
   })
 
   test('Should not add loading class to loader before specified delay', () => {
-    submitForm(mockForm)
+    submitForm($mockForm)
     vi.advanceTimersByTime(100)
 
-    expect(buttonElem).toBeEnabled()
+    expect($buttonElem).toBeEnabled()
   })
 
   test('Should disable button on form submit after specified delay', () => {
-    submitForm(mockForm)
+    submitForm($mockForm)
     vi.advanceTimersByTime(200)
 
-    expect(buttonElem).toHaveAttribute('disabled', 'disabled')
+    expect($buttonElem).toHaveAttribute('disabled', 'disabled')
   })
 
   test('Should add loading class to loader on form submit after specified delay', () => {
-    submitForm(mockForm)
+    submitForm($mockForm)
     vi.advanceTimersByTime(200)
 
-    expect(buttonLoaderElem).toHaveAttribute(
+    expect($buttonLoaderElem).toHaveAttribute(
       'class',
       expect.stringContaining('app-loader--is-loading')
     )

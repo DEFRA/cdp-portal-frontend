@@ -8,17 +8,16 @@ describe('Tabs Component', () => {
 
   describe('With child content', () => {
     beforeEach(() => {
-      $tabs = renderTestComponent(
-        'tabs',
-        {
+      $tabs = renderTestComponent('tabs', {
+        params: {
           tabs: [
             { isActive: true, url: '/tab-one', label: 'One' },
             { isActive: false, url: '/tab-two', label: 'Two' },
             { isActive: false, url: '/tab-three', label: 'Three' }
           ]
         },
-        '<p>Example Tab child html</p>'
-      )
+        callBlock: ['<p>Example Tab page html</p>']
+      })
 
       $tabsList = $tabs('[data-testid="app-tabs-list"]')
     })
@@ -54,23 +53,25 @@ describe('Tabs Component', () => {
     test('Should render expected tab panel content', () => {
       const $tabPanel = $tabs('[data-testid="app-tabs-panel"]')
 
-      expect($tabPanel.html().trim()).toBe('<p>Example Tab child html</p>')
+      expect($tabPanel.html().trim()).toBe('<p>Example Tab page html</p>')
     })
   })
 
   describe('With panel text content', () => {
     beforeEach(() => {
       $tabs = renderTestComponent('tabs', {
-        tabs: [
-          {
-            isActive: true,
-            url: '/tab-one',
-            label: 'One',
-            panel: { text: 'Example Tab text content' }
-          },
-          { isActive: false, url: '/tab-two', label: 'Two' },
-          { isActive: false, url: '/tab-three', label: 'Three' }
-        ]
+        params: {
+          tabs: [
+            {
+              isActive: true,
+              url: '/tab-one',
+              label: 'One',
+              panel: { text: 'Example Tab text content' }
+            },
+            { isActive: false, url: '/tab-two', label: 'Two' },
+            { isActive: false, url: '/tab-three', label: 'Three' }
+          ]
+        }
       })
     })
 
@@ -84,16 +85,18 @@ describe('Tabs Component', () => {
   describe('With panel html content', () => {
     beforeEach(() => {
       $tabs = renderTestComponent('tabs', {
-        tabs: [
-          {
-            isActive: true,
-            url: '/tab-one',
-            label: 'One',
-            panel: { html: 'Example Tab html content' }
-          },
-          { isActive: false, url: '/tab-two', label: 'Two' },
-          { isActive: false, url: '/tab-three', label: 'Three' }
-        ]
+        params: {
+          tabs: [
+            {
+              isActive: true,
+              url: '/tab-one',
+              label: 'One',
+              panel: { html: 'Example Tab html content' }
+            },
+            { isActive: false, url: '/tab-two', label: 'Two' },
+            { isActive: false, url: '/tab-three', label: 'Three' }
+          ]
+        }
       })
     })
 
@@ -106,9 +109,8 @@ describe('Tabs Component', () => {
 
   describe('When tabs are turned off', () => {
     beforeEach(() => {
-      $tabs = renderTestComponent(
-        'tabs',
-        {
+      $tabs = renderTestComponent('tabs', {
+        params: {
           displayTabs: false,
           tabs: [
             { isActive: true, url: '/tab-one', label: 'One' },
@@ -116,8 +118,8 @@ describe('Tabs Component', () => {
             { isActive: false, url: '/tab-three', label: 'Three' }
           ]
         },
-        '<p>Example Tab child html</p>'
-      )
+        callBlock: ['<p>Example Tab page html</p>']
+      })
 
       $tabsList = $tabs('[data-testid="app-tabs-list"]')
     })
@@ -135,7 +137,7 @@ describe('Tabs Component', () => {
     test('Should render expected tab panel content', () => {
       const $tabPanel = $tabs('[data-testid="app-tabs-panel"]')
 
-      expect($tabPanel.html().trim()).toBe('<p>Example Tab child html</p>')
+      expect($tabPanel.html().trim()).toBe('<p>Example Tab page html</p>')
     })
   })
 })

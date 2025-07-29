@@ -5,14 +5,16 @@ describe('Search Component', () => {
 
   beforeEach(() => {
     const $component = renderTestComponent('search', {
-      label: {
-        text: 'Search me'
-      },
-      hint: {
-        text: 'Search for deployments by name'
-      },
-      id: 'search',
-      name: 'q'
+      params: {
+        label: {
+          text: 'Search me'
+        },
+        hint: {
+          text: 'Search for deployments by name'
+        },
+        id: 'search',
+        name: 'q'
+      }
     })
 
     $searchFormGroup = $component('[data-testid="app-search-group"]').first()

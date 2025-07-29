@@ -11,7 +11,7 @@ describe('#autocomplete-advanced', () => {
   let suggestionsContainer
 
   function setupAdvancedAutoComplete(params) {
-    const $component = renderTestComponent('autocomplete', params)
+    const $component = renderTestComponent('autocomplete', { params })
     const js = $component('[data-testid="app-autocomplete-suggestions"]')
       .first()
       .text()
