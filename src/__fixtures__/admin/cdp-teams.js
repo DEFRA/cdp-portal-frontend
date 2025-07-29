@@ -11,12 +11,12 @@ const cdpTeamsFixture = {
       github: 'fisheries',
       users: [
         {
-          userId: '01b99595-27b5-4ab0-9807-f104c09d2cd0',
-          name: 'RoboCop'
+          displayName: '01b99595-27b5-4ab0-9807-f104c09d2cd0',
+          id: 'RoboCop'
         },
         {
-          userId: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
-          name: 'Mumm-ra'
+          displayName: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
+          id: 'Mumm-ra'
         }
       ],
       serviceCodes: ['FO'],
@@ -32,8 +32,8 @@ const cdpTeamsFixture = {
       github: 'trees-and-forests',
       users: [
         {
-          userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-          name: 'B. A. Baracus'
+          displayName: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+          id: 'B. A. Baracus'
         }
       ],
       serviceCodes: ['TF'],
@@ -49,12 +49,12 @@ const cdpTeamsFixture = {
       github: 'bees',
       users: [
         {
-          userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-          name: 'B. A. Baracus'
+          displayName: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+          id: 'B. A. Baracus'
         },
         {
-          userId: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
-          name: 'Mumm-ra'
+          displayName: '7a34a7f1-55ca-4e6c-9fc6-56220c4280eb',
+          id: 'Mumm-ra'
         }
       ],
       serviceCodes: ['BEE'],
@@ -70,8 +70,8 @@ const cdpTeamsFixture = {
       github: 'cdp-platform',
       users: [
         {
-          userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-          name: 'B. A. Baracus'
+          displayName: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
+          id: 'B. A. Baracus'
         }
       ],
       serviceCodes: ['CDP'],

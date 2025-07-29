@@ -7,8 +7,8 @@ const runningServicesFixture = [
     service: 'cdp-portal-frontend',
     version: '0.356.0',
     user: {
-      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-      name: 'RoboCop'
+      id: '01b99595-27b5-4ab0-9807-f104c09d2cd0',
+      displayName: 'RoboCop'
     },
     cpu: '1024',
     memory: '2048',
@@ -42,8 +42,8 @@ const runningServicesFixture = [
     service: 'cdp-user-service-backend',
     version: '0.149.0',
     user: {
-      userId: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-      name: 'RoboCop'
+      id: '01b99595-27b5-4ab0-9807-f104c09d2cd0',
+      displayName: 'RoboCop'
     },
     cpu: '2048',
     memory: '4096',
@@ -77,8 +77,8 @@ const runningServicesFixture = [
     service: 'cdp-self-service-ops',
     version: '0.188.0',
     user: {
-      userId: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',
-      name: 'The Terminator'
+      id: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',
+      displayName: 'The Terminator'
     },
     cpu: '1024',
     memory: '2048',
