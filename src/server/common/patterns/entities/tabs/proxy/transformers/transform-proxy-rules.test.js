@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { transformProxyRules } from './transform-proxy-rules.js'
 
 describe('#transformProxyRules', () => {

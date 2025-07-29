@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { featureToEntityRow } from './feature-to-entity-row.js'
 import { featuresFixture } from '../../../../__fixtures__/features.js'
 

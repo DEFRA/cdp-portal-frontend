@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { startsWithVowel } from './starts-with-vowel.js'
 
 describe('#startsWithVowel', () => {

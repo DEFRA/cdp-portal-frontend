@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import nock from 'nock'
 
 import { config } from '../../../../config/config.js'

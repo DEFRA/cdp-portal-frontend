@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { sanitiseUser } from './sanitise-user.js'
 import { noValue } from '../../constants/no-value.js'
 

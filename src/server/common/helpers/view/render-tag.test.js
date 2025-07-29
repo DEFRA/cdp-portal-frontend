@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { renderTag } from './render-tag.js'
 
 function setupComponent(params = {}) {

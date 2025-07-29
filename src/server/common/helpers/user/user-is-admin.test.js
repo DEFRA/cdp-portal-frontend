@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { userIsAdmin } from './user-is-admin.js'
 
 describe('#userIsAdmin', () => {

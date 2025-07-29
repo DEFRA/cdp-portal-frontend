@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 import nock from 'nock'
 
 import { config } from '../../../../../config/config.js'

@@ -1,4 +1,3 @@
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest'
 import { buildDatabaseLogsLink } from './build-database-logs-link.js'
 
 describe('#buildDatabaseLogsLink', () => {

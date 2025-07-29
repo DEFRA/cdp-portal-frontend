@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test } from 'vitest'
 import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 
 describe('Button Component', () => {

@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { getEnvironments, getEnvironmentsThatNeed } from './get-environments.js'
 import { scopes } from '../../constants/scopes.js'
 

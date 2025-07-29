@@ -1,5 +1,4 @@
-import { describe, expect, test } from 'vitest'
-import { runningServicesFixture } from '../../../__fixtures__/running-services.js'
+import { runningServicesFixture } from '../../../__fixtures__/running-services/running-services.js'
 import { withEnvironments } from './with-environments.js'
 
 describe('#withEnvironments', () => {

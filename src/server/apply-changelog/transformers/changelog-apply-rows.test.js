@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { changelogApplyRows } from './changelog-apply-rows.js'
 
 describe('#changelogApplyRows', () => {

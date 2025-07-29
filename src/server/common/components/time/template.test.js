@@ -1,12 +1,3 @@
-import {
-  afterAll,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  test,
-  vi
-} from 'vitest'
 import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
 
 describe('Time Component', () => {

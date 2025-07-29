@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { calculateStepWidth } from './calculate-step-width.js'
 
 describe('#calculateStepWidth', () => {

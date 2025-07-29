@@ -1,4 +1,3 @@
-import { describe, expect, test, vi } from 'vitest'
 import { fetchS3File } from './s3-file-handler.js'
 import { documentationStructure } from './documentation-structure.js'
 

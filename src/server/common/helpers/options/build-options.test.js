@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { buildOptions } from './build-options.js'
 
 describe('#buildOptions', () => {

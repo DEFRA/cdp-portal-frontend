@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { routeLookup } from './index.js'
 import {
   getErrorSync,

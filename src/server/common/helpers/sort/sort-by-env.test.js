@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { sortByEnv } from './sort-by-env.js'
 
 describe('#sortByEnv', () => {

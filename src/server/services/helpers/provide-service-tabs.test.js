@@ -1,4 +1,3 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { hasScopeDecorator } from '../../common/helpers/decorators/has-scope.js'
 import { provideServiceTabs } from './provide-service-tabs.js'
 

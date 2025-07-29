@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { validateEntityIsAService } from './validate-entity-is-a-service.js'
 import Boom from '@hapi/boom'
 

@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { buildDocsNav } from './build-docs-nav.js'
 import { fetchMarkdown } from '../s3-file-handler.js'
 

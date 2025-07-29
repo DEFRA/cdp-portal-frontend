@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { shouldPoll } from './should-poll.js'
 import { taskStatus } from '../constants/test-run-status.js'
 

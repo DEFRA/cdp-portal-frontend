@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { initClass, initModule, initModules } from './init.js'
 
 describe('#init', () => {

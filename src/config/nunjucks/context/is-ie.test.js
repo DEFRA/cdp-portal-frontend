@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { isIe } from './is-ie.js'
 
 describe('#isIe', () => {

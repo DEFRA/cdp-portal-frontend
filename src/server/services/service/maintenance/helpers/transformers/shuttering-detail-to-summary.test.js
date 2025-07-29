@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { noValue } from '../../../../../common/constants/no-value.js'
 import { shutteringDetailToSummary } from './shuttering-detail-to-summary.js'
 import { shutteringStatus } from '../../../../../common/constants/shuttering.js'

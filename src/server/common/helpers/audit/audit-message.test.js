@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { auditMessage } from './audit-message.js'
 
 describe('#auditMessage', () => {
