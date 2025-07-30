@@ -5,9 +5,7 @@ import { validation } from '../../../common/constants/validation.js'
 
 const chooseValidation = Joi.object({
   kind: Joi.string()
-    .valid(
-      ...Object.values(getCreations(false)).map((creation) => creation.kind)
-    )
+    .valid(...getCreations().map((creation) => creation.value))
     .messages({
       'any.only': validation.chooseAnEntry,
       'any.required': validation.chooseAnEntry
