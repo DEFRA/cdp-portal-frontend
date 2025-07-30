@@ -9,7 +9,7 @@ const provideDeployment = {
     const deploymentId = request.params?.deploymentId
     const deployment = await fetchDeployment(deploymentId)
 
-    const repository = await fetchRepository(deployment.service).catch(
+    const repository = await fetchRepository(deployment?.service).catch(
       nullify404
     )
     const status = augmentStatus(deployment)
