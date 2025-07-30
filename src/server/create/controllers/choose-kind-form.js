@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 
 import { getCreations } from '../constants/creations.js'
 import { noSessionRedirect } from '../helpers/ext/no-session-redirect.js'
-import { isFeatureToggleActiveForPath } from '../../admin/features/helpers/fetch-feature-toggles.js'
 
 const chooseKindFormController = {
   options: {
@@ -20,25 +19,11 @@ const chooseKindFormController = {
   handler: async (request, h) => {
     const query = request?.query
 
-    const prototypesDisabled =
-      await isFeatureToggleActiveForPath('/create/prototype')
-
-    const createItems = Object.values(getCreations(prototypesDisabled)).map(
-      (creation) => ({
-        value: creation.kind,
-        text: creation.title,
-        hint: {
-          text: creation.hint
-        },
-        label: { classes: 'govuk-!-font-weight-bold' }
-      })
-    )
-
     return h.view('create/views/choose-kind-form', {
       pageTitle: 'Create',
       heading: 'Create',
       headingCaption: 'What would you like to create?',
-      createItems,
+      createItems: getCreations(),
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation
     })
