@@ -16,11 +16,12 @@ function buildRedisClient(redisConfig) {
   const host = redisConfig.host
 
   const client = redisConfig.useSingleInstanceCache
-    ? new IoRedis({ port, host, db, keyPrefix })
+    ? new IoRedis({ port, host, db, keyPrefix, enableReadyCheck: false })
     : new IoRedis.Cluster([{ host, port }], {
         keyPrefix,
         slotsRefreshTimeout: 2000,
         dnsLookup: (address, callback) => callback(null, address),
+        enableReadyCheck: false,
         redisOptions: {
           username: redisConfig.username,
           password: redisConfig.password,
