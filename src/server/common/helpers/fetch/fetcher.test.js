@@ -40,19 +40,14 @@ describe('#fetcher', () => {
   test('With generic error, Should throw with expected message', async () => {
     nock(librariesEndpointUrl.origin)
       .get(librariesEndpointUrl.pathname)
-      .replyWithError({
-        message:
-          'invalid json response body at http://bad-url reason: Unexpected end of JSON input',
-        type: 'invalid-json',
-        stack:
-          'FetchError: invalid json response body at http://bad-url reason: Unexpected end of JSON input'
-      })
+      .replyWithError(
+        new Error(
+          'invalid json response body at http://bad-url reason: Unexpected end of JSON input'
+        )
+      )
 
-    const error = await getError(async () => fetchJson(librariesEndpoint))
-
-    expect(error).not.toBeInstanceOf(NoErrorThrownError)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toBeInstanceOf(Error)
-    expect(error).toHaveProperty('message', 'Client request error')
+    await expect(fetchJson(librariesEndpoint)).rejects.toThrow(
+      'Client request error'
+    )
   })
 })
