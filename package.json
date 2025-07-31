@@ -152,6 +152,6 @@
     "webpack-shell-plugin-next": "2.3.3"
   },
   "engines": {
-    "node": ">=22.13.1"
+    "node": ">=22.17.1"
   }
 }
