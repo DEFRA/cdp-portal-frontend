@@ -1,5 +1,6 @@
 import neostandard from 'neostandard'
 import tsEslintPlugin from '@typescript-eslint/eslint-plugin'
+import packageJson from 'eslint-plugin-package-json'
 import tsParser from '@typescript-eslint/parser'
 import vitest from 'eslint-plugin-vitest'
 import prettier from 'eslint-plugin-prettier'
@@ -186,6 +187,19 @@ export default [
     rules: {
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'off'
+    }
+  },
+  {
+    ...packageJson.configs.recommended,
+    rules: {
+      ...packageJson.configs.recommended.rules,
+      'package-json/restrict-dependency-ranges': [
+        'error',
+        {
+          forDependencyTypes: ['dependencies', 'devDependencies'],
+          rangeType: 'pin'
+        }
+      ]
     }
   }
 ]
