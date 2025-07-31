@@ -32,21 +32,21 @@ const deploymentController = {
   },
   handler: (request, h) => {
     const deployment = request.pre.deployment
-    const environment = deployment.environment
+    const environment = deployment?.environment
     const formattedEnvironment = formatText(environment)
-    const secretDetail = transformSecrets(deployment.secrets)
+    const secretDetail = transformSecrets(deployment?.secrets)
     const ecsDeployment = provideEcsDeploymentStatus(deployment)
     const shouldPoll =
-      deployment.status !== deploymentStatus.running ||
-      deployment.status !== deploymentStatus.undeployed
+      (deployment?.status && deployment.status !== deploymentStatus.running) ||
+      (deployment?.status && deployment.status !== deploymentStatus.undeployed)
 
     return h.view('deployments/views/deployment', {
-      faviconState: deploymentFaviconState(deployment.status),
-      pageTitle: `${deployment.service} ${deployment.version} deployment - ${formattedEnvironment}`,
+      faviconState: deploymentFaviconState(deployment?.status),
+      pageTitle: `${deployment?.service} ${deployment?.version} deployment - ${formattedEnvironment}`,
       pageHeading: {
         caption: 'Microservice deployment',
-        text: deployment.service,
-        intro: `Microservice deployment for <strong>${deployment.service}</strong>, version <strong>${deployment.version}</strong> in <strong>${deployment.environment}</strong>`
+        text: deployment?.service,
+        intro: `Microservice deployment for <strong>${deployment?.service}</strong>, version <strong>${deployment?.version}</strong> in <strong>${deployment?.environment}</strong>`
       },
       deployment,
       shouldPoll,
@@ -67,7 +67,7 @@ const deploymentController = {
           href: `/deployments/${environment}?page=${pagination.page}&size=${pagination.size}`
         },
         {
-          text: `${deployment.service} - ${deployment.version}`
+          text: `${deployment?.service} - ${deployment?.version}`
         }
       ]
     })
