@@ -1,7 +1,6 @@
 import jwt from '@hapi/jwt'
-import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { authedFetchJson } from '../fetch/authed-fetch-json.js'
 import { scopesFixture } from '../../../../__fixtures__/scopes.js'
 import {
   createUserSession,
@@ -11,8 +10,7 @@ import {
 } from './user-session.js'
 
 vi.mock('@hapi/jwt')
-
-const scopesEndpoint = new URL(config.get('userServiceBackendUrl') + '/scopes')
+vi.mock('../fetch/authed-fetch-json.js')
 
 describe('#userSession', () => {
   beforeAll(() => {
@@ -51,9 +49,7 @@ describe('#userSession', () => {
     const sessionId = 'session-id'
 
     test('Should create a user session with correct details', async () => {
-      nock(scopesEndpoint.origin)
-        .get(scopesEndpoint.pathname)
-        .reply(200, scopesFixture)
+      authedFetchJson.mockResolvedValue({ payload: scopesFixture })
 
       await createUserSession(request, sessionId)
 
@@ -103,9 +99,7 @@ describe('#userSession', () => {
         }
       })
 
-      nock(scopesEndpoint.origin)
-        .get(scopesEndpoint.pathname)
-        .reply(200, scopesFixture)
+      authedFetchJson.mockResolvedValue({ payload: scopesFixture })
 
       await refreshUserSession(request, refreshTokenResponse)
     })
@@ -171,9 +165,7 @@ describe('#userSession', () => {
     }
 
     beforeEach(async () => {
-      nock(scopesEndpoint.origin)
-        .get(scopesEndpoint.pathname)
-        .reply(200, scopesFixture)
+      authedFetchJson.mockResolvedValue({ payload: scopesFixture })
 
       await updateUserScope(request, userSession)
     })

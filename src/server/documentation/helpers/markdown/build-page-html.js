@@ -76,7 +76,12 @@ async function buildPageHtml(request, markdown) {
     }
   }
 
-  docsMarked.use({ walkTokens })
+  docsMarked.use({
+    walkTokens,
+    renderer: {
+      text: (text) => text?.text
+    }
+  })
   const html = await docsMarked.parse(markdown)
 
   return { html, toc: buildTableOfContents(headingElements) }
