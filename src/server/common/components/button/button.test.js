@@ -8,7 +8,13 @@ import { button } from './button.js'
  */
 const submitForm = (form) => {
   form.addEventListener('submit', (event) => event.preventDefault())
-  form.submit()
+
+  form.dispatchEvent(
+    new Event('submit', {
+      bubbles: true,
+      cancelable: true
+    })
+  )
 }
 
 describe('#button', () => {
