@@ -143,7 +143,13 @@ To see if your `nock` mocks are matching your tests calls set the following envi
 environment:
 
 ```bash
-export DEBUG=nock.*
+export NODE_DEBUG='nock:*'
+```
+
+Or on the command line. For example:
+
+```bash
+NODE_DEBUG='nock:*' npm test -i src/server/health/controller.test.js
 ```
 
 > For more information see [https://github.com/nock/nock#debugging](https://github.com/nock/nock#debugging)
