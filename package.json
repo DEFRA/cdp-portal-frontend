@@ -32,6 +32,7 @@
     "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node --use-strict .",
+    "security-audit": "npm audit --audit-level=high",
     "pretest": "npm run test:build:client",
     "test": "TZ=UTC vitest run --coverage",
     "test:build:client": "NODE_ENV=test webpack",

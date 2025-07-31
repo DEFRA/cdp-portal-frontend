@@ -28,7 +28,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           npm ci
+          npm run format:check
+          npm run lint
           npm test
+
+     -  name: Security audit
+        run: npm run security-audit
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5.3.0
