@@ -6,6 +6,45 @@ import { escapeRegex } from '@hapi/hoek'
 import { linkExtension } from '../extensions/link.js'
 import { headingExtension } from '../extensions/heading.js'
 
+function createHighlightExtension(searchTerm) {
+  if (!searchTerm) {
+    return {
+      name: 'highlight'
+    }
+  }
+
+  const regex = new RegExp(`\\b${escapeRegex(searchTerm)}\\b`, 'i')
+
+  return {
+    name: 'highlight',
+    level: 'inline',
+    start(src) {
+      return src.search(regex)
+    },
+    tokenizer(src) {
+      // Skip matching inside auto-links, links, code, or already parsed tokens
+      const match = regex.exec(src)
+      if (
+        match &&
+        !/^(https?:\/\/|<http|\[|`)/.test(src) &&
+        match?.index === 0
+      ) {
+        return {
+          type: 'highlight',
+          raw: match[0],
+          text: match[0],
+          tokens: []
+        }
+      }
+
+      return null
+    },
+    renderer(token) {
+      return `<mark class="app-mark">${token.text}</mark>`
+    }
+  }
+}
+
 function buildTableOfContents(links) {
   const rootLevel = 1
   let html = ''
@@ -50,8 +89,6 @@ async function buildPageHtml(request, markdown) {
     extensions: [linkExtension, headingExtension]
   }).use(markedAlert())
 
-  const doNotIncludeMarkElement = ['code', 'codespan', 'heading']
-
   const walkTokens = (token) => {
     if (token.type === 'heading') {
       const { text, depth: level } = token
@@ -65,22 +102,12 @@ async function buildPageHtml(request, markdown) {
         text: parsedText
       })
     }
-
-    if (!doNotIncludeMarkElement.includes(token.type)) {
-      if (searchTerm && token.text) {
-        token.text = token.text.replace(
-          new RegExp(`(${escapeRegex(searchTerm)})`, 'gi'),
-          '<mark class="app-mark">$1</mark>'
-        )
-      }
-    }
   }
 
+  const highlightExtension = createHighlightExtension(searchTerm)
   docsMarked.use({
     walkTokens,
-    renderer: {
-      text: (text) => text?.text
-    }
+    extensions: [highlightExtension]
   })
   const html = await docsMarked.parse(markdown)
 
