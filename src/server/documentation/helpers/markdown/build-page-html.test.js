@@ -97,4 +97,44 @@ describe('#buildPageHtml', () => {
     expect(html).toBe('')
     expect(toc).toBe('')
   })
+
+  test('Should render angle bracket link as expected', async () => {
+    const mockRequest = { query: {} }
+    const markdown = '<https://example.com>'
+    const { html } = await buildPageHtml(mockRequest, markdown)
+
+    const $html = load(html)
+    const $link = $html('a')
+
+    expect($link.prop('outerHTML')).toBe(
+      '<a href="https://example.com" target="_blank" rel="noopener noreferrer">https://example.com</a>'
+    )
+  })
+
+  test('Should render plain link as expected', async () => {
+    const mockRequest = { query: {} }
+    const markdown = 'https://exampleother.com'
+    const { html } = await buildPageHtml(mockRequest, markdown)
+
+    const $html = load(html)
+    const $link = $html('a')
+
+    expect($link.prop('outerHTML')).toBe(
+      '<a href="https://exampleother.com" target="_blank" rel="noopener noreferrer">https://exampleother.com</a>'
+    )
+  })
+
+  test('Should render markdown link as expected', async () => {
+    const mockRequest = { query: {} }
+    const markdown =
+      '[https://example-another.com](https://example-another.com)'
+    const { html } = await buildPageHtml(mockRequest, markdown)
+
+    const $html = load(html)
+    const $link = $html('a')
+
+    expect($link.prop('outerHTML')).toBe(
+      '<a href="https://example-another.com" target="_blank" rel="noopener noreferrer">https://example-another.com</a>'
+    )
+  })
 })
