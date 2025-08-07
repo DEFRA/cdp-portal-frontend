@@ -24,28 +24,22 @@
 }
 
 .app-filters {
-  @include govuk-media-query($from: desktop-wide) {
-    display: flex;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .app-filters__item {
-  margin-bottom: govuk-spacing(4);
+  align-self: flex-end;
+  margin-right: govuk-spacing(2);
+  margin-bottom: 0;
 
-  @include govuk-media-query($from: desktop-wide) {
-    align-self: flex-end;
-    margin-right: govuk-spacing(2);
-    margin-bottom: 0;
-
-    &:last-child {
-      margin-right: 0;
-    }
+  &:last-child {
+    margin-right: 0;
   }
 }
 
 .app-filters__clear-all {
-  @include govuk-media-query($from: desktop-wide) {
-    flex: 4em;
-    align-self: flex-end;
-  }
+  flex: 4em;
+  align-self: flex-end;
 }
