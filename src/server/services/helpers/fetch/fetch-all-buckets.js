@@ -3,7 +3,7 @@ import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
 import { createLogger } from '../../../common/helpers/logging/logger.js'
 
 const logger = createLogger()
-
+// TODO remove
 async function fetchAllBuckets(serviceName) {
   const endpoint =
     config.get('portalBackendUrl') + `/tenant-buckets/${serviceName}`

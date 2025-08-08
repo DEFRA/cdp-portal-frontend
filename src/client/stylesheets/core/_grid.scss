@@ -41,8 +41,9 @@
 }
 
 .app-grid--fluid {
+  // TODO check REM values
   @include govuk-media-query($from: desktop-big) {
-    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(govuk-px-to-rem(600), 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(govuk-px-to-rem(100), 1fr));
   }
 }

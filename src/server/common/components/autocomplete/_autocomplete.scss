@@ -230,12 +230,6 @@ $large-width: 40em;
     align-self: flex-end;
     width: 20px;
     height: 20px;
-
-    & .app-tick-icon {
-      width: 20px;
-      height: 20px;
-      fill: govuk-colour("green");
-    }
   }
 
   &.app-autocomplete__suggestion--highlight {

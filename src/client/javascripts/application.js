@@ -7,6 +7,7 @@ import { autoSubmit } from '../common/helpers/auto-submit.js'
 import { availability } from '../../server/common/components/availability/availability.js'
 import { banner } from '../../server/common/components/banner/banner.js'
 import { button } from '../../server/common/components/button/button.js'
+import { copy } from '../../server/common/components/copy/copy.js'
 import { clearFilters } from '../common/helpers/fetch/filters/clear-filters.js'
 import { errorMessages } from '../common/helpers/error-messages.js'
 import { fetchIsNameAvailable } from '../common/helpers/fetch/create/fetch-is-name-available.js'
@@ -50,6 +51,9 @@ initModules('app-availability', availability, '*=')
 
 // Form submit buttons with loaders. Create and Deploy service
 initModules('app-button', button)
+
+// Copy button
+initModules('app-copy', copy)
 
 // Populate select options from a separate controller input
 initModules('app-select-controller', populateSelectOptions)

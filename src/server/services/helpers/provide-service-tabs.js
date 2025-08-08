@@ -39,6 +39,7 @@ async function provideServiceTabs(request, h) {
 
     if (isAdmin || isTenant) {
       buildTab(response, request, 'services', 'buckets', entityName)
+      buildTab(response, request, 'services', 'resources', entityName)
       buildTab(response, request, 'services', 'proxy', entityName)
     } else {
       response.source.context.tabDetails.displayTabs = false
