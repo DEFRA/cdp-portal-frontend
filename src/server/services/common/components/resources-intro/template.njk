@@ -1,0 +1,24 @@
+{% from "info/macro.njk" import appInfo with context %}
+
+{% set bucketInfoHtml %}
+  Why do bucket names have random characters at the end?
+  <a class="app-link app-link--underline" href="/documentation/how-to/buckets.md#bucket-naming"
+     target="_blank"
+     rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
+{% endset %}
+
+<span class="govuk-caption-l">{{ params.caption }}</span>
+<h2 class="govuk-heading-l govuk-!-margin-bottom-2">{{ params.heading }}</h2>
+<p>
+  View AWS resources for {{ params.entity.name }} in all CDP environments. To set up new resources read
+  <a href="/documentation/how-to/buckets.md" class="govuk-link app-link app-link--underline"
+     target="_blank" rel="noopener noreferrer">S3 buckets</a>,
+  <a href="/documentation/how-to/sqs-sns.md" class="govuk-link app-link app-link--underline"
+     target="_blank" rel="noopener noreferrer">SQS Queues and SNS Topics</a> then contact the Platform
+  team via Slack <a class="app-link app-link--underline" href="{{ supportChannel }}" target="_blank"
+                    rel="noopener noreferrer">#cdp-support</a>
+</p>
+
+{% if (params.hasBuckets) %}
+  {{ appInfo({ html: bucketInfoHtml }) }}
+{% endif %}

@@ -10,8 +10,8 @@
 {% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
 
-{% from "services/components/api-gateway-url/macro.njk" import appApiGatewayUrl %}
-{% from "services/components/shutter-url/macro.njk" import appShutterUrl %}
+{% from "services/common/components/api-gateway-url/macro.njk" import appApiGatewayUrl %}
+{% from "services/common/components/shutter-url/macro.njk" import appShutterUrl %}
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
