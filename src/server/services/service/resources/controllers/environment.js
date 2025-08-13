@@ -1,13 +1,13 @@
 import Boom from '@hapi/boom'
 
 import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
-import { fetchBuckets } from '../../../../common/helpers/fetch/fetch-buckets.js'
-import { environmentBuckets } from '../transformers/environment-buckets.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
+import { resourceByEnvironment } from '../transformers/resources-by-environment.js'
+import { fetchTenantServiceByEnvironment } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
 
-const environmentBucketsController = {
+const environmentResourcesController = {
   options: {
-    id: 'services/{serviceId}/buckets/{environment}',
+    id: 'services/{serviceId}/resources/{environment}',
     validate: {
       params: serviceParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
@@ -20,17 +20,20 @@ const environmentBucketsController = {
     const team = entity?.teams?.at(0)
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
-    const bucketsForEnv = await fetchBuckets(environment, serviceName)
 
-    const { buckets, isBucketsSetup } = environmentBuckets(bucketsForEnv)
+    const tenantServiceEnvironmentDetails =
+      await fetchTenantServiceByEnvironment(serviceName, environment)
+    const resource = resourceByEnvironment({
+      environment,
+      environmentDetails: tenantServiceEnvironmentDetails
+    })
 
-    return h.view('services/service/buckets/views/environment', {
-      pageTitle: `${serviceName} - Buckets - ${formattedEnvironment}`,
+    return h.view('services/service/resources/views/environment', {
+      pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
       entity,
       teamId,
       environment,
-      buckets,
-      isBucketsSetup,
+      resource,
       breadcrumbs: [
         {
           text: 'Services',
@@ -41,8 +44,8 @@ const environmentBucketsController = {
           href: `/services/${serviceName}`
         },
         {
-          text: 'Buckets',
-          href: `/services/${serviceName}/buckets`
+          text: 'Resources',
+          href: `/services/${serviceName}/resources`
         },
         {
           text: formattedEnvironment
@@ -52,4 +55,4 @@ const environmentBucketsController = {
   }
 }
 
-export { environmentBucketsController }
+export { environmentResourcesController }

@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchAllBuckets } from '../../../helpers/fetch/fetch-all-buckets.js'
-import { allEnvironmentBuckets } from '../transformers/all-environment-buckets.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { fetchTenantService } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
+import { resourcesByEnvironment } from '../transformers/resources-by-environment.js'
 
-const allBucketsController = {
+const allResourcesController = {
   options: {
-    id: 'services/{serviceId}/buckets',
+    id: 'services/{serviceId}/resources',
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -19,13 +19,16 @@ const allBucketsController = {
     const entity = request.app.entity
     const serviceName = entity.name
     const environments = getEnvironments(request.auth.credentials?.scope)
-    const allBuckets = await fetchAllBuckets(serviceName)
-    const bucketsByEnvironment = allEnvironmentBuckets(environments, allBuckets)
+    const tenantService = await fetchTenantService(serviceName)
+    const resources = resourcesByEnvironment({
+      environments,
+      tenantService
+    })
 
-    return h.view('services/service/buckets/views/all', {
-      pageTitle: `${serviceName} - Buckets`,
+    return h.view('services/service/resources/views/all', {
+      pageTitle: `${serviceName} - Resources`,
       entity,
-      bucketsByEnvironment,
+      resources,
       breadcrumbs: [
         {
           text: 'Services',
@@ -36,11 +39,11 @@ const allBucketsController = {
           href: `/services/${serviceName}`
         },
         {
-          text: 'Buckets'
+          text: 'Resources'
         }
       ]
     })
   }
 }
 
-export { allBucketsController }
+export { allResourcesController }

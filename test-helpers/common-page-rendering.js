@@ -5,7 +5,10 @@ import { validate as uuidValidate } from 'uuid'
 import { createServer } from '../src/server/index.js'
 import { fetchTestRuns } from '../src/server/test-suites/helpers/fetch/fetch-test-runs.js'
 import { fetchRepository } from '../src/server/common/helpers/fetch/fetch-repository.js'
-import { fetchTenantService } from '../src/server/common/helpers/fetch/fetch-tenant-service.js'
+import {
+  fetchTenantService,
+  fetchTenantServiceByEnvironment
+} from '../src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { getUserSession } from '../src/server/common/helpers/auth/get-user-session.js'
 import { scopes } from '../src/server/common/constants/scopes.js'
 import { fetchAvailableVersions } from '../src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
@@ -15,7 +18,6 @@ import {
 } from '../src/server/common/helpers/fetch/fetch-entities.js'
 import { fetchApiGateways } from '../src/server/services/helpers/fetch/fetch-api-gateways.js'
 import { fetchRunningServices } from '../src/server/common/helpers/fetch/fetch-running-services.js'
-import { fetchAllBuckets } from '../src/server/services/helpers/fetch/fetch-all-buckets.js'
 import { fetchAvailableMigrations } from '../src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { fetchLatestMigrations } from '../src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { fetchShutteringUrls } from '../src/server/services/helpers/fetch/fetch-shuttering-urls.js'
@@ -23,6 +25,7 @@ import { availableMigrationsFixture } from '../src/__fixtures__/migrations/avail
 import { latestMigrationsFixture } from '../src/__fixtures__/migrations/latest-migrations.js'
 import { apiGatewaysFixture } from '../src/__fixtures__/api-gateways.js'
 import { shutteringUrlsFixture } from '../src/__fixtures__/shuttering/shuttering-urls.js'
+import { tenantServicesFixture } from '../src/__fixtures__/tenant-services.js'
 
 export const mockTeam = {
   teamId: 'mock-team-id',
@@ -77,31 +80,14 @@ export function mockRepositoryCall(repositoryName, additionalTopics) {
   })
 }
 
-export function mockBucketsCall(repositoryName) {
-  fetchAllBuckets.mockResolvedValue?.({
-    buckets: [
-      {
-        service: `${repositoryName}`,
-        environment: 'infra-dev',
-        bucket: 'SERVICE_BUCKET'
-      },
-      {
-        service: `${repositoryName}`,
-        environment: 'infra-dev',
-        bucket: 'z_ordered_bucket'
-      },
-      {
-        service: `${repositoryName}`,
-        environment: 'dev',
-        bucket: 'some_bucket'
-      },
-      {
-        service: `${repositoryName}`,
-        environment: 'dev',
-        bucket: 'some_other_bucket'
-      }
-    ]
-  })
+export function mockResourcesCall() {
+  fetchTenantService.mockResolvedValue?.(tenantServicesFixture)
+}
+
+export function mockResourcesByEnvironmentCall(environment) {
+  fetchTenantServiceByEnvironment.mockResolvedValue?.(
+    tenantServicesFixture[environment]
+  )
 }
 
 export function mockTenantServicesCall(isPostgresService = false) {

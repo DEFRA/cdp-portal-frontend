@@ -3,45 +3,19 @@ import { fetchJson } from './fetch-json.js'
 import { createLogger } from '../logging/logger.js'
 
 const logger = createLogger()
+const portalBackendUrl = config.get('portalBackendUrl')
 
-/**
- * @typedef {object} ServiceInfo
- * @property {string} serviceCode - Service Code
- * @property {("public" | "protected")} zone - CDP Platform Zone
- */
-
-/**
- * @typedef {{[key: ("prod" | "perf-test" | "dev" | "test" | "management" | "infra-dev" | "ext-test")]: {ServiceInfo}}} TenantService
- */
-
-/**
- * @typedef {object} TenantServices
- * @property {TenantService} dev
- * @property {TenantService} test
- * @property {TenantService} perf-test
- * @property {TenantService} ext-test
- * @property {TenantService} prod
- * @property {TenantService} management
- * @property {TenantService} infra-dev
- */
-
-/**
- * @param {string} serviceName
- * @returns {Promise<TenantServices|{}>}
- */
 async function fetchTenantService(serviceName) {
   try {
-    const endpoint =
-      config.get('portalBackendUrl') + `/tenant-services/${serviceName}`
+    const endpoint = `${portalBackendUrl}/tenant-services/${serviceName}`
     const { payload } = await fetchJson(endpoint)
 
     return payload
   } catch (error) {
-    // We are catching here because a 404 can be thrown when a tenant service has not been created
     const statusCode = error.output.statusCode
 
     if (statusCode === 404) {
-      logger.info('Tenant Service not found.')
+      logger.info(`Tenant Service ${serviceName} not found`)
     } else {
       logger.error(error)
     }
@@ -50,4 +24,23 @@ async function fetchTenantService(serviceName) {
   }
 }
 
-export { fetchTenantService }
+async function fetchTenantServiceByEnvironment(serviceName, environment) {
+  try {
+    const endpoint = `${portalBackendUrl}/tenant-services/${serviceName}/${environment}`
+    const { payload } = await fetchJson(endpoint)
+
+    return payload
+  } catch (error) {
+    const statusCode = error.output.statusCode
+
+    if (statusCode === 404) {
+      logger.info(`Tenant Service: ${serviceName}, in ${environment} not found`)
+    } else {
+      logger.error(error)
+    }
+
+    return {}
+  }
+}
+
+export { fetchTenantService, fetchTenantServiceByEnvironment }

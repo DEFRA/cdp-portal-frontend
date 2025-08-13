@@ -1,5 +1,5 @@
-import { allBucketsController } from './controllers/all.js'
-import { environmentBucketsController } from './controllers/environment.js'
+import { allResourcesController } from './controllers/all.js'
+import { environmentResourcesController } from './controllers/environment.js'
 import { scopes } from '../../../common/constants/scopes.js'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
 import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
@@ -8,17 +8,15 @@ import { SERVICE } from '../../../common/patterns/entities/tabs/constants.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
-const serviceBuckets = {
+const serviceResources = {
   plugin: {
-    name: 'serviceBuckets',
+    name: 'serviceResources',
     register: (server) => {
       server.ext([
         ...commonServiceExtensions,
         {
           type: 'onPostHandler',
-          // TODO this is a very long name - can it be improved?
-          method: provideSubNav('buckets', SERVICE),
-
+          method: provideSubNav('resources', SERVICE),
           options: {
             sandbox: 'plugin'
           }
@@ -29,13 +27,13 @@ const serviceBuckets = {
         [
           {
             method: 'GET',
-            path: '/services/{serviceId}/buckets',
-            ...allBucketsController
+            path: '/services/{serviceId}/resources',
+            ...allResourcesController
           },
           {
             method: 'GET',
-            path: '/services/{serviceId}/buckets/{environment}',
-            ...environmentBucketsController
+            path: '/services/{serviceId}/resources/{environment}',
+            ...environmentResourcesController
           }
         ].map(serviceTeamAndAdminUserScope)
       )
@@ -43,4 +41,4 @@ const serviceBuckets = {
   }
 }
 
-export { serviceBuckets }
+export { serviceResources }
