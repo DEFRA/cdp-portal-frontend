@@ -1,0 +1,34 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+.app-copy__container {
+  position: relative;
+}
+
+.app-copy {
+  @include govuk-font(24);
+  font-weight: bold;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+
+  .app-icon {
+    position: relative;
+    top: 3px;
+    display: block;
+  }
+}
+
+.app-copy__hint {
+  text-align: center;
+  width: govuk-spacing(8);
+  @include govuk-font(16);
+  position: absolute;
+  top: -4px;
+  left: 20px;
+  padding: govuk-spacing(1);
+  border-radius: $app-border-radius;
+  color: govuk-colour("white");
+  background-color: $govuk-brand-colour;
+}
