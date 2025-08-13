@@ -1,4 +1,4 @@
-// Response from portalBackendApi/deployables
+// Response from portalBackendApi/deployables/{service}
 const availableVersionsFixture = [
   {
     tag: '0.316.0',
