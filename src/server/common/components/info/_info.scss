@@ -7,13 +7,21 @@
 .app-info {
   display: inline-flex;
   align-items: start;
-  margin: govuk-spacing(2) 0;
+  margin: govuk-spacing(2) 0 govuk-spacing(4);
   padding: govuk-spacing(4) govuk-spacing(2);
   background-color: $app-brand-background-colour-light;
   border-radius: $app-border-radius-right;
   word-break: break-word;
   border: 1px solid $app-brand-background-colour;
   border-left: 6px solid govuk-colour("blue");
+
+  & + & {
+    margin-top: govuk-spacing(1);
+  }
+}
+
+.app-info--full-width {
+  display: flex;
 }
 
 .app-info--inverse {
