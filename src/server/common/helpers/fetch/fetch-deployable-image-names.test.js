@@ -14,9 +14,9 @@ describe('#fetchDeployableImageNames', () => {
       logger: {
         info: vi.fn()
       },
-      getUserSession: vi
-        .fn()
-        .mockResolvedValue({ scope: ['aabe63e7-87ef-4beb-a596-c810631fc474'] })
+      getUserSession: vi.fn().mockResolvedValue({
+        uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474']
+      })
     }
 
     test('Should provide expected deployable images response', async () => {
