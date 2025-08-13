@@ -51,7 +51,7 @@ function transformTeamToSummary(team, withActions = true) {
         key: { text: 'Service Codes' },
         value: {
           html: team.serviceCodes?.length
-            ? buildList(team.serviceCodes)
+            ? buildList({ items: team.serviceCodes })
             : noValue
         },
         actions
@@ -60,11 +60,11 @@ function transformTeamToSummary(team, withActions = true) {
         key: { text: 'Alert Emails' },
         value: {
           html: team.alertEmailAddresses?.length
-            ? buildList(
-                team.alertEmailAddresses.map((email) =>
+            ? buildList({
+                items: team.alertEmailAddresses.map((email) =>
                   buildLink({ href: `mailto:${email}`, text: email })
                 )
-              )
+              })
             : noValue
         },
         actions

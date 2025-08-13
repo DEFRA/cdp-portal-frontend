@@ -33,7 +33,7 @@ function transformTestSuiteToSummary(testSuite, repo) {
       {
         key: { text: `Team${teams?.length > 1 ? 's' : ''}` },
         value: {
-          html: teams?.length ? buildList(teams) : noValue
+          html: teams?.length ? buildList({ items: teams }) : noValue
         }
       },
       {
