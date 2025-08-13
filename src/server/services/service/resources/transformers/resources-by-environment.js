@@ -10,11 +10,14 @@ const buildSubscriptionsList = (subscriptions) => {
 
   return topicsList.map((topic, topicIndex) => ({
     key: {
-      text: topicIndex === 0 ? 'Topic subscriptions' : '',
+      text: topicIndex === 0 ? 'Topic subs' : '',
       classes: keyCellClass
     },
     value: {
-      html: buildList({ items: [topic], classes: ['govuk-list--bullet'] }),
+      html: buildList({
+        items: [topic],
+        classes: ['govuk-list--bullet govuk-!-margin-0']
+      }),
       classes: 'app-summary-list__value'
     }
   }))
