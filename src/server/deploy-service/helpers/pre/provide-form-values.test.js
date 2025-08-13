@@ -4,7 +4,10 @@ import { config } from '../../../../config/config.js'
 import { deployServiceOptionsFixture } from '../../../../__fixtures__/deploy-service/deploy-service-options.js'
 import { provideFormValues } from './provide-form-values.js'
 import { existingServiceInfoFixture } from '../../../../__fixtures__/deploy-service/existing-service-info.js'
-import { deploymentSessionFixture } from '../../../../__fixtures__/deploy-service/deployment-session.js'
+import {
+  deploymentSessionFixture,
+  prototypeDeploymentSessionFixture
+} from '../../../../__fixtures__/deploy-service/deployment-session.js'
 
 describe('#provideFormValues', () => {
   const mockRequest = (stepData = null) => ({
@@ -180,6 +183,54 @@ describe('#provideFormValues', () => {
               ...deployServiceOptionsFixture.cpuOptions
             ],
             preExistingDetails: false
+          }
+        })
+      })
+    })
+
+    describe('With a prototype session', () => {
+      test('Should provide expected form detail', async () => {
+        expect(
+          await provideFormValues.method(
+            mockRequest(prototypeDeploymentSessionFixture)
+          )
+        ).toEqual({
+          formValues: {
+            availableMemoryOptions: [
+              {
+                text: ' - - Choose a CPU value - - ',
+                value: '',
+                disabled: true,
+                attributes: {
+                  selected: true
+                }
+              }
+            ],
+            cpuOptions: [
+              {
+                value: '',
+                text: ' - - select - - ',
+                disabled: true,
+                attributes: {
+                  selected: true
+                }
+              },
+              {
+                value: 512,
+                text: '512 (.5 vCPU)'
+              },
+              {
+                value: 1024,
+                text: '1024 (1 vCPU)'
+              },
+              {
+                value: 2048,
+                text: '2048 (2 vCPU)'
+              }
+            ],
+            preExistingDetails: false,
+            instanceCount: 1,
+            isPrototype: true
           }
         })
       })

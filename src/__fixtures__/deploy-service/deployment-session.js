@@ -8,4 +8,12 @@ const deploymentSessionFixture = {
   memory: '9216'
 }
 
-export { deploymentSessionFixture }
+const prototypeDeploymentSessionFixture = {
+  redirectLocation: '',
+  imageName: 'cdp-portal-prototype',
+  version: '0.1.0',
+  environment: 'dev',
+  isPrototype: true
+}
+
+export { deploymentSessionFixture, prototypeDeploymentSessionFixture }
