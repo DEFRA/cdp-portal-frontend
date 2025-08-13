@@ -1,5 +1,4 @@
 import { fetchServices } from './fetch-entities.js'
-import { userIsAdmin } from '../user/user-is-admin.js'
 
 /**
  * @typedef {object} Options
@@ -7,13 +6,11 @@ import { userIsAdmin } from '../user/user-is-admin.js'
  * @return [string]
  */
 async function fetchDeployableImageNames({ request }) {
-  const params = {}
-  const userSession = await request.getUserSession()
-  if (!userIsAdmin(userSession)) {
-    params['teamIds'] = userSession.uuidScope
-  }
+  const authedUser = await request.getUserSession()
+  const userScopes = authedUser?.scope
+  const teamIds = authedUser?.isAdmin ? [] : userScopes
+  const services = await fetchServices({ teamIds })
 
-  const services = await fetchServices(params)
   return services.map((e) => e.name)
 }
 
