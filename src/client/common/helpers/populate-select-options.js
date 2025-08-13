@@ -16,6 +16,8 @@ function populateSelectOptions($controller) {
   )
   const dataFetcherName = $controller.getAttribute('data-fetcher')
   const dataFetcher = window.cdp[dataFetcherName]
+  const dataFetcherArgs =
+    $controller.getAttribute('data-fetcher-args')?.split(' ') ?? []
 
   if (!$target || !isFunction(dataFetcher)) {
     return
@@ -38,7 +40,7 @@ function populateSelectOptions($controller) {
     Array.from($target?.options).forEach((option) => option.remove())
 
     try {
-      const options = await dataFetcher(value)
+      const options = await dataFetcher(value, ...dataFetcherArgs)
 
       clearTimeout(delayedLoader)
       $loader?.classList?.remove(isLoadingClassName)

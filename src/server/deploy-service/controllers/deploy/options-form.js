@@ -52,6 +52,7 @@ const optionsFormController = {
       environments,
       imageName,
       latestMigrations,
+      isPrototype: stepData?.isPrototype,
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation,
       availableInstancesOptions: buildOptions(availableInstances),

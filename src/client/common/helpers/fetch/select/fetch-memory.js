@@ -1,6 +1,6 @@
-async function fetchMemory(value) {
+async function fetchMemory(value, isPrototype) {
   const response = await fetch(
-    `${location.origin}/deploy-service/available-memory?cpu=${value}`,
+    `${location.origin}/deploy-service/available-memory?cpu=${value}&isPrototype=${isPrototype}`,
     { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
   )
   const json = await response.json()

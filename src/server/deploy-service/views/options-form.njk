@@ -12,6 +12,20 @@
     choose in this form.</p>
 {% endset %}
 
+{% set prototypeOptionsHtml %}
+  <p class="govuk-!-margin-bottom-2">
+    Your prototypes Instance count has been hardcoded to 1, and you have a reduced amount of CPU size and Memory
+    allocation available. The values we have provided should be more than enough for your prototype.
+  </p>
+  <p class="govuk-!-margin-bottom-2">
+    However, if you feel these are not appropriate for
+    your prototype. Contact the Platform team via Slack <a class="app-link app-link--underline app-link--text-colour"
+                                                           href="{{ supportChannel }}"
+                                                           target="_blank"
+                                                           rel="noopener noreferrer">#cdp-support</a>
+  </p>
+{% endset %}
+
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
 
@@ -19,7 +33,7 @@
     {{ appPageHeading({
       caption: "Deploy service",
       text: "Options",
-      intro: "Choose microservice instance count, CPU and memory allocation"
+      intro: "Choose microservice instance count, CPU and memory allocation" if not formValues.isPrototype
     }) }}
 
     <div class="govuk-grid-row">
@@ -32,11 +46,18 @@
           }) }}
         {% endif %}
 
+        {% if formValues.isPrototype %}
+          {{ appInfo({ html: prototypeOptionsHtml }) }}
+        {% endif %}
+
         <form action="/deploy-service/options/{{ multiStepFormId }}"
               method="post"
               data-js="app-form-errors{% if formValues.preExistingDetails %} app-protected-inputs{% endif %}">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+          {% if formValues.isPrototype %}
+            <input type="hidden" name="instanceCount" value="1" />
+          {% endif %}
 
           {% call govukFieldset() %}
 
@@ -57,7 +78,8 @@
               },
               value: formValues.instanceCount,
               errorMessage: errorMessageHelper(formErrors.instanceCount.message),
-              items: availableInstancesOptions
+              items: availableInstancesOptions,
+              attributes: { disabled: "disabled" } if formValues.isPrototype
             }) }}
 
             {{ govukSelect({
@@ -79,6 +101,7 @@
               attributes: {
                 "data-js": "app-select-controller",
                 "data-fetcher": "fetchMemory",
+                "data-fetcher-args": isPrototype,
                 "data-target": "deploy-memory",
                 "data-loader": "memory-loader"
               },
@@ -124,10 +147,12 @@
       </div>
 
       <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-        {{ appInfo({
-          html: allocatedResourcesHelpHtml,
-          classes: "govuk-!-margin-bottom-4"
-        }) }}
+        {% if not formValues.isPrototype %}
+          {{ appInfo({
+            html: allocatedResourcesHelpHtml,
+            classes: "govuk-!-margin-bottom-4"
+          }) }}
+        {% endif %}
 
         {% call appPanel() %}
           <section class="app-row">

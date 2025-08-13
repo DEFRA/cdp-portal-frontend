@@ -3,7 +3,7 @@ import { toggleProtectedInputs } from './toggle-protected-inputs.js'
 function protectForm($form) {
   const $controlButton = document.querySelector('[data-js="protected-button"]')
 
-  if (!$form || !$controlButton) {
+  if (!$form) {
     return
   }
 
@@ -24,7 +24,7 @@ function protectForm($form) {
     toggleProtectedInputs($form, $protectedInputs, true)
   )
 
-  $controlButton.addEventListener('click', (event) => {
+  $controlButton?.addEventListener('click', (event) => {
     event.preventDefault()
 
     toggleProtectedInputs(

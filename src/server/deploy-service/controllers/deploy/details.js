@@ -7,6 +7,8 @@ import { getEnvironments } from '../../../common/helpers/environments/get-enviro
 import { serviceValidation } from '../../helpers/schema/service-validation.js'
 import { fetchDeployableImageNames } from '../../../common/helpers/fetch/fetch-deployable-image-names.js'
 import { fetchAvailableVersions } from '../../helpers/fetch/fetch-available-versions.js'
+import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
+import { nullify404 } from '../../../common/helpers/nullify-404.js'
 
 const detailsController = {
   options: {
@@ -77,7 +79,12 @@ const detailsController = {
     }
 
     if (!validationResult.error) {
-      await request.app.saveStepData(multiStepFormId, payload, h)
+      const entity = await fetchEntity(payload.imageName).catch(nullify404)
+      await request.app.saveStepData(
+        multiStepFormId,
+        { ...payload, isPrototype: entity.type === 'Prototype' },
+        h
+      )
 
       const redirectTo = redirectLocation
         ? `/deploy-service/${redirectLocation}/${multiStepFormId}`
