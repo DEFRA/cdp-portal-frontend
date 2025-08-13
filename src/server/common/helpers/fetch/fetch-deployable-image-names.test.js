@@ -15,7 +15,7 @@ describe('#fetchDeployableImageNames', () => {
         info: vi.fn()
       },
       getUserSession: vi.fn().mockResolvedValue({
-        uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474']
+        scope: ['aabe63e7-87ef-4beb-a596-c810631fc474']
       })
     }
 
