@@ -47,7 +47,7 @@
     }
 
     .app-summary-list__key {
-      width: 20%;
+      width: 16%;
       vertical-align: top;
     }
 
@@ -58,16 +58,3 @@
     }
   }
 }
-
-// Only apply the ellipsis to the summary list values when JS is enabled as this is paired with the JS copy component
-.js-enabled {
-  .app-summary-list--resource {
-    .govuk-summary-list__value {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 200px;
-    }
-  }
-}
-// stylelint-enable max-nesting-depth
