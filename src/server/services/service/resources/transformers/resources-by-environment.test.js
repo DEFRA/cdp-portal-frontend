@@ -69,7 +69,7 @@ describe('#resourceByEnvironment', () => {
             },
             {
               key: {
-                text: 'Topic subscriptions',
+                text: 'Topic subs',
                 classes: 'app-summary-list__key'
               },
               value: {
@@ -118,7 +118,7 @@ describe('#resourceByEnvironment', () => {
             },
             {
               key: {
-                text: 'Topic subscriptions',
+                text: 'Topic subs',
                 classes: 'app-summary-list__key'
               },
               value: {
