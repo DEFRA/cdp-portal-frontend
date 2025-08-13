@@ -1,0 +1,91 @@
+{% call appPanel({ classes: "app-sub-grid__row govuk-!-margin-0" }) %}
+
+  {% set moreLink %}
+    <a class="app-link app-link--underline app-row__item-flex-one"
+       href="https://github.com/DEFRA/cdp-tf-svc-infra/blob/main/environments/{{ environment }}/tenants/{{ entity.name }}.json"
+       target="_blank" rel="noopener noreferrer"
+       data-testid="app-entity-link">
+      more
+    </a>
+  {% endset %}
+
+  <div class="app-sub-grid__row-item">
+    <span class="govuk-caption-m">{{ environment | title }}</span>
+    <div class="app-row govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+        S3 Buckets
+      </h3>
+      {% if resource.s3BucketRows | length %}
+        <div class="app-row__item-align-self--end">
+          {{ moreLink | safe }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if resource.s3BucketRows | length %}
+      {{ govukTable({
+        classes: "app-table app-table--inverse govuk-!-margin-bottom-2",
+        rows: resource.s3BucketRows
+      }) }}
+    {% else %}
+      {{ appInfo({
+        classes: "app-info--full-width govuk-!-margin-0",
+        isInverse: true,
+        text: "S3 Buckets not set up for " + environment | title
+      }) }}
+    {% endif %}
+  </div>
+
+  <div class="app-sub-grid__row-item">
+    <span class="govuk-caption-m">{{ environment | title }}</span>
+    <div class="app-row govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+        SQS Queues
+      </h3>
+      {% if resource.sqsQueues | length %}
+        <div class="app-row__item-align-self--end">
+          {{ moreLink | safe }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if resource.sqsQueues | length %}
+      {% for summary in resource.sqsQueues %}
+        {{ govukSummaryList(summary) }}
+      {% endfor %}
+    {% else %}
+      {{ appInfo({
+        classes: "app-info--full-width govuk-!-margin-0",
+        isInverse: true,
+        text: "SQS Queues not set up for " + environment | title
+      }) }}
+    {% endif %}
+  </div>
+
+  <div class="app-sub-grid__row-item">
+    <span class="govuk-caption-m">{{ environment | title }}</span>
+    <div class="app-row govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+        SNS Topics
+      </h3>
+      {% if resource.snsTopics | length %}
+        <div class="app-row__item-align-self--end">
+          {{ moreLink | safe }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if resource.snsTopics | length %}
+      {% for summary in resource.snsTopics %}
+        {{ govukSummaryList(summary) }}
+      {% endfor %}
+    {% else %}
+      {{ appInfo({
+        classes: "app-info--full-width govuk-!-margin-0",
+        isInverse: true,
+        text: "SNS Topics not set up for " + environment | title
+      }) }}
+    {% endif %}
+  </div>
+
+{% endcall %}
