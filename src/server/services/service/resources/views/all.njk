@@ -1,0 +1,54 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "info/macro.njk" import appInfo %}
+{% from "panel/macro.njk" import appPanel %}
+{% from "services/common/components/resources-intro/macro.njk" import appResourcesIntro %}
+
+{% set hasBuckets = false %}
+
+{% for environment, environmentInfo in resources %}
+  {% if environmentInfo.s3BucketRows | length %}
+    {% set hasBuckets = true %}
+  {% endif %}
+{% endfor %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Resources",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+        {% call appSplitPane() %}
+          <section>
+
+            {{ appResourcesIntro({
+              caption: "All",
+              heading: "Resources",
+              entity: entity,
+              hasBuckets: hasBuckets
+            }) }}
+
+            <div class="app-sub-grid">
+              {% for environment, resource in resources %}
+                {% include "services/common/partials/resource-panel.njk" %}
+              {% endfor %}
+            </div>
+
+          </section>
+        {% endcall %}
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

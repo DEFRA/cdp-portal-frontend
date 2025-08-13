@@ -67,11 +67,6 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Buckets',
-          url: `/services/${mockServiceName}/buckets`
-        },
-        {
-          isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
         },
@@ -79,6 +74,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: false,
+          label: 'Resources',
+          url: `/services/${mockServiceName}/resources`
         },
         {
           isActive: false,
@@ -116,11 +116,6 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Buckets',
-          url: `/services/${mockServiceName}/buckets`
-        },
-        {
-          isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
         },
@@ -128,6 +123,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: false,
+          label: 'Resources',
+          url: `/services/${mockServiceName}/resources`
         },
         {
           isActive: true,
@@ -175,11 +175,6 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Buckets',
-          url: `/services/${mockServiceName}/buckets`
-        },
-        {
-          isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
         },
@@ -187,6 +182,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: false,
+          label: 'Resources',
+          url: `/services/${mockServiceName}/resources`
         },
         {
           isActive: false,
@@ -228,11 +228,6 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Buckets',
-          url: `/services/${mockServiceName}/buckets`
-        },
-        {
-          isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
         },
@@ -240,6 +235,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: false,
+          label: 'Resources',
+          url: `/services/${mockServiceName}/resources`
         },
         {
           isActive: false,
@@ -282,13 +282,13 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Buckets',
-          url: `/services/${mockServiceName}/buckets`
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
         },
         {
           isActive: false,
-          label: 'Proxy',
-          url: `/services/${mockServiceName}/proxy`
+          label: 'Resources',
+          url: `/services/${mockServiceName}/resources`
         }
       ])
       expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
@@ -298,7 +298,7 @@ describe('#provideServiceTabs', () => {
       await provideServiceTabs(
         mockRequest({
           response: mockResponse,
-          path: `/services/${mockServiceName}/buckets/test`
+          path: `/services/${mockServiceName}/resources/test`
         }),
         mockViewHelper
       )
@@ -310,14 +310,14 @@ describe('#provideServiceTabs', () => {
           url: `/services/${mockServiceName}`
         },
         {
-          isActive: true,
-          label: 'Buckets',
-          url: `/services/${mockServiceName}/buckets`
-        },
-        {
           isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: true,
+          label: 'Resources',
+          url: `/services/${mockServiceName}/resources`
         }
       ])
     })
