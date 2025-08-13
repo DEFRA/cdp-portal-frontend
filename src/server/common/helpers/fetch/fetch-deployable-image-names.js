@@ -10,10 +10,11 @@ async function fetchDeployableImageNames({ request }) {
   const params = {}
   const userSession = await request.getUserSession()
   if (!userIsAdmin(userSession)) {
-    params['teamIds'] = userSession.scope
+    params['teamIds'] = userSession.uuidScope
   }
 
-  return (await fetchServices(params)).map((e) => e.name)
+  const services = await fetchServices(params)
+  return services.map((e) => e.name)
 }
 
 export { fetchDeployableImageNames }
