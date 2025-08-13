@@ -6,9 +6,9 @@ import { renderComponent } from '../../../../common/helpers/nunjucks/render-comp
 const keyCellClass = 'app-summary-list__key'
 
 const buildSubscriptionsList = (subscriptions) => {
-  const topics = subscriptions.flatMap(({ topics }) => topics)
+  const topicsList = subscriptions.flatMap(({ topics }) => topics)
 
-  return topics.map((topic, topicIndex) => ({
+  return topicsList.map((topic, topicIndex) => ({
     key: {
       text: topicIndex === 0 ? 'Topic subscriptions' : '',
       classes: keyCellClass
