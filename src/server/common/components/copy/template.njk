@@ -1,0 +1,17 @@
+{% from "icons/copy-icon/macro.njk" import appCopyIcon %}
+
+{% set title = params.title | default("Copy") %}
+{% set content = params.content.html | safe if params.content.html else params.content.text %}
+
+<span class="app-copy__container">
+    <button class="app-copy js-visible-inline"
+            title="{{ title }}"
+            data-js="app-copy"
+            data-content-id="{{ params.content.id }}"
+            data-testid="app-copy">
+    {{ appCopyIcon({ classes: "app-icon--minuscule" }) }}
+  </button>
+  <span data-js="{{ params.content.id }}-content" data-testid="app-copy-content">
+    {{ content }}
+  </span>
+</span>
