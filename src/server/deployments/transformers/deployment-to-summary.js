@@ -175,7 +175,7 @@ function transformDeploymentToSummary(deployment) {
       {
         key: { text: pluralise('Team', teams?.length) },
         value: {
-          html: teams?.length ? buildList(teams) : noValue
+          html: teams?.length ? buildList({ items: teams }) : noValue
         }
       }
     ]

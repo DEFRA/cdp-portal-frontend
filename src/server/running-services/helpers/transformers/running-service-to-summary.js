@@ -24,15 +24,15 @@ function transformRunningServiceToSummary(serviceName, teams) {
         key: { text: pluralise('Team', teams.length) },
         value: {
           html: teams.length
-            ? buildList(
-                teams.map((team) =>
+            ? buildList({
+                items: teams.map((team) =>
                   buildLink({
                     href: `/teams/${team.teamId}`,
                     text: team.name,
                     newTab: false
                   })
                 )
-              )
+              })
             : noValue
         }
       }
