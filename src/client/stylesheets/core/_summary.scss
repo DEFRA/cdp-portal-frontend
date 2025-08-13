@@ -10,6 +10,7 @@
   width: 10%;
 }
 
+// stylelint-disable max-nesting-depth
 .app-summary-list {
   margin-bottom: 0;
 
@@ -25,6 +26,7 @@
 
     .govuk-summary-list__value {
       border-radius: $app-border-radius-right;
+      word-break: break-all;
     }
 
     .govuk-summary-list__key,
@@ -38,4 +40,34 @@
       background-color: $app-brand-background-colour-light;
     }
   }
+
+  &.app-summary-list--resource {
+    & + & {
+      margin-top: govuk-spacing(4);
+    }
+
+    .app-summary-list__key {
+      width: 20%;
+      vertical-align: top;
+    }
+
+    .app-summary-list__value {
+      .govuk-list {
+        margin: 0;
+      }
+    }
+  }
 }
+
+// Only apply the ellipsis to the summary list values when JS is enabled as this is paired with the JS copy component
+.js-enabled {
+  .app-summary-list--resource {
+    .govuk-summary-list__value {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+    }
+  }
+}
+// stylelint-enable max-nesting-depth
