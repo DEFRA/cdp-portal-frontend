@@ -23,6 +23,11 @@ describe('#provideFormValues', () => {
       `/deployment-settings/cdp-portal-frontend/management`
   )
 
+  const prototypeDeploymentConfigEndpoint = new URL(
+    config.get('portalBackendUrl') +
+      `/deployment-settings/cdp-portal-prototype/dev`
+  )
+
   beforeEach(() => {
     nock(optionsEndpointUrl.origin)
       .get(optionsEndpointUrl.pathname)
@@ -189,6 +194,12 @@ describe('#provideFormValues', () => {
     })
 
     describe('With a prototype session', () => {
+      beforeEach(() => {
+        nock(prototypeDeploymentConfigEndpoint.origin)
+          .get(prototypeDeploymentConfigEndpoint.pathname)
+          .reply(200, null)
+      })
+
       test('Should provide expected form detail', async () => {
         expect(
           await provideFormValues.method(
@@ -222,15 +233,71 @@ describe('#provideFormValues', () => {
               {
                 value: 1024,
                 text: '1024 (1 vCPU)'
-              },
-              {
-                value: 2048,
-                text: '2048 (2 vCPU)'
               }
             ],
             preExistingDetails: false,
             instanceCount: 1,
             isPrototype: true
+          }
+        })
+      })
+    })
+
+    describe('With a prototype and previous deployment config', () => {
+      beforeEach(() => {
+        nock(prototypeDeploymentConfigEndpoint.origin)
+          .get(prototypeDeploymentConfigEndpoint.pathname)
+          .reply(200, existingServiceInfoFixture)
+      })
+
+      test('Should provide expected form detail', async () => {
+        expect(
+          await provideFormValues.method(
+            mockRequest(prototypeDeploymentSessionFixture)
+          )
+        ).toEqual({
+          formValues: {
+            availableMemoryOptions: [
+              {
+                value: '',
+                text: ' - - select - - ',
+                disabled: true,
+                attributes: {
+                  selected: true
+                }
+              },
+              {
+                value: 2048,
+                text: '2 GB'
+              },
+              {
+                value: 3072,
+                text: '3 GB'
+              }
+            ],
+            cpuOptions: [
+              {
+                value: '',
+                text: ' - - select - - ',
+                disabled: true,
+                attributes: {
+                  selected: true
+                }
+              },
+              {
+                value: 512,
+                text: '512 (.5 vCPU)'
+              },
+              {
+                value: 1024,
+                text: '1024 (1 vCPU)'
+              }
+            ],
+            preExistingDetails: true,
+            instanceCount: 1,
+            isPrototype: true,
+            memory: '2048',
+            cpu: '1024'
           }
         })
       })

@@ -1,6 +1,7 @@
 import Boom from '@hapi/boom'
 
 import { fetchDeployServiceOptions } from '../../common/helpers/fetch/fetch-deploy-service-options.js'
+import { reduceCpuToMemoryOptions } from '../helpers/reduce-cpu-to-memory-options.js'
 
 const availableMemoryController = {
   handler: async (request, h) => {
@@ -15,12 +16,9 @@ const availableMemoryController = {
       const options = {}
 
       if (isPrototype) {
-        const reducedOptions = 3
-        const reducedCpuToMemoryOptionsMap = Object.fromEntries(
-          Object.entries(ecsCpuToMemoryOptionsMap)
-            .slice(0, reducedOptions)
-            .map(([key, value]) => [key, value.slice(0, reducedOptions)])
-        )
+        const { reducedCpuToMemoryOptionsMap } = reduceCpuToMemoryOptions({
+          ecsCpuToMemoryOptionsMap
+        })
 
         options.availableMemoryOptions =
           reducedCpuToMemoryOptionsMap[cpu] ?? null
