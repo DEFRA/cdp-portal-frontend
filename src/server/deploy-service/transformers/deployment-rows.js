@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 function buildRow(multiStepDataSessionId) {
-  return (text, value, stepPath, showActions = true) => {
+  return (text, value, stepPath, hideActions = false) => {
     const queryString = qs.stringify(
       {
         redirectLocation: 'summary'
@@ -12,7 +12,7 @@ function buildRow(multiStepDataSessionId) {
     return {
       key: { text, classes: 'app-summary__heading' },
       value: { html: value },
-      ...(showActions && {
+      ...(!hideActions && {
         actions: {
           classes: 'app-summary__action',
           items: [
@@ -36,15 +36,15 @@ function deploymentRows(
   multiStepDataSessionId
 ) {
   const row = buildRow(multiStepDataSessionId)
-  const showActions = !details.isPrototype
+  const hideActions = details.isPrototype
 
   return [
     row('Image name', details.imageName, 'details'),
     row('Image version', details.version, 'details'),
     row('Environment', details.environment, 'details'),
-    row('Instance count', details.instanceCount, 'options', showActions),
-    row('CPU size', cpuDetail?.text, 'options', showActions),
-    row('Memory allocation', memoryDetail?.text, 'options', showActions)
+    row('Instance count', details.instanceCount, 'options', hideActions),
+    row('CPU size', cpuDetail?.text, 'options'),
+    row('Memory allocation', memoryDetail?.text, 'options')
   ]
 }
 
