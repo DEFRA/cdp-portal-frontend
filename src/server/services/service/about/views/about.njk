@@ -259,8 +259,55 @@
 
     <aside class="app-service-container__sidebar">
       <section class="app-grid-service__links">
-        {% if service.isFrontend %}
 
+        {% if service.isBackend %}
+          {% if apiGateways | length %}
+            {% set urlText = "URL" | pluralise(apiGateways | length * apiGateways[0].apis | length) %}
+            <section class="govuk-!-margin-bottom-6">
+              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">API Gateway {{ urlText }}</h2>
+              <p>
+                Publicly accessible URL for the service
+              </p>
+
+              <dl class="app-description-list">
+                {% for apiGateway in apiGateways %}
+                  <dt class="app-description-list__term">{{ apiGateway.environment | title }}</dt>
+                  <dd class="app-description-list__details">
+                    <ul class="govuk-list govuk-!-margin-0">
+                      {% for api in apiGateway.apis %}
+                        <li>
+                          {{ appApiGatewayUrl(api) }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </dd>
+                {% endfor %}
+              </dl>
+            </section>
+          {% endif %}
+
+          <section class="govuk-!-margin-bottom-6">
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
+            <p>
+              Internal access URLs for use between CDP services
+            </p>
+
+            <dl class="app-description-list">
+              {% for environment in availableServiceEnvironments %}
+                <dt class="app-description-list__term"> {{ environment | title }}</dt>
+                <dd class="app-description-list__details">
+                  <span>https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud</span>
+                </dd>
+              {% else %}
+                <dd class="app-description-list__details">
+                  No internal URLs available
+                </dd>
+              {% endfor %}
+            </dl>
+          </section>
+        {% else %}
+
+          {# Frontends and Prototypes #}
           {% if shutteringDetails | length %}
             {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
             <section class="govuk-!-margin-bottom-6">
@@ -309,53 +356,6 @@
                      target="_blank" rel="noopener noreferrer">
                     https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
                   </a>
-                </dd>
-              {% else %}
-                <dd class="app-description-list__details">
-                  No internal URLs available
-                </dd>
-              {% endfor %}
-            </dl>
-          </section>
-        {% endif %}
-
-        {% if service.isBackend %}
-          {% if apiGateways | length %}
-            {% set urlText = "URL" | pluralise(apiGateways | length * apiGateways[0].apis | length) %}
-            <section class="govuk-!-margin-bottom-6">
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">API Gateway {{ urlText }}</h2>
-              <p>
-                Publicly accessible URL for the service
-              </p>
-
-              <dl class="app-description-list">
-                {% for apiGateway in apiGateways %}
-                  <dt class="app-description-list__term">{{ apiGateway.environment | title }}</dt>
-                  <dd class="app-description-list__details">
-                    <ul class="govuk-list govuk-!-margin-0">
-                      {% for api in apiGateway.apis %}
-                        <li>
-                          {{ appApiGatewayUrl(api) }}
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </dd>
-                {% endfor %}
-              </dl>
-            </section>
-          {% endif %}
-
-          <section class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
-            <p>
-              Internal access URLs for use between CDP services
-            </p>
-
-            <dl class="app-description-list">
-              {% for environment in availableServiceEnvironments %}
-                <dt class="app-description-list__term"> {{ environment | title }}</dt>
-                <dd class="app-description-list__details">
-                  <span>https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud</span>
                 </dd>
               {% else %}
                 <dd class="app-description-list__details">
