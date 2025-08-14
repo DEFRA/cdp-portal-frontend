@@ -3,6 +3,7 @@ import { optionsWithMessage } from '../../../common/helpers/options/options-with
 import { fetchDeployServiceOptions } from '../../../common/helpers/fetch/fetch-deploy-service-options.js'
 import { fetchLatestDeploymentSettings } from '../../../common/helpers/fetch/fetch-latest-deployment-settings.js'
 import { defaultOption } from '../../../common/helpers/options/default-option.js'
+import { reduceCpuToMemoryOptions } from '../reduce-cpu-to-memory-options.js'
 
 const provideFormValues = {
   method: async (request) => {
@@ -20,40 +21,53 @@ const provideFormValues = {
     }
 
     if (stepData) {
+      // Fetch last deployment details
+      const lastDeployment = await fetchLatestDeploymentSettings(
+        stepData?.environment,
+        stepData?.imageName
+      )
+      const hasLastDeployment =
+        lastDeployment && Object.values(lastDeployment).every(Boolean)
+
       if (stepData.isPrototype) {
-        // Hardcode the instance count option for prototypes
-        const instanceCount = 1
-        const reducedOptions = 3
-        const reducedCpuOptions = cpuOptions.slice(0, reducedOptions)
-        const reducedCpuToMemoryOptionsMap = Object.fromEntries(
-          Object.entries(ecsCpuToMemoryOptionsMap)
-            .slice(0, reducedOptions)
-            .map(([key, value]) => [key, value.slice(0, reducedOptions)])
-        )
+        const { reducedCpuOptions, reducedCpuToMemoryOptionsMap } =
+          reduceCpuToMemoryOptions({ cpuOptions, ecsCpuToMemoryOptionsMap })
         const availableMemoryOptions = stepData.cpu
           ? [defaultOption, ...reducedCpuToMemoryOptionsMap[stepData.cpu]]
           : optionsWithMessage('Choose a CPU value')
 
         formDetail.formValues = {
           ...formDetail.formValues,
-          instanceCount,
+          instanceCount: 1, // Hardcode the instance count option for prototypes
           cpuOptions: buildOptions(reducedCpuOptions),
           availableMemoryOptions,
           isPrototype: true
         }
-      } else {
-        const serviceInfo = await fetchLatestDeploymentSettings(
-          stepData?.environment,
-          stepData?.imageName
-        )
-        const serviceInfoHasValues =
-          serviceInfo && Object.values(serviceInfo).every(Boolean)
 
-        // Populate with already deployed service
-        if (serviceInfoHasValues) {
-          const cpu = serviceInfo?.cpu
-          const instanceCount = serviceInfo?.instanceCount
-          const memory = serviceInfo?.memory
+        // Populate with last deployment details
+        if (hasLastDeployment) {
+          const cpu = lastDeployment?.cpu
+          const memory = lastDeployment?.memory
+
+          formDetail.formValues = {
+            ...formDetail.formValues,
+            memory,
+            cpu,
+            availableMemoryOptions: [
+              defaultOption,
+              ...reducedCpuToMemoryOptionsMap[cpu]
+            ],
+            preExistingDetails: true
+          }
+        }
+      }
+
+      if (!stepData.isPrototype) {
+        // Populate with last deployment details
+        if (hasLastDeployment) {
+          const cpu = lastDeployment?.cpu
+          const instanceCount = lastDeployment?.instanceCount
+          const memory = lastDeployment?.memory
 
           formDetail.formValues = {
             ...formDetail.formValues,

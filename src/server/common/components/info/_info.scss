@@ -16,7 +16,7 @@
   border-left: 6px solid govuk-colour("blue");
 
   & + & {
-    margin-top: govuk-spacing(1);
+    margin-top: govuk-spacing(-2);
   }
 }
 
