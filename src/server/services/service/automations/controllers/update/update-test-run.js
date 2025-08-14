@@ -6,10 +6,15 @@ import { updateAutoTestRun } from '../../helpers/fetchers.js'
 import { provideAuthedUser } from '../../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { autoTestRunValidation } from '../../helpers/schema/auto-test-run-validation.js'
 import { buildErrorDetails } from '../../../../../common/helpers/build-error-details.js'
+import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '../../../../../common/helpers/ext/provide-not-found-if-null.js'
 
 const updateTestRunController = {
   options: {
     id: 'post:services/{serviceId}/automations/test-runs/{testSuiteId}/update',
+    ext: {
+      onPreAuth: [provideNotFoundIfPrototype, provideNotFoundIfNull]
+    },
     pre: [provideAuthedUser],
     validate: {
       params: Joi.object({

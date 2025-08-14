@@ -6,10 +6,10 @@ import { findAllProxyRules } from '../helpers/find-proxy-rules.js'
 import { pluralise } from '../../../../../../../config/nunjucks/filters/filters.js'
 import startCase from 'lodash/startCase.js'
 
-export function allProxyController(entityType) {
+export function allProxyController(entityKind) {
   return {
     options: {
-      id: `${pluralise(entityType)}/{serviceId}/proxy`,
+      id: `${pluralise(entityKind)}/{serviceId}/proxy`,
       validate: {
         params: Joi.object({
           serviceId: Joi.string().required()
@@ -18,8 +18,12 @@ export function allProxyController(entityType) {
       }
     },
     handler: async (request, h) => {
+      const entity = request.app.entity
       const entityName = request.params.serviceId
-      const environments = getEnvironments(request.auth.credentials?.scope)
+      const environments = getEnvironments(
+        request.auth.credentials?.scope,
+        entity?.type
+      )
       const proxyRulesByEnvironment = await findAllProxyRules(
         entityName,
         environments
@@ -33,15 +37,15 @@ export function allProxyController(entityType) {
         entityName,
         proxyRulesByEnvironment,
         hasServiceProxyRules,
-        entityType,
+        entityKind,
         breadcrumbs: [
           {
-            text: pluralise(startCase(entityType)),
-            href: `/${pluralise(entityType)}`
+            text: pluralise(startCase(entityKind)),
+            href: `/${pluralise(entityKind)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(entityType)}/${entityName}`
+            href: `/${pluralise(entityKind)}/${entityName}`
           },
           {
             text: 'Proxy'

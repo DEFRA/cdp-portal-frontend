@@ -1,6 +1,6 @@
 import { scopes } from '../../../common/constants/scopes.js'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
-import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
+import { commonServiceExtensions } from '../../../common/helpers/ext/extensions.js'
 import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
 import { updateShutteringStatusController } from './controllers/update-shuttering-status.js'
 import { confirmShutterController } from './controllers/confirm-shutter.js'

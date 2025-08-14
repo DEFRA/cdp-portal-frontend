@@ -4,18 +4,18 @@
 {% from "warning/macro.njk" import appWarning %}
 {% from "icons/pending-icon/macro.njk" import appPendingIcon %}
 
-{% set pluralEntityType = entityType | pluralise %}
+{% set pluralEntityType = entityKind | pluralise %}
 
 {% set warningHtml %}
-  It looks like your {{ entityType }}'s creation is taking a while, contact the Platform team via Slack
+  It looks like your {{ entityKind }}'s creation is taking a while, contact the Platform team via Slack
   <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
      rel="noopener noreferrer">#cdp-support</a> with this page's url for help
 {% endset %}
 
 {% set infoHtml %}
-  Your {{ entityType }} has been created successfully.
-  {% if entityType != 'repository' %}
-    Refresh the page to access your {{ entityType }}'s portal page
+  Your {{ entityKind }} has been created successfully.
+  {% if entityKind != 'repository' %}
+    Refresh the page to access your {{ entityKind }}'s portal page
     <a class="govuk-button app-button app-button--primary app-button--small"
        role="button"
        href="{{ routeLookup(pluralEntityType + '/{serviceId}', { params: { serviceId : entity.name } }) }}">Refresh</a>
@@ -24,7 +24,7 @@
 
 {% block content %}
   {{ appPageHeading({
-    caption: entityType | startCase,
+    caption: entityKind | startCase,
     text: entity.name
   }) }}
 
@@ -80,7 +80,7 @@
           </div>
 
           <p>
-            Your {{ entityType }} and associated resources are currently being created
+            Your {{ entityKind }} and associated resources are currently being created
           </p>
 
           <ul class="govuk-list">

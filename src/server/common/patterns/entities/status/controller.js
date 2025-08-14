@@ -3,10 +3,10 @@ import Boom from '@hapi/boom'
 import { entityStatusHandler } from './status-handler.js'
 import { pluralise } from '../../../../../config/nunjucks/filters/filters.js'
 
-export function entityStatusController(entityType) {
+export function entityStatusController(entityKind) {
   return {
     options: {
-      id: `${pluralise(entityType)}/{serviceId}/status`,
+      id: `${pluralise(entityKind)}/{serviceId}/status`,
       validate: {
         params: Joi.object({
           serviceId: Joi.string().required()
@@ -21,7 +21,7 @@ export function entityStatusController(entityType) {
         return Boom.notFound()
       }
 
-      return await entityStatusHandler(request, h, entityType)
+      return await entityStatusHandler(request, h, entityKind)
     }
   }
 }

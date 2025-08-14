@@ -44,6 +44,7 @@ describe('#provideSubNavForentityType', () => {
         app: {
           entity: {
             name: 'cdp-portal-frontend',
+            type: 'Microservice',
             teams: [{ teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474' }]
           }
         }
@@ -144,7 +145,8 @@ describe('#provideSubNavForentityType', () => {
       mockRequest = buildMockRequest('service', 'buckets', {
         app: {
           entity: {
-            name: 'some-service'
+            name: 'some-service',
+            type: 'Microservice'
           }
         }
       })
@@ -167,6 +169,7 @@ describe('#provideSubNavForentityType', () => {
         app: {
           entity: {
             name: 'mock-tenant-service',
+            type: 'Microservice',
             teams: [
               {
                 teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
@@ -234,6 +237,7 @@ describe('#provideSubNavForentityType', () => {
         app: {
           entity: {
             name: 'mock-tenant-service',
+            type: 'Microservice',
             teams: [
               {
                 teamId: '9e068bb9-1452-426e-a4ca-2e675a942a89'
@@ -306,6 +310,7 @@ describe('#provideSubNavForentityType', () => {
         app: {
           entity: {
             name: 'mock-tenant-service',
+            type: 'TestSuite',
             teams: []
           }
         }

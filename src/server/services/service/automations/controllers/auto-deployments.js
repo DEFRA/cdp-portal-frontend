@@ -6,10 +6,12 @@ import { buildOptions } from '../../../../common/helpers/options/build-options.j
 import { getAutoDeployDetails } from '../helpers/fetchers.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
+import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
 
 const autoDeploymentsController = {
   options: {
     id: 'services/{serviceId}/automations/deployments',
+    ext: { onPreAuth: [provideNotFoundIfNull] },
     pre: [provideAuthedUser],
     validate: {
       params: Joi.object({
@@ -22,15 +24,11 @@ const autoDeploymentsController = {
     const authedUser = request.pre.authedUser
     const serviceId = request.params.serviceId
     const entity = request.app.entity
-
-    if (entity == null) {
-      return Boom.notFound()
-    }
-
     const autoDeployDetails = await getAutoDeployDetails(serviceId)
-    const environments = getEnvironments(authedUser?.scope).filter(
-      (environment) => environment.toLowerCase() !== 'prod'
-    )
+    const environments = getEnvironments(
+      authedUser?.scope,
+      entity?.type
+    ).filter((environment) => environment.toLowerCase() !== 'prod')
     const environmentOptions = buildOptions(
       environments.map((environment) => ({
         text: formatText(environment),

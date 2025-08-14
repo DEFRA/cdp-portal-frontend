@@ -9,10 +9,10 @@ import { pluralise } from '../../../../../helpers/pluralise.js'
 
 const immutableKeys = config.get('platformGlobalSecretKeys')
 
-function updateSecretFormController(entityType) {
+function updateSecretFormController(entityKind) {
   return {
     options: {
-      id: `${pluralise(entityType)}/{serviceId}/secrets/{environment}/update`,
+      id: `${pluralise(entityKind)}/{serviceId}/secrets/{environment}/update`,
       validate: {
         params: serviceParamsValidation,
         query: Joi.object({
@@ -39,23 +39,23 @@ function updateSecretFormController(entityType) {
         teamId,
         environment,
         secretKey,
-        entityType,
+        entityKind,
         breadcrumbs: [
           {
-            text: `${pluralise(startCase(entityType))}`,
-            href: `/${pluralise(entityType)}`
+            text: `${pluralise(startCase(entityKind))}`,
+            href: `/${pluralise(entityKind)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(entityType)}/${entityName}`
+            href: `/${pluralise(entityKind)}/${entityName}`
           },
           {
             text: 'Secrets',
-            href: `/${pluralise(entityType)}/${entityName}/secrets`
+            href: `/${pluralise(entityKind)}/${entityName}/secrets`
           },
           {
             text: formattedEnvironment,
-            href: `/${pluralise(entityType)}/${entityName}/secrets/${environment}`
+            href: `/${pluralise(entityKind)}/${entityName}/secrets/${environment}`
           },
           {
             text: `Update secret`

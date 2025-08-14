@@ -4,7 +4,10 @@ import { terminalBrowserController } from './controllers/terminal-browser.js'
 import { scopes } from '../../../common/constants/scopes.js'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
 import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
-import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
+import {
+  commonServiceExtensions,
+  provideNotFoundIfPrototypeExtension
+} from '../../../common/helpers/ext/extensions.js'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
@@ -17,6 +20,7 @@ const serviceTerminal = {
     register: (server) => {
       server.ext([
         ...commonServiceExtensions,
+        provideNotFoundIfPrototypeExtension,
         {
           type: 'onPostHandler',
           method: provideFormContextValues(),

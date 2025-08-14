@@ -11,6 +11,11 @@ describe('#serviceParamsValidation', () => {
             credentials: {
               scope: ['admin']
             }
+          },
+          app: {
+            request: {
+              entity: { type: 'Microservice' }
+            }
           }
         }
       }

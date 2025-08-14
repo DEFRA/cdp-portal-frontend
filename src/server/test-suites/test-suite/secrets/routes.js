@@ -1,4 +1,7 @@
-import { commonTestSuiteExtensions } from '../../../common/helpers/extensions.js'
+import {
+  commonTestSuiteExtensions,
+  provideNotFoundIfPrototypeExtension
+} from '../../../common/helpers/ext/extensions.js'
 import { allSecretsController } from '../../../common/patterns/entities/tabs/secrets/controllers/all.js'
 import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
 import { provideSubNav } from '../../../helpers/provide-sub-navigation.js'
@@ -15,6 +18,7 @@ export const testSuiteSecrets = {
     register: (server) => {
       server.ext([
         ...commonTestSuiteExtensions,
+        provideNotFoundIfPrototypeExtension,
         {
           type: 'onPostHandler',
           method: provideFormContextValues(),

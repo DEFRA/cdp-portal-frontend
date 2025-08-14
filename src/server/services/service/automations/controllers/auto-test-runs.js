@@ -7,10 +7,15 @@ import { getEnvironments } from '../../../../common/helpers/environments/get-env
 import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { buildAutoTestRunsViewDetails } from '../helpers/build-auto-test-runs-view-details.js'
 import { excludedEnvironments } from '../helpers/constants/excluded-environments.js'
+import { provideNotFoundIfPrototype } from '../../../../common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
 
 const autoTestRunsController = {
   options: {
     id: 'services/{serviceId}/automations/test-runs',
+    ext: {
+      onPreAuth: [provideNotFoundIfPrototype, provideNotFoundIfNull]
+    },
     pre: [provideAuthedUser],
     validate: {
       params: Joi.object({
@@ -20,18 +25,14 @@ const autoTestRunsController = {
     }
   },
   handler: async (request, h) => {
+    const entity = request.app.entity
     const authedUser = request.pre.authedUser
     const serviceId = request.params.serviceId
-    const entity = request.app.entity
     const serviceTeams = entity?.teams
-
-    if (entity == null) {
-      return Boom.notFound()
-    }
-
-    const environments = getEnvironments(authedUser?.scope).filter(
-      (env) => !excludedEnvironments.includes(env.toLowerCase())
-    )
+    const environments = getEnvironments(
+      authedUser?.scope,
+      entity?.type
+    ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
 
     const environmentOptions = buildOptions(
       environments.map((env) => ({ text: formatText(env), value: env })),

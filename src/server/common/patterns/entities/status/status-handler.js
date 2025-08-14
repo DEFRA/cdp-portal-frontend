@@ -11,7 +11,7 @@ import startCase from 'lodash/startCase.js'
 import { REPOSITORY, SERVICE, TEST_SUITE } from '../tabs/constants.js'
 import { resourceDescriptions } from './helpers/resource-descriptions.js'
 
-export async function entityStatusHandler(request, h, entityType) {
+export async function entityStatusHandler(request, h, entityKind) {
   const entity = request.app.entity
 
   if (entity == null) {
@@ -50,7 +50,7 @@ export async function entityStatusHandler(request, h, entityType) {
     : 'success'
 
   let entityTitle
-  switch (entityType) {
+  switch (entityKind) {
     case SERVICE:
       entityTitle = 'microservice'
       break
@@ -58,18 +58,18 @@ export async function entityStatusHandler(request, h, entityType) {
       entityTitle = 'test suite'
       break
     case REPOSITORY:
-      entityTitle = entityType
+      entityTitle = entityKind
       break
     default:
-      throw new Error('Unknown entity type: ' + entityType)
+      throw new Error('Unknown entity type: ' + entityKind)
   }
 
   return h.view('common/patterns/entities/status/views/creating', {
     faviconState,
     pageTitle: `${entity.status} ${serviceName} ${entityTitle}`,
     summaryList: transformServiceToSummary(repository, entity),
-    resourceDescriptions: resourceDescriptions(entityType),
-    entityType,
+    resourceDescriptions: resourceDescriptions(entityKind),
+    entityKind,
     entity,
     isServiceOwner,
     resources,
@@ -77,8 +77,8 @@ export async function entityStatusHandler(request, h, entityType) {
     shouldPoll,
     breadcrumbs: [
       {
-        text: `${pluralise(startCase(entityType))}`,
-        href: entityType === REPOSITORY ? '' : `/${pluralise(entityType)}`
+        text: `${pluralise(startCase(entityKind))}`,
+        href: entityKind === REPOSITORY ? '' : `/${pluralise(entityKind)}`
       },
       {
         text: serviceName

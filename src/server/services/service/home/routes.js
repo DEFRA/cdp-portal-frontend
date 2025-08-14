@@ -1,4 +1,4 @@
-import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
+import { commonServiceExtensions } from '../../../common/helpers/ext/extensions.js'
 import { serviceHomeController } from './service-home.js'
 import { SERVICE } from '../../../common/patterns/entities/tabs/constants.js'
 import { entityStatusController } from '../../../common/patterns/entities/status/controller.js'

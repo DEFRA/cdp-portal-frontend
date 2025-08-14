@@ -20,6 +20,8 @@ async function provideServiceTabs(request, h) {
 
     const entityName = request.app.entity?.name
     const entity = request.app.entity
+    const isTestSuiteOrMicroservice =
+      entity?.type === 'Microservice' || entity?.type === 'TestSuite'
     const isServiceOwner = await request.userIsOwner(entity)
 
     response.source.context.tabDetails = {
@@ -38,8 +40,10 @@ async function provideServiceTabs(request, h) {
     ]
 
     if (isAdmin || isTenant) {
-      buildTab(response, request, 'services', 'resources', entityName)
-      buildTab(response, request, 'services', 'proxy', entityName)
+      if (isTestSuiteOrMicroservice) {
+        buildTab(response, request, 'services', 'resources', entityName)
+        buildTab(response, request, 'services', 'proxy', entityName)
+      }
     } else {
       response.source.context.tabDetails.displayTabs = false
     }
@@ -48,7 +52,10 @@ async function provideServiceTabs(request, h) {
       buildTab(response, request, 'services', 'automations', entityName)
       buildTab(response, request, 'services', 'secrets', entityName)
       buildTab(response, request, 'services', 'maintenance', entityName)
-      buildTab(response, request, 'services', 'terminal', entityName)
+
+      if (isTestSuiteOrMicroservice) {
+        buildTab(response, request, 'services', 'terminal', entityName)
+      }
     }
 
     response.source.context.tabDetails.tabs.sort(sortBy('label', 'asc'))

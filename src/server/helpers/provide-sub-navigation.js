@@ -11,8 +11,12 @@ function provideSubNav(subTitle, entityType) {
         response.source.context = {}
       }
 
-      const serviceId = request.app.entity?.name
-      const environments = getEnvironments(request.auth.credentials?.scope)
+      const entity = request.app.entity
+      const serviceId = entity?.name
+      const environments = getEnvironments(
+        request.auth.credentials?.scope,
+        entity?.type
+      )
 
       response.source.context.subNavigation = [
         {

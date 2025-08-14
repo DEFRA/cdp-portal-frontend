@@ -1,10 +1,19 @@
-import { provideServiceTabs } from '../../services/helpers/provide-service-tabs.js'
-import { validateEntityIsAService } from './validate-entity-is-a-service.js'
-import { addServiceOwnerScope } from '../../services/helpers/add-service-owner-scope.js'
-import { provideTestSuiteTabs } from '../../test-suites/helpers/provide-test-suite-tabs.js'
-import { validateEntityIsATestSuite } from './validate-entity-is-a-test-suite.js'
-import { provideMessages } from '../../services/helpers/provide-messages.js'
 import { provideEntity } from './provide-entitiy.js'
+import { validateEntityIsAService } from './validate-entity-is-a-service.js'
+import { provideNotFoundIfPrototype } from './provide-not-found-if-prototype.js'
+import { validateEntityIsATestSuite } from './validate-entity-is-a-test-suite.js'
+import { provideServiceTabs } from '../../../services/helpers/provide-service-tabs.js'
+import { addServiceOwnerScope } from '../../../services/helpers/add-service-owner-scope.js'
+import { provideTestSuiteTabs } from '../../../test-suites/helpers/provide-test-suite-tabs.js'
+import { provideMessages } from '../../../services/helpers/provide-messages.js'
+
+const provideNotFoundIfPrototypeExtension = {
+  type: 'onPreAuth',
+  method: provideNotFoundIfPrototype.method,
+  options: {
+    sandbox: 'plugin'
+  }
+}
 
 const provideEntityExtension = {
   type: 'onPreAuth',
@@ -82,5 +91,6 @@ export {
   commonTestSuiteExtensions,
   provideEntityExtension,
   provideServiceTabsExtension,
-  provideTestSuiteTabsExtension
+  provideTestSuiteTabsExtension,
+  provideNotFoundIfPrototypeExtension
 }
