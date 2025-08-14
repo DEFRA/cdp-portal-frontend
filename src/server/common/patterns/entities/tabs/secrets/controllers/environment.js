@@ -7,10 +7,10 @@ import { environmentSecrets } from '../transformers/environment-secrets.js'
 import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
 import { pluralise } from '../../../../../helpers/pluralise.js'
 
-export function environmentSecretsController(entityType) {
+export function environmentSecretsController(entityKind) {
   return {
     options: {
-      id: `${pluralise(entityType)}/{serviceId}/secrets/{environment}`,
+      id: `${pluralise(entityKind)}/{serviceId}/secrets/{environment}`,
       validate: {
         params: serviceParamsValidation,
         failAction: () => Boom.boomify(Boom.notFound())
@@ -41,19 +41,19 @@ export function environmentSecretsController(entityType) {
         shouldPoll,
         successMessage,
         exceptionMessage,
-        entityType,
+        entityKind,
         breadcrumbs: [
           {
-            text: `${pluralise(startCase(entityType))}`,
-            href: `/${pluralise(entityType)}`
+            text: `${pluralise(startCase(entityKind))}`,
+            href: `/${pluralise(entityKind)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(entityType)}/${entityName}`
+            href: `/${pluralise(entityKind)}/${entityName}`
           },
           {
             text: 'Secrets',
-            href: `/${pluralise(entityType)}/${entityName}/secrets`
+            href: `/${pluralise(entityKind)}/${entityName}/secrets`
           },
           {
             text: formattedEnvironment

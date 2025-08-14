@@ -1,5 +1,8 @@
-// TODO can this be improved?
 function provideAutomationSubNavigation(request, h) {
+  const entity = request.app.entity
+  const isTestSuiteOrMicroservice =
+    entity?.type === 'Microservice' || entity?.type === 'TestSuite'
+
   const response = request.response
 
   if (response.variety === 'view') {
@@ -17,18 +20,20 @@ function provideAutomationSubNavigation(request, h) {
       { params: { serviceId } }
     )
 
-    response.source.context.subNavigation = [
-      {
-        isActive: request.path.includes('automations/deployments'),
-        url: autoDeploymentsUrl,
-        label: { text: 'Deployments' }
-      },
-      {
-        isActive: request.path.includes('automations/test-runs'),
-        url: autoTestRunsUrl,
-        label: { text: 'Test Runs' }
-      }
-    ]
+    if (isTestSuiteOrMicroservice) {
+      response.source.context.subNavigation = [
+        {
+          isActive: request.path.includes('automations/deployments'),
+          url: autoDeploymentsUrl,
+          label: { text: 'Deployments' }
+        },
+        {
+          isActive: request.path.includes('automations/test-runs'),
+          url: autoTestRunsUrl,
+          label: { text: 'Test Runs' }
+        }
+      ]
+    }
   }
 
   return h.continue

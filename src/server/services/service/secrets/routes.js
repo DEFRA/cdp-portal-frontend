@@ -5,7 +5,7 @@ import { createSecretController } from '../../../common/patterns/entities/tabs/s
 import { updateSecretFormController } from '../../../common/patterns/entities/tabs/secrets/controllers/update-form.js'
 import { provideServiceTabs } from '../../helpers/provide-service-tabs.js'
 import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
-import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
+import { commonServiceExtensions } from '../../../common/helpers/ext/extensions.js'
 import { serviceOwnerOrAdminUserScope } from '../../../common/constants/scopes.js'
 import { provideSubNav } from '../../../helpers/provide-sub-navigation.js'
 import { SERVICE } from '../../../common/patterns/entities/tabs/constants.js'

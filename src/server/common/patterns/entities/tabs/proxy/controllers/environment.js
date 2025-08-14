@@ -8,10 +8,10 @@ import {
 import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
 import { findProxyRulesForEnvironment } from '../helpers/find-proxy-rules.js'
 
-export function environmentProxyController(entityType) {
+export function environmentProxyController(entityKind) {
   return {
     options: {
-      id: `${pluralise(entityType)}/{serviceId}/proxy/{environment}`,
+      id: `${pluralise(entityKind)}/{serviceId}/proxy/{environment}`,
       validate: {
         params: serviceParamsValidation,
         failAction: () => Boom.boomify(Boom.notFound())
@@ -35,16 +35,16 @@ export function environmentProxyController(entityType) {
         defaultDomains: proxyRules.rules.defaultDomains,
         breadcrumbs: [
           {
-            text: `${pluralise(startCase(entityType))}`,
-            href: `/${pluralise(entityType)}`
+            text: `${pluralise(startCase(entityKind))}`,
+            href: `/${pluralise(entityKind)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(entityType)}/${entityName}`
+            href: `/${pluralise(entityKind)}/${entityName}`
           },
           {
             text: 'Proxy-Rules',
-            href: `/${pluralise(entityType)}/${entityName}/proxy`
+            href: `/${pluralise(entityKind)}/${entityName}/proxy`
           },
           {
             text: formattedEnvironment

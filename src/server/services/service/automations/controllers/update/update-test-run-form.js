@@ -10,10 +10,15 @@ import { excludedEnvironments } from '../../helpers/constants/excluded-environme
 import { buildOptions } from '../../../../../common/helpers/options/build-options.js'
 import { formatText } from '../../../../../../config/nunjucks/filters/filters.js'
 import { provideAuthedUser } from '../../../../../common/helpers/auth/pre/provide-authed-user.js'
+import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '../../../../../common/helpers/ext/provide-not-found-if-null.js'
 
 const updateTestRunFormController = {
   options: {
     id: 'services/{serviceId}/automations/test-runs/{testSuiteId}/update',
+    ext: {
+      onPreAuth: [provideNotFoundIfPrototype, provideNotFoundIfNull]
+    },
     pre: [provideAuthedUser],
     validate: {
       params: Joi.object({

@@ -2,7 +2,7 @@ import { allProxyController } from '../../../common/patterns/entities/tabs/proxy
 import { environmentProxyController } from '../../../common/patterns/entities/tabs/proxy/controllers/environment.js'
 import { scopes } from '../../../common/constants/scopes.js'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
-import { commonServiceExtensions } from '../../../common/helpers/extensions.js'
+import { commonServiceExtensions } from '../../../common/helpers/ext/extensions.js'
 import { provideSubNav } from '../../../helpers/provide-sub-navigation.js'
 import { SERVICE } from '../../../common/patterns/entities/tabs/constants.js'
 

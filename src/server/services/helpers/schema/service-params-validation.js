@@ -9,11 +9,12 @@ import { getEnvironments } from '../../../common/helpers/environments/get-enviro
  */
 function serviceParamsValidation(params, options) {
   const scopes = options.context.auth.credentials?.scope.slice()
+  const entity = options.context.app?.request?.entity
 
   const validationResult = Joi.object({
     serviceId: Joi.string().required(),
     environment: Joi.string()
-      .valid(...getEnvironments(scopes))
+      .valid(...getEnvironments(scopes, entity?.type))
       .required()
   }).validate(params, options)
 

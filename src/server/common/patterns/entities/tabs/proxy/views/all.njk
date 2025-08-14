@@ -97,7 +97,7 @@
   {% include "partials/entity/messages.njk" %}
 {% endblock %}
 
-{% set pluralEntityType = entityType | pluralise %}
+{% set pluralEntityType = entityKind | pluralise %}
 
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
@@ -109,7 +109,7 @@
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Proxy</h2>
             <p>
               View proxy rules for {{ entityName }} in all CDP environments.
-              These are rules for allowing outbound traffic from the {{ entityType }} to anything outside of
+              These are rules for allowing outbound traffic from the {{ entityKind }} to anything outside of
               CDP.
             </p>
 

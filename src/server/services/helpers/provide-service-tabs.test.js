@@ -9,7 +9,12 @@ const mockRouteLookup = vi.fn(
 )
 
 describe('#provideServiceTabs', () => {
-  const mockRequest = ({ response, path = '', scope = [] }) => ({
+  const mockRequest = ({
+    response,
+    path = '',
+    scope = [],
+    type = 'Microservice'
+  }) => ({
     response,
     path,
     getUserSession: mockUserSession,
@@ -20,7 +25,8 @@ describe('#provideServiceTabs', () => {
     }),
     app: {
       entity: {
-        name: mockServiceName
+        name: mockServiceName,
+        type
       }
     }
   })
@@ -141,6 +147,41 @@ describe('#provideServiceTabs', () => {
         }
       ])
     })
+
+    test('For a Prototype should provide expected context tabs', async () => {
+      await provideServiceTabs(
+        mockRequest({
+          response: mockResponse,
+          path: `/services/${mockServiceName}`,
+          type: 'Prototype'
+        }),
+        mockViewHelper
+      )
+
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
+        {
+          isActive: true,
+          label: 'About',
+          url: `/services/${mockServiceName}`
+        },
+        {
+          isActive: false,
+          label: 'Automations',
+          url: `/services/${mockServiceName}/automations`
+        },
+        {
+          isActive: false,
+          label: 'Maintenance',
+          url: `/services/${mockServiceName}/maintenance`
+        },
+        {
+          isActive: false,
+          label: 'Secrets',
+          url: `/services/${mockServiceName}/secrets`
+        }
+      ])
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
+    })
   })
 
   describe('With a service owner', () => {
@@ -200,18 +241,6 @@ describe('#provideServiceTabs', () => {
         }
       ])
       expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(7)
-    })
-
-    test('Should not show admin only tabs', () => {
-      expect(mockResponse.source.context.tabDetails.tabs).toEqual(
-        expect.not.arrayContaining([
-          {
-            isActive: false,
-            label: 'Automation',
-            url: `/services/${mockServiceName}/automations`
-          }
-        ])
-      )
     })
 
     test('Should mark matching url as Active', () => {

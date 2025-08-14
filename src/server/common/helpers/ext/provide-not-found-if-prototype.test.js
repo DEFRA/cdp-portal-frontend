@@ -1,0 +1,41 @@
+import Boom from '@hapi/boom'
+
+import { provideNotFoundIfPrototype } from './provide-not-found-if-prototype.js'
+
+describe('#provideNotFoundIfPrototype', () => {
+  test('Should return not found when entity type is Prototype', () => {
+    const request = { app: { entity: { type: 'Prototype' } } }
+    const h = { continue: Symbol('continue') }
+
+    const result = provideNotFoundIfPrototype.method(request, h)
+
+    expect(result).toEqual(Boom.notFound())
+  })
+
+  test('Should continue when entity is valid and not a Prototype', () => {
+    const request = { app: { entity: { type: 'ValidType' } } }
+    const h = { continue: Symbol('continue') }
+
+    const result = provideNotFoundIfPrototype.method(request, h)
+
+    expect(result).toBe(h.continue)
+  })
+
+  test('Should handle missing app object gracefully', () => {
+    const request = {}
+    const h = { continue: Symbol('continue') }
+
+    const result = provideNotFoundIfPrototype.method(request, h)
+
+    expect(result).toBe(h.continue)
+  })
+
+  test('Should handle missing entity object gracefully', () => {
+    const request = { app: {} }
+    const h = { continue: Symbol('continue') }
+
+    const result = provideNotFoundIfPrototype.method(request, h)
+
+    expect(result).toBe(h.continue)
+  })
+})

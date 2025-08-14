@@ -1,4 +1,4 @@
-import { provideEntityExtension } from '../common/helpers/extensions.js'
+import { provideEntityExtension } from '../common/helpers/ext/extensions.js'
 import { entityStatusController } from '../common/patterns/entities/status/controller.js'
 import { REPOSITORY } from '../common/patterns/entities/tabs/constants.js'
 

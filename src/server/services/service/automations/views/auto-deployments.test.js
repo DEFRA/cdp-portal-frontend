@@ -56,7 +56,7 @@ describe('Service automation tab', () => {
     vi.useRealTimers()
   })
 
-  test('Never deployed', () => {
+  test('Never deployedq', () => {
     const rendered = renderPage(
       'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({

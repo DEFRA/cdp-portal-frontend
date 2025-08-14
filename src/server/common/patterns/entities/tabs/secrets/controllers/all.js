@@ -7,10 +7,10 @@ import { allEnvironmentSecrets } from '../transformers/all-environment-secrets.j
 import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
 import { pluralise } from '../../../../../helpers/pluralise.js'
 
-function allSecretsController(entityType) {
+function allSecretsController(entityKind) {
   return {
     options: {
-      id: `${pluralise(entityType)}/{serviceId}/secrets`,
+      id: `${pluralise(entityKind)}/{serviceId}/secrets`,
       validate: {
         params: Joi.object({
           serviceId: Joi.string().required()
@@ -19,8 +19,12 @@ function allSecretsController(entityType) {
       }
     },
     handler: async (request, h) => {
+      const entity = request.app.entity
       const entityName = request.params.serviceId
-      const environments = getEnvironments(request.auth.credentials?.scope)
+      const environments = getEnvironments(
+        request.auth.credentials?.scope,
+        entity?.type
+      )
       const allSecrets = await fetchAllSecrets(entityName)
       const secretsByEnvironment = allEnvironmentSecrets(
         environments,
@@ -31,15 +35,15 @@ function allSecretsController(entityType) {
         pageTitle: `${entityName} - Secrets`,
         entityName,
         secretsByEnvironment,
-        entityType,
+        entityKind,
         breadcrumbs: [
           {
-            text: `${startCase(pluralise(entityType))}`,
-            href: `/${pluralise(entityType)}`
+            text: `${startCase(pluralise(entityKind))}`,
+            href: `/${pluralise(entityKind)}`
           },
           {
             text: entityName,
-            href: `/${pluralise(entityType)}/${entityName}`
+            href: `/${pluralise(entityKind)}/${entityName}`
           },
           {
             text: 'Secrets'

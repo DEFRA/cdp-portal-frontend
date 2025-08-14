@@ -5,10 +5,15 @@ import {
   fetchTestRepository,
   getAutoTestRunDetails
 } from '../../helpers/fetchers.js'
+import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '../../../../../common/helpers/ext/provide-not-found-if-null.js'
 
 const removeTestRunFormController = {
   options: {
     id: 'services/{serviceId}/automations/test-runs/{testSuiteId}/remove',
+    ext: {
+      onPreAuth: [provideNotFoundIfPrototype, provideNotFoundIfNull]
+    },
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required(),

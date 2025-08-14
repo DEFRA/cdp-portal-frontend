@@ -1,4 +1,4 @@
-import { commonTestSuiteExtensions } from '../../../common/helpers/extensions.js'
+import { commonTestSuiteExtensions } from '../../../common/helpers/ext/extensions.js'
 import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
 import { entityStatusController } from '../../../common/patterns/entities/status/controller.js'
 import { testSuiteHomeController } from './test-suite-home.js'

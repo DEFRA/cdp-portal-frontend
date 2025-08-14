@@ -1,7 +1,7 @@
 <nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
   <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
-  <ul class="app-subnav__section">
-    {% for item in subNavigation %}
+  {% for item in subNavigation %}
+    <ul class="app-subnav__section">
       {% set label = item.label.html | safe if item.label.html else item.label.text %}
       {% set testId = (item.label.text if item.label.text else loop.index) | lower | replace(" ", "-") %}
 
@@ -12,6 +12,6 @@
            data-testid="app-subnav-link-{{ testId }}"
         >{{ label }}</a>
       </li>
-    {% endfor %}
-  </ul>
+    </ul>
+  {% endfor %}
 </nav>

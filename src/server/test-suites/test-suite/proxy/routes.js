@@ -2,7 +2,10 @@ import { allProxyController } from '../../../common/patterns/entities/tabs/proxy
 import { environmentProxyController } from '../../../common/patterns/entities/tabs/proxy/controllers/environment.js'
 import { scopes } from '../../../common/constants/scopes.js'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
-import { commonTestSuiteExtensions } from '../../../common/helpers/extensions.js'
+import {
+  commonTestSuiteExtensions,
+  provideNotFoundIfPrototypeExtension
+} from '../../../common/helpers/ext/extensions.js'
 import { provideSubNav } from '../../../helpers/provide-sub-navigation.js'
 import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
 
@@ -14,6 +17,7 @@ export const testSuiteProxies = {
     register: (server) => {
       server.ext([
         ...commonTestSuiteExtensions,
+        provideNotFoundIfPrototypeExtension,
         {
           type: 'onPostHandler',
           method: provideSubNav('proxy', TEST_SUITE),

@@ -5,12 +5,14 @@ import { entityStatusHandler } from '../../../common/patterns/entities/status/st
 import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
 import { pluralise } from '../../../../config/nunjucks/filters/filters.js'
 import { provideFormValues } from '../../helpers/pre/provide-form-values.js'
+import { provideNotFoundIfNull } from '../../../common/helpers/ext/provide-not-found-if-null.js'
 
 const entityType = TEST_SUITE
 
 const testSuiteHomeController = {
   options: {
     id: `${pluralise(entityType)}/{serviceId}`,
+    ext: { onPreAuth: [provideNotFoundIfNull] },
     pre: [provideFormValues],
     validate: {
       query: Joi.object({
@@ -25,10 +27,6 @@ const testSuiteHomeController = {
   },
   handler: async (request, h) => {
     const entity = request.app.entity
-
-    if (entity == null) {
-      return Boom.notFound()
-    }
 
     if (entity.status === 'Creating') {
       return await entityStatusHandler(request, h, entityType)
