@@ -1,5 +1,6 @@
-<nav class="app-breadcrumbs{% if params.classes %} {{ params.classes }}{% endif %}" data-testid="app-breadcrumbs"
-     aria-label="Breadcrumb">
+{% set classes = ["app-breadcrumbs", params.classes if params.classes, "app-breadcrumbs--split-pane" if params.isSplitPane] | join(" ") | trim %}
+
+<nav class="{{ classes }}" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
   <ol class="app-breadcrumbs__list">
     {% for item in params.items %}
       {% if item.href %}

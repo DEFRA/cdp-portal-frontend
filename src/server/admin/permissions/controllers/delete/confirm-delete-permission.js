@@ -27,7 +27,7 @@ const confirmDeletePermissionController = {
       summaryList: transformScopeToSummary(scope, false),
       teamsTaskList: transformScopeTeamsToTaskList(scope, false),
       scope,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

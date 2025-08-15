@@ -25,7 +25,7 @@ const userController = {
       summaryList: transformUserToSummary(user),
       teamsTaskList: transformUserTeamsToTaskList(user),
       scopesTaskList: transformUserScopesToTaskList(user),
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

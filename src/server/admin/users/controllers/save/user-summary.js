@@ -24,7 +24,7 @@ const userSummaryController = {
       userRows: transformSummaryUserRows(cdpUser),
       formButtonText: isEdit ? 'Save' : 'Create',
       isEdit,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

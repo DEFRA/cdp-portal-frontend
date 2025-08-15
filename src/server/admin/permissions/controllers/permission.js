@@ -30,7 +30,7 @@ const permissionController = {
       usersTaskList: transformScopeUsersToTaskList(scope),
       teamsTaskList: transformScopeTeamsToTaskList(scope),
       scope,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

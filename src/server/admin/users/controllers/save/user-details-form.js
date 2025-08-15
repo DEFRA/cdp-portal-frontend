@@ -29,7 +29,7 @@ const userDetailsFormController = {
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       isEdit,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

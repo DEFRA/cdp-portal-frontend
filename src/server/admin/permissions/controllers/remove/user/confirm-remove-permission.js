@@ -33,7 +33,7 @@ const confirmRemovePermissionFromUserController = {
         pageHeading: {
           text: `${formattedValue} from user ${user.name}`
         },
-        breadcrumbs: [
+        splitPaneBreadcrumbs: [
           {
             text: 'Admin',
             href: '/admin'

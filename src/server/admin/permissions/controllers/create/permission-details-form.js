@@ -16,7 +16,7 @@ const createPermissionDetailsFormController = {
     return h.view('admin/permissions/views/create/permission-details-form', {
       pageTitle: 'Create new permission',
       kindOptions,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

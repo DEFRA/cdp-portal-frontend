@@ -40,7 +40,7 @@ const teamDetailsFormController = {
         text: isEdit ? 'Edit' : 'Create New'
       },
       alertEnvironmentsCheckboxes,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

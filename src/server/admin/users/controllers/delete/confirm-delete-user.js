@@ -24,7 +24,7 @@ const confirmDeleteUserController = {
       summaryList: transformUserToSummary(user, false),
       teamsTaskList: transformUserTeamsToTaskList(user),
       user,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'
