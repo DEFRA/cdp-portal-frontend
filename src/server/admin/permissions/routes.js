@@ -16,30 +16,56 @@ import { confirmDeletePermissionController } from './controllers/delete/confirm-
 import { deletePermissionController } from './controllers/delete/delete-permission.js'
 import { confirmRemovePermissionFromUserController } from './controllers/remove/user/confirm-remove-permission.js'
 import { removePermissionFromUserController } from './controllers/remove/user/remove-permission.js'
+import { addUserPermissionController } from './controllers/add/add-user-permission.js'
+import { addUserPermissionFormController } from './controllers/add/add-user-permission-form.js'
+import { multistepForm } from '../../common/helpers/multistep-form/multistep-form.js'
+import { formSteps, urls } from './helpers/multistep-form/add-user/steps.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
+const serverExtensions = [
+  {
+    type: 'onPostHandler',
+    method: provideSubNavigation,
+    options: {
+      sandbox: 'plugin'
+    }
+  },
+  {
+    type: 'onPostHandler',
+    method: provideFormContextValues(),
+    options: {
+      before: ['yar'],
+      sandbox: 'plugin'
+    }
+  }
+]
 
 const adminPermissions = {
   plugin: {
     name: 'adminPermissions',
     register: (server) => {
-      server.ext([
-        {
-          type: 'onPostHandler',
-          method: provideSubNavigation,
-          options: {
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideFormContextValues(),
-          options: {
-            before: ['yar'],
-            sandbox: 'plugin'
-          }
+      server.ext(serverExtensions)
+
+      server.register({
+        plugin: multistepForm,
+        options: {
+          urls,
+          formSteps,
+          ext: serverExtensions,
+          routes: [
+            {
+              method: 'GET',
+              path: '/admin/permissions/{scopeId}/user/add',
+              ...addUserPermissionFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/permissions/{scopeId}/user/add',
+              ...addUserPermissionController
+            }
+          ].map(adminScope)
         }
-      ])
+      })
 
       server.route(
         [

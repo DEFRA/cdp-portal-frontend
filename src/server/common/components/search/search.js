@@ -48,6 +48,8 @@ function search($module) {
     }
   })
 
+  // TODO make reset for resetting the form
+
   $clearButton.addEventListener('click', () => {
     $input.value = ''
     $input.focus()
