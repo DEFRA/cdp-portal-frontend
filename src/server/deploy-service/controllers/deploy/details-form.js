@@ -12,7 +12,7 @@ import { nullify404 } from '../../../common/helpers/nullify-404.js'
 import { buildSuggestions } from '../../../common/components/autocomplete/helpers/build-suggestions.js'
 import {
   fetchEntity,
-  fetchServices
+  fetchServiceNames
 } from '../../../common/helpers/fetch/fetch-entities.js'
 
 const detailsFormController = {
@@ -30,15 +30,13 @@ const detailsFormController = {
   handler: async (request, h) => {
     const query = request?.query
     const stepData = request.pre.stepData
+    const authedUser = request.auth.credentials
+
     const imageName = query?.imageName ?? stepData?.imageName
     const redirectLocation = query?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
-    const authedUser = await request.getUserSession()
-    const userScopes = authedUser?.scope
 
-    const teamIds = authedUser?.isAdmin ? [] : userScopes
-
-    const services = await fetchServices({ teamIds })
+    const serviceNames = await fetchServiceNames(authedUser)
     const latestMigrationsResponse = await fetchLatestMigrations(imageName)
 
     const latestMigrations = latestMigrationsResponse.map((migration) => ({
@@ -47,12 +45,9 @@ const detailsFormController = {
     }))
 
     const entity = await fetchEntity(imageName).catch(nullify404)
+    const imageNameOptions = buildOptions(serviceNames)
 
-    const imageNameOptions = buildOptions(
-      services.map((service) => service.name)
-    )
-
-    const environments = getEnvironments(userScopes, entity?.type)
+    const environments = getEnvironments(authedUser?.scope, entity?.type)
     const environmentOptions = environments.length
       ? buildSuggestions(
           environments.map((environment) => ({

@@ -5,10 +5,12 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
 import { serviceValidation } from '../../helpers/schema/service-validation.js'
-import { fetchDeployableImageNames } from '../../../common/helpers/fetch/fetch-deployable-image-names.js'
 import { fetchAvailableVersions } from '../../helpers/fetch/fetch-available-versions.js'
-import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
 import { nullify404 } from '../../../common/helpers/nullify-404.js'
+import {
+  fetchServiceNames,
+  fetchEntity
+} from '../../../common/helpers/fetch/fetch-entities.js'
 
 const detailsController = {
   options: {
@@ -20,16 +22,16 @@ const detailsController = {
   },
   handler: async (request, h) => {
     const payload = request?.payload
+    const authedUser = request.auth.credentials
     const redirectLocation = payload?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
 
-    const deployableImageNames = await fetchDeployableImageNames({ request })
+    const serviceNames = await fetchServiceNames(authedUser)
     const availableVersions = await fetchAvailableVersions(payload?.imageName)
-    const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
 
     const validationResult = serviceValidation(
-      deployableImageNames,
+      serviceNames,
       availableVersions.map((version) => version.tag),
       environments,
       payload.button

@@ -45,6 +45,13 @@ function fetchServices(queryParams) {
   })
 }
 
+async function fetchServiceNames(authedUser) {
+  const teamIds = authedUser?.isAdmin ? [] : authedUser.uuidScope
+  const services = await fetchServices({ teamIds })
+
+  return services.map((service) => service.name)
+}
+
 async function fetchDecommissions(queryParams) {
   const entities = await fetchEntities({
     status: ['Decommissioned', 'Decommissioning'],
@@ -58,6 +65,7 @@ async function fetchDecommissions(queryParams) {
 
 export {
   fetchServices,
+  fetchServiceNames,
   fetchTestSuites,
   fetchEntities,
   fetchEntity,
