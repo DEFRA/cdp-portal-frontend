@@ -2,11 +2,11 @@ import Joi from 'joi'
 import qs from 'qs'
 
 import { buildErrorDetails } from '../../common/helpers/build-error-details.js'
-import { fetchDeployableImageNames } from '../../common/helpers/fetch/fetch-deployable-image-names.js'
 import { sessionNames } from '../../common/constants/session-names.js'
 import { getEnvironments } from '../../common/helpers/environments/get-environments.js'
 import { fetchAvailableMigrations } from '../../services/helpers/fetch/fetch-available-migrations.js'
 import { dbChangeValidation } from '../helpers/schema/db-change-validation.js'
+import { fetchServiceNames } from '../../common/helpers/fetch/fetch-entities.js'
 
 const changeDetailsController = {
   options: {
@@ -18,16 +18,16 @@ const changeDetailsController = {
   },
   handler: async (request, h) => {
     const payload = request?.payload
+    const authedUser = request.auth.credentials
     const redirectLocation = payload?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
 
-    const deployableImageNames = await fetchDeployableImageNames({ request })
+    const serviceNames = await fetchServiceNames(authedUser)
     const migrations = await fetchAvailableMigrations(payload?.serviceName)
-    const authedUser = await request.getUserSession()
     const environments = getEnvironments(authedUser?.scope)
 
     const validationResult = dbChangeValidation(
-      deployableImageNames,
+      serviceNames,
       migrations.map((migration) => migration.version).filter(Boolean),
       environments,
       payload.button
