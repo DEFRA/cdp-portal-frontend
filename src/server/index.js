@@ -101,8 +101,10 @@ async function createServer({ cache } = { cache: serverCache }) {
     ? [cognitoFederatedCredentials, federatedOidc]
     : [azureOidc]
 
+  const usePulse = config.get('usePulse')
+
   await server.register([
-    pulse,
+    ...(usePulse ? [pulse] : []),
     sessionManager,
     ...authPlugins,
     sessionCookie,
