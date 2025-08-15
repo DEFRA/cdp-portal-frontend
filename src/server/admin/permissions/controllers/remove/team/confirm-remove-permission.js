@@ -38,7 +38,7 @@ const confirmRemovePermissionFromTeamController = {
         pageHeading: {
           text: `${formattedValue} from ${team.name} Team`
         },
-        breadcrumbs: [
+        splitPaneBreadcrumbs: [
           {
             text: 'Admin',
             href: '/admin'

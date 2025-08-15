@@ -160,7 +160,7 @@ const addPermissionFormController = {
         selectedEntities
       ),
       scope,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

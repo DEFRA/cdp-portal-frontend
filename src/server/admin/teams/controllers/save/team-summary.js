@@ -23,7 +23,7 @@ const teamSummaryController = {
         caption: isEdit ? 'Edit Team Summary' : 'Create Team Summary'
       },
       isEdit,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

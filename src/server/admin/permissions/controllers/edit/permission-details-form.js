@@ -30,7 +30,7 @@ const editPermissionDetailsFormController = {
       pageTitle: 'Edit permission',
       scope,
       kindOptions,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

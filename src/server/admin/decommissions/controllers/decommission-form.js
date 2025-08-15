@@ -23,7 +23,7 @@ const decommissionFormController = {
       pageTitle:
         'Decommission Microservice, Prototype, Test-Suite and Repository',
       repositoriesOptions,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'
