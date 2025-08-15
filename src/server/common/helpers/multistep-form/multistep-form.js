@@ -8,6 +8,7 @@ const multistepForm = {
   version: '0.1.0',
   register: (server, options) => {
     server.ext([
+      ...(options.ext ? options.ext : []),
       {
         type: 'onPreAuth',
         method: requestHelpers(options.urls),
