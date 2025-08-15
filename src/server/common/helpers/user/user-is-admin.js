@@ -1,12 +1,12 @@
-function userIsAdmin(authedUser) {
-  return authedUser.isAdmin
+function userIsAdmin(userSession) {
+  return userSession.isAdmin
 }
 
 function userIsAdminDecorator(request) {
   return async () => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
 
-    return authedUser ? userIsAdmin(authedUser) : false
+    return userSession ? userIsAdmin(userSession) : false
   }
 }
 

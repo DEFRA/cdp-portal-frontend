@@ -11,7 +11,7 @@ describe('#entityToSummary', () => {
     version: 'v1.0.0'
   }
   const mockEnvironment = 'Development'
-  const mockAuthedUser = { displayName: 'RoboCop' }
+  const mockuserSession = { displayName: 'RoboCop' }
   const mockServiceUrl = 'https://mock-service.dev.cdp-int.defra.cloud'
 
   test('Should return a summary with all fields populated for a frontend service', () => {
@@ -19,7 +19,7 @@ describe('#entityToSummary', () => {
       entity: mockEntity,
       deployedService: mockDeployedService,
       environment: mockEnvironment,
-      authedUser: mockAuthedUser,
+      userSession: mockuserSession,
       isFrontend: true
     })
 
@@ -52,7 +52,7 @@ describe('#entityToSummary', () => {
       entity: mockEntity,
       deployedService: mockDeployedService,
       environment: mockEnvironment,
-      authedUser: mockAuthedUser,
+      userSession: mockuserSession,
       isFrontend: false
     })
 
@@ -71,7 +71,7 @@ describe('#entityToSummary', () => {
       entity: mockEntity,
       deployedService: { ...mockDeployedService, version: null },
       environment: mockEnvironment,
-      authedUser: mockAuthedUser,
+      userSession: mockuserSession,
       isFrontend: true
     })
 
@@ -90,7 +90,7 @@ describe('#entityToSummary', () => {
       entity: mockEntity,
       deployedService: { service: 'mock-service', environment: 'dev' },
       environment: mockEnvironment,
-      authedUser: { displayName: null },
+      userSession: { displayName: null },
       isFrontend: true
     })
 

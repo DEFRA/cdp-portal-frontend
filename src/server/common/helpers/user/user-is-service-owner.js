@@ -1,14 +1,14 @@
-function userIsServiceOwner(authedUser) {
+function userIsServiceOwner(userSession) {
   return (teams) =>
-    authedUser && teams.some((team) => authedUser?.scope?.includes(team))
+    userSession && teams.some((team) => userSession?.scope?.includes(team))
 }
 
 function userIsServiceOwnerDecorator(request) {
   /** @param {string[]} teamsForTheService */
   return async (teamsForTheService) => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
 
-    return userIsServiceOwner(authedUser)(teamsForTheService)
+    return userIsServiceOwner(userSession)(teamsForTheService)
   }
 }
 

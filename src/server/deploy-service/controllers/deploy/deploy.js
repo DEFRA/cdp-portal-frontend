@@ -2,12 +2,11 @@ import Joi from 'joi'
 
 import { config } from '../../../../config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
-import { provideAuthedUser } from '../../../common/helpers/auth/pre/provide-authed-user.js'
 import { provideStepData } from '../../../common/helpers/multistep-form/provide-step-data.js'
 
 const deployController = {
   options: {
-    pre: [provideStepData, provideAuthedUser],
+    pre: [provideStepData],
     validate: {
       params: Joi.object({
         multiStepFormId: Joi.string().uuid().required()
@@ -15,6 +14,7 @@ const deployController = {
     }
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const stepData = request.pre.stepData
     const multiStepFormId = request.app.multiStepFormId
     const deployServiceEndpointUrl =
@@ -48,12 +48,12 @@ const deployController = {
       const deploymentId = payload.deploymentId
 
       request.audit.sendMessage({
-        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${userSession.id}:${userSession.email}`,
         data: {
           imageName: stepData.imageName,
           environment: stepData.environment
         },
-        user: request.pre.authedUser
+        user: userSession
       })
 
       return h.redirect(`/deployments/${stepData.environment}/${deploymentId}`)

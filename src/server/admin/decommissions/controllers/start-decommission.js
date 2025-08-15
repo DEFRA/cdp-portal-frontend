@@ -9,7 +9,7 @@ const startDecommissionController = {
     id: 'post:admin/decommissions/start'
   },
   handler: async (request, h) => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
     const repositoryName = request.payload.repositoryName
 
     const entities = await fetchEntities()
@@ -34,7 +34,7 @@ const startDecommissionController = {
     if (!validationResult.error) {
       try {
         // TODO is anything useful going to be coming back that can be displayed?
-        await decommission(repositoryName, authedUser)
+        await decommission(repositoryName, userSession)
 
         request.yar.flash(sessionNames.notifications, {
           text: 'Decommission requested',
@@ -42,11 +42,11 @@ const startDecommissionController = {
         })
 
         request.audit.sendMessage({
-          event: `Decommission: ${repositoryName} requested by ${authedUser.id}:${authedUser.email}`,
+          event: `Decommission: ${repositoryName} requested by ${userSession?.id}:${userSession?.email}`,
           data: {
             repositoryName
           },
-          user: authedUser
+          user: userSession
         })
 
         return h.redirect(`/admin/decommissions/${repositoryName}`)

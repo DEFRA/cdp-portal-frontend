@@ -19,7 +19,7 @@ const confirmShutterController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
     const serviceId = request.params.serviceId
     const url = request.query.url
     const entity = request.app.entity
@@ -41,7 +41,7 @@ const confirmShutterController = {
       summaryList: shutteringDetailToSummary({
         isFrontend,
         shutteringDetail,
-        authedUser
+        userSession
       }),
       breadcrumbs: [
         {

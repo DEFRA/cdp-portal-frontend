@@ -1,14 +1,12 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 import { buildServicesTableData } from './helpers/build-services-table-data.js'
 import { servicesInfoToDataList } from './transformers/services-info-to-data-list.js'
 
 const servicesListController = {
   options: {
     id: 'services',
-    pre: [provideAuthedUser],
     validate: {
       query: Joi.object({
         service: Joi.string().allow(''),
@@ -20,8 +18,8 @@ const servicesListController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
-    const userScopeUUIDs = authedUser?.uuidScope ?? []
+    const userSession = await request.getUserSession()
+    const userScopeUUIDs = userSession?.uuidScope ?? []
     const service = request.query.service
     const teamId = request.query.teamId
 

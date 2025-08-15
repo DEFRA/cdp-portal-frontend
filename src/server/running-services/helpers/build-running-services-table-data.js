@@ -38,10 +38,11 @@ function getFilters(runningServicesFilters) {
   }
 }
 
-async function buildRunningServicesTableData({ pre, query }) {
-  const authedUser = pre.authedUser
-  const environments = getEnvironments(authedUser?.scope)
-  const userScopeUUIDs = authedUser?.uuidScope ?? []
+async function buildRunningServicesTableData(request) {
+  const query = request.query
+  const userSession = await request.getUserSession()
+  const environments = getEnvironments(userSession?.scope)
+  const userScopeUUIDs = userSession?.uuidScope ?? []
 
   const [deployableServices, runningServicesFilters, runningServices] =
     await Promise.all([

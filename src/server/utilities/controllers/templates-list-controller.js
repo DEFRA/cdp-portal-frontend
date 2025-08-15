@@ -1,16 +1,14 @@
 import { fetchTemplates } from '../helpers/fetch/fetch-templates.js'
-import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 import { buildUtilitiesTableData } from '../helpers/build-utilities-table-data.js'
 
 const templatesListController = {
   options: {
-    id: 'utilities/templates',
-    pre: [provideAuthedUser]
+    id: 'utilities/templates'
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
-    const isAuthenticated = authedUser?.isAuthenticated
-    const userScopeUUIDs = authedUser?.uuidScope ?? []
+    const userSession = await request.getUserSession()
+    const isAuthenticated = userSession?.isAuthenticated
+    const userScopeUUIDs = userSession?.uuidScope ?? []
 
     const templates = await fetchTemplates()
 

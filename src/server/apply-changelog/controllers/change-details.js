@@ -18,13 +18,13 @@ const changeDetailsController = {
   },
   handler: async (request, h) => {
     const payload = request?.payload
-    const authedUser = request.auth.credentials
+    const userSession = await request.getUserSession()
     const redirectLocation = payload?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
 
-    const serviceNames = await fetchServiceNames(authedUser)
+    const serviceNames = await fetchServiceNames(userSession)
     const migrations = await fetchAvailableMigrations(payload?.serviceName)
-    const environments = getEnvironments(authedUser?.scope)
+    const environments = getEnvironments(userSession?.scope)
 
     const validationResult = dbChangeValidation(
       serviceNames,

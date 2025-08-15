@@ -7,7 +7,7 @@ function entityToSummary({
   entity,
   deployedService,
   environment,
-  authedUser,
+  userSession,
   isFrontend
 }) {
   const serviceUrl = `https://${deployedService.service}.${deployedService.environment}.cdp-int.defra.cloud`
@@ -60,7 +60,7 @@ function entityToSummary({
       },
       {
         key: { text: 'Requested By' },
-        value: { text: authedUser?.displayName ?? noValue }
+        value: { text: userSession?.displayName ?? noValue }
       }
     ]
   }

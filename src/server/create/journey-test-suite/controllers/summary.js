@@ -11,7 +11,7 @@ const testSuiteSummaryController = {
   },
   handler: async (request, h) => {
     const create = request.pre?.create
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
 
     return h.view('create/views/summary', {
       pageTitle: 'Create journey test suite summary',
@@ -22,7 +22,7 @@ const testSuiteSummaryController = {
       summaryRows: summaryTestSuiteRows(
         create,
         'journey-test-suite',
-        authedUser.isAdmin
+        userSession?.isAdmin
       ),
       formButtonText: 'Create',
       create

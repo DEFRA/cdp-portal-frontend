@@ -35,10 +35,9 @@ const provideFormValues = {
   method: async (request) => {
     const environmentOptions = []
     const runnerProfileOptions = []
+    const userSession = await request.getUserSession()
 
-    const authedUser = await request.getUserSession()
-
-    if (authedUser?.isAuthenticated) {
+    if (userSession?.isAuthenticated) {
       const isAdmin = await request.userIsAdmin()
       const entity = request.app.entity
       const userOwnsTestSuite = await request.userIsOwner(entity)

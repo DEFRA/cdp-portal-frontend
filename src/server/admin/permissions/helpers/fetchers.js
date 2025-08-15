@@ -103,6 +103,7 @@ async function removeScopeFromTeam(request, teamId, scopeId) {
 }
 
 async function removeScopeFromUser(request, userId, scopeId) {
+  const userSession = await request.getUserSession()
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/user/remove/${userId}`
 
@@ -116,12 +117,12 @@ async function removeScopeFromUser(request, userId, scopeId) {
   })
 
   request.audit.sendMessage({
-    event: `permission: ${scopeId} removed from user: ${userId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+    event: `permission: ${scopeId} removed from user: ${userId} by ${userSession.id}:${userSession.email}`,
     data: {
       userId,
       scopeId
     },
-    user: request.pre.authedUser
+    user: userSession
   })
 
   return payload

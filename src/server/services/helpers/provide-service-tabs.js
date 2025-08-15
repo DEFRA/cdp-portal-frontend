@@ -8,9 +8,9 @@ import { buildTab } from '../../common/patterns/entities/tabs/helpers/build-tab.
  * @returns {Promise<symbol>}
  */
 async function provideServiceTabs(request, h) {
-  const authedUser = await request.getUserSession()
-  const isAdmin = authedUser?.isAdmin
-  const isTenant = authedUser?.isTenant
+  const userSession = await request.getUserSession()
+  const isAdmin = userSession?.isAdmin
+  const isTenant = userSession?.isTenant
   const response = request.response
 
   if (response.variety === 'view') {

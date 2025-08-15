@@ -45,8 +45,8 @@ function fetchServices(queryParams) {
   })
 }
 
-async function fetchServiceNames(authedUser) {
-  const teamIds = authedUser?.isAdmin ? [] : authedUser.uuidScope
+async function fetchServiceNames(userSession) {
+  const teamIds = userSession?.isAdmin ? [] : userSession.uuidScope
   const services = await fetchServices({ teamIds })
 
   return services.map((service) => service.name)

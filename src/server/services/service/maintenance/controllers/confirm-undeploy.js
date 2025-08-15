@@ -19,7 +19,7 @@ const confirmUndeployController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
     const serviceId = request.params.serviceId
     const environment = request.query.environment
     const entity = request.app.entity
@@ -47,7 +47,7 @@ const confirmUndeployController = {
         entity,
         deployedService,
         environment,
-        authedUser,
+        userSession,
         isFrontend
       }),
       breadcrumbs: [

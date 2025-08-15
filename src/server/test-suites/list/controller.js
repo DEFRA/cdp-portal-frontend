@@ -1,17 +1,15 @@
 import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
 import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
-import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 import { testSuiteToEntityRow } from '../transformers/test-suite-to-entity-row.js'
 
 const testSuiteListController = {
   options: {
-    id: 'test-suites',
-    pre: [provideAuthedUser]
+    id: 'test-suites'
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
-    const userScopeUUIDs = authedUser?.uuidScope ?? []
+    const userSession = await request.getUserSession()
+    const userScopeUUIDs = userSession?.uuidScope ?? []
 
     const [testSuites] = await Promise.all([fetchTestSuites()])
 

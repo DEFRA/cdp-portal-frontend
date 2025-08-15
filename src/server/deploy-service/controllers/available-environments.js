@@ -9,8 +9,8 @@ const availableEnvironmentsController = {
     if (!request.isXhr()) {
       return Boom.methodNotAllowed('This route is only available via XHR')
     }
-    const authedUser = await request.getUserSession()
-    const userScopes = authedUser?.scope
+    const userSession = await request.getUserSession()
+    const userScopes = userSession?.scope
 
     try {
       const entity = await fetchEntity(request.query?.serviceName).catch(
