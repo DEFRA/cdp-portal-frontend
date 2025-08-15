@@ -35,8 +35,8 @@ async function authedFetchJson(url, token, options = {}) {
 
 function authedFetchJsonDecorator(request) {
   return async (url, options = {}) => {
-    const authedUser = await request.getUserSession()
-    const token = authedUser?.token ?? null
+    const userSession = await request.getUserSession()
+    const token = userSession?.token ?? null
 
     return authedFetchJson(url, token, options).then(
       async ({ res, payload }) => {
@@ -44,8 +44,8 @@ function authedFetchJsonDecorator(request) {
           // Initial request has received a 401 from a call to an API. Refresh token and replay initial request
 
           try {
-            const authedUser = await request.getUserSession()
-            const newToken = authedUser?.token ?? null
+            const refetchedUserSession = await request.getUserSession()
+            const newToken = refetchedUserSession?.token ?? null
 
             // Replay initial request with new token
             return await authedFetchJson(url, newToken, options)

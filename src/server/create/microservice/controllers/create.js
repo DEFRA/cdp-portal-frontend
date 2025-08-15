@@ -4,7 +4,6 @@ import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { microserviceValidation } from '../helpers/schema/microservice-validation.js'
 import { setStepComplete } from '../../helpers/form/index.js'
-import { provideAuthedUser } from '../../../common/helpers/auth/pre/provide-authed-user.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
 import { scopes } from '../../../common/constants/scopes.js'
 import { fetchServiceTemplates } from '../helpers/fetch/fetch-service-templates.js'
@@ -17,9 +16,10 @@ const microserviceCreateController = {
         scope: [scopes.admin, '{payload.teamId}']
       }
     },
-    pre: [provideCreate, provideAuthedUser]
+    pre: [provideCreate]
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const create = request.pre?.create
     const { serviceTemplates } = await fetchServiceTemplates(request)
     const availableServiceTemplateIds = serviceTemplates.map(
@@ -81,7 +81,7 @@ const microserviceCreateController = {
         })
 
         request.audit.sendMessage(
-          auditMessageCreated('Service', repositoryName, request.pre.authedUser)
+          auditMessageCreated('Service', repositoryName, userSession)
         )
 
         return h.redirect(`/services/${payload.repositoryName}`)

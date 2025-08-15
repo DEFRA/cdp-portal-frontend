@@ -4,7 +4,6 @@ import Boom from '@hapi/boom'
 import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
-import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { buildAutoTestRunsViewDetails } from '../helpers/build-auto-test-runs-view-details.js'
 import { excludedEnvironments } from '../helpers/constants/excluded-environments.js'
 import { provideNotFoundIfPrototype } from '../../../../common/helpers/ext/provide-not-found-if-prototype.js'
@@ -16,7 +15,6 @@ const autoTestRunsController = {
     ext: {
       onPreAuth: [provideNotFoundIfPrototype, provideNotFoundIfNull]
     },
-    pre: [provideAuthedUser],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -26,14 +24,14 @@ const autoTestRunsController = {
   },
   handler: async (request, h) => {
     const entity = request.app.entity
-    const authedUser = request.pre.authedUser
+    const userSession = await request.getUserSession()
     const serviceId = request.params.serviceId
     const serviceTeams = entity?.teams
+
     const environments = getEnvironments(
-      authedUser?.scope,
+      userSession?.scope,
       entity?.type
     ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
-
     const environmentOptions = buildOptions(
       environments.map((env) => ({ text: formatText(env), value: env })),
       false

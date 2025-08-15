@@ -1,17 +1,16 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import {
-  fetchTestRepository,
-  getAutoTestRunDetails
-} from '../../helpers/fetchers.js'
 import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
 import { excludedEnvironments } from '../../helpers/constants/excluded-environments.js'
 import { buildOptions } from '../../../../../common/helpers/options/build-options.js'
 import { formatText } from '../../../../../../config/nunjucks/filters/filters.js'
-import { provideAuthedUser } from '../../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
 import { provideNotFoundIfNull } from '../../../../../common/helpers/ext/provide-not-found-if-null.js'
+import {
+  fetchTestRepository,
+  getAutoTestRunDetails
+} from '../../helpers/fetchers.js'
 
 const updateTestRunFormController = {
   options: {
@@ -19,7 +18,6 @@ const updateTestRunFormController = {
     ext: {
       onPreAuth: [provideNotFoundIfPrototype, provideNotFoundIfNull]
     },
-    pre: [provideAuthedUser],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required(),
@@ -29,7 +27,7 @@ const updateTestRunFormController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
+    const userSession = await request.getUserSession()
     const serviceId = request.params.serviceId
     const testSuiteId = request.params.testSuiteId
 
@@ -38,7 +36,7 @@ const updateTestRunFormController = {
       fetchTestRepository(testSuiteId)
     ])
 
-    const environments = getEnvironments(authedUser?.scope).filter(
+    const environments = getEnvironments(userSession?.scope).filter(
       (env) => !excludedEnvironments.includes(env.toLowerCase())
     )
     const environmentOptions = buildOptions(

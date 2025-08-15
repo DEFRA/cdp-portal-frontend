@@ -1,15 +1,11 @@
 import { fetchLibraries } from '../helpers/fetch/fetch-libraries.js'
-import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 import { buildUtilitiesTableData } from '../helpers/build-utilities-table-data.js'
 
 const librariesListController = {
-  options: {
-    pre: [provideAuthedUser]
-  },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
-    const isAuthenticated = authedUser?.isAuthenticated
-    const userScopeUUIDs = authedUser?.uuidScope ?? []
+    const userSession = await request.getUserSession()
+    const isAuthenticated = userSession?.isAuthenticated
+    const userScopeUUIDs = userSession?.uuidScope ?? []
 
     const libraries = await fetchLibraries()
 

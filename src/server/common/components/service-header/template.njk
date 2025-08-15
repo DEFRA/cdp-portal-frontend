@@ -15,10 +15,10 @@
 
     </div>
     <div class="app-service-header__actions">
-      {% if authedUser.displayName %}
+      {% if userSession.displayName %}
         {{ appUserIcon({ classes: "app-icon--minuscule" }) }}
         <span data-testid="app-login-username">
-          {{ authedUser.displayName }}
+          {{ userSession.displayName }}
         </span>
       {% endif %}
 

@@ -5,7 +5,6 @@ import { sessionNames } from '../../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
 import { editPermissionValidation } from '../../helpers/schema/edit-permission-validation.js'
 import { updateScope } from '../../helpers/fetchers.js'
-import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 
 const editPermissionDetailsController = {
   options: {
@@ -14,10 +13,10 @@ const editPermissionDetailsController = {
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
-    },
-    pre: [provideAuthedUser]
+    }
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const scopeId = request.params.scopeId
     const payload = request?.payload
     const kind = Array.isArray(payload.kind)
@@ -61,11 +60,11 @@ const editPermissionDetailsController = {
         })
 
         request.audit.sendMessage({
-          event: `permission: ${scopeId} edited by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          event: `permission: ${scopeId} edited by ${userSession.id}:${userSession.email}`,
           data: {
             scopeId
           },
-          user: request.pre.authedUser
+          user: userSession
         })
 
         return h.redirect(`/admin/permissions/${scopeId}`)

@@ -1,12 +1,12 @@
-function userIsTenant(authedUser) {
-  return authedUser.isTenant
+function userIsTenant(userSession) {
+  return userSession.isTenant
 }
 
 function userIsTenantDecorator(request) {
   return async () => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
 
-    return authedUser ? userIsTenant(authedUser) : false
+    return userSession ? userIsTenant(userSession) : false
   }
 }
 

@@ -4,12 +4,12 @@ import { scopes } from '../../constants/scopes.js'
 
 const allEnvironmentsOnlyForAdmin = {
   method: async (request, h) => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
     const environment = request.params.environment
 
     const adminOnlyEnvs = getEnvironmentsThatNeed([scopes.admin])
 
-    if (!authedUser?.isAdmin && adminOnlyEnvs.includes(environment)) {
+    if (!userSession?.isAdmin && adminOnlyEnvs.includes(environment)) {
       throw Boom.boomify(Boom.unauthorized())
     }
 

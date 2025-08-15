@@ -11,7 +11,7 @@ const perfTestSuiteSummaryController = {
   },
   handler: async (request, h) => {
     const create = request.pre?.create
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
 
     return h.view('create/views/summary', {
       pageTitle: 'Create performance test suite summary',
@@ -22,7 +22,7 @@ const perfTestSuiteSummaryController = {
       summaryRows: summaryTestSuiteRows(
         create,
         'perf-test-suite',
-        authedUser.isAdmin
+        userSession?.isAdmin
       ),
       formButtonText: 'Create',
       create

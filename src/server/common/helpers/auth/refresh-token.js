@@ -23,7 +23,7 @@ export async function refreshTokenIfExpired(refreshToken, request, h) {
 
   if (tokenHasExpired) {
     request.logger.info(
-      `Token for user ${userSession.displayName} has expired, attempting to refresh`
+      `Token for user ${userSession?.displayName} has expired, attempting to refresh`
     )
 
     try {
@@ -33,7 +33,7 @@ export async function refreshTokenIfExpired(refreshToken, request, h) {
     } catch (error) {
       request.logger.debug(
         error,
-        `Token refresh for ${userSession.displayName} failed`
+        `Token refresh for ${userSession?.displayName} failed`
       )
       removeAuthenticatedUser(request)
       request.yar.flash(

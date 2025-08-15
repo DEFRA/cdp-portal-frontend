@@ -6,29 +6,28 @@ import { pluralise } from '../../../../common/helpers/pluralise.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { addScopeToTeam, addScopeToUser } from '../../helpers/fetchers.js'
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
-import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { addPermissionValidation } from '../../helpers/schema/add-permission-validation.js'
 import { extractIds } from '../../helpers/extract-ids.js'
 
-function sendAuditLogs(request, userIds, teamIds, scopeId) {
+function sendAuditLogs({ request, userSession, userIds, teamIds, scopeId }) {
   const auditUserPromises = userIds.map((userId) =>
     request.audit.sendMessage({
-      event: `permission: ${scopeId} added to user: ${userId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+      event: `permission: ${scopeId} added to user: ${userId} by ${userSession.id}:${userSession.email}`,
       data: {
         userId,
         scopeId
       },
-      user: request.pre.authedUser
+      user: userSession
     })
   )
   const auditTeamPromises = teamIds.map((teamId) =>
     request.audit.sendMessage({
-      event: `permission: ${scopeId} added to team: ${teamId} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+      event: `permission: ${scopeId} added to team: ${teamId} by ${userSession.id}:${userSession.email}`,
       data: {
         teamId,
         scopeId
       },
-      user: request.pre.authedUser
+      user: userSession
     })
   )
 
@@ -42,10 +41,10 @@ const addPermissionController = {
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
-    },
-    pre: [provideAuthedUser]
+    }
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const params = request.params
     const scopeId = params.scopeId
 
@@ -116,7 +115,7 @@ const addPermissionController = {
           type: 'success'
         })
 
-        await sendAuditLogs(request, userIds, teamIds, scopeId)
+        await sendAuditLogs({ request, userSession, userIds, teamIds, scopeId })
 
         return h.redirect(`/admin/permissions/${scopeId}`)
       }

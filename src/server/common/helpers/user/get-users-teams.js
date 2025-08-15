@@ -7,13 +7,13 @@ import { fetchTeams } from '../../../teams/helpers/fetch/fetch-teams.js'
  * @returns {Promise<[{teamId: string, github: string}]>}
  */
 async function getUsersTeams(request) {
-  const authedUser = await request.getUserSession()
-  const userGroups = authedUser.scope
+  const userSession = await request.getUserSession()
+  const userGroups = userSession?.scope
 
   // TODO we need to consider pagination here in the future
   const { teams } = await fetchTeams(true)
 
-  if (authedUser.isAdmin) {
+  if (userSession?.isAdmin) {
     return teams
   }
 

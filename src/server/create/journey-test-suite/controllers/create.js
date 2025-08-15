@@ -3,7 +3,6 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.js'
-import { provideAuthedUser } from '../../../common/helpers/auth/pre/provide-authed-user.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
 import { scopes } from '../../../common/constants/scopes.js'
 
@@ -15,9 +14,10 @@ const testSuiteCreateController = {
         scope: [scopes.admin, '{payload.teamId}']
       }
     },
-    pre: [provideCreate, provideAuthedUser]
+    pre: [provideCreate]
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const create = request.pre?.create
     const repositoryName = create.repositoryName
     const templateTag = create.templateTag
@@ -67,11 +67,7 @@ const testSuiteCreateController = {
         })
 
         request.audit.sendMessage(
-          auditMessageCreated(
-            'Journey Test Suite',
-            repositoryName,
-            request.pre.authedUser
-          )
+          auditMessageCreated('Journey Test Suite', repositoryName, userSession)
         )
 
         return h.redirect(`/test-suites/${payload.repositoryName}`)

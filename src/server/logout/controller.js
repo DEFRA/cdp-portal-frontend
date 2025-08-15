@@ -1,16 +1,12 @@
-import { provideAuthedUser } from '../common/helpers/auth/pre/provide-authed-user.js'
 import { removeAuthenticatedUser } from '../common/helpers/auth/user-session.js'
 import { fetchJson } from '../common/helpers/fetch/fetch-json.js'
 import { config } from '../../config/config.js'
 
 const logoutController = {
-  options: {
-    pre: [provideAuthedUser]
-  },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
+    const userSession = await request.getUserSession()
 
-    if (!authedUser) {
+    if (!userSession) {
       return h.redirect('/')
     }
 
@@ -20,7 +16,7 @@ const logoutController = {
 
     const logoutBaseUrl = payload.end_session_endpoint
     const referrer = request.info.referrer
-    const loginHint = authedUser.loginHint
+    const loginHint = userSession?.loginHint
 
     const logoutUrl = encodeURI(
       `${logoutBaseUrl}?logout_hint=${loginHint}&post_logout_redirect_uri=${referrer}`
@@ -29,8 +25,8 @@ const logoutController = {
     removeAuthenticatedUser(request)
 
     request.audit.sendMessage({
-      event: `User logged out ${authedUser?.id} ${authedUser?.displayName}`,
-      user: authedUser
+      event: `User logged out ${userSession?.id} ${userSession?.displayName}`,
+      user: userSession
     })
     return h.redirect(logoutUrl)
   }

@@ -30,7 +30,7 @@ const optionsFormController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
     const query = request?.query
     const formDetail = request?.pre?.formDetail
     const multiStepFormId = request.app.multiStepFormId
@@ -43,7 +43,7 @@ const optionsFormController = {
       ...migration,
       statusClassname: provideDatabaseStatusClassname(migration.status)
     }))
-    const environments = getEnvironments(authedUser?.scope)
+    const environments = getEnvironments(userSession?.scope)
 
     return h.view('deploy-service/views/options-form', {
       pageTitle: 'Deploy service options',

@@ -11,6 +11,10 @@ vi.mock('../../common/helpers/auth/pre/provide-authed-user.js')
 describe('testSuiteListController.handler', () => {
   let h
   let request
+  const mockGetUserSession = vi.fn().mockReturnValue({
+    isAuthenticated: true,
+    uuidScope: ['scope-1']
+  })
 
   beforeEach(() => {
     h = {
@@ -18,12 +22,7 @@ describe('testSuiteListController.handler', () => {
     }
 
     request = {
-      pre: {
-        authedUser: {
-          isAuthenticated: true,
-          uuidScope: ['scope-1']
-        }
-      }
+      getUserSession: mockGetUserSession
     }
   })
 
@@ -79,7 +78,10 @@ describe('testSuiteListController.handler', () => {
   })
 
   test('should return an empty view if no test suites are found and user is not authenticated', async () => {
-    request.pre.authedUser.isAuthenticated = false
+    mockGetUserSession.mockReturnValue({
+      isAuthenticated: false,
+      uuidScope: ['scope-1']
+    })
 
     fetchTestSuites.mockResolvedValue([])
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite

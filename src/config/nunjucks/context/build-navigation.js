@@ -1,7 +1,7 @@
 import { scopes } from '../../../server/common/constants/scopes.js'
 
 async function buildNavigation(request) {
-  const authedUser = await request.getUserSession()
+  const userSession = await request.getUserSession()
   const hasPostgresPermission = request.hasScope(scopes.restrictedTechPostgres)
   const hasTestAsTenantPermission = request.hasScope(scopes.testAsTenant)
 
@@ -20,7 +20,7 @@ async function buildNavigation(request) {
   const removeTestAsTenantPath = request.routeLookup('admin/removeTestAsTenant')
   const applyChangelogPath = request.routeLookup('apply-changelog')
 
-  const actions = (authedUser?.isTenant || authedUser?.isAdmin) && [
+  const actions = (userSession?.isTenant || userSession?.isAdmin) && [
     {
       text: 'Deploy Service',
       href: deployServicePath,
@@ -130,7 +130,7 @@ async function buildNavigation(request) {
       ]
     : undefined
 
-  const admin = authedUser?.isAdmin
+  const admin = userSession?.isAdmin
     ? [
         {
           text: 'Admin',

@@ -2,12 +2,11 @@ import Joi from 'joi'
 
 import { config } from '../../../config/config.js'
 import { sessionNames } from '../../common/constants/session-names.js'
-import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 import { provideStepData } from '../../common/helpers/multistep-form/provide-step-data.js'
 
 const applyController = {
   options: {
-    pre: [provideStepData, provideAuthedUser],
+    pre: [provideStepData],
     validate: {
       params: Joi.object({
         multiStepFormId: Joi.string().uuid().required()
@@ -15,6 +14,7 @@ const applyController = {
     }
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const stepData = request.pre.stepData
     const multiStepFormId = request.app.multiStepFormId
     const runApplyChangelogEndpointUrl =
@@ -44,12 +44,12 @@ const applyController = {
       const migrationId = payload?.migrationId
 
       request.audit.sendMessage({
-        event: `database changelog apply requested: ${stepData.serviceName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        event: `database changelog apply requested: ${stepData.serviceName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${userSession.id}:${userSession.email}`,
         data: {
           serviceName: stepData.serviceName,
           environment: stepData.environment
         },
-        user: request.pre.authedUser
+        user: userSession
       })
 
       return h.redirect(

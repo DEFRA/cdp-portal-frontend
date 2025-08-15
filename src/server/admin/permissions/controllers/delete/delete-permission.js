@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { deleteScope } from '../../helpers/fetchers.js'
-import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 
 const deletePermissionController = {
   options: {
@@ -12,10 +11,10 @@ const deletePermissionController = {
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
-    },
-    pre: [provideAuthedUser]
+    }
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const scopeId = request.params.scopeId
 
     try {
@@ -27,11 +26,11 @@ const deletePermissionController = {
       })
 
       request.audit.sendMessage({
-        event: `permission: ${scopeId} delete by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+        event: `permission: ${scopeId} delete by ${userSession.id}:${userSession.email}`,
         data: {
           scopeId
         },
-        user: request.pre.authedUser
+        user: userSession
       })
 
       return h.redirect('/admin/permissions')

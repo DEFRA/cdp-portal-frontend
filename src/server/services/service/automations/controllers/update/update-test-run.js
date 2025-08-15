@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { updateAutoTestRun } from '../../helpers/fetchers.js'
-import { provideAuthedUser } from '../../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { autoTestRunValidation } from '../../helpers/schema/auto-test-run-validation.js'
 import { buildErrorDetails } from '../../../../../common/helpers/build-error-details.js'
 import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
@@ -15,7 +14,6 @@ const updateTestRunController = {
     ext: {
       onPreAuth: [provideNotFoundIfPrototype, provideNotFoundIfNull]
     },
-    pre: [provideAuthedUser],
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required(),
@@ -25,9 +23,9 @@ const updateTestRunController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
+    const userSession = await request.getUserSession()
     const payload = request.payload
-    const userScopes = authedUser.scope
+    const userScopes = userSession?.scope
     const serviceId = request.params.serviceId
     const testSuiteId = request.params.testSuiteId
     const environments = Array.isArray(payload.environments)

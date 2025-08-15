@@ -3,7 +3,6 @@ import Boom from '@hapi/boom'
 import Joi from '../../../../../common/helpers/extended-joi.js'
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { removeScopeFromUser } from '../../../helpers/fetchers.js'
-import { provideAuthedUser } from '../../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const removePermissionFromUserController = {
@@ -14,8 +13,7 @@ const removePermissionFromUserController = {
         scopeId: Joi.objectId().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
-    },
-    pre: [provideAuthedUser]
+    }
   },
   handler: async (request, h) => {
     const params = request.params

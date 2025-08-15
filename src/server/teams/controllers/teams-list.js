@@ -1,6 +1,5 @@
 import { fetchTeams } from '../helpers/fetch/fetch-teams.js'
 import { teamToEntityRow } from '../transformers/team-to-entity-row.js'
-import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 
 function belongsToTeam(userScopeUUIDs) {
   return (team) => ({
@@ -22,12 +21,11 @@ function sortByTeam(a, b) {
 
 const teamsListController = {
   options: {
-    id: 'teams',
-    pre: [provideAuthedUser]
+    id: 'teams'
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
-    const userScopeUUIDs = authedUser?.uuidScope ?? []
+    const userSession = await request.getUserSession()
+    const userScopeUUIDs = userSession?.uuidScope ?? []
 
     const { teams } = await fetchTeams()
 

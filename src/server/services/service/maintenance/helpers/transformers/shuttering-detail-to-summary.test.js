@@ -11,7 +11,7 @@ describe('#shutteringDetailToSummary', () => {
         environment: 'prod',
         status: shutteringStatus.active
       },
-      authedUser: { displayName: 'B. A. Baracus' }
+      userSession: { displayName: 'B. A. Baracus' }
     })
 
     expect(result.rows).toEqual([
@@ -38,7 +38,7 @@ describe('#shutteringDetailToSummary', () => {
         environment: 'dev',
         status: shutteringStatus.shuttered
       },
-      authedUser: { displayName: 'RoboCop' }
+      userSession: { displayName: 'RoboCop' }
     })
 
     expect(result.rows).toEqual(
@@ -67,7 +67,7 @@ describe('#shutteringDetailToSummary', () => {
         environment: 'management',
         status: shutteringStatus.active
       },
-      authedUser: null
+      userSession: null
     })
 
     expect(result.rows).toEqual(

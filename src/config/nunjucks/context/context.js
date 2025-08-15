@@ -47,9 +47,9 @@ function getAssetPath(asset) {
  * @param {import('@hapi/hapi').Request | null} request
  */
 async function context(request) {
-  const authedUser = await request.getUserSession()
+  const userSession = await request.getUserSession()
   const isInternetExplorer = isIe(request.headers['user-agent'])
-  const announcements = getAnnouncements(authedUser, isInternetExplorer)
+  const announcements = getAnnouncements(userSession, isInternetExplorer)
   const serviceConfig = config.get('service')
 
   return {
@@ -57,16 +57,16 @@ async function context(request) {
     appBaseUrl: config.get('appBaseUrl'),
     appServiceName: serviceConfig.name,
     assetPath: `${assetPath}/assets`,
-    authedUser,
+    userSession,
     blankOption: defaultOption,
     breadcrumbs: [],
     eventName,
     getAssetPath,
     githubOrg: config.get('githubOrg'),
     hasScope: hasScopeDecorator(request),
-    isAdmin: authedUser?.isAdmin ?? false,
-    isAuthenticated: authedUser?.isAuthenticated ?? false,
-    isTenant: authedUser?.isTenant ?? false,
+    isAdmin: userSession?.isAdmin ?? false,
+    isAuthenticated: userSession?.isAuthenticated ?? false,
+    isTenant: userSession?.isTenant ?? false,
     isXhr: isXhr.call(request),
     navigation: await buildNavigation(request),
     noValue,

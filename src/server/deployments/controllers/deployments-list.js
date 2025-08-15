@@ -11,7 +11,6 @@ import { provideFormValues } from '../helpers/ext/provide-form-values.js'
 import { decorateRollouts } from '../transformers/decorate-rollouts.js'
 import { pagination } from '../../common/constants/pagination.js'
 import { fetchDeploymentFilters } from '../helpers/fetch/fetch-deployment-filters.js'
-import { provideAuthedUser } from '../../common/helpers/auth/pre/provide-authed-user.js'
 import { deploymentToEntityRow } from '../transformers/deployment-to-entity-row.js'
 import { fetchDeploymentsWithMigrations } from '../helpers/fetch/fetch-deployments-with-migrations.js'
 import { migrationToEntityRow } from '../transformers/migration-to-entity-row.js'
@@ -66,7 +65,6 @@ async function getFilters() {
 const deploymentsListController = {
   options: {
     id: 'deployments/{environment}',
-    pre: [provideAuthedUser],
     ext: {
       onPreAuth: [allEnvironmentsOnlyForAdmin],
       onPostHandler: [provideFormValues]
@@ -88,8 +86,8 @@ const deploymentsListController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
-    const userScopeUUIDs = authedUser?.uuidScope ?? []
+    const userSession = await request.getUserSession()
+    const userScopeUUIDs = userSession?.uuidScope ?? []
 
     const environment = request.params?.environment
     const formattedEnvironment = upperFirst(kebabCase(environment))

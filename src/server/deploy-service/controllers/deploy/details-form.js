@@ -30,13 +30,13 @@ const detailsFormController = {
   handler: async (request, h) => {
     const query = request?.query
     const stepData = request.pre.stepData
-    const authedUser = request.auth.credentials
+    const userSession = await request.getUserSession()
 
     const imageName = query?.imageName ?? stepData?.imageName
     const redirectLocation = query?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
 
-    const serviceNames = await fetchServiceNames(authedUser)
+    const serviceNames = await fetchServiceNames(userSession)
     const latestMigrationsResponse = await fetchLatestMigrations(imageName)
 
     const latestMigrations = latestMigrationsResponse.map((migration) => ({
@@ -47,7 +47,7 @@ const detailsFormController = {
     const entity = await fetchEntity(imageName).catch(nullify404)
     const imageNameOptions = buildOptions(serviceNames)
 
-    const environments = getEnvironments(authedUser?.scope, entity?.type)
+    const environments = getEnvironments(userSession?.scope, entity?.type)
     const environmentOptions = environments.length
       ? buildSuggestions(
           environments.map((environment) => ({

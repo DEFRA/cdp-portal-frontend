@@ -12,7 +12,8 @@ const terminalBrowserController = {
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
-  handler: (request, h) => {
+  handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const params = request.params
     const serviceId = params.serviceId
     const environment = params.environment
@@ -26,7 +27,7 @@ const terminalBrowserController = {
     )
 
     try {
-      canLaunchTerminal(request.auth.credentials?.scope, environment)
+      canLaunchTerminal(userSession?.scope, environment)
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
@@ -36,8 +37,8 @@ const terminalBrowserController = {
     request.audit.send({
       event: 'terminal opened',
       user: {
-        id: request.auth?.credentials?.id,
-        name: request.auth?.credentials?.displayName
+        id: userSession?.id,
+        name: userSession?.displayName
       },
       terminal: {
         token,

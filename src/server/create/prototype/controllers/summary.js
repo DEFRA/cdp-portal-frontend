@@ -11,7 +11,7 @@ const prototypeSummaryController = {
   },
   handler: async (request, h) => {
     const create = request.pre?.create
-    const authedUser = await request.getUserSession()
+    const userSession = await request.getUserSession()
 
     return h.view('create/views/summary', {
       pageTitle: 'Create prototype summary',
@@ -22,7 +22,7 @@ const prototypeSummaryController = {
       summaryRows: summaryPrototypeRows(
         create,
         'prototype',
-        authedUser.isAdmin
+        userSession?.isAdmin
       ),
       formButtonText: 'Create',
       create

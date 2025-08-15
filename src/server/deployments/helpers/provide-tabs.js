@@ -5,7 +5,7 @@ import upperFirst from 'lodash/upperFirst.js'
 const paginationParams = `?page=${pagination.page}&size=${pagination.size}`
 
 async function provideTabs(request, h) {
-  const authedUser = await request.getUserSession()
+  const userSession = await request.getUserSession()
   const response = request.response
 
   if (response.variety === 'view') {
@@ -18,7 +18,7 @@ async function provideTabs(request, h) {
     }
 
     response.source.context.tabDetails.tabs = getEnvironments(
-      authedUser?.scope
+      userSession?.scope
     ).map((env) => ({
       isActive: request.path.startsWith(`/deployments/${env}`),
       url: `/deployments/${env}${paginationParams}`,

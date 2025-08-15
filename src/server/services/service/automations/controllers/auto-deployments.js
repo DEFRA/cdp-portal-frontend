@@ -5,14 +5,13 @@ import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { getAutoDeployDetails } from '../helpers/fetchers.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
-import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
 
 const autoDeploymentsController = {
   options: {
     id: 'services/{serviceId}/automations/deployments',
     ext: { onPreAuth: [provideNotFoundIfNull] },
-    pre: [provideAuthedUser],
+
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -21,12 +20,12 @@ const autoDeploymentsController = {
     }
   },
   handler: async (request, h) => {
-    const authedUser = request.pre.authedUser
+    const userSession = await request.getUserSession()
     const serviceId = request.params.serviceId
     const entity = request.app.entity
     const autoDeployDetails = await getAutoDeployDetails(serviceId)
     const environments = getEnvironments(
-      authedUser?.scope,
+      userSession?.scope,
       entity?.type
     ).filter((environment) => environment.toLowerCase() !== 'prod')
     const environmentOptions = buildOptions(

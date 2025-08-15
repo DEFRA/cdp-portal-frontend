@@ -3,21 +3,17 @@ import { runTest } from '../../helpers/fetch/run-test.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 
 import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.js'
-import { provideAuthedUser } from '../../../common/helpers/auth/pre/provide-authed-user.js'
 import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
 import { fetchTestSuites } from '../../../common/helpers/fetch/fetch-entities.js'
 
 const triggerTestSuiteRunController = {
-  options: {
-    pre: [provideAuthedUser]
-  },
   handler: async (request, h) => {
     const payload = request.payload
     const { imageName, environment, profile } = request.payload
-    const authedUser = await request.getUserSession()
-    const userScopes = authedUser?.scope
+    const userSession = await request.getUserSession()
+    const userScopes = userSession?.scope
 
-    const teamIds = authedUser?.isAdmin ? [] : userScopes
+    const teamIds = userSession?.isAdmin ? [] : userScopes
     const testSuites = await fetchTestSuites({ teamIds })
 
     const testSuiteNames = testSuites.map((testSuite) => testSuite.name)
@@ -45,7 +41,7 @@ const triggerTestSuiteRunController = {
 
         request.audit.send({
           event: 'test run requested',
-          user: { id: authedUser.id, name: authedUser.displayName },
+          user: { id: userSession.id, name: userSession.displayName },
           testRun: {
             imageName,
             environment

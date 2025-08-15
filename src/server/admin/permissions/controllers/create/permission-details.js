@@ -2,13 +2,10 @@ import { sessionNames } from '../../../../common/constants/session-names.js'
 import { createScope } from '../../helpers/fetchers.js'
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
 import { createPermissionValidation } from '../../helpers/schema/create-permission-validation.js'
-import { provideAuthedUser } from '../../../../common/helpers/auth/pre/provide-authed-user.js'
 
 const createPermissionDetailsController = {
-  options: {
-    pre: [provideAuthedUser]
-  },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const payload = request?.payload
     const value = payload.value?.trim()
     const kind = Array.isArray(payload.kind)
@@ -54,12 +51,12 @@ const createPermissionDetailsController = {
         })
 
         request.audit.sendMessage({
-          event: `permission: ${value}:${createScopePayload.scope.scopeId} created by ${request.pre.authedUser.id}:${request.pre.authedUser.email}`,
+          event: `permission: ${value}:${createScopePayload.scope.scopeId} created by ${userSession.id}:${userSession.email}`,
           data: {
             value,
             scopeId: createScopePayload.scope.scopeId
           },
-          user: request.pre.authedUser
+          user: userSession
         })
 
         return h.redirect(

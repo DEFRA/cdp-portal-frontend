@@ -7,7 +7,7 @@ import { renderTag } from '../../../../../common/helpers/view/render-tag.js'
 function shutteringDetailToSummary({
   isFrontend,
   shutteringDetail,
-  authedUser
+  userSession
 }) {
   return {
     classes: 'app-summary-list',
@@ -40,7 +40,7 @@ function shutteringDetailToSummary({
       },
       {
         key: { text: 'Requested By' },
-        value: { text: authedUser?.displayName ?? noValue }
+        value: { text: userSession?.displayName ?? noValue }
       }
     ]
   }
