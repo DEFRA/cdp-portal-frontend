@@ -17,7 +17,7 @@ function copy($module) {
   $copiedHint.textContent = 'Copied'
 
   $module.addEventListener('click', async () => {
-    const text = $content.textContent
+    const text = $content.textContent.trim()
 
     try {
       if ('clipboard' in navigator) {
