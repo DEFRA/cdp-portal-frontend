@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.859.0",
-    "@aws-sdk/client-firehose": "3.857.0",
+    "@aws-sdk/client-firehose": "3.864.0",
     "@aws-sdk/client-s3": "3.859.0",
     "@aws-sdk/credential-providers": "3.857.0",
     "@babel/runtime": "7.28.2",
