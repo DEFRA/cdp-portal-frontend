@@ -111,7 +111,7 @@
     "babel-plugin-transform-import-meta": "2.3.3",
     "cheerio": "1.1.2",
     "clean-webpack-plugin": "4.0.0",
-    "copy-webpack-plugin": "13.0.0",
+    "copy-webpack-plugin": "13.0.1",
     "css-loader": "7.1.2",
     "eslint": "9.32.0",
     "eslint-config-prettier": "10.1.8",
