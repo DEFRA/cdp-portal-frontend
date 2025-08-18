@@ -20,7 +20,7 @@ describe('#copy', () => {
 
     const $component = renderTestComponent('copy', {
       params: {
-        content: { id: '1234', text: 'I love chips' }
+        content: { id: '1234', text: '   I love chips \n' }
       }
     })
 
