@@ -1,0 +1,108 @@
+{% extends "layouts/page.njk" %}
+
+{% set infoHtml %}
+  <p class="govuk-!-margin-bottom-0">
+    Setting the scope of this user permission means it will apply either at a user level or at a users team level
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-!-margin-bottom-0">
+    <li>
+      <strong>User</strong> - Applies everywhere for this user
+    </li>
+    <li>
+      <strong>Users team</strong> - Applies only in the specified team for this user
+    </li>
+  </ul>
+{% endset %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        caption: "Add user permission",
+        text: scope.value
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half-from-desktop">
+          {{ appInfo({
+            classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-4",
+            html: infoHtml
+          }) }}
+
+          <form
+            action="{{ routeLookup('post:admin/permissions/{scopeId}/user/{userId}/scope/{multiStepFormId}',
+              { params: {
+                scopeId: scope.scopeId,
+                userId: stepData.userId,
+                multiStepFormId: multiStepFormId
+              } }) }}"
+            method="post"
+            data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+
+            {% call govukFieldset() %}
+
+              {% set teamsHtml %}
+                {% if teamOptions | length or formErrors.teamId.message %}
+                  {{ govukRadios({
+                    name: "teamId",
+                    classes: "govuk-radios--small app-radios",
+                    items: teamOptions,
+                    value: formValues.teamId,
+                    formGroup: {
+                      classes: "app-form-group app-form-group-js"
+                    },
+                    errorMessage: errorMessageHelper(formErrors.teamId.message)
+                  }) }}
+                {% endif %}
+              {% endset %}
+
+              {{ govukRadios({
+                name: "scopeKind",
+                classes: "govuk-radios--small app-radios",
+                fieldset: {
+                  legend: {
+                    text: "Choose scope",
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                value: formValues.scopeKind,
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                items: [
+                  {
+                    value: "user",
+                    text: "User",
+                    checked: true
+                  },
+                  {
+                    value: "team",
+                    text: "Users team",
+                    conditional: {
+                    html: teamsHtml
+                  }
+                  }
+                ]
+              }) }}
+
+            {% endcall %}
+
+            <div class="govuk-body govuk-button-group">
+              {{ govukButton({
+                classes: "app-button",
+                text: formButtonText
+              }) }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endcall %}
+{% endblock %}

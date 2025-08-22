@@ -23,6 +23,6 @@ describe('#canLaunchTerminal', () => {
   })
 
   test('Should not throw for break glass user with production environment', () => {
-    expect(() => canLaunchTerminal([scopes.breakGlass], 'prod')).not.toThrow()
+    expect(() => canLaunchTerminal([scopes.prodAccess], 'prod')).not.toThrow()
   })
 })

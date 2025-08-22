@@ -64,6 +64,12 @@ describe('#userSession', () => {
         isAdmin: true,
         isTenant: false,
         scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
+        teamScope: {
+          'aabe63e7-87ef-4beb-a596-c810631fc474': [
+            'canGrantProdAccess',
+            'serviceOwner'
+          ]
+        },
         uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474'],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
@@ -116,6 +122,12 @@ describe('#userSession', () => {
         isAdmin: true,
         isTenant: false,
         scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
+        teamScope: {
+          'aabe63e7-87ef-4beb-a596-c810631fc474': [
+            'canGrantProdAccess',
+            'serviceOwner'
+          ]
+        },
         uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474'],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
@@ -175,7 +187,13 @@ describe('#userSession', () => {
         ...userSession,
         isAdmin: true,
         isTenant: false,
-        scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant']
+        scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
+        teamScope: {
+          'aabe63e7-87ef-4beb-a596-c810631fc474': [
+            'canGrantProdAccess',
+            'serviceOwner'
+          ]
+        }
       })
 
       expect(request.getUserSession).toHaveBeenCalled()

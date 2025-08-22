@@ -1,7 +1,7 @@
 import { scopes } from '../../common/constants/scopes.js'
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
-import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
+// import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
 import { permissionsListController } from './controllers/permissions-list.js'
 import { permissionController } from './controllers/permission.js'
 import { addPermissionController } from './controllers/add/add-permission.js'
@@ -16,30 +16,79 @@ import { confirmDeletePermissionController } from './controllers/delete/confirm-
 import { deletePermissionController } from './controllers/delete/delete-permission.js'
 import { confirmRemovePermissionFromUserController } from './controllers/remove/user/confirm-remove-permission.js'
 import { removePermissionFromUserController } from './controllers/remove/user/remove-permission.js'
+import { findUserController } from './controllers/add/user/find-user.js'
+import { findUserFormController } from './controllers/add/user/find-user-form.js'
+import { multistepForm } from '../../common/helpers/multistep-form/multistep-form.js'
+import { scopeFormController } from './controllers/add/user/scope-form.js'
+import { scopeController } from './controllers/add/user/scope.js'
+import { summaryController } from './controllers/add/user/summary.js'
+import { addPermissionToUserController } from './controllers/add/user/add-permission-to-user.js'
+import {
+  formSteps,
+  urlTemplates
+} from './helpers/multistep-form/add/user/steps.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
+const serverExtensions = [
+  {
+    type: 'onPostHandler',
+    method: provideSubNavigation,
+    options: { sandbox: 'plugin' }
+  }
+  // FIXME work out what we need to do here? Maybe separate routing plugin for the multistep form?
+  // {
+  //   type: 'onPostHandler',
+  //   method: provideFormContextValues(),
+  //   options: { before: ['yar'], sandbox: 'plugin' }
+  // }
+]
 
 const adminPermissions = {
   plugin: {
     name: 'adminPermissions',
     register: (server) => {
-      server.ext([
-        {
-          type: 'onPostHandler',
-          method: provideSubNavigation,
-          options: {
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideFormContextValues(),
-          options: {
-            before: ['yar'],
-            sandbox: 'plugin'
-          }
+      server.ext(serverExtensions)
+
+      server.register({
+        plugin: multistepForm,
+        options: {
+          urlTemplates,
+          formSteps,
+          ext: serverExtensions,
+          routes: [
+            {
+              method: 'GET',
+              path: '/admin/permissions/{scopeId}/user/find/{multiStepFormId?}',
+              ...findUserFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/permissions/{scopeId}/user/find/{multiStepFormId?}',
+              ...findUserController
+            },
+            {
+              method: 'GET',
+              path: '/admin/permissions/{scopeId}/user/{userId}/scope/{multiStepFormId}',
+              ...scopeFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/permissions/{scopeId}/user/{userId}/scope/{multiStepFormId}',
+              ...scopeController
+            },
+            {
+              method: 'GET',
+              path: '/admin/permissions/{scopeId}/user/{userId}/summary/{multiStepFormId}',
+              ...summaryController
+            },
+            {
+              method: 'POST',
+              path: '/admin/permissions/{scopeId}/user/{userId}/add/{multiStepFormId}',
+              ...addPermissionToUserController
+            }
+          ].map(adminScope)
         }
-      ])
+      })
 
       server.route(
         [

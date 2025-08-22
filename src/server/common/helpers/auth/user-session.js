@@ -44,7 +44,7 @@ async function createUserSession(request, sessionId) {
 
   const { id, email, displayName, loginHint } = request.auth.credentials.profile
 
-  const { scopes, scopeFlags } = await fetchScopes(
+  const { scopes, scopeFlags, teamScopes } = await fetchScopes(
     request.auth.credentials.token
   )
 
@@ -59,6 +59,7 @@ async function createUserSession(request, sessionId) {
     isAdmin: scopeFlags.isAdmin,
     isTenant: scopeFlags.isTenant,
     scope: scopes,
+    teamScope: teamScopes,
     uuidScope: scopes.filter(uuidValidate),
     expiresIn: expiresInMilliSeconds,
     expiresAt
@@ -72,7 +73,9 @@ async function createUserSession(request, sessionId) {
  * @returns {Promise<UserSession> | UserSession}
  */
 async function updateUserScope(request, userSession) {
-  const { scopes, scopeFlags } = await fetchScopes(userSession.token)
+  const { scopes, scopeFlags, teamScopes } = await fetchScopes(
+    userSession.token
+  )
 
   request.logger.debug('User session updated')
 
@@ -80,7 +83,8 @@ async function updateUserScope(request, userSession) {
     ...userSession,
     isAdmin: scopeFlags?.isAdmin,
     isTenant: scopeFlags?.isTenant,
-    scope: scopes ?? []
+    scope: scopes ?? [],
+    teamScope: teamScopes ?? {}
   })
 
   return await request.getUserSession()
@@ -113,7 +117,7 @@ async function refreshUserSession(request, refreshTokenResponse) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
-  const { scopes, scopeFlags } = await fetchScopes(refreshedToken)
+  const { scopes, scopeFlags, teamScopes } = await fetchScopes(refreshedToken)
 
   await request.server.session.set(request.state.userSessionCookie.sessionId, {
     id: payload.oid,
@@ -126,6 +130,7 @@ async function refreshUserSession(request, refreshTokenResponse) {
     isAdmin: scopeFlags.isAdmin,
     isTenant: scopeFlags.isTenant,
     scope: scopes,
+    teamScope: teamScopes,
     uuidScope: scopes.filter(uuidValidate),
     expiresIn: expiresInMilliSeconds,
     expiresAt

@@ -7,7 +7,7 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')
 
-async function addScopeToTeam(request, teamId, scopeId) {
+async function addScopeToTeam({ request, teamId, scopeId }) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/team/add/${teamId}`
 
@@ -19,16 +19,17 @@ async function addScopeToTeam(request, teamId, scopeId) {
   return payload
 }
 
-async function addScopeToUser(request, userId, scopeId) {
+async function addScopeToUser({ request, userId, scopeId, payload = {} }) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/user/add/${userId}`
 
-  const { payload } = await request.authedFetchJson(endpoint, {
+  const response = await request.authedFetchJson(endpoint, {
     method: 'patch',
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    payload: removeNil(payload)
   })
 
-  return payload
+  return response?.payload
 }
 
 function createScope(request, payload) {
@@ -41,21 +42,21 @@ function createScope(request, payload) {
   })
 }
 
-async function fetchPermissionsScope(request, scopeId) {
+async function fetchPermission(request, scopeId) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
   const { payload } = await request.authedFetchJson(endpoint)
   return payload
 }
 
-async function fetchPermissionsScopeByName(request, scopeName) {
+async function fetchPermissionByName(request, scopeName) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/name/${scopeName}`
 
   const { payload } = await request.authedFetchJson(endpoint)
   return payload
 }
 
-async function fetchPermissionsScopes(request) {
+async function fetchPermissions(request) {
   const endpoint = userServiceBackendUrl + '/scopes/admin'
 
   const { payload } = await request.authedFetchJson(endpoint)
@@ -102,13 +103,14 @@ async function removeScopeFromTeam(request, teamId, scopeId) {
   return payload
 }
 
-async function removeScopeFromUser(request, userId, scopeId) {
+async function removeScopeFromUser({ request, userId, scopeId, payload = {} }) {
   const userSession = await request.getUserSession()
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/user/remove/${userId}`
 
-  const { payload } = await request.authedFetchJson(endpoint, {
-    method: 'patch'
+  const response = await request.authedFetchJson(endpoint, {
+    method: 'patch',
+    payload: removeNil(payload)
   })
 
   request.yar.flash(sessionNames.notifications, {
@@ -125,7 +127,7 @@ async function removeScopeFromUser(request, userId, scopeId) {
     user: userSession
   })
 
-  return payload
+  return response?.payload
 }
 
 function deleteScope(request, scopeId) {
@@ -140,9 +142,9 @@ export {
   addScopeToTeam,
   addScopeToUser,
   createScope,
-  fetchPermissionsScope,
-  fetchPermissionsScopeByName,
-  fetchPermissionsScopes,
+  fetchPermission,
+  fetchPermissionByName,
+  fetchPermissions,
   searchCdpUsers,
   searchCdpTeams,
   updateScope,

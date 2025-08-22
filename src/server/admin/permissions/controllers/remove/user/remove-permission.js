@@ -3,7 +3,10 @@ import Boom from '@hapi/boom'
 import Joi from '../../../../../common/helpers/extended-joi.js'
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { removeScopeFromUser } from '../../../helpers/fetchers.js'
-import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import {
+  teamIdValidation,
+  userIdValidation
+} from '@defra/cdp-validation-kit/src/validations.js'
 
 const removePermissionFromUserController = {
   options: {
@@ -12,6 +15,9 @@ const removePermissionFromUserController = {
         userId: userIdValidation,
         scopeId: Joi.objectId().required()
       }),
+      payload: Joi.object({
+        teamId: teamIdValidation.optional()
+      }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
@@ -19,9 +25,15 @@ const removePermissionFromUserController = {
     const params = request.params
     const userId = params.userId
     const scopeId = params.scopeId
+    const teamId = request.payload.teamId
 
     try {
-      await removeScopeFromUser(request, userId, scopeId)
+      await removeScopeFromUser({
+        request,
+        userId,
+        scopeId,
+        payload: { teamId }
+      })
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
     }

@@ -48,14 +48,30 @@
   list-style: none;
   position: relative;
   z-index: 1;
+
+  &:first-of-type {
+    .app-step-navigation__heading {
+      left: 0;
+      text-align: left;
+      transform: translate(0%, -68%);
+    }
+  }
+
+  &:last-of-type {
+    .app-step-navigation__heading {
+      right: 0;
+      text-align: right;
+      transform: translate(-84%, -68%);
+    }
+  }
 }
 
 .app-step-navigation__point {
   @include govuk-link-style-no-visited-state;
 
   text-decoration: none;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -83,8 +99,8 @@
 
   .app-complete-icon {
     fill: govuk-colour("white");
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -95,7 +111,7 @@
 }
 
 .app-step-navigation__icon {
-  @include govuk-font(24, "bold");
+  @include govuk-font(19, "bold");
   display: inline-block;
   color: govuk-colour("black");
 }
@@ -105,7 +121,7 @@
   position: absolute;
   top: 48px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -68%);
   min-width: 100px;
   text-align: center;
 }

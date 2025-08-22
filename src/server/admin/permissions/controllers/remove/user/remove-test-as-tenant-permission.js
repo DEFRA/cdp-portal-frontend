@@ -1,7 +1,7 @@
 import { scopes } from '../../../../../common/constants/scopes.js'
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import {
-  fetchPermissionsScopeByName,
+  fetchPermissionByName,
   removeScopeFromUser
 } from '../../../helpers/fetchers.js'
 
@@ -13,11 +13,15 @@ const removeTestAsTenantScopeController = {
     const userSession = await request.getUserSession()
 
     try {
-      const { scope } = await fetchPermissionsScopeByName(
+      const { scope } = await fetchPermissionByName(
         request,
         scopes.testAsTenant
       )
-      await removeScopeFromUser(request, userSession?.id, scope.scopeId)
+      await removeScopeFromUser({
+        request,
+        userId: userSession?.id,
+        scopeId: scope.scopeId
+      })
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
     }

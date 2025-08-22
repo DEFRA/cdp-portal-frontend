@@ -1,21 +1,14 @@
 /**
- * @typedef {object} Options
- * @property {string} id
- * @property {StepData} data
- * @property {string} path
- * @param {import('@hapi/yar').Yar} yar
- * @param {import('@hapi/hapi').ResponseToolkit} h
- * @property {import('pino').Logger} logger
- * @property {Function} getStepByPath
- */
-/**
  * Save the current step data to the session and set the step as complete
- * @param {Options} options
+ * @param {string} id
+ * @param {StepData} data
+ * @param {import('@hapi/hapi').ResponseToolkit} h
+ * @param {import('@hapi/yar').Yar} yar
+ * @param {import('pino').Logger} logger
+ * @param {Function} getStepByPath
  * @returns {Promise<void>}
  */
-async function saveStepData({ id, data, path, h, yar, logger, getStepByPath }) {
-  const step = getStepByPath(path)
-
+async function saveStepData({ id, data, h, yar, logger, step }) {
   if (!step) {
     throw new Error(
       'Could not find step, check multistep urls are set up correctly'
@@ -57,11 +50,10 @@ function saveStepDataRequestHelper(request, getStepByPath) {
     saveStepData({
       id,
       data,
-      path: request.path,
       h,
       yar: request.yar,
       logger: request.logger,
-      getStepByPath
+      step: getStepByPath(request)
     })
 }
 

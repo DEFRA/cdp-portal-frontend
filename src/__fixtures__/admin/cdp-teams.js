@@ -76,7 +76,7 @@ const cdpTeamsFixture = {
       ],
       serviceCodes: ['CDP'],
       alertEmailAddresses: ['platform@platform.com', 'platops@platops.com'],
-      scopes: ['breakGlass', 'externalTest']
+      scopes: ['prodAccess', 'externalTest']
     }
   ]
 }

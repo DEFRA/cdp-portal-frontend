@@ -6,14 +6,11 @@ import { fetchDeployServiceOptions } from '../../../common/helpers/fetch/fetch-d
 import { fetchSecrets } from '../../../common/helpers/fetch/fetch-secrets.js'
 import { transformSecrets } from '../../../common/components/secrets-list/helpers/transform-secrets.js'
 import { provideStepData } from '../../../common/helpers/multistep-form/provide-step-data.js'
-import { checkSessionIsValid } from '../../../common/helpers/multistep-form/check-session-is-valid.js'
 import { fetchLatestConfigVersion } from '../../../common/helpers/fetch/fetch-latest-config-version.js'
 
 const summaryController = {
   options: {
-    ext: {
-      onPreHandler: checkSessionIsValid('/deploy-service')
-    },
+    id: 'deploy-service/summary/{multiStepFormId}',
     pre: [provideStepData],
     validate: {
       params: Joi.object({

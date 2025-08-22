@@ -8,6 +8,7 @@ import { hasScopeDecorator } from './decorators/has-scope.js'
 import { userIsAdminDecorator } from './user/user-is-admin.js'
 import { userIsTenantDecorator } from './user/user-is-tenant.js'
 import { userIsOwnerDecorator } from './user/user-is-owner.js'
+import { hasTeamScopeDecorator } from './decorators/has-team-scope.js'
 
 /**
  * Add global server methods
@@ -39,6 +40,9 @@ function addDecorators(server) {
     apply: true
   })
   server.decorate('request', 'hasScope', hasScopeDecorator, {
+    apply: true
+  })
+  server.decorate('request', 'hasTeamScope', hasTeamScopeDecorator, {
     apply: true
   })
 }

@@ -91,10 +91,10 @@ const addPermissionController = {
       const userIds = extractIds(entityIds, 'user')
       const teamIds = extractIds(entityIds, 'team')
       const addScopeToUserPromises = userIds.map((userId) =>
-        addScopeToUser(request, userId, scopeId)
+        addScopeToUser({ request, userId, scopeId })
       )
       const addScopeToTeamPromises = teamIds.map((teamId) =>
-        addScopeToTeam(request, teamId, scopeId)
+        addScopeToTeam({ request, teamId, scopeId })
       )
 
       const responses = await Promise.allSettled([

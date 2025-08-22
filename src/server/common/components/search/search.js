@@ -1,19 +1,28 @@
 import qs from 'qs'
+
 import { addHistoryListener } from '../../../../client/common/helpers/xhr.js'
 
+/**
+ * Search module functionality. A simple search module that handles
+ * the search input, clear button, and form submission. This is usually paired with the `auto-submit` module
+ * functionality
+ * @param {HTMLElement} $module
+ */
 function search($module) {
   if (!$module) {
     return
   }
 
-  // Setup Xhr history listener
   addHistoryListener()
 
+  const queryParams = qs.parse(location?.search, { ignoreQueryPrefix: true })
+  const hasSearchResultError = $module.dataset?.hasSearchResultError === 'true'
+
+  /** @type {HTMLInputElement} */
   const $input = $module.querySelector(`[data-js="app-search-input"]`)
   const $noJsSubmitButton = $input.form.querySelector(
     '[data-js="app-no-js-submit-button"]'
   )
-  const queryParams = qs.parse(location?.search, { ignoreQueryPrefix: true })
   const $clearButton = $module.querySelector(
     `[data-js="app-search-clear-button"]`
   )
@@ -34,16 +43,17 @@ function search($module) {
   document.addEventListener('DOMContentLoaded', () => {
     $noJsSubmitButton?.remove()
 
-    const queryParamValue = queryParams?.[$input.name]
+    const queryParamInputValue = queryParams?.[$input.name]
 
-    if (queryParamValue) {
-      $input.value = queryParamValue
-      showCloseButton()
+    if (queryParamInputValue && !$input.value) {
+      $input.value = queryParamInputValue
     }
 
-    if (!queryParamValue) {
-      if ($input.value) {
-        showCloseButton()
+    if ($input.value) {
+      showCloseButton()
+
+      if (!hasSearchResultError) {
+        dispatchSubmitEvent()
       }
     }
   })
@@ -67,6 +77,7 @@ function search($module) {
     }
   })
 
+  // Enter pressed in input
   $input.addEventListener('keydown', (event) => {
     const code = event.code.toLowerCase()
 

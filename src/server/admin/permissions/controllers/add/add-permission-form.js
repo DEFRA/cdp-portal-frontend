@@ -10,7 +10,7 @@ import { provideSelectedEntities } from '../../helpers/pre/provide-selected-enti
 import {
   searchCdpUsers,
   searchCdpTeams,
-  fetchPermissionsScope
+  fetchPermission
 } from '../../helpers/fetchers.js'
 import { renderTag } from '../../../../common/helpers/view/render-tag.js'
 
@@ -142,10 +142,7 @@ const addPermissionFormController = {
     const selectedEntityIds = selectedEntities.map(
       (entity) => `${entity.kind}:${entity.id}`
     )
-    const { scope } = await fetchPermissionsScope(
-      request,
-      request.params.scopeId
-    )
+    const { scope } = await fetchPermission(request, request.params.scopeId)
 
     return h.view('admin/permissions/views/add/add-permission-form', {
       pageTitle: 'Add Permission',

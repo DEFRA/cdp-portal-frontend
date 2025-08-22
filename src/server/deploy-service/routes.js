@@ -10,7 +10,7 @@ import { deployController } from './controllers/deploy/deploy.js'
 import { multistepForm } from '../common/helpers/multistep-form/multistep-form.js'
 import { availableVersionsController } from './controllers/available-versions.js'
 import { availableMemoryController } from './controllers/available-memory.js'
-import { urls, formSteps } from './helpers/multistep-form/steps.js'
+import { urlTemplates, formSteps } from './helpers/multistep-form/steps.js'
 import { availableEnvironmentsController } from './controllers/available-environments.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
@@ -26,7 +26,7 @@ const deployService = {
       await server.register({
         plugin: multistepForm,
         options: {
-          urls,
+          urlTemplates,
           formSteps,
           routes: [
             {

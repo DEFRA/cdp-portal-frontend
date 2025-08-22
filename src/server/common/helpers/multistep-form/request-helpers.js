@@ -1,14 +1,16 @@
 import { randomUUID } from 'node:crypto'
+
+import { populatePathParams } from './populate-path-params.js'
 import { saveStepDataRequestHelper } from './save-step-data.js'
 
-function requestHelpers(urls) {
+function requestHelpers(urlTemplates) {
   return (request, h) => {
     request.app.multiStepFormId =
       request.params?.multiStepFormId || randomUUID()
 
     request.app.saveStepData = saveStepDataRequestHelper(
       request,
-      getStepByPath(urls)
+      getStepNameByPath(urlTemplates)
     )
 
     request.logger.debug(`Multistep Form Id: ${request.app.multiStepFormId}`)
@@ -17,10 +19,12 @@ function requestHelpers(urls) {
   }
 }
 
-function getStepByPath(urls) {
-  return (path) => {
-    const result = Object.entries(urls).find(([, url]) => path.startsWith(url))
-    return result.at(0)
+function getStepNameByPath(urlTemplates) {
+  return ({ path, params }) => {
+    const step = Object.entries(urlTemplates).find(([, urlTemplate]) =>
+      path.startsWith(populatePathParams(params, urlTemplate))
+    )
+    return step?.at(0)
   }
 }
 

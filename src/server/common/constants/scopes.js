@@ -1,14 +1,15 @@
 import { authScope } from '../helpers/auth/auth-scope.js'
 
 /**
- * @type {{admin: string, tenant: string, serviceOwner: string, externalTest: string, breakGlass: string, restrictedTechPython: string, restrictedTechPostgres: string }}
+ * @type { Record<string, string> }
  */
 const scopes = {
   admin: 'admin',
   tenant: 'tenant',
   serviceOwner: 'serviceOwner',
   externalTest: 'externalTest',
-  breakGlass: 'breakGlass',
+  canGrantProdAccess: 'canGrantProdAccess',
+  prodAccess: 'prodAccess',
   restrictedTechPython: 'restrictedTechPython',
   restrictedTechPostgres: 'restrictedTechPostgres',
   testAsTenant: 'testAsTenant'

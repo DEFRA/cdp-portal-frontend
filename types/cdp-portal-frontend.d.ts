@@ -40,6 +40,7 @@ declare module '@hapi/hapi' {
     session: Policy
     featureToggles: Policy
     hasScope: (scope: string) => boolean
+    hasTeamScope: ({ scope: string, teamId: string }) => boolean
   }
 
   interface Server {

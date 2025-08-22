@@ -1,8 +1,10 @@
+import { populatePathParams } from '../../../common/helpers/multistep-form/populate-path-params.js'
+
 /** @type {Record<string, string>} */
-const urls = {
-  stepOne: '/deploy-service/details',
-  stepTwo: '/deploy-service/options',
-  stepThree: '/deploy-service/summary'
+const urlTemplates = {
+  stepOne: '/deploy-service/details/{multiStepFormId?}',
+  stepTwo: '/deploy-service/options/{multiStepFormId}',
+  stepThree: '/deploy-service/summary/{multiStepFormId}'
 }
 
 /**
@@ -32,34 +34,42 @@ const urls = {
 /**
  * Returns the objects that control the form steps
  * @param {string} path
- * @param {string} multiStepFormId
- * @param {StepData} stepData
+ * @param {Record<string, boolean>} params
+ * @param {StepData | null} stepData
  * @param {Function} isMultistepComplete
  * @returns {Array<FormStep>}
  */
-function formSteps(path, multiStepFormId, stepData, isMultistepComplete) {
+function formSteps({
+  path,
+  params,
+  stepData = null,
+  isMultistepComplete = () => ({})
+}) {
   const isComplete = isMultistepComplete(stepData)
-  const withId = (url) => `${url}/${multiStepFormId}`
+
+  const stepOneUrl = populatePathParams(params, urlTemplates.stepOne)
+  const stepTwoUrl = populatePathParams(params, urlTemplates.stepTwo)
+  const stepThreeUrl = populatePathParams(params, urlTemplates.stepThree)
 
   return [
     {
-      url: withId(urls.stepOne),
+      url: stepOneUrl,
       isComplete: isComplete.stepOne,
-      isCurrent: path.startsWith(urls.stepOne),
+      isCurrent: path.startsWith(stepOneUrl),
       text: 'Details'
     },
     {
-      url: withId(urls.stepTwo),
+      url: stepTwoUrl,
       isComplete: isComplete.stepTwo,
-      isCurrent: path.endsWith(withId(urls.stepTwo)),
+      isCurrent: path.endsWith(stepTwoUrl),
       text: 'Options'
     },
     {
       isComplete: isComplete.stepThree,
-      isCurrent: path.endsWith(withId(urls.stepThree)),
+      isCurrent: path.endsWith(stepThreeUrl),
       text: 'Summary'
     }
   ]
 }
 
-export { formSteps, urls }
+export { formSteps, urlTemplates }

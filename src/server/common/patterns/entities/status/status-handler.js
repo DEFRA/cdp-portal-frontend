@@ -13,6 +13,7 @@ import { resourceDescriptions } from './helpers/resource-descriptions.js'
 
 export async function entityStatusHandler(request, h, entityKind) {
   const entity = request.app.entity
+  const userSession = await request.getUserSession()
 
   if (entity == null) {
     return Boom.notFound()
@@ -21,8 +22,7 @@ export async function entityStatusHandler(request, h, entityKind) {
   const entityStatus = await fetchEntityStatus(request.params.serviceId)
 
   const serviceName = entityStatus.entity.name
-  const userScopes = request.auth?.credentials?.scope
-  const isServiceOwner = userScopes?.includes(scopes.serviceOwner)
+  const isServiceOwner = userSession?.scope?.includes(scopes.serviceOwner)
 
   const repository = await fetchRepository(serviceName).catch(nullify404)
 

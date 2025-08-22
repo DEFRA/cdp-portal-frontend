@@ -19,7 +19,7 @@ In a route file register the multistep plugin with the following options:
 server.register({
   plugin: multistepForm,
   options: {
-    urls,
+    urlTemplates,
     formSteps,
     routes: [
       {
@@ -39,36 +39,53 @@ server.register({
 
 ### Custom options
 
-Provide the following custom options `formSteps` and `urls` for you flow. These control the steps in your flow and the
-completion of the steps. Everything else is taken care for you.
+Provide the following custom options `formSteps` and `urlTemplates` for you flow. These control the steps in your flow
+and the completion of the steps. Everything else is taken care for you.
 
 ```javascript
-const urls = {
-  stepOne: '/deploy-service/details',
-  stepTwo: '/deploy-service/options',
-  stepThree: '/deploy-service/summary'
+/** @type {Record<string, string>} */
+const urlTemplates = {
+  stepOne: '/deploy-service/details/{multiStepFormId?}',
+  stepTwo: '/deploy-service/options/{multiStepFormId}',
+  stepThree: '/deploy-service/summary/{multiStepFormId}'
 }
 
-function formSteps(path, multiStepFormId, stepData) {
+/**
+ * Returns the objects that control the form steps
+ * @param {string} path
+ * @param {Record<string, boolean>} params
+ * @param {StepData | null} stepData
+ * @param {Function} isMultistepComplete
+ * @returns {Array<FormStep>}
+ */
+function formSteps({
+  path,
+  params,
+  stepData = null,
+  isMultistepComplete = () => ({})
+}) {
   const isComplete = isMultistepComplete(stepData)
-  const withId = (url) => `${url}/${multiStepFormId}`
+
+  const stepOneUrl = populatePathParams(params, urlTemplates.stepOne)
+  const stepTwoUrl = populatePathParams(params, urlTemplates.stepTwo)
+  const stepThreeUrl = populatePathParams(params, urlTemplates.stepThree)
 
   return [
     {
-      url: withId(urls.stepOne),
+      url: stepOneUrl,
       isComplete: isComplete.stepOne,
-      isCurrent: path.startsWith(urls.stepOne),
+      isCurrent: path.startsWith(stepOneUrl),
       text: 'Details'
     },
     {
-      url: withId(urls.stepTwo),
+      url: stepTwoUrl,
       isComplete: isComplete.stepTwo,
-      isCurrent: path.endsWith(withId(urls.stepTwo)),
+      isCurrent: path.endsWith(stepTwoUrl),
       text: 'Options'
     },
     {
-      isComplete: isComplete.allSteps,
-      isCurrent: path.endsWith(withId(urls.stepThree)),
+      isComplete: isComplete.stepThree,
+      isCurrent: path.endsWith(stepThreeUrl),
       text: 'Summary'
     }
   ]
@@ -84,19 +101,6 @@ data.
 
 You have `formValues` and `formErrors` available in context. These values are used to populate the form fields and
 error messages in your multistep-form flows views.
-
-### Check session is valid helper
-
-To bounce users to the start of a multistep-form flow if the session is invalid, use the `checkSessionIsValid`
-helper in a routes `options`.
-
-```javascript
-options: {
-  ext: {
-    onPreHandler: checkSessionIsValid('/deploy-service')
-  }
-}
-```
 
 ### Example
 

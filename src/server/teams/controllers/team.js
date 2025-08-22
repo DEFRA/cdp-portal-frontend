@@ -8,6 +8,8 @@ import { librariesToDetailedList } from '../transformers/libraries-to-detailed-l
 import { templatesToDetailedList } from '../transformers/templates-to-detailed-list.js'
 import { fetchTeamRepositories } from '../helpers/fetch/fetchers.js'
 import { fetchEntities } from '../../common/helpers/fetch/fetch-entities.js'
+import { transformTeamUsersToRows } from '../transformers/team-users-to-rows.js'
+import { scopes } from '../../common/constants/scopes.js'
 
 const teamController = {
   options: {
@@ -23,6 +25,12 @@ const teamController = {
     const teamId = request.params.teamId
     const userIsServiceOwner = await request.userIsServiceOwner([teamId])
     const userIsAdmin = await request.userIsAdmin()
+    const isServiceOwnerOrAdmin = userIsServiceOwner || userIsAdmin
+
+    // FIXME is this the permissions we want?
+    const hasCanGrantProdAccess =
+      request.hasTeamScope({ scope: scopes.canGrantProdAccess, teamId }) &&
+      isServiceOwnerOrAdmin
 
     const [{ team }, teamsServices, teamTestSuites] = await Promise.all([
       fetchTeam(teamId),
@@ -38,16 +46,22 @@ const teamController = {
 
     return h.view('teams/views/team', {
       pageTitle: `${team.name} Team`,
-      summaryList: transformTeamToSummary(
+      summaryList: transformTeamToSummary({
         team,
-        userIsServiceOwner || userIsAdmin
-      ),
+        withActions: isServiceOwnerOrAdmin
+      }),
+      teamUsersRows: transformTeamUsersToRows({
+        team,
+        withActions: isServiceOwnerOrAdmin,
+        hasCanGrantProdAccess
+      }),
       services: entitiesToDetailedList('services', teamsServices),
       testSuites: entitiesToDetailedList('test-suites', teamTestSuites),
       libraries: librariesToDetailedList(libraries),
       templates: templatesToDetailedList(templates),
       team,
       userIsServiceOwner,
+      isServiceOwnerOrAdmin,
       breadcrumbs: [
         {
           text: 'Teams',

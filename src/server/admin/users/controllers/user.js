@@ -4,8 +4,8 @@ import Boom from '@hapi/boom'
 import { fetchCdpUser } from '../helpers/fetch/index.js'
 import { transformUserToSummary } from '../transformers/user-to-summary.js'
 import { transformUserTeamsToTaskList } from '../transformers/user-teams-to-task-list.js'
-import { transformUserScopesToTaskList } from '../transformers/user-scopes-to-task-list.js'
 import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { transformUserScopesToRows } from '../transformers/user-scopes-to-rows.js'
 
 const userController = {
   options: {
@@ -24,7 +24,7 @@ const userController = {
       user,
       summaryList: transformUserToSummary(user),
       teamsTaskList: transformUserTeamsToTaskList(user),
-      scopesTaskList: transformUserScopesToTaskList(user),
+      userScopesRows: transformUserScopesToRows(user),
       splitPaneBreadcrumbs: [
         {
           text: 'Admin',
