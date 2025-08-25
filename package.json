@@ -146,7 +146,7 @@
     "typescript": "5.9.2",
     "vitest": "3.2.4",
     "vitest-fetch-mock": "0.4.5",
-    "webpack": "5.101.2",
+    "webpack": "5.101.3",
     "webpack-assets-manifest": "6.2.2",
     "webpack-cli": "6.0.1",
     "webpack-shell-plugin-next": "2.3.3"
