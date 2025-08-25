@@ -77,7 +77,7 @@
     "joi-objectid": "4.0.2",
     "lodash": "4.17.21",
     "lunr": "2.3.9",
-    "marked": "16.1.1",
+    "marked": "16.2.0",
     "marked-alert": "2.1.2",
     "marked-plaintify": "1.1.1",
     "nunjucks": "3.2.4",
