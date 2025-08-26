@@ -1,6 +1,5 @@
 import jwt from '@hapi/jwt'
 import { addSeconds } from 'date-fns'
-import { validate as uuidValidate } from 'uuid'
 
 import { fetchScopes } from '../../../teams/helpers/fetch/fetch-scopes.js'
 import { userLog } from '../logging/user-log.js'
@@ -59,7 +58,6 @@ async function createUserSession(request, sessionId) {
     isAdmin: scopeFlags.isAdmin,
     isTenant: scopeFlags.isTenant,
     scope: scopes,
-    uuidScope: scopes.filter(uuidValidate),
     expiresIn: expiresInMilliSeconds,
     expiresAt
   })
@@ -126,7 +124,6 @@ async function refreshUserSession(request, refreshTokenResponse) {
     isAdmin: scopeFlags.isAdmin,
     isTenant: scopeFlags.isTenant,
     scope: scopes,
-    uuidScope: scopes.filter(uuidValidate),
     expiresIn: expiresInMilliSeconds,
     expiresAt
   })

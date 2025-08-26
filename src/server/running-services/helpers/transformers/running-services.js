@@ -4,7 +4,7 @@ import { provideDeploymentStatusClassname } from '../provide-deployment-status-c
 function transformRunningServices({
   runningServices,
   deployableServices,
-  userScopeUUIDs
+  userScopes
 }) {
   return Object.entries(
     runningServices?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
@@ -28,7 +28,7 @@ function transformRunningServices({
 
       if (!acc[rs.service].isOwner) {
         acc[rs.service].isOwner = acc[rs.service].teams.some((team) =>
-          userScopeUUIDs.includes(team.teamId)
+          userScopes.includes(team.teamId)
         )
       }
 

@@ -8,7 +8,7 @@ const templatesListController = {
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
     const isAuthenticated = userSession?.isAuthenticated
-    const userScopeUUIDs = userSession?.uuidScope ?? []
+    const userScopes = userSession?.uuidScope ?? []
 
     const templates = await fetchTemplates()
 
@@ -16,7 +16,7 @@ const templatesListController = {
       utilities: templates,
       utilityType: 'templates',
       isAuthenticated,
-      userScopeUUIDs
+      userScopes
     })
     const title = 'Templates'
 

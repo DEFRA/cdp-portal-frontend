@@ -19,14 +19,14 @@ const servicesListController = {
   },
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
-    const userScopeUUIDs = userSession?.uuidScope ?? []
+    const userScopes = userSession?.scope ?? []
     const service = request.query.service
     const teamId = request.query.teamId
 
     const { rows, servicesCount, filters } = await buildServicesTableData({
       service,
       teamId,
-      userScopeUUIDs
+      userScopes
     })
 
     return h.view('services/list/views/list', {

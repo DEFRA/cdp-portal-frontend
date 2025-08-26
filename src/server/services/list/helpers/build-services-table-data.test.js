@@ -28,7 +28,7 @@ const entitiesEndpointUrl = new URL(`${portalBackendUrl}/entities`)
 
 describe('#buildServicesTableData', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
-  const userScopeUUIDs = [adminGroupId]
+  const userScopes = [adminGroupId]
 
   beforeEach(() => {
     // Provide mock response for API calls
@@ -61,7 +61,7 @@ describe('#buildServicesTableData', () => {
 
       beforeEach(async () => {
         result = await buildServicesTableData({
-          userScopeUUIDs
+          userScopes
         })
       })
 
@@ -141,7 +141,7 @@ describe('#buildServicesTableData', () => {
 
         result = await buildServicesTableData({
           service: 'forms-service',
-          userScopeUUIDs
+          userScopes
         })
       })
 
@@ -191,7 +191,7 @@ describe('#buildServicesTableData', () => {
 
         result = await buildServicesTableData({
           teamId: adminGroupId,
-          userScopeUUIDs
+          userScopes
         })
       })
 
@@ -238,7 +238,7 @@ describe('#buildServicesTableData', () => {
         .reply(200, entityServicesFixture)
 
       result = await buildServicesTableData({
-        userScopeUUIDs: []
+        userScopes: []
       })
     })
 

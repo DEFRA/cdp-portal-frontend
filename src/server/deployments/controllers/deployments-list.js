@@ -87,7 +87,7 @@ const deploymentsListController = {
   },
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
-    const userScopeUUIDs = userSession?.uuidScope ?? []
+    const userScopes = userSession?.scope ?? []
 
     const environment = request.params?.environment
     const formattedEnvironment = upperFirst(kebabCase(environment))
@@ -103,7 +103,7 @@ const deploymentsListController = {
     const deploymentsResponse = await fetchDeploymentsWithMigrations(
       environment,
       {
-        favourites: userScopeUUIDs,
+        favourites: userScopes,
         page: request.query?.page,
         size: request.query?.size,
         service: request.query.service,
@@ -121,7 +121,7 @@ const deploymentsListController = {
 
     const deploymentsDecorator = decorateRollouts({
       deployableServices,
-      userScopeUUIDs
+      userScopes
     })
     const deploymentsWithTeams = deploymentsDecorator(deployments)
     const rowBuilder = (entity) => {

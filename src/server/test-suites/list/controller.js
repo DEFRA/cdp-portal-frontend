@@ -9,11 +9,11 @@ const testSuiteListController = {
   },
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
-    const userScopeUUIDs = userSession?.uuidScope ?? []
+    const userScope = userSession?.scope ?? []
 
     const [testSuites] = await Promise.all([fetchTestSuites()])
 
-    const ownerDecorator = entityOwnerDecorator(userScopeUUIDs)
+    const ownerDecorator = entityOwnerDecorator(userScope)
     const ownerSorter = sortByOwner('name')
 
     const rows = testSuites

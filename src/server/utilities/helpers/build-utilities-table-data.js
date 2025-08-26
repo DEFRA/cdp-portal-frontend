@@ -6,13 +6,13 @@ function buildUtilitiesTableData({
   utilities,
   utilityType,
   isAuthenticated,
-  userScopeUUIDs
+  userScopes
 }) {
   const rowDecorator = utilityToEntityRow(utilityType, isAuthenticated)
   const ownerSorter = sortByOwner('id')
 
   return utilities
-    .map(entityOwnerDecorator(userScopeUUIDs))
+    .map(entityOwnerDecorator(userScopes))
     .toSorted(ownerSorter)
     .map(rowDecorator)
 }
