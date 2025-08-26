@@ -8,7 +8,7 @@ const templatesListController = {
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
     const isAuthenticated = userSession?.isAuthenticated
-    const userScopes = userSession?.uuidScope ?? []
+    const userScopes = userSession?.scopes ?? []
 
     const templates = await fetchTemplates()
 

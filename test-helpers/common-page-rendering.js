@@ -1,6 +1,5 @@
 import capitalize from 'lodash/capitalize.js'
 import { Engine as CatboxMemory } from '@hapi/catbox-memory'
-import { validate as uuidValidate } from 'uuid'
 
 import { createServer } from '../src/server/index.js'
 import { fetchTestRuns } from '../src/server/test-suites/helpers/fetch/fetch-test-runs.js'
@@ -387,8 +386,7 @@ function buildAuthDetail(
         isAdmin,
         isTenant,
         isAuthenticated,
-        scope,
-        uuidScope: additionalScopes.filter(uuidValidate)
+        scope
       },
       auth: {
         credentials: { user, scope },
