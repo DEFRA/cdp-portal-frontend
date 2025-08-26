@@ -8,12 +8,12 @@ describe('transformRunningServices', () => {
   test('should transform running services correctly', () => {
     const runningServices = runningServicesFixture
     const deployableServices = entityServicesFixture
-    const userScopeUUIDs = [adminGroupId]
+    const userScopes = [adminGroupId]
 
     const result = transformRunningServices({
       runningServices,
       deployableServices,
-      userScopeUUIDs
+      userScopes
     })
 
     expect(result).toEqual([
@@ -162,12 +162,12 @@ describe('transformRunningServices', () => {
   test('should handle empty running services', () => {
     const runningServices = []
     const deployableServices = []
-    const userScopeUUIDs = []
+    const userScopes = []
 
     const result = transformRunningServices({
       runningServices,
       deployableServices,
-      userScopeUUIDs
+      userScopes
     })
 
     expect(result).toEqual([])

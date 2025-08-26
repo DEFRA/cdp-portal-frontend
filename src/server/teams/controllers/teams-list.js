@@ -1,9 +1,9 @@
 import { fetchTeams } from '../helpers/fetch/fetch-teams.js'
 import { teamToEntityRow } from '../transformers/team-to-entity-row.js'
 
-function belongsToTeam(userScopeUUIDs) {
+function belongsToTeam(userScopes) {
   return (team) => ({
-    isMemberOfTeam: userScopeUUIDs.includes(team.teamId),
+    isMemberOfTeam: userScopes.includes(team.teamId),
     ...team
   })
 }
@@ -25,11 +25,11 @@ const teamsListController = {
   },
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
-    const userScopeUUIDs = userSession?.uuidScope ?? []
+    const userScopes = userSession?.scope ?? []
 
     const { teams } = await fetchTeams()
 
-    const teamDecorator = belongsToTeam(userScopeUUIDs)
+    const teamDecorator = belongsToTeam(userScopes)
     const rows =
       teams?.map(teamDecorator).toSorted(sortByTeam).map(teamToEntityRow) ?? []
 

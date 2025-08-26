@@ -64,7 +64,6 @@ describe('#userSession', () => {
         isAdmin: true,
         isTenant: false,
         scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
-        uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474'],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
       })
@@ -116,7 +115,6 @@ describe('#userSession', () => {
         isAdmin: true,
         isTenant: false,
         scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
-        uuidScope: ['aabe63e7-87ef-4beb-a596-c810631fc474'],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
       })

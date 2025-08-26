@@ -42,7 +42,7 @@ async function buildRunningServicesTableData(request) {
   const query = request.query
   const userSession = await request.getUserSession()
   const environments = getEnvironments(userSession?.scope)
-  const userScopeUUIDs = userSession?.uuidScope ?? []
+  const userScopes = userSession?.scope ?? []
 
   const [deployableServices, runningServicesFilters, runningServices] =
     await Promise.all([
@@ -62,7 +62,7 @@ async function buildRunningServicesTableData(request) {
   const services = transformRunningServices({
     runningServices,
     deployableServices,
-    userScopeUUIDs
+    userScopes
   })
 
   const ownerSorter = sortByOwner('serviceName')

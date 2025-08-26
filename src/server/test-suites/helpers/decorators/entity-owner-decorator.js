@@ -1,10 +1,8 @@
-function entityOwnerDecorator(userScopeUUIDs) {
+function entityOwnerDecorator(userScopes) {
   return (entity) => {
     return {
       ...entity,
-      isOwner: entity?.teams?.some((team) =>
-        userScopeUUIDs.includes(team.teamId)
-      )
+      isOwner: entity?.teams?.some((team) => userScopes.includes(team.teamId))
     }
   }
 }

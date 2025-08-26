@@ -11,12 +11,12 @@ describe('#runningServiceToEntityRow', () => {
   )
   const runningServices = runningServicesFixture
   const deployableServices = entityServicesFixture
-  const userScopeUUIDs = [adminGroupId]
+  const userScopes = [adminGroupId]
 
   const services = transformRunningServices({
     runningServices,
     deployableServices,
-    userScopeUUIDs
+    userScopes
   })
   const firstService = services.at(0)
 

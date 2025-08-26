@@ -4,10 +4,10 @@ import { entityServicesFixture } from '../../../__fixtures__/services/entities.j
 
 describe('#decorateRollouts', () => {
   test('Should decorate deployable with teams and owner information', () => {
-    const mockUserScopeUUIDs = ['aabe63e7-87ef-4beb-a596-c810631fc474']
+    const mockUserScopes = ['aabe63e7-87ef-4beb-a596-c810631fc474']
     const decorator = decorateRollouts({
       deployableServices: entityServicesFixture,
-      userScopeUUIDs: mockUserScopeUUIDs
+      userScopes: mockUserScopes
     })
 
     expect(decorator(deploymentsWithMigrationsFixture.data)).toEqual([

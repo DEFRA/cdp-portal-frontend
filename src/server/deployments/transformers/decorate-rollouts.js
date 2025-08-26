@@ -1,4 +1,4 @@
-function decorateRollouts({ deployableServices, userScopeUUIDs }) {
+function decorateRollouts({ deployableServices, userScopes }) {
   return (rollouts) =>
     rollouts?.map(({ deployment, migration }) => {
       const rollout = deployment ?? migration
@@ -12,7 +12,7 @@ function decorateRollouts({ deployableServices, userScopeUUIDs }) {
 
       return {
         teams,
-        isOwner: teams.some((team) => userScopeUUIDs.includes(team.teamId)),
+        isOwner: teams.some((team) => userScopes.includes(team.teamId)),
         ...rollout,
         kind: deployment ? 'deployment' : 'migration'
       }

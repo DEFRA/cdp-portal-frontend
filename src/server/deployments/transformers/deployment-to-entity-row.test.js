@@ -5,10 +5,10 @@ import { entityServicesFixture } from '../../../__fixtures__/services/entities.j
 
 describe('#deploymentToEntityRow', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
-  const userScopeUUIDs = [adminGroupId]
+  const userScopes = [adminGroupId]
   const deploymentsDecorator = decorateRollouts({
     deployableServices: entityServicesFixture,
-    userScopeUUIDs
+    userScopes
   })
   const deploymentsWithTeams = deploymentsDecorator(
     deploymentsWithMigrationsFixture.data

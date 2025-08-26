@@ -13,7 +13,7 @@ describe('testSuiteListController.handler', () => {
   let request
   const mockGetUserSession = vi.fn().mockReturnValue({
     isAuthenticated: true,
-    uuidScope: ['scope-1']
+    scope: ['scope-1']
   })
 
   beforeEach(() => {
@@ -80,7 +80,7 @@ describe('testSuiteListController.handler', () => {
   test('should return an empty view if no test suites are found and user is not authenticated', async () => {
     mockGetUserSession.mockReturnValue({
       isAuthenticated: false,
-      uuidScope: ['scope-1']
+      scope: ['scope-1']
     })
 
     fetchTestSuites.mockResolvedValue([])

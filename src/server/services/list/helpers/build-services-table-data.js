@@ -7,7 +7,7 @@ import { fetchServices } from '../../../common/helpers/fetch/fetch-entities.js'
 import { fetchFilters } from '../../../common/helpers/fetch/fetch-filters.js'
 import { entityOwnerDecorator } from '../../../test-suites/helpers/decorators/entity-owner-decorator.js'
 
-async function buildServicesTableData({ service, teamId, userScopeUUIDs }) {
+async function buildServicesTableData({ service, teamId, userScopes }) {
   const [filters, microservices] = await Promise.all([
     fetchFilters({
       type: ['Microservice', 'Prototype'],
@@ -35,7 +35,7 @@ async function buildServicesTableData({ service, teamId, userScopeUUIDs }) {
 
   const ownerSorter = sortByOwner('name')
   const rows = microservices
-    .map(entityOwnerDecorator(userScopeUUIDs))
+    .map(entityOwnerDecorator(userScopes))
     .toSorted(ownerSorter)
     .map(entityToEntityRow)
 

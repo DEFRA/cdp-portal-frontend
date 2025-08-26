@@ -5,7 +5,7 @@ const librariesListController = {
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
     const isAuthenticated = userSession?.isAuthenticated
-    const userScopeUUIDs = userSession?.uuidScope ?? []
+    const userScopes = userSession?.scope ?? []
 
     const libraries = await fetchLibraries()
 
@@ -13,7 +13,7 @@ const librariesListController = {
       utilities: libraries,
       utilityType: 'libraries',
       isAuthenticated,
-      userScopeUUIDs
+      userScopes
     })
     const title = 'Libraries'
 
