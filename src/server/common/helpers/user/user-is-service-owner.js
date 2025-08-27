@@ -1,6 +1,7 @@
 function userIsServiceOwner(userSession) {
   return (teams) =>
-    userSession && teams.some((team) => userSession?.scope?.includes(team))
+    userSession &&
+    teams.some((team) => userSession?.scope?.includes(`team:${team}`))
 }
 
 function userIsServiceOwnerDecorator(request) {

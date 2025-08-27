@@ -39,8 +39,8 @@ describe('#getUsersTeams', () => {
       const mockRequest = {
         getUserSession: vi.fn().mockResolvedValue({
           scope: [
-            '9e068bb9-1452-426e-a4ca-2e675a942a89',
-            '087d4a80-002b-48cf-a7d3-aa60b67784f0'
+            'team:9e068bb9-1452-426e-a4ca-2e675a942a89',
+            'team:087d4a80-002b-48cf-a7d3-aa60b67784f0'
           ]
         })
       }

@@ -76,8 +76,7 @@ async function updateUserScope(request, userSession) {
 
   await request.server.session.set(request.state.userSessionCookie.sessionId, {
     ...userSession,
-    isAdmin: scopeFlags?.isAdmin,
-    isTenant: scopeFlags?.isTenant,
+    ...(scopeFlags ?? []),
     scope: scopes ?? []
   })
 

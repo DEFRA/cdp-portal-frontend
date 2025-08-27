@@ -1,7 +1,7 @@
 import { adminTags } from './tags/routes.js'
 import { adminUsers } from './users/routes.js'
 import { adminTeams } from './teams/routes.js'
-import { scopes } from '../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { adminFeatures } from './features/routes.js'
 import { authScope } from '../common/helpers/auth/auth-scope.js'
 import { adminPermissions } from './permissions/routes.js'

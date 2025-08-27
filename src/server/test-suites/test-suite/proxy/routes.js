@@ -1,6 +1,6 @@
 import { allProxyController } from '../../../common/patterns/entities/tabs/proxy/controllers/all.js'
 import { environmentProxyController } from '../../../common/patterns/entities/tabs/proxy/controllers/environment.js'
-import { scopes } from '../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
 import {
   commonTestSuiteExtensions,

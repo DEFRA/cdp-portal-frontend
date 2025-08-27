@@ -9,7 +9,7 @@ import {
   fetchTenantServiceByEnvironment
 } from '../src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { getUserSession } from '../src/server/common/helpers/auth/get-user-session.js'
-import { scopes } from '../src/server/common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { fetchAvailableVersions } from '../src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import {
   fetchEntity,
@@ -372,7 +372,7 @@ function buildAuthDetail(
     displayName: 'B. A. Baracus'
   }
   const scope = [
-    teamScope,
+    `team:${teamScope}`,
     isAdmin && scopes.admin,
     isTenant && scopes.tenant,
     ...additionalScopes

@@ -5,14 +5,14 @@ import { buildErrorDetails } from '../../../common/helpers/build-error-details.j
 import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.js'
 import { setStepComplete } from '../../helpers/form/index.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 const perfTestSuiteCreateController = {
   options: {
     auth: {
       mode: 'required',
       access: {
-        scope: [scopes.admin, '{payload.teamId}']
+        scope: [scopes.admin, 'team:{payload.teamId}']
       }
     },
     pre: [provideCreate]

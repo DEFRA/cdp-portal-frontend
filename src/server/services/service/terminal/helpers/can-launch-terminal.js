@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { environments } from '../../../../../config/environments.js'
-import { scopes } from '../../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 function terminalEnvironments(scope) {
   return getEnvironments(scope).filter(

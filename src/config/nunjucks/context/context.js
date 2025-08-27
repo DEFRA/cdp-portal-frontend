@@ -11,7 +11,7 @@ import { noValue } from '../../../server/common/constants/no-value.js'
 import { eventName } from '../../../client/common/constants/event-name.js'
 import { getAnnouncements } from './announcements.js'
 import { hasScopeDecorator } from '../../../server/common/helpers/decorators/has-scope.js'
-import { scopes } from '../../../server/common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')

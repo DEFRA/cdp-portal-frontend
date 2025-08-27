@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 import { getEnvironmentsThatNeed } from '../environments/get-environments.js'
-import { scopes } from '../../constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 const allEnvironmentsOnlyForAdmin = {
   method: async (request, h) => {

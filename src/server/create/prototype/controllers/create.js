@@ -3,7 +3,7 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { prototypeValidation } from '../schema/prototype-validation.js'
 
 const prototypeCreateController = {
@@ -11,7 +11,7 @@ const prototypeCreateController = {
     auth: {
       mode: 'required',
       access: {
-        scope: [scopes.admin, '{payload.teamId}']
+        scope: [scopes.admin, 'team:{payload.teamId}']
       }
     },
     pre: [provideCreate]

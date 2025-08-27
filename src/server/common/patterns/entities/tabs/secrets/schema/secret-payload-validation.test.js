@@ -2,7 +2,7 @@ import Joi from 'joi'
 
 import { secretPayloadValidation } from './secret-payload-validation.js'
 import { teamFixture } from '../../../../../../../__fixtures__/team.js'
-import { scopes } from '../../../../../constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 describe('#secretPayloadValidation', () => {
   const mockTenantTeamId = '087d4a80-002b-48cf-a7d3-aa60b67784f0'

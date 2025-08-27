@@ -1,4 +1,4 @@
-import { scopes } from '../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 /**
  * Get the teams for a given services serviceId

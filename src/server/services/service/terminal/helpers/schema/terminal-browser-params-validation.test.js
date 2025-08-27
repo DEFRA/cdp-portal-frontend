@@ -1,5 +1,5 @@
 import { terminalBrowserParamsValidation } from './terminal-browser-params-validation.js'
-import { scopes } from '../../../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 describe('#terminalBrowserParamsValidation', () => {
   describe('With break glass user', () => {

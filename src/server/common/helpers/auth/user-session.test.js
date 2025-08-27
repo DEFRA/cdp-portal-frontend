@@ -63,7 +63,13 @@ describe('#userSession', () => {
         refreshToken: 'refresh-token',
         isAdmin: true,
         isTenant: false,
-        scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
+        scope: [
+          'team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'permission:admin',
+          'permission:tenant',
+          'permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
+        ],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
       })
@@ -114,7 +120,13 @@ describe('#userSession', () => {
         refreshToken: 'new-refresh-token',
         isAdmin: true,
         isTenant: false,
-        scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant'],
+        scope: [
+          'team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'permission:admin',
+          'permission:tenant',
+          'permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
+        ],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
       })
@@ -122,7 +134,7 @@ describe('#userSession', () => {
 
     test('Should log the user session refresh', () => {
       expect(request.logger.info).toHaveBeenCalledWith(
-        'User session refreshed, UserId: user-id, displayName: User Name, isAdmin: true, isTenant: false, scopes: aabe63e7-87ef-4beb-a596-c810631fc474 admin tenant'
+        'User session refreshed, UserId: user-id, displayName: User Name, isAdmin: true, isTenant: false, scopes: team:aabe63e7-87ef-4beb-a596-c810631fc474 permission:admin permission:tenant permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474 permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
       )
     })
   })
@@ -173,7 +185,13 @@ describe('#userSession', () => {
         ...userSession,
         isAdmin: true,
         isTenant: false,
-        scope: ['aabe63e7-87ef-4beb-a596-c810631fc474', 'admin', 'tenant']
+        scope: [
+          'team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'permission:admin',
+          'permission:tenant',
+          'permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
+        ]
       })
 
       expect(request.getUserSession).toHaveBeenCalled()

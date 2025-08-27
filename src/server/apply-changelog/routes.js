@@ -1,5 +1,5 @@
 import { authScope } from '../common/helpers/auth/auth-scope.js'
-import { scopes } from '../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { summaryController } from './controllers/summary.js'
 import { multistepForm } from '../common/helpers/multistep-form/multistep-form.js'
 import { availableMigrationsController } from './controllers/available-migrations.js'

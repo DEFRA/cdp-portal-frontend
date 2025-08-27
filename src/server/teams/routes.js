@@ -9,7 +9,7 @@ import { sessionNames } from '../common/constants/session-names.js'
 import { provideFormContextValues } from '../common/helpers/form/provide-form-context-values.js'
 import { removeMemberController } from './controllers/remove/remove-member.js'
 import { confirmRemoveMemberController } from './controllers/remove/confirm-remove-member.js'
-import { scopes } from '../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 const teamOrAdminScope = authScope([scopes.admin, '{params.teamId}'])
 

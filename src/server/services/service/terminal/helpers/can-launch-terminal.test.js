@@ -1,5 +1,5 @@
 import { canLaunchTerminal } from './can-launch-terminal.js'
-import { scopes } from '../../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 describe('#canLaunchTerminal', () => {
   test('Should not throw for Admin and allowed environment', () => {

@@ -1,5 +1,6 @@
 import { addServiceOwnerScope } from './add-service-owner-scope.js'
 import { userIsOwnerDecorator } from '../../common/helpers/user/user-is-owner.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 describe('#addServiceOwnerScope', () => {
   const mockResponseToolkit = { continue: 'mockContinue' }
@@ -53,7 +54,7 @@ describe('#addServiceOwnerScope', () => {
 
       // Users session scope array
       mockGetUserSession.mockResolvedValue({
-        scope: [teamId]
+        scope: [`team:${teamId}`]
       })
 
       mockRequest = {
@@ -75,7 +76,7 @@ describe('#addServiceOwnerScope', () => {
     test('Should have service owner scope', async () => {
       await addServiceOwnerScope(mockRequest, mockResponseToolkit)
 
-      expect(mockRequest.auth.credentials.scope).toEqual(['serviceOwner'])
+      expect(mockRequest.auth.credentials.scope).toEqual([scopes.serviceOwner])
     })
   })
 

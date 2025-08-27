@@ -8,7 +8,7 @@ import { fetchTeams } from '../../../teams/helpers/fetch/fetch-teams.js'
  */
 async function getUsersTeams(request) {
   const userSession = await request.getUserSession()
-  const userGroups = userSession?.scope
+  const scopes = userSession?.scope
 
   // TODO we need to consider pagination here in the future
   const { teams } = await fetchTeams(true)
@@ -17,8 +17,8 @@ async function getUsersTeams(request) {
     return teams
   }
 
-  return userGroups
-    .map((userGroupId) => teams.find((team) => team.teamId === userGroupId))
+  return scopes
+    .map((scope) => teams.find((team) => `team:${team.teamId}` === scope))
     .filter(Boolean)
 }
 

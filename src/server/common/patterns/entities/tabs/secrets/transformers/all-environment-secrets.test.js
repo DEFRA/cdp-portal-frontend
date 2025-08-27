@@ -1,7 +1,7 @@
 import { allEnvironmentSecrets } from './all-environment-secrets.js'
 import { allEnvironmentSecretsFixture } from '../../../../../../../__fixtures__/secrets/all-environment-secrets.js'
 import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
-import { scopes } from '../../../../../constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 describe('#allEnvironmentSecrets', () => {
   describe('With an admin team', () => {
