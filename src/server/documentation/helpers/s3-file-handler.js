@@ -3,7 +3,7 @@ import {
   HeadObjectCommand,
   ListObjectsV2Command
 } from '@aws-sdk/client-s3'
-import { statusCodes } from '../../common/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 function fetchS3File(request, key, bucket) {
   const command = new GetObjectCommand({

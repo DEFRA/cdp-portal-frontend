@@ -547,9 +547,16 @@ width="4%"        >
             Test
         </th>
 
-        <th id="actions" scope="col"
+        <th id="prod" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-5"
+width="4%"        >
+            Prod
+        </th>
+
+        <th id="actions" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-6"
 width="10%"        >
             Actions
         </th>
@@ -648,12 +655,30 @@ width="10%"        >
           </td>
 
 
+          <td headers="prod"
+              class="app-entity-table__cell"
+              data-label="Prod">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
           <td headers="actions"
               class="app-entity-table__cell"
               data-label="Actions">
               
 
-<div class="app-entity" data-testid="app-entity-5">
+<div class="app-entity" data-testid="app-entity-6">
 
 
 
@@ -849,6 +874,12 @@ selected="selected">
         <input class="govuk-checkboxes__input" id="environments-2" name="environments" type="checkbox" value="test">
         <label class="govuk-label govuk-checkboxes__label" for="environments-2">
           Test
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="environments-3" name="environments" type="checkbox" value="prod">
+        <label class="govuk-label govuk-checkboxes__label" for="environments-3">
+          Prod
         </label>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import { statusCodes } from '../../constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 function handleResponse({ res, payload }) {
   if (

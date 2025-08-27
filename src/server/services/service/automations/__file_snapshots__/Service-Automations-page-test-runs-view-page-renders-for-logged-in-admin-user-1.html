@@ -545,36 +545,43 @@ width="8%"        >
         </th>
 
         <th id="infra-dev" scope="col"
-            class="app-entity-table__heading"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
             data-testid="app-entity-table-header-3"
 width="9%"        >
             Infra-dev
         </th>
 
         <th id="management" scope="col"
-            class="app-entity-table__heading"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
             data-testid="app-entity-table-header-4"
 width="10%"        >
             Management
         </th>
 
         <th id="dev" scope="col"
-            class="app-entity-table__heading"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
             data-testid="app-entity-table-header-5"
 width="3%"        >
             Dev
         </th>
 
         <th id="test" scope="col"
-            class="app-entity-table__heading"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
             data-testid="app-entity-table-header-6"
 width="4%"        >
             Test
         </th>
 
+        <th id="prod" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-7"
+width="4%"        >
+            Prod
+        </th>
+
         <th id="actions" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-7"
+            data-testid="app-entity-table-header-8"
 width="10%"        >
             Actions
         </th>
@@ -709,12 +716,30 @@ width="10%"        >
           </td>
 
 
+          <td headers="prod"
+              class="app-entity-table__cell"
+              data-label="Prod">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
           <td headers="actions"
               class="app-entity-table__cell"
               data-label="Actions">
               
 
-<div class="app-entity" data-testid="app-entity-7">
+<div class="app-entity" data-testid="app-entity-8">
 
 
 
@@ -922,6 +947,12 @@ selected="selected">
         <input class="govuk-checkboxes__input" id="environments-4" name="environments" type="checkbox" value="test">
         <label class="govuk-label govuk-checkboxes__label" for="environments-4">
           Test
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="environments-5" name="environments" type="checkbox" value="prod">
+        <label class="govuk-label govuk-checkboxes__label" for="environments-5">
+          Prod
         </label>
       </div>
     </div>

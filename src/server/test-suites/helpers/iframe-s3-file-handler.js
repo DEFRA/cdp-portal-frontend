@@ -1,7 +1,7 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 
 import { statusCodeMessage } from '../../common/helpers/errors/status-code-message.js'
-import { statusCodes } from '../../common/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 /**
  * S3 file handler for use with iFrames

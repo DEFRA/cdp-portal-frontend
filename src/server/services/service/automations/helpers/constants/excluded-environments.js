@@ -1,1 +1,1 @@
-export const excludedEnvironments = ['prod', 'perf-test']
+export const excludedEnvironments = ['perf-test']

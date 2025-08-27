@@ -5,7 +5,7 @@ import {
   mockServiceEntityCall
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '../../helpers/fetch/fetch-all-secrets.js'
-import { statusCodes } from '../../../common/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')

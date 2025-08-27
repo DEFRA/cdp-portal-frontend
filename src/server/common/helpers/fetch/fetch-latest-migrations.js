@@ -1,7 +1,7 @@
 import { config } from '../../../../config/config.js'
 import { fetchJson } from './fetch-json.js'
 import { createLogger } from '../logging/logger.js'
-import { statusCodes } from '../../constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 const logger = createLogger()
 

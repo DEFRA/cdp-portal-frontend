@@ -4,7 +4,7 @@ import {
   mockServiceEntityCall,
   mockServicesAdditionalCalls
 } from '../../../../../test-helpers/common-page-rendering.js'
-import { statusCodes } from '../../../common/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 vi.mock('../../../common/helpers/fetch/fetch-running-services.js')
 vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
