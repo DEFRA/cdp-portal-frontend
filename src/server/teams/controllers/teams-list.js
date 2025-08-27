@@ -3,7 +3,7 @@ import { teamToEntityRow } from '../transformers/team-to-entity-row.js'
 
 function belongsToTeam(userScopes) {
   return (team) => ({
-    isMemberOfTeam: userScopes.includes(team.teamId),
+    isMemberOfTeam: userScopes.includes(`team:${team.teamId}`),
     ...team
   })
 }

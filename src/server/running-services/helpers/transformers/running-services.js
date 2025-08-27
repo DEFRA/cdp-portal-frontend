@@ -28,7 +28,7 @@ function transformRunningServices({
 
       if (!acc[rs.service].isOwner) {
         acc[rs.service].isOwner = acc[rs.service].teams.some((team) =>
-          userScopes.includes(team.teamId)
+          userScopes.includes(`team:${team.teamId}`)
         )
       }
 

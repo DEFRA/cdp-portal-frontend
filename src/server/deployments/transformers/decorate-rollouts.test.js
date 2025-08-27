@@ -4,7 +4,8 @@ import { entityServicesFixture } from '../../../__fixtures__/services/entities.j
 
 describe('#decorateRollouts', () => {
   test('Should decorate deployable with teams and owner information', () => {
-    const mockUserScopes = ['aabe63e7-87ef-4beb-a596-c810631fc474']
+    const adminGroupId = 'team:aabe63e7-87ef-4beb-a596-c810631fc474'
+    const mockUserScopes = [adminGroupId]
     const decorator = decorateRollouts({
       deployableServices: entityServicesFixture,
       userScopes: mockUserScopes

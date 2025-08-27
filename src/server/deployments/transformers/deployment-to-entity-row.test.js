@@ -4,7 +4,7 @@ import { deploymentsWithMigrationsFixture } from '../../../__fixtures__/deployme
 import { entityServicesFixture } from '../../../__fixtures__/services/entities.js'
 
 describe('#deploymentToEntityRow', () => {
-  const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
+  const adminGroupId = 'team:aabe63e7-87ef-4beb-a596-c810631fc474'
   const userScopes = [adminGroupId]
   const deploymentsDecorator = decorateRollouts({
     deployableServices: entityServicesFixture,
