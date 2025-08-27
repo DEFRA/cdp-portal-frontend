@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 import Joi from 'joi'
 
 import { waf } from '../../../../common/constants/waf.js'
-import { scopes } from '../../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { requestShutterUpdate } from '../helpers/fetchers.js'
 

@@ -1,5 +1,5 @@
 import { authScope } from '../common/helpers/auth/auth-scope.js'
-import { scopes } from '../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { startDeployServiceController } from './controllers/deploy/start-deploy-service.js'
 import { optionsFormController } from './controllers/deploy/options-form.js'
 import { optionsController } from './controllers/deploy/options.js'

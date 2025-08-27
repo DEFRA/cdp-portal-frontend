@@ -5,6 +5,7 @@ import { buildRunningServicesTableData } from './build-running-services-table-da
 import { fetchRunningServicesFilters } from './fetch/fetch-running-services-filters.js'
 import { runningServicesFiltersFixture } from '../../../__fixtures__/running-services/filters.js'
 import { runningServicesFixture } from '../../../__fixtures__/running-services/running-services.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 vi.mock('./fetch/fetch-running-services-filters.js')
 vi.mock('./fetch/fetch-running-services.js')
@@ -22,7 +23,7 @@ describe('#buildRunningServicesTableData', () => {
     )
 
     const result = await buildRunningServicesTableData({
-      getUserSession: async () => ({ scope: ['admin'] }),
+      getUserSession: async () => ({ scope: [scopes.admin] }),
       query: {
         service: 'cdp-portal-frontend',
         status: 'running',

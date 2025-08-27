@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import { scopes } from '../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { sortBy } from '../../../common/helpers/sort/sort-by.js'
 import { fetchTenantService } from '../../../common/helpers/fetch/fetch-tenant-service.js'
 import { availableEnvironments } from './helpers/available-environments.js'

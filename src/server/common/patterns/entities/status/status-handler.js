@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 import { parseISO, subHours } from 'date-fns'
 
 import { transformServiceToSummary } from '../../../../services/service/about/transformers/service-to-summary.js'
-import { scopes } from '../../../constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../helpers/nullify-404.js'
 import { fetchEntityStatus } from '../../../helpers/fetch/fetch-entities.js'

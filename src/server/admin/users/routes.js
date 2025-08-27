@@ -20,7 +20,7 @@ import {
   usersListController,
   userSummaryController
 } from './controllers/index.js'
-import { scopes } from '../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 

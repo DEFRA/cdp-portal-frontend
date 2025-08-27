@@ -4,7 +4,7 @@ import {
   mockServiceEntityCall,
   mockServicesAdditionalCalls
 } from '../../../../../test-helpers/common-page-rendering.js'
-import { scopes } from '../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { availableMigrationsFixture } from '../../../../__fixtures__/migrations/available-migrations.js'
 import { statusCodes } from '../../../common/constants/status-codes.js'
 

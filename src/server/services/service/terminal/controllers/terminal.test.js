@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { getTerminalEnvs } from './terminal.js'
-import { scopes } from '../../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { config } from '../../../../../config/config.js'
 
 const mockService = 'mock-service'

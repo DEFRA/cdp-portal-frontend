@@ -1,22 +1,9 @@
 import { authScope } from '../helpers/auth/auth-scope.js'
-
-/**
- * @type {{admin: string, tenant: string, serviceOwner: string, externalTest: string, breakGlass: string, restrictedTechPython: string, restrictedTechPostgres: string }}
- */
-const scopes = {
-  admin: 'admin',
-  tenant: 'tenant',
-  serviceOwner: 'serviceOwner',
-  externalTest: 'externalTest',
-  breakGlass: 'breakGlass',
-  restrictedTechPython: 'restrictedTechPython',
-  restrictedTechPostgres: 'restrictedTechPostgres',
-  testAsTenant: 'testAsTenant'
-}
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
   scopes.serviceOwner
 ])
 
-export { scopes, serviceOwnerOrAdminUserScope }
+export { serviceOwnerOrAdminUserScope }

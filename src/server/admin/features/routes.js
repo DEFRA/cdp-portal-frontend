@@ -1,4 +1,4 @@
-import { scopes } from '../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
 import { listFeaturesController } from './controllers/features-list.js'

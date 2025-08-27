@@ -1,4 +1,6 @@
 // Response from userServiceBackend/teams
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+
 const cdpTeamsFixture = {
   message: 'success',
   teams: [
@@ -38,7 +40,7 @@ const cdpTeamsFixture = {
       ],
       serviceCodes: ['TF'],
       alertEmailAddresses: [],
-      scopes: ['externalTest']
+      scopes: [scopes.externalTest]
     },
     {
       name: 'Bees',
@@ -59,7 +61,7 @@ const cdpTeamsFixture = {
       ],
       serviceCodes: ['BEE'],
       alertEmailAddresses: ['bee@bee.com'],
-      scopes: ['externalTest']
+      scopes: [scopes.externalTest]
     },
     {
       name: 'Platform',
@@ -76,7 +78,7 @@ const cdpTeamsFixture = {
       ],
       serviceCodes: ['CDP'],
       alertEmailAddresses: ['platform@platform.com', 'platops@platops.com'],
-      scopes: ['breakGlass', 'externalTest']
+      scopes: [scopes.breakGlass, scopes.externalTest]
     }
   ]
 }

@@ -7,20 +7,24 @@ describe('#userIsServiceOwner', () => {
   let checkUserIsServiceOwner
 
   beforeEach(() => {
-    const adminScopes = ['teamOneScope', 'teamTwoScope', 'teamThreeScope']
+    const adminScopes = [
+      'team:teamOneScope',
+      'team:teamTwoScope',
+      'team:teamThreeScope'
+    ]
     checkUserIsServiceOwner = userIsServiceOwner({
       scope: adminScopes
     })
   })
 
   test('Should have scope', () => {
-    const serviceTeamScopes = ['teamOneScope', 'teamTwoScope']
-    expect(checkUserIsServiceOwner(serviceTeamScopes)).toBe(true)
+    const serviceTeams = ['teamOneScope', 'teamTwoScope']
+    expect(checkUserIsServiceOwner(serviceTeams)).toBe(true)
   })
 
   test('Should not have scope', () => {
-    const serviceTeamScopes = ['teamFourScope', 'teamFiveScope']
-    expect(checkUserIsServiceOwner(serviceTeamScopes)).toBe(false)
+    const serviceTeams = ['teamFourScope', 'teamFiveScope']
+    expect(checkUserIsServiceOwner(serviceTeams)).toBe(false)
   })
 })
 
@@ -28,7 +32,11 @@ describe('#userIsServiceOwnerDecorator', () => {
   let checkUserIsServiceOwnerDecorator
 
   beforeEach(() => {
-    const adminScopes = ['teamTenScope', 'teamElevenScope', 'teamTwelveScope']
+    const adminScopes = [
+      'team:teamTenScope',
+      'team:teamElevenScope',
+      'team:teamTwelveScope'
+    ]
     checkUserIsServiceOwnerDecorator = userIsServiceOwnerDecorator({
       getUserSession: vi.fn().mockResolvedValue({
         scope: adminScopes
@@ -37,17 +45,17 @@ describe('#userIsServiceOwnerDecorator', () => {
   })
 
   test('With one matching scope. Should return true', async () => {
-    const serviceTeamScopes = ['teamFiveScope', 'teamElevenScope']
-    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toBe(true)
+    const serviceTeams = ['teamFiveScope', 'teamElevenScope']
+    expect(await checkUserIsServiceOwnerDecorator(serviceTeams)).toBe(true)
   })
 
   test('With multiple matching scopes. Should return true', async () => {
-    const serviceTeamScopes = ['teamElevenScope', 'teamTwelveScope']
-    expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toBe(true)
+    const serviceTeams = ['teamElevenScope', 'teamTwelveScope']
+    expect(await checkUserIsServiceOwnerDecorator(serviceTeams)).toBe(true)
   })
 
   test('With no matching scopes. Should return false', async () => {
-    const serviceTeamScopes = ['teamOneScope', 'teamTwoScope']
+    const serviceTeamScopes = ['team:teamOneScope', 'team:teamTwoScope']
     expect(await checkUserIsServiceOwnerDecorator(serviceTeamScopes)).toBe(
       false
     )

@@ -1,4 +1,4 @@
-import { scopes } from '../../../server/common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 async function buildNavigation(request) {
   const userSession = await request.getUserSession()

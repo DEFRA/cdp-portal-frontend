@@ -1,4 +1,5 @@
 import { serviceParamsValidation } from './service-params-validation.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 describe('#serviceParamsValidation', () => {
   describe('With Admin user', () => {
@@ -9,7 +10,7 @@ describe('#serviceParamsValidation', () => {
         context: {
           auth: {
             credentials: {
-              scope: ['admin']
+              scope: [scopes.admin]
             }
           },
           app: {
@@ -61,7 +62,7 @@ describe('#serviceParamsValidation', () => {
         context: {
           auth: {
             credentials: {
-              scope: ['externalTest']
+              scope: [scopes.externalTest]
             }
           }
         }

@@ -1,5 +1,5 @@
 import { launchTerminalParamsValidation } from './launch-terminal-params-validation.js'
-import { scopes } from '../../../../../common/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 describe('#launchTerminalParamsValidation', () => {
   describe('With break glass user', () => {
