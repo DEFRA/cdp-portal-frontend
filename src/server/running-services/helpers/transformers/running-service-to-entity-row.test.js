@@ -5,7 +5,7 @@ import { runningServiceToEntityRow } from './running-service-to-entity-row.js'
 import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
 describe('#runningServiceToEntityRow', () => {
-  const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
+  const adminGroupId = 'team:aabe63e7-87ef-4beb-a596-c810631fc474'
   const allEnvironments = Object.values(environments).map(
     (env) => env.kebabName
   )

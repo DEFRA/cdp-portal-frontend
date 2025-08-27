@@ -12,7 +12,9 @@ function decorateRollouts({ deployableServices, userScopes }) {
 
       return {
         teams,
-        isOwner: teams.some((team) => userScopes.includes(team.teamId)),
+        isOwner: teams.some((team) =>
+          userScopes.includes(`team:${team.teamId}`)
+        ),
         ...rollout,
         kind: deployment ? 'deployment' : 'migration'
       }

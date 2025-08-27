@@ -28,7 +28,7 @@ const entitiesEndpointUrl = new URL(`${portalBackendUrl}/entities`)
 
 describe('#buildServicesTableData', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
-  const userScopes = [adminGroupId]
+  const userScopes = [`team:${adminGroupId}`]
 
   beforeEach(() => {
     // Provide mock response for API calls
