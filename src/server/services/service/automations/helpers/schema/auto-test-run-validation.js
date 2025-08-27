@@ -3,10 +3,11 @@ import Joi from 'joi'
 import { validation } from '../../../../../common/constants/validation.js'
 import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
 import { excludedEnvironments } from '../constants/excluded-environments.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 // TODO
 //  Validate:
-//  - test suite is a tes suite owned by the team that owns the service
+//  - test suite is a test suite owned by the team that owns the service
 //  - do we need messages here? Are they being used anywhere?
 
 function autoTestRunValidation(scopes) {
@@ -15,11 +16,11 @@ function autoTestRunValidation(scopes) {
   )
 
   return Joi.object({
-    serviceId: Joi.string().required().messages({
+    serviceId: repositoryNameValidation.messages({
       'string.empty': validation.enterValue,
       'any.required': validation.enterValue
     }),
-    testSuite: Joi.string().required().messages({
+    testSuite: repositoryNameValidation.messages({
       'string.empty': validation.enterValue,
       'any.required': validation.enterValue
     }),

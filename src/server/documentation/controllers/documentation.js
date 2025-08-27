@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { config } from '../../../config/config.js'
-import { statusCodes } from '../../common/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 import { s3FileHandler } from '../helpers/s3-file-handler.js'
 import { markdownHandler } from '../helpers/markdown-handler.js'
 import { statusCodeMessage } from '../../common/helpers/errors/status-code-message.js'

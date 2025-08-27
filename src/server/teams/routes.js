@@ -11,7 +11,7 @@ import { removeMemberController } from './controllers/remove/remove-member.js'
 import { confirmRemoveMemberController } from './controllers/remove/confirm-remove-member.js'
 import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
-const teamOrAdminScope = authScope([scopes.admin, '{params.teamId}'])
+const teamOrAdminScope = authScope([scopes.admin, 'team:{params.teamId}'])
 
 const teams = {
   plugin: {
