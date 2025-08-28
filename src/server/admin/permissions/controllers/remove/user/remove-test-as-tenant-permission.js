@@ -15,7 +15,7 @@ const removeTestAsTenantScopeController = {
     try {
       const { scope } = await fetchPermissionsScopeByName(
         request,
-        scopes.testAsTenant
+        scopes.testAsTenant.replace('permission:', '')
       )
       await removeScopeFromUser(request, userSession?.id, scope.scopeId)
     } catch (error) {
