@@ -46,7 +46,11 @@ function fetchServices(queryParams) {
 }
 
 async function fetchServiceNames(userSession) {
-  const teamIds = userSession?.isAdmin ? [] : userSession.scope
+  const teamIds = userSession?.isAdmin
+    ? []
+    : userSession.scope
+        .filter((s) => s.startsWith('team:'))
+        .map((s) => s.replace('team:', ''))
   const services = await fetchServices({ teamIds })
 
   return services.map((service) => service.name)

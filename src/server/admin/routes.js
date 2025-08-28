@@ -34,7 +34,7 @@ const admin = {
           method: 'GET',
           path: '/admin/removeTestAsTenant',
           ...removeTestAsTenantScopeController,
-          ...authScope([`+${scopes.testAsTenant}`])
+          ...authScope([scopes.testAsTenant])
         }
       ])
     }
