@@ -1,0 +1,102 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        caption: "Add team member permission",
+        text: scope.value
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half-from-desktop">
+          <form
+            action="{{ routeLookup('post:admin/permissions/{scopeId}/user/find/{multiStepFormId?}',
+              { params: {
+                scopeId: scope.scopeId,
+                multiStepFormId: multiStepFormId if multiStepFormId
+              } }) }}"
+            method="post"
+            data-js="auto-submit app-form-errors">
+
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+
+            {% call govukFieldset() %}
+
+              {{ appSearch({
+                iconDescription: "Search",
+                label: {
+                  text: "Find CDP user"
+                },
+                id: "searchQuery",
+                name: "searchQuery",
+                hint: {
+                  text: "Enter the users name or DEFRA provided email"
+                },
+                value: formValues.searchQuery,
+                errorMessage: errorMessageHelper(formErrors.searchQuery.message),
+                hasSearchResultError: formErrors.userId.message and true or false
+              }) }}
+
+            {% endcall %}
+
+            {{ govukButton({
+              classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+              text: "Search",
+              name: "button",
+              value: "search",
+              attributes: {
+                "data-js": "app-no-js-submit-button"
+              }
+            }) }}
+
+            {% block xhrContent %}
+              <article class="app-scrollable-window" data-xhr="add-user-scope">
+
+                {% if userOptions | length %}
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Search results</h2>
+                {% endif %}
+
+                {% for option in userOptions %}
+                  {{ option.disabled }}
+                {% endfor %}
+
+                {% if userOptions | length or formErrors.userId.message %}
+                  {{ govukRadios({
+                    name: "userId",
+                    classes: "govuk-radios--small app-radios",
+                    items: userOptions,
+                    value: formValues.userId,
+                    formGroup: {
+                      classes: "app-form-group app-form-group-js"
+                    },
+                    errorMessage: errorMessageHelper(formErrors.userId.message)
+                  }) }}
+                {% endif %}
+
+                {% if formValues.searchQuery and not userOptions | length %}
+                  <p class="govuk-hint">No users found</p>
+                {% endif %}
+
+              </article>
+            {% endblock %}
+
+            <div class="govuk-body govuk-button-group">
+              {{ govukButton({
+                classes: "app-button",
+                text: formButtonText
+              }) }}
+
+              <a class="app-link" href="/admin/permissions/{{ scope.scopeId }}">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endcall %}
+{% endblock %}

@@ -9,6 +9,7 @@
  * @property {string} refreshToken
  * @property {boolean} isAdmin
  * @property {boolean} isTenant
+ * @property {boolean} hasProdAccess - has active prod access permission
  * @property {string[]} scope - all scopes
  * @property {number} expiresIn
  * @property {Date} expiresAt

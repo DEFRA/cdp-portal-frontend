@@ -1,7 +1,8 @@
 @use "govuk-frontend" as *;
 
+// TODO the naming of these variables is wrong and confusing
 $defra-brand-colour: govuk-organisation-colour(department-for-environment-food-rural-affairs);
 $app-brand-background-colour: govuk-tint($govuk-brand-colour, 85%);
 $app-brand-background-colour-light: govuk-tint($govuk-brand-colour, 95%);
-$app-brand-border-colour: govuk-tint($govuk-brand-colour, 80%);
-$app-brand-border-colour-light: govuk-tint($govuk-brand-colour, 50%);
+$app-brand-border-colour: govuk-tint($govuk-brand-colour, 80%); // TODO these are the wrong way round
+$app-brand-border-colour-light: govuk-tint($govuk-brand-colour, 50%); // TODO these are the wrong way round

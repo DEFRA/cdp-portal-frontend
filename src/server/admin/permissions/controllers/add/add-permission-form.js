@@ -4,15 +4,14 @@ import uniqBy from 'lodash/uniqBy.js'
 import filter from 'lodash/filter.js'
 import { escapeRegex } from '@hapi/hoek'
 
-import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { provideSelectedEntities } from '../../helpers/pre/provide-selected-entities.js'
+import { renderTag } from '../../../../common/helpers/view/render-tag.js'
 import {
   searchCdpUsers,
   searchCdpTeams,
-  fetchPermissionsScope
+  fetchPermission
 } from '../../helpers/fetchers.js'
-import { renderTag } from '../../../../common/helpers/view/render-tag.js'
 
 async function buildEntitiesOptions(searchQuery, scope, selectedEntities) {
   const kind = scope.kind
@@ -142,10 +141,7 @@ const addPermissionFormController = {
     const selectedEntityIds = selectedEntities.map(
       (entity) => `${entity.kind}:${entity.id}`
     )
-    const { scope } = await fetchPermissionsScope(
-      request,
-      request.params.scopeId
-    )
+    const { scope } = await fetchPermission(request, request.params.scopeId)
 
     return h.view('admin/permissions/views/add/add-permission-form', {
       pageTitle: 'Add Permission',
@@ -160,7 +156,7 @@ const addPermissionFormController = {
         selectedEntities
       ),
       scope,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'
@@ -170,7 +166,7 @@ const addPermissionFormController = {
           href: '/admin/permissions'
         },
         {
-          text: formatText(scope.value),
+          text: scope.value,
           href: '/admin/permissions/' + scope.scopeId
         },
         {

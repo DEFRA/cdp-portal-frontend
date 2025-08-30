@@ -49,7 +49,7 @@ const findAadUserFormController = {
             false
           )
         : null,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

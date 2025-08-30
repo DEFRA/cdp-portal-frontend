@@ -5,6 +5,11 @@
   @include govuk-font(24, "bold");
 }
 
+.app-label--small {
+  margin-bottom: 0;
+  @include govuk-font(19, "bold");
+}
+
 .app-label--inline {
   display: inline-block;
 }

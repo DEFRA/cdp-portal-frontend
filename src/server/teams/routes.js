@@ -4,14 +4,14 @@ import { teamDetailsFormController } from './controllers/edit/team-details-form.
 import { teamDetailsController } from './controllers/edit/team-details.js'
 import { teamController } from './controllers/team.js'
 import { teamsListController } from './controllers/teams-list.js'
-import { authScope } from '../common/helpers/auth/auth-scope.js'
 import { sessionNames } from '../common/constants/session-names.js'
 import { provideFormContextValues } from '../common/helpers/form/provide-form-context-values.js'
 import { removeMemberController } from './controllers/remove/remove-member.js'
 import { confirmRemoveMemberController } from './controllers/remove/confirm-remove-member.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
-
-const teamOrAdminScope = authScope([scopes.admin, 'team:{params.teamId}'])
+import { grantProdAccessFormController } from './controllers/grant/prod-access-form.js'
+import { grantProdAccessController } from './controllers/grant/prod-access.js'
+import { confirmRemoveProdAccessController } from './controllers/remove/confirm-remove-prod-access.js'
+import { removeProdAccessController } from './controllers/remove/remove-prod-access.js'
 
 const teams = {
   plugin: {
@@ -39,41 +39,67 @@ const teams = {
           path: '/teams/{teamId}',
           ...teamController
         },
-        ...[
-          {
-            method: 'GET',
-            path: '/teams/{teamId}/edit',
-            ...teamDetailsFormController
-          },
-          {
-            method: 'POST',
-            path: '/teams/{teamId}/edit',
-            ...teamDetailsController
-          },
-          {
-            method: 'GET',
-            path: '/teams/{teamId}/add-member',
-            ...addMemberFormController
-          },
-          {
-            method: 'POST',
-            path: '/teams/{teamId}/add-member',
-            ...addMemberController
-          },
-          {
-            method: 'GET',
-            path: '/teams/{teamId}/remove-member/{userId}',
-            ...confirmRemoveMemberController
-          },
-          {
-            method: 'POST',
-            path: '/teams/{teamId}/remove-member/{userId}',
-            ...removeMemberController
-          }
-        ].map(teamOrAdminScope)
+        ...teamOwnerOrAdminRoutes,
+        ...canGrantProdAccessRoutes
       ])
     }
   }
 }
+
+const teamOwnerOrAdminRoutes = [
+  {
+    method: 'GET',
+    path: '/teams/{teamId}/edit',
+    ...teamDetailsFormController
+  },
+  {
+    method: 'POST',
+    path: '/teams/{teamId}/edit',
+    ...teamDetailsController
+  },
+  {
+    method: 'GET',
+    path: '/teams/{teamId}/add-member',
+    ...addMemberFormController
+  },
+  {
+    method: 'POST',
+    path: '/teams/{teamId}/add-member',
+    ...addMemberController
+  },
+  {
+    method: 'GET',
+    path: '/teams/{teamId}/remove-member/{userId}',
+    ...confirmRemoveMemberController
+  },
+  {
+    method: 'POST',
+    path: '/teams/{teamId}/remove-member/{userId}',
+    ...removeMemberController
+  }
+]
+
+const canGrantProdAccessRoutes = [
+  {
+    method: 'GET',
+    path: '/teams/{teamId}/grant-prod-access/{userId}',
+    ...grantProdAccessFormController
+  },
+  {
+    method: 'POST',
+    path: '/teams/{teamId}/grant-prod-access/{userId}',
+    ...grantProdAccessController
+  },
+  {
+    method: 'GET',
+    path: '/teams/{teamId}/remove-prod-access/{userId}',
+    ...confirmRemoveProdAccessController
+  },
+  {
+    method: 'POST',
+    path: '/teams/{teamId}/remove-prod-access/{userId}',
+    ...removeProdAccessController
+  }
+]
 
 export { teams }

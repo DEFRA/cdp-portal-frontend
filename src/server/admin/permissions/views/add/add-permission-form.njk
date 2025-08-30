@@ -29,7 +29,8 @@
                 text: uiMessages.search.hint
               },
               value: formValues.searchQuery,
-              errorMessage: errorMessageHelper(formErrors.searchQuery.message)
+              errorMessage: errorMessageHelper(formErrors.searchQuery.message),
+              hasSearchResultError: formErrors.entityIds.message and true or false
             }) }}
 
           {% endcall %}

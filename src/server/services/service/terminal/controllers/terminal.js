@@ -5,12 +5,12 @@ import { sortByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
 import { terminalEnvironments } from '../helpers/can-launch-terminal.js'
 import { fetchTenantService } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
 
-export async function getTerminalEnvs(serviceName, userScopes) {
+export async function getTerminalEnvs(serviceName, userScopes, teamIds) {
   if (!serviceName) {
     return []
   }
 
-  const environments = terminalEnvironments(userScopes)
+  const environments = terminalEnvironments(userScopes, teamIds)
   const tenantService = await fetchTenantService(serviceName)
 
   return Object.keys(tenantService)
@@ -29,10 +29,13 @@ const terminalController = {
     }
   },
   handler: async (request, h) => {
+    const teamIds = request.app.entity.teams.map(({ teamId }) => teamId)
+
     const serviceName = request.params.serviceId
     const terminalEnvs = await getTerminalEnvs(
       serviceName,
-      request.auth.credentials?.scope
+      request.auth.credentials?.scope,
+      teamIds
     )
     const canLaunchTerminal = terminalEnvs.length > 0
 

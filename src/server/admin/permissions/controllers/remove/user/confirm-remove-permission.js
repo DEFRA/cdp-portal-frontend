@@ -1,8 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../../../../config/nunjucks/filters/filters.js'
-import { fetchPermissionsScope } from '../../../helpers/fetchers.js'
+import { fetchPermission } from '../../../helpers/fetchers.js'
 import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmRemovePermissionFromUserController = {
@@ -16,12 +15,9 @@ const confirmRemovePermissionFromUserController = {
     }
   },
   handler: async (request, h) => {
-    const { scope } = await fetchPermissionsScope(
-      request,
-      request.params.scopeId
-    )
+    const { scope } = await fetchPermission(request, request.params.scopeId)
     const user = scope.users.find((u) => u.userId === request.params.userId)
-    const formattedValue = formatText(scope.value)
+
     const title = 'Remove'
 
     return h.view(
@@ -31,9 +27,9 @@ const confirmRemovePermissionFromUserController = {
         scope,
         user,
         pageHeading: {
-          text: `${formattedValue} from user ${user.name}`
+          text: `${scope.value} from user ${user.userName}`
         },
-        breadcrumbs: [
+        splitPaneBreadcrumbs: [
           {
             text: 'Admin',
             href: '/admin'
@@ -43,7 +39,7 @@ const confirmRemovePermissionFromUserController = {
             href: '/admin/permissions'
           },
           {
-            text: formattedValue,
+            text: scope.value,
             href: `/admin/permissions/${scope.scopeId}`
           },
           {

@@ -49,7 +49,11 @@ function getAssetPath(asset) {
 async function context(request) {
   const userSession = await request.getUserSession()
   const isInternetExplorer = isIe(request.headers['user-agent'])
-  const announcements = getAnnouncements(userSession, isInternetExplorer)
+  const announcements = await getAnnouncements({
+    request,
+    userSession,
+    isInternetExplorer
+  })
   const serviceConfig = config.get('service')
 
   return {

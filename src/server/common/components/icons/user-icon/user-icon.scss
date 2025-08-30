@@ -5,6 +5,10 @@
   fill: govuk-colour("white");
   background-color: $defra-brand-colour;
   border-radius: 50%;
-  padding: 2px;
+  padding: 3px;
   border: 1px solid govuk-colour("white");
+}
+
+.app-user-icon--prod-access {
+  background-color: govuk-colour("bright-purple");
 }

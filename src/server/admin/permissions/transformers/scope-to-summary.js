@@ -17,6 +17,19 @@ function transformScopeToSummary(scope, withActions = true) {
   const editActions = editActionItems(scope.scopeId)
   const actions = withActions ? editActions : null
 
+  const userTagComponent = renderTag({
+    text: 'User',
+    classes: ['govuk-tag--green']
+  })
+  const teamTagComponent = renderTag({
+    text: 'Team',
+    classes: ['govuk-tag--blue']
+  })
+  const memberTagComponent = renderTag({
+    text: 'Member',
+    classes: ['app-tag--purple']
+  })
+
   return {
     classes: 'app-summary-list',
     rows: [
@@ -29,19 +42,18 @@ function transformScopeToSummary(scope, withActions = true) {
         value: {
           html: scope.kind
             ? scope.kind
-                ?.map((k) => {
-                  if (k === 'user') {
-                    return renderTag({
-                      text: 'user',
-                      classes: ['govuk-tag--green', 'govuk-!-margin-right-1']
-                    })
+                ?.map((kind) => {
+                  if (kind === 'user') {
+                    return userTagComponent
                   }
 
-                  return renderTag({
-                    text: 'team',
-                    classes: ['govuk-tag--blue', 'govuk-!-margin-right-1']
-                  })
+                  if (kind === 'member') {
+                    return memberTagComponent
+                  }
+
+                  return teamTagComponent
                 })
+                .sort()
                 .join('')
             : noValue
         },

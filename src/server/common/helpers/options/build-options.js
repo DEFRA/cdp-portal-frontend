@@ -1,3 +1,4 @@
+import pickBy from 'lodash/pickBy.js'
 import { defaultOption } from './default-option.js'
 
 /**
@@ -10,12 +11,18 @@ function buildOptions(items, withDefault = true) {
   return [
     ...(withDefault ? [defaultOption] : []),
     ...items.map((item) => {
-      if (item?.value && item?.text) {
-        return { value: item.value, text: item.text }
+      const value = item?.value
+      const text = item?.text
+      const html = item?.html
+      const hint = item?.hint
+      const label = item?.label
+
+      if (value && text) {
+        return pickBy({ value, text, hint, label })
       }
 
-      if (item?.value && item?.html) {
-        return { value: item.value, html: item.html }
+      if (value && html) {
+        return pickBy({ value, html, hint, label })
       }
 
       return { value: item, text: item }

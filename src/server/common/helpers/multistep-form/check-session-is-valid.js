@@ -1,30 +1,27 @@
 import isNull from 'lodash/isNull.js'
-import size from 'lodash/size.js'
 
-import { sessionNames } from '../../constants/session-names.js'
+import { populatePathParams } from './populate-path-params.js'
 
 /**
- * If the multistep session data does not exist or is marked as complete. Redirect to the start of the flow
- * @param {string} startUrl
- * @returns {{method: ((function(*, *): (*))|*)}}
+ * Check that the multistep form session is valid. If a user lands in the multistep form flow without the appropriate
+ * session send them back to the start page
+ * @param {Record<string, string>} urlTemplates - flow url templates
+ * @returns {(function(*, *): (*))|*}
  */
-function checkSessionIsValid(startUrl) {
-  return {
-    method: (request, h) => {
-      const stepData = request.yar.get(request.app?.multiStepFormId)
-      const query = request.query
+function checkSessionIsValid(urlTemplates) {
+  return (request, h) => {
+    const multiStepFormId = request.app.multiStepFormId
+    const stepData = request.yar.get(multiStepFormId)
+    const multiStepFormStartUrl = populatePathParams(
+      request.params,
+      urlTemplates.stepOne
+    )
 
-      if (isNull(stepData)) {
-        // If there are query params, save them to flash and redirect to the deploy service start endpoint
-        if (size(query)) {
-          request.yar.flash(sessionNames.query, query)
-        }
-
-        return h.redirect(startUrl).takeover()
-      }
-
-      return h.continue
+    if (isNull(stepData) && request.path !== multiStepFormStartUrl) {
+      return h.redirect(multiStepFormStartUrl).takeover()
     }
+
+    return h.continue
   }
 }
 

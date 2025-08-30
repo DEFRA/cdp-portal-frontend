@@ -7,7 +7,7 @@ import { changeDetailsFormController } from './controllers/change-details-form.j
 import { changeDetailsController } from './controllers/change-details.js'
 import { applyController } from './controllers/apply.js'
 import { startApplyChangelogController } from './controllers/start-apply-changelog.js'
-import { urls, formSteps } from './helpers/multistep-form/steps.js'
+import { urlTemplates, formSteps } from './helpers/multistep-form/steps.js'
 
 const serviceTeamAndAdminWithPostgresRestrictedTechScope = authScope([
   scopes.tenant,
@@ -26,7 +26,7 @@ const applyChangelog = {
       await server.register({
         plugin: multistepForm,
         options: {
-          urls,
+          urlTemplates,
           formSteps,
           classes: 'app-step-navigation-container--small',
           routes: [

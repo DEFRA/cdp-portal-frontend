@@ -20,16 +20,12 @@
 
       <h2 class="govuk-heading-m">Search for CDP users</h2>
 
-      <div class="govuk-!-margin-bottom-6">
-        {{ appInfo({
-          html: helpHtml
-        }) }}
-      </div>
+      {{ appInfo({ classes: "govuk-!-margin-bottom-4", html: helpHtml }) }}
 
       <form action="/teams/{{ team.teamId }}/add-member"
             method="post"
             data-js="auto-submit app-form-errors">
-        <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
         {% call govukFieldset() %}
 
@@ -44,7 +40,8 @@
               text: "Enter the users name or the users Defra provided email"
             },
             value: formValues.cdpUserQuery,
-            errorMessage: errorMessageHelper(formErrors.cdpUserQuery.message)
+            errorMessage: errorMessageHelper(formErrors.cdpUserQuery.message),
+            hasSearchResultError: formErrors.userIds.message and true or false
           }) }}
 
         {% endcall %}

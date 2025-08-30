@@ -27,7 +27,7 @@ const confirmRemoveMemberController = {
       pageTitle: 'Remove Team Member',
       team,
       user,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

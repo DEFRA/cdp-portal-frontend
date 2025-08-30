@@ -54,7 +54,7 @@ const findGithubUserFormController = {
         })),
         false
       ),
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

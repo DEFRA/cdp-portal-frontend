@@ -69,7 +69,7 @@ describe('#getTerminalEnvs', () => {
       'test',
       'perf-test',
       'prod',
-      scopes.breakGlass
+      scopes.prodAccess
     ])
 
     expect(result).toStrictEqual(['dev', 'test', 'perf-test', 'prod'])

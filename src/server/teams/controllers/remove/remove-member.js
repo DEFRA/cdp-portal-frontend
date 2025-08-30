@@ -1,15 +1,22 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-
-import { sessionNames } from '../../../common/constants/session-names.js'
-import { removeMemberFromTeam } from '../../../admin/teams/helpers/fetch/index.js'
+import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import {
   teamIdValidation,
   userIdValidation
 } from '@defra/cdp-validation-kit/src/validations.js'
 
+import { sessionNames } from '../../../common/constants/session-names.js'
+import { removeMemberFromTeam } from '../../../admin/teams/helpers/fetch/index.js'
+
 const removeMemberController = {
   options: {
+    auth: {
+      mode: 'required',
+      access: {
+        scope: [scopes.admin, 'team:{params.teamId}']
+      }
+    },
     validate: {
       params: Joi.object({
         teamId: teamIdValidation,

@@ -3,25 +3,25 @@ import {
   prototypeEnvironments
 } from '../../../../config/environments.js'
 
-function getEnvironments(scopes, entityType = undefined) {
+function getEnvironments(userScopes, entityType) {
   return getEnvironmentValuesForEntityType(entityType)
     .filter(({ scope }) => {
       if (!scope) {
         return true
       } else {
-        return scopes?.includes(scope)
+        return userScopes?.includes(scope)
       }
     })
     .map(({ kebabName }) => kebabName)
 }
 
-function getEnvironmentsThatNeed(scopes, entityType = undefined) {
+function getEnvironmentsThatNeed(userScopes, entityType) {
   return getEnvironmentValuesForEntityType(entityType)
-    .filter(({ scope }) => scopes.includes(scope))
+    .filter(({ scope }) => userScopes.includes(scope))
     .map(({ kebabName }) => kebabName)
 }
 
-function getAllEnvironmentKebabNames(entityType = undefined) {
+function getAllEnvironmentKebabNames(entityType) {
   return getEnvironmentValuesForEntityType(entityType).map(
     ({ kebabName }) => kebabName
   )

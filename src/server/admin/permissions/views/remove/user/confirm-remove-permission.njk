@@ -11,7 +11,7 @@
   {% call appSplitPane({ isWide: true }) %}
 
     {{ appPageHeading({
-      caption: "Remove Permission from User",
+      caption: "Remove permission from user",
       text: user.name
     }) }}
 
@@ -23,17 +23,13 @@
         <h2 class="govuk-heading-m">Remove the following permission</h2>
 
         <p>
-          Would you like to remove the <em>{{ scope.value }}</em> permission from the user <em>{{ user.name }}</em>?
+          Would you like to remove the <em>{{ scope.value }}</em> permission from the user <em>{{ user.userName }}</em>?
         </p>
 
-        <div class="govuk-!-margin-bottom-6">
-          {{ appInfo({
-            html: helpHtml
-          }) }}
-        </div>
+        {{ appInfo({ html: helpHtml }) }}
 
         <form action="/admin/permissions/{{ scope.scopeId }}/user/remove/{{ user.userId }}" method="post">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
           <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
             {{ govukButton({

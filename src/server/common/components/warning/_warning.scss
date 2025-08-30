@@ -14,6 +14,11 @@
   border: 1px solid $app-brand-background-colour;
   border-left: 6px solid govuk-colour("red");
 
+  & + &,
+  & + .app-info {
+    margin-top: govuk-spacing(0);
+  }
+
   &.app-warning--inverse {
     background-color: govuk-colour("white");
   }

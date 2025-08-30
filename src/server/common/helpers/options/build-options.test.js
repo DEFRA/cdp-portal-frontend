@@ -54,6 +54,40 @@ describe('#buildOptions', () => {
       ])
     })
 
+    test('Should provide expected options, hints and labels', () => {
+      expect(
+        buildOptions([
+          { text: 'Version 0.3.0', value: '0.3.0', hint: { text: 'Stable' } },
+          {
+            text: 'Version 0.4.0',
+            value: '0.4.0',
+            hint: { text: 'Beta' },
+            label: { classes: 'app-label app-label--small' }
+          }
+        ])
+      ).toEqual([
+        {
+          attributes: {
+            selected: true
+          },
+          disabled: true,
+          text: ' - - select - - ',
+          value: ''
+        },
+        {
+          text: 'Version 0.3.0',
+          value: '0.3.0',
+          hint: { text: 'Stable' }
+        },
+        {
+          text: 'Version 0.4.0',
+          value: '0.4.0',
+          hint: { text: 'Beta' },
+          label: { classes: 'app-label app-label--small' }
+        }
+      ])
+    })
+
     test('Should provide expected options with html', () => {
       expect(
         buildOptions([
@@ -79,6 +113,46 @@ describe('#buildOptions', () => {
         {
           html: '<em>Version 0.7.0</em>',
           value: '0.7.0'
+        }
+      ])
+    })
+
+    test('Should provide expected options with html, hints and labels', () => {
+      expect(
+        buildOptions([
+          {
+            html: '<em>Version 0.6.0</em>',
+            value: '0.6.0',
+            hint: { text: 'Stable' },
+            label: { classes: 'app-label app-label--small' }
+          },
+          {
+            html: '<em>Version 0.7.0</em>',
+            value: '0.7.0',
+            hint: { text: 'Beta' },
+            label: { classes: 'app-label app-label--small' }
+          }
+        ])
+      ).toEqual([
+        {
+          attributes: {
+            selected: true
+          },
+          disabled: true,
+          text: ' - - select - - ',
+          value: ''
+        },
+        {
+          html: '<em>Version 0.6.0</em>',
+          value: '0.6.0',
+          hint: { text: 'Stable' },
+          label: { classes: 'app-label app-label--small' }
+        },
+        {
+          html: '<em>Version 0.7.0</em>',
+          value: '0.7.0',
+          hint: { text: 'Beta' },
+          label: { classes: 'app-label app-label--small' }
         }
       ])
     })

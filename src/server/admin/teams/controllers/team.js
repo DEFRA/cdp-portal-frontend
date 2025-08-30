@@ -25,7 +25,7 @@ const teamController = {
       summaryList: transformTeamToSummary(team),
       usersTaskList: transformTeamUsersToTaskList(team),
       scopesTaskList: transformTeamScopesToTaskList(team),
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

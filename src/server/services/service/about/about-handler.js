@@ -10,13 +10,14 @@ import { transformServiceToSummary } from './transformers/service-to-summary.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
+  const userSession = await request.getUserSession()
 
   if (entity == null) {
     return Boom.notFound()
   }
 
   const serviceName = entity.name
-  const userScopes = request.auth?.credentials?.scope
+  const userScopes = userSession?.scope
   const isServiceOwner = userScopes?.includes(scopes.serviceOwner)
   const hasPostgresPermission = userScopes?.includes(
     scopes.restrictedTechPostgres

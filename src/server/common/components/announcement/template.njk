@@ -4,9 +4,7 @@
      tabindex="-1"
      role="alert"
      data-testid="app-announcement">
-  {{ appInfoIcon({
-    classes: "app-icon--medium"
-  }) }}
+  {{ appInfoIcon({ classes: "app-icon--small" }) }}
   <div class="app-announcement__content" data-testid="app-announcement-content">
     {% for announcement in params.announcements %}
       <div class="app-announcement__message">

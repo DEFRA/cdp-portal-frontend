@@ -1,0 +1,50 @@
+{% extends "layouts/page.njk" %}
+{% from "entity/macro.njk" import appEntity %}
+
+{% set helpHtml %}
+  If you accidentally remove a users permission
+  <a href="{{ routeLookup('admin/permissions/{scopeId}/add', { params: { scopeId : scope.scopeId } }) }}"
+     class="govuk-link app-link">you can simply add it back onto the user.</a>
+{% endset %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      caption: "Remove permission from member",
+      text: matchedMember.name
+    }) }}
+
+    <hr class="app-section-break app-section-break--slim">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop">
+
+        <h2 class="govuk-heading-m">Remove the following permission</h2>
+
+        <p>
+          Would you like to remove the <em>{{ scope.value }}</em> permission from the user <em>
+            {{ matchedMember.userName }}</em> in the team <em>{{ team.name }}</em>?
+        </p>
+
+        {{ appInfo({ html: helpHtml }) }}
+
+        <form
+          action="/admin/permissions/{{ scope.scopeId }}/member/remove/{{ matchedMember.userId }}/team/{{ matchedMember.teamId }}"
+          method="post">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+            {{ govukButton({
+              classes: "app-button app-button--destructive",
+              text: "Remove permission"
+            }) }}
+
+            <a class="app-link" href="/admin/permissions/{{ scope.scopeId }}">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}

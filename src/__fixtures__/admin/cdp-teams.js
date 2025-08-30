@@ -78,7 +78,7 @@ const cdpTeamsFixture = {
       ],
       serviceCodes: ['CDP'],
       alertEmailAddresses: ['platform@platform.com', 'platops@platops.com'],
-      scopes: [scopes.breakGlass, scopes.externalTest]
+      scopes: ['prodAccess', scopes.externalTest] // FIXME add scope
     }
   ]
 }

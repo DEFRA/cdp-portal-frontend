@@ -80,7 +80,7 @@ const decommissionController = {
       takingTooLong,
       actionLinks,
       durationDetail,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

@@ -1,5 +1,9 @@
 {% from "icons/user-icon/macro.njk" import appUserIcon %}
 
+{% set iconClasses = [
+  "app-icon--tiny", "app-user-icon--prod-access" if userSession.hasProdAccess
+] | join(" ") | trim %}
+
 <header class="app-service-header" role="banner" data-testid="app-service-header">
   <div class="app-service-header__container app-service-header__container--full-width">
     <div class="app-service-header__content">
@@ -16,7 +20,7 @@
     </div>
     <div class="app-service-header__actions">
       {% if userSession.displayName %}
-        {{ appUserIcon({ classes: "app-icon--minuscule" }) }}
+        {{ appUserIcon({ classes: iconClasses }) }}
         <span data-testid="app-login-username">
           {{ userSession.displayName }}
         </span>

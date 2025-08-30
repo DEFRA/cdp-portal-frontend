@@ -10,7 +10,7 @@ describe('#terminalBrowserParamsValidation', () => {
         context: {
           auth: {
             credentials: {
-              scope: [scopes.breakGlass]
+              scope: [scopes.prodAccess]
             }
           }
         }

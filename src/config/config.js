@@ -38,6 +38,11 @@ const config = convict({
     default: 3000,
     env: 'PORT'
   },
+  usePulse: {
+    doc: 'If pulse should be used or not',
+    format: Boolean,
+    default: !isDevelopment
+  },
   staticCacheTimeout: {
     doc: 'Static cache timeout in milliseconds',
     format: Number,

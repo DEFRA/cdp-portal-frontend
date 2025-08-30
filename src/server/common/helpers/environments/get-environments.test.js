@@ -1,5 +1,6 @@
-import { getEnvironments, getEnvironmentsThatNeed } from './get-environments.js'
 import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+
+import { getEnvironments, getEnvironmentsThatNeed } from './get-environments.js'
 
 describe('#getEnvironments', () => {
   describe('With Admin user', () => {
