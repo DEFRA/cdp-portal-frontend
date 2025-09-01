@@ -11,7 +11,7 @@ function userLog(prefix, user, scopeFlags, scopes) {
     prefix,
     `UserId: ${user?.id}, displayName: ${user?.displayName}`,
     `isAdmin: ${scopeFlags?.isAdmin ?? 'null'}, isTenant: ${scopeFlags?.isTenant ?? 'null'}`,
-    `scopes: ${scopes?.join(' ') ?? 'null'}`
+    `scopes: [${scopes?.join(' ') ?? 'null'}]`
   ]
 
   return messages.join(', ')

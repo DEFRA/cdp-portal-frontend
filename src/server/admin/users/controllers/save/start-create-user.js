@@ -9,9 +9,7 @@ const startCreateUserController = {
     request.yar.clear(sessionNames.cdpUser)
     request.yar.clear(sessionNames.validationFailure)
     await request.yar.commit(h)
-
     await saveToCdpUser(request, h, {})
-
     return h.redirect('/admin/users/find-aad-user')
   }
 }

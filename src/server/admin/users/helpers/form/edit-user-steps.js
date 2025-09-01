@@ -1,8 +1,7 @@
 // When editing don't give the user the choice to update the first step, the aad user
 const urls = {
   stepTwo: '/admin/users/find-github-user',
-  stepThree: '/admin/users/user-details',
-  stepFour: '/admin/users/summary'
+  stepThree: '/admin/users/summary'
 }
 
 function editSteps(path, cdpUser) {

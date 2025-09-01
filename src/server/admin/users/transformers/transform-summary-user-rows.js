@@ -68,9 +68,7 @@ function transformSummaryUserRows(cdpUser) {
       'find-github-user',
       'githubSearch',
       userDetails.github
-    ),
-    buildRow('Defra AWS ID', userDetails.defraAwsId, 'user-details'),
-    buildRow('Defra VPN ID', userDetails.defraVpnId, 'user-details')
+    )
   ]
 }
 
