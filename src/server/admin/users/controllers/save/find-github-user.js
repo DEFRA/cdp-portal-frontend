@@ -56,7 +56,7 @@ const findGithubUserController = {
 
       const redirectTo = redirectLocation
         ? `/admin/users/${redirectLocation}`
-        : '/admin/users/user-details'
+        : '/admin/users/summary'
 
       return h.redirect(redirectTo)
     }

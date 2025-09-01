@@ -52,42 +52,6 @@ describe('#transformSummaryUserRows', () => {
         value: {
           html: expect.stringContaining('@BABaracus')
         }
-      },
-      {
-        actions: {
-          classes: 'app-summary__action',
-          items: [
-            {
-              classes: 'app-link',
-              href: '/admin/users/user-details?redirectLocation=summary',
-              text: 'Change',
-              visuallyHiddenText: 'Defra AWS ID'
-            }
-          ]
-        },
-        key: {
-          classes: 'app-summary__heading',
-          text: 'Defra AWS ID'
-        },
-        value: { html: null }
-      },
-      {
-        actions: {
-          classes: 'app-summary__action',
-          items: [
-            {
-              classes: 'app-link',
-              href: '/admin/users/user-details?redirectLocation=summary',
-              text: 'Change',
-              visuallyHiddenText: 'Defra VPN ID'
-            }
-          ]
-        },
-        key: {
-          classes: 'app-summary__heading',
-          text: 'Defra VPN ID'
-        },
-        value: { html: null }
       }
     ])
   })

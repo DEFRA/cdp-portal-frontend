@@ -48,16 +48,6 @@ function transformUserToSummary(user, withActions = true) {
         actions
       },
       {
-        key: { text: 'DEFRA Aws Id' },
-        value: { text: user.defraAwsId ?? noValue },
-        actions
-      },
-      {
-        key: { text: 'DEFRA Vpn Id' },
-        value: { text: user.defraVpnId ?? noValue },
-        actions
-      },
-      {
         key: { text: 'Last Updated' },
         value: { html: renderComponent('time', { datetime: user.updatedAt }) }
       },

@@ -64,11 +64,11 @@ describe('#userSession', () => {
         isAdmin: true,
         isTenant: false,
         scope: [
-          'team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'team:platform',
           'permission:admin',
           'permission:tenant',
-          'permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474',
-          'permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
+          'permission:canGrantProdAccess:team:platform',
+          'permission:serviceOwner:team:platform'
         ],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
@@ -121,11 +121,11 @@ describe('#userSession', () => {
         isAdmin: true,
         isTenant: false,
         scope: [
-          'team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'team:platform',
           'permission:admin',
           'permission:tenant',
-          'permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474',
-          'permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
+          'permission:canGrantProdAccess:team:platform',
+          'permission:serviceOwner:team:platform'
         ],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
@@ -134,7 +134,7 @@ describe('#userSession', () => {
 
     test('Should log the user session refresh', () => {
       expect(request.logger.info).toHaveBeenCalledWith(
-        'User session refreshed, UserId: user-id, displayName: User Name, isAdmin: true, isTenant: false, scopes: team:aabe63e7-87ef-4beb-a596-c810631fc474 permission:admin permission:tenant permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474 permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
+        'User session refreshed, UserId: user-id, displayName: User Name, isAdmin: true, isTenant: false, scopes: [team:platform permission:admin permission:tenant permission:canGrantProdAccess:team:platform permission:serviceOwner:team:platform]'
       )
     })
   })
@@ -186,11 +186,11 @@ describe('#userSession', () => {
         isAdmin: true,
         isTenant: false,
         scope: [
-          'team:aabe63e7-87ef-4beb-a596-c810631fc474',
+          'team:platform',
           'permission:admin',
           'permission:tenant',
-          'permission:canGrantProdAccess:team:aabe63e7-87ef-4beb-a596-c810631fc474',
-          'permission:serviceOwner:team:aabe63e7-87ef-4beb-a596-c810631fc474'
+          'permission:canGrantProdAccess:team:platform',
+          'permission:serviceOwner:team:platform'
         ]
       })
 

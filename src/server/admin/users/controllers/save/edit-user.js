@@ -23,9 +23,7 @@ const editUserController = {
         payload: {
           name: cdpUser.name,
           email: cdpUser.email,
-          github: cdpUser.github,
-          defraVpnId: cdpUser.defraVpnId,
-          defraAwsId: cdpUser.defraAwsId
+          github: cdpUser.github
         }
       })
 

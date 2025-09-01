@@ -15,8 +15,6 @@ import {
   startCreateUserController,
   startEditUserController,
   userController,
-  userDetailsController,
-  userDetailsFormController,
   usersListController,
   userSummaryController
 } from './controllers/index.js'
@@ -104,16 +102,6 @@ const adminUsers = {
             method: 'POST',
             path: '/admin/users/find-github-user',
             ...findGithubUserController
-          },
-          {
-            method: 'GET',
-            path: '/admin/users/user-details',
-            ...userDetailsFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/users/user-details',
-            ...userDetailsController
           },
           {
             method: 'GET',

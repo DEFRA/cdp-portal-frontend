@@ -15,8 +15,6 @@ import { sessionNames } from '../../../../common/constants/session-names.js'
  * @property {string} email - The AAD Users email
  * @property {string} [github] - The GitHub username
  * @property {string} [name] - CDP users name
- * @property {string} [defraAwsId] - Defra AWS ID
- * @property {string} [defraVpnId] - Defra VPN ID
  * @property {Steps} isComplete
  */
 

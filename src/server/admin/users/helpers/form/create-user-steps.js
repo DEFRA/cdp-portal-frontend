@@ -1,8 +1,7 @@
 const urls = {
   stepOne: '/admin/users/find-aad-user',
   stepTwo: '/admin/users/find-github-user',
-  stepThree: '/admin/users/user-details',
-  stepFour: '/admin/users/summary'
+  stepThree: '/admin/users/summary'
 }
 
 function createSteps(path, cdpUser) {
@@ -22,14 +21,8 @@ function createSteps(path, cdpUser) {
       text: 'GitHub User'
     },
     {
-      url: urls.stepThree,
-      isComplete: isComplete.stepThree,
-      isCurrent: path.includes(urls.stepThree),
-      text: 'User Details'
-    },
-    {
       isComplete: isComplete.allSteps,
-      isCurrent: path.includes(urls.stepFour),
+      isCurrent: path.includes(urls.stepThree),
       text: 'Summary'
     }
   ]
@@ -39,8 +32,7 @@ function isCreateCdpUserComplete(cdpUser) {
   return {
     stepOne: cdpUser?.isComplete?.stepOne,
     stepTwo: cdpUser?.isComplete?.stepTwo,
-    stepThree: cdpUser?.isComplete?.stepThree,
-    stepFour: cdpUser?.isComplete?.allSteps
+    stepThree: cdpUser?.isComplete?.allSteps
   }
 }
 
