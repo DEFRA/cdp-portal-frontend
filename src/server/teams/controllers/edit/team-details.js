@@ -43,7 +43,7 @@ const teamDetailsController = {
     }
 
     if (!validationResult.error) {
-      const { team } = await fetchCdpTeam(teamId)
+      const team = await fetchCdpTeam(teamId)
 
       try {
         await editTeam(request, teamId, {

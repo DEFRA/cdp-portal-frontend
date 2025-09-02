@@ -21,9 +21,7 @@ describe('Entity Table Component', () => {
     })
 
     beforeEach(() => {
-      const mockTeamEntityRows = cdpTeamsFixture.teams.map(
-        transformTeamToEntityRow
-      )
+      const mockTeamEntityRows = cdpTeamsFixture.map(transformTeamToEntityRow)
       $entityTable = renderTestComponent('entity-table', {
         params: {
           headers: [

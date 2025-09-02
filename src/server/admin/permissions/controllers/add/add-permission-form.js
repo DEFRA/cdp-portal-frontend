@@ -20,43 +20,35 @@ async function buildEntitiesOptions(searchQuery, scope, selectedEntities) {
 
   if (searchQuery) {
     const escapedSearchQuery = escapeRegex(searchQuery)
-    const searchPromises = kind
-      .map((k) => {
+    await Promise.all(
+      kind.map(async (k) => {
         if (k === 'user') {
-          return searchCdpUsers(escapedSearchQuery)
+          const users = await searchCdpUsers(escapedSearchQuery)
+          if (users?.length) {
+            foundEntities.push(
+              ...users.map((user) => ({
+                name: user.name,
+                id: user.userId,
+                kind: 'user'
+              }))
+            )
+          }
         }
 
         if (k === 'team') {
-          return searchCdpTeams(escapedSearchQuery)
+          const teams = await searchCdpTeams(escapedSearchQuery)
+          if (teams?.length) {
+            foundEntities.push(
+              ...teams.map((team) => ({
+                name: team.name,
+                id: team.teamId,
+                kind: 'team'
+              }))
+            )
+          }
         }
-
-        return null
       })
-      .filter(Boolean)
-
-    const searchResponse = await Promise.all(searchPromises)
-
-    for (const response of searchResponse) {
-      if (response?.users?.length) {
-        foundEntities.push(
-          ...response.users.map((user) => ({
-            name: user.name,
-            id: user.userId,
-            kind: 'user'
-          }))
-        )
-      }
-
-      if (response?.teams?.length) {
-        foundEntities.push(
-          ...response.teams.map((team) => ({
-            name: team.name,
-            id: team.teamId,
-            kind: 'team'
-          }))
-        )
-      }
-    }
+    )
   }
 
   const scopeTeams = scope.teams.map((team) => ({ id: team.teamId })) || []
@@ -117,7 +109,7 @@ function generateUiMessages(kind) {
       return {
         search: {
           label: 'Search for a Team',
-          hint: 'By its name',
+          hint: "By it's name",
           noResults: 'No teams found'
         }
       }
@@ -142,10 +134,7 @@ const addPermissionFormController = {
     const selectedEntityIds = selectedEntities.map(
       (entity) => `${entity.kind}:${entity.id}`
     )
-    const { scope } = await fetchPermissionsScope(
-      request,
-      request.params.scopeId
-    )
+    const scope = await fetchPermissionsScope(request, request.params.scopeId)
 
     return h.view('admin/permissions/views/add/add-permission-form', {
       pageTitle: 'Add Permission',

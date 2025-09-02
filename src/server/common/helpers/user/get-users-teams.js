@@ -11,7 +11,7 @@ async function getUsersTeams(request) {
   const scopes = userSession?.scope
 
   // TODO we need to consider pagination here in the future
-  const { teams } = await fetchTeams(true)
+  const teams = await fetchTeams(true)
 
   if (userSession?.isAdmin) {
     return teams

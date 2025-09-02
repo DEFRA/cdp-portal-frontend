@@ -1,10 +1,11 @@
 import { config } from '../../../../../config/config.js'
 import { fetchJson } from '../../../../common/helpers/fetch/fetch-json.js'
 
-function fetchCdpUsers() {
+async function fetchCdpUsers() {
   const endpoint = config.get('userServiceBackendUrl') + '/users'
 
-  return fetchJson(endpoint)
+  const { payload } = await fetchJson(endpoint)
+  return payload
 }
 
 export { fetchCdpUsers }

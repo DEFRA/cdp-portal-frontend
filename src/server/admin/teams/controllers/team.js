@@ -17,7 +17,7 @@ const teamController = {
     }
   },
   handler: async (request, h) => {
-    const { team } = await fetchCdpTeam(request.params.teamId)
+    const team = await fetchCdpTeam(request.params.teamId)
 
     return h.view('admin/teams/views/team', {
       pageTitle: `${team.name} Team`,

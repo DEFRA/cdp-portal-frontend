@@ -33,7 +33,7 @@ const findAadUserFormController = {
     const searchAadUsersResponse = aadQuery
       ? await searchAzureActiveDirectoryUsers(aadQuery)
       : null
-    const aadUsers = searchAadUsersResponse?.users ?? []
+    const aadUsers = searchAadUsersResponse ?? []
 
     return h.view('admin/users/views/save/aad-user-form', {
       pageTitle: 'Find DEFRA user',

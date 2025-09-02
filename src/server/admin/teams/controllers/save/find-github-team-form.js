@@ -33,7 +33,7 @@ const findGithubTeamFormController = {
     const searchGithubTeamsResponse = githubSearch
       ? await searchGithubTeams(githubSearch)
       : null
-    const githubTeams = searchGithubTeamsResponse?.teams ?? []
+    const githubTeams = searchGithubTeamsResponse ?? []
 
     const isEdit = cdpTeam?.isEdit
     const heading = 'Find Defra GitHub Team'

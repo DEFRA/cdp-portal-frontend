@@ -33,7 +33,7 @@ const findGithubUserFormController = {
     const searchGithubUsersResponse = githubSearch
       ? await searchGithubUsers(githubSearch)
       : null
-    const githubUsers = searchGithubUsersResponse?.users ?? []
+    const githubUsers = searchGithubUsersResponse ?? []
 
     const isEdit = cdpUser.isEdit ?? false
     const pageTitle = isEdit

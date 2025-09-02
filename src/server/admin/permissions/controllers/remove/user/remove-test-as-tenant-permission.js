@@ -13,7 +13,7 @@ const removeTestAsTenantScopeController = {
     const userSession = await request.getUserSession()
 
     try {
-      const { scope } = await fetchPermissionsScopeByName(
+      const scope = await fetchPermissionsScopeByName(
         request,
         scopes.testAsTenant.replace('permission:', '')
       )

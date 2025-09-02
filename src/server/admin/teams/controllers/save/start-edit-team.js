@@ -15,7 +15,7 @@ const startEditTeamController = {
     }
   },
   handler: async (request, h) => {
-    const { team } = await fetchCdpTeam(request.params?.teamId)
+    const team = await fetchCdpTeam(request.params?.teamId)
 
     request.yar.set(sessionNames.cdpTeam, {
       ...team,

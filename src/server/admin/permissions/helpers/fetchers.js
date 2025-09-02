@@ -31,14 +31,15 @@ async function addScopeToUser(request, userId, scopeId) {
   return payload
 }
 
-function createScope(request, payload) {
+async function createScope(request, payload) {
   const endpoint = userServiceBackendUrl + '/scopes/admin/'
 
-  return request.authedFetchJson(endpoint, {
+  const { payload: createdScope } = await request.authedFetchJson(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     payload: removeNil(payload)
   })
+  return createdScope
 }
 
 async function fetchPermissionsScope(request, scopeId) {
@@ -85,11 +86,12 @@ async function searchCdpTeams(query) {
 function updateScope(request, scopeId, payload) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
-  return request.authedFetchJson(endpoint, {
+  const { payload: responsePayload } = request.authedFetchJson(endpoint, {
     method: 'patch',
     headers: { 'Content-Type': 'application/json' },
     payload: removeNil(payload)
   })
+  return responsePayload
 }
 
 async function removeScopeFromTeam(request, teamId, scopeId) {
@@ -131,9 +133,10 @@ async function removeScopeFromUser(request, userId, scopeId) {
 function deleteScope(request, scopeId) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
-  return request.authedFetchJson(endpoint, {
+  const { payload } = request.authedFetchJson(endpoint, {
     method: 'delete'
   })
+  return payload
 }
 
 export {

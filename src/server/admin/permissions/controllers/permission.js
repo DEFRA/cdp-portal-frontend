@@ -17,10 +17,7 @@ const permissionController = {
     }
   },
   handler: async (request, h) => {
-    const { scope } = await fetchPermissionsScope(
-      request,
-      request.params.scopeId
-    )
+    const scope = await fetchPermissionsScope(request, request.params.scopeId)
     const formattedValue = formatText(scope.value)
 
     return h.view('admin/permissions/views/permission', {

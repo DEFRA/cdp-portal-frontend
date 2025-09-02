@@ -61,7 +61,7 @@ describe('Deployments list page', () => {
       targetUrl: `/deployments/dev?page=${pagination.page}&size=${pagination.size}`,
       isAdmin: true,
       isTenant: false,
-      additionalScopes: [`team:${cdpTeamFixture.team.teamId}`]
+      additionalScopes: [`team:${cdpTeamFixture.teamId}`]
     })
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()

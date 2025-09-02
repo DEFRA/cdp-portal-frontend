@@ -21,7 +21,7 @@ const microserviceCreateController = {
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
     const create = request.pre?.create
-    const { serviceTemplates } = await fetchServiceTemplates(request)
+    const serviceTemplates = await fetchServiceTemplates(request)
     const availableServiceTemplateIds = serviceTemplates.map(
       (template) => template.id
     )
