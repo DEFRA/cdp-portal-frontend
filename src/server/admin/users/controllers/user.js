@@ -17,7 +17,7 @@ const userController = {
     }
   },
   handler: async (request, h) => {
-    const { user } = await fetchCdpUser(request.params?.userId)
+    const user = await fetchCdpUser(request.params?.userId)
 
     return h.view('admin/users/views/user', {
       pageTitle: user.name,

@@ -3,7 +3,7 @@ import { transformTeamToEntityRow } from '../transformers/transform-team-to-enti
 
 const teamsListController = {
   handler: async (request, h) => {
-    const { teams } = await fetchCdpTeams()
+    const teams = await fetchCdpTeams()
     const rows = teams?.map(transformTeamToEntityRow)
 
     return h.view('admin/teams/views/teams-list', {

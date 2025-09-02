@@ -19,8 +19,8 @@ const confirmRemoveMemberController = {
     }
   },
   handler: async (request, h) => {
-    const { team } = await fetchCdpTeam(request.params.teamId)
-    const { user } = await fetchCdpUser(request.params.userId)
+    const team = await fetchCdpTeam(request.params.teamId)
+    const user = await fetchCdpUser(request.params.userId)
     const title = 'Remove'
 
     return h.view('admin/teams/views/remove/confirm-remove-member', {

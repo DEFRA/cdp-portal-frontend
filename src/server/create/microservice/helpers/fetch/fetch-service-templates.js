@@ -8,7 +8,7 @@ async function fetchServiceTemplates(request) {
 }
 
 async function serviceTemplateIdsForNamesAndRepos(request) {
-  const { serviceTemplates } = await fetchServiceTemplates(request)
+  const serviceTemplates = await fetchServiceTemplates(request)
   return serviceTemplates.map(({ id, templateName }) => ({
     value: id,
     text: templateName

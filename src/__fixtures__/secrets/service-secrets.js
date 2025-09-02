@@ -1,7 +1,6 @@
 // Response from portalBackendApi/secrets/infra-dev/cdp-portal-backend
 
 const serviceSecretsFixture = {
-  message: 'success',
   service: 'cdp-portal-backend',
   environment: 'infra-dev',
   keys: [
@@ -18,7 +17,6 @@ const serviceSecretsFixture = {
 }
 
 const serviceSecretsWithPendingFixture = {
-  message: 'success',
   service: 'cdp-portal-backend',
   environment: 'infra-dev',
   keys: [
@@ -35,7 +33,6 @@ const serviceSecretsWithPendingFixture = {
 }
 
 const serviceSecretsWithExceptionFixture = {
-  message: 'success',
   service: 'cdp-portal-backend',
   environment: 'infra-dev',
   keys: [

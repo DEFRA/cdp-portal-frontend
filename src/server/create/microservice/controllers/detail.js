@@ -15,7 +15,7 @@ const microserviceDetailController = {
     const teamId = payload.teamId
     const redirectLocation = payload?.redirectLocation
 
-    const { serviceTemplates } = await fetchServiceTemplates(request)
+    const serviceTemplates = await fetchServiceTemplates(request)
     const templateIds = serviceTemplates.map((template) => template.id)
 
     const validationResult = await microserviceValidation(templateIds)

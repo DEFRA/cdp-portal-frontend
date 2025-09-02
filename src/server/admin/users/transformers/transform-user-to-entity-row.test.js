@@ -3,7 +3,7 @@ import { transformUserToEntityRow } from './transform-user-to-entity-row.js'
 
 describe('#transformUserToEntityRow', () => {
   test('Should provide expected user entity row transformation', () => {
-    expect(transformUserToEntityRow(cdpUserFixture.user)).toEqual({
+    expect(transformUserToEntityRow(cdpUserFixture)).toEqual({
       cells: [
         {
           entity: {

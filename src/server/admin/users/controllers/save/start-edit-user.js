@@ -21,7 +21,7 @@ const startEditUserController = {
     request.yar.clear(sessionNames.cdpUser)
     request.yar.clear(sessionNames.validationFailure)
 
-    const { user } = await fetchCdpUser(request.params?.userId)
+    const user = await fetchCdpUser(request.params?.userId)
 
     await saveToCdpUser(request, h, {
       ...user,

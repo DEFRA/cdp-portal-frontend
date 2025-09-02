@@ -13,7 +13,7 @@ const teamDetailsFormController = {
     }
   },
   handler: async (request, h) => {
-    const { team } = await fetchCdpTeam(request.params.teamId)
+    const team = await fetchCdpTeam(request.params.teamId)
     const heading = 'Edit Team'
 
     return h.view('teams/views/edit/team-details-form', {

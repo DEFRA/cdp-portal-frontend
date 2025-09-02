@@ -8,7 +8,7 @@ describe('#sortByOwner', () => {
     ...entity,
     isOwner: entity.teams.some((team) => team.teamId === adminGroupId)
   }))
-  const librariesWithOwner = librariesFixture.repositories.map((library) => ({
+  const librariesWithOwner = librariesFixture.map((library) => ({
     ...library,
     isOwner: library.teams.some((team) => team.teamId === adminGroupId)
   }))

@@ -3,7 +3,7 @@ import { transformTeamToEntityRow } from './transform-team-to-entity-row.js'
 
 describe('#transformCdpTeamToEntityRow', () => {
   test('Should provide expected team row transformation', () => {
-    expect(transformTeamToEntityRow(cdpTeamFixture.team)).toEqual({
+    expect(transformTeamToEntityRow(cdpTeamFixture)).toEqual({
       cells: [
         {
           entity: {

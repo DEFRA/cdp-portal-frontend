@@ -9,13 +9,13 @@ const provideSelectedEntities = {
     if (entityIds.length) {
       const userIds = extractIds(entityIds, 'user')
       const fetchUsersPromises = userIds.map(async (userId) => {
-        const { user } = await fetchCdpUser(userId)
+        const user = await fetchCdpUser(userId)
         return { name: user.name, id: user.userId, kind: 'user' }
       })
 
       const teamIds = extractIds(entityIds, 'team')
       const fetchTeamsPromises = teamIds.map(async (teamId) => {
-        const { team } = await fetchCdpTeam(teamId)
+        const team = await fetchCdpTeam(teamId)
         return { name: team.name, id: team.teamId, kind: 'team' }
       })
 

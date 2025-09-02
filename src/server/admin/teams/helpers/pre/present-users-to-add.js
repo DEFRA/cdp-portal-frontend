@@ -10,7 +10,7 @@ const presentUsersToAdd = {
 
     if (userIds.length) {
       const fetchUserPromises = userIds.map(async (userId) => {
-        const { user } = await fetchCdpUser(userId)
+        const user = await fetchCdpUser(userId)
         return { name: user.name, email: user.email, userId: user.userId }
       })
 

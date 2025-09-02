@@ -16,10 +16,7 @@ const confirmRemovePermissionFromTeamController = {
     }
   },
   handler: async (request, h) => {
-    const { scope } = await fetchPermissionsScope(
-      request,
-      request.params.scopeId
-    )
+    const scope = await fetchPermissionsScope(request, request.params.scopeId)
     const team = scope.teams.find((t) => t.teamId === request.params.teamId)
 
     if (!team) {

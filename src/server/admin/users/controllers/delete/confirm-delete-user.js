@@ -17,7 +17,7 @@ const confirmDeleteUserController = {
     }
   },
   handler: async (request, h) => {
-    const { user } = await fetchCdpUser(request.params?.userId)
+    const user = await fetchCdpUser(request.params?.userId)
 
     return h.view('admin/users/views/delete/confirm-delete-user', {
       pageTitle: 'Confirm User Deletion',

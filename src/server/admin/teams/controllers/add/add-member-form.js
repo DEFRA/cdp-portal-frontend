@@ -29,12 +29,13 @@ const addMemberFormController = {
     const query = request?.query
     const cdpUserQuery = query?.cdpUserQuery || null
 
-    const { team } = await fetchCdpTeam(request.params.teamId)
+    const team = await fetchCdpTeam(request.params.teamId)
 
     const searchCdpUsersResponse = cdpUserQuery
       ? await searchCdpUsers(cdpUserQuery)
       : null
-    const cdpUsers = searchCdpUsersResponse?.users ?? []
+
+    const cdpUsers = searchCdpUsersResponse ?? []
 
     const userIds = usersToAdd.map((user) => user.userId)
 

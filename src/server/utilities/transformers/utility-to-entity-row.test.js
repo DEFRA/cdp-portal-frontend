@@ -5,10 +5,7 @@ describe('#utilityToEntityRow', () => {
   describe('When authenticated', () => {
     test('Should provide expected "templates" transformation', () => {
       expect(
-        utilityToEntityRow(
-          'templates',
-          true
-        )(templatesFixture.repositories.at(0))
+        utilityToEntityRow('templates', true)(templatesFixture.at(0))
       ).toEqual({
         cells: [
           {
@@ -72,10 +69,7 @@ describe('#utilityToEntityRow', () => {
   describe('When not authenticated', () => {
     test('Should provide expected "templates" transformation', () => {
       expect(
-        utilityToEntityRow(
-          'templates',
-          false
-        )(templatesFixture.repositories.at(0))
+        utilityToEntityRow('templates', false)(templatesFixture.at(0))
       ).toEqual({
         cells: [
           {

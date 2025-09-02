@@ -24,7 +24,7 @@ const teamController = {
     const userIsServiceOwner = await request.userIsServiceOwner([teamId])
     const userIsAdmin = await request.userIsAdmin()
 
-    const [{ team }, teamsServices, teamTestSuites] = await Promise.all([
+    const [team, teamsServices, teamTestSuites] = await Promise.all([
       fetchTeam(teamId),
       fetchEntities({ type: 'Microservice', teamIds: teamId }),
       fetchEntities({ type: 'TestSuite', teamIds: teamId })

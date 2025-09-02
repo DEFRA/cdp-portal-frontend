@@ -14,10 +14,7 @@ const editPermissionDetailsFormController = {
     }
   },
   handler: async (request, h) => {
-    const { scope } = await fetchPermissionsScope(
-      request,
-      request.params.scopeId
-    )
+    const scope = await fetchPermissionsScope(request, request.params.scopeId)
     const kindOptions = buildOptions(
       [
         { text: 'User', value: 'user' },

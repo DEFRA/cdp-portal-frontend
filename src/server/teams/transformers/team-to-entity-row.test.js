@@ -4,7 +4,7 @@ import { cdpTeamWithoutGithubFixture } from '../../../__fixtures__/admin/cdp-tea
 
 describe('#teamToEntityRow', () => {
   test('Should provide expected team transformation', () => {
-    expect(teamToEntityRow(cdpTeamFixture.team)).toEqual({
+    expect(teamToEntityRow(cdpTeamFixture)).toEqual({
       cells: [
         {
           entity: {
@@ -58,7 +58,7 @@ describe('#teamToEntityRow', () => {
   })
 
   test('Should provide expected team transformation when team is not linked to a GitHub team', () => {
-    expect(teamToEntityRow(cdpTeamWithoutGithubFixture.team)).toEqual({
+    expect(teamToEntityRow(cdpTeamWithoutGithubFixture)).toEqual({
       cells: [
         {
           entity: {

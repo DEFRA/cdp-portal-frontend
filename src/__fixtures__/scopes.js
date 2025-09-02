@@ -1,6 +1,5 @@
 // Response from userServiceBackend/scopes
 const scopesFixture = {
-  message: 'success',
   scopes: [
     'team:platform',
     'permission:admin',

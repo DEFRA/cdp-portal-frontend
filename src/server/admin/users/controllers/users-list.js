@@ -3,8 +3,8 @@ import { transformUserToEntityRow } from '../transformers/transform-user-to-enti
 
 const usersListController = {
   handler: async (request, h) => {
-    const { payload } = await fetchCdpUsers()
-    const rows = payload?.users.map(transformUserToEntityRow)
+    const users = await fetchCdpUsers()
+    const rows = users.map(transformUserToEntityRow)
 
     return h.view('admin/users/views/users-list', {
       pageTitle: 'Users',

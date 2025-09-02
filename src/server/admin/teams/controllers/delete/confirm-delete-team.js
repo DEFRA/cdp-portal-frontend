@@ -17,7 +17,7 @@ const confirmDeleteTeamController = {
     }
   },
   handler: async (request, h) => {
-    const { team } = await fetchCdpTeam(request.params?.teamId)
+    const team = await fetchCdpTeam(request.params?.teamId)
 
     return h.view('admin/teams/views/delete/confirm-delete-team', {
       pageTitle: 'Confirm Team Deletion',

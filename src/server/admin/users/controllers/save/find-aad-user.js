@@ -53,7 +53,7 @@ const findAadUserController = {
       const searchAadUsersResponse = await searchAzureActiveDirectoryUsers(
         sanitisedPayload.email
       )
-      const aadUserDetails = searchAadUsersResponse?.users ?? []
+      const aadUserDetails = searchAadUsersResponse ?? []
       const aadUser = aadUserDetails?.at(0)
       const isSameEmail = cdpUser?.email === aadUser?.email
       const isSameAsSession = aadUser?.mail && isSameEmail

@@ -27,7 +27,7 @@ const teamsListController = {
     const userSession = await request.getUserSession()
     const userScopes = userSession?.scope ?? []
 
-    const { teams } = await fetchTeams()
+    const teams = await fetchTeams()
 
     const teamDecorator = belongsToTeam(userScopes)
     const rows =

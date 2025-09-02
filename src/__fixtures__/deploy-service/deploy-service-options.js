@@ -1,5 +1,4 @@
 const deployServiceOptionsFixture = {
-  message: 'success',
   cpuOptions: [
     {
       value: 512,
