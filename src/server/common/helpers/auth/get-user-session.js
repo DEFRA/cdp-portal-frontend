@@ -11,7 +11,7 @@
  * @property {boolean} isTenant
  * @property {string[]} scope - all scopes
  * @property {number} expiresIn
- * @property {Date} expiresAt
+ * @property {string} expiresAt
  */
 
 /**

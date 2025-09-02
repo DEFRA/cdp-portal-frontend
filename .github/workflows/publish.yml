@@ -31,7 +31,7 @@ jobs:
       - name: Security audit
         run: npm run security-audit
 
-      - name: Build all the stuff
+      - name: Build and Publish
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,3 +1,4 @@
+import isNil from 'lodash/isNil.js'
 import capitalize from 'lodash/capitalize.js'
 import { Engine as CatboxMemory } from '@hapi/catbox-memory'
 
@@ -369,7 +370,8 @@ function buildAuthDetail(
 ) {
   const user = {
     id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-    displayName: 'B. A. Baracus'
+    displayName: 'B. A. Baracus',
+    email: 'b.a.baracus@defradev.onmicrosoft.com'
   }
   const scope = [
     `team:${teamScope}`,
@@ -395,20 +397,38 @@ function buildAuthDetail(
     }
   }
 
+  // Microsoft authenticated user, Not CDP registered,
+  if (isNil(isAdmin) && isNil(isTenant)) {
+    return {
+      userSession: {
+        ...user,
+        isAdmin: false,
+        isTenant: false,
+        isAuthenticated: true,
+        scope: []
+      },
+      auth: {
+        credentials: { user: null, scope: [] },
+        strategy: 'default'
+      }
+    }
+  }
+
   return {
     userSession: null
   }
 }
 
-export async function mockAuthAndRenderUrl(server, { targetUrl, ...options }) {
+export async function mockAuthAndRenderUrl(server, options = {}) {
   const { userSession, auth } = buildAuthDetail(server, options)
 
   getUserSession.mockResolvedValue?.(userSession)
 
   const { result, statusCode } = await server.inject({
     method: 'GET',
-    url: targetUrl,
-    auth
+    url: options.targetUrl,
+    auth,
+    headers: options.headers || {}
   })
 
   return { result, statusCode }
