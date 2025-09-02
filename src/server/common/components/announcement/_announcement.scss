@@ -2,24 +2,28 @@
 
 .app-announcement {
   display: flex;
-  align-items: center;
+  align-items: start;
   background-color: govuk-colour("yellow");
-  padding: govuk-spacing(2);
+  border-bottom: 1px solid govuk-shade(govuk-colour("blue"), 60%);
+  padding: govuk-spacing(3) govuk-spacing(2);
 
   & .app-info-icon {
     fill: govuk-colour("blue");
+    margin-right: govuk-spacing(2);
+    background-color: govuk-colour("white");
+    border-radius: 50%;
   }
 }
 
 .app-announcement__content {
   @include govuk-font(19);
 
-  margin: 0 govuk-spacing(2);
+  margin: 0;
   color: govuk-colour("black");
 }
 
 .app-announcement__message {
   & + * {
-    margin-top: govuk-spacing(1);
+    margin-top: govuk-spacing(2);
   }
 }

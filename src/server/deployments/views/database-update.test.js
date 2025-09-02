@@ -30,7 +30,9 @@ describe('Database update page', () => {
 
   test('renders for logged out users', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: databaseUpdatePageUrl
+      targetUrl: databaseUpdatePageUrl,
+      isAdmin: false,
+      isTenant: false
     })
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
