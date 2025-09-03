@@ -1,4 +1,5 @@
 import qs from 'qs'
+import { scopes } from '@defra/cdp-validation-kit'
 
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
@@ -7,6 +8,14 @@ import { addMemberToTeam } from '../../../admin/teams/helpers/fetch/index.js'
 import { pluralise } from '../../../common/helpers/pluralise.js'
 
 const addMemberController = {
+  options: {
+    auth: {
+      mode: 'required',
+      access: {
+        scope: [scopes.admin, 'team:{params.teamId}']
+      }
+    }
+  },
   handler: async (request, h) => {
     const params = request.params
     const teamId = params.teamId

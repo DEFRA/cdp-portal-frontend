@@ -14,6 +14,11 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
   margin-top: govuk-spacing(3);
 }
 
+.app-breadcrumbs--split-pane {
+  margin-top: 0;
+  margin-bottom: govuk-spacing(6);
+}
+
 .app-breadcrumbs__list {
   @include govuk-clearfix;
 

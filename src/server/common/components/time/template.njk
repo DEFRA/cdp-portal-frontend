@@ -10,12 +10,21 @@
   {% endif %}
 {% endset %}
 
-{% call appToolTip({ text: params.datetime | formatDate }) %}
+{% set timeHtml %}
   <time{% if params.classes %} class="{{ params.classes }}"{% endif %}
     datetime="{{ params.datetime }}"
     data-testid="app-time">
     {{ content }}
   </time>
-{% endcall %}
+{% endset %}
+
+{% if params.withoutTooltip %}
+  {{ timeHtml | safe }}
+{% else %}
+  {% call appToolTip({ text: params.datetime | formatDate }) %}
+    {{ timeHtml | safe }}
+  {% endcall %}
+{% endif %}
+
 
 

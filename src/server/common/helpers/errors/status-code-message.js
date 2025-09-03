@@ -1,4 +1,4 @@
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit'
 
 function statusCodeMessage(statusCode) {
   switch (true) {

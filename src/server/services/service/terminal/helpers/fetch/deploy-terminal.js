@@ -1,6 +1,12 @@
 import { config } from '../../../../../../config/config.js'
 
-function deployTerminal(request, serviceId, environment) {
+function deployTerminal({
+  request,
+  serviceId,
+  environment,
+  teamIds,
+  expiresAt
+}) {
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-terminal'
 
   return request.authedFetchJson(endpoint, {
@@ -8,7 +14,9 @@ function deployTerminal(request, serviceId, environment) {
     headers: { 'Content-Type': 'application/json' },
     payload: {
       service: serviceId,
-      environment
+      environment,
+      teamIds,
+      expiresAt
     }
   })
 }

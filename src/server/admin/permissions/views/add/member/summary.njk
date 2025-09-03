@@ -1,0 +1,56 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        caption: "Add team member permission",
+        text: scope.value,
+        intro: "Check your choices before creating this team member permission"
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+
+          <form
+            action="{{ routeLookup('admin/permissions/{scopeId}/user/{userId}/add/{multiStepFormId}',
+              { params: {
+                scopeId: scope.scopeId,
+                userId: stepData.userId,
+                multiStepFormId: multiStepFormId
+              } }) }}"
+            method="post">
+
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+              Summary
+            </h2>
+
+            {% call appPanel({ classes: "govuk-!-margin-bottom-4" }) %}
+              {{ govukSummaryList({
+                classes: "app-summary-list",
+                rows: userPermissionSummaryRows,
+                attributes: { "data-testid": "govuk-summary-list" }
+              }) }}
+            {% endcall %}
+
+            {{ appButton({
+              text: "Create",
+              loader: {
+                name: "create-user-permission-submit-button"
+              }
+            }) }}
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
+

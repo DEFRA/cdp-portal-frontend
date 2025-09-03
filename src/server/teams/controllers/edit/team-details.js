@@ -1,5 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
+import { teamIdValidation, scopes } from '@defra/cdp-validation-kit'
 
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
@@ -11,9 +12,15 @@ import {
 
 const teamDetailsController = {
   options: {
+    auth: {
+      mode: 'required',
+      access: {
+        scope: [scopes.admin, 'team:{params.teamId}']
+      }
+    },
     validate: {
       params: Joi.object({
-        teamId: Joi.string().required()
+        teamId: teamIdValidation
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }

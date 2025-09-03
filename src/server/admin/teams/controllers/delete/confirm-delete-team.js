@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
+import { teamIdValidation } from '@defra/cdp-validation-kit'
 
 import { fetchCdpTeam } from '../../helpers/fetch/index.js'
 import { transformTeamToSummary } from '../../transformers/team-to-summary.js'
 import { transformTeamUsersToTaskList } from '../../transformers/team-users-to-task-list.js'
-import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const confirmDeleteTeamController = {
   options: {
@@ -24,7 +24,7 @@ const confirmDeleteTeamController = {
       summaryList: transformTeamToSummary(team, false),
       usersTaskList: transformTeamUsersToTaskList(team, false),
       team,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

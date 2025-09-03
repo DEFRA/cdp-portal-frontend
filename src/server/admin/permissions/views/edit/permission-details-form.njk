@@ -57,6 +57,8 @@
             }) }}
 
             {{ govukTextarea({
+              id: "description",
+              name: "description",
               label: {
                 text: "Description (optional)",
                 classes: "app-label"
@@ -65,9 +67,7 @@
                 html: "A sentence or two, describing what this permission is for",
                 classes: "app-hint"
               },
-              id: "description",
-              name: "description",
-              classes: "app-textarea app-textarea--wide",
+              classes: "app-textarea app-textarea--extra-wide",
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },

@@ -1,8 +1,9 @@
+import { scopes } from '@defra/cdp-validation-kit'
+
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
 import { provideTeamSteps } from './helpers/form/index.js'
 import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { sessionNames } from '../../common/constants/session-names.js'
 import {
   startCreateTeamController,

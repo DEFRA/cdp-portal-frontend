@@ -1,3 +1,4 @@
+// TODO remove index.js
 import { teamController } from './team.js'
 import { teamsListController } from './teams-list.js'
 import { removeMemberController } from './remove/remove-member.js'

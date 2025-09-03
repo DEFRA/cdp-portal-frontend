@@ -1,5 +1,5 @@
 import { statusCodeMessage } from './status-code-message.js'
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit'
 
 function catchAll(request, h) {
   const { response } = request

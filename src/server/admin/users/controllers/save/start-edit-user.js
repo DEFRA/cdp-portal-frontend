@@ -5,7 +5,7 @@ import Boom from '@hapi/boom'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { fetchCdpUser } from '../../helpers/fetch/index.js'
 import { saveToCdpUser } from '../../helpers/form/index.js'
-import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { userIdValidation } from '@defra/cdp-validation-kit'
 
 const startEditUserController = {
   options: {

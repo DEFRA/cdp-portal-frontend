@@ -4,7 +4,7 @@ import { validation } from '../../../common/constants/validation.js'
 import {
   repositoryNameValidation,
   teamIdValidation
-} from '@defra/cdp-validation-kit/src/validations.js'
+} from '@defra/cdp-validation-kit'
 import { checkNameAvailability } from '../validator/check-name-availability.js'
 
 function testSuiteValidation() {

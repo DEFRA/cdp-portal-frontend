@@ -3,10 +3,7 @@ import Boom from '@hapi/boom'
 
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { removeMemberFromTeam } from '../../helpers/fetch/index.js'
-import {
-  teamIdValidation,
-  userIdValidation
-} from '@defra/cdp-validation-kit/src/validations.js'
+import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
 const removeMemberController = {
   options: {

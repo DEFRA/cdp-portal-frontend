@@ -21,18 +21,16 @@
 
       <h2 class="govuk-heading-m">Remove the following team member</h2>
 
-      <p>Would you like to remove <em>{{ user.name }}</em> from the <em>{{ team.name }}</em> team?</p>
+      <p class="govuk-!-margin-bottom-2">
+        Would you like to remove <em>{{ user.name }}</em> from the <em>{{ team.name }}</em> team?
+      </p>
 
-      <div class="govuk-!-margin-bottom-6">
-        {{ appInfo({
-          html: helpHtml
-        }) }}
-      </div>
+      {{ appInfo({ classes: "govuk-!-margin-bottom-4", html: helpHtml }) }}
 
       <form action="/teams/{{ team.teamId }}/remove-member/{{ user.userId }}" method="post">
-        <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-        <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+        <div class="govuk-body govuk-button-group">
           {{ govukButton({
             classes: "app-button app-button--destructive",
             text: "Remove team member"

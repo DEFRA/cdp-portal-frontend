@@ -1,22 +1,14 @@
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { kindOptions } from '../../helpers/build-kind-options.js'
 
 const createPermissionDetailsFormController = {
   options: {
     id: 'admin/permission/create'
   },
   handler: (_request, h) => {
-    const kindOptions = buildOptions(
-      [
-        { text: 'User', value: 'user' },
-        { text: 'Team', value: 'team' }
-      ],
-      false
-    )
-
     return h.view('admin/permissions/views/create/permission-details-form', {
       pageTitle: 'Create new permission',
       kindOptions,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

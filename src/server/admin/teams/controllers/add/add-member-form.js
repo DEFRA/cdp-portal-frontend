@@ -61,7 +61,7 @@ const addMemberFormController = {
         : null,
       team,
       usersToAdd: usersToAdd.map((user) => `${user.name} - ${user.email}`),
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

@@ -1,4 +1,4 @@
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 /**
  * Get the teams for a given services serviceId
@@ -8,6 +8,7 @@ import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
  * @param {import('@hapi/hapi').ResponseToolkit} h
  * @returns {Promise<*>}
  */
+// TODO move to use the permissions from User service backend rather tha this
 async function addServiceOwnerScope(request, h) {
   const entity = request.app.entity
   const { credentials, isAuthenticated } = request.auth

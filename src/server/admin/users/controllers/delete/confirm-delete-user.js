@@ -4,7 +4,7 @@ import Boom from '@hapi/boom'
 import { fetchCdpUser } from '../../helpers/fetch/index.js'
 import { transformUserToSummary } from '../../transformers/user-to-summary.js'
 import { transformUserTeamsToTaskList } from '../../transformers/user-teams-to-task-list.js'
-import { userIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { userIdValidation } from '@defra/cdp-validation-kit'
 
 const confirmDeleteUserController = {
   options: {
@@ -24,7 +24,7 @@ const confirmDeleteUserController = {
       summaryList: transformUserToSummary(user, false),
       teamsTaskList: transformUserTeamsToTaskList(user),
       user,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

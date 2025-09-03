@@ -15,8 +15,9 @@
   border: 1px solid $app-brand-background-colour;
   border-left: 6px solid govuk-colour("blue");
 
-  & + & {
-    margin-top: govuk-spacing(-2);
+  & + &,
+  & + .app-warning {
+    margin-top: govuk-spacing(0);
   }
 }
 

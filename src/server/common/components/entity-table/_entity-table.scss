@@ -62,7 +62,7 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table__row {
     display: grid;
-    grid-template-columns: repeat(4, minmax($min-grid-cell-width, 1fr));
+    grid-template-columns: repeat(3, minmax($min-grid-cell-width, 1fr));
     gap: govuk-spacing(1);
     grid-auto-rows: 1fr;
     margin-bottom: govuk-spacing(3);

@@ -1,5 +1,5 @@
 import { provideSubNav } from './provide-sub-navigation.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 import { pluralise } from '../common/helpers/pluralise.js'
 
 describe('#provideSubNavForentityType', () => {

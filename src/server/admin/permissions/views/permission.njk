@@ -25,13 +25,25 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         <ul class="govuk-list">
-          <li>
-            <a href="/admin/permissions/{{ scope.scopeId }}/add"
-               class="app-link app-link--underline"
-               data-testid="add-permission">
-              {{ addPermissionText }}
-            </a>
-          </li>
+          {% if "member" in scope.kind %}
+            <li>
+              <a
+                href="{{ routeLookup('admin/permissions/{scopeId}/user/find/{multiStepFormId?}', { params: { scopeId: scope.scopeId } }) }}"
+                class="app-link app-link--underline"
+                data-testid="add-permission">
+                Add permission to team member
+              </a>
+            </li>
+          {% endif %}
+          {% if "user" or "team" in scope.kind %}
+            <li>
+              <a href="/admin/permissions/{{ scope.scopeId }}/add"
+                 class="app-link app-link--underline"
+                 data-testid="add-permission">
+                {{ addPermissionText }}
+              </a>
+            </li>
+          {% endif %}
           <li>
             <a href="/admin/permissions/{{ scope.scopeId }}/confirm-delete"
                class="app-link app-link--underline"
@@ -44,7 +56,7 @@
     </div>
 
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half-from-desktop">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
 
         {% call appPanel() %}
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Permission details</h2>
@@ -52,9 +64,40 @@
           {{ govukSummaryList(summaryList) }}
         {% endcall %}
 
+        {% if "member" in scope.kind %}
+          {% call appPanel() %}
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+              {{ "Team member" | pluralise(scope.members | length) }} with permission
+            </h2>
+
+            {% if membersWithPermissionRows | length %}
+              {{ govukTable({
+                classes: "app-table app-table--inverse",
+                head: [
+                  { text: "Name" },
+                  { text: "Team" },
+                  { text: "Starts" },
+                  { text: "Ends" },
+                  { text: "Action", classes: "govuk-!-width-one-quarter app-!-text-align-right" }
+                ],
+                rows: membersWithPermissionRows
+              }) }}
+            {% else %}
+              <p>
+                This permission has not been added to any team members. <a
+                  href="{{ routeLookup('admin/permissions/{scopeId}/user/find/{multiStepFormId?}', { params: { scopeId: scope.scopeId } }) }}"
+                  class="app-link app-link--underline">
+                  Add permission to team member
+                </a>
+              </p>
+            {% endif %}
+
+          {% endcall %}
+        {% endif %}
+
         {% if "user" in scope.kind %}
           {% call appPanel() %}
-            <h2 class="govuk-heading-m">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
               {{ "User" | pluralise(scope.users | length) }} with permission
             </h2>
 
@@ -64,7 +107,7 @@
               <p>
                 This permission has not been added to any users. <a href="/admin/permissions/{{ scope.scopeId }}/add"
                                                                     class="app-link app-link--underline">
-                  Add permission
+                  Add permission to user
                 </a>
               </p>
             {% endif %}
@@ -83,7 +126,7 @@
               <p>
                 This permission has not been added to any teams. <a href="/admin/permissions/{{ scope.scopeId }}/add"
                                                                     class="app-link app-link--underline">
-                  Add permission
+                  Add permission to team
                 </a>
               </p>
             {% endif %}

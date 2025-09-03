@@ -1,9 +1,9 @@
 import Boom from '@hapi/boom'
+import { teamIdValidation } from '@defra/cdp-validation-kit'
 
 import Joi from '../../../../../common/helpers/extended-joi.js'
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { removeScopeFromTeam } from '../../../helpers/fetchers.js'
-import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const removePermissionFromTeamController = {
   options: {

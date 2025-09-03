@@ -11,11 +11,10 @@
 
   <hr class="app-section-break app-section-break--slim">
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-8">
-    <div class="govuk-grid-column-one-half-from-desktop-wide">
-
-      {% if userIsServiceOwner %}
-        <ul class="govuk-list">
+  {% if userIsServiceOwner %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full-from-desktop-wide">
+        <ul class="govuk-list govuk-!-margin-0">
           <li>
             <a href="{{ routeLookup('teams/{teamId}/add-member', { params: { teamId: team.teamId } }) }}"
                class="app-link app-link--underline" data-testid="add-team-member">
@@ -23,8 +22,12 @@
             </a>
           </li>
         </ul>
-      {% endif %}
+      </div>
+    </div>
+  {% endif %}
 
+  <div class="govuk-grid-row app-grid-row--stretch">
+    <div class="govuk-grid-column-one-half-from-desktop-wide govuk-grid-column--slim">
       {% call appPanel() %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
@@ -35,13 +38,39 @@
           {{ govukSummaryList(summaryList) }}
         </section>
       {% endcall %}
+    </div>
 
+    <div class="govuk-grid-column-one-half-from-desktop-wide govuk-grid-column--slim">
+      {% call appPanel() %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Members</h2>
+          <p class="govuk-!-margin-bottom-0">
+            Team member information
+          </p>
+
+          {% if teamUsersRows | length %}
+            {{ govukTable({
+              classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+              attributes: { 'data-testid': 'user-details' },
+              head: [
+                { text: "Members (" + teamUsersRows | length + ")" },
+                { text: "Actions", classes: "govuk-table__header--numeric" } if isServiceOwnerOrAdmin
+              ],
+              rows: teamUsersRows
+            }) }}
+          {% else %}
+            <p class="govuk-!-margin-top-2" data-testid="user-details">
+              This team has no members
+            </p>
+          {% endif %}
+        </section>
+      {% endcall %}
     </div>
   </div>
 
-  <div class="govuk-grid-row">
+  <div class="govuk-grid-row app-grid-row--stretch govuk-!-margin-top-2 govuk-!-margin-bottom-6">
     <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
-      {% call appPanel({ isSlim: true }) %}
+      {% call appPanel() %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Service" | pluralise(teamServices.items | length) }}
@@ -63,8 +92,9 @@
         </section>
       {% endcall %}
     </div>
+
     <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
-      {% call appPanel({ isSlim: true }) %}
+      {% call appPanel() %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Test-suite" | pluralise(teamTestSuites.items | length) }}
@@ -86,8 +116,9 @@
         </section>
       {% endcall %}
     </div>
+
     <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
-      {% call appPanel({ isSlim: true }) %}
+      {% call appPanel() %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Template" | pluralise(templates.items | length) }}
@@ -101,8 +132,9 @@
         </section>
       {% endcall %}
     </div>
+
     <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
-      {% call appPanel({ isSlim: true }) %}
+      {% call appPanel() %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
             {{ "Library" | pluralise(libraries.items | length) }}

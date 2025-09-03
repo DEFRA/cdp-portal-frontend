@@ -4,7 +4,7 @@ import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { repositoryValidation } from '../helpers/schema/repository-validation.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 const repositoryCreateController = {
   options: {

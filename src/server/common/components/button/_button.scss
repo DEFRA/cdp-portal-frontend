@@ -55,7 +55,8 @@ $shadow-opacity-light: 0.4;
   box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity-light);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour("light-grey"), 20%);
+    color: govuk-colour("black");
+    background-color: govuk-shade(govuk-colour("light-grey"), 5%);
   }
 
   &:link,

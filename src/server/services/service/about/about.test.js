@@ -4,9 +4,8 @@ import {
   mockServiceEntityCall,
   mockServicesAdditionalCalls
 } from '../../../../../test-helpers/common-page-rendering.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes, statusCodes } from '@defra/cdp-validation-kit'
 import { availableMigrationsFixture } from '../../../../__fixtures__/migrations/available-migrations.js'
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
 vi.mock('../../../common/helpers/fetch/fetch-running-services.js')

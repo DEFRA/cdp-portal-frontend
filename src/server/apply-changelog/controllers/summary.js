@@ -1,14 +1,11 @@
 import Joi from 'joi'
 
-import { provideStepData } from '../../common/helpers/multistep-form/provide-step-data.js'
-import { checkSessionIsValid } from '../../common/helpers/multistep-form/check-session-is-valid.js'
 import { changelogApplyRows } from '../transformers/changelog-apply-rows.js'
+import { provideStepData } from '../../common/helpers/multistep-form/provide-step-data.js'
 
 const summaryController = {
   options: {
-    ext: {
-      onPreHandler: checkSessionIsValid('/apply-changelog')
-    },
+    id: 'apply-changelog/summary/{multiStepFormId}',
     pre: [provideStepData],
     validate: {
       params: Joi.object({

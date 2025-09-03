@@ -3,10 +3,7 @@ import Boom from '@hapi/boom'
 
 import { fetchCdpTeam } from '../../helpers/fetch/index.js'
 import { fetchCdpUser } from '../../../users/helpers/fetch/index.js'
-import {
-  teamIdValidation,
-  userIdValidation
-} from '@defra/cdp-validation-kit/src/validations.js'
+import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
 const confirmRemoveMemberController = {
   options: {
@@ -27,7 +24,7 @@ const confirmRemoveMemberController = {
       pageTitle: 'Remove Team Member',
       team,
       user,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

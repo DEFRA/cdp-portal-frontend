@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 import { sortBy } from '../../../common/helpers/sort/sort-by.js'
 import { fetchTenantService } from '../../../common/helpers/fetch/fetch-tenant-service.js'
 import { availableEnvironments } from './helpers/available-environments.js'
@@ -10,14 +10,18 @@ import { transformServiceToSummary } from './transformers/service-to-summary.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
+  const userSession = await request.getUserSession()
 
   if (entity == null) {
     return Boom.notFound()
   }
 
   const serviceName = entity.name
-  const userScopes = request.auth?.credentials?.scope
-  const isServiceOwner = userScopes?.includes(scopes.serviceOwner)
+  const userScopes = userSession?.scope
+
+  const teamIds = entity.teams.map(({ teamId }) => teamId)
+  const isServiceOwner = await request.userIsServiceOwner(teamIds)
+
   const hasPostgresPermission = userScopes?.includes(
     scopes.restrictedTechPostgres
   )

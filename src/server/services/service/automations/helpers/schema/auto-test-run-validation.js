@@ -3,7 +3,7 @@ import Joi from 'joi'
 import { validation } from '../../../../../common/constants/validation.js'
 import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
 import { excludedEnvironments } from '../constants/excluded-environments.js'
-import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 
 // TODO
 //  Validate:

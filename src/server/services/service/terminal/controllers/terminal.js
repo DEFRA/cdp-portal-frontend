@@ -1,22 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sortByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
-import { terminalEnvironments } from '../helpers/can-launch-terminal.js'
-import { fetchTenantService } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
-
-export async function getTerminalEnvs(serviceName, userScopes) {
-  if (!serviceName) {
-    return []
-  }
-
-  const environments = terminalEnvironments(userScopes)
-  const tenantService = await fetchTenantService(serviceName)
-
-  return Object.keys(tenantService)
-    .filter((env) => environments.includes(env))
-    .sort(sortByEnv)
-}
+import { getTerminalEnvs } from '../helpers/get-terminal-envs.js'
 
 const terminalController = {
   options: {
@@ -30,10 +15,11 @@ const terminalController = {
   },
   handler: async (request, h) => {
     const serviceName = request.params.serviceId
-    const terminalEnvs = await getTerminalEnvs(
+    const terminalEnvs = await getTerminalEnvs({
       serviceName,
-      request.auth.credentials?.scope
-    )
+      userScopes: request.auth.credentials?.scope,
+      entity: request.app.entity
+    })
     const canLaunchTerminal = terminalEnvs.length > 0
 
     return h.view('services/service/terminal/views/terminal', {

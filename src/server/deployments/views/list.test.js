@@ -2,7 +2,7 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl
 } from '../../../../test-helpers/common-page-rendering.js'
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit'
 import { pagination } from '../../common/constants/pagination.js'
 import { cdpTeamFixture } from '../../../__fixtures__/admin/cdp-team.js'
 import { fetchDeploymentsWithMigrations } from '../helpers/fetch/fetch-deployments-with-migrations.js'

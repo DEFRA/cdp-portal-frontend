@@ -1,24 +1,31 @@
 import Boom from '@hapi/boom'
+
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { deployTerminal } from '../helpers/fetch/deploy-terminal.js'
-import { canLaunchTerminal } from '../helpers/can-launch-terminal.js'
-import { launchTerminalParamsValidation } from '../helpers/schema/launch-terminal-params-validation.js'
+import { launchTerminalParamsValidation } from '../helpers/schema/terminal-params-validation.js'
+import { fetchActiveBreakGlass } from '../../../../admin/permissions/helpers/fetchers.js'
 
 const launchTerminalController = {
   options: {
     validate: {
       params: launchTerminalParamsValidation,
-      failAction: () => Boom.boomify(Boom.notFound())
+      failAction: () => Boom.boomify(Boom.forbidden())
     }
   },
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
     const environment = request.params.environment
 
-    try {
-      canLaunchTerminal(request.auth.credentials?.scope, environment)
+    const { activeBreakGlass } = await fetchActiveBreakGlass(request)
 
-      const { payload } = await deployTerminal(request, serviceId, environment)
+    try {
+      const { payload } = await deployTerminal({
+        request,
+        serviceId,
+        environment,
+        teamIds: request.app.entity.teams.map(({ teamId }) => teamId),
+        expiresAt: activeBreakGlass?.endAt
+      })
 
       request.audit.send({
         event: 'terminal requested',

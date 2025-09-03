@@ -1,5 +1,5 @@
 import { serviceParamsValidation } from './service-params-validation.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 describe('#serviceParamsValidation', () => {
   describe('With Admin user', () => {

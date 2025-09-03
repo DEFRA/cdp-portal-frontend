@@ -4,7 +4,7 @@ import {
   mockCommonTestSuiteCalls,
   mockTestRuns
 } from '../../../../../test-helpers/common-page-rendering.js'
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../helpers/fetch/fetch-test-runs.js')
 vi.mock('../../../common/helpers/fetch/fetch-repository.js')

@@ -7,7 +7,7 @@ function transformTeamScopesToTaskList(team) {
         title: {
           html: buildLink({
             href: `/admin/permissions/${scope.scopeId}`,
-            text: scope.value,
+            text: scope.scopeName,
             newTab: false
           })
         }

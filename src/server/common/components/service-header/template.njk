@@ -1,6 +1,14 @@
 {% from "icons/user-icon/macro.njk" import appUserIcon %}
 
-<header class="app-service-header" role="banner" data-testid="app-service-header">
+{% set serviceHeaderClasses = [
+  "app-service-header", "app-service-header--sensitive-environment" if params.isSensitiveEnvironment
+] | join(" ") | trim %}
+
+{% set iconClasses = [
+  "app-icon--tiny", "app-user-icon--elevated-permissions" if userSession.hasBreakGlass
+] | join(" ") | trim %}
+
+<header class="{{ serviceHeaderClasses }}" role="banner" data-testid="app-service-header">
   <div class="app-service-header__container app-service-header__container--full-width">
     <div class="app-service-header__content">
       <a href="{{ params.serviceUrl }}"
@@ -16,7 +24,7 @@
     </div>
     <div class="app-service-header__actions">
       {% if userSession.displayName %}
-        {{ appUserIcon({ classes: "app-icon--minuscule" }) }}
+        {{ appUserIcon({ classes: iconClasses }) }}
         <span data-testid="app-login-username">
           {{ userSession.displayName }}
         </span>

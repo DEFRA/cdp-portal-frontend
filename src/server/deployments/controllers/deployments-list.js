@@ -19,7 +19,7 @@ import {
   repositoryNameValidation,
   teamIdValidation,
   userIdValidation
-} from '@defra/cdp-validation-kit/src/validations.js'
+} from '@defra/cdp-validation-kit'
 import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
 
 async function getFilters() {

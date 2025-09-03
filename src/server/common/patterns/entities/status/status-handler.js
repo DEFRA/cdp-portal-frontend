@@ -1,13 +1,12 @@
 import Boom from '@hapi/boom'
 import { parseISO, subHours } from 'date-fns'
+import startCase from 'lodash/startCase.js'
 
 import { transformServiceToSummary } from '../../../../services/service/about/transformers/service-to-summary.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../helpers/nullify-404.js'
 import { fetchEntityStatus } from '../../../helpers/fetch/fetch-entities.js'
 import { pluralise } from '../../../../../config/nunjucks/filters/filters.js'
-import startCase from 'lodash/startCase.js'
 import { REPOSITORY, SERVICE, TEST_SUITE } from '../tabs/constants.js'
 import { resourceDescriptions } from './helpers/resource-descriptions.js'
 
@@ -21,8 +20,8 @@ export async function entityStatusHandler(request, h, entityKind) {
   const entityStatus = await fetchEntityStatus(request.params.serviceId)
 
   const serviceName = entityStatus.entity.name
-  const userScopes = request.auth?.credentials?.scope
-  const isServiceOwner = userScopes?.includes(scopes.serviceOwner)
+  const teamIds = entity.teams.map(({ teamId }) => teamId)
+  const isServiceOwner = await request.userIsServiceOwner(teamIds)
 
   const repository = await fetchRepository(serviceName).catch(nullify404)
 

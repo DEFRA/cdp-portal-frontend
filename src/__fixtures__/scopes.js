@@ -4,7 +4,7 @@ const scopesFixture = {
     'team:platform',
     'permission:admin',
     'permission:tenant',
-    'permission:canGrantProdAccess:team:platform',
+    'permission:canGrantBreakGlass:team:platform',
     'permission:serviceOwner:team:platform'
   ],
   scopeFlags: {

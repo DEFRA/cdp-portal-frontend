@@ -1,0 +1,69 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        caption: "Add user permission",
+        text: scope.value
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half-from-desktop">
+          <form
+            action="{{ routeLookup("post:admin/permissions/{scopeId}/user/{userId}/team-scope/{multiStepFormId}",
+              { params: {
+                scopeId: scope.scopeId,
+                userId: stepData.userId,
+                multiStepFormId: multiStepFormId
+              } }) }}"
+            method="post"
+            data-js="app-form-errors">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+
+            {% call govukFieldset() %}
+              {% if teamOptions | length or formErrors.teamId.message %}
+                {{ govukRadios({
+                  name: "teamId",
+                  classes: "govuk-radios--small app-radios",
+                  fieldset: {
+                    legend: {
+                      text: "Choose team",
+                      classes: "govuk-fieldset__legend--m"
+                    }
+                  },
+                  hint: {
+                    text: "Select the team you want to scope this member permission to",
+                    classes: "govuk-!-margin-bottom-2"
+                  },
+                  items: teamOptions,
+                  value: formValues.teamId,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: errorMessageHelper(formErrors.teamId.message)
+                }) }}
+
+                <div class="govuk-body govuk-button-group">
+                  {{ govukButton({
+                    classes: "app-button",
+                    text: formButtonText
+                  }) }}
+                </div>
+              {% else %}
+                <p>This user is not in a team. To continue to assign a member scope to this user add them to a
+                  <a href="{{ routeLookup("admin/teams") }}" class="govuk-link app-link">team</a>
+                </p>
+              {% endif %}
+            {% endcall %}
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endcall %}
+{% endblock %}

@@ -1,15 +1,21 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-
-import { fetchCdpTeam } from '../../../admin/teams/helpers/fetch/index.js'
-import { fetchCdpUser } from '../../../admin/users/helpers/fetch/index.js'
 import {
   teamIdValidation,
-  userIdValidation
-} from '@defra/cdp-validation-kit/src/validations.js'
+  userIdValidation,
+  scopes
+} from '@defra/cdp-validation-kit'
+import { fetchCdpTeam } from '../../../admin/teams/helpers/fetch/index.js'
+import { fetchCdpUser } from '../../../admin/users/helpers/fetch/index.js'
 
 const confirmRemoveMemberController = {
   options: {
+    auth: {
+      mode: 'required',
+      access: {
+        scope: [scopes.admin, 'team:{params.teamId}']
+      }
+    },
     validate: {
       params: Joi.object({
         teamId: teamIdValidation,
