@@ -1,0 +1,48 @@
+{% extends "layouts/page.njk" %}
+
+{% set termsAndConditionsHtml %}
+  I agree to the <a href="/documentation/how-to/temp-terminal-break-glass.md"
+                    class="govuk-link app-link app-link--underline"
+                    target="_blank" rel="noopener noreferrer">terms and conditions</a>
+{% endset %}
+
+{% block content %}
+
+  {{ appPageHeading({
+    caption: "Remove break glass from",
+    text: user.name,
+    intro: "Remove break glass from " + user.name + " in the " + team.name + " team"
+  }) }}
+
+  <hr class="app-section-break app-section-break--slim">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third-from-desktop">
+
+      <h2 class="govuk-heading-m">Remove break glass from team member</h2>
+
+      <p>
+        Would you like to remove break glass from <strong>{{ user.name }}</strong> in the
+        <strong>{{ team.name }}</strong> team?
+      </p>
+
+      <form action="{{ routeLookup('post:teams/{teamId}/remove-break-glass/{userId}',
+        { params: {
+          teamId: team.teamId,
+          userId: user.userId
+        } }) }}" method="post">
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+        <div class="govuk-body govuk-button-group">
+          {{ govukButton({
+            classes: "app-button app-button--destructive",
+            text: "Remove break glass"
+          }) }}
+
+          <a class="app-link" href="/teams/{{ team.teamId }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

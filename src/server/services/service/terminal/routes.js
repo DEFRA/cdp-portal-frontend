@@ -1,7 +1,7 @@
 import { launchTerminalController } from './controllers/launch-terminal.js'
 import { terminalController } from './controllers/terminal.js'
 import { terminalBrowserController } from './controllers/terminal-browser.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
 import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
 import {

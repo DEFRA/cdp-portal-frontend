@@ -91,10 +91,10 @@ const addPermissionController = {
       const userIds = extractIds(entityIds, 'user')
       const teamIds = extractIds(entityIds, 'team')
       const addScopeToUserPromises = userIds.map((userId) =>
-        addScopeToUser(request, userId, scopeId)
+        addScopeToUser({ request, userId, scopeId })
       )
       const addScopeToTeamPromises = teamIds.map((teamId) =>
-        addScopeToTeam(request, teamId, scopeId)
+        addScopeToTeam({ request, teamId, scopeId })
       )
 
       const responses = await Promise.allSettled([
@@ -133,7 +133,14 @@ const addPermissionController = {
 
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        rejectedResponse.map((response) => response.reason.message)
+        rejectedResponse.map((response) => {
+          const rejectedMessage =
+            response?.reason?.data?.payload?.message ?? response.reason.message
+
+          request.logger.error(response?.reason?.data?.payload, rejectedMessage)
+
+          return rejectedMessage
+        })
       )
 
       return h.redirect(`/admin/permissions/${scopeId}/add/${queryString}`)

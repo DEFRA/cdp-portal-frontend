@@ -1,6 +1,6 @@
 import { addServiceOwnerScope } from './add-service-owner-scope.js'
 import { userIsOwnerDecorator } from '../../common/helpers/user/user-is-owner.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 describe('#addServiceOwnerScope', () => {
   const mockResponseToolkit = { continue: 'mockContinue' }

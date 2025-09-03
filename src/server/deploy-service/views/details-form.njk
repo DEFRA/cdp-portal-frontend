@@ -39,10 +39,11 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <form action="/deploy-service/details{% if multiStepFormId %}/{{ multiStepFormId }}{% endif %}"
-              method="post"
-              class="govuk-!-margin-bottom-4"
-              data-js="app-form-errors">
+        <form
+          action="{{ routeLookup('deploy-service/details/{multiStepFormId?}', { params: { multiStepFormId: multiStepFormId } }) }}"
+          method="post"
+          class="govuk-!-margin-bottom-4"
+          data-js="app-form-errors">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
           <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
 

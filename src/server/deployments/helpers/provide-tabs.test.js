@@ -1,5 +1,5 @@
 import { provideTabs } from './provide-tabs.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 const mockRequest = ({ response, path = '', scope = [] }) => ({
   response,

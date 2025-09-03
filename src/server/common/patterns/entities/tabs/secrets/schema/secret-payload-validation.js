@@ -3,7 +3,7 @@ import Joi from 'joi'
 import { config } from '../../../../../../../config/config.js'
 import { validation } from '../../../../../constants/validation.js'
 import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
-import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { teamIdValidation } from '@defra/cdp-validation-kit'
 
 /** @type {string[]} */
 const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')

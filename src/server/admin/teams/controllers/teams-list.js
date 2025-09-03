@@ -2,6 +2,9 @@ import { fetchCdpTeams } from '../helpers/fetch/index.js'
 import { transformTeamToEntityRow } from '../transformers/transform-team-to-entity-row.js'
 
 const teamsListController = {
+  options: {
+    id: 'admin/teams'
+  },
   handler: async (request, h) => {
     const teams = await fetchCdpTeams()
     const rows = teams?.map(transformTeamToEntityRow)

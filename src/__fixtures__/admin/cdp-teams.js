@@ -1,5 +1,5 @@
 // Response from userServiceBackend/teams
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 const cdpTeamsFixture = [
   {

@@ -5,7 +5,7 @@ import { repositoryVisibility } from '../../../constants/repository-visibility.j
 import {
   repositoryNameValidation,
   teamIdValidation
-} from '@defra/cdp-validation-kit/src/validations.js'
+} from '@defra/cdp-validation-kit'
 import { checkNameAvailability } from '../../../helpers/validator/check-name-availability.js'
 
 function repositoryValidation() {

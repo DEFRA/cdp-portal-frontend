@@ -131,10 +131,10 @@ describe('#routeLookup', () => {
   })
 
   describe('When optional param key is not provided', () => {
-    test('Should remove optional path params', () => {
+    test('Should remove optional path params and any trailing slash', () => {
       expect(
         routeLookup(mockServer, 'deploy-service/details/{multiStepFormId?}')
-      ).toBe('/deploy-service/details/')
+      ).toBe('/deploy-service/details')
     })
 
     test('Should remove optional path params and query params', () => {
@@ -143,7 +143,7 @@ describe('#routeLookup', () => {
           query: { imageName: 'cdp-portal-frontend', version: '0.3.0' }
         })
       ).toBe(
-        '/deploy-service/details/?imageName=cdp-portal-frontend&version=0.3.0'
+        '/deploy-service/details?imageName=cdp-portal-frontend&version=0.3.0'
       )
     })
   })

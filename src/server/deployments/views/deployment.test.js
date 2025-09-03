@@ -3,7 +3,7 @@ import {
   mockAuthAndRenderUrl
 } from '../../../../test-helpers/common-page-rendering.js'
 import { deploymentFixture } from '../../../__fixtures__/deployments/deployment.js'
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchDeployment } from '../helpers/fetch/fetch-deployment.js'
 import { fetchRepository } from '../../common/helpers/fetch/fetch-repository.js'
 import { repositoryFixture } from '../../../__fixtures__/repository.js'

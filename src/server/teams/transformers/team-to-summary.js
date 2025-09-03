@@ -1,7 +1,4 @@
-import {
-  renderComponent,
-  renderIcon
-} from '../../common/helpers/nunjucks/render-component.js'
+import { renderComponent } from '../../common/helpers/nunjucks/render-component.js'
 import { noValue } from '../../common/constants/no-value.js'
 import { buildLink } from '../../common/helpers/view/build-link.js'
 import { config } from '../../../config/config.js'
@@ -20,34 +17,7 @@ const editActionItems = (teamId) => ({
   ]
 })
 
-const buildMembers = (team, withActions) =>
-  team.users.map((user, i) => {
-    return {
-      key: { text: i === 0 ? 'Members' : '' },
-      value: {
-        html: `<div class="app-!-layout-flex-start">${
-          renderIcon('user-icon', {
-            classes: 'app-icon--minuscule govuk-!-margin-right-1'
-          }) + user.name
-        }</div>`
-      },
-      actions: {
-        items: withActions
-          ? [
-              {
-                classes: 'app-link app-link--underline',
-                href: `/teams/${team.teamId}/remove-member/${user.userId}`,
-                text: 'Remove',
-                visuallyHiddenText: 'Remove team member',
-                attributes: { 'data-testid': 'remove-link' }
-              }
-            ]
-          : []
-      }
-    }
-  })
-
-function transformTeamToSummary(team, withActions = false) {
+function transformTeamToSummary({ team, withActions = false }) {
   const editActions = editActionItems(team.teamId)
   const githubOrg = config.get('githubOrg')
   const actions = withActions ? editActions : null
@@ -64,10 +34,6 @@ function transformTeamToSummary(team, withActions = false) {
         key: { text: 'Description' },
         value: { text: team.description || noValue },
         actions
-      },
-      {
-        key: { text: 'Members' },
-        value: { text: team.users.length }
       },
       {
         key: { text: 'GitHub team' },
@@ -89,7 +55,7 @@ function transformTeamToSummary(team, withActions = false) {
         }
       },
       {
-        key: { text: 'Alert Emails' },
+        key: { text: 'Alert Emails', classes: 'app-!-layout-centered' },
         value: {
           html: team.alertEmailAddresses?.length
             ? buildList({
@@ -109,8 +75,7 @@ function transformTeamToSummary(team, withActions = false) {
         value: {
           html: renderComponent('time', { datetime: team.createdAt })
         }
-      },
-      ...buildMembers(team, withActions)
+      }
     ]
   }
 }

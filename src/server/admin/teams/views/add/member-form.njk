@@ -42,7 +42,8 @@
                 text: "Enter the users name or the users Defra provided email"
               },
               value: formValues.cdpUserQuery,
-              errorMessage: errorMessageHelper(formErrors.cdpUserQuery.message)
+              errorMessage: errorMessageHelper(formErrors.cdpUserQuery.message),
+              hasSearchResultError: formErrors.userIds.message and true or false
             }) }}
 
           {% endcall %}

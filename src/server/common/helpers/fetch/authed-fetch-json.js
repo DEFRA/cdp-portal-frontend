@@ -2,7 +2,7 @@ import Wreck from '@hapi/wreck'
 import { getTraceId } from '@defra/hapi-tracing'
 
 import { config } from '../../../../config/config.js'
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit'
 import { handleResponse } from './handle-response.js'
 import { removeAuthenticatedUser } from '../auth/user-session.js'
 

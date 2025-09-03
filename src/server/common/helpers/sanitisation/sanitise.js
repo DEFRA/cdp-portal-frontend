@@ -6,9 +6,9 @@ const sanitise = {
     ...disinfect
   },
   options: {
-    disinfectQuery: true,
-    disinfectParams: true,
-    disinfectPayload: true
+    disinfectQuery: false,
+    disinfectParams: false,
+    disinfectPayload: false
   }
 }
 

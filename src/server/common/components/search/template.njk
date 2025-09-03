@@ -5,7 +5,8 @@
 {% from "icons/search-icon/macro.njk" import appSearchIcon %}
 
 <div class="govuk-form-group app-form-group{%- if params.errorMessage %} govuk-form-group--error{% endif %}"
-     data-js="app-form-group" data-testid="app-search-group">
+     data-js="app-form-group"
+     data-testid="app-search-group">
 
   <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
     <label class="govuk-label app-label" for="{{ params.id }}" data-testid="app-search-label">
@@ -37,7 +38,13 @@
   {% endif %}
 
 
-  <div class="app-search" data-js="app-search" data-testid="app-search">
+  <div class="app-search"
+       data-js="app-search"
+       data-testid="app-search"
+    {% if params.hasSearchResultError %}
+      data-has-search-result-error="true"
+    {% endif %}>
+
     <div class="app-search__control">
       {{ appSearchIcon({ description: params.iconDescription }) }}
       <input type="text"
@@ -62,7 +69,7 @@
               data-js="app-search-clear-button"
               data-testid="app-search-clear-button"
       >
-        {{ appCancelIcon({ description: "Clear GitHub Team" }) }}
+        {{ appCancelIcon({ description: "Reset input" }) }}
       </button>
     </div>
   </div>

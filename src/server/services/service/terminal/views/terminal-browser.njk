@@ -5,7 +5,8 @@
     serviceName: appServiceName,
     serviceUrl: "/",
     loginText: "Sign out" if isAuthenticated else "Sign in",
-    loginUrl: ("/logout" if isAuthenticated else "/login")
+    loginUrl: ("/logout" if isAuthenticated else "/login"),
+    isSensitiveEnvironment: true if environment == "prod" else false
   }) }}
 {% endblock %}
 

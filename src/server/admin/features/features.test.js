@@ -1,10 +1,11 @@
+import { statusCodes } from '@defra/cdp-validation-kit'
+
+import { fetchFeatureToggles } from './helpers/fetch-feature-toggles.js'
+import { featuresFixture } from '../../../__fixtures__/features.js'
 import {
   initialiseServer,
   mockAuthAndRenderUrl
 } from '../../../../test-helpers/common-page-rendering.js'
-import { fetchFeatureToggles } from './helpers/fetch-feature-toggles.js'
-import { featuresFixture } from '../../../__fixtures__/features.js'
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
 
 vi.mock('../../common/helpers/auth/get-user-session.js')
 vi.mock('./helpers/fetch-feature-toggles.js')

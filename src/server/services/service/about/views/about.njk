@@ -46,7 +46,8 @@
   {% else %}
     {{ latestPublishedTableRows.push([
       { html: detailHtml },
-      { html: versionLinkHtml }
+      { html: versionLinkHtml },
+      { html: "" }
     ]) }}
   {% endif %}
 {% endfor %}

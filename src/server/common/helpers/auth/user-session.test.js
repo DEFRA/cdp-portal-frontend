@@ -67,7 +67,7 @@ describe('#userSession', () => {
           'team:platform',
           'permission:admin',
           'permission:tenant',
-          'permission:canGrantProdAccess:team:platform',
+          'permission:canGrantBreakGlass:team:platform',
           'permission:serviceOwner:team:platform'
         ],
         expiresIn: 3600000,
@@ -124,7 +124,7 @@ describe('#userSession', () => {
           'team:platform',
           'permission:admin',
           'permission:tenant',
-          'permission:canGrantProdAccess:team:platform',
+          'permission:canGrantBreakGlass:team:platform',
           'permission:serviceOwner:team:platform'
         ],
         expiresIn: 3600000,
@@ -134,7 +134,7 @@ describe('#userSession', () => {
 
     test('Should log the user session refresh', () => {
       expect(request.logger.info).toHaveBeenCalledWith(
-        'User session refreshed, UserId: user-id, displayName: User Name, isAdmin: true, isTenant: false, scopes: [team:platform permission:admin permission:tenant permission:canGrantProdAccess:team:platform permission:serviceOwner:team:platform]'
+        'User session refreshed, UserId: user-id, displayName: User Name, isAdmin: true, isTenant: false, scopes: [team:platform permission:admin permission:tenant permission:canGrantBreakGlass:team:platform permission:serviceOwner:team:platform]'
       )
     })
   })
@@ -189,7 +189,7 @@ describe('#userSession', () => {
           'team:platform',
           'permission:admin',
           'permission:tenant',
-          'permission:canGrantProdAccess:team:platform',
+          'permission:canGrantBreakGlass:team:platform',
           'permission:serviceOwner:team:platform'
         ]
       })

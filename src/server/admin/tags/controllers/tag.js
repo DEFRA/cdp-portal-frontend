@@ -66,7 +66,7 @@ const tagController = {
       renderedTag,
       tagSummaryList,
       entitiesWithoutTag,
-      breadcrumbs: [
+      splitPaneBreadcrumbs: [
         {
           text: 'Admin',
           href: '/admin'

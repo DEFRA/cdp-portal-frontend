@@ -10,7 +10,7 @@ import {
   fetchTenantServiceByEnvironment
 } from '../src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { getUserSession } from '../src/server/common/helpers/auth/get-user-session.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 import { fetchAvailableVersions } from '../src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import {
   fetchEntity,

@@ -6,7 +6,7 @@ function transformScopeTeamsToTaskList(scope, withActions = true) {
       title: {
         html: buildLink({
           href: `/admin/teams/${team.teamId}`,
-          text: team.name,
+          text: team.teamName,
           newTab: false
         })
       },

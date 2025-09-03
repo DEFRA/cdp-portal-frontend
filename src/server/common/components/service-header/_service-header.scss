@@ -10,6 +10,11 @@
   background: $govuk-brand-colour;
 }
 
+.app-service-header--sensitive-environment {
+  background: govuk-colour("orange");
+  border-bottom: 10px solid $govuk-brand-colour;
+}
+
 .app-service-header__container--full-width {
   border-color: govuk-colour("black");
 }

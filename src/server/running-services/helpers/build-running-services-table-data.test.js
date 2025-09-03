@@ -5,7 +5,7 @@ import { buildRunningServicesTableData } from './build-running-services-table-da
 import { fetchRunningServicesFilters } from './fetch/fetch-running-services-filters.js'
 import { runningServicesFiltersFixture } from '../../../__fixtures__/running-services/filters.js'
 import { runningServicesFixture } from '../../../__fixtures__/running-services/running-services.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 vi.mock('./fetch/fetch-running-services-filters.js')
 vi.mock('./fetch/fetch-running-services.js')

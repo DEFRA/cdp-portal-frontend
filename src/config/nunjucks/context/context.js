@@ -1,5 +1,6 @@
 import path from 'node:path'
 import { readFileSync } from 'node:fs'
+import { scopes } from '@defra/cdp-validation-kit'
 
 import { config } from '../../config.js'
 import { isXhr } from '../../../server/common/helpers/is-xhr.js'
@@ -11,7 +12,6 @@ import { noValue } from '../../../server/common/constants/no-value.js'
 import { eventName } from '../../../client/common/constants/event-name.js'
 import { getAnnouncements } from './announcements.js'
 import { hasScopeDecorator } from '../../../server/common/helpers/decorators/has-scope.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
 
 const logger = createLogger()
 const assetPath = config.get('assetPath')
@@ -49,7 +49,8 @@ function getAssetPath(asset) {
 async function context(request) {
   const userSession = await request.getUserSession()
   const isInternetExplorer = isIe(request.headers['user-agent'])
-  const announcements = getAnnouncements({
+  const announcements = await getAnnouncements({
+    request,
     userSession,
     isInternetExplorer
   })

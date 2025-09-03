@@ -18,7 +18,7 @@ const createPermissionValidation = Joi.object({
     }),
   kind: Joi.array()
     .items(Joi.string())
-    .has(Joi.string().valid('user', 'team'))
+    .has(Joi.string().valid('user', 'team', 'member'))
     .required()
     .messages({
       'array.base': validation.chooseAnEntry,

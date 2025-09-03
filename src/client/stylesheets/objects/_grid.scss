@@ -1,11 +1,30 @@
 @use "govuk-frontend" as *;
 @use 'sass:map';
 
+// stylelint-disable max-nesting-depth
 .govuk-grid-row {
   &:not(:first-of-type) {
     margin-top: govuk-spacing(4);
   }
+
+  &.app-grid-row--stretch {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    > [class^="govuk-grid-column"] {
+      display: flex;
+      flex-direction: column;
+
+      > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
 }
+// stylelint-enable max-nesting-depth
 
 @each $width in map.keys($govuk-grid-widths) {
   .govuk-grid-column-#{$width}-from-desktop {
@@ -60,16 +79,21 @@
 }
 
 .govuk-grid-column--slim {
-  padding-left: govuk-spacing(1);
-  padding-right: govuk-spacing(1);
+  margin-bottom: govuk-spacing(4);
 
-  &:first-of-type {
-    padding-left: govuk-spacing(3);
-    padding-right: govuk-spacing(1);
-  }
-
-  &:last-of-type {
+  @include govuk-media-query($from: desktop-wide) {
+    margin-bottom: 0;
     padding-left: govuk-spacing(1);
-    padding-right: govuk-spacing(3);
+    padding-right: govuk-spacing(1);
+
+    &:first-of-type {
+      padding-left: govuk-spacing(3);
+      padding-right: govuk-spacing(1);
+    }
+
+    &:last-of-type {
+      padding-left: govuk-spacing(1);
+      padding-right: govuk-spacing(3);
+    }
   }
 }

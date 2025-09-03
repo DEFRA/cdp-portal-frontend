@@ -1,6 +1,6 @@
 import startCase from 'lodash/startCase.js'
 
-import { statusCodes } from '@defra/cdp-validation-kit/src/constants/status-codes.js'
+import { statusCodes } from '@defra/cdp-validation-kit'
 import { buildSearchIndex } from './search-index.js'
 import { docsBreadcrumbs } from './docs-breadcrumbs.js'
 import { fetchMarkdown } from './s3-file-handler.js'

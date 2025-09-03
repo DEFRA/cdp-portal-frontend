@@ -1,4 +1,5 @@
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
+
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { decommissionController } from './controllers/decommission.js'
 import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'

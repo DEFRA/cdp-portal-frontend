@@ -5,7 +5,7 @@ import { buildErrorDetails } from '../../../common/helpers/build-error-details.j
 import { microserviceValidation } from '../helpers/schema/microservice-validation.js'
 import { setStepComplete } from '../../helpers/form/index.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 import { fetchServiceTemplates } from '../helpers/fetch/fetch-service-templates.js'
 
 const microserviceCreateController = {

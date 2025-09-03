@@ -38,7 +38,8 @@
                   html: searchHintHtml
                 },
                 value: formValues.githubSearch,
-                errorMessage: errorMessageHelper(formErrors.githubSearch.message)
+                errorMessage: errorMessageHelper(formErrors.githubSearch.message),
+                hasSearchResultError: formErrors.github.message and true or false
               }) }}
 
             {% endcall %}

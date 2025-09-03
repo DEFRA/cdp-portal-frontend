@@ -9,6 +9,7 @@
  * @property {string} refreshToken
  * @property {boolean} isAdmin
  * @property {boolean} isTenant
+ * @property {boolean} hasBreakGlass - has active breakGlass permission
  * @property {string[]} scope - all scopes
  * @property {number} expiresIn
  * @property {string} expiresAt

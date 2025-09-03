@@ -18,6 +18,7 @@
 {# Construct table rows, tables and html contents #}
 {% set terminalTableRows = [] %}
 
+{# TODO move this back into the controller #}
 {% for terminalEnv in terminalEnvs %}
   {% set launchFormHtml %}
     <form method="post" action="/services/{{ serviceName }}/terminal/{{ terminalEnv }}" target="_blank">
@@ -66,7 +67,7 @@
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third-from-desktop">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
 
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
@@ -102,7 +103,7 @@
         </article>
       </div>
 
-      <div class="govuk-grid-column-two-thirds-from-desktop">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
 
         {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tooling</h2>
@@ -111,7 +112,7 @@
             A number of tools are available to you in the CDP terminal.
           </p>
 
-          <ul class="govuk-list govuk-!-margin-left-1">
+          <ul class="govuk-list">
             <li>
               <div class="app-!-layout-flex-start">
                 {{ appCurlIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
@@ -151,6 +152,9 @@
           </ul>
         {% endcall %}
 
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
 
         {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Info</h2>
@@ -159,8 +163,7 @@
             The CDP Terminal is a web shell into a dedicated container running with the permissions that your service
             has.
           </p>
-
-          <ul class="govuk-list govuk-!-margin-left-1">
+          <ul class="govuk-list">
             {% for tip in tips -%}
               <li>
                 <div class="app-!-layout-flex-start">
@@ -177,7 +180,7 @@
             The CDP Terminal also comes with a few things you need to be aware of.
           </p>
 
-          <ul class="govuk-list govuk-!-margin-left-1">
+          <ul class="govuk-list">
             {% for warning in warnings -%}
               <li>
                 <div class="app-!-layout-flex-start">

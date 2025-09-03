@@ -1,8 +1,8 @@
 import Joi from 'joi'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 
 import { validation } from '../../../../common/constants/validation.js'
 import { serviceTags } from '../service-tags.js'
-import { repositoryNameValidation } from '@defra/cdp-validation-kit/src/validations.js'
 
 const serviceTagValues = Joi.string()
   .valid(...Object.keys(serviceTags))

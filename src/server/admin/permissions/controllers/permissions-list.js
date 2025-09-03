@@ -1,8 +1,23 @@
-import { fetchPermissionsScopes } from '../helpers/fetchers.js'
+import { fetchPermissions } from '../helpers/fetchers.js'
+import { noValue } from '../../../common/constants/no-value.js'
+import { renderTag } from '../../../common/helpers/view/render-tag.js'
 
 const permissionsListController = {
   handler: async (request, h) => {
-    const scopes = await fetchPermissionsScopes(request)
+    const userTagComponent = renderTag({
+      text: 'User',
+      classes: ['govuk-tag--green govuk-!-margin-bottom-1']
+    })
+    const teamTagComponent = renderTag({
+      text: 'Team',
+      classes: ['govuk-tag--blue govuk-!-margin-bottom-1']
+    })
+    const memberTagComponent = renderTag({
+      text: 'Member',
+      classes: ['app-tag--purple']
+    })
+
+    const scopes = await fetchPermissions(request)
     const rows = scopes.map((scope) => ({
       cells: [
         {
@@ -12,6 +27,25 @@ const permissionsListController = {
             url: `/admin/permissions/${scope.scopeId}`,
             value: scope.value
           }
+        },
+        {
+          headers: 'kind',
+          html: scope.kind
+            ? scope.kind
+                ?.map((kind) => {
+                  if (kind === 'user') {
+                    return userTagComponent
+                  }
+
+                  if (kind === 'member') {
+                    return memberTagComponent
+                  }
+
+                  return teamTagComponent
+                })
+                .sort()
+                .join('')
+            : noValue
         },
         {
           headers: 'description',
@@ -28,7 +62,8 @@ const permissionsListController = {
       tableData: {
         headers: [
           { id: 'value', text: 'Value', width: '20' },
-          { id: 'description', text: 'Description', width: '80' }
+          { id: 'kind', text: 'Applicable to', width: '10' },
+          { id: 'description', text: 'Description', width: '70' }
         ],
         rows,
         noResult: 'No permissions found'

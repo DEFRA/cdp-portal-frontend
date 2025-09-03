@@ -1,5 +1,5 @@
 import { buildNavigation } from './build-navigation.js'
-import { scopes } from '@defra/cdp-validation-kit/src/constants/scopes.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,

@@ -13,7 +13,7 @@
 
   & .app-search-icon {
     position: absolute;
-    left: 4px;
+    left: 2px;
     fill: govuk-colour("mid-grey");
     width: 26px;
     height: 26px;
@@ -25,8 +25,8 @@
   padding: 0;
   position: absolute;
   display: none;
-  top: 7px;
-  right: govuk-spacing(4);
+  top: 8px;
+  right: govuk-spacing(1);
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -37,7 +37,7 @@
 }
 
 .app-search__input {
-  padding: govuk-spacing(1) govuk-spacing(4) govuk-spacing(1) govuk-spacing(6);
+  padding: govuk-spacing(1) govuk-spacing(4) govuk-spacing(1) govuk-spacing(7);
   width: 24em;
   border-radius: $app-border-radius;
   border: 1px solid govuk-colour("mid-grey");

@@ -33,7 +33,8 @@
                   text: "Enter the users name or DEFRA provided email"
                 },
                 value: formValues.aadQuery,
-                errorMessage: errorMessageHelper(formErrors.aadQuery.message)
+                errorMessage: errorMessageHelper(formErrors.aadQuery.message),
+                hasSearchResultError: formErrors.email.message and true or false
               }) }}
 
             {% endcall %}

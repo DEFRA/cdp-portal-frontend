@@ -1,4 +1,4 @@
 const noValue = '- - -'
-const unknownValue = 'unknown'
+const notApplicableValue = 'n/a'
 
-export { noValue, unknownValue }
+export { noValue, notApplicableValue }

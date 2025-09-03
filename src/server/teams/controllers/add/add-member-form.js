@@ -2,21 +2,28 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import uniqBy from 'lodash/uniqBy.js'
 import filter from 'lodash/filter.js'
+import { teamIdValidation, scopes } from '@defra/cdp-validation-kit'
 
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
+import { presentUsersToAdd } from '../../../admin/teams/helpers/pre/present-users-to-add.js'
+import { provideCdpTeam } from '../../../admin/teams/helpers/pre/provide-cdp-team.js'
 import {
   fetchCdpTeam,
   searchCdpUsers
 } from '../../../admin/teams/helpers/fetch/index.js'
-import { presentUsersToAdd } from '../../../admin/teams/helpers/pre/present-users-to-add.js'
-import { provideCdpTeam } from '../../../admin/teams/helpers/pre/provide-cdp-team.js'
 
 const addMemberFormController = {
   options: {
     id: 'teams/{teamId}/add-member',
+    auth: {
+      mode: 'required',
+      access: {
+        scope: [scopes.admin, 'team:{params.teamId}']
+      }
+    },
     validate: {
       params: Joi.object({
-        teamId: Joi.string().required()
+        teamId: teamIdValidation
       }),
       query: Joi.object({
         userIds: Joi.array().items(Joi.string().allow('')).single().allow(''),

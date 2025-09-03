@@ -19,6 +19,27 @@ describe('#buildLink', () => {
     )
   })
 
+  test('Should build expected link with added classes', () => {
+    const $link = load(
+      buildLink({
+        href: 'https://awesome-cakes.com',
+        text: 'AweSome Cakes',
+        classes: 'app-link--underline'
+      })
+    )('a').first()
+
+    expect($link.attr('class')).toBe('app-link app-link--underline')
+    expect($link.attr('href')).toBe('https://awesome-cakes.com')
+    expect($link.data('testid')).toBe('app-link')
+    expect($link.attr('target')).toBe('_blank')
+    expect($link.attr('rel')).toBe('noopener noreferrer')
+    expect($link.text()).toBe('AweSome Cakes')
+
+    expect($link.toString()).toBe(
+      `<a class="app-link app-link--underline" href="https://awesome-cakes.com" target="_blank" rel="noopener noreferrer" data-testid="app-link">AweSome Cakes</a>`
+    )
+  })
+
   test('Should build expected link when only href supplied', () => {
     const $link = load(buildLink({ href: 'https://awesome-cakes.com' }))(
       'a'

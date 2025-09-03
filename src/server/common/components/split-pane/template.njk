@@ -8,6 +8,10 @@
     </div>
   {% endif %}
   <div class="app-split-pane__content" data-testid="app-split-pane-content">
+    {% if splitPaneBreadcrumbs.length > 1 %}
+      {{ appBreadcrumbs({ isSplitPane: true, items: splitPaneBreadcrumbs }) }}
+    {% endif %}
+
     <section class="app-content">
       {{ caller() if caller else content }}
     </section>

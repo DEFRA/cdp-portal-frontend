@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { config } from '../../../../../config/config.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { teamIdValidation } from '@defra/cdp-validation-kit/src/validations.js'
+import { teamIdValidation } from '@defra/cdp-validation-kit'
 
 const deleteTeamController = {
   options: {
