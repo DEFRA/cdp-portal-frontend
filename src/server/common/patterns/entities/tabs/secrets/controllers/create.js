@@ -16,6 +16,9 @@ function createSecretController(entityKind) {
       validate: {
         params: serviceParamsValidation,
         failAction: () => Boom.boomify(Boom.badRequest())
+      },
+      plugins: {
+        disinfect: { disinfectPayload: false }
       }
     },
     handler: async (request, h) => {
