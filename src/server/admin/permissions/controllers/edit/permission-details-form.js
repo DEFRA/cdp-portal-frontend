@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 
 import Joi from '../../../../common/helpers/extended-joi.js'
 import { fetchPermission } from '../../helpers/fetchers.js'
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { kindOptions } from '../../helpers/build-kind-options.js'
 
 const editPermissionDetailsFormController = {
   options: {
@@ -15,13 +15,6 @@ const editPermissionDetailsFormController = {
   },
   handler: async (request, h) => {
     const scope = await fetchPermission(request, request.params.scopeId)
-    const kindOptions = buildOptions(
-      [
-        { text: 'User', value: 'user' },
-        { text: 'Team', value: 'team' }
-      ],
-      false
-    )
 
     return h.view('admin/permissions/views/edit/permission-details-form', {
       pageTitle: 'Edit permission',
