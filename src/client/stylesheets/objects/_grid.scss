@@ -67,6 +67,16 @@
     }
   }
 
+  .govuk-grid-column-#{$width}-from-desktop-enormous {
+    @include govuk-grid-column($width, $at: desktop-enormous);
+
+    @include govuk-media-query($from: desktop-enormous) {
+      &:not(:first-of-type) {
+        margin-top: 0;
+      }
+    }
+  }
+
   .govuk-grid-column-#{$width}-from-desktop-massive {
     @include govuk-grid-column($width, $at: desktop-massive);
 

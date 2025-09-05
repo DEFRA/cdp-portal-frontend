@@ -18,14 +18,15 @@
 {# Construct table rows, tables and html contents #}
 {% set terminalTableRows = [] %}
 
-{# TODO move this back into the controller #}
 {% for terminalEnv in terminalEnvs %}
   {% set launchFormHtml %}
     <form method="post" action="/services/{{ serviceName }}/terminal/{{ terminalEnv }}" target="_blank">
       <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
+      {% set classes = ["app-button app-button--primary app-button--small", "app-button--destructive" if terminalEnv == "prod"] | join(" ") | trim %}
+
       {{ govukButton({
-        classes: "app-button app-button--primary app-button--small",
+        classes: classes,
         text: "Launch"
       }) }}
     </form>
