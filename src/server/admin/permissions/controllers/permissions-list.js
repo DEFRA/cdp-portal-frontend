@@ -17,7 +17,7 @@ const permissionsListController = {
     )
     const teamTagComponent = renderComponent(
       'tool-tip',
-      { text: "A team permissions includes all member's of a team" },
+      { text: "A team permission includes all member's of a team" },
       [
         renderTag({
           text: 'Team',
@@ -27,7 +27,7 @@ const permissionsListController = {
     )
     const memberTagComponent = renderComponent(
       'tool-tip',
-      { text: 'A member permissions is for a user scoped to a team' },
+      { text: 'A member permission is for a user scoped to a team' },
       [
         renderTag({
           text: 'Member',
