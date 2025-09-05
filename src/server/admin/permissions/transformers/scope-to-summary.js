@@ -1,6 +1,10 @@
 import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
 import { noValue } from '../../../common/constants/no-value.js'
-import { renderTag } from '../../../common/helpers/view/render-tag.js'
+import {
+  memberTagComponent,
+  teamTagComponent,
+  userTagComponent
+} from '../helpers/permission-tags.js'
 
 const editActionItems = (scopeId) => ({
   items: [
@@ -16,37 +20,6 @@ const editActionItems = (scopeId) => ({
 function transformScopeToSummary(scope, withActions = true) {
   const editActions = editActionItems(scope.scopeId)
   const actions = withActions ? editActions : null
-
-  const userTagComponent = renderComponent(
-    'tool-tip',
-    { text: 'A user permission is for an individual user' },
-    [
-      renderTag({
-        text: 'User',
-        classes: ['govuk-tag--green govuk-!-margin-bottom-1']
-      })
-    ]
-  )
-  const teamTagComponent = renderComponent(
-    'tool-tip',
-    { text: "A team permission includes all member's of a team" },
-    [
-      renderTag({
-        text: 'Team',
-        classes: ['govuk-tag--blue govuk-!-margin-bottom-1']
-      })
-    ]
-  )
-  const memberTagComponent = renderComponent(
-    'tool-tip',
-    { text: 'A member permission is for a user scoped to a team' },
-    [
-      renderTag({
-        text: 'Member',
-        classes: ['app-tag--purple']
-      })
-    ]
-  )
 
   return {
     classes: 'app-summary-list',
