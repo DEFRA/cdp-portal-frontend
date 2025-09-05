@@ -1,41 +1,13 @@
 import { fetchPermissions } from '../helpers/fetchers.js'
 import { noValue } from '../../../common/constants/no-value.js'
-import { renderTag } from '../../../common/helpers/view/render-tag.js'
-import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
+import {
+  memberTagComponent,
+  teamTagComponent,
+  userTagComponent
+} from '../helpers/permission-tags.js'
 
 const permissionsListController = {
   handler: async (request, h) => {
-    const userTagComponent = renderComponent(
-      'tool-tip',
-      { text: 'A user permission is for an individual user' },
-      [
-        renderTag({
-          text: 'User',
-          classes: ['govuk-tag--green govuk-!-margin-bottom-1']
-        })
-      ]
-    )
-    const teamTagComponent = renderComponent(
-      'tool-tip',
-      { text: "A team permission includes all member's of a team" },
-      [
-        renderTag({
-          text: 'Team',
-          classes: ['govuk-tag--blue govuk-!-margin-bottom-1']
-        })
-      ]
-    )
-    const memberTagComponent = renderComponent(
-      'tool-tip',
-      { text: 'A member permission is for a user scoped to a team' },
-      [
-        renderTag({
-          text: 'Member',
-          classes: ['app-tag--purple']
-        })
-      ]
-    )
-
     const scopes = await fetchPermissions(request)
     const rows = scopes.map((scope) => ({
       cells: [
