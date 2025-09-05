@@ -19,7 +19,7 @@ describe('#kindOptions', () => {
       text: 'Member',
       value: 'member',
       label: { classes: 'app-label app-label--small' },
-      hint: { text: 'A member of a team' }
+      hint: { text: 'A member is a user scoped to a team' }
     })
   })
 })

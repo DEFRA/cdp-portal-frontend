@@ -17,18 +17,36 @@ function transformScopeToSummary(scope, withActions = true) {
   const editActions = editActionItems(scope.scopeId)
   const actions = withActions ? editActions : null
 
-  const userTagComponent = renderTag({
-    text: 'User',
-    classes: ['govuk-tag--green']
-  })
-  const teamTagComponent = renderTag({
-    text: 'Team',
-    classes: ['govuk-tag--blue']
-  })
-  const memberTagComponent = renderTag({
-    text: 'Member',
-    classes: ['app-tag--purple']
-  })
+  const userTagComponent = renderComponent(
+    'tool-tip',
+    { text: 'A user permission is for an individual user' },
+    [
+      renderTag({
+        text: 'User',
+        classes: ['govuk-tag--green govuk-!-margin-bottom-1']
+      })
+    ]
+  )
+  const teamTagComponent = renderComponent(
+    'tool-tip',
+    { text: "A team permissions includes all member's of a team" },
+    [
+      renderTag({
+        text: 'Team',
+        classes: ['govuk-tag--blue govuk-!-margin-bottom-1']
+      })
+    ]
+  )
+  const memberTagComponent = renderComponent(
+    'tool-tip',
+    { text: 'A member permissions is for a user scoped to a team' },
+    [
+      renderTag({
+        text: 'Member',
+        classes: ['app-tag--purple']
+      })
+    ]
+  )
 
   return {
     classes: 'app-summary-list',
