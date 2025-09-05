@@ -21,7 +21,7 @@ const kindOptions = buildOptions(
       text: 'Member',
       value: 'member',
       label: { classes: labelClasses },
-      hint: { text: 'A member of a team' }
+      hint: { text: 'A member is a user scoped to a team' }
     }
   ],
   false
