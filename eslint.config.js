@@ -8,6 +8,7 @@ import importPlugin from 'eslint-plugin-import'
 import n from 'eslint-plugin-n'
 import promise from 'eslint-plugin-promise'
 import jsdoc from 'eslint-plugin-jsdoc'
+import globals from 'globals'
 
 const customIgnores = [
   '.server',
@@ -139,8 +140,7 @@ export default [
     files: ['src/client/**/*.js'],
     languageOptions: {
       globals: {
-        document: true,
-        window: true
+        ...globals.browser
       }
     }
   },
