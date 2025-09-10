@@ -37,7 +37,15 @@
   {{ govukCheckboxes({
     name: "iAgree",
     classes: "govuk-checkboxes--small app-checkboxes",
-    items: [ { value: "yes", html: iAgreeHtml } ],
+    items: [
+      {
+        value: "yes",
+        html: iAgreeHtml,
+        attributes: {
+          "data-testid": "i-agree-checkbox"
+        }
+      }
+    ],
     values: formValues.iAgree,
     formGroup: {
       classes: "app-form-group govuk-!-margin-bottom-2 app-form-group-js"
