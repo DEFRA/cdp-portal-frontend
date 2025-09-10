@@ -36,7 +36,7 @@ announcements.set('hasBreakGlass', (request, breakGlassScope) => {
   const teamHref = request.routeLookup('teams/{teamId}', {
     params: { teamId: breakGlassScope.teamId }
   })
-  const teamDetail = `for the <a class="app-link app-link--underline app-link--text-colour" href="${teamHref}" rel="noopener noreferrer">${breakGlassScope.teamName}</a> team`
+  const teamDetail = `<a class="app-link app-link--underline app-link--text-colour" data-testid="app-link" href="${teamHref}" rel="noopener noreferrer">${breakGlassScope.teamName}</a> team`
   const from = renderComponent('time', {
     datetime: breakGlassScope.startAt,
     withoutTooltip: true
