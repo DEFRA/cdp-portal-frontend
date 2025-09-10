@@ -55,10 +55,10 @@ updates:
       semver-minor-days: 7
       semver-patch-days: 3
 
-    # Schedule run every Monday, local time
     schedule:
-      interval: weekly
-      time: '11:00'
+      interval: monthly
+      time: '08:00'
+      day: 1
       timezone: 'Europe/London'
 
     versioning-strategy: increase
@@ -71,8 +71,8 @@ updates:
   - package-ecosystem: github-actions
     directory: /
 
-    # Schedule run every Monday, local time
     schedule:
-      interval: weekly
-      time: '11:30'
+      interval: monthly
+      time: '08:00'
+      day: 1
       timezone: 'Europe/London'
