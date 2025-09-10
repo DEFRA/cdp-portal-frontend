@@ -65,7 +65,7 @@
         {% endcall %}
 
         {% if "member" in scope.kind %}
-          {% call appPanel() %}
+          {% call appPanel({ testId: "team-member-panel" }) %}
             <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
               {{ "Team member" | pluralise(scope.members | length) }} with permission
             </h2>
@@ -73,6 +73,9 @@
             {% if membersWithPermissionRows | length %}
               {{ govukTable({
                 classes: "app-table app-table--inverse",
+                atttributes: {
+                  "data-testid": "govuk-table"
+                },
                 head: [
                   { text: "Name" },
                   { text: "Team" },
