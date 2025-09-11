@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template govuk-template--rebranded">
   <head>
     <meta charset="utf-8">
-    <title>  Admin - Feature Toggles | Core Delivery Platform - Portal
+    <title>  Audit | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -251,7 +251,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </ul>
     <ul class="app-subnav__section">
 
-      <li class="app-subnav__section-item app-subnav__section-item--current"
+      <li class="app-subnav__section-item"
           data-testid="app-subnav-item-feature-toggles">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="/admin/features"
@@ -291,7 +291,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </ul>
     <ul class="app-subnav__section">
 
-      <li class="app-subnav__section-item"
+      <li class="app-subnav__section-item app-subnav__section-item--current"
           data-testid="app-subnav-item-audit">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="/admin/audit"
@@ -308,17 +308,19 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <div class="govuk-!-margin-top-2">
 
   <div class="app-page-heading">
-    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Feature Toggles</h1>
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Audit</h1>
 
       <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
-        App feature toggles, to toggle features on/off
+        Audit details for BreakGlass users
       </p>
 
   </div>
 </div>
 
 
-    
+
+      <article>
+        
 
 
 
@@ -330,32 +332,60 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <tr>
 
 
-        <th id="feature" scope="col"
+        <th id="performedBy" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-1"
-width="15%"        >
-            Feature
+width="12%"        >
+            Performed By
         </th>
 
-        <th id="url" scope="col"
+        <th id="action" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-2"
-width="20%"        >
-            Url
+width="12%"        >
+            Action
         </th>
 
-        <th id="status" scope="col"
+        <th id="performedAt" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-3"
-width="15%"        >
-            Status
+width="12%"        >
+            Performed At
         </th>
 
-        <th id="actions" scope="col"
+        <th id="user" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-4"
 width="10%"        >
-            Actions
+            User
+        </th>
+
+        <th id="team" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-5"
+width="8%"        >
+            Team
+        </th>
+
+        <th id="duration" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-6"
+width="10%"        >
+            Duration
+        </th>
+
+        <th id="service" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-7"
+width="10%"        >
+            Service
+        </th>
+
+        <th id="reason" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-8"
+width="15%"        >
+            Reason
         </th>
 
     </tr>
@@ -366,9 +396,9 @@ width="10%"        >
 
 
 
-          <td headers="feature"
+          <td headers="performedBy"
               class="app-entity-table__cell"
-              data-label="Feature">
+              data-label="Performed-by">
               
 
 <div class="app-entity" data-testid="app-entity-1">
@@ -376,7 +406,7 @@ width="10%"        >
 
 
       <span data-testid="app-entity-text"
-      >Disable create service</span>
+      >Admin User</span>
 
 
 </div>
@@ -385,34 +415,12 @@ width="10%"        >
           </td>
 
 
-          <td headers="url"
+          <td headers="action"
               class="app-entity-table__cell"
-              data-label="Url">
+              data-label="Action">
               
 
 <div class="app-entity" data-testid="app-entity-2">
-
-
-
-      <a class="app-link"
-         href="/create"         data-testid="app-entity-link">
-        /create
-      </a>
-
-
-
-</div>
-
-
-          </td>
-
-
-          <td headers="status"
-              class="app-entity-table__cell"
-              data-label="Status">
-              
-
-<div class="app-entity" data-testid="app-entity-3">
 
 
 
@@ -422,7 +430,7 @@ width="10%"        >
 
 
 <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
-  Active
+  Granted
 </strong>
 
 
@@ -436,21 +444,130 @@ width="10%"        >
           </td>
 
 
-          <td headers="actions"
+          <td headers="started"
               class="app-entity-table__cell"
-              data-label="Actions">
+              data-label="Started">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 10th September 2025, 12:30:40"
+>
+        <time    datetime="2025-09-10T12:30:40.512Z"
+    data-testid="app-time">
+        Yesterday at 12:30
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="user"
+              class="app-entity-table__cell"
+              data-label="User">
               
 
 <div class="app-entity" data-testid="app-entity-4">
 
 
 
-      <form action="/admin/features/disable-create-service/toggle/false" method="POST">
-        <input type="hidden" name="csrfToken" value=test-token>
-        <button type="submit" class="govuk-button app-button app-button--small app-button--destructive" data-module="govuk-button">
-  Deactivate
-</button>
-      </form>
+      <span data-testid="app-entity-text"
+      >Non-Admin User</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="team"
+              class="app-entity-table__cell"
+              data-label="Team">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      <span data-testid="app-entity-text"
+      >Platform</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="duration"
+              class="app-entity-table__cell"
+              data-label="Duration">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      <span data-testid="app-entity-text"
+      >2 hours</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="service"
+              class="app-entity-table__cell"
+              data-label="Service">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="reason"
+              class="app-entity-table__cell"
+              data-label="Reason">
+              
+
+<div class="app-entity" data-testid="app-entity-8">
+
+
+
+      <span data-testid="app-entity-text"
+      >broken service that needs investigating and fixing outside of normal processes</span>
 
 
 </div>
@@ -464,9 +581,9 @@ width="10%"        >
 
 
 
-          <td headers="feature"
+          <td headers="performedBy"
               class="app-entity-table__cell"
-              data-label="Feature">
+              data-label="Performed-by">
               
 
 <div class="app-entity" data-testid="app-entity-1">
@@ -474,7 +591,7 @@ width="10%"        >
 
 
       <span data-testid="app-entity-text"
-      >Disable decommission</span>
+      >Non-Admin User</span>
 
 
 </div>
@@ -483,34 +600,12 @@ width="10%"        >
           </td>
 
 
-          <td headers="url"
+          <td headers="action"
               class="app-entity-table__cell"
-              data-label="Url">
+              data-label="Action">
               
 
 <div class="app-entity" data-testid="app-entity-2">
-
-
-
-      <a class="app-link"
-         href="/admin/decommissions/start"         data-testid="app-entity-link">
-        /admin/decommissions/start
-      </a>
-
-
-
-</div>
-
-
-          </td>
-
-
-          <td headers="status"
-              class="app-entity-table__cell"
-              data-label="Status">
-              
-
-<div class="app-entity" data-testid="app-entity-3">
 
 
 
@@ -519,8 +614,8 @@ width="10%"        >
 
 
 
-<strong class="govuk-tag app-tag govuk-tag--grey" data-testid="govuk-tag">
-  Inactive
+<strong class="govuk-tag app-tag govuk-tag--blue" data-testid="govuk-tag">
+  TerminalAccess
 </strong>
 
 
@@ -534,21 +629,500 @@ width="10%"        >
           </td>
 
 
-          <td headers="actions"
+          <td headers="started"
               class="app-entity-table__cell"
-              data-label="Actions">
+              data-label="Started">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 10th September 2025, 12:31:18"
+>
+        <time    datetime="2025-09-10T12:31:18.855Z"
+    data-testid="app-time">
+        Yesterday at 12:31
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="user"
+              class="app-entity-table__cell"
+              data-label="User">
               
 
 <div class="app-entity" data-testid="app-entity-4">
 
 
 
-      <form action="/admin/features/disable-decommission/toggle/true" method="POST">
-        <input type="hidden" name="csrfToken" value=test-token>
-        <button type="submit" class="govuk-button app-button app-button--small" data-module="govuk-button">
-  Activate
-</button>
-      </form>
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="team"
+              class="app-entity-table__cell"
+              data-label="Team">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="duration"
+              class="app-entity-table__cell"
+              data-label="Duration">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="service"
+              class="app-entity-table__cell"
+              data-label="Service">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      <span data-testid="app-entity-text"
+      >cdp-portal-backend</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="reason"
+              class="app-entity-table__cell"
+              data-label="Reason">
+              
+
+<div class="app-entity" data-testid="app-entity-8">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-3">
+
+
+
+          <td headers="performedBy"
+              class="app-entity-table__cell"
+              data-label="Performed-by">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      <span data-testid="app-entity-text"
+      >Non-Admin User</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="action"
+              class="app-entity-table__cell"
+              data-label="Action">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--blue" data-testid="govuk-tag">
+  TerminalAccess
+</strong>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="started"
+              class="app-entity-table__cell"
+              data-label="Started">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 10th September 2025, 12:31:35"
+>
+        <time    datetime="2025-09-10T12:31:35.166Z"
+    data-testid="app-time">
+        Yesterday at 12:31
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="user"
+              class="app-entity-table__cell"
+              data-label="User">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="team"
+              class="app-entity-table__cell"
+              data-label="Team">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="duration"
+              class="app-entity-table__cell"
+              data-label="Duration">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="service"
+              class="app-entity-table__cell"
+              data-label="Service">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      <span data-testid="app-entity-text"
+      >cdp-postgres-service</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="reason"
+              class="app-entity-table__cell"
+              data-label="Reason">
+              
+
+<div class="app-entity" data-testid="app-entity-8">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-4">
+
+
+
+          <td headers="performedBy"
+              class="app-entity-table__cell"
+              data-label="Performed-by">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      <span data-testid="app-entity-text"
+      >Admin User</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="action"
+              class="app-entity-table__cell"
+              data-label="Action">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--red" data-testid="govuk-tag">
+  Removed
+</strong>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="started"
+              class="app-entity-table__cell"
+              data-label="Started">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 10th September 2025, 12:32:35"
+>
+        <time    datetime="2025-09-10T12:32:35.933Z"
+    data-testid="app-time">
+        Yesterday at 12:32
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="user"
+              class="app-entity-table__cell"
+              data-label="User">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="team"
+              class="app-entity-table__cell"
+              data-label="Team">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      <span data-testid="app-entity-text"
+      >Platform</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="duration"
+              class="app-entity-table__cell"
+              data-label="Duration">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="service"
+              class="app-entity-table__cell"
+              data-label="Service">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="reason"
+              class="app-entity-table__cell"
+              data-label="Reason">
+              
+
+<div class="app-entity" data-testid="app-entity-8">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
 
 
 </div>
@@ -562,6 +1136,7 @@ width="10%"        >
 
 </article>
 
+      </article>
 
 
     </section>

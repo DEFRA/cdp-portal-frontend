@@ -50,13 +50,16 @@ async function addScopeToMember({
   return response?.payload
 }
 
-async function addBreakGlassToMember({ request, userId, teamId }) {
+async function addBreakGlassToMember({ request, userId, teamId, reason }) {
   const endpoint =
     userServiceBackendUrl + `/users/${userId}/add-break-glass/${teamId}`
 
   const { payload } = await request.authedFetchJson(endpoint, {
     method: 'patch',
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    payload: removeNil({
+      reason
+    })
   })
 
   return payload
