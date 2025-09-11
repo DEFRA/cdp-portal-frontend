@@ -7,6 +7,7 @@ import { setStepComplete } from '../../helpers/form/index.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { fetchServiceTemplates } from '../helpers/fetch/fetch-service-templates.js'
+import { buildPayload } from '../helpers/build-payload.js'
 
 const microserviceCreateController = {
   options: {
@@ -25,9 +26,6 @@ const microserviceCreateController = {
     const availableServiceTemplateIds = serviceTemplates.map(
       (template) => template.id
     )
-    const { defaultBranch, id: serviceTypeTemplate } = serviceTemplates.find(
-      (o) => o.id === create.serviceTypeTemplateId
-    )
 
     const validationResult = await microserviceValidation(
       availableServiceTemplateIds
@@ -36,16 +34,7 @@ const microserviceCreateController = {
       .then((value) => ({ value }))
       .catch((error) => ({ value: create, error }))
 
-    const repositoryName = create.microserviceName
-    const templateTag =
-      !create.templateTag && defaultBranch ? defaultBranch : create.templateTag
-    const teamId = request.payload?.teamId
-    const sanitisedPayload = {
-      repositoryName,
-      serviceTypeTemplate,
-      teamId,
-      templateTag
-    }
+    const sanitisedPayload = buildPayload({ serviceTemplates, create })
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -82,7 +71,7 @@ const microserviceCreateController = {
         })
 
         request.audit.sendMessage(
-          auditMessageCreated('Service', repositoryName, userSession)
+          auditMessageCreated('Service', create.microserviceName, userSession)
         )
 
         return h.redirect(`/services/${payload.repositoryName}`)
