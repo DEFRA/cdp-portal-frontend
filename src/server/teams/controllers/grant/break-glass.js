@@ -48,18 +48,18 @@ const grantBreakGlassController = {
     const reason = payload.reason
     const iAgree = payload.iAgree
 
-    const validationResult = breakGlassValidation(hasReadTsAndCs).validate(
-      { reason, iAgree, complianceRequirements },
-      {
-        abortEarly: false
-      }
-    )
-
     const sanitisedPayload = {
       reason,
       iAgree,
       complianceRequirements
     }
+
+    const validationResult = breakGlassValidation(hasReadTsAndCs).validate(
+      sanitisedPayload,
+      {
+        abortEarly: false
+      }
+    )
 
     const returnToForm = request.routeLookup(
       'teams/{teamId}/grant-break-glass/{userId}',
@@ -83,7 +83,7 @@ const grantBreakGlassController = {
       try {
         const [user] = await Promise.all([
           fetchCdpUser(userId),
-          addBreakGlassToMember({ request, userId, teamId })
+          addBreakGlassToMember({ request, userId, teamId, reason })
         ])
 
         request.yar.clear(sessionNames.validationFailure)

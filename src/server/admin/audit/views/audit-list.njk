@@ -1,0 +1,18 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      text: "Audit",
+      intro: "Audit details for BreakGlass users"
+    }) }}
+
+
+      <article>
+        {{ appEntityTable(tableData) }}
+      </article>
+
+  {% endcall %}
+{% endblock %}
+
