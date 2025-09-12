@@ -1,37 +1,10 @@
 import { buildPayload } from './build-payload.js'
+import { microserviceTemplatesFixture } from '../../../../__fixtures__/micro-service-templates.js'
 
 describe('build-payload', () => {
-  const microserviceTemplates = [
-    {
-      repositoryName: 'cdp-node-backend-template',
-      zone: 'protected',
-      mongo: true,
-      redis: false,
-      templateName: 'Node.js Backend',
-      language: 'node',
-      type: 'backend',
-      id: 'cdp-node-backend-template',
-      entityType: 'Microservice',
-      entitySubType: 'Backend'
-    },
-    {
-      repositoryName: 'cdp-node-backend-template',
-      zone: 'protected',
-      mongo: false,
-      redis: false,
-      templateName: 'Node.js Backend - Minimal',
-      language: 'node',
-      type: 'backend',
-      defaultBranch: 'minimal',
-      id: 'cdp-node-backend-template-minimal',
-      entityType: 'Microservice',
-      entitySubType: 'Backend'
-    }
-  ]
-
-  it('should create a valid payload for a backend template', async () => {
+  test('Should create a valid payload for a backend template', () => {
     const payload = buildPayload({
-      serviceTemplates: microserviceTemplates,
+      serviceTemplates: microserviceTemplatesFixture,
       create: {
         kind: 'microservice',
         isComplete: { stepOne: true, stepTwo: true },
@@ -47,14 +20,13 @@ describe('build-payload', () => {
     expect(payload).toEqual({
       repositoryName: 'foo',
       teamId: 'platform',
-      serviceTypeTemplate: 'cdp-node-backend-template',
-      templateTag: ''
+      serviceTypeTemplate: 'cdp-node-backend-template'
     })
   })
 
-  it('should create a valid payload for a backend template when overriding the branch', async () => {
+  test('Should create a valid payload for a backend template when overriding the branch', () => {
     const payload = buildPayload({
-      serviceTemplates: microserviceTemplates,
+      serviceTemplates: microserviceTemplatesFixture,
       create: {
         kind: 'microservice',
         isComplete: { stepOne: true, stepTwo: true },
@@ -75,9 +47,9 @@ describe('build-payload', () => {
     })
   })
 
-  it('should provide the correct id for cdp-node-backend-minimal', async () => {
+  test('Should provide the correct id for cdp-node-backend-minimal', () => {
     const payload = buildPayload({
-      serviceTemplates: microserviceTemplates,
+      serviceTemplates: microserviceTemplatesFixture,
       create: {
         kind: 'microservice',
         isComplete: { stepOne: true, stepTwo: true },
