@@ -22,7 +22,7 @@ describe('Audit page', () => {
           id: '90552794-0613-4023-819a-512aa9d40023',
           displayName: 'Admin User'
         },
-        performedAt: '2025-09-10T12:30:40.512Z',
+        performedAt: '2024-09-10T12:30:40.512Z',
         details: {
           user: {
             userId: 'dfa791eb-76b2-434c-ad1f-bb9dc1dd8b48',
@@ -45,7 +45,7 @@ describe('Audit page', () => {
           id: 'dfa791eb-76b2-434c-ad1f-bb9dc1dd8b48',
           displayName: 'Non-Admin User'
         },
-        performedAt: '2025-09-10T12:31:18.855Z',
+        performedAt: '2024-09-10T12:31:18.855Z',
         details: {
           environment: 'prod',
           service: 'cdp-portal-backend'
@@ -58,7 +58,7 @@ describe('Audit page', () => {
           id: 'dfa791eb-76b2-434c-ad1f-bb9dc1dd8b48',
           displayName: 'Non-Admin User'
         },
-        performedAt: '2025-09-10T12:31:35.166Z',
+        performedAt: '2024-09-10T12:31:35.166Z',
         details: {
           environment: 'prod',
           service: 'cdp-postgres-service'
@@ -71,7 +71,7 @@ describe('Audit page', () => {
           id: '90552794-0613-4023-819a-512aa9d40023',
           displayName: 'Admin User'
         },
-        performedAt: '2025-09-10T12:32:35.933Z',
+        performedAt: '2024-09-10T12:32:35.933Z',
         details: {
           user: {
             email: 'non-admin.user@oidc.mock',
