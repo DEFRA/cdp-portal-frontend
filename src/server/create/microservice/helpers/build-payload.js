@@ -1,18 +1,16 @@
 /**
  * Builds payload for self-service-ops to create a microservice
- * @param {{}} serviceTemplates
- * @param {{}} create
+ * @param {array<{id: string, defaultBranch?: string}>} serviceTemplates - List of service templates
+ * @param {{microserviceName: string, serviceTypeTemplateId: string, teamId: string, templateTag?: string}} create - Microservice creation details
  * @returns {{teamId: string, templateTag: string, repositoryName: string, serviceTypeTemplate: string}}
  */
 function buildPayload({ serviceTemplates, create }) {
-  const { defaultBranch, id: serviceTypeTemplate } = serviceTemplates.find(
-    (o) => o.id === create.serviceTypeTemplateId
+  const matchingTemplate = serviceTemplates.find(
+    ({ id }) => id === create.serviceTypeTemplateId
   )
-
-  const repositoryName = create.microserviceName
-  const teamId = create.teamId
-  const templateTag =
-    !create.templateTag && defaultBranch ? defaultBranch : create.templateTag
+  const { microserviceName: repositoryName, teamId } = create
+  const templateTag = create?.templateTag || matchingTemplate?.defaultBranch
+  const serviceTypeTemplate = matchingTemplate?.id
 
   return {
     repositoryName,
