@@ -23,11 +23,15 @@ const buildSubscriptionsList = (subscriptions) => {
   }))
 }
 
-function resourceByEnvironment({ environment, environmentDetails }) {
+function resourceByEnvironment({
+  environment,
+  tenantServiceForEnv,
+  tenantDatabaseForEnv
+}) {
   return {
     environment,
     s3BucketRows:
-      environmentDetails?.s3Buckets
+      tenantServiceForEnv?.s3Buckets
         ?.map(({ url }) => url)
         .toSorted(sortByName)
         .map((url, index) => {
@@ -42,7 +46,7 @@ function resourceByEnvironment({ environment, environmentDetails }) {
         }) ?? [],
 
     sqsQueues:
-      environmentDetails?.sqsQueues
+      tenantServiceForEnv?.sqsQueues
         ?.map(({ url, name, arn, subscriptions = [] }) => ({
           url,
           name,
@@ -94,7 +98,7 @@ function resourceByEnvironment({ environment, environmentDetails }) {
         }) ?? [],
 
     snsTopics:
-      environmentDetails?.snsTopics
+      tenantServiceForEnv?.snsTopics
         ?.map(({ name, arn }) => ({ name, arn }))
         .toSorted(sortBy('name', 'asc'))
         .map(({ name, arn }, index) => {
@@ -126,17 +130,67 @@ function resourceByEnvironment({ environment, environmentDetails }) {
               }
             ]
           }
-        }) ?? []
+        }) ?? [],
+
+    database: tenantDatabaseForEnv
+      ? {
+          classes: 'app-summary-list app-summary-list--resource',
+          attributes: {
+            'data-testid': `database-` + environment.toLowerCase()
+          },
+          rows: [
+            {
+              key: { text: 'Name', classes: keyCellClass },
+              value: {
+                html: renderComponent('copy', {
+                  content: {
+                    id: `database-name-${environment}`,
+                    text: tenantDatabaseForEnv.databaseName
+                  }
+                })
+              }
+            },
+            {
+              key: { text: 'Endpoint', classes: keyCellClass },
+              value: {
+                html: renderComponent('copy', {
+                  content: {
+                    id: `database-endpoint-${environment}`,
+                    text: tenantDatabaseForEnv.endpoint
+                  }
+                })
+              }
+            },
+            {
+              key: { text: 'Port', classes: keyCellClass },
+              value: {
+                html: renderComponent('copy', {
+                  content: {
+                    id: `database-port-${environment}`,
+                    text: tenantDatabaseForEnv.port
+                  }
+                })
+              }
+            }
+          ]
+        }
+      : undefined
   }
 }
 
-function resourcesByEnvironment({ environments, tenantService }) {
+function resourcesByEnvironment({
+  environments,
+  tenantService,
+  tenantDatabase
+}) {
   return environments.reduce((resources, environment) => {
-    const environmentDetails = tenantService[environment]
+    const tenantServiceForEnv = tenantService[environment]
+    const tenantDatabaseForEnv = tenantDatabase?.[environment]
 
     const environmentResources = resourceByEnvironment({
       environment,
-      environmentDetails
+      tenantServiceForEnv,
+      tenantDatabaseForEnv
     })
 
     return {

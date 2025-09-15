@@ -40,6 +40,7 @@
 
             <div class="app-sub-grid">
               {% for environment, resource in resources %}
+                <span class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-4">{{ environment | title }}</span>
                 {% include "services/common/partials/resource-panel.njk" %}
               {% endfor %}
             </div>

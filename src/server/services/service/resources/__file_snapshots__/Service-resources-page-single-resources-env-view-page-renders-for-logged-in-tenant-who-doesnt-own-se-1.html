@@ -404,7 +404,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 <span class="govuk-caption-l">Dev</span>
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
 <p>
-  View AWS resources for mock-service-with-resources in all CDP environments. To set up new resources read
+  View resources for mock-service-with-resources in all CDP environments. To set up new resources read
   <a href="/documentation/how-to/buckets.md" class="govuk-link app-link app-link--underline"
      target="_blank" rel="noopener noreferrer">S3 buckets</a>,
   <a href="/documentation/how-to/sqs-sns.md" class="govuk-link app-link app-link--underline"
@@ -449,7 +449,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   
 
   <div class="app-sub-grid__row-item">
-    <span class="govuk-caption-m">Dev</span>
     <div class="app-row govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
         S3 Buckets
@@ -521,7 +520,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </div>
 
   <div class="app-sub-grid__row-item">
-    <span class="govuk-caption-m">Dev</span>
     <div class="app-row govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
         SQS Queues
@@ -716,7 +714,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </div>
 
   <div class="app-sub-grid__row-item">
-    <span class="govuk-caption-m">Dev</span>
     <div class="app-row govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
         SNS Topics
@@ -835,6 +832,95 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         </button>
         <span data-js="sns-topic-arn-dev-1-content" data-testid="app-copy-content">
           arn:aws:sns:eu-west-2:333333333:error_notification.fifo
+        </span>
+      </span>
+    </dd>
+  </div>
+</dl>
+  </div>
+
+  <div class="app-sub-grid__row-item">
+    <div class="app-row govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+        Postgres Database
+      </h3>
+    </div>
+
+      <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="database-dev">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+          <button class="app-copy js-visible-inline"
+                  title="Copy"
+                  data-js="app-copy"
+                  data-content-id="database-name-dev"
+                  data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minuscule"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+        <span data-js="database-name-dev-content" data-testid="app-copy-content">
+          cdp_postgres_service
+        </span>
+      </span>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Endpoint
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+          <button class="app-copy js-visible-inline"
+                  title="Copy"
+                  data-js="app-copy"
+                  data-content-id="database-endpoint-dev"
+                  data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minuscule"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+        <span data-js="database-endpoint-dev-content" data-testid="app-copy-content">
+          cdp-portal-backend.cluster-aabbccdd.eu-west-2.rds.amazonaws.com
+        </span>
+      </span>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Port
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+          <button class="app-copy js-visible-inline"
+                  title="Copy"
+                  data-js="app-copy"
+                  data-content-id="database-port-dev"
+                  data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minuscule"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+        <span data-js="database-port-dev-content" data-testid="app-copy-content">
+          5432
         </span>
       </span>
     </dd>

@@ -3,16 +3,55 @@ import {
   resourceByEnvironment
 } from './resources-by-environment.js'
 import { tenantServicesFixture } from '../../../../../__fixtures__/tenant-services.js'
+import { tenantDatabasesFixture } from '../../../../../__fixtures__/tenant-databases.js'
 
 describe('#resourceByEnvironment', () => {
   test('Should return expected resources', () => {
     const result = resourceByEnvironment({
       environment: 'prod',
-      environmentDetails: tenantServicesFixture.prod
+      tenantServiceForEnv: tenantServicesFixture.prod,
+      tenantDatabaseForEnv: tenantDatabasesFixture.prod
     })
 
     expect(result).toEqual({
       environment: 'prod',
+      database: {
+        classes: 'app-summary-list app-summary-list--resource',
+        attributes: {
+          'data-testid': 'database-prod'
+        },
+        rows: [
+          {
+            key: {
+              text: 'Name',
+              classes: 'app-summary-list__key'
+            },
+            value: {
+              html: expect.stringContaining('cdp_postgres_service')
+            }
+          },
+          {
+            key: {
+              text: 'Endpoint',
+              classes: 'app-summary-list__key'
+            },
+            value: {
+              html: expect.stringContaining(
+                'cdp-portal-backend.cluster-aabbccdd.eu-west-2.rds.amazonaws.com'
+              )
+            }
+          },
+          {
+            key: {
+              text: 'Port',
+              classes: 'app-summary-list__key'
+            },
+            value: {
+              html: expect.stringContaining('5432')
+            }
+          }
+        ]
+      },
       s3BucketRows: [
         [
           {
@@ -190,25 +229,28 @@ describe('#resourceByEnvironment', () => {
     })
   })
 
-  test('Should return empty arrays when environmentDetails is undefined', () => {
+  test('Should return empty arrays when tenantServiceForEnv is undefined', () => {
     const result = resourceByEnvironment({
       environment: 'dev',
-      environmentDetails: undefined
+      tenantServiceForEnv: undefined,
+      tenantDatabaseForEnv: undefined
     })
     expect(result).toEqual({
       environment: 'dev',
       s3BucketRows: [],
       sqsQueues: [],
-      snsTopics: []
+      snsTopics: [],
+      database: undefined
     })
   })
 
   test('Should return correct s3BucketRows with sorted urls', () => {
     const result = resourceByEnvironment({
       environment: 'prod',
-      environmentDetails: {
+      tenantServiceForEnv: {
         s3Buckets: [{ url: 'b-url' }, { url: 'a-url' }]
-      }
+      },
+      tenantDatabaseForEnv: undefined
     })
     expect(result.s3BucketRows.length).toBe(2)
     expect(result.s3BucketRows.at(0).at(0).html).toContain('a-url')
@@ -218,7 +260,7 @@ describe('#resourceByEnvironment', () => {
   test('Should return correct sqsQueues with sorted names', () => {
     const result = resourceByEnvironment({
       environment: 'test',
-      environmentDetails: {
+      tenantServiceForEnv: {
         sqsQueues: [
           { name: 'queueB', url: 'urlB', arn: 'arnB' },
           { name: 'queueA', url: 'urlA', arn: 'arnA' }
@@ -233,7 +275,7 @@ describe('#resourceByEnvironment', () => {
   test('Should return correct snsTopics with sorted names', () => {
     const result = resourceByEnvironment({
       environment: 'stage',
-      environmentDetails: {
+      tenantServiceForEnv: {
         snsTopics: [
           { name: 'topicB', arn: 'arnB' },
           { name: 'topicA', arn: 'arnA' }
@@ -253,16 +295,35 @@ describe('#resourcesByEnvironment', () => {
       dev: { s3Buckets: [{ url: 'dev-url' }] },
       prod: { s3Buckets: [{ url: 'prod-url' }] }
     }
-    const result = resourcesByEnvironment({ environments, tenantService })
+    const tenantDatabase = {
+      dev: {
+        databaseName: 'dev-database',
+        endpoint: 'dev-endpoint',
+        port: 1234
+      },
+      prod: {
+        databaseName: 'prod-database',
+        endpoint: 'prod-endpoint',
+        port: 43221
+      }
+    }
+    const result = resourcesByEnvironment({
+      environments,
+      tenantService,
+      tenantDatabase
+    })
     expect(Object.keys(result)).toEqual(['dev', 'prod'])
     expect(result.dev.s3BucketRows.length).toBe(1)
+    expect(result.dev.database.rows.length).toBe(3)
     expect(result.prod.s3BucketRows.length).toBe(1)
+    expect(result.prod.database.rows.length).toBe(3)
   })
 
   test('Should handle empty environments array', () => {
     const result = resourcesByEnvironment({
       environments: [],
-      tenantService: {}
+      tenantService: {},
+      tenantDatabase: undefined
     })
     expect(result).toEqual({})
   })
@@ -270,10 +331,12 @@ describe('#resourcesByEnvironment', () => {
   test('Should handle missing tenantService keys gracefully', () => {
     const result = resourcesByEnvironment({
       environments: ['qa'],
-      tenantService: {}
+      tenantService: {},
+      tenantDatabase: undefined
     })
     expect(result.qa.s3BucketRows).toEqual([])
     expect(result.qa.sqsQueues).toEqual([])
     expect(result.qa.snsTopics).toEqual([])
+    expect(result.qa.database).toBeUndefined()
   })
 })

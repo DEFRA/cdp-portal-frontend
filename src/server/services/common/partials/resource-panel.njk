@@ -10,7 +10,6 @@
   {% endset %}
 
   <div class="app-sub-grid__row-item">
-    <span class="govuk-caption-m">{{ environment | title }}</span>
     <div class="app-row govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
         S3 Buckets
@@ -37,7 +36,6 @@
   </div>
 
   <div class="app-sub-grid__row-item">
-    <span class="govuk-caption-m">{{ environment | title }}</span>
     <div class="app-row govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
         SQS Queues
@@ -63,7 +61,6 @@
   </div>
 
   <div class="app-sub-grid__row-item">
-    <span class="govuk-caption-m">{{ environment | title }}</span>
     <div class="app-row govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
         SNS Topics
@@ -84,6 +81,24 @@
         classes: "app-info--full-width govuk-!-margin-0",
         isInverse: true,
         text: "SNS Topics not set up for " + environment | title
+      }) }}
+    {% endif %}
+  </div>
+
+  <div class="app-sub-grid__row-item">
+    <div class="app-row govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+        Postgres Database
+      </h3>
+    </div>
+
+    {% if resource.database | length %}
+      {{ govukSummaryList(resource.database) }}
+    {% else %}
+      {{ appInfo({
+        classes: "app-info--full-width govuk-!-margin-0",
+        isInverse: true,
+        text: "Postgres not set up for " + environment | title
       }) }}
     {% endif %}
   </div>
