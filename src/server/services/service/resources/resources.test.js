@@ -10,6 +10,7 @@ import { statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
+vi.mock('../../../common/helpers/fetch/fetch-tenant-databases.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
 vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
 

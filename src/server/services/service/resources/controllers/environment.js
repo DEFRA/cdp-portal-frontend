@@ -4,6 +4,7 @@ import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
 import { resourceByEnvironment } from '../transformers/resources-by-environment.js'
 import { fetchTenantServiceByEnvironment } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
+import { fetchTenantDatabaseByEnvironment } from '../../../../common/helpers/fetch/fetch-tenant-databases.js'
 
 const environmentResourcesController = {
   options: {
@@ -21,11 +22,18 @@ const environmentResourcesController = {
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
 
-    const tenantServiceEnvironmentDetails =
-      await fetchTenantServiceByEnvironment(serviceName, environment)
+    const tenantServiceForEnv = await fetchTenantServiceByEnvironment(
+      serviceName,
+      environment
+    )
+    const tenantDatabaseForEnv = await fetchTenantDatabaseByEnvironment(
+      serviceName,
+      environment
+    )
     const resource = resourceByEnvironment({
       environment,
-      environmentDetails: tenantServiceEnvironmentDetails
+      tenantServiceForEnv,
+      tenantDatabaseForEnv
     })
 
     return h.view('services/service/resources/views/environment', {

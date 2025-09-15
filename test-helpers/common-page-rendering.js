@@ -26,6 +26,11 @@ import { latestMigrationsFixture } from '../src/__fixtures__/migrations/latest-m
 import { apiGatewaysFixture } from '../src/__fixtures__/api-gateways.js'
 import { shutteringUrlsFixture } from '../src/__fixtures__/shuttering/shuttering-urls.js'
 import { tenantServicesFixture } from '../src/__fixtures__/tenant-services.js'
+import {
+  fetchTenantDatabase,
+  fetchTenantDatabaseByEnvironment
+} from '../src/server/common/helpers/fetch/fetch-tenant-databases.js'
+import { tenantDatabasesFixture } from '../src/__fixtures__/tenant-databases.js'
 
 export const mockTeam = {
   teamId: 'mock-team-id',
@@ -82,11 +87,15 @@ export function mockRepositoryCall(repositoryName, additionalTopics) {
 
 export function mockResourcesCall() {
   fetchTenantService.mockResolvedValue?.(tenantServicesFixture)
+  fetchTenantDatabase.mockResolvedValue?.(tenantDatabasesFixture)
 }
 
 export function mockResourcesByEnvironmentCall(environment) {
   fetchTenantServiceByEnvironment.mockResolvedValue?.(
     tenantServicesFixture[environment]
+  )
+  fetchTenantDatabaseByEnvironment.mockResolvedValue?.(
+    tenantDatabasesFixture[environment]
   )
 }
 
