@@ -57,10 +57,6 @@ export async function initialiseServer() {
     {
       name: 'session',
       engine: new CatboxMemory()
-    },
-    {
-      name: 'featureToggles',
-      engine: new CatboxMemory()
     }
   ]
   const server = await createServer({

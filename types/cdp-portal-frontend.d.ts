@@ -38,7 +38,6 @@ declare module '@hapi/hapi' {
     }
 
     session: Policy
-    featureToggles: Policy
     hasScope: (scope: string) => boolean
   }
 

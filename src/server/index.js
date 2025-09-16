@@ -34,10 +34,6 @@ const serverCache = [
   {
     name: 'session',
     engine: new CatboxRedis({ client: redisClient })
-  },
-  {
-    name: 'featureToggles',
-    engine: new CatboxRedis({ client: redisClient })
   }
 ]
 
