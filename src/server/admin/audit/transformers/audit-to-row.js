@@ -11,31 +11,13 @@ function tagMap(action) {
     case 'TerminalAccess':
       return 'govuk-tag--blue'
     default:
-      break
+      return 'govuk-tag--grey'
   }
 }
 
 export function transformAuditToRow(audit) {
-  const durationEntity =
-    audit.details?.startDate && audit.details?.endDate
-      ? {
-          entity: {
-            kind: 'text',
-            value: formatDistanceStrict(
-              audit.details.startDate,
-              audit.details.endDate,
-              {
-                includeSeconds: true
-              }
-            )
-          }
-        }
-      : {
-          entity: {
-            kind: 'text',
-            value: noValue
-          }
-        }
+  const { startDate, endDate } = audit.details
+  const hasDuration = startDate && endDate
 
   return {
     cells: [
@@ -43,7 +25,7 @@ export function transformAuditToRow(audit) {
         headers: 'performedBy',
         entity: {
           kind: 'text',
-          value: audit.performedBy?.displayName ?? noValue
+          value: audit.performedBy?.displayName
         }
       },
       {
@@ -65,32 +47,39 @@ export function transformAuditToRow(audit) {
         headers: 'user',
         entity: {
           kind: 'text',
-          value: audit.details?.user?.displayName ?? noValue
+          value: audit.details?.user?.displayName
         }
       },
       {
         headers: 'team',
         entity: {
-          kind: 'text',
-          value: audit.details?.team?.name ?? noValue
+          kind: 'link',
+          url: `/teams/${audit.details?.team?.name?.toLowerCase()}`,
+          value: audit.details?.team?.name
         }
-      },
-      {
-        headers: 'duration',
-        ...durationEntity
       },
       {
         headers: 'service',
         entity: {
+          kind: 'link',
+          url: `/services/${audit.details?.service?.toLowerCase()}`,
+          value: audit.details?.service
+        }
+      },
+      {
+        headers: 'duration',
+        entity: {
           kind: 'text',
-          value: audit.details?.service ?? noValue
+          value: hasDuration
+            ? formatDistanceStrict(startDate, endDate, { includeSeconds: true })
+            : noValue
         }
       },
       {
         headers: 'reason',
         entity: {
           kind: 'text',
-          value: audit.details?.reason ?? noValue
+          value: audit.details?.reason
         }
       }
     ]

@@ -7,7 +7,7 @@ const auditListController = {
   },
   handler: async (request, h) => {
     const audits = await fetchAudit()
-    const rows = audits.map((audit) => transformAuditToRow(audit))
+    const rows = audits.map(transformAuditToRow)
 
     return h.view('admin/audit/views/audit-list', {
       pageTitle: 'Audit',
@@ -18,8 +18,8 @@ const auditListController = {
           { id: 'performedAt', text: 'Performed At', width: '12' },
           { id: 'user', text: 'User', width: '10' },
           { id: 'team', text: 'Team', width: '8' },
-          { id: 'duration', text: 'Duration', width: '10' },
           { id: 'service', text: 'Service', width: '10' },
+          { id: 'duration', text: 'Duration', width: '10' },
           { id: 'reason', text: 'Reason', width: '15' }
         ],
         rows,
