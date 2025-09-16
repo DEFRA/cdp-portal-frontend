@@ -40,7 +40,7 @@ describe('#buildNavigation', () => {
           },
           {
             current: false,
-            text: 'Test suites',
+            text: 'Test Suites',
             href: '/test-suites',
             attributes: {
               'data-testid': 'nav-test-suites'
@@ -134,7 +134,7 @@ describe('#buildNavigation', () => {
           },
           {
             current: false,
-            text: 'Test suites',
+            text: 'Test Suites',
             href: '/test-suites',
             attributes: {
               'data-testid': 'nav-test-suites'
@@ -228,7 +228,7 @@ describe('#buildNavigation', () => {
           },
           {
             current: false,
-            text: 'Test suites',
+            text: 'Test Suites',
             href: '/test-suites',
             attributes: {
               'data-testid': 'nav-test-suites'
@@ -342,7 +342,7 @@ describe('#buildNavigation', () => {
             },
             {
               current: false,
-              text: 'Test suites',
+              text: 'Test Suites',
               href: '/test-suites',
               attributes: {
                 'data-testid': 'nav-test-suites'
@@ -439,7 +439,7 @@ describe('#buildNavigation', () => {
             },
             {
               current: false,
-              text: 'Test suites',
+              text: 'Test Suites',
               href: '/test-suites',
               attributes: {
                 'data-testid': 'nav-test-suites'
@@ -524,7 +524,7 @@ describe('#buildNavigation', () => {
         },
         {
           current: false,
-          text: 'Test suites',
+          text: 'Test Suites',
           href: '/test-suites',
           attributes: {
             'data-testid': 'nav-test-suites'
