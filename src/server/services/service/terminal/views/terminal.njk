@@ -23,7 +23,10 @@
     <form method="post" action="/services/{{ serviceName }}/terminal/{{ terminalEnv }}" target="_blank">
       <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-      {% set classes = ["app-button app-button--primary app-button--small", "app-button--destructive" if terminalEnv == "prod"] | join(" ") | trim %}
+      {% set classes = [
+        "app-button app-button--primary app-button--small",
+        "app-button--significant" if terminalEnv == "prod"
+      ] | join(" ") | trim %}
 
       {{ govukButton({
         classes: classes,
@@ -37,8 +40,6 @@
     { html: launchFormHtml }
   ]) }}
 {% endfor %}
-
-{# Tips and warnings #}
 
 {% set tips = [
   "Behave as your service does, same permissions, same visibility",

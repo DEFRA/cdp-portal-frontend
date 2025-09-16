@@ -76,7 +76,7 @@ describe('Audit page', () => {
           user: {
             email: 'non-admin.user@oidc.mock',
             github: 'nonadminuser',
-            name: 'Non-Admin User',
+            displayName: 'Non-Admin User',
             createdAt: '2024-11-11T13:51:00.028Z',
             scopes: [
               {

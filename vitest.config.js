@@ -2,8 +2,8 @@ import { defineConfig, configDefaults } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    globals: true,
     environment: 'jsdom',
+    globals: true,
     clearMocks: true,
     snapshotFormat: {
       printBasicPrototype: false
@@ -18,14 +18,16 @@ export default defineConfig({
       provider: 'v8',
       reportsDirectory: './coverage',
       reporter: ['text', 'lcov'],
-      include: ['src/**'],
+      include: ['src/**/*.js'],
       exclude: [
         ...configDefaults.exclude,
+        'src/__fixtures__/**',
         '.public',
         'coverage',
         'postcss.config.js',
         'stylelint.config.js',
-        'vitest.config.js'
+        'vitest.config.js',
+        '.sonarlint'
       ]
     }
   }

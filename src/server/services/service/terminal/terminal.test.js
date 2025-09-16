@@ -1,11 +1,13 @@
+import { scopes, statusCodes } from '@defra/cdp-validation-kit'
+
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockFetchShutteringUrlsCall,
   mockServiceEntityCall,
+  mockTeam,
   mockTenantServicesCall
 } from '../../../../../test-helpers/common-page-rendering.js'
-import { statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
@@ -38,6 +40,18 @@ describe('Service Terminal page', () => {
     expect(result).toMatchFile()
   })
 
+  test('page renders for with prod terminal button for admin user with break glass', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: '/services/mock-service-with-terminal/terminal',
+      isAdmin: true,
+      isTenant: true,
+      teamScope: mockTeam.teamId,
+      additionalScopes: [`${scopes.breakGlass}:team:${mockTeam.teamId}`]
+    })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
+  })
+
   test('page errors for logged in non-service owner tenant', async () => {
     const { statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/services/mock-service-with-terminal/terminal',
@@ -53,6 +67,18 @@ describe('Service Terminal page', () => {
       isAdmin: false,
       isTenant: true,
       teamScope: 'mock-team-id'
+    })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
+  })
+
+  test('page renders for with prod terminal button for service owner tenant', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: '/services/mock-service-with-terminal/terminal',
+      isAdmin: false,
+      isTenant: true,
+      teamScope: mockTeam.teamId,
+      additionalScopes: [`${scopes.breakGlass}:team:${mockTeam.teamId}`]
     })
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()

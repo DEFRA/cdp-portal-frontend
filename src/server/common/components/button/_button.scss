@@ -66,6 +66,22 @@ $shadow-opacity-light: 0.4;
   }
 }
 
+.app-button--significant {
+  background-color: govuk-colour("blue");
+  color: govuk-colour("white");
+  box-shadow: 0 2px 0 rgba(12, 45, 74, $shadow-opacity);
+
+  &:hover {
+    background-color: govuk-shade(govuk-colour("blue"), 20%);
+  }
+
+  &:link,
+  &:active,
+  &:visited {
+    color: govuk-colour("white");
+  }
+}
+
 .app-button--destructive {
   background-color: govuk-colour("red");
   color: govuk-colour("white");
