@@ -21,7 +21,13 @@ const allResourcesController = {
     const serviceName = entity.name
     const environments = getEnvironments(request.auth.credentials?.scope)
     const tenantService = await fetchTenantService(serviceName)
-    const tenantDatabase = await fetchTenantDatabase(serviceName)
+    const isPostgres = Object.values(tenantService).some(
+      (valueObj) => valueObj.postgres === true
+    )
+
+    const tenantDatabase = isPostgres
+      ? await fetchTenantDatabase(serviceName)
+      : undefined
     const resources = resourcesByEnvironment({
       environments,
       tenantService,

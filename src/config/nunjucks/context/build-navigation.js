@@ -65,7 +65,7 @@ async function buildNavigation(request) {
       }
     },
     {
-      text: 'Test suites',
+      text: 'Test Suites',
       href: testSuitesPath,
       current: request?.path?.includes(testSuitesPath),
       attributes: {

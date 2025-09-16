@@ -85,22 +85,16 @@
     {% endif %}
   </div>
 
-  <div class="app-sub-grid__row-item">
-    <div class="app-row govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
-        Postgres Database
-      </h3>
-    </div>
 
-    {% if resource.database | length %}
+  {% if resource.database | length %}
+    <div class="app-sub-grid__row-item">
+      <div class="app-row govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+          Postgres Database
+        </h3>
+      </div>
       {{ govukSummaryList(resource.database) }}
-    {% else %}
-      {{ appInfo({
-        classes: "app-info--full-width govuk-!-margin-0",
-        isInverse: true,
-        text: "Postgres not set up for " + environment | title
-      }) }}
-    {% endif %}
-  </div>
+    </div>
+  {% endif %}
 
 {% endcall %}
