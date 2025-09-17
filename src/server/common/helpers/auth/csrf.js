@@ -2,7 +2,7 @@ import crumb from '@hapi/crumb'
 
 import { config } from '../../../../config/config.js'
 
-const sessionCookieConfig = config.get('sessionCookie')
+const sessionCookieConfig = config.get('session.cookie')
 
 const csrf = {
   plugin: {

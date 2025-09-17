@@ -2,7 +2,6 @@ import qs from 'qs'
 import path from 'node:path'
 import hapi from '@hapi/hapi'
 import Scooter from '@hapi/scooter'
-import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 
 import { router } from './router.js'
 import { config } from '../config/config.js'
@@ -10,8 +9,7 @@ import { nunjucksConfig } from '../config/nunjucks/index.js'
 import { csrf } from './common/helpers/auth/csrf.js'
 import { catchAll } from './common/helpers/errors/catch-all.js'
 import { azureOidc } from './common/helpers/auth/azure-oidc.js'
-import { buildRedisClient } from './common/helpers/redis/redis-client.js'
-import { sessionManager } from './common/helpers/session-manager.js'
+import { sessionManager } from './common/helpers/session/session-manager.js'
 import { sessionCookie } from './common/helpers/auth/session-cookie.js'
 import { requestLogger } from './common/helpers/logging/request-logger.js'
 import { addFlashMessagesToContext } from './common/helpers/add-flash-messages-to-context.js'
@@ -26,24 +24,17 @@ import { requestTracing } from './common/helpers/request-tracing.js'
 import { setupProxy } from './common/helpers/proxy/setup-proxy.js'
 import { federatedOidc } from './common/helpers/auth/federated-oidc.js'
 import { cognitoFederatedCredentials } from './common/helpers/auth/cognito.js'
-import { setupCaches } from './common/helpers/setup-caches.js'
+import { setupCaches } from './common/helpers/session/setup-caches.js'
+import { getCacheEngine } from './common/helpers/session/cache-engine.js'
 
 const enableSecureContext = config.get('enableSecureContext')
-const redisClient = buildRedisClient(config.get('redis'))
-const serverCache = [
-  {
-    name: 'session',
-    engine: new CatboxRedis({ client: redisClient })
-  }
-]
 
 /**
  * @typedef {object} Options
  * @property {import('@hapi/hapi').ServerCache} cache
- * @param {Options} options
  * @returns {Promise<import('@hapi/hapi').Server>}
  */
-async function createServer({ cache } = { cache: serverCache }) {
+async function createServer() {
   setupProxy()
 
   const server = hapi.server({
@@ -77,7 +68,12 @@ async function createServer({ cache } = { cache: serverCache }) {
     query: {
       parser: (query) => qs.parse(query)
     },
-    cache,
+    cache: {
+      name: config.get('session.cache.name'),
+      engine: getCacheEngine(
+        /** @type {Engine} */ (config.get('session.cache.engine'))
+      )
+    },
     state: {
       strictHeader: false
     }
