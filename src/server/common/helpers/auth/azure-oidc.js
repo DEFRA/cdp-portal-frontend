@@ -8,7 +8,7 @@ import { sessionNames } from '../../constants/session-names.js'
 import { fetchWellknown } from '../fetch/fetch-well-known.js'
 import { refreshTokenIfExpired } from './refresh-token.js'
 
-const sessionCookieConfig = config.get('sessionCookie')
+const sessionCookieConfig = config.get('session.cookie')
 
 const azureOidc = {
   plugin: {

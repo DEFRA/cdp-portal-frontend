@@ -80,6 +80,14 @@ const config = convict({
         format: Boolean,
         default: !isProduction
       }
+    },
+    dynamoDb: {
+      endpoint: {
+        doc: 'AWS DynamoDB endpoint',
+        format: String,
+        default: 'http://127.0.0.1:4566',
+        env: 'DYNAMODB_ENDPOINT'
+      }
     }
   },
   portalBackendUrl: {
@@ -112,26 +120,6 @@ const config = convict({
     format: String,
     default: 'DEFRA'
   },
-  sessionCookie: {
-    password: {
-      doc: 'Session cookie password',
-      format: '*',
-      default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
-      sensitive: true,
-      env: 'SESSION_COOKIE_PASSWORD'
-    },
-    ttl: {
-      doc: 'Session cookie ttl',
-      format: Number,
-      default: eightHours,
-      env: 'SESSION_COOKIE_TTL'
-    },
-    isSecure: {
-      doc: 'Session cookie isSecure flag',
-      format: Boolean,
-      default: isProduction
-    }
-  },
   nunjucks: {
     watch: {
       doc: 'Reload templates when they are changed.',
@@ -142,6 +130,62 @@ const config = convict({
       doc: 'Use a cache and recompile templates each time',
       format: Boolean,
       default: isDevelopment
+    }
+  },
+  session: {
+    cache: {
+      engine: {
+        doc: 'backend cache is written to',
+        format: ['dynamodb', 'redis', 'memory'],
+        default: 'redis',
+        env: 'SESSION_CACHE_ENGINE'
+      },
+      name: {
+        doc: 'server side session cache name',
+        format: String,
+        default: 'session',
+        env: 'SESSION_CACHE_NAME'
+      },
+      ttl: {
+        doc: 'server side session cache ttl',
+        format: Number,
+        default: oneDay,
+        env: 'SESSION_CACHE_TTL'
+      },
+      segment: {
+        doc: 'Isolate cached items within the cache partition',
+        format: String,
+        default: 'session',
+        env: 'SERVER_CACHE_SEGMENT'
+      }
+    },
+    cookie: {
+      ttl: {
+        doc: 'Session cookie ttl',
+        format: Number,
+        default: eightHours,
+        env: 'SESSION_COOKIE_TTL'
+      },
+      password: {
+        doc: 'Session cookie password',
+        format: '*',
+        default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
+        sensitive: true,
+        env: 'SESSION_COOKIE_PASSWORD'
+      },
+      isSecure: {
+        doc: 'Session cookie isSecure flag',
+        format: Boolean,
+        default: isProduction
+      }
+    }
+  },
+  dynamoDb: {
+    tableName: {
+      doc: 'AWS DynamoDB table name',
+      format: String,
+      default: 'cdp-portal-frontend-session',
+      env: 'AWS_DYNAMODB_TABLE_NAME'
     }
   },
   redis: {
@@ -170,24 +214,12 @@ const config = convict({
       default: 'cdp-portal-frontend:',
       env: 'REDIS_KEY_PREFIX'
     },
-    ttl: {
-      doc: 'Redis cache global ttl',
-      format: Number,
-      default: oneDay,
-      env: 'REDIS_TTL'
-    },
     useSingleInstanceCache: {
       doc: 'Enable the use of a single instance Redis Cache',
       format: Boolean,
       default: process.env.NODE_ENV !== 'production',
       env: 'USE_SINGLE_INSTANCE_CACHE'
     }
-  },
-  serverCacheSegment: {
-    doc: 'Isolate cached items within the cache partition',
-    format: String,
-    default: 'session',
-    env: 'SERVER_CACHE_SEGMENT'
   },
   isProduction: {
     doc: 'If this application running in the production environment',

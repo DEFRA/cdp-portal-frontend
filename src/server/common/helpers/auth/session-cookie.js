@@ -2,7 +2,7 @@ import authCookie from '@hapi/cookie'
 import { config } from '../../../../config/config.js'
 import { updateUserScope } from './user-session.js'
 
-const sessionCookieConfig = config.get('sessionCookie')
+const sessionCookieConfig = config.get('session.cookie')
 
 const sessionCookie = {
   plugin: {

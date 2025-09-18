@@ -1,6 +1,5 @@
 import isNil from 'lodash/isNil.js'
 import capitalize from 'lodash/capitalize.js'
-import { Engine as CatboxMemory } from '@hapi/catbox-memory'
 
 import { createServer } from '../src/server/index.js'
 import { fetchTestRuns } from '../src/server/test-suites/helpers/fetch/fetch-test-runs.js'
@@ -31,6 +30,7 @@ import {
   fetchTenantDatabaseByEnvironment
 } from '../src/server/common/helpers/fetch/fetch-tenant-databases.js'
 import { tenantDatabasesFixture } from '../src/__fixtures__/tenant-databases.js'
+import { config } from '../src/config/config.js'
 
 export const mockTeam = {
   teamId: 'mock-team-id',
@@ -53,19 +53,9 @@ async function mockCsrfToken(server) {
 }
 
 export async function initialiseServer() {
-  const inMemoryCache = [
-    {
-      name: 'session',
-      engine: new CatboxMemory()
-    },
-    {
-      name: 'featureToggles',
-      engine: new CatboxMemory()
-    }
-  ]
-  const server = await createServer({
-    cache: inMemoryCache
-  })
+  config.set('session.cache.engine', 'memory')
+
+  const server = await createServer()
 
   await mockCsrfToken(server)
 
