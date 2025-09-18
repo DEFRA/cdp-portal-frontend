@@ -5,7 +5,13 @@
  * @property {boolean} [newTab=true]
  * @returns {string}
  */
-function buildLink({ href, classes, text = null, newTab = true }) {
+function buildLink({
+  href,
+  classes,
+  text = null,
+  newTab = true,
+  dataTestId = 'app-link'
+}) {
   const target = newTab ? 'target="_blank" rel="noopener noreferrer"' : ''
   const linkClasses = ['app-link']
   if (classes) {
@@ -15,7 +21,7 @@ function buildLink({ href, classes, text = null, newTab = true }) {
   return `<a class="${linkClasses.join(' ')}"
              href="${href}"
              ${target}
-             data-testid="app-link" >${text ?? href}</a>`
+             data-testid="${dataTestId}" >${text ?? href}</a>`
 }
 
 export { buildLink }

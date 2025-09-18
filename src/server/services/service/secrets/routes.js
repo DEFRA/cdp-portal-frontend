@@ -9,6 +9,8 @@ import { commonServiceExtensions } from '../../../common/helpers/ext/extensions.
 import { serviceOwnerOrAdminUserScope } from '../../../common/constants/scopes.js'
 import { provideSubNav } from '../../../helpers/provide-sub-navigation.js'
 import { SERVICE } from '../../../common/patterns/entities/tabs/constants.js'
+import { removeSecretConfirmController } from '../../../common/patterns/entities/tabs/secrets/controllers/remove-confirm.js'
+import { removeSecretController } from '../../../common/patterns/entities/tabs/secrets/controllers/remove.js'
 
 const serviceSecrets = {
   plugin: {
@@ -66,6 +68,16 @@ const serviceSecrets = {
             method: 'POST',
             path: '/services/{serviceId}/secrets/{environment}/create',
             ...createSecretController(SERVICE)
+          },
+          {
+            method: 'GET',
+            path: '/services/{serviceId}/secrets/{environment}/remove',
+            ...removeSecretConfirmController(SERVICE)
+          },
+          {
+            method: 'POST',
+            path: '/services/{serviceId}/secrets/{environment}/remove',
+            ...removeSecretController(SERVICE)
           }
         ].map(serviceOwnerOrAdminUserScope)
       )

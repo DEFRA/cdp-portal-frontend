@@ -61,7 +61,7 @@ function environmentSecrets(
   const shouldPoll = pendingSecretKeys.length > 0 && !exceptionMessage
   const successMessage =
     pendingSecretKeys.length === 0 && !exceptionMessage
-      ? 'Secret added and now available'
+      ? 'Secret modified successfully'
       : null
 
   return {

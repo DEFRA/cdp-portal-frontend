@@ -1,21 +1,18 @@
 import Joi from 'joi'
 
-import { secretPayloadValidation } from './secret-payload-validation.js'
-import { teamFixture } from '../../../../../../../__fixtures__/team.js'
-import { scopes } from '@defra/cdp-validation-kit'
+import {
+  secretPayloadValidation,
+  removeSecretPayloadValidation
+} from './secret-payload-validation.js'
 
 describe('#secretPayloadValidation', () => {
-  const mockTenantTeamId = '087d4a80-002b-48cf-a7d3-aa60b67784f0'
-
-  describe('With tenant team', () => {
+  describe('secretPayloadValidation', () => {
     test('Should validate payload for create action with valid data', () => {
       const action = 'create'
       const existingSecretKeys = ['existingKey']
       const payload = {
         secretKey: 'newSecretKey',
         secretValue: 'newSecretValue',
-        teamId: mockTenantTeamId,
-        environment: 'dev',
         button: 'create'
       }
 
@@ -31,8 +28,6 @@ describe('#secretPayloadValidation', () => {
       const payload = {
         secretKey: 'existingKey',
         secretValue: 'updatedSecretValue',
-        teamId: mockTenantTeamId,
-        environment: 'dev',
         button: 'update'
       }
 
@@ -48,9 +43,7 @@ describe('#secretPayloadValidation', () => {
       const payload = {
         secretKey: 'invalid key!',
         secretValue: 'newSecretValue',
-        teamId: mockTenantTeamId,
-        environment: 'dev',
-        button: 'create'
+        button: action
       }
 
       const schema = secretPayloadValidation(action, existingSecretKeys)
@@ -62,15 +55,29 @@ describe('#secretPayloadValidation', () => {
       )
     })
 
+    test('Should provide error for non-existent key', () => {
+      const action = 'update'
+      const existingSecretKeys = ['existingKey']
+      const payload = {
+        secretKey: 'newKey',
+        secretValue: 'newSecretValue',
+        button: action
+      }
+
+      const schema = secretPayloadValidation(action, existingSecretKeys)
+      const { error } = schema.validate(payload)
+
+      expect(error).toBeInstanceOf(Joi.ValidationError)
+      expect(error.message).toBe('"secretKey" must be [existingKey]')
+    })
+
     test('Should provide error for invalid immutable keys', () => {
       const action = 'create'
       const existingSecretKeys = ['existingKey']
       const payload = {
         secretKey: 'REDIS_KEY_PREFIX',
         secretValue: 'newSecretValue',
-        teamId: mockTenantTeamId,
-        environment: 'dev',
-        button: 'create'
+        button: action
       }
 
       const schema = secretPayloadValidation(action, existingSecretKeys)
@@ -80,64 +87,45 @@ describe('#secretPayloadValidation', () => {
       expect(error.message).toBe('Platform secrets cannot be changed')
     })
 
-    test('Should return error for disallowed secretKey', () => {
+    test('Should return error for existing secretKey', () => {
       const action = 'create'
       const existingSecretKeys = ['existingKey']
       const payload = {
         secretKey: 'existingKey',
         secretValue: 'newSecretValue',
-        teamId: mockTenantTeamId,
-        environment: 'dev',
-        button: 'create'
+        button: action
       }
 
-      const schema = secretPayloadValidation(action, [], existingSecretKeys)
+      const schema = secretPayloadValidation(action, existingSecretKeys)
       const { error } = schema.validate(payload)
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
       expect(error.message).toBe('Key already exists')
     })
-
-    test('Should return error for invalid environment', () => {
-      const action = 'create'
-      const existingSecretKeys = ['existingKey']
-      const payload = {
-        secretKey: 'newSecretKey',
-        secretValue: 'newSecretValue',
-        teamId: mockTenantTeamId,
-        environment: 'management',
-        button: 'create'
-      }
-
-      const schema = secretPayloadValidation(action, [], existingSecretKeys)
-      const { error } = schema.validate(payload)
-
-      expect(error).toBeInstanceOf(Joi.ValidationError)
-      expect(error.message).toBe('Choose an environment')
-    })
   })
 
-  describe('With admin team', () => {
-    test('Should return error for invalid environment', () => {
-      const action = 'create'
-      const existingSecretKeys = ['existingKey']
+  describe('removeSecretKeyValidation', () => {
+    test('Should validate payload with valid data', () => {
       const payload = {
-        secretKey: 'newSecretKey',
-        secretValue: 'newSecretValue',
-        teamId: teamFixture.teamId,
-        environment: 'invalidEnv',
-        button: 'create'
+        secretKey: 'existingKey'
       }
-
-      const schema = secretPayloadValidation(
-        action,
-        [scopes.admin],
-        existingSecretKeys
+      const { error } = removeSecretPayloadValidation(['existingKey']).validate(
+        payload
       )
-      const { error } = schema.validate(payload)
+
+      expect(error).toBeUndefined()
+    })
+
+    test('Should error when trying to delete non-existent key', () => {
+      const payload = {
+        secretKey: 'unknownKey'
+      }
+      const { error } = removeSecretPayloadValidation(['existingKey']).validate(
+        payload
+      )
 
       expect(error).toBeInstanceOf(Joi.ValidationError)
-      expect(error.message).toBe('Choose an environment')
+      expect(error.message).toBe('"secretKey" must be [existingKey]')
     })
   })
 })

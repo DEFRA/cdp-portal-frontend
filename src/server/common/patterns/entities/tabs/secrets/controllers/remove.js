@@ -1,21 +1,31 @@
 import Boom from '@hapi/boom'
-import omit from 'lodash/omit.js'
 
 import { config } from '../../../../../../../config/config.js'
 import { sessionNames } from '../../../../../constants/session-names.js'
-import { buildErrorDetails } from '../../../../../helpers/build-error-details.js'
-import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
-import { secretPayloadValidation } from '../schema/secret-payload-validation.js'
-import { pluralise } from '../../../../../helpers/pluralise.js'
 import { fetchSecrets } from '../../../../../helpers/fetch/fetch-secrets.js'
+import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
+import { removeSecretPayloadValidation } from '../schema/secret-payload-validation.js'
+import { pluralise } from '../../../../../helpers/pluralise.js'
+import Joi from 'joi'
 
-function updateSecretController(entityKind) {
+const immutableKeys = config.get('platformGlobalSecretKeys')
+
+function removeSecretController(entityKind) {
   return {
     options: {
-      id: `post:${pluralise(entityKind)}/{serviceId}/secrets/{environment}/update`,
+      id: `post:${pluralise(entityKind)}/{serviceId}/secrets/{environment}/remove`,
       validate: {
         params: serviceParamsValidation,
-        failAction: () => Boom.boomify(Boom.badRequest())
+        payload: Joi.object({
+          secretKey: Joi.string()
+            .not(...immutableKeys)
+            .min(1)
+            .max(256)
+            .required()
+        }),
+        failAction: () => {
+          return Boom.boomify(Boom.badRequest())
+        }
       }
     },
     handler: async (request, h) => {
@@ -24,50 +34,37 @@ function updateSecretController(entityKind) {
       const environment = params.environment
       const payload = request.payload
       const secretKey = payload?.secretKey
-      const secretValue = payload?.secretValue
-      const button = payload?.button
-
-      const redirectUrl = request.routeLookup(
-        `${pluralise(entityKind)}/{serviceId}/secrets/{environment}/update`,
-        {
-          params: { serviceId, environment },
-          query: { secretKey }
-        }
-      )
 
       const sanitisedPayload = {
-        secretKey,
-        secretValue,
-        button
+        secretKey
       }
 
       const secrets = await fetchSecrets(environment, serviceId, request.logger)
 
-      const validationResult = secretPayloadValidation(
-        button,
-        request.auth.credentials?.scope,
+      const validationResult = removeSecretPayloadValidation(
         secrets?.keys
-      ).validate(sanitisedPayload, { abortEarly: false })
+      ).validate(sanitisedPayload, {
+        abortEarly: false
+      })
 
       if (validationResult?.error) {
-        const errorDetails = buildErrorDetails(validationResult.error.details)
-
-        request.yar.flash(sessionNames.validationFailure, {
-          formValues: sanitisedPayload,
-          formErrors: errorDetails
-        })
+        request.logger.error(validationResult?.error)
+        request.yar.flash(
+          sessionNames.globalValidationFailures,
+          'Error whilst removing secret'
+        )
       } else {
-        const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
+        const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/remove/${serviceId}/${environment}`
 
         try {
           await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
             method: 'post',
-            payload: omit(sanitisedPayload, ['button'])
+            payload: sanitisedPayload
           })
 
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
-            text: 'Secret being updated',
+            text: 'Secret being removed',
             type: 'success'
           })
 
@@ -80,16 +77,27 @@ function updateSecretController(entityKind) {
             )
           )
         } catch (error) {
-          request.logger.error({ error }, 'Update secret call failed')
+          request.logger.error({ error }, 'Remove secret call failed')
           request.yar.flash(
             sessionNames.globalValidationFailures,
             error.message
           )
         }
       }
+
+      const redirectUrl = request.routeLookup(
+        `${pluralise(entityKind)}/{serviceId}/secrets/{environment}/remove`,
+        {
+          query: { secretKey },
+          params: {
+            serviceId,
+            environment
+          }
+        }
+      )
       return h.redirect(redirectUrl)
     }
   }
 }
 
-export { updateSecretController }
+export { removeSecretController }

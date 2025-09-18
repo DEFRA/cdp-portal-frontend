@@ -11,6 +11,7 @@ import { updateSecretFormController } from '../../../common/patterns/entities/ta
 import { updateSecretController } from '../../../common/patterns/entities/tabs/secrets/controllers/update.js'
 import { createSecretController } from '../../../common/patterns/entities/tabs/secrets/controllers/create.js'
 import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
+import { removeSecretConfirmController } from '../../../common/patterns/entities/tabs/secrets/controllers/remove-confirm.js'
 
 export const testSuiteSecrets = {
   plugin: {
@@ -62,7 +63,17 @@ export const testSuiteSecrets = {
             method: 'POST',
             path: '/test-suites/{serviceId}/secrets/{environment}/create',
             ...createSecretController(TEST_SUITE)
+          },
+          {
+            method: 'GET',
+            path: '/test-suites/{serviceId}/secrets/{environment}/remove',
+            ...removeSecretConfirmController(TEST_SUITE)
           }
+          // {
+          //   method: 'POST',
+          //   path: '/test-suites/{serviceId}/secrets/{environment}/remove',
+          //   ...removeSecretController(TEST_SUITE)
+          // }
         ].map(serviceOwnerOrAdminUserScope)
       )
     }

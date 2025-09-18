@@ -8,7 +8,8 @@ function buildBreakGlassLink({ teamId }) {
         classes: 'app-link--underline',
         href: `/teams/${teamId}/remove-break-glass/${userId}`,
         text: 'Remove break glass',
-        newTab: false
+        newTab: false,
+        dataTestId: 'remove-break-glass'
       })
     }
 
@@ -16,7 +17,8 @@ function buildBreakGlassLink({ teamId }) {
       classes: 'app-link--underline',
       href: `/teams/${teamId}/grant-break-glass/${userId}`,
       text: 'Grant break glass',
-      newTab: false
+      newTab: false,
+      dataTestId: 'grant-break-glass'
     })
   }
 }
@@ -36,10 +38,11 @@ function transformTeamUsersToRows({
       : ''
 
     const removeUserLink = buildLink({
-      classes: `app-link--underline${hasCanGrantBreakGlass ? ' app-link--with-seperator' : ''}`,
+      classes: `app-link--underline${hasCanGrantBreakGlass ? ' app-link--with-separator' : ''}`,
       href: `/teams/${team.teamId}/remove-member/${user.userId}`,
       text: 'Remove user',
-      newTab: false
+      newTab: false,
+      dataTestId: `remove-user`
     })
 
     if (user?.hasBreakGlass) {
