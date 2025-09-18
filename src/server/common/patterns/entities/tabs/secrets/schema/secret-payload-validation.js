@@ -29,7 +29,7 @@ const provideCustomErrorCode = (errorReports) => {
  * @param {Array} [existingSecretKeys] existingSecretKeys
  * @returns {Joi.ObjectSchema<*>}
  */
-function secretPayloadValidation(action, existingSecretKeys) {
+function secretPayloadValidation(action, existingSecretKeys = []) {
   return Joi.object({
     secretKey: secretKeyValidation(action, existingSecretKeys),
     secretValue: Joi.string()

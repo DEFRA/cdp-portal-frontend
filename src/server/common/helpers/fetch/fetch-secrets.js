@@ -14,8 +14,7 @@ async function fetchSecrets(environment, serviceName) {
   } catch (error) {
     // We are catching here because a 404 can be thrown when a service has not had secrets set up on an environment
     logger.info(
-      error,
-      'Secrets not found, has service had secrets set up on this environment?'
+      `Secrets not found for ${serviceName} and ${environment} - ${error.message}`
     )
     return null
   }
