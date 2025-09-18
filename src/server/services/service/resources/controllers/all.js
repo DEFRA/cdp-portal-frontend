@@ -17,17 +17,16 @@ const allResourcesController = {
     }
   },
   handler: async (request, h) => {
-    const entity = request.app.entity
+    const { entity } = request.app
     const serviceName = entity.name
     const environments = getEnvironments(request.auth.credentials?.scope)
     const tenantService = await fetchTenantService(serviceName)
-    const isPostgres = Object.values(tenantService).some(
-      (valueObj) => valueObj.postgres === true
+    const isPostgresService = Object.values(tenantService).some(
+      ({ postgres }) => postgres
     )
-
-    const tenantDatabase = isPostgres
+    const tenantDatabase = isPostgresService
       ? await fetchTenantDatabase(serviceName)
-      : undefined
+      : null
     const resources = resourcesByEnvironment({
       environments,
       tenantService,
@@ -38,6 +37,7 @@ const allResourcesController = {
       pageTitle: `${serviceName} - Resources`,
       entity,
       resources,
+      isPostgresService,
       breadcrumbs: [
         {
           text: 'Services',

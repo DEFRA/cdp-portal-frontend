@@ -15,8 +15,8 @@ const environmentResourcesController = {
     }
   },
   handler: async (request, h) => {
-    const environment = request.params.environment
-    const entity = request.app.entity
+    const { environment } = request.params
+    const { entity } = request.app
     const serviceName = entity.name
     const team = entity?.teams?.at(0)
     const teamId = team?.teamId
@@ -26,10 +26,10 @@ const environmentResourcesController = {
       serviceName,
       environment
     )
-    const tenantDatabaseForEnv = await fetchTenantDatabaseByEnvironment(
-      serviceName,
-      environment
-    )
+    const isPostgresService = tenantServiceForEnv?.postgres
+    const tenantDatabaseForEnv = isPostgresService
+      ? await fetchTenantDatabaseByEnvironment(serviceName, environment)
+      : null
     const resource = resourceByEnvironment({
       environment,
       tenantServiceForEnv,
@@ -42,6 +42,7 @@ const environmentResourcesController = {
       teamId,
       environment,
       resource,
+      isPostgresService,
       breadcrumbs: [
         {
           text: 'Services',

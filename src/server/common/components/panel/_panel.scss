@@ -9,7 +9,16 @@
   border-radius: $app-border-radius;
 
   & + & {
-    margin-top: govuk-spacing(4);
+    margin-top: govuk-spacing(2);
+  }
+}
+
+// Let grid control spacing between panels
+@include govuk-media-query($from: desktop-big) {
+  .app-grid {
+    .app-panel {
+      margin-top: 0;
+    }
   }
 }
 

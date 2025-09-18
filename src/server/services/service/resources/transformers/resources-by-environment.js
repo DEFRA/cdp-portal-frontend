@@ -2,6 +2,7 @@ import { sortBy } from '../../../../common/helpers/sort/sort-by.js'
 import { buildList } from '../../../../common/helpers/view/build-list.js'
 import { sortByName } from '../../../../common/helpers/sort/sort-by-name.js'
 import { renderComponent } from '../../../../common/helpers/nunjucks/render-component.js'
+import { noValue } from '../../../../common/constants/no-value.js'
 
 const keyCellClass = 'app-summary-list__key'
 
@@ -63,7 +64,7 @@ function resourceByEnvironment({
           return {
             classes: 'app-summary-list app-summary-list--resource',
             attributes: {
-              'data-testid': `${prefix}-` + environment.toLowerCase()
+              'data-testid': `${prefix}-${environment}`
             },
             rows: [
               {
@@ -109,7 +110,7 @@ function resourceByEnvironment({
           return {
             classes: 'app-summary-list app-summary-list--resource',
             attributes: {
-              'data-testid': `${prefix}-` + environment.toLowerCase()
+              'data-testid': `${prefix}-${environment}`
             },
             rows: [
               {
@@ -136,40 +137,46 @@ function resourceByEnvironment({
       ? {
           classes: 'app-summary-list app-summary-list--resource',
           attributes: {
-            'data-testid': `database-` + environment.toLowerCase()
+            'data-testid': `database-${environment}`
           },
           rows: [
             {
               key: { text: 'Name', classes: keyCellClass },
               value: {
-                html: renderComponent('copy', {
-                  content: {
-                    id: `database-name-${environment}`,
-                    text: tenantDatabaseForEnv.databaseName
-                  }
-                })
+                html: tenantDatabaseForEnv.databaseName
+                  ? renderComponent('copy', {
+                      content: {
+                        id: `database-name-${environment}`,
+                        text: tenantDatabaseForEnv.databaseName
+                      }
+                    })
+                  : noValue
               }
             },
             {
               key: { text: 'Endpoint', classes: keyCellClass },
               value: {
-                html: renderComponent('copy', {
-                  content: {
-                    id: `database-endpoint-${environment}`,
-                    text: tenantDatabaseForEnv.endpoint
-                  }
-                })
+                html: tenantDatabaseForEnv.endpoint
+                  ? renderComponent('copy', {
+                      content: {
+                        id: `database-endpoint-${environment}`,
+                        text: tenantDatabaseForEnv.endpoint
+                      }
+                    })
+                  : noValue
               }
             },
             {
               key: { text: 'Port', classes: keyCellClass },
               value: {
-                html: renderComponent('copy', {
-                  content: {
-                    id: `database-port-${environment}`,
-                    text: tenantDatabaseForEnv.port
-                  }
-                })
+                html: tenantDatabaseForEnv.port
+                  ? renderComponent('copy', {
+                      content: {
+                        id: `database-port-${environment}`,
+                        text: tenantDatabaseForEnv.port
+                      }
+                    })
+                  : noValue
               }
             }
           ]

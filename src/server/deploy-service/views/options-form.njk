@@ -170,49 +170,45 @@
         {% endif %}
 
         {% call appPanel() %}
-          <section class="app-row">
-            <div class="app-row__item-flex-two">
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
-              <p class="govuk-!-margin-bottom-2">
-                Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}
-                {% if imageName %}
-                  For more information view <a class="app-link" href="/running-services/{{ imageName }}">
-                  Running services
-                </a>
-                {% endif %}
-              </p>
-
+          <section>
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
+            <p class="govuk-!-margin-bottom-2">
+              Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}
               {% if imageName %}
-                <div class="app-section app-section--extra-wide">
-                  {{ appRunningService({
-                    runningServices: runningServices,
-                    environments: environments
-                  }) }}
-                </div>
+                For more information view <a class="app-link" href="/running-services/{{ imageName }}">
+                Running services
+              </a>
               {% endif %}
-            </div>
+            </p>
+
+            {% if imageName %}
+              <div class="app-section app-section--extra-wide">
+                {{ appRunningService({
+                  runningServices: runningServices,
+                  environments: environments
+                }) }}
+              </div>
+            {% endif %}
           </section>
         {% endcall %}
 
         {% if latestMigrations | length %}
           {% call appPanel() %}
-            <section class="app-row">
-              <div class="app-row__item-flex-two">
-                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Database Details</h2>
-                <p class="govuk-!-margin-bottom-2">
-                  Currently, applied database changes{%- if imageName %} for {{ imageName }}{% endif -%}
-                </p>
+            <section>
+              <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Database Details</h2>
+              <p class="govuk-!-margin-bottom-2">
+                Currently, applied database changes{%- if imageName %} for {{ imageName }}{% endif -%}
+              </p>
 
-                {% if imageName %}
-                  <div class="app-section app-section--extra-wide">
-                    {{ appDatabaseDetail({
-                      serviceName: imageName,
-                      databaseDetails: latestMigrations,
-                      environments: environments
-                    }) }}
-                  </div>
-                {% endif %}
-              </div>
+              {% if imageName %}
+                <div class="app-section app-section--extra-wide">
+                  {{ appDatabaseDetail({
+                    serviceName: imageName,
+                    databaseDetails: latestMigrations,
+                    environments: environments
+                  }) }}
+                </div>
+              {% endif %}
             </section>
           {% endcall %}
         {% endif %}

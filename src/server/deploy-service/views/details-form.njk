@@ -7,7 +7,7 @@
 {% for version in latestVersions %}
 
   {% set createdHtml %}
-    <div class="app-row">
+    <div class="app-flex--center">
       {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
       {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
     </div>
@@ -145,85 +145,79 @@
           }) %}
 
             {% call appPanel() %}
-              <section class="app-row">
+              <section>
 
-                <div class="app-row__item-flex-two">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Published Images</h2>
-                  <p>
-                    Latest published Docker images by version{%- if imageName %} for {{ imageName }}{% endif -%}
-                    {% if imageName %}
-                      Images built and published via
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Latest Published Images</h2>
+                <p>
+                  Latest published Docker images by version{%- if imageName %} for {{ imageName }}{% endif -%}
+                  {% if imageName %}
+                    Images built and published via
+                    <a class="app-link" target="_blank" rel="noopener noreferrer"
+                       href="https://github.com/DEFRA/{{ imageName }}/actions">
+                      GitHub Actions</a>
+                  {% endif %}
+                </p>
+
+                <div class="app-section">
+                  {% if latestPublishedTableRows | length %}
+                    {{ govukTable({
+                      classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                      head: [{ text: "Published" }, { text: "Version" }],
+                      rows: latestPublishedTableRows
+                    }) }}
+
+                    <p class="govuk-!-margin-bottom-0">
                       <a class="app-link" target="_blank" rel="noopener noreferrer"
-                         href="https://github.com/DEFRA/{{ imageName }}/actions">
-                        GitHub Actions</a>
-                    {% endif %}
-                  </p>
+                         href="https://github.com/DEFRA/{{ imageName }}/tags">
+                        more versions
+                      </a>
+                    </p>
+                  {% endif %}
 
-                  <div class="app-section">
-                    {% if latestPublishedTableRows | length %}
-                      {{ govukTable({
-                        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                        head: [{ text: "Published" }, { text: "Version" }],
-                        rows: latestPublishedTableRows
-                      }) }}
-
-                      <p class="govuk-!-margin-bottom-0">
-                        <a class="app-link" target="_blank" rel="noopener noreferrer"
-                           href="https://github.com/DEFRA/{{ imageName }}/tags">
-                          more versions
-                        </a>
-                      </p>
-                    {% endif %}
-
-                  </div>
                 </div>
               </section>
             {% endcall %}
 
             {% call appPanel() %}
-              <section class="app-row">
-                <div class="app-row__item-flex-two">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
-                  <p class="govuk-!-margin-bottom-2">
-                    Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}
-                    {% if imageName %}
-                      For more information view <a class="app-link" href="/running-services/{{ imageName }}">
-                      Running services
-                    </a>
-                    {% endif %}
-                  </p>
-
+              <section>
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Running Services</h2>
+                <p class="govuk-!-margin-bottom-2">
+                  Currently, deployed Image versions{%- if imageName %} for {{ imageName }}{% endif -%}
                   {% if imageName %}
-                    <div class="app-section app-section--extra-wide">
-                      {{ appRunningService({
-                        runningServices: runningServices,
-                        environments: environments
-                      }) }}
-                    </div>
+                    For more information view <a class="app-link" href="/running-services/{{ imageName }}">
+                    Running services
+                  </a>
                   {% endif %}
-                </div>
+                </p>
+
+                {% if imageName %}
+                  <div class="app-section app-section--extra-wide">
+                    {{ appRunningService({
+                      runningServices: runningServices,
+                      environments: environments
+                    }) }}
+                  </div>
+                {% endif %}
               </section>
             {% endcall %}
 
             {% if latestMigrations | length %}
               {% call appPanel() %}
-                <section class="app-row">
-                  <div class="app-row__item-flex-two">
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Database Details</h2>
-                    <p class="govuk-!-margin-bottom-2">
-                      Currently, applied database changes{%- if imageName %} for {{ imageName }}{% endif -%}
-                    </p>
+                <section>
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Database Details</h2>
+                  <p class="govuk-!-margin-bottom-2">
+                    Currently, applied database changes{%- if imageName %} for {{ imageName }}{% endif -%}
+                  </p>
 
-                    {% if imageName %}
-                      <div class="app-section app-section--extra-wide">
-                        {{ appDatabaseDetail({
-                          serviceName: imageName,
-                          databaseDetails: latestMigrations,
-                          environments: environments
-                        }) }}
-                      </div>
-                    {% endif %}
-                  </div>
+                  {% if imageName %}
+                    <div class="app-section app-section--extra-wide">
+                      {{ appDatabaseDetail({
+                        serviceName: imageName,
+                        databaseDetails: latestMigrations,
+                        environments: environments
+                      }) }}
+                    </div>
+                  {% endif %}
                 </section>
               {% endcall %}
             {% endif %}

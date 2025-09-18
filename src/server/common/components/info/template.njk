@@ -6,7 +6,8 @@
 {% set classes = [
   "app-info",
   params.classes if params.classes,
-  "app-info--inverse" if params.isInverse
+  "app-info--inverse" if params.isInverse,
+  "app-info--slim" if params.isSlim
 ] | join(" ") | trim %}
 
 <div
@@ -16,7 +17,7 @@
   data-testid="app-info">
 
   {{ appInfoIcon({
-    classes: "app-icon--small",
+    classes: "app-icon--tiny" if params.isSlim else "app-icon--small",
     description: "Info"
   }) }}
 

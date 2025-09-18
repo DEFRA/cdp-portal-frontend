@@ -30,6 +30,7 @@ export function environmentProxyController(entityKind) {
         pageTitle: `${entityName} - Proxy - ${formattedEnvironment}`,
         entityName,
         environment,
+        entityKind,
         isProxySetup: proxyRules.rules.isProxySetup,
         allowedDomains: proxyRules.rules.allowedDomains,
         defaultDomains: proxyRules.rules.defaultDomains,

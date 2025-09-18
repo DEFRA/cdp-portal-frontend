@@ -32,9 +32,7 @@
               hasBuckets: resource.s3BucketRows | length
             }) }}
 
-            <div class="app-sub-grid">
-              {% include "services/common/partials/resource-panel.njk" %}
-            </div>
+            {% include "services/common/partials/resource-panel.njk" %}
 
           </section>
         {% endcall %}
