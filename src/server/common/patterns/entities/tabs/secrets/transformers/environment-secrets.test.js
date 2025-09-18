@@ -23,7 +23,7 @@ describe('#environmentSecrets', () => {
     ])
     expect(result.platformSecrets).toEqual([
       {
-        description: 'Automatically generated Redis cache key prefix name.',
+        description: 'Automatically generated Redis cache key prefix name',
         key: 'REDIS_KEY_PREFIX'
       }
     ])
