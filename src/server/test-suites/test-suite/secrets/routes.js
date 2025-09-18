@@ -12,6 +12,7 @@ import { updateSecretController } from '../../../common/patterns/entities/tabs/s
 import { createSecretController } from '../../../common/patterns/entities/tabs/secrets/controllers/create.js'
 import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
 import { removeSecretConfirmController } from '../../../common/patterns/entities/tabs/secrets/controllers/remove-confirm.js'
+import { removeSecretController } from '../../../common/patterns/entities/tabs/secrets/controllers/remove.js'
 
 export const testSuiteSecrets = {
   plugin: {
@@ -68,12 +69,12 @@ export const testSuiteSecrets = {
             method: 'GET',
             path: '/test-suites/{serviceId}/secrets/{environment}/remove',
             ...removeSecretConfirmController(TEST_SUITE)
+          },
+          {
+            method: 'POST',
+            path: '/test-suites/{serviceId}/secrets/{environment}/remove',
+            ...removeSecretController(TEST_SUITE)
           }
-          // {
-          //   method: 'POST',
-          //   path: '/test-suites/{serviceId}/secrets/{environment}/remove',
-          //   ...removeSecretController(TEST_SUITE)
-          // }
         ].map(serviceOwnerOrAdminUserScope)
       )
     }

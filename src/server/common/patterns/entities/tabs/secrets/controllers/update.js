@@ -45,7 +45,6 @@ function updateSecretController(entityKind) {
 
       const validationResult = secretPayloadValidation(
         button,
-        request.auth.credentials?.scope,
         secrets?.keys
       ).validate(sanitisedPayload, { abortEarly: false })
 
