@@ -21,6 +21,24 @@
   }
 }
 
+.app-info--slim {
+  align-items: start;
+  margin: 0;
+  padding: govuk-spacing(2);
+  border: 1px solid $app-brand-background-colour;
+  border-left: 4px solid govuk-colour("blue");
+  min-width: 20rem;
+
+  & + &,
+  & + .app-warning {
+    margin-top: govuk-spacing(1);
+  }
+
+  .app-info-icon {
+    margin-right: govuk-spacing(1);
+  }
+}
+
 .app-info--full-width {
   display: flex;
 }

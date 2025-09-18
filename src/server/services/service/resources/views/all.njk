@@ -38,12 +38,19 @@
               hasBuckets: hasBuckets
             }) }}
 
-            <div class="app-sub-grid">
-              {% for environment, resource in resources %}
-                <span class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-4">{{ environment | title }}</span>
-                {% include "services/common/partials/resource-panel.njk" %}
-              {% endfor %}
-            </div>
+            {% for environment, resource in resources %}
+              <div class="govuk-!-margin-top-4">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+                  <a href="{{ routeLookup('services/{serviceId}/resources/{environment}', {
+                    params: { serviceId: entity.name, environment: environment }
+                  }) }}" class="app-link app-link--text-colour">
+                    {{ environment | title }}
+                  </a>
+                </h2>
+              </div>
+
+              {% include "services/common/partials/resource-panel.njk" %}
+            {% endfor %}
 
           </section>
         {% endcall %}

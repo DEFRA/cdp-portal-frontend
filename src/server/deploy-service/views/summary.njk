@@ -34,47 +34,44 @@
           {% endcall %}
 
           {% call appPanel() %}
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Configuration</h2>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-4">Configuration</h2>
 
-            <section>
-              <div class="app-row">
-                <div class="app-row__item-flex-two">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service Config</h2>
+            <section class="app-flex-center">
+              <div class="app-flex__one">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Service Config</h2>
 
-                  <p class="govuk-!-margin-bottom-2">
-                    Environment variables available to this deployment can be seen in
-                  </p>
+                <p class="govuk-!-margin-bottom-2">
+                  Environment variables available to this deployment can be seen in
+                </p>
 
-                  <ul class="govuk-list govuk-list--bullet">
-                    <li>
-                      <a
-                        class="app-link"
-                        href="https://github.com/DEFRA/cdp-app-config/blob/{{ configVersion }}/services/{{ stepData.imageName }}/{{ stepData.environment }}/{{ stepData.imageName }}.env"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        {{ stepData.imageName }} - {{ stepData.environment }} - config
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        class="app-link"
-                        href="https://github.com/DEFRA/cdp-app-config/blob/{{ configVersion }}/services/{{ stepData.imageName }}/defaults.env"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        {{ stepData.imageName }} - defaults
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <ul class="govuk-list govuk-list--bullet">
+                  <li>
+                    <a
+                      class="app-link"
+                      href="https://github.com/DEFRA/cdp-app-config/blob/{{ configVersion }}/services/{{ stepData.imageName }}/{{ stepData.environment }}/{{ stepData.imageName }}.env"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {{ stepData.imageName }} - {{ stepData.environment }} - config
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="app-link"
+                      href="https://github.com/DEFRA/cdp-app-config/blob/{{ configVersion }}/services/{{ stepData.imageName }}/defaults.env"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {{ stepData.imageName }} - defaults
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="app-flex__one">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
+                <p class="govuk-!-margin-bottom-2">
+                  The secret environment variables available to this deployment
+                </p>
 
-                <div class="app-row__item-flex-two">
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Secrets</h2>
-                  <p class="govuk-!-margin-bottom-2">
-                    The secret environment variables available to this deployment
-                  </p>
-
-                  {{ appSecretsList(secretDetail) }}
-                </div>
+                {{ appSecretsList(secretDetail) }}
               </div>
             </section>
           {% endcall %}

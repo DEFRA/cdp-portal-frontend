@@ -1,23 +1,21 @@
-{% call appPanel({ classes: "app-sub-grid__row govuk-!-margin-0" }) %}
+{% set moreLink %}
+  <a class="app-link app-link--underline app-align-right"
+     href="https://github.com/DEFRA/cdp-tf-svc-infra/blob/main/environments/{{ environment }}/tenants/{{ entity.name }}.json"
+     target="_blank" rel="noopener noreferrer"
+     data-testid="app-entity-link">
+    more
+  </a>
+{% endset %}
 
-  {% set moreLink %}
-    <a class="app-link app-link--underline app-row__item-flex-one"
-       href="https://github.com/DEFRA/cdp-tf-svc-infra/blob/main/environments/{{ environment }}/tenants/{{ entity.name }}.json"
-       target="_blank" rel="noopener noreferrer"
-       data-testid="app-entity-link">
-      more
-    </a>
-  {% endset %}
-
-  <div class="app-sub-grid__row-item">
-    <div class="app-row govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+{% call appPanel({ classes: "app-flex" }) %}
+  <div class="app-flex__one">
+    <div class="app-flex-center govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
+
       {% if resource.s3BucketRows | length %}
-        <div class="app-row__item-align-self--end">
-          {{ moreLink | safe }}
-        </div>
+        {{ moreLink | safe }}
       {% endif %}
     </div>
 
@@ -28,22 +26,21 @@
       }) }}
     {% else %}
       {{ appInfo({
-        classes: "app-info--full-width govuk-!-margin-0",
         isInverse: true,
+        isSlim: true,
         text: "S3 Buckets not set up for " + environment | title
       }) }}
     {% endif %}
   </div>
 
-  <div class="app-sub-grid__row-item">
-    <div class="app-row govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+  <div class="app-flex__one">
+    <div class="app-flex-center govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         SQS Queues
       </h3>
-      {% if resource.sqsQueues | length %}
-        <div class="app-row__item-align-self--end">
-          {{ moreLink | safe }}
-        </div>
+
+      {% if resource.s3BucketRows | length %}
+        {{ moreLink | safe }}
       {% endif %}
     </div>
 
@@ -53,22 +50,21 @@
       {% endfor %}
     {% else %}
       {{ appInfo({
-        classes: "app-info--full-width govuk-!-margin-0",
         isInverse: true,
+        isSlim: true,
         text: "SQS Queues not set up for " + environment | title
       }) }}
     {% endif %}
   </div>
 
-  <div class="app-sub-grid__row-item">
-    <div class="app-row govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+  <div class="app-flex__one">
+    <div class="app-flex-center govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         SNS Topics
       </h3>
-      {% if resource.snsTopics | length %}
-        <div class="app-row__item-align-self--end">
-          {{ moreLink | safe }}
-        </div>
+
+      {% if resource.s3BucketRows | length %}
+        {{ moreLink | safe }}
       {% endif %}
     </div>
 
@@ -78,23 +74,30 @@
       {% endfor %}
     {% else %}
       {{ appInfo({
-        classes: "app-info--full-width govuk-!-margin-0",
         isInverse: true,
+        isSlim: true,
         text: "SNS Topics not set up for " + environment | title
       }) }}
     {% endif %}
   </div>
 
-
-  {% if resource.database | length %}
-    <div class="app-sub-grid__row-item">
-      <div class="app-row govuk-!-margin-bottom-2">
-        <h3 class="govuk-heading-m govuk-!-margin-bottom-0 app-row__item-flex-four">
+  {% if isPostgresService %}
+    <div class="app-flex__one">
+      <div class="govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
           Postgres Database
         </h3>
       </div>
-      {{ govukSummaryList(resource.database) }}
+
+      {% if resource.database %}
+        {{ govukSummaryList(resource.database) }}
+      {% else %}
+        {{ appInfo({
+          isInverse: true,
+          isSlim: true,
+          text: "Postgres Database is not set up for " + environment | title
+        }) }}
+      {% endif %}
     </div>
   {% endif %}
-
 {% endcall %}

@@ -29,7 +29,7 @@ async function aboutHandler(request, h) {
 
   const tenantServices = await fetchTenantService(serviceName)
   const isPostgres = Object.values(tenantServices).some(
-    (valueObj) => valueObj.postgres === true
+    ({ postgres }) => postgres
   )
 
   const {

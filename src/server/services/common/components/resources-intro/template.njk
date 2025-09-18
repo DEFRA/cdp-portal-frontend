@@ -9,7 +9,7 @@
 
 <span class="govuk-caption-l">{{ params.caption }}</span>
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">{{ params.heading }}</h2>
-<p>
+<p class="govuk-!-margin-bottom-2">
   View resources for {{ params.entity.name }} in all CDP environments. To set up new resources read
   <a href="/documentation/how-to/buckets.md" class="govuk-link app-link app-link--underline"
      target="_blank" rel="noopener noreferrer">S3 buckets</a>,
@@ -20,5 +20,5 @@
 </p>
 
 {% if (params.hasBuckets) %}
-  {{ appInfo({ html: bucketInfoHtml }) }}
+  {{ appInfo({ html: bucketInfoHtml, classes: "govuk-!-margin-bottom-0" }) }}
 {% endif %}

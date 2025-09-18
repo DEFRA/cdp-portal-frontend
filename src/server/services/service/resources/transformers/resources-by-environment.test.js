@@ -231,9 +231,7 @@ describe('#resourceByEnvironment', () => {
 
   test('Should return empty arrays when tenantServiceForEnv is undefined', () => {
     const result = resourceByEnvironment({
-      environment: 'dev',
-      tenantServiceForEnv: undefined,
-      tenantDatabaseForEnv: undefined
+      environment: 'dev'
     })
     expect(result).toEqual({
       environment: 'dev',
@@ -249,8 +247,7 @@ describe('#resourceByEnvironment', () => {
       environment: 'prod',
       tenantServiceForEnv: {
         s3Buckets: [{ url: 'b-url' }, { url: 'a-url' }]
-      },
-      tenantDatabaseForEnv: undefined
+      }
     })
     expect(result.s3BucketRows.length).toBe(2)
     expect(result.s3BucketRows.at(0).at(0).html).toContain('a-url')
@@ -322,21 +319,19 @@ describe('#resourcesByEnvironment', () => {
   test('Should handle empty environments array', () => {
     const result = resourcesByEnvironment({
       environments: [],
-      tenantService: {},
-      tenantDatabase: undefined
+      tenantService: {}
     })
     expect(result).toEqual({})
   })
 
   test('Should handle missing tenantService keys gracefully', () => {
     const result = resourcesByEnvironment({
-      environments: ['qa'],
-      tenantService: {},
-      tenantDatabase: undefined
+      environments: ['dev'],
+      tenantService: {}
     })
-    expect(result.qa.s3BucketRows).toEqual([])
-    expect(result.qa.sqsQueues).toEqual([])
-    expect(result.qa.snsTopics).toEqual([])
-    expect(result.qa.database).toBeUndefined()
+    expect(result.dev.s3BucketRows).toEqual([])
+    expect(result.dev.sqsQueues).toEqual([])
+    expect(result.dev.snsTopics).toEqual([])
+    expect(result.dev.database).toBeUndefined()
   })
 })

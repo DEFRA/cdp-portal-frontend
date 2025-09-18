@@ -1,33 +1,36 @@
 @use "govuk-frontend" as *;
 
-// Simple flex proportional grid. Use the govuk-grid if you need a fully functioning grid.
-.app-row {
+// Simple flexbox utils
+.app-flex {
+  display: block;
+
+  @include govuk-media-query($from: desktop-big) {
+    display: flex;
+    gap: govuk-spacing(2);
+  }
+}
+
+.app-flex-center {
   display: flex;
   align-items: center;
 }
 
-.app-row__item-flex-one {
-  flex: 1;
-  align-self: flex-start;
+.app-flex__one {
+  & + & {
+    margin-top: govuk-spacing(4);
+  }
+
+  @include govuk-media-query($from: desktop-big) {
+    flex: 1;
+
+    & + & {
+      margin-top: 0;
+    }
+  }
 }
 
-.app-row__item-flex-two {
-  flex: 2;
-  align-self: flex-start;
-}
-
-.app-row__item-flex-four {
-  flex: 4;
-  align-self: flex-start;
-}
-
-.app-row__item-flex-five {
-  flex: 5;
-  align-self: flex-start;
-}
-
-.app-row__item-align-self--end {
-  align-self: flex-end;
+.app-align-right {
+  margin-left: auto;
 }
 
 // Simple CSS grid. Use the govuk-grid if you need a fully functioning grid.
