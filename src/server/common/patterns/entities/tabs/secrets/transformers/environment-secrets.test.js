@@ -70,7 +70,7 @@ describe('#environmentSecrets', () => {
 
       const result = environmentSecrets(secrets, platformGlobalSecretKeys)
 
-      expect(result.successMessage).toBe('Secret added and now available')
+      expect(result.successMessage).toBe('Secret modified successfully')
     })
   })
 

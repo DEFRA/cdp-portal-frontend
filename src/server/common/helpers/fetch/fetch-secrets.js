@@ -7,7 +7,7 @@ const logger = createLogger()
 async function fetchSecrets(environment, serviceName) {
   try {
     const endpoint =
-      config.get('portalBackendUrl') + `/secrets/${environment}/${serviceName}`
+      config.get('portalBackendUrl') + `/secrets/${serviceName}/${environment}`
     const { payload } = await fetchJson(endpoint)
 
     return payload

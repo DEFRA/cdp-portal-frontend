@@ -1,5 +1,6 @@
 import Joi from 'joi'
 import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 
 /**
  * Validation for service params
@@ -12,7 +13,7 @@ function serviceParamsValidation(params, options) {
   const entity = options.context.app?.request?.entity
 
   const validationResult = Joi.object({
-    serviceId: Joi.string().required(),
+    serviceId: repositoryNameValidation,
     environment: Joi.string()
       .valid(...getEnvironments(scopes, entity?.type))
       .required()

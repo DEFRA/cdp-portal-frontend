@@ -2,33 +2,11 @@ import Joi from 'joi'
 
 import { config } from '../../../../../../../config/config.js'
 import { validation } from '../../../../../constants/validation.js'
-import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
-import { teamIdValidation } from '@defra/cdp-validation-kit'
 
 /** @type {string[]} */
 const platformGlobalSecretKeys = config.get('platformGlobalSecretKeys')
 
 /** @typedef {"create" | "update"} Action */
-
-/**
- * Provide immutable keys
- * @typedef {object} Options
- * @property {Action} action
- * @property {Array} [platformFixedKeys=[]] platformFixedKeys
- * @property {Array} existingSecretKeys
- * /
- /**
- * @param {Options} options
- * @returns {string[]}
- */
-const getImmutableKeys = ({
-  action,
-  platformFixedKeys = [],
-  existingSecretKeys
-}) =>
-  action === 'create'
-    ? [...existingSecretKeys, ...platformFixedKeys]
-    : platformFixedKeys
 
 /**
  * Provide custom error message if value is a protected platform level secret
@@ -48,41 +26,12 @@ const provideCustomErrorCode = (errorReports) => {
 /**
  * Validation for Create and Update forms payloads
  * @param {Action} action
- * @param {Array} [scopes]
  * @param {Array} [existingSecretKeys] existingSecretKeys
  * @returns {Joi.ObjectSchema<*>}
  */
-function secretPayloadValidation(action, scopes, existingSecretKeys = []) {
-  const immutableKeys = getImmutableKeys({
-    action,
-    platformFixedKeys: platformGlobalSecretKeys,
-    existingSecretKeys
-  })
-
-  const allowedEnvironments = getEnvironments(scopes)
-
+function secretPayloadValidation(action, existingSecretKeys) {
   return Joi.object({
-    secretKey: Joi.string()
-      .disallow(...immutableKeys)
-      .pattern(/^\w*$/)
-      .pattern(/^[a-zA-Z0-9]\w*[a-zA-Z0-9]$/, {
-        name: 'startAndEndWithCharacter'
-      })
-      .min(1)
-      .max(512)
-      .required()
-      .error(provideCustomErrorCode)
-      .messages({
-        'string.pattern.base':
-          'Any case letters and numbers with underscore separators',
-        'string.pattern.name': 'Start and end with a letter or number',
-        'string.min': validation.minCharacters(1),
-        'string.max': validation.maxCharacters(512),
-        'any.invalid': 'Key already exists',
-        'platform.invalid': 'Platform secrets cannot be changed',
-        'any.required': validation.enterValue,
-        'string.empty': validation.enterValue
-      }),
+    secretKey: secretKeyValidation(action, existingSecretKeys),
     secretValue: Joi.string()
       .pattern(/^\S*$/)
       .min(1)
@@ -95,19 +44,51 @@ function secretPayloadValidation(action, scopes, existingSecretKeys = []) {
         'any.required': validation.enterValue,
         'string.empty': validation.enterValue
       }),
-    teamId: teamIdValidation,
-    environment: Joi.string()
-      .valid(...allowedEnvironments)
-      .required()
-      .messages({
-        'string.base': validation.choose('environment'),
-        'any.only': validation.choose('environment'),
-        'any.required': validation.choose('environment')
-      }),
     button: Joi.string().valid('create', 'update')
   })
 }
 
-export { secretPayloadValidation }
+function secretKeyValidation(action, existingSecretKeys) {
+  const rulesWithKeys =
+    action === 'create'
+      ? Joi.string().disallow(
+          ...[...existingSecretKeys, ...platformGlobalSecretKeys]
+        )
+      : Joi.string().valid(...existingSecretKeys)
+
+  return rulesWithKeys
+    .pattern(/^\w*$/)
+    .pattern(/^[a-zA-Z0-9]\w*[a-zA-Z0-9]$/, {
+      name: 'startAndEndWithCharacter'
+    })
+    .min(1)
+    .max(512)
+    .required()
+    .error(provideCustomErrorCode)
+    .messages({
+      'string.pattern.base':
+        'Any case letters and numbers with underscore separators',
+      'string.pattern.name': 'Start and end with a letter or number',
+      'string.min': validation.minCharacters(1),
+      'string.max': validation.maxCharacters(512),
+      'any.invalid': 'Key already exists',
+      'platform.invalid': 'Platform secrets cannot be changed',
+      'any.required': validation.enterValue,
+      'string.empty': validation.enterValue
+    })
+}
+
+/**
+ * Validation for remove forms payloads
+ * @param {Array} [existingSecretKeys] existingSecretKeys
+ * @returns {Joi.ObjectSchema<*>}
+ */
+function removeSecretPayloadValidation(existingSecretKeys) {
+  return Joi.object({
+    secretKey: secretKeyValidation('remove', existingSecretKeys)
+  })
+}
+
+export { secretPayloadValidation, removeSecretPayloadValidation }
 
 /** @import { ValidationErrorFunction, ErrorReport } from 'joi' */

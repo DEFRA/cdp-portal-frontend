@@ -5,6 +5,7 @@ import {
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '../../../services/helpers/fetch/fetch-all-secrets.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
+import { fetchSecrets } from '../../../common/helpers/fetch/fetch-secrets.js'
 
 vi.mock('../../helpers/fetch/fetch-test-runs.js')
 vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
@@ -12,6 +13,7 @@ vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/fetch/fetch-repository.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
 vi.mock('../../../services/helpers/fetch/fetch-all-secrets.js')
+vi.mock('../../../common/helpers/fetch/fetch-secrets.js')
 
 describe('Secrets Test Suite page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -29,6 +31,11 @@ describe('Secrets Test Suite page', () => {
         lastChangedDate: '2024-11-15T16:03:38.3139986Z',
         createdDate: null
       }
+    })
+    fetchSecrets.mockResolvedValue({
+      keys: ['SOME_KEY'],
+      lastChangedDate: '2024-11-15T16:03:38.3139986Z',
+      createdDate: null
     })
 
     mockCommonTestSuiteCalls('mock-test-suite')

@@ -28,7 +28,6 @@ function createSecretController(entityKind) {
       const payload = request.payload
       const secretKey = payload?.secretKey
       const secretValue = payload?.secretValue
-      const teamId = payload?.teamId
       const button = payload?.button
 
       const redirectUrl = request.routeLookup(
@@ -44,8 +43,6 @@ function createSecretController(entityKind) {
       const sanitisedPayload = {
         secretKey,
         secretValue,
-        environment,
-        teamId,
         button
       }
 
@@ -70,22 +67,18 @@ function createSecretController(entityKind) {
         const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
 
         try {
-          const { payload: createSecretPayload } =
-            await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
-              method: 'post',
-              payload: omit(sanitisedPayload, ['environment', 'button'])
-            })
+          await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
+            method: 'post',
+            payload: omit(sanitisedPayload, ['button'])
+          })
 
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
-            text: createSecretPayload.message,
+            text: 'Secret being created',
             type: 'success'
           })
         } catch (error) {
           request.logger.error({ error }, 'Create secret call failed')
-          request.yar.flash(sessionNames.validationFailure, {
-            formValues: omit(sanitisedPayload, ['button'])
-          })
           request.yar.flash(
             sessionNames.globalValidationFailures,
             error.message
