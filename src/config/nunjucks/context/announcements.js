@@ -46,14 +46,14 @@ announcements.set('hasBreakGlass', (request, breakGlassScope) => {
     withoutTooltip: true
   })
 
-  if (breakGlassScope.teamId) {
+  if (breakGlassScope.startAt && breakGlassScope.endAt) {
     return {
       html: `You have active break glass for the ${teamDetail}. From ${from.toLowerCase()} until ${end.toLowerCase()}`
     }
   }
 
   return {
-    html: 'You have active break glass as an individual user'
+    html: `You have active break glass for the ${teamDetail}.`
   }
 })
 
