@@ -85,7 +85,7 @@ const config = convict({
       endpoint: {
         doc: 'AWS DynamoDB endpoint',
         format: String,
-        default: 'http://127.0.0.1:4566',
+        default: 'http://localhost:4566',
         env: 'DYNAMODB_ENDPOINT'
       }
     }
