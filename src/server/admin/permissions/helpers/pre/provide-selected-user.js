@@ -1,4 +1,4 @@
-import { fetchCdpUser } from '../../../users/helpers/fetch/index.js'
+import { fetchCdpUser } from '../../../users/helpers/fetch/fetchers.js'
 
 const provideSelectedUser = {
   method: async (request) => {

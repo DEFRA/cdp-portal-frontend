@@ -4,7 +4,7 @@ import uniqBy from 'lodash/uniqBy.js'
 import filter from 'lodash/filter.js'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
-import { fetchCdpTeam, searchCdpUsers } from '../../helpers/fetch/index.js'
+import { fetchCdpTeam, searchCdpUsers } from '../../helpers/fetch/fetchers.js'
 import { presentUsersToAdd } from '../../helpers/pre/present-users-to-add.js'
 import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
 

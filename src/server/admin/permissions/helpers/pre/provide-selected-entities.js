@@ -1,5 +1,5 @@
-import { fetchCdpTeam } from '../../../teams/helpers/fetch/index.js'
-import { fetchCdpUser } from '../../../users/helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../../teams/helpers/fetch/fetchers.js'
+import { fetchCdpUser } from '../../../users/helpers/fetch/fetchers.js'
 import { extractIds } from '../extract-ids.js'
 
 const provideSelectedEntities = {

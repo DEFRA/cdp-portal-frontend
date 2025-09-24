@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { removeMemberFromTeam } from '../../helpers/fetch/index.js'
+import { removeMemberFromTeam } from '../../helpers/fetch/fetchers.js'
 import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
 const removeMemberController = {

@@ -3,7 +3,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { fetchCdpUser } from '../../helpers/fetch/index.js'
+import { fetchCdpUser } from '../../helpers/fetch/fetchers.js'
 import { saveToCdpUser } from '../../helpers/form/index.js'
 import { userIdValidation } from '@defra/cdp-validation-kit'
 

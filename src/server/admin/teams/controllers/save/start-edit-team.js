@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { fetchCdpTeam } from '../../helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../helpers/fetch/fetchers.js'
 import { teamIdValidation } from '@defra/cdp-validation-kit'
 
 const startEditTeamController = {

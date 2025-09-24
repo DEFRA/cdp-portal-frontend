@@ -4,7 +4,7 @@ import Boom from '@hapi/boom'
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { resetAadAnswer } from '../../helpers/ext/reset-aad-answer.js'
 import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
-import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/index.js'
+import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
 import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
 
 const findAadUserFormController = {

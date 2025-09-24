@@ -5,7 +5,7 @@ import { buildOptions } from '../../../../common/helpers/options/build-options.j
 import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { resetGithubUserNameAnswer } from '../../helpers/ext/reset-github-user-name-answer.js'
 import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
-import { searchGithubUsers } from '../../helpers/fetch/index.js'
+import { searchGithubUsers } from '../../helpers/fetch/fetchers.js'
 
 const findGithubUserFormController = {
   options: {
