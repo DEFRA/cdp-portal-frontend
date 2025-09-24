@@ -3,7 +3,7 @@ import { userIdValidation } from '@defra/cdp-validation-kit'
 
 import Joi from '../../../../../common/helpers/extended-joi.js'
 import { fetchPermission } from '../../../helpers/fetchers.js'
-import { fetchCdpUser } from '../../../../users/helpers/fetch/index.js'
+import { fetchCdpUser } from '../../../../users/helpers/fetch/fetchers.js'
 import { buildOptions } from '../../../../../common/helpers/options/build-options.js'
 import { provideStepData } from '../../../../../common/helpers/multistep-form/provide-step-data.js'
 

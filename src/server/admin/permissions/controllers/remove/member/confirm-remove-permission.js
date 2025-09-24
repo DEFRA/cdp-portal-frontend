@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
 import { fetchPermission } from '../../../helpers/fetchers.js'
-import { fetchCdpTeam } from '../../../../teams/helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../../../teams/helpers/fetch/fetchers.js'
 
 const confirmRemovePermissionFromMemberController = {
   options: {

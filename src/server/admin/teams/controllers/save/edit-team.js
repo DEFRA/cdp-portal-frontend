@@ -1,4 +1,4 @@
-import { editTeam } from '../../helpers/fetch/index.js'
+import { editTeam } from '../../helpers/fetch/fetchers.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { setStepComplete } from '../../helpers/form/index.js'
 import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'

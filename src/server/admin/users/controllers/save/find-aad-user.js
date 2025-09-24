@@ -5,7 +5,7 @@ import { aadIdValidation } from '../../helpers/schema/aad-id-validation.js'
 import { saveToCdpUser, setStepComplete } from '../../helpers/form/index.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
-import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/index.js'
+import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
 
 const findAadUserController = {
   options: {

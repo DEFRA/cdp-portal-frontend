@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { resetGithubAnswer } from '../../helpers/ext/reset-github-answer.js'
-import { searchGithubTeams } from '../../helpers/fetch/index.js'
+import { searchGithubTeams } from '../../helpers/fetch/fetchers.js'
 import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
 

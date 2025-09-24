@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { fetchCdpTeam } from '../../helpers/fetch/index.js'
-import { fetchCdpUser } from '../../../users/helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../helpers/fetch/fetchers.js'
+import { fetchCdpUser } from '../../../users/helpers/fetch/fetchers.js'
 import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
 const confirmRemoveMemberController = {

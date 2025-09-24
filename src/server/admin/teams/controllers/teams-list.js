@@ -1,4 +1,4 @@
-import { fetchCdpTeams } from '../helpers/fetch/index.js'
+import { fetchCdpTeams } from '../helpers/fetch/fetchers.js'
 import { transformTeamToEntityRow } from '../transformers/transform-team-to-entity-row.js'
 
 const teamsListController = {
