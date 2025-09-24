@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template govuk-template--rebranded">
+  <head>
+    <meta charset="utf-8">
+    <title>  Teams | Core Delivery Platform - Portal
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#1d70b8">
+
+
+          <link rel="icon" sizes="48x48" href="/.public/assets/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/.public/assets/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/.public/assets/images/govuk-icon-mask.svg" color="#1d70b8">
+      <link rel="apple-touch-icon" href="/.public/assets/images/govuk-icon-180.png">
+      <link rel="manifest" href="/.public/assets/manifest.json">
+
+
+  <link href="/.public/stylesheets/application.css" rel="stylesheet">
+    <meta name="service-version" content="0.1.0">
+    <meta name="service-environment" content="test">
+
+  </head>
+  <body class="govuk-template__body">
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+  
+  <div>
+    <a href="#main-content" class="govuk-skip-link app-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+  </div>
+
+
+  
+
+
+<header class="app-service-header" role="banner" data-testid="app-service-header">
+  <div class="app-service-header__container app-service-header__container--full-width">
+    <div class="app-service-header__content">
+      <a href="/"
+         class="app-service-header__link app-service-header__service-name"
+         data-testid="app-service-header-service-name">
+        Core Delivery Platform - Portal
+      </a>
+
+
+    </div>
+    <div class="app-service-header__actions">
+
+      <span class="app-service-header__login">
+        <a href="/login"
+           class="app-service-header__link app-service-header__login-link"
+           data-testid="app-login-link">
+            Sign in
+        </a>
+      </span>
+
+    </div>
+  </div>
+</header>
+
+
+  
+  <div class="govuk-service-navigation"
+data-module="govuk-service-navigation"
+>
+      <div class="govuk-width-container">
+
+    <div class="govuk-service-navigation__container">
+      
+
+      
+        <nav aria-label="Menu" class="govuk-service-navigation__wrapper app-navigation">
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+            Menu
+          </button>
+
+          <ul class="govuk-service-navigation__list" id="navigation" >
+
+            
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/" data-testid="nav-home">
+                                    
+Home
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/documentation" data-testid="nav-documentation">
+                                    
+Documentation
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/services" data-testid="nav-services">
+                                    
+Services
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/test-suites" data-testid="nav-test-suites">
+                                    
+Test Suites
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/utilities/templates" data-testid="nav-utilities">
+                                    
+Utilities
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+                  <a class="govuk-service-navigation__link" href="/teams" aria-current="page" data-testid="nav-teams">
+                                    
+                  <strong class="govuk-service-navigation__active-fallback">Teams</strong>
+
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/deployments" data-testid="nav-deployments">
+                                    
+Deployments
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/running-services" data-testid="nav-running-services">
+                                    
+Running Services
+                  </a>
+              </li>
+
+              <ul class="app-navigation__actions">
+
+  </ul>
+</ul>
+        </nav>
+    </div>
+
+    </div>
+
+  </div>
+
+
+      <div class="govuk-width-container">
+  
+  <div
+  class="app-banner app-banner--hidden"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-banner"
+data-js="app-client-notifications">
+  <p class="app-banner__content"
+data-js="app-client-notifications-content"     data-testid="app-banner-content"></p>
+</div>
+
+
+
+
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+  <div class="govuk-!-margin-top-2">
+
+  <div class="app-page-heading">
+    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Teams</h1>
+
+      <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
+        Team details, members and assets
+      </p>
+
+  </div>
+</div>
+
+
+  
+
+
+
+
+<article>
+  <table class="app-entity-table  app-entity-table--wide" data-testid="app-entity-table">
+    <thead class="app-entity-table__head"
+           data-testid="app-entity-table-head">
+    <tr>
+  <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
+
+
+        <th id="member" scope="col"
+            class="app-entity-table__heading app-entity-table__cell--owned"
+            data-testid="app-entity-table-header-1"
+aria-labelledby="member"        >
+            <span id="member" class="govuk-visually-hidden">member</span>
+        </th>
+
+        <th id="name" scope="col"
+            class="app-entity-table__heading   app-entity-table__heading--left-aligned"
+            data-testid="app-entity-table-header-2"
+width="15%"        >
+            Name
+        </th>
+
+        <th id="github-team" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-3"
+width="15%"        >
+            GitHub Team
+        </th>
+
+        <th id="user-count" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-4"
+width="5%"        >
+            Members
+        </th>
+
+        <th id="updated" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-5"
+width="30%"        >
+            Last Updated
+        </th>
+
+        <th id="created" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-6"
+width="35%"        >
+            Created
+        </th>
+
+  <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
+    </tr>
+    </thead>
+    <tbody>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+
+
+
+          <td headers="member"
+              class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered"
+              data-label="Member">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="name"
+              class="app-entity-table__cell"
+              data-label="Name">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      <a class="app-link"
+         href="/teams/bees"         data-testid="app-entity-link">
+        Bees
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="github-team"
+              class="app-entity-table__cell"
+              data-label="Github-team">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <a class="app-link"
+         href="https://github.com/orgs/DEFRA/teams/bees" target="_blank" rel="noopener noreferrer"         data-testid="app-entity-link">
+        @bees
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="members"
+              class="app-entity-table__cell"
+              data-label="Members">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      <span data-testid="app-entity-text"
+      >2</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="updated"
+              class="app-entity-table__cell"
+              data-label="Updated">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 30th August 2023, 06:29:42"
+>
+        <time    datetime="2023-08-30T06:29:42.216Z"
+    data-testid="app-time">
+        Wed 30th Aug 2023 at 06:29
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="created"
+              class="app-entity-table__cell"
+              data-label="Created">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 24th August 2023, 15:55:11"
+>
+        <time    datetime="2023-08-24T15:55:11.751Z"
+    data-testid="app-time">
+        Thu 24th Aug 2023 at 15:55
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-2">
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+
+
+
+          <td headers="member"
+              class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered"
+              data-label="Member">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="name"
+              class="app-entity-table__cell"
+              data-label="Name">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      <a class="app-link"
+         href="/teams/fish-and-octopus"         data-testid="app-entity-link">
+        Fish-and-octopus
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="github-team"
+              class="app-entity-table__cell"
+              data-label="Github-team">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <a class="app-link"
+         href="https://github.com/orgs/DEFRA/teams/fisheries" target="_blank" rel="noopener noreferrer"         data-testid="app-entity-link">
+        @fisheries
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="members"
+              class="app-entity-table__cell"
+              data-label="Members">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      <span data-testid="app-entity-text"
+      >2</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="updated"
+              class="app-entity-table__cell"
+              data-label="Updated">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 30th August 2023, 08:08:53"
+>
+        <time    datetime="2023-08-30T08:08:53.634Z"
+    data-testid="app-time">
+        Wed 30th Aug 2023 at 08:08
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="created"
+              class="app-entity-table__cell"
+              data-label="Created">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 24th August 2023, 14:20:35"
+>
+        <time    datetime="2023-08-24T14:20:35.819Z"
+    data-testid="app-time">
+        Thu 24th Aug 2023 at 14:20
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-3">
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+
+
+
+          <td headers="member"
+              class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered"
+              data-label="Member">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="name"
+              class="app-entity-table__cell"
+              data-label="Name">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      <a class="app-link"
+         href="/teams/platform"         data-testid="app-entity-link">
+        Platform
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="github-team"
+              class="app-entity-table__cell"
+              data-label="Github-team">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <a class="app-link"
+         href="https://github.com/orgs/DEFRA/teams/cdp-platform" target="_blank" rel="noopener noreferrer"         data-testid="app-entity-link">
+        @cdp-platform
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="members"
+              class="app-entity-table__cell"
+              data-label="Members">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      <span data-testid="app-entity-text"
+      >1</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="updated"
+              class="app-entity-table__cell"
+              data-label="Updated">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 30th August 2023, 06:29:42"
+>
+        <time    datetime="2023-08-30T06:29:42.216Z"
+    data-testid="app-time">
+        Wed 30th Aug 2023 at 06:29
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="created"
+              class="app-entity-table__cell"
+              data-label="Created">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 24th August 2023, 15:55:11"
+>
+        <time    datetime="2023-08-24T15:55:11.751Z"
+    data-testid="app-time">
+        Thu 24th Aug 2023 at 15:55
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-4">
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+
+
+
+          <td headers="member"
+              class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered"
+              data-label="Member">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="name"
+              class="app-entity-table__cell"
+              data-label="Name">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      <a class="app-link"
+         href="/teams/trees-and-forests"         data-testid="app-entity-link">
+        Trees-and-forests
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="github-team"
+              class="app-entity-table__cell"
+              data-label="Github-team">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <a class="app-link"
+         href="https://github.com/orgs/DEFRA/teams/trees-and-forests" target="_blank" rel="noopener noreferrer"         data-testid="app-entity-link">
+        @trees-and-forests
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="members"
+              class="app-entity-table__cell"
+              data-label="Members">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      <span data-testid="app-entity-text"
+      >1</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="updated"
+              class="app-entity-table__cell"
+              data-label="Updated">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Tuesday 29th August 2023, 17:55:13"
+>
+        <time    datetime="2023-08-29T17:55:13.293Z"
+    data-testid="app-time">
+        Tue 29th Aug 2023 at 17:55
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="created"
+              class="app-entity-table__cell"
+              data-label="Created">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 24th August 2023, 14:51:30"
+>
+        <time    datetime="2023-08-24T14:51:30.164Z"
+    data-testid="app-time">
+        Thu 24th Aug 2023 at 14:51
+
+  </time>
+
+
+</span>
+
+
+
+
+
+
+</div>
+
+
+          </td>
+
+  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+
+
+        </main>
+      </div>
+
+  
+<footer class="app-footer" role="contentinfo" data-testid="app-footer">
+
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/cookie-policy" class="app-footer__link">Cookie policy</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/accessibility-statement" class="app-footer__link">Accessibility statement</a>
+        </li>
+      </ul>
+
+        <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer">0.1.0</a>
+          </li>
+        </ul>
+    </div>
+
+    <div class="app-footer__secondary">
+      <a class="app-footer__link"
+         href="https://github.com/DEFRA/cdp-portal-frontend"
+         target="_blank"
+         rel="noopener noreferrer"><svg class="app-icon app-github-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="CDP Portal Frontend repository on GitHub">
+  <path d="M23.9284898 0C10.6966531 0 0 11 0 24.6085c0 10.878 6.85371429 20.086 16.3616327 23.345 1.1887346.245 1.6241632-.5295 1.6241632-1.181 0-.5705-.0391837-2.526-.0391837-4.5635-6.6563265 1.467-8.04244893-2.9335-8.04244893-2.9335-1.06971429-2.852-2.65469388-3.585-2.65469388-3.585-2.17861225-1.5075.15869388-1.5075.15869388-1.5075 2.41665306.163 3.68473473 2.526 3.68473473 2.526 2.1389387 3.748 5.5856326 2.689 6.9722449 2.037.1978775-1.589.8321632-2.689 1.5056326-3.3-5.3088979-.5705-10.8945306-2.689-10.8945306-12.1415 0-2.689.95020408-4.889 2.4558367-6.6-.237551-.611-1.0697143-3.1375.2380408-6.519 0 0 2.0204082-.652 6.576 2.526 1.9504109-.5386687 3.9618381-.8126928 5.9823674-.815 2.0204082 0 4.08.2855 5.9818775.815 4.5560817-3.178 6.5764898-2.526 6.5764898-2.526 1.3077551 3.3815.4751021 5.908.2375511 6.519 1.5453061 1.711 2.4563265 3.911 2.4563265 6.6 0 9.4525-5.5856327 11.53-10.9342041 12.1415.8718367.774 1.6241633 2.2405 1.6241633 4.563 0 3.3-.0391837 5.9485-.0391837 6.763 0 .652.4359184 1.4265 1.6241633 1.182 9.5079183-3.26 16.3617395-12.4675 16.3617395-23.3455C47.8564898 11 37.1206531 0 23.9284898 0Z" />
+</svg>
+</a>
+    </div>
+  </div>
+
+</footer>
+
+
+  <script type="module" src="/.public/javascripts/application.js"></script>
+  </body>
+</html>
