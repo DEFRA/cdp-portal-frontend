@@ -1,10 +1,12 @@
-import { vi, afterAll, beforeAll } from 'vitest'
+import { vi, expect, beforeAll } from 'vitest'
 import createFetchMock from 'vitest-fetch-mock'
 import '@testing-library/jest-dom/vitest'
 import { TextEncoder, TextDecoder } from 'node:util'
 import { ReadableStream, TransformStream } from 'node:stream/web'
 import { clearImmediate, setImmediate } from 'node:timers'
+
 import { fetchWellknown } from '../src/server/common/helpers/fetch/fetch-well-known.js'
+import { toMatchFileWithOptions } from '../test-helpers/to-match-file.js'
 
 const fetchMock = createFetchMock(vi)
 vi.mock('../src/server/common/helpers/fetch/fetch-well-known.js')
@@ -23,6 +25,8 @@ global.clearImmediate = clearImmediate
 // Stub scroll functions not available in JSDOM
 Element.prototype.scrollIntoView = vi.fn()
 Element.prototype.scroll = vi.fn()
+
+expect.extend({ toMatchFile: toMatchFileWithOptions })
 
 beforeAll(async () => {
   global.fetch = fetchMock
