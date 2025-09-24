@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { teamIdValidation, scopes } from '@defra/cdp-validation-kit'
 
-import { fetchCdpTeam } from '../../../admin/teams/helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../../admin/teams/helpers/fetch/fetchers.js'
 
 const teamDetailsFormController = {
   options: {

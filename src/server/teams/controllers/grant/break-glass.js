@@ -10,7 +10,7 @@ import { buildErrorDetails } from '../../../common/helpers/build-error-details.j
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { breakGlassValidation } from '../../helpers/schema/break-glass-validation.js'
 import { addBreakGlassToMember } from '../../../admin/permissions/helpers/fetchers.js'
-import { fetchCdpUser } from '../../../admin/users/helpers/fetch/index.js'
+import { fetchCdpUser } from '../../../admin/users/helpers/fetch/fetchers.js'
 
 const grantBreakGlassController = {
   options: {
@@ -31,7 +31,6 @@ const grantBreakGlassController = {
       }),
       payload: Joi.object({
         reason: Joi.string().allow('').required(),
-        complianceRequirements: Joi.string().valid('yes', 'no').required(),
         iAgree: Joi.string().valid('yes').optional()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
@@ -43,23 +42,17 @@ const grantBreakGlassController = {
     const userId = params.userId
 
     const payload = request.payload
-    const complianceRequirements = payload.complianceRequirements
-    const hasReadTsAndCs = complianceRequirements === 'yes'
     const reason = payload.reason
     const iAgree = payload.iAgree
 
     const sanitisedPayload = {
       reason,
-      iAgree,
-      complianceRequirements
+      iAgree
     }
 
-    const validationResult = breakGlassValidation(hasReadTsAndCs).validate(
-      sanitisedPayload,
-      {
-        abortEarly: false
-      }
-    )
+    const validationResult = breakGlassValidation().validate(sanitisedPayload, {
+      abortEarly: false
+    })
 
     const returnToForm = request.routeLookup(
       'teams/{teamId}/grant-break-glass/{userId}',

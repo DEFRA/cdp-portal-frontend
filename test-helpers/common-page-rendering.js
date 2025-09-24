@@ -12,6 +12,7 @@ import { getUserSession } from '../src/server/common/helpers/auth/get-user-sessi
 import { scopes } from '@defra/cdp-validation-kit'
 import { fetchAvailableVersions } from '../src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import {
+  fetchEntities,
   fetchEntity,
   fetchEntityStatus
 } from '../src/server/common/helpers/fetch/fetch-entities.js'
@@ -31,6 +32,19 @@ import {
 } from '../src/server/common/helpers/fetch/fetch-tenant-databases.js'
 import { tenantDatabasesFixture } from '../src/__fixtures__/tenant-databases.js'
 import { config } from '../src/config/config.js'
+import { fetchCdpTeams } from '../src/server/teams/helpers/fetch/fetch-cdp-teams.js'
+import { cdpTeamsFixture } from '../src/__fixtures__/admin/cdp-teams.js'
+import {
+  cdpTeamBeesFixture,
+  cdpTeamFixture
+} from '../src/__fixtures__/admin/cdp-team.js'
+import { fetchTeamRepositories } from '../src/server/teams/helpers/fetch/fetchers.js'
+import { teamMicroserviceEntitiesFixture } from '../src/__fixtures__/teams/micro-services.js'
+import { teamTestSuitesEntitiesFixture } from '../src/__fixtures__/teams/test-suites.js'
+import { teamRepositoriesFixture } from '../src/__fixtures__/teams/repositories.js'
+import { fetchCdpUser } from '../src/server/admin/users/helpers/fetch/fetchers.js'
+import { cdpUserFixture } from '../src/__fixtures__/admin/cdp-user.js'
+import { fetchCdpTeam } from '../src/server/admin/teams/helpers/fetch/fetchers.js'
 
 export const mockTeam = {
   teamId: 'mock-team-id',
@@ -75,9 +89,47 @@ export function mockRepositoryCall(repositoryName, additionalTopics) {
   })
 }
 
+export function mockFetchCdpUserCall() {
+  fetchCdpUser.mockResolvedValue?.(cdpUserFixture)
+}
+
+export function mockFetchCdpTeamsCall() {
+  fetchCdpTeams.mockResolvedValue?.(cdpTeamsFixture)
+}
+
+export function mockFetchCdpTeamCall(teamId) {
+  switch (true) {
+    case teamId === 'platform':
+      fetchCdpTeam.mockResolvedValue?.(cdpTeamFixture)
+      break
+    case teamId === 'bees':
+      fetchCdpTeam.mockResolvedValue?.(cdpTeamBeesFixture)
+      break
+    default:
+      throw new Error(`Unhandled teamId ${teamId} in mockFetchTeamCall`)
+  }
+
+  fetchCdpTeam.mockResolvedValue?.(
+    teamId === 'platform' ? cdpTeamFixture : mockTeam
+  )
+}
+
 export function mockResourcesCall() {
   fetchTenantService.mockResolvedValue?.(tenantServicesFixture)
   fetchTenantDatabase.mockResolvedValue?.(tenantDatabasesFixture)
+}
+
+export function mockCommonTeamCalls() {
+  fetchEntities.mockImplementation(({ type }) => {
+    if (type === 'Microservice') {
+      return teamMicroserviceEntitiesFixture
+    }
+    if (type === 'TestSuite') {
+      return teamTestSuitesEntitiesFixture
+    }
+  })
+
+  fetchTeamRepositories.mockResolvedValue?.(teamRepositoriesFixture)
 }
 
 export function mockResourcesByEnvironmentCall(environment) {

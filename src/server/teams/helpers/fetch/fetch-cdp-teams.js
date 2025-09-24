@@ -3,7 +3,7 @@ import qs from 'qs'
 import { config } from '../../../../config/config.js'
 import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
 
-async function fetchTeams(hasGithub = null) {
+async function fetchCdpTeams(hasGithub = null) {
   const queryString = qs.stringify(
     {
       ...(hasGithub && { hasGithub })
@@ -17,4 +17,4 @@ async function fetchTeams(hasGithub = null) {
   return payload
 }
 
-export { fetchTeams }
+export { fetchCdpTeams }
