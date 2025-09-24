@@ -176,7 +176,8 @@ export default [
             'nock',
             'cheerio',
             '@hapi/catbox-memory',
-            '@testing-library/dom'
+            '@testing-library/dom',
+            'jest-file-snapshot'
           ]
         }
       ]

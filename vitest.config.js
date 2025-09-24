@@ -12,7 +12,7 @@ export default defineConfig({
     setupFiles: [
       '.vite/setup-env.js',
       '.vite/setup-files.js',
-      '.vite/custom-snapshot-matcher.js'
+      'test-helpers/to-match-file.js'
     ],
     coverage: {
       provider: 'v8',
