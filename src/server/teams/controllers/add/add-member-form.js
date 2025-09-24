@@ -10,7 +10,7 @@ import { provideCdpTeam } from '../../../admin/teams/helpers/pre/provide-cdp-tea
 import {
   fetchCdpTeam,
   searchCdpUsers
-} from '../../../admin/teams/helpers/fetch/index.js'
+} from '../../../admin/teams/helpers/fetch/fetchers.js'
 
 const addMemberFormController = {
   options: {

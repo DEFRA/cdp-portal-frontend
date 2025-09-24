@@ -26,10 +26,10 @@ describe('#getUsersTeams', () => {
       const usersTeamsIds = usersTeams.map((team) => team.teamId)
 
       expect(usersTeamsIds).toEqual([
-        '087d4a80-002b-48cf-a7d3-aa60b67784f0',
-        '6ed0400a-a8a0-482b-b45a-109634cd1274',
-        '9e068bb9-1452-426e-a4ca-2e675a942a89',
-        'aabe63e7-87ef-4beb-a596-c810631fc474'
+        'fish-and-octopus',
+        'trees-and-forests',
+        'bees',
+        'platform'
       ])
     })
   })
@@ -38,10 +38,7 @@ describe('#getUsersTeams', () => {
     test('Should receive only teams they are in, in response', async () => {
       const mockRequest = {
         getUserSession: vi.fn().mockResolvedValue({
-          scope: [
-            'team:9e068bb9-1452-426e-a4ca-2e675a942a89',
-            'team:087d4a80-002b-48cf-a7d3-aa60b67784f0'
-          ]
+          scope: ['team:bees', 'team:fish-and-octopus']
         })
       }
 
@@ -53,10 +50,7 @@ describe('#getUsersTeams', () => {
       const usersTeams = await getUsersTeams(mockRequest)
       const usersTeamsIds = usersTeams.map((team) => team.teamId)
 
-      expect(usersTeamsIds).toEqual([
-        '9e068bb9-1452-426e-a4ca-2e675a942a89',
-        '087d4a80-002b-48cf-a7d3-aa60b67784f0'
-      ])
+      expect(usersTeamsIds).toEqual(['bees', 'fish-and-octopus'])
     })
   })
 })

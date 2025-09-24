@@ -4,7 +4,7 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { addUserValidation } from '../../../admin/teams/helpers/schema/add-user-validation.js'
-import { addMemberToTeam } from '../../../admin/teams/helpers/fetch/index.js'
+import { addMemberToTeam } from '../../../admin/teams/helpers/fetch/fetchers.js'
 import { pluralise } from '../../../common/helpers/pluralise.js'
 
 const addMemberController = {

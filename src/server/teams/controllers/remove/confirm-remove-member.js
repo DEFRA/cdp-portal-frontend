@@ -5,8 +5,8 @@ import {
   userIdValidation,
   scopes
 } from '@defra/cdp-validation-kit'
-import { fetchCdpTeam } from '../../../admin/teams/helpers/fetch/index.js'
-import { fetchCdpUser } from '../../../admin/users/helpers/fetch/index.js'
+import { fetchCdpTeam } from '../../../admin/teams/helpers/fetch/fetchers.js'
+import { fetchCdpUser } from '../../../admin/users/helpers/fetch/fetchers.js'
 
 const confirmRemoveMemberController = {
   options: {

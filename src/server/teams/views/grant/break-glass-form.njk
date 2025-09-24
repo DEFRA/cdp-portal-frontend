@@ -23,37 +23,12 @@
 {% endset %}
 
 {% set warningInfoHtml %}
-  <p class="govuk-!-margin-bottom-1">
-    Working with a live service in production is an incredibly serious matter. For this reason we will be monitoring,
-    logging and auditing all activity.
-  </p>
   <p class="govuk-!-margin-bottom-0">
-    Misuse or failure to meet security compliance requirements may result in disciplinary action and/or legal
-    consequences.
+    Working with a live service in production is an incredibly serious matter. For this reason we will be monitoring,
+    logging and auditing all activity. Misuse or failure to meet security compliance requirements may result in
+    disciplinary action and/or legal consequences.
   </p>
 {% endset %}
-
-{% set iAgreeCheckboxHtml %}
-  {{ govukCheckboxes({
-    name: "iAgree",
-    classes: "govuk-checkboxes--small app-checkboxes",
-    items: [
-      {
-        value: "yes",
-        html: iAgreeHtml,
-        attributes: {
-          "data-testid": "i-agree-checkbox"
-        }
-      }
-    ],
-    values: formValues.iAgree,
-    formGroup: {
-      classes: "app-form-group govuk-!-margin-bottom-2 app-form-group-js"
-    },
-    errorMessage: errorMessageHelper(formErrors.iAgree.message)
-  }) }}
-{% endset %}
-
 
 {% block content %}
 
@@ -66,7 +41,7 @@
   <hr class="app-section-break govuk-!-margin-0">
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third-from-desktop-enormous">
+    <div class="govuk-grid-column-two-thirds-from-desktop-enormous">
 
       <section class="app-section app-section--wide">
 
@@ -76,17 +51,15 @@
         }) }}
 
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-          Granting break glass
+          Break glass production access
         </h2>
 
         <p class="govuk-!-margin-bottom-2">
-          This form is used to grant temporary break glass to users who have valid UK Government Security Clearance
-          (SC).
-          Granting temporary break glass here will allow {{ user.name }} to access any of the services owned by the
+          Granting temporary break glass will allow {{ user.name }} to access any of the services owned by the
           <a href="{{ routeLookup('teams/{teamId}', { params: { teamId: team.teamId } }) }}"
              class="app-link app-link--underline" data-testid="admin-add-team-member">
             {{ team.name }} team
-          </a> in prod via the CDP Terminal.
+          </a> in production via the CDP Terminal.
         </p>
 
         <p>
@@ -95,42 +68,24 @@
           For more information on break glass, see the {{ terminalBreakGlassLinkHtml | safe }}.
         </p>
 
-        <p class="govuk-!-margin-bottom-2">
-          The completion and submission of this form is a formal declaration that:
-        </p>
-
-        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
-          <li>
-            I <strong>{{ grantingUser.displayName }}</strong>
-          </li>
-          <li>
-            Wish to grant <strong>{{ user.name }}</strong> break glass, via the CDP Terminal
-          </li>
-          <li>
-            To the services owned by the <a href="{{ routeLookup('teams/{teamId}', {
-              params: { teamId : team.teamId }
-            }) }}" class="govuk-link app-link app-link--underline">{{ team.name }} team</a>. Of which {{ user.name }}
-            is a member of
-          </li>
-          <li>
-            For the next 2 hours
-          </li>
-        </ul>
-
-        <hr class="app-section-break">
-
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-          Compliance Requirements
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+          Security clearance requirement
         </h2>
 
-        <h3 class="govuk-heading-s app-!-layout-centered govuk-!-margin-bottom-2">
-          {{ appInfoIcon({
-            classes: "app-icon--tiny govuk-!-margin-right-2",
-            description: "I understand"
-          }) }} I understand that:
-        </h3>
+        <p>
+          This form is used to grant temporary break glass to users who have valid UK Government Security Clearance
+          (SC) only. The grantor, {{ grantingUser.displayName }} must hold a valid SC and must have confirmed via
+          Defra's security vetting organisation <a href="mailto:SecurityVetting@defra.gov.uk"
+                                                   class="govuk-link app-link
+                                                   app-link--underline">SecurityVetting@defra.gov.uk</a> that a valid SC
+          is also held by the grantee {{ user.name }}.
+        </p>
 
-        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+          I understand & agree
+        </h2>
+
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-7">
           <li>
             All activity will be logged for audit purposes
           </li>
@@ -138,46 +93,21 @@
             Misuse may result in disciplinary action and/or legal consequences
           </li>
           <li>
-            Access to prod for {{ user.name }} will start immediately after this form has been submitted
-          <li>
-            Access will last for 2 hours and will then automatically expire
-          </li>
-          <li>
-            If the break glass permission needs to be removed before automatic expiry. This can be done via the
-            <a href="{{ routeLookup('teams/{teamId}', {
-              params: { teamId: team.teamId }
-            }) }}" class="govuk-link app-link app-link--underline">{{ team.name }} teams</a> page
-          </li>
-        </ul>
-
-        <hr class="app-section-break">
-
-        <h3 class="govuk-heading-s app-!-layout-centered govuk-!-margin-bottom-2">
-          {{ appTickIcon({
-            classes: "app-icon--tiny govuk-!-margin-right-1",
-            description: "I confirm"
-          }) }} To confirm:
-        </h3>
-
-        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
-          <li>
-            I <strong>{{ grantingUser.displayName }}</strong> hold a valid SC
-          </li>
-          <li>
-            I have confirmed via Defra's security vetting organisation
-            <a href="mailto:SecurityVetting@defra.gov.uk"
-               class="govuk-link app-link app-link--underline">SecurityVetting@defra.gov.uk</a> that a valid SC is also
-            held by <strong>{{ user.name }}</strong>
+            Treat PII data in production appropriately, especially if copying to a local machine
           </li>
           <li>
             The work is necessary and cannot be deferred or completed in another way
           </li>
           <li>
-            I have documented the reason for access below
+            I the grantor, {{ grantingUser.displayName }} hold a valid SC
+          </li>
+          <li>
+            I have confirmed via Defra's security vetting organisation
+            <a href="mailto:SecurityVetting@defra.gov.uk"
+               class="govuk-link app-link app-link--underline">SecurityVetting@defra.gov.uk</a> that a valid SC is also
+            held by the grantee {{ user.name }}
           </li>
         </ul>
-
-        <hr class="app-section-break">
 
         <form action="{{ routeLookup('post:teams/{teamId}/grant-break-glass/{userId}',
           { params: {
@@ -198,7 +128,7 @@
                 classes: "app-label"
               },
               hint: {
-                html: "Why are you granting break glass for " + user.name + "?",
+                html: "Why are you granting break glass to " + user.name + "?",
                 classes: "app-hint"
               },
               classes: "app-textarea app-textarea--wide",
@@ -214,36 +144,21 @@
           {% endcall %}
 
           {% call govukFieldset() %}
-            {{ govukRadios({
-              name: "complianceRequirements",
-              classes: "govuk-radios--small app-radios",
-              fieldset: {
-                legend: {
-                  text: "Have all compliance requirements been completed?",
-                  classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-2"
-                }
-              },
-              hint: {
-                text: complianceRequirementsCompleted,
-                classes: "app-hint"
-              },
+            {{ govukCheckboxes({
+              name: "iAgree",
+              classes: "govuk-checkboxes--small app-checkboxes",
               items: [
                 {
-                  value: "no",
-                  text: "No",
-                  checked: true
-                },
-                {
                   value: "yes",
-                  text: "Yes",
-                  conditional: { html: iAgreeCheckboxHtml }
+                  html: iAgreeHtml,
+                  attributes: { "data-testid": "i-agree-checkbox" }
                 }
               ],
-              value: formValues.complianceRequirements,
+              values: formValues.iAgree,
               formGroup: {
                 classes: "app-form-group app-form-group-js"
               },
-              errorMessage: errorMessageHelper(formErrors.complianceRequirements.message)
+              errorMessage: errorMessageHelper(formErrors.iAgree.message)
             }) }}
           {% endcall %}
 
@@ -258,7 +173,8 @@
         </form>
       </section>
     </div>
-    <div class="govuk-grid-column-two-thirds-from-desktop-enormous">
+
+    <div class="govuk-grid-column-one-third-from-desktop-enormous">
       <section>
         <h2 class="govuk-heading-s govuk-!-margin-bottom-2">
           Related content

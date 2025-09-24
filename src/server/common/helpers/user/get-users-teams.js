@@ -1,4 +1,4 @@
-import { fetchTeams } from '../../../teams/helpers/fetch/fetch-teams.js'
+import { fetchCdpTeams } from '../../../teams/helpers/fetch/fetch-cdp-teams.js'
 
 /**
  * Returns a list of teams the user is a member of.
@@ -11,7 +11,7 @@ async function getUsersTeams(request) {
   const scopes = userSession?.scope
 
   // TODO we need to consider pagination here in the future
-  const teams = await fetchTeams(true)
+  const teams = await fetchCdpTeams(true)
 
   if (userSession?.isAdmin) {
     return teams

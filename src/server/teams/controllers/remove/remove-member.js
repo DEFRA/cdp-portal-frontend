@@ -7,7 +7,7 @@ import {
 } from '@defra/cdp-validation-kit'
 
 import { sessionNames } from '../../../common/constants/session-names.js'
-import { removeMemberFromTeam } from '../../../admin/teams/helpers/fetch/index.js'
+import { removeMemberFromTeam } from '../../../admin/teams/helpers/fetch/fetchers.js'
 
 const removeMemberController = {
   options: {

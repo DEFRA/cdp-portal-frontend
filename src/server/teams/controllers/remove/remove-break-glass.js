@@ -8,7 +8,7 @@ import {
 
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { removeBreakGlassFromMember } from '../../../admin/permissions/helpers/fetchers.js'
-import { fetchCdpUser } from '../../../admin/users/helpers/fetch/index.js'
+import { fetchCdpUser } from '../../../admin/users/helpers/fetch/fetchers.js'
 
 const removeBreakGlassController = {
   options: {

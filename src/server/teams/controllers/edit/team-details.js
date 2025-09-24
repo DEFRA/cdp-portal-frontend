@@ -8,7 +8,7 @@ import { teamValidation } from '../../helpers/schema/team-validation.js'
 import {
   editTeam,
   fetchCdpTeam
-} from '../../../admin/teams/helpers/fetch/index.js'
+} from '../../../admin/teams/helpers/fetch/fetchers.js'
 
 const teamDetailsController = {
   options: {

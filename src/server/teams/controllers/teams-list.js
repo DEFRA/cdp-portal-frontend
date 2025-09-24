@@ -1,4 +1,4 @@
-import { fetchTeams } from '../helpers/fetch/fetch-teams.js'
+import { fetchCdpTeams } from '../helpers/fetch/fetch-cdp-teams.js'
 import { teamToEntityRow } from '../transformers/team-to-entity-row.js'
 
 function belongsToTeam(userScopes) {
@@ -27,7 +27,7 @@ const teamsListController = {
     const userSession = await request.getUserSession()
     const userScopes = userSession?.scope ?? []
 
-    const teams = await fetchTeams()
+    const teams = await fetchCdpTeams()
 
     const teamDecorator = belongsToTeam(userScopes)
     const rows =
