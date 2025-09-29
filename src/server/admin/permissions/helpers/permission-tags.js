@@ -16,7 +16,7 @@ const userTagComponent = renderComponent(
 const teamTagComponent = renderComponent(
   'tool-tip',
   {
-    text: "A team permission is a permission that is applied to all member's in a team"
+    text: 'A team permission is a permission that is applied to all members in a team'
   },
   [
     renderTag({
