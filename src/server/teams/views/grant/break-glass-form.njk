@@ -8,12 +8,8 @@
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
 {% from "icons/question-icon/macro.njk" import appQuestionIcon %}
 
-{% set complianceRequirementsCompleted %}
-  I have understood and completed the compliance requirements
-{% endset %}
-
 {% set iAgreeHtml %}
-  I agree with the above and wish to grant <strong>{{ user.name }}</strong> break glass
+  I confirm that I have read and understood the above conditions and I authorise break glass access for {{ user.name }}
 {% endset %}
 
 {% set terminalBreakGlassLinkHtml %}
@@ -24,9 +20,9 @@
 
 {% set warningInfoHtml %}
   <p class="govuk-!-margin-bottom-0">
-    Working with a live service in production is an incredibly serious matter. For this reason we will be monitoring,
-    logging and auditing all activity. Misuse or failure to meet security compliance requirements may result in
-    disciplinary action and/or legal consequences.
+    Accessing and working in a live production environment is a serious responsibility. All actions will be monitored,
+    logged, and audited. Any misuse or breach of security requirements may result in disciplinary action and/or legal
+    consequences
   </p>
 {% endset %}
 
@@ -43,134 +39,141 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop-enormous">
 
-      <section class="app-section app-section--wide">
+      <p class="app-section app-section--wide">
 
         {{ appWarning({
           html: warningInfoHtml,
           classes: "govuk-!-margin-bottom-6"
         }) }}
 
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-          Break glass production access
-        </h2>
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+        Break glass production access
+      </h2>
 
-        <p class="govuk-!-margin-bottom-2">
-          Granting temporary break glass will allow {{ user.name }} to access any of the services owned by the
-          <a href="{{ routeLookup('teams/{teamId}', { params: { teamId: team.teamId } }) }}"
-             class="app-link app-link--underline" data-testid="admin-add-team-member">
-            {{ team.name }} team
-          </a> in production via the CDP Terminal.
-        </p>
+      <p class="govuk-!-margin-bottom-2">
+        Granting temporary break glass access will allow {{ user.name }} to access any services owned by the
+        <a href="{{ routeLookup('teams/{teamId}', { params: { teamId: team.teamId } }) }}"
+           class="app-link app-link--underline" data-testid="admin-add-team-member">{{ team.name }} team</a> in
+        production via the CDP Terminal.
+      </p>
 
-        <p>
-          Access will last for 2 hours and will then automatically expire. All activity will be logged for audit
-          purposes. Misuse may result in disciplinary action and/or legal consequences.
-          For more information on break glass, see the {{ terminalBreakGlassLinkHtml | safe }}.
-        </p>
+      <p class="govuk-!-margin-bottom-2">
+        This access is valid for 2 hours and will automatically expire. All actions will be logged and audited. Misuse
+        may result in disciplinary action and/or legal consequences. See {{ terminalBreakGlassLinkHtml | safe }} for
+        more details.
+      </p>
 
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-          Security clearance requirement
-        </h2>
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+        Security clearance requirement
+      </h2>
 
-        <p>
-          This form is used to grant temporary break glass to users who have valid UK Government Security Clearance
-          (SC) only. The grantor, {{ grantingUser.displayName }} must hold a valid SC and must have confirmed via
-          Defra's security vetting organisation <a href="mailto:SecurityVetting@defra.gov.uk"
-                                                   class="govuk-link app-link
-                                                   app-link--underline">SecurityVetting@defra.gov.uk</a> that a valid SC
-          is also held by the grantee {{ user.name }}.
-        </p>
+      <p class="govuk-!-margin-bottom-2">
+        Break glass access can only be granted to users with valid <strong>UK Government Security Clearance
+          (SC)</strong>.
+      </p>
+      <p class="govuk-!-margin-bottom-2">
+        The grantor {{ grantingUser.displayName }} must:
+      </p>
 
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-          I understand & agree
-        </h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> Hold a valid SC</li>
+        <li>Confirm with Defra's security vetting organisation <a href="mailto:SecurityVetting@defra.gov.uk"
+                                                                  class="govuk-link app-link
+                                                   app-link--underline">SecurityVetting@defra.gov.uk</a> that the
+          grantee {{ user.name }} also holds valid SC
+        </li>
+      </ul>
 
-        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-7">
-          <li>
-            All activity will be logged for audit purposes
-          </li>
-          <li>
-            Misuse may result in disciplinary action and/or legal consequences
-          </li>
-          <li>
-            Treat PII data in production appropriately, especially if copying to a local machine
-          </li>
-          <li>
-            The work is necessary and cannot be deferred or completed in another way
-          </li>
-          <li>
-            I the grantor, {{ grantingUser.displayName }} hold a valid SC
-          </li>
-          <li>
-            I have confirmed via Defra's security vetting organisation
-            <a href="mailto:SecurityVetting@defra.gov.uk"
-               class="govuk-link app-link app-link--underline">SecurityVetting@defra.gov.uk</a> that a valid SC is also
-            held by the grantee {{ user.name }}
-          </li>
-        </ul>
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+        Declaration
+      </h2>
 
-        <form action="{{ routeLookup('post:teams/{teamId}/grant-break-glass/{userId}',
-          { params: {
-            teamId: team.teamId,
-            userId: user.userId
-          } }) }}"
-              method="post"
-              data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+      <p>
+        By granting access, I confirm that:
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-7">
+        <li>
+          I, the grantor {{ grantingUser.displayName }}, hold a valid SC
+        </li>
+        <li>
+          I have confirmed that the grantee {{ user.name }} holds a valid SC
+        </li>
+        <li>
+          All activity will be logged for audit purposes
+        </li>
+        <li>
+          Misuse may result in disciplinary action and/or legal consequences
+        </li>
+        <li>
+          PII data in production will be handled appropriately, especially if copied to a local machine
+        </li>
+        <li>
+          The work is essential and cannot reasonably be delayed or carried out in another way
+        </li>
+      </ul>
+      </p>
 
-          {% call govukFieldset() %}
-            {{ govukCharacterCount({
-              name: "reason",
-              id: "reason",
-              maxlength: 600,
-              label: {
-                text: "Reason",
-                classes: "app-label"
-              },
-              hint: {
-                html: "Why are you granting break glass to " + user.name + "?",
-                classes: "app-hint"
-              },
-              classes: "app-textarea app-textarea--wide",
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
-              attributes: {
-                "data-1p-ignore": ""
-              },
-              value: formValues.reason,
-              errorMessage: errorMessageHelper(formErrors.reason.message)
-            }) }}
-          {% endcall %}
+      <form action="{{ routeLookup('post:teams/{teamId}/grant-break-glass/{userId}',
+        { params: {
+          teamId: team.teamId,
+          userId: user.userId
+        } }) }}"
+            method="post"
+            data-js="app-form-errors">
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-          {% call govukFieldset() %}
-            {{ govukCheckboxes({
-              name: "iAgree",
-              classes: "govuk-checkboxes--small app-checkboxes",
-              items: [
-                {
-                  value: "yes",
-                  html: iAgreeHtml,
-                  attributes: { "data-testid": "i-agree-checkbox" }
-                }
-              ],
-              values: formValues.iAgree,
-              formGroup: {
-                classes: "app-form-group app-form-group-js"
-              },
-              errorMessage: errorMessageHelper(formErrors.iAgree.message)
-            }) }}
-          {% endcall %}
+        {% call govukFieldset() %}
+          {{ govukCharacterCount({
+            name: "reason",
+            id: "reason",
+            maxlength: 600,
+            label: {
+              text: "Reason",
+              classes: "app-label"
+            },
+            hint: {
+              html: "Why are you granting break glass to " + user.name + "?",
+              classes: "app-hint"
+            },
+            classes: "app-textarea app-textarea--wide",
+            formGroup: {
+              classes: "app-form-group app-form-group-js"
+            },
+            attributes: {
+              "data-1p-ignore": ""
+            },
+            value: formValues.reason,
+            errorMessage: errorMessageHelper(formErrors.reason.message)
+          }) }}
+        {% endcall %}
 
-          <div class="govuk-body govuk-button-group">
-            {{ govukButton({
-              classes: "app-button",
-              text: "Grant access"
-            }) }}
+        {% call govukFieldset() %}
+          {{ govukCheckboxes({
+            name: "iAgree",
+            classes: "govuk-checkboxes--small app-checkboxes",
+            items: [
+              {
+                value: "yes",
+                html: iAgreeHtml,
+                attributes: { "data-testid": "i-agree-checkbox" }
+              }
+            ],
+            values: formValues.iAgree,
+            formGroup: {
+              classes: "app-form-group app-form-group-js"
+            },
+            errorMessage: errorMessageHelper(formErrors.iAgree.message)
+          }) }}
+        {% endcall %}
 
-            <a class="app-link" href="/teams/{{ team.teamId }}">Cancel</a>
-          </div>
-        </form>
+        <div class="govuk-body govuk-button-group">
+          {{ govukButton({
+            classes: "app-button",
+            text: "Grant access"
+          }) }}
+
+          <a class="app-link" href="/teams/{{ team.teamId }}">Cancel</a>
+        </div>
+      </form>
       </section>
     </div>
 
