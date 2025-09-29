@@ -13,7 +13,7 @@ describe('#kindOptions', () => {
       text: 'Team',
       value: 'team',
       label: { classes: 'app-label app-label--small' },
-      hint: { text: "All member's of a team" }
+      hint: { text: 'All members of a team' }
     })
     expect(kindOptions.at(2)).toEqual({
       text: 'Member',

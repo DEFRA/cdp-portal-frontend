@@ -14,7 +14,7 @@ const kindOptions = buildOptions(
       value: 'team',
       label: { classes: labelClasses },
       hint: {
-        text: "All member's of a team"
+        text: 'All members of a team'
       }
     },
     {
