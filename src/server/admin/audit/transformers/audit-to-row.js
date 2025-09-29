@@ -40,7 +40,8 @@ export function transformAuditToRow(audit) {
         headers: 'started',
         entity: {
           kind: 'date',
-          value: audit.performedAt
+          value: audit.performedAt,
+          formatString: 'dd/MM/yyyy - HH:mm:ss'
         }
       },
       {

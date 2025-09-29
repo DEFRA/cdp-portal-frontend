@@ -5,6 +5,8 @@
     {{ params.text }}
   {% elseif params.withSeconds %}
     {{ params.datetime | relativeDate(params.withSeconds) }}
+  {% elseif params.formatString %}
+    {{ params.datetime | formatDate(params.formatString) }}
   {% else %}
     {{ params.datetime | relativeDate }}
   {% endif %}
