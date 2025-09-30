@@ -1,6 +1,7 @@
 import { renderPage } from '../../../../../../test-helpers/component-helpers.js'
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { entityServicesFixture } from '../../../../../__fixtures__/services/entities.js'
+import { mockServiceTabs } from '../../../../../../test-helpers/mock-tabs.js'
 
 function buildServiceAutomationContext({
   entity,
@@ -8,18 +9,14 @@ function buildServiceAutomationContext({
   formEnvironments
 }) {
   const serviceId = entity.name
+  const tabs = mockServiceTabs({
+    serviceName: serviceId,
+    url: `/services/${serviceId}/automations`
+  })
 
   return {
     isAdmin: true,
-    tabDetails: {
-      tabs: [
-        {
-          isActive: true,
-          url: `services/${serviceId}/automation`,
-          label: 'Automation'
-        }
-      ]
-    },
+    tabDetails: { tabs },
     pageTitle: `${serviceId} - Automation`,
     formValues: {
       environments: formEnvironments
@@ -56,7 +53,7 @@ describe('Service automation tab', () => {
     vi.useRealTimers()
   })
 
-  test('Never deployedq', () => {
+  test('Never deployed', () => {
     const rendered = renderPage(
       'services/service/automations/views/auto-deployments',
       buildServiceAutomationContext({
