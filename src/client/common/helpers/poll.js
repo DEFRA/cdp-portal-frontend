@@ -4,7 +4,6 @@ import { xhrRequest } from './xhr.js'
 import { clientNotification } from './client-notification.js'
 
 /**
- *
  * @param {string} url - poll url
  * @param {number} [interval] - poll interval
  * @param {number} [limit] - poll limit in minutes. After this period, polling is paused
@@ -14,7 +13,10 @@ import { clientNotification } from './client-notification.js'
 function startPolling(url, interval, limit, pollBegin) {
   return async function pollUrl() {
     const isBeforePollLimit = isBefore(Date.now(), addMinutes(pollBegin, limit))
-    const { ok, text } = await xhrRequest(url)
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    const urlParams = Object.fromEntries(urlSearchParams.entries())
+
+    const { ok, text } = await xhrRequest(url, urlParams)
     const timerInfo = {}
 
     // TODO roll out the data xhrStop, xhrSuccessMessage, xhrErrorMessage attribute to all pollers
