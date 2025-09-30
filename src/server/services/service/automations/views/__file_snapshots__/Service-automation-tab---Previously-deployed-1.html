@@ -135,27 +135,129 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="">
 
 
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-automation app-tabs-list-item--selected">
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-about">
 
 
-          <a id="tab-automation"
+          <a id="tab-about"
              class="app-tabs__tab"
-             href="services/cdp-portal-backend/automation"
+             href="/services/cdp-portal-backend"
              data-js="app-tab"
              role="tab"
-             aria-controls="tab-panel-automation"
+             aria-controls="tab-panel-about"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-about">
+            About
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-resources">
+
+
+          <a id="tab-resources"
+             class="app-tabs__tab"
+             href="/services/cdp-portal-backend/resources"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-resources"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-resources">
+            Resources
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-proxy">
+
+
+          <a id="tab-proxy"
+             class="app-tabs__tab"
+             href="/services/cdp-portal-backend/proxy"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-proxy"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-proxy">
+            Proxy
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item app-tabs__list-item--selected"
+            data-testid="app-tabs-list-item-automations app-tabs-list-item--selected">
+
+
+          <a id="tab-automations"
+             class="app-tabs__tab"
+             href="/services/cdp-portal-backend/automations"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-automations"
              aria-selected="true"
-             data-testid="app-tabs-list-item__anchor-automation">
-            Automation
+             data-testid="app-tabs-list-item__anchor-automations">
+            Automations
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-secrets">
+
+
+          <a id="tab-secrets"
+             class="app-tabs__tab"
+             href="/services/cdp-portal-backend/secrets"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-secrets"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-secrets">
+            Secrets
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-maintenance">
+
+
+          <a id="tab-maintenance"
+             class="app-tabs__tab"
+             href="/services/cdp-portal-backend/maintenance"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-maintenance"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-maintenance">
+            Maintenance
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-terminal">
+
+
+          <a id="tab-terminal"
+             class="app-tabs__tab"
+             href="/services/cdp-portal-backend/terminal"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-terminal"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-terminal">
+            Terminal
           </a>
         </li>
     </ul>
 
-      <section id="tab-panel-automation"
+      <section id="tab-panel-automations"
                class="app-tabs__panel"
                role="tabpanel"
-               aria-labelledby="tab-automation"
+               aria-labelledby="tab-automations"
                data-testid="app-tabs-panel">
           <section class="govuk-!-margin-top-6">
 
