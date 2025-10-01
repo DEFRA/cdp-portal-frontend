@@ -31,7 +31,7 @@
   {% endset %}
 
   {% set detailHtml %}
-    <div class="app-flex--center">
+    <div class="app-flex-center">
       {{ appInstanceIcon({ classes: "app-icon--small", description: "Published Image " + version.tag }) }}
       {{ appTime({ datetime: version.created, classes: "govuk-!-margin-left-2" }) }}
     </div>
@@ -64,7 +64,7 @@
   {% endset %}
 
   {% set detailHtml %}
-    <div class="app-flex--center">
+    <div class="app-flex-center">
       {{ appSchemaIcon({ classes: "app-icon--small", description: "Database Change " + migration.version }) }}
       {{ appTime({ datetime: migration.created, classes: "govuk-!-margin-left-2" }) }}
     </div>
