@@ -2,9 +2,10 @@ import { config } from '../../../../config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '@defra/cdp-validation-kit'
+import { scopes, entityTypes, entitySubTypes } from '@defra/cdp-validation-kit'
+import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
+import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
 
 const testSuiteCreateController = {
   options: {
@@ -25,11 +26,19 @@ const testSuiteCreateController = {
 
     const sanitisedPayload = {
       repositoryName,
+      serviceTypeTemplate: 'cdp-node-journey-test-suite-template',
       teamId,
       templateTag
     }
 
-    const validationResult = await testSuiteValidation()
+    const journeyTestTemplates = await fetchServiceTemplates(request, {
+      type: entityTypes.testSuite,
+      subtype: entitySubTypes.journey
+    })
+
+    const validationResult = await createTenantPayloadValidation(
+      journeyTestTemplates
+    )
       .validateAsync(sanitisedPayload, { abortEarly: false })
       .then((value) => ({ value }))
       .catch((error) => ({ value: sanitisedPayload, error }))
@@ -46,12 +55,12 @@ const testSuiteCreateController = {
     }
 
     if (!validationResult.error) {
-      const selfServiceOpsCreateTestSuiteEndpointUrl =
-        config.get('selfServiceOpsUrl') + '/create-journey-test-suite'
+      const selfServiceOpsCreateTenantEndpointUrl =
+        config.get('selfServiceOpsUrl') + '/create-tenant'
 
       try {
         const { payload } = await request.authedFetchJson(
-          selfServiceOpsCreateTestSuiteEndpointUrl,
+          selfServiceOpsCreateTenantEndpointUrl,
           {
             method: 'post',
             payload: sanitisedPayload
