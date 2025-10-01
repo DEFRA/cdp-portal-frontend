@@ -3,8 +3,10 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '@defra/cdp-validation-kit'
+import { entityTypes, scopes } from '@defra/cdp-validation-kit'
 import { prototypeValidation } from '../schema/prototype-validation.js'
+import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
+import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
 
 const prototypeCreateController = {
   options: {
@@ -23,13 +25,19 @@ const prototypeCreateController = {
     const templateTag = create.templateTag
     const teamId = request.payload?.teamId
 
+    // TODO: revisit this after we've switch prototype to be a subtype
+    const serviceTemplates = await fetchServiceTemplates(request, {})
+
     const sanitisedPayload = {
       repositoryName,
+      serviceTypeTemplate: 'cdp-node-prototype-template',
       teamId,
       templateTag
     }
 
-    const validationResult = await prototypeValidation()
+    const validationResult = await createTenantPayloadValidation(
+      serviceTemplates
+    )
       .validateAsync(sanitisedPayload, { abortEarly: false })
       .then((value) => ({ value }))
       .catch((error) => ({ value: sanitisedPayload, error }))
@@ -47,7 +55,7 @@ const prototypeCreateController = {
 
     if (!validationResult.error) {
       const createEndpointUrl =
-        config.get('selfServiceOpsUrl') + '/create-prototype'
+        config.get('selfServiceOpsUrl') + '/create-tenant'
 
       try {
         const { payload } = await request.authedFetchJson(createEndpointUrl, {

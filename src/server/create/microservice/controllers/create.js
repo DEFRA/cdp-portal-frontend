@@ -2,12 +2,12 @@ import { config } from '../../../../config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { microserviceValidation } from '../helpers/schema/microservice-validation.js'
 import { setStepComplete } from '../../helpers/form/index.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '@defra/cdp-validation-kit'
+import { scopes, entityTypes } from '@defra/cdp-validation-kit'
 import { fetchServiceTemplates } from '../helpers/fetch/fetch-service-templates.js'
 import { buildPayload } from '../helpers/build-payload.js'
+import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
 
 const microserviceCreateController = {
   options: {
@@ -22,19 +22,18 @@ const microserviceCreateController = {
   handler: async (request, h) => {
     const userSession = await request.getUserSession()
     const create = request.pre?.create
-    const serviceTemplates = await fetchServiceTemplates(request)
-    const availableServiceTemplateIds = serviceTemplates.map(
-      (template) => template.id
-    )
-
-    const validationResult = await microserviceValidation(
-      availableServiceTemplateIds
-    )
-      .validateAsync(create, { abortEarly: false })
-      .then((value) => ({ value }))
-      .catch((error) => ({ value: create, error }))
+    const serviceTemplates = await fetchServiceTemplates(request, {
+      type: entityTypes.microservice
+    })
 
     const sanitisedPayload = buildPayload({ serviceTemplates, create })
+
+    const validationResult = await createTenantPayloadValidation(
+      serviceTemplates
+    )
+      .validateAsync(sanitisedPayload, { abortEarly: false })
+      .then((value) => ({ value }))
+      .catch((error) => ({ value: create, error }))
 
     if (validationResult?.error) {
       const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -48,12 +47,12 @@ const microserviceCreateController = {
     }
 
     if (!validationResult.error) {
-      const selfServiceOpsCreateServiceEndpointUrl =
-        config.get('selfServiceOpsUrl') + '/create-microservice'
+      const selfServiceOpsCreateTenantEndpointUrl =
+        config.get('selfServiceOpsUrl') + '/create-tenant'
 
       try {
         const { payload } = await request.authedFetchJson(
-          selfServiceOpsCreateServiceEndpointUrl,
+          selfServiceOpsCreateTenantEndpointUrl,
           {
             method: 'post',
             payload: sanitisedPayload
