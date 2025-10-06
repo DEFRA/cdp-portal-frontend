@@ -23,7 +23,7 @@ describe('#transformServiceToSummary', () => {
       rows: [
         {
           key: {
-            text: 'Kind'
+            text: 'Type'
           },
           value: {
             html: expect.stringContaining('Frontend')
