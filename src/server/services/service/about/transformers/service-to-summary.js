@@ -41,7 +41,7 @@ function transformServiceToSummary(repository, entity) {
     attributes: { 'data-testid': 'service-summary' },
     rows: [
       {
-        key: { text: 'Kind' },
+        key: { text: 'Type' },
         value: {
           html: renderTag({
             text: entity.subType ?? entity.type ?? noValue,

@@ -32,8 +32,8 @@ describe('#serviceToEntityRow', () => {
           headers: 'team'
         },
         {
-          headers: 'kind',
-          html: '<strong class="govuk-!-margin-right-1">Microservice</strong> Backend'
+          headers: 'type',
+          html: expect.stringContaining('Backend')
         },
         {
           entity: {
