@@ -11,6 +11,7 @@ import {
   fetchServiceNames,
   fetchEntity
 } from '../../../common/helpers/fetch/fetch-entities.js'
+import { entitySubTypes } from '@defra/cdp-validation-kit'
 
 const detailsController = {
   options: {
@@ -84,7 +85,10 @@ const detailsController = {
       const entity = await fetchEntity(payload.imageName).catch(nullify404)
       await request.app.saveStepData(
         multiStepFormId,
-        { ...payload, isPrototype: entity.type === 'Prototype' },
+        {
+          ...payload,
+          isPrototype: entity.subType === entitySubTypes.prototype
+        },
         h
       )
 

@@ -6,6 +6,7 @@ import { buildOptions } from '../../../../common/helpers/options/build-options.j
 import { getAutoDeployDetails } from '../helpers/fetchers.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
+import { environments } from '@defra/cdp-validation-kit'
 
 const autoDeploymentsController = {
   options: {
@@ -24,12 +25,12 @@ const autoDeploymentsController = {
     const serviceId = request.params.serviceId
     const entity = request.app.entity
     const autoDeployDetails = await getAutoDeployDetails(serviceId)
-    const environments = getEnvironments(
+    const validEnvironments = getEnvironments(
       userSession?.scope,
-      entity?.type
-    ).filter((environment) => environment.toLowerCase() !== 'prod')
+      entity?.subType
+    ).filter((environment) => environment.toLowerCase() !== environments.prod)
     const environmentOptions = buildOptions(
-      environments.map((environment) => ({
+      validEnvironments.map((environment) => ({
         text: formatText(environment),
         value: environment
       })),

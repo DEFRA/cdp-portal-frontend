@@ -15,7 +15,7 @@ function serviceParamsValidation(params, options) {
   const validationResult = Joi.object({
     serviceId: repositoryNameValidation,
     environment: Joi.string()
-      .valid(...getEnvironments(scopes, entity?.type))
+      .valid(...getEnvironments(scopes, entity?.subType))
       .required()
   }).validate(params, options)
 

@@ -22,7 +22,7 @@ export function allProxyController(entityKind) {
       const entityName = request.params.serviceId
       const environments = getEnvironments(
         request.auth.credentials?.scope,
-        entity?.type
+        entity?.subType
       )
       const proxyRulesByEnvironment = await findAllProxyRules(
         entityName,

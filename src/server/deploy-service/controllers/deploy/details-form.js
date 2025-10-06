@@ -47,7 +47,7 @@ const detailsFormController = {
     const entity = await fetchEntity(imageName).catch(nullify404)
     const imageNameOptions = buildOptions(serviceNames)
 
-    const environments = getEnvironments(userSession?.scope, entity?.type)
+    const environments = getEnvironments(userSession?.scope, entity?.subType)
     const environmentOptions = environments.length
       ? buildSuggestions(
           environments.map((environment) => ({
