@@ -2,17 +2,18 @@ import {
   environments,
   prototypeEnvironments
 } from '../../../../config/environments.js'
+import { entitySubTypes } from '@defra/cdp-validation-kit'
 
-function getEnvironmentValuesForEntityType(entityType) {
-  if (entityType === 'Prototype') {
+function getEnvironmentValuesForEntitySubType(subType) {
+  if (subType === entitySubTypes.prototype) {
     return prototypeEnvironments
   } else {
     return Object.values(environments)
   }
 }
 
-function getEnvironments(userScopes, entityType) {
-  return getEnvironmentValuesForEntityType(entityType)
+function getEnvironments(userScopes, entitySubType) {
+  return getEnvironmentValuesForEntitySubType(entitySubType)
     .filter(({ scope }) => {
       if (scope == null) {
         return true
@@ -23,16 +24,14 @@ function getEnvironments(userScopes, entityType) {
     .map(({ kebabName }) => kebabName)
 }
 
-function getEnvironmentsThatNeed(userScopes, entityType) {
-  return getEnvironmentValuesForEntityType(entityType)
+function getEnvironmentsThatNeed(userScopes) {
+  return Object.values(environments)
     .filter(({ scope }) => userScopes.includes(scope))
     .map(({ kebabName }) => kebabName)
 }
 
-function getAllEnvironmentKebabNames(entityType) {
-  return getEnvironmentValuesForEntityType(entityType).map(
-    ({ kebabName }) => kebabName
-  )
+function getAllEnvironmentKebabNames() {
+  return Object.values(environments).map(({ kebabName }) => kebabName)
 }
 
 export { getEnvironments, getEnvironmentsThatNeed, getAllEnvironmentKebabNames }

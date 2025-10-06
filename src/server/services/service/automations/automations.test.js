@@ -11,7 +11,7 @@ import {
   getAutoTestRunDetails
 } from './helpers/fetchers.js'
 import { fetchTestSuites } from '../../../common/helpers/fetch/fetch-entities.js'
-import { statusCodes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
@@ -25,7 +25,7 @@ describe('Service Automations page', () => {
   let server
 
   beforeAll(async () => {
-    mockServiceEntityCall(serviceName, undefined)
+    mockServiceEntityCall(serviceName, entitySubTypes.frontend)
     server = await initialiseServer()
     mockFetchShutteringUrlsCall()
   })

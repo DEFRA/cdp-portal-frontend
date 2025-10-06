@@ -5,7 +5,7 @@ import {
   mockFetchShutteringUrlsCall,
   mockServiceEntityCall
 } from '../../../../../test-helpers/common-page-rendering.js'
-import { statusCodes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
@@ -29,7 +29,7 @@ describe('Service Proxy page', () => {
     )
 
     mockFetchShutteringUrlsCall()
-    mockServiceEntityCall('mock-service-with-proxy', undefined)
+    mockServiceEntityCall('mock-service-with-proxy', entitySubTypes.backend)
     server = await initialiseServer()
   })
 

@@ -93,23 +93,4 @@ describe('#getEnvironmentsThatNeed', () => {
       ).toEqual(['infra-dev', 'management', 'ext-test'])
     })
   })
-
-  describe('For prototype and admin scope', () => {
-    test('Should provide expected environments', () => {
-      expect(getEnvironmentsThatNeed([scopes.admin], 'Prototype')).toEqual([
-        'infra-dev'
-      ])
-    })
-  })
-
-  describe('For prototype and ext-test & admin scope', () => {
-    test('Should provide expected environments', () => {
-      expect(
-        getEnvironmentsThatNeed(
-          [scopes.externalTest, scopes.admin],
-          'Prototype'
-        )
-      ).toEqual(['infra-dev', 'ext-test'])
-    })
-  })
 })

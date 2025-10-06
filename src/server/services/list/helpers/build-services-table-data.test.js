@@ -35,7 +35,7 @@ describe('#buildServicesTableData', () => {
     nock(filtersEndpointUrl.origin)
       .get(filtersEndpointUrl.pathname)
       .query({
-        type: ['Microservice', 'Prototype'],
+        type: 'Microservice',
         status: ['Created', 'Creating']
       })
       .reply(200, entitiesFiltersFixture)
@@ -50,7 +50,7 @@ describe('#buildServicesTableData', () => {
       nock(entitiesEndpointUrl.origin)
         .get(entitiesEndpointUrl.pathname)
         .query({
-          type: ['Microservice', 'Prototype'],
+          type: 'Microservice',
           status: ['Created', 'Creating']
         })
         .reply(200, entityServicesFixture)
@@ -128,7 +128,7 @@ describe('#buildServicesTableData', () => {
         nock(entitiesEndpointUrl.origin)
           .get(entitiesEndpointUrl.pathname)
           .query({
-            type: ['Microservice', 'Prototype'],
+            type: 'Microservice',
             status: ['Created', 'Creating'],
             name: 'forms-service'
           })
@@ -178,7 +178,7 @@ describe('#buildServicesTableData', () => {
         nock(entitiesEndpointUrl.origin)
           .get(entitiesEndpointUrl.pathname)
           .query({
-            type: ['Microservice', 'Prototype'],
+            type: 'Microservice',
             status: ['Created', 'Creating'],
             teamIds: adminGroupId
           })
@@ -232,7 +232,7 @@ describe('#buildServicesTableData', () => {
       nock(entitiesEndpointUrl.origin)
         .get(entitiesEndpointUrl.pathname)
         .query({
-          type: ['Microservice', 'Prototype'],
+          type: 'Microservice',
           status: ['Created', 'Creating']
         })
         .reply(200, entityServicesFixture)
