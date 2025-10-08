@@ -6,6 +6,7 @@ import {
   renderComponent,
   renderIcon
 } from '../../../common/helpers/nunjucks/render-component.js'
+import { noValue } from '../../../common/constants/no-value.js'
 
 function buildServiceDescription(entity) {
   const tagsHtml =
@@ -85,8 +86,11 @@ function entityToEntityRow(entity) {
         entity: { kind: 'list', value: teams }
       },
       {
-        headers: 'kind',
-        html: `<strong class="govuk-!-margin-right-1">${entity.type}</strong> ${entity.subType ?? ''}`
+        headers: 'type',
+        html: renderTag({
+          text: entity.subType ?? entity.type ?? noValue,
+          classes: 'govuk-tag--blue'
+        })
       },
       {
         headers: 'github-url',

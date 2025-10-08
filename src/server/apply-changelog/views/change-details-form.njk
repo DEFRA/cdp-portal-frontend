@@ -8,7 +8,7 @@
 {% for dbChange in latestDbChanges %}
 
   {% set createdHtml %}
-    <div class="app-flex--center">
+    <div class="app-flex-center">
       {{ appSchemaIcon({ classes: "app-icon--small", description: "Database changelog " + dbChange.version }) }}
       {{ appTime({ datetime: dbChange.created, classes: "govuk-!-margin-left-2" }) }}
     </div>

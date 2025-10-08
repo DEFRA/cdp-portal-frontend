@@ -1,7 +1,14 @@
+import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
+
 function provideAutomationSubNavigation(request, h) {
   const entity = request.app.entity
-  const isTestSuiteOrMicroservice =
-    entity?.type === 'Microservice' || entity?.type === 'TestSuite'
+  const isTestSuite = entity?.type === entityTypes.testSuite
+  const isFrontend =
+    entity?.type === entityTypes.microservice &&
+    entity?.subType === entitySubTypes.frontend
+  const isBackend =
+    entity?.type === entityTypes.microservice &&
+    entity?.subType === entitySubTypes.backend
 
   const response = request.response
 
@@ -20,7 +27,7 @@ function provideAutomationSubNavigation(request, h) {
       { params: { serviceId } }
     )
 
-    if (isTestSuiteOrMicroservice) {
+    if (isTestSuite || isFrontend || isBackend) {
       response.source.context.subNavigation = [
         {
           isActive: request.path.includes('automations/deployments'),

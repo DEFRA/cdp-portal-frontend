@@ -53,7 +53,7 @@ async function aboutHandler(request, h) {
   const availableServiceEnvironments = availableEnvironments({
     userScopes,
     tenantServiceInfo: tenantServices,
-    entityType: entity.type
+    entitySubType: entity.subType
   })
 
   const isFrontend = entity.subType === 'Frontend'

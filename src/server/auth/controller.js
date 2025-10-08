@@ -22,19 +22,19 @@ const authCallbackController = {
       await createUserSession(request, sessionId)
 
       request.sessionCookie.set({ sessionId })
-      const { profile } = request.auth.credentials
+      const userSession = await request.getUserSession(sessionId)
 
       request.logger.info(
         userLog(
           'User logged in',
-          { id: profile?.id, displayName: profile?.displayName },
-          profile?.scopeFlags,
-          profile?.scopes
+          { id: userSession?.id, displayName: userSession?.displayName },
+          { isAdmin: userSession.isAdmin, isTenant: userSession.isTenant },
+          userSession?.scope
         )
       )
       request.audit.sendMessage({
-        event: `User logged in ${profile?.id} ${profile?.displayName}`,
-        user: profile
+        event: `User logged in ${userSession?.id} ${userSession?.displayName}`,
+        user: userSession
       })
     }
 

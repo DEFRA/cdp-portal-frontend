@@ -6,7 +6,7 @@ import {
   mockServiceEntityCall,
   mockResourcesByEnvironmentCall
 } from '../../../../../test-helpers/common-page-rendering.js'
-import { statusCodes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
@@ -25,7 +25,7 @@ describe('Service resources page', () => {
 
   describe('all resources view', () => {
     beforeAll(async () => {
-      mockServiceEntityCall(serviceName, undefined)
+      mockServiceEntityCall(serviceName, entitySubTypes.backend)
       mockResourcesCall()
       mockFetchShutteringUrlsCall()
       server = await initialiseServer()
@@ -74,7 +74,7 @@ describe('Service resources page', () => {
 
   describe('single resources env view', () => {
     beforeAll(async () => {
-      mockServiceEntityCall(serviceName, undefined)
+      mockServiceEntityCall(serviceName, entitySubTypes.backend)
       mockFetchShutteringUrlsCall()
       server = await initialiseServer()
     })

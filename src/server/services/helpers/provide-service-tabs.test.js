@@ -1,5 +1,6 @@
 import { hasScopeDecorator } from '../../common/helpers/decorators/has-scope.js'
 import { provideServiceTabs } from './provide-service-tabs.js'
+import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
 
 const mockServiceName = 'cdp-portal-frontend'
 const mockUserIsOwner = vi.fn()
@@ -13,7 +14,8 @@ describe('#provideServiceTabs', () => {
     response,
     path = '',
     scope = [],
-    type = 'Microservice'
+    type = entityTypes.microservice,
+    subType = entitySubTypes.backend
   }) => ({
     response,
     path,
@@ -26,7 +28,8 @@ describe('#provideServiceTabs', () => {
     app: {
       entity: {
         name: mockServiceName,
-        type
+        type,
+        subType
       }
     }
   })

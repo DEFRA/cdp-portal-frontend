@@ -17,10 +17,12 @@
 
 /**
  * Get the user session from the cache
+ * @param {string} [sessionId] - optional sessionId. Only needed when the userSessionCookie.sessionId is not available
  * @returns {Promise<UserSession | null>}
  */
-async function getUserSession() {
-  const sessionId = this.state?.userSessionCookie?.sessionId
+async function getUserSession(
+  sessionId = this.state?.userSessionCookie?.sessionId
+) {
   return sessionId ? await this.server.session.get(sessionId) : null
 }
 

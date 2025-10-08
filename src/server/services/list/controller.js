@@ -34,10 +34,10 @@ const servicesListController = {
       tableData: {
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
-          { id: 'service', text: 'Service', width: '20', isLeftAligned: true },
-          { id: 'team', text: 'Team', width: '20' },
-          { id: 'type', text: 'Type', width: '20' },
-          { id: 'github-url', text: 'GitHub Repository', width: '25' },
+          { id: 'service', text: 'Service', width: '23', isLeftAligned: true },
+          { id: 'team', text: 'Team', width: '22' },
+          { id: 'type', text: 'Type', width: '10' },
+          { id: 'github-url', text: 'GitHub Repository', width: '30' },
           { id: 'created', text: 'Created', width: '15' }
         ],
         rows,

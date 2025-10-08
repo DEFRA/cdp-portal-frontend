@@ -2,6 +2,7 @@ import qs from 'qs'
 
 import { config } from '../../../../config/config.js'
 import { fetchJson } from './fetch-json.js'
+import { entityTypes } from '@defra/cdp-validation-kit'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 
@@ -31,7 +32,7 @@ async function fetchEntities(queryParams = {}) {
 
 function fetchTestSuites(queryParams) {
   return fetchEntities({
-    type: 'TestSuite',
+    type: entityTypes.testSuite,
     status: ['Created', 'Creating'],
     ...queryParams
   })
@@ -39,7 +40,7 @@ function fetchTestSuites(queryParams) {
 
 function fetchServices(queryParams) {
   return fetchEntities({
-    type: ['Microservice', 'Prototype'],
+    type: entityTypes.microservice,
     status: ['Created', 'Creating'],
     ...queryParams
   })

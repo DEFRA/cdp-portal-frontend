@@ -6,11 +6,12 @@ import { sortByOwner } from '../../../common/helpers/sort/sort-by-owner.js'
 import { fetchServices } from '../../../common/helpers/fetch/fetch-entities.js'
 import { fetchFilters } from '../../../common/helpers/fetch/fetch-filters.js'
 import { entityOwnerDecorator } from '../../../test-suites/helpers/decorators/entity-owner-decorator.js'
+import { entityTypes } from '@defra/cdp-validation-kit'
 
 async function buildServicesTableData({ service, teamId, userScopes }) {
   const [filters, microservices] = await Promise.all([
     fetchFilters({
-      type: ['Microservice', 'Prototype'],
+      type: entityTypes.microservice,
       status: ['Created', 'Creating']
     }),
     fetchServices({ name: service, teamIds: [teamId] })

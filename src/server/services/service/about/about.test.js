@@ -195,7 +195,7 @@ describe('Services', () => {
       vi.useFakeTimers({ advanceTimers: true })
       vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
 
-      mockServiceEntityCall(serviceName, 'frontend', 'Created', 'Prototype')
+      mockServiceEntityCall(serviceName, 'Prototype', 'Created', 'Microservice')
       mockServicesAdditionalCalls({
         repositoryName: serviceName
       })

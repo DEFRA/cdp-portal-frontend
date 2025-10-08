@@ -1,4 +1,4 @@
-import { scopes, statusCodes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, scopes, statusCodes } from '@defra/cdp-validation-kit'
 
 import {
   initialiseServer,
@@ -20,7 +20,7 @@ describe('Service Terminal page', () => {
 
   beforeAll(async () => {
     const serviceName = 'mock-service-with-terminal'
-    mockServiceEntityCall(serviceName, undefined)
+    mockServiceEntityCall(serviceName, entitySubTypes.backend)
     mockTenantServicesCall()
     mockFetchShutteringUrlsCall()
     server = await initialiseServer()

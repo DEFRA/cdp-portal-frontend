@@ -23,7 +23,7 @@ function allSecretsController(entityKind) {
       const entityName = request.params.serviceId
       const environments = getEnvironments(
         request.auth.credentials?.scope,
-        entity?.type
+        entity?.subType
       )
       const allSecrets = await fetchAllSecrets(entityName)
       const secretsByEnvironment = allEnvironmentSecrets(

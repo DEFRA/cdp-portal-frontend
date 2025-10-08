@@ -30,7 +30,7 @@ const autoTestRunsController = {
 
     const environments = getEnvironments(
       userSession?.scope,
-      entity?.type
+      entity?.subType
     ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
     const environmentOptions = buildOptions(
       environments.map((env) => ({ text: formatText(env), value: env })),

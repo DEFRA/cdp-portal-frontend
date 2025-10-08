@@ -224,11 +224,11 @@ export function mockEntityCall(repositoryName, type, subType, status) {
 
 export function mockServiceEntityCall(
   repositoryName,
-  frontendOrBackend,
+  subType,
   status = 'Created',
   type = 'Microservice'
 ) {
-  mockEntityCall(repositoryName, type, frontendOrBackend, status)
+  mockEntityCall(repositoryName, type, subType, status)
 }
 
 export function mockServiceEntityStatusCall(

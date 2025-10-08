@@ -1,5 +1,6 @@
 import { sortBy } from '../../common/helpers/sort/sort-by.js'
 import { buildTab } from '../../common/patterns/entities/tabs/helpers/build-tab.js'
+import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
 
 /**
  * Provides tabs for the service view based on user authentication.
@@ -20,8 +21,14 @@ async function provideServiceTabs(request, h) {
 
     const entityName = request.app.entity?.name
     const entity = request.app.entity
-    const isTestSuiteOrMicroservice =
-      entity?.type === 'Microservice' || entity?.type === 'TestSuite'
+    const isTestSuite = entity?.type === entityTypes.testSuite
+    const isFrontend =
+      entity?.type === entityTypes.microservice &&
+      entity?.subType === entitySubTypes.frontend
+    const isBackend =
+      entity?.type === entityTypes.microservice &&
+      entity?.subType === entitySubTypes.backend
+
     const isServiceOwner = await request.userIsOwner(entity)
 
     response.source.context.tabDetails = {
@@ -40,7 +47,7 @@ async function provideServiceTabs(request, h) {
     ]
 
     if (isAdmin || isTenant) {
-      if (isTestSuiteOrMicroservice) {
+      if (isTestSuite || isFrontend || isBackend) {
         buildTab(response, request, 'services', 'resources', entityName)
         buildTab(response, request, 'services', 'proxy', entityName)
       }
@@ -53,7 +60,7 @@ async function provideServiceTabs(request, h) {
       buildTab(response, request, 'services', 'secrets', entityName)
       buildTab(response, request, 'services', 'maintenance', entityName)
 
-      if (isTestSuiteOrMicroservice) {
+      if (isTestSuite || isFrontend || isBackend) {
         buildTab(response, request, 'services', 'terminal', entityName)
       }
     }
