@@ -3,7 +3,7 @@
 @use "variables/border-radius" as *;
 
 .app-code-container {
-  margin: 0;
+  margin: govuk-spacing(2) 0;
   padding: 0;
   background-color: $app-brand-background-colour-light;
 }
