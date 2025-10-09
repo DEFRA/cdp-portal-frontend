@@ -8,6 +8,7 @@ import { config } from '../config.js'
 import { context } from './context/context.js'
 import * as filters from './filters/filters.js'
 import * as globals from './globals/globals.js'
+import * as extensions from './extensions/extensions.js'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -68,6 +69,10 @@ Object.keys(filters).forEach((filter) => {
 
 Object.keys(globals).forEach((global) => {
   nunjucksEnvironment.addGlobal(global, globals[global])
+})
+
+Object.keys(extensions).forEach((extension) => {
+  nunjucksEnvironment.addExtension(extension, new extensions[extension]())
 })
 
 export { nunjucksConfig, nunjucksEnvironment }
