@@ -3,9 +3,9 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { environments } from '../../../../../config/environments.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 
-function allowedTerminalEnvironments({ userScopes, entity }) {
+function allowedBreakGlassEnvironments({ userScopes, teams }) {
   const envs = getEnvironments(userScopes)
-  const teamIds = entity.teams.map(({ teamId }) => teamId)
+  const teamIds = teams.map(({ teamId }) => teamId)
   const hasTeamBasedBreakGlass = teamIds.some((teamId) =>
     userScopes.includes(`${scopes.breakGlass}:team:${teamId}`)
   )
@@ -19,4 +19,4 @@ function allowedTerminalEnvironments({ userScopes, entity }) {
   return envs.filter(shouldIncludeEnvironment)
 }
 
-export { allowedTerminalEnvironments }
+export { allowedBreakGlassEnvironments }
