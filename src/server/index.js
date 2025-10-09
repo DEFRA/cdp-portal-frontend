@@ -108,6 +108,19 @@ async function createServer() {
     s3Client
   ])
 
+  const sessionCookieConfig = config.get('session.cookie')
+  const oneSecond = 1000
+
+  server.state('flash', {
+    ttl: oneSecond,
+    isSecure: sessionCookieConfig.isSecure,
+    isHttpOnly: true,
+    encoding: 'iron',
+    password: sessionCookieConfig.password,
+    clearInvalid: true,
+    strictHeader: true
+  })
+
   server.ext('onPreResponse', addFlashMessagesToContext, {
     before: ['yar']
   })

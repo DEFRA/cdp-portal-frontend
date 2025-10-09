@@ -1,13 +1,12 @@
 import Joi from 'joi'
 
-import { allowedTerminalEnvironments } from '../allowed-terminal-environments.js'
+import { allowedBreakGlassEnvironments } from '../allowed-break-glass-environments.js'
 
-function getAllowedEnvironments(options) {
-  const userScopes = options.context.auth?.credentials?.scope
-  const entity = options.context.app?.request?.entity
-
-  return allowedTerminalEnvironments({ userScopes, entity })
-}
+const getAllowedEnvironments = (options) =>
+  allowedBreakGlassEnvironments({
+    userScopes: options.context.auth?.credentials?.scope,
+    teams: options.context.app?.request?.entity.teams
+  })
 
 function launchTerminalParamsValidation(params, options) {
   const allowedEnvironments = getAllowedEnvironments(options)

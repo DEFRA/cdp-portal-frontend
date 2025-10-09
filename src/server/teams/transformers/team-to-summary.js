@@ -55,7 +55,7 @@ function transformTeamToSummary({ team, withActions = false }) {
         }
       },
       {
-        key: { text: 'Alert Emails', classes: 'app-!-layout-centered' },
+        key: { text: 'Alert Emails' },
         value: {
           html: team.alertEmailAddresses?.length
             ? buildList({

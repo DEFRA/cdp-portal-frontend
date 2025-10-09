@@ -24,10 +24,24 @@
     </div>
     <div class="app-service-header__actions">
       {% if userSession.displayName %}
-        {{ appUserIcon({ classes: iconClasses }) }}
-        <span data-testid="app-login-username">
-          {{ userSession.displayName }}
-        </span>
+
+        {% set loggedInUserDetail %}
+          {{ appUserIcon({ classes: iconClasses }) }}
+          <span data-testid="app-login-username">{{ userSession.displayName }}</span>
+        {% endset %}
+
+        {% if userSession.isTenant or userSession.isAdmin %}
+          {% set profileLinkClasses = [
+            "app-service-header_profile-link",
+            "app-service-header_profile-link--active" if requestPath.includes("/user-profile")
+          ] | join(" ") | trim %}
+
+          <a class="{{ profileLinkClasses }}" href="{{ routeLookup('user-profile') }}">
+            {{ loggedInUserDetail | safe }}
+          </a>
+        {% else %}
+          {{ loggedInUserDetail | safe }}
+        {% endif %}
       {% endif %}
 
       <span class="app-service-header__login{% if isAuthenticated %} app-service-header__login--logged-in{% endif %}">

@@ -1,9 +1,12 @@
 @use "govuk-frontend" as *;
+@use "variables/border-radius" as *;
 
 .app-copy-icon {
-  fill: govuk-tint(#24292F, 40%);
+  fill: govuk-colour("black");
+  border-radius: $app-border-radius;
 
   &:hover {
-    fill: #24292F;
+    fill: govuk-tint(govuk-colour("black"), 50%);
+    cursor: pointer;
   }
 }

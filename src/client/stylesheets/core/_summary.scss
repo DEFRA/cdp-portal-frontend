@@ -13,19 +13,26 @@
 // stylelint-disable max-nesting-depth
 .app-summary-list {
   margin-bottom: 0;
+  border-bottom: 1px solid $app-brand-background-colour;
 
   .govuk-summary-list__row {
     border: 1px solid $app-brand-background-colour;
+    border-bottom: none;
     vertical-align: middle;
     background-color: govuk-colour("white");
+    display: flex;
 
     .govuk-summary-list__key {
+      flex: 1;
       padding-left: govuk-spacing(2);
       border-radius: $app-border-radius-left;
+      margin-bottom: 0;
     }
 
     .govuk-summary-list__value {
+      flex: 2;
       border-radius: $app-border-radius-right;
+      overflow-wrap: anywhere;
     }
 
     .govuk-summary-list__key,
@@ -33,6 +40,10 @@
     .govuk-summary-list__actions {
       vertical-align: middle;
       padding-right: govuk-spacing(2);
+    }
+
+    .govuk-summary-list__actions {
+      margin-bottom: 0;
     }
 
     &:hover {
@@ -46,7 +57,7 @@
     }
 
     .app-summary-list__key {
-      width: 14%;
+      flex: 0.5;
       vertical-align: top;
     }
   }

@@ -1,5 +1,6 @@
 @use "govuk-frontend" as *;
 @use "variables/border-radius" as *;
+@use "variables/colours" as *;
 
 .app-tag {
   margin-top: -2px;
@@ -22,4 +23,9 @@
 .app-tag--purple {
   color: govuk-shade(govuk-colour("bright-purple"), 40%);
   background-color: govuk-tint(govuk-colour("bright-purple"), 75%);
+}
+
+.app-tag--green {
+  color: govuk-colour("white");
+  background-color: $defra-brand-colour;
 }

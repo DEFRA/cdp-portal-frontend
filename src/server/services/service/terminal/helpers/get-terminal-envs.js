@@ -1,6 +1,6 @@
-import { allowedTerminalEnvironments } from './allowed-terminal-environments.js'
 import { fetchTenantService } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
 import { sortByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
+import { allowedBreakGlassEnvironments } from './allowed-break-glass-environments.js'
 
 async function getTerminalEnvs({
   serviceName,
@@ -10,7 +10,10 @@ async function getTerminalEnvs({
   if (!serviceName && !entity) {
     return []
   }
-  const environments = allowedTerminalEnvironments({ userScopes, entity })
+  const environments = allowedBreakGlassEnvironments({
+    userScopes,
+    teams: entity.teams
+  })
   const tenantService = await fetchTenantService(serviceName)
 
   return Object.keys(tenantService)

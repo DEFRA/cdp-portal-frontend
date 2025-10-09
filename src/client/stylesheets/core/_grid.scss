@@ -6,7 +6,7 @@
 
   @include govuk-media-query($from: desktop-big) {
     display: flex;
-    gap: govuk-spacing(2);
+    gap: govuk-spacing(4);
   }
 }
 
@@ -16,13 +16,31 @@
 }
 
 .app-flex__one {
+  .app-flex__two + &,
   & + & {
-    margin-top: govuk-spacing(4);
+    margin-top: govuk-spacing(6);
   }
 
   @include govuk-media-query($from: desktop-big) {
     flex: 1;
 
+    .app-flex__two + &,
+    & + & {
+      margin-top: 0;
+    }
+  }
+}
+
+.app-flex__two {
+  .app-flex__one + &,
+  & + & {
+    margin-top: govuk-spacing(6);
+  }
+
+  @include govuk-media-query($from: desktop-big) {
+    flex: 2;
+
+    .app-flex__one + &,
     & + & {
       margin-top: 0;
     }

@@ -6,7 +6,8 @@ import { userSessionFixture } from '../../../__fixtures__/user-session.js'
 import { fetchActiveBreakGlass } from '../../../server/admin/permissions/helpers/fetchers.js'
 import {
   activeBreakGlassFixture,
-  activeTeamBreakGlassFixture
+  activeTeamBreakGlassFixture,
+  activeUserBreakGlassFixture
 } from '../../../__fixtures__/active-break-glass.js'
 
 const supportChannel = config.get('supportChannel')
@@ -150,7 +151,27 @@ describe('#getAnnouncements', () => {
     expect(announcements).toEqual([{ html: expect.any(String) }])
 
     expect(stripHtml(announcements.at(0).html)).toContain(
-      'You have active break glass for the Platform team.'
+      'You have active break glass for the Platform team'
+    )
+  })
+
+  test('Should return user based break glass', async () => {
+    fetchActiveBreakGlass.mockResolvedValue(activeUserBreakGlassFixture)
+
+    const announcements = await getAnnouncements({
+      request: mockRequest,
+      userSession: {
+        ...userSessionFixture,
+        authenticated: true,
+        isAdmin: true,
+        isTenant: false
+      }
+    })
+
+    expect(announcements).toEqual([{ html: expect.any(String) }])
+
+    expect(stripHtml(announcements.at(0).html)).toContain(
+      'You have active break glass'
     )
   })
 

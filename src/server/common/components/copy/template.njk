@@ -1,17 +1,33 @@
 {% from "icons/copy-icon/macro.njk" import appCopyIcon %}
 
+{% set containerClasses = [
+  "app-copy__container",
+  "app-copy__container--button-is-after" if params.buttonIsAfter
+] | join(" ") | trim %}
+
 {% set title = params.title | default("Copy") %}
 {% set content = params.content.html | safe if params.content.html else params.content.text %}
 
-<span class="app-copy__container">
-    <button class="app-copy js-visible-inline"
-            title="{{ title }}"
-            data-js="app-copy"
-            data-content-id="{{ params.content.id }}"
-            data-testid="app-copy">
-    {{ appCopyIcon({ classes: "app-icon--minuscule" }) }}
+{% set copyButton %}
+  <button class="app-copy js-visible-inline"
+          title="{{ title }}"
+          data-js="app-copy"
+          data-content-id="{{ params.content.id }}"
+          data-testid="app-copy">
+    {{ appCopyIcon({ classes: "app-icon--minute" }) }}
   </button>
+{% endset %}
+
+<span class="{{ containerClasses }}">
+  {% if not params.buttonIsAfter %}
+    {{ copyButton | safe }}
+  {% endif %}
+
   <span data-js="{{ params.content.id }}-content" data-testid="app-copy-content">
     {{ content }}
   </span>
+
+  {% if params.buttonIsAfter %}
+    {{ copyButton | safe }}
+  {% endif %}
 </span>

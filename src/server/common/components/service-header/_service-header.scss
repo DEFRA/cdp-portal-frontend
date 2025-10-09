@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:color";
 @use "govuk-frontend" as *;
 @use "variables/border-radius" as *;
 @use "variables/colours" as *;
@@ -19,84 +20,114 @@
   border-color: govuk-colour("black");
 }
 
+// stylelint-disable max-nesting-depth
 .app-service-header__container {
   padding: govuk-spacing(3) govuk-spacing(6);
-}
 
-// Center align service name and environment tag, which only shows on infra-dev
-.app-service-header__content {
-  display: flex;
-}
-
-.app-service-header__service-name {
-  display: inline-block;
-  @include govuk-font(36);
-}
-
-.app-service-header__service-environment {
-  @include govuk-font(19);
-  padding: govuk-spacing(1) govuk-spacing(2);
-  margin-left: govuk-spacing(2);
-  border-radius: $app-border-radius;
-  background-color: govuk-colour("light-blue");
-}
-
-.app-service-header__actions {
-  @include govuk-font(19);
-  display: flex;
-  margin-top: govuk-spacing(2);
-
-  & .app-user-icon {
-    margin-right: govuk-spacing(2);
+  // Center align service name and environment tag, which only shows on infra-dev
+  .app-service-header__content {
+    display: flex;
   }
-}
 
-.app-service-header__login {
-  &.app-service-header__login--logged-in {
-    padding-left: govuk-spacing(3);
+  .app-service-header__service-name {
+    display: inline-block;
+    @include govuk-font(36);
+  }
 
-    &::before {
-      content: "";
-      padding-right: govuk-spacing(3);
-      border-left: 1px solid govuk-colour("white");
+  .app-service-header__service-environment {
+    @include govuk-font(19);
+    padding: govuk-spacing(1) govuk-spacing(2);
+    margin-left: govuk-spacing(2);
+    border-radius: $app-border-radius;
+    background-color: govuk-colour("light-blue");
+  }
+
+  .app-service-header__actions {
+    @include govuk-font(19);
+    display: flex;
+    margin-top: govuk-spacing(2);
+
+    & .app-user-icon {
+      margin-right: govuk-spacing(2);
     }
   }
-}
 
-.app-service-header__login-link {
-  @include govuk-font(19, "bold");
-}
+  .app-service-header__login {
+    &.app-service-header__login--logged-in {
+      padding-left: govuk-spacing(3);
 
-.app-service-header__link {
-  @include govuk-typography-common;
-  @include govuk-link-style-inverse;
-
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 3px;
+      &::before {
+        content: "";
+        padding-right: govuk-spacing(3);
+        border-left: 1px solid govuk-colour("white");
+      }
+    }
   }
 
-  &:focus {
-    @include govuk-focused-text;
+  .app-service-header__login-link {
+    @include govuk-font(19);
+  }
+
+  .app-service-header__link {
+    @include govuk-typography-common;
+    @include govuk-link-style-inverse;
+
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+    }
+
+    &:focus {
+      @include govuk-focused-text;
+    }
+  }
+
+  .app-service-header_profile-link {
+    display: flex;
+    align-items: center;
+    color: govuk-colour("white");
+    text-decoration: none;
+
+    &.app-service-header_profile-link--active {
+      text-decoration: underline;
+      text-underline-offset: govuk-spacing(1);
+
+      .app-user-icon {
+        border: 2px solid govuk-colour("white");
+      }
+    }
+
+    &:hover {
+      text-decoration: underline;
+
+      .app-user-icon {
+        background-color: govuk-tint($defra-brand-colour, 20%);
+
+        &.app-user-icon--elevated-permissions {
+          background-color: govuk-tint(color.adjust(govuk-colour("orange"), $saturation: 60%), 20%);
+        }
+      }
+    }
   }
 }
 
 @include govuk-media-query($from: desktop-big) {
   .app-service-header__container {
     display: flex;
-  }
 
-  .app-service-header__content {
-    flex: 4;
-    display: flex;
-    align-items: center;
-  }
+    .app-service-header__content {
+      flex: 4;
+      display: flex;
+      align-items: center;
+    }
 
-  .app-service-header__actions {
-    align-items: center;
-    justify-content: center;
-    margin-top: 0;
+    .app-service-header__actions {
+      align-items: center;
+      justify-content: center;
+      margin-top: 0;
+    }
   }
 }
+// stylelint-enable max-nesting-depth
