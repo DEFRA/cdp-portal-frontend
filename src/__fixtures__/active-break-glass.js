@@ -19,4 +19,15 @@ const activeTeamBreakGlassFixture = {
   }
 }
 
-export { activeBreakGlassFixture, activeTeamBreakGlassFixture }
+const activeUserBreakGlassFixture = {
+  activeBreakGlass: {
+    scopeId: '68b5c47ca9d77b9d2ef90aa8',
+    scopeName: 'breakGlass'
+  }
+}
+
+export {
+  activeBreakGlassFixture,
+  activeTeamBreakGlassFixture,
+  activeUserBreakGlassFixture
+}
