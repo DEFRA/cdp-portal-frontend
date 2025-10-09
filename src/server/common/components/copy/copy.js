@@ -10,7 +10,7 @@ function copy($module) {
     `[data-js*="${$module.dataset.contentId}-content"]`
   )
   const $copyIcon = $module.firstElementChild
-  const $tickIcon = tickSvgIcon('app-icon app-icon--minuscule')
+  const $tickIcon = tickSvgIcon('app-icon app-icon--minute')
   const $copiedHint = document.createElement('span')
   $copiedHint.className = 'app-copy__hint'
   $copiedHint.dataset.testid = 'app-copy-hint'

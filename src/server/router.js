@@ -19,6 +19,7 @@ import { teams } from './teams/routes.js'
 import { testSuites } from './test-suites/routes.js'
 import { utilities } from './utilities/routes.js'
 import { repositories } from './repositories/routes.js'
+import { userProfile } from './user-profile/routes.js'
 
 const router = {
   plugin: {
@@ -44,6 +45,7 @@ const router = {
         services,
         teams,
         testSuites,
+        userProfile,
         utilities
       ])
     }

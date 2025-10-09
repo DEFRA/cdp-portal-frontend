@@ -52,8 +52,14 @@ announcements.set('hasBreakGlass', (request, breakGlassScope) => {
     }
   }
 
+  if (breakGlassScope.teamName) {
+    return {
+      html: `You have active break glass for the ${teamDetail}`
+    }
+  }
+
   return {
-    html: `You have active break glass for the ${teamDetail}.`
+    html: 'You have active break glass'
   }
 })
 

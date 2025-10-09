@@ -75,6 +75,7 @@ async function context(request) {
     navigation: await buildNavigation(request),
     noValue,
     routeLookup: (id, options) => request.routeLookup(id, options),
+    requestPath: request.path,
     scopes,
     serviceEnvironment: serviceConfig.environment,
     serviceVersion: serviceConfig.version,

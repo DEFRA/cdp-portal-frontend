@@ -25,11 +25,9 @@
         rows: resource.s3BucketRows
       }) }}
     {% else %}
-      {{ appInfo({
-        isInverse: true,
-        isSlim: true,
-        text: "S3 Buckets not set up for " + environment | title
-      }) }}
+      <p class="govuk-!-margin-bottom-2">
+        S3 Buckets not set up for {{ environment | title }}
+      </p>
     {% endif %}
   </div>
 
@@ -49,11 +47,9 @@
         {{ govukSummaryList(summary) }}
       {% endfor %}
     {% else %}
-      {{ appInfo({
-        isInverse: true,
-        isSlim: true,
-        text: "SQS Queues not set up for " + environment | title
-      }) }}
+      <p class="govuk-!-margin-bottom-2">
+        SQS Queues not set up for {{ environment | title }}
+      </p>
     {% endif %}
   </div>
 
@@ -73,11 +69,9 @@
         {{ govukSummaryList(summary) }}
       {% endfor %}
     {% else %}
-      {{ appInfo({
-        isInverse: true,
-        isSlim: true,
-        text: "SNS Topics not set up for " + environment | title
-      }) }}
+      <p class="govuk-!-margin-bottom-2">
+        SNS Topics not set up for {{ environment | title }}
+      </p>
     {% endif %}
   </div>
 
@@ -92,11 +86,9 @@
       {% if resource.database %}
         {{ govukSummaryList(resource.database) }}
       {% else %}
-        {{ appInfo({
-          isInverse: true,
-          isSlim: true,
-          text: "Postgres Database is not set up for " + environment | title
-        }) }}
+        <p class="govuk-!-margin-bottom-2">
+          Postgres Database is not set up for {{ environment | title }}
+        </p>
       {% endif %}
     </div>
   {% endif %}
