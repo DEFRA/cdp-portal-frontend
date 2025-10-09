@@ -3,8 +3,7 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { entityTypes, scopes } from '@defra/cdp-validation-kit'
-import { prototypeValidation } from '../schema/prototype-validation.js'
+import { entityTypes, entitySubTypes, scopes } from '@defra/cdp-validation-kit'
 import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
 import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
 
@@ -26,7 +25,10 @@ const prototypeCreateController = {
     const teamId = request.payload?.teamId
 
     // TODO: revisit this after we've switch prototype to be a subtype
-    const serviceTemplates = await fetchServiceTemplates(request, {})
+    const serviceTemplates = await fetchServiceTemplates(request, {
+      type: entityTypes.microservice,
+      subtype: entitySubTypes.prototype
+    })
 
     const sanitisedPayload = {
       repositoryName,
