@@ -45,7 +45,11 @@
 
     </div>
     <div class="app-service-header__actions">
-        
+
+
+
+          <a class="app-service-header_profile-link" href="/user-profile">
+                      
 <svg class="app-icon app-user-icon app-icon--tiny"
      xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
      aria-label="User">
@@ -56,9 +60,9 @@
   </g>
 </svg>
 
-        <span data-testid="app-login-username">
-          B. A. Baracus
-        </span>
+          <span data-testid="app-login-username">B. A. Baracus</span>
+
+          </a>
 
       <span class="app-service-header__login app-service-header__login--logged-in">
         <a href="/logout"
@@ -609,6 +613,7 @@ width="10%"        >
 
 
 
+
 <strong class="govuk-tag app-tag app-tag--purple" data-testid="govuk-tag">
   Test-suite
 </strong>
@@ -733,7 +738,7 @@ width="10%"        >
 <script data-testid="app-autocomplete-suggestions">
   window.cdp = window.cdp || {};
   window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["testSuite"] = [{"text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"some-other-test-repo","text":"some-other-test-repo","hint":"\n\n\n\n\n<strong class=\"govuk-tag app-tag app-tag--purple\" data-testid=\"govuk-tag\">\n  Test-suite\n</strong>\n\n\n"},{"value":"some-test-repo","text":"some-test-repo","hint":"\n\n\n\n\n<strong class=\"govuk-tag app-tag app-tag--purple\" data-testid=\"govuk-tag\">\n  Test-suite\n</strong>\n\n\n"}]
+  window.cdp.suggestions["testSuite"] = [{"text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"some-other-test-repo","text":"some-other-test-repo","hint":"\n\n\n\n\n\n<strong class=\"govuk-tag app-tag app-tag--purple\" data-testid=\"govuk-tag\">\n  Test-suite\n</strong>\n\n\n"},{"value":"some-test-repo","text":"some-test-repo","hint":"\n\n\n\n\n\n<strong class=\"govuk-tag app-tag app-tag--purple\" data-testid=\"govuk-tag\">\n  Test-suite\n</strong>\n\n\n"}]
 </script>
 
 
@@ -784,6 +789,7 @@ selected="selected">
 
 
 
+
 &lt;strong class=&quot;govuk-tag app-tag app-tag--purple&quot; data-testid=&quot;govuk-tag&quot;&gt;
   Test-suite
 &lt;/strong&gt;
@@ -794,6 +800,7 @@ selected="selected">
           <option value="some-test-repo"
 >
             some-test-repo - 
+
 
 
 
