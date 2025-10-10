@@ -8,6 +8,10 @@
   datetime: expiresInISO, formatString: "HH:mm 'on' dd/MM/yyyy", withoutTooltip: true
 }) %}
 
+{% set exampleEphemeralUrl %}
+  https://ephemeral-protected.api.{environment}.cdp-int.defra.cloud/{service-name}/{endpoint}
+{% endset %}
+
 {% set warningHtml %}
   Your API key is valid for {{ expiresInHours }} hours until {{ tomorrow }}. It can only be seen once, copy it now
   and store it securely.
@@ -37,21 +41,47 @@
 
         {% call appPanel() %}
 
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+            Developer API key
+          </h2>
+
+          <p class="govuk-!-margin-bottom-2">
+            To access a backend service/API in a CDP environment from your local development machine you can use
+            the ephemeral protected API endpoint:
+          </p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>
+              Generate your API key below
+            </li>
+            <li>
+              Add it to the <strong>x-api-key</strong> header
+            </li>
+            <li>
+              Make a request to your service via the ephemeral endpoint <em>{{ exampleEphemeralUrl }}</em>
+            </li>
+            <li>
+              For the lower environments ({{ lowerEnvironments | join(", ") }}) the key will be valid for 24 hours
+            </li>
+            <li>
+              For prod, via the break glass permission it will be valid for 2 hours
+            </li>
+          </ul>
+
+        {% endcall %}
+      </div>
+    </div>
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds-from-desktop-massive">
+
+        {% call appPanel() %}
+
           <div class="app-flex">
             <div class="app-flex__one">
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-                Developer API key
+                Generate API key
               </h2>
-
-              <p class="govuk-!-margin-bottom-2">
-                To access a backend service/API in a CDP environment from your local development machine, generate your
-                API key and add it to your requests <strong>x-api-key</strong> header.
-              </p>
-
-              <p>
-                For the lower environments ({{ lowerEnvironments | join(", ") }}) the key will be valid for 24 hours.
-                For prod, via the break glass permission it will be valid for 2 hours.
-              </p>
 
               <form
                   action="{{ routeLookup('user-profile/generate-api-key') }}"
@@ -70,7 +100,7 @@
                       classes: "app-label"
                     },
                     hint: {
-                      text: "The environment you want an API key for"
+                      text: "The environment you want a developer API key for"
                     },
                     value: formValues.environment,
                     errorMessage: errorMessageHelper(formErrors.environment.message),
@@ -86,6 +116,7 @@
 
               </form>
             </div>
+
             <div class="app-flex__two">
 
               {% if flash.apiKey %}
@@ -126,9 +157,10 @@
                      rel="noopener noreferrer">Developer API key documentation</a>
                 </p>
 
-                  {# @formatter:off #}
+                {# @formatter:off #}
                   {% highlightjs "bash" %}
-curl --header 'x-api-key: {{ flash.apiKey }}' 'https://cdp-example-node-backend.{{ flash.environment }}.cdp-int.defra.cloud/health'
+curl --header 'x-api-key: {{ flash.apiKey }}' \
+'https://ephemeral-protected.api.{{ flash.environment }}.cdp-int.defra.cloud/{serviceName}/{endpoint}'
                   {% endhighlightjs %}
                   {# @formatter:on #}
 

@@ -1,3 +1,1 @@
-import { HighlightJsExtension } from './highlight.js'
-
-export { HighlightJsExtension }
+export { HighlightJsExtension } from './highlight.js'

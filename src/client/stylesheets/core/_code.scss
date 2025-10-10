@@ -2,17 +2,18 @@
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
 
-.app-code-container {
-  margin: govuk-spacing(2) 0;
-  padding: 0;
-  background-color: $app-brand-background-colour-light;
-}
-
 .app-code {
+  @include govuk-font(16);
   font-family: Consolas, Monaco, 'Courier New', monospace;
-  padding: 0;
+  padding: govuk-spacing(2);
   margin: 0;
   display: block;
+  border-radius: $app-border-radius;
+  background-color: $app-brand-background-colour-light;
+  white-space: pre-wrap;
+}
+
+.app-code-hljs {
   border-radius: $app-border-radius;
   white-space: pre-wrap;
 }
