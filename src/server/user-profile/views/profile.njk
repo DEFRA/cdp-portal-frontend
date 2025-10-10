@@ -117,9 +117,11 @@
 
                 {% endcall %}
 
-                {{ govukButton({
-                  classes: "app-button",
-                  text: "Generate API key"
+                {{ appButton({
+                  text: "Generate API key",
+                  loader: {
+                    name: "generate-api-key-submit-button"
+                  }
                 }) }}
 
               </form>
