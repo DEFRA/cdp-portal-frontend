@@ -359,21 +359,50 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 <div class="app-panel" >
   
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+            Developer API key
+          </h2>
+
+          <p class="govuk-!-margin-bottom-2">
+            To access a backend service/API in a CDP environment from your local development machine you can use
+            the ephemeral protected API endpoint:
+          </p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>
+              Generate your API key below
+            </li>
+            <li>
+              Add it to the <strong>x-api-key</strong> header
+            </li>
+            <li>
+              Make a request to your service via the ephemeral endpoint <em>  https://ephemeral-protected.api.{environment}.cdp-int.defra.cloud/{service-name}/{endpoint}
+</em>
+            </li>
+            <li>
+              For the lower environments (infra-dev, management, dev, test, perf-test) the key will be valid for 24 hours
+            </li>
+            <li>
+              For prod, via the break glass permission it will be valid for 2 hours
+            </li>
+          </ul>
+
+
+</div>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds-from-desktop-massive">
+
+
+<div class="app-panel" >
+  
           <div class="app-flex">
             <div class="app-flex__one">
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-                Developer API key
+                Generate API key
               </h2>
-
-              <p class="govuk-!-margin-bottom-2">
-                To access a backend service/API in a CDP environment from your local development machine, generate your
-                API key and add it to your requests <strong>x-api-key</strong> header.
-              </p>
-
-              <p>
-                For the lower environments (infra-dev, management, dev, test, perf-test) the key will be valid for 24 hours.
-                For prod, via the break glass permission it will be valid for 2 hours.
-              </p>
 
               <form
                   action="/user-profile/generate-api-key"
@@ -406,7 +435,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </label>
 
     <div class="govuk-hint app-hint" data-testid="app-autocomplete-hint">
-  The environment you want an API key for
+  The environment you want a developer API key for
 </div>
 
 
@@ -507,6 +536,7 @@ selected="selected">
 
               </form>
             </div>
+
             <div class="app-flex__two">
 
             </div>
