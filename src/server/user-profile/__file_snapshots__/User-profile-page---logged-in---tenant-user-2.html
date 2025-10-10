@@ -516,9 +516,23 @@ selected="selected">
 
 </fieldset>
 
-                <button type="submit" class="govuk-button app-button" data-module="govuk-button">
-  Generate API key
-</button>
+                
+
+
+<span class="app-button__container">
+  <button class="govuk-button app-button"
+data-loader="generate-api-key-submit-button"          data-js="app-button"
+          data-testid="app-button">
+    Generate API key
+  </button>
+
+    <span class="app-loader"
+      data-testid="app-loader"
+data-js="generate-api-key-submit-button">
+</span>
+
+</span>
+
 
               </form>
             </div>
