@@ -12,21 +12,9 @@ function formatDatesForOpenSearch(value) {
 }
 
 /**
- * Open search requires only the second part of the arn to be escaped
- * @param {string} arn
- * @returns {string}
- */
-const encodeArn = (arn) => {
-  const parts = arn.split('/')
-  const firstPart = parts.shift()
-
-  return firstPart + encodeURIComponent('/' + parts.join('/'))
-}
-
-/**
  * @typedef {object} Options
+ * @property {string} testSuite
  * @property {string} environment
- * @property {string} taskArn
  * @property {string} created
  * @property {string} taskLastUpdated
  */
@@ -38,14 +26,12 @@ const encodeArn = (arn) => {
  * @returns {string}
  */
 function buildLogsLink(
-  { environment, taskArn, created, taskLastUpdated },
+  { testSuite, environment, created, taskLastUpdated },
   hasResult
 ) {
-  const arn = encodeArn(taskArn)
   const fromIso = formatDatesForOpenSearch(created)
-  const to = hasResult ? formatDatesForOpenSearch(taskLastUpdated) : 'now'
-
-  return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'${fromIso}',to:'${to}'))&amp;_a=(columns:!(_source),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:'ecs_task_arn:${arn}'),sort:!())&_a=(columns:!(log),filters:!(),index:c0abdf20-d49c-11ee-9eac-1d3409bea15a,interval:auto,query:(language:kuery,query:''),sort:!())`
+  const toIso = hasResult ? formatDatesForOpenSearch(taskLastUpdated) : 'now'
+  return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/${testSuite}?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'${fromIso}',to:'${toIso}'))`
 }
 
 export { buildLogsLink }
