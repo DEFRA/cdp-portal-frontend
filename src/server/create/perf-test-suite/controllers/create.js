@@ -34,7 +34,7 @@ const perfTestSuiteCreateController = {
 
     const perfTestTemplates = await fetchServiceTemplates(request, {
       type: entityTypes.testSuite,
-      subtype: entitySubTypes.journey
+      subtype: entitySubTypes.performance
     })
 
     const validationResult = await createTenantPayloadValidation(
@@ -51,7 +51,6 @@ const perfTestSuiteCreateController = {
         formValues: sanitisedPayload,
         formErrors: errorDetails
       })
-
       return h.redirect('/create/perf-test-suite/summary')
     }
 
