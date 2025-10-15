@@ -166,7 +166,7 @@ async function searchIndex(request, bucket, query) {
   const queryTerm = query?.replace(/[*^:~+-]/g, '') ?? null
   const results = queryTerm
     ? builtSearchIndex.index.search(
-        `${queryTerm}^100 ${queryTerm}*^50 *${queryTerm}^25 ${queryTerm}~4`
+        `${queryTerm}^100 ${queryTerm}*^50 *${queryTerm}^25 ${queryTerm.slice(0, 15)}~4`
       )
     : []
 
