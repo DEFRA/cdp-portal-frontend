@@ -2,10 +2,11 @@ import { config } from '../../../../config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.js'
 import { setStepComplete } from '../../helpers/form/index.js'
 import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
-import { scopes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, entityTypes, scopes } from '@defra/cdp-validation-kit'
+import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
+import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
 
 const perfTestSuiteCreateController = {
   options: {
@@ -26,11 +27,19 @@ const perfTestSuiteCreateController = {
 
     const sanitisedPayload = {
       repositoryName,
+      serviceTypeTemplate: 'cdp-perf-test-suite-template',
       teamId,
       templateTag
     }
 
-    const validationResult = await testSuiteValidation()
+    const perfTestTemplates = await fetchServiceTemplates(request, {
+      type: entityTypes.testSuite,
+      subtype: entitySubTypes.performance
+    })
+
+    const validationResult = await createTenantPayloadValidation(
+      perfTestTemplates
+    )
       .validateAsync(sanitisedPayload, { abortEarly: false })
       .then((value) => ({ value }))
       .catch((error) => ({ value: sanitisedPayload, error }))
@@ -42,17 +51,16 @@ const perfTestSuiteCreateController = {
         formValues: sanitisedPayload,
         formErrors: errorDetails
       })
-
       return h.redirect('/create/perf-test-suite/summary')
     }
 
     if (!validationResult.error) {
-      const selfServiceOpsCreateEnvTestSuiteEndpointUrl =
-        config.get('selfServiceOpsUrl') + '/create-perf-test-suite'
+      const selfServiceOpsCreateTenantEndpointUrl =
+        config.get('selfServiceOpsUrl') + '/create-tenant'
 
       try {
         const { payload } = await request.authedFetchJson(
-          selfServiceOpsCreateEnvTestSuiteEndpointUrl,
+          selfServiceOpsCreateTenantEndpointUrl,
           {
             method: 'post',
             payload: sanitisedPayload

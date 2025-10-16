@@ -5,6 +5,7 @@ import { buildOptions } from '../../../common/helpers/options/build-options.js'
 import { getUsersTeams } from '../../../common/helpers/user/get-users-teams.js'
 import { serviceTemplateIdsForNamesAndRepos } from '../helpers/fetch/fetch-service-templates.js'
 import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { entityTypes } from '@defra/cdp-validation-kit'
 
 const microserviceDetailFormController = {
   options: {
@@ -21,7 +22,10 @@ const microserviceDetailFormController = {
   handler: async (request, h) => {
     const query = request?.query
 
-    const serviceTemplateIds = await serviceTemplateIdsForNamesAndRepos(request)
+    const serviceTemplateIds = await serviceTemplateIdsForNamesAndRepos(
+      request,
+      { type: entityTypes.microservice }
+    )
     const serviceTemplateIdOptions = buildOptions(serviceTemplateIds)
 
     const usersTeams = await getUsersTeams(request)
