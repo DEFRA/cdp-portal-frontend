@@ -18,7 +18,7 @@ const serviceTags = {
   beta: {
     name: 'beta',
     displayName: 'Beta',
-    description: 'Service is like but in public/private beta',
+    description: 'Service is live but in public/private beta',
     className: 'govuk-tag--light-blue'
   },
   prr: {
