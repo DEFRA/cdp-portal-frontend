@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { validation } from '../../../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 
 function addUserValidation(userIds, buttonValue) {
   if (buttonValue === 'search') {

@@ -77,6 +77,13 @@ function testSuiteRunResults(testRun, canRun) {
         }
       },
       {
+        headers: 'profile',
+        entity: {
+          kind: 'text',
+          value: testRun.profile
+        }
+      },
+      {
         headers: 'status',
         entity: {
           kind: 'tag',

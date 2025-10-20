@@ -28,7 +28,8 @@
               }) }}"
               method="POST"
               data-js="app-form-group app-form-errors">
-              <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+              <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+              <input type="hidden" name="profile" value="{{ testRun.profile }}"/>
 
               {% call govukFieldset() %}
                 {{ govukLabel({
@@ -48,23 +49,15 @@
                 }) }}
 
                 <p>
-                  {% if "performance" in testRun.repository.topics %}
-                    {{ appTag({
-                      text: "Performance",
-                      classes: "govuk-tag--green"
-                    }) }}
-                  {% elseif "journey" in testRun.repository.topics %}
-                    {{ appTag({
-                      text: "Journey",
-                      classes: "govuk-tag--blue"
-                    }) }}
-                  {% else %}
-                    {{ appTag({
-                      text: "Test-suite",
-                      classes: "app-tag--purple"
-                    }) }}
-                  {% endif %}
+                  {{ testRun.testSuiteTag | safe }}
                 </p>
+
+                {% if testRun.profile %}
+                  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Profile</h3>
+                  <p>
+                    {{ testRun.profile }}
+                  </p>
+                {% endif %}
 
                 {{ govukCheckboxes({
                   name: "environments",

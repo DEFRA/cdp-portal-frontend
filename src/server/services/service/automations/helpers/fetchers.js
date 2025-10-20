@@ -50,24 +50,32 @@ async function getAutoTestRunDetails(serviceName) {
 function saveAutoTestRunDetails(details) {
   const endpoint = portalBackendUrl + '/auto-test-runs'
 
+  const profile = details.provideProfile
+    ? details.profile && details.profile.trim() !== ''
+      ? details.profile
+      : details.newProfile
+    : undefined
+
   return fetchJson(endpoint, {
     method: 'post',
     payload: removeNil({
       serviceName: details.serviceId,
       testSuite: details.testSuite,
-      environments: details.environments
+      environments: details.environments,
+      profile
     })
   })
 }
 
-function removeAutoTestRun(serviceName, testSuite) {
+function removeAutoTestRun(serviceName, testSuite, profile) {
   const endpoint = portalBackendUrl + '/auto-test-runs/remove-test-run'
 
   return fetchJson(endpoint, {
     method: 'patch',
     payload: removeNil({
       serviceName,
-      testSuite
+      testSuite,
+      profile
     })
   })
 }
@@ -83,28 +91,11 @@ function updateAutoTestRun(serviceName, payload) {
     })
   })
 }
-
-async function fetchTestRepository(name) {
-  const endpoint = portalBackendUrl + `/repositories/tests/${name}`
-
-  const { payload } = await fetchJson(endpoint)
-  return payload
-}
-
-async function fetchTeamTestRepositories(teamId) {
-  const endpoint = portalBackendUrl + `/repositories/all/tests/${teamId}`
-
-  const { payload } = await fetchJson(endpoint)
-  return payload
-}
-
 export {
   getAutoDeployDetails,
   saveAutoDeployDetails,
   getAutoTestRunDetails,
   saveAutoTestRunDetails,
-  fetchTeamTestRepositories,
-  fetchTestRepository,
   removeAutoTestRun,
   updateAutoTestRun
 }

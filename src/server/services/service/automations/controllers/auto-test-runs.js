@@ -51,15 +51,16 @@ const autoTestRunsController = {
       environmentOptions,
       tableData: {
         headers: [
-          { id: 'test-suite', text: 'Test suite', width: '20' },
+          { id: 'test-suite', text: 'Test suite', width: '17' },
           { id: 'kind', text: 'Kind', width: '8' },
+          { id: 'profile', text: 'Profile', width: '8' },
           ...environments.map((env) => ({
             ...(supportVerticalHeadings && { verticalText: true }),
             id: env.toLowerCase(),
             text: formatText(env),
             width: env.length
           })),
-          { id: 'actions', text: 'Actions', isRightAligned: true, width: '10' }
+          { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
         noResult:

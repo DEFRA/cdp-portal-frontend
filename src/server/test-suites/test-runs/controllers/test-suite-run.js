@@ -2,14 +2,17 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { runTest } from '../../helpers/fetch/run-test.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 
-import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.js'
+import {
+  postProcessValidationErrors,
+  testSuiteValidation
+} from '../../helpers/schema/test-suite-validation.js'
 import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
 import { fetchTestSuites } from '../../../common/helpers/fetch/fetch-entities.js'
 
-const triggerTestSuiteRunController = {
+const testSuiteRunController = {
   handler: async (request, h) => {
     const payload = request.payload
-    const { imageName, environment, profile } = request.payload
+    const { testSuite, environment, configuration } = request.payload
     const userSession = await request.getUserSession()
     const userScopes = userSession?.scope
 
@@ -25,6 +28,8 @@ const triggerTestSuiteRunController = {
     ).validate(payload, { abortEarly: false })
 
     if (validationResult?.error) {
+      postProcessValidationErrors(validationResult)
+
       const errorDetails = buildErrorDetails(validationResult.error.details)
 
       request.yar.flash(sessionNames.validationFailure, {
@@ -32,35 +37,43 @@ const triggerTestSuiteRunController = {
         formErrors: errorDetails
       })
 
-      return h.redirect(`/test-suites/${imageName}`)
+      return h.redirect(`/test-suites/${testSuite}`)
     }
 
-    if (!validationResult.error) {
-      try {
-        await runTest({ request, imageName, environment, profile })
+    try {
+      await runTest({
+        request,
+        testSuite,
+        environment,
+        configuration,
+        profile: payload.provideProfile
+          ? payload.profile && payload.profile.trim() !== ''
+            ? payload.profile
+            : payload.newProfile
+          : undefined
+      })
 
-        request.audit.send({
-          event: 'test run requested',
-          user: { id: userSession.id, name: userSession.displayName },
-          testRun: {
-            imageName,
-            environment
-          }
-        })
+      request.audit.send({
+        event: 'test run requested',
+        user: { id: userSession.id, name: userSession.displayName },
+        testRun: {
+          testSuite,
+          environment
+        }
+      })
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Test run requested successfully',
-          type: 'success'
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Test run requested successfully',
+        type: 'success'
+      })
 
-        return h.redirect(`/test-suites/${imageName}`)
-      } catch (error) {
-        request.yar.flash(sessionNames.globalValidationFailures, error.message)
+      return h.redirect(`/test-suites/${testSuite}`)
+    } catch (error) {
+      request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-        return h.redirect(`/test-suites/${imageName}`)
-      }
+      return h.redirect(`/test-suites/${testSuite}`)
     }
   }
 }
 
-export { triggerTestSuiteRunController }
+export { testSuiteRunController }

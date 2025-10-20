@@ -31,6 +31,7 @@ const updateTestRunController = {
     const environments = Array.isArray(payload.environments)
       ? payload.environments
       : [payload.environments].filter(Boolean)
+    const profile = request.payload.profile
 
     const redirectUrl = request.routeLookup(
       'services/{serviceId}/automations/test-runs',
@@ -42,7 +43,9 @@ const updateTestRunController = {
     const sanitisedPayload = {
       serviceId,
       testSuite: testSuiteId,
-      environments
+      environments,
+      provideProfile: !!profile,
+      profile
     }
 
     const validationResult = autoTestRunValidation(userScopes).validate(
@@ -57,6 +60,12 @@ const updateTestRunController = {
         formValues: sanitisedPayload,
         formErrors: errorDetails
       })
+      return h.redirect(
+        request.routeLookup(
+          'services/{serviceId}/automations/test-runs/{testSuiteId}/update',
+          { params: { serviceId, testSuiteId } }
+        )
+      )
     } else {
       try {
         await updateAutoTestRun(serviceId, sanitisedPayload)
@@ -79,8 +88,6 @@ const updateTestRunController = {
         )
       }
     }
-
-    return h.redirect(redirectUrl)
   }
 }
 

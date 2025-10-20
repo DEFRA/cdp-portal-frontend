@@ -7,6 +7,7 @@ import { autoTestRunValidation } from '../helpers/schema/auto-test-run-validatio
 import { saveAutoTestRunDetails } from '../helpers/fetchers.js'
 import { provideNotFoundIfPrototype } from '../../../../common/helpers/ext/provide-not-found-if-prototype.js'
 import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
+import { postProcessValidationErrors } from '../../../../test-suites/helpers/schema/test-suite-validation.js'
 
 const setupAutoTestRunController = {
   options: {
@@ -30,18 +31,17 @@ const setupAutoTestRunController = {
     const environments = Array.isArray(payload.environments)
       ? payload.environments
       : [payload.environments].filter(Boolean)
-
-    const redirectUrl = request.routeLookup(
-      'services/{serviceId}/automations/test-runs',
-      {
-        params: { serviceId }
-      }
-    )
+    const provideProfile = payload.provideProfile
+    const profile = payload.profile
+    const newProfile = payload.newProfile
 
     const sanitisedPayload = {
       serviceId,
       testSuite,
-      environments
+      environments,
+      provideProfile,
+      profile,
+      newProfile
     }
 
     const validationResult = autoTestRunValidation(userScopes).validate(
@@ -50,6 +50,7 @@ const setupAutoTestRunController = {
     )
 
     if (validationResult?.error) {
+      postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
 
       request.yar.flash(sessionNames.validationFailure, {
@@ -58,7 +59,7 @@ const setupAutoTestRunController = {
       })
     } else {
       try {
-        const { res } = await saveAutoTestRunDetails(sanitisedPayload)
+        const { res } = await saveAutoTestRunDetails(validationResult.value)
 
         const successMessage =
           res?.status === 201
@@ -78,6 +79,13 @@ const setupAutoTestRunController = {
         request.yar.flash(sessionNames.globalValidationFailures, error.message)
       }
     }
+
+    const redirectUrl = request.routeLookup(
+      'services/{serviceId}/automations/test-runs',
+      {
+        params: { serviceId }
+      }
+    )
     return h.redirect(redirectUrl)
   }
 }

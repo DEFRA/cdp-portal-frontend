@@ -1,6 +1,6 @@
 import { tagValidation } from './tag-validation.js'
 import Joi from 'joi'
-import { validation } from '../../../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 
 describe('tagValidation', () => {
   test('Should validate a valid tag and service', () => {

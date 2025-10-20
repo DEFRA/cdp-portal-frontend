@@ -3,7 +3,7 @@ import { fetchTestSuites } from '../../../../common/helpers/fetch/fetch-entities
 import { testSuiteToEntityRow } from './transformers/test-suite-to-entity-row.js'
 import { renderTestSuiteTagHtml } from './render-test-suite-tag-html.js'
 import { buildSuggestions } from '../../../../common/components/autocomplete/helpers/build-suggestions.js'
-import { fetchTeamTestRepositories, getAutoTestRunDetails } from './fetchers.js'
+import { getAutoTestRunDetails } from './fetchers.js'
 import { testKind } from '../../../../test-suites/constants/test-kind.js'
 
 function sortRows(rowA, rowB) {
@@ -17,17 +17,16 @@ function sortRows(rowA, rowB) {
   return aHeader.localeCompare(bHeader)
 }
 
-function buildOptions(testSuites, testSuiteRepos = []) {
+function buildOptions(testSuites) {
   const testSuitesWithRepoDetail = testSuites
     .map((testSuite) => ({
-      ...testSuite,
-      ...testSuiteRepos.find((repo) => repo?.id === testSuite?.name)
+      ...testSuite
     }))
     .filter((testSuite) => testSuite?.subType === testKind.Journey)
     .map((testSuite) => ({
       text: testSuite.name,
       value: testSuite.name,
-      hint: renderTestSuiteTagHtml(testSuite?.subType) ?? ''
+      hint: renderTestSuiteTagHtml(testSuite)
     }))
     .toSorted(sortBy('text', 'asc'))
 
@@ -43,33 +42,34 @@ async function buildAutoTestRunsViewDetails({
 }) {
   const serviceTeamIds = serviceTeams.map((team) => team.teamId)
   const promisesTestSuites = serviceTeamIds.map(fetchTestSuites)
-  const promisesTestRepositories = serviceTeamIds.map(fetchTeamTestRepositories)
 
-  const [
-    autoTestRunDetails,
-    testSuitesResponse = [],
-    testSuiteReposResponse = []
-  ] = await Promise.all([
+  const [autoTestRunDetails, testSuitesResponse = []] = await Promise.all([
     getAutoTestRunDetails(serviceId),
-    Promise.all(promisesTestSuites),
-    Promise.all(promisesTestRepositories)
+    Promise.all(promisesTestSuites)
   ])
 
   const testSuites = testSuitesResponse.flat()
-  const testSuiteRepos = testSuiteReposResponse.flat()
 
   const rowBuilder = testSuiteToEntityRow({
     serviceName: serviceId,
     environments,
-    testSuiteRepos
+    testSuites
   })
+
   const rows = autoTestRunDetails?.testSuites
     ? Object.entries(autoTestRunDetails.testSuites)
+        .flatMap(([testSuiteName, configs]) =>
+          configs.map((config) => ({
+            testSuiteName,
+            profile: config.profile,
+            activeEnvironments: config.environments
+          }))
+        )
         .map(rowBuilder)
         .toSorted(sortRows)
     : []
 
-  const testSuiteOptions = buildOptions(testSuites, testSuiteRepos)
+  const testSuiteOptions = buildOptions(testSuites)
 
   return { testSuiteOptions, rows }
 }

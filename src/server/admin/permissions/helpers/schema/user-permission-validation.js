@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
-import { validation } from '../../../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 
 const userPermissionValidation = Joi.object({
   userId: userIdValidation,

@@ -1,18 +1,19 @@
 import { config } from '../../../../config/config.js'
-import { runnerProfiles } from '../../constants/runner-profiles.js'
+import { runnerConfigurations } from '../../constants/runner-configurations.js'
 
-function runTest({ request, imageName, environment, profile }) {
-  const { cpu, memory } = runnerProfiles[profile]
+function runTest({ request, testSuite, environment, configuration, profile }) {
+  const { cpu, memory } = runnerConfigurations[configuration]
   const endpoint = config.get('selfServiceOpsUrl') + '/deploy-test-suite'
 
   return request.authedFetchJson(endpoint, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     payload: {
-      imageName,
+      testSuite,
       environment,
       cpu: cpu.value,
-      memory: memory.value
+      memory: memory.value,
+      profile
     }
   })
 }

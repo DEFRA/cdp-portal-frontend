@@ -285,7 +285,30 @@ export function mockTestRuns(repositoryName) {
         testStatus: 'passed',
         tag: '0.11.0',
         failureReasons: [],
-        configVersion: null
+        configVersion: null,
+        profile: 'smoke'
+      },
+      {
+        runId: '3ec0b267-e513-4dd1-a525-8a3a798a9c4c',
+        testSuite: repositoryName,
+        environment: 'infra-dev',
+        cpu: 0,
+        memory: 0,
+        user: {
+          id: '90552794-0613-4023-819a-512aa9d40023',
+          displayName: 'Test, User'
+        },
+        deployment: null,
+        created: '2024-11-02T12:59:56.102Z',
+        taskArn:
+          'arn:aws:ecs:eu-west-2:12334656:task/infra-dev-ecs-public/19abc1234564a009128875ffa6b9047',
+        taskStatus: 'finished',
+        taskLastUpdated: '2024-11-01T14:29:53.102Z',
+        testStatus: 'passed',
+        tag: '0.11.0',
+        failureReasons: [],
+        configVersion: null,
+        profile: null
       }
     ],
     page: 1,
