@@ -1,9 +1,12 @@
 import Joi from 'joi'
 
-import { validation } from '../../../../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
 import { excludedEnvironments } from '../constants/excluded-environments.js'
-import { repositoryNameValidation } from '@defra/cdp-validation-kit'
+import {
+  envVarValueValidation,
+  repositoryNameValidation
+} from '@defra/cdp-validation-kit'
 
 // TODO
 //  Validate:
@@ -26,9 +29,21 @@ function autoTestRunValidation(scopes) {
     }),
     environments: Joi.array()
       .items(Joi.string().valid(...allowedEnvironments))
+      .min(1)
       .messages({
         'any.only': 'Environment is not available for this service'
-      })
+      }),
+    provideProfile: Joi.boolean()
+      .truthy('true')
+      .falsy('false')
+      .required()
+      .messages({
+        'any.required': 'Select whether you wish to provide a profile'
+      }),
+    profile: envVarValueValidation.empty('').optional(),
+    newProfile: envVarValueValidation.empty('').optional()
+  }).when(Joi.object({ provideProfile: Joi.valid(true, 'true') }).unknown(), {
+    then: Joi.object().xor('profile', 'newProfile')
   })
 }
 

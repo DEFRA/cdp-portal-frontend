@@ -2,7 +2,7 @@
 
 {% set helpHtml %}
   <p class="govuk-!-margin-bottom-1">
-    When a test run is removed. The tests will no longer run when this service is deployed to an environment.
+    When a test run is removed. The tests will no longer run when this service is deployed to an environment
     <br>
     Removing a test run is non-recoverable. If you remove the wrong test run simply
     <a
@@ -46,23 +46,15 @@
 
             <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Kind</h3>
             <p>
-              {% if "performance" in testRun.repository.topics %}
-                {{ appTag({
-                  text: "Performance",
-                  classes: "govuk-tag--green"
-                }) }}
-              {% elseif "journey" in testRun.repository.topics %}
-                {{ appTag({
-                  text: "Journey",
-                  classes: "govuk-tag--blue"
-                }) }}
-              {% else %}
-                {{ appTag({
-                  text: "Test Suite",
-                  classes: "app-tag--purple"
-                }) }}
-              {% endif %}
+              {{ testRun.testSuiteTag | safe }}
             </p>
+
+            {% if testRun.profile %}
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Profile</h3>
+              <p>
+                {{ testRun.profile }}
+              </p>
+            {% endif %}
 
             <h3 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Environments</h3>
             <ul class="govuk-list govuk-list--spaced">
@@ -80,9 +72,10 @@
             </div>
 
             <form action="{{ routeLookup('post:services/{serviceId}/automations/test-runs/{testSuiteId}/remove', {
-              params: { serviceId: serviceId, testSuiteId: testSuiteId }
+              params: { serviceId: serviceId, testSuiteId: testSuiteId}
             }) }}" method="post">
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+              <input type="hidden" name="profile" value="{{ testRun.profile }}" />
 
               <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
                 {{ govukButton({

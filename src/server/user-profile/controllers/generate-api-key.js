@@ -8,7 +8,7 @@ import {
 import { config } from '../../../config/config.js'
 import { sessionNames } from '../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../common/helpers/build-error-details.js'
-import { validation } from '../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 
 const apiKeyValidation = Joi.object({
   environment: environmentValidation

@@ -5,7 +5,7 @@ import {
 } from '@defra/cdp-validation-kit'
 
 import { checkNameAvailability } from '../validator/check-name-availability.js'
-import { validation } from '../../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 
 function createTenantPayloadValidation(allowedTemplates) {
   return Joi.object({

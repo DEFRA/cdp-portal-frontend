@@ -6,7 +6,6 @@ import {
   mockTeam
 } from '../../../../../test-helpers/common-page-rendering.js'
 import {
-  fetchTeamTestRepositories,
   getAutoDeployDetails,
   getAutoTestRunDetails
 } from './helpers/fetchers.js'
@@ -84,41 +83,29 @@ describe('Service Automations page', () => {
 
     describe('test-runs view', () => {
       beforeAll(() => {
-        fetchTeamTestRepositories.mockResolvedValue({
-          repositories: [
-            {
-              repositoryName: 'some-test-repo',
-              description: 'Mock service description',
-              createdAt: '2016-12-05T11:21:25+00:00',
-              url: `https://github.com/DEFRA/some-test-repo`,
-              topics: ['cdp', 'test', 'Journey'],
-              primaryLanguage: 'JavaScript',
-              teams: [mockTeam]
-            },
-            {
-              repositoryName: 'some-other-test-repo',
-              description: 'Mock service description',
-              createdAt: '2016-12-05T11:21:25+00:00',
-              url: `https://github.com/DEFRA/some-other-test-repo`,
-              topics: ['cdp', 'test', 'journey'],
-              primaryLanguage: 'JavaScript',
-              teams: [mockTeam]
-            },
-            {
-              repositoryName: 'some-perf-test-repo',
-              description: 'Mock service description',
-              createdAt: '2016-12-05T11:21:25+00:00',
-              url: `https://github.com/DEFRA/some-perf-test-repo`,
-              topics: ['cdp', 'test', 'performance'],
-              primaryLanguage: 'JavaScript',
-              teams: [mockTeam]
-            }
-          ]
-        })
         getAutoTestRunDetails.mockResolvedValue({
           serviceName,
           testSuites: {
-            'some-test-repo': ['dev', 'test']
+            'some-test-repo': [
+              {
+                profile: undefined,
+                environments: ['dev', 'test']
+              },
+              {
+                profile: 'smoke',
+                environments: ['management', 'ext-test', 'prod']
+              }
+            ],
+            'some-other-test-repo': [
+              {
+                profile: undefined,
+                environments: ['infra-dev', 'test']
+              },
+              {
+                profile: 'other-profile',
+                environments: ['ext-test', 'dev']
+              }
+            ]
           }
         })
         fetchTestSuites.mockResolvedValue([

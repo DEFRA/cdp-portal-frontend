@@ -41,6 +41,13 @@ describe('#transformTestSuiteRunResults', () => {
             },
             {
               entity: {
+                kind: 'text',
+                value: undefined
+              },
+              headers: 'profile'
+            },
+            {
+              entity: {
                 classes: 'govuk-tag--light-blue',
                 kind: 'tag',
                 showLoader: true,
@@ -126,6 +133,13 @@ describe('#transformTestSuiteRunResults', () => {
                 value: '16 GB'
               },
               headers: 'memory'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: undefined
+              },
+              headers: 'profile'
             },
             {
               entity: {
@@ -226,6 +240,13 @@ describe('#transformTestSuiteRunResults', () => {
             },
             {
               entity: {
+                kind: 'text',
+                value: undefined
+              },
+              headers: 'profile'
+            },
+            {
+              entity: {
                 classes: 'govuk-tag--light-blue',
                 kind: 'tag',
                 showLoader: true,
@@ -311,6 +332,13 @@ describe('#transformTestSuiteRunResults', () => {
                 value: '16 GB'
               },
               headers: 'memory'
+            },
+            {
+              entity: {
+                kind: 'text',
+                value: undefined
+              },
+              headers: 'profile'
             },
             {
               entity: {

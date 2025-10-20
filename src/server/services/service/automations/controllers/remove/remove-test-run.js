@@ -5,6 +5,10 @@ import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { removeAutoTestRun } from '../../helpers/fetchers.js'
 import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
 import { provideNotFoundIfNull } from '../../../../../common/helpers/ext/provide-not-found-if-null.js'
+import {
+  profileValidation,
+  repositoryNameValidation
+} from '@defra/cdp-validation-kit'
 
 const removeTestRunController = {
   options: {
@@ -14,8 +18,11 @@ const removeTestRunController = {
     },
     validate: {
       params: Joi.object({
-        serviceId: Joi.string().required(),
-        testSuiteId: Joi.string().required()
+        serviceId: repositoryNameValidation,
+        testSuiteId: repositoryNameValidation
+      }),
+      payload: Joi.object({
+        profile: profileValidation
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }
@@ -23,9 +30,10 @@ const removeTestRunController = {
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
     const testSuiteId = request.params.testSuiteId
+    const profile = request.payload.profile
 
     try {
-      await removeAutoTestRun(serviceId, testSuiteId)
+      await removeAutoTestRun(serviceId, testSuiteId, profile)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Test run removed from service',

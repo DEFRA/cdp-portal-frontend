@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { validation } from '../../../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 
 const createPermissionValidation = Joi.object({
   value: Joi.string()

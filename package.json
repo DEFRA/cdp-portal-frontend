@@ -44,7 +44,7 @@
     "@babel/runtime": "7.28.4",
     "@defra/catbox-dynamodb": "0.3.0",
     "@defra/cdp-auditing": "0.2.0",
-    "@defra/cdp-validation-kit": "0.58.0",
+    "@defra/cdp-validation-kit": "0.59.0",
     "@defra/hapi-tracing": "1.28.0",
     "@elastic/ecs-pino-format": "1.5.0",
     "@hapi/basic": "7.0.2",

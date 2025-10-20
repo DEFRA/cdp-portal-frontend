@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
 import { getCreations } from '../../constants/creations.js'
-import { validation } from '../../../common/constants/validation.js'
+import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 
 const chooseValidation = Joi.object({
   kind: Joi.string()

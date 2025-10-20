@@ -16,7 +16,7 @@ describe('#provideFormValues', () => {
 
     expect(result).toEqual({
       environmentOptions: [],
-      runnerProfileOptions: []
+      runnerConfigOptions: []
     })
   })
 
@@ -31,7 +31,7 @@ describe('#provideFormValues', () => {
 
     expect(result).toEqual({
       environmentOptions: [],
-      runnerProfileOptions: []
+      runnerConfigOptions: []
     })
   })
 
@@ -73,7 +73,7 @@ describe('#provideFormValues', () => {
           value: 'prod'
         }
       ],
-      runnerProfileOptions: [
+      runnerConfigOptions: [
         {
           checked: true,
           hint: {
@@ -145,7 +145,7 @@ describe('#provideFormValues', () => {
           value: 'prod'
         }
       ],
-      runnerProfileOptions: [
+      runnerConfigOptions: [
         {
           checked: true,
           hint: {

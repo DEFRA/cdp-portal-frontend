@@ -9,6 +9,36 @@
 {% endblock %}
 
 {% block tabContent %}
+
+  {% set provideProfileHtml %}
+    <div class="govuk-hint app-hint">Choose an existing profile or enter a new one</div>
+    <h3 class="govuk-heading-s">Choose existing</h3>
+    {{ govukSelect({
+      id: 'profile',
+      name: 'profile',
+      classes: 'app-select',
+      value: formValues.profile,
+      items: formValues.profileOptions,
+      formGroup: {
+        classes: 'app-form-group app-form-group-js'
+      },
+      errorMessage: errorMessageHelper(formErrors.profile.message)
+    }) }}
+    <p class="govuk-body">or</p>
+    <h3 class="govuk-heading-s">Enter a new value</h3>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        {{ govukInput({
+          id: "newProfile",
+          name: "newProfile",
+          classes: "govuk-input--width-10",
+          spellcheck: false,
+          errorMessage: errorMessageHelper(formErrors.newProfile.message),
+          value: formValues.newProfile
+        }) }}
+      </div>
+    </div>
+  {% endset %}
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full-from-desktop-massive">
@@ -41,7 +71,7 @@
                         method="post"
                         data-js="app-form-errors">
                     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-                    <input type="hidden" name="imageName" value="{{ entity.name }}" />
+                    <input type="hidden" name="testSuite" value="{{ entity.name }}" />
 
                     {% call govukFieldset() %}
 
@@ -65,25 +95,57 @@
                         errorMessage: errorMessageHelper(formErrors.environment.message)
                       }) }}
 
+                    {{ govukRadios({
+                      idPrefix: "provideProfile",
+                      name: "provideProfile",
+                        classes: "govuk-radios--small app-radios",
+                      fieldset: {
+                        legend: {
+                          text: "Profile",
+                          classes: "govuk-fieldset__legend--m"
+                        }
+                      },
+                        hint: {
+                          text: "Do you want to provide a profile?",
+                          classes: "app-hint"
+                        },
+                      errorMessage: errorMessageHelper(formErrors.provideProfile.message),
+                      items: [
+                        {
+                          value: true,
+                          text: "Yes",
+                          checked: formValues.provideProfile === 'true',
+                          conditional: {
+                            html: provideProfileHtml
+                          }
+                        },
+                        {
+                          value: false,
+                          text: "No",
+                          checked: formValues.provideProfile === 'false'
+                        }
+                      ]
+                    }) }}
+
                       {{ govukRadios({
-                        name: "profile",
+                        name: "configuration",
                         classes: "govuk-radios--small app-radios",
                         fieldset: {
                           legend: {
-                            text: "Profile",
+                            text: "Configuration",
                             classes: "govuk-label app-label"
                           }
                         },
                         hint: {
-                          text: "Test runner profile, choose   CPU size and memory allocation",
+                          text: "Test runner configuration, choose CPU size and memory allocation",
                           classes: "app-hint"
                         },
                         value: formValues.profile,
-                        items: formValues.runnerProfileOptions,
+                        items: formValues.runnerConfigOptions,
                         formGroup: {
                           classes: "app-form-group app-form-group-js"
                         },
-                        errorMessage: errorMessageHelper(formErrors.profile.message)
+                        errorMessage: errorMessageHelper(formErrors.config.message)
                       }) }}
 
                     {% endcall %}

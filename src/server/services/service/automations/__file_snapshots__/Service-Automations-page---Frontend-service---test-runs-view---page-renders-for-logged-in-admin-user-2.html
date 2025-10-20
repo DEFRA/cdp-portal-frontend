@@ -418,7 +418,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                role="tabpanel"
                aria-labelledby="tab-automations"
                data-testid="app-tabs-panel">
-          <section class="govuk-!-margin-top-6">
+        
+
+  <section class="govuk-!-margin-top-6">
 
 <div class="app-split-pane" data-testid="app-split-pane">
     <div class="app-split-pane__nav"
@@ -541,7 +543,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         <th id="test-suite" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-1"
-width="20%"        >
+width="17%"        >
             Test suite
         </th>
 
@@ -552,45 +554,52 @@ width="8%"        >
             Kind
         </th>
 
+        <th id="profile" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-3"
+width="8%"        >
+            Profile
+        </th>
+
         <th id="infra-dev" scope="col"
             class="app-entity-table__heading  app-entity-table__heading--vertical-text"
-            data-testid="app-entity-table-header-3"
+            data-testid="app-entity-table-header-4"
 width="9%"        >
             Infra-dev
         </th>
 
         <th id="management" scope="col"
             class="app-entity-table__heading  app-entity-table__heading--vertical-text"
-            data-testid="app-entity-table-header-4"
+            data-testid="app-entity-table-header-5"
 width="10%"        >
             Management
         </th>
 
         <th id="dev" scope="col"
             class="app-entity-table__heading  app-entity-table__heading--vertical-text"
-            data-testid="app-entity-table-header-5"
+            data-testid="app-entity-table-header-6"
 width="3%"        >
             Dev
         </th>
 
         <th id="test" scope="col"
             class="app-entity-table__heading  app-entity-table__heading--vertical-text"
-            data-testid="app-entity-table-header-6"
+            data-testid="app-entity-table-header-7"
 width="4%"        >
             Test
         </th>
 
         <th id="prod" scope="col"
             class="app-entity-table__heading  app-entity-table__heading--vertical-text"
-            data-testid="app-entity-table-header-7"
+            data-testid="app-entity-table-header-8"
 width="4%"        >
             Prod
         </th>
 
         <th id="actions" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-8"
-width="10%"        >
+            data-testid="app-entity-table-header-9"
+width="12%"        >
             Actions
         </th>
 
@@ -639,12 +648,31 @@ width="10%"        >
 
 
 
-<strong class="govuk-tag app-tag app-tag--purple" data-testid="govuk-tag">
-  Test-suite
+<strong class="govuk-tag app-tag govuk-tag--blue" data-testid="govuk-tag">
+  Journey
 </strong>
 
 
 
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="profile"
+              class="app-entity-table__cell"
+              data-label="Profile">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
 
 
 </div>
@@ -658,7 +686,7 @@ width="10%"        >
               data-label="Infra-dev">
               
 
-<div class="app-entity" data-testid="app-entity-3">
+<div class="app-entity" data-testid="app-entity-4">
 
 
 
@@ -676,7 +704,7 @@ width="10%"        >
               data-label="Management">
               
 
-<div class="app-entity" data-testid="app-entity-4">
+<div class="app-entity" data-testid="app-entity-5">
 
 
 
@@ -694,7 +722,7 @@ width="10%"        >
               data-label="Dev">
               
 
-<div class="app-entity" data-testid="app-entity-5">
+<div class="app-entity" data-testid="app-entity-6">
 
 
 
@@ -712,7 +740,7 @@ width="10%"        >
               data-label="Test">
               
 
-<div class="app-entity" data-testid="app-entity-6">
+<div class="app-entity" data-testid="app-entity-7">
 
 
 
@@ -730,7 +758,7 @@ width="10%"        >
               data-label="Prod">
               
 
-<div class="app-entity" data-testid="app-entity-7">
+<div class="app-entity" data-testid="app-entity-8">
 
 
 
@@ -748,7 +776,7 @@ width="10%"        >
               data-label="Actions">
               
 
-<div class="app-entity" data-testid="app-entity-8">
+<div class="app-entity" data-testid="app-entity-9">
 
 
 
@@ -760,6 +788,582 @@ width="10%"        >
            <div class="govuk-!-margin-left-1">
              <a class="app-link app-link--underline"
                 href="/services/mock-service-with-automations/automations/test-runs/some-test-repo/remove"
+                data-testid="app-link">Remove</a>
+           </div>
+
+
+</div>
+
+
+          </td>
+
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-2">
+
+
+
+          <td headers="test-suite"
+              class="app-entity-table__cell"
+              data-label="Test-suite">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      <a class="app-link"
+         href="/test-suites/some-test-repo"         data-testid="app-entity-link">
+        some-test-repo
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="kind"
+              class="app-entity-table__cell"
+              data-label="Kind">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      
+
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--blue" data-testid="govuk-tag">
+  Journey
+</strong>
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="profile"
+              class="app-entity-table__cell"
+              data-label="Profile">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <span data-testid="app-entity-text"
+      >smoke</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="infra-dev"
+              class="app-entity-table__cell"
+              data-label="Infra-dev">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="management"
+              class="app-entity-table__cell"
+              data-label="Management">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      <div class="app-check" data-testid="check-management"></div>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="dev"
+              class="app-entity-table__cell"
+              data-label="Dev">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="test"
+              class="app-entity-table__cell"
+              data-label="Test">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="prod"
+              class="app-entity-table__cell"
+              data-label="Prod">
+              
+
+<div class="app-entity" data-testid="app-entity-8">
+
+
+
+      <div class="app-check" data-testid="check-prod"></div>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="actions"
+              class="app-entity-table__cell"
+              data-label="Actions">
+              
+
+<div class="app-entity" data-testid="app-entity-9">
+
+
+
+       <div>
+             <a class="app-link app-link--underline"
+                href="/services/mock-service-with-automations/automations/test-runs/some-test-repo/update?profile=smoke"
+                data-testid="app-link">Update</a>
+           </div>
+           <div class="govuk-!-margin-left-1">
+             <a class="app-link app-link--underline"
+                href="/services/mock-service-with-automations/automations/test-runs/some-test-repo/remove?profile=smoke"
+                data-testid="app-link">Remove</a>
+           </div>
+
+
+</div>
+
+
+          </td>
+
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-3">
+
+
+
+          <td headers="test-suite"
+              class="app-entity-table__cell"
+              data-label="Test-suite">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      <a class="app-link"
+         href="/test-suites/some-other-test-repo"         data-testid="app-entity-link">
+        some-other-test-repo
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="kind"
+              class="app-entity-table__cell"
+              data-label="Kind">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      
+
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--blue" data-testid="govuk-tag">
+  Journey
+</strong>
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="profile"
+              class="app-entity-table__cell"
+              data-label="Profile">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <span data-testid="app-entity-text"
+      >- - -</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="infra-dev"
+              class="app-entity-table__cell"
+              data-label="Infra-dev">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      <div class="app-check" data-testid="check-infra-dev"></div>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="management"
+              class="app-entity-table__cell"
+              data-label="Management">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="dev"
+              class="app-entity-table__cell"
+              data-label="Dev">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="test"
+              class="app-entity-table__cell"
+              data-label="Test">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      <div class="app-check" data-testid="check-test"></div>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="prod"
+              class="app-entity-table__cell"
+              data-label="Prod">
+              
+
+<div class="app-entity" data-testid="app-entity-8">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="actions"
+              class="app-entity-table__cell"
+              data-label="Actions">
+              
+
+<div class="app-entity" data-testid="app-entity-9">
+
+
+
+       <div>
+             <a class="app-link app-link--underline"
+                href="/services/mock-service-with-automations/automations/test-runs/some-other-test-repo/update"
+                data-testid="app-link">Update</a>
+           </div>
+           <div class="govuk-!-margin-left-1">
+             <a class="app-link app-link--underline"
+                href="/services/mock-service-with-automations/automations/test-runs/some-other-test-repo/remove"
+                data-testid="app-link">Remove</a>
+           </div>
+
+
+</div>
+
+
+          </td>
+
+      </tr>
+
+      <tr class="app-entity-table__row" data-testid="app-entity-table-row-4">
+
+
+
+          <td headers="test-suite"
+              class="app-entity-table__cell"
+              data-label="Test-suite">
+              
+
+<div class="app-entity" data-testid="app-entity-1">
+
+
+
+      <a class="app-link"
+         href="/test-suites/some-other-test-repo"         data-testid="app-entity-link">
+        some-other-test-repo
+      </a>
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="kind"
+              class="app-entity-table__cell"
+              data-label="Kind">
+              
+
+<div class="app-entity" data-testid="app-entity-2">
+
+
+
+      
+
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--blue" data-testid="govuk-tag">
+  Journey
+</strong>
+
+
+
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="profile"
+              class="app-entity-table__cell"
+              data-label="Profile">
+              
+
+<div class="app-entity" data-testid="app-entity-3">
+
+
+
+      <span data-testid="app-entity-text"
+      >other-profile</span>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="infra-dev"
+              class="app-entity-table__cell"
+              data-label="Infra-dev">
+              
+
+<div class="app-entity" data-testid="app-entity-4">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="management"
+              class="app-entity-table__cell"
+              data-label="Management">
+              
+
+<div class="app-entity" data-testid="app-entity-5">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="dev"
+              class="app-entity-table__cell"
+              data-label="Dev">
+              
+
+<div class="app-entity" data-testid="app-entity-6">
+
+
+
+      <div class="app-check" data-testid="check-dev"></div>
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="test"
+              class="app-entity-table__cell"
+              data-label="Test">
+              
+
+<div class="app-entity" data-testid="app-entity-7">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="prod"
+              class="app-entity-table__cell"
+              data-label="Prod">
+              
+
+<div class="app-entity" data-testid="app-entity-8">
+
+
+
+      - - -
+
+
+</div>
+
+
+          </td>
+
+
+          <td headers="actions"
+              class="app-entity-table__cell"
+              data-label="Actions">
+              
+
+<div class="app-entity" data-testid="app-entity-9">
+
+
+
+       <div>
+             <a class="app-link app-link--underline"
+                href="/services/mock-service-with-automations/automations/test-runs/some-other-test-repo/update?profile=other-profile"
+                data-testid="app-link">Update</a>
+           </div>
+           <div class="govuk-!-margin-left-1">
+             <a class="app-link app-link--underline"
+                href="/services/mock-service-with-automations/automations/test-runs/some-other-test-repo/remove?profile=other-profile"
                 data-testid="app-link">Remove</a>
            </div>
 
@@ -799,7 +1403,7 @@ width="10%"        >
 <script data-testid="app-autocomplete-suggestions">
   window.cdp = window.cdp || {};
   window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["testSuite"] = [{"text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"some-other-test-repo","text":"some-other-test-repo","hint":"\n\n\n\n\n\n<strong class=\"govuk-tag app-tag app-tag--purple\" data-testid=\"govuk-tag\">\n  Test-suite\n</strong>\n\n\n"},{"value":"some-test-repo","text":"some-test-repo","hint":"\n\n\n\n\n\n<strong class=\"govuk-tag app-tag app-tag--purple\" data-testid=\"govuk-tag\">\n  Test-suite\n</strong>\n\n\n"}]
+  window.cdp.suggestions["testSuite"] = [{"text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"some-other-test-repo","text":"some-other-test-repo","hint":"\n\n\n\n\n\n<strong class=\"govuk-tag app-tag govuk-tag--blue\" data-testid=\"govuk-tag\">\n  Journey\n</strong>\n\n\n"},{"value":"some-test-repo","text":"some-test-repo","hint":"\n\n\n\n\n\n<strong class=\"govuk-tag app-tag govuk-tag--blue\" data-testid=\"govuk-tag\">\n  Journey\n</strong>\n\n\n"}]
 </script>
 
 
@@ -851,8 +1455,8 @@ selected="selected">
 
 
 
-&lt;strong class=&quot;govuk-tag app-tag app-tag--purple&quot; data-testid=&quot;govuk-tag&quot;&gt;
-  Test-suite
+&lt;strong class=&quot;govuk-tag app-tag govuk-tag--blue&quot; data-testid=&quot;govuk-tag&quot;&gt;
+  Journey
 &lt;/strong&gt;
 
 
@@ -866,8 +1470,8 @@ selected="selected">
 
 
 
-&lt;strong class=&quot;govuk-tag app-tag app-tag--purple&quot; data-testid=&quot;govuk-tag&quot;&gt;
-  Test-suite
+&lt;strong class=&quot;govuk-tag app-tag govuk-tag--blue&quot; data-testid=&quot;govuk-tag&quot;&gt;
+  Journey
 &lt;/strong&gt;
 
 
@@ -964,6 +1568,44 @@ selected="selected">
         <input class="govuk-checkboxes__input" id="environments-5" name="environments" type="checkbox" value="prod">
         <label class="govuk-label govuk-checkboxes__label" for="environments-5">
           Prod
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+
+              <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="provideProfile-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      Profile
+    </legend>
+    <div id="provideProfile-hint" class="govuk-hint app-hint">
+      Do you want to provide a profile?
+    </div>
+    <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="provideProfile" name="provideProfile" type="radio" value="true" data-aria-controls="conditional-provideProfile">
+        <label class="govuk-label govuk-radios__label" for="provideProfile">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-provideProfile">
+        <h3 class="govuk-heading-s">Enter a value</h3>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <div class="govuk-form-group">
+    
+    <input class="govuk-input govuk-input--width-10" id="newProfile" name="newProfile" type="text" spellcheck="false">
+  </div>
+  
+        </div>
+      </div>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false">
+        <label class="govuk-label govuk-radios__label" for="provideProfile-2">
+          No
         </label>
       </div>
     </div>

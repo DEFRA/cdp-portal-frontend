@@ -5,6 +5,7 @@ import { transformTestSuiteToSummary } from '../../transformers/test-suite-to-su
 import { buildPagination } from '../../../common/helpers/build-pagination.js'
 import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../common/helpers/nullify-404.js'
+import { buildOptions } from '../../../common/helpers/options/build-options.js'
 
 async function aboutTestSuiteHandler(request, h) {
   const entity = request.app.entity
@@ -23,6 +24,9 @@ async function aboutTestSuiteHandler(request, h) {
   )
   const rows = testRuns.map((test) => testSuiteRunResults(test, canRun))
 
+  const profiles = [...new Set(testRuns.map((t) => t.profile).filter(Boolean))]
+  formValues.profileOptions = buildOptions(profiles)
+
   return h.view('test-suites/test-suite/about/views/test-suite', {
     pageTitle: `Test Suite - ${testSuiteName}`,
     entity,
@@ -34,15 +38,16 @@ async function aboutTestSuiteHandler(request, h) {
     tableData: {
       headers: [
         { id: 'version', text: 'Version', width: '5' },
-        { id: 'environment', text: 'Environment', width: '5' },
+        { id: 'environment', text: 'Env', width: '7' },
         { id: 'cpu', text: 'CPU', width: '5' },
         { id: 'memory', text: 'Memory', width: '5' },
-        { id: 'status', text: 'Status', width: '10' },
+        { id: 'profile', text: 'Profile', width: '5' },
+        { id: 'status', text: 'Status', width: '7' },
         { id: 'logs', text: 'Logs', width: '10' },
-        { id: 'results', text: 'Results', width: '10' },
-        { id: 'user', text: 'Ran By', width: '20' },
+        { id: 'results', text: 'Results', width: '8' },
+        { id: 'user', text: 'Run By', width: '12' },
         { id: 'duration', text: 'Duration', width: '10' },
-        { id: 'last-ran', text: 'Last Ran', width: '15' },
+        { id: 'last-run', text: 'Last Run', width: '15' },
         { id: 'action', text: 'Action', width: '5' }
       ],
       rows,

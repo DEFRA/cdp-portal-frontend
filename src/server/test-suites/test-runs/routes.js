@@ -1,4 +1,4 @@
-import { triggerTestSuiteRunController } from './controllers/test-suite-run.js'
+import { testSuiteRunController } from './controllers/test-suite-run.js'
 import { stopTestSuiteController } from './controllers/stop-test-suite.js'
 import { testResultsController } from './controllers/test-results.js'
 import { testSuiteReportController } from './controllers/test-suite-report.js'
@@ -11,7 +11,7 @@ const testSuiteRuns = {
         {
           method: 'POST',
           path: '/test-suites/run',
-          ...triggerTestSuiteRunController
+          ...testSuiteRunController
         },
         {
           method: 'POST',

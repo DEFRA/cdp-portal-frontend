@@ -1,8 +1,8 @@
 /**
- * Test runner profiles
+ * Test runner configurations
  * @type {{regular: {cpu: {value: number, text: string}, memory: {value: number, text: string}}, large: {cpu: {value: number, text: string}, memory: {value: number, text: string}}}}
  */
-const runnerProfiles = {
+const runnerConfigurations = {
   regular: {
     cpu: { value: 4096, text: '4 vCPU' },
     memory: { value: 8192, text: '8 GB' }
@@ -13,4 +13,4 @@ const runnerProfiles = {
   }
 }
 
-export { runnerProfiles }
+export { runnerConfigurations }

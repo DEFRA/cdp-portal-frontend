@@ -2,15 +2,16 @@ import { noValue } from '../../../../../common/constants/no-value.js'
 import { sortByEnv } from '../../../../../common/helpers/sort/sort-by-env.js'
 import { renderTestSuiteTagHtml } from '../render-test-suite-tag-html.js'
 
-function actions(serviceName, testRunName) {
+function actions(serviceName, testRunName, profile) {
+  const profileParam = profile ? `?profile=${profile}` : ''
   return ` <div>
              <a class="app-link app-link--underline"
-                href="/services/${serviceName}/automations/test-runs/${testRunName}/update"
+                href="/services/${serviceName}/automations/test-runs/${testRunName}/update${profileParam}"
                 data-testid="app-link">Update</a>
            </div>
            <div class="govuk-!-margin-left-1">
              <a class="app-link app-link--underline"
-                href="/services/${serviceName}/automations/test-runs/${testRunName}/remove"
+                href="/services/${serviceName}/automations/test-runs/${testRunName}/remove${profileParam}"
                 data-testid="app-link">Remove</a>
            </div>`
 }
@@ -18,9 +19,9 @@ function actions(serviceName, testRunName) {
 function testSuiteToEntityRow({
   serviceName,
   environments = [],
-  testSuiteRepos = []
+  testSuites = []
 }) {
-  return ([testSuiteName, activeEnvironments]) => {
+  return ({ testSuiteName, profile, activeEnvironments }) => {
     const envs = environments
       .map((environmentName) => {
         const hasTestRun = activeEnvironments.includes(environmentName)
@@ -35,10 +36,10 @@ function testSuiteToEntityRow({
         }
       })
       .sort(sortByEnv)
-    const testSuiteRepository = testSuiteRepos.find(
-      (repo) => repo.id === testSuiteName
-    )
-    const kind = renderTestSuiteTagHtml(testSuiteRepository?.topics)
+
+    const testSuite = testSuites.find((ts) => ts.name === testSuiteName)
+
+    const kind = renderTestSuiteTagHtml(testSuite)
 
     return {
       cells: [
@@ -54,12 +55,16 @@ function testSuiteToEntityRow({
           headers: 'kind',
           entity: { kind: 'html', value: kind }
         },
+        {
+          headers: 'profile',
+          entity: { kind: 'text', value: profile ?? noValue }
+        },
         ...envs,
         {
           headers: 'actions',
           entity: {
             kind: 'html',
-            value: actions(serviceName, testSuiteName)
+            value: actions(serviceName, testSuiteName, profile)
           }
         }
       ]

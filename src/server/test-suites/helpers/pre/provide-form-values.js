@@ -1,4 +1,4 @@
-import { runnerProfiles } from '../../constants/runner-profiles.js'
+import { runnerConfigurations } from '../../constants/runner-configurations.js'
 import { findEnvironmentsForTestSuite } from '../find-environments-for-test-suite.js'
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
 import { environments } from '../../../../config/environments.js'
@@ -34,7 +34,7 @@ const buildEnvironmentOptions = (entity, isAdmin, userOwnsTestSuite) => {
 const provideFormValues = {
   method: async (request) => {
     const environmentOptions = []
-    const runnerProfileOptions = []
+    const runnerConfigOptions = []
     const userSession = await request.getUserSession()
 
     if (userSession?.isAuthenticated) {
@@ -50,14 +50,14 @@ const provideFormValues = {
       environmentOptions.push(...options)
 
       if (isAdmin || userOwnsTestSuite) {
-        runnerProfileOptions.push(
+        runnerConfigOptions.push(
           {
             value: 'regular',
             text: 'Regular',
             label: { classes: 'govuk-!-font-weight-bold' },
             checked: true,
             hint: {
-              html: profileHtmlTemplate(runnerProfiles.regular)
+              html: profileHtmlTemplate(runnerConfigurations.regular)
             }
           },
           {
@@ -65,14 +65,14 @@ const provideFormValues = {
             text: 'Large',
             label: { classes: 'govuk-!-font-weight-bold' },
             hint: {
-              html: profileHtmlTemplate(runnerProfiles.large)
+              html: profileHtmlTemplate(runnerConfigurations.large)
             }
           }
         )
       }
     }
 
-    return { environmentOptions, runnerProfileOptions }
+    return { environmentOptions, runnerConfigOptions }
   },
   assign: 'formValues'
 }

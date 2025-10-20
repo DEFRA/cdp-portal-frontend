@@ -12,6 +12,23 @@
 {% endblock %}
 
 {% block tabContent %}
+
+  {% set provideProfileHtml %}
+    <h3 class="govuk-heading-s">Enter a value</h3>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        {{ govukInput({
+          id: "newProfile",
+          name: "newProfile",
+          classes: "govuk-input--width-10",
+          spellcheck: false,
+          errorMessage: errorMessageHelper(formErrors.newProfile.message),
+          value: formValues.newProfile
+        }) }}
+      </div>
+    </div>
+  {% endset %}
+
   <section class="govuk-!-margin-top-6">
     {% call appSplitPane() %}
       <div class="govuk-grid-row">
@@ -143,6 +160,38 @@
                 items: environmentOptions,
                 values: formValues.environments,
                 errorMessage: errorMessageHelper(formErrors.environments.message)
+              }) }}
+
+              {{ govukRadios({
+                idPrefix: "provideProfile",
+                name: "provideProfile",
+                classes: "govuk-radios--small app-radios",
+                fieldset: {
+                  legend: {
+                    text: "Profile",
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                hint: {
+                  text: "Do you want to provide a profile?",
+                  classes: "app-hint"
+                },
+                errorMessage: errorMessageHelper(formErrors.provideProfile.message),
+                items: [
+                  {
+                    value: true,
+                    text: "Yes",
+                    checked: formValues.provideProfile === 'true',
+                    conditional: {
+                    html: provideProfileHtml
+                  }
+                  },
+                  {
+                    value: false,
+                    text: "No",
+                    checked: formValues.provideProfile === 'false'
+                  }
+                ]
               }) }}
 
             {% endcall %}
