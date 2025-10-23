@@ -43,7 +43,7 @@
 
   <div class="app-announcement__content" data-testid="app-announcement-content">
       <div class="app-announcement__message">
-        You are not registered on the CDP Portal with the email <em>b.a.baracus@defradev.onmicrosoft.com</em>. If you have previously registered on CDP are you logging in with the correct email? If you have not yet registered, contact the Platform team on Slack <a class="app-link app-link--underline" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" rel="noopener noreferrer">#cdp-support</a> to register
+        You are using an unsupported browser Internet Explorer. This application will not work as intended in this browser. Use an evergreen browser. If you require further help contact the Platform team via Slack <a class="app-link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" rel="noopener noreferrer">#cdp-support</a>
       </div>
   </div>
 </div>
@@ -70,7 +70,9 @@
     <div class="app-service-header__actions">
 
 
-                    
+
+          <a class="app-service-header_profile-link" href="/user-profile">
+                      
 <svg class="app-icon app-user-icon app-icon--tiny"
      xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
      aria-label="User">
@@ -83,6 +85,7 @@
 
           <span data-testid="app-login-username">B. A. Baracus</span>
 
+          </a>
 
       <span class="app-service-header__login app-service-header__login--logged-in">
         <a href="/logout"
@@ -181,6 +184,30 @@ Running Services
               </li>
 
               <ul class="app-navigation__actions">
+      
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/deploy-service" data-testid="nav-deploy-service">
+      Deploy Service
+    </a>
+</li>
+
+
+      
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/create" data-testid="nav-create">
+      Create
+    </a>
+</li>
+
+
 
   </ul>
 </ul>
@@ -217,11 +244,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         </h1>
 
         <p class="govuk-body-lead app-hero__content">
-          Helping teams to create, deploy, run and monitor applications.
+          Enabling teams to create, deploy, run and monitor applications at DEFRA.
         </p>
 
         <p class="govuk-body app-hero__content">
-            Any comments, questions or suggestions? Contact the Platform team -
+            Comments, questions, suggestions and feature requests? Contact the Platform team -
   <a class="app-link app-link--inverse"
      href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6"
      target="_blank"
@@ -291,47 +318,81 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </header>
 
 
-  <div class="app-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Documentation</h2>
-        <p>Everything you need to know about the Core Delivery Platform.</p>
-        <p>
-          <a href="/documentation" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse documentation</a>
-        </p>
+  
+
+
+<div class="govuk-body">
+  <div class="app-blog__container">
+    <div class="app-blog__heading app-blog__heading--inverse">
+      
+<div class="app-page-heading">
+  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Blog</h1>
+
+    <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
+      Announcements, updates and news from the Core Delivery Platform team
+    </p>
+
+</div>
+
+    </div>
+
+    <div class="app-blog__wrapper">
+      <div class="app-blog__nav-sidebar">
+        <h2>Articles</h2>
+<ul>
+<li><a class="app-link" href="/blog/20251024-passing-profile-to-the-test-suite.md">Passing profile to the test suite</a></li>
+<li><a class="app-link" href="/blog/20251017-introducing-the-cdp-blog.md">Introducing the CDP blog</a></li>
+</ul>
+
       </div>
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Services</h2>
-        <p>Discover the frontend and backend microservices on the Core Delivery Platform.</p>
-        <p>
-          <a href="/services" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse services</a>
-        </p>
+
+      <div class="app-blog__body">
+        <article class="app-markdown">
+          <div class="app-blog__preview">
+
+
+    <time class="app-blog__date"    datetime="20251024"
+    data-testid="app-time">
+        Friday 24th October 2025
+
+  </time>
+
+
+
+
+
+
+<h1 id="introducing-the-cdp-blog">
+                <a class="heading-link" href="#introducing-the-cdp-blog">Introducing the CDP blog</a>
+              </h1><p>We’re excited to introduce a new way to stay informed — the CDP blog! 🎉</p>
+<p>From now on, this will be your central space for platform updates, new feature announcements, improvement rollouts, and insights into what’s coming next on CDP.</p>
+<p><a class="app-link app-blog__more-link" href="/blog/20251024-passing-profile-to-the-test-suite.md">Read more</a></p></div><div class="app-blog__preview">
+
+
+    <time class="app-blog__date"    datetime="20251017"
+    data-testid="app-time">
+        Friday 17th October 2025
+
+  </time>
+
+
+
+
+
+
+<h1 id="passing-profile-to-the-test-suite">
+                <a class="heading-link" href="#passing-profile-to-the-test-suite">Passing profile to the test suite</a>
+              </h1><p>You can now pass a profile <code>value</code> to a test-suite when running it on the CDP Platform. The value is sent to the
+test-suite as the environment variable <code>PROFILE</code>. Profiles are a way of changing the behaviour of the test-suite without
+changing the code.</p>
+<p><a class="app-link app-blog__more-link" href="/blog/20251017-introducing-the-cdp-blog.md">Read more</a></p></div>
+        </article>
       </div>
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Deployments</h2>
-        <p>View deployments and Continuous Integration (CI) information across all
-          environments.
-        </p>
-        <p>
-          <a href="/deployments" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse deployments</a>
-        </p>
-      </div>
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
-        <p>
-          See which version of a microservice is running on any environment.
-        </p>
-        <p>
-          <a href="/running-services" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse running services
-          </a>
-        </p>
-      </div>
+
     </div>
   </div>
+</div>
+
 
         </main>
       </div>
