@@ -225,14 +225,12 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
-  <div class="govuk-!-margin-top-2">
     <span class="govuk-caption-l" data-testid="app-page-heading-caption">Test Suite</span>
 
-  <div class="app-page-heading">
-    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-test-suite</h1>
+<div class="app-page-heading">
+  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-test-suite</h1>
 
 
-  </div>
 </div>
 
 
@@ -300,6 +298,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                aria-labelledby="tab-about"
                data-testid="app-tabs-panel">
         
+
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full-from-desktop-massive">
@@ -415,13 +414,13 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-                    <div class="govuk-form-group">
+                      <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="provideProfile-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-1">
       Profile
     </legend>
     <div id="provideProfile-hint" class="govuk-hint app-hint">
-      Do you want to provide a profile?
+      Do you want to provide a profile value for the test runner?
     </div>
     <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
@@ -431,27 +430,31 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         </label>
       </div>
       <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-provideProfile">
-        <div class="govuk-hint app-hint">Choose an existing profile or enter a new one</div>
-      <h3 class="govuk-heading-s">Choose existing</h3>
-      <div class="govuk-form-group app-form-group app-form-group-js">
-    
-    <select class="govuk-select app-select" id="profile" name="profile">
+        <div class="govuk-form-group app-form-group app-form-group-js">
+    <label class="govuk-label app-label" for="profile">
+      Choose existing
+    </label>
+    <div id="profile-hint" class="govuk-hint app-hint">
+      Choose a previously entered value
+    </div>
+    <select class="govuk-select app-select app-input--wide" id="profile" name="profile" aria-describedby="profile-hint">
       <option value="" disabled selected="true"> - - select - - </option>
       <option value="smoke">smoke</option>
     </select>
   </div>
   
-      <p class="govuk-body">or</p>
-      <h3 class="govuk-heading-s">Enter a new value</h3>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-half">
-          <div class="govuk-form-group">
-    
-    <input class="govuk-input govuk-input--width-10" id="newProfile" name="newProfile" type="text" spellcheck="false">
-  </div>
   
-        </div>
-      </div>
+      <p>or</p>
+  
+      <div class="govuk-form-group app-form-group app-form-group-js">
+    <label class="govuk-label app-label" for="newProfile">
+      Enter a new value
+    </label>
+    <div id="newProfile-hint" class="govuk-hint app-hint">
+      Enter a new value, this will be stored for future use
+    </div>
+    <input class="govuk-input app-input app-input--wide" id="newProfile" name="newProfile" type="text" spellcheck="false" aria-describedby="newProfile-hint">
+  </div>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false">
