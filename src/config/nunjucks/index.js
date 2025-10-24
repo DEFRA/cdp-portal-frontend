@@ -1,5 +1,4 @@
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import yar from '@hapi/yar'
 import nunjucks from 'nunjucks'
 import Vision from '@hapi/vision'
@@ -10,7 +9,7 @@ import * as filters from './filters/filters.js'
 import * as globals from './globals/globals.js'
 import * as extensions from './extensions/extensions.js'
 
-const dirname = path.dirname(fileURLToPath(import.meta.url))
+const dirname = import.meta.dirname
 
 const paths = {
   templates: path.normalize(

@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import isNil from 'lodash/isNil.js'
 import capitalize from 'lodash/capitalize.js'
 
@@ -50,7 +49,7 @@ import { cdpUserFixture } from '../src/__fixtures__/admin/cdp-user.js'
 import { fetchCdpTeam } from '../src/server/admin/teams/helpers/fetch/fetchers.js'
 import { fetchMarkdown } from '../src/server/documentation/helpers/s3-file-handler.js'
 
-const dirname = path.dirname(fileURLToPath(import.meta.url))
+const dirname = import.meta.dirname
 
 export const mockTeam = {
   teamId: 'mock-team-id',
