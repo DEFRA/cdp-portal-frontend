@@ -67,7 +67,7 @@ $min-grid-cell-width: 100px;
     grid-auto-rows: 1fr;
     margin-bottom: govuk-spacing(3);
     background-color: govuk-colour("white");
-    border-bottom: 2px solid $app-brand-border-colour;
+    border-bottom: 2px solid $app-brand-border-colour-light;
 
     &:last-child {
       border-bottom: none;
@@ -137,7 +137,7 @@ $min-grid-cell-width: 100px;
     font-weight: bold;
     position: sticky;
     top: 0;
-    border-bottom: 1px solid $app-brand-border-colour;
+    border-bottom: 1px solid $app-brand-border-colour-light;
     z-index: 100;
   }
 
@@ -207,7 +207,7 @@ $min-grid-cell-width: 100px;
     padding: govuk-spacing(2);
     margin: 0;
     border-bottom: none;
-    border-top: 1px solid $app-brand-border-colour;
+    border-top: 1px solid $app-brand-border-colour-light;
     vertical-align: top;
     width: 4%;
   }
