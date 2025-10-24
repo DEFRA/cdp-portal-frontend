@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template govuk-template--rebranded">
   <head>
     <meta charset="utf-8">
-    <title>  Decommission Microservice, Prototype, Test-Suite and Repository | Core Delivery Platform - Portal
+    <title>  Confirm Decommission | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -228,6 +228,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
+
 <div class="app-split-pane" data-testid="app-split-pane">
     <div class="app-split-pane__nav app-split-pane__nav--wide"
          data-testid="app-split-pane-nav">
@@ -324,166 +325,92 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
     <section class="app-content">
-      
-      <span class="govuk-caption-l" data-testid="app-page-heading-caption">Start</span>
+            <div class="govuk-!-margin-left-2 govuk-!-margin-top-2">
+        <div class="govuk-grid-row">
+          <section class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="app-remove-header">Confirm Decommission</h2>
+            <div class="app-section app-section--wide">
+              <p>
+                Confirm that you wish to decommission cdp-portal-backend
+              </p>
 
-<div class="app-page-heading">
-  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Decommission</h1>
-
-    <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
-      Decommission a Microservice, Test-Suite or Repository
-    </p>
-
-</div>
-
-
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-
-        <form action="/admin/decommissions/start" method="post" data-js="app-form-errors">
-          <input type="hidden" name="csrfToken" value="test-token" />
 
 <fieldset class="govuk-fieldset">
 
-            
+                  <label class="govuk-label app-label">
+  Name
+</label>
 
 
-<script data-testid="app-autocomplete-suggestions">
-  window.cdp = window.cdp || {};
-  window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["repositoryName"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"ai-service","text":"ai-service"},{"value":"cdp-example-node-postgres-be","text":"cdp-example-node-postgres-be"},{"value":"cdp-portal-backend","text":"cdp-portal-backend"},{"value":"cdp-portal-frontend","text":"cdp-portal-frontend"},{"value":"cdp-portal-stubs","text":"cdp-portal-stubs"},{"value":"cdp-user-service-backend","text":"cdp-user-service-backend"},{"value":"forms-designer","text":"forms-designer"},{"value":"forms-service","text":"forms-service"}]
-</script>
+                  <p class="govuk-!-margin-bottom-6">cdp-portal-backend</p>
+
+                  <label class="govuk-label app-label">
+  Type
+</label>
 
 
-<div
-  class="govuk-form-group app-form-group app-form-group app-form-group-js"
-  data-js="app-form-group" data-testid="app-autocomplete-group">
+                  <p class="govuk-!-margin-bottom-6">Microservice</p>
 
-  <label class="govuk-label app-label"
-         id="repository-name-label"
-         for="repository-name"
-         data-testid="app-autocomplete-label">
-    Name
-  </label>
-
-    <div class="govuk-hint app-hint" data-testid="app-autocomplete-hint">
-  Find the Microservice, Test-Suite or Repository to decommission
-</div>
+                  <label class="govuk-label app-label">
+  Sub-Type
+</label>
 
 
-
-
-
-  <div class="app-autocomplete"
-       data-js="app-autocomplete"
-       data-testid="app-autocomplete"
-  >
-    <div class="app-autocomplete__control">
-
-        <select name="repositoryName" id="repository-name" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
-          <option value=""
->
-             - - select - - 
-          </option>
-          <option value="ai-service"
->
-            ai-service
-          </option>
-          <option value="cdp-example-node-postgres-be"
->
-            cdp-example-node-postgres-be
-          </option>
-          <option value="cdp-portal-backend"
->
-            cdp-portal-backend
-          </option>
-          <option value="cdp-portal-frontend"
->
-            cdp-portal-frontend
-          </option>
-          <option value="cdp-portal-stubs"
->
-            cdp-portal-stubs
-          </option>
-          <option value="cdp-user-service-backend"
->
-            cdp-user-service-backend
-          </option>
-          <option value="forms-designer"
->
-            forms-designer
-          </option>
-          <option value="forms-service"
->
-            forms-service
-          </option>
-        </select>
-
-      <button class="app-autocomplete__chevron-button js-visible"
-              type="button"
-              tabindex="-1"
-              aria-owns="app-autocomplete-repository-name-suggestions"
-              aria-label="Show"
-              data-js="app-chevron-button"
-              data-testid="app-chevron-button"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
-     viewBox="0 -960 960 960"
-     role="img" aria-label="Chevron">
-  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
-</svg>
-
-      </button>
-
-      <button class="app-autocomplete__clear-button"
-              type="button"
-              aria-hidden="true"
-              tabindex="-1"
-              data-js="app-autocomplete-clear-button"
-              data-testid="app-autocomplete-clear-button"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
-     width="48"
-     height="48"
-     viewBox="0 -960 960 960"
-  role="img" aria-label="Clear">
-  <path
-    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
-</svg>
-
-      </button>
-
-    </div>
-
-    <ul
-      class="app-autocomplete__suggestions"
-      id="app-autocomplete-repository-name-suggestions"
-      aria-labelledby="repository-name-label"
-      aria-expanded="false"
-      role="listbox"
-      data-js="app-autocomplete-suggestions"
-      data-testid="app-autocomplete-suggestions"></ul>
-  </div>
-  
-</div>
-
-
-
+                  <p class="govuk-!-margin-bottom-6">Backend</p>
 
 
 
 </fieldset>
 
-          <div class="govuk-button-group">
-            <button type="submit" class="govuk-button app-button app-button--destructive" data-module="govuk-button">
+                <div class="govuk-!-margin-bottom-6">
+                  
+
+
+<div
+  class="app-info"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-info">
+
+  <svg class="app-icon app-info-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Info">
+  <path fill-rule="nonzero"
+        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+
+
+  <span class="app-info__content" data-testid="app-info-content">
+      <p class="govuk-!-margin-bottom-1">
+    Decommissioning is non-recoverable
+  </p>
+
+  </span>
+
+</div>
+
+
+                </div>
+
+                <div class="app-!-layout-centered">
+
+                  <form action="/admin/decommissions/cdp-portal-backend/confirm" method="post">
+                    <input type="hidden" name="csrfToken" value="test-token" />
+                    <input type="hidden" name="repositoryName" value="cdp-portal-backend" />
+
+                    <div class="govuk-body govuk-button-group">
+                      <button type="submit" class="govuk-button app-button app-button--destructive" data-module="govuk-button" data-testid="app-remove-button">
   Decommission
 </button>
-          </div>
 
-        </form>
+                      <a class="app-link" href="/admin/decommissions/start">Cancel</a>
+                    </div>
+                  </form>
+                </div>
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
-
 
     </section>
   </div>

@@ -2,12 +2,14 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { decommissionValidation } from '../helpers/schema/decommission-validation.js'
 import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
+import { decommission } from '../helpers/fetchers.js'
 
-const startDecommissionController = {
+const confirmDecommissionController = {
   options: {
-    id: 'post:admin/decommissions/start'
+    id: 'post:admin/decommissions/{repositoryName}/confirm'
   },
   handler: async (request, h) => {
+    const userSession = await request.getUserSession()
     const repositoryName = request.payload.repositoryName
 
     const entities = await fetchEntities()
@@ -31,7 +33,23 @@ const startDecommissionController = {
 
     if (!validationResult.error) {
       try {
-        return h.redirect(`/admin/decommissions/${repositoryName}/confirm`)
+        // TODO is anything useful going to be coming back that can be displayed?
+        await decommission(repositoryName, userSession)
+
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Decommission requested',
+          type: 'success'
+        })
+
+        request.audit.sendMessage({
+          event: `Decommission: ${repositoryName} requested by ${userSession?.id}:${userSession?.email}`,
+          data: {
+            repositoryName
+          },
+          user: userSession
+        })
+
+        return h.redirect(`/admin/decommissions/${repositoryName}`)
       } catch (error) {
         request.yar.flash(sessionNames.validationFailure, {
           formValues: { repositoryName }
@@ -44,4 +62,4 @@ const startDecommissionController = {
   }
 }
 
-export { startDecommissionController }
+export { confirmDecommissionController }
