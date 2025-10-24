@@ -1,12 +1,12 @@
 import lunr from 'lunr'
 import { Marked } from 'marked'
 import { isAfter } from 'date-fns'
+import { escapeRegex } from '@hapi/hoek'
 import { stripHtml } from 'string-strip-html'
 import { performance } from 'node:perf_hooks'
 import markedPlaintify from 'marked-plaintify'
-import { escapeRegex } from '@hapi/hoek'
 
-import { excludedMarkdownFiles } from '../constants/excluded-markdown-files.js'
+import { shouldExcludedItem } from './excluded-items.js'
 import {
   fetchS3File,
   fetchHeadObject,
@@ -41,8 +41,7 @@ async function buildSearchIndex(request, bucket) {
 
     const mdFiles = listObjectsResponse.Contents.filter(
       (content) =>
-        content.Key.endsWith('.md') &&
-        !excludedMarkdownFiles.includes(content.Key)
+        content.Key.endsWith('.md') && !shouldExcludedItem(content.Key)
     )
 
     const fetchMarkdownPromises = mdFiles.map(async (content) => {

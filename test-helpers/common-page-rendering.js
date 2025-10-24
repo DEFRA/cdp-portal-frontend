@@ -1,3 +1,6 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import isNil from 'lodash/isNil.js'
 import capitalize from 'lodash/capitalize.js'
 
@@ -45,6 +48,9 @@ import { teamRepositoriesFixture } from '../src/__fixtures__/teams/repositories.
 import { fetchCdpUser } from '../src/server/admin/users/helpers/fetch/fetchers.js'
 import { cdpUserFixture } from '../src/__fixtures__/admin/cdp-user.js'
 import { fetchCdpTeam } from '../src/server/admin/teams/helpers/fetch/fetchers.js'
+import { fetchMarkdown } from '../src/server/documentation/helpers/s3-file-handler.js'
+
+const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export const mockTeam = {
   teamId: 'mock-team-id',
@@ -320,6 +326,64 @@ export function mockTestRuns(repositoryName) {
 export function mockCommonTestSuiteCalls(repositoryName, status = 'Created') {
   mockRepositoryCall(repositoryName, ['test-suite', 'journey'])
   mockTestSuiteEntityCall(repositoryName, status)
+}
+
+export async function mockBlogPreviewArticles() {
+  fetchMarkdown.mockResolvedValueOnce?.(
+    fs.readFileSync(
+      path.resolve(dirname, '..', 'src', '__fixtures__', 'blog', 'blog-nav.md'),
+      'utf8'
+    )
+  )
+  fetchMarkdown.mockResolvedValueOnce?.(
+    fs.readFileSync(
+      path.resolve(
+        dirname,
+        '..',
+        'src',
+        '__fixtures__',
+        'blog',
+        '20251017-introducing-the-cdp-blog.md'
+      ),
+      'utf8'
+    )
+  )
+  fetchMarkdown.mockResolvedValueOnce?.(
+    fs.readFileSync(
+      path.resolve(
+        dirname,
+        '..',
+        'src',
+        '__fixtures__',
+        'blog',
+        '20251024-passing-profile-to-the-test-suite.md'
+      ),
+      'utf8'
+    )
+  )
+}
+
+export async function mockBlogArticle(articleFileName) {
+  fetchMarkdown.mockResolvedValueOnce?.(
+    fs.readFileSync(
+      path.resolve(
+        dirname,
+        '..',
+        'src',
+        '__fixtures__',
+        'blog',
+        articleFileName
+      ),
+      'utf8'
+    )
+  )
+
+  fetchMarkdown.mockResolvedValueOnce?.(
+    fs.readFileSync(
+      path.resolve(dirname, '..', 'src', '__fixtures__', 'blog', 'blog-nav.md'),
+      'utf8'
+    )
+  )
 }
 
 function mockAvailableVersions() {

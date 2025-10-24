@@ -30,8 +30,8 @@ function fetchListObjects(request, bucket) {
   return request.s3Client.send(command)
 }
 
-async function s3FileHandler(request, h, documentationPath, bucket) {
-  const s3File = await fetchS3File(request, documentationPath, bucket)
+async function s3FileHandler(request, h, path, bucket) {
+  const s3File = await fetchS3File(request, path, bucket)
 
   return h
     .response(s3File.Body)
@@ -39,10 +39,10 @@ async function s3FileHandler(request, h, documentationPath, bucket) {
     .code(statusCodes.ok)
 }
 
-async function fetchMarkdown(request, bucket, documentationPath) {
+async function fetchMarkdown(request, bucket, path) {
   const command = new GetObjectCommand({
     Bucket: bucket,
-    Key: documentationPath
+    Key: path
   })
   const response = await request.s3Client.send(command)
 

@@ -1,11 +1,12 @@
 {% extends "layouts/page.njk" %}
 
+{% from "blog/macro.njk" import appBlog %}
 {% from "icons/homepage-icon/macro.njk" import appHomepageIcon %}
 
 {% set invertServiceNav=true %}
 
 {% set secondaryHtml %}
-  Any comments, questions or suggestions? Contact the Platform team -
+  Comments, questions, suggestions and feature requests? Contact the Platform team -
   <a class="app-link app-link--inverse"
      href="{{ supportChannel }}"
      target="_blank"
@@ -22,7 +23,7 @@
   {{ appHero({
     heading: "Build your Defra applications on the Core Delivery Platform",
     lead: {
-      html: "Helping teams to create, deploy, run and monitor applications."
+      html: "Enabling teams to create, deploy, run and monitor applications at DEFRA."
     },
     secondary: {
       html: secondaryHtml
@@ -32,46 +33,11 @@
     }
   }) }}
 
-  <div class="app-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Documentation</h2>
-        <p>Everything you need to know about the Core Delivery Platform.</p>
-        <p>
-          <a href="/documentation" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse documentation</a>
-        </p>
-      </div>
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Services</h2>
-        <p>Discover the frontend and backend microservices on the Core Delivery Platform.</p>
-        <p>
-          <a href="/services" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse services</a>
-        </p>
-      </div>
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Deployments</h2>
-        <p>View deployments and Continuous Integration (CI) information across all
-          environments.
-        </p>
-        <p>
-          <a href="/deployments" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse deployments</a>
-        </p>
-      </div>
-      <div class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Running Services</h2>
-        <p>
-          See which version of a microservice is running on any environment.
-        </p>
-        <p>
-          <a href="{{ routeLookup('running-services') }}" class="govuk-link app-link govuk-!-font-weight-bold">
-            Browse running services
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
+  {{ appBlog({
+    nav: nav,
+    content: content,
+    toc: toc,
+    isInverse: true
+  }) }}
 
 {% endblock %}

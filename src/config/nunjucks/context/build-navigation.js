@@ -43,7 +43,7 @@ async function buildNavigation(request) {
     {
       text: 'Home',
       href: request.routeLookup('home'),
-      current: request?.path === '/',
+      current: request?.path === '/' || request?.path?.startsWith('/blog'),
       attributes: {
         'data-testid': 'nav-home'
       }

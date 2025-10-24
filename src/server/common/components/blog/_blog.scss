@@ -1,0 +1,125 @@
+@use "govuk-frontend" as *;
+@use "helpers/link" as *;
+@use "helpers/list" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+@use "helpers/reading-width" as *;
+
+// TODO look at specificity in this file, should we wrap the contents in .app-blog__container?
+.app-blog__container {
+  margin: -19px govuk-spacing(-6) 0;
+  padding: govuk-spacing(4) govuk-spacing(6) 0;
+  background-color: $app-brand-background-colour-light;
+}
+
+.app-blog__wrapper {
+  display: flex;
+  margin: 0 govuk-spacing(-6);
+  padding: govuk-spacing(6);
+  gap: govuk-spacing(4);
+
+  border-width: 1px 0 0;
+  border-style: solid;
+  border-color: $app-brand-border-colour-light;
+  background-color: govuk-colour("white");
+}
+
+.app-blog__nav-sidebar {
+  width: 240px;
+  height: 100vh;
+  position: sticky;
+  top: govuk-spacing(6);
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  h2:first-of-type {
+    margin: 0 0 govuk-spacing(2);
+  }
+
+  ul {
+    @extend %govuk-list;
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .app-link {
+    @include app-link;
+    @include govuk-link-style-text;
+
+    &.is-active {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+}
+
+$govuk-wrapper-margin: 60px;
+
+.app-blog__body {
+  @include app-section-large-width;
+
+  height: 100%;
+  flex: 1;
+}
+
+.app-blog__toc-sidebar {
+  width: 240px;
+  height: 100vh;
+  position: sticky;
+  top: govuk-spacing(6);
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  @extend %nested-lists;
+
+  .app-link {
+    @include app-link;
+    @include govuk-link-style-text;
+
+    code {
+      padding: .15em .3em;
+      margin: 0;
+      font-size: 85%;
+      white-space: break-spaces;
+      background-color: $app-brand-background-colour;
+      border-radius: $app-border-radius;
+    }
+  }
+}
+
+.app-blog__date {
+  color: $govuk-secondary-text-colour;
+  display: block;
+  margin-bottom: govuk-spacing(2);
+}
+
+.app-blog__more-link {
+  display: inline-block;
+  margin: govuk-spacing(2) 0;
+}
+
+.app-blog__preview {
+  padding-top: govuk-spacing(6);
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  & + & {
+    margin-top: govuk-spacing(2);
+    border-top: 1px solid $app-brand-border-colour;
+  }
+
+  h1 {
+    @extend %govuk-heading-l;
+  }
+
+  h2 {
+    @extend %govuk-heading-m;
+  }
+
+  h3,
+  h4{
+    @extend %govuk-heading-s;
+  }
+}

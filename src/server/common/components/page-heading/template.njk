@@ -1,24 +1,22 @@
-<div class="govuk-!-margin-top-2">
-  {% if params.caption %}
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">{{ params.caption }}</span>
+{% if params.caption %}
+  <span class="govuk-caption-l" data-testid="app-page-heading-caption">{{ params.caption }}</span>
+{% endif %}
+
+<div class="app-page-heading">
+  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">{{ params.text }}</h1>
+
+  {% if params.intro %}
+    <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
+      {{ params.intro | safe }}
+    </p>
   {% endif %}
 
-  <div class="app-page-heading">
-    <h1 class="app-page-heading--title" data-testid="app-page-heading-title">{{ params.text }}</h1>
-
-    {% if params.intro %}
-      <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
-        {{ params.intro | safe }}
-      </p>
-    {% endif %}
-
-    {% if params.cta %}
-      <p class="app-page-heading--cta">
-        <a href="{{ params.cta.href }}" class="app-link app-link--underline"
-           data-testid="app-page-heading-cta">
-          {{ params.cta.text }}
-        </a>
-      </p>
-    {% endif %}
-  </div>
+  {% if params.cta %}
+    <p class="app-page-heading--cta">
+      <a href="{{ params.cta.href }}" class="app-link app-link--underline"
+         data-testid="app-page-heading-cta">
+        {{ params.cta.text }}
+      </a>
+    </p>
+  {% endif %}
 </div>
