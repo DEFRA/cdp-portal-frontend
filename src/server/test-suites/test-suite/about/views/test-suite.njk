@@ -11,12 +11,18 @@
 {% block tabContent %}
 
   {% set provideProfileHtml %}
-    <div class="govuk-hint app-hint">Choose an existing profile or enter a new one</div>
-    <h3 class="govuk-heading-s">Choose existing</h3>
     {{ govukSelect({
       id: 'profile',
       name: 'profile',
-      classes: 'app-select',
+      classes: 'app-select app-input--wide',
+      label: {
+        text: "Choose existing",
+        classes: "app-label"
+      },
+      hint: {
+        text: "Choose a previously entered value",
+        classes: "app-hint"
+      },
       value: formValues.profile,
       items: formValues.profileOptions,
       formGroup: {
@@ -24,21 +30,30 @@
       },
       errorMessage: errorMessageHelper(formErrors.profile.message)
     }) }}
-    <p class="govuk-body">or</p>
-    <h3 class="govuk-heading-s">Enter a new value</h3>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
-        {{ govukInput({
-          id: "newProfile",
-          name: "newProfile",
-          classes: "govuk-input--width-10",
-          spellcheck: false,
-          errorMessage: errorMessageHelper(formErrors.newProfile.message),
-          value: formValues.newProfile
-        }) }}
-      </div>
-    </div>
+
+    <p>or</p>
+
+    {{ govukInput({
+      id: "newProfile",
+      name: "newProfile",
+      classes: "app-input app-input--wide",
+      label: {
+        text: "Enter a new value",
+        classes: "app-label"
+      },
+      hint: {
+        text: "Enter a new value, this will be stored for future use",
+        classes: "app-hint"
+      },
+      value: formValues.newProfile,
+      errorMessage: errorMessageHelper(formErrors.newProfile.message),
+      formGroup: {
+        classes: 'app-form-group app-form-group-js'
+      },
+      spellcheck: false
+    }) }}
   {% endset %}
+
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full-from-desktop-massive">
@@ -95,37 +110,37 @@
                         errorMessage: errorMessageHelper(formErrors.environment.message)
                       }) }}
 
-                    {{ govukRadios({
-                      idPrefix: "provideProfile",
-                      name: "provideProfile",
+                      {{ govukRadios({
+                        idPrefix: "provideProfile",
+                        name: "provideProfile",
                         classes: "govuk-radios--small app-radios",
-                      fieldset: {
-                        legend: {
-                          text: "Profile",
-                          classes: "govuk-fieldset__legend--m"
-                        }
-                      },
-                        hint: {
-                          text: "Do you want to provide a profile?",
-                          classes: "app-hint"
-                        },
-                      errorMessage: errorMessageHelper(formErrors.provideProfile.message),
-                      items: [
-                        {
-                          value: true,
-                          text: "Yes",
-                          checked: formValues.provideProfile === 'true',
-                          conditional: {
-                            html: provideProfileHtml
+                        fieldset: {
+                          legend: {
+                            text: "Profile",
+                            classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
                           }
                         },
-                        {
-                          value: false,
-                          text: "No",
-                          checked: formValues.provideProfile === 'false'
-                        }
-                      ]
-                    }) }}
+                        hint: {
+                          text: "Do you want to provide a profile value for the test runner?",
+                          classes: "app-hint"
+                        },
+                        errorMessage: errorMessageHelper(formErrors.provideProfile.message),
+                        items: [
+                          {
+                            value: true,
+                            text: "Yes",
+                            checked: formValues.provideProfile === 'true',
+                            conditional: {
+                            html: provideProfileHtml
+                          }
+                          },
+                          {
+                            value: false,
+                            text: "No",
+                            checked: formValues.provideProfile === 'false'
+                          }
+                        ]
+                      }) }}
 
                       {{ govukRadios({
                         name: "configuration",
