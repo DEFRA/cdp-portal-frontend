@@ -1,14 +1,14 @@
 import { load } from 'cheerio'
 
-import { buildPageHtml } from './build-page-html.js'
+import { buildDocsPageHtml } from './build-page-html.js'
 
-describe('#buildPageHtml', () => {
+describe('#buildDocsPageHtml', () => {
   const searchTerm = ''
 
   test('Should convert markdown to HTML', async () => {
     const markdown = '# Heading\n\nThis is a paragraph.'
     const mockRequest = { query: { q: searchTerm } }
-    const { html } = await buildPageHtml(mockRequest, markdown)
+    const { html } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $html = load(html)
     const $heading = $html('h1')
@@ -27,7 +27,7 @@ describe('#buildPageHtml', () => {
     const searchTerm = 'paragraph'
     const mockRequest = { query: { q: searchTerm } }
     const markdown = '# Heading\n\nThis is a paragraph.'
-    const { html } = await buildPageHtml(mockRequest, markdown)
+    const { html } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $html = load(html)
     const $paragraph = $html('p')
@@ -42,7 +42,7 @@ describe('#buildPageHtml', () => {
     const mockRequest = { query: { q: searchTerm } }
     const markdown =
       '# Fetch\n\n `inline fetch example` \n ```and this is a fetch code example``` \n [fetch](/fetch-in-url)'
-    const { html } = await buildPageHtml(mockRequest, markdown)
+    const { html } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $html = load(html)
 
@@ -61,7 +61,7 @@ describe('#buildPageHtml', () => {
     const mockRequest = { query: { q: searchTerm } }
     const markdown =
       'Templated node projects should have a `logger-options.js` file that sets up Pino (the log library).'
-    const { html } = await buildPageHtml(mockRequest, markdown)
+    const { html } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $html = load(html)
 
@@ -73,7 +73,7 @@ describe('#buildPageHtml', () => {
   test('Should generate expected table of contents', async () => {
     const markdown = '# Heading 1\n\n## Heading 2\n\n### Heading 3'
     const mockRequest = { query: { q: searchTerm } }
-    const { toc } = await buildPageHtml(mockRequest, markdown)
+    const { toc } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $toc = load(toc)
     const $link1 = $toc('ul').first().find('a').first()
@@ -92,7 +92,7 @@ describe('#buildPageHtml', () => {
 
   test('Should handle empty markdown input', async () => {
     const mockRequest = { query: { q: searchTerm } }
-    const { html, toc } = await buildPageHtml(mockRequest, '')
+    const { html, toc } = await buildDocsPageHtml(mockRequest, '')
 
     expect(html).toBe('')
     expect(toc).toBe('')
@@ -101,7 +101,7 @@ describe('#buildPageHtml', () => {
   test('Should render angle bracket link as expected', async () => {
     const mockRequest = { query: {} }
     const markdown = '<https://example.com>'
-    const { html } = await buildPageHtml(mockRequest, markdown)
+    const { html } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $html = load(html)
     const $link = $html('a')
@@ -114,7 +114,7 @@ describe('#buildPageHtml', () => {
   test('Should render plain link as expected', async () => {
     const mockRequest = { query: {} }
     const markdown = 'https://exampleother.com'
-    const { html } = await buildPageHtml(mockRequest, markdown)
+    const { html } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $html = load(html)
     const $link = $html('a')
@@ -128,7 +128,7 @@ describe('#buildPageHtml', () => {
     const mockRequest = { query: {} }
     const markdown =
       '[https://example-another.com](https://example-another.com)'
-    const { html } = await buildPageHtml(mockRequest, markdown)
+    const { html } = await buildDocsPageHtml(mockRequest, markdown)
 
     const $html = load(html)
     const $link = $html('a')

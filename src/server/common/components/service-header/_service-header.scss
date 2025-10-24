@@ -89,6 +89,7 @@
     align-items: center;
     color: govuk-colour("white");
     text-decoration: none;
+    text-decoration-thickness: 3px;
 
     &.app-service-header_profile-link--active {
       text-decoration: underline;

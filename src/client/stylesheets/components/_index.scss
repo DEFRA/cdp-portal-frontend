@@ -4,13 +4,14 @@
 @use "autocomplete/autocomplete";
 @use "availability/availability";
 @use "banner/banner";
+@use "blog/blog";
 @use "breadcrumbs/breadcrumbs";
 @use "button/button";
 @use "copy/copy";
 @use "database-detail/database-detail";
 @use "details/details";
 @use "detailed-list/detailed-list";
-@use "documentation";
+@use "documentation/documentation";
 @use "entity-actions/entity-actions";
 @use "entity-data-list/entity-data-list";
 @use "entity-table/entity-table";

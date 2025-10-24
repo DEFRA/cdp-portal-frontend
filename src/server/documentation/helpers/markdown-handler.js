@@ -4,7 +4,7 @@ import { statusCodes } from '@defra/cdp-validation-kit'
 import { buildSearchIndex } from './search-index.js'
 import { docsBreadcrumbs } from './docs-breadcrumbs.js'
 import { fetchMarkdown } from './s3-file-handler.js'
-import { buildPageHtml } from './markdown/build-page-html.js'
+import { buildDocsPageHtml } from './markdown/build-page-html.js'
 import { buildDocsNav } from './markdown/build-docs-nav.js'
 
 function buildPageTitle(documentationPath) {
@@ -21,7 +21,7 @@ async function markdownHandler(request, h, documentationPath, bucket) {
     fetchMarkdown(request, bucket, documentationPath),
     buildDocsNav(request, bucket, documentationPath)
   ])
-  const { html, toc } = await buildPageHtml(request, markdown)
+  const { html, toc } = await buildDocsPageHtml(request, markdown)
   const pageTitle = buildPageTitle(documentationPath)
 
   // Prime search index async on docs page load

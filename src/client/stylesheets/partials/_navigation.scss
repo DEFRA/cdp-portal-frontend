@@ -1,28 +1,26 @@
 @use "govuk-frontend" as *;
 @use "variables/colours" as *;
 
-// stylelint-disable max-nesting-depth
 .govuk-template--rebranded {
-  .app-service-navigation--inverse {
+  .govuk-service-navigation {
     .govuk-width-container {
-      border-top: 1px solid $app-brand-border-colour-light;
-      border-bottom: 1px solid $app-brand-border-colour-light;
+      border: none;
     }
 
-    .app-navigation__admin {
-      &::before {
-        border-left: 1px solid govuk-colour("white");
-      }
+    &.app-service-navigation--inverse {
+      border-width: 1px 0;
+      border-color: $app-brand-border-colour;
+      border-style: solid;
     }
   }
 }
-// stylelint-enable max-nesting-depth
 
 .app-navigation {
+  border: none;
+
   .govuk-service-navigation__item {
     padding: govuk-spacing(3) 0;
-
-    @include govuk-font(19);
+    font-size: 19px; // Hardcoded to 19px due to teh way we globally reduce font sizes means I can;t quite get to 19px
 
     &:not(:last-child) {
       @include govuk-responsive-margin(3, $direction: right);
@@ -69,7 +67,7 @@
       left: 0;
       width: 2px;
       height: 60%;
-      border-left: 1px solid $app-brand-border-colour-light;
+      border-left: 1px solid govuk-colour("white");
     }
   }
 }

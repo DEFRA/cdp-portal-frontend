@@ -174,7 +174,8 @@ read out the skiplink on every page and errors can be focused when they occur. A
 
   {% if breadcrumbs.length > 1 %}
     {{ appBreadcrumbs({
-      items: breadcrumbs
+      items: breadcrumbs,
+      classes: breadCrumbsClasses
     }) }}
   {% endif %}
 {% endblock %}

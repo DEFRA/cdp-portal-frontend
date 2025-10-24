@@ -1,41 +1,13 @@
 @use "govuk-frontend" as *;
 @use "helpers/link" as *;
+@use "helpers/list" as *;
 @use "variables/colours" as *;
 @use "variables/border-radius" as *;
-
-// stylelint-disable max-nesting-depth
-%nested-lists {
-  ul {
-    @extend %govuk-list;
-    list-style-type: disc;
-    margin-top: govuk-spacing(1);
-    margin-bottom: govuk-spacing(1);
-    padding-left: govuk-spacing(3);
-
-    li:has(> ul.govuk-list) {
-      list-style-type: none;
-    }
-
-    ul {
-      list-style-type: circle;
-      margin-top: govuk-spacing(1);
-
-      ul {
-        list-style-type: disc;
-
-        ul {
-          list-style-type: circle;
-        }
-      }
-    }
-  }
-}
-// stylelint-enable max-nesting-depth
 
 .app-documentation__container {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: govuk-spacing(4);
+  margin: govuk-spacing(6) 0;
 }
 
 .app-documentation__nav-sidebar {

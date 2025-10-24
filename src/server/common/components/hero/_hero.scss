@@ -2,18 +2,17 @@
 @use "variables/colours" as *;
 
 .app-hero {
-  margin: -19px govuk-spacing(-6) 0;
+  margin: -19px govuk-spacing(-6) 19px;
   padding: govuk-spacing(4) 0;
-  border-bottom: 1px solid $app-brand-border-colour;
   color: govuk-colour("white");
-  background-color: $defra-brand-colour;
+  background-color: $govuk-brand-colour;
 }
 
 .app-hero__body {
-  padding: govuk-spacing(5) govuk-spacing(6) govuk-spacing(6);
+  padding: govuk-spacing(4) govuk-spacing(6);
 
   @include govuk-media-query($from: desktop-wide) {
-    width: 1100px;
+    max-width: 1680px;
   }
 }
 

@@ -1,0 +1,36 @@
+{% from "page-heading/macro.njk" import appPageHeading %}
+
+{% set headingClasses = [
+  "app-blog__heading", "app-blog__heading--inverse" if params.isInverse
+] | join(" ") | trim %}
+
+
+<div class="govuk-body">
+  <div class="app-blog__container">
+    <div class="{{ headingClasses }}">
+      {{ appPageHeading({
+        text: "Blog",
+        intro: "Announcements, updates and news from the Core Delivery Platform team"
+      }) }}
+    </div>
+
+    <div class="app-blog__wrapper">
+      <div class="app-blog__nav-sidebar">
+        {{ params.nav | safe }}
+      </div>
+
+      <div class="app-blog__body">
+        <article class="app-markdown">
+          {{ params.content | safe }}
+        </article>
+      </div>
+
+      {% if params.toc %}
+        <div class="app-blog__toc-sidebar">
+          <strong class="govuk-heading-m">In this article</strong>
+          {{ params.toc | safe }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

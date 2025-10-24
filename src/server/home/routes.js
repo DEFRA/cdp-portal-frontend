@@ -1,4 +1,5 @@
-import { homeController } from './controller.js'
+import { homeRoute } from './routes/home.js'
+import { blogAssetsRoute, blogRoute } from './routes/blog.js'
 
 const home = {
   plugin: {
@@ -8,7 +9,17 @@ const home = {
         {
           method: 'GET',
           path: '/',
-          ...homeController
+          ...homeRoute
+        },
+        {
+          method: 'GET',
+          path: '/assets/{assetPath*}',
+          ...blogAssetsRoute
+        },
+        {
+          method: 'GET',
+          path: '/blog/{articlePath*}',
+          ...blogRoute
         }
       ])
     }
