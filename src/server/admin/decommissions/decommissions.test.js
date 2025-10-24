@@ -12,7 +12,8 @@ import {
 } from '../features/helpers/fetch-feature-toggles.js'
 import {
   fetchDecommissions,
-  fetchEntities
+  fetchEntities,
+  fetchEntity
 } from '../../common/helpers/fetch/fetch-entities.js'
 
 vi.mock('../../common/helpers/fetch/fetch-entities.js')
@@ -71,6 +72,7 @@ describe('Decommissions pages', () => {
       }
     ])
     fetchEntities.mockResolvedValue(entityServicesFixture)
+    fetchEntity.mockResolvedValue(entityServicesFixture[0])
     server = await initialiseServer()
   })
 
@@ -168,7 +170,53 @@ describe('Decommissions pages', () => {
     test('page errors with 401 for logged out user', async () => {
       isFeatureToggleActiveForPath.mockResolvedValue(true)
       const { statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: '/admin/decommissions',
+        targetUrl: '/admin/decommissions/start',
+        isAdmin: false,
+        isTenant: false
+      })
+      expect(statusCode).toBe(statusCodes.unauthorized)
+    })
+  })
+
+  describe('confirm decommission view', () => {
+    test('page renders regular view for logged in admin user without feature toggle', async () => {
+      isFeatureToggleActiveForPath.mockResolvedValue(false)
+
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: '/admin/decommissions/cdp-portal-backend/confirm',
+        isAdmin: true,
+        isTenant: true
+      })
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toMatchFile()
+    })
+
+    test('unavailable view renders for logged in admin user with feature toggle active', async () => {
+      isFeatureToggleActiveForPath.mockResolvedValue(true)
+
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: '/admin/decommissions/cdp-portal-backend/confirm',
+        isAdmin: true,
+        isTenant: true
+      })
+      expect(statusCode).toBe(statusCodes.serviceUnavailable)
+      expect(result).toMatchFile()
+    })
+
+    test('page errors for logged in non-service owner tenant', async () => {
+      isFeatureToggleActiveForPath.mockResolvedValue(true)
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: '/admin/decommissions/cdp-portal-backend/confirm',
+        isAdmin: false,
+        isTenant: true
+      })
+      expect(statusCode).toBe(statusCodes.forbidden)
+    })
+
+    test('page errors with 401 for logged out user', async () => {
+      isFeatureToggleActiveForPath.mockResolvedValue(true)
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: '/admin/decommissions/cdp-portal-backend/confirm',
         isAdmin: false,
         isTenant: false
       })

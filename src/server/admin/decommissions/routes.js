@@ -7,6 +7,8 @@ import { decommissionFormController } from './controllers/decommission-form.js'
 import { decommissionsListController } from './controllers/decommissions-list.js'
 import { startDecommissionController } from './controllers/start-decommission.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
+import { decommissionConfirmController } from './controllers/decommission-confirm.js'
+import { confirmDecommissionController } from './controllers/confirm-decommission.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -53,6 +55,16 @@ const adminDecommissions = {
             method: 'POST',
             path: '/admin/decommissions/start',
             ...startDecommissionController
+          },
+          {
+            method: 'GET',
+            path: '/admin/decommissions/{repositoryName}/confirm',
+            ...decommissionConfirmController
+          },
+          {
+            method: 'POST',
+            path: '/admin/decommissions/{repositoryName}/confirm',
+            ...confirmDecommissionController
           }
         ].map(adminScope)
       )
