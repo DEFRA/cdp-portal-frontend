@@ -29,6 +29,7 @@ The Core Delivery Platform (CDP), Portal Frontend is a web application that prov
 - [LocalStack](#localstack)
   - [Test reports](#test-reports)
   - [Documentation](#documentation)
+  - [Blog](#blog)
   - [Terminal](#terminal)
     - [Repositories](#repositories)
   - [Set up](#set-up)
@@ -324,6 +325,28 @@ awslocal s3 sync . "s3://cdp-documentation/" \
           --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md" --exclude "LICENSE" --exclude ".idea/*" --exclude ".config/*" \
           --metadata "git-commit=$head_ref" \
           --delete
+```
+
+### Blog
+
+To upload blog posts to localstack S3 so it displays locally in the Portal Frontend UI:
+
+```bash
+## Start localstack
+docker run --pull=always -d -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack:latest
+
+## Create S3 bucket
+awslocal s3 mb s3://cdp-documentation --endpoint-url http://localhost:4566
+
+## Upload blogs to localstack S3
+git clone https://github.com/DEFRA/cdp-documentation/
+cd cdp-documentation
+node .github/scripts/generate-blog.js ./blog
+awslocal s3 sync . s3://cdp-documentation \
+        --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md" --exclude ".husky" --exclude "node_modules" \
+        --exclude "package.json" --exclude "package-lock.json" \
+        --metadata "git-commit=$head_ref" \
+        --delete
 ```
 
 ### Terminal
