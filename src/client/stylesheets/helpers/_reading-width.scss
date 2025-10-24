@@ -8,6 +8,10 @@
   max-width: $app-section-width;
 }
 
+@mixin app-section-large-width {
+  max-width: $app-section-large-width;
+}
+
 @mixin app-section-wide-width {
   max-width: $app-section-wide-width;
 }
