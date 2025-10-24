@@ -1,7 +1,7 @@
 {% extends "layouts/page.njk" %}
 
 {% from "blog/macro.njk" import appBlog %}
-{% from "icons/homepage-icon/macro.njk" import appHomepageIcon %}
+{% from "icons/hero-icon/macro.njk" import appHeroIcon %}
 
 {% set invertServiceNav=true %}
 
@@ -14,9 +14,7 @@
 {% endset %}
 
 {% set asideHtml %}
-  <div class="app-display-desktop-big">
-    {{ appHomepageIcon() }}
-  </div>
+  {{ appHeroIcon() }}
 {% endset %}
 
 {% block content %}
