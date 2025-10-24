@@ -1,0 +1,79 @@
+{% extends "layouts/page.njk" %}
+
+
+{% set helpHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    Decommissioning is non-recoverable
+  </p>
+{% endset %}
+
+{% block content %}
+
+    {% call appSplitPane({ isWide: true }) %}
+      <div class="govuk-!-margin-left-2 govuk-!-margin-top-2">
+        <div class="govuk-grid-row">
+          <section class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="app-remove-header">Confirm Decommission</h2>
+            <div class="app-section app-section--wide">
+              <p>
+                Confirm that you wish to decommission {{ entity.name }}
+              </p>
+
+
+              {% call govukFieldset() %}
+
+                  {{ govukLabel({
+                    text: "Name",
+                    classes: "app-label"
+                  }) }}
+
+                  <p class="govuk-!-margin-bottom-6">{{ entity.name }}</p>
+
+                  {{ govukLabel({
+                    text: "Type",
+                    classes: "app-label"
+                  }) }}
+
+                  <p class="govuk-!-margin-bottom-6">{{ entity.type | title }}</p>
+
+                  {{ govukLabel({
+                    text: "Sub-Type",
+                    classes: "app-label"
+                  }) }}
+
+                  <p class="govuk-!-margin-bottom-6">{{ entity.subType | title }}</p>
+
+
+                {% endcall %}
+
+                <div class="govuk-!-margin-bottom-6">
+                  {{ appInfo({
+                    html: helpHtml
+                  }) }}
+                </div>
+
+                <div class="app-!-layout-centered">
+
+                  <form action="{{ routeLookup("admin/decommissions/{repositoryName}/confirm", { params: { repositoryName: entity.name } }) }}" method="post">
+                    <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+                    <input type="hidden" name="repositoryName" value="{{ entity.name }}" />
+
+                    <div class="govuk-body govuk-button-group">
+                      {{ govukButton({
+                        classes: "app-button app-button--destructive",
+                        text: "Decommission",
+                        attributes: {
+                          "data-testid": "app-remove-button"
+                        }
+                      }) }}
+
+                      <a class="app-link" href="{{ routeLookup("admin/decommissions/start") }}">Cancel</a>
+                    </div>
+                  </form>
+                </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    {% endcall %}
+{% endblock %}
