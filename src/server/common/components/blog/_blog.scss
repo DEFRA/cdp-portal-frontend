@@ -5,7 +5,6 @@
 @use "variables/border-radius" as *;
 @use "helpers/reading-width" as *;
 
-// TODO look at specificity in this file, should we wrap the contents in .app-blog__container?
 .app-blog__container {
   margin: -19px govuk-spacing(-6) 0;
   padding: govuk-spacing(4) govuk-spacing(6) 0;
@@ -36,11 +35,7 @@
     margin: 0 0 govuk-spacing(2);
   }
 
-  ul {
-    @extend %govuk-list;
-    list-style-type: none;
-    padding-left: 0;
-  }
+  @extend %nested-lists;
 
   .app-link {
     @include app-link;
@@ -52,8 +47,6 @@
     }
   }
 }
-
-$govuk-wrapper-margin: 60px;
 
 .app-blog__body {
   @include app-section-large-width;
