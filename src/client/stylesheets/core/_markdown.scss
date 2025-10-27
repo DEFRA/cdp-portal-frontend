@@ -48,6 +48,14 @@ $caution: #cf222e;
     @include app-link-underline;
   }
 
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a {
+    @include app-link-underline;
+    @include govuk-link-style-text;
+  }
+
   img {
     max-width: 100%;
     border: 1px solid $app-brand-border-colour-light;

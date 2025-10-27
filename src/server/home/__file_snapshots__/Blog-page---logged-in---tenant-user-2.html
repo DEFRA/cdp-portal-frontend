@@ -268,38 +268,26 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-<h1 id="passing-profile-to-the-test-suite">
-                <a class="heading-link" href="#passing-profile-to-the-test-suite">Passing profile to the test suite</a>
-              </h1><p>You can now pass a profile <code>value</code> to a test-suite when running it on the CDP Platform. The value is sent to the
+<h1 id="passing-profile-to-the-test-suite"><a class="heading-link" href="#passing-profile-to-the-test-suite">Passing profile to the test suite</a></h1><p>You can now pass a profile <code>value</code> to a test-suite when running it on the CDP Platform. The value is sent to the
 test-suite as the environment variable <code>PROFILE</code>. Profiles are a way of changing the behaviour of the test-suite without
 changing the code.</p>
-<h2 id="motivation">
-                <a class="heading-link" href="#motivation">Motivation</a>
-              </h2><p>When running tests it is often useful to be able to change the behaviour of the test suite without having to
+<h2 id="motivation"><a class="heading-link" href="#motivation">Motivation</a></h2><p>When running tests it is often useful to be able to change the behaviour of the test suite without having to
 change the code itself. This is especially useful when you want to run the same test suite in various different ways</p>
-<h2 id="use-cases">
-                <a class="heading-link" href="#use-cases">Use Cases</a>
-              </h2><p>A few example use cases would be to run the same test suite:</p>
+<h2 id="use-cases"><a class="heading-link" href="#use-cases">Use Cases</a></h2><p>A few example use cases would be to run the same test suite:</p>
 <ol>
 <li>Against a different subset of tests (E.g. smoke tests)</li>
 <li>With a varying performance test measure (E.g. number of users/requests per minute)</li>
 </ol>
-<h2 id="implementations">
-                <a class="heading-link" href="#implementations">Implementations</a>
-              </h2><p>Potential implementation options would be:</p>
+<h2 id="implementations"><a class="heading-link" href="#implementations">Implementations</a></h2><p>Potential implementation options would be:</p>
 <ol>
 <li>Read the environment variable <code>PROFILE</code> and pass it into the <code>Dockerfile</code></li>
 <li>Use the environment variable <code>PROFILE</code> to load different config files within your test suite</li>
 <li>Use the environment variable <code>PROFILE</code> to set flags in the test framework</li>
 <li>Any other way that suits your test suite design</li>
 </ol>
-<h2 id="setting-the-profile-value">
-                <a class="heading-link" href="#setting-the-profile-value">Setting the profile value</a>
-              </h2><p>For more information on how to set the value of the profile when running your test suite see the
+<h2 id="setting-the-profile-value"><a class="heading-link" href="#setting-the-profile-value">Setting the profile value</a></h2><p>For more information on how to set the value of the profile when running your test suite see the
 <a href="../how-to/testing/testing.md">Running Test Suites with a profile value</a></p>
-<h2 id="feedback">
-                <a class="heading-link" href="#feedback">Feedback</a>
-              </h2><p>As always any comments, feedback or feature requests please do start a conversation in
+<h2 id="feedback"><a class="heading-link" href="#feedback">Feedback</a></h2><p>As always any comments, feedback or feature requests please do start a conversation in
 Slack <a href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6/" target="_blank" rel="noopener noreferrer">#cdp-support</a></p>
 
         </article>

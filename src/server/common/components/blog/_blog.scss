@@ -48,7 +48,7 @@
 }
 
 .app-blog__body {
-  @include app-section-large-width;
+  @include app-section-width;
 
   height: 100%;
   flex: 1;

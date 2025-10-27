@@ -32,7 +32,7 @@ async function buildPreviewArticles(request, navHrefs, bucket) {
       const { html } = await buildBlogPageHtml({
         markdown: previewMd,
         articlePath: articleKey,
-        withHeadingExtension: false
+        withBlogLink: true
       })
 
       return { html, articleKey }
