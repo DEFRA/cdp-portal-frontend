@@ -3,6 +3,7 @@ import { buildErrorDetails } from '../../../common/helpers/build-error-details.j
 import { decommissionValidation } from '../helpers/schema/decommission-validation.js'
 import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
 import { decommission } from '../helpers/fetchers.js'
+import { creationStatuses } from '../../../common/constants/creation-statuses.js'
 
 const confirmDecommissionController = {
   options: {
@@ -14,6 +15,23 @@ const confirmDecommissionController = {
 
     const entities = await fetchEntities()
     const repositoryNames = entities.map((entity) => entity.name)
+
+    const decommissioningEntities = entities.filter(
+      (entity) => entity.status === creationStatuses.decommissioning
+    )
+
+    if (decommissioningEntities.length > 0) {
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        'There is already an entity being decommissioned'
+      )
+
+      request.yar.flash(sessionNames.validationFailure, {
+        formValues: { repositoryName }
+      })
+
+      return h.redirect(request.routeLookup('admin/decommissions/start'))
+    }
 
     const validationResult = decommissionValidation(repositoryNames).validate(
       { repositoryName },
@@ -33,7 +51,6 @@ const confirmDecommissionController = {
 
     if (!validationResult.error) {
       try {
-        // TODO is anything useful going to be coming back that can be displayed?
         await decommission(repositoryName, userSession)
 
         request.yar.flash(sessionNames.notifications, {

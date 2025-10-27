@@ -11,17 +11,16 @@ const decommissionFormController = {
   handler: async (request, h) => {
     const entities = await fetchEntities()
 
-    const repositoriesValues =
+    const entityNames =
       entities
         .map((e) => e.name)
         .toSorted(sortByName)
-        .map((entity) => ({ value: entity, text: entity })) ?? []
+        .map((entityName) => ({ value: entityName, text: entityName })) ?? []
 
-    const repositoriesOptions = buildOptions(repositoriesValues)
+    const repositoriesOptions = buildOptions(entityNames)
 
     return h.view('admin/decommissions/views/decommission-form', {
-      pageTitle:
-        'Decommission Microservice, Prototype, Test-Suite and Repository',
+      pageTitle: 'Decommission Microservice, Test-Suite and Repository',
       repositoriesOptions,
       splitPaneBreadcrumbs: [
         {
