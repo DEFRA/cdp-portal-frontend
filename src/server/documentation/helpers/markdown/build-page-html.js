@@ -6,6 +6,7 @@ import { escapeRegex } from '@hapi/hoek'
 import { linkExtension } from '../extensions/link.js'
 import { headingExtension } from '../extensions/heading.js'
 import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
+import { previewHeadingsExtension } from '../../../home/helpers/extensions/preview-headings.js'
 
 function createHighlightExtension(searchTerm) {
   if (!searchTerm) {
@@ -137,19 +138,20 @@ async function buildDocsPageHtml(request, markdown) {
  * Html page for the blog pages. Add article datetime element, heading anchors and build table of contents
  * @param {string} markdown
  * @param {string} articlePath
- * @param {boolean} withHeadingExtension
+ * @param {boolean} withBlogLink
  * @returns {Promise<{html: string, toc: string}>}
  */
 async function buildBlogPageHtml({
   markdown,
   articlePath,
-  withHeadingExtension = true
+  withBlogLink = false
 }) {
+  const previewHeadersExtension = previewHeadingsExtension(
+    withBlogLink ? articlePath : null
+  )
+
   const headings = []
-  const extensions = [
-    linkExtension,
-    ...(withHeadingExtension ? [headingExtension] : [])
-  ]
+  const extensions = [linkExtension, previewHeadersExtension]
   const blogMarked = new Marked({
     gfm: true,
     extensions
