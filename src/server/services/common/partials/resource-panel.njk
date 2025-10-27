@@ -37,7 +37,7 @@
         SQS Queues
       </h3>
 
-      {% if resource.s3BucketRows | length %}
+      {% if resource.sqsQueues | length %}
         {{ moreLink | safe }}
       {% endif %}
     </div>
@@ -59,7 +59,7 @@
         SNS Topics
       </h3>
 
-      {% if resource.s3BucketRows | length %}
+      {% if resource.snsTopics | length %}
         {{ moreLink | safe }}
       {% endif %}
     </div>
