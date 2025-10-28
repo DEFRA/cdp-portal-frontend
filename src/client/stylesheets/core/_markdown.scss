@@ -129,17 +129,13 @@ $caution: #cf222e;
     margin: 0;
     font-size: 85%;
     white-space: break-spaces;
-    background-color: $app-brand-background-colour;
+    background-color: $app-brand-background-colour-light;
     border-radius: $app-border-radius;
   }
 
   pre {
     background: $app-brand-background-colour-light;
-    padding: govuk-spacing(2);
-
-    code {
-      background-color: $app-brand-background-colour-light;
-    }
+    border-radius: $app-border-radius;
   }
 
   table {
