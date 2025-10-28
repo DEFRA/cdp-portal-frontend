@@ -4,7 +4,7 @@ import Boom from '@hapi/boom'
 import { config } from '../../../config/config.js'
 import { searchIndex } from '../helpers/search-index.js'
 
-const searchController = {
+const searchRoute = {
   options: {
     validate: {
       query: Joi.object({
@@ -26,4 +26,4 @@ const searchController = {
   }
 }
 
-export { searchController }
+export { searchRoute }

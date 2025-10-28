@@ -8,7 +8,7 @@ import { markdownHandler } from '../helpers/markdown-handler.js'
 import { shouldExcludedItem } from '../helpers/excluded-items.js'
 import { statusCodeMessage } from '../../common/helpers/errors/status-code-message.js'
 
-const documentationController = {
+const documentationRoute = {
   options: {
     validate: {
       params: Joi.object({
@@ -53,4 +53,4 @@ const documentationController = {
   }
 }
 
-export { documentationController }
+export { documentationRoute }

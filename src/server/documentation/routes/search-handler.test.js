@@ -1,7 +1,7 @@
 import Hapi from '@hapi/hapi'
 import Boom from '@hapi/boom'
 
-import { searchHandlerController } from './search-handler.js'
+import { searchHandlerRoute } from './search-handler.js'
 
 const search = (server) => (payload) =>
   server.inject({
@@ -10,7 +10,7 @@ const search = (server) => (payload) =>
     payload
   })
 
-describe('#searchHandlerController', () => {
+describe('#searchHandlerRoute', () => {
   let searchPost
   let server
 
@@ -19,8 +19,8 @@ describe('#searchHandlerController', () => {
     server.route({
       method: 'POST',
       path: '/search',
-      options: searchHandlerController.options,
-      handler: searchHandlerController.handler
+      options: searchHandlerRoute.options,
+      handler: searchHandlerRoute.handler
     })
     searchPost = search(server)
   })

@@ -1,7 +1,7 @@
-import { searchController } from './controllers/search.js'
-import { documentationController } from './controllers/documentation.js'
-import { searchHandlerController } from './controllers/search-handler.js'
-import { searchResultsController } from './controllers/search-results.js'
+import { searchRoute } from './routes/search.js'
+import { documentationRoute } from './routes/documentation.js'
+import { searchHandlerRoute } from './routes/search-handler.js'
+import { searchResultsRoute } from './routes/search-results.js'
 
 const documentation = {
   plugin: {
@@ -19,22 +19,22 @@ const documentation = {
         {
           method: 'GET',
           path: '/documentation/search',
-          ...searchController
+          ...searchRoute
         },
         {
           method: 'POST',
           path: '/documentation/search',
-          ...searchHandlerController
+          ...searchHandlerRoute
         },
         {
           method: 'GET',
           path: '/documentation/search-results',
-          ...searchResultsController
+          ...searchResultsRoute
         },
         {
           method: 'GET',
           path: '/documentation/{documentationPath*}',
-          ...documentationController
+          ...documentationRoute
         }
       ])
     }
