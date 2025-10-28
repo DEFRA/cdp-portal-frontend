@@ -7,6 +7,7 @@ import { linkExtension } from '../extensions/link.js'
 import { headingExtension } from '../extensions/heading.js'
 import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
 import { previewHeadingsExtension } from '../../../home/helpers/extensions/preview-headings.js'
+import { codeExtension } from '../extensions/code.js'
 
 function createHighlightExtension(searchTerm) {
   if (!searchTerm) {
@@ -121,7 +122,7 @@ async function buildDocsPageHtml(request, markdown) {
   const headings = []
   const docsMarked = new Marked({
     gfm: true,
-    extensions: [linkExtension, headingExtension]
+    extensions: [linkExtension, headingExtension, codeExtension]
   }).use(markedAlert())
 
   docsMarked.use({
@@ -151,7 +152,7 @@ async function buildBlogPageHtml({
   )
 
   const headings = []
-  const extensions = [linkExtension, previewHeadersExtension]
+  const extensions = [linkExtension, previewHeadersExtension, codeExtension]
   const blogMarked = new Marked({
     gfm: true,
     extensions

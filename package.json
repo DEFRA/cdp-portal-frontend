@@ -82,6 +82,7 @@
     "marked": "16.2.1",
     "marked-alert": "2.1.2",
     "marked-plaintify": "1.1.1",
+    "mermaid": "11.12.1",
     "nunjucks": "3.2.4",
     "openid-client": "6.8.0",
     "pino": "9.11.0",
