@@ -7,7 +7,7 @@ import { searchIndex } from '../helpers/search-index.js'
 import { renderComponent } from '../../common/helpers/nunjucks/render-component.js'
 import { buildDocsNav } from '../helpers/markdown/build-docs-nav.js'
 
-const searchResultsController = {
+const searchResultsRoute = {
   options: {
     validate: {
       query: Joi.object({
@@ -43,4 +43,4 @@ const searchResultsController = {
   }
 }
 
-export { searchResultsController }
+export { searchResultsRoute }

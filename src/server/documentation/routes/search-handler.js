@@ -2,7 +2,7 @@ import qs from 'qs'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-const searchHandlerController = {
+const searchHandlerRoute = {
   options: {
     validate: {
       payload: Joi.object({
@@ -38,4 +38,4 @@ const searchHandlerController = {
   }
 }
 
-export { searchHandlerController }
+export { searchHandlerRoute }
