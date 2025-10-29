@@ -8,6 +8,7 @@
 {% endset %}
 
 <span class="govuk-caption-l">{{ params.caption }}</span>
+
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">{{ params.heading }}</h2>
 <p class="govuk-!-margin-bottom-2">
   View resources for {{ params.entity.name }} in all CDP environments. To set up new resources read
@@ -20,5 +21,5 @@
 </p>
 
 {% if (params.hasBuckets) %}
-  {{ appInfo({ html: bucketInfoHtml, classes: "govuk-!-margin-bottom-0" }) }}
+  {{ appInfo({ html: bucketInfoHtml, classes: "govuk-!-margin-0" }) }}
 {% endif %}

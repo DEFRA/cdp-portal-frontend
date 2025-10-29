@@ -1,16 +1,12 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockResourcesCall,
   mockFetchShutteringUrlsCall,
-  mockServiceEntityCall,
-  mockResourcesByEnvironmentCall
+  mockServiceEntityCall
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
-vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
-vi.mock('../../../common/helpers/fetch/fetch-tenant-databases.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
 vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
 
@@ -26,7 +22,6 @@ describe('Service resources page', () => {
   describe('all resources view', () => {
     beforeAll(async () => {
       mockServiceEntityCall(serviceName, entitySubTypes.backend)
-      mockResourcesCall()
       mockFetchShutteringUrlsCall()
       server = await initialiseServer()
     })
@@ -80,11 +75,8 @@ describe('Service resources page', () => {
     })
 
     test('page renders for logged in admin user', async () => {
-      const env = 'infra-dev'
-      mockResourcesByEnvironmentCall(env)
-
       const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/resources/${env}`,
+        targetUrl: `/services/${serviceName}/resources/infra-dev`,
         isAdmin: true,
         isTenant: true
       })
@@ -93,11 +85,8 @@ describe('Service resources page', () => {
     })
 
     test('page renders for logged in tenant who doesnt own service', async () => {
-      const env = 'dev'
-      mockResourcesByEnvironmentCall(env)
-
       const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/resources/${env}`,
+        targetUrl: `/services/${serviceName}/resources/dev`,
         isAdmin: false,
         isTenant: true
       })
@@ -106,11 +95,8 @@ describe('Service resources page', () => {
     })
 
     test('page renders for logged in service owner tenant', async () => {
-      const env = 'prod'
-      mockResourcesByEnvironmentCall(env)
-
       const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/resources/${env}`,
+        targetUrl: `/services/${serviceName}/resources/prod`,
         isAdmin: false,
         isTenant: true,
         teamScope: 'mock-team-id'
@@ -120,11 +106,8 @@ describe('Service resources page', () => {
     })
 
     test('admin only env page errors for logged in service owner tenant', async () => {
-      const env = 'management'
-      mockResourcesByEnvironmentCall(env)
-
       const { statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/resources/${env}`,
+        targetUrl: `/services/${serviceName}/resources/management`,
         isAdmin: false,
         isTenant: true,
         teamScope: 'mock-team-id'
@@ -133,11 +116,8 @@ describe('Service resources page', () => {
     })
 
     test('page errors with 401 for logged out user', async () => {
-      const env = 'management'
-      mockResourcesByEnvironmentCall(env)
-
       const { statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/resources/${env}`,
+        targetUrl: `/services/${serviceName}/resources/management`,
         isAdmin: false,
         isTenant: false
       })

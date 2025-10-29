@@ -1,231 +1,30 @@
+import { entitiesResourcesFixture } from '../../../../../__fixtures__/entities/entity.js'
 import {
   resourcesByEnvironment,
   resourceByEnvironment
 } from './resources-by-environment.js'
-import { tenantServicesFixture } from '../../../../../__fixtures__/tenant-services.js'
-import { tenantDatabasesFixture } from '../../../../../__fixtures__/tenant-databases.js'
 
 describe('#resourceByEnvironment', () => {
   test('Should return expected resources', () => {
     const result = resourceByEnvironment({
-      environment: 'prod',
-      tenantServiceForEnv: tenantServicesFixture.prod,
-      tenantDatabaseForEnv: tenantDatabasesFixture.prod
+      environment: 'management',
+      environmentDetails: entitiesResourcesFixture.envs.management
     })
 
     expect(result).toEqual({
-      environment: 'prod',
-      database: {
-        classes: 'app-summary-list app-summary-list--resource',
-        attributes: {
-          'data-testid': 'database-prod'
-        },
-        rows: [
-          {
-            key: {
-              text: 'Name',
-              classes: 'app-summary-list__key'
-            },
-            value: {
-              html: expect.stringContaining('cdp_postgres_service')
-            }
-          },
-          {
-            key: {
-              text: 'Endpoint',
-              classes: 'app-summary-list__key'
-            },
-            value: {
-              html: expect.stringContaining(
-                'cdp-portal-backend.cluster-aabbccdd.eu-west-2.rds.amazonaws.com'
-              )
-            }
-          },
-          {
-            key: {
-              text: 'Port',
-              classes: 'app-summary-list__key'
-            },
-            value: {
-              html: expect.stringContaining('5432')
-            }
-          }
-        ]
-      },
+      environment: 'management',
       s3BucketRows: [
         [
           {
             html: expect.stringContaining(
-              's3://prod-cdp-portal-backend-c63f2-75ee2'
-            )
-          }
-        ],
-        [
-          {
-            html: expect.stringContaining(
-              's3://prod-cdp-portal-backend-images-c63f2-75ee2'
+              's3://cdp-management-example-mock-service-frontend-1234567w'
             )
           }
         ]
       ],
-      sqsQueues: [
-        {
-          classes: 'app-summary-list app-summary-list--resource',
-          attributes: {
-            'data-testid': 'sqs-queue-prod'
-          },
-          rows: [
-            {
-              key: {
-                text: 'Name',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining('message_clearance_request')
-              }
-            },
-            {
-              key: {
-                text: 'Url',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining(
-                  'https://sqs.eu-west-2.amazonaws.com/111111111/message_clearance_request.fifo'
-                )
-              }
-            },
-            {
-              key: {
-                text: 'Arn',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining(
-                  'arn:aws:sqs:eu-west-2:111111111:message_clearance_request.fifo'
-                )
-              }
-            },
-            {
-              key: {
-                text: 'Topic subs',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining('message_clearance_request.fifo'),
-                classes: 'app-summary-list__value'
-              }
-            }
-          ]
-        },
-        {
-          classes: 'app-summary-list app-summary-list--resource',
-          attributes: {
-            'data-testid': 'sqs-queue-prod'
-          },
-          rows: [
-            {
-              key: {
-                text: 'Name',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining('message_notification')
-              }
-            },
-            {
-              key: {
-                text: 'Url',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining(
-                  'https://sqs.eu-west-2.amazonaws.com/111111111/message_notification.fifo'
-                )
-              }
-            },
-            {
-              key: {
-                text: 'Arn',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining(
-                  'arn:aws:sqs:eu-west-2:111111111:message_notification.fifo'
-                )
-              }
-            },
-            {
-              key: {
-                text: 'Topic subs',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining('decision_notification.fifo'),
-                classes: 'app-summary-list__value'
-              }
-            }
-          ]
-        }
-      ],
-      snsTopics: [
-        {
-          classes: 'app-summary-list app-summary-list--resource',
-          attributes: {
-            'data-testid': 'sns-topic-prod'
-          },
-          rows: [
-            {
-              key: {
-                text: 'Name',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining('decision_notification')
-              }
-            },
-            {
-              key: {
-                text: 'Arn',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining(
-                  'arn:aws:sns:eu-west-2:111111111:decision_notification.fifo'
-                )
-              }
-            }
-          ]
-        },
-        {
-          classes: 'app-summary-list app-summary-list--resource',
-          attributes: {
-            'data-testid': 'sns-topic-prod'
-          },
-          rows: [
-            {
-              key: {
-                text: 'Name',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining('error_notification')
-              }
-            },
-            {
-              key: {
-                text: 'Arn',
-                classes: 'app-summary-list__key'
-              },
-              value: {
-                html: expect.stringContaining(
-                  'arn:aws:sns:eu-west-2:111111111:error_notification.fifo'
-                )
-              }
-            }
-          ]
-        }
-      ]
+      snsTopics: [],
+      sqsQueues: [],
+      database: null
     })
   })
 
@@ -238,15 +37,15 @@ describe('#resourceByEnvironment', () => {
       s3BucketRows: [],
       sqsQueues: [],
       snsTopics: [],
-      database: undefined
+      database: null
     })
   })
 
   test('Should return correct s3BucketRows with sorted urls', () => {
     const result = resourceByEnvironment({
       environment: 'prod',
-      tenantServiceForEnv: {
-        s3Buckets: [{ url: 'b-url' }, { url: 'a-url' }]
+      environmentDetails: {
+        s3_buckets: [{ bucket_name: 'b-url' }, { bucket_name: 'a-url' }]
       }
     })
     expect(result.s3BucketRows.length).toBe(2)
@@ -257,8 +56,8 @@ describe('#resourceByEnvironment', () => {
   test('Should return correct sqsQueues with sorted names', () => {
     const result = resourceByEnvironment({
       environment: 'test',
-      tenantServiceForEnv: {
-        sqsQueues: [
+      environmentDetails: {
+        sqs_queues: [
           { name: 'queueB', url: 'urlB', arn: 'arnB' },
           { name: 'queueA', url: 'urlA', arn: 'arnA' }
         ]
@@ -272,8 +71,8 @@ describe('#resourceByEnvironment', () => {
   test('Should return correct snsTopics with sorted names', () => {
     const result = resourceByEnvironment({
       environment: 'stage',
-      tenantServiceForEnv: {
-        snsTopics: [
+      environmentDetails: {
+        sns_topics: [
           { name: 'topicB', arn: 'arnB' },
           { name: 'topicA', arn: 'arnA' }
         ]
@@ -288,50 +87,42 @@ describe('#resourceByEnvironment', () => {
 describe('#resourcesByEnvironment', () => {
   test('Should return resources for each environment', () => {
     const environments = ['dev', 'prod']
-    const tenantService = {
-      dev: { s3Buckets: [{ url: 'dev-url' }] },
-      prod: { s3Buckets: [{ url: 'prod-url' }] }
-    }
-    const tenantDatabase = {
-      dev: {
-        databaseName: 'dev-database',
-        endpoint: 'dev-endpoint',
-        port: 1234
-      },
-      prod: {
-        databaseName: 'prod-database',
-        endpoint: 'prod-endpoint',
-        port: 43221
-      }
-    }
     const result = resourcesByEnvironment({
       environments,
-      tenantService,
-      tenantDatabase
+      allEnvironmentsDetails: entitiesResourcesFixture.envs
     })
-    expect(Object.keys(result)).toEqual(['dev', 'prod'])
-    expect(result.dev.s3BucketRows.length).toBe(1)
-    expect(result.dev.database.rows.length).toBe(3)
-    expect(result.prod.s3BucketRows.length).toBe(1)
-    expect(result.prod.database.rows.length).toBe(3)
+
+    expect(result).toEqual({
+      dev: {
+        environment: 'dev',
+        s3BucketRows: [
+          [
+            {
+              html: expect.stringContaining(
+                's3://cdp-dev-example-mock-service-frontend-1234567u'
+              )
+            }
+          ]
+        ],
+        sqsQueues: [],
+        snsTopics: [],
+        database: null
+      },
+      prod: {
+        environment: 'prod',
+        s3BucketRows: [],
+        sqsQueues: [],
+        snsTopics: [],
+        database: null
+      }
+    })
   })
 
   test('Should handle empty environments array', () => {
     const result = resourcesByEnvironment({
       environments: [],
-      tenantService: {}
+      allEnvironmentsDetails: {}
     })
     expect(result).toEqual({})
-  })
-
-  test('Should handle missing tenantService keys gracefully', () => {
-    const result = resourcesByEnvironment({
-      environments: ['dev'],
-      tenantService: {}
-    })
-    expect(result.dev.s3BucketRows).toEqual([])
-    expect(result.dev.sqsQueues).toEqual([])
-    expect(result.dev.snsTopics).toEqual([])
-    expect(result.dev.database).toBeUndefined()
   })
 })
