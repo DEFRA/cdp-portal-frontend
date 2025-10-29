@@ -501,11 +501,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <div class="app-split-pane__content" data-testid="app-split-pane-content">
 
     <section class="app-content">
-                <section>
-
-            
+                
 
 <span class="govuk-caption-l">Infra-dev</span>
+
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
 <p class="govuk-!-margin-bottom-2">
   View resources for mock-service-with-resources in all CDP environments. To set up new resources read
@@ -521,7 +520,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 <div
-  class="app-info govuk-!-margin-bottom-0"
+  class="app-info govuk-!-margin-0"
   tabindex="-1"
   role="alert"
   data-testid="app-info">
@@ -549,7 +548,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-<div class="app-panel app-flex" >
+<div class="app-panel app-flex govuk-!-margin-top-4" >
     <div class="app-flex__one">
     <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
@@ -590,36 +589,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
   <span data-js="s3-bucket-url-infra-dev-0-content" data-testid="app-copy-content">
-    s3://infra-dev-cdp-portal-backend-75ee2
-  </span>
-
-</span>
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-<span class="app-copy__container">
-      <button class="app-copy js-visible-inline"
-          title="Copy"
-          data-js="app-copy"
-          data-content-id="s3-bucket-url-infra-dev-1"
-          data-testid="app-copy">
-    <svg class="app-icon app-copy-icon app-icon--minute"
-     xmlns="http://www.w3.org/2000/svg"
-     width="48" height="48" viewBox="0 -960 960 960"
-     role="img"     data-testid="app-copy-icon">
-  <path
-    d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-</svg>
-
-  </button>
-
-
-  <span data-js="s3-bucket-url-infra-dev-1-content" data-testid="app-copy-content">
-    s3://management-cdp-portal-backend-75ee2
+    s3://cdp-infra-dev-example-mock-service-frontend-123456a
   </span>
 
 </span>
@@ -669,7 +639,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sqs-queue-name-infra-dev-0-content" data-testid="app-copy-content">
-          message_clearance_request
+          cdp_platform_portal_events
         </span>
       
       </span>
@@ -698,7 +668,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sqs-queue-url-infra-dev-0-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/111111111/message_clearance_request.fifo
+          https://sqs.eu-west-2.amazonaws.com/345345363465/cdp_platform_portal_events
         </span>
       
       </span>
@@ -727,7 +697,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sqs-queue-arn-infra-dev-0-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:111111111:message_clearance_request.fifo
+          arn:aws:sqs:eu-west-2:345345363465:cdp_platform_portal_events
         </span>
       
       </span>
@@ -738,7 +708,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       Topic subs
     </dt>
     <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>message_clearance_request.fifo</li></ul>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>cdp_platform_portal_events</li></ul>
     </dd>
   </div>
 </dl>
@@ -766,7 +736,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sqs-queue-name-infra-dev-1-content" data-testid="app-copy-content">
-          message_notification
+          cdp_workflow_events
         </span>
       
       </span>
@@ -795,7 +765,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sqs-queue-url-infra-dev-1-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/111111111/message_notification.fifo
+          https://sqs.eu-west-2.amazonaws.com/345345363465/cdp_workflow_events
         </span>
       
       </span>
@@ -824,26 +794,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sqs-queue-arn-infra-dev-1-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:111111111:message_notification.fifo
+          arn:aws:sqs:eu-west-2:345345363465:cdp_workflow_events
         </span>
       
       </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Topic subs
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>decision_notification.fifo</li></ul>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>error_notification.fifo</li></ul>
     </dd>
   </div>
 </dl>
@@ -888,7 +842,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sns-topic-name-infra-dev-0-content" data-testid="app-copy-content">
-          decision_notification
+          ecr_image_push
         </span>
       
       </span>
@@ -917,7 +871,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sns-topic-arn-infra-dev-0-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:111111111:decision_notification.fifo
+          arn:aws:sns:eu-west-2:345345363465:random_image_push
         </span>
       
       </span>
@@ -948,7 +902,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sns-topic-name-infra-dev-1-content" data-testid="app-copy-content">
-          error_notification
+          ecs_deployments
         </span>
       
       </span>
@@ -977,7 +931,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       
       
         <span data-js="sns-topic-arn-infra-dev-1-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:111111111:error_notification.fifo
+          arn:aws:sns:eu-west-2:345345363465:deploys_other
         </span>
       
       </span>
@@ -986,10 +940,105 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </dl>
   </div>
 
+    <div class="app-flex__one">
+      <div class="govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          Postgres Database
+        </h3>
+      </div>
+
+        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="database-infra-dev">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+            <button class="app-copy js-visible-inline"
+                title="Copy"
+                data-js="app-copy"
+                data-content-id="database-name-infra-dev"
+                data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minute"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+      
+      
+        <span data-js="database-name-infra-dev-content" data-testid="app-copy-content">
+          example-mock-service-frontend
+        </span>
+      
+      </span>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Endpoint
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+            <button class="app-copy js-visible-inline"
+                title="Copy"
+                data-js="app-copy"
+                data-content-id="database-endpoint-infra-dev"
+                data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minute"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+      
+      
+        <span data-js="database-endpoint-infra-dev-content" data-testid="app-copy-content">
+          example-mock-service-frontend.cluster-ddfgd4456jk.eu-west-2.rds.amazonaws.com
+        </span>
+      
+      </span>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Port
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+            <button class="app-copy js-visible-inline"
+                title="Copy"
+                data-js="app-copy"
+                data-content-id="database-port-infra-dev"
+                data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minute"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+      
+      
+        <span data-js="database-port-infra-dev-content" data-testid="app-copy-content">
+          5422
+        </span>
+      
+      </span>
+    </dd>
+  </div>
+</dl>
+    </div>
 
 </div>
-
-          </section>
 
     </section>
   </div>
