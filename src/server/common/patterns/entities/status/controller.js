@@ -1,7 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { entityStatusHandler } from './status-handler.js'
-import { pluralise } from '../../../../../config/nunjucks/filters/filters.js'
+import { pluralise } from '../../../helpers/pluralise.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 
 export function entityStatusController(entityKind) {
   return {
@@ -9,7 +10,7 @@ export function entityStatusController(entityKind) {
       id: `${pluralise(entityKind)}/{serviceId}/status`,
       validate: {
         params: Joi.object({
-          serviceId: Joi.string().required()
+          serviceId: repositoryNameValidation
         }),
         failAction: () => Boom.boomify(Boom.notFound())
       }

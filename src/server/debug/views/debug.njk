@@ -1,0 +1,53 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appPageHeading({
+    text: "Debug endpoints"
+  }) }}
+
+  <div class="app-service-container">
+    <section class="govuk-grid-column-full">
+      <ul class="govuk-list govuk-list--bullet">
+        {% for route in debugRoutes %}
+          <li>
+            <code class="govuk-!-font-size-16">{{ route.method | upper }}</code>
+            <a class="govuk-link" href="{{ route.path }}">{{ route.path }}</a>
+            {% set paramMatch = route.path.match('{(.*?)}') %}
+            <form class="govuk-!-margin-top-2" action="/debug/{{ route.path | urlencode }}" method="post" target="_blank">
+              <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+              {% if paramMatch %}
+                <input class="govuk-input govuk-!-width-one-half js-path-param" type="text"
+                       name="path-{{ paramMatch[1] }}" placeholder="Enter {{ paramMatch[1] }}">
+              {% endif %}
+              {% if route.queryParams and route.queryParams.length %}
+                <details class="govuk-details govuk-!-margin-top-2">
+                  <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">Query parameters</span>
+                  </summary>
+                  <div class="govuk-details__text">
+                    {% for qp in route.queryParams %}
+                      {% set qpName = qp.name or qp %}
+                      <div class="govuk-form-group">
+                        <label class="govuk-label govuk-label--s"
+                               for="qp-{{ loop.index }}-{{ qpName }}">{{ qpName }}</label>
+                        <input class="govuk-input govuk-!-width-one-half" id="qp-{{ loop.index }}-{{ qpName }}"
+                               type="text" name="query-{{ qpName }}"
+                               placeholder="value or comma-separated values">
+                        {% if qp.allowed and qp.allowed.length %}
+                          <p class="govuk-hint">Allowed: {{ qp.allowed | join(', ') }}</p>
+                        {% endif %}
+                      </div>
+                    {% endfor %}
+                    <p class="govuk-hint">Enter multiple values separated by commas. Example:
+                      <code>Microservice,TestSuite,Repository</code></p>
+                  </div>
+                </details>
+              {% endif %}
+              <button class="govuk-button govuk-button--secondary" type="submit">Go</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+{% endblock %}

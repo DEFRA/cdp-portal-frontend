@@ -20,7 +20,10 @@ function routeLookup(server, id, options = {}) {
     removeOptionalParam(path, params)
   )
 
-  return routePath + qs.stringify(query, { addQueryPrefix: true })
+  return (
+    routePath +
+    qs.stringify(query, { arrayFormat: 'repeat', addQueryPrefix: true })
+  )
 }
 
 export { routeLookup }
