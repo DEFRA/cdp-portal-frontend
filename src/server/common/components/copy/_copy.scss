@@ -5,7 +5,7 @@
 .app-copy__container {
   position: relative;
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
 
   .app-copy {
     @include govuk-font(24);
