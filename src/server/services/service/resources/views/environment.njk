@@ -23,18 +23,14 @@
       <div class="govuk-grid-column-full">
 
         {% call appSplitPane() %}
-          <section>
+          {{ appResourcesIntro({
+            caption: environment | title,
+            heading: "Resources",
+            entity: entity,
+            hasBuckets: resource.s3BucketRows | length
+          }) }}
 
-            {{ appResourcesIntro({
-              caption: environment | title,
-              heading: "Resources",
-              entity: entity,
-              hasBuckets: resource.s3BucketRows | length
-            }) }}
-
-            {% include "services/common/partials/resource-panel.njk" %}
-
-          </section>
+          {% include "services/common/partials/resource-panel.njk" %}
         {% endcall %}
       </div>
     </div>

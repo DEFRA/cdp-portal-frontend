@@ -48,6 +48,7 @@ import { fetchCdpUser } from '../src/server/admin/users/helpers/fetch/fetchers.j
 import { cdpUserFixture } from '../src/__fixtures__/admin/cdp-user.js'
 import { fetchCdpTeam } from '../src/server/admin/teams/helpers/fetch/fetchers.js'
 import { fetchMarkdown } from '../src/server/documentation/helpers/s3-file-handler.js'
+import { entitiesResourcesFixture } from '../src/__fixtures__/entities/entity.js'
 
 const dirname = import.meta.dirname
 
@@ -217,7 +218,8 @@ function getEntity(repositoryName, type, subType, status) {
     teams: [mockTeam],
     status,
     decommissioned: null,
-    tags: ['live']
+    tags: ['live'],
+    envs: entitiesResourcesFixture.envs
   }
 }
 

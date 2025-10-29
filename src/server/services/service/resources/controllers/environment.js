@@ -3,8 +3,6 @@ import Boom from '@hapi/boom'
 import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
 import { resourceByEnvironment } from '../transformers/resources-by-environment.js'
-import { fetchTenantServiceByEnvironment } from '../../../../common/helpers/fetch/fetch-tenant-service.js'
-import { fetchTenantDatabaseByEnvironment } from '../../../../common/helpers/fetch/fetch-tenant-databases.js'
 
 const environmentResourcesController = {
   options: {
@@ -18,22 +16,16 @@ const environmentResourcesController = {
     const { environment } = request.params
     const { entity } = request.app
     const serviceName = entity.name
+    const environmentDetails = entity.envs[environment]
+
     const team = entity?.teams?.at(0)
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
 
-    const tenantServiceForEnv = await fetchTenantServiceByEnvironment(
-      serviceName,
-      environment
-    )
-    const isPostgresService = tenantServiceForEnv?.postgres
-    const tenantDatabaseForEnv = isPostgresService
-      ? await fetchTenantDatabaseByEnvironment(serviceName, environment)
-      : null
+    const hasSqlDatabase = environmentDetails?.sql_database
     const resource = resourceByEnvironment({
       environment,
-      tenantServiceForEnv,
-      tenantDatabaseForEnv
+      environmentDetails
     })
 
     return h.view('services/service/resources/views/environment', {
@@ -42,7 +34,7 @@ const environmentResourcesController = {
       teamId,
       environment,
       resource,
-      isPostgresService,
+      hasSqlDatabase,
       breadcrumbs: [
         {
           text: 'Services',

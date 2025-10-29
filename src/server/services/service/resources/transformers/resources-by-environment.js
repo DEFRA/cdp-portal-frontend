@@ -4,36 +4,22 @@ import { sortByName } from '../../../../common/helpers/sort/sort-by-name.js'
 import { renderComponent } from '../../../../common/helpers/nunjucks/render-component.js'
 import { noValue } from '../../../../common/constants/no-value.js'
 
-const keyCellClass = 'app-summary-list__key'
-
-const buildSubscriptionsList = (subscriptions) => {
-  const topicsList = subscriptions.flatMap(({ topics }) => topics)
-
-  return topicsList.map((topic, topicIndex) => ({
-    key: {
-      text: topicIndex === 0 ? 'Topic subs' : '',
-      classes: keyCellClass
-    },
-    value: {
-      html: buildList({
-        items: [topic],
-        classes: ['govuk-list--bullet govuk-!-margin-0']
-      }),
-      classes: 'app-summary-list__value'
-    }
-  }))
-}
+const keyClass = 'app-summary-list__key'
 
 function resourceByEnvironment({
   environment,
-  tenantServiceForEnv,
-  tenantDatabaseForEnv
+  environmentDetails: {
+    s3_buckets: s3Buckets,
+    sqs_queues: sqsQueues,
+    sns_topics: snsTopics,
+    sql_database: sqlDatabase
+  } = {}
 }) {
   return {
     environment,
     s3BucketRows:
-      tenantServiceForEnv?.s3Buckets
-        ?.map(({ url }) => url)
+      s3Buckets
+        ?.map(({ bucket_name: bucketName }) => `s3://${bucketName}`)
         .toSorted(sortByName)
         .map((url, index) => {
           const urlId = `s3-bucket-url-${environment}-${index}`
@@ -47,7 +33,7 @@ function resourceByEnvironment({
         }) ?? [],
 
     sqsQueues:
-      tenantServiceForEnv?.sqsQueues
+      sqsQueues
         ?.map(({ url, name, arn, subscriptions = [] }) => ({
           url,
           name,
@@ -68,7 +54,7 @@ function resourceByEnvironment({
             },
             rows: [
               {
-                key: { text: 'Name', classes: keyCellClass },
+                key: { text: 'Name', classes: keyClass },
                 value: {
                   html: renderComponent('copy', {
                     content: { id: nameId, text: name }
@@ -76,7 +62,7 @@ function resourceByEnvironment({
                 }
               },
               {
-                key: { text: 'Url', classes: keyCellClass },
+                key: { text: 'Url', classes: keyClass },
                 value: {
                   html: renderComponent('copy', {
                     content: { id: urlId, text: url }
@@ -84,7 +70,7 @@ function resourceByEnvironment({
                 }
               },
               {
-                key: { text: 'Arn', classes: keyCellClass },
+                key: { text: 'Arn', classes: keyClass },
                 value: {
                   html: renderComponent('copy', {
                     content: { id: arnId, text: arn }
@@ -92,14 +78,28 @@ function resourceByEnvironment({
                 }
               },
               ...(subscriptions.length
-                ? buildSubscriptionsList(subscriptions)
+                ? [
+                    {
+                      key: {
+                        text: 'Topic subs',
+                        classes: keyClass
+                      },
+                      value: {
+                        html: buildList({
+                          items: subscriptions,
+                          classes: ['govuk-list--bullet govuk-!-margin-0']
+                        }),
+                        classes: 'app-summary-list__value'
+                      }
+                    }
+                  ]
                 : [])
             ]
           }
         }) ?? [],
 
     snsTopics:
-      tenantServiceForEnv?.snsTopics
+      snsTopics
         ?.map(({ name, arn }) => ({ name, arn }))
         .toSorted(sortBy('name', 'asc'))
         .map(({ name, arn }, index) => {
@@ -114,7 +114,7 @@ function resourceByEnvironment({
             },
             rows: [
               {
-                key: { text: 'Name', classes: keyCellClass },
+                key: { text: 'Name', classes: keyClass },
                 value: {
                   html: renderComponent('copy', {
                     content: { id: nameId, text: name }
@@ -122,7 +122,7 @@ function resourceByEnvironment({
                 }
               },
               {
-                key: { text: 'Arn', classes: keyCellClass },
+                key: { text: 'Arn', classes: keyClass },
                 value: {
                   html: renderComponent('copy', {
                     content: { id: arnId, text: arn }
@@ -133,7 +133,7 @@ function resourceByEnvironment({
           }
         }) ?? [],
 
-    database: tenantDatabaseForEnv
+    database: sqlDatabase
       ? {
           classes: 'app-summary-list app-summary-list--resource',
           attributes: {
@@ -141,39 +141,39 @@ function resourceByEnvironment({
           },
           rows: [
             {
-              key: { text: 'Name', classes: keyCellClass },
+              key: { text: 'Name', classes: keyClass },
               value: {
-                html: tenantDatabaseForEnv.databaseName
+                html: sqlDatabase.name
                   ? renderComponent('copy', {
                       content: {
                         id: `database-name-${environment}`,
-                        text: tenantDatabaseForEnv.databaseName
+                        text: sqlDatabase.name
                       }
                     })
                   : noValue
               }
             },
             {
-              key: { text: 'Endpoint', classes: keyCellClass },
+              key: { text: 'Endpoint', classes: keyClass },
               value: {
-                html: tenantDatabaseForEnv.endpoint
+                html: sqlDatabase.endpoint
                   ? renderComponent('copy', {
                       content: {
                         id: `database-endpoint-${environment}`,
-                        text: tenantDatabaseForEnv.endpoint
+                        text: sqlDatabase.endpoint
                       }
                     })
                   : noValue
               }
             },
             {
-              key: { text: 'Port', classes: keyCellClass },
+              key: { text: 'Port', classes: keyClass },
               value: {
-                html: tenantDatabaseForEnv.port
+                html: sqlDatabase.port
                   ? renderComponent('copy', {
                       content: {
                         id: `database-port-${environment}`,
-                        text: tenantDatabaseForEnv.port
+                        text: sqlDatabase.port
                       }
                     })
                   : noValue
@@ -181,30 +181,21 @@ function resourceByEnvironment({
             }
           ]
         }
-      : undefined
+      : null
   }
 }
 
-function resourcesByEnvironment({
-  environments,
-  tenantService,
-  tenantDatabase
-}) {
-  return environments.reduce((resources, environment) => {
-    const tenantServiceForEnv = tenantService[environment]
-    const tenantDatabaseForEnv = tenantDatabase?.[environment]
+function resourcesByEnvironment({ environments, allEnvironmentsDetails }) {
+  return Object.fromEntries(
+    environments.map((environment) => {
+      const environmentDetails = allEnvironmentsDetails[environment]
 
-    const environmentResources = resourceByEnvironment({
-      environment,
-      tenantServiceForEnv,
-      tenantDatabaseForEnv
+      return [
+        environment,
+        resourceByEnvironment({ environment, environmentDetails })
+      ]
     })
-
-    return {
-      ...resources,
-      [environment]: environmentResources
-    }
-  }, {})
+  )
 }
 
 export { resourcesByEnvironment, resourceByEnvironment }
