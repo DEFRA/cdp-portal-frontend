@@ -334,7 +334,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
 
-
 <div class="app-split-pane" data-testid="app-split-pane">
     <div class="app-split-pane__nav"
          data-testid="app-split-pane-nav">
@@ -395,11 +394,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <div class="app-split-pane__content" data-testid="app-split-pane-content">
 
     <section class="app-content">
-                <section>
-
-            
+                
 
 <span class="govuk-caption-l">All</span>
+
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
 <p class="govuk-!-margin-bottom-2">
   View resources for mock-service-with-resources in all CDP environments. To set up new resources read
@@ -415,7 +413,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 <div
-  class="app-info govuk-!-margin-bottom-0"
+  class="app-info govuk-!-margin-0"
   tabindex="-1"
   role="alert"
   data-testid="app-info">
@@ -441,17 +439,15 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-              <div class="govuk-!-margin-top-4">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-                  <a href="/services/mock-service-with-resources/resources/dev" class="app-link app-link--text-colour">
-                    Dev
-                  </a>
-                </h2>
-              </div>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
+              <a href="/services/mock-service-with-resources/resources/dev" class="app-link app-link--text-colour">
+                Dev
+              </a>
+            </h2>
 
 
 
-<div class="app-panel app-flex" >
+<div class="app-panel app-flex govuk-!-margin-top-4" >
     <div class="app-flex__one">
     <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
@@ -492,36 +488,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
   <span data-js="s3-bucket-url-dev-0-content" data-testid="app-copy-content">
-    s3://dev-cdp-portal-backend-c63f2-c63f2
-  </span>
-
-</span>
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-<span class="app-copy__container">
-      <button class="app-copy js-visible-inline"
-          title="Copy"
-          data-js="app-copy"
-          data-content-id="s3-bucket-url-dev-1"
-          data-testid="app-copy">
-    <svg class="app-icon app-copy-icon app-icon--minute"
-     xmlns="http://www.w3.org/2000/svg"
-     width="48" height="48" viewBox="0 -960 960 960"
-     role="img"     data-testid="app-copy-icon">
-  <path
-    d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-</svg>
-
-  </button>
-
-
-  <span data-js="s3-bucket-url-dev-1-content" data-testid="app-copy-content">
-    s3://dev-cdp-portal-backend-images-c63f2-c63f2
+    s3://cdp-dev-example-mock-service-frontend-1234567u
   </span>
 
 </span>
@@ -538,209 +505,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         SQS Queues
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/dev/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-dev">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-name-dev-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-name-dev-0-content" data-testid="app-copy-content">
-          message_clearance_request
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Url
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-url-dev-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-url-dev-0-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/333333333/message_clearance_request.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-arn-dev-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-arn-dev-0-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:333333333:message_clearance_request.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Topic subs
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>message_clearance_request.fifo</li></ul>
-    </dd>
-  </div>
-</dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-dev">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-name-dev-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-name-dev-1-content" data-testid="app-copy-content">
-          message_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Url
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-url-dev-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-url-dev-1-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/333333333/message_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-arn-dev-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-arn-dev-1-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:333333333:message_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Topic subs
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>decision_notification.fifo</li></ul>
-    </dd>
-  </div>
-</dl>
+      <p class="govuk-!-margin-bottom-2">
+        SQS Queues not set up for Dev
+      </p>
   </div>
 
   <div class="app-flex__one">
@@ -749,228 +518,46 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         SNS Topics
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/dev/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-dev">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-name-dev-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-name-dev-0-content" data-testid="app-copy-content">
-          decision_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-arn-dev-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-arn-dev-0-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:333333333:decision_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-</dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-dev">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-name-dev-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-name-dev-1-content" data-testid="app-copy-content">
-          error_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-arn-dev-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-arn-dev-1-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:333333333:error_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-</dl>
+      <p class="govuk-!-margin-bottom-2">
+        SNS Topics not set up for Dev
+      </p>
   </div>
 
+    <div class="app-flex__one">
+      <div class="govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          Postgres Database
+        </h3>
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          Postgres Database is not set up for Dev
+        </p>
+    </div>
 
 </div>
-              <div class="govuk-!-margin-top-4">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-                  <a href="/services/mock-service-with-resources/resources/test" class="app-link app-link--text-colour">
-                    Test
-                  </a>
-                </h2>
-              </div>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
+              <a href="/services/mock-service-with-resources/resources/test" class="app-link app-link--text-colour">
+                Test
+              </a>
+            </h2>
 
 
 
-<div class="app-panel app-flex" >
+<div class="app-panel app-flex govuk-!-margin-top-4" >
     <div class="app-flex__one">
     <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/test/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-      <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-2">
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-<span class="app-copy__container">
-      <button class="app-copy js-visible-inline"
-          title="Copy"
-          data-js="app-copy"
-          data-content-id="s3-bucket-url-test-0"
-          data-testid="app-copy">
-    <svg class="app-icon app-copy-icon app-icon--minute"
-     xmlns="http://www.w3.org/2000/svg"
-     width="48" height="48" viewBox="0 -960 960 960"
-     role="img"     data-testid="app-copy-icon">
-  <path
-    d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-</svg>
-
-  </button>
-
-
-  <span data-js="s3-bucket-url-test-0-content" data-testid="app-copy-content">
-    s3://test-cdp-portal-backend-c63f2-6bf3a
-  </span>
-
-</span>
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-<span class="app-copy__container">
-      <button class="app-copy js-visible-inline"
-          title="Copy"
-          data-js="app-copy"
-          data-content-id="s3-bucket-url-test-1"
-          data-testid="app-copy">
-    <svg class="app-icon app-copy-icon app-icon--minute"
-     xmlns="http://www.w3.org/2000/svg"
-     width="48" height="48" viewBox="0 -960 960 960"
-     role="img"     data-testid="app-copy-icon">
-  <path
-    d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-</svg>
-
-  </button>
-
-
-  <span data-js="s3-bucket-url-test-1-content" data-testid="app-copy-content">
-    s3://test-cdp-portal-backend-images-c63f2-6bf3a
-  </span>
-
-</span>
-</td>
-    </tr>
-  </tbody>
-</table>
-
+      <p class="govuk-!-margin-bottom-2">
+        S3 Buckets not set up for Test
+      </p>
   </div>
 
   <div class="app-flex__one">
@@ -979,209 +566,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         SQS Queues
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/test/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-test">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-name-test-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-name-test-0-content" data-testid="app-copy-content">
-          message_clearance_request
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Url
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-url-test-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-url-test-0-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/444444444/message_clearance_request.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-arn-test-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-arn-test-0-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:444444444:message_clearance_request.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Topic subs
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>message_clearance_request.fifo</li></ul>
-    </dd>
-  </div>
-</dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-test">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-name-test-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-name-test-1-content" data-testid="app-copy-content">
-          message_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Url
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-url-test-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-url-test-1-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/444444444/message_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-arn-test-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-arn-test-1-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:444444444:message_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Topic subs
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>decision_notification.fifo</li></ul>
-    </dd>
-  </div>
-</dl>
+      <p class="govuk-!-margin-bottom-2">
+        SQS Queues not set up for Test
+      </p>
   </div>
 
   <div class="app-flex__one">
@@ -1190,150 +579,35 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         SNS Topics
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/test/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-test">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-name-test-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-name-test-0-content" data-testid="app-copy-content">
-          decision_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-arn-test-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-arn-test-0-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:444444444:decision_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-</dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-test">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-name-test-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-name-test-1-content" data-testid="app-copy-content">
-          error_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-arn-test-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-arn-test-1-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:444444444:error_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-</dl>
+      <p class="govuk-!-margin-bottom-2">
+        SNS Topics not set up for Test
+      </p>
   </div>
 
+    <div class="app-flex__one">
+      <div class="govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          Postgres Database
+        </h3>
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          Postgres Database is not set up for Test
+        </p>
+    </div>
 
 </div>
-              <div class="govuk-!-margin-top-4">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-                  <a href="/services/mock-service-with-resources/resources/perf-test" class="app-link app-link--text-colour">
-                    Perf-test
-                  </a>
-                </h2>
-              </div>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
+              <a href="/services/mock-service-with-resources/resources/perf-test" class="app-link app-link--text-colour">
+                Perf-test
+              </a>
+            </h2>
 
 
 
-<div class="app-panel app-flex" >
+<div class="app-panel app-flex govuk-!-margin-top-4" >
     <div class="app-flex__one">
     <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
@@ -1373,97 +647,39 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       </p>
   </div>
 
+    <div class="app-flex__one">
+      <div class="govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          Postgres Database
+        </h3>
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          Postgres Database is not set up for Perf-test
+        </p>
+    </div>
 
 </div>
-              <div class="govuk-!-margin-top-4">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-                  <a href="/services/mock-service-with-resources/resources/prod" class="app-link app-link--text-colour">
-                    Prod
-                  </a>
-                </h2>
-              </div>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
+              <a href="/services/mock-service-with-resources/resources/prod" class="app-link app-link--text-colour">
+                Prod
+              </a>
+            </h2>
 
 
 
-<div class="app-panel app-flex" >
+<div class="app-panel app-flex govuk-!-margin-top-4" >
     <div class="app-flex__one">
     <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/prod/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-      <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-2">
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-<span class="app-copy__container">
-      <button class="app-copy js-visible-inline"
-          title="Copy"
-          data-js="app-copy"
-          data-content-id="s3-bucket-url-prod-0"
-          data-testid="app-copy">
-    <svg class="app-icon app-copy-icon app-icon--minute"
-     xmlns="http://www.w3.org/2000/svg"
-     width="48" height="48" viewBox="0 -960 960 960"
-     role="img"     data-testid="app-copy-icon">
-  <path
-    d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-</svg>
-
-  </button>
-
-
-  <span data-js="s3-bucket-url-prod-0-content" data-testid="app-copy-content">
-    s3://prod-cdp-portal-backend-c63f2-75ee2
-  </span>
-
-</span>
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-<span class="app-copy__container">
-      <button class="app-copy js-visible-inline"
-          title="Copy"
-          data-js="app-copy"
-          data-content-id="s3-bucket-url-prod-1"
-          data-testid="app-copy">
-    <svg class="app-icon app-copy-icon app-icon--minute"
-     xmlns="http://www.w3.org/2000/svg"
-     width="48" height="48" viewBox="0 -960 960 960"
-     role="img"     data-testid="app-copy-icon">
-  <path
-    d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-</svg>
-
-  </button>
-
-
-  <span data-js="s3-bucket-url-prod-1-content" data-testid="app-copy-content">
-    s3://prod-cdp-portal-backend-images-c63f2-75ee2
-  </span>
-
-</span>
-</td>
-    </tr>
-  </tbody>
-</table>
-
+      <p class="govuk-!-margin-bottom-2">
+        S3 Buckets not set up for Prod
+      </p>
   </div>
 
   <div class="app-flex__one">
@@ -1472,209 +688,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         SQS Queues
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/prod/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-prod">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-name-prod-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-name-prod-0-content" data-testid="app-copy-content">
-          message_clearance_request
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Url
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-url-prod-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-url-prod-0-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/111111111/message_clearance_request.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-arn-prod-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-arn-prod-0-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:111111111:message_clearance_request.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Topic subs
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>message_clearance_request.fifo</li></ul>
-    </dd>
-  </div>
-</dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-prod">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-name-prod-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-name-prod-1-content" data-testid="app-copy-content">
-          message_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Url
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-url-prod-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-url-prod-1-content" data-testid="app-copy-content">
-          https://sqs.eu-west-2.amazonaws.com/111111111/message_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sqs-queue-arn-prod-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sqs-queue-arn-prod-1-content" data-testid="app-copy-content">
-          arn:aws:sqs:eu-west-2:111111111:message_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Topic subs
-    </dt>
-    <dd class="govuk-summary-list__value app-summary-list__value">
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-0"><li>decision_notification.fifo</li></ul>
-    </dd>
-  </div>
-</dl>
+      <p class="govuk-!-margin-bottom-2">
+        SQS Queues not set up for Prod
+      </p>
   </div>
 
   <div class="app-flex__one">
@@ -1683,146 +701,30 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         SNS Topics
       </h3>
 
-          <a class="app-link app-link--underline app-align-right"
-     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/prod/tenants/mock-service-with-resources.json"
-     target="_blank" rel="noopener noreferrer"
-     data-testid="app-entity-link">
-    more
-  </a>
-
     </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-prod">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-name-prod-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-name-prod-0-content" data-testid="app-copy-content">
-          decision_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-arn-prod-0"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-arn-prod-0-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:111111111:decision_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-</dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-prod">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Name
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-name-prod-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-name-prod-1-content" data-testid="app-copy-content">
-          error_notification
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key app-summary-list__key">
-      Arn
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span class="app-copy__container">
-            <button class="app-copy js-visible-inline"
-                title="Copy"
-                data-js="app-copy"
-                data-content-id="sns-topic-arn-prod-1"
-                data-testid="app-copy">
-          <svg class="app-icon app-copy-icon app-icon--minute"
-           xmlns="http://www.w3.org/2000/svg"
-           width="48" height="48" viewBox="0 -960 960 960"
-           role="img"     data-testid="app-copy-icon">
-        <path
-          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
-      </svg>
-      
-        </button>
-      
-      
-        <span data-js="sns-topic-arn-prod-1-content" data-testid="app-copy-content">
-          arn:aws:sns:eu-west-2:111111111:error_notification.fifo
-        </span>
-      
-      </span>
-    </dd>
-  </div>
-</dl>
+      <p class="govuk-!-margin-bottom-2">
+        SNS Topics not set up for Prod
+      </p>
   </div>
 
+    <div class="app-flex__one">
+      <div class="govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          Postgres Database
+        </h3>
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          Postgres Database is not set up for Prod
+        </p>
+    </div>
 
 </div>
-
-          </section>
 
     </section>
   </div>
 </div>
-
       </div>
     </div>
   </section>
