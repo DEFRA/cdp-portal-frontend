@@ -66,6 +66,7 @@ export default [
       vitest
     },
     rules: {
+      camelcase: 'off', // The mono-lambda property names are snake_case
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
       'no-console': 'error',
 
