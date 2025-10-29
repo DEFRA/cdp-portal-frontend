@@ -45,7 +45,7 @@ async function buildAutoTestRunsViewDetails({
 
   const [autoTestRunDetails, testSuitesResponse = []] = await Promise.all([
     getAutoTestRunDetails(serviceId),
-    Promise.all(promisesTestSuites)
+    ...promisesTestSuites
   ])
 
   const testSuites = testSuitesResponse.flat()
