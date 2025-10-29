@@ -548,10 +548,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             </h2>
 
 
+<div class="app-flex govuk-!-margin-top-4">
 
-<div class="app-panel app-flex govuk-!-margin-top-4" >
-    <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
@@ -599,24 +599,27 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </tbody>
 </table>
 
-  </div>
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SQS Queues
-      </h3>
+</div>
 
-          <a class="app-link app-link--underline app-align-right"
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SQS Queues
+        </h3>
+
+            <a class="app-link app-link--underline app-align-right"
      href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/infra-dev/tenants/mock-service-with-resources.json"
      target="_blank" rel="noopener noreferrer"
      data-testid="app-entity-link">
     more
   </a>
 
-    </div>
+      </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-infra-dev">
+          <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-infra-dev">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key app-summary-list__key">
       Name
@@ -713,7 +716,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </dd>
   </div>
 </dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-infra-dev">
+          <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sqs-queue-infra-dev">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key app-summary-list__key">
       Name
@@ -802,24 +805,28 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </dd>
   </div>
 </dl>
-  </div>
+    </div>
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SNS Topics
-      </h3>
+</div>
 
-          <a class="app-link app-link--underline app-align-right"
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SNS Topics
+        </h3>
+
+            <a class="app-link app-link--underline app-align-right"
      href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/infra-dev/tenants/mock-service-with-resources.json"
      target="_blank" rel="noopener noreferrer"
      data-testid="app-entity-link">
     more
   </a>
 
-    </div>
+      </div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-infra-dev">
+          <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-infra-dev">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key app-summary-list__key">
       Name
@@ -879,7 +886,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </dd>
   </div>
 </dl>
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-infra-dev">
+          <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="sns-topic-infra-dev">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key app-summary-list__key">
       Name
@@ -939,16 +946,20 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </dd>
   </div>
 </dl>
-  </div>
+    </div>
 
-    <div class="app-flex__one">
-      <div class="govuk-!-margin-bottom-2">
-        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          Postgres Database
-        </h3>
-      </div>
+</div>
 
-        <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="database-infra-dev">
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+        <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+          <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="database-infra-dev">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key app-summary-list__key">
       Name
@@ -1037,8 +1048,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </dd>
   </div>
 </dl>
-    </div>
+      </div>
 
+</div>
 </div>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
               <a href="/services/mock-service-with-resources/resources/management" class="app-link app-link--text-colour">
@@ -1047,10 +1059,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             </h2>
 
 
+<div class="app-flex govuk-!-margin-top-4">
 
-<div class="app-panel app-flex govuk-!-margin-top-4" >
-    <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
@@ -1098,46 +1110,58 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </tbody>
 </table>
 
-  </div>
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SQS Queues
-      </h3>
+</div>
 
-    </div>
 
-      <p class="govuk-!-margin-bottom-2">
-        SQS Queues not set up for Management
-      </p>
-  </div>
-
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SNS Topics
-      </h3>
-
-    </div>
-
-      <p class="govuk-!-margin-bottom-2">
-        SNS Topics not set up for Management
-      </p>
-  </div>
-
-    <div class="app-flex__one">
-      <div class="govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
         <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          Postgres Database
+          SQS Queues
         </h3>
+
       </div>
 
         <p class="govuk-!-margin-bottom-2">
-          Postgres Database is not set up for Management
+          SQS Queues not set up for Management
         </p>
     </div>
 
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SNS Topics
+        </h3>
+
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          SNS Topics not set up for Management
+        </p>
+    </div>
+
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+        <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+          <p class="govuk-!-margin-bottom-2">
+            Postgres Database is not set up for Management
+          </p>
+      </div>
+
+</div>
 </div>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
               <a href="/services/mock-service-with-resources/resources/dev" class="app-link app-link--text-colour">
@@ -1146,10 +1170,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             </h2>
 
 
+<div class="app-flex govuk-!-margin-top-4">
 
-<div class="app-panel app-flex govuk-!-margin-top-4" >
-    <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
@@ -1197,46 +1221,58 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </tbody>
 </table>
 
-  </div>
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SQS Queues
-      </h3>
+</div>
 
-    </div>
 
-      <p class="govuk-!-margin-bottom-2">
-        SQS Queues not set up for Dev
-      </p>
-  </div>
-
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SNS Topics
-      </h3>
-
-    </div>
-
-      <p class="govuk-!-margin-bottom-2">
-        SNS Topics not set up for Dev
-      </p>
-  </div>
-
-    <div class="app-flex__one">
-      <div class="govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
         <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          Postgres Database
+          SQS Queues
         </h3>
+
       </div>
 
         <p class="govuk-!-margin-bottom-2">
-          Postgres Database is not set up for Dev
+          SQS Queues not set up for Dev
         </p>
     </div>
 
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SNS Topics
+        </h3>
+
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          SNS Topics not set up for Dev
+        </p>
+    </div>
+
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+        <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+          <p class="govuk-!-margin-bottom-2">
+            Postgres Database is not set up for Dev
+          </p>
+      </div>
+
+</div>
 </div>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
               <a href="/services/mock-service-with-resources/resources/test" class="app-link app-link--text-colour">
@@ -1245,10 +1281,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             </h2>
 
 
+<div class="app-flex govuk-!-margin-top-4">
 
-<div class="app-panel app-flex govuk-!-margin-top-4" >
-    <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
@@ -1258,46 +1294,58 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <p class="govuk-!-margin-bottom-2">
         S3 Buckets not set up for Test
       </p>
-  </div>
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SQS Queues
-      </h3>
+</div>
 
-    </div>
 
-      <p class="govuk-!-margin-bottom-2">
-        SQS Queues not set up for Test
-      </p>
-  </div>
-
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SNS Topics
-      </h3>
-
-    </div>
-
-      <p class="govuk-!-margin-bottom-2">
-        SNS Topics not set up for Test
-      </p>
-  </div>
-
-    <div class="app-flex__one">
-      <div class="govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
         <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          Postgres Database
+          SQS Queues
         </h3>
+
       </div>
 
         <p class="govuk-!-margin-bottom-2">
-          Postgres Database is not set up for Test
+          SQS Queues not set up for Test
         </p>
     </div>
 
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SNS Topics
+        </h3>
+
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          SNS Topics not set up for Test
+        </p>
+    </div>
+
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+        <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+          <p class="govuk-!-margin-bottom-2">
+            Postgres Database is not set up for Test
+          </p>
+      </div>
+
+</div>
 </div>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
               <a href="/services/mock-service-with-resources/resources/perf-test" class="app-link app-link--text-colour">
@@ -1306,10 +1354,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             </h2>
 
 
+<div class="app-flex govuk-!-margin-top-4">
 
-<div class="app-panel app-flex govuk-!-margin-top-4" >
-    <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
@@ -1319,46 +1367,58 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <p class="govuk-!-margin-bottom-2">
         S3 Buckets not set up for Perf-test
       </p>
-  </div>
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SQS Queues
-      </h3>
+</div>
 
-    </div>
 
-      <p class="govuk-!-margin-bottom-2">
-        SQS Queues not set up for Perf-test
-      </p>
-  </div>
-
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SNS Topics
-      </h3>
-
-    </div>
-
-      <p class="govuk-!-margin-bottom-2">
-        SNS Topics not set up for Perf-test
-      </p>
-  </div>
-
-    <div class="app-flex__one">
-      <div class="govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
         <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          Postgres Database
+          SQS Queues
         </h3>
+
       </div>
 
         <p class="govuk-!-margin-bottom-2">
-          Postgres Database is not set up for Perf-test
+          SQS Queues not set up for Perf-test
         </p>
     </div>
 
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SNS Topics
+        </h3>
+
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          SNS Topics not set up for Perf-test
+        </p>
+    </div>
+
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+        <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+          <p class="govuk-!-margin-bottom-2">
+            Postgres Database is not set up for Perf-test
+          </p>
+      </div>
+
+</div>
 </div>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
               <a href="/services/mock-service-with-resources/resources/prod" class="app-link app-link--text-colour">
@@ -1367,10 +1427,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             </h2>
 
 
+<div class="app-flex govuk-!-margin-top-4">
 
-<div class="app-panel app-flex govuk-!-margin-top-4" >
-    <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
       </h3>
@@ -1380,46 +1440,58 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <p class="govuk-!-margin-bottom-2">
         S3 Buckets not set up for Prod
       </p>
-  </div>
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SQS Queues
-      </h3>
+</div>
 
-    </div>
 
-      <p class="govuk-!-margin-bottom-2">
-        SQS Queues not set up for Prod
-      </p>
-  </div>
-
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SNS Topics
-      </h3>
-
-    </div>
-
-      <p class="govuk-!-margin-bottom-2">
-        SNS Topics not set up for Prod
-      </p>
-  </div>
-
-    <div class="app-flex__one">
-      <div class="govuk-!-margin-bottom-2">
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
         <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          Postgres Database
+          SQS Queues
         </h3>
+
       </div>
 
         <p class="govuk-!-margin-bottom-2">
-          Postgres Database is not set up for Prod
+          SQS Queues not set up for Prod
         </p>
     </div>
 
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+      <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SNS Topics
+        </h3>
+
+      </div>
+
+        <p class="govuk-!-margin-bottom-2">
+          SNS Topics not set up for Prod
+        </p>
+    </div>
+
+</div>
+
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+        <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+          <p class="govuk-!-margin-bottom-2">
+            Postgres Database is not set up for Prod
+          </p>
+      </div>
+
+</div>
 </div>
 
     </section>
