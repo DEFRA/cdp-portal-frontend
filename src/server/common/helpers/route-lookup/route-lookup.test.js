@@ -59,6 +59,14 @@ describe('#routeLookup', () => {
     )
   })
 
+  test('Should provide a simple route with repeated query params', () => {
+    expect(
+      routeLookup(mockServer, 'home', {
+        query: { type: ['Microservice', 'TestSuite'] }
+      })
+    ).toBe('/home?type=Microservice&type=TestSuite')
+  })
+
   test('Should provide many query params in a simple route', () => {
     expect(
       routeLookup(mockServer, 'home', { query: { page: 1, offset: 9 } })

@@ -6,7 +6,7 @@ import { transformServiceToSummary } from '../../../../services/service/about/tr
 import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../helpers/nullify-404.js'
 import { fetchEntityStatus } from '../../../helpers/fetch/fetch-entities.js'
-import { pluralise } from '../../../../../config/nunjucks/filters/filters.js'
+import { pluralise } from '../../../helpers/pluralise.js'
 import { REPOSITORY, SERVICE, TEST_SUITE } from '../tabs/constants.js'
 import { resourceDescriptions } from './helpers/resource-descriptions.js'
 
