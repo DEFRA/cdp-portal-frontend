@@ -13,8 +13,9 @@
   }
 }
 
-// Let grid control spacing between panels
+// Let flex/grid work control spacing between panels
 @include govuk-media-query($from: desktop-big) {
+  .app-flex,
   .app-grid {
     .app-panel {
       margin-top: 0;

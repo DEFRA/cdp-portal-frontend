@@ -122,7 +122,7 @@
 
               {% for envProxy in allEnvironmentsTables %}
 
-                {% call appPanel() %}
+                {% call appPanel({ isSlim: true }) %}
                   <div class="app-flex-center govuk-!-margin-bottom-2">
                     <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
                       {{ envProxy.environment | title }}

@@ -7,8 +7,8 @@
   </a>
 {% endset %}
 
-{% call appPanel({ classes: "app-flex govuk-!-margin-top-4" }) %}
-  <div class="app-flex__one">
+<div class="app-flex govuk-!-margin-top-4">
+  {% call appPanel({ classes: "app-flex__one", isSlim: true }) %}
     <div class="app-flex-center govuk-!-margin-bottom-2">
       <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
         S3 Buckets
@@ -29,67 +29,73 @@
         S3 Buckets not set up for {{ environment | title }}
       </p>
     {% endif %}
-  </div>
+  {% endcall %}
 
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SQS Queues
-      </h3>
-
-      {% if resource.sqsQueues | length %}
-        {{ moreLink | safe }}
-      {% endif %}
-    </div>
-
-    {% if resource.sqsQueues | length %}
-      {% for summary in resource.sqsQueues %}
-        {{ govukSummaryList(summary) }}
-      {% endfor %}
-    {% else %}
-      <p class="govuk-!-margin-bottom-2">
-        SQS Queues not set up for {{ environment | title }}
-      </p>
-    {% endif %}
-  </div>
-
-  <div class="app-flex__one">
-    <div class="app-flex-center govuk-!-margin-bottom-2">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        SNS Topics
-      </h3>
-
-      {% if resource.snsTopics | length %}
-        {{ moreLink | safe }}
-      {% endif %}
-    </div>
-
-    {% if resource.snsTopics | length %}
-      {% for summary in resource.snsTopics %}
-        {{ govukSummaryList(summary) }}
-      {% endfor %}
-    {% else %}
-      <p class="govuk-!-margin-bottom-2">
-        SNS Topics not set up for {{ environment | title }}
-      </p>
-    {% endif %}
-  </div>
-
-  {% if hasSqlDatabase %}
+  {% call appPanel({ classes: "app-flex__one", isSlim: true }) %}
     <div class="app-flex__one">
-      <div class="govuk-!-margin-bottom-2">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
         <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          Postgres Database
+          SQS Queues
         </h3>
+
+        {% if resource.sqsQueues | length %}
+          {{ moreLink | safe }}
+        {% endif %}
       </div>
 
-      {% if resource.database %}
-        {{ govukSummaryList(resource.database) }}
+      {% if resource.sqsQueues | length %}
+        {% for summary in resource.sqsQueues %}
+          {{ govukSummaryList(summary) }}
+        {% endfor %}
       {% else %}
         <p class="govuk-!-margin-bottom-2">
-          Postgres Database is not set up for {{ environment | title }}
+          SQS Queues not set up for {{ environment | title }}
         </p>
       {% endif %}
     </div>
+  {% endcall %}
+
+  {% call appPanel({ classes: "app-flex__one", isSlim: true }) %}
+    <div class="app-flex__one">
+      <div class="app-flex-center govuk-!-margin-bottom-2">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          SNS Topics
+        </h3>
+
+        {% if resource.snsTopics | length %}
+          {{ moreLink | safe }}
+        {% endif %}
+      </div>
+
+      {% if resource.snsTopics | length %}
+        {% for summary in resource.snsTopics %}
+          {{ govukSummaryList(summary) }}
+        {% endfor %}
+      {% else %}
+        <p class="govuk-!-margin-bottom-2">
+          SNS Topics not set up for {{ environment | title }}
+        </p>
+      {% endif %}
+    </div>
+  {% endcall %}
+
+  {% if hasSqlDatabase %}
+    {% call appPanel({ classes: "app-flex__one", isSlim: true }) %}
+      <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+        {% if resource.database %}
+          {{ govukSummaryList(resource.database) }}
+        {% else %}
+          <p class="govuk-!-margin-bottom-2">
+            Postgres Database is not set up for {{ environment | title }}
+          </p>
+        {% endif %}
+      </div>
+    {% endcall %}
   {% endif %}
-{% endcall %}
+</div>
