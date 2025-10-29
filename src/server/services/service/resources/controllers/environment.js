@@ -16,7 +16,7 @@ const environmentResourcesController = {
     const { environment } = request.params
     const { entity } = request.app
     const serviceName = entity.name
-    const environmentDetails = entity.envs[environment]
+    const environmentDetails = entity.environments[environment]
 
     const team = entity?.teams?.at(0)
     const teamId = team?.teamId

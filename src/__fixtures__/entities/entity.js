@@ -16,11 +16,11 @@ const entitiesResourcesFixture = {
   status: 'Created',
   decommissioned: null,
   tags: [],
-  envs: {
+  environments: {
     'infra-dev': {
       urls: {
-        'example-mock-service-frontend.infra-dev.example.mock.clouds.net': {
-          type: 'internal',
+        'example-mock-service.gov.uk': {
+          type: 'vanity',
           enabled: false,
           shuttered: false
         }
@@ -143,7 +143,7 @@ const entitiesResourcesFixture = {
         'example-mock-service-frontend.dev.example.mock.clouds.net': {
           type: 'internal',
           enabled: false,
-          shuttered: false
+          shuttered: true
         }
       },
       ecr_repository: null,

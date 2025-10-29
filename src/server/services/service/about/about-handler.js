@@ -7,6 +7,7 @@ import { availableEnvironments } from './helpers/available-environments.js'
 import { transformRunningServices } from './transformers/running-services.js'
 import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
 import { transformServiceToSummary } from './transformers/service-to-summary.js'
+import { obtainServiceUrls } from './helpers/obtain-service-urls.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
@@ -56,6 +57,10 @@ async function aboutHandler(request, h) {
     entitySubType: entity.subType
   })
 
+  const { shutteredUrls, serviceUrls, vanityUrls } = obtainServiceUrls(
+    request.app.entity.environments
+  )
+
   const isFrontend = entity.subType === 'Frontend'
   const isBackend = entity.subType === 'Backend'
   const description = repository?.description
@@ -80,6 +85,9 @@ async function aboutHandler(request, h) {
     latestPublishedImageVersions,
     availableMigrations,
     latestMigrations,
+    shutteredUrls,
+    serviceUrls,
+    vanityUrls,
     breadcrumbs: [
       {
         text: 'Services',
