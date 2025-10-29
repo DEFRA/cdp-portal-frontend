@@ -294,10 +294,10 @@
             </p>
 
             <dl class="app-description-list">
-              {% for environment in availableServiceEnvironments %}
-                <dt class="app-description-list__term"> {{ environment | title }}</dt>
+              {% for serviceUrl in serviceUrls %}
+                <dt class="app-description-list__term"> {{ serviceUrl.environment | title }}</dt>
                 <dd class="app-description-list__details">
-                  <span>https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud</span>
+                  <span>https://{{ serviceUrl.url }}</span>
                 </dd>
               {% else %}
                 <dd class="app-description-list__details">
@@ -349,13 +349,11 @@
             </p>
 
             <dl class="app-description-list">
-              {% for environment in availableServiceEnvironments %}
-                <dt class="app-description-list__term">{{ environment | title }}</dt>
+              {% for serviceUrl in serviceUrls %}
+                <dt class="app-description-list__term">{{ serviceUrl.environment | title }}</dt>
                 <dd class="app-description-list__details">
-                  <a class="app-link"
-                     href="https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud"
-                     target="_blank" rel="noopener noreferrer">
-                    https://{{ service.serviceName }}.{{ environment }}.cdp-int.defra.cloud
+                  <a class="app-link" href="https://{{ serviceUrl.url }}" target="_blank" rel="noopener noreferrer">
+                    https://{{ serviceUrl.url }}
                   </a>
                 </dd>
               {% else %}

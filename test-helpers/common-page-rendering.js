@@ -219,7 +219,7 @@ function getEntity(repositoryName, type, subType, status) {
     status,
     decommissioned: null,
     tags: ['live'],
-    envs: entitiesResourcesFixture.envs
+    environments: entitiesResourcesFixture.environments
   }
 }
 

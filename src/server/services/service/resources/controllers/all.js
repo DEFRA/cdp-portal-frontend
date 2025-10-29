@@ -17,7 +17,7 @@ const allResourcesController = {
   handler: async (request, h) => {
     const { entity } = request.app
     const serviceName = entity.name
-    const allEnvironmentsDetails = entity.envs
+    const allEnvironmentsDetails = entity.environments
 
     const environments = getEnvironments(request.auth.credentials?.scope)
     const hasSqlDatabase = Object.values(allEnvironmentsDetails).some(

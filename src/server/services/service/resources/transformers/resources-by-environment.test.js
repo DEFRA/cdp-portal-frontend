@@ -8,7 +8,7 @@ describe('#resourceByEnvironment', () => {
   test('Should return expected resources', () => {
     const result = resourceByEnvironment({
       environment: 'management',
-      environmentDetails: entitiesResourcesFixture.envs.management
+      environmentDetails: entitiesResourcesFixture.environments.management
     })
 
     expect(result).toEqual({
@@ -89,7 +89,7 @@ describe('#resourcesByEnvironment', () => {
     const environments = ['dev', 'prod']
     const result = resourcesByEnvironment({
       environments,
-      allEnvironmentsDetails: entitiesResourcesFixture.envs
+      allEnvironmentsDetails: entitiesResourcesFixture.environments
     })
 
     expect(result).toEqual({
