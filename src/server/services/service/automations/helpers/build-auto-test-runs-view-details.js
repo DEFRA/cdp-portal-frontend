@@ -41,14 +41,10 @@ async function buildAutoTestRunsViewDetails({
   environments
 }) {
   const serviceTeamIds = serviceTeams.map((team) => team.teamId)
-  const promisesTestSuites = serviceTeamIds.map(fetchTestSuites)
-
-  const [autoTestRunDetails, testSuitesResponse = []] = await Promise.all([
+  const [autoTestRunDetails, testSuites] = await Promise.all([
     getAutoTestRunDetails(serviceId),
-    ...promisesTestSuites
+    fetchTestSuites({ teamIds: serviceTeamIds })
   ])
-
-  const testSuites = testSuitesResponse.flat()
 
   const rowBuilder = testSuiteToEntityRow({
     serviceName: serviceId,
