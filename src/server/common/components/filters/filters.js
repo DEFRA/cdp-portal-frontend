@@ -46,7 +46,7 @@ async function submitForm($form) {
       if (element.name && element.value) {
         return {
           ...validElements,
-          [element.name]: element.value
+          [element.name]: element.value.trim()
         }
       }
       return validElements
