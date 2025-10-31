@@ -32,7 +32,6 @@
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
               {% if urlParams %}
-
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Url Params</h2>
 
                 {{ govukInput({
@@ -53,13 +52,10 @@
                 }) }}
               {% endif %}
 
-              {% if route.queryParams and route.queryParams.length %}
-
+              {% if route.queryParamDetail %}
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Query Params</h2>
 
-                {% for queryParam in route.queryParams %}
-                  {% set queryParamName = queryParam.name or queryParam %}
-
+                {% for queryParamName, hint in route.queryParamDetail %}
                   {{ govukInput({
                     id: "qp-" + loop.index + "-" + queryParamName,
                     name: "query-" + queryParamName,
@@ -69,7 +65,7 @@
                     },
                     classes: "app-input app-input--wide",
                     hint: {
-                      text: "Enter a value or comma-separated values. E.g. cat,pig,horse",
+                      text: hint,
                       classes: "app-hint"
                     },
                     formGroup: {

@@ -8,15 +8,16 @@ export const debugRedirectRoute = {
     const pathParams = {}
     const queryParams = {}
 
-    Object.entries(payload).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(payload)) {
       if (key.startsWith('path-')) {
         pathParams[key.replace('path-', '')] = value
-      } else if (key.startsWith('query-') && value !== '') {
+      }
+      if (key.startsWith('query-') && value !== '') {
         queryParams[key.replace('query-', '')] = value
           .split(',')
-          .map((v) => v.trim())
+          .map((valuePart) => valuePart.trim())
       }
-    })
+    }
 
     const route = routeLookup(
       request.server,

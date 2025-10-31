@@ -1,3 +1,5 @@
+import { buildQueryParamDetail } from '../helpers/build-query-param-detail.js'
+
 export const debugRoute = {
   options: {
     id: 'admin/debug'
@@ -7,24 +9,23 @@ export const debugRoute = {
 
     const debugRoutes = routes
       .filter(
-        (r) =>
-          r.path.startsWith('/admin/debug/') &&
-          r.path !== '/admin/debug/{endpointPath}'
+        (route) =>
+          route.path.startsWith('/admin/debug/') &&
+          route.path !== '/admin/debug/{endpointPath}'
       )
-      .map((r) => {
-        const { validate } = r.settings || {}
+      .map((route) => {
+        const { validate } = route.settings || {}
         const queryValidation = validate?.query
 
-        let queryParams = []
-        if (queryValidation && queryValidation.describe) {
-          const desc = queryValidation.describe()
-          queryParams = Object.keys(desc.keys || {})
+        let queryParamDetail
+        if (queryValidation?.describe) {
+          queryParamDetail = buildQueryParamDetail(queryValidation.describe())
         }
 
         return {
-          method: r.method.toUpperCase(),
-          path: r.path,
-          queryParams
+          method: route.method.toUpperCase(),
+          path: route.path,
+          queryParamDetail
         }
       })
 
