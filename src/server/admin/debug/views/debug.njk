@@ -1,5 +1,10 @@
 {% extends "layouts/page.njk" %}
 
+{% set infoHtml %}
+  When you press submit the request will be displayed in a new tab. Allowing you to open multiple debug tabs with
+  different parameter values.
+{% endset %}
+
 {% block content %}
   {% call appSplitPane({ isWide: true }) %}
 
@@ -10,11 +15,14 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
+        {{ appInfo({ html: infoHtml }) }}
+
         {% for route in debugRoutes %}
 
           {% call appPanel() %}
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Endpoint</h2>
             <h2 class="govuk-heading-m govuk-!-display-inline">{{ route.method | upper }}</h2>
-            <a class="app-link govuk-link" href="{{ route.path }}">{{ route.path }}</a>
+            <a class="app-link app-link--text-colour govuk-link" href="{{ route.path }}">{{ route.path }}</a>
 
             {% set urlParams = route.path.match('{(.*?)}') %}
             <form class="govuk-!-margin-top-2" action="/admin/debug/{{ route.path | urlencode }}" method="post"
@@ -22,6 +30,9 @@
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
               {% if urlParams %}
+
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Url Params</h2>
+
                 {{ govukInput({
                   id: urlParams[1] | lower,
                   name: "path-" +  urlParams[1],
@@ -31,7 +42,7 @@
                   },
                   classes: "app-input app-input--wide",
                   hint: {
-                    text: "Enter the " + urlParams[1] + " param value",
+                    text: "Enter the " + urlParams[1] + " url param value",
                     classes: "app-hint"
                   },
                   formGroup: {
@@ -41,6 +52,8 @@
               {% endif %}
 
               {% if route.queryParams and route.queryParams.length %}
+
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Query Params</h2>
 
                 {% for queryParam in route.queryParams %}
                   {% set queryParamName = queryParam.name or queryParam %}
@@ -63,13 +76,11 @@
                   }) }}
 
                 {% endfor %}
-
-
               {% endif %}
 
               {{ govukButton({
                 classes: "app-button app-button--small",
-                text: "Submit"
+                text: "Call endpoint"
               }) }}
 
             </form>
