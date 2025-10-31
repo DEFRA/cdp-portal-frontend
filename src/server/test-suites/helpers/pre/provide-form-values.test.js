@@ -1,13 +1,16 @@
 import { provideFormValues } from './provide-form-values.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 describe('#provideFormValues', () => {
   const entity = { teams: [{ teamId: 'team1' }], subType: 'Journey' }
 
   test('Should provide expected values for an authenticated user', async () => {
     const mockRequest = {
-      getUserSession: vi
-        .fn()
-        .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
+      getUserSession: vi.fn().mockResolvedValue({
+        isAuthenticated: true,
+        isAdmin: false,
+        scope: []
+      }),
       app: { entity },
       userIsOwner: vi.fn().mockResolvedValue(false),
       userIsAdmin: vi.fn().mockResolvedValue(false)
@@ -37,9 +40,11 @@ describe('#provideFormValues', () => {
 
   test('Should return expected values for a test suite owner', async () => {
     const mockRequest = {
-      getUserSession: vi
-        .fn()
-        .mockResolvedValue({ isAuthenticated: true, isAdmin: false }),
+      getUserSession: vi.fn().mockResolvedValue({
+        isAuthenticated: true,
+        isAdmin: false,
+        scope: ['team:team1', `${scopes.serviceOwner}:team:team1`]
+      }),
       app: { entity },
       userIsOwner: vi.fn().mockResolvedValue(true),
       userIsAdmin: vi.fn().mockResolvedValue(false)
@@ -101,9 +106,11 @@ describe('#provideFormValues', () => {
 
   test('Should return expected values for an admin user', async () => {
     const mockRequest = {
-      getUserSession: vi
-        .fn()
-        .mockResolvedValue({ isAuthenticated: true, isAdmin: true }),
+      getUserSession: vi.fn().mockResolvedValue({
+        isAuthenticated: true,
+        isAdmin: true,
+        scope: [scopes.admin]
+      }),
       app: { entity },
       userIsOwner: vi.fn().mockResolvedValue(false),
       userIsAdmin: vi.fn().mockResolvedValue(true)

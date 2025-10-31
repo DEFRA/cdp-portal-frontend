@@ -1,5 +1,6 @@
 import {
   environments,
+  performanceEnvironments,
   prototypeEnvironments
 } from '../../../../config/environments.js'
 import { entitySubTypes } from '@defra/cdp-validation-kit'
@@ -7,9 +8,13 @@ import { entitySubTypes } from '@defra/cdp-validation-kit'
 function getEnvironmentValuesForEntitySubType(subType) {
   if (subType === entitySubTypes.prototype) {
     return prototypeEnvironments
-  } else {
-    return Object.values(environments)
   }
+
+  if (subType === entitySubTypes.performance) {
+    return performanceEnvironments
+  }
+
+  return Object.values(environments)
 }
 
 function getEnvironments(userScopes, entitySubType) {

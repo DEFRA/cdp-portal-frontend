@@ -16,4 +16,10 @@ const prototypeEnvironments = [
   environments.extTest
 ]
 
-export { environments, prototypeEnvironments }
+const performanceEnvironments = [
+  environments.infraDev,
+  environments.management,
+  environments.perfTest
+]
+
+export { environments, prototypeEnvironments, performanceEnvironments }
