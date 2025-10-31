@@ -1,6 +1,6 @@
 export const debugController = {
   options: {
-    id: 'debug'
+    id: 'admin/debug'
   },
   handler: async (request, h) => {
     const routes = request.server.table()
@@ -8,7 +8,8 @@ export const debugController = {
     const debugRoutes = routes
       .filter(
         (r) =>
-          r.path.startsWith('/debug/') && r.path !== '/debug/{endpointPath}'
+          r.path.startsWith('/admin/debug/') &&
+          r.path !== '/admin/debug/{endpointPath}'
       )
       .map((r) => {
         const { validate } = r.settings || {}
@@ -27,7 +28,8 @@ export const debugController = {
         }
       })
 
-    return h.view('debug/views/debug.njk', {
+    return h.view('admin/debug/views/debug.njk', {
+      pageTitle: 'Debug Routes',
       debugRoutes
     })
   }

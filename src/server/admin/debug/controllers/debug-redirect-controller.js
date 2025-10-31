@@ -1,4 +1,4 @@
-import { routeLookup } from '../../common/helpers/route-lookup/index.js'
+import { routeLookup } from '../../../common/helpers/route-lookup/index.js'
 
 export const debugRedirectController = {
   handler: async (request, h) => {

@@ -20,7 +20,6 @@ import { testSuites } from './test-suites/routes.js'
 import { utilities } from './utilities/routes.js'
 import { repositories } from './repositories/routes.js'
 import { userProfile } from './user-profile/routes.js'
-import { debug } from './debug/routes.js'
 
 const router = {
   plugin: {
@@ -32,7 +31,6 @@ const router = {
         applyChangelog,
         auth,
         create,
-        debug,
         deployService,
         deployments,
         documentation,

@@ -1,48 +1,59 @@
 import { scopes } from '@defra/cdp-validation-kit'
-import { authScope } from '../common/helpers/auth/auth-scope.js'
+import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { entityDebugController } from './controllers/entity-debug-controller.js'
 import { debugController } from './controllers/debug-controller.js'
 import { deploymentDebugController } from './controllers/deployment-debug-controller.js'
 import { entitiesDebugController } from './controllers/entities-debug-controller.js'
 import { republishPlatformStateMessagesController } from './controllers/republish-platform-state-controller.js'
 import { debugRedirectController } from './controllers/debug-redirect-controller.js'
+import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
 
 const adminUserScope = authScope([scopes.admin])
 
-const debug = {
+const adminDebug = {
   plugin: {
-    name: 'debug',
+    name: 'adminDebug',
     register: (server) => {
+      server.ext([
+        {
+          type: 'onPostHandler',
+          method: provideSubNavigation,
+          options: {
+            sandbox: 'plugin'
+          }
+        }
+      ])
+
       server.route(
         [
           {
             method: 'GET',
-            path: '/debug',
+            path: '/admin/debug',
             ...debugController
           },
           {
             method: 'POST',
-            path: '/debug/{endpointPath}',
+            path: '/admin/debug/{endpointPath}',
             ...debugRedirectController
           },
           {
             method: 'GET',
-            path: '/debug/entities',
+            path: '/admin/debug/entities',
             ...entitiesDebugController
           },
           {
             method: 'GET',
-            path: '/debug/entities/{entityName}',
+            path: '/admin/debug/entities/{entityName}',
             ...entityDebugController
           },
           {
             method: 'GET',
-            path: '/debug/deployment/{deploymentId}',
+            path: '/admin/debug/deployment/{deploymentId}',
             ...deploymentDebugController
           },
           {
             method: 'GET',
-            path: '/debug/republish-platform-state-messages',
+            path: '/admin/debug/republish-platform-state-messages',
             ...republishPlatformStateMessagesController
           }
         ].map(adminUserScope)
@@ -51,4 +62,4 @@ const debug = {
   }
 }
 
-export { debug }
+export { adminDebug }
