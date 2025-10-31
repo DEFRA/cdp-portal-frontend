@@ -1,0 +1,83 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      text: "Debug endpoints"
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {% for route in debugRoutes %}
+
+          {% call appPanel() %}
+            <h2 class="govuk-heading-m govuk-!-display-inline">{{ route.method | upper }}</h2>
+            <a class="app-link govuk-link" href="{{ route.path }}">{{ route.path }}</a>
+
+            {% set urlParams = route.path.match('{(.*?)}') %}
+            <form class="govuk-!-margin-top-2" action="/admin/debug/{{ route.path | urlencode }}" method="post"
+                  target="_blank">
+              <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
+              {% if urlParams %}
+                {{ govukInput({
+                  id: urlParams[1] | lower,
+                  name: "path-" +  urlParams[1],
+                  label: {
+                    text: urlParams[1],
+                    classes: "app-label app-label--small govuk-!-margin-bottom-1"
+                  },
+                  classes: "app-input app-input--wide",
+                  hint: {
+                    text: "Enter the " + urlParams[1] + " param value",
+                    classes: "app-hint"
+                  },
+                  formGroup: {
+                    classes: "app-form-group app-form-group--slim"
+                  }
+                }) }}
+              {% endif %}
+
+              {% if route.queryParams and route.queryParams.length %}
+
+                {% for queryParam in route.queryParams %}
+                  {% set queryParamName = queryParam.name or queryParam %}
+
+                  {{ govukInput({
+                    id: "qp-" + loop.index + "-" + queryParamName,
+                    name: "query-" + queryParamName,
+                    label: {
+                      text: queryParamName,
+                      classes: "app-label app-label--small govuk-!-margin-bottom-1"
+                    },
+                    classes: "app-input app-input--wide",
+                    hint: {
+                      text: "Enter a value or comma-separated values. E.g. cat,pig,horse",
+                      classes: "app-hint"
+                    },
+                    formGroup: {
+                      classes: "app-form-group app-form-group--slim"
+                    }
+                  }) }}
+
+                {% endfor %}
+
+
+              {% endif %}
+
+              {{ govukButton({
+                classes: "app-button app-button--small",
+                text: "Submit"
+              }) }}
+
+            </form>
+          {% endcall %}
+        {% endfor %}
+
+      </div>
+    </div>
+  {% endcall %}
+{% endblock %}
+

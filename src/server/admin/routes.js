@@ -9,12 +9,14 @@ import { adminPermissions } from './permissions/routes.js'
 import { adminDecommissions } from './decommissions/routes.js'
 import { removeTestAsTenantScopeController } from './permissions/controllers/remove/user/remove-test-as-tenant-permission.js'
 import { adminAudit } from './audit/routes.js'
+import { adminDebug } from './debug/routes.js'
 
 const admin = {
   plugin: {
     name: 'admin',
     register: async (server) => {
       await server.register([
+        adminDebug,
         adminUsers,
         adminTeams,
         adminFeatures,

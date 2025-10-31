@@ -5,7 +5,6 @@ import { renderTestSuiteTagHtml } from './render-test-suite-tag-html.js'
 import { buildSuggestions } from '../../../../common/components/autocomplete/helpers/build-suggestions.js'
 import { getAutoTestRunDetails } from './fetchers.js'
 import { testKind } from '../../../../test-suites/constants/test-kind.js'
-import uniqBy from 'lodash/uniqBy.js'
 
 function sortRows(rowA, rowB) {
   const aHeader = rowA.cells.find(

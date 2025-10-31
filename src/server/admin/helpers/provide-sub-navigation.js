@@ -55,6 +55,13 @@ function provideSubNavigation(request, h) {
         label: {
           text: 'Audit'
         }
+      },
+      {
+        isActive: request.path.startsWith('/admin/debug'),
+        url: '/admin/debug',
+        label: {
+          text: 'Debug'
+        }
       }
     ]
   }

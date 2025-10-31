@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { deploymentIdValidation } from '@defra/cdp-validation-kit'
-import { fetchDeployment } from '../../deployments/helpers/fetch/fetch-deployment.js'
+import { fetchDeployment } from '../../../deployments/helpers/fetch/fetch-deployment.js'
 
 export const deploymentDebugController = {
   options: {
-    id: `debug/deployment/{deploymentId}`,
+    id: 'admin/debug/deployment/{deploymentId}',
     validate: {
       params: Joi.object({
         deploymentId: deploymentIdValidation

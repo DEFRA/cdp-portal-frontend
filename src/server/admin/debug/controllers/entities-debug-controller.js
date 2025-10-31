@@ -5,11 +5,11 @@ import {
   entityTypeValidation,
   teamIdValidation
 } from '@defra/cdp-validation-kit'
-import { fetchEntities } from '../../common/helpers/fetch/fetch-entities.js'
+import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
 
 export const entitiesDebugController = {
   options: {
-    id: `debug/entities`,
+    id: 'admin/debug/entities',
     validate: {
       query: Joi.object({
         type: Joi.alternatives()

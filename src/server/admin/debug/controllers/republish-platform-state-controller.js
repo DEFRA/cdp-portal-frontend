@@ -2,7 +2,7 @@ import { requestRepublishPlatformStateMessages } from '../helpers/fetchers.js'
 
 export const republishPlatformStateMessagesController = {
   options: {
-    id: `debug/republish-platform-state-messages`
+    id: 'debug/republish-platform-state-messages'
   },
   handler: async (request, h) => {
     await requestRepublishPlatformStateMessages(request)
