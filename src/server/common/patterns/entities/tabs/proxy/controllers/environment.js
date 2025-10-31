@@ -6,7 +6,7 @@ import {
   pluralise
 } from '../../../../../../../config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
-import { findProxyRulesForEnvironment } from '../helpers/find-proxy-rules.js'
+import { transformProxyRules } from '../transformers/transform-proxy-rules.js'
 
 export function environmentProxyController(entityKind) {
   return {
@@ -21,10 +21,8 @@ export function environmentProxyController(entityKind) {
       const environment = request.params.environment
       const entityName = request.params.serviceId
       const formattedEnvironment = formatText(environment)
-      const proxyRules = await findProxyRulesForEnvironment(
-        entityName,
-        environment
-      )
+      const squidConfig = request.app.entity.environments[environment]?.squid
+      const proxyRules = transformProxyRules(environment, squidConfig)
 
       return h.view('common/patterns/entities/tabs/proxy/views/environment', {
         pageTitle: `${entityName} - Proxy - ${formattedEnvironment}`,
