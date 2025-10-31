@@ -1,11 +1,11 @@
 import { scopes } from '@defra/cdp-validation-kit'
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
-import { entityDebugController } from './controllers/entity-debug-controller.js'
-import { debugController } from './controllers/debug-controller.js'
-import { deploymentDebugController } from './controllers/deployment-debug-controller.js'
-import { entitiesDebugController } from './controllers/entities-debug-controller.js'
-import { republishPlatformStateMessagesController } from './controllers/republish-platform-state-controller.js'
-import { debugRedirectController } from './controllers/debug-redirect-controller.js'
+import { entityDebugRoute } from './routes/entity-debug.js'
+import { debugRoute } from './routes/debug.js'
+import { deploymentDebugRoute } from './routes/deployment-debug.js'
+import { entitiesDebugRoute } from './routes/entities-debug.js'
+import { republishPlatformStateMessagesRoute } from './routes/republish-platform-state.js'
+import { debugRedirectRoute } from './routes/debug-redirect.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
 
 const adminUserScope = authScope([scopes.admin])
@@ -29,32 +29,32 @@ const adminDebug = {
           {
             method: 'GET',
             path: '/admin/debug',
-            ...debugController
+            ...debugRoute
           },
           {
             method: 'POST',
             path: '/admin/debug/{endpointPath}',
-            ...debugRedirectController
+            ...debugRedirectRoute
           },
           {
             method: 'GET',
             path: '/admin/debug/entities',
-            ...entitiesDebugController
+            ...entitiesDebugRoute
           },
           {
             method: 'GET',
             path: '/admin/debug/entities/{entityName}',
-            ...entityDebugController
+            ...entityDebugRoute
           },
           {
             method: 'GET',
             path: '/admin/debug/deployment/{deploymentId}',
-            ...deploymentDebugController
+            ...deploymentDebugRoute
           },
           {
             method: 'GET',
             path: '/admin/debug/republish-platform-state-messages',
-            ...republishPlatformStateMessagesController
+            ...republishPlatformStateMessagesRoute
           }
         ].map(adminUserScope)
       )

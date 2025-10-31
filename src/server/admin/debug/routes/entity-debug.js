@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 import { provideEntity } from '../../../common/helpers/ext/provide-entitiy.js'
 
-export const entityDebugController = {
+export const entityDebugRoute = {
   options: {
     id: 'admin/debug/entities/{entityName}',
     pre: [provideEntity],

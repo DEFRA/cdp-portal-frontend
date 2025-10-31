@@ -1,6 +1,6 @@
 import { requestRepublishPlatformStateMessages } from '../helpers/fetchers.js'
 
-export const republishPlatformStateMessagesController = {
+export const republishPlatformStateMessagesRoute = {
   options: {
     id: 'admin/debug/republish-platform-state-messages'
   },

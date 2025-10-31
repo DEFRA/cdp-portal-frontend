@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 import { deploymentIdValidation } from '@defra/cdp-validation-kit'
 import { fetchDeployment } from '../../../deployments/helpers/fetch/fetch-deployment.js'
 
-export const deploymentDebugController = {
+export const deploymentDebugRoute = {
   options: {
     id: 'admin/debug/deployment/{deploymentId}',
     validate: {
