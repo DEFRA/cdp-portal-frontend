@@ -7,7 +7,7 @@ import {
 } from '@defra/cdp-validation-kit'
 import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
 
-export const entitiesDebugController = {
+export const entitiesDebugRoute = {
   options: {
     id: 'admin/debug/entities',
     validate: {

@@ -1,4 +1,4 @@
-export const debugController = {
+export const debugRoute = {
   options: {
     id: 'admin/debug'
   },

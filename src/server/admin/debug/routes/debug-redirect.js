@@ -1,6 +1,6 @@
 import { routeLookup } from '../../../common/helpers/route-lookup/index.js'
 
-export const debugRedirectController = {
+export const debugRedirectRoute = {
   handler: async (request, h) => {
     const endpointPath = request.params.endpointPath
     const payload = request.payload
