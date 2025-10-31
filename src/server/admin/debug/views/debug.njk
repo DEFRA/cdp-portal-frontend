@@ -19,7 +19,9 @@
 
         {% for route in debugRoutes %}
 
-          {% call appPanel() %}
+          {% call appPanel({
+            classes: "govuk-!-margin-bottom-8" if loop.last
+          }) %}
             <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Endpoint</h2>
             <h2 class="govuk-heading-m govuk-!-display-inline">{{ route.method | upper }}</h2>
             <a class="app-link app-link--text-colour govuk-link" href="{{ route.path }}">{{ route.path }}</a>
