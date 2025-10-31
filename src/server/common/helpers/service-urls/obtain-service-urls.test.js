@@ -1,5 +1,5 @@
 import { obtainServiceUrls } from './obtain-service-urls.js'
-import { entitiesResourcesFixture } from '../../../../../__fixtures__/entities/entity.js'
+import { entitiesResourcesFixture } from '../../../../__fixtures__/entities/entity.js'
 
 describe('#obtainServiceUrls', () => {
   test('returns empty arrays when environmentDetails is empty', () => {
@@ -22,6 +22,13 @@ describe('#obtainServiceUrls', () => {
         shuttered: false,
         type: 'internal',
         url: 'example-mock-service-frontend.management.example.mock.clouds.net'
+      },
+      {
+        enabled: false,
+        environment: 'dev',
+        shuttered: true,
+        type: 'internal',
+        url: 'example-mock-service-frontend.dev.example.mock.clouds.net'
       },
       {
         enabled: false,

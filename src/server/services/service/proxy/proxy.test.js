@@ -2,7 +2,6 @@ import { fetchProxyRules } from '../../helpers/fetch/fetch-proxy-rules.js'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockFetchShutteringUrlsCall,
   mockServiceEntityCall
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
@@ -28,7 +27,6 @@ describe('Service Proxy page', () => {
       }
     )
 
-    mockFetchShutteringUrlsCall()
     mockServiceEntityCall('mock-service-with-proxy', entitySubTypes.backend)
     server = await initialiseServer()
   })

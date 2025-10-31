@@ -3,7 +3,6 @@ import { entitySubTypes, scopes, statusCodes } from '@defra/cdp-validation-kit'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockFetchShutteringUrlsCall,
   mockServiceEntityCall,
   mockTeam,
   mockTenantServicesCall
@@ -22,7 +21,6 @@ describe('Service Terminal page', () => {
     const serviceName = 'mock-service-with-terminal'
     mockServiceEntityCall(serviceName, entitySubTypes.backend)
     mockTenantServicesCall()
-    mockFetchShutteringUrlsCall()
     server = await initialiseServer()
   })
 

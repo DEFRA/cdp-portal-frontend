@@ -2,7 +2,6 @@
 
 {% from "icons/block-icon/macro.njk" import appBlockIcon %}
 {% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
-{% from "icons/internal-icon/macro.njk" import appInternalIcon %}
 {% from "icons/schema-icon/macro.njk" import appSchemaIcon %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "summary/macro.njk" import appSummary %}
@@ -10,8 +9,7 @@
 {% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
 
-{% from "services/common/components/api-gateway-url/macro.njk" import appApiGatewayUrl %}
-{% from "services/common/components/shutter-url/macro.njk" import appShutterUrl %}
+{% from "services/common/components/vanity-url/macro.njk" import appVanityUrl %}
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
@@ -261,109 +259,81 @@
     <aside class="app-service-container__sidebar">
       <section class="app-grid-service__links">
 
-        {% if service.isBackend %}
-          {% if apiGateways | length %}
-            {% set urlText = "URL" | pluralise(apiGateways | length * apiGateways[0].apis | length) %}
-            <section class="govuk-!-margin-bottom-6">
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">API Gateway {{ urlText }}</h2>
-              <p>
-                Publicly accessible URL for the service
-              </p>
-
-              <dl class="app-description-list">
-                {% for apiGateway in apiGateways %}
-                  <dt class="app-description-list__term">{{ apiGateway.environment | title }}</dt>
-                  <dd class="app-description-list__details">
-                    <ul class="govuk-list govuk-!-margin-0">
-                      {% for api in apiGateway.apis %}
-                        <li>
-                          {{ appApiGatewayUrl(api) }}
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </dd>
-                {% endfor %}
-              </dl>
-            </section>
-          {% endif %}
-
+        {% if vanityUrls | length %}
+          {% set urlText = "URL" | pluralise(vanityUrls | length) %}
           <section class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+              {% if service.isBackend %}
+                API Gateway {{ urlText }}
+              {% else %}
+                Service {{ urlText }}
+              {% endif %}
+            </h2>
+
             <p>
-              Internal access URLs for use between CDP services
+              {% if service.isBackend %}
+                Publicly accessible URL for the service
+              {% else %}
+                User-friendly custom {{ urlText }}
+              {% endif %}
             </p>
 
-            <dl class="app-description-list">
-              {% for serviceUrl in serviceUrls %}
-                <dt class="app-description-list__term"> {{ serviceUrl.environment | title }}</dt>
-                <dd class="app-description-list__details">
-                  <span>https://{{ serviceUrl.url }}</span>
-                </dd>
-              {% else %}
-                <dd class="app-description-list__details">
-                  No internal URLs available
-                </dd>
-              {% endfor %}
-            </dl>
-          </section>
-        {% else %}
+            {% if vanityUrls | length == 1 %}
+              {% set firstDetail = vanityUrls | first %}
 
-          {# Frontends and Prototypes #}
-          {% if shutteringDetails | length %}
-            {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
-            <section class="govuk-!-margin-bottom-6">
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Service {{ urlText }}</h2>
-              <p>
-                User-friendly custom {{ urlText }}
-              </p>
+              <ul class="govuk-list govuk-!-margin-0">
+                <li>
+                  {{ appVanityUrl(firstDetail) }}
+                </li>
+              </ul>
+            {% elseif vanityUrls | length %}
+              <dl class="app-description-list">
 
-              {% if shutteringDetails | length == 1 %}
-                {% set firstDetail = shutteringDetails | first %}
+                {% for environment, items in vanityUrls | groupby('environment') %}
+                  <dt class="app-description-list__term">{{ environment | title }}</dt>
 
-                <ul class="govuk-list govuk-!-margin-0">
-                  <li>
-                    {{ appShutterUrl(firstDetail) }}
-                  </li>
-                </ul>
-              {% elseif shutteringDetails | length %}
-                <dl class="app-description-list">
-                  {% for detail in shutteringDetails %}
-                    <dt class="app-description-list__term">{{ detail.environment | title }}</dt>
+                  {% for vanityUrl in items %}
                     <dd class="app-description-list__details">
                       <ul class="govuk-list govuk-!-margin-0">
                         <li>
-                          {{ appShutterUrl(detail) }}
+                          {{ appVanityUrl(vanityUrl) }}
                         </li>
                       </ul>
                     </dd>
                   {% endfor %}
-                </dl>
-              {% endif %}
-            </section>
-          {% endif %}
+                {% endfor %}
 
-          <section class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
-            <p>
-              Internal access URLs for service
-            </p>
-
-            <dl class="app-description-list">
-              {% for serviceUrl in serviceUrls %}
-                <dt class="app-description-list__term">{{ serviceUrl.environment | title }}</dt>
-                <dd class="app-description-list__details">
-                  <a class="app-link" href="https://{{ serviceUrl.url }}" target="_blank" rel="noopener noreferrer">
-                    https://{{ serviceUrl.url }}
-                  </a>
-                </dd>
-              {% else %}
-                <dd class="app-description-list__details">
-                  No internal URLs available
-                </dd>
-              {% endfor %}
-            </dl>
+              </dl>
+            {% endif %}
           </section>
         {% endif %}
+
+        <section class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
+          <p>
+            {% if service.isBackend %}
+              Internal access URLs for use between CDP services
+            {% else %}
+              Internal access URLs for service
+            {% endif %}
+          </p>
+
+          <dl class="app-description-list">
+            {% for serviceUrl in serviceUrls %}
+              <dt class="app-description-list__term">{{ serviceUrl.environment | title }}</dt>
+              <dd class="app-description-list__details">
+                <a class="app-link" href="https://{{ serviceUrl.url }}" target="_blank" rel="noopener noreferrer">
+                  https://{{ serviceUrl.url }}
+                </a>
+              </dd>
+            {% else %}
+              <dd class="app-description-list__details">
+                No internal URLs available
+              </dd>
+            {% endfor %}
+          </dl>
+        </section>
+
 
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>

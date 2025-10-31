@@ -1,7 +1,6 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockFetchShutteringUrlsCall,
   mockServiceEntityCall
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '../../helpers/fetch/fetch-all-secrets.js'
@@ -36,7 +35,6 @@ describe('Service Secrets page', () => {
       lastChangedDate: '2024-11-15T16:03:38.3139986Z',
       createdDate: null
     })
-    mockFetchShutteringUrlsCall()
     mockServiceEntityCall('mock-service-with-secrets', 'backend')
     server = await initialiseServer()
   })

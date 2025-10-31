@@ -1,7 +1,6 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockFetchShutteringUrlsCall,
   mockServiceEntityCall,
   mockTeam
 } from '../../../../../test-helpers/common-page-rendering.js'
@@ -26,7 +25,6 @@ describe('Service Automations page', () => {
     beforeAll(async () => {
       mockServiceEntityCall(serviceName, entitySubTypes.frontend)
       server = await initialiseServer()
-      mockFetchShutteringUrlsCall()
     })
 
     afterAll(async () => {
@@ -192,7 +190,6 @@ describe('Service Automations page', () => {
     beforeAll(async () => {
       mockServiceEntityCall(serviceName, entitySubTypes.prototype)
       server = await initialiseServer()
-      mockFetchShutteringUrlsCall()
     })
 
     afterAll(async () => {

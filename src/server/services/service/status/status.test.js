@@ -1,7 +1,6 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockFetchShutteringUrlsCall,
   mockRepositoryCall,
   mockServiceEntityCall,
   mockServiceEntityStatusCall
@@ -27,7 +26,6 @@ describe('Service Status page', () => {
       mockServiceEntityCall(repositoryName, 'frontend', status, 'Microservice')
       mockServiceEntityStatusCall(repositoryName, 'frontend', status)
       mockRepositoryCall(repositoryName, ['frontend'])
-      mockFetchShutteringUrlsCall()
       server = await initialiseServer()
     })
 

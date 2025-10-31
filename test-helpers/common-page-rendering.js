@@ -22,11 +22,9 @@ import { fetchApiGateways } from '../src/server/services/helpers/fetch/fetch-api
 import { fetchRunningServices } from '../src/server/common/helpers/fetch/fetch-running-services.js'
 import { fetchAvailableMigrations } from '../src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { fetchLatestMigrations } from '../src/server/common/helpers/fetch/fetch-latest-migrations.js'
-import { fetchShutteringUrls } from '../src/server/services/helpers/fetch/fetch-shuttering-urls.js'
 import { availableMigrationsFixture } from '../src/__fixtures__/migrations/available-migrations.js'
 import { latestMigrationsFixture } from '../src/__fixtures__/migrations/latest-migrations.js'
 import { apiGatewaysFixture } from '../src/__fixtures__/api-gateways.js'
-import { shutteringUrlsFixture } from '../src/__fixtures__/shuttering/shuttering-urls.js'
 import { tenantServicesFixture } from '../src/__fixtures__/tenant-services.js'
 import {
   fetchTenantDatabase,
@@ -49,6 +47,8 @@ import { cdpUserFixture } from '../src/__fixtures__/admin/cdp-user.js'
 import { fetchCdpTeam } from '../src/server/admin/teams/helpers/fetch/fetchers.js'
 import { fetchMarkdown } from '../src/server/documentation/helpers/s3-file-handler.js'
 import { entitiesResourcesFixture } from '../src/__fixtures__/entities/entity.js'
+import { fetchShutteringUrls } from '../src/server/services/helpers/fetch/fetch-shuttering-urls.js'
+import { shutteringUrlsFixture } from '../src/__fixtures__/shuttering/shuttering-urls.js'
 
 const dirname = import.meta.dirname
 
