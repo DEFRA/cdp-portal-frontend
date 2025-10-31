@@ -162,7 +162,7 @@ class Autocomplete {
     return window.cdp.suggestions?.[this.name].find(
       (suggestion) =>
         suggestion.disabled !== true &&
-        suggestion.value?.toLowerCase() === value?.toLowerCase()
+        suggestion.value?.toLowerCase() === value?.trim()?.toLowerCase()
     )
   }
 
@@ -175,7 +175,7 @@ class Autocomplete {
     return window.cdp.suggestions?.[this.name].find(
       (suggestion) =>
         suggestion.disabled !== true &&
-        suggestion.text?.toLowerCase() === textValue?.toLowerCase()
+        suggestion.text?.toLowerCase() === textValue?.trim()?.toLowerCase()
     )
   }
 
@@ -184,10 +184,12 @@ class Autocomplete {
    * @returns {HTMLLIElement}
    */
   getSuggestionMarkup(textValue) {
-    return this.getSuggestionsMarkup().find(
-      (suggestion) =>
-        suggestion.dataset.text?.toLowerCase() === textValue?.toLowerCase()
-    )
+    return this.getSuggestionsMarkup().find((suggestion) => {
+      return (
+        suggestion.dataset.text?.toLowerCase() ===
+        textValue?.trim()?.toLowerCase()
+      )
+    })
   }
 
   /**
@@ -197,7 +199,8 @@ class Autocomplete {
   getSuggestionIndex(textValue) {
     return this.getSuggestionsMarkup().findIndex(
       (suggestion) =>
-        suggestion.dataset.text?.toLowerCase() === textValue?.toLowerCase()
+        suggestion.dataset.text?.toLowerCase() ===
+        textValue?.trim()?.toLowerCase()
     )
   }
 
@@ -378,27 +381,32 @@ class Autocomplete {
   }
 
   provideSuggestions({ textValue, suggestionIndex } = {}) {
-    const match = this.getSuggestionMarkup(textValue)
+    const textValueTrimmed = textValue?.trim()
+    const match = this.getSuggestionMarkup(textValueTrimmed)
 
     if (match?.value) {
       // Autocomplete input value exact matches a suggestion
 
-      const filterExactMatch = this.filterExactMatch(textValue)
+      const filterExactMatch = this.filterExactMatch(textValueTrimmed)
       return this.getSuggestionsMarkup()
         .filter(filterExactMatch)
-        .map(this.dressSuggestion({ textValue, suggestionIndex }))
-    } else if (textValue) {
+        .map(
+          this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
+        )
+    } else if (textValueTrimmed) {
       // Partial match
 
-      const filterPartialMatch = this.filterPartialMatch(textValue)
+      const filterPartialMatch = this.filterPartialMatch(textValueTrimmed)
       return this.getSuggestionsMarkup()
         .filter(filterPartialMatch)
-        .map(this.dressSuggestion({ textValue, suggestionIndex }))
+        .map(
+          this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
+        )
     } else {
       // Reset suggestions
 
       return this.getSuggestionsMarkup().map(
-        this.dressSuggestion({ textValue, suggestionIndex })
+        this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
       )
     }
   }

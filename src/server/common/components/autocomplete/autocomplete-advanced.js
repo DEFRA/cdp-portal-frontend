@@ -44,14 +44,18 @@ class AutocompleteAdvanced extends Autocomplete {
     return ($suggestion) =>
       $suggestion?.dataset?.text
         .toLowerCase()
-        .includes(textValue.toLowerCase()) ||
-      $suggestion?.dataset?.hint.toLowerCase().includes(textValue.toLowerCase())
+        .includes(textValue.trim().toLowerCase()) ||
+      $suggestion?.dataset?.hint
+        .toLowerCase()
+        .includes(textValue.trim().toLowerCase())
   }
 
   filterExactMatch(textValue) {
     return ($suggestion) =>
-      $suggestion?.dataset?.text.toLowerCase() === textValue.toLowerCase() ||
-      $suggestion?.dataset?.hint.toLowerCase() === textValue.toLowerCase()
+      $suggestion?.dataset?.text.toLowerCase() ===
+        textValue.trim().toLowerCase() ||
+      $suggestion?.dataset?.hint.toLowerCase() ===
+        textValue.trim().toLowerCase()
   }
 
   /**

@@ -104,17 +104,21 @@ class AutocompleteSearch extends Autocomplete {
   }
 
   provideSuggestions({ textValue, suggestionIndex } = {}) {
-    if (textValue) {
+    const textValueTrimmed = textValue?.trim()
+
+    if (textValueTrimmed) {
       // Partial match
-      const filterPartialMatch = this.filterPartialMatch(textValue)
+      const filterPartialMatch = this.filterPartialMatch(textValueTrimmed)
 
       return this.getSuggestionsMarkup()
         .filter(filterPartialMatch)
-        .map(this.dressSuggestion({ textValue, suggestionIndex }))
+        .map(
+          this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
+        )
     } else {
       // Reset suggestions
       return this.getSuggestionsMarkup().map(
-        this.dressSuggestion({ textValue, suggestionIndex })
+        this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
       )
     }
   }
