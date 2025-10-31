@@ -1,35 +1,13 @@
 import { runnerConfigurations } from '../../constants/runner-configurations.js'
-import { findEnvironmentsForTestSuite } from '../find-environments-for-test-suite.js'
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
-import { environments } from '../../../../config/environments.js'
 import { sortByEnv } from '../../../common/helpers/sort/sort-by-env.js'
+import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
 
 const profileHtmlTemplate = ({
   cpu,
   memory
 }) => `<div><span>CPU:</span><span class="govuk-!-margin-left-1">${cpu.text}</span></div>
    <div><span>Memory:</span><span class="govuk-!-margin-left-1">${memory.text}</span></div>`
-
-// TODO potentially abstract?
-const buildEnvironmentOptions = (entity, isAdmin, userOwnsTestSuite) => {
-  const options = []
-  const runnableEnvironments = findEnvironmentsForTestSuite(entity)
-
-  if (isAdmin) {
-    options.push(
-      environments.infraDev.kebabName,
-      environments.management.kebabName
-    )
-  }
-
-  if (userOwnsTestSuite || isAdmin) {
-    options.push(...runnableEnvironments)
-  }
-
-  return options.length > 0
-    ? buildOptions(options.toSorted(sortByEnv))
-    : options
-}
 
 const provideFormValues = {
   method: async (request) => {
@@ -42,14 +20,16 @@ const provideFormValues = {
       const entity = request.app.entity
       const userOwnsTestSuite = await request.userIsOwner(entity)
 
-      const options = buildEnvironmentOptions(
-        entity,
-        isAdmin,
-        userOwnsTestSuite
-      )
-      environmentOptions.push(...options)
+      const environments = getEnvironments(
+        userSession.scope,
+        entity.subType
+      ).toSorted(sortByEnv)
 
       if (isAdmin || userOwnsTestSuite) {
+        const options =
+          environments.length > 0 ? buildOptions(environments) : []
+        environmentOptions.push(...options)
+
         runnerConfigOptions.push(
           {
             value: 'regular',

@@ -1,4 +1,4 @@
-import { scopes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, scopes } from '@defra/cdp-validation-kit'
 
 import { getEnvironments, getEnvironmentsThatNeed } from './get-environments.js'
 
@@ -64,6 +64,35 @@ describe('#getEnvironments', () => {
         'dev',
         'ext-test'
       ])
+    })
+  })
+
+  describe('With PerformanceTest', () => {
+    test('Should provide expected environments for admin', () => {
+      expect(
+        getEnvironments([scopes.admin], entitySubTypes.performance)
+      ).toEqual(['infra-dev', 'management', 'perf-test'])
+    })
+
+    test('Should provide expected envs for admin with ext-test scope', () => {
+      expect(
+        getEnvironments(
+          [scopes.admin, scopes.externalTest],
+          entitySubTypes.performance
+        )
+      ).toEqual(['infra-dev', 'management', 'perf-test'])
+    })
+
+    test('Should provide expected environments for non-admin', () => {
+      expect(getEnvironments([], entitySubTypes.performance)).toEqual([
+        'perf-test'
+      ])
+    })
+
+    test('Should provide expected envs for non-admin with ext-test scope', () => {
+      expect(
+        getEnvironments([scopes.externalTest], entitySubTypes.performance)
+      ).toEqual(['perf-test'])
     })
   })
 })
