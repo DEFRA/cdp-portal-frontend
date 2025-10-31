@@ -7,7 +7,7 @@
 {% from "icons/internal-icon/macro.njk" import appInternalIcon %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 
-{% from "services/common/components/shutter-url/macro.njk" import appShutterUrl %}
+{% from "services/common/components/vanity-url/macro.njk" import appVanityUrl %}
 
 {% set infoHtml %}
   <p class="govuk-!-margin-bottom-1">
@@ -60,7 +60,7 @@
   {% endset %}
 
   {{ shutteredUrlsTableRows.push([
-    { html: appShutterUrl(detail) },
+    { html: appVanityUrl(detail) },
     { html: detail.environment | formatText },
     { html: status },
     { html: shutterLinkHtml, classes: "app-!-text-align-right" }

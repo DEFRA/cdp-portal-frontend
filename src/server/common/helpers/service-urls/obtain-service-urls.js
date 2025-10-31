@@ -1,4 +1,4 @@
-import { sortKeyByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
+import { sortKeyByEnv } from '../sort/sort-by-env.js'
 
 function obtainServiceUrls(environmentDetails) {
   const urls = Object.entries(environmentDetails).flatMap(
@@ -15,11 +15,11 @@ function obtainServiceUrls(environmentDetails) {
     .sort(sortKeyByEnv('environment'))
 
   const serviceUrls = urls
-    .filter(({ type, shuttered }) => type === 'internal' && shuttered === false)
+    .filter(({ type }) => type === 'internal')
     .sort(sortKeyByEnv('environment'))
 
   const vanityUrls = urls
-    .filter(({ type, shuttered }) => type === 'vanity' && shuttered === false)
+    .filter(({ type }) => type === 'vanity')
     .sort(sortKeyByEnv('environment'))
 
   return {

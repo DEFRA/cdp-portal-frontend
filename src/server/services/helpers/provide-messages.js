@@ -1,18 +1,7 @@
-import { fetchShutteringUrls } from './fetch/fetch-shuttering-urls.js'
-import { sortKeyByEnv } from '../../common/helpers/sort/sort-by-env.js'
-import { shutteringStatus } from '../../common/constants/shuttering.js'
+import { obtainServiceUrls } from '../../common/helpers/service-urls/obtain-service-urls.js'
 
 async function provideMessages(request, h) {
-  const shutteringDetailsResponse = await fetchShutteringUrls(
-    request.params.serviceId
-  )
-  const shutteringDetails = shutteringDetailsResponse.toSorted(
-    sortKeyByEnv('environment')
-  )
-  const shutteredUrls = shutteringDetails.filter(
-    (detail) => detail.status === shutteringStatus.shuttered
-  )
-
+  const { shutteredUrls } = obtainServiceUrls(request.app.entity.environments)
   const response = request.response
 
   if (response.variety === 'view') {
@@ -20,7 +9,6 @@ async function provideMessages(request, h) {
       response.source.context = {}
     }
 
-    response.source.context.shutteringDetails = shutteringDetails
     response.source.context.shutteredUrls = shutteredUrls
     response.source.context.entity = request.app.entity
   }

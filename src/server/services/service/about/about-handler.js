@@ -7,7 +7,7 @@ import { availableEnvironments } from './helpers/available-environments.js'
 import { transformRunningServices } from './transformers/running-services.js'
 import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
 import { transformServiceToSummary } from './transformers/service-to-summary.js'
-import { obtainServiceUrls } from './helpers/obtain-service-urls.js'
+import { obtainServiceUrls } from '../../../common/helpers/service-urls/obtain-service-urls.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
@@ -35,7 +35,7 @@ async function aboutHandler(request, h) {
 
   const {
     availableVersions,
-    apiGateways,
+    // apiGateways,
     repository,
     availableMigrations: migrations,
     latestMigrations
@@ -76,7 +76,7 @@ async function aboutHandler(request, h) {
   return h.view('services/service/about/views/about', {
     pageTitle: `${serviceName} microservice`,
     summaryList: transformServiceToSummary(repository, entity),
-    apiGateways,
+    // apiGateways,
     service,
     isServiceOwner,
     hasPostgresPermission,

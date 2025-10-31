@@ -1,16 +1,11 @@
 {% from "tool-tip/macro.njk" import appToolTip %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
-{% from "icons/internal-icon/macro.njk" import appInternalIcon %}
 
 <div class="app-!-layout-flex-start">
 
-  {% if params.status == "Shuttered" %}
+  {% if params.shuttered %}
     {% call appToolTip({ text: "Shuttered URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
       {{ appWarningIcon({ classes: "app-icon--tiny", description: "Shuttered URL" }) }}
-    {% endcall %}
-    {% elif not params.internal %}
-    {% call appToolTip({ text: "Internal URL", classes: "app-tool-tip--small govuk-!-margin-right-1" }) %}
-      {{ appInternalIcon({ classes: "app-icon--tiny", description: "Internal URL" }) }}
     {% endcall %}
   {% endif %}
 
