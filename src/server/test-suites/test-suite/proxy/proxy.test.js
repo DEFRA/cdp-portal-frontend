@@ -1,4 +1,3 @@
-import { fetchProxyRules } from '../../../services/helpers/fetch/fetch-proxy-rules.js'
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
@@ -12,23 +11,15 @@ vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/fetch/fetch-repository.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
 vi.mock('../../../services/helpers/fetch/fetch-proxy-rules.js')
+vi.mock('../../../../config/default-squid-domains.js', () => ({
+  defaultSquidDomains: ['https://google.com']
+}))
 
 describe('Proxy Test Suite page', () => {
   /** @type {import('@hapi/hapi').Server} */
   let server
 
   beforeAll(async () => {
-    vi.mocked(fetchProxyRules).mockImplementation(
-      (serviceName, environment) => {
-        return {
-          environment,
-          serviceName,
-          defaultDomains: environment !== 'prod' ? ['https://google.com'] : [],
-          allowedDomains: environment !== 'prod' ? ['https://abc.com'] : []
-        }
-      }
-    )
-
     mockCommonTestSuiteCalls('mock-test-suite')
     server = await initialiseServer()
   })
