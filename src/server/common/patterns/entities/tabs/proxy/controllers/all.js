@@ -2,9 +2,9 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
-import { findAllProxyRules } from '../helpers/find-proxy-rules.js'
-import { pluralise } from '../../../../../../../config/nunjucks/filters/filters.js'
+import { pluralise } from '../../../../../helpers/pluralise.js'
 import startCase from 'lodash/startCase.js'
+import { transformProxyRules } from '../transformers/transform-proxy-rules.js'
 
 export function allProxyController(entityKind) {
   return {
@@ -24,12 +24,13 @@ export function allProxyController(entityKind) {
         request.auth.credentials?.scope,
         entity?.subType
       )
-      const proxyRulesByEnvironment = await findAllProxyRules(
-        entityName,
-        environments
+
+      const hasServiceProxyRules = Object.values(entity.environments).some(
+        (env) => env.squid
       )
-      const hasServiceProxyRules = proxyRulesByEnvironment.some(
-        (proxyRules) => proxyRules.rules.isProxySetup
+
+      const proxyRulesByEnvironment = environments.map((env) =>
+        transformProxyRules(env, entity.environments[env]?.squid)
       )
 
       return h.view('common/patterns/entities/tabs/proxy/views/all', {

@@ -95,7 +95,9 @@ const entitiesResourcesFixture = {
       nginx: {
         servers: {}
       },
-      squid: {}
+      squid: {
+        domains: ['https://abc.com']
+      }
     },
     management: {
       urls: {
@@ -136,7 +138,10 @@ const entitiesResourcesFixture = {
       nginx: {
         servers: {}
       },
-      squid: {}
+      squid: {
+        ports: [80, 443],
+        domains: ['https://abc.com']
+      }
     },
     dev: {
       urls: {
@@ -173,7 +178,10 @@ const entitiesResourcesFixture = {
       nginx: {
         servers: {}
       },
-      squid: {}
+      squid: {
+        ports: [80, 443],
+        domains: ['https://abc.com']
+      }
     },
     'ext-test': {
       urls: {
@@ -253,7 +261,10 @@ const entitiesResourcesFixture = {
         nginx: {
           servers: {}
         },
-        squid: {}
+        squid: {
+          ports: [80, 443],
+          domains: ['https://abc.com']
+        }
       },
       test: {
         urls: {
@@ -290,7 +301,10 @@ const entitiesResourcesFixture = {
         nginx: {
           servers: {}
         },
-        squid: {}
+        squid: {
+          ports: [80, 443],
+          domains: ['https://abc.com']
+        }
       },
       'perf-test': {
         urls: {
@@ -330,15 +344,7 @@ const entitiesResourcesFixture = {
       },
       squid: {
         ports: [80, 443],
-        domains: [
-          '.example.mock.clouds.net',
-          '.armazonsaws.com',
-          'login.microsoftonline.com',
-          'www.gov.uk',
-          '.auth.eu-west-2.amazoncognito.com',
-          '.browserstack.com',
-          'api.notifications.service.gov.uk'
-        ]
+        domains: ['https://abc.com']
       }
     }
   },
