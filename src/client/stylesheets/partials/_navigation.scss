@@ -1,6 +1,7 @@
 @use "govuk-frontend" as *;
 @use "variables/colours" as *;
 
+// stylelint-disable max-nesting-depth
 .govuk-template--rebranded {
   .govuk-service-navigation {
     .govuk-width-container {
@@ -11,9 +12,22 @@
       border-width: 1px 0;
       border-color: $app-brand-border-colour;
       border-style: solid;
+
+      .app-navigation__admin {
+        &::before {
+          border-color: govuk-colour("white");
+        }
+      }
+    }
+
+    .app-navigation__admin {
+      &::before {
+        border-color: $app-brand-border-colour;
+      }
     }
   }
 }
+// stylelint-enable max-nesting-depth
 
 .app-navigation {
   border: none;
