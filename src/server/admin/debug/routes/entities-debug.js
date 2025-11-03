@@ -21,7 +21,7 @@ export const entitiesDebugRoute = {
             entityStatusValidation
           )
           .optional(),
-        teamId: Joi.alternatives()
+        teamIds: Joi.alternatives()
           .try(Joi.array().items(teamIdValidation), teamIdValidation)
           .optional(),
         summary: Joi.bool().optional()
