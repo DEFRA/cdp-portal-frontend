@@ -24,7 +24,7 @@ const confirmShutterController = {
     const url = request.query.url
     const entity = request.app.entity
 
-    const shutteringDetail = await fetchShutteringUrl(url)
+    const shutteringDetail = await fetchShutteringUrl(serviceId, url)
 
     if (entity === null || !shutteringDetail) {
       return Boom.notFound()
