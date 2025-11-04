@@ -4,6 +4,8 @@ import { Engine as CatboxMemory } from '@hapi/catbox-memory'
 import { config } from '../../../../config/config.js'
 import { createLogger } from '../logging/logger.js'
 import { CatboxDynamoDB } from '@defra/catbox-dynamodb'
+import { NodeHttpHandler } from '@smithy/node-http-handler'
+import { Agent } from 'https'
 
 /**
  * @typedef {'redis' | 'dynamodb' | 'memory'} Engine
@@ -29,7 +31,10 @@ export function getCacheEngine(engine) {
       ttl: config.get('session.cache.ttl'),
       clientOptions: {
         endpoint: config.get('aws.dynamoDb.endpoint'),
-        region: config.get('aws.region')
+        region: config.get('aws.region'),
+        requestHandler: new NodeHttpHandler({
+          httpsAgent: new Agent({ keepAlive: false })
+        })
       },
       logger
     })

@@ -6,6 +6,8 @@ import { CatboxDynamoDB } from '@defra/catbox-dynamodb'
 import { getCacheEngine } from './cache-engine.js'
 import { config } from '../../../../config/config.js'
 import * as loggerModule from '../logging/logger.js'
+import { NodeHttpHandler } from '@smithy/node-http-handler'
+import { Agent } from 'https'
 
 let mockLoggerInfo
 let mockLoggerError
@@ -67,7 +69,10 @@ describe('#getCacheEngine', () => {
         ttl: 1234,
         clientOptions: {
           endpoint: 'endpoint',
-          region: 'region'
+          region: 'region',
+          requestHandler: new NodeHttpHandler({
+            httpsAgent: new Agent({ keepAlive: false })
+          })
         },
         logger: expect.any(Object)
       })
