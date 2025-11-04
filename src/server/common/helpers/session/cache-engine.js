@@ -33,7 +33,11 @@ export function getCacheEngine(engine) {
         endpoint: config.get('aws.dynamoDb.endpoint'),
         region: config.get('aws.region'),
         requestHandler: new NodeHttpHandler({
-          httpsAgent: new Agent({ keepAlive: false })
+          httpsAgent: new Agent({
+            keepAlive: true,
+            maxSockets: 10,
+            keepAliveMsecs: 60000
+          })
         })
       },
       logger
