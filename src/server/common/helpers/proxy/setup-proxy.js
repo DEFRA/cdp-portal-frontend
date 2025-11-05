@@ -13,6 +13,7 @@ const logger = createLogger()
  */
 export function setupProxy() {
   const proxyUrl = config.get('httpProxy')
+  const noProxy = config.get('noProxy')
 
   if (proxyUrl) {
     logger.info('setting up global proxies')
@@ -23,5 +24,6 @@ export function setupProxy() {
     // global-agent (axios/request/and others)
     bootstrap()
     global.GLOBAL_AGENT.HTTP_PROXY = proxyUrl
+    global.GLOBAL_AGENT.NO_PROXY = noProxy
   }
 }
