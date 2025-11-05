@@ -1,17 +1,15 @@
 import { nullify404 } from '../../../../common/helpers/nullify-404.js'
 import { fetchRepository } from '../../../../common/helpers/fetch/fetch-repository.js'
 import { fetchLatestMigrations } from '../../../../common/helpers/fetch/fetch-latest-migrations.js'
-import { provideApiGateways } from '../transformers/api-gateways.js'
 import { fetchAvailableMigrations } from '../../../helpers/fetch/fetch-available-migrations.js'
 import { fetchAvailableVersions } from '../../../../deploy-service/helpers/fetch/fetch-available-versions.js'
 import { provideDatabaseStatusClassname } from '../../../../common/components/database-detail/provide-database-status-classname.js'
 
-async function fetchAboutServiceData({ request, serviceName, isPostgres }) {
+async function fetchAboutServiceData({ serviceName, isPostgres }) {
   const promises = []
 
   promises.push(
     fetchAvailableVersions(serviceName),
-    provideApiGateways(request),
     fetchRepository(serviceName).catch(nullify404)
   )
 
@@ -24,7 +22,6 @@ async function fetchAboutServiceData({ request, serviceName, isPostgres }) {
 
   const [
     availableVersions,
-    apiGateways,
     repository,
     availableMigrations = [],
     latestMigrationsResponse = []
@@ -32,7 +29,6 @@ async function fetchAboutServiceData({ request, serviceName, isPostgres }) {
 
   return {
     availableVersions,
-    apiGateways,
     repository,
     availableMigrations,
     latestMigrations: latestMigrationsResponse.map((migration) => ({

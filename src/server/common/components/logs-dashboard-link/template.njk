@@ -1,8 +1,0 @@
-{% set linkText = params.text if params.text else "https://logs." + params.environment | urlencode + ".cdp-int.defra.cloud" %}
-
-<a class="app-link{% if params.classes %} {{ params.classes }}{% endif %}"
-   href="https://logs.{{ params.environment | urlencode }}.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/{{ params.serviceName }}"
-   target="_blank" rel="noopener noreferrer"
-   data-testid="app-logs-dashboard-link">
-  {{- linkText -}}
-</a>
