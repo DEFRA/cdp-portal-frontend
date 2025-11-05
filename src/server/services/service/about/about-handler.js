@@ -8,6 +8,7 @@ import { transformRunningServices } from './transformers/running-services.js'
 import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
 import { transformServiceToSummary } from './transformers/service-to-summary.js'
 import { obtainServiceUrls } from '../../../common/helpers/service-urls/obtain-service-urls.js'
+import { obtainLogsAndMetricsUrls } from '../../../common/helpers/obtain-logs-and-metrics-urls.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
@@ -35,12 +36,10 @@ async function aboutHandler(request, h) {
 
   const {
     availableVersions,
-    // apiGateways,
     repository,
     availableMigrations: migrations,
     latestMigrations
   } = await fetchAboutServiceData({
-    request,
     serviceName,
     isPostgres
   })
@@ -61,6 +60,10 @@ async function aboutHandler(request, h) {
     request.app.entity.environments
   )
 
+  const { logsDetails, metricsDetails } = obtainLogsAndMetricsUrls(
+    request.app.entity.environments
+  )
+
   const isFrontend = entity.subType === 'Frontend'
   const isBackend = entity.subType === 'Backend'
   const description = repository?.description
@@ -76,7 +79,6 @@ async function aboutHandler(request, h) {
   return h.view('services/service/about/views/about', {
     pageTitle: `${serviceName} microservice`,
     summaryList: transformServiceToSummary(repository, entity),
-    // apiGateways,
     service,
     isServiceOwner,
     hasPostgresPermission,
@@ -88,6 +90,8 @@ async function aboutHandler(request, h) {
     shutteredUrls,
     serviceUrls,
     vanityUrls,
+    logsDetails,
+    metricsDetails,
     breadcrumbs: [
       {
         text: 'Services',

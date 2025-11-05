@@ -293,12 +293,8 @@
                   <dt class="app-description-list__term">{{ environment | title }}</dt>
 
                   {% for vanityUrl in items %}
-                    <dd class="app-description-list__details">
-                      <ul class="govuk-list govuk-!-margin-0">
-                        <li>
-                          {{ appVanityUrl(vanityUrl) }}
-                        </li>
-                      </ul>
+                    <dd class="app-description-list__details app-description-list__details--slim">
+                      {{ appVanityUrl(vanityUrl) }}
                     </dd>
                   {% endfor %}
                 {% endfor %}
@@ -321,7 +317,7 @@
           <dl class="app-description-list">
             {% for serviceUrl in serviceUrls %}
               <dt class="app-description-list__term">{{ serviceUrl.environment | title }}</dt>
-              <dd class="app-description-list__details">
+              <dd class="app-description-list__details app-description-list__details--slim">
                 <a class="app-link" href="https://{{ serviceUrl.url }}" target="_blank" rel="noopener noreferrer">
                   https://{{ serviceUrl.url }}
                 </a>
@@ -338,21 +334,26 @@
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>
           <p>
-            OpenSearch logs for monitoring and troubleshooting your service
+            OpenSearch logs dashboards for monitoring and troubleshooting your service
           </p>
           <dl class="app-description-list">
-            {% for environment in availableServiceEnvironments %}
+            {% for environment, logs in logsDetails | groupby('environment') %}
               <dt class="app-description-list__term">{{ environment | title }}</dt>
-              <dd class="app-description-list__details">
-                {{ appLogsDashboardLink({
-                  serviceName: service.serviceName,
-                  environment: environment
-                }) }}
-              </dd>
-            {% else %}
-              <dd class="app-description-list__details">
-                No log URLs available
-              </dd>
+
+              {% for logDetail in logs %}
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="{{ logDetail.url }}"
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.{{ environment }}.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              {% else %}
+                <dd class="app-description-list__details">
+                  No log URLs available
+                </dd>
+              {% endfor %}
             {% endfor %}
           </dl>
         </section>
@@ -360,22 +361,25 @@
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Metrics</h2>
           <p>
-            Grafana observability metrics data and graphs for your service
+            Grafana observability metrics dashboards, providing data and graphs for your service
           </p>
           <dl class="app-description-list">
-            {% for environment in availableServiceEnvironments %}
+            {% for environment, dashboards in metricsDetails %}
               <dt class="app-description-list__term">{{ environment | title }}</dt>
-              <dd class="app-description-list__details">
-                <a class="app-link"
-                   href="https://metrics.{{ environment }}.cdp-int.defra.cloud/dashboards/f/{{ service.serviceName }}"
-                   target="_blank" rel="noopener noreferrer">
-                  https://metrics.{{ environment }}.cdp-int.defra.cloud
-                </a>
-              </dd>
-            {% else %}
-              <dd class="app-description-list__details">
-                No metrics URLs available
-              </dd>
+
+              {% for dashboard in dashboards %}
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="{{ dashboard.url }}"
+                     target="_blank" rel="noopener noreferrer">
+                    https://metrics.{{ environment }}.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              {% else %}
+                <dd class="app-description-list__details">
+                  No metrics URLs available
+                </dd>
+              {% endfor %}
             {% endfor %}
           </dl>
         </section>

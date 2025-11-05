@@ -215,9 +215,9 @@ function transformDeploymentToStatusSummary(deployment, ecsDeployment) {
       {
         key: { text: 'Application logs' },
         value: {
-          html: renderComponent('logs-dashboard-link', {
-            serviceName: deployment.service,
-            environment: deployment.environment
+          html: buildLink({
+            href: `https://logs.${encodeURI(deployment.environment)}.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/${encodeURI(deployment.service)}`,
+            text: `https://logs.${encodeURI(deployment.environment)}.cdp-int.defra.cloud/`
           })
         }
       },

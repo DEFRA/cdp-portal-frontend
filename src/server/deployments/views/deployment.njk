@@ -26,11 +26,12 @@
 
               {% call appWarning({ isInverse: true }) %}
                 Your service is failing to start. Check
-                {{ appLogsDashboardLink({
-                  classes: "app-link app-link--underline app-link--text-colour",
-                  serviceName: deployment.service,
-                  environment: deployment.environment
-                }) }}
+                <a class="app-link app-link--underline app-link--text-colour"
+                   href="https://logs.{{ deployment.environment | urlencode }}.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/{{ deployment.service }}"
+                   target="_blank" rel="noopener noreferrer"
+                   data-testid="app-logs-dashboard-link">
+                  https://logs.{{ deployment.environment }}.cdp-int.defra.cloud
+                </a>
                 to diagnose why this is happening.
               {% endcall %}
 

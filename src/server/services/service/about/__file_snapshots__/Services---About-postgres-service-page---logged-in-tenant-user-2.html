@@ -1538,19 +1538,19 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
           <dl class="app-description-list">
               <dt class="app-description-list__term">Management</dt>
-              <dd class="app-description-list__details">
+              <dd class="app-description-list__details app-description-list__details--slim">
                 <a class="app-link" href="https://example-mock-service-frontend.management.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
                   https://example-mock-service-frontend.management.example.mock.clouds.net
                 </a>
               </dd>
               <dt class="app-description-list__term">Dev</dt>
-              <dd class="app-description-list__details">
+              <dd class="app-description-list__details app-description-list__details--slim">
                 <a class="app-link" href="https://example-mock-service-frontend.dev.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
                   https://example-mock-service-frontend.dev.example.mock.clouds.net
                 </a>
               </dd>
               <dt class="app-description-list__term">Ext-test</dt>
-              <dd class="app-description-list__details">
+              <dd class="app-description-list__details app-description-list__details--slim">
                 <a class="app-link" href="https://example-mock-service-frontend.ext-test.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
                   https://example-mock-service-frontend.ext-test.example.mock.clouds.net
                 </a>
@@ -1562,86 +1562,78 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>
           <p>
-            OpenSearch logs for monitoring and troubleshooting your service
+            OpenSearch logs dashboards for monitoring and troubleshooting your service
           </p>
           <dl class="app-description-list">
+              <dt class="app-description-list__term">Infra-dev</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://logs.infra-dev.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.infra-dev.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Management</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://logs.management.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.management.cdp-int.defra.cloud
+                  </a>
+                </dd>
               <dt class="app-description-list__term">Dev</dt>
-              <dd class="app-description-list__details">
-                
-<a class="app-link"
-   href="https://logs.dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-postgres-service"
-   target="_blank" rel="noopener noreferrer"
-   data-testid="app-logs-dashboard-link">https://logs.dev.cdp-int.defra.cloud</a>
 
-              </dd>
-              <dt class="app-description-list__term">Test</dt>
-              <dd class="app-description-list__details">
-                
-<a class="app-link"
-   href="https://logs.test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-postgres-service"
-   target="_blank" rel="noopener noreferrer"
-   data-testid="app-logs-dashboard-link">https://logs.test.cdp-int.defra.cloud</a>
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://logs.dev.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.dev.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Ext-test</dt>
 
-              </dd>
-              <dt class="app-description-list__term">Perf-test</dt>
-              <dd class="app-description-list__details">
-                
-<a class="app-link"
-   href="https://logs.perf-test.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-postgres-service"
-   target="_blank" rel="noopener noreferrer"
-   data-testid="app-logs-dashboard-link">https://logs.perf-test.cdp-int.defra.cloud</a>
-
-              </dd>
-              <dt class="app-description-list__term">Prod</dt>
-              <dd class="app-description-list__details">
-                
-<a class="app-link"
-   href="https://logs.prod.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-postgres-service"
-   target="_blank" rel="noopener noreferrer"
-   data-testid="app-logs-dashboard-link">https://logs.prod.cdp-int.defra.cloud</a>
-
-              </dd>
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href=""
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.ext-test.cdp-int.defra.cloud
+                  </a>
+                </dd>
           </dl>
         </section>
 
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Metrics</h2>
           <p>
-            Grafana observability metrics data and graphs for your service
+            Grafana observability metrics dashboards, providing data and graphs for your service
           </p>
           <dl class="app-description-list">
+              <dt class="app-description-list__term">Infra-dev</dt>
+
+                <dd class="app-description-list__details">
+                  No metrics URLs available
+                </dd>
+              <dt class="app-description-list__term">Management</dt>
+
+                <dd class="app-description-list__details">
+                  No metrics URLs available
+                </dd>
               <dt class="app-description-list__term">Dev</dt>
-              <dd class="app-description-list__details">
-                <a class="app-link"
-                   href="https://metrics.dev.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
-                   target="_blank" rel="noopener noreferrer">
-                  https://metrics.dev.cdp-int.defra.cloud
-                </a>
-              </dd>
-              <dt class="app-description-list__term">Test</dt>
-              <dd class="app-description-list__details">
-                <a class="app-link"
-                   href="https://metrics.test.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
-                   target="_blank" rel="noopener noreferrer">
-                  https://metrics.test.cdp-int.defra.cloud
-                </a>
-              </dd>
-              <dt class="app-description-list__term">Perf-test</dt>
-              <dd class="app-description-list__details">
-                <a class="app-link"
-                   href="https://metrics.perf-test.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
-                   target="_blank" rel="noopener noreferrer">
-                  https://metrics.perf-test.cdp-int.defra.cloud
-                </a>
-              </dd>
-              <dt class="app-description-list__term">Prod</dt>
-              <dd class="app-description-list__details">
-                <a class="app-link"
-                   href="https://metrics.prod.cdp-int.defra.cloud/dashboards/f/mock-postgres-service"
-                   target="_blank" rel="noopener noreferrer">
-                  https://metrics.prod.cdp-int.defra.cloud
-                </a>
-              </dd>
+
+                <dd class="app-description-list__details">
+                  No metrics URLs available
+                </dd>
+              <dt class="app-description-list__term">Ext-test</dt>
+
+                <dd class="app-description-list__details">
+                  No metrics URLs available
+                </dd>
           </dl>
         </section>
       </section>
