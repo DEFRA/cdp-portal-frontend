@@ -1,4 +1,4 @@
-import { describe, test, beforeEach, vi, expect } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 import { Engine as CatboxMemory } from '@hapi/catbox-memory'
 import { CatboxDynamoDB } from '@defra/catbox-dynamodb'
@@ -6,8 +6,6 @@ import { CatboxDynamoDB } from '@defra/catbox-dynamodb'
 import { getCacheEngine } from './cache-engine.js'
 import { config } from '../../../../config/config.js'
 import * as loggerModule from '../logging/logger.js'
-import { NodeHttpHandler } from '@smithy/node-http-handler'
-import { Agent } from 'https'
 
 let mockLoggerInfo
 let mockLoggerError
@@ -70,10 +68,10 @@ describe('#getCacheEngine', () => {
         consistentReads: false,
         clientOptions: {
           endpoint: 'endpoint',
-          region: 'region',
-          requestHandler: new NodeHttpHandler({
-            httpsAgent: new Agent({ keepAlive: false })
-          })
+          region: 'region'
+          // requestHandler: new NodeHttpHandler({
+          //   httpsAgent: new Agent({ keepAlive: false })
+          // })
         },
         logger: expect.any(Object)
       })
