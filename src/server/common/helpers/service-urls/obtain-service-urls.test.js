@@ -3,7 +3,12 @@ import { entitiesResourcesFixture } from '../../../../__fixtures__/entities/enti
 
 describe('#obtainServiceUrls', () => {
   test('returns empty arrays when environmentDetails is empty', () => {
-    const result = obtainServiceUrls(entitiesResourcesFixture.environments)
+    const result = obtainServiceUrls(entitiesResourcesFixture.environments, [
+      'management',
+      'dev',
+      'ext-test',
+      'infra-dev'
+    ])
 
     expect(result.shutteredUrls).toEqual([
       {

@@ -1,6 +1,9 @@
 import { sortKeyByEnv } from '../sort/sort-by-env.js'
 
-function obtainServiceUrls(environmentDetails) {
+function obtainServiceUrls(
+  environmentDetails,
+  availableServiceEnvironments = []
+) {
   const urls = Object.entries(environmentDetails).flatMap(
     ([environmentName, details]) =>
       Object.entries(details.urls).map(([url, value]) => ({
@@ -15,6 +18,9 @@ function obtainServiceUrls(environmentDetails) {
     .sort(sortKeyByEnv('environment'))
 
   const serviceUrls = urls
+    .filter(({ environment }) =>
+      availableServiceEnvironments.includes(environment)
+    )
     .filter(({ type }) => type === 'internal')
     .sort(sortKeyByEnv('environment'))
 
