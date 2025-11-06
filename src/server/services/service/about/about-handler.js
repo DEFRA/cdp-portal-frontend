@@ -57,7 +57,8 @@ async function aboutHandler(request, h) {
   })
 
   const { shutteredUrls, serviceUrls, vanityUrls } = obtainServiceUrls(
-    request.app.entity.environments
+    request.app.entity.environments,
+    availableServiceEnvironments
   )
 
   const { logsDetails, metricsDetails } = obtainLogsAndMetricsUrls(
