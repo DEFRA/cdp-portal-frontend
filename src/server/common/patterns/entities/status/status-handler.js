@@ -5,10 +5,12 @@ import startCase from 'lodash/startCase.js'
 import { transformServiceToSummary } from '../../../../services/service/about/transformers/service-to-summary.js'
 import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../helpers/nullify-404.js'
-import { fetchEntityStatus } from '../../../helpers/fetch/fetch-entities.js'
 import { pluralise } from '../../../helpers/pluralise.js'
-import { REPOSITORY, SERVICE, TEST_SUITE } from '../tabs/constants.js'
+import { REPOSITORY } from '../tabs/constants.js'
 import { resourceDescriptions } from './helpers/resource-descriptions.js'
+import capitalize from 'lodash/capitalize.js'
+import { entityStatuses } from '@defra/cdp-validation-kit/src/constants/entities.js'
+import { statusTagClassMap } from '../../../helpers/status-tag-class-map.js'
 
 export async function entityStatusHandler(request, h, entityKind) {
   const entity = request.app.entity
@@ -17,19 +19,30 @@ export async function entityStatusHandler(request, h, entityKind) {
     return Boom.notFound()
   }
 
-  const entityStatus = await fetchEntityStatus(request.params.serviceId)
-
-  const serviceName = entityStatus.entity.name
+  const serviceName = entity.name
   const teamIds = entity.teams.map(({ teamId }) => teamId)
   const isServiceOwner = await request.userIsServiceOwner(teamIds)
 
   const repository = await fetchRepository(serviceName).catch(nullify404)
 
-  const resources = Object.entries(entityStatus.resources).map(
-    ([name, isReady]) => ({ name, isReady })
+  const resources = Object.entries(entity.overallProgress.steps).map(
+    ([name, isReady]) => ({ name: capitalize(name), isReady })
   )
 
-  const terminalStatuses = ['Created', 'Success']
+  const repositoryIsCreated = Boolean(repository && !repository?.isArchived)
+  resources.push({
+    name: 'Repository',
+    isReady: repositoryIsCreated
+  })
+
+  entity.status =
+    entity.status === entityStatuses.created && repositoryIsCreated
+      ? entityStatuses.created
+      : entityStatuses.creating
+
+  entity.statusClass = statusTagClassMap(entity.status)
+
+  const terminalStatuses = [entityStatuses.created, 'Success']
 
   const isTwoHoursOld = parseISO(entity.created) < subHours(Date.now(), 2)
   const takingTooLong =
@@ -40,7 +53,7 @@ export async function entityStatusHandler(request, h, entityKind) {
     !terminalStatuses.includes(entity.status) && poll.count === 0
 
   // Provide a final xhr fetch after the creation process has finished
-  if (entity.status === 'Created') {
+  if (entity.status === entityStatuses.created) {
     poll.count += 1
   }
 
@@ -48,27 +61,15 @@ export async function entityStatusHandler(request, h, entityKind) {
     ? 'pending'
     : 'success'
 
-  let entityTitle
-  switch (entityKind) {
-    case SERVICE:
-      entityTitle = 'microservice'
-      break
-    case TEST_SUITE:
-      entityTitle = 'test suite'
-      break
-    case REPOSITORY:
-      entityTitle = entityKind
-      break
-    default:
-      throw new Error('Unknown entity type: ' + entityKind)
-  }
+  const entityType = entity.type
 
   return h.view('common/patterns/entities/status/views/creating', {
     faviconState,
-    pageTitle: `${entity.status} ${serviceName} ${entityTitle}`,
+    pageTitle: `${entity.status} ${serviceName} ${entityType}`,
     summaryList: transformServiceToSummary(repository, entity),
-    resourceDescriptions: resourceDescriptions(entityKind),
+    resourceDescriptions: resourceDescriptions(entityType.toLowerCase()),
     entityKind,
+    entityType,
     entity,
     isServiceOwner,
     resources,
@@ -76,7 +77,7 @@ export async function entityStatusHandler(request, h, entityKind) {
     shouldPoll,
     breadcrumbs: [
       {
-        text: `${pluralise(startCase(entityKind))}`,
+        text: `${pluralise(startCase(entityType))}`,
         href: entityKind === REPOSITORY ? '' : `/${pluralise(entityKind)}`
       },
       {

@@ -4,7 +4,7 @@
 {% from "warning/macro.njk" import appWarning %}
 {% from "icons/pending-icon/macro.njk" import appPendingIcon %}
 
-{% set pluralEntityType = entityKind | pluralise %}
+{% set pluralEntityKind = entityKind | pluralise %}
 
 {% set warningHtml %}
   It looks like your {{ entityKind }}'s creation is taking a while, contact the Platform team via Slack
@@ -18,7 +18,7 @@
     Refresh the page to access your {{ entityKind }}'s portal page
     <a class="govuk-button app-button app-button--primary app-button--small"
        role="button"
-       href="{{ routeLookup(pluralEntityType + '/{serviceId}', { params: { serviceId : entity.name } }) }}">Refresh</a>
+       href="{{ routeLookup(pluralEntityKind + '/{serviceId}', { params: { serviceId : entity.name } }) }}">Refresh</a>
   {% endif %}
 {% endset %}
 
@@ -32,7 +32,7 @@
 
     {% if shouldPoll %}
       <div data-js="app-poll"
-      data-poll-url="/{{ pluralEntityType }}/{{ entity.name }}/status"
+      data-poll-url="/{{ pluralEntityKind }}/{{ entity.name }}/status"
       data-poll-interval="6000"
       data-poll-limit="200">
     {% endif %}

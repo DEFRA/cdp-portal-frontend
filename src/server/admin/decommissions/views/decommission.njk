@@ -6,7 +6,7 @@
 
 {% set warningHtml %}
   <p class="govuk-!-margin-bottom-0">
-    It looks like your {{ entityType }}'s decommission is taking a while. Check the decommission GitHub actions have
+    It looks like your {{ entityType | lower }}'s decommission is taking a while. Check the decommission GitHub actions have
     completed successfully
   </p>
 {% endset %}
@@ -86,7 +86,7 @@
             {% call appPanel({ isInverse: true }) %}
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Actions</h2>
               <p class="app-!-layout-centered govuk-!-margin-bottom-2">
-                The following actions are run during the decommission of a {{ entityType }}:
+                The following actions are run during the decommission of a {{ entityType | lower }}:
               </p>
 
               <ul class="govuk-list govuk-list--bullet">
@@ -109,9 +109,9 @@
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
               <p class="govuk-!-margin-bottom-4">
                 {% if entity.status == "Decommissioned" %}
-                  {{ entityType }} {{ entity.name }} and associated resources have been decommissioned
+                  {{ entityType }} {{ entity.name }} has been decommissioned
                 {% else %}
-                  {{ entityType }} {{ entity.name }} and associated resources are currently being decommissioned
+                  {{ entityType }} {{ entity.name }} remaining resources are currently being decommissioned
                 {% endif %}
               </p>
 

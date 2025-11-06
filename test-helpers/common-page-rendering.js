@@ -11,12 +11,11 @@ import {
   fetchTenantServiceByEnvironment
 } from '../src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { getUserSession } from '../src/server/common/helpers/auth/get-user-session.js'
-import { scopes } from '@defra/cdp-validation-kit'
+import { entityTypes, scopes } from '@defra/cdp-validation-kit'
 import { fetchAvailableVersions } from '../src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import {
   fetchEntities,
-  fetchEntity,
-  fetchEntityStatus
+  fetchEntity
 } from '../src/server/common/helpers/fetch/fetch-entities.js'
 import { fetchApiGateways } from '../src/server/services/helpers/fetch/fetch-api-gateways.js'
 import { fetchRunningServices } from '../src/server/common/helpers/fetch/fetch-running-services.js'
@@ -191,23 +190,22 @@ function mockTestSuiteEntityCall(repositoryName, status) {
   mockEntityCall(repositoryName, 'TestSuite', 'journey', status)
 }
 
-export function mockTestSuiteEntityStatusCall(
-  repositoryName,
-  frontendOrBackend,
-  status = 'Created'
-) {
-  fetchEntityStatus.mockResolvedValue?.({
-    entity: getEntity(repositoryName, 'TestSuite', frontendOrBackend, status),
-    resources: {
-      Repository: true,
-      SquidProxy: false,
-      AppConfig: true,
-      TenantServices: false
-    }
-  })
-}
-
 function getEntity(repositoryName, type, subType, status) {
+  function buildProgress(type, status) {
+    const steps = {}
+    if (type === entityTypes.microservice || type === entityTypes.testSuite) {
+      steps.logs = status === 'Created'
+      steps.nginx = status === 'Created'
+      steps.infra = status === 'Created'
+      steps.squid = status === 'Created'
+      steps.metrics = status === 'Created'
+    }
+    return {
+      complete: status === 'Created',
+      steps
+    }
+  }
+
   return {
     name: repositoryName,
     type,
@@ -219,7 +217,12 @@ function getEntity(repositoryName, type, subType, status) {
     status,
     decommissioned: null,
     tags: ['live'],
-    environments: entitiesResourcesFixture.environments
+    environments: entitiesResourcesFixture.environments,
+    progress: {
+      'infra-dev': buildProgress(status),
+      management: buildProgress(status)
+    },
+    overallProgress: buildProgress(status)
   }
 }
 
@@ -236,38 +239,6 @@ export function mockServiceEntityCall(
   type = 'Microservice'
 ) {
   mockEntityCall(repositoryName, type, subType, status)
-}
-
-export function mockServiceEntityStatusCall(
-  repositoryName,
-  frontendOrBackend,
-  status = 'Created'
-) {
-  fetchEntityStatus.mockResolvedValue?.({
-    entity: getEntity(
-      repositoryName,
-      'Microservice',
-      frontendOrBackend,
-      status
-    ),
-    resources: {
-      Repository: true,
-      NginxUpstreams: false,
-      SquidProxy: false,
-      AppConfig: true,
-      TenantServices: false,
-      GrafanaDashboards: false
-    }
-  })
-}
-
-export function mockRepositoryEntityStatusCall(repositoryName, status) {
-  fetchEntityStatus.mockResolvedValue?.({
-    entity: getEntity(repositoryName, 'Repository', null, status),
-    resources: {
-      Repository: true
-    }
-  })
 }
 
 export function mockTestRuns(repositoryName) {

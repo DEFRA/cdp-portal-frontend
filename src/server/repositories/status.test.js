@@ -2,11 +2,11 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockEntityCall,
-  mockRepositoryCall,
-  mockRepositoryEntityStatusCall
+  mockRepositoryCall
 } from '../../../test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { REPOSITORY } from '../common/patterns/entities/tabs/constants.js'
+import { fetchRepository } from '../common/helpers/fetch/fetch-repository.js'
 
 vi.mock('../common/helpers/fetch/fetch-repository.js')
 vi.mock('../common/helpers/fetch/fetch-entities.js')
@@ -24,8 +24,7 @@ describe('Repository Status page', () => {
       const repositoryName = 'mock-repository'
       const status = 'Creating'
       mockEntityCall(repositoryName, REPOSITORY, null, status)
-      mockRepositoryEntityStatusCall(repositoryName, status)
-      mockRepositoryCall(repositoryName, ['repository'])
+      fetchRepository.mockResolvedValue?.(undefined)
       server = await initialiseServer()
     })
 
@@ -84,7 +83,6 @@ describe('Repository Status page', () => {
       const repositoryName = 'mock-repository'
       const status = 'Created'
       mockEntityCall(repositoryName, REPOSITORY, null, status)
-      mockRepositoryEntityStatusCall(repositoryName, status)
       mockRepositoryCall(repositoryName, ['repository'])
       server = await initialiseServer()
     })

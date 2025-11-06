@@ -2,8 +2,7 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockRepositoryCall,
-  mockServiceEntityCall,
-  mockServiceEntityStatusCall
+  mockServiceEntityCall
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
@@ -24,7 +23,6 @@ describe('Service Status page', () => {
       const repositoryName = 'mock-service'
       const status = 'Creating'
       mockServiceEntityCall(repositoryName, 'frontend', status, 'Microservice')
-      mockServiceEntityStatusCall(repositoryName, 'frontend', status)
       mockRepositoryCall(repositoryName, ['frontend'])
       server = await initialiseServer()
     })
@@ -84,7 +82,6 @@ describe('Service Status page', () => {
       const repositoryName = 'mock-service'
       const status = 'Created'
       mockServiceEntityCall(repositoryName, 'frontend', status, 'Microservice')
-      mockServiceEntityStatusCall(repositoryName, 'frontend', status)
       mockRepositoryCall(repositoryName, ['frontend'])
       server = await initialiseServer()
     })
