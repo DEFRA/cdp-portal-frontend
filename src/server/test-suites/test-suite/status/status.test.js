@@ -1,8 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockCommonTestSuiteCalls,
-  mockTestSuiteEntityStatusCall
+  mockCommonTestSuiteCalls
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
@@ -22,7 +21,6 @@ describe('Test-Suite Status page', () => {
       const repositoryName = 'mock-test-suite'
       const status = 'Creating'
       mockCommonTestSuiteCalls(repositoryName, status)
-      mockTestSuiteEntityStatusCall(repositoryName, status)
       server = await initialiseServer()
     })
 
@@ -81,7 +79,6 @@ describe('Test-Suite Status page', () => {
       const repositoryName = 'mock-test-suite'
       const status = 'Created'
       mockCommonTestSuiteCalls(repositoryName, status)
-      mockTestSuiteEntityStatusCall(repositoryName, status)
       server = await initialiseServer()
     })
 
