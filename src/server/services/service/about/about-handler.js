@@ -61,7 +61,8 @@ async function aboutHandler(request, h) {
   )
 
   const { logsDetails, metricsDetails } = obtainLogsAndMetricsUrls(
-    request.app.entity.environments
+    request.app.entity.environments,
+    availableServiceEnvironments
   )
 
   const isFrontend = entity.subType === 'Frontend'
