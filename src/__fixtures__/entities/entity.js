@@ -90,7 +90,14 @@ const entitiesResourcesFixture = {
         name: 'example-mock-service-frontend',
         url: 'https://logs.infra-dev.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
       },
-      metrics: [],
+      metrics: [
+        {
+          url: `https://metrics.infra-dev.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'service',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        }
+      ],
       alerts: [],
       nginx: {
         servers: {}
@@ -133,7 +140,14 @@ const entitiesResourcesFixture = {
         name: 'example-mock-service-frontend',
         url: 'https://logs.management.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
       },
-      metrics: [],
+      metrics: [
+        {
+          url: `https://metrics.management.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'service',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        }
+      ],
       alerts: [],
       nginx: {
         servers: {}
@@ -173,7 +187,14 @@ const entitiesResourcesFixture = {
         name: 'example-mock-service-frontend',
         url: 'https://logs.dev.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
       },
-      metrics: [],
+      metrics: [
+        {
+          url: `https://metrics.dev.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'service',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        }
+      ],
       alerts: [],
       nginx: {
         servers: {}
@@ -256,7 +277,14 @@ const entitiesResourcesFixture = {
           name: 'example-mock-service-frontend',
           url: 'https://logs.ext-test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
         },
-        metrics: [],
+        metrics: [
+          {
+            url: `https://metrics.test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+            type: 'service',
+            uid: 'cejsk22u6smpse',
+            version: 6
+          }
+        ],
         alerts: [],
         nginx: {
           servers: {}
@@ -296,7 +324,14 @@ const entitiesResourcesFixture = {
           name: 'example-mock-service-frontend',
           url: 'https://logs.test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
         },
-        metrics: [],
+        metrics: [
+          {
+            url: `https://metrics.ext-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+            type: 'service',
+            uid: 'cejsk22u6smpse',
+            version: 6
+          }
+        ],
         alerts: [],
         nginx: {
           servers: {}
@@ -336,7 +371,20 @@ const entitiesResourcesFixture = {
           name: 'example-mock-service-frontend',
           url: 'https://logs.perf-test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
         },
-        metrics: [],
+        metrics: [
+          {
+            url: `https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+            type: 'service',
+            uid: 'cejsk22u6smpse',
+            version: 6
+          },
+          {
+            url: `https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+            type: 'redis',
+            uid: 'cejsk22u6smpse',
+            version: 6
+          }
+        ],
         alerts: [],
         nginx: {
           servers: {}

@@ -372,7 +372,7 @@
                   <a class="app-link"
                      href="{{ dashboard.url }}"
                      target="_blank" rel="noopener noreferrer">
-                    https://metrics.{{ environment }}.cdp-int.defra.cloud
+                    {{ dashboard.type | title }} - https://metrics.{{ environment }}.cdp-int.defra.cloud
                   </a>
                 </dd>
               {% else %}
