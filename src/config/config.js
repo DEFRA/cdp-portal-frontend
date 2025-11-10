@@ -347,13 +347,6 @@ const config = convict({
     default: null,
     env: 'HTTP_PROXY'
   },
-  noProxy: {
-    doc: 'HTTP Proxy',
-    format: String,
-    nullable: true,
-    default: 'eu-west-2.amazonaws.com',
-    env: 'NO_PROXY'
-  },
   audit: {
     enabled: {
       doc: 'Enable sending audit events to the CDP auditing stack',
