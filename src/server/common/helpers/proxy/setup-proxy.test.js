@@ -34,4 +34,22 @@ describe('setupProxy', () => {
     const undiciDispatcher = getGlobalDispatcher()
     expect(undiciDispatcher).toBeInstanceOf(ProxyAgent)
   })
+
+  test('explicitly set proxy takes precedence over environment variables', async () => {
+    // this is set in the environments
+    process.env.GLOBAL_AGENT_HTTP_PROXY = 'http://localhost:8080'
+    config.set('httpProxy', 'http://localhost:8080')
+    setupProxy()
+
+    global.GLOBAL_AGENT.HTTP_PROXY = 'http://localhost:8081'
+
+    expect(http.globalAgent.constructor.name).toBe('BoundHttpProxyAgent')
+    expect(https.globalAgent.constructor.name).toBe('BoundHttpsProxyAgent')
+
+    expect(http.globalAgent.isProxyConfigured()).toBe('http://localhost:8081')
+    expect(https.globalAgent.isProxyConfigured()).toBe('http://localhost:8081')
+
+    const undiciDispatcher = getGlobalDispatcher()
+    expect(undiciDispatcher).toBeInstanceOf(ProxyAgent)
+  })
 })
