@@ -50,3 +50,8 @@
   }) }}
 
 {% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script type="module" src="{{ getAssetPath("mermaid.js") }}"></script>
+{% endblock %}
