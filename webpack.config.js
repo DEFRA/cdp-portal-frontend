@@ -29,6 +29,9 @@ const config = {
   entry: {
     application: {
       import: ['./javascripts/application.js', './stylesheets/application.scss']
+    },
+    mermaid: {
+      import: ['./javascripts/mermaid.js']
     }
   },
   experiments: {
