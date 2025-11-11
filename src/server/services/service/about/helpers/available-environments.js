@@ -1,14 +1,10 @@
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { sortByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
 
-function availableEnvironments({
-  userScopes,
-  tenantServiceInfo,
-  entitySubType
-}) {
-  const environments = getEnvironments(userScopes, entitySubType)
+function availableEnvironments({ userScopes, entity }) {
+  const environments = getEnvironments(userScopes, entity.subType)
 
-  return Object.keys(tenantServiceInfo)
+  return Object.keys(entity.environments)
     .filter((e) => environments.includes(e))
     .sort(sortByEnv)
 }

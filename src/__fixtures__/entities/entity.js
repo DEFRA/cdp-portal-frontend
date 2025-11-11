@@ -69,18 +69,7 @@ const entitiesResourcesFixture = {
           content_based_deduplication: false
         }
       ],
-      sql_database: {
-        arn: 'arn:aws:rds:eu-west-2:5466456456:cluster:example-mock-service-frontend',
-        endpoint:
-          'example-mock-service-frontend.cluster-ddfgd4456jk.eu-west-2.rds.amazonaws.com',
-        reader_endpoint:
-          'example-mock-service-frontend.cluster-ro-ddfgd4456jk.eu-west-2.rds.amazonaws.com',
-        name: 'example-mock-service-frontend',
-        port: 5422,
-        engine_version: '16.8',
-        engine: 'magical-postgresql',
-        database_name: 'awesome-cakes'
-      },
+      sql_database: null,
       dynamodb: [],
       api_gateway: null,
       cognito_identity_pool: null,
@@ -256,18 +245,7 @@ const entitiesResourcesFixture = {
           content_based_deduplication: false
         }
       ],
-      sql_database: {
-        arn: 'arn:aws:rds:eu-west-2:5466456456:cluster:example-mock-service-frontend',
-        endpoint:
-          'example-mock-service-frontend.cluster-ddfgd4456jk.eu-west-2.rds.amazonaws.com',
-        reader_endpoint:
-          'example-mock-service-frontend.cluster-ro-ddfgd4456jk.eu-west-2.rds.amazonaws.com',
-        name: 'example-mock-service-frontend',
-        port: 5422,
-        engine_version: '16.8',
-        engine: 'magical-postgresql',
-        database_name: 'awesome-cakes'
-      },
+      sql_database: null,
       dynamodb: [],
       api_gateway: null,
       cognito_identity_pool: null,
@@ -293,102 +271,155 @@ const entitiesResourcesFixture = {
           ports: [80, 443],
           domains: ['https://abc.com']
         }
-      },
-      test: {
-        urls: {
-          'example-mock-service-frontend.test.example.mock.clouds.net': {
-            type: 'internal',
-            enabled: false,
-            shuttered: false
-          }
-        },
-        ecr_repository: null,
-        s3_buckets: [
-          {
-            arn: 'arn:aws:s3:::cdp-test-example-mock-service-frontend-1234567o',
-            bucket_name: 'cdp-test-example-mock-service-frontend-1234567o',
-            bucket_domain_name:
-              'cdp-test-example-mock-service-frontend-1234567o.s3.eu-west-2.armazonsaws.com',
-            versioning: 'Disabled'
-          }
-        ],
-        sqs_queues: [],
-        sns_topics: [],
-        sql_database: null,
-        dynamodb: [],
-        api_gateway: null,
-        cognito_identity_pool: null,
-        bedrock_ai: null,
-        tenant_config: {},
-        logs: {
-          name: 'example-mock-service-frontend',
-          url: 'https://logs.test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
-        },
-        metrics: [
-          {
-            url: `https://metrics.ext-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
-            type: 'service',
-            uid: 'cejsk22u6smpse',
-            version: 6
-          }
-        ],
-        alerts: [],
-        nginx: {
-          servers: {}
-        },
-        squid: {
-          ports: [80, 443],
-          domains: ['https://abc.com']
+      }
+    },
+    test: {
+      urls: {
+        'example-mock-service-frontend.test.example.mock.clouds.net': {
+          type: 'internal',
+          enabled: false,
+          shuttered: false
         }
       },
-      'perf-test': {
-        urls: {
-          'example-mock-service-frontend.perf-test.example.mock.clouds.net': {
-            type: 'internal',
-            enabled: false,
-            shuttered: false
-          }
-        },
-        ecr_repository: null,
-        s3_buckets: [
-          {
-            arn: 'arn:aws:s3:::cdp-perf-test-example-mock-service-frontend-1234556s',
-            bucket_name: 'cdp-perf-test-example-mock-service-frontend-1234556s',
-            bucket_domain_name:
-              'cdp-perf-test-example-mock-service-frontend-1234556s.s3.eu-west-2.armazonsaws.com',
-            versioning: 'Disabled'
-          }
-        ],
-        sqs_queues: [],
-        sns_topics: [],
-        sql_database: null,
-        dynamodb: [],
-        api_gateway: null,
-        cognito_identity_pool: null,
-        bedrock_ai: null,
-        tenant_config: {},
-        logs: {
-          name: 'example-mock-service-frontend',
-          url: 'https://logs.perf-test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
-        },
-        metrics: [
-          {
-            url: `https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
-            type: 'service',
-            uid: 'cejsk22u6smpse',
-            version: 6
-          },
-          {
-            url: `https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
-            type: 'redis',
-            uid: 'cejsk22u6smpse',
-            version: 6
-          }
-        ],
-        alerts: [],
-        nginx: {
-          servers: {}
+      ecr_repository: null,
+      s3_buckets: [
+        {
+          arn: 'arn:aws:s3:::cdp-test-example-mock-service-frontend-1234567o',
+          bucket_name: 'cdp-test-example-mock-service-frontend-1234567o',
+          bucket_domain_name:
+            'cdp-test-example-mock-service-frontend-1234567o.s3.eu-west-2.armazonsaws.com',
+          versioning: 'Disabled'
         }
+      ],
+      sqs_queues: [],
+      sns_topics: [],
+      sql_database: null,
+      dynamodb: [],
+      api_gateway: null,
+      cognito_identity_pool: null,
+      bedrock_ai: null,
+      tenant_config: {},
+      logs: {
+        name: 'example-mock-service-frontend',
+        url: 'https://logs.test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
+      },
+      metrics: [
+        {
+          url: `https://metrics.ext-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'service',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        }
+      ],
+      alerts: [],
+      nginx: {
+        servers: {}
+      },
+      squid: {
+        ports: [80, 443],
+        domains: ['https://abc.com']
+      }
+    },
+    'perf-test': {
+      urls: {
+        'example-mock-service-frontend.perf-test.example.mock.clouds.net': {
+          type: 'internal',
+          enabled: false,
+          shuttered: false
+        }
+      },
+      ecr_repository: null,
+      s3_buckets: [
+        {
+          arn: 'arn:aws:s3:::cdp-perf-test-example-mock-service-frontend-1234556s',
+          bucket_name: 'cdp-perf-test-example-mock-service-frontend-1234556s',
+          bucket_domain_name:
+            'cdp-perf-test-example-mock-service-frontend-1234556s.s3.eu-west-2.armazonsaws.com',
+          versioning: 'Disabled'
+        }
+      ],
+      sqs_queues: [],
+      sns_topics: [],
+      sql_database: null,
+      dynamodb: [],
+      api_gateway: null,
+      cognito_identity_pool: null,
+      bedrock_ai: null,
+      tenant_config: {},
+      logs: {
+        name: 'example-mock-service-frontend',
+        url: 'https://logs.perf-test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
+      },
+      metrics: [
+        {
+          url: `https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'service',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        },
+        {
+          url: `https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'redis',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        }
+      ],
+      alerts: [],
+      nginx: {
+        servers: {}
+      },
+      squid: {
+        ports: [80, 443],
+        domains: ['https://abc.com']
+      }
+    },
+    prod: {
+      urls: {
+        'example-mock-service-frontend.prod.example.mock.clouds.net': {
+          type: 'internal',
+          enabled: false,
+          shuttered: false
+        }
+      },
+      ecr_repository: null,
+      s3_buckets: [
+        {
+          arn: 'arn:aws:s3:::cdp-prod-example-mock-service-frontend-1234556s',
+          bucket_name: 'cdp-prod-example-mock-service-frontend-1234556s',
+          bucket_domain_name:
+            'cdp-prod-example-mock-service-frontend-1234556s.s3.eu-west-2.armazonsaws.com',
+          versioning: 'Disabled'
+        }
+      ],
+      sqs_queues: [],
+      sns_topics: [],
+      sql_database: null,
+      dynamodb: [],
+      api_gateway: null,
+      cognito_identity_pool: null,
+      bedrock_ai: null,
+      tenant_config: {},
+      logs: {
+        name: 'example-mock-service-frontend',
+        url: 'https://logs.prod.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend'
+      },
+      metrics: [
+        {
+          url: `https://metrics.prod.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'service',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        },
+        {
+          url: `https://metrics.prod.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend`,
+          type: 'redis',
+          uid: 'cejsk22u6smpse',
+          version: 6
+        }
+      ],
+      alerts: [],
+      nginx: {
+        servers: {}
       },
       squid: {
         ports: [80, 443],

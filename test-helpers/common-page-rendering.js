@@ -6,10 +6,6 @@ import capitalize from 'lodash/capitalize.js'
 import { createServer } from '../src/server/index.js'
 import { fetchTestRuns } from '../src/server/test-suites/helpers/fetch/fetch-test-runs.js'
 import { fetchRepository } from '../src/server/common/helpers/fetch/fetch-repository.js'
-import {
-  fetchTenantService,
-  fetchTenantServiceByEnvironment
-} from '../src/server/common/helpers/fetch/fetch-tenant-service.js'
 import { getUserSession } from '../src/server/common/helpers/auth/get-user-session.js'
 import { entityTypes, scopes } from '@defra/cdp-validation-kit'
 import { fetchAvailableVersions } from '../src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
@@ -17,19 +13,11 @@ import {
   fetchEntities,
   fetchEntity
 } from '../src/server/common/helpers/fetch/fetch-entities.js'
-import { fetchApiGateways } from '../src/server/services/helpers/fetch/fetch-api-gateways.js'
 import { fetchRunningServices } from '../src/server/common/helpers/fetch/fetch-running-services.js'
 import { fetchAvailableMigrations } from '../src/server/services/helpers/fetch/fetch-available-migrations.js'
 import { fetchLatestMigrations } from '../src/server/common/helpers/fetch/fetch-latest-migrations.js'
 import { availableMigrationsFixture } from '../src/__fixtures__/migrations/available-migrations.js'
 import { latestMigrationsFixture } from '../src/__fixtures__/migrations/latest-migrations.js'
-import { apiGatewaysFixture } from '../src/__fixtures__/api-gateways.js'
-import { tenantServicesFixture } from '../src/__fixtures__/tenant-services.js'
-import {
-  fetchTenantDatabase,
-  fetchTenantDatabaseByEnvironment
-} from '../src/server/common/helpers/fetch/fetch-tenant-databases.js'
-import { tenantDatabasesFixture } from '../src/__fixtures__/tenant-databases.js'
 import { config } from '../src/config/config.js'
 import { fetchCdpTeams } from '../src/server/teams/helpers/fetch/fetch-cdp-teams.js'
 import { cdpTeamsFixture } from '../src/__fixtures__/admin/cdp-teams.js'
@@ -119,11 +107,6 @@ export function mockFetchCdpTeamCall(teamId) {
   )
 }
 
-export function mockResourcesCall() {
-  fetchTenantService.mockResolvedValue?.(tenantServicesFixture)
-  fetchTenantDatabase.mockResolvedValue?.(tenantDatabasesFixture)
-}
-
 export function mockCommonTeamCalls() {
   fetchEntities.mockImplementation(({ type }) => {
     if (type === 'Microservice') {
@@ -135,55 +118,6 @@ export function mockCommonTeamCalls() {
   })
 
   fetchTeamRepositories.mockResolvedValue?.(teamRepositoriesFixture)
-}
-
-export function mockResourcesByEnvironmentCall(environment) {
-  fetchTenantServiceByEnvironment.mockResolvedValue?.(
-    tenantServicesFixture[environment]
-  )
-  fetchTenantDatabaseByEnvironment.mockResolvedValue?.(
-    tenantDatabasesFixture[environment]
-  )
-}
-
-export function mockTenantServicesCall(isPostgresService = false) {
-  fetchTenantService.mockResolvedValue?.({
-    prod: {
-      serviceCode: 'CDP',
-      zone: 'protected',
-      postgres: isPostgresService
-    },
-    'perf-test': {
-      serviceCode: 'CDP',
-      zone: 'protected',
-      postgres: isPostgresService
-    },
-    dev: {
-      serviceCode: 'CDP',
-      zone: 'protected',
-      postgres: isPostgresService
-    },
-    test: {
-      serviceCode: 'CDP',
-      zone: 'protected',
-      postgres: isPostgresService
-    },
-    management: {
-      serviceCode: 'CDP',
-      zone: 'protected',
-      postgres: isPostgresService
-    },
-    'infra-dev': {
-      serviceCode: 'CDP',
-      zone: 'protected',
-      postgres: isPostgresService
-    },
-    'ext-test': {
-      serviceCode: 'CDP',
-      zone: 'protected',
-      postgres: isPostgresService
-    }
-  })
 }
 
 function mockTestSuiteEntityCall(repositoryName, status) {
@@ -239,6 +173,30 @@ export function mockServiceEntityCall(
   type = 'Microservice'
 ) {
   mockEntityCall(repositoryName, type, subType, status)
+}
+
+export function mockServiceEntityCallWithPostgres(
+  repositoryName,
+  subType,
+  status = 'Created',
+  type = 'Microservice'
+) {
+  const entity = getEntity(repositoryName, type, subType, status)
+  Object.keys(entity.environments).forEach((env) => {
+    entity.environments[env].sql_database = {
+      arn: 'arn:aws:rds:eu-west-2:5466456456:cluster:example-mock-service-frontend',
+      endpoint:
+        'example-mock-service-frontend.cluster-ddfgd4456jk.eu-west-2.rds.amazonaws.com',
+      reader_endpoint:
+        'example-mock-service-frontend.cluster-ro-ddfgd4456jk.eu-west-2.rds.amazonaws.com',
+      name: 'example-mock-service-frontend',
+      port: 5422,
+      engine_version: '16.8',
+      engine: 'magical-postgresql',
+      database_name: 'awesome-cakes'
+    }
+  })
+  fetchEntity.mockResolvedValue?.(entity)
 }
 
 export function mockTestRuns(repositoryName) {
@@ -391,10 +349,6 @@ export function mockFetchShutteringUrlsCall(repositoryName) {
   fetchShutteringUrls.mockResolvedValue?.(shutteringUrlsFixture(repositoryName))
 }
 
-function mockApiGatewaysCall(repositoryName) {
-  fetchApiGateways.mockResolvedValue?.(apiGatewaysFixture(repositoryName))
-}
-
 function mockWhatsRunningWhereCall(repositoryName) {
   fetchRunningServices.mockResolvedValue?.([
     {
@@ -458,13 +412,8 @@ export function mockServicesAdditionalCalls({
   isPostgresService
 }) {
   mockRepositoryCall(repositoryName, ['microservice', frontendOrBackend])
-  mockTenantServicesCall(isPostgresService)
   mockAvailableVersions()
   mockFetchShutteringUrlsCall(repositoryName)
-
-  if (frontendOrBackend?.toLowerCase() === 'backend') {
-    mockApiGatewaysCall(repositoryName)
-  }
 
   if (isPostgresService === true) {
     mockFetchAvailableMigrations(repositoryName)

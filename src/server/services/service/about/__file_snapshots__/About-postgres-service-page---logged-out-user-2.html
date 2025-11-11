@@ -46,29 +46,11 @@
     </div>
     <div class="app-service-header__actions">
 
-
-
-          <a class="app-service-header_profile-link" href="/user-profile">
-                      
-<svg class="app-icon app-user-icon app-icon--tiny"
-     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
-     aria-label="User">
-  <g fill-rule="evenodd">
-    <circle cx="19" cy="12" r="8" />
-    <path
-      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
-  </g>
-</svg>
-
-          <span data-testid="app-login-username">B. A. Baracus</span>
-
-          </a>
-
-      <span class="app-service-header__login app-service-header__login--logged-in">
-        <a href="/logout"
+      <span class="app-service-header__login">
+        <a href="/login"
            class="app-service-header__link app-service-header__login-link"
            data-testid="app-login-link">
-            Sign out
+            Sign in
         </a>
       </span>
 
@@ -161,57 +143,7 @@ Running Services
               </li>
 
               <ul class="app-navigation__actions">
-      
 
-
-
-<li
-  class="govuk-service-navigation__item">
-    <a class="govuk-service-navigation__link" href="/apply-changelog" data-testid="nav-apply-changelog">
-      Apply Changelog
-    </a>
-</li>
-
-
-      
-
-
-
-<li
-  class="govuk-service-navigation__item">
-    <a class="govuk-service-navigation__link" href="/deploy-service" data-testid="nav-deploy-service">
-      Deploy Service
-    </a>
-</li>
-
-
-      
-
-
-
-<li
-  class="govuk-service-navigation__item">
-    <a class="govuk-service-navigation__link" href="/create" data-testid="nav-create">
-      Create
-    </a>
-</li>
-
-
-
-      <ul class="app-navigation__admin">
-          
-
-
-
-<li
-  class="govuk-service-navigation__item">
-    <a class="govuk-service-navigation__link" href="/admin" data-testid="nav-admin">
-      Admin
-    </a>
-</li>
-
-
-      </ul>
   </ul>
 </ul>
         </nav>
@@ -293,132 +225,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 <div class="app-tabs"
      data-js="app-tabs">
-    <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Service tabs">
 
-
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-about app-tabs-list-item--selected">
-
-
-          <a id="tab-about"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-about"
-             aria-selected="true"
-             data-testid="app-tabs-list-item__anchor-about">
-            About
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-automations">
-
-
-          <a id="tab-automations"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/automations"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-automations"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-automations">
-            Automations
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-maintenance">
-
-
-          <a id="tab-maintenance"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/maintenance"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-maintenance"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-maintenance">
-            Maintenance
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-proxy">
-
-
-          <a id="tab-proxy"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/proxy"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-proxy"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-proxy">
-            Proxy
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-resources">
-
-
-          <a id="tab-resources"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/resources"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-resources"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-resources">
-            Resources
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-secrets">
-
-
-          <a id="tab-secrets"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/secrets"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-secrets"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-secrets">
-            Secrets
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-terminal">
-
-
-          <a id="tab-terminal"
-             class="app-tabs__tab"
-             href="/services/mock-postgres-service/terminal"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-terminal"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-terminal">
-            Terminal
-          </a>
-        </li>
-    </ul>
-
-      <section id="tab-panel-about"
+      <section id="tab-panel-"
                class="app-tabs__panel"
                role="tabpanel"
-               aria-labelledby="tab-about"
+               aria-labelledby="tab-"
                data-testid="app-tabs-panel">
         
   <div class="app-service-container govuk-!-margin-top-6">
@@ -618,11 +429,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.3.0"
        target="_blank" rel="noopener noreferrer">0.3.0</a>
 </td>
-      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details?imageName=mock-postgres-service&amp;version=0.3.0"
-       role="button"
-       class="govuk-button app-button app-button--primary app-button--small"
-       data-testid="deploy-button-0.3.0">Deploy</a>
-</td>
+      <td class="govuk-table__cell"></td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">    <div class="app-flex-center">
@@ -657,11 +464,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.2.0"
        target="_blank" rel="noopener noreferrer">0.2.0</a>
 </td>
-      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details?imageName=mock-postgres-service&amp;version=0.2.0"
-       role="button"
-       class="govuk-button app-button app-button--primary app-button--small"
-       data-testid="deploy-button-0.2.0">Deploy</a>
-</td>
+      <td class="govuk-table__cell"></td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">    <div class="app-flex-center">
@@ -696,11 +499,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.1.0"
        target="_blank" rel="noopener noreferrer">0.1.0</a>
 </td>
-      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details?imageName=mock-postgres-service&amp;version=0.1.0"
-       role="button"
-       class="govuk-button app-button app-button--primary app-button--small"
-       data-testid="deploy-button-0.1.0">Deploy</a>
-</td>
+      <td class="govuk-table__cell"></td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">    <div class="app-flex-center">
@@ -735,11 +534,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.172.0"
        target="_blank" rel="noopener noreferrer">0.172.0</a>
 </td>
-      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details?imageName=mock-postgres-service&amp;version=0.172.0"
-       role="button"
-       class="govuk-button app-button app-button--primary app-button--small"
-       data-testid="deploy-button-0.172.0">Deploy</a>
-</td>
+      <td class="govuk-table__cell"></td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">    <div class="app-flex-center">
@@ -774,11 +569,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.171.0"
        target="_blank" rel="noopener noreferrer">0.171.0</a>
 </td>
-      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details?imageName=mock-postgres-service&amp;version=0.171.0"
-       role="button"
-       class="govuk-button app-button app-button--primary app-button--small"
-       data-testid="deploy-button-0.171.0">Deploy</a>
-</td>
+      <td class="govuk-table__cell"></td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">    <div class="app-flex-center">
@@ -813,11 +604,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        href="https://github.com/DEFRA/mock-postgres-service/releases/tag/0.170.0"
        target="_blank" rel="noopener noreferrer">0.170.0</a>
 </td>
-      <td class="govuk-table__cell govuk-table__header--numeric">    <a href="/deploy-service/details?imageName=mock-postgres-service&amp;version=0.170.0"
-       role="button"
-       class="govuk-button app-button app-button--primary app-button--small"
-       data-testid="deploy-button-0.170.0">Deploy</a>
-</td>
+      <td class="govuk-table__cell"></td>
     </tr>
   </tbody>
 </table>
@@ -837,7 +624,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <p class="govuk-!-margin-bottom-2">
             Latest database changelogs available for this microservice. For more information view
             <a class="app-link"
-               href="/deployments/infra-dev?service=mock-postgres-service">Deployments and Updates</a>
+               href="/deployments/dev?service=mock-postgres-service">Deployments and Updates</a>
           </p>
 
 
@@ -847,7 +634,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <th scope="col" class="govuk-table__header">Created</th>
       <th scope="col" class="govuk-table__header">Version</th>
       <th scope="col" class="govuk-table__header">Type</th>
-      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter app-!-text-align-right">Action</th>
+      <th scope="col" class="govuk-table__header"></th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -898,11 +685,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell app-!-text-align-right">    <a href="/apply-changelog/change-details?serviceName=mock-postgres-service&amp;version=0.3.0"
-       role="button"
-       class="govuk-button app-button app-button--small"
-       data-testid="apply-button-0.3.0">Apply</a>
-</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">    <div class="app-flex-center">
@@ -950,11 +732,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-</td>
-      <td class="govuk-table__cell app-!-text-align-right">    <a href="/apply-changelog/change-details?serviceName=mock-postgres-service&amp;version=0.2.0"
-       role="button"
-       class="govuk-button app-button app-button--small"
-       data-testid="apply-button-0.2.0">Apply</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -1004,11 +781,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell app-!-text-align-right">    <a href="/apply-changelog/change-details?serviceName=mock-postgres-service&amp;version=0.1.0"
-       role="button"
-       class="govuk-button app-button app-button--small"
-       data-testid="apply-button-0.1.0">Apply</a>
-</td>
     </tr>
   </tbody>
 </table>
@@ -1025,152 +797,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
           
 <div class="app-database-detail">
-
-
-      <div class="app-database-detail__card item-detail--green">
-        <div class="app-database-detail__item app-database-detail__item--heading">
-          
-
-
-
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Infra-dev
-</strong>
-
-
-
-
-          <div class="app-database-detail__item app-database-detail__item--version">
-            <span id="version" class="govuk-visually-hidden">Version:</span>
-              <a class="app-link"
-                 href="https://github.com/DEFRA/mock-postgres-service/releases/tag/1.0.0"
-                 target="_blank" rel="noopener noreferrer">1.0.0</a>
-            <span aria-labelledby="version">
-
-<span
-  class="app-tool-tip"
-  data-text="Current database change in Infra-dev"
->
-                  <svg class="app-icon app-database app-icon--small govuk-!-margin-left-2" width="41" height="43"
-     role="img" aria-label="Database icon" viewBox="0 0 41 43">
-  <g fill-rule="evenodd" stroke-width="2">
-    <path d="M2 21v13.3333333S2 41 20.5 41 39 34.3333333 39 34.3333333V21" />
-    <path d="M2 9v13.3333333S2 29 20.5 29 39 22.3333333 39 22.3333333V9" />
-    <path d="M20.5 3C39 3 39 10 39 10s0 7-18.5 7S2 10 2 10s0-7 18.5-7Z" />
-  </g>
-</svg>
-
-
-</span>
-          </div>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--kind">
-          <span id="kind" class="app-database-detail__label">Kind:</span>
-          <span aria-labelledby="kind">Liquibase</span>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--updated">
-          <a class="app-link" href="/deployments/database-updates/infra-dev/ea832b92-4d62-4753-a496-97715d3d518f">
-            Updated
-          </a>
-          
-
-
-
-<span
-  class="app-tool-tip"
-  data-text="Sunday 11th May 2025, 18:02:01"
->
-        <time    datetime="2025-05-11T18:02:01.431Z"
-    data-testid="app-time">
-        1 day
-
-  </time>
-
-
-</span>
-
-
-
- ago by 
-        </div>
-      </div>
-
-
-      <div class="app-database-detail__card item-detail--green">
-        <div class="app-database-detail__item app-database-detail__item--heading">
-          
-
-
-
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Management
-</strong>
-
-
-
-
-          <div class="app-database-detail__item app-database-detail__item--version">
-            <span id="version" class="govuk-visually-hidden">Version:</span>
-              <a class="app-link"
-                 href="https://github.com/DEFRA/mock-postgres-service/releases/tag/1.0.0"
-                 target="_blank" rel="noopener noreferrer">1.0.0</a>
-            <span aria-labelledby="version">
-
-<span
-  class="app-tool-tip"
-  data-text="Current database change in Management"
->
-                  <svg class="app-icon app-database app-icon--small govuk-!-margin-left-2" width="41" height="43"
-     role="img" aria-label="Database icon" viewBox="0 0 41 43">
-  <g fill-rule="evenodd" stroke-width="2">
-    <path d="M2 21v13.3333333S2 41 20.5 41 39 34.3333333 39 34.3333333V21" />
-    <path d="M2 9v13.3333333S2 29 20.5 29 39 22.3333333 39 22.3333333V9" />
-    <path d="M20.5 3C39 3 39 10 39 10s0 7-18.5 7S2 10 2 10s0-7 18.5-7Z" />
-  </g>
-</svg>
-
-
-</span>
-          </div>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--kind">
-          <span id="kind" class="app-database-detail__label">Kind:</span>
-          <span aria-labelledby="kind">Liquibase</span>
-        </div>
-
-        <div class="app-database-detail__item app-database-detail__item--updated">
-          <a class="app-link" href="/deployments/database-updates/management/38b6d1a8-aa9c-481b-85ba-bfbf014b368e">
-            Updated
-          </a>
-          
-
-
-
-<span
-  class="app-tool-tip"
-  data-text="Sunday 11th May 2025, 19:27:14"
->
-        <time    datetime="2025-05-11T19:27:14.194Z"
-    data-testid="app-time">
-        1 day
-
-  </time>
-
-
-</span>
-
-
-
- ago by The Terminator
-        </div>
-      </div>
 
 
       <div class="app-database-detail__card item-detail--green">
@@ -1366,48 +992,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
         
 <section class="app-running-service">
-
-      <div class="app-running-service__card app-running-service__card--empty">
-        <div class="app-running-service__item app-running-service__item--heading">
-          <span id="environment" class="govuk-visually-hidden">Environment</span>
-          <span aria-labelledby="environment">
-            
-
-
-
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Infra-dev
-</strong>
-
-
-
-          </span>
-        </div>
-        <span class="app-running-service__no-data">No deployment</span>
-      </div>
-
-      <div class="app-running-service__card app-running-service__card--empty">
-        <div class="app-running-service__item app-running-service__item--heading">
-          <span id="environment" class="govuk-visually-hidden">Environment</span>
-          <span aria-labelledby="environment">
-            
-
-
-
-
-
-<strong class="govuk-tag app-tag app-tag--white">
-  Management
-</strong>
-
-
-
-          </span>
-        </div>
-        <span class="app-running-service__no-data">No deployment</span>
-      </div>
 
 
       <div class="app-running-service__card item-detail--green">
@@ -1790,7 +1374,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <p class="govuk-!-margin-bottom-6">
             To view microservice deployments across all available environments go to
             <a class="app-link"
-               href="/deployments/infra-dev?service=mock-postgres-service">Deployments</a>
+               href="/deployments/dev?service=mock-postgres-service">Deployments</a>
           </p>
         </section>
 
@@ -1858,16 +1442,28 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           </p>
 
           <dl class="app-description-list">
-              <dt class="app-description-list__term">Management</dt>
-              <dd class="app-description-list__details app-description-list__details--slim">
-                <a class="app-link" href="https://example-mock-service-frontend.management.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
-                  https://example-mock-service-frontend.management.example.mock.clouds.net
-                </a>
-              </dd>
               <dt class="app-description-list__term">Dev</dt>
               <dd class="app-description-list__details app-description-list__details--slim">
                 <a class="app-link" href="https://example-mock-service-frontend.dev.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
                   https://example-mock-service-frontend.dev.example.mock.clouds.net
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Test</dt>
+              <dd class="app-description-list__details app-description-list__details--slim">
+                <a class="app-link" href="https://example-mock-service-frontend.test.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
+                  https://example-mock-service-frontend.test.example.mock.clouds.net
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Perf-test</dt>
+              <dd class="app-description-list__details app-description-list__details--slim">
+                <a class="app-link" href="https://example-mock-service-frontend.perf-test.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
+                  https://example-mock-service-frontend.perf-test.example.mock.clouds.net
+                </a>
+              </dd>
+              <dt class="app-description-list__term">Prod</dt>
+              <dd class="app-description-list__details app-description-list__details--slim">
+                <a class="app-link" href="https://example-mock-service-frontend.prod.example.mock.clouds.net" target="_blank" rel="noopener noreferrer">
+                  https://example-mock-service-frontend.prod.example.mock.clouds.net
                 </a>
               </dd>
           </dl>
@@ -1880,26 +1476,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             OpenSearch logs dashboards for monitoring and troubleshooting your service
           </p>
           <dl class="app-description-list">
-              <dt class="app-description-list__term">Infra-dev</dt>
-
-                <dd class="app-description-list__details app-description-list__details--slim">
-                  <a class="app-link"
-                     href="https://logs.infra-dev.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
-                     target="_blank" rel="noopener noreferrer"
-                     data-testid="app-logs-dashboard-link">
-                    https://logs.infra-dev.cdp-int.defra.cloud
-                  </a>
-                </dd>
-              <dt class="app-description-list__term">Management</dt>
-
-                <dd class="app-description-list__details app-description-list__details--slim">
-                  <a class="app-link"
-                     href="https://logs.management.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
-                     target="_blank" rel="noopener noreferrer"
-                     data-testid="app-logs-dashboard-link">
-                    https://logs.management.cdp-int.defra.cloud
-                  </a>
-                </dd>
               <dt class="app-description-list__term">Dev</dt>
 
                 <dd class="app-description-list__details app-description-list__details--slim">
@@ -1908,6 +1484,36 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                      target="_blank" rel="noopener noreferrer"
                      data-testid="app-logs-dashboard-link">
                     https://logs.dev.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Test</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://logs.test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.test.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Perf-test</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://logs.perf-test.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.perf-test.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Prod</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://logs.prod.example.mock.clouds.net/_dashboards/app/dashboards#/view/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer"
+                     data-testid="app-logs-dashboard-link">
+                    https://logs.prod.cdp-int.defra.cloud
                   </a>
                 </dd>
           </dl>
@@ -1919,24 +1525,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
             Grafana observability metrics dashboards, providing data and graphs for your service
           </p>
           <dl class="app-description-list">
-              <dt class="app-description-list__term">Infra-dev</dt>
-
-                <dd class="app-description-list__details app-description-list__details--slim">
-                  <a class="app-link"
-                     href="https://metrics.infra-dev.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
-                     target="_blank" rel="noopener noreferrer">
-                    Service - https://metrics.infra-dev.cdp-int.defra.cloud
-                  </a>
-                </dd>
-              <dt class="app-description-list__term">Management</dt>
-
-                <dd class="app-description-list__details app-description-list__details--slim">
-                  <a class="app-link"
-                     href="https://metrics.management.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
-                     target="_blank" rel="noopener noreferrer">
-                    Service - https://metrics.management.cdp-int.defra.cloud
-                  </a>
-                </dd>
               <dt class="app-description-list__term">Dev</dt>
 
                 <dd class="app-description-list__details app-description-list__details--slim">
@@ -1944,6 +1532,47 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                      href="https://metrics.dev.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
                      target="_blank" rel="noopener noreferrer">
                     Service - https://metrics.dev.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Test</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://metrics.ext-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer">
+                    Service - https://metrics.test.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Perf-test</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer">
+                    Service - https://metrics.perf-test.cdp-int.defra.cloud
+                  </a>
+                </dd>
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://metrics.perf-test.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer">
+                    Redis - https://metrics.perf-test.cdp-int.defra.cloud
+                  </a>
+                </dd>
+              <dt class="app-description-list__term">Prod</dt>
+
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://metrics.prod.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer">
+                    Service - https://metrics.prod.cdp-int.defra.cloud
+                  </a>
+                </dd>
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="https://metrics.prod.cdp-int.defra.cloud/d/cejsk22u6smpse/example-mock-service-frontend"
+                     target="_blank" rel="noopener noreferrer">
+                    Redis - https://metrics.prod.cdp-int.defra.cloud
                   </a>
                 </dd>
           </dl>

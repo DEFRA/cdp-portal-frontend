@@ -485,6 +485,34 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                     rel="noopener noreferrer">#cdp-support</a>
 </p>
 
+  
+
+
+<div
+  class="app-info govuk-!-margin-0"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-info">
+
+  <svg class="app-icon app-info-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Info">
+  <path fill-rule="nonzero"
+        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+
+
+  <span class="app-info__content" data-testid="app-info-content">
+      Why do bucket names have random characters at the end?
+  <a class="app-link app-link--underline" href="/documentation/how-to/buckets.md#bucket-naming"
+     target="_blank"
+     rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
+
+  </span>
+
+</div>
+
+
 
 
 
@@ -496,11 +524,49 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         S3 Buckets
       </h3>
 
+          <a class="app-link app-link--underline app-align-right"
+     href="https://github.com/DEFRA/cdp-tenant-config/blob/main/environments/prod/tenants/mock-service-with-resources.json"
+     target="_blank" rel="noopener noreferrer"
+     data-testid="app-entity-link">
+    more
+  </a>
+
     </div>
 
-      <p class="govuk-!-margin-bottom-2">
-        S3 Buckets not set up for Prod
-      </p>
+      <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-2">
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+
+
+
+<span class="app-copy__container">
+      <button class="app-copy js-visible-inline"
+          title="Copy"
+          data-js="app-copy"
+          data-content-id="s3-bucket-url-prod-0"
+          data-testid="app-copy">
+    <svg class="app-icon app-copy-icon app-icon--minute"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img"     data-testid="app-copy-icon">
+  <path
+    d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+</svg>
+
+  </button>
+
+
+  <span data-js="s3-bucket-url-prod-0-content" data-testid="app-copy-content">
+    s3://cdp-prod-example-mock-service-frontend-1234556s
+  </span>
+
+</span>
+</td>
+    </tr>
+  </tbody>
+</table>
+
 
 </div>
 
@@ -538,6 +604,107 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </div>
 
+
+<div class="app-panel app-flex__one  app-panel--slim" >
+        <div class="app-flex__one">
+        <div class="govuk-!-margin-bottom-2">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Postgres Database
+          </h3>
+        </div>
+
+          <dl class="govuk-summary-list app-summary-list app-summary-list--resource" data-testid="database-prod">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+            <button class="app-copy js-visible-inline"
+                title="Copy"
+                data-js="app-copy"
+                data-content-id="database-name-prod"
+                data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minute"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+      
+      
+        <span data-js="database-name-prod-content" data-testid="app-copy-content">
+          example-mock-service-frontend
+        </span>
+      
+      </span>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Endpoint
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+            <button class="app-copy js-visible-inline"
+                title="Copy"
+                data-js="app-copy"
+                data-content-id="database-endpoint-prod"
+                data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minute"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+      
+      
+        <span data-js="database-endpoint-prod-content" data-testid="app-copy-content">
+          example-mock-service-frontend.cluster-ddfgd4456jk.eu-west-2.rds.amazonaws.com
+        </span>
+      
+      </span>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key app-summary-list__key">
+      Port
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <span class="app-copy__container">
+            <button class="app-copy js-visible-inline"
+                title="Copy"
+                data-js="app-copy"
+                data-content-id="database-port-prod"
+                data-testid="app-copy">
+          <svg class="app-icon app-copy-icon app-icon--minute"
+           xmlns="http://www.w3.org/2000/svg"
+           width="48" height="48" viewBox="0 -960 960 960"
+           role="img"     data-testid="app-copy-icon">
+        <path
+          d="M325-195q-36.41 0-63.71-27.61Q234-250.23 234-286v-542q0-36.19 27.29-64.09Q288.59-920 325-920h422q36.19 0 63.59 27.91Q838-864.19 838-828v542q0 35.77-27.41 63.39Q783.19-195 747-195H325Zm0-91h422v-542H325v542ZM174-44q-36.82 0-63.91-27.41Q83-98.81 83-135v-633h91v633h513v91H174Zm151-242v-542 542Z" />
+      </svg>
+      
+        </button>
+      
+      
+        <span data-js="database-port-prod-content" data-testid="app-copy-content">
+          5422
+        </span>
+      
+      </span>
+    </dd>
+  </div>
+</dl>
+      </div>
+
+</div>
 </div>
 
     </section>

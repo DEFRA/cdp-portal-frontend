@@ -8,7 +8,6 @@ import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchSecrets } from '../../../common/helpers/fetch/fetch-secrets.js'
 
 vi.mock('../../helpers/fetch/fetch-test-runs.js')
-vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/fetch/fetch-repository.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')

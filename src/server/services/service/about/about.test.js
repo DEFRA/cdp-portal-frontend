@@ -2,17 +2,14 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockServiceEntityCall,
+  mockServiceEntityCallWithPostgres,
   mockServicesAdditionalCalls
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { scopes, statusCodes } from '@defra/cdp-validation-kit'
 import { availableMigrationsFixture } from '../../../../__fixtures__/migrations/available-migrations.js'
 
-vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
 vi.mock('../../../common/helpers/fetch/fetch-running-services.js')
 vi.mock('../../../common/helpers/fetch/fetch-repository.js')
-vi.mock('../../helpers/fetch/fetch-vanity-urls.js')
-vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
-vi.mock('../../helpers/fetch/fetch-api-gateways.js')
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
 vi.mock('../../helpers/fetch/fetch-available-migrations.js')
@@ -82,173 +79,178 @@ describe('Services', () => {
       expect(result).toMatchFile()
     })
   })
+})
 
-  describe('About postgres service page', () => {
-    const serviceName = 'mock-postgres-service'
-    const additionalScopes = [scopes.restrictedTechPostgres]
-    const availableChangelogVersions = availableMigrationsFixture()
-    const applyChangelogButtons = availableChangelogVersions.map(
-      (changelog) => `apply-button-${changelog.version}`
-    )
+describe('About postgres service page', () => {
+  const serviceName = 'mock-postgres-service'
+  const additionalScopes = [scopes.restrictedTechPostgres]
+  const availableChangelogVersions = availableMigrationsFixture()
+  const applyChangelogButtons = availableChangelogVersions.map(
+    (changelog) => `apply-button-${changelog.version}`
+  )
 
-    beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+  /** @type {import('@hapi/hapi').Server} */
+  let server
 
-      mockServiceEntityCall(serviceName, 'backend')
-      mockServicesAdditionalCalls({
-        repositoryName: serviceName,
-        frontendOrBackend: 'backend',
-        isPostgresService: true
-      })
-      server = await initialiseServer()
+  beforeAll(async () => {
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+
+    mockServiceEntityCallWithPostgres(serviceName, 'backend')
+    mockServicesAdditionalCalls({
+      repositoryName: serviceName,
+      frontendOrBackend: 'backend',
+      isPostgresService: true
+    })
+    server = await initialiseServer()
+  })
+
+  afterAll(async () => {
+    await server.stop({ timeout: 0 })
+    vi.useRealTimers()
+  })
+
+  test('logged in admin user restrictedTechPostgres permission', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: true,
+      isTenant: true,
+      additionalScopes
     })
 
-    afterAll(async () => {
-      await server.stop({ timeout: 0 })
-      vi.useRealTimers()
-    })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
 
-    test('logged in admin user restrictedTechPostgres permission', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: true,
-        isTenant: true,
-        additionalScopes
-      })
+    // Database details section is present for a postgres service
+    expect(result).toContain('data-testid="database-details"')
 
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
-
-      // Database details section is present for a postgres service
-      expect(result).toContain('data-testid="database-details"')
-
-      // Database Changelogs "apply" buttons are present
-      applyChangelogButtons.forEach((buttonTestId) => {
-        expect(result).toContain(`data-testid="${buttonTestId}"`)
-      })
-    })
-
-    test('logged in tenant user restrictedTechPostgres permission', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: false,
-        isTenant: true,
-        additionalScopes
-      })
-
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
-
-      // Database details section is present for a postgres service
-      expect(result).toContain('data-testid="database-details"')
-
-      // Database Changelogs "apply" buttons are not present
-      applyChangelogButtons.forEach((buttonTestId) => {
-        expect(result).not.toContain(`data-testid="${buttonTestId}"`)
-      })
-    })
-
-    test('logged in tenant user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: false,
-        isTenant: true
-      })
-
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
-
-      // Database details section is present for a postgres service
-      expect(result).toContain('data-testid="database-details"')
-
-      // Database Changelogs "apply" buttons are not present
-      applyChangelogButtons.forEach((buttonTestId) => {
-        expect(result).not.toContain(`data-testid="${buttonTestId}"`)
-      })
-    })
-
-    test('logged out user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: false,
-        isTenant: false
-      })
-
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
-
-      // Database details section is present for a postgres service
-      expect(result).toContain('data-testid="database-details"')
-
-      // Database Changelogs "apply" buttons are not present
-      applyChangelogButtons.forEach((buttonTestId) => {
-        expect(result).not.toContain(`data-testid="${buttonTestId}"`)
-      })
+    // Database Changelogs "apply" buttons are present
+    applyChangelogButtons.forEach((buttonTestId) => {
+      expect(result).toContain(`data-testid="${buttonTestId}"`)
     })
   })
 
-  describe('About prototype service page', () => {
-    const serviceName = 'mock-prototype'
-
-    beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
-      mockServiceEntityCall(serviceName, 'Prototype', 'Created', 'Microservice')
-      mockServicesAdditionalCalls({
-        repositoryName: serviceName
-      })
-      server = await initialiseServer()
+  test('logged in tenant user restrictedTechPostgres permission', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: false,
+      isTenant: true,
+      additionalScopes
     })
 
-    afterAll(async () => {
-      await server.stop({ timeout: 0 })
-      vi.useRealTimers()
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
+
+    // Database details section is present for a postgres service
+    expect(result).toContain('data-testid="database-details"')
+
+    // Database Changelogs "apply" buttons are not present
+    applyChangelogButtons.forEach((buttonTestId) => {
+      expect(result).not.toContain(`data-testid="${buttonTestId}"`)
+    })
+  })
+
+  test('logged in tenant user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: false,
+      isTenant: true
     })
 
-    test('logged in admin user restrictedTechPostgres permission', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: true,
-        isTenant: true
-      })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
 
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
+    // Database details section is present for a postgres service
+    expect(result).toContain('data-testid="database-details"')
+
+    // Database Changelogs "apply" buttons are not present
+    applyChangelogButtons.forEach((buttonTestId) => {
+      expect(result).not.toContain(`data-testid="${buttonTestId}"`)
+    })
+  })
+
+  test('logged out user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: false,
+      isTenant: false
     })
 
-    test('logged in tenant user restrictedTechPostgres permission', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: false,
-        isTenant: true
-      })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
 
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
+    // Database details section is present for a postgres service
+    expect(result).toContain('data-testid="database-details"')
+
+    // Database Changelogs "apply" buttons are not present
+    applyChangelogButtons.forEach((buttonTestId) => {
+      expect(result).not.toContain(`data-testid="${buttonTestId}"`)
+    })
+  })
+})
+
+describe('About prototype service page', () => {
+  const serviceName = 'mock-prototype'
+  /** @type {import('@hapi/hapi').Server} */
+  let server
+
+  beforeAll(async () => {
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+
+    mockServiceEntityCall(serviceName, 'Prototype', 'Created', 'Microservice')
+    mockServicesAdditionalCalls({
+      repositoryName: serviceName
+    })
+    server = await initialiseServer()
+  })
+
+  afterAll(async () => {
+    await server.stop({ timeout: 0 })
+    vi.useRealTimers()
+  })
+
+  test('logged in admin user restrictedTechPostgres permission', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: true,
+      isTenant: true
     })
 
-    test('logged in tenant user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: false,
-        isTenant: true
-      })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
+  })
 
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
+  test('logged in tenant user restrictedTechPostgres permission', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: false,
+      isTenant: true
     })
 
-    test('logged out user', async () => {
-      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}`,
-        isAdmin: false,
-        isTenant: false
-      })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
+  })
 
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(result).toMatchFile()
+  test('logged in tenant user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: false,
+      isTenant: true
     })
+
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
+  })
+
+  test('logged out user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/services/${serviceName}`,
+      isAdmin: false,
+      isTenant: false
+    })
+
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
   })
 })

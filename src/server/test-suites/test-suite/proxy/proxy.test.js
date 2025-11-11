@@ -6,11 +6,9 @@ import {
 import { statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../helpers/fetch/fetch-test-runs.js')
-vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/fetch/fetch-repository.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
-vi.mock('../../../services/helpers/fetch/fetch-proxy-rules.js')
 vi.mock('../../../../config/default-squid-domains.js', () => ({
   defaultSquidDomains: ['https://google.com']
 }))
