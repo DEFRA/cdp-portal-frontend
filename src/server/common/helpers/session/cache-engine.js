@@ -28,12 +28,17 @@ export function getCacheEngine(engine) {
     logger.info('Using DynamoDB session cache')
     return new CatboxDynamoDB({
       tableName: config.get('dynamoDb.tableName'),
-      ttl: config.get('session.cache.ttl'),
+      ttlInMillis: config.get('session.cache.ttl'),
+      consistentReads: true,
       clientOptions: {
         endpoint: config.get('aws.dynamoDb.endpoint'),
         region: config.get('aws.region'),
         requestHandler: new NodeHttpHandler({
-          httpsAgent: new Agent({ keepAlive: false })
+          httpsAgent: new Agent({
+            keepAlive: true,
+            maxSockets: 10,
+            keepAliveMsecs: 60000
+          })
         })
       },
       logger

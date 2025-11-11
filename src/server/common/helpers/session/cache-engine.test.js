@@ -1,4 +1,4 @@
-import { describe, test, beforeEach, vi, expect } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 import { Engine as CatboxMemory } from '@hapi/catbox-memory'
 import { CatboxDynamoDB } from '@defra/catbox-dynamodb'
@@ -66,7 +66,8 @@ describe('#getCacheEngine', () => {
       getCacheEngine('dynamodb')
       expect(CatboxDynamoDB).toHaveBeenCalledWith({
         tableName: 'table',
-        ttl: 1234,
+        ttlInMillis: 1234,
+        consistentReads: true,
         clientOptions: {
           endpoint: 'endpoint',
           region: 'region',
