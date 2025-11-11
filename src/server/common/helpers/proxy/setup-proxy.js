@@ -22,5 +22,6 @@ export function setupProxy() {
 
     // global-agent (axios/request/and others) proxy and no proxy set by env variables
     bootstrap()
+    global.GLOBAL_AGENT.HTTP_PROXY = proxyUrl
   }
 }
