@@ -67,7 +67,7 @@ describe('#getCacheEngine', () => {
       expect(CatboxDynamoDB).toHaveBeenCalledWith({
         tableName: 'table',
         ttlInMillis: 1234,
-        consistentReads: false,
+        consistentReads: true,
         clientOptions: {
           endpoint: 'endpoint',
           region: 'region',

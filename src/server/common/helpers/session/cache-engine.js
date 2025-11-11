@@ -29,7 +29,7 @@ export function getCacheEngine(engine) {
     return new CatboxDynamoDB({
       tableName: config.get('dynamoDb.tableName'),
       ttlInMillis: config.get('session.cache.ttl'),
-      consistentReads: false,
+      consistentReads: true,
       clientOptions: {
         endpoint: config.get('aws.dynamoDb.endpoint'),
         region: config.get('aws.region'),

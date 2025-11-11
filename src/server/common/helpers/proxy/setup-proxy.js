@@ -20,7 +20,7 @@ export function setupProxy() {
     // Undici proxy
     setGlobalDispatcher(new ProxyAgent(proxyUrl))
 
-    // global-agent (axios/request/and others) proxy and no proxy set by env variables
+    // global-agent (axios/request/and others) no proxy set by env variables
     bootstrap()
     global.GLOBAL_AGENT.HTTP_PROXY = proxyUrl
   }
