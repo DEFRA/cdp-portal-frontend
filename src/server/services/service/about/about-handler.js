@@ -2,7 +2,6 @@ import Boom from '@hapi/boom'
 
 import { scopes } from '@defra/cdp-validation-kit'
 import { sortBy } from '../../../common/helpers/sort/sort-by.js'
-import { fetchTenantService } from '../../../common/helpers/fetch/fetch-tenant-service.js'
 import { availableEnvironments } from './helpers/available-environments.js'
 import { transformRunningServices } from './transformers/running-services.js'
 import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
@@ -29,9 +28,8 @@ async function aboutHandler(request, h) {
   )
   const latestCount = 6
 
-  const tenantServices = await fetchTenantService(serviceName)
-  const isPostgres = Object.values(tenantServices).some(
-    ({ postgres }) => postgres
+  const isPostgres = Object.values(entity.environments).some(
+    ({ sql_database }) => sql_database
   )
 
   const {
@@ -52,8 +50,7 @@ async function aboutHandler(request, h) {
 
   const availableServiceEnvironments = availableEnvironments({
     userScopes,
-    tenantServiceInfo: tenantServices,
-    entitySubType: entity.subType
+    entity
   })
 
   const { shutteredUrls, serviceUrls, vanityUrls } = obtainServiceUrls(

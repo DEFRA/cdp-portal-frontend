@@ -4,13 +4,11 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockServiceEntityCall,
-  mockTeam,
-  mockTenantServicesCall
+  mockTeam
 } from '../../../../../test-helpers/common-page-rendering.js'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
-vi.mock('../../../common/helpers/fetch/fetch-tenant-service.js')
 vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
 
 describe('Service Terminal page', () => {
@@ -20,7 +18,6 @@ describe('Service Terminal page', () => {
   beforeAll(async () => {
     const serviceName = 'mock-service-with-terminal'
     mockServiceEntityCall(serviceName, entitySubTypes.backend)
-    mockTenantServicesCall()
     server = await initialiseServer()
   })
 

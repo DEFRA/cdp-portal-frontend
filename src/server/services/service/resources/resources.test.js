@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockServiceEntityCall
+  mockServiceEntityCallWithPostgres
 } from '../../../../../test-helpers/common-page-rendering.js'
 import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
 
@@ -20,7 +20,7 @@ describe('Service resources page', () => {
 
   describe('all resources view', () => {
     beforeAll(async () => {
-      mockServiceEntityCall(serviceName, entitySubTypes.backend)
+      mockServiceEntityCallWithPostgres(serviceName, entitySubTypes.backend)
       server = await initialiseServer()
     })
 
@@ -67,7 +67,7 @@ describe('Service resources page', () => {
 
   describe('single resources env view', () => {
     beforeAll(async () => {
-      mockServiceEntityCall(serviceName, entitySubTypes.backend)
+      mockServiceEntityCallWithPostgres(serviceName, entitySubTypes.backend)
       server = await initialiseServer()
     })
 
