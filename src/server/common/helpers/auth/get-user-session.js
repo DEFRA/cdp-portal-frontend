@@ -23,7 +23,16 @@
 async function getUserSession(
   sessionId = this.state?.userSessionCookie?.sessionId
 ) {
-  return sessionId ? await this.server.session.get(sessionId) : null
+  if (this.app.userSession) {
+    return this.app.userSession
+  }
+
+  this.logger.info('Called getUserSession helper')
+  const session = sessionId ? await this.server.session.get(sessionId) : null
+
+  this.app.userSession = session
+
+  return session
 }
 
 export { getUserSession }
