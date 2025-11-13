@@ -35,14 +35,14 @@ function transformScopeToSummary(scope, withActions = true) {
             ? scope.kind
                 ?.map((kind) => {
                   if (kind === 'user') {
-                    return userTagComponent
+                    return userTagComponent()
                   }
 
                   if (kind === 'member') {
-                    return memberTagComponent
+                    return memberTagComponent()
                   }
 
-                  return teamTagComponent
+                  return teamTagComponent()
                 })
                 .sort()
                 .join('')

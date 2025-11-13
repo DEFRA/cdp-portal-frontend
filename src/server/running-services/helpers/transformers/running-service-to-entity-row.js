@@ -1,4 +1,5 @@
 import {
+  renderCachedComponent,
   renderComponent,
   renderIcon
 } from '../../../common/helpers/nunjucks/render-component.js'
@@ -74,7 +75,7 @@ function runningServiceToEntityRow(allEnvironments, request) {
           isSlim: true,
           entity: {
             kind: 'html',
-            value: renderComponent(
+            value: renderCachedComponent(
               'running-service-entity',
               serviceEnvironmentDetail
             )

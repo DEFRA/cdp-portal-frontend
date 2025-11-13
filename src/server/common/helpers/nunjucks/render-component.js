@@ -1,3 +1,4 @@
+import nunjucks from 'nunjucks'
 import camelCase from 'lodash/camelCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 
@@ -45,4 +46,49 @@ function renderIcon(name, params = {}) {
   return renderString(name, params, macroPath)
 }
 
-export { renderIcon, renderComponent }
+// TODO update the names of these functions
+const compiledTemplateCache = new Map()
+
+function getCompiledTemplate(macroPath, macroName, hasCallBlock) {
+  const cacheKey = `${macroPath}:${hasCallBlock}`
+
+  if (!compiledTemplateCache.has(cacheKey)) {
+    let templateStr = `{%- from "${macroPath}" import ${macroName} -%}`
+
+    if (hasCallBlock) {
+      templateStr += `{% call ${macroName}(params) %} {{ caller() }} {% endcall %}`
+    } else {
+      templateStr += `{{- ${macroName}(params) -}}`
+    }
+
+    const compiled = nunjucks.compile(
+      templateStr,
+      nunjucksEnvironment,
+      macroPath
+    )
+    compiledTemplateCache.set(cacheKey, compiled)
+  }
+
+  return compiledTemplateCache.get(cacheKey)
+}
+
+function renderCompiledTemplate(name, params, macroPath, callBlock = []) {
+  const macroName = getMacroName(name)
+  const hasCallBlock = Array.isArray(callBlock) && callBlock.length > 0
+  const template = getCompiledTemplate(macroPath, macroName, hasCallBlock)
+
+  const context = {
+    params: params,
+    callBlockContent: hasCallBlock ? callBlock.join(' ') : ''
+  }
+
+  return template.render(context)
+}
+
+function renderCachedComponent(name, params = {}, callBlock = []) {
+  const macroPath = `${name}/macro.njk`
+
+  return renderCompiledTemplate(name, params, macroPath, callBlock)
+}
+
+export { renderIcon, renderComponent, renderCachedComponent }
