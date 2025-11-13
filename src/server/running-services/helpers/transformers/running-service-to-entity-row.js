@@ -23,7 +23,12 @@ function end(request, name) {
 }
 
 function runningServiceToEntityRow(allEnvironments, request) {
-  return ({ serviceName, environments, teams, isOwner }) => {
+  return ({
+    serviceName,
+    environments: serviceEnvironments,
+    teams,
+    isOwner
+  }) => {
     start(request, 'one')
     const serviceTeams = teams
       .filter((team) => team.teamId)
@@ -49,39 +54,44 @@ function runningServiceToEntityRow(allEnvironments, request) {
 
     end(request, 'two')
 
-    const runningServiceEnvironments = Object.values(environments)
+    const serviceEnvironmentsDetailMap = new Map(
+      Object.values(serviceEnvironments).map((env) => [env.environment, env])
+    )
 
     start(request, 'six')
-    const envs = allEnvironments.map((environmentName) => {
-      start(request, 'three')
-      const rsEnvDetail = runningServiceEnvironments.find(
-        (env) => env.environment === environmentName
-      )
+    const envs = allEnvironments.map((environmentName, i) => {
+      start(request, `three-${i}`)
 
-      end(request, 'three')
+      const serviceEnvironmentDetail =
+        serviceEnvironmentsDetailMap.get(environmentName)
 
-      if (rsEnvDetail) {
-        start(request, 'four')
+      end(request, `three-${i}`)
+
+      if (serviceEnvironmentDetail) {
+        start(request, `four-${i}`)
         const returnValue = {
           headers: environmentName,
           isSlim: true,
           entity: {
             kind: 'html',
-            value: renderComponent('running-service-entity', rsEnvDetail)
+            value: renderComponent(
+              'running-service-entity',
+              serviceEnvironmentDetail
+            )
           }
         }
+        end(request, `four-${i}`)
 
-        end(request, 'four')
         return returnValue
       }
 
-      start(request, 'five')
+      start(request, `five-${i}`)
       const otherReturnValue = {
         headers: environmentName,
         isSlim: true,
         html: '<div class="app-running-service-entity--empty"></div>'
       }
-      end(request, 'five')
+      end(request, `five-${i}`)
 
       return otherReturnValue
     })

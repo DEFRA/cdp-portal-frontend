@@ -3,8 +3,17 @@ import upperFirst from 'lodash/upperFirst.js'
 
 import { nunjucksEnvironment } from '../../../../config/nunjucks/index.js'
 
+const macroNameCache = new Map()
+
+function getMacroName(name) {
+  if (!macroNameCache.has(name)) {
+    macroNameCache.set(name, `app${upperFirst(camelCase(name))}`)
+  }
+  return macroNameCache.get(name)
+}
+
 function renderString(name, params, macroPath, callBlock = []) {
-  const macroName = `app${upperFirst(camelCase(name))}`
+  const macroName = getMacroName(name)
   const macroParams = JSON.stringify(params, null, 2)
   let macroString = `{%- from "${macroPath}" import ${macroName} -%}`
 
