@@ -21,6 +21,21 @@ import {
   userIdValidation
 } from '@defra/cdp-validation-kit'
 import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
+import { performance } from 'perf_hooks'
+
+const perf = {}
+
+function start(request, name) {
+  request.logger?.info(`-------------- ${name} start`)
+  perf[name] = {}
+  perf[name].start = performance.now()
+}
+
+function end(request, name) {
+  perf[name].end = performance.now()
+  request.logger?.info(`${name} took ${perf[name].end - perf[name].start}ms`)
+  request.logger?.info(`-------------- ${name} end`)
+}
 
 async function getFilters() {
   const response = await fetchDeploymentFilters()
@@ -86,12 +101,17 @@ const deploymentsListController = {
     }
   },
   handler: async (request, h) => {
+    start(request, 'one')
     const userSession = await request.getUserSession()
     const userScopes = userSession?.scope ?? []
+    end(request, 'one')
 
+    start(request, 'two')
     const environment = request.params?.environment
     const formattedEnvironment = upperFirst(kebabCase(environment))
+    end(request, 'two')
 
+    start(request, 'three')
     const {
       serviceFilters,
       userFilters,
@@ -99,7 +119,9 @@ const deploymentsListController = {
       teamFilters,
       kindFilters
     } = await getFilters()
+    end(request, 'three')
 
+    start(request, 'four')
     const deploymentsResponse = await fetchDeploymentsWithMigrations(
       environment,
       {
@@ -113,17 +135,25 @@ const deploymentsListController = {
         kind: request.query.kind
       }
     )
+    end(request, 'four')
+
+    start(request, 'five')
     const deployments = deploymentsResponse?.data
     const page = deploymentsResponse?.page
     const pageSize = deploymentsResponse?.pageSize
     const totalPages = deploymentsResponse?.totalPages
     const deployableServices = await fetchServices()
+    end(request, 'five')
 
+    start(request, 'six')
     const deploymentsDecorator = decorateRollouts({
       deployableServices,
       userScopes
     })
     const deploymentsWithTeams = deploymentsDecorator(deployments)
+    end(request, 'six')
+
+    start(request, 'seven')
     const rowBuilder = (entity) => {
       const rowBuilderMap = {
         deployment: deploymentToEntityRow,
@@ -132,9 +162,17 @@ const deploymentsListController = {
 
       return rowBuilderMap[entity.kind](entity)
     }
-    const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
+    end(request, 'seven')
 
-    return h.view('deployments/views/list', {
+    start(request, 'eight')
+    const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
+    end(request, 'eight')
+
+    start(request, 'nine')
+
+    start(request, 'one')
+
+    const view = h.view('deployments/views/list', {
       pageTitle: `${formattedEnvironment} microservice deployments and database updates`,
       pageHeading: {
         caption: formattedEnvironment,
@@ -182,6 +220,10 @@ const deploymentsListController = {
         }
       ]
     })
+
+    end(request, 'nine')
+
+    return view
   }
 }
 

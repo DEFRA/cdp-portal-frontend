@@ -4,6 +4,22 @@ import Boom from '@hapi/boom'
 import { formatText } from '../../../config/nunjucks/filters/filters.js'
 import { buildRunningServicesTableData } from '../helpers/build-running-services-table-data.js'
 
+import { performance } from 'perf_hooks'
+
+const perf = {}
+
+function start(request, name) {
+  request.logger?.info(`-------------- ${name} start`)
+  perf[name] = {}
+  perf[name].start = performance.now()
+}
+
+function end(request, name) {
+  perf[name].end = performance.now()
+  request.logger?.info(`${name} took ${perf[name].end - perf[name].start}ms`)
+  request.logger?.info(`-------------- ${name} end`)
+}
+
 const runningServicesListController = {
   options: {
     id: 'running-services',
@@ -18,6 +34,7 @@ const runningServicesListController = {
     }
   },
   handler: async (request, h) => {
+    start(request, 'one')
     const {
       rows,
       serviceFilters,
@@ -26,8 +43,10 @@ const runningServicesListController = {
       teamFilters,
       environments
     } = await buildRunningServicesTableData(request)
+    end(request, 'one')
 
-    return h.view('running-services/views/list', {
+    start(request, 'nine')
+    const view = h.view('running-services/views/list', {
       pageTitle: 'Running Services',
       tableData: {
         headers: [
@@ -49,6 +68,9 @@ const runningServicesListController = {
       statusFilters,
       teamFilters
     })
+    end(request, 'nine')
+
+    return view
   }
 }
 

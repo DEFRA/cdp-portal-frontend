@@ -8,6 +8,21 @@ import { runningServiceToEntityRow } from './transformers/running-service-to-ent
 import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
 import { fetchRunningServices } from './fetch/fetch-running-services.js'
 import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
+import { performance } from 'perf_hooks'
+
+const perf = {}
+
+function start(request, name) {
+  request.logger?.info(`-------------- ${name} start`)
+  perf[name] = {}
+  perf[name].start = performance.now()
+}
+
+function end(request, name) {
+  perf[name].end = performance.now()
+  request.logger?.info(`${name} took ${perf[name].end - perf[name].start}ms`)
+  request.logger?.info(`-------------- ${name} end`)
+}
 
 function getFilters(runningServicesFilters) {
   const {
@@ -39,11 +54,16 @@ function getFilters(runningServicesFilters) {
 }
 
 async function buildRunningServicesTableData(request) {
+  start(request, 'two')
+
   const query = request.query
   const userSession = await request.getUserSession()
   const environments = getEnvironments(userSession?.scope)
   const userScopes = userSession?.scope ?? []
 
+  end(request, 'two')
+
+  start(request, 'three')
   const [deployableServices, runningServicesFilters, runningServices] =
     await Promise.all([
       fetchServices(),
@@ -56,18 +76,37 @@ async function buildRunningServicesTableData(request) {
       })
     ])
 
+  end(request, 'three')
+
+  start(request, 'four')
+
   const { serviceFilters, userFilters, statusFilters, teamFilters } =
     getFilters(runningServicesFilters)
 
+  end(request, 'four')
+
+  start(request, 'five')
   const services = transformRunningServices({
     runningServices,
     deployableServices,
     userScopes
   })
+  end(request, 'five')
+
+  start(request, 'six')
 
   const ownerSorter = sortByOwner('serviceName')
+
+  end(request, 'six')
+
+  start(request, 'seven')
   const decorator = runningServiceToEntityRow(environments)
+
+  end(request, 'seven')
+
+  start(request, 'eight')
   const rows = services.toSorted(ownerSorter).map(decorator)
+  end(request, 'eight')
 
   return {
     environments,
