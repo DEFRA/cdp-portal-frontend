@@ -129,7 +129,7 @@ const config = convict({
     noCache: {
       doc: 'Use a cache and recompile templates each time',
       format: Boolean,
-      default: isDevelopment
+      default: false
     }
   },
   session: {

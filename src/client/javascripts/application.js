@@ -1,5 +1,4 @@
 import { initAll } from 'govuk-frontend'
-import mermaid from 'mermaid'
 
 import { Autocomplete } from '../../server/common/components/autocomplete/autocomplete.js'
 import { AutocompleteAdvanced } from '../../server/common/components/autocomplete/autocomplete-advanced.js'
@@ -31,7 +30,6 @@ import { initClass, initModules, initModule } from '../common/helpers/init.js'
 import { fetchEnvironments } from '../common/helpers/fetch/autocomplete/fetch-environments.js'
 
 initAll()
-mermaid.initialize({ startOnLoad: true })
 
 // ClientSide CDP namespace
 window.cdp = window.cdp || {}

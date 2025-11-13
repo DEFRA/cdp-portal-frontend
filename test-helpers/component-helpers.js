@@ -36,13 +36,25 @@ Object.keys(testGlobals).forEach((global) => {
   nunjucksTestEnv.addGlobal(global, testGlobals[global])
 })
 
+const macroNameCache = new Map()
+
+function getMacroName(name) {
+  if (!macroNameCache.has(name)) {
+    macroNameCache.set(
+      name,
+      `app${upperFirst(camelCase(name.replace('icons', '')))}`
+    )
+  }
+  return macroNameCache.get(name)
+}
+
 function renderTestComponent(name, options = {}) {
   const params = options?.params ?? {}
   const callBlock = options?.callBlock ?? []
   const context = options?.context ?? {}
 
   const macroPath = `${name}/macro.njk`
-  const macroName = `app${upperFirst(camelCase(name.replace('icons', '')))}`
+  const macroName = getMacroName(name)
   const macroParams = JSON.stringify(params, null, 2)
   let macroString = `{%- from "${macroPath}" import ${macroName} with context -%}`
 

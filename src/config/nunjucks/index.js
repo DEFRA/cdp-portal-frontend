@@ -57,7 +57,7 @@ const nunjucksConfig = {
     },
     relativeTo: path.normalize(path.resolve(dirname, '..', '..')),
     path: 'server',
-    isCached: config.get('isProduction'),
+    isCached: true,
     context
   }
 }

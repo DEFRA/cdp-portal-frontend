@@ -22,7 +22,9 @@ describe('#runningServiceToEntityRow', () => {
 
   describe('When authenticated', () => {
     test('Should return the correct row structure', () => {
-      const result = runningServiceToEntityRow(allEnvironments)(firstService)
+      const result = runningServiceToEntityRow(allEnvironments, {
+        logger: { info: vi.fn() }
+      })(firstService)
 
       expect(result).toEqual({
         cells: [
@@ -92,9 +94,9 @@ describe('#runningServiceToEntityRow', () => {
       ...firstService,
       environments: {}
     }
-    const result = runningServiceToEntityRow(allEnvironments)(
-      serviceDataWithoutEnvironments
-    )
+    const result = runningServiceToEntityRow(allEnvironments, {
+      logger: { info: vi.fn() }
+    })(serviceDataWithoutEnvironments)
     expect(result).toEqual({
       cells: [
         {

@@ -1,10 +1,36 @@
 import {
+  renderCachedComponent,
   renderComponent,
   renderIcon
 } from '../../../common/helpers/nunjucks/render-component.js'
+import { performance } from 'perf_hooks'
 
-function runningServiceToEntityRow(allEnvironments) {
-  return ({ serviceName, environments, teams, isOwner }) => {
+const perf = {}
+
+function start(request, name) {
+  request?.logger?.info(
+    `-------------- runningServiceToEntityRow: ${name} start`
+  )
+  perf[name] = {}
+  perf[name].start = performance.now()
+}
+
+function end(request, name) {
+  perf[name].end = performance.now()
+  request?.logger?.info(
+    `runningServiceToEntityRow: ${name} took ${perf[name].end - perf[name].start}ms`
+  )
+  request.logger?.info(`-------------- runningServiceToEntityRow: ${name} end`)
+}
+
+function runningServiceToEntityRow(allEnvironments, request) {
+  return ({
+    serviceName,
+    environments: serviceEnvironments,
+    teams,
+    isOwner
+  }) => {
+    start(request, 'one')
     const serviceTeams = teams
       .filter((team) => team.teamId)
       .map((team) => ({
@@ -12,6 +38,9 @@ function runningServiceToEntityRow(allEnvironments) {
         value: team.name,
         url: `/teams/${team.teamId}`
       }))
+    end(request, 'one')
+
+    start(request, 'two')
 
     const icon = isOwner
       ? renderComponent(
@@ -24,30 +53,51 @@ function runningServiceToEntityRow(allEnvironments) {
         )
       : ''
 
-    const runningServiceEnvironments = Object.values(environments)
+    end(request, 'two')
 
-    const envs = allEnvironments.map((environmentName) => {
-      const rsEnvDetail = runningServiceEnvironments.find(
-        (env) => env.environment === environmentName
-      )
+    const serviceEnvironmentsDetailMap = new Map(
+      Object.values(serviceEnvironments).map((env) => [env.environment, env])
+    )
 
-      if (rsEnvDetail) {
-        return {
+    start(request, 'six')
+    const envs = allEnvironments.map((environmentName, i) => {
+      start(request, `three-${i}`)
+
+      const serviceEnvironmentDetail =
+        serviceEnvironmentsDetailMap.get(environmentName)
+
+      end(request, `three-${i}`)
+
+      if (serviceEnvironmentDetail) {
+        start(request, `four-${i}`)
+        const returnValue = {
           headers: environmentName,
           isSlim: true,
           entity: {
             kind: 'html',
-            value: renderComponent('running-service-entity', rsEnvDetail)
+            value: renderCachedComponent(
+              'running-service-entity',
+              serviceEnvironmentDetail
+            )
           }
         }
+        end(request, `four-${i}`)
+
+        return returnValue
       }
 
-      return {
+      start(request, `five-${i}`)
+      const otherReturnValue = {
         headers: environmentName,
         isSlim: true,
         html: '<div class="app-running-service-entity--empty"></div>'
       }
+      end(request, `five-${i}`)
+
+      return otherReturnValue
     })
+
+    end(request, 'six')
 
     return {
       cells: [
