@@ -51,7 +51,7 @@ function runningServiceToEntityRow(allEnvironments, request) {
 
     const runningServiceEnvironments = Object.values(environments)
 
-    start(request, 'five')
+    start(request, 'six')
     const envs = allEnvironments.map((environmentName) => {
       start(request, 'three')
       const rsEnvDetail = runningServiceEnvironments.find(
@@ -60,9 +60,9 @@ function runningServiceToEntityRow(allEnvironments, request) {
 
       end(request, 'three')
 
-      start(request, 'four')
       if (rsEnvDetail) {
-        return {
+        start(request, 'four')
+        const returnValue = {
           headers: environmentName,
           isSlim: true,
           entity: {
@@ -70,17 +70,23 @@ function runningServiceToEntityRow(allEnvironments, request) {
             value: renderComponent('running-service-entity', rsEnvDetail)
           }
         }
-      }
-      end(request, 'four')
 
-      return {
+        end(request, 'four')
+        return returnValue
+      }
+
+      start(request, 'five')
+      const otherReturnValue = {
         headers: environmentName,
         isSlim: true,
         html: '<div class="app-running-service-entity--empty"></div>'
       }
+      end(request, 'five')
+
+      return otherReturnValue
     })
 
-    end(request, 'five')
+    end(request, 'six')
 
     return {
       cells: [
