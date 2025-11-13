@@ -2,9 +2,29 @@ import {
   renderComponent,
   renderIcon
 } from '../../../common/helpers/nunjucks/render-component.js'
+import { performance } from 'perf_hooks'
 
-function runningServiceToEntityRow(allEnvironments) {
+const perf = {}
+
+function start(request, name) {
+  request?.logger?.info(
+    `-------------- runningServiceToEntityRow: ${name} start`
+  )
+  perf[name] = {}
+  perf[name].start = performance.now()
+}
+
+function end(request, name) {
+  perf[name].end = performance.now()
+  request?.logger?.info(
+    `runningServiceToEntityRow: ${name} took ${perf[name].end - perf[name].start}ms`
+  )
+  request.logger?.info(`-------------- runningServiceToEntityRow: ${name} end`)
+}
+
+function runningServiceToEntityRow(allEnvironments, request) {
   return ({ serviceName, environments, teams, isOwner }) => {
+    start(request, 'one')
     const serviceTeams = teams
       .filter((team) => team.teamId)
       .map((team) => ({
@@ -12,6 +32,9 @@ function runningServiceToEntityRow(allEnvironments) {
         value: team.name,
         url: `/teams/${team.teamId}`
       }))
+    end(request, 'one')
+
+    start(request, 'two')
 
     const icon = isOwner
       ? renderComponent(
@@ -24,13 +47,20 @@ function runningServiceToEntityRow(allEnvironments) {
         )
       : ''
 
+    end(request, 'two')
+
     const runningServiceEnvironments = Object.values(environments)
 
+    start(request, 'five')
     const envs = allEnvironments.map((environmentName) => {
+      start(request, 'three')
       const rsEnvDetail = runningServiceEnvironments.find(
         (env) => env.environment === environmentName
       )
 
+      end(request, 'three')
+
+      start(request, 'four')
       if (rsEnvDetail) {
         return {
           headers: environmentName,
@@ -41,6 +71,7 @@ function runningServiceToEntityRow(allEnvironments) {
           }
         }
       }
+      end(request, 'four')
 
       return {
         headers: environmentName,
@@ -48,6 +79,8 @@ function runningServiceToEntityRow(allEnvironments) {
         html: '<div class="app-running-service-entity--empty"></div>'
       }
     })
+
+    end(request, 'five')
 
     return {
       cells: [

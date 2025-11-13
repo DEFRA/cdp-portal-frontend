@@ -100,7 +100,7 @@ async function buildRunningServicesTableData(request) {
   end(request, 'six')
 
   start(request, 'seven')
-  const decorator = runningServiceToEntityRow(environments)
+  const decorator = runningServiceToEntityRow(environments, request)
 
   end(request, 'seven')
 
