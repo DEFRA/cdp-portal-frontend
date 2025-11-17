@@ -11,7 +11,7 @@ vi.mock('../../common/helpers/auth/pre/provide-authed-user.js')
 describe('testSuiteListController.handler', () => {
   let h
   let request
-  const mockGetUserSession = vi.fn().mockReturnValue({
+  const mockUserSession = vi.fn().mockReturnValue({
     isAuthenticated: true,
     scope: ['scope-1']
   })
@@ -22,7 +22,7 @@ describe('testSuiteListController.handler', () => {
     }
 
     request = {
-      getUserSession: mockGetUserSession
+      auth: { credentials: mockUserSession() }
     }
   })
 
@@ -78,7 +78,7 @@ describe('testSuiteListController.handler', () => {
   })
 
   test('should return an empty view if no test suites are found and user is not authenticated', async () => {
-    mockGetUserSession.mockReturnValue({
+    mockUserSession.mockReturnValue({
       isAuthenticated: false,
       scope: ['scope-1']
     })

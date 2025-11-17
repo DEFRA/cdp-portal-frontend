@@ -18,7 +18,7 @@ const userProfileController = {
   },
   handler: async (request, h) => {
     const flash = request.state?.flash ?? {}
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const userScopes = userSession.scope
 
     const cdpUser = await fetchCdpUser(userSession.id)

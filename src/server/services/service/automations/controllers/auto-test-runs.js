@@ -24,7 +24,7 @@ const autoTestRunsController = {
   },
   handler: async (request, h) => {
     const entity = request.app.entity
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const serviceId = request.params.serviceId
     const serviceTeams = entity?.teams
 

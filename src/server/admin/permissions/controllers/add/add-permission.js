@@ -9,25 +9,17 @@ import { buildErrorDetails } from '../../../../common/helpers/build-error-detail
 import { addPermissionValidation } from '../../helpers/schema/add-permission-validation.js'
 import { extractIds } from '../../helpers/extract-ids.js'
 
-function sendAuditLogs({ request, userSession, userIds, teamIds, scopeId }) {
+function sendAuditLogs({ request, userIds, teamIds, scopeId }) {
   const auditUserPromises = userIds.map((userId) =>
     request.audit.sendMessage({
-      event: `permission: ${scopeId} added to user: ${userId} by ${userSession.id}:${userSession.email}`,
-      data: {
-        userId,
-        scopeId
-      },
-      user: userSession
+      event: `permission: ${scopeId} added to user: ${userId}`,
+      data: { userId, scopeId }
     })
   )
   const auditTeamPromises = teamIds.map((teamId) =>
     request.audit.sendMessage({
-      event: `permission: ${scopeId} added to team: ${teamId} by ${userSession.id}:${userSession.email}`,
-      data: {
-        teamId,
-        scopeId
-      },
-      user: userSession
+      event: `permission: ${scopeId} added to team: ${teamId}`,
+      data: { teamId, scopeId }
     })
   )
 
@@ -44,7 +36,6 @@ const addPermissionController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const params = request.params
     const scopeId = params.scopeId
 
@@ -115,7 +106,7 @@ const addPermissionController = {
           type: 'success'
         })
 
-        await sendAuditLogs({ request, userSession, userIds, teamIds, scopeId })
+        await sendAuditLogs({ request, userIds, teamIds, scopeId })
 
         return h.redirect(`/admin/permissions/${scopeId}`)
       }

@@ -102,7 +102,7 @@ const deploymentsListController = {
   },
   handler: async (request, h) => {
     start(request, 'one')
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const userScopes = userSession?.scope ?? []
     end(request, 'one')
 

@@ -5,7 +5,6 @@ import { createPermissionValidation } from '../../helpers/schema/create-permissi
 
 const createPermissionDetailsController = {
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const payload = request?.payload
     const value = payload.value?.trim()
     const kind = Array.isArray(payload.kind)
@@ -51,12 +50,8 @@ const createPermissionDetailsController = {
         })
 
         request.audit.sendMessage({
-          event: `permission: ${value}:${createdScope.scopeId} created by ${userSession.id}:${userSession.email}`,
-          data: {
-            value,
-            scopeId: createdScope.scopeId
-          },
-          user: userSession
+          event: `permission: ${value}:${createdScope.scopeId} created`,
+          data: { value, scopeId: createdScope.scopeId }
         })
 
         return h.redirect(`/admin/permissions/${createdScope.scopeId}`)

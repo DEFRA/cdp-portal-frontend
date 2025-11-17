@@ -13,7 +13,7 @@ const provideFormValues = {
   method: async (request) => {
     const environmentOptions = []
     const runnerConfigOptions = []
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
 
     if (userSession?.isAuthenticated) {
       const isAdmin = await request.userIsAdmin()

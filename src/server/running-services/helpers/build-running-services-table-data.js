@@ -57,7 +57,7 @@ async function buildRunningServicesTableData(request) {
   start(request, 'two')
 
   const query = request.query
-  const userSession = await request.getUserSession()
+  const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
   const userScopes = userSession?.scope ?? []
 

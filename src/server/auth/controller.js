@@ -22,7 +22,7 @@ const authCallbackController = {
       await createUserSession(request, sessionId)
 
       request.sessionCookie.set({ sessionId })
-      const userSession = await request.getUserSession(sessionId)
+      const userSession = request.auth.credentials
 
       request.logger.info(
         userLog(

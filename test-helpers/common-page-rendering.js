@@ -501,7 +501,13 @@ function buildAuthDetail(
         scope
       },
       auth: {
-        credentials: { user, scope },
+        credentials: {
+          ...user,
+          isAdmin,
+          isTenant,
+          isAuthenticated,
+          scope
+        },
         strategy: 'default'
       }
     }
@@ -518,7 +524,13 @@ function buildAuthDetail(
         scope: []
       },
       auth: {
-        credentials: { user: null, scope: [] },
+        credentials: {
+          ...user,
+          isAdmin: false,
+          isTenant: false,
+          isAuthenticated: true,
+          scope: []
+        },
         strategy: 'default'
       }
     }
