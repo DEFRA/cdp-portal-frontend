@@ -12,7 +12,8 @@ export const nodeVmMetrics = {
         return
       }
 
-      const threshold = options.threshold ?? 20
+      server.logger.info('Node VM Metrics enabled')
+      const threshold = options.threshold ?? 50
       const pollInterval = options.pollInterval
       const histogram = monitorEventLoopDelay({ resolution: 20 })
       histogram.enable()
@@ -21,13 +22,8 @@ export const nodeVmMetrics = {
         const maxMs = histogram.max / 1e6
         const meanMs = histogram.mean / 1e6
         const max = Number(maxMs.toFixed(2))
-        if (maxMs > threshold) {
-          server.logger.warn(
-            `high event loop delay max:${max} vs mean ${meanMs}`,
-            {
-              event: { duration: max }
-            }
-          )
+        if (max >= threshold) {
+          server.logger.info(`high event loop delay max:${max}`)
         }
 
         millis('EventLoop_max', maxMs)
