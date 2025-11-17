@@ -120,16 +120,16 @@ const config = convict({
     format: String,
     default: 'DEFRA'
   },
-  nunjucks: {
+  templateGeneration: {
     watch: {
       doc: 'Reload templates when they are changed.',
       format: Boolean,
       default: isDevelopment
     },
-    noCache: {
-      doc: 'Use a cache and recompile templates each time',
+    doCache: {
+      doc: 'Cache the templates',
       format: Boolean,
-      default: false
+      default: isProduction
     }
   },
   session: {
