@@ -26,6 +26,7 @@ import { federatedOidc } from './common/helpers/auth/federated-oidc.js'
 import { cognitoFederatedCredentials } from './common/helpers/auth/cognito.js'
 import { setupCaches } from './common/helpers/session/setup-caches.js'
 import { getCacheEngine } from './common/helpers/session/cache-engine.js'
+import { nodeVmMetrics } from './common/helpers/performance/node-vm-metrics.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -105,7 +106,8 @@ async function createServer() {
     sanitise,
     router,
     auditing,
-    s3Client
+    s3Client,
+    nodeVmMetrics
   ])
 
   const sessionCookieConfig = config.get('session.cookie')
