@@ -376,26 +376,12 @@ const config = convict({
       env: 'CDP_DOCUMENTATION_BUCKET'
     }
   },
-  perf: {
-    enabled: {
-      doc: 'Enabled performance monitoring',
-      format: Boolean,
-      default: false,
-      env: 'PERF_ENABLED'
-    },
-    eventLoop: {
-      threshold: {
-        doc: 'Log a warning when event loop delay is greater than this value',
-        format: Number,
-        default: 50,
-        env: 'PERF_EVENT_LOOP_THRESHOLD'
-      },
-      pollInterval: {
-        doc: 'How frequently to report event loop delay metrics in milliseconds',
-        format: Number,
-        default: 1000,
-        env: 'PERF_EVENT_LOOP_INTERVAL'
-      }
+  monitoring: {
+    interval: {
+      doc: 'How frequently to query event loop metrics in milliseconds. 0 means disabled',
+      format: Number,
+      default: 0,
+      env: 'MONITORING_INTERVAL'
     }
   }
 })
