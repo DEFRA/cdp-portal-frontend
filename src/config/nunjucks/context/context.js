@@ -47,7 +47,7 @@ function getAssetPath(asset) {
  * @param {import('@hapi/hapi').Request | null} request
  */
 async function context(request) {
-  const userSession = await request.getUserSession()
+  const userSession = request?.auth?.credentials
   const isInternetExplorer = isIe(request.headers['user-agent'])
   const announcements = await getAnnouncements({
     request,
@@ -72,7 +72,7 @@ async function context(request) {
     isAuthenticated: userSession?.isAuthenticated ?? false,
     isTenant: userSession?.isTenant ?? false,
     isXhr: isXhr.call(request),
-    navigation: await buildNavigation(request),
+    navigation: await buildNavigation(request, userSession),
     noValue,
     routeLookup: (id, options) => request.routeLookup(id, options),
     requestPath: request.path,

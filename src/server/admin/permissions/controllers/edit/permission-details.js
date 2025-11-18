@@ -16,7 +16,6 @@ const editPermissionDetailsController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const scopeId = request.params.scopeId
     const payload = request?.payload
     const kind = Array.isArray(payload.kind)
@@ -60,11 +59,8 @@ const editPermissionDetailsController = {
         })
 
         request.audit.sendMessage({
-          event: `permission: ${scopeId} edited by ${userSession.id}:${userSession.email}`,
-          data: {
-            scopeId
-          },
-          user: userSession
+          event: `permission: ${scopeId} edited`,
+          data: { scopeId }
         })
 
         return h.redirect(`/admin/permissions/${scopeId}`)

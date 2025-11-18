@@ -20,7 +20,7 @@ const runningServiceController = {
     const serviceName = request.params.serviceName
 
     const latestMigrations = await fetchLatestMigrations(serviceName)
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const environments = getEnvironments(userSession?.scope)
     const { runningServices, teams } =
       await transformRunningService(serviceName)

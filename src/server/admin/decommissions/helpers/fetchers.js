@@ -4,8 +4,8 @@ import qs from 'qs'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 
-function decommission(repositoryName, user) {
-  const { id, displayName } = user
+function decommission(repositoryName, credentials) {
+  const { id, displayName } = credentials
   const queryString = qs.stringify(
     { id, displayName },
     { addQueryPrefix: true }

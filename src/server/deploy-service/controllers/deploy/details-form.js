@@ -30,7 +30,7 @@ const detailsFormController = {
   handler: async (request, h) => {
     const query = request?.query
     const stepData = request.pre.stepData
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
 
     const imageName = query?.imageName ?? stepData?.imageName
     const redirectLocation = query?.redirectLocation

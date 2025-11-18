@@ -18,7 +18,7 @@ const servicesListController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const userScopes = userSession?.scope ?? []
     const service = request.query.service
     const teamId = request.query.teamId

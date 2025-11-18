@@ -7,9 +7,11 @@ import { statusCodes } from '@defra/cdp-validation-kit'
 
 describe('#allEnvironmentsOnlyForAdmin', () => {
   const mockRequest = ({ environment, isAdmin }) => ({
-    getUserSession: vi.fn().mockResolvedValue({
-      isAdmin
-    }),
+    auth: {
+      credentials: {
+        isAdmin
+      }
+    },
     params: {
       environment
     }

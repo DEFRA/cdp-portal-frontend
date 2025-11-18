@@ -1,7 +1,6 @@
 import { scopes } from '@defra/cdp-validation-kit'
 
-async function buildNavigation(request) {
-  const userSession = await request.getUserSession()
+async function buildNavigation(request, userSession) {
   const hasPostgresPermission = request.hasScope(scopes.restrictedTechPostgres)
   const hasTestAsTenantPermission = request.hasScope(scopes.testAsTenant)
 

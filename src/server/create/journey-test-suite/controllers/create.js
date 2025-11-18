@@ -2,7 +2,6 @@ import { config } from '../../../../config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
 import { scopes, entityTypes, entitySubTypes } from '@defra/cdp-validation-kit'
 import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
 import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
@@ -18,7 +17,6 @@ const testSuiteCreateController = {
     pre: [provideCreate]
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const create = request.pre?.create
     const repositoryName = create.repositoryName
     const templateTag = create.templateTag
@@ -75,9 +73,10 @@ const testSuiteCreateController = {
           type: 'success'
         })
 
-        request.audit.sendMessage(
-          auditMessageCreated('Journey Test Suite', repositoryName, userSession)
-        )
+        request.audit.sendMessage({
+          event: `Journey Test Suite created: ${repositoryName}`,
+          data: { repositoryName }
+        })
 
         return h.redirect(`/test-suites/${payload.repositoryName}`)
       } catch (error) {

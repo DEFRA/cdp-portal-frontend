@@ -30,7 +30,7 @@ const updateTestRunFormController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const serviceId = request.params.serviceId
     const testSuiteId = request.params.testSuiteId
     const profile = request.query.profile

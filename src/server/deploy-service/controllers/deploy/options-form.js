@@ -27,7 +27,7 @@ const optionsFormController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const query = request?.query
     const formDetail = request?.pre?.formDetail
     const multiStepFormId = request.app.multiStepFormId

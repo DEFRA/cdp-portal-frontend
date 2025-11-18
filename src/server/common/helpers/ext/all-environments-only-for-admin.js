@@ -4,7 +4,7 @@ import { scopes } from '@defra/cdp-validation-kit'
 
 const allEnvironmentsOnlyForAdmin = {
   method: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const environment = request.params.environment
 
     const adminOnlyEnvs = getEnvironmentsThatNeed([scopes.admin])

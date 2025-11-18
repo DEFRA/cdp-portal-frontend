@@ -6,7 +6,7 @@ import { getUsersTeams } from '../../common/helpers/user/get-users-teams.js'
 const portalBackendUrl = config.get('portalBackendUrl')
 
 async function fetchPostgresServices({ request }) {
-  const userSession = request.getUserSession()
+  const userSession = request.auth.credentials
 
   // Admins can view all migrations
   if (userSession.isAdmin) {

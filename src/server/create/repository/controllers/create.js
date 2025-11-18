@@ -3,7 +3,6 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { repositoryValidation } from '../helpers/schema/repository-validation.js'
-import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
 import { scopes } from '@defra/cdp-validation-kit'
 
 const repositoryCreateController = {
@@ -17,7 +16,6 @@ const repositoryCreateController = {
     pre: [provideCreate]
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const create = request.pre?.create
     const repositoryName = create.repositoryName
     const repositoryVisibility = create.repositoryVisibility
@@ -66,9 +64,10 @@ const repositoryCreateController = {
           type: 'success'
         })
 
-        request.audit.sendMessage(
-          auditMessageCreated('Repository', repositoryName, userSession)
-        )
+        request.audit.sendMessage({
+          event: `Repository created: ${repositoryName}`,
+          data: { repository: repositoryName }
+        })
 
         return h.redirect(`/repositories/${repositoryName}/status`)
       } catch (error) {

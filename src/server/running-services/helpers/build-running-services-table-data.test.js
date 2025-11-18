@@ -23,7 +23,7 @@ describe('#buildRunningServicesTableData', () => {
     )
 
     const result = await buildRunningServicesTableData({
-      getUserSession: async () => ({ scope: [scopes.admin] }),
+      auth: { credentials: { scope: [scopes.admin] } },
       query: {
         service: 'cdp-portal-frontend',
         status: 'running',
@@ -193,7 +193,7 @@ describe('#buildRunningServicesTableData', () => {
     fetchRunningServices.mockResolvedValue([])
 
     const result = await buildRunningServicesTableData({
-      getUserSession: async () => ({ scope: [] }),
+      auth: { credentials: { scope: [] } },
       query: {}
     })
 
@@ -248,7 +248,7 @@ describe('#buildRunningServicesTableData', () => {
 
     await expect(
       buildRunningServicesTableData({
-        getUserSession: async () => ({ scope: [] }),
+        auth: { credentials: { scope: [] } },
         query: {}
       })
     ).rejects.toThrow('Fetch failed')

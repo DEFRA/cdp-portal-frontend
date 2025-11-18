@@ -21,7 +21,7 @@ const autoDeploymentsController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const serviceId = request.params.serviceId
     const entity = request.app.entity
     const autoDeployDetails = await getAutoDeployDetails(serviceId)

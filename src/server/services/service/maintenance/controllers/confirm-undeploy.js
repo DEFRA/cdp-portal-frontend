@@ -19,7 +19,7 @@ const confirmUndeployController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const serviceId = request.params.serviceId
     const environment = request.query.environment
     const entity = request.app.entity

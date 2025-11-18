@@ -33,7 +33,7 @@ const changeDetailsFormController = {
     const latestMigrations = await fetchLatestMigrations(serviceName)
 
     const postgresImageNameOptions = buildOptions(postgresServiceNames ?? [])
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const environments = getEnvironments(userSession?.scope)
     const environmentOptions = environments ? buildOptions(environments) : []
 

@@ -8,7 +8,7 @@ const testSuiteListController = {
     id: 'test-suites'
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const userScope = userSession?.scope ?? []
 
     const [testSuites] = await Promise.all([fetchTestSuites()])

@@ -3,7 +3,6 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { setStepComplete } from '../../helpers/form/index.js'
-import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
 import { entitySubTypes, entityTypes, scopes } from '@defra/cdp-validation-kit'
 import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
 import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
@@ -19,7 +18,6 @@ const perfTestSuiteCreateController = {
     pre: [provideCreate]
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const create = request.pre?.create
     const repositoryName = create.repositoryName
     const teamId = request.payload?.teamId
@@ -77,9 +75,10 @@ const perfTestSuiteCreateController = {
           type: 'success'
         })
 
-        request.audit.sendMessage(
-          auditMessageCreated('Perf Test Suite', repositoryName, userSession)
-        )
+        request.audit.sendMessage({
+          event: `Perf Test Suite created: ${repositoryName}`,
+          data: { repository: repositoryName }
+        })
 
         return h.redirect(`/test-suites/${payload.repositoryName}`)
       } catch (error) {

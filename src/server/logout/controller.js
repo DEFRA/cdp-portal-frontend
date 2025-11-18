@@ -4,7 +4,7 @@ import { config } from '../../config/config.js'
 
 const logoutController = {
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
 
     if (!userSession) {
       return h.redirect('/')
