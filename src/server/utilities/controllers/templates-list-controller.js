@@ -6,7 +6,7 @@ const templatesListController = {
     id: 'utilities/templates'
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const isAuthenticated = userSession?.isAuthenticated
     const userScopes = userSession?.scopes ?? []
 

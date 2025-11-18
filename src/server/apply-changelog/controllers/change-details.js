@@ -18,7 +18,7 @@ const changeDetailsController = {
   },
   handler: async (request, h) => {
     const payload = request?.payload
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const redirectLocation = payload?.redirectLocation
     const multiStepFormId = request.app.multiStepFormId
 

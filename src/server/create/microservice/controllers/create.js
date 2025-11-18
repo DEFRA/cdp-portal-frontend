@@ -3,7 +3,6 @@ import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { setStepComplete } from '../../helpers/form/index.js'
-import { auditMessageCreated } from '../../../common/helpers/audit/messages/audit-message-created.js'
 import { scopes, entityTypes } from '@defra/cdp-validation-kit'
 import { fetchServiceTemplates } from '../helpers/fetch/fetch-service-templates.js'
 import { buildPayload } from '../helpers/build-payload.js'
@@ -20,7 +19,6 @@ const microserviceCreateController = {
     pre: [provideCreate]
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const create = request.pre?.create
     const serviceTemplates = await fetchServiceTemplates(request, {
       type: entityTypes.microservice
@@ -69,9 +67,10 @@ const microserviceCreateController = {
           type: 'success'
         })
 
-        request.audit.sendMessage(
-          auditMessageCreated('Service', create.microserviceName, userSession)
-        )
+        request.audit.sendMessage({
+          event: `Service created: ${create.microserviceName}`,
+          data: { repository: create.microserviceName }
+        })
 
         return h.redirect(`/services/${payload.repositoryName}`)
       } catch (error) {

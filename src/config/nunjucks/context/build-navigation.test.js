@@ -4,7 +4,6 @@ import { scopes } from '@defra/cdp-validation-kit'
 const mockRequest = ({ path = '', auth = {} } = {}) => ({
   path,
   hasScope: (scope) => auth?.scope?.includes(scope),
-  getUserSession: () => auth,
   routeLookup: (value) => (value === 'home' ? '/' : `/${value}`)
 })
 
@@ -86,9 +85,7 @@ describe('#buildNavigation', () => {
 
   describe('When user is authenticated', () => {
     test('Should provide expected navigation details', async () => {
-      expect(
-        await buildNavigation(mockRequest({ auth: { isTenant: true } }))
-      ).toEqual({
+      expect(await buildNavigation(mockRequest(), { isTenant: true })).toEqual({
         actions: [
           {
             current: false,
@@ -180,9 +177,7 @@ describe('#buildNavigation', () => {
 
   describe('When user is Admin', () => {
     test('Should provide expected navigation details', async () => {
-      expect(
-        await buildNavigation(mockRequest({ auth: { isAdmin: true } }))
-      ).toEqual({
+      expect(await buildNavigation(mockRequest(), { isAdmin: true })).toEqual({
         actions: [
           {
             current: false,
@@ -284,9 +279,8 @@ describe('#buildNavigation', () => {
       test('Should provide expected navigation details', async () => {
         expect(
           await buildNavigation(
-            mockRequest({
-              auth: { isTenant: true, scope: [scopes.restrictedTechPostgres] }
-            })
+            mockRequest({ auth: { scope: [scopes.restrictedTechPostgres] } }),
+            { isTenant: true }
           )
         ).toEqual({
           actions: [
@@ -389,9 +383,8 @@ describe('#buildNavigation', () => {
       test('Should provide expected navigation details', async () => {
         expect(
           await buildNavigation(
-            mockRequest({
-              auth: { isTenant: true, scope: [scopes.testAsTenant] }
-            })
+            mockRequest({ auth: { scope: [scopes.testAsTenant] } }),
+            { isTenant: true }
           )
         ).toEqual({
           actions: [

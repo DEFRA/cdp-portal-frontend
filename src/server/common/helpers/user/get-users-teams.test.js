@@ -12,9 +12,11 @@ describe('#getUsersTeams', () => {
   describe('With Admin user', () => {
     test('Should receive all teams in response', async () => {
       const mockRequest = {
-        getUserSession: vi.fn().mockResolvedValue({
-          isAdmin: true
-        })
+        auth: {
+          credentials: {
+            isAdmin: true
+          }
+        }
       }
 
       nock(teamsEndpointUrl.origin)
@@ -37,9 +39,11 @@ describe('#getUsersTeams', () => {
   describe('With service team user', () => {
     test('Should receive only teams they are in, in response', async () => {
       const mockRequest = {
-        getUserSession: vi.fn().mockResolvedValue({
-          scope: ['team:bees', 'team:fish-and-octopus']
-        })
+        auth: {
+          credentials: {
+            scope: ['team:bees', 'team:fish-and-octopus']
+          }
+        }
       }
 
       nock(teamsEndpointUrl.origin)

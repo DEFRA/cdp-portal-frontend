@@ -11,7 +11,6 @@ const terminalBrowserController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const params = request.params
     const serviceId = params.serviceId
     const environment = params.environment
@@ -24,16 +23,14 @@ const terminalBrowserController = {
       `Terminal on url: ${terminalProxyUrl} requested for ${serviceId} in ${environment}`
     )
 
-    request.audit.send({
+    request.audit.sendMessage({
       event: 'terminal opened',
-      user: {
-        id: userSession?.id,
-        name: userSession?.displayName
-      },
-      terminal: {
-        token,
-        environment,
-        serviceId
+      data: {
+        terminal: {
+          token,
+          environment,
+          serviceId
+        }
       }
     })
 

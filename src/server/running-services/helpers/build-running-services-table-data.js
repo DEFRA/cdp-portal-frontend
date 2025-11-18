@@ -40,7 +40,7 @@ function getFilters(runningServicesFilters) {
 
 async function buildRunningServicesTableData(request) {
   const query = request.query
-  const userSession = await request.getUserSession()
+  const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
   const userScopes = userSession?.scope ?? []
 

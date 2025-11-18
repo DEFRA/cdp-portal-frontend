@@ -38,9 +38,11 @@ describe('#userIsServiceOwnerDecorator', () => {
       'team:teamTwelveScope'
     ]
     checkUserIsServiceOwnerDecorator = userIsServiceOwnerDecorator({
-      getUserSession: vi.fn().mockResolvedValue({
-        scope: adminScopes
-      })
+      auth: {
+        credentials: {
+          scope: adminScopes
+        }
+      }
     })
   })
 

@@ -14,7 +14,7 @@ const applyController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const stepData = request.pre.stepData
     const multiStepFormId = request.app.multiStepFormId
     const runApplyChangelogEndpointUrl =

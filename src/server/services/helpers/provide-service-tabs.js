@@ -9,7 +9,7 @@ import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
  * @returns {Promise<symbol>}
  */
 async function provideServiceTabs(request, h) {
-  const userSession = await request.getUserSession()
+  const userSession = request?.auth?.credentials
   const isAdmin = userSession?.isAdmin
   const isTenant = userSession?.isTenant
   const response = request.response

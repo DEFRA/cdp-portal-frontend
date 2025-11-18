@@ -5,7 +5,7 @@ import upperFirst from 'lodash/upperFirst.js'
 const paginationParams = `?page=${pagination.page}&size=${pagination.size}`
 
 async function provideTabs(request, h) {
-  const userSession = await request.getUserSession()
+  const userSession = request.auth.credentials
   const response = request.response
 
   if (response.variety === 'view') {

@@ -13,7 +13,7 @@ const testSuiteRunController = {
   handler: async (request, h) => {
     const payload = request.payload
     const { testSuite, environment, configuration } = request.payload
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const userScopes = userSession?.scope
 
     const teamIds = userSession?.isAdmin ? [] : userScopes

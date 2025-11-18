@@ -4,9 +4,11 @@ import { scopes } from '@defra/cdp-validation-kit'
 const mockRequest = ({ response, path = '', scope = [] }) => ({
   response,
   path,
-  getUserSession: vi.fn().mockResolvedValue({
-    scope
-  })
+  auth: {
+    credentials: {
+      scope
+    }
+  }
 })
 
 describe('#provideTabs', () => {

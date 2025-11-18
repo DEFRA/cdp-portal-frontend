@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect } from 'vitest'
 import { testSuiteValidation } from './test-suite-validation.js'
 
 describe('testSuiteValidation', () => {

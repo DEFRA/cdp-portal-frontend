@@ -3,7 +3,7 @@ import { buildUtilitiesTableData } from '../helpers/build-utilities-table-data.j
 
 const librariesListController = {
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const isAuthenticated = userSession?.isAuthenticated
     const userScopes = userSession?.scope ?? []
 

@@ -21,8 +21,6 @@ const addPermissionToMemberController = {
     pre: [provideStepData]
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
-
     const params = request.params
     const scopeId = params.scopeId
     const userId = params.userId
@@ -76,12 +74,8 @@ const addPermissionToMemberController = {
       })
 
       request.audit.sendMessage({
-        event: `permission: ${scopeId} added to user: ${userId} by ${userSession.id}:${userSession.email}`,
-        data: {
-          userId,
-          scopeId
-        },
-        user: userSession
+        event: `permission: ${scopeId} added to user: ${userId}`,
+        data: { userId, scopeId }
       })
 
       return h.redirect(`/admin/permissions/${scopeId}`)

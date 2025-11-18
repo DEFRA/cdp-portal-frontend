@@ -14,7 +14,6 @@ const deletePermissionController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const scopeId = request.params.scopeId
 
     try {
@@ -26,11 +25,8 @@ const deletePermissionController = {
       })
 
       request.audit.sendMessage({
-        event: `permission: ${scopeId} delete by ${userSession.id}:${userSession.email}`,
-        data: {
-          scopeId
-        },
-        user: userSession
+        event: `permission: ${scopeId} deleted`,
+        data: { scopeId }
       })
 
       return h.redirect('/admin/permissions')

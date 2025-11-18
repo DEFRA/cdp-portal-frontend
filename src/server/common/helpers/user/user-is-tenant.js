@@ -4,7 +4,7 @@ function userIsTenant(userSession) {
 
 function userIsTenantDecorator(request) {
   return async () => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
 
     return userSession ? userIsTenant(userSession) : false
   }

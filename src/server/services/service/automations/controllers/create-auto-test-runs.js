@@ -23,7 +23,7 @@ const setupAutoTestRunController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const payload = request.payload
     const userScopes = userSession?.scope
     const serviceId = request.params.serviceId
