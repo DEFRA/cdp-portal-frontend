@@ -3,8 +3,8 @@ function userIsAdmin(userSession) {
 }
 
 function userIsAdminDecorator(request) {
-  return async () => {
-    const userSession = await request.getUserSession()
+  return () => {
+    const userSession = request.auth.credentials
 
     return userSession ? userIsAdmin(userSession) : false
   }

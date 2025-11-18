@@ -19,7 +19,7 @@ describe('#provideServiceTabs', () => {
   }) => ({
     response,
     path,
-    getUserSession: mockUserSession,
+    auth: { credentials: mockUserSession() },
     userIsOwner: mockUserIsOwner,
     routeLookup: mockRouteLookup,
     hasScope: hasScopeDecorator({
@@ -48,7 +48,7 @@ describe('#provideServiceTabs', () => {
   describe('With an Admin user', () => {
     beforeEach(() => {
       mockUserIsOwner.mockResolvedValue(false)
-      mockUserSession.mockResolvedValue({
+      mockUserSession.mockReturnValue({
         isAdmin: true,
         isTenant: true
       })
@@ -191,7 +191,7 @@ describe('#provideServiceTabs', () => {
     beforeEach(async () => {
       mockUserIsOwner.mockResolvedValue(true)
 
-      mockUserSession.mockResolvedValue({
+      mockUserSession.mockReturnValue({
         isAdmin: false,
         isTenant: true
       })
@@ -291,7 +291,7 @@ describe('#provideServiceTabs', () => {
     beforeEach(() => {
       mockUserIsOwner.mockResolvedValue(false)
 
-      mockUserSession.mockResolvedValue({
+      mockUserSession.mockReturnValue({
         isAdmin: false,
         isTenant: true
       })
@@ -358,7 +358,7 @@ describe('#provideServiceTabs', () => {
   describe('With a logged out user', () => {
     beforeEach(() => {
       mockUserIsOwner.mockResolvedValue(false)
-      mockUserSession.mockResolvedValue(null)
+      mockUserSession.mockReturnValue(null)
     })
 
     test('Should provide expected context tabs', async () => {

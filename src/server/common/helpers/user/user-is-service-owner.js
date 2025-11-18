@@ -6,8 +6,8 @@ function userIsServiceOwner(userSession) {
 
 function userIsServiceOwnerDecorator(request) {
   /** @param {string[]} teamsForTheService */
-  return async (teamsForTheService) => {
-    const userSession = await request.getUserSession()
+  return (teamsForTheService) => {
+    const userSession = request.auth.credentials
 
     return userIsServiceOwner(userSession)(teamsForTheService)
   }

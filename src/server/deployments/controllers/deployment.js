@@ -19,7 +19,7 @@ const deploymentController = {
   options: {
     id: 'deployments/{environment}/{deploymentId}',
     ext: {
-      onPreAuth: [allEnvironmentsOnlyForAdmin]
+      onPostAuth: [allEnvironmentsOnlyForAdmin]
     },
     pre: [provideDeployment],
     validate: {

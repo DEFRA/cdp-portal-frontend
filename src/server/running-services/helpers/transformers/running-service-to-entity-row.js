@@ -4,7 +4,12 @@ import {
 } from '../../../common/helpers/nunjucks/render-component.js'
 
 function runningServiceToEntityRow(allEnvironments) {
-  return ({ serviceName, environments, teams, isOwner }) => {
+  return ({
+    serviceName,
+    environments: serviceEnvironments,
+    teams,
+    isOwner
+  }) => {
     const serviceTeams = teams
       .filter((team) => team.teamId)
       .map((team) => ({
@@ -24,20 +29,24 @@ function runningServiceToEntityRow(allEnvironments) {
         )
       : ''
 
-    const runningServiceEnvironments = Object.values(environments)
+    const serviceEnvironmentsDetailMap = new Map(
+      Object.values(serviceEnvironments).map((env) => [env.environment, env])
+    )
 
     const envs = allEnvironments.map((environmentName) => {
-      const rsEnvDetail = runningServiceEnvironments.find(
-        (env) => env.environment === environmentName
-      )
+      const serviceEnvironmentDetail =
+        serviceEnvironmentsDetailMap.get(environmentName)
 
-      if (rsEnvDetail) {
+      if (serviceEnvironmentDetail) {
         return {
           headers: environmentName,
           isSlim: true,
           entity: {
             kind: 'html',
-            value: renderComponent('running-service-entity', rsEnvDetail)
+            value: renderComponent(
+              'running-service-entity',
+              serviceEnvironmentDetail
+            )
           }
         }
       }

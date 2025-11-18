@@ -6,11 +6,13 @@ describe('#provideFormValues', () => {
 
   test('Should provide expected values for an authenticated user', async () => {
     const mockRequest = {
-      getUserSession: vi.fn().mockResolvedValue({
-        isAuthenticated: true,
-        isAdmin: false,
-        scope: []
-      }),
+      auth: {
+        credentials: {
+          isAuthenticated: true,
+          isAdmin: false,
+          scope: []
+        }
+      },
       app: { entity },
       userIsOwner: vi.fn().mockResolvedValue(false),
       userIsAdmin: vi.fn().mockResolvedValue(false)
@@ -25,7 +27,7 @@ describe('#provideFormValues', () => {
 
   test('Should return expect values for an unauthenticated user', async () => {
     const mockRequest = {
-      getUserSession: vi.fn().mockResolvedValue({ isAuthenticated: false }),
+      auth: { credentials: { isAuthenticated: false } },
       userIsOwner: vi.fn().mockResolvedValue(false),
       userIsAdmin: vi.fn().mockResolvedValue(false)
     }
@@ -40,11 +42,13 @@ describe('#provideFormValues', () => {
 
   test('Should return expected values for a test suite owner', async () => {
     const mockRequest = {
-      getUserSession: vi.fn().mockResolvedValue({
-        isAuthenticated: true,
-        isAdmin: false,
-        scope: ['team:team1', `${scopes.serviceOwner}:team:team1`]
-      }),
+      auth: {
+        credentials: {
+          isAuthenticated: true,
+          isAdmin: false,
+          scope: ['team:team1', `${scopes.serviceOwner}:team:team1`]
+        }
+      },
       app: { entity },
       userIsOwner: vi.fn().mockResolvedValue(true),
       userIsAdmin: vi.fn().mockResolvedValue(false)
@@ -106,11 +110,13 @@ describe('#provideFormValues', () => {
 
   test('Should return expected values for an admin user', async () => {
     const mockRequest = {
-      getUserSession: vi.fn().mockResolvedValue({
-        isAuthenticated: true,
-        isAdmin: true,
-        scope: [scopes.admin]
-      }),
+      auth: {
+        credentials: {
+          isAuthenticated: true,
+          isAdmin: true,
+          scope: [scopes.admin]
+        }
+      },
       app: { entity },
       userIsOwner: vi.fn().mockResolvedValue(false),
       userIsAdmin: vi.fn().mockResolvedValue(true)

@@ -53,7 +53,7 @@ describe('#addServiceOwnerScope', () => {
       const teamId = '9e068bb9-1452-426e-a4ca-2e675a942a89'
 
       // Users session scope array
-      mockGetUserSession.mockResolvedValue({
+      mockGetUserSession.mockReturnValue({
         scope: [`team:${teamId}`]
       })
 
@@ -68,7 +68,7 @@ describe('#addServiceOwnerScope', () => {
           serviceId: 'mock-service-id'
         },
         userIsOwner: userIsOwnerDecorator({
-          getUserSession: mockGetUserSession
+          auth: { credentials: mockGetUserSession() }
         })
       }
     })
@@ -101,7 +101,7 @@ describe('#addServiceOwnerScope', () => {
           serviceId: 'mock-service-id'
         },
         userIsOwner: userIsOwnerDecorator({
-          getUserSession: mockGetUserSession
+          auth: { credentials: mockGetUserSession }
         })
       }
     })

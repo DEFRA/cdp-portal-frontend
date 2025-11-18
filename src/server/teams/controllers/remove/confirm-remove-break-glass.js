@@ -32,7 +32,7 @@ const confirmRemoveBreakGlassController = {
   handler: async (request, h) => {
     const pageTitle = 'Remove break glass'
 
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const team = await fetchCdpTeam(request.params.teamId)
     const user = await fetchCdpUser(request.params.userId)
 

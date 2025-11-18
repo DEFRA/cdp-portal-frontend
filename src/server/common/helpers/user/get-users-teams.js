@@ -7,7 +7,7 @@ import { fetchCdpTeams } from '../../../teams/helpers/fetch/fetch-cdp-teams.js'
  * @returns {Promise<[{teamId: string, github: string}]>}
  */
 async function getUsersTeams(request) {
-  const userSession = await request.getUserSession()
+  const userSession = request.auth.credentials
   const scopes = userSession?.scope
 
   // TODO we need to consider pagination here in the future

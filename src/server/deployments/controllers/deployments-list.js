@@ -66,7 +66,7 @@ const deploymentsListController = {
   options: {
     id: 'deployments/{environment}',
     ext: {
-      onPreAuth: [allEnvironmentsOnlyForAdmin],
+      onPostAuth: [allEnvironmentsOnlyForAdmin],
       onPostHandler: [provideFormValues]
     },
     validate: {
@@ -86,7 +86,7 @@ const deploymentsListController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
+    const userSession = request.auth.credentials
     const userScopes = userSession?.scope ?? []
 
     const environment = request.params?.environment

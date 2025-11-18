@@ -10,15 +10,13 @@ const removeTestAsTenantScopeController = {
     id: 'admin/removeTestAsTenant'
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
-
     try {
       const scope = await fetchPermissionByName(
         request,
         scopes.testAsTenant.replace('permission:', '')
       )
       const scopeId = scope.scopeId
-      const userId = userSession.id
+      const userId = request.auth.credentials.id
 
       await removeScopeFromUser({
         request,
@@ -32,9 +30,8 @@ const removeTestAsTenantScopeController = {
       })
 
       request.audit.sendMessage({
-        event: `permission: ${scopeId} removed from user: ${userId} by ${userSession.id}:${userSession.email}`,
-        data: { userId, scopeId },
-        user: userSession
+        event: `permission: ${scopeId} removed from user: ${userId}`,
+        data: { userId, scopeId }
       })
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)

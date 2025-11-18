@@ -10,6 +10,7 @@ import * as globals from './globals/globals.js'
 import * as extensions from './extensions/extensions.js'
 
 const dirname = import.meta.dirname
+const { watch, doCache } = config.get('templateGeneration')
 
 const paths = {
   templates: path.normalize(
@@ -33,8 +34,8 @@ const nunjucksEnvironment = nunjucks.configure(
     throwOnUndefined: false,
     trimBlocks: true,
     lstripBlocks: true,
-    watch: config.get('nunjucks.watch'),
-    noCache: config.get('nunjucks.noCache')
+    watch,
+    noCache: !doCache
   }
 )
 
@@ -57,7 +58,7 @@ const nunjucksConfig = {
     },
     relativeTo: path.normalize(path.resolve(dirname, '..', '..')),
     path: 'server',
-    isCached: config.get('isProduction'),
+    isCached: doCache,
     context
   }
 }

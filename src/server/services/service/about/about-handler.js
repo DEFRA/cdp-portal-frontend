@@ -11,7 +11,7 @@ import { obtainLogsAndMetricsUrls } from '../../../common/helpers/obtain-logs-an
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
-  const userSession = await request.getUserSession()
+  const userSession = request.auth.credentials
 
   if (entity == null) {
     return Boom.notFound()

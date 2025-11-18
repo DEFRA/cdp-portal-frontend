@@ -14,7 +14,6 @@ const deployController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = await request.getUserSession()
     const stepData = request.pre.stepData
     const multiStepFormId = request.app.multiStepFormId
     const deployServiceEndpointUrl =
@@ -48,12 +47,11 @@ const deployController = {
       const deploymentId = payload.deploymentId
 
       request.audit.sendMessage({
-        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion} by ${userSession.id}:${userSession.email}`,
+        event: `deployment requested: ${stepData.imageName}:${stepData.version} to ${stepData.environment} with config ${request.payload.configVersion}`,
         data: {
           imageName: stepData.imageName,
           environment: stepData.environment
-        },
-        user: userSession
+        }
       })
 
       return h.redirect(`/deployments/${stepData.environment}/${deploymentId}`)
