@@ -1,5 +1,4 @@
-import { millis } from '@defra/cdp-metrics'
-import { monitorEventLoopDelay } from 'perf_hooks'
+import { millis, byteSize } from '@defra/cdp-metrics'
 import { config } from '../../../../config/config.js'
 
 export const nodeVmMetrics = {
@@ -15,21 +14,22 @@ export const nodeVmMetrics = {
       server.logger.info('Node VM Metrics enabled')
       const threshold = options.threshold ?? 50
       const pollInterval = options.pollInterval
-      const histogram = monitorEventLoopDelay({ resolution: 20 })
-      histogram.enable()
 
       const poller = setInterval(() => {
-        const maxMs = histogram.max / 1e6
-        const meanMs = histogram.mean / 1e6
-        const max = Number(maxMs.toFixed(2))
-        if (max >= threshold) {
-          server.logger.info(`high event loop delay max:${max}`)
+        const load = server.load
+
+        const eventLoopDelay = Number(load.eventLoopDelay.toFixed(2))
+        const eventLoopUtilization = Number(
+          load.eventLoopUtilization.toFixed(2)
+        )
+        if (load.eventLoopDelay >= threshold) {
+          server.logger.warn(`high event loop delay max:${eventLoopDelay}`)
         }
 
-        millis('EventLoop_max', maxMs)
-        millis('EventLoop_mean', meanMs)
-
-        histogram.reset()
+        millis('NodeEventLoopDelay', eventLoopDelay)
+        millis('NodeEventLoopUtilization', eventLoopUtilization)
+        byteSize('NodeMemoryHeap', load.heapUsed)
+        byteSize('NodeMemoryRss', load.rss)
       }, pollInterval)
 
       poller.unref()
@@ -38,15 +38,12 @@ export const nodeVmMetrics = {
         if (poller) {
           clearInterval(poller)
         }
-        if (histogram) {
-          histogram.disable()
-        }
       })
     }
   },
   options: {
-    threshold: config.get('perf.eventLoop.threshold'),
-    pollInterval: config.get('perf.eventLoop.pollInterval'),
-    enabled: config.get('perf.enabled')
+    threshold: 50,
+    pollInterval: config.get('monitoring.interval'),
+    enabled: config.get('monitoring.interval') > 0
   }
 }

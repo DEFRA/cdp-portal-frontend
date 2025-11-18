@@ -77,7 +77,8 @@ async function createServer() {
     },
     state: {
       strictHeader: false
-    }
+    },
+    load: { sampleInterval: config.get('monitoring.interval') }
   })
 
   setupCaches(server)
