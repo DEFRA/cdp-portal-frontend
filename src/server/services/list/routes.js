@@ -1,5 +1,6 @@
 import {
-  servicesListController, servicesListV2Controller,
+  servicesListController,
+  servicesListV2Controller,
   staticServicesListController
 } from './controller.js'
 
