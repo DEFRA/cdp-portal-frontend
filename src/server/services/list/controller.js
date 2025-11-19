@@ -1,7 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildServicesTableData } from './helpers/build-services-table-data.js'
+import {
+  buildServicesTableData,
+  buildServicesTableDataV2
+} from './helpers/build-services-table-data.js'
 import { servicesInfoToDataList } from './transformers/services-info-to-data-list.js'
 
 const servicesListController = {
@@ -51,4 +54,90 @@ const servicesListController = {
   }
 }
 
-export { servicesListController }
+const staticServicesListController = {
+  options: {
+    id: 'services3',
+    validate: {
+      query: Joi.object({
+        service: Joi.string().allow(''),
+        teamId: Joi.string().allow(''),
+        page: Joi.number(),
+        size: Joi.number()
+      }),
+      failAction: () => Boom.boomify(Boom.notFound())
+    }
+  },
+  handler: async (request, h) => {
+    const userSession = await request.getUserSession()
+    const userScopes = userSession?.scope ?? []
+    const service = request.query.service
+    const teamId = request.query.teamId
+
+    const { rows, servicesCount, filters } = await buildServicesTableData({
+      service,
+      teamId,
+      userScopes
+    })
+
+    return h.view('services/list/views/list-static', {
+      pageTitle: 'Services',
+      tableData: {
+        headers: [
+          { id: 'owner', classes: 'app-entity-table__cell--owned' },
+          { id: 'service', text: 'Service', width: '23', isLeftAligned: true },
+          { id: 'team', text: 'Team', width: '22' },
+          { id: 'type', text: 'Type', width: '10' },
+          { id: 'github-url', text: 'GitHub Repository', width: '30' },
+          { id: 'created', text: 'Created', width: '15' }
+        ],
+        rows,
+        noResult: 'No services found',
+        isWide: true
+      },
+      serviceFilters: filters.service,
+      teamFilters: filters.team,
+      servicesInfo: servicesInfoToDataList(servicesCount)
+    })
+  }
+}
+
+const servicesListV2Controller = {
+  options: {
+    id: 'services2',
+    validate: {
+      query: Joi.object({
+        service: Joi.string().allow(''),
+        teamId: Joi.string().allow(''),
+        page: Joi.number(),
+        size: Joi.number()
+      }),
+      failAction: () => Boom.boomify(Boom.notFound())
+    }
+  },
+  handler: async (request, h) => {
+    const userSession = await request.getUserSession()
+    const userScopes = userSession?.scope ?? []
+    const service = request.query.service
+    const teamId = request.query.teamId
+
+    const { rows, servicesCount, filters } = await buildServicesTableDataV2({
+      service,
+      teamId,
+      userScopes
+    })
+
+    return h.view('services/list/views/list-v2', {
+      pageTitle: 'Services',
+      rows,
+      serviceFilters: filters.service,
+      teamFilters: filters.team,
+      servicesInfo: servicesInfoToDataList(servicesCount)
+    })
+  }
+}
+
+export {
+  servicesListController,
+  staticServicesListController,
+  servicesListV2Controller
+}

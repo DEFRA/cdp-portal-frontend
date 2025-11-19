@@ -1,4 +1,7 @@
-import { servicesListController } from './controller.js'
+import {
+  servicesListController, servicesListV2Controller,
+  staticServicesListController
+} from './controller.js'
 
 const listServices = {
   plugin: {
@@ -9,6 +12,16 @@ const listServices = {
           method: 'GET',
           path: '/services',
           ...servicesListController
+        },
+        {
+          method: 'GET',
+          path: '/services-inline',
+          ...servicesListV2Controller
+        },
+        {
+          method: 'GET',
+          path: '/services-static',
+          ...staticServicesListController
         }
       ])
     }

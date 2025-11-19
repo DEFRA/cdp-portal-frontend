@@ -1,0 +1,169 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {% set infoHtml %}
+    {{ appEntityDataList({
+      items: servicesInfo
+    }) }}
+  {% endset %}
+
+  {{ appPageHeading({
+    text: "Services",
+    intro: "Frontend, backend and prototype microservice details"
+  }) }}
+
+  {% call appFilters({
+    action: "/services",
+    noJsButton: {
+      text: "Search"
+    },
+    legend: {
+      text: "Search",
+      classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-1"
+    },
+    caption: {
+      text: "Search and filter microservices"
+    },
+    info: {
+      html: infoHtml
+    },
+    clear: {
+      url: "/services"
+    }
+  }) %}
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-service",
+        name: "service",
+        classes: "app-autocomplete--medium app-autocomplete--inline",
+        label: {
+          text: "Service name",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.service,
+        suggestions: serviceFilters,
+        typeahead: true,
+        placeholder: "Search by service"
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-team",
+        name: "teamId",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Team",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.teamId,
+        suggestions: teamFilters
+      }) }}
+    </div>
+
+  {% endcall %}
+
+  {% block xhrContent %}
+    <div data-xhr="services">
+     <article>
+       <table class="app-entity-table  app-entity-table--wide" data-testid="app-entity-table">
+         <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+           <tr>
+           <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
+           <th id="owner" scope="col" class="app-entity-table__heading app-entity-table__cell--owned" data-testid="app-entity-table-header-1" aria-labelledby="owner">
+             <span id="owner" class="govuk-visually-hidden">owner</span>
+           </th>
+
+           <th id="service" scope="col" class="app-entity-table__heading app-entity-table__heading--left-aligned" data-testid="app-entity-table-header-2" width="23%">
+               Service
+           </th>
+
+           <th id="team" scope="col" class="app-entity-table__heading" data-testid="app-entity-table-header-3" width="22%">
+               Team
+           </th>
+
+           <th id="type" scope="col" class="app-entity-table__heading" data-testid="app-entity-table-header-4" width="10%">
+               Type
+           </th>
+
+           <th id="github-url" scope="col" class="app-entity-table__heading" data-testid="app-entity-table-header-5" width="30%">
+               GitHub Repository
+           </th>
+
+           <th id="created" scope="col" class="app-entity-table__heading" data-testid="app-entity-table-header-6" width="15%">
+               Created
+           </th>
+
+           <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
+           </tr>
+         </thead>
+         <tbody>
+           {% for service in rows %}
+
+           <tr class="app-entity-table__row" data-testid="app-entity-table-row-{{ loop.index }}">
+             <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+
+             <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered" data-label="Owner">
+               <div class="app-entity" data-testid="app-entity-{{ loop.index }}">
+               {{ service.isOwner | safe }}
+               </div>
+             </td>
+
+             <td headers="service" class="app-entity-table__cell" data-label="Service">
+               <a class="app-link app-entity-table__row-header" href="/services/{{ service.name }}" data-testid="app-link">{{ service.name }}</a>
+               {{ service.tags | safe }}
+             </td>
+
+             <td headers="team" class="app-entity-table__cell" data-label="Team">
+              <div class="app-entity" data-testid="app-entity-{{ loop.index }}">
+               <ul class="app-entity__list">
+                 {% for team in service.teams %}
+                 <li class="app-entity__list-item" data-testid="app-entity">
+                   <a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a>
+                 </li>
+                 {% endfor %}
+               </ul>
+              </div>
+             </td>
+
+             <td headers="type" class="app-entity-table__cell" data-label="Type">
+               <strong class="govuk-tag app-tag govuk-tag--blue" data-testid="govuk-tag">
+                 {{ service.type }}
+               </strong>
+             </td>
+
+             <td headers="github-url" class="app-entity-table__cell" data-label="Github-url">
+               <div class="app-entity" data-testid="app-entity-5">
+                 <a class="app-link" href="https://github.com/DEFRA/{{ service.name }}" data-testid="app-entity-link">
+                   https://github.com/DEFRA/{{ service.name }}
+                 </a>
+               </div>
+             </td>
+
+
+             <td headers="created" class="app-entity-table__cell" data-label="Created">
+               <div class="app-entity" data-testid="app-entity-6">
+                 {{ service.status | safe }}
+               </div>
+             </td>
+
+           <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
+
+         </tr>
+         {% endfor %}
+         </tbody>
+       </table>
+
+     </article>
+    </div>
+  {% endblock %}
+{% endblock %}
