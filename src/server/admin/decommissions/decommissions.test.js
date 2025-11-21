@@ -94,7 +94,7 @@ describe('Decommissions pages', () => {
       expect(result).toMatchFile()
     })
 
-    test('page renders for logged in admin user with feature toggle active (as only applies to start page)', async () => {
+    test('page renders for logged in admin user with feature toggle active as only applies to start page', async () => {
       fetchFeatureToggles.mockResolvedValue([
         {
           id: 'disable-decommission',
