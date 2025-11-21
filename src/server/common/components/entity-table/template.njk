@@ -50,34 +50,50 @@
     {% for row in params.rows %}
       {% set rowClasses = ["app-entity-table__row", row.classes if row.classes] | join(" ") | trim %}
 
-      <tr class="{{ rowClasses }}" data-testid="app-entity-table-row-{{ loop.index }}">
-        {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
+      {% if row.cells | length %}
 
-        {% for cell in row.cells %}
-          {% set headerDetail = params.headers | find({ id: cell.headers }) %}
+        {# @deprecated - using entityTable with cells is being phased out. Prefered method is with rows #}
+        <tr class="{{ rowClasses }}" data-testid="app-entity-table-row-{{ loop.index }}">
+          {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
 
-          {% set cellClasses = [
-            "app-entity-table__cell",
-            cell.classes if cell.classes,
-            "app-entity-table__cell--slim" if cell.isSlim,
-            "app-entity-table__cell--centered" if cell.isCentered
-          ] | join(" ") | trim %}
+          {% for cell in row.cells %}
+            {% set headerDetail = params.headers | find({ id: cell.headers }) %}
 
-          <td headers="{{ cell.headers }}"
-              class="{{- cellClasses -}}"
-              data-label="{{ cell.headers | formatText }}">
-            {% if cell.entity %}
-              {{ appEntity(cell.entity | assign({}, {index: loop.index}, cell.entity)) }}
-            {% elseif cell.html %}
-              {{ cell.html | safe }}
-            {% elseif cell.text %}
-              {{ cell.text }}
-            {% endif %}
-          </td>
-        {% endfor %}
+            {% set cellClasses = [
+              "app-entity-table__cell",
+              cell.classes if cell.classes,
+              "app-entity-table__cell--slim" if cell.isSlim,
+              "app-entity-table__cell--centered" if cell.isCentered
+            ] | join(" ") | trim %}
 
-        {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
-      </tr>
+            <td headers="{{ cell.headers }}"
+                class="{{- cellClasses -}}"
+                data-label="{{ cell.headers | formatText }}">
+              {% if cell.entity %}
+                {{ appEntity(cell.entity | assign({}, {index: loop.index}, cell.entity)) }}
+              {% elseif cell.html %}
+                {{ cell.html | safe }}
+              {% elseif cell.text %}
+                {{ cell.text }}
+              {% endif %}
+            </td>
+          {% endfor %}
+
+          {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
+        </tr>
+        {# @deprecated end #}
+
+      {% else %}
+
+        {{ caller({
+          paddedCell: paddedCell,
+          rowClasses: rowClasses,
+          loopIndex: loop.index,
+          row: row
+        }) if caller }}
+
+      {% endif %}
+
     {% else %}
       <tr class="app-entity-table__row--no-results" data-testid="app-entity-table-no-results">
         <td class="app-entity-table__cell" colspan="{{ params.headers | length }}">

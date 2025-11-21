@@ -1,5 +1,7 @@
 {% extends "layouts/page.njk" %}
 
+{% from "entity-table/service-row/macro.njk" import appEntityTableServiceRow %}
+
 {% block content %}
 
   {% set infoHtml %}
@@ -74,7 +76,22 @@
 
   {% block xhrContent %}
     <div data-xhr="services">
-      {{ appEntityTable(tableData) }}
+    {% call(params) appEntityTable(tableData) %}
+
+      {{ appEntityTableServiceRow({
+        paddedCell: params.paddedCell,
+        rowClasses: params.rowClasses,
+        loopIndex: params.loopIndex,
+        isOwner: params.row.isOwner,
+        entityName: params.row.entityName,
+        serviceTags: params.row.serviceTags,
+        teams: params.row.teams,
+        serviceType: params.row.serviceType,
+        githubUrl: params.row.githubUrl,
+        creationState: params.row.creationState
+      }) | safe }}
+
+    {% endcall %}
     </div>
   {% endblock %}
 {% endblock %}

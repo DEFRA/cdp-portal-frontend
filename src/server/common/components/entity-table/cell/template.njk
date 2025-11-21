@@ -1,0 +1,10 @@
+{% set content = params.html | safe if params.html else params.text %}
+
+{% set classes = [
+  "app-entity-table__cell",
+  "app-entity-table__cell--owned" if params.isOwned
+] | join(" ") | trim %}
+
+<td headers="{{ params.headers }}" class="{{ classes }}" data-label="{{ params.headers | title }}">
+  {{ caller() if caller else content }}
+</td>

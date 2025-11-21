@@ -3,52 +3,34 @@ import { entityServicesFixture } from '../../../../__fixtures__/services/entitie
 
 describe('#serviceToEntityRow', () => {
   test('Should provide expected entity row transformation', () => {
-    expect(entityToEntityRow(entityServicesFixture.at(0))).toEqual({
-      cells: [
+    expect(
+      entityToEntityRow({ ...entityServicesFixture.at(0), isOwner: true })
+    ).toEqual({
+      creationState: {
+        date: '2016-12-05T11:21:25Z'
+      },
+      entityName: 'cdp-portal-backend',
+      githubUrl: 'https://github.com/DEFRA/cdp-portal-backend',
+      isOwner: true,
+      serviceTags: [
         {
-          classes: 'app-entity-table__cell--owned',
-          entity: {
-            kind: 'html',
-            value: ''
-          },
-          headers: 'owner',
-          isCentered: true
+          className: 'govuk-tag--green',
+          description: 'Service is live and available to the public.',
+          displayName: 'Live',
+          name: 'live'
         },
         {
-          headers: 'service',
-          html: expect.stringContaining('cdp-portal-backend')
-        },
+          className: 'govuk-tag--light-blue',
+          description: 'Service is live but in public/private beta',
+          displayName: 'Beta',
+          name: 'beta'
+        }
+      ],
+      serviceType: 'Backend',
+      teams: [
         {
-          entity: {
-            kind: 'list',
-            value: [
-              {
-                kind: 'link',
-                url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                value: 'Platform'
-              }
-            ]
-          },
-          headers: 'team'
-        },
-        {
-          headers: 'type',
-          html: expect.stringContaining('Backend')
-        },
-        {
-          entity: {
-            kind: 'link',
-            url: 'https://github.com/DEFRA/cdp-portal-backend',
-            value: 'https://github.com/DEFRA/cdp-portal-backend'
-          },
-          headers: 'github-url'
-        },
-        {
-          entity: {
-            kind: 'date',
-            value: '2016-12-05T11:21:25Z'
-          },
-          headers: 'created'
+          url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
+          value: 'Platform'
         }
       ]
     })

@@ -1,0 +1,81 @@
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/star-icon/macro.njk" import appStarIcon %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "time/macro.njk" import appTime %}
+{% from "entity-table/cell/macro.njk" import appEntityTableCell %}
+
+<tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+  {{ params.paddedCell | safe }}
+
+  {% call appEntityTableCell({ headers: "owner", isOwned: true }) %}
+    {% if params.isOwner %}
+      {% call appToolTip({ text: "Owned Service", classes: "app-tool-tip--small" }) %}
+        {{ appStarIcon({classes: "app-icon--minuscule"}) }}
+      {% endcall %}
+    {% endif %}
+  {% endcall %}
+
+  {% call appEntityTableCell({ headers: "service"}) %}
+    <a class="app-link app-entity-table__row-header" href="/services/{{ params.entityName }}" data-testid="app-link">
+      {{ params.entityName }}
+    </a>
+
+    {% if params.serviceTags | length %}
+      <div class="app-!-layout-centered govuk-!-margin-top-2">
+        <div class="app-entity-table__row-caption">
+          {% for tag in params.serviceTags %}
+            {{ govukTag({
+              text: tag.displayName,
+              classes: tag.className,
+              attributes: { "data-testid": "govuk-tag" }
+            }) }}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endcall %}
+
+  {% call appEntityTableCell({ headers: "team" }) %}
+    {% if params.teams | length %}
+      <ul class="app-entity__list">
+        {% for team in params.teams %}
+          <a class="app-link" href="{{ team.url }}" data-testid="app-entity-link">
+            {{ team.value }}
+          </a>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <span class="app-entity-no-value">{{ noValue }}</span>
+    {% endif %}
+  {% endcall %}
+
+  {% call appEntityTableCell({ headers: "type" }) %}
+    {{ govukTag({
+      text: params.serviceType,
+      classes: "app-tag govuk-tag--blue",
+      attributes: { "data-testid": "govuk-tag" }
+    }) }}
+  {% endcall %}
+
+  {% call appEntityTableCell({ headers: "github-url" }) %}
+    <a class="app-link"
+       href="{{ params.githubUrl }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
+      {{ params.githubUrl }}
+    </a>
+  {% endcall %}
+
+  {% call appEntityTableCell({ headers: "created" }) %}
+    {% if params.creationState.date %}
+      {{ appTime({ datetime: params.creationState.date }) }}
+    {% else %}
+      {{ govukTag({
+        text: params.creationState.value,
+        classes: "app-tag " + params.creationState.classes,
+        attributes: { "data-testid": "govuk-tag" }
+      }) }}
+    {% endif %}
+  {% endcall %}
+
+  {{ params.paddedCell | safe }}
+</tr>
+
