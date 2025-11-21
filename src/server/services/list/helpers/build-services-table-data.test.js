@@ -8,13 +8,7 @@ import { entityServicesFixture } from '../../../../__fixtures__/services/entitie
 const expectRowHasService = (row, serviceName) =>
   expect(row).toEqual(
     expect.objectContaining({
-      cells: expect.arrayContaining([
-        expect.objectContaining({
-          entity: expect.objectContaining({
-            value: expect.stringContaining(serviceName)
-          })
-        })
-      ])
+      entityName: expect.stringContaining(serviceName)
     })
   )
 
@@ -102,17 +96,22 @@ describe('#buildServicesTableData', () => {
       })
 
       test('Should provide expected row structure', () => {
-        expect(result.rows.at(0)).toEqual(
-          expect.objectContaining({
-            cells: expect.arrayContaining([
-              expect.objectContaining({ headers: 'owner' }),
-              expect.objectContaining({ headers: 'service' }),
-              expect.objectContaining({ headers: 'team' }),
-              expect.objectContaining({ headers: 'type' }),
-              expect.objectContaining({ headers: 'created' })
-            ])
-          })
-        )
+        expect(result.rows.at(0)).toEqual({
+          isOwner: true,
+          entityName: 'cdp-example-node-postgres-be',
+          teams: [
+            {
+              value: 'Platform',
+              url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474'
+            }
+          ],
+          githubUrl: 'https://github.com/DEFRA/cdp-example-node-postgres-be',
+          creationState: {
+            date: '2023-10-16T11:58:32Z'
+          },
+          serviceType: 'Backend',
+          serviceTags: []
+        })
       })
 
       test('Should provide expected service count', () => {

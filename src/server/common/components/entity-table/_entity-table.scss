@@ -80,10 +80,15 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table__cell {
     border-bottom: 1px solid $app-brand-background-colour;
-    display: inline-block;
     padding: govuk-spacing(2) 0;
     box-sizing: border-box;
     height: 100%;
+
+    @include govuk-text-colour;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
 
     .app-entity {
       height: calc(100% - $compact-label-height); // So the height all off all entities in row match
@@ -151,11 +156,6 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table__heading--left-aligned {
     padding-left: govuk-spacing(1);
-  }
-
-  .app-entity-table__cell--centered {
-    display: flex;
-    justify-content: center;
   }
 
   .app-entity-table__cell--slim {
