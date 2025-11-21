@@ -15,7 +15,7 @@
     {% endif %}
   {% endcall %}
 
-  {% call appEntityTableCell({ headers: "service"}) %}
+  {% call appEntityTableCell({ headers: "service" }) %}
     <a class="app-link app-entity-table__row-header" href="/services/{{ params.entityName }}" data-testid="app-link">
       {{ params.entityName }}
     </a>
