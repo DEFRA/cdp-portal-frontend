@@ -375,6 +375,14 @@ const config = convict({
       default: 'cdp-documentation',
       env: 'CDP_DOCUMENTATION_BUCKET'
     }
+  },
+  monitoring: {
+    interval: {
+      doc: 'How frequently to query event loop metrics in milliseconds. 0 means disabled',
+      format: Number,
+      default: 0,
+      env: 'MONITORING_INTERVAL'
+    }
   }
 })
 
