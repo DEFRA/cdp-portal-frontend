@@ -26,6 +26,7 @@ The Core Delivery Platform (CDP), Portal Frontend is a web application that prov
 - [Docker](#docker)
   - [Development image](#development-image)
   - [Production image](#production-image)
+- [Event loop monitoring and load testing with Apache bench](#event-loop-monitoring-and-load-testing-with-apache-bench)
 - [LocalStack](#localstack)
   - [Test reports](#test-reports)
   - [Documentation](#documentation)
@@ -269,6 +270,33 @@ Run:
 
 ```bash
 docker run -p 3000:3000 cdp-portal-frontend
+```
+
+## Event loop monitoring and load testing with Apache bench
+
+> [!TIP]
+> To run with Nujucks templates cached in the same way as production:
+>
+> - Set `templateGeneration.watch` to `false` in config
+> - Set `templateGeneration.docache` to `true` also in config
+
+To surface the event loop delay locally, run with the following environment variables:
+
+```bash
+MONITORING_INTERVAL=1000
+AWS_EMF_ENVIRONMENT=Local
+```
+
+Optionally set log level to warn, as this will filter out all the other request logs and leave the event loop warnings
+
+```bash
+LOG_LEVEL=warn
+```
+
+To monitor the event loop delay while load testing the application with Apache bench, you can use the following command:
+
+```bash
+ab -c 10 -n 50 http://localhost:3000/services
 ```
 
 ## LocalStack
