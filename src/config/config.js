@@ -124,12 +124,12 @@ const config = convict({
     watch: {
       doc: 'Reload templates when they are changed.',
       format: Boolean,
-      default: false
+      default: isDevelopment
     },
     doCache: {
       doc: 'Cache the templates',
       format: Boolean,
-      default: true
+      default: isProduction
     }
   },
   session: {
