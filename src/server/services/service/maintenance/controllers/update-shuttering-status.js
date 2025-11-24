@@ -1,10 +1,10 @@
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { waf } from '../../../../common/constants/waf.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { requestShutterUpdate } from '../helpers/fetchers.js'
+import { shutteringUrlType } from '../../../../common/constants/shuttering.js'
 
 const updateShutteringStatusController = {
   options: {
@@ -22,8 +22,8 @@ const updateShutteringStatusController = {
       payload: Joi.object({
         serviceName: Joi.string().required(),
         environment: Joi.string().required(),
-        waf: Joi.string()
-          .valid(...Object.values(waf))
+        urlType: Joi.string()
+          .valid(...Object.values(shutteringUrlType))
           .required(),
         url: Joi.string().required(),
         shouldShutter: Joi.boolean().required()
@@ -39,8 +39,8 @@ const updateShutteringStatusController = {
     const sanitisedPayload = {
       serviceName: payload.serviceName,
       environment: payload.environment,
-      waf: payload.waf,
-      url: payload.url
+      url: payload.url,
+      urlType: payload.urlType
     }
 
     try {

@@ -8,4 +8,9 @@ const shutteringStatus = {
   pendingActive: 'PendingActive'
 }
 
-export { shutteringStatus }
+const shutteringUrlType = {
+  frontendVanityUrl: 'frontend_vanity_url',
+  apiGatewayUrl: 'apigw_vanity_url'
+}
+
+export { shutteringStatus, shutteringUrlType }
