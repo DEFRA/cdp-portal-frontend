@@ -8,12 +8,7 @@ async function requestShutterUpdate(request, details, shouldShutter) {
 
   const { payload } = await request.authedFetchJson(endpoint, {
     method: 'post',
-    payload: removeNil({
-      serviceName: details.serviceName,
-      environment: details.environment,
-      waf: details.waf,
-      url: details.url
-    })
+    payload: removeNil(details)
   })
   return payload
 }
