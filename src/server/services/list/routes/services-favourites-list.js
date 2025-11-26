@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildServicesTableData } from './helpers/build-services-table-data.js'
-import { servicesInfoToDataList } from './transformers/services-info-to-data-list.js'
+import { buildServicesFavouritesTableData } from '../helpers/build-services-favourites-table-data.js'
+import { servicesInfoToDataList } from '../transformers/services-info-to-data-list.js'
 
-const servicesListController = {
+const servicesFavouritesListRoute = {
   options: {
     id: 'services',
     validate: {
@@ -18,23 +18,28 @@ const servicesListController = {
     }
   },
   handler: async (request, h) => {
-    const userSession = request.auth.credentials
-    const userScopes = userSession?.scope ?? []
+    const userScopes = request.auth.credentials?.scope ?? []
+    const isAuthenticated = request.auth.isAuthenticated
     const service = request.query.service
     const teamId = request.query.teamId
 
-    const { rows, servicesCount, filters } = await buildServicesTableData({
-      service,
-      teamId,
-      userScopes
-    })
+    const { rows, servicesCount, filters } =
+      await buildServicesFavouritesTableData({
+        service,
+        teamId,
+        userScopes
+      })
+    const path = '/services'
 
     return h.view('services/list/views/list', {
-      pageTitle: 'Services',
+      pageTitle: isAuthenticated ? 'My Services' : 'Services',
+      caption: isAuthenticated ? 'My' : null,
+      action: path,
+      clear: path,
       tableData: {
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
-          { id: 'service', text: 'Service', width: '23', isLeftAligned: true },
+          { id: 'service', text: 'Service', width: '23' },
           { id: 'team', text: 'Team', width: '22' },
           { id: 'type', text: 'Type', width: '10' },
           { id: 'github-url', text: 'GitHub Repository', width: '30' },
@@ -42,6 +47,7 @@ const servicesListController = {
         ],
         rows,
         noResult: 'No services found',
+        isInverse: true,
         isWide: true
       },
       serviceFilters: filters.service,
@@ -51,4 +57,4 @@ const servicesListController = {
   }
 }
 
-export { servicesListController }
+export { servicesFavouritesListRoute }

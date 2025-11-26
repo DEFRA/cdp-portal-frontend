@@ -32,14 +32,7 @@ function deploymentToEntityRow(deployment) {
     }))
 
   const icon = deployment.isOwner
-    ? renderComponent(
-        'tool-tip',
-        {
-          text: 'Owned Service',
-          classes: 'app-tool-tip--small'
-        },
-        [renderIcon('star-icon', { classes: 'app-icon--minuscule' })]
-      )
+    ? renderIcon('star-icon', { classes: 'app-icon--minuscule' })
     : ''
 
   return {

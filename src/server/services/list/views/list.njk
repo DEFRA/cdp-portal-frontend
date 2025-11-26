@@ -1,34 +1,21 @@
-{% extends "layouts/page.njk" %}
+{% extends "layouts/tabbed-page.njk" %}
 
 {% from "entity-table/service-row/macro.njk" import appEntityTableServiceRow %}
+{% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 
-{% block content %}
-
-  {% set infoHtml %}
-    {{ appEntityDataList({
-      items: servicesInfo
-    }) }}
-  {% endset %}
-
+{% block beforeTabContent %}
   {{ appPageHeading({
+    caption: caption,
     text: "Services",
     intro: "Frontend, backend and prototype microservice details"
   }) }}
 
   {% call appFilters({
-    action: "/services",
-    noJsButton: {
-      text: "Search"
-    },
-    legend: {
-      text: "Search",
-      classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-1"
-    },
-    caption: {
-      text: "Search and filter microservices"
-    },
+    action: action,
     info: {
-      html: infoHtml
+      html: appEntityDataList({
+        items: servicesInfo
+      })
     },
     clear: {
       url: "/services"
@@ -73,25 +60,28 @@
     </div>
 
   {% endcall %}
+{% endblock %}
+
+{% block tabContent %}
 
   {% block xhrContent %}
     <div data-xhr="services">
-    {% call(params) appEntityTable(tableData) %}
+      {% call(params) appEntityTable(tableData) %}
 
-      {{ appEntityTableServiceRow({
-        paddedCell: params.paddedCell,
-        rowClasses: params.rowClasses,
-        loopIndex: params.loopIndex,
-        isOwner: params.row.isOwner,
-        entityName: params.row.entityName,
-        serviceTags: params.row.serviceTags,
-        teams: params.row.teams,
-        serviceType: params.row.serviceType,
-        githubUrl: params.row.githubUrl,
-        creationState: params.row.creationState
-      }) | safe }}
+        {{ appEntityTableServiceRow({
+          rowClasses: params.rowClasses,
+          loopIndex: params.loopIndex,
+          isOwner: params.row.isOwner,
+          entityName: params.row.entityName,
+          serviceTags: params.row.serviceTags,
+          teams: params.row.teams,
+          serviceType: params.row.serviceType,
+          githubUrl: params.row.githubUrl,
+          creationState: params.row.creationState
+        }) | safe }}
 
-    {% endcall %}
+      {% endcall %}
     </div>
   {% endblock %}
+
 {% endblock %}

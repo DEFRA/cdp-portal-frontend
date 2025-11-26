@@ -1,7 +1,5 @@
-{#
-Renders a service entity-table row
+{# Renders a service entity-table row
 
-@param {html} paddedCell - a padded cell for wide tables
 @param {string} rowClasses - classes to be used for the row
 @param {number} loopIndex - table for loop index
 @param {boolean} isOwner - Does the current user own this service
@@ -10,8 +8,8 @@ Renders a service entity-table row
 @param {object}[] teams - Teams who own the service
 @param {string} serviceType - Service type
 @param {string} githubUrl - Service GitHub repoitory url
-@param {object} creationState - Either a creating state tag or a date if created
-#}
+@param {object} creationState - Either a creating state tag or a date if created #}
+
 {% macro appEntityTableServiceRow(params) %}
   {%- include "./template.njk" -%}
 {% endmacro %}

@@ -1,17 +1,13 @@
-{% from "tool-tip/macro.njk" import appToolTip %}
 {% from "icons/star-icon/macro.njk" import appStarIcon %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 {% from "time/macro.njk" import appTime %}
 {% from "entity-table/cell/macro.njk" import appEntityTableCell %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
-  {{ params.paddedCell | safe }}
 
   {% call appEntityTableCell({ headers: "owner", isOwned: true }) %}
     {% if params.isOwner %}
-      {% call appToolTip({ text: "Owned Service", classes: "app-tool-tip--small" }) %}
-        {{ appStarIcon({classes: "app-icon--minuscule"}) }}
-      {% endcall %}
+      {{ appStarIcon({classes: "app-icon--minuscule"}) }}
     {% endif %}
   {% endcall %}
 
@@ -76,6 +72,5 @@
     {% endif %}
   {% endcall %}
 
-  {{ params.paddedCell | safe }}
 </tr>
 

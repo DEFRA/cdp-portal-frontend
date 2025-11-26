@@ -3,24 +3,16 @@
 {% from "entity/macro.njk" import appEntity with context %}
 
 {% set tableClasses = [
-  "app-entity-table", params.classes if params.classes, "app-entity-table--wide" if params.isWide
+  "app-entity-table",
+  params.classes if params.classes,
+  "app-entity-table--wide" if params.isWide,
+  "app-entity-table--inverse" if params.isInverse
 ] | join(" ") | trim %}
-
-{% set paddedHeading %}
-  <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
-{% endset %}
-
-{% set paddedCell %}
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
-{% endset %}
 
 <article>
   <table class="{{ tableClasses }}" data-testid="app-entity-table">
-    <thead class="app-entity-table__head{% if params.head.isInverse %} app-entity-table__head--inverse{% endif %}"
-           data-testid="app-entity-table-head">
+    <thead class="app-entity-table__head" data-testid="app-entity-table-head">
     <tr>
-      {% if params.isWide %}{{ paddedHeading | safe }}{% endif %}
-
       {% for header in params.headers %}
         {% set headerClasses = [
           "app-entity-table__heading",
@@ -42,8 +34,6 @@
           {% endif %}
         </th>
       {% endfor %}
-
-      {% if params.isWide %}{{ paddedHeading | safe }}{% endif %}
     </tr>
     </thead>
     <tbody>
@@ -54,7 +44,6 @@
 
         {# @deprecated - using entityTable with cells is being phased out. Prefered method is with rows #}
         <tr class="{{ rowClasses }}" data-testid="app-entity-table-row-{{ loop.index }}">
-          {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
 
           {% for cell in row.cells %}
             {% set headerDetail = params.headers | find({ id: cell.headers }) %}
@@ -79,14 +68,12 @@
             </td>
           {% endfor %}
 
-          {% if params.isWide %}{{ paddedCell | safe }}{% endif %}
         </tr>
         {# @deprecated end #}
 
       {% else %}
 
         {{ caller({
-          paddedCell: paddedCell,
           rowClasses: rowClasses,
           loopIndex: loop.index,
           row: row

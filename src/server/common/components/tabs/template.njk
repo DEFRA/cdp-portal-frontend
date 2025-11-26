@@ -1,9 +1,8 @@
 {% set activeTabId = "" %}
 {% set classes = ["app-tabs"] | join(" ") | trim %}
 
-<div class="{{ classes }}"
-     data-js="app-tabs">
-  {% if(params.displayTabs | default("true") and params.tabs | length) %}
+{% if(params.displayTabs | default("true") and params.tabs | length) %}
+  <div class="{{ classes }}" data-js="app-tabs">
     <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="{{ params.label }}">
       {% for tab in params.tabs %}
 
@@ -29,18 +28,18 @@
         </li>
       {% endfor %}
     </ul>
-  {% endif %}
+  </div>
+{% endif %}
 
-  {% for tab in params.tabs %}
-    {% if tab.isActive %}
-      {% set content = tab.panel.html | safe if tab.panel.html else tab.panel.text %}
-      <section id="tab-panel-{{ activeTabId }}"
-               class="app-tabs__panel"
-               role="tabpanel"
-               aria-labelledby="tab-{{ activeTabId }}"
-               data-testid="app-tabs-panel">
-        {{ caller() if caller else content }}
-      </section>
-    {% endif %}
-  {% endfor %}
-</div>
+{% for tab in params.tabs %}
+  {% if tab.isActive %}
+    {% set content = tab.panel.html | safe if tab.panel.html else tab.panel.text %}
+    <section id="tab-panel-{{ activeTabId }}"
+             class="app-tabs__panel"
+             role="tabpanel"
+             aria-labelledby="tab-{{ activeTabId }}"
+             data-testid="app-tabs-panel">
+      {{ caller() if caller else content }}
+    </section>
+  {% endif %}
+{% endfor %}

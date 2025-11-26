@@ -34,8 +34,6 @@ function setupFilters(params = {}) {
 
   return {
     $form: document.querySelector('[data-testid="app-filters-form"]'),
-    $legend: document.querySelector('[data-testid="app-filters-legend"]'),
-    $caption: document.querySelector('[data-testid="app-filters-caption"]'),
     $info: document.querySelector('[data-testid="app-filters-info"]'),
     $textInput: document.querySelector('[data-testid="plant-name"]'),
     $hiddenInput: document.querySelector(
@@ -50,15 +48,6 @@ function setupFilters(params = {}) {
 describe('#filters', () => {
   const options = {
     action: '/deployments/search',
-    noJsButton: {
-      text: 'Search'
-    },
-    legend: {
-      text: 'Search'
-    },
-    caption: {
-      text: 'Search and filter deployments'
-    },
     info: {
       html: `<p>Use the search box to find plants by name</p>`
     },
@@ -70,27 +59,14 @@ describe('#filters', () => {
     }
   }
 
-  let $form,
-    $legend,
-    $caption,
-    $info,
-    $textInput,
-    $hiddenInput,
-    $filtersClearAll
+  let $form, $info, $textInput, $hiddenInput, $filtersClearAll
 
   beforeEach(() => {
     window.cdp = window.cdp || {}
     window.cdp.clearFilters = clearFilters
     vi.useFakeTimers()
-    ;({
-      $form,
-      $legend,
-      $caption,
-      $info,
-      $textInput,
-      $hiddenInput,
-      $filtersClearAll
-    } = setupFilters(options))
+    ;({ $form, $info, $textInput, $hiddenInput, $filtersClearAll } =
+      setupFilters(options))
   })
 
   afterEach(() => {
@@ -101,16 +77,6 @@ describe('#filters', () => {
     expect($form).not.toBeNull()
     expect($form).toHaveAttribute('action', options.action)
     expect($form).toHaveAttribute('method', 'get')
-  })
-
-  test('Should have expected legend', () => {
-    expect($legend).toBeInTheDocument()
-    expect($legend).toHaveTextContent(options.legend.text)
-  })
-
-  test('Should have expected caption', () => {
-    expect($caption).toBeInTheDocument()
-    expect($caption).toHaveTextContent(options.caption.text)
   })
 
   test('Should have expected info', () => {
