@@ -256,21 +256,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 <form action="/deployments/dev" method="get" class="app-filters-form" data-js="app-filters"
       data-testid="app-filters-form">
   <fieldset class="govuk-fieldset">
-    <div class="app-filters__heading">
-      <div class="app-filters__header">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-1"
-                data-testid="app-filters-legend">
-          Search
-        </legend>
-
-        <p class="govuk-caption-m govuk-!-margin-bottom-3" data-testid="app-filters-caption">
-          Search and filter microservice deployments and database updates
-        </p>
-      </div>
-      <div class="app-filters__info" data-testid="app-filters-info">
-      </div>
-    </div>
-
     <div class="app-filters">
       
     <div class="app-filters__item">
@@ -830,6 +815,9 @@ selected="selected">
           Clear all
         </a>
       </p>
+
+      <div class="app-filters__info" data-testid="app-filters-info">
+      </div>
     </div>
 
       <input type="hidden" name="page" value="1" data-testid="app-filters-hidden-input-page">
@@ -842,8 +830,7 @@ selected="selected">
 </form>
 
 
-<div class="app-tabs"
-     data-js="app-tabs">
+  <div class="app-tabs" data-js="app-tabs">
     <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Deployment tabs">
 
 
@@ -948,26 +935,22 @@ selected="selected">
           </a>
         </li>
     </ul>
+  </div>
 
-      <section id="tab-panel-dev"
-               class="app-tabs__panel"
-               role="tabpanel"
-               aria-labelledby="tab-dev"
-               data-testid="app-tabs-panel">
-        
+    <section id="tab-panel-dev"
+             class="app-tabs__panel"
+             role="tabpanel"
+             aria-labelledby="tab-dev"
+             data-testid="app-tabs-panel">
+      
     <div data-xhr="deployments">
       
 
 
-
-
 <article>
-  <table class="app-entity-table  app-entity-table--wide" data-testid="app-entity-table">
-    <thead class="app-entity-table__head app-entity-table__head--inverse"
-           data-testid="app-entity-table-head">
+  <table class="app-entity-table  app-entity-table--wide app-entity-table--inverse" data-testid="app-entity-table">
+    <thead class="app-entity-table__head" data-testid="app-entity-table-head">
     <tr>
-  <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
-
 
         <th id="owner" scope="col"
             class="app-entity-table__heading app-entity-table__cell--owned"
@@ -1024,8 +1007,6 @@ width="15%"        >
 width="20%"        >
             Started
         </th>
-
-  <th headers="padding" class="app-entity-table__heading app-entity-table__heading--padded"></th>
     </tr>
     </thead>
     <tbody>
@@ -1033,7 +1014,6 @@ width="20%"        >
 
         
         <tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
 
 
 
@@ -1046,20 +1026,13 @@ width="20%"        >
 
 
 
-      
-<span
-  class="app-tool-tip app-tool-tip--small"
-  data-text="Owned Service"
->
-   <svg class="app-icon app-star-icon app-icon--minuscule" width="48" height="48"
+      <svg class="app-icon app-star-icon app-icon--minuscule" width="48" height="48"
      viewBox="0 -960 960 960"
      role="img"     data-testid="app-star-icon" aria-label="Owned service">
   <path
     stroke="#e6c000" stroke-width="80"
     d="M480-243 292-129q-15 9-28.5 8T240-131q-11-7-15.5-18.5T222-178l51-214-167-147q-10-8-14.5-21t-.5-27q4-13 14-21.5t27-9.5l221-19 84-204q6-13 18-20.5t25-7.5q13 0 25 7.5t18 20.5l85 204 221 19q16 1 26 9.5t14 21.5q4 14-.5 27T854-539L687-392l51 214q2 17-2.5 28.5T720-131q-10 9-23.5 10t-27.5-8L480-243Z"/>
 </svg>
-
-</span>
 
 
 
@@ -1263,7 +1236,6 @@ width="20%"        >
 
             </td>
 
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
         </tr>
         
 
@@ -1272,7 +1244,6 @@ width="20%"        >
 
         
         <tr class="app-entity-table__row" data-testid="app-entity-table-row-2">
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
 
 
 
@@ -1503,7 +1474,6 @@ width="20%"        >
 
             </td>
 
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
         </tr>
         
 
@@ -1512,7 +1482,6 @@ width="20%"        >
 
         
         <tr class="app-entity-table__row" data-testid="app-entity-table-row-3">
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
 
 
 
@@ -1525,20 +1494,13 @@ width="20%"        >
 
 
 
-      
-<span
-  class="app-tool-tip app-tool-tip--small"
-  data-text="Owned Service"
->
-   <svg class="app-icon app-star-icon app-icon--minuscule" width="48" height="48"
+      <svg class="app-icon app-star-icon app-icon--minuscule" width="48" height="48"
      viewBox="0 -960 960 960"
      role="img"     data-testid="app-star-icon" aria-label="Owned service">
   <path
     stroke="#e6c000" stroke-width="80"
     d="M480-243 292-129q-15 9-28.5 8T240-131q-11-7-15.5-18.5T222-178l51-214-167-147q-10-8-14.5-21t-.5-27q4-13 14-21.5t27-9.5l221-19 84-204q6-13 18-20.5t25-7.5q13 0 25 7.5t18 20.5l85 204 221 19q16 1 26 9.5t14 21.5q4 14-.5 27T854-539L687-392l51 214q2 17-2.5 28.5T720-131q-10 9-23.5 10t-27.5-8L480-243Z"/>
 </svg>
-
-</span>
 
 
 
@@ -1742,7 +1704,6 @@ width="20%"        >
 
             </td>
 
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
         </tr>
         
 
@@ -1751,7 +1712,6 @@ width="20%"        >
 
         
         <tr class="app-entity-table__row" data-testid="app-entity-table-row-4">
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
 
 
 
@@ -1967,7 +1927,6 @@ width="20%"        >
 
             </td>
 
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
         </tr>
         
 
@@ -1976,7 +1935,6 @@ width="20%"        >
 
         
         <tr class="app-entity-table__row" data-testid="app-entity-table-row-5">
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
 
 
 
@@ -1989,20 +1947,13 @@ width="20%"        >
 
 
 
-      
-<span
-  class="app-tool-tip app-tool-tip--small"
-  data-text="Owned Service"
->
-   <svg class="app-icon app-star-icon app-icon--minuscule" width="48" height="48"
+      <svg class="app-icon app-star-icon app-icon--minuscule" width="48" height="48"
      viewBox="0 -960 960 960"
      role="img"     data-testid="app-star-icon" aria-label="Owned service">
   <path
     stroke="#e6c000" stroke-width="80"
     d="M480-243 292-129q-15 9-28.5 8T240-131q-11-7-15.5-18.5T222-178l51-214-167-147q-10-8-14.5-21t-.5-27q4-13 14-21.5t27-9.5l221-19 84-204q6-13 18-20.5t25-7.5q13 0 25 7.5t18 20.5l85 204 221 19q16 1 26 9.5t14 21.5q4 14-.5 27T854-539L687-392l51 214q2 17-2.5 28.5T720-131q-10 9-23.5 10t-27.5-8L480-243Z"/>
 </svg>
-
-</span>
 
 
 
@@ -2206,7 +2157,6 @@ width="20%"        >
 
             </td>
 
-  <td headers="padding" class="app-entity-table__cell app-entity-table__cell--padded"></td>
         </tr>
         
 
@@ -2219,8 +2169,7 @@ width="20%"        >
     </div>
 
 
-      </section>
-</div>
+    </section>
 
         </main>
       </div>
