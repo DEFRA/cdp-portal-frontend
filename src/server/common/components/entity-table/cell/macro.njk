@@ -1,9 +1,8 @@
-{#
-Renders an entity-table row cell
+{# Renders an entity-table row cell
 
 @param {string} headers - table cell headers attribute value
-@param {boolean} isOwner - Does the current user own this service
-#}
+@param {boolean} isOwner - Does the current user own this service #}
+
 {% macro appEntityTableCell(params) %}
   {%- include "./template.njk" -%}
 {% endmacro %}

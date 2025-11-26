@@ -1,28 +1,11 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set classes = [ "app-filters-form", params.classes if params.classes ] | join(" ") | trim %}
 {% set method = params.method | default("get") %}
 
-<form action="{{ params.action }}" method="{{ method }}" class="app-filters-form" data-js="app-filters"
+<form action="{{ params.action }}" method="{{ method }}" class="{{ classes }}" data-js="app-filters"
       data-testid="app-filters-form">
   <fieldset class="govuk-fieldset {%- if params.fieldset.classes %} {{ params.fieldset.classes }}{% endif %}">
-    <div class="app-filters__heading">
-      <div class="app-filters__header">
-        <legend class="govuk-fieldset__legend {%- if params.legend.classes %} {{ params.legend.classes }}{% endif %}"
-                data-testid="app-filters-legend">
-          {{ params.legend.text }}
-        </legend>
-
-        <p class="govuk-caption-m govuk-!-margin-bottom-3" data-testid="app-filters-caption">
-          {{ params.caption.text }}
-        </p>
-      </div>
-      <div class="app-filters__info" data-testid="app-filters-info">
-        {% if params.info.html %}
-          {{ params.info.html | safe }}
-        {% endif %}
-      </div>
-    </div>
-
     <div class="app-filters">
       {{ caller() }}
 
@@ -35,6 +18,12 @@
           Clear all
         </a>
       </p>
+
+      <div class="app-filters__info" data-testid="app-filters-info">
+        {% if params.info.html %}
+          {{ params.info.html | safe }}
+        {% endif %}
+      </div>
     </div>
 
     {% for key, value in params.hiddenInputs %}
@@ -43,7 +32,7 @@
 
     {{ govukButton({
       classes: "app-button app-button--secondary js-hidden govuk-!-margin-top-2",
-      text: params.noJsButton.text,
+      text: "Search",
       attributes: {
         "data-testid": "app-filters-submit-button",
         "data-js": "app-no-js-submit-button"

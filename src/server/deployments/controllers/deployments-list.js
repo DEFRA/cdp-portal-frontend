@@ -149,7 +149,6 @@ const deploymentsListController = {
       environment,
       hiddenInputs: { page, size: pageSize },
       tableData: {
-        head: { isInverse: true },
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
           {
@@ -170,6 +169,7 @@ const deploymentsListController = {
           environment
         )}`,
         pagination: buildPagination(page, pageSize, totalPages, request.query),
+        isInverse: true,
         isWide: true
       },
       breadcrumbs: [

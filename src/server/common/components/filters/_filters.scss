@@ -30,7 +30,7 @@
 }
 
 .app-filters__item {
-  align-self: flex-end;
+  align-self: flex-start;
   margin-right: govuk-spacing(2);
   margin-bottom: 0;
 
@@ -42,4 +42,5 @@
 .app-filters__clear-all {
   flex: 4em;
   align-self: flex-end;
+  padding-bottom: govuk-spacing(2);
 }

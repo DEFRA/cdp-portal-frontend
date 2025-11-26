@@ -1,7 +1,7 @@
 import nock from 'nock'
 
 import { config } from '../../../../config/config.js'
-import { buildServicesTableData } from './build-services-table-data.js'
+import { buildServicesFavouritesTableData } from './build-services-favourites-table-data.js'
 import { entitiesFiltersFixture } from '../../../../__fixtures__/services/entities-filters.js'
 import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
 
@@ -20,12 +20,21 @@ const portalBackendUrl = config.get('portalBackendUrl')
 const filtersEndpointUrl = new URL(`${portalBackendUrl}/entities/filters`)
 const entitiesEndpointUrl = new URL(`${portalBackendUrl}/entities`)
 
-describe('#buildServicesTableData', () => {
+describe('#buildServicesFavouritesTableData', () => {
   const adminGroupId = 'aabe63e7-87ef-4beb-a596-c810631fc474'
   const userScopes = [`team:${adminGroupId}`]
 
   beforeEach(() => {
     // Provide mock response for API calls
+    nock(filtersEndpointUrl.origin)
+      .get(filtersEndpointUrl.pathname)
+      .query({
+        type: 'Microservice',
+        status: ['Created', 'Creating'],
+        teamIds: adminGroupId
+      })
+      .reply(200, entitiesFiltersFixture)
+
     nock(filtersEndpointUrl.origin)
       .get(filtersEndpointUrl.pathname)
       .query({
@@ -45,7 +54,8 @@ describe('#buildServicesTableData', () => {
         .get(entitiesEndpointUrl.pathname)
         .query({
           type: 'Microservice',
-          status: ['Created', 'Creating']
+          status: ['Created', 'Creating'],
+          teamIds: adminGroupId
         })
         .reply(200, entityServicesFixture)
     })
@@ -54,7 +64,7 @@ describe('#buildServicesTableData', () => {
       let result
 
       beforeEach(async () => {
-        result = await buildServicesTableData({
+        result = await buildServicesFavouritesTableData({
           userScopes
         })
       })
@@ -129,7 +139,8 @@ describe('#buildServicesTableData', () => {
           .query({
             type: 'Microservice',
             status: ['Created', 'Creating'],
-            name: 'forms-service'
+            name: 'forms-service',
+            teamIds: adminGroupId
           })
           .reply(
             200,
@@ -138,7 +149,7 @@ describe('#buildServicesTableData', () => {
             )
           )
 
-        result = await buildServicesTableData({
+        result = await buildServicesFavouritesTableData({
           service: 'forms-service',
           userScopes
         })
@@ -188,7 +199,7 @@ describe('#buildServicesTableData', () => {
             )
           )
 
-        result = await buildServicesTableData({
+        result = await buildServicesFavouritesTableData({
           teamId: adminGroupId,
           userScopes
         })
@@ -214,8 +225,11 @@ describe('#buildServicesTableData', () => {
         expectRowHasService(result.rows.at(2), 'cdp-portal-frontend')
         expectRowHasService(result.rows.at(3), 'cdp-portal-stubs')
         expectRowHasService(result.rows.at(4), 'cdp-user-service-backend')
+        expectRowHasService(result.rows.at(5), 'ai-service')
+        expectRowHasService(result.rows.at(6), 'forms-designer')
+        expectRowHasService(result.rows.at(7), 'forms-service')
 
-        expect(result.rows).toHaveLength(5)
+        expect(result.rows).toHaveLength(8)
       })
 
       test('Should provide expected service count', () => {
@@ -236,7 +250,7 @@ describe('#buildServicesTableData', () => {
         })
         .reply(200, entityServicesFixture)
 
-      result = await buildServicesTableData({
+      result = await buildServicesFavouritesTableData({
         userScopes: []
       })
     })
