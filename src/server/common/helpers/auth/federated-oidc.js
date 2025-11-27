@@ -16,7 +16,7 @@ export const federatedOidc = {
   name: 'federatedOidc',
   dependencies: ['federated-credentials'],
   register: function (server) {
-    const settings = {
+    const options = {
       discoveryUri: config.get('oidcWellKnownConfigurationUrl'),
       redirectUri: config.get('appBaseUrl') + callbackPath,
       clientId: config.get('azureClientId'),
@@ -25,28 +25,20 @@ export const federatedOidc = {
     }
 
     server.auth.scheme('federated-oidc', scheme)
-    server.auth.strategy('azure-oidc', 'federated-oidc', settings)
-
-    server.ext('onPreAuth', (request, h) =>
-      refreshTokenIfExpired(
-        (token) => refreshToken(settings, token),
-        request,
-        h
-      )
-    )
+    server.auth.strategy('azure-oidc', 'federated-oidc', options)
   }
 }
 
 function scheme(_server, options) {
-  const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
+  const validatedOptions = Joi.attempt(Hoek.clone(options), optionsSchema)
 
   return {
     authenticate: async function (request, h) {
-      const federatedToken = await settings.tokenProvider()
+      const federatedToken = await validatedOptions.tokenProvider()
 
       const oidcConfig = await openid.discovery(
-        new URL(settings.discoveryUri),
-        settings.clientId,
+        new URL(validatedOptions.discoveryUri),
+        validatedOptions.clientId,
         {},
         ClientFederatedCredential(federatedToken)
       )
@@ -56,7 +48,11 @@ function scheme(_server, options) {
       if (isPreLogin) {
         try {
           // User has just started the login flow.
-          const redirectTo = await preLogin(request, oidcConfig, settings)
+          const redirectTo = await preLogin(
+            request,
+            oidcConfig,
+            validatedOptions
+          )
           return h.redirect(redirectTo).takeover()
         } catch (e) {
           logger.error(e, 'PreLogin Federated login failed')
@@ -65,7 +61,18 @@ function scheme(_server, options) {
       } else {
         // User has logged in and been redirected back to the auth callback
         try {
-          const credentials = await postLogin(request, oidcConfig, settings)
+          const userSession = request.auth.credentials
+          await refreshTokenIfExpired(
+            (token) => refreshToken(options, token),
+            request,
+            userSession
+          )
+
+          const credentials = await postLogin(
+            request,
+            oidcConfig,
+            validatedOptions
+          )
           return h.authenticated({ credentials })
         } catch (e) {
           logger.error(e, 'Post Federated login failed')
@@ -79,14 +86,14 @@ function scheme(_server, options) {
 /**
  * Redirects a user to the AAD login page.
  */
-async function preLogin(request, oidcConfig, settings) {
+async function preLogin(request, oidcConfig, options) {
   const codeVerifier = openid.randomPKCECodeVerifier()
   const codeChallenge = await openid.calculatePKCECodeChallenge(codeVerifier)
   let nonce
 
   const parameters = {
-    redirect_uri: settings.redirectUri,
-    scope: settings.scope,
+    redirect_uri: options.redirectUri,
+    scope: options.scope,
     code_challenge: codeChallenge,
     code_challenge_method: 'S256'
   }
@@ -97,7 +104,7 @@ async function preLogin(request, oidcConfig, settings) {
     parameters.nonce = nonce
   }
 
-  request.yar.set(settings.sessionName, {
+  request.yar.set(options.sessionName, {
     codeVerifier,
     nonce
   })
@@ -112,8 +119,8 @@ async function preLogin(request, oidcConfig, settings) {
  * Post-login, user has logged to AAD and has been redirected back to the auth callback.
  * If the token is validated then the credentials are returned.
  */
-async function postLogin(request, oidcConfig, settings) {
-  const state = request.yar.get(settings.sessionName, true)
+async function postLogin(request, oidcConfig, options) {
+  const state = request.yar.get(options.sessionName, true)
   const codeVerifier = state?.codeVerifier
   const nonce = state?.nonce
 
@@ -156,22 +163,22 @@ async function postLogin(request, oidcConfig, settings) {
 
 /**
  * Refreshes the client credentials using a refresh token.
- * @param {{discoveryUri: string, clientId: string, scope: string, tokenProvider: () => Promise<string>}} settings
+ * @param {{discoveryUri: string, clientId: string, scope: string, tokenProvider: () => Promise<string>}} options
  * @param {string} jwtRefreshToken
  * @returns {Promise<{}>}
  */
-async function refreshToken(settings, jwtRefreshToken) {
-  const federatedToken = await settings.tokenProvider()
+async function refreshToken(options, jwtRefreshToken) {
+  const federatedToken = await options.tokenProvider()
 
   const oidcConfig = await openid.discovery(
-    new URL(settings.discoveryUri),
-    settings.clientId,
+    new URL(options.discoveryUri),
+    options.clientId,
     {},
     ClientFederatedCredential(federatedToken)
   )
 
   return openid.refreshTokenGrant(oidcConfig, jwtRefreshToken, {
-    scope: settings.scope
+    scope: options.scope
   })
 }
 
