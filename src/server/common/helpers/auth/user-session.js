@@ -67,7 +67,7 @@ async function createUserSession(request, sessionId) {
  * Refresh user session
  * @param {import("@hapi/hapi").Request} request
  * @param {RefreshTokenResponse} refreshTokenResponse
- * @returns {Promise<UserSession> | UserSession}
+ * @returns {Promise<void>}
  */
 async function refreshUserSession(request, refreshTokenResponse) {
   request.logger.debug('User session refreshing')
@@ -93,8 +93,6 @@ async function refreshUserSession(request, refreshTokenResponse) {
     expiresIn: expiresInMilliSeconds,
     expiresAt
   })
-
-  return await request.getUserSession()
 }
 
 export { createUserSession, refreshUserSession, removeAuthenticatedUser }
