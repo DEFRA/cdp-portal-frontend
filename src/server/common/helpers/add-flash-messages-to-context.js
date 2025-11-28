@@ -8,7 +8,6 @@ async function addFlashMessagesToContext(request, h) {
     const globalValidationFailures = request.yar.flash(
       sessionNames.globalValidationFailures
     )
-    await request.yar.commit(h)
 
     response.source.context = {
       ...response.source.context,
