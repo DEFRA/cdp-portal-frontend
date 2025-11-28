@@ -123,10 +123,20 @@ $min-grid-cell-width: 100px;
     top: 0;
     border-bottom: 1px solid $app-brand-border-colour-light;
     z-index: 100;
+
+    &:first-child {
+      padding-left: govuk-spacing(1);
+      padding-right: govuk-spacing(1);
+    }
   }
 
   .app-entity-table__cell {
     padding: govuk-spacing(4) govuk-spacing(2);
+
+    &:first-child {
+      padding-left: govuk-spacing(1);
+      padding-right: govuk-spacing(1);
+    }
 
     .app-entity {
       height: 100%;
@@ -149,7 +159,8 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table__cell--owned {
     width: govuk-spacing(4);
-    padding: 0 4px;
+    text-align: center;
+    vertical-align: middle;
   }
 
   .app-entity-table__row {
