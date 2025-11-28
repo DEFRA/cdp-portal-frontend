@@ -32,13 +32,10 @@ import { sessionNames } from '../../../../common/constants/session-names.js'
  * @returns {Promise<*>}
  */
 async function saveToCdpTeam({ yar }, h, data) {
-  // todo revisit this
   const key = sessionNames.cdpTeam
   const cdpTeam = yar.get(key)
 
   yar.set(key, { ...cdpTeam, ...data })
-  await yar.commit(h)
-
   return yar.get(key)
 }
 
