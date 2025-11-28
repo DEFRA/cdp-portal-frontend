@@ -95,6 +95,9 @@ async function createServer() {
     ? [cognitoFederatedCredentials, federatedOidc]
     : [azureOidc]
 
+  // this has to happen before session manager
+  server.ext('onPreResponse', addFlashMessagesToContext)
+
   await server.register([
     pulse,
     sessionManager,
@@ -124,9 +127,6 @@ async function createServer() {
     strictHeader: true
   })
 
-  server.ext('onPreResponse', addFlashMessagesToContext, {
-    before: ['yar']
-  })
   server.ext('onPreResponse', catchAll)
 
   return server
