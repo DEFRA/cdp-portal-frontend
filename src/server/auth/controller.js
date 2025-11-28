@@ -4,7 +4,6 @@ import Boom from '@hapi/boom'
 
 import { createUserSession } from '../common/helpers/auth/user-session.js'
 import { sessionNames } from '../common/constants/session-names.js'
-import { userLog } from '../common/helpers/logging/user-log.js'
 import { redirectWithRefresh } from '../common/helpers/url/url-helpers.js'
 
 const authCallbackController = {
@@ -24,14 +23,6 @@ const authCallbackController = {
       request.sessionCookie.set({ sessionId })
       const userSession = request.auth.credentials
 
-      request.logger.info(
-        userLog(
-          'User logged in',
-          { id: userSession?.id, displayName: userSession?.displayName },
-          { isAdmin: userSession.isAdmin, isTenant: userSession.isTenant },
-          userSession?.scope
-        )
-      )
       request.audit.sendMessage({
         event: `User logged in ${userSession?.id} ${userSession?.displayName}`,
         user: userSession

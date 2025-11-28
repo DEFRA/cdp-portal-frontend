@@ -45,7 +45,7 @@ function transformUserProfileToSummary(user) {
       {
         key: { text: 'User type' },
         value: {
-          text: user.isAdmin ? 'Admin' : 'Tenant'
+          text: user?.isAdmin ? 'Admin' : 'Tenant'
         }
       },
       {

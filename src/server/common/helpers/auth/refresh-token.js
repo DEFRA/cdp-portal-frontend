@@ -8,14 +8,17 @@ import { sessionNames } from '../../constants/session-names.js'
  * Requires a refreshToken function as the first param to provide a new token.
  * @param {Function} refreshToken
  * @param {{}} request
- * @param {{}} h
+ * @param {{}} userSession
  * @returns {Promise<*>}
  */
-export async function refreshTokenIfExpired(refreshToken, request, h) {
-  const userSession = await request.getUserSession()
-
+export async function refreshTokenIfExpired(
+  refreshToken,
+  request,
+  userSession
+) {
   if (!userSession?.expiresAt) {
-    return h.continue
+    // todo should this throw an error?
+    return
   }
 
   const tokenHasExpired =
@@ -29,7 +32,6 @@ export async function refreshTokenIfExpired(refreshToken, request, h) {
     try {
       const refreshTokenResponse = await refreshToken(userSession?.refreshToken)
       await refreshUserSession(request, refreshTokenResponse)
-      return h.continue
     } catch (error) {
       request.logger.debug(
         error,
@@ -40,8 +42,6 @@ export async function refreshTokenIfExpired(refreshToken, request, h) {
         sessionNames.globalValidationFailures,
         'Your login expired'
       )
-      return h.continue
     }
   }
-  return h.continue
 }

@@ -12,12 +12,12 @@ describe('#refresh-token', () => {
       getUserSession: vi.fn().mockResolvedValue(null)
     }
 
-    const h = {
-      continue: {}
-    }
-
-    const result = await refreshTokenIfExpired(() => undefined, request, h)
-    expect(result).toEqual({})
+    const result = await refreshTokenIfExpired(
+      () => {},
+      request,
+      request.getUserSession()
+    )
+    expect(result).toBeUndefined()
   })
 
   it('Should continue when the token hasnt expired', async () => {
@@ -28,12 +28,10 @@ describe('#refresh-token', () => {
       })
     }
 
-    const h = {
-      continue: {}
-    }
+    const session = await request.getUserSession()
 
-    const result = await refreshTokenIfExpired(() => undefined, request, h)
-    expect(result).toEqual({})
+    const result = await refreshTokenIfExpired(() => {}, request, session)
+    expect(result).toBeUndefined()
   })
 
   it('Should refresh the token if expired', async () => {
@@ -50,13 +48,10 @@ describe('#refresh-token', () => {
       expires_in: 1000
     }
     const refreshTokenFn = vi.fn().mockResolvedValue(token)
+    const session = await request.getUserSession()
 
-    const h = {
-      continue: {}
-    }
-
-    const result = await refreshTokenIfExpired(refreshTokenFn, request, h)
-    expect(result).toEqual({})
+    const result = await refreshTokenIfExpired(refreshTokenFn, request, session)
+    expect(result).toBeUndefined()
     expect(refreshUserSession).toHaveBeenCalledWith(expect.any(Object), token)
   })
 
@@ -71,13 +66,10 @@ describe('#refresh-token', () => {
     }
 
     const refreshTokenFn = vi.fn().mockRejectedValue(new Error('Token expired'))
+    const session = await request.getUserSession()
+    const result = await refreshTokenIfExpired(refreshTokenFn, request, session)
 
-    const h = {
-      continue: {}
-    }
-
-    const result = await refreshTokenIfExpired(refreshTokenFn, request, h)
-    expect(result).toEqual({})
+    expect(result).toBeUndefined()
     expect(refreshUserSession).not.toHaveBeenCalled()
     expect(removeAuthenticatedUser).toHaveBeenCalled()
     expect(flash).toHaveBeenCalled()

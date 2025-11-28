@@ -30,8 +30,6 @@ async function saveToCdpUser({ yar }, h, data) {
   const cdpUser = yar.get(key)
 
   yar.set(key, { ...cdpUser, ...data })
-  await yar.commit(h)
-
   return yar.get(key)
 }
 
