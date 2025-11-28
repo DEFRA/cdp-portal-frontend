@@ -34,6 +34,7 @@ const servicesListRoute = {
       caption: 'All',
       action: path,
       clear: path,
+      xhrElement: 'all-services',
       tableData: {
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },

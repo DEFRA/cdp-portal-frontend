@@ -125,11 +125,13 @@ const config = convict({
       doc: 'Reload templates when they are changed.',
       format: Boolean,
       default: isDevelopment
+      // default: false
     },
     doCache: {
       doc: 'Cache the templates',
       format: Boolean,
       default: isProduction
+      // default: true
     }
   },
   session: {
@@ -247,6 +249,7 @@ const config = convict({
       doc: 'Logging level',
       format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'],
       default: isProduction ? 'info' : 'debug',
+      // default: 'warn',
       env: 'LOG_LEVEL'
     },
     format: {
@@ -258,11 +261,7 @@ const config = convict({
     redact: {
       doc: 'Log paths to redact',
       format: Array,
-      default: [
-        'req.headers.authorization',
-        'req.headers.cookie',
-        'res.headers'
-      ],
+      default: ['res'],
       env: 'LOG_REDACT'
     }
   },

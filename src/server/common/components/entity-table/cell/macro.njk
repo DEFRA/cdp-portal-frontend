@@ -3,6 +3,8 @@
 @param {string} headers - table cell headers attribute value
 @param {boolean} isOwner - Does the current user own this service #}
 
+{# TODO is this needed? bit concerned around perf? Can we just simplify the table class names? #}
+
 {% macro appEntityTableCell(params) %}
   {%- include "./template.njk" -%}
 {% endmacro %}

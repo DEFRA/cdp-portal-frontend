@@ -65,7 +65,7 @@
 {% block tabContent %}
 
   {% block xhrContent %}
-    <div data-xhr="services">
+    <div data-xhr="{{ xhrElement }}">
       {% call(params) appEntityTable(tableData) %}
 
         {{ appEntityTableServiceRow({

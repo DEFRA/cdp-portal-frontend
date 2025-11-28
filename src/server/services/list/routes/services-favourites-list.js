@@ -36,6 +36,7 @@ const servicesFavouritesListRoute = {
       caption: isAuthenticated ? 'My' : null,
       action: path,
       clear: path,
+      xhrElement: 'my-services',
       tableData: {
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
