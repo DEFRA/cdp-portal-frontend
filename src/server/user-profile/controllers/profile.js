@@ -25,8 +25,8 @@ const userProfileController = {
     const teams = cdpUser.teams
     const user = {
       ...cdpUser,
-      isAdmin: userSession.isAdmin,
-      isTenant: userSession.isTenant
+      isAdmin: userSession?.isAdmin,
+      isTenant: userSession?.isTenant
     }
 
     const allowedEnvironments = allowedBreakGlassEnvironments({

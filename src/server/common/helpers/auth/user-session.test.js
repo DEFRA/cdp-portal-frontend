@@ -5,8 +5,7 @@ import { scopesFixture } from '../../../../__fixtures__/scopes.js'
 import {
   createUserSession,
   refreshUserSession,
-  removeAuthenticatedUser,
-  updateUserScope
+  removeAuthenticatedUser
 } from './user-session.js'
 
 vi.mock('@hapi/jwt')
@@ -61,15 +60,6 @@ describe('#userSession', () => {
         isAuthenticated: true,
         token: 'access-token',
         refreshToken: 'refresh-token',
-        isAdmin: true,
-        isTenant: false,
-        scope: [
-          'team:platform',
-          'permission:admin',
-          'permission:tenant',
-          'permission:canGrantBreakGlass:team:platform',
-          'permission:serviceOwner:team:platform'
-        ],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
       })
@@ -118,24 +108,9 @@ describe('#userSession', () => {
         isAuthenticated: true,
         token: 'new-access-token',
         refreshToken: 'new-refresh-token',
-        isAdmin: true,
-        isTenant: false,
-        scope: [
-          'team:platform',
-          'permission:admin',
-          'permission:tenant',
-          'permission:canGrantBreakGlass:team:platform',
-          'permission:serviceOwner:team:platform'
-        ],
         expiresIn: 3600000,
         expiresAt: expect.any(Date)
       })
-    })
-
-    test('Should log the user session refresh', () => {
-      expect(request.logger.info).toHaveBeenCalledWith(
-        'User session refreshed, UserId: user-id, displayName: User Name, isAdmin: true, isTenant: false, scopes: [team:platform permission:admin permission:tenant permission:canGrantBreakGlass:team:platform permission:serviceOwner:team:platform]'
-      )
     })
   })
 
@@ -156,49 +131,6 @@ describe('#userSession', () => {
 
       expect(request.dropUserSession).toHaveBeenCalled()
       expect(request.sessionCookie.clear).toHaveBeenCalled()
-    })
-  })
-
-  describe('#updateUserScope', () => {
-    const request = {
-      state: {
-        userSessionCookie: {
-          sessionId: 'session-id'
-        }
-      },
-      server: { session: { set: vi.fn() } },
-      getUserSession: vi.fn(),
-      logger: { debug: vi.fn() }
-    }
-    const userSession = {
-      token: 'access-token'
-    }
-
-    beforeEach(async () => {
-      authedFetchJson.mockResolvedValue({ payload: scopesFixture })
-
-      await updateUserScope(request, userSession)
-    })
-
-    test('Should update the user scope with new scopes and flags', () => {
-      expect(request.server.session.set).toHaveBeenCalledWith('session-id', {
-        ...userSession,
-        isAdmin: true,
-        isTenant: false,
-        scope: [
-          'team:platform',
-          'permission:admin',
-          'permission:tenant',
-          'permission:canGrantBreakGlass:team:platform',
-          'permission:serviceOwner:team:platform'
-        ]
-      })
-
-      expect(request.getUserSession).toHaveBeenCalled()
-    })
-
-    test('Should log the user session update', () => {
-      expect(request.logger.debug).toHaveBeenCalledWith('User session updated')
     })
   })
 })
