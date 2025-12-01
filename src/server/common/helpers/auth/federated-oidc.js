@@ -21,7 +21,8 @@ export const federatedOidc = {
       redirectUri: config.get('appBaseUrl') + callbackPath,
       clientId: config.get('azureClientId'),
       scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
-      tokenProvider: () => server.federatedCredentials.getToken()
+      tokenProvider: () => server.federatedCredentials.getToken(),
+      useMocks: config.get('azureFederatedCredentials.enableMocking')
     }
 
     server.auth.scheme('federated-oidc', scheme)
@@ -43,12 +44,23 @@ function scheme(_server, options) {
   return {
     authenticate: async function (request, h) {
       const federatedToken = await settings.tokenProvider()
+      const discoveryUrl = new URL(settings.discoveryUri)
+      const options = {}
+
+      if (settings.useMocks) {
+        // Disable the HTTPS requirements when connecting to the mock.
+        // OpenId flags this as deprecated purely to warn that it's not for prod use.
+
+        // noinspection JSDeprecatedSymbols
+        options.execute = [openid.allowInsecureRequests]
+      }
 
       const oidcConfig = await openid.discovery(
-        new URL(settings.discoveryUri),
+        discoveryUrl,
         settings.clientId,
         {},
-        ClientFederatedCredential(federatedToken)
+        ClientFederatedCredential(federatedToken),
+        options
       )
 
       const isPreLogin = !request.query.code
@@ -181,7 +193,8 @@ const optionsSchema = Joi.object({
   clientId: Joi.string().required(),
   sessionName: Joi.string().default('oidc-auth'),
   scope: Joi.string().required(),
-  tokenProvider: Joi.function().required()
+  tokenProvider: Joi.function().required(),
+  useMocks: Joi.boolean().default(false)
 })
 
 /**
