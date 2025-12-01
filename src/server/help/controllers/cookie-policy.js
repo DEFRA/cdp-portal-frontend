@@ -1,13 +1,23 @@
+import { getTraceId } from '@defra/hapi-tracing'
+
 import { createLogger } from '../../common/helpers/logging/logger.js'
 
 const outerLogger = createLogger()
 
 const serverExtensionPoint = (extName) => (request, h) => {
+  const traceId = getTraceId()
   const innerLogger = createLogger()
 
-  request.logger.info(`Call from ${extName} extension point`)
-  outerLogger.info(`OuterLogger call from ${extName} extension point`)
-  innerLogger.info(`InnerLogger call from ${extName} extension point`)
+  request.logger.info(
+    `Call from ${extName} extension point. getTraceId(): ${traceId}`
+  )
+
+  outerLogger.info(
+    `OuterLogger call from ${extName} extension point. getTraceId(): ${traceId}`
+  )
+  innerLogger.info(
+    `InnerLogger call from ${extName} extension point. getTraceId(): ${traceId}`
+  )
 
   return h.continue
 }
