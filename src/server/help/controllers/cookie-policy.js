@@ -1,5 +1,13 @@
+import { createLogger } from '../../common/helpers/logging/logger.js'
+
+const outerLogger = createLogger()
+
 const serverExtensionPoint = (extName) => (request, h) => {
+  const innerLogger = createLogger()
+
   request.logger.info(`Call from ${extName} extension point`)
+  outerLogger.info(`OuterLogger call from ${extName} extension point`)
+  innerLogger.info(`InnerLogger call from ${extName} extension point`)
 
   return h.continue
 }
