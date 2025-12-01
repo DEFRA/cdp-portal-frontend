@@ -8,7 +8,6 @@ import { config } from '../config/config.js'
 import { nunjucksConfig } from '../config/nunjucks/index.js'
 import { csrf } from './common/helpers/auth/csrf.js'
 import { catchAll } from './common/helpers/errors/catch-all.js'
-import { azureOidc } from './common/helpers/auth/azure-oidc.js'
 import { sessionManager } from './common/helpers/session/session-manager.js'
 import { sessionCookie } from './common/helpers/auth/session-cookie.js'
 import { requestLogger } from './common/helpers/logging/request-logger.js'
@@ -27,6 +26,7 @@ import { cognitoFederatedCredentials } from './common/helpers/auth/cognito.js'
 import { setupCaches } from './common/helpers/session/setup-caches.js'
 import { getCacheEngine } from './common/helpers/session/cache-engine.js'
 import { nodeVmMetrics } from './common/helpers/performance/node-vm-metrics.js'
+import { mockCognitoFederatedCredentials } from './common/helpers/auth/mock-cognito.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -91,14 +91,16 @@ async function createServer() {
     await server.register(secureContext)
   }
 
-  const authPlugins = config.get('azureFederatedCredentials.enabled')
-    ? [cognitoFederatedCredentials, federatedOidc]
-    : [azureOidc]
+  const useOidcMocks = config.get('azureFederatedCredentials.enableMocking')
+  const credentialProvider = useOidcMocks
+    ? mockCognitoFederatedCredentials
+    : cognitoFederatedCredentials
 
   await server.register([
     pulse,
     sessionManager,
-    ...authPlugins,
+    credentialProvider,
+    federatedOidc,
     sessionCookie,
     Scooter,
     contentSecurityPolicy,
