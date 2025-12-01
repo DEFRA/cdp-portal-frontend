@@ -275,12 +275,6 @@ const config = convict({
     }
   },
   azureFederatedCredentials: {
-    enabled: {
-      doc: 'Use Azure Federated Credentials',
-      format: Boolean,
-      env: 'AZURE_FEDERATED_CREDENTIALS_ENABLED',
-      default: true
-    },
     enableMocking: {
       doc: 'Turns on OIDC mock support',
       format: Boolean,
