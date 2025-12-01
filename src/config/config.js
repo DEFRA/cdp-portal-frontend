@@ -279,7 +279,7 @@ const config = convict({
       doc: 'Turns on OIDC mock support',
       format: Boolean,
       default: !isProduction,
-      env: 'AZURE_FEDERATED_ENABLE_MOCKING'
+      env: 'AZURE_CREDENTIALS_ENABLE_MOCKING'
     },
     identityPoolId: {
       doc: 'Azure Federated Credential Pool ID',
