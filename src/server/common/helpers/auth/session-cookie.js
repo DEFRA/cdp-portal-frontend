@@ -30,7 +30,7 @@ const sessionCookie = {
               isValid: true,
               credentials: {
                 ...userSession,
-                ...(scopeFlags ?? []),
+                ...(scopeFlags ?? {}),
                 scope: scopes ?? []
               }
             }

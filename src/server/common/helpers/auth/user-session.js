@@ -82,6 +82,10 @@ async function refreshUserSession(request, refreshTokenResponse) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
+  request.logger.info(
+    `User session refreshed, UserId: ${payload.oid}, displayName: ${payload.name}`
+  )
+
   await request.server.session.set(request.state.userSessionCookie.sessionId, {
     id: payload.oid,
     email: payload.preferred_username,

@@ -112,6 +112,12 @@ describe('#userSession', () => {
         expiresAt: expect.any(Date)
       })
     })
+
+    test('Should log the user session refresh', () => {
+      expect(request.logger.info).toHaveBeenCalledWith(
+        'User session refreshed, UserId: user-id, displayName: User Name'
+      )
+    })
   })
 
   describe('#removeAuthenticatedUser', () => {

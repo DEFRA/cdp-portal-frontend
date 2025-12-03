@@ -14,23 +14,27 @@ const authCallbackController = {
     }
   },
   handler: async (request, h) => {
-    if (request.auth.isAuthenticated) {
+    const { auth, sessionCookie, audit, yar, logger } = request
+    if (auth.isAuthenticated) {
       const sessionId = randomUUID()
 
-      request.logger.info('Creating user session')
+      logger.info('Creating user session')
       await createUserSession(request, sessionId)
 
-      request.sessionCookie.set({ sessionId })
-      const userSession = request.auth.credentials
+      sessionCookie.set({ sessionId })
+      const userSession = auth.credentials
 
-      request.audit.sendMessage({
-        event: `User logged in ${userSession?.id} ${userSession?.displayName}`,
+      const loginMsg = `User logged in ${userSession.id} ${userSession.displayName}`
+      request.logger.info(loginMsg)
+
+      audit.sendMessage({
+        event: loginMsg,
         user: userSession
       })
     }
 
-    const redirect = request.yar.flash(sessionNames.referrer)?.at(0) ?? '/'
-    request.logger.info(`Login complete, redirecting user to ${redirect}`)
+    const redirect = yar.flash(sessionNames.referrer)?.at(0) ?? '/'
+    logger.info(`Login complete, redirecting user to ${redirect}`)
     return redirectWithRefresh(h, redirect)
   }
 }

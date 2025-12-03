@@ -9,7 +9,7 @@ async function fetchPostgresServices({ request }) {
   const userSession = request.auth.credentials
 
   // Admins can view all migrations
-  if (userSession?.isAdmin) {
+  if (userSession.isAdmin) {
     const endpoint = `${portalBackendUrl}/migrations/services`
     const { payload } = await fetchJson(endpoint)
     return payload

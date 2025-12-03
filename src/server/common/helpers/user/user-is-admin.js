@@ -1,5 +1,5 @@
 function userIsAdmin(userSession) {
-  return userSession?.isAdmin
+  return userSession.isAdmin
 }
 
 function userIsAdminDecorator(request) {
