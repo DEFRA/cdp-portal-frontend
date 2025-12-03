@@ -1,5 +1,7 @@
 {% extends "layouts/page.njk" %}
 
+{% from "running-services/common/components/running-service-row/macro.njk" import appEntityTableRunningServiceRow %}
+
 {% block content %}
 
   {{ appPageHeading({
@@ -95,7 +97,21 @@
 
   {% block xhrContent %}
     <div data-xhr="running-services">
-      {{ appEntityTable(tableData) }}
+      {% call(params) appEntityTable(tableData) %}
+
+        {{ appEntityTableRunningServiceRow({
+          rowClasses: params.rowClasses,
+          loopIndex: params.loopIndex,
+          isOwner: params.row.isOwner,
+          serviceName: params.row.serviceName,
+          serviceTeams: params.row.serviceTeams,
+          serviceEnvironments: params.row.serviceEnvironments,
+          allEnvironments: environments
+        }) | safe }}
+
+      {% endcall %}
+
+
     </div>
   {% endblock %}
 

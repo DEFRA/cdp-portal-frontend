@@ -44,6 +44,7 @@ const runningServicesListController = {
         noResult: 'No running services found',
         isWide: true
       },
+      environments,
       serviceFilters,
       userFilters,
       statusFilters,

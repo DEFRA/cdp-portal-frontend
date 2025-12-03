@@ -1,17 +1,16 @@
+{% from "time/macro.njk" import appTime %}
 {% from "icons/star-icon/macro.njk" import appStarIcon %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
-{% from "time/macro.njk" import appTime %}
-{% from "entity-table/cell/macro.njk" import appEntityTableCell %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
 
-  {% call appEntityTableCell({ headers: "owner", isOwned: true }) %}
+  <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned" data-label="Owner">
     {% if params.isOwner %}
-      {{ appStarIcon({classes: "app-icon--minuscule"}) }}
+      {{ appStarIcon({classes: "app-icon--minuscule" }) }}
     {% endif %}
-  {% endcall %}
+  </td>
 
-  {% call appEntityTableCell({ headers: "service" }) %}
+  <td headers="service" class="app-entity-table__cell" data-label="Service">
     <a class="app-link app-entity-table__row-header" href="/services/{{ params.entityName }}" data-testid="app-link">
       {{ params.entityName }}
     </a>
@@ -29,9 +28,9 @@
         </div>
       </div>
     {% endif %}
-  {% endcall %}
+  </td>
 
-  {% call appEntityTableCell({ headers: "team" }) %}
+  <td headers="team" class="app-entity-table__cell" data-label="Team">
     {% if params.teams | length %}
       <ul class="app-entity__list">
         {% for team in params.teams %}
@@ -43,24 +42,24 @@
     {% else %}
       <span class="app-entity-no-value">{{ noValue }}</span>
     {% endif %}
-  {% endcall %}
+  </td>
 
-  {% call appEntityTableCell({ headers: "type" }) %}
+  <td headers="type" class="app-entity-table__cell" data-label="Type">
     {{ govukTag({
       text: params.serviceType,
       classes: "app-tag govuk-tag--blue",
       attributes: { "data-testid": "govuk-tag" }
     }) }}
-  {% endcall %}
+  </td>
 
-  {% call appEntityTableCell({ headers: "github-url" }) %}
+  <td headers="github-url" class="app-entity-table__cell" data-label="Github-url">
     <a class="app-link"
        href="{{ params.githubUrl }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
       {{ params.githubUrl }}
     </a>
-  {% endcall %}
+  </td>
 
-  {% call appEntityTableCell({ headers: "created" }) %}
+  <td headers="created" class="app-entity-table__cell" data-label="Created">
     {% if params.creationState.date %}
       {{ appTime({ datetime: params.creationState.date }) }}
     {% else %}
@@ -70,7 +69,6 @@
         attributes: { "data-testid": "govuk-tag" }
       }) }}
     {% endif %}
-  {% endcall %}
-
+  </td>
 </tr>
 

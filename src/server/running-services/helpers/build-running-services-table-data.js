@@ -66,8 +66,7 @@ async function buildRunningServicesTableData(request) {
   })
 
   const ownerSorter = sortByOwner('serviceName')
-  const decorator = runningServiceToEntityRow(environments)
-  const rows = services.toSorted(ownerSorter).map(decorator)
+  const rows = services.toSorted(ownerSorter).map(runningServiceToEntityRow)
 
   return {
     environments,

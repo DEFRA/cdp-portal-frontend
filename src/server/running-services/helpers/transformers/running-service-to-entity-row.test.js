@@ -1,4 +1,3 @@
-import { environments } from '../../../../config/environments.js'
 import { runningServicesFixture } from '../../../../__fixtures__/running-services/running-services.js'
 import { transformRunningServices } from './running-services.js'
 import { runningServiceToEntityRow } from './running-service-to-entity-row.js'
@@ -6,9 +5,6 @@ import { entityServicesFixture } from '../../../../__fixtures__/services/entitie
 
 describe('#runningServiceToEntityRow', () => {
   const adminGroupId = 'team:aabe63e7-87ef-4beb-a596-c810631fc474'
-  const allEnvironments = Object.values(environments).map(
-    (env) => env.kebabName
-  )
   const runningServices = runningServicesFixture
   const deployableServices = entityServicesFixture
   const userScopes = [adminGroupId]
@@ -22,66 +18,54 @@ describe('#runningServiceToEntityRow', () => {
 
   describe('When authenticated', () => {
     test('Should return the correct row structure', () => {
-      const result = runningServiceToEntityRow(allEnvironments)(firstService)
+      const result = runningServiceToEntityRow(firstService)
 
       expect(result).toEqual({
-        cells: [
-          {
-            entity: {
-              kind: 'html',
-              value: expect.stringContaining('app-star-icon')
-            },
-            headers: 'owner',
-            isCentered: true,
-            classes: 'app-entity-table__cell--owned'
-          },
-          {
-            entity: {
-              kind: 'link',
-              url: '/running-services/cdp-portal-frontend',
-              value: 'cdp-portal-frontend'
-            },
-            headers: 'service'
-          },
-          {
-            entity: {
-              kind: 'group',
-              value: [
+        isOwner: true,
+        serviceEnvironments: {
+          'infra-dev': {
+            cdpDeploymentId: '3c439dc3-014f-47ef-9433-57ef0a10d8aa',
+            configVersion: null,
+            cpu: '1024',
+            created: '2024-05-10T14:48:34.001Z',
+            deploymentTestRuns: [],
+            environment: 'infra-dev',
+            instanceCount: 1,
+            instances: {
+              'arn:aws:ecs:eu-west-2:506190012364:task/infra-dev-ecs-public/cb7de56df13e4c7fa3042b644a07b97e':
                 {
-                  kind: 'link',
-                  url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                  value: 'Platform'
+                  status: 'running',
+                  updated: '2024-05-10T14:49:42Z'
                 }
-              ]
             },
-            headers: 'team'
-          },
+            lambdaId: 'ecs-svc/5038252746496072911',
+            lastDeploymentMessage: null,
+            lastDeploymentStatus: null,
+            memory: '2048',
+            secrets: {
+              createdDate: '',
+              keys: [],
+              lastChangedDate: ''
+            },
+            service: 'cdp-portal-frontend',
+            status: 'running',
+            statusClassname: 'item-detail--green',
+            taskDefinitionArn: null,
+            unstable: false,
+            updated: '2024-05-10T14:49:42Z',
+            user: {
+              displayName: 'RoboCop',
+              id: '01b99595-27b5-4ab0-9807-f104c09d2cd0'
+            },
+            version: '0.356.0'
+          }
+        },
+        serviceName: 'cdp-portal-frontend',
+        serviceTeams: [
           {
-            entity: {
-              kind: 'html',
-              value: expect.stringContaining('Running in Infra-dev')
-            },
-            headers: 'infra-dev',
-            isSlim: true
-          },
-          expect.objectContaining({
-            headers: 'management'
-          }),
-          expect.objectContaining({
-            headers: 'dev'
-          }),
-          expect.objectContaining({
-            headers: 'test'
-          }),
-          expect.objectContaining({
-            headers: 'ext-test'
-          }),
-          expect.objectContaining({
-            headers: 'perf-test'
-          }),
-          expect.objectContaining({
-            headers: 'prod'
-          })
+            name: 'Platform',
+            teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
+          }
         ]
       })
     })
@@ -92,62 +76,16 @@ describe('#runningServiceToEntityRow', () => {
       ...firstService,
       environments: {}
     }
-    const result = runningServiceToEntityRow(allEnvironments)(
-      serviceDataWithoutEnvironments
-    )
+    const result = runningServiceToEntityRow(serviceDataWithoutEnvironments)
     expect(result).toEqual({
-      cells: [
+      isOwner: true,
+      serviceEnvironments: {},
+      serviceName: 'cdp-portal-frontend',
+      serviceTeams: [
         {
-          entity: {
-            kind: 'html',
-            value: expect.stringContaining('app-star-icon')
-          },
-          headers: 'owner',
-          isCentered: true,
-          classes: 'app-entity-table__cell--owned'
-        },
-        {
-          entity: {
-            kind: 'link',
-            url: '/running-services/cdp-portal-frontend',
-            value: 'cdp-portal-frontend'
-          },
-          headers: 'service'
-        },
-        {
-          entity: {
-            kind: 'group',
-            value: [
-              {
-                kind: 'link',
-                url: '/teams/aabe63e7-87ef-4beb-a596-c810631fc474',
-                value: 'Platform'
-              }
-            ]
-          },
-          headers: 'team'
-        },
-        expect.objectContaining({
-          headers: 'infra-dev'
-        }),
-        expect.objectContaining({
-          headers: 'management'
-        }),
-        expect.objectContaining({
-          headers: 'dev'
-        }),
-        expect.objectContaining({
-          headers: 'test'
-        }),
-        expect.objectContaining({
-          headers: 'ext-test'
-        }),
-        expect.objectContaining({
-          headers: 'perf-test'
-        }),
-        expect.objectContaining({
-          headers: 'prod'
-        })
+          name: 'Platform',
+          teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474'
+        }
       ]
     })
   })

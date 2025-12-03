@@ -1,0 +1,48 @@
+{% from "time/macro.njk" import appTime %}
+{% from "icons/star-icon/macro.njk" import appStarIcon %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "running-service-entity/macro.njk" import appRunningServiceEntity %}
+
+<tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+
+  <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned" data-label="Owner">
+    {% if params.isOwner %}
+      {{ appStarIcon({classes: "app-icon--minuscule" }) }}
+    {% endif %}
+  </td>
+
+  <td headers="service" class="app-entity-table__cell" data-label="Service">
+    <a class="app-link app-entity-table__row-header" href="/running-services/{{ params.serviceName }}"
+       data-testid="app-link">
+      {{ params.serviceName }}
+    </a>
+  </td>
+
+  <td headers="team" class="app-entity-table__cell" data-label="Team">
+    {% if params.serviceTeams | length %}
+      <ul class="app-entity__list">
+        {% for team in params.serviceTeams %}
+          <a class="app-link" href="/teams/{{ team.id }}" data-testid="app-entity-link">
+            {{ team.name }}
+          </a>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <span class="app-entity-no-value">{{ noValue }}</span>
+    {% endif %}
+  </td>
+
+  {% for environment in params.allEnvironments %}
+    <td headers="{{ environment }}" class="app-entity-table__cell app-entity-table__cell--slim"
+        data-label="{{ environment | title }}">
+      {% set row = params.serviceEnvironments[environment] %}
+
+      {% if row %}
+        {{ appRunningServiceEntity(row) }}
+      {% else %}
+        <div class="app-running-service-entity--empty"></div>
+      {% endif %}
+    </td>
+  {% endfor %}
+</tr>
+
