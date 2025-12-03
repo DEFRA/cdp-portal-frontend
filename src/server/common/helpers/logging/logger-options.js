@@ -41,7 +41,6 @@ export const loggerOptions = {
 
     if (traceId) {
       mixinValues.trace = { id: traceId }
-      mixinValues['trace.id'] = traceId
     }
 
     return mixinValues
