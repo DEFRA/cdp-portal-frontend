@@ -3,6 +3,13 @@ import { buildBlogNav } from '../helpers/markdown/build-blog-nav.js'
 import { fetchMarkdown } from '../../documentation/helpers/s3-file-handler.js'
 import { buildBlogPageHtml } from '../../documentation/helpers/markdown/build-page-html.js'
 
+const experiment = {
+  method: async (request, h) => {
+    request.logger.info('Inside ext')
+    return h.continue
+  }
+}
+
 async function buildPreviewArticles(request, navHrefs, bucket) {
   const quantityPreviewArticles = 8
   const previewArticleLineSize = 6
@@ -47,7 +54,12 @@ async function buildPreviewArticles(request, navHrefs, bucket) {
 }
 
 const homeRoute = {
-  options: { id: 'home' },
+  options: {
+    id: 'home',
+    ext: {
+      onPreResponse: [experiment]
+    }
+  },
   handler: async (request, h) => {
     const bucket = config.get('documentation.bucket')
     const { nav, navHrefs } = await buildBlogNav(request, bucket)
@@ -56,6 +68,8 @@ const homeRoute = {
       navHrefs,
       bucket
     )
+
+    request.logger.info('Rendering home page')
 
     return h.view('home/views/home', {
       pageTitle: 'Home',

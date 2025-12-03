@@ -1,13 +1,8 @@
-{% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
 {% from "tool-tip/macro.njk" import appToolTip %}
-{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
-{% from "icons/instance-failed-icon/macro.njk" import appInstanceFailedIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
-{% from "icons/instance-stopped-icon/macro.njk" import appInstanceStoppedIcon %}
 {% from "icons/instance-undeployed-icon/macro.njk" import appInstanceUndeployedIcon %}
-{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
 
 <div class="app-running-service-entity{% if params.statusClassname %} {{ params.statusClassname }}{% endif %}">
   <div class="app-running-service-entity__env">
@@ -20,17 +15,9 @@
         {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon--tiny" }) }}
       {% case "requested" %}
       {% case "pending" %}
-      {% case "stopping" %}
-      {% case "deploying" %}
         {{ appInstancePendingIcon({ description: "Pending", classes: "app-icon--tiny" }) }}
-      {% case "failed" %}
-        {{ appInstanceFailedIcon({ description: "Failed", classes: "app-icon--tiny" }) }}
       {% case "undeployed" %}
         {{ appInstanceUndeployedIcon({ description: "Undeployed", classes: "app-icon--tiny" }) }}
-      {% case "stopped" %}
-        {{ appInstanceStoppedIcon({ description: "Stopped", classes: "app-icon--tiny" }) }}
-      {% default %}
-        {{ appInstanceIcon({ description: "Unknown", classes: "app-icon--tiny" }) }}
       {% endswitch %}
     {% endcall %}
 

@@ -1,0 +1,13 @@
+{# Renders a running service entity-table row
+
+@param {string} rowClasses - classes to be used for the row
+@param {number} loopIndex - table for loop index
+@param {boolean} isOwner - Does the current user own this service
+@param {string} serviceName - Service name
+@param {object}[] serviceTeams - Teams who own the service
+@param {object}[] serviceEnvironments - Details of service in environment
+@param {string}[] allEnvironments - Avialable environments to user #}
+
+{% macro appEntityTableRunningServiceRow(params) %}
+  {%- include "./template.njk" -%}
+{% endmacro %}
