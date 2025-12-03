@@ -75,18 +75,12 @@ const azureOidc = {
         }
       })
 
-      server.decorate('request', 'refreshToken', (token) =>
-        refreshAccessToken(token, wellKnown)
-      )
-
-      server.ext('onPreAuth', async (request, h) => {
-        const userSession = await request.getUserSession()
+      server.decorate('request', 'refreshToken', async function (userSession) {
         await refreshTokenIfExpired(
-          (t) => refreshAccessToken(t, wellKnown),
-          request,
+          (token) => refreshAccessToken(token, wellKnown),
+          this,
           userSession
         )
-        return h.continue
       })
     }
   }

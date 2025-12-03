@@ -17,7 +17,6 @@ export async function refreshTokenIfExpired(
   userSession
 ) {
   if (!userSession?.expiresAt) {
-    // todo should this throw an error?
     return
   }
 
