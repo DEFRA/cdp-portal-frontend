@@ -27,7 +27,7 @@ export const federatedOidc = {
       useMocks,
       // Disable the HTTPS requirements when connecting to the mock.
       // OpenId flags this as deprecated purely to warn that it's not for prod use.
-      execute: useMocks && [openid.allowInsecureRequests]
+      ...(useMocks ? { execute: [openid.allowInsecureRequests] } : {})
     }
 
     server.auth.scheme('federated-oidc', scheme)
