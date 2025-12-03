@@ -36,8 +36,6 @@ async function saveToCdpTeam({ yar }, h, data) {
   const cdpTeam = yar.get(key)
 
   yar.set(key, { ...cdpTeam, ...data })
-  await yar.commit(h)
-
   return yar.get(key)
 }
 

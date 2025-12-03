@@ -16,51 +16,47 @@ export const federatedOidc = {
   name: 'federatedOidc',
   dependencies: ['federated-credentials'],
   register: function (server) {
-    const settings = {
+    const useMocks = config.get('azureFederatedCredentials.enableMocking')
+    // noinspection JSDeprecatedSymbols
+    const options = {
       discoveryUri: config.get('oidcWellKnownConfigurationUrl'),
       redirectUri: config.get('appBaseUrl') + callbackPath,
       clientId: config.get('azureClientId'),
       scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
       tokenProvider: () => server.federatedCredentials.getToken(),
-      useMocks: config.get('azureFederatedCredentials.enableMocking')
+      useMocks,
+      // Disable the HTTPS requirements when connecting to the mock.
+      // OpenId flags this as deprecated purely to warn that it's not for prod use.
+      execute: useMocks && [openid.allowInsecureRequests]
     }
 
     server.auth.scheme('federated-oidc', scheme)
-    server.auth.strategy('azure-oidc', 'federated-oidc', settings)
+    server.auth.strategy('azure-oidc', 'federated-oidc', options)
 
-    server.ext('onPreAuth', (request, h) =>
-      refreshTokenIfExpired(
-        (token) => refreshToken(settings, token),
-        request,
-        h
+    server.decorate('request', 'refreshToken', async function (userSession) {
+      await refreshTokenIfExpired(
+        (token) => refreshToken(options, token),
+        this,
+        userSession
       )
-    )
+    })
   }
 }
 
 function scheme(_server, options) {
-  const settings = Joi.attempt(Hoek.clone(options), optionsSchema)
+  const validatedOptions = Joi.attempt(Hoek.clone(options), optionsSchema)
 
   return {
     authenticate: async function (request, h) {
-      const federatedToken = await settings.tokenProvider()
-      const discoveryUrl = new URL(settings.discoveryUri)
-      const options = {}
-
-      if (settings.useMocks) {
-        // Disable the HTTPS requirements when connecting to the mock.
-        // OpenId flags this as deprecated purely to warn that it's not for prod use.
-
-        // noinspection JSDeprecatedSymbols
-        options.execute = [openid.allowInsecureRequests]
-      }
+      const federatedToken = await validatedOptions.tokenProvider()
+      const discoveryUrl = new URL(validatedOptions.discoveryUri)
 
       const oidcConfig = await openid.discovery(
         discoveryUrl,
-        settings.clientId,
+        validatedOptions.clientId,
         {},
         ClientFederatedCredential(federatedToken),
-        options
+        options.execute ? { execute: options.execute } : {}
       )
 
       const isPreLogin = !request.query.code
@@ -68,7 +64,11 @@ function scheme(_server, options) {
       if (isPreLogin) {
         try {
           // User has just started the login flow.
-          const redirectTo = await preLogin(request, oidcConfig, settings)
+          const redirectTo = await preLogin(
+            request,
+            oidcConfig,
+            validatedOptions
+          )
           return h.redirect(redirectTo).takeover()
         } catch (e) {
           logger.error(e, 'PreLogin Federated login failed')
@@ -77,7 +77,11 @@ function scheme(_server, options) {
       } else {
         // User has logged in and been redirected back to the auth callback
         try {
-          const credentials = await postLogin(request, oidcConfig, settings)
+          const credentials = await postLogin(
+            request,
+            oidcConfig,
+            validatedOptions
+          )
           return h.authenticated({ credentials })
         } catch (e) {
           logger.error(e, 'Post Federated login failed')
@@ -91,14 +95,14 @@ function scheme(_server, options) {
 /**
  * Redirects a user to the AAD login page.
  */
-async function preLogin(request, oidcConfig, settings) {
+async function preLogin(request, oidcConfig, options) {
   const codeVerifier = openid.randomPKCECodeVerifier()
   const codeChallenge = await openid.calculatePKCECodeChallenge(codeVerifier)
   let nonce
 
   const parameters = {
-    redirect_uri: settings.redirectUri,
-    scope: settings.scope,
+    redirect_uri: options.redirectUri,
+    scope: options.scope,
     code_challenge: codeChallenge,
     code_challenge_method: 'S256'
   }
@@ -109,7 +113,7 @@ async function preLogin(request, oidcConfig, settings) {
     parameters.nonce = nonce
   }
 
-  request.yar.set(settings.sessionName, {
+  request.yar.set(options.sessionName, {
     codeVerifier,
     nonce
   })
@@ -124,8 +128,8 @@ async function preLogin(request, oidcConfig, settings) {
  * Post-login, user has logged to AAD and has been redirected back to the auth callback.
  * If the token is validated then the credentials are returned.
  */
-async function postLogin(request, oidcConfig, settings) {
-  const state = request.yar.get(settings.sessionName, true)
+async function postLogin(request, oidcConfig, options) {
+  const state = request.yar.get(options.sessionName, true)
   const codeVerifier = state?.codeVerifier
   const nonce = state?.nonce
 
@@ -168,22 +172,24 @@ async function postLogin(request, oidcConfig, settings) {
 
 /**
  * Refreshes the client credentials using a refresh token.
- * @param {{discoveryUri: string, clientId: string, scope: string, tokenProvider: () => Promise<string>}} settings
+ * @param {{discoveryUri: string, clientId: string, scope: string, tokenProvider: () => Promise<string>, execute: [() => void]}} options
  * @param {string} jwtRefreshToken
  * @returns {Promise<{}>}
  */
-async function refreshToken(settings, jwtRefreshToken) {
-  const federatedToken = await settings.tokenProvider()
+export async function refreshToken(options, jwtRefreshToken) {
+  const discoveryUrl = new URL(options.discoveryUri)
+  const federatedToken = await options.tokenProvider()
 
   const oidcConfig = await openid.discovery(
-    new URL(settings.discoveryUri),
-    settings.clientId,
+    discoveryUrl,
+    options.clientId,
     {},
-    ClientFederatedCredential(federatedToken)
+    ClientFederatedCredential(federatedToken),
+    options.execute ? { execute: options.execute } : {}
   )
 
   return openid.refreshTokenGrant(oidcConfig, jwtRefreshToken, {
-    scope: settings.scope
+    scope: options.scope
   })
 }
 
@@ -194,7 +200,8 @@ const optionsSchema = Joi.object({
   sessionName: Joi.string().default('oidc-auth'),
   scope: Joi.string().required(),
   tokenProvider: Joi.function().required(),
-  useMocks: Joi.boolean().default(false)
+  useMocks: Joi.boolean().default(false),
+  execute: Joi.array().optional()
 })
 
 /**

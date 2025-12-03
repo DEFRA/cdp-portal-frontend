@@ -1,6 +1,6 @@
 import authCookie from '@hapi/cookie'
 import { config } from '../../../../config/config.js'
-import { updateUserScope } from './user-session.js'
+import { fetchScopes } from '../../../teams/helpers/fetch/fetch-scopes.js'
 
 const sessionCookieConfig = config.get('session.cookie')
 
@@ -21,13 +21,18 @@ const sessionCookie = {
         },
         keepAlive: true,
         requestDecoratorName: 'sessionCookie',
-        validate: async (request) => {
-          const userSession = await request.getUserSession()
-
+        validate: async (request, session) => {
+          const userSession = await request.getUserSession(session.sessionId)
           if (userSession?.isAuthenticated) {
+            await request.refreshToken(userSession)
+            const { scopes, scopeFlags } = await fetchScopes(userSession.token)
             return {
               isValid: true,
-              credentials: await updateUserScope(request, userSession)
+              credentials: {
+                ...userSession,
+                ...(scopeFlags ?? {}),
+                scope: scopes ?? []
+              }
             }
           } else {
             return { isValid: false }

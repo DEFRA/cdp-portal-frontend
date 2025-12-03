@@ -1,9 +1,6 @@
 import jwt from '@hapi/jwt'
 import { addSeconds } from 'date-fns'
 
-import { fetchScopes } from '../../../teams/helpers/fetch/fetch-scopes.js'
-import { userLog } from '../logging/user-log.js'
-
 /**
  * @description MicroSoft refresh token response
  * @typedef {object} RefreshTokenResponse
@@ -43,11 +40,7 @@ async function createUserSession(request, sessionId) {
 
   const { id, email, displayName, loginHint } = request.auth.credentials.profile
 
-  const { scopes, scopeFlags } = await fetchScopes(
-    request.auth.credentials.token
-  )
-
-  await request.server.session.set(sessionId, {
+  const session = {
     id,
     email,
     displayName,
@@ -55,32 +48,11 @@ async function createUserSession(request, sessionId) {
     isAuthenticated: request.auth.isAuthenticated,
     token: request.auth.credentials.token,
     refreshToken: request.auth.credentials.refreshToken,
-    isAdmin: scopeFlags.isAdmin,
-    isTenant: scopeFlags.isTenant,
-    scope: scopes,
     expiresIn: expiresInMilliSeconds,
     expiresAt
-  })
-}
+  }
 
-/**
- * Update user scope
- * @param {import("@hapi/hapi").Request} request
- * @param {UserSession} userSession
- * @returns {Promise<UserSession> | UserSession}
- */
-async function updateUserScope(request, userSession) {
-  const { scopes, scopeFlags } = await fetchScopes(userSession.token)
-
-  request.logger.debug('User session updated')
-
-  await request.server.session.set(request.state.userSessionCookie.sessionId, {
-    ...userSession,
-    ...(scopeFlags ?? []),
-    scope: scopes ?? []
-  })
-
-  return await request.getUserSession()
+  await request.server.session.set(sessionId, session)
 }
 
 /**
@@ -95,7 +67,7 @@ async function updateUserScope(request, userSession) {
  * Refresh user session
  * @param {import("@hapi/hapi").Request} request
  * @param {RefreshTokenResponse} refreshTokenResponse
- * @returns {Promise<UserSession> | UserSession}
+ * @returns {Promise<void>}
  */
 async function refreshUserSession(request, refreshTokenResponse) {
   request.logger.debug('User session refreshing')
@@ -110,7 +82,9 @@ async function refreshUserSession(request, refreshTokenResponse) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds)
 
-  const { scopes, scopeFlags } = await fetchScopes(refreshedToken)
+  request.logger.info(
+    `User session refreshed, UserId: ${payload.oid}, displayName: ${payload.name}`
+  )
 
   await request.server.session.set(request.state.userSessionCookie.sessionId, {
     id: payload.oid,
@@ -120,31 +94,12 @@ async function refreshUserSession(request, refreshTokenResponse) {
     isAuthenticated: true,
     token: refreshTokenResponse.access_token,
     refreshToken: refreshTokenResponse.refresh_token,
-    isAdmin: scopeFlags.isAdmin,
-    isTenant: scopeFlags.isTenant,
-    scope: scopes,
     expiresIn: expiresInMilliSeconds,
     expiresAt
   })
-
-  request.logger.info(
-    userLog(
-      'User session refreshed',
-      { id: payload.oid, displayName: payload.name },
-      scopeFlags,
-      scopes
-    )
-  )
-
-  return await request.getUserSession()
 }
 
-export {
-  createUserSession,
-  refreshUserSession,
-  removeAuthenticatedUser,
-  updateUserScope
-}
+export { createUserSession, refreshUserSession, removeAuthenticatedUser }
 /**
  * @import {UserSession} from './get-user-session.js'
  */
