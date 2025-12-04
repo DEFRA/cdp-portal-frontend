@@ -27,6 +27,7 @@ import { setupCaches } from './common/helpers/session/setup-caches.js'
 import { getCacheEngine } from './common/helpers/session/cache-engine.js'
 import { nodeVmMetrics } from './common/helpers/performance/node-vm-metrics.js'
 import { mockCognitoFederatedCredentials } from './common/helpers/auth/mock-cognito.js'
+import { engineMetricsPlugin } from './common/helpers/session/engine-metrics-wrapper.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -37,6 +38,10 @@ const enableSecureContext = config.get('enableSecureContext')
  */
 async function createServer() {
   setupProxy()
+
+  const cacheEngine = getCacheEngine(
+    /** @type {EngineRequestsWrapper} */ (config.get('session.cache.engine'))
+  )
 
   const server = hapi.server({
     port: config.get('port'),
@@ -71,9 +76,7 @@ async function createServer() {
     },
     cache: {
       name: config.get('session.cache.name'),
-      engine: getCacheEngine(
-        /** @type {Engine} */ (config.get('session.cache.engine'))
-      )
+      engine: cacheEngine
     },
     state: {
       strictHeader: false
@@ -113,7 +116,8 @@ async function createServer() {
     router,
     auditing,
     s3Client,
-    nodeVmMetrics
+    nodeVmMetrics,
+    { ...engineMetricsPlugin, options: { cacheEngine } }
   ])
 
   const sessionCookieConfig = config.get('session.cookie')

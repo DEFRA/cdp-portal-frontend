@@ -6,6 +6,7 @@ import { createLogger } from '../logging/logger.js'
 import { CatboxDynamoDB } from '@defra/catbox-dynamodb'
 import { NodeHttpHandler } from '@smithy/node-http-handler'
 import { Agent } from 'https'
+import { EngineRequestsWrapper } from './engine-metrics-wrapper.js'
 
 /**
  * @typedef {'redis' | 'dynamodb' | 'memory'} Engine
@@ -21,28 +22,30 @@ export function getCacheEngine(engine) {
   if (engine === 'redis') {
     logger.info('Using Redis session cache')
     const redisClient = buildRedisClient(config.get('redis'))
-    return new CatboxRedis({ client: redisClient })
+    return new EngineRequestsWrapper(new CatboxRedis({ client: redisClient }))
   }
 
   if (engine === 'dynamodb') {
     logger.info('Using DynamoDB session cache')
-    return new CatboxDynamoDB({
-      tableName: config.get('dynamoDb.tableName'),
-      ttlInMillis: config.get('session.cache.ttl'),
-      consistentReads: true,
-      clientOptions: {
-        endpoint: config.get('aws.dynamoDb.endpoint'),
-        region: config.get('aws.region'),
-        requestHandler: new NodeHttpHandler({
-          httpsAgent: new Agent({
-            keepAlive: true,
-            maxSockets: 10,
-            keepAliveMsecs: 60000
+    return new EngineRequestsWrapper(
+      new CatboxDynamoDB({
+        tableName: config.get('dynamoDb.tableName'),
+        ttlInMillis: config.get('session.cache.ttl'),
+        consistentReads: true,
+        clientOptions: {
+          endpoint: config.get('aws.dynamoDb.endpoint'),
+          region: config.get('aws.region'),
+          requestHandler: new NodeHttpHandler({
+            httpsAgent: new Agent({
+              keepAlive: true,
+              maxSockets: 10,
+              keepAliveMsecs: 60000
+            })
           })
-        })
-      },
-      logger
-    })
+        },
+        logger
+      })
+    )
   }
 
   if (config.get('isProduction')) {
@@ -53,5 +56,5 @@ export function getCacheEngine(engine) {
   }
 
   logger.info('Using Catbox Memory session cache')
-  return new CatboxMemory()
+  return new EngineRequestsWrapper(new CatboxMemory())
 }

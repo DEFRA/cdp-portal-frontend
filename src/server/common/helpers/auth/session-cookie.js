@@ -28,9 +28,7 @@ const sessionCookie = {
           if (currentUserSession?.isAuthenticated) {
             const refreshedUserSession =
               await request.refreshToken(currentUserSession)
-            const userSession = !refreshedUserSession
-              ? currentUserSession
-              : refreshedUserSession
+            const userSession = refreshedUserSession ?? currentUserSession
 
             const { scopes, scopeFlags } = await fetchScopes(userSession.token)
             return {
