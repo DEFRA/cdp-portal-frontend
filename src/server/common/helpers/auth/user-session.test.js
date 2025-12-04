@@ -61,7 +61,7 @@ describe('#userSession', () => {
         token: 'access-token',
         refreshToken: 'refresh-token',
         expiresIn: 3600000,
-        expiresAt: expect.any(Date)
+        expiresAt: expect.any(String)
       })
     })
   })
@@ -109,7 +109,7 @@ describe('#userSession', () => {
         token: 'new-access-token',
         refreshToken: 'new-refresh-token',
         expiresIn: 3600000,
-        expiresAt: expect.any(Date)
+        expiresAt: expect.any(String)
       })
     })
 

@@ -22,9 +22,16 @@ const sessionCookie = {
         keepAlive: true,
         requestDecoratorName: 'sessionCookie',
         validate: async (request, session) => {
-          const userSession = await request.getUserSession(session.sessionId)
-          if (userSession?.isAuthenticated) {
-            await request.refreshToken(userSession)
+          const currentUserSession = await request.getUserSession(
+            session.sessionId
+          )
+          if (currentUserSession?.isAuthenticated) {
+            const refreshedUserSession =
+              await request.refreshToken(currentUserSession)
+            const userSession = !refreshedUserSession
+              ? currentUserSession
+              : refreshedUserSession
+
             const { scopes, scopeFlags } = await fetchScopes(userSession.token)
             return {
               isValid: true,

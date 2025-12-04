@@ -30,7 +30,7 @@ export async function refreshTokenIfExpired(
 
     try {
       const refreshTokenResponse = await refreshToken(userSession?.refreshToken)
-      await refreshUserSession(request, refreshTokenResponse)
+      return await refreshUserSession(request, refreshTokenResponse)
     } catch (error) {
       request.logger.debug(
         error,

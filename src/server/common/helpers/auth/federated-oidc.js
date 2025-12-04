@@ -34,7 +34,7 @@ export const federatedOidc = {
     server.auth.strategy('azure-oidc', 'federated-oidc', options)
 
     server.decorate('request', 'refreshToken', async function (userSession) {
-      await refreshTokenIfExpired(
+      return await refreshTokenIfExpired(
         (token) => refreshToken(options, token),
         this,
         userSession
