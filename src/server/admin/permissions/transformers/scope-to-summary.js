@@ -61,7 +61,7 @@ function transformScopeToSummary(scope, withActions = true) {
       },
       {
         key: { text: 'Created By' },
-        value: { text: scope.createdBy.name }
+        value: { text: scope.createdBy?.name ?? noValue }
       },
       {
         key: { text: 'Created' },
