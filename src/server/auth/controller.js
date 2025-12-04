@@ -19,12 +19,10 @@ const authCallbackController = {
       const sessionId = randomUUID()
 
       logger.info('Creating user session')
-      await createUserSession(request, sessionId)
+      const userSession = await createUserSession(request, sessionId)
 
       sessionCookie.set({ sessionId })
-      const userSession = auth.credentials
-
-      const loginMsg = `User logged in ${userSession.id} ${userSession.displayName}`
+      const loginMsg = `User logged in UserId: ${userSession.id} displayName: ${userSession.displayName}`
       request.logger.info(loginMsg)
 
       audit.sendMessage({

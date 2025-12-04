@@ -31,12 +31,12 @@ function removeAuthenticatedUser(request) {
  * Create user session
  * @param {import("@hapi/hapi").Request} request
  * @param {string} sessionId
- * @returns {Promise<void>}
+ * @returns {Promise<UserSession>}
  */
 async function createUserSession(request, sessionId) {
   const expiresInSeconds = request.auth.credentials.expiresIn
   const expiresInMilliSeconds = expiresInSeconds * 1000
-  const expiresAt = addSeconds(new Date(), expiresInSeconds)
+  const expiresAt = addSeconds(new Date(), expiresInSeconds).toISOString()
 
   const { id, email, displayName, loginHint } = request.auth.credentials.profile
 
@@ -53,6 +53,7 @@ async function createUserSession(request, sessionId) {
   }
 
   await request.server.session.set(sessionId, session)
+  return session
 }
 
 /**
@@ -67,7 +68,7 @@ async function createUserSession(request, sessionId) {
  * Refresh user session
  * @param {import("@hapi/hapi").Request} request
  * @param {RefreshTokenResponse} refreshTokenResponse
- * @returns {Promise<void>}
+ * @returns {Promise<void | UserSession>}
  */
 async function refreshUserSession(request, refreshTokenResponse) {
   request.logger.debug('User session refreshing')
@@ -80,13 +81,13 @@ async function refreshUserSession(request, refreshTokenResponse) {
   // Update userSession with new access token and new expiry details
   const expiresInSeconds = refreshTokenResponse.expires_in
   const expiresInMilliSeconds = expiresInSeconds * 1000
-  const expiresAt = addSeconds(new Date(), expiresInSeconds)
+  const expiresAt = addSeconds(new Date(), expiresInSeconds).toISOString()
 
   request.logger.info(
     `User session refreshed, UserId: ${payload.oid}, displayName: ${payload.name}`
   )
 
-  await request.server.session.set(request.state.userSessionCookie.sessionId, {
+  const session = {
     id: payload.oid,
     email: payload.preferred_username,
     displayName: payload.name,
@@ -96,7 +97,13 @@ async function refreshUserSession(request, refreshTokenResponse) {
     refreshToken: refreshTokenResponse.refresh_token,
     expiresIn: expiresInMilliSeconds,
     expiresAt
-  })
+  }
+  await request.server.session.set(
+    request.state.userSessionCookie.sessionId,
+    session
+  )
+
+  return session
 }
 
 export { createUserSession, refreshUserSession, removeAuthenticatedUser }
