@@ -7,14 +7,8 @@ import { permissionsListController } from './controllers/permissions-list.js'
 import { permissionController } from './controllers/permission.js'
 import { addPermissionController } from './controllers/add/add-permission.js'
 import { addPermissionFormController } from './controllers/add/add-permission-form.js'
-import { createPermissionDetailsController } from './controllers/create/permission-details.js'
-import { createPermissionDetailsFormController } from './controllers/create/permission-details-form.js'
-import { editPermissionDetailsController } from './controllers/edit/permission-details.js'
-import { editPermissionDetailsFormController } from './controllers/edit/permission-details-form.js'
 import { confirmRemovePermissionFromTeamController } from './controllers/remove/team/confirm-remove-permission.js'
 import { removePermissionFromTeamController } from './controllers/remove/team/remove-permission.js'
-import { confirmDeletePermissionController } from './controllers/delete/confirm-delete-permission.js'
-import { deletePermissionController } from './controllers/delete/delete-permission.js'
 import { confirmRemovePermissionFromUserController } from './controllers/remove/user/confirm-remove-permission.js'
 import { removePermissionFromUserController } from './controllers/remove/user/remove-permission.js'
 import { findUserController } from './controllers/add/member/find-user.js'
@@ -106,26 +100,6 @@ const adminPermissions = {
           },
           {
             method: 'GET',
-            path: '/admin/permissions/create',
-            ...createPermissionDetailsFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/permissions/create',
-            ...createPermissionDetailsController
-          },
-          {
-            method: 'GET',
-            path: '/admin/permissions/{scopeId}/edit',
-            ...editPermissionDetailsFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/permissions/{scopeId}/edit',
-            ...editPermissionDetailsController
-          },
-          {
-            method: 'GET',
             path: '/admin/permissions/{scopeId}/add',
             ...addPermissionFormController
           },
@@ -163,16 +137,6 @@ const adminPermissions = {
             method: 'POST',
             path: '/admin/permissions/{scopeId}/member/remove/{userId}/team/{teamId}',
             ...removePermissionFromMemberController
-          },
-          {
-            method: 'GET',
-            path: '/admin/permissions/{scopeId}/confirm-delete',
-            ...confirmDeletePermissionController
-          },
-          {
-            method: 'POST',
-            path: '/admin/permissions/{scopeId}/delete',
-            ...deletePermissionController
           }
         ].map(adminScope)
       )

@@ -65,17 +65,6 @@ async function addBreakGlassToMember({ request, userId, teamId, reason }) {
   return payload
 }
 
-async function createScope(request, payload) {
-  const endpoint = userServiceBackendUrl + '/scopes/admin'
-
-  const { payload: createdScope } = await request.authedFetchJson(endpoint, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    payload: removeNil(payload)
-  })
-  return createdScope
-}
-
 async function fetchPermission(request, scopeId) {
   const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
 
@@ -124,17 +113,6 @@ async function searchCdpTeams(query) {
   return payload
 }
 
-function updateScope(request, scopeId, payload) {
-  const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
-
-  const { payload: responsePayload } = request.authedFetchJson(endpoint, {
-    method: 'patch',
-    headers: { 'Content-Type': 'application/json' },
-    payload: removeNil(payload)
-  })
-  return responsePayload
-}
-
 async function removeScopeFromTeam(request, teamId, scopeId) {
   const endpoint =
     userServiceBackendUrl + `/scopes/admin/${scopeId}/team/remove/${teamId}`
@@ -179,31 +157,19 @@ async function removeBreakGlassFromMember({ request, userId, teamId }) {
   return payload
 }
 
-function deleteScope(request, scopeId) {
-  const endpoint = userServiceBackendUrl + `/scopes/admin/${scopeId}`
-
-  const { payload } = request.authedFetchJson(endpoint, {
-    method: 'delete'
-  })
-  return payload
-}
-
 export {
   addScopeToTeam,
   addScopeToUser,
   addScopeToMember,
   addBreakGlassToMember,
-  createScope,
   fetchPermission,
   fetchPermissionByName,
   fetchPermissions,
   fetchActiveBreakGlass,
   searchCdpUsers,
   searchCdpTeams,
-  updateScope,
   removeScopeFromTeam,
   removeScopeFromUser,
   removeScopeFromMember,
-  removeBreakGlassFromMember,
-  deleteScope
+  removeBreakGlassFromMember
 }
