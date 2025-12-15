@@ -6,21 +6,7 @@ import {
   userTagComponent
 } from '../helpers/permission-tags.js'
 
-const editActionItems = (scopeId) => ({
-  items: [
-    {
-      classes: 'app-link app-link--underline',
-      href: `/admin/permissions/${scopeId}/edit`,
-      text: 'Edit',
-      visuallyHiddenText: 'Edit scope'
-    }
-  ]
-})
-
-function transformScopeToSummary(scope, withActions = true) {
-  const editActions = editActionItems(scope.scopeId)
-  const actions = withActions ? editActions : null
-
+function transformScopeToSummary(scope) {
   return {
     classes: 'app-summary-list',
     rows: [
@@ -47,13 +33,11 @@ function transformScopeToSummary(scope, withActions = true) {
                 .sort()
                 .join('')
             : noValue
-        },
-        actions
+        }
       },
       {
         key: { text: 'Description' },
-        value: { text: scope.description ?? noValue },
-        actions
+        value: { text: scope.description ?? noValue }
       },
       {
         key: { text: 'Last Updated' },
