@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import { userIdValidation } from '@defra/cdp-validation-kit'
 
-import Joi from '../../../../../common/helpers/extended-joi.js'
+import Joi from 'joi'
 import { fetchPermission } from '../../../helpers/fetchers.js'
 import { fetchCdpUser } from '../../../../users/helpers/fetch/fetchers.js'
 import { userPermissionToSummary } from '../../../transformers/user-permission-to-summary.js'
@@ -14,7 +14,7 @@ const summaryController = {
     id: 'admin/permissions/{scopeId}/user/{userId}/summary/{multiStepFormId}',
     validate: {
       params: Joi.object({
-        scopeId: Joi.objectId().required(),
+        scopeId: Joi.string().required(),
         userId: userIdValidation,
         multiStepFormId: Joi.string().uuid().required()
       }),

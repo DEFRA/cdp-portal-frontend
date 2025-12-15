@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
-import Joi from '../../../../../common/helpers/extended-joi.js'
+import Joi from 'joi'
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { removeScopeFromMember } from '../../../helpers/fetchers.js'
 
@@ -10,7 +10,7 @@ const removePermissionFromMemberController = {
     validate: {
       params: Joi.object({
         userId: userIdValidation,
-        scopeId: Joi.objectId().required(),
+        scopeId: Joi.string().required(),
         teamId: teamIdValidation
       }),
       failAction: () => Boom.boomify(Boom.badRequest())

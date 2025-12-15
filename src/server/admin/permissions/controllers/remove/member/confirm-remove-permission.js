@@ -10,7 +10,7 @@ const confirmRemovePermissionFromMemberController = {
     validate: {
       params: Joi.object({
         userId: userIdValidation,
-        scopeId: Joi.objectId().required(),
+        scopeId: Joi.string().required(),
         teamId: teamIdValidation
       }),
       failAction: () => Boom.boomify(Boom.notFound())

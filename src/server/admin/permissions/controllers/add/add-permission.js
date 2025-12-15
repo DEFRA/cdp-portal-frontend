@@ -1,7 +1,7 @@
 import qs from 'qs'
 import Boom from '@hapi/boom'
+import Joi from 'joi'
 
-import Joi from '../../../../common/helpers/extended-joi.js'
 import { pluralise } from '../../../../common/helpers/pluralise.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { addScopeToTeam, addScopeToUser } from '../../helpers/fetchers.js'
@@ -30,7 +30,7 @@ const addPermissionController = {
   options: {
     validate: {
       params: Joi.object({
-        scopeId: Joi.objectId().required()
+        scopeId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }

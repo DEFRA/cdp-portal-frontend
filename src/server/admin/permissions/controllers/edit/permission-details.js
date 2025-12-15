@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import Joi from '../../../../common/helpers/extended-joi.js'
+import Joi from 'joi'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
 import { editPermissionValidation } from '../../helpers/schema/edit-permission-validation.js'
@@ -10,7 +10,7 @@ const editPermissionDetailsController = {
   options: {
     validate: {
       params: Joi.object({
-        scopeId: Joi.objectId().required()
+        scopeId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

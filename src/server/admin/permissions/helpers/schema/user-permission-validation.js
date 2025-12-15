@@ -5,7 +5,7 @@ import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-mes
 
 const userPermissionValidation = Joi.object({
   userId: userIdValidation,
-  scopeId: Joi.objectId().required(),
+  scopeId: Joi.string().required(),
   teamId: teamIdValidation,
   startDate: Joi.date().optional(),
   endDate: Joi.date().optional()

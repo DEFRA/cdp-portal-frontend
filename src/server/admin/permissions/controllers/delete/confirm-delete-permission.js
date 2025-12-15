@@ -9,7 +9,7 @@ const confirmDeletePermissionController = {
   options: {
     validate: {
       params: Joi.object({
-        scopeId: Joi.objectId().required()
+        scopeId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

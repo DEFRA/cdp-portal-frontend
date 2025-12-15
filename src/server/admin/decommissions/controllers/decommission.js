@@ -1,8 +1,8 @@
 import Boom from '@hapi/boom'
+import Joi from 'joi'
+
 import { formatDistanceStrict, parseISO, subHours } from 'date-fns'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit'
-
-import Joi from '../../../common/helpers/extended-joi.js'
 import { nullify404 } from '../../../common/helpers/nullify-404.js'
 import { getActions } from '../helpers/actions.js'
 import { creationStatuses } from '../../../common/constants/creation-statuses.js'
