@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import Joi from '../../../../common/helpers/extended-joi.js'
+import Joi from 'joi'
 import { fetchPermission } from '../../helpers/fetchers.js'
 import { kindOptions } from '../../helpers/build-kind-options.js'
 
@@ -8,7 +8,7 @@ const editPermissionDetailsFormController = {
   options: {
     validate: {
       params: Joi.object({
-        scopeId: Joi.objectId().required()
+        scopeId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
     }

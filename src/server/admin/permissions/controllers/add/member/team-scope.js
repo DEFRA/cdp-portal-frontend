@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom'
 import { userIdValidation } from '@defra/cdp-validation-kit'
 
-import Joi from '../../../../../common/helpers/extended-joi.js'
+import Joi from 'joi'
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../../../common/helpers/build-error-details.js'
 import { scopeValidation } from '../../../helpers/schema/user-permission-validation.js'
@@ -11,7 +11,7 @@ const teamScopeController = {
     id: 'post:admin/permissions/{scopeId}/user/{userId}/team-scope/{multiStepFormId}',
     validate: {
       params: Joi.object({
-        scopeId: Joi.objectId().required(),
+        scopeId: Joi.string().required(),
         userId: userIdValidation,
         multiStepFormId: Joi.string().uuid().required()
       }),

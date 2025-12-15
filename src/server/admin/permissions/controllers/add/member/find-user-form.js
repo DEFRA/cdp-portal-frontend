@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import Joi from '../../../../../common/helpers/extended-joi.js'
+import Joi from 'joi'
 import { fetchPermission } from '../../../helpers/fetchers.js'
 import { buildUsersOptions } from '../../../helpers/user/build-user-options.js'
 import { provideSelectedUser } from '../../../helpers/pre/provide-selected-user.js'
@@ -11,7 +11,7 @@ const findUserFormController = {
     id: 'admin/permissions/{scopeId}/user/find/{multiStepFormId?}',
     validate: {
       params: Joi.object({
-        scopeId: Joi.objectId().required(),
+        scopeId: Joi.string().required(),
         multiStepFormId: Joi.string().uuid().optional()
       }),
       query: Joi.object({
