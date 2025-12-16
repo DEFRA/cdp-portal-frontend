@@ -1,14 +1,10 @@
 import { config } from '../../../config/config.js'
 import { buildBlogNav } from '../helpers/markdown/build-blog-nav.js'
 import { fetchMarkdown } from '../../documentation/helpers/s3-file-handler.js'
-import { buildBlogPageHtml } from '../../documentation/helpers/markdown/build-page-html.js'
-
-const experiment = {
-  method: async (request, h) => {
-    request.logger.info('Inside ext')
-    return h.continue
-  }
-}
+import {
+  buildBlogPageHtml,
+  extractTagsFromMarkdown
+} from '../../documentation/helpers/markdown/build-page-html.js'
 
 async function buildPreviewArticles(request, navHrefs, bucket) {
   const quantityPreviewArticles = 8
@@ -32,12 +28,16 @@ async function buildPreviewArticles(request, navHrefs, bucket) {
 
   const previewArticlesHtml = await Promise.all(
     previewArticlesMarkdown.map(async ({ markdown, articleKey }) => {
+      const tags = extractTagsFromMarkdown(markdown)
+
       const previewMd = markdown
+        .replace(/<!--[\s\S]*?-->\n*/g, '') // Remove comments
         .split('\n')
         .slice(0, previewArticleLineSize)
         .join('\n')
       const { html } = await buildBlogPageHtml({
         markdown: previewMd,
+        tags,
         articlePath: articleKey,
         withBlogLink: true
       })
@@ -55,10 +55,7 @@ async function buildPreviewArticles(request, navHrefs, bucket) {
 
 const homeRoute = {
   options: {
-    id: 'home',
-    ext: {
-      onPreResponse: [experiment]
-    }
+    id: 'home'
   },
   handler: async (request, h) => {
     const bucket = config.get('documentation.bucket')

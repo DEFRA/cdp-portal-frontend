@@ -8,6 +8,7 @@ import { headingExtension } from '../extensions/heading.js'
 import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
 import { previewHeadingsExtension } from '../../../home/helpers/extensions/preview-headings.js'
 import { codeExtension } from '../extensions/code.js'
+import { renderTag } from '../../../common/helpers/view/render-tag.js'
 
 function createHighlightExtension(searchTerm) {
   if (!searchTerm) {
@@ -45,6 +46,24 @@ function createHighlightExtension(searchTerm) {
     renderer(token) {
       return `<mark class="app-mark">${token.text}</mark>`
     }
+  }
+}
+
+/**
+ * Provide the class for the tag component based on the tag text
+ * @param {string} tagString
+ * @returns {string}
+ */
+function generateTagClasses(tagString) {
+  switch (true) {
+    case /(bug|error|issue|fix|hotfix|action|required)/i.test(tagString):
+      return 'govuk-tag--red'
+    case /(enhancement|feature|improvement|update)/i.test(tagString):
+      return 'govuk-tag--green'
+    case /(release|version|release note)/i.test(tagString):
+      return 'govuk-tag--light-blue'
+    default:
+      return 'govuk-tag--blue'
   }
 }
 
@@ -112,7 +131,7 @@ function addHeadingInternalAnchors(token, marked, headings) {
 }
 
 /**
- * Html page for the documentation pages. Add heading anchors, build table of contents add highlight for search results
+ * HTML page for the documentation pages. Add heading anchors, build table of contents add highlight for search results
  * @param {Request} request
  * @param {string} markdown
  * @returns {Promise<{html: Promise<string> | string, toc: string}>}
@@ -136,21 +155,22 @@ async function buildDocsPageHtml(request, markdown) {
 }
 
 /**
- * Html page for the blog pages. Add article datetime element, heading anchors and build table of contents
+ * HTML page for the blog pages. Add article datetime element, heading anchors and build table of contents
  * @param {string} markdown
+ * @param {string}[] tags
  * @param {string} articlePath
  * @param {boolean} withBlogLink
  * @returns {Promise<{html: string, toc: string}>}
  */
 async function buildBlogPageHtml({
   markdown,
+  tags,
   articlePath,
   withBlogLink = false
 }) {
   const previewHeadersExtension = previewHeadingsExtension(
     withBlogLink ? articlePath : null
   )
-
   const headings = []
   const extensions = [linkExtension, previewHeadersExtension, codeExtension]
   const blogMarked = new Marked({
@@ -165,15 +185,18 @@ async function buildBlogPageHtml({
 
   const html = await blogMarked.parse(markdown)
   const articleDateTime = renderArticleDate(articlePath)
+  const tagsMarkup = tags
+    .map((tag) => renderTag({ text: tag, classes: generateTagClasses(tag) }))
+    .join(' ')
 
   return {
-    html: `${articleDateTime}\n\n${html}`,
+    html: `${tagsMarkup}${articleDateTime}\n\n${html}`,
     toc: buildTableOfContents(headings)
   }
 }
 
 /**
- * Extract all hrefs from blog nav markdown content. Used to order the articles and show the latest on the home page
+ * Extract all hrefs from blog nav Markdown content. Used to order the articles and show the latest on the home page
  * @param {string} markdown
  * @returns {[{string}]}
  */
@@ -193,7 +216,31 @@ function extractHrefs(markdown) {
   return hrefs
 }
 
-export { buildDocsPageHtml, buildBlogPageHtml, extractHrefs }
+/**
+ * Extract tags from Markdown comments at the top of the file
+ * @param {string} markdown
+ * @returns {*|*[]}
+ */
+function extractTagsFromMarkdown(markdown) {
+  const match = markdown.match(/<!--\s*Labels:([\w\s,]*)-->/)
+
+  if (!match) {
+    return []
+  }
+
+  return match[1]
+    .trim()
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean)
+}
+
+export {
+  buildDocsPageHtml,
+  buildBlogPageHtml,
+  extractHrefs,
+  extractTagsFromMarkdown
+}
 
 /**
  * @import {Request} from '@hapi/hapi'

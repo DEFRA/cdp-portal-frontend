@@ -1,6 +1,10 @@
 import { load } from 'cheerio'
 
-import { buildDocsPageHtml } from './build-page-html.js'
+import {
+  buildDocsPageHtml,
+  extractTagsFromMarkdown,
+  extractHrefs
+} from './build-page-html.js'
 
 describe('#buildDocsPageHtml', () => {
   const searchTerm = ''
@@ -136,5 +140,58 @@ describe('#buildDocsPageHtml', () => {
     expect($link.prop('outerHTML')).toBe(
       '<a href="https://example-another.com" target="_blank" rel="noopener noreferrer">https://example-another.com</a>'
     )
+  })
+})
+
+describe('#extractTagsFromMarkdown', () => {
+  test('Should extract tags from Labels comment', () => {
+    const markdown = '<!-- Labels: NEW FEATURE, UPDATE -->\n\n# Heading'
+    const tags = extractTagsFromMarkdown(markdown)
+
+    expect(tags).toEqual(['NEW FEATURE', 'UPDATE'])
+  })
+
+  test('Should return empty array when no comment exists', () => {
+    const markdown = '# Heading\n\nSome content'
+    const tags = extractTagsFromMarkdown(markdown)
+
+    expect(tags).toEqual([])
+  })
+
+  test('Should return empty array when no Labels in comment', () => {
+    const markdown = '<!-- Some other comment -->\n\n# Heading'
+    const tags = extractTagsFromMarkdown(markdown)
+
+    expect(tags).toEqual([])
+  })
+
+  test('Should trim whitespace from tags', () => {
+    const markdown = '<!-- Labels:   ACTION REQUIRED  ,  BUG FIX   -->'
+    const tags = extractTagsFromMarkdown(markdown)
+
+    expect(tags).toEqual(['ACTION REQUIRED', 'BUG FIX'])
+  })
+
+  test('Should handle single tag', () => {
+    const markdown = '<!-- Labels: RELEASE -->'
+    const tags = extractTagsFromMarkdown(markdown)
+
+    expect(tags).toEqual(['RELEASE'])
+  })
+})
+
+describe('#extractHrefs', () => {
+  test('Should extract hrefs from markdown links', () => {
+    const markdown = '[Link 1](/path/one)\n[Link 2](/path/two)'
+    const hrefs = extractHrefs(markdown)
+
+    expect(hrefs).toEqual(['/path/one', '/path/two'])
+  })
+
+  test('Should return empty array when no links exist', () => {
+    const markdown = '# Heading\n\nSome content without links'
+    const hrefs = extractHrefs(markdown)
+
+    expect(hrefs).toEqual([])
   })
 })
