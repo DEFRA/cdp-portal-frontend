@@ -3,7 +3,10 @@ import { statusCodes } from '@defra/cdp-validation-kit'
 
 import { buildArticleNav } from './markdown/build-blog-nav.js'
 import { fetchMarkdown } from '../../documentation/helpers/s3-file-handler.js'
-import { buildBlogPageHtml } from '../../documentation/helpers/markdown/build-page-html.js'
+import {
+  buildBlogPageHtml,
+  extractTagsFromMarkdown
+} from '../../documentation/helpers/markdown/build-page-html.js'
 
 function buildPageTitle(articlePath) {
   const pathParts = articlePath.replace('.md', '').split('-')
@@ -19,8 +22,8 @@ async function blogMarkdownHandler(request, h, articlePath, bucket) {
     fetchMarkdown(request, bucket, articleKey),
     buildArticleNav(request, bucket, articlePath)
   ])
-
-  const { html, toc } = await buildBlogPageHtml({ markdown, articlePath })
+  const tags = extractTagsFromMarkdown(markdown)
+  const { html, toc } = await buildBlogPageHtml({ markdown, tags, articlePath })
   const pageTitle = buildPageTitle(articlePath)
 
   return h

@@ -372,7 +372,7 @@ cd cdp-documentation
 node .github/scripts/generate-blog.js ./blog
 awslocal s3 sync . s3://cdp-documentation \
         --exclude ".editorconfig" --exclude ".github/*" --exclude ".git/*" --exclude ".gitignore" --exclude "CONTRIBUTING.md" --exclude ".husky" --exclude "node_modules" \
-        --exclude "package.json" --exclude "package-lock.json" \
+        --exclude "package.json" --exclude "package-lock.json" --exclude ".idea" \
         --metadata "git-commit=$head_ref" \
         --delete
 ```
