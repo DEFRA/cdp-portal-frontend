@@ -6,6 +6,7 @@ import { fetchRunningServices } from '../../../../common/helpers/fetch/fetch-run
 import { fetchShutteringUrls } from '../../../helpers/fetch/fetch-shuttering-urls.js'
 import { provideDeploymentStatusClassname } from '../../../../deployments/helpers/provide-deployment-status-classname.js'
 import { deploymentStatus } from '../../../../common/constants/deployment.js'
+import { isFrontendEntity } from '../../../helpers/entity-type.js'
 
 const maintenanceController = {
   options: {

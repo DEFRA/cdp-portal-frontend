@@ -8,6 +8,7 @@ import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
 import { transformServiceToSummary } from './transformers/service-to-summary.js'
 import { obtainServiceUrls } from '../../../common/helpers/service-urls/obtain-service-urls.js'
 import { obtainLogsAndMetricsUrls } from '../../../common/helpers/obtain-logs-and-metrics-urls.js'
+import { isBackendEntity, isFrontendEntity } from '../../helpers/entity-type.js'
 
 async function aboutHandler(request, h) {
   const entity = request.app.entity
@@ -63,8 +64,8 @@ async function aboutHandler(request, h) {
     availableServiceEnvironments
   )
 
-  const isFrontend = entity.subType === 'Frontend'
-  const isBackend = entity.subType === 'Backend'
+  const isFrontend = isFrontendEntity(entity)
+  const isBackend = isBackendEntity(entity)
   const description = repository?.description
 
   const service = {

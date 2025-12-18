@@ -4,6 +4,7 @@ import Boom from '@hapi/boom'
 import { entityToSummary } from '../helpers/transformers/entity-to-summary.js'
 import { fetchRunningServices } from '../../../../common/helpers/fetch/fetch-running-services.js'
 import { provideDeploymentStatusClassname } from '../../../../deployments/helpers/provide-deployment-status-classname.js'
+import { isFrontendEntity } from '../../../helpers/entity-type.js'
 
 const confirmUndeployController = {
   options: {
@@ -37,7 +38,7 @@ const confirmUndeployController = {
       statusClassname: provideDeploymentStatusClassname(runningService.status)
     }
 
-    const isFrontend = entity.subType === 'Frontend'
+    const isFrontend = isFrontendEntity(entity)
 
     return h.view('services/service/maintenance/views/confirm-undeploy', {
       pageTitle: `Confirm Undeploy - ${serviceId}`,
