@@ -4,6 +4,7 @@ import Boom from '@hapi/boom'
 import { fetchShutteringUrl } from '../../../helpers/fetch/fetch-shuttering-url.js'
 import { shutteringDetailToSummary } from '../helpers/transformers/shuttering-detail-to-summary.js'
 import { shutteringStatus } from '../../../../common/constants/shuttering.js'
+import { isFrontendEntity } from '../../../helpers/entity-type.js'
 
 const confirmShutterController = {
   options: {
@@ -31,7 +32,7 @@ const confirmShutterController = {
     }
 
     const isShuttered = shutteringDetail.status === shutteringStatus.shuttered
-    const isFrontend = entity.subType === 'Frontend'
+    const isFrontend = isFrontendEntity(entity)
 
     return h.view('services/service/maintenance/views/confirm-shutter', {
       pageTitle: `Confirm shutter - ${serviceId}`,
