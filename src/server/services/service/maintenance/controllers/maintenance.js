@@ -51,14 +51,12 @@ const maintenanceController = {
         deploymentPendingStatus.includes(service.status)
       )
 
-    const isFrontend = entity.subType === 'Frontend'
-    const isPrototype = entity.subType === 'Prototype'
+    const isFrontend = isFrontendEntity(entity)
 
     return h.view('services/service/maintenance/views/maintenance', {
       pageTitle: `Maintenance - ${serviceId}`,
       entity,
       isFrontend,
-      isPrototype,
       shouldPoll,
       pendingShutter,
       shutteringDetails: shutteringDetails.toSorted(
