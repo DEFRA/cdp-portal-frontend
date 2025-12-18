@@ -51,11 +51,13 @@ const maintenanceController = {
       )
 
     const isFrontend = entity.subType === 'Frontend'
+    const isPrototype = entity.subType === 'Prototype'
 
     return h.view('services/service/maintenance/views/maintenance', {
       pageTitle: `Maintenance - ${serviceId}`,
       entity,
       isFrontend,
+      isPrototype,
       shouldPoll,
       pendingShutter,
       shutteringDetails: shutteringDetails.toSorted(
