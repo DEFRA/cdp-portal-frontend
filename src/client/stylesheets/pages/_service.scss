@@ -1,6 +1,5 @@
 @use "govuk-frontend" as *;
-@use "variables/colours" as *;
-@use "variables/border-radius" as *;
+@use "helpers/background" as *;
 
 .app-service-container {
   .app-service-container__sidebar {
@@ -69,82 +68,33 @@
   }
 }
 
-%background {
-  padding: govuk-spacing(4);
-  background-color: $app-brand-background-colour-light;
-  border: 1px solid $app-brand-background-colour;
-  border-radius: $app-border-radius;
-}
-
 .app-grid-service__details {
-  @extend %background;
+  @extend %app-background;
   grid-area: details;
 }
 
 .app-grid-service__info {
-  @extend %background;
+  @extend %app-background;
   grid-area: info;
 }
 
 .app-grid-service__run {
-  @extend %background;
+  @extend %app-background;
   grid-area: run;
 }
 
 .app-grid-service__published {
-  @extend %background;
+  @extend %app-background;
   grid-area: published;
 }
 
 .app-grid-service__migrations {
-  @extend %background;
+  @extend %app-background;
   grid-area: migrations;
 }
 
 .app-grid-service__database-details {
-  @extend %background;
+  @extend %app-background;
   grid-area: db-details;
 }
 
-// TODO delete
-// stylelint-disable max-nesting-depth
-// Used on the service resources page
-.app-sub-grid {
-  display: grid;
-  gap: govuk-spacing(4);
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-
-  @include govuk-media-query($from: desktop-huge) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include govuk-media-query($from: desktop-massive) {
-    grid-template-columns: repeat(4,  1fr);
-  }
-
-  .app-sub-grid__row {
-    display: grid;
-    grid-column: auto;
-    grid-template-columns: subgrid;
-    grid-template-rows: 1fr;
-
-    @include govuk-media-query($from: desktop-huge) {
-      grid-column: 1 / span 2;
-    }
-
-    @include govuk-media-query($from: desktop-massive) {
-      grid-column: 1 / span 4;
-    }
-
-    .app-sub-grid__row-item {
-      margin-bottom: govuk-spacing(6);
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
-// stylelint-enable max-nesting-depth
