@@ -1,0 +1,10 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+%app-background {
+  padding: govuk-spacing(4);
+  background-color: $app-brand-background-colour-light;
+  border: 1px solid $app-brand-background-colour;
+  border-radius: $app-border-radius;
+}
