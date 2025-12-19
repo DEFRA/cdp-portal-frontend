@@ -1,6 +1,5 @@
 @use "govuk-frontend" as *;
-@use "variables/colours" as *;
-@use "variables/border-radius" as *;
+@use "helpers/background" as *;
 
 .app-grid-admin {
   flex: 1;
@@ -33,24 +32,17 @@
   }
 }
 
-%background {
-  padding: govuk-spacing(4);
-  background-color: $app-brand-background-colour-light;
-  border: 1px solid $app-brand-background-colour;
-  border-radius: $app-border-radius;
-}
-
 .app-grid-admin__details {
-  @extend %background;
+  @extend %app-background;
   grid-area: details;
 }
 
 .app-grid-admin__info {
-  @extend %background;
+  @extend %app-background;
   grid-area: info;
 }
 
 .app-grid-admin__resources {
-  @extend %background;
+  @extend %app-background;
   grid-area: resources;
 }
