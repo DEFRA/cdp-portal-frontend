@@ -1,3 +1,5 @@
+import { notificationTimeout } from '../../../../client/common/constants/timing.js'
+
 /**
  * @param {HTMLElement | undefined | null} $module - HTML element to use for banner
  */
@@ -6,11 +8,9 @@ function banner($module) {
     return
   }
 
-  const twentySeconds = 20000
-
-  setTimeout(function () {
+  setTimeout(() => {
     $module.remove()
-  }, twentySeconds)
+  }, notificationTimeout)
 }
 
 export { banner }

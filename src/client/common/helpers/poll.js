@@ -2,6 +2,7 @@ import { addMinutes, isBefore } from 'date-fns'
 
 import { xhrRequest } from './xhr.js'
 import { clientNotification } from './client-notification.js'
+import { pollIntervalDefault, pollLimitDefault } from '../constants/timing.js'
 
 /**
  * @param {string} url - poll url
@@ -79,16 +80,15 @@ function poll($module) {
     return
   }
 
-  const fiveSeconds = 5000
-  const sixtyMinutes = 60
-
   const pollUrl = $module.dataset?.pollUrl
 
   const pollInterval = $module.dataset?.pollInterval
-  const interval = pollInterval ? parseInt(pollInterval, 10) : fiveSeconds
+  const interval = pollInterval
+    ? parseInt(pollInterval, 10)
+    : pollIntervalDefault
 
   const pollLimit = $module.dataset?.pollLimit
-  const limit = pollLimit ? parseInt(pollLimit, 10) : sixtyMinutes
+  const limit = pollLimit ? parseInt(pollLimit, 10) : pollLimitDefault
 
   startPolling(pollUrl, interval, limit, Date.now())()
 }
