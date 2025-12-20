@@ -1,3 +1,5 @@
+import { notificationTimeout } from '../constants/timing.js'
+
 /** @typedef {"success" | "info" | "error" | "action"} Kind */
 
 /**
@@ -27,12 +29,10 @@ function clientNotification(textContent, kind = 'error') {
   $clientMessageHolder.textContent = textContent
   $clientNotification.classList.remove('app-banner--hidden')
 
-  const twentySeconds = 20000
-
   if (kind !== 'error') {
-    setTimeout(function () {
+    setTimeout(() => {
       $clientNotification.remove()
-    }, twentySeconds)
+    }, notificationTimeout)
   }
 }
 
