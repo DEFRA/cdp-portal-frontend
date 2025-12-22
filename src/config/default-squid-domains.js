@@ -13,7 +13,11 @@ const defaultSquidDomains = [
   '.cdp-int.defra.cloud',
   'api.notifications.service.gov.uk',
   'login.microsoftonline.com',
-  'www.gov.uk'
+  'www.gov.uk',
+  'dcidmtest.b2clogin.com',
+  'dcidm.b2clogin.com',
+  'your-account.cpdev.cui.defra.gov.uk',
+  'your-account.defra.gov.uk'
 ].sort()
 
 export { defaultSquidDomains }
