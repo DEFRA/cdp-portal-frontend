@@ -43,17 +43,10 @@ const confirmDecommissionController = {
     }
 
     if (isPostgresDeleteProtectionEnabled(entityToDecommission)) {
-      const errorDetails = {
-        repositoryName: {
-          message:
-            'Postgres delete protection must be disabled before decommissioning.'
-        }
-      }
-      request.yar.flash(sessionNames.validationFailure, {
-        formValues: { repositoryName },
-        formErrors: errorDetails
-      })
-
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        'Postgres delete protection must be disabled before decommissioning.'
+      )
       return h.redirect(request.routeLookup('admin/decommissions/start'))
     }
 
