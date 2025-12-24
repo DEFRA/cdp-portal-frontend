@@ -1,9 +1,10 @@
 import { sessionNames } from '../../../common/constants/session-names.js'
-import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { decommissionValidation } from '../helpers/schema/decommission-validation.js'
-import { fetchEntities } from '../../../common/helpers/fetch/fetch-entities.js'
+import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
 import { decommission } from '../helpers/fetchers.js'
-import { creationStatuses } from '../../../common/constants/creation-statuses.js'
+import {
+  isDecommissioningInProgress,
+  isPostgresDeleteProtectionEnabled
+} from '../helpers/decommissioning-checks.js'
 
 const confirmDecommissionController = {
   options: {
@@ -12,14 +13,7 @@ const confirmDecommissionController = {
   handler: async (request, h) => {
     const repositoryName = request.payload.repositoryName
 
-    const entities = await fetchEntities()
-    const repositoryNames = entities.map((entity) => entity.name)
-
-    const decommissioningEntities = entities.filter(
-      (entity) => entity.status === creationStatuses.decommissioning
-    )
-
-    if (decommissioningEntities.length > 0) {
+    if (await isDecommissioningInProgress()) {
       request.yar.flash(
         sessionNames.globalValidationFailures,
         'There is already an entity being decommissioned'
@@ -32,14 +26,14 @@ const confirmDecommissionController = {
       return h.redirect(request.routeLookup('admin/decommissions/start'))
     }
 
-    const validationResult = decommissionValidation(repositoryNames).validate(
-      { repositoryName },
-      { abortEarly: false }
-    )
+    const entityToDecommission = await fetchEntity(repositoryName)
 
-    if (validationResult?.error) {
-      const errorDetails = buildErrorDetails(validationResult.error.details)
-
+    if (!entityToDecommission) {
+      const errorDetails = {
+        repositoryName: {
+          message: 'Choose an entry'
+        }
+      }
       request.yar.flash(sessionNames.validationFailure, {
         formValues: { repositoryName },
         formErrors: errorDetails
@@ -48,31 +42,37 @@ const confirmDecommissionController = {
       return h.redirect(request.routeLookup('admin/decommissions/start'))
     }
 
-    if (!validationResult.error) {
-      try {
-        const { credentials } = request.auth
+    if (isPostgresDeleteProtectionEnabled(entityToDecommission)) {
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        'Postgres delete protection must be disabled before decommissioning.'
+      )
+      return h.redirect(request.routeLookup('admin/decommissions/start'))
+    }
 
-        await decommission(repositoryName, credentials)
+    try {
+      const { credentials } = request.auth
 
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Decommission requested',
-          type: 'success'
-        })
+      await decommission(repositoryName, credentials)
 
-        request.audit.sendMessage({
-          event: 'Decommission',
-          data: { repositoryName }
-        })
+      request.yar.flash(sessionNames.notifications, {
+        text: 'Decommission requested',
+        type: 'success'
+      })
 
-        return h.redirect(`/admin/decommissions/${repositoryName}`)
-      } catch (error) {
-        request.yar.flash(sessionNames.validationFailure, {
-          formValues: { repositoryName }
-        })
-        request.yar.flash(sessionNames.globalValidationFailures, error.message)
+      request.audit.sendMessage({
+        event: 'Decommission',
+        data: { repositoryName }
+      })
 
-        return h.redirect(request.routeLookup('admin/decommissions/start'))
-      }
+      return h.redirect(`/admin/decommissions/${repositoryName}`)
+    } catch (error) {
+      request.yar.flash(sessionNames.validationFailure, {
+        formValues: { repositoryName }
+      })
+      request.yar.flash(sessionNames.globalValidationFailures, error.message)
+
+      return h.redirect(request.routeLookup('admin/decommissions/start'))
     }
   }
 }
