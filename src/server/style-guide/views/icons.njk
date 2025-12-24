@@ -1,0 +1,193 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Style Guide",
+    text: "Icons",
+    intro: "All Icons available for use in the CDP Portal"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          SVG icons for use throughout the CDP Portal. All icons follow a consistent API and can be sized using modifier
+          classes.
+        </p>
+      </section>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">Creating New Icons</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        For documentation on using and creating icons, see the <a class="app-link govuk-link"
+                                                                  href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/server/common/components/icons/README.md"
+                                                                  target="_blank" rel="noopener noreferrer">Icons
+          README</a>.
+      </p>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-2">Usage</h2>
+
+      <p class="govuk-!-margin-bottom-2">Import and use icons with Nunjucks macros:</p>
+
+      {# @formatter:off #}
+{% highlightjs "javascript" %}{% raw %}{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+{{ appWarningIcon({ classes: "app-icon--small" }) }}{% endraw %}{% endhighlightjs %}
+      {# @formatter:on #}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Parameters</h2>
+
+      <p class="govuk-!-margin-bottom-2">Most icons accept the following parameters:</p>
+
+      {{ govukTable({
+        classes: "app-table govuk-!-margin-bottom-6",
+        head: [
+          { text: "Name" },
+          { text: "Type" },
+          { text: "Required" },
+          { text: "Description" }
+        ],
+        rows: [
+          [
+            { text: "classes", classes: "govuk-!-font-weight-bold" },
+            { text: "string" },
+            { text: "No" },
+            { text: "Additional CSS classes for sizing or styling" }
+          ],
+          [
+            { text: "description", classes: "govuk-!-font-weight-bold" },
+            { text: "string" },
+            { text: "No" },
+            { text: "Accessible label for the icon (aria-label)" }
+          ]
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Sizes</h2>
+
+      <p class="govuk-!-margin-bottom-2">Control icon size with modifier classes:</p>
+
+      <div class="app-style-guide-example">
+        {% call appPanel({ classes: "app-style-guide-code-example__content", isInverse: true }) %}
+          <div class="app-flex">
+            {% for size in iconSizes %}
+              <div class="app-icon-preview">
+                {{ renderIcon('tick-icon', { classes: size.class if size.class != "app-icon" else "" }) | safe }}
+                <div class="app-icon-text">{{ size.size }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endcall %}
+      </div>
+
+      {{ govukTable({
+        classes: "app-table govuk-!-margin-bottom-6 govuk-!-margin-top-4",
+        head: [
+          { text: "Class" },
+          { text: "Size" },
+          { text: "Description" }
+        ],
+        rows: [
+          [{ text: "(default)" }, { text: "40px" }, { text: "Default size" }],
+          [{ text: "app-icon--small" }, { text: "32px" }, { text: "Medium" }],
+          [{ text: "app-icon--small" }, { text: "24px" }, { text: "Small" }],
+          [{ text: "app-icon--tiny" }, { text: "20px" }, { text: "Tiny" }],
+          [{ text: "app-icon--minute" }, { text: "18px" }, { text: "Minute" }],
+          [{ text: "app-icon--minuscule" }, { text: "16px" }, { text: "Minuscule" }]
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Colours</h2>
+
+      <p class="govuk-!-margin-bottom-2">Some icons support fill colour modifiers:</p>
+
+      <div class="app-style-guide-example">
+        {% call appPanel({ classes: "app-style-guide-code-example__content", isInverse: true }) %}
+          <div class="app-flex">
+            <div class="app-icon-preview">
+              {{ renderIcon('warning-icon', { classes: "app-icon--small" }) | safe }}
+              <div class="app-icon-text">Default</div>
+            </div>
+            <div class="app-icon-preview">
+              {{ renderIcon('warning-icon', { classes: "app-icon--small app-icon--fill-blue" }) | safe }}
+              <div class="app-icon-text">Blue</div>
+            </div>
+            <div class="app-icon-preview">
+              {{ renderIcon('warning-icon', { classes: "app-icon--small app-icon--fill-red" }) | safe }}
+              <div class="app-icon-text">Red</div>
+            </div>
+          </div>
+        {% endcall %}
+      </div>
+
+      {{ govukTable({
+        classes: "app-table govuk-!-margin-bottom-6 govuk-!-margin-top-4",
+        head: [
+          { text: "Class" },
+          { text: "Description" }
+        ],
+        rows: [
+          [{ text: "app-icon--fill-blue" }, { text: "Blue fill colour" }],
+          [{ text: "app-icon--fill-red" }, { text: "Red fill colour" }]
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">All Icons</h2>
+
+      <p class="govuk-!-margin-bottom-4">All available icons shown at small size:</p>
+
+      <div class="app-style-guide-example">
+        {% call appPanel({ classes: "app-style-guide-code-example__content", isInverse: true }) %}
+          <div class="app-style-guide-icon-grid">
+            {% for icon in icons %}
+              <div class="app-icon-preview">
+                {{ renderIcon(icon.name, { classes: "app-icon--small" }) | safe }}
+                <span class="app-icon-text">{{ icon.name }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% endcall %}
+      </div>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Icon Reference</h2>
+
+      <p class="govuk-!-margin-bottom-2">Complete list of icons with their macro usage:</p>
+
+      <table class="govuk-table app-table govuk-!-margin-bottom-6">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header" width="5%">Icon</th>
+          <th scope="col" class="govuk-table__header">Macro</th>
+          <th scope="col" class="govuk-table__header">Name</th>
+          <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+
+        {% for icon in icons %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ renderIcon(icon.name, { classes: "app-icon--small" }) | safe }}</td>
+            <td class="govuk-table__cell">
+              <code class="app-code">{% raw %}{{ {% endraw %}{{ icon.macro }}{% raw %}() }}{% endraw %}</code>
+            </td>
+            <td class="govuk-table__cell">{{ icon.name }}</td>
+            <td class="govuk-table__cell">{{ icon.description }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

@@ -9,6 +9,7 @@
   .govuk-table__head {
     .govuk-table__row {
       background-color: $app-brand-background-colour-light;
+      border: 1px solid $app-brand-background-colour;
 
       .govuk-table__header {
         border-bottom: 1px solid $app-brand-background-colour;

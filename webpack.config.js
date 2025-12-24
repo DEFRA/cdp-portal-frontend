@@ -113,6 +113,7 @@ const config = {
               sassOptions: {
                 loadPaths: [
                   path.join(dirname, 'src/client/stylesheets'),
+                  path.join(dirname, 'src/server'),
                   path.join(dirname, 'src/server/common/components'),
                   path.join(dirname, 'src/server/common/templates/partials')
                 ],

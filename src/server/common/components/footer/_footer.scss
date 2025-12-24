@@ -12,6 +12,14 @@
 .app-footer__link {
   @include app-link-underline;
   @include govuk-link-style-text;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    .app-github-icon {
+      fill: #24292F;
+    }
+  }
 }
 
 .app-footer__row {
@@ -26,14 +34,15 @@
 .app-footer__secondary {
   height: 100%;
   display: flex;
-  align-items: flex-end;
   justify-content: flex-end;
 }
 
 .app-footer__list {
   padding: 0;
+  margin: 0 0 govuk-spacing(2);
   display: flex;
   list-style: none;
+
 }
 
 .app-footer__list-item {

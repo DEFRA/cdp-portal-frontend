@@ -1,0 +1,113 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+{% from "style-guide/components/style-example/macro.njk" import appStyleExample %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Styles",
+    text: "Layout",
+    intro: "Flexbox, CSS Grid and section width utilities"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          CDP provides layout utilities for common patterns like flexible containers, grids, and reading width sections.
+          These complement the GOV.UK grid system.
+        </p>
+      </section>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Flexbox</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        Responsive flexbox utilities for horizontal layouts:
+      </p>
+
+      {% for flex in layoutStyles.flex %}
+        {{ appStyleExample({
+          title: flex.class,
+          description: flex.description,
+          code: flex.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">CSS Grid</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        CSS Grid utilities for more complex layouts:
+      </p>
+
+      {% for grid in layoutStyles.grid %}
+        {{ appStyleExample({
+          title: grid.class,
+          description: grid.description,
+          code: grid.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Reading Width Sections</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        Constrain content width for optimal readability:
+      </p>
+
+      {% for section in layoutStyles.sections %}
+        {{ appStyleExample({
+          title: section.class,
+          description: section.description,
+          code: section.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Extended Grid Columns</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        Additional GOV.UK grid column variants for wider breakpoints:
+      </p>
+
+      {% for extended in layoutStyles.extended %}
+        {{ appStyleExample({
+          title: extended.class,
+          description: extended.description,
+          code: extended.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Source</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        View the source SCSS files:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/_grid.scss"
+             target="_blank" rel="noopener noreferrer">_grid.scss</a>
+        </li>
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/_section.scss"
+             target="_blank" rel="noopener noreferrer">_section.scss</a>
+        </li>
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/objects/_grid.scss"
+             target="_blank" rel="noopener noreferrer">objects/_grid.scss</a>
+        </li>
+      </ul>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,4 +1,13 @@
-<div class="app-summary">
-  {{ caller() if caller else content }}
-</div>
+{% set introContent = params.intro.html | safe if params.intro.html else params.intro.text %}
+{% set content = params.content.html | safe if params.content.html else params.content.text %}
 
+<section class="app-summary">
+  <header class="app-summary__header">
+    <span class="app-summary__icon">{{ params.icon }}</span>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">{{ params.heading }}</h2>
+  </header>
+  <p class="app-summary__intro">
+    {{ introContent }}
+  </p>
+  {{ caller() if caller else content }}
+</section>

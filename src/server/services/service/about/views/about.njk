@@ -5,11 +5,10 @@
 {% from "icons/schema-icon/macro.njk" import appSchemaIcon %}
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "summary/macro.njk" import appSummary %}
-{% from "summary/summary-item/macro.njk" import appSummaryItem %}
 {% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
 
-{% from "services/common/components/vanity-url/macro.njk" import appVanityUrl %}
+{% from "vanity-url/macro.njk" import appVanityUrl %}
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}

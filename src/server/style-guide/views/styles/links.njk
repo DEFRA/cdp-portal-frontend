@@ -1,0 +1,84 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+{% from "style-guide/components/style-example/macro.njk" import appStyleExample %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Styles",
+    text: "Links",
+    intro: "CDP link styles for consistent, accessible navigation"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          CDP provides several link style modifiers that can be combined with the GOV.UK
+          <code class="app-code-inline">govuk-link</code> class. Always include both classes for proper styling and
+          accessibility.
+        </p>
+      </section>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Usage</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        Combine <code class="app-code-inline">govuk-link</code> with <code class="app-code-inline">app-link</code>:
+      </p>
+
+      {# @formatter:off #}
+{% highlightjs "html" %}
+<a class="govuk-link app-link" href="/services">View services</a>
+{% endhighlightjs %}
+      {# @formatter:on #}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Link Styles</h2>
+
+      {% for link in linkStyles %}
+        {{ appStyleExample({
+          title: link.class,
+          description: link.description,
+          code: link.example,
+          inverse: link.inverse
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Reference</h2>
+
+      {{ govukTable({
+        classes: "app-table",
+        head: [
+          { text: "Class" },
+          { text: "Description" }
+        ],
+        rows: [
+          [{ html: "<code class=\"app-code-inline\">app-link</code>" }, { text: "Base CDP link with brand colour" }],
+          [{ html: "<code class=\"app-code-inline\">app-link--underline</code>" }, { text: "Permanent underline" }],
+          [{ html: "<code class=\"app-code-inline\">app-link--without-underline</code>" }, { text: "No underline (use sparingly)" }],
+          [{ html: "<code class=\"app-code-inline\">app-link--text-colour</code>" }, { text: "Inherits text colour" }],
+          [{ html: "<code class=\"app-code-inline\">app-link--inverse</code>" }, { text: "For dark backgrounds" }],
+          [{ html: "<code class=\"app-code-inline\">app-link--with-separator</code>" }, { text: "Left border separator" }]
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Source</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        View the source SCSS:
+        <a class="app-link govuk-link"
+           href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/_link.scss"
+           target="_blank" rel="noopener noreferrer">_link.scss</a>
+      </p>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

@@ -20,7 +20,8 @@ The Core Delivery Platform (CDP), Portal Frontend is a web application that prov
     - [Debugging nock](#debugging-nock)
     - [Code Quality](#code-quality)
     - [Code formatting](#code-formatting)
-  - [Creating icons](#creating-icons)
+    - [Style Guide](#style-guide)
+  - [Icons](#icons)
   - [Production](#production)
   - [Npm scripts](#npm-scripts)
 - [Docker](#docker)
@@ -204,26 +205,24 @@ To format code:
 npm run format
 ```
 
-### Creating icons
+#### Style Guide
 
-You can see examples of the icons used throughout the application
-in [src/server/common/components/icons](src/server/common/components/icons). To create icons:
+The style guide documents the design patterns, components, and systems used in this application.
 
-- Copy and rename an existing component from [src/server/common/components/icons](src/server/common/components/icons)
-- Choose an icon from [Material Symbols](https://fonts.google.com/icons)
-- The icons used already are:
-  - Fill ✅
-  - Weight `700`
-  - Grade `200`
-  - Size `48px`
-- Download the SVG file
-- Go to [svgomg](https://jakearchibald.github.io/svgomg/)
-- Upload the SVG file
-- Click Markup tab
-- Copy markup and place it into an icon component
-- Update CSS class names, macro name etc, to the new icons name
-- Import the icon into your page, or if used globally in multiple places into
-  [src/server/common/templates/layouts/page.njk](src/server/common/templates/layouts/page.njk)
+**Live Style Guide:** In development mode, admin users can access an interactive style guide at `/style-guide` showing
+live examples of all custom components.
+
+**Documentation:**
+
+- [Style Guide Overview](./docs/style-guide/README.md) - Quick start and directory structure
+- [SASS & CSS](./docs/style-guide/sass.md) - Styling with BEM naming conventions
+- [Nunjucks Templates](./docs/style-guide/nunjucks.md) - Template patterns and macros
+- [Client-side JavaScript](./docs/style-guide/client-javascript.md) - Browser JavaScript patterns
+- [Components](./docs/style-guide/components.md) - Custom component library
+
+### Icons
+
+For documentation on using and creating icons, see the [Icons README](./src/server/common/components/icons/README.md).
 
 ### Production
 

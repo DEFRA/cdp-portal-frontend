@@ -1,0 +1,96 @@
+{% extends "layouts/page.njk" %}
+
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Style Guide",
+    text: "Styles",
+    intro: "CSS utilities and modifier classes for enhancing GOV.UK components"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          CDP provides a set of utility CSS classes that extend the
+          <a class="app-link govuk-link" href="https://design-system.service.gov.uk/styles/" target="_blank"
+             rel="noopener noreferrer">GOV.UK Design System styles</a>.
+          These classes follow the <code class="app-code-inline">app-*</code> namespace and can be combined with GOV.UK
+          classes to give components the CDP look and feel.
+        </p>
+
+        <p class="govuk-!-margin-bottom-4">
+          Apply these classes alongside existing GOV.UK classes to enhance styling without breaking accessibility or
+          functionality.
+        </p>
+      </section>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">Quick Example</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        Combine GOV.UK classes with CDP classes to style components:
+      </p>
+
+      {# @formatter:off #}
+{% highlightjs "html" %}
+<!-- GOV.UK link with CDP styling -->
+<a class="govuk-link app-link" href="/services">View services</a>
+
+<!-- GOV.UK button with CDP styling -->
+<button class="govuk-button app-button app-button--secondary">
+  Cancel
+</button>
+
+<!-- GOV.UK input with CDP styling -->
+<input class="govuk-input app-input" type="text" name="search">
+{% endhighlightjs %}
+      {# @formatter:on #}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Style Categories</h2>
+
+      <p class="govuk-!-margin-bottom-4">
+        Browse the available style utilities by category:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        {% for category in styleCategories %}
+          <li>
+            <a href="{{ category.href }}" class="app-link govuk-link">
+              {{ category.title }}
+            </a>
+            <div>{{ category.description }}</div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <hr class="app-section-break">
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Naming Convention</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        All CDP styles follow a consistent naming pattern:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-4">
+        <li><code class="app-code-inline">app-{element}</code> — Base styling (e.g., <code class="app-code-inline">app-link</code>, <code class="app-code-inline">app-button</code>)</li>
+        <li><code class="app-code-inline">app-{element}--{modifier}</code> — Variants (e.g., <code class="app-code-inline">app-button--secondary</code>)</li>
+        <li><code class="app-code-inline">app-{element}__{child}</code> — Child elements (e.g., <code class="app-code-inline">app-input__suffix</code>)</li>
+      </ul>
+
+      <p class="govuk-!-margin-bottom-2">
+        This follows the <a class="app-link govuk-link" href="https://getbem.com/" target="_blank" rel="noopener noreferrer">BEM methodology</a>
+        and mirrors the GOV.UK Frontend naming conventions.
+      </p>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

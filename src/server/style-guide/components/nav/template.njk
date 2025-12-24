@@ -1,0 +1,24 @@
+<nav class="app-style-guide-nav">
+  <ul class="app-style-guide-nav__list">
+    <li class="app-style-guide-nav__list-item{% if requestPath.endsWith('style-guide') %} app-style-guide-nav__list-item--active{% endif %}">
+      <a class="app-style-guide-nav__link" href="/style-guide">
+        Components
+      </a>
+    </li>
+    <li class="app-style-guide-nav__list-item{% if requestPath.includes('/styles') %} app-style-guide-nav__list-item--active{% endif %}">
+      <a class="app-style-guide-nav__link" href="/style-guide/styles">
+        Styles
+      </a>
+    </li>
+    <li class="app-style-guide-nav__list-item{% if requestPath.endsWith('/icons') %} app-style-guide-nav__list-item--active{% endif %}">
+      <a class="app-style-guide-nav__link" href="/style-guide/icons">
+        Icons
+      </a>
+    </li>
+    <li class="app-style-guide-nav__list-item{% if requestPath.endsWith('/svgs') %} app-style-guide-nav__list-item--active{% endif %}">
+      <a class="app-style-guide-nav__link" href="/style-guide/svgs">
+        SVGs
+      </a>
+    </li>
+  </ul>
+</nav>

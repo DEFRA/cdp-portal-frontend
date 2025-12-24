@@ -1,0 +1,113 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+
+{% from "icons/home-page-hero/macro.njk" import appHomePageHero %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Style Guide",
+    text: "SVGs",
+    intro: "Scalable Vector Graphics (SVGs) are used for illustrations in the CDP Portal"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      {% for svg in svgs %}
+        <section class="app-style-guide-example">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ svg.title }}</h3>
+
+          <p class="govuk-!-margin-bottom-4">{{ svg.description }}</p>
+
+          {% call appPanel({ classes: "app-style-guide-svg-example__content", isInverse: true }) %}
+            {{ renderIcon(svg.name  ) | safe }}
+          {% endcall %}
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Usage</h3>
+
+          <p class="govuk-!-margin-bottom-2">Import and use SVG illustrations with Nunjucks macros:</p>
+
+          {# @formatter:off #}
+{% highlightjs "javascript" %}{% raw %}{% from "icons/home-page-hero/macro.njk" import appHomePageHero %}
+
+{{ appHomePageHero() }}{% endraw %}{% endhighlightjs %}
+          {# @formatter:on #}
+
+          <h3 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-2">Edit Source</h3>
+
+          <p class="govuk-!-margin-bottom-2">
+            To edit this SVG, you can access the raw source file: <a class="app-link govuk-link"
+                                                                     href="{{ svg.rawAssetUrl }}" target="_blank"
+                                                                     rel="noopener noreferrer">
+              View {{ svg.name }}
+            </a>
+          </p>
+
+        </section>
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">SVG vs Icons</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        While both SVGs and icons use the SVG format, they serve different purposes:
+      </p>
+
+      {{ govukTable({
+        classes: "app-table govuk-!-margin-bottom-6",
+        head: [
+          { text: "Type" },
+          { text: "Purpose" },
+          { text: "Sizing" }
+        ],
+        rows: [
+          [
+            { text: "Icons", classes: "govuk-!-font-weight-bold" },
+            { text: "Small UI elements (status indicators, buttons, navigation)" },
+            { text: "Fixed sizes using modifier classes (app-icon--small, etc.)" }
+          ],
+          [
+            { text: "SVGs", classes: "govuk-!-font-weight-bold" },
+            { text: "Larger illustrations, graphics, and decorative elements" },
+            { text: "Responsive sizing based on container or custom CSS" }
+          ]
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Creating New SVGs</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        When creating new SVGs for the CDP Portal, follow these best practices:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        <li>For documentation on using and creating icons, see the <a class="app-link govuk-link"
+                                                                      href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/server/common/components/icons/README.md"
+                                                                      target="_blank" rel="noopener noreferrer">Icons
+            README</a>
+        </li>
+        <li>Optimise the SVG to remove unnecessary metadata and whitespace</li>
+        <li>Include appropriate <span class="app-code-inline">role="img"</span> and <span class="app-code-inline">aria-label</span>
+          attributes for accessibility
+        </li>
+        <li>Use <span class="app-code-inline">viewBox</span> and <span
+            class="app-code-inline">preserveAspectRatio</span>
+          for
+          responsive behaviour
+        </li>
+        <li>Create a Nunjucks macro wrapper for easy template usage</li>
+        <li>Add accompanying SCSS for any custom styling</li>
+      </ul>
+
+    </div>
+
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+@use "govuk-frontend" as *;
+@use "helpers/link" as *;
+
+.app-style-guide-example {
+  position: relative;
+  @extend %govuk-body-m;
+
+  & + * {
+    margin-top: govuk-spacing(6);
+  }
+}
+
+.app-style-guide-code-example__content {
+  min-height: govuk-spacing(6);
+  margin-bottom: govuk-spacing(2);
+}
+
+.app-style-guide-svg-example__content {
+  margin-bottom: govuk-spacing(2);
+  border: none;
+
+  svg {
+    width: 340px;
+    max-width: 340px;
+  }
+}
+
+// TODO use
+.app-style-guide__header {
+  @include app-link;
+  @include govuk-link-style-text;
+
+  &.is-active {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
+.app-style-guide-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: govuk-spacing(2);
+}
+
+.app-icon-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .app-icon {
+    display: block;
+    margin: auto;
+  }
+
+  .app-icon-text {
+    @extend %govuk-body-s;
+
+    margin-top: govuk-spacing(1);
+  }
+}
