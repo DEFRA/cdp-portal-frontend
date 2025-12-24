@@ -76,7 +76,7 @@ const azureOidc = {
       })
 
       server.decorate('request', 'refreshToken', async function (userSession) {
-        return await refreshTokenIfExpired(
+        return refreshTokenIfExpired(
           (token) => refreshAccessToken(token, wellKnown),
           this,
           userSession
