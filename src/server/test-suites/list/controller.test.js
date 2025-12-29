@@ -1,11 +1,9 @@
 import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
 import { testSuiteListController } from './controller.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
-import { testSuiteToEntityRow } from '../transformers/test-suite-to-entity-row.js'
 
 vi.mock('../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../helpers/decorators/entity-owner-decorator.js')
-vi.mock('../transformers/test-suite-to-entity-row.js')
 vi.mock('../../common/helpers/auth/pre/provide-authed-user.js')
 
 describe('testSuiteListController.handler', () => {
@@ -35,23 +33,17 @@ describe('testSuiteListController.handler', () => {
 
     fetchTestSuites.mockResolvedValue(testSuitesMock)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
-    testSuiteToEntityRow.mockReturnValue({ row: 'data' })
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
     expect(entityOwnerDecorator).toHaveBeenCalledWith(['scope-1'])
-    expect(testSuiteToEntityRow).toHaveBeenCalledWith(
-      { id: 1, name: 'Test Suite 1' },
-      0,
-      [{ id: 1, name: 'Test Suite 1' }]
-    )
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
         pageTitle: 'Test Suites',
         tableData: expect.objectContaining({
-          rows: [{ row: 'data' }]
+          rows: testSuitesMock
         })
       })
     )
@@ -60,7 +52,6 @@ describe('testSuiteListController.handler', () => {
   test('should handle the case when no test suites are available', async () => {
     fetchTestSuites.mockResolvedValue([])
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
-    testSuiteToEntityRow.mockReturnValue(() => ({}))
 
     await testSuiteListController.handler(request, h)
 
@@ -85,7 +76,6 @@ describe('testSuiteListController.handler', () => {
 
     fetchTestSuites.mockResolvedValue([])
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
-    testSuiteToEntityRow.mockReturnValue(() => ({}))
 
     await testSuiteListController.handler(request, h)
 

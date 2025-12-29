@@ -1,7 +1,6 @@
 import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
 import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
-import { testSuiteToEntityRow } from '../transformers/test-suite-to-entity-row.js'
 
 const testSuiteListController = {
   options: {
@@ -11,15 +10,12 @@ const testSuiteListController = {
     const userSession = request.auth.credentials
     const userScope = userSession?.scope ?? []
 
-    const [testSuites] = await Promise.all([fetchTestSuites()])
+    const testSuites = await fetchTestSuites()
 
     const ownerDecorator = entityOwnerDecorator(userScope)
     const ownerSorter = sortByOwner('name')
 
-    const rows = testSuites
-      ?.map(ownerDecorator)
-      .toSorted(ownerSorter)
-      .map(testSuiteToEntityRow)
+    const rows = testSuites?.map(ownerDecorator).toSorted(ownerSorter)
 
     return h.view('test-suites/views/list', {
       pageTitle: 'Test Suites',
