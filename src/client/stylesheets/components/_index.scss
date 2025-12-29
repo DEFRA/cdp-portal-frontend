@@ -34,6 +34,8 @@
 @use "split-pane/split-pane";
 @use "status/status";
 @use "step-navigation/step-navigation";
+@use "../../../server/style-guide/components/nav/style-guide-nav";
+@use "../../../server/style-guide/components/style-example/style-example";
 @use "summary/summary";
 @use "tabs/tabs";
 @use "tag/tag";

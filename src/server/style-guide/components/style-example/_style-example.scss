@@ -1,0 +1,35 @@
+@use "govuk-frontend" as *;
+@use "variables/colours" as *;
+@use "variables/border-radius" as *;
+
+.app-style-example {
+  border: 1px solid $app-brand-background-colour;
+  border-radius: $app-border-radius-min;
+  overflow: hidden;
+  padding: govuk-spacing(2);
+}
+
+.app-style-example__preview {
+  padding: govuk-spacing(2);
+  background-color: govuk-colour("white");
+  @extend %govuk-body-m;
+}
+
+.app-style-example__preview--inverse {
+  background-color: govuk-colour("black");
+  color: govuk-colour("white");
+}
+
+.app-style-example__code {
+  margin: govuk-spacing(2) 0 0;
+
+  pre {
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .app-code {
+    max-width: 100%;
+    margin: govuk-spacing(-2);
+  }
+}

@@ -1,0 +1,113 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Style Guide",
+    text: component.title + " Component",
+    intro: "Usage, Paramaters, Examples and Documentation for the " + component.title + " component"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <p class="govuk-!-margin-bottom-2">{{ component.description }}</p>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-2">
+        Usage
+      </h2>
+
+      {% set firstExample = component.examples[0] if component.examples | length else null %}
+      {% set firstExampleParams = firstExample.params if firstExample and firstExample.params and not firstExample.template else null %}
+
+      {# @formatter:off #}
+{% highlightjs "javascript" %}{{ "{% from \"" + component.macro.path + "\" import " + component.macro.name + " %}" | safe }}
+
+{% if firstExampleParams %}{{ "{{ " + component.macro.name + "(" + (firstExampleParams | dump(2)) + ") }}" }}{% else %}{{ "{{ " + component.macro.name + "() }}" }}{% endif %}{% endhighlightjs %}
+      {# @formatter:on #}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">
+        Examples
+      </h2>
+
+      {% for example in component.examples %}
+        {% set isFormComponent = component.category == "form" | lower %}
+        {% set hasTemplate = example.template %}
+
+        <section class="app-style-guide-example">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ example.title }}</h3>
+
+          {% if example.description %}
+            <p class="govuk-!-margin-bottom-4">{{ example.description }}</p>
+          {% endif %}
+
+          {% if isFormComponent %}
+          {# Add form for form components so clientSide JavaScript can hook into addEventListner hooks #}
+          <form onsubmit="return false;">
+            {% endif %}
+
+            {% call appPanel({ classes: "app-style-guide-code-example__content", isInverse: example.isInverse }) %}
+              {% if hasTemplate %}
+                {{ renderTemplate(example.template, example.context) | safe }}
+              {% else %}
+                {{ renderComponent(component.name, example.params) | safe }}
+              {% endif %}
+            {% endcall %}
+
+            {% if isFormComponent %}
+          </form>
+          {% endif %}
+
+          {% if hasTemplate %}
+            {% call appDetails({ summaryText: "View template" }) %}
+              {% highlightjs "javascript" %}{{ example.template | safe }}{% endhighlightjs %}
+            {% endcall %}
+          {% elseif example.params | length %}
+            {% call appDetails({ summaryText: "View parameters" }) %}
+              {% highlightjs "json" %}{{ example.params | dump(4) | safe }}{% endhighlightjs %}
+            {% endcall %}
+          {% endif %}
+        </section>
+      {% endfor %}
+
+      {% if component.params | length %}
+
+        <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">
+          All Parameters
+        </h2>
+
+        {% set paramRows = [] %}
+        {% for param in component.params %}
+          {% set paramRows = (paramRows.push([
+            { text: param.name, classes: "govuk-!-font-weight-bold" },
+            { text: param.type },
+            { text: "Yes" if param.required else "No" },
+            { text: param.description }
+          ]), paramRows) %}
+        {% endfor %}
+
+        {{ govukTable({
+          classes: "app-table govuk-!-margin-bottom-6",
+          head: [
+            { text: "Name" },
+            { text: "Type" },
+            { text: "Required" },
+            { text: "Description" }
+          ],
+          rows: paramRows
+        }) }}
+
+      {% endif %}
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

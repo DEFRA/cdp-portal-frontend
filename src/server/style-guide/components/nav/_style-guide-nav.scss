@@ -1,0 +1,33 @@
+@use "govuk-frontend" as *;
+@use "helpers/link" as *;
+@use "variables/colours" as *;
+
+.app-style-guide-nav {
+  margin: 0 govuk-spacing(-4);
+  border: 1px solid $app-brand-border-colour-light;
+  border-width: 1px 0 ;
+  background-color: $app-brand-background-colour-light;
+}
+
+.app-style-guide-nav__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0 govuk-spacing(4);
+}
+
+.app-style-guide-nav__list-item {
+  @include govuk-font(19);
+  display: inline-block;
+  padding: govuk-spacing(3) 0;
+  margin-right: govuk-spacing(3);
+}
+
+.app-style-guide-nav__list-item--active {
+  border-bottom: 5px solid $govuk-brand-colour;
+}
+
+.app-style-guide-nav__link {
+  @include app-link;
+  display: block;
+}

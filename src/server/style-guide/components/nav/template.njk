@@ -1,0 +1,11 @@
+<nav class="app-style-guide-nav">
+  <ul class="app-style-guide-nav__list">
+    {% for subNavigationItem in subNavigation %}
+      <li class="app-style-guide-nav__list-item{% if subNavigationItem.isActive %} app-style-guide-nav__list-item--active{% endif %}">
+        <a class="app-style-guide-nav__link" href="{{ subNavigationItem.url }}">
+          {{ subNavigationItem.label.text }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

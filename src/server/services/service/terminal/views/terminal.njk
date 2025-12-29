@@ -12,7 +12,6 @@
 {% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "info/macro.njk" import appInfo %}
 {% from "summary/macro.njk" import appSummary %}
-{% from "summary/summary-item/macro.njk" import appSummaryItem %}
 {% from "warning/macro.njk" import appWarning %}
 
 {# Construct table rows, tables and html contents #}
@@ -80,7 +79,7 @@
         </section>
 
         <article class="govuk-!-margin-bottom-6">
-          {% call appSummaryItem({
+          {% call appSummary({
             heading: "Launch a terminal",
             icon: appTerminalIcon({ classes: "app-icon--small"}),
             intro: {

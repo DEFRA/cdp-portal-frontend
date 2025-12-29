@@ -84,7 +84,7 @@ function poll($module) {
 
   const pollInterval = $module.dataset?.pollInterval
   const interval = pollInterval
-    ? parseInt(pollInterval, 10)
+    ? Number.parseInt(pollInterval, 10)
     : pollIntervalDefault
 
   const pollLimit = $module.dataset?.pollLimit
