@@ -1,0 +1,14 @@
+{# Renders a service entity-table row
+
+@param {string} rowClasses - classes to be used for the row
+@param {number} loopIndex - table for loop index
+@param {boolean} isOwner - Does the current user own this service
+@param {string} testSuite - Name of test suite
+@param {object}[] teams - Teams who own the service
+@param {string} testType - Service type
+@param {string} status - Creating state tag
+@param {string} created - Date suite was created #}
+
+{% macro appTestSuiteRow(params) %}
+  {%- include "./template.njk" -%}
+{% endmacro %}
