@@ -1,5 +1,6 @@
 import { config } from '../../../../../config/config.js'
 import { fetchJson } from '../../../../common/helpers/fetch/fetch-json.js'
+import Wreck from "@hapi/wreck";
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')
 
@@ -9,6 +10,17 @@ async function fetchCdpUser(userId) {
   const { payload } = await fetchJson(endpoint)
   return payload
 }
+
+async function fetchPermissionDiagram(userId) {
+  const endpoint = `${userServiceBackendUrl}/auth/graph?user=${userId}`
+
+  const { payload } = await Wreck.get(endpoint, {
+    json: false
+  })
+
+  return payload
+}
+
 
 async function fetchCdpUsers() {
   const endpoint = `${userServiceBackendUrl}/users`
@@ -37,5 +49,6 @@ export {
   fetchCdpUser,
   fetchCdpUsers,
   searchAzureActiveDirectoryUsers,
-  searchGithubUsers
+  searchGithubUsers,
+  fetchPermissionDiagram
 }

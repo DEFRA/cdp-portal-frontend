@@ -65,8 +65,24 @@
             </p>
           {% endif %}
         {% endcall %}
+
+
+        {% call appPanel() %}
+          <h2 class="govuk-heading-m">
+            Permission Diagram
+          </h2>
+
+          <pre class="mermaid">
+            {{ diagram }}
+          </pre>
+        {%  endcall %}
       </div>
     </div>
 
   {% endcall %}
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script type="module" src="{{ getAssetPath("mermaid.js") }}"></script>
 {% endblock %}
