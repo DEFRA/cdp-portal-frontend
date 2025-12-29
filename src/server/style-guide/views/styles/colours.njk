@@ -1,0 +1,146 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Styles",
+    text: "Colours",
+    intro: "CDP brand colours and SASS variables"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          CDP extends the GOV.UK colour palette with brand-specific colours derived from the
+          <code class="app-code-inline">$govuk-brand-colour</code>. These are available as SASS variables.
+        </p>
+      </section>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Brand Colours</h2>
+
+      <p class="govuk-!-margin-bottom-4">
+        CDP brand colours are tints of the GOV.UK brand colour:
+      </p>
+
+      <div class="govuk-!-margin-bottom-6">
+        <div class="app-colour-swatch" style="background-color: #1d70b8; color: white; padding: 20px; margin-bottom: 2px;">
+          <strong>$govuk-brand-colour</strong>
+          <div>#1d70b8</div>
+        </div>
+        <div class="app-colour-swatch" style="background-color: #d4e4f1; padding: 20px; margin-bottom: 2px;">
+          <strong>$app-brand-background-colour</strong>
+          <div>85% tint - Backgrounds</div>
+        </div>
+        <div class="app-colour-swatch" style="background-color: #e9f1f7; padding: 20px; margin-bottom: 2px;">
+          <strong>$app-brand-background-colour-light</strong>
+          <div>95% tint - Light backgrounds</div>
+        </div>
+        <div class="app-colour-swatch" style="background-color: #8eb8dc; padding: 20px; margin-bottom: 2px;">
+          <strong>$app-brand-border-colour</strong>
+          <div>50% tint - Borders</div>
+        </div>
+        <div class="app-colour-swatch" style="background-color: #c6dced; padding: 20px; margin-bottom: 2px;">
+          <strong>$app-brand-border-colour-light</strong>
+          <div>80% tint - Light borders</div>
+        </div>
+      </div>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Usage</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        Import the colours variables in your SCSS:
+      </p>
+
+      {# @formatter:off #}
+{% highlightjs "scss" %}
+@use "variables/colours" as *;
+
+.my-component {
+  background-color: $app-brand-background-colour-light;
+  border: 1px solid $app-brand-border-colour-light;
+}
+{% endhighlightjs %}
+      {# @formatter:on #}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Reference</h2>
+
+      {{ govukTable({
+        classes: "app-table",
+        head: [
+          { text: "Variable" },
+          { text: "Description" },
+          { text: "Usage" }
+        ],
+        rows: [
+          [
+            { html: "<code class=\"app-code-inline\">$app-brand-background-colour</code>" },
+            { text: "85% tint of brand colour" },
+            { text: "Section backgrounds, panels" }
+          ],
+          [
+            { html: "<code class=\"app-code-inline\">$app-brand-background-colour-light</code>" },
+            { text: "95% tint of brand colour" },
+            { text: "Light backgrounds, highlights" }
+          ],
+          [
+            { html: "<code class=\"app-code-inline\">$app-brand-border-colour</code>" },
+            { text: "50% tint of brand colour" },
+            { text: "Prominent borders" }
+          ],
+          [
+            { html: "<code class=\"app-code-inline\">$app-brand-border-colour-light</code>" },
+            { text: "80% tint of brand colour" },
+            { text: "Subtle borders, dividers" }
+          ]
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">GOV.UK Colours</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        For standard colours, use the GOV.UK colour function:
+      </p>
+
+      {# @formatter:off #}
+{% highlightjs "scss" %}
+@use "govuk-frontend" as *;
+
+.my-component {
+  color: govuk-colour("blue");
+  background-color: govuk-colour("light-grey");
+  border-color: $govuk-border-colour;
+}
+{% endhighlightjs %}
+      {# @formatter:on #}
+
+      <p class="govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+        See the full
+        <a class="app-link govuk-link"
+           href="https://design-system.service.gov.uk/styles/colour/"
+           target="_blank" rel="noopener noreferrer">GOV.UK colour palette</a>
+        for available colours.
+      </p>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Source</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        View the source SCSS:
+        <a class="app-link govuk-link"
+           href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/variables/_colours.scss"
+           target="_blank" rel="noopener noreferrer">_colours.scss</a>
+      </p>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

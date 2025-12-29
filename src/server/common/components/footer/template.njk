@@ -31,17 +31,27 @@
           </li>
         </ul>
       {% endif %}
+
+      <ul class="app-footer__list">
+        {% if isAuthenticated %}
+          <li class="app-footer__list-item">
+            <a href="/style-guide" class="app-footer__link">Style Guide</a>
+          </li>
+        {% endif %}
+        <li class="app-footer__list-item">
+          <a href="https://github.com/DEFRA/cdp-portal-frontend" target="_blank"
+             rel="noopener noreferrer" class="app-footer__link">
+            GitHub
+            {{ appGithubIcon({
+              classes: "app-icon--tiny govuk-!-margin-left-1",
+              description: "CDP Portal Frontend repository on GitHub"
+            }) }}
+          </a>
+        </li>
+      </ul>
     </div>
 
-    <div class="app-footer__secondary">
-      <a class="app-footer__link"
-         href="https://github.com/DEFRA/cdp-portal-frontend"
-         target="_blank"
-         rel="noopener noreferrer">{{ appGithubIcon({
-          classes: "app-icon--small",
-          description: "CDP Portal Frontend repository on GitHub"
-        }) }}</a>
-    </div>
+    <div class="app-footer__secondary"></div>
   </div>
 
 </footer>

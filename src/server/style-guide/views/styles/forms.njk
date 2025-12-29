@@ -1,0 +1,125 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+{% from "style-guide/components/style-example/macro.njk" import appStyleExample %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Styles",
+    text: "Form Elements",
+    intro: "CDP form styling for inputs, labels, hints and textareas"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          CDP provides form element styles that can be combined with GOV.UK form classes. These add rounded corners,
+          adjusted spacing, and width variants while maintaining accessibility.
+        </p>
+      </section>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Inputs</h2>
+
+      {% for input in formStyles.inputs %}
+        {{ appStyleExample({
+          title: input.class,
+          description: input.description,
+          code: input.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Labels</h2>
+
+      {% for label in formStyles.labels %}
+        {{ appStyleExample({
+          title: label.class,
+          description: label.description,
+          code: label.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Hints</h2>
+
+      {% for hint in formStyles.hints %}
+        {{ appStyleExample({
+          title: hint.class,
+          description: hint.description,
+          code: hint.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Textareas</h2>
+
+      {% for textarea in formStyles.textareas %}
+        {{ appStyleExample({
+          title: textarea.class,
+          description: textarea.description,
+          code: textarea.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Form Groups</h2>
+
+      {% for group in formStyles.formGroups %}
+        {{ appStyleExample({
+          title: group.class,
+          description: group.description,
+          code: group.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Complete Example</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        A complete form using CDP styles:
+      </p>
+
+      {{ appStyleExample({
+        code: '<div class="govuk-form-group app-form-group">
+  <label class="govuk-label app-label" for="service-name">Service name</label>
+  <div class="govuk-hint app-hint">Use lowercase letters, numbers and hyphens</div>
+  <input class="govuk-input app-input app-input--wide" id="service-name" type="text">
+</div>
+<div class="govuk-form-group app-form-group">
+  <label class="govuk-label app-label" for="description">Description</label>
+  <textarea class="govuk-textarea app-textarea app-textarea--wide" id="description" rows="4"></textarea>
+</div>'
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Source</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        View the source SCSS files:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/form/_input.scss"
+             target="_blank" rel="noopener noreferrer">_input.scss</a>
+        </li>
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/form/_label.scss"
+             target="_blank" rel="noopener noreferrer">_label.scss</a>
+        </li>
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/form/_textarea.scss"
+             target="_blank" rel="noopener noreferrer">_textarea.scss</a>
+        </li>
+      </ul>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

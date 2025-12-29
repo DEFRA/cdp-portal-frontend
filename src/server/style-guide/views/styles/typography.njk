@@ -1,0 +1,118 @@
+{% extends "layouts/page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+{% from "style-guide/components/style-example/macro.njk" import appStyleExample %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Styles",
+    text: "Typography",
+    intro: "Code blocks, inline code and markdown styling"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          CDP provides typography utilities for displaying code, markdown content and highlighted text.
+          These complement the
+          <a class="app-link govuk-link" href="https://design-system.service.gov.uk/styles/typography/"
+             target="_blank" rel="noopener noreferrer">GOV.UK typography styles</a>.
+        </p>
+      </section>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Code Blocks</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        For displaying code snippets:
+      </p>
+
+      {% for code in typographyStyles.code %}
+        {{ appStyleExample({
+          title: code.class,
+          description: code.description,
+          code: code.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Markdown Content</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        Wrap rendered markdown in the <code class="app-code-inline">app-markdown</code> class for consistent styling:
+      </p>
+
+      {% for markdown in typographyStyles.markdown %}
+        {{ appStyleExample({
+          title: markdown.class,
+          description: markdown.description,
+          code: markdown.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Highlighted Text</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        For drawing attention to specific text:
+      </p>
+
+      {% for highlight in typographyStyles.highlight %}
+        {{ appStyleExample({
+          title: highlight.class,
+          description: highlight.description,
+          code: highlight.example
+        }) }}
+      {% endfor %}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Reference</h2>
+
+      {{ govukTable({
+        classes: "app-table",
+        head: [
+          { text: "Class" },
+          { text: "Description" }
+        ],
+        rows: [
+          [{ html: "<code class=\"app-code-inline\">app-code</code>" }, { text: "Code block with background" }],
+          [{ html: "<code class=\"app-code-inline\">app-code-inline</code>" }, { text: "Inline code within text" }],
+          [{ html: "<code class=\"app-code-inline\">app-code-hljs</code>" }, { text: "Syntax highlighted code (with highlight.js)" }],
+          [{ html: "<code class=\"app-code-inline\">app-markdown</code>" }, { text: "Rendered markdown container" }],
+          [{ html: "<code class=\"app-code-inline\">app-mark</code>" }, { text: "Highlighted/marked text" }]
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Source</h2>
+
+      <p class="govuk-!-margin-bottom-2">
+        View the source SCSS files:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/_code.scss"
+             target="_blank" rel="noopener noreferrer">_code.scss</a>
+        </li>
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/_markdown.scss"
+             target="_blank" rel="noopener noreferrer">_markdown.scss</a>
+        </li>
+        <li>
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets/core/_mark.scss"
+             target="_blank" rel="noopener noreferrer">_mark.scss</a>
+        </li>
+      </ul>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}

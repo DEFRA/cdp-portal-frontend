@@ -1,0 +1,35 @@
+{#
+  Style Example Component
+
+  Displays a live preview of HTML/CSS with the code snippet below.
+
+  Parameters:
+    - title: (optional) Title for the example
+    - description: (optional) Description text
+    - code: The HTML code to display (will be rendered as preview AND shown as code)
+    - language: (optional) Language for syntax highlighting, defaults to "html"
+    - previewClasses: (optional) Additional classes for the preview container
+    - hidePreview: (optional) Set to true to only show the code
+    - inverse: (optional) Set to true for dark background preview
+#}
+
+<div class="app-style-example govuk-!-margin-bottom-6">
+  {% if params.title %}
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ params.title }}</h3>
+  {% endif %}
+
+  {% if params.description %}
+    <p class="govuk-!-margin-bottom-2">{{ params.description }}</p>
+  {% endif %}
+
+  {% if not params.hidePreview %}
+    <div class="app-style-example__preview{% if params.inverse %} app-style-example__preview--inverse{% endif %}{% if params.previewClasses %} {{ params.previewClasses }}{% endif %}">
+      {{ params.code | safe }}
+    </div>
+  {% endif %}
+
+  <div class="app-style-example__code">
+    {% set lang = params.language if params.language else "html" %}
+    {% highlightjs lang %}{{ params.code }}{% endhighlightjs %}
+  </div>
+</div>

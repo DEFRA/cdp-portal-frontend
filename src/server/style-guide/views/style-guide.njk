@@ -1,0 +1,134 @@
+{% extends "layouts/page.njk" %}
+
+{% from "style-guide/components/nav/macro.njk" import appStyleGuideNav with context %}
+{% from "style-guide/components/sidebar/macro.njk" import appStyleGuideSidebar %}
+
+{% block content %}
+  {{ appPageHeading({
+    caption: "Style Guide",
+    text: "Components",
+    intro: "Components, patterns, tools and style guide documentation"
+  }) }}
+
+  {{ appStyleGuideNav() }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters-from-desktop-wide">
+      <section class="app-section--wide">
+        <p class="govuk-!-margin-bottom-2">
+          Custom components and custom styles extending the
+          <a class="app-link govuk-link" href="https://design-system.service.gov.uk/" target="_blank"
+             rel="noopener noreferrer">GOV.UK Design System</a> for the design of the CDP Portal Frontend. Add <span
+            class="app-code-inline">app-*</span>
+          CSS classes to GOV.UK components to apply CDP styles or use the components and established patterns found in
+          this application.
+        </p>
+        <p class="govuk-!-margin-bottom-2">
+          Browse this documentation for more details, or check out
+          the code and delve into the <a class="app-link govuk-link"
+                                         href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/server/common/components"
+                                         target="_blank" rel="noopener noreferrer">Components</a>,
+          <a class="app-link govuk-link"
+             href="https://github.com/DEFRA/cdp-portal-frontend/blob/main/src/client/stylesheets"
+             target="_blank" rel="noopener noreferrer">SASS files</a>, patterns, tools and documentation for further
+          details.
+        </p>
+
+        <h2 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Using CDP Styles</h2>
+
+        <p class="govuk-!-margin-bottom-2">
+          Apply CDP styles to GOV.UK Design System components:
+        </p>
+
+        {# @formatter:off #}
+{% highlightjs "html" %}
+<a class="app-link govuk-link" href="/services">An example GOV.UK link with CDP styling</a>
+{% endhighlightjs %}
+
+        <h2 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-2">Using CDP Components</h2>
+
+        <p class="govuk-!-margin-bottom-2">
+          Import and use CDP components alongside GOV.UK components:
+        </p>
+
+{% highlightjs "javascript" %}{% raw %}{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "help/macro.njk" import appHelp %}
+
+{{ appHelp({ text: "Need help getting started?" }) }}
+
+{{ govukButton({
+  classes: "app-button",
+  text: "Update"
+}) }}
+{% endraw %}{% endhighlightjs %}
+        {# @formatter:on #}
+
+      </section>
+
+      <hr class="app-section-break">
+
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-6">Icons and SVGs</h2>
+
+      <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+        The style guide includes two types of vector graphics:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-4">
+        <li>
+          <a href="/style-guide/icons" class="app-link govuk-link">
+            Icons
+          </a>
+          <div>Small SVG icons for UI elements like status indicators, buttons, and navigation. Icons use consistent
+            sizing modifier classes.
+          </div>
+        </li>
+        <li>
+          <a href="/style-guide/svgs" class="app-link govuk-link">
+            SVGs
+          </a>
+          <div>Larger SVG illustrations and graphics for decorative elements and visual communication. SVGs scale
+            responsively based on their container.
+          </div>
+        </li>
+      </ul>
+
+      <hr class="app-section-break">
+
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-6">Components</h2>
+
+      <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+        Each component page shows usage examples, available parameters, and rendered output.
+      </p>
+
+      {% for category, components in componentsByCategory %}
+        {% set sectionHeadingClasses = ["govuk-heading-m", "govuk-!-margin-bottom-2", "govuk-!-margin-top-2"].join(" ") %}
+
+        <h3 class="{{ sectionHeadingClasses }}">{{ category | capitalize }}</h3>
+        {% if categoryDescriptions[category] %}
+          <p class="govuk-!-margin-bottom-2">{{ categoryDescriptions[category] }}</p>
+        {% endif %}
+
+        <ul class="govuk-list govuk-list--bullet">
+          {% for component in components %}
+            <li>
+              <a href="/style-guide/{{ component.name }}" class="app-link app-link govuk-link">
+                {{ component.title }}
+              </a>
+              <div>{{ component.description }}</div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if not loop.last %}
+          <hr class="app-section-break">
+        {% endif %}
+
+      {% endfor %}
+    </div>
+
+    <div class="govuk-grid-column-one-quarter-from-desktop-wide">
+      {{ appStyleGuideSidebar() }}
+    </div>
+  </div>
+
+{% endblock %}
