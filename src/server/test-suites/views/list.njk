@@ -1,3 +1,7 @@
+{% from "time/macro.njk" import appTime %}
+{% from "icons/star-icon/macro.njk" import appStarIcon %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
 {% extends "layouts/page.njk" %}
 
 {% block content %}
@@ -6,6 +10,52 @@
     intro: "User Journey and Performance tests"
   }) }}
 
-  {{ appEntityTable(tableData) }}
+
+  {% call(params) appEntityTable(tableData) %}
+    <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+
+      <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered" data-label="Owner">
+          {% if params.row.isOwner %}
+            {{ appStarIcon({classes: "app-icon--minuscule" }) }}
+          {% endif %}
+      </td>
+
+      <td headers="test-suite" class="app-entity-table__cell" data-label="Test-suite">
+        <a class="app-link" href="/test-suites/{{ params.row.name }}" data-testid="app-entity-link">{{ params.row.name  }}</a>
+      </td>
+
+      <td headers="team" class="app-entity-table__cell" data-label="Team">
+        {% if params.row.teams | length %}
+          <ul class="app-entity__list">
+            {% for team in params.row.teams %}
+              <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          {{ noValue }}
+        {% endif %}
+      </td>
+
+      <td headers="kind" class="app-entity-table__cell" data-label="Kind">
+        {{ govukTag({
+          text: params.row.subType,
+          classes: "app-tag govuk-tag--blue",
+          attributes: { "data-testid": "govuk-tag" }
+        }) }}
+      </td>
+
+      <td headers="created" class="app-entity-table__cell" data-label="Created">
+        {% if params.row.status == "Created" %}
+          {{ appTime({ datetime: params.row.created }) }}
+        {% else %}
+          {{ govukTag({
+            text: params.row.status,
+            classes: "app-tag govuk-tag--blue",
+            attributes: { "data-testid": "govuk-tag" }
+          }) }}
+        {% endif %}
+      </td>
+    </tr>
+  {% endcall %}
 
 {% endblock %}

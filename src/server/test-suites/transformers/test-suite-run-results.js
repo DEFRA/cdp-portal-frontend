@@ -4,7 +4,6 @@ import { formatDistance, parseISO } from 'date-fns'
 
 import { provideTestRunStatusClassname } from '../helpers/provide-test-run-status-classname.js'
 import { buildLogsLink } from '../helpers/build-logs-link.js'
-import { getTestStatusIcon } from '../helpers/get-test-status-icon.js'
 import { formatText } from '../../../config/nunjucks/filters/filters.js'
 import { buildLink } from '../../common/helpers/view/build-link.js'
 import { taskStatus, testStatus } from '../constants/test-run-status.js'
@@ -45,96 +44,35 @@ function testSuiteRunResults(testRun, canRun) {
     : testRun.user.displayName
 
   return {
-    cells: [
-      {
-        headers: 'version',
-        entity: {
-          kind: 'link',
-          value: testRun.tag,
-          url: `https://github.com/DEFRA/${testRun.testSuite}/releases/tag/${testRun.tag}`,
-          newWindow: true
-        }
-      },
-      {
-        headers: 'environment',
-        entity: {
-          kind: 'text',
-          value: startCase(testRun.environment)
-        }
-      },
-      {
-        headers: 'cpu',
-        entity: {
-          kind: 'text',
-          value: testRun.cpu / 1024 + ' vCPU'
-        }
-      },
-      {
-        headers: 'memory',
-        entity: {
-          kind: 'text',
-          value: testRun.memory / 1024 + ' GB'
-        }
-      },
-      {
-        headers: 'profile',
-        entity: {
-          kind: 'text',
-          value: testRun.profile
-        }
-      },
-      {
-        headers: 'status',
-        entity: {
-          kind: 'tag',
-          value: testRun.taskStatus ? formatText(testRun.taskStatus) : null,
-          classes: provideTestRunStatusClassname(testRun.taskStatus),
-          showLoader: inProgress
-        }
-      },
-      {
-        headers: 'logs',
-        entity: {
-          kind: 'link',
-          value: logsLinkDataAvailable
-            ? `https://logs.${testRun.environment}.cdp-int.defra.cloud`
-            : null,
-          url: logsLinkDataAvailable && buildLogsLink(testRun, hasResult),
-          newWindow: true
-        }
-      },
-      {
-        headers: 'results',
-        entity: {
-          kind: 'link',
-          value: hasResult ? 'Report' : null,
-          url: `/test-suites/test-results/${testRun.environment}/${testRun.tag}/${testRun.testSuite}/${testRun.runId}/index.html`,
-          icon: getTestStatusIcon(runTestStatus)
-        }
-      },
-      {
-        headers: 'user',
-        html: user
-      },
-      {
-        headers: 'duration',
-        entity: { kind: 'text', value: getDuration(testRun, hasResult) }
-      },
-      {
-        headers: 'last-ran',
-        entity: { kind: 'date', value: testRun.taskLastUpdated }
-      },
-      {
-        headers: 'action',
-        entity: {
-          kind: 'button',
-          classes: 'app-button--small',
-          value:
-            canRun && runTaskStatus === taskStatus.inProgress ? 'Stop' : null,
-          url: `/test-suites/${testRun.testSuite}/${testRun.runId}/stop`
-        }
-      }
-    ]
+    runId: testRun.runId,
+    testSuite: testRun.testSuite,
+    version: testRun.tag,
+    environment: startCase(testRun.environment),
+    cpu: testRun.cpu / 1024 + ' vCPU',
+    memory: testRun.memory / 1024 + ' GB',
+    profile: testRun.profile,
+    status: {
+      value: testRun.taskStatus ? formatText(testRun.taskStatus) : null,
+      classes: provideTestRunStatusClassname(testRun.taskStatus),
+      showLoader: inProgress
+    },
+    logs: {
+      available: logsLinkDataAvailable,
+      value: logsLinkDataAvailable
+        ? `https://logs.${testRun.environment}.cdp-int.defra.cloud`
+        : null,
+      url: logsLinkDataAvailable && buildLogsLink(testRun, hasResult)
+    },
+    hasResult,
+    runTestStatus,
+    runTaskStatus,
+    user,
+    duration: getDuration(testRun, hasResult),
+    lastRun: testRun.taskLastUpdated,
+    stopAction: {
+      available: canRun && runTaskStatus === taskStatus.inProgress,
+      url: `/test-suites/${testRun.testSuite}/${testRun.runId}/stop`
+    }
   }
 }
 
