@@ -1,9 +1,5 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "loader/macro.njk" import appLoader %}
-{% from "time/macro.njk" import appTime %}
-{% from "icons/tick-icon/macro.njk" import appTickIcon %}
-{% from "icons/error-icon/macro.njk" import appErrorIcon %}
+{% from "test-suites/common/components/test-result-row/macro.njk" import appTestResultRow %}
 
 {% extends "layouts/tabbed-page.njk" %}
 
@@ -203,104 +199,28 @@
                 </p>
 
                 {% call(params) appEntityTable(tableData) %}
-                  <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
-                    <td headers="version" class="app-entity-table__cell" data-label="Version">
-                      <a class="app-link" href="https://github.com/DEFRA/{{ params.row.testSuite }}/releases/tag/{{ params.row.version }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-                          {{ params.row.version }}
-                        </a>
-                    </td>
 
-                    <td headers="environment" class="app-entity-table__cell" data-label="Environment">
-                      <span data-testid="app-entity-text">{{ params.row.environment }}</span>
-                    </td>
+                  {{ appTestResultRow({
+                    rowClasses: params.rowClasses,
+                    loopIndex: params.loopIndex,
+                    testSuite: params.row.testSuite,
+                    version: params.row.version,
+                    environment: params.row.environment,
+                    cpu: params.row.cpu,
+                    memory: params.row.memory,
+                    profile: params.row.profile,
+                    status: params.row.status,
+                    logs: params.row.logs,
+                    hasResult: params.row.hasResult,
+                    runTestStatus: params.row.runTestStatus,
+                    runId: params.row.runId,
+                    user: params.row.user,
+                    duration: params.row.duration,
+                    lastRun: params.row.lastRun,
+                    stopAction: params.row.stopAction
+                  })
+                  }}
 
-
-                    <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
-                      <span data-testid="app-entity-text">{{ params.row.cpu }}</span>
-                    </td>
-
-
-                    <td headers="memory" class="app-entity-table__cell" data-label="Memory">
-                      <span data-testid="app-entity-text">{{ params.row.memory }}</span>
-                    </td>
-
-
-                    <td headers="profile" class="app-entity-table__cell" data-label="Profile">
-                      {% if params.row.profile | length %}
-                        <span class="app-entity">{{ params.row.profile }}</span>
-                      {% else %}
-                        {{ noValue }}
-                      {% endif %}
-                    </td>
-
-
-                    <td headers="status" class="app-entity-table__cell" data-label="Status">
-                      {{ govukTag({
-                        text: params.row.status.value,
-                        classes: "app-tag " + params.row.status.classes,
-                        attributes: { "data-testid": "govuk-tag" }
-                      }) }}
-
-                      {% if params.row.status.showLoader -%}
-                        {{ appLoader({ classes: "app-loader--is-loading" }) }}
-                      {%- endif %}
-                    </td>
-
-
-                    <td headers="logs" class="app-entity-table__cell" data-label="Logs">
-                      {% if params.row.logs.available %}
-                        <a class="app-link" href="{{ params.row.logs.url }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-                          {{ params.row.logs.value }}
-                        </a>
-                      {% else %}
-                        {{ noValue }}
-                      {% endif %}
-                    </td>
-
-
-                    <td headers="results" class="app-entity-table__cell" data-label="Results">
-                      {% if params.row.hasResult %}
-                        <a class="app-link" href="/test-suites/test-results/{{ params.row.environment }}/{{ params.row.version }}/{{ params.row.testSuite }}/{{ params.row.runId }}/index.html" data-testid="app-entity-link">
-                          Report
-                        </a>
-                        {% if params.row.runTestStatus == "passed" %}
-                          <span class="govuk-!-margin-left-1 govuk-!-margin-top-1">{{ appTickIcon({ classes: "app-icon--small"}) }}</span>
-                        {% elseif params.row.runTestStatus == "failed" %}
-                          <span class="govuk-!-margin-left-1 govuk-!-margin-top-1">{{ appErrorIcon({ classes: "app-icon--small"}) }}</span>
-                        {% endif %}
-                      {% else %}
-                        {{ noValue }}
-                      {%  endif %}
-                    </td>
-
-
-                    <td headers="user" class="app-entity-table__cell" data-label="User">
-                      {{ params.row.user }}
-                    </td>
-
-
-                    <td headers="duration" class="app-entity-table__cell" data-label="Duration">
-                      <span data-testid="app-entity-text">{{ params.row.duration }}</span>
-                    </td>
-
-
-                    <td headers="last-ran" class="app-entity-table__cell" data-label="Last-ran">
-                      {{ appTime({ datetime: params.row.lastRun}) }}
-                    </td>
-
-                    <td headers="action" class="app-entity-table__cell" data-label="Action">
-                      {% if params.row.stopAction.available %}
-                        <form action="{{ params.row.stopAction.url }}" method="POST">
-                          <input type="hidden" name="csrfToken" value={{ csrfToken }}>
-                          {{ govukButton({
-                            classes: "app-button app-button--small",
-                            text: "Stop"}) }}
-                        </form>
-                      {% else %}
-                        {{ noValue }}
-                      {% endif %}
-                    </td>
-                  </tr>
                 {% endcall %}
               </section>
             </article>

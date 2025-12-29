@@ -1,0 +1,48 @@
+{% from "time/macro.njk" import appTime %}
+{% from "icons/star-icon/macro.njk" import appStarIcon %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+<tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+
+  <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered" data-label="Owner">
+    {% if params.isOwner %}
+      {{ appStarIcon({classes: "app-icon--minuscule" }) }}
+    {% endif %}
+  </td>
+
+  <td headers="test-suite" class="app-entity-table__cell" data-label="Test-suite">
+    <a class="app-link" href="/test-suites/{{ params.testSuite }}" data-testid="app-entity-link">{{ params.testSuite }}</a>
+  </td>
+
+  <td headers="team" class="app-entity-table__cell" data-label="Team">
+    {% if params.teams | length %}
+      <ul class="app-entity__list">
+        {% for team in params.teams %}
+          <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ noValue }}
+    {% endif %}
+  </td>
+
+  <td headers="kind" class="app-entity-table__cell" data-label="Kind">
+    {{ govukTag({
+      text: params.testType,
+      classes: "app-tag govuk-tag--blue",
+      attributes: { "data-testid": "govuk-tag" }
+    }) }}
+  </td>
+
+  <td headers="created" class="app-entity-table__cell" data-label="Created">
+    {% if params.status == "Created" %}
+      {{ appTime({ datetime: params.created }) }}
+    {% else %}
+      {{ govukTag({
+        text: params.status,
+        classes: "app-tag govuk-tag--blue",
+        attributes: { "data-testid": "govuk-tag" }
+      }) }}
+    {% endif %}
+  </td>
+</tr>

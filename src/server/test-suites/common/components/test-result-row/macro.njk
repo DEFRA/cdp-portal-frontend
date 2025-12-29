@@ -1,0 +1,24 @@
+{# Renders a service entity-table row
+
+@param {string} rowClasses - classes to be used for the row
+@param {number} loopIndex - table for loop index
+@param {string} testSuite - name of test suite
+@param {string} version - version of the test suite that ran
+@param {string} environment - which environment it ran in
+@param {string} cpu - how much CPU was allocated
+@param {string} memory - how much memory was allocated
+@param {string} profile - which profile, if any was used
+@param {{ value: string, showLoader: boolean, classes: string }} status - status info
+@param {{ value: string, url: string, available: boolean }} logs - link to logs
+@param {boolean} hasResult - does the run have a test report
+@param {string} runTestStatus - outcome of the test
+@param {string} runId - run id of test run
+@param {string} user - display name of user or trigger
+@param {string} duration - how long the test has run for
+@param {string} lastRun - date of when the test last ran
+@param {{ url: string, available: boolean }} stopAction - object for the stop button
+#}
+
+{% macro appTestResultRow(params) %}
+  {%- include "./template.njk" -%}
+{% endmacro %}
