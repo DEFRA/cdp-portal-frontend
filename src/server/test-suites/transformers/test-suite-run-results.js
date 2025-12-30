@@ -29,6 +29,10 @@ function testSuiteRunResults(testRun, canRun) {
     runTestStatus === testStatus.passed || runTestStatus === testStatus.failed
   const inProgress = inProgressStatus.includes(runTaskStatus)
 
+  const resultUrl = hasResult
+    ? `/test-suites/test-results/${testRun.environment}/${testRun.tag}/${testRun.testSuite}/${testRun.runId}/index.html`
+    : ''
+
   const logsLinkDataAvailable = [
     testRun.environment,
     testRun.taskArn,
@@ -64,6 +68,7 @@ function testSuiteRunResults(testRun, canRun) {
       url: logsLinkDataAvailable && buildLogsLink(testRun, hasResult)
     },
     hasResult,
+    resultUrl,
     runTestStatus,
     runTaskStatus,
     user,
