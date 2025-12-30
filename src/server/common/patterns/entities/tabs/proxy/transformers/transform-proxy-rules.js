@@ -7,11 +7,24 @@ import { defaultSquidDomains } from '../../../../../../../config/default-squid-d
  * @returns {{environment: string, rules: {allowedDomains: *, defaultDomains: string[], isProxySetup: boolean}}}
  */
 export function transformProxyRules(environment, squidConfig) {
-  const defaultDomains = defaultSquidDomains
-  const allowedDomains = (
-    squidConfig?.domains?.filter((d) => !defaultDomains.includes(d)) ?? []
-  ).sort()
+  const defaultDomains = []
+  const allowedDomains = []
+
   const isProxySetup = squidConfig?.domains != null
+
+  if (isProxySetup) {
+    squidConfig?.domains.forEach((domain) => {
+      if (defaultSquidDomains.includes(domain)) {
+        defaultDomains.push(domain)
+      } else {
+        allowedDomains.push(domain)
+      }
+    })
+
+    defaultDomains.sort()
+    allowedDomains.sort()
+  }
+
   return {
     environment,
     rules: {

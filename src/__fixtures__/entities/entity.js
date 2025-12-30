@@ -1,5 +1,7 @@
 // Response from portalBackendApi/entities/example-mock-service-frontend
 
+import { defaultSquidDomains } from '../../config/default-squid-domains.js'
+
 const entitiesResourcesFixture = {
   name: 'example-mock-service-frontend',
   type: 'Microservice',
@@ -92,7 +94,7 @@ const entitiesResourcesFixture = {
         servers: {}
       },
       squid: {
-        domains: ['https://abc.com']
+        domains: ['https://abc.com', ...defaultSquidDomains]
       }
     },
     management: {
@@ -143,7 +145,7 @@ const entitiesResourcesFixture = {
       },
       squid: {
         ports: [80, 443],
-        domains: ['https://abc.com']
+        domains: ['https://abc.com', ...defaultSquidDomains]
       }
     },
     dev: {
@@ -190,7 +192,7 @@ const entitiesResourcesFixture = {
       },
       squid: {
         ports: [80, 443],
-        domains: ['https://abc.com']
+        domains: ['https://abc.com', ...defaultSquidDomains]
       }
     },
     'ext-test': {
@@ -269,7 +271,7 @@ const entitiesResourcesFixture = {
         },
         squid: {
           ports: [80, 443],
-          domains: ['https://abc.com']
+          domains: ['https://abc.com', ...defaultSquidDomains]
         }
       }
     },
@@ -317,7 +319,7 @@ const entitiesResourcesFixture = {
       },
       squid: {
         ports: [80, 443],
-        domains: ['https://abc.com']
+        domains: ['https://abc.com', ...defaultSquidDomains]
       }
     },
     'perf-test': {
@@ -370,7 +372,7 @@ const entitiesResourcesFixture = {
       },
       squid: {
         ports: [80, 443],
-        domains: ['https://abc.com']
+        domains: ['https://abc.com', ...defaultSquidDomains]
       }
     },
     prod: {
@@ -423,7 +425,7 @@ const entitiesResourcesFixture = {
       },
       squid: {
         ports: [80, 443],
-        domains: ['https://abc.com']
+        domains: ['https://abc.com', ...defaultSquidDomains]
       }
     }
   },

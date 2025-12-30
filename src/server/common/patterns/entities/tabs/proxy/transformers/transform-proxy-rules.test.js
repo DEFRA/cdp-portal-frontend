@@ -4,7 +4,7 @@ import { defaultSquidDomains } from '../../../../../../../config/default-squid-d
 describe('#transformProxyRules', () => {
   test('Should return transformed proxy rules', () => {
     const response = transformProxyRules('infra-dev', {
-      domains: ['.test.example.com']
+      domains: ['.test.example.com', ...defaultSquidDomains]
     })
 
     expect(response).toEqual({
@@ -15,6 +15,14 @@ describe('#transformProxyRules', () => {
         isProxySetup: true
       }
     })
+  })
+
+  test('Should only include default domains if they are in the services config domains', () => {
+    const response = transformProxyRules('infra-dev', {
+      domains: ['.test.example.com', defaultSquidDomains[0]]
+    })
+
+    expect(response.rules.defaultDomains).toEqual([defaultSquidDomains[0]])
   })
 
   test('Should be isProxySetup if it has some domains', () => {
