@@ -16,8 +16,8 @@ const defaultSquidDomains = [
   'www.gov.uk',
   'dcidmtest.b2clogin.com',
   'dcidm.b2clogin.com',
-  "your-account.pre.cui.defra.gov.uk",
-  "dcidmpreprod.b2clogin.com",
+  'your-account.pre.cui.defra.gov.uk',
+  'dcidmpreprod.b2clogin.com',
   'your-account.cpdev.cui.defra.gov.uk',
   'your-account.defra.gov.uk'
 ].sort()
