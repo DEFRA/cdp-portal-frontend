@@ -62,7 +62,7 @@
 
   <td headers="results" class="app-entity-table__cell" data-label="Results">
     {% if params.hasResult %}
-      <a class="app-link" href="/test-suites/test-results/{{ params.environment }}/{{ params.version }}/{{ params.testSuite }}/{{ params.runId }}/index.html" data-testid="app-entity-link">
+      <a class="app-link" href="{{ params.resultUrl }}" data-testid="app-entity-link">
         Report
       </a>
       {% if params.runTestStatus == "passed" %}
@@ -77,7 +77,7 @@
 
 
   <td headers="user" class="app-entity-table__cell" data-label="User">
-    {{ params.user }}
+    {{ params.user | safe }}
   </td>
 
 
