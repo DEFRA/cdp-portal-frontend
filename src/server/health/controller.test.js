@@ -1,17 +1,15 @@
-import { createServer } from '../index.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
+import { createTestServer } from '../../../test-helpers/create-test-server.js'
+import { healthController } from './controller.js'
+
 describe('#healthController', () => {
-  /** @type {import('@hapi/hapi').Server} */
   let server
 
   beforeAll(async () => {
-    server = await createServer()
-    await server.initialize()
-  })
-
-  afterAll(async () => {
-    await server.stop({ timeout: 0 })
+    server = await createTestServer({
+      routes: { method: 'GET', path: '/health', ...healthController }
+    })
   })
 
   test('Should provide expected healthy response', async () => {
