@@ -22,4 +22,18 @@ const performanceEnvironments = [
   environments.perfTest
 ]
 
-export { environments, prototypeEnvironments, performanceEnvironments }
+const environmentsExceptInfraDev = [
+  environments.management,
+  environments.dev,
+  environments.test,
+  environments.perfTest,
+  environments.extTest,
+  environments.prod
+]
+
+export {
+  environments,
+  prototypeEnvironments,
+  performanceEnvironments,
+  environmentsExceptInfraDev
+}
