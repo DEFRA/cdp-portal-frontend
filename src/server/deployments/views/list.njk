@@ -1,3 +1,5 @@
+{% from "deployments/common/components/deployment-row/macro.njk" import appDeploymentRow %}
+
 {% extends "layouts/tabbed-page.njk" %}
 
 {% block beforeTabContent %}
@@ -114,7 +116,25 @@
   {% block xhrContent %}
 
     <div data-xhr="deployments">
-      {{ appEntityTable(tableData) }}
+
+      {% call(params) appEntityTable(tableData) %}
+
+        {{  appDeploymentRow({
+          rowClasses: params.rowClasses,
+          loopIndex: params.loopIndex,
+          isOwner:  params.row.isOwner,
+          service: params.row.service,
+          version: params.row.version,
+          kind: params.row.kind,
+          kindText: params.row.kindText,
+          kindClass: params.row.kindClass,
+          statusText: params.row.statusText,
+          statusClass: params.row.statusClass,
+          teams: params.row.teams,
+          by: params.row.by,
+          started: params.row.started
+        }) }}
+      {% endcall %}
     </div>
 
   {% endblock %}

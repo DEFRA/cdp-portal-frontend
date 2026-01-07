@@ -1,0 +1,18 @@
+{# Renders a service entity-table row
+
+@param {string} rowClasses - classes to be used for the row
+@param {number} loopIndex - table for loop index
+@param {boolean} isOwner - Does the current user own this service
+@param {string} service - Name of test suite
+@param {string} version - Version of deployment
+@param {string} kind - update or deployment
+@param {string} kindText - Display version of kind
+@param {string} kindClass - Display class of update
+@param {string} statusText - Status of deployment
+@param {string} statusClass - Display class of status
+@param {object}[] teams - Teams who own the service
+@param {string} started - Date deployment started #}
+
+{% macro appDeploymentRow(params) %}
+  {%- include "./template.njk" -%}
+{% endmacro %}

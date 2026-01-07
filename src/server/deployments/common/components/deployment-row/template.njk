@@ -1,0 +1,80 @@
+{% from "time/macro.njk" import appTime %}
+{% from "icons/star-icon/macro.njk" import appStarIcon %}
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
+{% from "icons/database-icon/macro.njk" import appDatabaseIcon %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+<tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
+
+  <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned  app-entity-table__cell--centered" data-label="Owner">
+    {% if params.isOwner %}
+      {{ appStarIcon({classes: "app-icon--minuscule" }) }}
+    {% endif %}
+  </td>
+
+
+  <td headers="description" class="app-entity-table__cell" data-label="Description">
+    <a class="app-link app-entity-table__row-header" href="/deployments/dev/dbe5337e-3de4-4ff2-8dec-d9338837d271" data-testid="app-link">trade-imports-gmr-finder</a>
+    <div class="app-!-layout-centered govuk-!-margin-top-1">
+        {%  if params.kind == "update" %}
+          <span class="app-tool-tip" data-text="{{ params.kindText }} deployment: {{ params.version}} - {{ params.statusText }}">
+            {{ appDatabaseIcon({ classes: 'app-icon--tiny govuk-!-margin-right-1' }) }}
+          </span>
+          <div class="app-entity-table__row-caption">Database update</div>
+        {% else %}
+          <span class="app-tool-tip" data-text="{{ params.kindText }} deployment: {{ params.version}} - {{ params.statusText }}">
+          {{ appInstanceIcon({ classes: 'app-icon--tiny govuk-!-margin-right-1' }) }}
+          </span>
+          <div class="app-entity-table__row-caption">Microservice deployment</div>
+        {% endif %}
+    </div>
+  </td>
+
+
+  <td headers="version" class="app-entity-table__cell" data-label="Version">
+    <a class="app-link" href="https://github.com/DEFRA/{{ params.service }}/releases/tag/{{ params.version }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
+      {{ params.version }}
+    </a>
+  </td>
+
+
+  <td headers="status" class="app-entity-table__cell" data-label="Status">
+    {{ govukTag({
+      text: params.statusText,
+      classes: 'app-tag ' + params.statusClass,
+      attributes: { "data-testid": "govuk-tag" }
+    }) }}
+  </td>
+
+
+  <td headers="kind" class="app-entity-table__cell" data-label="Kind">
+    {{ govukTag({
+      text: params.kindText,
+      classes: 'app-tag ' + params.kindClass ,
+      attributes: { "data-testid": "govuk-tag" }
+    }) }}
+  </td>
+
+
+  <td headers="by" class="app-entity-table__cell" data-label="By">
+    <span data-testid="app-entity-text">{{ params.by }}</span>
+  </td>
+
+
+  <td headers="team" class="app-entity-table__cell" data-label="Team">
+    {% if params.teams | length %}
+      <ul class="app-entity__list">
+        {% for team in params.teams %}
+          <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ noValue }}
+    {% endif %}
+  </td>
+
+
+  <td headers="started" class="app-entity-table__cell" data-label="Started">
+    {{ appTime({ datetime: params.started }) }}
+  </td>
+</tr>
