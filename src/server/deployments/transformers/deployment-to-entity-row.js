@@ -9,6 +9,8 @@ function deploymentToEntityRow(deployment) {
     isOwner: deployment.isOwner,
     service: deployment.service,
     version: deployment.version,
+    environment: deployment.environment,
+    deploymentId: deployment.cdpDeploymentId,
     kind: 'deployment',
     kindText: 'Deployment',
     kindClass: 'govuk-tag--blue',

@@ -18,6 +18,8 @@ describe('#deploymentToEntityRow', () => {
     expect(deploymentsWithTeams.map(deploymentToEntityRow)).toEqual([
       {
         by: 'Mumm-ra',
+        deploymentId: '3c439dc3-014f-47ef-9433-57ef0a10d8aa',
+        environment: 'dev',
         isOwner: true,
         kind: 'deployment',
         kindClass: 'govuk-tag--blue',
@@ -36,6 +38,8 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'B. A. Baracus',
+        deploymentId: undefined,
+        environment: 'test',
         isOwner: true,
         kind: 'deployment',
         kindClass: 'govuk-tag--blue',
@@ -54,6 +58,8 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'The Terminator',
+        deploymentId: 'a7278885-b997-460f-8d4b-c78dec20ccea',
+        environment: 'management',
         isOwner: true,
         kind: 'deployment',
         kindClass: 'govuk-tag--blue',
@@ -72,6 +78,8 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'Mumm-ra',
+        deploymentId: '79d0c642-6758-40c3-af35-ba22697d33cf',
+        environment: 'dev',
         isOwner: false,
         kind: 'deployment',
         kindClass: 'govuk-tag--blue',
@@ -90,6 +98,8 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'B. A. Baracus',
+        deploymentId: 'd209be38-adc7-4a53-a1d4-3d6b2b33d4a7',
+        environment: 'management',
         isOwner: true,
         kind: 'deployment',
         kindClass: 'govuk-tag--blue',

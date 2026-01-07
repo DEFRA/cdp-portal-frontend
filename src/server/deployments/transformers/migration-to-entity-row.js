@@ -7,6 +7,8 @@ function migrationToEntityRow(migration) {
     isOwner: migration.isOwner,
     service: migration.service,
     version: migration.version,
+    environment: migration.environment,
+    deploymentId: migration.cdpMigrationId,
     kind: 'update',
     kindText: 'Update',
     kindClass: 'govuk-tag--blue',
