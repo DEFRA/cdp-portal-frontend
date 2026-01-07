@@ -14,20 +14,25 @@
 
 
   <td headers="description" class="app-entity-table__cell" data-label="Description">
-    <a class="app-link app-entity-table__row-header" href="/deployments/dev/dbe5337e-3de4-4ff2-8dec-d9338837d271" data-testid="app-link">trade-imports-gmr-finder</a>
-    <div class="app-!-layout-centered govuk-!-margin-top-1">
+
         {%  if params.kind == "update" %}
-          <span class="app-tool-tip" data-text="{{ params.kindText }} deployment: {{ params.version}} - {{ params.statusText }}">
-            {{ appDatabaseIcon({ classes: 'app-icon--tiny govuk-!-margin-right-1' }) }}
-          </span>
-          <div class="app-entity-table__row-caption">Database update</div>
+          <a class="app-link app-entity-table__row-header" href="/deployments/database-updates/{{ params.environment }}/{{ params.deploymentId }}" data-testid="app-link">{{ params.service }}</a>
+          <div class="app-!-layout-centered govuk-!-margin-top-1">
+            <span class="app-tool-tip" data-text="{{ params.kindText }} deployment: {{ params.version}} - {{ params.statusText }}">
+              {{ appDatabaseIcon({ classes: 'app-icon--tiny govuk-!-margin-right-1' }) }}
+            </span>
+            <div class="app-entity-table__row-caption">Database update</div>
+          </div>
         {% else %}
-          <span class="app-tool-tip" data-text="{{ params.kindText }} deployment: {{ params.version}} - {{ params.statusText }}">
-          {{ appInstanceIcon({ classes: 'app-icon--tiny govuk-!-margin-right-1' }) }}
-          </span>
-          <div class="app-entity-table__row-caption">Microservice deployment</div>
+          <a class="app-link app-entity-table__row-header" href="/deployments/{{ params.environment }}/{{ params.deploymentId }}" data-testid="app-link">{{ params.service }}</a>
+            <div class="app-!-layout-centered govuk-!-margin-top-1">
+            <span class="app-tool-tip" data-text="{{ params.kindText }} deployment: {{ params.version}} - {{ params.statusText }}">
+            {{ appInstanceIcon({ classes: 'app-icon--tiny govuk-!-margin-right-1' }) }}
+            </span>
+            <div class="app-entity-table__row-caption">Microservice deployment</div>
+          </div>
         {% endif %}
-    </div>
+
   </td>
 
 
