@@ -9,8 +9,26 @@ import { pluralise } from '../../../helpers/pluralise.js'
 import { REPOSITORY } from '../tabs/constants.js'
 import { resourceDescriptions } from './helpers/resource-descriptions.js'
 import capitalize from 'lodash/capitalize.js'
-import { entityStatuses } from '@defra/cdp-validation-kit/src/constants/entities.js'
+import {
+  entityStatuses,
+  entityTypes
+} from '@defra/cdp-validation-kit/src/constants/entities.js'
 import { statusTagClassMap } from '../../../helpers/status-tag-class-map.js'
+import { environmentsExceptInfraDev } from '../../../../../config/environments.js'
+
+const stepsByEntityType = {
+  [entityTypes.microservice]: ['infra', 'logs', 'squid', 'nginx', 'metrics'],
+  [entityTypes.testSuite]: ['infra', 'logs', 'squid']
+}
+
+function calculateStepProgress(entity, steps) {
+  return steps.map((step) => ({
+    name: capitalize(step),
+    isReady: environmentsExceptInfraDev.every(
+      (e) => entity.progress?.[e.kebabName]?.steps?.[step]
+    )
+  }))
+}
 
 export async function entityStatusHandler(request, h, entityKind) {
   const entity = request.app.entity
@@ -25,20 +43,18 @@ export async function entityStatusHandler(request, h, entityKind) {
 
   const repository = await fetchRepository(serviceName).catch(nullify404)
 
-  const resources = Object.entries(entity.overallProgress.steps).map(
-    ([name, isReady]) => ({ name: capitalize(name), isReady })
-  )
+  const resources = [
+    {
+      name: 'Repository',
+      isReady: Boolean(repository)
+    }
+  ]
 
-  const repositoryIsCreated = Boolean(repository && !repository?.isArchived)
-  resources.push({
-    name: 'Repository',
-    isReady: repositoryIsCreated
-  })
+  const steps = stepsByEntityType[entity.type]
 
-  entity.status =
-    entity.status === entityStatuses.created && repositoryIsCreated
-      ? entityStatuses.created
-      : entityStatuses.creating
+  if (steps) {
+    resources.push(...calculateStepProgress(entity, steps))
+  }
 
   entity.statusClass = statusTagClassMap(entity.status)
 
