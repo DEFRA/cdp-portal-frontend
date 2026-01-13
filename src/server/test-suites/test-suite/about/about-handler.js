@@ -26,6 +26,9 @@ async function aboutTestSuiteHandler(request, h) {
 
   const profiles = [...new Set(testRuns.map((t) => t.profile).filter(Boolean))]
   formValues.profileOptions = buildOptions(profiles)
+  if (!formValues.provideProfile) {
+    formValues.provideProfile = 'false'
+  }
 
   return h.view('test-suites/test-suite/about/views/test-suite', {
     pageTitle: `Test Suite - ${testSuiteName}`,

@@ -16,14 +16,14 @@ const stopTestSuiteController = {
         text: `Stopping test run, this will take a few seconds.`,
         type: 'success'
       })
-      return h.redirect(`/test-suites/${suite.serviceName}`)
+      return h.redirect(`/test-suites/${suite.name}`)
     } catch (error) {
       request.logger.error(error)
       request.yar.flash(
         sessionNames.globalValidationFailures,
         `Failed to stop test suite ${runId}, ${error.message}.`
       )
-      return h.redirect(`/test-suites/${suite.serviceName}`)
+      return h.redirect(`/test-suites/${suite.name}`)
     }
   }
 }
