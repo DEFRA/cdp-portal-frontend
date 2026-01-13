@@ -93,7 +93,7 @@
   <td headers="action" class="app-entity-table__cell" data-label="Action">
     {% if params.stopAction.available %}
       <form action="{{ params.stopAction.url }}" method="POST">
-        <input type="hidden" name="csrfToken" value={{ csrfToken }}>
+        <input type="hidden" name="csrfToken" value={{ params.csrfToken }}>
         {{ govukButton({
           classes: "app-button app-button--small",
           text: "Stop"}) }}
