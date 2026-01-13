@@ -1,6 +1,6 @@
 import { config } from '../../../../../config/config.js'
 import { fetchJson } from '../../../../common/helpers/fetch/fetch-json.js'
-import Wreck from "@hapi/wreck";
+import Wreck from '@hapi/wreck'
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')
 
@@ -12,15 +12,17 @@ async function fetchCdpUser(userId) {
 }
 
 async function fetchPermissionDiagram(userId) {
-  const endpoint = `${userServiceBackendUrl}/auth/graph?user=${userId}`
+  const endpoint = `${userServiceBackendUrl}/auth/diagram?user=${userId}`
 
-  const { payload } = await Wreck.get(endpoint, {
+  const { res, payload } = await Wreck.get(endpoint, {
     json: false
   })
 
+  if (!res.statusCode === 200) {
+    return 'flowchart LR\nerror[No permissions found]\n'
+  }
   return payload
 }
-
 
 async function fetchCdpUsers() {
   const endpoint = `${userServiceBackendUrl}/users`

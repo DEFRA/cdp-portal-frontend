@@ -1,7 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import {fetchCdpUser, fetchPermissionDiagram} from '../helpers/fetch/fetchers.js'
+import {
+  fetchCdpUser,
+  fetchPermissionDiagram
+} from '../helpers/fetch/fetchers.js'
 import { transformUserToSummary } from '../transformers/user-to-summary.js'
 import { transformUserTeamsToTaskList } from '../transformers/user-teams-to-task-list.js'
 import { userIdValidation } from '@defra/cdp-validation-kit'
