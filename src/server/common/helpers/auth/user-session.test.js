@@ -26,13 +26,11 @@ describe('#userSession', () => {
       auth: {
         credentials: {
           expiresIn: 3600,
-          profile: {
-            id: 'user-id',
+          claims: {
+            oid: 'user-id',
+            name: 'User Name',
             email: 'user@example.com',
-            displayName: 'User Name',
-            loginHint: 'user@example.com',
-            scopes: ['scope1', 'scope2'],
-            scopeFlags: { isAdmin: true, isTenant: false }
+            login_hint: 'user@example.com'
           },
           token: 'access-token',
           refreshToken: 'refresh-token'

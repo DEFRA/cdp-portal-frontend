@@ -1,4 +1,3 @@
-import jwt from '@hapi/jwt'
 import bell from '@hapi/bell'
 import qs from 'qs'
 import Wreck from '@hapi/wreck'
@@ -43,25 +42,7 @@ const azureOidc = {
             'email',
             'offline_access',
             'user.read'
-          ],
-          profile: async function (credentials, _params, get) {
-            const decodedPayload = jwt.token.decode(credentials.token).decoded
-              .payload
-            const endpoint = config.get('userServiceBackendUrl') + '/scopes'
-
-            const { scopes, scopeFlags } = await get(endpoint, {
-              options: { agent: false }
-            })
-
-            credentials.profile = {
-              id: decodedPayload.oid,
-              displayName: decodedPayload.name,
-              email: decodedPayload.upn ?? decodedPayload.preferred_username,
-              scopes,
-              scopeFlags,
-              loginHint: decodedPayload.login_hint
-            }
-          }
+          ]
         },
         clientId: config.get('azureClientId'),
         forceHttps: config.get('isProduction'),

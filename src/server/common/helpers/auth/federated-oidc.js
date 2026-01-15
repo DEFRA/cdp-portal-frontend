@@ -160,13 +160,7 @@ async function postLogin(request, oidcConfig, options) {
     accessToken: token.access_token,
     refreshToken: token.refresh_token,
     idToken: token.id_token,
-    claims,
-    // This bit is fairly portal specific, maybe build it in the callback handler?
-    profile: {
-      id: claims.oid,
-      displayName: claims.name,
-      email: claims.email ?? claims.preferred_username
-    }
+    claims
   }
 }
 

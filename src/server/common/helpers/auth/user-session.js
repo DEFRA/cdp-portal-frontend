@@ -38,13 +38,13 @@ async function createUserSession(request, sessionId) {
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds).toISOString()
 
-  const { id, email, displayName, loginHint } = request.auth.credentials.profile
+  const claims = request.auth.credentials.claims
 
   const session = {
-    id,
-    email,
-    displayName,
-    loginHint,
+    id: claims.oid,
+    displayName: claims.name,
+    email: claims.email ?? claims.preferred_username,
+    loginHint: claims.login_hint,
     isAuthenticated: request.auth.isAuthenticated,
     token: request.auth.credentials.token,
     refreshToken: request.auth.credentials.refreshToken,
