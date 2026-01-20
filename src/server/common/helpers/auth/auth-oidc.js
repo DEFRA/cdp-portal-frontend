@@ -29,7 +29,7 @@ export const AuthOidcPlugin = {
       getOidcConfig,
       loginCallbackUri: config.get('appBaseUrl') + '/auth/callback',
       scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
-      externalBaseUrl: 'http://localhost:3000'
+      externalBaseUrl: config.get('appBaseUrl')
     },
     cookieOptions: {
       isSecure: sessionCookieConfig.isSecure,
