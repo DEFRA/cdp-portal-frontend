@@ -33,6 +33,7 @@ describe('#userSession', () => {
             login_hint: 'user@example.com'
           },
           token: 'access-token',
+          accessToken: 'access-token',
           refreshToken: 'refresh-token'
         },
         isAuthenticated: true
@@ -57,6 +58,7 @@ describe('#userSession', () => {
         loginHint: 'user@example.com',
         isAuthenticated: true,
         token: 'access-token',
+        accessToken: 'access-token',
         refreshToken: 'refresh-token',
         expiresIn: 3600000,
         expiresAt: expect.any(String)
@@ -75,9 +77,9 @@ describe('#userSession', () => {
       getUserSession: vi.fn()
     }
     const refreshTokenResponse = {
-      access_token: 'new-access-token',
-      expires_in: 3600,
-      refresh_token: 'new-refresh-token'
+      accessToken: 'new-access-token',
+      expiresIn: 3600,
+      refreshToken: 'new-refresh-token'
     }
 
     beforeEach(async () => {
@@ -105,6 +107,7 @@ describe('#userSession', () => {
         loginHint: 'user@example.com',
         isAuthenticated: true,
         token: 'new-access-token',
+        accessToken: 'new-access-token',
         refreshToken: 'new-refresh-token',
         expiresIn: 3600000,
         expiresAt: expect.any(String)

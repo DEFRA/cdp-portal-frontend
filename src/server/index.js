@@ -21,12 +21,10 @@ import { s3Client } from './common/helpers/aws/s3-client.js'
 import { contentSecurityPolicy } from './common/helpers/csp/content-security-policy.js'
 import { requestTracing } from './common/helpers/request-tracing.js'
 import { setupProxy } from './common/helpers/proxy/setup-proxy.js'
-import { federatedOidc } from './common/helpers/auth/federated-oidc.js'
-import { cognitoFederatedCredentials } from './common/helpers/auth/cognito.js'
 import { setupCaches } from './common/helpers/session/setup-caches.js'
 import { getCacheEngine } from './common/helpers/session/cache-engine.js'
 import { nodeVmMetrics } from './common/helpers/performance/node-vm-metrics.js'
-import { mockCognitoFederatedCredentials } from './common/helpers/auth/mock-cognito.js'
+import { AuthOidcPlugin } from './common/helpers/auth/auth-oidc.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -91,19 +89,13 @@ async function createServer() {
     await server.register(secureContext)
   }
 
-  const useOidcMocks = config.get('azureFederatedCredentials.enableMocking')
-  const credentialProvider = useOidcMocks
-    ? mockCognitoFederatedCredentials
-    : cognitoFederatedCredentials
-
   // this has to happen before session manager
   server.ext('onPreResponse', addFlashMessagesToContext)
 
   await server.register([
     pulse,
     sessionManager,
-    credentialProvider,
-    federatedOidc,
+    AuthOidcPlugin,
     sessionCookie,
     Scooter,
     contentSecurityPolicy,

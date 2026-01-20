@@ -286,7 +286,7 @@ const config = convict({
       format: String,
       env: 'AZURE_IDENTITY_POOL_ID',
       nullable: true,
-      default: null
+      default: 'mock'
     }
   },
   azureTenantId: {

@@ -1,6 +1,8 @@
 import authCookie from '@hapi/cookie'
 import { config } from '../../../../config/config.js'
 import { fetchScopes } from '../../../teams/helpers/fetch/fetch-scopes.js'
+import { refreshUserSession, removeAuthenticatedUser } from './user-session.js'
+import { sessionNames } from '../../constants/session-names.js'
 
 const sessionCookieConfig = config.get('session.cookie')
 
@@ -25,12 +27,28 @@ const sessionCookie = {
           const currentUserSession = await request.getUserSession(
             session.sessionId
           )
+
           if (currentUserSession?.isAuthenticated) {
-            const refreshedUserSession =
-              await request.refreshToken(currentUserSession)
-            const userSession = !refreshedUserSession
+            let refreshTokenResponse
+
+            try {
+              refreshTokenResponse =
+                await request.validateAndRefreshToken(currentUserSession)
+            } catch (error) {
+              request.logger.debug(
+                error,
+                `Token refresh for ${currentUserSession?.displayName} failed`
+              )
+              removeAuthenticatedUser(request)
+              request.yar.flash(
+                sessionNames.globalValidationFailures,
+                'Your login expired'
+              )
+            }
+
+            const userSession = !refreshTokenResponse
               ? currentUserSession
-              : refreshedUserSession
+              : await refreshUserSession(request, refreshTokenResponse)
 
             const { scopes, scopeFlags } = await fetchScopes(userSession.token)
             return {

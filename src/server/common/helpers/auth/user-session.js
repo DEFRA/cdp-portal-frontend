@@ -41,12 +41,15 @@ async function createUserSession(request, sessionId) {
   const claims = request.auth.credentials.claims
 
   const session = {
-    id: claims.oid,
+    id: claims.sub || claims.oid,
     displayName: claims.name,
     email: claims.email ?? claims.preferred_username,
     loginHint: claims.login_hint,
     isAuthenticated: request.auth.isAuthenticated,
-    token: request.auth.credentials.token,
+    token:
+      request.auth.credentials.accessToken ?? request.auth.credentials.token,
+    accessToken:
+      request.auth.credentials.accessToken ?? request.auth.credentials.token,
     refreshToken: request.auth.credentials.refreshToken,
     expiresIn: expiresInMilliSeconds,
     expiresAt
@@ -73,13 +76,13 @@ async function createUserSession(request, sessionId) {
 async function refreshUserSession(request, refreshTokenResponse) {
   request.logger.debug('User session refreshing')
 
-  const refreshedToken = refreshTokenResponse.access_token
+  const { accessToken, refreshToken, expiresIn } = refreshTokenResponse
 
   /** @type {JwtPayload} */
-  const payload = jwt.token.decode(refreshedToken).decoded.payload
+  const payload = jwt.token.decode(accessToken).decoded.payload
 
   // Update userSession with new access token and new expiry details
-  const expiresInSeconds = refreshTokenResponse.expires_in
+  const expiresInSeconds = expiresIn
   const expiresInMilliSeconds = expiresInSeconds * 1000
   const expiresAt = addSeconds(new Date(), expiresInSeconds).toISOString()
 
@@ -88,13 +91,14 @@ async function refreshUserSession(request, refreshTokenResponse) {
   )
 
   const session = {
-    id: payload.oid,
-    email: payload.preferred_username,
+    id: payload.sub ?? payload.oid,
+    email: payload.email ?? payload.preferred_username,
     displayName: payload.name,
     loginHint: payload.login_hint,
     isAuthenticated: true,
-    token: refreshTokenResponse.access_token,
-    refreshToken: refreshTokenResponse.refresh_token,
+    token: accessToken,
+    accessToken,
+    refreshToken,
     expiresIn: expiresInMilliSeconds,
     expiresAt
   }
