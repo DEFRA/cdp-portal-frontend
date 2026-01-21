@@ -1,9 +1,8 @@
 import { sortKeyByEnv } from './sort/sort-by-env.js'
+import { basename } from 'node:path'
 
-function obtainLogsAndMetricsUrls(
-  environmentDetails,
-  availableServiceEnvironments
-) {
+function obtainLogsAndMetricsUrls(entity, availableServiceEnvironments) {
+  const environmentDetails = entity.environments
   const logsDetails = Object.entries(environmentDetails)
     .filter(([environment]) =>
       availableServiceEnvironments.includes(environment)
@@ -17,7 +16,7 @@ function obtainLogsAndMetricsUrls(
     )
     .map(([environment, details]) => ({
       environment,
-      metrics: details.metrics
+      metrics: details.metrics?.map((m) => addMetricsTitle(entity.name, m))
     }))
     .sort(sortKeyByEnv('environment'))
     .reduce((metricsLinks, { environment, metrics }) => {
@@ -26,6 +25,21 @@ function obtainLogsAndMetricsUrls(
     }, {})
 
   return { logsDetails, metricsDetails }
+}
+
+/**
+ * Replaces the type field for custom dashboards with a more meaningful name.
+ * Custom dashboards follow a naming convention `${service}-${dashboard-name}`.
+ * Non-custom dashboards are returned unmodified
+ * @param {string} name
+ * @param {{type: string, url: string}} metrics
+ * @return {{type: string, url: string}[]}
+ */
+function addMetricsTitle(name, metrics) {
+  if (metrics.type === 'custom') {
+    metrics.type = basename(metrics.url).replace(name + '-', '')
+  }
+  return metrics
 }
 
 export { obtainLogsAndMetricsUrls }
