@@ -1,0 +1,64 @@
+{% extends "layouts/minimal-page.njk" %}
+{% from "icons/error-icon/macro.njk" import appErrorIcon %}
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+
+{% from "panel/macro.njk" import appPanel %}
+
+{% block content %}
+
+  {{ appPageHeading({
+    text: heading
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop-massive">
+
+      {% call appPanel() %}
+        <p>
+          There isn't a test report available for this test run. This might be caused by a number of things.
+        </p>
+
+        <h2 class="govuk-heading-m govuk-!-margin-top-6 govuk-!-margin-bottom-2">
+          {{ appTickIcon({ classes: "app-icon--small" }) }}
+          If the test run passed...
+        </h2>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>It did not generate a report at the end of the run.</li>
+          <li>It generated a report but did not upload it at the end of the run</li>
+          <li>The report was published but did not contain an index.html file</li>
+        </ul>
+
+        <h2 class="govuk-heading-m govuk-!-margin-top-6 govuk-!-margin-bottom-2">
+          {{ appErrorIcon({ classes: "app-icon--small" }) }}
+          If the test run failed...
+        </h2>
+        <p>It may be caused by the points above, as well as:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>The test run failed to start</li>
+          <li>The test run crashed before being able to generate and publish a report</li>
+          <li>The test took longer than 2 hours to run, resulting in it being automatically stopped.</li>
+        </ul>
+      {% endcall %}
+    </div>
+  </div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop-massive">
+
+    {% if files|length %}
+      {% call appPanel() %}
+        The report folder does contain the following files:
+        <ul class="govuk-list">
+          {% for file in files %}
+          <li>{{ file.Key }} - {{ file.Size }} Bytes</li>
+          {%  endfor %}
+        </ul>
+
+      {%  endcall %}
+    {%  endif %}
+  </div>
+</div>
+
+
+{% endblock %}
