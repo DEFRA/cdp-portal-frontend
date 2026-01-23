@@ -71,25 +71,7 @@ export const HapiAuthOidcPlugin = {
 
             return h.authenticated({ credentials })
           } catch (e) {
-            if (e?.response) {
-              try {
-                const body = await e.response.json?.()
-                logger?.error?.(
-                  e,
-                  `Post login failed with response body:\n${body}`
-                )
-              } catch {
-                const text = await e.response.text?.()
-                logger?.error?.(
-                  e,
-                  `Post login failed with raw response body:\n${text}`
-                )
-              }
-            } else {
-              // Generic error logging
-              logger?.error?.(e, 'Post login failed')
-            }
-            logger?.error?.(e, 'Post login failed')
+            logger?.error?.(e, `Post login failed:\n${JSON.stringify(e)}`)
             return Boom.unauthorized(e)
           }
         }
