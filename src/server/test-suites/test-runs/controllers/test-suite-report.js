@@ -21,7 +21,17 @@ const testSuiteReportController = {
     )
     const bucket = `cdp-${request.params.environment}-test-results`
 
-    return iframeS3FileHandler(request, h, key, bucket)
+    return iframeS3FileHandler(
+      request,
+      h,
+      {
+        key,
+        bucket,
+        folder: `${request.params.serviceId}/${request.params.runId}/`
+      },
+      key,
+      bucket
+    )
   }
 }
 

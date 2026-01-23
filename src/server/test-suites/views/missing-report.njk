@@ -48,10 +48,14 @@
 
     {% if files|length %}
       {% call appPanel() %}
-        The report folder does contain the following files:
+        <p>The report folder for this run contains:</p>
+
         <ul class="govuk-list">
           {% for file in files %}
-          <li>{{ file.Key }} - {{ file.Size }} Bytes</li>
+          <li>
+            <a class="govuk-link" href="{{ file.url }}">
+            {{ file.name }} - {{ file.size }} bytes</a>
+          </li>
           {%  endfor %}
         </ul>
 
