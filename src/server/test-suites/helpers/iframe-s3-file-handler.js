@@ -1,18 +1,15 @@
 import { GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3'
-
 import { statusCodeMessage } from '../../common/helpers/errors/status-code-message.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
-import { dirname } from 'node:path'
 
 /**
  * S3 file handler for use with iFrames
  * @param {import('@hapi/hapi').Request} request
  * @param {import('@hapi/hapi').ResponseToolkit} h
- * @param {string} key
- * @param {string} bucket
+ * @param {{key: string, bucket: string, environment: string, folder: string}} params
  * @returns {Promise<*>}
  */
-async function iframeS3FileHandler(request, h, key, bucket) {
+async function iframeS3FileHandler(request, h, { key, bucket, folder }) {
   const xFrameOptions = 'SAMEORIGIN'
   const command = new GetObjectCommand({
     Bucket: bucket,
@@ -34,7 +31,7 @@ async function iframeS3FileHandler(request, h, key, bucket) {
     const errorMessage = statusCodeMessage(statusCode)
 
     if (statusCode === statusCodes.notFound) {
-      const files = await listSubFolder(request.s3Client, bucket, key)
+      const files = await listSubFolder(request, bucket, folder)
       return h
         .view('test-suites/views/missing-report', {
           heading: 'No report found',
@@ -54,16 +51,20 @@ async function iframeS3FileHandler(request, h, key, bucket) {
   }
 }
 
-async function listSubFolder(s3Client, bucket, key) {
+async function listSubFolder(request, bucket, folder) {
   try {
     const command = new ListObjectsV2Command({
       Bucket: bucket,
-      Prefix: dirname(key) + '/'
+      Prefix: folder
     })
-
-    const response = await s3Client.send(command)
-    return response.Body?.Contents
+    const response = await request.s3Client.send(command)
+    return response.Contents.map((c) => ({
+      name: c.Key.replace(folder, ''),
+      url: c.Key.replace(folder, './'),
+      size: c.Size
+    }))
   } catch (error) {
+    request.logger.info(`Unable to list content of ${folder}`)
     return []
   }
 }
