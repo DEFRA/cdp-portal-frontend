@@ -47,7 +47,9 @@ export class CognitoTokenProvider {
     const input = { IdentityPoolId: this.poolId, Logins: this.logins }
     const command = new GetOpenIdTokenForDeveloperIdentityCommand(input)
     const result = await this.cognitoClient.send(command)
-    logger?.info?.(`Result: ${result}`)
+    if (result) {
+      logger?.info?.(`Result: ${JSON.stringify(result)}`)
+    }
     logger?.info?.(`Cognito token issued identityId: ${result?.IdentityId}`)
     return result.Token
   }
@@ -80,6 +82,7 @@ export class CognitoTokenProvider {
    */
   #tokenHasExpired(token, earlyRefreshMs, logger) {
     try {
+      logger?.info?.(`encoded token: ${token}`)
       const decoded = jwt.token.decode(token)
       logger?.info?.(
         `now: ${Date.now() + earlyRefreshMs} decoded token : ${decoded}`
