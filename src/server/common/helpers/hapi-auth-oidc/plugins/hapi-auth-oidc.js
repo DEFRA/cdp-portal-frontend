@@ -59,7 +59,10 @@ export const HapiAuthOidcPlugin = {
             const codeVerifier = state?.codeVerifier
             const nonce = state?.nonce
 
-            const currentUrl = new URL(request.url.href, opts.externalBaseUrl)
+            const currentUrl = new URL(
+              request.url.pathname + request.url.search,
+              opts.externalBaseUrl
+            )
             const credentials = await postLogin({
               codeVerifier,
               nonce,

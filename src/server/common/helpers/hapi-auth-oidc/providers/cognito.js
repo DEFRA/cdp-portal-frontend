@@ -47,6 +47,7 @@ export class CognitoTokenProvider {
     const input = { IdentityPoolId: this.poolId, Logins: this.logins }
     const command = new GetOpenIdTokenForDeveloperIdentityCommand(input)
     const result = await this.cognitoClient.send(command)
+    logger?.info?.(`Result: ${result}`)
     logger?.info?.(`Cognito token issued identityId: ${result?.IdentityId}`)
     return result.Token
   }
@@ -61,7 +62,7 @@ export class CognitoTokenProvider {
   async getCredentials(logger) {
     if (
       !this.#token ||
-      this.#tokenHasExpired(this.#token, this.earlyRefreshMs)
+      this.#tokenHasExpired(this.#token, this.earlyRefreshMs, logger)
     ) {
       logger?.info?.('Refreshing Cognito token')
       this.#token = await this.#request(logger)
@@ -77,12 +78,16 @@ export class CognitoTokenProvider {
    * @param {number} earlyRefreshMs - Time in milliseconds before actual expiry to consider the token expired.
    * @returns {boolean} True if token has expired or is invalid, false otherwise.
    */
-  #tokenHasExpired(token, earlyRefreshMs) {
+  #tokenHasExpired(token, earlyRefreshMs, logger) {
     try {
       const decoded = jwt.token.decode(token)
+      logger?.info?.(
+        `now: ${Date.now() + earlyRefreshMs} decoded token : ${decoded}`
+      )
       jwt.token.verifyTime(decoded, { now: Date.now() + earlyRefreshMs })
       return false
     } catch (e) {
+      logger?.info?.(`error is: ${e}`)
       return true
     }
   }
