@@ -59,10 +59,9 @@ export const HapiAuthOidcPlugin = {
             const codeVerifier = state?.codeVerifier
             const nonce = state?.nonce
 
-            const currentUrl = new URL(
-              request.url.pathname + request.url.search,
-              opts.externalBaseUrl
-            )
+            // `currentUrl` must match the full external url, including hostname.
+            const currentUrl = asExternalUrl(request.url, opts.externalBaseUrl)
+
             const credentials = await postLogin({
               codeVerifier,
               nonce,
@@ -111,6 +110,16 @@ export const HapiAuthOidcPlugin = {
       )
     }
   }
+}
+
+export function asExternalUrl(url, external) {
+  const currentUrl = new URL(url)
+  const externalUrl = new URL(external)
+  currentUrl.protocol = externalUrl.protocol
+  currentUrl.hostname = externalUrl.hostname
+  currentUrl.port = externalUrl.port
+
+  return currentUrl
 }
 
 const schema = Joi.object({
