@@ -33,6 +33,9 @@ export async function preLogin({ oidcConfig, opts, h, logger }) {
   }
 
   const redirectUrl = openid.buildAuthorizationUrl(oidcConfig, params)
+  logger?.info(
+    `PreLogin - code verifier: ${cookieValue.codeVerifier} nonce: ${cookieValue.nonce} redirectUrl ${redirectUrl}`
+  )
   return h.redirect(redirectUrl).state(opts.cookie, cookieValue).takeover()
 }
 
@@ -90,6 +93,10 @@ export async function postLogin({
   assert(
     codeVerifier || nonce,
     'Missing PKCE verifier/nonce in session; try logging in again'
+  )
+
+  logger?.info(
+    `PostLogin - code verifier: ${codeVerifier} nonce: ${nonce} currentUrl ${currentUrl}`
   )
 
   logger?.info?.('validating token')
