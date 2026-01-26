@@ -1,5 +1,5 @@
 export class MockProvider {
-  constructor({ token = crypto.randomUUID(), type = 'federated' }) {
+  constructor(token = crypto.randomUUID(), type = 'federated') {
     this.token = token
     this.type = type
   }

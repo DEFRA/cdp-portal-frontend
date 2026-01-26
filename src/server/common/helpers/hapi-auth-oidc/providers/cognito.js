@@ -12,6 +12,7 @@ import {
  */
 export class CognitoTokenProvider {
   #token = null
+  #refreshPromise = null
 
   /**
    * Creates a new CognitoTokenProvider instance.
@@ -63,13 +64,39 @@ export class CognitoTokenProvider {
    */
   async getCredentials(logger) {
     if (
-      !this.#token ||
-      this.#tokenHasExpired(this.#token, this.earlyRefreshMs, logger)
+      this.#token &&
+      !this.#tokenHasExpired(this.#token, this.earlyRefreshMs, logger)
     ) {
-      logger?.info?.('Refreshing Cognito token')
-      this.#token = await this.#request(logger)
+      return this.#token
     }
-    return this.#token
+
+    if (!this.#refreshPromise) {
+      logger?.info?.('[Cognito] creating refreshPromise')
+      this.#refreshPromise = (async () => {
+        try {
+          const token = await this.#request(logger)
+          if (token) {
+            this.#token = token
+            logger?.info?.('[Cognito] token cached successfully')
+            return token
+          } else {
+            logger?.warn?.(
+              '[Cognito] refresh returned undefined token — keeping previous token if present'
+            )
+            return this.#token
+          }
+        } catch (err) {
+          logger?.error?.('[Cognito] refresh failed', err)
+          return this.#token
+        } finally {
+          this.#refreshPromise = null
+        }
+      })()
+    } else {
+      logger?.info?.('[Cognito] awaiting existing refreshPromise')
+    }
+
+    return this.#refreshPromise
   }
 
   /**
