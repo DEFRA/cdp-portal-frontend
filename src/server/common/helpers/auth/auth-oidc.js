@@ -1,23 +1,21 @@
 import { config } from '../../../../config/config.js'
 import {
-  createCognitoFederatedOidcConfig,
-  createMockOidcConfig,
-  HapiAuthOidcPlugin
+  CognitoTokenProvider,
+  HapiAuthOidcPlugin,
+  MockProvider
 } from '../hapi-auth-oidc/index.js'
+import * as openid from 'openid-client'
 
-const clientId = config.get('azureClientId')
-const discoveryUri = config.get('oidcWellKnownConfigurationUrl')
-const getOidcConfig = config.get('isProduction')
-  ? createCognitoFederatedOidcConfig({
-      discoveryUri,
-      clientId,
+const authProvider = config.get('isProduction')
+  ? new CognitoTokenProvider({
       poolId: config.get('azureFederatedCredentials.identityPoolId'),
       logins: { 'cdp-portal-frontend-aad-access': 'cdp-portal-frontend' }
     })
-  : createMockOidcConfig({
-      discoveryUri,
-      clientId
-    })
+  : new MockProvider()
+
+const discoveryRequestOptions = config.get('isProduction')
+  ? {}
+  : { execute: [openid.allowInsecureRequests] }
 
 const sessionCookieConfig = config.get('session.cookie')
 
@@ -26,7 +24,10 @@ export const AuthOidcPlugin = {
   options: {
     strategyName: 'azure-oidc',
     oidc: {
-      getOidcConfig,
+      clientId: config.get('azureClientId'),
+      discoveryUri: config.get('oidcWellKnownConfigurationUrl'),
+      authProvider,
+      discoveryRequestOptions,
       loginCallbackUri: config.get('appBaseUrl') + '/auth/callback',
       scope: `api://${config.get('azureClientId')}/cdp.user openid profile email offline_access user.read`,
       externalBaseUrl: config.get('appBaseUrl')

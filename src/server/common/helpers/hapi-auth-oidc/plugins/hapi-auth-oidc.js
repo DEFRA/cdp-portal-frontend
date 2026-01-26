@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 import { postLogin, preLogin } from '../oidc/flow.js'
 import { validateAndRefreshToken } from '../oidc/refresh.js'
 import * as Hoek from '@hapi/hoek'
+import { createOidcConfig } from '../oidc/client-config.js'
 
 /**
  * Hapi plugin providing OIDC authentication with PKCE support.
@@ -32,12 +33,24 @@ export const HapiAuthOidcPlugin = {
     const opts = Joi.attempt(Hoek.clone(options), schema)
     const { oidc, cookie, cookieOptions, strategyName } = opts
     const {
-      getOidcConfig,
+      discoveryUri,
+      clientId,
+      authProvider,
+      discoveryRequestOptions,
       externalBaseUrl,
       enableRefreshDecoration,
       earlyRefreshMs,
       scope
     } = oidc
+
+    const getOidcConfig = async (logger) =>
+      await createOidcConfig({
+        discoveryUri,
+        clientId,
+        authProvider,
+        discoveryRequestOptions,
+        logger
+      })
 
     server.state(cookie, cookieOptions)
     server.auth.scheme('hapi-auth-oidc', () => {
@@ -133,7 +146,17 @@ export function asExternalUrl(url, external) {
 const schema = Joi.object({
   strategyName: Joi.string().default('hapi-auth-oidc'),
   oidc: Joi.object({
-    getOidcConfig: Joi.function().arity(1).required(),
+    discoveryUri: Joi.string().uri().required(),
+    clientId: Joi.string().required(),
+    authProvider: Joi.object({
+      getCredentials: Joi.function().arity(1).required(),
+      type: Joi.string().required()
+    })
+      .unknown(true)
+      .required(),
+    discoveryRequestOptions: Joi.object().default({}),
+    // getOidcConfig: Joi.function().arity(1).required(),
+    // getOidcConfig: Joi.function().arity(1).required(),
     scope: Joi.string().required(),
     loginCallbackUri: Joi.string().uri().required(),
     externalBaseUrl: Joi.string().uri().required(),

@@ -1,7 +1,4 @@
 import * as openid from 'openid-client'
-import { CognitoTokenProvider } from '../providers/cognito.js'
-import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
-import { MockProvider } from '../providers/mock.js'
 import assert from 'assert'
 
 /**
@@ -61,58 +58,61 @@ export async function createOidcConfig({
   )
 }
 
-/**
- * Creates an OIDC configuration for AWS Cognito federated authentication.
- * @param {Object} params
- * @param {string} params.discoveryUri - The OIDC discovery URL.
- * @param {string} params.clientId - The client ID to use.
- * @param {string} params.poolId - Cognito Identity Pool ID.
- * @param {Object} params.logins - Cognito logins map.
- * @param {CognitoIdentityClient} [params.client] - Optional CognitoIdentityClient instance.
- * @returns {Function} A function that accepts a logger and returns a Promise resolving to the OIDC config.
- */
-export function createCognitoFederatedOidcConfig({
-  discoveryUri,
-  clientId,
-  poolId,
-  logins,
-  client: cognitoClient = new CognitoIdentityClient()
-}) {
-  return async (logger) =>
-    await createOidcConfig({
-      discoveryUri,
-      clientId,
-      authProvider: new CognitoTokenProvider({
-        poolId,
-        logins,
-        client: cognitoClient
-      }),
-      logger
-    })
-}
+// /**
+//  * Creates an OIDC configuration for AWS Cognito federated authentication.
+//  * @param {Object} params
+//  * @param {string} params.discoveryUri - The OIDC discovery URL.
+//  * @param {string} params.clientId - The client ID to use.
+//  * @param {string} params.poolId - Cognito Identity Pool ID.
+//  * @param {Object} params.logins - Cognito logins map.
+//  * @param {CognitoIdentityClient} [params.client] - Optional CognitoIdentityClient instance.
+//  * @returns {Function} A function that accepts a logger and returns a Promise resolving to the OIDC config.
+//  */
+// export function createCognitoFederatedOidcConfig({
+//   discoveryUri,
+//   clientId,
+//   poolId,
+//   logins,
+//   client: cognitoClient = new CognitoIdentityClient()
+// }) {
+//   const authProvider = new CognitoTokenProvider({
+//     poolId,
+//     logins,
+//     client: cognitoClient
+//   })
+//   return async (logger) =>
+//     await createOidcConfig({
+//       discoveryUri,
+//       clientId,
+//       authProvider,
+//       logger
+//     })
+// }
 
-/**
- * Creates a mock OIDC configuration for testing purposes.
- * @param {Object} params
- * @param {string} params.discoveryUri - The OIDC discovery URL.
- * @param {string} params.clientId - The client ID to use.
- * @param {string} [params.token] - Optional mock token; defaults to a random UUID.
- * @param {string} [params.type='federated'] - Auth type ('federated' or 'client_secret').
- * @returns {Function} A function that accepts a logger and returns a Promise resolving to the mock OIDC config.
- */
-
-export function createMockOidcConfig({
-  discoveryUri,
-  clientId,
-  token = crypto.randomUUID(),
-  type = 'federated'
-}) {
-  return async (logger) =>
-    await createOidcConfig({
-      discoveryUri,
-      clientId,
-      authProvider: new MockProvider({ token, type }),
-      discoveryRequestOptions: { execute: [openid.allowInsecureRequests] },
-      logger
-    })
-}
+// /**
+//  * Creates a mock OIDC configuration for testing purposes.
+//  * @param {Object} params
+//  * @param {string} params.discoveryUri - The OIDC discovery URL.
+//  * @param {string} params.clientId - The client ID to use.
+//  * @param {string} [params.token] - Optional mock token; defaults to a random UUID.
+//  * @param {string} [params.type='federated'] - Auth type ('federated' or 'client_secret').
+//  * @returns {Function} A function that accepts a logger and returns a Promise resolving to the mock OIDC config.
+//  */
+//
+// export function createMockOidcConfig({
+//   discoveryUri,
+//   clientId,
+//   token = crypto.randomUUID(),
+//   type = 'federated'
+// }) {
+//   return async (logger) => {
+//     const authProvider = new MockProvider({ token, type })
+//     return await createOidcConfig({
+//       discoveryUri,
+//       clientId,
+//       authProvider,
+//       discoveryRequestOptions: { execute: [openid.allowInsecureRequests] },
+//       logger
+//     })
+//   }
+// }
