@@ -30,13 +30,21 @@ export const HapiAuthOidcPlugin = {
    */
   register: async function (server, options) {
     const opts = Joi.attempt(Hoek.clone(options), schema)
-    server.state(opts.cookie, opts.cookieOptions)
+    const { oidc, cookie, cookieOptions, strategyName } = opts
+    const {
+      getOidcConfig,
+      externalBaseUrl,
+      enableRefreshDecoration,
+      earlyRefreshMs,
+      scope
+    } = oidc
+
+    server.state(cookie, cookieOptions)
     server.auth.scheme('hapi-auth-oidc', () => {
       return {
         authenticate: async (request, h) => {
           const { logger } = request
-          const { oidc, cookie } = opts
-          const { getOidcConfig } = oidc
+
           const oidcConfig = await getOidcConfig(logger)
 
           const isPreLogin = !request.query.code
@@ -60,7 +68,7 @@ export const HapiAuthOidcPlugin = {
             const nonce = state?.nonce
 
             // `currentUrl` must match the full external url, including hostname.
-            const currentUrl = asExternalUrl(request.url, opts.externalBaseUrl)
+            const currentUrl = asExternalUrl(request.url, externalBaseUrl)
 
             const credentials = await postLogin({
               codeVerifier,
@@ -80,30 +88,30 @@ export const HapiAuthOidcPlugin = {
       }
     })
 
-    server.auth.strategy(opts.strategyName, 'hapi-auth-oidc')
+    server.auth.strategy(strategyName, 'hapi-auth-oidc')
     server.expose(
       'validateAndRefreshToken',
       async function ({ refreshToken, accessToken }) {
         return validateAndRefreshToken(
           { refreshToken, accessToken },
-          opts.oidc.getOidcConfig,
-          opts.oidc.earlyRefreshMs,
-          opts.scope,
+          getOidcConfig,
+          earlyRefreshMs,
+          scope,
           server.logger
         )
       }
     )
 
-    if (opts.oidc.enableRefreshDecoration) {
+    if (enableRefreshDecoration) {
       server.decorate(
         'request',
         'validateAndRefreshToken',
         async function ({ refreshToken, accessToken }) {
           return validateAndRefreshToken(
             { refreshToken, accessToken },
-            opts.oidc.getOidcConfig,
-            opts.oidc.earlyRefreshMs,
-            opts.scope,
+            getOidcConfig,
+            earlyRefreshMs,
+            scope,
             this.logger
           )
         }
