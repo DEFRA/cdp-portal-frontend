@@ -35,7 +35,6 @@ export const HapiAuthOidcPlugin = {
     const {
       discoveryUri,
       clientId,
-      authProvider,
       discoveryRequestOptions,
       externalBaseUrl,
       enableRefreshDecoration,
@@ -47,7 +46,7 @@ export const HapiAuthOidcPlugin = {
       await createOidcConfig({
         discoveryUri,
         clientId,
-        authProvider,
+        authProvider: options.oidc.authProvider, // Hoek clone drops the private fields
         discoveryRequestOptions,
         logger
       })
