@@ -87,7 +87,7 @@ data-module="govuk-service-navigation"
 
       
         <nav aria-label="Menu" class="govuk-service-navigation__wrapper app-navigation">
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
             Menu
           </button>
 
@@ -431,88 +431,88 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
                       <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="provideProfile-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-1">
-      Profile
-    </legend>
-    <div id="provideProfile-hint" class="govuk-hint app-hint">
-      Do you want to provide a profile value for the test runner?
-    </div>
-    <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="provideProfile" name="provideProfile" type="radio" value="true" data-aria-controls="conditional-provideProfile">
-        <label class="govuk-label govuk-radios__label" for="provideProfile">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-provideProfile">
-        <div class="govuk-form-group app-form-group app-form-group-js">
-    <label class="govuk-label app-label" for="profile">
-      Choose existing
-    </label>
-    <div id="profile-hint" class="govuk-hint app-hint">
-      Choose a previously entered value
-    </div>
-    <select class="govuk-select app-select app-input--wide" id="profile" name="profile" aria-describedby="profile-hint">
-      <option value="" disabled selected="true"> - - select - - </option>
-      <option value="smoke">smoke</option>
-    </select>
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-1">
+    Profile
+  </legend>
+  <div id="provideProfile-hint" class="govuk-hint app-hint">
+    Do you want to provide a profile value for the test runner?
   </div>
-  
-  
-      <p>or</p>
-  
+  <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="provideProfile" name="provideProfile" type="radio" value="true" data-aria-controls="conditional-provideProfile">
+      <label class="govuk-label govuk-radios__label" for="provideProfile">
+        Yes
+      </label>
+    </div>
+    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-provideProfile">
       <div class="govuk-form-group app-form-group app-form-group-js">
-    <label class="govuk-label app-label" for="newProfile">
-      Enter a new value
-    </label>
-    <div id="newProfile-hint" class="govuk-hint app-hint">
-      Enter a new value, this will be stored for future use
-    </div>
-    <input class="govuk-input app-input app-input--wide" id="newProfile" name="newProfile" type="text" spellcheck="false" aria-describedby="newProfile-hint">
+  <label class="govuk-label app-label" for="profile">
+    Choose existing
+  </label>
+  <div id="profile-hint" class="govuk-hint app-hint">
+    Choose a previously entered value
   </div>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false" checked>
-        <label class="govuk-label govuk-radios__label" for="provideProfile-2">
-          No
-        </label>
-      </div>
+  <select class="govuk-select app-select app-input--wide" id="profile" name="profile" aria-describedby="profile-hint">
+    <option value="" disabled selected="true"> - - select - - </option>
+    <option value="smoke">smoke</option>
+  </select>
+</div>
+
+
+    <p>or</p>
+
+    <div class="govuk-form-group app-form-group app-form-group-js">
+  <label class="govuk-label app-label" for="newProfile">
+    Enter a new value
+  </label>
+  <div id="newProfile-hint" class="govuk-hint app-hint">
+    Enter a new value, this will be stored for future use
+  </div>
+  <input class="govuk-input app-input app-input--wide" id="newProfile" name="newProfile" type="text" spellcheck="false" aria-describedby="newProfile-hint">
+</div>
     </div>
-  </fieldset>
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false" checked>
+      <label class="govuk-label govuk-radios__label" for="provideProfile-2">
+        No
+      </label>
+    </div>
+  </div>
+</fieldset>
 </div>
 
 
                       <div class="govuk-form-group app-form-group app-form-group-js">
   <fieldset class="govuk-fieldset" aria-describedby="configuration-hint">
-    <legend class="govuk-fieldset__legend govuk-label app-label">
-      Configuration
-    </legend>
-    <div id="configuration-hint" class="govuk-hint app-hint">
-      Test runner configuration, choose CPU size and memory allocation
-    </div>
-    <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="configuration" name="configuration" type="radio" value="regular" checked aria-describedby="configuration-item-hint">
-        <label class="govuk-label govuk-radios__label govuk-!-font-weight-bold" for="configuration">
-          Regular
-        </label>
-        <div id="configuration-item-hint" class="govuk-hint govuk-radios__hint">
-          <div><span>CPU:</span><span class="govuk-!-margin-left-1">4 vCPU</span></div>
-             <div><span>Memory:</span><span class="govuk-!-margin-left-1">8 GB</span></div>
-        </div>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="configuration-2" name="configuration" type="radio" value="large" aria-describedby="configuration-2-item-hint">
-        <label class="govuk-label govuk-radios__label govuk-!-font-weight-bold" for="configuration-2">
-          Large
-        </label>
-        <div id="configuration-2-item-hint" class="govuk-hint govuk-radios__hint">
-          <div><span>CPU:</span><span class="govuk-!-margin-left-1">8 vCPU</span></div>
-             <div><span>Memory:</span><span class="govuk-!-margin-left-1">16 GB</span></div>
-        </div>
+  <legend class="govuk-fieldset__legend govuk-label app-label">
+    Configuration
+  </legend>
+  <div id="configuration-hint" class="govuk-hint app-hint">
+    Test runner configuration, choose CPU size and memory allocation
+  </div>
+  <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="configuration" name="configuration" type="radio" value="regular" checked aria-describedby="configuration-item-hint">
+      <label class="govuk-label govuk-radios__label govuk-!-font-weight-bold" for="configuration">
+        Regular
+      </label>
+      <div id="configuration-item-hint" class="govuk-hint govuk-radios__hint">
+        <div><span>CPU:</span><span class="govuk-!-margin-left-1">4 vCPU</span></div>
+           <div><span>Memory:</span><span class="govuk-!-margin-left-1">8 GB</span></div>
       </div>
     </div>
-  </fieldset>
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="configuration-2" name="configuration" type="radio" value="large" aria-describedby="configuration-2-item-hint">
+      <label class="govuk-label govuk-radios__label govuk-!-font-weight-bold" for="configuration-2">
+        Large
+      </label>
+      <div id="configuration-2-item-hint" class="govuk-hint govuk-radios__hint">
+        <div><span>CPU:</span><span class="govuk-!-margin-left-1">8 vCPU</span></div>
+           <div><span>Memory:</span><span class="govuk-!-margin-left-1">16 GB</span></div>
+      </div>
+    </div>
+  </div>
+</fieldset>
 </div>
 
 

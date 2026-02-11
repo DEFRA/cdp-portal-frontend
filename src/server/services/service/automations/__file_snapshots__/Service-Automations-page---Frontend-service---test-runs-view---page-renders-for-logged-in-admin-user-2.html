@@ -87,7 +87,7 @@ data-module="govuk-service-navigation"
 
       
         <nav aria-label="Menu" class="govuk-service-navigation__wrapper app-navigation">
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
             Menu
           </button>
 
@@ -1545,83 +1545,83 @@ selected="selected">
 
               <div class="govuk-form-group app-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="environments-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-2">
-      Environments
-    </legend>
-    <div id="environments-hint" class="govuk-hint app-hint">
-      Select one or more environments to trigger the tests in
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-2">
+    Environments
+  </legend>
+  <div id="environments-hint" class="govuk-hint app-hint">
+    Select one or more environments to trigger the tests in
+  </div>
+  <div class="govuk-checkboxes app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="environments" name="environments" type="checkbox" value="infra-dev">
+      <label class="govuk-label govuk-checkboxes__label" for="environments">
+        Infra-dev
+      </label>
     </div>
-    <div class="govuk-checkboxes app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline" data-module="govuk-checkboxes">
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="environments" name="environments" type="checkbox" value="infra-dev">
-        <label class="govuk-label govuk-checkboxes__label" for="environments">
-          Infra-dev
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="environments-2" name="environments" type="checkbox" value="management">
-        <label class="govuk-label govuk-checkboxes__label" for="environments-2">
-          Management
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="environments-3" name="environments" type="checkbox" value="dev">
-        <label class="govuk-label govuk-checkboxes__label" for="environments-3">
-          Dev
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="environments-4" name="environments" type="checkbox" value="test">
-        <label class="govuk-label govuk-checkboxes__label" for="environments-4">
-          Test
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="environments-5" name="environments" type="checkbox" value="prod">
-        <label class="govuk-label govuk-checkboxes__label" for="environments-5">
-          Prod
-        </label>
-      </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="environments-2" name="environments" type="checkbox" value="management">
+      <label class="govuk-label govuk-checkboxes__label" for="environments-2">
+        Management
+      </label>
     </div>
-  </fieldset>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="environments-3" name="environments" type="checkbox" value="dev">
+      <label class="govuk-label govuk-checkboxes__label" for="environments-3">
+        Dev
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="environments-4" name="environments" type="checkbox" value="test">
+      <label class="govuk-label govuk-checkboxes__label" for="environments-4">
+        Test
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="environments-5" name="environments" type="checkbox" value="prod">
+      <label class="govuk-label govuk-checkboxes__label" for="environments-5">
+        Prod
+      </label>
+    </div>
+  </div>
+</fieldset>
 </div>
 
 
               <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="provideProfile-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-      Profile
-    </legend>
-    <div id="provideProfile-hint" class="govuk-hint app-hint">
-      Do you want to provide a profile?
-    </div>
-    <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="provideProfile" name="provideProfile" type="radio" value="true" data-aria-controls="conditional-provideProfile">
-        <label class="govuk-label govuk-radios__label" for="provideProfile">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-provideProfile">
-        <h3 class="govuk-heading-s">Enter a value</h3>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-half">
-          <div class="govuk-form-group">
-    
-    <input class="govuk-input govuk-input--width-10" id="newProfile" name="newProfile" type="text" spellcheck="false">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+    Profile
+  </legend>
+  <div id="provideProfile-hint" class="govuk-hint app-hint">
+    Do you want to provide a profile?
   </div>
+  <div class="govuk-radios govuk-radios--small app-radios" data-module="govuk-radios">
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="provideProfile" name="provideProfile" type="radio" value="true" data-aria-controls="conditional-provideProfile">
+      <label class="govuk-label govuk-radios__label" for="provideProfile">
+        Yes
+      </label>
+    </div>
+    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-provideProfile">
+      <h3 class="govuk-heading-s">Enter a value</h3>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <div class="govuk-form-group">
   
-        </div>
-      </div>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false">
-        <label class="govuk-label govuk-radios__label" for="provideProfile-2">
-          No
-        </label>
+  <input class="govuk-input govuk-input--width-10" id="newProfile" name="newProfile" type="text" spellcheck="false">
+</div>
+
       </div>
     </div>
-  </fieldset>
+    </div>
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false">
+      <label class="govuk-label govuk-radios__label" for="provideProfile-2">
+        No
+      </label>
+    </div>
+  </div>
+</fieldset>
 </div>
 
 
