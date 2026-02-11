@@ -87,7 +87,7 @@ data-module="govuk-service-navigation"
 
       
         <nav aria-label="Menu" class="govuk-service-navigation__wrapper app-navigation">
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
             Menu
           </button>
 
@@ -397,27 +397,27 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
               <div class="govuk-form-group app-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="environments-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-2">
-      Environments
-    </legend>
-    <div id="environments-hint" class="govuk-hint app-hint">
-      Select the environments you wish to provide auto deploy on
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-2">
+    Environments
+  </legend>
+  <div id="environments-hint" class="govuk-hint app-hint">
+    Select the environments you wish to provide auto deploy on
+  </div>
+  <div class="govuk-checkboxes app-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="environments" name="environments" type="checkbox" value="infra-dev" checked>
+      <label class="govuk-label govuk-checkboxes__label" for="environments">
+        Infra-dev
+      </label>
     </div>
-    <div class="govuk-checkboxes app-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="environments" name="environments" type="checkbox" value="infra-dev" checked>
-        <label class="govuk-label govuk-checkboxes__label" for="environments">
-          Infra-dev
-        </label>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="environments-2" name="environments" type="checkbox" value="dev" checked>
-        <label class="govuk-label govuk-checkboxes__label" for="environments-2">
-          Dev
-        </label>
-      </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="environments-2" name="environments" type="checkbox" value="dev" checked>
+      <label class="govuk-label govuk-checkboxes__label" for="environments-2">
+        Dev
+      </label>
     </div>
-  </fieldset>
+  </div>
+</fieldset>
 </div>
 
 
