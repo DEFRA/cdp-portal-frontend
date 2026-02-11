@@ -92,7 +92,7 @@ const testSuiteListController = {
           },
           entity: {
             kind: 'text',
-            value: testSuites.length ?? 0
+            value: backendFilters.entities.length ?? 0
           }
         }
       ]
