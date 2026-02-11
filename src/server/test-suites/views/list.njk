@@ -1,4 +1,5 @@
 {% from "test-suites/common/components/test-suite-row/macro.njk" import testSuiteRow %}
+{% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 
 {% extends "layouts/page.njk" %}
 
@@ -13,18 +14,18 @@
     action: action,
     info: {
       html: appEntityDataList({
-        items: servicesInfo
+        items: testSuitesInfo
       })
     },
     clear: {
-      url: "/services"
+      url: "/test-suites"
     }
   }) %}
 
     <div class="app-filters__item">
       {{ appAutocomplete({
         id: "filters-test-suite",
-        name: "test-suite",
+        name: "testSuite",
         classes: "app-autocomplete--medium app-autocomplete--inline",
         label: {
           text: "Test Suite name",

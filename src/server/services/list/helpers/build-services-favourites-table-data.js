@@ -57,7 +57,7 @@ async function buildServicesFavouritesTableData({
 
   return {
     rows,
-    servicesCount: entityFilters.length,
+    servicesCount: entityFilters.length, // TODO: this does not look correct
     filters: {
       service: serviceFilters,
       team: teamFilters

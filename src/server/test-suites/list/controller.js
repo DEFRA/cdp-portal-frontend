@@ -1,16 +1,45 @@
+import Joi from 'joi'
+import Boom from '@hapi/boom'
+import { entityTypes } from '@defra/cdp-validation-kit'
+import { entityStatuses } from '@defra/cdp-validation-kit/src/constants/entities.js' // TODO: why is this not exposed?
+
 import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
+import { fetchFilters } from '../../common/helpers/fetch/fetch-filters.js'
 import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
+import { buildSuggestions } from '../../common/components/autocomplete/helpers/build-suggestions.js'
+import { sortByName } from '../../common/helpers/sort/sort-by-name.js'
 
 const testSuiteListController = {
   options: {
-    id: 'test-suites'
+    id: 'test-suites',
+    validate: {
+      query: Joi.object({
+        testSuite: Joi.string().allow(''),
+        teamId: Joi.string().allow(''),
+        page: Joi.number(),
+        size: Joi.number()
+      }),
+      failAction: () => Boom.boomify(Boom.notFound())
+    }
   },
   handler: async (request, h) => {
     const userSession = request.auth.credentials
     const userScope = userSession?.scope ?? []
+    const service = request.query.service
+    const teamId = request.query.teamId
 
-    const testSuites = await fetchTestSuites()
+    const [testSuites, backendFilters] = await Promise.all([
+      fetchTestSuites({
+        // TODO
+        service,
+        teamId
+      }),
+      fetchFilters({
+        type: entityTypes.testSuite,
+        status: [entityStatuses.created, entityStatuses.creating]
+      })
+    ])
 
     const ownerDecorator = entityOwnerDecorator(userScope)
     const ownerSorter = sortByOwner('name')
@@ -18,28 +47,20 @@ const testSuiteListController = {
     const rows = testSuites?.map(ownerDecorator).toSorted(ownerSorter)
 
     const filters = {
-      service: [
-        {
-          text: ' - - select - - ',
-          disabled: true,
-          attributes: { selected: true }
-        },
-        { value: 'cdp-portal-backend', text: 'cdp-portal-backend' },
-        { value: 'cdp-portal-frontend', text: 'cdp-portal-frontend' },
-        { value: 'cdp-postgres-service', text: 'cdp-postgres-service' },
-        { value: 'cdp-self-service-ops', text: 'cdp-self-service-ops' },
-        { value: 'cdp-service-prototype', text: 'cdp-service-prototype' },
-        { value: 'tenant-backend', text: 'tenant-backend' }
-      ],
-      team: [
-        {
-          text: ' - - select - - ',
-          disabled: true,
-          attributes: { selected: true }
-        },
-        { value: 'platform', text: 'Platform' },
-        { value: 'tenantteam1', text: 'TenantTeam1' }
-      ]
+      testSuite: buildSuggestions(
+        backendFilters.entities.toSorted(sortByName).map((testSuiteName) => ({
+          text: testSuiteName,
+          value: testSuiteName
+        }))
+      ),
+      team: buildSuggestions(
+        backendFilters.teams
+          .toSorted(sortByName)
+          .map(({ name, teamId: value }) => ({
+            text: name,
+            value
+          }))
+      )
     }
 
     return h.view('test-suites/views/list', {
@@ -63,7 +84,18 @@ const testSuiteListController = {
         isInverse: true
       },
       testSuiteFilters: filters.testSuite,
-      teamFilters: filters.team
+      teamFilters: filters.team,
+      testSuitesInfo: [
+        {
+          heading: {
+            text: 'Total'
+          },
+          entity: {
+            kind: 'text',
+            value: testSuites.length ?? 0
+          }
+        }
+      ]
     })
   }
 }
