@@ -17,6 +17,31 @@ const testSuiteListController = {
 
     const rows = testSuites?.map(ownerDecorator).toSorted(ownerSorter)
 
+    const filters = {
+      service: [
+        {
+          text: ' - - select - - ',
+          disabled: true,
+          attributes: { selected: true }
+        },
+        { value: 'cdp-portal-backend', text: 'cdp-portal-backend' },
+        { value: 'cdp-portal-frontend', text: 'cdp-portal-frontend' },
+        { value: 'cdp-postgres-service', text: 'cdp-postgres-service' },
+        { value: 'cdp-self-service-ops', text: 'cdp-self-service-ops' },
+        { value: 'cdp-service-prototype', text: 'cdp-service-prototype' },
+        { value: 'tenant-backend', text: 'tenant-backend' }
+      ],
+      team: [
+        {
+          text: ' - - select - - ',
+          disabled: true,
+          attributes: { selected: true }
+        },
+        { value: 'platform', text: 'Platform' },
+        { value: 'tenantteam1', text: 'TenantTeam1' }
+      ]
+    }
+
     return h.view('test-suites/views/list', {
       pageTitle: 'Test Suites',
       tableData: {
@@ -34,8 +59,11 @@ const testSuiteListController = {
         ],
         rows,
         noResult: 'No test suites found',
-        isWide: true
-      }
+        isWide: true,
+        isInverse: true
+      },
+      testSuiteFilters: filters.testSuite,
+      teamFilters: filters.team
     })
   }
 }

@@ -1,4 +1,4 @@
-{% from "test-suites/common/components/test-suite-row/macro.njk" import appTestSuiteRow %}
+{% from "test-suites/common/components/test-suite-row/macro.njk" import testSuiteRow %}
 
 {% extends "layouts/page.njk" %}
 
@@ -9,9 +9,61 @@
   }) }}
 
 
+  {% call appFilters({
+    action: action,
+    info: {
+      html: appEntityDataList({
+        items: servicesInfo
+      })
+    },
+    clear: {
+      url: "/services"
+    }
+  }) %}
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-test-suite",
+        name: "test-suite",
+        classes: "app-autocomplete--medium app-autocomplete--inline",
+        label: {
+          text: "Test Suite name",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.testSuite,
+        suggestions: testSuiteFilters,
+        typeahead: true,
+        placeholder: "Search by test suite"
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-team",
+        name: "teamId",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Team",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.teamId,
+        suggestions: teamFilters
+      }) }}
+    </div>
+
+  {% endcall %}
+
+
   {% call(params) appEntityTable(tableData) %}
 
-    {{  appTestSuiteRow({
+    {{  testSuiteRow({
       rowClasses: params.rowClasses,
       loopIndex: params.loopIndex,
       isOwner:  params.row.isOwner,
