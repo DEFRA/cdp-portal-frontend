@@ -28,14 +28,13 @@ const testSuiteListController = {
   handler: async (request, h) => {
     const userSession = request.auth.credentials
     const userScope = userSession?.scope ?? []
-    const service = request.query.service
+    const testSuite = request.query.testSuite
     const teamId = request.query.teamId
 
     const [testSuites, backendFilters] = await Promise.all([
       fetchTestSuites({
-        // TODO
-        service,
-        teamId
+        name: testSuite,
+        teamIds: [teamId]
       }),
       fetchFilters({
         type: entityTypes.testSuite,

@@ -18,12 +18,13 @@ async function fetchEntities(queryParams = {}) {
     arrayFormat: 'repeat',
     addQueryPrefix: true
   })}`
-
+  console.log(endpoint)
   const { payload } = await fetchJson(endpoint)
   return payload ?? []
 }
 
 function fetchTestSuites(queryParams) {
+  console.log(queryParams)
   return fetchEntities({
     type: entityTypes.testSuite,
     status: [entityStatuses.created, entityStatuses.creating],
