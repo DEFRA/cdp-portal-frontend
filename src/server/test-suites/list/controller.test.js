@@ -1,8 +1,10 @@
 import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
+import { fetchFilters } from '#server/common/helpers/fetch/fetch-filters.js'
 import { testSuiteListController } from './controller.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
 
 vi.mock('#server/common/helpers/fetch/fetch-entities.js')
+vi.mock('#server/common/helpers/fetch/fetch-filters.js')
 vi.mock('../helpers/decorators/entity-owner-decorator.js')
 
 describe('testSuiteListController.handler', () => {
@@ -12,6 +14,14 @@ describe('testSuiteListController.handler', () => {
     isAuthenticated: true,
     scope: ['scope-1']
   })
+
+  const mockFetchFilters = {
+    entities: ['cdp-env-test-suite', 'test-one'],
+    teams: [
+      { teamId: 'platform', name: 'Platform' },
+      { teamId: 'tenantteam1', name: 'TenantTeam1' }
+    ]
+  }
 
   beforeEach(() => {
     h = {
@@ -32,6 +42,29 @@ describe('testSuiteListController.handler', () => {
     const testSuitesMock = [{ id: 1, name: 'Test Suite 1' }]
 
     fetchTestSuites.mockResolvedValue(testSuitesMock)
+    fetchFilters.mockResolvedValue(mockFetchFilters)
+    entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
+
+    await testSuiteListController.handler(request, h)
+
+    expect(fetchTestSuites).toHaveBeenCalled()
+    expect(entityOwnerDecorator).toHaveBeenCalledWith(['scope-1'])
+    expect(h.view).toHaveBeenCalledWith(
+      'test-suites/views/list',
+      expect.objectContaining({
+        pageTitle: 'Test Suites',
+        tableData: expect.objectContaining({
+          rows: testSuitesMock
+        })
+      })
+    )
+  })
+
+  test('should return a view with filters applied', async () => {
+    const testSuitesMock = [{ id: 1, name: 'Test Suite 1' }]
+
+    fetchTestSuites.mockResolvedValue(testSuitesMock)
+    fetchFilters.mockResolvedValue(mockFetchFilters)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
 
     await testSuiteListController.handler(request, h)
@@ -51,6 +84,7 @@ describe('testSuiteListController.handler', () => {
 
   test('should handle the case when no test suites are available', async () => {
     fetchTestSuites.mockResolvedValue([])
+    fetchFilters.mockResolvedValue(mockFetchFilters)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
 
     await testSuiteListController.handler(request, h)
