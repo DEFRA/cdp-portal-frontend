@@ -1,4 +1,5 @@
-{% from "test-suites/common/components/test-suite-row/macro.njk" import appTestSuiteRow %}
+{% from "test-suites/common/components/test-suite-row/macro.njk" import testSuiteRow %}
+{% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 
 {% extends "layouts/page.njk" %}
 
@@ -9,18 +10,72 @@
   }) }}
 
 
-  {% call(params) appEntityTable(tableData) %}
+  {% call appFilters({
+    action: actionUrl,
+    info: {
+      html: appEntityDataList({
+        items: testSuitesInfo
+      })
+    },
+    clear: {
+      url: clearUrl
+    }
+  }) %}
 
-    {{  appTestSuiteRow({
-      rowClasses: params.rowClasses,
-      loopIndex: params.loopIndex,
-      isOwner:  params.row.isOwner,
-      testSuite: params.row.name,
-      teams: params.row.teams,
-      testType: params.row.subType,
-      status: params.row.status,
-      created: params.row.created
-    }) }}
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-test-suite",
+        name: "testSuite",
+        classes: "app-autocomplete--medium app-autocomplete--inline",
+        label: {
+          text: "Test Suite name",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.testSuite,
+        suggestions: testSuiteFilters,
+        typeahead: true,
+        placeholder: "Search by test suite"
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-team",
+        name: "teamId",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Team",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.teamId,
+        suggestions: teamFilters
+      }) }}
+    </div>
+
   {% endcall %}
+
+  {% block xhrContent %}
+    <div data-xhr="{{ xhrElement }}">
+      {% call(params) appEntityTable(tableData) %}
+        {{  testSuiteRow({
+          rowClasses: params.rowClasses,
+          loopIndex: params.loopIndex,
+          isOwner:  params.row.isOwner,
+          testSuite: params.row.name,
+          teams: params.row.teams,
+          testType: params.row.subType,
+          status: params.row.status,
+          created: params.row.created
+        }) }}
+      {% endcall %}
+    </div>
+  {% endblock %}
 
 {% endblock %}

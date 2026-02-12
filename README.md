@@ -89,6 +89,14 @@ Run the application in `development` mode run:
 npm run dev
 ```
 
+### Git hooks
+
+Install git hooks (optional)
+
+```bash
+npm run git:hooks
+```
+
 #### Updating dependencies
 
 To update dependencies, globally install https://www.npmjs.com/package/npm-check-updates. Then run the below script,

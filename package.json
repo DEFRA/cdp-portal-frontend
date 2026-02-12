@@ -18,7 +18,7 @@
     "docker:dev": "npm run dev",
     "format": "prettier --write \"src/**/*.js\" \"**/*.{js,cjs,ts,md,json,config.js,test.js}\"",
     "format:check": "prettier --check \"src/**/*.js\" \"**/*.{js,cjs,ts,md,json,config.js,test.js}\"",
-    "postinstall": "npm run setup:husky",
+    "git:hooks": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module",
     "lint": "run-s lint:js lint:scss lint:types",
     "lint:fix": "eslint --fix .",
     "lint:js": "eslint .",
@@ -27,7 +27,6 @@
     "security-audit": "npm audit --audit-level=high",
     "server:debug": "nodemon --exec tsx --enable-source-maps --inspect ./src",
     "server:watch": "nodemon --exec tsx --enable-source-maps ./src",
-    "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node --use-strict .",
     "pretest": "npm run test:build:client",
@@ -36,11 +35,8 @@
     "test:watch": "TZ=UTC vitest",
     "type:check": "tsc --build tsconfig.json"
   },
-  "overrides": {
-    "@defra/catbox-dynamodb@0.7.0": {
-      "@aws-sdk/client-dynamodb": "3.986.0",
-      "@aws-sdk/util-dynamodb": "3.986.0"
-    }
+  "imports": {
+    "#server/*": "./src/server/*"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.986.0",
@@ -48,7 +44,7 @@
     "@aws-sdk/client-s3": "3.986.0",
     "@aws-sdk/credential-providers": "3.986.0",
     "@babel/runtime": "7.28.6",
-    "@defra/catbox-dynamodb": "0.7.0",
+    "@defra/catbox-dynamodb": "0.7.1",
     "@defra/cdp-auditing": "0.5.0",
     "@defra/cdp-metrics": "0.2.0",
     "@defra/cdp-validation-kit": "0.63.0",

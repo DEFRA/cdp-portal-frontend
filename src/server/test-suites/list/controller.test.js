@@ -1,10 +1,11 @@
-import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
+import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
+import { fetchFilters } from '#server/common/helpers/fetch/fetch-filters.js'
 import { testSuiteListController } from './controller.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
 
-vi.mock('../../common/helpers/fetch/fetch-entities.js')
+vi.mock('#server/common/helpers/fetch/fetch-entities.js')
+vi.mock('#server/common/helpers/fetch/fetch-filters.js')
 vi.mock('../helpers/decorators/entity-owner-decorator.js')
-vi.mock('../../common/helpers/auth/pre/provide-authed-user.js')
 
 describe('testSuiteListController.handler', () => {
   let h
@@ -14,13 +15,22 @@ describe('testSuiteListController.handler', () => {
     scope: ['scope-1']
   })
 
+  const mockFetchFilters = {
+    entities: ['cdp-env-test-suite', 'test-one'],
+    teams: [
+      { teamId: 'platform', name: 'Platform' },
+      { teamId: 'tenantteam1', name: 'TenantTeam1' }
+    ]
+  }
+
   beforeEach(() => {
     h = {
       view: vi.fn()
     }
 
     request = {
-      auth: { credentials: mockUserSession() }
+      auth: { credentials: mockUserSession() },
+      query: {}
     }
   })
 
@@ -32,12 +42,15 @@ describe('testSuiteListController.handler', () => {
     const testSuitesMock = [{ id: 1, name: 'Test Suite 1' }]
 
     fetchTestSuites.mockResolvedValue(testSuitesMock)
+    fetchFilters.mockResolvedValue(mockFetchFilters)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
+    expect(fetchFilters).toHaveBeenCalled()
     expect(entityOwnerDecorator).toHaveBeenCalledWith(['scope-1'])
+
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
@@ -51,11 +64,13 @@ describe('testSuiteListController.handler', () => {
 
   test('should handle the case when no test suites are available', async () => {
     fetchTestSuites.mockResolvedValue([])
+    fetchFilters.mockResolvedValue(mockFetchFilters)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
+    expect(fetchFilters).toHaveBeenCalled()
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
@@ -75,11 +90,13 @@ describe('testSuiteListController.handler', () => {
     })
 
     fetchTestSuites.mockResolvedValue([])
+    fetchFilters.mockResolvedValue(mockFetchFilters)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
+    expect(fetchFilters).toHaveBeenCalled()
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
@@ -88,6 +105,14 @@ describe('testSuiteListController.handler', () => {
           rows: [],
           noResult: 'No test suites found'
         })
+      })
+    )
+  })
+
+  test('should have a validation fail of 404', async () => {
+    expect(testSuiteListController.options.validate.failAction()).toEqual(
+      expect.objectContaining({
+        message: 'Not Found'
       })
     )
   })
