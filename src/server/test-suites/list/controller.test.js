@@ -48,29 +48,9 @@ describe('testSuiteListController.handler', () => {
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
+    expect(fetchFilters).toHaveBeenCalled()
     expect(entityOwnerDecorator).toHaveBeenCalledWith(['scope-1'])
-    expect(h.view).toHaveBeenCalledWith(
-      'test-suites/views/list',
-      expect.objectContaining({
-        pageTitle: 'Test Suites',
-        tableData: expect.objectContaining({
-          rows: testSuitesMock
-        })
-      })
-    )
-  })
 
-  test('should return a view with filters applied', async () => {
-    const testSuitesMock = [{ id: 1, name: 'Test Suite 1' }]
-
-    fetchTestSuites.mockResolvedValue(testSuitesMock)
-    fetchFilters.mockResolvedValue(mockFetchFilters)
-    entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
-
-    await testSuiteListController.handler(request, h)
-
-    expect(fetchTestSuites).toHaveBeenCalled()
-    expect(entityOwnerDecorator).toHaveBeenCalledWith(['scope-1'])
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
@@ -90,6 +70,7 @@ describe('testSuiteListController.handler', () => {
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
+    expect(fetchFilters).toHaveBeenCalled()
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
@@ -109,11 +90,13 @@ describe('testSuiteListController.handler', () => {
     })
 
     fetchTestSuites.mockResolvedValue([])
+    fetchFilters.mockResolvedValue(mockFetchFilters)
     entityOwnerDecorator.mockReturnValue((testSuite) => testSuite) // Mocking decorator to return the same test suite
 
     await testSuiteListController.handler(request, h)
 
     expect(fetchTestSuites).toHaveBeenCalled()
+    expect(fetchFilters).toHaveBeenCalled()
     expect(h.view).toHaveBeenCalledWith(
       'test-suites/views/list',
       expect.objectContaining({
@@ -122,6 +105,14 @@ describe('testSuiteListController.handler', () => {
           rows: [],
           noResult: 'No test suites found'
         })
+      })
+    )
+  })
+
+  test('should have a validation fail of 404', async () => {
+    expect(testSuiteListController.options.validate.failAction()).toEqual(
+      expect.objectContaining({
+        message: 'Not Found'
       })
     )
   })
