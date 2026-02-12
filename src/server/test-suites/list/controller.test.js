@@ -1,10 +1,9 @@
-import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
+import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
 import { testSuiteListController } from './controller.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
 
-vi.mock('../../common/helpers/fetch/fetch-entities.js')
+vi.mock('#server/common/helpers/fetch/fetch-entities.js')
 vi.mock('../helpers/decorators/entity-owner-decorator.js')
-vi.mock('../../common/helpers/auth/pre/provide-authed-user.js')
 
 describe('testSuiteListController.handler', () => {
   let h
@@ -20,7 +19,8 @@ describe('testSuiteListController.handler', () => {
     }
 
     request = {
-      auth: { credentials: mockUserSession() }
+      auth: { credentials: mockUserSession() },
+      query: {}
     }
   })
 
