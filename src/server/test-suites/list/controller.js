@@ -9,6 +9,7 @@ import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
 import { buildSuggestions } from '../../common/components/autocomplete/helpers/build-suggestions.js'
 import { sortByName } from '../../common/helpers/sort/sort-by-name.js'
+import { sortBy } from '../../common/helpers/sort/sort-by.js'
 
 const testSuiteListController = {
   options: {
@@ -55,7 +56,7 @@ const testSuiteListController = {
       ),
       team: buildSuggestions(
         backendFilters.teams
-          .toSorted(sortByName)
+          .toSorted(sortBy('name', 'asc'))
           .map(({ name, teamId: value }) => ({
             text: name,
             value
