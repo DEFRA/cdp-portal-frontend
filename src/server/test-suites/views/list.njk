@@ -11,14 +11,14 @@
 
 
   {% call appFilters({
-    action: action,
+    action: actionUrl,
     info: {
       html: appEntityDataList({
         items: testSuitesInfo
       })
     },
     clear: {
-      url: "/test-suites"
+      url: clearUrl
     }
   }) %}
 
@@ -61,19 +61,21 @@
 
   {% endcall %}
 
-
-  {% call(params) appEntityTable(tableData) %}
-
-    {{  testSuiteRow({
-      rowClasses: params.rowClasses,
-      loopIndex: params.loopIndex,
-      isOwner:  params.row.isOwner,
-      testSuite: params.row.name,
-      teams: params.row.teams,
-      testType: params.row.subType,
-      status: params.row.status,
-      created: params.row.created
-    }) }}
-  {% endcall %}
+  {% block xhrContent %}
+    <div data-xhr="{{ xhrElement }}">
+      {% call(params) appEntityTable(tableData) %}
+        {{  testSuiteRow({
+          rowClasses: params.rowClasses,
+          loopIndex: params.loopIndex,
+          isOwner:  params.row.isOwner,
+          testSuite: params.row.name,
+          teams: params.row.teams,
+          testType: params.row.subType,
+          status: params.row.status,
+          created: params.row.created
+        }) }}
+      {% endcall %}
+    </div>
+  {% endblock %}
 
 {% endblock %}

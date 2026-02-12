@@ -66,6 +66,9 @@ const testSuiteListController = {
 
     return h.view('test-suites/views/list', {
       pageTitle: 'Test Suites',
+      actionUrl: '/test-suites',
+      clearUrl: '/test-suites',
+      xhrElement: 'test-suites',
       tableData: {
         headers: [
           { id: 'owner', classes: 'app-entity-table__cell--owned' },
