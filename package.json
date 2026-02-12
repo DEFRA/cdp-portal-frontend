@@ -35,6 +35,9 @@
     "test:watch": "TZ=UTC vitest",
     "type:check": "tsc --build tsconfig.json"
   },
+  "imports": {
+    "#server/*": "./src/server/*"
+  },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.986.0",
     "@aws-sdk/client-firehose": "3.986.0",

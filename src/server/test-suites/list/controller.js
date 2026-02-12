@@ -3,13 +3,14 @@ import Boom from '@hapi/boom'
 import { entityTypes } from '@defra/cdp-validation-kit'
 import { entityStatuses } from '@defra/cdp-validation-kit/src/constants/entities.js' // TODO: why is this not exposed?
 
-import { fetchTestSuites } from '../../common/helpers/fetch/fetch-entities.js'
-import { fetchFilters } from '../../common/helpers/fetch/fetch-filters.js'
-import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
+import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
+import { fetchFilters } from '#server/common/helpers/fetch/fetch-filters.js'
+import { sortByOwner } from '#server/common/helpers/sort/sort-by-owner.js'
+import { buildSuggestions } from '#server/common/components/autocomplete/helpers/build-suggestions.js'
+import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
+import { sortBy } from '#server/common/helpers/sort/sort-by.js'
+
 import { entityOwnerDecorator } from '../helpers/decorators/entity-owner-decorator.js'
-import { buildSuggestions } from '../../common/components/autocomplete/helpers/build-suggestions.js'
-import { sortByName } from '../../common/helpers/sort/sort-by-name.js'
-import { sortBy } from '../../common/helpers/sort/sort-by.js'
 
 const testSuiteListController = {
   options: {
