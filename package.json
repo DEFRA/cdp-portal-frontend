@@ -8,6 +8,8 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
+    "start": "npm run dev",
+    "start:debug": "npm run dev:debug",
     "build": "run-s build:client",
     "build:client": "NODE_ENV=production webpack",
     "client:watch": "webpack --watch",
@@ -27,11 +29,11 @@
     "server:debug": "node --watch --inspect ./src",
     "server:watch": "node --watch ./src",
     "prestart": "npm run build",
-    "start": "NODE_ENV=production node --use-strict .",
+    "preview": "NODE_ENV=production node --use-strict .",
     "pretest": "npm run test:build:client",
-    "test": "TZ=UTC vitest run --coverage",
+    "test": "TZ=UTC vitest --coverage",
     "test:build:client": "NODE_ENV=test webpack",
-    "test:watch": "TZ=UTC vitest"
+    "test:watch": "npm run test"
   },
   "imports": {
     "#server/*": "./src/server/*"
