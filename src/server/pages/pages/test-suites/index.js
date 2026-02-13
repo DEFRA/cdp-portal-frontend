@@ -1,3 +1,104 @@
+import Joi from 'joi'
+import Boom from '@hapi/boom'
+import { entityTypes } from '@defra/cdp-validation-kit'
+import { entityStatuses } from '@defra/cdp-validation-kit/src/constants/entities.js' // TODO: why is this not exposed?
+
+import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
+import { fetchFilters } from '#server/common/helpers/fetch/fetch-filters.js'
+import { sortByOwner } from '#server/common/helpers/sort/sort-by-owner.js'
+import { buildSuggestions } from '#server/common/components/autocomplete/helpers/build-suggestions.js'
+import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
+import { sortBy } from '#server/common/helpers/sort/sort-by.js'
+
+import { entityOwnerDecorator } from '#server/test-suites/helpers/decorators/entity-owner-decorator.js'
+
+export const options = {
+  // id: 'test-suites',
+  validate: {
+    query: Joi.object({
+      testSuite: Joi.string().allow(''),
+      teamId: Joi.string().allow(''),
+      page: Joi.number(),
+      size: Joi.number()
+    }),
+    failAction: () => Boom.boomify(Boom.notFound())
+  }
+}
+
 export default async function (request, h) {
-  return {}
+  const userSession = request.auth.credentials
+  const userScope = userSession?.scope ?? []
+  const testSuite = request.query.testSuite
+  const teamId = request.query.teamId
+
+  const [testSuites, backendFilters] = await Promise.all([
+    fetchTestSuites({
+      name: testSuite,
+      teamIds: [teamId]
+    }),
+    fetchFilters({
+      type: entityTypes.testSuite,
+      status: [entityStatuses.created, entityStatuses.creating]
+    })
+  ])
+
+  const ownerDecorator = entityOwnerDecorator(userScope)
+  const ownerSorter = sortByOwner('name')
+
+  const rows = testSuites?.map(ownerDecorator).toSorted(ownerSorter)
+
+  const filters = {
+    testSuite: buildSuggestions(
+      backendFilters.entities.toSorted(sortByName).map((testSuiteName) => ({
+        text: testSuiteName,
+        value: testSuiteName
+      }))
+    ),
+    team: buildSuggestions(
+      backendFilters.teams
+        .toSorted(sortBy('name', 'asc'))
+        .map(({ name, teamId: value }) => ({
+          text: name,
+          value
+        }))
+    )
+  }
+
+  return {
+    pageTitle: 'Test Suites',
+    actionUrl: '/test-suites',
+    clearUrl: '/test-suites',
+    xhrElement: 'test-suites',
+    tableData: {
+      headers: [
+        { id: 'owner', classes: 'app-entity-table__cell--owned' },
+        {
+          id: 'test-suite',
+          text: 'Test Suite',
+          width: '35',
+          isLeftAligned: true
+        },
+        { id: 'team', text: 'Team', width: '25' },
+        { id: 'kind', text: 'Kind', width: '15' },
+        { id: 'created', text: 'Created', width: '25' }
+      ],
+      rows,
+      noResult: 'No test suites found',
+      isWide: true,
+      isInverse: true
+    },
+    testSuiteFilters: filters.testSuite,
+    teamFilters: filters.team,
+    testSuitesInfo: [
+      {
+        heading: {
+          text: 'Total'
+        },
+        entity: {
+          kind: 'text',
+          value: backendFilters.entities.length ?? 0
+        }
+      }
+    ]
+  }
 }
