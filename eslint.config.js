@@ -33,7 +33,7 @@ export default [
     noStyle: true
   }),
   {
-    files: ['**/*.{js,cjs}'],
+    files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -98,12 +98,8 @@ export default [
       ]
     },
     settings: {
-      'import/parsers': {
-        '@typescript-eslint/parser': ['.cjs', '.js']
-      },
       'import/resolver': {
-        node: true,
-        typescript: true
+        node: true
       }
     }
   },
@@ -111,15 +107,6 @@ export default [
     files: ['**/*.js'],
     languageOptions: {
       sourceType: 'module'
-    }
-  },
-  {
-    files: ['**/*.cjs'],
-    languageOptions: {
-      sourceType: 'commonjs'
-    },
-    rules: {
-      'n/no-unpublished-require': ['error', { allowModules: [] }]
     }
   },
   {
@@ -133,7 +120,7 @@ export default [
   {
     files: [
       '.vite/**/*.js',
-      '**/*.test.{js,cjs}',
+      '**/*.test.js',
       '**/__mocks__/**',
       '**/__fixtures__/**',
       'vitest.config.js',
