@@ -4,6 +4,7 @@ import hapi from '@hapi/hapi'
 import Scooter from '@hapi/scooter'
 
 import { router } from './router.js'
+import pagesRouter from './pagesRouter.js'
 import { config } from '../config/config.js'
 import { nunjucksConfig } from '../config/nunjucks/index.js'
 import { csrf } from './common/helpers/auth/csrf.js'
@@ -111,6 +112,7 @@ async function createServer() {
     nunjucksConfig,
     sanitise,
     router,
+    pagesRouter,
     auditing,
     s3Client,
     nodeVmMetrics
