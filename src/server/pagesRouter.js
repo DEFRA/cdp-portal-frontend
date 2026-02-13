@@ -25,7 +25,7 @@ async function registerPage(pagesPath, sourcePath, server) {
     pageName === 'index' ? '' : pageName
   )
 
-  for (const method of ['GET', 'POST', 'PATCH', 'DELETE']) {
+  for (const method of ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']) {
     if (page[method]) {
       server.route({
         method,
@@ -37,12 +37,16 @@ async function registerPage(pagesPath, sourcePath, server) {
   }
 
   if (page.default && !page.GET) {
+    const rawViewPath = `${pageDirectory.replace('src/server', '')}/${pageName}`
+    const viewPath =
+      rawViewPath.charAt(0) === '/' ? rawViewPath.substr(1) : rawViewPath
+
     server.route({
       method: 'GET',
       path: routePath,
       handler: async (request, h) => {
         const data = await page.default(request, h)
-        return h.view('pages/test', data)
+        return h.view(viewPath, data)
       },
       options: { ...page.options, ...page.default.options }
     })
