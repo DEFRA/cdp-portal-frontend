@@ -1,7 +1,5 @@
 import neostandard from 'neostandard'
-import tsEslintPlugin from '@typescript-eslint/eslint-plugin'
 import packageJson from 'eslint-plugin-package-json'
-import tsParser from '@typescript-eslint/parser'
 import vitest from '@vitest/eslint-plugin'
 import prettier from 'eslint-plugin-prettier'
 import importPlugin from 'eslint-plugin-import'
@@ -29,16 +27,15 @@ const customIgnores = [
 
 export default [
   ...neostandard({
-    env: ['node', 'vitest'],
+    env: ['node', 'vitest', 'browser'],
     ignores: [...neostandard.resolveIgnoresFromGitignore(), ...customIgnores],
     noJsx: true,
     noStyle: true
   }),
   {
-    files: ['**/*.{js,cjs,ts}'],
+    files: ['**/*.{js,cjs}'],
     languageOptions: {
       ecmaVersion: 'latest',
-      parser: tsParser,
       sourceType: 'module',
       globals: {
         document: true,
@@ -50,14 +47,9 @@ export default [
         localStorage: true,
         fetchMock: true,
         Option: true
-      },
-      parserOptions: {
-        project: ['./tsconfig.json'],
-        tsconfigRootDir: new URL('.', import.meta.url).pathname
       }
     },
     plugins: {
-      '@typescript-eslint': tsEslintPlugin,
       import: importPlugin,
       jsdoc,
       n,
@@ -69,12 +61,6 @@ export default [
       camelcase: 'off', // The mono-lambda property names are snake_case
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
       'no-console': 'error',
-
-      '@typescript-eslint/no-unsafe-argument': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
 
       'jsdoc/require-jsdoc': 'off',
       'jsdoc/require-param-description': 'off',
@@ -133,7 +119,6 @@ export default [
       sourceType: 'commonjs'
     },
     rules: {
-      '@typescript-eslint/no-var-requires': 'off',
       'n/no-unpublished-require': ['error', { allowModules: [] }]
     }
   },
@@ -156,11 +141,9 @@ export default [
     ],
     plugins: { vitest },
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: ['./tsconfig.json']
+        sourceType: 'module'
       },
       globals: {
         ...vitest.environments.env.globals
@@ -182,13 +165,6 @@ export default [
           ]
         }
       ]
-    }
-  },
-  {
-    files: ['types/**/*.d.ts'],
-    rules: {
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'off'
     }
   },
   {
