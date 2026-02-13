@@ -5,16 +5,16 @@ export default {
   name: 'pagesRouter',
   version: '0.0.1',
   register: async function (server, options) {
-    const pagesPath = 'src/server/pages'
+    const { pagesPath, templatesPath } = options
     const importPaths = await glob(`${pagesPath}/**/*.{js,ts}`)
 
     for (const importPath of importPaths) {
-      await registerPage(pagesPath, importPath, server)
+      await registerPage(pagesPath, templatesPath, importPath, server)
     }
   }
 }
 
-async function registerPage(pagesPath, sourcePath, server) {
+async function registerPage(pagesPath, templatesPath, sourcePath, server) {
   const page = await import(sourcePath)
 
   const { name: pageName, dir: pageDirectory } = parse(sourcePath)
@@ -37,7 +37,7 @@ async function registerPage(pagesPath, sourcePath, server) {
   }
 
   if (page.default && !page.GET) {
-    const rawViewPath = `${pageDirectory.replace('src/server', '')}/${pageName}`
+    const rawViewPath = `${pageDirectory.replace(templatesPath, '')}/${pageName}`
     const viewPath =
       rawViewPath.charAt(0) === '/' ? rawViewPath.substr(1) : rawViewPath
 

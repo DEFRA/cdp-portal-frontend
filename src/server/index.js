@@ -112,7 +112,10 @@ async function createServer() {
     nunjucksConfig,
     sanitise,
     router,
-    pagesRouter,
+    {
+      plugin: pagesRouter,
+      options: { pagesPath: 'src/server/pages', templatesPath: 'src/server' }
+    },
     auditing,
     s3Client,
     nodeVmMetrics
