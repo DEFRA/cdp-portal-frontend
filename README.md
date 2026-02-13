@@ -95,7 +95,6 @@ or
 npm run dev
 ```
 
-
 ### Git hooks
 
 Install git hooks (optional)
