@@ -13,7 +13,7 @@ import { sortBy } from '#server/common/helpers/sort/sort-by.js'
 import { entityOwnerDecorator } from '#server/test-suites/helpers/decorators/entity-owner-decorator.js'
 
 export const options = {
-  // id: 'test-suites',
+  id: 'x-test-suites',
   validate: {
     query: Joi.object({
       testSuite: Joi.string().allow(''),

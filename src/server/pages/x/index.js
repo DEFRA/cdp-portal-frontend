@@ -1,10 +1,28 @@
 import { config } from '#config/config.js'
-import { buildBlogNav } from '../helpers/markdown/build-blog-nav.js'
+import { buildBlogNav } from '#server/home/helpers/markdown/build-blog-nav.js'
 import { fetchMarkdown } from '#server/documentation/helpers/s3-file-handler.js'
 import {
   buildBlogPageHtml,
   extractTagsFromMarkdown
 } from '#server/documentation/helpers/markdown/build-page-html.js'
+
+export const options = {
+  id: 'x-home'
+}
+
+export default async function (request, h) {
+  const bucket = config.get('documentation.bucket')
+  const { nav, navHrefs } = await buildBlogNav(request, bucket)
+  const previewArticles = await buildPreviewArticles(request, navHrefs, bucket)
+
+  request.logger.info('Rendering home page')
+
+  return {
+    pageTitle: 'Home',
+    content: previewArticles,
+    nav
+  }
+}
 
 async function buildPreviewArticles(request, navHrefs, bucket) {
   const quantityPreviewArticles = 8
@@ -52,28 +70,3 @@ async function buildPreviewArticles(request, navHrefs, bucket) {
     ''
   )
 }
-
-const homeRoute = {
-  options: {
-    id: 'home'
-  },
-  handler: async (request, h) => {
-    const bucket = config.get('documentation.bucket')
-    const { nav, navHrefs } = await buildBlogNav(request, bucket)
-    const previewArticles = await buildPreviewArticles(
-      request,
-      navHrefs,
-      bucket
-    )
-
-    request.logger.info('Rendering home page')
-
-    return h.view('home/views/home', {
-      pageTitle: 'Home',
-      content: previewArticles,
-      nav
-    })
-  }
-}
-
-export { homeRoute }

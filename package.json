@@ -36,7 +36,8 @@
     "test:watch": "npm run test"
   },
   "imports": {
-    "#server/*": "./src/server/*"
+    "#server/*": "./src/server/*",
+    "#config/*": "./src/config/*"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.986.0",

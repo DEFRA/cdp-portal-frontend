@@ -5,8 +5,8 @@ import {
   mockBlogPreviewArticles
 } from '../../../test-helpers/common-page-rendering.js'
 
-vi.mock('../common/helpers/auth/get-user-session.js')
-vi.mock('../documentation/helpers/s3-file-handler.js')
+vi.mock('#server/common/helpers/auth/get-user-session.js')
+vi.mock('#server/documentation/helpers/s3-file-handler.js')
 
 describe('Home page', () => {
   const ie9UserAgent =
