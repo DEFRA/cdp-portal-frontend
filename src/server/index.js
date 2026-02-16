@@ -4,7 +4,7 @@ import hapi from '@hapi/hapi'
 import Scooter from '@hapi/scooter'
 
 import { router } from './router.js'
-import pagesRouter from './pagesRouter.js'
+import appRouter from './appRouter.js'
 import { config } from '../config/config.js'
 import { nunjucksConfig } from '../config/nunjucks/index.js'
 import { csrf } from './common/helpers/auth/csrf.js'
@@ -113,8 +113,8 @@ async function createServer() {
     sanitise,
     router,
     {
-      plugin: pagesRouter,
-      options: { pagesPath: 'src/server/pages', templatesPath: 'src/server' }
+      plugin: appRouter,
+      options: { path: 'src/server/routes', templatesPath: 'src/server' }
     },
     auditing,
     s3Client,
