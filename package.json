@@ -23,15 +23,17 @@
     "lint:fix": "eslint --fix .",
     "lint:js": "eslint .",
     "lint:scss": "stylelint  \"src/**/*.scss\" --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
+    "preview": "NODE_ENV=production node --use-strict .",
     "security-audit": "npm audit --audit-level=high",
-    "server:debug": "nodemon --inspect ./src",
-    "server:watch": "nodemon ./src",
+    "server:debug": "node --watch --inspect ./src",
+    "server:watch": "node --watch ./src",
     "prestart": "npm run build",
-    "start": "NODE_ENV=production node --use-strict .",
+    "start": "npm run dev",
+    "start:debug": "npm run dev:debug",
     "pretest": "npm run test:build:client",
-    "test": "TZ=UTC vitest run --coverage",
+    "test": "TZ=UTC vitest --coverage",
     "test:build:client": "NODE_ENV=test webpack",
-    "test:watch": "TZ=UTC vitest"
+    "test:watch": "npm run test"
   },
   "imports": {
     "#server/*": "./src/server/*"
@@ -126,7 +128,6 @@
     "mini-css-extract-plugin": "2.9.4",
     "neostandard": "0.12.2",
     "nock": "14.0.10",
-    "nodemon": "3.1.11",
     "npm-run-all": "4.1.5",
     "postcss-load-config": "6.0.1",
     "postcss-loader": "8.2.0",

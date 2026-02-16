@@ -86,6 +86,12 @@ set up Redis locally, refer to the documentation found:
 Run the application in `development` mode run:
 
 ```bash
+npm start
+```
+
+or
+
+```bash
 npm run dev
 ```
 
@@ -114,6 +120,12 @@ To set up `Node.js` debugging in your IDE:
 - [Running and debugging Node.js - Jet Brains](https://www.jetbrains.com/help/idea/running-and-debugging-node-js.html)
 
 To run debug mode:
+
+```bash
+npm run start:debug
+```
+
+or
 
 ```bash
 npm run dev:debug
@@ -237,7 +249,7 @@ For documentation on using and creating icons, see the [Icons README](./src/serv
 To mimic the application running in `production` mode locally run:
 
 ```bash
-npm start
+npm run preview
 ```
 
 ### Npm scripts
