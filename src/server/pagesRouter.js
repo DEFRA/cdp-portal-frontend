@@ -7,7 +7,7 @@ export default {
   register: async function (server, options) {
     const { pagesPath, templatesPath } = options
 
-    const sourcePaths = await glob(`${pagesPath}/**/*.{js,ts}`)
+    const sourcePaths = await glob(`${pagesPath}/**/page.js`)
     for (const sourcePath of sourcePaths) {
       await registerPage(pagesPath, templatesPath, sourcePath, server)
     }
@@ -29,13 +29,9 @@ async function registerPage(pagesPath, templatesPath, sourcePath, server) {
 
   const page = await import(resolve(sourcePath))
 
-  const { name: pageName, dir: pageDirectory } = parse(sourcePath)
+  const { dir: pageDirectory } = parse(sourcePath)
   const basePath = pageDirectory.replace(pagesPath, '')
-  const rawRoutePath = posix.join(
-    '/',
-    basePath,
-    pageName === 'index' ? '' : pageName
-  )
+  const rawRoutePath = posix.join('/', basePath)
   const routePath = rawRoutePath.replaceAll('...', '*').replaceAll('~', '?')
 
   for (const method of ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']) {
@@ -50,7 +46,7 @@ async function registerPage(pagesPath, templatesPath, sourcePath, server) {
   }
 
   if (page.default && !page.GET) {
-    const rawViewPath = `${pageDirectory.replace(templatesPath, '')}/${pageName}`
+    const rawViewPath = `${pageDirectory.replace(templatesPath, '')}/page`
     const viewPath =
       rawViewPath.charAt(0) === '/' ? rawViewPath.substr(1) : rawViewPath
 
