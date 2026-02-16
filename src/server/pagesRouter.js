@@ -1,31 +1,33 @@
 import { glob } from 'glob'
-import { posix, parse } from 'node:path'
+import { posix, parse, resolve } from 'node:path'
 
 export default {
   name: 'pagesRouter',
   version: '0.0.1',
   register: async function (server, options) {
     const { pagesPath, templatesPath } = options
-    const importPaths = await glob(`${pagesPath}/**/*.{js,ts}`)
 
-    for (const importPath of importPaths) {
-      await registerPage(pagesPath, templatesPath, importPath, server)
+    const sourcePaths = await glob(`${pagesPath}/**/*.{js,ts}`)
+    for (const sourcePath of sourcePaths) {
+      await registerPage(pagesPath, templatesPath, sourcePath, server)
     }
   }
 }
 
 async function registerPage(pagesPath, templatesPath, sourcePath, server) {
-  if (sourcePath.includes('*'))
+  if (sourcePath.includes('*')) {
     throw new Error(
       `Use '...' rather than Hapi's '*' in route '${sourcePath}'. This is for Windows FS compatibility.`
     )
+  }
 
-  if (sourcePath.includes('?'))
+  if (sourcePath.includes('?')) {
     throw new Error(
       `Use '~' rather than Hapi's '?' in route '${sourcePath}'. This is for Windows FS compatibility.`
     )
+  }
 
-  const page = await import(sourcePath)
+  const page = await import(resolve(sourcePath))
 
   const { name: pageName, dir: pageDirectory } = parse(sourcePath)
   const basePath = pageDirectory.replace(pagesPath, '')
