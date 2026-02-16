@@ -1,8 +1,8 @@
-import { commonTestSuiteExtensions } from '../../../common/helpers/ext/extensions.js'
-import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
-import { entityStatusController } from '../../../common/patterns/entities/status/controller.js'
+import { commonTestSuiteExtensions } from '#server/common/helpers/ext/extensions.js'
+import { TEST_SUITE } from '#server/common/patterns/entities/tabs/constants.js'
+import { entityStatusController } from '#server/common/patterns/entities/status/controller.js'
 import { testSuiteHomeController } from './test-suite-home.js'
-import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
+import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 
 const testSuiteHome = {
   plugin: {

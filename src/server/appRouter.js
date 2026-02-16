@@ -34,30 +34,44 @@ async function registerPage(path, templatesPath, sourcePath, server) {
   const rawRoutePath = posix.join('/', basePath)
   const routePath = rawRoutePath.replaceAll('...', '*').replaceAll('~', '?')
 
-  for (const method of ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']) {
-    if (route[method]) {
-      server.route({
-        method,
-        path: routePath,
-        handler: route[method],
-        options: { ...route.options, ...route[method].options }
-      })
+  server.register({
+    name: routePath.replaceAll('/', '-'),
+    register: async function (pluginServer) {
+      pluginServer.ext(route.ext ?? [])
+
+      for (const method of [
+        'GET',
+        'POST',
+        'PATCH',
+        'PUT',
+        'DELETE',
+        'OPTIONS'
+      ]) {
+        if (route[method]) {
+          pluginServer.route({
+            method,
+            path: routePath,
+            handler: route[method],
+            options: { ...route.options, ...route[method].options }
+          })
+        }
+      }
+
+      if (route.default && !route.GET) {
+        const rawViewPath = `${routeDirectory.replace(templatesPath, '')}/page`
+        const viewPath =
+          rawViewPath.charAt(0) === '/' ? rawViewPath.substr(1) : rawViewPath
+
+        pluginServer.route({
+          method: 'GET',
+          path: routePath,
+          handler: async (request, h) => {
+            const data = await route.default(request, h)
+            return h.view(viewPath, data)
+          },
+          options: { ...route.options, ...route.default.options }
+        })
+      }
     }
-  }
-
-  if (route.default && !route.GET) {
-    const rawViewPath = `${routeDirectory.replace(templatesPath, '')}/page`
-    const viewPath =
-      rawViewPath.charAt(0) === '/' ? rawViewPath.substr(1) : rawViewPath
-
-    server.route({
-      method: 'GET',
-      path: routePath,
-      handler: async (request, h) => {
-        const data = await route.default(request, h)
-        return h.view(viewPath, data)
-      },
-      options: { ...route.options, ...route.default.options }
-    })
-  }
+  })
 }

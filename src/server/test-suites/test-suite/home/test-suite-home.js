@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { aboutTestSuiteHandler } from '../about/about-handler.js'
-import { entityStatusHandler } from '../../../common/patterns/entities/status/status-handler.js'
-import { TEST_SUITE } from '../../../common/patterns/entities/tabs/constants.js'
-import { pluralise } from '../../../common/helpers/pluralise.js'
+import { entityStatusHandler } from '#server/common/patterns/entities/status/status-handler.js'
+import { TEST_SUITE } from '#server/common/patterns/entities/tabs/constants.js'
+import { pluralise } from '#server/common/helpers/pluralise.js'
 import { provideFormValues } from '../../helpers/pre/provide-form-values.js'
-import { provideNotFoundIfNull } from '../../../common/helpers/ext/provide-not-found-if-null.js'
+import { provideNotFoundIfNull } from '#server/common/helpers/ext/provide-not-found-if-null.js'
 
 const entityType = TEST_SUITE
 
