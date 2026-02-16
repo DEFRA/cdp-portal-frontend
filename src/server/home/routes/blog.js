@@ -2,10 +2,10 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
-import { config } from '../../../config/config.js'
+import { config } from '#config/config.js'
 import { blogMarkdownHandler } from '../helpers/blog-markdown-handler.js'
-import { s3FileHandler } from '../../documentation/helpers/s3-file-handler.js'
-import { statusCodeMessage } from '../../common/helpers/errors/status-code-message.js'
+import { s3FileHandler } from '#server/documentation/helpers/s3-file-handler.js'
+import { statusCodeMessage } from '#server/common/helpers/errors/status-code-message.js'
 
 const bucket = config.get('documentation.bucket')
 

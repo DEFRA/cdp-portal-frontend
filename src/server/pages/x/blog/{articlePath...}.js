@@ -1,4 +1,52 @@
+import Joi from 'joi'
+import Boom from '@hapi/boom'
+import { statusCodes } from '@defra/cdp-validation-kit'
+
+import { config } from '#config/config.js'
+import { blogMarkdownHandler } from '#server/home/helpers/blog-markdown-handler.js'
+import { s3FileHandler } from '#server/documentation/helpers/s3-file-handler.js'
+import { statusCodeMessage } from '#server/common/helpers/errors/status-code-message.js'
+
+const bucket = config.get('documentation.bucket')
+
+export const options = {
+  validate: {
+    params: Joi.object({
+      articlePath: Joi.string()
+    }),
+    failAction: () => Boom.boomify(Boom.notFound())
+  }
+}
+
 export async function GET(request, h) {
   const articlePath = request.params.articlePath
-  return 'Article Path: ' + articlePath
+  const articleKey = `blog/${articlePath}`
+
+  try {
+    if (!articlePath) {
+      throw Boom.notFound()
+    }
+
+    if (articlePath.toLowerCase().endsWith('.md')) {
+      return await blogMarkdownHandler(request, h, articlePath, bucket)
+    }
+
+    return await s3FileHandler(request, h, articleKey, bucket)
+  } catch (error) {
+    request.logger.error(error)
+
+    const statusCode =
+      error?.output?.statusCode ||
+      error?.$metadata?.httpStatusCode ||
+      statusCodes.internalError
+    const errorMessage = statusCodeMessage(statusCode)
+
+    return h
+      .view('error/index', {
+        pageTitle: errorMessage,
+        heading: statusCode,
+        message: errorMessage
+      })
+      .code(statusCode)
+  }
 }
