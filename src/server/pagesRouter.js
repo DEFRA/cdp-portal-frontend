@@ -15,15 +15,26 @@ export default {
 }
 
 async function registerPage(pagesPath, templatesPath, sourcePath, server) {
+  if (sourcePath.includes('*'))
+    throw new Error(
+      `Use '...' rather than Hapi's '*' in route '${sourcePath}'. This is for Windows FS compatibility.`
+    )
+
+  if (sourcePath.includes('?'))
+    throw new Error(
+      `Use '~' rather than Hapi's '?' in route '${sourcePath}'. This is for Windows FS compatibility.`
+    )
+
   const page = await import(sourcePath)
 
   const { name: pageName, dir: pageDirectory } = parse(sourcePath)
   const basePath = pageDirectory.replace(pagesPath, '')
-  const routePath = posix.join(
+  const rawRoutePath = posix.join(
     '/',
     basePath,
     pageName === 'index' ? '' : pageName
   )
+  const routePath = rawRoutePath.replaceAll('...', '*').replaceAll('~', '?')
 
   for (const method of ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']) {
     if (page[method]) {
