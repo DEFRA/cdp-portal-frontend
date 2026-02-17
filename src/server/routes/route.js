@@ -7,7 +7,7 @@ import {
 } from '#server/documentation/helpers/markdown/build-page-html.js'
 
 export const options = {
-  id: 'x-home'
+  id: 'home'
 }
 
 export default async function (request, h) {

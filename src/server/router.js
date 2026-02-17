@@ -9,7 +9,7 @@ import { deployments } from './deployments/routes.js'
 import { documentation } from './documentation/routes.js'
 import { health } from './health/routes.js'
 import { help } from './help/routes.js'
-import { home } from './home/routes.js'
+// import { home } from './home/routes.js'
 import { login } from './login/routes.js'
 import { logout } from './logout/routes.js'
 import { runningServices } from './running-services/routes.js'
@@ -37,7 +37,7 @@ const router = {
         documentation,
         health,
         help,
-        home,
+        // home, -- replaced by /routes
         login,
         logout,
         repositories,
