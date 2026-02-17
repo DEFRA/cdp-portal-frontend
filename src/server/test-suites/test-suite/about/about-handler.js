@@ -29,7 +29,7 @@ async function aboutTestSuiteHandler(request, h) {
   if (!formValues.provideProfile) {
     formValues.provideProfile = 'false'
   }
-  console.log(formValues)
+
   return h.view('test-suites/test-suite/about/views/test-suite', {
     pageTitle: `Test Suite - ${testSuiteName}`,
     entity,
