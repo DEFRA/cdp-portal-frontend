@@ -25,7 +25,7 @@ export const ext = [
 ]
 
 export const options = {
-  id: `x-${pluralise(entityType)}/{serviceId}`,
+  id: `${pluralise(entityType)}/{serviceId}`,
   ext: { onPreAuth: [provideNotFoundIfNull] },
   pre: [provideFormValues],
   validate: {
