@@ -4,12 +4,9 @@ import { config } from '../../../../config/config.js'
 import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
 import { pagination } from '../../../common/constants/pagination.js'
 
-async function fetchTestRuns(testSuiteName, queryParams) {
+async function fetchTestRuns(queryParams) {
   const queryString = qs.stringify(queryParams)
-  const endpoint =
-    config.get('portalBackendUrl') +
-    `/test-run?name=${testSuiteName}${queryString ? `&${queryString}` : ''}`
-
+  const endpoint = config.get('portalBackendUrl') + `/test-run?${queryString}`
   const { payload } = await fetchJson(endpoint)
 
   const testRuns = payload?.data ?? []

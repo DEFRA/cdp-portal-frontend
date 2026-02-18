@@ -18,10 +18,11 @@ async function aboutTestSuiteHandler(request, h) {
 
   const repository = await fetchRepository(entity.name).catch(nullify404)
 
-  const { testRuns, page, pageSize, totalPages } = await fetchTestRuns(
-    testSuiteName,
-    { page: query?.page, size: query?.size }
-  )
+  const { testRuns, page, pageSize, totalPages } = await fetchTestRuns({
+    name: testSuiteName,
+    page: query?.page,
+    size: query?.size
+  })
   const rows = testRuns.map((test) => testSuiteRunResults(test, canRun))
 
   const profiles = [...new Set(testRuns.map((t) => t.profile).filter(Boolean))]
