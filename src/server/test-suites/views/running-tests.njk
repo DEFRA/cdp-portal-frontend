@@ -1,0 +1,88 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "test-suites/common/components/test-result-row/macro.njk" import appTestResultRow %}
+
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "time/macro.njk" import appTime %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {{ appPageHeading({
+    text: "Running Test Suites",
+    intro: timeRange
+  }) }}
+
+  {% call appFilters({
+    info: {
+      html: appEntityDataList({
+        items: testSuitesInfo
+      })
+    },
+    clear: {
+      url: clearUrl
+    }
+  }) %}
+
+    {{ govukSelect({
+      id: "environment",
+      name: "environment",
+      label: {
+        text: "Environment",
+        classes: "app-label"
+      },
+      classes: "app-select",
+      formGroup: {
+        classes: "app-form-group app-form-group-js"
+      },
+      value: formData.environment,
+      errorMessage: errorMessageHelper(formErrors.serviceTypeTemplateId.message),
+      items: environmentOptions
+    }) }}
+
+    <div class="govuk-form-group app-form-group app-form-group-js">
+      <label class="govuk-label app-label" for="start">
+        Start
+      </label>
+      <input class="govuk-input app-input app-select" type="datetime-local" name="start" id="start" value="{{ formData.start }}"/>
+    </div>
+
+    <div class="govuk-form-group app-form-group app-form-group-js">
+      <label class="govuk-label app-label" for="end">
+        End
+      </label>
+      <input class="govuk-input app-input app-select" type="datetime-local" name="end" id="end"  value="{{ formData.end }}"/>
+    </div>
+
+    <div class="govuk-form-group app-form-group app-form-group-js">
+      <label class="govuk-label app-label" for="search">&nbsp</label>
+      <input class="govuk-button" type="submit" id="search"/>
+    </div>
+  {%  endcall %}
+
+  {% call(params) appEntityTable(tableData) %}
+    {{ appTestResultRow({
+      rowClasses: params.rowClasses,
+      loopIndex: params.loopIndex,
+      csrfToken: csrfToken,
+      testSuite: params.row.testSuite,
+      version: params.row.version,
+      environment: params.row.environment,
+      cpu: params.row.cpu,
+      memory: params.row.memory,
+      profile: params.row.profile,
+      status: params.row.status,
+      logs: params.row.logs,
+      hasResult: params.row.hasResult,
+      resultUrl: params.row.resultUrl,
+      runTestStatus: params.row.runTestStatus,
+      runId: params.row.runId,
+      user: params.row.user,
+      duration: params.row.duration,
+      lastRun: params.row.lastRun,
+      stopAction: params.row.stopAction
+    })
+    }}
+  {% endcall %}
+{%  endblock %}

@@ -2,6 +2,7 @@ import { testSuiteRunController } from './controllers/test-suite-run.js'
 import { stopTestSuiteController } from './controllers/stop-test-suite.js'
 import { testResultsController } from './controllers/test-results.js'
 import { testSuiteReportController } from './controllers/test-suite-report.js'
+import { runningTestsController } from './controllers/running-tests.js'
 
 const testSuiteRuns = {
   plugin: {
@@ -12,6 +13,11 @@ const testSuiteRuns = {
           method: 'POST',
           path: '/test-suites/run',
           ...testSuiteRunController
+        },
+        {
+          method: 'GET',
+          path: '/running-tests',
+          ...runningTestsController
         },
         {
           method: 'POST',
