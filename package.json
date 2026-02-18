@@ -38,6 +38,9 @@
   "imports": {
     "#server/*": "./src/server/*"
   },
+  "overrides": {
+    "fast-xml-parser": "5.3.6"
+  },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.986.0",
     "@aws-sdk/client-firehose": "3.986.0",
@@ -85,7 +88,7 @@
     "marked": "16.2.1",
     "marked-alert": "2.1.2",
     "marked-plaintify": "1.1.1",
-    "mermaid": "11.12.1",
+    "mermaid": "11.12.2",
     "nunjucks": "3.2.4",
     "openid-client": "6.8.1",
     "pino": "10.1.0",
