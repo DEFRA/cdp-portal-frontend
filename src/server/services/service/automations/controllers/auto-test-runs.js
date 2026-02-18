@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { buildAutoTestRunsViewDetails } from '../helpers/build-auto-test-runs-view-details.js'
 import { excludedEnvironments } from '../helpers/constants/excluded-environments.js'
-import { provideNotFoundIfPrototype } from '../../../../common/helpers/ext/provide-not-found-if-prototype.js'
-import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
+import { provideNotFoundIfPrototype } from '#server/common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '#server/common/helpers/ext/provide-not-found-if-null.js'
 
 const autoTestRunsController = {
   options: {
@@ -32,6 +32,7 @@ const autoTestRunsController = {
       userSession?.scope,
       entity?.subType
     ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
+
     const environmentOptions = buildOptions(
       environments.map((env) => ({ text: formatText(env), value: env })),
       false
