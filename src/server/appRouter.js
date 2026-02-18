@@ -4,6 +4,7 @@ import { posix, parse, resolve } from 'node:path'
 export default {
   name: 'appRouter',
   version: '0.0.1',
+  description: 'Filesystem based routing for application routes',
   register: async function (server, options) {
     const { path, templatesPath } = options
 

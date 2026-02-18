@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../../config/nunjucks/filters/filters.js'
-import { getAllEnvironmentKebabNames } from '../../../common/helpers/environments/get-environments.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { getAllEnvironmentKebabNames } from '#server/common/helpers/environments/get-environments.js'
 import { fetchTestRun } from '../../helpers/fetch/fetch-test-run.js'
 
 const testResultsController = {
