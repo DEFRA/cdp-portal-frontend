@@ -1,0 +1,19 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "test-suites/common/components/test-result-row/macro.njk" import appTestResultRow %}
+
+{% extends "layouts/tabbed-page.njk" %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Test Suite",
+    text: entity.name
+  }) }}
+
+{% endblock %}
+
+{% block tabContent %}
+
+  <section class="govuk-!-margin-top-6">
+
+  </section>
+{% endblock %}
