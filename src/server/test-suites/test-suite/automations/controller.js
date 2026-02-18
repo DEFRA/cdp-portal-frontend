@@ -61,7 +61,7 @@ export default {
           { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
-        noResult: 'Currently you have no tests set up run on a schedule'
+        noResult: 'Currently you have no tests set up to run on a schedule'
       },
       breadcrumbs: [
         {
