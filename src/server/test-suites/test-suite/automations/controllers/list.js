@@ -2,21 +2,18 @@ import { config } from '#config/config.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { excludedEnvironments } from '#server/services/service/automations/helpers/constants/excluded-environments.js'
-import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
-import { testSuiteToEntityRow } from '#server/services/service/automations/helpers/transformers/test-suite-to-entity-row.js'
-import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import { renderTestSuiteTagHtml } from '#server/services/service/automations/helpers/render-test-suite-tag-html.js'
 import { buildSuggestions } from '#server/common/components/autocomplete/helpers/build-suggestions.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { sortBy } from '#server/common/helpers/sort/sort-by.js'
 import { testKind } from '#server/test-suites/constants/test-kind.js'
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
-
-const portalBackendUrl = config.get('portalBackendUrl')
+import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
   options: {
-    id: `test-suites/{serviceId}/automations`
+    id: `test-suites/{serviceId}/automations`,
+    pre: [provideFormValues]
   },
   handler: async (request, h) => {
     const entity = request.app.entity
@@ -24,36 +21,22 @@ export default {
     const userSession = request.auth.credentials
     const serviceId = request.params.serviceId
     const serviceTeams = entity?.teams
+    const formValues = request.pre.formValues
 
-    const environments = getEnvironments(
-      userSession?.scope,
-      entity?.subType
-    ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
-
-    const environmentOptions = buildOptions(
-      environments.map((env) => ({ text: formatText(env), value: env })),
-      false
-    )
-
-    const { testSuiteOptions, rows } = await buildScheduledTestRunsViewDetails({
-      serviceTeams,
-      serviceId,
-      environments
+    const { rows } = await buildScheduledTestRunsViewDetails({
+      serviceTeams
     })
-
-    const supportVerticalHeadings = environments.length >= 5
 
     return h.view('test-suites/test-suite/automations/views/automations', {
       pageTitle: `Test Suite - ${testSuiteName} - Automations`,
       entity,
-      environmentOptions,
-      testSuiteOptions,
+      formValues,
       tableData: {
         headers: [
-          { id: 'id', text: 'Schedule', width: '17' },
-          { id: 'env', text: 'Environment', width: '10' }
-          // { id: 'profile', text: 'Profile', width: '8' },
-          // { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
+          { id: 'schedule', text: 'Schedule', width: '10' },
+          { id: 'env', text: 'Environment', width: '10' },
+          { id: 'startDate', text: 'Start date', width: '10' },
+          { id: 'endDate', text: 'End date', width: '10' }
         ],
         rows,
         noResult: 'Currently you have no tests set up to run on a schedule'
@@ -75,33 +58,22 @@ export default {
   }
 }
 
-async function buildScheduledTestRunsViewDetails({
-  serviceTeams,
-  serviceId,
-  environments
-}) {
+async function buildScheduledTestRunsViewDetails({ serviceTeams }) {
   const serviceTeamIds = serviceTeams.map((team) => team.teamId)
-  const [schedules, testSuites] = await Promise.all([
-    getSchedules(),
-    fetchTestSuites({ teamIds: serviceTeamIds })
-  ])
-
-  // const rowBuilder = testSuiteToEntityRow({
-  //   serviceName: serviceId,
-  //   environments,
-  //   testSuites
-  // })
+  const schedules = await getSchedules()
 
   const rows = schedules.map((schedule) => ({
     id: schedule.id,
-    env: schedule.task.environment
+    description: schedule.description,
+    env: schedule.task.environment,
+    startDate: schedule.config.startDate,
+    endDate: schedule.config.endDate
   }))
   // .map(rowBuilder)
   // .toSorted(sortRows)
   console.table(rows)
-  const testSuiteOptions = buildTestSuiteOptions(testSuites)
 
-  return { testSuiteOptions, rows }
+  return { rows }
 }
 
 function sortRows(rowA, rowB) {
@@ -113,22 +85,4 @@ function sortRows(rowA, rowB) {
   )?.headers
 
   return aHeader.localeCompare(bHeader)
-}
-
-function buildTestSuiteOptions(testSuites) {
-  const testSuitesWithRepoDetail = testSuites
-    .map((testSuite) => ({
-      ...testSuite
-    }))
-    .filter((testSuite) => testSuite?.subType === testKind.Journey)
-    .map((testSuite) => ({
-      text: testSuite.name,
-      value: testSuite.name,
-      hint: renderTestSuiteTagHtml(testSuite)
-    }))
-    .toSorted(sortBy('text', 'asc'))
-
-  return testSuitesWithRepoDetail?.length
-    ? buildSuggestions(testSuitesWithRepoDetail)
-    : []
 }

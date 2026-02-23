@@ -39,7 +39,7 @@
             Scheduled Test Runs
           </h2>
           <p class="govuk-!-margin-bottom-2">
-            Automatically trigger a test suite to run on a schedule
+            Automatically trigger the test suite to run on a schedule
           </p>
 
           {% call appDetails({
@@ -52,36 +52,13 @@
 
             <ul class="govuk-list govuk-list--number">
               <li>
-                <a class="app-link app-link--underline" href="{{ routeLookup('create') }}"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  Create a Journey test suite
-                </a>
-                or use a previously created one
-              </li>
-              <li>
-                Develop/write your journey tests locally and commit your work
-              </li>
-              <li>
-                <a class="app-link app-link--underline" href="{{ routeLookup('test-suites') }}"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  Run the journey tests
-                </a> via the Portal Frontend UI
-              </li>
-              <li>
                 Schedule an automatic test run using the form on this page
               </li>
               <li>
                 Choose the environments you wish the tests to be triggered on
               </li>
               <li>
-                Once this schedule has executed
-                <a class="app-link app-link--underline" href="{{ routeLookup('test-suites') }}"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  check the test run results
-                </a>
+                Once this schedule has executed check the test run results
               </li>
             </ul>
           {% endcall %}
@@ -93,7 +70,10 @@
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
                 id: params.row.id,
-                env: params.row.env
+                description: params.row.description,
+                env: params.row.env,
+                startDate: params.row.startDate,
+                endDate: params.row.endDate
               }) | safe }}
 
             {% endcall %}
@@ -101,105 +81,105 @@
         </div>
 
         <div class="govuk-grid-column-one-third-from-desktop-huge">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-              data-testid="add-test-run">Schedule Test Run</h2>
-          <p>
-            Choose a test suite to automatically run on a schedule
-          </p>
+          <section>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+                data-testid="add-test-run">Schedule Test Run</h2>
+            <p>
+              Choose a schedule and test suite parameters
+            </p>
 
-          <form
-            action="{{ routeLookup('post:services/{serviceId}/automations/test-runs', { params: { serviceId : entity.name } }) }}"
-            method="POST"
-            data-js="app-form-group app-form-errors">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+            <form action="{{ routeLookup('post:test-suites/{serviceId}/automations/create-schedule', { params: { serviceId : entity.name } }) }}"
+                  method="post"
+                  data-js="app-form-errors">
+              <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-            {% call govukFieldset() %}
+              {% call govukFieldset() %}
 
-              {{ appAutocomplete({
-                id: "auto-test-run-test-suite",
-                name: "testSuite",
-                label: {
-                  text: "Test Suite",
-                  classes: "govuk-label app-label"
-                },
-                hint: {
-                  text: "Choose a test suite to run against this service"
-                },
-                template: "advanced",
-                suggestionClasses: "app-autocomplete__suggestion--leading-hint",
-                icon: appSearchIcon(),
-                formGroup: {
-                  classes: "app-form-group"
-                },
-                value: formValues.testSuite,
-                suggestions: testSuiteOptions,
-                placeholder: "Search for a test suite",
-                noSuggestionsMessage: "No test suites found",
-                errorMessage: errorMessageHelper(formErrors.testSuite.message)
-              }) }}
-
-              {{ govukCheckboxes({
-                id: "auto-test-run-environments",
-                name: "environments",
-                classes: "app-checkboxes govuk-checkboxes--small govuk-checkboxes--inline",
-                fieldset: {
-                  legend: {
-                    text: "Environments",
-                    classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-2"
-                  }
-                },
-                hint: {
-                  text: "Select one or more environments to trigger the tests in",
-                  classes: "app-hint"
-                },
-                formGroup: {
-                  classes: "app-form-group"
-                },
-                items: environmentOptions,
-                values: formValues.environments,
-                errorMessage: errorMessageHelper(formErrors.environments.message)
-              }) }}
-
-              {{ govukRadios({
-                idPrefix: "provideProfile",
-                name: "provideProfile",
-                classes: "govuk-radios--small app-radios",
-                fieldset: {
-                  legend: {
-                    text: "Profile",
-                    classes: "govuk-fieldset__legend--m"
-                  }
-                },
-                hint: {
-                  text: "Do you want to provide a profile?",
-                  classes: "app-hint"
-                },
-                errorMessage: errorMessageHelper(formErrors.provideProfile.message),
-                items: [
-                  {
-                    value: true,
-                    text: "Yes",
-                    checked: formValues.provideProfile === 'true',
-                    conditional: {
-                    html: provideProfileHtml
-                  }
+                {{ govukSelect({
+                  id: "environment",
+                  name: "environment",
+                  label: {
+                    text: "Environment",
+                    classes: "app-label"
                   },
-                  {
-                    value: false,
-                    text: "No",
-                    checked: formValues.provideProfile === 'false'
-                  }
-                ]
+                  classes: "app-select",
+                  hint: {
+                    text: "The environment to run your tests against",
+                    classes: "app-hint"
+                  },
+                  value: formValues.environment,
+                  items: formValues.environmentOptions,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: errorMessageHelper(formErrors.environment.message)
+                }) }}
+
+                {{ govukRadios({
+                  idPrefix: "provideProfile",
+                  name: "provideProfile",
+                  classes: "govuk-radios--small app-radios",
+                  fieldset: {
+                    legend: {
+                      text: "Profile",
+                      classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+                    }
+                  },
+                  hint: {
+                    text: "Do you want to provide a profile value for the test runner?",
+                    classes: "app-hint"
+                  },
+                  errorMessage: errorMessageHelper(formErrors.provideProfile.message),
+                  items: [
+                    {
+                      value: true,
+                      text: "Yes",
+                      checked: formValues.provideProfile === 'true',
+                      conditional: {
+                      html: provideProfileHtml
+                    }
+                    },
+                    {
+                      value: false,
+                      text: "No",
+                      checked: formValues.provideProfile === 'false'
+                    }
+                  ]
+                }) }}
+
+                {{ govukRadios({
+                  name: "configuration",
+                  classes: "govuk-radios--small app-radios",
+                  fieldset: {
+                    legend: {
+                      text: "Configuration",
+                      classes: "govuk-label app-label"
+                    }
+                  },
+                  hint: {
+                    text: "Test runner configuration, choose CPU size and memory allocation",
+                    classes: "app-hint"
+                  },
+                  value: formValues.profile,
+                  items: formValues.runnerConfigOptions,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: errorMessageHelper(formErrors.config.message)
+                }) }}
+
+              {% endcall %}
+
+              {{ appButton({
+                text: "Add",
+                loader: {
+                  name: "run-submit-button"
+                }
               }) }}
 
-            {% endcall %}
+            </form>
+          </section>
 
-            {{ govukButton({
-              classes: "app-button",
-              text: "Add"
-            }) }}
-
-          </form>
         </div>
       </div>
 
