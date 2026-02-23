@@ -1,10 +1,8 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "test-suites/common/components/test-result-row/macro.njk" import appTestResultRow %}
-
 {% from "govuk/components/tag/macro.njk" import govukTag %}
-{% from "time/macro.njk" import appTime %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "time/macro.njk" import appTime %}
 
 {% extends "layouts/page.njk" %}
 
@@ -61,28 +59,63 @@
     </div>
   {%  endcall %}
 
-  {% call(params) appEntityTable(tableData) %}
-    {{ appTestResultRow({
-      rowClasses: params.rowClasses,
-      loopIndex: params.loopIndex,
-      csrfToken: csrfToken,
-      testSuite: params.row.testSuite,
-      version: params.row.version,
-      environment: params.row.environment,
-      cpu: params.row.cpu,
-      memory: params.row.memory,
-      profile: params.row.profile,
-      status: params.row.status,
-      logs: params.row.logs,
-      hasResult: params.row.hasResult,
-      resultUrl: params.row.resultUrl,
-      runTestStatus: params.row.runTestStatus,
-      runId: params.row.runId,
-      user: params.row.user,
-      duration: params.row.duration,
-      lastRun: params.row.lastRun,
-      stopAction: params.row.stopAction
-    })
-    }}
-  {% endcall %}
+  <table class="app-entity-table  app-entity-table--wide app-entity-table--inverse">
+    <thead class="app-entity-table__head">
+      <tr>
+        {%  for header in tableData.headers %}
+          <th id="{{ header.id }}" scope="col" class="app-entity-table__heading">{{ header.text }}</th>
+        {%  endfor %}
+      </tr>
+    </thead>
+
+  {% for params in tableData.rows %}
+  <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+
+    <td headers="Test Suite" class="app-entity-table__cell" data-label="TestSuite">
+      <a class="app-link" href="/test-suites/{{ params.testSuite }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
+        {{ params.testSuite }}
+      </a>
+    </td>
+
+    <td headers="version" class="app-entity-table__cell" data-label="Version">
+      <a class="app-link" href="https://github.com/DEFRA/{{ params.testSuite }}/releases/tag/{{ params.version }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
+        {{ params.version }}
+      </a>
+    </td>
+
+    <td headers="environment" class="app-entity-table__cell" data-label="Environment">
+      <span data-testid="app-entity-text">{{ params.environment }}</span>
+    </td>
+
+    <td headers="results" class="app-entity-table__cell" data-label="Results">
+      {% if params.hasResult %}
+        <a class="app-link" href="{{ params.resultUrl }}" data-testid="app-entity-link">
+          Report
+        </a>
+        {% if params.runTestStatus == "passed" %}
+          <span class="govuk-!-margin-left-1 govuk-!-margin-top-1">{{ appTickIcon({ classes: "app-icon--small"}) }}</span>
+        {% elseif params.runTestStatus == "failed" %}
+          <span class="govuk-!-margin-left-1 govuk-!-margin-top-1">{{ appErrorIcon({ classes: "app-icon--small"}) }}</span>
+        {% endif %}
+      {% else %}
+        {{ noValue }}
+      {%  endif %}
+    </td>
+
+    <td headers="user" class="app-entity-table__cell" data-label="User">
+      {{ params.user | safe }}
+    </td>
+
+    <td headers="duration" class="app-entity-table__cell" data-label="Duration">
+      <span data-testid="app-entity-text">{{ params.duration }}</span>
+    </td>
+
+    <td headers="last-ran" class="app-entity-table__cell" data-label="Last-ran">
+      {{ appTime({ datetime: params.lastRun}) }}
+    </td>
+  </tr>
+
+  {%  endfor %}
+  </table>
+
 {%  endblock %}

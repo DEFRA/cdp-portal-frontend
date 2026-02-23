@@ -12,10 +12,8 @@ const runningTestsController = {
   options: {
     validate: {
       query: Joi.object({
-        start: Joi.date()
-          .iso()
-          .default(formatISO(subMinutes(new Date(), 30))),
-        end: Joi.date().iso().default(formatISO(new Date())),
+        start: Joi.date().iso().default(subMinutes(new Date(), 30)),
+        end: Joi.date().iso().default(new Date()),
         environment: Joi.string()
       })
     }
@@ -24,9 +22,9 @@ const runningTestsController = {
     const query = request.query
 
     const { testRuns } = await fetchTestRuns({
-      start: query.start,
-      end: query.end,
-      environment: query.environment
+      start: formatISO(query.start),
+      end: formatISO(query.end),
+      environment: query.environment ?? null
     })
 
     const rows = testRuns
@@ -37,7 +35,8 @@ const runningTestsController = {
       value: environments[environment].kebabName,
       text: environments[environment].kebabName
     }))
-    const environmentOptions = buildOptions(allEnvs)
+    const environmentOptions = buildOptions(allEnvs, true)
+
 
     return h.view('test-suites/views/running-tests', {
       pageTitle: `Running Tests`,
@@ -51,18 +50,13 @@ const runningTestsController = {
       },
       tableData: {
         headers: [
+          { id: 'testsuite', text: 'Test Suite', width: '5' },
           { id: 'version', text: 'Version', width: '5' },
           { id: 'environment', text: 'Env', width: '7' },
-          { id: 'cpu', text: 'CPU', width: '5' },
-          { id: 'memory', text: 'Memory', width: '5' },
-          { id: 'profile', text: 'Profile', width: '5' },
           { id: 'status', text: 'Status', width: '7' },
-          { id: 'logs', text: 'Logs', width: '10' },
-          { id: 'results', text: 'Results', width: '8' },
           { id: 'user', text: 'Run By', width: '12' },
           { id: 'duration', text: 'Duration', width: '10' },
-          { id: 'last-run', text: 'Last Run', width: '15' },
-          { id: 'action', text: 'Action', width: '5' }
+          { id: 'last-run', text: 'Last Run', width: '15' }
         ],
         rows
       },
