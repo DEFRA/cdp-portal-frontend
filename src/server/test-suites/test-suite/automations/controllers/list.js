@@ -10,6 +10,7 @@ import { buildSuggestions } from '#server/common/components/autocomplete/helpers
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { sortBy } from '#server/common/helpers/sort/sort-by.js'
 import { testKind } from '#server/test-suites/constants/test-kind.js'
+import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 
@@ -87,7 +88,7 @@ async function buildScheduledTestRunsViewDetails({
 }) {
   const serviceTeamIds = serviceTeams.map((team) => team.teamId)
   const [autoTestRunDetails, testSuites] = await Promise.all([
-    getScheduledTestRunDetails(serviceId),
+    getSchedules(),
     fetchTestSuites({ teamIds: serviceTeamIds })
   ])
 
@@ -124,13 +125,6 @@ function sortRows(rowA, rowB) {
   )?.headers
 
   return aHeader.localeCompare(bHeader)
-}
-
-async function getScheduledTestRunDetails(serviceName) {
-  const endpoint = portalBackendUrl + `/auto-test-runs/${serviceName}`
-
-  const { payload } = await fetchJson(endpoint)
-  return payload
 }
 
 function buildTestSuiteOptions(testSuites) {

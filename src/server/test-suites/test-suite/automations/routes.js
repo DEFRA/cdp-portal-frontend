@@ -4,7 +4,8 @@ import {
   commonTestSuiteExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
-import controller from './controller.js'
+import list from './controllers/list.js'
+import create from './controllers/create.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -15,13 +16,6 @@ export const testSuiteAutomations = {
       server.ext([
         ...commonTestSuiteExtensions,
         provideNotFoundIfPrototypeExtension
-        // {
-        //   type: 'onPostHandler',
-        //   method: provideSubNav('automations', TEST_SUITE),
-        //   options: {
-        //     sandbox: 'plugin'
-        //   }
-        // }
       ])
 
       server.route(
@@ -29,7 +23,12 @@ export const testSuiteAutomations = {
           {
             method: 'GET',
             path: '/test-suites/{serviceId}/automations',
-            ...controller
+            ...list
+          },
+          {
+            method: 'POST',
+            path: '/test-suites/{serviceId}/automations/create-schedule',
+            ...create
           }
         ].map(serviceTeamAndAdminUserScope)
       )

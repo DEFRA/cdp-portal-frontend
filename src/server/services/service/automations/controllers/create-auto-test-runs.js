@@ -1,13 +1,13 @@
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { sessionNames } from '../../../../common/constants/session-names.js'
-import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { autoTestRunValidation } from '../helpers/schema/auto-test-run-validation.js'
 import { saveAutoTestRunDetails } from '../helpers/fetchers.js'
-import { provideNotFoundIfPrototype } from '../../../../common/helpers/ext/provide-not-found-if-prototype.js'
-import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
-import { postProcessValidationErrors } from '../../../../test-suites/helpers/schema/test-suite-validation.js'
+import { provideNotFoundIfPrototype } from '#server/common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '#server/common/helpers/ext/provide-not-found-if-null.js'
+import { postProcessValidationErrors } from '#server/test-suites/helpers/schema/test-suite-validation.js'
 
 const setupAutoTestRunController = {
   options: {
