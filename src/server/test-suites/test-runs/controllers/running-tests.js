@@ -37,7 +37,6 @@ const runningTestsController = {
     }))
     const environmentOptions = buildOptions(allEnvs, true)
 
-
     return h.view('test-suites/views/running-tests', {
       pageTitle: `Running Tests`,
       timeRange: `Tests run in the last ${differenceInMinutes(query.end, query.start)} minutes`,
