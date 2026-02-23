@@ -1,12 +1,3 @@
-import { config } from '#config/config.js'
-import { formatText } from '#config/nunjucks/filters/filters.js'
-import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { excludedEnvironments } from '#server/services/service/automations/helpers/constants/excluded-environments.js'
-import { renderTestSuiteTagHtml } from '#server/services/service/automations/helpers/render-test-suite-tag-html.js'
-import { buildSuggestions } from '#server/common/components/autocomplete/helpers/build-suggestions.js'
-import { buildOptions } from '#server/common/helpers/options/build-options.js'
-import { sortBy } from '#server/common/helpers/sort/sort-by.js'
-import { testKind } from '#server/test-suites/constants/test-kind.js'
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
@@ -18,8 +9,6 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const userSession = request.auth.credentials
-    const serviceId = request.params.serviceId
     const serviceTeams = entity?.teams
     const formValues = request.pre.formValues
 
@@ -34,7 +23,10 @@ export default {
       tableData: {
         headers: [
           { id: 'schedule', text: 'Schedule', width: '10' },
-          { id: 'env', text: 'Environment', width: '10' },
+          { id: 'env', text: 'Env', width: '7' },
+          { id: 'cpu', text: 'CPU', width: '5' },
+          { id: 'memory', text: 'Memory', width: '5' },
+          { id: 'profile', text: 'Profile', width: '5' },
           { id: 'startDate', text: 'Start date', width: '10' },
           { id: 'endDate', text: 'End date', width: '10' }
         ],
@@ -59,30 +51,18 @@ export default {
 }
 
 async function buildScheduledTestRunsViewDetails({ serviceTeams }) {
-  const serviceTeamIds = serviceTeams.map((team) => team.teamId)
   const schedules = await getSchedules()
 
   const rows = schedules.map((schedule) => ({
     id: schedule.id,
     description: schedule.description,
     env: schedule.task.environment,
+    cpu: schedule.task.cpu / 1024 + ' vCPU',
+    memory: schedule.task.memory / 1024 + ' GB',
+    profile: schedule.task.profile,
     startDate: schedule.config.startDate,
     endDate: schedule.config.endDate
   }))
-  // .map(rowBuilder)
-  // .toSorted(sortRows)
-  console.table(rows)
 
   return { rows }
-}
-
-function sortRows(rowA, rowB) {
-  const aHeader = rowA.cells.find(
-    ({ headers }) => headers === 'test-suite'
-  )?.headers
-  const bHeader = rowB.cells.find(
-    ({ headers }) => headers === 'test-suite'
-  )?.headers
-
-  return aHeader.localeCompare(bHeader)
 }

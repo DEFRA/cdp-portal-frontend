@@ -1,7 +1,7 @@
 import { runnerConfigurations } from '../../constants/runner-configurations.js'
-import { buildOptions } from '../../../common/helpers/options/build-options.js'
-import { sortByEnv } from '../../../common/helpers/sort/sort-by-env.js'
-import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
+import { sortByEnv } from '#server/common/helpers/sort/sort-by-env.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 
 const profileHtmlTemplate = ({
   cpu,
