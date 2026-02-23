@@ -50,16 +50,10 @@ export default {
       testSuiteOptions,
       tableData: {
         headers: [
-          { id: 'test-suite', text: 'Test suite', width: '17' },
-          { id: 'kind', text: 'Kind', width: '8' },
-          { id: 'profile', text: 'Profile', width: '8' },
-          ...environments.map((env) => ({
-            ...(supportVerticalHeadings && { verticalText: true }),
-            id: env.toLowerCase(),
-            text: formatText(env),
-            width: env.length
-          })),
-          { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
+          { id: 'id', text: 'Schedule', width: '17' },
+          { id: 'env', text: 'Environment', width: '10' }
+          // { id: 'profile', text: 'Profile', width: '8' },
+          // { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
         noResult: 'Currently you have no tests set up to run on a schedule'
@@ -87,30 +81,24 @@ async function buildScheduledTestRunsViewDetails({
   environments
 }) {
   const serviceTeamIds = serviceTeams.map((team) => team.teamId)
-  const [autoTestRunDetails, testSuites] = await Promise.all([
+  const [schedules, testSuites] = await Promise.all([
     getSchedules(),
     fetchTestSuites({ teamIds: serviceTeamIds })
   ])
 
-  const rowBuilder = testSuiteToEntityRow({
-    serviceName: serviceId,
-    environments,
-    testSuites
-  })
+  // const rowBuilder = testSuiteToEntityRow({
+  //   serviceName: serviceId,
+  //   environments,
+  //   testSuites
+  // })
 
-  const rows = autoTestRunDetails?.testSuites
-    ? Object.entries(autoTestRunDetails.testSuites)
-        .flatMap(([testSuiteName, configs]) =>
-          configs.map((config) => ({
-            testSuiteName,
-            profile: config.profile,
-            activeEnvironments: config.environments
-          }))
-        )
-        .map(rowBuilder)
-        .toSorted(sortRows)
-    : []
-
+  const rows = schedules.map((schedule) => ({
+    id: schedule.id,
+    env: schedule.task.environment
+  }))
+  // .map(rowBuilder)
+  // .toSorted(sortRows)
+  console.table(rows)
   const testSuiteOptions = buildTestSuiteOptions(testSuites)
 
   return { testSuiteOptions, rows }

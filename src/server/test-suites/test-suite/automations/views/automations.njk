@@ -1,6 +1,7 @@
 {% extends "layouts/tabbed-page.njk" %}
 
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
+{% from "common/components/schedule-row/macro.njk" import scheduleRow %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -86,7 +87,16 @@
           {% endcall %}
 
           <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
-            {{ appEntityTable(tableData) }}
+            {% call(params) appEntityTable(tableData) %}
+
+              {{ scheduleRow({
+                rowClasses: params.rowClasses,
+                loopIndex: params.loopIndex,
+                id: params.row.id,
+                env: params.row.env
+              }) | safe }}
+
+            {% endcall %}
           </div>
         </div>
 
