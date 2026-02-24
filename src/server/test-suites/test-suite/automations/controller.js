@@ -34,7 +34,7 @@ export default {
       false
     )
 
-    const { testSuiteOptions, rows } = await buildAutoTestRunsViewDetails({
+    const { testSuiteOptions, rows } = await buildScheduledTestRunsViewDetails({
       serviceTeams,
       serviceId,
       environments
@@ -80,7 +80,7 @@ export default {
   }
 }
 
-async function buildAutoTestRunsViewDetails({
+async function buildScheduledTestRunsViewDetails({
   serviceTeams,
   serviceId,
   environments

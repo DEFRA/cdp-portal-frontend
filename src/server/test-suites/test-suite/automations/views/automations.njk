@@ -42,11 +42,11 @@
           </p>
 
           {% call appDetails({
-            summaryText: "Setting up automatic test runs"
+            summaryText: "Setting up scheduled test runs"
           }) %}
 
             <p class="app-!-layout-centered govuk-!-margin-bottom-2">
-              {{ appInfoIcon({ classes: "app-icon--tiny", description: "Info" }) }} How to set up automatic test runs
+              {{ appInfoIcon({ classes: "app-icon--tiny", description: "Info" }) }} How to set up scheduled test runs
             </p>
 
             <ul class="govuk-list govuk-list--number">
@@ -69,20 +69,13 @@
                 </a> via the Portal Frontend UI
               </li>
               <li>
-                Add an automatic test run to this service, using the form on this page
+                Schedule an automatic test run using the form on this page
               </li>
               <li>
                 Choose the environments you wish the tests to be triggered on
               </li>
               <li>
-                <a class="app-link app-link--underline" href="{{ routeLookup('deploy-service') }}"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  Deploy this service
-                </a>
-              </li>
-              <li>
-                Once this service has deployed
+                Once this schedule has executed
                 <a class="app-link app-link--underline" href="{{ routeLookup('test-suites') }}"
                    target="_blank"
                    rel="noopener noreferrer">
