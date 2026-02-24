@@ -98,8 +98,8 @@
 
               <!-- TODO: Create inputs -->
               <input type="hidden" name="frequency" value="INTERVAL" />
-              <input type="hidden" name="everyUnit" value="Hours" />
-              <input type="hidden" name="everyValue" value="1" />
+              <input type="hidden" name="intervalUnit" value="Hours" />
+              <input type="hidden" name="intervalValue" value="1" />
 
               {% call govukFieldset() %}
 
@@ -194,12 +194,12 @@
                     text: "Test runner configuration, choose CPU size and memory allocation",
                     classes: "app-hint"
                   },
-                  value: formValues.profile,
+                  value: formValues.configuration,
                   items: formValues.runnerConfigOptions,
                   formGroup: {
                     classes: "app-form-group app-form-group-js"
                   },
-                  errorMessage: errorMessageHelper(formErrors.config.message)
+                  errorMessage: errorMessageHelper(formErrors.configuration.message)
                 }) }}
 
               {% endcall %}

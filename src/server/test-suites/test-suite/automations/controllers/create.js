@@ -27,10 +27,11 @@ export default {
     const serviceId = request.params.serviceId
 
     const sanitisedPayload = {
-      //frequency: payload.frequency,
-      // everyUnit: payload.everyUnit,
-      //everyValue: payload.everyValue,
+      frequency: payload.frequency,
+      intervalUnit: payload.intervalUnit,
+      intervalValue: payload.intervalValue,
       environment: payload.environment,
+      configuration: payload.configuration,
       provideProfile: payload.provideProfile,
       profile: payload.profile,
       newProfile: payload.newProfile
@@ -46,7 +47,7 @@ export default {
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
-
+      console.log(errorDetails)
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload,
         formErrors: errorDetails

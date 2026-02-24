@@ -41,6 +41,13 @@ export function testSuiteValidation(imageNames, environments) {
 
 export function testScheduleValidation(environments) {
   return Joi.object({
+    frequency: Joi.string()
+      .valid(...['INTERVAL'])
+      .required(),
+    intervalUnit: Joi.string()
+      .valid(...['Minutes', 'Hours', 'Days'])
+      .optional(),
+    intervalValue: Joi.number().optional(),
     environment: Joi.string()
       .valid(...environments)
       .required()
