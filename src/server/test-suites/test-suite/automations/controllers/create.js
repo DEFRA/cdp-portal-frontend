@@ -3,12 +3,13 @@ import Joi from 'joi'
 
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
-// import { saveAutoTestRunDetails } from '../helpers/fetchers.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import {
   testScheduleValidation,
   postProcessValidationErrors
-} from '#server/test-suites/helpers/schema/test-suite-validation.js'
+} from '../../../helpers/schema/test-suite-validation.js'
+import { createSchedule } from '#server/services/service/automations/helpers/fetchers.js'
+import { runnerConfigurations } from '../../../constants/runner-configurations.js'
 
 export default {
   options: {
@@ -47,23 +48,45 @@ export default {
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
-      console.log(errorDetails)
+
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload,
         formErrors: errorDetails
       })
     } else {
       try {
-        const { res } = await saveAutoTestRunDetails(validationResult.value)
+        const profile = validationResult.value.provideProfile
+          ? validationResult.value.profile &&
+            validationResult.value.profile.trim() !== ''
+            ? validationResult.value.profile
+            : validationResult.value.newProfile
+          : undefined
 
-        const successMessage =
-          res?.status === 201
-            ? 'Scheduled test runs saved successfully'
-            : 'Scheduled test runs updated successfully'
+        const { cpu, memory } =
+          runnerConfigurations[validationResult.value.configuration]
+
+        await createSchedule(
+          'platform', // TODO: Fetch from user or remove?
+          {
+            type: 'DeployTestSuite',
+            testSuite: serviceId,
+            environment: validationResult.value.environment,
+            cpu: cpu.value,
+            memory: memory.value,
+            profile
+          },
+          {
+            frequency: validationResult.value.frequency, // TODO: handle diff frequencies
+            every: {
+              unit: validationResult.value.intervalUnit,
+              value: validationResult.value.intervalValue
+            }
+          }
+        )
 
         request.yar.clear(sessionNames.validationFailure)
         request.yar.flash(sessionNames.notifications, {
-          text: successMessage,
+          text: 'Scheduled test runs saved successfully',
           type: 'success'
         })
       } catch (error) {

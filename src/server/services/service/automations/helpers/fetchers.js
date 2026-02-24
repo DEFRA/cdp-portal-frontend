@@ -100,3 +100,16 @@ export async function getSchedules(serviceName) {
   const { payload } = await fetchJson(endpoint)
   return payload
 }
+
+export async function createSchedule(teamId, task, config) {
+  const endpoint = `${portalBackendUrl}/schedules`
+
+  return fetchJson(endpoint, {
+    method: 'post',
+    payload: removeNil({
+      teamId,
+      task,
+      config
+    })
+  })
+}
