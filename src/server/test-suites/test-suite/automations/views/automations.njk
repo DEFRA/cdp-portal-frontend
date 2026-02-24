@@ -96,7 +96,38 @@
                   data-js="app-form-errors">
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
+              <!-- TODO: Create inputs -->
+              <input type="hidden" name="frequency" value="INTERVAL" />
+              <input type="hidden" name="everyUnit" value="Hours" />
+              <input type="hidden" name="everyValue" value="1" />
+
               {% call govukFieldset() %}
+
+              {{ govukSelect({
+                id: "schedule",
+                name: "schedule",
+                label: {
+                  text: "Schedule",
+                  classes: "app-label"
+                },
+                classes: "app-select",
+                hint: {
+                  text: "When to run the tests",
+                  classes: "app-hint"
+                },
+                value: "INTERVAL",
+                disabled: true,
+                items: [
+                  {
+                    value: "INTERVAL",
+                    text: "Interval : 1 hour"
+                  }
+                ],
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                errorMessage: errorMessageHelper(formErrors.schedule.message)
+              }) }}
 
                 {{ govukSelect({
                   id: "environment",
@@ -139,8 +170,8 @@
                       text: "Yes",
                       checked: formValues.provideProfile === 'true',
                       conditional: {
-                      html: provideProfileHtml
-                    }
+                        html: provideProfileHtml
+                      }
                     },
                     {
                       value: false,

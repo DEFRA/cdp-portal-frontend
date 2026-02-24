@@ -4,6 +4,8 @@ import {
   commonTestSuiteExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
+import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
+
 import list from './controllers/list.js'
 import create from './controllers/create.js'
 
@@ -15,7 +17,15 @@ export const testSuiteAutomations = {
     register: (server) => {
       server.ext([
         ...commonTestSuiteExtensions,
-        provideNotFoundIfPrototypeExtension
+        provideNotFoundIfPrototypeExtension,
+        {
+          type: 'onPostHandler',
+          method: provideFormContextValues(),
+          options: {
+            before: ['yar'],
+            sandbox: 'plugin'
+          }
+        }
       ])
 
       server.route(

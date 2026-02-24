@@ -6,7 +6,7 @@ import { envVarValueValidation } from '@defra/cdp-validation-kit'
 const chooseConfig = validation.choose('configuration')
 const chooseEnvironment = validation.choose('environment')
 
-function testSuiteValidation(imageNames, environments) {
+export function testSuiteValidation(imageNames, environments) {
   return Joi.object({
     testSuite: Joi.string()
       .valid(...imageNames)
@@ -39,7 +39,37 @@ function testSuiteValidation(imageNames, environments) {
   })
 }
 
-function postProcessValidationErrors(validationResult) {
+export function testScheduleValidation(environments) {
+  return Joi.object({
+    environment: Joi.string()
+      .valid(...environments)
+      .required()
+      .messages({
+        'any.only': chooseEnvironment,
+        'any.required': chooseEnvironment
+      }),
+    configuration: Joi.string()
+      .valid(...Object.keys(runnerConfigurations))
+      .required()
+      .messages({
+        'any.only': chooseConfig,
+        'any.required': chooseConfig
+      }),
+    provideProfile: Joi.boolean()
+      .truthy('true')
+      .falsy('false')
+      .required()
+      .messages({
+        'any.required': 'Select whether you wish to provide a profile'
+      }),
+    profile: envVarValueValidation.empty('').optional(),
+    newProfile: envVarValueValidation.empty('').optional()
+  }).when(Joi.object({ provideProfile: Joi.valid(true, 'true') }).unknown(), {
+    then: Joi.object().xor('profile', 'newProfile')
+  })
+}
+
+export function postProcessValidationErrors(validationResult) {
   validationResult.error.details.forEach((detail) => {
     if (detail.type === 'object.missing' || detail.type === 'object.xor') {
       detail.path = ['profile']
@@ -63,5 +93,3 @@ function postProcessValidationErrors(validationResult) {
     })
   })
 }
-
-export { testSuiteValidation, postProcessValidationErrors }

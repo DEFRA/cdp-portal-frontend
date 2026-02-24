@@ -1,13 +1,13 @@
-import { sessionNames } from '../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { runTest } from '../../helpers/fetch/run-test.js'
-import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 
 import {
   postProcessValidationErrors,
   testSuiteValidation
 } from '../../helpers/schema/test-suite-validation.js'
-import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
-import { fetchTestSuites } from '../../../common/helpers/fetch/fetch-entities.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
 
 const testSuiteRunController = {
   handler: async (request, h) => {
