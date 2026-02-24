@@ -12,9 +12,14 @@ const runningTestsController = {
   options: {
     validate: {
       query: Joi.object({
-        start: Joi.date().iso().default(subMinutes(new Date(), 30)),
-        end: Joi.date().iso().default(new Date()),
-        environment: Joi.string()
+        start: Joi.date()
+          .iso()
+          .default(() => subMinutes(new Date(), 30)),
+        end: Joi.date()
+          .iso()
+          .min(Joi.ref('start'))
+          .default(() => new Date()),
+        environment: Joi.string().optional()
       })
     }
   },
@@ -24,16 +29,20 @@ const runningTestsController = {
     const { testRuns } = await fetchTestRuns({
       start: formatISO(query.start),
       end: formatISO(query.end),
-      environment: query.environment ?? null
+      ...(query.environment && { environment: query.environment })
     })
 
     const rows = testRuns
-      .toSorted((a, b) => sortByEnv(a.environment, b.environment))
+      .toSorted(
+        (a, b) =>
+          sortByEnv(a.environment, b.environment) ||
+          new Date(b.created) - new Date(a.created)
+      )
       .map((t) => testSuiteRunResults(t, false))
 
-    const allEnvs = Object.keys(environments).map((environment) => ({
-      value: environments[environment].kebabName,
-      text: environments[environment].kebabName
+    const allEnvs = Object.values(environments).map(({ kebabName }) => ({
+      value: kebabName,
+      text: kebabName
     }))
     const environmentOptions = buildOptions(allEnvs, true)
 
