@@ -24,7 +24,7 @@
     "lint:js": "eslint .",
     "lint:scss": "stylelint  \"src/**/*.scss\" --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
     "preview": "NODE_ENV=production node --use-strict .",
-    "security-audit": "npm audit --audit-level=high",
+    "security-audit": "npm audit --audit-level=critical",
     "server:debug": "node --watch --inspect ./src",
     "server:watch": "node --watch ./src",
     "prestart": "npm run build",
