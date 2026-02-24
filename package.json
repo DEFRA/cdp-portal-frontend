@@ -27,6 +27,10 @@
     "security-audit": "npm audit --audit-level=critical",
     "server:debug": "node --watch --inspect ./src",
     "server:watch": "node --watch ./src",
+    "preview": "NODE_ENV=production node --env-file-if-exists=.env .",
+    "security-audit": "npm audit --audit-level=high",
+    "server:debug": "node --env-file-if-exists=.env --watch --inspect ./src",
+    "server:watch": "node --env-file-if-exists=.env --watch ./src",
     "prestart": "npm run build",
     "start": "npm run dev",
     "start:debug": "npm run dev:debug",
@@ -36,7 +40,8 @@
     "test:watch": "npm run test"
   },
   "imports": {
-    "#server/*": "./src/server/*"
+    "#server/*": "./src/server/*",
+    "#config/*": "./src/config/*"
   },
   "overrides": {
     "fast-xml-parser": "5.3.6"
