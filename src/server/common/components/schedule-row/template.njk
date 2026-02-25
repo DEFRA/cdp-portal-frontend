@@ -1,0 +1,37 @@
+{% from "time/macro.njk" import appTime %}
+
+<tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+  <td headers="description" class="app-entity-table__cell" data-label="description">
+    {{ params.description }}
+  </td>
+
+  <td headers="env" class="app-entity-table__cell" data-label="env">
+    {{ params.env }}
+  </td>
+
+  <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
+    <span data-testid="app-entity-text">{{ params.cpu }}</span>
+  </td>
+
+
+  <td headers="memory" class="app-entity-table__cell" data-label="Memory">
+    <span data-testid="app-entity-text">{{ params.memory }}</span>
+  </td>
+
+
+  <td headers="profile" class="app-entity-table__cell" data-label="Profile">
+    {% if params.profile | length %}
+      <span class="app-entity">{{ params.profile }}</span>
+    {% else %}
+      {{ noValue }}
+    {% endif %}
+  </td>
+
+  <td headers="startDate" class="app-entity-table__cell" data-label="startDate">
+    {{ appTime({ datetime: params.startDate }) }}
+  </td>
+
+  <td headers="endDate" class="app-entity-table__cell" data-label="endDate">
+    {{ appTime({ datetime: params.endDate }) }}
+  </td>
+</tr>

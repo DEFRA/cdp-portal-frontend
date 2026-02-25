@@ -68,6 +68,11 @@ describe('#provideTestSuiteTabs', () => {
         },
         {
           isActive: false,
+          label: 'Automations',
+          url: `/test-suites/${mockEntityName}/automations`
+        },
+        {
+          isActive: false,
           label: 'Proxy',
           url: `/test-suites/${mockEntityName}/proxy`
         },
@@ -77,7 +82,7 @@ describe('#provideTestSuiteTabs', () => {
           url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -94,6 +99,11 @@ describe('#provideTestSuiteTabs', () => {
           isActive: false,
           label: 'About',
           url: `/test-suites/${mockEntityName}`
+        },
+        {
+          isActive: false,
+          label: 'Automations',
+          url: `/test-suites/${mockEntityName}/automations`
         },
         {
           isActive: false,
@@ -140,6 +150,11 @@ describe('#provideTestSuiteTabs', () => {
         },
         {
           isActive: false,
+          label: 'Automations',
+          url: `/test-suites/${mockEntityName}/automations`
+        },
+        {
+          isActive: false,
           label: 'Proxy',
           url: `/test-suites/${mockEntityName}/proxy`
         },
@@ -149,7 +164,7 @@ describe('#provideTestSuiteTabs', () => {
           url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(3)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -166,6 +181,11 @@ describe('#provideTestSuiteTabs', () => {
           isActive: false,
           label: 'About',
           url: `/test-suites/${mockEntityName}`
+        },
+        {
+          isActive: false,
+          label: 'Automations',
+          url: `/test-suites/${mockEntityName}/automations`
         },
         {
           isActive: false,

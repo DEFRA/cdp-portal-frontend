@@ -1,10 +1,10 @@
-import { sortBy } from '../../../../common/helpers/sort/sort-by.js'
-import { fetchTestSuites } from '../../../../common/helpers/fetch/fetch-entities.js'
+import { sortBy } from '#server/common/helpers/sort/sort-by.js'
+import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
 import { testSuiteToEntityRow } from './transformers/test-suite-to-entity-row.js'
 import { renderTestSuiteTagHtml } from './render-test-suite-tag-html.js'
-import { buildSuggestions } from '../../../../common/components/autocomplete/helpers/build-suggestions.js'
+import { buildSuggestions } from '#server/common/components/autocomplete/helpers/build-suggestions.js'
 import { getAutoTestRunDetails } from './fetchers.js'
-import { testKind } from '../../../../test-suites/constants/test-kind.js'
+import { testKind } from '#server/test-suites/constants/test-kind.js'
 
 function sortRows(rowA, rowB) {
   const aHeader = rowA.cells.find(

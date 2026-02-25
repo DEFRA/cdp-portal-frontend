@@ -1,12 +1,14 @@
-import { config } from '../../../../../config/config.js'
-import { fetchJson } from '../../../../common/helpers/fetch/fetch-json.js'
-import { removeNil } from '../../../../common/helpers/remove-nil.js'
-import { createLogger } from '../../../../common/helpers/logging/logger.js'
+import { config } from '#config/config.js'
+import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
+import { removeNil } from '#server/common/helpers/remove-nil.js'
+import { createLogger } from '#server/common/helpers/logging/logger.js'
+
+// TODO: Move to a Service layer
 
 const logger = createLogger()
 const portalBackendUrl = config.get('portalBackendUrl')
 
-async function getAutoDeployDetails(serviceName) {
+export async function getAutoDeployDetails(serviceName) {
   try {
     const endpoint = portalBackendUrl + `/auto-deployments/${serviceName}`
 
@@ -28,7 +30,7 @@ async function getAutoDeployDetails(serviceName) {
   }
 }
 
-function saveAutoDeployDetails(details) {
+export function saveAutoDeployDetails(details) {
   const endpoint = portalBackendUrl + '/auto-deployments'
 
   return fetchJson(endpoint, {
@@ -40,14 +42,14 @@ function saveAutoDeployDetails(details) {
   })
 }
 
-async function getAutoTestRunDetails(serviceName) {
+export async function getAutoTestRunDetails(serviceName) {
   const endpoint = portalBackendUrl + `/auto-test-runs/${serviceName}`
 
   const { payload } = await fetchJson(endpoint)
   return payload
 }
 
-function saveAutoTestRunDetails(details) {
+export function saveAutoTestRunDetails(details) {
   const endpoint = portalBackendUrl + '/auto-test-runs'
 
   const profile = details.provideProfile
@@ -67,7 +69,7 @@ function saveAutoTestRunDetails(details) {
   })
 }
 
-function removeAutoTestRun(serviceName, testSuite, profile) {
+export function removeAutoTestRun(serviceName, testSuite, profile) {
   const endpoint = portalBackendUrl + '/auto-test-runs/remove-test-run'
 
   return fetchJson(endpoint, {
@@ -80,7 +82,7 @@ function removeAutoTestRun(serviceName, testSuite, profile) {
   })
 }
 
-function updateAutoTestRun(serviceName, payload) {
+export function updateAutoTestRun(serviceName, payload) {
   const endpoint = portalBackendUrl + '/auto-test-runs/update-test-run'
 
   return fetchJson(endpoint, {
@@ -91,11 +93,23 @@ function updateAutoTestRun(serviceName, payload) {
     })
   })
 }
-export {
-  getAutoDeployDetails,
-  saveAutoDeployDetails,
-  getAutoTestRunDetails,
-  saveAutoTestRunDetails,
-  removeAutoTestRun,
-  updateAutoTestRun
+
+export async function getSchedules(serviceName) {
+  const endpoint = `${portalBackendUrl}/schedules`
+
+  const { payload } = await fetchJson(endpoint)
+  return payload
+}
+
+export async function createSchedule(teamId, task, config) {
+  const endpoint = `${portalBackendUrl}/schedules`
+
+  return fetchJson(endpoint, {
+    method: 'post',
+    payload: removeNil({
+      teamId,
+      task,
+      config
+    })
+  })
 }

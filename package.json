@@ -23,11 +23,10 @@
     "lint:fix": "eslint --fix .",
     "lint:js": "eslint .",
     "lint:scss": "stylelint  \"src/**/*.scss\" --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
-    "preview": "NODE_ENV=production node --use-strict .",
-    "security-audit": "npm audit --audit-level=critical",
-    "server:debug": "node --watch --inspect ./src",
-    "server:watch": "node --watch ./src",
-    "prestart": "npm run build",
+    "preview": "NODE_ENV=production node --env-file-if-exists=.env .",
+    "security-audit": "npm audit --audit-level=high",
+    "server:debug": "node --env-file-if-exists=.env --watch --inspect ./src",
+    "server:watch": "node --env-file-if-exists=.env --watch ./src",
     "start": "npm run dev",
     "start:debug": "npm run dev:debug",
     "pretest": "npm run test:build:client",
@@ -36,7 +35,8 @@
     "test:watch": "npm run test"
   },
   "imports": {
-    "#server/*": "./src/server/*"
+    "#server/*": "./src/server/*",
+    "#config/*": "./src/config/*"
   },
   "overrides": {
     "fast-xml-parser": "5.3.6"
@@ -88,7 +88,7 @@
     "marked": "16.2.1",
     "marked-alert": "2.1.2",
     "marked-plaintify": "1.1.1",
-    "mermaid": "11.12.2",
+    "mermaid": "11.12.3",
     "nunjucks": "3.2.4",
     "openid-client": "6.8.1",
     "pino": "10.1.0",
@@ -151,6 +151,6 @@
     "webpack-shell-plugin-next": "2.3.3"
   },
   "engines": {
-    "node": ">=22.17.1"
+    "node": ">=24.12.0"
   }
 }
