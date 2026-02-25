@@ -1,4 +1,5 @@
 {% from "time/macro.njk" import appTime %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="description" class="app-entity-table__cell" data-label="description">
@@ -9,10 +10,18 @@
     {{ params.env }}
   </td>
 
+  <td headers="nextRunDate" class="app-entity-table__cell" data-label="nextRunDate">
+    <!--{{ appTime({ datetime: params.nextRunDate }) }}-->
+      {{ govukTag({
+      text: 'Disabled',
+      classes: "app-tag govuk-tag--grey",
+      attributes: { "data-testid": "govuk-tag" }
+    }) }}
+  </td>
+
   <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
     <span data-testid="app-entity-text">{{ params.cpu }}</span>
   </td>
-
 
   <td headers="memory" class="app-entity-table__cell" data-label="Memory">
     <span data-testid="app-entity-text">{{ params.memory }}</span>
@@ -37,11 +46,11 @@
 
    <td headers="actions" class="app-entity-table__cell" data-label="actions">
      <div class="app-entity">
-      <!--<div>
+      <div>
         <a class="app-link app-link--underline"
         href="/services/${serviceName}/automations/test-runs/${testRunName}/update${profileParam}"
         data-testid="app-link">Update</a>
-      </div>-->
+      </div>
       <div class="govuk-!-margin-left-1">
         <a class="app-link app-link--underline"
         href="/services/${serviceName}/automations/test-runs/${testRunName}/remove${profileParam}"

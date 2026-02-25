@@ -30,6 +30,7 @@ export default {
         headers: [
           { id: 'schedule', text: 'Schedule', width: '10' },
           { id: 'env', text: 'Env', width: '7' },
+          { id: 'nextRunDate', text: 'Next run date', width: '10' },
           { id: 'cpu', text: 'CPU', width: '5' },
           { id: 'memory', text: 'Memory', width: '5' },
           { id: 'profile', text: 'Profile', width: '5' },
