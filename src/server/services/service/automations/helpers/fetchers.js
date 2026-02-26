@@ -107,6 +107,7 @@ export async function getSchedules(serviceName) {
 }
 
 export async function createSchedule(teamId, task, config) {
+  console.log(task, config)
   const endpoint = `${portalBackendUrl}/schedules`
   // TODO: use authoredFetchJson
   return fetchJson(endpoint, {

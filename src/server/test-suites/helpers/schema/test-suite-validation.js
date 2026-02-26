@@ -45,9 +45,8 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
     frequency: Joi.string()
       .valid(...['WEEKLY'])
       .required(),
-    // time: Joi.string()
-    //   .valid(...['Minutes', 'Hours', 'Days'])
-    //   .optional(),
+    hours: Joi.number().min(0).max(23).required(),
+    minutes: Joi.number().min(0).max(59).required(),
     daysOfTheWeek: Joi.array()
       .items(
         Joi.string().valid(...daysOfTheWeek.map((day) => day.toLowerCase()))
