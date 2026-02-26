@@ -64,12 +64,14 @@ async function buildScheduledTestRunsViewDetails({ serviceTeams }) {
   const rows = schedules.map((schedule) => ({
     id: schedule.id,
     description: schedule.description,
+    enabled: schedule.enabled,
     env: schedule.task.environment,
     cpu: schedule.task.cpu / 1024 + ' vCPU',
     memory: schedule.task.memory / 1024 + ' GB',
     profile: schedule.task.profile,
     startDate: schedule.config.startDate,
-    endDate: schedule.config.endDate
+    endDate: schedule.config.endDate,
+    nextRunDate: schedule.nextRunDate
   }))
 
   return { rows }

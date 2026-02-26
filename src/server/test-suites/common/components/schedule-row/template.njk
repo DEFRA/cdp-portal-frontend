@@ -11,12 +11,15 @@
   </td>
 
   <td headers="nextRunDate" class="app-entity-table__cell" data-label="nextRunDate">
-    <!--{{ appTime({ datetime: params.nextRunDate }) }}-->
+    {% if params.enabled %}
+      {{ appTime({ datetime: params.nextRunDate }) }}
+    {% else %}
       {{ govukTag({
       text: 'Disabled',
       classes: "app-tag govuk-tag--grey",
       attributes: { "data-testid": "govuk-tag" }
-    }) }}
+      }) }}
+    {% endif %}
   </td>
 
   <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
