@@ -14,7 +14,7 @@ import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
 
 export default {
   options: {
-    id: 'post:test-suites/{serviceId}/automations/create-schedule',
+    id: 'post:test-suites/{serviceId}/automations/schedules/create',
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()

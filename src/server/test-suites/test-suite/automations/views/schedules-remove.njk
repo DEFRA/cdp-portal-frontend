@@ -4,6 +4,19 @@
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "test-suites/common/components/schedule-row/macro.njk" import scheduleRow %}
 
+{% set helpHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    When a schedule is removed. The tests will no longer run on this schedule.
+    <br>
+    Removing a schedule is non-recoverable. If you remove the wrong schedule simply
+    <a
+      href="{{ routeLookup('test-suites/{serviceId}/automations', { params: { serviceId : entity.name } }) }}"
+      class="govuk-link app-link">
+      add a new one
+    </a>
+  </p>
+{% endset %}
+
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Remove Schedule",
@@ -14,5 +27,66 @@
 {% endblock %}
 
 {% block tabContent %}
-Hello {{ scheduleId }}
+<section class="govuk-!-margin-top-6">
+  {% call appSplitPane() %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop">
+        <div data-testid="remove-test-run">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="remove-test-run-heading">
+            Remove Schedule
+          </h2>
+          <p class="govuk-!-margin-bottom-2">
+            Remove the following schedule from the test suite:
+          </p>
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Test Suite</h3>
+          <p class="govuk-!-margin-bottom-2">
+            <a
+              href="{{ routeLookup('test-suites/{serviceId}', { params: { serviceId : entity.name } }) }}"
+              class="govuk-link app-link">
+              {{ entity.name }}
+            </a>
+          </p>
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Description</h3>
+          <p>
+            {{ schedule.description | safe }}
+          </p>
+
+          {% if schedule.task.profile %}
+            <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Profile</h3>
+            <p>
+              {{ schedule.task.profile | safe }}
+            </p>
+          {% endif %}
+
+          <h3 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Environment</h3>
+          <p>{{ schedule.task.environment | safe }}</p>
+
+          <div class="govuk-!-margin-bottom-4">
+            {{ appInfo({
+              html: helpHtml
+            }) }}
+          </div>
+
+          <form action="/test-suites/{{ entity.name }}/automations/schedules/{{ schedule.id }}/remove" method="post">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+              {{ govukButton({
+                classes: "app-button app-button--destructive",
+                text: "Remove test run"
+              }) }}
+
+              <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}/automations', {
+                params: { serviceId: entity.name }
+              }) }}">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+</section>
 {% endblock %}

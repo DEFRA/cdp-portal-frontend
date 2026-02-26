@@ -8,7 +8,7 @@ import { provideFormContextValues } from '#server/common/helpers/form/provide-fo
 
 import list from './controllers/list.js'
 import create from './controllers/create.js'
-import remove from './controllers/remove.js'
+import remove, { postRemove } from './controllers/remove.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -45,12 +45,12 @@ export const testSuiteAutomations = {
             method: 'GET',
             path: '/test-suites/{serviceId}/automations/schedules/{scheduleId}/remove',
             ...remove
+          },
+          {
+            method: 'POST',
+            path: '/test-suites/{serviceId}/automations/schedules/{scheduleId}/remove',
+            ...postRemove
           }
-          // {
-          //   method: 'POST',
-          //   path: '/test-suites/{serviceId}/automations/schedules/remove',
-          //   ...remove
-          // }
         ].map(serviceTeamAndAdminUserScope)
       )
     }
