@@ -10,10 +10,11 @@ import {
 } from '../../../helpers/schema/test-suite-validation.js'
 import { createSchedule } from '#server/services/service/automations/helpers/fetchers.js'
 import { runnerConfigurations } from '../../../constants/runner-configurations.js'
+import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
 
 export default {
   options: {
-    id: 'post:test-suites/{serviceId}/automations/create-schedule',
+    id: 'post:test-suites/{serviceId}/automations/schedules/create',
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required()
@@ -29,8 +30,11 @@ export default {
 
     const sanitisedPayload = {
       frequency: payload.frequency,
-      intervalUnit: payload.intervalUnit,
-      intervalValue: payload.intervalValue,
+      'time-hour': payload['time-hour'],
+      'time-minute': payload['time-minute'],
+      daysOfTheWeek: Array.isArray(payload.daysOfTheWeek)
+        ? payload.daysOfTheWeek
+        : [payload.daysOfTheWeek].filter(Boolean),
       environment: payload.environment,
       configuration: payload.configuration,
       provideProfile: payload.provideProfile,
@@ -40,10 +44,10 @@ export default {
 
     const environments = getEnvironments(userScopes)
 
-    const validationResult = testScheduleValidation(environments).validate(
-      sanitisedPayload,
-      { abortEarly: false }
-    )
+    const validationResult = testScheduleValidation(
+      environments,
+      daysOfTheWeek
+    ).validate(sanitisedPayload, { abortEarly: false })
 
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
@@ -76,11 +80,9 @@ export default {
             profile
           },
           {
-            frequency: validationResult.value.frequency, // TODO: handle diff frequencies
-            every: {
-              unit: validationResult.value.intervalUnit,
-              value: validationResult.value.intervalValue
-            }
+            frequency: validationResult.value.frequency,
+            time: `${String(validationResult.value['time-hour']).padStart(2, 0)}:${String(validationResult.value['time-minute']).padStart(2, 0)}`,
+            daysOfWeek: validationResult.value.daysOfTheWeek
           }
         )
 

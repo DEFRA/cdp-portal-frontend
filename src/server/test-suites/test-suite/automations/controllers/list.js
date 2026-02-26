@@ -1,4 +1,5 @@
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
+import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
@@ -12,6 +13,11 @@ export default {
     const serviceTeams = entity?.teams
     const formValues = request.pre.formValues
 
+    formValues.daysOfTheWeekOptions = daysOfTheWeek.map((day) => ({
+      value: day.toLowerCase(),
+      text: day
+    }))
+
     const { rows } = await buildScheduledTestRunsViewDetails({
       serviceTeams
     })
@@ -22,13 +28,15 @@ export default {
       formValues,
       tableData: {
         headers: [
-          { id: 'schedule', text: 'Schedule', width: '10' },
-          { id: 'env', text: 'Env', width: '7' },
-          { id: 'cpu', text: 'CPU', width: '5' },
-          { id: 'memory', text: 'Memory', width: '5' },
-          { id: 'profile', text: 'Profile', width: '5' },
+          { id: 'schedule', text: 'Schedule', width: '20' },
+          { id: 'env', text: 'Env', width: '8' },
+          { id: 'nextRunDate', text: 'Next run date', width: '15' },
+          { id: 'cpu', text: 'CPU', width: '7' },
+          { id: 'memory', text: 'Memory', width: '7' },
+          { id: 'profile', text: 'Profile', width: '7' },
           { id: 'startDate', text: 'Start date', width: '10' },
-          { id: 'endDate', text: 'End date', width: '10' }
+          { id: 'endDate', text: 'End date', width: '10' },
+          { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
         noResult: 'Currently you have no tests set up to run on a schedule'
@@ -56,12 +64,14 @@ async function buildScheduledTestRunsViewDetails({ serviceTeams }) {
   const rows = schedules.map((schedule) => ({
     id: schedule.id,
     description: schedule.description,
+    enabled: schedule.enabled,
     env: schedule.task.environment,
     cpu: schedule.task.cpu / 1024 + ' vCPU',
     memory: schedule.task.memory / 1024 + ' GB',
     profile: schedule.task.profile,
     startDate: schedule.config.startDate,
-    endDate: schedule.config.endDate
+    endDate: schedule.config.endDate,
+    nextRunDate: schedule.nextRunDate
   }))
 
   return { rows }

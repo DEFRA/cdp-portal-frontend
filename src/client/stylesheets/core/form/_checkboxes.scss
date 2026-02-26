@@ -1,10 +1,17 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-checkboxes {
   margin-top: govuk-spacing(-1);
 
   .govuk-checkboxes__label::before {
-    border: 1px solid govuk-colour("mid-grey");
+    border: 1px solid govuk-colour('mid-grey');
+  }
+
+  &.days-of-the-week {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-auto-flow: column;
   }
 }
 
@@ -13,7 +20,7 @@
   .app-checkboxes {
     .govuk-checkboxes__label {
       &::before {
-        border-color: govuk-colour("red");
+        border-color: govuk-colour('red');
       }
     }
   }

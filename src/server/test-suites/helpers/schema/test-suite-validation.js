@@ -5,6 +5,8 @@ import { envVarValueValidation } from '@defra/cdp-validation-kit'
 
 const chooseConfig = validation.choose('configuration')
 const chooseEnvironment = validation.choose('environment')
+const chooseDaysOfTheWeek = 'Choose at least one day of the week'
+const chooseTime = 'Enter a time between 00:00 and 23:59'
 
 export function testSuiteValidation(imageNames, environments) {
   return Joi.object({
@@ -39,15 +41,30 @@ export function testSuiteValidation(imageNames, environments) {
   })
 }
 
-export function testScheduleValidation(environments) {
+export function testScheduleValidation(environments, daysOfTheWeek) {
   return Joi.object({
     frequency: Joi.string()
-      .valid(...['INTERVAL'])
+      .valid(...['WEEKLY'])
       .required(),
-    intervalUnit: Joi.string()
-      .valid(...['Minutes', 'Hours', 'Days'])
-      .optional(),
-    intervalValue: Joi.number().optional(),
+    'time-hour': Joi.number().min(0).max(23).messages({
+      'number.base': chooseTime,
+      'number.min': chooseTime,
+      'number.max': chooseTime
+    }),
+    'time-minute': Joi.number().min(0).max(59).messages({
+      'number.base': chooseTime,
+      'number.min': chooseTime,
+      'number.max': chooseTime
+    }),
+    daysOfTheWeek: Joi.array()
+      .items(
+        Joi.string().valid(...daysOfTheWeek.map((day) => day.toLowerCase()))
+      )
+      .min(1)
+      .messages({
+        'array.min': chooseDaysOfTheWeek,
+        'any.only': chooseDaysOfTheWeek
+      }),
     environment: Joi.string()
       .valid(...environments)
       .required()

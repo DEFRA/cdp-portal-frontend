@@ -1,3 +1,4 @@
+import qs from 'qs'
 import { config } from '#config/config.js'
 import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import { removeNil } from '#server/common/helpers/remove-nil.js'
@@ -97,13 +98,31 @@ export function updateAutoTestRun(serviceName, payload) {
 export async function getSchedules(serviceName) {
   const endpoint = `${portalBackendUrl}/schedules`
 
+  // ${qs.stringify(queryParams, {
+  //   arrayFormat: 'repeat',
+  //   addQueryPrefix: true
+  // })}`
+
   const { payload } = await fetchJson(endpoint)
   return payload
 }
 
+export async function getSchedule(scheduleId) {
+  const endpoint = `${portalBackendUrl}/schedules${qs.stringify(
+    { id: scheduleId },
+    {
+      arrayFormat: 'repeat',
+      addQueryPrefix: true
+    }
+  )}`
+
+  const { payload } = await fetchJson(endpoint)
+  return payload[0]
+}
+
 export async function createSchedule(teamId, task, config) {
   const endpoint = `${portalBackendUrl}/schedules`
-
+  // TODO: use authoredFetchJson
   return fetchJson(endpoint, {
     method: 'post',
     payload: removeNil({
@@ -111,5 +130,13 @@ export async function createSchedule(teamId, task, config) {
       task,
       config
     })
+  })
+}
+
+export async function removeSchedule(serviceId, scheduleId) {
+  const endpoint = `${portalBackendUrl}/schedules/${scheduleId}`
+  // TODO: use authoredFetchJson
+  return fetchJson(endpoint, {
+    method: 'delete'
   })
 }

@@ -1,7 +1,8 @@
 {% extends "layouts/tabbed-page.njk" %}
 
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
-{% from "common/components/schedule-row/macro.njk" import scheduleRow %}
+{% from "test-suites/common/components/schedule-row/macro.njk" import scheduleRow %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -69,8 +70,10 @@
               {{ scheduleRow({
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
+                serviceId: entity.name,
                 id: params.row.id,
                 description: params.row.description,
+                enabled: params.row.enabled,
                 env: params.row.env,
                 cpu: params.row.cpu,
                 memory: params.row.memory,
@@ -91,43 +94,68 @@
               Choose a schedule and test suite parameters
             </p>
 
-            <form action="{{ routeLookup('post:test-suites/{serviceId}/automations/create-schedule', { params: { serviceId : entity.name } }) }}"
+            <form action="{{ routeLookup('post:test-suites/{serviceId}/automations/schedules/create', { params: { serviceId : entity.name } }) }}"
                   method="post"
                   data-js="app-form-errors">
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-              <!-- TODO: Create inputs -->
-              <input type="hidden" name="frequency" value="INTERVAL" />
+              <input type="hidden" name="frequency" value="WEEKLY" />
               <input type="hidden" name="intervalUnit" value="Hours" />
               <input type="hidden" name="intervalValue" value="1" />
 
               {% call govukFieldset() %}
 
-              {{ govukSelect({
-                id: "schedule",
-                name: "schedule",
-                label: {
-                  text: "Schedule",
-                  classes: "app-label"
-                },
-                classes: "app-select",
-                hint: {
-                  text: "When to run the tests",
-                  classes: "app-hint"
-                },
-                value: "INTERVAL",
-                disabled: true,
-                items: [
-                  {
-                    value: "INTERVAL",
-                    text: "Interval : 1 hour"
-                  }
-                ],
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                errorMessage: errorMessageHelper(formErrors.schedule.message)
-              }) }}
+                {{ govukDateInput({
+                  id: "time",
+                  namePrefix: "time",
+                  fieldset: {
+                    legend: {
+                      text: "Time",
+                      classes: "app-label"
+                    }
+                  },
+                  hint: {
+                    text: "What time to run the tests. (24hr, UTC)"
+                  },
+                  items: [
+                    {
+                      name: "hour",
+                      classes: "govuk-input--width-2",
+                      value: formValues['time-hour'],
+                      autocomplete: 'off'
+                    },
+                    {
+                      name: "minute",
+                      classes: "govuk-input--width-2",
+                      value: formValues['time-minute'],
+                      autocomplete: 'off'
+                    }
+                  ],
+                  errorMessage: errorMessageHelper(formErrors['time-hour'].message or formErrors['time-minute'].message)
+                }) }}
+
+
+                {{ govukCheckboxes({
+                  name: "daysOfTheWeek",
+                  classes: "govuk-checkboxes--small app-checkboxes days-of-the-week",
+                  items: formValues.daysOfTheWeekOptions,
+                  values: formValues.daysOfTheWeek,
+                  fieldset: {
+                    legend: {
+                      text: "Days of the week",
+                      classes: "app-label"
+                    }
+                  },
+                  hint: {
+                    text: "Which days of the week to run the tests",
+                    classes: "app-hint"
+                  },
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: errorMessageHelper(formErrors.daysOfTheWeek.message)
+                }) }}
+
 
                 {{ govukSelect({
                   id: "environment",
