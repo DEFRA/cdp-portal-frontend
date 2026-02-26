@@ -52,7 +52,7 @@ export default {
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
-      console.log(sanitisedPayload, errorDetails)
+
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload,
         formErrors: errorDetails
