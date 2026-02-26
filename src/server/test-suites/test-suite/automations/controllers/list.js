@@ -1,4 +1,5 @@
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
+import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
@@ -11,6 +12,11 @@ export default {
     const testSuiteName = entity.name
     const serviceTeams = entity?.teams
     const formValues = request.pre.formValues
+
+    formValues.daysOfTheWeekOptions = daysOfTheWeek.map((day) => ({
+      value: day.toLowerCase(),
+      text: day
+    }))
 
     const { rows } = await buildScheduledTestRunsViewDetails({
       serviceTeams
@@ -28,7 +34,8 @@ export default {
           { id: 'memory', text: 'Memory', width: '5' },
           { id: 'profile', text: 'Profile', width: '5' },
           { id: 'startDate', text: 'Start date', width: '10' },
-          { id: 'endDate', text: 'End date', width: '10' }
+          { id: 'endDate', text: 'End date', width: '10' },
+          { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
         noResult: 'Currently you have no tests set up to run on a schedule'

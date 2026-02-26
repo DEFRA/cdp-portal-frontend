@@ -97,13 +97,18 @@ export function updateAutoTestRun(serviceName, payload) {
 export async function getSchedules(serviceName) {
   const endpoint = `${portalBackendUrl}/schedules`
 
+  // ${qs.stringify(queryParams, {
+  //   arrayFormat: 'repeat',
+  //   addQueryPrefix: true
+  // })}`
+
   const { payload } = await fetchJson(endpoint)
   return payload
 }
 
 export async function createSchedule(teamId, task, config) {
   const endpoint = `${portalBackendUrl}/schedules`
-
+  // TODO: use authoredFetchJson
   return fetchJson(endpoint, {
     method: 'post',
     payload: removeNil({

@@ -5,6 +5,7 @@ import { envVarValueValidation } from '@defra/cdp-validation-kit'
 
 const chooseConfig = validation.choose('configuration')
 const chooseEnvironment = validation.choose('environment')
+const chooseDaysOfTheWeek = validation.choose('at least one day of the week')
 
 export function testSuiteValidation(imageNames, environments) {
   return Joi.object({
@@ -39,15 +40,23 @@ export function testSuiteValidation(imageNames, environments) {
   })
 }
 
-export function testScheduleValidation(environments) {
+export function testScheduleValidation(environments, daysOfTheWeek) {
   return Joi.object({
     frequency: Joi.string()
-      .valid(...['INTERVAL'])
+      .valid(...['WEEKLY'])
       .required(),
-    intervalUnit: Joi.string()
-      .valid(...['Minutes', 'Hours', 'Days'])
-      .optional(),
-    intervalValue: Joi.number().optional(),
+    // time: Joi.string()
+    //   .valid(...['Minutes', 'Hours', 'Days'])
+    //   .optional(),
+    daysOfTheWeek: Joi.array()
+      .items(
+        Joi.string().valid(...daysOfTheWeek.map((day) => day.toLowerCase()))
+      )
+      .min(1)
+      .messages({
+        'array.min': chooseDaysOfTheWeek,
+        'any.only': chooseDaysOfTheWeek
+      }),
     environment: Joi.string()
       .valid(...environments)
       .required()

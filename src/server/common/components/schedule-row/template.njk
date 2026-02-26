@@ -34,4 +34,19 @@
   <td headers="endDate" class="app-entity-table__cell" data-label="endDate">
     {{ appTime({ datetime: params.endDate }) }}
   </td>
+
+   <td headers="actions" class="app-entity-table__cell" data-label="actions">
+     <div class="app-entity">
+      <!--<div>
+        <a class="app-link app-link--underline"
+        href="/services/${serviceName}/automations/test-runs/${testRunName}/update${profileParam}"
+        data-testid="app-link">Update</a>
+      </div>-->
+      <div class="govuk-!-margin-left-1">
+        <a class="app-link app-link--underline"
+        href="/services/${serviceName}/automations/test-runs/${testRunName}/remove${profileParam}"
+        data-testid="app-link">Remove</a>
+      </div>
+     </div>
+   </td>
 </tr>

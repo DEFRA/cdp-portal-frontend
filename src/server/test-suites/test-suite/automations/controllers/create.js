@@ -10,6 +10,7 @@ import {
 } from '../../../helpers/schema/test-suite-validation.js'
 import { createSchedule } from '#server/services/service/automations/helpers/fetchers.js'
 import { runnerConfigurations } from '../../../constants/runner-configurations.js'
+import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
 
 export default {
   options: {
@@ -29,8 +30,9 @@ export default {
 
     const sanitisedPayload = {
       frequency: payload.frequency,
-      intervalUnit: payload.intervalUnit,
-      intervalValue: payload.intervalValue,
+      daysOfTheWeek: Array.isArray(payload.daysOfTheWeek)
+        ? payload.daysOfTheWeek
+        : [payload.daysOfTheWeek].filter(Boolean),
       environment: payload.environment,
       configuration: payload.configuration,
       provideProfile: payload.provideProfile,
@@ -40,15 +42,15 @@ export default {
 
     const environments = getEnvironments(userScopes)
 
-    const validationResult = testScheduleValidation(environments).validate(
-      sanitisedPayload,
-      { abortEarly: false }
-    )
+    const validationResult = testScheduleValidation(
+      environments,
+      daysOfTheWeek
+    ).validate(sanitisedPayload, { abortEarly: false })
 
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
-
+      console.log(sanitisedPayload, errorDetails)
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload,
         formErrors: errorDetails
