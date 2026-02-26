@@ -1,0 +1,18 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
+{% from "test-suites/common/components/schedule-row/macro.njk" import scheduleRow %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Remove Schedule",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+Hello {{ scheduleId }}
+{% endblock %}

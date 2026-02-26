@@ -70,6 +70,7 @@
               {{ scheduleRow({
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
+                serviceId: entity.name,
                 id: params.row.id,
                 description: params.row.description,
                 env: params.row.env,
@@ -92,7 +93,7 @@
               Choose a schedule and test suite parameters
             </p>
 
-            <form action="{{ routeLookup('post:test-suites/{serviceId}/automations/create-schedule', { params: { serviceId : entity.name } }) }}"
+            <form action="{{ routeLookup('post:test-suites/{serviceId}/automations/schedules/create', { params: { serviceId : entity.name } }) }}"
                   method="post"
                   data-js="app-form-errors">
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
