@@ -30,8 +30,8 @@ export default {
 
     const sanitisedPayload = {
       frequency: payload.frequency,
-      hours: payload['time-hours'],
-      minutes: payload['time-minutes'],
+      'time-hour': payload['time-hour'],
+      'time-minute': payload['time-minute'],
       daysOfTheWeek: Array.isArray(payload.daysOfTheWeek)
         ? payload.daysOfTheWeek
         : [payload.daysOfTheWeek].filter(Boolean),
@@ -52,7 +52,7 @@ export default {
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
-
+      console.log(sanitisedPayload, errorDetails)
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload,
         formErrors: errorDetails
@@ -81,7 +81,7 @@ export default {
           },
           {
             frequency: validationResult.value.frequency,
-            time: `${String(validationResult.value.hours).padStart(2, 0)}:${String(validationResult.value.minutes).padStart(2, 0)}`,
+            time: `${String(validationResult.value['time-hour']).padStart(2, 0)}:${String(validationResult.value['time-minute']).padStart(2, 0)}`,
             daysOfWeek: validationResult.value.daysOfTheWeek
           }
         )

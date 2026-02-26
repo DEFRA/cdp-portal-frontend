@@ -117,14 +117,19 @@
                   },
                   items: [
                     {
-                      name: "hours",
-                      classes: "govuk-input--width-2"
+                      name: "hour",
+                      classes: "govuk-input--width-2",
+                      value: formValues['time-hour'],
+                      autocomplete: 'off'
                     },
                     {
-                      name: "minutes",
-                      classes: "govuk-input--width-2"
+                      name: "minute",
+                      classes: "govuk-input--width-2",
+                      value: formValues['time-minute'],
+                      autocomplete: 'off'
                     }
-                  ]
+                  ],
+                  errorMessage: errorMessageHelper(formErrors['time-hour'].message or formErrors['time-minute'].message)
                 }) }}
 
 

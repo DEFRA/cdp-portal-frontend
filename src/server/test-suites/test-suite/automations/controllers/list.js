@@ -28,12 +28,12 @@ export default {
       formValues,
       tableData: {
         headers: [
-          { id: 'schedule', text: 'Schedule', width: '10' },
-          { id: 'env', text: 'Env', width: '7' },
-          { id: 'nextRunDate', text: 'Next run date', width: '10' },
-          { id: 'cpu', text: 'CPU', width: '5' },
-          { id: 'memory', text: 'Memory', width: '5' },
-          { id: 'profile', text: 'Profile', width: '5' },
+          { id: 'schedule', text: 'Schedule', width: '20' },
+          { id: 'env', text: 'Env', width: '8' },
+          { id: 'nextRunDate', text: 'Next run date', width: '15' },
+          { id: 'cpu', text: 'CPU', width: '7' },
+          { id: 'memory', text: 'Memory', width: '7' },
+          { id: 'profile', text: 'Profile', width: '7' },
           { id: 'startDate', text: 'Start date', width: '10' },
           { id: 'endDate', text: 'End date', width: '10' },
           { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
