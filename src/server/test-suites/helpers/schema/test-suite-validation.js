@@ -60,6 +60,7 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
       .items(
         Joi.string().valid(...daysOfTheWeek.map((day) => day.toLowerCase()))
       )
+      .required()
       .min(1)
       .messages({
         'array.min': chooseDaysOfTheWeek,

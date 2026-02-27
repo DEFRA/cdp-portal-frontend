@@ -100,8 +100,6 @@
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
               <input type="hidden" name="frequency" value="WEEKLY" />
-              <input type="hidden" name="intervalUnit" value="Hours" />
-              <input type="hidden" name="intervalValue" value="1" />
 
               {% call govukFieldset() %}
 
@@ -120,13 +118,13 @@
                   items: [
                     {
                       name: "hour",
-                      classes: "govuk-input--width-2",
+                      classes: "govuk-input--width-2 govuk-input--error" if (formErrors['time-hour'].message) else "govuk-input--width-2",
                       value: formValues['time-hour'],
                       autocomplete: 'off'
                     },
                     {
                       name: "minute",
-                      classes: "govuk-input--width-2",
+                      classes: "govuk-input--width-2 govuk-input--error" if (formErrors['time-minute'].message) else "govuk-input--width-2",
                       value: formValues['time-minute'],
                       autocomplete: 'off'
                     }

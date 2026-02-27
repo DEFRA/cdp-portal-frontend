@@ -1,9 +1,9 @@
 import { authScope } from '../helpers/auth/auth-scope.js'
 import { scopes } from '@defra/cdp-validation-kit'
 
-const serviceOwnerOrAdminUserScope = authScope([
+export const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
   scopes.serviceOwner
 ])
 
-export { serviceOwnerOrAdminUserScope }
+export const adminUserScope = authScope([scopes.admin])

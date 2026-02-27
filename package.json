@@ -36,7 +36,8 @@
   },
   "imports": {
     "#server/*": "./src/server/*",
-    "#config/*": "./src/config/*"
+    "#config/*": "./src/config/*",
+    "#test-helpers/*": "./test-helpers/*"
   },
   "overrides": {
     "fast-xml-parser": "5.3.6"
