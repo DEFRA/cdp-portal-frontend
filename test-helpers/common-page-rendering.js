@@ -36,6 +36,7 @@ import { fetchMarkdown } from '../src/server/documentation/helpers/s3-file-handl
 import { entitiesResourcesFixture } from '../src/__fixtures__/entities/entity.js'
 import { fetchShutteringUrls } from '../src/server/services/helpers/fetch/fetch-shuttering-urls.js'
 import { shutteringUrlsFixture } from '../src/__fixtures__/shuttering/shuttering-urls.js'
+import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
 
 const dirname = import.meta.dirname
 
@@ -251,6 +252,96 @@ export function mockTestRuns(repositoryName) {
     pageSize: 10,
     totalPages: 1
   })
+}
+
+export function mockGetSchedules(serviceName) {
+  getSchedules.mockResolvedValue?.([
+    {
+      id: '469fc62e-f193-47b2-b36d-d3a7068cb086',
+      teamId: 'platform',
+      enabled: true,
+      cron: '45 3 * * 1',
+      description: 'At 03:45 AM, only on Monday',
+      task: {
+        type: 'DeployTestSuite',
+        testSuite: serviceName,
+        environment: 'dev',
+        cpu: 4096,
+        memory: 8192,
+        profile: 'Test'
+      },
+      config: {
+        frequency: 'WEEKLY',
+        time: '03:45',
+        daysOfWeek: ['monday'],
+        startDate: '2026-02-26T15:03:26.875Z',
+        endDate: null
+      },
+      createdAt: '2026-02-26T15:03:26.876Z',
+      nextRunAt: '2026-03-02T03:45:00Z',
+      user: {
+        id: '00000000-0000-0000-0000-00000000002',
+        displayName: 'test user'
+      }
+    },
+    {
+      id: 'e89c51f1-f071-4c9e-b6a8-ab6bd72f03aa',
+      teamId: 'platform',
+      enabled: true,
+      cron: '30 17 * * 1,2,3,4,5',
+      description:
+        'At 05:30 PM, only on Monday, Tuesday, Wednesday, Thursday, and Friday',
+      task: {
+        type: 'DeployTestSuite',
+        testSuite: serviceName,
+        environment: 'dev',
+        cpu: 4096,
+        memory: 8192,
+        profile: null
+      },
+      config: {
+        frequency: 'WEEKLY',
+        time: '17:30',
+        daysOfWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
+        startDate: '2026-02-26T09:20:52.949Z',
+        endDate: null
+      },
+      createdAt: '2026-02-26T09:20:52.95Z',
+      nextRunAt: '2026-02-27T17:30:00Z',
+      user: {
+        id: '00000000-0000-0000-0000-00000000002',
+        displayName: 'test user'
+      }
+    },
+    {
+      id: '938d8582-7d45-48a3-a927-f0995de8c9ad',
+      teamId: 'platform',
+      enabled: false,
+      cron: '0 12 * * 2',
+      description: 'At 12:00 PM, only on Tuesday',
+      task: {
+        type: 'DeployTestSuite',
+        testSuite: serviceName,
+        environment: 'test',
+        cpu: 4096,
+        memory: 8192,
+        profile: null
+      },
+      config: {
+        frequency: 'WEEKLY',
+        time: '12:00',
+        daysOfWeek: ['tuesday'],
+        startDate: '2026-02-26T09:16:53.969Z',
+        endDate: null
+      },
+      createdAt: '2026-02-26T09:16:53.982Z',
+      nextRunAt: '2026-03-03T12:00:00Z',
+      user: {
+        id: '00000000-0000-0000-0000-00000000002',
+        displayName: 'test user'
+      }
+    }
+  ])
 }
 
 export function mockCommonTestSuiteCalls(repositoryName, status = 'Created') {
