@@ -2,10 +2,12 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockCommonTestSuiteCalls,
-  mockGetSchedules
+  mockGetSchedules,
+  mockTestRuns
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
+vi.mock('../../helpers/fetch/fetch-test-runs.js')
 vi.mock('#server/services/service/automations/helpers/fetchers.js')
 vi.mock('#server/common/helpers/fetch/fetch-repository.js')
 vi.mock('#server/common/helpers/fetch/fetch-entities.js')
@@ -18,6 +20,7 @@ describe('Test suite automations page', () => {
     const testSuite = 'mock-test-suite'
     mockCommonTestSuiteCalls(testSuite)
     mockGetSchedules(testSuite)
+    mockTestRuns(testSuite)
     server = await initialiseServer()
   })
 
