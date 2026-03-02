@@ -16,19 +16,47 @@
 {% block tabContent %}
 
   {% set provideProfileHtml %}
-    <h3 class="govuk-heading-s">Enter a value</h3>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
-        {{ govukInput({
-          id: "newProfile",
-          name: "newProfile",
-          classes: "govuk-input--width-10",
-          spellcheck: false,
-          errorMessage: errorMessageHelper(formErrors.newProfile.message),
-          value: formValues.newProfile
-        }) }}
-      </div>
-    </div>
+    {{ govukSelect({
+      id: 'profile',
+      name: 'profile',
+      classes: 'app-select app-input--wide',
+      label: {
+        text: "Choose existing",
+        classes: "app-label"
+      },
+      hint: {
+        text: "Choose a previously entered value",
+        classes: "app-hint"
+      },
+      value: formValues.profile,
+      items: formValues.profileOptions,
+      formGroup: {
+        classes: 'app-form-group app-form-group-js'
+      },
+      errorMessage: errorMessageHelper(formErrors.profile.message)
+    }) }}
+
+    <p>or</p>
+
+    {{ govukInput({
+      id: "newProfile",
+      name: "newProfile",
+      classes: "app-input app-input--wide",
+      label: {
+        text: "Enter a new value",
+        classes: "app-label"
+      },
+      hint: {
+        text: "Enter a new value, this will be stored for future use",
+        classes: "app-hint"
+      },
+      value: formValues.newProfile,
+      errorMessage: errorMessageHelper(formErrors.newProfile.message),
+      formGroup: {
+        classes: 'app-form-group app-form-group-js'
+      },
+      spellcheck: false
+    }) }}
   {% endset %}
 
   <section class="govuk-!-margin-top-6">

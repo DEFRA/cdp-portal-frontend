@@ -1,5 +1,7 @@
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
 import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
+import { fetchTestRuns } from '#server/test-suites/helpers/fetch/fetch-test-runs.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
@@ -18,9 +20,26 @@ export default {
       text: day
     }))
 
-    const { rows } = await buildScheduledTestRunsViewDetails({
-      serviceTeams
-    })
+    const [{ testRuns }, { rows }] = await Promise.all([
+      fetchTestRuns({
+        name: testSuiteName
+      }),
+      buildScheduledTestRunsViewDetails({
+        serviceTeams
+      })
+    ])
+
+    testRuns[0].profile = 'smoke'
+
+    const profiles = [
+      ...new Set(testRuns.map((t) => t.profile).filter(Boolean))
+    ]
+    formValues.profileOptions = buildOptions(profiles)
+    if (!formValues.provideProfile) {
+      formValues.provideProfile = 'false'
+    }
+
+    console.log(formValues.profileOptions)
 
     return h.view('test-suites/test-suite/automations/views/automations', {
       pageTitle: `Test Suite - ${testSuiteName} - Automations`,
