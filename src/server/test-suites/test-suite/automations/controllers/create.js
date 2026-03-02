@@ -70,6 +70,7 @@ export default {
           runnerConfigurations[validationResult.value.configuration]
 
         await createSchedule(
+          request,
           'platform', // TODO: Fetch from user or remove?
           {
             type: 'DeployTestSuite',

@@ -120,10 +120,10 @@ export async function getSchedule(scheduleId) {
   return payload[0]
 }
 
-export async function createSchedule(teamId, task, config) {
+export async function createSchedule(request, teamId, task, config) {
   const endpoint = `${portalBackendUrl}/schedules`
-  // TODO: use authoredFetchJson
-  return fetchJson(endpoint, {
+
+  return request.authedFetchJson(endpoint, {
     method: 'post',
     payload: removeNil({
       teamId,
@@ -133,10 +133,10 @@ export async function createSchedule(teamId, task, config) {
   })
 }
 
-export async function removeSchedule(serviceId, scheduleId) {
+export async function removeSchedule(request, serviceId, scheduleId) {
   const endpoint = `${portalBackendUrl}/schedules/${scheduleId}`
-  // TODO: use authoredFetchJson
-  return fetchJson(endpoint, {
+
+  return request.authedFetchJson(endpoint, {
     method: 'delete'
   })
 }

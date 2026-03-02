@@ -57,7 +57,7 @@ export const postRemove = {
     const scheduleId = request.params.scheduleId
 
     try {
-      await removeSchedule(serviceId, scheduleId)
+      await removeSchedule(request, serviceId, scheduleId)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Schedule removed from Test Suite',
