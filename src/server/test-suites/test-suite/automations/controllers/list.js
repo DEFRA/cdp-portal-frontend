@@ -12,7 +12,6 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const serviceTeams = entity?.teams
     const formValues = request.pre.formValues
 
     formValues.daysOfTheWeekOptions = daysOfTheWeek.map((day) => ({

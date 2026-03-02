@@ -121,8 +121,8 @@ export async function createSchedule(request, serviceName, task, config) {
   })
 }
 
-export async function removeSchedule(request, serviceId, scheduleId) {
-  const endpoint = `${portalBackendUrl}/schedules/${scheduleId}`
+export async function removeSchedule(request, serviceName, scheduleId) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules/${scheduleId}`
 
   return request.authedFetchJson(endpoint, {
     method: 'delete'
