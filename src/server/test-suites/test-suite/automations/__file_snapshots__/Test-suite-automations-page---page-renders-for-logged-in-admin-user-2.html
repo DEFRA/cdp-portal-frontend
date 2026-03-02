@@ -473,11 +473,11 @@ width="12%"        >
 
 <span
   class="app-tool-tip"
-  data-text=""
+  data-text="Sunday 2nd March 2025, 03:45:00"
 >
-        <time    datetime=""
+        <time    datetime="2025-03-02T03:45:00Z"
     data-testid="app-time">
-        
+        Sun 2nd Mar 2025 at 03:45
 
   </time>
 
@@ -588,11 +588,11 @@ width="12%"        >
 
 <span
   class="app-tool-tip"
-  data-text=""
+  data-text="Thursday 27th February 2025, 17:30:00"
 >
-        <time    datetime=""
+        <time    datetime="2025-02-27T17:30:00Z"
     data-testid="app-time">
-        
+        Thu 27th Feb 2025 at 17:30
 
   </time>
 
@@ -929,19 +929,33 @@ width="12%"        >
       </label>
     </div>
     <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-provideProfile">
-      <h3 class="govuk-heading-s">Enter a value</h3>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
-        <div class="govuk-form-group">
-  
-  <input class="govuk-input govuk-input--width-10" id="newProfile" name="newProfile" type="text" spellcheck="false">
+      <div class="govuk-form-group app-form-group app-form-group-js">
+  <label class="govuk-label app-label" for="profile">
+    Choose existing
+  </label>
+  <div id="profile-hint" class="govuk-hint app-hint">
+    Choose a previously entered value
+  </div>
+  <select class="govuk-select app-select app-input--wide" id="profile" name="profile" aria-describedby="profile-hint">
+    <option value="" disabled selected="true"> - - select - - </option>
+  </select>
 </div>
 
-      </div>
-    </div>
+
+    <p>or</p>
+
+    <div class="govuk-form-group app-form-group app-form-group-js">
+  <label class="govuk-label app-label" for="newProfile">
+    Enter a new value
+  </label>
+  <div id="newProfile-hint" class="govuk-hint app-hint">
+    Enter a new value, this will be stored for future use
+  </div>
+  <input class="govuk-input app-input app-input--wide" id="newProfile" name="newProfile" type="text" spellcheck="false" aria-describedby="newProfile-hint">
+</div>
     </div>
     <div class="govuk-radios__item">
-      <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false">
+      <input class="govuk-radios__input" id="provideProfile-2" name="provideProfile" type="radio" value="false" checked>
       <label class="govuk-label govuk-radios__label" for="provideProfile-2">
         No
       </label>
