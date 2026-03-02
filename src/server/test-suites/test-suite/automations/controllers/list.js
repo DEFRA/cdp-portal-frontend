@@ -26,8 +26,6 @@ export default {
       buildScheduledTestRunsViewDetails(testSuiteName)
     ])
 
-    testRuns[0].profile = 'smoke'
-
     const profiles = [
       ...new Set(testRuns.map((t) => t.profile).filter(Boolean))
     ]
