@@ -2,23 +2,22 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockCommonTestSuiteCalls,
-  mockTestRuns
+  mockGetSchedules
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
-vi.mock('../../helpers/fetch/fetch-test-runs.js')
+vi.mock('#server/services/service/automations/helpers/fetchers.js')
 vi.mock('#server/common/helpers/fetch/fetch-repository.js')
 vi.mock('#server/common/helpers/fetch/fetch-entities.js')
 vi.mock('#server/common/helpers/auth/get-user-session.js')
 
-describe('About Test Suite page', () => {
-  /** @type {import('@hapi/hapi').Server} */
+describe('Test suite automations page', () => {
   let server
 
   beforeAll(async () => {
     const testSuite = 'mock-test-suite'
     mockCommonTestSuiteCalls(testSuite)
-    mockTestRuns(testSuite)
+    mockGetSchedules(testSuite)
     server = await initialiseServer()
   })
 
@@ -28,7 +27,7 @@ describe('About Test Suite page', () => {
 
   test('page renders for logged in admin user', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/test-suites/mock-test-suite',
+      targetUrl: '/test-suites/mock-test-suite/automations',
       isAdmin: true,
       isTenant: true
     })
@@ -36,35 +35,34 @@ describe('About Test Suite page', () => {
     expect(result).toMatchFile()
   })
 
-  test('page renders for logged in tenant', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/test-suites/mock-test-suite',
+  test('page DOES NOT render for logged in tenant', async () => {
+    const { statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: '/test-suites/mock-test-suite/automations',
       isAdmin: false,
       isTenant: true
     })
-    expect(statusCode).toBe(statusCodes.ok)
-    expect(result).toMatchFile()
+    expect(statusCode).toBe(statusCodes.forbidden)
   })
 
-  test('page renders for logged in service owner tenant', async () => {
+  // TODO: Should render once admin only testing is complete
+  test('page DOES NOT render for logged in service owner tenant', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/test-suites/mock-test-suite',
+      targetUrl: '/test-suites/mock-test-suite/automations',
       isAdmin: false,
       isTenant: true,
       teamScope: 'mock-team-id'
     })
 
-    expect(statusCode).toBe(statusCodes.ok)
+    expect(statusCode).toBe(statusCodes.forbidden)
     expect(result).toMatchFile()
   })
 
-  test('page renders for logged out user', async () => {
-    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/test-suites/mock-test-suite',
+  test('page DOES NOT render for logged out user', async () => {
+    const { statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: '/test-suites/mock-test-suite/automations',
       isAdmin: false,
       isTenant: false
     })
-    expect(statusCode).toBe(statusCodes.ok)
-    expect(result).toMatchFile()
+    expect(statusCode).toBe(statusCodes.unauthorized)
   })
 })

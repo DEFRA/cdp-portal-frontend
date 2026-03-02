@@ -36,10 +36,12 @@
   },
   "imports": {
     "#server/*": "./src/server/*",
-    "#config/*": "./src/config/*"
+    "#config/*": "./src/config/*",
+    "#test-helpers/*": "./test-helpers/*"
   },
   "overrides": {
-    "fast-xml-parser": "5.3.6"
+    "fast-xml-parser": "5.3.6",
+    "serialize-javascript": "7.0.3"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.986.0",
