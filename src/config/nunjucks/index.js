@@ -48,7 +48,11 @@ const nunjucksConfig = {
     engines: {
       njk: {
         compile: (src, options) => {
-          const template = nunjucks.compile(src, options.environment)
+          const template = nunjucks.compile(
+            src,
+            options.environment,
+            options.filename
+          )
           return (context) => template.render(context)
         }
       }

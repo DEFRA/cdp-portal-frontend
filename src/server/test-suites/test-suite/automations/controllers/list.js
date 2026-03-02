@@ -1,5 +1,7 @@
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
 import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
+import { fetchTestRuns } from '#server/test-suites/helpers/fetch/fetch-test-runs.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
@@ -10,7 +12,6 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const serviceTeams = entity?.teams
     const formValues = request.pre.formValues
 
     formValues.daysOfTheWeekOptions = daysOfTheWeek.map((day) => ({
@@ -18,9 +19,20 @@ export default {
       text: day
     }))
 
-    const { rows } = await buildScheduledTestRunsViewDetails({
-      serviceTeams
-    })
+    const [{ testRuns }, { rows }] = await Promise.all([
+      fetchTestRuns({
+        name: testSuiteName
+      }),
+      buildScheduledTestRunsViewDetails(testSuiteName)
+    ])
+
+    const profiles = [
+      ...new Set(testRuns.map((t) => t.profile).filter(Boolean))
+    ]
+    formValues.profileOptions = buildOptions(profiles)
+    if (!formValues.provideProfile) {
+      formValues.provideProfile = 'false'
+    }
 
     return h.view('test-suites/test-suite/automations/views/automations', {
       pageTitle: `Test Suite - ${testSuiteName} - Automations`,
@@ -58,8 +70,8 @@ export default {
   }
 }
 
-async function buildScheduledTestRunsViewDetails({ serviceTeams }) {
-  const schedules = await getSchedules()
+async function buildScheduledTestRunsViewDetails(testSuiteName) {
+  const schedules = await getSchedules(testSuiteName)
 
   const rows = schedules.map((schedule) => ({
     id: schedule.id,
@@ -71,7 +83,7 @@ async function buildScheduledTestRunsViewDetails({ serviceTeams }) {
     profile: schedule.task.profile,
     startDate: schedule.config.startDate,
     endDate: schedule.config.endDate,
-    nextRunDate: schedule.nextRunDate
+    nextRunDate: schedule.nextRunAt
   }))
 
   return { rows }

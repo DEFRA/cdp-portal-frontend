@@ -1,4 +1,3 @@
-import qs from 'qs'
 import { config } from '#config/config.js'
 import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import { removeNil } from '#server/common/helpers/remove-nil.js'
@@ -96,47 +95,35 @@ export function updateAutoTestRun(serviceName, payload) {
 }
 
 export async function getSchedules(serviceName) {
-  const endpoint = `${portalBackendUrl}/schedules`
-
-  // ${qs.stringify(queryParams, {
-  //   arrayFormat: 'repeat',
-  //   addQueryPrefix: true
-  // })}`
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules`
 
   const { payload } = await fetchJson(endpoint)
   return payload
 }
 
-export async function getSchedule(scheduleId) {
-  const endpoint = `${portalBackendUrl}/schedules${qs.stringify(
-    { id: scheduleId },
-    {
-      arrayFormat: 'repeat',
-      addQueryPrefix: true
-    }
-  )}`
+export async function getSchedule(serviceName, scheduleId) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules/${scheduleId}`
 
   const { payload } = await fetchJson(endpoint)
-  return payload[0]
+  return payload
 }
 
-export async function createSchedule(teamId, task, config) {
-  const endpoint = `${portalBackendUrl}/schedules`
-  // TODO: use authoredFetchJson
-  return fetchJson(endpoint, {
+export async function createSchedule(request, serviceName, task, config) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules`
+
+  return request.authedFetchJson(endpoint, {
     method: 'post',
     payload: removeNil({
-      teamId,
       task,
       config
     })
   })
 }
 
-export async function removeSchedule(serviceId, scheduleId) {
-  const endpoint = `${portalBackendUrl}/schedules/${scheduleId}`
-  // TODO: use authoredFetchJson
-  return fetchJson(endpoint, {
+export async function removeSchedule(request, serviceName, scheduleId) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules/${scheduleId}`
+
+  return request.authedFetchJson(endpoint, {
     method: 'delete'
   })
 }

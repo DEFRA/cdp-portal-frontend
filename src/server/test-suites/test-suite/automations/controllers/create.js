@@ -70,10 +70,10 @@ export default {
           runnerConfigurations[validationResult.value.configuration]
 
         await createSchedule(
-          'platform', // TODO: Fetch from user or remove?
+          request,
+          serviceId,
           {
             type: 'DeployTestSuite',
-            testSuite: serviceId,
             environment: validationResult.value.environment,
             cpu: cpu.value,
             memory: memory.value,
