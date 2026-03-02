@@ -83,7 +83,7 @@ async function buildScheduledTestRunsViewDetails(testSuiteName) {
     profile: schedule.task.profile,
     startDate: schedule.config.startDate,
     endDate: schedule.config.endDate,
-    nextRunDate: schedule.nextRunDate
+    nextRunDate: schedule.nextRunAt
   }))
 
   return { rows }
