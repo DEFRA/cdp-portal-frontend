@@ -142,7 +142,7 @@
     "sass-loader": "16.0.7",
     "source-map-loader": "5.0.0",
     "style-loader": "4.0.0",
-    "stylelint": "16.25.0",
+    "stylelint": "17.2.0",
     "stylelint-config-gds": "2.0.0",
     "terser-webpack-plugin": "5.3.16",
     "vitest": "4.0.18",
