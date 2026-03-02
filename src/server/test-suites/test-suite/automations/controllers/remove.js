@@ -15,7 +15,7 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const schedule = await getSchedule(request.params.scheduleId)
+    const schedule = await getSchedule(testSuiteName, request.params.scheduleId)
 
     return h.view('test-suites/test-suite/automations/views/schedules-remove', {
       pageTitle: `Test Suite - ${testSuiteName} - Automations - Schedules - Remove`,

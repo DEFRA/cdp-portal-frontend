@@ -71,10 +71,9 @@ export default {
 
         await createSchedule(
           request,
-          'platform', // TODO: Fetch from user or remove?
+          serviceId,
           {
             type: 'DeployTestSuite',
-            testSuite: serviceId,
             environment: validationResult.value.environment,
             cpu: cpu.value,
             memory: memory.value,

@@ -24,9 +24,7 @@ export default {
       fetchTestRuns({
         name: testSuiteName
       }),
-      buildScheduledTestRunsViewDetails({
-        serviceTeams
-      })
+      buildScheduledTestRunsViewDetails(testSuiteName)
     ])
 
     testRuns[0].profile = 'smoke'
@@ -38,8 +36,6 @@ export default {
     if (!formValues.provideProfile) {
       formValues.provideProfile = 'false'
     }
-
-    console.log(formValues.profileOptions)
 
     return h.view('test-suites/test-suite/automations/views/automations', {
       pageTitle: `Test Suite - ${testSuiteName} - Automations`,
@@ -77,8 +73,8 @@ export default {
   }
 }
 
-async function buildScheduledTestRunsViewDetails({ serviceTeams }) {
-  const schedules = await getSchedules()
+async function buildScheduledTestRunsViewDetails(testSuiteName) {
+  const schedules = await getSchedules(testSuiteName)
 
   const rows = schedules.map((schedule) => ({
     id: schedule.id,

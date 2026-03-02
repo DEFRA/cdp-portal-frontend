@@ -96,37 +96,25 @@ export function updateAutoTestRun(serviceName, payload) {
 }
 
 export async function getSchedules(serviceName) {
-  const endpoint = `${portalBackendUrl}/schedules`
-
-  // ${qs.stringify(queryParams, {
-  //   arrayFormat: 'repeat',
-  //   addQueryPrefix: true
-  // })}`
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules`
 
   const { payload } = await fetchJson(endpoint)
   return payload
 }
 
-export async function getSchedule(scheduleId) {
-  const endpoint = `${portalBackendUrl}/schedules${qs.stringify(
-    { id: scheduleId },
-    {
-      arrayFormat: 'repeat',
-      addQueryPrefix: true
-    }
-  )}`
+export async function getSchedule(serviceName, scheduleId) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules/${scheduleId}`
 
   const { payload } = await fetchJson(endpoint)
-  return payload[0]
+  return payload
 }
 
-export async function createSchedule(request, teamId, task, config) {
-  const endpoint = `${portalBackendUrl}/schedules`
+export async function createSchedule(request, serviceName, task, config) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules`
 
   return request.authedFetchJson(endpoint, {
     method: 'post',
     payload: removeNil({
-      teamId,
       task,
       config
     })
