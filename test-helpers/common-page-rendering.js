@@ -274,11 +274,11 @@ export function mockGetSchedules(serviceName) {
         frequency: 'WEEKLY',
         time: '03:45',
         daysOfWeek: ['monday'],
-        startDate: '2026-02-26T15:03:26.875Z',
+        startDate: '2025-02-26T15:03:26.875Z',
         endDate: null
       },
-      createdAt: '2026-02-26T15:03:26.876Z',
-      nextRunAt: '2026-03-02T03:45:00Z',
+      createdAt: '2025-02-26T15:03:26.876Z',
+      nextRunAt: '2025-03-02T03:45:00Z',
       user: {
         id: '00000000-0000-0000-0000-00000000002',
         displayName: 'test user'
@@ -303,11 +303,11 @@ export function mockGetSchedules(serviceName) {
         frequency: 'WEEKLY',
         time: '17:30',
         daysOfWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
-        startDate: '2026-02-26T09:20:52.949Z',
+        startDate: '2025-02-26T09:20:52.949Z',
         endDate: null
       },
-      createdAt: '2026-02-26T09:20:52.95Z',
-      nextRunAt: '2026-02-27T17:30:00Z',
+      createdAt: '2025-02-26T09:20:52.95Z',
+      nextRunAt: '2025-02-27T17:30:00Z',
       user: {
         id: '00000000-0000-0000-0000-00000000002',
         displayName: 'test user'
@@ -331,11 +331,11 @@ export function mockGetSchedules(serviceName) {
         frequency: 'WEEKLY',
         time: '12:00',
         daysOfWeek: ['tuesday'],
-        startDate: '2026-02-26T09:16:53.969Z',
+        startDate: '2025-02-26T09:16:53.969Z',
         endDate: null
       },
-      createdAt: '2026-02-26T09:16:53.982Z',
-      nextRunAt: '2026-03-03T12:00:00Z',
+      createdAt: '2025-02-26T09:16:53.982Z',
+      nextRunAt: '2025-03-03T12:00:00Z',
       user: {
         id: '00000000-0000-0000-0000-00000000002',
         displayName: 'test user'
