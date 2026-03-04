@@ -7,6 +7,9 @@ import {
   updateSchedule
 } from '#server/services/service/automations/helpers/fetchers.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
+import { fetchTestRuns } from '#server/test-suites/helpers/fetch/fetch-test-runs.js'
+import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 
 export default {
   options: {
@@ -17,10 +20,30 @@ export default {
     const testSuiteName = entity.name
     const schedule = await getSchedule(testSuiteName, request.params.scheduleId)
 
+    const formValues = request.pre.formValues
+
+    formValues.daysOfTheWeekOptions = daysOfTheWeek.map((day) => ({
+      value: day.toLowerCase(),
+      text: day
+    }))
+
+    const { testRuns } = await fetchTestRuns({
+      name: testSuiteName
+    })
+
+    const profiles = [
+      ...new Set(testRuns.map((t) => t.profile).filter(Boolean))
+    ]
+    formValues.profileOptions = buildOptions(profiles)
+    if (!formValues.provideProfile) {
+      formValues.provideProfile = 'false'
+    }
+
     return h.view('test-suites/test-suite/automations/views/schedules-update', {
       pageTitle: `Test Suite - ${testSuiteName} - Automations - Schedules - Update`,
       entity,
       schedule,
+      formValues,
       breadcrumbs: [
         {
           text: 'Test suites',
@@ -53,11 +76,11 @@ export const postUpdate = {
     }
   },
   handler: async (request, h) => {
-    const serviceId = request.params.serviceId
+    const testSuiteName = request.params.serviceId
     const scheduleId = request.params.scheduleId
 
     try {
-      // await updateSchedule(request, serviceId, scheduleId)
+      // await updateSchedule(request, testSuiteName, scheduleId)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Schedule updated',
@@ -66,7 +89,7 @@ export const postUpdate = {
 
       return h.redirect(
         request.routeLookup('test-suites/{serviceId}/automations', {
-          params: { serviceId }
+          params: { testSuiteName }
         })
       )
     } catch (error) {
@@ -74,7 +97,7 @@ export const postUpdate = {
 
       return h.redirect(
         request.routeLookup('test-suites/{serviceId}/automations', {
-          params: { serviceId }
+          params: { testSuiteName }
         })
       )
     }
