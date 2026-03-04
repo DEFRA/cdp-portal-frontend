@@ -60,9 +60,47 @@ async function createNotificationRule(entityId, rule) {
   })
 }
 
+/**
+ * Deletes a rule for an entity
+ * @param {string} entityId
+ * @param {string} ruleId
+ * @return {Promise<{res: any, error} | {res: any, payload: any}>}
+ */
+async function deleteNotificationRule(entityId, ruleId) {
+  const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications/${ruleId}`
+
+  return fetchJson(endpoint, {
+    method: 'DELETE'
+  })
+}
+
+/**
+ * Updates a rule for an entity.
+ * This replaces the rule with the new content (except for the entity/ruleId) rather than only updating selected fields.
+ * @param {string} entityId
+ * @param {string} ruleId
+ * @param {{eventType: string, slackChannel: string, environments: string[], isEnabled: boolean|null}} updatedRule
+ * @return {Promise<{res: any, error} | {res: any, payload: any}>}
+ */
+async function updateNotificationRule(entityId, ruleId, updatedRule) {
+  const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications/${ruleId}`
+
+  return fetchJson(endpoint, {
+    method: 'PUT',
+    payload: removeNil({
+      environments: updatedRule.environments,
+      eventType: updatedRule.eventType,
+      slackChannel: updatedRule.slackChannel,
+      isEnabled: updatedRule.isEnabled
+    })
+  })
+}
+
 export {
   fetchNotificationRules,
   fetchNotificationRule,
   createNotificationRule,
-  fetchSupportedNotifications
+  fetchSupportedNotifications,
+  deleteNotificationRule,
+  updateNotificationRule
 }
