@@ -1,0 +1,47 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "info/macro.njk" import appInfo %}
+{% from "panel/macro.njk" import appPanel %}
+{% from "services/common/components/resources-intro/macro.njk" import appResourcesIntro %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Resources",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+        <div class="govuk-grid-column-full">
+          {% call appSplitPane() %}
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Raw resource view</h2>
+          <p>This view show the raw data behind a service. It is provided for debugging purposes only.</p>
+
+          <ul class="govuk-list">
+          {% for key in environments %}
+            <li>
+              <details>
+                <summary style="cursor: pointer;">
+                  <strong>{{ key }}</strong>
+                </summary>
+                <ul>
+                  <li><pre>{{ entity.environments[key] | dump(2) }}</pre></li>
+                </ul>
+              </details>
+            </li>
+          {% endfor %}
+          {%  endcall %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
