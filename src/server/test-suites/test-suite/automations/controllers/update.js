@@ -40,11 +40,11 @@ export default {
       daysOfTheWeek: schedule.config.daysOfWeek,
       environment: schedule.task.environment,
       configuration: findConfiguration(schedule.task.cpu, schedule.task.memory),
-      provideProfile: Boolean(schedule.task.profile),
+      provideProfile: Boolean(schedule.task.profile).toString(),
       newProfile: schedule.task.profile,
       ...request.pre.formValues
     }
-    console.log(formValues)
+
     formValues.daysOfTheWeekOptions = daysOfTheWeek.map((day) => ({
       value: day.toLowerCase(),
       text: day
