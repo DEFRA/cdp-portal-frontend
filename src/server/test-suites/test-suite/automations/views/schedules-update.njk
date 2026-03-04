@@ -61,29 +61,32 @@
 
 <section class="govuk-!-margin-top-6">
   {% call appSplitPane() %}
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half-from-desktop">
-        <div data-testid="remove-test-run">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="remove-test-run-heading">
-            Update Schedule
-          </h2>
-          <p class="govuk-!-margin-bottom-2">
-            Update the following schedule for the test suite:
-          </p>
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="remove-test-run-heading">
+      Update Schedule
+    </h2>
+    <p class="govuk-!-margin-bottom-2">
+      Update the following schedule for the test suite:
+    </p>
 
-          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Test Suite</h3>
-          <p class="govuk-!-margin-bottom-2">
-            <a
-              href="{{ routeLookup('test-suites/{serviceId}', { params: { serviceId : entity.name } }) }}"
-              class="govuk-link app-link">
-              {{ entity.name }}
-            </a>
-          </p>
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Test Suite</h3>
+    <p class="govuk-!-margin-bottom-2">
+      <a
+        href="{{ routeLookup('test-suites/{serviceId}', { params: { serviceId : entity.name } }) }}"
+        class="govuk-link app-link">
+        {{ entity.name }}
+      </a>
+    </p>
 
-          <form action="/test-suites/{{ entity.name }}/automations/schedules/{{ schedule.id }}/update" method="post">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
-            <input type="hidden" name="frequency" value="WEEKLY" />
+    <form action="/test-suites/{{ entity.name }}/automations/schedules/{{ schedule.id }}/update" method="post">
+      <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+      <input type="hidden" name="frequency" value="WEEKLY" />
+
+      <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-one-half-from-desktop">
+
 
             {% call govukFieldset() %}
 
@@ -215,20 +218,132 @@
 
             {% endcall %}
 
-            <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
-              {{ govukButton({
-                classes: "app-button",
-                text: "Update"
-              }) }}
+      </div>
 
-              <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}/automations', {
-                params: { serviceId: entity.name }
-              }) }}">Cancel</a>
-            </div>
-          </form>
+      <div class="govuk-grid-column-one-half-from-desktop">
+        <div class="app-panel">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Advanced Options</h3>
+
+          {% call govukFieldset() %}
+
+            {{ govukRadios({
+              name: "enabled",
+              classes: "govuk-radios--small app-radios",
+              fieldset: {
+                legend: {
+                  text: "Enabled",
+                  classes: "govuk-label app-label"
+                }
+              },
+              hint: {
+                text: "Pause schedule execution",
+                classes: "app-hint"
+              },
+              value: formValues.enabled,
+              items: [
+                {
+                  value: true,
+                  text: "Yes",
+                  checked: formValues.enabled === true
+                },
+                {
+                  value: false,
+                  text: "No",
+                  checked: formValues.enabled !== true
+                }
+              ],
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: errorMessageHelper(formErrors.enabled.message)
+            }) }}
+
+            {{ govukDateInput({
+              id: "startDate",
+              namePrefix: "startDate",
+              fieldset: {
+                legend: {
+                  text: "Start Date",
+                  classes: "app-label"
+                }
+              },
+              hint: {
+                text: "What date does the schedule start executing"
+              },
+              items: [
+                {
+                  name: "day",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['startDate-day'].message) else "govuk-input--width-2",
+                  value: formValues['startDate-day'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "month",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['startDate-month'].message) else "govuk-input--width-2",
+                  value: formValues['startDate-month'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "year",
+                  classes: "govuk-input--width-4 govuk-input--error" if (formErrors['startDate-year'].message) else "govuk-input--width-4",
+                  value: formValues['startDate-year'],
+                  autocomplete: 'off'
+                }
+              ],
+              errorMessage: errorMessageHelper(formErrors['startDate-day'].message or formErrors['startDate-month'].message or formErrors['startDate-year'].message)
+            }) }}
+
+            {{ govukDateInput({
+              id: "endDate",
+              namePrefix: "endDate",
+              fieldset: {
+                legend: {
+                  text: "End Date",
+                  classes: "app-label"
+                }
+              },
+              hint: {
+                text: "What date does the schedule stop executing"
+              },
+              items: [
+                {
+                  name: "day",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['endDate-day'].message) else "govuk-input--width-2",
+                  value: formValues['endDate-day'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "month",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['endDate-month'].message) else "govuk-input--width-2",
+                  value: formValues['endDate-month'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "year",
+                  classes: "govuk-input--width-4 govuk-input--error" if (formErrors['endDate-year'].message) else "govuk-input--width-4",
+                  value: formValues['endDate-year'],
+                  autocomplete: 'off'
+                }
+              ],
+              errorMessage: errorMessageHelper(formErrors['endDate-day'].message or formErrors['endDate-month'].message or formErrors['endDate-year'].message)
+            }) }}
+
+          {% endcall %}
         </div>
       </div>
     </div>
+
+    <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+      {{ govukButton({
+        classes: "app-button",
+        text: "Update"
+      }) }}
+
+      <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}/automations', {
+        params: { serviceId: entity.name }
+      }) }}">Cancel</a>
+    </div>
+  </form>
 
   {% endcall %}
 </section>

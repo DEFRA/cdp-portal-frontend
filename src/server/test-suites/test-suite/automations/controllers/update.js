@@ -34,6 +34,8 @@ export default {
     ])
 
     const [hour, minute] = schedule.config.time.split(':')
+    const startDateParts = dateToParts(schedule.config.startDate)
+
     const formValues = {
       'time-hour': hour,
       'time-minute': minute,
@@ -42,6 +44,11 @@ export default {
       configuration: findConfiguration(schedule.task.cpu, schedule.task.memory),
       provideProfile: Boolean(schedule.task.profile).toString(),
       newProfile: schedule.task.profile,
+      enabled: schedule.enabled,
+      'startDate-day': startDateParts.day,
+      'startDate-month': startDateParts.month,
+      'startDate-year': startDateParts.year,
+      endDate: schedule.config.endDate,
       ...request.pre.formValues
     }
 
@@ -191,4 +198,14 @@ function findConfiguration(cpu, memory) {
         config.cpu.value === cpu && config.memory.value === memory
     )
     ?.at(0)
+}
+
+function dateToParts(isoDateString) {
+  const date = new Date(isoDateString)
+
+  return {
+    day: date.getUTCDay(),
+    month: date.getUTCMonth() + 1,
+    year: date.getUTCFullYear()
+  }
 }
