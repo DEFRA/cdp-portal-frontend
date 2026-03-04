@@ -8,6 +8,7 @@ import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '../../../common/helpers/ext/extensions.js'
+import {rawResourcesController} from "#server/services/service/resources/controllers/raw.js";
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -33,6 +34,11 @@ const serviceResources = {
             method: 'GET',
             path: '/services/{serviceId}/resources',
             ...allResourcesController
+          },
+          {
+            method: 'GET',
+            path: '/services/{serviceId}/resources/raw',
+            ...rawResourcesController
           },
           {
             method: 'GET',
