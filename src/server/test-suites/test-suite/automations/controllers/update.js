@@ -128,9 +128,15 @@ export const postUpdate = {
       'startDate-day': payload['startDate-day'],
       'startDate-month': payload['startDate-month'],
       'startDate-year': payload['startDate-year'],
-      'endDate-day': payload['endDate-day'],
-      'endDate-month': payload['endDate-month'],
+      'endDate-day': payload['endDate-day']
+        ? payload['endDate-day']
+        : undefined,
+      'endDate-month': payload['endDate-month']
+        ? payload['endDate-month']
+        : undefined,
       'endDate-year': payload['endDate-year']
+        ? payload['endDate-year']
+        : undefined
     }
 
     const environments = getEnvironments(userScopes)

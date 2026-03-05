@@ -7,6 +7,7 @@ const chooseConfig = validation.choose('configuration')
 const chooseEnvironment = validation.choose('environment')
 const chooseDaysOfTheWeek = 'Choose at least one day of the week'
 const chooseTime = 'Enter a time between 00:00 and 23:59'
+const chooseDate = 'Enter a valid date'
 
 export function testSuiteValidation(imageNames, environments) {
   return Joi.object({
@@ -90,19 +91,49 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
     profile: envVarValueValidation.empty('').optional(),
     newProfile: envVarValueValidation.empty('').optional(),
     enabled: Joi.boolean().optional(),
-    'startDate-day': Joi.number().integer().min(1).max(31).optional(),
-    'startDate-month': Joi.number().integer().min(1).max(12).optional(),
-    'startDate-year': Joi.number().integer().min(1970).optional(),
-    'endDate-day': Joi.number().integer().min(1).max(31).optional().allow(''),
-    'endDate-month': Joi.number().integer().min(1).max(12).optional().allow(''),
-    'endDate-year': Joi.number().integer().min(1970).optional().allow('')
-  }).when(Joi.object({ provideProfile: Joi.valid(true, 'true') }).unknown(), {
-    then: Joi.object().xor('profile', 'newProfile')
+    'startDate-day': Joi.number().integer().min(1).max(31).optional().messages({
+      'number.base': chooseDate,
+      'number.min': chooseDate,
+      'number.max': chooseDate
+    }),
+    'startDate-month': Joi.number()
+      .integer()
+      .min(1)
+      .max(12)
+      .optional()
+      .messages({
+        'number.base': chooseDate,
+        'number.min': chooseDate,
+        'number.max': chooseDate
+      }),
+    'startDate-year': Joi.number().integer().min(1970).optional().messages({
+      'number.base': chooseDate,
+      'number.min': chooseDate
+    }),
+    'endDate-day': Joi.number().integer().min(1).max(31).optional().messages({
+      'number.base': chooseDate,
+      'number.min': chooseDate,
+      'number.max': chooseDate
+    }),
+    'endDate-month': Joi.number().integer().min(1).max(12).optional().messages({
+      'number.base': chooseDate,
+      'number.min': chooseDate,
+      'number.max': chooseDate
+    }),
+    'endDate-year': Joi.number().integer().min(1970).optional().messages({
+      'number.base': chooseDate,
+      'number.min': chooseDate
+    })
   })
+    .and('endDate-day', 'endDate-month', 'endDate-year')
+    .when(Joi.object({ provideProfile: Joi.valid(true, 'true') }).unknown(), {
+      then: Joi.object().xor('profile', 'newProfile')
+    })
 }
 
 export function postProcessValidationErrors(validationResult) {
   validationResult.error.details.forEach((detail) => {
+    // Profile
     if (detail.type === 'object.missing' || detail.type === 'object.xor') {
       detail.path = ['profile']
       if (detail.type === 'object.missing') {
@@ -111,6 +142,13 @@ export function postProcessValidationErrors(validationResult) {
         detail.message =
           'Select an existing profile or enter a new one, not both'
       }
+    }
+
+    // Date
+    if (detail.type === 'object.and') {
+      console.log(detail.context.missing)
+      detail.path = detail.context.missing
+      detail.message = chooseDate
     }
   })
 
