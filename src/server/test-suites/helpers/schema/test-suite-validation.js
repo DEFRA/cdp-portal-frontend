@@ -130,31 +130,37 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
       then: Joi.object().xor('profile', 'newProfile')
     })
     .custom((value, helpers) => {
-      const startDate = validDate(
-        value['startDate-year'],
-        value['startDate-month'],
-        value['startDate-day']
-      )
-      if (!startDate) {
-        return helpers.error('startDate.invalid')
-      }
-
       if (
-        value['endDate-year'] &&
-        value['endDate-month'] &&
-        value['endDate-day']
+        value['startDate-year'] &&
+        value['startDate-month'] &&
+        value['startDate-day']
       ) {
-        const endDate = validDate(
-          value['endDate-year'],
-          value['endDate-month'],
-          value['endDate-day']
+        const startDate = validDate(
+          value['startDate-year'],
+          value['startDate-month'],
+          value['startDate-day']
         )
-        if (!endDate) {
-          return helpers.error('endDate.invalid')
+        if (!startDate) {
+          return helpers.error('startDate.invalid')
         }
 
-        if (endDate.getTime() <= startDate.getTime()) {
-          return helpers.error('endDate.beforeStartDate')
+        if (
+          value['endDate-year'] &&
+          value['endDate-month'] &&
+          value['endDate-day']
+        ) {
+          const endDate = validDate(
+            value['endDate-year'],
+            value['endDate-month'],
+            value['endDate-day']
+          )
+          if (!endDate) {
+            return helpers.error('endDate.invalid')
+          }
+
+          if (endDate.getTime() <= startDate.getTime()) {
+            return helpers.error('endDate.beforeStartDate')
+          }
         }
       }
 
