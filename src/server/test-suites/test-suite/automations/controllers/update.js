@@ -35,6 +35,7 @@ export default {
 
     const [hour, minute] = schedule.config.time.split(':')
     const startDateParts = dateToParts(schedule.config.startDate)
+    const endDateParts = dateToParts(schedule.config.endDate)
 
     const formValues = {
       'time-hour': hour,
@@ -48,7 +49,9 @@ export default {
       'startDate-day': startDateParts.day,
       'startDate-month': startDateParts.month,
       'startDate-year': startDateParts.year,
-      endDate: schedule.config.endDate,
+      'endDate-day': endDateParts.day,
+      'endDate-month': endDateParts.month,
+      'endDate-year': endDateParts.year,
       ...request.pre.formValues
     }
 
@@ -120,7 +123,14 @@ export const postUpdate = {
       configuration: payload.configuration,
       provideProfile: payload.provideProfile,
       profile: payload.profile,
-      newProfile: payload.newProfile
+      newProfile: payload.newProfile,
+      enabled: payload.enabled,
+      'startDate-day': payload['startDate-day'],
+      'startDate-month': payload['startDate-month'],
+      'startDate-year': payload['startDate-year'],
+      'endDate-day': payload['endDate-day'],
+      'endDate-month': payload['endDate-month'],
+      'endDate-year': payload['endDate-year']
     }
 
     const environments = getEnvironments(userScopes)
@@ -201,6 +211,14 @@ function findConfiguration(cpu, memory) {
 }
 
 function dateToParts(isoDateString) {
+  if (!isoDateString) {
+    return {
+      day: '',
+      month: '',
+      year: ''
+    }
+  }
+
   const date = new Date(isoDateString)
 
   return {

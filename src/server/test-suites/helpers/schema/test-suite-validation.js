@@ -46,12 +46,12 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
     frequency: Joi.string()
       .valid(...['WEEKLY'])
       .required(),
-    'time-hour': Joi.number().min(0).max(23).messages({
+    'time-hour': Joi.number().integer().min(0).max(23).messages({
       'number.base': chooseTime,
       'number.min': chooseTime,
       'number.max': chooseTime
     }),
-    'time-minute': Joi.number().min(0).max(59).messages({
+    'time-minute': Joi.number().integer().min(0).max(59).messages({
       'number.base': chooseTime,
       'number.min': chooseTime,
       'number.max': chooseTime
@@ -88,7 +88,14 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
         'any.required': 'Select whether you wish to provide a profile'
       }),
     profile: envVarValueValidation.empty('').optional(),
-    newProfile: envVarValueValidation.empty('').optional()
+    newProfile: envVarValueValidation.empty('').optional(),
+    enabled: Joi.boolean().optional(),
+    'startDate-day': Joi.number().integer().min(1).max(31).optional(),
+    'startDate-month': Joi.number().integer().min(1).max(12).optional(),
+    'startDate-year': Joi.number().integer().min(1970).optional(),
+    'endDate-day': Joi.number().integer().min(1).max(31).optional().allow(''),
+    'endDate-month': Joi.number().integer().min(1).max(12).optional().allow(''),
+    'endDate-year': Joi.number().integer().min(1970).optional().allow('')
   }).when(Joi.object({ provideProfile: Joi.valid(true, 'true') }).unknown(), {
     then: Joi.object().xor('profile', 'newProfile')
   })
