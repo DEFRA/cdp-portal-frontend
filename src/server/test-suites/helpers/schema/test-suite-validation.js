@@ -152,6 +152,10 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
         if (!endDate) {
           return helpers.error('endDate.invalid')
         }
+
+        if (endDate.getTime() <= startDate.getTime()) {
+          return helpers.error('endDate.beforeStartDate')
+        }
       }
 
       return value
@@ -187,6 +191,11 @@ export function postProcessValidationErrors(validationResult) {
     if (detail.type === 'endDate.invalid') {
       detail.path = ['endDate-year', 'endDate-month', 'endDate-day']
       detail.message = chooseDate
+    }
+
+    if (detail.type === 'endDate.beforeStartDate') {
+      detail.path = ['endDate-year', 'endDate-month', 'endDate-day']
+      detail.message = 'Date must be after the Start Date'
     }
   })
 
