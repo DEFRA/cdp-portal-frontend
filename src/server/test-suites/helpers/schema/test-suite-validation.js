@@ -139,6 +139,21 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
         return helpers.error('startDate.invalid')
       }
 
+      if (
+        value['endDate-year'] &&
+        value['endDate-month'] &&
+        value['endDate-day']
+      ) {
+        const endDate = validDate(
+          value['endDate-year'],
+          value['endDate-month'],
+          value['endDate-day']
+        )
+        if (!endDate) {
+          return helpers.error('endDate.invalid')
+        }
+      }
+
       return value
     })
 }
@@ -165,6 +180,12 @@ export function postProcessValidationErrors(validationResult) {
     // startDate
     if (detail.type === 'startDate.invalid') {
       detail.path = ['startDate-year', 'startDate-month', 'startDate-day']
+      detail.message = chooseDate
+    }
+
+    // endDate
+    if (detail.type === 'endDate.invalid') {
+      detail.path = ['endDate-year', 'endDate-month', 'endDate-day']
       detail.message = chooseDate
     }
   })
