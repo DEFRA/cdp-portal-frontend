@@ -145,7 +145,7 @@ export const postUpdate = {
       environments,
       daysOfTheWeek
     ).validate(sanitisedPayload, { abortEarly: false })
-
+    console.log(validationResult?.error)
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
@@ -228,7 +228,7 @@ function dateToParts(isoDateString) {
   const date = new Date(isoDateString)
 
   return {
-    day: date.getUTCDay(),
+    day: date.getUTCDate(),
     month: date.getUTCMonth() + 1,
     year: date.getUTCFullYear()
   }

@@ -129,6 +129,18 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
     .when(Joi.object({ provideProfile: Joi.valid(true, 'true') }).unknown(), {
       then: Joi.object().xor('profile', 'newProfile')
     })
+    .custom((value, helpers) => {
+      const startDate = validDate(
+        value['startDate-year'],
+        value['startDate-month'],
+        value['startDate-day']
+      )
+      if (!startDate) {
+        return helpers.error('startDate.invalid')
+      }
+
+      return value
+    })
 }
 
 export function postProcessValidationErrors(validationResult) {
@@ -146,8 +158,13 @@ export function postProcessValidationErrors(validationResult) {
 
     // Date
     if (detail.type === 'object.and') {
-      console.log(detail.context.missing)
       detail.path = detail.context.missing
+      detail.message = chooseDate
+    }
+
+    // startDate
+    if (detail.type === 'startDate.invalid') {
+      detail.path = ['startDate-year', 'startDate-month', 'startDate-day']
       detail.message = chooseDate
     }
   })
@@ -162,4 +179,18 @@ export function postProcessValidationErrors(validationResult) {
       path: ['newProfile']
     })
   })
+}
+
+function validDate(year, month, day) {
+  const date = new Date(year, month - 1, day)
+
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) {
+    return null
+  }
+
+  return date
 }
