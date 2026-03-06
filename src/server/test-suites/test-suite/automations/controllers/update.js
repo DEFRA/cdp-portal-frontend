@@ -149,7 +149,6 @@ export const postUpdate = {
     if (validationResult?.error) {
       postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
-
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload,
         formErrors: errorDetails
@@ -169,6 +168,7 @@ export const postUpdate = {
         await updateSchedule(
           request,
           serviceId,
+          scheduleId,
           {
             type: 'DeployTestSuite',
             environment: validationResult.value.environment,
@@ -179,8 +179,11 @@ export const postUpdate = {
           {
             frequency: validationResult.value.frequency,
             time: `${String(validationResult.value['time-hour']).padStart(2, 0)}:${String(validationResult.value['time-minute']).padStart(2, 0)}`,
-            daysOfWeek: validationResult.value.daysOfTheWeek
-          }
+            daysOfWeek: validationResult.value.daysOfTheWeek,
+            startDate: validationResult.value.startDate,
+            endDate: validationResult.value.endDate
+          },
+          validationResult.value.enabled
         )
 
         request.yar.clear(sessionNames.validationFailure)
