@@ -1,0 +1,47 @@
+{% from "time/macro.njk" import appTime %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+<tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+  <td headers="eventType" class="app-entity-table__cell" data-label="eventType">
+    {{ params.eventType }}
+  </td>
+
+  <td headers="channel" class="app-entity-table__cell" data-label="channel">
+    {{ params.channel }}
+  </td>
+
+  <td headers="infra-dev" class="app-entity-table__cell" data-label="infra-dev">
+    <div class="app-check" data-testid="check-infra-dev"></div>
+  </td>
+
+  <td headers="enabled" class="app-entity-table__cell" data-label="enabled">
+    {% if params.enabled %}
+      {{ govukTag({
+      text: 'Enabled',
+      classes: "app-tag govuk-tag--green",
+      attributes: { "data-testid": "govuk-tag" }
+      }) }}
+    {% else %}
+      {{ govukTag({
+      text: 'Disabled',
+      classes: "app-tag govuk-tag--grey",
+      attributes: { "data-testid": "govuk-tag" }
+      }) }}
+    {% endif %}
+  </td>
+
+   <td headers="actions" class="app-entity-table__cell" data-label="actions">
+     <div class="app-entity">
+      <div>
+        <a class="app-link app-link--underline"
+          href="/test-suites/{{ params.serviceId }}/automations/schedules/{{ params.id }}/update"
+        data-testid="app-link">Update</a>
+      </div>
+      <div class="govuk-!-margin-left-1">
+        <a class="app-link app-link--underline"
+          href="/test-suites/{{ params.serviceId }}/automations/schedules/{{ params.id }}/remove"
+        data-testid="app-link">Remove</a>
+      </div>
+     </div>
+   </td>
+</tr>

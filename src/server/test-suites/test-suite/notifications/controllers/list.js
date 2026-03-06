@@ -1,4 +1,7 @@
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { fetchNotificationRules } from '#server/common/helpers/fetch/fetch-notifications.js'
+import { excludedEnvironments } from '#server/services/service/automations/helpers/constants/excluded-environments.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
@@ -10,8 +13,16 @@ export default {
     const entity = request.app.entity
     const testSuiteName = entity.name
     const formValues = request.pre.formValues
+    const userSession = request.auth.credentials
 
-    const rows = buildNotificationsViewDetails(testSuiteName)
+    const rows = await buildNotificationsViewDetails(testSuiteName)
+    console.log(rows)
+    const environments = getEnvironments(
+      userSession?.scope,
+      entity?.subType
+    ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
+
+    const supportVerticalHeadings = environments.length >= 5
 
     return h.view('test-suites/test-suite/notifications/views/notifications', {
       pageTitle: `Test Suite - ${testSuiteName} - Notifications`,
@@ -19,14 +30,15 @@ export default {
       formValues,
       tableData: {
         headers: [
-          { id: 'schedule', text: 'Schedule', width: '20' },
-          { id: 'env', text: 'Env', width: '8' },
-          { id: 'nextRunDate', text: 'Next run date', width: '15' },
-          { id: 'cpu', text: 'CPU', width: '7' },
-          { id: 'memory', text: 'Memory', width: '7' },
-          { id: 'profile', text: 'Profile', width: '7' },
-          { id: 'startDate', text: 'Start date', width: '10' },
-          { id: 'endDate', text: 'End date', width: '10' },
+          { id: 'eventType', text: 'Event', width: '8' },
+          { id: 'channel', text: 'Channel', width: '14' },
+          ...environments.map((env) => ({
+            ...(supportVerticalHeadings && { verticalText: true }),
+            id: env.toLowerCase(),
+            text: formatText(env),
+            width: env.length
+          })),
+          { id: 'enabled', text: 'Enabled', width: '5' },
           { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
@@ -52,17 +64,12 @@ export default {
 async function buildNotificationsViewDetails(testSuiteName) {
   const notifications = await fetchNotificationRules(testSuiteName)
 
-  const rows = notifications.map((schedule) => ({
-    id: schedule.id,
-    description: schedule.description,
-    enabled: schedule.enabled,
-    env: schedule.task.environment,
-    cpu: schedule.task.cpu / 1024 + ' vCPU',
-    memory: schedule.task.memory / 1024 + ' GB',
-    profile: schedule.task.profile,
-    startDate: schedule.config.startDate,
-    endDate: schedule.config.endDate,
-    nextRunDate: schedule.nextRunAt
+  const rows = notifications.map((notification) => ({
+    id: notification.ruleId,
+    eventType: notification.eventType,
+    channel: notification.slackChannel,
+    enabled: notification.isEnabled
+    //  env: schedule.task.environment,
   }))
 
   return rows
