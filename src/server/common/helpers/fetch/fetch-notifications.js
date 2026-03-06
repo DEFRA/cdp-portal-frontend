@@ -9,7 +9,7 @@ const portalBackendUrl = config.get('portalBackendUrl')
  * @param {string} entityId
  * @return {Promise<{ruleId: string, eventType: string, entity: string, environments: string[], slackChannel: string|null, isEnabled: boolean}[]>}
  */
-async function fetchNotificationRules(entityId) {
+export async function fetchNotificationRules(entityId) {
   const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications`
   const { payload } = await fetchJson(endpoint)
   return payload ?? []
@@ -21,7 +21,7 @@ async function fetchNotificationRules(entityId) {
  * @param {string} ruleId
  * @return {Promise<{ruleId: string, eventType: string, entity: string, environments: string[], slackChannel: string|null, isEnabled: boolean}|null>}
  */
-async function fetchNotificationRule(entityId, ruleId) {
+export async function fetchNotificationRule(entityId, ruleId) {
   const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications/${ruleId}`
   const { payload } = await fetchJson(endpoint)
   return payload
@@ -34,7 +34,7 @@ async function fetchNotificationRule(entityId, ruleId) {
  * @param {string} entityId
  * @return {Promise<{eventType: string, environments: string[]}[]>}
  */
-async function fetchSupportedNotifications(entityId) {
+export async function fetchSupportedNotifications(entityId) {
   const endpoint = `${portalBackendUrl}/entities/${entityId}/supported-notifications`
   const { payload } = await fetchJson(endpoint)
   return payload
@@ -46,7 +46,7 @@ async function fetchSupportedNotifications(entityId) {
  * @param {{eventType: string, slackChannel: string, environments: string[], isEnabled: boolean|null}} rule
  * @return {Promise<>}
  */
-async function createNotificationRule(entityId, rule) {
+export async function createNotificationRule(entityId, rule) {
   const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications`
 
   return fetchJson(endpoint, {
@@ -66,7 +66,7 @@ async function createNotificationRule(entityId, rule) {
  * @param {string} ruleId
  * @return {Promise<{res: any, error} | {res: any, payload: any}>}
  */
-async function deleteNotificationRule(entityId, ruleId) {
+export async function deleteNotificationRule(entityId, ruleId) {
   const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications/${ruleId}`
 
   return fetchJson(endpoint, {
@@ -82,7 +82,7 @@ async function deleteNotificationRule(entityId, ruleId) {
  * @param {{eventType: string, slackChannel: string, environments: string[], isEnabled: boolean|null}} updatedRule
  * @return {Promise<{res: any, error} | {res: any, payload: any}>}
  */
-async function updateNotificationRule(entityId, ruleId, updatedRule) {
+export async function updateNotificationRule(entityId, ruleId, updatedRule) {
   const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications/${ruleId}`
 
   return fetchJson(endpoint, {
@@ -94,13 +94,4 @@ async function updateNotificationRule(entityId, ruleId, updatedRule) {
       isEnabled: updatedRule.isEnabled
     })
   })
-}
-
-export {
-  fetchNotificationRules,
-  fetchNotificationRule,
-  createNotificationRule,
-  fetchSupportedNotifications,
-  deleteNotificationRule,
-  updateNotificationRule
 }
