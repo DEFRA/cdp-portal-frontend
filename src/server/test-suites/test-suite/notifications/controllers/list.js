@@ -15,12 +15,16 @@ export default {
     const formValues = request.pre.formValues
     const userSession = request.auth.credentials
 
-    const rows = await buildNotificationsViewDetails(testSuiteName)
-    console.log(rows)
     const environments = getEnvironments(
       userSession?.scope,
       entity?.subType
     ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
+
+    const rows = await buildNotificationsViewDetails(
+      testSuiteName,
+      environments
+    )
+    console.log(rows)
 
     const supportVerticalHeadings = environments.length >= 5
 
@@ -61,15 +65,19 @@ export default {
   }
 }
 
-async function buildNotificationsViewDetails(testSuiteName) {
+async function buildNotificationsViewDetails(testSuiteName, environments) {
   const notifications = await fetchNotificationRules(testSuiteName)
 
   const rows = notifications.map((notification) => ({
     id: notification.ruleId,
     eventType: notification.eventType,
     channel: notification.slackChannel,
-    enabled: notification.isEnabled
-    //  env: schedule.task.environment,
+    enabled: notification.isEnabled,
+    envs: environments.map((env) => ({
+      id: env.toLowerCase(),
+      text: formatText(env),
+      selected: notification.environments.includes(env)
+    }))
   }))
 
   return rows
