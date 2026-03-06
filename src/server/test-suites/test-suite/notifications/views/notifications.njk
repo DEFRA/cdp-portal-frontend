@@ -45,12 +45,12 @@
           </div>
         </div>
 
-        <!--<div class="govuk-grid-column-one-third-from-desktop-huge">
+        <div class="govuk-grid-column-one-third-from-desktop-huge">
           <section>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-                data-testid="add-test-run">Schedule Test Run</h2>
+                data-testid="add-test-run">Add Notification</h2>
             <p>
-              Choose a schedule and test suite parameters
+              Create a notification for a test run
             </p>
 
             <form action="{{ routeLookup('post:test-suites/{serviceId}/automations/schedules/create', { params: { serviceId : entity.name } }) }}"
@@ -62,129 +62,24 @@
 
               {% call govukFieldset() %}
 
-                {{ govukDateInput({
-                  id: "time",
-                  namePrefix: "time",
-                  fieldset: {
-                    legend: {
-                      text: "Time",
-                      classes: "app-label"
-                    }
-                  },
-                  hint: {
-                    text: "What time to run the tests. (24hr, UTC)"
-                  },
-                  items: [
-                    {
-                      name: "hour",
-                      classes: "govuk-input--width-2 govuk-input--error" if (formErrors['time-hour'].message) else "govuk-input--width-2",
-                      value: formValues['time-hour'],
-                      autocomplete: 'off'
-                    },
-                    {
-                      name: "minute",
-                      classes: "govuk-input--width-2 govuk-input--error" if (formErrors['time-minute'].message) else "govuk-input--width-2",
-                      value: formValues['time-minute'],
-                      autocomplete: 'off'
-                    }
-                  ],
-                  errorMessage: errorMessageHelper(formErrors['time-hour'].message or formErrors['time-minute'].message)
-                }) }}
-
-
-                {{ govukCheckboxes({
-                  name: "daysOfTheWeek",
-                  classes: "govuk-checkboxes--small app-checkboxes days-of-the-week",
-                  items: formValues.daysOfTheWeekOptions,
-                  values: formValues.daysOfTheWeek,
-                  fieldset: {
-                    legend: {
-                      text: "Days of the week",
-                      classes: "app-label"
-                    }
-                  },
-                  hint: {
-                    text: "Which days of the week to run the tests",
-                    classes: "app-hint"
-                  },
-                  formGroup: {
-                    classes: "app-form-group app-form-group-js"
-                  },
-                  errorMessage: errorMessageHelper(formErrors.daysOfTheWeek.message)
-                }) }}
-
-
                 {{ govukSelect({
-                  id: "environment",
-                  name: "environment",
+                  id: "eventType",
+                  name: "eventType",
                   label: {
-                    text: "Environment",
+                    text: "Event",
                     classes: "app-label"
                   },
                   classes: "app-select",
                   hint: {
-                    text: "The environment to run your tests against",
+                    text: "Event which triggers the notification",
                     classes: "app-hint"
                   },
-                  value: formValues.environment,
-                  items: formValues.environmentOptions,
+                  value: formValues.eventType,
+                  items: formValues.eventTypeOptions,
                   formGroup: {
                     classes: "app-form-group app-form-group-js"
                   },
-                  errorMessage: errorMessageHelper(formErrors.environment.message)
-                }) }}
-
-                {{ govukRadios({
-                  idPrefix: "provideProfile",
-                  name: "provideProfile",
-                  classes: "govuk-radios--small app-radios",
-                  fieldset: {
-                    legend: {
-                      text: "Profile",
-                      classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
-                    }
-                  },
-                  hint: {
-                    text: "Do you want to provide a profile value for the test runner?",
-                    classes: "app-hint"
-                  },
-                  errorMessage: errorMessageHelper(formErrors.provideProfile.message),
-                  items: [
-                    {
-                      value: true,
-                      text: "Yes",
-                      checked: formValues.provideProfile === 'true',
-                      conditional: {
-                        html: provideProfileHtml
-                      }
-                    },
-                    {
-                      value: false,
-                      text: "No",
-                      checked: formValues.provideProfile === 'false'
-                    }
-                  ]
-                }) }}
-
-                {{ govukRadios({
-                  name: "configuration",
-                  classes: "govuk-radios--small app-radios",
-                  fieldset: {
-                    legend: {
-                      text: "Configuration",
-                      classes: "govuk-label app-label"
-                    }
-                  },
-                  hint: {
-                    text: "Test runner configuration, choose CPU size and memory allocation",
-                    classes: "app-hint"
-                  },
-                  value: formValues.configuration,
-                  items: formValues.runnerConfigOptions,
-                  formGroup: {
-                    classes: "app-form-group app-form-group-js"
-                  },
-                  errorMessage: errorMessageHelper(formErrors.configuration.message)
+                  errorMessage: errorMessageHelper(formErrors.eventType.message)
                 }) }}
 
               {% endcall %}
@@ -199,7 +94,7 @@
             </form>
           </section>
 
-        </div>-->
+        </div>
       </div>
 
     {% endcall %}
