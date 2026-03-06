@@ -128,14 +128,24 @@ export async function removeSchedule(request, serviceName, scheduleId) {
   })
 }
 
-export async function updateSchedule(request, serviceName, task, config) {
-  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules`
+export async function updateSchedule(
+  request,
+  serviceName,
+  scheduleId,
+  task,
+  config,
+  enabled
+) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules/${scheduleId}`
+
+  const payload = removeNil({
+    enabled,
+    task,
+    config
+  })
 
   return request.authedFetchJson(endpoint, {
-    method: 'put',
-    payload: removeNil({
-      task,
-      config
-    })
+    method: 'patch',
+    payload
   })
 }

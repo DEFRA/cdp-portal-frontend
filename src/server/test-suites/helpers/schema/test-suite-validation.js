@@ -90,7 +90,7 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
       }),
     profile: envVarValueValidation.empty('').optional(),
     newProfile: envVarValueValidation.empty('').optional(),
-    enabled: Joi.boolean().optional(),
+    enabled: Joi.boolean().truthy('true').falsy('false').optional(),
     'startDate-day': Joi.number().integer().min(1).max(31).optional().messages({
       'number.base': chooseDate,
       'number.min': chooseDate,
@@ -143,6 +143,7 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
         if (!startDate) {
           return helpers.error('startDate.invalid')
         }
+        value.startDate = startDate
 
         if (
           value['endDate-year'] &&
@@ -161,6 +162,7 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
           if (endDate.getTime() <= startDate.getTime()) {
             return helpers.error('endDate.beforeStartDate')
           }
+          value.endDate = endDate
         }
       }
 
@@ -218,7 +220,7 @@ export function postProcessValidationErrors(validationResult) {
 }
 
 function validDate(year, month, day) {
-  const date = new Date(year, month - 1, day)
+  const date = new Date(Date.UTC(year, month - 1, day))
 
   if (
     date.getUTCFullYear() !== year ||
