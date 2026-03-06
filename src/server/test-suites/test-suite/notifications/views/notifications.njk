@@ -2,7 +2,7 @@
 
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
-{% from "test-suites/common/components/schedule-row/macro.njk" import scheduleRow %}
+{% from "test-suites/common/components/notification-row/macro.njk" import notificationRow %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -30,20 +30,14 @@
           <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
             {% call(params) appEntityTable(tableData) %}
 
-              {{ scheduleRow({
+              {{ notificationRow({
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
                 serviceId: entity.name,
                 id: params.row.id,
-                description: params.row.description,
-                enabled: params.row.enabled,
-                env: params.row.env,
-                cpu: params.row.cpu,
-                memory: params.row.memory,
-                profile: params.row.profile,
-                startDate: params.row.startDate,
-                endDate: params.row.endDate,
-                nextRunDate: params.row.nextRunDate
+                eventType: params.row.eventType,
+                channel: params.row.channel,
+                enabled: params.row.enabled
               }) | safe }}
 
             {% endcall %}
