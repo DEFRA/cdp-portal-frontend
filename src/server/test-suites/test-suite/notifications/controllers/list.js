@@ -1,12 +1,9 @@
-import { buildOptions } from '#server/common/helpers/options/build-options.js'
-import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
-import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
-import { fetchTestRuns } from '#server/test-suites/helpers/fetch/fetch-test-runs.js'
+import { fetchNotificationRules } from '#server/common/helpers/fetch/fetch-notifications.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
   options: {
-    id: `test-suites/{serviceId}/automations`,
+    id: `test-suites/{serviceId}/notifications`,
     pre: [provideFormValues]
   },
   handler: async (request, h) => {
@@ -14,28 +11,10 @@ export default {
     const testSuiteName = entity.name
     const formValues = request.pre.formValues
 
-    formValues.daysOfTheWeekOptions = daysOfTheWeek.map((day) => ({
-      value: day.toLowerCase(),
-      text: day
-    }))
+    const rows = buildNotificationsViewDetails(testSuiteName)
 
-    const [{ testRuns }, rows] = await Promise.all([
-      fetchTestRuns({
-        name: testSuiteName
-      }),
-      buildScheduledTestRunsViewDetails(testSuiteName)
-    ])
-
-    const profiles = [
-      ...new Set(testRuns.map((t) => t.profile).filter(Boolean))
-    ]
-    formValues.profileOptions = buildOptions(profiles)
-    if (!formValues.provideProfile) {
-      formValues.provideProfile = 'false'
-    }
-
-    return h.view('test-suites/test-suite/automations/views/automations', {
-      pageTitle: `Test Suite - ${testSuiteName} - Automations`,
+    return h.view('test-suites/test-suite/notifications/views/notifications', {
+      pageTitle: `Test Suite - ${testSuiteName} - Notifications`,
       entity,
       formValues,
       tableData: {
@@ -51,7 +30,7 @@ export default {
           { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
-        noResult: 'Currently you have no tests set up to run on a schedule'
+        noResult: 'Currently you have no notifications setup'
       },
       breadcrumbs: [
         {
@@ -63,17 +42,17 @@ export default {
           href: `/test-suites/${testSuiteName}`
         },
         {
-          text: 'Automations'
+          text: 'Notifications'
         }
       ]
     })
   }
 }
 
-async function buildScheduledTestRunsViewDetails(testSuiteName) {
-  const schedules = await getSchedules(testSuiteName)
+async function buildNotificationsViewDetails(testSuiteName) {
+  const notifications = await fetchNotificationRules(testSuiteName)
 
-  const rows = schedules.map((schedule) => ({
+  const rows = notifications.map((schedule) => ({
     id: schedule.id,
     description: schedule.description,
     enabled: schedule.enabled,

@@ -10,7 +10,7 @@ import create from './controllers/create.js'
 import remove, { postRemove } from './controllers/remove.js'
 import update, { postUpdate } from './controllers/update.js'
 
-export const testSuiteAutomations = {
+export default {
   plugin: {
     name: 'testSuiteAutomations',
     register: (server) => {
