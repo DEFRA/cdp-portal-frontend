@@ -343,4 +343,75 @@ describe('testScheduleValidation', () => {
       )
     ).toBe(true)
   })
+
+  test('invalid startDate gives error', () => {
+    const input = {
+      frequency: 'WEEKLY',
+      daysOfTheWeek: ['tuesday'],
+      'time-hour': 12,
+      'time-minute': 30,
+      environment: 'dev',
+      configuration: 'regular',
+      provideProfile: 'false',
+      profile: '',
+      newProfile: '',
+      'startDate-day': '31',
+      'startDate-month': '2',
+      'startDate-year': '2000'
+    }
+
+    const { error } = schema.validate(input, { abortEarly: false })
+    expect(error).toBeDefined()
+    expect(error.details.some((d) => d.type === 'startDate.invalid')).toBe(true)
+  })
+
+  test('invalid endDate gives error', () => {
+    const input = {
+      frequency: 'WEEKLY',
+      daysOfTheWeek: ['tuesday'],
+      'time-hour': 12,
+      'time-minute': 30,
+      environment: 'dev',
+      configuration: 'regular',
+      provideProfile: 'false',
+      profile: '',
+      newProfile: '',
+      'startDate-day': '13',
+      'startDate-month': '2',
+      'startDate-year': '2000',
+      'endDate-day': '31',
+      'endDate-month': '2',
+      'endDate-year': '2000'
+    }
+
+    const { error } = schema.validate(input, { abortEarly: false })
+    expect(error).toBeDefined()
+    expect(error.details.some((d) => d.type === 'endDate.invalid')).toBe(true)
+  })
+
+  test('endDate before startDate gives error', () => {
+    const input = {
+      frequency: 'WEEKLY',
+      daysOfTheWeek: ['tuesday'],
+      'time-hour': 12,
+      'time-minute': 30,
+      environment: 'dev',
+      configuration: 'regular',
+      provideProfile: 'false',
+      profile: '',
+      newProfile: '',
+      'startDate-day': '13',
+      'startDate-month': '2',
+      'startDate-year': '2000',
+      'endDate-day': '10',
+      'endDate-month': '2',
+      'endDate-year': '2000'
+    }
+
+    const { error } = schema.validate(input, { abortEarly: false })
+    expect(error).toBeDefined()
+    expect(
+      error.details.some((d) => d.type === 'endDate.beforeStartDate')
+    ).toBe(true)
+  })
 })

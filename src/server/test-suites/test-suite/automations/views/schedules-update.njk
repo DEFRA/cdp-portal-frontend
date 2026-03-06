@@ -1,0 +1,350 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
+{% from "test-suites/common/components/schedule-row/macro.njk" import scheduleRow %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Update Schedule",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+
+{% set provideProfileHtml %}
+  {{ govukSelect({
+    id: 'profile',
+    name: 'profile',
+    classes: 'app-select app-input--wide',
+    label: {
+      text: "Choose existing",
+      classes: "app-label"
+    },
+    hint: {
+      text: "Choose a previously entered value",
+      classes: "app-hint"
+    },
+    value: formValues.profile,
+    items: formValues.profileOptions,
+    formGroup: {
+      classes: 'app-form-group app-form-group-js'
+    },
+    errorMessage: errorMessageHelper(formErrors.profile.message)
+  }) }}
+
+  <p>or</p>
+
+  {{ govukInput({
+    id: "newProfile",
+    name: "newProfile",
+    classes: "app-input app-input--wide",
+    label: {
+      text: "Enter a new value",
+      classes: "app-label"
+    },
+    hint: {
+      text: "Enter a new value, this will be stored for future use",
+      classes: "app-hint"
+    },
+    value: formValues.newProfile,
+    errorMessage: errorMessageHelper(formErrors.newProfile.message),
+    formGroup: {
+      classes: 'app-form-group app-form-group-js'
+    },
+    spellcheck: false
+  }) }}
+{% endset %}
+
+<section class="govuk-!-margin-top-6">
+  {% call appSplitPane() %}
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="remove-test-run-heading">
+      Update Schedule
+    </h2>
+    <p class="govuk-!-margin-bottom-2">
+      Update the following schedule for the test suite:
+    </p>
+
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Test Suite</h3>
+    <p class="govuk-!-margin-bottom-2">
+      <a
+        href="{{ routeLookup('test-suites/{serviceId}', { params: { serviceId : entity.name } }) }}"
+        class="govuk-link app-link">
+        {{ entity.name }}
+      </a>
+    </p>
+
+
+    <form action="/test-suites/{{ entity.name }}/automations/schedules/{{ schedule.id }}/update" method="post">
+      <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+      <input type="hidden" name="frequency" value="WEEKLY" />
+
+      <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-one-half-from-desktop">
+
+
+            {% call govukFieldset() %}
+
+              {{ govukDateInput({
+                id: "time",
+                namePrefix: "time",
+                fieldset: {
+                  legend: {
+                    text: "Time",
+                    classes: "app-label"
+                  }
+                },
+                hint: {
+                  text: "What time to run the tests. (24hr, UTC)"
+                },
+                items: [
+                  {
+                    name: "hour",
+                    classes: "govuk-input--width-2 govuk-input--error" if (formErrors['time-hour'].message) else "govuk-input--width-2",
+                    value: formValues['time-hour'],
+                    autocomplete: 'off'
+                  },
+                  {
+                    name: "minute",
+                    classes: "govuk-input--width-2 govuk-input--error" if (formErrors['time-minute'].message) else "govuk-input--width-2",
+                    value: formValues['time-minute'],
+                    autocomplete: 'off'
+                  }
+                ],
+                errorMessage: errorMessageHelper(formErrors['time-hour'].message or formErrors['time-minute'].message)
+              }) }}
+
+
+              {{ govukCheckboxes({
+                name: "daysOfTheWeek",
+                classes: "govuk-checkboxes--small app-checkboxes days-of-the-week",
+                items: formValues.daysOfTheWeekOptions,
+                values: formValues.daysOfTheWeek,
+                fieldset: {
+                  legend: {
+                    text: "Days of the week",
+                    classes: "app-label"
+                  }
+                },
+                hint: {
+                  text: "Which days of the week to run the tests",
+                  classes: "app-hint"
+                },
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                errorMessage: errorMessageHelper(formErrors.daysOfTheWeek.message)
+              }) }}
+
+
+              {{ govukSelect({
+                id: "environment",
+                name: "environment",
+                label: {
+                  text: "Environment",
+                  classes: "app-label"
+                },
+                classes: "app-select",
+                hint: {
+                  text: "The environment to run your tests against",
+                  classes: "app-hint"
+                },
+                value: formValues.environment,
+                items: formValues.environmentOptions,
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                errorMessage: errorMessageHelper(formErrors.environment.message)
+              }) }}
+
+              {{ govukRadios({
+                idPrefix: "provideProfile",
+                name: "provideProfile",
+                classes: "govuk-radios--small app-radios",
+                fieldset: {
+                  legend: {
+                    text: "Profile",
+                    classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+                  }
+                },
+                hint: {
+                  text: "Do you want to provide a profile value for the test runner?",
+                  classes: "app-hint"
+                },
+                errorMessage: errorMessageHelper(formErrors.provideProfile.message),
+                items: [
+                  {
+                    value: true,
+                    text: "Yes",
+                    checked: formValues.provideProfile === 'true',
+                    conditional: {
+                      html: provideProfileHtml
+                    }
+                  },
+                  {
+                    value: false,
+                    text: "No",
+                    checked: formValues.provideProfile === 'false'
+                  }
+                ],
+                value: formValues.provideProfile
+              }) }}
+
+              {{ govukRadios({
+                name: "configuration",
+                classes: "govuk-radios--small app-radios",
+                fieldset: {
+                  legend: {
+                    text: "Configuration",
+                    classes: "govuk-label app-label"
+                  }
+                },
+                hint: {
+                  text: "Test runner configuration, choose CPU size and memory allocation",
+                  classes: "app-hint"
+                },
+                value: formValues.configuration,
+                items: formValues.runnerConfigOptions,
+                formGroup: {
+                  classes: "app-form-group app-form-group-js"
+                },
+                errorMessage: errorMessageHelper(formErrors.configuration.message)
+              }) }}
+
+            {% endcall %}
+
+      </div>
+
+      <div class="govuk-grid-column-one-half-from-desktop">
+        <div class="app-panel">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Advanced Options</h3>
+
+          {% call govukFieldset() %}
+
+            {{ govukRadios({
+              name: "enabled",
+              classes: "govuk-radios--small app-radios",
+              fieldset: {
+                legend: {
+                  text: "Enabled",
+                  classes: "govuk-label app-label"
+                }
+              },
+              hint: {
+                text: "Pause schedule execution",
+                classes: "app-hint"
+              },
+              value: formValues.enabled,
+              items: [
+                {
+                  value: true,
+                  text: "Yes",
+                  checked: formValues.enabled === true
+                },
+                {
+                  value: false,
+                  text: "No",
+                  checked: formValues.enabled !== true
+                }
+              ],
+              formGroup: {
+                classes: "app-form-group app-form-group-js"
+              },
+              errorMessage: errorMessageHelper(formErrors.enabled.message)
+            }) }}
+
+            {{ govukDateInput({
+              id: "startDate",
+              namePrefix: "startDate",
+              fieldset: {
+                legend: {
+                  text: "Start Date",
+                  classes: "app-label"
+                }
+              },
+              hint: {
+                text: "What date does the schedule start executing"
+              },
+              items: [
+                {
+                  name: "day",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['startDate-day'].message) else "govuk-input--width-2",
+                  value: formValues['startDate-day'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "month",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['startDate-month'].message) else "govuk-input--width-2",
+                  value: formValues['startDate-month'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "year",
+                  classes: "govuk-input--width-4 govuk-input--error" if (formErrors['startDate-year'].message) else "govuk-input--width-4",
+                  value: formValues['startDate-year'],
+                  autocomplete: 'off'
+                }
+              ],
+              errorMessage: errorMessageHelper(formErrors['startDate-day'].message or formErrors['startDate-month'].message or formErrors['startDate-year'].message)
+            }) }}
+
+            {{ govukDateInput({
+              id: "endDate",
+              namePrefix: "endDate",
+              fieldset: {
+                legend: {
+                  text: "End Date",
+                  classes: "app-label"
+                }
+              },
+              hint: {
+                text: "What date does the schedule stop executing"
+              },
+              items: [
+                {
+                  name: "day",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['endDate-day'].message) else "govuk-input--width-2",
+                  value: formValues['endDate-day'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "month",
+                  classes: "govuk-input--width-2 govuk-input--error" if (formErrors['endDate-month'].message) else "govuk-input--width-2",
+                  value: formValues['endDate-month'],
+                  autocomplete: 'off'
+                },
+                {
+                  name: "year",
+                  classes: "govuk-input--width-4 govuk-input--error" if (formErrors['endDate-year'].message) else "govuk-input--width-4",
+                  value: formValues['endDate-year'],
+                  autocomplete: 'off'
+                }
+              ],
+              errorMessage: errorMessageHelper(formErrors['endDate-day'].message or formErrors['endDate-month'].message or formErrors['endDate-year'].message)
+            }) }}
+
+          {% endcall %}
+        </div>
+      </div>
+    </div>
+
+    <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+      {{ govukButton({
+        classes: "app-button",
+        text: "Update"
+      }) }}
+
+      <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}/automations', {
+        params: { serviceId: entity.name }
+      }) }}">Cancel</a>
+    </div>
+  </form>
+
+  {% endcall %}
+</section>
+{% endblock %}

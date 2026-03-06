@@ -127,3 +127,15 @@ export async function removeSchedule(request, serviceName, scheduleId) {
     method: 'delete'
   })
 }
+
+export async function updateSchedule(request, serviceName, task, config) {
+  const endpoint = `${portalBackendUrl}/entities/${serviceName}/schedules`
+
+  return request.authedFetchJson(endpoint, {
+    method: 'put',
+    payload: removeNil({
+      task,
+      config
+    })
+  })
+}
