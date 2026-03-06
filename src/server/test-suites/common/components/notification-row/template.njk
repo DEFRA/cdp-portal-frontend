@@ -3,7 +3,11 @@
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="eventType" class="app-entity-table__cell" data-label="eventType">
-    {{ params.eventType }}
+    {{ govukTag({
+      text: params.eventType,
+      classes: "app-tag govuk-tag",
+      attributes: { "data-testid": "govuk-tag" }
+    }) }}
   </td>
 
   <td headers="channel" class="app-entity-table__cell" data-label="channel">
@@ -23,15 +27,15 @@
   <td headers="enabled" class="app-entity-table__cell" data-label="enabled">
     {% if params.enabled %}
       {{ govukTag({
-      text: 'Enabled',
-      classes: "app-tag govuk-tag--green",
-      attributes: { "data-testid": "govuk-tag" }
+        text: 'Enabled',
+        classes: "app-tag govuk-tag--green",
+        attributes: { "data-testid": "govuk-tag" }
       }) }}
     {% else %}
       {{ govukTag({
-      text: 'Disabled',
-      classes: "app-tag govuk-tag--grey",
-      attributes: { "data-testid": "govuk-tag" }
+        text: 'Disabled',
+        classes: "app-tag govuk-tag--grey",
+        attributes: { "data-testid": "govuk-tag" }
       }) }}
     {% endif %}
   </td>

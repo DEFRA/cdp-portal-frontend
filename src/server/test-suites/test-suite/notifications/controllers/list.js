@@ -24,7 +24,6 @@ export default {
       testSuiteName,
       environments
     )
-    console.log(rows)
 
     const supportVerticalHeadings = environments.length >= 5
 
@@ -75,7 +74,6 @@ async function buildNotificationsViewDetails(testSuiteName, environments) {
     enabled: notification.isEnabled,
     envs: environments.map((env) => ({
       id: env.toLowerCase(),
-      text: formatText(env),
       selected: notification.environments.includes(env)
     }))
   }))
