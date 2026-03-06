@@ -1,7 +1,10 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { fetchNotificationRules } from '#server/common/helpers/fetch/fetch-notifications.js'
-import { excludedEnvironments } from '#server/services/service/automations/helpers/constants/excluded-environments.js'
+import {
+  fetchNotificationRules,
+  fetchSupportedNotifications
+} from '#server/common/helpers/fetch/fetch-notifications.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 
 export default {
@@ -15,14 +18,18 @@ export default {
     const formValues = request.pre.formValues
     const userSession = request.auth.credentials
 
-    const environments = getEnvironments(
-      userSession?.scope,
-      entity?.subType
-    ).filter((env) => !excludedEnvironments.includes(env.toLowerCase()))
+    const environments = getEnvironments(userSession?.scope, entity?.subType)
 
-    const rows = await buildNotificationsViewDetails(
-      testSuiteName,
-      environments
+    const [rows, notificationTypes] = await Promise.all([
+      buildNotificationsRow(testSuiteName, environments),
+      fetchSupportedNotifications(testSuiteName)
+    ])
+
+    formValues.eventTypeOptions = buildOptions(
+      notificationTypes.map((notificationType) => ({
+        value: notificationType.eventType,
+        text: notificationType.eventType
+      }))
     )
 
     const supportVerticalHeadings = environments.length >= 5
@@ -64,7 +71,7 @@ export default {
   }
 }
 
-async function buildNotificationsViewDetails(testSuiteName, environments) {
+async function buildNotificationsRow(testSuiteName, environments) {
   const notifications = await fetchNotificationRules(testSuiteName)
 
   const rows = notifications.map((notification) => ({
