@@ -176,15 +176,16 @@ export function testNotificationValidation(eventTypes, environments) {
       .valid(...eventTypes)
       .required(),
     environments: Joi.array()
-      .valid(...environments)
+      .items(Joi.string().valid(...environments))
+      .min(1)
       .required()
       .messages({
-        'any.only': chooseEnvironment,
+        'array.min': chooseEnvironment,
         'any.required': chooseEnvironment
       }),
     channel: Joi.string().required().messages({
-      'any.only': chooseConfig,
-      'any.required': chooseConfig
+      'any.required': validation.enterValue,
+      'string.empty': validation.enterValue
     }),
     enabled: Joi.boolean().truthy('true').falsy('false').optional()
   })

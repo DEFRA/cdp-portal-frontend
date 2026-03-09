@@ -9,7 +9,6 @@ import {
   createNotificationRule,
   fetchSupportedNotifications
 } from '#server/common/helpers/fetch/fetch-notifications.js'
-import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
 
 export default {
   options: {
