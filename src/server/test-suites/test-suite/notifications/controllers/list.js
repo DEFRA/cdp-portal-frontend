@@ -41,8 +41,9 @@ export default {
     const eventEnvironments = notificationTypes.find(
       (type) => type.eventType === formValues.eventType
     ).environments
-    const validEnvironments = environments.filter((env) =>
-      eventEnvironments.includes(env)
+    const validEnvironments = environments.filter(
+      (env) =>
+        eventEnvironments.includes(env) && formValues.eventType !== 'testfailed'
     )
     const environmentOptions = buildOptions(
       validEnvironments.map((environment) => ({
