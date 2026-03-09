@@ -5,12 +5,20 @@ import {
   fetchSupportedNotifications
 } from '#server/common/helpers/fetch/fetch-notifications.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
+import { Boom } from '@hapi/boom'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
+import Joi from 'joi'
 
 export default {
   options: {
     id: `test-suites/{serviceId}/notifications`,
-    pre: [provideFormValues]
+    pre: [provideFormValues],
+    validate: {
+      query: Joi.object({
+        eventType: Joi.string().optional()
+      }),
+      failAction: () => Boom.boomify(Boom.notFound())
+    }
   },
   handler: async (request, h) => {
     const entity = request.app.entity
@@ -25,16 +33,32 @@ export default {
       fetchSupportedNotifications(testSuiteName)
     ])
 
-    formValues.eventTypeOptions = buildOptions(
+    formValues.eventType = request.query?.eventType
+    if (!formValues.eventType) {
+      formValues.eventType = 'testfailed' // default
+    }
+
+    const eventEnvironments = notificationTypes.find(
+      (type) => type.eventType === formValues.eventType
+    ).environments
+    const validEnvironments = environments.filter((env) =>
+      eventEnvironments.includes(env)
+    )
+    const environmentOptions = buildOptions(
+      validEnvironments.map((environment) => ({
+        text: formatText(environment),
+        value: environment
+      })),
+      false
+    )
+
+    const eventTypeOptions = buildOptions(
       notificationTypes.map((notificationType) => ({
         value: notificationType.eventType,
         text: notificationType.eventType
       })),
       false
-    ).map((option) => ({
-      ...option,
-      selected: option.value === 'testfailed'
-    }))
+    )
 
     const supportVerticalHeadings = environments.length >= 5
 
@@ -42,6 +66,8 @@ export default {
       pageTitle: `Test Suite - ${testSuiteName} - Notifications`,
       entity,
       formValues,
+      eventTypeOptions,
+      environmentOptions,
       tableData: {
         headers: [
           { id: 'eventType', text: 'Event', width: '10' },

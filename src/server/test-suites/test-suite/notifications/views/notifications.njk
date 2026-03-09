@@ -75,11 +75,60 @@
                     classes: "app-hint"
                   },
                   value: formValues.eventType,
-                  items: formValues.eventTypeOptions,
+                  items: eventTypeOptions,
                   formGroup: {
                     classes: "app-form-group app-form-group-js"
                   },
-                  errorMessage: errorMessageHelper(formErrors.eventType.message)
+                  errorMessage: errorMessageHelper(formErrors.eventType.message),
+                  attributes: {
+                    onchange: "window.location.search = '?eventType=' + this.value"
+                  }
+                }) }}
+
+                {% block xhrContent %}
+                  <div data-xhr="notification-envs">
+
+                    {{ govukCheckboxes({
+                      name: "environments",
+                      classes: "app-checkboxes govuk-checkboxes--small",
+                      fieldset: {
+                        legend: {
+                          text: "Environments",
+                          classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-2"
+                        }
+                      },
+                      hint: {
+                        text: "Select the environments you wish to have the notification on",
+                        classes: "app-hint"
+                      },
+                      formGroup: {
+                        classes: "app-form-group"
+                      },
+                      items: environmentOptions,
+                      values: formValues.environments,
+                      errorMessage: errorMessageHelper(formErrors.environments.message)
+                    }) }}
+
+                  </div>
+                {% endblock %}
+
+                {{ govukInsetText({
+                  text: "Note: The available Environments varies per Notification Event"
+                }) }}
+
+                {{ govukInput({
+                  classes: "govuk-input--width-10",
+                  label: {
+                    text: "Slack Channel",
+                    classes: "govuk-label--m"
+                  },
+                  hint: {
+                    text: "Name of the Slack channel to receive the notification",
+                    classes: "app-hint"
+                  },
+                  id: "channel",
+                  name: "channel",
+                  spellcheck: false
                 }) }}
 
               {% endcall %}

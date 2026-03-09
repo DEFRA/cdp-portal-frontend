@@ -24,6 +24,7 @@ const autoDeploymentsController = {
     const userSession = request.auth.credentials
     const serviceId = request.params.serviceId
     const entity = request.app.entity
+
     const autoDeployDetails = await getAutoDeployDetails(serviceId)
     const validEnvironments = getEnvironments(
       userSession?.scope,
