@@ -170,6 +170,26 @@ export function testScheduleValidation(environments, daysOfTheWeek) {
     })
 }
 
+export function testNotificationValidation(eventTypes, environments) {
+  return Joi.object({
+    eventType: Joi.string()
+      .valid(...eventTypes)
+      .required(),
+    environments: Joi.array()
+      .valid(...environments)
+      .required()
+      .messages({
+        'any.only': chooseEnvironment,
+        'any.required': chooseEnvironment
+      }),
+    channel: Joi.string().required().messages({
+      'any.only': chooseConfig,
+      'any.required': chooseConfig
+    }),
+    enabled: Joi.boolean().truthy('true').falsy('false').optional()
+  })
+}
+
 export function postProcessValidationErrors(validationResult) {
   validationResult.error.details.forEach((detail) => {
     // Profile

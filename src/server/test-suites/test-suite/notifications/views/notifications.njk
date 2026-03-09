@@ -53,12 +53,10 @@
               Create a notification for a test run
             </p>
 
-            <form action="{{ routeLookup('post:test-suites/{serviceId}/automations/schedules/create', { params: { serviceId : entity.name } }) }}"
+            <form action="{{ routeLookup('post:test-suites/{serviceId}/notifications/create', { params: { serviceId : entity.name } }) }}"
                   method="post"
                   data-js="app-form-errors">
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-
-              <input type="hidden" name="frequency" value="WEEKLY" />
 
               {% call govukFieldset() %}
 
@@ -128,7 +126,9 @@
                   },
                   id: "channel",
                   name: "channel",
-                  spellcheck: false
+                  spellcheck: false,
+                  value: formValues.channel,
+                  errorMessage: errorMessageHelper(formErrors.channel.message)
                 }) }}
 
               {% endcall %}

@@ -6,7 +6,7 @@ import { provideFormContextValues } from '#server/common/helpers/form/provide-fo
 import { adminUserScope } from '#server/common/constants/scopes.js'
 
 import list from './controllers/list.js'
-// import create from './controllers/create.js'
+import create from './controllers/create.js'
 // import remove, { postRemove } from './controllers/remove.js'
 // import update, { postUpdate } from './controllers/update.js'
 
@@ -33,12 +33,12 @@ export default {
             method: 'GET',
             path: '/test-suites/{serviceId}/notifications',
             ...list
+          },
+          {
+            method: 'POST',
+            path: '/test-suites/{serviceId}/notifications/create',
+            ...create
           }
-          // {
-          //   method: 'POST',
-          //   path: '/test-suites/{serviceId}/notifications/create',
-          //   ...create
-          // }
           // {
           //   method: 'GET',
           //   path: '/test-suites/{serviceId}/notifications/{scheduleId}/remove',
