@@ -29,8 +29,12 @@ export default {
       notificationTypes.map((notificationType) => ({
         value: notificationType.eventType,
         text: notificationType.eventType
-      }))
-    )
+      })),
+      false
+    ).map((option) => ({
+      ...option,
+      selected: option.value === 'testfailed'
+    }))
 
     const supportVerticalHeadings = environments.length >= 5
 
@@ -40,15 +44,15 @@ export default {
       formValues,
       tableData: {
         headers: [
-          { id: 'eventType', text: 'Event', width: '8' },
-          { id: 'channel', text: 'Channel', width: '14' },
+          { id: 'eventType', text: 'Event', width: '10' },
+          { id: 'channel', text: 'Channel', width: '12' },
           ...environments.map((env) => ({
             ...(supportVerticalHeadings && { verticalText: true }),
             id: env.toLowerCase(),
             text: formatText(env),
             width: env.length
           })),
-          { id: 'enabled', text: 'Enabled', width: '5' },
+          { id: 'enabled', text: 'Enabled', width: '6' },
           { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
