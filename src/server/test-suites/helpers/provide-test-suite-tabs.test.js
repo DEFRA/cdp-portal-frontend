@@ -73,6 +73,11 @@ describe('#provideTestSuiteTabs', () => {
         },
         {
           isActive: false,
+          label: 'Notifications',
+          url: '/test-suites/cdp-env-test-suite/notifications'
+        },
+        {
+          isActive: false,
           label: 'Proxy',
           url: `/test-suites/${mockEntityName}/proxy`
         },
@@ -82,7 +87,7 @@ describe('#provideTestSuiteTabs', () => {
           url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -104,6 +109,11 @@ describe('#provideTestSuiteTabs', () => {
           isActive: false,
           label: 'Automations',
           url: `/test-suites/${mockEntityName}/automations`
+        },
+        {
+          isActive: false,
+          label: 'Notifications',
+          url: '/test-suites/cdp-env-test-suite/notifications'
         },
         {
           isActive: false,
@@ -155,6 +165,11 @@ describe('#provideTestSuiteTabs', () => {
         },
         {
           isActive: false,
+          label: 'Notifications',
+          url: '/test-suites/cdp-env-test-suite/notifications'
+        },
+        {
+          isActive: false,
           label: 'Proxy',
           url: `/test-suites/${mockEntityName}/proxy`
         },
@@ -164,7 +179,7 @@ describe('#provideTestSuiteTabs', () => {
           url: `/test-suites/${mockEntityName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -186,6 +201,11 @@ describe('#provideTestSuiteTabs', () => {
           isActive: false,
           label: 'Automations',
           url: `/test-suites/${mockEntityName}/automations`
+        },
+        {
+          isActive: false,
+          label: 'Notifications',
+          url: '/test-suites/cdp-env-test-suite/notifications'
         },
         {
           isActive: false,
