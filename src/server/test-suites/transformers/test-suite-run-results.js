@@ -77,7 +77,8 @@ function testSuiteRunResults(testRun, canRun) {
     stopAction: {
       available: canRun && runTaskStatus === taskStatus.inProgress,
       url: `/test-suites/${testRun.testSuite}/${testRun.runId}/stop`
-    }
+    },
+    created: testRun.created
   }
 }
 

@@ -41,8 +41,9 @@ async function aboutTestSuiteHandler(request, h) {
     shouldPoll: shouldPoll(testRuns),
     tableData: {
       headers: [
-        { id: 'version', text: 'Version', width: '5' },
-        { id: 'environment', text: 'Env', width: '7' },
+        { id: 'RunId', text: 'Run Id', width: '10' },
+        { id: 'version', text: 'Version', width: '4' },
+        { id: 'environment', text: 'Env', width: '6' },
         { id: 'cpu', text: 'CPU', width: '5' },
         { id: 'memory', text: 'Memory', width: '5' },
         { id: 'profile', text: 'Profile', width: '5' },
@@ -51,7 +52,7 @@ async function aboutTestSuiteHandler(request, h) {
         { id: 'results', text: 'Results', width: '8' },
         { id: 'user', text: 'Run By', width: '12' },
         { id: 'duration', text: 'Duration', width: '10' },
-        { id: 'last-run', text: 'Last Run', width: '15' },
+        { id: 'last-updated', text: 'Last Updated', width: '15' },
         { id: 'action', text: 'Action', width: '5' }
       ],
       rows,

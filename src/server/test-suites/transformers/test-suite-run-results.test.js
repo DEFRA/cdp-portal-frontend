@@ -14,6 +14,7 @@ describe('#transformTestSuiteRunResults', () => {
           version: '0.2.0',
           cpu: '4 vCPU',
           memory: '8 GB',
+          created: '2024-02-27T10:29:32.127Z',
           profile: undefined,
           status: {
             value: 'In-progress',
@@ -45,6 +46,7 @@ describe('#transformTestSuiteRunResults', () => {
           version: '0.1.0',
           cpu: '8 vCPU',
           memory: '16 GB',
+          created: '2024-02-26T16:38:28.979Z',
           profile: undefined,
           status: {
             value: 'Finished',
@@ -85,6 +87,7 @@ describe('#transformTestSuiteRunResults', () => {
           version: '0.2.0',
           cpu: '4 vCPU',
           memory: '8 GB',
+          created: '2024-02-27T10:29:32.127Z',
           profile: undefined,
           status: {
             value: 'In-progress',
@@ -116,6 +119,7 @@ describe('#transformTestSuiteRunResults', () => {
           version: '0.1.0',
           cpu: '8 vCPU',
           memory: '16 GB',
+          created: '2024-02-26T16:38:28.979Z',
           profile: undefined,
           status: {
             value: 'Finished',
