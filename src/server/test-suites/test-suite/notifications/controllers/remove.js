@@ -2,11 +2,11 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '#server/common/constants/session-names.js'
-import {
-  getSchedule,
-  removeSchedule
-} from '#server/services/service/automations/helpers/fetchers.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
+import {
+  fetchNotificationRule,
+  deleteNotificationRule
+} from '#server/common/helpers/fetch/fetch-notifications.js'
 
 export default {
   options: {
@@ -15,12 +15,15 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const schedule = await getSchedule(testSuiteName, request.params.scheduleId)
+    const notification = await fetchNotificationRule(
+      testSuiteName,
+      request.params.notificationId
+    )
 
-    return h.view('test-suites/test-suite/automations/views/remove', {
-      pageTitle: `Test Suite - ${testSuiteName} - Automations - Schedules - Remove`,
+    return h.view('test-suites/test-suite/notifications/views/remove', {
+      pageTitle: `Test Suite - ${testSuiteName} - Notifications - Remove`,
       entity,
-      schedule,
+      notification,
       breadcrumbs: [
         {
           text: 'Test suites',
@@ -31,8 +34,8 @@ export default {
           href: `/test-suites/${testSuiteName}`
         },
         {
-          text: 'Automations',
-          href: `/test-suites/${testSuiteName}/automations`
+          text: 'Notifications',
+          href: `/test-suites/${testSuiteName}/notifications`
         },
         {
           text: 'Remove'
@@ -47,25 +50,25 @@ export const postRemove = {
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required(),
-        scheduleId: Joi.string().required()
+        notificationId: Joi.string().required()
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
-    const scheduleId = request.params.scheduleId
+    const notificationId = request.params.notificationId
 
     try {
-      await removeSchedule(request, serviceId, scheduleId)
+      await deleteNotificationRule(serviceId, notificationId)
 
       request.yar.flash(sessionNames.notifications, {
-        text: 'Schedule removed from Test Suite',
+        text: 'Notification removed from Test Suite',
         type: 'success'
       })
 
       return h.redirect(
-        request.routeLookup('test-suites/{serviceId}/automations', {
+        request.routeLookup('test-suites/{serviceId}/notifications', {
           params: { serviceId }
         })
       )
@@ -73,7 +76,7 @@ export const postRemove = {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
       return h.redirect(
-        request.routeLookup('test-suites/{serviceId}/automations', {
+        request.routeLookup('test-suites/{serviceId}/notifications', {
           params: { serviceId }
         })
       )

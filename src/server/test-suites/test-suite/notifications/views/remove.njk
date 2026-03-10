@@ -2,15 +2,14 @@
 
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
-{% from "test-suites/common/components/schedule-row/macro.njk" import scheduleRow %}
 
 {% set helpHtml %}
   <p class="govuk-!-margin-bottom-1">
-    When a schedule is removed. The tests will no longer run on this schedule.
+    When a notification is removed, the tests will no longer trigger this notification.
     <br>
-    Removing a schedule is non-recoverable. If you remove the wrong schedule simply
+    Removing a notification is non-recoverable. If you remove the wrong notification simply
     <a
-      href="{{ routeLookup('test-suites/{serviceId}/automations', { params: { serviceId : entity.name } }) }}"
+      href="{{ routeLookup('test-suites/{serviceId}/notifications', { params: { serviceId : entity.name } }) }}"
       class="govuk-link app-link">
       add a new one
     </a>
@@ -19,7 +18,7 @@
 
 {% block beforeTabContent %}
   {{ appPageHeading({
-    caption: "Remove Schedule",
+    caption: "Remove Notification",
     text: entity.name
   }) }}
 
@@ -33,10 +32,10 @@
       <div class="govuk-grid-column-one-half-from-desktop">
         <div data-testid="remove-test-run">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="remove-test-run-heading">
-            Remove Schedule
+            Remove Notification
           </h2>
           <p class="govuk-!-margin-bottom-2">
-            Remove the following schedule from the test suite:
+            Remove the following notification from the test suite:
           </p>
 
           <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Test Suite</h3>
@@ -48,20 +47,24 @@
             </a>
           </p>
 
-          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Description</h3>
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Event</h3>
           <p>
-            {{ schedule.description | safe }}
+            {{ notification.eventType | safe }}
           </p>
 
-          {% if schedule.task.profile %}
-            <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Profile</h3>
-            <p>
-              {{ schedule.task.profile | safe }}
-            </p>
-          {% endif %}
+          <h3 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Environments</h3>
+          <ul class="govuk-list govuk-list--spaced">
+            {% for environment in notification.environments %}
+              <li class="app-!-layout-centered">
+                <div class="app-check"></div> {{ environment | formatText }}
+              </li>
+            {% endfor %}
+          </ul>
 
-          <h3 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Environment</h3>
-          <p>{{ schedule.task.environment | safe }}</p>
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Channel</h3>
+          <p>
+            {{ notification.slackChannel | safe }}
+          </p>
 
           <div class="govuk-!-margin-bottom-4">
             {{ appInfo({
@@ -69,16 +72,16 @@
             }) }}
           </div>
 
-          <form action="/test-suites/{{ entity.name }}/automations/schedules/{{ schedule.id }}/remove" method="post">
+          <form action="/test-suites/{{ entity.name }}/notifications/{{ notification.ruleId }}/remove" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
             <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
               {{ govukButton({
                 classes: "app-button app-button--destructive",
-                text: "Remove schedule"
+                text: "Remove notification"
               }) }}
 
-              <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}/automations', {
+              <a class="app-link" href="{{ routeLookup('test-suites/{serviceId}/notifications', {
                 params: { serviceId: entity.name }
               }) }}">Cancel</a>
             </div>

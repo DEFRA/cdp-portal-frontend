@@ -68,7 +68,7 @@ export default {
       formValues.provideProfile = 'false'
     }
 
-    return h.view('test-suites/test-suite/automations/views/schedules-update', {
+    return h.view('test-suites/test-suite/automations/views/update', {
       pageTitle: `Test Suite - ${testSuiteName} - Automations - Schedules - Update`,
       entity,
       schedule,
