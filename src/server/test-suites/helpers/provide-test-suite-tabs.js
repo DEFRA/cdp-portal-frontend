@@ -40,6 +40,11 @@ async function provideTestSuiteTabs(request, h) {
       buildTab(response, request, 'test-suites', 'automations', testSuiteName)
     }
 
+    // TODO: Expand to isServiceOwner as well
+    if (isAdmin) {
+      buildTab(response, request, 'test-suites', 'notifications', testSuiteName)
+    }
+
     if (isAdmin || isTenant) {
       buildTab(response, request, 'test-suites', 'proxy', testSuiteName)
     } else {

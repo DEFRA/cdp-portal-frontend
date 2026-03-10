@@ -1,0 +1,9 @@
+{# Renders a service entity-table row for notifications
+
+@param {string} id - scheduleId
+@param {string} env - Environment
+#}
+
+{% macro notificationRow(params) %}
+  {%- include "./template.njk" -%}
+{% endmacro %}

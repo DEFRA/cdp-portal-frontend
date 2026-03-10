@@ -1,0 +1,162 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
+{% from "test-suites/common/components/notification-row/macro.njk" import notificationRow %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Test Run Notifications",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+
+  <section class="govuk-!-margin-top-6">
+    {% call appSplitPane() %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop-huge">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="automatic-test-runs">
+                Test Run Notifications
+          </h2>
+          <p class="govuk-!-margin-bottom-2">
+            Automatic notifications on test suite runs
+          </p>
+
+          <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
+            {% call(params) appEntityTable(tableData) %}
+
+              {{ notificationRow({
+                rowClasses: params.rowClasses,
+                loopIndex: params.loopIndex,
+                serviceId: entity.name,
+                id: params.row.id,
+                eventType: params.row.eventType,
+                channel: params.row.channel,
+                enabled: params.row.enabled,
+                envs: params.row.envs
+              }) | safe }}
+
+            {% endcall %}
+          </div>
+        </div>
+
+        <div class="govuk-grid-column-one-third-from-desktop-huge">
+          <section>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+                data-testid="add-test-run">Add Notification</h2>
+            <p>
+              Create a notification for a test run
+            </p>
+
+            <form action="{{ routeLookup('post:test-suites/{serviceId}/notifications/create', { params: { serviceId : entity.name } }) }}"
+                  method="post"
+                  data-js="app-form-errors">
+              <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+              {% call govukFieldset() %}
+
+                {{ govukSelect({
+                  id: "eventType",
+                  name: "eventType",
+                  label: {
+                    text: "Event",
+                    classes: "app-label"
+                  },
+                  classes: "app-select",
+                  hint: {
+                    text: "Event which triggers the notification",
+                    classes: "app-hint"
+                  },
+                  value: formValues.eventType,
+                  items: eventTypeOptions,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  },
+                  errorMessage: errorMessageHelper(formErrors.eventType.message),
+                  attributes: {
+                    'data-js': 'auto-refresh'
+                  }
+                }) }}
+
+                {% block xhrContent %}
+                  <div data-xhr="notification-envs">
+
+                    {{ govukCheckboxes({
+                      name: "environments",
+                      classes: "app-checkboxes govuk-checkboxes--small",
+                      fieldset: {
+                        legend: {
+                          text: "Environments",
+                          classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-2"
+                        }
+                      },
+                      hint: {
+                        text: "Select the environments you wish to have the notification on",
+                        classes: "app-hint"
+                      },
+                      formGroup: {
+                        classes: "app-form-group"
+                      },
+                      items: environmentOptions,
+                      values: formValues.environments,
+                      errorMessage: errorMessageHelper(formErrors.environments.message)
+                    }) }}
+
+                  </div>
+                {% endblock %}
+
+                {{ govukButton({
+                  classes: "app-button app-button--secondary js-hidden",
+                  text: "Refresh List",
+                  attributes: {
+                    formaction: '',
+                    formmethod: 'GET',
+                    formnovalidate: true
+                  }
+                }) }}
+
+                {{ govukInsetText({
+                  text: "Note: The available Environments varies per Notification Event"
+                }) }}
+
+                {{ govukInput({
+                  classes: "govuk-input--width-10",
+                  label: {
+                    text: "Slack Channel",
+                    classes: "govuk-label--m"
+                  },
+                  hint: {
+                    text: "Name of the Slack channel to receive the notification",
+                    classes: "app-hint"
+                  },
+                  id: "channel",
+                  name: "channel",
+                  spellcheck: false,
+                  value: formValues.channel,
+                  errorMessage: errorMessageHelper(formErrors.channel.message)
+                }) }}
+
+              {% endcall %}
+
+              {{ appButton({
+                text: "Add",
+                loader: {
+                  name: "run-submit-button"
+                }
+              }) }}
+
+            </form>
+          </section>
+
+        </div>
+      </div>
+
+    {% endcall %}
+
+  </section>
+{% endblock %}

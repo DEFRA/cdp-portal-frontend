@@ -19,7 +19,7 @@ export default {
       text: day
     }))
 
-    const [{ testRuns }, { rows }] = await Promise.all([
+    const [{ testRuns }, rows] = await Promise.all([
       fetchTestRuns({
         name: testSuiteName
       }),
@@ -86,5 +86,5 @@ async function buildScheduledTestRunsViewDetails(testSuiteName) {
     nextRunDate: schedule.nextRunAt
   }))
 
-  return { rows }
+  return rows
 }

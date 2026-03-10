@@ -7,12 +7,12 @@ import { adminUserScope } from '#server/common/constants/scopes.js'
 
 import list from './controllers/list.js'
 import create from './controllers/create.js'
-import remove, { postRemove } from './controllers/remove.js'
-import update, { postUpdate } from './controllers/update.js'
+// import remove, { postRemove } from './controllers/remove.js'
+// import update, { postUpdate } from './controllers/update.js'
 
 export default {
   plugin: {
-    name: 'testSuiteAutomations',
+    name: 'testSuiteNotifications',
     register: (server) => {
       server.ext([
         ...commonTestSuiteExtensions,
@@ -31,34 +31,34 @@ export default {
         [
           {
             method: 'GET',
-            path: '/test-suites/{serviceId}/automations',
+            path: '/test-suites/{serviceId}/notifications',
             ...list
           },
           {
             method: 'POST',
-            path: '/test-suites/{serviceId}/automations/schedules/create',
+            path: '/test-suites/{serviceId}/notifications/create',
             ...create
-          },
-          {
-            method: 'GET',
-            path: '/test-suites/{serviceId}/automations/schedules/{scheduleId}/remove',
-            ...remove
-          },
-          {
-            method: 'POST',
-            path: '/test-suites/{serviceId}/automations/schedules/{scheduleId}/remove',
-            ...postRemove
-          },
-          {
-            method: 'GET',
-            path: '/test-suites/{serviceId}/automations/schedules/{scheduleId}/update',
-            ...update
-          },
-          {
-            method: 'POST',
-            path: '/test-suites/{serviceId}/automations/schedules/{scheduleId}/update',
-            ...postUpdate
           }
+          // {
+          //   method: 'GET',
+          //   path: '/test-suites/{serviceId}/notifications/{scheduleId}/remove',
+          //   ...remove
+          // },
+          // {
+          //   method: 'POST',
+          //   path: '/test-suites/{serviceId}/notifications/{scheduleId}/remove',
+          //   ...postRemove
+          // }
+          // {
+          //   method: 'GET',
+          //   path: '/test-suites/{serviceId}/notifications/{scheduleId}/update',
+          //   ...update
+          // },
+          // {
+          //   method: 'POST',
+          //   path: '/test-suites/{serviceId}/notifications/{scheduleId}/update',
+          //   ...postUpdate
+          // }
         ].map(adminUserScope) // TODO: Change to serviceOwnerOrAdminUserScope once admin only testing is complete
       )
     }
