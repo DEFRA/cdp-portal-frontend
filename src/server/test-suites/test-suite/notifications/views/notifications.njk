@@ -110,6 +110,16 @@
                   </div>
                 {% endblock %}
 
+                {{ govukButton({
+                  classes: "app-button app-button--secondary js-hidden",
+                  text: "Refresh List",
+                  attributes: {
+                    formaction: '',
+                    formmethod: 'GET',
+                    formnovalidate: true
+                  }
+                }) }}
+
                 {{ govukInsetText({
                   text: "Note: The available Environments varies per Notification Event"
                 }) }}

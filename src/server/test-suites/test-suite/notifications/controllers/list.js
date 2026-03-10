@@ -5,7 +5,7 @@ import {
   fetchSupportedNotifications
 } from '#server/common/helpers/fetch/fetch-notifications.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
-import { Boom } from '@hapi/boom'
+import Boom from '@hapi/boom'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 import Joi from 'joi'
 
@@ -16,14 +16,14 @@ export default {
     validate: {
       query: Joi.object({
         eventType: Joi.string().optional()
-      }),
+      }).unknown(),
       failAction: () => Boom.boomify(Boom.notFound())
     }
   },
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const formValues = request.pre.formValues
+    const formValues = { ...request.pre.formValues, ...request.query }
     const userSession = request.auth.credentials
 
     const environments = getEnvironments(userSession?.scope, entity?.subType)
@@ -33,7 +33,6 @@ export default {
       fetchSupportedNotifications(testSuiteName)
     ])
 
-    formValues.eventType = request.query?.eventType
     if (!formValues.eventType) {
       formValues.eventType = 'testfailed' // default
     }
