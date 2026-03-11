@@ -37,6 +37,10 @@ import { entitiesResourcesFixture } from '../src/__fixtures__/entities/entity.js
 import { fetchShutteringUrls } from '../src/server/services/helpers/fetch/fetch-shuttering-urls.js'
 import { shutteringUrlsFixture } from '../src/__fixtures__/shuttering/shuttering-urls.js'
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
+import {
+  fetchNotificationRules,
+  fetchSupportedNotifications
+} from '#server/common/helpers/fetch/fetch-notifications.js'
 
 const dirname = import.meta.dirname
 
@@ -340,6 +344,72 @@ export function mockGetSchedules(serviceName) {
         id: '00000000-0000-0000-0000-00000000002',
         displayName: 'test user'
       }
+    }
+  ])
+}
+
+export function mockFetchSupportedNotifications() {
+  fetchSupportedNotifications.mockResolvedValue?.([
+    {
+      eventType: 'testfailed',
+      environments: [
+        'dev',
+        'test',
+        'ext-test',
+        'perf-test',
+        'prod',
+        'infra-dev',
+        'management'
+      ]
+    },
+    {
+      eventType: 'testpassed',
+      environments: [
+        'dev',
+        'test',
+        'ext-test',
+        'perf-test',
+        'prod',
+        'infra-dev',
+        'management'
+      ]
+    }
+  ])
+}
+
+export function mockFetchNotificationRules(serviceName) {
+  fetchNotificationRules.mockResolvedValue?.([
+    {
+      ruleId: 'a07ff878-8de8-4874-af86-af31d4847e9b',
+      eventType: 'testfailed',
+      entity: serviceName,
+      environments: ['dev'],
+      slackChannel: 'cdp-portal-alerts',
+      isEnabled: true
+    },
+    {
+      ruleId: 'd8407d11-a8fe-4319-b523-9ec120206ae8',
+      eventType: 'testfailed',
+      entity: serviceName,
+      environments: ['dev', 'test'],
+      slackChannel: 'test',
+      isEnabled: true
+    },
+    {
+      ruleId: '519d36e3-17bd-4c02-8399-e07c218d9840',
+      eventType: 'testfailed',
+      entity: serviceName,
+      environments: [
+        'infra-dev',
+        'management',
+        'dev',
+        'test',
+        'ext-test',
+        'perf-test',
+        'prod'
+      ],
+      slackChannel: 'cdp-test',
+      isEnabled: true
     }
   ])
 }
