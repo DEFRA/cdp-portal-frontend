@@ -6,6 +6,13 @@
 {% from "icons/error-icon/macro.njk" import appErrorIcon %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+  <td headers="RunId" class="app-entity-table__cell" data-label="Run Id">
+    <a class="app-link" href="/test-suites/{{ params.testSuite }}/runs/{{ params.runId }}" rel="noopener noreferrer" data-testid="app-entity-link">
+      {{ params.runId }}
+    </a>
+  </td>
+
+
   <td headers="version" class="app-entity-table__cell" data-label="Version">
     <a class="app-link" href="https://github.com/DEFRA/{{ params.testSuite }}/releases/tag/{{ params.version }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
       {{ params.version }}
@@ -86,7 +93,7 @@
   </td>
 
 
-  <td headers="last-ran" class="app-entity-table__cell" data-label="Last-ran">
+  <td headers="last-updated" class="app-entity-table__cell" data-label="Last-updated">
     {{ appTime({ datetime: params.lastRun}) }}
   </td>
 

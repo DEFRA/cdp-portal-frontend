@@ -1,5 +1,5 @@
 import { millis, byteSize } from '@defra/cdp-metrics'
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 
 export const nodeVmMetrics = {
   plugin: {

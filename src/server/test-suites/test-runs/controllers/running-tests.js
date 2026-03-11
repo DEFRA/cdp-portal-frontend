@@ -64,7 +64,7 @@ const runningTestsController = {
           { id: 'status', text: 'Status', width: '7' },
           { id: 'user', text: 'Run By', width: '12' },
           { id: 'duration', text: 'Duration', width: '10' },
-          { id: 'last-run', text: 'Last Run', width: '15' }
+          { id: 'last-updated', text: 'Last Updated', width: '15' }
         ],
         rows
       },

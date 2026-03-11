@@ -1,79 +1,79 @@
-import { sessionNames } from '#server/common/constants/session-names.js'
-import { runTest } from '../../helpers/fetch/run-test.js'
-import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { transformSecrets } from '../../../common/components/secrets-list/helpers/transform-secrets.js'
+import { provideTestRunStatusClassname } from '#server/test-suites/helpers/provide-test-run-status-classname.js'
+import { taskStatus } from '#server/test-suites/constants/test-run-status.js'
+import { provideEntity } from '#server/common/helpers/ext/provide-entitiy.js'
+import { provideTestRun } from '#server/test-suites/helpers/pre/provide-test-run.js'
+import { fetchSecrets } from '#server/common/helpers/fetch/fetch-secrets.js'
+import { testSuitefaviconState } from '#server/test-suites/test-runs/helpers/test-suite-favicon-state.js'
+import { transformTestRunToStatus } from '#server/test-suites/test-runs/transformers/test-run-to-status.js'
+import { transformTestRunToDetails } from '#server/test-suites/test-runs/transformers/test-run-to-details.js'
 
-import {
-  postProcessValidationErrors,
-  testSuiteValidation
-} from '../../helpers/schema/test-suite-validation.js'
-import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
-
-const testSuiteRunController = {
+export const testSuiteRunController = {
+  options: {
+    pre: [provideEntity, provideTestRun]
+  },
   handler: async (request, h) => {
-    const payload = request.payload
-    const { testSuite, environment, configuration } = request.payload
-    const userSession = request.auth.credentials
-    const userScopes = userSession?.scope
+    const entity = request.app.entity
+    const testRun = request.pre.testRun
 
-    const teamIds = userSession?.isAdmin ? [] : userScopes
-    const testSuites = await fetchTestSuites({ teamIds })
+    const formattedEnvironment = formatText(testRun.environment)
+    const secrets = await fetchSecrets(testRun.environment, testRun.testSuite)
+    const secretDetail = transformSecrets(secrets)
 
-    const testSuiteNames = testSuites.map((testSuite) => testSuite.name)
-    const environments = getEnvironments(userScopes)
+    const canRun =
+      (await request.userIsOwner(entity)) || (await request.userIsAdmin())
 
-    const validationResult = testSuiteValidation(
-      testSuiteNames,
-      environments
-    ).validate(payload, { abortEarly: false })
+    const shouldPoll =
+      testRun.taskStatus !== taskStatus.failed &&
+      testRun.taskStatus !== taskStatus.finished
 
-    if (validationResult?.error) {
-      postProcessValidationErrors(validationResult)
+    testRun.statusClass = provideTestRunStatusClassname(testRun.taskStatus)
 
-      const errorDetails = buildErrorDetails(validationResult.error.details)
+    const testSuiteName = testRun.testSuite
 
-      request.yar.flash(sessionNames.validationFailure, {
-        formValues: payload,
-        formErrors: errorDetails
-      })
+    // why doesn't this work?
+    // const notifications = testRun.failureReasons.map((f) => ({
+    //   text: f.reason,
+    //   type: 'error'
+    // }))
 
-      return h.redirect(`/test-suites/${testSuite}`)
-    }
+    const failureReasons = testRun?.failureReasons
+      .map((f) => f.reason)
+      .join(', ')
 
-    try {
-      await runTest({
-        request,
-        testSuite,
-        environment,
-        configuration,
-        profile: payload.provideProfile
-          ? payload.profile && payload.profile.trim() !== ''
-            ? payload.profile
-            : payload.newProfile
-          : undefined
-      })
-
-      request.audit.send({
-        event: 'test run requested',
-        user: { id: userSession.id, name: userSession.displayName },
-        testRun: {
-          testSuite,
-          environment
+    return h.view('test-suites/test-runs/views/test-suite-run', {
+      faviconState: testSuitefaviconState(testRun),
+      pageTitle: `${testRun?.testSuite} ${testRun?.tag} test run - ${formattedEnvironment}`,
+      pageHeading: {
+        caption: 'Test suite',
+        text: testRun?.testSuite,
+        intro: `Test suite run for <strong>${testRun?.testSuite}</strong>, version <strong>${testRun?.tag}</strong> in <strong>${testRun?.environment}</strong>`
+      },
+      testRun,
+      shouldPoll,
+      statusList: transformTestRunToStatus(
+        canRun,
+        testRun,
+        request.plugins.crumb
+      ),
+      detailsList: transformTestRunToDetails(testRun, entity),
+      secretDetail,
+      // notifications,
+      failureReasons,
+      breadcrumbs: [
+        {
+          text: 'Test suites',
+          href: '/test-suites'
+        },
+        {
+          text: testSuiteName,
+          href: `/test-suites/${testSuiteName}`
+        },
+        {
+          text: `${testRun?.testSuite} - ${testRun?.tag}`
         }
-      })
-
-      request.yar.flash(sessionNames.notifications, {
-        text: 'Test run requested successfully',
-        type: 'success'
-      })
-
-      return h.redirect(`/test-suites/${testSuite}`)
-    } catch (error) {
-      request.yar.flash(sessionNames.globalValidationFailures, error.message)
-
-      return h.redirect(`/test-suites/${testSuite}`)
-    }
+      ]
+    })
   }
 }
-
-export { testSuiteRunController }
