@@ -3,18 +3,14 @@ import Boom from '@hapi/boom'
 
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
-import daysOfTheWeek from '#server/test-suites/constants/daysOfTheWeek.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import {
-  postProcessValidationErrors,
-  testScheduleValidation
-} from '#server/test-suites/helpers/schema/test-suite-validation.js'
+import { testNotificationValidation } from '#server/test-suites/helpers/schema/test-suite-validation.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
-import { runnerConfigurations } from '#server/test-suites/constants/runner-configurations.js'
 import {
   fetchNotificationRule,
-  fetchSupportedNotifications
+  fetchSupportedNotifications,
+  updateNotificationRule
 } from '#server/common/helpers/fetch/fetch-notifications.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 
@@ -25,7 +21,6 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const formValues = { ...request.pre.formValues, ...request.query }
     const userSession = request.auth.credentials
 
     const environments = getEnvironments(userSession?.scope, entity?.subType)
@@ -34,6 +29,15 @@ export default {
       fetchNotificationRule(testSuiteName, request.params.notificationId),
       fetchSupportedNotifications(testSuiteName)
     ])
+
+    const formValues = {
+      eventType: notification.eventType,
+      environments: notification.environments,
+      channel: notification.slackChannel,
+      enabled: notification.isEnabled,
+      ...request.pre.formValues,
+      ...request.query
+    }
 
     const eventEnvironments = notificationTypes.find(
       (type) => type.eventType === formValues.eventType
@@ -101,44 +105,33 @@ export const postUpdate = {
     const payload = request.payload
     const userScopes = userSession?.scope
     const serviceId = request.params.serviceId
-    const scheduleId = request.params.scheduleId
+    const notificationId = request.params.notificationId
 
     const sanitisedPayload = {
-      frequency: payload.frequency,
-      'time-hour': payload['time-hour'],
-      'time-minute': payload['time-minute'],
-      daysOfTheWeek: Array.isArray(payload.daysOfTheWeek)
-        ? payload.daysOfTheWeek
-        : [payload.daysOfTheWeek].filter(Boolean),
-      environment: payload.environment,
-      configuration: payload.configuration,
-      provideProfile: payload.provideProfile,
-      profile: payload.profile,
-      newProfile: payload.newProfile,
-      enabled: payload.enabled,
-      'startDate-day': payload['startDate-day'],
-      'startDate-month': payload['startDate-month'],
-      'startDate-year': payload['startDate-year'],
-      'endDate-day': payload['endDate-day']
-        ? payload['endDate-day']
-        : undefined,
-      'endDate-month': payload['endDate-month']
-        ? payload['endDate-month']
-        : undefined,
-      'endDate-year': payload['endDate-year']
-        ? payload['endDate-year']
-        : undefined
+      eventType: payload.eventType,
+      environments: Array.isArray(payload.environments)
+        ? payload.environments
+        : [payload.environments].filter(Boolean),
+      channel: payload.channel,
+      enabled: payload.enabled
     }
 
     const environments = getEnvironments(userScopes)
+    const notificationTypes = await fetchSupportedNotifications(serviceId)
 
-    const validationResult = testScheduleValidation(
-      environments,
-      daysOfTheWeek
+    const eventEnvironments = notificationTypes.find(
+      (type) => type.eventType === sanitisedPayload.eventType
+    ).environments
+    const validEnvironments = environments.filter((env) =>
+      eventEnvironments.includes(env)
+    )
+
+    const validationResult = testNotificationValidation(
+      notificationTypes.map((type) => type.eventType),
+      validEnvironments
     ).validate(sanitisedPayload, { abortEarly: false })
 
     if (validationResult?.error) {
-      postProcessValidationErrors(validationResult)
       const errorDetails = buildErrorDetails(validationResult.error.details)
       request.yar.flash(sessionNames.validationFailure, {
         formValues: sanitisedPayload,
@@ -146,36 +139,12 @@ export const postUpdate = {
       })
     } else {
       try {
-        const profile = validationResult.value.provideProfile
-          ? validationResult.value.profile &&
-            validationResult.value.profile.trim() !== ''
-            ? validationResult.value.profile
-            : validationResult.value.newProfile
-          : undefined
-
-        const { cpu, memory } =
-          runnerConfigurations[validationResult.value.configuration]
-
-        await updateSchedule(
-          request,
-          serviceId,
-          scheduleId,
-          {
-            type: 'DeployTestSuite',
-            environment: validationResult.value.environment,
-            cpu: cpu.value,
-            memory: memory.value,
-            profile
-          },
-          {
-            frequency: validationResult.value.frequency,
-            time: `${String(validationResult.value['time-hour']).padStart(2, 0)}:${String(validationResult.value['time-minute']).padStart(2, 0)}`,
-            daysOfWeek: validationResult.value.daysOfTheWeek,
-            startDate: validationResult.value.startDate,
-            endDate: validationResult.value.endDate
-          },
-          validationResult.value.enabled
-        )
+        await updateNotificationRule(serviceId, notificationId, {
+          eventType: validationResult.value.eventType,
+          environments: validationResult.value.environments,
+          slackChannel: validationResult.value.channel,
+          isEnabled: validationResult.value.enabled
+        })
 
         request.yar.clear(sessionNames.validationFailure)
         request.yar.flash(sessionNames.notifications, {
@@ -192,7 +161,7 @@ export const postUpdate = {
     }
 
     const redirectUrl = request.routeLookup(
-      'test-suites/{serviceId}/automations/notificationId/{notificationId}',
+      'test-suites/{serviceId}/notifications/{notificationId}',
       {
         params: { serviceId, notificationId }
       }

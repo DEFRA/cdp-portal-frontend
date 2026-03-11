@@ -28,7 +28,9 @@ export default {
 
     const sanitisedPayload = {
       eventType: payload.eventType,
-      environments: payload.environments,
+      environments: Array.isArray(payload.environments)
+        ? payload.environments
+        : [payload.environments].filter(Boolean),
       channel: payload.channel
     }
 
