@@ -9,7 +9,7 @@ import {
 import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
 import { fetchTestSuites } from '../../../common/helpers/fetch/fetch-entities.js'
 
-const testSuiteRunsController = {
+export const testSuiteRunsController = {
   handler: async (request, h) => {
     const payload = request.payload
     const { testSuite, environment, configuration } = request.payload
@@ -19,7 +19,7 @@ const testSuiteRunsController = {
     const teamIds = userSession?.isAdmin ? [] : userScopes
     const testSuites = await fetchTestSuites({ teamIds })
 
-    const testSuiteNames = testSuites.map((testSuite) => testSuite.name)
+    const testSuiteNames = testSuites.map((t) => t.name)
     const environments = getEnvironments(userScopes)
 
     const validationResult = testSuiteValidation(
@@ -46,11 +46,7 @@ const testSuiteRunsController = {
         testSuite,
         environment,
         configuration,
-        profile: payload.provideProfile
-          ? payload.profile && payload.profile.trim() !== ''
-            ? payload.profile
-            : payload.newProfile
-          : undefined
+        profile: resolveProfile(payload)
       })
 
       request.audit.send({
@@ -76,4 +72,9 @@ const testSuiteRunsController = {
   }
 }
 
-export { testSuiteRunsController }
+function resolveProfile(payload) {
+  if (!payload.provideProfile) return undefined
+  return payload.profile && payload.profile.trim() !== ''
+    ? payload.profile
+    : payload.newProfile
+}

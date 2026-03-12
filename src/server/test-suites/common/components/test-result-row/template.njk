@@ -6,12 +6,11 @@
 {% from "icons/error-icon/macro.njk" import appErrorIcon %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
-  <td headers="RunId" class="app-entity-table__cell" data-label="Run Id">
+  <td headers="Started" class="app-entity-table__cell" data-label="Started">
     <a class="app-link" href="/test-suites/{{ params.testSuite }}/runs/{{ params.runId }}" rel="noopener noreferrer" data-testid="app-entity-link">
-      {{ params.runId }}
+      {{ params.created | formatDate("do MMM yyyy 'at' HH:mm:ss") }}
     </a>
   </td>
-
 
   <td headers="version" class="app-entity-table__cell" data-label="Version">
     <a class="app-link" href="https://github.com/DEFRA/{{ params.testSuite }}/releases/tag/{{ params.version }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
@@ -23,17 +22,6 @@
     <span data-testid="app-entity-text">{{ params.environment }}</span>
   </td>
 
-
-  <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
-    <span data-testid="app-entity-text">{{ params.cpu }}</span>
-  </td>
-
-
-  <td headers="memory" class="app-entity-table__cell" data-label="Memory">
-    <span data-testid="app-entity-text">{{ params.memory }}</span>
-  </td>
-
-
   <td headers="profile" class="app-entity-table__cell" data-label="Profile">
     {% if params.profile | length %}
       <span class="app-entity">{{ params.profile }}</span>
@@ -41,7 +29,6 @@
       {{ noValue }}
     {% endif %}
   </td>
-
 
   <td headers="status" class="app-entity-table__cell" data-label="Status">
     {{ govukTag({
@@ -54,18 +41,6 @@
       {{ appLoader({ classes: "app-loader--is-loading" }) }}
     {%- endif %}
   </td>
-
-
-  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
-    {% if params.logs.available %}
-      <a class="app-link" href="{{ params.logs.url }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-        {{ params.logs.value }}
-      </a>
-    {% else %}
-      {{ noValue }}
-    {% endif %}
-  </td>
-
 
   <td headers="results" class="app-entity-table__cell" data-label="Results">
     {% if params.hasResult %}
@@ -82,19 +57,18 @@
     {%  endif %}
   </td>
 
-
-  <td headers="user" class="app-entity-table__cell" data-label="User">
-    {{ params.user | safe }}
+  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
+    {% if params.logs.available %}
+      <a class="app-link" href="{{ params.logs.url }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
+        {{ params.logs.value }}
+      </a>
+    {% else %}
+      {{ noValue }}
+    {% endif %}
   </td>
-
 
   <td headers="duration" class="app-entity-table__cell" data-label="Duration">
     <span data-testid="app-entity-text">{{ params.duration }}</span>
-  </td>
-
-
-  <td headers="last-updated" class="app-entity-table__cell" data-label="Last-updated">
-    {{ appTime({ datetime: params.lastRun}) }}
   </td>
 
   <td headers="action" class="app-entity-table__cell" data-label="Action">

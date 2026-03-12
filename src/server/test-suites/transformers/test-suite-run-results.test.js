@@ -23,7 +23,7 @@ describe('#transformTestSuiteRunResults', () => {
           },
           logs: {
             available: true,
-            value: 'https://logs.infra-dev.cdp-int.defra.cloud',
+            value: 'logs',
             url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/cdp-portal-smoke-tests?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-27T10:29:32.000',to:'2024-02-27T10:31:36.000'))"
           },
           hasResult: true,
@@ -33,7 +33,7 @@ describe('#transformTestSuiteRunResults', () => {
           runTaskStatus: 'in-progress',
           user: 'B. A. Baracus',
           duration: '2 minutes',
-          lastRun: '2024-02-27T10:31:36Z',
+          lastUpdated: '2024-02-27T10:31:36Z',
           stopAction: {
             available: false,
             url: `/test-suites/cdp-portal-smoke-tests/383547d8-f71c-4e7e-8b03-4ddf09fd84fe/stop`
@@ -55,7 +55,7 @@ describe('#transformTestSuiteRunResults', () => {
           },
           logs: {
             available: true,
-            value: 'https://logs.infra-dev.cdp-int.defra.cloud',
+            value: 'logs',
             url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/cdp-portal-smoke-tests?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-26T16:38:28.000',to:'2024-02-26T16:40:34.000'))"
           },
           hasResult: true,
@@ -65,7 +65,7 @@ describe('#transformTestSuiteRunResults', () => {
           runTaskStatus: 'finished',
           user: 'B. A. Baracus',
           duration: '2 minutes',
-          lastRun: '2024-02-26T16:40:34Z',
+          lastUpdated: '2024-02-26T16:40:34Z',
           stopAction: {
             available: false,
             url: `/test-suites/cdp-portal-smoke-tests/dc34cdaf-1f51-44cf-8c63-e9b6800d9609/stop`
@@ -96,7 +96,7 @@ describe('#transformTestSuiteRunResults', () => {
           },
           logs: {
             available: true,
-            value: 'https://logs.infra-dev.cdp-int.defra.cloud',
+            value: 'logs',
             url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/cdp-portal-smoke-tests?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-27T10:29:32.000',to:'2024-02-27T10:31:36.000'))"
           },
           hasResult: true,
@@ -106,7 +106,7 @@ describe('#transformTestSuiteRunResults', () => {
           runTaskStatus: 'in-progress',
           user: 'B. A. Baracus',
           duration: '2 minutes',
-          lastRun: '2024-02-27T10:31:36Z',
+          lastUpdated: '2024-02-27T10:31:36Z',
           stopAction: {
             available: true,
             url: `/test-suites/cdp-portal-smoke-tests/383547d8-f71c-4e7e-8b03-4ddf09fd84fe/stop`
@@ -128,7 +128,7 @@ describe('#transformTestSuiteRunResults', () => {
           },
           logs: {
             available: true,
-            value: 'https://logs.infra-dev.cdp-int.defra.cloud',
+            value: 'logs',
             url: "https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/cdp-portal-smoke-tests?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-02-26T16:38:28.000',to:'2024-02-26T16:40:34.000'))"
           },
           hasResult: true,
@@ -138,7 +138,7 @@ describe('#transformTestSuiteRunResults', () => {
           runTaskStatus: 'finished',
           user: 'B. A. Baracus',
           duration: '2 minutes',
-          lastRun: '2024-02-26T16:40:34Z',
+          lastUpdated: '2024-02-26T16:40:34Z',
           stopAction: {
             available: false,
             url: `/test-suites/cdp-portal-smoke-tests/dc34cdaf-1f51-44cf-8c63-e9b6800d9609/stop`

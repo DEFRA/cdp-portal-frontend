@@ -62,9 +62,7 @@ function testSuiteRunResults(testRun, canRun) {
     },
     logs: {
       available: logsLinkDataAvailable,
-      value: logsLinkDataAvailable
-        ? `https://logs.${testRun.environment}.cdp-int.defra.cloud`
-        : null,
+      value: logsLinkDataAvailable ? `logs` : null,
       url: logsLinkDataAvailable && buildLogsLink(testRun, hasResult)
     },
     hasResult,
@@ -73,7 +71,7 @@ function testSuiteRunResults(testRun, canRun) {
     runTaskStatus,
     user,
     duration: getDuration(testRun, hasResult),
-    lastRun: testRun.taskLastUpdated,
+    lastUpdated: testRun.taskLastUpdated,
     stopAction: {
       available: canRun && runTaskStatus === taskStatus.inProgress,
       url: `/test-suites/${testRun.testSuite}/${testRun.runId}/stop`

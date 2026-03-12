@@ -302,94 +302,66 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <thead class="app-entity-table__head" data-testid="app-entity-table-head">
     <tr>
 
-        <th id="RunId" scope="col"
+        <th id="Started" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-1"
-width="10%"        >
-            Run Id
+width="2%"        >
+            Started
         </th>
 
         <th id="version" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-2"
-width="4%"        >
+width="1%"        >
             Version
         </th>
 
         <th id="environment" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-3"
-width="6%"        >
+width="1%"        >
             Env
-        </th>
-
-        <th id="cpu" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-4"
-width="5%"        >
-            CPU
-        </th>
-
-        <th id="memory" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-5"
-width="5%"        >
-            Memory
         </th>
 
         <th id="profile" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-6"
-width="5%"        >
+            data-testid="app-entity-table-header-4"
+width="2%"        >
             Profile
         </th>
 
         <th id="status" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-7"
-width="7%"        >
+            data-testid="app-entity-table-header-5"
+width="1%"        >
             Status
-        </th>
-
-        <th id="logs" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-8"
-width="10%"        >
-            Logs
         </th>
 
         <th id="results" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-9"
-width="8%"        >
+            data-testid="app-entity-table-header-6"
+width="1%"        >
             Results
         </th>
 
-        <th id="user" scope="col"
+        <th id="logs" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-10"
-width="12%"        >
-            Run By
+            data-testid="app-entity-table-header-7"
+width="1%"        >
+            Logs
         </th>
 
         <th id="duration" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-11"
-width="10%"        >
+            data-testid="app-entity-table-header-8"
+width="2%"        >
             Duration
-        </th>
-
-        <th id="last-updated" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-12"
-width="15%"        >
-            Last Updated
         </th>
 
         <th id="action" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-13"
-width="5%"        >
+            data-testid="app-entity-table-header-9"
+width="2%"        >
             Action
         </th>
     </tr>
@@ -400,12 +372,11 @@ width="5%"        >
         
                   
 <tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
-  <td headers="RunId" class="app-entity-table__cell" data-label="Run Id">
+  <td headers="Started" class="app-entity-table__cell" data-label="Started">
     <a class="app-link" href="/test-suites/mock-test-suite/runs/3ec0b267-e513-4dd1-a525-8a3a798a9c4b" rel="noopener noreferrer" data-testid="app-entity-link">
-      3ec0b267-e513-4dd1-a525-8a3a798a9c4b
+      1st Nov 2024 at 12:59:56
     </a>
   </td>
-
 
   <td headers="version" class="app-entity-table__cell" data-label="Version">
     <a class="app-link" href="https://github.com/DEFRA/mock-test-suite/releases/tag/0.11.0" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
@@ -417,21 +388,9 @@ width="5%"        >
     <span data-testid="app-entity-text">Infra Dev</span>
   </td>
 
-
-  <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
-    <span data-testid="app-entity-text">0 vCPU</span>
-  </td>
-
-
-  <td headers="memory" class="app-entity-table__cell" data-label="Memory">
-    <span data-testid="app-entity-text">0 GB</span>
-  </td>
-
-
   <td headers="profile" class="app-entity-table__cell" data-label="Profile">
       <span class="app-entity">smoke</span>
   </td>
-
 
   <td headers="status" class="app-entity-table__cell" data-label="Status">
     <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
@@ -440,14 +399,6 @@ width="5%"        >
 
 
   </td>
-
-
-  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
-      <a class="app-link" href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-test-suite?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:&#39;2024-11-01T12:59:56.000&#39;,to:&#39;2023-11-01T14:29:53.000&#39;))" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-        https://logs.infra-dev.cdp-int.defra.cloud
-      </a>
-  </td>
-
 
   <td headers="results" class="app-entity-table__cell" data-label="Results">
       <a class="app-link" href="/test-suites/test-results/infra-dev/0.11.0/mock-test-suite/3ec0b267-e513-4dd1-a525-8a3a798a9c4b/index.html" data-testid="app-entity-link">
@@ -462,38 +413,14 @@ width="5%"        >
 </span>
   </td>
 
-
-  <td headers="user" class="app-entity-table__cell" data-label="User">
-    Test, User
+  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
+      <a class="app-link" href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-test-suite?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:&#39;2024-11-01T12:59:56.000&#39;,to:&#39;2023-11-01T14:29:53.000&#39;))" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
+        logs
+      </a>
   </td>
-
 
   <td headers="duration" class="app-entity-table__cell" data-label="Duration">
     <span data-testid="app-entity-text">12 months</span>
-  </td>
-
-
-  <td headers="last-updated" class="app-entity-table__cell" data-label="Last-updated">
-    
-
-
-
-<span
-  class="app-tool-tip"
-  data-text="Wednesday 1st November 2023, 14:29:53"
->
-        <time    datetime="2023-11-01T14:29:53.102Z"
-    data-testid="app-time">
-        Wed 1st Nov 2023 at 14:29
-
-  </time>
-
-
-</span>
-
-
-
-
   </td>
 
   <td headers="action" class="app-entity-table__cell" data-label="Action">
@@ -510,12 +437,11 @@ width="5%"        >
         
                   
 <tr class="app-entity-table__row" data-testid="app-entity-table-row-2">
-  <td headers="RunId" class="app-entity-table__cell" data-label="Run Id">
+  <td headers="Started" class="app-entity-table__cell" data-label="Started">
     <a class="app-link" href="/test-suites/mock-test-suite/runs/3ec0b267-e513-4dd1-a525-8a3a798a9c4c" rel="noopener noreferrer" data-testid="app-entity-link">
-      3ec0b267-e513-4dd1-a525-8a3a798a9c4c
+      2nd Nov 2024 at 12:59:56
     </a>
   </td>
-
 
   <td headers="version" class="app-entity-table__cell" data-label="Version">
     <a class="app-link" href="https://github.com/DEFRA/mock-test-suite/releases/tag/0.11.0" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
@@ -527,21 +453,9 @@ width="5%"        >
     <span data-testid="app-entity-text">Infra Dev</span>
   </td>
 
-
-  <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
-    <span data-testid="app-entity-text">0 vCPU</span>
-  </td>
-
-
-  <td headers="memory" class="app-entity-table__cell" data-label="Memory">
-    <span data-testid="app-entity-text">0 GB</span>
-  </td>
-
-
   <td headers="profile" class="app-entity-table__cell" data-label="Profile">
       
   </td>
-
 
   <td headers="status" class="app-entity-table__cell" data-label="Status">
     <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
@@ -550,14 +464,6 @@ width="5%"        >
 
 
   </td>
-
-
-  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
-      <a class="app-link" href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-test-suite?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:&#39;2024-11-02T12:59:56.000&#39;,to:&#39;2024-11-01T14:29:53.000&#39;))" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-        https://logs.infra-dev.cdp-int.defra.cloud
-      </a>
-  </td>
-
 
   <td headers="results" class="app-entity-table__cell" data-label="Results">
       <a class="app-link" href="/test-suites/test-results/infra-dev/0.11.0/mock-test-suite/3ec0b267-e513-4dd1-a525-8a3a798a9c4c/index.html" data-testid="app-entity-link">
@@ -572,38 +478,14 @@ width="5%"        >
 </span>
   </td>
 
-
-  <td headers="user" class="app-entity-table__cell" data-label="User">
-    Test, User
+  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
+      <a class="app-link" href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-test-suite?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:&#39;2024-11-02T12:59:56.000&#39;,to:&#39;2024-11-01T14:29:53.000&#39;))" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
+        logs
+      </a>
   </td>
-
 
   <td headers="duration" class="app-entity-table__cell" data-label="Duration">
     <span data-testid="app-entity-text">about 23 hours</span>
-  </td>
-
-
-  <td headers="last-updated" class="app-entity-table__cell" data-label="Last-updated">
-    
-
-
-
-<span
-  class="app-tool-tip"
-  data-text="Friday 1st November 2024, 14:29:53"
->
-        <time    datetime="2024-11-01T14:29:53.102Z"
-    data-testid="app-time">
-        Fri 1st Nov 2024 at 14:29
-
-  </time>
-
-
-</span>
-
-
-
-
   </td>
 
   <td headers="action" class="app-entity-table__cell" data-label="Action">
