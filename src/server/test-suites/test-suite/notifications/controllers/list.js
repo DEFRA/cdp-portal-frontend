@@ -6,14 +6,12 @@ import {
 } from '#server/common/helpers/fetch/fetch-notifications.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import Boom from '@hapi/boom'
-import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 import Joi from 'joi'
 import { sessionNames } from '#server/common/constants/session-names.js'
 
 export default {
   options: {
     id: `test-suites/{serviceId}/notifications`,
-    pre: [provideFormValues],
     validate: {
       query: Joi.object({
         eventType: Joi.string().optional()

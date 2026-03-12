@@ -2,7 +2,6 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { sessionNames } from '#server/common/constants/session-names.js'
-import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { testNotificationValidation } from '#server/test-suites/helpers/schema/test-suite-validation.js'
@@ -16,8 +15,7 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export default {
   options: {
-    id: 'test-suites/{serviceId}/notifications/{notificationId}/update',
-    pre: [provideFormValues]
+    id: 'test-suites/{serviceId}/notifications/{notificationId}/update'
   },
   handler: async (request, h) => {
     const entity = request.app.entity
