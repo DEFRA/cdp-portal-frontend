@@ -385,7 +385,7 @@ width="10%"        >
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-2"
 width="12%"        >
-            Channel
+            Slack channel
         </th>
 
         <th id="infra-dev" scope="col"
@@ -430,11 +430,11 @@ width="4%"        >
             Prod
         </th>
 
-        <th id="enabled" scope="col"
+        <th id="status" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-9"
 width="6%"        >
-            Enabled
+            Status
         </th>
 
         <th id="actions" scope="col"
@@ -459,7 +459,7 @@ width="12%"        >
   </td>
 
   <td headers="channel" class="app-entity-table__cell" data-label="channel">
-    cdp-portal-alerts
+    #cdp-portal-alerts
   </td>
 
     <td headers="infra-dev" class="app-entity-table__cell" data-label="infra-dev">
@@ -481,7 +481,7 @@ width="12%"        >
       - - -
     </td>
 
-  <td headers="enabled" class="app-entity-table__cell" data-label="enabled">
+  <td headers="status" class="app-entity-table__cell" data-label="status">
       <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
   Enabled
 </strong>
@@ -521,7 +521,7 @@ width="12%"        >
   </td>
 
   <td headers="channel" class="app-entity-table__cell" data-label="channel">
-    test
+    #test
   </td>
 
     <td headers="infra-dev" class="app-entity-table__cell" data-label="infra-dev">
@@ -543,7 +543,7 @@ width="12%"        >
       - - -
     </td>
 
-  <td headers="enabled" class="app-entity-table__cell" data-label="enabled">
+  <td headers="status" class="app-entity-table__cell" data-label="status">
       <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
   Enabled
 </strong>
@@ -583,7 +583,7 @@ width="12%"        >
   </td>
 
   <td headers="channel" class="app-entity-table__cell" data-label="channel">
-    cdp-test
+    #cdp-test
   </td>
 
     <td headers="infra-dev" class="app-entity-table__cell" data-label="infra-dev">
@@ -605,7 +605,7 @@ width="12%"        >
       <div class="app-check" data-testid="check-prod"></div>
     </td>
 
-  <td headers="enabled" class="app-entity-table__cell" data-label="enabled">
+  <td headers="status" class="app-entity-table__cell" data-label="status">
       <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
   Enabled
 </strong>
@@ -722,23 +722,26 @@ width="12%"        >
 
                   </div>
 
-                <button type="submit" class="govuk-button app-button app-button--secondary js-hidden" data-module="govuk-button" formaction="" formmethod="GET" formnovalidate="true">
+                <button type="submit" class="govuk-button app-button app-button--secondary js-hidden" data-module="govuk-button" formaction="" formnovalidate="true">
   Refresh List
 </button>
 
                 <div class="govuk-inset-text">
-  Note: The available Environments varies per Notification Event
+  Note: The available environments varies per notification event
 </div>
 
 
                 <div class="govuk-form-group">
   <label class="govuk-label govuk-label--m" for="channel">
-    Slack Channel
+    Slack channel
   </label>
   <div id="channel-hint" class="govuk-hint app-hint">
     Name of the Slack channel to receive the notification
   </div>
-  <input class="govuk-input govuk-input--width-10" id="channel" name="channel" type="text" spellcheck="false" aria-describedby="channel-hint">
+  <div class="govuk-input__wrapper">
+    <div class="govuk-input__prefix" aria-hidden="true">#</div>
+    <input class="govuk-input govuk-input--width-10" id="channel" name="channel" type="text" spellcheck="false" aria-describedby="channel-hint">
+  </div>
 </div>
 
 
