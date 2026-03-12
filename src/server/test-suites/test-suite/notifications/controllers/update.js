@@ -16,6 +16,7 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export default {
   options: {
+    id: 'test-suites/{serviceId}/notifications/{notificationId}/update',
     pre: [provideFormValues]
   },
   handler: async (request, h) => {
@@ -35,8 +36,7 @@ export default {
       environments: notification.environments,
       channel: notification.slackChannel,
       enabled: notification.isEnabled,
-      ...request.pre.formValues,
-      ...request.query
+      ...request.pre.formValues
     }
 
     const eventEnvironments = notificationTypes.find(
@@ -89,9 +89,29 @@ export default {
   }
 }
 
+export const refresh = {
+  handler: async (request, h) => {
+    request.yar.flash(sessionNames.validationFailure, {
+      formValues: request.payload
+    })
+
+    return h.redirect(
+      request.routeLookup(
+        'test-suites/{serviceId}/notifications/{notificationId}/update',
+        {
+          params: {
+            serviceId: request.params.serviceId,
+            notificationId: request.params.notificationId
+          }
+        }
+      )
+    )
+  }
+}
+
 export const postUpdate = {
   options: {
-    id: `test-suites/{serviceId}/notifications/{notificationId}`,
+    id: `test-suites/{serviceId}/notifications/{notificationId}/update/action`,
     validate: {
       params: Joi.object({
         serviceId: Joi.string().required(),
@@ -161,7 +181,7 @@ export const postUpdate = {
     }
 
     const redirectUrl = request.routeLookup(
-      'test-suites/{serviceId}/notifications/{notificationId}',
+      'test-suites/{serviceId}/notifications/{notificationId}/update',
       {
         params: { serviceId, notificationId }
       }

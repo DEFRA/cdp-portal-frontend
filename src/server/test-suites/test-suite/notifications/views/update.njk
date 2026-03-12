@@ -34,7 +34,7 @@
     </p>
 
 
-    <form action="/test-suites/{{ entity.name }}/notifications/{{ notification.ruleId }}/update" method="post">
+    <form action="/test-suites/{{ entity.name }}/notifications/{{ notification.ruleId }}/update/action" method="post">
       <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
       <div class="govuk-grid-row">
@@ -95,11 +95,10 @@
             {% endblock %}
 
             {{ govukButton({
-              classes: "app-button app-button--secondary js-hidden",
+              classes: "app-button app-button--secondary js-hiddenx",
               text: "Refresh List",
               attributes: {
                 formaction: '',
-                formmethod: 'GET',
                 formnovalidate: true
               }
             }) }}

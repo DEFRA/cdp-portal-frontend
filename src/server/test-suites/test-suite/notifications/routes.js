@@ -5,10 +5,13 @@ import {
 import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 import { adminUserScope } from '#server/common/constants/scopes.js'
 
-import list from './controllers/list.js'
+import list, { refresh } from './controllers/list.js'
 import create from './controllers/create.js'
 import remove, { postRemove } from './controllers/remove.js'
-import update, { postUpdate } from './controllers/update.js'
+import update, {
+  refresh as updateRefresh,
+  postUpdate
+} from './controllers/update.js'
 
 export default {
   plugin: {
@@ -36,6 +39,11 @@ export default {
           },
           {
             method: 'POST',
+            path: '/test-suites/{serviceId}/notifications',
+            ...refresh
+          },
+          {
+            method: 'POST',
             path: '/test-suites/{serviceId}/notifications/create',
             ...create
           },
@@ -57,6 +65,11 @@ export default {
           {
             method: 'POST',
             path: '/test-suites/{serviceId}/notifications/{notificationId}/update',
+            ...updateRefresh
+          },
+          {
+            method: 'POST',
+            path: '/test-suites/{serviceId}/notifications/{notificationId}/update/action',
             ...postUpdate
           }
         ].map(adminUserScope) // TODO: Change to serviceOwnerOrAdminUserScope once admin only testing is complete

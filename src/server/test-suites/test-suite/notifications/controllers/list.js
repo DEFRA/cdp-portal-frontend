@@ -8,6 +8,7 @@ import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import Boom from '@hapi/boom'
 import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 import Joi from 'joi'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 export default {
   options: {
@@ -23,7 +24,7 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const formValues = { ...request.pre.formValues, ...request.query }
+    const formValues = { ...request.pre.formValues }
     const userSession = request.auth.credentials
 
     const environments = getEnvironments(userSession?.scope, entity?.subType)
@@ -97,6 +98,20 @@ export default {
         }
       ]
     })
+  }
+}
+
+export const refresh = {
+  handler: async (request, h) => {
+    request.yar.flash(sessionNames.validationFailure, {
+      formValues: request.payload
+    })
+
+    return h.redirect(
+      request.routeLookup('test-suites/{serviceId}/notifications', {
+        params: { serviceId: request.params.serviceId }
+      })
+    )
   }
 }
 
