@@ -1,4 +1,4 @@
-import { xhrRequest } from './xhr.js'
+import { xhrPostRequest, xhrRequest } from './xhr.js'
 import { eventName } from '../constants/event-name.js'
 import { subscribe, unsubscribe } from './event-emitter.js'
 
@@ -81,6 +81,34 @@ describe('#xhr', () => {
         params: {
           q: 'mock-param'
         }
+      })
+    })
+  })
+
+  describe('When making an xhr POST request', () => {
+    beforeEach(async () => {
+      await xhrPostRequest(mockUrl, { value: 'mock-value' })
+    })
+
+    test('Should NOT call history push', () => {
+      expect(mockHistoryPush).not.toHaveBeenCalled()
+    })
+
+    test('Should inject xhr content', () => {
+      const xhrContainer = document.querySelector('[data-xhr="xhr-container"]')
+
+      expect(xhrContainer).toHaveTextContent('Xhr response')
+    })
+
+    test('Should call history replace as expected', () => {
+      expect(mockHistoryReplace).toHaveBeenCalledWith('', {
+        xhrData: '<div data-xhr="xhr-container">Xhr response</div>'
+      })
+    })
+
+    test('Should fire "xhrUpdate" subscribed event', () => {
+      expect(mockEventListener.mock.calls[0][0].detail).toEqual({
+        params: {}
       })
     })
   })
