@@ -41,19 +41,15 @@ async function aboutTestSuiteHandler(request, h) {
     shouldPoll: shouldPoll(testRuns),
     tableData: {
       headers: [
-        { id: 'RunId', text: 'Run Id', width: '10' },
-        { id: 'version', text: 'Version', width: '4' },
-        { id: 'environment', text: 'Env', width: '6' },
-        { id: 'cpu', text: 'CPU', width: '5' },
-        { id: 'memory', text: 'Memory', width: '5' },
-        { id: 'profile', text: 'Profile', width: '5' },
-        { id: 'status', text: 'Status', width: '7' },
-        { id: 'logs', text: 'Logs', width: '10' },
-        { id: 'results', text: 'Results', width: '8' },
-        { id: 'user', text: 'Run By', width: '12' },
-        { id: 'duration', text: 'Duration', width: '10' },
-        { id: 'last-updated', text: 'Last Updated', width: '15' },
-        { id: 'action', text: 'Action', width: '5' }
+        { id: 'Started', text: 'Started', width: '2' },
+        { id: 'version', text: 'Version', width: '1' },
+        { id: 'environment', text: 'Env', width: '1' },
+        { id: 'profile', text: 'Profile', width: '2' },
+        { id: 'status', text: 'Status', width: '1' },
+        { id: 'results', text: 'Results', width: '1' },
+        { id: 'logs', text: 'Logs', width: '1' },
+        { id: 'duration', text: 'Duration', width: '2' },
+        { id: 'action', text: 'Action', width: '2' }
       ],
       rows,
       pagination: buildPagination(page, pageSize, totalPages),

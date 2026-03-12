@@ -4,7 +4,7 @@ export const provideTestRun = {
   method: async function (request) {
     const runId = request.params?.runId
 
-    return await fetchTestRun(runId)
+    return fetchTestRun(runId)
   },
   assign: 'testRun'
 }

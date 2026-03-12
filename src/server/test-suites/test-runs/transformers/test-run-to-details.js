@@ -5,15 +5,7 @@ import { buildLink } from '#server/common/helpers/view/build-link.js'
 import { pluralise, sanitiseUser } from '#config/nunjucks/filters/filters.js'
 
 export function transformTestRunToDetails(testRun, entity) {
-  const teams = entity?.teams
-    ?.filter((team) => team.teamId)
-    ?.map((team) =>
-      buildLink({
-        href: `/teams/${team.teamId}`,
-        text: team.name,
-        newTab: false
-      })
-    )
+  const teams = buildTeamsLinks(entity)
 
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
@@ -61,7 +53,7 @@ export function transformTestRunToDetails(testRun, entity) {
       {
         key: { text: 'Test runner size' },
         value: {
-          text: !(testRun.cpu === 16384) ? 'Regular' : 'Large'
+          text: testRun.cpu !== 16384 ? 'Regular' : 'Large'
         }
       },
       {
@@ -117,10 +109,23 @@ function runBy({ user, deployment, environment }) {
         text: `${deployment.service} v${deployment.version}`
       })
     }
-  } else if (user?.displayName?.toLowerCase()?.includes('schedule')) {
+  }
+  if (user?.displayName?.toLowerCase()?.includes('schedule')) {
     return { text: noValue }
   }
   return {
     text: sanitiseUser(user?.displayName)
   }
+}
+
+function buildTeamsLinks(entity) {
+  return entity?.teams
+    ?.filter((team) => team.teamId)
+    ?.map((team) =>
+      buildLink({
+        href: `/teams/${team.teamId}`,
+        text: team.name,
+        newTab: false
+      })
+    )
 }

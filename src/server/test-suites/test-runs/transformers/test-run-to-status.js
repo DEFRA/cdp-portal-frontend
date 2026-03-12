@@ -15,13 +15,6 @@ import { buildLink } from '#server/common/helpers/view/build-link.js'
 import { noValue } from '#server/common/constants/no-value.js'
 import { buildPostButton } from '#server/common/helpers/view/build-post-button.js'
 
-function getDuration({ created, taskLastUpdate }, hasResult) {
-  if (created && taskLastUpdate && hasResult) {
-    return formatDistance(parseISO(created), parseISO(taskLastUpdate))
-  }
-  return null
-}
-
 export function transformTestRunToStatus(canRun, testRun, csrf) {
   const logsLinkDataAvailable = [
     testRun.environment,
@@ -72,34 +65,14 @@ export function transformTestRunToStatus(canRun, testRun, csrf) {
       },
       {
         key: { text: 'Result' },
-        value: hasResult
-          ? testRun.testStatus === testStatus.passed
-            ? {
-                html: `<div class="app-!-layout-centered">
-                  ${buildLink({
-                    href: `${resultUrl}`,
-                    text: 'Report'
-                  })}
-                  ${renderIcon('tick-icon', { classes: 'app-icon--small govuk-!-margin-left-1' })}
-                </div>`
-              }
-            : {
-                html: `<div class="app-!-layout-centered">
-                  ${buildLink({
-                    href: `${resultUrl}`,
-                    text: 'Report'
-                  })}
-                  ${renderIcon('error', { classes: 'app-icon--small govuk-!-margin-left-1' })}
-                </div>`
-              }
-          : noValue
+        value: renderTestResult(hasResult, testRun, resultUrl)
       },
       {
         key: { text: 'Test suite logs' },
         value: {
           html: buildLink({
             href: logsLinkDataAvailable && buildLogsLink(testRun, hasResult),
-            text: `https://logs.${encodeURI(testRun.environment)}.cdp-int.defra.cloud/`
+            text: `Logs`
           })
         }
       },
@@ -122,5 +95,26 @@ export function transformTestRunToStatus(canRun, testRun, csrf) {
         value: { text: getDuration(testRun, hasResult) ?? noValue }
       }
     ]
+  }
+}
+
+function getDuration({ created, taskLastUpdate }, hasResult) {
+  if (created && taskLastUpdate && hasResult) {
+    return formatDistance(parseISO(created), parseISO(taskLastUpdate))
+  }
+  return null
+}
+
+function renderTestResult(hasResult, testRun, resultUrl) {
+  if (!hasResult) return noValue
+
+  const icon =
+    testRun.testStatus === testStatus.passed ? 'tick-icon' : 'error-icon'
+
+  return {
+    html: `<div class="app-!-layout-centered">
+      ${buildLink({ href: resultUrl, text: 'Report' })}
+      ${renderIcon(icon, { classes: 'app-icon--small govuk-!-margin-left-1' })}
+    </div>`
   }
 }
