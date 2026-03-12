@@ -61,9 +61,9 @@
             {% endfor %}
           </ul>
 
-          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Channel</h3>
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Slack channel</h3>
           <p>
-            {{ notification.slackChannel | safe }}
+            #{{ notification.slackChannel | safe }}
           </p>
 
           <div class="govuk-!-margin-bottom-4">

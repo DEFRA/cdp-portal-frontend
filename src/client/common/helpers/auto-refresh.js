@@ -1,7 +1,5 @@
 import getFormData from 'get-form-data'
-import omit from 'lodash/omit.js'
-import pickBy from 'lodash/pickBy.js'
-import { xhrRequest } from './xhr.js'
+import { xhrPostRequest } from './xhr.js'
 
 async function refresh(event) {
   const $form = event.target.closest('form')
@@ -11,11 +9,11 @@ async function refresh(event) {
 
   $form.dataset.isSubmitting = 'true'
 
-  const query = omit(pickBy(getFormData($form)), ['csrfToken'])
+  const payload = getFormData($form)
 
-  await xhrRequest(
+  await xhrPostRequest(
     `${location.protocol}//${location.host}${location.pathname}`,
-    query
+    payload
   )
 
   $form.dataset.isSubmitting = 'false'

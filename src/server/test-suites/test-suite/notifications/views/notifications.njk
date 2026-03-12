@@ -115,24 +115,26 @@
                   text: "Refresh List",
                   attributes: {
                     formaction: '',
-                    formmethod: 'GET',
                     formnovalidate: true
                   }
                 }) }}
 
                 {{ govukInsetText({
-                  text: "Note: The available Environments varies per Notification Event"
+                  text: "Note: The available environments varies per notification event"
                 }) }}
 
                 {{ govukInput({
                   classes: "govuk-input--width-10",
                   label: {
-                    text: "Slack Channel",
+                    text: "Slack channel",
                     classes: "govuk-label--m"
                   },
                   hint: {
                     text: "Name of the Slack channel to receive the notification",
                     classes: "app-hint"
+                  },
+                  prefix: {
+                    text: "#"
                   },
                   id: "channel",
                   name: "channel",

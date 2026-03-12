@@ -6,13 +6,12 @@ import {
 } from '#server/common/helpers/fetch/fetch-notifications.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import Boom from '@hapi/boom'
-import { provideFormValues } from '../../../helpers/pre/provide-form-values.js'
 import Joi from 'joi'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 export default {
   options: {
     id: `test-suites/{serviceId}/notifications`,
-    pre: [provideFormValues],
     validate: {
       query: Joi.object({
         eventType: Joi.string().optional()
@@ -23,7 +22,7 @@ export default {
   handler: async (request, h) => {
     const entity = request.app.entity
     const testSuiteName = entity.name
-    const formValues = { ...request.pre.formValues, ...request.query }
+    const formValues = { ...request.pre.formValues }
     const userSession = request.auth.credentials
 
     const environments = getEnvironments(userSession?.scope, entity?.subType)
@@ -70,14 +69,14 @@ export default {
       tableData: {
         headers: [
           { id: 'eventType', text: 'Event', width: '10' },
-          { id: 'channel', text: 'Channel', width: '12' },
+          { id: 'channel', text: 'Slack channel', width: '12' },
           ...environments.map((env) => ({
             ...(supportVerticalHeadings && { verticalText: true }),
             id: env.toLowerCase(),
             text: formatText(env),
             width: env.length
           })),
-          { id: 'enabled', text: 'Enabled', width: '6' },
+          { id: 'status', text: 'Status', width: '6' },
           { id: 'actions', text: 'Actions', isRightAligned: true, width: '12' }
         ],
         rows,
@@ -97,6 +96,20 @@ export default {
         }
       ]
     })
+  }
+}
+
+export const refresh = {
+  handler: async (request, h) => {
+    request.yar.flash(sessionNames.validationFailure, {
+      formValues: request.payload
+    })
+
+    return h.redirect(
+      request.routeLookup('test-suites/{serviceId}/notifications', {
+        params: { serviceId: request.params.serviceId }
+      })
+    )
   }
 }
 

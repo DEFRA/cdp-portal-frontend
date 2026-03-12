@@ -11,7 +11,7 @@
   </td>
 
   <td headers="channel" class="app-entity-table__cell" data-label="channel">
-    {{ params.channel }}
+    #{{ params.channel }}
   </td>
 
   {% for env in params.envs %}
@@ -24,7 +24,7 @@
     </td>
   {% endfor %}
 
-  <td headers="enabled" class="app-entity-table__cell" data-label="enabled">
+  <td headers="status" class="app-entity-table__cell" data-label="status">
     {% if params.enabled %}
       {{ govukTag({
         text: 'Enabled',

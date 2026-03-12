@@ -103,6 +103,42 @@ async function xhrRequest(url, params = {}) {
 }
 
 /**
+ * Xhr POST request used to populate {% block xhrContent %}{% endblock %}
+ * @param {string} url
+ * @param {Record<string, string>} params
+ * @returns {Promise<{text: string, ok: boolean}|{ok: boolean, error}>}
+ */
+async function xhrPostRequest(url, payload = {}) {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Cache-Control': 'no-cache, no-store, max-age=0',
+        Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+        Pragma: 'no-cache'
+      },
+      body: new URLSearchParams(
+        Object.entries(payload).flatMap(([key, values]) =>
+          Array.isArray(values)
+            ? values.map((value) => [key, value])
+            : [[key, values]]
+        )
+      ),
+      redirect: 'follow'
+    })
+
+    const text = await response.text()
+    updatePage(text)
+
+    return { ok: true, text }
+  } catch (error) {
+    return { ok: false, error }
+  }
+}
+
+/**
  * Provide forward/back history when using xhr
  */
 function addHistoryListener() {
@@ -135,4 +171,4 @@ function addHistoryListener() {
  * import {Location} from 'history'
  */
 
-export { xhrRequest, addHistoryListener }
+export { xhrRequest, xhrPostRequest, addHistoryListener }
