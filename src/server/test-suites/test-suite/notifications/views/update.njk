@@ -105,7 +105,7 @@
             }) }}
 
             {{ govukInsetText({
-              text: "Note: The available Environments varies per Notification Event"
+              text: "Note: The available environments varies per notification event"
             }) }}
 
             {{ govukInput({
@@ -117,6 +117,9 @@
               hint: {
                 text: "Name of the Slack channel to receive the notification",
                 classes: "app-hint"
+              },
+              prefix: {
+                text: "#"
               },
               id: "channel",
               name: "channel",
