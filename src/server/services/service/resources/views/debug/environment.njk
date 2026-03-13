@@ -1,0 +1,48 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "info/macro.njk" import appInfo %}
+{% from "panel/macro.njk" import appPanel %}
+{% from "services/common/components/resources-intro/macro.njk" import appResourcesIntro %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Resources",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+        <div class="govuk-grid-column-full">
+          {% call appSplitPane() %}
+
+            {{ appResourcesIntro({
+              caption: environment | title,
+              heading: "Resources",
+              entity: entity,
+              hasBuckets: resource.s3BucketRows | length
+            }) }}
+
+            <p>This view shows the raw data behind a service. It is provided for debugging purposes only.</p>
+
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full">
+                <pre>{{ entity.environments[environment] | dump(2) }}</pre>
+              </div>
+
+            </div>
+
+          {% endcall %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
