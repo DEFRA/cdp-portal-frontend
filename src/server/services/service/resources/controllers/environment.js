@@ -3,11 +3,15 @@ import Boom from '@hapi/boom'
 import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
 import { resourceByEnvironment } from '../transformers/resources-by-environment.js'
+import Joi from 'joi'
 
-const environmentResourcesController = {
+export const environmentResourcesController = {
   options: {
     id: 'services/{serviceId}/resources/{environment}',
     validate: {
+      query: Joi.object().keys({
+        debug: Joi.boolean().default(false)
+      }),
       params: serviceParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
     }
@@ -28,7 +32,12 @@ const environmentResourcesController = {
       environmentDetails
     })
 
-    return h.view('services/service/resources/views/environment', {
+    const debugView = request.query.debug ?? false
+    const template = debugView
+      ? 'services/service/resources/views/debug/environment'
+      : 'services/service/resources/views/environment'
+
+    return h.view(template, {
       pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
       entity,
       teamId,
@@ -55,5 +64,3 @@ const environmentResourcesController = {
     })
   }
 }
-
-export { environmentResourcesController }

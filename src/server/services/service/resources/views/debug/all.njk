@@ -22,8 +22,14 @@
 
         <div class="govuk-grid-column-full">
           {% call appSplitPane() %}
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Raw resource view</h2>
-          <p>This view show the raw data behind a service. It is provided for debugging purposes only.</p>
+          {{ appResourcesIntro({
+            caption: title,
+            heading: "All Resources",
+            entity: entity,
+            hasBuckets: resource.s3BucketRows | length
+          }) }}
+
+          <p>This view shows the raw data behind a service. It is provided for debugging purposes only.</p>
 
           <ul class="govuk-list">
           {% for key in environments %}

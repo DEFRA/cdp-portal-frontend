@@ -4,10 +4,13 @@ import Boom from '@hapi/boom'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { resourcesByEnvironment } from '../transformers/resources-by-environment.js'
 
-const allResourcesController = {
+export const allResourcesController = {
   options: {
     id: 'services/{serviceId}/resources',
     validate: {
+      query: Joi.object().keys({
+        debug: Joi.boolean().default(false)
+      }),
       params: Joi.object({
         serviceId: Joi.string().required()
       }),
@@ -28,9 +31,15 @@ const allResourcesController = {
       allEnvironmentsDetails
     })
 
-    return h.view('services/service/resources/views/all', {
+    const debugView = request.query.debug ?? false
+    const template = debugView
+      ? 'services/service/resources/views/debug/all'
+      : 'services/service/resources/views/all'
+
+    return h.view(template, {
       pageTitle: `${serviceName} - Resources`,
       entity,
+      environments,
       resources,
       hasSqlDatabase,
       breadcrumbs: [
@@ -49,5 +58,3 @@ const allResourcesController = {
     })
   }
 }
-
-export { allResourcesController }
