@@ -179,7 +179,7 @@ export const postUpdate = {
     }
 
     const redirectUrl = request.routeLookup(
-      'test-suites/{serviceId}/notifications/{notificationId}/update',
+      'test-suites/{serviceId}/notifications',
       {
         params: { serviceId, notificationId }
       }
