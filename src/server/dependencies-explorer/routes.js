@@ -18,7 +18,7 @@ export default {
       server.route([
         {
           method: 'GET',
-          path: '/dependencies',
+          path: '/dependencies-explorer',
           ...list
         }
       ])
