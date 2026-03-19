@@ -1,8 +1,8 @@
-import list from './controllers/dependencies-list.js'
+import list from './controllers/entities-list.js'
 
 export default {
   plugin: {
-    name: 'dependenciesExplorer',
+    name: 'dependencyExplorer',
     register: (server) => {
       // server.ext([
       //   {
@@ -18,7 +18,7 @@ export default {
       server.route([
         {
           method: 'GET',
-          path: '/dependencies-explorer',
+          path: '/dependency-explorer',
           ...list
         }
       ])
