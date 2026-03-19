@@ -21,6 +21,7 @@ import { utilities } from './utilities/routes.js'
 import { repositories } from './repositories/routes.js'
 import { userProfile } from './user-profile/routes.js'
 import { styleGuide } from './style-guide/routes.js'
+import dependencyExplorer from './dependencies-explorer/routes.js'
 
 const router = {
   plugin: {
@@ -48,7 +49,8 @@ const router = {
         testSuites,
         userProfile,
         utilities,
-        styleGuide
+        styleGuide,
+        dependencyExplorer
       ])
     }
   }
