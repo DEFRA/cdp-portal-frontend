@@ -18,6 +18,7 @@ async function buildNavigation(request, userSession) {
   const adminPath = request.routeLookup('admin')
   const removeTestAsTenantPath = request.routeLookup('admin/removeTestAsTenant')
   const applyChangelogPath = request.routeLookup('apply-changelog')
+  const dependenciesExplorerPath = request.routeLookup('dependencies-explorer')
 
   const actions = (userSession?.isTenant || userSession?.isAdmin) && [
     {
@@ -102,6 +103,14 @@ async function buildNavigation(request, userSession) {
       current: request?.path?.includes(runningServicesPath),
       attributes: {
         'data-testid': 'nav-running-services'
+      }
+    },
+    {
+      text: 'Dependencies Explorer',
+      href: dependenciesExplorerPath,
+      current: request?.path?.includes(dependenciesExplorerPath),
+      attributes: {
+        'data-testid': 'nav-dependencies-explorer'
       }
     }
   ]
