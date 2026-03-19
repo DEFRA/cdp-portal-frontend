@@ -6,6 +6,112 @@
     intro: "Browse service dependencies"
   }) }}
 
+  {% call appFilters({
+    action: actionUrl,
+    info: {
+      html: appEntityDataList({
+        items: testSuitesInfo
+      })
+    },
+    clear: {
+      url: clearUrl
+    }
+  }) %}
 
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-test-suite",
+        name: "dependenceName",
+        classes: "app-autocomplete--medium app-autocomplete--inline",
+        label: {
+          text: "Dependency name",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.dependenceName,
+        suggestions: dependenceNameFilters,
+        typeahead: true,
+        placeholder: "Search by dependency"
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-test-suite",
+        name: "versionStart",
+        classes: "app-autocomplete--medium app-autocomplete--inline",
+        label: {
+          text: "Version from",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.versionStart,
+        suggestions: dependenceNameFilters,
+        typeahead: true,
+        placeholder: "Start version"
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-test-suite",
+        name: "versionEnd",
+        classes: "app-autocomplete--medium app-autocomplete--inline",
+        label: {
+          text: "Version to",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.versionEnd,
+        suggestions: dependenceNameFilters,
+        typeahead: true,
+        placeholder: "End version"
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-team",
+        name: "teamId",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Team",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.teamId,
+        suggestions: teamFilters
+      }) }}
+    </div>
+
+  {% endcall %}
+
+  {% block xhrContent %}
+    <div data-xhr="{{ xhrElement }}">
+      {% call(params) appEntityTable(tableData) %}
+        {{  testSuiteRow({
+          rowClasses: params.rowClasses,
+          loopIndex: params.loopIndex,
+          isOwner:  params.row.isOwner,
+          testSuite: params.row.name,
+          teams: params.row.teams,
+          testType: params.row.subType,
+          status: params.row.status,
+          created: params.row.created
+        }) }}
+      {% endcall %}
+    </div>
+  {% endblock %}
 
 {% endblock %}
