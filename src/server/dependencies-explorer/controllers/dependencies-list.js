@@ -3,6 +3,8 @@ export default {
     id: 'dependencies-explorer'
   },
   handler: async (request, h) => {
-    return 'Hello'
+    return h.view('dependencies-explorer/views/dependencies-list', {
+      pageTitle: 'Dependencies Explorer'
+    })
   }
 }
