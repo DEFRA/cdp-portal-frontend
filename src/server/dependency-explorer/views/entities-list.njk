@@ -104,7 +104,11 @@
         {{  entityRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
-          entity:  params.row.entity
+          entity:  params.row.entity,
+          entityVersion: params.row.entityVersion,
+          entityVersionTag: params.row.entityVersionTag,
+          teams: params.row.teams,
+          dependencyVersion: params.row.dependencyVersion
         }) }}
       {% endcall %}
     </div>
