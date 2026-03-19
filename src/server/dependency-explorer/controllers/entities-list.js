@@ -1,9 +1,15 @@
 export default {
   options: {
-    id: 'dependencies-explorer'
+    id: 'dependency-explorer'
   },
   handler: async (request, h) => {
-    return h.view('dependencies-explorer/views/dependencies-list', {
+    const rows = [
+      {
+        entity: 'cdp-portal-frontend'
+      }
+    ]
+
+    return h.view('dependency-explorer/views/entities-list', {
       pageTitle: 'Dependencies Explorer',
 
       tableData: {
@@ -19,7 +25,7 @@ export default {
           { id: 'dependencyVersion', text: 'Dependency version', width: '10' },
           { id: 'environments', text: 'Environments', width: '25' }
         ],
-        rows: [],
+        rows,
         noResult: 'No dependencies found',
         isWide: false,
         isInverse: true

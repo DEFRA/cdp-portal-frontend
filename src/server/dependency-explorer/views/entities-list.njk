@@ -1,8 +1,9 @@
 {% extends "layouts/page.njk" %}
+{% from "dependency-explorer/components/entity-row/macro.njk" import entityRow %}
 
 {% block content %}
   {{ appPageHeading({
-    text: "Dependencies Explorer",
+    text: "Dependency Explorer",
     intro: "Browse service dependencies"
   }) }}
 
@@ -100,15 +101,10 @@
   {% block xhrContent %}
     <div data-xhr="{{ xhrElement }}">
       {% call(params) appEntityTable(tableData) %}
-        {{  testSuiteRow({
+        {{  entityRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
-          isOwner:  params.row.isOwner,
-          testSuite: params.row.name,
-          teams: params.row.teams,
-          testType: params.row.subType,
-          status: params.row.status,
-          created: params.row.created
+          entity:  params.row.entity
         }) }}
       {% endcall %}
     </div>
