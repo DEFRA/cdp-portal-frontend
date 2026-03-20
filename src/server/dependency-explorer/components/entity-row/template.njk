@@ -28,7 +28,9 @@
   </td>
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
-    {{ params.dependencyVersion }}
+    <a class="app-link" href="/dependency-explorer/?dependnecy={{ params.dependency }}&versionStart={{params.dependencyVersion}}" data-testid="app-entity-link">
+      {{ params.dependencyVersion }}
+    </a>
   </td>
 
   {% for env in params.envs %}

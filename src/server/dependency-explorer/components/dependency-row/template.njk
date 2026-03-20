@@ -16,13 +16,15 @@
   </td>
 
   <td headers="entity" class="app-entity-table__cell" data-label="entity">
-      <a class="app-link" href="/dependency-explorer/{{ params.entity }}/?versionStart={{ params.entityVersion }}" data-testid="app-entity-link">
+     <a class="app-link" href="/dependency-explorer/?dependency={{ params.dependency }}" data-testid="app-entity-link">
         {{ params.dependency }}
       </a>
   </td>
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
-    {{ params.dependencyVersion }}
+    <a class="app-link" href="/dependency-explorer/?dependency={{ params.dependency }}&versionStart={{params.dependencyVersion}}" data-testid="app-entity-link">
+      {{ params.dependencyVersion }}
+    </a>
   </td>
 
   <td headers="dependencyType" class="app-entity-table__cell" data-label="dependencyType">

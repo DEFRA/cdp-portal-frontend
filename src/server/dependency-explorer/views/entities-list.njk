@@ -17,7 +17,7 @@
     <div class="app-filters__item">
       {{ appAutocomplete({
         id: "filters-test-suite",
-        name: "dependenceName",
+        name: "dependency",
         classes: "app-autocomplete--medium app-autocomplete--inline",
         label: {
           text: "Dependency name",
@@ -27,8 +27,8 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: formValues.dependenceName,
-        suggestions: dependenceNameFilters,
+        value: formValues.dependency,
+        suggestions: dependenceFilters,
         typeahead: true,
         placeholder: "Search by dependency"
       }) }}
