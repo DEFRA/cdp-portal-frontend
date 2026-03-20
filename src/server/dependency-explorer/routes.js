@@ -1,4 +1,5 @@
-import list from './controllers/entities-list.js'
+import entitiesList from './controllers/entities-list.js'
+import dependenciesList from './controllers/dependencies-list.js'
 
 export default {
   plugin: {
@@ -19,7 +20,12 @@ export default {
         {
           method: 'GET',
           path: '/dependency-explorer',
-          ...list
+          ...entitiesList
+        },
+        {
+          method: 'GET',
+          path: '/dependency-explorer/{entity}',
+          ...dependenciesList
         }
       ])
     }

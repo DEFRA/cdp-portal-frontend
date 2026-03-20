@@ -7,14 +7,14 @@
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="entity" class="app-entity-table__cell" data-label="entity">
-      <a class="app-link" href="/dependency-explorer/{{ params.entity }}" data-testid="app-entity-link">
+      <a class="app-link" href="/dependency-explorer/{{ params.entity }}/?versionStart={{ params.entityVersion }}" data-testid="app-entity-link">
         {{ params.entity }} ({{ params.entityVersion }})
       </a>
       {% if params.entityVersionTag %}
 
         {{ govukTag({
           text: params.entityVersionTag,
-          classes: 'govuk-!-margin-left-3',
+          classes: 'app-tag govuk-!-margin-left-3',
           attributes: { "data-testid": "govuk-tag" }
         }) }}
 

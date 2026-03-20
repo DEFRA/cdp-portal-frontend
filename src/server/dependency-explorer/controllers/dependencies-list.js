@@ -3,9 +3,10 @@ import { getEnvironments } from '#server/common/helpers/environments/get-environ
 
 export default {
   options: {
-    id: 'dependency-explorer'
+    id: 'dependency-list'
   },
   handler: async (request, h) => {
+    const entity = request.params.entity
     const userSession = request.auth.credentials
     const environments = getEnvironments(userSession?.scope)
 
@@ -58,9 +59,9 @@ export default {
 
     const supportVerticalHeadings = environments.length >= 5
 
-    return h.view('dependency-explorer/views/entities-list', {
-      pageTitle: 'Dependencies Explorer',
-
+    return h.view('dependency-explorer/views/dependencies-list', {
+      pageTitle: `Dependencies Explorer - ${entity}`,
+      entity,
       tableData: {
         headers: [
           {
@@ -82,7 +83,16 @@ export default {
         noResult: 'No dependencies found',
         isWide: false,
         isInverse: true
-      }
+      },
+      breadcrumbs: [
+        {
+          text: 'Dependency Explorer',
+          href: '/dependency-explorer'
+        },
+        {
+          text: entity
+        }
+      ]
     })
   }
 }
