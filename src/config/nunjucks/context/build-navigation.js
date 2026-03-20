@@ -105,14 +105,18 @@ async function buildNavigation(request, userSession) {
         'data-testid': 'nav-running-services'
       }
     },
-    {
-      text: 'Dependency Explorer',
-      href: dependencyExplorerPath,
-      current: request?.path?.includes(dependencyExplorerPath),
-      attributes: {
-        'data-testid': 'nav-dependencies-explorer'
-      }
-    }
+    ...(userSession?.isAdmin // TODO: Remove
+      ? [
+          {
+            text: 'Dependency Explorer',
+            href: dependencyExplorerPath,
+            current: request?.path?.includes(dependencyExplorerPath),
+            attributes: {
+              'data-testid': 'nav-dependencies-explorer'
+            }
+          }
+        ]
+      : [])
   ]
 
   if (hasPostgresPermission) {
