@@ -1,5 +1,5 @@
 {% extends "layouts/page.njk" %}
-{% from "dependency-explorer/components/dependency-row/macro.njk" import dependencyRow %}
+{% from "routes/dependency-explorer/{entity}/components/dependency-row/macro.njk" import dependencyRow %}
 
 {% block content %}
   {{ appPageHeading({
