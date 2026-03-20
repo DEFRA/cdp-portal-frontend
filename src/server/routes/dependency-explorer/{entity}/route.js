@@ -1,5 +1,8 @@
+import { options as parentOptions } from '../route.js'
+
 export const options = {
-  id: 'dependency-list'
+  id: 'dependency-list',
+  auth: parentOptions?.auth
 }
 
 export default async function (request) {

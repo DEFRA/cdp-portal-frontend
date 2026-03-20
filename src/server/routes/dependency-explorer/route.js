@@ -1,8 +1,16 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 export const options = {
-  id: 'dependency-explorer'
+  id: 'dependency-explorer',
+  // TODO: Remove
+  auth: {
+    mode: 'required',
+    access: {
+      scope: scopes.admin
+    }
+  }
 }
 
 export default async function (request) {
