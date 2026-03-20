@@ -7,25 +7,42 @@
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="entity" class="app-entity-table__cell" data-label="entity">
-    <a class="app-link" href="/dependency-explorer/{{ params.entity }}" data-testid="app-entity-link">
-      {{ params.entity }}
-    </a>
+      <a class="app-link" href="/dependency-explorer/{{ params.entity }}" data-testid="app-entity-link">
+        {{ params.entity }} ({{ params.entityVersion }})
+      </a>
+      {% if params.entityVersionTag %}
+
+        {{ govukTag({
+          text: params.entityVersionTag,
+          classes: 'govuk-!-margin-left-3',
+          attributes: { "data-testid": "govuk-tag" }
+        }) }}
+
+      {% endif %}
   </td>
 
-  <td headers="entityVersion" class="app-entity-table__cell" data-label="entityVersion">
-      {{ params.entityVersion }} {{ params.entityVersionTag }}
-   </td>
-
   <td headers="teams" class="app-entity-table__cell" data-label="teams">
-    {{ params.teams }}
+    <ul class="app-entity__list">
+      {% for team in params.teams %}
+        <a class="app-link" href="{{ team.url }}" data-testid="app-entity-link">
+          {{ team.value }}
+        </a>
+      {% endfor %}
+    </ul>
   </td>
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
     {{ params.dependencyVersion }}
   </td>
 
-  <td headers="environment" class="app-entity-table__cell" data-label="Environment">
-    <span data-testid="app-entity-text">{{ params.environment }}</span>
-  </td>
+  {% for env in params.envs %}
+    <td headers="{{ env.id }}" class="app-entity-table__cell" data-label="{{ env.id }}">
+      {% if env.selected %}
+      <div class="app-check" data-testid="check-{{ env.id }}"></div>
+      {% else %}
+      - - -
+      {% endif %}
+    </td>
+  {% endfor %}
 
 </tr>

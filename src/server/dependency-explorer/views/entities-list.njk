@@ -43,7 +43,7 @@
       {{ appAutocomplete({
         id: "filters-test-suite",
         name: "versionStart",
-        classes: "app-autocomplete--medium app-autocomplete--inline",
+        classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
           text: "Version from",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -63,7 +63,7 @@
       {{ appAutocomplete({
         id: "filters-test-suite",
         name: "versionEnd",
-        classes: "app-autocomplete--medium app-autocomplete--inline",
+        classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
           text: "Version to",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -108,7 +108,8 @@
           entityVersion: params.row.entityVersion,
           entityVersionTag: params.row.entityVersionTag,
           teams: params.row.teams,
-          dependencyVersion: params.row.dependencyVersion
+          dependencyVersion: params.row.dependencyVersion,
+          envs: params.row.envs
         }) }}
       {% endcall %}
     </div>
