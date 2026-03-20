@@ -1,6 +1,6 @@
 import path from 'node:path'
 import yar from '@hapi/yar'
-import nunjucks from 'nunjucks'
+import nunjucks, { Environment, FileSystemLoader } from 'nunjucks'
 import Vision from '@hapi/vision'
 
 import { config } from '../config.js'
@@ -22,20 +22,24 @@ const paths = {
   server: path.normalize(path.resolve(dirname, '..', '..', 'server'))
 }
 
-const nunjucksEnvironment = nunjucks.configure(
+const nunjucksEnvironment = new Environment(
   [
-    'node_modules/govuk-frontend/dist/',
-    paths.templates,
-    paths.components,
-    paths.server
+    new FileSystemLoader(
+      [
+        'node_modules/govuk-frontend/dist/',
+        paths.templates,
+        paths.components,
+        paths.server
+      ],
+      { watch, noCache: !doCache }
+    ),
+    new nunjucks.NodeResolveLoader({ watch, noCache: !doCache }) // Allows relative imports
   ],
   {
     autoescape: true,
     throwOnUndefined: false,
     trimBlocks: true,
-    lstripBlocks: true,
-    watch,
-    noCache: !doCache
+    lstripBlocks: true
   }
 )
 
