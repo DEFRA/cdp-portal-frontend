@@ -1,9 +1,5 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "loader/macro.njk" import appLoader %}
-{% from "time/macro.njk" import appTime %}
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
-{% from "icons/error-icon/macro.njk" import appErrorIcon %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="entity" class="app-entity-table__cell" data-label="entity">
