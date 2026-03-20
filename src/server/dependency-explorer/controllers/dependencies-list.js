@@ -7,20 +7,39 @@ export default {
 
     const rows = [
       {
+        entityVersion: '2.1.0',
+        entityVersionTag: 'latest',
         dependency: 'pino',
-        dependencyVersion: '2.4.5'
+        dependencyVersion: '2.4.5',
+        dependencyType: 'npm'
       },
       {
+        entityVersion: '2.1.0',
+        entityVersionTag: 'latest',
         dependency: 'chalk',
-        dependencyVersion: '12.0.5'
+        dependencyVersion: '12.0.5',
+        dependencyType: 'npm'
       },
       {
+        entityVersion: '2.1.0',
+        entityVersionTag: 'latest',
         dependency: '@hapi/hapi',
-        dependencyVersion: '18.4.5'
+        dependencyVersion: '18.4.5',
+        dependencyType: 'npm'
       },
       {
+        entityVersion: '2.1.0',
+        entityVersionTag: 'latest',
         dependency: '@hapi/jwt',
-        dependencyVersion: '3.4.5'
+        dependencyVersion: '3.4.5',
+        dependencyType: 'npm'
+      },
+      {
+        entityVersion: '2.1.0',
+        entityVersionTag: 'latest',
+        dependency: 'nodejs',
+        dependencyVersion: '23.1.5',
+        dependencyType: 'binary'
       }
     ]
 
@@ -30,12 +49,17 @@ export default {
       tableData: {
         headers: [
           {
+            id: 'version',
+            text: 'Version',
+            width: 10
+          },
+          {
             id: 'dependency',
             text: 'Dependency',
-            width: '20',
-            isLeftAligned: true
+            width: 15
           },
-          { id: 'dependencyVersion', text: 'Version', width: '10' }
+          { id: 'dependencyVersion', text: 'Dependency version', width: 10 },
+          { id: 'dependencyType', text: 'Dependency type', width: 10 }
         ],
         rows,
         noResult: 'No dependencies found',

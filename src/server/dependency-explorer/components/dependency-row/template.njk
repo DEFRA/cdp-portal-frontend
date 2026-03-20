@@ -1,4 +1,20 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+  <td headers="entityVersion" class="app-entity-table__cell" data-label="entityVersion">
+    {{ params.entityVersion }}
+
+    {% if params.entityVersionTag %}
+
+      {{ govukTag({
+        text: params.entityVersionTag,
+        classes: 'app-tag govuk-!-margin-left-3',
+        attributes: { "data-testid": "govuk-tag" }
+      }) }}
+
+    {% endif %}
+  </td>
+
   <td headers="entity" class="app-entity-table__cell" data-label="entity">
       <a class="app-link" href="/dependency-explorer/{{ params.entity }}/?versionStart={{ params.entityVersion }}" data-testid="app-entity-link">
         {{ params.dependency }}
@@ -7,5 +23,9 @@
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
     {{ params.dependencyVersion }}
+  </td>
+
+  <td headers="dependencyType" class="app-entity-table__cell" data-label="dependencyType">
+    {{ params.dependencyType }}
   </td>
 </tr>
