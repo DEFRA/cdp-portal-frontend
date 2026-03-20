@@ -1,5 +1,5 @@
 {% extends "layouts/page.njk" %}
-{% from "dependency-explorer/components/entity-row/macro.njk" import entityRow %}
+{% from "dependency-explorer/components/dependency-row/macro.njk" import dependencyRow %}
 
 {% block content %}
   {{ appPageHeading({
@@ -8,36 +8,12 @@
   }) }}
 
   {% call appFilters({
-    action: actionUrl,
-    info: {
-      html: appEntityDataList({
-        items: testSuitesInfo
-      })
-    },
+    action: "",
     clear: {
-      url: clearUrl
+      url: ""
     }
   }) %}
 
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-        id: "filters-test-suite",
-        name: "dependenceName",
-        classes: "app-autocomplete--medium app-autocomplete--inline",
-        label: {
-          text: "Dependency name",
-          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-        },
-        icon: appSearchIcon(),
-        formGroup: {
-          classes: "app-form-group--inline"
-        },
-        value: formValues.dependenceName,
-        suggestions: dependenceNameFilters,
-        typeahead: true,
-        placeholder: "Search by dependency"
-      }) }}
-    </div>
 
     <div class="app-filters__item">
       {{ appAutocomplete({
@@ -79,37 +55,16 @@
       }) }}
     </div>
 
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-        id: "filters-team",
-        name: "teamId",
-        classes: "app-autocomplete--small app-autocomplete--inline",
-        label: {
-          text: "Team",
-          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-        },
-        formGroup: {
-          classes: "app-form-group--inline"
-        },
-        value: formValues.teamId,
-        suggestions: teamFilters
-      }) }}
-    </div>
-
   {% endcall %}
 
   {% block xhrContent %}
     <div data-xhr="{{ xhrElement }}">
       {% call(params) appEntityTable(tableData) %}
-        {{  entityRow({
+        {{  dependencyRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
-          entity:  params.row.entity,
-          entityVersion: params.row.entityVersion,
-          entityVersionTag: params.row.entityVersionTag,
-          teams: params.row.teams,
-          dependencyVersion: params.row.dependencyVersion,
-          envs: params.row.envs
+          dependency:  params.row.dependency,
+          dependencyVersion: params.row.dependencyVersion
         }) }}
       {% endcall %}
     </div>

@@ -79,7 +79,7 @@ export default {
           }))
         ],
         rows,
-        noResult: 'No dependencies found',
+        noResult: 'No services found',
         isWide: false,
         isInverse: true
       }
