@@ -66,11 +66,11 @@ export default {
           {
             id: 'entity',
             text: 'Dependent Service',
-            width: '15',
+            width: 15,
             isLeftAligned: true
           },
-          { id: 'teams', text: 'Team', width: '15' },
-          { id: 'dependencyVersion', text: 'Version', width: '10' },
+          { id: 'teams', text: 'Team', width: 15 },
+          { id: 'dependencyVersion', text: 'Version', width: 10 },
           ...environments.map((env) => ({
             ...(supportVerticalHeadings && { verticalText: true }),
             id: env.toLowerCase(),

@@ -21,17 +21,35 @@
         name: "version",
         classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
-          text: "Version",
+          text: "Service version",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
         },
         icon: appSearchIcon(),
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: formValues.versiont,
+        value: formValues.version,
         suggestions: dependenceNameFilters,
         typeahead: true,
         placeholder: "Version"
+      }) }}
+    </div>
+
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+      id: "filters-team",
+      name: "dependnecyType",
+      classes: "app-autocomplete--tiny app-autocomplete--inline",
+      label: {
+        text: "Dependnecy type",
+        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+      },
+      formGroup: {
+        classes: "app-form-group--inline"
+      },
+      value: formValues.dependnecyType,
+      suggestions: teamFilters
       }) }}
     </div>
 
@@ -43,8 +61,11 @@
         {{  dependencyRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
+          entityVersion: params.row.entityVersion,
+          entityVersionTag: params.row.entityVersionTag,
           dependency:  params.row.dependency,
-          dependencyVersion: params.row.dependencyVersion
+          dependencyVersion: params.row.dependencyVersion,
+          dependencyType: params.row.dependencyType
         }) }}
       {% endcall %}
     </div>
