@@ -4,7 +4,7 @@
 {% block content %}
   {{ appPageHeading({
     text: "Dependency Explorer",
-    intro: "Browse service dependencies"
+    intro: "View the services which are using a dependency"
   }) }}
 
   {% call appFilters({
@@ -27,6 +27,7 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
+        template: "advanced",
         value: formValues.dependency,
         suggestions: dependenceFilters,
         typeahead: true,

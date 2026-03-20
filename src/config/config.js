@@ -108,6 +108,12 @@ const config = convict({
     default: 'http://localhost:3001',
     env: 'USER_SERVICE_BACKEND_URL'
   },
+  sbomExplorerBackendUrl: {
+    doc: 'SBOM Explorer Backend API url',
+    format: String,
+    default: 'http://localhost:3003',
+    env: 'SBOM_EXPLORER_BACKEND_URL'
+  },
   terminalProxyUrl: {
     doc: 'Terminal Proxy Url',
     format: String,
