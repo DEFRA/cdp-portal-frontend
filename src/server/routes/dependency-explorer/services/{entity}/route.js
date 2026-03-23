@@ -1,8 +1,14 @@
-import { options as parentOptions } from '../route.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 export const options = {
   id: 'dependency-list',
-  auth: parentOptions?.auth
+  // TODO: Remove
+  auth: {
+    mode: 'required',
+    access: {
+      scope: scopes.admin
+    }
+  }
 }
 
 export default async function (request) {

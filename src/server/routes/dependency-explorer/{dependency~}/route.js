@@ -1,6 +1,7 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 
 export const options = {
   id: 'dependency-explorer',
@@ -16,6 +17,13 @@ export const options = {
 export default async function (request) {
   const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
+
+  const environmentOptions = buildOptions(
+    environments.map((environment) => ({
+      text: formatText(environment),
+      value: environment
+    }))
+  )
 
   const rows = [
     {
@@ -68,6 +76,7 @@ export default async function (request) {
 
   return {
     pageTitle: 'Dependencies Explorer',
+    environmentOptions,
     tableData: {
       headers: [
         {

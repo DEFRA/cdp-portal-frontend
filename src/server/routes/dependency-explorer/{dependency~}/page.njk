@@ -16,7 +16,7 @@
 
     <div class="app-filters__item">
       {{ appAutocomplete({
-        id: "filters-test-suite",
+        id: "dependency",
         name: "dependency",
         classes: "app-autocomplete--medium app-autocomplete--inline",
         label: {
@@ -27,10 +27,15 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        template: "advanced",
         value: formValues.dependency,
-        suggestions: dependenceFilters,
         typeahead: true,
+        dataFetcher: {
+          name: "searchDependencyName",
+          loader: "search-dependency-loader"
+        },
+        loader: {
+          name: "search-dependency-loader"
+        },
         placeholder: "Search by dependency"
       }) }}
     </div>
@@ -94,7 +99,7 @@
 
     <div class="app-filters__item">
       {{ appAutocomplete({
-        id: "filters-team",
+        id: "environment",
         name: "environment",
         classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
@@ -105,7 +110,7 @@
           classes: "app-form-group--inline"
         },
         value: formValues.environment,
-        suggestions: teamFilters
+        suggestions: environmentOptions
       }) }}
     </div>
 
