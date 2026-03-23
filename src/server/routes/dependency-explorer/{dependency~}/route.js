@@ -47,7 +47,7 @@ export default async function (request) {
       dependencyVersion: dependent.depversion,
       envs: environments.map((env) => ({
         id: env.toLowerCase(),
-        selected: [].includes(env)
+        selected: dependent.environments?.includes(env)
       }))
     }))
   }
