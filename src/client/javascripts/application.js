@@ -94,7 +94,7 @@ initModules('app-poll', poll)
 initModules('app-notification', banner)
 
 // Filters
-// initModules('app-filters', filters)
+initModules('app-filters', filters)
 
 // Tabs
 initModules('app-tabs', tabs)

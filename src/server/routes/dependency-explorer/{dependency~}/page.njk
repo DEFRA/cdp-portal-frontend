@@ -24,7 +24,7 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: dependency,
+        value: dependencyName,
         typeahead: true,
         template: 'advanced',
         suggestionClasses: "app-autocomplete__suggestion--leading-hint",
@@ -48,8 +48,6 @@
     {% endcall %}
 
   </form>
-
-  {% if(dependency) %}
 
     {% call appFilters({
       action: "",
@@ -150,7 +148,5 @@
         {% endcall %}
       </div>
     {% endblock %}
-
-  {% endif %}
 
 {% endblock %}

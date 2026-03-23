@@ -2,6 +2,7 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
+import { getDependencyDependents } from '../DependencyService.js'
 
 export const options = {
   id: 'dependency-explorer',
@@ -15,7 +16,8 @@ export const options = {
 }
 
 export default async function (request) {
-  const dependency = request.params.dependency
+  const [dependencyType, dependencyName] =
+    request.params?.dependency?.split(':')
   const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
 
@@ -26,58 +28,34 @@ export default async function (request) {
     }))
   )
 
-  const rows = [
-    {
-      entity: 'cdp-example-backend',
-      entityVersion: '2.1.0',
-      entityVersionTag: 'latest',
-      teams: [{ value: 'Platform', url: '/' }],
-      dependencyVersion: '2.4.5',
-      envs: environments.map((env) => ({
-        id: env.toLowerCase(),
-        selected: ['dev'].includes(env)
-      }))
-    },
-    {
-      entity: 'cdp-example-frontend',
-      entityVersion: '1.1.1',
-      entityVersionTag: 'latest',
-      teams: [{ value: 'Platform', url: '/' }],
-      dependencyVersion: '2.4.5',
+  let rows = []
+
+  if (dependencyName && dependencyType) {
+    const dependents = await getDependencyDependents({
+      type: dependencyType,
+      dependency: dependencyName,
+      environment: request.query.environment
+    })
+
+    rows = dependents.map((dependent) => ({
+      entity: dependent.name,
+      entityVersion: dependent.version,
+      entityVersionTag: '',
+      teams: [],
+      dependencyVersion: dependent.depversion,
       envs: environments.map((env) => ({
         id: env.toLowerCase(),
         selected: [].includes(env)
       }))
-    },
-    {
-      entity: 'cdp-example-backend',
-      entityVersion: '2.0.7',
-      entityVersionTag: '',
-      teams: [{ value: 'Platform', url: '/' }],
-      dependencyVersion: '2.4.5',
-      envs: environments.map((env) => ({
-        id: env.toLowerCase(),
-        selected: ['prod', 'test'].includes(env)
-      }))
-    },
-    {
-      entity: 'cdp-example-frontend',
-      entityVersion: '1.1.0',
-      entityVersionTag: '',
-      teams: [{ value: 'Platform', url: '/' }],
-      dependencyVersion: '2.4.5',
-      envs: environments.map((env) => ({
-        id: env.toLowerCase(),
-        selected: ['prod', 'test', 'dev'].includes(env)
-      }))
-    }
-  ]
+    }))
+  }
 
   const supportVerticalHeadings = environments.length >= 5
 
   return {
     pageTitle: 'Dependencies Explorer',
-    dependency,
+    dependencyType,
+    dependencyName,
     environmentOptions,
     tableData: {
       headers: [
