@@ -26,6 +26,8 @@
         },
         value: dependency,
         typeahead: true,
+        template: 'advanced',
+        suggestionClasses: "app-autocomplete__suggestion--leading-hint",
         dataFetcher: {
           name: "searchDependencyName",
           loader: "search-dependency-loader"
