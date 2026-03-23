@@ -15,6 +15,7 @@ export const options = {
 }
 
 export default async function (request) {
+  const dependency = request.params.dependency
   const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
 
@@ -76,6 +77,7 @@ export default async function (request) {
 
   return {
     pageTitle: 'Dependencies Explorer',
+    dependency,
     environmentOptions,
     tableData: {
       headers: [
@@ -100,4 +102,19 @@ export default async function (request) {
       isInverse: true
     }
   }
+}
+
+export async function POST(request, h) {
+  const dependency = request.payload.dependency
+
+  return h.redirect(
+    request.routeLookup('dependency-explorer', {
+      params: {
+        dependency
+      }
+    })
+  )
+}
+POST.options = {
+  id: 'f'
 }
