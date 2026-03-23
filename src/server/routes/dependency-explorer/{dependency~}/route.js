@@ -17,7 +17,7 @@ export const options = {
 
 export default async function (request) {
   const [dependencyType, dependencyName] =
-    request.params?.dependency?.split(':')
+    request.params?.dependency?.split(':') ?? []
   const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
 
@@ -31,11 +31,13 @@ export default async function (request) {
   let rows = []
 
   if (dependencyName && dependencyType) {
-    const dependents = await getDependencyDependents({
-      type: dependencyType,
-      dependency: dependencyName,
-      environment: request.query.environment
-    })
+    const dependents = await getDependencyDependents(
+      dependencyType,
+      dependencyName,
+      {
+        environment: request.query.environment
+      }
+    )
 
     rows = dependents.map((dependent) => ({
       entity: dependent.name,
