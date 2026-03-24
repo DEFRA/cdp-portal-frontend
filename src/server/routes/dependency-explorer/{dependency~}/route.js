@@ -3,6 +3,7 @@ import { getEnvironments } from '#server/common/helpers/environments/get-environ
 import { scopes } from '@defra/cdp-validation-kit'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getDependencyDependents } from '../DependencyService.js'
+import { fetchCdpTeams } from '#server/teams/helpers/fetch/fetch-cdp-teams.js'
 
 export const options = {
   id: 'dependency-explorer',
@@ -31,19 +32,21 @@ export default async function (request) {
   let rows = []
 
   if (dependencyName && dependencyType) {
-    const dependents = await getDependencyDependents(
-      dependencyType,
-      dependencyName,
-      {
+    const [dependents, teams] = await Promise.all([
+      getDependencyDependents(dependencyType, dependencyName, {
         environment: request.query.environment
-      }
-    )
+      }),
+      fetchCdpTeams()
+    ])
 
     rows = dependents.map((dependent) => ({
       entity: dependent.name,
       entityVersion: dependent.version,
       entityVersionTag: '',
-      teams: [],
+      teams: dependent.teams.map((team) => ({
+        value: teams.find((entry) => entry.teamId === team)?.name,
+        url: `/teams/${team}`
+      })),
       dependencyVersion: dependent.depversion,
       envs: environments.map((env) => ({
         id: env.toLowerCase(),
