@@ -47,7 +47,8 @@ describe('Test suite automations page', () => {
     expect(statusCode).toBe(statusCodes.forbidden)
   })
 
-  test('page renders for logged in service owner tenant', async () => {
+  // TODO: Should render once admin only testing is complete
+  test('page DOES NOT render for logged in service owner tenant', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/test-suites/mock-test-suite/automations',
       isAdmin: false,
@@ -55,7 +56,7 @@ describe('Test suite automations page', () => {
       teamScope: 'mock-team-id'
     })
 
-    expect(statusCode).toBe(statusCodes.ok)
+    expect(statusCode).toBe(statusCodes.forbidden)
     expect(result).toMatchFile()
   })
 

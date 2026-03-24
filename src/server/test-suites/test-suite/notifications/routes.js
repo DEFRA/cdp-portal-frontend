@@ -3,7 +3,7 @@ import {
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
 import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
-import { serviceOwnerOrAdminUserScope } from '#server/common/constants/scopes.js'
+import { adminUserScope } from '#server/common/constants/scopes.js'
 
 import list, { refresh } from './controllers/list.js'
 import create from './controllers/create.js'
@@ -72,7 +72,7 @@ export default {
             path: '/test-suites/{serviceId}/notifications/{notificationId}/update/action',
             ...postUpdate
           }
-        ].map(serviceOwnerOrAdminUserScope)
+        ].map(adminUserScope) // TODO: Change to serviceOwnerOrAdminUserScope once admin only testing is complete
       )
     }
   }
