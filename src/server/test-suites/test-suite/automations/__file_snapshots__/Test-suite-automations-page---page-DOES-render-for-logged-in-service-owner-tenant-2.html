@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template govuk-template--rebranded">
   <head>
     <meta charset="utf-8">
-    <title>  Test Suite - mock-test-suite | Core Delivery Platform - Portal
+    <title>  Test Suite - mock-test-suite - Automations | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -217,14 +217,18 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <a class="app-breadcrumbs__link" href="/test-suites"
              data-testid="app-breadcrumbs-link">Test suites</a>
         </li>
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/test-suites/mock-test-suite"
+             data-testid="app-breadcrumbs-link">mock-test-suite</a>
+        </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">mock-test-suite</li>
+            data-testid="app-breadcrumbs-list-item">Automations</li>
   </ol>
 </nav>
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Test Suite</span>
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Scheduled Test Runs</span>
 
 <div class="app-page-heading">
   <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-test-suite</h1>
@@ -239,8 +243,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Test Suite tabs">
 
 
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-about app-tabs-list-item--selected">
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-about">
 
 
           <a id="tab-about"
@@ -249,15 +253,15 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-about"
-             aria-selected="true"
+             aria-selected="false"
              data-testid="app-tabs-list-item__anchor-about">
             About
           </a>
         </li>
 
 
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-automations">
+        <li class="app-tabs__list-item app-tabs__list-item--selected"
+            data-testid="app-tabs-list-item-automations app-tabs-list-item--selected">
 
 
           <a id="tab-automations"
@@ -266,7 +270,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-automations"
-             aria-selected="false"
+             aria-selected="true"
              data-testid="app-tabs-list-item__anchor-automations">
             Automations
           </a>
@@ -325,112 +329,575 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </ul>
   </div>
 
-    <section id="tab-panel-about"
+    <section id="tab-panel-automations"
              class="app-tabs__panel"
              role="tabpanel"
-             aria-labelledby="tab-about"
+             aria-labelledby="tab-automations"
              data-testid="app-tabs-panel">
       
 
   <section class="govuk-!-margin-top-6">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full-from-desktop-massive">
 
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-third">
+<div class="app-split-pane" data-testid="app-split-pane">
+  <div class="app-split-pane__content" data-testid="app-split-pane-content">
 
-<div class="app-panel" >
-                <section>
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-                <p>
-                  Mock service description
-                </p>
+    <section class="app-content">
+            <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop-huge">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="automatic-test-runs">
+            Scheduled Test Runs
+          </h2>
+          <p class="govuk-!-margin-bottom-2">
+            Automatically trigger the test suite to run on a schedule
+          </p>
 
-                <dl class="govuk-summary-list app-summary-list" data-testid="govuk-summary-list">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      Team
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <ul class="govuk-list"><li><a class="app-link"
-                   href="/teams/mock-team-id"
-                   
-                   data-testid="app-link" >Mock Team</a></li></ul>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      Primary Language
-    </dt>
-    <dd class="govuk-summary-list__value">
-      JavaScript
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      GitHub Repository
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <a class="app-link"
-                   href="https://github.com/DEFRA/mock-test-suite"
-                   target="_blank" rel="noopener noreferrer"
-                   data-testid="app-link" >https://github.com/DEFRA/mock-test-suite</a>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      Type
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <strong class="govuk-tag app-tag" data-testid="govuk-tag">
-        Journey
-      </strong>
-    </dd>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      Created
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <span
-        class="app-tool-tip"
-        data-text="Thursday 5th December 2024, 11:21:25"
-      >
-              <time    datetime="2024-12-05T11:21:25Z"
-          data-testid="app-time">
-              Thu 5th Dec 2024 at 11:21
-      
-        </time>
-      
-      
-      </span>
-    </dd>
-  </div>
-</dl>
-              </section>
 
+
+<details          class="app-details"
+         data-testid="app-details">
+  <summary class="app-details__summary">Setting up scheduled test runs</summary>
+  <div class="app-details__content" data-testid="app-details-content">
+            <p class="app-!-layout-centered govuk-!-margin-bottom-2">
+              <svg class="app-icon app-info-icon app-icon--tiny"
+     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="Info">
+  <path fill-rule="nonzero"
+        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+</svg>
+ How to set up scheduled test runs
+            </p>
+
+            <ul class="govuk-list govuk-list--number">
+              <li>
+                Schedule an automatic test run using the form on this page
+              </li>
+              <li>
+                Choose the environments you wish the tests to be triggered on
+              </li>
+              <li>
+                Once this schedule has executed check the test run results
+              </li>
+            </ul>
 </div>
+</details>
+
+          <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
+
+
+
+<article>
+  <table class="app-entity-table" data-testid="app-entity-table">
+    <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+    <tr>
+
+        <th id="schedule" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-1"
+width="20%"        >
+            Schedule
+        </th>
+
+        <th id="env" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-2"
+width="8%"        >
+            Env
+        </th>
+
+        <th id="nextRunDate" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-3"
+width="15%"        >
+            Next run date
+        </th>
+
+        <th id="cpu" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-4"
+width="7%"        >
+            CPU
+        </th>
+
+        <th id="memory" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-5"
+width="7%"        >
+            Memory
+        </th>
+
+        <th id="profile" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-6"
+width="7%"        >
+            Profile
+        </th>
+
+        <th id="startDate" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-7"
+width="10%"        >
+            Start date
+        </th>
+
+        <th id="endDate" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-8"
+width="10%"        >
+            End date
+        </th>
+
+        <th id="actions" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-9"
+width="12%"        >
+            Actions
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+        
+              
+<tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
+  <td headers="description" class="app-entity-table__cell" data-label="description">
+    At 03:45 AM, only on Monday
+  </td>
+
+  <td headers="env" class="app-entity-table__cell" data-label="env">
+    dev
+  </td>
+
+  <td headers="nextRunDate" class="app-entity-table__cell" data-label="nextRunDate">
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Sunday 2nd March 2025, 03:45:00"
+>
+        <time    datetime="2025-03-02T03:45:00Z"
+    data-testid="app-time">
+        Sun 2nd Mar 2025 at 03:45
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+  <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
+    <span data-testid="app-entity-text">4 vCPU</span>
+  </td>
+
+  <td headers="memory" class="app-entity-table__cell" data-label="Memory">
+    <span data-testid="app-entity-text">8 GB</span>
+  </td>
+
+
+  <td headers="profile" class="app-entity-table__cell" data-label="Profile">
+      <span class="app-entity">Test</span>
+  </td>
+
+  <td headers="startDate" class="app-entity-table__cell" data-label="startDate">
+    
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 26th February 2025, 15:03:26"
+>
+        <time    datetime="2025-02-26T15:03:26.875Z"
+    data-testid="app-time">
+        Wed 26th Feb 2025 at 15:03
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+  <td headers="endDate" class="app-entity-table__cell" data-label="endDate">
+    
+
+
+
+<span
+  class="app-tool-tip"
+  data-text=""
+>
+        <time    datetime=""
+    data-testid="app-time">
+        
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+   <td headers="actions" class="app-entity-table__cell" data-label="actions">
+     <div class="app-entity">
+      <div>
+        <a class="app-link app-link--underline"
+          href="/test-suites/mock-test-suite/automations/schedules/469fc62e-f193-47b2-b36d-d3a7068cb086/update"
+        data-testid="app-link">Update</a>
+      </div>
+      <div class="govuk-!-margin-left-1">
+        <a class="app-link app-link--underline"
+          href="/test-suites/mock-test-suite/automations/schedules/469fc62e-f193-47b2-b36d-d3a7068cb086/remove"
+        data-testid="app-link">Remove</a>
+      </div>
+     </div>
+   </td>
+</tr>
+
+
+
+
+
+
+
+        
+              
+<tr class="app-entity-table__row" data-testid="app-entity-table-row-2">
+  <td headers="description" class="app-entity-table__cell" data-label="description">
+    At 05:30 PM, only on Monday, Tuesday, Wednesday, Thursday, and Friday
+  </td>
+
+  <td headers="env" class="app-entity-table__cell" data-label="env">
+    dev
+  </td>
+
+  <td headers="nextRunDate" class="app-entity-table__cell" data-label="nextRunDate">
+      
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Thursday 27th February 2025, 17:30:00"
+>
+        <time    datetime="2025-02-27T17:30:00Z"
+    data-testid="app-time">
+        Thu 27th Feb 2025 at 17:30
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+  <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
+    <span data-testid="app-entity-text">4 vCPU</span>
+  </td>
+
+  <td headers="memory" class="app-entity-table__cell" data-label="Memory">
+    <span data-testid="app-entity-text">8 GB</span>
+  </td>
+
+
+  <td headers="profile" class="app-entity-table__cell" data-label="Profile">
+      
+  </td>
+
+  <td headers="startDate" class="app-entity-table__cell" data-label="startDate">
+    
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 26th February 2025, 09:20:52"
+>
+        <time    datetime="2025-02-26T09:20:52.949Z"
+    data-testid="app-time">
+        Wed 26th Feb 2025 at 09:20
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+  <td headers="endDate" class="app-entity-table__cell" data-label="endDate">
+    
+
+
+
+<span
+  class="app-tool-tip"
+  data-text=""
+>
+        <time    datetime=""
+    data-testid="app-time">
+        
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+   <td headers="actions" class="app-entity-table__cell" data-label="actions">
+     <div class="app-entity">
+      <div>
+        <a class="app-link app-link--underline"
+          href="/test-suites/mock-test-suite/automations/schedules/e89c51f1-f071-4c9e-b6a8-ab6bd72f03aa/update"
+        data-testid="app-link">Update</a>
+      </div>
+      <div class="govuk-!-margin-left-1">
+        <a class="app-link app-link--underline"
+          href="/test-suites/mock-test-suite/automations/schedules/e89c51f1-f071-4c9e-b6a8-ab6bd72f03aa/remove"
+        data-testid="app-link">Remove</a>
+      </div>
+     </div>
+   </td>
+</tr>
+
+
+
+
+
+
+
+        
+              
+<tr class="app-entity-table__row" data-testid="app-entity-table-row-3">
+  <td headers="description" class="app-entity-table__cell" data-label="description">
+    At 12:00 PM, only on Tuesday
+  </td>
+
+  <td headers="env" class="app-entity-table__cell" data-label="env">
+    test
+  </td>
+
+  <td headers="nextRunDate" class="app-entity-table__cell" data-label="nextRunDate">
+      <strong class="govuk-tag app-tag govuk-tag--grey" data-testid="govuk-tag">
+  Disabled
+</strong>
+
+  </td>
+
+  <td headers="cpu" class="app-entity-table__cell" data-label="Cpu">
+    <span data-testid="app-entity-text">4 vCPU</span>
+  </td>
+
+  <td headers="memory" class="app-entity-table__cell" data-label="Memory">
+    <span data-testid="app-entity-text">8 GB</span>
+  </td>
+
+
+  <td headers="profile" class="app-entity-table__cell" data-label="Profile">
+      
+  </td>
+
+  <td headers="startDate" class="app-entity-table__cell" data-label="startDate">
+    
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="Wednesday 26th February 2025, 09:16:53"
+>
+        <time    datetime="2025-02-26T09:16:53.969Z"
+    data-testid="app-time">
+        Wed 26th Feb 2025 at 09:16
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+  <td headers="endDate" class="app-entity-table__cell" data-label="endDate">
+    
+
+
+
+<span
+  class="app-tool-tip"
+  data-text=""
+>
+        <time    datetime=""
+    data-testid="app-time">
+        
+
+  </time>
+
+
+</span>
+
+
+
+
+  </td>
+
+   <td headers="actions" class="app-entity-table__cell" data-label="actions">
+     <div class="app-entity">
+      <div>
+        <a class="app-link app-link--underline"
+          href="/test-suites/mock-test-suite/automations/schedules/938d8582-7d45-48a3-a927-f0995de8c9ad/update"
+        data-testid="app-link">Update</a>
+      </div>
+      <div class="govuk-!-margin-left-1">
+        <a class="app-link app-link--underline"
+          href="/test-suites/mock-test-suite/automations/schedules/938d8582-7d45-48a3-a927-f0995de8c9ad/remove"
+        data-testid="app-link">Remove</a>
+      </div>
+     </div>
+   </td>
+</tr>
+
+
+
+
+
+    </tbody>
+  </table>
+
+</article>
           </div>
+        </div>
 
-          <div class="govuk-grid-column-one-third">
+        <div class="govuk-grid-column-one-third-from-desktop-huge">
+          <section>
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+                data-testid="add-test-run">Schedule Test Run</h2>
+            <p>
+              Choose a schedule and test suite parameters
+            </p>
 
-<div class="app-panel" >
-  
-                <section>
-                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Run</h2>
-                  <p>
-                    Run the latest version of your test suite against an environment of your choosing
-                  </p>
+            <form action="/test-suites/mock-test-suite/automations/schedules/create"
+                  method="post"
+                  data-js="app-form-errors">
+              <input type="hidden" name="csrfToken" value="test-token" />
 
-                  <form action="/test-suites/run"
-                        method="post"
-                        data-js="app-form-errors">
-                    <input type="hidden" name="csrfToken" value="test-token" />
-                    <input type="hidden" name="testSuite" value="mock-test-suite" />
+              <input type="hidden" name="frequency" value="WEEKLY" />
 
 <fieldset class="govuk-fieldset">
 
-                      <div class="govuk-form-group app-form-group app-form-group-js">
+                <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" role="group" aria-describedby="time-hint">
+    <legend class="govuk-fieldset__legend app-label">
+      Time
+    </legend>
+    <div id="time-hint" class="govuk-hint">
+      What time to run the tests. (24hr, UTC)
+    </div>
+    <div class="govuk-date-input" id="time">
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="time-hour">
+            Hour
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-hour" name="time-hour" type="text" autocomplete="off" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="time-minute">
+            Minute
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-minute" name="time-minute" type="text" autocomplete="off" inputmode="numeric">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+
+
+                <div class="govuk-form-group app-form-group app-form-group-js">
+  <fieldset class="govuk-fieldset" aria-describedby="daysOfTheWeek-hint">
+  <legend class="govuk-fieldset__legend app-label">
+    Days of the week
+  </legend>
+  <div id="daysOfTheWeek-hint" class="govuk-hint app-hint">
+    Which days of the week to run the tests
+  </div>
+  <div class="govuk-checkboxes govuk-checkboxes--small app-checkboxes days-of-the-week" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="daysOfTheWeek" name="daysOfTheWeek" type="checkbox" value="monday">
+      <label class="govuk-label govuk-checkboxes__label" for="daysOfTheWeek">
+        Monday
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="daysOfTheWeek-2" name="daysOfTheWeek" type="checkbox" value="tuesday">
+      <label class="govuk-label govuk-checkboxes__label" for="daysOfTheWeek-2">
+        Tuesday
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="daysOfTheWeek-3" name="daysOfTheWeek" type="checkbox" value="wednesday">
+      <label class="govuk-label govuk-checkboxes__label" for="daysOfTheWeek-3">
+        Wednesday
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="daysOfTheWeek-4" name="daysOfTheWeek" type="checkbox" value="thursday">
+      <label class="govuk-label govuk-checkboxes__label" for="daysOfTheWeek-4">
+        Thursday
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="daysOfTheWeek-5" name="daysOfTheWeek" type="checkbox" value="friday">
+      <label class="govuk-label govuk-checkboxes__label" for="daysOfTheWeek-5">
+        Friday
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="daysOfTheWeek-6" name="daysOfTheWeek" type="checkbox" value="saturday">
+      <label class="govuk-label govuk-checkboxes__label" for="daysOfTheWeek-6">
+        Saturday
+      </label>
+    </div>
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="daysOfTheWeek-7" name="daysOfTheWeek" type="checkbox" value="sunday">
+      <label class="govuk-label govuk-checkboxes__label" for="daysOfTheWeek-7">
+        Sunday
+      </label>
+    </div>
+  </div>
+</fieldset>
+</div>
+
+
+
+                <div class="govuk-form-group app-form-group app-form-group-js">
   <label class="govuk-label app-label" for="environment">
     Environment
   </label>
@@ -447,7 +914,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-                      <div class="govuk-form-group">
+                <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="provideProfile-hint">
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-1">
     Profile
@@ -500,7 +967,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-                      <div class="govuk-form-group app-form-group app-form-group-js">
+                <div class="govuk-form-group app-form-group app-form-group-js">
   <fieldset class="govuk-fieldset" aria-describedby="configuration-hint">
   <legend class="govuk-fieldset__legend govuk-label app-label">
     Configuration
@@ -537,14 +1004,14 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </fieldset>
 
-                    
+              
 
 
 <span class="app-button__container">
   <button class="govuk-button app-button"
 data-loader="run-submit-button"          data-js="app-button"
           data-testid="app-button">
-    Start
+    Add
   </button>
 
     <span class="app-loader"
@@ -555,235 +1022,17 @@ data-js="run-submit-button">
 </span>
 
 
-                  </form>
-                </section>
+            </form>
+          </section>
 
-
-</div>
-          </div>
         </div>
-
-
-            <article data-xhr="test-suite-runs">
-              <section class="govuk-!-margin-bottom-6">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Results</h2>
-                <p>
-                  Results from <em>mock-test-suite</em> test suite runs
-                </p>
-
-
-
-
-<article>
-  <table class="app-entity-table" data-testid="app-entity-table">
-    <thead class="app-entity-table__head" data-testid="app-entity-table-head">
-    <tr>
-
-        <th id="Started" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-1"
-width="2%"        >
-            Started
-        </th>
-
-        <th id="version" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-2"
-width="1%"        >
-            Version
-        </th>
-
-        <th id="environment" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-3"
-width="1%"        >
-            Env
-        </th>
-
-        <th id="profile" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-4"
-width="2%"        >
-            Profile
-        </th>
-
-        <th id="status" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-5"
-width="1%"        >
-            Status
-        </th>
-
-        <th id="results" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-6"
-width="1%"        >
-            Results
-        </th>
-
-        <th id="logs" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-7"
-width="1%"        >
-            Logs
-        </th>
-
-        <th id="duration" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-8"
-width="2%"        >
-            Duration
-        </th>
-
-        <th id="action" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-9"
-width="2%"        >
-            Action
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-
-
-        
-                  
-<tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
-  <td headers="Started" class="app-entity-table__cell" data-label="Started">
-    <a class="app-link" href="/test-suites/mock-test-suite/runs/3ec0b267-e513-4dd1-a525-8a3a798a9c4b" rel="noopener noreferrer" data-testid="app-entity-link">
-      1st Nov 2024 at 12:59:56
-    </a>
-  </td>
-
-  <td headers="version" class="app-entity-table__cell" data-label="Version">
-    <a class="app-link" href="https://github.com/DEFRA/mock-test-suite/releases/tag/0.11.0" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-      0.11.0
-    </a>
-  </td>
-
-  <td headers="environment" class="app-entity-table__cell" data-label="Environment">
-    <span data-testid="app-entity-text">Infra Dev</span>
-  </td>
-
-  <td headers="profile" class="app-entity-table__cell" data-label="Profile">
-      <span class="app-entity">smoke</span>
-  </td>
-
-  <td headers="status" class="app-entity-table__cell" data-label="Status">
-    <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
-  Finished
-</strong>
-
-
-  </td>
-
-  <td headers="results" class="app-entity-table__cell" data-label="Results">
-      <a class="app-link" href="/test-suites/test-results/infra-dev/0.11.0/mock-test-suite/3ec0b267-e513-4dd1-a525-8a3a798a9c4b/index.html" data-testid="app-entity-link">
-        Report
-      </a>
-        <span class="govuk-!-margin-left-1 govuk-!-margin-top-1"><svg xmlns="http://www.w3.org/2000/svg"
-     class="app-icon app-tick-icon app-icon--small"
-     width="48" height="48" viewBox="0 0 48 48"
-     role="img"
->
-<path fill-rule="nonzero" d="m20.4982206 35.1316726 16.5693951-16.6263345L33.480427 14.86121 20.4982206 27.8434164l-6.3202847-6.3202847-3.5871886 3.6441281 9.9074733 9.9644128ZM23.9532527 48c-3.2766406 0-6.3826145-.6188185-9.3179217-1.8564555-2.9353452-1.2375991-5.48959435-2.9429751-7.66274737-5.1161281-2.17315303-2.1731531-3.87852906-4.7272693-5.11612811-7.6623488C.61881851 30.4300261 0 27.320446 0 24.0363274c0-3.3180546.61991934-6.4359668 1.85975801-9.3537367 1.23987663-2.9177698 2.94885883-5.46938074 5.12694662-7.65483269C9.16475445 4.84226809 11.7158529 3.1246121 14.64 1.87479004 17.5641091.62493001 20.6620166 0 23.9337224 0c3.3233689 0 6.4519858.62344959 9.3858506 1.87034875 2.9338268 1.24693713 5.487924 2.96087308 7.6622918 5.14180783 2.1743677 2.18093476 3.8876583 4.73415892 5.1398719 7.65967262C47.3739122 17.5973428 48 20.7265101 48 24.059331c0 3.2923938-.62493 6.3964318-1.87479 9.3121138-1.2498221 2.9156442-2.9674781 5.4627189-5.152968 7.6412242-2.185452 2.1785054-4.7372337 3.8876964-7.6553452 5.127573C30.3988233 47.3800807 27.2776085 48 23.9532527 48Z"/></svg>
-</span>
-  </td>
-
-  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
-      <a class="app-link" href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-test-suite?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:&#39;2024-11-01T12:59:56.000&#39;,to:&#39;2023-11-01T14:29:53.000&#39;))" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-        logs
-      </a>
-  </td>
-
-  <td headers="duration" class="app-entity-table__cell" data-label="Duration">
-    <span data-testid="app-entity-text">12 months</span>
-  </td>
-
-  <td headers="action" class="app-entity-table__cell" data-label="Action">
-      
-  </td>
-</tr>
-
-
-
-
-
-
-
-        
-                  
-<tr class="app-entity-table__row" data-testid="app-entity-table-row-2">
-  <td headers="Started" class="app-entity-table__cell" data-label="Started">
-    <a class="app-link" href="/test-suites/mock-test-suite/runs/3ec0b267-e513-4dd1-a525-8a3a798a9c4c" rel="noopener noreferrer" data-testid="app-entity-link">
-      2nd Nov 2024 at 12:59:56
-    </a>
-  </td>
-
-  <td headers="version" class="app-entity-table__cell" data-label="Version">
-    <a class="app-link" href="https://github.com/DEFRA/mock-test-suite/releases/tag/0.11.0" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-      0.11.0
-    </a>
-  </td>
-
-  <td headers="environment" class="app-entity-table__cell" data-label="Environment">
-    <span data-testid="app-entity-text">Infra Dev</span>
-  </td>
-
-  <td headers="profile" class="app-entity-table__cell" data-label="Profile">
-      
-  </td>
-
-  <td headers="status" class="app-entity-table__cell" data-label="Status">
-    <strong class="govuk-tag app-tag govuk-tag--green" data-testid="govuk-tag">
-  Finished
-</strong>
-
-
-  </td>
-
-  <td headers="results" class="app-entity-table__cell" data-label="Results">
-      <a class="app-link" href="/test-suites/test-results/infra-dev/0.11.0/mock-test-suite/3ec0b267-e513-4dd1-a525-8a3a798a9c4c/index.html" data-testid="app-entity-link">
-        Report
-      </a>
-        <span class="govuk-!-margin-left-1 govuk-!-margin-top-1"><svg xmlns="http://www.w3.org/2000/svg"
-     class="app-icon app-tick-icon app-icon--small"
-     width="48" height="48" viewBox="0 0 48 48"
-     role="img"
->
-<path fill-rule="nonzero" d="m20.4982206 35.1316726 16.5693951-16.6263345L33.480427 14.86121 20.4982206 27.8434164l-6.3202847-6.3202847-3.5871886 3.6441281 9.9074733 9.9644128ZM23.9532527 48c-3.2766406 0-6.3826145-.6188185-9.3179217-1.8564555-2.9353452-1.2375991-5.48959435-2.9429751-7.66274737-5.1161281-2.17315303-2.1731531-3.87852906-4.7272693-5.11612811-7.6623488C.61881851 30.4300261 0 27.320446 0 24.0363274c0-3.3180546.61991934-6.4359668 1.85975801-9.3537367 1.23987663-2.9177698 2.94885883-5.46938074 5.12694662-7.65483269C9.16475445 4.84226809 11.7158529 3.1246121 14.64 1.87479004 17.5641091.62493001 20.6620166 0 23.9337224 0c3.3233689 0 6.4519858.62344959 9.3858506 1.87034875 2.9338268 1.24693713 5.487924 2.96087308 7.6622918 5.14180783 2.1743677 2.18093476 3.8876583 4.73415892 5.1398719 7.65967262C47.3739122 17.5973428 48 20.7265101 48 24.059331c0 3.2923938-.62493 6.3964318-1.87479 9.3121138-1.2498221 2.9156442-2.9674781 5.4627189-5.152968 7.6412242-2.185452 2.1785054-4.7372337 3.8876964-7.6553452 5.127573C30.3988233 47.3800807 27.2776085 48 23.9532527 48Z"/></svg>
-</span>
-  </td>
-
-  <td headers="logs" class="app-entity-table__cell" data-label="Logs">
-      <a class="app-link" href="https://logs.infra-dev.cdp-int.defra.cloud/_dashboards/app/dashboards#/view/mock-test-suite?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:&#39;2024-11-02T12:59:56.000&#39;,to:&#39;2024-11-01T14:29:53.000&#39;))" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-        logs
-      </a>
-  </td>
-
-  <td headers="duration" class="app-entity-table__cell" data-label="Duration">
-    <span data-testid="app-entity-text">about 23 hours</span>
-  </td>
-
-  <td headers="action" class="app-entity-table__cell" data-label="Action">
-      
-  </td>
-</tr>
-
-
-
-
-
-    </tbody>
-  </table>
-
-</article>
-              </section>
-            </article>
-
-
       </div>
-    </div>
+
+
+    </section>
+  </div>
+</div>
+
   </section>
 
     </section>
