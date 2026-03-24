@@ -6,14 +6,21 @@
       <a class="app-link" href="/dependency-explorer/{{ params.entity }}/?version={{ params.entityVersion }}" data-testid="app-entity-link">
         {{ params.entity }} ({{ params.entityVersion }})
       </a>
-      {% if params.entityVersionTag %}
 
-        {{ govukTag({
-          text: params.entityVersionTag,
-          classes: 'app-tag govuk-!-margin-left-2',
-          attributes: { "data-testid": "govuk-tag" }
-        }) }}
+      {% if params.entityTags | length %}
+        <div class="app-!-layout-centered govuk-!-margin-top-2">
+          <div class="app-entity-table__row-caption">
+            {% for tag in params.entityTags %}
 
+              {{ govukTag({
+                text: tag,
+                classes: 'app-tag',
+                attributes: { "data-testid": "govuk-tag" }
+              }) }}
+
+            {% endfor %}
+          </div>
+        </div>
       {% endif %}
   </td>
 
