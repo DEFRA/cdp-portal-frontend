@@ -11,7 +11,9 @@
   </td>
 
   <td headers="channel" class="app-entity-table__cell" data-label="channel">
-    #{{ params.channel }}
+    <a class="app-link app-link--underline"
+      href="https://defra-digital-team.slack.com/app_redirect?channel={{ params.channel }}" rel="noopener noreferrer" target="window"
+    data-testid="app-link">#{{ params.channel }}</a>
   </td>
 
   {% for env in params.envs %}
