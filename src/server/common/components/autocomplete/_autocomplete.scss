@@ -1,6 +1,6 @@
-@use "govuk-frontend" as *;
-@use "variables/colours" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/colours' as *;
+@use 'variables/border-radius' as *;
 
 $tiny-width: 12em;
 $small-width: 24em;
@@ -46,7 +46,7 @@ $large-width: 40em;
     > .app-icon {
       position: absolute;
       left: -2px;
-      fill: govuk-colour("mid-grey");
+      fill: govuk-colour('mid-grey');
       width: 26px;
       height: 26px;
     }
@@ -77,14 +77,14 @@ $large-width: 40em;
     }
 
     .app-suggestion__context {
-      color: govuk-colour("mid-grey");
+      color: govuk-colour('mid-grey');
       @include govuk-font(16);
     }
 
     &:focus,
     &:hover {
       .app-suggestion__context {
-        color: govuk-colour("white");
+        color: govuk-colour('white');
       }
     }
   }
@@ -93,6 +93,10 @@ $large-width: 40em;
     display: flex;
     align-items: center;
   }
+}
+
+.app-autocomplete--search-medium {
+  width: $width;
 }
 
 .app-autocomplete__control {
@@ -119,7 +123,7 @@ $large-width: 40em;
   transform: rotate(0);
 
   & .app-chevron-icon {
-    fill: govuk-colour("mid-grey");
+    fill: govuk-colour('mid-grey');
     width: 18px;
     height: 18px;
   }
@@ -149,15 +153,15 @@ $large-width: 40em;
 .app-autocomplete__input {
   padding: govuk-spacing(1) govuk-spacing(6) govuk-spacing(1) govuk-spacing(1);
   border-radius: $app-border-radius-min;
-  border: 1px solid govuk-colour("mid-grey");
+  border: 1px solid govuk-colour('mid-grey');
 
   &:focus {
-    border: 1px solid govuk-colour("black");
+    border: 1px solid govuk-colour('black');
     box-shadow: none;
   }
 
   &::placeholder {
-    color: govuk-colour("dark-grey");
+    color: govuk-colour('dark-grey');
   }
 }
 
@@ -166,10 +170,10 @@ $large-width: 40em;
   z-index: 500;
   position: absolute;
   left: 0;
-  background-color: govuk-colour("white");
+  background-color: govuk-colour('white');
   border-radius: 0 0 $app-border-radius $app-border-radius;
   border: 1px solid $app-brand-border-colour-light;
-  box-shadow: 3px 5px 4px -4px govuk-colour("mid-grey");
+  box-shadow: 3px 5px 4px -4px govuk-colour('mid-grey');
   list-style: none;
   padding: govuk-spacing(1) 0;
   margin: 0;
@@ -193,7 +197,7 @@ $large-width: 40em;
   padding: govuk-spacing(1) govuk-spacing(2);
   display: flex;
   align-items: center;
-  color: govuk-colour("black");
+  color: govuk-colour('black');
   list-style-type: none;
 
   &:nth-child(even) {
@@ -202,12 +206,12 @@ $large-width: 40em;
 
   &:hover,
   &:focus {
-    background-color: govuk-tint(govuk-colour("blue"), 30%);
-    color: govuk-colour("white");
+    background-color: govuk-tint(govuk-colour('blue'), 30%);
+    color: govuk-colour('white');
 
     .app-suggestion__action {
       & .app-tick-icon {
-        fill: govuk-colour("white");
+        fill: govuk-colour('white');
       }
     }
   }
@@ -233,15 +237,15 @@ $large-width: 40em;
   }
 
   &.app-autocomplete__suggestion--highlight {
-    background-color: govuk-tint(govuk-colour("blue"), 30%);
-    color: govuk-colour("white");
+    background-color: govuk-tint(govuk-colour('blue'), 30%);
+    color: govuk-colour('white');
 
     .app-tick-icon {
-      fill: govuk-colour("white");
+      fill: govuk-colour('white');
     }
 
     .app-suggestion__context {
-      color: govuk-colour("white");
+      color: govuk-colour('white');
     }
   }
 }
@@ -264,11 +268,11 @@ $large-width: 40em;
 }
 
 .app-autocomplete__suggestion--no-results {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('dark-grey');
 }
 
 .govuk-form-group--error {
   .app-autocomplete__input {
-    border-color: govuk-colour("red");
+    border-color: govuk-colour('red');
   }
 }

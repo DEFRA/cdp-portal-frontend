@@ -98,6 +98,3 @@ export async function POST(request, h) {
     })
   )
 }
-POST.options = {
-  id: 'f'
-}

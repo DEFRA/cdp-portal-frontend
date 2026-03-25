@@ -15,7 +15,7 @@
       {{ appAutocomplete({
         id: "dependency",
         name: "dependency",
-        classes: "app-autocomplete--medium app-autocomplete--inline",
+        classes: "app-autocomplete--search-medium app-autocomplete--inline",
         label: {
           text: "Dependency name",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -25,8 +25,7 @@
           classes: "app-form-group--inline"
         },
         value: dependencyName,
-        typeahead: true,
-        template: 'advanced',
+        template: 'search',
         suggestionClasses: "app-autocomplete__suggestion--leading-hint",
         dataFetcher: {
           name: "searchDependencyName",
@@ -40,7 +39,7 @@
 
       <div class="govuk-body govuk-!-margin-top-4">
         {{ govukButton({
-          classes: "app-button",
+          classes: "app-button js-hidden",
           text: "View services"
         }) }}
       </div>
@@ -71,7 +70,6 @@
           },
           value: formValues.versionStart,
           suggestions: dependenceNameFilters,
-          typeahead: true,
           placeholder: "Start version"
         }) }}
       </div>
@@ -91,7 +89,6 @@
           },
           value: formValues.versionEnd,
           suggestions: dependenceNameFilters,
-          typeahead: true,
           placeholder: "End version"
         }) }}
       </div>

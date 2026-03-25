@@ -58,7 +58,13 @@ async function registerPage(path, templatesPath, sourcePath, server) {
             method,
             path: routePath,
             handler: route[method],
-            options: { ...route.options, ...route[method].options }
+            options: {
+              ...route.options,
+              ...(route?.options?.id
+                ? { id: `${method}:${route.options.id}` }
+                : {}),
+              ...route[method].options
+            }
           })
         }
       }
@@ -75,7 +81,10 @@ async function registerPage(path, templatesPath, sourcePath, server) {
             const data = await route.default(request, h)
             return h.view(viewPath, data)
           },
-          options: { ...route.options, ...route.default.options }
+          options: {
+            ...route.options,
+            ...route.default.options
+          }
         })
       }
     }
