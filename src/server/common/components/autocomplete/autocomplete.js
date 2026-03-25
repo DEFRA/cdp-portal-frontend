@@ -146,11 +146,18 @@ class Autocomplete {
     const $autocompleteHiddenInput = document.createElement('input')
     $autocompleteHiddenInput.type = 'hidden'
     $autocompleteHiddenInput.name = $select.name
-    $autocompleteHiddenInput.value = suggestion?.value ?? ''
+    $autocompleteHiddenInput.value = suggestion?.value ?? $select.value ?? ''
 
     this.$autocompleteHiddenInput = $autocompleteHiddenInput
 
     $select.replaceWith($autocomplete, $autocompleteHiddenInput)
+
+    if (this.dataFetcher.isEnabled) {
+      this.callDataFetcher($select.value).then(() => {
+        const suggestion = this.getSuggestionByValue($select.value)
+        // $autocomplete.value = suggestion.text
+      })
+    }
   }
 
   /**

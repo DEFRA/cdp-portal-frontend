@@ -86,7 +86,7 @@
       {% endif %}
 
       {% if params.template === "search" %}
-        <input type="text" {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
+        <input type="text" {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %} value="{{ params.value }}"/>
       {% else %}
         <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
         {% for suggestion in params.suggestions %}
