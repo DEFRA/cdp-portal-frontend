@@ -8,6 +8,10 @@ import { fetchSecrets } from '#server/common/helpers/fetch/fetch-secrets.js'
 import { testSuitefaviconState } from '#server/test-suites/test-runs/helpers/test-suite-favicon-state.js'
 import { transformTestRunToStatus } from '#server/test-suites/test-runs/transformers/test-run-to-status.js'
 import { transformTestRunToDetails } from '#server/test-suites/test-runs/transformers/test-run-to-details.js'
+import { fetchDeploymentsWithMigrations } from '#server/deployments/helpers/fetch/fetch-deployments-with-migrations.js'
+import { transformDeploymentToRunningServices } from '#server/test-suites/test-runs/transformers/deployments-to-running-services.js'
+
+import { format } from 'date-fns'
 
 export const testSuiteRunController = {
   options: {
@@ -20,6 +24,19 @@ export const testSuiteRunController = {
     const formattedEnvironment = formatText(testRun.environment)
     const secrets = await fetchSecrets(testRun.environment, testRun.testSuite)
     const secretDetail = transformSecrets(secrets)
+    const started = format(
+      new Date(testRun.created),
+      "do MMM yyyy 'at' HH:mm:ss"
+    )
+
+    const deploymentsResponse = await fetchDeploymentsWithMigrations(
+      testRun.environment,
+      {
+        teamId: entity.teams.map((t) => t.teamIds),
+        from: testRun.created,
+        to: testRun.taskLastUpdated
+      }
+    )
 
     const canRun =
       (await request.userIsOwner(entity)) || (await request.userIsAdmin())
@@ -58,6 +75,8 @@ export const testSuiteRunController = {
         request.plugins.crumb
       ),
       detailsList: transformTestRunToDetails(testRun, entity),
+      runningServicesList:
+        transformDeploymentToRunningServices(deploymentsResponse),
       secretDetail,
       // notifications,
       failureReasons,
@@ -71,7 +90,7 @@ export const testSuiteRunController = {
           href: `/test-suites/${testSuiteName}`
         },
         {
-          text: `${testRun?.testSuite} - ${testRun?.tag}`
+          text: started
         }
       ]
     })

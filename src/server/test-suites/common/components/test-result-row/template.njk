@@ -71,6 +71,10 @@
     <span data-testid="app-entity-text">{{ params.duration }}</span>
   </td>
 
+  <td headers="runBy" class="app-entity-table__cell" data-label="Run by">
+    <span data-testid="app-entity-text">{{ params.user }}</span>
+  </td>
+
   <td headers="action" class="app-entity-table__cell" data-label="Action">
     {% if params.stopAction.available %}
       <form action="{{ params.stopAction.url }}" method="POST">

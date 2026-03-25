@@ -1,4 +1,6 @@
 {% extends "layouts/page.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
 
 {% set isLoading = testRun.testStatus != "passed" and testRun.testStatus != "failed" and testRun.taskStatus != "failed" %}
 
@@ -74,6 +76,34 @@
               <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Secrets</h2>
 
               {{ appSecretsList(secretDetail) }}
+            </article>
+          {% endcall %}
+
+          {% call appPanel({ testId: "deployments-summary" }) %}
+            <article>
+              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Deployments</h2>
+              <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                Deployments of services running during this test run
+              {{ govukTable({
+
+                firstCellIsHeader: false,
+                classes: "govuk-table--small-text-until-tablet",
+                head: [
+                  {
+                    text: "Service"
+                  },
+                  {
+                    text: "Version"
+                  },
+                  {
+                    text: "Started"
+                  },
+                  {
+                    text: "Last updated"
+                  }
+                ],
+                rows: runningServicesList.rows
+              }) }}
             </article>
           {% endcall %}
         </div>

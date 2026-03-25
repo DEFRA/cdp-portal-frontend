@@ -49,6 +49,7 @@ async function aboutTestSuiteHandler(request, h) {
         { id: 'results', text: 'Results', width: '1' },
         { id: 'logs', text: 'Logs', width: '1' },
         { id: 'duration', text: 'Duration', width: '2' },
+        { id: 'user', text: 'Run By', width: '2' },
         { id: 'action', text: 'Action', width: '2' }
       ],
       rows,

@@ -1,7 +1,7 @@
 import Wreck from '@hapi/wreck'
 import { getTraceId } from '@defra/hapi-tracing'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { handleResponse } from './handle-response.js'
 
 /**
