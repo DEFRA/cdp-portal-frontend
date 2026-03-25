@@ -6,49 +6,58 @@ import {
   formatText,
   pluralise,
   sanitiseUser
-} from '../../../config/nunjucks/filters/filters.js'
+} from '#config/nunjucks/filters/filters.js'
 import {
   renderComponent,
   renderIcon
 } from '../../common/helpers/nunjucks/render-component.js'
 import { renderTag } from '../../common/helpers/view/render-tag.js'
 
-const instanceIcon = renderIcon('instance-icon', {
-  description: 'Instance',
-  classes: 'app-icon--small govuk-!-margin-right-1'
-})
-const instanceSuccessIcon = renderIcon('instance-success-icon', {
-  description: 'Instance running',
-  classes: 'app-icon--small govuk-!-margin-right-1'
-})
-const instanceFailedIcon = renderIcon('instance-failed-icon', {
-  description: 'Instance failed to start',
-  classes: 'app-icon--small govuk-!-margin-right-1'
-})
-const instanceStoppedIcon = renderIcon('instance-stopped-icon', {
-  description: 'Instance stopped',
-  classes: 'app-icon--small govuk-!-margin-right-1'
-})
-const instancePendingIcon = renderIcon('instance-pending-icon', {
-  description: 'Instance pending',
-  classes: 'app-icon--small govuk-!-margin-right-1'
-})
+const instanceIcon = (classes) =>
+  renderIcon('instance-icon', {
+    description: 'Instance',
+    classes
+  })
+const instanceSuccessIcon = (classes) =>
+  renderIcon('instance-success-icon', {
+    description: 'Instance running',
+    classes
+  })
+const instanceFailedIcon = (classes) =>
+  renderIcon('instance-failed-icon', {
+    description: 'Instance failed to start',
+    classes
+  })
+const instanceStoppedIcon = (classes) =>
+  renderIcon('instance-stopped-icon', {
+    description: 'Instance stopped',
+    classes
+  })
+const instancePendingIcon = (classes) =>
+  renderIcon('instance-pending-icon', {
+    description: 'Instance pending',
+    classes
+  })
 
-function getIcon(status, unstable) {
+export function getIcon(
+  status,
+  unstable,
+  classes = 'app-icon--small govuk-!-margin-right-1'
+) {
   if (status === 'running') {
-    return instanceSuccessIcon
+    return instanceSuccessIcon(classes)
   } else if (status === 'stopped' && unstable === true) {
-    return instanceFailedIcon
+    return instanceFailedIcon(classes)
   } else if (status === 'stopped') {
-    return instanceStoppedIcon
+    return instanceStoppedIcon(classes)
   } else if (
     status === 'pending' ||
     status === 'stopping' ||
     status === 'deploying'
   ) {
-    return instancePendingIcon
+    return instancePendingIcon(classes)
   } else {
-    return instanceIcon
+    return instanceIcon(classes)
   }
 }
 
@@ -75,7 +84,7 @@ function buildInstanceStatus(deployment) {
   }, '')
 }
 
-function transformDeploymentToSummary(deployment) {
+export function transformDeploymentToSummary(deployment) {
   const teams = deployment?.teams
     ?.filter((team) => team.teamId)
     ?.map((team) =>
@@ -182,7 +191,7 @@ function transformDeploymentToSummary(deployment) {
   }
 }
 
-function transformDeploymentToStatusSummary(deployment, ecsDeployment) {
+export function transformDeploymentToStatusSummary(deployment, ecsDeployment) {
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
     attributes: {
@@ -236,5 +245,3 @@ function transformDeploymentToStatusSummary(deployment, ecsDeployment) {
     ]
   }
 }
-
-export { transformDeploymentToSummary, transformDeploymentToStatusSummary }

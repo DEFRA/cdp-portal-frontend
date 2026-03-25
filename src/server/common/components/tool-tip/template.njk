@@ -1,8 +1,15 @@
 {% set content = params.html | safe %}
 
 <span
-  class="app-tool-tip{% if params.classes %} {{ params.classes }}{% endif %}"
+  class="app-tool-tip{% if params.classes %} {{ params.classes }}{% endif %}{% if params.tooltip_html %} app-tool-tip--html{% endif %}"
+  {% if not params.tooltip_html %}
   data-text="{{ params.text }}"
+  {% endif %}
 >
   {{ caller() if caller else content }}
+  {% if params.tooltip_html %}
+    <span class="app-tool-tip__content">
+      {{ params.tooltip_html | safe }}
+    </span>
+  {% endif %}
 </span>

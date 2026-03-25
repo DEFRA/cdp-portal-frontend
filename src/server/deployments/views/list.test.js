@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl
-} from '../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { pagination } from '../../common/constants/pagination.js'
 import { cdpTeamFixture } from '../../../__fixtures__/admin/cdp-team.js'

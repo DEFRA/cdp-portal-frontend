@@ -3,6 +3,7 @@
 
 $black-tint: govuk-tint(govuk-colour("black"), 20%);
 
+// Plain text tooltips
 .app-tool-tip {
   position: relative;
   display: inline-flex;
@@ -44,10 +45,67 @@ $black-tint: govuk-tint(govuk-colour("black"), 20%);
     visibility: visible;
     display: inline-block;
   }
+
+  &--small {
+    &::before {
+      width: 8em;
+    }
+  }
 }
 
-.app-tool-tip--small {
-  &::before {
-    width: 8em;
+// HTML tooltips
+.app-tool-tip--html {
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  > .app-tool-tip__content {
+    position: absolute;
+    left: govuk-spacing(-2);
+    bottom: calc(100% + govuk-spacing(2));
+    width: max-content;
+    max-width: 10rem;
+    padding: govuk-spacing(3);
+    background-color: $black-tint;
+    color: govuk-colour("white");
+    border-radius: $app-border-radius;
+    box-shadow: 3px 5px 4px -4px govuk-colour("dark-grey");
+    @include govuk-font(16);
+    white-space: normal;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 800;
+    transition: opacity 0.2s ease;
+
+    .app-tool-tip__list {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: govuk-spacing(2);
+      row-gap: govuk-spacing(1);
+    }
+
+    .app-tool-tip__key {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .app-tool-tip__value {
+      text-align: right;
+    }
+  }
+
+  > .app-tool-tip__content::after {
+    content: "";
+    position: absolute;
+    left: govuk-spacing(2);
+    top: 100%;
+    border: 7px solid transparent;
+    border-top-color: $black-tint;
+  }
+
+  &:hover > .app-tool-tip__content {
+    opacity: 1;
+    visibility: visible;
   }
 }
