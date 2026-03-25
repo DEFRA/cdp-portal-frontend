@@ -8,7 +8,13 @@ import { Autocomplete } from './autocomplete.js'
  */
 class AutocompleteSearch extends Autocomplete {
   constructor($module) {
+    const disableLunrSpecialCharactersFilter = $module.querySelector(
+      `[data-js*="app-progressive-input"]`
+    ).dataset.disableLunrSpecialCharactersFilter
+
     super($module, { includeInput: true })
+
+    this.disableLunrSpecialCharactersFilter = disableLunrSpecialCharactersFilter
   }
 
   autocompleteInputEvent(event) {
@@ -87,10 +93,13 @@ class AutocompleteSearch extends Autocomplete {
   }
 
   filterPartialMatch(textValue) {
+    // Remove lunr special characters
+    const token = this.disableLunrSpecialCharactersFilter
+      ? textValue
+      : textValue.replace(/[*^:~+-]/g, '')
+
     return ($suggestion) =>
-      $suggestion?.dataset?.text
-        .toLowerCase()
-        .includes(textValue.replace(/[*^:~+-]/g, '').toLowerCase()) // Remove lunr special characters
+      $suggestion?.dataset?.text.toLowerCase().includes(token.toLowerCase())
   }
 
   populateSuggestion($li, item) {

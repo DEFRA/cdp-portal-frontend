@@ -71,7 +71,8 @@
     "data-publish-to": params.publishTo,
     "data-typeahead": true if params.typeahead == true,
     "data-testid": "app-progressive-input",
-    "data-suggestion-classes": params.suggestionClasses
+    "data-suggestion-classes": params.suggestionClasses,
+    "data-disable-lunr-special-characters-filter": true if params.disableLunrSpecialCharactersFilter == true
   } | pickBy %}
 
   <div class="{{ classes }}"
