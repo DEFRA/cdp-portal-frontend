@@ -154,7 +154,7 @@ class Autocomplete {
 
     // Handle existing value when using a data fetcher
     if (this.dataFetcher.isEnabled) {
-      this.callDataFetcher($select.value).then(() => {
+      this.callDataFetcher($select.value)?.then(() => {
         const suggestion = this.getSuggestionByValue($select.value)
         $autocomplete.value = suggestion.text
 
