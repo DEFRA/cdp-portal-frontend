@@ -152,10 +152,19 @@ class Autocomplete {
 
     $select.replaceWith($autocomplete, $autocompleteHiddenInput)
 
+    // Handle existing value when using a data fetcher
     if (this.dataFetcher.isEnabled) {
       this.callDataFetcher($select.value).then(() => {
         const suggestion = this.getSuggestionByValue($select.value)
-        // $autocomplete.value = suggestion.text
+        $autocomplete.value = suggestion.text
+
+        this.showCloseButton()
+        const matchIndex = this.getSuggestionIndex(suggestion.text)
+
+        this.populateSuggestions({
+          textValue: suggestion.text,
+          suggestionIndex: matchIndex > -1 ? matchIndex : null
+        })
       })
     }
   }
