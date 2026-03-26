@@ -14,10 +14,20 @@ import {
   entityTypes
 } from '@defra/cdp-validation-kit/src/constants/entities.js'
 import { statusTagClassMap } from '../../../helpers/status-tag-class-map.js'
-import { environmentsExceptInfraDev } from '../../../../../config/environments.js'
+import {
+  nonAdminEnvironments,
+  environmentsExceptInfraDev
+} from '../../../../../config/environments.js'
 
 const stepsByEntityType = {
-  [entityTypes.microservice]: ['infra', 'logs', 'squid', 'nginx', 'metrics'],
+  [entityTypes.microservice]: [
+    'infra',
+    'dns',
+    'nginx',
+    'squid',
+    'logs',
+    'metrics'
+  ],
   [entityTypes.testSuite]: ['infra', 'logs', 'squid']
 }
 
@@ -28,6 +38,23 @@ function calculateStepProgress(entity, steps) {
       (e) => entity.progress?.[e.kebabName]?.steps?.[step]
     )
   }))
+}
+
+function progressTable(entity) {
+  const table = []
+
+  const cols = stepsByEntityType[entity.type]
+  for (const env of nonAdminEnvironments) {
+    const row = { env: env.kebabName, cols: [] }
+
+    for (const col of cols) {
+      const done = entity?.progress[env.kebabName]?.steps[col]
+      row.cols.push(done)
+    }
+    table.push(row)
+  }
+
+  return table
 }
 
 export async function entityStatusHandler(request, h, entityKind) {
@@ -42,20 +69,19 @@ export async function entityStatusHandler(request, h, entityKind) {
   const isServiceOwner = await request.userIsServiceOwner(teamIds)
 
   const repository = await fetchRepository(serviceName).catch(nullify404)
-
+  const ecrRegistry = entity.environments?.management?.ecr_repository
   const resources = [
     {
-      name: 'Repository',
+      name: 'GitHub Repository',
       isReady: Boolean(repository)
+    },
+    {
+      name: 'Container Registry',
+      isReady: Boolean(ecrRegistry)
     }
   ]
 
   const steps = stepsByEntityType[entity.type]
-
-  if (steps) {
-    resources.push(...calculateStepProgress(entity, steps))
-  }
-
   entity.statusClass = statusTagClassMap(entity.status)
 
   const terminalStatuses = [entityStatuses.created, 'Success']
@@ -78,12 +104,12 @@ export async function entityStatusHandler(request, h, entityKind) {
     : 'success'
 
   const entityType = entity.type
+  const stepsTable = progressTable(entity)
 
   return h.view('common/patterns/entities/status/views/creating', {
     faviconState,
     pageTitle: `${entity.status} ${serviceName} ${entityType}`,
     summaryList: transformServiceToSummary(repository, entity),
-    resourceDescriptions: resourceDescriptions(entityType.toLowerCase()),
     entityKind,
     entityType,
     entity,
@@ -91,6 +117,8 @@ export async function entityStatusHandler(request, h, entityKind) {
     resources,
     takingTooLong,
     shouldPoll,
+    steps,
+    stepsTable,
     breadcrumbs: [
       {
         text: `${pluralise(startCase(entityType))}`,
