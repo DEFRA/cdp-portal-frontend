@@ -2,7 +2,10 @@ import { config } from '#config/config.js'
 
 export async function getDependencyDependents(type, name, query = {}) {
   const baseUrl = config.get('sbomExplorerBackendUrl')
-  const searchUrl = new URL(`/dependencies/${type}/${name}/dependents`, baseUrl)
+  const searchUrl = new URL(
+    `/dependencies/${encodeURIComponent(type)}/${encodeURIComponent(name)}/dependents`,
+    baseUrl
+  )
 
   if (query.environment) {
     searchUrl.searchParams.set('environment', query.environment)
@@ -18,7 +21,10 @@ export async function getDependencyDependents(type, name, query = {}) {
 
 export async function getEntityDependencies(name, query = {}) {
   const baseUrl = config.get('sbomExplorerBackendUrl')
-  const searchUrl = new URL(`/entities/${name}/dependencies`, baseUrl)
+  const searchUrl = new URL(
+    `/entities/${encodeURIComponent(name)}/dependencies`,
+    baseUrl
+  )
 
   if (query.entityVersion) {
     searchUrl.searchParams.set('entityVersion', query.entityVersion)
