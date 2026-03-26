@@ -31,8 +31,17 @@ const environmentsExceptInfraDev = [
   environments.prod
 ]
 
+const nonAdminEnvironments = [
+  environments.dev,
+  environments.test,
+  environments.perfTest,
+  environments.extTest,
+  environments.prod
+]
+
 export {
   environments,
+  nonAdminEnvironments,
   prototypeEnvironments,
   performanceEnvironments,
   environmentsExceptInfraDev

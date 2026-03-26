@@ -85,25 +85,53 @@
 
           <ul class="govuk-list">
             {% for resource in resources %}
-              <li>
-                <div class="app-!-layout-centered">
-                  {% if resource.isReady %}
-                    {{ appTickIcon({
-                      classes: "app-icon--tiny govuk-!-margin-right-1",
-                      attributes: { "data-testid": resource.name + "-created" }
-                    }) }}
-                  {% else %}
-                    {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                  {% endif %}
-
-                  {{ resource.name }}
-                </div>
-                <div class="govuk-hint govuk-!-margin-bottom-2">
-                  {{ resourceDescriptions[resource.name] }}
-                </div>
-              </li>
+            <li>
+              <div class="app-!-layout-centered">
+                {% if resource.isReady %}
+                  {{ appTickIcon({
+                    classes: "app-icon--tiny govuk-!-margin-right-1"
+                  }) }}
+                {% else %}
+                  {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                {% endif %}
+                {{ resource.name }}
+              </div>
+            </li>
             {% endfor %}
           </ul>
+
+          <table class="govuk-table govuk-table--small-text-until-tablet">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Environment</th>
+              {% for step in steps %}
+              <th scope="col" class="govuk-table__header">{{ step }}</th>
+              {%  endfor %}
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            {% for row in stepsTable %}
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">
+                  {{ row.env }}
+                </td>
+
+                {% for step in row.cols %}
+                  <td class="govuk-table__cell">
+                    {% if step == true %}
+                      {{ appTickIcon({
+                        classes: "app-icon--tiny govuk-!-margin-right-1"
+                      }) }}
+                    {% else %}
+                      {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                    {% endif %}
+                  </td>
+                {%  endfor %}
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
         </section>
       </article>
     </div>
