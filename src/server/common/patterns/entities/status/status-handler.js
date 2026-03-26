@@ -30,6 +30,8 @@ function progressTable(entity) {
   const table = []
 
   const cols = stepsByEntityType[entity.type]
+  if (!cols) return table
+
   for (const env of nonAdminEnvironments) {
     const row = { env: env.kebabName, cols: [] }
 
