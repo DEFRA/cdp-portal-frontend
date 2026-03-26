@@ -32,7 +32,7 @@ export const testSuiteRunController = {
     const deploymentsResponse = await fetchDeploymentsWithMigrations(
       testRun.environment,
       {
-        teamId: entity.teams.map((t) => t.teamIds),
+        teamId: entity.teams.map((t) => t.teamId),
         from: testRun.created,
         to: testRun.taskLastUpdated
       }
