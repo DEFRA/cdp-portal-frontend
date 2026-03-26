@@ -7,17 +7,12 @@ import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../helpers/nullify-404.js'
 import { pluralise } from '../../../helpers/pluralise.js'
 import { REPOSITORY } from '../tabs/constants.js'
-import { resourceDescriptions } from './helpers/resource-descriptions.js'
-import capitalize from 'lodash/capitalize.js'
 import {
   entityStatuses,
   entityTypes
 } from '@defra/cdp-validation-kit/src/constants/entities.js'
 import { statusTagClassMap } from '../../../helpers/status-tag-class-map.js'
-import {
-  nonAdminEnvironments,
-  environmentsExceptInfraDev
-} from '../../../../../config/environments.js'
+import { nonAdminEnvironments } from '../../../../../config/environments.js'
 
 const stepsByEntityType = {
   [entityTypes.microservice]: [
@@ -29,15 +24,6 @@ const stepsByEntityType = {
     'metrics'
   ],
   [entityTypes.testSuite]: ['infra', 'logs', 'squid']
-}
-
-function calculateStepProgress(entity, steps) {
-  return steps.map((step) => ({
-    name: capitalize(step),
-    isReady: environmentsExceptInfraDev.every(
-      (e) => entity.progress?.[e.kebabName]?.steps?.[step]
-    )
-  }))
 }
 
 function progressTable(entity) {
