@@ -72,6 +72,11 @@ export default async function (request) {
 
   return {
     pageTitle: 'Dependencies Explorer',
+    pageUrl: request.routeLookup('dependency-explorer', {
+      params: {
+        dependency: encodeURIComponent(`${dependencyType}:${dependencyName}`)
+      }
+    }),
     dependencyType,
     dependencyName,
     environmentOptions,

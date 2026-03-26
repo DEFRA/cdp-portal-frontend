@@ -34,6 +34,9 @@ export default async function (request) {
 
   return {
     pageTitle: `Dependencies Explorer - ${entity}`,
+    pageUrl: request.routeLookup('dependency-list', {
+      params: { entity }
+    }),
     entity,
     dependencyTypeOptions,
     tableData: {
