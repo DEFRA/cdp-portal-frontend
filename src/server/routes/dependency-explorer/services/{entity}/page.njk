@@ -28,9 +28,8 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: formValues.entityVersion,
-        suggestions: dependenceNameFilters,
-        typeahead: true,
+        value: query.entityVersion,
+        suggestions: [],
         placeholder: "Version"
       }) }}
     </div>
@@ -38,8 +37,8 @@
 
     <div class="app-filters__item">
       {{ appAutocomplete({
-      id: "filters-team",
-      name: "dependnecyType",
+      id: "dependencyType",
+      name: "type",
       classes: "app-autocomplete--tiny app-autocomplete--inline",
       label: {
         text: "Dependnecy type",
@@ -48,15 +47,15 @@
       formGroup: {
         classes: "app-form-group--inline"
       },
-      value: formValues.dependnecyType,
-      suggestions: teamFilters
+      value: query.type,
+      suggestions: dependencyTypeOptions
       }) }}
     </div>
 
     <div class="app-filters__item">
       {{ appAutocomplete({
-        id: "filters-test-suite",
-        name: "dependencyVersion",
+        id: "dependencyVersion",
+        name: "version",
         classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
           text: "Dependency version",
@@ -66,9 +65,8 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: formValues.dependnecyVersion,
-        suggestions: dependenceNameFilters,
-        typeahead: true,
+        value: query.version,
+        suggestions: [],
         placeholder: "Version"
       }) }}
     </div>

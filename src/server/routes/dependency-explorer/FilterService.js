@@ -23,3 +23,27 @@ export async function searchDependencies(query) {
 
   return []
 }
+
+export async function getDependencyTypes() {
+  const baseUrl = config.get('sbomExplorerBackendUrl')
+  const searchUrl = new URL('/filters/dependency-type', baseUrl)
+
+  const resp = await fetch(searchUrl, { method: 'GET' })
+  if (resp.status === 200) {
+    return resp.json()
+  }
+
+  return []
+}
+
+export async function getEntityTags() {
+  const baseUrl = config.get('sbomExplorerBackendUrl')
+  const searchUrl = new URL('/filters/tags', baseUrl)
+
+  const resp = await fetch(searchUrl, { method: 'GET' })
+  if (resp.status === 200) {
+    return resp.json()
+  }
+
+  return []
+}

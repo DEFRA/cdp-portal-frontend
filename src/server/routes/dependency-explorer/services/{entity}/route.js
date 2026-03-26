@@ -1,5 +1,7 @@
 import { scopes } from '@defra/cdp-validation-kit'
 import { getEntityDependencies } from '../../DependencyService.js'
+import { getDependencyTypes } from '../../FilterService.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 
 export const options = {
   id: 'dependency-list',
@@ -15,7 +17,13 @@ export const options = {
 export default async function (request) {
   const entity = request.params.entity
 
-  const dependencies = await getEntityDependencies(entity, request.query)
+  const [dependencies, dependencyTypes] = await Promise.all([
+    getEntityDependencies(entity, request.query),
+    getDependencyTypes()
+  ])
+
+  const dependencyTypeOptions = buildOptions(dependencyTypes)
+
   const rows = dependencies.map((dependency) => ({
     entityVersion: dependency.entityversion,
     entityTags: dependency.entitytags,
@@ -27,6 +35,7 @@ export default async function (request) {
   return {
     pageTitle: `Dependencies Explorer - ${entity}`,
     entity,
+    dependencyTypeOptions,
     tableData: {
       headers: [
         {

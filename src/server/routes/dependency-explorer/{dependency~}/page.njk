@@ -69,7 +69,7 @@
           formGroup: {
             classes: "app-form-group--inline"
           },
-          value: formValues.versionStart,
+          value: query.versionStart,
           suggestions: dependenceNameFilters,
           placeholder: "Start version"
         }) }}
@@ -88,7 +88,7 @@
           formGroup: {
             classes: "app-form-group--inline"
           },
-          value: formValues.versionEnd,
+          value: query.versionEnd,
           suggestions: dependenceNameFilters,
           placeholder: "End version"
         }) }}
@@ -106,8 +106,8 @@
           formGroup: {
             classes: "app-form-group--inline"
           },
-          value: formValues.team,
-          suggestions: teamFilters
+          value: query.team,
+          suggestions: teamOptions
         }) }}
       </div>
 
@@ -123,7 +123,7 @@
           formGroup: {
             classes: "app-form-group--inline"
           },
-          value: formValues.environment,
+          value: query.environment,
           suggestions: environmentOptions
         }) }}
       </div>
@@ -140,7 +140,7 @@
           formGroup: {
             classes: "app-form-group--inline"
           },
-          value: formValues.tag,
+          value: query.tag,
           suggestions: tagOptions
         }) }}
       </div>

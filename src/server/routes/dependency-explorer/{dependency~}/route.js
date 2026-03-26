@@ -4,6 +4,7 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getDependencyDependents } from '../DependencyService.js'
 import { fetchCdpTeams } from '#server/teams/helpers/fetch/fetch-cdp-teams.js'
+import { getEntityTags } from '../FilterService.js'
 
 export const options = {
   id: 'dependency-explorer',
@@ -29,13 +30,27 @@ export default async function (request) {
     }))
   )
 
+  const [teams, entityTags] = await Promise.all([
+    fetchCdpTeams(),
+    getEntityTags()
+  ])
+
+  const teamOptions = buildOptions(
+    teams.map((team) => ({
+      value: team.teamId,
+      text: team.name
+    }))
+  )
+  const tagOptions = buildOptions(entityTags)
+
   let rows = []
 
   if (dependencyName && dependencyType) {
-    const [dependents, teams] = await Promise.all([
-      getDependencyDependents(dependencyType, dependencyName, request.query),
-      fetchCdpTeams()
-    ])
+    const dependents = await getDependencyDependents(
+      dependencyType,
+      dependencyName,
+      request.query
+    )
 
     rows = dependents.map((dependent) => ({
       entity: dependent.name,
@@ -60,6 +75,8 @@ export default async function (request) {
     dependencyType,
     dependencyName,
     environmentOptions,
+    tagOptions,
+    teamOptions,
     tableData: {
       headers: [
         {
