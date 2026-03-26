@@ -5,6 +5,7 @@ import { getIcon } from '#server/deployments/transformers/deployment-to-summary.
 
 export function transformDeploymentToRunningServices(deployments) {
   const rows = deployments.data
+    .filter((item) => item?.deployment)
     .sort((a, b) => b.created - a.created)
     .map(({ deployment }) => {
       const {
