@@ -17,8 +17,8 @@
 
     <div class="app-filters__item">
       {{ appAutocomplete({
-        id: "filters-test-suite",
-        name: "version",
+        id: "entityVersion",
+        name: "entityVersion",
         classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
           text: "Service version",
@@ -28,7 +28,7 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: formValues.version,
+        value: formValues.entityVersion,
         suggestions: dependenceNameFilters,
         typeahead: true,
         placeholder: "Version"
@@ -81,8 +81,9 @@
         {{  dependencyRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
+          entity: entity,
           entityVersion: params.row.entityVersion,
-          entityVersionTag: params.row.entityVersionTag,
+          entityTags: params.row.entityTags,
           dependency:  params.row.dependency,
           dependencyVersion: params.row.dependencyVersion,
           dependencyType: params.row.dependencyType

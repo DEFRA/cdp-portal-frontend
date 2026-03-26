@@ -15,7 +15,7 @@ export const options = {
 export default async function (request) {
   const entity = request.params.entity
 
-  const dependencies = await getEntityDependencies(entity)
+  const dependencies = await getEntityDependencies(entity, request.query)
   const rows = dependencies.map((dependency) => ({
     entityVersion: dependency.entityversion,
     entityTags: dependency.entitytags,

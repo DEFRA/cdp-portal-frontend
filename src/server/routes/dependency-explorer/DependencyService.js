@@ -11,6 +11,22 @@ export async function getDependencyDependents(type, name, query = {}) {
     searchUrl.searchParams.set('environment', query.environment)
   }
 
+  if (query.tag) {
+    searchUrl.searchParams.set('tag', query.tag)
+  }
+
+  if (query.team) {
+    searchUrl.searchParams.set('team', query.team)
+  }
+
+  if (query.versionStart) {
+    searchUrl.searchParams.set('gteVersion', query.versionStart)
+  }
+
+  if (query.versionEnd) {
+    searchUrl.searchParams.set('lteVersion', query.versionEnd)
+  }
+
   const resp = await fetch(searchUrl, { method: 'GET' })
   if (resp.status === 200) {
     return resp.json()

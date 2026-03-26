@@ -97,7 +97,7 @@
       <div class="app-filters__item">
         {{ appAutocomplete({
           id: "filters-team",
-          name: "teamId",
+          name: "team",
           classes: "app-autocomplete--small app-autocomplete--inline",
           label: {
             text: "Team",
@@ -106,7 +106,7 @@
           formGroup: {
             classes: "app-form-group--inline"
           },
-          value: formValues.teamId,
+          value: formValues.team,
           suggestions: teamFilters
         }) }}
       </div>

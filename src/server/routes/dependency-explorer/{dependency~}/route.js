@@ -33,9 +33,7 @@ export default async function (request) {
 
   if (dependencyName && dependencyType) {
     const [dependents, teams] = await Promise.all([
-      getDependencyDependents(dependencyType, dependencyName, {
-        environment: request.query.environment
-      }),
+      getDependencyDependents(dependencyType, dependencyName, request.query),
       fetchCdpTeams()
     ])
 
