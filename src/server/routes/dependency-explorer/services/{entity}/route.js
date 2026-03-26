@@ -1,4 +1,5 @@
 import { scopes } from '@defra/cdp-validation-kit'
+import { getEntityDependencies } from '../../DependencyService.js'
 
 export const options = {
   id: 'dependency-list',
@@ -14,43 +15,14 @@ export const options = {
 export default async function (request) {
   const entity = request.params.entity
 
-  const rows = [
-    {
-      entityVersion: '2.1.0',
-      entityVersionTag: 'latest',
-      dependency: 'pino',
-      dependencyVersion: '2.4.5',
-      dependencyType: 'npm'
-    },
-    {
-      entityVersion: '2.1.0',
-      entityVersionTag: 'latest',
-      dependency: 'chalk',
-      dependencyVersion: '12.0.5',
-      dependencyType: 'npm'
-    },
-    {
-      entityVersion: '2.1.0',
-      entityVersionTag: 'latest',
-      dependency: '@hapi/hapi',
-      dependencyVersion: '18.4.5',
-      dependencyType: 'npm'
-    },
-    {
-      entityVersion: '2.1.0',
-      entityVersionTag: 'latest',
-      dependency: '@hapi/jwt',
-      dependencyVersion: '3.4.5',
-      dependencyType: 'npm'
-    },
-    {
-      entityVersion: '2.1.0',
-      entityVersionTag: 'latest',
-      dependency: 'nodejs',
-      dependencyVersion: '23.1.5',
-      dependencyType: 'binary'
-    }
-  ]
+  const dependencies = await getEntityDependencies(entity)
+  const rows = dependencies.map((dependency) => ({
+    entityVersion: dependency.entityversion,
+    entityTags: dependency.entitytags,
+    dependency: dependency.name,
+    dependencyVersion: dependency.version,
+    dependencyType: dependency.type
+  }))
 
   return {
     pageTitle: `Dependencies Explorer - ${entity}`,
@@ -59,16 +31,16 @@ export default async function (request) {
       headers: [
         {
           id: 'version',
-          text: 'Version',
+          text: 'Service version',
           width: 10
         },
+        { id: 'dependencyType', text: 'Dependency type', width: 10 },
         {
           id: 'dependency',
-          text: 'Dependency',
-          width: 15
+          text: 'Dependency name',
+          width: 20
         },
-        { id: 'dependencyVersion', text: 'Dependency version', width: 10 },
-        { id: 'dependencyType', text: 'Dependency type', width: 10 }
+        { id: 'dependencyVersion', text: 'Dependency version', width: 10 }
       ],
       rows,
       noResult: 'No dependencies found',
@@ -79,6 +51,9 @@ export default async function (request) {
       {
         text: 'Dependency Explorer',
         href: '/dependency-explorer'
+      },
+      {
+        text: 'Services'
       },
       {
         text: entity

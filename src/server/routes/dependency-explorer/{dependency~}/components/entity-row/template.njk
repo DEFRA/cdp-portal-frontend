@@ -3,7 +3,7 @@
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="entity" class="app-entity-table__cell" data-label="entity">
-      <a class="app-link" href="/dependency-explorer/{{ params.entity }}/?version={{ params.entityVersion }}" data-testid="app-entity-link">
+      <a class="app-link" href="/dependency-explorer/services/{{ params.entity  | urlencode | safe }}/?version={{ params.entityVersion  | urlencode | safe }}" data-testid="app-entity-link">
         {{ params.entity }} ({{ params.entityVersion }})
       </a>
 
@@ -35,7 +35,7 @@
   </td>
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
-    <a class="app-link" href="/dependency-explorer/?dependnecy={{ params.dependency }}&versionStart={{params.dependencyVersion}}" data-testid="app-entity-link">
+    <a class="app-link" href="/dependency-explorer/{{ params.dependency  | urlencode | safe }}?versionStart={{params.dependencyVersion   | urlencode | safe}}" data-testid="app-entity-link">
       {{ params.dependencyVersion }}
     </a>
   </td>

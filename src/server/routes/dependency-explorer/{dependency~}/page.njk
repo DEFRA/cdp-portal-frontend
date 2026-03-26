@@ -128,6 +128,23 @@
         }) }}
       </div>
 
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "tag",
+          name: "tag",
+          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          label: {
+            text: "Tag",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: formValues.tag,
+          suggestions: tagOptions
+        }) }}
+      </div>
+
     {% endcall %}
 
     {% block xhrContent %}
