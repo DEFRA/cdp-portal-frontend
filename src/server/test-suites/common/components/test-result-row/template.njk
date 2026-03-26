@@ -72,7 +72,7 @@
   </td>
 
   <td headers="runBy" class="app-entity-table__cell" data-label="Run by">
-    <span data-testid="app-entity-text">{{ params.user }}</span>
+    <span data-testid="app-entity-text">{{ params.user | safe }}</span>
   </td>
 
   <td headers="action" class="app-entity-table__cell" data-label="Action">

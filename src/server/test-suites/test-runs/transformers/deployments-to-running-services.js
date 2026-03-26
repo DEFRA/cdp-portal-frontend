@@ -34,6 +34,7 @@ export function transformDeploymentToRunningServices(deployments) {
           <div class="app-tool-tip__list">
             ${[
               ['Instances', instanceCount],
+              ['Status', status],
               ['CPU', (cpu / 1024).toFixed(1)],
               ['Memory', (memory / 1024).toFixed(1) + ' GB'],
               ['User', user.displayName]
@@ -52,7 +53,7 @@ export function transformDeploymentToRunningServices(deployments) {
       return [
         {
           html: `
-            <div class="app-!-layout-centered">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
               ${buildLink({ href: `/deployments/${environment}/${cdpDeploymentId}`, text: service })}
               ${renderComponent('tool-tip', { tooltip_html: tooltipInfo }, [icon])}
             </div>
