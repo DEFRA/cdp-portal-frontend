@@ -41,29 +41,28 @@ describe('Test suite notifications page', () => {
 
   test('page DOES NOT render for logged in tenant', async () => {
     const { statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/test-suites/mock-test-suite/automations',
+      targetUrl: '/test-suites/mock-test-suite/notifications',
       isAdmin: false,
       isTenant: true
     })
     expect(statusCode).toBe(statusCodes.forbidden)
   })
 
-  // TODO: Should render once admin only testing is complete
-  test('page DOES NOT render for logged in service owner tenant', async () => {
+  test('page renders for logged in service owner tenant', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/test-suites/mock-test-suite/automations',
+      targetUrl: '/test-suites/mock-test-suite/notifications',
       isAdmin: false,
       isTenant: true,
       teamScope: 'mock-team-id'
     })
 
-    expect(statusCode).toBe(statusCodes.forbidden)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 
   test('page DOES NOT render for logged out user', async () => {
     const { statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/test-suites/mock-test-suite/automations',
+      targetUrl: '/test-suites/mock-test-suite/notifications',
       isAdmin: false,
       isTenant: false
     })
