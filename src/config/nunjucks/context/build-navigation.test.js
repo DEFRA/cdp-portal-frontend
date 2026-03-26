@@ -260,6 +260,14 @@ describe('#buildNavigation', () => {
             attributes: {
               'data-testid': 'nav-running-services'
             }
+          },
+          {
+            attributes: {
+              'data-testid': 'nav-dependencies-explorer'
+            },
+            current: false,
+            href: '/dependency-explorer',
+            text: 'Dependency Explorer'
           }
         ],
         admin: [
