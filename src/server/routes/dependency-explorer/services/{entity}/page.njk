@@ -38,7 +38,7 @@
     <div class="app-filters__item">
       {{ appAutocomplete({
       id: "dependencyType",
-      name: "type",
+      name: "dependencyType",
       classes: "app-autocomplete--tiny app-autocomplete--inline",
       label: {
         text: "Dependnecy type",
@@ -47,10 +47,35 @@
       formGroup: {
         classes: "app-form-group--inline"
       },
-      value: query.type,
+      value: query.dependencyType,
       suggestions: dependencyTypeOptions
       }) }}
     </div>
+
+    {{ appAutocomplete({
+      id: "dependencyName",
+      name: "dependencyName",
+      classes: "app-autocomplete--search-medium app-autocomplete--inline",
+      label: {
+        text: "Dependency name",
+        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+      },
+      icon: appSearchIcon(),
+      formGroup: {
+        classes: "app-form-group--inline"
+      },
+      value: dependencyName,
+      disableLunrSpecialCharactersFilter: true,
+      suggestionClasses: "app-autocomplete__suggestion--leading-hint",
+      dataFetcher: {
+        name: "searchDependencyName",
+        loader: "search-dependency-loader"
+      },
+      loader: {
+        name: "search-dependency-loader"
+      },
+      placeholder: "Search by dependency"
+    }) }}
 
     <div class="app-filters__item">
       {{ appAutocomplete({

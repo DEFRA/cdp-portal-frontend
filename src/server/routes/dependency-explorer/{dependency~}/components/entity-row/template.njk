@@ -24,6 +24,12 @@
       {% endif %}
   </td>
 
+  <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
+    <a class="app-link" href="/dependency-explorer/{{ params.dependencyType | urlencode | safe }}:{{ params.dependencyName | urlencode | safe }}?versionStart={{params.dependencyVersion   | urlencode | safe}}&versionEnd={{params.dependencyVersion   | urlencode | safe}}" data-testid="app-entity-link">
+      {{ params.dependencyVersion }}
+    </a>
+  </td>
+
   <td headers="teams" class="app-entity-table__cell" data-label="teams">
     <ul class="app-entity__list">
       {% for team in params.teams %}
@@ -32,12 +38,6 @@
         </a>
       {% endfor %}
     </ul>
-  </td>
-
-  <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
-    <a class="app-link" href="/dependency-explorer/{{ params.dependencyType | urlencode | safe }}:{{ params.dependencyName | urlencode | safe }}?versionStart={{params.dependencyVersion   | urlencode | safe}}&versionEnd={{params.dependencyVersion   | urlencode | safe}}" data-testid="app-entity-link">
-      {{ params.dependencyVersion }}
-    </a>
   </td>
 
   {% for env in params.envs %}

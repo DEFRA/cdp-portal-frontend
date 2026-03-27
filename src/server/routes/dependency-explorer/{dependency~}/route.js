@@ -5,6 +5,7 @@ import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getDependencyDependents } from '../DependencyService.js'
 import { fetchCdpTeams } from '#server/teams/helpers/fetch/fetch-cdp-teams.js'
 import { getEntityTags } from '../FilterService.js'
+import { fetchEntities } from '#server/common/helpers/fetch/fetch-entities.js'
 
 export const options = {
   id: 'dependency-explorer',
@@ -30,9 +31,10 @@ export default async function (request) {
     }))
   )
 
-  const [teams, entityTags] = await Promise.all([
+  const [teams, entityTags, entities] = await Promise.all([
     fetchCdpTeams(),
-    getEntityTags()
+    getEntityTags(),
+    fetchEntities()
   ])
 
   const teamOptions = buildOptions(
@@ -42,6 +44,12 @@ export default async function (request) {
     }))
   )
   const tagOptions = buildOptions(entityTags)
+  const entityOptions = buildOptions(
+    entities.map((entity) => ({
+      value: entity.name,
+      text: entity.name
+    }))
+  )
 
   let rows = []
 
@@ -82,16 +90,17 @@ export default async function (request) {
     environmentOptions,
     tagOptions,
     teamOptions,
+    entityOptions,
     tableData: {
       headers: [
         {
           id: 'entity',
-          text: 'Dependent Service',
+          text: 'Service name',
           width: 15,
           isLeftAligned: true
         },
+        { id: 'dependencyVersion', text: 'Dependency version', width: 10 },
         { id: 'teams', text: 'Team', width: 15 },
-        { id: 'dependencyVersion', text: 'Version', width: 10 },
         ...environments.map((env) => ({
           ...(supportVerticalHeadings && { verticalText: true }),
           id: env.toLowerCase(),
