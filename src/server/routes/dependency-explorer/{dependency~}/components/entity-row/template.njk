@@ -25,9 +25,7 @@
   </td>
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
-    <a class="app-link" href="/dependency-explorer/{{ params.dependencyType | urlencode | safe }}:{{ params.dependencyName | urlencode | safe }}?versionStart={{params.dependencyVersion   | urlencode | safe}}&versionEnd={{params.dependencyVersion   | urlencode | safe}}" data-testid="app-entity-link">
-      {{ params.dependencyVersion }}
-    </a>
+    {{ params.dependencyVersion }}
   </td>
 
   <td headers="teams" class="app-entity-table__cell" data-label="teams">

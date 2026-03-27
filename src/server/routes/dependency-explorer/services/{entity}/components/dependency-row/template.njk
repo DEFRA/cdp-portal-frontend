@@ -4,7 +4,7 @@
   <td headers="entityVersion" class="app-entity-table__cell" data-label="entityVersion">
       <div class="app-!-layout-centered govuk-!-margin-top-2">
         <div class="app-entity-table__row-caption">
-          <a class="app-link" href="{{ params.entityVersionFilterUrl }}" data-testid="app-entity-link">{{ params.entityVersion }}</a>
+          {{ params.entityVersion }}
 
           {% for tag in params.entityTags %}
 
@@ -20,18 +20,14 @@
   </td>
 
   <td headers="dependencyType" class="app-entity-table__cell" data-label="dependencyType">
-    <a class="app-link" href="{{ params.dependencyTypeFilterUrl }}" data-testid="app-entity-link">{{ params.dependencyType }}</a>
+    {{ params.dependencyType }}
   </td>
 
   <td headers="dependencyName" class="app-entity-table__cell" data-label="dependencyName">
-     <a class="app-link" href="{{ params.dependencyNameFilterUrl }}" data-testid="app-entity-link">
-        {{ params.dependencyName }}
-      </a>
+      {{ params.dependencyName }}
   </td>
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
-    <a class="app-link" href="{{ params.dependencyVersionFilterUrl }}" data-testid="app-entity-link">
-      {{ params.dependencyVersion }}
-    </a>
+    {{ params.dependencyVersion }}
   </td>
 </tr>
