@@ -2,7 +2,10 @@ import Boom from '@hapi/boom'
 import Joi from 'joi'
 
 import { formatDistanceStrict, parseISO, subHours } from 'date-fns'
-import { repositoryNameValidation } from '@defra/cdp-validation-kit'
+import {
+  orderedEnvironments,
+  repositoryNameValidation
+} from '@defra/cdp-validation-kit'
 import { nullify404 } from '../../../common/helpers/nullify-404.js'
 import { getActions } from '../helpers/actions.js'
 import { creationStatuses } from '../../../common/constants/creation-statuses.js'
@@ -10,7 +13,6 @@ import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
 import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
 import { resourceDescriptions } from '../../../common/patterns/entities/status/helpers/resource-descriptions.js'
 import { transformDecommissionToSummary } from '../transformers/decommission-to-summary.js'
-import capitalize from 'lodash/capitalize.js'
 
 const decommissionController = {
   options: {
@@ -44,14 +46,6 @@ const decommissionController = {
     }
 
     const faviconState = shouldPoll ? 'pending' : 'success'
-    const resources = Object.entries(entity.overallProgress.steps).map(
-      ([name, isReady]) => ({ name: capitalize(name), isReady })
-    )
-    resources.push({
-      name: 'Repository',
-      isReady: !repository?.isArchived
-    })
-
     const actionLinks = getActions()
 
     const durationDetail = {
@@ -72,7 +66,7 @@ const decommissionController = {
       heading: entity.name,
       summaryList: transformDecommissionToSummary(repository, entity),
       resourceDescriptions: resourceDescriptions(entityType.toLowerCase()),
-      resources,
+      environments: orderedEnvironments,
       entityType,
       entity,
       shouldPoll,
