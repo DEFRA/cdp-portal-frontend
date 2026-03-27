@@ -116,19 +116,19 @@
               </p>
 
               <ul class="govuk-list">
-                {% for resource in resources %}
-                  <li>
+                {%  for env in environments %}
+                   <li>
                     <div class="app-!-layout-centered">
-                      {% if not resource.isReady %}
+                      {% if not entity.environments[env] %}
                         {{ appTickIcon({
                           classes: "app-icon--tiny govuk-!-margin-right-1",
-                          attributes: { "data-testid": resource.name + "-created" }
+                          attributes: { "data-testid": env + "-created" }
                         }) }}
                       {% else %}
                         {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
                       {% endif %}
 
-                      {{ resource.name }}
+                      {{ env }}
                     </div>
                     <div class="govuk-hint govuk-!-margin-bottom-2">
                       {{ resourceDescriptions[resource.name] }}
