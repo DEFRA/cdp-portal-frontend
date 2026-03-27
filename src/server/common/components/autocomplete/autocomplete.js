@@ -848,6 +848,12 @@ class Autocomplete {
       this.autocompleteInputEvent.bind(this)
     )
 
+    // User selecting on option
+    this.$autocomplete.addEventListener(
+      'change',
+      this.autocompleteInputEvent.bind(this)
+    )
+
     // Mainly keyboard navigational events
     this.$autocomplete.addEventListener('keydown', (event) => {
       const code = event.code.toLowerCase()
