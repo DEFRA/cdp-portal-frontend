@@ -17,14 +17,14 @@ describe('Service Status page', () => {
 
   describe('Creating status', () => {
     beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
       const repositoryName = 'mock-service'
       const status = 'Creating'
       mockServiceEntityCall(repositoryName, 'frontend', status, 'Microservice')
       mockRepositoryCall(repositoryName, ['frontend'])
       server = await initialiseServer()
+
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
     })
 
     afterAll(async () => {
@@ -76,14 +76,14 @@ describe('Service Status page', () => {
 
   describe('Created status', () => {
     beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
       const repositoryName = 'mock-service'
       const status = 'Created'
       mockServiceEntityCall(repositoryName, 'frontend', status, 'Microservice')
       mockRepositoryCall(repositoryName, ['frontend'])
       server = await initialiseServer()
+
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
     })
 
     afterAll(async () => {

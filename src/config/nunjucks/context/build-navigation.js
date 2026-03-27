@@ -18,6 +18,7 @@ async function buildNavigation(request, userSession) {
   const adminPath = request.routeLookup('admin')
   const removeTestAsTenantPath = request.routeLookup('admin/removeTestAsTenant')
   const applyChangelogPath = request.routeLookup('apply-changelog')
+  const dependencyExplorerPath = request.routeLookup('dependency-explorer')
 
   const actions = (userSession?.isTenant || userSession?.isAdmin) && [
     {
@@ -103,7 +104,19 @@ async function buildNavigation(request, userSession) {
       attributes: {
         'data-testid': 'nav-running-services'
       }
-    }
+    },
+    ...(userSession?.isAdmin // TODO: Remove
+      ? [
+          {
+            text: 'Dependency Explorer',
+            href: dependencyExplorerPath,
+            current: request?.path?.includes(dependencyExplorerPath),
+            attributes: {
+              'data-testid': 'nav-dependencies-explorer'
+            }
+          }
+        ]
+      : [])
   ]
 
   if (hasPostgresPermission) {

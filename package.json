@@ -12,7 +12,6 @@
     "build:client": "NODE_ENV=production webpack",
     "client:watch": "webpack --watch",
     "client:watch:debug": "DEBUG=true webpack --watch",
-    "predev": "npm run build:client",
     "dev": "NODE_ENV=development run-p client:watch",
     "dev:debug": "NODE_ENV=development run-p client:watch:debug",
     "docker:dev": "npm run dev",
@@ -23,10 +22,11 @@
     "lint:fix": "eslint --fix .",
     "lint:js": "eslint .",
     "lint:scss": "stylelint  \"src/**/*.scss\" --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
+    "prepreview": "npm run build:client",
     "preview": "NODE_ENV=production node --env-file-if-exists=.env .",
     "security-audit": "npm audit --audit-level=high",
-    "server:debug": "node --env-file-if-exists=.env --watch-path=./src --inspect ./src",
-    "server:watch": "node --env-file-if-exists=.env --watch-path=./src ./src",
+    "server:debug": "node --env-file-if-exists=.env --watch --inspect ./src",
+    "server:watch": "node --env-file-if-exists=.env --watch ./src",
     "start": "npm run dev",
     "start:debug": "npm run dev:debug",
     "pretest": "npm run test:build:client",
@@ -41,7 +41,8 @@
   },
   "overrides": {
     "fast-xml-parser": "5.5.9",
-    "serialize-javascript": "7.0.3"
+    "serialize-javascript": "7.0.3",
+    "tmp": "0.2.5"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.986.0",
@@ -76,6 +77,7 @@
     "convict": "6.2.5",
     "date-fns": "4.1.0",
     "disinfect": "2.0.0",
+    "fast-glob": "3.3.3",
     "get-form-data": "3.0.0",
     "global-agent": "3.0.0",
     "govuk-frontend": "5.14.0",

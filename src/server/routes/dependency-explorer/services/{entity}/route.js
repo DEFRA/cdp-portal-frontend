@@ -1,0 +1,75 @@
+import { scopes } from '@defra/cdp-validation-kit'
+import { getEntityDependencies } from '../../DependencyService.js'
+import { getDependencyTypes } from '../../FilterService.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
+
+export const options = {
+  id: 'dependency-list',
+  // TODO: Remove
+  auth: {
+    mode: 'required',
+    access: {
+      scope: scopes.admin
+    }
+  }
+}
+
+export default async function (request) {
+  const entity = request.params.entity
+
+  const [dependencies, dependencyTypes] = await Promise.all([
+    getEntityDependencies(entity, request.query),
+    getDependencyTypes()
+  ])
+
+  const dependencyTypeOptions = buildOptions(dependencyTypes)
+
+  const rows = dependencies.map((dependency) => ({
+    entityVersion: dependency.entityversion,
+    entityTags: dependency.entitytags,
+    dependency: dependency.name,
+    dependencyVersion: dependency.version,
+    dependencyType: dependency.type
+  }))
+
+  return {
+    pageTitle: `Dependencies Explorer - ${entity}`,
+    pageUrl: request.routeLookup('dependency-list', {
+      params: { entity }
+    }),
+    entity,
+    dependencyTypeOptions,
+    tableData: {
+      headers: [
+        {
+          id: 'version',
+          text: 'Service version',
+          width: 10
+        },
+        { id: 'dependencyType', text: 'Dependency type', width: 10 },
+        {
+          id: 'dependency',
+          text: 'Dependency name',
+          width: 20
+        },
+        { id: 'dependencyVersion', text: 'Dependency version', width: 10 }
+      ],
+      rows,
+      noResult: 'No dependencies found',
+      isWide: false,
+      isInverse: true
+    },
+    breadcrumbs: [
+      {
+        text: 'Dependency Explorer',
+        href: '/dependency-explorer'
+      },
+      {
+        text: 'Services'
+      },
+      {
+        text: entity
+      }
+    ]
+  }
+}

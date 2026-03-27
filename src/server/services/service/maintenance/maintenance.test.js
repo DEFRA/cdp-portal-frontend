@@ -18,15 +18,15 @@ describe('Services', () => {
 
   describe('Maintenance service page', () => {
     beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
       mockServiceEntityCall('mock-service', 'frontend')
       mockServicesAdditionalCalls({
         repositoryName: 'mock-service',
         frontendOrBackend: 'frontend'
       })
       server = await initialiseServer()
+
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
     })
 
     afterAll(async () => {

@@ -29,6 +29,7 @@ import { fetchMigrations } from '../common/helpers/fetch/autocomplete/fetch-migr
 import { initClass, initModules, initModule } from '../common/helpers/init.js'
 import { fetchEnvironments } from '../common/helpers/fetch/autocomplete/fetch-environments.js'
 import autoRefresh from '../common/helpers/auto-refresh.js'
+import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-search-dependency-name.js'
 
 initAll()
 
@@ -44,6 +45,7 @@ window.cdp.fetchMemory = fetchMemory
 window.cdp.fetchIsNameAvailable = fetchIsNameAvailable
 window.cdp.clearFilters = clearFilters
 window.cdp.resizeIframe = resizeIframe
+window.cdp.searchDependencyName = searchDependencyName
 
 initModules('app-input-assistant', inputAssistant, '*=')
 

@@ -1,0 +1,93 @@
+{% extends "layouts/page.njk" %}
+{% from "./components/dependency-row/macro.njk" import dependencyRow %}
+
+{% block content %}
+  {{ appPageHeading({
+    text: entity,
+    intro: 'Dependencies'
+  }) }}
+
+  {% call appFilters({
+    action: pageUrl,
+    clear: {
+      url: pageUrl
+    }
+  }) %}
+
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "entityVersion",
+        name: "entityVersion",
+        classes: "app-autocomplete--tiny app-autocomplete--inline",
+        label: {
+          text: "Service version",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: query.entityVersion,
+        suggestions: [],
+        placeholder: "Version"
+      }) }}
+    </div>
+
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+      id: "dependencyType",
+      name: "type",
+      classes: "app-autocomplete--tiny app-autocomplete--inline",
+      label: {
+        text: "Dependnecy type",
+        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+      },
+      formGroup: {
+        classes: "app-form-group--inline"
+      },
+      value: query.type,
+      suggestions: dependencyTypeOptions
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "dependencyVersion",
+        name: "version",
+        classes: "app-autocomplete--tiny app-autocomplete--inline",
+        label: {
+          text: "Dependency version",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: query.version,
+        suggestions: [],
+        placeholder: "Version"
+      }) }}
+    </div>
+
+  {% endcall %}
+
+  {% block xhrContent %}
+    <div data-xhr="{{ xhrElement }}">
+      {% call(params) appEntityTable(tableData) %}
+        {{  dependencyRow({
+          rowClasses: params.rowClasses,
+          loopIndex: params.loopIndex,
+          entity: entity,
+          entityVersion: params.row.entityVersion,
+          entityTags: params.row.entityTags,
+          dependency:  params.row.dependency,
+          dependencyVersion: params.row.dependencyVersion,
+          dependencyType: params.row.dependencyType
+        }) }}
+      {% endcall %}
+    </div>
+  {% endblock %}
+
+{% endblock %}

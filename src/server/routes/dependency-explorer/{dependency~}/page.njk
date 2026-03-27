@@ -1,0 +1,169 @@
+{% extends "layouts/page.njk" %}
+{% from "./components/entity-row/macro.njk" import entityRow %}
+
+{% block content %}
+  {{ appPageHeading({
+    text: "Dependency Explorer",
+    intro: "View the services which are using a dependency"
+  }) }}
+
+  <form action="" method="POST">
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+    {% call govukFieldset() %}
+
+      {{ appAutocomplete({
+        id: "dependency",
+        name: "dependency",
+        classes: "app-autocomplete--search-medium app-autocomplete--inline",
+        label: {
+          text: "Dependency name",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: dependencyType + ':' + dependencyName,
+        template: 'search',
+        disableLunrSpecialCharactersFilter: true,
+        suggestionClasses: "app-autocomplete__suggestion--leading-hint",
+        dataFetcher: {
+          name: "searchDependencyName",
+          loader: "search-dependency-loader"
+        },
+        loader: {
+          name: "search-dependency-loader"
+        },
+        placeholder: "Search by dependency"
+      }) }}
+
+      <div class="govuk-body govuk-!-margin-top-4">
+        {{ govukButton({
+          classes: "app-button js-hidden",
+          text: "View services"
+        }) }}
+      </div>
+
+    {% endcall %}
+
+  </form>
+
+    {% call appFilters({
+      action: pageUrl,
+      clear: {
+        url: pageUrl
+      }
+    }) %}
+
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "filters-test-suite",
+          name: "versionStart",
+          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          label: {
+            text: "Version from",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          icon: appSearchIcon(),
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.versionStart,
+          suggestions: dependenceNameFilters,
+          placeholder: "Start version"
+        }) }}
+      </div>
+
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "filters-test-suite",
+          name: "versionEnd",
+          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          label: {
+            text: "Version to",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          icon: appSearchIcon(),
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.versionEnd,
+          suggestions: dependenceNameFilters,
+          placeholder: "End version"
+        }) }}
+      </div>
+
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "filters-team",
+          name: "team",
+          classes: "app-autocomplete--small app-autocomplete--inline",
+          label: {
+            text: "Team",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.team,
+          suggestions: teamOptions
+        }) }}
+      </div>
+
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "environment",
+          name: "environment",
+          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          label: {
+            text: "Environment",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.environment,
+          suggestions: environmentOptions
+        }) }}
+      </div>
+
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "tag",
+          name: "tag",
+          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          label: {
+            text: "Tag",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.tag,
+          suggestions: tagOptions
+        }) }}
+      </div>
+
+    {% endcall %}
+
+    {% block xhrContent %}
+      <div data-xhr="{{ xhrElement }}">
+        {% call(params) appEntityTable(tableData) %}
+          {{  entityRow({
+            rowClasses: params.rowClasses,
+            loopIndex: params.loopIndex,
+            dependencyType: dependencyType,
+            dependencyName: dependencyName,
+            entity:  params.row.entity,
+            entityVersion: params.row.entityVersion,
+            entityTags: params.row.entityTags,
+            teams: params.row.teams,
+            dependencyVersion: params.row.dependencyVersion,
+            envs: params.row.envs
+          }) }}
+        {% endcall %}
+      </div>
+    {% endblock %}
+
+{% endblock %}

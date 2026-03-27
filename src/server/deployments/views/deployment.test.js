@@ -18,12 +18,12 @@ describe('Microservice deployment page', () => {
   const deploymentPageUrl = `/deployments/${deploymentFixture.environment}/${deploymentFixture.cdpDeploymentId}`
 
   beforeAll(async () => {
-    vi.useFakeTimers({ advanceTimers: true })
-    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
     fetchDeployment.mockResolvedValue(deploymentFixture)
     fetchRepository.mockResolvedValue(repositoryFixture)
     server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
   })
 
   afterAll(async () => {
