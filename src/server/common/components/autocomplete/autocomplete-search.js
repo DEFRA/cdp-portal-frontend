@@ -58,6 +58,8 @@ class AutocompleteSearch extends Autocomplete {
     currentUrl.search = ''
     currentUrl.hash = ''
     history.replace(currentUrl.toString())
+
+    this.submitForm()
   }
 
   createSuggestionElementTemplate() {
