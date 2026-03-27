@@ -16,11 +16,11 @@ describe('Database update page', () => {
   const databaseUpdatePageUrl = `/deployments/database-updates/${migrationRunFixture.environment}/${migrationRunFixture.cdpMigrationId}`
 
   beforeAll(async () => {
-    vi.useFakeTimers({ advanceTimers: true })
-    vi.setSystemTime(new Date('2025-05-14T14:16:00.000Z'))
-
     fetchMigrationRun.mockResolvedValue(migrationRunFixture)
     server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-14T14:16:00.000Z'))
   })
 
   afterAll(async () => {
