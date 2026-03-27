@@ -3,6 +3,8 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "test-suites/common/components/notification-row/macro.njk" import notificationRow %}
+{% from "info/macro.njk" import appInfo %}
+
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -26,6 +28,11 @@
           <p class="govuk-!-margin-bottom-2">
             Automatic notifications on test suite runs
           </p>
+
+          {{ appInfo({
+            "html": "Before enabling alerts, add the 'CDP Bot' integration to the destination Slack channel otherwise messages will not be delivered.<br>
+            See the <a href='/documentation/how-to/testing/test-notifications.md#add-cdp-bot-to-the-channel' target='_blank'>docs</a> for more information."
+          }) }}
 
           <div class="app-section app-section--extra-wide govuk-!-margin-bottom-9">
             {% call(params) appEntityTable(tableData) %}
