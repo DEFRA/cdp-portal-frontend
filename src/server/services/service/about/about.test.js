@@ -22,15 +22,15 @@ describe('Services', () => {
 
   describe('About service page', () => {
     beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
       mockServiceEntityCall('mock-service', 'frontend')
       mockServicesAdditionalCalls({
         repositoryName: 'mock-service',
         frontendOrBackend: 'frontend'
       })
       server = await initialiseServer()
+
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
     })
 
     afterAll(async () => {
@@ -93,9 +93,6 @@ describe('About postgres service page', () => {
   let server
 
   beforeAll(async () => {
-    vi.useFakeTimers({ advanceTimers: true })
-    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
     mockServiceEntityCallWithPostgres(serviceName, 'backend')
     mockServicesAdditionalCalls({
       repositoryName: serviceName,
@@ -103,6 +100,9 @@ describe('About postgres service page', () => {
       isPostgresService: true
     })
     server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
   })
 
   afterAll(async () => {
@@ -195,14 +195,14 @@ describe('About prototype service page', () => {
   let server
 
   beforeAll(async () => {
-    vi.useFakeTimers({ advanceTimers: true })
-    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
     mockServiceEntityCall(serviceName, 'Prototype', 'Created', 'Microservice')
     mockServicesAdditionalCalls({
       repositoryName: serviceName
     })
     server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
   })
 
   afterAll(async () => {

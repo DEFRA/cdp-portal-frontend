@@ -15,13 +15,13 @@ describe('Test-Suite Status page', () => {
 
   describe('Creating status', () => {
     beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
       const repositoryName = 'mock-test-suite'
       const status = 'Creating'
       mockCommonTestSuiteCalls(repositoryName, status)
       server = await initialiseServer()
+
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
     })
 
     afterAll(async () => {
@@ -73,13 +73,13 @@ describe('Test-Suite Status page', () => {
 
   describe('Created status', () => {
     beforeAll(async () => {
-      vi.useFakeTimers({ advanceTimers: true })
-      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
       const repositoryName = 'mock-test-suite'
       const status = 'Created'
       mockCommonTestSuiteCalls(repositoryName, status)
       server = await initialiseServer()
+
+      vi.useFakeTimers({ advanceTimers: true })
+      vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
     })
 
     afterAll(async () => {

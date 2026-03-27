@@ -12,10 +12,10 @@ describe('Blog page', () => {
   let server
 
   beforeAll(async () => {
+    server = await initialiseServer()
+
     vi.useFakeTimers({ advanceTimers: true })
     vi.setSystemTime(new Date('2025-09-01T17:16:00.000Z'))
-
-    server = await initialiseServer()
   })
 
   afterAll(async () => {

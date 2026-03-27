@@ -22,9 +22,6 @@ describe('Deployments list page', () => {
   let server
 
   beforeAll(async () => {
-    vi.useFakeTimers({ advanceTimers: true })
-    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
-
     fetchServices.mockResolvedValue(entityServicesFixture)
     fetchDeploymentFilters.mockResolvedValue(deploymentsFiltersFixture)
     fetchDeploymentsWithMigrations.mockResolvedValue(
@@ -32,6 +29,9 @@ describe('Deployments list page', () => {
     )
 
     server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
   })
 
   afterAll(async () => {
