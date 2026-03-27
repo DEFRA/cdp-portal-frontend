@@ -2,6 +2,7 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { getEntityDependencies } from '../../DependencyService.js'
 import { getDependencyTypes } from '../../FilterService.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
+import withQueryParams from '#server/common/helpers/view/withQueryParams.js'
 
 export const options = {
   id: 'dependency-list',
@@ -24,19 +25,33 @@ export default async function (request) {
 
   const dependencyTypeOptions = buildOptions(dependencyTypes)
 
+  const pageUrl = request.routeLookup('dependency-list', {
+    params: { entity }
+  })
+
   const rows = dependencies.map((dependency) => ({
     entityVersion: dependency.entityversion,
+    entityVersionFilterUrl: withQueryParams(pageUrl, request.query, {
+      entityVersion: dependency.entityversion
+    }),
     entityTags: dependency.entitytags,
-    dependency: dependency.name,
+    dependencyName: dependency.name,
+    dependencyNameFilterUrl: withQueryParams(pageUrl, request.query, {
+      dependencyName: `${dependency.type}:${dependency.name}`
+    }),
     dependencyVersion: dependency.version,
-    dependencyType: dependency.type
+    dependencyVersionFilterUrl: withQueryParams(pageUrl, request.query, {
+      dependencyVersion: dependency.version
+    }),
+    dependencyType: dependency.type,
+    dependencyTypeFilterUrl: withQueryParams(pageUrl, request.query, {
+      dependencyType: dependency.type
+    })
   }))
 
   return {
     pageTitle: `Dependencies Explorer - ${entity}`,
-    pageUrl: request.routeLookup('dependency-list', {
-      params: { entity }
-    }),
+    pageUrl,
     entity,
     dependencyTypeOptions,
     tableData: {
@@ -48,7 +63,7 @@ export default async function (request) {
         },
         { id: 'dependencyType', text: 'Dependency type', width: 10 },
         {
-          id: 'dependency',
+          id: 'dependencyName',
           text: 'Dependency name',
           width: 20
         },

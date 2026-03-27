@@ -50,8 +50,8 @@ export async function getEntityDependencies(name, query = {}) {
     searchUrl.searchParams.set('entityVersion', query.entityVersion)
   }
 
-  if (query.version) {
-    searchUrl.searchParams.set('version', query.version)
+  if (query.dependencyVersion) {
+    searchUrl.searchParams.set('version', query.dependencyVersion)
   }
 
   if (query.dependencyType) {

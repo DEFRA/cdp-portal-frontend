@@ -80,7 +80,7 @@
     <div class="app-filters__item">
       {{ appAutocomplete({
         id: "dependencyVersion",
-        name: "version",
+        name: "dependencyVersion",
         classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
           text: "Dependency version",
@@ -90,7 +90,7 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: query.version,
+        value: query.dependencyVersion,
         suggestions: [],
         placeholder: "Version"
       }) }}
@@ -106,10 +106,14 @@
           loopIndex: params.loopIndex,
           entity: entity,
           entityVersion: params.row.entityVersion,
+          entityVersionFilterUrl: params.row.entityVersionFilterUrl,
           entityTags: params.row.entityTags,
-          dependency:  params.row.dependency,
+          dependencyName: params.row.dependencyName,
+          dependencyNameFilterUrl: params.row.dependencyNameFilterUrl,
           dependencyVersion: params.row.dependencyVersion,
-          dependencyType: params.row.dependencyType
+          dependencyVersionFilterUrl: params.row.dependencyVersionFilterUrl,
+          dependencyType: params.row.dependencyType,
+          dependencyTypeFilterUrl: params.row.dependencyTypeFilterUrl
         }) }}
       {% endcall %}
     </div>

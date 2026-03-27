@@ -4,7 +4,7 @@
   <td headers="entityVersion" class="app-entity-table__cell" data-label="entityVersion">
       <div class="app-!-layout-centered govuk-!-margin-top-2">
         <div class="app-entity-table__row-caption">
-          <a class="app-link" href="/dependency-explorer/services/{{ params.entity  | urlencode | safe }}?entityVersion={{ params.entityVersion  | urlencode | safe }}" data-testid="app-entity-link">{{ params.entityVersion }}</a>
+          <a class="app-link" href="{{ params.entityVersionFilterUrl }}" data-testid="app-entity-link">{{ params.entityVersion }}</a>
 
           {% for tag in params.entityTags %}
 
@@ -20,17 +20,17 @@
   </td>
 
   <td headers="dependencyType" class="app-entity-table__cell" data-label="dependencyType">
-    {{ params.dependencyType }}
+    <a class="app-link" href="{{ params.dependencyTypeFilterUrl }}" data-testid="app-entity-link">{{ params.dependencyType }}</a>
   </td>
 
-  <td headers="entity" class="app-entity-table__cell" data-label="entity">
-     <a class="app-link" href="/dependency-explorer/{{params.dependencyType  | urlencode | safe}}:{{ params.dependency  | urlencode | safe }}" data-testid="app-entity-link">
-        {{ params.dependency }}
+  <td headers="dependencyName" class="app-entity-table__cell" data-label="dependencyName">
+     <a class="app-link" href="{{ params.dependencyNameFilterUrl }}" data-testid="app-entity-link">
+        {{ params.dependencyName }}
       </a>
   </td>
 
   <td headers="dependencyVersion" class="app-entity-table__cell" data-label="dependencyVersion">
-    <a class="app-link" href="/dependency-explorer/{{params.dependencyType | urlencode | safe}}:{{ params.dependency | urlencode | safe }}?versionStart={{params.dependencyVersion | urlencode | safe}}" data-testid="app-entity-link">
+    <a class="app-link" href="{{ params.dependencyVersionFilterUrl }}" data-testid="app-entity-link">
       {{ params.dependencyVersion }}
     </a>
   </td>
