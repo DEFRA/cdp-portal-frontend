@@ -41,7 +41,8 @@
   },
   "overrides": {
     "fast-xml-parser": "5.5.9",
-    "serialize-javascript": "7.0.3"
+    "serialize-javascript": "7.0.3",
+    "tmp": "0.2.5"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "3.986.0",
