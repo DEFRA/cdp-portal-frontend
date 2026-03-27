@@ -130,6 +130,7 @@ class Autocomplete {
       'app-autocomplete-input'
     )
     $autocomplete.dataset.testid = 'app-autocomplete-input'
+    $autocomplete.dataset.typeahead = this.typeahead
     $autocomplete.setAttribute('autocapitalize', 'none')
     $autocomplete.setAttribute('autocomplete', 'off')
     $autocomplete.setAttribute('role', 'combobox')
@@ -318,6 +319,10 @@ class Autocomplete {
 
   dispatchInputEvent() {
     this.$autocomplete.dispatchEvent(new Event('input', { bubbles: true }))
+  }
+
+  dispatchChangeEvent() {
+    this.$autocomplete.dispatchEvent(new Event('change', { bubbles: true }))
   }
 
   submitForm() {
@@ -683,7 +688,7 @@ class Autocomplete {
 
   // Action to perform when a choice is made by the user click or enter in suggestions, enter or typing in input
   choiceAction() {
-    this.dispatchInputEvent()
+    this.dispatchChangeEvent()
   }
 
   autocompleteInputEvent(event) {
@@ -731,7 +736,7 @@ class Autocomplete {
     this.resetAutocompleteValues()
     this.$autocomplete.focus()
 
-    this.dispatchInputEvent()
+    this.dispatchChangeEvent()
     this.hideCloseButton()
     this.populateSuggestions({
       textValue: this.$autocomplete.value,
