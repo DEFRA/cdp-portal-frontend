@@ -53,6 +53,17 @@ class AutocompleteSearch extends Autocomplete {
       suggestionIndex: this.suggestionIndex
     })
 
+    const foundSuggestion = this.getSuggestionByText(textValue)
+
+    // An exact match was found
+    if (foundSuggestion?.value) {
+      this.updateInputValue({
+        text: textValue,
+        value: foundSuggestion.value
+      })
+      return
+    }
+
     if (!textValue) {
       this.updateInputValue({ text: textValue, value: textValue })
     }
