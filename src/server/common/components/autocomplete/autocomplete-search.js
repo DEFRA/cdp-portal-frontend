@@ -11,10 +11,22 @@ class AutocompleteSearch extends Autocomplete {
     const disableLunrSpecialCharactersFilter = $module.querySelector(
       `[data-js*="app-progressive-input"]`
     ).dataset.disableLunrSpecialCharactersFilter
+    const disableAutoSubmit = $module.querySelector(
+      `[data-js*="app-progressive-input"]`
+    ).dataset.disableAutoSubmit
 
     super($module, { includeInput: true })
 
     this.disableLunrSpecialCharactersFilter = disableLunrSpecialCharactersFilter
+    this.disableAutoSubmit = disableAutoSubmit
+  }
+
+  choiceAction() {
+    super.choiceAction()
+
+    if (!this.disableAutoSubmit) {
+      this.submitForm()
+    }
   }
 
   autocompleteInputEvent(event) {
@@ -44,11 +56,6 @@ class AutocompleteSearch extends Autocomplete {
     if (!textValue) {
       this.updateInputValue({ text: textValue, value: textValue })
     }
-  }
-
-  // Action to perform when a choice is made by the user
-  choiceAction() {
-    this.submitForm()
   }
 
   clearButtonClickEvent() {

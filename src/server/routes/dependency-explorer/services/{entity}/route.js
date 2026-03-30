@@ -24,19 +24,21 @@ export default async function (request) {
 
   const dependencyTypeOptions = buildOptions(dependencyTypes)
 
+  const pageUrl = request.routeLookup('dependency-list', {
+    params: { entity }
+  })
+
   const rows = dependencies.map((dependency) => ({
     entityVersion: dependency.entityversion,
     entityTags: dependency.entitytags,
-    dependency: dependency.name,
+    dependencyName: dependency.name,
     dependencyVersion: dependency.version,
     dependencyType: dependency.type
   }))
 
   return {
     pageTitle: `Dependencies Explorer - ${entity}`,
-    pageUrl: request.routeLookup('dependency-list', {
-      params: { entity }
-    }),
+    pageUrl,
     entity,
     dependencyTypeOptions,
     tableData: {
@@ -48,7 +50,7 @@ export default async function (request) {
         },
         { id: 'dependencyType', text: 'Dependency type', width: 10 },
         {
-          id: 'dependency',
+          id: 'dependencyName',
           text: 'Dependency name',
           width: 20
         },

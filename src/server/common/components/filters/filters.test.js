@@ -101,10 +101,25 @@ describe('#filters', () => {
     expect($filtersClearAll).toHaveTextContent('Clear all')
   })
 
-  test('When typing, should ajax submit form with expected query params', () => {
+  test('When selecting a value, should ajax submit form with expected query params', () => {
     $textInput.focus()
     $textInput.value = 'frangipani'
 
+    $form.dispatchEvent(new Event('change'))
+
+    // advance to past form debounce
+    vi.advanceTimersByTime(220)
+
+    expect(mockHistoryPush).toHaveBeenCalledWith(
+      '?plant-name=frangipani&owner=scoobie'
+    )
+  })
+
+  test('When typing in a typeahead, should ajax submit form with expected query params', () => {
+    $textInput.focus()
+    $textInput.value = 'frangipani'
+
+    $form.dataset.typeahead = 'true' // Note actual code looks at the input who's event has bubbled to form
     $form.dispatchEvent(new Event('input'))
 
     // advance to past form debounce
@@ -115,13 +130,25 @@ describe('#filters', () => {
     )
   })
 
+  test('When typing in a non-typeahead, should ajax submit form with expected query params', () => {
+    $textInput.focus()
+    $textInput.value = 'frangipani'
+
+    $form.dispatchEvent(new Event('input'))
+
+    // advance to past form debounce
+    vi.advanceTimersByTime(220)
+
+    expect(mockHistoryPush).not.toHaveBeenCalledWith()
+  })
+
   test('Clear all should work as expected', () => {
     expect(window.location.search).toEqual('')
 
     $textInput.focus()
     $textInput.value = 'Ribes rubrum'
 
-    $form.dispatchEvent(new Event('input'))
+    $form.dispatchEvent(new Event('change'))
 
     // advance to past form debounce
     vi.advanceTimersByTime(220)

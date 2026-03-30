@@ -21,10 +21,22 @@ function filters($form) {
     $clearAll.addEventListener('click', clearFiltersFunction)
   }
   const minimalDebounce = 200
-  $form.addEventListener('input', debounce(handleFormSubmit, minimalDebounce)) // minimal debounce whilst user is typing
+  $form.addEventListener('input', debounce(handleFormInput, minimalDebounce)) // minimal debounce whilst user is typing
+  $form.addEventListener('change', debounce(handleFormChange, minimalDebounce))
 }
 
-function handleFormSubmit(event) {
+function handleFormInput(event) {
+  const form = event.target.closest('form')
+  event.preventDefault()
+
+  if (event.target.dataset?.typeahead === 'true') {
+    submitForm(form).catch((error) => {
+      throw new Error(error)
+    })
+  }
+}
+
+function handleFormChange(event) {
   const form = event.target.closest('form')
   event.preventDefault()
 
@@ -40,7 +52,6 @@ async function submitForm($form) {
 
   $form.dataset.isSubmitting = 'true'
 
-  // TODO this shouldn't be querying for non typeahead components
   const queryParams = Array.from($form.elements).reduce(
     (validElements, element) => {
       if (element.name && element.value) {

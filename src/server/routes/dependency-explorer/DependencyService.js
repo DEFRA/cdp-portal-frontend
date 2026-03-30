@@ -27,6 +27,10 @@ export async function getDependencyDependents(type, name, query = {}) {
     searchUrl.searchParams.set('lteVersion', query.versionEnd)
   }
 
+  if (query.entity) {
+    searchUrl.searchParams.set('entity', query.entity)
+  }
+
   const resp = await fetch(searchUrl, { method: 'GET' })
   if (resp.status === 200) {
     return resp.json()
@@ -46,12 +50,16 @@ export async function getEntityDependencies(name, query = {}) {
     searchUrl.searchParams.set('entityVersion', query.entityVersion)
   }
 
-  if (query.version) {
-    searchUrl.searchParams.set('version', query.version)
+  if (query.dependencyVersion) {
+    searchUrl.searchParams.set('version', query.dependencyVersion)
   }
 
-  if (query.type) {
-    searchUrl.searchParams.set('type', query.type)
+  if (query.dependencyType) {
+    searchUrl.searchParams.set('type', query.dependencyType)
+  }
+
+  if (query.dependencyName) {
+    searchUrl.searchParams.set('name', query.dependencyName.split(':')?.at(1))
   }
 
   const resp = await fetch(searchUrl, { method: 'GET' })
