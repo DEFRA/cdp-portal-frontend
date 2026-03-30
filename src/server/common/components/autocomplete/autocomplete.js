@@ -693,7 +693,7 @@ class Autocomplete {
     // Give the dropdown time to update
     setTimeout(() => {
       this.dispatchChangeEvent()
-    }, 500)
+    }, 100)
   }
 
   autocompleteInputEvent(event) {

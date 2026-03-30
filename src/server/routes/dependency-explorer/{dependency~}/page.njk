@@ -7,7 +7,18 @@
     intro: "View the services which are using a dependency"
   }) }}
 
-  <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader">
+  <script>
+
+    function updatePath() {
+      const filtersForm = document.querySelector("form[data-js='app-filters']")
+      if (filtersForm) {
+        filtersForm.setAttribute('action', window.location.pathname)
+      }
+    }
+
+  </script>
+
+  <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
