@@ -64,7 +64,7 @@
 
   </form>
 
-
+  {% block xhrContent %}
     {% call appFilters({
       action: pageUrl,
       clear: {
@@ -75,11 +75,12 @@
           items:  [
             {
               heading: {
-                text: 'Results'
+                text: 'Count'
               },
               entity: {
-                kind: 'text',
-                value: totalItems
+                kind: 'tag',
+                value: totalItems,
+                dataXhr: "resultsCount"
               }
             }
           ]
@@ -195,7 +196,7 @@
 
     {% endcall %}
 
-    {% block xhrContent %}
+
       <div data-xhr="results">
         {% call(params) appEntityTable(tableData) %}
           {{  entityRow({
