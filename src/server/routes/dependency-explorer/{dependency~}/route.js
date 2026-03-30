@@ -85,6 +85,7 @@ export default async function (request) {
         dependency: encodeURIComponent(`${dependencyType}:${dependencyName}`)
       }
     }),
+    query: request.query,
     dependencyType,
     dependencyName,
     environmentOptions,
