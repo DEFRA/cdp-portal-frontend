@@ -69,6 +69,21 @@
       action: pageUrl,
       clear: {
         url: pageUrl
+      },
+      info: {
+        html: appEntityDataList({
+          items:  [
+            {
+              heading: {
+                text: 'Results'
+              },
+              entity: {
+                kind: 'text',
+                value: totalItems
+              }
+            }
+          ]
+        })
       }
     }) %}
 
