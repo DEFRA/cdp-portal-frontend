@@ -688,6 +688,7 @@ class Autocomplete {
 
   // Action to perform when a choice is made by the user click or enter in suggestions, enter or typing in input
   choiceAction() {
+    this.dispatchInputEvent()
     this.dispatchChangeEvent()
   }
 
@@ -736,12 +737,18 @@ class Autocomplete {
     this.resetAutocompleteValues()
     this.$autocomplete.focus()
 
-    this.dispatchChangeEvent()
     this.hideCloseButton()
+
+    if (this.dataFetcher.isEnabled) {
+      this.callDataFetcher(this.$autocomplete.value)
+    }
+
     this.populateSuggestions({
       textValue: this.$autocomplete.value,
       suggestionIndex: null
     })
+
+    this.dispatchChangeEvent()
   }
 
   addEventListeners() {
@@ -845,12 +852,6 @@ class Autocomplete {
     // User typing inside input
     this.$autocomplete.addEventListener(
       'input',
-      this.autocompleteInputEvent.bind(this)
-    )
-
-    // User selecting on option
-    this.$autocomplete.addEventListener(
-      'change',
       this.autocompleteInputEvent.bind(this)
     )
 

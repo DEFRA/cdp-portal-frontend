@@ -46,11 +46,6 @@ class AutocompleteSearch extends Autocomplete {
     }
   }
 
-  // Action to perform when a choice is made by the user
-  choiceAction() {
-    this.submitForm()
-  }
-
   clearButtonClickEvent() {
     super.clearButtonClickEvent()
 
@@ -58,8 +53,6 @@ class AutocompleteSearch extends Autocomplete {
     currentUrl.search = ''
     currentUrl.hash = ''
     history.replace(currentUrl.toString())
-
-    this.submitForm()
   }
 
   createSuggestionElementTemplate() {

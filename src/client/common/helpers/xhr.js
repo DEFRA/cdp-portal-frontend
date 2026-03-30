@@ -49,16 +49,18 @@ function injectHtmlResponseIntoPage(text) {
   updatePageTitle(xhrDataDocument)
 }
 
-function updatePage(text, params = {}) {
+function updatePage(text, params = {}, newUrl = '') {
   injectHtmlResponseIntoPage(text)
 
   publish(eventName.xhrUpdate, { params })
 
   if (params) {
-    const url = qs.stringify(params, {
-      arrayFormat: 'repeat',
-      addQueryPrefix: true
-    })
+    const url =
+      newUrl +
+      qs.stringify(params, {
+        arrayFormat: 'repeat',
+        addQueryPrefix: true
+      })
 
     try {
       history.replace(url, { xhrData: text }) // Data saved to state for forward/back button replay
@@ -130,7 +132,8 @@ async function xhrPostRequest(url, payload = {}) {
     })
 
     const text = await response.text()
-    updatePage(text)
+
+    updatePage(text, {}, response.url)
 
     return { ok: true, text }
   } catch (error) {

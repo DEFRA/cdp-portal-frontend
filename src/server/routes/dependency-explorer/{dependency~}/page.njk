@@ -7,13 +7,14 @@
     intro: "View the services which are using a dependency"
   }) }}
 
-  <form action="" method="POST">
+  <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader">
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
 
+    <div style="display: flex; align-items: end;">
       {{ appAutocomplete({
-        id: "dependency",
+        id: "dependencyInput",
         name: "dependency",
         classes: "app-autocomplete--search-medium app-autocomplete--inline",
         label: {
@@ -37,6 +38,8 @@
         },
         placeholder: "Search by dependency"
       }) }}
+      {{ appLoader({ name: 'results-loader', classes: 'govuk-!-margin-bottom-2 govuk-!-margin-left-2' }) }}
+    </div>
 
       <div class="govuk-body govuk-!-margin-top-4">
         {{ govukButton({
@@ -48,6 +51,7 @@
     {% endcall %}
 
   </form>
+
 
     {% call appFilters({
       action: pageUrl,
@@ -74,40 +78,40 @@
     </div>
 
       <div class="app-filters__item">
-        {{ appAutocomplete({
+        {{ govukInput({
           id: "versionStart",
           name: "versionStart",
-          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          classes: "app-input app-input--medium app-input--block",
           label: {
             text: "Dependency version from",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
           },
-          icon: appSearchIcon(),
           formGroup: {
             classes: "app-form-group--inline"
           },
           value: query.versionStart,
-          suggestions: dependenceNameFilters,
-          placeholder: "Start version"
+          attributes: {
+            placeholder: "Start version"
+          }
         }) }}
       </div>
 
       <div class="app-filters__item">
-        {{ appAutocomplete({
+        {{ govukInput({
           id: "versionEnd",
           name: "versionEnd",
-          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          classes: "app-input app-input--medium app-input--block",
           label: {
             text: "Dependency version to",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
           },
-          icon: appSearchIcon(),
           formGroup: {
             classes: "app-form-group--inline"
           },
           value: query.versionEnd,
-          suggestions: dependenceNameFilters,
-          placeholder: "End version"
+          attributes: {
+            placeholder: "End version"
+          }
         }) }}
       </div>
 
@@ -165,7 +169,7 @@
     {% endcall %}
 
     {% block xhrContent %}
-      <div data-xhr="{{ xhrElement }}">
+      <div data-xhr="results">
         {% call(params) appEntityTable(tableData) %}
           {{  entityRow({
             rowClasses: params.rowClasses,

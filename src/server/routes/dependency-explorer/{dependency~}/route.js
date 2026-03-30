@@ -122,7 +122,7 @@ export async function POST(request, h) {
   return h.redirect(
     request.routeLookup('dependency-explorer', {
       params: {
-        dependency
+        dependency: encodeURIComponent(dependency)
       }
     })
   )
