@@ -72,7 +72,8 @@
     "data-typeahead": true if params.typeahead == true,
     "data-testid": "app-progressive-input",
     "data-suggestion-classes": params.suggestionClasses,
-    "data-disable-lunr-special-characters-filter": true if params.disableLunrSpecialCharactersFilter == true
+    "data-disable-lunr-special-characters-filter": true if params.disableLunrSpecialCharactersFilter == true,
+    "data-disable-auto-submit": true if params.disableAutoSubmit == true
   } | pickBy %}
 
   <div class="{{ classes }}"

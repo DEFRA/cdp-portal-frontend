@@ -28,6 +28,7 @@
         value: dependencyType + ':' + dependencyName if dependencyType or dependencyName,
         template: 'search',
         disableLunrSpecialCharactersFilter: true,
+        disableAutoSubmit: true,
         suggestionClasses: "app-autocomplete__suggestion--leading-hint",
         dataFetcher: {
           name: "searchDependencyName",
