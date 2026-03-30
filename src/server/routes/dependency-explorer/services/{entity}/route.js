@@ -38,6 +38,7 @@ export default async function (request) {
 
   return {
     pageTitle: `Dependencies Explorer - ${entity}`,
+    query: request.query,
     pageUrl,
     entity,
     dependencyTypeOptions,
