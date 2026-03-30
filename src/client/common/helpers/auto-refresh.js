@@ -16,6 +16,8 @@ async function refresh(event) {
   }
 
   const loaderName = $form.dataset.autoRefreshLoader
+  const onRefreshHandler = $form.dataset.onRefresh
+
   let loader
   if (loaderName) {
     loader = document.querySelector(`[data-js="${loaderName}"]`)
@@ -33,6 +35,10 @@ async function refresh(event) {
 
   if (loader) {
     loader.classList.remove('app-loader--is-loading')
+  }
+
+  if (onRefreshHandler) {
+    window[onRefreshHandler]?.()
   }
 
   $form.dataset.isSubmitting = 'false'
