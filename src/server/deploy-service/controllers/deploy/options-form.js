@@ -11,6 +11,8 @@ import { transformRunningServices } from '../../../services/service/about/transf
 import { getEnvironments } from '../../../common/helpers/environments/get-environments.js'
 import { provideDatabaseStatusClassname } from '../../../common/components/database-detail/provide-database-status-classname.js'
 import { fetchLatestMigrations } from '../../../common/helpers/fetch/fetch-latest-migrations.js'
+import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
+import { nullify404 } from '../../../common/helpers/nullify-404.js'
 
 const optionsFormController = {
   options: {
@@ -40,7 +42,8 @@ const optionsFormController = {
       ...migration,
       statusClassname: provideDatabaseStatusClassname(migration.status)
     }))
-    const environments = getEnvironments(userSession?.scope)
+    const entity = await fetchEntity(imageName).catch(nullify404)
+    const environments = getEnvironments(userSession?.scope, entity.subType)
 
     return h.view('deploy-service/views/options-form', {
       pageTitle: 'Deploy service options',

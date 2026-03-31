@@ -16,7 +16,7 @@ const availableEnvironmentsController = {
       const entity = await fetchEntity(request.query?.serviceName).catch(
         nullify404
       )
-      const environments = getEnvironments(userScopes, entity?.type)
+      const environments = getEnvironments(userScopes, entity?.subType)
       return environments.length
         ? environments.map((environment) => ({
             text: environment,
