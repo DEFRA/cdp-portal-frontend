@@ -17,6 +17,12 @@ import { sanitiseUser } from '../../../server/common/helpers/sanitisation/saniti
 
 const formatText = (value) => upperFirst(kebabCase(value))
 
+const numberFormatter = new Intl.NumberFormat('en-GB', {
+  notation: 'compact',
+  maximumSignificantDigits: 3
+})
+const formatNumber = (value) => numberFormatter.format(value)
+
 export {
   assign,
   compact,
@@ -24,6 +30,7 @@ export {
   formatDate,
   formatDistanceToNow,
   formatText,
+  formatNumber,
   kebabCase,
   isArray,
   isNil,

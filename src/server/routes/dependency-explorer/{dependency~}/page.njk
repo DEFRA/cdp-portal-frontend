@@ -79,7 +79,8 @@
               },
               entity: {
                 kind: 'text',
-                value: totalItems,
+                value: totalItems | formatNumber,
+                title: totalItems,
                 dataXhr: "resultsCount",
                 dataJs: 'rows-loader'
               }
