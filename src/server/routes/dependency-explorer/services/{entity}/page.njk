@@ -11,6 +11,22 @@
     action: pageUrl,
     clear: {
       url: pageUrl
+    },
+    info: {
+      html: appEntityDataList({
+        items:  [
+          {
+            heading: {
+              text: 'Count'
+            },
+            entity: {
+              kind: 'text',
+              value: totalItems,
+              dataXhr: "resultsCount"
+            }
+          }
+        ]
+      })
     }
   }) %}
 
