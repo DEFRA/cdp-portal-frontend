@@ -1,27 +1,19 @@
-import { ProxyAgent, setGlobalDispatcher } from 'undici'
-import { bootstrap } from 'global-agent'
-
 import { createLogger } from '../logging/logger.js'
-import { config } from '../../../../config/config.js'
+import Https from 'node:https'
+import Wreck from '@hapi/wreck'
 
 const logger = createLogger()
 
 /**
- * If HTTP_PROXY is set setupProxy() will enable it globally
- * for a number of http clients.
- * Node Fetch will still need to pass a ProxyAgent in on each call.
+ * Proxy support is handled by Node.js via HTTPS_PROXY + NODE_USE_ENV_PROXY (Node 20+).
+ * Most clients (e.g. undici, node-fetch) work automatically.
+ * Wreck requires explicitly using the global agent.
  */
 export function setupProxy() {
-  const proxyUrl = config.get('httpProxy')
+  if (process.env.HTTPS_PROXY) {
+    logger.info('Routing outbound requests via proxy')
 
-  if (proxyUrl) {
-    logger.info('setting up global proxies')
-
-    // Undici proxy
-    setGlobalDispatcher(new ProxyAgent(proxyUrl))
-
-    // global-agent (axios/request/and others) no proxy set by env variables
-    bootstrap()
-    global.GLOBAL_AGENT.HTTP_PROXY = proxyUrl
+    // Required for Wreck
+    Wreck.agents = Https.globalAgent
   }
 }
