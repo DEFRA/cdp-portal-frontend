@@ -48,24 +48,6 @@
       }) }}
     </div>
 
-
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-      id: "dependencyType",
-      name: "dependencyType",
-      classes: "app-autocomplete--tiny app-autocomplete--inline",
-      label: {
-        text: "Dependency type",
-        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      },
-      formGroup: {
-        classes: "app-form-group--inline"
-      },
-      value: query.dependencyType,
-      suggestions: dependencyTypeOptions
-      }) }}
-    </div>
-
     {{ appAutocomplete({
       id: "dependencyName",
       name: "dependencyName",
@@ -90,6 +72,23 @@
       },
       placeholder: "Search by dependency"
     }) }}
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+      id: "dependencyType",
+      name: "dependencyType",
+      classes: "app-autocomplete--tiny app-autocomplete--inline",
+      label: {
+        text: "Dependency type",
+        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+      },
+      formGroup: {
+        classes: "app-form-group--inline"
+      },
+      value: query.dependencyType,
+      suggestions: dependencyTypeOptions
+      }) }}
+    </div>
 
     <div class="app-filters__item">
       {{ govukInput({

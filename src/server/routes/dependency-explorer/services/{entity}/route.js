@@ -64,12 +64,12 @@ export default async function (request) {
           text: 'Service version',
           width: 10
         },
-        { id: 'dependencyType', text: 'Dependency type', width: 10 },
         {
           id: 'dependencyName',
           text: 'Dependency name',
           width: 20
         },
+        { id: 'dependencyType', text: 'Dependency type', width: 10 },
         { id: 'dependencyVersion', text: 'Dependency version', width: 10 }
       ],
       rows,
