@@ -52,6 +52,15 @@ async function submitForm($form) {
 
   $form.dataset.isSubmitting = 'true'
 
+  const loaderName = $form.dataset.loaderName
+  let loader
+  if (loaderName) {
+    loader = document.querySelector(`[data-js='${loaderName}']`)
+    if (loader) {
+      loader.classList.add('app-loader--is-loading')
+    }
+  }
+
   const queryParams = Array.from($form.elements).reduce(
     (validElements, element) => {
       if (element.name && element.value) {
@@ -68,6 +77,10 @@ async function submitForm($form) {
   await xhrRequest($form.action, queryParams)
 
   $form.dataset.isSubmitting = 'false'
+
+  if (loader) {
+    loader.classList.add('app-loader--is-loading')
+  }
 }
 
 export { filters }

@@ -1,4 +1,4 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .js-enabled {
   .app-loader {
@@ -20,6 +20,10 @@
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
     margin-left: govuk-spacing(1);
+
+    & * {
+      display: none;
+    }
   }
 
   .app-loader--small {
@@ -43,5 +47,4 @@
       transform: rotate(360deg);
     }
   }
-
 }

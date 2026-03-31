@@ -7,28 +7,31 @@
     intro: 'Dependencies'
   }) }}
 
-  {% call appFilters({
-    action: pageUrl,
-    clear: {
-      url: pageUrl
-    },
-    info: {
-      html: appEntityDataList({
-        items:  [
-          {
-            heading: {
-              text: 'Count'
-            },
-            entity: {
-              kind: 'text',
-              value: totalItems,
-              dataXhr: "resultsCount"
+  {% block xhrContent %}
+    {% call appFilters({
+      action: pageUrl,
+      clear: {
+        url: pageUrl
+      },
+      info: {
+        html: appEntityDataList({
+          items:  [
+            {
+              heading: {
+                text: 'Count'
+              },
+              entity: {
+                kind: 'text',
+                value: totalItems,
+                dataXhr: 'resultsCount',
+                dataJs: 'rows-loader'
+              }
             }
-          }
-        ]
-      })
-    }
-  }) %}
+          ]
+        })
+      },
+      loader: 'rows-loader'
+    }) %}
 
 
     <div class="app-filters__item">
@@ -111,7 +114,7 @@
 
   {% endcall %}
 
-  {% block xhrContent %}
+
     <div data-xhr="results">
       {% call(params) appEntityTable(tableData) %}
         {{  dependencyRow({

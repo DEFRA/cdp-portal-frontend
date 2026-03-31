@@ -80,12 +80,14 @@
               entity: {
                 kind: 'text',
                 value: totalItems,
-                dataXhr: "resultsCount"
+                dataXhr: "resultsCount",
+                dataJs: 'rows-loader'
               }
             }
           ]
         })
-      }
+      },
+      loader: 'rows-loader'
     }) %}
 
     <div class="app-filters__item">
