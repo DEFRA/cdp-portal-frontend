@@ -80,6 +80,7 @@ export default async function (request) {
       entity: dependent.name,
       entityVersion: dependent.version,
       entityTags: dependent.tags,
+      entityStage: dependent.stage,
       teams: dependent.teams.map((team) => ({
         value: teams.find((entry) => entry.teamId === team)?.name,
         url: `/teams/${team}`

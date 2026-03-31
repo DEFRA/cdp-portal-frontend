@@ -1,10 +1,19 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "tool-tip/macro.njk" import appToolTip %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="entityVersion" class="app-entity-table__cell" data-label="entityVersion">
       <div class="app-!-layout-centered govuk-!-margin-top-2">
         <div class="app-entity-table__row-caption">
           {{ params.entityVersion }}
+          
+          {% call appToolTip({ text: 'Docker build stage' }) %}
+            {{ govukTag({
+              text: params.entityStage | formatText,
+              classes: 'app-tag govuk-tag--green',
+              attributes: { "data-testid": "govuk-tag" }
+            }) }}
+          {% endcall %}
 
           {% for tag in params.entityTags %}
 

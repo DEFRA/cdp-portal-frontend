@@ -45,6 +45,7 @@ export default async function (request) {
   const rows = dependencies.map((dependency) => ({
     entityVersion: dependency.entityversion,
     entityTags: dependency.entitytags,
+    entityStage: dependency.entitystage,
     dependencyName: dependency.name,
     dependencyVersion: dependency.version,
     dependencyType: dependency.type
