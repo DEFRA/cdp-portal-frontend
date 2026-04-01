@@ -95,6 +95,8 @@ async function xhrRequest(url, params = {}) {
       }
     })
 
+    if (!response.ok) return { ok: false, error: response.status }
+
     const text = await response.text()
     updatePage(text, params)
 
@@ -130,6 +132,8 @@ async function xhrPostRequest(url, payload = {}) {
       ),
       redirect: 'follow'
     })
+
+    if (!response.ok) return { ok: false, error: response.status }
 
     const text = await response.text()
 

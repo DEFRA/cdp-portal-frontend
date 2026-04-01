@@ -1,7 +1,8 @@
 import debounce from 'lodash/debounce.js'
 import isFunction from 'lodash/isFunction.js'
 
-import { xhrRequest } from '../../../../client/common/helpers/xhr.js'
+import { xhrRequest } from '#client/common/helpers/xhr.js'
+import { clientNotification } from '#client/common/helpers/client-notification.js'
 
 function filters($form) {
   if (!$form) {
@@ -31,7 +32,7 @@ function handleFormInput(event) {
 
   if (event.target.dataset?.typeahead === 'true') {
     submitForm(form).catch((error) => {
-      throw new Error(error)
+      clientNotification(error)
     })
   }
 }
@@ -41,7 +42,7 @@ function handleFormChange(event) {
   event.preventDefault()
 
   submitForm(form).catch((error) => {
-    throw new Error(error)
+    clientNotification(error)
   })
 }
 
@@ -74,12 +75,16 @@ async function submitForm($form) {
     {}
   )
 
-  await xhrRequest($form.action, queryParams)
+  const result = await xhrRequest($form.action, queryParams)
 
   $form.dataset.isSubmitting = 'false'
 
   if (loader) {
-    loader.classList.add('app-loader--is-loading')
+    loader.classList.remove('app-loader--is-loading')
+  }
+
+  if (!result.ok) {
+    throw new Error('Filtering failed, please refresh the page')
   }
 }
 
