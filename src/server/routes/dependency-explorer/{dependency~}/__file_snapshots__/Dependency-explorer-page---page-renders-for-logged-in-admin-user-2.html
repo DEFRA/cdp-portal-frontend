@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template govuk-template--rebranded">
+  <head>
+    <meta charset="utf-8">
+    <title>  Dependencies Explorer | Core Delivery Platform - Portal
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#1d70b8">
+
+
+          <link rel="icon" sizes="48x48" href="/.public/assets/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/.public/assets/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/.public/assets/images/govuk-icon-mask.svg" color="#1d70b8">
+      <link rel="apple-touch-icon" href="/.public/assets/images/govuk-icon-180.png">
+      <link rel="manifest" href="/.public/assets/manifest.json">
+
+
+  <link href="/.public/stylesheets/application.css" rel="stylesheet">
+    <meta name="service-version" content="0.1.0">
+    <meta name="service-environment" content="test">
+
+  </head>
+  <body class="govuk-template__body">
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+  
+  <div>
+    <a href="#main-content" class="govuk-skip-link app-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+  </div>
+
+
+  
+
+
+<header class="app-service-header" role="banner" data-testid="app-service-header">
+  <div class="app-service-header__container app-service-header__container--full-width">
+    <div class="app-service-header__content">
+      <a href="/"
+         class="app-service-header__link app-service-header__service-name"
+         data-testid="app-service-header-service-name">
+        Core Delivery Platform - Portal
+      </a>
+
+
+    </div>
+    <div class="app-service-header__actions">
+
+
+
+          <a class="app-service-header_profile-link" href="/user-profile">
+                      <svg class="app-icon app-user-icon app-icon--tiny"
+     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
+     aria-label="User">
+  <g fill-rule="evenodd">
+    <circle cx="19" cy="12" r="8" />
+    <path
+      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
+  </g>
+</svg>
+
+          <span data-testid="app-login-username">B. A. Baracus</span>
+
+          </a>
+
+      <span class="app-service-header__login app-service-header__login--logged-in">
+        <a href="/logout"
+           class="app-service-header__link app-service-header__login-link"
+           data-testid="app-login-link">
+            Sign out
+        </a>
+      </span>
+
+    </div>
+  </div>
+</header>
+
+
+  
+  <div class="govuk-service-navigation"
+data-module="govuk-service-navigation"
+>
+      <div class="govuk-width-container">
+
+    <div class="govuk-service-navigation__container">
+      
+
+      
+        <nav aria-label="Menu" class="govuk-service-navigation__wrapper app-navigation">
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
+            Menu
+          </button>
+
+          <ul class="govuk-service-navigation__list" id="navigation" >
+
+            
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/" data-testid="nav-home">
+                                    
+Home
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/documentation" data-testid="nav-documentation">
+                                    
+Documentation
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/services" data-testid="nav-services">
+                                    
+Services
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/test-suites" data-testid="nav-test-suites">
+                                    
+Test Suites
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/utilities/templates" data-testid="nav-utilities">
+                                    
+Utilities
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/teams" data-testid="nav-teams">
+                                    
+Teams
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/deployments" data-testid="nav-deployments">
+                                    
+Deployments
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/running-services" data-testid="nav-running-services">
+                                    
+Running Services
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+                  <a class="govuk-service-navigation__link" href="/dependency-explorer" aria-current="page" data-testid="nav-dependencies-explorer">
+                                    
+                  <strong class="govuk-service-navigation__active-fallback">Dependency Explorer</strong>
+
+                  </a>
+              </li>
+
+              <ul class="app-navigation__actions">
+      
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/deploy-service" data-testid="nav-deploy-service">
+      Deploy Service
+    </a>
+</li>
+
+
+      
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/create" data-testid="nav-create">
+      Create
+    </a>
+</li>
+
+
+
+      <ul class="app-navigation__admin">
+          
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/admin" data-testid="nav-admin">
+      Admin
+    </a>
+</li>
+
+
+      </ul>
+  </ul>
+</ul>
+        </nav>
+    </div>
+
+    </div>
+
+  </div>
+
+
+      <div class="govuk-width-container">
+  
+  <div
+  class="app-banner app-banner--hidden"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-banner"
+data-js="app-client-notifications">
+  <p class="app-banner__content"
+data-js="app-client-notifications-content"     data-testid="app-banner-content"></p>
+</div>
+
+
+
+
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+  
+<div class="app-page-heading">
+  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Dependency Explorer</h1>
+
+    <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
+      View the services which are using a dependency
+    </p>
+
+</div>
+
+
+  <script>
+
+    function updatePath() {
+      const filtersForm = document.querySelector("form[data-js='app-filters']")
+      if (filtersForm) {
+        filtersForm.setAttribute('action', window.location.pathname)
+      }
+    }
+
+  </script>
+
+  <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+    <input type="hidden" name="csrfToken" value="test-token" />
+
+<fieldset class="govuk-fieldset">
+
+    <div style="display: flex; align-items: end;">
+      
+
+
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["dependency"] = []
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="dependencyInput-label"
+         for="dependencyInput"
+         data-testid="app-autocomplete-label">
+    Dependency name
+  </label>
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline app-autocomplete--search app-autocomplete--with-icon"
+       data-js="app-autocomplete-search"
+       data-testid="app-autocomplete"
+ data-loader="search-dependency-loader"  >
+    <div class="app-autocomplete__control">
+        <svg xmlns="http://www.w3.org/2000/svg"
+     class="app-icon app-search-icon"
+     width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img"     data-testid="app-icon"
+>
+  <path
+    d="M793.974-120.001 535.872-378.104q-30.566 25.533-72.907 39.228-42.341 13.695-84.647 13.695-109.724 0-184.777-75.014-75.052-75.014-75.052-183.512t75.014-183.574q75.014-75.077 183.325-75.077 108.311 0 183.703 75.033 75.391 75.032 75.391 183.563 0 43.3-13.552 83.839-13.551 40.538-39.705 73.025l259.513 258.436-48.204 48.461ZM377.282-392.769q80.74 0 135.896-55.156 55.156-55.156 55.156-135.844 0-80.688-55.097-135.845-55.098-55.156-135.896-55.156-81.14 0-136.202 55.156-55.062 55.157-55.062 135.845t55.062 135.844q55.062 55.156 136.143 55.156Z" />
+</svg>
+
+
+        <input type="text" name="dependency" id="dependencyInput" class="govuk-input app-input" data-js="app-progressive-input" data-remove-password-widgets="true" data-placeholder="Search by dependency" data-fetcher-name="searchDependencyName" data-fetcher-loader="search-dependency-loader" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" data-disable-lunr-special-characters-filter="true" data-disable-auto-submit="true"  value=""/>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-dependencyInput-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+        <span class="app-loader"
+      data-testid="app-loader"
+data-js="search-dependency-loader">
+</span>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-dependencyInput-suggestions"
+      aria-labelledby="dependencyInput-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
+</div>
+
+      <span class="app-loader govuk-!-margin-bottom-2 govuk-!-margin-left-2"
+      data-testid="app-loader"
+data-js="results-loader">
+</span>
+
+    </div>
+
+      <div class="govuk-body govuk-!-margin-top-4">
+        <button type="submit" class="govuk-button app-button js-hidden" data-module="govuk-button">
+  View services
+</button>
+      </div>
+
+
+</fieldset>
+
+  </form>
+
+
+
+<form action="/dependency-explorer/undefined%3Aundefined" method="get" class="app-filters-form" data-js="app-filters"
+      data-testid="app-filters-form" data-loader-name="rows-loader" >
+  <fieldset class="govuk-fieldset">
+    <div class="app-filters">
+      
+    <div class="app-filters__item">
+      
+
+
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["entity"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"cdp-env-test-suite","text":"cdp-env-test-suite"},{"value":"cdp-portal-backend","text":"cdp-portal-backend"},{"value":"cdp-portal-frontend","text":"cdp-portal-frontend"},{"value":"cdp-postgres-service","text":"cdp-postgres-service"},{"value":"cdp-self-service-ops","text":"cdp-self-service-ops"},{"value":"cdp-service-prototype","text":"cdp-service-prototype"},{"value":"tenant-backend","text":"tenant-backend"},{"value":"test-one","text":"test-one"}]
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="entity-label"
+         for="entity"
+         data-testid="app-autocomplete-label">
+    Service name
+  </label>
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--small app-autocomplete--inline"
+       data-js="app-autocomplete"
+       data-testid="app-autocomplete"
+  >
+    <div class="app-autocomplete__control">
+
+        <select name="entity" id="entity" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
+             - - select - - 
+          </option>
+          <option value="cdp-env-test-suite"
+>
+            cdp-env-test-suite
+          </option>
+          <option value="cdp-portal-backend"
+>
+            cdp-portal-backend
+          </option>
+          <option value="cdp-portal-frontend"
+>
+            cdp-portal-frontend
+          </option>
+          <option value="cdp-postgres-service"
+>
+            cdp-postgres-service
+          </option>
+          <option value="cdp-self-service-ops"
+>
+            cdp-self-service-ops
+          </option>
+          <option value="cdp-service-prototype"
+>
+            cdp-service-prototype
+          </option>
+          <option value="tenant-backend"
+>
+            tenant-backend
+          </option>
+          <option value="test-one"
+>
+            test-one
+          </option>
+        </select>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-entity-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-entity-suggestions"
+      aria-labelledby="entity-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
+</div>
+
+    </div>
+
+      <div class="app-filters__item">
+        <div class="govuk-form-group app-form-group--inline">
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1" for="versionStart">
+    Dependency version from
+  </label>
+  <input class="govuk-input app-input app-input--medium app-input--block" id="versionStart" name="versionStart" type="text" placeholder="Start version">
+</div>
+
+      </div>
+
+      <div class="app-filters__item">
+        <div class="govuk-form-group app-form-group--inline">
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1" for="versionEnd">
+    Dependency version to
+  </label>
+  <input class="govuk-input app-input app-input--medium app-input--block" id="versionEnd" name="versionEnd" type="text" placeholder="End version">
+</div>
+
+      </div>
+
+      <div class="app-filters__item">
+        
+
+
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["team"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"platform","text":"Platform"},{"value":"tenantteam1","text":"TenantTeam1"}]
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="team-label"
+         for="team"
+         data-testid="app-autocomplete-label">
+    Team
+  </label>
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--small app-autocomplete--inline"
+       data-js="app-autocomplete"
+       data-testid="app-autocomplete"
+  >
+    <div class="app-autocomplete__control">
+
+        <select name="team" id="team" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
+             - - select - - 
+          </option>
+          <option value="platform"
+>
+            Platform
+          </option>
+          <option value="tenantteam1"
+>
+            TenantTeam1
+          </option>
+        </select>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-team-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-team-suggestions"
+      aria-labelledby="team-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
+</div>
+
+      </div>
+
+      <div class="app-filters__item">
+        
+
+
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["environment"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"infra-dev","text":"Infra-dev"},{"value":"management","text":"Management"},{"value":"dev","text":"Dev"},{"value":"test","text":"Test"},{"value":"perf-test","text":"Perf-test"},{"value":"prod","text":"Prod"}]
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="environment-label"
+         for="environment"
+         data-testid="app-autocomplete-label">
+    Environment
+  </label>
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+       data-js="app-autocomplete"
+       data-testid="app-autocomplete"
+  >
+    <div class="app-autocomplete__control">
+
+        <select name="environment" id="environment" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
+             - - select - - 
+          </option>
+          <option value="infra-dev"
+>
+            Infra-dev
+          </option>
+          <option value="management"
+>
+            Management
+          </option>
+          <option value="dev"
+>
+            Dev
+          </option>
+          <option value="test"
+>
+            Test
+          </option>
+          <option value="perf-test"
+>
+            Perf-test
+          </option>
+          <option value="prod"
+>
+            Prod
+          </option>
+        </select>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-environment-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-environment-suggestions"
+      aria-labelledby="environment-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
+</div>
+
+      </div>
+
+      <div class="app-filters__item">
+        
+
+
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["tag"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}}]
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="tag-label"
+         for="tag"
+         data-testid="app-autocomplete-label">
+    Service tag
+  </label>
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+       data-js="app-autocomplete"
+       data-testid="app-autocomplete"
+  >
+    <div class="app-autocomplete__control">
+
+        <select name="tag" id="tag" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
+             - - select - - 
+          </option>
+        </select>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-tag-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-tag-suggestions"
+      aria-labelledby="tag-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
+</div>
+
+      </div>
+
+
+
+      <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
+        <a href="/dependency-explorer/undefined%3Aundefined"
+           class="govuk-link govuk-link--text-colour"
+           data-testid="app-filters-clear-all"
+           data-clear-all="clearFilters"
+           data-js="app-filters-clear-all">
+          Clear all
+        </a>
+      </p>
+
+      <div class="app-filters__info" data-testid="app-filters-info">
+          
+
+<dl class="app-data-list" data-testid="app-data-list">
+    <dt class="app-data-list-heading"
+        data-testid="app-data-list-heading-1">
+      Count
+    </dt>
+    <dd class="app-data-list-item"
+        data-testid="app-data-list-item-1">
+      
+
+<div class="app-entity" data-testid="app-entity" data-xhr="resultsCount"  data-js="rows-loader" >
+
+
+
+      <span data-testid="app-entity-text"
+      >0</span>
+
+
+</div>
+
+    </dd>
+
+</dl>
+
+
+      </div>
+    </div>
+
+
+    <button type="submit" class="govuk-button app-button app-button--secondary js-hidden govuk-!-margin-top-2" data-module="govuk-button" data-testid="app-filters-submit-button" data-js="app-no-js-submit-button">
+  Search
+</button>
+  </fieldset>
+</form>
+
+
+      <div data-xhr="results">
+
+
+
+<article>
+  <table class="app-entity-table   app-entity-table--inverse" data-testid="app-entity-table">
+    <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+    <tr>
+
+        <th id="entity" scope="col"
+            class="app-entity-table__heading   app-entity-table__heading--left-aligned"
+            data-testid="app-entity-table-header-1"
+width="15%"        >
+            Service name
+        </th>
+
+        <th id="dependencyVersion" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-2"
+width="10%"        >
+            Dependency version
+        </th>
+
+        <th id="teams" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-3"
+width="15%"        >
+            Team
+        </th>
+
+        <th id="infra-dev" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-4"
+width="9%"        >
+            Infra-dev
+        </th>
+
+        <th id="management" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-5"
+width="10%"        >
+            Management
+        </th>
+
+        <th id="dev" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-6"
+width="3%"        >
+            Dev
+        </th>
+
+        <th id="test" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-7"
+width="4%"        >
+            Test
+        </th>
+
+        <th id="perf-test" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-8"
+width="9%"        >
+            Perf-test
+        </th>
+
+        <th id="prod" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-9"
+width="4%"        >
+            Prod
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr class="app-entity-table__row--no-results" data-testid="app-entity-table-no-results">
+        <td class="app-entity-table__cell" colspan="9">
+          No services found
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+      </div>
+
+        </main>
+      </div>
+
+  
+<footer class="app-footer" role="contentinfo" data-testid="app-footer">
+
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/cookie-policy" class="app-footer__link">Cookie policy</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/accessibility-statement" class="app-footer__link">Accessibility statement</a>
+        </li>
+      </ul>
+
+        <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer">0.1.0</a>
+          </li>
+        </ul>
+
+      <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a href="/style-guide" class="app-footer__link">Style Guide</a>
+          </li>
+        <li class="app-footer__list-item">
+          <a href="https://github.com/DEFRA/cdp-portal-frontend" target="_blank"
+             rel="noopener noreferrer" class="app-footer__link">
+            GitHub
+            <svg class="app-icon app-github-icon app-icon--tiny govuk-!-margin-left-1"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="CDP Portal Frontend repository on GitHub">
+  <path d="M23.9284898 0C10.6966531 0 0 11 0 24.6085c0 10.878 6.85371429 20.086 16.3616327 23.345 1.1887346.245 1.6241632-.5295 1.6241632-1.181 0-.5705-.0391837-2.526-.0391837-4.5635-6.6563265 1.467-8.04244893-2.9335-8.04244893-2.9335-1.06971429-2.852-2.65469388-3.585-2.65469388-3.585-2.17861225-1.5075.15869388-1.5075.15869388-1.5075 2.41665306.163 3.68473473 2.526 3.68473473 2.526 2.1389387 3.748 5.5856326 2.689 6.9722449 2.037.1978775-1.589.8321632-2.689 1.5056326-3.3-5.3088979-.5705-10.8945306-2.689-10.8945306-12.1415 0-2.689.95020408-4.889 2.4558367-6.6-.237551-.611-1.0697143-3.1375.2380408-6.519 0 0 2.0204082-.652 6.576 2.526 1.9504109-.5386687 3.9618381-.8126928 5.9823674-.815 2.0204082 0 4.08.2855 5.9818775.815 4.5560817-3.178 6.5764898-2.526 6.5764898-2.526 1.3077551 3.3815.4751021 5.908.2375511 6.519 1.5453061 1.711 2.4563265 3.911 2.4563265 6.6 0 9.4525-5.5856327 11.53-10.9342041 12.1415.8718367.774 1.6241633 2.2405 1.6241633 4.563 0 3.3-.0391837 5.9485-.0391837 6.763 0 .652.4359184 1.4265 1.6241633 1.182 9.5079183-3.26 16.3617395-12.4675 16.3617395-23.3455C47.8564898 11 37.1206531 0 23.9284898 0Z" />
+</svg>
+
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="app-footer__secondary"></div>
+  </div>
+
+</footer>
+
+
+  <script type="module" src="/.public/javascripts/application.js"></script>
+  </body>
+</html>
