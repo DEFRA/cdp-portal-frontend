@@ -7,12 +7,32 @@
     intro: 'Dependencies'
   }) }}
 
-  {% call appFilters({
-    action: pageUrl,
-    clear: {
-      url: pageUrl
-    }
-  }) %}
+  {% block xhrContent %}
+    {% call appFilters({
+      action: pageUrl,
+      clear: {
+        url: pageUrl
+      },
+      info: {
+        html: appEntityDataList({
+          items:  [
+            {
+              heading: {
+                text: 'Count'
+              },
+              entity: {
+                kind: 'text',
+                value: totalItems | formatNumber,
+                title: totalItems,
+                dataXhr: 'resultsCount',
+                dataJs: 'rows-loader'
+              }
+            }
+          ]
+        })
+      },
+      loader: 'rows-loader'
+    }) %}
 
 
     <div class="app-filters__item">
@@ -29,24 +49,6 @@
         },
         value: query.entityVersion,
         placeholder: "Version"
-      }) }}
-    </div>
-
-
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-      id: "dependencyType",
-      name: "dependencyType",
-      classes: "app-autocomplete--tiny app-autocomplete--inline",
-      label: {
-        text: "Dependency type",
-        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      },
-      formGroup: {
-        classes: "app-form-group--inline"
-      },
-      value: query.dependencyType,
-      suggestions: dependencyTypeOptions
       }) }}
     </div>
 
@@ -76,6 +78,23 @@
     }) }}
 
     <div class="app-filters__item">
+      {{ appAutocomplete({
+      id: "dependencyType",
+      name: "dependencyType",
+      classes: "app-autocomplete--tiny app-autocomplete--inline",
+      label: {
+        text: "Dependency type",
+        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+      },
+      formGroup: {
+        classes: "app-form-group--inline"
+      },
+      value: query.dependencyType,
+      suggestions: dependencyTypeOptions
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
       {{ govukInput({
         id: "dependencyVersion",
         name: "dependencyVersion",
@@ -96,7 +115,7 @@
 
   {% endcall %}
 
-  {% block xhrContent %}
+
     <div data-xhr="results">
       {% call(params) appEntityTable(tableData) %}
         {{  dependencyRow({
@@ -105,6 +124,7 @@
           entity: entity,
           entityVersion: params.row.entityVersion,
           entityTags: params.row.entityTags,
+          entityStage: params.row.entityStage,
           dependencyName: params.row.dependencyName,
           dependencyVersion: params.row.dependencyVersion,
           dependencyType: params.row.dependencyType

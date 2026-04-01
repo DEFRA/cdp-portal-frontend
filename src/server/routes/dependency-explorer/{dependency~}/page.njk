@@ -64,12 +64,31 @@
 
   </form>
 
-
+  {% block xhrContent %}
     {% call appFilters({
       action: pageUrl,
       clear: {
         url: pageUrl
-      }
+      },
+      info: {
+        html: appEntityDataList({
+          items:  [
+            {
+              heading: {
+                text: 'Count'
+              },
+              entity: {
+                kind: 'text',
+                value: totalItems | formatNumber,
+                title: totalItems,
+                dataXhr: "resultsCount",
+                dataJs: 'rows-loader'
+              }
+            }
+          ]
+        })
+      },
+      loader: 'rows-loader'
     }) %}
 
     <div class="app-filters__item">
@@ -180,7 +199,7 @@
 
     {% endcall %}
 
-    {% block xhrContent %}
+
       <div data-xhr="results">
         {% call(params) appEntityTable(tableData) %}
           {{  entityRow({
@@ -190,6 +209,7 @@
             dependencyName: dependencyName,
             entity:  params.row.entity,
             entityVersion: params.row.entityVersion,
+            entityStage: params.row.entityStage,
             entityTags: params.row.entityTags,
             teams: params.row.teams,
             dependencyVersion: params.row.dependencyVersion,

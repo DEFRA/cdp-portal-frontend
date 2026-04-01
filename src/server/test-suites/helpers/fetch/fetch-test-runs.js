@@ -1,8 +1,8 @@
 import qs from 'qs'
 
-import { config } from '../../../../config/config.js'
-import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
-import { pagination } from '../../../common/constants/pagination.js'
+import { config } from '#config/config.js'
+import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
+import { pagination } from '#server/common/constants/pagination.js'
 
 async function fetchTestRuns(queryParams) {
   const queryString = qs.stringify(queryParams)

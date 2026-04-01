@@ -31,9 +31,23 @@ export async function getDependencyDependents(type, name, query = {}) {
     searchUrl.searchParams.set('entity', query.entity)
   }
 
+  if (query.page) {
+    searchUrl.searchParams.set('page', query.page)
+  }
+
+  if (query.size) {
+    searchUrl.searchParams.set('size', query.size)
+  }
+
   const resp = await fetch(searchUrl, { method: 'GET' })
   if (resp.status === 200) {
-    return resp.json()
+    return {
+      results: await resp.json(),
+      meta: {
+        total: Number(resp.headers.get('X-Total-Count')),
+        totalPages: Number(resp.headers.get('X-Total-Pages'))
+      }
+    }
   }
 
   throw Error(`Unable to fetch dependents for ${searchUrl}`)
@@ -64,7 +78,13 @@ export async function getEntityDependencies(name, query = {}) {
 
   const resp = await fetch(searchUrl, { method: 'GET' })
   if (resp.status === 200) {
-    return resp.json()
+    return {
+      results: await resp.json(),
+      meta: {
+        total: Number(resp.headers.get('X-Total-Count')),
+        totalPages: Number(resp.headers.get('X-Total-Pages'))
+      }
+    }
   }
 
   throw Error(`Unable to fetch dependencies for ${searchUrl}`)

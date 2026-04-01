@@ -6,6 +6,9 @@ import { getDependencyDependents } from '../DependencyService.js'
 import { fetchCdpTeams } from '#server/teams/helpers/fetch/fetch-cdp-teams.js'
 import { getEntityTags } from '../FilterService.js'
 import { fetchEntities } from '#server/common/helpers/fetch/fetch-entities.js'
+import { buildPagination } from '#server/common/helpers/build-pagination.js'
+import { pagination } from '#server/common/constants/pagination.js'
+import Joi from 'joi'
 
 export const options = {
   id: 'dependency-explorer',
@@ -15,6 +18,12 @@ export const options = {
     access: {
       scope: scopes.admin
     }
+  },
+  validate: {
+    query: Joi.object({
+      page: Joi.number(),
+      size: Joi.number()
+    }).unknown()
   }
 }
 
@@ -23,6 +32,8 @@ export default async function (request) {
     request.params?.dependency?.split(':') ?? []
   const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
+  const page = request.query?.page ?? pagination.page
+  const size = request.query?.size ?? pagination.size
 
   const environmentOptions = buildOptions(
     environments.map((environment) => ({
@@ -52,18 +63,24 @@ export default async function (request) {
   )
 
   let rows = []
+  let totalItems = 0
+  let totalPages = 1
 
   if (dependencyName && dependencyType) {
-    const dependents = await getDependencyDependents(
+    const { results: dependents, meta } = await getDependencyDependents(
       dependencyType,
       dependencyName,
       request.query
     )
 
+    totalItems = meta.total
+    totalPages = meta.totalPages
+
     rows = dependents.map((dependent) => ({
       entity: dependent.name,
       entityVersion: dependent.version,
       entityTags: dependent.tags,
+      entityStage: dependent.stage,
       teams: dependent.teams.map((team) => ({
         value: teams.find((entry) => entry.teamId === team)?.name,
         url: `/teams/${team}`
@@ -92,6 +109,7 @@ export default async function (request) {
     tagOptions,
     teamOptions,
     entityOptions,
+    totalItems,
     tableData: {
       headers: [
         {
@@ -110,6 +128,7 @@ export default async function (request) {
         }))
       ],
       rows,
+      pagination: buildPagination(page, size, totalPages, request.query),
       noResult: 'No services found',
       isWide: false,
       isInverse: true
