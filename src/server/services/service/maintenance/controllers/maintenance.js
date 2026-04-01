@@ -52,12 +52,14 @@ const maintenanceController = {
       )
 
     const isFrontend = isFrontendEntity(entity)
+    const showShuttering = shutteringDetails?.length > 0
 
     return h.view('services/service/maintenance/views/maintenance', {
       pageTitle: `Maintenance - ${serviceId}`,
       entity,
       isFrontend,
       shouldPoll,
+      showShuttering,
       pendingShutter,
       shutteringDetails: shutteringDetails.toSorted(
         sortKeyByEnv('environment')
