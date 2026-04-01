@@ -28,7 +28,7 @@ async function refresh(event) {
 
   const payload = getFormData($form)
 
-  await xhrPostRequest(
+  const result = await xhrPostRequest(
     `${location.protocol}//${location.host}${location.pathname}`,
     payload
   )
@@ -39,6 +39,10 @@ async function refresh(event) {
 
   if (onRefreshHandler) {
     window[onRefreshHandler]?.()
+  }
+
+  if (!result.ok) {
+    throw new Error('Loading failed, please refresh the page')
   }
 
   $form.dataset.isSubmitting = 'false'

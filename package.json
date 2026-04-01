@@ -37,6 +37,7 @@
   "imports": {
     "#server/*": "./src/server/*",
     "#config/*": "./src/config/*",
+    "#client/*": "./src/client/*",
     "#test-helpers/*": "./test-helpers/*"
   },
   "overrides": {
