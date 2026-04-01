@@ -3,7 +3,7 @@ import * as openid from 'openid-client'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { createLogger } from '../logging/logger.js'
 import { sessionNames } from '../../constants/session-names.js'
 import { asExternalUrl } from '../url/url-helpers.js'
