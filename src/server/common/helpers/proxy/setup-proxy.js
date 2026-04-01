@@ -1,5 +1,6 @@
 import { createLogger } from '../logging/logger.js'
-import Https from 'node:https'
+import https from 'node:https'
+import http from 'node:http'
 import Wreck from '@hapi/wreck'
 
 const logger = createLogger()
@@ -14,6 +15,7 @@ export function setupProxy() {
     logger.info('Routing outbound requests via proxy')
 
     // Required for Wreck
-    Wreck.agents = Https.globalAgent
+    Wreck.agents.https = https.globalAgent
+    Wreck.agents.http = http.globalAgent
   }
 }
