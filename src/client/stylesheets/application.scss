@@ -1,11 +1,11 @@
-// @use 'govuk-frontend';
+@use 'govuk-frontend';
 @use 'highlight.js/scss/atom-one-light';
 
 @use 'variables';
-/* @use 'helpers';
+@use 'helpers';
 @use 'core';
 @use 'components';
 @use 'partials';
 @use 'objects';
 @use 'pages';
-@use 'overrides'; */
+@use 'overrides';

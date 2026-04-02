@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { NodePackageImporter } from 'sass-embedded'
 
 export default defineConfig({
   build: {
@@ -16,12 +17,14 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        api: 'modern-compiler',
+        importers: [new NodePackageImporter()],
         loadPaths: [
+          'node_modules',
           'src/client/stylesheets',
           'src/server',
           'src/server/common/components',
-          'src/server/common/templates/partials',
-          'node_modules'
+          'src/server/common/templates/partials'
         ],
         quietDeps: true,
         sourceMapIncludeSources: true,
