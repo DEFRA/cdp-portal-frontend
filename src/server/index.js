@@ -27,7 +27,7 @@ import { setupCaches } from './common/helpers/session/setup-caches.js'
 import { getCacheEngine } from './common/helpers/session/cache-engine.js'
 import { nodeVmMetrics } from './common/helpers/performance/node-vm-metrics.js'
 import { mockCognitoFederatedCredentials } from './common/helpers/auth/mock-cognito.js'
-import appRouter from './appRouter.js'
+import appRouter from './plugins/appRouter.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 

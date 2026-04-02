@@ -15,12 +15,12 @@ export default {
     })
 
     for await (const { path: sourcePath } of sourceStream) {
-      await registerPage(path, templatesPath, sourcePath, server)
+      await registerRoute(path, templatesPath, sourcePath, server)
     }
   }
 }
 
-async function registerPage(path, templatesPath, sourcePath, server) {
+async function registerRoute(path, templatesPath, sourcePath, server) {
   if (sourcePath.includes('*')) {
     throw new Error(
       `Use '...' rather than Hapi's '*' in route '${sourcePath}'. This is for Windows FS compatibility.`
