@@ -1,5 +1,6 @@
 import qs from 'qs'
 import { Action } from 'history'
+import pRetry from 'p-retry'
 
 import { history } from './history.js'
 
@@ -85,15 +86,23 @@ async function xhrRequest(url, params = {}) {
 
     history.push(queryParams)
 
-    const response = await fetch(url + queryParams, {
-      cache: 'no-store',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Cache-Control': 'no-cache, no-store, max-age=0',
-        Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
-        Pragma: 'no-cache'
-      }
-    })
+    const response = await pRetry(
+      async () => {
+        const tryResponse = await fetch(url + queryParams, {
+          cache: 'no-store',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Cache-Control': 'no-cache, no-store, max-age=0',
+            Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+            Pragma: 'no-cache'
+          }
+        })
+
+        if (!tryResponse.ok) throw new Error(tryResponse.statusText)
+        return tryResponse
+      },
+      { retries: 2, minTimeout: 500 }
+    )
 
     if (!response.ok) return { ok: false, error: response.status }
 
