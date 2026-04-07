@@ -9,6 +9,12 @@ const serviceTags = {
     description: 'Service has Tier 1 support coverage.',
     className: 'govuk-tag--purple'
   },
+  'tier-2': {
+    name: 'tier-2',
+    displayName: 'Tier 2',
+    description: 'Service has Tier 2 support coverage.',
+    className: 'govuk-tag--blue'
+  },
   live: {
     name: 'live',
     displayName: 'Live',
