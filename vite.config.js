@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
 
 export default defineConfig({
+  base: '/public',
   build: {
     outDir: '.public',
     manifest: true,

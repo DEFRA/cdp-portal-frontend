@@ -42,7 +42,7 @@ const router = {
         logout,
         repositories,
         runningServices,
-        serveStaticFiles,
+        // serveStaticFiles,
         services,
         teams,
         testSuites,

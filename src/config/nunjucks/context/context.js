@@ -37,7 +37,7 @@ function getAssetPath(asset) {
     }
   }
 
-  const webpackAssetPath = viteManifest[`src/client/${asset}`]?.file ?? ''
+  const webpackAssetPath = `src/client/${asset}` //viteManifest[`src/client/${asset}`]?.file ?? ''
 
   return `${assetPath}/${webpackAssetPath}`
 }
