@@ -1,16 +1,29 @@
 import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
+import path from 'node:path'
+
+const govukFrontendPath = path.dirname(
+  require.resolve('govuk-frontend/package.json')
+)
 
 export default defineConfig({
   base: '/public',
+  resolve: {
+    alias: [
+      {
+        find: '/public/assets/fonts',
+        replacement: path.join(govukFrontendPath, 'dist/govuk/assets/fonts')
+      }
+    ]
+  },
   build: {
     outDir: '.public',
     manifest: true,
     rolldownOptions: {
       input: [
         'src/client/javascripts/application.js',
-        'src/client/javascripts/mermaid.js',
-        'src/client/stylesheets/application.scss'
+        'src/client/stylesheets/application.scss',
+        'src/client/javascripts/mermaid.js'
       ]
     },
     cssMinify: false
