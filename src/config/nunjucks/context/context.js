@@ -78,7 +78,8 @@ async function context(request) {
     scopes,
     serviceEnvironment: serviceConfig.environment,
     serviceVersion: serviceConfig.version,
-    supportChannel: config.get('supportChannel')
+    supportChannel: config.get('supportChannel'),
+    isProduction: process.env.NODE_ENV === 'production'
   }
 }
 

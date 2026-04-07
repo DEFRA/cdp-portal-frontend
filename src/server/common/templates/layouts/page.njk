@@ -103,6 +103,9 @@
   {% if serviceEnvironment %}
     <meta name="service-environment" content="{{ serviceEnvironment }}">
   {% endif %}
+  {% if not isProduction %}
+    <script type="module" src="/public/@vite/client"></script>
+  {% endif %}
 {% endblock %}
 
 {% block header %}
