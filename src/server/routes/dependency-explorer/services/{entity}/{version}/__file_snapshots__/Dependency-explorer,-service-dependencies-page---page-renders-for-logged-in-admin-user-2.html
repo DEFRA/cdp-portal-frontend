@@ -259,23 +259,233 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
+  <script>
+
+    function updatePath() {
+      const filtersForm = document.querySelector("form[data-js='app-filters']")
+      if (filtersForm) {
+        filtersForm.setAttribute('action', window.location.pathname)
+      }
+    }
+
+  </script>
+
+  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+    <input type="hidden" name="csrfToken" value="test-token" />
+
+<fieldset class="govuk-fieldset">
+
+    <div style="display: flex; align-items: end;">
+      
 
 
-<form action="/dependency-explorer/services/test-service" method="get" class="app-filters-form" data-js="app-filters"
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["version"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}}]
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="versionInput-label"
+         for="versionInput"
+         data-testid="app-autocomplete-label">
+    Version
+  </label>
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline  app-autocomplete--with-icon"
+       data-js="app-autocomplete"
+       data-testid="app-autocomplete"
+  >
+    <div class="app-autocomplete__control">
+        <svg xmlns="http://www.w3.org/2000/svg"
+     class="app-icon app-search-icon"
+     width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img"     data-testid="app-icon"
+>
+  <path
+    d="M793.974-120.001 535.872-378.104q-30.566 25.533-72.907 39.228-42.341 13.695-84.647 13.695-109.724 0-184.777-75.014-75.052-75.014-75.052-183.512t75.014-183.574q75.014-75.077 183.325-75.077 108.311 0 183.703 75.033 75.391 75.032 75.391 183.563 0 43.3-13.552 83.839-13.551 40.538-39.705 73.025l259.513 258.436-48.204 48.461ZM377.282-392.769q80.74 0 135.896-55.156 55.156-55.156 55.156-135.844 0-80.688-55.097-135.845-55.098-55.156-135.896-55.156-81.14 0-136.202 55.156-55.062 55.157-55.062 135.845t55.062 135.844q55.062 55.156 136.143 55.156Z" />
+</svg>
+
+
+        <select name="version" id="versionInput" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-placeholder="Search by version" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" >
+          <option value=""
+>
+             - - select - - 
+          </option>
+        </select>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-versionInput-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-versionInput-suggestions"
+      aria-labelledby="versionInput-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
+</div>
+
+      <span class="app-loader govuk-!-margin-bottom-2 govuk-!-margin-left-2"
+      data-testid="app-loader"
+data-js="results-loader">
+</span>
+
+    </div>
+
+      <div class="govuk-body govuk-!-margin-top-4">
+        <button type="submit" class="govuk-button app-button js-hidden" data-module="govuk-button">
+  View dependencies
+</button>
+      </div>
+
+
+</fieldset>
+
+  </form>
+
+
+
+<form action="/dependency-explorer/services/test-service/{version}" method="get" class="app-filters-form" data-js="app-filters"
       data-testid="app-filters-form" data-loader-name="rows-loader" >
   <fieldset class="govuk-fieldset">
     <div class="app-filters">
       
-
     <div class="app-filters__item">
-      <div class="govuk-form-group app-form-group--inline">
-  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1" for="entityVersion">
-    Service version
+      
+
+
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["dependencyType"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}}]
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="dependencyType-label"
+         for="dependencyType"
+         data-testid="app-autocomplete-label">
+    Dependency type
   </label>
-  <input class="govuk-input app-input app-input--tiny app-input--block" id="entityVersion" name="entityVersion" type="text">
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+       data-js="app-autocomplete"
+       data-testid="app-autocomplete"
+  >
+    <div class="app-autocomplete__control">
+
+        <select name="dependencyType" id="dependencyType" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
+             - - select - - 
+          </option>
+        </select>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-dependencyType-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-dependencyType-suggestions"
+      aria-labelledby="dependencyType-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
 </div>
 
     </div>
+
 
     
 
@@ -375,94 +585,6 @@ data-js="search-dependency-loader">
 </div>
 
 
-    <div class="app-filters__item">
-      
-
-
-<script data-testid="app-autocomplete-suggestions">
-  window.cdp = window.cdp || {};
-  window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["dependencyType"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}}]
-</script>
-
-
-<div
-  class="govuk-form-group app-form-group app-form-group--inline"
-  data-js="app-form-group" data-testid="app-autocomplete-group">
-
-  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-         id="dependencyType-label"
-         for="dependencyType"
-         data-testid="app-autocomplete-label">
-    Dependency type
-  </label>
-
-
-
-
-
-  <div class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
-       data-js="app-autocomplete"
-       data-testid="app-autocomplete"
-  >
-    <div class="app-autocomplete__control">
-
-        <select name="dependencyType" id="dependencyType" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
-          <option value=""
->
-             - - select - - 
-          </option>
-        </select>
-
-      <button class="app-autocomplete__chevron-button js-visible"
-              type="button"
-              tabindex="-1"
-              aria-owns="app-autocomplete-dependencyType-suggestions"
-              aria-label="Show"
-              data-js="app-chevron-button"
-              data-testid="app-chevron-button"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
-     viewBox="0 -960 960 960"
-     role="img" aria-label="Chevron">
-  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
-</svg>
-
-      </button>
-
-      <button class="app-autocomplete__clear-button"
-              type="button"
-              aria-hidden="true"
-              tabindex="-1"
-              data-js="app-autocomplete-clear-button"
-              data-testid="app-autocomplete-clear-button"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
-     width="48"
-     height="48"
-     viewBox="0 -960 960 960"
-  role="img" aria-label="Clear">
-  <path
-    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
-</svg>
-
-      </button>
-
-    </div>
-
-    <ul
-      class="app-autocomplete__suggestions"
-      id="app-autocomplete-dependencyType-suggestions"
-      aria-labelledby="dependencyType-label"
-      aria-expanded="false"
-      role="listbox"
-      data-js="app-autocomplete-suggestions"
-      data-testid="app-autocomplete-suggestions"></ul>
-  </div>
-  
-</div>
-
-    </div>
 
     <div class="app-filters__item">
       <div class="govuk-form-group app-form-group--inline">
@@ -477,7 +599,7 @@ data-js="search-dependency-loader">
 
 
       <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
-        <a href="/dependency-explorer/services/test-service"
+        <a href="/dependency-explorer/services/test-service/{version}"
            class="govuk-link govuk-link--text-colour"
            data-testid="app-filters-clear-all"
            data-clear-all="clearFilters"
@@ -533,11 +655,11 @@ data-js="search-dependency-loader">
     <thead class="app-entity-table__head" data-testid="app-entity-table-head">
     <tr>
 
-        <th id="version" scope="col"
+        <th id="dependencyType" scope="col"
             class="app-entity-table__heading"
             data-testid="app-entity-table-header-1"
 width="10%"        >
-            Service version
+            Dependency type
         </th>
 
         <th id="dependencyName" scope="col"
@@ -547,16 +669,9 @@ width="20%"        >
             Dependency name
         </th>
 
-        <th id="dependencyType" scope="col"
-            class="app-entity-table__heading"
-            data-testid="app-entity-table-header-3"
-width="10%"        >
-            Dependency type
-        </th>
-
         <th id="dependencyVersion" scope="col"
             class="app-entity-table__heading"
-            data-testid="app-entity-table-header-4"
+            data-testid="app-entity-table-header-3"
 width="10%"        >
             Dependency version
         </th>
@@ -564,7 +679,7 @@ width="10%"        >
     </thead>
     <tbody>
       <tr class="app-entity-table__row--no-results" data-testid="app-entity-table-no-results">
-        <td class="app-entity-table__cell" colspan="4">
+        <td class="app-entity-table__cell" colspan="3">
           No dependencies found
         </td>
       </tr>

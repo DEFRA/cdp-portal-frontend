@@ -7,6 +7,54 @@
     intro: 'Dependencies'
   }) }}
 
+  <script>
+
+    function updatePath() {
+      const filtersForm = document.querySelector("form[data-js='app-filters']")
+      if (filtersForm) {
+        filtersForm.setAttribute('action', window.location.pathname)
+      }
+    }
+
+  </script>
+
+  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+    {% call govukFieldset() %}
+
+    <div style="display: flex; align-items: end;">
+      {{ appAutocomplete({
+        id: "versionInput",
+        name: "version",
+        classes: "app-autocomplete--search-medium app-autocomplete--inline",
+        label: {
+          text: "Version",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: version,
+        suggestionClasses: "app-autocomplete__suggestion--leading-hint",
+        suggestions: versionOptions,
+        placeholder: "Search by version"
+      }) }}
+      {{ appLoader({ name: 'results-loader', classes: 'govuk-!-margin-bottom-2 govuk-!-margin-left-2' }) }}
+    </div>
+
+      <div class="govuk-body govuk-!-margin-top-4">
+        {{ govukButton({
+          classes: "app-button js-hidden",
+          text: "View dependencies"
+        }) }}
+      </div>
+
+    {% endcall %}
+
+  </form>
+
   {% block xhrContent %}
     {% call appFilters({
       action: pageUrl,
@@ -34,23 +82,23 @@
       loader: 'rows-loader'
     }) %}
 
-
     <div class="app-filters__item">
-      {{ govukInput({
-        id: "entityVersion",
-        name: "entityVersion",
-        classes: "app-input app-input--tiny app-input--block",
-        label: {
-          text: "Service version",
-          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-        },
-        formGroup: {
-          classes: "app-form-group--inline"
-        },
-        value: query.entityVersion,
-        placeholder: "Version"
+      {{ appAutocomplete({
+      id: "dependencyType",
+      name: "dependencyType",
+      classes: "app-autocomplete--tiny app-autocomplete--inline",
+      label: {
+        text: "Dependency type",
+        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+      },
+      formGroup: {
+        classes: "app-form-group--inline"
+      },
+      value: query.dependencyType,
+      suggestions: dependencyTypeOptions
       }) }}
     </div>
+
 
     {{ appAutocomplete({
       id: "dependencyName",
@@ -77,22 +125,6 @@
       placeholder: "Search by dependency"
     }) }}
 
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-      id: "dependencyType",
-      name: "dependencyType",
-      classes: "app-autocomplete--tiny app-autocomplete--inline",
-      label: {
-        text: "Dependency type",
-        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      },
-      formGroup: {
-        classes: "app-form-group--inline"
-      },
-      value: query.dependencyType,
-      suggestions: dependencyTypeOptions
-      }) }}
-    </div>
 
     <div class="app-filters__item">
       {{ govukInput({
@@ -121,9 +153,6 @@
         {{  dependencyRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
-          entity: entity,
-          entityVersion: params.row.entityVersion,
-          entityTags: params.row.entityTags,
           entityStage: params.row.entityStage,
           dependencyName: params.row.dependencyName,
           dependencyVersion: params.row.dependencyVersion,
