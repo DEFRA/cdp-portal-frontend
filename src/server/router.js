@@ -21,6 +21,9 @@ import { utilities } from './utilities/routes.js'
 import { repositories } from './repositories/routes.js'
 import { userProfile } from './user-profile/routes.js'
 import { styleGuide } from './style-guide/routes.js'
+import connect from './plugins/connect.js'
+
+const isProduction = process.env.NODE_ENV === 'production'
 
 const router = {
   plugin: {
@@ -42,7 +45,7 @@ const router = {
         logout,
         repositories,
         runningServices,
-        // serveStaticFiles,
+        isProduction ? serveStaticFiles : undefined,
         services,
         teams,
         testSuites,
@@ -50,6 +53,24 @@ const router = {
         utilities,
         styleGuide
       ])
+
+      if (!isProduction) {
+        await (async () => {
+          const createViteServer = (await import('vite')).createServer
+          const vite = await createViteServer({
+            server: { middlewareMode: true },
+            appType: 'custom'
+          })
+
+          await server.register({
+            plugin: connect,
+            options: {
+              path: '/public',
+              middleware: vite.middlewares
+            }
+          })
+        })()
+      }
     }
   }
 }

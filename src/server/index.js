@@ -28,7 +28,6 @@ import { getCacheEngine } from './common/helpers/session/cache-engine.js'
 import { nodeVmMetrics } from './common/helpers/performance/node-vm-metrics.js'
 import { mockCognitoFederatedCredentials } from './common/helpers/auth/mock-cognito.js'
 import appRouter from './plugins/appRouter.js'
-import connect from './plugins/connect.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -121,28 +120,6 @@ async function createServer() {
     s3Client,
     nodeVmMetrics
   ])
-
-  if (true) {
-    await (async () => {
-      const createViteServer = (await import('vite')).createServer
-      const vite = await createViteServer({
-        server: { middlewareMode: true },
-        appType: 'custom'
-      })
-
-      await server.register({
-        plugin: connect,
-        options: {
-          path: '/public',
-          middleware: vite.middlewares
-          // middleware: (req, res) => {
-          //   console.log('Hit', req.url)
-          //   res.end('Hit')
-          // }
-        }
-      })
-    })()
-  }
 
   const sessionCookieConfig = config.get('session.cookie')
   const oneSecond = 1000

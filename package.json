@@ -33,7 +33,7 @@
     "test": "TZ=UTC vitest --coverage",
     "test:build:client": "NODE_ENV=test webpack",
     "test:watch": "npm run test",
-    "vite:dev": "vite",
+    "vite:dev": "node --env-file-if-exists=.env --watch --inspect ./src",
     "vite:build": "vite build",
     "vite:preview": "vite preview"
   },
