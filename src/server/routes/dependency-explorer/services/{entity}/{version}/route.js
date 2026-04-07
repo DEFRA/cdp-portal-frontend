@@ -49,7 +49,7 @@ export default async function (request) {
   )
 
   const pageUrl = request.routeLookup('dependency-version-list', {
-    params: { entity }
+    params: { entity, version }
   })
 
   const rows = dependencies.map((dependency) => ({
