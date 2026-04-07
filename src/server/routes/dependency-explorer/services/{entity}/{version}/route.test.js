@@ -3,13 +3,20 @@ import {
   mockAuthAndRenderUrl
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
+import { fetchAvailableVersions } from '#server/deploy-service//helpers/fetch/fetch-available-versions.js'
 import { getEntityDependencies } from '../../../DependencyService.js'
 import { getDependencyTypes } from '../../../FilterService.js'
 
 vi.mock('#server/common/helpers/auth/get-user-session.js')
+vi.mock('#server/deploy-service//helpers/fetch/fetch-available-versions.js')
 vi.mock('../../../DependencyService.js')
 vi.mock('../../../FilterService.js')
 
+fetchAvailableVersions.mockResolvedValue([
+  {
+    tag: '1.0.0'
+  }
+])
 getEntityDependencies.mockResolvedValue({
   results: [],
   meta: { total: 0, totalPages: 1 }
