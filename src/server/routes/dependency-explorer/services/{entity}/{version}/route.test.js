@@ -3,13 +3,20 @@ import {
   mockAuthAndRenderUrl
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
-import { getEntityDependencies } from '../../DependencyService.js'
-import { getDependencyTypes } from '../../FilterService.js'
+import { fetchAvailableVersions } from '#server/deploy-service//helpers/fetch/fetch-available-versions.js'
+import { getEntityDependencies } from '../../../DependencyService.js'
+import { getDependencyTypes } from '../../../FilterService.js'
 
 vi.mock('#server/common/helpers/auth/get-user-session.js')
-vi.mock('../../DependencyService.js')
-vi.mock('../../FilterService.js')
+vi.mock('#server/deploy-service//helpers/fetch/fetch-available-versions.js')
+vi.mock('../../../DependencyService.js')
+vi.mock('../../../FilterService.js')
 
+fetchAvailableVersions.mockResolvedValue([
+  {
+    tag: '1.0.0'
+  }
+])
 getEntityDependencies.mockResolvedValue({
   results: [],
   meta: { total: 0, totalPages: 1 }
@@ -29,7 +36,7 @@ describe('Dependency explorer, service dependencies page', () => {
 
   test('page renders for logged in admin user', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/dependency-explorer/services/test-service',
+      targetUrl: '/dependency-explorer/services/test-service/1.0.0',
       isAdmin: true,
       isTenant: true
     })
@@ -39,7 +46,7 @@ describe('Dependency explorer, service dependencies page', () => {
 
   test('page DOES NOT render for logged in tenant', async () => {
     const { statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/dependency-explorer/services/test-service',
+      targetUrl: '/dependency-explorer/services/test-service/1.0.0',
       isAdmin: false,
       isTenant: true
     })
@@ -48,7 +55,7 @@ describe('Dependency explorer, service dependencies page', () => {
 
   test('page DOES NOT renders for logged in service owner tenant', async () => {
     const { statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/dependency-explorer/services/test-service',
+      targetUrl: '/dependency-explorer/services/test-service/1.0.0',
       isAdmin: false,
       isTenant: true,
       teamScope: 'mock-team-id'
@@ -59,7 +66,7 @@ describe('Dependency explorer, service dependencies page', () => {
 
   test('page DOES NOT render for logged out user', async () => {
     const { statusCode } = await mockAuthAndRenderUrl(server, {
-      targetUrl: '/dependency-explorer/services/test-service',
+      targetUrl: '/dependency-explorer/services/test-service/1.0.0',
       isAdmin: false,
       isTenant: false
     })

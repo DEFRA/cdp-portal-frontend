@@ -1,13 +1,14 @@
 import { scopes } from '@defra/cdp-validation-kit'
-import { getEntityDependencies } from '../../DependencyService.js'
-import { getDependencyTypes } from '../../FilterService.js'
+import { getEntityDependencies } from '../../../DependencyService.js'
+import { getDependencyTypes } from '../../../FilterService.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { buildPagination } from '#server/common/helpers/build-pagination.js'
 import { pagination } from '#server/common/constants/pagination.js'
+import { fetchAvailableVersions } from '#server/deploy-service//helpers/fetch/fetch-available-versions.js'
 import Joi from 'joi'
 
 export const options = {
-  id: 'dependency-list',
+  id: 'dependency-version-list',
   // TODO: Remove
   auth: {
     mode: 'required',
@@ -25,26 +26,33 @@ export const options = {
 
 export default async function (request) {
   const entity = request.params.entity
+  const version = request.params.version
   const page = request.query?.page ?? pagination.page
   const size = request.query?.size ?? pagination.size
 
-  const [{ results: dependencies, meta }, dependencyTypes] = await Promise.all([
-    getEntityDependencies(entity, request.query),
-    getDependencyTypes()
-  ])
+  const [{ results: dependencies, meta }, dependencyTypes, availableVersions] =
+    await Promise.all([
+      getEntityDependencies(entity, version, request.query),
+      getDependencyTypes(),
+      fetchAvailableVersions(entity)
+    ])
 
   const totalItems = meta.total ?? 0
   const totalPages = meta.totalPages ?? 1
 
   const dependencyTypeOptions = buildOptions(dependencyTypes)
+  const versionOptions = buildOptions(
+    availableVersions.map((version) => ({
+      text: version.tag,
+      value: version.tag
+    }))
+  )
 
-  const pageUrl = request.routeLookup('dependency-list', {
-    params: { entity }
+  const pageUrl = request.routeLookup('dependency-version-list', {
+    params: { entity, version }
   })
 
   const rows = dependencies.map((dependency) => ({
-    entityVersion: dependency.entityversion,
-    entityTags: dependency.entitytags,
     entityStage: dependency.entitystage,
     dependencyName: dependency.name,
     dependencyVersion: dependency.version,
@@ -56,21 +64,18 @@ export default async function (request) {
     query: request.query,
     pageUrl,
     entity,
+    version,
     dependencyTypeOptions,
+    versionOptions,
     totalItems,
     tableData: {
       headers: [
-        {
-          id: 'version',
-          text: 'Service version',
-          width: 10
-        },
+        { id: 'dependencyType', text: 'Dependency type', width: 10 },
         {
           id: 'dependencyName',
           text: 'Dependency name',
           width: 20
         },
-        { id: 'dependencyType', text: 'Dependency type', width: 10 },
         { id: 'dependencyVersion', text: 'Dependency version', width: 10 }
       ],
       rows,
@@ -92,4 +97,21 @@ export default async function (request) {
       }
     ]
   }
+}
+
+export async function POST(request, h) {
+  const entity = request.params.entity
+  const version =
+    request.payload.version !== ''
+      ? request.payload.version
+      : request.params.version
+
+  return h.redirect(
+    request.routeLookup('dependency-version-list', {
+      params: {
+        entity: encodeURIComponent(entity),
+        version: encodeURIComponent(version)
+      }
+    })
+  )
 }

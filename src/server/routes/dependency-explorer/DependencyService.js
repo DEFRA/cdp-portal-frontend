@@ -53,16 +53,14 @@ export async function getDependencyDependents(type, name, query = {}) {
   throw Error(`Unable to fetch dependents for ${searchUrl}`)
 }
 
-export async function getEntityDependencies(name, query = {}) {
+export async function getEntityDependencies(name, version, query = {}) {
   const baseUrl = config.get('sbomExplorerBackendUrl')
   const searchUrl = new URL(
     `/entities/${encodeURIComponent(name)}/dependencies`,
     baseUrl
   )
 
-  if (query.entityVersion) {
-    searchUrl.searchParams.set('entityVersion', query.entityVersion)
-  }
+  searchUrl.searchParams.set('entityVersion', version)
 
   if (query.dependencyVersion) {
     searchUrl.searchParams.set('version', query.dependencyVersion)
