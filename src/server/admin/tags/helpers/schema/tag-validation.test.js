@@ -10,7 +10,9 @@ describe('tagValidation', () => {
     })
 
     expect(error).toBeInstanceOf(Joi.ValidationError)
-    expect(error.message).toBe('"tag" must be one of [tier-1, live, beta, prr]')
+    expect(error.message).toBe(
+      '"tag" must be one of [tier-1, tier-2, live, beta, prr]'
+    )
   })
 
   test('returns an error for an invalid tag', () => {
@@ -20,7 +22,9 @@ describe('tagValidation', () => {
     })
 
     expect(error).toBeInstanceOf(Joi.ValidationError)
-    expect(error.message).toBe('"tag" must be one of [tier-1, live, beta, prr]')
+    expect(error.message).toBe(
+      '"tag" must be one of [tier-1, tier-2, live, beta, prr]'
+    )
   })
 
   test('Should return an error for a missing tag', () => {
@@ -34,13 +38,17 @@ describe('tagValidation', () => {
     const { error } = tagValidation.validate({ tag: 'validTag', service: '' })
 
     expect(error).toBeInstanceOf(Joi.ValidationError)
-    expect(error.message).toBe('"tag" must be one of [tier-1, live, beta, prr]')
+    expect(error.message).toBe(
+      '"tag" must be one of [tier-1, tier-2, live, beta, prr]'
+    )
   })
 
   test('Should return an error for a missing service', () => {
     const { error } = tagValidation.validate({ tag: 'validTag' })
 
     expect(error).toBeInstanceOf(Joi.ValidationError)
-    expect(error.message).toBe('"tag" must be one of [tier-1, live, beta, prr]')
+    expect(error.message).toBe(
+      '"tag" must be one of [tier-1, tier-2, live, beta, prr]'
+    )
   })
 })
