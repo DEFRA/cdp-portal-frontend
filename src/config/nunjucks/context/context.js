@@ -16,30 +16,37 @@ import { hasScopeDecorator } from '../../../server/common/helpers/decorators/has
 const logger = createLogger()
 const assetPath = config.get('assetPath')
 
+const isProduction = process.env.NODE_ENV === 'production'
+const isTest = process.env.NODE_ENV === 'test'
+
 /**
  * Get asset path from assets-manifest.json
  * @param {string} asset
  * @returns {string}
  */
 function getAssetPath(asset) {
-  const manifestPath = path.join(
-    config.get('root'),
-    '.public/.vite/manifest.json'
-  )
+  if (isProduction || isTest) {
+    const manifestPath = path.join(
+      config.get('root'),
+      '.public/.vite/manifest.json'
+    )
 
-  let viteManifest
+    let viteManifest
 
-  if (!viteManifest) {
-    try {
-      viteManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
-    } catch (error) {
-      logger.error(error, `Vite ${path.basename(manifestPath)} not found`)
+    if (!viteManifest) {
+      try {
+        viteManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
+      } catch (error) {
+        logger.error(error, `Webpack ${path.basename(manifestPath)} not found`)
+      }
     }
+
+    const webpackAssetPath = viteManifest[`src/client/${asset}`]?.file ?? ''
+
+    return `${assetPath}/${webpackAssetPath}`
   }
 
-  const viteAssetPath = viteManifest[`src/client/${asset}`]?.file ?? ''
-
-  return `${assetPath}/${viteAssetPath}`
+  return `${assetPath}/src/client/${asset}`
 }
 
 /**
