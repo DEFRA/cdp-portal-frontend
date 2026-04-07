@@ -45,7 +45,6 @@ const router = {
         logout,
         repositories,
         runningServices,
-        isProduction ? serveStaticFiles : undefined,
         services,
         teams,
         testSuites,
@@ -54,7 +53,9 @@ const router = {
         styleGuide
       ])
 
-      if (!isProduction) {
+      if (isProduction) {
+        server.register(serveStaticFiles)
+      } else {
         await (async () => {
           const createViteServer = (await import('vite')).createServer
           const vite = await createViteServer({
