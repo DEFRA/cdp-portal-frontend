@@ -33,13 +33,13 @@ function getAssetPath(asset) {
     try {
       viteManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
     } catch (error) {
-      logger.error(error, `Webpack ${path.basename(manifestPath)} not found`)
+      logger.error(error, `Vite ${path.basename(manifestPath)} not found`)
     }
   }
 
-  const webpackAssetPath = `src/client/${asset}` //viteManifest[`src/client/${asset}`]?.file ?? ''
+  const viteAssetPath = viteManifest[`src/client/${asset}`]?.file ?? ''
 
-  return `${assetPath}/${webpackAssetPath}`
+  return `${assetPath}/${viteAssetPath}`
 }
 
 /**

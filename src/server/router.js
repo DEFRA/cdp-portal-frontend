@@ -24,6 +24,7 @@ import { styleGuide } from './style-guide/routes.js'
 import connect from './plugins/connect.js'
 
 const isProduction = process.env.NODE_ENV === 'production'
+const isTest = process.env.NODE_ENV === 'test'
 
 const router = {
   plugin: {
@@ -53,7 +54,7 @@ const router = {
         styleGuide
       ])
 
-      if (isProduction) {
+      if (isProduction || isTest) {
         server.register(serveStaticFiles)
       } else {
         await (async () => {
