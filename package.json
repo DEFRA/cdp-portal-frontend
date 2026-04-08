@@ -10,8 +10,8 @@
   "scripts": {
     "build": "run-s build:client",
     "build:client": "vite build",
-    "dev": "nodemon --ext js,json --watch ./src/server ./src/config --env-file-if-exists=.env ./src",
-    "dev:debug": "nodemon --ext js,json --watch ./src/server ./src/config --env-file-if-exists=.env --inspect ./src",
+    "dev": "nodemon --ext js,json --watch ./src/server --watch ./src/config --env-file-if-exists=.env ./src",
+    "dev:debug": "nodemon --ext js,json --watch ./src/server --watch ./src/config --env-file-if-exists=.env --inspect ./src",
     "docker:dev": "npm run dev",
     "format": "prettier --write \"src/**/*.js\" \"**/*.{js,md,json,config.js,test.js}\"",
     "format:check": "prettier --check \"src/**/*.js\" \"**/*.{js,md,json,config.js,test.js}\"",
