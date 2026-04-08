@@ -57,6 +57,16 @@ const nunjucksConfig = {
             options.environment,
             options.filename
           )
+          if (config.get('isDevelopment')) {
+            return (context) => {
+              const html = template.render(context)
+              // TODO: use vite.transformIndexHtml(url, template) somehow
+              return html.replaceAll(
+                '/public/assets',
+                '/public/node_modules/govuk-frontend/dist/govuk/assets'
+              )
+            }
+          }
           return (context) => template.render(context)
         }
       }

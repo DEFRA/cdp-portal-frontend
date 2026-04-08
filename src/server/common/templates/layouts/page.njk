@@ -85,7 +85,7 @@
   {% block xhrHeadContent %}
     {% if faviconState %}
       <link rel="icon" sizes="any"
-            href="{{ getAssetPath("assets/images/" + faviconState + ".svg") }}" type="image/svg+xml"
+            href="{{ getAssetPath("images/" + faviconState + ".svg") }}" type="image/svg+xml"
             data-xhr="page-state-icon">
     {% endif %}
   {% endblock %}
