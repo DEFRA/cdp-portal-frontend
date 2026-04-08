@@ -1,14 +1,14 @@
-@use "govuk-frontend" as *;
-@use "helpers/link" as *;
-@use "variables/colours" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'helpers/link' as *;
+@use 'variables/colours' as *;
+@use 'variables/border-radius' as *;
 
 .app-details {
   position: relative;
   display: block;
   margin-left: 2px;
   margin-bottom: govuk-spacing(4);
-  color: govuk-colour("black");
+  color: govuk-colour('black');
 
   @include govuk-font($size: 19);
 }
@@ -17,7 +17,7 @@
   margin-left: govuk-spacing(2);
   display: block;
   display: flex;
-  color: govuk-colour("black");
+  color: govuk-colour('black');
   text-decoration: underline;
 
   &:hover {
@@ -25,15 +25,15 @@
   }
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: -2px;
     left: govuk-spacing(-2);
     display: block;
     width: 24px;
     height: 24px;
-    background-image: govuk-image-url("chevron.svg");
-    fill: govuk-colour("black");
+    background-image: url('/src/client/images/chevron.svg');
+    fill: govuk-colour('black');
 
     .app-details[open] > & {
       transform: rotate(90deg);
@@ -45,7 +45,7 @@
   padding: govuk-spacing(3) govuk-spacing(4) govuk-spacing(4) govuk-spacing(3);
   margin: govuk-spacing(1) 0 0;
   min-width: 600px;
-  border-left: 6px solid govuk-colour("blue");
+  border-left: 6px solid govuk-colour('blue');
   background-color: $app-brand-background-colour-light;
   display: inline-block;
   border-radius: $app-border-radius-right;

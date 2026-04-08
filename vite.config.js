@@ -12,8 +12,8 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: '/public/assets/fonts',
-        replacement: path.join(govukFrontendPath, 'dist/govuk/assets/fonts')
+        find: '/public/assets',
+        replacement: path.join(govukFrontendPath, 'dist/govuk/assets')
       }
     ]
   },
