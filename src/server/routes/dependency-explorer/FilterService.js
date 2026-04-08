@@ -48,7 +48,7 @@ export async function getEntityTags() {
   return []
 }
 
-export async function getEntityStates() {
+export async function getEntityStages() {
   const baseUrl = config.get('sbomExplorerBackendUrl')
   const searchUrl = new URL('/filters/entity-stage', baseUrl)
 

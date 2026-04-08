@@ -74,6 +74,10 @@ export async function getEntityDependencies(name, version, query = {}) {
     searchUrl.searchParams.set('name', query.dependencyName.split(':')?.at(1))
   }
 
+  if (query.entityStage) {
+    searchUrl.searchParams.set('stage', query.entityStage)
+  }
+
   const resp = await fetch(searchUrl, { method: 'GET' })
   if (resp.status === 200) {
     return {

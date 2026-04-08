@@ -1,10 +1,11 @@
 import { scopes } from '@defra/cdp-validation-kit'
 import { getEntityDependencies } from '../../../DependencyService.js'
-import { getDependencyTypes } from '../../../FilterService.js'
+import { getDependencyTypes, getEntityStages } from '../../../FilterService.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { buildPagination } from '#server/common/helpers/build-pagination.js'
 import { pagination } from '#server/common/constants/pagination.js'
 import { fetchAvailableVersions } from '#server/deploy-service//helpers/fetch/fetch-available-versions.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import Joi from 'joi'
 
 export const options = {
@@ -30,9 +31,10 @@ export default async function (request) {
   const page = request.query?.page ?? pagination.page
   const size = request.query?.size ?? pagination.size
 
-  const [dependencyTypes, availableVersions] = await Promise.all([
+  const [dependencyTypes, availableVersions, entityStages] = await Promise.all([
     getDependencyTypes(),
-    fetchAvailableVersions(entity)
+    fetchAvailableVersions(entity),
+    getEntityStages()
   ])
 
   let rows = []
@@ -64,6 +66,12 @@ export default async function (request) {
       value: version.tag
     }))
   )
+  const entityStageOptions = buildOptions(
+    entityStages.map((stage) => ({
+      text: formatText(stage),
+      value: stage
+    }))
+  )
 
   const pageUrl = request.routeLookup('dependency-version-list', {
     params: { entity, version }
@@ -77,6 +85,7 @@ export default async function (request) {
     version,
     dependencyTypeOptions,
     versionOptions,
+    entityStageOptions,
     totalItems,
     tableData: {
       headers: [
