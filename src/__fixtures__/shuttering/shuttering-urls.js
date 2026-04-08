@@ -9,7 +9,8 @@ const shutteringUrlsFixture = (serviceName) => [
     internal: false,
     status: 'Active',
     lastActionedBy: null,
-    lastActionedAt: null
+    lastActionedAt: null,
+    delegated: true
   },
   {
     environment: 'management',
@@ -19,7 +20,8 @@ const shutteringUrlsFixture = (serviceName) => [
     internal: true,
     status: 'Active',
     lastActionedBy: null,
-    lastActionedAt: null
+    lastActionedAt: null,
+    delegated: true
   },
   {
     environment: 'infra-dev',
@@ -29,7 +31,8 @@ const shutteringUrlsFixture = (serviceName) => [
     internal: true,
     status: 'Shuttered',
     lastActionedBy: null,
-    lastActionedAt: null
+    lastActionedAt: null,
+    delegated: false
   }
 ]
 
