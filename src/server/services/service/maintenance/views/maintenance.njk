@@ -55,7 +55,9 @@
   {% endset %}
 
   {% set shutterLinkHtml %}
-    {% if detail.status == "PendingActive"  or detail.status == "PendingShuttered" %}
+    {% if detail.delegated == false %}
+      <span>Not delegated</span>
+    {% elseif detail.status == "PendingActive"  or detail.status == "PendingShuttered" %}
       {{ appLoader({
         classes: "app-loader--small app-loader--is-loading govuk-!-margin-right-2"
       }) }}
