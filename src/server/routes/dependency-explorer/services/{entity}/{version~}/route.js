@@ -30,15 +30,32 @@ export default async function (request) {
   const page = request.query?.page ?? pagination.page
   const size = request.query?.size ?? pagination.size
 
-  const [{ results: dependencies, meta }, dependencyTypes, availableVersions] =
-    await Promise.all([
-      getEntityDependencies(entity, version, request.query),
-      getDependencyTypes(),
-      fetchAvailableVersions(entity)
-    ])
+  const [dependencyTypes, availableVersions] = await Promise.all([
+    getDependencyTypes(),
+    fetchAvailableVersions(entity)
+  ])
 
-  const totalItems = meta.total ?? 0
-  const totalPages = meta.totalPages ?? 1
+  let rows = []
+  let totalItems = 0
+  let totalPages = 1
+
+  if (version) {
+    const { results: dependencies, meta } = await getEntityDependencies(
+      entity,
+      version,
+      request.query
+    )
+
+    totalItems = meta.total ?? 0
+    totalPages = meta.totalPages ?? 1
+
+    rows = dependencies.map((dependency) => ({
+      entityStage: dependency.entitystage,
+      dependencyName: dependency.name,
+      dependencyVersion: dependency.version,
+      dependencyType: dependency.type
+    }))
+  }
 
   const dependencyTypeOptions = buildOptions(dependencyTypes)
   const versionOptions = buildOptions(
@@ -51,13 +68,6 @@ export default async function (request) {
   const pageUrl = request.routeLookup('dependency-version-list', {
     params: { entity, version }
   })
-
-  const rows = dependencies.map((dependency) => ({
-    entityStage: dependency.entitystage,
-    dependencyName: dependency.name,
-    dependencyVersion: dependency.version,
-    dependencyType: dependency.type
-  }))
 
   return {
     pageTitle: `Dependencies Explorer - ${entity}`,
