@@ -22,9 +22,7 @@ import { repositories } from './repositories/routes.js'
 import { userProfile } from './user-profile/routes.js'
 import { styleGuide } from './style-guide/routes.js'
 import connect from './plugins/connect.js'
-
-const isProduction = process.env.NODE_ENV === 'production'
-const isTest = process.env.NODE_ENV === 'test'
+import { config } from '#config/config.js'
 
 const router = {
   plugin: {
@@ -54,10 +52,9 @@ const router = {
         styleGuide
       ])
 
-      if (isProduction || isTest) {
-        server.register(serveStaticFiles)
-      } else {
+      if (config.get('isDevelopment')) {
         await (async () => {
+          // eslint-disable-next-line n/no-unpublished-import
           const createViteServer = (await import('vite')).createServer
           const vite = await createViteServer({
             server: { middlewareMode: true },
@@ -72,6 +69,8 @@ const router = {
             }
           })
         })()
+      } else {
+        server.register(serveStaticFiles)
       }
     }
   }
