@@ -8,7 +8,6 @@ const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isTest = process.env.NODE_ENV === 'test'
-const isDevelopment = process.env.NODE_ENV === 'development'
 
 const config = convict({
   service: {
@@ -78,7 +77,8 @@ const config = convict({
       forcePathStyle: {
         doc: 'AWS S3 forcePathStyle option',
         format: Boolean,
-        default: !isProduction
+        default: !isProduction,
+        env: 'S3_FORCE_PATH_STYLE'
       }
     },
     dynamoDb: {
@@ -130,7 +130,7 @@ const config = convict({
     watch: {
       doc: 'Reload templates when they are changed.',
       format: Boolean,
-      default: isDevelopment
+      default: !isProduction
     },
     doCache: {
       doc: 'Cache the templates',
@@ -182,7 +182,8 @@ const config = convict({
       isSecure: {
         doc: 'Session cookie isSecure flag',
         format: Boolean,
-        default: isProduction
+        default: isProduction,
+        env: 'SESSION_COOKIE_IS_SECURE'
       }
     }
   },
@@ -223,7 +224,7 @@ const config = convict({
     useSingleInstanceCache: {
       doc: 'Enable the use of a single instance Redis Cache',
       format: Boolean,
-      default: process.env.NODE_ENV !== 'production',
+      default: !isProduction,
       env: 'USE_SINGLE_INSTANCE_CACHE'
     }
   },
@@ -231,11 +232,6 @@ const config = convict({
     doc: 'If this application running in the production environment',
     format: Boolean,
     default: isProduction
-  },
-  isDevelopment: {
-    doc: 'If this application running in the development environment',
-    format: Boolean,
-    default: isDevelopment
   },
   isTest: {
     doc: 'If this application running in the test environment',
