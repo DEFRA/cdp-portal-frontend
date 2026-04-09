@@ -31,10 +31,16 @@ export default async function (request) {
   const page = request.query?.page ?? pagination.page
   const size = request.query?.size ?? pagination.size
 
+<<<<<<< HEAD
   const [dependencyTypes, availableVersions, entityStages] = await Promise.all([
     getDependencyTypes(),
     fetchAvailableVersions(entity),
     getEntityStages()
+=======
+  const [dependencyTypes, availableVersions] = await Promise.all([
+    getDependencyTypes(),
+    fetchAvailableVersions(entity)
+>>>>>>> d2a971b2 (Handle no version)
   ])
 
   let rows = []
