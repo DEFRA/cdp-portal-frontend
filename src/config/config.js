@@ -77,7 +77,8 @@ const config = convict({
       forcePathStyle: {
         doc: 'AWS S3 forcePathStyle option',
         format: Boolean,
-        default: !isProduction
+        default: !isProduction,
+        env: 'S3_FORCE_PATH_STYLE'
       }
     },
     dynamoDb: {
@@ -181,7 +182,8 @@ const config = convict({
       isSecure: {
         doc: 'Session cookie isSecure flag',
         format: Boolean,
-        default: isProduction
+        default: isProduction,
+        env: 'SESSION_COOKIE_IS_SECURE'
       }
     }
   },
