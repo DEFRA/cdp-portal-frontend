@@ -57,7 +57,7 @@ const nunjucksConfig = {
             options.environment,
             options.filename
           )
-          if (config.get('isDevelopment')) {
+          if (!config.get('isProduction')) {
             return (context) => {
               const html = template.render(context)
               // TODO: use vite.transformIndexHtml(url, template) somehow

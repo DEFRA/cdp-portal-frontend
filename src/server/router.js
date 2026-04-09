@@ -52,7 +52,7 @@ const router = {
         styleGuide
       ])
 
-      if (config.get('isDevelopment')) {
+      if (!config.get('isProduction') && !config.get('isTest')) {
         await (async () => {
           // eslint-disable-next-line n/no-unpublished-import
           const createViteServer = (await import('vite')).createServer
