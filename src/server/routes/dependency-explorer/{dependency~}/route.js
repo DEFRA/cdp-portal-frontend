@@ -143,7 +143,8 @@ export async function POST(request, h) {
     request.routeLookup('dependency-explorer', {
       params: {
         dependency: encodeURIComponent(dependency)
-      }
+      },
+      query: request.query
     })
   )
 }

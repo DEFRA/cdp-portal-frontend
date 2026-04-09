@@ -6,14 +6,14 @@
   <td headers="entity" class="app-entity-table__cell" data-label="entity">
     <div class="app-!-layout-centered">
       <div class="app-entity-table__row-caption">
-        <a class="app-link" href="/dependency-explorer/services/{{ params.entity  | urlencode | safe }}/{{ params.entityVersion  | urlencode | safe }}" data-testid="app-entity-link">
+        <a class="app-link" href="/dependency-explorer/services/{{ params.entity  | urlencode | safe }}/{{ params.entityVersion  | urlencode | safe }}?entityStage=run" data-testid="app-entity-link">
           {{ params.entity }} ({{ params.entityVersion }})
         </a>
 
         {% call appToolTip({ text: 'Docker build stage' }) %}
           {{ govukTag({
             text: params.entityStage | formatText,
-            classes: 'app-tag govuk-tag--green',
+            classes: 'app-tag govuk-tag--green govuk-!-margin-top-1',
             attributes: { "data-testid": "govuk-tag" }
           }) }}
         {% endcall %}
@@ -22,7 +22,7 @@
 
           {{ govukTag({
             text: tag,
-            classes: 'app-tag',
+            classes: 'app-tag govuk-!-margin-top-1',
             attributes: { "data-testid": "govuk-tag" }
           }) }}
 

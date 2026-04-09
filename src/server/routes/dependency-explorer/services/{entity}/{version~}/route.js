@@ -45,7 +45,10 @@ export default async function (request) {
     const { results: dependencies, meta } = await getEntityDependencies(
       entity,
       version,
-      request.query
+      {
+        stage: 'run',
+        ...request.query
+      }
     )
 
     totalItems = meta.total ?? 0
@@ -130,7 +133,8 @@ export async function POST(request, h) {
       params: {
         entity: encodeURIComponent(entity),
         version: encodeURIComponent(version)
-      }
+      },
+      query: request.query
     })
   )
 }
