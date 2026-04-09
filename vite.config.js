@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
 import path from 'node:path'
+import { spawn } from 'node:child_process'
 
 const govukFrontendPath = path.dirname(
   require.resolve('govuk-frontend/package.json')
