@@ -24,21 +24,21 @@ const assetPath = config.get('assetPath')
 function getAssetPath(asset) {
   const manifestPath = path.join(
     config.get('root'),
-    '.public/assets-manifest.json'
+    '.public/.vite/manifest.json'
   )
 
-  /** @type {Record<string, string> | undefined} */
-  let webpackManifest
+  let viteManifest
 
-  if (!webpackManifest) {
+  if (!viteManifest) {
     try {
-      webpackManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
+      viteManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
     } catch (error) {
       logger.error(error, `Webpack ${path.basename(manifestPath)} not found`)
     }
   }
 
-  const webpackAssetPath = webpackManifest[asset]
+  const webpackAssetPath =
+    viteManifest[`src/client/javascripts/${asset}`]?.file ?? ''
 
   return `${assetPath}/${webpackAssetPath}`
 }

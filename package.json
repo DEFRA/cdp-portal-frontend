@@ -32,7 +32,10 @@
     "pretest": "npm run test:build:client",
     "test": "TZ=UTC vitest --coverage",
     "test:build:client": "NODE_ENV=test webpack",
-    "test:watch": "npm run test"
+    "test:watch": "npm run test",
+    "vite:dev": "vite",
+    "vite:build": "vite build",
+    "vite:preview": "vite preview"
   },
   "imports": {
     "#server/*": "./src/server/*",
