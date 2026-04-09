@@ -22,7 +22,7 @@ const assetPath = config.get('assetPath')
  * @returns {string}
  */
 function getAssetPath(asset) {
-  if (config.get('isDevelopment')) {
+  if (!config.get('isProduction')) {
     return `${assetPath}/src/client/${asset}`
   }
 
