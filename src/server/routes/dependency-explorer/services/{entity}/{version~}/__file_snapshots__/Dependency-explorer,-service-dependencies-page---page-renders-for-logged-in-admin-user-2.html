@@ -408,7 +408,7 @@ data-js="results-loader">
 <script data-testid="app-autocomplete-suggestions">
   window.cdp = window.cdp || {};
   window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["dependencyType"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}}]
+  window.cdp.suggestions["dependencyType"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"npm","text":"npm"},{"value":"binary","text":"binary"}]
 </script>
 
 
@@ -437,6 +437,14 @@ data-js="results-loader">
           <option value=""
 >
              - - select - - 
+          </option>
+          <option value="npm"
+>
+            npm
+          </option>
+          <option value="binary"
+>
+            binary
           </option>
         </select>
 
@@ -596,6 +604,103 @@ data-js="search-dependency-loader">
     Dependency version
   </label>
   <input class="govuk-input app-input app-input--tiny app-input--block" id="dependencyVersion" name="dependencyVersion" type="text" placeholder="Version">
+</div>
+
+    </div>
+
+    <div class="app-filters__item">
+      
+
+
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["entityStage"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"dev","text":"Dev"},{"value":"run","text":"Run"}]
+</script>
+
+
+<div
+  class="govuk-form-group app-form-group app-form-group--inline"
+  data-js="app-form-group" data-testid="app-autocomplete-group">
+
+  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+         id="entityStage-label"
+         for="entityStage"
+         data-testid="app-autocomplete-label">
+    Stage
+  </label>
+
+
+
+
+
+  <div class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+       data-js="app-autocomplete"
+       data-testid="app-autocomplete"
+  >
+    <div class="app-autocomplete__control">
+
+        <select name="entityStage" id="entityStage" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
+             - - select - - 
+          </option>
+          <option value="dev"
+>
+            Dev
+          </option>
+          <option value="run"
+>
+            Run
+          </option>
+        </select>
+
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-entityStage-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Chevron">
+  <path d="M480-331.667 226.667-585 287-645.333l193 194.334 193.667-193.667 59.666 60.333L480-331.667Z"/>
+</svg>
+
+      </button>
+
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
+     width="48"
+     height="48"
+     viewBox="0 -960 960 960"
+  role="img" aria-label="Clear">
+  <path
+    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
+</svg>
+
+      </button>
+
+    </div>
+
+    <ul
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-entityStage-suggestions"
+      aria-labelledby="entityStage-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
+  </div>
+  
 </div>
 
     </div>
