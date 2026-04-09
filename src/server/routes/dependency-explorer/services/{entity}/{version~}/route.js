@@ -4,8 +4,7 @@ import { getDependencyTypes, getEntityStages } from '../../../FilterService.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { buildPagination } from '#server/common/helpers/build-pagination.js'
 import { pagination } from '#server/common/constants/pagination.js'
-import { fetchAvailableVersions } from '#server/deploy-service//helpers/fetch/fetch-available-versions.js'
-import { formatText } from '#config/nunjucks/filters/filters.js'
+import { fetchAvailableVersions } from '#server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import Joi from 'joi'
 
 export const options = {
@@ -31,16 +30,9 @@ export default async function (request) {
   const page = request.query?.page ?? pagination.page
   const size = request.query?.size ?? pagination.size
 
-<<<<<<< HEAD
-  const [dependencyTypes, availableVersions, entityStages] = await Promise.all([
-    getDependencyTypes(),
-    fetchAvailableVersions(entity),
-    getEntityStages()
-=======
   const [dependencyTypes, availableVersions] = await Promise.all([
     getDependencyTypes(),
     fetchAvailableVersions(entity)
->>>>>>> d2a971b2 (Handle no version)
   ])
 
   let rows = []
