@@ -145,6 +145,23 @@
       }) }}
     </div>
 
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+      id: "entityStage",
+      name: "entityStage",
+      classes: "app-autocomplete--tiny app-autocomplete--inline",
+      label: {
+        text: "Stage",
+        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+      },
+      formGroup: {
+        classes: "app-form-group--inline"
+      },
+      value: query.entityStage,
+      suggestions: entityStageOptions
+      }) }}
+    </div>
+
   {% endcall %}
 
 

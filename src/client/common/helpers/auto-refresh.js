@@ -28,10 +28,7 @@ async function refresh(event) {
 
   const payload = getFormData($form)
 
-  const result = await xhrPostRequest(
-    `${location.protocol}//${location.host}${location.pathname}`,
-    payload
-  )
+  const result = await xhrPostRequest(location.href, payload)
 
   if (loader) {
     loader.classList.remove('app-loader--is-loading')

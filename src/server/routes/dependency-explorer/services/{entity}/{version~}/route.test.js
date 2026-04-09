@@ -5,7 +5,7 @@ import {
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchAvailableVersions } from '#server/deploy-service//helpers/fetch/fetch-available-versions.js'
 import { getEntityDependencies } from '../../../DependencyService.js'
-import { getDependencyTypes } from '../../../FilterService.js'
+import { getDependencyTypes, getEntityStages } from '../../../FilterService.js'
 
 vi.mock('#server/common/helpers/auth/get-user-session.js')
 vi.mock('#server/deploy-service//helpers/fetch/fetch-available-versions.js')
@@ -21,7 +21,8 @@ getEntityDependencies.mockResolvedValue({
   results: [],
   meta: { total: 0, totalPages: 1 }
 })
-getDependencyTypes.mockResolvedValue([])
+getDependencyTypes.mockResolvedValue(['npm', 'binary'])
+getEntityStages.mockResolvedValue(['dev', 'run'])
 
 describe('Dependency explorer, service dependencies page', () => {
   let server
