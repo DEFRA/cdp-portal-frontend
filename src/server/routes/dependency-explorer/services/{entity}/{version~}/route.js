@@ -123,10 +123,7 @@ export default async function (request) {
 
 export async function POST(request, h) {
   const entity = request.params.entity
-  const version =
-    request.payload.version !== ''
-      ? request.payload.version
-      : request.params.version
+  const version = request.payload.version
 
   return h.redirect(
     request.routeLookup('dependency-version-list', {
