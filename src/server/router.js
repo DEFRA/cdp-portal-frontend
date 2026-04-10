@@ -21,6 +21,8 @@ import { utilities } from './utilities/routes.js'
 import { repositories } from './repositories/routes.js'
 import { userProfile } from './user-profile/routes.js'
 import { styleGuide } from './style-guide/routes.js'
+import connect from './plugins/connect.js'
+import { config } from '#config/config.js'
 
 const router = {
   plugin: {
@@ -42,7 +44,6 @@ const router = {
         logout,
         repositories,
         runningServices,
-        serveStaticFiles,
         services,
         teams,
         testSuites,
@@ -50,6 +51,27 @@ const router = {
         utilities,
         styleGuide
       ])
+
+      if (!config.get('isProduction') && !config.get('isTest')) {
+        await (async () => {
+          // eslint-disable-next-line n/no-unpublished-import
+          const createViteServer = (await import('vite')).createServer
+          const vite = await createViteServer({
+            server: { middlewareMode: true },
+            appType: 'custom'
+          })
+
+          await server.register({
+            plugin: connect,
+            options: {
+              path: '/public',
+              middleware: [vite.middlewares]
+            }
+          })
+        })()
+      } else {
+        server.register(serveStaticFiles)
+      }
     }
   }
 }

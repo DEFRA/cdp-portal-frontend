@@ -4,7 +4,7 @@ import { getDependencyTypes, getEntityStages } from '../../../FilterService.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { buildPagination } from '#server/common/helpers/build-pagination.js'
 import { pagination } from '#server/common/constants/pagination.js'
-import { fetchAvailableVersions } from '#server/deploy-service//helpers/fetch/fetch-available-versions.js'
+import { fetchAvailableVersions } from '#server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import Joi from 'joi'
 
