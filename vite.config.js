@@ -1,10 +1,5 @@
 import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
-import path from 'node:path'
-
-const govukFrontendPath = path.dirname(
-  require.resolve('govuk-frontend/package.json')
-)
 
 export default defineConfig({
   base: '/public',
