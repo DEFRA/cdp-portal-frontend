@@ -65,7 +65,7 @@ const router = {
             plugin: connect,
             options: {
               path: '/public',
-              middleware: vite.middlewares
+              middleware: [vite.middlewares]
             }
           })
         })()

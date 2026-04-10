@@ -91,12 +91,16 @@
   {% endblock %}
 
   {% if not faviconState %}
-    {{ super() }}
+    <link rel="icon" sizes="48x48" href="{{ getAssetPath("node_modules/govuk-frontend/dist/govuk/assets/images/favicon.ico") }}">
+    <link rel="icon" sizes="any" href="{{ getAssetPath("node_modules/govuk-frontend/dist/govuk/assets/images/favicon.svg") }}" type="image/svg+xml" >
+    <link rel="mask-icon" href="{{ getAssetPath("node_modules/govuk-frontend/dist/govuk/assets/images/govuk-icon-mask.svg") }}" color="{{ themeColor }}">
+    <link rel="apple-touch-icon" href="{{ getAssetPath("node_modules/govuk-frontend/dist/govuk/assets/images/govuk-icon-180.png") }}">
+    <link rel="manifest" href="{{ getAssetPath("node_modules/govuk-frontend/dist/govuk/assets/manifest.json") }}">
   {% endif %}
 {% endblock %}
 
 {% block head %}
-  <link href="{{ getAssetPath("stylesheets/application.scss") }}" rel="stylesheet">
+  <link href="{{ getAssetPath("src/client/stylesheets/application.scss") }}" rel="stylesheet">
   {% if serviceVersion %}
     <meta name="service-version" content="{{ serviceVersion }}">
   {% endif %}
@@ -189,5 +193,5 @@ read out the skiplink on every page and errors can be focused when they occur. A
 {% endblock %}
 
 {% block bodyEnd %}
-  <script type="module" src="{{ getAssetPath("javascripts/application.js") }}"></script>
+  <script type="module" src="{{ getAssetPath("src/client/javascripts/application.js") }}"></script>
 {% endblock %}

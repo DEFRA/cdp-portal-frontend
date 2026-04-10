@@ -20,11 +20,12 @@ export default defineConfig({
     outDir: '.public',
     manifest: true,
     rolldownOptions: {
-      input: [
-        'src/client/javascripts/application.js',
-        'src/client/stylesheets/application.scss',
-        'src/client/javascripts/mermaid.js'
-      ]
+      input: {
+        htmlAssets: 'src/client/assets.html',
+        application: 'src/client/javascripts/application.js',
+        applicationCss: 'src/client/stylesheets/application.scss',
+        mermaid: 'src/client/javascripts/mermaid.js'
+      }
     },
     cssMinify: false
   },

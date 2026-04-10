@@ -23,7 +23,7 @@ const assetPath = config.get('assetPath')
  */
 function getAssetPath(asset) {
   if (!config.get('isProduction')) {
-    return `${assetPath}/src/client/${asset}`
+    return `${assetPath}/${asset}`
   }
 
   const manifestPath = path.join(
@@ -41,7 +41,7 @@ function getAssetPath(asset) {
     }
   }
 
-  const webpackAssetPath = viteManifest[`src/client/${asset}`]?.file ?? ''
+  const webpackAssetPath = viteManifest[`${asset}`]?.file ?? ''
 
   return `${assetPath}/${webpackAssetPath}`
 }

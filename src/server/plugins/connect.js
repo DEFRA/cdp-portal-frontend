@@ -16,7 +16,7 @@ export default {
       method: '*',
       path: `${path}/{param*}`,
       handler: async (request, h) => {
-        for (const item of [].concat(middleware)) {
+        for (const item of middleware) {
           app.use(path, item)
         }
 
