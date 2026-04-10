@@ -8,14 +8,6 @@ const govukFrontendPath = path.dirname(
 
 export default defineConfig({
   base: '/public',
-  resolve: {
-    alias: [
-      {
-        find: '/public/assets',
-        replacement: path.join(govukFrontendPath, 'dist/govuk/assets')
-      }
-    ]
-  },
   build: {
     outDir: '.public',
     manifest: true,
