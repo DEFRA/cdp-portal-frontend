@@ -22,23 +22,26 @@ const assetPath = config.get('assetPath')
  * @returns {string}
  */
 function getAssetPath(asset) {
+  if (!config.get('isProduction')) {
+    return `${assetPath}/${asset}`
+  }
+
   const manifestPath = path.join(
     config.get('root'),
-    '.public/assets-manifest.json'
+    '.public/.vite/manifest.json'
   )
 
-  /** @type {Record<string, string> | undefined} */
-  let webpackManifest
+  let viteManifest
 
-  if (!webpackManifest) {
+  if (!viteManifest) {
     try {
-      webpackManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
+      viteManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
     } catch (error) {
       logger.error(error, `Webpack ${path.basename(manifestPath)} not found`)
     }
   }
 
-  const webpackAssetPath = webpackManifest[asset]
+  const webpackAssetPath = viteManifest[`${asset}`]?.file ?? ''
 
   return `${assetPath}/${webpackAssetPath}`
 }
@@ -79,7 +82,9 @@ async function context(request) {
     scopes,
     serviceEnvironment: serviceConfig.environment,
     serviceVersion: serviceConfig.version,
-    supportChannel: config.get('supportChannel')
+    supportChannel: config.get('supportChannel'),
+    isProduction: config.get('isProduction'),
+    isTest: config.get('isTest')
   }
 }
 
