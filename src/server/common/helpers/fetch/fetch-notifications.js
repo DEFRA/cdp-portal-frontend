@@ -95,3 +95,17 @@ export async function updateNotificationRule(entityId, ruleId, updatedRule) {
     })
   })
 }
+
+/**
+ * Triggers a test message for a rule
+ * @param {string} entityId
+ * @param {string} ruleId
+ * @return {Promise<{res: any, error} | {res: any, payload: any}>}
+ */
+export async function testNotificationRule(entityId, ruleId) {
+  const endpoint = `${portalBackendUrl}/entities/${entityId}/notifications/${ruleId}/test`
+
+  return fetchJson(endpoint, {
+    method: 'POST'
+  })
+}

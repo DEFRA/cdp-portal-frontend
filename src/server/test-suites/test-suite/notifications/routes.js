@@ -12,6 +12,10 @@ import update, {
   refresh as updateRefresh,
   postUpdate
 } from './controllers/update.js'
+import {
+  testNotification,
+  postTestNotification
+} from '#server/test-suites/test-suite/notifications/controllers/test.js'
 
 export default {
   plugin: {
@@ -71,6 +75,16 @@ export default {
             method: 'POST',
             path: '/test-suites/{serviceId}/notifications/{notificationId}/update/action',
             ...postUpdate
+          },
+          {
+            method: 'GET',
+            path: '/test-suites/{serviceId}/notifications/{notificationId}/test',
+            ...testNotification
+          },
+          {
+            method: 'POST',
+            path: '/test-suites/{serviceId}/notifications/{notificationId}/test/action',
+            ...postTestNotification
           }
         ].map(serviceOwnerOrAdminUserScope)
       )
