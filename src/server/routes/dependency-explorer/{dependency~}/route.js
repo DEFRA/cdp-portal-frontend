@@ -1,6 +1,5 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { scopes } from '@defra/cdp-validation-kit'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getDependencyDependents } from '../DependencyService.js'
 import { fetchCdpTeams } from '#server/teams/helpers/fetch/fetch-cdp-teams.js'
@@ -12,13 +11,6 @@ import Joi from 'joi'
 
 export const options = {
   id: 'dependency-explorer',
-  // TODO: Remove
-  auth: {
-    mode: 'required',
-    access: {
-      scope: scopes.admin
-    }
-  },
   validate: {
     query: Joi.object({
       page: Joi.number(),
