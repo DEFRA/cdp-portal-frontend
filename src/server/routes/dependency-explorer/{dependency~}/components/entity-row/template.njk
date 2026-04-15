@@ -12,7 +12,7 @@
 
         {% call appToolTip({ text: 'Docker build stage' }) %}
           {{ govukTag({
-            text: params.entityStage | formatText,
+            text: params.entityStage,
             classes: 'app-tag govuk-tag--green govuk-!-margin-top-1',
             attributes: { "data-testid": "govuk-tag" }
           }) }}
