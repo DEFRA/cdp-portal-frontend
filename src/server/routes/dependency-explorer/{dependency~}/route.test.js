@@ -39,36 +39,42 @@ describe('Dependency explorer page', () => {
       isAdmin: true,
       isTenant: true
     })
+
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 
-  test('page DOES NOT render for logged in tenant', async () => {
-    const { statusCode } = await mockAuthAndRenderUrl(server, {
+  test('page renders for logged in tenant', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/dependency-explorer',
       isAdmin: false,
       isTenant: true
     })
-    expect(statusCode).toBe(statusCodes.forbidden)
+
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
   })
 
-  test('page DOES NOT renders for logged in service owner tenant', async () => {
-    const { statusCode } = await mockAuthAndRenderUrl(server, {
+  test('page renders for logged in service owner tenant', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/dependency-explorer',
       isAdmin: false,
       isTenant: true,
       teamScope: 'mock-team-id'
     })
 
-    expect(statusCode).toBe(statusCodes.forbidden)
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
   })
 
-  test('page DOES NOT render for logged out user', async () => {
-    const { statusCode } = await mockAuthAndRenderUrl(server, {
+  test('page renders for logged out user', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: '/dependency-explorer',
       isAdmin: false,
       isTenant: false
     })
-    expect(statusCode).toBe(statusCodes.unauthorized)
+
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
   })
 })

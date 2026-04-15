@@ -1,4 +1,3 @@
-import { scopes } from '@defra/cdp-validation-kit'
 import { getEntityDependencies } from '../../../DependencyService.js'
 import { getDependencyTypes, getEntityStages } from '../../../FilterService.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
@@ -10,13 +9,6 @@ import Joi from 'joi'
 
 export const options = {
   id: 'dependency-version-list',
-  // TODO: Remove
-  auth: {
-    mode: 'required',
-    access: {
-      scope: scopes.admin
-    }
-  },
   validate: {
     query: Joi.object({
       page: Joi.number(),
