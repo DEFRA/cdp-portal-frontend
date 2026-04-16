@@ -21,7 +21,6 @@ import { utilities } from './utilities/routes.js'
 import { repositories } from './repositories/routes.js'
 import { userProfile } from './user-profile/routes.js'
 import { styleGuide } from './style-guide/routes.js'
-import connect from './plugins/connect.js'
 import { config } from '#config/config.js'
 
 const router = {
@@ -62,7 +61,8 @@ const router = {
           })
 
           await server.register({
-            plugin: connect,
+            // eslint-disable-next-line n/no-unpublished-import
+            plugin: (await import('@defra/hapi-connect')).default,
             options: {
               path: '/public',
               middleware: [vite.middlewares]
