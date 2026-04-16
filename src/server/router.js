@@ -61,6 +61,7 @@ const router = {
           })
 
           await server.register({
+            // eslint-disable-next-line n/no-unpublished-import
             plugin: (await import('@defra/hapi-connect')).default,
             options: {
               path: '/public',
