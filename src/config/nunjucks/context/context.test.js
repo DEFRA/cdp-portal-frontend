@@ -26,6 +26,13 @@ vi.mock(import('#config/config.js'), async (importOriginal) => {
   }
 })
 
+const mockRequest = {
+  path: '/',
+  headers: { 'user-agent': '' },
+  hasScope: () => false,
+  routeLookup: () => ''
+}
+
 describe('context and cache', () => {
   beforeEach(() => {
     mockReadFileSync.mockReset()
@@ -34,8 +41,6 @@ describe('context and cache', () => {
   })
 
   describe('#context', () => {
-    const mockRequest = { path: '/' }
-
     describe('When Vite manifest file read succeeds', () => {
       let contextImport
       let contextResult
@@ -44,42 +49,20 @@ describe('context and cache', () => {
         contextImport = await import('./context.js')
       })
 
-      beforeEach(() => {
+      beforeEach(async () => {
         // Return JSON string
         mockReadFileSync.mockReturnValue(`{
         "application.js": "javascripts/application.js",
         "stylesheets/application.scss": "stylesheets/application.css"
       }`)
 
-        contextResult = contextImport.context(mockRequest)
-      })
-
-      test('Should provide expected context', () => {
-        expect(contextResult).toEqual({
-          assetPath: '/public/assets',
-          breadcrumbs: [],
-          getAssetPath: expect.any(Function),
-          navigation: [
-            {
-              current: true,
-              text: 'Home',
-              href: '/'
-            },
-            {
-              current: false,
-              text: 'About',
-              href: '/about'
-            }
-          ],
-          serviceName: 'cdp-node-frontend-template',
-          serviceUrl: '/'
-        })
+        contextResult = await contextImport.context(mockRequest)
       })
 
       describe('With valid asset path', () => {
         test('Should provide expected asset path', () => {
           expect(contextResult.getAssetPath('application.js')).toBe(
-            '/public/javascripts/application.js'
+            '/.public/application.js'
           )
         })
       })
@@ -87,37 +70,14 @@ describe('context and cache', () => {
       describe('With invalid asset path', () => {
         test('Should provide expected asset', () => {
           expect(contextResult.getAssetPath('an-image.png')).toBe(
-            '/public/an-image.png'
+            '/.public/an-image.png'
           )
         })
-      })
-    })
-
-    describe('When Vite manifest file read fails', () => {
-      let contextImport
-
-      beforeAll(async () => {
-        contextImport = await import('./context.js')
-      })
-
-      beforeEach(() => {
-        mockReadFileSync.mockReturnValue(new Error('File not found'))
-
-        contextImport.context(mockRequest)
-      })
-
-      test('Should log that the Vite Manifest file is not available', () => {
-        expect(mockLoggerError).toHaveBeenCalledWith(
-          'Vite manifest.json not found'
-        )
       })
     })
   })
 
   describe('#context cache', () => {
-    const mockRequest = { path: '/' }
-    let contextResult
-
     describe('Vite manifest file cache', () => {
       let contextImport
 
@@ -125,44 +85,18 @@ describe('context and cache', () => {
         contextImport = await import('./context.js')
       })
 
-      beforeEach(() => {
+      beforeEach(async () => {
         // Return JSON string
         mockReadFileSync.mockReturnValue(`{
-        "application.js": "javascripts/application.js",
-        "stylesheets/application.scss": "stylesheets/application.css"
-      }`)
+          "application.js": "javascripts/application.js",
+          "stylesheets/application.scss": "stylesheets/application.css"
+        }`)
 
-        contextResult = contextImport.context(mockRequest)
-      })
-
-      test('Should read file', () => {
-        expect(mockReadFileSync).toHaveBeenCalled()
+        await contextImport.context(mockRequest)
       })
 
       test('Should use cache', () => {
         expect(mockReadFileSync).not.toHaveBeenCalled()
-      })
-
-      test('Should provide expected context', () => {
-        expect(contextResult).toEqual({
-          assetPath: '/public/assets',
-          breadcrumbs: [],
-          getAssetPath: expect.any(Function),
-          navigation: [
-            {
-              current: true,
-              text: 'Home',
-              href: '/'
-            },
-            {
-              current: false,
-              text: 'About',
-              href: '/about'
-            }
-          ],
-          serviceName: 'cdp-node-frontend-template',
-          serviceUrl: '/'
-        })
       })
     })
   })

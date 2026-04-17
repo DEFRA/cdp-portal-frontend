@@ -22,11 +22,12 @@ const manifestPath = path.join(
 
 let viteManifest
 
-/**
- * @param {import('@hapi/hapi').Request | null} request
- */
-export async function context(request) {
-  if (config.get('isProduction') && !viteManifest) {
+export function getAssetPath(asset) {
+  if (!config.get('isProduction')) {
+    return `${assetPath}/${asset}`
+  }
+
+  if (!viteManifest) {
     try {
       viteManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
     } catch (error) {
@@ -34,6 +35,14 @@ export async function context(request) {
     }
   }
 
+  const viteAssetPath = viteManifest?.[asset]?.file
+  return `${assetPath}/${viteAssetPath ?? asset}`
+}
+
+/**
+ * @param {import('@hapi/hapi').Request | null} request
+ */
+export async function context(request) {
   const userSession = request?.auth?.credentials
   const isInternetExplorer = isIe(request.headers['user-agent'])
   const announcements = await getAnnouncements({
@@ -52,14 +61,7 @@ export async function context(request) {
     blankOption: defaultOption,
     breadcrumbs: [],
     eventName,
-    getAssetPath(asset) {
-      if (!config.get('isProduction')) {
-        return `${assetPath}/${asset}`
-      }
-
-      const viteAssetPath = viteManifest?.[asset]?.file
-      return `${assetPath}/${viteAssetPath ?? asset}`
-    },
+    getAssetPath,
     githubOrg: config.get('githubOrg'),
     hasScope: hasScopeDecorator(request),
     isAdmin: userSession?.isAdmin ?? false,
