@@ -4,10 +4,10 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { config } from '#config/config.js'
-import { createLogger } from '../logging/logger.js'
-import { sessionNames } from '../../constants/session-names.js'
-import { asExternalUrl } from '../url/url-helpers.js'
-import { refreshTokenIfExpired } from './refresh-token.js'
+import { createLogger } from '../common/helpers/logging/logger.js'
+import { sessionNames } from '../common/constants/session-names.js'
+import { asExternalUrl } from '../common/helpers/url/url-helpers.js'
+import { refreshTokenIfExpired } from '../common/helpers/auth/refresh-token.js'
 
 const logger = createLogger()
 const callbackPath = '/auth/callback'

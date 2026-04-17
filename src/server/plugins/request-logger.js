@@ -1,6 +1,6 @@
 import hapiPino from 'hapi-pino'
 
-import { loggerOptions } from './logger-options.js'
+import { loggerOptions } from '../common/helpers/logging/logger-options.js'
 
 const pathToIgnore = (_, request) =>
   request.path.startsWith('/public') ||

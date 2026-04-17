@@ -1,5 +1,5 @@
 import yar from '@hapi/yar'
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 
 const sessionConfig = config.get('session')
 
