@@ -14,7 +14,7 @@ export default defineConfig({
         mermaid: 'src/client/javascripts/mermaid.js'
       }
     },
-    cssMinify: false
+    sourcemap: true
   },
   css: {
     preprocessorOptions: {

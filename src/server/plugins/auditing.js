@@ -1,4 +1,4 @@
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { audit, enableAuditing } from '@defra/cdp-auditing'
 
 function auditingDecorator(request) {

@@ -3,7 +3,7 @@ import { config } from '#config/config.js'
 
 export const nodeVmMetrics = {
   plugin: {
-    name: 'mongoDb',
+    name: 'nodeVmMetrics',
     version: '1.0.0',
     register: async function (server, options) {
       if (options?.enabled === false) {
