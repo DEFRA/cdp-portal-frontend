@@ -2,7 +2,7 @@ import bell from '@hapi/bell'
 import qs from 'qs'
 import Wreck from '@hapi/wreck'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { sessionNames } from '../../constants/session-names.js'
 import { fetchWellknown } from '../fetch/fetch-well-known.js'
 import { refreshTokenIfExpired } from './refresh-token.js'

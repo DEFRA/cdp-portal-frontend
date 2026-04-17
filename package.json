@@ -25,7 +25,6 @@
     "security-audit": "npm audit --audit-level=high",
     "start": "npm run dev",
     "start:debug": "npm run dev:debug",
-    "pretest": "npm run build:client",
     "test": "NODE_ENV=test TZ=UTC vitest --coverage",
     "test:watch": "npm run test"
   },
