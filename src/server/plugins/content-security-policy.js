@@ -12,6 +12,15 @@ const terminalProxyDomains = [
   )
 ]
 
+const grafanaUrl = config.get('grafanaUrl')
+const grafanaDomains = [
+  ...new Set(
+    getAllEnvironmentKebabNames().map((environment) =>
+      grafanaUrl.replace('{environment}', environment)
+    )
+  )
+]
+
 /**
  * @satisfies {import('@hapi/hapi').Plugin}
  */
@@ -24,7 +33,7 @@ const contentSecurityPolicy = {
     scriptSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     styleSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     imgSrc: ['self', 'data:'],
-    frameSrc: ['self', 'data:', ...terminalProxyDomains],
+    frameSrc: ['self', 'data:', ...terminalProxyDomains, ...grafanaDomains],
     generateNonces: false
   }
 }
