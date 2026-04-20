@@ -3,6 +3,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% from "info/macro.njk" import appInfo %}
+{% from "../components/proxy-rule-row/macro.njk" import proxyRuleRow %}
 
 
 {% set explainProxyRulesHtml %}
@@ -42,10 +43,15 @@
 
             {{ appInfo({ html: explainProxyRulesHtml }) }}
 
-            <div class="app-grid app-grid--fluid">
+            {% call(params) appEntityTable(tableData) %}
 
+              {{ proxyRuleRow({
+                rowClasses: params.rowClasses,
+                loopIndex: params.loopIndex,
+                envs: environments
+              }) | safe }}
 
-            </div>
+            {% endcall %}
           </section>
         {% endcall %}
 

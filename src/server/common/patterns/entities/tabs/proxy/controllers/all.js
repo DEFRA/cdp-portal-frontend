@@ -1,10 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
-import { pluralise } from '../../../../../helpers/pluralise.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { pluralise } from '#server/common/helpers/pluralise.js'
 import startCase from 'lodash/startCase.js'
 import { transformProxyRules } from '../transformers/transform-proxy-rules.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export function allProxyController(entityKind) {
   return {
@@ -25,15 +26,44 @@ export function allProxyController(entityKind) {
         entity?.subType
       )
 
-      const proxyRulesByEnvironment = environments.map((env) =>
-        transformProxyRules(env, entity.environments[env]?.squid)
+      const proxyRulesByEnvironment = Object.fromEntries(
+        environments.map((env) => [
+          env,
+          transformProxyRules(entity.environments[env]?.squid)
+        ])
       )
+
+      const rows = [
+        {
+          'infra-dev': '',
+          management: '',
+          dev: '',
+          test: '',
+          'ext-test': '',
+          'pref-test': '',
+          prod: ''
+        }
+      ]
+
+      const supportVerticalHeadings = environments.length >= 5
 
       return h.view('common/patterns/entities/tabs/proxy/views/all', {
         pageTitle: `${entityName} - Proxy`,
         entityName,
-        proxyRulesByEnvironment,
+        environments,
         entityKind,
+        tableData: {
+          headers: [
+            ...environments.map((env) => ({
+              ...(supportVerticalHeadings && { verticalText: true }),
+              id: env.toLowerCase(),
+              text: formatText(env),
+              width: env.length
+            }))
+          ],
+          rows,
+          noResult: 'Currently you have no proxy rules setup'
+        },
         breadcrumbs: [
           {
             text: pluralise(startCase(entityKind)),

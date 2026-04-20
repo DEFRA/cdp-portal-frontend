@@ -1,4 +1,4 @@
-import { defaultSquidDomains } from '../../../../../../../config/default-squid-domains.js'
+import { defaultSquidDomains } from '#config/default-squid-domains.js'
 
 /**
  *
