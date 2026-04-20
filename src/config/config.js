@@ -121,6 +121,11 @@ const config = convict({
       ? 'https://webshell.{environment}.cdp-int.defra.cloud'
       : 'http://localhost:8000'
   },
+  grafanaUrl: {
+    doc: 'Grafana base url',
+    format: String,
+    default: 'https://metrics.{environment}.cdp-int.defra.cloud'
+  },
   githubOrg: {
     doc: 'The GitHub Organisation',
     format: String,
