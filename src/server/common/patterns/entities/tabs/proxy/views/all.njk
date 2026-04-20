@@ -48,7 +48,7 @@
               {{ proxyRuleRow({
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
-                envs: environments
+                envs: params.row.envs
               }) | safe }}
 
             {% endcall %}

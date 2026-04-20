@@ -35,13 +35,26 @@ export function allProxyController(entityKind) {
 
       const rows = [
         {
-          'infra-dev': '',
-          management: '',
-          dev: '',
-          test: '',
-          'ext-test': '',
-          'pref-test': '',
-          prod: ''
+          envs: [
+            { id: 'infra-dev', domain: '.test.com', isDefault: false },
+            { id: 'management', domain: '.test.com', isDefault: false },
+            { id: 'dev', domain: '.test.com', isDefault: false },
+            { id: 'test', domain: '.test.com', isDefault: false },
+            { id: 'ext-test', domain: '', isDefault: false },
+            { id: 'pref-test', domain: '.test.com', isDefault: false },
+            { id: 'prod', domain: '.test.com', isDefault: false }
+          ]
+        },
+        {
+          envs: [
+            { id: 'infra-dev', domain: '.amazonaws.com', isDefault: true },
+            { id: 'management', domain: '.amazonaws.com', isDefault: true },
+            { id: 'dev', domain: '.amazonaws.com', isDefault: true },
+            { id: 'test', domain: '.amazonaws.com', isDefault: true },
+            { id: 'ext-test', domain: '.amazonaws.com', isDefault: true },
+            { id: 'pref-test', domain: '.amazonaws.com', isDefault: true },
+            { id: 'prod', domain: '.amazonaws.com', isDefault: true }
+          ]
         }
       ]
 
@@ -50,7 +63,6 @@ export function allProxyController(entityKind) {
       return h.view('common/patterns/entities/tabs/proxy/views/all', {
         pageTitle: `${entityName} - Proxy`,
         entityName,
-        environments,
         entityKind,
         tableData: {
           headers: [
@@ -58,7 +70,7 @@ export function allProxyController(entityKind) {
               ...(supportVerticalHeadings && { verticalText: true }),
               id: env.toLowerCase(),
               text: formatText(env),
-              width: env.length
+              width: Math.round(100 / environments.length)
             }))
           ],
           rows,
