@@ -25,10 +25,6 @@ export function allProxyController(entityKind) {
         entity?.subType
       )
 
-      const hasServiceProxyRules = Object.values(entity.environments).some(
-        (env) => env.squid
-      )
-
       const proxyRulesByEnvironment = environments.map((env) =>
         transformProxyRules(env, entity.environments[env]?.squid)
       )
@@ -37,7 +33,6 @@ export function allProxyController(entityKind) {
         pageTitle: `${entityName} - Proxy`,
         entityName,
         proxyRulesByEnvironment,
-        hasServiceProxyRules,
         entityKind,
         breadcrumbs: [
           {
