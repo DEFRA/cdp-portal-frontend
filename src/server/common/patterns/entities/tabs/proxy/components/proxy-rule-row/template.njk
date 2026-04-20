@@ -10,7 +10,8 @@
           text: env.domain,
           classes: "govuk-tag--grey",
           attributes: {
-            "aria-label": "Platform proxy rule"
+            "aria-label": "Platform proxy rule",
+            "style": "word-break: break-word;"
           }
         }) }}
       {% else %}
@@ -19,7 +20,8 @@
           classes: "govuk-tag--green",
           attributes: {
             "aria-label": "Service proxy rule",
-            "data-testid": "app-secret-cell-" + env.domain.toLowerCase()
+            "data-testid": "app-secret-cell-" + env.domain.toLowerCase(),
+            "style": "word-break: break-word;"
           }
         }) }}
       {% endif %}

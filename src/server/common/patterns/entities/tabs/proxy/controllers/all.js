@@ -6,6 +6,7 @@ import { pluralise } from '#server/common/helpers/pluralise.js'
 import startCase from 'lodash/startCase.js'
 import { transformProxyRules } from '../transformers/transform-proxy-rules.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { defaultSquidDomains } from '#config/default-squid-domains.js'
 
 export function allProxyController(entityKind) {
   return {
@@ -45,17 +46,13 @@ export function allProxyController(entityKind) {
             { id: 'prod', domain: '.test.com', isDefault: false }
           ]
         },
-        {
-          envs: [
-            { id: 'infra-dev', domain: '.amazonaws.com', isDefault: true },
-            { id: 'management', domain: '.amazonaws.com', isDefault: true },
-            { id: 'dev', domain: '.amazonaws.com', isDefault: true },
-            { id: 'test', domain: '.amazonaws.com', isDefault: true },
-            { id: 'ext-test', domain: '.amazonaws.com', isDefault: true },
-            { id: 'pref-test', domain: '.amazonaws.com', isDefault: true },
-            { id: 'prod', domain: '.amazonaws.com', isDefault: true }
-          ]
-        }
+        ...defaultSquidDomains.map((domain) => ({
+          envs: environments.map((env) => ({
+            id: env,
+            domain,
+            isDefault: true
+          }))
+        }))
       ]
 
       const supportVerticalHeadings = environments.length >= 5
