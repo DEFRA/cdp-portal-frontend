@@ -104,22 +104,22 @@
 
             {% endcall %}
 
-            {{ appAutocomplete({
+            {{ govukSelect({
               id: "environment",
               name: "environment",
+              classes: 'app-select',
               label: {
                 text: "Environment",
                 classes: "app-label"
               },
               hint: {
-                text: "The environment to deploy to"
+                text: "The environment to deploy to",
+                classes: "app-hint"
               },
               value: formValues.environment,
               dataJs: "deploy-environment",
-              subscribeTo: eventName.autocompleteUpdate + "-version",
-              noSuggestionsMessage: "choose Image name",
               errorMessage: errorMessageHelper(formErrors.environment.message),
-              suggestions: environmentOptions,
+              items: environmentOptions,
               loader: {
                 name: "deploy-environment-loader"
               }
