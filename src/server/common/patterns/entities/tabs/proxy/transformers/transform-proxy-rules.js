@@ -44,7 +44,7 @@ export function transformProxyRulesToRows(environments, entity) {
   const allDomains = [
     ...new Set(
       Object.entries(entity.environments).flatMap(
-        ([_, { squid }]) => squid.domains
+        ([_, { squid }]) => squid?.domains ?? []
       )
     )
   ]
@@ -60,7 +60,7 @@ export function transformProxyRulesToRows(environments, entity) {
   const domainsByEnv = Object.fromEntries(
     Object.entries(entity.environments).map(([env, { squid }]) => [
       env,
-      squid.domains
+      squid?.domains ?? []
     ])
   )
 

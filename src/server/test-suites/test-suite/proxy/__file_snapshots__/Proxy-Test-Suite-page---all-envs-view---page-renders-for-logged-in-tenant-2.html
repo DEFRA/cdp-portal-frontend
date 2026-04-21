@@ -392,233 +392,182 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-            <div class="app-grid app-grid--fluid">
 
 
 
-<div class="app-panel   app-panel--slim" >
-                    <div class="app-flex-center govuk-!-margin-bottom-2">
-                    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                      Dev
-                    </h3>
+<article>
+  <table class="app-entity-table" data-testid="app-entity-table">
+    <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+    <tr>
 
-                      <a
-                        href="/test-suites/mock-test-suite/proxy/dev" class="app-link app-link--underline app-align-right">
-                        View
-                      </a>
-                  </div>
+        <th id="dev" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-1"
+width="25%"        >
+            Dev
+        </th>
 
-                        <table class="govuk-table app-table app-table--inverse govuk-!-margin-top-3 govuk-!-margin-bottom-2">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Domain</th>
+        <th id="test" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-2"
+width="25%"        >
+            Test
+        </th>
+
+        <th id="perf-test" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-3"
+width="25%"        >
+            Perf-test
+        </th>
+
+        <th id="prod" scope="col"
+            class="app-entity-table__heading"
+            data-testid="app-entity-table-header-4"
+width="25%"        >
+            Prod
+        </th>
     </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
+    </thead>
+    <tbody>
+
+
+        
+              
+<tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
+    <td headers="dev" class="app-entity-table__cell" data-label="dev">
+        
 
 
 
 
 
-<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule">
+<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule" data-testid="app-secret-cell-https://abc.com" style="word-break: break-word;">
   https://abc.com
 </strong>
 
 
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
+
+    </td>
+    <td headers="test" class="app-entity-table__cell" data-label="test">
+        
 
 
 
 
 
-<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule">
-  https://google.com
-</strong>
-
-
-</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-</div>
-
-
-
-<div class="app-panel   app-panel--slim" >
-                    <div class="app-flex-center govuk-!-margin-bottom-2">
-                    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                      Test
-                    </h3>
-
-                      <a
-                        href="/test-suites/mock-test-suite/proxy/test" class="app-link app-link--underline app-align-right">
-                        View
-                      </a>
-                  </div>
-
-                        <table class="govuk-table app-table app-table--inverse govuk-!-margin-top-3 govuk-!-margin-bottom-2">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Domain</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-
-
-<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule">
+<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule" data-testid="app-secret-cell-https://abc.com" style="word-break: break-word;">
   https://abc.com
 </strong>
 
 
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
+
+    </td>
+    <td headers="perf-test" class="app-entity-table__cell" data-label="perf-test">
+        
 
 
 
 
 
-<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule">
-  https://google.com
-</strong>
-
-
-</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-</div>
-
-
-
-<div class="app-panel   app-panel--slim" >
-                    <div class="app-flex-center govuk-!-margin-bottom-2">
-                    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                      Perf-test
-                    </h3>
-
-                      <a
-                        href="/test-suites/mock-test-suite/proxy/perf-test" class="app-link app-link--underline app-align-right">
-                        View
-                      </a>
-                  </div>
-
-                        <table class="govuk-table app-table app-table--inverse govuk-!-margin-top-3 govuk-!-margin-bottom-2">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Domain</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-
-
-<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule">
+<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule" data-testid="app-secret-cell-https://abc.com" style="word-break: break-word;">
   https://abc.com
 </strong>
 
 
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
+
+    </td>
+    <td headers="prod" class="app-entity-table__cell" data-label="prod">
+        
 
 
 
 
 
-<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule">
-  https://google.com
-</strong>
-
-
-</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-</div>
-
-
-
-<div class="app-panel   app-panel--slim" >
-                    <div class="app-flex-center govuk-!-margin-bottom-2">
-                    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                      Prod
-                    </h3>
-
-                      <a
-                        href="/test-suites/mock-test-suite/proxy/prod" class="app-link app-link--underline app-align-right">
-                        View
-                      </a>
-                  </div>
-
-                        <table class="govuk-table app-table app-table--inverse govuk-!-margin-top-3 govuk-!-margin-bottom-2">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Domain</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-
-
-<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule">
+<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service proxy rule" data-testid="app-secret-cell-https://abc.com" style="word-break: break-word;">
   https://abc.com
 </strong>
 
 
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
+
+    </td>
+</tr>
 
 
 
 
 
-<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule">
+
+
+        
+              
+<tr class="app-entity-table__row" data-testid="app-entity-table-row-2">
+    <td headers="dev" class="app-entity-table__cell" data-label="dev">
+        
+
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule" style="word-break: break-word;">
   https://google.com
 </strong>
 
 
-</td>
-    </tr>
-  </tbody>
-</table>
+
+    </td>
+    <td headers="test" class="app-entity-table__cell" data-label="test">
+        
 
 
 
-</div>
 
-            </div>
+
+<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule" style="word-break: break-word;">
+  https://google.com
+</strong>
+
+
+
+    </td>
+    <td headers="perf-test" class="app-entity-table__cell" data-label="perf-test">
+        
+
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule" style="word-break: break-word;">
+  https://google.com
+</strong>
+
+
+
+    </td>
+    <td headers="prod" class="app-entity-table__cell" data-label="prod">
+        
+
+
+
+
+
+<strong class="govuk-tag app-tag govuk-tag--grey" aria-label="Platform proxy rule" style="word-break: break-word;">
+  https://google.com
+</strong>
+
+
+
+    </td>
+</tr>
+
+
+
+
+
+    </tbody>
+  </table>
+
+</article>
           </section>
 
     </section>
