@@ -4,9 +4,8 @@ import Boom from '@hapi/boom'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { pluralise } from '#server/common/helpers/pluralise.js'
 import startCase from 'lodash/startCase.js'
-import { transformProxyRules } from '../transformers/transform-proxy-rules.js'
+import { transformProxyRulesToRows } from '../transformers/transform-proxy-rules.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
-import { defaultSquidDomains } from '#config/default-squid-domains.js'
 
 export function allProxyController(entityKind) {
   return {
@@ -27,33 +26,7 @@ export function allProxyController(entityKind) {
         entity?.subType
       )
 
-      const proxyRulesByEnvironment = Object.fromEntries(
-        environments.map((env) => [
-          env,
-          transformProxyRules(entity.environments[env]?.squid)
-        ])
-      )
-
-      const rows = [
-        {
-          envs: [
-            { id: 'infra-dev', domain: '.test.com', isDefault: false },
-            { id: 'management', domain: '.test.com', isDefault: false },
-            { id: 'dev', domain: '.test.com', isDefault: false },
-            { id: 'test', domain: '.test.com', isDefault: false },
-            { id: 'ext-test', domain: '', isDefault: false },
-            { id: 'pref-test', domain: '.test.com', isDefault: false },
-            { id: 'prod', domain: '.test.com', isDefault: false }
-          ]
-        },
-        ...defaultSquidDomains.map((domain) => ({
-          envs: environments.map((env) => ({
-            id: env,
-            domain,
-            isDefault: true
-          }))
-        }))
-      ]
+      const rows = transformProxyRulesToRows(environments, entity)
 
       const supportVerticalHeadings = environments.length >= 5
 

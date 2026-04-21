@@ -1,7 +1,10 @@
-import { transformProxyRules } from './transform-proxy-rules.js'
-import { defaultSquidDomains } from '../../../../../../../config/default-squid-domains.js'
+import {
+  transformProxyRules,
+  transformProxyRulesToRows
+} from './transform-proxy-rules.js'
+import { defaultSquidDomains } from '#config/default-squid-domains.js'
 
-describe('#transformProxyRules', () => {
+describe('transformProxyRules', () => {
   test('Should return transformed proxy rules', () => {
     const response = transformProxyRules('infra-dev', {
       domains: ['.test.example.com', ...defaultSquidDomains]
@@ -66,5 +69,84 @@ describe('#transformProxyRules', () => {
   test('Should not be isProxySetup if it no squid config', () => {
     const response = transformProxyRules('infra-dev', null)
     expect(response.rules.isProxySetup).toBeFalsy()
+  })
+})
+
+describe('transformProxyRulesToRows', () => {
+  const environments = ['dev', 'test']
+  const entity = {
+    environments: {
+      dev: {
+        squid: {
+          domains: ['.browserstack.com', '.cdp-int.defra.cloud', '.example.com']
+        }
+      },
+      test: {
+        squid: {
+          domains: ['.browserstack.com', '.example.com', '.test.com']
+        }
+      }
+    }
+  }
+
+  test('Renders to rows', () => {
+    expect(transformProxyRulesToRows(environments, entity)).toEqual([
+      {
+        envs: [
+          {
+            domain: '.example.com',
+            id: 'dev',
+            isDefault: false
+          },
+          {
+            domain: '.example.com',
+            id: 'test',
+            isDefault: false
+          }
+        ]
+      },
+      {
+        envs: [
+          {
+            domain: '',
+            id: 'dev',
+            isDefault: false
+          },
+          {
+            domain: '.test.com',
+            id: 'test',
+            isDefault: false
+          }
+        ]
+      },
+      {
+        envs: [
+          {
+            domain: '.browserstack.com',
+            id: 'dev',
+            isDefault: true
+          },
+          {
+            domain: '.browserstack.com',
+            id: 'test',
+            isDefault: true
+          }
+        ]
+      },
+      {
+        envs: [
+          {
+            domain: '.cdp-int.defra.cloud',
+            id: 'dev',
+            isDefault: true
+          },
+          {
+            domain: '',
+            id: 'test',
+            isDefault: true
+          }
+        ]
+      }
+    ])
   })
 })
