@@ -44,7 +44,8 @@ export function allProxyController(entityKind) {
             }))
           ],
           rows,
-          noResult: 'Currently you have no proxy rules setup'
+          noResult:
+            'Currently you have no proxy rules setup. To set up proxy rules, contact the Platform team via Slack #cdp-support.'
         },
         breadcrumbs: [
           {
