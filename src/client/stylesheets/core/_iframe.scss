@@ -23,6 +23,6 @@ $scrollbar-width: 15px;
 }
 
 .app-iframe--grafana-snapshot {
-  min-height: 40vh;
-  width: calc(98vw - $scrollbar-width);
+  min-height: 35vh;
+  width: 100%
 }
