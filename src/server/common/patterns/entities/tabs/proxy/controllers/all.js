@@ -1,10 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
-import { pluralise } from '../../../../../helpers/pluralise.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { pluralise } from '#server/common/helpers/pluralise.js'
 import startCase from 'lodash/startCase.js'
-import { transformProxyRules } from '../transformers/transform-proxy-rules.js'
+import { transformProxyRulesToRows } from '../transformers/transform-proxy-rules.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export function allProxyController(entityKind) {
   return {
@@ -25,20 +26,27 @@ export function allProxyController(entityKind) {
         entity?.subType
       )
 
-      const hasServiceProxyRules = Object.values(entity.environments).some(
-        (env) => env.squid
-      )
+      const rows = transformProxyRulesToRows(environments, entity)
 
-      const proxyRulesByEnvironment = environments.map((env) =>
-        transformProxyRules(env, entity.environments[env]?.squid)
-      )
+      const supportVerticalHeadings = environments.length >= 5
 
       return h.view('common/patterns/entities/tabs/proxy/views/all', {
         pageTitle: `${entityName} - Proxy`,
         entityName,
-        proxyRulesByEnvironment,
-        hasServiceProxyRules,
         entityKind,
+        tableData: {
+          headers: [
+            ...environments.map((env) => ({
+              ...(supportVerticalHeadings && { verticalText: true }),
+              id: env.toLowerCase(),
+              text: formatText(env),
+              width: Math.round(100 / environments.length)
+            }))
+          ],
+          rows,
+          noResult:
+            'Currently you have no proxy rules setup. To set up proxy rules, contact the Platform team via Slack #cdp-support.'
+        },
         breadcrumbs: [
           {
             text: pluralise(startCase(entityKind)),

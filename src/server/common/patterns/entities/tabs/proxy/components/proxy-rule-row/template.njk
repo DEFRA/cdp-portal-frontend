@@ -1,0 +1,30 @@
+{% from "tag/macro.njk" import appTag %}
+
+<tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
+  {% for env in params.envs %}
+    <td headers="{{ env.id }}" class="app-entity-table__cell" data-label="{{ env.id }}">
+      {% if not env.domain %}
+        - - -
+      {% elseif env.isDefault %}
+        {{ appTag({
+          text: env.domain,
+          classes: "govuk-tag--grey",
+          attributes: {
+            "aria-label": "Platform proxy rule",
+            "style": "word-break: break-word;"
+          }
+        }) }}
+      {% else %}
+        {{ appTag({
+          text: env.domain,
+          classes: "govuk-tag--green",
+          attributes: {
+            "aria-label": "Service proxy rule",
+            "data-testid": "app-secret-cell-" + env.domain.toLowerCase(),
+            "style": "word-break: break-word;"
+          }
+        }) }}
+      {% endif %}
+    </td>
+  {% endfor %}
+</tr>
