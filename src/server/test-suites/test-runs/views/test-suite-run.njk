@@ -117,7 +117,7 @@
           {% call appPanel({ testId: "metrics" }) %}
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Metrics</h2>
             {% for url in testRun.snapshotUrls %}
-            <iframe class="app-iframe app-iframe--grafana-snapshot" src="{{ url }}"></iframe>
+            <iframe class="app-iframe app-iframe--grafana-snapshot" src="{{ url }}?theme=light&kiosk"></iframe>
             {% endfor %}
           {% endcall %}
         {%  endif %}
