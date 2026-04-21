@@ -21,6 +21,17 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v6
+      - name: Build and Publish
+        uses: DEFRA/cdp-build-action/build@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  sonarcloud:
+    name: Runs sonarcloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -33,12 +44,6 @@ jobs:
 
       - name: Security audit
         run: npm run security-audit
-
-      - name: Build and Publish
-        uses: DEFRA/cdp-build-action/build@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-build-stages: true
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v7.0.0
