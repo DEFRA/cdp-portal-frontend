@@ -90,63 +90,67 @@ describe('transformProxyRulesToRows', () => {
   }
 
   test('Renders to rows', () => {
-    expect(transformProxyRulesToRows(environments, entity)).toEqual([
-      {
-        envs: [
-          {
-            domain: '.example.com',
-            id: 'dev',
-            isDefault: false
-          },
-          {
-            domain: '.example.com',
-            id: 'test',
-            isDefault: false
-          }
-        ]
-      },
-      {
-        envs: [
-          {
-            domain: '',
-            id: 'dev',
-            isDefault: false
-          },
-          {
-            domain: '.test.com',
-            id: 'test',
-            isDefault: false
-          }
-        ]
-      },
-      {
-        envs: [
-          {
-            domain: '.browserstack.com',
-            id: 'dev',
-            isDefault: true
-          },
-          {
-            domain: '.browserstack.com',
-            id: 'test',
-            isDefault: true
-          }
-        ]
-      },
-      {
-        envs: [
-          {
-            domain: '.cdp-int.defra.cloud',
-            id: 'dev',
-            isDefault: true
-          },
-          {
-            domain: '',
-            id: 'test',
-            isDefault: true
-          }
-        ]
-      }
-    ])
+    expect(transformProxyRulesToRows(environments, entity)).toEqual({
+      allowedRows: [
+        {
+          envs: [
+            {
+              domain: '.example.com',
+              id: 'dev',
+              isDefault: false
+            },
+            {
+              domain: '.example.com',
+              id: 'test',
+              isDefault: false
+            }
+          ]
+        },
+        {
+          envs: [
+            {
+              domain: '',
+              id: 'dev',
+              isDefault: false
+            },
+            {
+              domain: '.test.com',
+              id: 'test',
+              isDefault: false
+            }
+          ]
+        }
+      ],
+      defaultRows: [
+        {
+          envs: [
+            {
+              domain: '.browserstack.com',
+              id: 'dev',
+              isDefault: true
+            },
+            {
+              domain: '.browserstack.com',
+              id: 'test',
+              isDefault: true
+            }
+          ]
+        },
+        {
+          envs: [
+            {
+              domain: '.cdp-int.defra.cloud',
+              id: 'dev',
+              isDefault: true
+            },
+            {
+              domain: '',
+              id: 'test',
+              isDefault: true
+            }
+          ]
+        }
+      ]
+    })
   })
 })

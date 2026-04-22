@@ -38,7 +38,7 @@ export function transformProxyRules(environment, squidConfig) {
 /**
  * @param {string[]} environments
  * @param {{ environments: Record<string, { squid: { domains: string[] } }> }} entity
- * @returns {[envs: {id: string, domain: string, isDefault: boolean}]}
+ * @returns {{allowedRows: [envs: {id: string, domain: string, isDefault: boolean}], defaultRows: [envs: {id: string, domain: string, isDefault: boolean}]}}
  */
 export function transformProxyRulesToRows(environments, entity) {
   const allDomains = [
@@ -80,5 +80,5 @@ export function transformProxyRulesToRows(environments, entity) {
     }))
   }))
 
-  return [...allowedRows, ...defaultRows]
+  return { allowedRows, defaultRows }
 }
