@@ -26,7 +26,10 @@ export function allProxyController(entityKind) {
         entity?.subType
       )
 
-      const rows = transformProxyRulesToRows(environments, entity)
+      const { allowedRows, defaultRows } = transformProxyRulesToRows(
+        environments,
+        entity
+      )
 
       const supportVerticalHeadings = environments.length >= 5
 
@@ -34,7 +37,7 @@ export function allProxyController(entityKind) {
         pageTitle: `${entityName} - Proxy`,
         entityName,
         entityKind,
-        tableData: {
+        allowedTable: {
           headers: [
             ...environments.map((env) => ({
               ...(supportVerticalHeadings && { verticalText: true }),
@@ -43,7 +46,20 @@ export function allProxyController(entityKind) {
               width: Math.round(100 / environments.length)
             }))
           ],
-          rows,
+          rows: allowedRows,
+          noResult:
+            'Currently you have no proxy rules setup. To set up proxy rules, contact the Platform team via Slack #cdp-support.'
+        },
+        defaultTable: {
+          headers: [
+            ...environments.map((env) => ({
+              ...(supportVerticalHeadings && { verticalText: true }),
+              id: env.toLowerCase(),
+              text: formatText(env),
+              width: Math.round(100 / environments.length)
+            }))
+          ],
+          rows: defaultRows,
           noResult:
             'Currently you have no proxy rules setup. To set up proxy rules, contact the Platform team via Slack #cdp-support.'
         },
