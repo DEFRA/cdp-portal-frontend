@@ -67,6 +67,7 @@
     "@hapi/vision": "7.0.3",
     "@hapi/wreck": "18.1.0",
     "@hapi/yar": "11.0.3",
+    "@iconify-json/logos": "1.2.11",
     "@smithy/node-http-handler": "4.5.1",
     "@smithy/property-provider": "4.2.10",
     "bcrypt": "6.0.0",
