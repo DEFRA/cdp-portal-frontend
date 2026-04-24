@@ -1,0 +1,11 @@
+@use 'variables/colours' as *;
+
+.mermaid {
+  background: #ffffff;
+  padding: 1rem;
+  overflow: auto;
+
+  &.border {
+    border: 1px solid $app-brand-border-colour-light;
+  }
+}
