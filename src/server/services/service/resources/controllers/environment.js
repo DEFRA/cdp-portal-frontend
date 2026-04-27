@@ -27,17 +27,27 @@ export const environmentResourcesController = {
     const formattedEnvironment = formatText(environment)
 
     const hasSqlDatabase = environmentDetails?.sql_database
-    const resource = resourceByEnvironment({
-      environment,
-      environmentDetails
-    })
+
+    const resources = {
+      s3_buckets: environmentDetails.s3_buckets.map((bucket) => ({
+        icon: 'aws-s3',
+        name: bucket.bucket_name,
+        properties: {
+          arn: bucket.arn,
+          domain_name: bucket.bucket_domain_name,
+          versioning: bucket.versioning
+        }
+      }))
+    }
+
+    console.log(resources.s3_buckets)
 
     return h.view('services/service/resources/views/environment', {
       pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
       entity,
       teamId,
       environment,
-      resource,
+      resources,
       hasSqlDatabase,
       breadcrumbs: [
         {

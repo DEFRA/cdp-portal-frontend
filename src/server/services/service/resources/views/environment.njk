@@ -27,13 +27,13 @@
             caption: environment | title,
             heading: "Resources",
             entity: entity,
-            hasBuckets: resource.s3BucketRows | length
+            hasBuckets: resources.s3_buckets | length
           }) }}
 
 
           <pre class="mermaid mermaid--no-label-background mermaid--table-node">
             flowchart LR
-                service@{ icon: "logos:aws-fargate", h: 80, label: "cdp-portal-backend"}
+                service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name }}"}
 
                 subgraph buckets[S3 Buckets]
                   direction LR
