@@ -60,6 +60,10 @@ const router = {
             appType: 'custom'
           })
 
+          server.events.on('stop', async () => {
+            await vite.close()
+          })
+
           await server.register({
             // eslint-disable-next-line n/no-unpublished-import
             plugin: (await import('@defra/hapi-connect')).default,
