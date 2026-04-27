@@ -4,8 +4,47 @@
   background: #ffffff;
   padding: 1rem;
   overflow: auto;
+}
 
-  &.border {
-    border: 1px solid $app-brand-border-colour-light;
+.mermaid--with-border {
+  border: 1px solid $app-brand-border-colour-light;
+}
+
+.mermaid--no-label-background {
+  svg .icon-shape p,
+  svg .labelBkg {
+    background: none !important;
+  }
+}
+
+.mermaid--table-node {
+  svg table {
+    background-color: white;
+    text-align: left;
+    border-spacing: 0;
+
+    tr:hover {
+      background-color: #f4f8fb;
+    }
+
+    th,
+    td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddeaf4;
+      white-space: nowrap;
+    }
+
+    th {
+      white-space: nowrap;
+      padding-right: 1rem;
+    }
+
+    border: 1px solid #ddeaf4;
+    border-bottom: none;
+  }
+
+  svg .node rect {
+    fill: none !important;
+    stroke: none !important;
   }
 }

@@ -30,8 +30,54 @@
             hasBuckets: resource.s3BucketRows | length
           }) }}
 
+
+          <pre class="mermaid mermaid--no-label-background mermaid--table-node">
+            flowchart LR
+                service@{ icon: "logos:aws-fargate", h: 80, label: "cdp-portal-backend"}
+
+                subgraph buckets[S3 Buckets]
+                  direction LR
+                  s31Icon@{ icon: "logos:aws-s3", h: 80, label: "cdp-portal-backend"}
+                  s31[<table><tr><th>Arn</th><td>arn:aws:s3:::cdp-portal-backend</td></tr><tr><th>Domain name</th><td>cdp-portal-backend-images.s3.eu-west-2.amazonaws.com</td></tr><tr><th>Versioning</th><td>Disabled</td></tr></table>]
+                  s31Icon ~~~ s31
+
+                  s32Icon@{ icon: "logos:aws-s3", h: 80, label: "cdp-portal-backend-images"}
+                  s32[<table><tr><th>Arn</th><td>arn:aws:s3:::cdp-portal-backend-image</td></tr><tr><th>Domain name</th><td>cdp-portal-backend.s3.eu-west-2.amazonaws.com</td></tr><tr><th>Versioning</th><td>Disabled</td></tr></table>]
+                  s32Icon ~~~ s32
+                end
+                service --- buckets
+
+                subgraph sqs[SQS Queues]
+                  direction LR
+                  sqs1Icon@{ icon: "logos:aws-sqs", h: 80, label: "message_clearance_request"}
+                  sqs1[<table><tr><th>Url</th><td>https://sqs.eu-west-2.amazonaws.com/666666666/<wbr />message_clearance_request</td></tr><tr><th>Arn</th><td>arn:aws:sqs:eu-west-2:666666666:message_clearance_request</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr><tr><th>Subscriptions</th><td><ul><li>error_notification.fifo</li></ul></td></tr></table>]
+                  sqs1Icon ~~~ sqs1
+                end
+                service --- sqs
+
+                subgraph sns[SNS Topics]
+                  direction LR
+                  sns1Icon@{ icon: "logos:aws-sns", h: 80, label: "decision_notification.fifo"}
+                  sns1[<table><tr><th>Arn</th><td>arn:aws:sns:eu-west-2:777777777:decision_notification</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr></table>]
+                  sns1Icon ~~~ sns1
+
+                  sns2Icon@{ icon: "logos:aws-sns", h: 80, label: "error_notification.fifo"}
+                  sns2[<table><tr><th>Arn</th><td>arn:aws:sns:eu-west-2:777777777:error_notification</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr></table>]
+                  sns2Icon ~~~ sns2
+
+                  %% sns2 --> sqs1
+                end
+                service --- sns
+          </pre>
+
         {% endcall %}
       </div>
     </div>
   </section>
+{% endblock %}
+
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script type="module" src="{{ getAssetPath("src/client/javascripts/mermaid.js") }}"></script>
 {% endblock %}
