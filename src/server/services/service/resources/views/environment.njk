@@ -51,7 +51,7 @@
                   service --- {{ type }}
                 {% endfor %}
 
-                subgraph sqs[SQS Queues]
+                {# subgraph sqs[SQS Queues]
                   direction LR
                   sqs1Icon@{ icon: "logos:aws-sqs", h: 80, label: "message_clearance_request"}
                   sqs1[<table><tr><th>Url</th><td>https://sqs.eu-west-2.amazonaws.com/666666666/<wbr />message_clearance_request</td></tr><tr><th>Arn</th><td>arn:aws:sqs:eu-west-2:666666666:message_clearance_request</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr><tr><th>Subscriptions</th><td><ul><li>error_notification.fifo</li></ul></td></tr></table>]
@@ -71,7 +71,7 @@
 
                   %% sns2 --> sqs1
                 end
-                service --- sns
+                service --- sns #}
           </pre>
 
         {% endcall %}

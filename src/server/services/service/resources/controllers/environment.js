@@ -37,10 +37,29 @@ export const environmentResourcesController = {
           domain_name: bucket.bucket_domain_name,
           versioning: bucket.versioning
         }
+      })),
+      sns_topics: environmentDetails.sns_topics.map((topic) => ({
+        icon: 'aws-sns',
+        name: topic.name,
+        properties: {
+          arn: topic.arn,
+          fifo_topic: topic.fifo_topic,
+          content_based_deduplication: topic.content_based_deduplication
+        }
+      })),
+      sqs_queues: environmentDetails.sqs_queues.map((queue) => ({
+        icon: 'aws-sqs',
+        name: queue.name,
+        properties: {
+          arn: queue.arn,
+          url: queue.url,
+          fifo_queue: queue.fifo_queue,
+          content_based_deduplication: queue.content_based_deduplication,
+          receive_wait_time_seconds: queue.receive_wait_time_seconds,
+          subscriptions: queue.subscriptions
+        }
       }))
     }
-
-    console.log(resources.s3_buckets)
 
     return h.view('services/service/resources/views/environment', {
       pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
