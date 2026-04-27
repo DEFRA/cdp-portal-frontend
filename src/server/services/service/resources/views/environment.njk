@@ -35,17 +35,21 @@
             flowchart LR
                 service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name }}"}
 
-                subgraph buckets[S3 Buckets]
-                  direction LR
-                  s31Icon@{ icon: "logos:aws-s3", h: 80, label: "cdp-portal-backend"}
-                  s31[<table><tr><th>Arn</th><td>arn:aws:s3:::cdp-portal-backend</td></tr><tr><th>Domain name</th><td>cdp-portal-backend-images.s3.eu-west-2.amazonaws.com</td></tr><tr><th>Versioning</th><td>Disabled</td></tr></table>]
-                  s31Icon ~~~ s31
-
-                  s32Icon@{ icon: "logos:aws-s3", h: 80, label: "cdp-portal-backend-images"}
-                  s32[<table><tr><th>Arn</th><td>arn:aws:s3:::cdp-portal-backend-image</td></tr><tr><th>Domain name</th><td>cdp-portal-backend.s3.eu-west-2.amazonaws.com</td></tr><tr><th>Versioning</th><td>Disabled</td></tr></table>]
-                  s32Icon ~~~ s32
-                end
-                service --- buckets
+                {% for type, items in resources %}
+                  subgraph {{ type }}[{{ type | replace("_", " ") | capitalize }}]
+                    direction LR
+                    {% for resource in items %}
+                      {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "{{ resource.name }}"}
+                      {{ type }}{{ resource.name }}[<table>
+                      {% for name, value in resource.properties | dictsort %}
+                        <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+                      {% endfor %}
+                      </table>]
+                      {{ type }}{{ resource.name }}Icon ~~~ {{ type }}{{resource.name}}
+                    {% endfor %}
+                  end
+                  service --- {{ type }}
+                {% endfor %}
 
                 subgraph sqs[SQS Queues]
                   direction LR
