@@ -32,12 +32,7 @@ export const environmentResourcesController = {
       environmentDetails
     })
 
-    const debugView = request.query.debug ?? false
-    const template = debugView
-      ? 'services/service/resources/views/debug/environment'
-      : 'services/service/resources/views/environment'
-
-    return h.view(template, {
+    return h.view('services/service/resources/views/environment', {
       pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
       entity,
       teamId,

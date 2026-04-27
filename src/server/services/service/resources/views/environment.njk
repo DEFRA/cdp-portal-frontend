@@ -30,11 +30,6 @@
             hasBuckets: resource.s3BucketRows | length
           }) }}
 
-          {% include "services/common/partials/resource-panel.njk" %}
-
-          <p class="govuk-!-margin-top-2">
-            <a href="?debug=true" class="govuk-link app-link app-link--underline">Debug view</a>
-          </p>
         {% endcall %}
       </div>
     </div>
