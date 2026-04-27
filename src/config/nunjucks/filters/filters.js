@@ -24,7 +24,6 @@ const numberFormatter = new Intl.NumberFormat('en-GB', {
 const formatNumber = (value) => numberFormatter.format(value)
 
 function uppercaseMatch(value, matches = []) {
-  console.log(value, matches)
   return value
     .split(' ')
     .map((word) =>

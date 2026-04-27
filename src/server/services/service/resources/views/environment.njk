@@ -35,20 +35,22 @@
             flowchart LR
                 service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name}}"}
 
-                {% for type, items in resources %}
-                  subgraph {{ type }}[{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}]
-                    direction LR
-                    {% for resource in items %}
-                      {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "{{ resource.name }}"}
-                      {{ type }}{{ resource.name }}[<table>
-                      {% for name, value in resource.properties | dictsort %}
-                        <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+                {% for type, items in resources | dictsort %}
+                  {% if items | length %}
+                    subgraph {{ type }}[{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}]
+                      direction LR
+                      {% for resource in items %}
+                        {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "{{ resource.name }}"}
+                        {{ type }}{{ resource.name }}[<table>
+                        {% for name, value in resource.properties | dictsort %}
+                          <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+                        {% endfor %}
+                        </table>]
+                        {{ type }}{{ resource.name }}Icon ~~~ {{ type }}{{resource.name}}
                       {% endfor %}
-                      </table>]
-                      {{ type }}{{ resource.name }}Icon ~~~ {{ type }}{{resource.name}}
-                    {% endfor %}
-                  end
-                  service --- {{ type }}
+                    end
+                    service --- {{ type }}
+                  {% endif %}
                 {% endfor %}
 
                 {# subgraph sqs[SQS Queues]
