@@ -10,10 +10,10 @@ import find from 'lodash/find.js'
 import pickBy from 'lodash/pickBy.js'
 import { formatDistanceToNow } from 'date-fns'
 
-import { pluralise } from '../../../server/common/helpers/pluralise.js'
-import { formatDate } from '../../../server/common/helpers/date/format-date.js'
-import { relativeDate } from '../../../server/common/helpers/date/relative-date.js'
-import { sanitiseUser } from '../../../server/common/helpers/sanitisation/sanitise-user.js'
+import { pluralise } from '#server/common/helpers/pluralise.js'
+import { formatDate } from '#server/common/helpers/date/format-date.js'
+import { relativeDate } from '#server/common/helpers/date/relative-date.js'
+import { sanitiseUser } from '#server/common/helpers/sanitisation/sanitise-user.js'
 
 const formatText = (value) => upperFirst(kebabCase(value))
 
@@ -22,6 +22,16 @@ const numberFormatter = new Intl.NumberFormat('en-GB', {
   maximumSignificantDigits: 3
 })
 const formatNumber = (value) => numberFormatter.format(value)
+
+function uppercaseMatch(value, matches = []) {
+  console.log(value, matches)
+  return value
+    .split(' ')
+    .map((word) =>
+      matches.includes(word.toLowerCase()) ? word.toUpperCase() : word
+    )
+    .join(' ')
+}
 
 export {
   assign,
@@ -39,5 +49,6 @@ export {
   sanitiseUser,
   startCase,
   union,
-  pickBy
+  pickBy,
+  uppercaseMatch
 }

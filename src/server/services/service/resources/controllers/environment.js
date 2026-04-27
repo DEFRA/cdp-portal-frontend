@@ -30,6 +30,7 @@ export const environmentResourcesController = {
 
     const resources = {
       s3_buckets: environmentDetails.s3_buckets.map((bucket) => ({
+        resource: 'sns',
         icon: 'aws-s3',
         name: bucket.bucket_name,
         properties: {
@@ -39,6 +40,7 @@ export const environmentResourcesController = {
         }
       })),
       sns_topics: environmentDetails.sns_topics.map((topic) => ({
+        resource: 'sns',
         icon: 'aws-sns',
         name: topic.name,
         properties: {
@@ -48,6 +50,7 @@ export const environmentResourcesController = {
         }
       })),
       sqs_queues: environmentDetails.sqs_queues.map((queue) => ({
+        resource: 'sqs',
         icon: 'aws-sqs',
         name: queue.name,
         properties: {

@@ -33,10 +33,10 @@
 
           <pre class="mermaid mermaid--no-label-background mermaid--table-node">
             flowchart LR
-                service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name }}"}
+                service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name}}"}
 
                 {% for type, items in resources %}
-                  subgraph {{ type }}[{{ type | replace("_", " ") | capitalize }}]
+                  subgraph {{ type }}[{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}]
                     direction LR
                     {% for resource in items %}
                       {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "{{ resource.name }}"}
