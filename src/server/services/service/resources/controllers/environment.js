@@ -2,7 +2,6 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
-import { resourceByEnvironment } from '../transformers/resources-by-environment.js'
 import Joi from 'joi'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 
@@ -28,12 +27,17 @@ export const environmentResourcesController = {
 
     const resources = await fetchResources(entity.name, environment)
 
+    const hasNoResources = !Object.entries(resources).find(
+      ([_, items]) => items?.length
+    )
+
     return h.view('services/service/resources/views/environment', {
       pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
       entity,
       teamId,
       environment,
       resources,
+      hasNoResources,
       breadcrumbs: [
         {
           text: 'Services',

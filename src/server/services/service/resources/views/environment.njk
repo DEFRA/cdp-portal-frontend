@@ -30,51 +30,58 @@
             hasBuckets: resources.s3_buckets | length
           }) }}
 
+          {% if hasNoResources %}
 
-          <pre class="mermaid mermaid--no-label-background mermaid--table-node">
-            flowchart LR
-                service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name}}"}
+            {{ appInfo({ html: "There are currently no resources defined for this service" }) }}
 
-                {% for type, items in resources | dictsort %}
-                  {% if items | length %}
-                    subgraph {{ type }}[{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}]
-                      direction LR
-                      {% for resource in items %}
-                        {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "{{ resource.name }}"}
-                        {{ type }}{{ resource.name }}[<table>
-                        {% for name, value in resource.properties | dictsort %}
-                          <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+          {% else %}
+
+            <pre class="mermaid mermaid--no-label-background mermaid--table-node">
+              flowchart LR
+                  service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name}}"}
+
+                  {% for type, items in resources | dictsort %}
+                    {% if items | length %}
+                      subgraph {{ type }}[{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}]
+                        direction LR
+                        {% for resource in items %}
+                          {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "{{ resource.name }}"}
+                          {{ type }}{{ resource.name }}[<table>
+                          {% for name, value in resource.properties | dictsort %}
+                            <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+                          {% endfor %}
+                          </table>]
+                          {{ type }}{{ resource.name }}Icon ~~~ {{ type }}{{resource.name}}
                         {% endfor %}
-                        </table>]
-                        {{ type }}{{ resource.name }}Icon ~~~ {{ type }}{{resource.name}}
-                      {% endfor %}
-                    end
-                    service --- {{ type }}
-                  {% endif %}
-                {% endfor %}
+                      end
+                      service --- {{ type }}
+                    {% endif %}
+                  {% endfor %}
 
-                {# subgraph sqs[SQS Queues]
-                  direction LR
-                  sqs1Icon@{ icon: "logos:aws-sqs", h: 80, label: "message_clearance_request"}
-                  sqs1[<table><tr><th>Url</th><td>https://sqs.eu-west-2.amazonaws.com/666666666/<wbr />message_clearance_request</td></tr><tr><th>Arn</th><td>arn:aws:sqs:eu-west-2:666666666:message_clearance_request</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr><tr><th>Subscriptions</th><td><ul><li>error_notification.fifo</li></ul></td></tr></table>]
-                  sqs1Icon ~~~ sqs1
-                end
-                service --- sqs
+                  {# subgraph sqs[SQS Queues]
+                    direction LR
+                    sqs1Icon@{ icon: "logos:aws-sqs", h: 80, label: "message_clearance_request"}
+                    sqs1[<table><tr><th>Url</th><td>https://sqs.eu-west-2.amazonaws.com/666666666/<wbr />message_clearance_request</td></tr><tr><th>Arn</th><td>arn:aws:sqs:eu-west-2:666666666:message_clearance_request</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr><tr><th>Subscriptions</th><td><ul><li>error_notification.fifo</li></ul></td></tr></table>]
+                    sqs1Icon ~~~ sqs1
+                  end
+                  service --- sqs
 
-                subgraph sns[SNS Topics]
-                  direction LR
-                  sns1Icon@{ icon: "logos:aws-sns", h: 80, label: "decision_notification.fifo"}
-                  sns1[<table><tr><th>Arn</th><td>arn:aws:sns:eu-west-2:777777777:decision_notification</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr></table>]
-                  sns1Icon ~~~ sns1
+                  subgraph sns[SNS Topics]
+                    direction LR
+                    sns1Icon@{ icon: "logos:aws-sns", h: 80, label: "decision_notification.fifo"}
+                    sns1[<table><tr><th>Arn</th><td>arn:aws:sns:eu-west-2:777777777:decision_notification</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr></table>]
+                    sns1Icon ~~~ sns1
 
-                  sns2Icon@{ icon: "logos:aws-sns", h: 80, label: "error_notification.fifo"}
-                  sns2[<table><tr><th>Arn</th><td>arn:aws:sns:eu-west-2:777777777:error_notification</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr></table>]
-                  sns2Icon ~~~ sns2
+                    sns2Icon@{ icon: "logos:aws-sns", h: 80, label: "error_notification.fifo"}
+                    sns2[<table><tr><th>Arn</th><td>arn:aws:sns:eu-west-2:777777777:error_notification</td></tr><tr><th>Content Based Deduplication</th><td>false</td></tr></table>]
+                    sns2Icon ~~~ sns2
 
-                  %% sns2 --> sqs1
-                end
-                service --- sns #}
-          </pre>
+                    %% sns2 --> sqs1
+                  end
+                  service --- sns #}
+            </pre>
+
+          {% endif %}
 
         {% endcall %}
       </div>
