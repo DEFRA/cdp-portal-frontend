@@ -43,6 +43,12 @@
               {% endcall %}
             {% endfor %}
 
+            {% if not tablesPerResourceType | length %}
+
+              {{ appInfo({ html: "There are currently no resources defined for this service" }) }}
+
+            {% endif %}
+
           </section>
         {% endcall %}
       </div>
