@@ -48,7 +48,9 @@
                           {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "<span id='{{ resource.name }}'>{{ resource.name }}</span>"}
                           {{ type }}{{ resource.name }}[<table>
                           {% for name, value in resource.properties | dictsort %}
-                            <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+                            {% if name != 'name' and name != 'bucket_name'  %}
+                              <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+                            {% endif %}
                           {% endfor %}
                           </table>]
                           {{ type }}{{ resource.name }}Icon ~~~ {{ type }}{{resource.name}}
