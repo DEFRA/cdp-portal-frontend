@@ -35,21 +35,18 @@
             hasBuckets: hasBuckets
           }) }}
 
-          {% for environment, resource in resources %}
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2 govuk-!-margin-top-4">
-              <a href="{{ routeLookup('services/{serviceId}/resources/{environment}', {
-                params: { serviceId: entity.name, environment: environment }
-              }) }}" class="app-link app-link--text-colour">
-                {{ environment | title }}
-              </a>
-            </h2>
+          {% for type, items in resources | dictsort %}
+            <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}</h3>
+            <!--{% call(params) appEntityTable(s3Table) %}
 
-            {% include "services/common/partials/resource-panel.njk" %}
+              {{ proxyRuleRow({
+                rowClasses: params.rowClasses,
+                loopIndex: params.loopIndex,
+                envs: params.row.envs
+              }) | safe }}
+
+            {% endcall %}-->
           {% endfor %}
-
-          <p class="govuk-!-margin-top-2">
-            <a href="?debug=true" class="govuk-link app-link app-link--underline">Debug view</a>
-          </p>
 
         {% endcall %}
       </div>

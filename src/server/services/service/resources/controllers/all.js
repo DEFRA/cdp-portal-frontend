@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { resourcesByEnvironment } from '../transformers/resources-by-environment.js'
+import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 
 export const allResourcesController = {
   options: {
@@ -20,28 +21,16 @@ export const allResourcesController = {
   handler: async (request, h) => {
     const { entity } = request.app
     const serviceName = entity.name
-    const allEnvironmentsDetails = entity.environments
 
     const environments = getEnvironments(request.auth.credentials?.scope)
-    const hasSqlDatabase = Object.values(allEnvironmentsDetails).some(
-      ({ sql_database }) => sql_database
-    )
-    const resources = resourcesByEnvironment({
-      environments,
-      allEnvironmentsDetails
-    })
 
-    const debugView = request.query.debug ?? false
-    const template = debugView
-      ? 'services/service/resources/views/debug/all'
-      : 'services/service/resources/views/all'
+    const resourcesPerEnv = await fetchResources(entity.name)
 
-    return h.view(template, {
+    return h.view('services/service/resources/views/all', {
       pageTitle: `${serviceName} - Resources`,
       entity,
       environments,
       resources,
-      hasSqlDatabase,
       breadcrumbs: [
         {
           text: 'Services',
