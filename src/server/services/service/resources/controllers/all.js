@@ -2,7 +2,6 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
-import { resourcesByEnvironment } from '../transformers/resources-by-environment.js'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 
@@ -93,128 +92,128 @@ export const allResourcesController = {
             }
           ]
         }
-      ]
+      ],
+      sqs_queues: [
+        {
+          envs: [
+            {
+              id: 'test',
+              domain: 'message_clearance_request'
+            },
+            {
+              id: 'management',
+              domain: 'message_clearance_request'
+            },
+            {
+              id: 'dev',
+              domain: ''
+            },
+            {
+              id: 'test',
+              domain: ''
+            },
+            {
+              id: 'ext-test',
+              domain: ''
+            },
+            {
+              id: 'perf-test',
+              domain: ''
+            },
+            {
+              id: 'prod',
+              domain: ''
+            }
+          ]
+        }
+      ],
+      sns_topics: [
+        {
+          envs: [
+            {
+              id: 'test',
+              domain: 'decision_notification.fifo'
+            },
+            {
+              id: 'management',
+              domain: 'decision_notification.fifo'
+            },
+            {
+              id: 'dev',
+              domain: ''
+            },
+            {
+              id: 'test',
+              domain: ''
+            },
+            {
+              id: 'ext-test',
+              domain: ''
+            },
+            {
+              id: 'perf-test',
+              domain: ''
+            },
+            {
+              id: 'prod',
+              domain: ''
+            }
+          ]
+        },
+        {
+          envs: [
+            {
+              id: 'test',
+              domain: 'error_notification.fifo'
+            },
+            {
+              id: 'management',
+              domain: 'error_notification.fifo'
+            },
+            {
+              id: 'dev',
+              domain: ''
+            },
+            {
+              id: 'test',
+              domain: ''
+            },
+            {
+              id: 'ext-test',
+              domain: ''
+            },
+            {
+              id: 'perf-test',
+              domain: ''
+            },
+            {
+              id: 'prod',
+              domain: ''
+            }
+          ]
+        }
+      ],
+      sql_databases: []
     }
-
-    const sqs_queues = [
-      {
-        envs: [
-          {
-            id: 'test',
-            domain: 'message_clearance_request'
-          },
-          {
-            id: 'management',
-            domain: 'message_clearance_request'
-          },
-          {
-            id: 'dev',
-            domain: ''
-          },
-          {
-            id: 'test',
-            domain: ''
-          },
-          {
-            id: 'ext-test',
-            domain: ''
-          },
-          {
-            id: 'perf-test',
-            domain: ''
-          },
-          {
-            id: 'prod',
-            domain: ''
-          }
-        ]
-      }
-    ]
-
-    const sns_topics = [
-      {
-        envs: [
-          {
-            id: 'test',
-            domain: 'decision_notification.fifo'
-          },
-          {
-            id: 'management',
-            domain: 'decision_notification.fifo'
-          },
-          {
-            id: 'dev',
-            domain: ''
-          },
-          {
-            id: 'test',
-            domain: ''
-          },
-          {
-            id: 'ext-test',
-            domain: ''
-          },
-          {
-            id: 'perf-test',
-            domain: ''
-          },
-          {
-            id: 'prod',
-            domain: ''
-          }
-        ]
-      },
-      {
-        envs: [
-          {
-            id: 'test',
-            domain: 'error_notification.fifo'
-          },
-          {
-            id: 'management',
-            domain: 'error_notification.fifo'
-          },
-          {
-            id: 'dev',
-            domain: ''
-          },
-          {
-            id: 'test',
-            domain: ''
-          },
-          {
-            id: 'ext-test',
-            domain: ''
-          },
-          {
-            id: 'perf-test',
-            domain: ''
-          },
-          {
-            id: 'prod',
-            domain: ''
-          }
-        ]
-      }
-    ]
 
     const supportVerticalHeadings = environments.length >= 5
 
-    const tablesPerResourceType = {
-      s3_buckets: {
-        headers: [
-          ...environments.map((env) => ({
-            ...(supportVerticalHeadings && { verticalText: true }),
-            id: env.toLowerCase(),
-            text: formatText(env),
-            width: Math.round(100 / environments.length)
-          }))
-        ],
-        rows: rowsPerResourceType.s3_buckets,
-        noResult:
-          'Currently you have no proxy rules setup. To set up proxy rules, contact the Platform team via Slack #cdp-support.'
-      }
-    }
+    const tablesPerResourceType = Object.entries(rowsPerResourceType)
+      .filter(([type, rows]) => rows.length)
+      .map(([type, rows]) => [
+        type,
+        {
+          headers: [
+            ...environments.map((env) => ({
+              ...(supportVerticalHeadings && { verticalText: true }),
+              id: env.toLowerCase(),
+              text: formatText(env),
+              width: Math.round(100 / environments.length)
+            }))
+          ],
+          rows
+        }
+      ])
 
     return h.view('services/service/resources/views/all', {
       pageTitle: `${serviceName} - Resources`,

@@ -36,7 +36,7 @@
             hasBuckets: hasBuckets
           }) }}
 
-          {% for type, table in tablesPerResourceType | dictsort %}
+          {% for type, table in tablesPerResourceType %}
             <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}</h3>
             {% call(params) appEntityTable(table) %}
 
