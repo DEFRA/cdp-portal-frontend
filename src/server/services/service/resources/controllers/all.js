@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 
@@ -32,31 +32,31 @@ export const allResourcesController = {
           envs: [
             {
               id: 'test',
-              domain: 'cdp-portal-backend'
+              resource: 'cdp-portal-backend'
             },
             {
               id: 'management',
-              domain: 'cdp-portal-backend'
+              resource: 'cdp-portal-backend'
             },
             {
               id: 'dev',
-              domain: ''
+              resource: ''
             },
             {
               id: 'test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'ext-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'perf-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'prod',
-              domain: ''
+              resource: ''
             }
           ]
         },
@@ -64,31 +64,31 @@ export const allResourcesController = {
           envs: [
             {
               id: 'test',
-              domain: 'cdp-portal-backend-images'
+              resource: 'cdp-portal-backend-images'
             },
             {
               id: 'management',
-              domain: 'cdp-portal-backend-images'
+              resource: 'cdp-portal-backend-images'
             },
             {
               id: 'dev',
-              domain: ''
+              resource: ''
             },
             {
               id: 'test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'ext-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'perf-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'prod',
-              domain: ''
+              resource: ''
             }
           ]
         }
@@ -98,31 +98,31 @@ export const allResourcesController = {
           envs: [
             {
               id: 'test',
-              domain: 'message_clearance_request'
+              resource: 'message_clearance_request'
             },
             {
               id: 'management',
-              domain: 'message_clearance_request'
+              resource: 'message_clearance_request'
             },
             {
               id: 'dev',
-              domain: ''
+              resource: ''
             },
             {
               id: 'test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'ext-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'perf-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'prod',
-              domain: ''
+              resource: ''
             }
           ]
         }
@@ -132,31 +132,31 @@ export const allResourcesController = {
           envs: [
             {
               id: 'test',
-              domain: 'decision_notification.fifo'
+              resource: 'decision_notification.fifo'
             },
             {
               id: 'management',
-              domain: 'decision_notification.fifo'
+              resource: 'decision_notification.fifo'
             },
             {
               id: 'dev',
-              domain: ''
+              resource: ''
             },
             {
               id: 'test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'ext-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'perf-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'prod',
-              domain: ''
+              resource: ''
             }
           ]
         },
@@ -164,31 +164,31 @@ export const allResourcesController = {
           envs: [
             {
               id: 'test',
-              domain: 'error_notification.fifo'
+              resource: 'error_notification.fifo'
             },
             {
               id: 'management',
-              domain: 'error_notification.fifo'
+              resource: 'error_notification.fifo'
             },
             {
               id: 'dev',
-              domain: ''
+              resource: ''
             },
             {
               id: 'test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'ext-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'perf-test',
-              domain: ''
+              resource: ''
             },
             {
               id: 'prod',
-              domain: ''
+              resource: ''
             }
           ]
         }
@@ -199,7 +199,7 @@ export const allResourcesController = {
     const supportVerticalHeadings = environments.length >= 5
 
     const tablesPerResourceType = Object.entries(rowsPerResourceType)
-      .filter(([type, rows]) => rows.length)
+      .filter(([_, rows]) => rows.length)
       .map(([type, rows]) => [
         type,
         {

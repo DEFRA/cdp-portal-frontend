@@ -1,10 +1,10 @@
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   {% for env in params.envs %}
     <td headers="{{ env.id }}" class="app-entity-table__cell" data-label="{{ env.id }}">
-      {% if not env.domain %}
+      {% if not env.resource %}
         - - -
       {% else  %}
-        <a href="/services/cdp-portal-backend/resources/management" style="word-break: break-word;">{{ env.domain }}</a>
+        <a href="/services/{{ params.entity.name }}/resources/management#{{ env.resource }}" style="word-break: break-word;">{{ env.resource }}</a>
       {% endif %}
     </td>
   {% endfor %}

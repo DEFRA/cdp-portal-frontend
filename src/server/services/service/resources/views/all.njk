@@ -41,6 +41,7 @@
             {% call(params) appEntityTable(table) %}
 
               {{ resourceRow({
+                entity: entity,
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
                 envs: params.row.envs
