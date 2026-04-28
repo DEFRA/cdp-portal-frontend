@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
+import { fetchResources } from '../../../helpers/fetch/fetch-resources.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export const allResourcesController = {
@@ -262,7 +262,7 @@ function transformResourcesToRows(environments, resourcesPerEnv) {
       [...names].map((name) => ({
         envs: environments.map((env) => ({
           id: env,
-          resource: resourcesPerEnv[env][type].find(
+          resource: resourcesPerEnv?.[env]?.[type]?.find(
             (resource) => resource.name === name
           )
             ? name

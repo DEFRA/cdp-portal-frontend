@@ -1,9 +1,9 @@
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
 import Joi from 'joi'
-import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
+import { fetchResources } from '../../../helpers/fetch/fetch-resources.js'
 
 export const environmentResourcesController = {
   options: {
