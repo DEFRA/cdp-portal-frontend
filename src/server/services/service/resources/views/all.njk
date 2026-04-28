@@ -5,6 +5,7 @@
 {% from "info/macro.njk" import appInfo %}
 {% from "panel/macro.njk" import appPanel %}
 {% from "services/common/components/resources-intro/macro.njk" import appResourcesIntro %}
+{% from "../components/resource-row/macro.njk" import resourceRow %}
 
 {% set hasBuckets = false %}
 
@@ -35,17 +36,17 @@
             hasBuckets: hasBuckets
           }) }}
 
-          {% for type, items in resources | dictsort %}
+          {% for type, table in tablesPerResourceType | dictsort %}
             <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}</h3>
-            <!--{% call(params) appEntityTable(s3Table) %}
+            {% call(params) appEntityTable(table) %}
 
-              {{ proxyRuleRow({
+              {{ resourceRow({
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
                 envs: params.row.envs
               }) | safe }}
 
-            {% endcall %}-->
+            {% endcall %}
           {% endfor %}
 
         {% endcall %}

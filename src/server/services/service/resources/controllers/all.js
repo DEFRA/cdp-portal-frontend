@@ -4,6 +4,7 @@ import Boom from '@hapi/boom'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { resourcesByEnvironment } from '../transformers/resources-by-environment.js'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export const allResourcesController = {
   options: {
@@ -26,11 +27,200 @@ export const allResourcesController = {
 
     const resourcesPerEnv = await fetchResources(entity.name)
 
+    const rowsPerResourceType = {
+      s3_buckets: [
+        {
+          envs: [
+            {
+              id: 'test',
+              domain: 'cdp-portal-backend'
+            },
+            {
+              id: 'management',
+              domain: 'cdp-portal-backend'
+            },
+            {
+              id: 'dev',
+              domain: ''
+            },
+            {
+              id: 'test',
+              domain: ''
+            },
+            {
+              id: 'ext-test',
+              domain: ''
+            },
+            {
+              id: 'perf-test',
+              domain: ''
+            },
+            {
+              id: 'prod',
+              domain: ''
+            }
+          ]
+        },
+        {
+          envs: [
+            {
+              id: 'test',
+              domain: 'cdp-portal-backend-images'
+            },
+            {
+              id: 'management',
+              domain: 'cdp-portal-backend-images'
+            },
+            {
+              id: 'dev',
+              domain: ''
+            },
+            {
+              id: 'test',
+              domain: ''
+            },
+            {
+              id: 'ext-test',
+              domain: ''
+            },
+            {
+              id: 'perf-test',
+              domain: ''
+            },
+            {
+              id: 'prod',
+              domain: ''
+            }
+          ]
+        }
+      ]
+    }
+
+    const sqs_queues = [
+      {
+        envs: [
+          {
+            id: 'test',
+            domain: 'message_clearance_request'
+          },
+          {
+            id: 'management',
+            domain: 'message_clearance_request'
+          },
+          {
+            id: 'dev',
+            domain: ''
+          },
+          {
+            id: 'test',
+            domain: ''
+          },
+          {
+            id: 'ext-test',
+            domain: ''
+          },
+          {
+            id: 'perf-test',
+            domain: ''
+          },
+          {
+            id: 'prod',
+            domain: ''
+          }
+        ]
+      }
+    ]
+
+    const sns_topics = [
+      {
+        envs: [
+          {
+            id: 'test',
+            domain: 'decision_notification.fifo'
+          },
+          {
+            id: 'management',
+            domain: 'decision_notification.fifo'
+          },
+          {
+            id: 'dev',
+            domain: ''
+          },
+          {
+            id: 'test',
+            domain: ''
+          },
+          {
+            id: 'ext-test',
+            domain: ''
+          },
+          {
+            id: 'perf-test',
+            domain: ''
+          },
+          {
+            id: 'prod',
+            domain: ''
+          }
+        ]
+      },
+      {
+        envs: [
+          {
+            id: 'test',
+            domain: 'error_notification.fifo'
+          },
+          {
+            id: 'management',
+            domain: 'error_notification.fifo'
+          },
+          {
+            id: 'dev',
+            domain: ''
+          },
+          {
+            id: 'test',
+            domain: ''
+          },
+          {
+            id: 'ext-test',
+            domain: ''
+          },
+          {
+            id: 'perf-test',
+            domain: ''
+          },
+          {
+            id: 'prod',
+            domain: ''
+          }
+        ]
+      }
+    ]
+
+    const supportVerticalHeadings = environments.length >= 5
+
+    const tablesPerResourceType = {
+      s3_buckets: {
+        headers: [
+          ...environments.map((env) => ({
+            ...(supportVerticalHeadings && { verticalText: true }),
+            id: env.toLowerCase(),
+            text: formatText(env),
+            width: Math.round(100 / environments.length)
+          }))
+        ],
+        rows: rowsPerResourceType.s3_buckets,
+        noResult:
+          'Currently you have no proxy rules setup. To set up proxy rules, contact the Platform team via Slack #cdp-support.'
+      }
+    }
+
     return h.view('services/service/resources/views/all', {
       pageTitle: `${serviceName} - Resources`,
       entity,
       environments,
-      resources,
+      tablesPerResourceType,
       breadcrumbs: [
         {
           text: 'Services',
