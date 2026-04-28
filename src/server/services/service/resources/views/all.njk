@@ -7,14 +7,6 @@
 {% from "services/common/components/resources-intro/macro.njk" import appResourcesIntro %}
 {% from "../components/resource-row/macro.njk" import resourceRow %}
 
-{% set hasBuckets = false %}
-
-{% for environment, environmentInfo in resources %}
-  {% if environmentInfo.s3BucketRows | length %}
-    {% set hasBuckets = true %}
-  {% endif %}
-{% endfor %}
-
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Resources",
@@ -29,28 +21,29 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         {% call appSplitPane() %}
-          {{ appResourcesIntro({
-            caption: "All",
-            heading: "Resources",
-            entity: entity,
-            hasBuckets: hasBuckets
-          }) }}
+          <section>
+            {{ appResourcesIntro({
+              caption: "All",
+              heading: "Resources",
+              entity: entity,
+              hasBuckets: hasBuckets
+            }) }}
 
-          {% for type, table in tablesPerResourceType %}
-            <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}</h3>
-            {% call(params) appEntityTable(table) %}
+            {% for type, table in tablesPerResourceType %}
+              <h3 class="govuk-heading-m govuk-!-margin-top-5">{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}</h3>
+              {% call(params) appEntityTable(table) %}
 
-              {{ resourceRow({
-                entity: entity,
-                rowClasses: params.rowClasses,
-                loopIndex: params.loopIndex,
-                envs: params.row.envs
-              }) | safe }}
+                {{ resourceRow({
+                  entity: entity,
+                  rowClasses: params.rowClasses,
+                  loopIndex: params.loopIndex,
+                  envs: params.row.envs
+                }) | safe }}
 
-            {% endcall %}
-            <br/>
-          {% endfor %}
+              {% endcall %}
+            {% endfor %}
 
+          </section>
         {% endcall %}
       </div>
     </div>
