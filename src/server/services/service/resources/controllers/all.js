@@ -26,175 +26,180 @@ export const allResourcesController = {
 
     const resourcesPerEnv = await fetchResources(entity.name)
 
-    const rowsPerResourceType = {
-      s3_buckets: [
-        {
-          envs: [
-            {
-              id: 'test',
-              resource: 'cdp-portal-backend'
-            },
-            {
-              id: 'management',
-              resource: 'cdp-portal-backend'
-            },
-            {
-              id: 'dev',
-              resource: ''
-            },
-            {
-              id: 'test',
-              resource: ''
-            },
-            {
-              id: 'ext-test',
-              resource: ''
-            },
-            {
-              id: 'perf-test',
-              resource: ''
-            },
-            {
-              id: 'prod',
-              resource: ''
-            }
-          ]
-        },
-        {
-          envs: [
-            {
-              id: 'test',
-              resource: 'cdp-portal-backend-images'
-            },
-            {
-              id: 'management',
-              resource: 'cdp-portal-backend-images'
-            },
-            {
-              id: 'dev',
-              resource: ''
-            },
-            {
-              id: 'test',
-              resource: ''
-            },
-            {
-              id: 'ext-test',
-              resource: ''
-            },
-            {
-              id: 'perf-test',
-              resource: ''
-            },
-            {
-              id: 'prod',
-              resource: ''
-            }
-          ]
-        }
-      ],
-      sqs_queues: [
-        {
-          envs: [
-            {
-              id: 'test',
-              resource: 'message_clearance_request'
-            },
-            {
-              id: 'management',
-              resource: 'message_clearance_request'
-            },
-            {
-              id: 'dev',
-              resource: ''
-            },
-            {
-              id: 'test',
-              resource: ''
-            },
-            {
-              id: 'ext-test',
-              resource: ''
-            },
-            {
-              id: 'perf-test',
-              resource: ''
-            },
-            {
-              id: 'prod',
-              resource: ''
-            }
-          ]
-        }
-      ],
-      sns_topics: [
-        {
-          envs: [
-            {
-              id: 'test',
-              resource: 'decision_notification.fifo'
-            },
-            {
-              id: 'management',
-              resource: 'decision_notification.fifo'
-            },
-            {
-              id: 'dev',
-              resource: ''
-            },
-            {
-              id: 'test',
-              resource: ''
-            },
-            {
-              id: 'ext-test',
-              resource: ''
-            },
-            {
-              id: 'perf-test',
-              resource: ''
-            },
-            {
-              id: 'prod',
-              resource: ''
-            }
-          ]
-        },
-        {
-          envs: [
-            {
-              id: 'test',
-              resource: 'error_notification.fifo'
-            },
-            {
-              id: 'management',
-              resource: 'error_notification.fifo'
-            },
-            {
-              id: 'dev',
-              resource: ''
-            },
-            {
-              id: 'test',
-              resource: ''
-            },
-            {
-              id: 'ext-test',
-              resource: ''
-            },
-            {
-              id: 'perf-test',
-              resource: ''
-            },
-            {
-              id: 'prod',
-              resource: ''
-            }
-          ]
-        }
-      ],
-      sql_databases: []
-    }
+    const rowsPerResourceType = transformResourcesToRows(
+      environments,
+      resourcesPerEnv
+    )
+
+    // const rowsPerResourceType = {
+    //   s3_buckets: [
+    //     {
+    //       envs: [
+    //         {
+    //           id: 'test',
+    //           resource: 'cdp-portal-backend'
+    //         },
+    //         {
+    //           id: 'management',
+    //           resource: 'cdp-portal-backend'
+    //         },
+    //         {
+    //           id: 'dev',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'ext-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'perf-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'prod',
+    //           resource: ''
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       envs: [
+    //         {
+    //           id: 'test',
+    //           resource: 'cdp-portal-backend-images'
+    //         },
+    //         {
+    //           id: 'management',
+    //           resource: 'cdp-portal-backend-images'
+    //         },
+    //         {
+    //           id: 'dev',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'ext-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'perf-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'prod',
+    //           resource: ''
+    //         }
+    //       ]
+    //     }
+    //   ],
+    //   sqs_queues: [
+    //     {
+    //       envs: [
+    //         {
+    //           id: 'test',
+    //           resource: 'message_clearance_request'
+    //         },
+    //         {
+    //           id: 'management',
+    //           resource: 'message_clearance_request'
+    //         },
+    //         {
+    //           id: 'dev',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'ext-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'perf-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'prod',
+    //           resource: ''
+    //         }
+    //       ]
+    //     }
+    //   ],
+    //   sns_topics: [
+    //     {
+    //       envs: [
+    //         {
+    //           id: 'test',
+    //           resource: 'decision_notification.fifo'
+    //         },
+    //         {
+    //           id: 'management',
+    //           resource: 'decision_notification.fifo'
+    //         },
+    //         {
+    //           id: 'dev',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'ext-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'perf-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'prod',
+    //           resource: ''
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       envs: [
+    //         {
+    //           id: 'test',
+    //           resource: 'error_notification.fifo'
+    //         },
+    //         {
+    //           id: 'management',
+    //           resource: 'error_notification.fifo'
+    //         },
+    //         {
+    //           id: 'dev',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'ext-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'perf-test',
+    //           resource: ''
+    //         },
+    //         {
+    //           id: 'prod',
+    //           resource: ''
+    //         }
+    //       ]
+    //     }
+    //   ],
+    //   sql_databases: []
+    // }
 
     const supportVerticalHeadings = environments.length >= 5
 
@@ -235,4 +240,37 @@ export const allResourcesController = {
       ]
     })
   }
+}
+
+function transformResourcesToRows(environments, resourcesPerEnv) {
+  const allResourcesByType = Object.entries(resourcesPerEnv).reduce(
+    (acc, [_, types]) => {
+      for (const [type, resources] of Object.entries(types)) {
+        for (const { name } of resources) {
+          acc[type] = acc[type] ?? new Set()
+          acc[type].add(name)
+        }
+      }
+      return acc
+    },
+    {}
+  )
+
+  const rowsPerResourceType = Object.fromEntries(
+    Object.entries(allResourcesByType).map(([type, names]) => [
+      type,
+      [...names].map((name) => ({
+        envs: environments.map((env) => ({
+          id: env,
+          resource: resourcesPerEnv[env][type].find(
+            (resource) => resource.name === name
+          )
+            ? name
+            : ''
+        }))
+      }))
+    ])
+  )
+
+  return rowsPerResourceType
 }
