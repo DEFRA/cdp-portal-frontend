@@ -55,7 +55,18 @@
                                   {% if value | isArray %}
                                     <ul>
                                     {% for item in value %}
-                                      <li>{{ item }}</li>
+                                      <li>
+                                        {% if item | isObject %}
+                                          {% for key, val in value %}
+                                            <dl>
+                                              <dt>{{ key }}</dt>
+                                              <dd>{{ val }}</dd>
+                                            </dl>
+                                          {% endfor %}
+                                        {% else %}
+                                          {{ item }}
+                                        {% endif %}
+                                      </li>
                                     {% endfor %}
                                     </ul>
                                   {% elseif value | isObject %}
