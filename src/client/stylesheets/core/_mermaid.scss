@@ -34,19 +34,23 @@
       border-bottom: 1px solid #ddeaf4;
       white-space: nowrap;
 
+      // stylelint-disable-next-line max-nesting-depth
       ul {
         margin: 0;
         padding-inline-start: 20px;
       }
 
+      // stylelint-disable-next-line max-nesting-depth
       dl {
         margin: 0;
         display: flex;
 
+        // stylelint-disable-next-line max-nesting-depth
         dt {
           font-weight: bold;
         }
 
+        // stylelint-disable-next-line max-nesting-depth
         dd {
           margin-inline-start: 10px;
         }
