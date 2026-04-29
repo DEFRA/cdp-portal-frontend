@@ -7,6 +7,7 @@
 {% from "tag/macro.njk" import appTag %}
 {% from "tool-tip/macro.njk" import appToolTip %}
 {% from "services/common/components/resources-intro/macro.njk" import appResourcesIntro %}
+{% from "../components/resource-value/macro.njk" import resourceValue %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -52,33 +53,7 @@
                               <tr>
                                 <th>{{ name | replace("_", " ") | capitalize }}</th>
                                 <td>
-                                  {% if value | isArray %}
-                                    <ul>
-                                    {% for item in value %}
-                                      <li>
-                                        {% if item | isObject %}
-                                          {% for key, val in value %}
-                                            <dl>
-                                              <dt>{{ key }}</dt>
-                                              <dd>{{ val }}</dd>
-                                            </dl>
-                                          {% endfor %}
-                                        {% else %}
-                                          {{ item }}
-                                        {% endif %}
-                                      </li>
-                                    {% endfor %}
-                                    </ul>
-                                  {% elseif value | isObject %}
-                                    {% for key, item in value %}
-                                      <dl>
-                                        <dt>{{ key }}</dt>
-                                        <dd>{{ item }}</dd>
-                                      </dl>
-                                    {% endfor %}
-                                  {% else %}
-                                    {{ value }}
-                                  {% endif %}
+                                  {{ resourceValue(value) }}
                                 </td>
                               </th>
                             {% endif %}

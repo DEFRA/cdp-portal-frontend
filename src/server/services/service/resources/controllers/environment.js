@@ -26,6 +26,33 @@ export const environmentResourcesController = {
     const formattedEnvironment = formatText(environment)
 
     const resources = await fetchResources(entity.name, environment)
+    console.log(resources)
+    resources.dynamodb = [
+      {
+        name: 'cdp-portal-frontend-session',
+        icon: 'aws-dynamodb',
+        properties: {
+          arn: 'arn:aws:dynamodb:eu-west-2:094954420758:table/cdp-portal-frontend-session',
+          hash_key: 'id',
+          range_key: null,
+          table_class: 'STANDARD',
+          read_capacity: 0,
+          write_capacity: 0,
+          attributes: [
+            {
+              name: 'id',
+              type: 'S'
+            }
+          ],
+          ttl: [
+            {
+              attribute_name: 'expiresAt',
+              enabled: true
+            }
+          ]
+        }
+      }
+    ]
 
     const hasNoResources = !Object.entries(resources).find(
       ([_, items]) => items?.length
