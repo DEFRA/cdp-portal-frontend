@@ -49,7 +49,27 @@
                           {{ type }}{{ resource.name }}[<table>
                           {% for name, value in resource.properties | dictsort %}
                             {% if name != 'name' and name != 'bucket_name'  %}
-                              <tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ value }}</td>
+                              <tr>
+                                <th>{{ name | replace("_", " ") | capitalize }}</th>
+                                <td>
+                                  {% if value | isArray %}
+                                    <ul>
+                                    {% for item in value %}
+                                      <li>{{ item }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                  {% elseif value | isObject %}
+                                    {% for key, item in value %}
+                                      <dl>
+                                        <dt>{{ key }}</dt>
+                                        <dd>{{ item }}</dd>
+                                      </dl>
+                                    {% endfor %}
+                                  {% else %}
+                                    {{ value }}
+                                  {% endif %}
+                                </td>
+                              </th>
                             {% endif %}
                           {% endfor %}
                           </table>]

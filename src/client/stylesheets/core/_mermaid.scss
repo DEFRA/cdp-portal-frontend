@@ -33,6 +33,24 @@
       padding: 0.5rem;
       border-bottom: 1px solid #ddeaf4;
       white-space: nowrap;
+
+      ul {
+        margin: 0;
+        padding-inline-start: 20px;
+      }
+
+      dl {
+        margin: 0;
+        display: flex;
+
+        dt {
+          font-weight: bold;
+        }
+
+        dd {
+          margin-inline-start: 10px;
+        }
+      }
     }
 
     th {

@@ -2,6 +2,7 @@ import upperFirst from 'lodash/upperFirst.js'
 import kebabCase from 'lodash/kebabCase.js'
 import assign from 'lodash/assign.js'
 import isArray from 'lodash/isArray.js'
+import isObject from 'lodash/isObject.js'
 import isNil from 'lodash/isNil.js'
 import compact from 'lodash/compact.js'
 import union from 'lodash/union.js'
@@ -49,5 +50,6 @@ export {
   startCase,
   union,
   pickBy,
-  uppercaseMatch
+  uppercaseMatch,
+  isObject
 }
