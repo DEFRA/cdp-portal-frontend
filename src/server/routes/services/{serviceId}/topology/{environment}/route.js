@@ -13,7 +13,7 @@ export const ext = [
   provideNotFoundIfPrototypeExtension,
   {
     type: 'onPostHandler',
-    method: provideSubNav('topology', SERVICE),
+    method: provideSubNav('topology', SERVICE, { withoutAll: true }),
     options: {
       sandbox: 'plugin'
     }
