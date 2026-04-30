@@ -38,6 +38,52 @@
           }
 
           </style>
+
+
+          <pre class="mermaid">
+            flowchart TD
+            {% for teamKey, services in servicesPerTeam  %}
+              subgraph {{ teamKey }}[{{ services[0].teams | join(" / ") | capitalize }}]
+                style {{ teamKey }} fill:#fff,stroke-dasharray:10 5
+
+                {% for service in services  %}
+                  subgraph {{ service.name }}Container[ ]
+                    direction TD
+
+                    {{ service.name }}@{ icon: "logos:aws-fargate", label: "<strong>{{ service.name }}</strong>"}
+
+                    {% for resource in service.resources  %}
+                      {{ service.name }}{{ resource.name }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
+                      {{ service.name }} -.- {{ service.name }}{{ resource.name }}
+                    {% endfor %}
+                  end
+                {% endfor %}
+
+              end
+            {% endfor %}
+
+            {% for teamKey, services in servicesPerTeam  %}
+              {% for service in services  %}
+                  {% for resource in service.resources  %}
+                    {% for link in resource.links  %}
+                      {% if link.type == 'subscription' %}
+                        {% set arrow = "==>" %}
+                      {% else %}
+                        {% set arrow = "-->" %}
+                      {% endif %}
+
+                      {{ service.name }}{{ resource.name }} {{ service.name }}{{ resource.name }}_link{{loop.index0}}@{{ arrow }}|{{ link.type }}| {{ link.target.service }}{{ link.target.resource }}
+                      {% if link.type == 'subscription' %}
+                        {{ service.name }}{{ resource.name }}_link{{loop.index0}}@{ animation: slow }
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+              {% endfor %}
+            {% endfor %}
+          </pre>
+
+
+
           <pre class="mermaid">
               flowchart TD
                 subgraph platform[Platform]
