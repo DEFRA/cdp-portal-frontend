@@ -78,8 +78,13 @@ async function registerRoute(path, templatesPath, sourcePath, server) {
           method: 'GET',
           path: routePath,
           handler: async (request, h) => {
-            const data = await route.default(request, h)
-            return h.view(viewPath, data)
+            const result = await route.default(request, h)
+
+            if (result && [undefined, Object].includes(result.constructor)) {
+              return h.view(viewPath, result)
+            }
+
+            return result
           },
           options: {
             ...route.options,
