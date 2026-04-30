@@ -21,7 +21,7 @@
   {% endfor %}
   </ul>
 {% elseif value | isObject %}
-  {{ table(value) }}
+  {{ table([value]) }}
 {% else %}
   {{ value }}
 {% endif %}

@@ -27,6 +27,19 @@ export const environmentResourcesController = {
 
     const resources = await fetchResources(entity.name, environment)
 
+    resources.bedrock_ai = [
+      {
+        name: 'bob',
+        properties: {
+          guardrail: {
+            arn: 'arn:aws:bedrock:eu-west-2:506190012364:guardrail/2l4jixq4m3zd',
+            name: 'custom',
+            version: ''
+          }
+        }
+      }
+    ]
+
     const hasNoResources = !Object.entries(resources).find(
       ([_, items]) => items?.length
     )
