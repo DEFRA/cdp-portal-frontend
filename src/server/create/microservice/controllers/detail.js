@@ -10,10 +10,14 @@ import { microserviceValidation } from '../helpers/schema/microservice-validatio
 const microserviceDetailController = {
   handler: async (request, h) => {
     const payload = request?.payload
-    const microserviceName = payload.microserviceName
-    const serviceTypeTemplateId = payload.serviceTypeTemplateId
-    const teamId = payload.teamId
-    const redirectLocation = payload?.redirectLocation
+    payload.microserviceName = payload.microserviceName?.trim()
+
+    const {
+      microserviceName,
+      serviceTypeTemplateId,
+      teamId,
+      redirectLocation
+    } = payload
 
     const serviceTemplates = await fetchServiceTemplates(request)
     const templateIds = serviceTemplates.map((template) => template.id)
@@ -45,24 +49,22 @@ const microserviceDetailController = {
       return h.redirect(`/create/microservice/detail${queryString}`)
     }
 
-    if (!validationResult.error) {
-      const usersTeams = await getUsersTeams(request)
-      const team = usersTeams.find((team) => team.teamId === teamId)
-      const serviceTemplateDetail = serviceTemplates.find(
-        (serviceTemplate) => serviceTemplate.id === serviceTypeTemplateId
-      )
+    const usersTeams = await getUsersTeams(request)
+    const team = usersTeams.find((team) => team.teamId === teamId)
+    const serviceTemplateDetail = serviceTemplates.find(
+      (serviceTemplate) => serviceTemplate.id === serviceTypeTemplateId
+    )
 
-      await saveToCreate(request, h, {
-        ...sanitisedPayload,
-        ...(team && { teamName: team.name }),
-        ...(serviceTemplateDetail && {
-          serviceTypeName: serviceTemplateDetail.templateName
-        })
+    await saveToCreate(request, h, {
+      ...sanitisedPayload,
+      ...(team && { teamName: team.name }),
+      ...(serviceTemplateDetail && {
+        serviceTypeName: serviceTemplateDetail.templateName
       })
-      await setStepComplete(request, h, 'stepTwo')
+    })
+    await setStepComplete(request, h, 'stepTwo')
 
-      return h.redirect('/create/microservice/summary')
-    }
+    return h.redirect('/create/microservice/summary')
   }
 }
 

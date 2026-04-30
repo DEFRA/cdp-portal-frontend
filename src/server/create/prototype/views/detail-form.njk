@@ -18,8 +18,8 @@
       <div class="govuk-grid-column-one-third-from-desktop-wide">
         <form action="/create/prototype/detail" method="post" data-js="app-form-errors"
               class="govuk-!-margin-bottom-4">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
           {% call govukFieldset() %}
 
@@ -92,13 +92,17 @@
         </form>
       </div>
 
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <div class="govuk-!-margin-bottom-4">
-          {{ appNamingAdvice({
-            kind: "prototype",
-            categories: ['prototype', 'poc', 'mockup', 'user-research', 'ab-testing']
-          } ) }}
-        </div>
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+        {% call appPanel() %}
+          <section>
+            {{ appNamingAdvice({
+              kind: "prototype",
+              goodSuffixes: ["prototype", "poc", "mockup", "user-research", "ab-testing"],
+              badSuffixes: ["alpha", "v1", "main", "repo", "new"],
+              exampleName: "seed-bank"
+            } ) }}
+          </section>
+        {% endcall %}
       </div>
     </div>
   </div>

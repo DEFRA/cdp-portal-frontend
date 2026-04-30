@@ -6,7 +6,9 @@ import { checkNameAvailability } from '../../../helpers/validator/check-name-ava
 
 function microserviceValidation(templateIds) {
   return Joi.object({
-    microserviceName: repositoryNameValidation.external(checkNameAvailability),
+    microserviceName: repositoryNameValidation
+      .trim()
+      .external(checkNameAvailability),
     serviceTypeTemplateId: Joi.string()
       .valid(...templateIds)
       .messages({

@@ -9,10 +9,10 @@ import { repositoryValidation } from '../helpers/schema/repository-validation.js
 const repositoryDetailController = {
   handler: async (request, h) => {
     const payload = request?.payload
-    const repositoryName = payload.repositoryName
-    const repositoryVisibility = payload.repositoryVisibility
-    const teamId = payload.teamId
-    const redirectLocation = payload?.redirectLocation
+    payload.repositoryName = payload.repositoryName.trim()
+
+    const { repositoryName, repositoryVisibility, teamId, redirectLocation } =
+      payload
 
     const validationResult = await repositoryValidation()
       .validateAsync(payload, { abortEarly: false })

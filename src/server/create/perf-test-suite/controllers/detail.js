@@ -9,10 +9,9 @@ import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.
 const perfTestSuiteDetailController = {
   handler: async (request, h) => {
     const payload = request?.payload
-    const repositoryName = payload.repositoryName
-    const teamId = payload.teamId
-    const templateTag = payload.templateTag ?? ''
-    const redirectLocation = payload?.redirectLocation
+    payload.repositoryName = payload.repositoryName.trim()
+
+    const { repositoryName, teamId, templateTag, redirectLocation } = payload
 
     const validationResult = await testSuiteValidation()
       .validateAsync(payload, { abortEarly: false })
@@ -22,7 +21,7 @@ const perfTestSuiteDetailController = {
     const sanitisedPayload = {
       repositoryName,
       teamId,
-      templateTag
+      templateTag: templateTag ?? ''
     }
 
     if (validationResult?.error) {

@@ -91,17 +91,18 @@
         </form>
       </div>
 
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <div class="govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+        {% call appPanel() %}
+        <section>
           {{ appNamingAdvice({
             kind: "performance test suite",
-            categories: [
-              "tests",
-              "perf-tests",
-              "performance-tests"
-            ]
+            goodSuffixes: ["tests", "perf-tests", "performance-tests"],
+            badSuffixes: ["alpha", "v1", "main", "repo", "new", "hapi"],
+            badExamples: ["sb-frontend"],
+            exampleName: "seed-bank"
           } ) }}
-        </div>
+        </section>
+        {% endcall %}
       </div>
     </div>
   </div>
