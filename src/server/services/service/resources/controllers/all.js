@@ -52,7 +52,12 @@ export const allResourcesController = {
         }
       ])
 
-    return h.view('services/service/resources/views/all', {
+    const debugView = request.query.debug ?? false
+    const template = debugView
+      ? 'services/service/resources/views/debug/all'
+      : 'services/service/resources/views/all'
+
+    return h.view(template, {
       pageTitle: `${serviceName} - Resources`,
       entity,
       environments,
