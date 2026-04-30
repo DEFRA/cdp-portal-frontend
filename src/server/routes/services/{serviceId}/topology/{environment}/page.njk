@@ -27,6 +27,9 @@
             background: none !important;
           }
 
+          svg a .nodeLabel p {
+            color: #1d70b8 !important;
+          }
 
           svg .edge-animation-slow {
             animation-direction: reverse !important;
@@ -54,9 +57,12 @@
                       {% if service.name == entity.name %}
                         <strong>{{ service.name }}</strong>
                       {% else %}
-                        <a href="/services/{{ service.name }}/topology/{{ environment }}">{{ service.name }}</a>
+                        {{ service.name }}
                       {% endif %}
                     "}
+                    {% if service.name != entity.name %}
+                      click {{ service.name }} "/services/{{ service.name }}/topology/{{ environment }}"
+                    {% endif %}
 
                     {% for resource in service.resources  %}
                       {{ service.name }}{{ resource.name }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
