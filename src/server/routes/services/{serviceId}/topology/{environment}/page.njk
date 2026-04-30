@@ -27,50 +27,68 @@
             background: none !important;
           }
 
+
+          svg .edge-animation-slow {
+            animation-direction: reverse !important;
+          }
+
+          svg .edge-pattern-dotted {
+            stroke: #DDD !important;
+            stroke-dasharray: none !important;
+          }
+
           </style>
           <pre class="mermaid">
               flowchart TD
-                subgraph cdp-portal-backend[Platform]
-                  direction TD
-                    service@{ icon: "logos:aws-fargate", label: "<strong>cdp-portal-backend</strong>"}
+                subgraph platform[Platform]
+                  style platform fill:#fff,stroke-dasharray:10 5
 
-                    s31@{ icon: "logos:aws-s3", label: "cdp-portal-backend"}
-                    service --- s31
-
-                    sqs1@{ icon: "logos:aws-sqs", label: "message_clearance_request"}
-                    service --- sqs1
-                    sns2 e1@==>|Subscription| sqs1
-                    e1@{ animation: slow }
-
-                    sns2@{ icon: "logos:aws-sns", label: "error_notification.fifo"}
-                    service --- sns2
-
-                    sns1@{ icon: "logos:aws-sns",label: "decision_notification.fifo"}
-                    service --- sns1
-                  %% end
-
-                  %% subgraph cdp-portal-frontend[Platform]
+                  subgraph cdp-portal-backend[ ]
                     direction TD
-                    service2@{ icon: "logos:aws-fargate", label: "<a href="/">cdp-portal-frontend</a>"}
+                      service@{ icon: "logos:aws-fargate", label: "<strong>cdp-portal-backend</strong>"}
 
-                    sqs11@{ icon: "logos:aws-sqs", label: "error_message"}
-                    service2 --- sqs11
+                      s31@{ icon: "logos:aws-s3", label: "cdp-portal-backend"}
+                      service -.- s31
 
-                    sns2 e11@==>|Subscription| sqs11
-                    e11@{ animation: slow }
+                      sqs1@{ icon: "logos:aws-sqs", label: "message_clearance_request"}
+                      service -.- sqs1
+                      sqs1 e1@==>|Subscription| sns2
+                      e1@{ animation: slow }
+
+                      sns2@{ icon: "logos:aws-sns", label: "error_notification.fifo"}
+                      service -.- sns2
+
+                      sns1@{ icon: "logos:aws-sns",label: "decision_notification.fifo"}
+                      service -.- sns1
+                    end
+
+                    subgraph cdp-portal-frontend[ ]
+                      direction TD
+                      service2@{ icon: "logos:aws-fargate", label: "<a href="/">cdp-portal-frontend</a>"}
+
+                      sqs11@{ icon: "logos:aws-sqs", label: "error_message"}
+                      service2 -.- sqs11
+
+                       sqs11 e11@==>|Subscription| sns2
+                      e11@{ animation: slow }
+                    end
                   end
 
-                  subgraph exp-service[Another team]
-                    direction TD
-                    service3@{ icon: "logos:aws-fargate", label: "<a href="/">exp-service-backend</a>"}
+                  subgraph anotherteam[Another team]
+                    style anotherteam fill:#fff,stroke-dasharray:10 5
 
-                    s31 ==>|Read| service3
+                    subgraph exp-service[ ]
+                      direction TD
+                      service3@{ icon: "logos:aws-fargate", label: "<a href="/">exp-service-backend</a>"}
 
-                    sqs12@{ icon: "logos:aws-sqs", label: "decision_message"}
-                    service3 --- sqs12
+                      service3 ==>|Read| s31
 
-                    sns1 e12@==>|Subscription| sqs12
-                    e12@{ animation: slow }
+                      sqs12@{ icon: "logos:aws-sqs", label: "decision_message"}
+                      service3 -.- sqs12
+
+                      sqs12 e12@==>|Subscription| sns1
+                      e12@{ animation: slow }
+                    end
                   end
             </pre>
         {% endcall %}
