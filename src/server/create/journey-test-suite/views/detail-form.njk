@@ -19,8 +19,8 @@
       <div class="govuk-grid-column-one-third-from-desktop-wide">
         <form action="/create/journey-test-suite/detail" method="post" data-js="app-form-errors"
               class="govuk-!-margin-bottom-4">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
           {% call govukFieldset() %}
 
@@ -92,19 +92,18 @@
 
         </form>
       </div>
-
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <div class="govuk-!-margin-bottom-4">
-          {{ appNamingAdvice({
-            kind: "journey test suite",
-            categories: [
-              "tests",
-              "journey-tests",
-              "acceptance-tests",
-              "uat"
-            ]
-          } ) }}
-        </div>
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+        {% call appPanel() %}
+          <section>
+            {{ appNamingAdvice({
+              kind: "journey test suite",
+              goodSuffixes: ["tests", "journey-tests", "acceptance-tests", "uat"],
+              badSuffixes: ["alpha", "v1", "main", "repo", "new", "hapi"],
+              badExamples: ["sv-frontend"],
+              exampleName: "seed-bank"
+            } ) }}
+          </section>
+        {% endcall %}
       </div>
     </div>
   </div>

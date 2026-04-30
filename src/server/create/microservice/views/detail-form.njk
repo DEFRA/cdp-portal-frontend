@@ -1,11 +1,12 @@
 {% extends "layouts/page.njk" %}
-
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
+{% from "icons/error-icon/macro.njk" import appErrorIcon %}
 {% from "availability/macro.njk" import appAvailability %}
 
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
 
-  <div class="govuk-main-wrapper app-main-wrapper">
+  <div class="govuk-main-wrapper app-main-wrapper"">
 
     {{ appPageHeading({
       caption: "Create",
@@ -18,8 +19,8 @@
         <section class="govuk-!-margin-bottom-8">
           <form action="/create/microservice/detail" method="post" data-js="app-form-errors"
                 class="govuk-!-margin-bottom-4">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
             {% call govukFieldset() %}
 
@@ -112,170 +113,61 @@
         </section>
       </div>
 
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <section class="govuk-!-margin-bottom-8">
-          {% call appPanel() %}
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-4">Templates</h2>
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+        {% call appPanel() %}
+          <section>
 
-            <article class="govuk-!-margin-bottom-7">
-              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Node.js Frontend</h3>
+            {{ appNamingAdvice({
+              kind: "microservice",
+              goodSuffixes: ["frontend", "ui", "backend", "api", "prototype"],
+              badSuffixes: ["alpha", "v1", "main", "repo", "new", "hapi"],
+              badExamples: ["sv-frontend"],
+              exampleName: "seed-bank"
+            } ) }}
+          </section>
+        {% endcall %}
 
-              <p class="govuk-!-margin-bottom-2">
-                The <a class="app-link"
-                       href="https://github.com/DEFRA/cdp-node-frontend-template"
-                       target="_blank" rel="noopener noreferrer">
-                  CDP Node.js Frontend template
-                </a> is a Hapi.js application used for building frontends
-              </p>
+        {% call appPanel() %}
+          <section>
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Templates</h2>
 
-              <ul class="govuk-list govuk-list--bullet">
-                <li>
-                  <a class="app-link" href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">
-                    Node.js frontend server
-                  </a>
-                  with the
-                  <a class="app-link" href="https://hapi.dev" target="_blank" rel="noopener noreferrer">
-                    Hapi.js framework
-                  </a>
-                </li>
-                <li>
-                  <a class="app-link" href="https://design-system.service.gov.uk" target="_blank"
-                     rel="noopener noreferrer">
-                    GOV.UK Frontend
-                  </a>
-                </li>
-                <li>
-                  Client-side vanilla JavaScript, Sass and HTML (Nunjucks)
-                </li>
-                <li>
-                  <a class="app-link" href="https://redis.io" target="_blank" rel="noopener noreferrer">Redis</a>
-                </li>
-              </ul>
-            </article>
+            <p class="govuk-!-margin-bottom-0">
+              <a class="app-link" href="https://github.com/DEFRA/cdp-node-frontend-template" target="_blank"
+                 rel="noopener noreferrer">
+                Node.js Frontend</a> - Hapi.js frontend app with
+              <a class="app-link" href="https://design-system.service.gov.uk" target="_blank" rel="noopener noreferrer">GOV.UK
+                Frontend</a>
+              (Nunjucks, JS, Sass) + Redis
+            </p>
 
-            <article class="govuk-!-margin-bottom-7">
-              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Node.js Backend</h3>
+            <p class="govuk-!-margin-bottom-0">
+              <a class="app-link" href="https://github.com/DEFRA/cdp-node-backend-template" target="_blank"
+                 rel="noopener noreferrer">
+                Node.js Backend</a> - Hapi.js API service + MongoDB
+            </p>
 
-              <p class="govuk-!-margin-bottom-2">
-                The <a class="app-link"
-                       href="https://github.com/DEFRA/cdp-node-backend-template"
-                       target="_blank" rel="noopener noreferrer">
-                  CDP Node.js backend template
-                </a> is a Hapi.js application used for building APIs
-              </p>
+            <p class="govuk-!-margin-bottom-0">
+              <a class="app-link" href="https://github.com/DEFRA/cdp-node-backend-no-db-template" target="_blank"
+                 rel="noopener noreferrer">
+                Node.js Backend (Minimal)</a> - minimal Hapi.js API service, no database
+            </p>
 
-              <ul class="govuk-list govuk-list--bullet">
-                <li>
-                  <a class="app-link" href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">
-                    Node.js backend server
-                  </a>
-                  with the
-                  <a class="app-link" href="https://hapi.dev" target="_blank" rel="noopener noreferrer">
-                    Hapi.js framework
-                  </a>
-                </li>
-                <li>
-                  <a class="app-link" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
-                    MongoDB database
-                  </a>
-                </li>
-              </ul>
-            </article>
-
-            <article class="govuk-!-margin-bottom-7">
-              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Node.js Backend - Minimal</h3>
-
-              <p class="govuk-!-margin-bottom-2">
-                The <a class="app-link"
-                       href="https://github.com/DEFRA/cdp-node-backend-template/tree/minimal"
-                       target="_blank" rel="noopener noreferrer">
-                  CDP Node.js backend template
-                </a> is a <em>minimal</em> Hapi.js application without a database
-              </p>
-
-              <ul class="govuk-list govuk-list--bullet">
-                <li>
-                  <a class="app-link" href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">
-                    Node.js backend server
-                  </a>
-                  with the
-                  <a class="app-link" href="https://hapi.dev" target="_blank" rel="noopener noreferrer">
-                    Hapi.js framework
-                  </a>
-                </li>
-              </ul>
-            </article>
-
-            <article class="govuk-!-margin-bottom-7">
-              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">DotNet Backend</h3>
-
-              <p class="govuk-!-margin-bottom-2">
-                The <a class="app-link"
-                       href="https://github.com/DEFRA/cdp-dotnet-backend-template"
-                       target="_blank" rel="noopener noreferrer">
-                  CDP DotNet Backend template
-                </a> is a DotNet backend application
-              </p>
-
-              <ul class="govuk-list govuk-list--bullet">
-                <li>
-                  <a class="app-link" href="https://dotnet.microsoft.com/en-us" target="_blank"
-                     rel="noopener noreferrer">
-                    DotNet
-                  </a>
-                  with
-                  <a class="app-link" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
-                    MongoDB
-                  </a>
-                </li>
-              </ul>
-            </article>
+            <p class="govuk-!-margin-bottom-0">
+              <a class="app-link" href="https://github.com/DEFRA/cdp-dotnet-backend-template" target="_blank"
+                 rel="noopener noreferrer">
+                .NET Backend</a> - .NET API service + MongoDB
+            </p>
 
             {% if hasScope(scopes.restrictedTechPython) %}
-              <article class="govuk-!-margin-bottom-7">
-                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Python Backend</h3>
-
-                <p class="govuk-!-margin-bottom-2">
-                  The <a class="app-link"
-                         href="https://github.com/DEFRA/cdp-python-backend-template"
-                         target="_blank" rel="noopener noreferrer">
-                    CDP Python Backend template
-                  </a> is a Python backend application
-                </p>
-
-                <ul class="govuk-list govuk-list--bullet">
-                  <li>
-                    <a class="app-link" href="https://www.python.org" target="_blank"
-                       rel="noopener noreferrer">
-                      Python
-                    </a>
-                    with
-                    <a class="app-link" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
-                      MongoDB
-                    </a>
-                  </li>
-                </ul>
-              </article>
+              <p class="govuk-!-margin-bottom-0">
+                <a class="app-link" href="https://github.com/DEFRA/cdp-python-backend-template" target="_blank"
+                   rel="noopener noreferrer">
+                  Python Backend</a> - Python API service + MongoDB
+              </p>
             {% endif %}
 
-          {% endcall %}
-        </section>
-      </div>
-
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <section class="govuk-!-margin-bottom-8">
-          {{ appNamingAdvice({
-            kind: "microservice",
-            categories: [
-              "frontend",
-              "ui",
-              "backend",
-              "api",
-              "prototype"
-            ],
-            isMuted: true
-          } ) }}
-        </section>
+          </section>
+        {% endcall %}
       </div>
     </div>
   </div>

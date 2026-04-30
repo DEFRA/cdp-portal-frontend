@@ -12,61 +12,63 @@
   "sv-frontend"
 ] %}
 
-{% call appInfo({
-  classes: "govuk-!-margin-top-0 "
-}) %}
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Naming conventions</h2>
+<h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-3">Naming conventions</h2>
 
-  <p class="govuk-!-margin-bottom-2">
-    The name you choose will be its unique identifier used in multiple places across the Platform. We recommend a
-    sensible descriptive name, optionally ending with a category of your choice.
-    {% for category in params.categories %}
-    {% if loop.last %}
-      or <em>{{ category }}</em>
-      {% elif loop.revindex0 === 1 %}
-      <em>{{ category }}</em>
-    {% else %}
-      <em>{{ category }}</em>,
-    {% endif %}
-    {% endfor %}. E.g.
-  </p>
+<p class="govuk-!-margin-bottom-2">
+  A {{ params.kind }} <strong>name cannot be changed</strong> once created as it is a unique identifier across
+  the platform.
+  <strong>Do not change the GitHub repository name</strong>.
+  Names should be clear and descriptive, optionally ending with a category such as
+  {{ params.goodSuffixes.slice(0, -1) | join(", ") }}, or {{ params.goodSuffixes[params.goodSuffixes.length - 1] }}.
 
-  <ul class="govuk-list govuk-!-margin-top-1 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
-    {% for category in params.categories -%}
-      <li>
-        <div class="app-!-layout-centered">
-          {{ appTickIcon({
-            classes: "app-icon--tiny govuk-!-margin-right-1",
-            description: "Correct"
-          }) }} seed-vault-{{ category }}
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
+</p>
+<p class="govuk-!-margin-bottom-3">
+  Avoid project phases, versions, temporary terms, branch names, product names, and excessive acronyms.
+</p>
 
-  <p class="govuk-!-margin-bottom-2">
-    Avoid including words that do not belong in the name. For example do not include project phases, version numbers,
-    temporary words, branch names, product names or excessive acronyms.
-  </p>
-  <ul class="govuk-list govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-!-margin-left-2">
-    {% for badName in badNames %}
-      <li>
-        <div class="app-!-layout-centered">
-          {{ appErrorIcon({
-            classes: "app-icon--tiny govuk-!-margin-right-1",
-            description: "Incorrect"
-          }) }}
-          {{ badName }}
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Good examples</h3>
 
-  <p class="govuk-!-margin-bottom-2">
-    For further advice on choosing the right name see <a href="/documentation/how-to/microservices.md#naming-conventions"
-                                                         class="govuk-link app-link"
-                                                         target="_blank" rel="noopener noreferrer">
-      Naming conventions documentation
-    </a>
-  </p>
-{% endcall %}
+    <ul class="govuk-list govuk-!-margin-bottom-0">
+      {% for suffix in params.goodSuffixes %}
+        <li class="govuk-!-display-flex govuk-!-align-items-center">
+          <div class="app-!-layout-centered">
+            {{ appTickIcon({ classes: "app-icon--tiny govuk-!-margin-right-1", description: "Correct" }) }}
+            {{ params.exampleName + "-" + suffix }}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Bad examples</h3>
+    <ul class="govuk-list govuk-!-margin-bottom-0">
+      {% for suffix in params.badSuffixes %}
+        <li class="govuk-!-display-flex govuk-!-align-items-center">
+          <div class="app-!-layout-centered">
+            {{ appErrorIcon({ classes: "app-icon--tiny govuk-!-margin-right-1", description: "Incorrect" }) }}
+            {{ params.exampleName + "-" + suffix }}
+          </div>
+        </li>
+      {% endfor %}
+      {% for example in params.badExamples %}
+        <li class="govuk-!-display-flex govuk-!-align-items-center">
+          <div class="app-!-layout-centered">
+            {{ appErrorIcon({ classes: "app-icon--tiny govuk-!-margin-right-1", description: "Incorrect" }) }}
+            {{ example }}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<p class="govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+  See <a href="/documentation/how-to/microservices.md#naming-conventions"
+         class="govuk-link app-link"
+         target="_blank" rel="noopener noreferrer">
+    Naming conventions documentation
+  </a> for more detail.
+</p>

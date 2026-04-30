@@ -2,44 +2,6 @@
 
 {% from "availability/macro.njk" import appAvailability %}
 
- {% set repoVisibilityHelpHtml %}
-   <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Visibility</h2>
-
-   <ul class="govuk-list govuk-list--bullet">
-     <li>
-       <strong>Public</strong> - Visible to everybody on the Internet. DEFRA promotes coding in the
-       open, repositories should be public by default.
-     </li>
-     <li>
-       <strong>Internal</strong> - Visible to everybody that is a member of the
-       <a class="app-link"
-          href="https://github.com/DEFRA"
-          target="_blank"
-          rel="noopener noreferrer">DEFRA
-         GitHub Organisation</a>.
-     </li>
-     <li>
-       <strong>Private</strong> - Visible to members of the owning team only. This should be used in
-       exceptional cases.
-     </li>
-   </ul>
-
-   <p class="govuk-!-margin-bottom-2">For more information see:</p>
-
-   <ul class="govuk-list govuk-list--bullet">
-     <li class="govuk-!-margin-bottom-1">
-       <a class="app-link"
-          href="https://www.gov.uk/service-manual/technology/making-source-code-open-and-reusable"
-          target="_blank" rel="noopener noreferrer">GDS Service Manual - Making source code open and reusable</a>
-     </li>
-     <li class="govuk-!-margin-bottom-1">
-       <a class="app-link"
-          href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
-          target="_blank" rel="noopener noreferrer">GitHub - About repository visibility</a>
-     </li>
-   </ul>
- {% endset %}
-
 {% block content %}
   {{ appStepNavigation(stepNavigation) }}
 
@@ -55,8 +17,8 @@
       <div class="govuk-grid-column-one-third-from-desktop-wide">
         <form action="/create/repository/detail" method="post" data-js="app-form-errors"
               class="govuk-!-margin-bottom-4">
-          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}" />
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
           {% call govukFieldset() %}
 
@@ -69,7 +31,7 @@
               name: "repositoryName",
               classes: "app-input app-input--wide",
               hint: {
-            html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. seed-vault-documentation",
+                html: "Lowercase letters, numbers and hyphens. Maximum 32 characters. E.g. seed-vault-documentation",
                 classes: "app-hint"
               },
               formGroup: {
@@ -147,22 +109,57 @@
         </form>
       </div>
 
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-        <div class="govuk-!-margin-bottom-4">
-          {{ appNamingAdvice({
-            kind: "repository",
-            categories: [
-              "library",
-              "helpers",
-              "documentation",
-              "scripts"
-            ]
-          } ) }}
-        </div>
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+        {% call appPanel() %}
+          <section>
+            {{ appNamingAdvice({
+              kind: "repository",
+              goodSuffixes: ["library", "helpers", "documentation", "scripts"],
+              badSuffixes: ["alpha", "v1", "main", "repo", "new"],
+              exampleName: "seed-bank"
+            } ) }}
+          </section>
+        {% endcall %}
 
-        {{ appInfo({
-          html: repoVisibilityHelpHtml
-        }) }}
+        {% call appPanel() %}
+        <section>
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Visibility</h2>
+
+          <p class="govuk-!-margin-bottom-0">
+              <strong>Public</strong> - Visible to anybody on the Internet. DEFRA promotes coding in the
+              open, repositories should be public by default.
+          </p>
+
+          <p class="govuk-!-margin-bottom-0">
+              <strong>Internal</strong> - Visible to everybody that is a member of the
+              <a class="app-link"
+                 href="https://github.com/DEFRA"
+                 target="_blank"
+                 rel="noopener noreferrer">DEFRA
+                GitHub Organisation</a>.
+          </p>
+          <p class="govuk-!-margin-bottom-3">
+              <strong>Private</strong> - Visible to members of the owning team only. This should be used in
+              exceptional cases.
+          </p>
+
+          <p class="govuk-!-margin-bottom-0">For more information see:</p>
+
+          <p class="govuk-!-margin-bottom-0">
+
+              <a class="app-link"
+                 href="https://www.gov.uk/service-manual/technology/making-source-code-open-and-reusable"
+                 target="_blank" rel="noopener noreferrer">GDS Service Manual - Making source code open and reusable</a>
+          </p>
+          <p class="govuk-!-margin-bottom-1">
+              <a class="app-link"
+                 href="https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility"
+                 target="_blank" rel="noopener noreferrer">GitHub - About repository visibility</a>
+
+          </p>
+        </section>
+        {% endcall %}
+
       </div>
     </div>
   </div>

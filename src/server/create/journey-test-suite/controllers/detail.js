@@ -9,11 +9,15 @@ import { testSuiteValidation } from '../../helpers/schema/test-suite-validation.
 const testSuiteDetailController = {
   handler: async (request, h) => {
     const payload = request?.payload
-    const repositoryName = payload.repositoryName
-    const repositoryVisibility = payload.repositoryVisibility
-    const templateTag = payload.templateTag ?? ''
-    const teamId = payload.teamId
-    const redirectLocation = payload?.redirectLocation
+    payload.repositoryName = payload.repositoryName?.trim()
+
+    const {
+      repositoryName,
+      repositoryVisibility,
+      templateTag,
+      teamId,
+      redirectLocation
+    } = payload
 
     const validationResult = await testSuiteValidation()
       .validateAsync(payload, { abortEarly: false })
@@ -24,7 +28,7 @@ const testSuiteDetailController = {
       repositoryName,
       repositoryVisibility,
       teamId,
-      templateTag
+      templateTag: templateTag ?? ''
     }
 
     if (validationResult?.error) {

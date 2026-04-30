@@ -1,6 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { checkNameIsAvailable } from '../helpers/validator/check-name-is-available.js'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit'
+import { checkNameAvailability } from '#server/create/helpers/validator/check-name-availability.js'
 
 const isNameAvailableController = {
   options: {
@@ -13,7 +14,12 @@ const isNameAvailableController = {
   },
   handler: async (request, h) => {
     const repositoryName = request.params?.repositoryName
-    const nameIsAvailable = await checkNameIsAvailable(repositoryName)
+    const nameIsAvailable = await repositoryNameValidation
+      .trim()
+      .external(checkNameAvailability)
+      .validateAsync(repositoryName)
+      .then(() => true)
+      .catch(() => false)
 
     if (nameIsAvailable) {
       return h.response({
