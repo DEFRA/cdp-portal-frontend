@@ -15,12 +15,72 @@
       <div class="govuk-grid-column-full">
 
         {% call appSplitPane() %}
-          <section>
-            Hello
-          </section>
+          <span class="govuk-caption-l">Management</span>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Topology</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Provides a visual representation of <strong>cdp-portal-backend's</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
+          </p>
+
+          <style>
+
+          svg .icon-shape p, svg .labelBkg {
+            background: none !important;
+          }
+
+          </style>
+          <pre class="mermaid">
+              flowchart TD
+                subgraph cdp-portal-backend[Platform]
+                  direction TD
+                    service@{ icon: "logos:aws-fargate", label: "<strong>cdp-portal-backend</strong>"}
+
+                    s31@{ icon: "logos:aws-s3", label: "cdp-portal-backend"}
+                    service --- s31
+
+                    sqs1@{ icon: "logos:aws-sqs", label: "message_clearance_request"}
+                    service --- sqs1
+                    sns2 e1@==>|Subscription| sqs1
+                    e1@{ animation: slow }
+
+                    sns2@{ icon: "logos:aws-sns", label: "error_notification.fifo"}
+                    service --- sns2
+
+                    sns1@{ icon: "logos:aws-sns",label: "decision_notification.fifo"}
+                    service --- sns1
+                  %% end
+
+                  %% subgraph cdp-portal-frontend[Platform]
+                    direction TD
+                    service2@{ icon: "logos:aws-fargate", label: "<a href="/">cdp-portal-frontend</a>"}
+
+                    sqs11@{ icon: "logos:aws-sqs", label: "error_message"}
+                    service2 --- sqs11
+
+                    sns2 e11@==>|Subscription| sqs11
+                    e11@{ animation: slow }
+                  end
+
+                  subgraph exp-service[Another team]
+                    direction TD
+                    service3@{ icon: "logos:aws-fargate", label: "<a href="/">exp-service-backend</a>"}
+
+                    s31 ==>|Read| service3
+
+                    sqs12@{ icon: "logos:aws-sqs", label: "decision_message"}
+                    service3 --- sqs12
+
+                    sns1 e12@==>|Subscription| sqs12
+                    e12@{ animation: slow }
+                  end
+            </pre>
         {% endcall %}
 
       </div>
     </div>
   </section>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script type="module" src="{{ getAssetPath("src/client/javascripts/mermaid.js") }}"></script>
 {% endblock %}
