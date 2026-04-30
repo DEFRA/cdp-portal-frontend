@@ -35,7 +35,7 @@ export const options = {
 }
 
 export default async function (request) {
-  const topology = [
+  const xtopology = [
     {
       name: 'cdp-portal-backend',
       type: 'backend',
@@ -43,6 +43,10 @@ export default async function (request) {
       resources: [
         {
           name: 'error_messages.fifo',
+          icon: 'aws-sns'
+        },
+        {
+          name: 'decision_messages.fifo',
           icon: 'aws-sns'
         },
         {
@@ -104,13 +108,13 @@ export default async function (request) {
       teams: ['demo', 'demo2'],
       resources: [
         {
-          name: 'error_queue',
+          name: 'decision_queue',
           icon: 'aws-sqs',
           links: [
             {
               target: {
                 service: 'cdp-portal-backend',
-                resource: 'error_messages.fifo'
+                resource: 'decision_messages.fifo'
               },
               type: 'subscription'
             }
@@ -120,13 +124,106 @@ export default async function (request) {
     }
   ]
 
+  const topology = [
+    {
+      name: 'trade-imports-gmr-finder',
+      type: 'Backend',
+      teams: [
+        {
+          teamId: 'trade-goods-movements',
+          name: 'Trade-Goods-Movements'
+        }
+      ],
+      resources: [
+        {
+          name: 'trade_imports_matched_gmrs',
+          icon: 'aws-sns',
+          links: []
+        },
+        {
+          name: 'trade_imports_data_upserted_gmr_finder',
+          icon: 'aws-sqs',
+          links: [
+            {
+              service: 'trade-imports-data-api',
+              resource: 'trade_imports_data_upserted',
+              type: 'subscription'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: 'trade-imports-processor',
+      type: 'Backend',
+      teams: [
+        {
+          teamId: 'trade-data-matching',
+          name: 'Trade-Data-Matching'
+        }
+      ],
+      resources: [
+        {
+          name: 'trade-imports-processor',
+          icon: 'aws-sqs',
+          links: [
+            {
+              service: 'trade-imports-gmr-finder',
+              resource: 'trade_imports_matched_gmrs',
+              type: 'subscription'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: 'trade-imports-gmr-processor',
+      type: 'Backend',
+      teams: [
+        {
+          teamId: 'trade-goods-movements',
+          name: 'Trade-Goods-Movements'
+        }
+      ],
+      resources: [
+        {
+          name: 'trade-imports-gmr-processor',
+          icon: 'aws-sqs',
+          links: [
+            {
+              service: 'trade-imports-gmr-finder',
+              resource: 'trade_imports_matched_gmrs',
+              type: 'subscription'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: 'trade-imports-data-api',
+      type: 'Backend',
+      teams: [
+        {
+          teamId: 'trade-data-matching',
+          name: 'Trade-Data-Matching'
+        }
+      ],
+      resources: [
+        {
+          name: 'trade_imports_data_upserted',
+          icon: 'aws-sns',
+          links: []
+        }
+      ]
+    }
+  ]
+
   const servicesPerTeam = Object.groupBy(topology, ({ teams }) =>
-    teams.join('_')
+    teams.map(({ teamId }) => teamId).join('_')
   )
 
-  console.log(servicesPerTeam)
-
   return {
-    servicesPerTeam
+    servicesPerTeam,
+    environment: 'dev'
   }
 }
