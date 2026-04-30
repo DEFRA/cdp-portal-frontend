@@ -35,94 +35,7 @@ export const options = {
 }
 
 export default async function (request) {
-  const xtopology = [
-    {
-      name: 'cdp-portal-backend',
-      type: 'backend',
-      teams: ['platform'],
-      resources: [
-        {
-          name: 'error_messages.fifo',
-          icon: 'aws-sns'
-        },
-        {
-          name: 'decision_messages.fifo',
-          icon: 'aws-sns'
-        },
-        {
-          name: 'message_queue',
-          icon: 'aws-sqs',
-          links: [
-            {
-              target: {
-                service: 'cdp-portal-backend',
-                resource: 'error_messages.fifo'
-              },
-              type: 'subscription'
-            }
-          ]
-        },
-        {
-          name: 'portal-bucket',
-          icon: 'aws-s3',
-          links: [
-            {
-              target: {
-                service: 'cdp-portal-frontend'
-              },
-              type: 'read'
-            },
-            {
-              target: {
-                service: 'exp-demo-frontend'
-              },
-              type: 'read/write'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'cdp-portal-frontend',
-      type: 'frontend',
-      teams: ['platform'],
-      resources: [
-        {
-          name: 'error_message_queue',
-          icon: 'aws-sqs',
-          links: [
-            {
-              target: {
-                service: 'cdp-portal-backend',
-                resource: 'error_messages.fifo'
-              },
-              type: 'subscription'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'exp-demo-frontend',
-      type: 'frontend',
-      teams: ['demo', 'demo2'],
-      resources: [
-        {
-          name: 'decision_queue',
-          icon: 'aws-sqs',
-          links: [
-            {
-              target: {
-                service: 'cdp-portal-backend',
-                resource: 'decision_messages.fifo'
-              },
-              type: 'subscription'
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  const environment = request.params.environment
 
   const topology = [
     {
@@ -224,6 +137,6 @@ export default async function (request) {
 
   return {
     servicesPerTeam,
-    environment: 'dev'
+    environment
   }
 }
