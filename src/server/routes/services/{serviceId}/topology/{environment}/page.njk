@@ -15,7 +15,7 @@
       <div class="govuk-grid-column-full">
 
         {% call appSplitPane() %}
-          <span class="govuk-caption-l">{{environment}}</span>
+          <span class="govuk-caption-l">{{environment | formatText}}</span>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Topology</h2>
           <p class="govuk-!-margin-bottom-2">
             Provides a visual representation of <strong>cdp-portal-backend's</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
