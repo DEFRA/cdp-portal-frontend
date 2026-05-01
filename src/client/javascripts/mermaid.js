@@ -1,7 +1,8 @@
 import mermaid from 'mermaid'
+import svgPanZoom from 'svg-pan-zoom'
 
 mermaid.initialize({
-  startOnLoad: true,
+  startOnLoad: false,
   logLevel: 'error',
   securityLevel: 'loose',
   theme: 'base',
@@ -23,3 +24,21 @@ mermaid.registerIconPacks([
     loader: () => import('@iconify-json/logos').then((module) => module.icons)
   }
 ])
+
+async function run() {
+  await mermaid.run()
+
+  document.querySelectorAll('pre.mermaid--pan-zoom > svg').forEach((svg) => {
+    const height = svg.getAttribute('viewBox').split(' ')[3]
+    const { width } = svg.parentElement.getBoundingClientRect()
+
+    svgPanZoom(svg, {
+      controlIconsEnabled: false,
+      mouseWheelZoomEnabled: true
+    })
+
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
+    svg.style.maxWidth = width
+  })
+}
+run()

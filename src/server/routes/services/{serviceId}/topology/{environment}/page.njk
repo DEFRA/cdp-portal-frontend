@@ -22,7 +22,7 @@
           </p>
 
 
-          <pre class="mermaid mermaid--no-label-background mermaid--reverse-animation mermaid--light-links">
+          <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--reverse-animation mermaid--light-links">
             flowchart TD
             {% for teamKey, services in servicesPerTeam  %}
               subgraph {{ teamKey }}[{{ services[0].teams | join(" / ", "name") | capitalize }}]
