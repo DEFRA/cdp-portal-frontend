@@ -50,6 +50,11 @@ async function provideServiceTabs(request, h) {
       if (isTestSuite || isFrontend || isBackend) {
         buildTab(response, request, 'services', 'resources', entityName)
         buildTab(response, request, 'services', 'proxy', entityName)
+
+        if (!isTenant) {
+          // TODO: Allow for tenants
+          buildTab(response, request, 'services', 'topology', entityName)
+        }
       }
     } else {
       response.source.context.tabDetails.displayTabs = false

@@ -9,9 +9,6 @@ export const allResourcesController = {
   options: {
     id: 'services/{serviceId}/resources',
     validate: {
-      query: Joi.object().keys({
-        debug: Joi.boolean().default(false)
-      }),
       params: Joi.object({
         serviceId: Joi.string().required()
       }),
