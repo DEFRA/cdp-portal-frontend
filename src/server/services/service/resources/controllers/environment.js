@@ -2,16 +2,12 @@ import Boom from '@hapi/boom'
 
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
-import Joi from 'joi'
-import { fetchResources } from '../../../helpers/fetch/fetch-resources.js'
+import { resourceByEnvironment } from '../transformers/resources-by-environment.js'
 
 export const environmentResourcesController = {
   options: {
     id: 'services/{serviceId}/resources/{environment}',
     validate: {
-      query: Joi.object().keys({
-        debug: Joi.boolean().default(false)
-      }),
       params: serviceParamsValidation,
       failAction: () => Boom.boomify(Boom.notFound())
     }
