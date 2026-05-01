@@ -21,29 +21,8 @@
             Provides a visual representation of <strong>cdp-portal-backend's</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
           </p>
 
-          <style>
 
-          svg .icon-shape p, svg .labelBkg {
-            background: none !important;
-          }
-
-          svg a .nodeLabel p {
-            color: #1d70b8 !important;
-          }
-
-          svg .edge-animation-slow {
-            animation-direction: reverse !important;
-          }
-
-          svg .edge-pattern-dotted {
-            stroke: #DDD !important;
-            stroke-dasharray: none !important;
-          }
-
-          </style>
-
-
-          <pre class="mermaid">
+          <pre class="mermaid mermaid--no-label-background mermaid--reverse-animation mermaid--light-links">
             flowchart TD
             {% for teamKey, services in servicesPerTeam  %}
               subgraph {{ teamKey }}[{{ services[0].teams | join(" / ", "name") | capitalize }}]
