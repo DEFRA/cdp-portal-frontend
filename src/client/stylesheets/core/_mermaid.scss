@@ -3,7 +3,6 @@
 .mermaid {
   background: #ffffff;
   padding: 1rem;
-  overflow: auto;
 
   a .nodeLabel p {
     color: #1d70b8 !important; /* stylelint-disable-line declaration-no-important */
@@ -12,6 +11,12 @@
 
 .mermaid--with-border {
   border: 1px solid $app-brand-border-colour-light;
+}
+
+.mermaid--pan-zoom {
+  border: 1px solid $app-brand-border-colour-light;
+  padding: 0;
+  cursor: move;
 }
 
 .mermaid--no-label-background {
