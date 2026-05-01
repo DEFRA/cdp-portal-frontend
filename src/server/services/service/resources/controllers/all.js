@@ -1,8 +1,9 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
-import { resourcesByEnvironment } from '../transformers/resources-by-environment.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { fetchResources } from '../../../helpers/fetch/fetch-resources.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export const allResourcesController = {
   options: {
@@ -20,16 +21,36 @@ export const allResourcesController = {
   handler: async (request, h) => {
     const { entity } = request.app
     const serviceName = entity.name
-    const allEnvironmentsDetails = entity.environments
 
     const environments = getEnvironments(request.auth.credentials?.scope)
-    const hasSqlDatabase = Object.values(allEnvironmentsDetails).some(
-      ({ sql_database }) => sql_database
-    )
-    const resources = resourcesByEnvironment({
+
+    const resourcesPerEnv = await fetchResources(entity.name)
+
+    const rowsPerResourceType = transformResourcesToRows(
       environments,
-      allEnvironmentsDetails
-    })
+      resourcesPerEnv
+    )
+
+    const hasBuckets = rowsPerResourceType.s3_buckets?.length
+
+    const supportVerticalHeadings = environments.length >= 5
+
+    const tablesPerResourceType = Object.entries(rowsPerResourceType)
+      .filter(([_, rows]) => rows.length)
+      .map(([type, rows]) => [
+        type,
+        {
+          headers: [
+            ...environments.map((env) => ({
+              ...(supportVerticalHeadings && { verticalText: true }),
+              id: env.toLowerCase(),
+              text: formatText(env),
+              width: Math.round(100 / environments.length)
+            }))
+          ],
+          rows
+        }
+      ])
 
     const debugView = request.query.debug ?? false
     const template = debugView
@@ -40,8 +61,8 @@ export const allResourcesController = {
       pageTitle: `${serviceName} - Resources`,
       entity,
       environments,
-      resources,
-      hasSqlDatabase,
+      tablesPerResourceType,
+      hasBuckets,
       breadcrumbs: [
         {
           text: 'Services',
@@ -57,4 +78,37 @@ export const allResourcesController = {
       ]
     })
   }
+}
+
+function transformResourcesToRows(environments, resourcesPerEnv) {
+  const allResourcesByType = Object.entries(resourcesPerEnv).reduce(
+    (acc, [_, types]) => {
+      for (const [type, resources] of Object.entries(types)) {
+        for (const { name } of resources) {
+          acc[type] = acc[type] ?? new Set()
+          acc[type].add(name)
+        }
+      }
+      return acc
+    },
+    {}
+  )
+
+  const rowsPerResourceType = Object.fromEntries(
+    Object.entries(allResourcesByType).map(([type, names]) => [
+      type,
+      [...names].map((name) => ({
+        envs: environments.map((env) => ({
+          id: env,
+          resource: resourcesPerEnv?.[env]?.[type]?.find(
+            (resource) => resource.name === name
+          )
+            ? name
+            : ''
+        }))
+      }))
+    ])
+  )
+
+  return rowsPerResourceType
 }

@@ -2,12 +2,14 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockServiceEntityCallWithPostgres
-} from '../../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
+import { fetchResources } from '../../helpers/fetch/fetch-resources.js'
 
-vi.mock('../../../common/helpers/fetch/fetch-entities.js')
-vi.mock('../../../common/helpers/auth/get-user-session.js')
+vi.mock('#server/common/helpers/fetch/fetch-entities.js')
+vi.mock('#server/common/helpers/auth/get-user-session.js')
 vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
+vi.mock('../../helpers/fetch/fetch-resources.js')
 
 const serviceName = 'mock-service-with-resources'
 
@@ -21,6 +23,31 @@ describe('Service resources page', () => {
   describe('all resources view', () => {
     beforeAll(async () => {
       mockServiceEntityCallWithPostgres(serviceName, entitySubTypes.backend)
+      fetchResources.mockResolvedValue({
+        dev: {
+          s3_buckets: [
+            {
+              icon: 'aws-s3',
+              name: 'test-bucket',
+              properties: {
+                arn: 'arn:aws:s3:eu-west-2:333333333:test-bucket'
+              }
+            }
+          ]
+        },
+        test: {
+          s3_buckets: [
+            {
+              icon: 'aws-s3',
+              name: 'test-bucket',
+              properties: {
+                arn: 'arn:aws:s3:eu-west-2:333333333:test-bucket'
+              }
+            }
+          ]
+        }
+      })
+
       server = await initialiseServer()
     })
 
@@ -68,6 +95,17 @@ describe('Service resources page', () => {
   describe('single resources env view', () => {
     beforeAll(async () => {
       mockServiceEntityCallWithPostgres(serviceName, entitySubTypes.backend)
+      fetchResources.mockResolvedValue({
+        s3_buckets: [
+          {
+            icon: 'aws-s3',
+            name: 'test-bucket',
+            properties: {
+              arn: 'arn:aws:s3:eu-west-2:333333333:test-bucket'
+            }
+          }
+        ]
+      })
       server = await initialiseServer()
     })
 

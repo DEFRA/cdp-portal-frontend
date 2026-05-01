@@ -1,9 +1,9 @@
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { serviceParamsValidation } from '../../../helpers/schema/service-params-validation.js'
-import { resourceByEnvironment } from '../transformers/resources-by-environment.js'
 import Joi from 'joi'
+import { fetchResources } from '../../../helpers/fetch/fetch-resources.js'
 
 export const environmentResourcesController = {
   options: {
@@ -20,17 +20,16 @@ export const environmentResourcesController = {
     const { environment } = request.params
     const { entity } = request.app
     const serviceName = entity.name
-    const environmentDetails = entity.environments[environment]
 
     const team = entity?.teams?.at(0)
     const teamId = team?.teamId
     const formattedEnvironment = formatText(environment)
 
-    const hasSqlDatabase = environmentDetails?.sql_database
-    const resource = resourceByEnvironment({
-      environment,
-      environmentDetails
-    })
+    const resources = await fetchResources(entity.name, environment)
+
+    const hasNoResources = !Object.entries(resources).find(
+      ([_, items]) => items?.length
+    )
 
     const debugView = request.query.debug ?? false
     const template = debugView
@@ -42,8 +41,8 @@ export const environmentResourcesController = {
       entity,
       teamId,
       environment,
-      resource,
-      hasSqlDatabase,
+      resources,
+      hasNoResources,
       breadcrumbs: [
         {
           text: 'Services',

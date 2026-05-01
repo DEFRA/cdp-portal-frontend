@@ -1,0 +1,27 @@
+{% macro table(value) %}
+  <table>
+    {% for item in value %}
+      {% for key, val in item %}
+        <tr>
+          <th>{{ key | replace("_", " ") | capitalize }}</th>
+          <td>{{ resourceValue(val) }}</td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+  </table>
+{% endmacro %}
+
+
+{% if value | isArray and value[0] | isObject %}
+  {{ table(value) }}
+{% elseif value | isArray %}
+  <ul>
+  {% for item in value %}
+    <li>{{ resourceValue(item) }}</li>
+  {% endfor %}
+  </ul>
+{% elseif value | isObject %}
+  {{ table([value]) }}
+{% else %}
+  {{ value }}
+{% endif %}
