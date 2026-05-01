@@ -35,22 +35,24 @@ export const allResourcesController = {
 
     const supportVerticalHeadings = environments.length >= 5
 
-    const tablesPerResourceType = Object.entries(rowsPerResourceType)
-      .filter(([_, rows]) => rows.length)
-      .map(([type, rows]) => [
-        type,
-        {
-          headers: [
-            ...environments.map((env) => ({
-              ...(supportVerticalHeadings && { verticalText: true }),
-              id: env.toLowerCase(),
-              text: formatText(env),
-              width: Math.round(100 / environments.length)
-            }))
-          ],
-          rows
-        }
-      ])
+    const tablesPerResourceType = Object.fromEntries(
+      Object.entries(rowsPerResourceType)
+        .filter(([_, rows]) => rows.length)
+        .map(([type, rows]) => [
+          type,
+          {
+            headers: [
+              ...environments.map((env) => ({
+                ...(supportVerticalHeadings && { verticalText: true }),
+                id: env.toLowerCase(),
+                text: formatText(env),
+                width: Math.round(100 / environments.length)
+              }))
+            ],
+            rows
+          }
+        ])
+    )
 
     const debugView = request.query.debug ?? false
     const template = debugView
