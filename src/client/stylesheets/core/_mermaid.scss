@@ -4,6 +4,7 @@
   background: #ffffff;
   padding: 1rem;
 
+  // stylelint-disable-next-line selector-class-pattern
   a .nodeLabel p {
     color: #1d70b8 !important; /* stylelint-disable-line declaration-no-important */
   }
@@ -82,10 +83,10 @@
 }
 
 .mermaid--reverse-animation .edge-animation-slow {
-  animation-direction: reverse !important;
+  animation-direction: reverse !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .mermaid--light-links .edge-pattern-dotted {
-  stroke: #ddd !important;
-  stroke-dasharray: none !important;
+  stroke: #dddddd !important; /* stylelint-disable-line declaration-no-important */
+  stroke-dasharray: none !important; /* stylelint-disable-line declaration-no-important */
 }
