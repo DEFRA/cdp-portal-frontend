@@ -63,8 +63,8 @@
                         {% set arrow = "-->" %}
                       {% endif %}
 
-                      {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|{{ link.type | capitalize }}| {{ linkKey(link) }}
-                      {% if link.type == 'subscription' %}
+                      {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|{{ link.access | capitalize }}| {{ linkKey(link) }}
+                      {% if link.access == 'subscription' %}
                         {{ nodeKey(service, resource) }}_link{{loop.index0}}@{ animation: slow }
                       {% endif %}
                     {% endfor %}
