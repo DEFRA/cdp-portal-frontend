@@ -41,16 +41,37 @@ export default async function (request) {
 
   const topology = await fetchTopology(entity.name, environment)
 
-  const servicesPerTeam = Object.groupBy(topology, ({ teams }) =>
-    teams.map(({ teamId }) => teamId).join('_')
+  const hasCdpResourcesLinks = topology
+    .flatMap((service) => service.resources)
+    .flatMap((resource) => resource.links)
+    .some((link) => !link.service)
+
+  const cdpResources = hasCdpResourcesLinks && {
+    name: 'AWS',
+    icon: 'aws',
+    teams: [
+      {
+        teamId: 'amazon',
+        name: 'Amazon'
+      }
+    ]
+  }
+
+  const servicesPerTeam = Object.groupBy(
+    [...topology, ...(cdpResources ? [cdpResources] : [])],
+    ({ teams }) => teams.map(({ teamId }) => teamId).join('_')
   )
+
+  const nodeKey = (service, resource) =>
+    `${[service.name, resource?.type, resource?.name].filter(Boolean).join('_')}`
+  const linkKey = (link) =>
+    `${[link.service ?? 'AWS'].filter(Boolean).join('_')}`
 
   return {
     topology,
     servicesPerTeam,
     environment,
-    nodeKey: (service, resource) =>
-      `${[service.name, resource?.name, resource?.type].join('_')}`,
-    linkKey: (link) => `${[link.service, link?.resource, link?.type].join('_')}`
+    nodeKey,
+    linkKey
   }
 }
