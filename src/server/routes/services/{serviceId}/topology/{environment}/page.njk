@@ -32,7 +32,7 @@
                   subgraph {{ nodeKey(service) }}Container[ ]
                     direction TD
 
-                    {{ nodeKey(service) }}@{ icon: "logos:{{service.icon or 'logos:aws-fargate'}}", label: "{% if service.name == entity.name  %}<strong>{{ service.name }}</strong>{% else %}{{ service.name }}{% endif %}"}
+                    {{ nodeKey(service) }}@{ icon: "logos:{{service.icon or 'logos:aws-fargate-' + service.type.toLowerCase()}}", label: "{% if service.name == entity.name  %}<strong>{{ service.name }}</strong>{% else %}{{ service.name }}{% endif %}"}
                     {% if service.name != entity.name and service.name != 'AWS' %}
                       click {{ nodeKey(service) }} "/services/{{ service.name }}/topology/{{ environment }}"
                     {% endif %}

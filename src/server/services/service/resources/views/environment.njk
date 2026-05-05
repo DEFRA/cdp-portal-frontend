@@ -39,7 +39,7 @@
 
             <pre class="mermaid mermaid--no-label-background mermaid--table-node">
               flowchart LR
-                  service@{ icon: "logos:aws-fargate", h: 80, label: "{{ entity.name}}"}
+                  service@{ icon: "logos:aws-fargate-{{ entity.subType.toLowerCase() }}", h: 80, label: "{{ entity.name}}"}
 
                   {% for type, items in resources | dictsort %}
                     {% if items | length %}

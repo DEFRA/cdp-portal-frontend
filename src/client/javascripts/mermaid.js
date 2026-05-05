@@ -21,7 +21,35 @@ mermaid.initialize({
 mermaid.registerIconPacks([
   {
     name: 'logos',
-    loader: () => import('@iconify-json/logos').then((module) => module.icons)
+    loader: () =>
+      import('@iconify-json/logos').then((module) => {
+        const service = module.icons.icons['aws-fargate']
+
+        return {
+          ...module.icons,
+          icons: {
+            ...module.icons.icons,
+            'aws-fargate-frontend': {
+              ...service,
+              body:
+                service.body.replace(
+                  'path fill="#fff"',
+                  'path fill="#fff" transform="translate(0, -32)"'
+                ) +
+                '<text x="75" y="236" font-size="60" font-family="Courier New" font-weight="bold" fill="#FFF">&lt;/&gt;</text>'
+            },
+            'aws-fargate-backend': {
+              ...service,
+              body:
+                service.body.replace(
+                  'path fill="#fff"',
+                  'path fill="#fff" transform="translate(0, -32)"'
+                ) +
+                '<text x="95" y="236" font-size="60" font-family="Courier New" font-weight="bold" fill="#FFF">{}</text>'
+            }
+          }
+        }
+      })
   }
 ])
 
