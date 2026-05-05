@@ -46,6 +46,7 @@ export default async function (request) {
   )
 
   return {
+    topology,
     servicesPerTeam,
     environment
   }

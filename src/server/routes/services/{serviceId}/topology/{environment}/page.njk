@@ -78,6 +78,12 @@
       </div>
     </div>
   </section>
+
+
+  <script>
+    console.debug(JSON.stringify({{ topology | dump(2) | safe }}, null, 2));
+  </script>
+
 {% endblock %}
 
 {% block bodyEnd %}
