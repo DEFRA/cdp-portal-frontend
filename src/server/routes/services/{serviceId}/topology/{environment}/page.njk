@@ -29,10 +29,10 @@
                 style {{ teamKey }} fill:#fff,stroke-dasharray:10 5
 
                 {% for service in services  %}
-                  subgraph {{ service.name }}Container[ ]
+                  subgraph {{ nodeKey(service) }}Container[ ]
                     direction TD
 
-                    {{ service.name }}@{ icon: "logos:aws-fargate", label: "
+                    {{ nodeKey(service) }}@{ icon: "logos:aws-fargate", label: "
                       {% if service.name == entity.name %}
                         <strong>{{ service.name }}</strong>
                       {% else %}
@@ -40,12 +40,12 @@
                       {% endif %}
                     "}
                     {% if service.name != entity.name %}
-                      click {{ service.name }} "/services/{{ service.name }}/topology/{{ environment }}"
+                      click {{ nodeKey(service) }} "/services/{{ service.name }}/topology/{{ environment }}"
                     {% endif %}
 
                     {% for resource in service.resources  %}
-                      {{ service.name }}{{ resource.name }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
-                      {{ service.name }} -.- {{ service.name }}{{ resource.name }}
+                      {{ nodeKey(service, resource) }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
+                      {{ nodeKey(service) }} -.- {{ nodeKey(service, resource) }}
                     {% endfor %}
                   end
                 {% endfor %}
@@ -63,9 +63,9 @@
                         {% set arrow = "-->" %}
                       {% endif %}
 
-                      {{ service.name }}{{ resource.name }} {{ service.name }}{{ resource.name }}_link{{loop.index0}}@{{ arrow }}|{{ link.type | capitalize }}| {{ link.service }}{{ link.resource }}
+                      {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|{{ link.type | capitalize }}| {{ linkKey(link) }}
                       {% if link.type == 'subscription' %}
-                        {{ service.name }}{{ resource.name }}_link{{loop.index0}}@{ animation: slow }
+                        {{ nodeKey(service, resource) }}_link{{loop.index0}}@{ animation: slow }
                       {% endif %}
                     {% endfor %}
                   {% endfor %}
