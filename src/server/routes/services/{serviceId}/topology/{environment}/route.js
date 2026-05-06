@@ -64,8 +64,11 @@ export default async function (request) {
 
   const nodeKey = (service, resource) =>
     `${[service.name, resource?.type, resource?.name].filter(Boolean).join('_')}`
+
   const linkKey = (link) =>
-    `${[link.service ?? 'AWS'].filter(Boolean).join('_')}`
+    link.service
+      ? `${[link.service, link.type, link.resource].filter(Boolean).join('_')}`
+      : `AWS`
 
   return {
     topology,
