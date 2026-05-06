@@ -21,7 +21,28 @@ mermaid.initialize({
 mermaid.registerIconPacks([
   {
     name: 'logos',
-    loader: () => import('@iconify-json/logos').then((module) => module.icons)
+    loader: () =>
+      import('@iconify-json/logos').then((module) => {
+        const iconsWithTooltip = Object.fromEntries(
+          Object.entries(module.icons.icons).map(([name, icon]) => {
+            if (name.startsWith('aws-')) {
+              return [
+                name,
+                {
+                  body: `${icon.body}<title>${name.replace('aws-', '').toUpperCase()}</title>`
+                }
+              ]
+            }
+
+            return [name, icon]
+          })
+        )
+
+        return {
+          ...module.icons,
+          icons: iconsWithTooltip
+        }
+      })
   }
 ])
 
