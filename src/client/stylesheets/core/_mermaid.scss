@@ -82,11 +82,7 @@
   }
 }
 
-.mermaid--reverse-animation .edge-animation-slow {
-  animation-direction: reverse !important; /* stylelint-disable-line declaration-no-important */
-}
-
 .mermaid--light-links .edge-pattern-dotted {
-  stroke: #dddddd !important; /* stylelint-disable-line declaration-no-important */
+  stroke: #cccccc !important; /* stylelint-disable-line declaration-no-important */
   stroke-dasharray: none !important; /* stylelint-disable-line declaration-no-important */
 }
