@@ -61,5 +61,17 @@ async function run() {
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
     svg.style.maxWidth = width
   })
+
+  document
+    .querySelectorAll('pre.mermaid--icon-tooltips > svg g.icon-shape[title] ')
+    .forEach((icon) => {
+      const tooltip = icon.getAttribute('title')
+      if (tooltip) {
+        const title = icon.querySelector('svg title')
+        if (title) {
+          title.textContent = tooltip
+        }
+      }
+    })
 }
 run()

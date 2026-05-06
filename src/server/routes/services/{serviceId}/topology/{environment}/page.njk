@@ -22,7 +22,7 @@
           </p>
 
 
-          <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links">
+          <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
             flowchart TD
             {% for teamKey, services in servicesPerTeam  %}
               subgraph {{ teamKey }}[{{ services[0].teams | join(" / ", "name") | capitalize }}]
@@ -34,7 +34,9 @@
 
                     {{ nodeKey(service) }}@{ icon: "logos:{{service.icon or 'logos:aws-fargate' }}", label: "{% if service.name == entity.name  %}<strong>{{ service.name }}</strong>{% else %}{{ service.name }}{% endif %}"}
                     {% if service.name != entity.name and service.name != 'AWS' %}
-                      click {{ nodeKey(service) }} "/services/{{ service.name }}/topology/{{ environment }}"
+                      click {{ nodeKey(service) }} "/services/{{ service.name }}/topology/{{ environment }}" {% if service.type %}"{{ service.type }} Service"{% endif %}
+                    {% elseif service.type %}
+                      click {{ nodeKey(service) }} call noop() "{{ service.type }} Service"
                     {% endif %}
 
                     {% for resource in service.resources  %}
