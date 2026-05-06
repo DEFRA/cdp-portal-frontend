@@ -8,6 +8,7 @@ import { fetchTopology } from '#server/services/helpers/fetch/fetch-topology.js'
 import { serviceParamsValidation } from '#server/services/helpers/schema/service-params-validation.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -75,6 +76,22 @@ export default async function (request) {
     servicesPerTeam,
     environment,
     nodeKey,
-    linkKey
+    linkKey,
+    breadcrumbs: [
+      {
+        text: 'Services',
+        href: '/services'
+      },
+      {
+        text: entity.name,
+        href: `/services/${entity.name}`
+      },
+      {
+        text: 'Topology'
+      },
+      {
+        text: formatText(environment)
+      }
+    ]
   }
 }

@@ -50,7 +50,7 @@ async function run() {
   await mermaid.run()
 
   document.querySelectorAll('pre.mermaid--pan-zoom > svg').forEach((svg) => {
-    const height = svg.getAttribute('viewBox').split(' ')[3]
+    const [, , , height] = svg.getAttribute('viewBox').split(' ')
     const { width } = svg.parentElement.getBoundingClientRect()
 
     svgPanZoom(svg, {
