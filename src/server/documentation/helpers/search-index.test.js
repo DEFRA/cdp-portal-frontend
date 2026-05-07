@@ -127,6 +127,14 @@ describe('#findAllOccurrences', () => {
     expect(results).toEqual([])
   })
 
+  test('Should strip GFM alert markers from snippets', () => {
+    const rawFile = '> [!IMPORTANT]\n> This is important content'
+    const results = findAllOccurrences(rawFile, 'important')
+    expect(
+      results.every(({ snippet }) => !snippet.includes('[!IMPORTANT]'))
+    ).toBe(true)
+  })
+
   test('Should not treat #hashtag lines as headings', () => {
     const results = findAllOccurrences('#tag1\nsome body with tag1', 'tag1')
     expect(results).toEqual([

@@ -46,11 +46,13 @@ async function parseDocument(name, rawFile) {
 
 function cleanLine(line, maxLength = MAX_SNIPPET_LENGTH) {
   const cleaned = line
-    .replace(/^#+\s*/, '')
-    .replaceAll('|', ' ')
-    .replaceAll(/\*\*?([^*]+)\*\*?/g, '$1')
-    .replaceAll(/`[^`]+`/g, '')
-    .replaceAll(/\s+/g, ' ')
+    .replace(/^#+\s*/, '') // '## Heading' → 'Heading'
+    .replace(/^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*/, '') // '> [!IMPORTANT]' → ''
+    .replace(/^>\s*/, '') // '> blockquote text' → 'blockquote text'
+    .replaceAll('|', ' ') // 'col1 | col2' → 'col1   col2'
+    .replaceAll(/\*\*?([^*]+)\*\*?/g, '$1') // '**bold** or *italic*' → 'bold or italic'
+    .replaceAll(/`[^`]+`/g, '') // '`inline code`' → ''
+    .replaceAll(/\s+/g, ' ') // collapse whitespace
     .trim()
   return cleaned.length > maxLength
     ? cleaned.slice(0, maxLength).replace(/\s\S*$/, '') + '…'
