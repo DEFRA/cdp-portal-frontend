@@ -23,7 +23,7 @@ describe('#provideSubNavigation', () => {
     provideSubNavigation(request, h)
 
     expect(request.response.source.context.subNavigation).toBeDefined()
-    expect(request.response.source.context.subNavigation).toHaveLength(8)
+    expect(request.response.source.context.subNavigation).toHaveLength(9)
   })
 
   test('Should set isActive to true for the matching path', () => {
