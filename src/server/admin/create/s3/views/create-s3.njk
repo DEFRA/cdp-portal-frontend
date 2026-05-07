@@ -1,0 +1,98 @@
+{% extends "layouts/page.njk" %}
+
+{% from "info/macro.njk" import appInfo %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      caption: "Create S3 Bucket",
+      text: scope.value
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop">
+
+        {{ appInfo({
+          "html": "This will create a new pull request in <a href=\"https://github.com/DEFRA/cdp-tenant-config/pulls\">cdp-tenant-config</a>.<br>If it does not appear after a few minutes, check the <a href=\"https://github.com/DEFRA/cdp-tenant-config/actions/workflows/generic-cdp-cli-workflow.yml\">workflow actions</a>."
+        }) }}
+
+        <form action="/admin/create/s3"
+              method="post"
+              data-js="auto-submit app-form-errors">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+          {{ appAutocomplete({
+            id: "service",
+            name: "service",
+            label: {
+              text: "Service",
+              classes: "app-label"
+            },
+            hint: {
+              text: 'Select the microservice to add the bucket to'
+            },
+            formGroup: {
+              classes: "app-form-group app-form-group-js"
+            },
+            value: formValues.service,
+            suggestions: entityOptions,
+            errorMessage: errorMessageHelper(formErrors.service.message)
+          }) }}
+
+          {{ govukInput({
+            name: "bucketName",
+            label: {
+              text: "Bucket name",
+              classes: "app-label app-label--small govuk-!-margin-bottom-1"
+            },
+            classes: "app-input app-input--wide",
+            hint: {
+              text: "The environment will automatically be added to the bucket name",
+              classes: "app-hint"
+            },
+            formGroup: {
+              classes: "app-form-group app-form-group--slim"
+            },
+            value: formValues.bucketName,
+            errorMessage: errorMessageHelper(formErrors.bucketName.message)
+          }) }}
+
+
+          {{ appSelect({
+            id: "environment",
+            name: "environment",
+            label: { text: "Environment", classes: "app-label app-label--small govuk-!-margin-bottom-1" },
+            classes: "app-select app-input--wide",
+            items: [
+              { value: "tenant", text: "Tenant environments" },
+              { value: "platform", text: "Platform environments" },
+              { value: "all", text: "All environments" },
+              { value: "dev", text: "Development" },
+              { value: "test", text: "Test" },
+              { value: "perf-test", text: "Perf Test" },
+              { value: "ext-test", text: "External Test" },
+              { value: "prod", text: "Production" }
+            ],
+            formGroup: {
+              classes: "app-form-group app-form-group--slim"
+            },
+            value: formValues.environments,
+            errorMessage: errorMessageHelper(formErrors.environments.message)
+          }) }}
+
+          <div class="govuk-body govuk-button-group">
+            {{ govukButton({
+              classes: "app-button",
+              text: "Create bucket"
+            }) }}
+
+            <a class="app-link" href="/admin/create">Cancel</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
