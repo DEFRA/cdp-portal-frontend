@@ -76,18 +76,18 @@ describe('Topology page', () => {
     expect(result).toMatchFile()
   })
 
-  test('page DOES NOT render for logged in tenant', async () => {
+  test('page renders for logged in tenant', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/services/${serviceName}/topology/prod`,
       isAdmin: false,
       isTenant: true
     })
 
-    expect(statusCode).toBe(statusCodes.forbidden)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 
-  test('page DOES NOT render for logged in service owner tenant', async () => {
+  test('page renders for logged in service owner tenant', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/services/${serviceName}/topology/prod`,
       isAdmin: false,
@@ -95,7 +95,7 @@ describe('Topology page', () => {
       teamScope: 'mock-team-id'
     })
 
-    expect(statusCode).toBe(statusCodes.forbidden)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 
