@@ -2,14 +2,17 @@ import { config } from '#config/config.js'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 
-export async function triggerCdpCreateWorkflow(
-  request,
-  resourceType,
-  resourceData
-) {
-  const endpoint = `${portalBackendUrl}/create/${resourceType}`
+/**
+ *
+ * @param {object} request
+ * @param {string} entity
+ * @param {object} resourceData
+ * @return {Promise<{workflow_run_id: number, run_url: string, html_url: string}>}
+ */
+export async function requestTenantResource(request, entity, resourceData) {
+  const endpoint = `${portalBackendUrl}/entities/${entity}/resources`
 
-  request.logger.info(`create s3 bucket: ${JSON.stringify(resourceData)}`)
+  request.logger.info(`create ${resourceData}: ${JSON.stringify(resourceData)}`)
   const { payload } = await request.authedFetchJson(endpoint, {
     method: 'post',
     payload: resourceData
