@@ -17,6 +17,8 @@ const MAX_SNIPPET_LENGTH = 120
 
 const store = {}
 
+const HEADING_RE = /^#{1,6}\s/
+
 const plaintext = new Marked({ gfm: true }).use(markedPlaintify())
 
 async function stripMarkdown(text) {
@@ -27,11 +29,11 @@ async function stripMarkdown(text) {
 async function parseDocument(name, rawFile) {
   const lines = rawFile.split('\n')
   const headings = lines
-    .filter((line) => line.startsWith('#'))
+    .filter((line) => HEADING_RE.test(line))
     .map((line) => line.replace(/^#+\s*/, ''))
     .join(' ')
   const body = await stripMarkdown(
-    lines.filter((line) => !line.startsWith('#')).join('\n')
+    lines.filter((line) => !HEADING_RE.test(line)).join('\n')
   )
   const filename = name.split('/').pop().replace(/\.md$/, '').replace(/-/g, ' ')
 
@@ -53,7 +55,7 @@ function cleanLine(line, maxLength = MAX_SNIPPET_LENGTH) {
 
 function headingAbove(lines, fromIndex) {
   for (let i = fromIndex; i >= 0; i--) {
-    if (lines[i].startsWith('#')) {
+    if (HEADING_RE.test(lines[i])) {
       return lines[i].replace(/^#+\s*/, '')
     }
   }
@@ -74,7 +76,7 @@ function findAllOccurrences(
     const line = lines[i]
     if (!line.toLowerCase().includes(queryLower)) continue
 
-    const isHeading = line.startsWith('#')
+    const isHeading = HEADING_RE.test(line)
     const snippet = cleanLine(line)
     if (!snippet) continue
 
@@ -85,11 +87,8 @@ function findAllOccurrences(
 
     if (isHeading) seenHeadings.add(snippet)
 
-    const anchor = isHeading
-      ? headingToAnchor(snippet)
-      : heading
-        ? headingToAnchor(heading)
-        : null
+    const anchorSource = isHeading ? snippet : heading
+    const anchor = anchorSource ? headingToAnchor(anchorSource) : null
     results.push({ snippet, heading, anchor })
   }
 
@@ -210,4 +209,10 @@ async function searchIndex(request, bucket, query) {
   return searchSuggestions
 }
 
-export { searchIndex, buildSearchIndex, parseDocument, stripMarkdown }
+export {
+  searchIndex,
+  buildSearchIndex,
+  parseDocument,
+  stripMarkdown,
+  findAllOccurrences
+}
