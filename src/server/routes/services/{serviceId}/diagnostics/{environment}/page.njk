@@ -21,6 +21,7 @@
             Provides a visual representation of <strong>{{entity.name}}'s</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
           </p>
 
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Frontend</h3>
 
           <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
             flowchart LR
@@ -35,13 +36,13 @@
                 subgraph ingress[Ingress]
                   direction LR
 
-                  waf@{ icon: "logos:aws-waf", label: "WAF logs"}
+                  waf@{ icon: "logos:aws-waf", label: "<a href="/">WAF logs</a>"}
 
-                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "ALB logs"}
+                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">ALB logs</a>"}
 
-                  nginx@{ icon: "logos:nginx", label: "Nginx logs"}
+                  nginx@{ icon: "logos:nginx", label: "<a href="/">Nginx logs</a>"}
 
-                  sslSidecar@{ icon: "logos:docker-icon", label: "SSL sidecar logs"}
+                  sslSidecar@{ icon: "logos:docker-icon", label: "<a href="/">SSL sidecar logs</a>"}
 
                   waf e1@--> alb
                   e1@{ animation: slow }
@@ -56,9 +57,9 @@
                 subgraph egress[Egress]
                   direction RL
 
-                  forwarder@{ icon: "logos:docker-icon", label: "Forwarder proxy logs"}
+                  forwarder@{ icon: "logos:docker-icon", label: "<a href="/">Forwarder proxy logs</a>"}
 
-                  squid@{ icon: "logos:nginx", label: "Squid proxy logs"}
+                  squid@{ icon: "logos:nginx", label: "<a href="/">Squid proxy logs</a>"}
 
                   forwarder e4@--> squid
                   e4@{ animation: slow }
@@ -70,23 +71,97 @@
               subgraph app[Service / Resources]
                 direction LR
 
-                service@{ icon: "logos:aws-fargate", label: "Service logs"}
+                service@{ icon: "logos:aws-fargate", label: "<a href="/">Service logs</a>"}
 
-                metrics@{ icon: "logos:aws-open-search", label: "Metrics logs"}
+                metrics@{ icon: "logos:aws-open-search", label: "<a href="/">Metrics logs</a>"}
 
-                mongo@{ icon: "logos:mongodb-icon", label: "Mongo logs"}
-
-                postgress@{ icon: "logos:postgresql", label: "PostgreSQL logs"}
+                reddis@{ icon: "logos:aws-elastic-cache", label: "<a href="/">Reddis logs</a>"}
 
                 service -.- metrics
-                service -.- mongo
-                service -.- postgress
+                service -.- reddis
               end
 
               internet ~~~ network
               network ~~~ app
 
              </pre>
+
+
+
+
+
+             <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Backend</h3>
+
+             <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
+               flowchart LR
+                 subgraph internet["Internet"]
+                   client@{ icon: "logos:postman-icon", label: "Client"}
+                 end
+
+                 subgraph network[" "]
+                   style network fill:#fff,stroke-dasharray:10 5
+                   direction TD
+
+                   subgraph ingress[Ingress]
+                     direction LR
+
+                     api@{ icon: "logos:aws-api-gateway", label: "API gateway logs"}
+
+                     waf@{ icon: "logos:aws-waf", label: "WAF logs"}
+
+                     alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "ALB logs"}
+
+                     nginx@{ icon: "logos:nginx", label: "Nginx logs"}
+
+                     sslSidecar@{ icon: "logos:docker-icon", label: "SSL sidecar logs"}
+
+                     api e1@--> waf
+                     e1@{ animation: slow }
+
+                     waf e2@--> alb
+                     e2@{ animation: slow }
+
+                     alb e3@--> nginx
+                     e3@{ animation: slow }
+
+                     nginx e4@--> sslSidecar
+                     e4@{ animation: slow }
+                   end
+
+                   subgraph egress[Egress]
+                     direction RL
+
+                     forwarder@{ icon: "logos:docker-icon", label: "Forwarder proxy logs"}
+
+                     squid@{ icon: "logos:nginx", label: "Squid proxy logs"}
+
+                     forwarder e5@--> squid
+                     e5@{ animation: slow }
+                   end
+
+                   ingress ~~~ egress
+                 end
+
+                 subgraph app[Service / Resources]
+                   direction LR
+
+                   service@{ icon: "logos:aws-fargate", label: "Service logs"}
+
+                   metrics@{ icon: "logos:aws-open-search", label: "Metrics logs"}
+
+                   mongo@{ icon: "logos:mongodb-icon", label: "Mongo logs"}
+
+                   postgress@{ icon: "logos:postgresql", label: "PostgreSQL logs"}
+
+                   service -.- metrics
+                   service -.- mongo
+                   service -.- postgress
+                 end
+
+                 internet ~~~ network
+                 network ~~~ app
+
+              </pre>
 
         {% endcall %}
 
