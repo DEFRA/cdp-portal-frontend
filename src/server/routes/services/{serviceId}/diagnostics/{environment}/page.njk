@@ -1,0 +1,50 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Diagnostics",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+        {% call appSplitPane() %}
+          <span class="govuk-caption-l">{{environment | formatText}}</span>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Diagnostics</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Provides a visual representation of <strong>{{entity.name}}'s</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
+          </p>
+
+
+          <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
+            flowchart TD
+              subgraph ingress[CDP Ingress]
+                style ingress fill:#fff,stroke-dasharray:10 5
+
+              end
+
+              subgraph egress[CDP Egress]
+                style ingress fill:#fff,stroke-dasharray:10 5
+
+              end
+          </pre>
+
+        {% endcall %}
+
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script type="module" src="{{ getAssetPath("src/client/javascripts/mermaid.js") }}"></script>
+{% endblock %}
