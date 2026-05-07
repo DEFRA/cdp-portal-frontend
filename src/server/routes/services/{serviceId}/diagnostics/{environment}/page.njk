@@ -59,7 +59,7 @@
 
                   forwarder@{ icon: "logos:docker-icon", label: "<a href="/">Forwarder proxy logs</a>"}
 
-                  squid@{ icon: "logos:nginx", label: "<a href="/">Squid proxy logs</a>"}
+                  squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">Squid proxy logs</a>"}
 
                   forwarder e4@--> squid
                   e4@{ animation: slow }
@@ -94,8 +94,12 @@
 
              <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
                flowchart LR
+                 subgraph cdp["CDP Platform"]
+                   frontend@{ icon: "logos:aws-fargate", label: "Frontend service"}
+                 end
+
                  subgraph internet["Internet"]
-                   client@{ icon: "logos:postman-icon", label: "Client"}
+                   client@{ icon: "logos:postman-icon", label: "External client"}
                  end
 
                  subgraph network[" "]
@@ -105,15 +109,15 @@
                    subgraph ingress[Ingress]
                      direction LR
 
-                     api@{ icon: "logos:aws-api-gateway", label: "API gateway logs"}
+                     api@{ icon: "logos:aws-api-gateway", label: "<a href="/">API gateway logs</a>"}
 
-                     waf@{ icon: "logos:aws-waf", label: "WAF logs"}
+                     waf@{ icon: "logos:aws-waf", label: "<a href="/">WAF logs</a>"}
 
-                     alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "ALB logs"}
+                     alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">ALB logs</a>"}
 
-                     nginx@{ icon: "logos:nginx", label: "Nginx logs"}
+                     nginx@{ icon: "logos:nginx", label: "<a href="/">Nginx logs</a>"}
 
-                     sslSidecar@{ icon: "logos:docker-icon", label: "SSL sidecar logs"}
+                     sslSidecar@{ icon: "logos:docker-icon", label: "<a href="/">SSL sidecar logs</a>"}
 
                      api e1@--> waf
                      e1@{ animation: slow }
@@ -131,9 +135,9 @@
                    subgraph egress[Egress]
                      direction RL
 
-                     forwarder@{ icon: "logos:docker-icon", label: "Forwarder proxy logs"}
+                     forwarder@{ icon: "logos:docker-icon", label: "<a href="/">Forwarder proxy logs</a>"}
 
-                     squid@{ icon: "logos:nginx", label: "Squid proxy logs"}
+                     squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">Squid proxy logs</a>"}
 
                      forwarder e5@--> squid
                      e5@{ animation: slow }
@@ -145,13 +149,13 @@
                  subgraph app[Service / Resources]
                    direction LR
 
-                   service@{ icon: "logos:aws-fargate", label: "Service logs"}
+                   service@{ icon: "logos:aws-fargate", label: "<a href="/">Service logs</a>"}
 
-                   metrics@{ icon: "logos:aws-open-search", label: "Metrics logs"}
+                   metrics@{ icon: "logos:aws-open-search", label: "<a href="/">Metrics logs</a>"}
 
-                   mongo@{ icon: "logos:mongodb-icon", label: "Mongo logs"}
+                   mongo@{ icon: "logos:mongodb-icon", label: "<a href="/">Mongo logs</a>"}
 
-                   postgress@{ icon: "logos:postgresql", label: "PostgreSQL logs"}
+                   postgress@{ icon: "logos:postgresql", label: "<a href="/">PostgreSQL logs</a>"}
 
                    service -.- metrics
                    service -.- mongo
@@ -159,6 +163,7 @@
                  end
 
                  internet ~~~ network
+                 cdp ~~~ network
                  network ~~~ app
 
               </pre>
