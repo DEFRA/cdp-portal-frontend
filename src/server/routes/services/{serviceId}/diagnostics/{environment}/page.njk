@@ -25,16 +25,14 @@
 
           <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
             flowchart LR
-              subgraph internet["Internet"]
-                client@{ icon: "logos:chrome", label: "Browser"}
-              end
-
               subgraph network[" "]
                 style network fill:#fff,stroke-dasharray:10 5
                 direction TD
 
                 subgraph ingress[Ingress]
                   direction LR
+
+                  browser@{ icon: "logos:chrome", label: "Browser"}
 
                   waf@{ icon: "logos:aws-waf", label: "<a href="/">WAF logs</a>"}
 
@@ -44,14 +42,17 @@
 
                   sslSidecar@{ icon: "logos:docker-icon", label: "<a href="/">SSL sidecar logs</a>"}
 
-                  waf e1@--> alb
+                  browser e1@--> waf
                   e1@{ animation: slow }
 
-                  alb e2@--> nginx
+                  waf e2@--> alb
                   e2@{ animation: slow }
 
-                  nginx e3@--> sslSidecar
+                  alb e3@--> nginx
                   e3@{ animation: slow }
+
+                  nginx e4@--> sslSidecar
+                  e4@{ animation: slow }
                 end
 
                 subgraph egress[Egress]
@@ -61,8 +62,13 @@
 
                   squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">Squid proxy logs</a>"}
 
-                  forwarder e4@--> squid
-                  e4@{ animation: slow }
+                  internet@{ img: "{{ getAssetPath("src/client/images/cloud.svg") }}", h: 40, w: 40, constraint: 'on', label: "Internet"}
+
+                  forwarder e5@--> squid
+                  e5@{ animation: slow }
+
+                  squid e6@--> internet
+                  e6@{ animation: slow }
                 end
 
                 ingress ~~~ egress
@@ -81,7 +87,6 @@
                 service -.- reddis
               end
 
-              internet ~~~ network
               network ~~~ app
 
              </pre>
@@ -94,14 +99,6 @@
 
              <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
                flowchart LR
-                 subgraph cdp["CDP Platform"]
-                   frontend@{ icon: "logos:aws-fargate", label: "Frontend service"}
-                 end
-
-                 subgraph internet["Internet"]
-                   client@{ icon: "logos:postman-icon", label: "External client"}
-                 end
-
                  subgraph network[" "]
                    style network fill:#fff,stroke-dasharray:10 5
                    direction TD
@@ -109,7 +106,11 @@
                    subgraph ingress[Ingress]
                      direction LR
 
+                     client@{ icon: "logos:postman-icon", label: "External client"}
+
                      api@{ icon: "logos:aws-api-gateway", label: "<a href="/">API gateway logs</a>"}
+
+                     frontend@{ icon: "logos:aws-fargate", label: "Frontend service"}
 
                      waf@{ icon: "logos:aws-waf", label: "<a href="/">WAF logs</a>"}
 
@@ -119,17 +120,23 @@
 
                      sslSidecar@{ icon: "logos:docker-icon", label: "<a href="/">SSL sidecar logs</a>"}
 
-                     api e1@--> waf
+                     client e1@--> api
                      e1@{ animation: slow }
 
-                     waf e2@--> alb
+                     api e2@--> waf
                      e2@{ animation: slow }
 
-                     alb e3@--> nginx
+                     frontend e3@--> waf
                      e3@{ animation: slow }
 
-                     nginx e4@--> sslSidecar
+                     waf e4@--> alb
                      e4@{ animation: slow }
+
+                     alb e5@--> nginx
+                     e5@{ animation: slow }
+
+                     nginx e6@--> sslSidecar
+                     e6@{ animation: slow }
                    end
 
                    subgraph egress[Egress]
@@ -139,8 +146,13 @@
 
                      squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">Squid proxy logs</a>"}
 
-                     forwarder e5@--> squid
-                     e5@{ animation: slow }
+                     internet@{ img: "{{ getAssetPath("src/client/images/cloud.svg") }}", h: 40, w: 40, constraint: 'on', label: "Internet"}
+
+                     forwarder e7@--> squid
+                     e7@{ animation: slow }
+
+                     squid e8@--> internet
+                     e8@{ animation: slow }
                    end
 
                    ingress ~~~ egress
@@ -162,8 +174,6 @@
                    service -.- postgress
                  end
 
-                 internet ~~~ network
-                 cdp ~~~ network
                  network ~~~ app
 
               </pre>
