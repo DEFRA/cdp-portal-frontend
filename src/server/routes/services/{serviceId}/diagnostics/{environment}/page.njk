@@ -23,17 +23,71 @@
 
 
           <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
-            flowchart TD
-              subgraph ingress[CDP Ingress]
-                style ingress fill:#fff,stroke-dasharray:10 5
+            flowchart RL
+              internet@{ icon: "cloud", label: "Internet"}
 
+              subgraph network[" "]
+                direction TD
+
+                subgraph ingress[Ingress]
+                  style ingress fill:#fff,stroke-dasharray:10 5
+                  direction LR
+
+                  waf@{ icon: "logos:aws-waf", label: "WAF logs"}
+
+                  alb@{ icon: "logos:aws-alb", label: "ALB logs"}
+
+                  nginx@{ icon: "logos:nginx", label: "Nginx logs"}
+
+                  sslSidecar@{ icon: "logos:containership", label: "SSL sidecar logs"}
+
+                  waf --> alb
+                  alb --> nginx
+                  nginx --> sslSidecar
+                end
+
+                subgraph egress[Egress]
+                  style egress fill:#fff,stroke-dasharray:10 5
+                  direction RL
+
+                  forwarder@{ icon: "logos:containership", label: "Forwarder proxy logs"}
+
+                  squid@{ icon: "logos:nginx", label: "Squid proxy logs"}
+
+                  forwarder --> squid
+                end
+
+                ingress --- egress
               end
 
-              subgraph egress[CDP Egress]
-                style ingress fill:#fff,stroke-dasharray:10 5
+              subgraph app[Service / Resources]
+                style app fill:#fff,stroke-dasharray:10 5
+                direction LR
 
+                service@{ icon: "logos:aws-fargate", label: "Service logs"}
+
+                metrics@{ icon: "logos:aws-mongo", label: "Metrics logs"}
+
+                mongo@{ icon: "logos:aws-mongo", label: "Mongo logs"}
+
+                postgress@{ icon: "logos:aws-mongo", label: "Postgress logs"}
+
+                service --- metrics
+                service --- mongo
+                service --- postgress
               end
-          </pre>
+
+              internet --> network
+              network --> app
+              app --> network
+              network --> internet
+
+             </pre>
+
+
+          sslSidecar --> service
+          service --> forwarder
+          forwarder --> squid
 
         {% endcall %}
 
