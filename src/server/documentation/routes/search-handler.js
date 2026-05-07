@@ -16,7 +16,10 @@ const searchHandlerRoute = {
     const pageUrl = request.payload.q
     const qText = request.payload.qText
 
-    if (!pageUrl?.endsWith('.md') && qText) {
+    // pageUrl may be 'path/to/file.md' or 'path/to/file.md#anchor'
+    const isDocPage = /\.md(#[^?]*)?$/.test(pageUrl ?? '')
+
+    if (!isDocPage && qText) {
       // User has pressed enter with text in the input without choosing a suggestion. Send to the search results page
       return h.redirect(
         '/documentation/search-results' +
@@ -24,7 +27,7 @@ const searchHandlerRoute = {
       )
     }
 
-    if (pageUrl && !pageUrl?.endsWith('.md') && !qText) {
+    if (pageUrl && !isDocPage && !qText) {
       // Non js input
       return h.redirect(
         '/documentation/search-results' +
@@ -32,8 +35,11 @@ const searchHandlerRoute = {
       )
     }
 
+    const [pagePath, anchor] = (pageUrl ?? '').split('#')
     return h.redirect(
-      pageUrl + qs.stringify({ q: qText }, { addQueryPrefix: true })
+      pagePath +
+        qs.stringify({ q: qText }, { addQueryPrefix: true }) +
+        (anchor ? `#${anchor}` : '')
     )
   }
 }

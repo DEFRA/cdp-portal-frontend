@@ -2,6 +2,20 @@ import { history } from '../../../../client/common/helpers/history.js'
 import { Autocomplete } from './autocomplete.js'
 
 /**
+ * Strips the truncation marker (…) and trailing non-word characters from a
+ * snippet so it can be used as a `q=` highlight term without breaking the
+ * `\b word-boundary\b` regex in the highlight extension.
+ * @param {string} text
+ * @returns {string}
+ */
+function cleanHighlightTerm(text) {
+  return text
+    .replace(/….*$/, '') // remove truncation ellipsis and anything after
+    .replace(/[^\w\s]+$/, '') // remove trailing punctuation (. , ; : ! ? etc.)
+    .trim()
+}
+
+/**
  * @classdesc AutoComplete Search component
  * @class
  * @augments Autocomplete
@@ -85,8 +99,8 @@ class AutocompleteSearch extends Autocomplete {
     const $itemValue = $span.cloneNode(true)
     $itemValue.classList.add('app-suggestion__value')
 
-    const $context = $div.cloneNode(true)
-    $context.classList.add('app-suggestion__context')
+    const $hint = $div.cloneNode(true)
+    $hint.classList.add('app-suggestion__hint')
 
     const $li = document.createElement('li')
 
@@ -96,7 +110,7 @@ class AutocompleteSearch extends Autocomplete {
     $li.setAttribute('tabindex', '-1')
 
     $li.appendChild($itemValue)
-    $li.appendChild($context)
+    $li.appendChild($hint)
 
     return $li
   }
@@ -116,38 +130,132 @@ class AutocompleteSearch extends Autocomplete {
       ? textValue
       : textValue.replace(/[*^:~+-]/g, '')
 
+    const tokenLower = token.toLowerCase()
+
     return ($suggestion) =>
-      $suggestion?.dataset?.text.toLowerCase().includes(token.toLowerCase())
+      $suggestion?.dataset?.text.toLowerCase().includes(tokenLower) ||
+      $suggestion?.dataset?.hint?.toLowerCase().includes(tokenLower)
+  }
+
+  updateInputValue({ text, value, withPublish = true } = {}) {
+    // When selecting a doc result, preserve what the user originally typed as the
+    // visible text / qText, and append the heading anchor to the hidden value
+    if (value?.endsWith('.md')) {
+      // If the hidden input already carries an anchor for this exact file (set by
+      // the first updateInputValue call in this choice action), preserve it.
+      // A second call is triggered by choiceAction → dispatchInputEvent → autocompleteInputEvent
+      // which would otherwise overwrite the anchor.
+      const existingHiddenValue = this.$autocompleteHiddenInput?.value ?? ''
+      const hashIndex = existingHiddenValue.indexOf('#')
+      if (
+        hashIndex !== -1 &&
+        existingHiddenValue.slice(0, hashIndex) === value
+      ) {
+        return super.updateInputValue({
+          text: this.$autocomplete.value,
+          value: existingHiddenValue,
+          withPublish
+        })
+      }
+
+      // Read anchor directly from the rendered suggestion element — more reliable
+      // than a lookup in window.cdp.suggestions which may have been replaced by
+      // a later XHR call
+      const $suggestions = Array.from(
+        this.$suggestionsContainer?.querySelectorAll(
+          '.app-autocomplete__suggestion'
+        ) ?? []
+      )
+      const $match = $suggestions.find(
+        ($s) => $s.dataset.text === text && $s.dataset.value === value
+      )
+      const anchor = $match?.dataset?.anchor
+
+      const valueWithAnchor = anchor ? `${value}#${anchor}` : value
+      return super.updateInputValue({
+        text: cleanHighlightTerm(text),
+        value: valueWithAnchor,
+        withPublish
+      })
+    }
+    return super.updateInputValue({ text, value, withPublish })
+  }
+
+  createGroupHeader(filePath) {
+    const $li = document.createElement('li')
+    $li.classList.add('app-autocomplete__suggestion-group')
+    $li.textContent = filePath
+    $li.setAttribute('aria-hidden', 'true')
+    return $li
   }
 
   populateSuggestion($li, item) {
     $li.dataset.value = item.value
     $li.dataset.text = item.text
 
-    $li.firstElementChild.textContent = item.value
-    $li.firstElementChild.nextElementSibling.textContent = item.value
+    if (item.hint) {
+      $li.dataset.hint = item.hint
+    }
+
+    if (item.anchor) {
+      $li.dataset.anchor = item.anchor
+    }
+
+    const $value = $li.firstElementChild
+    const $hint = $value.nextElementSibling
+
+    $value.textContent = item.value
+    $hint.textContent = item.hint ?? ''
+
+    $li.classList.toggle(
+      'app-autocomplete__suggestion--heading-match',
+      !item.hint
+    )
+    $li.classList.toggle(
+      'app-autocomplete__suggestion--body-match',
+      !!item.hint
+    )
 
     return $li
   }
 
   provideSuggestions({ textValue, suggestionIndex } = {}) {
     const textValueTrimmed = textValue?.trim()
+    const filterFn = textValueTrimmed
+      ? this.filterPartialMatch(textValueTrimmed)
+      : null
 
-    if (textValueTrimmed) {
-      // Partial match
-      const filterPartialMatch = this.filterPartialMatch(textValueTrimmed)
-
-      return this.getSuggestionsMarkup()
-        .filter(filterPartialMatch)
-        .map(
-          this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
-        )
-    } else {
-      // Reset suggestions
-      return this.getSuggestionsMarkup().map(
+    return this.getSuggestionsMarkup()
+      .filter(($s) => !filterFn || filterFn($s))
+      .map(
         this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
       )
+  }
+
+  injectGroupHeaders($rendered) {
+    this.$suggestionsContainer.replaceChildren()
+    let lastValue = null
+    for (const $s of $rendered) {
+      const value = $s.dataset?.value
+      if (value?.endsWith('.md') && value !== lastValue) {
+        this.$suggestionsContainer.appendChild(this.createGroupHeader(value))
+        lastValue = value
+      }
+      this.$suggestionsContainer.appendChild($s)
     }
+  }
+
+  populateSuggestions({ textValue, suggestionIndex } = {}) {
+    const $suggestions = super.populateSuggestions({
+      textValue,
+      suggestionIndex
+    })
+
+    // Inject a group header <li> before each new .md file group in the DOM.
+    // Not returned so they are invisible to arrow-key / enter navigation.
+    this.injectGroupHeaders(Array.from(this.$suggestionsContainer.children))
+
+    return $suggestions
   }
 }
 
