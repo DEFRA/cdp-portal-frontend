@@ -1,6 +1,6 @@
 import lunr from 'lunr'
 
-import { searchIndex } from './search-index.js'
+import { searchIndex, parseDocument, stripMarkdown } from './search-index.js'
 import {
   fetchS3File,
   fetchHeadObject,
@@ -29,6 +29,22 @@ const mockS3Response = (mockMarkdownFile) => {
   fetchListObjects.mockResolvedValue({ Contents: [mockMarkdownFile] })
   fetchS3File.mockResolvedValue(mockMarkdownFile)
 }
+
+describe('#stripMarkdown', () => {
+  test('Should strip fenced code block syntax but keep code content searchable', async () => {
+    const input = 'Intro text\n```js\nconst x = 1\n```\nTrailing text'
+    const result = await stripMarkdown(input)
+    expect(result).toContain('const x = 1')
+    expect(result).not.toContain('```')
+  })
+})
+
+describe('#parseDocument', () => {
+  test('Should not strip ".md" from mid-string filename segments', async () => {
+    const result = await parseDocument('my.md.notes.md', '# Title\nbody text')
+    expect(result.filename).toBe('my.md.notes')
+  })
+})
 
 describe('#searchIndex', () => {
   const mockMarkdownContent = '# Test Markdown Content'

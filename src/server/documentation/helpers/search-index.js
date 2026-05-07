@@ -1,6 +1,8 @@
 import lunr from 'lunr'
 import { isAfter } from 'date-fns'
 import { performance } from 'node:perf_hooks'
+import { Marked } from 'marked'
+import markedPlaintify from 'marked-plaintify'
 
 import { shouldExcludedItem } from './excluded-items.js'
 import { headingToAnchor } from './extensions/heading-anchor.js'
@@ -11,35 +13,32 @@ import {
 } from './s3-file-handler.js'
 
 const MAX_OCCURRENCES_PER_DOC = 5
+const MAX_SNIPPET_LENGTH = 120
 
 const store = {}
 
-function stripMarkdown(text) {
-  return text
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // [text](url) → text
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')     // ![img](url) → removed
-    .replace(/`[^`]+`/g, '')                  // `code` → removed
-    .replace(/\*\*?([^*]+)\*\*?/g, '$1')      // **bold** / *italic* → text
-    .replace(/\|/g, ' ')                      // table pipes → space
-    .replace(/\s+/g, ' ')
-    .trim()
+const plaintext = new Marked({ gfm: true }).use(markedPlaintify())
+
+async function stripMarkdown(text) {
+  const plain = await plaintext.parse(text)
+  return plain.replace(/\s+/g, ' ').trim()
 }
 
-function parseDocument(name, rawFile) {
+async function parseDocument(name, rawFile) {
   const lines = rawFile.split('\n')
   const headings = lines
     .filter((line) => line.startsWith('#'))
     .map((line) => line.replace(/^#+\s*/, ''))
     .join(' ')
-  const body = stripMarkdown(
-    lines.filter((line) => !line.startsWith('#')).join(' ')
+  const body = await stripMarkdown(
+    lines.filter((line) => !line.startsWith('#')).join('\n')
   )
-  const filename = name.split('/').pop().replace('.md', '').replace(/-/g, ' ')
+  const filename = name.split('/').pop().replace(/\.md$/, '').replace(/-/g, ' ')
 
   return { name, filename, headings, body }
 }
 
-function cleanLine(line, maxLength = 120) {
+function cleanLine(line, maxLength = MAX_SNIPPET_LENGTH) {
   const cleaned = line
     .replace(/^#+\s*/, '')
     .replace(/\|/g, ' ')
@@ -61,8 +60,11 @@ function headingAbove(lines, fromIndex) {
   return null
 }
 
-
-function findAllOccurrences(rawFile, query, maxPerDoc = MAX_OCCURRENCES_PER_DOC) {
+function findAllOccurrences(
+  rawFile,
+  query,
+  maxPerDoc = MAX_OCCURRENCES_PER_DOC
+) {
   const lines = rawFile.split('\n')
   const queryLower = query.toLowerCase()
   const results = []
@@ -83,7 +85,11 @@ function findAllOccurrences(rawFile, query, maxPerDoc = MAX_OCCURRENCES_PER_DOC)
 
     if (isHeading) seenHeadings.add(snippet)
 
-    const anchor = isHeading ? headingToAnchor(snippet) : heading ? headingToAnchor(heading) : null
+    const anchor = isHeading
+      ? headingToAnchor(snippet)
+      : heading
+        ? headingToAnchor(heading)
+        : null
     results.push({ snippet, heading, anchor })
   }
 
@@ -129,6 +135,11 @@ async function buildSearchIndex(request, bucket) {
     })
 
     store.files = await Promise.all(fetchMarkdownPromises)
+
+    const parsedDocs = await Promise.all(
+      store.files.map((file) => parseDocument(file.name, file.rawFile))
+    )
+
     store.index = lunr(function () {
       this.ref('name')
       this.field('filename', { boost: 10 })
@@ -136,8 +147,8 @@ async function buildSearchIndex(request, bucket) {
       this.field('body', { boost: 1 })
       this.metadataWhitelist = ['position'] // https://github.com/olivernn/moonwalkers/blob/6d5a6e976921490033681617e92ea42e3a80eed0/build-index#L23-L29
 
-      for (const file of store.files) {
-        this.add(parseDocument(file.name, file.rawFile))
+      for (const doc of parsedDocs) {
+        this.add(doc)
       }
     })
     store.lastModified = docsMetaData.LastModified
@@ -171,7 +182,9 @@ async function searchIndex(request, bucket, query) {
     : []
 
   const searchSuggestions = results.flatMap((result) => {
-    const match = builtSearchIndex.files.find((file) => file.name === result.ref)
+    const match = builtSearchIndex.files.find(
+      (file) => file.name === result.ref
+    )
     if (!match) {
       return [{ value: result.ref, text: result.ref }]
     }
@@ -197,4 +210,4 @@ async function searchIndex(request, bucket, query) {
   return searchSuggestions
 }
 
-export { searchIndex, buildSearchIndex }
+export { searchIndex, buildSearchIndex, parseDocument, stripMarkdown }
