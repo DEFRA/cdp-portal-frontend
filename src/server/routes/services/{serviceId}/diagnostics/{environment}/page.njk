@@ -24,7 +24,9 @@
 
           <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
             flowchart LR
-              internet@{ icon: "cloud", label: "Internet"}
+              subgraph internet["Internet"]
+                client@{ icon: "logos:chrome", label: "Browser"}
+              end
 
               subgraph network[" "]
                 style network fill:#fff,stroke-dasharray:10 5
@@ -35,11 +37,11 @@
 
                   waf@{ icon: "logos:aws-waf", label: "WAF logs"}
 
-                  alb@{ icon: "logos:aws-alb", label: "ALB logs"}
+                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "ALB logs"}
 
                   nginx@{ icon: "logos:nginx", label: "Nginx logs"}
 
-                  sslSidecar@{ icon: "logos:containership", label: "SSL sidecar logs"}
+                  sslSidecar@{ icon: "logos:docker-icon", label: "SSL sidecar logs"}
 
                   waf e1@--> alb
                   e1@{ animation: slow }
@@ -54,7 +56,7 @@
                 subgraph egress[Egress]
                   direction RL
 
-                  forwarder@{ icon: "logos:containership", label: "Forwarder proxy logs"}
+                  forwarder@{ icon: "logos:docker-icon", label: "Forwarder proxy logs"}
 
                   squid@{ icon: "logos:nginx", label: "Squid proxy logs"}
 
@@ -70,26 +72,21 @@
 
                 service@{ icon: "logos:aws-fargate", label: "Service logs"}
 
-                metrics@{ icon: "logos:aws-mongo", label: "Metrics logs"}
+                metrics@{ icon: "logos:aws-open-search", label: "Metrics logs"}
 
-                mongo@{ icon: "logos:aws-mongo", label: "Mongo logs"}
+                mongo@{ icon: "logos:mongodb-icon", label: "Mongo logs"}
 
-                postgress@{ icon: "logos:aws-mongo", label: "Postgress logs"}
+                postgress@{ icon: "logos:postgresql", label: "PostgreSQL logs"}
 
-                service --- metrics
-                service --- mongo
-                service --- postgress
+                service -.- metrics
+                service -.- mongo
+                service -.- postgress
               end
 
               internet ~~~ network
               network ~~~ app
 
              </pre>
-
-
-          sslSidecar --> service
-          service --> forwarder
-          forwarder --> squid
 
         {% endcall %}
 
