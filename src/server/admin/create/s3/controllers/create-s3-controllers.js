@@ -4,7 +4,7 @@ import {
   environments
 } from '@defra/cdp-validation-kit'
 
-import { triggerCdpCreateWorkflow } from '#server/admin/create/helpers/fetchers.js'
+import { requestTenantResource } from '#server/admin/create/helpers/fetchers.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { fetchServices } from '#server/common/helpers/fetch/fetch-entities.js'
@@ -96,6 +96,7 @@ export const createS3BucketPostController = {
     const branchName = `create-s3-${payload.bucketName}-${payload.service}`
 
     const createS3Params = {
+      resourceType: 's3',
       service: payload.service,
       bucketName: payload.bucketName,
       environment: payload.environment,
@@ -105,7 +106,36 @@ export const createS3BucketPostController = {
     }
 
     try {
-      await triggerCdpCreateWorkflow(request, 's3', createS3Params)
+      const result = await requestTenantResource(
+        request,
+        payload.service,
+        createS3Params
+      )
+
+      const branchLink = `https://github.com/DEFRA/cdp-portal-backend/tree/${encodeURIComponent(branchName)}`
+      const prLink = 'https://github.com/DEFRA/cdp-tenant-config/pulls'
+
+      return h.view('admin/create/s3/views/create-s3-done', {
+        pageTitle: 'S3 Bucket Requested',
+        formValues: request.payload,
+        branchName,
+        branchLink,
+        prLink,
+        actionLink: result?.html_url,
+        splitPaneBreadcrumbs: [
+          {
+            text: 'Admin',
+            href: '/admin'
+          },
+          {
+            text: 'Create',
+            href: '/admin/create'
+          },
+          {
+            text: 'S3'
+          }
+        ]
+      })
     } catch (error) {
       request.yar.flash(
         sessionNames.globalValidationFailures,
@@ -114,29 +144,5 @@ export const createS3BucketPostController = {
 
       return h.redirect(`/admin/create/s3`)
     }
-
-    const branchLink = `https://github.com/DEFRA/cdp-portal-backend/tree/${encodeURIComponent(branchName)}`
-    const prLink = 'https://github.com/DEFRA/cdp-tenant-config/pulls'
-
-    return h.view('admin/create/s3/views/create-s3-done', {
-      pageTitle: 'S3 Bucket Requested',
-      formValues: request.payload,
-      branchName,
-      branchLink,
-      prLink,
-      splitPaneBreadcrumbs: [
-        {
-          text: 'Admin',
-          href: '/admin'
-        },
-        {
-          text: 'Create',
-          href: '/admin/create'
-        },
-        {
-          text: 'S3'
-        }
-      ]
-    })
   }
 }
