@@ -39,7 +39,7 @@ async function parseDocument(name, rawFile) {
     .split('/')
     .pop()
     .replace(/\.md$/, '')
-    .replaceAll(/-/g, ' ')
+    .replaceAll('-', ' ')
 
   return { name, filename, headings, body }
 }
@@ -47,7 +47,7 @@ async function parseDocument(name, rawFile) {
 function cleanLine(line, maxLength = MAX_SNIPPET_LENGTH) {
   const cleaned = line
     .replace(/^#+\s*/, '')
-    .replaceAll(/\|/g, ' ')
+    .replaceAll('|', ' ')
     .replaceAll(/\*\*?([^*]+)\*\*?/g, '$1')
     .replaceAll(/`[^`]+`/g, '')
     .replaceAll(/\s+/g, ' ')
