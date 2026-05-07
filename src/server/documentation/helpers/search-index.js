@@ -23,7 +23,7 @@ const plaintext = new Marked({ gfm: true }).use(markedPlaintify())
 
 async function stripMarkdown(text) {
   const plain = await plaintext.parse(text)
-  return plain.replace(/\s+/g, ' ').trim()
+  return plain.replaceAll(/\s+/g, ' ').trim()
 }
 
 async function parseDocument(name, rawFile) {
@@ -35,7 +35,11 @@ async function parseDocument(name, rawFile) {
   const body = await stripMarkdown(
     lines.filter((line) => !HEADING_RE.test(line)).join('\n')
   )
-  const filename = name.split('/').pop().replace(/\.md$/, '').replace(/-/g, ' ')
+  const filename = name
+    .split('/')
+    .pop()
+    .replace(/\.md$/, '')
+    .replaceAll(/-/g, ' ')
 
   return { name, filename, headings, body }
 }
@@ -43,10 +47,10 @@ async function parseDocument(name, rawFile) {
 function cleanLine(line, maxLength = MAX_SNIPPET_LENGTH) {
   const cleaned = line
     .replace(/^#+\s*/, '')
-    .replace(/\|/g, ' ')
-    .replace(/\*\*?([^*]+)\*\*?/g, '$1')
-    .replace(/`[^`]+`/g, '')
-    .replace(/\s+/g, ' ')
+    .replaceAll(/\|/g, ' ')
+    .replaceAll(/\*\*?([^*]+)\*\*?/g, '$1')
+    .replaceAll(/`[^`]+`/g, '')
+    .replaceAll(/\s+/g, ' ')
     .trim()
   return cleaned.length > maxLength
     ? cleaned.slice(0, maxLength).replace(/\s\S*$/, '') + '…'
@@ -62,6 +66,35 @@ function headingAbove(lines, fromIndex) {
   return null
 }
 
+function processLine(line, lines, lineIndex, queryLower, seenHeadings) {
+  if (!line.toLowerCase().includes(queryLower)) {
+    return null
+  }
+
+  const isHeading = HEADING_RE.test(line)
+  const snippet = cleanLine(line)
+
+  if (!snippet) {
+    return null
+  }
+
+  const heading = isHeading ? null : headingAbove(lines, lineIndex)
+
+  // Skip body lines under a heading already shown as a heading match
+  if (!isHeading && heading && seenHeadings.has(heading)) {
+    return null
+  }
+
+  if (isHeading) {
+    seenHeadings.add(snippet)
+  }
+
+  const anchorSource = isHeading ? snippet : heading
+  const anchor = anchorSource ? headingToAnchor(anchorSource) : null
+
+  return { snippet, heading, anchor }
+}
+
 function findAllOccurrences(
   rawFile,
   query,
@@ -73,23 +106,10 @@ function findAllOccurrences(
   const seenHeadings = new Set()
 
   for (let i = 0; i < lines.length && results.length < maxPerDoc; i++) {
-    const line = lines[i]
-    if (!line.toLowerCase().includes(queryLower)) continue
-
-    const isHeading = HEADING_RE.test(line)
-    const snippet = cleanLine(line)
-    if (!snippet) continue
-
-    const heading = isHeading ? null : headingAbove(lines, i)
-
-    // Skip if this is a body line under a heading we've already shown as a heading match
-    if (!isHeading && heading && seenHeadings.has(heading)) continue
-
-    if (isHeading) seenHeadings.add(snippet)
-
-    const anchorSource = isHeading ? snippet : heading
-    const anchor = anchorSource ? headingToAnchor(anchorSource) : null
-    results.push({ snippet, heading, anchor })
+    const result = processLine(lines[i], lines, i, queryLower, seenHeadings)
+    if (result) {
+      results.push(result)
+    }
   }
 
   return results
