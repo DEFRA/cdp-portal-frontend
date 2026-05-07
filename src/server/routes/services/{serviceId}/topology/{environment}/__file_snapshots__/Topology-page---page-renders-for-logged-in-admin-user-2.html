@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template govuk-template--rebranded">
   <head>
     <meta charset="utf-8">
-    <title>  mock-service-with-resources - Resources - Dev | Core Delivery Platform - Portal
+    <title>   | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -192,6 +192,20 @@ Dependency Explorer
 
 
 
+      <ul class="app-navigation__admin">
+          
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/admin" data-testid="nav-admin">
+      Admin
+    </a>
+</li>
+
+
+      </ul>
   </ul>
 </ul>
         </nav>
@@ -228,18 +242,16 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources"
              data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
         </li>
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources/resources"
-             data-testid="app-breadcrumbs-link">Resources</a>
-        </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Dev</li>
+            data-testid="app-breadcrumbs-list-item">Topology</li>
+        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+            data-testid="app-breadcrumbs-list-item">Prod</li>
   </ol>
 </nav>
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Resources</span>
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Topology</span>
 
 <div class="app-page-heading">
   <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service-with-resources</h1>
@@ -301,183 +313,57 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
         <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-proxy">
+            data-testid="app-tabs-list-item-automations">
 
 
-          <a id="tab-proxy"
+          <a id="tab-automations"
              class="app-tabs__tab"
-             href="/services/mock-service-with-resources/proxy"
+             href="/services/mock-service-with-resources/automations"
              data-js="app-tab"
              role="tab"
-             aria-controls="tab-panel-proxy"
+             aria-controls="tab-panel-automations"
              aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-proxy">
-            Proxy
+             data-testid="app-tabs-list-item__anchor-automations">
+            Automations
           </a>
         </li>
 
 
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-resources app-tabs-list-item--selected">
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-maintenance">
 
 
-          <a id="tab-resources"
+          <a id="tab-maintenance"
              class="app-tabs__tab"
-             href="/services/mock-service-with-resources/resources"
+             href="/services/mock-service-with-resources/maintenance"
              data-js="app-tab"
              role="tab"
-             aria-controls="tab-panel-resources"
-             aria-selected="true"
-             data-testid="app-tabs-list-item__anchor-resources">
-            Resources
+             aria-controls="tab-panel-maintenance"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-maintenance">
+            Maintenance
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-secrets">
+
+
+          <a id="tab-secrets"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/secrets"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-secrets"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-secrets">
+            Secrets
           </a>
         </li>
     </ul>
   </div>
 
-    <section id="tab-panel-resources"
-             class="app-tabs__panel"
-             role="tabpanel"
-             aria-labelledby="tab-resources"
-             data-testid="app-tabs-panel">
-        <section class="govuk-!-margin-top-6">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-
-
-<div class="app-split-pane" data-testid="app-split-pane">
-    <div class="app-split-pane__nav"
-         data-testid="app-split-pane-nav">
-<nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
-  <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-all">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources"
-           data-testid="app-subnav-link-all"
-        >All</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item app-subnav__section-item--current"
-          data-testid="app-subnav-item-dev">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/dev"
-           data-testid="app-subnav-link-dev"
-        >Dev</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/test"
-           data-testid="app-subnav-link-test"
-        >Test</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-perf-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/perf-test"
-           data-testid="app-subnav-link-perf-test"
-        >Perf-test</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-prod">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/prod"
-           data-testid="app-subnav-link-prod"
-        >Prod</a>
-      </li>
-    </ul>
-</nav>
-    </div>
-  <div class="app-split-pane__content" data-testid="app-split-pane-content">
-
-    <section class="app-content">
-                
-
-<span class="govuk-caption-l">Dev</span>
-
-<h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
-<p class="govuk-!-margin-bottom-2">
-  View resources for mock-service-with-resources in all CDP environments. To set up new resources read
-  <a href="/documentation/how-to/buckets.md" class="govuk-link app-link app-link--underline"
-     target="_blank" rel="noopener noreferrer">S3 buckets</a>,
-  <a href="/documentation/how-to/sqs-sns.md" class="govuk-link app-link app-link--underline"
-     target="_blank" rel="noopener noreferrer">SQS Queues and SNS Topics</a> then contact the Platform
-  team via Slack <a class="app-link app-link--underline" href="" target="_blank"
-                    rel="noopener noreferrer">#cdp-support</a>
-</p>
-
-  
-
-
-<div
-  class="app-info govuk-!-margin-0"
-  tabindex="-1"
-  role="alert"
-  data-testid="app-info">
-
-  <svg class="app-icon app-info-icon app-icon--small"
-     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
-     role="img" aria-label="Info">
-  <path fill-rule="nonzero"
-        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
-</svg>
-
-
-  <span class="app-info__content" data-testid="app-info-content">
-      Why do bucket names have random characters at the end?
-  <a class="app-link app-link--underline" href="/documentation/how-to/buckets.md#bucket-naming"
-     target="_blank"
-     rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
-
-  </span>
-
-</div>
-
-
-
-
-
-            <pre class="mermaid mermaid--no-label-background mermaid--table-node">
-              flowchart LR
-                  service@{ icon: "logos:aws-fargate", h: 80, label: "mock-service-with-resources"}
-
-                      subgraph s3_buckets[S3 buckets]
-                        direction LR
-                          s3_bucketstest-bucketIcon@{ icon: "logos:aws-s3", h: 80, label: "<span id='test-bucket'>test-bucket</span>"}
-                          s3_bucketstest-bucket[<table><tr><th>Arn</th><td>arn:aws:s3:eu-west-2:333333333:test-bucket</td></tr></table>]
-                          s3_bucketstest-bucketIcon ~~~ s3_bucketstest-bucket
-                      end
-                      service --- s3_buckets
-            </pre>
-
-
-          <p class="govuk-!-margin-top-2">
-            <a href="?debug=true" class="govuk-link app-link app-link--underline">Debug view</a>
-          </p>
-
-
-    </section>
-  </div>
-</div>
-      </div>
-    </div>
-  </section>
-
-    </section>
 
         </main>
       </div>

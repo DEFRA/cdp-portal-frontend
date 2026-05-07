@@ -1,0 +1,89 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Topology",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+        {% call appSplitPane() %}
+          <span class="govuk-caption-l">{{environment | formatText}}</span>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Topology</h2>
+          <p class="govuk-!-margin-bottom-2">
+            Provides a visual representation of <strong>{{entity.name}}'s</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
+          </p>
+
+
+          <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
+            flowchart TD
+            {% for teamKey, services in servicesPerTeam  %}
+              subgraph {{ teamKey }}[{{ services[0].teams | join(" / ", "name") | capitalize }}]
+                style {{ teamKey }} fill:#fff,stroke-dasharray:10 5
+
+                {% for service in services  %}
+                  subgraph {{ nodeKey(service) }}Container[ ]
+                    direction TD
+
+                    {{ nodeKey(service) }}@{ icon: "logos:{{service.icon or 'logos:aws-fargate' }}", label: "{% if service.name == entity.name  %}<strong>{{ service.name }}</strong>{% else %}{{ service.name }}{% endif %}"}
+                    {% if service.name != entity.name and service.name != 'AWS' %}
+                      click {{ nodeKey(service) }} "/services/{{ service.name }}/topology/{{ environment }}" {% if service.type %}"{{ service.type }} Service"{% endif %}
+                    {% elseif service.type %}
+                      click {{ nodeKey(service) }} call noop() "{{ service.type }} Service"
+                    {% endif %}
+
+                    {% for resource in service.resources  %}
+                      {{ nodeKey(service, resource) }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
+                      {{ nodeKey(service) }} -.- {{ nodeKey(service, resource) }}
+                    {% endfor %}
+                  end
+                {% endfor %}
+
+              end
+            {% endfor %}
+
+            {% for teamKey, services in servicesPerTeam  %}
+              {% for service in services  %}
+                  {% for resource in service.resources  %}
+                    {% for link in resource.links  %}
+                      {% if link.type == 'subscription' %}
+                        {% set arrow = "==>" %}
+                      {% else %}
+                        {% set arrow = "-->" %}
+                      {% endif %}
+
+                      {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|{{ link.access | capitalize }}| {{ linkKey(link) }}
+                      {% if link.access == 'subscription' %}
+                        {{ nodeKey(service, resource) }}_link{{loop.index0}}@{ animation: slow }
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+              {% endfor %}
+            {% endfor %}
+          </pre>
+
+        {% endcall %}
+
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    // TODO: Remove after testing
+    console.debug(JSON.stringify({{ topology | dump(2) | safe }}, null, 2));
+  </script>
+
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script type="module" src="{{ getAssetPath("src/client/javascripts/mermaid.js") }}"></script>
+{% endblock %}
