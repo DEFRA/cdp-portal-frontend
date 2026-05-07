@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template govuk-template--rebranded">
   <head>
     <meta charset="utf-8">
-    <title>  mock-service-with-secrets - Secrets - Prod | Core Delivery Platform - Portal
+    <title>   | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -225,13 +225,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-testid="app-breadcrumbs-link">Services</a>
         </li>
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/services/mock-service-with-secrets"
-             data-testid="app-breadcrumbs-link">mock-service-with-secrets</a>
+          <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources"
+             data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
         </li>
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/services/mock-service-with-secrets/secrets"
-             data-testid="app-breadcrumbs-link">Secrets</a>
-        </li>
+        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+            data-testid="app-breadcrumbs-list-item">Topology</li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
             data-testid="app-breadcrumbs-list-item">Prod</li>
   </ol>
@@ -239,10 +237,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Secrets</span>
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Topology</span>
 
 <div class="app-page-heading">
-  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service-with-secrets</h1>
+  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service-with-resources</h1>
 
 
 </div>
@@ -272,7 +270,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                href="https://example-mock-service-frontend.dev.example.mock.clouds.net"
                target="_blank" rel="noopener noreferrer">https://example-mock-service-frontend.dev.example.mock.clouds.net</a> is currently shuttered.              To unshutter go to the
               <a class="app-link app-link--underline"
-                 href="/services/mock-service-with-secrets/maintenance">Maintenance</a> page
+                 href="/services/mock-service-with-resources/maintenance">Maintenance</a> page
 
   </span>
 </div>
@@ -292,7 +290,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
           <a id="tab-about"
              class="app-tabs__tab"
-             href="/services/mock-service-with-secrets"
+             href="/services/mock-service-with-resources"
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-about"
@@ -309,7 +307,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
           <a id="tab-automations"
              class="app-tabs__tab"
-             href="/services/mock-service-with-secrets/automations"
+             href="/services/mock-service-with-resources/automations"
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-automations"
@@ -326,7 +324,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
           <a id="tab-maintenance"
              class="app-tabs__tab"
-             href="/services/mock-service-with-secrets/maintenance"
+             href="/services/mock-service-with-resources/maintenance"
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-maintenance"
@@ -338,379 +336,23 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
         <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-proxy">
-
-
-          <a id="tab-proxy"
-             class="app-tabs__tab"
-             href="/services/mock-service-with-secrets/proxy"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-proxy"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-proxy">
-            Proxy
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-resources">
-
-
-          <a id="tab-resources"
-             class="app-tabs__tab"
-             href="/services/mock-service-with-secrets/resources"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-resources"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-resources">
-            Resources
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-secrets app-tabs-list-item--selected">
+            data-testid="app-tabs-list-item-secrets">
 
 
           <a id="tab-secrets"
              class="app-tabs__tab"
-             href="/services/mock-service-with-secrets/secrets"
+             href="/services/mock-service-with-resources/secrets"
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-secrets"
-             aria-selected="true"
+             aria-selected="false"
              data-testid="app-tabs-list-item__anchor-secrets">
             Secrets
           </a>
         </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-terminal">
-
-
-          <a id="tab-terminal"
-             class="app-tabs__tab"
-             href="/services/mock-service-with-secrets/terminal"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-terminal"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-terminal">
-            Terminal
-          </a>
-        </li>
-
-
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-topology">
-
-
-          <a id="tab-topology"
-             class="app-tabs__tab"
-             href="/services/mock-service-with-secrets/topology"
-             data-js="app-tab"
-             role="tab"
-             aria-controls="tab-panel-topology"
-             aria-selected="false"
-             data-testid="app-tabs-list-item__anchor-topology">
-            Topology
-          </a>
-        </li>
     </ul>
   </div>
 
-    <section id="tab-panel-secrets"
-             class="app-tabs__panel"
-             role="tabpanel"
-             aria-labelledby="tab-secrets"
-             data-testid="app-tabs-panel">
-        <section class="govuk-!-margin-top-6">
-
-<div class="app-split-pane" data-testid="app-split-pane">
-    <div class="app-split-pane__nav"
-         data-testid="app-split-pane-nav">
-<nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
-  <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-all">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-secrets/secrets"
-           data-testid="app-subnav-link-all"
-        >All</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-dev">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-secrets/secrets/dev"
-           data-testid="app-subnav-link-dev"
-        >Dev</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-secrets/secrets/test"
-           data-testid="app-subnav-link-test"
-        >Test</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-perf-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-secrets/secrets/perf-test"
-           data-testid="app-subnav-link-perf-test"
-        >Perf-test</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item app-subnav__section-item--current"
-          data-testid="app-subnav-item-prod">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-secrets/secrets/prod"
-           data-testid="app-subnav-link-prod"
-        >Prod</a>
-      </li>
-    </ul>
-</nav>
-    </div>
-  <div class="app-split-pane__content" data-testid="app-split-pane-content">
-
-    <section class="app-content">
-            <div class="govuk-grid-row">
-        <section class="govuk-grid-column-two-thirds-from-desktop-big">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-              data-testid="app-environment-header">Prod secrets</h2>
-          <div class="app-section app-section--wide">
-            <p class="govuk-!-margin-bottom-4">
-              Manage secrets for mock-service-with-secrets in Prod
-            </p>
-
-
-                <article data-xhr="secrets-mock-service-with-secrets-prod"
-                         data-xhr-success-message="Secret modified successfully"
-                         data-xhr-error-message=""
-                         data-xhr-stop="true">
-                  <div class="app-flex-center">
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Service secrets
-                    </h2>
-
-                      <p class="app-align-right govuk-!-margin-bottom-0">
-                        <strong class="govuk-!-margin-right-1">Last updated:</strong>
-                        
-
-
-
-<span
-  class="app-tool-tip"
-  data-text="Friday 15th November 2024, 16:03:38"
->
-        <time    datetime="2024-11-15T16:03:38.3139986Z"
-    data-testid="app-time">
-        Fri 15th Nov 2024 at 16:03
-
-  </time>
-
-
-</span>
-
-
-
-
-                      </p>
-                  </div>
-
-                  <p class="govuk-!-margin-bottom-2">
-                    Secret keys available to your service
-                  </p>
-
-                  
-
-
-<div
-  class="app-info govuk-!-margin-bottom-4"
-  tabindex="-1"
-  role="alert"
-  data-testid="app-info">
-
-  <svg class="app-icon app-info-icon app-icon--small"
-     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
-     role="img" aria-label="Info">
-  <path fill-rule="nonzero"
-        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
-</svg>
-
-
-  <span class="app-info__content" data-testid="app-info-content">
-    To apply any secret changes to your service re-deploy it
-  </span>
-
-</div>
-
-
-
-
-<div class="app-panel govuk-!-margin-bottom-6  app-panel--slim" >
-                        <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-2">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Key</th>
-      <th scope="col" class="govuk-table__header app-!-width-one-tenth">Status</th>
-      <th scope="col" class="govuk-table__header app-!-width-one-fifth govuk-table__header--numeric">Actions</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">
-
-
-
-
-
-<strong class="govuk-tag app-tag govuk-tag--green" aria-label="Service secret key" data-testid="app-secret-cell-some_key">
-  SOME_KEY
-</strong>
-
-
-</td>
-      <td class="govuk-table__cell app-!-width-one-tenth" data-testid="app-secret-status-some_key">
-<span
-  class="app-tool-tip app-tool-tip--small"
-  data-text="Secret available"
->
-          <svg xmlns="http://www.w3.org/2000/svg"
-     class="app-icon app-tick-icon app-icon--tiny"
-     width="48" height="48" viewBox="0 0 48 48"
-     role="img"
- aria-label="Secret available">
-<path fill-rule="nonzero" d="m20.4982206 35.1316726 16.5693951-16.6263345L33.480427 14.86121 20.4982206 27.8434164l-6.3202847-6.3202847-3.5871886 3.6441281 9.9074733 9.9644128ZM23.9532527 48c-3.2766406 0-6.3826145-.6188185-9.3179217-1.8564555-2.9353452-1.2375991-5.48959435-2.9429751-7.66274737-5.1161281-2.17315303-2.1731531-3.87852906-4.7272693-5.11612811-7.6623488C.61881851 30.4300261 0 27.320446 0 24.0363274c0-3.3180546.61991934-6.4359668 1.85975801-9.3537367 1.23987663-2.9177698 2.94885883-5.46938074 5.12694662-7.65483269C9.16475445 4.84226809 11.7158529 3.1246121 14.64 1.87479004 17.5641091.62493001 20.6620166 0 23.9337224 0c3.3233689 0 6.4519858.62344959 9.3858506 1.87034875 2.9338268 1.24693713 5.487924 2.96087308 7.6622918 5.14180783 2.1743677 2.18093476 3.8876583 4.73415892 5.1398719 7.65967262C47.3739122 17.5973428 48 20.7265101 48 24.059331c0 3.2923938-.62493 6.3964318-1.87479 9.3121138-1.2498221 2.9156442-2.9674781 5.4627189-5.152968 7.6412242-2.185452 2.1785054-4.7372337 3.8876964-7.6553452 5.127573C30.3988233 47.3800807 27.2776085 48 23.9532527 48Z"/></svg>
-
-
-</span>
-</td>
-      <td class="govuk-table__cell app-!-width-one-fifth app-!-align-vertical-middle govuk-table__header--numeric" data-testid="app-secret-action-cell-some_key">      <a href="/services/mock-service-with-secrets/secrets/prod/update?secretKey=SOME_KEY"
-         class="app-link--underline"
-         data-testid="app-secret-update-some_key"
-      >Update</a>
-      <a href="/services/mock-service-with-secrets/secrets/prod/remove?secretKey=SOME_KEY"
-         class="app-link--underline app-link--with-separator"
-         data-testid="app-secret-remove-some_key"
-      >Remove</a>
-</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-</div>
-                </article>
-
-
-            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Platform secrets</h2>
-            <p class="govuk-!-margin-bottom-2">
-              Platform level secret keys available to your service
-            </p>
-
-
-
-<div class="app-panel govuk-!-margin-bottom-4  app-panel--slim" >
-                  <p class="govuk-!-margin-0">
-                  No platform secrets currently set
-                </p>
-
-</div>
-
-          </div>
-        </section>
-
-        <section class="govuk-grid-column-one-third-from-desktop-big">
-<h2 class="govuk-heading-l govuk-!-margin-bottom-2">Create secret</h2>
-
-<p>
-  Create a secret in Prod
-</p>
-
-
-<form action="/services/mock-service-with-secrets/secrets/prod/create" method="post" data-js="app-form-errors">
-  <input type="hidden" name="csrfToken" value="test-token" />
-  <input type="hidden" name="teamId" value="mock-team-id" />
-
-<fieldset class="govuk-fieldset">
-
-    <div class="govuk-form-group app-form-group app-form-group-js">
-  <label class="govuk-label app-label" for="secret-key">
-    Secret name
-  </label>
-  <div id="secret-key-hint" class="govuk-hint app-hint">
-    Ideally in CAPS separated by underscores
-  </div>
-  <input class="govuk-input app-input app-input--wide" id="secret-key" name="secretKey" type="text" aria-describedby="secret-key-hint">
-</div>
-
-
-    <div class="govuk-form-group app-form-group app-form-group-js">
-  <label class="govuk-label app-label" for="secret-value">
-    Secret value
-  </label>
-  <div id="secret-value-hint" class="govuk-hint app-hint">
-    Any number, letter or special character. Cannot include spaces
-  </div>
-  <textarea class="govuk-textarea app-textarea app-textarea--wide" id="secret-value" name="secretValue" rows="5" aria-describedby="secret-value-hint" data-1p-ignore=""></textarea>
-</div>
-
-
-    <label class="govuk-label app-label">
-  Environment
-</label>
-
-
-    <p class="govuk-!-margin-bottom-6">Prod</p>
-
-
-</fieldset>
-
-  
-
-
-<span class="app-button__container">
-  <button class="govuk-button app-button"
-name="button"value="create"data-loader="create-secret-submit-button"          data-js="app-button"
-          data-testid="app-button">
-    Create
-  </button>
-
-    <span class="app-loader"
-      data-testid="app-loader"
-data-js="create-secret-submit-button">
-</span>
-
-</span>
-
-
-</form>
-        </section>
-      </div>
-
-    </section>
-  </div>
-</div>
-  </section>
-
-    </section>
 
         </main>
       </div>
@@ -772,6 +414,8 @@ data-js="create-secret-submit-button">
 </footer>
 
 
-  <script type="module" src="/.public/src/client/javascripts/application.js"></script>
+    <script type="module" src="/.public/src/client/javascripts/application.js"></script>
+
+  <script type="module" src="/.public/src/client/javascripts/mermaid.js"></script>
   </body>
 </html>
