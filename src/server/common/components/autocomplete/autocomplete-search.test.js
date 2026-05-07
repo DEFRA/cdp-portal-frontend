@@ -589,9 +589,7 @@ describe('#autocompleteSearch', () => {
       })
 
       test('Should provide expected suggestion value', () => {
-        expect(autocompleteInput.value).toBe(
-          'provides SQS queues and SNS topics for services running'
-        )
+        expect(autocompleteInput.value).toBe('SQS')
       })
 
       test('Input should keep focus', () => {
@@ -612,7 +610,7 @@ describe('#autocompleteSearch', () => {
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[1]).toHaveAttribute('aria-posinset', '4')
+        expect(children[3]).toHaveAttribute('aria-posinset', '4')
       })
 
       test('suggestions Should have correct aria selected values', () => {
@@ -628,14 +626,14 @@ describe('#autocompleteSearch', () => {
 
       test('suggestions Should have expected data attributes', () => {
         const children = suggestionsContainer.children
-        const firstChild = children[1]
+        const clickedChild = children[3]
 
-        expect(firstChild.dataset.isMatch).toBe('false')
-        expect(firstChild.dataset.value).toBe('how-to/sqs-sns.md')
-        expect(firstChild.dataset.text).toBe(
+        expect(clickedChild.dataset.isMatch).toBe('false')
+        expect(clickedChild.dataset.value).toBe('how-to/sqs-sns.md')
+        expect(clickedChild.dataset.text).toBe(
           'provides SQS queues and SNS topics for services running'
         )
-        expect(firstChild.dataset.hasHighlight).toBe('false')
+        expect(clickedChild.dataset.hasHighlight).toBe('false')
       })
     })
 

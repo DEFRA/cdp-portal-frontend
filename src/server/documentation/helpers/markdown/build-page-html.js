@@ -1,7 +1,6 @@
 import { Marked } from 'marked'
 import markedAlert from 'marked-alert'
 import { stripHtml } from 'string-strip-html'
-import { escapeRegex } from '@hapi/hoek'
 
 import { linkExtension } from '../extensions/link.js'
 import { headingExtension } from '../extensions/heading.js'
@@ -9,45 +8,6 @@ import { renderComponent } from '../../../common/helpers/nunjucks/render-compone
 import { previewHeadingsExtension } from '../../../home/helpers/extensions/preview-headings.js'
 import { codeExtension } from '../extensions/code.js'
 import { renderTag } from '../../../common/helpers/view/render-tag.js'
-
-function createHighlightExtension(searchTerm) {
-  if (!searchTerm) {
-    return {
-      name: 'highlight'
-    }
-  }
-
-  const regex = new RegExp(`\\b${escapeRegex(searchTerm)}\\b`, 'i')
-
-  return {
-    name: 'highlight',
-    level: 'inline',
-    start(src) {
-      return src.search(regex)
-    },
-    tokenizer(src) {
-      // Skip matching inside auto-links, links, code, or already parsed tokens
-      const match = regex.exec(src)
-      if (
-        match &&
-        !/^(https?:\/\/|<http|\[|`)/.test(src) &&
-        match?.index === 0
-      ) {
-        return {
-          type: 'highlight',
-          raw: match[0],
-          text: match[0],
-          tokens: []
-        }
-      }
-
-      return null
-    },
-    renderer(token) {
-      return `<mark class="app-mark">${token.text}</mark>`
-    }
-  }
-}
 
 /**
  * Provide the class for the tag component based on the tag text
@@ -131,13 +91,11 @@ function addHeadingInternalAnchors(token, marked, headings) {
 }
 
 /**
- * HTML page for the documentation pages. Add heading anchors, build table of contents add highlight for search results
- * @param {Request} request
+ * HTML page for the documentation pages. Add heading anchors, build table of contents
  * @param {string} markdown
  * @returns {Promise<{html: Promise<string> | string, toc: string}>}
  */
-async function buildDocsPageHtml(request, markdown) {
-  const searchTerm = request.query?.q
+async function buildDocsPageHtml(markdown) {
   const headings = []
   const docsMarked = new Marked({
     gfm: true,
@@ -146,8 +104,7 @@ async function buildDocsPageHtml(request, markdown) {
 
   docsMarked.use({
     walkTokens: (token) =>
-      addHeadingInternalAnchors(token, docsMarked, headings),
-    extensions: [createHighlightExtension(searchTerm)]
+      addHeadingInternalAnchors(token, docsMarked, headings)
   })
   const html = await docsMarked.parse(markdown)
 

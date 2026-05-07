@@ -36,11 +36,7 @@ const searchHandlerRoute = {
     }
 
     const [pagePath, anchor] = (pageUrl ?? '').split('#')
-    return h.redirect(
-      pagePath +
-        qs.stringify({ q: qText }, { addQueryPrefix: true }) +
-        (anchor ? `#${anchor}` : '')
-    )
+    return h.redirect(pagePath + (anchor ? `#${anchor}` : ''))
   }
 }
 
