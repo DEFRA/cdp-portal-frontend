@@ -1,0 +1,63 @@
+{% extends "layouts/page.njk" %}
+
+{% from "info/macro.njk" import appInfo %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      text: "S3 Bucket Requested",
+      intro: "Changes will be pushed to a branch. To complete, raise and merge a PR."
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop">
+
+        {{ govukSummaryList({
+          card: {
+            title: {
+              text: "S3 Bucket Details"
+            }
+          },
+          rows: [
+            {
+              key: { text: "Service" },
+              value: { text: formValues.service }
+            },
+            {
+              key: { text: "Bucket Name" },
+              value: { html: formValues.bucketName }
+            },
+            {
+              key: { text: "Environments" },
+              value: { html: formValues.environment }
+            },
+            {
+              key: { text: "branch" },
+              value: { html: branchName }
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop">
+        {{ appInfo({
+          "html": "<p>It will take a couple of minutes for the workflow to create the branch.<br>You will need to wait for the branch to be created before raising the pull request.</p>"
+        }) }}
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <p>
+          <a class="app-link app-link--without-underline" target="_blank" href="{{ prLink }}">View pull requests</a>
+        </p>
+
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
