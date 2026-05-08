@@ -49,14 +49,24 @@ describe('#searchHandlerRoute', () => {
     )
   })
 
-  test('Should redirect to the pageUrl with qText as query if pageUrl ends with .md', async () => {
+  test('Should redirect to the pageUrl without query params if pageUrl ends with .md', async () => {
     const response = await searchPost({
       q: 'some-page.md',
       qText: 'search query'
     })
 
     expect(response.statusCode).toBe(302)
-    expect(response.headers.location).toBe('some-page.md?q=search%20query')
+    expect(response.headers.location).toBe('some-page.md')
+  })
+
+  test('Should preserve anchor when pageUrl ends with .md#anchor', async () => {
+    const response = await searchPost({
+      q: 'some-page.md#my-section',
+      qText: 'search query'
+    })
+
+    expect(response.statusCode).toBe(302)
+    expect(response.headers.location).toBe('some-page.md#my-section')
   })
 
   test('Should return 400 if payload validation fails', async () => {

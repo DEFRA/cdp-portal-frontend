@@ -1,22 +1,121 @@
 import lunr from 'lunr'
-import { Marked } from 'marked'
 import { isAfter } from 'date-fns'
-import { escapeRegex } from '@hapi/hoek'
-import { stripHtml } from 'string-strip-html'
 import { performance } from 'node:perf_hooks'
+import { Marked } from 'marked'
 import markedPlaintify from 'marked-plaintify'
 
 import { shouldExcludedItem } from './excluded-items.js'
+import { headingToAnchor } from './extensions/heading-anchor.js'
 import {
   fetchS3File,
   fetchHeadObject,
   fetchListObjects
 } from './s3-file-handler.js'
 
+const MAX_OCCURRENCES_PER_DOC = 5
+const MAX_SNIPPET_LENGTH = 120
+
 const store = {}
-const convertToPlainTextMarked = new Marked({ gfm: true }).use(
-  markedPlaintify()
-)
+
+const HEADING_RE = /^#{1,6}\s/
+
+const plaintext = new Marked({ gfm: true }).use(markedPlaintify())
+
+async function stripMarkdown(text) {
+  const plain = await plaintext.parse(text)
+  return plain.replaceAll(/\s+/g, ' ').trim()
+}
+
+async function parseDocument(name, rawFile) {
+  const lines = rawFile.split('\n')
+  const headings = lines
+    .filter((line) => HEADING_RE.test(line))
+    .map((line) => line.replace(/^#+\s*/, ''))
+    .join(' ')
+  const body = await stripMarkdown(
+    lines.filter((line) => !HEADING_RE.test(line)).join('\n')
+  )
+  const filename = name
+    .split('/')
+    .pop()
+    .replace(/\.md$/, '')
+    .replaceAll('-', ' ')
+
+  return { name, filename, headings, body }
+}
+
+function cleanLine(line, maxLength = MAX_SNIPPET_LENGTH) {
+  const cleaned = line
+    .replace(/^#+\s*/, '') // '## Heading' → 'Heading'
+    .replace(/^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*/, '') // '> [!IMPORTANT]' → ''
+    .replace(/^>\s*/, '') // '> blockquote text' → 'blockquote text'
+    .replaceAll('|', ' ') // 'col1 | col2' → 'col1   col2'
+    .replaceAll(/\*\*?([^*]+)\*\*?/g, '$1') // '**bold** or *italic*' → 'bold or italic'
+    .replaceAll(/`[^`]+`/g, '') // '`inline code`' → ''
+    .replaceAll(/\s+/g, ' ') // collapse whitespace
+    .trim()
+  return cleaned.length > maxLength
+    ? cleaned.slice(0, maxLength).replace(/\s\S*$/, '') + '…'
+    : cleaned
+}
+
+function headingAbove(lines, fromIndex) {
+  for (let i = fromIndex; i >= 0; i--) {
+    if (HEADING_RE.test(lines[i])) {
+      return lines[i].replace(/^#+\s*/, '')
+    }
+  }
+  return null
+}
+
+function processLine(line, lines, lineIndex, queryLower, seenHeadings) {
+  if (!line.toLowerCase().includes(queryLower)) {
+    return null
+  }
+
+  const isHeading = HEADING_RE.test(line)
+  const snippet = cleanLine(line)
+
+  if (!snippet) {
+    return null
+  }
+
+  const heading = isHeading ? null : headingAbove(lines, lineIndex)
+
+  // Skip body lines under a heading already shown as a heading match
+  if (!isHeading && heading && seenHeadings.has(heading)) {
+    return null
+  }
+
+  if (isHeading) {
+    seenHeadings.add(snippet)
+  }
+
+  const anchorSource = isHeading ? snippet : heading
+  const anchor = anchorSource ? headingToAnchor(anchorSource) : null
+
+  return { snippet, heading, anchor }
+}
+
+function findAllOccurrences(
+  rawFile,
+  query,
+  maxPerDoc = MAX_OCCURRENCES_PER_DOC
+) {
+  const lines = rawFile.split('\n')
+  const queryLower = query.toLowerCase()
+  const results = []
+  const seenHeadings = new Set()
+
+  for (let i = 0; i < lines.length && results.length < maxPerDoc; i++) {
+    const result = processLine(lines[i], lines, i, queryLower, seenHeadings)
+    if (result) {
+      results.push(result)
+    }
+  }
+
+  return results
+}
 
 async function buildSearchIndex(request, bucket) {
   const startBuildIndex = performance.now()
@@ -52,18 +151,25 @@ async function buildSearchIndex(request, bucket) {
 
       return {
         name: key,
-        file: stripHtml(convertToPlainTextMarked.parse(mdFile)).result
+        rawFile: mdFile
       }
     })
 
     store.files = await Promise.all(fetchMarkdownPromises)
+
+    const parsedDocs = await Promise.all(
+      store.files.map((file) => parseDocument(file.name, file.rawFile))
+    )
+
     store.index = lunr(function () {
       this.ref('name')
-      this.field('file')
+      this.field('filename', { boost: 10 })
+      this.field('headings', { boost: 5 })
+      this.field('body', { boost: 1 })
       this.metadataWhitelist = ['position'] // https://github.com/olivernn/moonwalkers/blob/6d5a6e976921490033681617e92ea42e3a80eed0/build-index#L23-L29
 
-      for (const file of store.files) {
-        this.add(file)
+      for (const doc of parsedDocs) {
+        this.add(doc)
       }
     })
     store.lastModified = docsMetaData.LastModified
@@ -77,79 +183,6 @@ async function buildSearchIndex(request, bucket) {
   )
 
   return store
-}
-
-/**
- * Remove broken words from the beginning and end of a line if they do not match the searchTerm
- * @param {string} text
- * @param {string} searchTerm
- * @returns {string}
- */
-function removeBrokenWords(text, searchTerm) {
-  const lowerSearchTerm = searchTerm.toLowerCase()
-  let line = text
-
-  if (line.toLowerCase() === lowerSearchTerm) {
-    return line
-  }
-
-  const firstWord = line.substr(0, line.indexOf(' ')).toLowerCase()
-  const lastWord = line.split(' ').splice(-1)[0].toLowerCase()
-
-  if (
-    !line.toLowerCase().startsWith(lowerSearchTerm) &&
-    !firstWord.includes(lowerSearchTerm)
-  ) {
-    line = line.replace(/^\S+\s/, '')
-  }
-
-  if (
-    !line.toLowerCase().endsWith(lowerSearchTerm) &&
-    !lastWord.includes(lowerSearchTerm)
-  ) {
-    line = line.replace(/\s\S+$/, '')
-  }
-
-  return line
-}
-
-/**
- * @param {string|null} textWithContext
- * @param {string} searchTerm
- * @returns {string|null}
- */
-function prepTextResult(textWithContext, searchTerm) {
-  if (!textWithContext) {
-    return null
-  }
-
-  const regex = new RegExp(escapeRegex(searchTerm), 'ig')
-  const lineWithSearchTerm = textWithContext
-    .split('\n')
-    .find((line) => regex.test(line))
-
-  if (lineWithSearchTerm) {
-    return removeBrokenWords(lineWithSearchTerm, searchTerm)
-  }
-
-  return null
-}
-
-/**
- * Provide suggestions unique by value and text
- * @param {Array} unique
- * @param {{text: string, value: string}} suggestion
- * @returns {Array}
- */
-function makeUnique(unique, suggestion) {
-  if (
-    !unique.some(
-      (obj) => obj.value === suggestion.value && obj.text === suggestion.text
-    )
-  ) {
-    unique.push(suggestion)
-  }
-  return unique
 }
 
 async function searchIndex(request, bucket, query) {
@@ -169,42 +202,26 @@ async function searchIndex(request, bucket, query) {
       )
     : []
 
-  const searchSuggestions = results
-    .flatMap((result) => {
-      const match = builtSearchIndex.files.find(
-        (file) => file.name === result.ref
-      )
+  const searchSuggestions = results.flatMap((result) => {
+    const match = builtSearchIndex.files.find(
+      (file) => file.name === result.ref
+    )
+    if (!match) {
+      return [{ value: result.ref, text: result.ref }]
+    }
 
-      if (match) {
-        return Object.keys(result.matchData.metadata).flatMap((text) =>
-          Object.keys(result.matchData.metadata[text]).flatMap((fieldName) =>
-            result.matchData.metadata[text][fieldName].position
-              .map((positionDetail) => {
-                const [startPos, length] = positionDetail
-                const surroundingCharacters = 30
-                const sliceStart = Math.max(startPos - surroundingCharacters, 0)
-                const sliceEnd = startPos + length + surroundingCharacters
-                const slice = match.file.slice(sliceStart, sliceEnd)
-                const textResult = prepTextResult(slice, query)
+    const occurrences = findAllOccurrences(match.rawFile, queryTerm)
+    if (occurrences.length === 0) {
+      return [{ value: result.ref, text: result.ref }]
+    }
 
-                if (!textResult) {
-                  return null
-                }
-
-                return {
-                  value: result.ref,
-                  text: textResult
-                }
-              })
-              .filter(Boolean)
-          )
-        )
-      }
-
-      return null
-    })
-    .filter(Boolean)
-    .reduce(makeUnique, [])
+    return occurrences.map(({ snippet, heading, anchor }) => ({
+      value: result.ref,
+      text: snippet,
+      ...(heading ? { hint: heading } : {}),
+      ...(anchor ? { anchor } : {})
+    }))
+  })
 
   const endPrepareResults = performance.now()
   request.logger.debug(
@@ -214,4 +231,10 @@ async function searchIndex(request, bucket, query) {
   return searchSuggestions
 }
 
-export { searchIndex, buildSearchIndex }
+export {
+  searchIndex,
+  buildSearchIndex,
+  parseDocument,
+  stripMarkdown,
+  findAllOccurrences
+}

@@ -5,6 +5,7 @@ import { initAll } from 'govuk-frontend'
 import { Autocomplete } from '../../server/common/components/autocomplete/autocomplete.js'
 import { AutocompleteAdvanced } from '../../server/common/components/autocomplete/autocomplete-advanced.js'
 import { AutocompleteSearch } from '../../server/common/components/autocomplete/autocomplete-search.js'
+import { AutocompleteDocSearch } from '../../server/common/components/autocomplete/autocomplete-doc-search.js'
 import { autoSubmit } from '../common/helpers/auto-submit.js'
 import { availability } from '../../server/common/components/availability/availability.js'
 import { banner } from '../../server/common/components/banner/banner.js'
@@ -79,6 +80,7 @@ initModules('app-search', search)
 initClass('app-autocomplete', Autocomplete)
 initClass('app-autocomplete-advanced', AutocompleteAdvanced)
 initClass('app-autocomplete-search', AutocompleteSearch)
+initClass('app-autocomplete-doc-search', AutocompleteDocSearch)
 
 // Xhr Container
 initModules('app-xhr-subscriber', xhrSubscriber)

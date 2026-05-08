@@ -50,9 +50,9 @@
     }) }}
   {% endif %}
 
-  {% set isSearch = true if params.template == "search" | default(false) %}
-  {% set classes = ["app-autocomplete", params.classes if params.classes, "app-autocomplete--search" if isSearch, "app-autocomplete--with-icon" if params.icon] | join(" ") | trim %}
-  {% set inputClasses = ["govuk-input app-input" if isSearch else "govuk-select app-select"] | join(" ") | trim %}
+  {% set isInputTemplate = params.template == "search" or params.template == "doc-search" %}
+  {% set classes = ["app-autocomplete", params.classes if params.classes, "app-autocomplete--search" if params.template == "search", "app-autocomplete--with-icon" if params.icon] | join(" ") | trim %}
+  {% set inputClasses = "govuk-input app-input" if isInputTemplate else "govuk-select app-select" %}
 
   {% set attributes = {
     name: params.name,
@@ -86,7 +86,7 @@
         {{ params.icon | safe }}
       {% endif %}
 
-      {% if params.template === "search" %}
+      {% if params.template === "search" or params.template === "doc-search" %}
         <input type="text" {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %} value="{{ params.value }}"/>
       {% else %}
         <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>

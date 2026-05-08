@@ -95,6 +95,83 @@ $large-width: 40em;
   }
 }
 
+.app-autocomplete--doc-search {
+  .app-autocomplete__suggestion {
+    display: grid;
+    grid-template-columns: govuk-spacing(4) 1fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    padding-left: govuk-spacing(3);
+
+    &.app-autocomplete__suggestion--no-results {
+      display: block;
+    }
+
+    &::before {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      align-self: start;
+      color: govuk-colour('mid-grey');
+      @include govuk-font(16);
+    }
+
+    &.app-autocomplete__suggestion--heading-match::before {
+      content: '#';
+      @include govuk-typography-weight-bold;
+    }
+
+    &.app-autocomplete__suggestion--body-match::before {
+      content: '≡';
+    }
+
+    .app-suggestion__value {
+      grid-column: 2;
+      grid-row: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .app-suggestion__hint {
+      grid-column: 2;
+      grid-row: 2;
+      color: govuk-colour('mid-grey');
+      @include govuk-font(14);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:empty {
+        display: none;
+      }
+    }
+
+    &:focus,
+    &:hover {
+      &::before,
+      .app-suggestion__hint {
+        color: govuk-colour('white');
+      }
+    }
+  }
+
+  .app-autocomplete__suggestion-group {
+    padding: govuk-spacing(2) govuk-spacing(3) govuk-spacing(1);
+    color: govuk-colour('dark-grey');
+    @include govuk-font(14);
+    @include govuk-typography-weight-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-top: 1px solid govuk-colour('light-grey');
+    pointer-events: none;
+    user-select: none;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+}
+
 .app-autocomplete--search-medium {
   width: $width;
 }

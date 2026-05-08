@@ -21,7 +21,7 @@ async function markdownHandler(request, h, documentationPath, bucket) {
     fetchMarkdown(request, bucket, documentationPath),
     buildDocsNav(request, bucket, documentationPath)
   ])
-  const { html, toc } = await buildDocsPageHtml(request, markdown)
+  const { html, toc } = await buildDocsPageHtml(markdown)
   const pageTitle = buildPageTitle(documentationPath)
 
   // Prime search index async on docs page load
