@@ -39,18 +39,12 @@ export default async function (request) {
   const { entity } = request.app
   const environment = request.params.environment
 
-  const nodeKey = (service, resource) =>
-    `${[service.name, resource?.type, resource?.name].filter(Boolean).join('_')}`
-
-  const linkKey = (link) =>
-    link.service
-      ? `${[link.service, link.type, link.resource].filter(Boolean).join('_')}`
-      : `AWS`
+  const resources = entity.environments[environment]
+  console.dir(resources, { depth: 5 })
 
   return {
     environment,
-    nodeKey,
-    linkKey,
+    resources,
     breadcrumbs: [
       {
         text: 'Services',

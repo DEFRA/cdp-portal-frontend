@@ -35,12 +35,12 @@
                     browser browser_link@--> waf
                     browser_link@{ animation: slow }
                   {% else %}
-                    {% if entity.environments[environment].api_gateway%}
+                    {% if resources.tenant_config.api_gateway%}
                       client@{ icon: "logos:postman-icon", label: "External client"}
                       client client_link@--> api
                       client_link@{ animation: slow }
 
-                      api@{ icon: "logos:aws-api-gateway", label: "<a href="/">API gateway logs</a>"}
+                      api@{ icon: "logos:aws-api-gateway", label: "API gateway logs"}
                       api api_link@--> waf
                       api_link@{ animation: slow }
                     {% endif %}
@@ -50,13 +50,15 @@
                     frontend_link@{ animation: slow }
                   {% endif %}
 
-                  waf@{ icon: "logos:aws-waf", label: "<a href="/">WAF logs</a>"}
+                  waf@{ icon: "logos:aws-waf", label: "WAF logs"}
 
                   alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">ALB logs</a>"}
 
-                  nginx@{ icon: "logos:nginx", label: "<a href="/">Nginx logs</a>"}
+                  nginx@{ icon: "logos:nginx", label: "Nginx logs"}
+                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-nginx-public" _blank
 
-                  sslSidecar@{ icon: "logos:docker-icon", label: "<a href="/">SSL sidecar logs</a>"}
+                  sslSidecar@{ icon: "logos:docker-icon", label: "SSL sidecar logs"}
+                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-ssl-sidecar" _blank
 
                   waf waf_link@--> alb
                   waf_link@{ animation: slow }
@@ -71,9 +73,11 @@
                 subgraph egress[Egress]
                   direction RL
 
-                  forwarder@{ icon: "logos:docker-icon", label: "<a href="/">Forwarder proxy logs</a>"}
+                  forwarder@{ icon: "logos:docker-icon", label: "Forwarder proxy logs"}
+                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-forwarder-proxy" _blank
 
-                  squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">Squid proxy logs</a>"}
+                  squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "Squid proxy logs"}
+                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-squid-proxy" _blank
 
                   internet@{ img: "{{ getAssetPath("src/client/images/cloud.svg") }}", h: 40, w: 40, constraint: 'on', label: "Internet"}
 
@@ -90,20 +94,24 @@
               subgraph app[Service / Resources]
                 direction LR
 
-                service@{ icon: "logos:aws-fargate", label: "<a href="/">Service logs</a>"}
+                service@{ icon: "logos:aws-fargate", label: "Application logs"}
+                click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-app" _blank
 
-                metrics@{ icon: "logos:aws-open-search", label: "<a href="/">Metrics logs</a>"}
+                metrics@{ icon: "logos:aws-open-search", label: "Metrics logs"}
+                click metrics "{{ resources.metrics[0].url }}" _blank
                 service -.- metrics
 
                 {% if entity.subType == 'Frontend' %}
-                  reddis@{ icon: "logos:aws-elastic-cache", label: "<a href="/">Reddis logs</a>"}
+                  reddis@{ icon: "logos:aws-elastic-cache", label: "Reddis logs"}
                   service -.- reddis
                 {% else %}
-                  mongo@{ icon: "logos:mongodb-icon", label: "<a href="/">Mongo logs</a>"}
-                  service -.- mongo
+                  {% if resources.tenant_config.mongo%}
+                    mongo@{ icon: "logos:mongodb-icon", label: "Mongo logs"}
+                    service -.- mongo
+                  {% endif %}
 
-                  {% if entity.environments[environment].sql_database%}
-                    postgress@{ icon: "logos:postgresql", label: "<a href="/">PostgreSQL logs</a>"}
+                  {% if resources.tenant_config.sql_database%}
+                    postgress@{ icon: "logos:postgresql", label: "PostgreSQL logs"}
                     service -.- postgress
                   {% endif %}
                 {% endif %}
