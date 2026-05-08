@@ -68,6 +68,36 @@ $large-width: 40em;
 
   .app-autocomplete__suggestion {
     display: grid;
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+
+    .app-suggestion__value {
+      justify-content: flex-start;
+    }
+
+    .app-suggestion__hint {
+      color: govuk-colour('mid-grey');
+      @include govuk-font(16);
+    }
+
+    &:focus,
+    &:hover {
+      .app-suggestion__hint {
+        color: govuk-colour('white');
+      }
+    }
+  }
+
+  .app-autocomplete__suggestion--no-results {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.app-autocomplete--doc-search {
+  .app-autocomplete__suggestion {
+    display: grid;
     grid-template-columns: govuk-spacing(4) 1fr;
     grid-template-rows: auto auto;
     align-items: start;
@@ -135,11 +165,6 @@ $large-width: 40em;
     &:first-child {
       border-top: none;
     }
-  }
-
-  .app-autocomplete__suggestion--no-results {
-    display: flex;
-    align-items: center;
   }
 }
 
