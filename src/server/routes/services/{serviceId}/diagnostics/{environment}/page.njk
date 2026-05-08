@@ -53,7 +53,7 @@
 
                   waf@{ icon: "logos:aws-waf", label: "WAF logs"}
 
-                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">ALB logs</a>"}
+                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "ALB logs"}
 
                   nginx@{ icon: "logos:nginx", label: "Nginx logs"}
                   click nginx "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-nginx-{% if entity.subType == 'Frontend' %}public{% else %}protected{% endif %}" _blank
@@ -98,23 +98,28 @@
                 service@{ icon: "logos:aws-fargate", label: "Application logs"}
                 click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-app" _blank
 
-                metrics@{ icon: "logos:grafana", label: "Metric Dashboards"}
-                click metrics "{{ resources.metrics[0].url }}" _blank
-                service -.- metrics
+                service_metrics@{ icon: "logos:grafana", label: "Application Metrics"}
+                %% click service_metrics "{{ resources.metrics[0].url }}" _blank
+                service -.- service_metrics
 
                 {% if entity.subType == 'Frontend' %}
-                  reddis@{ icon: "logos:aws-elastic-cache", label: "Reddis logs"}
-                  service -.- reddis
+                  redis@{ icon: "logos:aws-elastic-cache", label: "Redis logs"}
                 {% else %}
                   {% if resources.tenant_config.mongo%}
                     mongo@{ icon: "logos:mongodb-icon", label: "Mongo logs"}
                     click mongo "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-mongo" _blank
-                    service -.- mongo
+
+                    mongo_metrics@{ icon: "logos:grafana", label: "Application Metrics"}
+                    %% click mongo_metrics "{{ resources.metrics[0].url }}" _blank
+                    mongo -.- service_metrics
                   {% endif %}
 
                   {% if resources.tenant_config.sql_database%}
                     postgress@{ icon: "logos:aws-aurora", label: "PostgreSQL logs"}
-                    service -.- postgress
+
+                    postgress_metrics@{ icon: "logos:grafana", label: "PostgreSQL Metrics"}
+                    %% click postgress_metrics "{{ resources.metrics[0].url }}" _blank
+                    postgress -.- postgress_metrics
                   {% endif %}
                 {% endif %}
 
