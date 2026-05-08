@@ -50,15 +50,9 @@
     }) }}
   {% endif %}
 
-  {%- set isSearchTemplate = params.template == "search" -%}
-  {%- set isInputTemplate = params.template == "search" or params.template == "doc-search" -%}
-  {%- set classes = [
-    "app-autocomplete",
-    params.classes if params.classes,
-    "app-autocomplete--search" if isSearchTemplate,
-    "app-autocomplete--with-icon" if params.icon
-  ] | join(" ") | trim -%}
-  {%- set inputClasses = "govuk-input app-input" if isInputTemplate else "govuk-select app-select" -%}
+  {% set isInputTemplate = params.template == "search" or params.template == "doc-search" %}
+  {% set classes = ["app-autocomplete", params.classes if params.classes, "app-autocomplete--search" if params.template == "search", "app-autocomplete--with-icon" if params.icon] | join(" ") | trim %}
+  {% set inputClasses = "govuk-input app-input" if isInputTemplate else "govuk-select app-select" %}
 
   {% set attributes = {
     name: params.name,
