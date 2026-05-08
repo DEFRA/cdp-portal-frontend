@@ -4,7 +4,6 @@ import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
 import { flushAsync } from '../../../../../test-helpers/flush-async.js'
 import { buildOptions } from '../../helpers/options/build-options.js'
 import { AutocompleteSearch } from './autocomplete-search.js'
-import { AutocompleteDocSearch } from './autocomplete-doc-search.js'
 import { waitFor } from '@testing-library/dom'
 import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
 
@@ -68,12 +67,12 @@ function setupForm($components) {
 
   // Init ClientSide JavaScript
   const autocompletes = Array.from(
-    document.querySelectorAll('[data-js="app-autocomplete-doc-search"]')
+    document.querySelectorAll('[data-js="app-autocomplete-search"]')
   )
 
   if (autocompletes.length) {
     autocompletes.forEach(
-      ($autocomplete) => new AutocompleteDocSearch($autocomplete)
+      ($autocomplete) => new AutocompleteSearch($autocomplete)
     )
   }
 
@@ -88,7 +87,7 @@ function setupSingleAutoComplete({ searchParam, params = {} } = {}) {
         hint: { text: 'Type to search' },
         id: 'search',
         name: 'q',
-        template: 'doc-search',
+        template: 'search',
         suggestions: emptySuggestions,
         suggestionsContainer: {
           classes: 'app-autocomplete__suggestions--large'
@@ -259,21 +258,18 @@ describe('#autocompleteSearch', () => {
         })
 
         test('Should narrow to only expected suggestion', () => {
-          expect(suggestionsContainer.children).toHaveLength(5)
+          expect(suggestionsContainer.children).toHaveLength(4)
           expect(suggestionsContainer.children[0]).toHaveTextContent(
-            'how-to/sqs-sns.md'
+            'SQS queue details:how-to/sqs-sns.md'
           )
           expect(suggestionsContainer.children[1]).toHaveTextContent(
-            'SQS queue details:'
+            'about SQS DLQ queueshow-to/sqs-sns.md'
           )
           expect(suggestionsContainer.children[2]).toHaveTextContent(
-            'about SQS DLQ queues'
+            'provides SQS queues and SNS topics for services runninghow-to/sqs-sns.md'
           )
           expect(suggestionsContainer.children[3]).toHaveTextContent(
-            'provides SQS queues and SNS topics for services running'
-          )
-          expect(suggestionsContainer.children[4]).toHaveTextContent(
-            'SQS FIFO type is set then SNS topic will be'
+            'SQS FIFO type is set then SNS topic will behow-to/sqs-sns.md'
           )
         })
 
@@ -293,9 +289,9 @@ describe('#autocompleteSearch', () => {
         })
 
         test('Should narrow to only expected suggestions', () => {
-          expect(suggestionsContainer.children).toHaveLength(2)
-          expect(suggestionsContainer.children[1]).toHaveTextContent(
-            'provides SQS queues and SNS topics for services running'
+          expect(suggestionsContainer.children).toHaveLength(1)
+          expect(suggestionsContainer.children[0]).toHaveTextContent(
+            'provides SQS queues and SNS topics for services runninghow-to/sqs-sns.md'
           )
         })
       })
@@ -306,9 +302,9 @@ describe('#autocompleteSearch', () => {
         })
 
         test('Should narrow to only expected case insensitive suggestion', () => {
-          expect(suggestionsContainer.children).toHaveLength(2)
-          expect(suggestionsContainer.children[1].textContent.trim()).toBe(
-            'provides SQS queues and SNS topics for services running'
+          expect(suggestionsContainer.children).toHaveLength(1)
+          expect(suggestionsContainer.children[0].textContent.trim()).toBe(
+            'provides SQS queues and SNS topics for services runninghow-to/sqs-sns.md'
           )
         })
       })
@@ -325,7 +321,7 @@ describe('#autocompleteSearch', () => {
       })
 
       test('Should only show matched suggestion', () => {
-        expect(suggestionsContainer.children).toHaveLength(2)
+        expect(suggestionsContainer.children).toHaveLength(1)
       })
 
       test('Should not have set hidden input value', () => {
@@ -452,9 +448,9 @@ describe('#autocompleteSearch', () => {
 
         const children = suggestionsContainer.children
 
-        expect(children[1].dataset.hasHighlight).toBe('true')
+        expect(children[0].dataset.hasHighlight).toBe('true')
+        expect(children[1].dataset.hasHighlight).toBe('false')
         expect(children[2].dataset.hasHighlight).toBe('false')
-        expect(children[3].dataset.hasHighlight).toBe('false')
 
         expect(autocompleteInput).toHaveAttribute(
           'aria-activedescendant',
@@ -471,9 +467,9 @@ describe('#autocompleteSearch', () => {
 
         const children = suggestionsContainer.children
 
-        expect(children[1].dataset.hasHighlight).toBe('false')
-        expect(children[2].dataset.hasHighlight).toBe('true')
-        expect(children[3].dataset.hasHighlight).toBe('false')
+        expect(children[0].dataset.hasHighlight).toBe('false')
+        expect(children[1].dataset.hasHighlight).toBe('true')
+        expect(children[2].dataset.hasHighlight).toBe('false')
 
         expect(autocompleteInput).toHaveAttribute(
           'aria-activedescendant',
@@ -497,9 +493,9 @@ describe('#autocompleteSearch', () => {
 
         const children = suggestionsContainer.children
 
-        expect(children[1].dataset.hasHighlight).toBe('true')
+        expect(children[0].dataset.hasHighlight).toBe('true')
+        expect(children[1].dataset.hasHighlight).toBe('false')
         expect(children[2].dataset.hasHighlight).toBe('false')
-        expect(children[3].dataset.hasHighlight).toBe('false')
 
         expect(autocompleteInput).toHaveAttribute(
           'aria-activedescendant',
@@ -543,24 +539,24 @@ describe('#autocompleteSearch', () => {
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[1]).toHaveAttribute('aria-posinset', '2')
+        expect(children[0]).toHaveAttribute('aria-posinset', '2')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[1]).toHaveAttribute('aria-selected', 'true')
+        expect(children[0]).toHaveAttribute('aria-selected', 'true')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
-        expect(children[1]).toHaveAttribute('aria-setsize', '6')
+        expect(children[0]).toHaveAttribute('aria-setsize', '6')
       })
 
       test('highlighted suggestion Should have expected data attributes', () => {
         const children = suggestionsContainer.children
 
-        const firstChild = children[1]
+        const firstChild = children[0]
         expect(firstChild.dataset.value).toBe('how-to/sqs-sns.md')
         expect(firstChild.dataset.text).toBe('SQS queue details:')
         expect(firstChild.dataset.hasHighlight).toBe('true')
@@ -586,11 +582,13 @@ describe('#autocompleteSearch', () => {
         await flushAsync()
 
         autocompleteInput.focus()
-        suggestionsContainer.children[3].click()
+        suggestionsContainer.children[2].click()
       })
 
       test('Should provide expected suggestion value', () => {
-        expect(autocompleteInput.value).toBe('SQS')
+        expect(autocompleteInput.value).toBe(
+          'provides SQS queues and SNS topics for services running'
+        )
       })
 
       test('Input should keep focus', () => {
@@ -611,30 +609,30 @@ describe('#autocompleteSearch', () => {
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[3]).toHaveAttribute('aria-posinset', '4')
+        expect(children[0]).toHaveAttribute('aria-posinset', '4')
       })
 
       test('suggestions Should have correct aria selected values', () => {
         const children = suggestionsContainer.children
-        expect(children[1]).toHaveAttribute('aria-selected', 'false')
+        expect(children[0]).toHaveAttribute('aria-selected', 'false')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
-        expect(children[1]).toHaveAttribute('aria-setsize', '6')
+        expect(children[0]).toHaveAttribute('aria-setsize', '6')
       })
 
       test('suggestions Should have expected data attributes', () => {
         const children = suggestionsContainer.children
-        const clickedChild = children[3]
+        const firstChild = children[0]
 
-        expect(clickedChild.dataset.isMatch).toBe('false')
-        expect(clickedChild.dataset.value).toBe('how-to/sqs-sns.md')
-        expect(clickedChild.dataset.text).toBe(
+        expect(firstChild.dataset.isMatch).toBe('false')
+        expect(firstChild.dataset.value).toBe('how-to/sqs-sns.md')
+        expect(firstChild.dataset.text).toBe(
           'provides SQS queues and SNS topics for services running'
         )
-        expect(clickedChild.dataset.hasHighlight).toBe('false')
+        expect(firstChild.dataset.hasHighlight).toBe('false')
       })
     })
 
@@ -671,18 +669,18 @@ describe('#autocompleteSearch', () => {
 
       test('suggestions Should have correct aria posinset values', () => {
         const children = suggestionsContainer.children
-        expect(children[1]).toHaveAttribute('aria-posinset', '3')
+        expect(children[0]).toHaveAttribute('aria-posinset', '3')
       })
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
 
-        expect(children[1]).toHaveAttribute('aria-setsize', '6')
+        expect(children[0]).toHaveAttribute('aria-setsize', '6')
       })
 
       test('suggestions Should have expected data attributes', () => {
         const children = suggestionsContainer.children
-        const firstChild = children[1]
+        const firstChild = children[0]
 
         expect(firstChild.dataset.value).toBe('how-to/sqs-sns.md')
         expect(firstChild.dataset.text).toBe('about SQS DLQ queues')
@@ -691,7 +689,7 @@ describe('#autocompleteSearch', () => {
       test('suggestions Should not have highlight data attributes', () => {
         const children = suggestionsContainer.children
 
-        expect(children[1].dataset.hasHighlight).toBe('false')
+        expect(children[0].dataset.hasHighlight).toBe('false')
       })
     })
 
@@ -772,14 +770,14 @@ describe('#autocompleteSearch', () => {
       test('suggestions Should have correct aria posinset values', async () => {
         await waitFor(() => {
           const children = suggestionsContainer.children
-          expect(children[1]).toHaveAttribute('aria-posinset', '2')
+          expect(children[0]).toHaveAttribute('aria-posinset', '2')
         })
       })
 
       test('suggestions Should have correct aria selected values', async () => {
         await waitFor(() => {
           const children = suggestionsContainer.children
-          expect(children[1]).toHaveAttribute('aria-selected', 'false')
+          expect(children[0]).toHaveAttribute('aria-selected', 'false')
         })
       })
 
@@ -787,7 +785,7 @@ describe('#autocompleteSearch', () => {
         const children = suggestionsContainer.children
 
         await waitFor(() => {
-          expect(children[1]).toHaveAttribute('aria-setsize', '6')
+          expect(children[0]).toHaveAttribute('aria-setsize', '6')
         })
       })
 
@@ -795,7 +793,7 @@ describe('#autocompleteSearch', () => {
         const children = suggestionsContainer.children
 
         await waitFor(() => {
-          const firstChild = children[1]
+          const firstChild = children[0]
 
           expect(firstChild.dataset.value).toBe('how-to/sqs-sns.md')
           expect(firstChild.dataset.text).toBe('SQS queue details:')
@@ -857,74 +855,5 @@ describe('#autocompleteSearch', () => {
       expect(children).toHaveLength(1)
       expect(children[0]).toHaveTextContent(/run, get to the chopper/)
     })
-  })
-})
-
-describe('#autocompleteSearch - base class (no group headers)', () => {
-  const mockFetchSuggestions = vi.fn()
-
-  beforeEach(() => {
-    window.cdp = window.cdp || {}
-    window.cdp.fetchSuggestions = mockFetchSuggestions
-    document.body.innerHTML = `<form id="mock-search-form"></form>`
-
-    const $component = renderTestComponent('autocomplete', {
-      params: {
-        label: { text: 'Search' },
-        id: 'dep-search',
-        name: 'q',
-        template: 'search',
-        suggestions: buildOptions([]),
-        suggestionsContainer: {
-          classes: 'app-autocomplete__suggestions--large'
-        },
-        placeholder: 'Search dependencies',
-        dataFetcher: {
-          isEnabled: true,
-          name: 'fetchSuggestions',
-          loader: 'loader'
-        },
-        noSuggestionsMessage: 'no results',
-        loader: { name: 'loader' }
-      }
-    })
-
-    const js = $component('[data-testid="app-autocomplete-suggestions"]')
-      .first()
-      .text()
-    injectAndRunScript(js)
-
-    const form = document.getElementById('mock-search-form')
-    form.submit = vi.fn()
-    form.innerHTML += $component('[data-testid="app-autocomplete-group"]')
-      .first()
-      .html()
-
-    const $el = document.querySelector('[data-js="app-autocomplete-search"]')
-    ;[$el].forEach(($autocomplete) => new AutocompleteSearch($autocomplete))
-  })
-
-  test('Does not inject group headers for non-.md suggestion values', async () => {
-    mockFetchSuggestions.mockResolvedValue([
-      { value: 'npm:lodash', text: 'lodash' },
-      { value: 'npm:express', text: 'express' }
-    ])
-    await flushAsync()
-
-    const input = document.querySelector(
-      '[data-testid="app-autocomplete-input"]'
-    )
-    enterValue(input, 'lo')
-
-    const container = document.querySelector(
-      '[data-testid="app-autocomplete-suggestions"]'
-    )
-    const children = Array.from(container.children)
-
-    expect(
-      children.every(
-        (c) => !c.classList.contains('app-autocomplete__suggestion-group')
-      )
-    ).toBe(true)
   })
 })
