@@ -4,6 +4,7 @@ import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
 import { flushAsync } from '../../../../../test-helpers/flush-async.js'
 import { buildOptions } from '../../helpers/options/build-options.js'
 import { AutocompleteSearch } from './autocomplete-search.js'
+import { AutocompleteDocSearch } from './autocomplete-doc-search.js'
 import { waitFor } from '@testing-library/dom'
 import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
 
@@ -67,12 +68,12 @@ function setupForm($components) {
 
   // Init ClientSide JavaScript
   const autocompletes = Array.from(
-    document.querySelectorAll('[data-js="app-autocomplete-search"]')
+    document.querySelectorAll('[data-js="app-autocomplete-doc-search"]')
   )
 
   if (autocompletes.length) {
     autocompletes.forEach(
-      ($autocomplete) => new AutocompleteSearch($autocomplete)
+      ($autocomplete) => new AutocompleteDocSearch($autocomplete)
     )
   }
 
@@ -87,7 +88,7 @@ function setupSingleAutoComplete({ searchParam, params = {} } = {}) {
         hint: { text: 'Type to search' },
         id: 'search',
         name: 'q',
-        template: 'search',
+        template: 'doc-search',
         suggestions: emptySuggestions,
         suggestionsContainer: {
           classes: 'app-autocomplete__suggestions--large'
@@ -856,5 +857,56 @@ describe('#autocompleteSearch', () => {
       expect(children).toHaveLength(1)
       expect(children[0]).toHaveTextContent(/run, get to the chopper/)
     })
+  })
+})
+
+describe('#autocompleteSearch - base class (no group headers)', () => {
+  const mockFetchSuggestions = vi.fn()
+
+  beforeEach(() => {
+    window.cdp = window.cdp || {}
+    window.cdp.fetchSuggestions = mockFetchSuggestions
+    document.body.innerHTML = `<form id="mock-search-form"></form>`
+
+    const $component = renderTestComponent('autocomplete', {
+      params: {
+        label: { text: 'Search' },
+        id: 'dep-search',
+        name: 'q',
+        template: 'search',
+        suggestions: buildOptions([]),
+        suggestionsContainer: { classes: 'app-autocomplete__suggestions--large' },
+        placeholder: 'Search dependencies',
+        dataFetcher: { isEnabled: true, name: 'fetchSuggestions', loader: 'loader' },
+        noSuggestionsMessage: 'no results',
+        loader: { name: 'loader' }
+      }
+    })
+
+    const js = $component('[data-testid="app-autocomplete-suggestions"]').first().text()
+    injectAndRunScript(js)
+
+    const form = document.getElementById('mock-search-form')
+    form.submit = vi.fn()
+    form.innerHTML += $component('[data-testid="app-autocomplete-group"]').first().html()
+
+    const $el = document.querySelector('[data-js="app-autocomplete-search"]')
+    new AutocompleteSearch($el)
+  })
+
+  test('Does not inject group headers for non-.md suggestion values', async () => {
+    mockFetchSuggestions.mockResolvedValue([
+      { value: 'npm:lodash', text: 'lodash' },
+      { value: 'npm:express', text: 'express' }
+    ])
+    await flushAsync()
+
+    const input = document.querySelector('[data-testid="app-autocomplete-input"]')
+    enterValue(input, 'lo')
+
+    const container = document.querySelector('[data-testid="app-autocomplete-suggestions"]')
+    const children = Array.from(container.children)
+
+    expect(children.every((c) => !c.classList.contains('app-autocomplete__suggestion-group'))).toBe(true)
   })
 })

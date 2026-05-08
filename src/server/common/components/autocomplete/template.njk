@@ -86,7 +86,7 @@
         {{ params.icon | safe }}
       {% endif %}
 
-      {% if params.template === "search" %}
+      {% if params.template === "search" or params.template === "doc-search" %}
         <input type="text" {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %} value="{{ params.value }}"/>
       {% else %}
         <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>

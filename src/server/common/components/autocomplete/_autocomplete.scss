@@ -76,14 +76,14 @@ $large-width: 40em;
       justify-content: flex-start;
     }
 
-    .app-suggestion__hint {
+    .app-suggestion__context {
       color: govuk-colour('mid-grey');
       @include govuk-font(16);
     }
 
     &:focus,
     &:hover {
-      .app-suggestion__hint {
+      .app-suggestion__context {
         color: govuk-colour('white');
       }
     }
@@ -103,10 +103,14 @@ $large-width: 40em;
     align-items: start;
     padding-left: govuk-spacing(3);
 
+    &.app-autocomplete__suggestion--no-results {
+      display: block;
+    }
+
     &::before {
       grid-column: 1;
       grid-row: 1 / span 2;
-      align-self: center;
+      align-self: start;
       color: govuk-colour('mid-grey');
       @include govuk-font(16);
     }
@@ -315,6 +319,10 @@ $large-width: 40em;
 
     .app-tick-icon {
       fill: govuk-colour('white');
+    }
+
+    .app-suggestion__context {
+      color: govuk-colour('white');
     }
   }
 }
