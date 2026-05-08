@@ -132,15 +132,22 @@ class AutocompleteSearch extends Autocomplete {
 
   provideSuggestions({ textValue, suggestionIndex } = {}) {
     const textValueTrimmed = textValue?.trim()
-    const filterFn = textValueTrimmed
-      ? this.filterPartialMatch(textValueTrimmed)
-      : null
 
-    return this.getSuggestionsMarkup()
-      .filter(($s) => !filterFn || filterFn($s))
-      .map(
+    if (textValueTrimmed) {
+      // Partial match
+      const filterPartialMatch = this.filterPartialMatch(textValueTrimmed)
+
+      return this.getSuggestionsMarkup()
+        .filter(filterPartialMatch)
+        .map(
+          this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
+        )
+    } else {
+      // Reset suggestions
+      return this.getSuggestionsMarkup().map(
         this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
       )
+    }
   }
 }
 
