@@ -98,7 +98,7 @@
                 service@{ icon: "logos:aws-fargate", label: "Application logs"}
                 click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-app" _blank
 
-                metrics@{ icon: "logos:aws-open-search", label: "Metrics logs"}
+                metrics@{ icon: "logos:grafana", label: "Metric Dashboards"}
                 click metrics "{{ resources.metrics[0].url }}" _blank
                 service -.- metrics
 
@@ -113,7 +113,7 @@
                   {% endif %}
 
                   {% if resources.tenant_config.sql_database%}
-                    postgress@{ icon: "logos:postgresql", label: "PostgreSQL logs"}
+                    postgress@{ icon: "logos:aws-aurora", label: "PostgreSQL logs"}
                     service -.- postgress
                   {% endif %}
                 {% endif %}
