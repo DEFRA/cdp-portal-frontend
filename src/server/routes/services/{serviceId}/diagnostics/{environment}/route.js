@@ -40,7 +40,6 @@ export default async function (request) {
   const environment = request.params.environment
 
   const resources = entity.environments[environment]
-  console.dir(resources, { depth: 5 })
 
   return {
     environment,
