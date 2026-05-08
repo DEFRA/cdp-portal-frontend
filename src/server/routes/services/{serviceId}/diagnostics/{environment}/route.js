@@ -49,9 +49,23 @@ export default async function (request) {
     })
   )
 
+  function renderLinks(label, logsUrl, metricsUrl) {
+    const logsLink = logsUrl && `<a href='${logsUrl}' rel="nofollow">Logs</a>`
+    const metricsLink =
+      metricsUrl && `<a href='${metricsUrl}' target="_blank">Metrics</a>`
+
+    return `${label}<br/>${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
+  }
+
+  function logViewUrl(type) {
+    return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
+  }
+
   return {
     environment,
     resources,
+    renderLinks,
+    logViewUrl,
     breadcrumbs: [
       {
         text: 'Services',
