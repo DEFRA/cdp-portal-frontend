@@ -875,23 +875,33 @@ describe('#autocompleteSearch - base class (no group headers)', () => {
         name: 'q',
         template: 'search',
         suggestions: buildOptions([]),
-        suggestionsContainer: { classes: 'app-autocomplete__suggestions--large' },
+        suggestionsContainer: {
+          classes: 'app-autocomplete__suggestions--large'
+        },
         placeholder: 'Search dependencies',
-        dataFetcher: { isEnabled: true, name: 'fetchSuggestions', loader: 'loader' },
+        dataFetcher: {
+          isEnabled: true,
+          name: 'fetchSuggestions',
+          loader: 'loader'
+        },
         noSuggestionsMessage: 'no results',
         loader: { name: 'loader' }
       }
     })
 
-    const js = $component('[data-testid="app-autocomplete-suggestions"]').first().text()
+    const js = $component('[data-testid="app-autocomplete-suggestions"]')
+      .first()
+      .text()
     injectAndRunScript(js)
 
     const form = document.getElementById('mock-search-form')
     form.submit = vi.fn()
-    form.innerHTML += $component('[data-testid="app-autocomplete-group"]').first().html()
+    form.innerHTML += $component('[data-testid="app-autocomplete-group"]')
+      .first()
+      .html()
 
     const $el = document.querySelector('[data-js="app-autocomplete-search"]')
-    new AutocompleteSearch($el)
+    ;[$el].forEach(($autocomplete) => new AutocompleteSearch($autocomplete))
   })
 
   test('Does not inject group headers for non-.md suggestion values', async () => {
@@ -901,12 +911,20 @@ describe('#autocompleteSearch - base class (no group headers)', () => {
     ])
     await flushAsync()
 
-    const input = document.querySelector('[data-testid="app-autocomplete-input"]')
+    const input = document.querySelector(
+      '[data-testid="app-autocomplete-input"]'
+    )
     enterValue(input, 'lo')
 
-    const container = document.querySelector('[data-testid="app-autocomplete-suggestions"]')
+    const container = document.querySelector(
+      '[data-testid="app-autocomplete-suggestions"]'
+    )
     const children = Array.from(container.children)
 
-    expect(children.every((c) => !c.classList.contains('app-autocomplete__suggestion-group'))).toBe(true)
+    expect(
+      children.every(
+        (c) => !c.classList.contains('app-autocomplete__suggestion-group')
+      )
+    ).toBe(true)
   })
 })

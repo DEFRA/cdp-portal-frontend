@@ -142,7 +142,6 @@ class AutocompleteSearch extends Autocomplete {
         this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
       )
   }
-
 }
 
 export { AutocompleteSearch }

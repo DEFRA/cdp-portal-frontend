@@ -29,20 +29,28 @@ function setupDocSearch() {
 
   document.body.innerHTML = `<form id="mock-search-form"></form>`
 
-  const js = $component('[data-testid="app-autocomplete-suggestions"]').first().text()
+  const js = $component('[data-testid="app-autocomplete-suggestions"]')
+    .first()
+    .text()
   injectAndRunScript(js)
 
   const form = document.getElementById('mock-search-form')
   form.submit = mockFormSubmit
-  form.innerHTML += $component('[data-testid="app-autocomplete-group"]').first().html()
+  form.innerHTML += $component('[data-testid="app-autocomplete-group"]')
+    .first()
+    .html()
 
   const $el = document.querySelector('[data-js="app-autocomplete-doc-search"]')
-  new AutocompleteDocSearch($el)
+  ;[$el].forEach(($autocomplete) => new AutocompleteDocSearch($autocomplete))
 
   return {
-    autocompleteInput: $el.querySelector('[data-testid="app-autocomplete-input"]'),
+    autocompleteInput: $el.querySelector(
+      '[data-testid="app-autocomplete-input"]'
+    ),
     autocompleteHiddenInput: $el.querySelector('input[type="hidden"]'),
-    suggestionsContainer: $el.querySelector('[data-testid="app-autocomplete-suggestions"]')
+    suggestionsContainer: $el.querySelector(
+      '[data-testid="app-autocomplete-suggestions"]'
+    )
   }
 }
 
@@ -133,7 +141,9 @@ describe('#autocompleteDocSearch', () => {
       ])
       await flushAsync()
 
-      const input = document.querySelector('[data-testid="app-autocomplete-input"]')
+      const input = document.querySelector(
+        '[data-testid="app-autocomplete-input"]'
+      )
       enterValue(input, 'guide')
       await flushAsync()
     })
@@ -227,7 +237,9 @@ describe('#autocompleteDocSearch', () => {
     })
 
     test('Suggestion matching hint text (not display text) is shown', async () => {
-      const input = document.querySelector('[data-testid="app-autocomplete-input"]')
+      const input = document.querySelector(
+        '[data-testid="app-autocomplete-input"]'
+      )
       enterValue(input, 'proxy')
       await flushAsync()
 
@@ -239,7 +251,9 @@ describe('#autocompleteDocSearch', () => {
     })
 
     test('Suggestion not matching hint or text is hidden', async () => {
-      const input = document.querySelector('[data-testid="app-autocomplete-input"]')
+      const input = document.querySelector(
+        '[data-testid="app-autocomplete-input"]'
+      )
       enterValue(input, 'something completely different')
       await flushAsync()
 
