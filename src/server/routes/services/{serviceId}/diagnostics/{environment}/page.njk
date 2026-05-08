@@ -41,6 +41,7 @@
                       client_link@{ animation: slow }
 
                       api@{ icon: "logos:aws-api-gateway", label: "API gateway logs"}
+                      click api "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-api-gw-private" _blank
                       api api_link@--> waf
                       api_link@{ animation: slow }
                     {% endif %}
@@ -55,10 +56,10 @@
                   alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "<a href="/">ALB logs</a>"}
 
                   nginx@{ icon: "logos:nginx", label: "Nginx logs"}
-                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-nginx-public" _blank
+                  click nginx "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-nginx-{% if entity.subType == 'Frontend' %}public{% else %}protected{% endif %}" _blank
 
                   sslSidecar@{ icon: "logos:docker-icon", label: "SSL sidecar logs"}
-                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-ssl-sidecar" _blank
+                  click sslSidecar "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-ssl-sidecar" _blank
 
                   waf waf_link@--> alb
                   waf_link@{ animation: slow }
@@ -74,10 +75,10 @@
                   direction RL
 
                   forwarder@{ icon: "logos:docker-icon", label: "Forwarder proxy logs"}
-                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-forwarder-proxy" _blank
+                  click forwarder "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-forwarder-proxy" _blank
 
                   squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "Squid proxy logs"}
-                  click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-squid-proxy" _blank
+                  click squid "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-squid-proxy" _blank
 
                   internet@{ img: "{{ getAssetPath("src/client/images/cloud.svg") }}", h: 40, w: 40, constraint: 'on', label: "Internet"}
 
@@ -107,6 +108,7 @@
                 {% else %}
                   {% if resources.tenant_config.mongo%}
                     mongo@{ icon: "logos:mongodb-icon", label: "Mongo logs"}
+                    click mongo "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-mongo" _blank
                     service -.- mongo
                   {% endif %}
 
