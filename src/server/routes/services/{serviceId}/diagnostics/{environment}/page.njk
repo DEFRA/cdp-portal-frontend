@@ -32,12 +32,22 @@
 
                   {% if entity.subType == 'Frontend' %}
                     browser@{ icon: "logos:chrome", label: "Browser"}
+                    browser browser_link@--> waf
+                    browser_link@{ animation: slow }
                   {% else %}
-                    client@{ icon: "logos:postman-icon", label: "External client"}
+                    {% if entity.environments[environment].api_gateway%}
+                      client@{ icon: "logos:postman-icon", label: "External client"}
+                      client client_link@--> api
+                      client_link@{ animation: slow }
 
-                    api@{ icon: "logos:aws-api-gateway", label: "<a href="/">API gateway logs</a>"}
+                      api@{ icon: "logos:aws-api-gateway", label: "<a href="/">API gateway logs</a>"}
+                      api api_link@--> waf
+                      api_link@{ animation: slow }
+                    {% endif %}
 
                     frontend@{ icon: "logos:aws-fargate", label: "Frontend service"}
+                    frontend frontend_link@--> waf
+                    frontend_link@{ animation: slow }
                   {% endif %}
 
                   waf@{ icon: "logos:aws-waf", label: "<a href="/">WAF logs</a>"}
@@ -47,20 +57,6 @@
                   nginx@{ icon: "logos:nginx", label: "<a href="/">Nginx logs</a>"}
 
                   sslSidecar@{ icon: "logos:docker-icon", label: "<a href="/">SSL sidecar logs</a>"}
-
-                  {% if entity.subType == 'Frontend' %}
-                    browser browser_link@--> waf
-                    browser_link@{ animation: slow }
-                  {% else %}
-                    client client_link@--> api
-                    client_link@{ animation: slow }
-
-                    api api_link@--> waf
-                    api_link@{ animation: slow }
-
-                    frontend frontend_link@--> waf
-                    frontend_link@{ animation: slow }
-                  {% endif %}
 
                   waf waf_link@--> alb
                   waf_link@{ animation: slow }
@@ -106,8 +102,10 @@
                   mongo@{ icon: "logos:mongodb-icon", label: "<a href="/">Mongo logs</a>"}
                   service -.- mongo
 
-                  postgress@{ icon: "logos:postgresql", label: "<a href="/">PostgreSQL logs</a>"}
-                  service -.- postgress
+                  {% if entity.environments[environment].sql_database%}
+                    postgress@{ icon: "logos:postgresql", label: "<a href="/">PostgreSQL logs</a>"}
+                    service -.- postgress
+                  {% endif %}
                 {% endif %}
 
               end
