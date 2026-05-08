@@ -8,6 +8,10 @@
   a .nodeLabel p {
     color: #1d70b8 !important; /* stylelint-disable-line declaration-no-important */
   }
+
+  .icon-shape g path[fill='transparent'] {
+    pointer-events: none;
+  }
 }
 
 .mermaid--with-border {
