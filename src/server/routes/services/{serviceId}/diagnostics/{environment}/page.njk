@@ -21,6 +21,12 @@
             Provides a visual representation of <strong>{{entity.name}}'s</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
           </p>
 
+          <script>
+            window.linkMenu = function linkMenu(nodeId) {
+              alert(nodeId)
+            }
+          </script>
+
           <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
             flowchart LR
               subgraph network[" "]
@@ -40,8 +46,7 @@
                       client client_link@--> api
                       client_link@{ animation: slow }
 
-                      api@{ icon: "logos:aws-api-gateway", label: "API Gateway logs"}
-                      click api "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-api-gw-private" _blank
+                      api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway', logViewUrl('api-gw-private'), resources.metrics.apigw.url) }}"}
                       api api_link@--> waf
                       api_link@{ animation: slow }
                     {% endif %}
@@ -51,15 +56,13 @@
                     frontend_link@{ animation: slow }
                   {% endif %}
 
-                  waf@{ icon: "logos:aws-waf", label: "WAF logs"}
+                  waf@{ icon: "logos:aws-waf", label: "{{ renderLinks('WAF') }}"}
 
-                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "ALB logs"}
+                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB') }}"}
 
-                  nginx@{ icon: "logos:nginx", label: "Nginx logs"}
-                  click nginx "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-nginx-{% if entity.subType == 'Frontend' %}public{% else %}protected{% endif %}" _blank
+                  nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx', 'nginx-public' if entity.subType == 'Frontend' else 'nginx-protected') }}"}
 
-                  sslSidecar@{ icon: "logos:docker-icon", label: "SSL sidecar logs"}
-                  click sslSidecar "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-ssl-sidecar" _blank
+                  sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL', 'ssl-sidecar') }}"}
 
                   waf waf_link@--> alb
                   waf_link@{ animation: slow }
@@ -95,23 +98,13 @@
               subgraph app[Service / Resources]
                 direction LR
 
-                service@{ icon: "logos:aws-fargate", label: "Service logs"}
-                click service "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-app" _blank
-
-                service_metrics@{ icon: "logos:grafana", label: "Service Metrics"}
-                %% click service_metrics "{{ resources.metrics.service.url }}" _blank
-                service -.- service_metrics
+                service@{ icon: "logos:aws-fargate", label: "{{ renderLinks('Service', logViewUrl('app'), resources.metrics.service.url) | safe }}"}
 
                 {% if entity.subType == 'Frontend' %}
-                  redis@{ icon: "logos:aws-elastic-cache", label: "Redis logs"}
+                  redis@{ icon: "logos:aws-elastic-cache", label: "{{ renderLinks('Redis') }}"}
                 {% else %}
                   {% if resources.tenant_config.mongo%}
-                    mongo@{ icon: "logos:mongodb-icon", label: "MongoDB logs"}
-                    click mongo "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-mongo" _blank
-
-                    mongo_metrics@{ icon: "logos:grafana", label: "MongoDB Metrics"}
-                    click mongo_metrics "{{ resources.metrics.mongodb.url }}" _blank
-                    mongo -.- service_metrics
+                    mongo@{ icon: "logos:mongodb-icon", label: "MongoDB<br/><a href='https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-mongo'>Logs</a> | <a href='{{ resources.metrics.mongodb.url }}'>Metrics</a>"}
                   {% endif %}
 
                   {% if resources.tenant_config.sql_database%}
@@ -126,6 +119,7 @@
               end
 
               network ~~~ app
+
 
              </pre>
         {% endcall %}
