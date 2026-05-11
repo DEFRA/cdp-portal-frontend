@@ -37,9 +37,17 @@
                   direction LR
 
                   {% if entity.subType == 'Frontend' %}
-                    browser@{ icon: "logos:chrome", label: "Browser"}
-                    browser browser_link@--> waf
+                    browser@{ icon: "logos:chrome", label: "External Browser"}
+                    browser browser_link@--> alb
                     browser_link@{ animation: slow }
+
+                    int_browser@{ icon: "logos:microsoft-edge", label: "Internal Browser"}
+                    int_browser int_browser_link@--> int_alb
+                    int_browser_link@{ animation: slow }
+
+                    int_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)') | safe }}"}
+                    int_alb int_alb_link@--> nginx
+                    int_alb_link@{ animation: slow }
                   {% else %}
                     {% if resources.tenant_config.api_gateway %} %% TODO: Use new api_gateways section
                       {% if resources.api_gateway.type == 'REGIONAL' %}
@@ -48,7 +56,7 @@
                         ext-client_link@{ animation: slow }
 
                         ext-api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)', logViewUrl('api-gw-public'), resources.metrics.apigw.url) | safe }}"}
-                        ext-api ext-api_link@--> waf
+                        ext-api ext-api_link@--> alb
                         ext-api_link@{ animation: slow }
                       {% endif %}
 
@@ -62,36 +70,41 @@
                     {% endif %}
 
                     frontend@{ icon: "logos:aws-fargate", label: "Frontend Service client"}
-                    frontend frontend_link@--> waf
+                    frontend frontend_link@--> alb
                     frontend_link@{ animation: slow }
                   {% endif %}
 
-                  waf@{ icon: "logos:aws-waf", label: "{{ renderLinks('WAF') | safe}}"}
+                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)') | safe }}"}
 
-                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB') | safe }}"}
-
-                  nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Protected)' if entity.subType == 'Frontend' else 'Nginx (Public)', 'Public' if entity.subType == 'Frontend' else 'nginx-protected') | safe }}"}
+                  nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', 'Public' if entity.subType == 'Frontend' else 'nginx-protected') | safe }}"}
 
                   sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', 'ssl-sidecar') | safe }}"}
 
-                  waf waf_link@--> alb
-                  waf_link@{ animation: slow }
+                  service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
 
                   alb alb_link@--> nginx
                   alb_link@{ animation: slow }
 
                   nginx nginx_link@--> sslSidecar
                   nginx_link@{ animation: slow }
+
+                  sslSidecar sslSidecar_link@--> service_ingress
+                  sslSidecar_link@{ animation: slow }
                 end
 
                 subgraph egress[Egress]
                   direction RL
+
+                  service_egress@{ icon: "logos:aws-fargate", label: "Service"}
 
                   forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder proxy', logViewUrl('forwarder-proxy')) | safe }}"}
 
                   squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
 
                   internet@{ img: "{{ getAssetPath("src/client/images/cloud.svg") }}", h: 40, w: 40, constraint: 'on', label: "Internet"}
+
+                  service_egress service_egress_link@--> forwarder
+                  service_egress_link@{ animation: slow }
 
                   forwarder forwarder_link@--> squid
                   forwarder_link@{ animation: slow }
@@ -108,15 +121,15 @@
 
                 service@{ icon: "logos:aws-fargate", label: "{{ renderLinks('Service', logViewUrl('app'), 'https://resources.metrics.service.url') | safe }}"}
 
-                {% if entity.subType == 'Frontend' %}
-                  redis@{ icon: "logos:aws-elastic-cache", label: "{{ renderLinks('Redis') | safe }}"}
-                {% else %}
+                {% if entity.subType == 'Backend' %}
                   {% if resources.tenant_config.mongo%}
                     mongo@{ icon: "logos:mongodb-icon", label: "{{ renderLinks('MongoDB', logViewUrl('mongo'), resources.metrics.mongodb.url) | safe }}'>Metrics</a>"}
+                    service -.- mongo
                   {% endif %}
 
                   {% if resources.tenant_config.sql_database%}
                     postgress@{ icon: "logos:aws-aurora", label: "{{ renderLinks('PostgreSQL') | safe }}"}
+                    service -.- postgress
                   {% endif %}
                 {% endif %}
 
@@ -126,7 +139,8 @@
 
 
              </pre>
-        {% endcall %}
+
+       {% endcall %}
 
       </div>
     </div>
