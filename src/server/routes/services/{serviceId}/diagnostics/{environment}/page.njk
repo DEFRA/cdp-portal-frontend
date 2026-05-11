@@ -52,7 +52,7 @@
                     int_browser_link@{ animation: slow }
                   {% else %}
                     {% if resources.tenant_config.api_gateway %} %% TODO: Use new api_gateways section
-                      {% if resources.api_gateway.type == 'REGIONAL' %}
+                      {% if resources.api_gateway.type == 'REGIONAL' and (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') %}
                         ext-client@{ icon: "logos:postman-icon", label: "External client"}
                         ext-client ext-client_link@--> public_api
                         ext-client_link@{ animation: slow }
