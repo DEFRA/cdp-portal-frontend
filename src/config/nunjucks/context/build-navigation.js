@@ -61,7 +61,7 @@ async function buildNavigation(request, userSession) {
     {
       text: 'Services',
       href: servicesPath,
-      current: request?.path?.includes(servicesPath),
+      current: request?.path?.includes('/services'),
       attributes: {
         'data-testid': 'nav-services'
       }
