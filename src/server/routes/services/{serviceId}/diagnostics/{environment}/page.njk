@@ -46,23 +46,23 @@
                       client client_link@--> api
                       client_link@{ animation: slow }
 
-                      api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway', logViewUrl('api-gw-private'), resources.metrics.apigw.url) }}"}
+                      api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway', logViewUrl('api-gw-private'), resources.metrics.apigw.url) | safe }}"}
                       api api_link@--> waf
                       api_link@{ animation: slow }
                     {% endif %}
 
-                    frontend@{ icon: "logos:aws-fargate", label: "Frontend service"}
+                    frontend@{ icon: "logos:aws-fargate", label: "Frontend service client"}
                     frontend frontend_link@--> waf
                     frontend_link@{ animation: slow }
                   {% endif %}
 
-                  waf@{ icon: "logos:aws-waf", label: "{{ renderLinks('WAF') }}"}
+                  waf@{ icon: "logos:aws-waf", label: "{{ renderLinks('WAF') | safe}}"}
 
-                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB') }}"}
+                  alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB') }} | safe"}
 
-                  nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx', 'nginx-public' if entity.subType == 'Frontend' else 'nginx-protected') }}"}
+                  nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx', 'nginx-public' if entity.subType == 'Frontend' else 'nginx-protected') | safe }}"}
 
-                  sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL', 'ssl-sidecar') }}"}
+                  sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL', 'ssl-sidecar') | safe }}"}
 
                   waf waf_link@--> alb
                   waf_link@{ animation: slow }
@@ -99,7 +99,7 @@
                 service@{ icon: "logos:aws-fargate", label: "{{ renderLinks('Service', logViewUrl('app'), resources.metrics.service.url) | safe }}"}
 
                 {% if entity.subType == 'Frontend' %}
-                  redis@{ icon: "logos:aws-elastic-cache", label: "{{ renderLinks('Redis') }}"}
+                  redis@{ icon: "logos:aws-elastic-cache", label: "{{ renderLinks('Redis') | safe }}"}
                 {% else %}
                   {% if resources.tenant_config.mongo%}
                     mongo@{ icon: "logos:mongodb-icon", label: "{{ renderLinks('MongoDB', logViewUrl('mongo'), resources.metrics.mongodb.url) | safe }}'>Metrics</a>"}
