@@ -73,5 +73,11 @@ async function run() {
         }
       }
     })
+
+  document
+    .querySelectorAll('pre.mermaid a[data-js="open-window"]')
+    .forEach((link) => {
+      link.addEventListener('click', (event) => !window.open(event.target.href))
+    })
 }
 run()
