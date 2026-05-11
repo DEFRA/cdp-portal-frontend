@@ -62,6 +62,15 @@ class AutocompleteDocSearch extends AutocompleteSearch {
     return $li
   }
 
+  /**
+   * Disabled: the visible input shows the typed query, not the suggestion text,
+   * so exact-text lookup would spuriously match heading titles and overwrite
+   * the navigation value already set by updateInputValue.
+   */
+  getSuggestionByText() {
+    return undefined
+  }
+
   filterPartialMatch(textValue) {
     const token = this.disableLunrSpecialCharactersFilter
       ? textValue
