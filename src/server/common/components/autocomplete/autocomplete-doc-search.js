@@ -47,7 +47,7 @@ class AutocompleteDocSearch extends AutocompleteSearch {
     const $value = $li.firstElementChild
     const $hint = $value.nextElementSibling
 
-    $value.textContent = item.text
+    $value.textContent = item.value
     $hint.textContent = item.hint ?? ''
 
     $li.classList.toggle(
