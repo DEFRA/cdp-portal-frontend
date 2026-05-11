@@ -31,6 +31,11 @@
   .labelBkg {
     background: none !important; /* stylelint-disable-line declaration-no-important */
   }
+
+  .image-shape g path {
+    fill: transparent;
+    stroke: transparent;
+  }
 }
 
 .mermaid--table-node {

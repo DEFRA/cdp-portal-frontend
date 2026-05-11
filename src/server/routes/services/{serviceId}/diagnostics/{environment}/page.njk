@@ -67,7 +67,7 @@
                       client_link@{ animation: slow }
 
                       api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Private)', logViewUrl('api-gw-private'), resources.metrics.apigw.url) | safe }}"}
-                      api api_link@--> waf
+                      api api_link@--> alb
                       api_link@{ animation: slow }
                     {% endif %}
 
@@ -80,9 +80,11 @@
 
                   nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', 'Public' if entity.subType == 'Frontend' else 'nginx-protected') | safe }}"}
 
-                  sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', 'ssl-sidecar') | safe }}"}
+                  subgraph ingress_pod[ ]
+                    sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', 'ssl-sidecar') | safe }}"}
 
-                  service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
+                    service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
+                  end
 
                   alb alb_link@--> nginx
                   alb_link@{ animation: slow }
@@ -97,9 +99,11 @@
                 subgraph egress[Egress]
                   direction RL
 
-                  service_egress@{ icon: "logos:aws-fargate", label: "Service"}
+                  subgraph egress_pod[ ]
+                    service_egress@{ icon: "logos:aws-fargate", label: "Service"}
 
-                  forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder proxy', logViewUrl('forwarder-proxy')) | safe }}"}
+                    forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder proxy', logViewUrl('forwarder-proxy')) | safe }}"}
+                  end
 
                   squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
 
@@ -121,11 +125,11 @@
               subgraph app[Service / Resources]
                 direction LR
 
-                service@{ icon: "logos:aws-fargate", label: "{{ renderLinks('Service', logViewUrl('app'), 'https://resources.metrics.service.url') | safe }}"}
+                service@{ icon: "logos:aws-fargate", label: "{{ renderLinks('Service', logViewUrl('app'), resources.metrics.service.url) | safe }}"}
 
                 {% if entity.subType == 'Backend' %}
                   {% if resources.tenant_config.mongo%}
-                    mongo@{ icon: "logos:mongodb-icon", label: "{{ renderLinks('MongoDB', logViewUrl('mongo'), resources.metrics.mongodb.url) | safe }}'>Metrics</a>"}
+                    mongo@{ icon: "logos:mongodb-icon", label: "{{ renderLinks('MongoDB', logViewUrl('mongo'), resources.metrics.mongodb.url) | safe }}"}
                     service -.- mongo
                   {% endif %}
 
