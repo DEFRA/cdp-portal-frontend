@@ -1,6 +1,8 @@
 import mermaid from 'mermaid'
 import svgPanZoom from 'svg-pan-zoom'
 
+window.noop = () => {} // Used when defining tooltips
+
 mermaid.initialize({
   startOnLoad: false,
   logLevel: 'error',

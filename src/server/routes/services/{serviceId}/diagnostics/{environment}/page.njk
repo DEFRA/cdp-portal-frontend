@@ -1,4 +1,5 @@
 {% extends "layouts/tabbed-page.njk" %}
+{% from "tool-tip/macro.njk" import appToolTip %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -18,14 +19,8 @@
           <span class="govuk-caption-l">{{environment | formatText}}</span>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Diagnostics</h2>
           <p class="govuk-!-margin-bottom-2">
-            Provides a visual representation of <strong>{{entity.name}}'s</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
+            Provides a visual representation of traffic flow for <strong>{{entity.name}}</strong> allowing you to quickly understand the stages in the platform and view logs and metrics for those stages.
           </p>
-
-          <script>
-            window.linkMenu = function linkMenu(nodeId) {
-              alert(nodeId)
-            }
-          </script>
 
           <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
             flowchart LR
@@ -81,7 +76,7 @@
                   nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', logViewUrl('nginx-public') if entity.subType == 'Frontend' else logViewUrl('nginx-protected')) | safe }}"}
 
                   subgraph ingress_pod[ ]
-                    sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar') | safe }}"}
+                    sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', 'ssl-sidecar') | safe }}"}
 
                     service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
                   end
