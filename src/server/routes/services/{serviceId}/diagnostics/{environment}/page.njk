@@ -37,17 +37,19 @@
                   direction LR
 
                   {% if entity.subType == 'Frontend' %}
-                    browser@{ icon: "logos:chrome", label: "External Browser"}
-                    browser browser_link@--> alb
-                    browser_link@{ animation: slow }
+                    {% if environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev' %}
+                      browser@{ icon: "logos:chrome", label: "External Browser"}
+                      browser browser_link@--> public_alb
+                      browser_link@{ animation: slow }
+
+                      public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)') | safe }}"}
+                      public_alb public_alb_link@--> nginx
+                      public_alb_link@{ animation: slow }
+                    {% endif %}
 
                     int_browser@{ icon: "logos:microsoft-edge", label: "Internal Browser"}
-                    int_browser int_browser_link@--> int_alb
+                    int_browser int_browser_link@--> alb
                     int_browser_link@{ animation: slow }
-
-                    int_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)') | safe }}"}
-                    int_alb int_alb_link@--> nginx
-                    int_alb_link@{ animation: slow }
                   {% else %}
                     {% if resources.tenant_config.api_gateway %} %% TODO: Use new api_gateways section
                       {% if resources.api_gateway.type == 'REGIONAL' %}
