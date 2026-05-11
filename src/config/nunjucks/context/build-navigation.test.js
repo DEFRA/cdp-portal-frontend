@@ -7,85 +7,69 @@ const mockRequest = ({ path = '', auth = {} } = {}) => ({
   routeLookup: (value) => (value === 'home' ? '/' : `/${value}`)
 })
 
+const buildPrimaryNav = ({ servicesHref = '/services', path = '' } = {}) => [
+  {
+    current: path === '/' || path.startsWith('/blog'),
+    text: 'Home',
+    href: '/',
+    attributes: { 'data-testid': 'nav-home' }
+  },
+  {
+    current: path.includes('/documentation'),
+    text: 'Documentation',
+    href: '/documentation',
+    attributes: { 'data-testid': 'nav-documentation' }
+  },
+  {
+    current: path.includes(servicesHref),
+    text: 'Services',
+    href: servicesHref,
+    attributes: { 'data-testid': 'nav-services' }
+  },
+  {
+    current: path.includes('/test-suites'),
+    text: 'Test Suites',
+    href: '/test-suites',
+    attributes: { 'data-testid': 'nav-test-suites' }
+  },
+  {
+    current: path.includes('/utilities'),
+    text: 'Utilities',
+    href: '/utilities/templates',
+    attributes: { 'data-testid': 'nav-utilities' }
+  },
+  {
+    current: path.includes('/teams') && !path.includes('admin'),
+    text: 'Teams',
+    href: '/teams',
+    attributes: { 'data-testid': 'nav-teams' }
+  },
+  {
+    current: path.split('/').at(1) === 'deployments',
+    text: 'Deployments',
+    href: '/deployments',
+    attributes: { 'data-testid': 'nav-deployments' }
+  },
+  {
+    current: path.includes('/running-services'),
+    text: 'Running Services',
+    href: '/running-services',
+    attributes: { 'data-testid': 'nav-running-services' }
+  },
+  {
+    current: path.includes('/dependency-explorer'),
+    text: 'Dependency Explorer',
+    href: '/dependency-explorer',
+    attributes: { 'data-testid': 'nav-dependencies-explorer' }
+  }
+]
+
 describe('#buildNavigation', () => {
   describe('When user is not authenticated', () => {
     test('Should provide expected navigation details', async () => {
       expect(await buildNavigation(mockRequest())).toEqual({
         actions: undefined,
-        primary: [
-          {
-            current: false,
-            text: 'Home',
-            href: '/',
-            attributes: {
-              'data-testid': 'nav-home'
-            }
-          },
-          {
-            current: false,
-            text: 'Documentation',
-            href: '/documentation',
-            attributes: {
-              'data-testid': 'nav-documentation'
-            }
-          },
-          {
-            current: false,
-            text: 'Services',
-            href: '/services',
-            attributes: {
-              'data-testid': 'nav-services'
-            }
-          },
-          {
-            current: false,
-            text: 'Test Suites',
-            href: '/test-suites',
-            attributes: {
-              'data-testid': 'nav-test-suites'
-            }
-          },
-          {
-            current: false,
-            text: 'Utilities',
-            href: '/utilities/templates',
-            attributes: {
-              'data-testid': 'nav-utilities'
-            }
-          },
-          {
-            current: false,
-            text: 'Teams',
-            href: '/teams',
-            attributes: {
-              'data-testid': 'nav-teams'
-            }
-          },
-          {
-            current: false,
-            text: 'Deployments',
-            href: '/deployments',
-            attributes: {
-              'data-testid': 'nav-deployments'
-            }
-          },
-          {
-            current: false,
-            text: 'Running Services',
-            href: '/running-services',
-            attributes: {
-              'data-testid': 'nav-running-services'
-            }
-          },
-          {
-            attributes: {
-              'data-testid': 'nav-dependencies-explorer'
-            },
-            current: false,
-            href: '/dependency-explorer',
-            text: 'Dependency Explorer'
-          }
-        ],
+        primary: buildPrimaryNav(),
         admin: undefined
       })
     })
@@ -99,93 +83,39 @@ describe('#buildNavigation', () => {
             current: false,
             text: 'Deploy Service',
             href: '/deploy-service',
-            attributes: {
-              'data-testid': 'nav-deploy-service'
-            }
+            attributes: { 'data-testid': 'nav-deploy-service' }
           },
           {
             current: false,
             text: 'Create',
             href: '/create',
-            attributes: {
-              'data-testid': 'nav-create'
-            }
+            attributes: { 'data-testid': 'nav-create' }
           }
         ],
-        primary: [
+        primary: buildPrimaryNav(),
+        admin: undefined
+      })
+    })
+
+    test('Should provide expected navigation details when isAdmin is false', async () => {
+      expect(
+        await buildNavigation(mockRequest(), { isAdmin: false, isTenant: true })
+      ).toEqual({
+        actions: [
           {
             current: false,
-            text: 'Home',
-            href: '/',
-            attributes: {
-              'data-testid': 'nav-home'
-            }
+            text: 'Deploy Service',
+            href: '/deploy-service',
+            attributes: { 'data-testid': 'nav-deploy-service' }
           },
           {
             current: false,
-            text: 'Documentation',
-            href: '/documentation',
-            attributes: {
-              'data-testid': 'nav-documentation'
-            }
-          },
-          {
-            current: false,
-            text: 'Services',
-            href: '/services',
-            attributes: {
-              'data-testid': 'nav-services'
-            }
-          },
-          {
-            current: false,
-            text: 'Test Suites',
-            href: '/test-suites',
-            attributes: {
-              'data-testid': 'nav-test-suites'
-            }
-          },
-          {
-            current: false,
-            text: 'Utilities',
-            href: '/utilities/templates',
-            attributes: {
-              'data-testid': 'nav-utilities'
-            }
-          },
-          {
-            current: false,
-            text: 'Teams',
-            href: '/teams',
-            attributes: {
-              'data-testid': 'nav-teams'
-            }
-          },
-          {
-            current: false,
-            text: 'Deployments',
-            href: '/deployments',
-            attributes: {
-              'data-testid': 'nav-deployments'
-            }
-          },
-          {
-            current: false,
-            text: 'Running Services',
-            href: '/running-services',
-            attributes: {
-              'data-testid': 'nav-running-services'
-            }
-          },
-          {
-            attributes: {
-              'data-testid': 'nav-dependencies-explorer'
-            },
-            current: false,
-            href: '/dependency-explorer',
-            text: 'Dependency Explorer'
+            text: 'Create',
+            href: '/create',
+            attributes: { 'data-testid': 'nav-create' }
           }
         ],
+        primary: buildPrimaryNav(),
         admin: undefined
       })
     })
@@ -199,101 +129,22 @@ describe('#buildNavigation', () => {
             current: false,
             text: 'Deploy Service',
             href: '/deploy-service',
-            attributes: {
-              'data-testid': 'nav-deploy-service'
-            }
+            attributes: { 'data-testid': 'nav-deploy-service' }
           },
           {
             current: false,
             text: 'Create',
             href: '/create',
-            attributes: {
-              'data-testid': 'nav-create'
-            }
+            attributes: { 'data-testid': 'nav-create' }
           }
         ],
-        primary: [
-          {
-            current: false,
-            text: 'Home',
-            href: '/',
-            attributes: {
-              'data-testid': 'nav-home'
-            }
-          },
-          {
-            current: false,
-            text: 'Documentation',
-            href: '/documentation',
-            attributes: {
-              'data-testid': 'nav-documentation'
-            }
-          },
-          {
-            current: false,
-            text: 'Services',
-            href: '/services',
-            attributes: {
-              'data-testid': 'nav-services'
-            }
-          },
-          {
-            current: false,
-            text: 'Test Suites',
-            href: '/test-suites',
-            attributes: {
-              'data-testid': 'nav-test-suites'
-            }
-          },
-          {
-            current: false,
-            text: 'Utilities',
-            href: '/utilities/templates',
-            attributes: {
-              'data-testid': 'nav-utilities'
-            }
-          },
-          {
-            current: false,
-            text: 'Teams',
-            href: '/teams',
-            attributes: {
-              'data-testid': 'nav-teams'
-            }
-          },
-          {
-            current: false,
-            text: 'Deployments',
-            href: '/deployments',
-            attributes: {
-              'data-testid': 'nav-deployments'
-            }
-          },
-          {
-            current: false,
-            text: 'Running Services',
-            href: '/running-services',
-            attributes: {
-              'data-testid': 'nav-running-services'
-            }
-          },
-          {
-            attributes: {
-              'data-testid': 'nav-dependencies-explorer'
-            },
-            current: false,
-            href: '/dependency-explorer',
-            text: 'Dependency Explorer'
-          }
-        ],
+        primary: buildPrimaryNav({ servicesHref: '/services/all' }),
         admin: [
           {
             current: false,
             text: 'Admin',
             href: '/admin',
-            attributes: {
-              'data-testid': 'nav-admin'
-            }
+            attributes: { 'data-testid': 'nav-admin' }
           }
         ]
       })
@@ -312,101 +163,22 @@ describe('#buildNavigation', () => {
               current: false,
               text: 'Apply Changelog',
               href: '/apply-changelog',
-              attributes: {
-                'data-testid': 'nav-apply-changelog'
-              }
+              attributes: { 'data-testid': 'nav-apply-changelog' }
             },
             {
               current: false,
               text: 'Deploy Service',
               href: '/deploy-service',
-              attributes: {
-                'data-testid': 'nav-deploy-service'
-              }
+              attributes: { 'data-testid': 'nav-deploy-service' }
             },
             {
               current: false,
               text: 'Create',
               href: '/create',
-              attributes: {
-                'data-testid': 'nav-create'
-              }
+              attributes: { 'data-testid': 'nav-create' }
             }
           ],
-          primary: [
-            {
-              current: false,
-              text: 'Home',
-              href: '/',
-              attributes: {
-                'data-testid': 'nav-home'
-              }
-            },
-            {
-              current: false,
-              text: 'Documentation',
-              href: '/documentation',
-              attributes: {
-                'data-testid': 'nav-documentation'
-              }
-            },
-            {
-              current: false,
-              text: 'Services',
-              href: '/services',
-              attributes: {
-                'data-testid': 'nav-services'
-              }
-            },
-            {
-              current: false,
-              text: 'Test Suites',
-              href: '/test-suites',
-              attributes: {
-                'data-testid': 'nav-test-suites'
-              }
-            },
-            {
-              current: false,
-              text: 'Utilities',
-              href: '/utilities/templates',
-              attributes: {
-                'data-testid': 'nav-utilities'
-              }
-            },
-            {
-              current: false,
-              text: 'Teams',
-              href: '/teams',
-              attributes: {
-                'data-testid': 'nav-teams'
-              }
-            },
-            {
-              current: false,
-              text: 'Deployments',
-              href: '/deployments',
-              attributes: {
-                'data-testid': 'nav-deployments'
-              }
-            },
-            {
-              current: false,
-              text: 'Running Services',
-              href: '/running-services',
-              attributes: {
-                'data-testid': 'nav-running-services'
-              }
-            },
-            {
-              attributes: {
-                'data-testid': 'nav-dependencies-explorer'
-              },
-              current: false,
-              href: '/dependency-explorer',
-              text: 'Dependency Explorer'
-            }
-          ]
+          primary: buildPrimaryNav()
         })
       })
     })
@@ -424,100 +196,21 @@ describe('#buildNavigation', () => {
               current: false,
               text: 'Deploy Service',
               href: '/deploy-service',
-              attributes: {
-                'data-testid': 'nav-deploy-service'
-              }
+              attributes: { 'data-testid': 'nav-deploy-service' }
             },
             {
               current: false,
               text: 'Create',
               href: '/create',
-              attributes: {
-                'data-testid': 'nav-create'
-              }
+              attributes: { 'data-testid': 'nav-create' }
             }
           ],
-          primary: [
-            {
-              current: false,
-              text: 'Home',
-              href: '/',
-              attributes: {
-                'data-testid': 'nav-home'
-              }
-            },
-            {
-              current: false,
-              text: 'Documentation',
-              href: '/documentation',
-              attributes: {
-                'data-testid': 'nav-documentation'
-              }
-            },
-            {
-              current: false,
-              text: 'Services',
-              href: '/services',
-              attributes: {
-                'data-testid': 'nav-services'
-              }
-            },
-            {
-              current: false,
-              text: 'Test Suites',
-              href: '/test-suites',
-              attributes: {
-                'data-testid': 'nav-test-suites'
-              }
-            },
-            {
-              current: false,
-              text: 'Utilities',
-              href: '/utilities/templates',
-              attributes: {
-                'data-testid': 'nav-utilities'
-              }
-            },
-            {
-              current: false,
-              text: 'Teams',
-              href: '/teams',
-              attributes: {
-                'data-testid': 'nav-teams'
-              }
-            },
-            {
-              current: false,
-              text: 'Deployments',
-              href: '/deployments',
-              attributes: {
-                'data-testid': 'nav-deployments'
-              }
-            },
-            {
-              current: false,
-              text: 'Running Services',
-              href: '/running-services',
-              attributes: {
-                'data-testid': 'nav-running-services'
-              }
-            },
-            {
-              attributes: {
-                'data-testid': 'nav-dependencies-explorer'
-              },
-              current: false,
-              href: '/dependency-explorer',
-              text: 'Dependency Explorer'
-            }
-          ],
+          primary: buildPrimaryNav(),
           admin: [
             {
               text: 'Exit Test as Tenant Mode',
               href: '/admin/removeTestAsTenant',
-              attributes: {
-                'data-testid': 'nav-admin'
-              }
+              attributes: { 'data-testid': 'nav-admin' }
             }
           ]
         })
@@ -530,80 +223,7 @@ describe('#buildNavigation', () => {
       await buildNavigation(mockRequest({ path: '/running-services' }))
     ).toEqual({
       actions: undefined,
-      primary: [
-        {
-          current: false,
-          text: 'Home',
-          href: '/',
-          attributes: {
-            'data-testid': 'nav-home'
-          }
-        },
-        {
-          current: false,
-          text: 'Documentation',
-          href: '/documentation',
-          attributes: {
-            'data-testid': 'nav-documentation'
-          }
-        },
-        {
-          current: false,
-          text: 'Services',
-          href: '/services',
-          attributes: {
-            'data-testid': 'nav-services'
-          }
-        },
-        {
-          current: false,
-          text: 'Test Suites',
-          href: '/test-suites',
-          attributes: {
-            'data-testid': 'nav-test-suites'
-          }
-        },
-        {
-          current: false,
-          text: 'Utilities',
-          href: '/utilities/templates',
-          attributes: {
-            'data-testid': 'nav-utilities'
-          }
-        },
-        {
-          current: false,
-          text: 'Teams',
-          href: '/teams',
-          attributes: {
-            'data-testid': 'nav-teams'
-          }
-        },
-        {
-          current: false,
-          text: 'Deployments',
-          href: '/deployments',
-          attributes: {
-            'data-testid': 'nav-deployments'
-          }
-        },
-        {
-          current: true,
-          text: 'Running Services',
-          href: '/running-services',
-          attributes: {
-            'data-testid': 'nav-running-services'
-          }
-        },
-        {
-          attributes: {
-            'data-testid': 'nav-dependencies-explorer'
-          },
-          current: false,
-          href: '/dependency-explorer',
-          text: 'Dependency Explorer'
-        }
-      ],
+      primary: buildPrimaryNav({ path: '/running-services' }),
       admin: undefined
     })
   })
