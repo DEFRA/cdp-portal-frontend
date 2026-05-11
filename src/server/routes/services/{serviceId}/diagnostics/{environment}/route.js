@@ -51,9 +51,9 @@ export default async function (request) {
 
   function renderLinks(label, logsUrl, metricsUrl) {
     const logsLink =
-      logsUrl && `<a href='${logsUrl}' data-js="open-window">Logs</a>`
+      logsUrl && `<a href='${logsUrl}' data-js='open-window'>Logs</a>`
     const metricsLink =
-      metricsUrl && `<a href='${metricsUrl}' data-js="open-window">Metrics</a>`
+      metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
 
     return `${label}<br/>${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
   }
