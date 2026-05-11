@@ -42,7 +42,7 @@ export default async function (request) {
   const resources = Object.fromEntries(
     Object.entries(entity.environments[environment]).map(([key, value]) => {
       if (key === 'metrics') {
-        return [key, Object.groupBy(value, (value) => value.type)]
+        return [key, { ...Object.groupBy(value, (item) => item.type) }]
       }
 
       return [key, value]
