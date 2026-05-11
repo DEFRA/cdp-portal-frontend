@@ -9,7 +9,8 @@
     color: #1d70b8 !important; /* stylelint-disable-line declaration-no-important */
   }
 
-  .icon-shape g path[fill='transparent'] {
+  .icon-shape g path[fill='transparent'],
+  .image-shape g path[fill='none'] {
     pointer-events: none;
   }
 }
