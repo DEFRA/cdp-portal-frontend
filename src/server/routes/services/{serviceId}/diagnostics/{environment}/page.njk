@@ -77,11 +77,9 @@
                 subgraph egress[Egress]
                   direction RL
 
-                  forwarder@{ icon: "logos:docker-icon", label: "Forwarder proxy logs"}
-                  click forwarder "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-forwarder-proxy" _blank
+                  forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder proxy', logViewUrl('forwarder-proxy')) | safe }}"}
 
-                  squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "Squid proxy logs"}
-                  click squid "https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-squid-proxy" _blank
+                  squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
 
                   internet@{ img: "{{ getAssetPath("src/client/images/cloud.svg") }}", h: 40, w: 40, constraint: 'on', label: "Internet"}
 
@@ -104,15 +102,11 @@
                   redis@{ icon: "logos:aws-elastic-cache", label: "{{ renderLinks('Redis') }}"}
                 {% else %}
                   {% if resources.tenant_config.mongo%}
-                    mongo@{ icon: "logos:mongodb-icon", label: "MongoDB<br/><a href='https://logs.{{ environment }}.cdp-int.defra.cloud/_dashboards/app/discover#/view/{{ entity.name }}-mongo'>Logs</a> | <a href='{{ resources.metrics.mongodb.url }}'>Metrics</a>"}
+                    mongo@{ icon: "logos:mongodb-icon", label: "{{ renderLinks('MongoDB', logViewUrl('mongo'), resources.metrics.mongodb.url) | safe }}'>Metrics</a>"}
                   {% endif %}
 
                   {% if resources.tenant_config.sql_database%}
-                    postgress@{ icon: "logos:aws-aurora", label: "PostgreSQL logs"}
-
-                    %% postgress_metrics@{ icon: "logos:grafana", label: "PostgreSQL Metrics"}
-                    %% click postgress_metrics "{{ resources.metrics[0].url }}" _blank
-                    %% postgress -.- postgress_metrics
+                    postgress@{ icon: "logos:aws-aurora", label: "{{ renderLinks('PostgreSQL') | safe }}"}
                   {% endif %}
                 {% endif %}
 
