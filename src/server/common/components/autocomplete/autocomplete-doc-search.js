@@ -47,7 +47,7 @@ class AutocompleteDocSearch extends AutocompleteSearch {
     const $value = $li.firstElementChild
     const $hint = $value.nextElementSibling
 
-    $value.textContent = item.value
+    $value.textContent = item.text
     $hint.textContent = item.hint ?? ''
 
     $li.classList.toggle(
@@ -60,6 +60,15 @@ class AutocompleteDocSearch extends AutocompleteSearch {
     )
 
     return $li
+  }
+
+  /**
+   * Disabled: the visible input shows the typed query, not the suggestion text,
+   * so exact-text lookup would spuriously match heading titles and overwrite
+   * the navigation value already set by updateInputValue.
+   */
+  getSuggestionByText() {
+    return undefined
   }
 
   filterPartialMatch(textValue) {
