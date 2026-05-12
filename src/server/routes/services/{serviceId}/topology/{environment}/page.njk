@@ -25,8 +25,8 @@
           <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
             flowchart TD
             {% for teamKey, services in servicesPerTeam  %}
-              subgraph {{ teamKey }}[{{ services[0].teams | join(" / ", "name") | capitalize }}]
-                style {{ teamKey }} fill:#fff,stroke-dasharray:10 5
+              subgraph {{ teamKey }}Team[{{ services[0].teams | join(" / ", "name") | capitalize }}]
+                style {{ teamKey }}Team fill:#fff,stroke-dasharray:10 5
 
                 {% for service in services  %}
                   subgraph {{ nodeKey(service) }}Container[ ]
