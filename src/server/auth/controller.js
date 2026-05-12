@@ -1,51 +1,49 @@
 import { randomUUID } from 'node:crypto'
 
 import Boom from '@hapi/boom'
-
-import { createUserSession } from '../common/helpers/auth/user-session.js'
 import { sessionNames } from '../common/constants/session-names.js'
-import { redirectWithRefresh } from '../common/helpers/url/url-helpers.js'
-import { fetchScopes } from '../teams/helpers/fetch/fetch-scopes.js'
+import { saveUserSession } from '#server/common/helpers/auth/save-session.js'
+import { redirectWithRefresh } from '#server/common/helpers/url/url-helpers.js'
+import { fetchScopes } from '#server/teams/helpers/fetch/fetch-scopes.js'
 
-const authCallbackController = {
+export const authCallbackController = {
   options: {
     auth: 'azure-oidc',
     response: {
-      failAction: () => Boom.boomify(Boom.unauthorized())
+      failAction: () => Boom.unauthorized()
     }
   },
   handler: async (request, h) => {
     const { auth, sessionCookie, audit, yar, logger } = request
-    let userSession
 
-    if (auth.isAuthenticated) {
-      const sessionId = randomUUID()
-
-      logger.info('Creating user session')
-      userSession = await createUserSession(request, sessionId)
-
-      sessionCookie.set({ sessionId })
-      const loginMsg = `User logged in UserId: ${userSession.id} displayName: ${userSession.displayName}`
-      request.logger.info(loginMsg)
-
-      audit.sendMessage({
-        event: loginMsg,
-        user: userSession
-      })
+    if (!auth.isAuthenticated) {
+      throw Boom.unauthorized()
     }
 
-    let redirect = yar.flash(sessionNames.referrer)?.at(0) ?? '/'
+    const sessionId = randomUUID()
 
-    if (userSession && redirect === '/services') {
-      const { scopeFlags } = await fetchScopes(userSession.token)
+    logger.info(`Creating user session ${sessionId}`)
+    const session = await saveUserSession(request, sessionId, auth.credentials)
+
+    sessionCookie.set({ sessionId })
+    const loginMsg = `User logged in UserId: ${sessionId} displayName: ${session.displayName}`
+    logger.info(loginMsg)
+
+    audit.sendMessage({
+      event: loginMsg,
+      user: session
+    })
+
+    let redirect = yar.flash(sessionNames.referrer)?.at(0) ?? '/'
+    logger.info(`Login complete, redirecting user to ${redirect}`)
+
+    if (session && redirect === '/services') {
+      const { scopeFlags } = await fetchScopes(session.token)
       if (scopeFlags?.isAdmin) {
         redirect = '/services/all'
       }
     }
 
-    logger.info(`Login complete, redirecting user to ${redirect}`)
     return redirectWithRefresh(h, redirect)
   }
 }
-
-export { authCallbackController }
