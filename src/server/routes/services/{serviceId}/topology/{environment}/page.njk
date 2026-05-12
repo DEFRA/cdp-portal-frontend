@@ -21,53 +21,60 @@
             Provides a visual representation of <strong>{{entity.name}}'s</strong> network dependencies and consumers, allowing you to quickly understand the relationships between various components in your system.
           </p>
 
+          {% if serviceDeployedInEnvironment %}
 
-          <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
-            flowchart TD
-            {% for teamKey, services in servicesPerTeam  %}
-              subgraph {{ teamKey }}Team[{{ services[0].teams | join(" / ", "name") | capitalize }}]
-                style {{ teamKey }}Team fill:#fff,stroke-dasharray:10 5
+            <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
+              flowchart TD
+              {% for teamKey, services in servicesPerTeam  %}
+                subgraph {{ teamKey }}Team[{{ services[0].teams | join(" / ", "name") | capitalize }}]
+                  style {{ teamKey }}Team fill:#fff,stroke-dasharray:10 5
 
-                {% for service in services  %}
-                  subgraph {{ nodeKey(service) }}Container[ ]
-                    direction TD
+                  {% for service in services  %}
+                    subgraph {{ nodeKey(service) }}Container[ ]
+                      direction TD
 
-                    {{ nodeKey(service) }}@{ icon: "logos:{{service.icon or 'logos:aws-fargate' }}", label: "{% if service.name == entity.name  %}<strong>{{ service.name }}</strong>{% else %}{{ service.name }}{% endif %}"}
-                    {% if service.name != entity.name and service.name != 'AWS' %}
-                      click {{ nodeKey(service) }} "/services/{{ service.name }}/topology/{{ environment }}" {% if service.type %}"{{ service.type }} Service"{% endif %}
-                    {% elseif service.type %}
-                      click {{ nodeKey(service) }} call noop() "{{ service.type }} Service"
-                    {% endif %}
-
-                    {% for resource in service.resources  %}
-                      {{ nodeKey(service, resource) }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
-                      {{ nodeKey(service) }} -.- {{ nodeKey(service, resource) }}
-                    {% endfor %}
-                  end
-                {% endfor %}
-
-              end
-            {% endfor %}
-
-            {% for teamKey, services in servicesPerTeam  %}
-              {% for service in services  %}
-                  {% for resource in service.resources  %}
-                    {% for link in resource.links  %}
-                      {% if link.type == 'subscription' %}
-                        {% set arrow = "==>" %}
-                      {% else %}
-                        {% set arrow = "-->" %}
+                      {{ nodeKey(service) }}@{ icon: "logos:{{service.icon or 'logos:aws-fargate' }}", label: "{% if service.name == entity.name  %}<strong>{{ service.name }}</strong>{% else %}{{ service.name }}{% endif %}"}
+                      {% if service.name != entity.name and service.name != 'AWS' %}
+                        click {{ nodeKey(service) }} "/services/{{ service.name }}/topology/{{ environment }}" {% if service.type %}"{{ service.type }} Service"{% endif %}
+                      {% elseif service.type %}
+                        click {{ nodeKey(service) }} call noop() "{{ service.type }} Service"
                       {% endif %}
 
-                      {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|{{ link.access | capitalize }}| {{ linkKey(link) }}
-                      {% if link.access == 'subscription' %}
-                        {{ nodeKey(service, resource) }}_link{{loop.index0}}@{ animation: slow }
-                      {% endif %}
-                    {% endfor %}
+                      {% for resource in service.resources  %}
+                        {{ nodeKey(service, resource) }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
+                        {{ nodeKey(service) }} -.- {{ nodeKey(service, resource) }}
+                      {% endfor %}
+                    end
                   {% endfor %}
+
+                end
               {% endfor %}
-            {% endfor %}
-          </pre>
+
+              {% for teamKey, services in servicesPerTeam  %}
+                {% for service in services  %}
+                    {% for resource in service.resources  %}
+                      {% for link in resource.links  %}
+                        {% if link.type == 'subscription' %}
+                          {% set arrow = "==>" %}
+                        {% else %}
+                          {% set arrow = "-->" %}
+                        {% endif %}
+
+                        {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|{{ link.access | capitalize }}| {{ linkKey(link) }}
+                        {% if link.access == 'subscription' %}
+                          {{ nodeKey(service, resource) }}_link{{loop.index0}}@{ animation: slow }
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+              {% endfor %}
+            </pre>
+
+          {% else %}
+
+            {{ appInfo({ text: "Service not deployed in this environment" }) }}
+
+          {% endif %}
 
         {% endcall %}
 

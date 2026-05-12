@@ -9,6 +9,7 @@ import { serviceParamsValidation } from '#server/services/helpers/schema/service
 import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -40,7 +41,14 @@ export default async function (request) {
   const { entity } = request.app
   const environment = request.params.environment
 
-  const topology = await fetchTopology(entity.name, environment)
+  const [topology, runningServices] = await Promise.all([
+    fetchTopology(entity.name, environment),
+    fetchRunningServices(entity.name)
+  ])
+
+  const serviceDeployedInEnvironment = runningServices.some(
+    (service) => service.environment === environment
+  )
 
   const hasCdpResourcesLinks = topology
     .flatMap((service) => service.resources)
@@ -73,6 +81,7 @@ export default async function (request) {
 
   return {
     topology,
+    serviceDeployedInEnvironment,
     servicesPerTeam,
     environment,
     nodeKey,

@@ -11,6 +11,7 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 import { fetchMarkdown } from '#server/documentation/helpers/s3-file-handler.js'
 import { config } from '#config/config.js'
 import { buildDocsPageHtml } from '#server/documentation/helpers/markdown/build-page-html.js'
+import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -42,6 +43,12 @@ export default async function (request) {
   const { entity } = request.app
   const environment = request.params.environment
 
+  const runningServices = await fetchRunningServices(entity.name)
+
+  const serviceDeployedInEnvironment = runningServices.some(
+    (service) => service.environment === environment
+  )
+
   const resources = Object.fromEntries(
     Object.entries(entity.environments[environment]).map(([key, value]) => {
       if (key === 'metrics') {
@@ -54,10 +61,7 @@ export default async function (request) {
 
   const bucket = config.get('documentation.bucket')
   const summaries = Object.fromEntries(
-    await Promise.all([
-      fetchFirstParagraph(request, bucket, 'how-to/proxy.md'),
-      fetchFirstParagraph(request, bucket, 'how-to/proxy.md')
-    ])
+    await Promise.all([fetchFirstParagraph(request, bucket, 'how-to/proxy.md')])
   )
 
   function renderLinks(label, logsUrl, metricsUrl, docPath) {
@@ -78,6 +82,7 @@ export default async function (request) {
 
   return {
     environment,
+    serviceDeployedInEnvironment,
     resources,
     renderLinks,
     logViewUrl,
