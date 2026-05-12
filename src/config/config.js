@@ -281,46 +281,51 @@ const config = convict({
       env: 'TRACING_HEADER'
     }
   },
-  azureFederatedCredentials: {
-    enableMocking: {
-      doc: 'Turns on OIDC mock support',
-      format: Boolean,
-      default: !isProduction,
-      env: 'AZURE_CREDENTIALS_ENABLE_MOCKING'
-    },
+  federatedCredentials: {
     identityPoolId: {
       doc: 'Azure Federated Credential Pool ID',
       format: String,
       env: 'AZURE_IDENTITY_POOL_ID',
       nullable: true,
       default: null
+    },
+    enableMocking: {
+      doc: 'Turns on OIDC mock support',
+      format: Boolean,
+      default: !isProduction,
+      env: 'AZURE_CREDENTIALS_ENABLE_MOCKING'
     }
   },
-  azureTenantId: {
-    doc: 'Azure Active Directory Tenant ID',
-    format: String,
-    env: 'AZURE_TENANT_ID',
-    default: '6f504113-6b64-43f2-ade9-242e05780007'
-  },
-  azureClientId: {
-    doc: 'Azure App Client ID',
-    format: String,
-    env: 'AZURE_CLIENT_ID',
-    default: '26372ac9-d8f0-4da9-a17e-938eb3161d8e'
-  },
-  azureClientSecret: {
-    doc: 'Azure App Client Secret. Defaults to stub secret',
-    format: String,
-    sensitive: true,
-    env: 'AZURE_CLIENT_SECRET',
-    default: 'test_value'
-  },
-  get oidcWellKnownConfigurationUrl() {
-    return {
-      doc: 'OIDC .well-known configuration URL. Defaults to the stub',
+  oidc: {
+    clientId: {
+      doc: 'OIDC client ID',
+      format: String,
+      env: 'AZURE_CLIENT_ID',
+      default: '26372ac9-d8f0-4da9-a17e-938eb3161d8e'
+    },
+    discoveryUri: {
+      doc: 'URL for OIDC discovery document. Defaults to the stub',
       format: String,
       env: 'OIDC_WELL_KNOWN_CONFIGURATION_URL',
-      default: `http://cdp.127.0.0.1.sslip.io:3939/${this.azureTenantId.default}/v2.0/.well-known/openid-configuration`
+      default: `http://cdp.127.0.0.1.sslip.io:3939/6f504113-6b64-43f2-ade9-242e05780007/v2.0/.well-known/openid-configuration`
+    },
+    useHttp: {
+      doc: 'Boolean flag to allow insecure HTTP requests for discovery',
+      format: Boolean,
+      env: 'AZURE_CREDENTIALS_ENABLE_MOCKING',
+      default: !isProduction
+    },
+    loginCallbackUri: {
+      doc: 'Redirect URI after OIDC login',
+      format: String,
+      env: 'OIDC_LOGIN_CALLBACK_URI',
+      default: '/auth/callback'
+    },
+    externalBaseUrl: {
+      doc: 'Base URL used to construct absolute callback URLs',
+      format: String,
+      env: 'APP_BASE_URL',
+      default: 'http://localhost:3000'
     }
   },
   supportChannel: {
