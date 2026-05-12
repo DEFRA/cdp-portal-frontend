@@ -8,6 +8,9 @@ import { serviceParamsValidation } from '#server/services/helpers/schema/service
 import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { fetchMarkdown } from '#server/documentation/helpers/s3-file-handler.js'
+import { config } from '#config/config.js'
+import { buildDocsPageHtml } from '#server/documentation/helpers/markdown/build-page-html.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -49,13 +52,21 @@ export default async function (request) {
     })
   )
 
-  function renderLinks(label, logsUrl, metricsUrl, description) {
+  const bucket = config.get('documentation.bucket')
+  const summaries = Object.fromEntries(
+    await Promise.all([
+      fetchFirstParagraph(request, bucket, 'how-to/proxy.md'),
+      fetchFirstParagraph(request, bucket, 'how-to/proxy.md')
+    ])
+  )
+
+  function renderLinks(label, logsUrl, metricsUrl, docPath) {
     const logsLink =
       logsUrl && `<a href='${logsUrl}' data-js='open-window'>Logs</a>`
     const metricsLink =
       metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
-    const labelEl = description
-      ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover><header>${label}</header><section><p>${description}</p><p class="read-more"><a href="/">Read the CDP documentation</p></p></section></dialog>`
+    const labelEl = docPath
+      ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover><header>${label}</header><section><p>${summaries[docPath]}</p><p class="read-more"><a href="/documentation/${docPath}" data-js="open-window">Read the full documentation</p></p></section></dialog>`
       : `<span class="mermaid--label">${label}</span>`
 
     return `${labelEl}${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
@@ -87,4 +98,11 @@ export default async function (request) {
       }
     ]
   }
+}
+
+async function fetchFirstParagraph(request, bucket, path) {
+  const md = await fetchMarkdown(request, bucket, path)
+  const { html } = await buildDocsPageHtml(md)
+
+  return [path, html.match(/<p>([\s\S]*?)<\/p>/).at(0)]
 }

@@ -28,7 +28,7 @@
                 style network fill:#fff,stroke-dasharray:10 5
                 direction TD
 
-                subgraph ingress[Ingress]
+                subgraph ingress[Ingress - <a href="/documentation/architecture/architectural-overview.md#ingress" data-js="open-window">Documentation</a>]
                   direction LR
 
                   {% if entity.subType == 'Frontend' %}
@@ -91,13 +91,13 @@
                   sslSidecar_link@{ animation: slow }
                 end
 
-                subgraph egress[Egress]
+                subgraph egress[Egress - <a href="/documentation/architecture/architectural-overview.md#egress" data-js="open-window">Documentation</a>]
                   direction RL
 
                   subgraph egress_pod[ ]
                     service_egress@{ icon: "logos:aws-fargate", label: "Service"}
 
-                    forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Proxy Sidecar', logViewUrl('forwarder-proxy'), null, 'If a service needs to make a call to a URL hosted outside of the CDP platform it must be made via the platform\'s proxy server. The proxy server controls traffic leaving the platform which all tenant services have access to.') | safe }}"}
+                    forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Proxy Sidecar', logViewUrl('forwarder-proxy'), null, 'how-to/proxy.md') | safe }}"}
                   end
 
                   squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
