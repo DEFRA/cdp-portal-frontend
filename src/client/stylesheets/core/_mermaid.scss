@@ -5,6 +5,7 @@
 .mermaid {
   background: #ffffff;
   padding: 1rem;
+  visibility: hidden;
 
   // stylelint-disable-next-line selector-class-pattern
   a .nodeLabel p {
@@ -128,14 +129,13 @@
 
 .mermaid--popover {
   padding: govuk-spacing(4);
+  padding-top: govuk-spacing(1);
   background-color: $app-brand-background-colour-light;
   border: 1px solid $app-brand-background-colour;
   border-radius: $app-border-radius;
   box-shadow:
     0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 1rem;
-  padding-top: 0.4rem;
   text-align: left;
 
   > section {
@@ -148,7 +148,7 @@
     border: 1px solid $app-brand-border-colour-light;
 
     .read-more {
-      padding-top: 1rem !important;
+      padding-top: 1rem !important; /* stylelint-disable-line declaration-no-important */
     }
   }
 }

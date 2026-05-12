@@ -51,6 +51,10 @@ mermaid.registerIconPacks([
 async function run() {
   await mermaid.run()
 
+  document.querySelectorAll('pre.mermaid').forEach((pre) => {
+    pre.setAttribute('style', 'visibility: visible;')
+  })
+
   document.querySelectorAll('pre.mermaid--pan-zoom > svg').forEach((svg) => {
     const [, , , height] = svg.getAttribute('viewBox').split(' ')
     const { width } = svg.parentElement.getBoundingClientRect()
@@ -82,14 +86,6 @@ async function run() {
       link.addEventListener('click', (event) => {
         event.preventDefault()
         window.open(event.target.href)
-      })
-    })
-
-  document
-    .querySelectorAll('pre.mermaid dfn.mermaid--popover')
-    .forEach((link) => {
-      link.addEventListener('mouseover', (event) => {
-        console.log('over')
       })
     })
 }
