@@ -55,7 +55,7 @@ export default async function (request) {
     const metricsLink =
       metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
     const labelEl = description
-      ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover>${description}</dialog>`
+      ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover><header>${label}</header><section><p>${description}</p><p class="read-more"><a href="/">Read the CDP documentation</p></p></section></dialog>`
       : `<span class="mermaid--label">${label}</span>`
 
     return `${labelEl}${[logsLink, metricsLink].filter(Boolean).join(' | ')}`

@@ -127,13 +127,28 @@
 }
 
 .mermaid--popover {
-  width: max-content;
-  max-width: 10rem;
-  padding: govuk-spacing(3);
-  background-color: govuk-colour('white');
-  color: govuk-colour('black');
-  border: 1px solid;
-  box-shadow: 3px 5px 4px -4px govuk-colour('dark-grey');
-  @include govuk-font(16);
-  white-space: normal;
+  padding: govuk-spacing(4);
+  background-color: $app-brand-background-colour-light;
+  border: 1px solid $app-brand-background-colour;
+  border-radius: $app-border-radius;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 1rem;
+  padding-top: 0.4rem;
+  text-align: left;
+
+  > section {
+    max-width: 20rem;
+    text-wrap: auto;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    background-color: govuk-colour('white');
+    border-radius: $app-border-radius;
+    border: 1px solid $app-brand-border-colour-light;
+
+    .read-more {
+      padding-top: 1rem !important;
+    }
+  }
 }

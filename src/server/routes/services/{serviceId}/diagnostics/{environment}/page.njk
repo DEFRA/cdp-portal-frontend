@@ -66,7 +66,7 @@
                       api_link@{ animation: slow }
                     {% endif %}
 
-                    frontend@{ icon: "logos:aws-fargate", label: "Frontend Service client"}
+                    frontend@{ icon: "logos:aws-fargate", label: "Frontend client"}
                     frontend frontend_link@--> alb
                     frontend_link@{ animation: slow }
                   {% endif %}
@@ -97,7 +97,7 @@
                   subgraph egress_pod[ ]
                     service_egress@{ icon: "logos:aws-fargate", label: "Service"}
 
-                    forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Proxy Sidecar', logViewUrl('forwarder-proxy'), null, 'The Proxy Sidecar...') | safe }}"}
+                    forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Proxy Sidecar', logViewUrl('forwarder-proxy'), null, 'If a service needs to make a call to a URL hosted outside of the CDP platform it must be made via the platform\'s proxy server. The proxy server controls traffic leaving the platform which all tenant services have access to.') | safe }}"}
                   end
 
                   squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
