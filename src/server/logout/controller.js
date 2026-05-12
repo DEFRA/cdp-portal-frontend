@@ -1,6 +1,6 @@
-import { removeAuthenticatedUser } from '../common/helpers/auth/user-session.js'
 import { fetchJson } from '../common/helpers/fetch/fetch-json.js'
-import { config } from '../../config/config.js'
+import { config } from '#config/config.js'
+import { removeAuthenticatedUser } from '#server/common/helpers/auth/remove-authenticated-user.js'
 
 const logoutController = {
   handler: async (request, h) => {
@@ -9,10 +9,9 @@ const logoutController = {
     if (!userSession) {
       return h.redirect('/')
     }
+    const discoveryUri = config.get('oidc.discoveryUri')
 
-    const { payload } = await fetchJson(
-      config.get('oidcWellKnownConfigurationUrl')
-    )
+    const { payload } = await fetchJson(discoveryUri)
 
     const logoutBaseUrl = payload.end_session_endpoint
     const referrer = request.info.referrer
