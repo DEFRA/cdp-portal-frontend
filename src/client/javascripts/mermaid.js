@@ -84,5 +84,13 @@ async function run() {
         window.open(event.target.href)
       })
     })
+
+  document
+    .querySelectorAll('pre.mermaid dfn.mermaid--popover')
+    .forEach((link) => {
+      link.addEventListener('mouseover', (event) => {
+        console.log('over')
+      })
+    })
 }
 run()

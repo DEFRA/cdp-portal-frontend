@@ -49,13 +49,16 @@ export default async function (request) {
     })
   )
 
-  function renderLinks(label, logsUrl, metricsUrl) {
+  function renderLinks(label, logsUrl, metricsUrl, description) {
     const logsLink =
       logsUrl && `<a href='${logsUrl}' data-js='open-window'>Logs</a>`
     const metricsLink =
       metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
+    const labelEl = description
+      ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover>${description}</dialog>`
+      : `<span class="mermaid--label">${label}</span>`
 
-    return `${label}<br/>${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
+    return `${labelEl}${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
   }
 
   function logViewUrl(type) {

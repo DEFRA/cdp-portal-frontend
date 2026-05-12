@@ -1,4 +1,6 @@
 @use 'variables/colours' as *;
+@use 'govuk-frontend' as *;
+@use 'variables/border-radius' as *;
 
 .mermaid {
   background: #ffffff;
@@ -96,4 +98,42 @@
 .mermaid--light-links .edge-pattern-dotted {
   stroke: #cccccc !important; /* stylelint-disable-line declaration-no-important */
   stroke-dasharray: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.mermaid--label {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.mermaid--popover-anchor {
+  all: unset;
+  font-style: normal;
+  text-decoration: underline dashed;
+  text-underline-offset: 4px;
+  cursor: pointer;
+
+  &:hover {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 3px;
+  }
+
+  &:focus {
+    background-color: govuk-colour('yellow');
+    box-shadow:
+      0 -2px govuk-colour('yellow'),
+      0 4px govuk-colour('black');
+    text-decoration: none;
+  }
+}
+
+.mermaid--popover {
+  width: max-content;
+  max-width: 10rem;
+  padding: govuk-spacing(3);
+  background-color: govuk-colour('white');
+  color: govuk-colour('black');
+  border: 1px solid;
+  box-shadow: 3px 5px 4px -4px govuk-colour('dark-grey');
+  @include govuk-font(16);
+  white-space: normal;
 }

@@ -97,7 +97,7 @@
                   subgraph egress_pod[ ]
                     service_egress@{ icon: "logos:aws-fargate", label: "Service"}
 
-                    forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder proxy', logViewUrl('forwarder-proxy')) | safe }}"}
+                    forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Proxy Sidecar', logViewUrl('forwarder-proxy'), null, 'The Proxy Sidecar...') | safe }}"}
                   end
 
                   squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
