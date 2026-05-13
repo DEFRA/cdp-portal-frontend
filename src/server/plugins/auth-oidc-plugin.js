@@ -4,6 +4,10 @@ import {
   hapiAuthOidcPlugin,
   MockProvider
 } from '@defra/hapi-auth-oidc'
+import http from 'node:http'
+import https from 'node:https'
+import { NodeHttpHandler } from '@smithy/node-http-handler'
+import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
 
 const oidcConfig = config.get('oidc')
 const scope = [
@@ -18,7 +22,14 @@ const authProvider = config.get('federatedCredentials.enableMocking')
   ? new MockProvider({})
   : new CognitoTokenProvider({
       poolId: config.get('federatedCredentials.identityPoolId'),
-      logins: { 'cdp-portal-frontend-aad-access': 'cdp-portal-frontend' }
+      logins: { 'cdp-portal-frontend-aad-access': 'cdp-portal-frontend' },
+      cognitoClient: new CognitoIdentityClient({
+        // todo why isn't this happening automatically?
+        requestHandler: new NodeHttpHandler({
+          httpsAgent: https.globalAgent,
+          httpAgent: http.globalAgent
+        })
+      })
     })
 
 const oidcCookieConfig = config.get('session.cookie')
