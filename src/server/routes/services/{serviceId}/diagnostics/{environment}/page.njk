@@ -77,7 +77,7 @@
 
                     nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', logViewUrl('nginx-public') if entity.subType == 'Frontend' else logViewUrl('nginx-protected')) | safe }}"}
 
-                    subgraph ingress_pod[ ]
+                    subgraph ingress_pod[{{ entity.name }}]
                       sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', logViewUrl('ssl-sidecar')) | safe }}"}
 
                       service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
@@ -96,10 +96,10 @@
                   subgraph egress[Egress - <a href="/documentation/architecture/architectural-overview.md#egress" data-js="open-window">Documentation</a>]
                     direction RL
 
-                    subgraph egress_pod[ ]
+                    subgraph egress_pod[{{ entity.name }}]
                       service_egress@{ icon: "logos:aws-fargate", label: "Service"}
 
-                      forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Proxy Sidecar', logViewUrl('forwarder-proxy'), null, 'how-to/proxy.md') | safe }}"}
+                      forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder Proxy', logViewUrl('forwarder-proxy'), null, 'how-to/proxy.md') | safe }}"}
                     end
 
                     squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
@@ -122,7 +122,7 @@
                 subgraph app[Service / Resources]
                   direction LR
 
-                  service@{ icon: "logos:aws-fargate", label: "{{ renderLinks('Service', logViewUrl('app'), resources.metrics.service[0].url) | safe }}"}
+                  service@{ icon: "logos:aws-fargate", label: "{{ renderLinks(entity.name, logViewUrl('app'), resources.metrics.service[0].url) | safe }}"}
 
                   {% if entity.subType == 'Backend' %}
                     {% if resources.tenant_config.mongo%}

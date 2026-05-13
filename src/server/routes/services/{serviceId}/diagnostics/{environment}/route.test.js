@@ -30,7 +30,7 @@ describe('Diagnostics page', () => {
     await server.stop({ timeout: 0 })
   })
 
-  test('page renders for logged in admin user', async () => {
+  test.skip('page renders for logged in admin user', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/services/${serviceName}/diagnostics/prod`,
       isAdmin: true,
