@@ -78,7 +78,7 @@
                     nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', logViewUrl('nginx-public') if entity.subType == 'Frontend' else logViewUrl('nginx-protected')) | safe }}"}
 
                     subgraph ingress_pod[ ]
-                      sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', 'ssl-sidecar') | safe }}"}
+                      sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', logViewUrl('ssl-sidecar')) | safe }}"}
 
                       service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
                     end
