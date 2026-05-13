@@ -109,5 +109,5 @@ async function fetchFirstParagraph(request, bucket, path) {
   const md = await fetchMarkdown(request, bucket, path)
   const { html } = await buildDocsPageHtml(md)
 
-  return [path, html.match(/<p>([\s\S]*?)<\/p>/).at(0)]
+  return [path, html.match(/<p>([\s\S]*?)<\/p>/)?.at(0) ?? '']
 }
