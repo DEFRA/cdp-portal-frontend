@@ -1,7 +1,7 @@
 import { authScope } from '../common/helpers/auth/auth-scope.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { summaryController } from './controllers/summary.js'
-import { multistepForm } from '../common/helpers/multistep-form/multistep-form.js'
+import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { availableMigrationsController } from './controllers/available-migrations.js'
 import { changeDetailsFormController } from './controllers/change-details-form.js'
 import { changeDetailsController } from './controllers/change-details.js'

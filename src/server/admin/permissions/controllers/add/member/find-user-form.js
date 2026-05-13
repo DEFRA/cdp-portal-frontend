@@ -4,7 +4,7 @@ import Joi from 'joi'
 import { fetchPermission } from '../../../helpers/fetchers.js'
 import { buildUsersOptions } from '../../../helpers/user/build-user-options.js'
 import { provideSelectedUser } from '../../../helpers/pre/provide-selected-user.js'
-import { provideStepData } from '../../../../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findUserFormController = {
   options: {

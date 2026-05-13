@@ -1,4 +1,4 @@
-import { calculateStepWidth } from '../form/calculate-step-width.js'
+import { calculateStepWidth } from '#server/common/helpers/form/calculate-step-width.js'
 
 /**
  * Checks if the multistep form is complete based on the stepData

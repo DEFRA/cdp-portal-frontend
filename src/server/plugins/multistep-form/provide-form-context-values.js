@@ -1,4 +1,4 @@
-import { sessionNames } from '../../constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 function provideFormContextValues(request, h) {
   const response = request.response
