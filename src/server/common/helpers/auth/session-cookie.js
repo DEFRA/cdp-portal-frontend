@@ -64,9 +64,7 @@ export const sessionCookie = {
             )
           }
 
-          const userSession = !refreshedSession
-            ? currentUserSession
-            : refreshedSession
+          const userSession = refreshedSession || currentUserSession
 
           const { scopes, scopeFlags } = await fetchScopes(userSession.token)
           return {
