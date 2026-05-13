@@ -22,7 +22,7 @@
             Provides a visual representation of traffic flow for <strong>{{entity.name}}</strong> allowing you to quickly understand the stages in the platform and view logs and metrics for those stages.
           </p>
 
-          {% if serviceDeployedInEnvironment %}
+
 
             <pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
               flowchart LR
@@ -143,11 +143,6 @@
 
               </pre>
 
-            {% else %}
-
-              {{ appInfo({ text: "Service not deployed in this environment" }) }}
-
-            {% endif %}
 
        {% endcall %}
 
