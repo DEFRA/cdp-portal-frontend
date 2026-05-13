@@ -2,7 +2,7 @@ import Joi from 'joi'
 
 import { config } from '../../../../config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
-import { provideStepData } from '../../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '../../../plugins/multistep-form/provide-step-data.js'
 
 const deployController = {
   options: {
