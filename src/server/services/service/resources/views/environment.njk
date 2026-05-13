@@ -47,7 +47,7 @@
                         direction LR
                         {% for resource in items %}
                           {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "<span id='{{ resource.name }}'>{{ resource.name }}</span>"}
-                          {{ type }}{{ resource.name }}[<table>{% for name, value in resource.properties | dictsort %}
+                          {{ type }}{{ resource.name }}[<table aria-label="Properties of {{ resource.name }}">{% for name, value in resource.properties | dictsort %}
                             {% if name != 'name' and name != 'bucket_name' and name != 'database_name'  %}<tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ resourceValue(value) | trim }}</td></tr>{% endif %}
                           {% endfor %}</table>]
                           {{ type }}{{ resource.name }}Icon ~~~ {{ type }}{{resource.name}}

@@ -8,7 +8,6 @@
   - [Check session is valid helper](#check-session-is-valid-helper)
   - [Example](#example)
 
-
 ## Using the multistep form plugin
 
 ### Installation
