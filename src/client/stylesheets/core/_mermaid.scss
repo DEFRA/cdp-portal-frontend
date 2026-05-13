@@ -1,12 +1,20 @@
 @use 'variables/colours' as *;
+@use 'govuk-frontend' as *;
+@use 'variables/border-radius' as *;
 
 .mermaid {
   background: #ffffff;
   padding: 1rem;
+  visibility: hidden;
 
   // stylelint-disable-next-line selector-class-pattern
   a .nodeLabel p {
     color: #1d70b8 !important; /* stylelint-disable-line declaration-no-important */
+  }
+
+  .icon-shape g path[fill='transparent'],
+  .image-shape g path[fill='none'] {
+    pointer-events: none;
   }
 }
 
@@ -22,9 +30,15 @@
 
 .mermaid--no-label-background {
   .icon-shape p,
+  .image-shape p,
   /* stylelint-disable-next-line selector-class-pattern */
   .labelBkg {
     background: none !important; /* stylelint-disable-line declaration-no-important */
+  }
+
+  .image-shape g path {
+    fill: transparent;
+    stroke: transparent;
   }
 }
 
@@ -85,4 +99,56 @@
 .mermaid--light-links .edge-pattern-dotted {
   stroke: #cccccc !important; /* stylelint-disable-line declaration-no-important */
   stroke-dasharray: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.mermaid--label {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.mermaid--popover-anchor {
+  all: unset;
+  font-style: normal;
+  text-decoration: underline dashed;
+  text-underline-offset: 4px;
+  cursor: pointer;
+
+  &:hover {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 3px;
+  }
+
+  &:focus {
+    background-color: govuk-colour('yellow');
+    box-shadow:
+      0 -2px govuk-colour('yellow'),
+      0 4px govuk-colour('black');
+    text-decoration: none;
+  }
+}
+
+.mermaid--popover {
+  padding: govuk-spacing(4);
+  padding-top: govuk-spacing(1);
+  background-color: $app-brand-background-colour-light;
+  border: 1px solid $app-brand-background-colour;
+  border-radius: $app-border-radius;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: left;
+
+  > section {
+    max-width: 20rem;
+    text-wrap: auto;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    background-color: govuk-colour('white');
+    border-radius: $app-border-radius;
+    border: 1px solid $app-brand-border-colour-light;
+
+    .read-more {
+      padding-top: 1rem !important; /* stylelint-disable-line declaration-no-important */
+    }
+  }
 }

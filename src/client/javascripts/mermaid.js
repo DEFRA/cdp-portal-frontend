@@ -1,6 +1,8 @@
 import mermaid from 'mermaid'
 import svgPanZoom from 'svg-pan-zoom'
 
+window.noop = () => {} // Used when defining tooltips
+
 mermaid.initialize({
   startOnLoad: false,
   logLevel: 'error',
@@ -49,6 +51,10 @@ mermaid.registerIconPacks([
 async function run() {
   await mermaid.run()
 
+  document.querySelectorAll('pre.mermaid').forEach((pre) => {
+    pre.setAttribute('style', 'visibility: visible;')
+  })
+
   document.querySelectorAll('pre.mermaid--pan-zoom > svg').forEach((svg) => {
     const [, , , height] = svg.getAttribute('viewBox').split(' ')
     const { width } = svg.parentElement.getBoundingClientRect()
@@ -72,6 +78,15 @@ async function run() {
           title.textContent = tooltip
         }
       }
+    })
+
+  document
+    .querySelectorAll('pre.mermaid a[data-js="open-window"]')
+    .forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault()
+        window.open(event.target.href)
+      })
     })
 }
 run()
