@@ -1,7 +1,8 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl,
-  mockServiceEntityCall
+  mockServiceEntityCall,
+  mockServicesAdditionalCalls
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchTopology } from '#server/services/helpers/fetch/fetch-topology.js'
@@ -9,6 +10,7 @@ import { fetchTopology } from '#server/services/helpers/fetch/fetch-topology.js'
 vi.mock('#server/common/helpers/fetch/fetch-entities.js')
 vi.mock('#server/common/helpers/auth/get-user-session.js')
 vi.mock('#server/services/helpers/fetch/fetch-shuttering-urls.js')
+vi.mock('#server/common/helpers/fetch/fetch-running-services.js')
 vi.mock('#server/services/helpers/fetch/fetch-topology.js')
 
 const serviceName = 'mock-service-with-resources'
@@ -18,6 +20,11 @@ describe('Topology page', () => {
 
   beforeAll(async () => {
     mockServiceEntityCall(serviceName)
+    mockServicesAdditionalCalls({
+      repositoryName: serviceName,
+      frontendOrBackend: 'frontend'
+    })
+
     fetchTopology.mockResolvedValue([
       {
         name: serviceName,
