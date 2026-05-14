@@ -1,10 +1,10 @@
 import Wreck from '@hapi/wreck'
 import { getTraceId } from '@defra/hapi-tracing'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { handleResponse } from './handle-response.js'
-import { removeAuthenticatedUser } from '../auth/user-session.js'
+import { removeAuthenticatedUser } from '#server/common/helpers/auth/remove-authenticated-user.js'
 
 /**
  * Fetch JSON from a given URL with the provided token

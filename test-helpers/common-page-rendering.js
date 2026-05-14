@@ -3,44 +3,45 @@ import path from 'node:path'
 import isNil from 'lodash/isNil.js'
 import capitalize from 'lodash/capitalize.js'
 
-import { createServer } from '../src/server/index.js'
-import { fetchTestRuns } from '../src/server/test-suites/helpers/fetch/fetch-test-runs.js'
-import { fetchRepository } from '../src/server/common/helpers/fetch/fetch-repository.js'
-import { getUserSession } from '../src/server/common/helpers/auth/get-user-session.js'
+import { createServer } from '#server/index.js'
+import { fetchTestRuns } from '#server/test-suites/helpers/fetch/fetch-test-runs.js'
+import { fetchRepository } from '#server/common/helpers/fetch/fetch-repository.js'
+
 import { entityTypes, scopes } from '@defra/cdp-validation-kit'
-import { fetchAvailableVersions } from '../src/server/deploy-service/helpers/fetch/fetch-available-versions.js'
+import { fetchAvailableVersions } from '#server/deploy-service/helpers/fetch/fetch-available-versions.js'
 import {
   fetchEntities,
   fetchEntity
-} from '../src/server/common/helpers/fetch/fetch-entities.js'
-import { fetchRunningServices } from '../src/server/common/helpers/fetch/fetch-running-services.js'
-import { fetchAvailableMigrations } from '../src/server/services/helpers/fetch/fetch-available-migrations.js'
-import { fetchLatestMigrations } from '../src/server/common/helpers/fetch/fetch-latest-migrations.js'
+} from '#server/common/helpers/fetch/fetch-entities.js'
+import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
+import { fetchAvailableMigrations } from '#server/services/helpers/fetch/fetch-available-migrations.js'
+import { fetchLatestMigrations } from '#server/common/helpers/fetch/fetch-latest-migrations.js'
 import { availableMigrationsFixture } from '../src/__fixtures__/migrations/available-migrations.js'
 import { latestMigrationsFixture } from '../src/__fixtures__/migrations/latest-migrations.js'
-import { config } from '../src/config/config.js'
-import { fetchCdpTeams } from '../src/server/teams/helpers/fetch/fetch-cdp-teams.js'
+import { config } from '#config/config.js'
+import { fetchCdpTeams } from '#server/teams/helpers/fetch/fetch-cdp-teams.js'
 import { cdpTeamsFixture } from '../src/__fixtures__/admin/cdp-teams.js'
 import {
   cdpTeamBeesFixture,
   cdpTeamFixture
 } from '../src/__fixtures__/admin/cdp-team.js'
-import { fetchTeamRepositories } from '../src/server/teams/helpers/fetch/fetchers.js'
+import { fetchTeamRepositories } from '#server/teams/helpers/fetch/fetchers.js'
 import { teamMicroserviceEntitiesFixture } from '../src/__fixtures__/teams/micro-services.js'
 import { teamTestSuitesEntitiesFixture } from '../src/__fixtures__/teams/test-suites.js'
 import { teamRepositoriesFixture } from '../src/__fixtures__/teams/repositories.js'
-import { fetchCdpUser } from '../src/server/admin/users/helpers/fetch/fetchers.js'
+import { fetchCdpUser } from '#server/admin/users/helpers/fetch/fetchers.js'
 import { cdpUserFixture } from '../src/__fixtures__/admin/cdp-user.js'
-import { fetchCdpTeam } from '../src/server/admin/teams/helpers/fetch/fetchers.js'
-import { fetchMarkdown } from '../src/server/documentation/helpers/s3-file-handler.js'
+import { fetchCdpTeam } from '#server/admin/teams/helpers/fetch/fetchers.js'
+import { fetchMarkdown } from '#server/documentation/helpers/s3-file-handler.js'
 import { entitiesResourcesFixture } from '../src/__fixtures__/entities/entity.js'
-import { fetchShutteringUrls } from '../src/server/services/helpers/fetch/fetch-shuttering-urls.js'
+import { fetchShutteringUrls } from '#server/services/helpers/fetch/fetch-shuttering-urls.js'
 import { shutteringUrlsFixture } from '../src/__fixtures__/shuttering/shuttering-urls.js'
 import { getSchedules } from '#server/services/service/automations/helpers/fetchers.js'
 import {
   fetchNotificationRules,
   fetchSupportedNotifications
 } from '#server/common/helpers/fetch/fetch-notifications.js'
+import { getSession } from '#server/common/helpers/auth/session-cache.js'
 
 const dirname = import.meta.dirname
 
@@ -654,7 +655,7 @@ function buildAuthDetail(
 export async function mockAuthAndRenderUrl(server, options = {}) {
   const { userSession, auth } = buildAuthDetail(server, options)
 
-  getUserSession.mockResolvedValue?.(userSession)
+  getSession.mockResolvedValue?.(userSession)
 
   const { result, statusCode } = await server.inject({
     method: 'GET',

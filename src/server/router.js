@@ -64,6 +64,17 @@ const router = {
             await vite.close()
           })
 
+          server.ext('onPreAuth', (request, h) => {
+            // exclude assets from 'session' auth strategy (the default)
+            if (request.path.startsWith('/public/')) {
+              request.route.settings.auth = {
+                mode: 'try',
+                strategies: []
+              }
+            }
+            return h.continue
+          })
+
           await server.register({
             // eslint-disable-next-line n/no-unpublished-import
             plugin: (await import('@defra/hapi-connect')).default,
