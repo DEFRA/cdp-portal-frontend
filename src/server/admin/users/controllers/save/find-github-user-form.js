@@ -34,13 +34,8 @@ const findGithubUserFormController = {
       : null
     const githubUsers = searchGithubUsersResponse ?? []
 
-    const isEdit = cdpUser.isEdit ?? false
-    const pageTitle = isEdit
-      ? 'Edit Defra GitHub User'
-      : 'Find Defra GitHub User'
-
     return h.view('admin/users/views/save/github-user-form', {
-      pageTitle,
+      pageTitle: 'Find Defra GitHub User',
       multiStepFormId,
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
@@ -64,7 +59,7 @@ const findGithubUserFormController = {
           href: '/admin/users'
         },
         {
-          text: isEdit ? 'Edit' : 'Create'
+          text: 'Create'
         }
       ]
     })

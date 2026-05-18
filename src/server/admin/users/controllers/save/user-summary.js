@@ -14,20 +14,16 @@ const userSummaryController = {
   handler: (request, h) => {
     const cdpUser = request.pre?.stepData
     const multiStepFormId = request.app.multiStepFormId
-    const isEdit = cdpUser.isEdit ?? false
-
-    const pageTitle = isEdit ? 'Edit User Summary' : 'Create User Summary'
 
     return h.view('admin/users/views/save/summary', {
-      pageTitle,
+      pageTitle: 'Create User Summary',
       pageHeading: {
         text: cdpUser.name,
-        caption: pageTitle
+        caption: 'Create User Summary'
       },
       multiStepFormId,
-      userRows: transformSummaryUserRows(cdpUser),
-      formButtonText: isEdit ? 'Save' : 'Create',
-      isEdit,
+      userRows: transformSummaryUserRows(cdpUser, multiStepFormId),
+      formButtonText: 'Create',
       splitPaneBreadcrumbs: [
         {
           text: 'Admin',
@@ -38,7 +34,7 @@ const userSummaryController = {
           href: '/admin/users'
         },
         {
-          text: isEdit ? 'Edit' : 'Create'
+          text: 'Create'
         }
       ]
     })
