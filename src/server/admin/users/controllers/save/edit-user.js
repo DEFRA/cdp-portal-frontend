@@ -1,18 +1,19 @@
 import { config } from '../../../../../config/config.js'
-import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
 import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { setStepComplete } from '../../helpers/form/index.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
+import Joi from 'joi'
 
 const editUserController = {
   options: {
     ext: {
       onPreHandler: [noSessionRedirect]
     },
-    pre: [provideCdpUser]
+    pre: [provideStepData]
   },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.cdpUser
+    const cdpUser = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
     const editUserEndpointUrl = `${config.get('userServiceBackendUrl')}/users/${
       cdpUser.userId
     }`
@@ -27,7 +28,7 @@ const editUserController = {
         }
       })
 
-      await setStepComplete(request, h, 'allSteps')
+      await request.app.saveStepData(multiStepFormId, {}, h)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'User updated',

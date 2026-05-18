@@ -20,7 +20,7 @@
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half-from-desktop">
-          <form action="/admin/users/find-github-user"
+          <form action="/admin/users/find-github-user/{{ multiStepFormId }}"
                 method="post"
                 data-js="auto-submit app-form-errors">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>

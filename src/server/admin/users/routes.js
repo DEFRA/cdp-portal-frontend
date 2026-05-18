@@ -1,6 +1,5 @@
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
-import { provideUserSteps } from './helpers/form/index.js'
 import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
 import { sessionNames } from '../../common/constants/session-names.js'
 import {
@@ -19,14 +18,71 @@ import {
   userSummaryController
 } from './controllers/index.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
+import { formSteps, urlTemplates } from './helpers/form/steps.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
 const adminUsers = {
   plugin: {
     name: 'users',
-    register: (server) => {
-      server.ext([
+    register: async (server) => {
+      await server.register({
+        plugin: multistepForm,
+        options: {
+          urlTemplates,
+          formSteps,
+          routes: [
+            {
+              method: 'GET',
+              path: '/admin/users/find-aad-user/{multiStepFormId?}',
+              ...findAadUserFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/users/find-aad-user/{multiStepFormId?}',
+              ...findAadUserController
+            },
+            {
+              method: 'GET',
+              path: '/admin/users/find-github-user/{multiStepFormId}',
+              ...findGithubUserFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/users/find-github-user/{multiStepFormId}',
+              ...findGithubUserController
+            },
+            {
+              method: 'GET',
+              path: '/admin/users/summary/{multiStepFormId}',
+              ...userSummaryController
+            },
+            {
+              method: 'GET',
+              path: '/admin/users/create',
+              ...startCreateUserController
+            },
+            {
+              method: 'POST',
+              path: '/admin/users/create',
+              ...createUserController
+            },
+            {
+              method: 'POST',
+              path: '/admin/users/edit',
+              ...editUserController
+            },
+            {
+              method: 'GET',
+              path: '/admin/users/{userId}/edit',
+              ...startEditUserController
+            }
+          ].map(adminScope)
+        }
+      })
+
+      await server.ext([
         {
           type: 'onPostHandler',
           method: provideSubNavigation,
@@ -41,38 +97,11 @@ const adminUsers = {
             before: ['yar'],
             sandbox: 'plugin'
           }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideUserSteps,
-          options: {
-            sandbox: 'plugin'
-          }
         }
       ])
 
       server.route(
         [
-          {
-            method: 'GET',
-            path: '/admin/users/create',
-            ...startCreateUserController
-          },
-          {
-            method: 'POST',
-            path: '/admin/users/create',
-            ...createUserController
-          },
-          {
-            method: 'POST',
-            path: '/admin/users/edit',
-            ...editUserController
-          },
-          {
-            method: 'GET',
-            path: '/admin/users/{userId}/edit',
-            ...startEditUserController
-          },
           {
             method: 'GET',
             path: '/admin/users/{userId}/confirm-delete',
@@ -82,31 +111,6 @@ const adminUsers = {
             method: 'POST',
             path: '/admin/users/{userId}/delete',
             ...deleteUserController
-          },
-          {
-            method: 'GET',
-            path: '/admin/users/find-aad-user',
-            ...findAadUserFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/users/find-aad-user',
-            ...findAadUserController
-          },
-          {
-            method: 'GET',
-            path: '/admin/users/find-github-user',
-            ...findGithubUserFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/users/find-github-user',
-            ...findGithubUserController
-          },
-          {
-            method: 'GET',
-            path: '/admin/users/summary',
-            ...userSummaryController
           },
           {
             method: 'GET',

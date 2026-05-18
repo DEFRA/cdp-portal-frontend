@@ -77,6 +77,7 @@ const changeDetailsController = {
     }
 
     if (!validationResult.error) {
+      const multiStepFormId = request.app.multiStepFormId
       await request.app.saveStepData(multiStepFormId, payload, h)
 
       const redirectTo = redirectLocation

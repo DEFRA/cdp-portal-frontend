@@ -1,16 +1,16 @@
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
-import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
 import { transformSummaryUserRows } from '../../transformers/transform-summary-user-rows.js'
 
 const userSummaryController = {
   options: {
+    pre: [provideStepData],
     ext: {
       onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpUser]
+    }
   },
   handler: (request, h) => {
-    const cdpUser = request.pre?.cdpUser
+    const cdpUser = request.pre?.stepData
     const isEdit = cdpUser.isEdit ?? false
 
     const pageTitle = isEdit ? 'Edit User Summary' : 'Create User Summary'
