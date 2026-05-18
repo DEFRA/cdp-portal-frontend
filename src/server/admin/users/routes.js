@@ -65,12 +65,12 @@ const adminUsers = {
             },
             {
               method: 'POST',
-              path: '/admin/users/create',
+              path: '/admin/users/create/{multiStepFormId}',
               ...createUserController
             },
             {
               method: 'POST',
-              path: '/admin/users/edit',
+              path: '/admin/users/edit/{multiStepFormId}',
               ...editUserController
             },
             {

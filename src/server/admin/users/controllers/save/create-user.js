@@ -10,7 +10,12 @@ const createUserController = {
     ext: {
       onPreHandler: [noSessionRedirect]
     },
-    pre: [provideStepData]
+    pre: [provideStepData],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      })
+    }
   },
   handler: async (request, h) => {
     const cdpUser = request.pre?.stepData
@@ -28,8 +33,6 @@ const createUserController = {
         })
       })
 
-      await request.app.saveStepData(multiStepFormId, {}, h)
-
       request.yar.flash(sessionNames.notifications, {
         text: 'User created',
         type: 'success'
@@ -39,7 +42,7 @@ const createUserController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect('/admin/users/summary')
+      return h.redirect(`/admin/users/summary/${multiStepFormId}`)
     }
   }
 }

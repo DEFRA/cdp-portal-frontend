@@ -31,7 +31,7 @@ const findAadUserFormController = {
 
     const query = request?.query
     const email = query?.email || null
-    const aadQuery = query?.aadQuery ?? cdpUser.email ?? null
+    const aadQuery = query?.aadQuery ?? cdpUser?.email ?? null
     const redirectLocation = query?.redirectLocation
 
     const searchAadUsersResponse = aadQuery

@@ -13,7 +13,7 @@
         <div class="govuk-grid-column-one-half-from-desktop-wide">
           {% set actionSuffix = "edit" if isEdit else "create" %}
 
-          <form action="/admin/users/{{ actionSuffix }}" method="post">
+          <form action="/admin/users/{{ actionSuffix }}/{{ multiStepFormId }}" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
             {% call appPanel({
@@ -41,4 +41,3 @@
 
   {% endcall %}
 {% endblock %}
-
