@@ -33,11 +33,9 @@ const startEditUserController = {
       { addQueryPrefix: true }
     )
 
-    return 'Test'
-
-    // return h.redirect(
-    //   `/admin/users/find-github-user/${multiStepFormId}${queryString}`
-    // )
+    return h.redirect(
+      `/admin/users/find-github-user/${multiStepFormId}${queryString}`
+    )
   }
 }
 

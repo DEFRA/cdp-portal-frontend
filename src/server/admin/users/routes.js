@@ -70,11 +70,6 @@ const adminUsers = {
               method: 'POST',
               path: '/admin/users/edit/{multiStepFormId}',
               ...editUserController
-            },
-            {
-              method: 'GET',
-              path: '/admin/users/{userId}/edit',
-              ...startEditUserController
             }
           ].map(adminScope)
         }
@@ -92,6 +87,11 @@ const adminUsers = {
 
       server.route(
         [
+          {
+            method: 'GET',
+            path: '/admin/users/{userId}/edit',
+            ...startEditUserController
+          },
           {
             method: 'GET',
             path: '/admin/users/{userId}/confirm-delete',

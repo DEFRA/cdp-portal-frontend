@@ -2,15 +2,11 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
-import { resetGithubUserNameAnswer } from '../../helpers/ext/reset-github-user-name-answer.js'
 import { searchGithubUsers } from '../../helpers/fetch/fetchers.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findGithubUserFormController = {
   options: {
-    ext: {
-      onPreHandler: [resetGithubUserNameAnswer]
-    },
     pre: [provideStepData],
     validate: {
       params: Joi.object({
