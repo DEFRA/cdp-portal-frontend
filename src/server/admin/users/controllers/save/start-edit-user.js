@@ -18,7 +18,6 @@ const startEditUserController = {
   },
   handler: async (request, h) => {
     const multiStepFormId = request.app.multiStepFormId
-    request.yar.clear(sessionNames.cdpUser)
     request.yar.clear(sessionNames.validationFailure)
 
     const user = await fetchCdpUser(request.params?.userId)
@@ -34,7 +33,11 @@ const startEditUserController = {
       { addQueryPrefix: true }
     )
 
-    return h.redirect(`/admin/users/find-github-user${queryString}`)
+    return 'Test'
+
+    // return h.redirect(
+    //   `/admin/users/find-github-user/${multiStepFormId}${queryString}`
+    // )
   }
 }
 

@@ -1,14 +1,10 @@
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 import Joi from 'joi'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { transformSummaryUserRows } from '../../transformers/transform-summary-user-rows.js'
 
 const userSummaryController = {
   options: {
     pre: [provideStepData],
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
     validate: {
       params: Joi.object({
         multiStepFormId: Joi.string().uuid().optional()

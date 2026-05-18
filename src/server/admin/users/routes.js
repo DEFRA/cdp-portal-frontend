@@ -1,7 +1,5 @@
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
-import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
-import { sessionNames } from '../../common/constants/session-names.js'
 import {
   confirmDeleteUserController,
   createUserController,
@@ -87,14 +85,6 @@ const adminUsers = {
           type: 'onPostHandler',
           method: provideSubNavigation,
           options: {
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideFormContextValues(sessionNames.cdpUser),
-          options: {
-            before: ['yar'],
             sandbox: 'plugin'
           }
         }

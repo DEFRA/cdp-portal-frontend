@@ -3,14 +3,13 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { resetAadAnswer } from '../../helpers/ext/reset-aad-answer.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findAadUserFormController = {
   options: {
     ext: {
-      onPreHandler: [noSessionRedirect, resetAadAnswer]
+      onPreHandler: [resetAadAnswer]
     },
     pre: [provideStepData],
     validate: {

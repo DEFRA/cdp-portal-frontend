@@ -2,7 +2,6 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { resetGithubUserNameAnswer } from '../../helpers/ext/reset-github-user-name-answer.js'
 import { searchGithubUsers } from '../../helpers/fetch/fetchers.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
@@ -10,7 +9,7 @@ import { provideStepData } from '#server/plugins/multistep-form/provide-step-dat
 const findGithubUserFormController = {
   options: {
     ext: {
-      onPreHandler: [noSessionRedirect, resetGithubUserNameAnswer]
+      onPreHandler: [resetGithubUserNameAnswer]
     },
     pre: [provideStepData],
     validate: {

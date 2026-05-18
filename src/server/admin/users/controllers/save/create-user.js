@@ -1,5 +1,4 @@
 import { config } from '../../../../../config/config.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { removeNil } from '../../../../common/helpers/remove-nil.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
@@ -7,9 +6,6 @@ import Joi from 'joi'
 
 const createUserController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
     pre: [provideStepData],
     validate: {
       params: Joi.object({
