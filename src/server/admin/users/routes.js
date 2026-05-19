@@ -1,20 +1,18 @@
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
-import {
-  confirmDeleteUserController,
-  createUserController,
-  deleteUserController,
-  editUserController,
-  findAadUserController,
-  findAadUserFormController,
-  findGithubUserController,
-  findGithubUserFormController,
-  startCreateUserController,
-  startEditUserController,
-  userController,
-  usersListController,
-  userSummaryController
-} from './controllers/index.js'
+import { userController } from './controllers/user.js'
+import { usersListController } from './controllers/users-list.js'
+import { confirmDeleteUserController } from './controllers/delete/confirm-delete-user.js'
+import { deleteUserController } from './controllers/delete/delete-user.js'
+import { editUserController } from './controllers/edit/edit-user.js'
+import { startCreateUserController } from './controllers/save/start-create-user.js'
+import { findAadUserFormController } from './controllers/save/find-aad-user-form.js'
+import { findAadUserController } from './controllers/save/find-aad-user.js'
+import { findGithubUserFormController } from './controllers/save/find-github-user-form.js'
+import { findGithubUserController } from './controllers/save/find-github-user.js'
+import { userSummaryController } from './controllers/save/user-summary.js'
+import { createUserController } from './controllers/save/create-user.js'
+import { startEditUserController } from './controllers/edit/edit-user-form.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { formSteps, urlTemplates } from './helpers/form/steps.js'
@@ -65,11 +63,6 @@ const adminUsers = {
               method: 'POST',
               path: '/admin/users/create/{multiStepFormId}',
               ...createUserController
-            },
-            {
-              method: 'POST',
-              path: '/admin/users/edit/{multiStepFormId}',
-              ...editUserController
             }
           ].map(adminScope)
         }
@@ -91,6 +84,11 @@ const adminUsers = {
             method: 'GET',
             path: '/admin/users/{userId}/edit',
             ...startEditUserController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/{userId}/edit',
+            ...editUserController
           },
           {
             method: 'GET',

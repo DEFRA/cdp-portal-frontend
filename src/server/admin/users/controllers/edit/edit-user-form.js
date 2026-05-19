@@ -1,4 +1,3 @@
-import qs from 'qs'
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
@@ -17,25 +16,30 @@ const startEditUserController = {
     }
   },
   handler: async (request, h) => {
-    const multiStepFormId = request.app.multiStepFormId
     request.yar.clear(sessionNames.validationFailure)
 
     const user = await fetchCdpUser(request.params?.userId)
 
-    await request.app.saveStepData(
-      multiStepFormId,
-      { ...user, isEdit: true },
-      h
-    )
-
-    const queryString = qs.stringify(
-      { ...(user?.github && { githubSearch: user?.github }) },
-      { addQueryPrefix: true }
-    )
-
-    return h.redirect(
-      `/admin/users/find-github-user/${multiStepFormId}${queryString}`
-    )
+    return h.view('admin/users/views/edit/edit-user-form', {
+      user,
+      splitPaneBreadcrumbs: [
+        {
+          text: 'Admin',
+          href: '/admin'
+        },
+        {
+          text: 'Users',
+          href: '/admin/users'
+        },
+        {
+          text: user.name,
+          href: `/admin/users/${user.userId}`
+        },
+        {
+          text: 'Edit'
+        }
+      ]
+    })
   }
 }
 
