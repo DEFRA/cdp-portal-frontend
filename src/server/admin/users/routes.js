@@ -19,15 +19,28 @@ import { formSteps, urlTemplates } from './helpers/form/steps.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
+const serverExtensions = [
+  {
+    type: 'onPostHandler',
+    method: provideSubNavigation,
+    options: {
+      sandbox: 'plugin'
+    }
+  }
+]
+
 const adminUsers = {
   plugin: {
     name: 'users',
     register: async (server) => {
+      await server.ext(serverExtensions)
+
       await server.register({
         plugin: multistepForm,
         options: {
           urlTemplates,
           formSteps,
+          ext: serverExtensions,
           routes: [
             {
               method: 'GET',
@@ -67,16 +80,6 @@ const adminUsers = {
           ].map(adminScope)
         }
       })
-
-      await server.ext([
-        {
-          type: 'onPostHandler',
-          method: provideSubNavigation,
-          options: {
-            sandbox: 'plugin'
-          }
-        }
-      ])
 
       server.route(
         [
