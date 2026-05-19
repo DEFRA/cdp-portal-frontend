@@ -5,9 +5,9 @@ import Joi from 'joi'
 import { fetchPermission } from '../../../helpers/fetchers.js'
 import { fetchCdpUser } from '../../../../users/helpers/fetch/fetchers.js'
 import { userPermissionToSummary } from '../../../transformers/user-permission-to-summary.js'
-import { provideStepData } from '../../../../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 import { urlTemplates } from '../../../helpers/multistep-form/add/user/steps.js'
-import { populateUrls } from '../../../../../common/helpers/multistep-form/populate-urls.js'
+import { populateUrls } from '#server/plugins/multistep-form/populate-urls.js'
 
 const summaryController = {
   options: {

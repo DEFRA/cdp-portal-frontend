@@ -5,7 +5,7 @@ import Joi from 'joi'
 import { fetchPermission } from '../../../helpers/fetchers.js'
 import { fetchCdpUser } from '../../../../users/helpers/fetch/fetchers.js'
 import { buildOptions } from '../../../../../common/helpers/options/build-options.js'
-import { provideStepData } from '../../../../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const teamScopeFormController = {
   options: {

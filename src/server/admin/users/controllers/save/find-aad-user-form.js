@@ -2,18 +2,16 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
-import { resetAadAnswer } from '../../helpers/ext/reset-aad-answer.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
-import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findAadUserFormController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect, resetAadAnswer]
-    },
-    pre: [provideCdpUser],
+    pre: [provideStepData],
     validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      }),
       query: Joi.object({
         aadQuery: Joi.string().allow(''),
         email: Joi.string().allow(''),
@@ -23,11 +21,12 @@ const findAadUserFormController = {
     }
   },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.cdpUser
+    const multiStepFormId = request.app.multiStepFormId
+    const cdpUser = request.pre.stepData
 
     const query = request?.query
     const email = query?.email || null
-    const aadQuery = query?.aadQuery ?? cdpUser.email ?? null
+    const aadQuery = query?.aadQuery ?? cdpUser?.email ?? null
     const redirectLocation = query?.redirectLocation
 
     const searchAadUsersResponse = aadQuery
@@ -38,6 +37,7 @@ const findAadUserFormController = {
     return h.view('admin/users/views/save/aad-user-form', {
       pageTitle: 'Find DEFRA user',
       formButtonText: redirectLocation ? 'Save' : 'Next',
+      multiStepFormId,
       redirectLocation,
       formValues: { aadQuery, email },
       aadUsers: aadUsers?.length

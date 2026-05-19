@@ -7,7 +7,6 @@
   - [Providing form values and inline errors in your flow](#providing-form-values-and-inline-errors-in-your-flow)
   - [Check session is valid helper](#check-session-is-valid-helper)
   - [Example](#example)
-    s
 
 ## Using the multistep form plugin
 

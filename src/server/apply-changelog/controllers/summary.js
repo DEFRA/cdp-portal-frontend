@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
 import { changelogApplyRows } from '../transformers/changelog-apply-rows.js'
-import { provideStepData } from '../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const summaryController = {
   options: {

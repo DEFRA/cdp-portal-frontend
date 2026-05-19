@@ -1,4 +1,4 @@
-import { removeOptionalParam } from '../route-lookup/remove-optional-param.js'
+import { removeOptionalParam } from '#server/common/helpers/route-lookup/remove-optional-param.js'
 
 /**
  * Populates path parameters in a URL template with the provided parameters

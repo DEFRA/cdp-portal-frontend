@@ -1,44 +1,44 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
-import { searchGithubUsers } from '../../helpers/fetch/fetchers.js'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
+import {
+  fetchCdpUser,
+  searchGithubUsers
+} from '../../helpers/fetch/fetchers.js'
+import { userIdValidation } from '@defra/cdp-validation-kit'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 
-const findGithubUserFormController = {
+const startEditUserController = {
   options: {
-    pre: [provideStepData],
+    id: 'admin/users/{userId}/edit',
     validate: {
       params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
+        userId: userIdValidation
       }),
       query: Joi.object({
         githubSearch: Joi.string().allow(''),
-        github: Joi.string().allow(''),
-        redirectLocation: Joi.string().valid('summary').allow('')
+        github: Joi.string().allow('')
       }),
       failAction: () => Boom.boomify(Boom.badRequest())
     }
   },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.stepData
-    const multiStepFormId = request.app.multiStepFormId
+    request.yar.clear(sessionNames.validationFailure)
+
+    const user = await fetchCdpUser(request.params?.userId)
 
     const query = request?.query
-    const githubSearch = query?.githubSearch ?? cdpUser?.github
+    const githubSearch = query?.githubSearch ?? user?.github
     const github = query?.github
-    const redirectLocation = query?.redirectLocation
 
     const searchGithubUsersResponse = githubSearch
       ? await searchGithubUsers(githubSearch)
       : null
     const githubUsers = searchGithubUsersResponse ?? []
 
-    return h.view('admin/users/views/save/github-user-form', {
-      pageTitle: 'Find Defra GitHub User',
-      multiStepFormId,
-      formButtonText: redirectLocation ? 'Save' : 'Next',
-      redirectLocation,
+    return h.view('admin/users/views/edit/edit-user-form', {
+      user,
       formValues: { githubSearch, github },
       githubUsers: buildOptions(
         githubUsers.map((githubUser) => ({
@@ -59,11 +59,15 @@ const findGithubUserFormController = {
           href: '/admin/users'
         },
         {
-          text: 'Create'
+          text: user.name,
+          href: `/admin/users/${user.userId}`
+        },
+        {
+          text: 'Edit'
         }
       ]
     })
   }
 }
 
-export { findGithubUserFormController }
+export { startEditUserController }

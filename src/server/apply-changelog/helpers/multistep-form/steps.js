@@ -1,4 +1,4 @@
-import { populatePathParams } from '../../../common/helpers/multistep-form/populate-path-params.js'
+import { populatePathParams } from '#server/plugins/multistep-form/populate-path-params.js'
 
 /** @type {Record<string, string>} */
 const urlTemplates = {

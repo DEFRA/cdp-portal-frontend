@@ -1,6 +1,6 @@
 import { userProfileController } from './controllers/profile.js'
 import { generateApiKeyController } from './controllers/generate-api-key.js'
-import { provideFormContextValues } from '../common/helpers/multistep-form/provide-form-context-values.js'
+import { provideFormContextValues } from '#server/plugins/multistep-form/provide-form-context-values.js'
 
 const userProfile = {
   plugin: {

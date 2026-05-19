@@ -1,29 +1,29 @@
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
-import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
+import Joi from 'joi'
 import { transformSummaryUserRows } from '../../transformers/transform-summary-user-rows.js'
 
 const userSummaryController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpUser]
+    pre: [provideStepData],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      })
+    }
   },
   handler: (request, h) => {
-    const cdpUser = request.pre?.cdpUser
-    const isEdit = cdpUser.isEdit ?? false
-
-    const pageTitle = isEdit ? 'Edit User Summary' : 'Create User Summary'
+    const cdpUser = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
 
     return h.view('admin/users/views/save/summary', {
-      pageTitle,
+      pageTitle: 'Create User Summary',
       pageHeading: {
         text: cdpUser.name,
-        caption: pageTitle
+        caption: 'Create User Summary'
       },
-      userRows: transformSummaryUserRows(cdpUser),
-      formButtonText: isEdit ? 'Save' : 'Create',
-      isEdit,
+      multiStepFormId,
+      userRows: transformSummaryUserRows(cdpUser, multiStepFormId),
+      formButtonText: 'Create',
       splitPaneBreadcrumbs: [
         {
           text: 'Admin',
@@ -34,7 +34,7 @@ const userSummaryController = {
           href: '/admin/users'
         },
         {
-          text: isEdit ? 'Edit' : 'Create'
+          text: 'Create'
         }
       ]
     })

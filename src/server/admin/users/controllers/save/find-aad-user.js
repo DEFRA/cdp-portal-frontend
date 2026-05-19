@@ -2,17 +2,23 @@ import qs from 'qs'
 
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
 import { aadIdValidation } from '../../helpers/schema/aad-id-validation.js'
-import { saveToCdpUser, setStepComplete } from '../../helpers/form/index.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
 import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
+import Joi from 'joi'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findAadUserController = {
   options: {
-    pre: [provideCdpUser]
+    pre: [provideStepData],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      })
+    }
   },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.cdpUser
+    const cdpUser = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
 
     const payload = request?.payload
     const button = payload?.button
@@ -46,7 +52,9 @@ const findAadUserController = {
         { addQueryPrefix: true }
       )
 
-      return h.redirect(`/admin/users/find-aad-user${queryString}`)
+      return h.redirect(
+        `/admin/users/find-aad-user/${multiStepFormId}${queryString}`
+      )
     }
 
     if (!validationResult.error) {
@@ -58,14 +66,16 @@ const findAadUserController = {
       const isSameEmail = cdpUser?.email === aadUser?.email
       const isSameAsSession = aadUser?.mail && isSameEmail
 
-      const updatedCdpUser = await saveToCdpUser(request, h, {
-        ...sanitisedPayload,
-        userId: aadUser?.userId ?? null,
-        aadQuery: aadUser?.email ?? null,
-        name: isSameAsSession ? cdpUser?.name : aadUser?.name
-      })
-
-      await setStepComplete(request, h, 'stepOne', updatedCdpUser)
+      const updatedCdpUser = await request.app.saveStepData(
+        multiStepFormId,
+        {
+          ...sanitisedPayload,
+          userId: aadUser?.userId ?? null,
+          aadQuery: aadUser?.email ?? null,
+          name: isSameAsSession ? cdpUser?.name : aadUser?.name
+        },
+        h
+      )
 
       const usersGitHub = updatedCdpUser?.github
       const queryString = usersGitHub
@@ -73,8 +83,8 @@ const findAadUserController = {
         : ''
 
       const redirectTo = redirectLocation
-        ? `/admin/users/${redirectLocation}`
-        : `/admin/users/find-github-user${queryString}`
+        ? `/admin/users/${redirectLocation}/${multiStepFormId}`
+        : `/admin/users/find-github-user/${multiStepFormId}${queryString}`
 
       return h.redirect(redirectTo)
     }

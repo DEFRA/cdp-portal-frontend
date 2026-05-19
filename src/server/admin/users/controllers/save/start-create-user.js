@@ -6,7 +6,6 @@ const startCreateUserController = {
   },
   handler: async (request, h) => {
     request.yar.clear(sessionNames.validationFailure)
-    request.yar.set(sessionNames.cdpUser, {})
     return h.redirect('/admin/users/find-aad-user')
   }
 }

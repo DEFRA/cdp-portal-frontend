@@ -13,7 +13,7 @@ import { confirmRemovePermissionFromUserController } from './controllers/remove/
 import { removePermissionFromUserController } from './controllers/remove/user/remove-permission.js'
 import { findUserController } from './controllers/add/member/find-user.js'
 import { findUserFormController } from './controllers/add/member/find-user-form.js'
-import { multistepForm } from '../../common/helpers/multistep-form/multistep-form.js'
+import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { teamScopeFormController } from './controllers/add/member/team-scope-form.js'
 import { teamScopeController } from './controllers/add/member/team-scope.js'
 import { summaryController } from './controllers/add/member/summary.js'

@@ -3,14 +3,14 @@ import { cdpUserSessionFixture } from '../../../../__fixtures__/admin/cdp-user-s
 
 describe('#transformSummaryUserRows', () => {
   test('Should provide expected user row transformation', () => {
-    expect(transformSummaryUserRows(cdpUserSessionFixture)).toEqual([
+    expect(transformSummaryUserRows(cdpUserSessionFixture, 'uuid')).toEqual([
       {
         actions: {
           classes: 'app-summary__action',
           items: [
             {
               classes: 'app-link',
-              href: '/admin/users/find-aad-user?redirectLocation=summary&aadQuery=B.A.Baracus@defradev.onmicrosoft.com',
+              href: '/admin/users/find-aad-user/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'AAD user email'
             }
@@ -25,6 +25,10 @@ describe('#transformSummaryUserRows', () => {
         }
       },
       {
+        actions: {
+          classes: 'app-summary__action',
+          items: [{}]
+        },
         key: {
           classes: 'app-summary__heading',
           text: 'AAD user name'
@@ -39,7 +43,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/users/find-github-user?redirectLocation=summary&githubSearch=BABaracus',
+              href: '/admin/users/find-github-user/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'GitHub user'
             }

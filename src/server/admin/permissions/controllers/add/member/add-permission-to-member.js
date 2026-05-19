@@ -5,7 +5,7 @@ import Joi from 'joi'
 import { addScopeToMember } from '../../../helpers/fetchers.js'
 import { sessionNames } from '../../../../../common/constants/session-names.js'
 import { userPermissionValidation } from '../../../helpers/schema/user-permission-validation.js'
-import { provideStepData } from '../../../../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const addPermissionToMemberController = {
   options: {

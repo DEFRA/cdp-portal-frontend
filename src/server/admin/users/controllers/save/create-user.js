@@ -1,19 +1,21 @@
 import { config } from '../../../../../config/config.js'
-import { provideCdpUser } from '../../helpers/pre/provide-cdp-user.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { setStepComplete } from '../../helpers/form/index.js'
 import { removeNil } from '../../../../common/helpers/remove-nil.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
+import Joi from 'joi'
 
 const createUserController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpUser]
+    pre: [provideStepData],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      })
+    }
   },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.cdpUser
+    const cdpUser = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
     const createUserEndpointUrl = `${config.get('userServiceBackendUrl')}/users`
 
     try {
@@ -27,8 +29,6 @@ const createUserController = {
         })
       })
 
-      await setStepComplete(request, h, 'allSteps')
-
       request.yar.flash(sessionNames.notifications, {
         text: 'User created',
         type: 'success'
@@ -38,7 +38,7 @@ const createUserController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect('/admin/users/summary')
+      return h.redirect(`/admin/users/summary/${multiStepFormId}`)
     }
   }
 }

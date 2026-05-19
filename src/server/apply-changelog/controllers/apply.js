@@ -1,8 +1,8 @@
 import Joi from 'joi'
 
-import { config } from '../../../config/config.js'
+import { config } from '#config/config.js'
 import { sessionNames } from '../../common/constants/session-names.js'
-import { provideStepData } from '../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const applyController = {
   options: {

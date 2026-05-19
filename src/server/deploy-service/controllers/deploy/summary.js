@@ -5,7 +5,7 @@ import { deploymentRows } from '../../transformers/deployment-rows.js'
 import { fetchDeployServiceOptions } from '../../../common/helpers/fetch/fetch-deploy-service-options.js'
 import { fetchSecrets } from '../../../common/helpers/fetch/fetch-secrets.js'
 import { transformSecrets } from '../../../common/components/secrets-list/helpers/transform-secrets.js'
-import { provideStepData } from '../../../common/helpers/multistep-form/provide-step-data.js'
+import { provideStepData } from '../../../plugins/multistep-form/provide-step-data.js'
 import { fetchLatestConfigVersion } from '../../../common/helpers/fetch/fetch-latest-config-version.js'
 
 const summaryController = {
