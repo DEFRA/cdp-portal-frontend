@@ -1,8 +1,5 @@
 import Joi from 'joi'
-import {
-  repositoryNameValidation,
-  environments
-} from '@defra/cdp-validation-kit'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 
 import { requestTenantResource } from '#server/admin/create/helpers/fetchers.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
@@ -11,13 +8,16 @@ import { fetchServices } from '#server/common/helpers/fetch/fetch-entities.js'
 import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 
-const createBucketEnvironments = {
-  ...environments,
-  tenant: 'tenant',
-  platform: 'platform',
-  all: 'all',
-  ...environments
-}
+const createBucketEnvironments = [
+  { value: 'tenants', text: 'Tenant environments' },
+  { value: 'platform', text: 'Platform environments' },
+  { value: 'all', text: 'All environments' },
+  { value: 'dev', text: 'Development' },
+  { value: 'test', text: 'Test' },
+  { value: 'perf-test', text: 'Perf Test' },
+  { value: 'ext-test', text: 'External Test' },
+  { value: 'prod', text: 'Production' }
+]
 
 const createBucketValidation = Joi.object({
   service: repositoryNameValidation,
@@ -27,7 +27,7 @@ const createBucketValidation = Joi.object({
     .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
     .required(),
   environment: Joi.string()
-    .valid(...Object.values(createBucketEnvironments))
+    .valid(...createBucketEnvironments.map((e) => e.value))
     .required()
 })
 
@@ -53,6 +53,7 @@ export const createS3BucketFormController = {
       formValues,
       formErrors,
       entityOptions,
+      createBucketEnvironments,
       splitPaneBreadcrumbs: [
         {
           text: 'Admin',

@@ -64,16 +64,7 @@
             name: "environment",
             label: { text: "Environment", classes: "app-label app-label--small govuk-!-margin-bottom-1" },
             classes: "app-select app-input--wide",
-            items: [
-              { value: "tenants", text: "Tenant environments" },
-              { value: "platform", text: "Platform environments" },
-              { value: "all", text: "All environments" },
-              { value: "dev", text: "Development" },
-              { value: "test", text: "Test" },
-              { value: "perf-test", text: "Perf Test" },
-              { value: "ext-test", text: "External Test" },
-              { value: "prod", text: "Production" }
-            ],
+            items: createBucketEnvironments,
             formGroup: {
               classes: "app-form-group app-form-group--slim"
             },
