@@ -5,10 +5,10 @@ import {
   MockProvider
 } from '@defra/hapi-auth-oidc'
 
-const oidcConfig = config.get('oidc')
+const { oidc, cookieOptions, federatedCredentials } = config.get('auth')
 
 const scope = [
-  `api://${oidcConfig.clientId}/cdp.user`,
+  `api://${oidc.clientId}/cdp.user`,
   'openid',
   'profile',
   'email',
@@ -16,28 +16,21 @@ const scope = [
   'user.read'
 ].join(' ')
 
-const authProvider = config.get('federatedCredentials.enableMocking')
+const authProvider = federatedCredentials.enableMocking
   ? new MockProvider({})
   : new CognitoTokenProvider({
-      poolId: config.get('federatedCredentials.identityPoolId'),
+      poolId: federatedCredentials.identityPoolId,
       logins: { 'cdp-portal-frontend-aad-access': 'cdp-portal-frontend' }
     })
-
-const oidcCookieConfig = config.get('session.cookie')
 
 export const authOidcPlugin = {
   plugin: hapiAuthOidcPlugin,
   options: {
-    strategyName: 'azure-oidc',
     oidc: {
-      ...oidcConfig,
+      ...oidc,
       scope,
       authProvider
     },
-    cookieOptions: {
-      // re-used from session cookie
-      isSecure: oidcCookieConfig.secure,
-      password: oidcCookieConfig.password
-    }
+    cookieOptions
   }
 }

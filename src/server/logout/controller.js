@@ -9,7 +9,7 @@ const logoutController = {
     if (!userSession) {
       return h.redirect('/')
     }
-    const discoveryUri = config.get('oidc.discoveryUri')
+    const discoveryUri = config.get('auth.oidc.discoveryUri')
 
     const { payload } = await fetchJson(discoveryUri)
 
