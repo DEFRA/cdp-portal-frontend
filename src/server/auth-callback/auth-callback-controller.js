@@ -7,28 +7,25 @@ import { redirectWithRefresh } from '#server/common/helpers/url/url-helpers.js'
 import { fetchScopes } from '#server/teams/helpers/fetch/fetch-scopes.js'
 
 export const authCallbackController = {
-  options: {
-    auth: 'azure-oidc',
-    response: {
-      failAction: () => Boom.unauthorized()
-    }
-  },
   handler: async (request, h) => {
-    const { auth, sessionCookie, audit, yar, logger } = request
+    const credentials = await request.callback(h)
 
-    if (!auth.isAuthenticated) {
+    if (!credentials) {
       throw Boom.unauthorized()
     }
+
+    const { sessionCookie, audit, yar, logger } = request
 
     const sessionId = randomUUID()
 
     logger.info(`Creating user session ${sessionId}`)
-    const session = await saveUserSession(request, sessionId, auth.credentials)
+    const session = await saveUserSession(request, sessionId, credentials)
 
     sessionCookie.set({ sessionId })
     const loginMsg = `User logged in UserId: ${sessionId} displayName: ${session.displayName}`
     logger.info(loginMsg)
 
+    request.auth.credentials = credentials
     audit.sendMessage({
       event: loginMsg,
       user: session

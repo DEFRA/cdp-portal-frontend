@@ -1,4 +1,4 @@
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { runnerConfigurations } from '../../constants/runner-configurations.js'
 
 function runTest({ request, testSuite, environment, configuration, profile }) {

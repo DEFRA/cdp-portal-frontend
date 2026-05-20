@@ -40,20 +40,20 @@ export const sessionCookie = {
 
           let refreshedSession
           try {
-            const refreshTokenResponse =
-              await request.validateAndRefreshToken(currentUserSession)
-            if (refreshTokenResponse) {
+            const { refreshedToken, refreshed } =
+              await request.ensureValidToken(currentUserSession)
+            if (refreshed) {
               request.logger.info(`Refreshing session: ${sessionId}`)
               refreshedSession = await saveUserSession(
                 request,
                 sessionId,
-                refreshTokenResponse
+                refreshedToken
               )
             }
           } catch (error) {
-            request.logger.debug(
+            request.logger.warn(
               error,
-              `Token refresh for ${currentUserSession?.displayName} failed`
+              `Ensure valid token for ${currentUserSession?.displayName} failed`
             )
             dropSession(sessionId, server)
 
